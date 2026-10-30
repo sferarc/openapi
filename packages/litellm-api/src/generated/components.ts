@@ -11798,7 +11798,12 @@ export async function generateKeyFnKeyGeneratePost(
 		url: `/key/generate`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -11888,7 +11893,12 @@ export async function generateServiceAccountKeyFnKeyServiceAccountGeneratePost(
 		url: `/key/service-account/generate`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -11998,7 +12008,12 @@ export async function updateKeyFnKeyUpdatePost(
 		url: `/key/update`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -12068,7 +12083,12 @@ export async function bulkUpdateKeysKeyBulkUpdatePost(
 		url: `/key/bulk_update`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -12108,7 +12128,12 @@ export async function bulkUpdateTeamKeysTeamKeyBulkUpdatePost(
 		url: `/team/key/bulk_update`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -12157,7 +12182,12 @@ export async function deleteKeyFnKeyDeletePost(
 		url: `/key/delete`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -12378,7 +12408,12 @@ export async function regenerateKeyFnKeyRegeneratePost(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -12459,7 +12494,12 @@ export async function regenerateKeyFnKeyKeyRegeneratePost(
 		url: `/key/${encodeURIComponent(String(pathParams.key))}/regenerate`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -12499,7 +12539,12 @@ export async function resetKeySpendFnKeyKeyResetSpendPost(
 		url: `/key/${encodeURIComponent(String(pathParams.key))}/reset_spend`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -12636,7 +12681,12 @@ export async function blockKeyKeyBlockPost(
 		url: `/key/block`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -12681,7 +12731,12 @@ export async function unblockKeyKeyUnblockPost(
 		url: `/key/unblock`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -13073,7 +13128,12 @@ export async function bulkUserUpdateUserBulkUpdatePost(
 		url: `/user/bulk_update`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -13178,7 +13238,12 @@ export async function deleteUserUserDeletePost(
 		url: `/user/delete`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -13856,7 +13921,7 @@ export async function getOrganizationDailyActivityAggregatedSearchOrganizationDa
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQuery>;
+		queryParams: GetOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13867,7 +13932,7 @@ export async function getOrganizationDailyActivityAggregatedSearchOrganizationDa
 		ErrorWrapper<GetOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQuery>,
+		GetOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -13889,7 +13954,7 @@ export async function getOrganizationDailyActivityModelTopKeysOrganizationDailyA
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQuery>;
+		queryParams: GetOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13900,7 +13965,7 @@ export async function getOrganizationDailyActivityModelTopKeysOrganizationDailyA
 		ErrorWrapper<GetOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQuery>,
+		GetOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -14021,7 +14086,7 @@ export async function getCustomerDailyActivityAggregatedSearchCustomerDailyActiv
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQuery>;
+		queryParams: GetCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14032,7 +14097,7 @@ export async function getCustomerDailyActivityAggregatedSearchCustomerDailyActiv
 		ErrorWrapper<GetCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQuery>,
+		GetCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -14054,7 +14119,7 @@ export async function getCustomerDailyActivityModelTopKeysCustomerDailyActivityA
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQuery>;
+		queryParams: GetCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14065,7 +14130,7 @@ export async function getCustomerDailyActivityModelTopKeysCustomerDailyActivityA
 		ErrorWrapper<GetCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQuery>,
+		GetCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -14449,7 +14514,12 @@ export async function newTeamTeamNewPost(
 		url: `/team/new`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -14542,7 +14612,12 @@ export async function updateTeamTeamUpdatePost(
 		url: `/team/update`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -14594,7 +14669,12 @@ export async function patchTeamTeamTeamIdPatch(
 		url: `/team/${encodeURIComponent(String(pathParams.team_id))}`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -14910,7 +14990,12 @@ export async function deleteTeamTeamDeletePost(
 		url: `/team/delete`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -16468,7 +16553,7 @@ export async function listSpendLogEndUsersManagementV1SpendLogsEndUsersGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ListSpendLogEndUsersManagementV1SpendLogsEndUsersGetQuery>;
+		queryParams: ListSpendLogEndUsersManagementV1SpendLogsEndUsersGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16479,7 +16564,7 @@ export async function listSpendLogEndUsersManagementV1SpendLogsEndUsersGet(
 		ErrorWrapper<ListSpendLogEndUsersManagementV1SpendLogsEndUsersGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<ListSpendLogEndUsersManagementV1SpendLogsEndUsersGetQuery>,
+		ListSpendLogEndUsersManagementV1SpendLogsEndUsersGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -16502,7 +16587,7 @@ export async function listSpendLogUsersManagementV1SpendLogsUsersGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ListSpendLogUsersManagementV1SpendLogsUsersGetQuery>;
+		queryParams: ListSpendLogUsersManagementV1SpendLogsUsersGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16513,7 +16598,7 @@ export async function listSpendLogUsersManagementV1SpendLogsUsersGet(
 		ErrorWrapper<ListSpendLogUsersManagementV1SpendLogsUsersGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<ListSpendLogUsersManagementV1SpendLogsUsersGetQuery>,
+		ListSpendLogUsersManagementV1SpendLogsUsersGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -16627,7 +16712,12 @@ export async function bulkUpdateTeamMemberBudgetsActionManagementV1TeamsTeamIdMe
 		url: `/management/v1/teams/${encodeURIComponent(String(pathParams.team_id))}/members/bulk_update`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -16731,7 +16821,12 @@ export async function bulkDeleteUsersActionManagementV1UsersBulkDeletePost(
 		url: `/management/v1/users/bulk_delete`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -18424,7 +18519,12 @@ export async function addTeamCallbacksTeamTeamIdCallbackPost(
 		url: `/team/${encodeURIComponent(String(pathParams.team_id))}/callback`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -18539,7 +18639,12 @@ export async function deleteTeamCallbackTeamTeamIdCallbackCallbackNameDelete(
 		method: "DELETE",
 		url: `/team/${encodeURIComponent(String(pathParams.team_id))}/callback/${encodeURIComponent(String(pathParams.callback_name))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -18585,7 +18690,12 @@ export async function disableTeamLoggingTeamTeamIdDisableLoggingPost(
 		method: "POST",
 		url: `/team/${encodeURIComponent(String(pathParams.team_id))}/disable_logging`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -18898,7 +19008,12 @@ export async function blockModelModelBlockPost(
 		url: `/model/block`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -18936,7 +19051,12 @@ export async function unblockModelModelUnblockPost(
 		url: `/model/unblock`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -21996,7 +22116,12 @@ export async function progressLensWorkerLensIdJobIdProgressPost(
 		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/progress`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -22037,7 +22162,12 @@ export async function cachedReviewsLensWorkerLensIdJobIdReviewsGet(
 		method: "GET",
 		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/reviews`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -22078,7 +22208,12 @@ export async function sampleLensWorkerLensIdJobIdSampleGet(
 		method: "GET",
 		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/sample`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -22122,7 +22257,12 @@ export async function contentLensWorkerLensIdJobIdContentGet(
 		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/content`,
 		queryParams,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -22166,7 +22306,12 @@ export async function modelLensWorkerLensIdJobIdModelPost(
 		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/model`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -22210,7 +22355,12 @@ export async function resultLensWorkerLensIdJobIdResultPost(
 		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/result`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -22251,7 +22401,12 @@ export async function heartbeatLensWorkerLensIdJobIdHeartbeatPost(
 		method: "POST",
 		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/heartbeat`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -22984,7 +23139,12 @@ export async function updateCacheSettingsCacheSettingsPost(
 		url: `/cache/settings`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -23092,7 +23252,12 @@ export async function updateCoordinationRedisSettingsCoordinationRedisSettingsPo
 		url: `/coordination_redis/settings`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -24974,86 +25139,6 @@ export async function aggregateMcpRouteMcpPatch(
  * will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
-export async function toolsetMcpRouteToolsetToolsetNameMcpOptions(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
-		throw new Error(`Missing required path parameter: toolset_name`);
-	}
-	const data = await request<
-		ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponse,
-		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath
-	>({
-		method: "OPTIONS",
-		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Toolset Mcp Route
- * @description Namespace a toolset as its own MCP endpoint.
- * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
- * @link /toolset/{toolset_name}/mcp
- */
-export async function toolsetMcpRouteToolsetToolsetNameMcpPost(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpPostPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
-		throw new Error(`Missing required path parameter: toolset_name`);
-	}
-	const data = await request<
-		ToolsetMcpRouteToolsetToolsetNameMcpPostResponse,
-		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ToolsetMcpRouteToolsetToolsetNameMcpPostPath
-	>({
-		method: "POST",
-		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Toolset Mcp Route
- * @description Namespace a toolset as its own MCP endpoint.
- * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
- * @link /toolset/{toolset_name}/mcp
- */
 export async function toolsetMcpRouteToolsetToolsetNameMcpPut(
 	{
 		pathParams,
@@ -25094,6 +25179,46 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpPut(
  * will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
+export async function toolsetMcpRouteToolsetToolsetNameMcpOptions(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
+		throw new Error(`Missing required path parameter: toolset_name`);
+	}
+	const data = await request<
+		ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponse,
+		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath
+	>({
+		method: "OPTIONS",
+		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Toolset Mcp Route
+ * @description Namespace a toolset as its own MCP endpoint.
+ * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
+ * the toolset. Access is enforced: non-admin API keys must have the toolset
+ * listed in their object_permission.mcp_toolsets grant list, or the request
+ * will be rejected with a 403.
+ * @link /toolset/{toolset_name}/mcp
+ */
 export async function toolsetMcpRouteToolsetToolsetNameMcpDelete(
 	{
 		pathParams,
@@ -25117,46 +25242,6 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpDelete(
 		ToolsetMcpRouteToolsetToolsetNameMcpDeletePath
 	>({
 		method: "DELETE",
-		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Toolset Mcp Route
- * @description Namespace a toolset as its own MCP endpoint.
- * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
- * @link /toolset/{toolset_name}/mcp
- */
-export async function toolsetMcpRouteToolsetToolsetNameMcpHead(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpHeadPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
-		throw new Error(`Missing required path parameter: toolset_name`);
-	}
-	const data = await request<
-		ToolsetMcpRouteToolsetToolsetNameMcpHeadResponse,
-		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ToolsetMcpRouteToolsetToolsetNameMcpHeadPath
-	>({
-		method: "HEAD",
 		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -25246,39 +25331,38 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpPatch(
 }
 
 /**
- * @summary Dynamic Mcp Route
- * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
- * Resolution order:
- * 1. Registered MCP server alias / name
- * 2. Comma-separated list
- * 3. Toolset name (DB lookup, cached)
- * 4. MCP access group tag (DB lookup, cached)
- * @link /{mcp_server_name}/mcp
+ * @summary Toolset Mcp Route
+ * @description Namespace a toolset as its own MCP endpoint.
+ * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
+ * the toolset. Access is enforced: non-admin API keys must have the toolset
+ * listed in their object_permission.mcp_toolsets grant list, or the request
+ * will be rejected with a 403.
+ * @link /toolset/{toolset_name}/mcp
  */
-export async function dynamicMcpRouteMcpServerNameMcpOptions(
+export async function toolsetMcpRouteToolsetToolsetNameMcpHead(
 	{
 		pathParams,
 		config,
 	}: {
-		pathParams: DynamicMcpRouteMcpServerNameMcpOptionsPath;
+		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpHeadPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
-		throw new Error(`Missing required path parameter: mcp_server_name`);
+	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
+		throw new Error(`Missing required path parameter: toolset_name`);
 	}
 	const data = await request<
-		DynamicMcpRouteMcpServerNameMcpOptionsResponse,
-		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpOptionsStatus422>,
+		ToolsetMcpRouteToolsetToolsetNameMcpHeadResponse,
+		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		DynamicMcpRouteMcpServerNameMcpOptionsPath
+		ToolsetMcpRouteToolsetToolsetNameMcpHeadPath
 	>({
-		method: "OPTIONS",
-		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
+		method: "HEAD",
+		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -25287,39 +25371,38 @@ export async function dynamicMcpRouteMcpServerNameMcpOptions(
 }
 
 /**
- * @summary Dynamic Mcp Route
- * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
- * Resolution order:
- * 1. Registered MCP server alias / name
- * 2. Comma-separated list
- * 3. Toolset name (DB lookup, cached)
- * 4. MCP access group tag (DB lookup, cached)
- * @link /{mcp_server_name}/mcp
+ * @summary Toolset Mcp Route
+ * @description Namespace a toolset as its own MCP endpoint.
+ * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
+ * the toolset. Access is enforced: non-admin API keys must have the toolset
+ * listed in their object_permission.mcp_toolsets grant list, or the request
+ * will be rejected with a 403.
+ * @link /toolset/{toolset_name}/mcp
  */
-export async function dynamicMcpRouteMcpServerNameMcpPost(
+export async function toolsetMcpRouteToolsetToolsetNameMcpPost(
 	{
 		pathParams,
 		config,
 	}: {
-		pathParams: DynamicMcpRouteMcpServerNameMcpPostPath;
+		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpPostPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
-		throw new Error(`Missing required path parameter: mcp_server_name`);
+	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
+		throw new Error(`Missing required path parameter: toolset_name`);
 	}
 	const data = await request<
-		DynamicMcpRouteMcpServerNameMcpPostResponse,
-		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpPostStatus422>,
+		ToolsetMcpRouteToolsetToolsetNameMcpPostResponse,
+		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		DynamicMcpRouteMcpServerNameMcpPostPath
+		ToolsetMcpRouteToolsetToolsetNameMcpPostPath
 	>({
 		method: "POST",
-		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
+		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -25378,6 +25461,47 @@ export async function dynamicMcpRouteMcpServerNameMcpPut(
  * 4. MCP access group tag (DB lookup, cached)
  * @link /{mcp_server_name}/mcp
  */
+export async function dynamicMcpRouteMcpServerNameMcpOptions(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DynamicMcpRouteMcpServerNameMcpOptionsPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
+		throw new Error(`Missing required path parameter: mcp_server_name`);
+	}
+	const data = await request<
+		DynamicMcpRouteMcpServerNameMcpOptionsResponse,
+		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpOptionsStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DynamicMcpRouteMcpServerNameMcpOptionsPath
+	>({
+		method: "OPTIONS",
+		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Dynamic Mcp Route
+ * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
+ * Resolution order:
+ * 1. Registered MCP server alias / name
+ * 2. Comma-separated list
+ * 3. Toolset name (DB lookup, cached)
+ * 4. MCP access group tag (DB lookup, cached)
+ * @link /{mcp_server_name}/mcp
+ */
 export async function dynamicMcpRouteMcpServerNameMcpDelete(
 	{
 		pathParams,
@@ -25401,47 +25525,6 @@ export async function dynamicMcpRouteMcpServerNameMcpDelete(
 		DynamicMcpRouteMcpServerNameMcpDeletePath
 	>({
 		method: "DELETE",
-		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Dynamic Mcp Route
- * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
- * Resolution order:
- * 1. Registered MCP server alias / name
- * 2. Comma-separated list
- * 3. Toolset name (DB lookup, cached)
- * 4. MCP access group tag (DB lookup, cached)
- * @link /{mcp_server_name}/mcp
- */
-export async function dynamicMcpRouteMcpServerNameMcpHead(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DynamicMcpRouteMcpServerNameMcpHeadPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
-		throw new Error(`Missing required path parameter: mcp_server_name`);
-	}
-	const data = await request<
-		DynamicMcpRouteMcpServerNameMcpHeadResponse,
-		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpHeadStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DynamicMcpRouteMcpServerNameMcpHeadPath
-	>({
-		method: "HEAD",
 		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -25524,6 +25607,88 @@ export async function dynamicMcpRouteMcpServerNameMcpPatch(
 		DynamicMcpRouteMcpServerNameMcpPatchPath
 	>({
 		method: "PATCH",
+		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Dynamic Mcp Route
+ * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
+ * Resolution order:
+ * 1. Registered MCP server alias / name
+ * 2. Comma-separated list
+ * 3. Toolset name (DB lookup, cached)
+ * 4. MCP access group tag (DB lookup, cached)
+ * @link /{mcp_server_name}/mcp
+ */
+export async function dynamicMcpRouteMcpServerNameMcpHead(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DynamicMcpRouteMcpServerNameMcpHeadPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
+		throw new Error(`Missing required path parameter: mcp_server_name`);
+	}
+	const data = await request<
+		DynamicMcpRouteMcpServerNameMcpHeadResponse,
+		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpHeadStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DynamicMcpRouteMcpServerNameMcpHeadPath
+	>({
+		method: "HEAD",
+		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Dynamic Mcp Route
+ * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
+ * Resolution order:
+ * 1. Registered MCP server alias / name
+ * 2. Comma-separated list
+ * 3. Toolset name (DB lookup, cached)
+ * 4. MCP access group tag (DB lookup, cached)
+ * @link /{mcp_server_name}/mcp
+ */
+export async function dynamicMcpRouteMcpServerNameMcpPost(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DynamicMcpRouteMcpServerNameMcpPostPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
+		throw new Error(`Missing required path parameter: mcp_server_name`);
+	}
+	const data = await request<
+		DynamicMcpRouteMcpServerNameMcpPostResponse,
+		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpPostStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DynamicMcpRouteMcpServerNameMcpPostPath
+	>({
+		method: "POST",
 		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -31392,7 +31557,12 @@ export async function addMcpServerV1McpServerPost(
 		url: `/v1/mcp/server`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -31428,7 +31598,12 @@ export async function editMcpServerV1McpServerPut(
 		url: `/v1/mcp/server`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -31532,7 +31707,12 @@ export async function addSessionMcpServerV1McpServerOauthSessionPost(
 		url: `/v1/mcp/server/oauth/session`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -31631,7 +31811,12 @@ export async function removeMcpServerV1McpServerServerIdDelete(
 		method: "DELETE",
 		url: `/v1/mcp/server/${encodeURIComponent(String(pathParams.server_id))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -32307,7 +32492,12 @@ export async function addMcpToolsetV1McpToolsetPost(
 		url: `/v1/mcp/toolset`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -32343,7 +32533,12 @@ export async function editMcpToolsetV1McpToolsetPut(
 		url: `/v1/mcp/toolset`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -32381,7 +32576,12 @@ export async function removeMcpToolsetV1McpToolsetToolsetIdDelete(
 		method: "DELETE",
 		url: `/v1/mcp/toolset/${encodeURIComponent(String(pathParams.toolset_id))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -33566,7 +33766,12 @@ export async function deleteCyberarkConfigConfigOverridesCyberarkDelete(
 		method: "DELETE",
 		url: `/config_overrides/cyberark`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -33633,7 +33838,12 @@ export async function updateCyberarkConfigConfigOverridesCyberarkPost(
 		url: `/config_overrides/cyberark`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -33694,7 +33904,12 @@ export async function deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDel
 		method: "DELETE",
 		url: `/config_overrides/hashicorp_vault`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -33760,7 +33975,12 @@ export async function updateHashicorpVaultConfigConfigOverridesHashicorpVaultPos
 		url: `/config_overrides/hashicorp_vault`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -38623,16 +38843,16 @@ export const operationsByPath = {
 	"POST /mcp": aggregateMcpRouteMcpPost,
 	"DELETE /mcp": aggregateMcpRouteMcpDelete,
 	"PATCH /mcp": aggregateMcpRouteMcpPatch,
-	"POST /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPost,
 	"PUT /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPut,
 	"DELETE /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpDelete,
 	"GET /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpGet,
 	"PATCH /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPatch,
-	"POST /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPost,
+	"POST /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPost,
 	"PUT /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPut,
 	"DELETE /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpDelete,
 	"GET /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpGet,
 	"PATCH /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPatch,
+	"POST /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPost,
 	"GET /vertex_ai/live": websocketVertexAiLivePassthroughEndpoint,
 	"GET /realtime": websocketRealtimeWebsocketEndpointGet,
 	"GET /v1/realtime": websocketRealtimeWebsocketEndpointGet2,
@@ -39127,20 +39347,20 @@ export const operationsByTag = {
 		aggregateMcpRouteMcpOptions,
 		aggregateMcpRouteMcpHead,
 		aggregateMcpRouteMcpPatch,
-		toolsetMcpRouteToolsetToolsetNameMcpOptions,
-		toolsetMcpRouteToolsetToolsetNameMcpPost,
 		toolsetMcpRouteToolsetToolsetNameMcpPut,
+		toolsetMcpRouteToolsetToolsetNameMcpOptions,
 		toolsetMcpRouteToolsetToolsetNameMcpDelete,
-		toolsetMcpRouteToolsetToolsetNameMcpHead,
 		toolsetMcpRouteToolsetToolsetNameMcpGet,
 		toolsetMcpRouteToolsetToolsetNameMcpPatch,
-		dynamicMcpRouteMcpServerNameMcpOptions,
-		dynamicMcpRouteMcpServerNameMcpPost,
+		toolsetMcpRouteToolsetToolsetNameMcpHead,
+		toolsetMcpRouteToolsetToolsetNameMcpPost,
 		dynamicMcpRouteMcpServerNameMcpPut,
+		dynamicMcpRouteMcpServerNameMcpOptions,
 		dynamicMcpRouteMcpServerNameMcpDelete,
-		dynamicMcpRouteMcpServerNameMcpHead,
 		dynamicMcpRouteMcpServerNameMcpGet,
 		dynamicMcpRouteMcpServerNameMcpPatch,
+		dynamicMcpRouteMcpServerNameMcpHead,
+		dynamicMcpRouteMcpServerNameMcpPost,
 	},
 	adaptiveRouter: {
 		getAdaptiveRouterStateAdaptiveRouterStateGet,

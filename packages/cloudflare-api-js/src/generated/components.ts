@@ -15461,7 +15461,12 @@ export async function accountCreation(
 		url: `/accounts`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -37152,7 +37157,7 @@ export async function aigConfigDeleteGatewayLogs(
 		config,
 	}: {
 		pathParams: AigConfigDeleteGatewayLogsPath;
-		queryParams: AigConfigDeleteGatewayLogsQuery;
+		queryParams?: Partial<AigConfigDeleteGatewayLogsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -37170,7 +37175,7 @@ export async function aigConfigDeleteGatewayLogs(
 		ErrorWrapper<AigConfigDeleteGatewayLogsStatus400>,
 		null,
 		Record<string, string>,
-		AigConfigDeleteGatewayLogsQuery,
+		Partial<AigConfigDeleteGatewayLogsQuery>,
 		AigConfigDeleteGatewayLogsPath
 	>({
 		method: "DELETE",
@@ -37195,7 +37200,7 @@ export async function aigConfigListGatewayLogs(
 		config,
 	}: {
 		pathParams: AigConfigListGatewayLogsPath;
-		queryParams: AigConfigListGatewayLogsQuery;
+		queryParams?: Partial<AigConfigListGatewayLogsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -37213,7 +37218,7 @@ export async function aigConfigListGatewayLogs(
 		ErrorWrapper<AigConfigListGatewayLogsStatus400>,
 		null,
 		Record<string, string>,
-		AigConfigListGatewayLogsQuery,
+		Partial<AigConfigListGatewayLogsQuery>,
 		AigConfigListGatewayLogsPath
 	>({
 		method: "GET",
@@ -45740,7 +45745,12 @@ export async function spendPoliciesDelete(
 		method: "DELETE",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/billing/spend-policies/${encodeURIComponent(String(pathParams.policyId))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -45842,7 +45852,12 @@ export async function spendPoliciesUpdate(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/billing/spend-policies/${encodeURIComponent(String(pathParams.policyId))}`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -52376,7 +52391,7 @@ export async function getEventListGet(
 		config,
 	}: {
 		pathParams: GetEventListGetPath;
-		queryParams: GetEventListGetQuery;
+		queryParams?: Partial<GetEventListGetQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -52390,7 +52405,7 @@ export async function getEventListGet(
 		ErrorWrapper<GetEventListGetStatus400>,
 		null,
 		Record<string, string>,
-		GetEventListGetQuery,
+		Partial<GetEventListGetQuery>,
 		GetEventListGetPath
 	>({
 		method: "GET",
@@ -54070,7 +54085,7 @@ export async function getIndicatorRelationshipsList(
 		config,
 	}: {
 		pathParams: GetIndicatorRelationshipsListPath;
-		queryParams: GetIndicatorRelationshipsListQuery;
+		queryParams?: Partial<GetIndicatorRelationshipsListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -54092,7 +54107,7 @@ export async function getIndicatorRelationshipsList(
 		ErrorWrapper<GetIndicatorRelationshipsListStatus400>,
 		null,
 		Record<string, string>,
-		GetIndicatorRelationshipsListQuery,
+		Partial<GetIndicatorRelationshipsListQuery>,
 		GetIndicatorRelationshipsListPath
 	>({
 		method: "GET",
@@ -54488,7 +54503,7 @@ export async function getDatasetTagIndicatorsList(
 		config,
 	}: {
 		pathParams: GetDatasetTagIndicatorsListPath;
-		queryParams: GetDatasetTagIndicatorsListQuery;
+		queryParams?: Partial<GetDatasetTagIndicatorsListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -54514,7 +54529,7 @@ export async function getDatasetTagIndicatorsList(
 		>,
 		null,
 		Record<string, string>,
-		GetDatasetTagIndicatorsListQuery,
+		Partial<GetDatasetTagIndicatorsListQuery>,
 		GetDatasetTagIndicatorsListPath
 	>({
 		method: "GET",
@@ -55110,7 +55125,7 @@ export async function getIndicatorList(
 		config,
 	}: {
 		pathParams: GetIndicatorListPath;
-		queryParams: GetIndicatorListQuery;
+		queryParams?: Partial<GetIndicatorListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -55124,7 +55139,7 @@ export async function getIndicatorList(
 		ErrorWrapper<GetIndicatorListStatus400>,
 		null,
 		Record<string, string>,
-		GetIndicatorListQuery,
+		Partial<GetIndicatorListQuery>,
 		GetIndicatorListPath
 	>({
 		method: "GET",
@@ -55726,7 +55741,7 @@ export async function getTagList(
 		config,
 	}: {
 		pathParams: GetTagListPath;
-		queryParams: GetTagListQuery;
+		queryParams?: Partial<GetTagListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -55740,7 +55755,7 @@ export async function getTagList(
 		ErrorWrapper<GetTagListStatus400>,
 		null,
 		Record<string, string>,
-		GetTagListQuery,
+		Partial<GetTagListQuery>,
 		GetTagListPath
 	>({
 		method: "GET",
@@ -55804,7 +55819,7 @@ export async function getTaggedActorList(
 		config,
 	}: {
 		pathParams: GetTaggedActorListPath;
-		queryParams: GetTaggedActorListQuery;
+		queryParams?: Partial<GetTaggedActorListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -55818,7 +55833,7 @@ export async function getTaggedActorList(
 		ErrorWrapper<GetTaggedActorListStatus400>,
 		null,
 		Record<string, string>,
-		GetTaggedActorListQuery,
+		Partial<GetTaggedActorListQuery>,
 		GetTaggedActorListPath
 	>({
 		method: "GET",
@@ -56174,7 +56189,7 @@ export async function getTagIndicatorsList(
 		config,
 	}: {
 		pathParams: GetTagIndicatorsListPath;
-		queryParams: GetTagIndicatorsListQuery;
+		queryParams?: Partial<GetTagIndicatorsListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -56194,7 +56209,7 @@ export async function getTagIndicatorsList(
 		>,
 		null,
 		Record<string, string>,
-		GetTagIndicatorsListQuery,
+		Partial<GetTagIndicatorsListQuery>,
 		GetTagIndicatorsListPath
 	>({
 		method: "GET",
@@ -56219,7 +56234,7 @@ export async function getTagRelationshipsList(
 		config,
 	}: {
 		pathParams: GetTagRelationshipsListPath;
-		queryParams: GetTagRelationshipsListQuery;
+		queryParams?: Partial<GetTagRelationshipsListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -56237,7 +56252,7 @@ export async function getTagRelationshipsList(
 		ErrorWrapper<GetTagRelationshipsListStatus400>,
 		null,
 		Record<string, string>,
-		GetTagRelationshipsListQuery,
+		Partial<GetTagRelationshipsListQuery>,
 		GetTagRelationshipsListPath
 	>({
 		method: "GET",
@@ -60933,7 +60948,12 @@ export async function getCollectionExportEndpoint(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/cloudforce-one/v2/collections/${encodeURIComponent(String(pathParams.collectionId))}/export`,
 		queryParams,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -63028,7 +63048,12 @@ export async function postMessageCreate(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/cloudforce-one/v2/requests/${encodeURIComponent(String(pathParams.projectType))}/${encodeURIComponent(String(pathParams.requestId))}/messages/new`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -63134,7 +63159,12 @@ export async function putMessageUpdate(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/cloudforce-one/v2/requests/${encodeURIComponent(String(pathParams.projectType))}/${encodeURIComponent(String(pathParams.requestId))}/messages/${encodeURIComponent(String(pathParams.messageId))}`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -85897,7 +85927,12 @@ export async function r2GetEventNotificationConfigs(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/event_notifications/r2/${encodeURIComponent(String(pathParams.bucketName))}/configuration`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -85946,7 +85981,12 @@ export async function r2EventNotificationDeleteConfig(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/event_notifications/r2/${encodeURIComponent(String(pathParams.bucketName))}/configuration/queues/${encodeURIComponent(String(pathParams.queueId))}`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -85992,7 +86032,12 @@ export async function r2GetEventNotificationConfig(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/event_notifications/r2/${encodeURIComponent(String(pathParams.bucketName))}/configuration/queues/${encodeURIComponent(String(pathParams.queueId))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -86041,7 +86086,12 @@ export async function r2PutEventNotificationConfig(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/event_notifications/r2/${encodeURIComponent(String(pathParams.bucketName))}/configuration/queues/${encodeURIComponent(String(pathParams.queueId))}`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -86964,7 +87014,12 @@ export async function flagshipGetDefinitions(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/flagship/apps/${encodeURIComponent(String(pathParams.appId))}/definitions`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -93468,7 +93523,13 @@ export async function customIndicatorFeedsUpdateIndicatorFeedData(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/intel/indicator-feeds/${encodeURIComponent(String(pathParams.feedId))}/snapshot`,
 		body: formData,
 		...requestConfig,
-		headers: { "Content-Type": "multipart/form-data", ...headers, ...requestConfig.headers },
+		headers: {
+			"Content-Type": "multipart/form-data",
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -97152,7 +97213,12 @@ export async function logpullListLogFiles(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/logs/list`,
 		queryParams,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -97193,7 +97259,12 @@ export async function logpullRetrieveLogs(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/logs/retrieve`,
 		queryParams,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -99847,7 +99918,12 @@ export async function magicInterconnectsListInterconnects(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cf_interconnects`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -99888,7 +99964,12 @@ export async function magicInterconnectsUpdateMultipleInterconnects(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cf_interconnects`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -99930,7 +100011,12 @@ export async function magicInterconnectsListInterconnectDetails(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cf_interconnects/${encodeURIComponent(String(pathParams.cfInterconnectId))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -99975,7 +100061,12 @@ export async function magicInterconnectsUpdateInterconnect(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/cf_interconnects/${encodeURIComponent(String(pathParams.cfInterconnectId))}`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -100687,7 +100778,12 @@ export async function magicGreTunnelsListGreTunnels(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/gre_tunnels`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -100728,7 +100824,12 @@ export async function magicGreTunnelsCreateGreTunnels(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/gre_tunnels`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -100769,7 +100870,12 @@ export async function magicGreTunnelsUpdateMultipleGreTunnels(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/gre_tunnels`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -100811,7 +100917,12 @@ export async function magicGreTunnelsDeleteGreTunnel(
 		method: "DELETE",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/gre_tunnels/${encodeURIComponent(String(pathParams.greTunnelId))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -100853,7 +100964,12 @@ export async function magicGreTunnelsListGreTunnelDetails(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/gre_tunnels/${encodeURIComponent(String(pathParams.greTunnelId))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -100898,7 +101014,12 @@ export async function magicGreTunnelsUpdateGreTunnel(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/gre_tunnels/${encodeURIComponent(String(pathParams.greTunnelId))}`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -100936,7 +101057,12 @@ export async function magicIpsecTunnelsListIpsecTunnels(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/ipsec_tunnels`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -100977,7 +101103,12 @@ export async function magicIpsecTunnelsCreateIpsecTunnels(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/ipsec_tunnels`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -101018,7 +101149,12 @@ export async function magicIpsecTunnelsUpdateMultipleIpsecTunnels(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/ipsec_tunnels`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -101102,7 +101238,12 @@ export async function magicIpsecTunnelsDeleteIpsecTunnel(
 		method: "DELETE",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/ipsec_tunnels/${encodeURIComponent(String(pathParams.ipsecTunnelId))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -101144,7 +101285,12 @@ export async function magicIpsecTunnelsListIpsecTunnelDetails(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/ipsec_tunnels/${encodeURIComponent(String(pathParams.ipsecTunnelId))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -101189,7 +101335,12 @@ export async function magicIpsecTunnelsUpdateIpsecTunnel(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/ipsec_tunnels/${encodeURIComponent(String(pathParams.ipsecTunnelId))}`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -101863,7 +102014,12 @@ export async function magicSitesSiteDetails(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/magic/sites/${encodeURIComponent(String(pathParams.siteId))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -103262,7 +103418,12 @@ export async function createAccountVulnerabilityDiscoveryRepository(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/managed-defense/vulnerability-discovery/repos`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -103493,7 +103654,12 @@ export async function createAccountVulnerabilityDiscoveryScan(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/managed-defense/vulnerability-discovery/scans`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111126,7 +111292,12 @@ export async function r2ListBuckets(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets`,
 		queryParams,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111167,7 +111338,12 @@ export async function r2CreateBucket(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111209,7 +111385,12 @@ export async function r2DeleteBucket(
 		method: "DELETE",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111251,7 +111432,12 @@ export async function r2GetBucket(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111293,7 +111479,12 @@ export async function r2PatchBucket(
 		method: "PATCH",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111335,7 +111526,12 @@ export async function r2CreateBucketByName(
 		method: "PUT",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111377,7 +111573,12 @@ export async function r2DeleteBucketCorsPolicy(
 		method: "DELETE",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/cors`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111419,7 +111620,12 @@ export async function r2GetBucketCorsPolicy(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/cors`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111464,7 +111670,12 @@ export async function r2PutBucketCorsPolicy(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/cors`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111506,7 +111717,12 @@ export async function r2ListCustomDomains(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/domains/custom`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111551,7 +111767,12 @@ export async function r2AddCustomDomain(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/domains/custom`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111597,7 +111818,12 @@ export async function r2DeleteCustomDomain(
 		method: "DELETE",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/domains/custom/${encodeURIComponent(String(pathParams.domain))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111643,7 +111869,12 @@ export async function r2GetCustomDomainSettings(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/domains/custom/${encodeURIComponent(String(pathParams.domain))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111692,7 +111923,12 @@ export async function r2EditCustomDomainSettings(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/domains/custom/${encodeURIComponent(String(pathParams.domain))}`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111734,7 +111970,12 @@ export async function r2GetBucketPublicPolicy(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/domains/managed`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111779,7 +112020,12 @@ export async function r2PutBucketPublicPolicy(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/domains/managed`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111826,7 +112072,12 @@ export async function r2ListBucketJobs(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/jobs`,
 		queryParams,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111892,7 +112143,12 @@ export async function r2CreateBucketJob(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/jobs`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111940,7 +112196,12 @@ export async function r2GetBucketJob(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/jobs/${encodeURIComponent(String(pathParams.jobId))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -111982,7 +112243,12 @@ export async function r2GetBucketLifecycleConfiguration(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/lifecycle`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -112027,7 +112293,12 @@ export async function r2PutBucketLifecycleConfiguration(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/lifecycle`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -112152,7 +112423,12 @@ export async function r2DeleteBucketLockConfiguration(
 		method: "DELETE",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/lock`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -112194,7 +112470,12 @@ export async function r2GetBucketLockConfiguration(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/lock`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -112239,7 +112520,12 @@ export async function r2PutBucketLockConfiguration(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/lock`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -112297,7 +112583,12 @@ export async function r2DeleteObjects(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -112343,7 +112634,12 @@ export async function r2ListObjects(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/objects`,
 		queryParams,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -112390,7 +112686,12 @@ export async function r2DeleteObject(
 		method: "DELETE",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/objects/${encodeURIComponent(String(pathParams.objectKey))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -112437,7 +112738,12 @@ export async function r2GetObject(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/objects/${encodeURIComponent(String(pathParams.objectKey))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -112487,7 +112793,13 @@ export async function r2PutObject(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/objects/${encodeURIComponent(String(pathParams.objectKey))}`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "application/octet-stream", ...headers, ...requestConfig.headers },
+		headers: {
+			"Content-Type": "application/octet-stream",
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -112529,7 +112841,12 @@ export async function r2DeleteBucketSippyConfig(
 		method: "DELETE",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/sippy`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -112571,7 +112888,12 @@ export async function r2GetBucketSippyConfig(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/sippy`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -112616,7 +112938,12 @@ export async function r2PutBucketSippyConfig(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/r2/buckets/${encodeURIComponent(String(pathParams.bucketName))}/sippy`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -115927,7 +116254,12 @@ export async function sandboxRegistrarDomainRegistrationCreate(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/registrar-sandbox/registrations`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -116023,7 +116355,12 @@ export async function sandboxRegistrarDomainRegistrationUpdate(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/registrar-sandbox/registrations/${encodeURIComponent(String(pathParams.domainName))}`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -116686,7 +117023,12 @@ export async function registrarDomainRegistrationCreate(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/registrar/registrations`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -116782,7 +117124,12 @@ export async function registrarDomainRegistrationUpdate(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/registrar/registrations/${encodeURIComponent(String(pathParams.domainName))}`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -116935,7 +117282,12 @@ export async function registrarDomainTransferInCreate(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/registrar/registrations/${encodeURIComponent(String(pathParams.domainName))}/transfer-in`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -124372,7 +124724,12 @@ export async function streamVideosInitiateVideoUploadsUsingTus(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/stream`,
 		queryParams,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -124452,7 +124809,12 @@ export async function streamVideosUploadVideosFromAUrl(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/stream/copy`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -124493,7 +124855,12 @@ export async function streamVideosUploadVideosViaDirectUploadUrLs(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/stream/direct_upload`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -124685,7 +125052,12 @@ export async function streamLiveInputsCreateALiveInput(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/stream/live_inputs`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -126743,7 +127115,12 @@ export async function tagsDelete(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/tags`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -126823,7 +127200,12 @@ export async function tagsSet(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/tags`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -131898,7 +132280,13 @@ export async function namespaceWorkerPutScriptContent(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/workers/dispatch/namespaces/${encodeURIComponent(String(pathParams.dispatchNamespace))}/scripts/${encodeURIComponent(String(pathParams.scriptName))}/content`,
 		body: formData,
 		...requestConfig,
-		headers: { "Content-Type": "multipart/form-data", ...headers, ...requestConfig.headers },
+		headers: {
+			"Content-Type": "multipart/form-data",
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -132405,7 +132793,12 @@ export async function namespaceWorkerDeleteScriptTag(
 		method: "DELETE",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/workers/dispatch/namespaces/${encodeURIComponent(String(pathParams.dispatchNamespace))}/scripts/${encodeURIComponent(String(pathParams.scriptName))}/tags/${encodeURIComponent(String(pathParams.tag))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -132459,7 +132852,12 @@ export async function namespaceWorkerPatchScriptTag(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/workers/dispatch/namespaces/${encodeURIComponent(String(pathParams.dispatchNamespace))}/scripts/${encodeURIComponent(String(pathParams.scriptName))}/tags/${encodeURIComponent(String(pathParams.tag))}`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -134758,7 +135156,13 @@ export async function workerScriptPutContent(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/workers/scripts/${encodeURIComponent(String(pathParams.scriptName))}/content`,
 		body: formData,
 		...requestConfig,
-		headers: { "Content-Type": "multipart/form-data", ...headers, ...requestConfig.headers },
+		headers: {
+			"Content-Type": "multipart/form-data",
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -136065,7 +136469,13 @@ export async function workerEnvironmentPutScriptContent(
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/workers/services/${encodeURIComponent(String(pathParams.serviceName))}/environments/${encodeURIComponent(String(pathParams.environmentName))}/content`,
 		body: formData,
 		...requestConfig,
-		headers: { "Content-Type": "multipart/form-data", ...headers, ...requestConfig.headers },
+		headers: {
+			"Content-Type": "multipart/form-data",
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -139838,7 +140248,12 @@ export async function cwsGetLatestCategoryApplicationVersion(
 		method: "GET",
 		url: `/cws/categories/applications/${encodeURIComponent(String(pathParams.applicationKey))}/versions/latest`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -161445,7 +161860,12 @@ export async function precursorForAZoneGetConfig(
 		method: "GET",
 		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/precursor`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -161499,7 +161919,12 @@ export async function precursorForAZoneUpdateConfig(
 		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/precursor`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -168628,7 +169053,12 @@ export async function tagsZoneDelete(
 		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/tags`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -168708,7 +169138,12 @@ export async function tagsZoneSet(
 		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/tags`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;

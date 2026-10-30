@@ -14,7 +14,7 @@ When you need to make assumptions, use common sense and standard best practices.
 
 ## Knowledge Base
 
-Read `brain/` files relevant to your task before acting, and update them in the same pull request when the code they describe changes. One topic per file, `[[wikilink]]` indexes, a source path or pull request behind every claim, unknowns marked as unknown. This repository is public, and so is `brain/`.
+Read `brain/` files relevant to your task before acting, and update them in the same pull request when the code they describe changes. One topic per file, `[[wikilink]]` indexes, a source path or pull request behind every claim, unknowns marked as unknown. This repository is public, and so is `brain/`. Many pull requests edit the same notes, so keep independent changes on different lines: one item per line or bullet, never several joined with commas or semicolons on one line; no running counts or totals, such as how many clients or tests there are; and no sequential numbering in shared lists, using named bullets or headings instead (an old number stays only as an alias).
 
 | Topic | Doc |
 | --- | --- |

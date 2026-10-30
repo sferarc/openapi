@@ -1,6 +1,6 @@
 {
 	"name": "litellm-api",
-	"version": "2.1.10",
+	"version": "2.2.2",
 	"description": "LiteLLM auto-generated type-safe API client",
 	"type": "module",
 	"author": "SferaDev",
@@ -45,24 +45,44 @@
 	"exports": {
 		"./package.json": "./package.json",
 		".": {
-			"types": "./dist/index.d.ts",
-			"import": "./dist/index.mjs",
-			"require": "./dist/index.cjs"
+			"import": {
+				"types": "./dist/index.d.mts",
+				"default": "./dist/index.mjs"
+			},
+			"require": {
+				"types": "./dist/index.d.cts",
+				"default": "./dist/index.cjs"
+			}
 		},
 		"./types": {
-			"types": "./dist/types.d.mts",
-			"import": "./dist/types.mjs",
-			"require": "./dist/types.cjs"
+			"import": {
+				"types": "./dist/types.d.mts",
+				"default": "./dist/types.mjs"
+			},
+			"require": {
+				"types": "./dist/types.d.cts",
+				"default": "./dist/types.cjs"
+			}
 		},
 		"./schemas": {
-			"types": "./dist/schemas.d.mts",
-			"import": "./dist/schemas.mjs",
-			"require": "./dist/schemas.cjs"
+			"import": {
+				"types": "./dist/schemas.d.mts",
+				"default": "./dist/schemas.mjs"
+			},
+			"require": {
+				"types": "./dist/schemas.d.cts",
+				"default": "./dist/schemas.cjs"
+			}
 		},
 		"./components": {
-			"types": "./dist/components.d.mts",
-			"import": "./dist/components.mjs",
-			"require": "./dist/components.cjs"
+			"import": {
+				"types": "./dist/components.d.mts",
+				"default": "./dist/components.mjs"
+			},
+			"require": {
+				"types": "./dist/components.d.cts",
+				"default": "./dist/components.cjs"
+			}
 		}
 	},
 	"publishConfig": {

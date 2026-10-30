@@ -1,5 +1,17 @@
 # netlify-api
 
+## 3.0.4
+
+### Patch Changes
+
+- e040868: A header parameter passed to an operation, such as `headers: { "litellm-changed-by": userId }`, now wins over the same header in `config.headers` or in the headers of an Effect `makeApiLayer`. The config headers used to be spread last, so a layer that set a default `litellm-changed-by` or `X-Nf-Retry-Count` replaced the value given for that one call. A header parameter left `undefined` still falls back to the config value.
+
+## 3.0.3
+
+### Patch Changes
+
+- 4f6c5ba: Give `require` its own CommonJS type declarations. Every entry pointed both `import` and `require` at one ESM declaration file, so a CommonJS project using `moduleResolution: node16` or `nodenext` got ESM types for the CommonJS build.
+
 ## 3.0.2
 
 ### Patch Changes

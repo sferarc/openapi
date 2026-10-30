@@ -1,5 +1,25 @@
 # litellm-api
 
+## 2.2.2
+
+### Patch Changes
+
+- e040868: A header parameter passed to an operation, such as `headers: { "litellm-changed-by": userId }`, now wins over the same header in `config.headers` or in the headers of an Effect `makeApiLayer`. The config headers used to be spread last, so a layer that set a default `litellm-changed-by` or `X-Nf-Retry-Count` replaced the value given for that one call. A header parameter left `undefined` still falls back to the config value.
+
+## 2.2.1
+
+### Patch Changes
+
+- 4f6c5ba: Give `require` its own CommonJS type declarations. Every entry pointed both `import` and `require` at one ESM declaration file, so a CommonJS project using `moduleResolution: node16` or `nodenext` got ESM types for the CommonJS build.
+
+## 2.2.0
+
+### Minor Changes
+
+- 66ec126: [BREAKING] Dynamic MCP route operations have been renamed and reordered: the PUT, OPTIONS, POST, DELETE, GET, HEAD, and PATCH methods now appear in different positions and with different names.
+- 66ec126: [BREAKING] Toolset MCP route operations have been renamed and reordered: the PUT, OPTIONS, POST, DELETE, GET, HEAD, and PATCH methods now appear in different positions and with different names.
+- 66ec126: [BREAKING] Several type exports for Toolset MCP and Dynamic MCP routes have been removed and replaced with differently named type exports to match the new operation order and names.
+
 ## 2.1.10
 
 ### Patch Changes
