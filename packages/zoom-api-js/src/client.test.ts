@@ -22,6 +22,26 @@ describe("ZoomApi.request", () => {
 		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/devices\/a%2Fb$/);
 	});
 
+	it("double-encodes a meeting UUID that begins with a slash, as Zoom requires", async () => {
+		const { urls, client } = setup();
+		await client.request("GET /past_meetings/{meetingId}", {
+			pathParams: { meetingId: "/ajXp112QmuoKj4854875==" },
+		});
+		expect(new URL(urls[0] ?? "").pathname).toBe(
+			"/v2/past_meetings/%252FajXp112QmuoKj4854875%253D%253D",
+		);
+	});
+
+	it("leaves a meeting UUID the caller already double-encoded as it is", async () => {
+		const { urls, client } = setup();
+		await client.api.meetings.pastMeetingDetails({
+			pathParams: { meetingId: encodeURIComponent("/ajXp112QmuoKj4854875==") },
+		});
+		expect(new URL(urls[0] ?? "").pathname).toBe(
+			"/v2/past_meetings/%252FajXp112QmuoKj4854875%253D%253D",
+		);
+	});
+
 	it("rejects a missing path param before calling fetch", async () => {
 		const { urls, client } = setup();
 		await expect(
