@@ -1,5 +1,30 @@
 # cloudflare-api-js
 
+## 4.2.0
+
+### Minor Changes
+
+- 64b649e: [BREAKING] MembersDelete now responds with a 200 status and a result object, instead of 204 with no content.
+- 64b649e: Added a new operation to delete Zero Trust organization trust settings (zeroTrustOrganizationDeleteTrustSettings).
+- 64b649e: Changed the AccessTags type for service tokens, bookmark, SaaS, and related properties to be a key-value object instead of an array of strings.
+- 64b649e: [BREAKING] Removed the batch move accounts operation (accountsBatchMoveAccounts) from the API.
+- 64b649e: [BREAKING] Removed the tenantsRetrieveTenant, tenantsValidAccountTypes, tenantsListEntitlements, and tenantsListMemberships operations from the API.
+- 64b649e: Replaced the 'Dos*' types with new 'BotnetFeedApi*' types for botnet threat feed endpoints.
+- 64b649e: [BREAKING] The result in userListUserTenants now returns OrganizationsApiLegacyTenant objects instead of OrganizationsApiOrganization.
+- 64b649e: Added a new rule type 'AccessServiceTokenTagRule' for matching Access service tokens by tag key and value.
+- 64b649e: [BREAKING] Remove operations no longer in the cloudflare-api-js OpenAPI spec: `accountsBatchMoveAccounts`, `tenantsListEntitlements`, `tenantsListMemberships`, `tenantsRetrieveTenant`, `tenantsValidAccountTypes`.
+
+### Patch Changes
+
+- 64b649e: Added support for HTTP 500 error responses to many organization- and member-related API operations, improving error reporting.
+- 64b649e: Renamed legacy response shapes and standardized status type enums for account and tenant objects.
+- 64b649e: Allowed partial profile updates with specific rules (null/empty values are ignored and profile is created if not present) for organization and account profile endpoints.
+- 64b649e: Added query parameters for filtering and ordering tenant accounts in tenantsListAccounts.
+- 64b649e: Added additional fields, types, and documentation to organization and tenant models, including richer profile and pagination types.
+- 64b649e: Added support for cursor and legacy offset pagination to endpoints that list accounts and organizations.
+- 64b649e: Improved and updated several endpoint descriptions and parameter documentation for clarity.
+- 64b649e: Added a new error response type for whois record status 400, dropping CloudforceOneWhoisSchemasSingleResponse from the union.
+
 ## 4.1.0
 
 ### Minor Changes
