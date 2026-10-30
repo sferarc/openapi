@@ -5253,7 +5253,7 @@ export async function deleteAiGatewayVirtualModelConfig(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<DeleteAiGatewayVirtualModelConfigQuery>;
+		queryParams: DeleteAiGatewayVirtualModelConfigQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5271,7 +5271,7 @@ export async function deleteAiGatewayVirtualModelConfig(
 		>,
 		null,
 		Record<string, string>,
-		Partial<DeleteAiGatewayVirtualModelConfigQuery>,
+		DeleteAiGatewayVirtualModelConfigQuery,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -5639,7 +5639,7 @@ export async function deleteAiGatewayRule(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<DeleteAiGatewayRuleQuery>;
+		queryParams: DeleteAiGatewayRuleQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5657,7 +5657,7 @@ export async function deleteAiGatewayRule(
 		>,
 		null,
 		Record<string, string>,
-		Partial<DeleteAiGatewayRuleQuery>,
+		DeleteAiGatewayRuleQuery,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -5765,7 +5765,7 @@ export async function archiveAiGatewayBudget(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ArchiveAiGatewayBudgetQuery>;
+		queryParams: ArchiveAiGatewayBudgetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5783,7 +5783,7 @@ export async function archiveAiGatewayBudget(
 		>,
 		null,
 		Record<string, string>,
-		Partial<ArchiveAiGatewayBudgetQuery>,
+		ArchiveAiGatewayBudgetQuery,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -5891,7 +5891,7 @@ export async function archiveAiGatewayBudgetDefault(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ArchiveAiGatewayBudgetDefaultQuery>;
+		queryParams: ArchiveAiGatewayBudgetDefaultQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5909,7 +5909,7 @@ export async function archiveAiGatewayBudgetDefault(
 		>,
 		null,
 		Record<string, string>,
-		Partial<ArchiveAiGatewayBudgetDefaultQuery>,
+		ArchiveAiGatewayBudgetDefaultQuery,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -6202,7 +6202,7 @@ export async function listBillingCharges(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ListBillingChargesQuery>;
+		queryParams: ListBillingChargesQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6221,7 +6221,7 @@ export async function listBillingCharges(
 		>,
 		null,
 		Record<string, string>,
-		Partial<ListBillingChargesQuery>,
+		ListBillingChargesQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -6374,7 +6374,7 @@ export async function getRedirects(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetRedirectsQuery>;
+		queryParams: GetRedirectsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6391,7 +6391,7 @@ export async function getRedirects(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetRedirectsQuery>,
+		GetRedirectsQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -6416,7 +6416,7 @@ export async function deleteRedirects(
 		config,
 	}: {
 		body?: DeleteRedirectsBody;
-		queryParams?: Partial<DeleteRedirectsQuery>;
+		queryParams: DeleteRedirectsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6434,7 +6434,7 @@ export async function deleteRedirects(
 		>,
 		DeleteRedirectsBody,
 		Record<string, string>,
-		Partial<DeleteRedirectsQuery>,
+		DeleteRedirectsQuery,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -6460,7 +6460,7 @@ export async function editRedirect(
 		config,
 	}: {
 		body?: EditRedirectBody;
-		queryParams?: Partial<EditRedirectQuery>;
+		queryParams: EditRedirectQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6478,7 +6478,7 @@ export async function editRedirect(
 		>,
 		EditRedirectBody,
 		Record<string, string>,
-		Partial<EditRedirectQuery>,
+		EditRedirectQuery,
 		Record<string, string>
 	>({
 		method: "PATCH",
@@ -6504,7 +6504,7 @@ export async function restoreRedirects(
 		config,
 	}: {
 		body?: RestoreRedirectsBody;
-		queryParams?: Partial<RestoreRedirectsQuery>;
+		queryParams: RestoreRedirectsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6522,7 +6522,7 @@ export async function restoreRedirects(
 		>,
 		RestoreRedirectsBody,
 		Record<string, string>,
-		Partial<RestoreRedirectsQuery>,
+		RestoreRedirectsQuery,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -6546,7 +6546,7 @@ export async function getVersions(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetVersionsQuery>;
+		queryParams: GetVersionsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6564,7 +6564,7 @@ export async function getVersions(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetVersionsQuery>,
+		GetVersionsQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -6589,7 +6589,7 @@ export async function updateVersion(
 		config,
 	}: {
 		body?: UpdateVersionBody;
-		queryParams?: Partial<UpdateVersionQuery>;
+		queryParams: UpdateVersionQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6607,7 +6607,7 @@ export async function updateVersion(
 		>,
 		UpdateVersionBody,
 		Record<string, string>,
-		Partial<UpdateVersionQuery>,
+		UpdateVersionQuery,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -7648,7 +7648,7 @@ export async function listPrivateLinkEndpoints(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ListPrivateLinkEndpointsQuery>;
+		queryParams: ListPrivateLinkEndpointsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7665,7 +7665,7 @@ export async function listPrivateLinkEndpoints(
 		>,
 		null,
 		Record<string, string>,
-		Partial<ListPrivateLinkEndpointsQuery>,
+		ListPrivateLinkEndpointsQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -7690,7 +7690,7 @@ export async function readPrivateLinkEndpoint(
 		config,
 	}: {
 		pathParams: ReadPrivateLinkEndpointPath;
-		queryParams?: Partial<ReadPrivateLinkEndpointQuery>;
+		queryParams: ReadPrivateLinkEndpointQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7710,7 +7710,7 @@ export async function readPrivateLinkEndpoint(
 		>,
 		null,
 		Record<string, string>,
-		Partial<ReadPrivateLinkEndpointQuery>,
+		ReadPrivateLinkEndpointQuery,
 		ReadPrivateLinkEndpointPath
 	>({
 		method: "GET",
@@ -7735,7 +7735,7 @@ export async function deletePrivateLinkEndpoint(
 		config,
 	}: {
 		pathParams: DeletePrivateLinkEndpointPath;
-		queryParams?: Partial<DeletePrivateLinkEndpointQuery>;
+		queryParams: DeletePrivateLinkEndpointQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7758,7 +7758,7 @@ export async function deletePrivateLinkEndpoint(
 		>,
 		null,
 		Record<string, string>,
-		Partial<DeletePrivateLinkEndpointQuery>,
+		DeletePrivateLinkEndpointQuery,
 		DeletePrivateLinkEndpointPath
 	>({
 		method: "DELETE",
@@ -7785,7 +7785,7 @@ export async function updatePrivateLinkEndpoint(
 	}: {
 		pathParams: UpdatePrivateLinkEndpointPath;
 		body?: UpdatePrivateLinkEndpointBody;
-		queryParams?: Partial<UpdatePrivateLinkEndpointQuery>;
+		queryParams: UpdatePrivateLinkEndpointQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -7808,7 +7808,7 @@ export async function updatePrivateLinkEndpoint(
 		>,
 		UpdatePrivateLinkEndpointBody,
 		Record<string, string>,
-		Partial<UpdatePrivateLinkEndpointQuery>,
+		UpdatePrivateLinkEndpointQuery,
 		UpdatePrivateLinkEndpointPath
 	>({
 		method: "PATCH",
@@ -10982,7 +10982,7 @@ export async function invalidateByTags(
 		config,
 	}: {
 		body?: InvalidateByTagsBody;
-		queryParams?: Partial<InvalidateByTagsQuery>;
+		queryParams: InvalidateByTagsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10999,7 +10999,7 @@ export async function invalidateByTags(
 		>,
 		InvalidateByTagsBody,
 		Record<string, string>,
-		Partial<InvalidateByTagsQuery>,
+		InvalidateByTagsQuery,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -11025,7 +11025,7 @@ export async function dangerouslyDeleteByTags(
 		config,
 	}: {
 		body?: DangerouslyDeleteByTagsBody;
-		queryParams?: Partial<DangerouslyDeleteByTagsQuery>;
+		queryParams: DangerouslyDeleteByTagsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11042,7 +11042,7 @@ export async function dangerouslyDeleteByTags(
 		>,
 		DangerouslyDeleteByTagsBody,
 		Record<string, string>,
-		Partial<DangerouslyDeleteByTagsQuery>,
+		DangerouslyDeleteByTagsQuery,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -11068,7 +11068,7 @@ export async function invalidateBySrcImages(
 		config,
 	}: {
 		body?: InvalidateBySrcImagesBody;
-		queryParams?: Partial<InvalidateBySrcImagesQuery>;
+		queryParams: InvalidateBySrcImagesQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11086,7 +11086,7 @@ export async function invalidateBySrcImages(
 		>,
 		InvalidateBySrcImagesBody,
 		Record<string, string>,
-		Partial<InvalidateBySrcImagesQuery>,
+		InvalidateBySrcImagesQuery,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -11112,7 +11112,7 @@ export async function dangerouslyDeleteBySrcImages(
 		config,
 	}: {
 		body?: DangerouslyDeleteBySrcImagesBody;
-		queryParams?: Partial<DangerouslyDeleteBySrcImagesQuery>;
+		queryParams: DangerouslyDeleteBySrcImagesQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11130,7 +11130,7 @@ export async function dangerouslyDeleteBySrcImages(
 		>,
 		DangerouslyDeleteBySrcImagesBody,
 		Record<string, string>,
-		Partial<DangerouslyDeleteBySrcImagesQuery>,
+		DangerouslyDeleteBySrcImagesQuery,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -12802,7 +12802,7 @@ export async function listFlagLabels(
 		config,
 	}: {
 		pathParams: ListFlagLabelsPath;
-		queryParams?: Partial<ListFlagLabelsQuery>;
+		queryParams: ListFlagLabelsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -12823,7 +12823,7 @@ export async function listFlagLabels(
 		>,
 		null,
 		Record<string, string>,
-		Partial<ListFlagLabelsQuery>,
+		ListFlagLabelsQuery,
 		ListFlagLabelsPath
 	>({
 		method: "GET",
@@ -14654,7 +14654,7 @@ export async function getConfigurations(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetConfigurationsQuery>;
+		queryParams: GetConfigurationsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14671,7 +14671,7 @@ export async function getConfigurations(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetConfigurationsQuery>,
+		GetConfigurationsQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -17323,7 +17323,7 @@ export async function getProjectTrace(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetProjectTraceQuery>;
+		queryParams: GetProjectTraceQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -17340,7 +17340,7 @@ export async function getProjectTrace(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetProjectTraceQuery>,
+		GetProjectTraceQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -21272,7 +21272,7 @@ export async function putFirewallConfig(
 		config,
 	}: {
 		body: PutFirewallConfigBody;
-		queryParams?: Partial<PutFirewallConfigQuery>;
+		queryParams: PutFirewallConfigQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21291,7 +21291,7 @@ export async function putFirewallConfig(
 		>,
 		PutFirewallConfigBody,
 		Record<string, string>,
-		Partial<PutFirewallConfigQuery>,
+		PutFirewallConfigQuery,
 		Record<string, string>
 	>({
 		method: "PUT",
@@ -21317,7 +21317,7 @@ export async function updateFirewallConfig(
 		config,
 	}: {
 		body: UpdateFirewallConfigBody;
-		queryParams?: Partial<UpdateFirewallConfigQuery>;
+		queryParams: UpdateFirewallConfigQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21336,7 +21336,7 @@ export async function updateFirewallConfig(
 		>,
 		UpdateFirewallConfigBody,
 		Record<string, string>,
-		Partial<UpdateFirewallConfigQuery>,
+		UpdateFirewallConfigQuery,
 		Record<string, string>
 	>({
 		method: "PATCH",
@@ -21362,7 +21362,7 @@ export async function getFirewallConfig(
 		config,
 	}: {
 		pathParams: GetFirewallConfigPath;
-		queryParams?: Partial<GetFirewallConfigQuery>;
+		queryParams: GetFirewallConfigQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21382,7 +21382,7 @@ export async function getFirewallConfig(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetFirewallConfigQuery>,
+		GetFirewallConfigQuery,
 		GetFirewallConfigPath
 	>({
 		method: "GET",
@@ -21492,7 +21492,7 @@ export async function getActiveAttackStatus(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetActiveAttackStatusQuery>;
+		queryParams: GetActiveAttackStatusQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21509,7 +21509,7 @@ export async function getActiveAttackStatus(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetActiveAttackStatusQuery>,
+		GetActiveAttackStatusQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -21532,7 +21532,7 @@ export async function getBypassIp(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetBypassIpQuery>;
+		queryParams: GetBypassIpQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21551,7 +21551,7 @@ export async function getBypassIp(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetBypassIpQuery>,
+		GetBypassIpQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -21576,7 +21576,7 @@ export async function addBypassIp(
 		config,
 	}: {
 		body?: AddBypassIpBody;
-		queryParams?: Partial<AddBypassIpQuery>;
+		queryParams: AddBypassIpQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21595,7 +21595,7 @@ export async function addBypassIp(
 		>,
 		AddBypassIpBody,
 		Record<string, string>,
-		Partial<AddBypassIpQuery>,
+		AddBypassIpQuery,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -21621,7 +21621,7 @@ export async function removeBypassIp(
 		config,
 	}: {
 		body?: RemoveBypassIpBody;
-		queryParams?: Partial<RemoveBypassIpQuery>;
+		queryParams: RemoveBypassIpQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21640,7 +21640,7 @@ export async function removeBypassIp(
 		>,
 		RemoveBypassIpBody,
 		Record<string, string>,
-		Partial<RemoveBypassIpQuery>,
+		RemoveBypassIpQuery,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -21664,7 +21664,7 @@ export async function getConditionalBypass(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetConditionalBypassQuery>;
+		queryParams: GetConditionalBypassQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21681,7 +21681,7 @@ export async function getConditionalBypass(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetConditionalBypassQuery>,
+		GetConditionalBypassQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -21706,7 +21706,7 @@ export async function createConditionalBypass(
 		config,
 	}: {
 		body?: CreateConditionalBypassBody;
-		queryParams?: Partial<CreateConditionalBypassQuery>;
+		queryParams: CreateConditionalBypassQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21724,7 +21724,7 @@ export async function createConditionalBypass(
 		>,
 		CreateConditionalBypassBody,
 		Record<string, string>,
-		Partial<CreateConditionalBypassQuery>,
+		CreateConditionalBypassQuery,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -21750,7 +21750,7 @@ export async function updateConditionalBypass(
 		config,
 	}: {
 		body?: UpdateConditionalBypassBody;
-		queryParams?: Partial<UpdateConditionalBypassQuery>;
+		queryParams: UpdateConditionalBypassQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21767,7 +21767,7 @@ export async function updateConditionalBypass(
 		>,
 		UpdateConditionalBypassBody,
 		Record<string, string>,
-		Partial<UpdateConditionalBypassQuery>,
+		UpdateConditionalBypassQuery,
 		Record<string, string>
 	>({
 		method: "PUT",
@@ -21791,7 +21791,7 @@ export async function deleteConditionalBypass(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<DeleteConditionalBypassQuery>;
+		queryParams: DeleteConditionalBypassQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21808,7 +21808,7 @@ export async function deleteConditionalBypass(
 		>,
 		null,
 		Record<string, string>,
-		Partial<DeleteConditionalBypassQuery>,
+		DeleteConditionalBypassQuery,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -21831,7 +21831,7 @@ export async function getSecurityFirewallEvents(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetSecurityFirewallEventsQuery>;
+		queryParams: GetSecurityFirewallEventsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21850,7 +21850,7 @@ export async function getSecurityFirewallEvents(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetSecurityFirewallEventsQuery>,
+		GetSecurityFirewallEventsQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -21873,7 +21873,7 @@ export async function getSecurityFirewallEventsSummary(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetSecurityFirewallEventsSummaryQuery>;
+		queryParams: GetSecurityFirewallEventsSummaryQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21892,7 +21892,7 @@ export async function getSecurityFirewallEventsSummary(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetSecurityFirewallEventsSummaryQuery>,
+		GetSecurityFirewallEventsSummaryQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -21957,7 +21957,7 @@ export async function createSpeedInsightsToggle(
 		config,
 	}: {
 		body?: CreateSpeedInsightsToggleBody;
-		queryParams?: Partial<CreateSpeedInsightsToggleQuery>;
+		queryParams: CreateSpeedInsightsToggleQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -21975,7 +21975,7 @@ export async function createSpeedInsightsToggle(
 		>,
 		CreateSpeedInsightsToggleBody,
 		Record<string, string>,
-		Partial<CreateSpeedInsightsToggleQuery>,
+		CreateSpeedInsightsToggleQuery,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -23256,7 +23256,7 @@ export async function listRepositories(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ListRepositoriesQuery>;
+		queryParams: ListRepositoriesQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23273,7 +23273,7 @@ export async function listRepositories(
 		>,
 		null,
 		Record<string, string>,
-		Partial<ListRepositoriesQuery>,
+		ListRepositoriesQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -23298,7 +23298,7 @@ export async function getRepository(
 		config,
 	}: {
 		pathParams: GetRepositoryPath;
-		queryParams?: Partial<GetRepositoryQuery>;
+		queryParams: GetRepositoryQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23318,7 +23318,7 @@ export async function getRepository(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetRepositoryQuery>,
+		GetRepositoryQuery,
 		GetRepositoryPath
 	>({
 		method: "GET",
@@ -23343,7 +23343,7 @@ export async function deleteRepository(
 		config,
 	}: {
 		pathParams: DeleteRepositoryPath;
-		queryParams?: Partial<DeleteRepositoryQuery>;
+		queryParams: DeleteRepositoryQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23363,7 +23363,7 @@ export async function deleteRepository(
 		>,
 		null,
 		Record<string, string>,
-		Partial<DeleteRepositoryQuery>,
+		DeleteRepositoryQuery,
 		DeleteRepositoryPath
 	>({
 		method: "DELETE",
@@ -23388,7 +23388,7 @@ export async function listRepositoryImages(
 		config,
 	}: {
 		pathParams: ListRepositoryImagesPath;
-		queryParams?: Partial<ListRepositoryImagesQuery>;
+		queryParams: ListRepositoryImagesQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23408,7 +23408,7 @@ export async function listRepositoryImages(
 		>,
 		null,
 		Record<string, string>,
-		Partial<ListRepositoryImagesQuery>,
+		ListRepositoryImagesQuery,
 		ListRepositoryImagesPath
 	>({
 		method: "GET",
@@ -23435,7 +23435,7 @@ export async function addRepositoryPermission(
 	}: {
 		pathParams: AddRepositoryPermissionPath;
 		body?: AddRepositoryPermissionBody;
-		queryParams?: Partial<AddRepositoryPermissionQuery>;
+		queryParams: AddRepositoryPermissionQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23455,7 +23455,7 @@ export async function addRepositoryPermission(
 		>,
 		AddRepositoryPermissionBody,
 		Record<string, string>,
-		Partial<AddRepositoryPermissionQuery>,
+		AddRepositoryPermissionQuery,
 		AddRepositoryPermissionPath
 	>({
 		method: "POST",
@@ -23483,7 +23483,7 @@ export async function removeRepositoryPermission(
 	}: {
 		pathParams: RemoveRepositoryPermissionPath;
 		body?: RemoveRepositoryPermissionBody;
-		queryParams?: Partial<RemoveRepositoryPermissionQuery>;
+		queryParams: RemoveRepositoryPermissionQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23503,7 +23503,7 @@ export async function removeRepositoryPermission(
 		>,
 		RemoveRepositoryPermissionBody,
 		Record<string, string>,
-		Partial<RemoveRepositoryPermissionQuery>,
+		RemoveRepositoryPermissionQuery,
 		RemoveRepositoryPermissionPath
 	>({
 		method: "DELETE",
@@ -23529,7 +23529,7 @@ export async function listRepositoryPermissions(
 		config,
 	}: {
 		pathParams: ListRepositoryPermissionsPath;
-		queryParams?: Partial<ListRepositoryPermissionsQuery>;
+		queryParams: ListRepositoryPermissionsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23549,7 +23549,7 @@ export async function listRepositoryPermissions(
 		>,
 		null,
 		Record<string, string>,
-		Partial<ListRepositoryPermissionsQuery>,
+		ListRepositoryPermissionsQuery,
 		ListRepositoryPermissionsPath
 	>({
 		method: "GET",
@@ -23574,7 +23574,7 @@ export async function clearRepositoryPermissions(
 		config,
 	}: {
 		pathParams: ClearRepositoryPermissionsPath;
-		queryParams?: Partial<ClearRepositoryPermissionsQuery>;
+		queryParams: ClearRepositoryPermissionsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23594,7 +23594,7 @@ export async function clearRepositoryPermissions(
 		>,
 		null,
 		Record<string, string>,
-		Partial<ClearRepositoryPermissionsQuery>,
+		ClearRepositoryPermissionsQuery,
 		ClearRepositoryPermissionsPath
 	>({
 		method: "DELETE",
@@ -23619,7 +23619,7 @@ export async function listRepositoryTags(
 		config,
 	}: {
 		pathParams: ListRepositoryTagsPath;
-		queryParams?: Partial<ListRepositoryTagsQuery>;
+		queryParams: ListRepositoryTagsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23639,7 +23639,7 @@ export async function listRepositoryTags(
 		>,
 		null,
 		Record<string, string>,
-		Partial<ListRepositoryTagsQuery>,
+		ListRepositoryTagsQuery,
 		ListRepositoryTagsPath
 	>({
 		method: "GET",
@@ -23664,7 +23664,7 @@ export async function getRepositoryTag(
 		config,
 	}: {
 		pathParams: GetRepositoryTagPath;
-		queryParams?: Partial<GetRepositoryTagQuery>;
+		queryParams: GetRepositoryTagQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23688,7 +23688,7 @@ export async function getRepositoryTag(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetRepositoryTagQuery>,
+		GetRepositoryTagQuery,
 		GetRepositoryTagPath
 	>({
 		method: "GET",
@@ -23713,7 +23713,7 @@ export async function getRepositoryImage(
 		config,
 	}: {
 		pathParams: GetRepositoryImagePath;
-		queryParams?: Partial<GetRepositoryImageQuery>;
+		queryParams: GetRepositoryImageQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23737,7 +23737,7 @@ export async function getRepositoryImage(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetRepositoryImageQuery>,
+		GetRepositoryImageQuery,
 		GetRepositoryImagePath
 	>({
 		method: "GET",
@@ -23762,7 +23762,7 @@ export async function deleteRepositoryImage(
 		config,
 	}: {
 		pathParams: DeleteRepositoryImagePath;
-		queryParams?: Partial<DeleteRepositoryImageQuery>;
+		queryParams: DeleteRepositoryImageQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23786,7 +23786,7 @@ export async function deleteRepositoryImage(
 		>,
 		null,
 		Record<string, string>,
-		Partial<DeleteRepositoryImageQuery>,
+		DeleteRepositoryImageQuery,
 		DeleteRepositoryImagePath
 	>({
 		method: "DELETE",
@@ -24124,7 +24124,7 @@ export async function replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploads
 		config,
 	}: {
 		pathParams: ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath;
-		queryParams?: Partial<ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidQuery>;
+		queryParams: ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24159,7 +24159,7 @@ export async function replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploads
 		>,
 		null,
 		Record<string, string>,
-		Partial<ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidQuery>,
+		ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidQuery,
 		ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath
 	>({
 		method: "PUT",
@@ -24456,7 +24456,7 @@ export async function getVercelCiRepositorySettings(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetVercelCiRepositorySettingsQuery>;
+		queryParams: GetVercelCiRepositorySettingsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24476,7 +24476,7 @@ export async function getVercelCiRepositorySettings(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetVercelCiRepositorySettingsQuery>,
+		GetVercelCiRepositorySettingsQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -24501,7 +24501,7 @@ export async function updateVercelCiRepositorySettings(
 		config,
 	}: {
 		body?: UpdateVercelCiRepositorySettingsBody;
-		queryParams?: Partial<UpdateVercelCiRepositorySettingsQuery>;
+		queryParams: UpdateVercelCiRepositorySettingsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24521,7 +24521,7 @@ export async function updateVercelCiRepositorySettings(
 		>,
 		UpdateVercelCiRepositorySettingsBody,
 		Record<string, string>,
-		Partial<UpdateVercelCiRepositorySettingsQuery>,
+		UpdateVercelCiRepositorySettingsQuery,
 		Record<string, string>
 	>({
 		method: "PATCH",
@@ -25461,7 +25461,7 @@ export async function searchVercelCiLogs(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<SearchVercelCiLogsQuery>;
+		queryParams: SearchVercelCiLogsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25480,7 +25480,7 @@ export async function searchVercelCiLogs(
 		>,
 		null,
 		Record<string, string>,
-		Partial<SearchVercelCiLogsQuery>,
+		SearchVercelCiLogsQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -25629,7 +25629,7 @@ export async function createWebInsightsToggle(
 		config,
 	}: {
 		body?: CreateWebInsightsToggleBody;
-		queryParams?: Partial<CreateWebInsightsToggleQuery>;
+		queryParams: CreateWebInsightsToggleQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25646,7 +25646,7 @@ export async function createWebInsightsToggle(
 		>,
 		CreateWebInsightsToggleBody,
 		Record<string, string>,
-		Partial<CreateWebInsightsToggleQuery>,
+		CreateWebInsightsToggleQuery,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -25670,7 +25670,7 @@ export async function aggregatePageviews(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<AggregatePageviewsQuery>;
+		queryParams: AggregatePageviewsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25689,7 +25689,7 @@ export async function aggregatePageviews(
 		>,
 		null,
 		Record<string, string>,
-		Partial<AggregatePageviewsQuery>,
+		AggregatePageviewsQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -25712,7 +25712,7 @@ export async function aggregateEvents(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<AggregateEventsQuery>;
+		queryParams: AggregateEventsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25731,7 +25731,7 @@ export async function aggregateEvents(
 		>,
 		null,
 		Record<string, string>,
-		Partial<AggregateEventsQuery>,
+		AggregateEventsQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -25754,7 +25754,7 @@ export async function countPageviews(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<CountPageviewsQuery>;
+		queryParams: CountPageviewsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25773,7 +25773,7 @@ export async function countPageviews(
 		>,
 		null,
 		Record<string, string>,
-		Partial<CountPageviewsQuery>,
+		CountPageviewsQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -25796,7 +25796,7 @@ export async function countEvents(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<CountEventsQuery>;
+		queryParams: CountEventsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25815,7 +25815,7 @@ export async function countEvents(
 		>,
 		null,
 		Record<string, string>,
-		Partial<CountEventsQuery>,
+		CountEventsQuery,
 		Record<string, string>
 	>({
 		method: "GET",

@@ -2452,7 +2452,7 @@ export async function assginGroup(
 		config,
 	}: {
 		pathParams: AssginGroupPath;
-		queryParams?: Partial<AssginGroupQuery>;
+		queryParams: AssginGroupQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2468,7 +2468,7 @@ export async function assginGroup(
 		>,
 		null,
 		Record<string, string>,
-		Partial<AssginGroupQuery>,
+		AssginGroupQuery,
 		AssginGroupPath
 	>({
 		method: "PATCH",
@@ -4866,7 +4866,7 @@ export async function getBillingInvoicesReports(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetBillingInvoicesReportsQuery>;
+		queryParams: GetBillingInvoicesReportsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4881,7 +4881,7 @@ export async function getBillingInvoicesReports(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetBillingInvoicesReportsQuery>,
+		GetBillingInvoicesReportsQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4908,7 +4908,7 @@ export async function reportCloudRecording(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ReportCloudRecordingQuery>;
+		queryParams: ReportCloudRecordingQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4919,7 +4919,7 @@ export async function reportCloudRecording(
 		ErrorWrapper<ReportCloudRecordingStatus400 | ReportCloudRecordingStatus429>,
 		null,
 		Record<string, string>,
-		Partial<ReportCloudRecordingQuery>,
+		ReportCloudRecordingQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4983,7 +4983,7 @@ export async function getdisclaimerreport(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetdisclaimerreportQuery>;
+		queryParams: GetdisclaimerreportQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4999,7 +4999,7 @@ export async function getdisclaimerreport(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetdisclaimerreportQuery>,
+		GetdisclaimerreportQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5025,7 +5025,7 @@ export async function gethistorymeetingandwebinarlist(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GethistorymeetingandwebinarlistQuery>;
+		queryParams: GethistorymeetingandwebinarlistQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5041,7 +5041,7 @@ export async function gethistorymeetingandwebinarlist(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GethistorymeetingandwebinarlistQuery>,
+		GethistorymeetingandwebinarlistQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5067,7 +5067,7 @@ export async function reportMeetingactivitylogs(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ReportMeetingactivitylogsQuery>;
+		queryParams: ReportMeetingactivitylogsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5083,7 +5083,7 @@ export async function reportMeetingactivitylogs(
 		>,
 		null,
 		Record<string, string>,
-		Partial<ReportMeetingactivitylogsQuery>,
+		ReportMeetingactivitylogsQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5333,7 +5333,7 @@ export async function reportOperationLogs(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ReportOperationLogsQuery>;
+		queryParams: ReportOperationLogsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5344,7 +5344,7 @@ export async function reportOperationLogs(
 		ErrorWrapper<ReportOperationLogsStatus400 | ReportOperationLogsStatus429>,
 		null,
 		Record<string, string>,
-		Partial<ReportOperationLogsQuery>,
+		ReportOperationLogsQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5370,7 +5370,7 @@ export async function getremotesupportreport(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetremotesupportreportQuery>;
+		queryParams: GetremotesupportreportQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5385,7 +5385,7 @@ export async function getremotesupportreport(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetremotesupportreportQuery>,
+		GetremotesupportreportQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5413,7 +5413,7 @@ export async function reportTelephone(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ReportTelephoneQuery>;
+		queryParams: ReportTelephoneQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5429,7 +5429,7 @@ export async function reportTelephone(
 		>,
 		null,
 		Record<string, string>,
-		Partial<ReportTelephoneQuery>,
+		ReportTelephoneQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5457,7 +5457,7 @@ export async function reportUpcomingEvents(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ReportUpcomingEventsQuery>;
+		queryParams: ReportUpcomingEventsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5468,7 +5468,7 @@ export async function reportUpcomingEvents(
 		ErrorWrapper<ReportUpcomingEventsStatus400 | ReportUpcomingEventsStatus429>,
 		null,
 		Record<string, string>,
-		Partial<ReportUpcomingEventsQuery>,
+		ReportUpcomingEventsQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5502,7 +5502,7 @@ export async function reportUsers(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ReportUsersQuery>;
+		queryParams: ReportUsersQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5513,7 +5513,7 @@ export async function reportUsers(
 		ErrorWrapper<ReportUsersStatus400 | ReportUsersStatus429>,
 		null,
 		Record<string, string>,
-		Partial<ReportUsersQuery>,
+		ReportUsersQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -5544,7 +5544,7 @@ export async function reportMeetings(
 		config,
 	}: {
 		pathParams: ReportMeetingsPath;
-		queryParams?: Partial<ReportMeetingsQuery>;
+		queryParams: ReportMeetingsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5558,7 +5558,7 @@ export async function reportMeetings(
 		ErrorWrapper<ReportMeetingsStatus400 | ReportMeetingsStatus404 | ReportMeetingsStatus429>,
 		null,
 		Record<string, string>,
-		Partial<ReportMeetingsQuery>,
+		ReportMeetingsQuery,
 		ReportMeetingsPath
 	>({
 		method: "GET",

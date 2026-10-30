@@ -144,9 +144,12 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 	const isRawBody =
 		hasBody && !isFormData && !isUrlEncoded && !isOtherJson && contentType !== "application/json";
 
-	// plugin-ts types each parameter from its schema, refs and unions included; query and header params stay optional as before.
+	// plugin-ts types each parameter from its schema, refs and unions included; header params stay optional as before.
 	const pathParamsType = typeSchemas.path?.name ?? "Record<string, never>";
-	const queryParamsType = `Partial<${typeSchemas.query?.name ?? "Record<string, never>"}>`;
+	const requiresQueryParams = queryParams.some((param) => !param.optional);
+	const queryParamsType = requiresQueryParams
+		? (typeSchemas.query?.name ?? "Record<string, never>")
+		: `Partial<${typeSchemas.query?.name ?? "Record<string, never>"}>`;
 	const headerParamsType = `Partial<${typeSchemas.headers?.name ?? "Record<string, never>"}>`;
 	const bodyType = isRawBody ? RAW_BODY_TYPE : typeSchemas.request?.name;
 
@@ -159,7 +162,7 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 		fields.push(`body${required ? "" : "?"}: ${bodyType}`);
 	}
 	if (queryParams.length > 0) {
-		fields.push(`queryParams?: ${queryParamsType}`);
+		fields.push(`queryParams${requiresQueryParams ? "" : "?"}: ${queryParamsType}`);
 	}
 	if (headerParams.length > 0) {
 		fields.push(`headers?: ${headerParamsType}`);

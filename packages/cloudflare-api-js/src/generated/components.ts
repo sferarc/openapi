@@ -15511,7 +15511,7 @@ export async function sqlApiQueryGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<SqlApiQueryGetQuery>;
+		queryParams: SqlApiQueryGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15531,7 +15531,7 @@ export async function sqlApiQueryGet(
 		>,
 		null,
 		Record<string, string>,
-		Partial<SqlApiQueryGetQuery>,
+		SqlApiQueryGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -15600,7 +15600,7 @@ export async function sqlApiIntrospection(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<SqlApiIntrospectionQuery>;
+		queryParams: SqlApiIntrospectionQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15617,7 +15617,7 @@ export async function sqlApiIntrospection(
 		>,
 		null,
 		Record<string, string>,
-		Partial<SqlApiIntrospectionQuery>,
+		SqlApiIntrospectionQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -15674,7 +15674,7 @@ export async function originCaListCertificates(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<OriginCaListCertificatesQuery>;
+		queryParams: OriginCaListCertificatesQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15685,7 +15685,7 @@ export async function originCaListCertificates(
 		ErrorWrapper<OriginCaListCertificatesStatus400>,
 		null,
 		Record<string, string>,
-		Partial<OriginCaListCertificatesQuery>,
+		OriginCaListCertificatesQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -22592,7 +22592,7 @@ export async function radarGetEntitiesAsnByIp(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<RadarGetEntitiesAsnByIpQuery>;
+		queryParams: RadarGetEntitiesAsnByIpQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22603,7 +22603,7 @@ export async function radarGetEntitiesAsnByIp(
 		ErrorWrapper<RadarGetEntitiesAsnByIpStatus404>,
 		null,
 		Record<string, string>,
-		Partial<RadarGetEntitiesAsnByIpQuery>,
+		RadarGetEntitiesAsnByIpQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -22743,7 +22743,7 @@ export async function radarGetEntitiesIp(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<RadarGetEntitiesIpQuery>;
+		queryParams: RadarGetEntitiesIpQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22754,7 +22754,7 @@ export async function radarGetEntitiesIp(
 		ErrorWrapper<RadarGetEntitiesIpStatus404>,
 		null,
 		Record<string, string>,
-		Partial<RadarGetEntitiesIpQuery>,
+		RadarGetEntitiesIpQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -24311,7 +24311,7 @@ export async function radarGetOriginsSummary(
 		config,
 	}: {
 		pathParams: RadarGetOriginsSummaryPath;
-		queryParams?: Partial<RadarGetOriginsSummaryQuery>;
+		queryParams: RadarGetOriginsSummaryQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24325,7 +24325,7 @@ export async function radarGetOriginsSummary(
 		ErrorWrapper<RadarGetOriginsSummaryStatus400>,
 		null,
 		Record<string, string>,
-		Partial<RadarGetOriginsSummaryQuery>,
+		RadarGetOriginsSummaryQuery,
 		RadarGetOriginsSummaryPath
 	>({
 		method: "GET",
@@ -24348,7 +24348,7 @@ export async function radarGetOriginsTimeseries(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<RadarGetOriginsTimeseriesQuery>;
+		queryParams: RadarGetOriginsTimeseriesQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24359,7 +24359,7 @@ export async function radarGetOriginsTimeseries(
 		ErrorWrapper<RadarGetOriginsTimeseriesStatus400>,
 		null,
 		Record<string, string>,
-		Partial<RadarGetOriginsTimeseriesQuery>,
+		RadarGetOriginsTimeseriesQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -24384,7 +24384,7 @@ export async function radarGetOriginsTimeseriesGroup(
 		config,
 	}: {
 		pathParams: RadarGetOriginsTimeseriesGroupPath;
-		queryParams?: Partial<RadarGetOriginsTimeseriesGroupQuery>;
+		queryParams: RadarGetOriginsTimeseriesGroupQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24398,7 +24398,7 @@ export async function radarGetOriginsTimeseriesGroup(
 		ErrorWrapper<RadarGetOriginsTimeseriesGroupStatus400>,
 		null,
 		Record<string, string>,
-		Partial<RadarGetOriginsTimeseriesGroupQuery>,
+		RadarGetOriginsTimeseriesGroupQuery,
 		RadarGetOriginsTimeseriesGroupPath
 	>({
 		method: "GET",
@@ -24538,7 +24538,7 @@ export async function radarGetPostQuantumTlsSupport(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<RadarGetPostQuantumTlsSupportQuery>;
+		queryParams: RadarGetPostQuantumTlsSupportQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24549,7 +24549,7 @@ export async function radarGetPostQuantumTlsSupport(
 		ErrorWrapper<RadarGetPostQuantumTlsSupportStatus400>,
 		null,
 		Record<string, string>,
-		Partial<RadarGetPostQuantumTlsSupportQuery>,
+		RadarGetPostQuantumTlsSupportQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -24572,7 +24572,7 @@ export async function radarGetQualityIndexSummary(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<RadarGetQualityIndexSummaryQuery>;
+		queryParams: RadarGetQualityIndexSummaryQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24583,7 +24583,7 @@ export async function radarGetQualityIndexSummary(
 		ErrorWrapper<RadarGetQualityIndexSummaryStatus400>,
 		null,
 		Record<string, string>,
-		Partial<RadarGetQualityIndexSummaryQuery>,
+		RadarGetQualityIndexSummaryQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -24606,7 +24606,7 @@ export async function radarGetQualityIndexTimeseriesGroup(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<RadarGetQualityIndexTimeseriesGroupQuery>;
+		queryParams: RadarGetQualityIndexTimeseriesGroupQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24617,7 +24617,7 @@ export async function radarGetQualityIndexTimeseriesGroup(
 		ErrorWrapper<RadarGetQualityIndexTimeseriesGroupStatus400>,
 		null,
 		Record<string, string>,
-		Partial<RadarGetQualityIndexTimeseriesGroupQuery>,
+		RadarGetQualityIndexTimeseriesGroupQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -25053,7 +25053,7 @@ export async function radarGetSearchGlobal(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<RadarGetSearchGlobalQuery>;
+		queryParams: RadarGetSearchGlobalQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25064,7 +25064,7 @@ export async function radarGetSearchGlobal(
 		ErrorWrapper<RadarGetSearchGlobalStatus400>,
 		null,
 		Record<string, string>,
-		Partial<RadarGetSearchGlobalQuery>,
+		RadarGetSearchGlobalQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -30806,7 +30806,7 @@ export async function accessScimUpdateLogsListAccessScimUpdateLogs(
 		config,
 	}: {
 		pathParams: AccessScimUpdateLogsListAccessScimUpdateLogsPath;
-		queryParams?: Partial<AccessScimUpdateLogsListAccessScimUpdateLogsQuery>;
+		queryParams: AccessScimUpdateLogsListAccessScimUpdateLogsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -30820,7 +30820,7 @@ export async function accessScimUpdateLogsListAccessScimUpdateLogs(
 		ErrorWrapper<AccessScimUpdateLogsListAccessScimUpdateLogsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<AccessScimUpdateLogsListAccessScimUpdateLogsQuery>,
+		AccessScimUpdateLogsListAccessScimUpdateLogsQuery,
 		AccessScimUpdateLogsListAccessScimUpdateLogsPath
 	>({
 		method: "GET",
@@ -36019,7 +36019,7 @@ export async function aigBillingGetUsageHistory(
 		config,
 	}: {
 		pathParams: AigBillingGetUsageHistoryPath;
-		queryParams?: Partial<AigBillingGetUsageHistoryQuery>;
+		queryParams: AigBillingGetUsageHistoryQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -36037,7 +36037,7 @@ export async function aigBillingGetUsageHistory(
 		>,
 		null,
 		Record<string, string>,
-		Partial<AigBillingGetUsageHistoryQuery>,
+		AigBillingGetUsageHistoryQuery,
 		AigBillingGetUsageHistoryPath
 	>({
 		method: "GET",
@@ -37152,7 +37152,7 @@ export async function aigConfigDeleteGatewayLogs(
 		config,
 	}: {
 		pathParams: AigConfigDeleteGatewayLogsPath;
-		queryParams?: Partial<AigConfigDeleteGatewayLogsQuery>;
+		queryParams: AigConfigDeleteGatewayLogsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -37170,7 +37170,7 @@ export async function aigConfigDeleteGatewayLogs(
 		ErrorWrapper<AigConfigDeleteGatewayLogsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<AigConfigDeleteGatewayLogsQuery>,
+		AigConfigDeleteGatewayLogsQuery,
 		AigConfigDeleteGatewayLogsPath
 	>({
 		method: "DELETE",
@@ -37195,7 +37195,7 @@ export async function aigConfigListGatewayLogs(
 		config,
 	}: {
 		pathParams: AigConfigListGatewayLogsPath;
-		queryParams?: Partial<AigConfigListGatewayLogsQuery>;
+		queryParams: AigConfigListGatewayLogsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -37213,7 +37213,7 @@ export async function aigConfigListGatewayLogs(
 		ErrorWrapper<AigConfigListGatewayLogsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<AigConfigListGatewayLogsQuery>,
+		AigConfigListGatewayLogsQuery,
 		AigConfigListGatewayLogsPath
 	>({
 		method: "GET",
@@ -40990,7 +40990,7 @@ export async function workersAiGetModelSchema(
 		config,
 	}: {
 		pathParams: WorkersAiGetModelSchemaPath;
-		queryParams?: Partial<WorkersAiGetModelSchemaQuery>;
+		queryParams: WorkersAiGetModelSchemaQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -41004,7 +41004,7 @@ export async function workersAiGetModelSchema(
 		ErrorWrapper<WorkersAiGetModelSchemaStatus400>,
 		null,
 		Record<string, string>,
-		Partial<WorkersAiGetModelSchemaQuery>,
+		WorkersAiGetModelSchemaQuery,
 		WorkersAiGetModelSchemaPath
 	>({
 		method: "GET",
@@ -41981,7 +41981,7 @@ export async function notificationPoliciesShowEmailUnsubscribeDetails(
 		config,
 	}: {
 		pathParams: NotificationPoliciesShowEmailUnsubscribeDetailsPath;
-		queryParams?: Partial<NotificationPoliciesShowEmailUnsubscribeDetailsQuery>;
+		queryParams: NotificationPoliciesShowEmailUnsubscribeDetailsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -41999,7 +41999,7 @@ export async function notificationPoliciesShowEmailUnsubscribeDetails(
 		ErrorWrapper<NotificationPoliciesShowEmailUnsubscribeDetailsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<NotificationPoliciesShowEmailUnsubscribeDetailsQuery>,
+		NotificationPoliciesShowEmailUnsubscribeDetailsQuery,
 		NotificationPoliciesShowEmailUnsubscribeDetailsPath
 	>({
 		method: "GET",
@@ -42024,7 +42024,7 @@ export async function notificationPoliciesUnsubscribeEmailFromNotificationPolicy
 		config,
 	}: {
 		pathParams: NotificationPoliciesUnsubscribeEmailFromNotificationPolicyPath;
-		queryParams?: Partial<NotificationPoliciesUnsubscribeEmailFromNotificationPolicyQuery>;
+		queryParams: NotificationPoliciesUnsubscribeEmailFromNotificationPolicyQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -42042,7 +42042,7 @@ export async function notificationPoliciesUnsubscribeEmailFromNotificationPolicy
 		ErrorWrapper<NotificationPoliciesUnsubscribeEmailFromNotificationPolicyStatus400>,
 		null,
 		Record<string, string>,
-		Partial<NotificationPoliciesUnsubscribeEmailFromNotificationPolicyQuery>,
+		NotificationPoliciesUnsubscribeEmailFromNotificationPolicyQuery,
 		NotificationPoliciesUnsubscribeEmailFromNotificationPolicyPath
 	>({
 		method: "POST",
@@ -42574,7 +42574,7 @@ export async function sqlApiQueryGetAccountScoped(
 		config,
 	}: {
 		pathParams: SqlApiQueryGetAccountScopedPath;
-		queryParams?: Partial<SqlApiQueryGetAccountScopedQuery>;
+		queryParams: SqlApiQueryGetAccountScopedQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -42597,7 +42597,7 @@ export async function sqlApiQueryGetAccountScoped(
 		>,
 		null,
 		Record<string, string>,
-		Partial<SqlApiQueryGetAccountScopedQuery>,
+		SqlApiQueryGetAccountScopedQuery,
 		SqlApiQueryGetAccountScopedPath
 	>({
 		method: "GET",
@@ -42715,7 +42715,7 @@ export async function analyticsEngineSqlQueryGet(
 		config,
 	}: {
 		pathParams: AnalyticsEngineSqlQueryGetPath;
-		queryParams?: Partial<AnalyticsEngineSqlQueryGetQuery>;
+		queryParams: AnalyticsEngineSqlQueryGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -42737,7 +42737,7 @@ export async function analyticsEngineSqlQueryGet(
 		>,
 		null,
 		Record<string, string>,
-		Partial<AnalyticsEngineSqlQueryGetQuery>,
+		AnalyticsEngineSqlQueryGetQuery,
 		AnalyticsEngineSqlQueryGetPath
 	>({
 		method: "GET",
@@ -43334,7 +43334,7 @@ export async function artifactsReposFileGet(
 		config,
 	}: {
 		pathParams: ArtifactsReposFileGetPath;
-		queryParams?: Partial<ArtifactsReposFileGetQuery>;
+		queryParams: ArtifactsReposFileGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -43363,7 +43363,7 @@ export async function artifactsReposFileGet(
 		>,
 		null,
 		Record<string, string>,
-		Partial<ArtifactsReposFileGetQuery>,
+		ArtifactsReposFileGetQuery,
 		ArtifactsReposFileGetPath
 	>({
 		method: "GET",
@@ -49253,7 +49253,7 @@ export async function brapiGetRecordingNetwork(
 		config,
 	}: {
 		pathParams: BrapiGetRecordingNetworkPath;
-		queryParams?: Partial<BrapiGetRecordingNetworkQuery>;
+		queryParams: BrapiGetRecordingNetworkQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -49271,7 +49271,7 @@ export async function brapiGetRecordingNetwork(
 		ErrorWrapper<BrapiGetRecordingNetworkStatus404 | BrapiGetRecordingNetworkStatus500>,
 		null,
 		Record<string, string>,
-		Partial<BrapiGetRecordingNetworkQuery>,
+		BrapiGetRecordingNetworkQuery,
 		BrapiGetRecordingNetworkPath
 	>({
 		method: "GET",
@@ -49473,7 +49473,7 @@ export async function getBuildsByVersionIds(
 		config,
 	}: {
 		pathParams: GetBuildsByVersionIdsPath;
-		queryParams?: Partial<GetBuildsByVersionIdsQuery>;
+		queryParams: GetBuildsByVersionIdsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -49487,7 +49487,7 @@ export async function getBuildsByVersionIds(
 		ErrorWrapper<GetBuildsByVersionIdsStatus401>,
 		null,
 		Record<string, string>,
-		Partial<GetBuildsByVersionIdsQuery>,
+		GetBuildsByVersionIdsQuery,
 		GetBuildsByVersionIdsPath
 	>({
 		method: "GET",
@@ -49512,7 +49512,7 @@ export async function getLatestBuildsByScripts(
 		config,
 	}: {
 		pathParams: GetLatestBuildsByScriptsPath;
-		queryParams?: Partial<GetLatestBuildsByScriptsQuery>;
+		queryParams: GetLatestBuildsByScriptsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -49526,7 +49526,7 @@ export async function getLatestBuildsByScripts(
 		ErrorWrapper<GetLatestBuildsByScriptsStatus401>,
 		null,
 		Record<string, string>,
-		Partial<GetLatestBuildsByScriptsQuery>,
+		GetLatestBuildsByScriptsQuery,
 		GetLatestBuildsByScriptsPath
 	>({
 		method: "GET",
@@ -49753,7 +49753,7 @@ export async function getWorkerConfigAutofill(
 		config,
 	}: {
 		pathParams: GetWorkerConfigAutofillPath;
-		queryParams?: Partial<GetWorkerConfigAutofillQuery>;
+		queryParams: GetWorkerConfigAutofillQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -49779,7 +49779,7 @@ export async function getWorkerConfigAutofill(
 		ErrorWrapper<GetWorkerConfigAutofillStatus401>,
 		null,
 		Record<string, string>,
-		Partial<GetWorkerConfigAutofillQuery>,
+		GetWorkerConfigAutofillQuery,
 		GetWorkerConfigAutofillPath
 	>({
 		method: "GET",
@@ -52376,7 +52376,7 @@ export async function getEventListGet(
 		config,
 	}: {
 		pathParams: GetEventListGetPath;
-		queryParams?: Partial<GetEventListGetQuery>;
+		queryParams: GetEventListGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -52390,7 +52390,7 @@ export async function getEventListGet(
 		ErrorWrapper<GetEventListGetStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetEventListGetQuery>,
+		GetEventListGetQuery,
 		GetEventListGetPath
 	>({
 		method: "GET",
@@ -52457,7 +52457,7 @@ export async function getEventAggregate(
 		config,
 	}: {
 		pathParams: GetEventAggregatePath;
-		queryParams?: Partial<GetEventAggregateQuery>;
+		queryParams: GetEventAggregateQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -52471,7 +52471,7 @@ export async function getEventAggregate(
 		ErrorWrapper<GetEventAggregateStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetEventAggregateQuery>,
+		GetEventAggregateQuery,
 		GetEventAggregatePath
 	>({
 		method: "GET",
@@ -52535,7 +52535,7 @@ export async function getEventRelationships(
 		config,
 	}: {
 		pathParams: GetEventRelationshipsPath;
-		queryParams?: Partial<GetEventRelationshipsQuery>;
+		queryParams: GetEventRelationshipsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -52553,7 +52553,7 @@ export async function getEventRelationships(
 		ErrorWrapper<GetEventRelationshipsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetEventRelationshipsQuery>,
+		GetEventRelationshipsQuery,
 		GetEventRelationshipsPath
 	>({
 		method: "GET",
@@ -53718,7 +53718,7 @@ export async function deleteIndicatorDeleteBulk(
 		config,
 	}: {
 		pathParams: DeleteIndicatorDeleteBulkPath;
-		queryParams?: Partial<DeleteIndicatorDeleteBulkQuery>;
+		queryParams: DeleteIndicatorDeleteBulkQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -53736,7 +53736,7 @@ export async function deleteIndicatorDeleteBulk(
 		ErrorWrapper<DeleteIndicatorDeleteBulkStatus400 | DeleteIndicatorDeleteBulkStatus404>,
 		null,
 		Record<string, string>,
-		Partial<DeleteIndicatorDeleteBulkQuery>,
+		DeleteIndicatorDeleteBulkQuery,
 		DeleteIndicatorDeleteBulkPath
 	>({
 		method: "DELETE",
@@ -54070,7 +54070,7 @@ export async function getIndicatorRelationshipsList(
 		config,
 	}: {
 		pathParams: GetIndicatorRelationshipsListPath;
-		queryParams?: Partial<GetIndicatorRelationshipsListQuery>;
+		queryParams: GetIndicatorRelationshipsListQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -54092,7 +54092,7 @@ export async function getIndicatorRelationshipsList(
 		ErrorWrapper<GetIndicatorRelationshipsListStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetIndicatorRelationshipsListQuery>,
+		GetIndicatorRelationshipsListQuery,
 		GetIndicatorRelationshipsListPath
 	>({
 		method: "GET",
@@ -54488,7 +54488,7 @@ export async function getDatasetTagIndicatorsList(
 		config,
 	}: {
 		pathParams: GetDatasetTagIndicatorsListPath;
-		queryParams?: Partial<GetDatasetTagIndicatorsListQuery>;
+		queryParams: GetDatasetTagIndicatorsListQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -54514,7 +54514,7 @@ export async function getDatasetTagIndicatorsList(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetDatasetTagIndicatorsListQuery>,
+		GetDatasetTagIndicatorsListQuery,
 		GetDatasetTagIndicatorsListPath
 	>({
 		method: "GET",
@@ -54615,7 +54615,7 @@ export async function deleteEventDelete(
 		config,
 	}: {
 		pathParams: DeleteEventDeletePath;
-		queryParams?: Partial<DeleteEventDeleteQuery>;
+		queryParams: DeleteEventDeleteQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -54633,7 +54633,7 @@ export async function deleteEventDelete(
 		ErrorWrapper<DeleteEventDeleteStatus400>,
 		null,
 		Record<string, string>,
-		Partial<DeleteEventDeleteQuery>,
+		DeleteEventDeleteQuery,
 		DeleteEventDeletePath
 	>({
 		method: "DELETE",
@@ -55110,7 +55110,7 @@ export async function getIndicatorList(
 		config,
 	}: {
 		pathParams: GetIndicatorListPath;
-		queryParams?: Partial<GetIndicatorListQuery>;
+		queryParams: GetIndicatorListQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -55124,7 +55124,7 @@ export async function getIndicatorList(
 		ErrorWrapper<GetIndicatorListStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetIndicatorListQuery>,
+		GetIndicatorListQuery,
 		GetIndicatorListPath
 	>({
 		method: "GET",
@@ -55149,7 +55149,7 @@ export async function getIndicatorAggregate(
 		config,
 	}: {
 		pathParams: GetIndicatorAggregatePath;
-		queryParams?: Partial<GetIndicatorAggregateQuery>;
+		queryParams: GetIndicatorAggregateQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -55163,7 +55163,7 @@ export async function getIndicatorAggregate(
 		ErrorWrapper<GetIndicatorAggregateStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetIndicatorAggregateQuery>,
+		GetIndicatorAggregateQuery,
 		GetIndicatorAggregatePath
 	>({
 		method: "GET",
@@ -55726,7 +55726,7 @@ export async function getTagList(
 		config,
 	}: {
 		pathParams: GetTagListPath;
-		queryParams?: Partial<GetTagListQuery>;
+		queryParams: GetTagListQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -55740,7 +55740,7 @@ export async function getTagList(
 		ErrorWrapper<GetTagListStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetTagListQuery>,
+		GetTagListQuery,
 		GetTagListPath
 	>({
 		method: "GET",
@@ -55804,7 +55804,7 @@ export async function getTaggedActorList(
 		config,
 	}: {
 		pathParams: GetTaggedActorListPath;
-		queryParams?: Partial<GetTaggedActorListQuery>;
+		queryParams: GetTaggedActorListQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -55818,7 +55818,7 @@ export async function getTaggedActorList(
 		ErrorWrapper<GetTaggedActorListStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetTaggedActorListQuery>,
+		GetTaggedActorListQuery,
 		GetTaggedActorListPath
 	>({
 		method: "GET",
@@ -56174,7 +56174,7 @@ export async function getTagIndicatorsList(
 		config,
 	}: {
 		pathParams: GetTagIndicatorsListPath;
-		queryParams?: Partial<GetTagIndicatorsListQuery>;
+		queryParams: GetTagIndicatorsListQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -56194,7 +56194,7 @@ export async function getTagIndicatorsList(
 		>,
 		null,
 		Record<string, string>,
-		Partial<GetTagIndicatorsListQuery>,
+		GetTagIndicatorsListQuery,
 		GetTagIndicatorsListPath
 	>({
 		method: "GET",
@@ -56219,7 +56219,7 @@ export async function getTagRelationshipsList(
 		config,
 	}: {
 		pathParams: GetTagRelationshipsListPath;
-		queryParams?: Partial<GetTagRelationshipsListQuery>;
+		queryParams: GetTagRelationshipsListQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -56237,7 +56237,7 @@ export async function getTagRelationshipsList(
 		ErrorWrapper<GetTagRelationshipsListStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetTagRelationshipsListQuery>,
+		GetTagRelationshipsListQuery,
 		GetTagRelationshipsListPath
 	>({
 		method: "GET",
@@ -56305,7 +56305,7 @@ export async function deleteTagRelationshipDelete(
 		config,
 	}: {
 		pathParams: DeleteTagRelationshipDeletePath;
-		queryParams?: Partial<DeleteTagRelationshipDeleteQuery>;
+		queryParams: DeleteTagRelationshipDeleteQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -56327,7 +56327,7 @@ export async function deleteTagRelationshipDelete(
 		ErrorWrapper<DeleteTagRelationshipDeleteStatus400>,
 		null,
 		Record<string, string>,
-		Partial<DeleteTagRelationshipDeleteQuery>,
+		DeleteTagRelationshipDeleteQuery,
 		DeleteTagRelationshipDeletePath
 	>({
 		method: "DELETE",
@@ -56354,7 +56354,7 @@ export async function patchTagRelationshipUpdate(
 	}: {
 		pathParams: PatchTagRelationshipUpdatePath;
 		body?: PatchTagRelationshipUpdateBody;
-		queryParams?: Partial<PatchTagRelationshipUpdateQuery>;
+		queryParams: PatchTagRelationshipUpdateQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -56376,7 +56376,7 @@ export async function patchTagRelationshipUpdate(
 		ErrorWrapper<PatchTagRelationshipUpdateStatus400 | PatchTagRelationshipUpdateStatus404>,
 		PatchTagRelationshipUpdateBody,
 		Record<string, string>,
-		Partial<PatchTagRelationshipUpdateQuery>,
+		PatchTagRelationshipUpdateQuery,
 		PatchTagRelationshipUpdatePath
 	>({
 		method: "PATCH",
@@ -56517,7 +56517,7 @@ export async function deleteLegacyEventDelete(
 		config,
 	}: {
 		pathParams: DeleteLegacyEventDeletePath;
-		queryParams?: Partial<DeleteLegacyEventDeleteQuery>;
+		queryParams: DeleteLegacyEventDeleteQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -56535,7 +56535,7 @@ export async function deleteLegacyEventDelete(
 		ErrorWrapper<DeleteLegacyEventDeleteStatus400>,
 		null,
 		Record<string, string>,
-		Partial<DeleteLegacyEventDeleteQuery>,
+		DeleteLegacyEventDeleteQuery,
 		DeleteLegacyEventDeletePath
 	>({
 		method: "DELETE",
@@ -56826,7 +56826,7 @@ export async function getLegacyEventRelationships(
 		config,
 	}: {
 		pathParams: GetLegacyEventRelationshipsPath;
-		queryParams?: Partial<GetLegacyEventRelationshipsQuery>;
+		queryParams: GetLegacyEventRelationshipsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -56844,7 +56844,7 @@ export async function getLegacyEventRelationships(
 		ErrorWrapper<GetLegacyEventRelationshipsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetLegacyEventRelationshipsQuery>,
+		GetLegacyEventRelationshipsQuery,
 		GetLegacyEventRelationshipsPath
 	>({
 		method: "GET",
@@ -58327,7 +58327,7 @@ export async function cloudforceOneSearchRules(
 		config,
 	}: {
 		pathParams: CloudforceOneSearchRulesPath;
-		queryParams?: Partial<CloudforceOneSearchRulesQuery>;
+		queryParams: CloudforceOneSearchRulesQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -58341,7 +58341,7 @@ export async function cloudforceOneSearchRules(
 		ErrorWrapper<CloudforceOneSearchRulesStatus401 | CloudforceOneSearchRulesStatus503>,
 		null,
 		Record<string, string>,
-		Partial<CloudforceOneSearchRulesQuery>,
+		CloudforceOneSearchRulesQuery,
 		CloudforceOneSearchRulesPath
 	>({
 		method: "GET",
@@ -59241,7 +59241,7 @@ export async function getDomainMatchList(
 		config,
 	}: {
 		pathParams: GetDomainMatchListPath;
-		queryParams?: Partial<GetDomainMatchListQuery>;
+		queryParams: GetDomainMatchListQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -59255,7 +59255,7 @@ export async function getDomainMatchList(
 		ErrorWrapper<GetDomainMatchListStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetDomainMatchListQuery>,
+		GetDomainMatchListQuery,
 		GetDomainMatchListPath
 	>({
 		method: "GET",
@@ -59792,7 +59792,7 @@ export async function getLogoMatchList(
 		config,
 	}: {
 		pathParams: GetLogoMatchListPath;
-		queryParams?: Partial<GetLogoMatchListQuery>;
+		queryParams: GetLogoMatchListQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -59806,7 +59806,7 @@ export async function getLogoMatchList(
 		ErrorWrapper<GetLogoMatchListStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetLogoMatchListQuery>,
+		GetLogoMatchListQuery,
 		GetLogoMatchListPath
 	>({
 		method: "GET",
@@ -61885,7 +61885,7 @@ export async function getPirAllMatchAggregates(
 		config,
 	}: {
 		pathParams: GetPirAllMatchAggregatesPath;
-		queryParams?: Partial<GetPirAllMatchAggregatesQuery>;
+		queryParams: GetPirAllMatchAggregatesQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -61899,7 +61899,7 @@ export async function getPirAllMatchAggregates(
 		ErrorWrapper<GetPirAllMatchAggregatesStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetPirAllMatchAggregatesQuery>,
+		GetPirAllMatchAggregatesQuery,
 		GetPirAllMatchAggregatesPath
 	>({
 		method: "GET",
@@ -62286,7 +62286,7 @@ export async function getPirMatchAggregates(
 		config,
 	}: {
 		pathParams: GetPirMatchAggregatesPath;
-		queryParams?: Partial<GetPirMatchAggregatesQuery>;
+		queryParams: GetPirMatchAggregatesQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -62304,7 +62304,7 @@ export async function getPirMatchAggregates(
 		ErrorWrapper<GetPirMatchAggregatesStatus400 | GetPirMatchAggregatesStatus404>,
 		null,
 		Record<string, string>,
-		Partial<GetPirMatchAggregatesQuery>,
+		GetPirMatchAggregatesQuery,
 		GetPirMatchAggregatesPath
 	>({
 		method: "GET",
@@ -64180,7 +64180,7 @@ export async function searchThreatSignals(
 		config,
 	}: {
 		pathParams: SearchThreatSignalsPath;
-		queryParams?: Partial<SearchThreatSignalsQuery>;
+		queryParams: SearchThreatSignalsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -64194,7 +64194,7 @@ export async function searchThreatSignals(
 		ErrorWrapper<SearchThreatSignalsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<SearchThreatSignalsQuery>,
+		SearchThreatSignalsQuery,
 		SearchThreatSignalsPath
 	>({
 		method: "GET",
@@ -71412,7 +71412,7 @@ export async function listClientVersions(
 		config,
 	}: {
 		pathParams: ListClientVersionsPath;
-		queryParams?: Partial<ListClientVersionsQuery>;
+		queryParams: ListClientVersionsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -71426,7 +71426,7 @@ export async function listClientVersions(
 		ErrorWrapper<ListClientVersionsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<ListClientVersionsQuery>,
+		ListClientVersionsQuery,
 		ListClientVersionsPath
 	>({
 		method: "GET",
@@ -73642,7 +73642,7 @@ export async function deleteRegistrations(
 		config,
 	}: {
 		pathParams: DeleteRegistrationsPath;
-		queryParams?: Partial<DeleteRegistrationsQuery>;
+		queryParams: DeleteRegistrationsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -73656,7 +73656,7 @@ export async function deleteRegistrations(
 		ErrorWrapper<DeleteRegistrationsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<DeleteRegistrationsQuery>,
+		DeleteRegistrationsQuery,
 		DeleteRegistrationsPath
 	>({
 		method: "DELETE",
@@ -73721,7 +73721,7 @@ export async function revokeRegistrations(
 		config,
 	}: {
 		pathParams: RevokeRegistrationsPath;
-		queryParams?: Partial<RevokeRegistrationsQuery>;
+		queryParams: RevokeRegistrationsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -73735,7 +73735,7 @@ export async function revokeRegistrations(
 		ErrorWrapper<RevokeRegistrationsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<RevokeRegistrationsQuery>,
+		RevokeRegistrationsQuery,
 		RevokeRegistrationsPath
 	>({
 		method: "POST",
@@ -73761,7 +73761,7 @@ export async function unrevokeRegistrations(
 		config,
 	}: {
 		pathParams: UnrevokeRegistrationsPath;
-		queryParams?: Partial<UnrevokeRegistrationsQuery>;
+		queryParams: UnrevokeRegistrationsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -73775,7 +73775,7 @@ export async function unrevokeRegistrations(
 		ErrorWrapper<UnrevokeRegistrationsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<UnrevokeRegistrationsQuery>,
+		UnrevokeRegistrationsQuery,
 		UnrevokeRegistrationsPath
 	>({
 		method: "POST",
@@ -74317,7 +74317,7 @@ export async function dexEndpointsListColos(
 		config,
 	}: {
 		pathParams: DexEndpointsListColosPath;
-		queryParams?: Partial<DexEndpointsListColosQuery>;
+		queryParams: DexEndpointsListColosQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -74331,7 +74331,7 @@ export async function dexEndpointsListColos(
 		ErrorWrapper<DexEndpointsListColosStatus400>,
 		null,
 		Record<string, string>,
-		Partial<DexEndpointsListColosQuery>,
+		DexEndpointsListColosQuery,
 		DexEndpointsListColosPath
 	>({
 		method: "GET",
@@ -74356,7 +74356,7 @@ export async function getCommands(
 		config,
 	}: {
 		pathParams: GetCommandsPath;
-		queryParams?: Partial<GetCommandsQuery>;
+		queryParams: GetCommandsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -74370,7 +74370,7 @@ export async function getCommands(
 		ErrorWrapper<GetCommandsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetCommandsQuery>,
+		GetCommandsQuery,
 		GetCommandsPath
 	>({
 		method: "GET",
@@ -74434,7 +74434,7 @@ export async function getCommandsEligibleDevices(
 		config,
 	}: {
 		pathParams: GetCommandsEligibleDevicesPath;
-		queryParams?: Partial<GetCommandsEligibleDevicesQuery>;
+		queryParams: GetCommandsEligibleDevicesQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -74448,7 +74448,7 @@ export async function getCommandsEligibleDevices(
 		ErrorWrapper<GetCommandsEligibleDevicesStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetCommandsEligibleDevicesQuery>,
+		GetCommandsEligibleDevicesQuery,
 		GetCommandsEligibleDevicesPath
 	>({
 		method: "GET",
@@ -74754,7 +74754,7 @@ export async function devicesLiveStatus(
 		config,
 	}: {
 		pathParams: DevicesLiveStatusPath;
-		queryParams?: Partial<DevicesLiveStatusQuery>;
+		queryParams: DevicesLiveStatusQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -74772,7 +74772,7 @@ export async function devicesLiveStatus(
 		ErrorWrapper<DevicesLiveStatusStatus400>,
 		null,
 		Record<string, string>,
-		Partial<DevicesLiveStatusQuery>,
+		DevicesLiveStatusQuery,
 		DevicesLiveStatusPath
 	>({
 		method: "GET",
@@ -74797,7 +74797,7 @@ export async function dexDeviceStatusOverTime(
 		config,
 	}: {
 		pathParams: DexDeviceStatusOverTimePath;
-		queryParams?: Partial<DexDeviceStatusOverTimeQuery>;
+		queryParams: DexDeviceStatusOverTimeQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -74815,7 +74815,7 @@ export async function dexDeviceStatusOverTime(
 		ErrorWrapper<DexDeviceStatusOverTimeStatus400>,
 		null,
 		Record<string, string>,
-		Partial<DexDeviceStatusOverTimeQuery>,
+		DexDeviceStatusOverTimeQuery,
 		DexDeviceStatusOverTimePath
 	>({
 		method: "GET",
@@ -74840,7 +74840,7 @@ export async function dexEndpointsListDeviceIsps(
 		config,
 	}: {
 		pathParams: DexEndpointsListDeviceIspsPath;
-		queryParams?: Partial<DexEndpointsListDeviceIspsQuery>;
+		queryParams: DexEndpointsListDeviceIspsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -74858,7 +74858,7 @@ export async function dexEndpointsListDeviceIsps(
 		ErrorWrapper<DexEndpointsListDeviceIspsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<DexEndpointsListDeviceIspsQuery>,
+		DexEndpointsListDeviceIspsQuery,
 		DexEndpointsListDeviceIspsPath
 	>({
 		method: "GET",
@@ -74883,7 +74883,7 @@ export async function dexFleetStatusDevices(
 		config,
 	}: {
 		pathParams: DexFleetStatusDevicesPath;
-		queryParams?: Partial<DexFleetStatusDevicesQuery>;
+		queryParams: DexFleetStatusDevicesQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -74897,7 +74897,7 @@ export async function dexFleetStatusDevices(
 		ErrorWrapper<DexFleetStatusDevicesStatus400>,
 		null,
 		Record<string, string>,
-		Partial<DexFleetStatusDevicesQuery>,
+		DexFleetStatusDevicesQuery,
 		DexFleetStatusDevicesPath
 	>({
 		method: "GET",
@@ -74922,7 +74922,7 @@ export async function dexFleetStatusLive(
 		config,
 	}: {
 		pathParams: DexFleetStatusLivePath;
-		queryParams?: Partial<DexFleetStatusLiveQuery>;
+		queryParams: DexFleetStatusLiveQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -74936,7 +74936,7 @@ export async function dexFleetStatusLive(
 		ErrorWrapper<DexFleetStatusLiveStatus400>,
 		null,
 		Record<string, string>,
-		Partial<DexFleetStatusLiveQuery>,
+		DexFleetStatusLiveQuery,
 		DexFleetStatusLivePath
 	>({
 		method: "GET",
@@ -74961,7 +74961,7 @@ export async function dexFleetStatusOverTime(
 		config,
 	}: {
 		pathParams: DexFleetStatusOverTimePath;
-		queryParams?: Partial<DexFleetStatusOverTimeQuery>;
+		queryParams: DexFleetStatusOverTimeQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -74975,7 +74975,7 @@ export async function dexFleetStatusOverTime(
 		ErrorWrapper<DexFleetStatusOverTimeStatus400>,
 		null,
 		Record<string, string>,
-		Partial<DexFleetStatusOverTimeQuery>,
+		DexFleetStatusOverTimeQuery,
 		DexFleetStatusOverTimePath
 	>({
 		method: "GET",
@@ -75000,7 +75000,7 @@ export async function dexEndpointsHttpTestDetails(
 		config,
 	}: {
 		pathParams: DexEndpointsHttpTestDetailsPath;
-		queryParams?: Partial<DexEndpointsHttpTestDetailsQuery>;
+		queryParams: DexEndpointsHttpTestDetailsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -75018,7 +75018,7 @@ export async function dexEndpointsHttpTestDetails(
 		ErrorWrapper<DexEndpointsHttpTestDetailsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<DexEndpointsHttpTestDetailsQuery>,
+		DexEndpointsHttpTestDetailsQuery,
 		DexEndpointsHttpTestDetailsPath
 	>({
 		method: "GET",
@@ -75043,7 +75043,7 @@ export async function dexEndpointsHttpTestPercentiles(
 		config,
 	}: {
 		pathParams: DexEndpointsHttpTestPercentilesPath;
-		queryParams?: Partial<DexEndpointsHttpTestPercentilesQuery>;
+		queryParams: DexEndpointsHttpTestPercentilesQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -75061,7 +75061,7 @@ export async function dexEndpointsHttpTestPercentiles(
 		ErrorWrapper<DexEndpointsHttpTestPercentilesStatus400>,
 		null,
 		Record<string, string>,
-		Partial<DexEndpointsHttpTestPercentilesQuery>,
+		DexEndpointsHttpTestPercentilesQuery,
 		DexEndpointsHttpTestPercentilesPath
 	>({
 		method: "GET",
@@ -75086,7 +75086,7 @@ export async function listDexRules(
 		config,
 	}: {
 		pathParams: ListDexRulesPath;
-		queryParams?: Partial<ListDexRulesQuery>;
+		queryParams: ListDexRulesQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -75100,7 +75100,7 @@ export async function listDexRules(
 		ErrorWrapper<ListDexRulesStatus400>,
 		null,
 		Record<string, string>,
-		Partial<ListDexRulesQuery>,
+		ListDexRulesQuery,
 		ListDexRulesPath
 	>({
 		method: "GET",
@@ -75405,7 +75405,7 @@ export async function dexEndpointsTracerouteTestDetails(
 		config,
 	}: {
 		pathParams: DexEndpointsTracerouteTestDetailsPath;
-		queryParams?: Partial<DexEndpointsTracerouteTestDetailsQuery>;
+		queryParams: DexEndpointsTracerouteTestDetailsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -75423,7 +75423,7 @@ export async function dexEndpointsTracerouteTestDetails(
 		ErrorWrapper<DexEndpointsTracerouteTestDetailsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<DexEndpointsTracerouteTestDetailsQuery>,
+		DexEndpointsTracerouteTestDetailsQuery,
 		DexEndpointsTracerouteTestDetailsPath
 	>({
 		method: "GET",
@@ -75448,7 +75448,7 @@ export async function dexEndpointsTracerouteTestNetworkPath(
 		config,
 	}: {
 		pathParams: DexEndpointsTracerouteTestNetworkPathPath;
-		queryParams?: Partial<DexEndpointsTracerouteTestNetworkPathQuery>;
+		queryParams: DexEndpointsTracerouteTestNetworkPathQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -75466,7 +75466,7 @@ export async function dexEndpointsTracerouteTestNetworkPath(
 		ErrorWrapper<DexEndpointsTracerouteTestNetworkPathStatus400>,
 		null,
 		Record<string, string>,
-		Partial<DexEndpointsTracerouteTestNetworkPathQuery>,
+		DexEndpointsTracerouteTestNetworkPathQuery,
 		DexEndpointsTracerouteTestNetworkPathPath
 	>({
 		method: "GET",
@@ -75491,7 +75491,7 @@ export async function dexEndpointsTracerouteTestPercentiles(
 		config,
 	}: {
 		pathParams: DexEndpointsTracerouteTestPercentilesPath;
-		queryParams?: Partial<DexEndpointsTracerouteTestPercentilesQuery>;
+		queryParams: DexEndpointsTracerouteTestPercentilesQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -75509,7 +75509,7 @@ export async function dexEndpointsTracerouteTestPercentiles(
 		ErrorWrapper<DexEndpointsTracerouteTestPercentilesStatus400>,
 		null,
 		Record<string, string>,
-		Partial<DexEndpointsTracerouteTestPercentilesQuery>,
+		DexEndpointsTracerouteTestPercentilesQuery,
 		DexEndpointsTracerouteTestPercentilesPath
 	>({
 		method: "GET",
@@ -75534,7 +75534,7 @@ export async function listWarpChangeEvents(
 		config,
 	}: {
 		pathParams: ListWarpChangeEventsPath;
-		queryParams?: Partial<ListWarpChangeEventsQuery>;
+		queryParams: ListWarpChangeEventsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -75548,7 +75548,7 @@ export async function listWarpChangeEvents(
 		ErrorWrapper<ListWarpChangeEventsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<ListWarpChangeEventsQuery>,
+		ListWarpChangeEventsQuery,
 		ListWarpChangeEventsPath
 	>({
 		method: "GET",
@@ -86982,7 +86982,7 @@ export async function flagshipEvaluateFlag(
 		config,
 	}: {
 		pathParams: FlagshipEvaluateFlagPath;
-		queryParams?: Partial<FlagshipEvaluateFlagQuery>;
+		queryParams: FlagshipEvaluateFlagQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -87007,7 +87007,7 @@ export async function flagshipEvaluateFlag(
 		>,
 		null,
 		Record<string, string>,
-		Partial<FlagshipEvaluateFlagQuery>,
+		FlagshipEvaluateFlagQuery,
 		FlagshipEvaluateFlagPath
 	>({
 		method: "GET",
@@ -93888,7 +93888,7 @@ export async function urlIntelligenceGetUrlIntelligence(
 		config,
 	}: {
 		pathParams: UrlIntelligenceGetUrlIntelligencePath;
-		queryParams?: Partial<UrlIntelligenceGetUrlIntelligenceQuery>;
+		queryParams: UrlIntelligenceGetUrlIntelligenceQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -93902,7 +93902,7 @@ export async function urlIntelligenceGetUrlIntelligence(
 		ErrorWrapper<UrlIntelligenceGetUrlIntelligenceStatus400>,
 		null,
 		Record<string, string>,
-		Partial<UrlIntelligenceGetUrlIntelligenceQuery>,
+		UrlIntelligenceGetUrlIntelligenceQuery,
 		UrlIntelligenceGetUrlIntelligencePath
 	>({
 		method: "GET",
@@ -96519,7 +96519,7 @@ export async function auditLogsV2GetAccountAuditLogs(
 		config,
 	}: {
 		pathParams: AuditLogsV2GetAccountAuditLogsPath;
-		queryParams?: Partial<AuditLogsV2GetAccountAuditLogsQuery>;
+		queryParams: AuditLogsV2GetAccountAuditLogsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -96533,7 +96533,7 @@ export async function auditLogsV2GetAccountAuditLogs(
 		ErrorWrapper<AuditLogsV2GetAccountAuditLogsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<AuditLogsV2GetAccountAuditLogsQuery>,
+		AuditLogsV2GetAccountAuditLogsQuery,
 		AuditLogsV2GetAccountAuditLogsPath
 	>({
 		method: "GET",
@@ -96599,7 +96599,7 @@ export async function auditLogsV2GetAccountAuditLogHistory(
 		config,
 	}: {
 		pathParams: AuditLogsV2GetAccountAuditLogHistoryPath;
-		queryParams?: Partial<AuditLogsV2GetAccountAuditLogHistoryQuery>;
+		queryParams: AuditLogsV2GetAccountAuditLogHistoryQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -96619,7 +96619,7 @@ export async function auditLogsV2GetAccountAuditLogHistory(
 		>,
 		null,
 		Record<string, string>,
-		Partial<AuditLogsV2GetAccountAuditLogHistoryQuery>,
+		AuditLogsV2GetAccountAuditLogHistoryQuery,
 		AuditLogsV2GetAccountAuditLogHistoryPath
 	>({
 		method: "GET",
@@ -97033,7 +97033,7 @@ export async function accountsLogsExplorerQueryGet(
 		config,
 	}: {
 		pathParams: AccountsLogsExplorerQueryGetPath;
-		queryParams?: Partial<AccountsLogsExplorerQueryGetQuery>;
+		queryParams: AccountsLogsExplorerQueryGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -97052,7 +97052,7 @@ export async function accountsLogsExplorerQueryGet(
 		>,
 		null,
 		Record<string, string>,
-		Partial<AccountsLogsExplorerQueryGetQuery>,
+		AccountsLogsExplorerQueryGetQuery,
 		AccountsLogsExplorerQueryGetPath
 	>({
 		method: "GET",
@@ -97130,7 +97130,7 @@ export async function logpullListLogFiles(
 		config,
 	}: {
 		pathParams: LogpullListLogFilesPath;
-		queryParams?: Partial<LogpullListLogFilesQuery>;
+		queryParams: LogpullListLogFilesQuery;
 		headers?: Partial<LogpullListLogFilesHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -97145,7 +97145,7 @@ export async function logpullListLogFiles(
 		ErrorWrapper<LogpullListLogFilesStatus400 | LogpullListLogFilesStatus401>,
 		null,
 		Partial<LogpullListLogFilesHeaders>,
-		Partial<LogpullListLogFilesQuery>,
+		LogpullListLogFilesQuery,
 		LogpullListLogFilesPath
 	>({
 		method: "GET",
@@ -97171,7 +97171,7 @@ export async function logpullRetrieveLogs(
 		config,
 	}: {
 		pathParams: LogpullRetrieveLogsPath;
-		queryParams?: Partial<LogpullRetrieveLogsQuery>;
+		queryParams: LogpullRetrieveLogsQuery;
 		headers?: Partial<LogpullRetrieveLogsHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -97186,7 +97186,7 @@ export async function logpullRetrieveLogs(
 		ErrorWrapper<LogpullRetrieveLogsStatus400 | LogpullRetrieveLogsStatus401>,
 		null,
 		Partial<LogpullRetrieveLogsHeaders>,
-		Partial<LogpullRetrieveLogsQuery>,
+		LogpullRetrieveLogsQuery,
 		LogpullRetrieveLogsPath
 	>({
 		method: "GET",
@@ -100369,7 +100369,7 @@ export async function mconnConnectorTelemetryEventsList(
 		config,
 	}: {
 		pathParams: MconnConnectorTelemetryEventsListPath;
-		queryParams?: Partial<MconnConnectorTelemetryEventsListQuery>;
+		queryParams: MconnConnectorTelemetryEventsListQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -100393,7 +100393,7 @@ export async function mconnConnectorTelemetryEventsList(
 		>,
 		null,
 		Record<string, string>,
-		Partial<MconnConnectorTelemetryEventsListQuery>,
+		MconnConnectorTelemetryEventsListQuery,
 		MconnConnectorTelemetryEventsListPath
 	>({
 		method: "GET",
@@ -100520,7 +100520,7 @@ export async function mconnConnectorTelemetrySnapshotsList(
 		config,
 	}: {
 		pathParams: MconnConnectorTelemetrySnapshotsListPath;
-		queryParams?: Partial<MconnConnectorTelemetrySnapshotsListQuery>;
+		queryParams: MconnConnectorTelemetrySnapshotsListQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -100544,7 +100544,7 @@ export async function mconnConnectorTelemetrySnapshotsList(
 		>,
 		null,
 		Record<string, string>,
-		Partial<MconnConnectorTelemetrySnapshotsListQuery>,
+		MconnConnectorTelemetrySnapshotsListQuery,
 		MconnConnectorTelemetrySnapshotsListPath
 	>({
 		method: "GET",
@@ -107322,7 +107322,7 @@ export async function payPerCrawlSendTermsSignatureEvent(
 		config,
 	}: {
 		pathParams: PayPerCrawlSendTermsSignatureEventPath;
-		queryParams?: Partial<PayPerCrawlSendTermsSignatureEventQuery>;
+		queryParams: PayPerCrawlSendTermsSignatureEventQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -107336,7 +107336,7 @@ export async function payPerCrawlSendTermsSignatureEvent(
 		ErrorWrapper<PayPerCrawlSendTermsSignatureEventStatus400>,
 		null,
 		Record<string, string>,
-		Partial<PayPerCrawlSendTermsSignatureEventQuery>,
+		PayPerCrawlSendTermsSignatureEventQuery,
 		PayPerCrawlSendTermsSignatureEventPath
 	>({
 		method: "POST",
@@ -107744,7 +107744,7 @@ export async function payPerCrawlGetPPUUsageStats(
 		config,
 	}: {
 		pathParams: PayPerCrawlGetPPUUsageStatsPath;
-		queryParams?: Partial<PayPerCrawlGetPPUUsageStatsQuery>;
+		queryParams: PayPerCrawlGetPPUUsageStatsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -107762,7 +107762,7 @@ export async function payPerCrawlGetPPUUsageStats(
 		>,
 		null,
 		Record<string, string>,
-		Partial<PayPerCrawlGetPPUUsageStatsQuery>,
+		PayPerCrawlGetPPUUsageStatsQuery,
 		PayPerCrawlGetPPUUsageStatsPath
 	>({
 		method: "GET",
@@ -115695,7 +115695,7 @@ export async function sandboxRegistrarDomainDiscoverySearch(
 		config,
 	}: {
 		pathParams: SandboxRegistrarDomainDiscoverySearchPath;
-		queryParams?: Partial<SandboxRegistrarDomainDiscoverySearchQuery>;
+		queryParams: SandboxRegistrarDomainDiscoverySearchQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -116253,7 +116253,7 @@ export async function registrarDomainDiscoverySearch(
 		config,
 	}: {
 		pathParams: RegistrarDomainDiscoverySearchPath;
-		queryParams?: Partial<RegistrarDomainDiscoverySearchQuery>;
+		queryParams: RegistrarDomainDiscoverySearchQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -121378,7 +121378,7 @@ export async function getSecurityCenterPartnerInsightCount(
 		config,
 	}: {
 		pathParams: GetSecurityCenterPartnerInsightCountPath;
-		queryParams?: Partial<GetSecurityCenterPartnerInsightCountQuery>;
+		queryParams: GetSecurityCenterPartnerInsightCountQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -121392,7 +121392,7 @@ export async function getSecurityCenterPartnerInsightCount(
 		ErrorWrapper<GetSecurityCenterPartnerInsightCountStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetSecurityCenterPartnerInsightCountQuery>,
+		GetSecurityCenterPartnerInsightCountQuery,
 		GetSecurityCenterPartnerInsightCountPath
 	>({
 		method: "GET",
@@ -126761,7 +126761,7 @@ export async function tagsGet(
 		config,
 	}: {
 		pathParams: TagsGetPath;
-		queryParams?: Partial<TagsGetQuery>;
+		queryParams: TagsGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -126775,7 +126775,7 @@ export async function tagsGet(
 		ErrorWrapper<TagsGetStatus400 | TagsGetStatus500>,
 		null,
 		Record<string, string>,
-		Partial<TagsGetQuery>,
+		TagsGetQuery,
 		TagsGetPath
 	>({
 		method: "GET",
@@ -131170,7 +131170,7 @@ export async function workerAssetsUpload(
 	}: {
 		pathParams: WorkerAssetsUploadPath;
 		body: WorkerAssetsUploadBody;
-		queryParams?: Partial<WorkerAssetsUploadQuery>;
+		queryParams: WorkerAssetsUploadQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -131202,7 +131202,7 @@ export async function workerAssetsUpload(
 		ErrorWrapper<WorkerAssetsUploadStatus400>,
 		FormData,
 		Record<string, string>,
-		Partial<WorkerAssetsUploadQuery>,
+		WorkerAssetsUploadQuery,
 		WorkerAssetsUploadPath
 	>({
 		method: "POST",
@@ -131469,7 +131469,7 @@ export async function namespaceWorkerDeleteScripts(
 		config,
 	}: {
 		pathParams: NamespaceWorkerDeleteScriptsPath;
-		queryParams?: Partial<NamespaceWorkerDeleteScriptsQuery>;
+		queryParams: NamespaceWorkerDeleteScriptsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -131487,7 +131487,7 @@ export async function namespaceWorkerDeleteScripts(
 		ErrorWrapper<NamespaceWorkerDeleteScriptsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<NamespaceWorkerDeleteScriptsQuery>,
+		NamespaceWorkerDeleteScriptsQuery,
 		NamespaceWorkerDeleteScriptsPath
 	>({
 		method: "DELETE",
@@ -132808,7 +132808,7 @@ export async function agentsSessionsList(
 		config,
 	}: {
 		pathParams: AgentsSessionsListPath;
-		queryParams?: Partial<AgentsSessionsListQuery>;
+		queryParams: AgentsSessionsListQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -132829,7 +132829,7 @@ export async function agentsSessionsList(
 		>,
 		null,
 		Record<string, string>,
-		Partial<AgentsSessionsListQuery>,
+		AgentsSessionsListQuery,
 		AgentsSessionsListPath
 	>({
 		method: "GET",
@@ -132854,7 +132854,7 @@ export async function agentsSessionsRunsList(
 		config,
 	}: {
 		pathParams: AgentsSessionsRunsListPath;
-		queryParams?: Partial<AgentsSessionsRunsListQuery>;
+		queryParams: AgentsSessionsRunsListQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -132879,7 +132879,7 @@ export async function agentsSessionsRunsList(
 		>,
 		null,
 		Record<string, string>,
-		Partial<AgentsSessionsRunsListQuery>,
+		AgentsSessionsRunsListQuery,
 		AgentsSessionsRunsListPath
 	>({
 		method: "GET",
@@ -134363,7 +134363,7 @@ export async function usageGet(
 		config,
 	}: {
 		pathParams: UsageGetPath;
-		queryParams?: Partial<UsageGetQuery>;
+		queryParams: UsageGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -134384,7 +134384,7 @@ export async function usageGet(
 		>,
 		null,
 		Record<string, string>,
-		Partial<UsageGetQuery>,
+		UsageGetQuery,
 		UsageGetPath
 	>({
 		method: "GET",
@@ -138308,7 +138308,7 @@ export async function worGetWorkflowInstanceStep(
 		config,
 	}: {
 		pathParams: WorGetWorkflowInstanceStepPath;
-		queryParams?: Partial<WorGetWorkflowInstanceStepQuery>;
+		queryParams: WorGetWorkflowInstanceStepQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -138335,7 +138335,7 @@ export async function worGetWorkflowInstanceStep(
 		>,
 		null,
 		Record<string, string>,
-		Partial<WorGetWorkflowInstanceStepQuery>,
+		WorGetWorkflowInstanceStepQuery,
 		WorGetWorkflowInstanceStepPath
 	>({
 		method: "GET",
@@ -140265,7 +140265,7 @@ export async function auditLogsV2GetOrganizationAuditLogs(
 		config,
 	}: {
 		pathParams: AuditLogsV2GetOrganizationAuditLogsPath;
-		queryParams?: Partial<AuditLogsV2GetOrganizationAuditLogsQuery>;
+		queryParams: AuditLogsV2GetOrganizationAuditLogsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -140279,7 +140279,7 @@ export async function auditLogsV2GetOrganizationAuditLogs(
 		ErrorWrapper<AuditLogsV2GetOrganizationAuditLogsStatus400>,
 		null,
 		Record<string, string>,
-		Partial<AuditLogsV2GetOrganizationAuditLogsQuery>,
+		AuditLogsV2GetOrganizationAuditLogsQuery,
 		AuditLogsV2GetOrganizationAuditLogsPath
 	>({
 		method: "GET",
@@ -140309,7 +140309,7 @@ export async function auditLogsV2GetOrganizationAuditLogHistory(
 		config,
 	}: {
 		pathParams: AuditLogsV2GetOrganizationAuditLogHistoryPath;
-		queryParams?: Partial<AuditLogsV2GetOrganizationAuditLogHistoryQuery>;
+		queryParams: AuditLogsV2GetOrganizationAuditLogHistoryQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -140330,7 +140330,7 @@ export async function auditLogsV2GetOrganizationAuditLogHistory(
 		>,
 		null,
 		Record<string, string>,
-		Partial<AuditLogsV2GetOrganizationAuditLogHistoryQuery>,
+		AuditLogsV2GetOrganizationAuditLogHistoryQuery,
 		AuditLogsV2GetOrganizationAuditLogHistoryPath
 	>({
 		method: "GET",
@@ -151976,7 +151976,7 @@ export async function inspectSpf(
 		config,
 	}: {
 		pathParams: InspectSpfPath;
-		queryParams?: Partial<InspectSpfQuery>;
+		queryParams: InspectSpfQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -151990,7 +151990,7 @@ export async function inspectSpf(
 		ErrorWrapper<InspectSpfStatus400>,
 		null,
 		Record<string, string>,
-		Partial<InspectSpfQuery>,
+		InspectSpfQuery,
 		InspectSpfPath
 	>({
 		method: "GET",
@@ -153211,7 +153211,7 @@ export async function emailSendingSubdomainsGetSendingSubdomainReputationComplai
 		config,
 	}: {
 		pathParams: EmailSendingSubdomainsGetSendingSubdomainReputationComplaintsPath;
-		queryParams?: Partial<EmailSendingSubdomainsGetSendingSubdomainReputationComplaintsQuery>;
+		queryParams: EmailSendingSubdomainsGetSendingSubdomainReputationComplaintsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -153234,7 +153234,7 @@ export async function emailSendingSubdomainsGetSendingSubdomainReputationComplai
 		>,
 		null,
 		Record<string, string>,
-		Partial<EmailSendingSubdomainsGetSendingSubdomainReputationComplaintsQuery>,
+		EmailSendingSubdomainsGetSendingSubdomainReputationComplaintsQuery,
 		EmailSendingSubdomainsGetSendingSubdomainReputationComplaintsPath
 	>({
 		method: "GET",
@@ -153793,7 +153793,7 @@ export async function filtersDeleteFilters(
 		config,
 	}: {
 		pathParams: FiltersDeleteFiltersPath;
-		queryParams?: Partial<FiltersDeleteFiltersQuery>;
+		queryParams: FiltersDeleteFiltersQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -153807,7 +153807,7 @@ export async function filtersDeleteFilters(
 		ErrorWrapper<FiltersDeleteFiltersStatus400>,
 		null,
 		Record<string, string>,
-		Partial<FiltersDeleteFiltersQuery>,
+		FiltersDeleteFiltersQuery,
 		FiltersDeleteFiltersPath
 	>({
 		method: "DELETE",
@@ -158458,7 +158458,7 @@ export async function zonesLogsExplorerQueryGet(
 		config,
 	}: {
 		pathParams: ZonesLogsExplorerQueryGetPath;
-		queryParams?: Partial<ZonesLogsExplorerQueryGetQuery>;
+		queryParams: ZonesLogsExplorerQueryGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -158477,7 +158477,7 @@ export async function zonesLogsExplorerQueryGet(
 		>,
 		null,
 		Record<string, string>,
-		Partial<ZonesLogsExplorerQueryGetQuery>,
+		ZonesLogsExplorerQueryGetQuery,
 		ZonesLogsExplorerQueryGetPath
 	>({
 		method: "GET",
@@ -158596,7 +158596,7 @@ export async function getZonesZoneIdLogsReceived(
 		config,
 	}: {
 		pathParams: GetZonesZoneIdLogsReceivedPath;
-		queryParams?: Partial<GetZonesZoneIdLogsReceivedQuery>;
+		queryParams: GetZonesZoneIdLogsReceivedQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -158610,7 +158610,7 @@ export async function getZonesZoneIdLogsReceived(
 		ErrorWrapper<GetZonesZoneIdLogsReceivedStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetZonesZoneIdLogsReceivedQuery>,
+		GetZonesZoneIdLogsReceivedQuery,
 		GetZonesZoneIdLogsReceivedPath
 	>({
 		method: "GET",
@@ -161380,7 +161380,7 @@ export async function payPerCrawlGetPPUZoneUsageStats(
 		config,
 	}: {
 		pathParams: PayPerCrawlGetPPUZoneUsageStatsPath;
-		queryParams?: Partial<PayPerCrawlGetPPUZoneUsageStatsQuery>;
+		queryParams: PayPerCrawlGetPPUZoneUsageStatsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -161399,7 +161399,7 @@ export async function payPerCrawlGetPPUZoneUsageStats(
 		>,
 		null,
 		Record<string, string>,
-		Partial<PayPerCrawlGetPPUZoneUsageStatsQuery>,
+		PayPerCrawlGetPPUZoneUsageStatsQuery,
 		PayPerCrawlGetPPUZoneUsageStatsPath
 	>({
 		method: "GET",
@@ -161571,7 +161571,7 @@ export async function rateLimitAnalyticsGetZoneAnalytics(
 		config,
 	}: {
 		pathParams: RateLimitAnalyticsGetZoneAnalyticsPath;
-		queryParams?: Partial<RateLimitAnalyticsGetZoneAnalyticsQuery>;
+		queryParams: RateLimitAnalyticsGetZoneAnalyticsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -161590,7 +161590,7 @@ export async function rateLimitAnalyticsGetZoneAnalytics(
 		>,
 		null,
 		Record<string, string>,
-		Partial<RateLimitAnalyticsGetZoneAnalyticsQuery>,
+		RateLimitAnalyticsGetZoneAnalyticsQuery,
 		RateLimitAnalyticsGetZoneAnalyticsPath
 	>({
 		method: "GET",
@@ -163721,7 +163721,7 @@ export async function getZoneSecurityCenterPartnerInsightCount(
 		config,
 	}: {
 		pathParams: GetZoneSecurityCenterPartnerInsightCountPath;
-		queryParams?: Partial<GetZoneSecurityCenterPartnerInsightCountQuery>;
+		queryParams: GetZoneSecurityCenterPartnerInsightCountQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -163735,7 +163735,7 @@ export async function getZoneSecurityCenterPartnerInsightCount(
 		ErrorWrapper<GetZoneSecurityCenterPartnerInsightCountStatus400>,
 		null,
 		Record<string, string>,
-		Partial<GetZoneSecurityCenterPartnerInsightCountQuery>,
+		GetZoneSecurityCenterPartnerInsightCountQuery,
 		GetZoneSecurityCenterPartnerInsightCountPath
 	>({
 		method: "GET",
@@ -166087,7 +166087,7 @@ export async function getZonesZoneIdentifierZarazConfigHistory(
 		config,
 	}: {
 		pathParams: GetZonesZoneIdentifierZarazConfigHistoryPath;
-		queryParams?: Partial<GetZonesZoneIdentifierZarazConfigHistoryQuery>;
+		queryParams: GetZonesZoneIdentifierZarazConfigHistoryQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -167096,7 +167096,7 @@ export async function spectrumAnalyticsByTimeGetAnalyticsByTime(
 		config,
 	}: {
 		pathParams: SpectrumAnalyticsByTimeGetAnalyticsByTimePath;
-		queryParams?: Partial<SpectrumAnalyticsByTimeGetAnalyticsByTimeQuery>;
+		queryParams: SpectrumAnalyticsByTimeGetAnalyticsByTimeQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -167110,7 +167110,7 @@ export async function spectrumAnalyticsByTimeGetAnalyticsByTime(
 		ErrorWrapper<SpectrumAnalyticsByTimeGetAnalyticsByTimeStatus400>,
 		null,
 		Record<string, string>,
-		Partial<SpectrumAnalyticsByTimeGetAnalyticsByTimeQuery>,
+		SpectrumAnalyticsByTimeGetAnalyticsByTimeQuery,
 		SpectrumAnalyticsByTimeGetAnalyticsByTimePath
 	>({
 		method: "GET",
@@ -167656,7 +167656,7 @@ export async function speedListPageTrend(
 		config,
 	}: {
 		pathParams: SpeedListPageTrendPath;
-		queryParams?: Partial<SpeedListPageTrendQuery>;
+		queryParams: SpeedListPageTrendQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -167674,7 +167674,7 @@ export async function speedListPageTrend(
 		ErrorWrapper<SpeedListPageTrendStatus400>,
 		null,
 		Record<string, string>,
-		Partial<SpeedListPageTrendQuery>,
+		SpeedListPageTrendQuery,
 		SpeedListPageTrendPath
 	>({
 		method: "GET",
@@ -168646,7 +168646,7 @@ export async function tagsZoneGet(
 		config,
 	}: {
 		pathParams: TagsZoneGetPath;
-		queryParams?: Partial<TagsZoneGetQuery>;
+		queryParams: TagsZoneGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -168660,7 +168660,7 @@ export async function tagsZoneGet(
 		ErrorWrapper<TagsZoneGetStatus400 | TagsZoneGetStatus500>,
 		null,
 		Record<string, string>,
-		Partial<TagsZoneGetQuery>,
+		TagsZoneGetQuery,
 		TagsZoneGetPath
 	>({
 		method: "GET",
