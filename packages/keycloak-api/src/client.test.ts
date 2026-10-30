@@ -43,6 +43,8 @@ describe("KeycloakAdminApi.request", () => {
 		const typeChecks = () => [
 			// @ts-expect-error pathParams needs realm
 			client.request("GET /admin/realms/{realm}", { pathParams: {} }),
+			// @ts-expect-error pathParams is required
+			client.request("GET /admin/realms/{realm}"),
 			// @ts-expect-error the operation has no such parameter
 			client.request("GET /admin/realms/{realm}", { pathParams: { realm: "a" }, nope: 1 }),
 		];
@@ -51,7 +53,7 @@ describe("KeycloakAdminApi.request", () => {
 
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
-		await client.request("GET /admin/realms", {});
+		await client.request("GET /admin/realms");
 		expect(urls).toHaveLength(1);
 		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/admin\/realms$/);
 	});
@@ -112,6 +114,8 @@ describe("KeycloakAccountApi.request", () => {
 		const typeChecks = () => [
 			// @ts-expect-error pathParams needs providerId
 			client.request("GET /account/linked-accounts/{providerId}", { pathParams: {} }),
+			// @ts-expect-error pathParams is required
+			client.request("GET /account/linked-accounts/{providerId}"),
 			client.request("GET /account/linked-accounts/{providerId}", {
 				pathParams: { providerId: "a" },
 				// @ts-expect-error the operation has no such parameter
@@ -123,7 +127,7 @@ describe("KeycloakAccountApi.request", () => {
 
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
-		await client.request("GET /account/", {});
+		await client.request("GET /account/");
 		expect(urls).toHaveLength(1);
 		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/realms\/main\/account\/$/);
 	});

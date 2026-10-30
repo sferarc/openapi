@@ -35,6 +35,8 @@ describe("V0Api.request", () => {
 		const typeChecks = () => [
 			// @ts-expect-error pathParams needs chatId
 			client.request("GET /chats/{chatId}", { pathParams: {} }),
+			// @ts-expect-error pathParams is required
+			client.request("GET /chats/{chatId}"),
 			// @ts-expect-error the operation has no such parameter
 			client.request("GET /chats/{chatId}", { pathParams: { chatId: "a" }, nope: 1 }),
 			// @ts-expect-error pathParams needs chatId
@@ -45,7 +47,7 @@ describe("V0Api.request", () => {
 
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
-		await client.request("GET /chats", {});
+		await client.request("GET /chats");
 		expect(urls).toEqual(["https://api.v0.dev/v1/chats"]);
 	});
 

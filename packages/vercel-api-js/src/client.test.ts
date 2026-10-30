@@ -36,6 +36,8 @@ describe("VercelApi.request", () => {
 		const typeChecks = () => [
 			// @ts-expect-error pathParams needs idOrName
 			client.request("GET /v9/projects/{idOrName}", { pathParams: {} }),
+			// @ts-expect-error pathParams is required
+			client.request("GET /v9/projects/{idOrName}"),
 			// @ts-expect-error the operation has no such parameter
 			client.request("GET /v9/projects/{idOrName}", { pathParams: { idOrName: "a" }, nope: 1 }),
 			// @ts-expect-error pathParams needs idOrName
@@ -48,7 +50,7 @@ describe("VercelApi.request", () => {
 
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
-		await client.request("GET /v1/access-groups", {});
+		await client.request("GET /v1/access-groups");
 		expect(urls).toHaveLength(1);
 		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/v1\/access-groups$/);
 	});

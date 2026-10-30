@@ -29,7 +29,7 @@ Operations are grouped by tag: `client.api.<tag>.<operation>(params)`.
 Every operation can also be called by method and path:
 
 ```ts
-const accounts = await client.request("GET /accounts", {});
+const accounts = await client.request("GET /accounts");
 ```
 
 ### Custom fetch

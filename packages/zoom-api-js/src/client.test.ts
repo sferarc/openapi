@@ -36,6 +36,8 @@ describe("ZoomApi.request", () => {
 		const typeChecks = () => [
 			// @ts-expect-error pathParams needs deviceId
 			client.request("GET /devices/{deviceId}", { pathParams: {} }),
+			// @ts-expect-error pathParams is required
+			client.request("GET /devices/{deviceId}"),
 			// @ts-expect-error the operation has no such parameter
 			client.request("GET /devices/{deviceId}", { pathParams: { deviceId: "a" }, nope: 1 }),
 			// @ts-expect-error pathParams needs deviceId
@@ -46,7 +48,7 @@ describe("ZoomApi.request", () => {
 
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
-		await client.request("GET /archive_files", {});
+		await client.request("GET /archive_files");
 		expect(urls).toHaveLength(1);
 		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/archive_files$/);
 	});

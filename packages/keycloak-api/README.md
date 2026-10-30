@@ -30,7 +30,7 @@ const admin = new KeycloakAdminApi({
   token: process.env.KEYCLOAK_TOKEN ?? null,
 });
 
-const realms = await admin.request("GET /admin/realms", {});
+const realms = await admin.request("GET /admin/realms");
 const realm = await admin.request("GET /admin/realms/{realm}", {
   pathParams: { realm: "master" },
 });
@@ -49,7 +49,7 @@ const account = new KeycloakAccountApi({
   token: process.env.KEYCLOAK_TOKEN ?? null,
 });
 
-const me = await account.request("GET /account/", {});
+const me = await account.request("GET /account/");
 ```
 
 ### Custom fetch
