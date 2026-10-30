@@ -1,5 +1,11 @@
 # keycloak-api
 
+## 2.1.11
+
+### Patch Changes
+
+- d4e35ae: Let `request()` on `KeycloakAdminApi` and `KeycloakAccountApi` omit its params argument when the operation requires none of its fields. Before, `admin.request("GET /admin/realms")` failed to compile and callers had to pass `{}`.
+
 ## 2.1.10
 
 ### Patch Changes
