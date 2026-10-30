@@ -1,5 +1,17 @@
 # cloudflare-api-js
 
+## 2.5.0
+
+### Minor Changes
+
+- 5505542: [BREAKING] Remove operations no longer in the cloudflare-api-js OpenAPI spec: `zones0HoldZoneNameGet`.
+- 5505542: [BREAKING] Removed the zones0HoldZoneNameGet operation and its associated types.
+
+### Patch Changes
+
+- 5505542: Added new types IamTokenPrefix and IamTokenSuffix for IAM tokens.
+- 5505542: Extended IamComponentsSchemasAccount to include additional fields from IamAccount.
+
 ## 2.4.3
 
 ### Patch Changes

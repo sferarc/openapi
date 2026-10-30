@@ -33,6 +33,8 @@ Every operation can also be called by method and path:
 const files = await client.request("GET /archive_files", {});
 ```
 
+Path parameters are percent-encoded. A meeting or webinar UUID that begins with `/` or contains `//` is encoded twice, as Zoom requires, so pass the UUID as Zoom returns it.
+
 ### Custom fetch
 
 ```ts
