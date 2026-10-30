@@ -4976,6 +4976,31 @@ export type AccessServiceTokenRule = {
 };
 
 /**
+ * @description Matches an Access service token with the specified tag key and value. Only compatible with non_identity decisions.
+ * @type object
+ */
+export type AccessServiceTokenTagRule = {
+  service_token_tag: {
+    /**
+     * @description The tag key to match. Keys are case-sensitive and may contain Unicode letters and digits, underscores, periods, and hyphens.
+     * @minLength 1
+     * @maxLength 256
+     * @example environment
+     * @type string
+     */
+    key: string;
+    /**
+     * @description The tag value to match. Values are case-sensitive, preserve whitespace, and must not contain NUL characters.
+     * @minLength 1
+     * @maxLength 256
+     * @example production
+     * @type string
+     */
+    value: string;
+  };
+};
+
+/**
  * @description Matches OAuth 2.0 access tokens issued by the specified Access OIDC SaaS application. Only compatible with non_identity and bypass decisions.
  * @type object
  */
@@ -5031,7 +5056,7 @@ export type AccessCloudflareAccountMemberRule = {
   };
 };
 
-export type AccessRule = AccessAccessGroupRule | AccessAnyValidServiceTokenRule | AccessAuthContextRule | AccessAuthenticationMethodRule | AccessAzureGroupRule | AccessCertificateRule | AccessCommonNameRule | AccessCountryRule | AccessDevicePostureRule | AccessDomainRule | AccessEmailListRule | AccessEmailRule | AccessEveryoneRule | AccessExternalEvaluationRule | AccessGithubOrganizationRule | AccessGsuiteGroupRule | AccessLoginMethodRule | AccessIpListRule | AccessIpRule | AccessOktaGroupRule | AccessSamlGroupRule | AccessOidcClaimRule | AccessServiceTokenRule | AccessLinkedAppTokenRule | AccessUserRiskScoreRule | AccessCloudflareAccountMemberRule;
+export type AccessRule = AccessAccessGroupRule | AccessAnyValidServiceTokenRule | AccessAuthContextRule | AccessAuthenticationMethodRule | AccessAzureGroupRule | AccessCertificateRule | AccessCommonNameRule | AccessCountryRule | AccessDevicePostureRule | AccessDomainRule | AccessEmailListRule | AccessEmailRule | AccessEveryoneRule | AccessExternalEvaluationRule | AccessGithubOrganizationRule | AccessGsuiteGroupRule | AccessLoginMethodRule | AccessIpListRule | AccessIpRule | AccessOktaGroupRule | AccessSamlGroupRule | AccessOidcClaimRule | AccessServiceTokenRule | AccessServiceTokenTagRule | AccessLinkedAppTokenRule | AccessUserRiskScoreRule | AccessCloudflareAccountMemberRule;
 
 /**
  * @description Rules evaluated with a NOT logical operator. To match the policy, a user cannot meet any of the Exclude rules.
@@ -6087,7 +6112,7 @@ export type AccessSkipInterstitial = boolean;
  * @default []
  * @type array
  */
-export type AccessTags = string[];
+export type AccessTags2 = string[];
 
 /**
  * @description Determines if users can access this application via a clientless browser isolation URL.
@@ -6279,7 +6304,7 @@ export type AccessSelfHostedProps = {
    * @default []
    * @type array | undefined
    */
-  tags?: AccessTags | undefined;
+  tags?: AccessTags2 | undefined;
   type: AccessTypeKey & string;
   /**
    * @description Determines if users can access this application via a clientless browser isolation URL.
@@ -6647,7 +6672,7 @@ export type AccessSaasProps = {
    * @default []
    * @type array | undefined
    */
-  tags?: AccessTags | undefined;
+  tags?: AccessTags2 | undefined;
   type?: AccessTypeKey & string | undefined;
 };
 
@@ -6737,7 +6762,7 @@ export type AccessBookmarkProps = {
    * @default []
    * @type array | undefined
    */
-  tags?: AccessTags | undefined;
+  tags?: AccessTags2 | undefined;
   type?: AccessTypeKey & string | undefined;
 };
 
@@ -7022,7 +7047,7 @@ export type AccessMcpProps = {
    * @default []
    * @type array | undefined
    */
-  tags?: AccessTags | undefined;
+  tags?: AccessTags2 | undefined;
   type: AccessTypeKey & string;
 };
 
@@ -7132,7 +7157,7 @@ export type AccessMcpPortalProps = {
    * @default []
    * @type array | undefined
    */
-  tags?: AccessTags | undefined;
+  tags?: AccessTags2 | undefined;
   type: AccessTypeKey & string;
 };
 
@@ -8864,6 +8889,15 @@ export type AccessEnabled = boolean;
  */
 export type AccessName2 = string;
 
+/**
+ * @description Tags associated with the service token, as key-value pairs. On update, replaces all existing tags.
+ * @example {"environment":"production"}
+ * @type object
+ */
+export type AccessTags = {
+  [key: string]: string;
+} | null;
+
 export type AccessCreateResponse = AccessApiResponseSingle & {
   result?: {
     /**
@@ -8902,6 +8936,12 @@ export type AccessCreateResponse = AccessApiResponseSingle & {
      * @type string | undefined
      */
     name?: AccessName2 | undefined;
+    /**
+     * @description Tags associated with the service token, as key-value pairs. On update, replaces all existing tags.
+     * @example {"environment":"production"}
+     * @type object | undefined
+     */
+    tags?: (AccessTags | null) | undefined;
     updated_at?: AccessUpdatedAt | undefined;
   } | undefined;
 };
@@ -8965,6 +9005,12 @@ export type AccessCreateResponse2 = AccessApiResponseSingle & {
      * @type string | undefined
      */
     name?: AccessName17 | undefined;
+    /**
+     * @description Tags associated with the service token, as key-value pairs. On update, replaces all existing tags.
+     * @example {"environment":"production"}
+     * @type object | undefined
+     */
+    tags?: (AccessTags | null) | undefined;
     /**
      * @description
      * Format: `date-time`
@@ -11685,6 +11731,12 @@ export type AccessServiceTokens2 = {
    */
   name?: AccessName17 | undefined;
   /**
+   * @description Tags associated with the service token, as key-value pairs. On update, replaces all existing tags.
+   * @example {"environment":"production"}
+   * @type object | undefined
+   */
+  tags?: (AccessTags | null) | undefined;
+  /**
    * @description
    * Format: `date-time`
    * @example 2014-01-01T05:20:00.12345Z
@@ -11920,6 +11972,12 @@ export type AccessServiceTokens = {
    * @type string | undefined
    */
   name?: AccessName2 | undefined;
+  /**
+   * @description Tags associated with the service token, as key-value pairs. On update, replaces all existing tags.
+   * @example {"environment":"production"}
+   * @type object | undefined
+   */
+  tags?: (AccessTags | null) | undefined;
   updated_at?: AccessUpdatedAt | undefined;
 };
 
@@ -12139,7 +12197,9 @@ export type AccessScimPatchRequest = {
   Operations: {
     op: AccessScimPatchRequestOperationsOpEnumKey;
     path?: string | undefined;
-    value?: unknown | undefined;
+    value?: (string | number | boolean | unknown[] | {
+      [key: string]: unknown;
+    }) | undefined;
   }[];
   schemas?: string[] | undefined;
 };
@@ -22714,6 +22774,80 @@ export type BotManagementFeedbackReport = {
  * @type string
  */
 export type BotManagementIdentifier = string;
+
+/**
+ * @example []
+ * @type array
+ */
+export type BotnetFeedApiMessages = {
+  /**
+   * @minLength 1000
+   * @type integer
+   */
+  code: number;
+  documentation_url?: string | undefined;
+  message: string;
+  source?: {
+    pointer?: string | undefined;
+  } | undefined;
+}[];
+
+export type BotnetFeedApiApiResponseCommon = {
+  /**
+   * @example []
+   * @type array
+   */
+  errors: BotnetFeedApiMessages;
+  /**
+   * @example []
+   * @type array
+   */
+  messages: BotnetFeedApiMessages;
+  /**
+   * @description Whether the API call was successful.
+   * @example true
+   * @type boolean
+   */
+  success: true;
+};
+
+export type BotnetFeedApiApiResponseCommonFailure = {
+  /**
+   * @example [{"code":7003,"message":"No route for the URI"}]
+   * @type array
+   */
+  errors: BotnetFeedApiMessages;
+  /**
+   * @example []
+   * @type array
+   */
+  messages: BotnetFeedApiMessages;
+  result: null;
+  /**
+   * @description Whether the API call was successful.
+   * @example false
+   * @type boolean
+   */
+  success: false;
+};
+
+export type BotnetFeedApiAsn = number;
+
+/**
+ * @description Identifier.
+ * @maxLength 32
+ * @example 023e105f4ecef8ad9ca31a8372d0c353
+ * @type string
+ */
+export type BotnetFeedApiIdentifier = string;
+
+/**
+ * @description
+ * Format: `date-time`
+ * @example 2014-01-01T05:20:00.12345Z
+ * @type string
+ */
+export type BotnetFeedApiTimestamp = string;
 
 export type BrandProtectionApiError = {
   /**
@@ -46503,80 +46637,6 @@ export type DomainConnectNeededByStratus = {
   template?: object | undefined;
   template_spec?: DomainConnectTemplateSpec | undefined;
 };
-
-/**
- * @example []
- * @type array
- */
-export type DosMessages = {
-  /**
-   * @minLength 1000
-   * @type integer
-   */
-  code: number;
-  documentation_url?: string | undefined;
-  message: string;
-  source?: {
-    pointer?: string | undefined;
-  } | undefined;
-}[];
-
-export type DosApiResponseCommon = {
-  /**
-   * @example []
-   * @type array
-   */
-  errors: DosMessages;
-  /**
-   * @example []
-   * @type array
-   */
-  messages: DosMessages;
-  /**
-   * @description Whether the API call was successful.
-   * @example true
-   * @type boolean
-   */
-  success: true;
-};
-
-export type DosApiResponseCommonFailure = {
-  /**
-   * @example [{"code":7003,"message":"No route for the URI"}]
-   * @type array
-   */
-  errors: DosMessages;
-  /**
-   * @example []
-   * @type array
-   */
-  messages: DosMessages;
-  result: null;
-  /**
-   * @description Whether the API call was successful.
-   * @example false
-   * @type boolean
-   */
-  success: false;
-};
-
-export type DosAsn = number;
-
-/**
- * @description Identifier.
- * @maxLength 32
- * @example 023e105f4ecef8ad9ca31a8372d0c353
- * @type string
- */
-export type DosIdentifier = string;
-
-/**
- * @description
- * Format: `date-time`
- * @example 2014-01-01T05:20:00.12345Z
- * @type string
- */
-export type DosTimestamp = string;
 
 /**
  * @description A single approved sending source
@@ -71752,6 +71812,13 @@ export type ManagedDefenseVulnerabilityDiscoveryReportTraceStep = {
    * @type string
    */
   path: string;
+  /**
+   * @description Repository the step is in, present only when it is not the finding's repository (a library or consumer of the same report). `path` is then relative to that repository.
+   *
+   * Format: `uuid`
+   * @type string | undefined
+   */
+  repo?: string | undefined;
   scope: string;
   why: string;
 };
@@ -78295,62 +78362,101 @@ export type OrganizationsApiAccount = {
   type: OrganizationsApiAccountTypeEnumKey;
 };
 
-export type OrganizationsApiBatchAccountMoveResponse = {
-  statuses: {
-    message?: string | undefined;
-    moved: boolean;
-    tag: string;
-  };
+export type OrganizationsApiPageTokenResultInfo = {
+  /**
+   * @description Use this opaque token in the next request to retrieve the
+   * next page.
+   *
+   * Parameters used to filter the retrieved list must remain in subsequent
+   * requests with a page token.
+   * @type string | undefined
+   */
+  next_page_token?: string | undefined;
+  /**
+   * @description Counts the total amount of items in a list with the applied filters. The API omits next_page_token to indicate no more items in a particular list.
+   * @type integer | undefined
+   */
+  total_size?: number | undefined;
 };
 
-export const organizationsApiCreateSingleMemberStatusEnum = {
-  active: 'active',
-  canceled: 'canceled',
-} as const;
+export type OrganizationsApiLegacyPaginationResultInfo = {
+  count: number;
+  page: number;
+  per_page: number;
+  total_count: number;
+};
 
-export type OrganizationsApiCreateSingleMemberStatusEnumKey = (typeof organizationsApiCreateSingleMemberStatusEnum)[keyof typeof organizationsApiCreateSingleMemberStatusEnum];
+export type OrganizationsApiAccountListResultInfo = OrganizationsApiPageTokenResultInfo | OrganizationsApiLegacyPaginationResultInfo;
 
 export type OrganizationsApiCreateSingleMember = {
-  status?: OrganizationsApiCreateSingleMemberStatusEnumKey | undefined;
   user: {
     email: string;
   };
 };
 
 export type OrganizationsApiBatchCreateMembersRequest = {
-  members: OrganizationsApiCreateSingleMember[];
-};
-
-export type OrganizationsApiBoolAllocation = {
-  type: 'bool';
-  value: boolean;
+  /**
+   * @description Omitted or null members are treated as an empty batch.
+   * @type array | undefined
+   */
+  members?: (OrganizationsApiCreateSingleMember[] | null) | undefined;
 };
 
 export type OrganizationsApiCreateMemberRequest = {
   member: OrganizationsApiCreateSingleMember;
 };
 
+/**
+ * @description Optional profile fields, each limited to 1,000 UTF-8 bytes. An empty profile is ignored.
+ * @type object
+ */
+export type OrganizationsApiCreateOrganizationProfileRequest = {
+  business_address?: string | undefined;
+  business_email?: string | undefined;
+  business_name?: string | undefined;
+  business_phone?: string | undefined;
+  external_metadata?: string | undefined;
+};
+
+/**
+ * @pattern ^[a-f0-9]{32}$
+ * @example a7b9c3d2e8f4a1b5c6d0e9f2a3b7c4d8
+ * @type string
+ */
+export type OrganizationsApiOrganizationID = string;
+
+export type OrganizationsApiCreateOrganizationRequest = {
+  /**
+   * @description The Organization name, limited to 65 UTF-8 bytes.
+   * @minLength 1
+   * @type string
+   */
+  name: string;
+  parent?: {
+    /**
+     * @pattern ^[a-f0-9]{32}$
+     * @example a7b9c3d2e8f4a1b5c6d0e9f2a3b7c4d8
+     * @type string
+     */
+    id: OrganizationsApiOrganizationID;
+  } | undefined;
+  /**
+   * @description Optional profile fields, each limited to 1,000 UTF-8 bytes. An empty profile is ignored.
+   * @type object | undefined
+   */
+  profile?: OrganizationsApiCreateOrganizationProfileRequest | undefined;
+};
+
+export type OrganizationsApiDeleteOrganizationMemberResult = {
+  id: string;
+};
+
 export type OrganizationsApiDeleteOrganizationResult = {
   id: string;
 };
 
-export type OrganizationsApiMaxCountAllocation = {
-  type: 'max_count';
-  value: number;
-};
-
-export type OrganizationsApiNullAllocation = {
-  type: '';
-  value?: object | undefined;
-};
-
 export type OrganizationsApiFeature = {
   key: string;
-};
-
-export type OrganizationsApiEntitlement = {
-  allocation: OrganizationsApiMaxCountAllocation | OrganizationsApiBoolAllocation | OrganizationsApiNullAllocation;
-  feature: OrganizationsApiFeature;
 };
 
 export const organizationsApiHandleOrganizationInviteRequestStatusEnum = {
@@ -78364,13 +78470,125 @@ export type OrganizationsApiHandleOrganizationInviteRequest = {
   status: OrganizationsApiHandleOrganizationInviteRequestStatusEnumKey;
 };
 
-export type OrganizationsApiInnateEntitlements = {
-  allow_add_subdomain: OrganizationsApiBoolAllocation;
-  allow_auto_accept_invites: OrganizationsApiBoolAllocation;
-  cname_setup_allowed: OrganizationsApiBoolAllocation;
-  custom_entitlements: OrganizationsApiEntitlement[] | null;
-  mhs_certificate_count: OrganizationsApiMaxCountAllocation;
-  partial_setup_allowed: OrganizationsApiBoolAllocation;
+export const organizationsApiLegacyAccountAccountTypeEnum = {
+  standard: 'standard',
+  enterprise: 'enterprise',
+} as const;
+
+export type OrganizationsApiLegacyAccountAccountTypeEnumKey = (typeof organizationsApiLegacyAccountAccountTypeEnum)[keyof typeof organizationsApiLegacyAccountAccountTypeEnum];
+
+export type OrganizationsApiLegacyAccount = {
+  account_pubname: string | null;
+  account_tag: string;
+  account_type: OrganizationsApiLegacyAccountAccountTypeEnumKey;
+  /**
+   * @description
+   * Format: `date-time`
+   * @type string
+   */
+  created_on: string;
+  settings: {
+    /**
+     * @description
+     * Format: `date-time`
+     * @type string
+     */
+    access_approval_expiry: string | null;
+    api_access_enabled: boolean;
+    enforce_two_factor: boolean;
+    use_account_custom_ns_by_default: boolean;
+  };
+};
+
+export type OrganizationsApiUserTenantAllocationValue = boolean | number | string | {
+  [key: string]: unknown;
+} | OrganizationsApiUserTenantAllocationValue[];
+
+export type OrganizationsApiUserTenantAllocation = {
+  type: string;
+  value: OrganizationsApiUserTenantAllocationValue;
+};
+
+export type OrganizationsApiUserTenantEntitlement = {
+  allocation: OrganizationsApiUserTenantAllocation;
+  feature: OrganizationsApiFeature;
+};
+
+export type OrganizationsApiTenantUnitMembership = {
+  member_metadata: object;
+  member_status: string;
+  member_tag: string;
+};
+
+export type OrganizationsApiTenantUnit = {
+  unit_memberships: OrganizationsApiTenantUnitMembership[] | null;
+  unit_metadata: object;
+  unit_name: string;
+  unit_status: string;
+  unit_tag: string;
+};
+
+export type OrganizationsApiLegacyTenant = {
+  /**
+   * @description
+   * Format: `date-time`
+   * @type string
+   */
+  cdate: string;
+  customer_id: string | null;
+  /**
+   * @description
+   * Format: `date-time`
+   * @type string
+   */
+  edate: string;
+  tenant_contacts: {
+    email?: string | undefined;
+    website?: string | undefined;
+  };
+  tenant_labels: string[] | null;
+  tenant_metadata: {
+    billing_account_type?: string | undefined;
+    configuration_account?: string | undefined;
+    created_by?: string | undefined;
+    dns?: {
+      ns_pool: {
+        primary: string | null;
+        secondary: string | null;
+      };
+    } | undefined;
+    flags?: {
+      [key: string]: string;
+    } | undefined;
+    innate_account_entitlements?: OrganizationsApiUserTenantEntitlement[] | undefined;
+    tenant_entitlements?: OrganizationsApiUserTenantEntitlement[] | undefined;
+  };
+  tenant_name: string;
+  tenant_network: {
+    choices?: {
+      [key: string]: object;
+    } | undefined;
+  };
+  tenant_status: string;
+  tenant_tag: string;
+  tenant_type: string;
+  tenant_units: OrganizationsApiTenantUnit[] | null;
+  /**
+   * @description Which top-level dashboard experiences to render for this tenant; both may be true.
+   * @type object
+   */
+  ui_flags: {
+    /**
+     * @description Render the Organizations experience for this tenant.
+     * @type boolean
+     */
+    show_orgs_ui: boolean;
+    /**
+     * @description Render the legacy Tenants experience for this tenant.
+     * @type boolean
+     */
+    show_tenants_ui: boolean;
+  };
 };
 
 /**
@@ -78380,6 +78598,33 @@ export type OrganizationsApiInnateEntitlements = {
  * @type string
  */
 export type OrganizationsApiMemberID = string;
+
+export type OrganizationsApiMemberPolicyRole = {
+  id: string;
+};
+
+export type OrganizationsApiMemberPolicyScope = {
+  /**
+   * @description An Organization (`com.cloudflare.api.tenant.unit.<tag>`) or Account (`com.cloudflare.api.account.<tag>`) key.
+   * @type string
+   */
+  key: string;
+  /**
+   * @description The route Organization for Account scopes. Optional in requests and always returned for Account scopes.
+   * @type array | undefined
+   */
+  subset_of?: OrganizationsApiMemberPolicyScope[] | undefined;
+};
+
+export type OrganizationsApiMemberPolicy = {
+  /**
+   * @description Omit to create a policy. An unchanged policy keeps its ID; a changed policy is replaced under a new ID.
+   * @type string | undefined
+   */
+  id?: string | undefined;
+  roles: OrganizationsApiMemberPolicyRole[];
+  scopes: OrganizationsApiMemberPolicyScope[];
+};
 
 export type OrganizationsApiMemberSubjectUser = {
   email: string;
@@ -78414,6 +78659,11 @@ export type OrganizationsApiMember = {
   meta: {
     [key: string]: object;
   };
+  /**
+   * @description Direct policies of the membership. Present only for DSR members enrolled in Organization Roles.
+   * @type array | undefined
+   */
+  policies?: OrganizationsApiMemberPolicy[] | undefined;
   status: OrganizationsApiMemberStatusEnumKey;
   /**
    * @description
@@ -78424,12 +78674,32 @@ export type OrganizationsApiMember = {
   user: OrganizationsApiMemberSubjectUser;
 };
 
-export type OrganizationsApiModifyOrganizationProfileRequest = {
-  business_address: string;
-  business_email: string;
-  business_name: string;
-  business_phone: string;
-  external_metadata: string;
+export type OrganizationsApiModifyOrganizationRequest = {
+  /**
+   * @description The Organization's display name, limited to 65 UTF-8 bytes. An omitted, empty, or unchanged value is a no-op.
+   * @type string | undefined
+   */
+  name?: string | undefined;
+  /**
+   * @description The current parent Organization ID. A different value is rejected; this endpoint cannot move an Organization.
+   * @pattern ^[a-f0-9]{32}$
+   * @example a7b9c3d2e8f4a1b5c6d0e9f2a3b7c4d8
+   * @type string | undefined
+   */
+  parent_id?: OrganizationsApiOrganizationID | undefined;
+};
+
+/**
+ * @description Partial business profile update. Omitted, empty, or null fields remain unchanged. At least
+ * one of business name, address, phone, or email must be non-empty.
+ * @type object
+ */
+export type OrganizationsApiModifyProfileRequest = {
+  business_address?: (string | null) | undefined;
+  business_email?: (string | null) | undefined;
+  business_name?: (string | null) | undefined;
+  business_phone?: (string | null) | undefined;
+  external_metadata?: (string | null) | undefined;
 };
 
 export type OrganizationsApiMoveAccountResult = {
@@ -78437,13 +78707,6 @@ export type OrganizationsApiMoveAccountResult = {
   destination_organization_id: string;
   source_organization_id: string;
 };
-
-/**
- * @pattern ^[a-f0-9]{32}$
- * @example a7b9c3d2e8f4a1b5c6d0e9f2a3b7c4d8
- * @type string
- */
-export type OrganizationsApiOrganizationID = string;
 
 /**
  * @description Enable features for Organizations.
@@ -78486,6 +78749,7 @@ export type OrganizationsApiOrganization = {
    */
   readonly id: OrganizationsApiOrganizationID;
   readonly meta: {
+    readonly are_child_accounts_accessible_by_org_members?: boolean | undefined;
     /**
      * @description Ordered chain of organization tags from the root organization down to
      * (and including) this organization itself. Root organizations return a
@@ -78502,6 +78766,7 @@ export type OrganizationsApiOrganization = {
      * @type object | undefined
      */
     tenant_flags?: OrganizationsApiOrganizationFlags | undefined;
+    tenant_type?: string | undefined;
     [key: string]: unknown;
   };
   name: string;
@@ -78517,21 +78782,45 @@ export type OrganizationsApiOrganization = {
   profile?: OrganizationsApiProfile | undefined;
 };
 
-export type OrganizationsApiPageTokenResultInfo = {
+export const organizationsApiOrganizationInviteMemberStatusEnum = {
+  active: 'active',
+  pending: 'pending',
+  rejected: 'rejected',
+  canceled: 'canceled',
+} as const;
+
+export type OrganizationsApiOrganizationInviteMemberStatusEnumKey = (typeof organizationsApiOrganizationInviteMemberStatusEnum)[keyof typeof organizationsApiOrganizationInviteMemberStatusEnum];
+
+/**
+ * @description Membership returned after handling an Organization invitation. Invite handling populates
+ * user ID and email; name, two-factor status, and timestamps contain placeholder values.
+ * @type object
+ */
+export type OrganizationsApiOrganizationInviteMember = {
   /**
-   * @description Use this opaque token in the next request to retrieve the
-   * next page.
-   *
-   * Parameters used to filter the retrieved list must remain in subsequent
-   * requests with a page token.
-   * @type string | undefined
+   * @description
+   * Format: `date-time`
+   * @type string
    */
-  next_page_token?: string | undefined;
+  create_time: string;
   /**
-   * @description Counts the total amount of items in a list with the applied filters. The API omits next_page_token to indicate no more items in a particular list.
-   * @type integer | undefined
+   * @description Organization Member ID
+   * @pattern ^[a-f0-9]{32}$
+   * @example a7b9c3d2e8f4a1b5c6d0e9f2a3b7c4d8
+   * @type string
    */
-  total_size?: number | undefined;
+  id: OrganizationsApiMemberID;
+  meta: {
+    [key: string]: object;
+  } | null;
+  status: OrganizationsApiOrganizationInviteMemberStatusEnumKey;
+  /**
+   * @description
+   * Format: `date-time`
+   * @type string
+   */
+  update_time: string;
+  user: OrganizationsApiMemberSubjectUser;
 };
 
 export type OrganizationsApiV4Message = {
@@ -78546,59 +78835,10 @@ export type OrganizationsApiProfileResponse = {
   success: true;
 };
 
-export type OrganizationsApiTenantUnit = {
-  unit_memberships: object[];
-  unit_metadata: object;
-  unit_name: string;
-  unit_status: string;
-  unit_tag: string;
-};
-
-export type OrganizationsApiTenant = {
-  /**
-   * @description
-   * Format: `date-time`
-   * @type string
-   */
-  cdate: string;
-  customer_id?: string | undefined;
-  /**
-   * @description
-   * Format: `date-time`
-   * @type string
-   */
-  edate: string;
-  tenant_contacts: {
-    email?: string | undefined;
-    website?: string | undefined;
-  };
-  tenant_labels: string[];
-  tenant_metadata: {
-    dns?: {
-      ns_pool: {
-        primary?: string | undefined;
-        secondary?: string | undefined;
-      };
-    } | undefined;
-  };
-  tenant_name: string;
-  tenant_network: object;
-  tenant_status: string;
-  tenant_tag: string;
-  tenant_type: string;
-  tenant_units: OrganizationsApiTenantUnit[];
-};
-
-export type OrganizationsApiTenantMembership = {
-  user_email: string;
-  user_name: string;
-  user_tag: string;
-};
-
 export type OrganizationsApiV4ErrorResponse = {
   errors: OrganizationsApiV4Message[];
   messages: OrganizationsApiV4Message[];
-  result?: object | undefined;
+  result?: (object | null) | undefined;
   success: false;
 };
 
@@ -138597,55 +138837,6 @@ export type IntelSinkholesApiResponseCommonFailure2 = IntelSinkholesApiResponseC
 export type LoadBalancingOriginHealthy2 = boolean;
 
 /**
- * @description References an Organization in the Cloudflare data model.
- * @type object
- */
-export type OrganizationsApiOrganizationWritable = {
-  /**
-   * @description
-   * Format: `date-time`
-   * @type string | undefined
-   */
-  readonly create_time?: string | undefined;
-  /**
-   * @pattern ^[a-f0-9]{32}$
-   * @example a7b9c3d2e8f4a1b5c6d0e9f2a3b7c4d8
-   * @type string | undefined
-   */
-  readonly id?: OrganizationsApiOrganizationID | undefined;
-  readonly meta?: {
-    /**
-     * @description Ordered chain of organization tags from the root organization down to
-     * (and including) this organization itself. Root organizations return a
-     * single-element array containing their own tag; sub-organizations return
-     * `[rootTag, ...intermediateTags, parentTag, selfTag]`. Useful for
-     * constructing authorization scopes that need to cover every ancestor
-     * in the hierarchy.
-     * @type array | undefined
-     */
-    hierarchy_tags?: string[] | undefined;
-    managed_by?: string | undefined;
-    /**
-     * @description Enable features for Organizations.
-     * @type object | undefined
-     */
-    tenant_flags?: OrganizationsApiOrganizationFlags | undefined;
-    [key: string]: unknown;
-  } | undefined;
-  name: string;
-  parent?: {
-    /**
-     * @pattern ^[a-f0-9]{32}$
-     * @example a7b9c3d2e8f4a1b5c6d0e9f2a3b7c4d8
-     * @type string
-     */
-    id: OrganizationsApiOrganizationID;
-    readonly name?: string | undefined;
-  } | undefined;
-  profile?: OrganizationsApiProfile | undefined;
-};
-
-/**
  * @description An email allow policy.
  * @type object
  */
@@ -141629,45 +141820,6 @@ export type AccountCreationResponses = {
  */
 export type AccountCreationResponse = AccountCreationStatus200;
 
-export type AccountsBatchMoveAccountsStatus200 = {
-  errors: object[];
-  messages: OrganizationsApiV4Message[];
-  result: OrganizationsApiBatchAccountMoveResponse;
-  success: true;
-};
-
-export type AccountsBatchMoveAccountsStatus400 = OrganizationsApiV4ErrorResponse;
-
-export type AccountsBatchMoveAccountsBody = {
-  /**
-   * @description Move these accounts to the destination organization.
-   * @type array
-   */
-  account_ids: string[];
-  /**
-   * @description Move accounts to this organization ID.
-   * @type string
-   */
-  destination_organization_id: string;
-};
-
-export type AccountsBatchMoveAccountsOptions = {
-  body: AccountsBatchMoveAccountsBody;
-  path?: never | undefined;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type AccountsBatchMoveAccountsResponses = {
-  '200': AccountsBatchMoveAccountsStatus200;
-  '400': AccountsBatchMoveAccountsStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type AccountsBatchMoveAccountsResponse = AccountsBatchMoveAccountsStatus200;
-
 export type SqlApiQueryGetQuery = {
   /**
    * @description SQL query to execute. A trailing FORMAT selects JSON, JSONEachRow, TabSeparated, or TSV output on any dataset.
@@ -142425,6 +142577,13 @@ export type OauthScopesListResponses = {
  */
 export type OauthScopesListResponse = OauthScopesListStatus200;
 
+export const organizationListOrganizationsDirection = {
+  asc: 'asc',
+  desc: 'desc',
+} as const;
+
+export type OrganizationListOrganizationsDirectionKey = (typeof organizationListOrganizationsDirection)[keyof typeof organizationListOrganizationsDirection];
+
 export type OrganizationListOrganizationsQuery = {
   /**
    * @description Only return organizations with the specified IDs (ex. id=foo&id=bar). Send multiple elements
@@ -142488,6 +142647,24 @@ export type OrganizationListOrganizationsQuery = {
    */
   'parent.id'?: (OrganizationsApiOrganizationID | 'null') | undefined;
   /**
+   * @description Filter organizations to those where the given user, by email, is an active member of
+   * that exact organization. This does not include hierarchy-derived access.
+   * @type string | undefined
+   */
+  'member.email'?: string | undefined;
+  /**
+   * @description Field to order results by. Currently supported values: `name`.
+   * When not specified, results are ordered by hierarchy.
+   * @type string | undefined
+   */
+  order_by?: 'name' | undefined;
+  /**
+   * @description Sort direction for the `order_by` field. Defaults to `asc` when `order_by` is
+   * specified.
+   * @type string | undefined
+   */
+  direction?: OrganizationListOrganizationsDirectionKey | undefined;
+  /**
    * @description An opaque token returned from the last list response that when
    * provided will retrieve the next page.
    *
@@ -142515,6 +142692,8 @@ export type OrganizationListOrganizationsStatus200 = {
 
 export type OrganizationListOrganizationsStatus400 = OrganizationsApiV4ErrorResponse;
 
+export type OrganizationListOrganizationsStatus500 = OrganizationsApiV4ErrorResponse;
+
 export type OrganizationListOrganizationsOptions = {
   body?: never | undefined;
   path?: never | undefined;
@@ -142525,6 +142704,7 @@ export type OrganizationListOrganizationsOptions = {
 export type OrganizationListOrganizationsResponses = {
   '200': OrganizationListOrganizationsStatus200;
   '400': OrganizationListOrganizationsStatus400;
+  '500': OrganizationListOrganizationsStatus500;
 };
 
 /**
@@ -142545,11 +142725,9 @@ export type OrganizationsCreateUserOrganizationStatus200 = {
 
 export type OrganizationsCreateUserOrganizationStatus400 = OrganizationsApiV4ErrorResponse;
 
-/**
- * @description References an Organization in the Cloudflare data model.
- * @type object
- */
-export type OrganizationsCreateUserOrganizationBody = Omit<NonNullable<OrganizationsApiOrganizationWritable>, 'create_time' | 'id' | 'meta'>;
+export type OrganizationsCreateUserOrganizationStatus500 = OrganizationsApiV4ErrorResponse;
+
+export type OrganizationsCreateUserOrganizationBody = OrganizationsApiCreateOrganizationRequest;
 
 export type OrganizationsCreateUserOrganizationOptions = {
   body: OrganizationsCreateUserOrganizationBody;
@@ -142561,6 +142739,7 @@ export type OrganizationsCreateUserOrganizationOptions = {
 export type OrganizationsCreateUserOrganizationResponses = {
   '200': OrganizationsCreateUserOrganizationStatus200;
   '400': OrganizationsCreateUserOrganizationStatus400;
+  '500': OrganizationsCreateUserOrganizationStatus500;
 };
 
 /**
@@ -225419,11 +225598,13 @@ export type UserSubscriptionUpdateUserSubscriptionResponse = UserSubscriptionUpd
 export type UserListUserTenantsStatus200 = {
   errors: object[];
   messages: OrganizationsApiV4Message[];
-  result: OrganizationsApiOrganization[];
+  result: OrganizationsApiLegacyTenant[];
   success: true;
 };
 
 export type UserListUserTenantsStatus400 = OrganizationsApiV4ErrorResponse;
+
+export type UserListUserTenantsStatus500 = OrganizationsApiV4ErrorResponse;
 
 export type UserListUserTenantsOptions = {
   body?: never | undefined;
@@ -225435,6 +225616,7 @@ export type UserListUserTenantsOptions = {
 export type UserListUserTenantsResponses = {
   '200': UserListUserTenantsStatus200;
   '400': UserListUserTenantsStatus400;
+  '500': UserListUserTenantsStatus500;
 };
 
 /**
@@ -234814,6 +234996,37 @@ export type ZeroTrustOrganizationRevokeAllAccessTokensForAUserResponses = {
  */
 export type ZeroTrustOrganizationRevokeAllAccessTokensForAUserResponse = ZeroTrustOrganizationRevokeAllAccessTokensForAUserStatus200;
 
+export type ZeroTrustOrganizationDeleteTrustSettingsPath = {
+  /**
+   * @description Identifier.
+   * @maxLength 32
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  accountId: AccessIdentifier;
+};
+
+export type ZeroTrustOrganizationDeleteTrustSettingsStatus200 = AccessTrustSettingsResponse;
+
+export type ZeroTrustOrganizationDeleteTrustSettingsStatus400 = AccessApiResponseCommonFailure;
+
+export type ZeroTrustOrganizationDeleteTrustSettingsOptions = {
+  body?: never | undefined;
+  path: ZeroTrustOrganizationDeleteTrustSettingsPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type ZeroTrustOrganizationDeleteTrustSettingsResponses = {
+  '200': ZeroTrustOrganizationDeleteTrustSettingsStatus200;
+  '400': ZeroTrustOrganizationDeleteTrustSettingsStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ZeroTrustOrganizationDeleteTrustSettingsResponse = ZeroTrustOrganizationDeleteTrustSettingsStatus200;
+
 export type ZeroTrustOrganizationGetTrustSettingsPath = {
   /**
    * @description Identifier.
@@ -235587,6 +235800,12 @@ export type AccessServiceTokensCreateAServiceTokenBody = {
    * @type string | undefined
    */
   previous_client_secret_expires_at?: AccessPreviousClientSecretExpiresAt | undefined;
+  /**
+   * @description Tags associated with the service token, as key-value pairs. On update, replaces all existing tags.
+   * @example {"environment":"production"}
+   * @type object | undefined
+   */
+  tags?: (AccessTags | null) | undefined;
 };
 
 export type AccessServiceTokensCreateAServiceTokenOptions = {
@@ -235736,6 +235955,12 @@ export type AccessServiceTokensUpdateAServiceTokenBody = {
    * @type string | undefined
    */
   previous_client_secret_expires_at?: AccessPreviousClientSecretExpiresAt | undefined;
+  /**
+   * @description Tags associated with the service token, as key-value pairs. On update, replaces all existing tags.
+   * @example {"environment":"production"}
+   * @type object | undefined
+   */
+  tags?: (AccessTags | null) | undefined;
 };
 
 export type AccessServiceTokensUpdateAServiceTokenOptions = {
@@ -280309,8 +280534,8 @@ export type BotnetThreatFeedGetDayReportPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
-  asnId: DosAsn;
+  accountId: BotnetFeedApiIdentifier;
+  asnId: BotnetFeedApiAsn;
 };
 
 export type BotnetThreatFeedGetDayReportQuery = {
@@ -280320,10 +280545,10 @@ export type BotnetThreatFeedGetDayReportQuery = {
    * @example 2014-01-01T05:20:00.12345Z
    * @type string | undefined
    */
-  date?: DosTimestamp | undefined;
+  date?: BotnetFeedApiTimestamp | undefined;
 };
 
-export type BotnetThreatFeedGetDayReportStatus200 = DosApiResponseCommon & {
+export type BotnetThreatFeedGetDayReportStatus200 = BotnetFeedApiApiResponseCommon & {
   result?: {
     /**
      * @example 1.1.1.1/32
@@ -280345,7 +280570,7 @@ export type BotnetThreatFeedGetDayReportStatus200 = DosApiResponseCommon & {
   } | undefined;
 };
 
-export type BotnetThreatFeedGetDayReportStatus400 = DosApiResponseCommonFailure;
+export type BotnetThreatFeedGetDayReportStatus400 = BotnetFeedApiApiResponseCommonFailure;
 
 export type BotnetThreatFeedGetDayReportOptions = {
   body?: never | undefined;
@@ -280371,11 +280596,11 @@ export type BotnetThreatFeedGetFullReportPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
-  asnId: DosAsn;
+  accountId: BotnetFeedApiIdentifier;
+  asnId: BotnetFeedApiAsn;
 };
 
-export type BotnetThreatFeedGetFullReportStatus200 = DosApiResponseCommon & {
+export type BotnetThreatFeedGetFullReportStatus200 = BotnetFeedApiApiResponseCommon & {
   result?: {
     /**
      * @example 1.1.1.1/32
@@ -280397,7 +280622,7 @@ export type BotnetThreatFeedGetFullReportStatus200 = DosApiResponseCommon & {
   } | undefined;
 };
 
-export type BotnetThreatFeedGetFullReportStatus400 = DosApiResponseCommonFailure;
+export type BotnetThreatFeedGetFullReportStatus400 = BotnetFeedApiApiResponseCommonFailure;
 
 export type BotnetThreatFeedGetFullReportOptions = {
   body?: never | undefined;
@@ -280423,10 +280648,10 @@ export type BotnetThreatFeedListAsnPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
+  accountId: BotnetFeedApiIdentifier;
 };
 
-export type BotnetThreatFeedListAsnStatus200 = DosApiResponseCommon & {
+export type BotnetThreatFeedListAsnStatus200 = BotnetFeedApiApiResponseCommon & {
   result?: {
     /**
      * @example 13335
@@ -280436,7 +280661,7 @@ export type BotnetThreatFeedListAsnStatus200 = DosApiResponseCommon & {
   } | undefined;
 };
 
-export type BotnetThreatFeedListAsnStatus400 = DosApiResponseCommonFailure;
+export type BotnetThreatFeedListAsnStatus400 = BotnetFeedApiApiResponseCommonFailure;
 
 export type BotnetThreatFeedListAsnOptions = {
   body?: never | undefined;
@@ -280462,11 +280687,11 @@ export type BotnetThreatFeedDeleteAsnPath = {
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
-  accountId: DosIdentifier;
-  asnId: DosAsn;
+  accountId: BotnetFeedApiIdentifier;
+  asnId: BotnetFeedApiAsn;
 };
 
-export type BotnetThreatFeedDeleteAsnStatus200 = DosApiResponseCommon & {
+export type BotnetThreatFeedDeleteAsnStatus200 = BotnetFeedApiApiResponseCommon & {
   result?: {
     /**
      * @example 13335
@@ -280476,7 +280701,7 @@ export type BotnetThreatFeedDeleteAsnStatus200 = DosApiResponseCommon & {
   } | undefined;
 };
 
-export type BotnetThreatFeedDeleteAsnStatus400 = DosApiResponseCommonFailure;
+export type BotnetThreatFeedDeleteAsnStatus400 = BotnetFeedApiApiResponseCommonFailure;
 
 export type BotnetThreatFeedDeleteAsnOptions = {
   body?: never | undefined;
@@ -282940,7 +283165,7 @@ export type BrapiPostAccessibilityTreeBody = ({
    */
   url?: string | undefined;
   /**
-   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36'
    * @type string | undefined
    */
   userAgent?: string | undefined;
@@ -283321,7 +283546,7 @@ export type BrapiPostContentBody = ({
    */
   url?: string | undefined;
   /**
-   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36'
    * @type string | undefined
    */
   userAgent?: string | undefined;
@@ -286205,7 +286430,7 @@ export type BrapiPostJsonBody = ({
    */
   url?: string | undefined;
   /**
-   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36'
    * @type string | undefined
    */
   userAgent?: string | undefined;
@@ -286587,7 +286812,7 @@ export type BrapiPostLinksBody = ({
    */
   url?: string | undefined;
   /**
-   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36'
    * @type string | undefined
    */
   userAgent?: string | undefined;
@@ -286973,7 +287198,7 @@ export type BrapiPostMarkdownBody = ({
    */
   url?: string | undefined;
   /**
-   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36'
    * @type string | undefined
    */
   userAgent?: string | undefined;
@@ -287405,7 +287630,7 @@ export type BrapiPostPdfBody = ({
    */
   url?: string | undefined;
   /**
-   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36'
    * @type string | undefined
    */
   userAgent?: string | undefined;
@@ -288059,7 +288284,7 @@ export type BrapiPostScrapeBody = ({
    */
   url?: string | undefined;
   /**
-   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36'
    * @type string | undefined
    */
   userAgent?: string | undefined;
@@ -288418,7 +288643,7 @@ export type BrapiPostScreenshotBody = ({
    */
   url?: string | undefined;
   /**
-   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36'
    * @type string | undefined
    */
   userAgent?: string | undefined;
@@ -288853,7 +289078,7 @@ export type BrapiPostSnapshotBody = ({
    */
   url?: string | undefined;
   /**
-   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
+   * @default 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36'
    * @type string | undefined
    */
   userAgent?: string | undefined;
@@ -319307,9 +319532,11 @@ export const rssArticleReprocessStatus200ResultStepsOutcomeEnum = {
 export type RssArticleReprocessStatus200ResultStepsOutcomeEnumKey = (typeof rssArticleReprocessStatus200ResultStepsOutcomeEnum)[keyof typeof rssArticleReprocessStatus200ResultStepsOutcomeEnum];
 
 export const rssArticleReprocessStatus200ResultStepsStepEnum = {
-  content: 'content',
+  pull: 'pull',
+  clean: 'clean',
+  extract: 'extract',
+  filter: 'filter',
   summary: 'summary',
-  indicators: 'indicators',
   cves: 'cves',
   ioc_context: 'ioc_context',
   tags: 'tags',
@@ -359751,7 +359978,7 @@ export type WhoisRecordGetWhoisRecordQuery = {
 
 export type WhoisRecordGetWhoisRecordStatus200 = CloudforceOneWhoisSchemasSingleResponse;
 
-export type WhoisRecordGetWhoisRecordStatus400 = CloudforceOneWhoisSchemasSingleResponse & CloudforceOneWhoisApiResponseCommonFailure;
+export type WhoisRecordGetWhoisRecordStatus400 = CloudforceOneWhoisApiResponseCommonFailure;
 
 export type WhoisRecordGetWhoisRecordOptions = {
   body?: never | undefined;
@@ -371844,6 +372071,8 @@ export type AccountsMoveAccountsStatus200 = {
 
 export type AccountsMoveAccountsStatus400 = OrganizationsApiV4ErrorResponse;
 
+export type AccountsMoveAccountsStatus500 = OrganizationsApiV4ErrorResponse;
+
 /**
  * @description The destination organization ID is where the account is to be moved.
  * @type object
@@ -371866,6 +372095,7 @@ export type AccountsMoveAccountsOptions = {
 export type AccountsMoveAccountsResponses = {
   '200': AccountsMoveAccountsStatus200;
   '400': AccountsMoveAccountsStatus400;
+  '500': AccountsMoveAccountsStatus500;
 };
 
 /**
@@ -373049,6 +373279,8 @@ export type AccountsListAccountOrganizationsStatus200 = {
 
 export type AccountsListAccountOrganizationsStatus400 = OrganizationsApiV4ErrorResponse;
 
+export type AccountsListAccountOrganizationsStatus500 = OrganizationsApiV4ErrorResponse;
+
 export type AccountsListAccountOrganizationsOptions = {
   body?: never | undefined;
   path: AccountsListAccountOrganizationsPath;
@@ -373059,6 +373291,7 @@ export type AccountsListAccountOrganizationsOptions = {
 export type AccountsListAccountOrganizationsResponses = {
   '200': AccountsListAccountOrganizationsStatus200;
   '400': AccountsListAccountOrganizationsStatus400;
+  '500': AccountsListAccountOrganizationsStatus500;
 };
 
 /**
@@ -378250,6 +378483,8 @@ export type AccountsGetAccountProfileStatus200 = {
 
 export type AccountsGetAccountProfileStatus400 = OrganizationsApiV4ErrorResponse;
 
+export type AccountsGetAccountProfileStatus500 = OrganizationsApiV4ErrorResponse;
+
 export type AccountsGetAccountProfileOptions = {
   body?: never | undefined;
   path: AccountsGetAccountProfilePath;
@@ -378260,6 +378495,7 @@ export type AccountsGetAccountProfileOptions = {
 export type AccountsGetAccountProfileResponses = {
   '200': AccountsGetAccountProfileStatus200;
   '400': AccountsGetAccountProfileStatus400;
+  '500': AccountsGetAccountProfileStatus500;
 };
 
 /**
@@ -378279,7 +378515,14 @@ export type AccountsModifyAccountProfileStatus204 = unknown;
 
 export type AccountsModifyAccountProfileStatus400 = OrganizationsApiV4ErrorResponse;
 
-export type AccountsModifyAccountProfileBody = OrganizationsApiProfile;
+export type AccountsModifyAccountProfileStatus500 = OrganizationsApiV4ErrorResponse;
+
+/**
+ * @description Partial business profile update. Omitted, empty, or null fields remain unchanged. At least
+ * one of business name, address, phone, or email must be non-empty.
+ * @type object
+ */
+export type AccountsModifyAccountProfileBody = OrganizationsApiModifyProfileRequest;
 
 export type AccountsModifyAccountProfileOptions = {
   body: AccountsModifyAccountProfileBody;
@@ -378291,6 +378534,7 @@ export type AccountsModifyAccountProfileOptions = {
 export type AccountsModifyAccountProfileResponses = {
   '204': AccountsModifyAccountProfileStatus204;
   '400': AccountsModifyAccountProfileStatus400;
+  '500': AccountsModifyAccountProfileStatus500;
 };
 
 /**
@@ -427292,6 +427536,8 @@ export type OrganizationsDeleteStatus200 = {
 
 export type OrganizationsDeleteStatus400 = OrganizationsApiV4ErrorResponse;
 
+export type OrganizationsDeleteStatus500 = OrganizationsApiV4ErrorResponse;
+
 export type OrganizationsDeleteOptions = {
   body?: never | undefined;
   path: OrganizationsDeletePath;
@@ -427302,6 +427548,7 @@ export type OrganizationsDeleteOptions = {
 export type OrganizationsDeleteResponses = {
   '200': OrganizationsDeleteStatus200;
   '400': OrganizationsDeleteStatus400;
+  '500': OrganizationsDeleteStatus500;
 };
 
 /**
@@ -427332,6 +427579,8 @@ export type OrganizationsRetrieveStatus200 = {
 
 export type OrganizationsRetrieveStatus400 = OrganizationsApiV4ErrorResponse;
 
+export type OrganizationsRetrieveStatus500 = OrganizationsApiV4ErrorResponse;
+
 export type OrganizationsRetrieveOptions = {
   body?: never | undefined;
   path: OrganizationsRetrievePath;
@@ -427342,6 +427591,7 @@ export type OrganizationsRetrieveOptions = {
 export type OrganizationsRetrieveResponses = {
   '200': OrganizationsRetrieveStatus200;
   '400': OrganizationsRetrieveStatus400;
+  '500': OrganizationsRetrieveStatus500;
 };
 
 /**
@@ -427372,12 +427622,13 @@ export type OrganizationsModifyStatus200 = {
 
 export type OrganizationsModifyStatus400 = OrganizationsApiV4ErrorResponse;
 
+export type OrganizationsModifyStatus500 = OrganizationsApiV4ErrorResponse;
+
 /**
- * @description The new details of the organization. Only accepts updates
- * to "name" currently.
+ * @description The Organization fields to update or verify.
  * @type object
  */
-export type OrganizationsModifyBody = Omit<NonNullable<OrganizationsApiOrganizationWritable>, 'create_time' | 'id' | 'meta'>;
+export type OrganizationsModifyBody = OrganizationsApiModifyOrganizationRequest;
 
 export type OrganizationsModifyOptions = {
   body: OrganizationsModifyBody;
@@ -427389,6 +427640,7 @@ export type OrganizationsModifyOptions = {
 export type OrganizationsModifyResponses = {
   '200': OrganizationsModifyStatus200;
   '400': OrganizationsModifyStatus400;
+  '500': OrganizationsModifyStatus500;
 };
 
 /**
@@ -427406,6 +427658,13 @@ export type OrganizationsGetAccountsPath = {
   organizationId: OrganizationsApiOrganizationID;
 };
 
+export const organizationsGetAccountsStatus = {
+  active: 'active',
+  deleted: 'deleted',
+} as const;
+
+export type OrganizationsGetAccountsStatusKey = (typeof organizationsGetAccountsStatus)[keyof typeof organizationsGetAccountsStatus];
+
 export const organizationsGetAccountsDirection = {
   asc: 'asc',
   desc: 'desc',
@@ -427415,7 +427674,7 @@ export type OrganizationsGetAccountsDirectionKey = (typeof organizationsGetAccou
 
 export type OrganizationsGetAccountsQuery = {
   /**
-   * @description (case-insensitive) Filter the list of accounts to where the account_pubname is equal to
+   * @description (case-sensitive) Filter the list of accounts to where the account_pubname is equal to
    * a particular string.
    * @type string | undefined
    */
@@ -427439,7 +427698,7 @@ export type OrganizationsGetAccountsQuery = {
    */
   'account_pubname.contains'?: string | undefined;
   /**
-   * @description (case-insensitive) Filter the list of accounts to where the name is equal to a
+   * @description (case-sensitive) Filter the list of accounts to where the name is equal to a
    * particular string.
    * @type string | undefined
    */
@@ -427463,8 +427722,12 @@ export type OrganizationsGetAccountsQuery = {
    */
   'name.contains'?: string | undefined;
   /**
+   * @description Filter accounts by lifecycle status. Defaults to `active`.
+   * @type string | undefined
+   */
+  status?: OrganizationsGetAccountsStatusKey | undefined;
+  /**
    * @description Field to order results by. Currently supported values: `account_name`.
-   * When not specified, results are ordered by internal account ID.
    * @type string | undefined
    */
   order_by?: 'account_name' | undefined;
@@ -427490,6 +427753,18 @@ export type OrganizationsGetAccountsQuery = {
    */
   include_total?: boolean | undefined;
   /**
+   * @description Legacy offset page number. Must be provided with `per_page`. Values below 1 are treated as
+   * 1. Cursor pagination takes precedence when requested.
+   * @type integer | undefined
+   */
+  page?: number | undefined;
+  /**
+   * @description Legacy offset page size. Must be provided with `page`. Values are clamped to the range
+   * 1-100. Cursor pagination takes precedence when requested.
+   * @type integer | undefined
+   */
+  per_page?: number | undefined;
+  /**
    * @description An opaque token returned from the last list response that when
    * provided will retrieve the next page.
    *
@@ -427507,26 +427782,37 @@ export type OrganizationsGetAccountsQuery = {
   page_size?: number | undefined;
 };
 
+export type OrganizationsGetAccountsHeaders = {
+  /**
+   * @description Request `application/json; legacy=true` for the LegacyAccount representation.
+   * @type string | undefined
+   */
+  Accept?: string | undefined;
+};
+
 export type OrganizationsGetAccountsStatus200 = {
   errors: object[];
   messages: OrganizationsApiV4Message[];
-  result: OrganizationsApiAccount[];
-  result_info: OrganizationsApiPageTokenResultInfo;
+  result: (OrganizationsApiAccount | OrganizationsApiLegacyAccount)[];
+  result_info: OrganizationsApiAccountListResultInfo;
   success: true;
 };
 
 export type OrganizationsGetAccountsStatus400 = OrganizationsApiV4ErrorResponse;
 
+export type OrganizationsGetAccountsStatus500 = OrganizationsApiV4ErrorResponse;
+
 export type OrganizationsGetAccountsOptions = {
   body?: never | undefined;
   path: OrganizationsGetAccountsPath;
   query?: OrganizationsGetAccountsQuery | undefined;
-  headers?: never | undefined;
+  headers?: OrganizationsGetAccountsHeaders | undefined;
 };
 
 export type OrganizationsGetAccountsResponses = {
   '200': OrganizationsGetAccountsStatus200;
   '400': OrganizationsGetAccountsStatus400;
+  '500': OrganizationsGetAccountsStatus500;
 };
 
 /**
@@ -427611,11 +427897,18 @@ export type OrganizationsHandleOrganizationInvitePath = {
 export type OrganizationsHandleOrganizationInviteStatus200 = {
   errors: object[];
   messages: OrganizationsApiV4Message[];
-  result: OrganizationsApiMember;
+  /**
+   * @description Membership returned after handling an Organization invitation. Invite handling populates
+   * user ID and email; name, two-factor status, and timestamps contain placeholder values.
+   * @type object
+   */
+  result: OrganizationsApiOrganizationInviteMember;
   success: true;
 };
 
 export type OrganizationsHandleOrganizationInviteStatus400 = OrganizationsApiV4ErrorResponse;
+
+export type OrganizationsHandleOrganizationInviteStatus500 = OrganizationsApiV4ErrorResponse;
 
 /**
  * @description The invitation action. Use `accept` to join the organization or `reject` to decline the invitation.
@@ -427633,6 +427926,7 @@ export type OrganizationsHandleOrganizationInviteOptions = {
 export type OrganizationsHandleOrganizationInviteResponses = {
   '200': OrganizationsHandleOrganizationInviteStatus200;
   '400': OrganizationsHandleOrganizationInviteStatus400;
+  '500': OrganizationsHandleOrganizationInviteStatus500;
 };
 
 /**
@@ -428157,6 +428451,8 @@ export type MembersListStatus200 = {
 
 export type MembersListStatus400 = OrganizationsApiV4ErrorResponse;
 
+export type MembersListStatus500 = OrganizationsApiV4ErrorResponse;
+
 export type MembersListOptions = {
   body?: never | undefined;
   path: MembersListPath;
@@ -428167,6 +428463,7 @@ export type MembersListOptions = {
 export type MembersListResponses = {
   '200': MembersListStatus200;
   '400': MembersListStatus400;
+  '500': MembersListStatus500;
 };
 
 /**
@@ -428192,6 +428489,8 @@ export type MembersCreateStatus200 = {
 
 export type MembersCreateStatus400 = OrganizationsApiV4ErrorResponse;
 
+export type MembersCreateStatus500 = OrganizationsApiV4ErrorResponse;
+
 export type MembersCreateBody = OrganizationsApiCreateMemberRequest;
 
 export type MembersCreateOptions = {
@@ -428204,6 +428503,7 @@ export type MembersCreateOptions = {
 export type MembersCreateResponses = {
   '200': MembersCreateStatus200;
   '400': MembersCreateStatus400;
+  '500': MembersCreateStatus500;
 };
 
 /**
@@ -428227,9 +428527,16 @@ export type MembersDeletePath = {
   memberId: OrganizationsApiMemberID;
 };
 
-export type MembersDeleteStatus204 = unknown;
+export type MembersDeleteStatus200 = {
+  errors: object[];
+  messages: OrganizationsApiV4Message[];
+  result: OrganizationsApiDeleteOrganizationMemberResult;
+  success: true;
+};
 
 export type MembersDeleteStatus400 = OrganizationsApiV4ErrorResponse;
+
+export type MembersDeleteStatus500 = OrganizationsApiV4ErrorResponse;
 
 export type MembersDeleteOptions = {
   body?: never | undefined;
@@ -428239,14 +428546,15 @@ export type MembersDeleteOptions = {
 };
 
 export type MembersDeleteResponses = {
-  '204': MembersDeleteStatus204;
+  '200': MembersDeleteStatus200;
   '400': MembersDeleteStatus400;
+  '500': MembersDeleteStatus500;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type MembersDeleteResponse = MembersDeleteStatus204;
+export type MembersDeleteResponse = MembersDeleteStatus200;
 
 export type MembersRetrievePath = {
   /**
@@ -428273,6 +428581,8 @@ export type MembersRetrieveStatus200 = {
 
 export type MembersRetrieveStatus400 = OrganizationsApiV4ErrorResponse;
 
+export type MembersRetrieveStatus500 = OrganizationsApiV4ErrorResponse;
+
 export type MembersRetrieveOptions = {
   body?: never | undefined;
   path: MembersRetrievePath;
@@ -428283,6 +428593,7 @@ export type MembersRetrieveOptions = {
 export type MembersRetrieveResponses = {
   '200': MembersRetrieveStatus200;
   '400': MembersRetrieveStatus400;
+  '500': MembersRetrieveStatus500;
 };
 
 /**
@@ -428308,6 +428619,8 @@ export type MembersBatchCreateStatus200 = {
 
 export type MembersBatchCreateStatus400 = OrganizationsApiV4ErrorResponse;
 
+export type MembersBatchCreateStatus500 = OrganizationsApiV4ErrorResponse;
+
 export type MembersBatchCreateBody = OrganizationsApiBatchCreateMembersRequest;
 
 export type MembersBatchCreateOptions = {
@@ -428320,6 +428633,7 @@ export type MembersBatchCreateOptions = {
 export type MembersBatchCreateResponses = {
   '200': MembersBatchCreateStatus200;
   '400': MembersBatchCreateStatus400;
+  '500': MembersBatchCreateStatus500;
 };
 
 /**
@@ -428341,6 +428655,8 @@ export type OrganizationsGetProfileStatus200 = OrganizationsApiProfileResponse;
 
 export type OrganizationsGetProfileStatus400 = OrganizationsApiV4ErrorResponse;
 
+export type OrganizationsGetProfileStatus500 = OrganizationsApiV4ErrorResponse;
+
 export type OrganizationsGetProfileOptions = {
   body?: never | undefined;
   path: OrganizationsGetProfilePath;
@@ -428351,6 +428667,7 @@ export type OrganizationsGetProfileOptions = {
 export type OrganizationsGetProfileResponses = {
   '200': OrganizationsGetProfileStatus200;
   '400': OrganizationsGetProfileStatus400;
+  '500': OrganizationsGetProfileStatus500;
 };
 
 /**
@@ -428371,7 +428688,14 @@ export type OrganizationsModifyProfileStatus204 = unknown;
 
 export type OrganizationsModifyProfileStatus400 = OrganizationsApiV4ErrorResponse;
 
-export type OrganizationsModifyProfileBody = OrganizationsApiModifyOrganizationProfileRequest;
+export type OrganizationsModifyProfileStatus500 = OrganizationsApiV4ErrorResponse;
+
+/**
+ * @description Partial business profile update. Omitted, empty, or null fields remain unchanged. At least
+ * one of business name, address, phone, or email must be non-empty.
+ * @type object
+ */
+export type OrganizationsModifyProfileBody = OrganizationsApiModifyProfileRequest;
 
 export type OrganizationsModifyProfileOptions = {
   body: OrganizationsModifyProfileBody;
@@ -428383,6 +428707,7 @@ export type OrganizationsModifyProfileOptions = {
 export type OrganizationsModifyProfileResponses = {
   '204': OrganizationsModifyProfileStatus204;
   '400': OrganizationsModifyProfileStatus400;
+  '500': OrganizationsModifyProfileStatus500;
 };
 
 /**
@@ -435374,74 +435699,6 @@ export type PostK2SubscriptionsBySubscriptionIdConsumeResponses = {
  */
 export type PostK2SubscriptionsBySubscriptionIdConsumeResponse = PostK2SubscriptionsBySubscriptionIdConsumeStatus200;
 
-export type TenantsRetrieveTenantPath = {
-  /**
-   * @description The ID of the tenant to retrieve.
-   * @type string
-   */
-  tenantId: string;
-};
-
-export type TenantsRetrieveTenantStatus200 = {
-  errors: object[];
-  messages: OrganizationsApiV4Message[];
-  result: OrganizationsApiTenant;
-  success: true;
-};
-
-export type TenantsRetrieveTenantStatus400 = OrganizationsApiV4ErrorResponse;
-
-export type TenantsRetrieveTenantOptions = {
-  body?: never | undefined;
-  path: TenantsRetrieveTenantPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type TenantsRetrieveTenantResponses = {
-  '200': TenantsRetrieveTenantStatus200;
-  '400': TenantsRetrieveTenantStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type TenantsRetrieveTenantResponse = TenantsRetrieveTenantStatus200;
-
-export type TenantsValidAccountTypesPath = {
-  /**
-   * @description The ID of the tenant whose available account types to list.
-   * @type string
-   */
-  tenantId: string;
-};
-
-export type TenantsValidAccountTypesStatus200 = {
-  errors: object[];
-  messages: OrganizationsApiV4Message[];
-  result: string[];
-  success: true;
-};
-
-export type TenantsValidAccountTypesStatus400 = OrganizationsApiV4ErrorResponse;
-
-export type TenantsValidAccountTypesOptions = {
-  body?: never | undefined;
-  path: TenantsValidAccountTypesPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type TenantsValidAccountTypesResponses = {
-  '200': TenantsValidAccountTypesStatus200;
-  '400': TenantsValidAccountTypesStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type TenantsValidAccountTypesResponse = TenantsValidAccountTypesStatus200;
-
 export type TenantsListAccountsPath = {
   /**
    * @description The ID of the tenant whose accounts to list.
@@ -435450,25 +435707,146 @@ export type TenantsListAccountsPath = {
   tenantId: string;
 };
 
+export const tenantsListAccountsStatus = {
+  active: 'active',
+  deleted: 'deleted',
+} as const;
+
+export type TenantsListAccountsStatusKey = (typeof tenantsListAccountsStatus)[keyof typeof tenantsListAccountsStatus];
+
+export const tenantsListAccountsDirection = {
+  asc: 'asc',
+  desc: 'desc',
+} as const;
+
+export type TenantsListAccountsDirectionKey = (typeof tenantsListAccountsDirection)[keyof typeof tenantsListAccountsDirection];
+
+export type TenantsListAccountsQuery = {
+  /**
+   * @description (case-sensitive) Filter the list of accounts to where the account_pubname is equal to
+   * a particular string.
+   * @type string | undefined
+   */
+  account_pubname?: string | undefined;
+  /**
+   * @description (case-insensitive) Filter the list of accounts to where the account_pubname starts with
+   * a particular string.
+   * @type string | undefined
+   */
+  'account_pubname.startsWith'?: string | undefined;
+  /**
+   * @description (case-insensitive) Filter the list of accounts to where the account_pubname ends with
+   * a particular string.
+   * @type string | undefined
+   */
+  'account_pubname.endsWith'?: string | undefined;
+  /**
+   * @description (case-insensitive) Filter the list of accounts to where the account_pubname contains
+   * a particular string.
+   * @type string | undefined
+   */
+  'account_pubname.contains'?: string | undefined;
+  /**
+   * @description (case-sensitive) Filter the list of accounts to where the name is equal to a
+   * particular string.
+   * @type string | undefined
+   */
+  name?: string | undefined;
+  /**
+   * @description (case-insensitive) Filter the list of accounts to where the name starts with a
+   * particular string.
+   * @type string | undefined
+   */
+  'name.startsWith'?: string | undefined;
+  /**
+   * @description (case-insensitive) Filter the list of accounts to where the name ends with a particular
+   * string.
+   * @type string | undefined
+   */
+  'name.endsWith'?: string | undefined;
+  /**
+   * @description (case-insensitive) Filter the list of accounts to where the name contains a particular
+   * string.
+   * @type string | undefined
+   */
+  'name.contains'?: string | undefined;
+  /**
+   * @description Filter accounts by lifecycle status. Defaults to `active`.
+   * @type string | undefined
+   */
+  status?: TenantsListAccountsStatusKey | undefined;
+  /**
+   * @description Field to order results by. Currently supported values: `account_name`.
+   * @type string | undefined
+   */
+  order_by?: 'account_name' | undefined;
+  /**
+   * @description Sort direction for the order_by field. Valid values: `asc`, `desc`.
+   * Defaults to `asc` when order_by is specified.
+   * @type string | undefined
+   */
+  direction?: TenantsListAccountsDirectionKey | undefined;
+  /**
+   * @description Whether to calculate and return the exact `result_info.total_size` for cursor
+   * pagination. Defaults to true. When false, `total_size` is omitted. Legacy
+   * `page`/`per_page` requests always calculate `total_count`.
+   * @default true
+   * @type boolean | undefined
+   */
+  include_total?: boolean | undefined;
+  /**
+   * @description Legacy offset page number. Must be provided with `per_page`. Values below 1 are treated as
+   * 1. Cursor pagination takes precedence when requested.
+   * @type integer | undefined
+   */
+  page?: number | undefined;
+  /**
+   * @description Legacy offset page size. Must be provided with `page`. Values are clamped to the range
+   * 1-100. Cursor pagination takes precedence when requested.
+   * @type integer | undefined
+   */
+  per_page?: number | undefined;
+  /**
+   * @description An opaque token returned from the last list response that when
+   * provided will retrieve the next page.
+   *
+   * Parameters used to filter the retrieved list must remain in subsequent
+   * requests with a page token.
+   * @type string | undefined
+   */
+  page_token?: string | undefined;
+  /**
+   * @description The amount of items to return. Defaults to 10.
+   * @minLength 0
+   * @maxLength 1000
+   * @type integer | undefined
+   */
+  page_size?: number | undefined;
+};
+
 export type TenantsListAccountsStatus200 = {
   errors: object[];
   messages: OrganizationsApiV4Message[];
-  result: OrganizationsApiAccount[];
+  result: OrganizationsApiLegacyAccount[];
+  result_info: OrganizationsApiAccountListResultInfo;
   success: true;
 };
 
 export type TenantsListAccountsStatus400 = OrganizationsApiV4ErrorResponse;
 
+export type TenantsListAccountsStatus500 = OrganizationsApiV4ErrorResponse;
+
 export type TenantsListAccountsOptions = {
   body?: never | undefined;
   path: TenantsListAccountsPath;
-  query?: never | undefined;
+  query?: TenantsListAccountsQuery | undefined;
   headers?: never | undefined;
 };
 
 export type TenantsListAccountsResponses = {
   '200': TenantsListAccountsStatus200;
   '400': TenantsListAccountsStatus400;
+  '500': TenantsListAccountsStatus500;
 };
 
 /**
@@ -435578,74 +435956,6 @@ export type TenantLevelCustomNameserversDeleteTenantCustomNameserverResponses = 
  * @description Union of all possible responses
  */
 export type TenantLevelCustomNameserversDeleteTenantCustomNameserverResponse = TenantLevelCustomNameserversDeleteTenantCustomNameserverStatus200;
-
-export type TenantsListEntitlementsPath = {
-  /**
-   * @description The ID of the tenant whose entitlement allocations to retrieve.
-   * @type string
-   */
-  tenantId: string;
-};
-
-export type TenantsListEntitlementsStatus200 = {
-  errors: object[];
-  messages: OrganizationsApiV4Message[];
-  result: OrganizationsApiInnateEntitlements;
-  success: true;
-};
-
-export type TenantsListEntitlementsStatus400 = OrganizationsApiV4ErrorResponse;
-
-export type TenantsListEntitlementsOptions = {
-  body?: never | undefined;
-  path: TenantsListEntitlementsPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type TenantsListEntitlementsResponses = {
-  '200': TenantsListEntitlementsStatus200;
-  '400': TenantsListEntitlementsStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type TenantsListEntitlementsResponse = TenantsListEntitlementsStatus200;
-
-export type TenantsListMembershipsPath = {
-  /**
-   * @description The ID of the tenant whose active memberships to list.
-   * @type string
-   */
-  tenantId: string;
-};
-
-export type TenantsListMembershipsStatus200 = {
-  errors: object[];
-  messages: OrganizationsApiV4Message[];
-  result: OrganizationsApiTenantMembership[];
-  success: true;
-};
-
-export type TenantsListMembershipsStatus400 = OrganizationsApiV4ErrorResponse;
-
-export type TenantsListMembershipsOptions = {
-  body?: never | undefined;
-  path: TenantsListMembershipsPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type TenantsListMembershipsResponses = {
-  '200': TenantsListMembershipsStatus200;
-  '400': TenantsListMembershipsStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type TenantsListMembershipsResponse = TenantsListMembershipsStatus200;
 
 export type IpAccessRulesForAUserDeleteAnIpAccessRulePath = {
   /**
@@ -438640,6 +438950,12 @@ export type ZoneLevelAccessServiceTokensCreateAServiceTokenBody = {
    * @type string | undefined
    */
   previous_client_secret_expires_at?: AccessPreviousClientSecretExpiresAt | undefined;
+  /**
+   * @description Tags associated with the service token, as key-value pairs. On update, replaces all existing tags.
+   * @example {"environment":"production"}
+   * @type object | undefined
+   */
+  tags?: (AccessTags | null) | undefined;
 };
 
 export type ZoneLevelAccessServiceTokensCreateAServiceTokenOptions = {
@@ -438789,6 +439105,12 @@ export type ZoneLevelAccessServiceTokensUpdateAServiceTokenBody = {
    * @type string | undefined
    */
   previous_client_secret_expires_at?: AccessPreviousClientSecretExpiresAt | undefined;
+  /**
+   * @description Tags associated with the service token, as key-value pairs. On update, replaces all existing tags.
+   * @example {"environment":"production"}
+   * @type object | undefined
+   */
+  tags?: (AccessTags | null) | undefined;
 };
 
 export type ZoneLevelAccessServiceTokensUpdateAServiceTokenOptions = {
