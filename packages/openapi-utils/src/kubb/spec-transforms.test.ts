@@ -9,6 +9,7 @@ import {
 	fixRegexPatterns,
 	fixUnionConstraints,
 	renameReservedWords,
+	stripBasePathPrefix,
 } from "./spec-transforms";
 
 function spec(paths: Record<string, unknown>, extra: Record<string, unknown> = {}): OpenAPIObject {
@@ -198,6 +199,40 @@ describe("addMissingPathParams", () => {
 			{ name: "org", in: "path", required: true },
 			{ name: "id", in: "path", required: true, schema: { type: "string" } },
 		]);
+	});
+});
+
+describe("stripBasePathPrefix", () => {
+	it("drops a repeated base path and leaves other paths alone", () => {
+		const result = stripBasePathPrefix(
+			spec({
+				"/api/v1/sites/{site_id}/env": { get: { operationId: "getSiteEnvVars" } },
+				"/sites": { get: { operationId: "listSites" } },
+				"/api/v1beta/thing": { get: { operationId: "thing" } },
+			}),
+			"/api/v1/",
+		);
+		expect(result.paths).toEqual({
+			"/sites/{site_id}/env": { get: { operationId: "getSiteEnvVars" } },
+			"/sites": { get: { operationId: "listSites" } },
+			"/api/v1beta/thing": { get: { operationId: "thing" } },
+		});
+	});
+
+	it("merges into an existing path, keeping its own operations", () => {
+		const result = stripBasePathPrefix(
+			spec({
+				"/api/v1/sites": {
+					get: { operationId: "repeatedList" },
+					post: { operationId: "createSite" },
+				},
+				"/sites": { get: { operationId: "listSites" } },
+			}),
+			"/api/v1",
+		);
+		expect(result.paths).toEqual({
+			"/sites": { get: { operationId: "listSites" }, post: { operationId: "createSite" } },
+		});
 	});
 });
 
