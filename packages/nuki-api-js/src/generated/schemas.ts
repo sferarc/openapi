@@ -5,7 +5,7 @@ import * as z from "zod";
 export const accountConfigSchema = z.object({
 	alexaPin: z.string().describe("The alexa pin - used by alexa for unlock actions"),
 	gactionsHomePin: z.string().describe("The google smart home pin - used for unlock actions"),
-	otpEnabledDate: z.iso.datetime().optional().describe("The opt enabled date"),
+	otpEnabledDate: z.iso.datetime({ offset: true }).optional().describe("The opt enabled date"),
 });
 
 export const accountProfileSchema = z.object({
@@ -23,8 +23,8 @@ export const accountDescentSchema = z.object({
 
 export const termsOfUseSchema = z.object({
 	state: z.enum(["Accepted", "Inactive"]).optional(),
-	publishDate: z.iso.datetime().optional(),
-	acceptanceDate: z.iso.datetime().optional(),
+	publishDate: z.iso.datetime({ offset: true }).optional(),
+	acceptanceDate: z.iso.datetime({ offset: true }).optional(),
 });
 
 export const accountSchema = z.object({
@@ -49,8 +49,8 @@ export const accountSchema = z.object({
 		.meta({ examples: ["de"] }),
 	config: accountConfigSchema.optional().describe("The optional config"),
 	profile: accountProfileSchema.optional().describe("The optional profile"),
-	creationDate: z.iso.datetime().describe("The creation date"),
-	updateDate: z.iso.datetime().describe("The update date"),
+	creationDate: z.iso.datetime({ offset: true }).describe("The creation date"),
+	updateDate: z.iso.datetime({ offset: true }).describe("The update date"),
 	descent: accountDescentSchema
 		.optional()
 		.describe("Set, if your account is not a standard Nuki Web account"),
@@ -93,8 +93,14 @@ export const accountIntegrationSchema = z.object({
 		.string()
 		.optional()
 		.describe("Description given by the user, usually only set for api tokens"),
-	createdAt: z.iso.datetime().optional().describe("First creation date of the token"),
-	lastActiveAt: z.iso.datetime().optional().describe("Last refresh date of the token"),
+	createdAt: z.iso
+		.datetime({ offset: true })
+		.optional()
+		.describe("First creation date of the token"),
+	lastActiveAt: z.iso
+		.datetime({ offset: true })
+		.optional()
+		.describe("Last refresh date of the token"),
 	scopes: z
 		.array(z.string())
 		.optional()
@@ -249,8 +255,8 @@ export const accountUserSchema = z.object({
 		.string()
 		.optional()
 		.describe("The operation id - if set it's locked for another operation"),
-	creationDate: z.iso.datetime().describe("The creation date"),
-	updateDate: z.iso.datetime().describe("The update date"),
+	creationDate: z.iso.datetime({ offset: true }).describe("The creation date"),
+	updateDate: z.iso.datetime({ offset: true }).describe("The update date"),
 });
 
 export const accountUserCreateSchema = z.object({
@@ -294,8 +300,8 @@ export const addressSchema = z.object({
 	checkInTime: z.int32().optional().describe("The optional check in time (minutes of the day)"),
 	checkOutTime: z.int32().optional().describe("The optional check out time (minutes of the day)"),
 	settings: z.record(z.string(), z.object({})).optional().describe("The optional settings object"),
-	creationDate: z.iso.datetime().describe("The creation date"),
-	updateDate: z.iso.datetime().describe("The update date"),
+	creationDate: z.iso.datetime({ offset: true }).describe("The creation date"),
+	updateDate: z.iso.datetime({ offset: true }).describe("The update date"),
 });
 
 export const addressCreateSchema = z.object({
@@ -325,9 +331,9 @@ export const addressReservationSchema = z.object({
 		.describe(
 			"True if the user has checked in, false if the check in is pending, null if it isn't monitored",
 		),
-	startDate: z.iso.datetime().describe("The start date"),
-	endDate: z.iso.datetime().describe("The end date"),
-	updateDate: z.iso.datetime().describe("The update date"),
+	startDate: z.iso.datetime({ offset: true }).describe("The start date"),
+	endDate: z.iso.datetime({ offset: true }).describe("The end date"),
+	updateDate: z.iso.datetime({ offset: true }).describe("The update date"),
 	isCurrentlyIssuingAuth: z.boolean(),
 	isCurrentlyRevokingAuth: z.boolean(),
 	hasCustomAccessTimes: z.boolean(),
@@ -338,8 +344,8 @@ export const addressReservationSchema = z.object({
 export const addressTokenSchema = z.object({
 	id: z.string().describe("The id"),
 	addressId: z.int32().describe("The address id"),
-	creationDate: z.iso.datetime().describe("The creation date"),
-	redeemDate: z.iso.datetime().describe("The redeem date"),
+	creationDate: z.iso.datetime({ offset: true }).describe("The creation date"),
+	redeemDate: z.iso.datetime({ offset: true }).describe("The redeem date"),
 	redeemAccountId: z.int32().describe("The redeem account id"),
 	inviteKeys: z.array(z.string()).optional().describe("The list of invite keys"),
 	redeemResult: z.enum(["ok", "failed"]).optional().describe("The redeem result"),
@@ -371,8 +377,8 @@ export const addressUnitResponseSchema = z.object({
 		.string()
 		.optional()
 		.describe("The operation id - if set it's locked for another operation"),
-	creationDate: z.iso.datetime().describe("The creation date"),
-	redeemDate: z.iso.datetime().describe("The redeem date"),
+	creationDate: z.iso.datetime({ offset: true }).describe("The creation date"),
+	redeemDate: z.iso.datetime({ offset: true }).describe("The redeem date"),
 	redeemResult: z.enum(["ok", "failed"]).optional().describe("The redeem result"),
 });
 
@@ -432,8 +438,8 @@ export const advancedApiKeySchema = z.object({
 		.string()
 		.describe("The client secret, visible if application is approved (status >= 'TESTING')"),
 	status: z.enum(["INACTIVE", "APPLIED", "TESTING", "ACTIVE"]).describe("The application status"),
-	creationDate: z.iso.datetime().describe("The creation date"),
-	updateDate: z.iso.datetime().describe("The update date"),
+	creationDate: z.iso.datetime({ offset: true }).describe("The creation date"),
+	updateDate: z.iso.datetime({ offset: true }).describe("The update date"),
 });
 
 export const advancedApiKeyCreateSchema = z.object({
@@ -520,7 +526,7 @@ export const apiKeySchema = z.object({
 	accountId: z.int32().describe("The account id"),
 	description: z.string().optional().describe("The description"),
 	redirectUris: z.array(z.string()).optional().describe("The redirect uris"),
-	creationDate: z.iso.datetime().describe("The creation date"),
+	creationDate: z.iso.datetime({ offset: true }).describe("The creation date"),
 	apiKey: z.string().optional().describe("The api key"),
 });
 
@@ -549,13 +555,13 @@ export const apiKeyAdvancedSchema = z.object({
 	webhookUrl: z.string().optional(),
 	webhookSentSuccessfully: z.int32().optional(),
 	webhookSentErroneous: z.int32().optional(),
-	lastSuccessfulPost: z.iso.datetime().optional(),
+	lastSuccessfulPost: z.iso.datetime({ offset: true }).optional(),
 	lastPostDuration: z.int().optional(),
 	lastPostSuccesful: z.boolean().optional(),
 	status: z.enum(["INACTIVE", "APPLIED", "TESTING", "ACTIVE"]).optional(),
 	webhookStatus: z.enum(["ACTIVE", "DEACTIVATED"]).optional(),
-	creationDate: z.iso.datetime().optional(),
-	updateDate: z.iso.datetime().optional(),
+	creationDate: z.iso.datetime({ offset: true }).optional(),
+	updateDate: z.iso.datetime({ offset: true }).optional(),
 	restricted: z.boolean().optional(),
 });
 
@@ -581,7 +587,7 @@ export const apiKeyTokenSchema = z.object({
 	description: z.string().optional().describe("The description"),
 	accessToken: z.string().optional().describe("The access token"),
 	scopes: z.array(z.string()).describe("The list of scopes"),
-	creationDate: z.iso.datetime().describe("The creation date"),
+	creationDate: z.iso.datetime({ offset: true }).describe("The creation date"),
 });
 
 export const apiKeyTokenCreateSchema = z.object({
@@ -1236,11 +1242,11 @@ export const tagSchema = z.object({
 
 export const conditionsSchema = z.object({
 	match: z.array(tagSchema).optional(),
-	modifiedSince: z.iso.datetime().optional(),
+	modifiedSince: z.iso.datetime({ offset: true }).optional(),
 	noneMatch: z.array(tagSchema).optional(),
-	rangeDate: z.iso.datetime().optional(),
+	rangeDate: z.iso.datetime({ offset: true }).optional(),
 	rangeTag: tagSchema.optional(),
-	unmodifiedSince: z.iso.datetime().optional(),
+	unmodifiedSince: z.iso.datetime({ offset: true }).optional(),
 });
 
 export const cookieSchema = z.object({
@@ -1341,8 +1347,8 @@ export const myAccountSchema = z.object({
 	config: accountConfigSchema.optional().describe("The optional config"),
 	profile: accountProfileSchema.optional().describe("The optional profile"),
 	secret: z.array(z.string()).optional().describe("The secret base64 encoded"),
-	creationDate: z.iso.datetime().describe("The creation date"),
-	updateDate: z.iso.datetime().describe("The update date"),
+	creationDate: z.iso.datetime({ offset: true }).describe("The creation date"),
+	updateDate: z.iso.datetime({ offset: true }).describe("The update date"),
 	descent: accountDescentSchema
 		.optional()
 		.describe("Set, if your account is not a standard Nuki Web account"),
@@ -1410,7 +1416,7 @@ export const notificationSchema = z.object({
 		.optional()
 		.describe("The language of push messages: cs, de, en (default), es, fr, it, nl, sk"),
 	status: z.int32().optional().describe("Current state: 0 .. init, 1 .. active, 2 .. failed"),
-	lastActiveDate: z.iso.datetime().optional().describe("The last active date"),
+	lastActiveDate: z.iso.datetime({ offset: true }).optional().describe("The last active date"),
 	settings: z.array(notificationSettingSchema).describe("Settings per Smart Lock"),
 });
 
@@ -1418,7 +1424,7 @@ export const objectIdSchema = z.object({
 	timestamp: z.int32().optional(),
 	counter: z.int32().optional(),
 	time: z.int().optional(),
-	date: z.iso.datetime().optional(),
+	date: z.iso.datetime({ offset: true }).optional(),
 	machineIdentifier: z.int32().optional(),
 	processIdentifier: z.int32().optional(),
 	timeSecond: z.int32().optional(),
@@ -1450,8 +1456,8 @@ export const openerIntercomModelSchema = z.object({
 	busModeSwitchShortCircuitDuration: z
 		.int32()
 		.describe("Settings value for BUS mode switch short cicuit duration"),
-	creationDate: z.iso.datetime().optional().describe("The creation date"),
-	updateDate: z.iso.datetime().optional().describe("The update date"),
+	creationDate: z.iso.datetime({ offset: true }).optional().describe("The creation date"),
+	updateDate: z.iso.datetime({ offset: true }).optional().describe("The update date"),
 });
 
 export const paginationSchema = z.object({
@@ -1530,12 +1536,12 @@ export const representationSchema = z.object({
 	get mediaType() {
 		return mediaTypeSchema.optional();
 	},
-	modificationDate: z.iso.datetime().optional(),
+	modificationDate: z.iso.datetime({ offset: true }).optional(),
 	tag: tagSchema.optional(),
 	available: z.boolean().optional(),
 	digest: digestSchema.optional(),
 	disposition: dispositionSchema.optional(),
-	expirationDate: z.iso.datetime().optional(),
+	expirationDate: z.iso.datetime({ offset: true }).optional(),
 	range: rangeSchema.optional(),
 	size: z.int().optional(),
 	empty: z.boolean().optional(),
@@ -1595,7 +1601,7 @@ export const statusSchema = z.object({
 
 export const warningSchema = z.object({
 	agent: z.string().optional(),
-	date: z.iso.datetime().optional(),
+	date: z.iso.datetime({ offset: true }).optional(),
 	status: statusSchema.optional(),
 	text: z.string().optional(),
 });
@@ -1603,7 +1609,7 @@ export const warningSchema = z.object({
 export const requestSchema = z.object({
 	attributes: z.record(z.string(), z.object({})).optional(),
 	cacheDirectives: z.array(cacheDirectiveSchema).optional(),
-	date: z.iso.datetime().optional(),
+	date: z.iso.datetime({ offset: true }).optional(),
 	entity: representationSchema.optional(),
 	onError: uniformSchema.optional(),
 	onSent: uniformSchema.optional(),
@@ -1666,7 +1672,7 @@ export const serverInfoSchema = z.object({
 export const responseSchema = z.object({
 	attributes: z.record(z.string(), z.object({})).optional(),
 	cacheDirectives: z.array(cacheDirectiveSchema).optional(),
-	date: z.iso.datetime().optional(),
+	date: z.iso.datetime({ offset: true }).optional(),
 	entity: representationSchema.optional(),
 	onError: uniformSchema.optional(),
 	onSent: uniformSchema.optional(),
@@ -1729,7 +1735,7 @@ export const responseSchema = z.object({
 	},
 	proxyChallengeRequests: z.array(challengeRequestSchema).optional(),
 	request: requestSchema.optional(),
-	retryAfter: z.iso.datetime().optional(),
+	retryAfter: z.iso.datetime({ offset: true }).optional(),
 	serverInfo: serverInfoSchema.optional(),
 	status: statusSchema.optional(),
 	final: z.boolean().optional(),
@@ -1746,9 +1752,9 @@ export const shsSubscriptionSchema = z.object({
 		.enum(["ACTIVE", "INACTIVE", "CANCELLED", "EXPIRED", "ON_HOLD", "PENDING", "PENDING_CANCEL"])
 		.optional(),
 	shsSubscriptionType: z.enum(["BUSINESS", "STANDARD", "BUSINESS_PLUS", "API_ONLY"]).optional(),
-	updateDate: z.iso.datetime().optional(),
-	creationDate: z.iso.datetime().optional(),
-	expirationDate: z.iso.datetime().optional(),
+	updateDate: z.iso.datetime({ offset: true }).optional(),
+	creationDate: z.iso.datetime({ offset: true }).optional(),
+	expirationDate: z.iso.datetime({ offset: true }).optional(),
 	isInGracePeriod: z.boolean().optional(),
 	isGracePeriodWarningDismissed: z.boolean().optional(),
 	gracePeriodWarningEmailSent: z.boolean().optional(),
@@ -2166,7 +2172,7 @@ export const smartlockStateSchema = z.object({
 			"[deprecated] Remaining ring to open time; 0 if ring to open is not active (type=2 only)",
 		),
 	ringToOpenEnd: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("End date of ring to open timeout; null if ring to open is not active (type=2 only)"),
 	nightMode: z.boolean().describe("True if night mode currently active"),
@@ -2222,8 +2228,8 @@ export const smartlockSchema = z.object({
 		.max(2)
 		.describe("The admin pin state: 0 .. ok, 1 .. missing, 2 .. invalid"),
 	virtualDevice: z.boolean().optional().describe("The flag indicating a virtual Smart Lock"),
-	creationDate: z.iso.datetime().optional().describe("The creation date"),
-	updateDate: z.iso.datetime().optional().describe("The update date"),
+	creationDate: z.iso.datetime({ offset: true }).optional().describe("The creation date"),
+	updateDate: z.iso.datetime({ offset: true }).optional().describe("The update date"),
 	error: z.string().optional().describe("In case of any error, it contains the error message"),
 	previousSubscriptions: z
 		.array(shsSubscriptionSchema)
@@ -2276,8 +2282,8 @@ export const smartlockAuthSchema = z.object({
 	enabled: z.boolean().describe("True if the auth is enabled"),
 	remoteAllowed: z.boolean().describe("True if the auth has remote access"),
 	lockCount: z.int32().describe("The lock count"),
-	allowedFromDate: z.iso.datetime().optional().describe("The allowed from date"),
-	allowedUntilDate: z.iso.datetime().optional().describe("The allowed until date"),
+	allowedFromDate: z.iso.datetime({ offset: true }).optional().describe("The allowed from date"),
+	allowedUntilDate: z.iso.datetime({ offset: true }).optional().describe("The allowed until date"),
 	allowedWeekDays: z
 		.int32()
 		.min(0)
@@ -2294,9 +2300,9 @@ export const smartlockAuthSchema = z.object({
 		.int32()
 		.optional()
 		.describe("The allowed until time (in minutes from midnight)"),
-	lastActiveDate: z.iso.datetime().optional().describe("The last active date"),
-	creationDate: z.iso.datetime().optional().describe("The creation date"),
-	updateDate: z.iso.datetime().optional().describe("The update date"),
+	lastActiveDate: z.iso.datetime({ offset: true }).optional().describe("The last active date"),
+	creationDate: z.iso.datetime({ offset: true }).optional().describe("The creation date"),
+	updateDate: z.iso.datetime({ offset: true }).optional().describe("The update date"),
 	operationId: objectIdSchema
 		.optional()
 		.describe("The operation id - if set the auth is locked for another operations."),
@@ -2307,8 +2313,8 @@ export const smartlockAuthSchema = z.object({
 
 export const smartlockAuthCreateSchema = z.object({
 	name: z.string().describe("The name of the authorization (max 32 chars)"),
-	allowedFromDate: z.iso.datetime().optional().describe("The allowed from date"),
-	allowedUntilDate: z.iso.datetime().optional().describe("The allowed until date"),
+	allowedFromDate: z.iso.datetime({ offset: true }).optional().describe("The allowed from date"),
+	allowedUntilDate: z.iso.datetime({ offset: true }).optional().describe("The allowed until date"),
 	allowedWeekDays: z
 		.int32()
 		.min(0)
@@ -2340,8 +2346,8 @@ export const smartlockAuthCreateSchema = z.object({
 
 export const smartlockAuthMultiUpdateSchema = z.object({
 	name: z.string().describe("The name of the authorization (max 32 chars)"),
-	allowedFromDate: z.iso.datetime().optional().describe("The allowed from date"),
-	allowedUntilDate: z.iso.datetime().optional().describe("The allowed until date"),
+	allowedFromDate: z.iso.datetime({ offset: true }).optional().describe("The allowed from date"),
+	allowedUntilDate: z.iso.datetime({ offset: true }).optional().describe("The allowed until date"),
 	allowedWeekDays: z
 		.int32()
 		.min(0)
@@ -2367,8 +2373,8 @@ export const smartlockAuthMultiUpdateSchema = z.object({
 
 export const smartlockAuthUpdateSchema = z.object({
 	name: z.string().describe("The name of the authorization (max 32 chars)"),
-	allowedFromDate: z.iso.datetime().optional().describe("The allowed from date"),
-	allowedUntilDate: z.iso.datetime().optional().describe("The allowed until date"),
+	allowedFromDate: z.iso.datetime({ offset: true }).optional().describe("The allowed from date"),
+	allowedUntilDate: z.iso.datetime({ offset: true }).optional().describe("The allowed until date"),
 	allowedWeekDays: z
 		.int32()
 		.min(0)
@@ -2393,8 +2399,8 @@ export const smartlockAuthUpdateSchema = z.object({
 
 export const smartlockAuthWithSharedKeyCreateSchema = z.object({
 	name: z.string().describe("The name of the authorization (max 32 chars)"),
-	allowedFromDate: z.iso.datetime().optional().describe("The allowed from date"),
-	allowedUntilDate: z.iso.datetime().optional().describe("The allowed until date"),
+	allowedFromDate: z.iso.datetime({ offset: true }).optional().describe("The allowed from date"),
+	allowedUntilDate: z.iso.datetime({ offset: true }).optional().describe("The allowed until date"),
 	allowedWeekDays: z
 		.int32()
 		.min(0)
@@ -2464,7 +2470,7 @@ export const smartlockLogSchema = z.object({
 			"The completion state: 0 .. Success, 1 .. Motor blocked, 2 .. Canceled, 3 .. Too recent, 4 .. Busy, 5 .. Low motor voltage, 6 .. Clutch failure, 7 .. Motor power failure, 8 .. Incomplete, 9 .. Rejected, 10 .. Rejected night mode, 224 .. Invalid Code, 225 .. Invalid Fingerprint, 226 .. Invalid NFC Tag, 254 .. Other error, 255 .. Unknown error\nFor source=3 and trigger=253 the following states are used: 0 .. Access document revoked, 1 .. Send NFC failed, 2 .. Control flow, 3 .. Command time expired, 7 .. Invalid data content, 37 .. Invalid access rights, 255 .. Unknown",
 		),
 	autoUnlock: z.boolean().describe("True if it was an auto unlock"),
-	date: z.iso.datetime().describe("The log date"),
+	date: z.iso.datetime({ offset: true }).describe("The log date"),
 	openerLog: smartlockLogOpenerLogSchema.optional().describe("The opener specific log"),
 	ajarTimeout: z
 		.int32()
@@ -2486,8 +2492,8 @@ export const smartlockUpdateSchema = z.object({
 
 export const smartlocksAuthAdvancedCreateSchema = z.object({
 	name: z.string().describe("The name of the authorization (max 32 chars)"),
-	allowedFromDate: z.iso.datetime().optional().describe("The allowed from date"),
-	allowedUntilDate: z.iso.datetime().optional().describe("The allowed until date"),
+	allowedFromDate: z.iso.datetime({ offset: true }).optional().describe("The allowed from date"),
+	allowedUntilDate: z.iso.datetime({ offset: true }).optional().describe("The allowed until date"),
 	allowedWeekDays: z
 		.int32()
 		.min(0)
@@ -2512,8 +2518,8 @@ export const smartlocksAuthAdvancedCreateSchema = z.object({
 
 export const smartlocksAuthCreateSchema = z.object({
 	name: z.string().describe("The name of the authorization (max 32 chars)"),
-	allowedFromDate: z.iso.datetime().optional().describe("The allowed from date"),
-	allowedUntilDate: z.iso.datetime().optional().describe("The allowed until date"),
+	allowedFromDate: z.iso.datetime({ offset: true }).optional().describe("The allowed from date"),
+	allowedUntilDate: z.iso.datetime({ offset: true }).optional().describe("The allowed until date"),
 	allowedWeekDays: z
 		.int32()
 		.min(0)
@@ -2561,7 +2567,10 @@ export const variantSchema = z.object({
 export const webhookMessageSchema = z.object({
 	headers: z.record(z.string(), z.string()).describe("Http Headers as key value pairs"),
 	body: z.record(z.string(), z.object({})).optional().describe("Http Body as Json"),
-	timestamp: z.iso.datetime().optional().describe("The timestamp when the message was created"),
+	timestamp: z.iso
+		.datetime({ offset: true })
+		.optional()
+		.describe("The timestamp when the message was created"),
 	path: z.string().describe("Path of the message"),
 });
 
@@ -2578,8 +2587,8 @@ export const webhookLogSchema = z.object({
 	request: webhookMessageSchema.optional().describe("Only set if webhook triggered by user"),
 	response: webhookMessageSchema.optional().describe("Set if webhook sent"),
 	apiKeyId: z.int32().describe("Used Api Key for the webhook"),
-	updated: z.iso.datetime().describe("last updated time"),
-	created: z.iso.datetime().describe("Creation Date"),
+	updated: z.iso.datetime({ offset: true }).describe("last updated time"),
+	created: z.iso.datetime({ offset: true }).describe("Creation Date"),
 });
 
 export const getAccountsResourceStatus200Schema = myAccountSchema;

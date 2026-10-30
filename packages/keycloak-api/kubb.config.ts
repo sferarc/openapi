@@ -9,6 +9,7 @@ import {
 import { defineConfig } from "kubb";
 import type {
 	OpenAPIObject,
+	ParameterObject,
 	PathItemObject,
 	ReferenceObject,
 	SchemaObject,
@@ -18,6 +19,7 @@ import yaml from "yaml";
 export default defineConfig(async () => {
 	let adminSpec = await fetchSpec("https://www.keycloak.org/docs-api/latest/rest-api/openapi.json");
 	adminSpec = fixStringBodies(adminSpec);
+	adminSpec = fixWorkflowResourceType(adminSpec);
 	adminSpec = transformSpec(adminSpec);
 
 	const accountYaml = fs.readFileSync("./specs/account.yaml", "utf-8");
@@ -80,6 +82,22 @@ function setRequestBody(
 		return;
 	}
 	operation.requestBody = { content };
+}
+
+// The spec types the `type` path parameter as an object; JAX-RS binds it to the ResourceType enum by name.
+function fixWorkflowResourceType(spec: OpenAPIObject): OpenAPIObject {
+	for (const action of ["activate", "deactivate"]) {
+		const path = `/admin/realms/{realm}/workflows/{id}/${action}/{type}/{resourceId}`;
+		const parameter = spec.paths[path]?.post?.parameters?.find(
+			(param): param is ParameterObject => "name" in param && param.name === "type",
+		);
+		if (!parameter) {
+			console.warn(`No type path parameter on POST ${path} in the Keycloak spec to fix`);
+			continue;
+		}
+		parameter.schema = { type: "string", enum: ["USERS", "CLIENTS"] };
+	}
+	return spec;
 }
 
 function warnForDuplicatedPathParameters(openAPIDocument: OpenAPIObject) {

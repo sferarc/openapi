@@ -36,6 +36,8 @@ describe("NetlifyApi.request", () => {
 		const typeChecks = () => [
 			// @ts-expect-error pathParams needs site_id
 			client.request("GET /sites/{site_id}", { pathParams: {} }),
+			// @ts-expect-error pathParams is required
+			client.request("GET /sites/{site_id}"),
 			// @ts-expect-error the operation has no such parameter
 			client.request("GET /sites/{site_id}", { pathParams: { site_id: "a" }, nope: 1 }),
 			// @ts-expect-error pathParams needs site_id
@@ -46,7 +48,7 @@ describe("NetlifyApi.request", () => {
 
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
-		await client.request("GET /sites", {});
+		await client.request("GET /sites");
 		expect(urls).toHaveLength(1);
 		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/sites$/);
 	});

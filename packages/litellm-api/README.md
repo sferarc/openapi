@@ -34,7 +34,7 @@ Operations are grouped by tag: `client.api.<tag>.<operation>(params)`. Operation
 Every operation can also be called by method and path:
 
 ```ts
-const routes = await client.request("GET /routes", {});
+const routes = await client.request("GET /routes");
 ```
 
 ### Custom fetch

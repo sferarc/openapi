@@ -1,5 +1,17 @@
 # keycloak-api
 
+## 2.1.12
+
+### Patch Changes
+
+- 2040e13: Type the `type` path parameter of the workflow `activate` and `deactivate` operations (`POST /admin/realms/{realm}/workflows/{id}/activate/{type}/{resourceId}` and `.../deactivate/...`) as `"USERS" | "CLIENTS"`. Keycloak binds that segment to its `ResourceType` enum by name, but the spec types it as an object, so the client accepted only an object, which went out as `[object Object]`, and a resource type name such as `"USERS"` failed to compile.
+
+## 2.1.11
+
+### Patch Changes
+
+- d4e35ae: Let `request()` on `KeycloakAdminApi` and `KeycloakAccountApi` omit its params argument when the operation requires none of its fields. Before, `admin.request("GET /admin/realms")` failed to compile and callers had to pass `{}`.
+
 ## 2.1.10
 
 ### Patch Changes

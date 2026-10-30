@@ -6196,7 +6196,7 @@ export const userEventSchema = z
 						.optional()
 						.describe("A user provided comment that describes what this Shared Env Var is for."),
 					created: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("The date when the Shared Env Var was created.")
 						.meta({ examples: ["2021-02-10T13:11:49.180Z"] }),
@@ -6319,7 +6319,7 @@ export const userEventSchema = z
 									"A user provided comment that describes what this Shared Env Var is for.",
 								),
 							created: z.iso
-								.datetime()
+								.datetime({ offset: true })
 								.optional()
 								.describe("The date when the Shared Env Var was created.")
 								.meta({ examples: ["2021-02-10T13:11:49.180Z"] }),
@@ -6434,7 +6434,7 @@ export const userEventSchema = z
 									"A user provided comment that describes what this Shared Env Var is for.",
 								),
 							created: z.iso
-								.datetime()
+								.datetime({ offset: true })
 								.optional()
 								.describe("The date when the Shared Env Var was created.")
 								.meta({ examples: ["2021-02-10T13:11:49.180Z"] }),
@@ -8541,14 +8541,14 @@ export const userEventSchema = z
 				z.strictObject({
 					next: z
 						.object({
-							deploymentSources: z.array(z.string()).nullish(),
-							gitSources: z.array(z.string()).nullish(),
+							deploymentSources: z.array(z.unknown()).nullish(),
+							gitSources: z.array(z.unknown()).nullish(),
 						})
 						.nullable(),
 					previous: z
 						.object({
-							deploymentSources: z.array(z.string()).nullish(),
-							gitSources: z.array(z.string()).nullish(),
+							deploymentSources: z.array(z.unknown()).nullish(),
+							gitSources: z.array(z.unknown()).nullish(),
 						})
 						.nullable(),
 					projectId: z.string(),
@@ -9586,14 +9586,14 @@ export const userEventSchema = z
 				z.strictObject({
 					next: z
 						.object({
-							deploymentSources: z.array(z.string()).nullish(),
-							gitSources: z.array(z.string()).nullish(),
+							deploymentSources: z.array(z.unknown()).nullish(),
+							gitSources: z.array(z.unknown()).nullish(),
 						})
 						.nullable(),
 					previous: z
 						.object({
-							deploymentSources: z.array(z.string()).nullish(),
-							gitSources: z.array(z.string()).nullish(),
+							deploymentSources: z.array(z.unknown()).nullish(),
+							gitSources: z.array(z.unknown()).nullish(),
 						})
 						.nullable(),
 				}),
@@ -13540,7 +13540,7 @@ export const flagSchema = z.object({
 					z.string(),
 					z.number(),
 					z.looseObject({}),
-					z.array(z.string()),
+					z.array(z.unknown()),
 					z.union([z.literal(false), z.literal(true)]),
 				])
 				.nullable(),
@@ -20161,11 +20161,11 @@ export const buyCreditsStatus200Schema = z.union([
 					z.strictObject({
 						options: z.object({
 							add: z
-								.array(z.string())
+								.array(z.unknown())
 								.optional()
 								.describe("The price intervals to add to the subscription"),
 							addAdjustments: z
-								.array(z.string())
+								.array(z.unknown())
 								.optional()
 								.describe("The adjustment intervals to add to the subscription"),
 							allowInvoiceCreditOrVoid: z
@@ -20173,11 +20173,11 @@ export const buyCreditsStatus200Schema = z.union([
 								.optional()
 								.describe("Whether to allow invoice credit or void"),
 							edit: z
-								.array(z.string())
+								.array(z.unknown())
 								.optional()
 								.describe("The price intervals to edit on the subscription"),
 							editAdjustments: z
-								.array(z.string())
+								.array(z.unknown())
 								.optional()
 								.describe("The adjustment intervals to edit on the subscription"),
 							orbSubscriptionId: z
@@ -45119,7 +45119,7 @@ export const createSharedEnvVariableStatus201Schema = z.object({
 				.optional()
 				.describe("A user provided comment that describes what this Shared Env Var is for."),
 			created: z.iso
-				.datetime()
+				.datetime({ offset: true })
 				.optional()
 				.describe("The date when the Shared Env Var was created.")
 				.meta({ examples: ["2021-02-10T13:11:49.180Z"] }),
@@ -45381,7 +45381,7 @@ export const listSharedEnvVariableStatus200Schema = z.object({
 				.optional()
 				.describe("A user provided comment that describes what this Shared Env Var is for."),
 			created: z.iso
-				.datetime()
+				.datetime({ offset: true })
 				.describe("The date when the Shared Env Var was created.")
 				.meta({ examples: ["2021-02-10T13:11:49.180Z"] }),
 			createdAt: z
@@ -45591,7 +45591,7 @@ export const updateSharedEnvVariableStatus200Schema = z.object({
 				.optional()
 				.describe("A user provided comment that describes what this Shared Env Var is for."),
 			created: z.iso
-				.datetime()
+				.datetime({ offset: true })
 				.optional()
 				.describe("The date when the Shared Env Var was created.")
 				.meta({ examples: ["2021-02-10T13:11:49.180Z"] }),
@@ -45908,7 +45908,7 @@ export const getSharedEnvVarStatus200Schema = z.object({
 		.optional()
 		.describe("A user provided comment that describes what this Shared Env Var is for."),
 	created: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.optional()
 		.describe("The date when the Shared Env Var was created.")
 		.meta({ examples: ["2021-02-10T13:11:49.180Z"] }),
@@ -46813,7 +46813,7 @@ export const createFlagStatus201Schema = z.object({
 					z.string(),
 					z.number(),
 					z.looseObject({}),
-					z.array(z.string()),
+					z.array(z.unknown()),
 					z.union([z.literal(false), z.literal(true)]),
 				])
 				.nullable(),
@@ -46867,7 +46867,7 @@ export const createFlagBodySchema = z
 						z.number(),
 						z.boolean(),
 						z.object({}),
-						z.array(z.string()),
+						z.array(z.unknown()),
 						z.string(),
 					]),
 				}),
@@ -47493,7 +47493,7 @@ export const updateFlagStatus200Schema = z.object({
 					z.string(),
 					z.number(),
 					z.looseObject({}),
-					z.array(z.string()),
+					z.array(z.unknown()),
 					z.union([z.literal(false), z.literal(true)]),
 				])
 				.nullable(),
@@ -47545,7 +47545,7 @@ export const updateFlagBodySchema = z
 						z.number(),
 						z.boolean(),
 						z.object({}),
-						z.array(z.string()),
+						z.array(z.unknown()),
 						z.string(),
 					]),
 				}),
@@ -48188,7 +48188,7 @@ export const listFlagVersionsStatus200Schema = z.object({
 								z.string(),
 								z.number(),
 								z.looseObject({}),
-								z.array(z.string()),
+								z.array(z.unknown()),
 								z.union([z.literal(false), z.literal(true)]),
 							])
 							.nullable(),
@@ -51761,19 +51761,19 @@ export const submitBillingDataErrorSchema = z.union([
 
 export const submitBillingDataBodySchema = z.strictObject({
 	timestamp: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.describe(
 			"Server time of your integration, used to determine the most recent data for race conditions & updates. Only the latest usage data for a given day, week, and month will be kept.",
 		),
 	eod: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.describe(
 			'End of Day, the UTC datetime for when the end of the billing/usage day is in UTC time. This tells us which day the usage data is for, and also allows for your "end of day" to be different from UTC 00:00:00. eod must be within the period dates, and cannot be older than 24h earlier from our server\'s current time.',
 		),
 	period: z
 		.strictObject({
-			start: z.iso.datetime(),
-			end: z.iso.datetime(),
+			start: z.iso.datetime({ offset: true }),
+			end: z.iso.datetime({ offset: true }),
 		})
 		.describe(
 			"Period for the billing cycle. The period end date cannot be older than 24 hours earlier than our current server's time.",
@@ -51785,11 +51785,11 @@ export const submitBillingDataBodySchema = z.strictObject({
 					billingPlanId: z.string().describe("Partner's billing plan ID."),
 					resourceId: z.string().optional().describe("Partner's resource ID."),
 					start: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("Start and end are only needed if different from the period's start/end."),
 					end: z.iso
-						.datetime()
+						.datetime({ offset: true })
 						.optional()
 						.describe("Start and end are only needed if different from the period's start/end."),
 					name: z.string().describe("Line item name."),
@@ -51812,11 +51812,11 @@ export const submitBillingDataBodySchema = z.strictObject({
 						billingPlanId: z.string().describe("Partner's billing plan ID."),
 						resourceId: z.string().optional().describe("Partner's resource ID."),
 						start: z.iso
-							.datetime()
+							.datetime({ offset: true })
 							.optional()
 							.describe("Start and end are only needed if different from the period's start/end."),
 						end: z.iso
-							.datetime()
+							.datetime({ offset: true })
 							.optional()
 							.describe("Start and end are only needed if different from the period's start/end."),
 						name: z.string().describe("Line item name."),
@@ -51839,13 +51839,13 @@ export const submitBillingDataBodySchema = z.strictObject({
 							billingPlanId: z.string().describe("Partner's billing plan ID."),
 							resourceId: z.string().optional().describe("Partner's resource ID."),
 							start: z.iso
-								.datetime()
+								.datetime({ offset: true })
 								.optional()
 								.describe(
 									"Start and end are only needed if different from the period's start/end.",
 								),
 							end: z.iso
-								.datetime()
+								.datetime({ offset: true })
 								.optional()
 								.describe(
 									"Start and end are only needed if different from the period's start/end.",
@@ -51933,13 +51933,13 @@ export const submitInvoiceBodySchema = z.strictObject({
 			"Partner-provided invoice identifier. If provided, it must be unique for this installation.",
 		),
 	invoiceDate: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.describe("Invoice date. Must be within the period's start and end."),
 	memo: z.string().optional().describe("Additional memo for the invoice."),
 	period: z
 		.strictObject({
-			start: z.iso.datetime(),
-			end: z.iso.datetime(),
+			start: z.iso.datetime({ offset: true }),
+			end: z.iso.datetime({ offset: true }),
 		})
 		.describe("Subscription period for this billing cycle."),
 	items: z.array(
@@ -51947,11 +51947,11 @@ export const submitInvoiceBodySchema = z.strictObject({
 			resourceId: z.string().optional().describe("Partner's resource ID."),
 			billingPlanId: z.string().describe("Partner's billing plan ID."),
 			start: z.iso
-				.datetime()
+				.datetime({ offset: true })
 				.optional()
 				.describe("Start and end are only needed if different from the period's start/end."),
 			end: z.iso
-				.datetime()
+				.datetime({ offset: true })
 				.optional()
 				.describe("Start and end are only needed if different from the period's start/end."),
 			name: z.string(),
@@ -51974,11 +51974,11 @@ export const submitInvoiceBodySchema = z.strictObject({
 				resourceId: z.string().optional().describe("Partner's resource ID."),
 				billingPlanId: z.string().describe("Partner's billing plan ID."),
 				start: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("Start and end are only needed if different from the period's start/end."),
 				end: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.optional()
 					.describe("Start and end are only needed if different from the period's start/end."),
 				name: z.string(),
@@ -52274,7 +52274,7 @@ export const submitPrepaymentBalancesErrorSchema = z.union([
 export const submitPrepaymentBalancesBodySchema = z
 	.strictObject({
 		timestamp: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.describe(
 				"Server time of your integration, used to determine the most recent data for race conditions & updates. Only the latest usage data for a given day, week, and month will be kept.",
 			),
@@ -99515,10 +99515,10 @@ export const acceptProjectTransferRequestBodySchema = z
 				z.string(),
 				z
 					.object({
-						eula: z.iso.datetime(),
-						privacy: z.iso.datetime(),
+						eula: z.iso.datetime({ offset: true }),
+						privacy: z.iso.datetime({ offset: true }),
 					})
-					.catchall(z.iso.datetime()),
+					.catchall(z.iso.datetime({ offset: true })),
 			)
 			.optional(),
 	})
@@ -126754,7 +126754,7 @@ export const aggregatePageviewsStatus200Schema = z.object({
 				utmSource: z.string().optional(),
 				utmTerm: z.string().optional(),
 				visitorId: z.string().optional(),
-				timestamp: z.iso.datetime(),
+				timestamp: z.iso.datetime({ offset: true }),
 			}),
 		),
 		z.array(
@@ -126967,7 +126967,7 @@ export const aggregateEventsStatus200Schema = z.object({
 				utmSource: z.string().optional(),
 				utmTerm: z.string().optional(),
 				visitorId: z.string().optional(),
-				timestamp: z.iso.datetime(),
+				timestamp: z.iso.datetime({ offset: true }),
 			}),
 		),
 		z.array(
@@ -128428,7 +128428,7 @@ export const listDeploymentAliasesStatus200Schema = z.object({
 					.describe("The alias name, it could be a `.vercel.app` subdomain or a custom domain")
 					.meta({ examples: ["my-alias.vercel.app"] }),
 				created: z.iso
-					.datetime()
+					.datetime({ offset: true })
 					.describe("The date when the alias was created")
 					.meta({ examples: ["2017-04-26T23:00:34.232Z"] }),
 				protectionBypass: z
@@ -128539,7 +128539,7 @@ export const assignAliasStatus200Schema = z.object({
 		.describe("The assigned alias name")
 		.meta({ examples: ["my-alias.vercel.app"] }),
 	created: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.describe("The date when the alias was created")
 		.meta({ examples: ["2017-04-26T23:00:34.232Z"] }),
 	oldDeploymentId: z
@@ -128678,7 +128678,7 @@ export const listAliasesStatus200Schema = z.object({
 				.describe("The alias name, it could be a `.vercel.app` subdomain or a custom domain")
 				.meta({ examples: ["my-alias.vercel.app"] }),
 			created: z.iso
-				.datetime()
+				.datetime({ offset: true })
 				.describe("The date when the alias was created")
 				.meta({ examples: ["2017-04-26T23:00:34.232Z"] }),
 			createdAt: z
@@ -128972,7 +128972,7 @@ export const getAliasStatus200Schema = z.object({
 		.describe("The alias name, it could be a `.vercel.app` subdomain or a custom domain")
 		.meta({ examples: ["my-alias.vercel.app"] }),
 	created: z.iso
-		.datetime()
+		.datetime({ offset: true })
 		.describe("The date when the alias was created")
 		.meta({ examples: ["2017-04-26T23:00:34.232Z"] }),
 	createdAt: z

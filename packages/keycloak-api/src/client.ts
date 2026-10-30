@@ -2,6 +2,7 @@ import { operationsByPath as accountOperationsByPath } from "./account/generated
 import { operationsByPath as adminOperationsByPath } from "./admin/generated/components";
 import type { FetchImpl } from "./utils/fetch";
 import type { FetcherConfig } from "./utils/fetcher";
+import type { RequiredKeys } from "./utils/types";
 
 export interface KeycloakAdminApiOptions {
 	baseUrl: string;
@@ -24,6 +25,13 @@ type AdminRequestEndpointResult<T extends keyof typeof adminOperationsByPath> = 
 	(typeof adminOperationsByPath)[T]
 >;
 
+// The params argument is optional when the operation requires none of its fields.
+type AdminRequestEndpointArgs<T extends keyof typeof adminOperationsByPath> = [
+	RequiredKeys<AdminRequestEndpointParams<T>>,
+] extends [never]
+	? [params?: AdminRequestEndpointParams<T>]
+	: [params: AdminRequestEndpointParams<T>];
+
 type AccountRequestEndpointParams<T extends keyof typeof accountOperationsByPath> = NonNullable<
 	Parameters<(typeof accountOperationsByPath)[T]>[0]
 >;
@@ -31,6 +39,12 @@ type AccountRequestEndpointParams<T extends keyof typeof accountOperationsByPath
 type AccountRequestEndpointResult<T extends keyof typeof accountOperationsByPath> = ReturnType<
 	(typeof accountOperationsByPath)[T]
 >;
+
+type AccountRequestEndpointArgs<T extends keyof typeof accountOperationsByPath> = [
+	RequiredKeys<AccountRequestEndpointParams<T>>,
+] extends [never]
+	? [params?: AccountRequestEndpointParams<T>]
+	: [params: AccountRequestEndpointParams<T>];
 
 type CallParams = Record<string, unknown> & { config?: Partial<FetcherConfig> };
 
@@ -62,7 +76,7 @@ export class KeycloakAdminApi {
 
 	public async request<Endpoint extends keyof typeof adminOperationsByPath>(
 		endpoint: Endpoint,
-		params: AdminRequestEndpointParams<Endpoint>,
+		...[params]: AdminRequestEndpointArgs<Endpoint>
 	) {
 		const operation = findOperation(adminOperationsByPath, endpoint);
 		const result = await operation(
@@ -89,7 +103,7 @@ export class KeycloakAccountApi {
 
 	public async request<Endpoint extends keyof typeof accountOperationsByPath>(
 		endpoint: Endpoint,
-		params: AccountRequestEndpointParams<Endpoint>,
+		...[params]: AccountRequestEndpointArgs<Endpoint>
 	) {
 		const operation = findOperation(accountOperationsByPath, endpoint);
 		const result = await operation(

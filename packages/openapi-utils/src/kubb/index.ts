@@ -21,7 +21,8 @@ function buildConfig({
 			validate: false,
 			server: { index: 0 },
 			contentType: "application/json",
-			dateType: "string",
+			// RFC 3339 date-times may carry any offset, but a bare z.iso.datetime() only accepts `Z`.
+			dateType: "stringOffset",
 			// JSON.parse gives a number for int64 too, and JSON.stringify throws on a bigint.
 			integerType: "number",
 			unknownType: "unknown",

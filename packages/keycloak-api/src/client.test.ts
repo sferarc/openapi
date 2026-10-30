@@ -43,6 +43,8 @@ describe("KeycloakAdminApi.request", () => {
 		const typeChecks = () => [
 			// @ts-expect-error pathParams needs realm
 			client.request("GET /admin/realms/{realm}", { pathParams: {} }),
+			// @ts-expect-error pathParams is required
+			client.request("GET /admin/realms/{realm}"),
 			// @ts-expect-error the operation has no such parameter
 			client.request("GET /admin/realms/{realm}", { pathParams: { realm: "a" }, nope: 1 }),
 		];
@@ -51,7 +53,7 @@ describe("KeycloakAdminApi.request", () => {
 
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
-		await client.request("GET /admin/realms", {});
+		await client.request("GET /admin/realms");
 		expect(urls).toHaveLength(1);
 		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/admin\/realms$/);
 	});
@@ -112,6 +114,8 @@ describe("KeycloakAccountApi.request", () => {
 		const typeChecks = () => [
 			// @ts-expect-error pathParams needs providerId
 			client.request("GET /account/linked-accounts/{providerId}", { pathParams: {} }),
+			// @ts-expect-error pathParams is required
+			client.request("GET /account/linked-accounts/{providerId}"),
 			client.request("GET /account/linked-accounts/{providerId}", {
 				pathParams: { providerId: "a" },
 				// @ts-expect-error the operation has no such parameter
@@ -123,7 +127,7 @@ describe("KeycloakAccountApi.request", () => {
 
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
-		await client.request("GET /account/", {});
+		await client.request("GET /account/");
 		expect(urls).toHaveLength(1);
 		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/realms\/main\/account\/$/);
 	});
@@ -249,5 +253,59 @@ describe("Keycloak raw string bodies", () => {
 		expect(requests).toEqual([
 			{ headers: expect.objectContaining({ "Content-Type": "text/plain" }), body: description },
 		]);
+	});
+});
+
+describe("Keycloak workflow resource type", () => {
+	function setup() {
+		const requests: { url: string; method: string | undefined }[] = [];
+		const fetch: FetchImpl = async (url, init) => {
+			requests.push({ url, method: init?.method });
+			return new Response(null, { status: 204 }) as never;
+		};
+		return {
+			requests,
+			admin: new KeycloakAdminApi({
+				baseUrl: "https://keycloak.example.com",
+				token: "token",
+				fetch,
+			}),
+		};
+	}
+
+	it.each(["activate", "deactivate"] as const)(
+		"sends the resource type of %s by its enum name",
+		async (action) => {
+			const { requests, admin } = setup();
+			await admin.request(
+				`POST /admin/realms/{realm}/workflows/{id}/${action}/{type}/{resourceId}`,
+				{
+					pathParams: { realm: "realm", id: "workflow", type: "USERS", resourceId: "user" },
+				},
+			);
+			// JAX-RS binds the segment with ResourceType.valueOf, so it must be the bare name.
+			expect(requests).toEqual([
+				{
+					url: `https://keycloak.example.com/admin/realms/realm/workflows/workflow/${action}/USERS/user`,
+					method: "POST",
+				},
+			]);
+		},
+	);
+
+	it("types the resource type as the ResourceType names", () => {
+		const { admin } = setup();
+		const endpoint = "POST /admin/realms/{realm}/workflows/{id}/activate/{type}/{resourceId}";
+		// Never called: tsc fails if a @ts-expect-error below stops finding an error.
+		const typeChecks = () => [
+			admin.request(endpoint, {
+				pathParams: { realm: "realm", id: "workflow", type: "CLIENTS", resourceId: "client" },
+			}),
+			admin.request(endpoint, {
+				// @ts-expect-error ResourceType has no such name
+				pathParams: { realm: "realm", id: "workflow", type: "users", resourceId: "user" },
+			}),
+		];
+		expect(typeChecks).toBeTypeOf("function");
 	});
 });

@@ -202,7 +202,7 @@ describe("addMissingPathParams", () => {
 });
 
 describe("fixArrayItems", () => {
-	it("gives arrays without items a string item schema", () => {
+	it("lets arrays without items hold any item rather than only strings", () => {
 		const result = fixArrayItems(
 			spec(
 				{},
@@ -212,15 +212,17 @@ describe("fixArrayItems", () => {
 							Missing: { type: "array" },
 							Empty: { type: "array", items: {} },
 							Typed: { type: "array", items: { type: "number" } },
+							Tuple: { type: "array", prefixItems: [{ type: "number" }] },
 						},
 					},
 				},
 			),
 		);
 		const schemas = (result.components as any).schemas;
-		expect(schemas.Missing.items).toEqual({ type: "string" });
-		expect(schemas.Empty.items).toEqual({ type: "string" });
+		expect(schemas.Missing.items).toEqual({});
+		expect(schemas.Empty.items).toEqual({});
 		expect(schemas.Typed.items).toEqual({ type: "number" });
+		expect(schemas.Tuple).toEqual({ type: "array", prefixItems: [{ type: "number" }] });
 	});
 });
 

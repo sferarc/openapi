@@ -1,5 +1,18 @@
 # v0-api
 
+## 1.0.15
+
+### Patch Changes
+
+- bc0c0ab: Type the arrays the spec leaves without an item schema as `unknown[]` instead of `string[]`, and let their zod schemas accept any item. A Vercel feature flag variant whose `value` is a JSON array of numbers or objects failed `createFlagBodySchema` and the flag response schemas, and the `gitSources` and `deploymentSources` of a user event, the billing `add` and `edit` adjustments and the AST nodes of v0's `experimental_content` were typed as strings they are not.
+
+## 1.0.14
+
+### Patch Changes
+
+- 6f6655c: Accept any RFC 3339 offset in the Zod schemas of `date-time` fields. They used `z.iso.datetime()`, which only accepts a `Z` suffix, so a valid value such as `2026-10-30T12:00:00+00:00` or `2026-10-30T14:00:00+02:00` failed to parse; they now use `z.iso.datetime({ offset: true })`. The TypeScript types are unchanged.
+- d4e35ae: Let `request()` omit its params argument when the operation requires none of its fields, as `client.api` already does. Before, `client.request("GET /path")` failed to compile and callers had to pass `{}`.
+
 ## 1.0.13
 
 ### Patch Changes

@@ -36,6 +36,8 @@ describe("CloudflareApi.request", () => {
 		const typeChecks = () => [
 			// @ts-expect-error pathParams needs accountId
 			client.request("GET /accounts/{accountId}", { pathParams: {} }),
+			// @ts-expect-error pathParams is required
+			client.request("GET /accounts/{accountId}"),
 			// @ts-expect-error the operation has no such parameter
 			client.request("GET /accounts/{accountId}", { pathParams: { accountId: "a" }, nope: 1 }),
 			// @ts-expect-error pathParams needs accountId
@@ -46,7 +48,7 @@ describe("CloudflareApi.request", () => {
 
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
-		await client.request("GET /accounts", {});
+		await client.request("GET /accounts");
 		expect(urls).toHaveLength(1);
 		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/accounts$/);
 	});

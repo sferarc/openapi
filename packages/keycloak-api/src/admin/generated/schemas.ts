@@ -5264,7 +5264,7 @@ export const pOSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdPathResourceId
 	.describe("Resource identifier");
 
 export const pOSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdPathTypeSchema = z
-	.object({})
+	.enum(["USERS", "CLIENTS"])
 	.describe("Resource type");
 
 export const pOSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdQueryNotBeforeSchema = z
@@ -5288,7 +5288,7 @@ export const pOSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdPathSchema = z
 	realm: z.string().describe("realm name (not id!)"),
 	id: z.string().describe("Workflow identifier"),
 	resourceId: z.string().describe("Resource identifier"),
-	type: z.object({}).describe("Resource type"),
+	type: z.enum(["USERS", "CLIENTS"]).describe("Resource type"),
 });
 
 export const pOSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdQuerySchema = z.object({
@@ -5313,7 +5313,7 @@ export const pOSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdPathResource
 	.describe("Resource identifier");
 
 export const pOSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdPathTypeSchema = z
-	.object({})
+	.enum(["USERS", "CLIENTS"])
 	.describe("Resource type");
 
 export const pOSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdStatus204Schema = z.unknown();
@@ -5330,7 +5330,7 @@ export const pOSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdPathSchema =
 	realm: z.string().describe("realm name (not id!)"),
 	id: z.string().describe("Workflow identifier"),
 	resourceId: z.string().describe("Resource identifier"),
-	type: z.object({}).describe("Resource type"),
+	type: z.enum(["USERS", "CLIENTS"]).describe("Resource type"),
 });
 
 export const gETAdminRealmsRealmClientScopesClientScopeIdPathRealmSchema = z
