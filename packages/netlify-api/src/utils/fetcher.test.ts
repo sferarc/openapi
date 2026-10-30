@@ -299,6 +299,38 @@ describe("fetcher edge responses and headers", () => {
 		expect(body).toBe("raw");
 	});
 
+	it("sends bytes, a Blob and a stream as they are under a JSON content type", async () => {
+		const stream = new ReadableStream<Uint8Array>();
+		for (const body of [new Uint8Array([123, 125]), new Blob(["{}"]), stream]) {
+			const { body: sentBody } = await sent({
+				headers: { "Content-Type": "application/json" },
+				body,
+			});
+			expect(sentBody).toBe(body);
+		}
+	});
+
+	it("sends a string as it is under a JSON content type the caller set", async () => {
+		const { body } = await sent({
+			headers: { "content-type": "application/json" },
+			body: '{"a":1}',
+		});
+		expect(body).toBe('{"a":1}');
+	});
+
+	it("encodes a string as a JSON string under the default content type", async () => {
+		const { body } = await sent({ headers: {}, body: "text" });
+		expect(body).toBe('"text"');
+	});
+
+	it("encodes an object under a JSON content type with a charset", async () => {
+		const { body } = await sent({
+			headers: { "Content-Type": "application/json; charset=utf-8" },
+			body: { a: 1 },
+		});
+		expect(body).toBe('{"a":1}');
+	});
+
 	it("drops a lowercase multipart content-type so fetch sets the boundary", async () => {
 		const { headers } = await sent({
 			headers: { "content-type": "multipart/form-data" },

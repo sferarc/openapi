@@ -1,5 +1,17 @@
 # vercel-api-js
 
+## 2.5.6
+
+### Patch Changes
+
+- 13d2858: Send a raw request body as it is when its Content-Type is `application/json`. The fetcher JSON-encoded every body under that type, so `r2PutObject` with `headers: { "Content-Type": "application/json" }` sent a `Blob` or bytes as `{}` or `{"0":123,...}` and a string such as `'{"a":1}'` as the quoted `"{\"a\":1}"`. Bytes, a `Blob`, a stream or a form are now never encoded, and a string is sent as is when the operation or the caller sets the Content-Type; under the default Content-Type of a JSON operation it is still encoded as a JSON string. A JSON Content-Type with parameters, such as `application/json; charset=utf-8`, now encodes an object body instead of sending `[object Object]`.
+
+## 2.5.5
+
+### Patch Changes
+
+- bc0c0ab: Type the arrays the spec leaves without an item schema as `unknown[]` instead of `string[]`, and let their zod schemas accept any item. A Vercel feature flag variant whose `value` is a JSON array of numbers or objects failed `createFlagBodySchema` and the flag response schemas, and the `gitSources` and `deploymentSources` of a user event, the billing `add` and `edit` adjustments and the AST nodes of v0's `experimental_content` were typed as strings they are not.
+
 ## 2.5.4
 
 ### Patch Changes

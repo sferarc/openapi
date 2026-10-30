@@ -231,8 +231,8 @@ export const listArchivedFilesStatus200Schema = z.object({
 					.string()
 					.describe("The ID of the user set as the host of the archived meeting or webinar.")
 					.meta({ examples: ["Dhjdfgdkg8w"] }),
-				id: z.coerce
-					.bigint()
+				id: z
+					.int()
 					.describe("The meeting or webinar ID, either `meetingId` or `webinarId`.")
 					.meta({ examples: [553068284] }),
 				is_breakout_room: z
@@ -756,8 +756,8 @@ export const updateArchivedFilePathSchema = z.object({
 		.meta({ examples: ["a5983951-044e-473f-9acd-5c398c0a8cce"] }),
 });
 
-export const meetingLocalArchivingArchiveTokenPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingLocalArchivingArchiveTokenPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -765,8 +765,8 @@ export const meetingLocalArchivingArchiveTokenPathMeetingIdSchema = z.coerce
 
 export const meetingLocalArchivingArchiveTokenStatus200Schema = z
 	.object({
-		expire_in: z.coerce
-			.bigint()
+		expire_in: z
+			.int()
 			.optional()
 			.describe(
 				"The number of seconds the archive token is valid for before it expires. This value always returns `120`.",
@@ -796,8 +796,8 @@ export const meetingLocalArchivingArchiveTokenErrorSchema = z.union([
 ]);
 
 export const meetingLocalArchivingArchiveTokenPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -950,8 +950,8 @@ export const getArchivedFilesStatus200Schema = z.object({
 		.string()
 		.describe("The host's user ID for the archived meeting or webinar.")
 		.meta({ examples: ["Dhjdfgdkg8w"] }),
-	id: z.coerce
-		.bigint()
+	id: z
+		.int()
 		.describe("The meeting or webinar ID, either `meetingId` or `webinarId`.")
 		.meta({ examples: [553068284] }),
 	is_breakout_room: z
@@ -1180,8 +1180,8 @@ export const recordingGetStatus200Schema = z
 			.optional()
 			.describe("The meeting topic.")
 			.meta({ examples: ["My Personal Meeting"] }),
-		total_size: z.coerce
-			.bigint()
+		total_size: z
+			.int()
 			.optional()
 			.describe(
 				"The recording's total file size. This includes the `recording_files` and `participant_audio_files` files.",
@@ -1831,8 +1831,8 @@ export const analyticsSummaryQuerySchema = z.object({
 		.meta({ examples: ["2020-07-30"] }),
 });
 
-export const meetingRecordingRegistrantsPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingRecordingRegistrantsPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -2078,8 +2078,8 @@ export const meetingRecordingRegistrantsErrorSchema = z.union([
 ]);
 
 export const meetingRecordingRegistrantsPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -2119,16 +2119,16 @@ export const meetingRecordingRegistrantsQuerySchema = z.object({
 		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
 });
 
-export const meetingRecordingRegistrantCreatePathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingRecordingRegistrantCreatePathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
 	.meta({ examples: [85746065] });
 
 export const meetingRecordingRegistrantCreateStatus201Schema = z.object({
-	id: z.coerce
-		.bigint()
+	id: z
+		.int()
 		.optional()
 		.describe(
 			"[Meeting ID](https://support.zoom.us/hc/en-us/articles/201362373-What-is-a-Meeting-ID-): Unique identifier of the meeting in &quot;**long**&quot; format(represented as int64 data type in JSON), also known as the meeting number.",
@@ -2310,8 +2310,8 @@ export const meetingRecordingRegistrantCreateBodySchema = z
 	.describe("Registrant.");
 
 export const meetingRecordingRegistrantCreatePathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -2503,8 +2503,8 @@ export const recordingRegistrantQuestionUpdatePathSchema = z.object({
 		.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] }),
 });
 
-export const meetingRecordingRegistrantStatusPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingRecordingRegistrantStatusPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -2543,8 +2543,8 @@ export const meetingRecordingRegistrantStatusBodySchema = z
 	.describe("Registrant status.");
 
 export const meetingRecordingRegistrantStatusPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -3088,8 +3088,8 @@ export const recordingsListStatus200Schema = z
 							.optional()
 							.describe("Meeting topic.")
 							.meta({ examples: ["My Personal Meeting"] }),
-						total_size: z.coerce
-							.bigint()
+						total_size: z
+							.int()
 							.optional()
 							.describe(
 								"The total file size of the recording. This includes the `recording_files` and `participant_audio_files` files.",
@@ -4745,16 +4745,16 @@ export const deviceUpdatePathSchema = z.object({
 		.meta({ examples: ["abceHewahkrehwiK"] }),
 });
 
-export const meetingAppAddPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingAppAddPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
 	.meta({ examples: [85746065] });
 
 export const meetingAppAddStatus201Schema = z.object({
-	id: z.coerce
-		.bigint()
+	id: z
+		.int()
 		.optional()
 		.describe(
 			"The [meeting ID](https://support.zoom.us/hc/en-us/articles/201362373-What-is-a-Meeting-ID-): Unique identifier of the meeting in **long** format(represented as int64 data type in JSON), also known as the meeting number.",
@@ -4871,16 +4871,16 @@ export const meetingAppAddBodySchema = z
 	);
 
 export const meetingAppAddPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
 		.meta({ examples: [85746065] }),
 });
 
-export const meetingAppDeletePathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingAppDeletePathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -4903,16 +4903,16 @@ export const meetingAppDeleteErrorSchema = z.union([
 ]);
 
 export const meetingAppDeletePathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
 		.meta({ examples: [85746065] }),
 });
 
-export const deleteMeetingChatMessageByIdPathMeetingIdSchema = z.coerce
-	.bigint()
+export const deleteMeetingChatMessageByIdPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, store it as a long-format integer and **not** an integer. Meeting IDs can be more than 10 digits.",
 	)
@@ -4953,8 +4953,8 @@ export const deleteMeetingChatMessageByIdErrorSchema = z.union([
 ]);
 
 export const deleteMeetingChatMessageByIdPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, store it as a long-format integer and **not** an integer. Meeting IDs can be more than 10 digits.",
 		)
@@ -4979,8 +4979,8 @@ export const deleteMeetingChatMessageByIdQuerySchema = z.object({
 		}),
 });
 
-export const updateMeetingChatMessageByIdPathMeetingIdSchema = z.coerce
-	.bigint()
+export const updateMeetingChatMessageByIdPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, store it as a long-format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -5018,8 +5018,8 @@ export const updateMeetingChatMessageByIdBodySchema = z
 	.optional();
 
 export const updateMeetingChatMessageByIdPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, store it as a long-format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -5272,8 +5272,8 @@ export const inMeetingControlPathSchema = z.object({
 		.meta({ examples: ["93398114182"] }),
 });
 
-export const meetingLocalRecordingJoinTokenPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingLocalRecordingJoinTokenPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -5287,8 +5287,8 @@ export const meetingLocalRecordingJoinTokenQueryBypassWaitingRoomSchema = z
 
 export const meetingLocalRecordingJoinTokenStatus200Schema = z
 	.object({
-		expire_in: z.coerce
-			.bigint()
+		expire_in: z
+			.int()
 			.optional()
 			.describe(
 				"The number of seconds the join token is valid for before it expires. This value always returns `120`.",
@@ -5318,8 +5318,8 @@ export const meetingLocalRecordingJoinTokenErrorSchema = z.union([
 ]);
 
 export const meetingLocalRecordingJoinTokenPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -5334,8 +5334,8 @@ export const meetingLocalRecordingJoinTokenQuerySchema = z.object({
 		.meta({ examples: [true] }),
 });
 
-export const meetingTokenPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingTokenPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -5379,8 +5379,8 @@ export const meetingTokenErrorSchema = z.union([
 ]);
 
 export const meetingTokenPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -5422,8 +5422,8 @@ export const addBatchRegistrantsStatus201Schema = z.object({
 					.optional()
 					.describe("Unique identifier of the registrant.")
 					.meta({ examples: ["9tboDiHUQAeOnbmudzWa5g"] }),
-				participant_pin_code: z.coerce
-					.bigint()
+				participant_pin_code: z
+					.int()
 					.optional()
 					.describe(
 						"The participant PIN code is used to authenticate audio participants before they join the meeting.",
@@ -5491,8 +5491,8 @@ export const addBatchRegistrantsPathSchema = z.object({
 		.meta({ examples: ["91498058927"] }),
 });
 
-export const meetingInvitationPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingInvitationPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer, not a simple integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -5528,16 +5528,16 @@ export const meetingInvitationErrorSchema = z.union([
 ]);
 
 export const meetingInvitationPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer, not a simple integer. Meeting IDs can exceed 10 digits.",
 		)
 		.meta({ examples: [85746065] }),
 });
 
-export const meetingInviteLinksCreatePathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingInviteLinksCreatePathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -5613,10 +5613,12 @@ export const meetingInviteLinksCreateBodySchema = z
 			.max(500)
 			.optional()
 			.describe("The attendees list."),
-		ttl: z.coerce
-			.bigint()
+		ttl: z
+			.int()
+			.min(0)
+			.max(7776000)
 			.optional()
-			.default(BigInt(7200))
+			.default(7200)
 			.describe("The invite link's expiration time, in seconds. \n\nThis value defaults to `7200`.")
 			.meta({ examples: [1000] }),
 	})
@@ -5624,16 +5626,16 @@ export const meetingInviteLinksCreateBodySchema = z
 	.describe("Invite links.");
 
 export const meetingInviteLinksCreatePathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
 		.meta({ examples: [85746065] }),
 });
 
-export const meetingRegistrantsPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingRegistrantsPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, store it as a long format integer, not an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -5887,8 +5889,8 @@ export const meetingRegistrantsStatus200Schema = z
 								"The status of the registrant's registration.   \n  `approved` - User has been successfully approved for the webinar.  \n  `pending` - The registration is still pending.  \n  `denied` - User has been denied from joining the webinar.",
 							)
 							.meta({ examples: ["approved"] }),
-						participant_pin_code: z.coerce
-							.bigint()
+						participant_pin_code: z
+							.int()
 							.optional()
 							.describe(
 								"The participant PIN code is used to authenticate audio participants before they join the meeting.",
@@ -5916,8 +5918,8 @@ export const meetingRegistrantsErrorSchema = z.union([
 ]);
 
 export const meetingRegistrantsPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, store it as a long format integer, not an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -5962,8 +5964,8 @@ export const meetingRegistrantsQuerySchema = z.object({
 		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
 });
 
-export const meetingRegistrantCreatePathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingRegistrantCreatePathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -5978,8 +5980,8 @@ export const meetingRegistrantCreateQueryOccurrenceIdsSchema = z
 	.meta({ examples: ["1648194360000,1648367160000"] });
 
 export const meetingRegistrantCreateStatus201Schema = z.object({
-	id: z.coerce
-		.bigint()
+	id: z
+		.int()
 		.optional()
 		.describe("The meeting ID.")
 		.meta({ examples: [85746065] }),
@@ -6035,8 +6037,8 @@ export const meetingRegistrantCreateStatus201Schema = z.object({
 		)
 		.optional()
 		.describe("Array of occurrence objects."),
-	participant_pin_code: z.coerce
-		.bigint()
+	participant_pin_code: z
+		.int()
 		.optional()
 		.describe(
 			"The participant PIN code is used to authenticate audio participants before they join the meeting.",
@@ -6226,8 +6228,8 @@ export const meetingRegistrantCreateBodySchema = z
 	.describe("Information about the meeting registrant.");
 
 export const meetingRegistrantCreatePathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -6244,8 +6246,8 @@ export const meetingRegistrantCreateQuerySchema = z.object({
 		.meta({ examples: ["1648194360000,1648367160000"] }),
 });
 
-export const meetingRegistrantsQuestionsGetPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingRegistrantsQuestionsGetPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, store it as a long format integer, not a simple integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -6336,16 +6338,16 @@ export const meetingRegistrantsQuestionsGetErrorSchema = z.union([
 ]);
 
 export const meetingRegistrantsQuestionsGetPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, store it as a long format integer, not a simple integer. Meeting IDs can exceed 10 digits.",
 		)
 		.meta({ examples: [85746065] }),
 });
 
-export const meetingRegistrantQuestionUpdatePathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingRegistrantQuestionUpdatePathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -6439,16 +6441,16 @@ export const meetingRegistrantQuestionUpdateBodySchema = z
 	.describe("Meeting Registrant Questions");
 
 export const meetingRegistrantQuestionUpdatePathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
 		.meta({ examples: [85746065] }),
 });
 
-export const meetingRegistrantStatusPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingRegistrantStatusPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, store it as a `long` format integer, not as a simple integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -6503,8 +6505,8 @@ export const meetingRegistrantStatusBodySchema = z
 	.optional();
 
 export const meetingRegistrantStatusPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, store it as a `long` format integer, not as a simple integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -6519,8 +6521,8 @@ export const meetingRegistrantStatusQuerySchema = z.object({
 		.meta({ examples: ["1648194360000"] }),
 });
 
-export const meetingRegistrantGetPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingRegistrantGetPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -6696,8 +6698,8 @@ export const meetingRegistrantGetStatus200Schema = z
 				"The registrant's registration status.\n* `approved` - The registrant is approved to join the meeting. \n* `pending` - The registrant's registration is pending.\n* `denied` - The registrant was declined to join the meeting.",
 			)
 			.meta({ examples: ["approved"] }),
-		participant_pin_code: z.coerce
-			.bigint()
+		participant_pin_code: z
+			.int()
 			.optional()
 			.describe(
 				"The participant PIN code is used to authenticate audio participants before they join the meeting.",
@@ -6720,8 +6722,8 @@ export const meetingRegistrantGetErrorSchema = z.union([
 ]);
 
 export const meetingRegistrantGetPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -6783,8 +6785,8 @@ export const meetingregistrantdeleteQuerySchema = z.object({
 		.meta({ examples: ["approved"] }),
 });
 
-export const meetingLiveStreamingJoinTokenPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingLiveStreamingJoinTokenPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -6792,8 +6794,8 @@ export const meetingLiveStreamingJoinTokenPathMeetingIdSchema = z.coerce
 
 export const meetingLiveStreamingJoinTokenStatus200Schema = z
 	.object({
-		expire_in: z.coerce
-			.bigint()
+		expire_in: z
+			.int()
 			.optional()
 			.describe(
 				"The number of seconds the join token is valid for before it expires. This value always returns `120`.",
@@ -6823,8 +6825,8 @@ export const meetingLiveStreamingJoinTokenErrorSchema = z.union([
 ]);
 
 export const meetingLiveStreamingJoinTokenPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -6882,8 +6884,8 @@ export const getMeetingLiveStreamDetailsPathSchema = z.object({
 		.meta({ examples: ["93398114182"] }),
 });
 
-export const meetingLiveStreamUpdatePathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingLiveStreamUpdatePathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -6934,16 +6936,16 @@ export const meetingLiveStreamUpdateBodySchema = z
 	.describe("Meeting");
 
 export const meetingLiveStreamUpdatePathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
 		.meta({ examples: [85746065] }),
 });
 
-export const meetingLiveStreamStatusUpdatePathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingLiveStreamStatusUpdatePathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -7017,8 +7019,8 @@ export const meetingLiveStreamStatusUpdateBodySchema = z
 	.describe("Meeting");
 
 export const meetingLiveStreamStatusUpdatePathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -7157,8 +7159,8 @@ export const deleteMeetingTranscriptPathSchema = z.object({
 		.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] }),
 });
 
-export const meetingRTMSStatusUpdatePathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingRTMSStatusUpdatePathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID.\n\nWhen storing this value in your database, store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -7215,16 +7217,16 @@ export const meetingRTMSStatusUpdateBodySchema = z
 	.describe("Meeting");
 
 export const meetingRTMSStatusUpdatePathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID.\n\nWhen storing this value in your database, store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
 		.meta({ examples: [85746065] }),
 });
 
-export const meetingPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, store it as a long format integer and **not** an integer. Meeting IDs can be more than 10 digits.",
 	)
@@ -7263,8 +7265,8 @@ export const meetingStatus200Schema = z
 			.optional()
 			.describe("The ID of the user who is set as the meeting host.")
 			.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
-		id: z.coerce
-			.bigint()
+		id: z
+			.int()
 			.optional()
 			.describe(
 				"[Meeting ID](https://support.zoom.us/hc/en-us/articles/201362373-What-is-a-Meeting-ID-): Unique identifier of the meeting in **long** format, represented as int64 data type in JSON, also known as the meeting number.",
@@ -8368,8 +8370,8 @@ export const meetingErrorSchema = z.union([
 ]);
 
 export const meetingPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, store it as a long format integer and **not** an integer. Meeting IDs can be more than 10 digits.",
 		)
@@ -8393,8 +8395,8 @@ export const meetingQuerySchema = z.object({
 		.meta({ examples: [true] }),
 });
 
-export const meetingDeletePathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingDeletePathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -8439,8 +8441,8 @@ export const meetingDeleteErrorSchema = z.union([
 ]);
 
 export const meetingDeletePathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -8469,8 +8471,8 @@ export const meetingDeleteQuerySchema = z.object({
 		.meta({ examples: [true] }),
 });
 
-export const meetingUpdatePathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingUpdatePathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, store it as a long format integer and **not** an integer. Meeting IDs can be greater than 10 digits.",
 	)
@@ -9461,8 +9463,8 @@ export const meetingUpdateBodySchema = z
 	.describe("Meeting");
 
 export const meetingUpdatePathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, store it as a long format integer and **not** an integer. Meeting IDs can be greater than 10 digits.",
 		)
@@ -9479,8 +9481,8 @@ export const meetingUpdateQuerySchema = z.object({
 		.meta({ examples: ["1648194360000"] }),
 });
 
-export const getSipDialingWithPasscodePathMeetingIdSchema = z.coerce
-	.bigint()
+export const getSipDialingWithPasscodePathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -9505,8 +9507,8 @@ export const getSipDialingWithPasscodeStatus200Schema = z
 				"This value identifies the meeting participant. It is automatically embedded in the SIP URI if the API caller has a CRC (Conference Room Connector) plan.",
 			)
 			.meta({ examples: ["30qonrvgy"] }),
-		expire_in: z.coerce
-			.bigint()
+		expire_in: z
+			.int()
 			.optional()
 			.describe("The number of seconds the encoded SIP URI is valid before it expires.")
 			.meta({ examples: [7200] }),
@@ -9540,16 +9542,16 @@ export const getSipDialingWithPasscodeBodySchema = z
 	.optional();
 
 export const getSipDialingWithPasscodePathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
 		.meta({ examples: [85746065] }),
 });
 
-export const meetingStatusPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingStatusPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a `long` format integer and not an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -9584,8 +9586,8 @@ export const meetingStatusBodySchema = z
 	.optional();
 
 export const meetingStatusPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a `long` format integer and not an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -9600,8 +9602,8 @@ export const pastMeetingDetailsPathMeetingIdSchema = z
 	.meta({ examples: ["ABCDE12345"] });
 
 export const pastMeetingDetailsStatus200Schema = z.object({
-	id: z.coerce
-		.bigint()
+	id: z
+		.int()
 		.optional()
 		.describe(
 			"The [meeting ID](https://support.zoom.us/hc/en-us/articles/201362373-What-is-a-Meeting-ID).",
@@ -9716,8 +9718,8 @@ export const pastMeetingDetailsPathSchema = z.object({
 		.meta({ examples: ["ABCDE12345"] }),
 });
 
-export const pastMeetingsPathMeetingIdSchema = z.coerce
-	.bigint()
+export const pastMeetingsPathMeetingIdSchema = z
+	.int()
 	.describe("The past meeting's ID.")
 	.meta({ examples: [93398114182] });
 
@@ -9783,8 +9785,8 @@ export const pastMeetingsErrorSchema = z.union([
 ]);
 
 export const pastMeetingsPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe("The past meeting's ID.")
 		.meta({ examples: [93398114182] }),
 });
@@ -9978,8 +9980,8 @@ export const listPastMeetingQAPathMeetingIdSchema = z
 	);
 
 export const listPastMeetingQAStatus200Schema = z.object({
-	id: z.coerce
-		.bigint()
+	id: z
+		.int()
 		.optional()
 		.describe(
 			"[Meeting ID](https://support.zoom.us/hc/en-us/articles/201362373-What-is-a-Meeting-ID-): Unique identifier of the meeting in **long** format, represented as int64 data type in JSON, also known as the meeting number.",
@@ -10172,8 +10174,8 @@ export const meetingsStatus200Schema = z
 						.optional()
 						.describe("ID of the user who is set as the meeting's host.")
 						.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
-					id: z.coerce
-						.bigint()
+					id: z
+						.int()
 						.optional()
 						.describe("Meeting ID - also known as the meeting number in long (int64) format.")
 						.meta({ examples: [97763643886] }),
@@ -10317,8 +10319,8 @@ export const meetingCreateStatus201Schema = z
 			.optional()
 			.describe("The ID of the user who is set as the meeting host.")
 			.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
-		id: z.coerce
-			.bigint()
+		id: z
+			.int()
 			.optional()
 			.describe(
 				"The [meeting ID](https://support.zoom.us/hc/en-us/articles/201362373-What-is-a-Meeting-ID-): Unique identifier of the meeting in **long** format(represented as int64 data type in JSON), also known as the meeting number.",
@@ -12354,8 +12356,8 @@ export const listUpcomingMeetingStatus200Schema = z.object({
 	meetings: z
 		.array(
 			z.object({
-				id: z.coerce
-					.bigint()
+				id: z
+					.int()
 					.optional()
 					.describe(
 						"The [meeting ID](https://support.zoom.us/hc/en-us/articles/201362373-What-is-a-Meeting-ID-) - a unique identifier of the meeting in **long** format, represented as int64 data type in JSON. Also known as the meeting number.",
@@ -12456,8 +12458,8 @@ export const userPACsStatus200Schema = z.object({
 	pac_accounts: z
 		.array(
 			z.object({
-				conference_id: z.coerce
-					.bigint()
+				conference_id: z
+					.int()
 					.optional()
 					.describe("The conference ID.")
 					.meta({ examples: [111111] }),
@@ -12892,8 +12894,8 @@ export const createBatchPollsPathSchema = z.object({
 	meetingId: z.string().meta({ examples: ["93398114182"] }),
 });
 
-export const meetingPollsPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingPollsPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -13109,8 +13111,8 @@ export const meetingPollsErrorSchema = z.union([
 ]);
 
 export const meetingPollsPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -13127,8 +13129,8 @@ export const meetingPollsQuerySchema = z.object({
 		.meta({ examples: [true] }),
 });
 
-export const meetingPollCreatePathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingPollCreatePathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -13488,16 +13490,16 @@ export const meetingPollCreateBodySchema = z
 	.describe("The meeting poll object.");
 
 export const meetingPollCreatePathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
 		.meta({ examples: [85746065] }),
 });
 
-export const meetingPollGetPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingPollGetPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, store it as a `long` format integer, not a simple integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -13696,8 +13698,8 @@ export const meetingPollGetErrorSchema = z.union([
 ]);
 
 export const meetingPollGetPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, store it as a `long` format integer, not a simple integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -13708,8 +13710,8 @@ export const meetingPollGetPathSchema = z.object({
 		.meta({ examples: ["QalIoKWLTJehBJ8e1xRrbQ"] }),
 });
 
-export const meetingPollUpdatePathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingPollUpdatePathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -13898,8 +13900,8 @@ export const meetingPollUpdateBodySchema = z
 	.describe("The meeting poll.");
 
 export const meetingPollUpdatePathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -13910,8 +13912,8 @@ export const meetingPollUpdatePathSchema = z.object({
 		.meta({ examples: ["QalIoKWLTJehBJ8e1xRrbQ"] }),
 });
 
-export const meetingPollDeletePathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingPollDeletePathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -13939,8 +13941,8 @@ export const meetingPollDeleteErrorSchema = z.union([
 ]);
 
 export const meetingPollDeletePathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
@@ -13958,8 +13960,8 @@ export const listPastMeetingPollsPathMeetingIdSchema = z
 	);
 
 export const listPastMeetingPollsStatus200Schema = z.object({
-	id: z.coerce
-		.bigint()
+	id: z
+		.int()
 		.optional()
 		.describe(
 			"[Meeting ID](https://support.zoom.us/hc/en-us/articles/201362373-What-is-a-Meeting-ID-): Unique identifier of the meeting in **long** format(represented as int64 data type in JSON), also known as the meeting number.",
@@ -14595,8 +14597,8 @@ export const getdisclaimerreportStatus200Schema = z.object({
 						"The disclaimer's user email.\n\nThere are several special cases where user email display will be handled specially.\n- The client type is *gw.pstn*. The user email will be empty.\n- The user is guest. That is the `is_guest` is *true*. The user email will be empty.\n-  The meeting is Zoom Event. That is the `is_zoom_event` is *true*. The user email will be masked.",
 					)
 					.meta({ examples: ["jchill@example.com"] }),
-				meeting_number: z.coerce
-					.bigint()
+				meeting_number: z
+					.int()
 					.optional()
 					.describe("The disclaimer's meeting number.")
 					.meta({ examples: [93201235621] }),
@@ -14861,8 +14863,8 @@ export const gethistorymeetingandwebinarlistStatus200Schema = z.object({
 						"The meeting unique universal identifier (UUID). Double encode your UUID when using it for API calls if the UUID begins with a '/'or contains '//' in it.",
 					)
 					.meta({ examples: ["gm8s9L+PTEC+FG3sFbd1Cw=="] }),
-				meeting_id: z.coerce
-					.bigint()
+				meeting_id: z
+					.int()
 					.optional()
 					.describe(
 						"The [meeting ID](https://support.zoom.us/hc/en-us/articles/201362373-What-is-a-Meeting-ID-): Unique identifier of the meeting in &quot;**long**&quot; format(represented as int64 data type in JSON), also known as the meeting number.",
@@ -15524,8 +15526,8 @@ export const reportMeetingDetailsStatus200Schema = z.object({
 		.optional()
 		.describe("Meeting end time.")
 		.meta({ examples: ["2022-03-15T07:42:22Z"] }),
-	id: z.coerce
-		.bigint()
+	id: z
+		.int()
 		.optional()
 		.describe(
 			"[Meeting ID](https://support.zoom.us/hc/en-us/articles/201362373-What-is-a-Meeting-ID-): Unique identifier of the meeting in &quot;**long**&quot; format(represented as int64 data type in JSON), also known as the meeting number.",
@@ -15824,8 +15826,8 @@ export const reportMeetingPollsPathMeetingIdSchema = z
 	);
 
 export const reportMeetingPollsStatus200Schema = z.object({
-	id: z.coerce
-		.bigint()
+	id: z
+		.int()
 		.optional()
 		.describe(
 			"The [meeting ID](https://support.zoom.us/hc/en-us/articles/201362373-What-is-a-Meeting-ID).",
@@ -15934,8 +15936,8 @@ export const reportMeetingQAPathMeetingIdSchema = z
 	);
 
 export const reportMeetingQAStatus200Schema = z.object({
-	id: z.coerce
-		.bigint()
+	id: z
+		.int()
 		.optional()
 		.describe(
 			"The meeting ID in `long` format, represented as int64 data type in JSON. Also known as the meeting number.",
@@ -16095,8 +16097,8 @@ export const reportMeetingSurveyPathMeetingIdSchema = z
 	);
 
 export const reportMeetingSurveyStatus200Schema = z.object({
-	meeting_id: z.coerce
-		.bigint()
+	meeting_id: z
+		.int()
 		.optional()
 		.describe("The meeting ID.")
 		.meta({ examples: [123456] }),
@@ -16664,8 +16666,8 @@ export const reportTelephoneStatus200Schema = z
 						.optional()
 						.describe("User display name.")
 						.meta({ examples: ["Jill Chill"] }),
-					meeting_id: z.coerce
-						.bigint()
+					meeting_id: z
+						.int()
 						.optional()
 						.describe(
 							"[Meeting ID](https://support.zoom.us/hc/en-us/articles/201362373-What-is-a-Meeting-ID-): Unique identifier of the meeting in &quot;**long**&quot; format(represented as int64 data type in JSON), also known as the meeting number.",
@@ -17569,8 +17571,8 @@ export const reportWebinarDetailsStatus200Schema = z.object({
 		.optional()
 		.describe("Meeting end time.")
 		.meta({ examples: ["2022-03-15T07:42:22Z"] }),
-	id: z.coerce
-		.bigint()
+	id: z
+		.int()
 		.optional()
 		.describe(
 			"[Meeting ID](https://support.zoom.us/hc/en-us/articles/201362373-What-is-a-Meeting-ID-): Unique identifier of the meeting in &quot;**long**&quot; format(represented as int64 data type in JSON), also known as the meeting number.",
@@ -17874,8 +17876,8 @@ export const reportWebinarPollsPathWebinarIdSchema = z
 	.meta({ examples: ["ABCDE12345"] });
 
 export const reportWebinarPollsStatus200Schema = z.object({
-	id: z.coerce
-		.bigint()
+	id: z
+		.int()
 		.optional()
 		.describe("The webinar ID.")
 		.meta({ examples: [123456] }),
@@ -17984,8 +17986,8 @@ export const reportWebinarQAPathWebinarIdSchema = z
 	.meta({ examples: ["ABCDE12345"] });
 
 export const reportWebinarQAStatus200Schema = z.object({
-	id: z.coerce
-		.bigint()
+	id: z
+		.int()
 		.optional()
 		.describe(
 			"Webinar ID in `long` format, represented as int64 data type in JSON. Also known as the webinar number.",
@@ -18147,8 +18149,8 @@ export const reportWebinarSurveyPathWebinarIdSchema = z
 	.meta({ examples: ["ABCDE12345"] });
 
 export const reportWebinarSurveyStatus200Schema = z.object({
-	webinar_id: z.coerce
-		.bigint()
+	webinar_id: z
+		.int()
 		.optional()
 		.describe("The webinar ID.")
 		.meta({ examples: [123456] }),
@@ -19076,8 +19078,8 @@ export const listmeetingsummariesStatus200Schema = z.object({
 						"Unique meeting ID. Each meeting instance generates its own meeting UUID. After a meeting ends, a new UUID is generated for the next instance of the meeting. Retrieve a list of UUIDs from past meeting instances using the [**List past meeting instances**](/docs/api-reference/zoom-api/methods#operation/pastMeetings) API. [Double encode](/docs/api/using-zoom-apis/#meeting-id-and-uuid) your UUID when using it for API calls if the UUID begins with a `/` or contains `//` in it.\n",
 					)
 					.meta({ examples: ["aDYlohsHRtCd4ii1uC2+hA=="] }),
-				meeting_id: z.coerce
-					.bigint()
+				meeting_id: z
+					.int()
 					.optional()
 					.describe(
 						"[Meeting ID](https://support.zoom.us/hc/en-us/articles/201362373-What-is-a-Meeting-ID-) - the meeting's unique identifier in **long** format, represented as int64 data type in JSON, also known as the meeting number.",
@@ -19202,8 +19204,8 @@ export const getameetingsummaryStatus200Schema = z.object({
 			"The unique meeting ID. \n\nEach meeting instance generates its own meeting UUID. After a meeting ends, a new UUID is generated for the next instance of the meeting.\n\n Use the [**List past meeting instances**](/docs/api-reference/zoom-api/methods#operation/pastMeetings) API to retrieve a list of UUIDs from past meeting instances. [Double encode](/docs/api/rest/using-zoom-apis/#meeting-id-and-uuid) your UUID when using it for API calls if the UUID begins with a `/` or contains `//` in it.\n",
 		)
 		.meta({ examples: ["aDYlohsHRtCd4ii1uC2+hA=="] }),
-	meeting_id: z.coerce
-		.bigint()
+	meeting_id: z
+		.int()
 		.optional()
 		.describe(
 			"[The meeting ID](https://support.zoom.us/hc/en-us/articles/201362373-What-is-a-Meeting-ID-) \nThe meeting's unique identifier in **long** format, represented as int64 data type in JSON. Also known as the meeting number.",
@@ -19473,8 +19475,8 @@ export const listUserMeetingSummariesStatus200Schema = z.object({
 						"Unique meeting ID. Each meeting instance generates its own meeting UUID. After a meeting ends, a new UUID is generated for the next instance of the meeting. Retrieve a list of UUIDs from past meeting instances using the [**List past meeting instances**](/docs/api-reference/zoom-api/methods#operation/pastMeetings) API. [Double encode](/docs/api/using-zoom-apis/#meeting-id-and-uuid) your UUID when using it for API calls if the UUID begins with a `/` or contains `//` in it.",
 					)
 					.meta({ examples: ["aDYlohsHRtCd4ii1uC2+hA=="] }),
-				meeting_id: z.coerce
-					.bigint()
+				meeting_id: z
+					.int()
 					.optional()
 					.describe(
 						"[Meeting ID](https://support.zoom.us/hc/en-us/articles/201362373-What-is-a-Meeting-ID-) - the meeting's unique identifier in **long** format, represented as int64 data type in JSON, also known as the meeting number.",
@@ -19586,8 +19588,8 @@ export const listUserMeetingSummariesQuerySchema = z.object({
 		.meta({ examples: ["summary_created_time"] }),
 });
 
-export const meetingSurveyGetPathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingSurveyGetPathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, store it as a long-format integer and **not** a simple integer. Meeting IDs can be more than 10 digits.",
 	)
@@ -19791,16 +19793,16 @@ export const meetingSurveyGetErrorSchema = z.union([
 ]);
 
 export const meetingSurveyGetPathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, store it as a long-format integer and **not** a simple integer. Meeting IDs can be more than 10 digits.",
 		)
 		.meta({ examples: [85746065] }),
 });
 
-export const meetingSurveyDeletePathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingSurveyDeletePathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 	)
@@ -19823,16 +19825,16 @@ export const meetingSurveyDeleteErrorSchema = z.union([
 ]);
 
 export const meetingSurveyDeletePathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
 		.meta({ examples: [85746065] }),
 });
 
-export const meetingSurveyUpdatePathMeetingIdSchema = z.coerce
-	.bigint()
+export const meetingSurveyUpdatePathMeetingIdSchema = z
+	.int()
 	.describe(
 		"The meeting's ID. \n\n When storing this value in your database, store it as a long-format integer and **not** a simple integer. Meeting IDs can be over 10 digits.",
 	)
@@ -20039,8 +20041,8 @@ export const meetingSurveyUpdateBodySchema = z
 	.describe("Information about the meeting survey.");
 
 export const meetingSurveyUpdatePathSchema = z.object({
-	meetingId: z.coerce
-		.bigint()
+	meetingId: z
+		.int()
 		.describe(
 			"The meeting's ID. \n\n When storing this value in your database, store it as a long-format integer and **not** a simple integer. Meeting IDs can be over 10 digits.",
 		)
@@ -20775,8 +20777,8 @@ export const meetingTemplateCreateErrorSchema = z.union([
 
 export const meetingTemplateCreateBodySchema = z
 	.object({
-		meeting_id: z.coerce
-			.bigint()
+		meeting_id: z
+			.int()
 			.optional()
 			.describe("The meeting ID - the meeting number in long (int64) format.")
 			.meta({ examples: [96172769962] }),
@@ -21039,8 +21041,8 @@ export const trackingfieldUpdatePathSchema = z.object({
 		.meta({ examples: ["a32CJji-weJ92"] }),
 });
 
-export const deleteWebinarChatMessageByIdPathWebinarIdSchema = z.coerce
-	.bigint()
+export const deleteWebinarChatMessageByIdPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -21079,8 +21081,8 @@ export const deleteWebinarChatMessageByIdErrorSchema = z.union([
 ]);
 
 export const deleteWebinarChatMessageByIdPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 	messageId: z
@@ -21392,8 +21394,8 @@ export const webinarAbsenteesQuerySchema = z.object({
 		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
 });
 
-export const pastWebinarsPathWebinarIdSchema = z.coerce
-	.bigint()
+export const pastWebinarsPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -21441,8 +21443,8 @@ export const pastWebinarsErrorSchema = z.union([
 ]);
 
 export const pastWebinarsPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
@@ -21618,8 +21620,8 @@ export const listPastWebinarPollResultsPathWebinarIdSchema = z
 	.meta({ examples: ["ABCDE12345"] });
 
 export const listPastWebinarPollResultsStatus200Schema = z.object({
-	id: z.coerce
-		.bigint()
+	id: z
+		.int()
 		.optional()
 		.describe(
 			"Webinar ID in **long** format, represented as int64 data type in JSON, also known as the webinar number.",
@@ -21714,8 +21716,8 @@ export const listPastWebinarQAPathWebinarIdSchema = z
 	.meta({ examples: ["ABCDE12345"] });
 
 export const listPastWebinarQAStatus200Schema = z.object({
-	id: z.coerce
-		.bigint()
+	id: z
+		.int()
 		.optional()
 		.describe(
 			"Webinar ID in **long** format, represented as int64 data type in JSON, also known as the webinar number.",
@@ -21892,8 +21894,8 @@ export const webinarTemplateCreateErrorSchema = z.union([
 
 export const webinarTemplateCreateBodySchema = z
 	.object({
-		webinar_id: z.coerce
-			.bigint()
+		webinar_id: z
+			.int()
 			.optional()
 			.describe("The webinar ID in long (int64) format.")
 			.meta({ examples: [96172769962] }),
@@ -22027,8 +22029,8 @@ export const webinarsStatus200Schema = z
 						.optional()
 						.describe("The host's ID.")
 						.meta({ examples: ["x1yCzABCDEfg23HiJKl4mN"] }),
-					id: z.coerce
-						.bigint()
+					id: z
+						.int()
 						.optional()
 						.describe("The webinar ID.")
 						.meta({ examples: [1234567890] }),
@@ -22154,8 +22156,8 @@ export const webinarCreateStatus201Schema = z
 			.optional()
 			.describe("ID of the user set as host of the webinar.")
 			.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
-		id: z.coerce
-			.bigint()
+		id: z
+			.int()
 			.optional()
 			.describe(
 				"Webinar ID in **long** format, represented as int64 data type in JSON. Also known as the webinar number.",
@@ -23707,8 +23709,8 @@ export const webinarStatus200Schema = z
 			.optional()
 			.describe("ID of the user set as host of webinar.")
 			.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
-		id: z.coerce
-			.bigint()
+		id: z
+			.int()
 			.optional()
 			.describe(
 				"The webinar ID in **long** format, represented as int64 data type in JSON, also known as the webinar number.",
@@ -24546,8 +24548,8 @@ export const webinarQuerySchema = z.object({
 		.meta({ examples: [true] }),
 });
 
-export const webinarDeletePathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarDeletePathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -24582,8 +24584,8 @@ export const webinarDeleteErrorSchema = z.union([
 ]);
 
 export const webinarDeletePathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
@@ -24603,8 +24605,8 @@ export const webinarDeleteQuerySchema = z.object({
 		.meta({ examples: [true] }),
 });
 
-export const webinarUpdatePathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarUpdatePathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -25309,8 +25311,8 @@ export const webinarUpdateBodySchema = z
 	.describe("Webinar.");
 
 export const webinarUpdatePathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
@@ -25406,8 +25408,8 @@ export const addBatchWebinarRegistrantsPathSchema = z.object({
 		.meta({ examples: ["97871060099"] }),
 });
 
-export const getWebinarBrandingPathWebinarIdSchema = z.coerce
-	.bigint()
+export const getWebinarBrandingPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -25502,14 +25504,14 @@ export const getWebinarBrandingErrorSchema = z.union([
 ]);
 
 export const getWebinarBrandingPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const createWebinarBrandingNameTagPathWebinarIdSchema = z.coerce
-	.bigint()
+export const createWebinarBrandingNameTagPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -25600,14 +25602,14 @@ export const createWebinarBrandingNameTagBodySchema = z
 	.describe("Name tag information");
 
 export const createWebinarBrandingNameTagPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const deleteWebinarBrandingNameTagPathWebinarIdSchema = z.coerce
-	.bigint()
+export const deleteWebinarBrandingNameTagPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -25635,8 +25637,8 @@ export const deleteWebinarBrandingNameTagErrorSchema = z.union([
 ]);
 
 export const deleteWebinarBrandingNameTagPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
@@ -25649,8 +25651,8 @@ export const deleteWebinarBrandingNameTagQuerySchema = z.object({
 		.meta({ examples: ["zazQjwDuQkS3Q2EprNd7jQ,AsfE0cx2TFSfqqKbE0BUZg"] }),
 });
 
-export const updateWebinarBrandingNameTagPathWebinarIdSchema = z.coerce
-	.bigint()
+export const updateWebinarBrandingNameTagPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -25719,8 +25721,8 @@ export const updateWebinarBrandingNameTagBodySchema = z
 	.describe("Name tag information.");
 
 export const updateWebinarBrandingNameTagPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 	nameTagId: z
@@ -25729,8 +25731,8 @@ export const updateWebinarBrandingNameTagPathSchema = z.object({
 		.meta({ examples: ["J0sFXN2PSOCGrqTqLRwgAQ"] }),
 });
 
-export const uploadWebinarBrandingVBPathWebinarIdSchema = z.coerce
-	.bigint()
+export const uploadWebinarBrandingVBPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -25804,14 +25806,14 @@ export const uploadWebinarBrandingVBBodySchema = z
 	.optional();
 
 export const uploadWebinarBrandingVBPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const deleteWebinarBrandingVBPathWebinarIdSchema = z.coerce
-	.bigint()
+export const deleteWebinarBrandingVBPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -25838,8 +25840,8 @@ export const deleteWebinarBrandingVBErrorSchema = z.union([
 ]);
 
 export const deleteWebinarBrandingVBPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
@@ -25852,8 +25854,8 @@ export const deleteWebinarBrandingVBQuerySchema = z.object({
 		.meta({ examples: ["zazQjwDuQkS3Q2EprNd7jQ,AsfE0cx2TFSfqqKbE0BUZg"] }),
 });
 
-export const setWebinarBrandingVBPathWebinarIdSchema = z.coerce
-	.bigint()
+export const setWebinarBrandingVBPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -25888,8 +25890,8 @@ export const setWebinarBrandingVBErrorSchema = z.union([
 ]);
 
 export const setWebinarBrandingVBPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
@@ -25909,8 +25911,8 @@ export const setWebinarBrandingVBQuerySchema = z.object({
 		.meta({ examples: [true] }),
 });
 
-export const uploadWebinarBrandingWallpaperPathWebinarIdSchema = z.coerce
-	.bigint()
+export const uploadWebinarBrandingWallpaperPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -25959,14 +25961,14 @@ export const uploadWebinarBrandingWallpaperBodySchema = z
 	.optional();
 
 export const uploadWebinarBrandingWallpaperPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const deleteWebinarBrandingWallpaperPathWebinarIdSchema = z.coerce
-	.bigint()
+export const deleteWebinarBrandingWallpaperPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -25988,14 +25990,14 @@ export const deleteWebinarBrandingWallpaperErrorSchema = z.union([
 ]);
 
 export const deleteWebinarBrandingWallpaperPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const webinarInviteLinksCreatePathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarInviteLinksCreatePathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -26069,10 +26071,12 @@ export const webinarInviteLinksCreateBodySchema = z
 			.max(500)
 			.optional()
 			.describe("The attendees list."),
-		ttl: z.coerce
-			.bigint()
+		ttl: z
+			.int()
+			.min(0)
+			.max(7776000)
 			.optional()
-			.default(BigInt(7200))
+			.default(7200)
 			.describe("The invite link's expiration time, in seconds. \n\nThis value defaults to `7200`.")
 			.meta({ examples: [1000] }),
 	})
@@ -26080,21 +26084,21 @@ export const webinarInviteLinksCreateBodySchema = z
 	.describe("Webinar invite link object.");
 
 export const webinarInviteLinksCreatePathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const webinarLiveStreamingJoinTokenPathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarLiveStreamingJoinTokenPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
 export const webinarLiveStreamingJoinTokenStatus200Schema = z
 	.object({
-		expire_in: z.coerce
-			.bigint()
+		expire_in: z
+			.int()
 			.optional()
 			.describe(
 				"The number of seconds the join token is valid for before it expires. This value always returns `120`.",
@@ -26124,21 +26128,21 @@ export const webinarLiveStreamingJoinTokenErrorSchema = z.union([
 ]);
 
 export const webinarLiveStreamingJoinTokenPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const webinarLocalArchivingArchiveTokenPathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarLocalArchivingArchiveTokenPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
 export const webinarLocalArchivingArchiveTokenStatus200Schema = z
 	.object({
-		expire_in: z.coerce
-			.bigint()
+		expire_in: z
+			.int()
 			.optional()
 			.describe(
 				"The number of seconds the archive token is valid for before it expires. This value always returns `120`.",
@@ -26168,21 +26172,21 @@ export const webinarLocalArchivingArchiveTokenErrorSchema = z.union([
 ]);
 
 export const webinarLocalArchivingArchiveTokenPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const webinarLocalRecordingJoinTokenPathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarLocalRecordingJoinTokenPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
 export const webinarLocalRecordingJoinTokenStatus200Schema = z
 	.object({
-		expire_in: z.coerce
-			.bigint()
+		expire_in: z
+			.int()
 			.optional()
 			.describe(
 				"The number of seconds the join token is valid for before it expires. This value always returns `120`.",
@@ -26212,8 +26216,8 @@ export const webinarLocalRecordingJoinTokenErrorSchema = z.union([
 ]);
 
 export const webinarLocalRecordingJoinTokenPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
@@ -26269,8 +26273,8 @@ export const getWebinarLiveStreamDetailsPathSchema = z.object({
 		.meta({ examples: ["95204914252"] }),
 });
 
-export const webinarLiveStreamUpdatePathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarLiveStreamUpdatePathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -26319,14 +26323,14 @@ export const webinarLiveStreamUpdateBodySchema = z
 	.describe("Webinar");
 
 export const webinarLiveStreamUpdatePathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const webinarLiveStreamStatusUpdatePathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarLiveStreamStatusUpdatePathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -26388,14 +26392,14 @@ export const webinarLiveStreamStatusUpdateBodySchema = z
 	.describe("Webinar");
 
 export const webinarLiveStreamStatusUpdatePathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const webinarPanelistsPathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarPanelistsPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -26487,14 +26491,14 @@ export const webinarPanelistsErrorSchema = z.union([
 ]);
 
 export const webinarPanelistsPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const webinarPanelistCreatePathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarPanelistCreatePathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -26581,14 +26585,14 @@ export const webinarPanelistCreateBodySchema = z
 	.describe("Webinar panelist.");
 
 export const webinarPanelistCreatePathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const webinarPanelistsDeletePathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarPanelistsDeletePathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -26609,14 +26613,14 @@ export const webinarPanelistsDeleteErrorSchema = z.union([
 ]);
 
 export const webinarPanelistsDeletePathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const webinarPanelistDeletePathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarPanelistDeletePathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -26642,8 +26646,8 @@ export const webinarPanelistDeleteErrorSchema = z.union([
 ]);
 
 export const webinarPanelistDeletePathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 	panelistId: z
@@ -26652,8 +26656,8 @@ export const webinarPanelistDeletePathSchema = z.object({
 		.meta({ examples: ["Tg2b6GhcQKKbV7nSCbDKug"] }),
 });
 
-export const webinarPollsPathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarPollsPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -26867,8 +26871,8 @@ export const webinarPollsErrorSchema = z.union([
 ]);
 
 export const webinarPollsPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
@@ -26883,8 +26887,8 @@ export const webinarPollsQuerySchema = z.object({
 		.meta({ examples: [true] }),
 });
 
-export const webinarPollCreatePathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarPollCreatePathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -27242,14 +27246,14 @@ export const webinarPollCreateBodySchema = z
 	.describe("The Webinar poll object.");
 
 export const webinarPollCreatePathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const webinarPollGetPathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarPollGetPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -27446,8 +27450,8 @@ export const webinarPollGetErrorSchema = z.union([
 ]);
 
 export const webinarPollGetPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 	pollId: z
@@ -27456,8 +27460,8 @@ export const webinarPollGetPathSchema = z.object({
 		.meta({ examples: ["QalIoKWLTJehBJ8e1xRrbQ"] }),
 });
 
-export const webinarPollUpdatePathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarPollUpdatePathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -27644,8 +27648,8 @@ export const webinarPollUpdateBodySchema = z
 	.describe("The webinar poll.");
 
 export const webinarPollUpdatePathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 	pollId: z
@@ -27654,8 +27658,8 @@ export const webinarPollUpdatePathSchema = z.object({
 		.meta({ examples: ["QalIoKWLTJehBJ8e1xRrbQ"] }),
 });
 
-export const webinarPollDeletePathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarPollDeletePathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -27681,8 +27685,8 @@ export const webinarPollDeleteErrorSchema = z.union([
 ]);
 
 export const webinarPollDeletePathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 	pollId: z
@@ -27691,8 +27695,8 @@ export const webinarPollDeletePathSchema = z.object({
 		.meta({ examples: ["QalIoKWLTJehBJ8e1xRrbQ"] }),
 });
 
-export const webinarRegistrantsPathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarRegistrantsPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -27974,8 +27978,8 @@ export const webinarRegistrantsErrorSchema = z.union([
 ]);
 
 export const webinarRegistrantsPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
@@ -28025,8 +28029,8 @@ export const webinarRegistrantsQuerySchema = z.object({
 		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
 });
 
-export const webinarRegistrantCreatePathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarRegistrantCreatePathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -28039,8 +28043,8 @@ export const webinarRegistrantCreateQueryOccurrenceIdsSchema = z
 	.meta({ examples: ["1648538280000"] });
 
 export const webinarRegistrantCreateStatus201Schema = z.object({
-	id: z.coerce
-		.bigint()
+	id: z
+		.int()
 		.optional()
 		.describe("The webinar's ID.")
 		.meta({ examples: [92674392836] }),
@@ -28290,8 +28294,8 @@ export const webinarRegistrantCreateBodySchema = z
 	.describe("Information about the webinar registrant.");
 
 export const webinarRegistrantCreatePathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
@@ -28306,8 +28310,8 @@ export const webinarRegistrantCreateQuerySchema = z.object({
 		.meta({ examples: ["1648538280000"] }),
 });
 
-export const webinarRegistrantsQuestionsGetPathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarRegistrantsQuestionsGetPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -28399,14 +28403,14 @@ export const webinarRegistrantsQuestionsGetErrorSchema = z.union([
 ]);
 
 export const webinarRegistrantsQuestionsGetPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const webinarRegistrantQuestionUpdatePathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarRegistrantQuestionUpdatePathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -28499,14 +28503,14 @@ export const webinarRegistrantQuestionUpdateBodySchema = z
 	.describe("Webinar registrant questions");
 
 export const webinarRegistrantQuestionUpdatePathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const webinarRegistrantStatusPathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarRegistrantStatusPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -28561,8 +28565,8 @@ export const webinarRegistrantStatusBodySchema = z
 	.optional();
 
 export const webinarRegistrantStatusPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
@@ -28575,8 +28579,8 @@ export const webinarRegistrantStatusQuerySchema = z.object({
 		.meta({ examples: ["1648194360000"] }),
 });
 
-export const webinarRegistrantGetPathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarRegistrantGetPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -28806,8 +28810,8 @@ export const webinarRegistrantGetErrorSchema = z.union([
 ]);
 
 export const webinarRegistrantGetPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 	registrantId: z
@@ -28875,8 +28879,8 @@ export const deleteWebinarRegistrantQuerySchema = z.object({
 		.meta({ examples: ["1648538280000"] }),
 });
 
-export const getWebinarSipDialingWithPasscodePathWebinarIdSchema = z.coerce
-	.bigint()
+export const getWebinarSipDialingWithPasscodePathWebinarIdSchema = z
+	.int()
 	.describe(
 		"The webinar's ID. \n\n When storing this value in your database, store it as a long format integer and **not** an integer. Webinar IDs can exceed 10 digits.",
 	)
@@ -28901,8 +28905,8 @@ export const getWebinarSipDialingWithPasscodeStatus201Schema = z
 				"This value identifies the webinar participant. It is automatically embedded in the SIP URI if the API caller has a CRC plan.",
 			)
 			.meta({ examples: ["30qonrvgy"] }),
-		expire_in: z.coerce
-			.bigint()
+		expire_in: z
+			.int()
 			.optional()
 			.describe("The number of seconds the encoded SIP URI is valid before it expires.")
 			.meta({ examples: [7200] }),
@@ -28934,16 +28938,16 @@ export const getWebinarSipDialingWithPasscodeBodySchema = z
 	.optional();
 
 export const getWebinarSipDialingWithPasscodePathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe(
 			"The webinar's ID. \n\n When storing this value in your database, store it as a long format integer and **not** an integer. Webinar IDs can exceed 10 digits.",
 		)
 		.meta({ examples: [85746065] }),
 });
 
-export const webinarStatusPathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarStatusPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -28973,14 +28977,14 @@ export const webinarStatusBodySchema = z
 	.optional();
 
 export const webinarStatusPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const webinarSurveyGetPathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarSurveyGetPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -29190,14 +29194,14 @@ export const webinarSurveyGetErrorSchema = z.union([
 ]);
 
 export const webinarSurveyGetPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const webinarSurveyDeletePathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarSurveyDeletePathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -29218,14 +29222,14 @@ export const webinarSurveyDeleteErrorSchema = z.union([
 ]);
 
 export const webinarSurveyDeletePathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const webinarSurveyUpdatePathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarSurveyUpdatePathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -29438,14 +29442,14 @@ export const webinarSurveyUpdateBodySchema = z
 	.describe("Information about the webinar survey.");
 
 export const webinarSurveyUpdatePathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
 
-export const webinarTokenPathWebinarIdSchema = z.coerce
-	.bigint()
+export const webinarTokenPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -29487,8 +29491,8 @@ export const webinarTokenErrorSchema = z.union([
 ]);
 
 export const webinarTokenPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });
@@ -29504,8 +29508,8 @@ export const webinarTokenQuerySchema = z.object({
 		.meta({ examples: ["closed_caption_token"] }),
 });
 
-export const getTrackingSourcesPathWebinarIdSchema = z.coerce
-	.bigint()
+export const getTrackingSourcesPathWebinarIdSchema = z
+	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
@@ -29568,8 +29572,8 @@ export const getTrackingSourcesErrorSchema = z.union([
 ]);
 
 export const getTrackingSourcesPathSchema = z.object({
-	webinarId: z.coerce
-		.bigint()
+	webinarId: z
+		.int()
 		.describe("The webinar's ID.")
 		.meta({ examples: [99289110036] }),
 });

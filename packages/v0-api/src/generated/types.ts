@@ -283,7 +283,7 @@ export type ChatDetail = {
 		 */
 		experimental_content?:
 			| (
-					| [0, string[], ...string[]]
+					| [0, unknown[], ...unknown[]]
 					| [
 							1,
 							{
@@ -344,7 +344,7 @@ export type ChatDetail = {
 								partial: string;
 								required: string;
 							},
-							...string[],
+							...unknown[],
 					  ]
 			  )[]
 			| undefined;
@@ -1414,7 +1414,7 @@ export type MessageDetail = {
 	 */
 	experimental_content?:
 		| (
-				| [0, string[], ...string[]]
+				| [0, unknown[], ...unknown[]]
 				| [
 						1,
 						{
@@ -1475,7 +1475,7 @@ export type MessageDetail = {
 							partial: string;
 							required: string;
 						},
-						...string[],
+						...unknown[],
 				  ]
 		  )[]
 		| undefined;
@@ -1645,7 +1645,7 @@ export type MessageSummary = {
 	 */
 	experimental_content?:
 		| (
-				| [0, string[], ...string[]]
+				| [0, unknown[], ...unknown[]]
 				| [
 						1,
 						{
@@ -1706,7 +1706,7 @@ export type MessageSummary = {
 							partial: string;
 							required: string;
 						},
-						...string[],
+						...unknown[],
 				  ]
 		  )[]
 		| undefined;
@@ -1881,7 +1881,7 @@ export type MessageSummaryList = {
 		 */
 		experimental_content?:
 			| (
-					| [0, string[], ...string[]]
+					| [0, unknown[], ...unknown[]]
 					| [
 							1,
 							{
@@ -1942,7 +1942,7 @@ export type MessageSummaryList = {
 								partial: string;
 								required: string;
 							},
-							...string[],
+							...unknown[],
 					  ]
 			  )[]
 			| undefined;
