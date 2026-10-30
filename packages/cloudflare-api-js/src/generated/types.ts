@@ -22007,6 +22007,51 @@ export type BillingSpendPoliciesPolicyResponse = BillingSpendPoliciesApiResponse
   result: BillingSpendPoliciesPolicy;
 };
 
+export const botManagementAiAgentAction = {
+  disabled: 'disabled',
+  block: 'block',
+  only_on_ad_pages: 'only_on_ad_pages',
+} as const;
+
+export type BotManagementAiAgentActionKey = (typeof botManagementAiAgentAction)[keyof typeof botManagementAiAgentAction];
+
+/**
+ * @description Configure blocking behavior for supported personal AI agents.
+ * @type object
+ */
+export type BotManagementAiAgents = {
+  /**
+   * @description Action to apply to one supported personal AI agent.
+   * @example block
+   * @type string | undefined
+   */
+  anthropic_agent?: BotManagementAiAgentActionKey | undefined;
+  /**
+   * @description Action to apply to one supported personal AI agent.
+   * @example block
+   * @type string | undefined
+   */
+  google_agent?: BotManagementAiAgentActionKey | undefined;
+  /**
+   * @description Action to apply to one supported personal AI agent.
+   * @example block
+   * @type string | undefined
+   */
+  instinct?: BotManagementAiAgentActionKey | undefined;
+  /**
+   * @description Action to apply to one supported personal AI agent.
+   * @example block
+   * @type string | undefined
+   */
+  muse?: BotManagementAiAgentActionKey | undefined;
+  /**
+   * @description Action to apply to one supported personal AI agent.
+   * @example block
+   * @type string | undefined
+   */
+  openai_agent?: BotManagementAiAgentActionKey | undefined;
+};
+
 /**
  * @description Temporary migration flag tracking zones opted out of AI bots managed-rule updates.
  * @default false
@@ -22173,6 +22218,11 @@ export type BotManagementJsdApiResultsEnabled = boolean;
 export type BotManagementUsingLatestModel = boolean;
 
 export type BotManagementBaseConfig = {
+  /**
+   * @description Configure blocking behavior for supported personal AI agents.
+   * @type object | undefined
+   */
+  ai_agents?: BotManagementAiAgents | undefined;
   /**
    * @description Temporary migration flag tracking zones opted out of AI bots managed-rule updates.
    * @default false
@@ -47266,7 +47316,7 @@ export type EmailSecurityAllowPolicy = {
    */
   readonly modified_at?: EmailSecurityTimestamp | undefined;
   /**
-   * @description The pattern value to match. The format depends on `pattern_type`: a valid email address for EMAIL (e.g. `user@example.com`), a valid domain name for DOMAIN (e.g. `example.com`), or a plain IPv4 or IPv6 address or CIDR block for IP (e.g. `1.2.3.4`, `1.2.3.0/24`, `2606:4700:4700::1111`, or `2606:4700:4700::/48`); the API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents.
+   * @description The pattern value to match. The format depends on `pattern_type`: a valid email address for EMAIL (e.g. `user@example.com`), a valid domain name for DOMAIN (e.g. `example.com`), or a plain IPv4 or IPv6 address or CIDR block for IP (e.g. `1.2.3.4`, `1.2.3.0/24`, `2606:4700:4700::1111`, or `2606:4700:4700::/48`); the API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents. The API also rejects a pattern that equals a domain onboarded to the account, ignoring case.
    * @minLength 1
    * @maxLength 1024
    * @example test@example.com
@@ -48115,7 +48165,7 @@ export type EmailSecurityCreateAllowPolicy = EmailSecurityAllowPolicy & {
   is_acceptable_sender: boolean;
 } & {
   /**
-   * @description The pattern value to match. The format depends on `pattern_type`: a valid email address for EMAIL (e.g. `user@example.com`), a valid domain name for DOMAIN (e.g. `example.com`), or a plain IPv4 or IPv6 address or CIDR block for IP (e.g. `1.2.3.4`, `1.2.3.0/24`, `2606:4700:4700::1111`, or `2606:4700:4700::/48`); the API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents.
+   * @description The pattern value to match. The format depends on `pattern_type`: a valid email address for EMAIL (e.g. `user@example.com`), a valid domain name for DOMAIN (e.g. `example.com`), or a plain IPv4 or IPv6 address or CIDR block for IP (e.g. `1.2.3.4`, `1.2.3.0/24`, `2606:4700:4700::1111`, or `2606:4700:4700::/48`); the API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents. The API also rejects a pattern that equals a domain onboarded to the account, ignoring case.
    * @minLength 1
    * @maxLength 1024
    * @example test@example.com
@@ -55895,7 +55945,6 @@ export type IamAccount = {
   } | undefined;
   /**
    * @description Account name
-   * @maxLength 120
    * @example Demo Account
    * @type string
    */
@@ -57242,7 +57291,7 @@ export type IamCollectionTokensResponse = IamApiResponseCollection & {
 
 export type IamComponentsSchemasAccount = IamAccount & {
   /**
-   * @maxLength 65
+   * @description Account name, limited to 65 UTF-8 bytes.
    * @type string | undefined
    */
   name?: string | undefined;
@@ -57258,8 +57307,7 @@ export type IamCountry = string | null;
 
 export type IamCreateAccount = {
   /**
-   * @description Account name
-   * @maxLength 65
+   * @description Account name, limited to 65 UTF-8 bytes.
    * @type string
    */
   name: string;
@@ -70465,6 +70513,25 @@ export type MagicNat = {
   static_prefix?: MagicCidr | undefined;
 };
 
+/**
+ * @description A remote subnet reachable through Cloudflare that is addressed from this LAN by a local alias prefix of the same size. The local alias prefix must not overlap other subnets on the LAN, and the remote prefix must not overlap other remote prefixes on the LAN.
+ * @type object
+ */
+export type MagicRemoteSubnet = {
+  /**
+   * @description A valid CIDR notation representing an IP range.
+   * @example 192.0.2.0/24
+   * @type string
+   */
+  local_alias_prefix: MagicCidr;
+  /**
+   * @description A valid CIDR notation representing an IP range.
+   * @example 192.0.2.0/24
+   * @type string
+   */
+  remote_prefix: MagicCidr;
+};
+
 export type MagicRoutedSubnet = {
   nat?: MagicNat | undefined;
   /**
@@ -70594,6 +70661,7 @@ export type MagicLan = {
    * @type integer | undefined
    */
   physport?: MagicPort | undefined;
+  remote_subnets?: MagicRemoteSubnet[] | undefined;
   routed_subnets?: MagicRoutedSubnet[] | undefined;
   /**
    * @description Identifier
@@ -70655,6 +70723,7 @@ export type MagicLanUpdateRequest = {
    * @type integer | undefined
    */
   physport?: MagicPort | undefined;
+  remote_subnets?: MagicRemoteSubnet[] | undefined;
   routed_subnets?: MagicRoutedSubnet[] | undefined;
   /**
    * @description If the site is not configured in high availability mode, this configuration is optional (if omitted, use DHCP). However, if in high availability mode, static_address is required along with secondary and virtual address.
@@ -70697,6 +70766,7 @@ export type MagicLansAddSingleRequest = {
    * @type integer | undefined
    */
   physport?: MagicPort | undefined;
+  remote_subnets?: MagicRemoteSubnet[] | undefined;
   routed_subnets?: MagicRoutedSubnet[] | undefined;
   /**
    * @description If the site is not configured in high availability mode, this configuration is optional (if omitted, use DHCP). However, if in high availability mode, static_address is required along with secondary and virtual address.
@@ -80392,9 +80462,9 @@ export type PayPerCrawlMsg = {
   /**
    * @description Meta object containing non-standard meta-information about the error.
    * This field must be an object or null!
-   * @type unknown | undefined
+   * @type object | undefined
    */
-  meta?: unknown | undefined;
+  meta?: (object | null) | undefined;
   source?: PayPerCrawlSource | undefined;
 };
 
@@ -80563,7 +80633,7 @@ export type PayPerCrawlPPUOperatorProposalActionRequest = {
 export type PayPerCrawlPPUPriceResponse = {
   errors?: PayPerCrawlMsg[] | undefined;
   messages?: PayPerCrawlMsg[] | undefined;
-  result?: PayPerCrawlPPUPrice | undefined;
+  result?: (PayPerCrawlPPUPrice | null) | undefined;
   result_info?: PayPerCrawlResultInfo | undefined;
   success?: boolean | undefined;
 };
@@ -80958,7 +81028,7 @@ export type PayPerCrawlZonesCanBeEnabledUpdatePayload = {
 
 export type PayPerCrawlApiErrorResponse = {
   errors?: PayPerCrawlRESTError[] | undefined;
-  result?: unknown | undefined;
+  result?: (object | null) | undefined;
   success?: boolean | undefined;
 };
 
@@ -91620,20 +91690,6 @@ export type RegistrarApiSandboxWorkflowStatusResponseSingle = RegistrarApiSandbo
 };
 
 /**
- * @description Address.
- * @example 123 Sesame St.
- * @type string
- */
-export type RegistrarApiAddress = string;
-
-/**
- * @description Optional address line for unit, floor, suite, etc.
- * @example Suite 430
- * @type string
- */
-export type RegistrarApiAddress2 = string;
-
-/**
  * @example []
  * @type array
  */
@@ -91677,38 +91733,6 @@ export type RegistrarApiApiResponseCommon = {
   success: true;
 };
 
-export type RegistrarApiResultInfo = {
-  /**
-   * @description Total number of results for the requested service.
-   * @example 1
-   * @type number | undefined
-   */
-  count?: number | undefined;
-  /**
-   * @description Current page within paginated list of results.
-   * @example 1
-   * @type number | undefined
-   */
-  page?: number | undefined;
-  /**
-   * @description Number of results per page of results.
-   * @example 20
-   * @type number | undefined
-   */
-  per_page?: number | undefined;
-  /**
-   * @description Total results available without any search parameters.
-   * @example 2000
-   * @type number | undefined
-   */
-  total_count?: number | undefined;
-};
-
-export type RegistrarApiApiResponseCollection = RegistrarApiApiResponseCommon & {
-  result?: (object[] | null) | undefined;
-  result_info?: RegistrarApiResultInfo | undefined;
-};
-
 export type RegistrarApiApiResponseCommonFailure = {
   /**
    * @example [{"code":7003,"message":"No route for the URI"}]
@@ -91728,221 +91752,6 @@ export type RegistrarApiApiResponseCommonFailure = {
    */
   success: false;
 };
-
-export type RegistrarApiApiResponseSingle = RegistrarApiApiResponseCommon & {
-  result?: (object | null) | undefined;
-};
-
-/**
- * @description Auto-renew controls whether subscription is automatically renewed upon domain expiration.
- * @example true
- * @type boolean
- */
-export type RegistrarApiAutoRenew = boolean;
-
-/**
- * @description Shows if a domain is available for transferring into Cloudflare Registrar.
- * @example false
- * @type boolean
- */
-export type RegistrarApiAvailable = boolean;
-
-/**
- * @description Indicates eligibility to register the domain as a new domain.
- * @example false
- * @type boolean
- */
-export type RegistrarApiCanRegister = boolean;
-
-/**
- * @description City.
- * @example Austin
- * @type string
- */
-export type RegistrarApiCity = string;
-
-/**
- * @description Contact Identifier.
- * @maxLength 32
- * @example ea95132c15732412d22c1476fa83f27a
- * @type string
- */
-export type RegistrarApiContactIdentifier = string;
-
-/**
- * @description The country in which the user lives.
- * @maxLength 30
- * @example US
- * @type string
- */
-export type RegistrarApiCountry = string | null;
-
-/**
- * @description The contact email address of the user.
- * @maxLength 90
- * @example user@example.com
- * @type string
- */
-export type RegistrarApiEmail = string;
-
-/**
- * @description Contact fax number.
- * @example 123-867-5309
- * @type string
- */
-export type RegistrarApiFax = string;
-
-/**
- * @description User's first name.
- * @maxLength 60
- * @example John
- * @type string
- */
-export type RegistrarApiFirstName = string | null;
-
-/**
- * @description User's last name.
- * @maxLength 60
- * @example Appleseed
- * @type string
- */
-export type RegistrarApiLastName = string | null;
-
-/**
- * @description Name of organization.
- * @example Cloudflare, Inc.
- * @type string
- */
-export type RegistrarApiOrganization = string;
-
-/**
- * @description User's telephone number.
- * @maxLength 20
- * @example +1 123-123-1234
- * @type string
- */
-export type RegistrarApiTelephone = string | null;
-
-/**
- * @description State.
- * @example TX
- * @type string
- */
-export type RegistrarApiState = string;
-
-/**
- * @description The zipcode or postal code where the user lives.
- * @maxLength 20
- * @example 12345
- * @type string
- */
-export type RegistrarApiZipcode = string | null;
-
-export type RegistrarApiContactProperties = {
-  /**
-   * @description Address.
-   * @example 123 Sesame St.
-   * @type string
-   */
-  address: RegistrarApiAddress;
-  /**
-   * @description Optional address line for unit, floor, suite, etc.
-   * @example Suite 430
-   * @type string | undefined
-   */
-  address2?: RegistrarApiAddress2 | undefined;
-  /**
-   * @description City.
-   * @example Austin
-   * @type string
-   */
-  city: RegistrarApiCity;
-  /**
-   * @description The country in which the user lives.
-   * @maxLength 30
-   * @example US
-   * @type string
-   */
-  country: RegistrarApiCountry | null;
-  /**
-   * @description The contact email address of the user.
-   * @maxLength 90
-   * @example user@example.com
-   * @type string | undefined
-   */
-  email?: RegistrarApiEmail | undefined;
-  /**
-   * @description Contact fax number.
-   * @example 123-867-5309
-   * @type string | undefined
-   */
-  fax?: RegistrarApiFax | undefined;
-  /**
-   * @description User's first name.
-   * @maxLength 60
-   * @example John
-   * @type string
-   */
-  first_name: RegistrarApiFirstName | null;
-  /**
-   * @description Contact Identifier.
-   * @maxLength 32
-   * @example ea95132c15732412d22c1476fa83f27a
-   * @type string | undefined
-   */
-  readonly id?: RegistrarApiContactIdentifier | undefined;
-  /**
-   * @description User's last name.
-   * @maxLength 60
-   * @example Appleseed
-   * @type string
-   */
-  last_name: RegistrarApiLastName | null;
-  /**
-   * @description Name of organization.
-   * @example Cloudflare, Inc.
-   * @type string
-   */
-  organization: RegistrarApiOrganization;
-  /**
-   * @description User's telephone number.
-   * @maxLength 20
-   * @example +1 123-123-1234
-   * @type string
-   */
-  phone: RegistrarApiTelephone | null;
-  /**
-   * @description State.
-   * @example TX
-   * @type string
-   */
-  state: RegistrarApiState;
-  /**
-   * @description The zipcode or postal code where the user lives.
-   * @maxLength 20
-   * @example 12345
-   * @type string
-   */
-  zip: RegistrarApiZipcode | null;
-};
-
-export type RegistrarApiContacts = RegistrarApiContactProperties;
-
-/**
- * @description Shows time of creation.
- *
- * Format: `date-time`
- * @example 2018-08-28T17:26:26Z
- * @type string
- */
-export type RegistrarApiCreatedAt = string;
-
-/**
- * @description Shows name of current registrar.
- * @example Cloudflare
- * @type string
- */
-export type RegistrarApiCurrentRegistrar = string;
 
 /**
  * @description Provides cursor-based pagination metadata. List endpoints use this
@@ -92129,14 +91938,6 @@ export type RegistrarApiDomainCheckResponse = RegistrarApiApiResponseCommon & {
 };
 
 /**
- * @description Domain identifier.
- * @maxLength 32
- * @example ea95132c15732412d22c1476fa83f27a
- * @type string
- */
-export type RegistrarApiDomainIdentifier = string;
-
-/**
  * @description Provides a fully qualified domain name (FQDN), including the extension
  * (e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies
  * a registration. Cloudflare permits only one registration per domain, making
@@ -92146,229 +91947,6 @@ export type RegistrarApiDomainIdentifier = string;
  * @type string
  */
 export type RegistrarApiDomainName = string;
-
-/**
- * @description Shows when domain name registration expires.
- *
- * Format: `date-time`
- * @example 2019-08-28T23:59:59Z
- * @type string
- */
-export type RegistrarApiExpiresAt = string;
-
-/**
- * @description Shows whether a registrar lock is in place for a domain.
- * @example false
- * @type boolean
- */
-export type RegistrarApiLocked = boolean;
-
-/**
- * @description Shows contact information for domain registrant.
- * @type object
- */
-export type RegistrarApiRegistrantContact = RegistrarApiContacts;
-
-/**
- * @description A comma-separated list of registry status codes. Refer to [EPP Status Codes](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en) for the full list.
- * @example ok,serverTransferProhibited
- * @type string
- */
-export type RegistrarApiRegistryStatuses = string;
-
-/**
- * @description Indicates whether Cloudflare Registrar currently supports a particular TLD. Refer to [TLD Policies](https://www.cloudflare.com/tld-policies/) for a list of supported TLDs.
- * @example true
- * @type boolean
- */
-export type RegistrarApiSupportedTld = boolean;
-
-export const registrarApiTransferInAcceptFoaEnum = {
-  needed: 'needed',
-  ok: 'ok',
-} as const;
-
-export type RegistrarApiTransferInAcceptFoaEnumKey = (typeof registrarApiTransferInAcceptFoaEnum)[keyof typeof registrarApiTransferInAcceptFoaEnum];
-
-export const registrarApiTransferInApproveTransferEnum = {
-  needed: 'needed',
-  ok: 'ok',
-  pending: 'pending',
-  trying: 'trying',
-  rejected: 'rejected',
-  unknown: 'unknown',
-} as const;
-
-export type RegistrarApiTransferInApproveTransferEnumKey = (typeof registrarApiTransferInApproveTransferEnum)[keyof typeof registrarApiTransferInApproveTransferEnum];
-
-export const registrarApiTransferInDisablePrivacyEnum = {
-  needed: 'needed',
-  ok: 'ok',
-  unknown: 'unknown',
-} as const;
-
-export type RegistrarApiTransferInDisablePrivacyEnumKey = (typeof registrarApiTransferInDisablePrivacyEnum)[keyof typeof registrarApiTransferInDisablePrivacyEnum];
-
-export const registrarApiTransferInEnterAuthCodeEnum = {
-  needed: 'needed',
-  ok: 'ok',
-  pending: 'pending',
-  trying: 'trying',
-  rejected: 'rejected',
-} as const;
-
-export type RegistrarApiTransferInEnterAuthCodeEnumKey = (typeof registrarApiTransferInEnterAuthCodeEnum)[keyof typeof registrarApiTransferInEnterAuthCodeEnum];
-
-export const registrarApiTransferInUnlockDomainEnum = {
-  needed: 'needed',
-  ok: 'ok',
-  pending: 'pending',
-  trying: 'trying',
-  unknown: 'unknown',
-} as const;
-
-export type RegistrarApiTransferInUnlockDomainEnumKey = (typeof registrarApiTransferInUnlockDomainEnum)[keyof typeof registrarApiTransferInUnlockDomainEnum];
-
-/**
- * @description Statuses for domain transfers into Cloudflare Registrar.
- * @type object
- */
-export type RegistrarApiTransferIn = {
-  /**
-   * @description Status of the registrant authorization step.
-   * @example needed
-   * @type string | undefined
-   */
-  accept_foa?: RegistrarApiTransferInAcceptFoaEnumKey | undefined;
-  /**
-   * @description Status of the registry transfer-approval step.
-   * @example unknown
-   * @type string | undefined
-   */
-  approve_transfer?: RegistrarApiTransferInApproveTransferEnumKey | undefined;
-  /**
-   * @description Indicates if cancellation is still possible.
-   * @example true
-   * @type boolean | undefined
-   */
-  can_cancel_transfer?: boolean | undefined;
-  /**
-   * @description Status of the privacy-guard disabling step at the foreign registrar.
-   * @example ok
-   * @type string | undefined
-   */
-  disable_privacy?: RegistrarApiTransferInDisablePrivacyEnumKey | undefined;
-  /**
-   * @description Status of the auth-code entry and verification step.
-   * @example needed
-   * @type string | undefined
-   */
-  enter_auth_code?: RegistrarApiTransferInEnterAuthCodeEnumKey | undefined;
-  /**
-   * @description Status of the domain-unlock step at the foreign registrar.
-   * @example ok
-   * @type string | undefined
-   */
-  unlock_domain?: RegistrarApiTransferInUnlockDomainEnumKey | undefined;
-};
-
-/**
- * @description Last updated.
- *
- * Format: `date-time`
- * @example 2018-08-28T17:26:26Z
- * @type string
- */
-export type RegistrarApiUpdatedAt = string;
-
-export type RegistrarApiDomainProperties = {
-  /**
-   * @description Shows if a domain is available for transferring into Cloudflare Registrar.
-   * @example false
-   * @type boolean | undefined
-   */
-  available?: RegistrarApiAvailable | undefined;
-  /**
-   * @description Indicates eligibility to register the domain as a new domain.
-   * @example false
-   * @type boolean | undefined
-   */
-  can_register?: RegistrarApiCanRegister | undefined;
-  /**
-   * @description Shows time of creation.
-   *
-   * Format: `date-time`
-   * @example 2018-08-28T17:26:26Z
-   * @type string | undefined
-   */
-  created_at?: RegistrarApiCreatedAt | undefined;
-  /**
-   * @description Shows name of current registrar.
-   * @example Cloudflare
-   * @type string | undefined
-   */
-  current_registrar?: RegistrarApiCurrentRegistrar | undefined;
-  /**
-   * @description Shows when domain name registration expires.
-   *
-   * Format: `date-time`
-   * @example 2019-08-28T23:59:59Z
-   * @type string | undefined
-   */
-  expires_at?: RegistrarApiExpiresAt | undefined;
-  /**
-   * @description Domain identifier.
-   * @maxLength 32
-   * @example ea95132c15732412d22c1476fa83f27a
-   * @type string | undefined
-   */
-  readonly id?: RegistrarApiDomainIdentifier | undefined;
-  /**
-   * @description Shows whether a registrar lock is in place for a domain.
-   * @example false
-   * @type boolean | undefined
-   */
-  locked?: RegistrarApiLocked | undefined;
-  /**
-   * @description Shows contact information for domain registrant.
-   */
-  registrant_contact?: RegistrarApiRegistrantContact | undefined;
-  /**
-   * @description A comma-separated list of registry status codes. Refer to [EPP Status Codes](https://www.icann.org/resources/pages/epp-status-codes-2014-06-16-en) for the full list.
-   * @example ok,serverTransferProhibited
-   * @type string | undefined
-   */
-  registry_statuses?: RegistrarApiRegistryStatuses | undefined;
-  /**
-   * @description Indicates whether Cloudflare Registrar currently supports a particular TLD. Refer to [TLD Policies](https://www.cloudflare.com/tld-policies/) for a list of supported TLDs.
-   * @example true
-   * @type boolean | undefined
-   */
-  supported_tld?: RegistrarApiSupportedTld | undefined;
-  /**
-   * @description Statuses for domain transfers into Cloudflare Registrar.
-   * @type object | undefined
-   */
-  transfer_in?: RegistrarApiTransferIn | undefined;
-  /**
-   * @description Last updated.
-   *
-   * Format: `date-time`
-   * @example 2018-08-28T17:26:26Z
-   * @type string | undefined
-   */
-  updated_at?: RegistrarApiUpdatedAt | undefined;
-};
-
-export type RegistrarApiDomains = RegistrarApiDomainProperties;
-
-export type RegistrarApiDomainResponseCollection = RegistrarApiApiResponseCollection & {
-  result?: RegistrarApiDomains[] | undefined;
-};
-
-export type RegistrarApiDomainResponseSingle = RegistrarApiApiResponseSingle & {
-  result?: object | undefined;
-};
 
 export const registrarApiDomainSearchResultReasonEnum = {
   extension_not_supported_via_api: 'extension_not_supported_via_api',
@@ -92651,34 +92229,6 @@ export type RegistrarApiDomainTransferCheckResponse = RegistrarApiApiResponseCom
       [key: string]: RegistrarApiDomainTransferCheckResult;
     };
   };
-};
-
-/**
- * @description Privacy option controls redacting WHOIS information.
- * @example true
- * @type boolean
- */
-export type RegistrarApiPrivacy = boolean;
-
-export type RegistrarApiDomainUpdateProperties = {
-  /**
-   * @description Auto-renew controls whether subscription is automatically renewed upon domain expiration.
-   * @example true
-   * @type boolean | undefined
-   */
-  auto_renew?: RegistrarApiAutoRenew | undefined;
-  /**
-   * @description Shows whether a registrar lock is in place for a domain.
-   * @example false
-   * @type boolean | undefined
-   */
-  locked?: RegistrarApiLocked | undefined;
-  /**
-   * @description Privacy option controls redacting WHOIS information.
-   * @example true
-   * @type boolean | undefined
-   */
-  privacy?: RegistrarApiPrivacy | undefined;
 };
 
 /**
@@ -101826,6 +101376,33 @@ export type SecurityCenterNewScanResponse = {
  */
 export type SecurityCenterPage = number;
 
+export type SecurityCenterPartnerAssetResultInfo = {
+  /**
+   * @description Number of items in the current page.
+   *
+   * Format: `int64`
+   * @minLength 0
+   * @example 25
+   * @type integer
+   */
+  count: number;
+  /**
+   * @description Opaque cursor for the next page. Absent when there are no more results.
+   * @type string | undefined
+   */
+  cursor?: string | undefined;
+  /**
+   * @description Requested maximum number of items per page.
+   *
+   * Format: `int64`
+   * @minLength 1
+   * @maxLength 1000
+   * @example 25
+   * @type integer
+   */
+  per_page: number;
+};
+
 export const securityCenterPartnerEntitlement = {
   baseline: 'baseline',
   premium: 'premium',
@@ -102077,7 +101654,7 @@ export type SecurityCenterShadowHost = {
 export type SecurityCenterShadowHostsResponse = SecurityCenterApiResponseCommon & {
   result?: {
     /**
-     * @description Whether partner data reached the service collection limit.
+     * @description Whether the partner reported that the parent domain's host collection was truncated.
      * @example false
      * @type boolean
      */
@@ -102095,12 +101672,6 @@ export type SecurityCenterShadowHostsResponse = SecurityCenterApiResponseCommon 
      */
     entitlement: SecurityCenterPartnerEntitlementKey;
     /**
-     * @description Whether another page of items is available.
-     * @example true
-     * @type boolean
-     */
-    has_more: boolean;
-    /**
      * @description Paginated shadow hosts. Empty for baseline accounts.
      * @type array
      */
@@ -102115,6 +101686,7 @@ export type SecurityCenterShadowHostsResponse = SecurityCenterApiResponseCommon 
      */
     total_count: number;
   } | undefined;
+  result_info?: SecurityCenterPartnerAssetResultInfo | undefined;
 };
 
 export type SecurityCenterShadowZone = {
@@ -102146,7 +101718,7 @@ export type SecurityCenterShadowZone = {
 export type SecurityCenterShadowZonesResponse = SecurityCenterApiResponseCommon & {
   result?: {
     /**
-     * @description Whether partner data reached the service collection limit.
+     * @description Whether the partner reported that the parent organization's domain collection was truncated.
      * @example false
      * @type boolean
      */
@@ -102157,12 +101729,6 @@ export type SecurityCenterShadowZonesResponse = SecurityCenterApiResponseCommon 
      * @type string
      */
     entitlement: SecurityCenterPartnerEntitlementKey;
-    /**
-     * @description Whether another page of items is available.
-     * @example true
-     * @type boolean
-     */
-    has_more: boolean;
     /**
      * @description Paginated shadow zones. Empty for baseline accounts.
      * @type array
@@ -102178,6 +101744,7 @@ export type SecurityCenterShadowZonesResponse = SecurityCenterApiResponseCommon 
      */
     total_count: number;
   } | undefined;
+  result_info?: SecurityCenterPartnerAssetResultInfo | undefined;
 };
 
 /**
@@ -125024,6 +124591,76 @@ export type WorkersObservabilityQueryResults = {
   }[] | undefined;
 };
 
+export const workersObservabilityUsageLimitLimitUnitEnum = {
+  events: 'events',
+  bytes: 'bytes',
+} as const;
+
+export type WorkersObservabilityUsageLimitLimitUnitEnumKey = (typeof workersObservabilityUsageLimitLimitUnitEnum)[keyof typeof workersObservabilityUsageLimitLimitUnitEnum];
+
+export const workersObservabilityUsageLimitPlanEnum = {
+  free: 'free',
+  paid: 'paid',
+} as const;
+
+export type WorkersObservabilityUsageLimitPlanEnumKey = (typeof workersObservabilityUsageLimitPlanEnum)[keyof typeof workersObservabilityUsageLimitPlanEnum];
+
+export const workersObservabilityUsageLimitStatusEnum = {
+  normal: 'normal',
+  limited: 'limited',
+  restricted: 'restricted',
+} as const;
+
+export type WorkersObservabilityUsageLimitStatusEnumKey = (typeof workersObservabilityUsageLimitStatusEnum)[keyof typeof workersObservabilityUsageLimitStatusEnum];
+
+export type WorkersObservabilityUsageLimit = {
+  /**
+   * @description The plan's daily limit.
+   * @type object
+   */
+  limit: {
+    /**
+     * @description The plan's daily limit, in events or bytes as given by unit, counted from 00:00 UTC.
+     * @type number
+     */
+    daily: number;
+    /**
+     * @description The unit the daily limit is counted in.
+     * @type string
+     */
+    unit: WorkersObservabilityUsageLimitLimitUnitEnumKey;
+  };
+  /**
+   * @description free: the account has no Workers Paid or Enterprise plan. paid: it has one of them.
+   * @type string
+   */
+  plan: WorkersObservabilityUsageLimitPlanEnumKey;
+  /**
+   * @description When a limited free account is expected to start keeping events again, at the daily limit reset. Not guaranteed if the account was limited for another reason. null otherwise, including for paid accounts, which are brought back in stages.
+   *
+   * Format: `date-time`
+   * @example 2026-10-30T00:00:00Z
+   * @type string
+   */
+  resets_at: string | null;
+  /**
+   * @description Share of the account's events being kept, from 0 to 1.
+   * @minLength 0
+   * @maxLength 1
+   * @example 0.01
+   * @type number
+   */
+  sample_rate: number;
+  /**
+   * @description Whether telemetry is being dropped, and why. More values may be added; treat unknown values like normal.
+   * - normal: every event is kept.
+   * - limited: the account keeps only sample_rate of its events, usually because it passed its daily limit. A free account over its limit keeps none until resets_at; a paid one keeps about 10 events a second and is brought back in stages after 00:00 UTC.
+   * - restricted: events are dropped for another reason. Contact support.
+   * @type string
+   */
+  status: WorkersObservabilityUsageLimitStatusEnumKey;
+};
+
 export type WorkersDomain = {
   /**
    * @description ID of the TLS certificate issued for the domain.
@@ -131352,6 +130989,7 @@ export const zeroTrustGatewayAction = {
   resolve: 'resolve',
   quarantine: 'quarantine',
   redirect: 'redirect',
+  forward: 'forward',
 } as const;
 
 export type ZeroTrustGatewayActionKey = (typeof zeroTrustGatewayAction)[keyof typeof zeroTrustGatewayAction];
@@ -133673,6 +133311,7 @@ export type ZeroTrustGatewayRuleSettingsBisoAdminControlsDownloadEnumKey = (type
 export const zeroTrustGatewayRuleSettingsBisoAdminControlsKeyboardEnum = {
   enabled: 'enabled',
   disabled: 'disabled',
+  enable_read_only_actions: 'enable_read_only_actions',
 } as const;
 
 export type ZeroTrustGatewayRuleSettingsBisoAdminControlsKeyboardEnumKey = (typeof zeroTrustGatewayRuleSettingsBisoAdminControlsKeyboardEnum)[keyof typeof zeroTrustGatewayRuleSettingsBisoAdminControlsKeyboardEnum];
@@ -133802,7 +133441,7 @@ export type ZeroTrustGatewayRuleSettings = {
      */
     du?: boolean | undefined;
     /**
-     * @description Configure keyboard usage behavior. If this field is absent, keyboard usage remains enabled. Applies only when version == "v2".
+     * @description Configure keyboard usage behavior. When set to enable_read_only_actions, only approved browser commands (find, copy, print, zoom, and select-all) may execute; other keyboard input is blocked from reaching the page. Copy and print remain subject to their independent controls. If this field is absent, keyboard usage remains enabled. Applies only when version == "v2". The enable_read_only_actions value requires an explicit version of "v2".
      * @example enabled
      * @type string | undefined
      */
@@ -133944,6 +133583,19 @@ export type ZeroTrustGatewayRuleSettings = {
      * @type boolean | undefined
      */
     enabled?: boolean | undefined;
+  } | null) | undefined;
+  /**
+   * @description Forward matching HTTP requests to a Worker. Required for `http` rules with the action set to `forward`.
+   * @type object | undefined
+   */
+  forward?: ({
+    /**
+     * @description Specify the public Worker ID of the target Worker.
+     * @pattern ^[0-9a-f]{32}$
+     * @example 0123456789abcdef0123456789abcdef
+     * @type string
+     */
+    worker_id: string;
   } | null) | undefined;
   /**
    * @description Ignore category matches at CNAME domains in a response. When off, evaluate categories in this rule against all CNAME domain categories in the response. Settable only for `dns` and `dns_resolver` rules.
@@ -139088,7 +138740,7 @@ export type EmailSecurityAllowPolicyWritable = {
    */
   readonly modified_at?: EmailSecurityTimestamp | undefined;
   /**
-   * @description The pattern value to match. The format depends on `pattern_type`: a valid email address for EMAIL (e.g. `user@example.com`), a valid domain name for DOMAIN (e.g. `example.com`), or a plain IPv4 or IPv6 address or CIDR block for IP (e.g. `1.2.3.4`, `1.2.3.0/24`, `2606:4700:4700::1111`, or `2606:4700:4700::/48`); the API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents.
+   * @description The pattern value to match. The format depends on `pattern_type`: a valid email address for EMAIL (e.g. `user@example.com`), a valid domain name for DOMAIN (e.g. `example.com`), or a plain IPv4 or IPv6 address or CIDR block for IP (e.g. `1.2.3.4`, `1.2.3.0/24`, `2606:4700:4700::1111`, or `2606:4700:4700::/48`); the API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents. The API also rejects a pattern that equals a domain onboarded to the account, ignoring case.
    * @minLength 1
    * @maxLength 1024
    * @example test@example.com
@@ -139140,7 +138792,7 @@ export type EmailSecurityCreateAllowPolicyWritable = EmailSecurityAllowPolicyWri
   is_acceptable_sender: boolean;
 } & {
   /**
-   * @description The pattern value to match. The format depends on `pattern_type`: a valid email address for EMAIL (e.g. `user@example.com`), a valid domain name for DOMAIN (e.g. `example.com`), or a plain IPv4 or IPv6 address or CIDR block for IP (e.g. `1.2.3.4`, `1.2.3.0/24`, `2606:4700:4700::1111`, or `2606:4700:4700::/48`); the API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents.
+   * @description The pattern value to match. The format depends on `pattern_type`: a valid email address for EMAIL (e.g. `user@example.com`), a valid domain name for DOMAIN (e.g. `example.com`), or a plain IPv4 or IPv6 address or CIDR block for IP (e.g. `1.2.3.4`, `1.2.3.0/24`, `2606:4700:4700::1111`, or `2606:4700:4700::/48`); the API rejects private or unique-local, loopback, link-local, unspecified, and IPv4 broadcast addresses, including their IPv4-mapped IPv6 equivalents. The API also rejects a pattern that equals a domain onboarded to the account, ignoring case.
    * @minLength 1
    * @maxLength 1024
    * @example test@example.com
@@ -248688,6 +248340,13 @@ export type AigConfigListProvidersStatus200 = {
     gateway_id: string;
     id: string;
     /**
+     * @description UTC date (YYYY-MM-DD) the gateway last selected this key to authenticate a request to the provider, whether or not the request succeeded. Updated at most once a day. Null if the gateway has not used the key since this field was introduced.
+     *
+     * Format: `date`
+     * @type string | undefined
+     */
+    last_used_at?: (string | null) | undefined;
+    /**
      * @description
      * Format: `date-time`
      * @type string
@@ -248766,6 +248425,13 @@ export type AigConfigCreateProvidersStatus200 = {
      */
     gateway_id: string;
     id: string;
+    /**
+     * @description UTC date (YYYY-MM-DD) the gateway last selected this key to authenticate a request to the provider, whether or not the request succeeded. Updated at most once a day. Null if the gateway has not used the key since this field was introduced.
+     *
+     * Format: `date`
+     * @type string | undefined
+     */
+    last_used_at?: (string | null) | undefined;
     /**
      * @description
      * Format: `date-time`
@@ -248870,6 +248536,13 @@ export type AigConfigDeleteProvidersStatus200 = {
     gateway_id: string;
     id: string;
     /**
+     * @description UTC date (YYYY-MM-DD) the gateway last selected this key to authenticate a request to the provider, whether or not the request succeeded. Updated at most once a day. Null if the gateway has not used the key since this field was introduced.
+     *
+     * Format: `date`
+     * @type string | undefined
+     */
+    last_used_at?: (string | null) | undefined;
+    /**
      * @description
      * Format: `date-time`
      * @type string
@@ -248954,6 +248627,13 @@ export type AigConfigFetchProvidersStatus200 = {
     gateway_id: string;
     id: string;
     /**
+     * @description UTC date (YYYY-MM-DD) the gateway last selected this key to authenticate a request to the provider, whether or not the request succeeded. Updated at most once a day. Null if the gateway has not used the key since this field was introduced.
+     *
+     * Format: `date`
+     * @type string | undefined
+     */
+    last_used_at?: (string | null) | undefined;
+    /**
      * @description
      * Format: `date-time`
      * @type string
@@ -249037,6 +248717,13 @@ export type AigConfigUpdateProvidersStatus200 = {
      */
     gateway_id: string;
     id: string;
+    /**
+     * @description UTC date (YYYY-MM-DD) the gateway last selected this key to authenticate a request to the provider, whether or not the request succeeded. Updated at most once a day. Null if the gateway has not used the key since this field was introduced.
+     *
+     * Format: `date`
+     * @type string | undefined
+     */
+    last_used_at?: (string | null) | undefined;
     /**
      * @description
      * Format: `date-time`
@@ -372687,6 +372374,89 @@ export type OauthClientsRotateSecretResponses = {
  */
 export type OauthClientsRotateSecretResponse = OauthClientsRotateSecretStatus200;
 
+export type ObservabilityUsageLimitGetPath = {
+  /**
+   * @description Your Cloudflare account ID.
+   * @type string
+   */
+  accountId: string;
+};
+
+export type ObservabilityUsageLimitGetStatus200 = {
+  errors: {
+    message: string;
+  }[];
+  messages: {
+    message: 'Successful request';
+  }[];
+  result: WorkersObservabilityUsageLimit;
+  success: true;
+};
+
+export type ObservabilityUsageLimitGetStatus401 = {
+  errors: {
+    detail?: string | undefined;
+    message: 'Unauthorized';
+  }[];
+  messages: {
+    message: string;
+  }[];
+  success: false;
+};
+
+export type ObservabilityUsageLimitGetStatus403 = {
+  errors: {
+    detail?: string | undefined;
+    message: 'Forbidden';
+  }[];
+  messages: {
+    message: string;
+  }[];
+  success: false;
+};
+
+export type ObservabilityUsageLimitGetStatus429 = {
+  errors: {
+    detail?: string | undefined;
+    message: 'Too many requests';
+  }[];
+  messages: {
+    message: string;
+  }[];
+  success: false;
+};
+
+export type ObservabilityUsageLimitGetStatus500 = {
+  errors: {
+    detail?: string | undefined;
+    message: 'Internal error';
+  }[];
+  messages: {
+    message: string;
+  }[];
+  success: false;
+};
+
+export type ObservabilityUsageLimitGetOptions = {
+  body?: never | undefined;
+  path: ObservabilityUsageLimitGetPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type ObservabilityUsageLimitGetResponses = {
+  '200': ObservabilityUsageLimitGetStatus200;
+  '401': ObservabilityUsageLimitGetStatus401;
+  '403': ObservabilityUsageLimitGetStatus403;
+  '429': ObservabilityUsageLimitGetStatus429;
+  '500': ObservabilityUsageLimitGetStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ObservabilityUsageLimitGetResponse = ObservabilityUsageLimitGetStatus200;
+
 export type ListApplicationsV2Path = {
   /**
    * @description Cloudflare account identifier.
@@ -388558,133 +388328,6 @@ export type RegistrarDomainDiscoveryTransferCheckResponses = {
  */
 export type RegistrarDomainDiscoveryTransferCheckResponse = RegistrarDomainDiscoveryTransferCheckStatus200;
 
-export type RegistrarDomainsListDomainsPath = {
-  /**
-   * @description Identifier.
-   * @maxLength 32
-   * @example 023e105f4ecef8ad9ca31a8372d0c353
-   * @type string
-   */
-  readonly accountId: RegistrarApiIdentifier;
-};
-
-export type RegistrarDomainsListDomainsStatus200 = RegistrarApiDomainResponseCollection;
-
-export type RegistrarDomainsListDomainsStatus400 = RegistrarApiApiResponseCommonFailure;
-
-/**
- * @deprecated
- * @type object
- */
-export type RegistrarDomainsListDomainsOptions = {
-  body?: never | undefined;
-  path: RegistrarDomainsListDomainsPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type RegistrarDomainsListDomainsResponses = {
-  '200': RegistrarDomainsListDomainsStatus200;
-  '400': RegistrarDomainsListDomainsStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type RegistrarDomainsListDomainsResponse = RegistrarDomainsListDomainsStatus200;
-
-export type RegistrarDomainsGetDomainPath = {
-  /**
-   * @description Provides a fully qualified domain name (FQDN), including the extension
-   * (e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies
-   * a registration. Cloudflare permits only one registration per domain, making
-   * the domain name a natural idempotency key for registration requests.
-   *
-   * @example example.com
-   * @type string
-   */
-  domainName: RegistrarApiDomainName;
-  /**
-   * @description Identifier.
-   * @maxLength 32
-   * @example 023e105f4ecef8ad9ca31a8372d0c353
-   * @type string
-   */
-  readonly accountId: RegistrarApiIdentifier;
-};
-
-export type RegistrarDomainsGetDomainStatus200 = RegistrarApiDomainResponseSingle;
-
-export type RegistrarDomainsGetDomainStatus400 = RegistrarApiApiResponseCommonFailure;
-
-/**
- * @deprecated
- * @type object
- */
-export type RegistrarDomainsGetDomainOptions = {
-  body?: never | undefined;
-  path: RegistrarDomainsGetDomainPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type RegistrarDomainsGetDomainResponses = {
-  '200': RegistrarDomainsGetDomainStatus200;
-  '400': RegistrarDomainsGetDomainStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type RegistrarDomainsGetDomainResponse = RegistrarDomainsGetDomainStatus200;
-
-export type RegistrarDomainsUpdateDomainPath = {
-  /**
-   * @description Provides a fully qualified domain name (FQDN), including the extension
-   * (e.g., `example.com`, `mybrand.app`). The domain name uniquely identifies
-   * a registration. Cloudflare permits only one registration per domain, making
-   * the domain name a natural idempotency key for registration requests.
-   *
-   * @example example.com
-   * @type string
-   */
-  domainName: RegistrarApiDomainName;
-  /**
-   * @description Identifier.
-   * @maxLength 32
-   * @example 023e105f4ecef8ad9ca31a8372d0c353
-   * @type string
-   */
-  readonly accountId: RegistrarApiIdentifier;
-};
-
-export type RegistrarDomainsUpdateDomainStatus200 = RegistrarApiDomainResponseSingle;
-
-export type RegistrarDomainsUpdateDomainStatus400 = RegistrarApiApiResponseCommonFailure;
-
-export type RegistrarDomainsUpdateDomainBody = RegistrarApiDomainUpdateProperties;
-
-/**
- * @deprecated
- * @type object
- */
-export type RegistrarDomainsUpdateDomainOptions = {
-  body: RegistrarDomainsUpdateDomainBody;
-  path: RegistrarDomainsUpdateDomainPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type RegistrarDomainsUpdateDomainResponses = {
-  '200': RegistrarDomainsUpdateDomainStatus200;
-  '400': RegistrarDomainsUpdateDomainStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type RegistrarDomainsUpdateDomainResponse = RegistrarDomainsUpdateDomainStatus200;
-
 export type RegistrarExtensionListPath = {
   /**
    * @description Identifier.
@@ -395192,12 +394835,10 @@ export type GetSecurityCenterPartnerShadowZonesPath = {
 
 export type GetSecurityCenterPartnerShadowZonesQuery = {
   /**
-   * @description Page number for premium partner asset results.
-   * @minLength 1
-   * @default 1
-   * @type integer | undefined
+   * @description Opaque cursor from the previous response's `result_info.cursor`. Omit for the first page.
+   * @type string | undefined
    */
-  page?: number | undefined;
+  cursor?: string | undefined;
   /**
    * @description Number of premium partner asset results per page. Values other than 1 must be a multiple of 5.
    * @minLength 1
@@ -395252,12 +394893,10 @@ export type GetSecurityCenterPartnerShadowZoneHostsPath = {
 
 export type GetSecurityCenterPartnerShadowZoneHostsQuery = {
   /**
-   * @description Page number for premium partner asset results.
-   * @minLength 1
-   * @default 1
-   * @type integer | undefined
+   * @description Opaque cursor from the previous response's `result_info.cursor`. Omit for the first page.
+   * @type string | undefined
    */
-  page?: number | undefined;
+  cursor?: string | undefined;
   /**
    * @description Number of premium partner asset results per page. Values other than 1 must be a multiple of 5.
    * @minLength 1
@@ -463211,12 +462850,10 @@ export type GetZoneSecurityCenterPartnerShadowHostsPath = {
 
 export type GetZoneSecurityCenterPartnerShadowHostsQuery = {
   /**
-   * @description Page number for premium partner asset results.
-   * @minLength 1
-   * @default 1
-   * @type integer | undefined
+   * @description Opaque cursor from the previous response's `result_info.cursor`. Omit for the first page.
+   * @type string | undefined
    */
-  page?: number | undefined;
+  cursor?: string | undefined;
   /**
    * @description Number of premium partner asset results per page. Values other than 1 must be a multiple of 5.
    * @minLength 1

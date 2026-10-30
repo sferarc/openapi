@@ -9044,6 +9044,12 @@ import type {
 	OauthClientsUpdateStatus400,
 	OauthScopesListResponse,
 	OauthScopesListStatus400,
+	ObservabilityUsageLimitGetPath,
+	ObservabilityUsageLimitGetResponse,
+	ObservabilityUsageLimitGetStatus401,
+	ObservabilityUsageLimitGetStatus403,
+	ObservabilityUsageLimitGetStatus429,
+	ObservabilityUsageLimitGetStatus500,
 	OrganizationListOrganizationsQuery,
 	OrganizationListOrganizationsResponse,
 	OrganizationListOrganizationsStatus400,
@@ -11656,16 +11662,6 @@ import type {
 	RegistrarDomainRegistrationUpdatePath,
 	RegistrarDomainRegistrationUpdateResponse,
 	RegistrarDomainRegistrationUpdateStatus400,
-	RegistrarDomainsGetDomainPath,
-	RegistrarDomainsGetDomainResponse,
-	RegistrarDomainsGetDomainStatus400,
-	RegistrarDomainsListDomainsPath,
-	RegistrarDomainsListDomainsResponse,
-	RegistrarDomainsListDomainsStatus400,
-	RegistrarDomainsUpdateDomainBody,
-	RegistrarDomainsUpdateDomainPath,
-	RegistrarDomainsUpdateDomainResponse,
-	RegistrarDomainsUpdateDomainStatus400,
 	RegistrarDomainTransferGetStatusPath,
 	RegistrarDomainTransferGetStatusResponse,
 	RegistrarDomainTransferGetStatusStatus400,
@@ -15433,7 +15429,7 @@ export async function accountsListAccounts(
 
 /**
  * @summary Create an Account
- * @description Create an Account. To create the Account within an Organization, provide `unit.id` and omit `standalone`. To create a standalone Free Account, provide `standalone: true` and omit `unit`. Providing both fields is invalid. If you omit both fields, Cloudflare can determine the destination only when the User is an administrator of exactly one Organization. Cloudflare creates the Account in that Organization; otherwise, the request returns an error.
+ * @description Create an Account. To create the Account within an Organization, provide `unit.id` and omit `standalone`. To create a standalone Free Account, provide `standalone: true` and omit `unit`. Providing both fields is invalid. If you omit both fields, Cloudflare can determine the destination only when the User is an administrator of exactly one Organization. Cloudflare creates the Account in that Organization; otherwise, the request returns an error. Account names are limited to 65 UTF-8 bytes.
  * @link /accounts
  */
 export async function accountCreation(
@@ -26914,7 +26910,7 @@ export async function accountsAccountDetails(
 
 /**
  * @summary Update Account
- * @description Update an existing account.
+ * @description Update an existing account. Account names are limited to 65 UTF-8 bytes.
  * @link /accounts/{accountId}
  */
 export async function accountsUpdateAccount(
@@ -81045,7 +81041,7 @@ export async function dnsSettingsForAnAccountUpdateDnsSettings(
 
 /**
  * @summary List Custom Nameserver Sets
- * @description Lists an account's Custom Nameserver Sets.
+ * @description Lists an account's Custom Nameserver Sets. For details, refer to [Nameserver sets](https://developers.cloudflare.com/dns/nameservers/custom-nameservers/nameserver-sets/).
  * @link /accounts/{accountId}/dns_settings/nameserver_sets
  */
 export async function dnsSettingsForAnAccountListCustomNameserverSets(
@@ -81084,7 +81080,7 @@ export async function dnsSettingsForAnAccountListCustomNameserverSets(
 
 /**
  * @summary Create Custom Nameserver Set
- * @description Creates a named Custom Nameserver Set. Only the customer-defined name can be changed later. To change nameservers or addresses, create a new set, move any zone assignments, and delete the old set.
+ * @description Creates a named Custom Nameserver Set. Only the customer-defined name can be changed later. To change nameservers or addresses, create a new set, move any zone assignments, and delete the old set. For details, refer to [Nameserver sets](https://developers.cloudflare.com/dns/nameservers/custom-nameservers/nameserver-sets/).
  * @link /accounts/{accountId}/dns_settings/nameserver_sets
  */
 export async function dnsSettingsForAnAccountCreateCustomNameserverSet(
@@ -81123,7 +81119,7 @@ export async function dnsSettingsForAnAccountCreateCustomNameserverSet(
 
 /**
  * @summary Delete Custom Nameserver Set
- * @description Deletes an unassigned Custom Nameserver Set.
+ * @description Deletes an unassigned Custom Nameserver Set. For details, refer to [Nameserver sets](https://developers.cloudflare.com/dns/nameservers/custom-nameservers/nameserver-sets/).
  * @link /accounts/{accountId}/dns_settings/nameserver_sets/{nameserverSetId}
  */
 export async function dnsSettingsForAnAccountDeleteCustomNameserverSet(
@@ -81163,7 +81159,7 @@ export async function dnsSettingsForAnAccountDeleteCustomNameserverSet(
 
 /**
  * @summary Get Custom Nameserver Set
- * @description Gets a Custom Nameserver Set owned by an account.
+ * @description Gets a Custom Nameserver Set owned by an account. For details, refer to [Nameserver sets](https://developers.cloudflare.com/dns/nameservers/custom-nameservers/nameserver-sets/).
  * @link /accounts/{accountId}/dns_settings/nameserver_sets/{nameserverSetId}
  */
 export async function dnsSettingsForAnAccountGetCustomNameserverSet(
@@ -105588,6 +105584,47 @@ export async function oauthClientsRotateSecret(
 }
 
 /**
+ * @summary Get usage limit status
+ * @description Whether Workers Observability is keeping fewer of the account's events, usually because it passed its daily limit, and what that limit is. Daily limits reset at 00:00 UTC; paid accounts are brought back in stages over the following hours.
+ * @link /accounts/{accountId}/observability/usage/limit
+ */
+export async function observabilityUsageLimitGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: ObservabilityUsageLimitGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		ObservabilityUsageLimitGetResponse,
+		ErrorWrapper<
+			| ObservabilityUsageLimitGetStatus401
+			| ObservabilityUsageLimitGetStatus403
+			| ObservabilityUsageLimitGetStatus429
+			| ObservabilityUsageLimitGetStatus500
+		>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		ObservabilityUsageLimitGetPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/observability/usage/limit`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary List applications
  * @description Returns a list of available applications with use cases and permissions.
  * @link /accounts/{accountId}/one/applications
@@ -116676,128 +116713,6 @@ export async function registrarDomainDiscoveryTransferCheck(
 	>({
 		method: "POST",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/registrar/domain-transfer-check`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List domains
- * @description Lists domains handled by Registrar.
- * @deprecated
- * @link /accounts/{accountId}/registrar/domains
- */
-export async function registrarDomainsListDomains(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: RegistrarDomainsListDomainsPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		RegistrarDomainsListDomainsResponse,
-		ErrorWrapper<RegistrarDomainsListDomainsStatus400>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		RegistrarDomainsListDomainsPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/registrar/domains`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Get domain
- * @description Show individual domain.
- * @deprecated
- * @link /accounts/{accountId}/registrar/domains/{domainName}
- */
-export async function registrarDomainsGetDomain(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: RegistrarDomainsGetDomainPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.domainName == null || String(pathParams.domainName) === "") {
-		throw new Error(`Missing required path parameter: domainName`);
-	}
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		RegistrarDomainsGetDomainResponse,
-		ErrorWrapper<RegistrarDomainsGetDomainStatus400>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		RegistrarDomainsGetDomainPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/registrar/domains/${encodeURIComponent(String(pathParams.domainName))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Update domain
- * @description Updates an individual domain.
- * @deprecated
- * @link /accounts/{accountId}/registrar/domains/{domainName}
- */
-export async function registrarDomainsUpdateDomain(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: RegistrarDomainsUpdateDomainPath;
-		body: RegistrarDomainsUpdateDomainBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.domainName == null || String(pathParams.domainName) === "") {
-		throw new Error(`Missing required path parameter: domainName`);
-	}
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		RegistrarDomainsUpdateDomainResponse,
-		ErrorWrapper<RegistrarDomainsUpdateDomainStatus400>,
-		RegistrarDomainsUpdateDomainBody,
-		Record<string, string>,
-		Record<string, string>,
-		RegistrarDomainsUpdateDomainPath
-	>({
-		method: "PUT",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/registrar/domains/${encodeURIComponent(String(pathParams.domainName))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -174656,6 +174571,7 @@ export const operationsByPath = {
 		oauthClientsDeleteRotatedSecret,
 	"POST /accounts/{accountId}/oauth_clients/{oauthClientId}/rotate_secret":
 		oauthClientsRotateSecret,
+	"GET /accounts/{accountId}/observability/usage/limit": observabilityUsageLimitGet,
 	"GET /accounts/{accountId}/one/applications": listApplicationsV2,
 	"GET /accounts/{accountId}/one/applications/{applicationId}": getApplicationV2,
 	"GET /accounts/{accountId}/one/applications/{applicationId}/auth-methods":
@@ -174993,9 +174909,6 @@ export const operationsByPath = {
 	"GET /accounts/{accountId}/registrar/domain-search": registrarDomainDiscoverySearch,
 	"POST /accounts/{accountId}/registrar/domain-transfer-check":
 		registrarDomainDiscoveryTransferCheck,
-	"GET /accounts/{accountId}/registrar/domains": registrarDomainsListDomains,
-	"GET /accounts/{accountId}/registrar/domains/{domainName}": registrarDomainsGetDomain,
-	"PUT /accounts/{accountId}/registrar/domains/{domainName}": registrarDomainsUpdateDomain,
 	"GET /accounts/{accountId}/registrar/extensions": registrarExtensionList,
 	"GET /accounts/{accountId}/registrar/extensions/{extension}": registrarExtensionGet,
 	"GET /accounts/{accountId}/registrar/registrations": registrarDomainRegistrationList,
@@ -179958,6 +179871,15 @@ export const operationsByTag = {
 		mTlsCertificateManagementGetMTlsCertificate,
 		mTlsCertificateManagementListMTlsCertificateAssociations,
 	},
+	observability: {
+		observabilityUsageLimitGet,
+		zoneObservabilityTracingRulesDelete,
+		zoneObservabilityTracingRulesGet,
+		zoneObservabilityTracingRulesUpdate,
+		zoneObservabilityTracingSettingsDelete,
+		zoneObservabilityTracingSettingsGet,
+		zoneObservabilityTracingSettingsUpdate,
+	},
 	integrations: {
 		listIntegrationsV2,
 		createIntegrationV2,
@@ -180202,11 +180124,6 @@ export const operationsByTag = {
 		registrarDomainRegistrationUpdate,
 		registrarDomainRegistrationGetStatus,
 		registrarDomainRegistrationGetUpdateStatus,
-	},
-	registrarDomains: {
-		registrarDomainsListDomains,
-		registrarDomainsGetDomain,
-		registrarDomainsUpdateDomain,
 	},
 	registrarTransfer: {
 		registrarDomainTransferInCreate,
@@ -181409,14 +181326,6 @@ export const operationsByTag = {
 		deleteManagedTransforms,
 		listManagedTransforms,
 		updateManagedTransforms,
-	},
-	observability: {
-		zoneObservabilityTracingRulesDelete,
-		zoneObservabilityTracingRulesGet,
-		zoneObservabilityTracingRulesUpdate,
-		zoneObservabilityTracingSettingsDelete,
-		zoneObservabilityTracingSettingsGet,
-		zoneObservabilityTracingSettingsUpdate,
 	},
 	zoneLevelAuthenticatedOriginPulls: {
 		zoneLevelAuthenticatedOriginPullsListCertificates,
@@ -185091,6 +185000,16 @@ export const tagDictionary = {
 		POST: ["mTlsCertificateManagementUploadMTlsCertificate"],
 		DELETE: ["mTlsCertificateManagementDeleteMTlsCertificate"],
 	},
+	observability: {
+		GET: [
+			"observabilityUsageLimitGet",
+			"zoneObservabilityTracingRulesGet",
+			"zoneObservabilityTracingSettingsGet",
+		],
+		DELETE: ["zoneObservabilityTracingRulesDelete", "zoneObservabilityTracingSettingsDelete"],
+		PUT: ["zoneObservabilityTracingRulesUpdate"],
+		PATCH: ["zoneObservabilityTracingSettingsUpdate"],
+	},
 	integrations: {
 		GET: ["listIntegrationsV2", "getIntegrationV2"],
 		POST: ["createIntegrationV2", "pauseIntegrationV2", "resumeIntegrationV2"],
@@ -185325,10 +185244,6 @@ export const tagDictionary = {
 		],
 		POST: ["sandboxRegistrarDomainRegistrationCreate", "registrarDomainRegistrationCreate"],
 		PATCH: ["sandboxRegistrarDomainRegistrationUpdate", "registrarDomainRegistrationUpdate"],
-	},
-	registrarDomains: {
-		GET: ["registrarDomainsListDomains", "registrarDomainsGetDomain"],
-		PUT: ["registrarDomainsUpdateDomain"],
 	},
 	registrarTransfer: {
 		POST: ["registrarDomainTransferInCreate"],
@@ -186636,12 +186551,6 @@ export const tagDictionary = {
 		DELETE: ["deleteManagedTransforms"],
 		GET: ["listManagedTransforms"],
 		PATCH: ["updateManagedTransforms"],
-	},
-	observability: {
-		DELETE: ["zoneObservabilityTracingRulesDelete", "zoneObservabilityTracingSettingsDelete"],
-		GET: ["zoneObservabilityTracingRulesGet", "zoneObservabilityTracingSettingsGet"],
-		PUT: ["zoneObservabilityTracingRulesUpdate"],
-		PATCH: ["zoneObservabilityTracingSettingsUpdate"],
 	},
 	zoneLevelAuthenticatedOriginPulls: {
 		GET: [
