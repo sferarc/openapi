@@ -1,5 +1,27 @@
 # cloudflare-api-js
 
+## 4.1.0
+
+### Minor Changes
+
+- 5ea776d: [BREAKING] Removed deprecated Registrar Domains operations: registrarDomainsListDomains, registrarDomainsGetDomain, and registrarDomainsUpdateDomain, along with their types.
+- 5ea776d: Security Center shadow results pagination now uses a cursor parameter instead of page numbers.
+- 5ea776d: Added the new GET /accounts/{accountId}/observability/usage/limit operation to report Workers Observability usage limits.
+- 5ea776d: [BREAKING] Remove operations no longer in the cloudflare-api-js OpenAPI spec: `registrarDomainsGetDomain`, `registrarDomainsListDomains`, `registrarDomainsUpdateDomain`.
+- 5ea776d: Added BotManagementAiAgents configuration with new agent action controls to the Bot Management feature.
+
+### Patch Changes
+
+- 5ea776d: Extended zero trust gateway settings with new forward action and additional keyboard usage control options.
+- 5ea776d: Clarified that email security allow policies now also reject a pattern that equals a domain onboarded to the account.
+- 5ea776d: Extended Magic LAN configuration types to support remote_subnets with MagicRemoteSubnet type.
+- 5ea776d: Security Center partner asset response types now include result_info for pagination and indicate if the result set was truncated.
+- 5ea776d: Expanded documentation for Custom Nameserver Set related DNS settings to link to more details.
+- 5ea776d: Minor documentation clarifications for PayPerCrawlMsg and PayPerCrawl response types.
+- 5ea776d: Added usage limit status enumerations and response types for Workers Observability usage reporting.
+- 5ea776d: Added last_used_at field to AIG config provider responses to show last authentication date.
+- 5ea776d: Documented that Account names are now limited to 65 UTF-8 bytes in accountsListAccounts and accountsAccountDetails.
+
 ## 4.0.5
 
 ### Patch Changes
