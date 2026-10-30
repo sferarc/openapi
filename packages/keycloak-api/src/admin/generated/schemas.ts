@@ -200,16 +200,16 @@ export const authorizationDetailsJSONRepresentationSchema = z.object({
 
 export const accessTokenSchema = z.object({
 	jti: z.string().optional(),
-	exp: z.coerce.bigint().optional(),
-	nbf: z.coerce.bigint().optional(),
-	iat: z.coerce.bigint().optional(),
+	exp: z.int().optional(),
+	nbf: z.int().optional(),
+	iat: z.int().optional(),
 	iss: z.string().optional(),
 	sub: z.string().optional(),
 	typ: z.string().optional(),
 	azp: z.string().optional(),
 	otherClaims: z.record(z.string(), z.unknown()).optional(),
 	nonce: z.string().optional(),
-	auth_time: z.coerce.bigint().optional(),
+	auth_time: z.int().optional(),
 	sid: z.string().optional(),
 	at_hash: z.string().optional(),
 	c_hash: z.string().optional(),
@@ -230,7 +230,7 @@ export const accessTokenSchema = z.object({
 	locale: z.string().optional(),
 	phone_number: z.string().optional(),
 	phone_number_verified: z.boolean().optional(),
-	updated_at: z.coerce.bigint().optional(),
+	updated_at: z.int().optional(),
 	claims_locales: z.string().optional(),
 	acr: z.string().optional(),
 	s_hash: z.string().optional(),
@@ -263,7 +263,7 @@ export const authDetailsRepresentationSchema = z.object({
 
 export const adminEventRepresentationSchema = z.object({
 	id: z.string().optional(),
-	time: z.coerce.bigint().optional(),
+	time: z.int().optional(),
 	realmId: z.string().optional(),
 	authDetails: authDetailsRepresentationSchema.optional(),
 	operationType: z.string().optional(),
@@ -689,7 +689,7 @@ export const credentialRepresentationSchema = z.object({
 	id: z.string().optional(),
 	type: z.string().optional(),
 	userLabel: z.string().optional(),
-	createdDate: z.coerce.bigint().optional(),
+	createdDate: z.int().optional(),
 	secretData: z.string().optional(),
 	credentialData: z.string().optional(),
 	priority: z.int32().optional(),
@@ -771,7 +771,7 @@ export const evaluationResultRepresentationSchema = z.object({
 
 export const eventRepresentationSchema = z.object({
 	id: z.string().optional(),
-	time: z.coerce.bigint().optional(),
+	time: z.int().optional(),
 	type: z.string().optional(),
 	realmId: z.string().optional(),
 	clientId: z.string().optional(),
@@ -799,7 +799,7 @@ export const groupRepresentationSchema = z.object({
 	description: z.string().optional(),
 	path: z.string().optional(),
 	parentId: z.string().optional(),
-	subGroupCount: z.coerce.bigint().optional(),
+	subGroupCount: z.int().optional(),
 	get subGroups() {
 		return z.array(groupRepresentationSchema).optional();
 	},
@@ -811,16 +811,16 @@ export const groupRepresentationSchema = z.object({
 
 export const IDTokenSchema = z.object({
 	jti: z.string().optional(),
-	exp: z.coerce.bigint().optional(),
-	nbf: z.coerce.bigint().optional(),
-	iat: z.coerce.bigint().optional(),
+	exp: z.int().optional(),
+	nbf: z.int().optional(),
+	iat: z.int().optional(),
 	iss: z.string().optional(),
 	sub: z.string().optional(),
 	typ: z.string().optional(),
 	azp: z.string().optional(),
 	otherClaims: z.record(z.string(), z.unknown()).optional(),
 	nonce: z.string().optional(),
-	auth_time: z.coerce.bigint().optional(),
+	auth_time: z.int().optional(),
 	sid: z.string().optional(),
 	at_hash: z.string().optional(),
 	c_hash: z.string().optional(),
@@ -841,7 +841,7 @@ export const IDTokenSchema = z.object({
 	locale: z.string().optional(),
 	phone_number: z.string().optional(),
 	phone_number_verified: z.boolean().optional(),
-	updated_at: z.coerce.bigint().optional(),
+	updated_at: z.int().optional(),
 	claims_locales: z.string().optional(),
 	acr: z.string().optional(),
 	s_hash: z.string().optional(),
@@ -895,8 +895,8 @@ export const issuedVerifiableCredentialRepresentationSchema = z.object({
 	id: z.string().optional(),
 	userId: z.string().optional(),
 	credentialType: z.string().optional(),
-	issuedAt: z.coerce.bigint().optional(),
-	expiresAt: z.coerce.bigint().optional(),
+	issuedAt: z.int().optional(),
+	expiresAt: z.int().optional(),
 	clientId: z.string().optional(),
 	clientName: z.string().optional(),
 	clientBaseUrl: z.string().optional(),
@@ -907,7 +907,7 @@ export const keyUseSchema = z.enum(["ENC", "JWT_SVID", "SIG"]);
 
 export const keyMetadataRepresentationSchema = z.object({
 	providerId: z.string().optional(),
-	providerPriority: z.coerce.bigint().optional(),
+	providerPriority: z.int().optional(),
 	kid: z.string().optional(),
 	status: z.string().optional(),
 	type: z.string().optional(),
@@ -915,7 +915,7 @@ export const keyMetadataRepresentationSchema = z.object({
 	publicKey: z.string().optional(),
 	certificate: z.string().optional(),
 	use: keyUseSchema.optional(),
-	validTo: z.coerce.bigint().optional(),
+	validTo: z.int().optional(),
 });
 
 export const keyStoreConfigSchema = z.object({
@@ -972,8 +972,8 @@ export const userProfileMetadataSchema = z.object({
 export const userConsentRepresentationSchema = z.object({
 	clientId: z.string().optional(),
 	grantedClientScopes: z.array(z.string()).optional(),
-	createdDate: z.coerce.bigint().optional(),
-	lastUpdatedDate: z.coerce.bigint().optional(),
+	createdDate: z.int().optional(),
+	lastUpdatedDate: z.int().optional(),
 	grantedRealmRoles: z.array(z.string()).optional(),
 });
 
@@ -981,8 +981,8 @@ export const userVerifiableCredentialRepresentationSchema = z.object({
 	credentialScopeName: z.string().optional(),
 	credentialConfigurationId: z.string().optional(),
 	revision: z.string().optional(),
-	createdDate: z.coerce.bigint().optional(),
-	updatedDate: z.coerce.bigint().optional(),
+	createdDate: z.int().optional(),
+	updatedDate: z.int().optional(),
 	userAttributes: z.record(z.string(), z.array(z.string())).optional(),
 });
 
@@ -1006,7 +1006,7 @@ export const memberRepresentationSchema = z.object({
 	enabled: z.boolean().optional(),
 	self: z.string().optional(),
 	origin: z.string().optional(),
-	createdTimestamp: z.coerce.bigint().optional(),
+	createdTimestamp: z.int().optional(),
 	totp: z.boolean().optional(),
 	federationLink: z.string().optional(),
 	serviceAccountClientId: z.string().optional(),
@@ -1168,7 +1168,7 @@ export const publishedRealmRepresentationSchema = z.object({
 
 export const realmEventsConfigRepresentationSchema = z.object({
 	eventsEnabled: z.boolean().optional(),
-	eventsExpiration: z.coerce.bigint().optional(),
+	eventsExpiration: z.int().optional(),
 	eventsListeners: z.array(z.string()).optional(),
 	enabledEventTypes: z.array(z.string()).optional(),
 	adminEventsEnabled: z.boolean().optional(),
@@ -1193,7 +1193,7 @@ export const userRepresentationSchema = z.object({
 	enabled: z.boolean().optional(),
 	self: z.string().optional(),
 	origin: z.string().optional(),
-	createdTimestamp: z.coerce.bigint().optional(),
+	createdTimestamp: z.int().optional(),
 	totp: z.boolean().optional(),
 	federationLink: z.string().optional(),
 	serviceAccountClientId: z.string().optional(),
@@ -1309,7 +1309,7 @@ export const realmRepresentationSchema = z.object({
 	maxFailureWaitSeconds: z.int32().optional(),
 	minimumQuickLoginWaitSeconds: z.int32().optional(),
 	waitIncrementSeconds: z.int32().optional(),
-	quickLoginCheckMilliSeconds: z.coerce.bigint().optional(),
+	quickLoginCheckMilliSeconds: z.int().optional(),
 	maxDeltaTimeSeconds: z.int32().optional(),
 	failureFactor: z.int32().optional(),
 	maxSecondaryAuthFailures: z.int32().optional(),
@@ -1386,7 +1386,7 @@ export const realmRepresentationSchema = z.object({
 	adminTheme: z.string().optional(),
 	emailTheme: z.string().optional(),
 	eventsEnabled: z.boolean().optional(),
-	eventsExpiration: z.coerce.bigint().optional(),
+	eventsExpiration: z.int().optional(),
 	eventsListeners: z.array(z.string()).optional(),
 	enabledEventTypes: z.array(z.string()).optional(),
 	adminEventsEnabled: z.boolean().optional(),
@@ -1520,8 +1520,8 @@ export const userSessionRepresentationSchema = z.object({
 	username: z.string().optional(),
 	userId: z.string().optional(),
 	ipAddress: z.string().optional(),
-	start: z.coerce.bigint().optional(),
-	lastAccess: z.coerce.bigint().optional(),
+	start: z.int().optional(),
+	lastAccess: z.int().optional(),
 	rememberMe: z.boolean().optional(),
 	clients: z.record(z.string(), z.string()).optional(),
 	transientUser: z.boolean().optional(),
@@ -1546,7 +1546,7 @@ export const workflowScheduleRepresentationSchema = z.object({
 export const workflowStepRepresentationSchema = z.object({
 	uses: z.string().optional(),
 	after: z.string().optional(),
-	"scheduled-at": z.coerce.bigint().optional(),
+	"scheduled-at": z.int().optional(),
 	status: stepExecutionStatusSchema.optional(),
 	id: z.string().optional(),
 	config: multivaluedHashMapStringStringSchema.optional(),
@@ -3601,10 +3601,7 @@ export const gETAdminRealmsRealmGroupsCountQuerySearchSchema = z.string().option
 
 export const gETAdminRealmsRealmGroupsCountQueryTopSchema = z.boolean().optional().default(false);
 
-export const gETAdminRealmsRealmGroupsCountStatus200Schema = z.record(
-	z.string(),
-	z.coerce.bigint(),
-);
+export const gETAdminRealmsRealmGroupsCountStatus200Schema = z.record(z.string(), z.int());
 
 export const gETAdminRealmsRealmGroupsCountResponseSchema =
 	gETAdminRealmsRealmGroupsCountStatus200Schema;
@@ -4395,7 +4392,7 @@ export const gETAdminRealmsRealmOrganizationsCountQuerySearchSchema = z
 	.optional()
 	.describe("A String representing either an organization name or domain");
 
-export const gETAdminRealmsRealmOrganizationsCountStatus200Schema = z.coerce.bigint();
+export const gETAdminRealmsRealmOrganizationsCountStatus200Schema = z.int();
 
 export const gETAdminRealmsRealmOrganizationsCountStatus403Schema = z.unknown();
 
@@ -8502,7 +8499,7 @@ export const gETAdminRealmsRealmClientsClientUuidOfflineSessionCountPathClientUu
 
 export const gETAdminRealmsRealmClientsClientUuidOfflineSessionCountStatus200Schema = z.record(
 	z.string(),
-	z.coerce.bigint(),
+	z.int(),
 );
 
 export const gETAdminRealmsRealmClientsClientUuidOfflineSessionCountResponseSchema =
@@ -9698,7 +9695,7 @@ export const gETAdminRealmsRealmClientsClientUuidSessionCountPathClientUuidSchem
 
 export const gETAdminRealmsRealmClientsClientUuidSessionCountStatus200Schema = z.record(
 	z.string(),
-	z.coerce.bigint(),
+	z.int(),
 );
 
 export const gETAdminRealmsRealmClientsClientUuidSessionCountResponseSchema =
@@ -11938,7 +11935,7 @@ export const gETAdminRealmsRealmOrganizationsOrgIdMembersCountPathRealmSchema = 
 
 export const gETAdminRealmsRealmOrganizationsOrgIdMembersCountPathOrgIdSchema = z.string();
 
-export const gETAdminRealmsRealmOrganizationsOrgIdMembersCountStatus200Schema = z.coerce.bigint();
+export const gETAdminRealmsRealmOrganizationsOrgIdMembersCountStatus200Schema = z.int();
 
 export const gETAdminRealmsRealmOrganizationsOrgIdMembersCountStatus403Schema = z.unknown();
 
@@ -13506,7 +13503,7 @@ export const gETAdminRealmsRealmUsersUserIdGroupsCountQuerySearchSchema = z.stri
 
 export const gETAdminRealmsRealmUsersUserIdGroupsCountStatus200Schema = z.record(
 	z.string(),
-	z.coerce.bigint(),
+	z.int(),
 );
 
 export const gETAdminRealmsRealmUsersUserIdGroupsCountStatus403Schema = z.unknown();

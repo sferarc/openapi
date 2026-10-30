@@ -267,3 +267,25 @@ describe("Worker script uploads", () => {
 		},
 	);
 });
+
+describe("R2 object uploads", () => {
+	const pathParams = { accountId: "a", bucketName: "b", objectKey: "data.json" };
+
+	it.each([
+		["text", '{"a":1}'],
+		["a Blob", new Blob(['{"a":1}'])],
+		["bytes", new TextEncoder().encode('{"a":1}')],
+	])("stores %s under a JSON content type byte for byte", async (_kind, body) => {
+		const { calls, fetch } = recordFetch(200, { success: true });
+		const client = new CloudflareApi({ token: "token", fetch });
+		await client.request("PUT /accounts/{accountId}/r2/buckets/{bucketName}/objects/{objectKey}", {
+			pathParams,
+			body,
+			headers: { "Content-Type": "application/json" },
+		});
+
+		const init = calls[0]?.init;
+		expect(init?.headers?.["Content-Type"]).toBe("application/json");
+		expect(init?.body).toBe(body);
+	});
+});

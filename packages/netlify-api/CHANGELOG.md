@@ -1,5 +1,21 @@
 # netlify-api
 
+## 3.0.1
+
+### Patch Changes
+
+- 93c1ab4: Fix `getSiteEnvVars`, which requested `/api/v1/api/v1/sites/{site_id}/env` and got a 404: the Netlify spec repeats the `/api/v1` base path in this one operation's path. It now calls `/api/v1/sites/{site_id}/env`, and its `request()` key is `GET /sites/{site_id}/env`.
+
+## 3.0.0
+
+### Major Changes
+
+- 597d8ed: Breaking: `format: int64` fields and parameters are typed `number` instead of `bigint`, and their zod schemas are `z.int()` instead of `z.coerce.bigint()`. The API sends these values as JSON numbers, so a response never held a `bigint` despite its type, and a `bigint` passed in a JSON body, as the types asked for, such as the `ttl` of Netlify's `createDnsRecord`, made `JSON.stringify` throw `Do not know how to serialize a BigInt`. Code that passed a `bigint`, such as a Zoom `meetingId: 123n`, now passes a number.
+
+### Patch Changes
+
+- 13d2858: Send a raw request body as it is when its Content-Type is `application/json`. The fetcher JSON-encoded every body under that type, so `r2PutObject` with `headers: { "Content-Type": "application/json" }` sent a `Blob` or bytes as `{}` or `{"0":123,...}` and a string such as `'{"a":1}'` as the quoted `"{\"a\":1}"`. Bytes, a `Blob`, a stream or a form are now never encoded, and a string is sent as is when the operation or the caller sets the Content-Type; under the default Content-Type of a JSON operation it is still encoded as a JSON string. A JSON Content-Type with parameters, such as `application/json; charset=utf-8`, now encodes an object body instead of sending `[object Object]`.
+
 ## 2.1.6
 
 ### Patch Changes

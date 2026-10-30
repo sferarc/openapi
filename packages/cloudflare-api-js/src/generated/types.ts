@@ -15373,7 +15373,7 @@ export type AlexandriaApplicationTypeDescription = string;
  * @example 12
  * @type integer
  */
-export type AlexandriaCategoryId = bigint;
+export type AlexandriaCategoryId = number;
 
 /**
  * @description Returns the application creation time.
@@ -15414,7 +15414,7 @@ export type AlexandriaApplicationHumanId = string;
  * @example 498
  * @type integer
  */
-export type AlexandriaApplicationId = bigint;
+export type AlexandriaApplicationId = number;
 
 /**
  * @description IP subnets for this application. Custom application create and update requests accept IPv4 prefix lengths /8 through /32 and IPv6 prefix lengths /32 through /128.
@@ -16034,7 +16034,7 @@ export type AnalyticsSqlApiErrorResponse = {
    * @minLength 0
    * @type integer
    */
-  code: bigint;
+  code: number;
   /**
    * @description Additional errors that caused this error.
    * @type array | undefined
@@ -16069,7 +16069,7 @@ export type AnalyticsSqlSqlQueryStatistics = {
    * @minLength 0
    * @type integer
    */
-  bytes_read: bigint;
+  bytes_read: number;
   /**
    * @description Backend execution time in milliseconds.
    *
@@ -16077,7 +16077,7 @@ export type AnalyticsSqlSqlQueryStatistics = {
    * @minLength 0
    * @type integer
    */
-  elapsed_ms: bigint;
+  elapsed_ms: number;
   /**
    * @description Number of source rows read while executing the query.
    *
@@ -16085,7 +16085,7 @@ export type AnalyticsSqlSqlQueryStatistics = {
    * @minLength 0
    * @type integer
    */
-  rows_read: bigint;
+  rows_read: number;
 };
 
 export type AnalyticsSqlClickHouseJsonQueryResponse = {
@@ -16102,7 +16102,7 @@ export type AnalyticsSqlClickHouseJsonQueryResponse = {
    * @minLength 0
    * @type integer
    */
-  rows: bigint;
+  rows: number;
   /**
    * @description ClickHouse pre-limit count, or rows when unavailable.
    *
@@ -16110,7 +16110,7 @@ export type AnalyticsSqlClickHouseJsonQueryResponse = {
    * @minLength 0
    * @type integer
    */
-  rows_before_limit_at_least: bigint;
+  rows_before_limit_at_least: number;
   statistics: AnalyticsSqlSqlQueryStatistics;
 };
 
@@ -16324,7 +16324,7 @@ export type AnalyticsSqlLogExplorerQueryResponse = {
    * @minLength 0
    * @type integer
    */
-  rows: bigint;
+  rows: number;
 };
 
 export type AnalyticsSqlSqlQueryAccountScope = {
@@ -16421,7 +16421,7 @@ export type AnalyticsSqlSqlQueryResponse = {
    * @minLength 0
    * @type integer
    */
-  rows: bigint;
+  rows: number;
   statistics: AnalyticsSqlSqlQueryStatistics;
 };
 
@@ -18832,7 +18832,7 @@ export type ArtDataSecurityContentFindingsTopNQuery = {
    * @example 10
    * @type integer
    */
-  n: bigint;
+  n: number;
   /**
    * @description End of the query time range (exclusive). RFC3339.
    *
@@ -18981,7 +18981,7 @@ export type ArtQueryTopN = ArtCommonQuery & {
    * @example 10
    * @type integer
    */
-  n: bigint;
+  n: number;
   /**
    * @description Specifies the stat name for sorting results in descending order. Requires a valid stat for the target dataset.
    * @example attemptsTotal
@@ -19237,7 +19237,7 @@ export type BillSubsApiAccountCreditsResponse = BillSubsApiApiResponseSingle & {
      * @example 5000
      * @type integer | undefined
      */
-    confirmed_balance_cents?: bigint | undefined;
+    confirmed_balance_cents?: number | undefined;
     /**
      * @description Currency of the credit balance.
      * @example USD
@@ -19251,7 +19251,7 @@ export type BillSubsApiAccountCreditsResponse = BillSubsApiApiResponseSingle & {
      * @example 180
      * @type integer | undefined
      */
-    days_remaining?: bigint | undefined;
+    days_remaining?: number | undefined;
     /**
      * @description Whether the account is eligible to receive credits.
      * @example true
@@ -19271,7 +19271,7 @@ export type BillSubsApiAccountCreditsResponse = BillSubsApiApiResponseSingle & {
      * @example 10000
      * @type integer | undefined
      */
-    original_amount_cents?: bigint | undefined;
+    original_amount_cents?: number | undefined;
     /**
      * @description Percentage of the original credit amount consumed.
      *
@@ -21594,7 +21594,7 @@ export type BillingSpendPoliciesPolicyCurrentState = {
    * Format: `int64`
    * @type integer
    */
-  balance_cents: bigint | null;
+  balance_cents: number | null;
   /**
    * @description
    * Format: `date-time`
@@ -21617,14 +21617,14 @@ export type BillingSpendPoliciesPolicyCurrentState = {
      * Format: `int64`
      * @type integer
      */
-    applied_generation: bigint;
+    applied_generation: number;
     delivery_status: BillingSpendPoliciesPolicyCurrentStateEnforcementDeliveryStatusEnumKey;
     /**
      * @description
      * Format: `int64`
      * @type integer
      */
-    desired_generation: bigint;
+    desired_generation: number;
     desired_state: BillingSpendPoliciesPolicyCurrentStateEnforcementDesiredStateEnumKey;
     /**
      * @description
@@ -21675,7 +21675,7 @@ export type BillingSpendPoliciesPolicy = {
    * @example 1234567
    * @type integer
    */
-  account_id: bigint;
+  account_id: number;
   /**
    * @description The action taken when the threshold is reached. `notification` sends an email to `notification_email`. `usage_block` blocks further usage of the product until the end of the billing period. Raising the threshold above the current balance, disabling the policy, or deleting it lifts the block early.
    * @example notification
@@ -21726,7 +21726,7 @@ export type BillingSpendPoliciesPolicy = {
    * @example 100
    * @type integer
    */
-  threshold_cents: bigint;
+  threshold_cents: number;
   /**
    * @description Optimistic-concurrency version. It starts at 1 and goes up by one on every update or delete. This value is also returned in `ETag`.
    *
@@ -21735,7 +21735,7 @@ export type BillingSpendPoliciesPolicy = {
    * @example 1
    * @type integer
    */
-  version: bigint;
+  version: number;
 };
 
 export const billingSpendPoliciesPolicyActivityEventActionEnum = {
@@ -21792,7 +21792,7 @@ export type BillingSpendPoliciesPolicyActivityEvent = {
    * @minLength 1
    * @type integer
    */
-  policy_version: bigint;
+  policy_version: number;
   product_id: string;
 };
 
@@ -21848,7 +21848,7 @@ export type BillingSpendPoliciesPolicyAuditEntry = {
    * @example 104
    * @type integer
    */
-  balance_cents: bigint;
+  balance_cents: number;
   /**
    * @description Exclusive end of the billing period that was evaluated.
    *
@@ -21880,7 +21880,7 @@ export type BillingSpendPoliciesPolicyAuditEntry = {
    * @example 2
    * @type integer
    */
-  policy_version: bigint;
+  policy_version: number;
   /**
    * @description A human-readable explanation of the trigger.
    * @example balance reached or exceeded the configured threshold
@@ -21900,7 +21900,7 @@ export type BillingSpendPoliciesPolicyAuditEntry = {
    * @example 100
    * @type integer
    */
-  threshold_cents: bigint;
+  threshold_cents: number;
   /**
    * @description The state the balance moved into. `approaching_limit` means the balance is at least 80% of the threshold (rounded up to a whole cent), but below the threshold. `limit_reached` means the balance reached or exceeded the threshold.
    * @example limit_reached
@@ -21982,7 +21982,7 @@ export type BillingSpendPoliciesPolicyInput = {
    * @example 100
    * @type integer
    */
-  threshold_cents: bigint;
+  threshold_cents: number;
 };
 
 /**
@@ -22568,7 +22568,7 @@ export type BotManagementMetricRequests = {
    * Format: `int64`
    * @type integer
    */
-  requests: bigint;
+  requests: number;
 };
 
 /**
@@ -22584,7 +22584,7 @@ export type BotManagementRequestsByAttribute = {
  * @type object
  */
 export type BotManagementRequestsByScore = {
-  [key: string]: bigint;
+  [key: string]: number;
 };
 
 /**
@@ -22592,7 +22592,7 @@ export type BotManagementRequestsByScore = {
  * @type object
  */
 export type BotManagementRequestsByScoreSrc = {
-  [key: string]: bigint;
+  [key: string]: number;
 };
 
 export const botManagementFeedbackType = {
@@ -22632,7 +22632,7 @@ export type BotManagementFeedbackReport = {
    * Format: `int64`
    * @type integer
    */
-  requests: bigint;
+  requests: number;
   /**
    * @description Top attributes contributing to the feedback sample. Keys include topASNs, topCountries, topHosts, topIPs, topJA3Hashes, topJA4s, topPaths, topUserAgents.
    * @type object
@@ -22987,7 +22987,7 @@ export type BrexExtensionEventFilterOperatorKey = (typeof brexExtensionEventFilt
 export type BrexExtensionEventFilter = {
   field: BrexExtensionEventFieldKey;
   op: BrexExtensionEventFilterOperatorKey;
-  value: string | bigint | string[] | bigint[];
+  value: string | number | string[] | number[];
 };
 
 export type BrexExtensionEventLogRow = {
@@ -30371,7 +30371,7 @@ export type CloudflarePipelinesParquetFormat = {
    * @minLength 0
    * @type integer | undefined
    */
-  row_group_bytes?: (bigint | null) | undefined;
+  row_group_bytes?: (number | null) | undefined;
 };
 
 /**
@@ -30552,7 +30552,7 @@ export type CloudflarePipelinesR2Table = {
      * @minLength 0
      * @type integer | undefined
      */
-    file_size_bytes?: bigint | undefined;
+    file_size_bytes?: number | undefined;
     /**
      * @description Number of seconds of inactivity to wait before rolling over to a new file
      *
@@ -30560,7 +30560,7 @@ export type CloudflarePipelinesR2Table = {
      * @minLength 1
      * @type integer | undefined
      */
-    inactivity_seconds?: bigint | undefined;
+    inactivity_seconds?: number | undefined;
     /**
      * @description Number of seconds to wait before rolling over to a new file
      *
@@ -30568,7 +30568,7 @@ export type CloudflarePipelinesR2Table = {
      * @minLength 1
      * @type integer | undefined
      */
-    interval_seconds?: bigint | undefined;
+    interval_seconds?: number | undefined;
   } | undefined;
 };
 
@@ -30651,7 +30651,7 @@ export type CloudflarePipelinesR2TablePublic = {
      * @minLength 0
      * @type integer | undefined
      */
-    file_size_bytes?: bigint | undefined;
+    file_size_bytes?: number | undefined;
     /**
      * @description Number of seconds of inactivity to wait before rolling over to a new file
      *
@@ -30659,7 +30659,7 @@ export type CloudflarePipelinesR2TablePublic = {
      * @minLength 1
      * @type integer | undefined
      */
-    inactivity_seconds?: bigint | undefined;
+    inactivity_seconds?: number | undefined;
     /**
      * @description Number of seconds to wait before rolling over to a new file
      *
@@ -30667,7 +30667,7 @@ export type CloudflarePipelinesR2TablePublic = {
      * @minLength 1
      * @type integer | undefined
      */
-    interval_seconds?: bigint | undefined;
+    interval_seconds?: number | undefined;
   } | undefined;
 };
 
@@ -30707,7 +30707,7 @@ export type CloudflarePipelinesR2DataCatalogTable = {
      * @minLength 0
      * @type integer | undefined
      */
-    file_size_bytes?: bigint | undefined;
+    file_size_bytes?: number | undefined;
     /**
      * @description Number of seconds of inactivity to wait before rolling over to a new file
      *
@@ -30715,7 +30715,7 @@ export type CloudflarePipelinesR2DataCatalogTable = {
      * @minLength 1
      * @type integer | undefined
      */
-    inactivity_seconds?: bigint | undefined;
+    inactivity_seconds?: number | undefined;
     /**
      * @description Number of seconds to wait before rolling over to a new file
      *
@@ -30723,7 +30723,7 @@ export type CloudflarePipelinesR2DataCatalogTable = {
      * @minLength 1
      * @type integer | undefined
      */
-    interval_seconds?: bigint | undefined;
+    interval_seconds?: number | undefined;
   } | undefined;
   /**
    * @description Table name
@@ -30776,7 +30776,7 @@ export type CloudflarePipelinesR2DataCatalogTablePublic = {
      * @minLength 0
      * @type integer | undefined
      */
-    file_size_bytes?: bigint | undefined;
+    file_size_bytes?: number | undefined;
     /**
      * @description Number of seconds of inactivity to wait before rolling over to a new file
      *
@@ -30784,7 +30784,7 @@ export type CloudflarePipelinesR2DataCatalogTablePublic = {
      * @minLength 1
      * @type integer | undefined
      */
-    inactivity_seconds?: bigint | undefined;
+    inactivity_seconds?: number | undefined;
     /**
      * @description Number of seconds to wait before rolling over to a new file
      *
@@ -30792,7 +30792,7 @@ export type CloudflarePipelinesR2DataCatalogTablePublic = {
      * @minLength 1
      * @type integer | undefined
      */
-    interval_seconds?: bigint | undefined;
+    interval_seconds?: number | undefined;
   } | undefined;
   /**
    * @description Table name
@@ -34234,7 +34234,7 @@ export type CustomIndicatorFeedsEnqueueUpload = {
    * Format: `int64`
    * @type integer
    */
-  upload_id: bigint;
+  upload_id: number;
 };
 
 export type CustomIndicatorFeedsEnqueueUploadResponse = CustomIndicatorFeedsApiResponseSingle & {
@@ -34583,7 +34583,7 @@ export type CustomIndicatorFeedsUpdateFeed = {
    * @example 12345
    * @type integer | undefined
    */
-  upload_id?: bigint | undefined;
+  upload_id?: number | undefined;
 };
 
 export type CustomIndicatorFeedsUpdateFeedResponse = CustomIndicatorFeedsApiResponseSingle & {
@@ -34697,7 +34697,7 @@ export type CustomIndicatorFeedsUploadStatus = {
    * Format: `int64`
    * @type integer
    */
-  upload_id: bigint;
+  upload_id: number;
 };
 
 export type CustomIndicatorFeedsUploadStatusResponse = CustomIndicatorFeedsApiResponseSingle & {
@@ -35180,7 +35180,7 @@ export type CwsBundleCategory = {
    * Format: `int64`
    * @type integer | undefined
    */
-  legacy_id?: bigint | undefined;
+  legacy_id?: number | undefined;
   metadata?: {
     [key: string]: CwsJSONValue;
   } | undefined;
@@ -35211,7 +35211,7 @@ export type CwsBundleGroup = {
    * Format: `int64`
    * @type integer | undefined
    */
-  legacy_id?: bigint | undefined;
+  legacy_id?: number | undefined;
   member_ids: string[];
   metadata?: {
     [key: string]: CwsJSONValue;
@@ -35287,7 +35287,7 @@ export type CwsCategoryVersion = {
    * Format: `int64`
    * @type integer
    */
-  readonly category_count: bigint;
+  readonly category_count: number;
   /**
    * @description
    * Format: `date-time`
@@ -35299,13 +35299,13 @@ export type CwsCategoryVersion = {
    * Format: `int64`
    * @type integer
    */
-  readonly definition_count: bigint;
+  readonly definition_count: number;
   /**
    * @description
    * Format: `int64`
    * @type integer
    */
-  readonly group_count: bigint;
+  readonly group_count: number;
   /**
    * @description
    * Format: `uuid`
@@ -35326,7 +35326,7 @@ export type CwsCategoryVersionSummary = {
    * Format: `int64`
    * @type integer
    */
-  readonly category_count: bigint;
+  readonly category_count: number;
   /**
    * @description
    * Format: `date-time`
@@ -35338,13 +35338,13 @@ export type CwsCategoryVersionSummary = {
    * Format: `int64`
    * @type integer
    */
-  readonly definition_count: bigint;
+  readonly definition_count: number;
   /**
    * @description
    * Format: `int64`
    * @type integer
    */
-  readonly group_count: bigint;
+  readonly group_count: number;
   /**
    * @description
    * Format: `uuid`
@@ -35833,7 +35833,7 @@ export type CwsResponseMessage = {
    * Format: `int64`
    * @type integer
    */
-  code: bigint;
+  code: number;
   message: string;
   source?: CwsMessageSource | undefined;
 };
@@ -35921,20 +35921,20 @@ export type CwsResultInfo = {
    * Format: `int64`
    * @type integer
    */
-  count: bigint;
+  count: number;
   cursor?: string | undefined;
   /**
    * @description
    * Format: `int64`
    * @type integer
    */
-  per_page: bigint;
+  per_page: number;
   /**
    * @description
    * Format: `int64`
    * @type integer
    */
-  total_count: bigint;
+  total_count: number;
 };
 
 export type CwsPageResponseBasicAuthCredential = {
@@ -37692,7 +37692,7 @@ export type DigitalExperienceMonitoringDevice = {
    * Format: `int64`
    * @type integer | undefined
    */
-  batteryCycles?: (bigint | null) | undefined;
+  batteryCycles?: (number | null) | undefined;
   /**
    * @description
    * Format: `float`
@@ -37736,7 +37736,7 @@ export type DigitalExperienceMonitoringDevice = {
    * Format: `int64`
    * @type integer | undefined
    */
-  diskReadBps?: (bigint | null) | undefined;
+  diskReadBps?: (number | null) | undefined;
   /**
    * @description
    * Format: `float`
@@ -37748,7 +37748,7 @@ export type DigitalExperienceMonitoringDevice = {
    * Format: `int64`
    * @type integer | undefined
    */
-  diskWriteBps?: (bigint | null) | undefined;
+  diskWriteBps?: (number | null) | undefined;
   dohSubdomain?: (string | null) | undefined;
   /**
    * @description
@@ -37764,7 +37764,7 @@ export type DigitalExperienceMonitoringDevice = {
    * Format: `int64`
    * @type integer | undefined
    */
-  handshakeLatencyMs?: (bigint | null) | undefined;
+  handshakeLatencyMs?: (number | null) | undefined;
   ispIpv4?: (DigitalExperienceMonitoringSchemasIpInfo | null) | undefined;
   ispIpv6?: (DigitalExperienceMonitoringSchemasIpInfo | null) | undefined;
   metal?: (string | null) | undefined;
@@ -37779,13 +37779,13 @@ export type DigitalExperienceMonitoringDevice = {
    * Format: `int64`
    * @type integer | undefined
    */
-  networkRcvdBps?: (bigint | null) | undefined;
+  networkRcvdBps?: (number | null) | undefined;
   /**
    * @description
    * Format: `int64`
    * @type integer | undefined
    */
-  networkSentBps?: (bigint | null) | undefined;
+  networkSentBps?: (number | null) | undefined;
   networkSsid?: (string | null) | undefined;
   /**
    * @description User contact email address
@@ -37803,7 +37803,7 @@ export type DigitalExperienceMonitoringDevice = {
    * Format: `int64`
    * @type integer | undefined
    */
-  ramAvailableKb?: (bigint | null) | undefined;
+  ramAvailableKb?: (number | null) | undefined;
   /**
    * @description
    * Format: `float`
@@ -37850,7 +37850,7 @@ export type DigitalExperienceMonitoringDevice = {
    * Format: `int64`
    * @type integer | undefined
    */
-  wifiStrengthDbm?: (bigint | null) | undefined;
+  wifiStrengthDbm?: (number | null) | undefined;
 };
 
 export const digitalExperienceMonitoringDeviceDexTestSchemasDataKindEnum = {
@@ -40304,7 +40304,7 @@ export type DlpDatasetColumn = {
    * Format: `int64`
    * @type integer
    */
-  num_cells: bigint;
+  num_cells: number;
   upload_status: DlpDatasetUploadStatusKey;
 };
 
@@ -40314,14 +40314,14 @@ export type DlpDatasetUpload = {
    * Format: `int64`
    * @type integer
    */
-  num_cells: bigint;
+  num_cells: number;
   status: DlpDatasetUploadStatusKey;
   /**
    * @description
    * Format: `int64`
    * @type integer
    */
-  version: bigint;
+  version: number;
 };
 
 export type DlpDataset = {
@@ -40357,7 +40357,7 @@ export type DlpDataset = {
    * Format: `int64`
    * @type integer
    */
-  num_cells: bigint;
+  num_cells: number;
   secret: boolean;
   status: DlpDatasetUploadStatusKey;
   /**
@@ -40392,7 +40392,7 @@ export type DlpDatasetCreation = {
    * @minLength 0
    * @type integer
    */
-  max_cells: bigint;
+  max_cells: number;
   /**
    * @description The secret to use for Exact Data Match datasets.
    *
@@ -40408,7 +40408,7 @@ export type DlpDatasetCreation = {
    * Format: `int64`
    * @type integer
    */
-  version: bigint;
+  version: number;
 };
 
 export type DlpDatasetNewVersion = {
@@ -40427,7 +40427,7 @@ export type DlpDatasetNewVersion = {
    * @minLength 0
    * @type integer
    */
-  max_cells: bigint;
+  max_cells: number;
   /**
    * @description
    * Format: `password`
@@ -40439,7 +40439,7 @@ export type DlpDatasetNewVersion = {
    * Format: `int64`
    * @type integer
    */
-  version: bigint;
+  version: number;
 };
 
 export type DlpDatasetUpdate = {
@@ -40615,7 +40615,7 @@ export type DlpDocumentFingerprint = {
    * Format: `int64`
    * @type integer | undefined
    */
-  version?: (bigint | null) | undefined;
+  version?: (number | null) | undefined;
 };
 
 export type DlpDocumentFingerprintArray = DlpDocumentFingerprint[];
@@ -40660,7 +40660,7 @@ export type DlpDocumentFingerprintUpload = {
    * Format: `int64`
    * @type integer
    */
-  version: bigint;
+  version: number;
 };
 
 export type DlpEmailRule = {
@@ -40887,7 +40887,7 @@ export type DlpLimits = {
    * @minLength 0
    * @type integer
    */
-  max_custom_regex_entries: bigint;
+  max_custom_regex_entries: number;
   /**
    * @description Maximum number of dataset cells allowed for the account, across all EDM and CWL datasets.
    *
@@ -40895,7 +40895,7 @@ export type DlpLimits = {
    * @minLength 0
    * @type integer
    */
-  max_dataset_cells: bigint;
+  max_dataset_cells: number;
   /**
    * @description Maximum number of document fingerprints allowed for the account.
    *
@@ -40903,7 +40903,7 @@ export type DlpLimits = {
    * @minLength 0
    * @type integer
    */
-  max_document_fingerprints: bigint;
+  max_document_fingerprints: number;
   /**
    * @description Number of custom regex entries currently configured for the account.
    *
@@ -40911,7 +40911,7 @@ export type DlpLimits = {
    * @minLength 0
    * @type integer
    */
-  used_custom_regex_entries: bigint;
+  used_custom_regex_entries: number;
   /**
    * @description Number of dataset cells currently configured for the account, across all EDM and CWL datasets. Document fingerprints do not count towards this limit.
    *
@@ -40919,7 +40919,7 @@ export type DlpLimits = {
    * @minLength 0
    * @type integer
    */
-  used_dataset_cells: bigint;
+  used_dataset_cells: number;
   /**
    * @description Number of document fingerprints currently configured for the account.
    *
@@ -40927,7 +40927,7 @@ export type DlpLimits = {
    * @minLength 0
    * @type integer
    */
-  used_document_fingerprints: bigint;
+  used_document_fingerprints: number;
 };
 
 export type DlpNewSharedEntry = {
@@ -41104,7 +41104,7 @@ export type DlpNewDatasetColumn = ({
    * @minLength 0
    * @type integer
    */
-  num_cells: bigint;
+  num_cells: number;
 };
 
 export type DlpNewDocumentFingerprint = {
@@ -45709,7 +45709,7 @@ export type DnsSettingsNameserverSetAddressGroups = DnsSettingsNameserverSetAddr
  * @example 1
  * @type integer
  */
-export type DnsSettingsNameserverSetIpSet = bigint;
+export type DnsSettingsNameserverSetIpSet = number;
 
 /**
  * @description Customer-defined name, unique within the account by exact string equality (case-sensitive, with no Unicode normalization). Must be valid UTF-8 and at most 255 UTF-8 bytes, not 255 characters. Only graphical Unicode characters are allowed; leading or trailing whitespace is rejected. The name can be changed without changing the set's nameservers or addresses.
@@ -45819,7 +45819,7 @@ export type DnsSettingsNameserverSetAdvancedResponse = DnsSettingsNameserverSetR
  * @example 1
  * @type integer
  */
-export type DnsSettingsNameserverSetIpCount = bigint;
+export type DnsSettingsNameserverSetIpCount = number;
 
 export type DnsSettingsNameserverSetCreateMember = {
   /**
@@ -50025,7 +50025,7 @@ export type EmailReputationThreshold = {
    * @example 100
    * @type integer
    */
-  minimum_denominator: bigint;
+  minimum_denominator: number;
   /**
    * @description The rate at or above which the metric enters the warning band. A fraction between 0 and 1.
    *
@@ -50062,7 +50062,7 @@ export type EmailReputationPolicy = {
    * @example 168
    * @type integer
    */
-  suspension_after_hours: bigint;
+  suspension_after_hours: number;
 };
 
 /**
@@ -51035,7 +51035,7 @@ export type EmailEmailDomainDnsRecord = {
    * @example 10
    * @type integer | undefined
    */
-  priority?: bigint | undefined;
+  priority?: number | undefined;
   /**
    * @description Role of this DNS assignment.
    * @example dkim
@@ -51436,7 +51436,7 @@ export type EmailEmailDomainErrorResponse = {
      * @example 2077
      * @type integer
      */
-    code: bigint;
+    code: number;
     /**
      * @description Human-readable explanation; do not use as a programmatic discriminator.
      * @example Invalid external domain hostname
@@ -51458,7 +51458,7 @@ export type EmailEmailDomainErrorResponse = {
      * @example 2077
      * @type integer
      */
-    code: bigint;
+    code: number;
     /**
      * @description Human-readable explanation; do not use as a programmatic discriminator.
      * @example Invalid external domain hostname
@@ -52280,7 +52280,7 @@ export type EntitlementsFeature = {
    * @example 1
    * @type integer
    */
-  id: bigint;
+  id: number;
   /**
    * @description Unique string key for the feature.
    * @example page_rules
@@ -62108,7 +62108,7 @@ export type KaminoEnvironment = {
    * Format: `int64`
    * @type integer
    */
-  version: bigint | null;
+  version: number | null;
 };
 
 export type KaminoEnvironmentsRequest = {
@@ -62121,7 +62121,7 @@ export type KaminoMessage = {
    * Format: `int64`
    * @type integer
    */
-  code: bigint;
+  code: number;
   message: string;
 };
 
@@ -64367,7 +64367,7 @@ export type LoadBalancingLoadBalancerComponentsSchemasUsageResponse = LoadBalanc
      * @example 5
      * @type integer
      */
-    load_balancers: bigint;
+    load_balancers: number;
     /**
      * @description The largest number of origins in any single pool.
      *
@@ -64375,7 +64375,7 @@ export type LoadBalancingLoadBalancerComponentsSchemasUsageResponse = LoadBalanc
      * @example 5
      * @type integer
      */
-    max_origins_per_pool: bigint;
+    max_origins_per_pool: number;
     /**
      * @description The smallest monitor interval (in seconds) configured across all monitors.
      *
@@ -64383,7 +64383,7 @@ export type LoadBalancingLoadBalancerComponentsSchemasUsageResponse = LoadBalanc
      * @example 60
      * @type integer
      */
-    minimum_monitor_interval: bigint;
+    minimum_monitor_interval: number;
     /**
      * @description The number of configured monitors.
      *
@@ -64391,7 +64391,7 @@ export type LoadBalancingLoadBalancerComponentsSchemasUsageResponse = LoadBalanc
      * @example 3
      * @type integer
      */
-    monitors: bigint;
+    monitors: number;
     /**
      * @description The number of configured origins across all pools.
      *
@@ -64399,7 +64399,7 @@ export type LoadBalancingLoadBalancerComponentsSchemasUsageResponse = LoadBalanc
      * @example 12
      * @type integer
      */
-    origins: bigint;
+    origins: number;
     /**
      * @description The number of configured pools.
      *
@@ -64407,7 +64407,7 @@ export type LoadBalancingLoadBalancerComponentsSchemasUsageResponse = LoadBalanc
      * @example 4
      * @type integer
      */
-    pools: bigint;
+    pools: number;
   } | undefined;
 };
 
@@ -66323,7 +66323,7 @@ export type LogpushTransformerVersion = {
    * @example 1
    * @type integer | undefined
    */
-  id?: bigint | undefined;
+  id?: number | undefined;
   /**
    * @description Sequential version number.
    * @minLength 1
@@ -80220,7 +80220,7 @@ export type PayPerCrawlCrawlerEntry = {
    * Format: `int64`
    * @type integer | undefined
    */
-  heuristic_id?: (bigint | null) | undefined;
+  heuristic_id?: (number | null) | undefined;
   /**
    * @description
    * Format: `uri`
@@ -80239,7 +80239,7 @@ export type PayPerCrawlCrawlerEntry = {
    * Format: `int64`
    * @type integer | undefined
    */
-  verified_id?: (bigint | null) | undefined;
+  verified_id?: (number | null) | undefined;
   visible?: boolean | undefined;
   wba_id?: (string | null) | undefined;
 };
@@ -80321,7 +80321,7 @@ export type PayPerCrawlEnabledDomain = {
    * Format: `int64`
    * @type integer
    */
-  price_usd_microcents: bigint;
+  price_usd_microcents: number;
 };
 
 export type PayPerCrawlEnabledDomainsResult = {
@@ -80557,7 +80557,7 @@ export type PayPerCrawlPPUOperatorProposalActionRequest = {
    * @minLength 1
    * @type integer
    */
-  price_id: bigint;
+  price_id: number;
 };
 
 export type PayPerCrawlPPUPriceResponse = {
@@ -80588,7 +80588,7 @@ export type PayPerCrawlPPUProposal = {
    * Format: `int64`
    * @type integer
    */
-  price_id: bigint;
+  price_id: number;
   price_usd_microcents: number;
   zone_name?: (string | null) | undefined;
 };
@@ -80619,7 +80619,7 @@ export type PayPerCrawlPPUPublisherPriceProposeRequest = {
    * @maxLength 999999900000
    * @type integer
    */
-  price_usd_microcents: bigint;
+  price_usd_microcents: number;
 };
 
 export type PayPerCrawlPPUPublisherPriceWithdrawRequest = {
@@ -80657,7 +80657,7 @@ export type PayPerCrawlPPUUsageStatsBuyer = {
    * @minLength 1
    * @type integer
    */
-  total_price_usd_microcents: bigint;
+  total_price_usd_microcents: number;
   /**
    * @description Number of reported usage events attributed to this buyer over the resolved range.
    *
@@ -80665,7 +80665,7 @@ export type PayPerCrawlPPUUsageStatsBuyer = {
    * @minLength 1
    * @type integer
    */
-  usage_count: bigint;
+  usage_count: number;
 };
 
 export type PayPerCrawlPPUUsageStatsDataPoint = {
@@ -80692,14 +80692,14 @@ export type PayPerCrawlPPUUsageStatsDataPoint = {
    * @minLength 1
    * @type integer
    */
-  total_price_usd_microcents: bigint;
+  total_price_usd_microcents: number;
   /**
    * @description
    * Format: `int64`
    * @minLength 1
    * @type integer
    */
-  usage_count: bigint;
+  usage_count: number;
 };
 
 export type PayPerCrawlPPUUsageStatsTotals = {
@@ -80710,7 +80710,7 @@ export type PayPerCrawlPPUUsageStatsTotals = {
    * @minLength 0
    * @type integer
    */
-  total_price_usd_microcents: bigint;
+  total_price_usd_microcents: number;
   /**
    * @description Number of reported usage events in the selected window.
    *
@@ -80718,7 +80718,7 @@ export type PayPerCrawlPPUUsageStatsTotals = {
    * @minLength 0
    * @type integer
    */
-  usage_count: bigint;
+  usage_count: number;
 };
 
 export const payPerCrawlPPUUsageStatsIntervalEnum = {
@@ -80911,7 +80911,7 @@ export type PayPerCrawlUsageReportCreated = {
    * @minLength 1
    * @type integer
    */
-  submission_id: bigint;
+  submission_id: number;
 };
 
 export type PayPerCrawlUsageReportCreatedResponse = {
@@ -81423,7 +81423,7 @@ export type PostureApiBaseFindingType = {
    * @example 142
    * @type integer | undefined
    */
-  readonly match_count?: bigint | undefined;
+  readonly match_count?: number | undefined;
   /**
    * @description The name of the finding.
    * @example Slack File Publicly Accessible
@@ -85027,7 +85027,7 @@ export type R2DataCatalogSnapshotExpirationConfig = {
    * @example 100
    * @type integer
    */
-  min_snapshots_to_keep: bigint;
+  min_snapshots_to_keep: number;
   /**
    * @description Specifies the state of maintenance operations.
    * @example enabled
@@ -85234,7 +85234,7 @@ export type R2DataCatalogSnapshotExpirationUpdateParams = {
    * @minLength 1
    * @type integer | undefined
    */
-  min_snapshots_to_keep?: bigint | undefined;
+  min_snapshots_to_keep?: number | undefined;
   /**
    * @description Specifies the state of maintenance operations.
    * @example enabled
@@ -85408,7 +85408,7 @@ export type R2DataCatalogMaintenanceRunOperation = {
    * Format: `int64`
    * @type integer
    */
-  duration_ms: bigint;
+  duration_ms: number;
   /**
    * @description
    * Format: `int32`
@@ -85454,7 +85454,7 @@ export type R2DataCatalogMaintenanceRunRecord = {
    * Format: `int64`
    * @type integer | undefined
    */
-  duration_ms?: (bigint | null) | undefined;
+  duration_ms?: (number | null) | undefined;
   operation_results: R2DataCatalogMaintenanceRunOperation[];
   outcome?: (string | null) | undefined;
   /**
@@ -85475,7 +85475,7 @@ export type R2DataCatalogMaintenanceRunRecord = {
    * Format: `int64`
    * @type integer
    */
-  run_id: bigint;
+  run_id: number;
   /**
    * @description
    * Format: `date-time`
@@ -85720,7 +85720,7 @@ export type R2DataCatalogTableSnapshotExpirationConfig = {
    * @example 100
    * @type integer
    */
-  min_snapshots_to_keep: bigint;
+  min_snapshots_to_keep: number;
   /**
    * @description Earliest time when the scheduler can claim this operation. Null when disabled.
    *
@@ -96130,7 +96130,7 @@ export type RlanalyticsRateLimitAnalyticsActionCounters = {
    * @example 700
    * @type integer | undefined
    */
-  all?: bigint | undefined;
+  all?: number | undefined;
   /**
    * @description Count of allow rule actions triggered.
    *
@@ -96138,7 +96138,7 @@ export type RlanalyticsRateLimitAnalyticsActionCounters = {
    * @example 500
    * @type integer | undefined
    */
-  allow?: bigint | undefined;
+  allow?: number | undefined;
   /**
    * @description Count of ban rule actions triggered.
    *
@@ -96146,7 +96146,7 @@ export type RlanalyticsRateLimitAnalyticsActionCounters = {
    * @example 50
    * @type integer | undefined
    */
-  ban?: bigint | undefined;
+  ban?: number | undefined;
   /**
    * @description Count of error rule actions triggered.
    *
@@ -96154,7 +96154,7 @@ export type RlanalyticsRateLimitAnalyticsActionCounters = {
    * @example 50
    * @type integer | undefined
    */
-  error?: bigint | undefined;
+  error?: number | undefined;
   /**
    * @description Count of simulate rule actions triggered.
    *
@@ -96162,7 +96162,7 @@ export type RlanalyticsRateLimitAnalyticsActionCounters = {
    * @example 100
    * @type integer | undefined
    */
-  simulate?: bigint | undefined;
+  simulate?: number | undefined;
 };
 
 /**
@@ -96286,7 +96286,7 @@ export type RlanalyticsRateLimitAnalytics = {
    * @example 123
    * @type integer | undefined
    */
-  zone_id?: bigint | undefined;
+  zone_id?: number | undefined;
 };
 
 /**
@@ -101617,7 +101617,7 @@ export type SecurityCenterAuditLog = {
    * Format: `int64`
    * @type integer | undefined
    */
-  zone_id?: bigint | undefined;
+  zone_id?: number | undefined;
 };
 
 export type SecurityCenterAuditLogResponse = SecurityCenterApiResponseCommon & {
@@ -102071,7 +102071,7 @@ export type SecurityCenterShadowHost = {
    * @example 4
    * @type integer | undefined
    */
-  issue_count?: bigint | undefined;
+  issue_count?: number | undefined;
 };
 
 export type SecurityCenterShadowHostsResponse = SecurityCenterApiResponseCommon & {
@@ -102113,7 +102113,7 @@ export type SecurityCenterShadowHostsResponse = SecurityCenterApiResponseCommon 
      * @example 30
      * @type integer
      */
-    total_count: bigint;
+    total_count: number;
   } | undefined;
 };
 
@@ -102140,7 +102140,7 @@ export type SecurityCenterShadowZone = {
    * @example 4
    * @type integer
    */
-  shadow_host_count: bigint;
+  shadow_host_count: number;
 };
 
 export type SecurityCenterShadowZonesResponse = SecurityCenterApiResponseCommon & {
@@ -102176,7 +102176,7 @@ export type SecurityCenterShadowZonesResponse = SecurityCenterApiResponseCommon 
      * @example 30
      * @type integer
      */
-    total_count: bigint;
+    total_count: number;
   } | undefined;
 };
 
@@ -105698,7 +105698,7 @@ export type StreamVideos = {
    * Format: `int64`
    * @type integer | undefined
    */
-  maxSizeBytes?: bigint | undefined;
+  maxSizeBytes?: number | undefined;
   /**
    * @description A user modifiable key-value store used to reference other systems of record for managing videos.
    * @example {"name":"video12345.mp4"}
@@ -107890,7 +107890,7 @@ export type TeamsDevicesClientVersion = {
    * @example 123125760
    * @type integer | undefined
    */
-  package_size?: bigint | undefined;
+  package_size?: number | undefined;
   /**
    * @description URL to download the package.
    * @example https://downloads.cloudflareclient.com/v1/download/windows/version/2024.11.309.0
@@ -114674,7 +114674,7 @@ export type TlsCertificatesAndHostnamesCustomHostnameQuota = {
    * @example 100
    * @type integer
    */
-  allocated: bigint;
+  allocated: number;
   /**
    * @description Whether the current usage has exceeded the allocated quota.
    * @example false
@@ -114688,7 +114688,7 @@ export type TlsCertificatesAndHostnamesCustomHostnameQuota = {
    * @example 200
    * @type integer
    */
-  hard_cap: bigint;
+  hard_cap: number;
   /**
    * @description The number of custom hostnames currently in use.
    *
@@ -114696,7 +114696,7 @@ export type TlsCertificatesAndHostnamesCustomHostnameQuota = {
    * @example 50
    * @type integer
    */
-  used: bigint;
+  used: number;
 };
 
 export type TlsCertificatesAndHostnamesCustomHostnameQuotaResponse = TlsCertificatesAndHostnamesCustomHostnameApiResponseCommon & {
@@ -118330,7 +118330,7 @@ export type UsageAnalyticsBillingUsageDataPoint = {
    * @example 5000000
    * @type integer | undefined
    */
-  argoAcceleratedBytes?: bigint | undefined;
+  argoAcceleratedBytes?: number | undefined;
   /**
    * @description Number of Image Resizing requests in this time period.
    *
@@ -118338,7 +118338,7 @@ export type UsageAnalyticsBillingUsageDataPoint = {
    * @example 15000
    * @type integer | undefined
    */
-  imageResizingRequests?: bigint | undefined;
+  imageResizingRequests?: number | undefined;
   /**
    * @description Number of Load Balancing DNS queries in this time period.
    *
@@ -118346,7 +118346,7 @@ export type UsageAnalyticsBillingUsageDataPoint = {
    * @example 10000
    * @type integer | undefined
    */
-  loadBalancingQueries?: bigint | undefined;
+  loadBalancingQueries?: number | undefined;
   /**
    * @description Number of Media unique image transformations in this time period.
    *
@@ -118354,7 +118354,7 @@ export type UsageAnalyticsBillingUsageDataPoint = {
    * @example 45000
    * @type integer | undefined
    */
-  mediaUniqueTransformations?: bigint | undefined;
+  mediaUniqueTransformations?: number | undefined;
   /**
    * @description Number of Rate Limiting requests allowed in this time period.
    *
@@ -118362,7 +118362,7 @@ export type UsageAnalyticsBillingUsageDataPoint = {
    * @example 50000
    * @type integer | undefined
    */
-  rateLimitingRequestsAllowed?: bigint | undefined;
+  rateLimitingRequestsAllowed?: number | undefined;
   /**
    * @description Number of Spectrum bytes transferred in this time period.
    *
@@ -118370,7 +118370,7 @@ export type UsageAnalyticsBillingUsageDataPoint = {
    * @example 8000000
    * @type integer | undefined
    */
-  spectrumBytesTransferred?: bigint | undefined;
+  spectrumBytesTransferred?: number | undefined;
   /**
    * @description Number of Stream billable minutes viewed in this time period.
    *
@@ -118378,7 +118378,7 @@ export type UsageAnalyticsBillingUsageDataPoint = {
    * @example 125000
    * @type integer | undefined
    */
-  streamMinutesViewed?: bigint | undefined;
+  streamMinutesViewed?: number | undefined;
   /**
    * @description Unix timestamp (epoch seconds) for the start of this time period.
    *
@@ -118386,7 +118386,7 @@ export type UsageAnalyticsBillingUsageDataPoint = {
    * @example 1693526400
    * @type integer | undefined
    */
-  ts?: bigint | undefined;
+  ts?: number | undefined;
   /**
    * @description Number of Workers KV reads in this time period.
    *
@@ -118394,7 +118394,7 @@ export type UsageAnalyticsBillingUsageDataPoint = {
    * @example 30000
    * @type integer | undefined
    */
-  workersKVReads?: bigint | undefined;
+  workersKVReads?: number | undefined;
   /**
    * @description Number of Workers requests in this time period.
    *
@@ -118402,7 +118402,7 @@ export type UsageAnalyticsBillingUsageDataPoint = {
    * @example 200000
    * @type integer | undefined
    */
-  workersRequests?: bigint | undefined;
+  workersRequests?: number | undefined;
 };
 
 /**
@@ -118482,7 +118482,7 @@ export type UsageAnalyticsStreamUsageDataPoint = {
    * @example 12500
    * @type integer | undefined
    */
-  streamMinutesViewed?: bigint | undefined;
+  streamMinutesViewed?: number | undefined;
   /**
    * @description Unix timestamp (epoch seconds) for the start of this time period.
    *
@@ -118490,7 +118490,7 @@ export type UsageAnalyticsStreamUsageDataPoint = {
    * @example 1693526400
    * @type integer | undefined
    */
-  ts?: bigint | undefined;
+  ts?: number | undefined;
 };
 
 /**
@@ -131618,7 +131618,7 @@ export type ZeroTrustGatewayAppTypes = ZeroTrustGatewayApplication | ZeroTrustGa
  * @description Contains the ids of the approved applications.
  * @type array
  */
-export type ZeroTrustGatewayApprovedApps = bigint[];
+export type ZeroTrustGatewayApprovedApps = number[];
 
 /**
  * @description
@@ -131632,13 +131632,13 @@ export type ZeroTrustGatewayReadOnlyTimestamp = string;
  * @description Contains the ids of the applications in review.
  * @type array
  */
-export type ZeroTrustGatewayInReviewApps = bigint[];
+export type ZeroTrustGatewayInReviewApps = number[];
 
 /**
  * @description Contains the ids of the unapproved applications.
  * @type array
  */
-export type ZeroTrustGatewayUnapprovedApps = bigint[];
+export type ZeroTrustGatewayUnapprovedApps = number[];
 
 export type ZeroTrustGatewayApplicationsReviewStatusResponseContent = {
   /**
@@ -142381,7 +142381,7 @@ export type CwsListCategoryApisQuery = {
    * @default 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Exact case-sensitive application name. Omit to search every application.
    * @minLength 1
@@ -142439,7 +142439,7 @@ export type CwsListCategoryApplicationsQuery = {
    * @default 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Case-insensitive substring search over application names.
    * @type string | undefined
@@ -142486,7 +142486,7 @@ export type CwsListCategoryOperationsQuery = {
    * @default 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Exact case-sensitive application ancestor name. Omit to search every application.
    * @minLength 1
@@ -291276,7 +291276,7 @@ export type AccountSubscriptionsBulkCreateSubscriptionBody = {
    * Format: `int64`
    * @type integer | undefined
    */
-  payment_hold_id?: bigint | undefined;
+  payment_hold_id?: number | undefined;
   subscriptions?: BillSubsApiSubscriptionV2[] | undefined;
   user_is_on_session?: boolean | undefined;
 };
@@ -325294,7 +325294,7 @@ export type CwsListBasicAuthCredentialsQuery = {
    * @default 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Field to order results by (default: created_at)
    * @default 'created_at'
@@ -325506,7 +325506,7 @@ export type CwsListBasicAuthSecretsQuery = {
    * @default 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Field to order results by (default: created_at)
    * @default 'created_at'
@@ -325729,7 +325729,7 @@ export type CwsListDeploymentsQuery = {
    * @default 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Field to order results by (default: created_at)
    * @default 'created_at'
@@ -325979,7 +325979,7 @@ export type CwsListDomainAclsQuery = {
    * @default 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Field to order results by (default: created_at)
    * @default 'created_at'
@@ -326236,7 +326236,7 @@ export type CwsListPoliciesQuery = {
    * @default 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Field to order results by (default: created_at)
    * @default 'created_at'
@@ -326504,7 +326504,7 @@ export type CwsListPolicySetsQuery = {
    * @default 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Field to order results by (default: created_at)
    * @default 'created_at'
@@ -326761,7 +326761,7 @@ export type CwsListRegoMetadataQuery = {
    * @default 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Field to order results by (default: created_at)
    * @default 'created_at'
@@ -327016,7 +327016,7 @@ export type CwsListRegoModulesQuery = {
    * @default 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Field to order results by (default: created_at)
    * @default 'created_at'
@@ -327277,7 +327277,7 @@ export type CwsListTenantStructuresQuery = {
    * @default 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Field to order results by (default: created_at)
    * @default 'created_at'
@@ -327539,7 +327539,7 @@ export type CwsListTenantNodesQuery = {
    * @default 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Field to order results by (default: created_at)
    * @default 'created_at'
@@ -327879,7 +327879,7 @@ export type CwsListWorkloadsQuery = {
    * @default 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Field to order results by (default: created_at)
    * @default 'created_at'
@@ -332866,7 +332866,7 @@ export type ListDevicesQuery = {
    * Format: `uint64`
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Search by device details.
    * @type string | undefined
@@ -335003,7 +335003,7 @@ export type ListRegistrationsQuery = {
    * Format: `uint64`
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Filter by registration details.
    * @type string | undefined
@@ -338804,7 +338804,7 @@ export type DlpDatasetsUploadVersionPath = {
    * Format: `int64`
    * @type integer
    */
-  version: bigint;
+  version: number;
 };
 
 export type DlpDatasetsUploadVersionStatus200 = DlpApiResponseSingle & {
@@ -338849,7 +338849,7 @@ export type DlpDatasetsDefineColumnsPath = {
    * Format: `int64`
    * @type integer
    */
-  version: bigint;
+  version: number;
 };
 
 export type DlpDatasetsDefineColumnsStatus200 = DlpApiResponseSingle & {
@@ -338894,7 +338894,7 @@ export type DlpDatasetsUploadDatasetColumnPath = {
    * Format: `int64`
    * @type integer
    */
-  version: bigint;
+  version: number;
   /**
    * @description
    * Format: `uuid`
@@ -347383,7 +347383,7 @@ export type EmailDomainsChangesQuery = {
    * @example 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Opaque cursor returned by the previous change page. Omit it for the first page.
    * @example eyJ2IjoyLCJ0cmFuc2FjdGlvbl9pZCI6NDIsImNoYW5nZV9pZCI6N30
@@ -347455,7 +347455,7 @@ export type EmailDomainsListQuery = {
    * @default 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description Opaque cursor returned by the previous page. Omit it for the first page.
    * @example eyJ2IjoxLCJjcmVhdGVkX3VuaXhfbWljcm9zIjoxNzgwMDAwMDAwMDAwMDAwLCJpZCI6IjkxOGYzYTFhLTA0ZWQtNDM4My05Y2JlLWRmNWU1NjFkMjhmOCJ9
@@ -359668,7 +359668,7 @@ export type CustomIndicatorFeedsGetUploadStatusPath = {
    * Format: `int64`
    * @type integer
    */
-  uploadId: bigint;
+  uploadId: number;
 };
 
 export type CustomIndicatorFeedsGetUploadStatusStatus200 = CustomIndicatorFeedsUploadStatusResponse;
@@ -362846,7 +362846,7 @@ export type GetAccountsAccountIdLogpushTransformersTransformerIdContentQuery = {
    * Format: `int64`
    * @type integer | undefined
    */
-  version_id?: bigint | undefined;
+  version_id?: number | undefined;
 };
 
 export type GetAccountsAccountIdLogpushTransformersTransformerIdContentStatus200 = LogpushTransformerContentResponse;
@@ -364327,14 +364327,14 @@ export type ListDnsProtectionRulesForAccountQuery = {
    * Format: `int64`
    * @type integer | undefined
    */
-  page?: bigint | undefined;
+  page?: number | undefined;
   /**
    * @description The number of items per page. Must be between 10 and 1000. Defaults to 25.
    *
    * Format: `int64`
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description The field to order by. Defaults to 'prefix'.
    * @type string | undefined
@@ -364573,14 +364573,14 @@ export type ListAllowlistPrefixesForAccountQuery = {
    * Format: `int64`
    * @type integer | undefined
    */
-  page?: bigint | undefined;
+  page?: number | undefined;
   /**
    * @description The number of items per page. Must be between 10 and 1000. Defaults to 25.
    *
    * Format: `int64`
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description The field to order by. Defaults to 'prefix'.
    * @type string | undefined
@@ -364819,14 +364819,14 @@ export type ListPrefixesForAccountQuery = {
    * Format: `int64`
    * @type integer | undefined
    */
-  page?: bigint | undefined;
+  page?: number | undefined;
   /**
    * @description The number of items per page. Must be between 10 and 1000. Defaults to 25.
    *
    * Format: `int64`
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description The field to order by. Defaults to 'prefix'.
    * @type string | undefined
@@ -365107,14 +365107,14 @@ export type ListSynProtectionFiltersForAccountQuery = {
    * Format: `int64`
    * @type integer | undefined
    */
-  page?: bigint | undefined;
+  page?: number | undefined;
   /**
    * @description The number of items per page. Must be between 10 and 1000. Defaults to 25.
    *
    * Format: `int64`
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description The field to order by. Defaults to 'prefix'.
    * @type string | undefined
@@ -365353,14 +365353,14 @@ export type ListSynProtectionRulesForAccountQuery = {
    * Format: `int64`
    * @type integer | undefined
    */
-  page?: bigint | undefined;
+  page?: number | undefined;
   /**
    * @description The number of items per page. Must be between 10 and 1000. Defaults to 25.
    *
    * Format: `int64`
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description The field to order by. Defaults to 'prefix'.
    * @type string | undefined
@@ -365604,14 +365604,14 @@ export type ListTcpFlowProtectionFiltersForAccountQuery = {
    * Format: `int64`
    * @type integer | undefined
    */
-  page?: bigint | undefined;
+  page?: number | undefined;
   /**
    * @description The number of items per page. Must be between 10 and 1000. Defaults to 25.
    *
    * Format: `int64`
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description The field to order by. Defaults to 'prefix'.
    * @type string | undefined
@@ -365850,14 +365850,14 @@ export type ListTcpFlowProtectionRulesForAccountQuery = {
    * Format: `int64`
    * @type integer | undefined
    */
-  page?: bigint | undefined;
+  page?: number | undefined;
   /**
    * @description The number of items per page. Must be between 10 and 1000. Defaults to 25.
    *
    * Format: `int64`
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
   /**
    * @description The field to order by. Defaults to 'prefix'.
    * @type string | undefined
@@ -383815,14 +383815,14 @@ export type GetLivestreamAnalyticsDaywiseQuery = {
    * Format: `int64`
    * @type integer | undefined
    */
-  start_time?: bigint | undefined;
+  start_time?: number | undefined;
   /**
    * @description Specify the end time as a Unix timestamp in seconds to access the livestream analytics.
    *
    * Format: `int64`
    * @type integer | undefined
    */
-  end_time?: bigint | undefined;
+  end_time?: number | undefined;
   /**
    * @description Optional filters for livestream analytics.
    * @type string | undefined
@@ -383898,14 +383898,14 @@ export type GetLivestreamAnalyticsCompleteQuery = {
    * Format: `int64`
    * @type integer | undefined
    */
-  start_time?: bigint | undefined;
+  start_time?: number | undefined;
   /**
    * @description Specify the end time as a Unix timestamp in seconds to access the livestream analytics.
    *
    * Format: `int64`
    * @type integer | undefined
    */
-  end_time?: bigint | undefined;
+  end_time?: number | undefined;
   /**
    * @description Optional filters for livestream analytics.
    * @type string | undefined
@@ -427393,7 +427393,7 @@ export type CwsListCategoryApplicationVersionsQuery = {
    * @default 20
    * @type integer | undefined
    */
-  per_page?: bigint | undefined;
+  per_page?: number | undefined;
 };
 
 export type CwsListCategoryApplicationVersionsStatus200 = CwsPageResponseCategoryVersionSummary;

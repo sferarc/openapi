@@ -57,8 +57,8 @@ export const databaseBranchesResponseSchema = z
 						.enum(["init", "creating", "resetting", "ready", "archived"])
 						.optional()
 						.describe("The current state of the branch"),
-					logical_size_bytes: z.coerce
-						.bigint()
+					logical_size_bytes: z
+						.int()
 						.optional()
 						.describe("The logical size of the branch in bytes"),
 					created_at: z.string().optional().describe("When the branch was created"),
@@ -78,8 +78,8 @@ export const databaseBranchesResponseSchema = z
 								.number()
 								.optional()
 								.describe("Maximum compute units for autoscaling"),
-							suspend_timeout_seconds: z.coerce
-								.bigint()
+							suspend_timeout_seconds: z
+								.int()
 								.optional()
 								.describe("Seconds of inactivity before the compute endpoint is suspended"),
 							last_active: z
@@ -106,10 +106,7 @@ export const databaseBranchDetailSchema = z
 			.enum(["init", "creating", "resetting", "ready", "archived"])
 			.optional()
 			.describe("The current state of the branch"),
-		logical_size_bytes: z.coerce
-			.bigint()
-			.optional()
-			.describe("The logical size of the branch in bytes"),
+		logical_size_bytes: z.int().optional().describe("The logical size of the branch in bytes"),
 		created_at: z.string().optional().describe("When the branch was created"),
 		updated_at: z.string().optional().describe("When the branch was last updated"),
 		last_active_at: z.string().optional().describe("When the branch was last active"),
@@ -127,8 +124,8 @@ export const databaseBranchDetailSchema = z
 					.number()
 					.optional()
 					.describe("Maximum compute units for autoscaling"),
-				suspend_timeout_seconds: z.coerce
-					.bigint()
+				suspend_timeout_seconds: z
+					.int()
 					.optional()
 					.describe("Seconds of inactivity before the compute endpoint is suspended"),
 				last_active: z.string().optional().describe("When the compute endpoint was last active"),
@@ -153,8 +150,8 @@ export const databaseBranchComputeSchema = z
 			.number()
 			.optional()
 			.describe("Maximum compute units for autoscaling"),
-		suspend_timeout_seconds: z.coerce
-			.bigint()
+		suspend_timeout_seconds: z
+			.int()
 			.optional()
 			.describe("Seconds of inactivity before the compute endpoint is suspended"),
 		last_active: z.string().optional().describe("When the compute endpoint was last active"),
@@ -270,8 +267,9 @@ export const databaseComputeSettingsRequestSchema = z
 			.describe(
 				"Maximum compute units (0.25 to 16.0). Must be greater than or equal to min_cu. max_cu - min_cu must not exceed 8.0.",
 			),
-		sleep_timeout_seconds: z.coerce
-			.bigint()
+		sleep_timeout_seconds: z
+			.int()
+			.min(-1)
 			.nullish()
 			.describe(
 				"Seconds of inactivity before the compute endpoint is suspended. Use -1 for always on, or a non-negative value.",
@@ -285,10 +283,7 @@ export const databaseComputeSettingsSchema = z
 	.object({
 		min_cu: z.number().optional().describe("Minimum compute units"),
 		max_cu: z.number().optional().describe("Maximum compute units"),
-		sleep_timeout_seconds: z.coerce
-			.bigint()
-			.optional()
-			.describe("Seconds of inactivity before suspension"),
+		sleep_timeout_seconds: z.int().optional().describe("Seconds of inactivity before suspension"),
 	})
 	.describe("Compute settings for a database or branch");
 
@@ -333,7 +328,7 @@ export const listDatabaseMigrationsResponseSchema = z
 		migrations: z
 			.array(
 				z.object({
-					version: z.coerce.bigint().optional().describe("The migration version number"),
+					version: z.int().optional().describe("The migration version number"),
 					name: z.string().optional().describe("The migration name"),
 					path: z
 						.string()
@@ -352,7 +347,7 @@ export const listDatabaseMigrationsResponseSchema = z
 
 export const databaseMigrationSchema = z
 	.object({
-		version: z.coerce.bigint().optional().describe("The migration version number"),
+		version: z.int().optional().describe("The migration version number"),
 		name: z.string().optional().describe("The migration name"),
 		path: z.string().optional().describe("The path to the migration file in the deploy bundle"),
 		applied: z
@@ -364,7 +359,7 @@ export const databaseMigrationSchema = z
 
 export const databaseMigrationDetailSchema = z
 	.object({
-		version: z.coerce.bigint().optional().describe("The migration version number"),
+		version: z.int().optional().describe("The migration version number"),
 		name: z.string().optional().describe("The migration name"),
 		path: z.string().optional().describe("The path to the migration file in the deploy bundle"),
 		content: z.string().optional().describe("The raw contents of the migration file"),
@@ -985,7 +980,7 @@ export const fileSchema = z.object({
 	path: z.string().optional(),
 	sha: z.string().optional(),
 	mime_type: z.string().optional(),
-	size: z.coerce.bigint().optional(),
+	size: z.int().optional(),
 });
 
 export const functionSchema = z.object({
@@ -1154,14 +1149,16 @@ export const deployFilesSchema = z
 					),
 				scale: z
 					.object({
-						min: z.coerce
-							.bigint()
+						min: z
+							.int()
+							.min(0)
 							.nullish()
 							.describe(
 								"The minimum number of instances the server keeps running. Defaults to 0\nwhen absent.\n",
 							),
-						max: z.coerce
-							.bigint()
+						max: z
+							.int()
+							.min(1)
 							.nullish()
 							.describe(
 								"The maximum number of instances the server scales to. Defaults to the\nhighest the account's plan allows when absent.\n",
@@ -1371,8 +1368,8 @@ export const dnsZonesSchema = z.array(
 					hostname: z.string().optional(),
 					type: z.string().optional(),
 					value: z.string().optional(),
-					ttl: z.coerce.bigint().optional(),
-					priority: z.coerce.bigint().optional(),
+					ttl: z.int().optional(),
+					priority: z.int().optional(),
 					dns_zone_id: z.string().optional(),
 					site_id: z.string().optional(),
 					flag: z.int().optional(),
@@ -1407,8 +1404,8 @@ export const dnsZoneSchema = z.object({
 				hostname: z.string().optional(),
 				type: z.string().optional(),
 				value: z.string().optional(),
-				ttl: z.coerce.bigint().optional(),
-				priority: z.coerce.bigint().optional(),
+				ttl: z.int().optional(),
+				priority: z.int().optional(),
 				dns_zone_id: z.string().optional(),
 				site_id: z.string().optional(),
 				flag: z.int().optional(),
@@ -1431,11 +1428,11 @@ export const dnsRecordCreateSchema = z.object({
 	type: z.string().optional(),
 	hostname: z.string().optional(),
 	value: z.string().optional(),
-	ttl: z.coerce.bigint().optional(),
-	priority: z.coerce.bigint().optional(),
-	weight: z.coerce.bigint().optional(),
-	port: z.coerce.bigint().optional(),
-	flag: z.coerce.bigint().optional(),
+	ttl: z.int().optional(),
+	priority: z.int().optional(),
+	weight: z.int().optional(),
+	port: z.int().optional(),
+	flag: z.int().optional(),
 	tag: z.string().optional(),
 });
 
@@ -1445,8 +1442,8 @@ export const dnsRecordsSchema = z.array(
 		hostname: z.string().optional(),
 		type: z.string().optional(),
 		value: z.string().optional(),
-		ttl: z.coerce.bigint().optional(),
-		priority: z.coerce.bigint().optional(),
+		ttl: z.int().optional(),
+		priority: z.int().optional(),
 		dns_zone_id: z.string().optional(),
 		site_id: z.string().optional(),
 		flag: z.int().optional(),
@@ -1460,8 +1457,8 @@ export const dnsRecordSchema = z.object({
 	hostname: z.string().optional(),
 	type: z.string().optional(),
 	value: z.string().optional(),
-	ttl: z.coerce.bigint().optional(),
-	priority: z.coerce.bigint().optional(),
+	ttl: z.int().optional(),
+	priority: z.int().optional(),
 	dns_zone_id: z.string().optional(),
 	site_id: z.string().optional(),
 	flag: z.int().optional(),
@@ -1502,7 +1499,7 @@ export const assetSchema = z.object({
 	url: z.string().optional(),
 	key: z.string().optional(),
 	visibility: z.string().optional(),
-	size: z.coerce.bigint().optional(),
+	size: z.int().optional(),
 	created_at: z.string().optional(),
 	updated_at: z.string().optional(),
 });
@@ -1530,7 +1527,7 @@ export const assetSignatureSchema = z.object({
 			url: z.string().optional(),
 			key: z.string().optional(),
 			visibility: z.string().optional(),
-			size: z.coerce.bigint().optional(),
+			size: z.int().optional(),
 			created_at: z.string().optional(),
 			updated_at: z.string().optional(),
 		})
@@ -1887,7 +1884,7 @@ export const agentRunnerSessionAnswerSchema = z.object({
 
 export const agentRunnerErrorSchema = z
 	.object({
-		code: z.coerce.bigint().optional(),
+		code: z.int().optional(),
 		message: z.string(),
 	})
 	.extend({
@@ -1989,7 +1986,7 @@ export const userSchema = z.object({
 	avatar_url: z.string().optional(),
 	email: z.string().optional(),
 	affiliate_id: z.string().optional(),
-	site_count: z.coerce.bigint().optional(),
+	site_count: z.int().optional(),
 	created_at: z.string().optional(),
 	last_login: z.string().optional(),
 	login_providers: z.array(z.string()).optional(),
@@ -2001,12 +1998,12 @@ export const userSchema = z.object({
 });
 
 export const errorSchemaSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
 export const errorResponseSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -2194,7 +2191,7 @@ export const providerDefinitionSchema = z.object({
 export const aiGatewayTokenSchema = z.object({
 	token: z.string().optional().describe("The AI Gateway authentication token"),
 	url: z.string().optional().describe("AI gateway base url"),
-	expires_at: z.coerce.bigint().optional().describe("Unix timestamp when the token expires"),
+	expires_at: z.int().optional().describe("Unix timestamp when the token expires"),
 });
 
 export const listSitesQueryNameSchema = z.string().optional();
@@ -2361,7 +2358,7 @@ export const listSitesStatus200Schema = z.array(
 );
 
 export const listSitesStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -2532,7 +2529,7 @@ export const createSiteStatus201Schema = z.object({
 });
 
 export const createSiteStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -2892,7 +2889,7 @@ export const getSiteStatus200Schema = z.object({
 });
 
 export const getSiteStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -3064,7 +3061,7 @@ export const updateSiteStatus200Schema = z.object({
 });
 
 export const updateSiteStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -3271,7 +3268,7 @@ export const deleteSitePathSiteIdSchema = z.string();
 export const deleteSiteStatus204Schema = z.unknown();
 
 export const deleteSiteStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -3311,7 +3308,7 @@ export const provisionSiteTLSCertificateStatus200Schema = z.object({
 export const provisionSiteTLSCertificateStatus422Schema = z.unknown();
 
 export const provisionSiteTLSCertificateStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -3352,7 +3349,7 @@ export const showSiteTLSCertificateStatus200Schema = z.object({
 });
 
 export const showSiteTLSCertificateStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -3478,7 +3475,7 @@ export const getEnvVarsStatus200Schema = z.array(
 );
 
 export const getEnvVarsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -3576,7 +3573,7 @@ export const createEnvVarsStatus201Schema = z.array(
 );
 
 export const createEnvVarsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -3725,7 +3722,7 @@ export const getSiteEnvVarsStatus200Schema = z.array(
 );
 
 export const getSiteEnvVarsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -3825,7 +3822,7 @@ export const getEnvVarStatus200Schema = z
 	.describe("Environment variable model definition");
 
 export const getEnvVarStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -3922,7 +3919,7 @@ export const updateEnvVarStatus200Schema = z
 	.describe("Environment variable model definition");
 
 export const updateEnvVarStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4069,7 +4066,7 @@ export const setEnvVarValueStatus201Schema = z
 	.describe("Environment variable model definition");
 
 export const setEnvVarValueStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4121,7 +4118,7 @@ export const deleteEnvVarQuerySiteIdSchema = z
 export const deleteEnvVarStatus204Schema = z.unknown();
 
 export const deleteEnvVarStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4161,7 +4158,7 @@ export const deleteEnvVarValueQuerySiteIdSchema = z
 export const deleteEnvVarValueStatus204Schema = z.unknown();
 
 export const deleteEnvVarValueStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4198,7 +4195,7 @@ export const searchSiteFunctionsStatus200Schema = z.array(
 );
 
 export const searchSiteFunctionsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4229,7 +4226,7 @@ export const listSiteFormsStatus200Schema = z.array(
 );
 
 export const listSiteFormsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4248,7 +4245,7 @@ export const deleteSiteFormPathFormIdSchema = z.string();
 export const deleteSiteFormStatus204Schema = z.unknown();
 
 export const deleteSiteFormStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4285,7 +4282,7 @@ export const listSiteSubmissionsStatus200Schema = z.array(
 );
 
 export const listSiteSubmissionsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4310,12 +4307,12 @@ export const listSiteFilesStatus200Schema = z.array(
 		path: z.string().optional(),
 		sha: z.string().optional(),
 		mime_type: z.string().optional(),
-		size: z.coerce.bigint().optional(),
+		size: z.int().optional(),
 	}),
 );
 
 export const listSiteFilesStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4340,14 +4337,14 @@ export const listSiteAssetsStatus200Schema = z.array(
 		url: z.string().optional(),
 		key: z.string().optional(),
 		visibility: z.string().optional(),
-		size: z.coerce.bigint().optional(),
+		size: z.int().optional(),
 		created_at: z.string().optional(),
 		updated_at: z.string().optional(),
 	}),
 );
 
 export const listSiteAssetsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4363,7 +4360,7 @@ export const createSiteAssetPathSiteIdSchema = z.string();
 
 export const createSiteAssetQueryNameSchema = z.string();
 
-export const createSiteAssetQuerySizeSchema = z.coerce.bigint();
+export const createSiteAssetQuerySizeSchema = z.int();
 
 export const createSiteAssetQueryContentTypeSchema = z.string();
 
@@ -4387,7 +4384,7 @@ export const createSiteAssetStatus201Schema = z.object({
 			url: z.string().optional(),
 			key: z.string().optional(),
 			visibility: z.string().optional(),
-			size: z.coerce.bigint().optional(),
+			size: z.int().optional(),
 			created_at: z.string().optional(),
 			updated_at: z.string().optional(),
 		})
@@ -4395,7 +4392,7 @@ export const createSiteAssetStatus201Schema = z.object({
 });
 
 export const createSiteAssetStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4409,7 +4406,7 @@ export const createSiteAssetPathSchema = z.object({
 
 export const createSiteAssetQuerySchema = z.object({
 	name: z.string(),
-	size: z.coerce.bigint(),
+	size: z.int(),
 	content_type: z.string(),
 	visibility: z.string().optional(),
 });
@@ -4428,13 +4425,13 @@ export const getSiteAssetInfoStatus200Schema = z.object({
 	url: z.string().optional(),
 	key: z.string().optional(),
 	visibility: z.string().optional(),
-	size: z.coerce.bigint().optional(),
+	size: z.int().optional(),
 	created_at: z.string().optional(),
 	updated_at: z.string().optional(),
 });
 
 export const getSiteAssetInfoStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4463,13 +4460,13 @@ export const updateSiteAssetStatus200Schema = z.object({
 	url: z.string().optional(),
 	key: z.string().optional(),
 	visibility: z.string().optional(),
-	size: z.coerce.bigint().optional(),
+	size: z.int().optional(),
 	created_at: z.string().optional(),
 	updated_at: z.string().optional(),
 });
 
 export const updateSiteAssetStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4493,7 +4490,7 @@ export const deleteSiteAssetPathAssetIdSchema = z.string();
 export const deleteSiteAssetStatus204Schema = z.unknown();
 
 export const deleteSiteAssetStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4515,7 +4512,7 @@ export const getSiteAssetPublicSignatureStatus200Schema = z.object({
 });
 
 export const getSiteAssetPublicSignatureStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4538,11 +4535,11 @@ export const getSiteFileByPathNameStatus200Schema = z.object({
 	path: z.string().optional(),
 	sha: z.string().optional(),
 	mime_type: z.string().optional(),
-	size: z.coerce.bigint().optional(),
+	size: z.int().optional(),
 });
 
 export const getSiteFileByPathNameStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4589,7 +4586,7 @@ export const listSiteSnippetsStatus200Schema = z.array(
 );
 
 export const listSiteSnippetsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4614,7 +4611,7 @@ export const createSiteSnippetStatus201Schema = z.object({
 });
 
 export const createSiteSnippetStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4651,7 +4648,7 @@ export const getSiteSnippetStatus200Schema = z.object({
 });
 
 export const getSiteSnippetStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4671,7 +4668,7 @@ export const updateSiteSnippetPathSnippetIdSchema = z.string();
 export const updateSiteSnippetStatus204Schema = z.unknown();
 
 export const updateSiteSnippetStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4701,7 +4698,7 @@ export const deleteSiteSnippetPathSnippetIdSchema = z.string();
 export const deleteSiteSnippetStatus204Schema = z.unknown();
 
 export const deleteSiteSnippetStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4719,7 +4716,7 @@ export const getSiteMetadataPathSiteIdSchema = z.string();
 export const getSiteMetadataStatus200Schema = z.object({});
 
 export const getSiteMetadataStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4736,7 +4733,7 @@ export const updateSiteMetadataPathSiteIdSchema = z.string();
 export const updateSiteMetadataStatus204Schema = z.unknown();
 
 export const updateSiteMetadataStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4764,7 +4761,7 @@ export const listSiteBuildHooksStatus200Schema = z.array(
 );
 
 export const listSiteBuildHooksStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4788,7 +4785,7 @@ export const createSiteBuildHookStatus201Schema = z.object({
 });
 
 export const createSiteBuildHookStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4819,7 +4816,7 @@ export const getSiteBuildHookStatus200Schema = z.object({
 });
 
 export const getSiteBuildHookStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4839,7 +4836,7 @@ export const updateSiteBuildHookPathIdSchema = z.string();
 export const updateSiteBuildHookStatus204Schema = z.unknown();
 
 export const updateSiteBuildHookStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4864,7 +4861,7 @@ export const deleteSiteBuildHookPathIdSchema = z.string();
 export const deleteSiteBuildHookStatus204Schema = z.unknown();
 
 export const deleteSiteBuildHookStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -4982,7 +4979,7 @@ export const listSiteDeploysStatus200Schema = z.array(
 );
 
 export const listSiteDeploysStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -5123,7 +5120,7 @@ export const createSiteDeployStatus200Schema = z.object({
 });
 
 export const createSiteDeployStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -5199,14 +5196,16 @@ export const createSiteDeployBodySchema = z
 					),
 				scale: z
 					.object({
-						min: z.coerce
-							.bigint()
+						min: z
+							.int()
+							.min(0)
 							.nullish()
 							.describe(
 								"The minimum number of instances the server keeps running. Defaults to 0\nwhen absent.\n",
 							),
-						max: z.coerce
-							.bigint()
+						max: z
+							.int()
+							.min(1)
 							.nullish()
 							.describe(
 								"The maximum number of instances the server scales to. Defaults to the\nhighest the account's plan allows when absent.\n",
@@ -5427,7 +5426,7 @@ export const getSiteDeployStatus200Schema = z.object({
 });
 
 export const getSiteDeployStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -5515,7 +5514,7 @@ export const updateSiteDeployStatus200Schema = z.object({
 });
 
 export const updateSiteDeployStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -5591,14 +5590,16 @@ export const updateSiteDeployBodySchema = z
 					),
 				scale: z
 					.object({
-						min: z.coerce
-							.bigint()
+						min: z
+							.int()
+							.min(0)
 							.nullish()
 							.describe(
 								"The minimum number of instances the server keeps running. Defaults to 0\nwhen absent.\n",
 							),
-						max: z.coerce
-							.bigint()
+						max: z
+							.int()
+							.min(1)
 							.nullish()
 							.describe(
 								"The maximum number of instances the server scales to. Defaults to the\nhighest the account's plan allows when absent.\n",
@@ -5731,7 +5732,7 @@ export const deleteSiteDeployPathSiteIdSchema = z.string();
 export const deleteSiteDeployStatus204Schema = z.unknown();
 
 export const deleteSiteDeployStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -5815,7 +5816,7 @@ export const cancelSiteDeployStatus201Schema = z.object({
 });
 
 export const cancelSiteDeployStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -5900,7 +5901,7 @@ export const restoreSiteDeployStatus201Schema = z.object({
 });
 
 export const restoreSiteDeployStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -5931,7 +5932,7 @@ export const listSiteBuildsStatus200Schema = z.array(
 );
 
 export const listSiteBuildsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6014,7 +6015,7 @@ export const createSiteBuildStatus404Schema = z.unknown();
 export const createSiteBuildStatus422Schema = z.unknown();
 
 export const createSiteBuildStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6087,7 +6088,7 @@ export const listSiteDeployedBranchesStatus200Schema = z.array(
 );
 
 export const listSiteDeployedBranchesStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6269,12 +6270,12 @@ export const enableSitePathSiteIdSchema = z.string();
 export const enableSiteStatus204Schema = z.unknown();
 
 export const enableSiteStatus422Schema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
 export const enableSiteStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6296,7 +6297,7 @@ export const disableSiteQueryReasonSchema = z.string().describe("Reason for disa
 export const disableSiteStatus204Schema = z.unknown();
 
 export const disableSiteStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6324,7 +6325,7 @@ export const getSiteBuildStatus200Schema = z.object({
 });
 
 export const getSiteBuildStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6341,7 +6342,7 @@ export const updateSiteBuildLogPathBuildIdSchema = z.string();
 export const updateSiteBuildLogStatus204Schema = z.unknown();
 
 export const updateSiteBuildLogStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6372,7 +6373,7 @@ export const notifyBuildStartQueryTaskIdSchema = z.string().optional();
 export const notifyBuildStartStatus204Schema = z.unknown();
 
 export const notifyBuildStartStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6414,7 +6415,7 @@ export const getAccountBuildStatusStatus200Schema = z.array(
 );
 
 export const getAccountBuildStatusStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6444,8 +6445,8 @@ export const getDNSForSiteStatus200Schema = z.array(
 					hostname: z.string().optional(),
 					type: z.string().optional(),
 					value: z.string().optional(),
-					ttl: z.coerce.bigint().optional(),
-					priority: z.coerce.bigint().optional(),
+					ttl: z.int().optional(),
+					priority: z.int().optional(),
 					dns_zone_id: z.string().optional(),
 					site_id: z.string().optional(),
 					flag: z.int().optional(),
@@ -6466,7 +6467,7 @@ export const getDNSForSiteStatus200Schema = z.array(
 );
 
 export const getDNSForSiteStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6496,8 +6497,8 @@ export const configureDNSForSiteStatus200Schema = z.array(
 					hostname: z.string().optional(),
 					type: z.string().optional(),
 					value: z.string().optional(),
-					ttl: z.coerce.bigint().optional(),
-					priority: z.coerce.bigint().optional(),
+					ttl: z.int().optional(),
+					priority: z.int().optional(),
 					dns_zone_id: z.string().optional(),
 					site_id: z.string().optional(),
 					flag: z.int().optional(),
@@ -6518,7 +6519,7 @@ export const configureDNSForSiteStatus200Schema = z.array(
 );
 
 export const configureDNSForSiteStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6535,7 +6536,7 @@ export const rollbackSiteDeployPathSiteIdSchema = z.string();
 export const rollbackSiteDeployStatus204Schema = z.unknown();
 
 export const rollbackSiteDeployStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6618,7 +6619,7 @@ export const getDeployStatus200Schema = z.object({
 });
 
 export const getDeployStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6635,7 +6636,7 @@ export const deleteDeployPathDeployIdSchema = z.string();
 export const deleteDeployStatus204Schema = z.unknown();
 
 export const deleteDeployStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6746,7 +6747,7 @@ export const lockDeployStatus200Schema = z.object({
 });
 
 export const lockDeployStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6829,7 +6830,7 @@ export const unlockDeployStatus200Schema = z.object({
 });
 
 export const unlockDeployStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6852,11 +6853,11 @@ export const uploadDeployFileStatus200Schema = z.object({
 	path: z.string().optional(),
 	sha: z.string().optional(),
 	mime_type: z.string().optional(),
-	size: z.coerce.bigint().optional(),
+	size: z.int().optional(),
 });
 
 export const uploadDeployFileStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6897,7 +6898,7 @@ export const uploadDeployFunctionStatus200Schema = z.object({
 });
 
 export const uploadDeployFunctionStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6934,7 +6935,7 @@ export const uploadDeployServerHeaderXNfRetryCountSchema = z.int().optional();
 export const uploadDeployServerStatus200Schema = z.unknown();
 
 export const uploadDeployServerStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -6966,7 +6967,7 @@ export const uploadDeployEdgeFunctionHeaderXNfRetryCountSchema = z.int().optiona
 export const uploadDeployEdgeFunctionStatus200Schema = z.unknown();
 
 export const uploadDeployEdgeFunctionStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7008,7 +7009,7 @@ export const getLatestPluginRunsStatus200Schema = z.array(
 );
 
 export const getLatestPluginRunsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7042,7 +7043,7 @@ export const createPluginRunStatus201Schema = z
 	});
 
 export const createPluginRunStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7090,7 +7091,7 @@ export const listFormSubmissionsStatus200Schema = z.array(
 );
 
 export const listFormSubmissionsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7133,7 +7134,7 @@ export const listHooksBySiteIdStatus200Schema = z.array(
 );
 
 export const listHooksBySiteIdStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7161,7 +7162,7 @@ export const createHookBySiteIdStatus201Schema = z.object({
 });
 
 export const createHookBySiteIdStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7198,7 +7199,7 @@ export const getHookStatus200Schema = z.object({
 });
 
 export const getHookStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7224,7 +7225,7 @@ export const updateHookStatus200Schema = z.object({
 });
 
 export const updateHookStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7271,7 +7272,7 @@ export const enableHookStatus200Schema = z.object({
 });
 
 export const enableHookStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7297,7 +7298,7 @@ export const listHookTypesStatus200Schema = z.array(
 );
 
 export const listHookTypesStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7319,17 +7320,17 @@ export const createTicketStatus201Schema = z.object({
 });
 
 export const createTicketStatus401Schema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
 export const createTicketStatus422Schema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
 export const createTicketStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7361,7 +7362,7 @@ export const showTicketStatus200Schema = z.object({
 });
 
 export const showTicketStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7384,7 +7385,7 @@ export const exchangeTicketStatus201Schema = z.object({
 });
 
 export const exchangeTicketStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7405,7 +7406,7 @@ export const listDeployKeysStatus200Schema = z.array(
 );
 
 export const listDeployKeysStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7420,7 +7421,7 @@ export const createDeployKeyStatus201Schema = z.object({
 });
 
 export const createDeployKeyStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7437,7 +7438,7 @@ export const getDeployKeyStatus200Schema = z.object({
 });
 
 export const getDeployKeyStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7454,7 +7455,7 @@ export const deleteDeployKeyPathKeyIdSchema = z.string();
 export const deleteDeployKeyStatus204Schema = z.unknown();
 
 export const deleteDeployKeyStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7624,7 +7625,7 @@ export const createSiteInTeamStatus201Schema = z.object({
 });
 
 export const createSiteInTeamStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -7995,7 +7996,7 @@ export const listSitesForAccountStatus200Schema = z.array(
 );
 
 export const listSitesForAccountStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8026,7 +8027,7 @@ export const listMembersForAccountStatus200Schema = z.array(
 );
 
 export const listMembersForAccountStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8051,7 +8052,7 @@ export const addMemberToAccountStatus200Schema = z.array(
 );
 
 export const addMemberToAccountStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8081,7 +8082,7 @@ export const getAccountMemberStatus200Schema = z.object({
 });
 
 export const getAccountMemberStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8107,7 +8108,7 @@ export const updateAccountMemberStatus200Schema = z.object({
 });
 
 export const updateAccountMemberStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8133,7 +8134,7 @@ export const removeAccountMemberPathMemberIdSchema = z.string();
 export const removeAccountMemberStatus204Schema = z.unknown();
 
 export const removeAccountMemberStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8165,7 +8166,7 @@ export const listPaymentMethodsForUserStatus200Schema = z.array(
 );
 
 export const listPaymentMethodsForUserStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8187,7 +8188,7 @@ export const listAccountTypesForUserStatus200Schema = z.array(
 );
 
 export const listAccountTypesForUserStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8234,7 +8235,7 @@ export const listAccountsForUserStatus200Schema = z.array(
 );
 
 export const listAccountsForUserStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8281,7 +8282,7 @@ export const createAccountStatus201Schema = z.object({
 });
 
 export const createAccountStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8334,7 +8335,7 @@ export const getAccountStatus200Schema = z.object({
 });
 
 export const getAccountStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8383,7 +8384,7 @@ export const updateAccountStatus200Schema = z.object({
 });
 
 export const updateAccountStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8412,7 +8413,7 @@ export const cancelAccountPathAccountIdSchema = z.string();
 export const cancelAccountStatus204Schema = z.unknown();
 
 export const cancelAccountStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8453,7 +8454,7 @@ export const listAccountAuditEventsStatus200Schema = z.array(
 );
 
 export const listAccountAuditEventsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8569,7 +8570,7 @@ export const listAgentRunnersStatus200Schema = z.array(
 );
 
 export const listAgentRunnersStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8677,7 +8678,7 @@ export const createAgentRunnerStatus404Schema = z.unknown();
 export const createAgentRunnerStatus422Schema = z.unknown();
 
 export const createAgentRunnerStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8765,7 +8766,7 @@ export const createSiteAgentRunnerStatus200Schema = z.object({
 
 export const createSiteAgentRunnerStatus400Schema = z
 	.object({
-		code: z.coerce.bigint().optional(),
+		code: z.int().optional(),
 		message: z.string(),
 	})
 	.extend({
@@ -8777,7 +8778,7 @@ export const createSiteAgentRunnerStatus400Schema = z
 
 export const createSiteAgentRunnerStatus403Schema = z
 	.object({
-		code: z.coerce.bigint().optional(),
+		code: z.int().optional(),
 		message: z.string(),
 	})
 	.extend({
@@ -8789,7 +8790,7 @@ export const createSiteAgentRunnerStatus403Schema = z
 
 export const createSiteAgentRunnerStatus404Schema = z
 	.object({
-		code: z.coerce.bigint().optional(),
+		code: z.int().optional(),
 		message: z.string(),
 	})
 	.extend({
@@ -8801,7 +8802,7 @@ export const createSiteAgentRunnerStatus404Schema = z
 
 export const createSiteAgentRunnerStatus422Schema = z
 	.object({
-		code: z.coerce.bigint().optional(),
+		code: z.int().optional(),
 		message: z.string(),
 	})
 	.extend({
@@ -8813,7 +8814,7 @@ export const createSiteAgentRunnerStatus422Schema = z
 
 export const createSiteAgentRunnerStatus429Schema = z
 	.object({
-		code: z.coerce.bigint().optional(),
+		code: z.int().optional(),
 		message: z.string(),
 	})
 	.extend({
@@ -8824,7 +8825,7 @@ export const createSiteAgentRunnerStatus429Schema = z
 	});
 
 export const createSiteAgentRunnerStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8885,7 +8886,7 @@ export const createAgentRunnerUploadUrlStatus400Schema = z.unknown();
 export const createAgentRunnerUploadUrlStatus422Schema = z.unknown();
 
 export const createAgentRunnerUploadUrlStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -8964,7 +8965,7 @@ export const getAgentRunnerStatus200Schema = z.object({
 });
 
 export const getAgentRunnerStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -9037,7 +9038,7 @@ export const updateAgentRunnerStatus200Schema = z.object({
 });
 
 export const updateAgentRunnerStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -9054,7 +9055,7 @@ export const deleteAgentRunnerPathAgentRunnerIdSchema = z.string();
 export const deleteAgentRunnerStatus202Schema = z.unknown();
 
 export const deleteAgentRunnerStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -9071,7 +9072,7 @@ export const stopAgentRunnerPathAgentRunnerIdSchema = z.string();
 export const stopAgentRunnerStatus202Schema = z.unknown();
 
 export const stopAgentRunnerStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -9099,7 +9100,7 @@ export const getAgentRunnerDiffStatus200Schema = z.string();
 export const getAgentRunnerDiffStatus404Schema = z.unknown();
 
 export const getAgentRunnerDiffStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -9132,7 +9133,7 @@ export const archiveAgentRunnerStatus404Schema = z.unknown();
 export const archiveAgentRunnerStatus422Schema = z.unknown();
 
 export const archiveAgentRunnerStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -9215,7 +9216,7 @@ export const agentRunnerPullRequestStatus409Schema = z.unknown();
 export const agentRunnerPullRequestStatus422Schema = z.unknown();
 
 export const agentRunnerPullRequestStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -9301,7 +9302,7 @@ export const agentRunnerCommitToBranchStatus409Schema = z.unknown();
 export const agentRunnerCommitToBranchStatus422Schema = z.unknown();
 
 export const agentRunnerCommitToBranchStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -9439,7 +9440,7 @@ export const listAgentRunnerSessionsStatus200Schema = z.array(
 );
 
 export const listAgentRunnerSessionsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -9578,7 +9579,7 @@ export const createAgentRunnerSessionStatus200Schema = z.object({
 
 export const createAgentRunnerSessionStatus400Schema = z
 	.object({
-		code: z.coerce.bigint().optional(),
+		code: z.int().optional(),
 		message: z.string(),
 	})
 	.extend({
@@ -9590,7 +9591,7 @@ export const createAgentRunnerSessionStatus400Schema = z
 
 export const createAgentRunnerSessionStatus403Schema = z
 	.object({
-		code: z.coerce.bigint().optional(),
+		code: z.int().optional(),
 		message: z.string(),
 	})
 	.extend({
@@ -9602,7 +9603,7 @@ export const createAgentRunnerSessionStatus403Schema = z
 
 export const createAgentRunnerSessionStatus404Schema = z
 	.object({
-		code: z.coerce.bigint().optional(),
+		code: z.int().optional(),
 		message: z.string(),
 	})
 	.extend({
@@ -9614,7 +9615,7 @@ export const createAgentRunnerSessionStatus404Schema = z
 
 export const createAgentRunnerSessionStatus409Schema = z
 	.object({
-		code: z.coerce.bigint().optional(),
+		code: z.int().optional(),
 		message: z.string(),
 	})
 	.extend({
@@ -9626,7 +9627,7 @@ export const createAgentRunnerSessionStatus409Schema = z
 
 export const createAgentRunnerSessionStatus422Schema = z
 	.object({
-		code: z.coerce.bigint().optional(),
+		code: z.int().optional(),
 		message: z.string(),
 	})
 	.extend({
@@ -9638,7 +9639,7 @@ export const createAgentRunnerSessionStatus422Schema = z
 
 export const createAgentRunnerSessionStatus429Schema = z
 	.object({
-		code: z.coerce.bigint().optional(),
+		code: z.int().optional(),
 		message: z.string(),
 	})
 	.extend({
@@ -9649,7 +9650,7 @@ export const createAgentRunnerSessionStatus429Schema = z
 	});
 
 export const createAgentRunnerSessionStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -9787,7 +9788,7 @@ export const getAgentRunnerSessionStatus200Schema = z.object({
 });
 
 export const getAgentRunnerSessionStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -9896,7 +9897,7 @@ export const updateAgentRunnerSessionStatus200Schema = z.object({
 });
 
 export const updateAgentRunnerSessionStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -9920,7 +9921,7 @@ export const deleteAgentRunnerSessionPathAgentRunnerSessionIdSchema = z.string()
 export const deleteAgentRunnerSessionStatus202Schema = z.unknown();
 
 export const deleteAgentRunnerSessionStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -9940,7 +9941,7 @@ export const stopAgentRunnerSessionPathAgentRunnerSessionIdSchema = z.string();
 export const stopAgentRunnerSessionStatus202Schema = z.unknown();
 
 export const stopAgentRunnerSessionStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10048,7 +10049,7 @@ export const answerAgentRunnerSessionStatus200Schema = z.object({
 
 export const answerAgentRunnerSessionStatus400Schema = z
 	.object({
-		code: z.coerce.bigint().optional(),
+		code: z.int().optional(),
 		message: z.string(),
 	})
 	.extend({
@@ -10060,7 +10061,7 @@ export const answerAgentRunnerSessionStatus400Schema = z
 
 export const answerAgentRunnerSessionStatus422Schema = z
 	.object({
-		code: z.coerce.bigint().optional(),
+		code: z.int().optional(),
 		message: z.string(),
 	})
 	.extend({
@@ -10072,7 +10073,7 @@ export const answerAgentRunnerSessionStatus422Schema = z
 
 export const answerAgentRunnerSessionStatus429Schema = z
 	.object({
-		code: z.coerce.bigint().optional(),
+		code: z.int().optional(),
 		message: z.string(),
 	})
 	.extend({
@@ -10083,7 +10084,7 @@ export const answerAgentRunnerSessionStatus429Schema = z
 	});
 
 export const answerAgentRunnerSessionStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10139,7 +10140,7 @@ export const listFormSubmissionStatus200Schema = z.array(
 );
 
 export const listFormSubmissionStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10162,7 +10163,7 @@ export const deleteSubmissionPathSubmissionIdSchema = z.string();
 export const deleteSubmissionStatus204Schema = z.unknown();
 
 export const deleteSubmissionStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10194,7 +10195,7 @@ export const listServiceInstancesForSiteStatus200Schema = z.array(
 );
 
 export const listServiceInstancesForSiteStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10227,7 +10228,7 @@ export const createServiceInstanceStatus201Schema = z.object({
 });
 
 export const createServiceInstanceStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10264,7 +10265,7 @@ export const showServiceInstanceStatus200Schema = z.object({
 });
 
 export const showServiceInstanceStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10287,7 +10288,7 @@ export const updateServiceInstancePathInstanceIdSchema = z.string();
 export const updateServiceInstanceStatus204Schema = z.unknown();
 
 export const updateServiceInstanceStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10312,7 +10313,7 @@ export const deleteServiceInstancePathInstanceIdSchema = z.string();
 export const deleteServiceInstanceStatus204Schema = z.unknown();
 
 export const deleteServiceInstanceStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10357,7 +10358,7 @@ export const getIdentityUserStatus200Schema = z.object({
 });
 
 export const getIdentityUserStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10402,7 +10403,7 @@ export const lookupIdentityUserStatus200Schema = z.object({
 });
 
 export const lookupIdentityUserStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10442,7 +10443,7 @@ export const getServicesStatus200Schema = z.array(
 );
 
 export const getServicesStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10473,7 +10474,7 @@ export const showServiceStatus200Schema = z.object({
 });
 
 export const showServiceStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10490,7 +10491,7 @@ export const showServiceManifestPathAddonNameSchema = z.string();
 export const showServiceManifestStatus201Schema = z.object({});
 
 export const showServiceManifestStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10509,7 +10510,7 @@ export const getCurrentUserStatus200Schema = z.object({
 	avatar_url: z.string().optional(),
 	email: z.string().optional(),
 	affiliate_id: z.string().optional(),
-	site_count: z.coerce.bigint().optional(),
+	site_count: z.int().optional(),
 	created_at: z.string().optional(),
 	last_login: z.string().optional(),
 	login_providers: z.array(z.string()).optional(),
@@ -10521,7 +10522,7 @@ export const getCurrentUserStatus200Schema = z.object({
 });
 
 export const getCurrentUserStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10544,7 +10545,7 @@ export const createSplitTestStatus201Schema = z.object({
 });
 
 export const createSplitTestStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10577,7 +10578,7 @@ export const getSplitTestsStatus200Schema = z.array(
 );
 
 export const getSplitTestsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10606,7 +10607,7 @@ export const updateSplitTestStatus201Schema = z.object({
 });
 
 export const updateSplitTestStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10640,7 +10641,7 @@ export const getSplitTestStatus200Schema = z.object({
 });
 
 export const getSplitTestStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10660,7 +10661,7 @@ export const enableSplitTestPathSplitTestIdSchema = z.string();
 export const enableSplitTestStatus204Schema = z.unknown();
 
 export const enableSplitTestStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10680,7 +10681,7 @@ export const disableSplitTestPathSplitTestIdSchema = z.string();
 export const disableSplitTestStatus204Schema = z.unknown();
 
 export const disableSplitTestStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10708,8 +10709,8 @@ export const createDnsZoneStatus201Schema = z.object({
 				hostname: z.string().optional(),
 				type: z.string().optional(),
 				value: z.string().optional(),
-				ttl: z.coerce.bigint().optional(),
-				priority: z.coerce.bigint().optional(),
+				ttl: z.int().optional(),
+				priority: z.int().optional(),
 				dns_zone_id: z.string().optional(),
 				site_id: z.string().optional(),
 				flag: z.int().optional(),
@@ -10729,7 +10730,7 @@ export const createDnsZoneStatus201Schema = z.object({
 });
 
 export const createDnsZoneStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10761,8 +10762,8 @@ export const getDnsZonesStatus200Schema = z.array(
 					hostname: z.string().optional(),
 					type: z.string().optional(),
 					value: z.string().optional(),
-					ttl: z.coerce.bigint().optional(),
-					priority: z.coerce.bigint().optional(),
+					ttl: z.int().optional(),
+					priority: z.int().optional(),
 					dns_zone_id: z.string().optional(),
 					site_id: z.string().optional(),
 					flag: z.int().optional(),
@@ -10783,7 +10784,7 @@ export const getDnsZonesStatus200Schema = z.array(
 );
 
 export const getDnsZonesStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10812,8 +10813,8 @@ export const getDnsZoneStatus200Schema = z.object({
 				hostname: z.string().optional(),
 				type: z.string().optional(),
 				value: z.string().optional(),
-				ttl: z.coerce.bigint().optional(),
-				priority: z.coerce.bigint().optional(),
+				ttl: z.int().optional(),
+				priority: z.int().optional(),
 				dns_zone_id: z.string().optional(),
 				site_id: z.string().optional(),
 				flag: z.int().optional(),
@@ -10833,7 +10834,7 @@ export const getDnsZoneStatus200Schema = z.object({
 });
 
 export const getDnsZoneStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10850,7 +10851,7 @@ export const deleteDnsZonePathZoneIdSchema = z.string();
 export const deleteDnsZoneStatus204Schema = z.unknown();
 
 export const deleteDnsZoneStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10891,8 +10892,8 @@ export const transferDnsZoneStatus200Schema = z.object({
 				hostname: z.string().optional(),
 				type: z.string().optional(),
 				value: z.string().optional(),
-				ttl: z.coerce.bigint().optional(),
-				priority: z.coerce.bigint().optional(),
+				ttl: z.int().optional(),
+				priority: z.int().optional(),
 				dns_zone_id: z.string().optional(),
 				site_id: z.string().optional(),
 				flag: z.int().optional(),
@@ -10912,7 +10913,7 @@ export const transferDnsZoneStatus200Schema = z.object({
 });
 
 export const transferDnsZoneStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10938,8 +10939,8 @@ export const getDnsRecordsStatus200Schema = z.array(
 		hostname: z.string().optional(),
 		type: z.string().optional(),
 		value: z.string().optional(),
-		ttl: z.coerce.bigint().optional(),
-		priority: z.coerce.bigint().optional(),
+		ttl: z.int().optional(),
+		priority: z.int().optional(),
 		dns_zone_id: z.string().optional(),
 		site_id: z.string().optional(),
 		flag: z.int().optional(),
@@ -10949,7 +10950,7 @@ export const getDnsRecordsStatus200Schema = z.array(
 );
 
 export const getDnsRecordsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10968,8 +10969,8 @@ export const createDnsRecordStatus201Schema = z.object({
 	hostname: z.string().optional(),
 	type: z.string().optional(),
 	value: z.string().optional(),
-	ttl: z.coerce.bigint().optional(),
-	priority: z.coerce.bigint().optional(),
+	ttl: z.int().optional(),
+	priority: z.int().optional(),
 	dns_zone_id: z.string().optional(),
 	site_id: z.string().optional(),
 	flag: z.int().optional(),
@@ -10978,7 +10979,7 @@ export const createDnsRecordStatus201Schema = z.object({
 });
 
 export const createDnsRecordStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -10990,11 +10991,11 @@ export const createDnsRecordBodySchema = z.object({
 	type: z.string().optional(),
 	hostname: z.string().optional(),
 	value: z.string().optional(),
-	ttl: z.coerce.bigint().optional(),
-	priority: z.coerce.bigint().optional(),
-	weight: z.coerce.bigint().optional(),
-	port: z.coerce.bigint().optional(),
-	flag: z.coerce.bigint().optional(),
+	ttl: z.int().optional(),
+	priority: z.int().optional(),
+	weight: z.int().optional(),
+	port: z.int().optional(),
+	flag: z.int().optional(),
 	tag: z.string().optional(),
 });
 
@@ -11011,8 +11012,8 @@ export const getIndividualDnsRecordStatus200Schema = z.object({
 	hostname: z.string().optional(),
 	type: z.string().optional(),
 	value: z.string().optional(),
-	ttl: z.coerce.bigint().optional(),
-	priority: z.coerce.bigint().optional(),
+	ttl: z.int().optional(),
+	priority: z.int().optional(),
 	dns_zone_id: z.string().optional(),
 	site_id: z.string().optional(),
 	flag: z.int().optional(),
@@ -11021,7 +11022,7 @@ export const getIndividualDnsRecordStatus200Schema = z.object({
 });
 
 export const getIndividualDnsRecordStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11041,7 +11042,7 @@ export const deleteDnsRecordPathDnsRecordIdSchema = z.string();
 export const deleteDnsRecordStatus204Schema = z.unknown();
 
 export const deleteDnsRecordStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11078,7 +11079,7 @@ export const listSiteDevServersStatus200Schema = z.array(
 );
 
 export const listSiteDevServersStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11117,7 +11118,7 @@ export const createSiteDevServerStatus200Schema = z.array(
 );
 
 export const createSiteDevServerStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11140,7 +11141,7 @@ export const deleteSiteDevServersQueryBranchSchema = z.string().optional();
 export const deleteSiteDevServersStatus202Schema = z.unknown();
 
 export const deleteSiteDevServersStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11259,7 +11260,7 @@ export const listSiteDevServerHooksStatus200Schema = z.array(
 );
 
 export const listSiteDevServerHooksStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11284,7 +11285,7 @@ export const createSiteDevServerHookStatus201Schema = z.object({
 });
 
 export const createSiteDevServerHookStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11317,7 +11318,7 @@ export const getSiteDevServerHookStatus200Schema = z.object({
 });
 
 export const getSiteDevServerHookStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11337,7 +11338,7 @@ export const updateSiteDevServerHookPathIdSchema = z.string();
 export const updateSiteDevServerHookStatus204Schema = z.unknown();
 
 export const updateSiteDevServerHookStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11363,7 +11364,7 @@ export const deleteSiteDevServerHookPathIdSchema = z.string();
 export const deleteSiteDevServerHookStatus204Schema = z.unknown();
 
 export const deleteSiteDevServerHookStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11393,7 +11394,7 @@ export const listSiteAgentRunnerHooksStatus200Schema = z.array(
 );
 
 export const listSiteAgentRunnerHooksStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11424,7 +11425,7 @@ export const createSiteAgentRunnerHookStatus201Schema = z
 	});
 
 export const createSiteAgentRunnerHookStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11460,7 +11461,7 @@ export const getSiteAgentRunnerHookStatus200Schema = z.object({
 });
 
 export const getSiteAgentRunnerHookStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11480,7 +11481,7 @@ export const updateSiteAgentRunnerHookPathIdSchema = z.string();
 export const updateSiteAgentRunnerHookStatus204Schema = z.unknown();
 
 export const updateSiteAgentRunnerHookStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11507,7 +11508,7 @@ export const deleteSiteAgentRunnerHookPathIdSchema = z.string();
 export const deleteSiteAgentRunnerHookStatus204Schema = z.unknown();
 
 export const deleteSiteAgentRunnerHookStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11534,7 +11535,7 @@ export const getAIGatewayProvidersStatus200Schema = z.object({
 });
 
 export const getAIGatewayProvidersStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11547,13 +11548,13 @@ export const getAIGatewayTokenPathSiteIdSchema = z.string().describe("The site I
 export const getAIGatewayTokenStatus200Schema = z.object({
 	token: z.string().optional().describe("The AI Gateway authentication token"),
 	url: z.string().optional().describe("AI gateway base url"),
-	expires_at: z.coerce.bigint().optional().describe("Unix timestamp when the token expires"),
+	expires_at: z.int().optional().describe("Unix timestamp when the token expires"),
 });
 
 export const getAIGatewayTokenStatus404Schema = z.unknown();
 
 export const getAIGatewayTokenStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11573,13 +11574,13 @@ export const getAccountAIGatewayTokenPathAccountIdSchema = z.string().describe("
 export const getAccountAIGatewayTokenStatus200Schema = z.object({
 	token: z.string().optional().describe("The AI Gateway authentication token"),
 	url: z.string().optional().describe("AI gateway base url"),
-	expires_at: z.coerce.bigint().optional().describe("Unix timestamp when the token expires"),
+	expires_at: z.int().optional().describe("Unix timestamp when the token expires"),
 });
 
 export const getAccountAIGatewayTokenStatus404Schema = z.unknown();
 
 export const getAccountAIGatewayTokenStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11609,7 +11610,7 @@ export const createSiteDatabaseStatus201Schema = z
 	.describe("Response containing the database connection string");
 
 export const createSiteDatabaseStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11652,7 +11653,7 @@ export const getSiteDatabaseStatus200Schema = z
 	.describe("Response containing the database connection string");
 
 export const getSiteDatabaseStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11678,7 +11679,7 @@ export const deleteSiteDatabasePathSiteIdSchema = z.string();
 export const deleteSiteDatabaseStatus204Schema = z.unknown();
 
 export const deleteSiteDatabaseStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11713,7 +11714,7 @@ export const createSiteDatabaseBranchStatus201Schema = z
 	.describe("Response containing the database branch connection string");
 
 export const createSiteDatabaseBranchStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11758,8 +11759,8 @@ export const listSiteDatabaseBranchesStatus200Schema = z
 						.enum(["init", "creating", "resetting", "ready", "archived"])
 						.optional()
 						.describe("The current state of the branch"),
-					logical_size_bytes: z.coerce
-						.bigint()
+					logical_size_bytes: z
+						.int()
 						.optional()
 						.describe("The logical size of the branch in bytes"),
 					created_at: z.string().optional().describe("When the branch was created"),
@@ -11779,8 +11780,8 @@ export const listSiteDatabaseBranchesStatus200Schema = z
 								.number()
 								.optional()
 								.describe("Maximum compute units for autoscaling"),
-							suspend_timeout_seconds: z.coerce
-								.bigint()
+							suspend_timeout_seconds: z
+								.int()
 								.optional()
 								.describe("Seconds of inactivity before the compute endpoint is suspended"),
 							last_active: z
@@ -11799,7 +11800,7 @@ export const listSiteDatabaseBranchesStatus200Schema = z
 	.describe("Response containing a list of database branches");
 
 export const listSiteDatabaseBranchesStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11835,7 +11836,7 @@ export const getSiteDatabaseBranchStatus200Schema = z
 export const getSiteDatabaseBranchStatus404Schema = z.unknown();
 
 export const getSiteDatabaseBranchStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11867,7 +11868,7 @@ export const deleteSiteDatabaseBranchPathBranchIdSchema = z.string().describe("T
 export const deleteSiteDatabaseBranchStatus204Schema = z.unknown();
 
 export const deleteSiteDatabaseBranchStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11919,7 +11920,7 @@ export const resetSiteDatabaseBranchStatus400Schema = z.unknown();
 export const resetSiteDatabaseBranchStatus404Schema = z.unknown();
 
 export const resetSiteDatabaseBranchStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -11971,17 +11972,14 @@ export const setSiteDatabaseBranchComputeSettingsStatus200Schema = z
 	.object({
 		min_cu: z.number().optional().describe("Minimum compute units"),
 		max_cu: z.number().optional().describe("Maximum compute units"),
-		sleep_timeout_seconds: z.coerce
-			.bigint()
-			.optional()
-			.describe("Seconds of inactivity before suspension"),
+		sleep_timeout_seconds: z.int().optional().describe("Seconds of inactivity before suspension"),
 	})
 	.describe("Compute settings for a database or branch");
 
 export const setSiteDatabaseBranchComputeSettingsStatus403Schema = z.unknown();
 
 export const setSiteDatabaseBranchComputeSettingsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -12009,8 +12007,9 @@ export const setSiteDatabaseBranchComputeSettingsBodySchema = z
 			.describe(
 				"Maximum compute units (0.25 to 16.0). Must be greater than or equal to min_cu. max_cu - min_cu must not exceed 8.0.",
 			),
-		sleep_timeout_seconds: z.coerce
-			.bigint()
+		sleep_timeout_seconds: z
+			.int()
+			.min(-1)
 			.nullish()
 			.describe(
 				"Seconds of inactivity before the compute endpoint is suspended. Use -1 for always on, or a non-negative value.",
@@ -12031,17 +12030,14 @@ export const setSiteDatabaseComputeSettingsStatus200Schema = z
 	.object({
 		min_cu: z.number().optional().describe("Minimum compute units"),
 		max_cu: z.number().optional().describe("Maximum compute units"),
-		sleep_timeout_seconds: z.coerce
-			.bigint()
-			.optional()
-			.describe("Seconds of inactivity before suspension"),
+		sleep_timeout_seconds: z.int().optional().describe("Seconds of inactivity before suspension"),
 	})
 	.describe("Compute settings for a database or branch");
 
 export const setSiteDatabaseComputeSettingsStatus403Schema = z.unknown();
 
 export const setSiteDatabaseComputeSettingsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -12069,8 +12065,9 @@ export const setSiteDatabaseComputeSettingsBodySchema = z
 			.describe(
 				"Maximum compute units (0.25 to 16.0). Must be greater than or equal to min_cu. max_cu - min_cu must not exceed 8.0.",
 			),
-		sleep_timeout_seconds: z.coerce
-			.bigint()
+		sleep_timeout_seconds: z
+			.int()
+			.min(-1)
 			.nullish()
 			.describe(
 				"Seconds of inactivity before the compute endpoint is suspended. Use -1 for always on, or a non-negative value.",
@@ -12090,17 +12087,14 @@ export const getSiteDatabaseComputeSettingsStatus200Schema = z
 	.object({
 		min_cu: z.number().optional().describe("Minimum compute units"),
 		max_cu: z.number().optional().describe("Maximum compute units"),
-		sleep_timeout_seconds: z.coerce
-			.bigint()
-			.optional()
-			.describe("Seconds of inactivity before suspension"),
+		sleep_timeout_seconds: z.int().optional().describe("Seconds of inactivity before suspension"),
 	})
 	.describe("Compute settings for a database or branch");
 
 export const getSiteDatabaseComputeSettingsStatus403Schema = z.unknown();
 
 export const getSiteDatabaseComputeSettingsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -12123,7 +12117,7 @@ export const clearSiteDatabaseComputeSettingsStatus204Schema = z.unknown();
 export const clearSiteDatabaseComputeSettingsStatus403Schema = z.unknown();
 
 export const clearSiteDatabaseComputeSettingsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -12151,7 +12145,7 @@ export const listSiteDatabaseMigrationsStatus200Schema = z
 		migrations: z
 			.array(
 				z.object({
-					version: z.coerce.bigint().optional().describe("The migration version number"),
+					version: z.int().optional().describe("The migration version number"),
 					name: z.string().optional().describe("The migration name"),
 					path: z
 						.string()
@@ -12173,7 +12167,7 @@ export const listSiteDatabaseMigrationsStatus404Schema = z.unknown();
 export const listSiteDatabaseMigrationsStatus423Schema = z.unknown();
 
 export const listSiteDatabaseMigrationsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -12209,7 +12203,7 @@ export const getSiteDatabaseMigrationQueryBranchSchema = z
 
 export const getSiteDatabaseMigrationStatus200Schema = z
 	.object({
-		version: z.coerce.bigint().optional().describe("The migration version number"),
+		version: z.int().optional().describe("The migration version number"),
 		name: z.string().optional().describe("The migration name"),
 		path: z.string().optional().describe("The path to the migration file in the deploy bundle"),
 		content: z.string().optional().describe("The raw contents of the migration file"),
@@ -12221,7 +12215,7 @@ export const getSiteDatabaseMigrationStatus404Schema = z.unknown();
 export const getSiteDatabaseMigrationStatus423Schema = z.unknown();
 
 export const getSiteDatabaseMigrationStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -12260,7 +12254,7 @@ export const runSiteDatabaseMigrationsStatus409Schema = z.unknown();
 export const runSiteDatabaseMigrationsStatus422Schema = z.unknown();
 
 export const runSiteDatabaseMigrationsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -12311,7 +12305,7 @@ export const createSiteDatabaseSnapshotStatus201Schema = z
 	.describe("A point-in-time snapshot of a database branch");
 
 export const createSiteDatabaseSnapshotStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -12378,7 +12372,7 @@ export const listSiteDatabaseSnapshotsStatus200Schema = z
 	.describe("Response containing a list of database snapshots");
 
 export const listSiteDatabaseSnapshotsStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -12399,7 +12393,7 @@ export const deleteSiteDatabaseSnapshotPathSnapshotIdSchema = z
 export const deleteSiteDatabaseSnapshotStatus204Schema = z.unknown();
 
 export const deleteSiteDatabaseSnapshotStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -12421,7 +12415,7 @@ export const restoreSiteDatabaseSnapshotPathSnapshotIdSchema = z
 export const restoreSiteDatabaseSnapshotStatus200Schema = z.unknown();
 
 export const restoreSiteDatabaseSnapshotStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 
@@ -12457,7 +12451,7 @@ export const updatePluginStatus200Schema = z.object({
 });
 
 export const updatePluginStatusDefaultSchema = z.object({
-	code: z.coerce.bigint().optional(),
+	code: z.int().optional(),
 	message: z.string(),
 });
 

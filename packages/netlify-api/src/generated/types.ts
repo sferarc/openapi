@@ -130,7 +130,7 @@ export type DatabaseBranchesResponse = {
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				logical_size_bytes?: bigint | undefined;
+				logical_size_bytes?: number | undefined;
 				/**
 				 * @description When the branch was created
 				 *
@@ -185,7 +185,7 @@ export type DatabaseBranchesResponse = {
 							 * Format: `int64`
 							 * @type integer | undefined
 							 */
-							suspend_timeout_seconds?: bigint | undefined;
+							suspend_timeout_seconds?: number | undefined;
 							/**
 							 * @description When the compute endpoint was last active
 							 *
@@ -258,7 +258,7 @@ export type DatabaseBranchDetail = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	logical_size_bytes?: bigint | undefined;
+	logical_size_bytes?: number | undefined;
 	/**
 	 * @description When the branch was created
 	 *
@@ -311,7 +311,7 @@ export type DatabaseBranchDetail = {
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				suspend_timeout_seconds?: bigint | undefined;
+				suspend_timeout_seconds?: number | undefined;
 				/**
 				 * @description When the compute endpoint was last active
 				 *
@@ -370,7 +370,7 @@ export type DatabaseBranchCompute = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	suspend_timeout_seconds?: bigint | undefined;
+	suspend_timeout_seconds?: number | undefined;
 	/**
 	 * @description When the compute endpoint was last active
 	 *
@@ -620,7 +620,7 @@ export type DatabaseComputeSettingsRequest = {
 	 * @minLength -1
 	 * @type integer | undefined
 	 */
-	sleep_timeout_seconds?: (bigint | null) | undefined;
+	sleep_timeout_seconds?: (number | null) | undefined;
 };
 
 /**
@@ -648,7 +648,7 @@ export type DatabaseComputeSettings = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	sleep_timeout_seconds?: bigint | undefined;
+	sleep_timeout_seconds?: number | undefined;
 };
 
 /**
@@ -718,7 +718,7 @@ export type ListDatabaseMigrationsResponse = {
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				version?: bigint | undefined;
+				version?: number | undefined;
 				/**
 				 * @description The migration name
 				 * @type string | undefined
@@ -749,7 +749,7 @@ export type DatabaseMigration = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	version?: bigint | undefined;
+	version?: number | undefined;
 	/**
 	 * @description The migration name
 	 * @type string | undefined
@@ -778,7 +778,7 @@ export type DatabaseMigrationDetail = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	version?: bigint | undefined;
+	version?: number | undefined;
 	/**
 	 * @description The migration name
 	 * @type string | undefined
@@ -1707,7 +1707,7 @@ export type File = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	size?: bigint | undefined;
+	size?: number | undefined;
 };
 
 export type Function = {
@@ -1986,7 +1986,7 @@ export type DeployFiles = {
 							 * @minLength 0
 							 * @type integer | undefined
 							 */
-							min?: (bigint | null) | undefined;
+							min?: (number | null) | undefined;
 							/**
 							 * @description The maximum number of instances the server scales to. Defaults to the
 							 * highest the account's plan allows when absent.
@@ -1996,7 +1996,7 @@ export type DeployFiles = {
 							 * @minLength 1
 							 * @type integer | undefined
 							 */
-							max?: (bigint | null) | undefined;
+							max?: (number | null) | undefined;
 					  }
 					| undefined;
 		  }
@@ -2246,13 +2246,13 @@ export type DnsZones = {
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				ttl?: bigint | undefined;
+				ttl?: number | undefined;
 				/**
 				 * @description
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				priority?: bigint | undefined;
+				priority?: number | undefined;
 				dns_zone_id?: string | undefined;
 				site_id?: string | undefined;
 				flag?: number | undefined;
@@ -2299,13 +2299,13 @@ export type DnsZone = {
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				ttl?: bigint | undefined;
+				ttl?: number | undefined;
 				/**
 				 * @description
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				priority?: bigint | undefined;
+				priority?: number | undefined;
 				dns_zone_id?: string | undefined;
 				site_id?: string | undefined;
 				flag?: number | undefined;
@@ -2332,31 +2332,31 @@ export type DnsRecordCreate = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	ttl?: bigint | undefined;
+	ttl?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	priority?: bigint | undefined;
+	priority?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	weight?: bigint | undefined;
+	weight?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	port?: bigint | undefined;
+	port?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	flag?: bigint | undefined;
+	flag?: number | undefined;
 	tag?: string | undefined;
 };
 
@@ -2370,13 +2370,13 @@ export type DnsRecords = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	ttl?: bigint | undefined;
+	ttl?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	priority?: bigint | undefined;
+	priority?: number | undefined;
 	dns_zone_id?: string | undefined;
 	site_id?: string | undefined;
 	flag?: number | undefined;
@@ -2394,13 +2394,13 @@ export type DnsRecord = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	ttl?: bigint | undefined;
+	ttl?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	priority?: bigint | undefined;
+	priority?: number | undefined;
 	dns_zone_id?: string | undefined;
 	site_id?: string | undefined;
 	flag?: number | undefined;
@@ -2471,7 +2471,7 @@ export type Asset = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	size?: bigint | undefined;
+	size?: number | undefined;
 	/**
 	 * @description
 	 * Format: `dateTime`
@@ -2522,7 +2522,7 @@ export type AssetSignature = {
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				size?: bigint | undefined;
+				size?: number | undefined;
 				/**
 				 * @description
 				 * Format: `dateTime`
@@ -3072,7 +3072,7 @@ export type AgentRunnerError = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 } & {
 	/**
@@ -3192,7 +3192,7 @@ export type User = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	site_count?: bigint | undefined;
+	site_count?: number | undefined;
 	/**
 	 * @description
 	 * Format: `dateTime`
@@ -3219,7 +3219,7 @@ export type ErrorSchema = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -3229,7 +3229,7 @@ export type ErrorResponse = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -3534,7 +3534,7 @@ export type AiGatewayToken = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	expires_at?: bigint | undefined;
+	expires_at?: number | undefined;
 };
 
 export const listSitesFilter = {
@@ -3759,7 +3759,7 @@ export type ListSitesStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -3981,7 +3981,7 @@ export type CreateSiteStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -4434,7 +4434,7 @@ export type GetSiteStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -4656,7 +4656,7 @@ export type UpdateSiteStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -4916,7 +4916,7 @@ export type DeleteSiteStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -4990,7 +4990,7 @@ export type ProvisionSiteTLSCertificateStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -5045,7 +5045,7 @@ export type ShowSiteTLSCertificateStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -5272,7 +5272,7 @@ export type GetEnvVarsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -5415,7 +5415,7 @@ export type CreateEnvVarsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -5651,7 +5651,7 @@ export type GetSiteEnvVarsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -5803,7 +5803,7 @@ export type GetEnvVarStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -5955,7 +5955,7 @@ export type UpdateEnvVarStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -6174,7 +6174,7 @@ export type SetEnvVarValueStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -6257,7 +6257,7 @@ export type DeleteEnvVarStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -6312,7 +6312,7 @@ export type DeleteEnvVarValueStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -6361,7 +6361,7 @@ export type SearchSiteFunctionsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -6412,7 +6412,7 @@ export type ListSiteFormsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -6446,7 +6446,7 @@ export type DeleteSiteFormStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -6517,7 +6517,7 @@ export type ListSiteSubmissionsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -6552,7 +6552,7 @@ export type ListSiteFilesStatus200 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	size?: bigint | undefined;
+	size?: number | undefined;
 }[];
 
 export type ListSiteFilesStatusDefault = {
@@ -6561,7 +6561,7 @@ export type ListSiteFilesStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -6601,7 +6601,7 @@ export type ListSiteAssetsStatus200 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	size?: bigint | undefined;
+	size?: number | undefined;
 	/**
 	 * @description
 	 * Format: `dateTime`
@@ -6622,7 +6622,7 @@ export type ListSiteAssetsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -6654,7 +6654,7 @@ export type CreateSiteAssetQuery = {
 	 * Format: `int64`
 	 * @type integer
 	 */
-	size: bigint;
+	size: number;
 	content_type: string;
 	visibility?: string | undefined;
 };
@@ -6686,7 +6686,7 @@ export type CreateSiteAssetStatus201 = {
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				size?: bigint | undefined;
+				size?: number | undefined;
 				/**
 				 * @description
 				 * Format: `dateTime`
@@ -6709,7 +6709,7 @@ export type CreateSiteAssetStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -6750,7 +6750,7 @@ export type GetSiteAssetInfoStatus200 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	size?: bigint | undefined;
+	size?: number | undefined;
 	/**
 	 * @description
 	 * Format: `dateTime`
@@ -6771,7 +6771,7 @@ export type GetSiteAssetInfoStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -6816,7 +6816,7 @@ export type UpdateSiteAssetStatus200 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	size?: bigint | undefined;
+	size?: number | undefined;
 	/**
 	 * @description
 	 * Format: `dateTime`
@@ -6837,7 +6837,7 @@ export type UpdateSiteAssetStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -6871,7 +6871,7 @@ export type DeleteSiteAssetStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -6907,7 +6907,7 @@ export type GetSiteAssetPublicSignatureStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -6943,7 +6943,7 @@ export type GetSiteFileByPathNameStatus200 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	size?: bigint | undefined;
+	size?: number | undefined;
 };
 
 export type GetSiteFileByPathNameStatusDefault = {
@@ -6952,7 +6952,7 @@ export type GetSiteFileByPathNameStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -7028,7 +7028,7 @@ export type ListSiteSnippetsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -7074,7 +7074,7 @@ export type CreateSiteSnippetStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -7136,7 +7136,7 @@ export type GetSiteSnippetStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -7170,7 +7170,7 @@ export type UpdateSiteSnippetStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -7219,7 +7219,7 @@ export type DeleteSiteSnippetStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -7252,7 +7252,7 @@ export type GetSiteMetadataStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -7285,7 +7285,7 @@ export type UpdateSiteMetadataStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -7332,7 +7332,7 @@ export type ListSiteBuildHooksStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -7377,7 +7377,7 @@ export type CreateSiteBuildHookStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -7428,7 +7428,7 @@ export type GetSiteBuildHookStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -7462,7 +7462,7 @@ export type UpdateSiteBuildHookStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -7501,7 +7501,7 @@ export type DeleteSiteBuildHookStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -7660,7 +7660,7 @@ export type ListSiteDeploysStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -7808,7 +7808,7 @@ export type CreateSiteDeployStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -7949,7 +7949,7 @@ export type CreateSiteDeployBody = {
 							 * @minLength 0
 							 * @type integer | undefined
 							 */
-							min?: (bigint | null) | undefined;
+							min?: (number | null) | undefined;
 							/**
 							 * @description The maximum number of instances the server scales to. Defaults to the
 							 * highest the account's plan allows when absent.
@@ -7959,7 +7959,7 @@ export type CreateSiteDeployBody = {
 							 * @minLength 1
 							 * @type integer | undefined
 							 */
-							max?: (bigint | null) | undefined;
+							max?: (number | null) | undefined;
 					  }
 					| undefined;
 		  }
@@ -8191,7 +8191,7 @@ export type GetSiteDeployStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -8314,7 +8314,7 @@ export type UpdateSiteDeployStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -8455,7 +8455,7 @@ export type UpdateSiteDeployBody = {
 							 * @minLength 0
 							 * @type integer | undefined
 							 */
-							min?: (bigint | null) | undefined;
+							min?: (number | null) | undefined;
 							/**
 							 * @description The maximum number of instances the server scales to. Defaults to the
 							 * highest the account's plan allows when absent.
@@ -8465,7 +8465,7 @@ export type UpdateSiteDeployBody = {
 							 * @minLength 1
 							 * @type integer | undefined
 							 */
-							max?: (bigint | null) | undefined;
+							max?: (number | null) | undefined;
 					  }
 					| undefined;
 		  }
@@ -8612,7 +8612,7 @@ export type DeleteSiteDeployStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -8730,7 +8730,7 @@ export type CancelSiteDeployStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -8849,7 +8849,7 @@ export type RestoreSiteDeployStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -8909,7 +8909,7 @@ export type ListSiteBuildsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -9003,7 +9003,7 @@ export type CreateSiteBuildStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -9059,7 +9059,7 @@ export type ListSiteDeployedBranchesStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -9306,7 +9306,7 @@ export type EnableSiteStatus422 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -9316,7 +9316,7 @@ export type EnableSiteStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -9358,7 +9358,7 @@ export type DisableSiteStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -9403,7 +9403,7 @@ export type GetSiteBuildStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -9436,7 +9436,7 @@ export type UpdateSiteBuildLogStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -9492,7 +9492,7 @@ export type NotifyBuildStartStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -9557,7 +9557,7 @@ export type GetAccountBuildStatusStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -9611,13 +9611,13 @@ export type GetDNSForSiteStatus200 = {
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				ttl?: bigint | undefined;
+				ttl?: number | undefined;
 				/**
 				 * @description
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				priority?: bigint | undefined;
+				priority?: number | undefined;
 				dns_zone_id?: string | undefined;
 				site_id?: string | undefined;
 				flag?: number | undefined;
@@ -9641,7 +9641,7 @@ export type GetDNSForSiteStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -9695,13 +9695,13 @@ export type ConfigureDNSForSiteStatus200 = {
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				ttl?: bigint | undefined;
+				ttl?: number | undefined;
 				/**
 				 * @description
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				priority?: bigint | undefined;
+				priority?: number | undefined;
 				dns_zone_id?: string | undefined;
 				site_id?: string | undefined;
 				flag?: number | undefined;
@@ -9725,7 +9725,7 @@ export type ConfigureDNSForSiteStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -9758,7 +9758,7 @@ export type RollbackSiteDeployStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -9876,7 +9876,7 @@ export type GetDeployStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -9909,7 +9909,7 @@ export type DeleteDeployStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10082,7 +10082,7 @@ export type LockDeployStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10200,7 +10200,7 @@ export type UnlockDeployStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10240,7 +10240,7 @@ export type UploadDeployFileStatus200 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	size?: bigint | undefined;
+	size?: number | undefined;
 };
 
 export type UploadDeployFileStatusDefault = {
@@ -10249,7 +10249,7 @@ export type UploadDeployFileStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10301,7 +10301,7 @@ export type UploadDeployFunctionStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10345,7 +10345,7 @@ export type UploadDeployServerStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10385,7 +10385,7 @@ export type UploadDeployEdgeFunctionStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10435,7 +10435,7 @@ export type GetLatestPluginRunsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10478,7 +10478,7 @@ export type CreatePluginRunStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10561,7 +10561,7 @@ export type ListFormSubmissionsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10623,7 +10623,7 @@ export type ListHooksBySiteIdStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10675,7 +10675,7 @@ export type CreateHookBySiteIdStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10748,7 +10748,7 @@ export type GetHookStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10800,7 +10800,7 @@ export type UpdateHookStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10895,7 +10895,7 @@ export type EnableHookStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10936,7 +10936,7 @@ export type ListHookTypesStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10979,7 +10979,7 @@ export type CreateTicketStatus401 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10989,7 +10989,7 @@ export type CreateTicketStatus422 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -10999,7 +10999,7 @@ export type CreateTicketStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -11050,7 +11050,7 @@ export type ShowTicketStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -11094,7 +11094,7 @@ export type ExchangeTicketStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -11132,7 +11132,7 @@ export type ListDeployKeysStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -11170,7 +11170,7 @@ export type CreateDeployKeyStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -11212,7 +11212,7 @@ export type GetDeployKeyStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -11245,7 +11245,7 @@ export type DeleteDeployKeyStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -11471,7 +11471,7 @@ export type CreateSiteInTeamStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -11938,7 +11938,7 @@ export type ListSitesForAccountStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -11977,7 +11977,7 @@ export type ListMembersForAccountStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -12016,7 +12016,7 @@ export type AddMemberToAccountStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -12071,7 +12071,7 @@ export type GetAccountMemberStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -12111,7 +12111,7 @@ export type UpdateAccountMemberStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -12170,7 +12170,7 @@ export type RemoveAccountMemberStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -12223,7 +12223,7 @@ export type ListPaymentMethodsForUserStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -12261,7 +12261,7 @@ export type ListAccountTypesForUserStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -12336,7 +12336,7 @@ export type ListAccountsForUserStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -12407,7 +12407,7 @@ export type CreateAccountStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -12498,7 +12498,7 @@ export type GetAccountStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -12573,7 +12573,7 @@ export type UpdateAccountStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -12618,7 +12618,7 @@ export type CancelAccountStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -12687,7 +12687,7 @@ export type ListAccountAuditEventsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -12834,7 +12834,7 @@ export type ListAgentRunnersStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -12957,7 +12957,7 @@ export type CreateAgentRunnerStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -13074,7 +13074,7 @@ export type CreateSiteAgentRunnerStatus400 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 } & {
 	/**
@@ -13090,7 +13090,7 @@ export type CreateSiteAgentRunnerStatus403 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 } & {
 	/**
@@ -13106,7 +13106,7 @@ export type CreateSiteAgentRunnerStatus404 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 } & {
 	/**
@@ -13122,7 +13122,7 @@ export type CreateSiteAgentRunnerStatus422 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 } & {
 	/**
@@ -13138,7 +13138,7 @@ export type CreateSiteAgentRunnerStatus429 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 } & {
 	/**
@@ -13154,7 +13154,7 @@ export type CreateSiteAgentRunnerStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -13260,7 +13260,7 @@ export type CreateAgentRunnerUploadUrlStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -13373,7 +13373,7 @@ export type GetAgentRunnerStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -13484,7 +13484,7 @@ export type UpdateAgentRunnerStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -13517,7 +13517,7 @@ export type DeleteAgentRunnerStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -13550,7 +13550,7 @@ export type StopAgentRunnerStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -13605,7 +13605,7 @@ export type GetAgentRunnerDiffStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -13643,7 +13643,7 @@ export type ArchiveAgentRunnerStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -13762,7 +13762,7 @@ export type AgentRunnerPullRequestStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -13886,7 +13886,7 @@ export type AgentRunnerCommitToBranchStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -14078,7 +14078,7 @@ export type ListAgentRunnerSessionsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -14251,7 +14251,7 @@ export type CreateAgentRunnerSessionStatus400 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 } & {
 	/**
@@ -14267,7 +14267,7 @@ export type CreateAgentRunnerSessionStatus403 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 } & {
 	/**
@@ -14283,7 +14283,7 @@ export type CreateAgentRunnerSessionStatus404 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 } & {
 	/**
@@ -14299,7 +14299,7 @@ export type CreateAgentRunnerSessionStatus409 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 } & {
 	/**
@@ -14315,7 +14315,7 @@ export type CreateAgentRunnerSessionStatus422 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 } & {
 	/**
@@ -14331,7 +14331,7 @@ export type CreateAgentRunnerSessionStatus429 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 } & {
 	/**
@@ -14347,7 +14347,7 @@ export type CreateAgentRunnerSessionStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -14533,7 +14533,7 @@ export type GetAgentRunnerSessionStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -14688,7 +14688,7 @@ export type UpdateAgentRunnerSessionStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -14722,7 +14722,7 @@ export type DeleteAgentRunnerSessionStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -14756,7 +14756,7 @@ export type StopAgentRunnerSessionStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -14907,7 +14907,7 @@ export type AnswerAgentRunnerSessionStatus400 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 } & {
 	/**
@@ -14923,7 +14923,7 @@ export type AnswerAgentRunnerSessionStatus422 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 } & {
 	/**
@@ -14939,7 +14939,7 @@ export type AnswerAgentRunnerSessionStatus429 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 } & {
 	/**
@@ -14955,7 +14955,7 @@ export type AnswerAgentRunnerSessionStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15053,7 +15053,7 @@ export type ListFormSubmissionStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15086,7 +15086,7 @@ export type DeleteSubmissionStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15142,7 +15142,7 @@ export type ListServiceInstancesForSiteStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15199,7 +15199,7 @@ export type CreateServiceInstanceStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15259,7 +15259,7 @@ export type ShowServiceInstanceStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15294,7 +15294,7 @@ export type UpdateServiceInstanceStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15331,7 +15331,7 @@ export type DeleteServiceInstanceStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15434,7 +15434,7 @@ export type GetIdentityUserStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15532,7 +15532,7 @@ export type LookupIdentityUserStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15593,7 +15593,7 @@ export type GetServicesStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15650,7 +15650,7 @@ export type ShowServiceStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15683,7 +15683,7 @@ export type ShowServiceManifestStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15716,7 +15716,7 @@ export type GetCurrentUserStatus200 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	site_count?: bigint | undefined;
+	site_count?: number | undefined;
 	/**
 	 * @description
 	 * Format: `dateTime`
@@ -15743,7 +15743,7 @@ export type GetCurrentUserStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15801,7 +15801,7 @@ export type CreateSplitTestStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15863,7 +15863,7 @@ export type GetSplitTestsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15922,7 +15922,7 @@ export type UpdateSplitTestStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -15985,7 +15985,7 @@ export type GetSplitTestStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -16019,7 +16019,7 @@ export type EnableSplitTestStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -16053,7 +16053,7 @@ export type DisableSplitTestStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -16103,13 +16103,13 @@ export type CreateDnsZoneStatus201 = {
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				ttl?: bigint | undefined;
+				ttl?: number | undefined;
 				/**
 				 * @description
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				priority?: bigint | undefined;
+				priority?: number | undefined;
 				dns_zone_id?: string | undefined;
 				site_id?: string | undefined;
 				flag?: number | undefined;
@@ -16133,7 +16133,7 @@ export type CreateDnsZoneStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -16193,13 +16193,13 @@ export type GetDnsZonesStatus200 = {
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				ttl?: bigint | undefined;
+				ttl?: number | undefined;
 				/**
 				 * @description
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				priority?: bigint | undefined;
+				priority?: number | undefined;
 				dns_zone_id?: string | undefined;
 				site_id?: string | undefined;
 				flag?: number | undefined;
@@ -16223,7 +16223,7 @@ export type GetDnsZonesStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -16277,13 +16277,13 @@ export type GetDnsZoneStatus200 = {
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				ttl?: bigint | undefined;
+				ttl?: number | undefined;
 				/**
 				 * @description
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				priority?: bigint | undefined;
+				priority?: number | undefined;
 				dns_zone_id?: string | undefined;
 				site_id?: string | undefined;
 				flag?: number | undefined;
@@ -16307,7 +16307,7 @@ export type GetDnsZoneStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -16340,7 +16340,7 @@ export type DeleteDnsZoneStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -16412,13 +16412,13 @@ export type TransferDnsZoneStatus200 = {
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				ttl?: bigint | undefined;
+				ttl?: number | undefined;
 				/**
 				 * @description
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				priority?: bigint | undefined;
+				priority?: number | undefined;
 				dns_zone_id?: string | undefined;
 				site_id?: string | undefined;
 				flag?: number | undefined;
@@ -16442,7 +16442,7 @@ export type TransferDnsZoneStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -16477,13 +16477,13 @@ export type GetDnsRecordsStatus200 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	ttl?: bigint | undefined;
+	ttl?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	priority?: bigint | undefined;
+	priority?: number | undefined;
 	dns_zone_id?: string | undefined;
 	site_id?: string | undefined;
 	flag?: number | undefined;
@@ -16497,7 +16497,7 @@ export type GetDnsRecordsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -16532,13 +16532,13 @@ export type CreateDnsRecordStatus201 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	ttl?: bigint | undefined;
+	ttl?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	priority?: bigint | undefined;
+	priority?: number | undefined;
 	dns_zone_id?: string | undefined;
 	site_id?: string | undefined;
 	flag?: number | undefined;
@@ -16552,7 +16552,7 @@ export type CreateDnsRecordStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -16565,31 +16565,31 @@ export type CreateDnsRecordBody = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	ttl?: bigint | undefined;
+	ttl?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	priority?: bigint | undefined;
+	priority?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	weight?: bigint | undefined;
+	weight?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	port?: bigint | undefined;
+	port?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	flag?: bigint | undefined;
+	flag?: number | undefined;
 	tag?: string | undefined;
 };
 
@@ -16625,13 +16625,13 @@ export type GetIndividualDnsRecordStatus200 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	ttl?: bigint | undefined;
+	ttl?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	priority?: bigint | undefined;
+	priority?: number | undefined;
 	dns_zone_id?: string | undefined;
 	site_id?: string | undefined;
 	flag?: number | undefined;
@@ -16645,7 +16645,7 @@ export type GetIndividualDnsRecordStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -16679,7 +16679,7 @@ export type DeleteDnsRecordStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -16770,7 +16770,7 @@ export type ListSiteDevServersStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -16850,7 +16850,7 @@ export type CreateSiteDevServerStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -16887,7 +16887,7 @@ export type DeleteSiteDevServersStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17158,7 +17158,7 @@ export type ListSiteDevServerHooksStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17212,7 +17212,7 @@ export type CreateSiteDevServerHookStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17281,7 +17281,7 @@ export type GetSiteDevServerHookStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17315,7 +17315,7 @@ export type UpdateSiteDevServerHookStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17363,7 +17363,7 @@ export type DeleteSiteDevServerHookStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17411,7 +17411,7 @@ export type ListSiteAgentRunnerHooksStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17461,7 +17461,7 @@ export type CreateSiteAgentRunnerHookStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17517,7 +17517,7 @@ export type GetSiteAgentRunnerHookStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17551,7 +17551,7 @@ export type UpdateSiteAgentRunnerHookStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17592,7 +17592,7 @@ export type DeleteSiteAgentRunnerHookStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17631,7 +17631,7 @@ export type GetAIGatewayProvidersStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17677,7 +17677,7 @@ export type GetAIGatewayTokenStatus200 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	expires_at?: bigint | undefined;
+	expires_at?: number | undefined;
 };
 
 export type GetAIGatewayTokenStatus404 = unknown;
@@ -17688,7 +17688,7 @@ export type GetAIGatewayTokenStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17735,7 +17735,7 @@ export type GetAccountAIGatewayTokenStatus200 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	expires_at?: bigint | undefined;
+	expires_at?: number | undefined;
 };
 
 export type GetAccountAIGatewayTokenStatus404 = unknown;
@@ -17746,7 +17746,7 @@ export type GetAccountAIGatewayTokenStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17802,7 +17802,7 @@ export type CreateSiteDatabaseStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17875,7 +17875,7 @@ export type GetSiteDatabaseStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17908,7 +17908,7 @@ export type DeleteSiteDatabaseStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -17981,7 +17981,7 @@ export type CreateSiteDatabaseBranchStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -18091,7 +18091,7 @@ export type ListSiteDatabaseBranchesStatus200 = {
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				logical_size_bytes?: bigint | undefined;
+				logical_size_bytes?: number | undefined;
 				/**
 				 * @description When the branch was created
 				 *
@@ -18146,7 +18146,7 @@ export type ListSiteDatabaseBranchesStatus200 = {
 							 * Format: `int64`
 							 * @type integer | undefined
 							 */
-							suspend_timeout_seconds?: bigint | undefined;
+							suspend_timeout_seconds?: number | undefined;
 							/**
 							 * @description When the compute endpoint was last active
 							 *
@@ -18175,7 +18175,7 @@ export type ListSiteDatabaseBranchesStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -18250,7 +18250,7 @@ export type GetSiteDatabaseBranchStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -18289,7 +18289,7 @@ export type DeleteSiteDatabaseBranchStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -18376,7 +18376,7 @@ export type ResetSiteDatabaseBranchStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -18447,7 +18447,7 @@ export type SetSiteDatabaseBranchComputeSettingsStatus200 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	sleep_timeout_seconds?: bigint | undefined;
+	sleep_timeout_seconds?: number | undefined;
 };
 
 export type SetSiteDatabaseBranchComputeSettingsStatus403 = unknown;
@@ -18458,7 +18458,7 @@ export type SetSiteDatabaseBranchComputeSettingsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -18492,7 +18492,7 @@ export type SetSiteDatabaseBranchComputeSettingsBody = {
 	 * @minLength -1
 	 * @type integer | undefined
 	 */
-	sleep_timeout_seconds?: (bigint | null) | undefined;
+	sleep_timeout_seconds?: (number | null) | undefined;
 };
 
 export type SetSiteDatabaseBranchComputeSettingsOptions = {
@@ -18543,7 +18543,7 @@ export type SetSiteDatabaseComputeSettingsStatus200 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	sleep_timeout_seconds?: bigint | undefined;
+	sleep_timeout_seconds?: number | undefined;
 };
 
 export type SetSiteDatabaseComputeSettingsStatus403 = unknown;
@@ -18554,7 +18554,7 @@ export type SetSiteDatabaseComputeSettingsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -18588,7 +18588,7 @@ export type SetSiteDatabaseComputeSettingsBody = {
 	 * @minLength -1
 	 * @type integer | undefined
 	 */
-	sleep_timeout_seconds?: (bigint | null) | undefined;
+	sleep_timeout_seconds?: (number | null) | undefined;
 };
 
 export type SetSiteDatabaseComputeSettingsOptions = {
@@ -18638,7 +18638,7 @@ export type GetSiteDatabaseComputeSettingsStatus200 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	sleep_timeout_seconds?: bigint | undefined;
+	sleep_timeout_seconds?: number | undefined;
 };
 
 export type GetSiteDatabaseComputeSettingsStatus403 = unknown;
@@ -18649,7 +18649,7 @@ export type GetSiteDatabaseComputeSettingsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -18685,7 +18685,7 @@ export type ClearSiteDatabaseComputeSettingsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -18736,7 +18736,7 @@ export type ListSiteDatabaseMigrationsStatus200 = {
 				 * Format: `int64`
 				 * @type integer | undefined
 				 */
-				version?: bigint | undefined;
+				version?: number | undefined;
 				/**
 				 * @description The migration name
 				 * @type string | undefined
@@ -18766,7 +18766,7 @@ export type ListSiteDatabaseMigrationsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -18817,7 +18817,7 @@ export type GetSiteDatabaseMigrationStatus200 = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	version?: bigint | undefined;
+	version?: number | undefined;
 	/**
 	 * @description The migration name
 	 * @type string | undefined
@@ -18845,7 +18845,7 @@ export type GetSiteDatabaseMigrationStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -18889,7 +18889,7 @@ export type RunSiteDatabaseMigrationsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -19001,7 +19001,7 @@ export type CreateSiteDatabaseSnapshotStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -19146,7 +19146,7 @@ export type ListSiteDatabaseSnapshotsStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -19184,7 +19184,7 @@ export type DeleteSiteDatabaseSnapshotStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -19222,7 +19222,7 @@ export type RestoreSiteDatabaseSnapshotStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 
@@ -19273,7 +19273,7 @@ export type UpdatePluginStatusDefault = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	code?: bigint | undefined;
+	code?: number | undefined;
 	message: string;
 };
 

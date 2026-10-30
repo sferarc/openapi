@@ -39,6 +39,18 @@ const isBinary = (contentType: string) => {
 	return binaryMediaTypes.has(mediaType) || /^(image|audio|video|font)\//.test(mediaType);
 };
 
+const isJsonMediaType = (contentType: string | undefined) =>
+	contentType?.split(";")[0]?.trim().toLowerCase() === "application/json";
+
+// Bytes, streams and forms go out as they are, whatever the Content-Type says.
+const isSentAsIs = (body: unknown) =>
+	body instanceof FormData ||
+	body instanceof URLSearchParams ||
+	body instanceof Blob ||
+	body instanceof ArrayBuffer ||
+	ArrayBuffer.isView(body) ||
+	body instanceof ReadableStream;
+
 class ResponseError {
 	constructor(readonly error: ErrorWrapper<unknown>) {}
 }
@@ -81,12 +93,16 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 			delete requestHeaders["Content-Type"];
 		}
 
+		// An operation with a raw body sets its own Content-Type, so a string under one, such as an R2 object's `application/json`, is already the body.
+		const ownContentType = Object.keys(headers ?? {}).some(
+			(name) => name.toLowerCase() === "content-type",
+		);
 		const payload =
-			body instanceof FormData
-				? body
-				: requestHeaders["Content-Type"] === "application/json"
-					? JSON.stringify(body)
-					: (body as RequestInit["body"]);
+			isJsonMediaType(requestHeaders["Content-Type"]) &&
+			!isSentAsIs(body) &&
+			!(typeof body === "string" && ownContentType)
+				? JSON.stringify(body)
+				: (body as RequestInit["body"]);
 
 		// Every operation path starts with a slash, so one ending the base URL would send `//path`.
 		const fullUrl = `${baseUrl.replace(/\/+$/, "")}${resolveUrl(url, queryParams, pathParams)}`;
