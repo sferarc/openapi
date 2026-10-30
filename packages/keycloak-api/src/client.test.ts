@@ -128,6 +128,25 @@ describe("KeycloakAccountApi.request", () => {
 		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/realms\/main\/account\/$/);
 	});
 
+	it("joins a base URL that ends in a slash without doubling it", async () => {
+		const urls: string[] = [];
+		const fetch: FetchImpl = async (url) => {
+			urls.push(url);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		const client = new KeycloakAccountApi({
+			baseUrl: "https://keycloak.example.com/",
+			realm: "main",
+			token: "token",
+			fetch,
+		});
+		await client.request("GET /account/", {});
+		expect(urls).toEqual(["https://keycloak.example.com/realms/main/account/"]);
+	});
+
 	it("rejects an unknown endpoint", async () => {
 		const { client } = setup();
 		await expect(client.request("GET /nope" as never, {} as never)).rejects.toThrow(

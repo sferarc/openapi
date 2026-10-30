@@ -96,6 +96,19 @@ describe("fetcher", () => {
 		).resolves.toEqual({ ok: true });
 	});
 
+	it("joins a base path that ends in a slash without doubling it", async () => {
+		let requested = "";
+		const fetchImpl: FetchImpl = async (url) => {
+			requested = url;
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		await client({ url: "/thing", method: "get", basePath: "/api/v1/", fetchImpl });
+		expect(requested).toBe("https://api.netlify.com/api/v1/thing");
+	});
+
 	describe("query string", () => {
 		const searchOf = async (queryParams: Record<string, unknown>) => {
 			let requested = "";

@@ -88,7 +88,8 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 					? JSON.stringify(body)
 					: (body as RequestInit["body"]);
 
-		const fullUrl = `${baseUrl}${resolveUrl(url, queryParams, pathParams)}`;
+		// Every operation path starts with a slash, so one ending the base URL would send `//path`.
+		const fullUrl = `${baseUrl.replace(/\/+$/, "")}${resolveUrl(url, queryParams, pathParams)}`;
 
 		const response = await fetchImpl(fullUrl, {
 			signal,
