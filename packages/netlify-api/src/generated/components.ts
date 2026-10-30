@@ -803,7 +803,7 @@ export async function getAllCertificates(
 		config,
 	}: {
 		pathParams: GetAllCertificatesPath;
-		queryParams?: Partial<GetAllCertificatesQuery>;
+		queryParams: GetAllCertificatesQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -817,7 +817,7 @@ export async function getAllCertificates(
 		ErrorWrapper<GetAllCertificatesStatus404 | GetAllCertificatesStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetAllCertificatesQuery>,
+		GetAllCertificatesQuery,
 		GetAllCertificatesPath
 	>({
 		method: "GET",
@@ -1409,7 +1409,7 @@ export async function createSiteAsset(
 		config,
 	}: {
 		pathParams: CreateSiteAssetPath;
-		queryParams?: Partial<CreateSiteAssetQuery>;
+		queryParams: CreateSiteAssetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1423,7 +1423,7 @@ export async function createSiteAsset(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		Partial<CreateSiteAssetQuery>,
+		CreateSiteAssetQuery,
 		CreateSiteAssetPath
 	>({
 		method: "POST",
@@ -1488,7 +1488,7 @@ export async function updateSiteAsset(
 		config,
 	}: {
 		pathParams: UpdateSiteAssetPath;
-		queryParams?: Partial<UpdateSiteAssetQuery>;
+		queryParams: UpdateSiteAssetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1506,7 +1506,7 @@ export async function updateSiteAsset(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		Partial<UpdateSiteAssetQuery>,
+		UpdateSiteAssetQuery,
 		UpdateSiteAssetPath
 	>({
 		method: "PUT",
@@ -2633,7 +2633,7 @@ export async function disableSite(
 		config,
 	}: {
 		pathParams: DisableSitePath;
-		queryParams?: Partial<DisableSiteQuery>;
+		queryParams: DisableSiteQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2647,7 +2647,7 @@ export async function disableSite(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		Partial<DisableSiteQuery>,
+		DisableSiteQuery,
 		DisableSitePath
 	>({
 		method: "PUT",
@@ -3292,7 +3292,7 @@ export async function getLatestPluginRuns(
 		config,
 	}: {
 		pathParams: GetLatestPluginRunsPath;
-		queryParams?: Partial<GetLatestPluginRunsQuery>;
+		queryParams: GetLatestPluginRunsQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3412,7 +3412,7 @@ export async function listHooksBySiteId(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ListHooksBySiteIdQuery>;
+		queryParams: ListHooksBySiteIdQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3423,7 +3423,7 @@ export async function listHooksBySiteId(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		Partial<ListHooksBySiteIdQuery>,
+		ListHooksBySiteIdQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -3447,7 +3447,7 @@ export async function createHookBySiteId(
 		config,
 	}: {
 		body: CreateHookBySiteIdBody;
-		queryParams?: Partial<CreateHookBySiteIdQuery>;
+		queryParams: CreateHookBySiteIdQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3458,7 +3458,7 @@ export async function createHookBySiteId(
 		ErrorWrapper<Error>,
 		CreateHookBySiteIdBody,
 		Record<string, string>,
-		Partial<CreateHookBySiteIdQuery>,
+		CreateHookBySiteIdQuery,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -3661,7 +3661,7 @@ export async function createTicket(
 		config,
 	}: {
 		body?: CreateTicketBody;
-		queryParams?: Partial<CreateTicketQuery>;
+		queryParams: CreateTicketQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3672,7 +3672,7 @@ export async function createTicket(
 		ErrorWrapper<CreateTicketStatus401 | CreateTicketStatus422>,
 		CreateTicketBody,
 		Record<string, string>,
-		Partial<CreateTicketQuery>,
+		CreateTicketQuery,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -4426,7 +4426,7 @@ export async function listAgentRunners(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ListAgentRunnersQuery>;
+		queryParams: ListAgentRunnersQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4437,7 +4437,7 @@ export async function listAgentRunners(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		Partial<ListAgentRunnersQuery>,
+		ListAgentRunnersQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4459,7 +4459,7 @@ export async function createAgentRunner(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<CreateAgentRunnerQuery>;
+		queryParams: CreateAgentRunnerQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4544,7 +4544,7 @@ export async function createAgentRunnerUploadUrl(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<CreateAgentRunnerUploadUrlQuery>;
+		queryParams: CreateAgentRunnerUploadUrlQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4555,7 +4555,7 @@ export async function createAgentRunnerUploadUrl(
 		ErrorWrapper<CreateAgentRunnerUploadUrlStatus400 | CreateAgentRunnerUploadUrlStatus422>,
 		null,
 		Record<string, string>,
-		Partial<CreateAgentRunnerUploadUrlQuery>,
+		CreateAgentRunnerUploadUrlQuery,
 		Record<string, string>
 	>({
 		method: "POST",
@@ -4836,7 +4836,7 @@ export async function agentRunnerCommitToBranch(
 		config,
 	}: {
 		pathParams: AgentRunnerCommitToBranchPath;
-		queryParams?: Partial<AgentRunnerCommitToBranchQuery>;
+		queryParams: AgentRunnerCommitToBranchQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4854,7 +4854,7 @@ export async function agentRunnerCommitToBranch(
 		>,
 		null,
 		Record<string, string>,
-		Partial<AgentRunnerCommitToBranchQuery>,
+		AgentRunnerCommitToBranchQuery,
 		AgentRunnerCommitToBranchPath
 	>({
 		method: "POST",
@@ -6061,7 +6061,7 @@ export async function transferDnsZone(
 		config,
 	}: {
 		pathParams: TransferDnsZonePath;
-		queryParams?: Partial<TransferDnsZoneQuery>;
+		queryParams: TransferDnsZoneQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -6075,7 +6075,7 @@ export async function transferDnsZone(
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
-		Partial<TransferDnsZoneQuery>,
+		TransferDnsZoneQuery,
 		TransferDnsZonePath
 	>({
 		method: "PUT",

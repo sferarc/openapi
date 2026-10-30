@@ -67,12 +67,17 @@ describe("generated operations", () => {
 
 	it("types parameters with the plugin-ts types, refs and unions included", () => {
 		expect(source).toContain("pathParams: GetMemberPath;");
-		expect(source).toContain("queryParams?: Partial<GetMemberQuery>;");
 		expect(source).toContain("headers?: Partial<GetMemberHeaders>;");
 		expect(source).not.toMatch(/: unknown\b/);
 
 		expect(types).toContain("cursor?: (Cursor | null) | undefined;");
 		expect(types).toContain("status?: (GetMemberStatusKey | number) | undefined;");
+	});
+
+	it("requires queryParams only when the operation has a required query parameter", () => {
+		expect(source).toContain("queryParams: GetMemberQuery;");
+		expect(types).toContain("fields: string;");
+		expect(source).toContain("queryParams?: Partial<ListZonesQuery>;");
 	});
 
 	it("encodes path parameters, keeps a falsy value and forwards query and header params", async () => {

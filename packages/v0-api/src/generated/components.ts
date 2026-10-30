@@ -1581,7 +1581,7 @@ export async function deploymentsFind(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<DeploymentsFindQuery>;
+		queryParams: DeploymentsFindQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -1601,7 +1601,7 @@ export async function deploymentsFind(
 		>,
 		null,
 		Record<string, string>,
-		Partial<DeploymentsFindQuery>,
+		DeploymentsFindQuery,
 		Record<string, string>
 	>({
 		method: "GET",

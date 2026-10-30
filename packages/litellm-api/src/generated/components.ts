@@ -3996,7 +3996,7 @@ export async function supportedOpenaiParamsUtilsSupportedOpenaiParamsGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<SupportedOpenaiParamsUtilsSupportedOpenaiParamsGetQuery>;
+		queryParams: SupportedOpenaiParamsUtilsSupportedOpenaiParamsGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4007,7 +4007,7 @@ export async function supportedOpenaiParamsUtilsSupportedOpenaiParamsGet(
 		ErrorWrapper<SupportedOpenaiParamsUtilsSupportedOpenaiParamsGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<SupportedOpenaiParamsUtilsSupportedOpenaiParamsGetQuery>,
+		SupportedOpenaiParamsUtilsSupportedOpenaiParamsGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -4037,7 +4037,7 @@ export async function modelInfoLookupUtilsModelInfoGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ModelInfoLookupUtilsModelInfoGetQuery>;
+		queryParams: ModelInfoLookupUtilsModelInfoGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4048,7 +4048,7 @@ export async function modelInfoLookupUtilsModelInfoGet(
 		ErrorWrapper<ModelInfoLookupUtilsModelInfoGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<ModelInfoLookupUtilsModelInfoGetQuery>,
+		ModelInfoLookupUtilsModelInfoGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -10955,7 +10955,7 @@ export async function deletePassThroughEndpointsConfigPassThroughEndpointDelete(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<DeletePassThroughEndpointsConfigPassThroughEndpointDeleteQuery>;
+		queryParams: DeletePassThroughEndpointsConfigPassThroughEndpointDeleteQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -10966,7 +10966,7 @@ export async function deletePassThroughEndpointsConfigPassThroughEndpointDelete(
 		ErrorWrapper<DeletePassThroughEndpointsConfigPassThroughEndpointDeleteStatus422>,
 		null,
 		Record<string, string>,
-		Partial<DeletePassThroughEndpointsConfigPassThroughEndpointDeleteQuery>,
+		DeletePassThroughEndpointsConfigPassThroughEndpointDeleteQuery,
 		Record<string, string>
 	>({
 		method: "DELETE",
@@ -11064,7 +11064,7 @@ export async function healthServicesEndpointHealthServicesGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<HealthServicesEndpointHealthServicesGetQuery>;
+		queryParams: HealthServicesEndpointHealthServicesGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -11075,7 +11075,7 @@ export async function healthServicesEndpointHealthServicesGet(
 		ErrorWrapper<HealthServicesEndpointHealthServicesGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<HealthServicesEndpointHealthServicesGetQuery>,
+		HealthServicesEndpointHealthServicesGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -13314,7 +13314,7 @@ export async function getUserDailyActivityAggregatedSearchUserDailyActivityAggre
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQuery>;
+		queryParams: GetUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13325,7 +13325,7 @@ export async function getUserDailyActivityAggregatedSearchUserDailyActivityAggre
 		ErrorWrapper<GetUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQuery>,
+		GetUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -13347,7 +13347,7 @@ export async function getUserDailyActivityModelTopKeysUserDailyActivityAggregate
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQuery>;
+		queryParams: GetUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13358,7 +13358,7 @@ export async function getUserDailyActivityModelTopKeysUserDailyActivityAggregate
 		ErrorWrapper<GetUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQuery>,
+		GetUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -13526,7 +13526,7 @@ export async function getTeamDailyActivityAggregatedSearchTeamDailyActivityAggre
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQuery>;
+		queryParams: GetTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13537,7 +13537,7 @@ export async function getTeamDailyActivityAggregatedSearchTeamDailyActivityAggre
 		ErrorWrapper<GetTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQuery>,
+		GetTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -13559,7 +13559,7 @@ export async function getTeamDailyActivityModelTopKeysTeamDailyActivityAggregate
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQuery>;
+		queryParams: GetTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13570,7 +13570,7 @@ export async function getTeamDailyActivityModelTopKeysTeamDailyActivityAggregate
 		ErrorWrapper<GetTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQuery>,
+		GetTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -13691,7 +13691,7 @@ export async function getTagDailyActivityAggregatedSearchTagDailyActivityAggrega
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetQuery>;
+		queryParams: GetTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13702,7 +13702,7 @@ export async function getTagDailyActivityAggregatedSearchTagDailyActivityAggrega
 		ErrorWrapper<GetTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetQuery>,
+		GetTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -13724,7 +13724,7 @@ export async function getTagDailyActivityModelTopKeysTagDailyActivityAggregatedM
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQuery>;
+		queryParams: GetTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -13735,7 +13735,7 @@ export async function getTagDailyActivityModelTopKeysTagDailyActivityAggregatedM
 		ErrorWrapper<GetTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQuery>,
+		GetTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -14186,7 +14186,7 @@ export async function getAgentDailyActivityAggregatedSearchAgentDailyActivityAgg
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQuery>;
+		queryParams: GetAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14197,7 +14197,7 @@ export async function getAgentDailyActivityAggregatedSearchAgentDailyActivityAgg
 		ErrorWrapper<GetAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQuery>,
+		GetAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -14219,7 +14219,7 @@ export async function getAgentDailyActivityModelTopKeysAgentDailyActivityAggrega
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQuery>;
+		queryParams: GetAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -14230,7 +14230,7 @@ export async function getAgentDailyActivityModelTopKeysAgentDailyActivityAggrega
 		ErrorWrapper<GetAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQuery>,
+		GetAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -15826,7 +15826,7 @@ export async function infoOrganizationOrganizationInfoGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<InfoOrganizationOrganizationInfoGetQuery>;
+		queryParams: InfoOrganizationOrganizationInfoGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -15837,7 +15837,7 @@ export async function infoOrganizationOrganizationInfoGet(
 		ErrorWrapper<InfoOrganizationOrganizationInfoGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<InfoOrganizationOrganizationInfoGetQuery>,
+		InfoOrganizationOrganizationInfoGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -16199,7 +16199,7 @@ export async function endUserInfoCustomerInfoGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<EndUserInfoCustomerInfoGetQuery>;
+		queryParams: EndUserInfoCustomerInfoGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16210,7 +16210,7 @@ export async function endUserInfoCustomerInfoGet(
 		ErrorWrapper<EndUserInfoCustomerInfoGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<EndUserInfoCustomerInfoGetQuery>,
+		EndUserInfoCustomerInfoGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -16795,7 +16795,7 @@ export async function getSpendCaptureRateSpendCaptureRateGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetSpendCaptureRateSpendCaptureRateGetQuery>;
+		queryParams: GetSpendCaptureRateSpendCaptureRateGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -16806,7 +16806,7 @@ export async function getSpendCaptureRateSpendCaptureRateGet(
 		ErrorWrapper<GetSpendCaptureRateSpendCaptureRateGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetSpendCaptureRateSpendCaptureRateGetQuery>,
+		GetSpendCaptureRateSpendCaptureRateGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -18730,7 +18730,7 @@ export async function budgetSettingsBudgetSettingsGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<BudgetSettingsBudgetSettingsGetQuery>;
+		queryParams: BudgetSettingsBudgetSettingsGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -18741,7 +18741,7 @@ export async function budgetSettingsBudgetSettingsGet(
 		ErrorWrapper<BudgetSettingsBudgetSettingsGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<BudgetSettingsBudgetSettingsGetQuery>,
+		BudgetSettingsBudgetSettingsGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -19771,7 +19771,7 @@ export async function getAutoRouterSessionAutoRouterSessionGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetAutoRouterSessionAutoRouterSessionGetQuery>;
+		queryParams: GetAutoRouterSessionAutoRouterSessionGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -19782,7 +19782,7 @@ export async function getAutoRouterSessionAutoRouterSessionGet(
 		ErrorWrapper<GetAutoRouterSessionAutoRouterSessionGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetAutoRouterSessionAutoRouterSessionGetQuery>,
+		GetAutoRouterSessionAutoRouterSessionGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -22096,7 +22096,7 @@ export async function contentLensWorkerLensIdJobIdContentGet(
 		config,
 	}: {
 		pathParams: ContentLensWorkerLensIdJobIdContentGetPath;
-		queryParams?: Partial<ContentLensWorkerLensIdJobIdContentGetQuery>;
+		queryParams: ContentLensWorkerLensIdJobIdContentGetQuery;
 		headers?: Partial<ContentLensWorkerLensIdJobIdContentGetHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -22115,7 +22115,7 @@ export async function contentLensWorkerLensIdJobIdContentGet(
 		ErrorWrapper<ContentLensWorkerLensIdJobIdContentGetStatus422>,
 		null,
 		Partial<ContentLensWorkerLensIdJobIdContentGetHeaders>,
-		Partial<ContentLensWorkerLensIdJobIdContentGetQuery>,
+		ContentLensWorkerLensIdJobIdContentGetQuery,
 		ContentLensWorkerLensIdJobIdContentGetPath
 	>({
 		method: "GET",
@@ -22690,7 +22690,7 @@ export async function getPromptCachingRequestsCostOptimizationPromptCachingReque
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQuery>;
+		queryParams: GetPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -22701,7 +22701,7 @@ export async function getPromptCachingRequestsCostOptimizationPromptCachingReque
 		ErrorWrapper<GetPromptCachingRequestsCostOptimizationPromptCachingRequestsGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQuery>,
+		GetPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -23314,7 +23314,7 @@ export async function getTagSummaryTagSummaryGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<GetTagSummaryTagSummaryGetQuery>;
+		queryParams: GetTagSummaryTagSummaryGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23325,7 +23325,7 @@ export async function getTagSummaryTagSummaryGet(
 		ErrorWrapper<GetTagSummaryTagSummaryGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<GetTagSummaryTagSummaryGetQuery>,
+		GetTagSummaryTagSummaryGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -23842,7 +23842,7 @@ export async function projectInfoProjectInfoGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ProjectInfoProjectInfoGetQuery>;
+		queryParams: ProjectInfoProjectInfoGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -23853,7 +23853,7 @@ export async function projectInfoProjectInfoGet(
 		ErrorWrapper<ProjectInfoProjectInfoGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<ProjectInfoProjectInfoGetQuery>,
+		ProjectInfoProjectInfoGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -27595,7 +27595,7 @@ export async function comparePolicyVersionsPoliciesCompareGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ComparePolicyVersionsPoliciesCompareGetQuery>;
+		queryParams: ComparePolicyVersionsPoliciesCompareGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -27606,7 +27606,7 @@ export async function comparePolicyVersionsPoliciesCompareGet(
 		ErrorWrapper<ComparePolicyVersionsPoliciesCompareGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<ComparePolicyVersionsPoliciesCompareGetQuery>,
+		ComparePolicyVersionsPoliciesCompareGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -32887,7 +32887,7 @@ export async function authorizeAuthorizeGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<AuthorizeAuthorizeGetQuery>;
+		queryParams: AuthorizeAuthorizeGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -32898,7 +32898,7 @@ export async function authorizeAuthorizeGet(
 		ErrorWrapper<AuthorizeAuthorizeGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<AuthorizeAuthorizeGetQuery>,
+		AuthorizeAuthorizeGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -32972,7 +32972,7 @@ export async function authorizeFlowAuthorizeFlowGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<AuthorizeFlowAuthorizeFlowGetQuery>;
+		queryParams: AuthorizeFlowAuthorizeFlowGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -32983,7 +32983,7 @@ export async function authorizeFlowAuthorizeFlowGet(
 		ErrorWrapper<AuthorizeFlowAuthorizeFlowGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<AuthorizeFlowAuthorizeFlowGetQuery>,
+		AuthorizeFlowAuthorizeFlowGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -33005,7 +33005,7 @@ export async function authorizeMcpSessionAuthorizeMcpSessionGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<AuthorizeMcpSessionAuthorizeMcpSessionGetQuery>;
+		queryParams: AuthorizeMcpSessionAuthorizeMcpSessionGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -33016,7 +33016,7 @@ export async function authorizeMcpSessionAuthorizeMcpSessionGet(
 		ErrorWrapper<AuthorizeMcpSessionAuthorizeMcpSessionGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<AuthorizeMcpSessionAuthorizeMcpSessionGetQuery>,
+		AuthorizeMcpSessionAuthorizeMcpSessionGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",
@@ -33273,7 +33273,7 @@ export async function authorizeMcpServerNameAuthorizeGet(
 		config,
 	}: {
 		pathParams: AuthorizeMcpServerNameAuthorizeGetPath;
-		queryParams?: Partial<AuthorizeMcpServerNameAuthorizeGetQuery>;
+		queryParams: AuthorizeMcpServerNameAuthorizeGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -33287,7 +33287,7 @@ export async function authorizeMcpServerNameAuthorizeGet(
 		ErrorWrapper<AuthorizeMcpServerNameAuthorizeGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<AuthorizeMcpServerNameAuthorizeGetQuery>,
+		AuthorizeMcpServerNameAuthorizeGetQuery,
 		AuthorizeMcpServerNameAuthorizeGetPath
 	>({
 		method: "GET",
@@ -37463,7 +37463,7 @@ export async function infoJwtKeyMappingJwtKeyMappingInfoGet(
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<InfoJwtKeyMappingJwtKeyMappingInfoGetQuery>;
+		queryParams: InfoJwtKeyMappingJwtKeyMappingInfoGetQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -37474,7 +37474,7 @@ export async function infoJwtKeyMappingJwtKeyMappingInfoGet(
 		ErrorWrapper<InfoJwtKeyMappingJwtKeyMappingInfoGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<InfoJwtKeyMappingJwtKeyMappingInfoGetQuery>,
+		InfoJwtKeyMappingJwtKeyMappingInfoGetQuery,
 		Record<string, string>
 	>({
 		method: "GET",

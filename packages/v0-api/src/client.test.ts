@@ -41,6 +41,10 @@ describe("V0Api.request", () => {
 			client.request("GET /chats/{chatId}", { pathParams: { chatId: "a" }, nope: 1 }),
 			// @ts-expect-error pathParams needs chatId
 			client.api.chats.chatsGetById({ pathParams: {} }),
+			// @ts-expect-error the spec requires the chatId and versionId query params
+			client.request("GET /deployments"),
+			// @ts-expect-error queryParams needs versionId
+			client.api.deployments.deploymentsFind({ queryParams: { projectId: "p", chatId: "c" } }),
 		];
 		expect(typeChecks).toBeTypeOf("function");
 	});
