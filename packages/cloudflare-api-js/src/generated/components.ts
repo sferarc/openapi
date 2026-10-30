@@ -15288,9 +15288,6 @@ import type {
 	Zones0HoldPostQuery,
 	Zones0HoldPostResponse,
 	Zones0HoldPostStatus400,
-	Zones0HoldZoneNameGetPath,
-	Zones0HoldZoneNameGetResponse,
-	Zones0HoldZoneNameGetStatus400,
 	Zones0PatchBody,
 	Zones0PatchPath,
 	Zones0PatchResponse,
@@ -156317,50 +156314,6 @@ export async function zones0HoldPost(
 }
 
 /**
- * @summary Get Zone Hold by Zone Name
- * @description Retrieve whether a given hostname is subject to a zone hold, and metadata about the hold.
- * This endpoint checks whether the given hostname (or any of its ancestor domains) is blocked
- * by an active zone hold. If a hold with `include_subdomains` is active on an ancestor domain,
- * that hold is returned. This endpoint is used internally by SSL/COMS to check hold status
- * during zone activation.
- * @link /zones/{zoneId}/hold/{zoneName}
- */
-export async function zones0HoldZoneNameGet(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: Zones0HoldZoneNameGetPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
-		throw new Error(`Missing required path parameter: zoneId`);
-	}
-
-	if (pathParams?.zoneName == null || String(pathParams.zoneName) === "") {
-		throw new Error(`Missing required path parameter: zoneName`);
-	}
-	const data = await request<
-		Zones0HoldZoneNameGetResponse,
-		ErrorWrapper<Zones0HoldZoneNameGetStatus400>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		Zones0HoldZoneNameGetPath
-	>({
-		method: "GET",
-		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/hold/${encodeURIComponent(String(pathParams.zoneName))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary List TLS setting for hostnames
  * @description List the requested TLS setting for the hostnames under this zone.
  * @link /zones/{zoneId}/hostnames/settings/{settingId}
@@ -175859,7 +175812,6 @@ export const operationsByPath = {
 	"GET /zones/{zoneId}/hold": zones0HoldGet,
 	"PATCH /zones/{zoneId}/hold": zones0HoldPatch,
 	"POST /zones/{zoneId}/hold": zones0HoldPost,
-	"GET /zones/{zoneId}/hold/{zoneName}": zones0HoldZoneNameGet,
 	"GET /zones/{zoneId}/hostnames/settings/{settingId}": perHostnameTlsSettingsList,
 	"DELETE /zones/{zoneId}/hostnames/settings/{settingId}/{hostname}": perHostnameTlsSettingsDelete,
 	"GET /zones/{zoneId}/hostnames/settings/{settingId}/{hostname}": perHostnameTlsSettingsGet,
@@ -180920,7 +180872,6 @@ export const operationsByTag = {
 		zones0HoldGet,
 		zones0HoldPatch,
 		zones0HoldPost,
-		zones0HoldZoneNameGet,
 	},
 	perHostnameTlsSettings: {
 		perHostnameTlsSettingsList,
@@ -186135,7 +186086,7 @@ export const tagDictionary = {
 	},
 	zoneHolds: {
 		DELETE: ["zones0HoldDelete"],
-		GET: ["zones0HoldGet", "zones0HoldZoneNameGet"],
+		GET: ["zones0HoldGet"],
 		PATCH: ["zones0HoldPatch"],
 		POST: ["zones0HoldPost"],
 	},
