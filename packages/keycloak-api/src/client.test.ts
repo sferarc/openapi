@@ -255,3 +255,57 @@ describe("Keycloak raw string bodies", () => {
 		]);
 	});
 });
+
+describe("Keycloak workflow resource type", () => {
+	function setup() {
+		const requests: { url: string; method: string | undefined }[] = [];
+		const fetch: FetchImpl = async (url, init) => {
+			requests.push({ url, method: init?.method });
+			return new Response(null, { status: 204 }) as never;
+		};
+		return {
+			requests,
+			admin: new KeycloakAdminApi({
+				baseUrl: "https://keycloak.example.com",
+				token: "token",
+				fetch,
+			}),
+		};
+	}
+
+	it.each(["activate", "deactivate"] as const)(
+		"sends the resource type of %s by its enum name",
+		async (action) => {
+			const { requests, admin } = setup();
+			await admin.request(
+				`POST /admin/realms/{realm}/workflows/{id}/${action}/{type}/{resourceId}`,
+				{
+					pathParams: { realm: "realm", id: "workflow", type: "USERS", resourceId: "user" },
+				},
+			);
+			// JAX-RS binds the segment with ResourceType.valueOf, so it must be the bare name.
+			expect(requests).toEqual([
+				{
+					url: `https://keycloak.example.com/admin/realms/realm/workflows/workflow/${action}/USERS/user`,
+					method: "POST",
+				},
+			]);
+		},
+	);
+
+	it("types the resource type as the ResourceType names", () => {
+		const { admin } = setup();
+		const endpoint = "POST /admin/realms/{realm}/workflows/{id}/activate/{type}/{resourceId}";
+		// Never called: tsc fails if a @ts-expect-error below stops finding an error.
+		const typeChecks = () => [
+			admin.request(endpoint, {
+				pathParams: { realm: "realm", id: "workflow", type: "CLIENTS", resourceId: "client" },
+			}),
+			admin.request(endpoint, {
+				// @ts-expect-error ResourceType has no such name
+				pathParams: { realm: "realm", id: "workflow", type: "users", resourceId: "user" },
+			}),
+		];
+		expect(typeChecks).toBeTypeOf("function");
+	});
+});
