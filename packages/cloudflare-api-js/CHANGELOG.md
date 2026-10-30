@@ -1,5 +1,11 @@
 # cloudflare-api-js
 
+## 4.0.3
+
+### Patch Changes
+
+- 3ec6a22: Loosened types for request or response payloads in several operations, improving flexibility and compatibility.
+
 ## 4.0.2
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # litellm-api
 
+## 2.2.0
+
+### Minor Changes
+
+- 66ec126: [BREAKING] Dynamic MCP route operations have been renamed and reordered: the PUT, OPTIONS, POST, DELETE, GET, HEAD, and PATCH methods now appear in different positions and with different names.
+- 66ec126: [BREAKING] Toolset MCP route operations have been renamed and reordered: the PUT, OPTIONS, POST, DELETE, GET, HEAD, and PATCH methods now appear in different positions and with different names.
+- 66ec126: [BREAKING] Several type exports for Toolset MCP and Dynamic MCP routes have been removed and replaced with differently named type exports to match the new operation order and names.
+
 ## 2.1.10
 
 ### Patch Changes
