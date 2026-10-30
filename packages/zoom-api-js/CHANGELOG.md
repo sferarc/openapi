@@ -1,5 +1,11 @@
 # zoom-api-js
 
+## 3.0.2
+
+### Patch Changes
+
+- 4f6c5ba: Give `require` its own CommonJS type declarations. Every entry pointed both `import` and `require` at one ESM declaration file, so a CommonJS project using `moduleResolution: node16` or `nodenext` got ESM types for the CommonJS build.
+
 ## 3.0.1
 
 ### Patch Changes
