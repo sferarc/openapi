@@ -1,5 +1,15 @@
 # vercel-api-js
 
+## 2.5.10
+
+### Patch Changes
+
+- 31124b0: Added the optional codeChannels property to ConnectConnectorCreateData and ConnectConnectorUpdateData types for Slack app code channel settings.
+- 31124b0: Added discoveryLayout enum and field to ListKmsIssuersStatus200, CreateKmsIssuerStatus201, RevokeKmsSigningKeyStatus200, GetKmsIssuerStatus200, and UpdateKmsIssuerStatus200 types.
+- 31124b0: Updated SubmitBillingDataBody to allow billing and period end dates up to 30 days earlier instead of 24 hours.
+- 31124b0: Added gitComments and gitProviderOptions fields to UpdateProjectBody for enhanced Git integration options.
+- 31124b0: Added response type for createKmsIssuer 409 status.
+
 ## 2.5.9
 
 ### Patch Changes
