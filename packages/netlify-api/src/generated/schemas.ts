@@ -891,7 +891,7 @@ export const envVarSchema = z
 				"Secret values are only readable by code running on Netlify's systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.",
 			),
 		updated_at: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The timestamp of when the value was last updated"),
 		updated_by: z
@@ -3463,7 +3463,7 @@ export const getEnvVarsStatus200Schema = z.array(
 				"Secret values are only readable by code running on Netlify's systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.",
 			),
 		updated_at: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The timestamp of when the value was last updated"),
 		updated_by: z
@@ -3561,7 +3561,7 @@ export const createEnvVarsStatus201Schema = z.array(
 				"Secret values are only readable by code running on Netlify's systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.",
 			),
 		updated_at: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The timestamp of when the value was last updated"),
 		updated_by: z
@@ -3710,7 +3710,7 @@ export const getSiteEnvVarsStatus200Schema = z.array(
 				"Secret values are only readable by code running on Netlify's systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.",
 			),
 		updated_at: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The timestamp of when the value was last updated"),
 		updated_by: z
@@ -3810,7 +3810,7 @@ export const getEnvVarStatus200Schema = z
 				"Secret values are only readable by code running on Netlify's systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.",
 			),
 		updated_at: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The timestamp of when the value was last updated"),
 		updated_by: z
@@ -3907,7 +3907,7 @@ export const updateEnvVarStatus200Schema = z
 				"Secret values are only readable by code running on Netlify's systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.",
 			),
 		updated_at: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The timestamp of when the value was last updated"),
 		updated_by: z
@@ -4054,7 +4054,7 @@ export const setEnvVarValueStatus201Schema = z
 				"Secret values are only readable by code running on Netlify's systems. With secrets, only the local development context values are readable from the UI, API, and CLI. By default, environment variable values are not secret.",
 			),
 		updated_at: z.iso
-			.datetime()
+			.datetime({ offset: true })
 			.optional()
 			.describe("The timestamp of when the value was last updated"),
 		updated_by: z

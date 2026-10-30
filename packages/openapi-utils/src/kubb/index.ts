@@ -21,7 +21,8 @@ function buildConfig({
 			validate: false,
 			server: { index: 0 },
 			contentType: "application/json",
-			dateType: "string",
+			// RFC 3339 date-times may carry any offset, but a bare z.iso.datetime() only accepts `Z`.
+			dateType: "stringOffset",
 			unknownType: "unknown",
 			enumSuffix: "Enum",
 		}),
