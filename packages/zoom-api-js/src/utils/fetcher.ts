@@ -80,7 +80,7 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 					? JSON.stringify(body)
 					: (body as unknown as string);
 
-		const fullUrl = `${baseUrl}${resolveUrl(url, queryParams, pathParams)}`;
+		const fullUrl = `${baseUrl}${resolveUrl(doubleEncodeSlashedSegments(url), queryParams, pathParams)}`;
 
 		const response = await fetchImpl(fullUrl, {
 			signal,
@@ -123,6 +123,12 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 		throw new Error(`${method.toUpperCase()} ${url.split("?")[0]} failed: ${reason}`, { cause: e });
 	}
 }
+
+// Zoom requires a meeting or webinar UUID that begins with `/` or contains `//` to be encoded twice.
+const doubleEncodeSlashedSegments = (path: string) =>
+	path.replace(/[^/]+/g, (segment) =>
+		/^%2F|%2F%2F/i.test(segment) ? encodeURIComponent(segment) : segment,
+	);
 
 const resolveUrl = (url: string, queryParams: any = {}, pathParams: any = {}) => {
 	const search = new URLSearchParams();
