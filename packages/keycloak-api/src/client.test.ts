@@ -91,6 +91,7 @@ describe("KeycloakAccountApi.request", () => {
 		const { urls, client } = setup();
 		await client.request("GET /account/linked-accounts/{providerId}", {
 			pathParams: { providerId: "a/b" },
+			queryParams: { redirectUri: "https://app.example.com/linked" },
 		});
 		expect(urls).toHaveLength(1);
 		expect(new URL(urls[0] ?? "").pathname).toMatch(
@@ -103,6 +104,7 @@ describe("KeycloakAccountApi.request", () => {
 		await expect(
 			client.request("GET /account/linked-accounts/{providerId}", {
 				pathParams: { providerId: "" },
+				queryParams: { redirectUri: "https://app.example.com/linked" },
 			}),
 		).rejects.toThrow("Missing required path parameter: providerId");
 		expect(urls).toEqual([]);
@@ -116,8 +118,13 @@ describe("KeycloakAccountApi.request", () => {
 			client.request("GET /account/linked-accounts/{providerId}", { pathParams: {} }),
 			// @ts-expect-error pathParams is required
 			client.request("GET /account/linked-accounts/{providerId}"),
+			// @ts-expect-error queryParams is required because the spec requires redirectUri
 			client.request("GET /account/linked-accounts/{providerId}", {
 				pathParams: { providerId: "a" },
+			}),
+			client.request("GET /account/linked-accounts/{providerId}", {
+				pathParams: { providerId: "a" },
+				queryParams: { redirectUri: "https://app.example.com/linked" },
 				// @ts-expect-error the operation has no such parameter
 				nope: 1,
 			}),
