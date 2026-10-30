@@ -37152,7 +37152,7 @@ export async function aigConfigDeleteGatewayLogs(
 		config,
 	}: {
 		pathParams: AigConfigDeleteGatewayLogsPath;
-		queryParams: AigConfigDeleteGatewayLogsQuery;
+		queryParams?: Partial<AigConfigDeleteGatewayLogsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -37170,7 +37170,7 @@ export async function aigConfigDeleteGatewayLogs(
 		ErrorWrapper<AigConfigDeleteGatewayLogsStatus400>,
 		null,
 		Record<string, string>,
-		AigConfigDeleteGatewayLogsQuery,
+		Partial<AigConfigDeleteGatewayLogsQuery>,
 		AigConfigDeleteGatewayLogsPath
 	>({
 		method: "DELETE",
@@ -37195,7 +37195,7 @@ export async function aigConfigListGatewayLogs(
 		config,
 	}: {
 		pathParams: AigConfigListGatewayLogsPath;
-		queryParams: AigConfigListGatewayLogsQuery;
+		queryParams?: Partial<AigConfigListGatewayLogsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -37213,7 +37213,7 @@ export async function aigConfigListGatewayLogs(
 		ErrorWrapper<AigConfigListGatewayLogsStatus400>,
 		null,
 		Record<string, string>,
-		AigConfigListGatewayLogsQuery,
+		Partial<AigConfigListGatewayLogsQuery>,
 		AigConfigListGatewayLogsPath
 	>({
 		method: "GET",
@@ -52376,7 +52376,7 @@ export async function getEventListGet(
 		config,
 	}: {
 		pathParams: GetEventListGetPath;
-		queryParams: GetEventListGetQuery;
+		queryParams?: Partial<GetEventListGetQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -52390,7 +52390,7 @@ export async function getEventListGet(
 		ErrorWrapper<GetEventListGetStatus400>,
 		null,
 		Record<string, string>,
-		GetEventListGetQuery,
+		Partial<GetEventListGetQuery>,
 		GetEventListGetPath
 	>({
 		method: "GET",
@@ -54070,7 +54070,7 @@ export async function getIndicatorRelationshipsList(
 		config,
 	}: {
 		pathParams: GetIndicatorRelationshipsListPath;
-		queryParams: GetIndicatorRelationshipsListQuery;
+		queryParams?: Partial<GetIndicatorRelationshipsListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -54092,7 +54092,7 @@ export async function getIndicatorRelationshipsList(
 		ErrorWrapper<GetIndicatorRelationshipsListStatus400>,
 		null,
 		Record<string, string>,
-		GetIndicatorRelationshipsListQuery,
+		Partial<GetIndicatorRelationshipsListQuery>,
 		GetIndicatorRelationshipsListPath
 	>({
 		method: "GET",
@@ -54488,7 +54488,7 @@ export async function getDatasetTagIndicatorsList(
 		config,
 	}: {
 		pathParams: GetDatasetTagIndicatorsListPath;
-		queryParams: GetDatasetTagIndicatorsListQuery;
+		queryParams?: Partial<GetDatasetTagIndicatorsListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -54514,7 +54514,7 @@ export async function getDatasetTagIndicatorsList(
 		>,
 		null,
 		Record<string, string>,
-		GetDatasetTagIndicatorsListQuery,
+		Partial<GetDatasetTagIndicatorsListQuery>,
 		GetDatasetTagIndicatorsListPath
 	>({
 		method: "GET",
@@ -55110,7 +55110,7 @@ export async function getIndicatorList(
 		config,
 	}: {
 		pathParams: GetIndicatorListPath;
-		queryParams: GetIndicatorListQuery;
+		queryParams?: Partial<GetIndicatorListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -55124,7 +55124,7 @@ export async function getIndicatorList(
 		ErrorWrapper<GetIndicatorListStatus400>,
 		null,
 		Record<string, string>,
-		GetIndicatorListQuery,
+		Partial<GetIndicatorListQuery>,
 		GetIndicatorListPath
 	>({
 		method: "GET",
@@ -55726,7 +55726,7 @@ export async function getTagList(
 		config,
 	}: {
 		pathParams: GetTagListPath;
-		queryParams: GetTagListQuery;
+		queryParams?: Partial<GetTagListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -55740,7 +55740,7 @@ export async function getTagList(
 		ErrorWrapper<GetTagListStatus400>,
 		null,
 		Record<string, string>,
-		GetTagListQuery,
+		Partial<GetTagListQuery>,
 		GetTagListPath
 	>({
 		method: "GET",
@@ -55804,7 +55804,7 @@ export async function getTaggedActorList(
 		config,
 	}: {
 		pathParams: GetTaggedActorListPath;
-		queryParams: GetTaggedActorListQuery;
+		queryParams?: Partial<GetTaggedActorListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -55818,7 +55818,7 @@ export async function getTaggedActorList(
 		ErrorWrapper<GetTaggedActorListStatus400>,
 		null,
 		Record<string, string>,
-		GetTaggedActorListQuery,
+		Partial<GetTaggedActorListQuery>,
 		GetTaggedActorListPath
 	>({
 		method: "GET",
@@ -56174,7 +56174,7 @@ export async function getTagIndicatorsList(
 		config,
 	}: {
 		pathParams: GetTagIndicatorsListPath;
-		queryParams: GetTagIndicatorsListQuery;
+		queryParams?: Partial<GetTagIndicatorsListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -56194,7 +56194,7 @@ export async function getTagIndicatorsList(
 		>,
 		null,
 		Record<string, string>,
-		GetTagIndicatorsListQuery,
+		Partial<GetTagIndicatorsListQuery>,
 		GetTagIndicatorsListPath
 	>({
 		method: "GET",
@@ -56219,7 +56219,7 @@ export async function getTagRelationshipsList(
 		config,
 	}: {
 		pathParams: GetTagRelationshipsListPath;
-		queryParams: GetTagRelationshipsListQuery;
+		queryParams?: Partial<GetTagRelationshipsListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -56237,7 +56237,7 @@ export async function getTagRelationshipsList(
 		ErrorWrapper<GetTagRelationshipsListStatus400>,
 		null,
 		Record<string, string>,
-		GetTagRelationshipsListQuery,
+		Partial<GetTagRelationshipsListQuery>,
 		GetTagRelationshipsListPath
 	>({
 		method: "GET",
