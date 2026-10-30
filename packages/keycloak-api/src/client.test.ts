@@ -162,8 +162,10 @@ describe("KeycloakAccountApi.request", () => {
 describe("Keycloak per-call config", () => {
 	function setup() {
 		const headers: unknown[] = [];
+		const signals: unknown[] = [];
 		const fetch: FetchImpl = async (_url, init) => {
 			headers.push(init?.headers);
+			signals.push(init?.signal);
 			return new Response("{}", {
 				status: 200,
 				headers: { "content-type": "application/json" },
@@ -172,6 +174,7 @@ describe("Keycloak per-call config", () => {
 		const options = { baseUrl: "https://keycloak.example.com", token: "token", fetch };
 		return {
 			headers,
+			signals,
 			admin: new KeycloakAdminApi(options),
 			account: new KeycloakAccountApi({ ...options, realm: "realm" }),
 		};
@@ -191,5 +194,13 @@ describe("Keycloak per-call config", () => {
 		expect(headers).toEqual([
 			expect.objectContaining({ Authorization: "Bearer token", "X-Request-Id": "abc" }),
 		]);
+	});
+
+	it("passes the caller's signal to fetch from the admin and account clients", async () => {
+		const { signals, admin, account } = setup();
+		const { signal } = new AbortController();
+		await admin.request("GET /admin/realms", { config: { signal } });
+		await account.request("GET /account/", { config: { signal } });
+		expect(signals).toEqual([signal, signal]);
 	});
 });

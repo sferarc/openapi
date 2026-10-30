@@ -1,5 +1,29 @@
 # cloudflare-api-js
 
+## 2.5.0
+
+### Minor Changes
+
+- 5505542: [BREAKING] Remove operations no longer in the cloudflare-api-js OpenAPI spec: `zones0HoldZoneNameGet`.
+- 5505542: [BREAKING] Removed the zones0HoldZoneNameGet operation and its associated types.
+
+### Patch Changes
+
+- 5505542: Added new types IamTokenPrefix and IamTokenSuffix for IAM tokens.
+- 5505542: Extended IamComponentsSchemasAccount to include additional fields from IamAccount.
+
+## 2.4.3
+
+### Patch Changes
+
+- bac71ca: Send `client.auth.refreshToken` to Cloudflare's OAuth token endpoint, `https://dash.cloudflare.com/oauth2/token`, as a form-encoded body. It posted JSON to `https://api.cloudflare.com/client/v4/oauth/token`, which does not exist and answers 404, so every refresh failed. The `authToken` option is now optional and ignored, since the token endpoint authenticates the client by its ID and secret.
+
+## 2.4.2
+
+### Patch Changes
+
+- 9164550: Accept `signal` in the per-call `config` of `request()` and `client.api` operations, so a call can be cancelled with an `AbortSignal`. The fetcher already passed it to `fetch`, but `FetcherConfig` had no `signal` field, so `{ config: { signal } }` failed to compile.
+
 ## 2.4.1
 
 ### Patch Changes
