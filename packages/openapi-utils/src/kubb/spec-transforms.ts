@@ -231,15 +231,17 @@ export function addMissingPathParams(openAPIDocument: OpenAPIObject): OpenAPIObj
 	return openAPIDocument;
 }
 
+// kubb types an array without `items` as the empty tuple `[]`; an empty schema allows any item, as the spec means.
 export function fixArrayItems(openAPIDocument: OpenAPIObject): OpenAPIObject {
 	return JSON.parse(JSON.stringify(openAPIDocument), (_key, value) => {
 		if (
 			value &&
 			typeof value === "object" &&
 			value.type === "array" &&
-			(!value.items || Object.keys(value.items).length === 0)
+			!value.items &&
+			!value.prefixItems
 		) {
-			return { ...value, items: { type: "string" } };
+			return { ...value, items: {} };
 		}
 		return value;
 	});
