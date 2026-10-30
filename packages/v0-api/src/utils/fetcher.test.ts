@@ -216,6 +216,21 @@ describe("fetcher edge responses and headers", () => {
 		expect((error as Error).name).toBe("AbortError");
 	});
 
+	it("rejects a timed out request with the signal's TimeoutError, not a wrapped error", async () => {
+		const signal = AbortSignal.abort(new DOMException("The operation timed out.", "TimeoutError"));
+		const fetchImpl: FetchImpl = async (_url, init) => {
+			init?.signal?.throwIfAborted();
+			return new Response("{}") as never;
+		};
+		const error = await client({
+			url: "/thing",
+			method: "get",
+			signal,
+			fetchImpl,
+		}).catch((e: unknown) => e);
+		expect(error).toBe(signal.reason);
+	});
+
 	it("resolves a 204 without a content type to undefined", async () => {
 		const fetchImpl: FetchImpl = async () => new Response(null, { status: 204 }) as never;
 		await expect(client({ url: "/thing", method: "delete", fetchImpl })).resolves.toBeUndefined();
