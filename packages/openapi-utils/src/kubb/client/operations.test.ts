@@ -95,6 +95,29 @@ describe("generated operations", () => {
 		expect(init).toMatchObject({ method: "GET", headers: { "X-Trace-Id": "trace-1" } });
 	});
 
+	it("lets a call's header params override config headers, unless left undefined", async () => {
+		const fetchImpl = fakeFetch();
+		const call = (traceId: string | undefined) =>
+			operations.getMember({
+				pathParams: { "team-id": "t", member_id: 1 },
+				queryParams: { fields: "id" },
+				headers: { "X-Trace-Id": traceId },
+				config: { fetchImpl, headers: { "X-Trace-Id": "from-config", "X-Other": "kept" } },
+			});
+
+		await call("from-call");
+		await call(undefined);
+
+		expect(fetchImpl.mock.calls[0]![1].headers).toEqual({
+			"X-Trace-Id": "from-call",
+			"X-Other": "kept",
+		});
+		expect(fetchImpl.mock.calls[1]![1].headers).toEqual({
+			"X-Trace-Id": "from-config",
+			"X-Other": "kept",
+		});
+	});
+
 	it.each([
 		["a missing parameter", { pathParams: { member_id: 1 } }, "team-id"],
 		["an empty parameter", { pathParams: { "team-id": "t", member_id: "" } }, "member_id"],

@@ -213,8 +213,13 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 	if (contentType !== "application/json") {
 		headerEntries.push(`'Content-Type': '${contentType}'`);
 	}
-	if (headerParams.length > 0) headerEntries.push("...headers");
 	headerEntries.push("...requestConfig.headers");
+	// The call's own header params win over config-wide headers, such as an Effect layer's; an undefined one keeps the default.
+	if (headerParams.length > 0) {
+		headerEntries.push(
+			"...Object.fromEntries(Object.entries(headers ?? {}).filter(([, value]) => value !== undefined))",
+		);
+	}
 
 	// OpenAPI multipart encoding: an array is one part per item, an object is a JSON part.
 	const formDataBlock =

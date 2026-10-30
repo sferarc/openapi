@@ -3181,7 +3181,13 @@ export async function uploadDeployFunction(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "application/octet-stream", ...headers, ...requestConfig.headers },
+		headers: {
+			"Content-Type": "application/octet-stream",
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -3230,7 +3236,13 @@ export async function uploadDeployServer(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "application/octet-stream", ...headers, ...requestConfig.headers },
+		headers: {
+			"Content-Type": "application/octet-stream",
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -3274,7 +3286,13 @@ export async function uploadDeployEdgeFunction(
 		url: `/deploys/${encodeURIComponent(String(pathParams.deploy_id))}/edge_functions/${encodeURIComponent(String(pathParams.code_sha))}`,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "application/octet-stream", ...headers, ...requestConfig.headers },
+		headers: {
+			"Content-Type": "application/octet-stream",
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
