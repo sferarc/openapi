@@ -504,6 +504,7 @@ import type {
 	CreateKmsIssuerStatus401,
 	CreateKmsIssuerStatus403,
 	CreateKmsIssuerStatus404,
+	CreateKmsIssuerStatus409,
 	CreateKmsIssuerStatus410,
 	CreateKmsSigningKeyBody,
 	CreateKmsSigningKeyPath,
@@ -15241,6 +15242,7 @@ export async function createKmsIssuer(
 			| CreateKmsIssuerStatus401
 			| CreateKmsIssuerStatus403
 			| CreateKmsIssuerStatus404
+			| CreateKmsIssuerStatus409
 			| CreateKmsIssuerStatus410
 		>,
 		CreateKmsIssuerBody,
