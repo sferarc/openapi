@@ -55879,10 +55879,23 @@ export type IamAccount = {
      * @type string | undefined
      */
     readonly parent_org_name?: string | undefined;
+    /**
+     * @description ID of the root Organization, if one exists
+     * @maxLength 32
+     * @example 46f0a1ce86ec3d91fae00db3b8b48cee
+     * @type string | undefined
+     */
+    readonly root_org_id?: string | undefined;
+    /**
+     * @description Indicates whether the parent Organization hierarchy should be displayed
+     * @example true
+     * @type boolean | undefined
+     */
+    readonly should_display_parent_orgs?: boolean | undefined;
   } | undefined;
   /**
    * @description Account name
-   * @maxLength 100
+   * @maxLength 120
    * @example Demo Account
    * @type string
    */
@@ -57091,6 +57104,26 @@ export const iamTokenStatus = {
 
 export type IamTokenStatusKey = (typeof iamTokenStatus)[keyof typeof iamTokenStatus];
 
+/**
+ * @description The prefix of the token value, before the first underscore. Use it with
+ * `token_suffix` to identify a token. Only present for tokens created or
+ * rolled after this field was added.
+ * @example cfat
+ * @type string
+ */
+export type IamTokenPrefix = string;
+
+/**
+ * @description The last 4 characters of the token value. Use it with `token_prefix` to
+ * identify a token. It is not unique. Only present for tokens created or
+ * rolled after this field was added.
+ * @minLength 4
+ * @maxLength 4
+ * @example a1b2
+ * @type string
+ */
+export type IamTokenSuffix = string;
+
 export type IamTokenBase = {
   condition?: IamCondition | undefined;
   /**
@@ -57183,13 +57216,37 @@ export type IamTokenBase = {
    * @type string | undefined
    */
   status?: IamTokenStatusKey | undefined;
+  /**
+   * @description The prefix of the token value, before the first underscore. Use it with
+   * `token_suffix` to identify a token. Only present for tokens created or
+   * rolled after this field was added.
+   * @example cfat
+   * @type string | undefined
+   */
+  readonly token_prefix?: IamTokenPrefix | undefined;
+  /**
+   * @description The last 4 characters of the token value. Use it with `token_prefix` to
+   * identify a token. It is not unique. Only present for tokens created or
+   * rolled after this field was added.
+   * @minLength 4
+   * @maxLength 4
+   * @example a1b2
+   * @type string | undefined
+   */
+  readonly token_suffix?: IamTokenSuffix | undefined;
 };
 
 export type IamCollectionTokensResponse = IamApiResponseCollection & {
   result?: IamTokenBase[] | undefined;
 };
 
-export type IamComponentsSchemasAccount = IamAccount;
+export type IamComponentsSchemasAccount = IamAccount & {
+  /**
+   * @maxLength 65
+   * @type string | undefined
+   */
+  name?: string | undefined;
+};
 
 /**
  * @description The country in which the user lives.
@@ -57202,6 +57259,7 @@ export type IamCountry = string | null;
 export type IamCreateAccount = {
   /**
    * @description Account name
+   * @maxLength 65
    * @type string
    */
   name: string;
@@ -134275,9 +134333,8 @@ export type ZonesBase = {
   /**
    * @description Current value of the zone setting.
    * @example on
-   * @type unknown
    */
-  value: unknown;
+  value: string | number | boolean | object | string[];
 };
 
 export const zones0RttValue = {
@@ -135232,7 +135289,6 @@ export type ZonesAlwaysUseHttpsValueKey = (typeof zonesAlwaysUseHttpsValue)[keyo
 
 /**
  * @description Reply to all requests for URLs that use "http" with a 301 redirect to the equivalent "https" URL. If you only want to redirect for a subset of requests, consider creating an "Always use HTTPS" page rule.
- * @default off
  */
 export type ZonesAlwaysUseHttps2 = ZonesBase & {
   /**
@@ -135328,7 +135384,7 @@ export type ZonesApiResponseCommon3 = {
    * @type array
    */
   messages: ZonesMessages;
-  result: object | unknown[] | string;
+  result: object | object[] | string;
   /**
    * @description Whether the API call was successful
    * @example true
@@ -135471,7 +135527,6 @@ export type ZonesAutomaticHttpsRewritesValueKey = (typeof zonesAutomaticHttpsRew
 
 /**
  * @description Enable the Automatic HTTPS Rewrites feature for this zone.
- * @default off
  */
 export type ZonesAutomaticHttpsRewrites2 = ZonesBase & {
   /**
@@ -135826,7 +135881,6 @@ export type ZonesCiphersValue = string[];
 
 /**
  * @description An allowlist of ciphers for TLS termination. These ciphers must be in the BoringSSL format.
- * @default []
  */
 export type ZonesCiphers = ZonesBase & {
   /**
@@ -136271,7 +136325,6 @@ export type ZonesMinTlsVersionValueKey = (typeof zonesMinTlsVersionValue)[keyof 
 
 /**
  * @description Only accepts HTTPS requests that use at least the TLS protocol version specified. For example, if TLS 1.1 is selected, TLS 1.0 connections will be rejected, while 1.1, 1.2, and 1.3 (if enabled) will be permitted.
- * @default 1.0
  */
 export type ZonesMinTlsVersion = ZonesBase & {
   /**
@@ -136394,7 +136447,6 @@ export type ZonesOpportunisticOnionValueKey = (typeof zonesOpportunisticOnionVal
 
 /**
  * @description Add an Alt-Svc header to all legitimate requests from Tor, allowing the connection to use our onion services instead of exit nodes.
- * @default off
  */
 export type ZonesOpportunisticOnion = ZonesBase & {
   /**
@@ -136448,7 +136500,6 @@ export type ZonesOriginErrorPagePassThruValueKey = (typeof zonesOriginErrorPageP
 
 /**
  * @description Cloudflare will proxy customer error pages on any 502,504 errors on origin server instead of showing a default Cloudflare error page. This does not apply to 522 errors and is limited to Enterprise Zones.
- * @default off
  */
 export type ZonesOriginErrorPagePassThru2 = ZonesBase & {
   /**
@@ -136500,7 +136551,6 @@ export type ZonesPrefetchPreloadValueKey = (typeof zonesPrefetchPreloadValue)[ke
 
 /**
  * @description Cloudflare will prefetch any URLs that are included in the response headers. This is limited to Enterprise Zones.
- * @default off
  */
 export type ZonesPrefetchPreload = ZonesBase & {
   /**
@@ -136553,7 +136603,6 @@ export type ZonesPrivacyPassValueKey = (typeof zonesPrivacyPassValue)[keyof type
 /**
  * @description Privacy Pass v1 was a browser extension developed by the Privacy Pass Team to improve the browsing experience for your visitors by allowing users to reduce the number of CAPTCHAs shown. (https://support.cloudflare.com/hc/en-us/articles/115001992652-Privacy-Pass).
  * @deprecated
- * @default off
  */
 export type ZonesPrivacyPass = ZonesBase & {
   /**
@@ -136686,7 +136735,6 @@ export type ZonesResponseBufferingValueKey = (typeof zonesResponseBufferingValue
 /**
  * @description Enables or disables buffering of responses from the proxied server. Cloudflare may buffer the whole payload to deliver it at once to the client versus allowing it to be delivered in chunks. By default, the proxied server streams directly and is not buffered by Cloudflare. This is limited to Enterprise Zones.
  * @deprecated
- * @default off
  */
 export type ZonesResponseBuffering2 = ZonesBase & {
   /**
@@ -136917,7 +136965,6 @@ export type ZonesSortQueryStringForCacheValueKey = (typeof zonesSortQueryStringF
 
 /**
  * @description Cloudflare will treat files with the same query strings as the same file in cache, regardless of the order of the query strings. This is limited to Enterprise Zones.
- * @default off
  */
 export type ZonesSortQueryStringForCache2 = ZonesBase & {
   /**
@@ -137023,7 +137070,6 @@ export type ZonesTls13ValueKey = (typeof zonesTls13Value)[keyof typeof zonesTls1
 
 /**
  * @description Enables Crypto TLS 1.3 feature for a zone.
- * @default off
  */
 export type ZonesTls13 = ZonesBase & {
   /**
@@ -137075,7 +137121,6 @@ export type ZonesTrueClientIpHeaderValueKey = (typeof zonesTrueClientIpHeaderVal
 
 /**
  * @description Allows customer to continue to use True Client IP (Akamai feature) in the headers we send to the origin. This is limited to Enterprise Zones.
- * @default off
  */
 export type ZonesTrueClientIpHeader2 = ZonesBase & {
   /**
@@ -137529,26 +137574,7 @@ export type ZonesSetting = Zones0Rtt | ZonesAdvancedDdos | ZonesCacheRulesAegis 
  */
 export type ZonesSettingName = string;
 
-export const zonesSettingReadonly = {
-  false: false,
-} as const;
-
-export type ZonesSettingReadonlyKey = (typeof zonesSettingReadonly)[keyof typeof zonesSettingReadonly];
-
-export const zonesSettingToggle = {
-  on: 'on',
-  off: 'off',
-} as const;
-
-export type ZonesSettingToggleKey = (typeof zonesSettingToggle)[keyof typeof zonesSettingToggle];
-
 export type ZonesSettingValue = Zones0RttValueKey | ZonesAdvancedDdosValueKey | ZonesCacheRulesAegisValue | ZonesAlwaysOnlineValueKey | ZonesAlwaysUseHttpsValueKey | ZonesAutomaticHttpsRewritesValueKey | ZonesBrotliValueKey | ZonesBrowserCacheTtlValue | ZonesBrowserCheckValueKey | ZonesCacheLevelValueKey | ZonesChallengeTtlValueKey | ZonesChinaNetworkEnabledValueKey | ZonesContentConverterValueKey | ZonesCiphersValue | ZonesCnameFlatteningValueKey | ZonesDevelopmentModeValueKey | ZonesEarlyHintsValueKey | ZonesEdgeCacheTtlValueKey | ZonesEmailObfuscationValueKey | ZonesH2PrioritizationValueKey | ZonesHotlinkProtectionValueKey | ZonesHttp2ValueKey | ZonesHttp3ValueKey | ZonesImageResizingValueKey | ZonesIpGeolocationValueKey | ZonesIpv6ValueKey | ZonesMaxUploadValueKey | ZonesMinTlsVersionValueKey | ZonesMirageValueKey | ZonesNelValue | ZonesOpportunisticEncryptionValueKey | ZonesOpportunisticOnionValueKey | ZonesOrangeToOrangeValueKey | ZonesOriginErrorPagePassThruValueKey | ZonesCacheRulesOriginH2MaxStreamsValue | ZonesCacheRulesOriginMaxHttpVersionValueKey | ZonesPolishValueKey | ZonesPrefetchPreloadValueKey | ZonesPreRenderValueKey | ZonesPrivacyPassValueKey | ZonesProxyReadTimeoutValue | ZonesPseudoIpv4ValueKey | ZonesRedirectsForAiTrainingValueKey | ZonesReplaceInsecureJsValueKey | ZonesResponseBufferingValueKey | ZonesRocketLoaderValueKey | ZonesAutomaticPlatformOptimization | ZonesSearchForAgentsValueKey | ZonesSecurityHeaderValue | ZonesSecurityLevelValueKey | ZonesServerSideExcludeValueKey | ZonesSha1SupportValueKey | ZonesSortQueryStringForCacheValueKey | ZonesSslValueKey | ZonesTls12OnlyValueKey | ZonesTls13ValueKey | ZonesTlsClientAuthValueKey | ZonesTrueClientIpHeaderValueKey | ZonesWafValueKey | ZonesWebmcpEnabledValueKey | ZonesWebmcpMcpUrlValue | ZonesWebmcpPacksValue | ZonesWebpValueKey | ZonesWebsocketsValueKey;
-
-export const zonesSettingWritable = {
-  true: true,
-} as const;
-
-export type ZonesSettingWritableKey = (typeof zonesSettingWritable)[keyof typeof zonesSettingWritable];
 
 /**
  * @description Settings available for the zone.
@@ -450045,71 +450071,6 @@ export type Zones0HoldPostResponses = {
  * @description Union of all possible responses
  */
 export type Zones0HoldPostResponse = Zones0HoldPostStatus200;
-
-export type Zones0HoldZoneNameGetPath = {
-  /**
-   * @description Zone identifier. Consumed by the API gateway for routing; the backend
-   * handler does not use this value directly.
-   * @maxLength 32
-   * @example 023e105f4ecef8ad9ca31a8372d0c353
-   * @type string
-   */
-  zoneId: ZonesIdentifier2;
-  /**
-   * @description The hostname to check for a zone hold. May be a subdomain (e.g. `subdomain.example.com`)
-   * or an apex domain (e.g. `example.com`). The service checks the hostname and its ancestor
-   * domains for active holds with `include_subdomains` enabled.
-   * @maxLength 253
-   * @pattern ^([a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$
-   * @example subdomain.example.com
-   * @type string
-   */
-  zoneName: string;
-};
-
-export type Zones0HoldZoneNameGetStatus200 = {
-  /**
-   * @description Whether the hostname is currently subject to a zone hold.
-   * @example true
-   * @type boolean | undefined
-   */
-  hold?: boolean | undefined;
-  /**
-   * @description The RFC3339-formatted timestamp at which the hold will be automatically
-   * re-enabled, if the hold was temporarily disabled. Null if the hold is
-   * permanently enabled or not set.
-   *
-   * Format: `date-time`
-   * @example 2023-01-31T15:56:36Z
-   * @type string | undefined
-   */
-  hold_after?: (string | null) | undefined;
-  /**
-   * @description Whether the hold extends to block subdomains of the held zone.
-   * @example false
-   * @type boolean | undefined
-   */
-  include_subdomains?: boolean | undefined;
-};
-
-export type Zones0HoldZoneNameGetStatus400 = ZonesApiResponseCommonFailure2;
-
-export type Zones0HoldZoneNameGetOptions = {
-  body?: never | undefined;
-  path: Zones0HoldZoneNameGetPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type Zones0HoldZoneNameGetResponses = {
-  '200': Zones0HoldZoneNameGetStatus200;
-  '400': Zones0HoldZoneNameGetStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type Zones0HoldZoneNameGetResponse = Zones0HoldZoneNameGetStatus200;
 
 export type PerHostnameTlsSettingsListPath = {
   /**
