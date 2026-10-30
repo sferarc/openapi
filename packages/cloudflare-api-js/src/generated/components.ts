@@ -8914,6 +8914,7 @@ import type {
 	NamespaceWorkerScriptUpdateCreateAssetsUploadSessionPath,
 	NamespaceWorkerScriptUpdateCreateAssetsUploadSessionResponse,
 	NamespaceWorkerScriptUpdateCreateAssetsUploadSessionStatus400,
+	NamespaceWorkerScriptUploadWorkerModuleBody,
 	NamespaceWorkerScriptUploadWorkerModulePath,
 	NamespaceWorkerScriptUploadWorkerModuleQuery,
 	NamespaceWorkerScriptUploadWorkerModuleResponse,
@@ -14229,6 +14230,7 @@ import type {
 	WorkerScriptUpdateUsageModelPath,
 	WorkerScriptUpdateUsageModelResponse,
 	WorkerScriptUpdateUsageModelStatus400,
+	WorkerScriptUploadWorkerModuleBody,
 	WorkerScriptUploadWorkerModulePath,
 	WorkerScriptUploadWorkerModuleQuery,
 	WorkerScriptUploadWorkerModuleResponse,
@@ -131645,7 +131647,7 @@ export async function namespaceWorkerScriptUploadWorkerModule(
 		config,
 	}: {
 		pathParams: NamespaceWorkerScriptUploadWorkerModulePath;
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: NamespaceWorkerScriptUploadWorkerModuleBody;
 		queryParams?: Partial<NamespaceWorkerScriptUploadWorkerModuleQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -131663,10 +131665,28 @@ export async function namespaceWorkerScriptUploadWorkerModule(
 	if (pathParams?.scriptName == null || String(pathParams.scriptName) === "") {
 		throw new Error(`Missing required path parameter: scriptName`);
 	}
+	const formData = new FormData();
+	if (body) {
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
+			}
+		}
+	}
 	const data = await request<
 		NamespaceWorkerScriptUploadWorkerModuleResponse,
 		ErrorWrapper<NamespaceWorkerScriptUploadWorkerModuleStatus400>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		FormData,
 		Record<string, string>,
 		Partial<NamespaceWorkerScriptUploadWorkerModuleQuery>,
 		NamespaceWorkerScriptUploadWorkerModulePath
@@ -131674,9 +131694,9 @@ export async function namespaceWorkerScriptUploadWorkerModule(
 		method: "PUT",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/workers/dispatch/namespaces/${encodeURIComponent(String(pathParams.dispatchNamespace))}/scripts/${encodeURIComponent(String(pathParams.scriptName))}`,
 		queryParams,
-		body: body,
+		body: formData,
 		...requestConfig,
-		headers: { "Content-Type": "application/javascript", ...requestConfig.headers },
+		headers: { "Content-Type": "multipart/form-data", ...requestConfig.headers },
 	});
 
 	return data;
@@ -134587,7 +134607,7 @@ export async function workerScriptUploadWorkerModule(
 		config,
 	}: {
 		pathParams: WorkerScriptUploadWorkerModulePath;
-		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		body: WorkerScriptUploadWorkerModuleBody;
 		queryParams?: Partial<WorkerScriptUploadWorkerModuleQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -134601,10 +134621,28 @@ export async function workerScriptUploadWorkerModule(
 	if (pathParams?.scriptName == null || String(pathParams.scriptName) === "") {
 		throw new Error(`Missing required path parameter: scriptName`);
 	}
+	const formData = new FormData();
+	if (body) {
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
+			}
+		}
+	}
 	const data = await request<
 		WorkerScriptUploadWorkerModuleResponse,
 		ErrorWrapper<WorkerScriptUploadWorkerModuleStatus400>,
-		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		FormData,
 		Record<string, string>,
 		Partial<WorkerScriptUploadWorkerModuleQuery>,
 		WorkerScriptUploadWorkerModulePath
@@ -134612,9 +134650,9 @@ export async function workerScriptUploadWorkerModule(
 		method: "PUT",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/workers/scripts/${encodeURIComponent(String(pathParams.scriptName))}`,
 		queryParams,
-		body: body,
+		body: formData,
 		...requestConfig,
-		headers: { "Content-Type": "application/javascript", ...requestConfig.headers },
+		headers: { "Content-Type": "multipart/form-data", ...requestConfig.headers },
 	});
 
 	return data;
