@@ -7505,6 +7505,14 @@ export type DELETEAdminRealmsRealmWorkflowsIdResponses = {
  */
 export type DELETEAdminRealmsRealmWorkflowsIdResponse = DELETEAdminRealmsRealmWorkflowsIdStatus204;
 
+export const POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdType = {
+	USERS: "USERS",
+	CLIENTS: "CLIENTS",
+} as const;
+
+export type POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdTypeKey =
+	(typeof POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdType)[keyof typeof POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdType];
+
 export type POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdPath = {
 	/**
 	 * @description realm name (not id!)
@@ -7523,9 +7531,9 @@ export type POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdPath = {
 	resourceId: string;
 	/**
 	 * @description Resource type
-	 * @type object
+	 * @type string
 	 */
-	type: object;
+	type: POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdTypeKey;
 };
 
 export type POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdQuery = {
@@ -7558,6 +7566,14 @@ export type POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdResponses = {
 export type POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdResponse =
 	POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdStatus204;
 
+export const POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdType = {
+	USERS: "USERS",
+	CLIENTS: "CLIENTS",
+} as const;
+
+export type POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdTypeKey =
+	(typeof POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdType)[keyof typeof POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdType];
+
 export type POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdPath = {
 	/**
 	 * @description realm name (not id!)
@@ -7576,9 +7592,9 @@ export type POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdPath = {
 	resourceId: string;
 	/**
 	 * @description Resource type
-	 * @type object
+	 * @type string
 	 */
-	type: object;
+	type: POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdTypeKey;
 };
 
 export type POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdStatus204 = unknown;
