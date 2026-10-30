@@ -86,12 +86,11 @@ function recordFetch(status: number, body: unknown) {
 describe("CloudflareApi.auth.refreshToken", () => {
 	const options = {
 		refreshToken: "rt",
-		authToken: "at-old",
 		clientId: "cid",
 		clientSecret: "secret",
 	};
 
-	it("posts JSON with the bearer token and returns the raw response", async () => {
+	it("posts a form to the dashboard token endpoint and returns the raw response", async () => {
 		const { calls, fetch } = recordFetch(200, { access_token: "at" });
 		const client = new CloudflareApi({ token: "client-token", fetch });
 
@@ -99,13 +98,10 @@ describe("CloudflareApi.auth.refreshToken", () => {
 
 		expect(calls).toHaveLength(1);
 		const [{ url, init }] = calls as [(typeof calls)[number]];
-		expect(url).toBe("https://api.cloudflare.com/client/v4/oauth/token");
+		expect(url).toBe("https://dash.cloudflare.com/oauth2/token");
 		expect(init?.method).toBe("POST");
-		expect(init?.headers).toEqual({
-			"Content-Type": "application/json",
-			Authorization: "Bearer at-old",
-		});
-		expect(JSON.parse(init?.body as string)).toEqual({
+		expect(init?.headers).toEqual({ "Content-Type": "application/x-www-form-urlencoded" });
+		expect(Object.fromEntries(new URLSearchParams(init?.body as string))).toEqual({
 			grant_type: "refresh_token",
 			refresh_token: "rt",
 			client_id: "cid",
@@ -113,6 +109,15 @@ describe("CloudflareApi.auth.refreshToken", () => {
 		});
 		expect(response.status).toBe(200);
 		expect(await response.json()).toEqual({ access_token: "at" });
+	});
+
+	it("still accepts the ignored authToken option", async () => {
+		const { calls, fetch } = recordFetch(200, {});
+		const client = new CloudflareApi({ token: "client-token", fetch });
+
+		await client.auth.refreshToken({ ...options, authToken: "at-old" });
+
+		expect(JSON.stringify(calls[0]?.init)).not.toContain("at-old");
 	});
 
 	it("hands a non-2xx response back to the caller instead of rejecting", async () => {
