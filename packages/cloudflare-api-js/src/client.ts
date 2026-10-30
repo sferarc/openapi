@@ -132,21 +132,17 @@ export class CloudflareApi {
 
 	get auth() {
 		return {
-			refreshToken: async ({
-				refreshToken,
-				authToken,
-				clientId,
-				clientSecret,
-			}: RefreshTokenOptions) => {
-				return await this.#fetch("https://api.cloudflare.com/client/v4/oauth/token", {
+			refreshToken: async ({ refreshToken, clientId, clientSecret }: RefreshTokenOptions) => {
+				// The OAuth token endpoint lives on the dashboard host and only reads form-encoded bodies.
+				return await this.#fetch("https://dash.cloudflare.com/oauth2/token", {
 					method: "POST",
-					headers: { "Content-Type": "application/json", Authorization: `Bearer ${authToken}` },
-					body: JSON.stringify({
+					headers: { "Content-Type": "application/x-www-form-urlencoded" },
+					body: new URLSearchParams({
 						grant_type: "refresh_token",
 						refresh_token: refreshToken,
 						client_id: clientId,
 						client_secret: clientSecret,
-					}),
+					}).toString(),
 				});
 			},
 		};
@@ -168,7 +164,8 @@ export class CloudflareApi {
 
 type RefreshTokenOptions = {
 	refreshToken: string;
-	authToken: string;
+	/** @deprecated Ignored: the token endpoint authenticates the client by its ID and secret. */
+	authToken?: string;
 	clientId: string;
 	clientSecret: string;
 };
