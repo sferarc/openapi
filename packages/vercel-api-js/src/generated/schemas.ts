@@ -1555,6 +1555,19 @@ export const connectConnectorCreateDataSchema = z
 				.describe(
 					"Work Object preview settings for the managed Slack app. Updates preserve omitted settings.",
 				),
+			codeChannels: z
+				.strictObject({
+					enabled: z
+						.boolean()
+						.optional()
+						.describe(
+							"Enable Slack code channels. Adds the code_channels:manage bot scope and, with triggers, the agent_session_stopped and message.session events. Defaults to false for new apps.",
+						),
+				})
+				.optional()
+				.describe(
+					"Code channel settings for the managed Slack app. Updates preserve omitted settings.",
+				),
 			extras: z
 				.record(z.string(), z.unknown())
 				.optional()
@@ -2372,6 +2385,19 @@ export const connectConnectorUpdateDataSchema = z
 				.optional()
 				.describe(
 					"Work Object preview settings for the managed Slack app. Updates preserve omitted settings.",
+				),
+			codeChannels: z
+				.strictObject({
+					enabled: z
+						.boolean()
+						.optional()
+						.describe(
+							"Enable Slack code channels. Adds the code_channels:manage bot scope and, with triggers, the agent_session_stopped and message.session events. Defaults to false for new apps.",
+						),
+				})
+				.optional()
+				.describe(
+					"Code channel settings for the managed Slack app. Updates preserve omitted settings.",
 				),
 			extras: z
 				.record(z.string(), z.unknown())
@@ -51768,7 +51794,7 @@ export const submitBillingDataBodySchema = z.strictObject({
 	eod: z.iso
 		.datetime({ offset: true })
 		.describe(
-			'End of Day, the UTC datetime for when the end of the billing/usage day is in UTC time. This tells us which day the usage data is for, and also allows for your "end of day" to be different from UTC 00:00:00. eod must be within the period dates, and cannot be older than 24h earlier from our server\'s current time.',
+			'End of Day, the UTC datetime for when the end of the billing/usage day is in UTC time. This tells us which day the usage data is for, and also allows for your "end of day" to be different from UTC 00:00:00. eod must be within the period dates, and cannot be older than 30 days earlier from our server\'s current time.',
 		),
 	period: z
 		.strictObject({
@@ -51776,7 +51802,7 @@ export const submitBillingDataBodySchema = z.strictObject({
 			end: z.iso.datetime({ offset: true }),
 		})
 		.describe(
-			"Period for the billing cycle. The period end date cannot be older than 24 hours earlier than our current server's time.",
+			"Period for the billing cycle. The period end date cannot be older than 30 days earlier than our current server's time.",
 		),
 	billing: z
 		.union([
@@ -55152,6 +55178,7 @@ export const listKmsIssuersStatus200Schema = z.object({
 			]),
 			claimsSchema: z.looseObject({}).optional(),
 			createdAt: z.string(),
+			discoveryLayout: z.enum(["connect", "kms"]),
 			id: z.string(),
 			managedBy: z.string().optional(),
 			name: z.string(),
@@ -55318,6 +55345,7 @@ export const createKmsIssuerStatus201Schema = z.object({
 	]),
 	claimsSchema: z.looseObject({}).optional(),
 	createdAt: z.string(),
+	discoveryLayout: z.enum(["connect", "kms"]),
 	id: z.string(),
 	managedBy: z.string().optional(),
 	name: z.string(),
@@ -55420,6 +55448,8 @@ export const createKmsIssuerStatus403Schema = z.unknown();
 
 export const createKmsIssuerStatus404Schema = z.unknown();
 
+export const createKmsIssuerStatus409Schema = z.unknown();
+
 export const createKmsIssuerStatus410Schema = z.unknown();
 
 export const createKmsIssuerResponseSchema = createKmsIssuerStatus201Schema;
@@ -55429,6 +55459,7 @@ export const createKmsIssuerErrorSchema = z.union([
 	createKmsIssuerStatus401Schema,
 	createKmsIssuerStatus403Schema,
 	createKmsIssuerStatus404Schema,
+	createKmsIssuerStatus409Schema,
 	createKmsIssuerStatus410Schema,
 ]);
 
@@ -55815,6 +55846,7 @@ export const revokeKmsSigningKeyStatus200Schema = z.object({
 	]),
 	claimsSchema: z.looseObject({}).optional(),
 	createdAt: z.string(),
+	discoveryLayout: z.enum(["connect", "kms"]),
 	id: z.string(),
 	managedBy: z.string().optional(),
 	name: z.string(),
@@ -55982,6 +56014,7 @@ export const getKmsIssuerStatus200Schema = z.object({
 	]),
 	claimsSchema: z.looseObject({}).optional(),
 	createdAt: z.string(),
+	discoveryLayout: z.enum(["connect", "kms"]),
 	id: z.string(),
 	managedBy: z.string().optional(),
 	name: z.string(),
@@ -56141,6 +56174,7 @@ export const updateKmsIssuerStatus200Schema = z.object({
 	]),
 	claimsSchema: z.looseObject({}).optional(),
 	createdAt: z.string(),
+	discoveryLayout: z.enum(["connect", "kms"]),
 	id: z.string(),
 	managedBy: z.string().optional(),
 	name: z.string(),
@@ -84991,6 +85025,42 @@ export const updateProjectBodySchema = z.strictObject({
 		})
 		.nullish()
 		.describe("Tracing configuration for this project"),
+	gitComments: z
+		.strictObject({
+			onPullRequest: z.boolean().describe("Whether or not Vercel should comment on pull requests"),
+			onCommit: z.boolean().describe("Whether or not Vercel should comment on commits"),
+		})
+		.nullish()
+		.describe(
+			"Opt-in to Git pull request and commit comments on the project level. Replaces `github.silent`.",
+		),
+	gitProviderOptions: z
+		.strictObject({
+			createDeployments: z
+				.enum(["disabled", "enabled"])
+				.optional()
+				.describe("Whether or not Vercel should automatically create GitHub deployments"),
+			disableRepositoryDispatchEvents: z
+				.boolean()
+				.optional()
+				.describe(
+					"Whether Vercel should not automatically create GitHub repository-dispatch events on deployment events.",
+				),
+			requireVerifiedCommits: z
+				.boolean()
+				.nullish()
+				.describe(
+					"Whether the project requires commits to be signed & verified before deployments will be created. `true` enables, `false` disables (explicit override of the team setting), `null` clears the override to inherit from the team setting.",
+				),
+			gitCommitStatus: z
+				.boolean()
+				.optional()
+				.describe("Whether Vercel should post git commit statuses for this project."),
+		})
+		.nullish()
+		.describe(
+			"Miscellaneous options related to how this projects interacts with the linked git source.",
+		),
 	oidcTokenConfig: z
 		.strictObject({
 			enabled: z

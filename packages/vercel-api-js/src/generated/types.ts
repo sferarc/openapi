@@ -2556,6 +2556,19 @@ export type ConnectConnectorCreateData =
 				  }
 				| undefined;
 			/**
+			 * @description Code channel settings for the managed Slack app. Updates preserve omitted settings.
+			 * @type object | undefined
+			 */
+			codeChannels?:
+				| {
+						/**
+						 * @description Enable Slack code channels. Adds the code_channels:manage bot scope and, with triggers, the agent_session_stopped and message.session events. Defaults to false for new apps.
+						 * @type boolean | undefined
+						 */
+						enabled?: boolean | undefined;
+				  }
+				| undefined;
+			/**
 			 * @description Additional provider metadata stored with the connector.
 			 * @type object | undefined
 			 */
@@ -3890,6 +3903,19 @@ export type ConnectConnectorUpdateData =
 						 * @type array | undefined
 						 */
 						entityTypes?: string[] | undefined;
+				  }
+				| undefined;
+			/**
+			 * @description Code channel settings for the managed Slack app. Updates preserve omitted settings.
+			 * @type object | undefined
+			 */
+			codeChannels?:
+				| {
+						/**
+						 * @description Enable Slack code channels. Adds the code_channels:manage bot scope and, with triggers, the agent_session_stopped and message.session events. Defaults to false for new apps.
+						 * @type boolean | undefined
+						 */
+						enabled?: boolean | undefined;
 				  }
 				| undefined;
 			/**
@@ -61339,14 +61365,14 @@ export type SubmitBillingDataBody = {
 	 */
 	timestamp: string;
 	/**
-	 * @description End of Day, the UTC datetime for when the end of the billing/usage day is in UTC time. This tells us which day the usage data is for, and also allows for your "end of day" to be different from UTC 00:00:00. eod must be within the period dates, and cannot be older than 24h earlier from our server's current time.
+	 * @description End of Day, the UTC datetime for when the end of the billing/usage day is in UTC time. This tells us which day the usage data is for, and also allows for your "end of day" to be different from UTC 00:00:00. eod must be within the period dates, and cannot be older than 30 days earlier from our server's current time.
 	 *
 	 * Format: `date-time`
 	 * @type string
 	 */
 	eod: string;
 	/**
-	 * @description Period for the billing cycle. The period end date cannot be older than 24 hours earlier than our current server's time.
+	 * @description Period for the billing cycle. The period end date cannot be older than 30 days earlier than our current server's time.
 	 * @type object
 	 */
 	period: {
@@ -65600,6 +65626,14 @@ export const listKmsIssuersStatus200IssuersAlgorithmEnum = {
 export type ListKmsIssuersStatus200IssuersAlgorithmEnumKey =
 	(typeof listKmsIssuersStatus200IssuersAlgorithmEnum)[keyof typeof listKmsIssuersStatus200IssuersAlgorithmEnum];
 
+export const listKmsIssuersStatus200IssuersDiscoveryLayoutEnum = {
+	connect: "connect",
+	kms: "kms",
+} as const;
+
+export type ListKmsIssuersStatus200IssuersDiscoveryLayoutEnumKey =
+	(typeof listKmsIssuersStatus200IssuersDiscoveryLayoutEnum)[keyof typeof listKmsIssuersStatus200IssuersDiscoveryLayoutEnum];
+
 export const listKmsIssuersStatus200IssuersOriginEnum = {
 	external: "external",
 	vercel: "vercel",
@@ -65626,6 +65660,7 @@ export type ListKmsIssuersStatus200 = {
 			  }
 			| undefined;
 		createdAt: string;
+		discoveryLayout: ListKmsIssuersStatus200IssuersDiscoveryLayoutEnumKey;
 		id: string;
 		managedBy?: string | undefined;
 		name: string;
@@ -65784,6 +65819,14 @@ export const createKmsIssuerStatus201AlgorithmEnum = {
 export type CreateKmsIssuerStatus201AlgorithmEnumKey =
 	(typeof createKmsIssuerStatus201AlgorithmEnum)[keyof typeof createKmsIssuerStatus201AlgorithmEnum];
 
+export const createKmsIssuerStatus201DiscoveryLayoutEnum = {
+	connect: "connect",
+	kms: "kms",
+} as const;
+
+export type CreateKmsIssuerStatus201DiscoveryLayoutEnumKey =
+	(typeof createKmsIssuerStatus201DiscoveryLayoutEnum)[keyof typeof createKmsIssuerStatus201DiscoveryLayoutEnum];
+
 export const createKmsIssuerStatus201OriginEnum = {
 	external: "external",
 	vercel: "vercel",
@@ -65809,6 +65852,7 @@ export type CreateKmsIssuerStatus201 = {
 		  }
 		| undefined;
 	createdAt: string;
+	discoveryLayout: CreateKmsIssuerStatus201DiscoveryLayoutEnumKey;
 	id: string;
 	managedBy?: string | undefined;
 	name: string;
@@ -65908,6 +65952,8 @@ export type CreateKmsIssuerStatus401 = unknown;
 export type CreateKmsIssuerStatus403 = unknown;
 
 export type CreateKmsIssuerStatus404 = unknown;
+
+export type CreateKmsIssuerStatus409 = unknown;
 
 export type CreateKmsIssuerStatus410 = unknown;
 
@@ -66024,6 +66070,7 @@ export type CreateKmsIssuerResponses = {
 	"401": CreateKmsIssuerStatus401;
 	"403": CreateKmsIssuerStatus403;
 	"404": CreateKmsIssuerStatus404;
+	"409": CreateKmsIssuerStatus409;
 	"410": CreateKmsIssuerStatus410;
 };
 
@@ -66373,6 +66420,14 @@ export const revokeKmsSigningKeyStatus200AlgorithmEnum = {
 export type RevokeKmsSigningKeyStatus200AlgorithmEnumKey =
 	(typeof revokeKmsSigningKeyStatus200AlgorithmEnum)[keyof typeof revokeKmsSigningKeyStatus200AlgorithmEnum];
 
+export const revokeKmsSigningKeyStatus200DiscoveryLayoutEnum = {
+	connect: "connect",
+	kms: "kms",
+} as const;
+
+export type RevokeKmsSigningKeyStatus200DiscoveryLayoutEnumKey =
+	(typeof revokeKmsSigningKeyStatus200DiscoveryLayoutEnum)[keyof typeof revokeKmsSigningKeyStatus200DiscoveryLayoutEnum];
+
 export const revokeKmsSigningKeyStatus200OriginEnum = {
 	external: "external",
 	vercel: "vercel",
@@ -66398,6 +66453,7 @@ export type RevokeKmsSigningKeyStatus200 = {
 		  }
 		| undefined;
 	createdAt: string;
+	discoveryLayout: RevokeKmsSigningKeyStatus200DiscoveryLayoutEnumKey;
 	id: string;
 	managedBy?: string | undefined;
 	name: string;
@@ -66562,6 +66618,14 @@ export const getKmsIssuerStatus200AlgorithmEnum = {
 export type GetKmsIssuerStatus200AlgorithmEnumKey =
 	(typeof getKmsIssuerStatus200AlgorithmEnum)[keyof typeof getKmsIssuerStatus200AlgorithmEnum];
 
+export const getKmsIssuerStatus200DiscoveryLayoutEnum = {
+	connect: "connect",
+	kms: "kms",
+} as const;
+
+export type GetKmsIssuerStatus200DiscoveryLayoutEnumKey =
+	(typeof getKmsIssuerStatus200DiscoveryLayoutEnum)[keyof typeof getKmsIssuerStatus200DiscoveryLayoutEnum];
+
 export const getKmsIssuerStatus200OriginEnum = {
 	external: "external",
 	vercel: "vercel",
@@ -66587,6 +66651,7 @@ export type GetKmsIssuerStatus200 = {
 		  }
 		| undefined;
 	createdAt: string;
+	discoveryLayout: GetKmsIssuerStatus200DiscoveryLayoutEnumKey;
 	id: string;
 	managedBy?: string | undefined;
 	name: string;
@@ -66748,6 +66813,14 @@ export const updateKmsIssuerStatus200AlgorithmEnum = {
 export type UpdateKmsIssuerStatus200AlgorithmEnumKey =
 	(typeof updateKmsIssuerStatus200AlgorithmEnum)[keyof typeof updateKmsIssuerStatus200AlgorithmEnum];
 
+export const updateKmsIssuerStatus200DiscoveryLayoutEnum = {
+	connect: "connect",
+	kms: "kms",
+} as const;
+
+export type UpdateKmsIssuerStatus200DiscoveryLayoutEnumKey =
+	(typeof updateKmsIssuerStatus200DiscoveryLayoutEnum)[keyof typeof updateKmsIssuerStatus200DiscoveryLayoutEnum];
+
 export const updateKmsIssuerStatus200OriginEnum = {
 	external: "external",
 	vercel: "vercel",
@@ -66773,6 +66846,7 @@ export type UpdateKmsIssuerStatus200 = {
 		  }
 		| undefined;
 	createdAt: string;
+	discoveryLayout: UpdateKmsIssuerStatus200DiscoveryLayoutEnumKey;
 	id: string;
 	managedBy?: string | undefined;
 	name: string;
@@ -98479,6 +98553,14 @@ export const updateProjectRequestTracingSamplingRulesDestinationEnum = {
 export type UpdateProjectRequestTracingSamplingRulesDestinationEnumKey =
 	(typeof updateProjectRequestTracingSamplingRulesDestinationEnum)[keyof typeof updateProjectRequestTracingSamplingRulesDestinationEnum];
 
+export const updateProjectRequestGitProviderOptionsCreateDeploymentsEnum = {
+	disabled: "disabled",
+	enabled: "enabled",
+} as const;
+
+export type UpdateProjectRequestGitProviderOptionsCreateDeploymentsEnumKey =
+	(typeof updateProjectRequestGitProviderOptionsCreateDeploymentsEnum)[keyof typeof updateProjectRequestGitProviderOptionsCreateDeploymentsEnum];
+
 export const updateProjectRequestOidcTokenConfigIssuerModeEnum = {
 	global: "global",
 	team: "team",
@@ -98884,6 +98966,54 @@ export type UpdateProjectBody = {
 							destination?: UpdateProjectRequestTracingSamplingRulesDestinationEnumKey | undefined;
 					  }[]
 					| undefined;
+		  } | null)
+		| undefined;
+	/**
+	 * @description Opt-in to Git pull request and commit comments on the project level. Replaces `github.silent`.
+	 * @type object | undefined
+	 */
+	gitComments?:
+		| ({
+				/**
+				 * @description Whether or not Vercel should comment on pull requests
+				 * @type boolean
+				 */
+				onPullRequest: boolean;
+				/**
+				 * @description Whether or not Vercel should comment on commits
+				 * @type boolean
+				 */
+				onCommit: boolean;
+		  } | null)
+		| undefined;
+	/**
+	 * @description Miscellaneous options related to how this projects interacts with the linked git source.
+	 * @type object | undefined
+	 */
+	gitProviderOptions?:
+		| ({
+				/**
+				 * @description Whether or not Vercel should automatically create GitHub deployments
+				 * @type string | undefined
+				 */
+				createDeployments?:
+					| UpdateProjectRequestGitProviderOptionsCreateDeploymentsEnumKey
+					| undefined;
+				/**
+				 * @description Whether Vercel should not automatically create GitHub repository-dispatch events on deployment events.
+				 * @type boolean | undefined
+				 */
+				disableRepositoryDispatchEvents?: boolean | undefined;
+				/**
+				 * @description Whether the project requires commits to be signed & verified before deployments will be created. `true` enables, `false` disables (explicit override of the team setting), `null` clears the override to inherit from the team setting.
+				 * @type boolean | undefined
+				 */
+				requireVerifiedCommits?: (boolean | null) | undefined;
+				/**
+				 * @description Whether Vercel should post git commit statuses for this project.
+				 * @type boolean | undefined
+				 */
+				gitCommitStatus?: boolean | undefined;
 		  } | null)
 		| undefined;
 	/**
