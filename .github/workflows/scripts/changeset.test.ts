@@ -39,24 +39,84 @@ diff --git a/packages/demo/src/generated/types.ts b/packages/demo/src/generated/
 const emptySummary: DiffSummary = { text: "", truncated: false, removedOperations: [] };
 
 describe("summarizeDiff", () => {
-	it("keeps only headers and export lines of the generated types and components", async () => {
+	it("keeps file headers, export lines and what changed under them in the generated types and components", async () => {
 		const summary = await summarizeDiff(diff);
 
 		expect(summary.text).toBe(
 			[
 				"diff packages/demo/src/generated/components.ts",
-				'@@ -10,20 +10,20 @@ import type * as Types from "./types";',
 				"-export async function deleteWidget(",
+				"-params: Types.DeleteWidgetParams,",
 				"+export async function getWidget(",
-				"@@ -40,3 +40,3 @@",
+				"+params: Types.GetWidgetParams,",
 				"-export async function listWidgets(",
 				"+export async function listWidgets(",
 				"diff packages/demo/src/generated/types.ts",
-				"@@ -5,2 +5,2 @@",
 				"+export type GetWidgetParams = { id: string };",
 			].join("\n"),
 		);
 		expect(summary.truncated).toBe(false);
+	});
+
+	// sferarc/openapi#195: git named `buildLinkingUri` in both hunk headers, and the model read that as a removal.
+	it("describes a signature change inside a kept export as a change, not a removal", async () => {
+		const signatureChange =
+			`diff --git a/packages/keycloak-api/src/account/generated/components.ts b/packages/keycloak-api/src/account/generated/components.ts
+index f4d3db71..c49ef815 100644
+--- a/packages/keycloak-api/src/account/generated/components.ts
++++ b/packages/keycloak-api/src/account/generated/components.ts
+@@ -544,7 +544,7 @@ export async function buildLinkingUri(
+ 		config,
+ 	}: {
+ 		pathParams: BuildLinkingUriPath;
+-		queryParams?: Partial<BuildLinkingUriQuery>;
++		queryParams: BuildLinkingUriQuery;
+ 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+ 	} = {} as any,
+ ) {
+@@ -558,7 +558,7 @@ export async function buildLinkingUri(
+ 		ErrorWrapper<Error>,
+ 		null,
+ 		Record<string, string>,
+-		Partial<BuildLinkingUriQuery>,
++		BuildLinkingUriQuery,
+ 		BuildLinkingUriPath
+ 	>({
+ 		method: "GET",`.split("\n");
+
+		const summary = await summarizeDiff(signatureChange);
+
+		expect(summary.text).toBe(
+			[
+				"diff packages/keycloak-api/src/account/generated/components.ts",
+				"~export async function buildLinkingUri(",
+				"-queryParams?: Partial<BuildLinkingUriQuery>;",
+				"+queryParams: BuildLinkingUriQuery;",
+				"-Partial<BuildLinkingUriQuery>,",
+				"+BuildLinkingUriQuery,",
+			].join("\n"),
+		);
+		expect(summary.text).not.toContain("@@");
+		expect(summary.removedOperations).toEqual([]);
+	});
+
+	it("names an export from a context line when the hunk header does not", async () => {
+		const summary = await summarizeDiff([
+			"diff --git a/p/src/generated/types.ts b/p/src/generated/types.ts",
+			"@@ -1,4 +1,4 @@",
+			" import type { Base } from './base';",
+			" export type Widget = {",
+			"-\tname: string;",
+			"+\tname?: string;",
+		]);
+		expect(summary.text).toBe(
+			[
+				"diff p/src/generated/types.ts",
+				"~export type Widget = {",
+				"-name: string;",
+				"+name?: string;",
+			].join("\n"),
+		);
 	});
 
 	it("reports operations that were removed and not re-added", async () => {
