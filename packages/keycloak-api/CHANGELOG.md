@@ -1,5 +1,11 @@
 # keycloak-api
 
+## 3.1.0
+
+### Minor Changes
+
+- 136db44: [BREAKING] `buildLinkingUri` in the account API now requires `queryParams` with `redirectUri`, as the spec marks it required.
+
 ## 3.0.1
 
 ### Patch Changes
