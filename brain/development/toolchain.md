@@ -1,6 +1,6 @@
 # Toolchain
 
-`mise.toml` pins the Node and pnpm versions, with checksums in `mise.lock`; read the current pins there, since dependency update pull requests move them (on 2026-10-20 `mise.toml` pins Node `26.12.0` and pnpm `12.14.0`, set by #51). `package.json` repeats the pnpm version in `packageManager` and asks for Node 22 or newer in `engines`.
+`mise.toml` pins the Node and pnpm versions, with checksums in `mise.lock`; read the current pins there, since dependency update pull requests move them (on 2026-10-30 `mise.toml` pins Node `26.12.1`, set by #73, and pnpm `12.14.0`, set by #51). `package.json` repeats the pnpm version in `packageManager` and asks for Node 22 or newer in `engines`.
 
 ```bash
 mise install
