@@ -1,5 +1,13 @@
 import c from "case";
-import type { OpenAPIObject, OperationObject, PathItemObject } from "openapi3-ts/oas30";
+import {
+	type ComponentsObject,
+	isReferenceObject,
+	type OpenAPIObject,
+	type OperationObject,
+	type PathItemObject,
+	type ReferenceObject,
+	type SchemaObject,
+} from "openapi3-ts/oas30";
 
 const HTTP_METHODS = ["get", "put", "post", "patch", "delete"] as const;
 const FETCH_TIMEOUT_MS = 30_000;
@@ -436,4 +444,149 @@ function isValidRegex(pattern: string): boolean {
 	} catch {
 		return false;
 	}
+}
+
+type Schema = SchemaObject | ReferenceObject;
+
+const SCHEMA_REF_PREFIX = "#/components/schemas/";
+
+const schemaRefName = (schema: ReferenceObject): string | undefined =>
+	schema.$ref.startsWith(SCHEMA_REF_PREFIX)
+		? schema.$ref.slice(SCHEMA_REF_PREFIX.length).replace(/~1/g, "/").replace(/~0/g, "~")
+		: undefined;
+
+const schemaRef = (name: string): string =>
+	`${SCHEMA_REF_PREFIX}${name.replace(/~/g, "~0").replace(/\//g, "~1")}`;
+
+// A `$ref` to a read-only component, such as a tunnel ID, doubles as a reference to it, so only an inline flag counts, as in kubb.
+function isReadOnly(schema: Schema): boolean {
+	if (isReferenceObject(schema)) return "readOnly" in schema && schema.readOnly === true;
+	return schema.readOnly === true || (schema.allOf ?? []).some(isReadOnly);
+}
+
+function subschemas(schema: SchemaObject): Schema[] {
+	const additional = schema.additionalProperties;
+	return [
+		...Object.values(schema.properties ?? {}),
+		...(schema.items ? [schema.items] : []),
+		...(schema.allOf ?? []),
+		...(schema.anyOf ?? []),
+		...(schema.oneOf ?? []),
+		...(schema.not ? [schema.not] : []),
+		...(additional && typeof additional === "object" ? [additional] : []),
+	];
+}
+
+/**
+ * Makes the `readOnly` properties a schema marks required optional in request bodies, since the
+ * server sets them. kubb omits one only at the top level of a body, so nested and composed ones
+ * stayed required. Each component a body reaches that has one is copied as `<name>Writable` for
+ * the body to use, and responses keep the original.
+ */
+export function optionalReadOnlyInRequestBodies(openAPIDocument: OpenAPIObject): OpenAPIObject {
+	const schemas = openAPIDocument.components?.schemas;
+	if (!schemas) return openAPIDocument;
+	const toWritable = writableSchemaRewriter(schemas);
+
+	const requestBodies = openAPIDocument.components?.requestBodies ?? {};
+	for (const pathItem of Object.values(openAPIDocument.paths ?? {})) {
+		for (const method of HTTP_METHODS) {
+			const requestBody = pathItem[method]?.requestBody;
+			if (!requestBody) continue;
+			const resolved = isReferenceObject(requestBody)
+				? requestBodies[requestBody.$ref.replace("#/components/requestBodies/", "")]
+				: requestBody;
+			if (!resolved || isReferenceObject(resolved)) continue;
+			for (const media of Object.values(resolved.content ?? {})) {
+				if (media.schema) media.schema = toWritable(media.schema);
+			}
+		}
+	}
+
+	return openAPIDocument;
+}
+
+function writableSchemaRewriter(
+	schemas: NonNullable<ComponentsObject["schemas"]>,
+): (schema: Schema) => Schema {
+	const takenTypeNames = new Set(Object.keys(schemas).map((name) => c.pascal(name)));
+	const writableNames = new Map<string, string>();
+	const needsCopy = new Map<string, boolean>();
+
+	function hasRequiredReadOnly(schema: Schema, visiting: Set<string>): boolean {
+		if (isReferenceObject(schema)) {
+			const name = schemaRefName(schema);
+			const target = name === undefined ? undefined : schemas[name];
+			if (!name || !target || visiting.has(name)) return false;
+			const known = needsCopy.get(name);
+			if (known !== undefined) return known;
+			visiting.add(name);
+			const result = hasRequiredReadOnly(target, visiting);
+			visiting.delete(name);
+			needsCopy.set(name, result);
+			return result;
+		}
+		const required = new Set(schema.required ?? []);
+		const properties = Object.entries(schema.properties ?? {});
+		if (properties.some(([key, property]) => required.has(key) && isReadOnly(property))) {
+			return true;
+		}
+		return subschemas(schema).some((subschema) => hasRequiredReadOnly(subschema, visiting));
+	}
+
+	function writableCopy(name: string, original: Schema): string {
+		const existing = writableNames.get(name);
+		if (existing) return existing;
+		let copyName = `${name}Writable`;
+		for (let suffix = 2; takenTypeNames.has(c.pascal(copyName)); suffix++) {
+			copyName = `${name}Writable${suffix}`;
+		}
+		takenTypeNames.add(c.pascal(copyName));
+		// Registered before the copy is rewritten, so a schema that reaches itself points at its own copy.
+		writableNames.set(name, copyName);
+		const copy = structuredClone(original);
+		schemas[copyName] = copy;
+		schemas[copyName] = toWritable(copy);
+		return copyName;
+	}
+
+	function toWritable(schema: Schema): Schema {
+		if (isReferenceObject(schema)) {
+			const name = schemaRefName(schema);
+			const target = name === undefined ? undefined : schemas[name];
+			if (!name || !target || !hasRequiredReadOnly(schema, new Set())) return schema;
+			return { ...schema, $ref: schemaRef(writableCopy(name, target)) };
+		}
+
+		const properties = schema.properties;
+		if (properties) {
+			const required = schema.required?.filter(
+				(key) => !(properties[key] && isReadOnly(properties[key])),
+			);
+			if (required?.length) schema.required = required;
+			else delete schema.required;
+			for (const [key, property] of Object.entries(properties)) {
+				properties[key] = toWritable(property);
+			}
+		}
+		if (schema.items) schema.items = toWritable(schema.items);
+		if (schema.not) schema.not = toWritable(schema.not);
+		if (schema.allOf) schema.allOf = schema.allOf.map(toWritable);
+		if (schema.anyOf) schema.anyOf = schema.anyOf.map(toWritable);
+		if (schema.oneOf) schema.oneOf = schema.oneOf.map(toWritable);
+		if (schema.additionalProperties && typeof schema.additionalProperties === "object") {
+			schema.additionalProperties = toWritable(schema.additionalProperties);
+		}
+		// A discriminator maps values to the same components as the union members, so it follows them.
+		const mapping = schema.discriminator?.mapping;
+		if (mapping) {
+			for (const [value, ref] of Object.entries(mapping)) {
+				const rewritten = toWritable({ $ref: ref });
+				if (isReferenceObject(rewritten)) mapping[value] = rewritten.$ref;
+			}
+		}
+		return schema;
+	}
+
+	return toWritable;
 }

@@ -65,6 +65,48 @@ describe("CloudflareApi.request", () => {
 		expect(new URL(urls[0] ?? "").search).toBe("?id=a&id=b");
 	});
 
+	it("sends a new ruleset without the fields the server sets", async () => {
+		const calls: { url: string; init: RequestInit | undefined }[] = [];
+		const fetch: FetchImpl = async (url, init) => {
+			calls.push({ url, init });
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		const client = new CloudflareApi({ token: "token", fetch });
+		// The spec marks id, version and last_updated of a ruleset and its rules required and read-only.
+		await client.request("POST /accounts/{accountId}/rulesets", {
+			pathParams: { accountId: "a" },
+			body: {
+				name: "My ruleset",
+				kind: "custom",
+				phase: "http_request_firewall_custom",
+				rules: [{ action: "block", expression: "ip.src eq 1.1.1.1" }],
+			},
+		});
+		await client.api.emailSecuritySettings.emailSecurityCreateAllowPolicy({
+			pathParams: { accountId: "a" },
+			body: {
+				is_acceptable_sender: false,
+				is_exempt_recipient: false,
+				is_regex: false,
+				is_trusted_sender: true,
+				pattern: "test@example.com",
+				pattern_type: "EMAIL",
+				verify_sender: true,
+			},
+		});
+
+		expect(calls).toHaveLength(2);
+		expect(JSON.parse(calls[0]?.init?.body as string)).toEqual({
+			name: "My ruleset",
+			kind: "custom",
+			phase: "http_request_firewall_custom",
+			rules: [{ action: "block", expression: "ip.src eq 1.1.1.1" }],
+		});
+	});
+
 	it("rejects an unknown endpoint", async () => {
 		const { client } = setup();
 		await expect(client.request("GET /nope" as never, {} as never)).rejects.toThrow(

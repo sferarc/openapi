@@ -3,6 +3,7 @@ import {
 	cleanOperationIds,
 	createConfig,
 	fetchSpec,
+	optionalReadOnlyInRequestBodies,
 } from "@sferadev/openapi-utils";
 import c from "case";
 import { defineConfig } from "kubb";
@@ -50,6 +51,8 @@ export default defineConfig(async () => {
 	openAPIDocument = deduplicateComponents(openAPIDocument, "schemas");
 	openAPIDocument = deduplicateComponents(openAPIDocument, "parameters");
 	openAPIDocument = deduplicateComponents(openAPIDocument, "responses");
+	// After deduplication, so the `Writable` copies are named against the final component names.
+	openAPIDocument = optionalReadOnlyInRequestBodies(openAPIDocument);
 
 	// Rewrite status codes: 4XX -> 400, 5XX -> 500
 	for (const definition of Object.values(openAPIDocument.paths ?? {})) {
