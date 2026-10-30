@@ -914,7 +914,7 @@ export async function createEnvVars(
 /**
  * @summary List environment variables for a site
  * @description Returns all environment variables for a site. This convenience method behaves the same as `getEnvVars` but doesn't require an `account_id` as input.
- * @link /api/v1/sites/{site_id}/env
+ * @link /sites/{site_id}/env
  */
 export async function getSiteEnvVars(
 	{
@@ -941,7 +941,7 @@ export async function getSiteEnvVars(
 		GetSiteEnvVarsPath
 	>({
 		method: "GET",
-		url: `/api/v1/sites/${encodeURIComponent(String(pathParams.site_id))}/env`,
+		url: `/sites/${encodeURIComponent(String(pathParams.site_id))}/env`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -7767,7 +7767,7 @@ export const operationsByPath = {
 	"GET /sites/{site_id}/ssl/certificates": getAllCertificates,
 	"GET /accounts/{account_id}/env": getEnvVars,
 	"POST /accounts/{account_id}/env": createEnvVars,
-	"GET /api/v1/sites/{site_id}/env": getSiteEnvVars,
+	"GET /sites/{site_id}/env": getSiteEnvVars,
 	"GET /accounts/{account_id}/env/{key}": getEnvVar,
 	"PUT /accounts/{account_id}/env/{key}": updateEnvVar,
 	"PATCH /accounts/{account_id}/env/{key}": setEnvVarValue,

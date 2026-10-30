@@ -231,6 +231,24 @@ export function addMissingPathParams(openAPIDocument: OpenAPIObject): OpenAPIObj
 	return openAPIDocument;
 }
 
+/** Drops a base path prefix that a spec path repeats, since the fetcher already prepends the base path. */
+export function stripBasePathPrefix(
+	openAPIDocument: OpenAPIObject,
+	basePath: string,
+): OpenAPIObject {
+	const prefix = basePath.replace(/\/+$/, "");
+	const paths: Record<string, PathItemObject> = {};
+	for (const [path, pathItem] of Object.entries(
+		openAPIDocument.paths as Record<string, PathItemObject>,
+	)) {
+		const stripped = path.startsWith(`${prefix}/`) ? path.slice(prefix.length) : path;
+		// An operation the spec already lists under the unprefixed path wins over the repeated one.
+		paths[stripped] =
+			stripped === path ? { ...paths[stripped], ...pathItem } : { ...pathItem, ...paths[stripped] };
+	}
+	return { ...openAPIDocument, paths };
+}
+
 export function fixArrayItems(openAPIDocument: OpenAPIObject): OpenAPIObject {
 	return JSON.parse(JSON.stringify(openAPIDocument), (_key, value) => {
 		if (

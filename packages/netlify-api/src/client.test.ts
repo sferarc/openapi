@@ -22,6 +22,12 @@ describe("NetlifyApi.request", () => {
 		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/sites\/a%2Fb$/);
 	});
 
+	it("calls getSiteEnvVars under the base path once", async () => {
+		const { urls, client } = setup();
+		await client.request("GET /sites/{site_id}/env", { pathParams: { site_id: "abc" } });
+		expect(urls).toEqual(["https://api.netlify.com/api/v1/sites/abc/env"]);
+	});
+
 	it("rejects a missing path param before calling fetch", async () => {
 		const { urls, client } = setup();
 		await expect(
