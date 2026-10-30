@@ -204,3 +204,54 @@ describe("Keycloak per-call config", () => {
 		expect(signals).toEqual([signal, signal]);
 	});
 });
+
+describe("Keycloak raw string bodies", () => {
+	function setup() {
+		const requests: { headers: unknown; body: unknown }[] = [];
+		const fetch: FetchImpl = async (_url, init) => {
+			requests.push({ headers: init?.headers, body: init?.body });
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return {
+			requests,
+			admin: new KeycloakAdminApi({
+				baseUrl: "https://keycloak.example.com",
+				token: "token",
+				fetch,
+			}),
+		};
+	}
+
+	const pathParams = { realm: "realm", clientUuid: "client" };
+	const policy = { name: "admins", type: "role", logic: "POSITIVE" as const };
+
+	it.each([
+		"POST /admin/realms/{realm}/clients/{clientUuid}/authz/resource-server/policy",
+		"POST /admin/realms/{realm}/clients/{clientUuid}/authz/resource-server/permission",
+	] as const)("sends %s a policy as a JSON object", async (endpoint) => {
+		const { requests, admin } = setup();
+		await admin.request(endpoint, { pathParams, body: policy });
+		// PolicyService parses the raw text, so a JSON-quoted string would fail to deserialize.
+		expect(requests).toEqual([
+			{
+				headers: expect.objectContaining({ "Content-Type": "application/json" }),
+				body: JSON.stringify(policy),
+			},
+		]);
+	});
+
+	it("sends a client description as unquoted text", async () => {
+		const { requests, admin } = setup();
+		const description = '{"client_name":"app","redirect_uris":["https://app.example.com/cb"]}';
+		await admin.request("POST /admin/realms/{realm}/client-description-converter", {
+			pathParams: { realm: "realm" },
+			body: description,
+		});
+		expect(requests).toEqual([
+			{ headers: expect.objectContaining({ "Content-Type": "text/plain" }), body: description },
+		]);
+	});
+});

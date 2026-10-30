@@ -6568,7 +6568,7 @@ export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionR
 	pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionStatus201Schema;
 
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionBodySchema = z
-	.string()
+	.lazy(() => policyRepresentationSchema)
 	.optional();
 
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionPathSchema =
@@ -6768,7 +6768,7 @@ export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyRespo
 	pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyStatus201Schema;
 
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyBodySchema = z
-	.string()
+	.lazy(() => policyRepresentationSchema)
 	.optional();
 
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyPathSchema = z.object({

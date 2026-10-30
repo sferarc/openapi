@@ -188,3 +188,40 @@ describe("CloudflareApi per-call config", () => {
 		expect(signals).toEqual([signal, signal]);
 	});
 });
+
+describe("Worker script uploads", () => {
+	const metadata = { main_module: "worker.js", compatibility_date: "2026-10-30" };
+	const file = () =>
+		new File(["export default { fetch: () => new Response('OK') };"], "worker.js", {
+			type: "application/javascript+module",
+		});
+
+	it.each([
+		["PUT /accounts/{accountId}/workers/scripts/{scriptName}", {}],
+		[
+			"PUT /accounts/{accountId}/workers/dispatch/namespaces/{dispatchNamespace}/scripts/{scriptName}",
+			{ dispatchNamespace: "ns" },
+		],
+	] as const)(
+		"sends %s as multipart with the metadata and module files",
+		async (endpoint, extraPathParams) => {
+			const { calls, fetch } = recordFetch(200, { success: true });
+			const client = new CloudflareApi({ token: "token", fetch });
+			await client.request(endpoint, {
+				pathParams: { accountId: "a", scriptName: "s", ...extraPathParams },
+				body: { metadata, files: [file()] },
+			});
+
+			const init = calls[0]?.init;
+			// fetch sets the multipart boundary only when no Content-Type is given.
+			expect(init?.headers?.["Content-Type"]).toBeUndefined();
+			const form = init?.body;
+			if (!(form instanceof FormData)) throw new Error("expected a FormData body");
+			expect(JSON.parse(String(form.get("metadata")))).toEqual(metadata);
+			const module = form.get("files");
+			if (!(module instanceof File)) throw new Error("expected the module as a File part");
+			expect(module.name).toBe("worker.js");
+			expect(module.type).toBe("application/javascript+module");
+		},
+	);
+});

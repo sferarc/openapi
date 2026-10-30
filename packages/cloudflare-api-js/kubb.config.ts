@@ -38,6 +38,15 @@ export default defineConfig(async () => {
 		}
 	}
 
+	// The raw script media types take service-worker syntax only, so module Workers need the multipart body.
+	for (const name of ["workers_script_upload", "workers_namespace_upload"]) {
+		const requestBody = openAPIDocument.components?.requestBodies?.[name];
+		if (requestBody && !isReferenceObject(requestBody)) {
+			delete requestBody.content["application/javascript"];
+			delete requestBody.content["text/javascript"];
+		}
+	}
+
 	openAPIDocument = deduplicateComponents(openAPIDocument, "schemas");
 	openAPIDocument = deduplicateComponents(openAPIDocument, "parameters");
 	openAPIDocument = deduplicateComponents(openAPIDocument, "responses");

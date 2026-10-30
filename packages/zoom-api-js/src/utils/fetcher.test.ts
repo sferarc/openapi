@@ -159,6 +159,21 @@ describe("fetcher edge responses and headers", () => {
 		expect((error as Error).name).toBe("AbortError");
 	});
 
+	it("rejects a timed out request with the signal's TimeoutError, not a wrapped error", async () => {
+		const signal = AbortSignal.abort(new DOMException("The operation timed out.", "TimeoutError"));
+		const fetchImpl: FetchImpl = async (_url, init) => {
+			init?.signal?.throwIfAborted();
+			return new Response("{}") as never;
+		};
+		const error = await client({
+			url: "/thing",
+			method: "get",
+			signal,
+			fetchImpl,
+		}).catch((e: unknown) => e);
+		expect(error).toBe(signal.reason);
+	});
+
 	it("resolves a 204 without a content type to undefined", async () => {
 		const fetchImpl: FetchImpl = async () => new Response(null, { status: 204 }) as never;
 		await expect(client({ url: "/thing", method: "delete", fetchImpl })).resolves.toBeUndefined();
@@ -190,5 +205,39 @@ describe("fetcher edge responses and headers", () => {
 			body: new FormData(),
 		});
 		expect(headers.get("content-type")).toBeNull();
+	});
+
+	const requestedUrl = async (url: string) => {
+		const urls: string[] = [];
+		const fetchImpl: FetchImpl = async (requested) => {
+			urls.push(requested);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		await client({ url, method: "get", queryParams: { page_size: 30 }, fetchImpl });
+		return urls[0];
+	};
+
+	it("encodes a segment beginning with an encoded slash a second time", async () => {
+		expect(await requestedUrl("/past_meetings/%2FajXp112QmuoKj4854875%3D%3D")).toBe(
+			"https://api.zoom.us/v2/past_meetings/%252FajXp112QmuoKj4854875%253D%253D?page_size=30",
+		);
+	});
+
+	it("encodes a segment containing two encoded slashes a second time", async () => {
+		expect(await requestedUrl("/past_meetings/ajXp%2F%2F112Qmu%3D%3D/participants")).toBe(
+			"https://api.zoom.us/v2/past_meetings/ajXp%252F%252F112Qmu%253D%253D/participants?page_size=30",
+		);
+	});
+
+	it("encodes other segments once", async () => {
+		expect(await requestedUrl("/devices/a%2Fb")).toBe(
+			"https://api.zoom.us/v2/devices/a%2Fb?page_size=30",
+		);
+		expect(await requestedUrl("/past_meetings/%252Falready-encoded")).toBe(
+			"https://api.zoom.us/v2/past_meetings/%252Falready-encoded?page_size=30",
+		);
 	});
 });

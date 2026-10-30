@@ -408991,11 +408991,10 @@ export type NamespaceWorkerScriptUploadWorkerModuleStatus200 = WorkersScriptResp
 export type NamespaceWorkerScriptUploadWorkerModuleStatus400 = WorkersApiResponseCommonFailure | WorkersExportsReconciliationErrorResponse;
 
 /**
- * @description Raw javascript content comprising a Worker. Must be in service worker syntax.
- * @example addEventListener('fetch', (event) => event.respondWith(new Response('OK')))
- * @type string
+ * @example {"files":["export default {\n  async fetch(request, env, ctx) {\n    return new Response(\"Hello, world!\");\n  }\n};"],"metadata":{"compatibility_date":{},"compatibility_flags":["nodejs_compat"],"main_module":"worker.js"}}
+ * @type object
  */
-export type NamespaceWorkerScriptUploadWorkerModuleBody = string;
+export type NamespaceWorkerScriptUploadWorkerModuleBody = WorkersMultipartScript;
 
 export type NamespaceWorkerScriptUploadWorkerModuleOptions = {
   body: NamespaceWorkerScriptUploadWorkerModuleBody;
@@ -416446,12 +416445,30 @@ export type WorkerScriptUploadWorkerModuleStatus200 = WorkersScriptResponseUploa
 
 export type WorkerScriptUploadWorkerModuleStatus400 = WorkersApiResponseCommonFailure | WorkersExportsReconciliationErrorResponse;
 
-/**
- * @description Raw javascript content comprising a Worker. Must be in service worker syntax.
- * @example addEventListener('fetch', (event) => event.respondWith(new Response('OK')))
- * @type string
- */
-export type WorkerScriptUploadWorkerModuleBody = string;
+export type WorkerScriptUploadWorkerModuleBody = WorkersMultipartScript & {
+  metadata?: {
+    /**
+     * @description Annotations for the version created by this upload.
+     * @type object | undefined
+     */
+    annotations?: {
+      /**
+       * @description Human-readable message about the version. Truncated to 1000 bytes if longer.
+       * @maxLength 1000
+       * @example Fixed bug.
+       * @type string | undefined
+       */
+      'workers/message'?: string | undefined;
+      /**
+       * @description User-provided identifier for the version. Maximum 100 bytes.
+       * @maxLength 100
+       * @example v1.0.1
+       * @type string | undefined
+       */
+      'workers/tag'?: string | undefined;
+    } | undefined;
+  } | undefined;
+};
 
 export type WorkerScriptUploadWorkerModuleOptions = {
   body: WorkerScriptUploadWorkerModuleBody;
