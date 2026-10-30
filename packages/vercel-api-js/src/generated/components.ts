@@ -5962,7 +5962,12 @@ export async function recordEvents(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -6054,7 +6059,13 @@ export async function uploadArtifact(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "application/octet-stream", ...headers, ...requestConfig.headers },
+		headers: {
+			"Content-Type": "application/octet-stream",
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -6102,7 +6113,12 @@ export async function downloadArtifact(
 		url: `/v8/artifacts/${encodeURIComponent(String(pathParams.hash))}`,
 		queryParams,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -20864,7 +20880,13 @@ export async function writeSessionFiles(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "application/gzip", ...headers, ...requestConfig.headers },
+		headers: {
+			"Content-Type": "application/gzip",
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -22960,7 +22982,13 @@ export async function uploadFile(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { "Content-Type": "application/octet-stream", ...headers, ...requestConfig.headers },
+		headers: {
+			"Content-Type": "application/octet-stream",
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;

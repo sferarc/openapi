@@ -11798,7 +11798,12 @@ export async function generateKeyFnKeyGeneratePost(
 		url: `/key/generate`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -11888,7 +11893,12 @@ export async function generateServiceAccountKeyFnKeyServiceAccountGeneratePost(
 		url: `/key/service-account/generate`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -11998,7 +12008,12 @@ export async function updateKeyFnKeyUpdatePost(
 		url: `/key/update`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -12068,7 +12083,12 @@ export async function bulkUpdateKeysKeyBulkUpdatePost(
 		url: `/key/bulk_update`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -12108,7 +12128,12 @@ export async function bulkUpdateTeamKeysTeamKeyBulkUpdatePost(
 		url: `/team/key/bulk_update`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -12157,7 +12182,12 @@ export async function deleteKeyFnKeyDeletePost(
 		url: `/key/delete`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -12378,7 +12408,12 @@ export async function regenerateKeyFnKeyRegeneratePost(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -12459,7 +12494,12 @@ export async function regenerateKeyFnKeyKeyRegeneratePost(
 		url: `/key/${encodeURIComponent(String(pathParams.key))}/regenerate`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -12499,7 +12539,12 @@ export async function resetKeySpendFnKeyKeyResetSpendPost(
 		url: `/key/${encodeURIComponent(String(pathParams.key))}/reset_spend`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -12636,7 +12681,12 @@ export async function blockKeyKeyBlockPost(
 		url: `/key/block`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -12681,7 +12731,12 @@ export async function unblockKeyKeyUnblockPost(
 		url: `/key/unblock`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -13073,7 +13128,12 @@ export async function bulkUserUpdateUserBulkUpdatePost(
 		url: `/user/bulk_update`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -13178,7 +13238,12 @@ export async function deleteUserUserDeletePost(
 		url: `/user/delete`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -14449,7 +14514,12 @@ export async function newTeamTeamNewPost(
 		url: `/team/new`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -14542,7 +14612,12 @@ export async function updateTeamTeamUpdatePost(
 		url: `/team/update`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -14594,7 +14669,12 @@ export async function patchTeamTeamTeamIdPatch(
 		url: `/team/${encodeURIComponent(String(pathParams.team_id))}`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -14910,7 +14990,12 @@ export async function deleteTeamTeamDeletePost(
 		url: `/team/delete`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -16627,7 +16712,12 @@ export async function bulkUpdateTeamMemberBudgetsActionManagementV1TeamsTeamIdMe
 		url: `/management/v1/teams/${encodeURIComponent(String(pathParams.team_id))}/members/bulk_update`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -16731,7 +16821,12 @@ export async function bulkDeleteUsersActionManagementV1UsersBulkDeletePost(
 		url: `/management/v1/users/bulk_delete`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -18424,7 +18519,12 @@ export async function addTeamCallbacksTeamTeamIdCallbackPost(
 		url: `/team/${encodeURIComponent(String(pathParams.team_id))}/callback`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -18539,7 +18639,12 @@ export async function deleteTeamCallbackTeamTeamIdCallbackCallbackNameDelete(
 		method: "DELETE",
 		url: `/team/${encodeURIComponent(String(pathParams.team_id))}/callback/${encodeURIComponent(String(pathParams.callback_name))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -18585,7 +18690,12 @@ export async function disableTeamLoggingTeamTeamIdDisableLoggingPost(
 		method: "POST",
 		url: `/team/${encodeURIComponent(String(pathParams.team_id))}/disable_logging`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -18898,7 +19008,12 @@ export async function blockModelModelBlockPost(
 		url: `/model/block`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -18936,7 +19051,12 @@ export async function unblockModelModelUnblockPost(
 		url: `/model/unblock`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -21996,7 +22116,12 @@ export async function progressLensWorkerLensIdJobIdProgressPost(
 		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/progress`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -22037,7 +22162,12 @@ export async function cachedReviewsLensWorkerLensIdJobIdReviewsGet(
 		method: "GET",
 		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/reviews`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -22078,7 +22208,12 @@ export async function sampleLensWorkerLensIdJobIdSampleGet(
 		method: "GET",
 		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/sample`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -22122,7 +22257,12 @@ export async function contentLensWorkerLensIdJobIdContentGet(
 		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/content`,
 		queryParams,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -22166,7 +22306,12 @@ export async function modelLensWorkerLensIdJobIdModelPost(
 		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/model`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -22210,7 +22355,12 @@ export async function resultLensWorkerLensIdJobIdResultPost(
 		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/result`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -22251,7 +22401,12 @@ export async function heartbeatLensWorkerLensIdJobIdHeartbeatPost(
 		method: "POST",
 		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/heartbeat`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -22984,7 +23139,12 @@ export async function updateCacheSettingsCacheSettingsPost(
 		url: `/cache/settings`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -23092,7 +23252,12 @@ export async function updateCoordinationRedisSettingsCoordinationRedisSettingsPo
 		url: `/coordination_redis/settings`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -31392,7 +31557,12 @@ export async function addMcpServerV1McpServerPost(
 		url: `/v1/mcp/server`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -31428,7 +31598,12 @@ export async function editMcpServerV1McpServerPut(
 		url: `/v1/mcp/server`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -31532,7 +31707,12 @@ export async function addSessionMcpServerV1McpServerOauthSessionPost(
 		url: `/v1/mcp/server/oauth/session`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -31631,7 +31811,12 @@ export async function removeMcpServerV1McpServerServerIdDelete(
 		method: "DELETE",
 		url: `/v1/mcp/server/${encodeURIComponent(String(pathParams.server_id))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -32307,7 +32492,12 @@ export async function addMcpToolsetV1McpToolsetPost(
 		url: `/v1/mcp/toolset`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -32343,7 +32533,12 @@ export async function editMcpToolsetV1McpToolsetPut(
 		url: `/v1/mcp/toolset`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -32381,7 +32576,12 @@ export async function removeMcpToolsetV1McpToolsetToolsetIdDelete(
 		method: "DELETE",
 		url: `/v1/mcp/toolset/${encodeURIComponent(String(pathParams.toolset_id))}`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -33566,7 +33766,12 @@ export async function deleteCyberarkConfigConfigOverridesCyberarkDelete(
 		method: "DELETE",
 		url: `/config_overrides/cyberark`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -33633,7 +33838,12 @@ export async function updateCyberarkConfigConfigOverridesCyberarkPost(
 		url: `/config_overrides/cyberark`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -33694,7 +33904,12 @@ export async function deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDel
 		method: "DELETE",
 		url: `/config_overrides/hashicorp_vault`,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -33760,7 +33975,12 @@ export async function updateHashicorpVaultConfigConfigOverridesHashicorpVaultPos
 		url: `/config_overrides/hashicorp_vault`,
 		body: body,
 		...requestConfig,
-		headers: { ...headers, ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
