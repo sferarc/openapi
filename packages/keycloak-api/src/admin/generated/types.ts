@@ -9315,7 +9315,7 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionPa
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionStatus201 = unknown;
 
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionBody =
-	| string
+	| PolicyRepresentation
 	| undefined;
 
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionOptions = {
@@ -9537,7 +9537,9 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyPath =
 
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyStatus201 = unknown;
 
-export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyBody = string | undefined;
+export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyBody =
+	| PolicyRepresentation
+	| undefined;
 
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyOptions = {
 	body: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyBody;
