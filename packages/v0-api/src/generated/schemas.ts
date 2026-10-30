@@ -83,7 +83,7 @@ export const chatDetailSchema = z
 					experimental_content: z
 						.array(
 							z.union([
-								z.tuple([z.literal(0), z.array(z.string())]),
+								z.tuple([z.literal(0), z.array(z.unknown())]),
 								z.tuple([
 									z.literal(1),
 									z.strictObject({
@@ -623,7 +623,7 @@ export const messageDetailSchema = z
 		experimental_content: z
 			.array(
 				z.union([
-					z.tuple([z.literal(0), z.array(z.string())]),
+					z.tuple([z.literal(0), z.array(z.unknown())]),
 					z.tuple([
 						z.literal(1),
 						z.strictObject({
@@ -765,7 +765,7 @@ export const messageSummarySchema = z
 		experimental_content: z
 			.array(
 				z.union([
-					z.tuple([z.literal(0), z.array(z.string())]),
+					z.tuple([z.literal(0), z.array(z.unknown())]),
 					z.tuple([
 						z.literal(1),
 						z.strictObject({
@@ -912,7 +912,7 @@ export const messageSummaryListSchema = z
 					experimental_content: z
 						.array(
 							z.union([
-								z.tuple([z.literal(0), z.array(z.string())]),
+								z.tuple([z.literal(0), z.array(z.unknown())]),
 								z.tuple([
 									z.literal(1),
 									z.strictObject({

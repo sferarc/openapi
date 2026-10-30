@@ -12118,12 +12118,12 @@ export type UserEvent = {
 				  }
 				| {
 						next: {
-							deploymentSources?: (string[] | null) | undefined;
-							gitSources?: (string[] | null) | undefined;
+							deploymentSources?: (unknown[] | null) | undefined;
+							gitSources?: (unknown[] | null) | undefined;
 						} | null;
 						previous: {
-							deploymentSources?: (string[] | null) | undefined;
-							gitSources?: (string[] | null) | undefined;
+							deploymentSources?: (unknown[] | null) | undefined;
+							gitSources?: (unknown[] | null) | undefined;
 						} | null;
 						projectId: string;
 						projectName: string;
@@ -13273,12 +13273,12 @@ export type UserEvent = {
 				  }
 				| {
 						next: {
-							deploymentSources?: (string[] | null) | undefined;
-							gitSources?: (string[] | null) | undefined;
+							deploymentSources?: (unknown[] | null) | undefined;
+							gitSources?: (unknown[] | null) | undefined;
 						} | null;
 						previous: {
-							deploymentSources?: (string[] | null) | undefined;
-							gitSources?: (string[] | null) | undefined;
+							deploymentSources?: (unknown[] | null) | undefined;
+							gitSources?: (unknown[] | null) | undefined;
 						} | null;
 				  }
 				| {
@@ -16478,7 +16478,7 @@ export type Flag = {
 					| {
 							[key: string]: unknown;
 					  }
-					| string[]
+					| unknown[]
 					| FlagVariantsValueKey
 			  )
 			| null;
@@ -24330,12 +24330,12 @@ export type BuyCreditsStatus200 =
 								 * @description The price intervals to add to the subscription
 								 * @type array | undefined
 								 */
-								add?: string[] | undefined;
+								add?: unknown[] | undefined;
 								/**
 								 * @description The adjustment intervals to add to the subscription
 								 * @type array | undefined
 								 */
-								addAdjustments?: string[] | undefined;
+								addAdjustments?: unknown[] | undefined;
 								/**
 								 * @description Whether to allow invoice credit or void
 								 * @type boolean | undefined
@@ -24345,12 +24345,12 @@ export type BuyCreditsStatus200 =
 								 * @description The price intervals to edit on the subscription
 								 * @type array | undefined
 								 */
-								edit?: string[] | undefined;
+								edit?: unknown[] | undefined;
 								/**
 								 * @description The adjustment intervals to edit on the subscription
 								 * @type array | undefined
 								 */
-								editAdjustments?: string[] | undefined;
+								editAdjustments?: unknown[] | undefined;
 								/**
 								 * @description The ID of the Orb subscription to modify price intervals for
 								 * @type string
@@ -56061,7 +56061,7 @@ export type CreateFlagStatus201 = {
 					| {
 							[key: string]: unknown;
 					  }
-					| string[]
+					| unknown[]
 					| CreateFlagStatus201VariantsValueKey
 			  )
 			| null;
@@ -56134,7 +56134,7 @@ export type CreateFlagBody =
 						 * @type string | undefined
 						 */
 						description?: string | undefined;
-						value: string | number | boolean | object | string[] | string;
+						value: string | number | boolean | object | unknown[] | string;
 				  }[]
 				| undefined;
 			/**
@@ -56768,7 +56768,7 @@ export type UpdateFlagStatus200 = {
 					| {
 							[key: string]: unknown;
 					  }
-					| string[]
+					| unknown[]
 					| UpdateFlagStatus200VariantsValueKey
 			  )
 			| null;
@@ -56832,7 +56832,7 @@ export type UpdateFlagBody =
 						 * @type string | undefined
 						 */
 						description?: string | undefined;
-						value: string | number | boolean | object | string[] | string;
+						value: string | number | boolean | object | unknown[] | string;
 				  }[]
 				| undefined;
 			/**
@@ -57465,7 +57465,7 @@ export type ListFlagVersionsStatus200 = {
 							| {
 									[key: string]: unknown;
 							  }
-							| string[]
+							| unknown[]
 							| ListFlagVersionsStatus200VersionsDataVariantsValueKey
 					  )
 					| null;

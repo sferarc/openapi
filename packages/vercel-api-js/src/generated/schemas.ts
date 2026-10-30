@@ -8541,14 +8541,14 @@ export const userEventSchema = z
 				z.strictObject({
 					next: z
 						.object({
-							deploymentSources: z.array(z.string()).nullish(),
-							gitSources: z.array(z.string()).nullish(),
+							deploymentSources: z.array(z.unknown()).nullish(),
+							gitSources: z.array(z.unknown()).nullish(),
 						})
 						.nullable(),
 					previous: z
 						.object({
-							deploymentSources: z.array(z.string()).nullish(),
-							gitSources: z.array(z.string()).nullish(),
+							deploymentSources: z.array(z.unknown()).nullish(),
+							gitSources: z.array(z.unknown()).nullish(),
 						})
 						.nullable(),
 					projectId: z.string(),
@@ -9586,14 +9586,14 @@ export const userEventSchema = z
 				z.strictObject({
 					next: z
 						.object({
-							deploymentSources: z.array(z.string()).nullish(),
-							gitSources: z.array(z.string()).nullish(),
+							deploymentSources: z.array(z.unknown()).nullish(),
+							gitSources: z.array(z.unknown()).nullish(),
 						})
 						.nullable(),
 					previous: z
 						.object({
-							deploymentSources: z.array(z.string()).nullish(),
-							gitSources: z.array(z.string()).nullish(),
+							deploymentSources: z.array(z.unknown()).nullish(),
+							gitSources: z.array(z.unknown()).nullish(),
 						})
 						.nullable(),
 				}),
@@ -13540,7 +13540,7 @@ export const flagSchema = z.object({
 					z.string(),
 					z.number(),
 					z.looseObject({}),
-					z.array(z.string()),
+					z.array(z.unknown()),
 					z.union([z.literal(false), z.literal(true)]),
 				])
 				.nullable(),
@@ -20161,11 +20161,11 @@ export const buyCreditsStatus200Schema = z.union([
 					z.strictObject({
 						options: z.object({
 							add: z
-								.array(z.string())
+								.array(z.unknown())
 								.optional()
 								.describe("The price intervals to add to the subscription"),
 							addAdjustments: z
-								.array(z.string())
+								.array(z.unknown())
 								.optional()
 								.describe("The adjustment intervals to add to the subscription"),
 							allowInvoiceCreditOrVoid: z
@@ -20173,11 +20173,11 @@ export const buyCreditsStatus200Schema = z.union([
 								.optional()
 								.describe("Whether to allow invoice credit or void"),
 							edit: z
-								.array(z.string())
+								.array(z.unknown())
 								.optional()
 								.describe("The price intervals to edit on the subscription"),
 							editAdjustments: z
-								.array(z.string())
+								.array(z.unknown())
 								.optional()
 								.describe("The adjustment intervals to edit on the subscription"),
 							orbSubscriptionId: z
@@ -46813,7 +46813,7 @@ export const createFlagStatus201Schema = z.object({
 					z.string(),
 					z.number(),
 					z.looseObject({}),
-					z.array(z.string()),
+					z.array(z.unknown()),
 					z.union([z.literal(false), z.literal(true)]),
 				])
 				.nullable(),
@@ -46867,7 +46867,7 @@ export const createFlagBodySchema = z
 						z.number(),
 						z.boolean(),
 						z.object({}),
-						z.array(z.string()),
+						z.array(z.unknown()),
 						z.string(),
 					]),
 				}),
@@ -47493,7 +47493,7 @@ export const updateFlagStatus200Schema = z.object({
 					z.string(),
 					z.number(),
 					z.looseObject({}),
-					z.array(z.string()),
+					z.array(z.unknown()),
 					z.union([z.literal(false), z.literal(true)]),
 				])
 				.nullable(),
@@ -47545,7 +47545,7 @@ export const updateFlagBodySchema = z
 						z.number(),
 						z.boolean(),
 						z.object({}),
-						z.array(z.string()),
+						z.array(z.unknown()),
 						z.string(),
 					]),
 				}),
@@ -48188,7 +48188,7 @@ export const listFlagVersionsStatus200Schema = z.object({
 								z.string(),
 								z.number(),
 								z.looseObject({}),
-								z.array(z.string()),
+								z.array(z.unknown()),
 								z.union([z.literal(false), z.literal(true)]),
 							])
 							.nullable(),
