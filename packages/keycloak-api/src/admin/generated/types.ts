@@ -139,19 +139,19 @@ export type AccessToken = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	exp?: bigint | undefined;
+	exp?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	nbf?: bigint | undefined;
+	nbf?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	iat?: bigint | undefined;
+	iat?: number | undefined;
 	iss?: string | undefined;
 	sub?: string | undefined;
 	typ?: string | undefined;
@@ -167,7 +167,7 @@ export type AccessToken = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	auth_time?: bigint | undefined;
+	auth_time?: number | undefined;
 	sid?: string | undefined;
 	at_hash?: string | undefined;
 	c_hash?: string | undefined;
@@ -193,7 +193,7 @@ export type AccessToken = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	updated_at?: bigint | undefined;
+	updated_at?: number | undefined;
 	claims_locales?: string | undefined;
 	acr?: string | undefined;
 	s_hash?: string | undefined;
@@ -225,7 +225,7 @@ export type AdminEventRepresentation = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	time?: bigint | undefined;
+	time?: number | undefined;
 	realmId?: string | undefined;
 	authDetails?: AuthDetailsRepresentation | undefined;
 	operationType?: string | undefined;
@@ -889,7 +889,7 @@ export type CredentialRepresentation = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	createdDate?: bigint | undefined;
+	createdDate?: number | undefined;
 	secretData?: string | undefined;
 	credentialData?: string | undefined;
 	/**
@@ -994,7 +994,7 @@ export type EventRepresentation = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	time?: bigint | undefined;
+	time?: number | undefined;
 	type?: string | undefined;
 	realmId?: string | undefined;
 	clientId?: string | undefined;
@@ -1031,7 +1031,7 @@ export type GroupRepresentation = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	subGroupCount?: bigint | undefined;
+	subGroupCount?: number | undefined;
 	subGroups?: GroupRepresentation[] | undefined;
 	attributes?:
 		| {
@@ -1058,19 +1058,19 @@ export type IDToken = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	exp?: bigint | undefined;
+	exp?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	nbf?: bigint | undefined;
+	nbf?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	iat?: bigint | undefined;
+	iat?: number | undefined;
 	iss?: string | undefined;
 	sub?: string | undefined;
 	typ?: string | undefined;
@@ -1086,7 +1086,7 @@ export type IDToken = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	auth_time?: bigint | undefined;
+	auth_time?: number | undefined;
 	sid?: string | undefined;
 	at_hash?: string | undefined;
 	c_hash?: string | undefined;
@@ -1112,7 +1112,7 @@ export type IDToken = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	updated_at?: bigint | undefined;
+	updated_at?: number | undefined;
 	claims_locales?: string | undefined;
 	acr?: string | undefined;
 	s_hash?: string | undefined;
@@ -1191,13 +1191,13 @@ export type IssuedVerifiableCredentialRepresentation = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	issuedAt?: bigint | undefined;
+	issuedAt?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	expiresAt?: bigint | undefined;
+	expiresAt?: number | undefined;
 	clientId?: string | undefined;
 	clientName?: string | undefined;
 	clientBaseUrl?: string | undefined;
@@ -1219,7 +1219,7 @@ export type KeyMetadataRepresentation = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	providerPriority?: bigint | undefined;
+	providerPriority?: number | undefined;
 	kid?: string | undefined;
 	status?: string | undefined;
 	type?: string | undefined;
@@ -1232,7 +1232,7 @@ export type KeyMetadataRepresentation = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	validTo?: bigint | undefined;
+	validTo?: number | undefined;
 };
 
 export type KeyStoreConfig = {
@@ -1330,13 +1330,13 @@ export type UserConsentRepresentation = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	createdDate?: bigint | undefined;
+	createdDate?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	lastUpdatedDate?: bigint | undefined;
+	lastUpdatedDate?: number | undefined;
 	/**
 	 * @deprecated
 	 * @type array | undefined
@@ -1353,13 +1353,13 @@ export type UserVerifiableCredentialRepresentation = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	createdDate?: bigint | undefined;
+	createdDate?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	updatedDate?: bigint | undefined;
+	updatedDate?: number | undefined;
 	userAttributes?:
 		| {
 				[key: string]: string[];
@@ -1401,7 +1401,7 @@ export type MemberRepresentation = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	createdTimestamp?: bigint | undefined;
+	createdTimestamp?: number | undefined;
 	totp?: boolean | undefined;
 	federationLink?: string | undefined;
 	serviceAccountClientId?: string | undefined;
@@ -1671,7 +1671,7 @@ export type RealmEventsConfigRepresentation = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	eventsExpiration?: bigint | undefined;
+	eventsExpiration?: number | undefined;
 	eventsListeners?: string[] | undefined;
 	enabledEventTypes?: string[] | undefined;
 	adminEventsEnabled?: boolean | undefined;
@@ -1717,7 +1717,7 @@ export type UserRepresentation = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	createdTimestamp?: bigint | undefined;
+	createdTimestamp?: number | undefined;
 	totp?: boolean | undefined;
 	federationLink?: string | undefined;
 	serviceAccountClientId?: string | undefined;
@@ -2031,7 +2031,7 @@ export type RealmRepresentation = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	quickLoginCheckMilliSeconds?: bigint | undefined;
+	quickLoginCheckMilliSeconds?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int32`
@@ -2193,7 +2193,7 @@ export type RealmRepresentation = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	eventsExpiration?: bigint | undefined;
+	eventsExpiration?: number | undefined;
 	eventsListeners?: string[] | undefined;
 	enabledEventTypes?: string[] | undefined;
 	adminEventsEnabled?: boolean | undefined;
@@ -2368,13 +2368,13 @@ export type UserSessionRepresentation = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	start?: bigint | undefined;
+	start?: number | undefined;
 	/**
 	 * @description
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	lastAccess?: bigint | undefined;
+	lastAccess?: number | undefined;
 	rememberMe?: boolean | undefined;
 	clients?:
 		| {
@@ -2413,7 +2413,7 @@ export type WorkflowStepRepresentation = {
 	 * Format: `int64`
 	 * @type integer | undefined
 	 */
-	"scheduled-at"?: bigint | undefined;
+	"scheduled-at"?: number | undefined;
 	status?: StepExecutionStatusKey | undefined;
 	id?: string | undefined;
 	config?: MultivaluedHashMapStringString | undefined;
@@ -5498,7 +5498,7 @@ export type GETAdminRealmsRealmGroupsCountQuery = {
 };
 
 export type GETAdminRealmsRealmGroupsCountStatus200 = {
-	[key: string]: bigint;
+	[key: string]: number;
 };
 
 export type GETAdminRealmsRealmGroupsCountOptions = {
@@ -6550,7 +6550,7 @@ export type GETAdminRealmsRealmOrganizationsCountQuery = {
  * Format: `int64`
  * @type integer
  */
-export type GETAdminRealmsRealmOrganizationsCountStatus200 = bigint;
+export type GETAdminRealmsRealmOrganizationsCountStatus200 = number;
 
 export type GETAdminRealmsRealmOrganizationsCountStatus403 = unknown;
 
@@ -11600,7 +11600,7 @@ export type GETAdminRealmsRealmClientsClientUuidOfflineSessionCountPath = {
 };
 
 export type GETAdminRealmsRealmClientsClientUuidOfflineSessionCountStatus200 = {
-	[key: string]: bigint;
+	[key: string]: number;
 };
 
 export type GETAdminRealmsRealmClientsClientUuidOfflineSessionCountOptions = {
@@ -13244,7 +13244,7 @@ export type GETAdminRealmsRealmClientsClientUuidSessionCountPath = {
 };
 
 export type GETAdminRealmsRealmClientsClientUuidSessionCountStatus200 = {
-	[key: string]: bigint;
+	[key: string]: number;
 };
 
 export type GETAdminRealmsRealmClientsClientUuidSessionCountOptions = {
@@ -15796,7 +15796,7 @@ export type GETAdminRealmsRealmOrganizationsOrgIdMembersCountPath = {
  * Format: `int64`
  * @type integer
  */
-export type GETAdminRealmsRealmOrganizationsOrgIdMembersCountStatus200 = bigint;
+export type GETAdminRealmsRealmOrganizationsOrgIdMembersCountStatus200 = number;
 
 export type GETAdminRealmsRealmOrganizationsOrgIdMembersCountStatus403 = unknown;
 
@@ -17694,7 +17694,7 @@ export type GETAdminRealmsRealmUsersUserIdGroupsCountQuery = {
 };
 
 export type GETAdminRealmsRealmUsersUserIdGroupsCountStatus200 = {
-	[key: string]: bigint;
+	[key: string]: number;
 };
 
 export type GETAdminRealmsRealmUsersUserIdGroupsCountStatus403 = unknown;

@@ -389,7 +389,7 @@ export type ListArchivedFilesStatus200 = {
 				 * @example 553068284
 				 * @type integer
 				 */
-				id: bigint;
+				id: number;
 				/**
 				 * @description Whether the room is a [breakout room](https://support.zoom.us/hc/en-us/articles/115005769646-Participating-in-breakout-rooms).
 				 * @example false
@@ -925,7 +925,7 @@ export type MeetingLocalArchivingArchiveTokenPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 /**
@@ -940,7 +940,7 @@ export type MeetingLocalArchivingArchiveTokenStatus200 = {
 	 * @example 120
 	 * @type integer | undefined
 	 */
-	expire_in?: bigint | undefined;
+	expire_in?: number | undefined;
 	/**
 	 * @description The archive token.
 	 * @example 2njt50mj
@@ -1252,7 +1252,7 @@ export type GetArchivedFilesStatus200 = {
 	 * @example 553068284
 	 * @type integer
 	 */
-	id: bigint;
+	id: number;
 	/**
 	 * @description Whether the room is a [breakout room](https://support.zoom.us/hc/en-us/articles/115005769646-Participating-in-breakout-rooms).
 	 * @example false
@@ -1633,7 +1633,7 @@ export type RecordingGetStatus200 = ({
 	 * @example 22
 	 * @type integer | undefined
 	 */
-	total_size?: bigint | undefined;
+	total_size?: number | undefined;
 	/**
 	 * @description The recording's associated type of meeting or webinar.
 	 *
@@ -2298,7 +2298,7 @@ export type MeetingRecordingRegistrantsPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export const meetingRecordingRegistrantsStatus = {
@@ -2635,7 +2635,7 @@ export type MeetingRecordingRegistrantCreatePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingRecordingRegistrantCreateStatus201 = {
@@ -2646,7 +2646,7 @@ export type MeetingRecordingRegistrantCreateStatus201 = {
 	 * @example 6840331980
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	/**
 	 * @description Registrant ID
 	 * @example 3Z7sEm0TQQieLav3c3OD_g
@@ -3263,7 +3263,7 @@ export type MeetingRecordingRegistrantStatusPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingRecordingRegistrantStatusStatus204 = unknown;
@@ -4163,7 +4163,7 @@ export type RecordingsListStatus200 = {
 				 * @example 22
 				 * @type integer | undefined
 				 */
-				total_size?: bigint | undefined;
+				total_size?: number | undefined;
 				/**
 				 * @description The recording's associated type of meeting or webinar:
 				 *
@@ -6226,7 +6226,7 @@ export type MeetingAppAddPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingAppAddStatus201 = {
@@ -6237,7 +6237,7 @@ export type MeetingAppAddStatus201 = {
 	 * @example 92674392836
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	/**
 	 * @description For scheduled meetings only. Meeting start date-time in UTC/GMT, such as `2020-03-31T12:02:00Z`.
 	 *
@@ -6368,7 +6368,7 @@ export type MeetingAppDeletePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingAppDeleteStatus204 = unknown;
@@ -6408,7 +6408,7 @@ export type DeleteMeetingChatMessageByIdPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 	/**
 	 * @description The live meeting chat message's unique identifier (UUID), in base64-encoded format.
 	 * @example MS17MDQ5NjE4QjYtRjk4Ny00REEwLUFBQUItMTg3QTY0RjU2MzhFfQ==
@@ -6463,7 +6463,7 @@ export type UpdateMeetingChatMessageByIdPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 	/**
 	 * @description The live meeting chat message's unique identifier (UUID), in base64-encoded format.
 	 * @example MS17MDQ5NjE4QjYtRjk4Ny00REEwLUFBQUItMTg3QTY0RjU2MzhFfQ==
@@ -6815,7 +6815,7 @@ export type MeetingLocalRecordingJoinTokenPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingLocalRecordingJoinTokenQuery = {
@@ -6839,7 +6839,7 @@ export type MeetingLocalRecordingJoinTokenStatus200 = {
 	 * @example 120
 	 * @type integer | undefined
 	 */
-	expire_in?: bigint | undefined;
+	expire_in?: number | undefined;
 	/**
 	 * @description The join token.
 	 * @example 2njt50mj
@@ -6883,7 +6883,7 @@ export type MeetingTokenPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingTokenQuery = {
@@ -6974,7 +6974,7 @@ export type AddBatchRegistrantsStatus201 = {
 				 * @example 380303
 				 * @type integer | undefined
 				 */
-				participant_pin_code?: bigint | undefined;
+				participant_pin_code?: number | undefined;
 		  }[]
 		| undefined;
 };
@@ -7057,7 +7057,7 @@ export type MeetingInvitationPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 /**
@@ -7140,7 +7140,7 @@ export type MeetingInviteLinksCreatePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 /**
@@ -7223,7 +7223,7 @@ export type MeetingInviteLinksCreateBody =
 			 * @example 1000
 			 * @type integer | undefined
 			 */
-			ttl?: bigint | undefined;
+			ttl?: number | undefined;
 	  }
 	| undefined;
 
@@ -7256,7 +7256,7 @@ export type MeetingRegistrantsPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export const meetingRegistrantsStatus = {
@@ -7594,7 +7594,7 @@ export type MeetingRegistrantsStatus200 = {
 				 * @example 380303
 				 * @type integer | undefined
 				 */
-				participant_pin_code?: bigint | undefined;
+				participant_pin_code?: number | undefined;
 		  })[]
 		| undefined;
 };
@@ -7634,7 +7634,7 @@ export type MeetingRegistrantCreatePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingRegistrantCreateQuery = {
@@ -7654,7 +7654,7 @@ export type MeetingRegistrantCreateStatus201 = {
 	 * @example 85746065
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	/**
 	 * @description The URL the registrant can use to join the meeting.
 	 *
@@ -7725,7 +7725,7 @@ export type MeetingRegistrantCreateStatus201 = {
 	 * @example 380303
 	 * @type integer | undefined
 	 */
-	participant_pin_code?: bigint | undefined;
+	participant_pin_code?: number | undefined;
 };
 
 export type MeetingRegistrantCreateStatus400 = unknown;
@@ -8000,7 +8000,7 @@ export type MeetingRegistrantsQuestionsGetPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export const meetingRegistrantsQuestionsGetStatus200CustomQuestionsTypeEnum = {
@@ -8130,7 +8130,7 @@ export type MeetingRegistrantQuestionUpdatePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingRegistrantQuestionUpdateStatus204 = unknown;
@@ -8266,7 +8266,7 @@ export type MeetingRegistrantStatusPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingRegistrantStatusQuery = {
@@ -8365,7 +8365,7 @@ export type MeetingRegistrantGetPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 	/**
 	 * @description The registrant ID.
 	 * @example 9tboDiHUQAeOnbmudzWa5g
@@ -8611,7 +8611,7 @@ export type MeetingRegistrantGetStatus200 = {
 	 * @example 380303
 	 * @type integer | undefined
 	 */
-	participant_pin_code?: bigint | undefined;
+	participant_pin_code?: number | undefined;
 };
 
 export type MeetingRegistrantGetStatus400 = unknown;
@@ -8700,7 +8700,7 @@ export type MeetingLiveStreamingJoinTokenPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 /**
@@ -8715,7 +8715,7 @@ export type MeetingLiveStreamingJoinTokenStatus200 = {
 	 * @example 120
 	 * @type integer | undefined
 	 */
-	expire_in?: bigint | undefined;
+	expire_in?: number | undefined;
 	/**
 	 * @description The join token.
 	 * @example 2njt50mj
@@ -8820,7 +8820,7 @@ export type MeetingLiveStreamUpdatePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingLiveStreamUpdateStatus204 = unknown;
@@ -8898,7 +8898,7 @@ export type MeetingLiveStreamStatusUpdatePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingLiveStreamStatusUpdateStatus204 = unknown;
@@ -9206,7 +9206,7 @@ export type MeetingRTMSStatusUpdatePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingRTMSStatusUpdateStatus204 = unknown;
@@ -9298,7 +9298,7 @@ export type MeetingPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingQuery = {
@@ -9666,7 +9666,7 @@ export type MeetingStatus200 = {
 	 * @example 97763643886
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	/**
 	 * @description Unique meeting ID. Each meeting instance generates its own meeting UUID - after a meeting ends, a new UUID is generated for the next instance of the meeting. Retrieve a list of UUIDs from past meeting instances using the [**List past meeting instances**](/docs/api/rest/reference/zoom-api/methods#operation/pastMeetings) API. [Double encode](/docs/api/rest/using-zoom-apis/#meeting-id-and-uuid) your UUID when using it for API calls if the UUID begins with a `/` or contains `//` in it.
 	 *
@@ -10997,7 +10997,7 @@ export type MeetingDeletePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingDeleteQuery = {
@@ -11063,7 +11063,7 @@ export type MeetingUpdatePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingUpdateQuery = {
@@ -12554,7 +12554,7 @@ export type GetSipDialingWithPasscodePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 /**
@@ -12587,7 +12587,7 @@ export type GetSipDialingWithPasscodeStatus200 = {
 	 * @example 7200
 	 * @type integer | undefined
 	 */
-	expire_in?: bigint | undefined;
+	expire_in?: number | undefined;
 };
 
 export type GetSipDialingWithPasscodeStatus400 = unknown;
@@ -12636,7 +12636,7 @@ export type MeetingStatusPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingStatusStatus204 = unknown;
@@ -12720,7 +12720,7 @@ export type PastMeetingDetailsStatus200 = {
 	 * @example 5638296721
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	/**
 	 * @description The meeting's UUID. You must [double encode](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis/#meeting-id-and-uuid) this value if the meeting UUID begins with a `/` character or contains the `//` character.
 	 * @example 4444AAAiAAAAAiAiAiiAii==
@@ -12855,7 +12855,7 @@ export type PastMeetingsPath = {
 	 * @example 93398114182
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type PastMeetingsQuery = {
@@ -13128,7 +13128,7 @@ export type ListPastMeetingQAStatus200 = {
 	 * @example 95204914252
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	questions?:
 		| {
 				/**
@@ -13374,7 +13374,7 @@ export type MeetingsStatus200 = {
 				 * @example 97763643886
 				 * @type integer | undefined
 				 */
-				id?: bigint | undefined;
+				id?: number | undefined;
 				/**
 				 * @description URL using which participants can join a meeting.
 				 * @example https://example.com/j/11111
@@ -13813,7 +13813,7 @@ export type MeetingCreateStatus201 = {
 	 * @example 92674392836
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	/**
 	 * @description Unique meeting ID. Each meeting instance generates its own meeting UUID - after a meeting ends, a new UUID is generated for the next instance of the meeting. Retrieve a list of UUIDs from past meeting instances using the [**List past meeting instances**](/docs/api/rest/reference/zoom-api/methods#operation/pastMeetings) API. [Double encode](/docs/api/rest/using-zoom-apis/#meeting-id-and-uuid) your UUID when using it for API calls if the UUID begins with a `/` or contains `//` in it.
 	 * @example aDYlohsHRtCd4ii1uC2+hA==
@@ -16529,7 +16529,7 @@ export type ListUpcomingMeetingStatus200 = {
 				 * @example 97763643886
 				 * @type integer | undefined
 				 */
-				id?: bigint | undefined;
+				id?: number | undefined;
 				/**
 				 * @description The meeting topic.
 				 * @example My Meeting
@@ -16652,7 +16652,7 @@ export type UserPACsStatus200 = {
 				 * @example 111111
 				 * @type integer | undefined
 				 */
-				conference_id?: bigint | undefined;
+				conference_id?: number | undefined;
 				/**
 				 * @description Information about the account's dedicated dial-in numbers.
 				 * @type array | undefined
@@ -17261,7 +17261,7 @@ export type MeetingPollsPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingPollsQuery = {
@@ -17586,7 +17586,7 @@ export type MeetingPollCreatePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export const meetingPollCreateStatus201StatusEnum = {
@@ -18127,7 +18127,7 @@ export type MeetingPollGetPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 	/**
 	 * @description The poll ID.
 	 * @example QalIoKWLTJehBJ8e1xRrbQ
@@ -18429,7 +18429,7 @@ export type MeetingPollUpdatePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 	/**
 	 * @description The poll ID.
 	 * @example QalIoKWLTJehBJ8e1xRrbQ
@@ -18710,7 +18710,7 @@ export type MeetingPollDeletePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 	/**
 	 * @description The poll ID
 	 * @example QalIoKWLTJehBJ8e1xRrbQ
@@ -18764,7 +18764,7 @@ export type ListPastMeetingPollsStatus200 = {
 	 * @example 93398114182
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	questions?:
 		| {
 				/**
@@ -19508,7 +19508,7 @@ export type GetdisclaimerreportStatus200 = {
 				 * @example 93201235621
 				 * @type integer | undefined
 				 */
-				meeting_number?: bigint | undefined;
+				meeting_number?: number | undefined;
 				/**
 				 * @description The disclaimer's meeting ID.
 				 * @example gm8s9L+PTEC+FG3sFbd1Cw==
@@ -19777,7 +19777,7 @@ export type GethistorymeetingandwebinarlistStatus200 = {
 				 * @example 93201235621
 				 * @type integer | undefined
 				 */
-				meeting_id?: bigint | undefined;
+				meeting_id?: number | undefined;
 				/**
 				 * @description The meeting type, either Meeting or Webinar.
 				 * @example Meeting
@@ -20406,7 +20406,7 @@ export type ReportMeetingDetailsStatus200 = {
 	 * @example 3927350525
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	/**
 	 * @description Number of meeting participants.
 	 * @example 2
@@ -20723,7 +20723,7 @@ export type ReportMeetingPollsStatus200 = {
 	 * @example 123456
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	/**
 	 * @description The meeting's universally unique identifier (UUID). Each meeting instance generates a meeting UUID.
 	 * @example 4444AAAiAAAAAiAiAiiAii==
@@ -20871,7 +20871,7 @@ export type ReportMeetingQAStatus200 = {
 	 * @example 245603123123
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	/**
 	 * @description Array of meeting question objects.
 	 * @type array | undefined
@@ -21051,7 +21051,7 @@ export type ReportMeetingSurveyStatus200 = {
 	 * @example 123456
 	 * @type integer | undefined
 	 */
-	meeting_id?: bigint | undefined;
+	meeting_id?: number | undefined;
 	/**
 	 * @description The meeting's universally unique identifier (UUID). Each meeting instance generates a meeting UUID.
 	 * @example 4444AAAiAAAAAiAiAiiAii==
@@ -21685,7 +21685,7 @@ export type ReportTelephoneStatus200 = {
 				 * @example 94908911701
 				 * @type integer | undefined
 				 */
-				meeting_id?: bigint | undefined;
+				meeting_id?: number | undefined;
 				/**
 				 * @description Meeting type.
 				 * @example Meeting
@@ -22595,7 +22595,7 @@ export type ReportWebinarDetailsStatus200 = {
 	 * @example 345678902224
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	/**
 	 * @description Number of meeting participants.
 	 * @example 4
@@ -22912,7 +22912,7 @@ export type ReportWebinarPollsStatus200 = {
 	 * @example 123456
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	/**
 	 * @description Information about the webinar questions.
 	 * @type array | undefined
@@ -23061,7 +23061,7 @@ export type ReportWebinarQAStatus200 = {
 	 * @example 245603123123
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	/**
 	 * @description Array of webinar question objects.
 	 * @type array | undefined
@@ -23242,7 +23242,7 @@ export type ReportWebinarSurveyStatus200 = {
 	 * @example 123456
 	 * @type integer | undefined
 	 */
-	webinar_id?: bigint | undefined;
+	webinar_id?: number | undefined;
 	/**
 	 * @description The webinar's universally unique identifier (UUID). Each webinar instance generates a webinar UUID.
 	 * @example 4444AAAiAAAAAiAiAiiAii==
@@ -24371,7 +24371,7 @@ export type ListmeetingsummariesStatus200 = {
 				 * @example 97763643886
 				 * @type integer | undefined
 				 */
-				meeting_id?: bigint | undefined;
+				meeting_id?: number | undefined;
 				/**
 				 * @description Meeting topic.
 				 * @example My Meeting
@@ -24498,7 +24498,7 @@ export type GetameetingsummaryStatus200 = {
 	 * @example 97763643886
 	 * @type integer | undefined
 	 */
-	meeting_id?: bigint | undefined;
+	meeting_id?: number | undefined;
 	/**
 	 * @description The meeting topic.
 	 * @example My Meeting
@@ -24887,7 +24887,7 @@ export type ListUserMeetingSummariesStatus200 = {
 				 * @example 97763643886
 				 * @type integer | undefined
 				 */
-				meeting_id?: bigint | undefined;
+				meeting_id?: number | undefined;
 				/**
 				 * @description The meeting topic.
 				 * @example My Meeting
@@ -24984,7 +24984,7 @@ export type MeetingSurveyGetPath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export const meetingSurveyGetStatus200CustomSurveyQuestionsTypeEnum = {
@@ -25261,7 +25261,7 @@ export type MeetingSurveyDeletePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingSurveyDeleteStatus204 = unknown;
@@ -25301,7 +25301,7 @@ export type MeetingSurveyUpdatePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	meetingId: bigint;
+	meetingId: number;
 };
 
 export type MeetingSurveyUpdateStatus204 = unknown;
@@ -26632,7 +26632,7 @@ export type MeetingTemplateCreateBody =
 			 * @example 96172769962
 			 * @type integer | undefined
 			 */
-			meeting_id?: bigint | undefined;
+			meeting_id?: number | undefined;
 			/**
 			 * @description The template name.
 			 * @example My Meeting Template
@@ -27004,7 +27004,7 @@ export type DeleteWebinarChatMessageByIdPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 	/**
 	 * @description The live webinar chat message's unique identifier (UUID), in base64-encoded format.
 	 * @example MS17MDQ5NjE4QjYtRjk4Ny00REEwLUFBQUItMTg3QTY0RjU2MzhFfQ==
@@ -27399,7 +27399,7 @@ export type PastWebinarsPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 /**
@@ -27656,7 +27656,7 @@ export type ListPastWebinarPollResultsStatus200 = {
 	 * @example 95204914252
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	questions?:
 		| {
 				/**
@@ -27763,7 +27763,7 @@ export type ListPastWebinarQAStatus200 = {
 	 * @example 95204914252
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	questions?:
 		| {
 				/**
@@ -27945,7 +27945,7 @@ export type WebinarTemplateCreateBody =
 			 * @example 96172769962
 			 * @type integer | undefined
 			 */
-			webinar_id?: bigint | undefined;
+			webinar_id?: number | undefined;
 			/**
 			 * @description The webinar template's name.
 			 * @example Weekly Meeting Template
@@ -28123,7 +28123,7 @@ export type WebinarsStatus200 = {
 				 * @example 1234567890
 				 * @type integer | undefined
 				 */
-				id?: bigint | undefined;
+				id?: number | undefined;
 				/**
 				 * @description The URL to join the webinar.
 				 * @example https://example.com/j/11111
@@ -28554,7 +28554,7 @@ export type WebinarCreateStatus201 = {
 	 * @example 95204914252
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	/**
 	 * @description The webinar template's unique identifier. Use this field only if you would like to [schedule the webinar using an existing template](https://support.zoom.us/hc/en-us/articles/115001079746-Webinar-Templates#schedule). The value of this field can be retrieved from [**List webinar templates**](/docs/api/rest/reference/zoom-api/methods#operation/listWebinarTemplates) API.
 	 * You must provide the user ID of the host instead of the email address in the `userId` path parameter in order to use a template for scheduling a Webinar.
@@ -30978,7 +30978,7 @@ export type WebinarStatus200 = {
 	 * @example 97871060099
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	/**
 	 * @description The webinar template's unique identifier. Use this field only if you would like to [schedule the webinar using an existing template](https://support.zoom.us/hc/en-us/articles/115001079746-Webinar-Templates#schedule). The value of this field can be retrieved from [**List webinar templates**](/docs/api/rest/reference/zoom-api/methods#operation/listWebinarTemplates) API.
 	 * You must provide the user ID of the host instead of the email address in the `userId` path parameter in order to use a template for scheduling a webinar.
@@ -31947,7 +31947,7 @@ export type WebinarDeletePath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type WebinarDeleteQuery = {
@@ -32004,7 +32004,7 @@ export type WebinarUpdatePath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type WebinarUpdateQuery = {
@@ -33253,7 +33253,7 @@ export type GetWebinarBrandingPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 /**
@@ -33380,7 +33380,7 @@ export type CreateWebinarBrandingNameTagPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type CreateWebinarBrandingNameTagStatus201 = {
@@ -33510,7 +33510,7 @@ export type DeleteWebinarBrandingNameTagPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type DeleteWebinarBrandingNameTagQuery = {
@@ -33557,7 +33557,7 @@ export type UpdateWebinarBrandingNameTagPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 	/**
 	 * @description The name tag's ID.
 	 * @example J0sFXN2PSOCGrqTqLRwgAQ
@@ -33656,7 +33656,7 @@ export type UploadWebinarBrandingVBPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type UploadWebinarBrandingVBStatus201 = {
@@ -33751,7 +33751,7 @@ export type DeleteWebinarBrandingVBPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type DeleteWebinarBrandingVBQuery = {
@@ -33798,7 +33798,7 @@ export type SetWebinarBrandingVBPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type SetWebinarBrandingVBQuery = {
@@ -33851,7 +33851,7 @@ export type UploadWebinarBrandingWallpaperPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type UploadWebinarBrandingWallpaperStatus201 = {
@@ -33925,7 +33925,7 @@ export type DeleteWebinarBrandingWallpaperPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type DeleteWebinarBrandingWallpaperStatus204 = unknown;
@@ -33963,7 +33963,7 @@ export type WebinarInviteLinksCreatePath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 /**
@@ -34046,7 +34046,7 @@ export type WebinarInviteLinksCreateBody =
 			 * @example 1000
 			 * @type integer | undefined
 			 */
-			ttl?: bigint | undefined;
+			ttl?: number | undefined;
 	  }
 	| undefined;
 
@@ -34077,7 +34077,7 @@ export type WebinarLiveStreamingJoinTokenPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 /**
@@ -34092,7 +34092,7 @@ export type WebinarLiveStreamingJoinTokenStatus200 = {
 	 * @example 120
 	 * @type integer | undefined
 	 */
-	expire_in?: bigint | undefined;
+	expire_in?: number | undefined;
 	/**
 	 * @description The join token.
 	 * @example 2njt50mj
@@ -34134,7 +34134,7 @@ export type WebinarLocalArchivingArchiveTokenPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 /**
@@ -34149,7 +34149,7 @@ export type WebinarLocalArchivingArchiveTokenStatus200 = {
 	 * @example 120
 	 * @type integer | undefined
 	 */
-	expire_in?: bigint | undefined;
+	expire_in?: number | undefined;
 	/**
 	 * @description The archive token.
 	 * @example 2njt50mj
@@ -34191,7 +34191,7 @@ export type WebinarLocalRecordingJoinTokenPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 /**
@@ -34206,7 +34206,7 @@ export type WebinarLocalRecordingJoinTokenStatus200 = {
 	 * @example 120
 	 * @type integer | undefined
 	 */
-	expire_in?: bigint | undefined;
+	expire_in?: number | undefined;
 	/**
 	 * @description The join token.
 	 * @example 2njt50mj
@@ -34309,7 +34309,7 @@ export type WebinarLiveStreamUpdatePath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type WebinarLiveStreamUpdateStatus204 = unknown;
@@ -34385,7 +34385,7 @@ export type WebinarLiveStreamStatusUpdatePath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type WebinarLiveStreamStatusUpdateStatus204 = unknown;
@@ -34491,7 +34491,7 @@ export type WebinarPanelistsPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 /**
@@ -34609,7 +34609,7 @@ export type WebinarPanelistCreatePath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type WebinarPanelistCreateStatus201 = {
@@ -34726,7 +34726,7 @@ export type WebinarPanelistsDeletePath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type WebinarPanelistsDeleteStatus204 = unknown;
@@ -34764,7 +34764,7 @@ export type WebinarPanelistDeletePath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 	/**
 	 * @description The panelist's ID or email.
 	 * @example Tg2b6GhcQKKbV7nSCbDKug
@@ -34808,7 +34808,7 @@ export type WebinarPollsPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type WebinarPollsQuery = {
@@ -35131,7 +35131,7 @@ export type WebinarPollCreatePath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export const webinarPollCreateStatus201StatusEnum = {
@@ -35670,7 +35670,7 @@ export type WebinarPollGetPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 	/**
 	 * @description The poll ID.
 	 * @example QalIoKWLTJehBJ8e1xRrbQ
@@ -35970,7 +35970,7 @@ export type WebinarPollUpdatePath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 	/**
 	 * @description The poll ID.
 	 * @example QalIoKWLTJehBJ8e1xRrbQ
@@ -36249,7 +36249,7 @@ export type WebinarPollDeletePath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 	/**
 	 * @description The poll ID
 	 * @example QalIoKWLTJehBJ8e1xRrbQ
@@ -36293,7 +36293,7 @@ export type WebinarRegistrantsPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export const webinarRegistrantsStatus = {
@@ -36667,7 +36667,7 @@ export type WebinarRegistrantCreatePath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type WebinarRegistrantCreateQuery = {
@@ -36695,7 +36695,7 @@ export type WebinarRegistrantCreateStatus201 = {
 	 * @example 92674392836
 	 * @type integer | undefined
 	 */
-	id?: bigint | undefined;
+	id?: number | undefined;
 	/**
 	 * @description The URL the registrant can use to join the webinar.
 	 * @example https://example.com/j/22222
@@ -37045,7 +37045,7 @@ export type WebinarRegistrantsQuestionsGetPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export const webinarRegistrantsQuestionsGetStatus200CustomQuestionsTypeEnum = {
@@ -37223,7 +37223,7 @@ export type WebinarRegistrantQuestionUpdatePath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type WebinarRegistrantQuestionUpdateStatus204 = unknown;
@@ -37407,7 +37407,7 @@ export type WebinarRegistrantStatusPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type WebinarRegistrantStatusQuery = {
@@ -37508,7 +37508,7 @@ export type WebinarRegistrantGetPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 	/**
 	 * @description The registrant ID.
 	 * @example 9tboDiHUQAeOnbmudzWa5g
@@ -37885,7 +37885,7 @@ export type GetWebinarSipDialingWithPasscodePath = {
 	 * @example 85746065
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 /**
@@ -37918,7 +37918,7 @@ export type GetWebinarSipDialingWithPasscodeStatus201 = {
 	 * @example 7200
 	 * @type integer | undefined
 	 */
-	expire_in?: bigint | undefined;
+	expire_in?: number | undefined;
 };
 
 export type GetWebinarSipDialingWithPasscodeStatus400 = unknown;
@@ -37962,7 +37962,7 @@ export type WebinarStatusPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type WebinarStatusStatus200 = unknown;
@@ -38010,7 +38010,7 @@ export type WebinarSurveyGetPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export const webinarSurveyGetStatus200CustomSurveyQuestionsTypeEnum = {
@@ -38298,7 +38298,7 @@ export type WebinarSurveyDeletePath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type WebinarSurveyDeleteStatus204 = unknown;
@@ -38336,7 +38336,7 @@ export type WebinarSurveyUpdatePath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type WebinarSurveyUpdateStatus204 = unknown;
@@ -38628,7 +38628,7 @@ export type WebinarTokenPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type WebinarTokenQuery = {
@@ -38690,7 +38690,7 @@ export type GetTrackingSourcesPath = {
 	 * @example 99289110036
 	 * @type integer
 	 */
-	webinarId: bigint;
+	webinarId: number;
 };
 
 export type GetTrackingSourcesStatus200 = {

@@ -134,7 +134,7 @@ export const accountPasswordResetSchema = z.object({
 });
 
 export const staleDeviceSchema = z.object({
-	smartlockId: z.coerce.bigint().optional(),
+	smartlockId: z.int().optional(),
 	name: z.string().optional(),
 	read: z.boolean().optional(),
 });
@@ -285,7 +285,7 @@ export const addressSchema = z.object({
 	addressId: z.int32().describe("The address id"),
 	accountId: z.int32().describe("The account id"),
 	name: z.string().describe("The name of the address"),
-	smartlockIds: z.array(z.coerce.bigint()).describe("The smartlocks for this address"),
+	smartlockIds: z.array(z.int()).describe("The smartlocks for this address"),
 	serviceId: z
 		.enum(["airbnb", "bookingsync"])
 		.optional()
@@ -300,7 +300,7 @@ export const addressSchema = z.object({
 
 export const addressCreateSchema = z.object({
 	name: z.string().describe("The name of the address"),
-	smartlockIds: z.array(z.coerce.bigint()).describe("The smartlocks for this address"),
+	smartlockIds: z.array(z.int()).describe("The smartlocks for this address"),
 });
 
 export const addressReservationSchema = z.object({
@@ -378,7 +378,7 @@ export const addressUnitResponseSchema = z.object({
 
 export const addressUpdateSchema = z.object({
 	name: z.string().optional().describe("The name of the address"),
-	smartlockIds: z.array(z.coerce.bigint()).optional().describe("The smartlocks for this address"),
+	smartlockIds: z.array(z.int()).optional().describe("The smartlocks for this address"),
 	settings: z.record(z.string(), z.object({})).optional().describe("The optional settings"),
 });
 
@@ -550,7 +550,7 @@ export const apiKeyAdvancedSchema = z.object({
 	webhookSentSuccessfully: z.int32().optional(),
 	webhookSentErroneous: z.int32().optional(),
 	lastSuccessfulPost: z.iso.datetime().optional(),
-	lastPostDuration: z.coerce.bigint().optional(),
+	lastPostDuration: z.int().optional(),
 	lastPostSuccesful: z.boolean().optional(),
 	status: z.enum(["INACTIVE", "APPLIED", "TESTING", "ACTIVE"]).optional(),
 	webhookStatus: z.enum(["ACTIVE", "DEACTIVATED"]).optional(),
@@ -969,7 +969,7 @@ export const encoderServiceSchema = z.object({
 	get ignoredMediaTypes() {
 		return z.array(mediaTypeSchema).optional();
 	},
-	minimumSize: z.coerce.bigint().optional(),
+	minimumSize: z.int().optional(),
 	stopped: z.boolean().optional(),
 });
 
@@ -1067,7 +1067,7 @@ export const smartlockWebConfigSchema = z.object({
 });
 
 export const webConfigRequestSchema = z.object({
-	smartlockId: z.coerce.bigint().optional(),
+	smartlockId: z.int().optional(),
 	webConfig: smartlockWebConfigSchema.optional(),
 });
 
@@ -1135,7 +1135,7 @@ export const challengeResponseSchema = z.object({
 	secret: z.array(z.string()).optional(),
 	secretAlgorithm: z.string().optional(),
 	serverNounceCount: z.int32().optional(),
-	timeIssued: z.coerce.bigint().optional(),
+	timeIssued: z.int().optional(),
 	principal: principalSchema.optional(),
 	serverNounceCountAsHex: z.string().optional(),
 });
@@ -1365,8 +1365,8 @@ export const namedValueStringSchema = z.object({
 });
 
 export const notificationSettingSchema = z.object({
-	smartlockId: z.coerce
-		.bigint()
+	smartlockId: z
+		.int()
 		.optional()
 		.describe(
 			"The smartlock ID, if not set all Smart Locks of the account  are enabled for push notifications",
@@ -1417,7 +1417,7 @@ export const notificationSchema = z.object({
 export const objectIdSchema = z.object({
 	timestamp: z.int32().optional(),
 	counter: z.int32().optional(),
-	time: z.coerce.bigint().optional(),
+	time: z.int().optional(),
 	date: z.iso.datetime().optional(),
 	machineIdentifier: z.int32().optional(),
 	processIdentifier: z.int32().optional(),
@@ -1455,7 +1455,7 @@ export const openerIntercomModelSchema = z.object({
 });
 
 export const paginationSchema = z.object({
-	totalItems: z.coerce.bigint().optional(),
+	totalItems: z.int().optional(),
 	totalPages: z.int32().optional(),
 	currentPage: z.int32().optional(),
 	nextPage: z.string().optional(),
@@ -1477,9 +1477,9 @@ export const preferenceSchema = z.object({
 });
 
 export const rangeSchema = z.object({
-	index: z.coerce.bigint().optional(),
-	instanceSize: z.coerce.bigint().optional(),
-	size: z.coerce.bigint().optional(),
+	index: z.int().optional(),
+	instanceSize: z.int().optional(),
+	size: z.int().optional(),
 	unitName: z.string().optional(),
 });
 
@@ -1537,13 +1537,13 @@ export const representationSchema = z.object({
 	disposition: dispositionSchema.optional(),
 	expirationDate: z.iso.datetime().optional(),
 	range: rangeSchema.optional(),
-	size: z.coerce.bigint().optional(),
+	size: z.int().optional(),
 	empty: z.boolean().optional(),
 	channel: readableByteChannelSchema.optional(),
 	transient: z.boolean().optional(),
 	text: z.string().optional(),
 	reader: readerSchema.optional(),
-	availableSize: z.coerce.bigint().optional(),
+	availableSize: z.int().optional(),
 	registration: selectionRegistrationSchema.optional(),
 	stream: inputStreamSchema.optional(),
 	selectable: z.boolean().optional(),
@@ -2177,7 +2177,7 @@ export const smartlockStateSchema = z.object({
 });
 
 export const smartlockSchema = z.object({
-	smartlockId: z.coerce.bigint().describe("The smartlock id"),
+	smartlockId: z.int().describe("The smartlock id"),
 	accountId: z.int32().describe("The account id"),
 	type: z
 		.int32()
@@ -2260,7 +2260,7 @@ export const smartlockAdminPinUpdateSchema = z.object({
 
 export const smartlockAuthSchema = z.object({
 	id: z.string().describe("The unique id for the smartlock authorization"),
-	smartlockId: z.coerce.bigint().describe("The smartlock id"),
+	smartlockId: z.int().describe("The smartlock id"),
 	accountUserId: z.int32().optional().describe("The id of the linked account user"),
 	authId: z.int32().optional().describe("The smartlock authorization id"),
 	code: z.int32().optional().describe("The keypad code (only for type keypad)"),
@@ -2433,7 +2433,7 @@ export const smartlockLogOpenerLogSchema = z.object({
 
 export const smartlockLogSchema = z.object({
 	id: z.string().describe("The unique id for the smartlock log"),
-	smartlockId: z.coerce.bigint().describe("The smartlock id"),
+	smartlockId: z.int().describe("The smartlock id"),
 	deviceType: z
 		.int32()
 		.describe(
@@ -2505,7 +2505,7 @@ export const smartlocksAuthAdvancedCreateSchema = z.object({
 		.optional()
 		.describe("The allowed until time (in minutes from midnight)"),
 	accountUserId: z.int32().describe("The id of the linked account user"),
-	smartlockIds: z.array(z.coerce.bigint()).describe("The list of smartlock ids"),
+	smartlockIds: z.array(z.int()).describe("The list of smartlock ids"),
 	remoteAllowed: z.boolean().describe("True if the auth has remote access"),
 	smartActionsEnabled: z.boolean().optional().describe("The smart actions enabled flag"),
 });
@@ -2534,7 +2534,7 @@ export const smartlocksAuthCreateSchema = z.object({
 		.int32()
 		.optional()
 		.describe("The id of the linked account user (required if type is NOT 13 .. keypad)"),
-	smartlockIds: z.array(z.coerce.bigint()).optional().describe("The list of smartlock ids"),
+	smartlockIds: z.array(z.int()).optional().describe("The list of smartlock ids"),
 	remoteAllowed: z.boolean().describe("True if the auth has remote access"),
 	smartActionsEnabled: z.boolean().optional().describe("The smart actions enabled flag"),
 	type: z
@@ -2573,7 +2573,7 @@ export const webhookLogSchema = z.object({
 		.describe("Request id, set when api-triggered request otherwise empty"),
 	succeeded: z.boolean().optional().describe("If the webhooks sends the data successfully"),
 	responseStatus: z.int32().optional().describe("Http Status code of the webhook response"),
-	duration: z.coerce.bigint().optional().describe("The duration of the webhook in milli seconds"),
+	duration: z.int().optional().describe("The duration of the webhook in milli seconds"),
 	accountId: z.int32().describe("The account id"),
 	request: webhookMessageSchema.optional().describe("Only set if webhook triggered by user"),
 	response: webhookMessageSchema.optional().describe("Set if webhook sent"),

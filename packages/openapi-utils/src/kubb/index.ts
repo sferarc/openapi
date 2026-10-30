@@ -22,6 +22,8 @@ function buildConfig({
 			server: { index: 0 },
 			contentType: "application/json",
 			dateType: "string",
+			// JSON.parse gives a number for int64 too, and JSON.stringify throws on a bigint.
+			integerType: "number",
 			unknownType: "unknown",
 			enumSuffix: "Enum",
 		}),
