@@ -59,6 +59,8 @@ describe("LiteLLMApi.request", () => {
 		const typeChecks = () => [
 			// @ts-expect-error pathParams needs key
 			client.request("POST /key/{key}/regenerate", { pathParams: {} }),
+			// @ts-expect-error pathParams is required
+			client.request("POST /key/{key}/regenerate"),
 			// @ts-expect-error the operation has no such parameter
 			client.request("POST /key/{key}/regenerate", { pathParams: { key: "a" }, nope: 1 }),
 			// @ts-expect-error pathParams needs key
@@ -69,7 +71,7 @@ describe("LiteLLMApi.request", () => {
 
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
-		await client.request("GET /routes", {});
+		await client.request("GET /routes");
 		expect(urls).toHaveLength(1);
 		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/routes$/);
 	});

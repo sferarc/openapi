@@ -65,6 +65,13 @@ type RequestEndpointParams<T extends keyof typeof operationsByPath> = NonNullabl
 	Parameters<(typeof operationsByPath)[T]>[0]
 >;
 
+// The params argument is optional when the operation requires none of its fields, as in `client.api`.
+type RequestEndpointArgs<T extends keyof typeof operationsByPath> = [
+	RequiredKeys<RequestEndpointParams<T>>,
+] extends [never]
+	? [params?: RequestEndpointParams<T>]
+	: [params: RequestEndpointParams<T>];
+
 type RequestEndpointResult<T extends keyof typeof operationsByPath> = ReturnType<
 	(typeof operationsByPath)[T]
 >;
@@ -131,7 +138,7 @@ export class NukiApi {
 
 	public async request<Endpoint extends keyof typeof operationsByPath>(
 		endpoint: Endpoint,
-		params: RequestEndpointParams<Endpoint>,
+		...[params]: RequestEndpointArgs<Endpoint>
 	) {
 		const operation = Object.hasOwn(operationsByPath, endpoint)
 			? (operationsByPath[endpoint] as (params: Record<string, unknown>) => Promise<unknown>)

@@ -36,6 +36,8 @@ describe("NukiApi.request", () => {
 		const typeChecks = () => [
 			// @ts-expect-error pathParams needs serviceId
 			client.request("GET /service/{serviceId}", { pathParams: {} }),
+			// @ts-expect-error pathParams is required
+			client.request("GET /service/{serviceId}"),
 			// @ts-expect-error the operation has no such parameter
 			client.request("GET /service/{serviceId}", { pathParams: { serviceId: "a" }, nope: 1 }),
 			// @ts-expect-error pathParams needs serviceId
@@ -46,7 +48,7 @@ describe("NukiApi.request", () => {
 
 	it("calls an endpoint without params", async () => {
 		const { urls, client } = setup();
-		await client.request("GET /account", {});
+		await client.request("GET /account");
 		expect(urls).toHaveLength(1);
 		expect(new URL(urls[0] ?? "").pathname).toMatch(/\/account$/);
 	});
