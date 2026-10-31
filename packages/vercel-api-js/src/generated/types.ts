@@ -6360,6 +6360,14 @@ export const userEventPayloadPreviousProjectScopeEnum = {
 export type UserEventPayloadPreviousProjectScopeEnumKey =
 	(typeof userEventPayloadPreviousProjectScopeEnum)[keyof typeof userEventPayloadPreviousProjectScopeEnum];
 
+export const userEventPayloadTargetKindEnum = {
+	project: "project",
+	repository: "repository",
+} as const;
+
+export type UserEventPayloadTargetKindEnumKey =
+	(typeof userEventPayloadTargetKindEnum)[keyof typeof userEventPayloadTargetKindEnum];
+
 export const userEventPayloadNextEnum = {
 	basic: "basic",
 	elastic: "elastic",
@@ -13268,13 +13276,26 @@ export type UserEvent = {
 						 */
 						surface: string;
 						branchRef: string | null;
-						deploymentId: string;
-						environment: string;
+						/**
+						 * @description Null for a repository's findings and those of an undeployed commit.
+						 * @type string
+						 */
+						deploymentId: string | null;
+						/**
+						 * @description Null for a repository's findings.
+						 * @type string
+						 */
+						environment: string | null;
 						findingId: string;
 						findingNumber: number;
-						projectId: string;
-						projectName: string;
 						severity: string;
+						targetId: string;
+						/**
+						 * @description A repository's findings are in code no project runs.
+						 * @type string
+						 */
+						targetKind: UserEventPayloadTargetKindEnumKey;
+						targetName: string;
 						vulnerabilityClass: string;
 				  }
 				| {

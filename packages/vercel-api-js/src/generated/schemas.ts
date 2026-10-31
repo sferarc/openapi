@@ -9536,13 +9536,19 @@ export const userEventSchema = z
 							"Currently emitted surfaces: dashboard, internal, slack, automation, github.",
 						),
 					branchRef: z.string().nullable(),
-					deploymentId: z.string(),
-					environment: z.string(),
+					deploymentId: z
+						.string()
+						.nullable()
+						.describe("Null for a repository's findings and those of an undeployed commit."),
+					environment: z.string().nullable().describe("Null for a repository's findings."),
 					findingId: z.string(),
 					findingNumber: z.number(),
-					projectId: z.string(),
-					projectName: z.string(),
 					severity: z.string(),
+					targetId: z.string(),
+					targetKind: z
+						.enum(["project", "repository"])
+						.describe("A repository's findings are in code no project runs."),
+					targetName: z.string(),
 					vulnerabilityClass: z.string(),
 				}),
 				z.strictObject({
