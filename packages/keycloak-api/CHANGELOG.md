@@ -1,5 +1,11 @@
 # keycloak-api
 
+## 3.1.1
+
+### Patch Changes
+
+- 93a38cf: Map the subpath entries, such as `/types`, `/schemas`, `/components` and `/effect`, in `typesVersions`. TypeScript's `moduleResolution: node` (`node10`), the TypeScript 5 default for `module: commonjs`, ignores `exports`, so importing a subpath failed with "Cannot find module" there.
+
 ## 3.1.0
 
 ### Minor Changes
