@@ -85,6 +85,19 @@
 			}
 		}
 	},
+	"typesVersions": {
+		"*": {
+			"types": [
+				"./dist/types.d.cts"
+			],
+			"schemas": [
+				"./dist/schemas.d.cts"
+			],
+			"components": [
+				"./dist/components.d.cts"
+			]
+		}
+	},
 	"publishConfig": {
 		"access": "public",
 		"provenance": true
