@@ -116,6 +116,28 @@
 			}
 		}
 	},
+	"typesVersions": {
+		"*": {
+			"admin/types": [
+				"./dist/admin/types.d.cts"
+			],
+			"admin/schemas": [
+				"./dist/admin/schemas.d.cts"
+			],
+			"admin/components": [
+				"./dist/admin/components.d.cts"
+			],
+			"account/types": [
+				"./dist/account/types.d.cts"
+			],
+			"account/schemas": [
+				"./dist/account/schemas.d.cts"
+			],
+			"account/components": [
+				"./dist/account/components.d.cts"
+			]
+		}
+	},
 	"publishConfig": {
 		"access": "public",
 		"provenance": true

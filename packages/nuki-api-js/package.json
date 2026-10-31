@@ -105,6 +105,22 @@
 			}
 		}
 	},
+	"typesVersions": {
+		"*": {
+			"types": [
+				"./dist/types.d.cts"
+			],
+			"schemas": [
+				"./dist/schemas.d.cts"
+			],
+			"components": [
+				"./dist/components.d.cts"
+			],
+			"effect": [
+				"./dist/effect.d.cts"
+			]
+		}
+	},
 	"publishConfig": {
 		"access": "public",
 		"provenance": true
