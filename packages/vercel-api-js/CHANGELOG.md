@@ -1,5 +1,17 @@
 # vercel-api-js
 
+## 2.6.0
+
+### Minor Changes
+
+- caaf4d2: [BREAKING] Replaced 'aws-alpha' with 'aws-oidc' in connectConnectorTypeEnum and connectConnectorCreateResultTypeEnum.
+
+### Patch Changes
+
+- caaf4d2: Extended UserEvent type to include next and previous dsyncMode, organizationId, teamId, and teamName fields for certain events.
+- caaf4d2: Added 'organization-team-dsync-update' to userEventTypeEnum, listEventTypeNameEnum, and listEventTypeReplacedByEnum.
+- caaf4d2: Added userEventPayloadNextDsyncModeEnum and userEventPayloadPreviousDsyncModeEnum enums for organization and team dsync modes.
+
 ## 2.5.10
 
 ### Patch Changes
