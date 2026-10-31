@@ -1,5 +1,12 @@
 # litellm-api
 
+## 2.3.0
+
+### Minor Changes
+
+- 366ccf5: [BREAKING] Types for path, responses, and options for the affected operations were renamed or replaced to reflect the new method bindings.
+- 366ccf5: [BREAKING] The HTTP method bindings for several route operations under /toolset/{toolset_name}/mcp and /{mcp_server_name}/mcp were swapped, changing the operation signatures for GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS.
+
 ## 2.2.2
 
 ### Patch Changes
