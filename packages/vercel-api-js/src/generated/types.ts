@@ -797,7 +797,7 @@ export type ConnectConnectorSupportsIconEnumKey =
 
 export const connectConnectorTypeEnum = {
 	"api-key": "api-key",
-	"aws-alpha": "aws-alpha",
+	"aws-oidc": "aws-oidc",
 	custom: "custom",
 	discord: "discord",
 	github: "github",
@@ -1228,7 +1228,7 @@ export type ConnectConnectorCreateResultSupportsIconEnumKey =
 
 export const connectConnectorCreateResultTypeEnum = {
 	"api-key": "api-key",
-	"aws-alpha": "aws-alpha",
+	"aws-oidc": "aws-oidc",
 	custom: "custom",
 	discord: "discord",
 	github: "github",
@@ -5862,6 +5862,22 @@ export const userEventPayloadBillingPlanEnum = {
 export type UserEventPayloadBillingPlanEnumKey =
 	(typeof userEventPayloadBillingPlanEnum)[keyof typeof userEventPayloadBillingPlanEnum];
 
+export const userEventPayloadNextDsyncModeEnum = {
+	organization: "organization",
+	team: "team",
+} as const;
+
+export type UserEventPayloadNextDsyncModeEnumKey =
+	(typeof userEventPayloadNextDsyncModeEnum)[keyof typeof userEventPayloadNextDsyncModeEnum];
+
+export const userEventPayloadPreviousDsyncModeEnum = {
+	organization: "organization",
+	team: "team",
+} as const;
+
+export type UserEventPayloadPreviousDsyncModeEnumKey =
+	(typeof userEventPayloadPreviousDsyncModeEnum)[keyof typeof userEventPayloadPreviousDsyncModeEnum];
+
 export const userEventPayloadNextEnforcementScopeEnum = {
 	all: "all",
 	preview: "preview",
@@ -7067,6 +7083,7 @@ export const userEventTypeEnum = {
 	"organization-team-add": "organization-team-add",
 	"organization-team-create": "organization-team-create",
 	"organization-team-delete": "organization-team-delete",
+	"organization-team-dsync-update": "organization-team-dsync-update",
 	"organization-team-sso-update": "organization-team-sso-update",
 	"organization-update-account-flow-dismissed": "organization-update-account-flow-dismissed",
 	"organization-update-account-flow-triggered": "organization-update-account-flow-triggered",
@@ -11099,6 +11116,17 @@ export type UserEvent = {
 						teamId: string;
 				  }
 				| {
+						next: {
+							dsyncMode: UserEventPayloadNextDsyncModeEnumKey;
+						};
+						organizationId: string;
+						previous: {
+							dsyncMode: UserEventPayloadPreviousDsyncModeEnumKey;
+						};
+						teamId: string;
+						teamName: string;
+				  }
+				| {
 						connectionType: string;
 						organizationId: string;
 						organizationSlug: string;
@@ -15043,6 +15071,7 @@ export const listEventTypeNameEnum = {
 	"organization-team-add": "organization-team-add",
 	"organization-team-create": "organization-team-create",
 	"organization-team-delete": "organization-team-delete",
+	"organization-team-dsync-update": "organization-team-dsync-update",
 	"organization-team-sso-update": "organization-team-sso-update",
 	"organization-update-account-flow-dismissed": "organization-update-account-flow-dismissed",
 	"organization-update-account-flow-triggered": "organization-update-account-flow-triggered",
@@ -15814,6 +15843,7 @@ export const listEventTypeReplacedByEnum = {
 	"organization-team-add": "organization-team-add",
 	"organization-team-create": "organization-team-create",
 	"organization-team-delete": "organization-team-delete",
+	"organization-team-dsync-update": "organization-team-dsync-update",
 	"organization-team-sso-update": "organization-team-sso-update",
 	"organization-update-account-flow-dismissed": "organization-update-account-flow-dismissed",
 	"organization-update-account-flow-triggered": "organization-update-account-flow-triggered",
