@@ -1,5 +1,13 @@
 # vercel-api-js
 
+## 2.7.0
+
+### Minor Changes
+
+- b5e7a19: [BREAKING] The UserEvent type fields deploymentId and environment are now nullable, potentially returning null for repository findings and undeployed commits.
+- b5e7a19: [BREAKING] The UserEvent type replaced projectId and projectName with targetId, targetKind, and targetName fields, changing the structure of the event target.
+- b5e7a19: Added userEventPayloadTargetKindEnum constant and UserEventPayloadTargetKindEnumKey type for typing UserEvent.targetKind.
+
 ## 2.6.0
 
 ### Minor Changes
