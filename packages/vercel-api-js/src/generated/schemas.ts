@@ -677,7 +677,7 @@ export const connectConnectorSchema = z
 		type: z
 			.enum([
 				"api-key",
-				"aws-alpha",
+				"aws-oidc",
 				"custom",
 				"discord",
 				"github",
@@ -952,7 +952,7 @@ export const connectConnectorCreateResultSchema = z
 		type: z
 			.enum([
 				"api-key",
-				"aws-alpha",
+				"aws-oidc",
 				"custom",
 				"discord",
 				"github",
@@ -7382,6 +7382,17 @@ export const userEventSchema = z
 					teamId: z.string(),
 				}),
 				z.strictObject({
+					next: z.object({
+						dsyncMode: z.enum(["organization", "team"]),
+					}),
+					organizationId: z.string(),
+					previous: z.object({
+						dsyncMode: z.enum(["organization", "team"]),
+					}),
+					teamId: z.string(),
+					teamName: z.string(),
+				}),
+				z.strictObject({
 					connectionType: z.string(),
 					organizationId: z.string(),
 					organizationSlug: z.string(),
@@ -11336,6 +11347,7 @@ export const userEventSchema = z
 				"organization-team-add",
 				"organization-team-create",
 				"organization-team-delete",
+				"organization-team-dsync-update",
 				"organization-team-sso-update",
 				"organization-update-account-flow-dismissed",
 				"organization-update-account-flow-triggered",
@@ -12189,6 +12201,7 @@ export const listEventTypeSchema = z
 				"organization-team-add",
 				"organization-team-create",
 				"organization-team-delete",
+				"organization-team-dsync-update",
 				"organization-team-sso-update",
 				"organization-update-account-flow-dismissed",
 				"organization-update-account-flow-triggered",
@@ -12944,6 +12957,7 @@ export const listEventTypeSchema = z
 					"organization-team-add",
 					"organization-team-create",
 					"organization-team-delete",
+					"organization-team-dsync-update",
 					"organization-team-sso-update",
 					"organization-update-account-flow-dismissed",
 					"organization-update-account-flow-triggered",
