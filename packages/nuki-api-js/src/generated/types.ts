@@ -4714,7 +4714,7 @@ export type PostAccountsResourceQuery = {
 	deleteApiTokens?: boolean | undefined;
 };
 
-export type PostAccountsResourceStatus204 = unknown;
+export type PostAccountsResourceStatus204 = void;
 
 export type PostAccountsResourceStatus400 = unknown;
 
@@ -4747,7 +4747,7 @@ export type PostAccountsResourceResponses = {
  */
 export type PostAccountsResourceResponse = PostAccountsResourceStatus204;
 
-export type DeleteAccountsResourceStatus204 = unknown;
+export type DeleteAccountsResourceStatus204 = void;
 
 export type DeleteAccountsResourceStatus401 = unknown;
 
@@ -4768,7 +4768,7 @@ export type DeleteAccountsResourceResponses = {
  */
 export type DeleteAccountsResourceResponse = DeleteAccountsResourceStatus204;
 
-export type PostAccountEmailChangeResourceStatus204 = unknown;
+export type PostAccountEmailChangeResourceStatus204 = void;
 
 export type PostAccountEmailChangeResourceStatus400 = unknown;
 
@@ -4801,7 +4801,7 @@ export type PostAccountEmailChangeResourceResponses = {
  */
 export type PostAccountEmailChangeResourceResponse = PostAccountEmailChangeResourceStatus204;
 
-export type PostAccountEmailVerifyResourceStatus204 = unknown;
+export type PostAccountEmailVerifyResourceStatus204 = void;
 
 export type PostAccountEmailVerifyResourceStatus400 = unknown;
 
@@ -4862,7 +4862,7 @@ export type DeleteAccountIntegrationsResourceQuery = {
 	tokenId?: number | undefined;
 };
 
-export type DeleteAccountIntegrationsResourceStatus204 = unknown;
+export type DeleteAccountIntegrationsResourceStatus204 = void;
 
 export type DeleteAccountIntegrationsResourceStatus401 = unknown;
 
@@ -4883,7 +4883,7 @@ export type DeleteAccountIntegrationsResourceResponses = {
  */
 export type DeleteAccountIntegrationsResourceResponse = DeleteAccountIntegrationsResourceStatus204;
 
-export type PostAccountOtpResourceStatus204 = unknown;
+export type PostAccountOtpResourceStatus204 = void;
 
 export type PostAccountOtpResourceStatus400 = unknown;
 
@@ -4937,7 +4937,7 @@ export type PutAccountOtpResourceResponses = {
  */
 export type PutAccountOtpResourceResponse = PutAccountOtpResourceStatus200;
 
-export type DeleteAccountOtpResourceStatus204 = unknown;
+export type DeleteAccountOtpResourceStatus204 = void;
 
 export type DeleteAccountOtpResourceStatus401 = unknown;
 
@@ -4958,7 +4958,7 @@ export type DeleteAccountOtpResourceResponses = {
  */
 export type DeleteAccountOtpResourceResponse = DeleteAccountOtpResourceStatus204;
 
-export type PostAccountPasswordResetResourceStatus204 = unknown;
+export type PostAccountPasswordResetResourceStatus204 = void;
 
 export type PostAccountPasswordResetResourceStatus401 = unknown;
 
@@ -5042,7 +5042,7 @@ export type PutAccountSettingResourceResponses = {
  */
 export type PutAccountSettingResourceResponse = PutAccountSettingResourceStatus200;
 
-export type DeleteAccountSettingResourceStatus204 = unknown;
+export type DeleteAccountSettingResourceStatus204 = void;
 
 export type DeleteAccountSettingResourceStatus401 = unknown;
 
@@ -5159,7 +5159,7 @@ export type PostAccountSubResourcePath = {
 	accountId: number;
 };
 
-export type PostAccountSubResourceStatus204 = unknown;
+export type PostAccountSubResourceStatus204 = void;
 
 export type PostAccountSubResourceStatus400 = unknown;
 
@@ -5200,7 +5200,7 @@ export type DeleteAccountSubResourcePath = {
 	accountId: number;
 };
 
-export type DeleteAccountSubResourceStatus204 = unknown;
+export type DeleteAccountSubResourceStatus204 = void;
 
 export type DeleteAccountSubResourceStatus401 = unknown;
 
@@ -5326,7 +5326,7 @@ export type PostAccountUserResourcePath = {
 
 export type PostAccountUserResourceStatus200 = AccountUser;
 
-export type PostAccountUserResourceStatus204 = unknown;
+export type PostAccountUserResourceStatus204 = void;
 
 export type PostAccountUserResourceStatus400 = unknown;
 
@@ -5370,7 +5370,7 @@ export type DeleteAccountUserResourcePath = {
 	accountUserId: number;
 };
 
-export type DeleteAccountUserResourceStatus204 = unknown;
+export type DeleteAccountUserResourceStatus204 = void;
 
 export type DeleteAccountUserResourceStatus401 = unknown;
 
@@ -5525,7 +5525,7 @@ export type PostAddressTokenRedeemResourceQuery = {
 	email?: boolean | undefined;
 };
 
-export type PostAddressTokenRedeemResourceStatus204 = unknown;
+export type PostAddressTokenRedeemResourceStatus204 = void;
 
 export type PostAddressTokenRedeemResourceStatus400 = unknown;
 
@@ -5560,7 +5560,7 @@ export type PostAddressResourcePath = {
 	addressId: number;
 };
 
-export type PostAddressResourceStatus204 = unknown;
+export type PostAddressResourceStatus204 = void;
 
 export type PostAddressResourceStatus400 = unknown;
 
@@ -5601,7 +5601,7 @@ export type DeleteAddressResourcePath = {
 	addressId: number;
 };
 
-export type DeleteAddressResourceStatus204 = unknown;
+export type DeleteAddressResourceStatus204 = void;
 
 export type DeleteAddressResourceStatus401 = unknown;
 
@@ -5667,7 +5667,7 @@ export type PostAddressReservationIssueResourcePath = {
 	id: string;
 };
 
-export type PostAddressReservationIssueResourceStatus204 = unknown;
+export type PostAddressReservationIssueResourceStatus204 = void;
 
 export type PostAddressReservationIssueResourceStatus400 = unknown;
 
@@ -5705,7 +5705,7 @@ export type PostAddressReservationRevokeResourcePath = {
 	id: string;
 };
 
-export type PostAddressReservationRevokeResourceStatus204 = unknown;
+export type PostAddressReservationRevokeResourceStatus204 = void;
 
 export type PostAddressReservationRevokeResourceStatus400 = unknown;
 
@@ -5743,7 +5743,7 @@ export type PostReservationAccessTimesUpdateResourcePath = {
 	id: string;
 };
 
-export type PostReservationAccessTimesUpdateResourceStatus204 = unknown;
+export type PostReservationAccessTimesUpdateResourceStatus204 = void;
 
 export type PostReservationAccessTimesUpdateResourceStatus400 = unknown;
 
@@ -6031,7 +6031,7 @@ export type DeleteDecentralWebhookResourcePath = {
 	id: number;
 };
 
-export type DeleteDecentralWebhookResourceStatus204 = unknown;
+export type DeleteDecentralWebhookResourceStatus204 = void;
 
 export type DeleteDecentralWebhookResourceStatus401 = unknown;
 
@@ -6114,7 +6114,7 @@ export type PostApiKeyResourcePath = {
 	apiKeyId: number;
 };
 
-export type PostApiKeyResourceStatus204 = unknown;
+export type PostApiKeyResourceStatus204 = void;
 
 export type PostApiKeyResourceStatus400 = unknown;
 
@@ -6155,7 +6155,7 @@ export type DeleteApiKeyResourcePath = {
 	apiKeyId: number;
 };
 
-export type DeleteApiKeyResourceStatus204 = unknown;
+export type DeleteApiKeyResourceStatus204 = void;
 
 export type DeleteApiKeyResourceStatus401 = unknown;
 
@@ -6219,7 +6219,7 @@ export type PostApiKeyAdvancedResourcePath = {
 	apiKeyId: number;
 };
 
-export type PostApiKeyAdvancedResourceStatus204 = unknown;
+export type PostApiKeyAdvancedResourceStatus204 = void;
 
 export type PostApiKeyAdvancedResourceStatus400 = unknown;
 
@@ -6257,7 +6257,7 @@ export type PutApiKeyAdvancedResourcePath = {
 	apiKeyId: number;
 };
 
-export type PutApiKeyAdvancedResourceStatus204 = unknown;
+export type PutApiKeyAdvancedResourceStatus204 = void;
 
 export type PutApiKeyAdvancedResourceStatus400 = unknown;
 
@@ -6298,7 +6298,7 @@ export type DeleteApiKeyAdvancedResourcePath = {
 	apiKeyId: number;
 };
 
-export type DeleteApiKeyAdvancedResourceStatus204 = unknown;
+export type DeleteApiKeyAdvancedResourceStatus204 = void;
 
 export type DeleteApiKeyAdvancedResourceStatus401 = unknown;
 
@@ -6327,7 +6327,7 @@ export type PostApiKeyAdvancedReactivateResourcePath = {
 	apiKeyId: number;
 };
 
-export type PostApiKeyAdvancedReactivateResourceStatus204 = unknown;
+export type PostApiKeyAdvancedReactivateResourceStatus204 = void;
 
 export type PostApiKeyAdvancedReactivateResourceStatus400 = unknown;
 
@@ -6432,7 +6432,7 @@ export type PostApiKeyTokenResourcePath = {
 	id: string;
 };
 
-export type PostApiKeyTokenResourceStatus204 = unknown;
+export type PostApiKeyTokenResourceStatus204 = void;
 
 export type PostApiKeyTokenResourceStatus400 = unknown;
 
@@ -6475,7 +6475,7 @@ export type DeleteApiKeyTokenResourcePath = {
 	id: string;
 };
 
-export type DeleteApiKeyTokenResourceStatus204 = unknown;
+export type DeleteApiKeyTokenResourceStatus204 = void;
 
 export type DeleteApiKeyTokenResourceStatus401 = unknown;
 
@@ -6539,7 +6539,7 @@ export type GetWebhookLogsResourceResponses = {
  */
 export type GetWebhookLogsResourceResponse = GetWebhookLogsResourceStatus200;
 
-export type PostSmartlockBulkWebConfigResourceStatus204 = unknown;
+export type PostSmartlockBulkWebConfigResourceStatus204 = void;
 
 export type PostSmartlockBulkWebConfigResourceStatus400 = unknown;
 
@@ -6740,7 +6740,7 @@ export type DeleteNotificationResourcePath = {
 	notificationId: string;
 };
 
-export type DeleteNotificationResourceStatus204 = unknown;
+export type DeleteNotificationResourceStatus204 = void;
 
 export type DeleteNotificationResourceStatus401 = unknown;
 
@@ -6971,7 +6971,7 @@ export type PostServiceSyncResourcePath = {
 	serviceId: string;
 };
 
-export type PostServiceSyncResourceStatus204 = unknown;
+export type PostServiceSyncResourceStatus204 = void;
 
 export type PostServiceSyncResourceStatus400 = unknown;
 
@@ -7003,7 +7003,7 @@ export type PostServiceUnlinkResourcePath = {
 	serviceId: string;
 };
 
-export type PostServiceUnlinkResourceStatus204 = unknown;
+export type PostServiceUnlinkResourceStatus204 = void;
 
 export type PostServiceUnlinkResourceStatus400 = unknown;
 
@@ -7095,7 +7095,7 @@ export type GetSmartlocksAuthsResourceResponses = {
  */
 export type GetSmartlocksAuthsResourceResponse = GetSmartlocksAuthsResourceStatus200;
 
-export type PostSmartlocksAuthsResourceStatus204 = unknown;
+export type PostSmartlocksAuthsResourceStatus204 = void;
 
 export type PostSmartlocksAuthsResourceStatus400 = unknown;
 
@@ -7134,7 +7134,7 @@ export type PostSmartlocksAuthsResourceResponses = {
  */
 export type PostSmartlocksAuthsResourceResponse = PostSmartlocksAuthsResourceStatus204;
 
-export type PutSmartlocksAuthsResourceStatus204 = unknown;
+export type PutSmartlocksAuthsResourceStatus204 = void;
 
 export type PutSmartlocksAuthsResourceStatus400 = unknown;
 
@@ -7170,7 +7170,7 @@ export type PutSmartlocksAuthsResourceResponses = {
  */
 export type PutSmartlocksAuthsResourceResponse = PutSmartlocksAuthsResourceStatus204;
 
-export type DeleteSmartlocksAuthsResourceStatus204 = unknown;
+export type DeleteSmartlocksAuthsResourceStatus204 = void;
 
 export type DeleteSmartlocksAuthsResourceStatus400 = unknown;
 
@@ -7387,7 +7387,7 @@ export type PostSmartlockResourcePath = {
 	smartlockId: number;
 };
 
-export type PostSmartlockResourceStatus204 = unknown;
+export type PostSmartlockResourceStatus204 = void;
 
 export type PostSmartlockResourceStatus400 = unknown;
 
@@ -7428,7 +7428,7 @@ export type DeleteSmartlockResourcePath = {
 	smartlockId: number;
 };
 
-export type DeleteSmartlockResourceStatus204 = unknown;
+export type DeleteSmartlockResourceStatus204 = void;
 
 export type DeleteSmartlockResourceStatus400 = unknown;
 
@@ -7463,7 +7463,7 @@ export type PostSmartlockActionResourcePath = {
 	smartlockId: string;
 };
 
-export type PostSmartlockActionResourceStatus204 = unknown;
+export type PostSmartlockActionResourceStatus204 = void;
 
 export type PostSmartlockActionResourceStatus400 = unknown;
 
@@ -7549,7 +7549,7 @@ export type PostSmartlockLockActionResourcePath = {
 	smartlockId: string;
 };
 
-export type PostSmartlockLockActionResourceStatus204 = unknown;
+export type PostSmartlockLockActionResourceStatus204 = void;
 
 export type PostSmartlockLockActionResourceStatus400 = unknown;
 
@@ -7620,7 +7620,7 @@ export type PostSmartlockUnlockActionResourcePath = {
 	smartlockId: string;
 };
 
-export type PostSmartlockUnlockActionResourceStatus204 = unknown;
+export type PostSmartlockUnlockActionResourceStatus204 = void;
 
 export type PostSmartlockUnlockActionResourceStatus400 = unknown;
 
@@ -7691,7 +7691,7 @@ export type PostSmartlockAdminPinResourcePath = {
 	smartlockId: number;
 };
 
-export type PostSmartlockAdminPinResourceStatus204 = unknown;
+export type PostSmartlockAdminPinResourceStatus204 = void;
 
 export type PostSmartlockAdminPinResourceStatus400 = unknown;
 
@@ -7729,7 +7729,7 @@ export type PostSmartlockAdvancedConfigResourcePath = {
 	smartlockId: number;
 };
 
-export type PostSmartlockAdvancedConfigResourceStatus204 = unknown;
+export type PostSmartlockAdvancedConfigResourceStatus204 = void;
 
 export type PostSmartlockAdvancedConfigResourceStatus400 = unknown;
 
@@ -7771,7 +7771,7 @@ export type PostSmartlockOpenerAdvancedConfigResourcePath = {
 	smartlockId: number;
 };
 
-export type PostSmartlockOpenerAdvancedConfigResourceStatus204 = unknown;
+export type PostSmartlockOpenerAdvancedConfigResourceStatus204 = void;
 
 export type PostSmartlockOpenerAdvancedConfigResourceStatus400 = unknown;
 
@@ -7813,7 +7813,7 @@ export type PostSmartdoorAdvancedConfigResourcePath = {
 	smartlockId: number;
 };
 
-export type PostSmartdoorAdvancedConfigResourceStatus204 = unknown;
+export type PostSmartdoorAdvancedConfigResourceStatus204 = void;
 
 export type PostSmartdoorAdvancedConfigResourceStatus400 = unknown;
 
@@ -7900,7 +7900,7 @@ export type PutSmartlockAuthsResourcePath = {
 	smartlockId: number;
 };
 
-export type PutSmartlockAuthsResourceStatus204 = unknown;
+export type PutSmartlockAuthsResourceStatus204 = void;
 
 export type PutSmartlockAuthsResourceStatus400 = unknown;
 
@@ -8028,7 +8028,7 @@ export type PostSmartlockAuthResourcePath = {
 	id: string;
 };
 
-export type PostSmartlockAuthResourceStatus204 = unknown;
+export type PostSmartlockAuthResourceStatus204 = void;
 
 export type PostSmartlockAuthResourceStatus400 = unknown;
 
@@ -8080,7 +8080,7 @@ export type DeleteSmartlockAuthResourcePath = {
 	id: string;
 };
 
-export type DeleteSmartlockAuthResourceStatus204 = unknown;
+export type DeleteSmartlockAuthResourceStatus204 = void;
 
 export type DeleteSmartlockAuthResourceStatus401 = unknown;
 
@@ -8115,7 +8115,7 @@ export type PostSmartlockConfigResourcePath = {
 	smartlockId: number;
 };
 
-export type PostSmartlockConfigResourceStatus204 = unknown;
+export type PostSmartlockConfigResourceStatus204 = void;
 
 export type PostSmartlockConfigResourceStatus400 = unknown;
 
@@ -8237,7 +8237,7 @@ export type PostSmartlockSyncResourcePath = {
 	smartlockId: string;
 };
 
-export type PostSmartlockSyncResourceStatus204 = unknown;
+export type PostSmartlockSyncResourceStatus204 = void;
 
 export type PostSmartlockSyncResourceStatus400 = unknown;
 
@@ -8269,7 +8269,7 @@ export type PostSmartlockWebConfigResourcePath = {
 	smartlockId: number;
 };
 
-export type PostSmartlockWebConfigResourceStatus204 = unknown;
+export type PostSmartlockWebConfigResourceStatus204 = void;
 
 export type PostSmartlockWebConfigResourceStatus400 = unknown;
 

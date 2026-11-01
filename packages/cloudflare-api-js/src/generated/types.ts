@@ -233551,7 +233551,7 @@ export type AccessIdentityProvidersDeleteScimGroupResourcePath = {
   groupId: AccessIdentifier;
 };
 
-export type AccessIdentityProvidersDeleteScimGroupResourceStatus204 = unknown;
+export type AccessIdentityProvidersDeleteScimGroupResourceStatus204 = void;
 
 export type AccessIdentityProvidersDeleteScimGroupResourceStatus400 = AccessApiResponseCommonFailure;
 
@@ -233733,7 +233733,7 @@ export type AccessIdentityProvidersDeleteScimUserResourcePath = {
   userId: AccessIdentifier;
 };
 
-export type AccessIdentityProvidersDeleteScimUserResourceStatus204 = unknown;
+export type AccessIdentityProvidersDeleteScimUserResourceStatus204 = void;
 
 export type AccessIdentityProvidersDeleteScimUserResourceStatus400 = AccessApiResponseCommonFailure;
 
@@ -236626,7 +236626,7 @@ export type AccessUserPopulationsDeleteUserPath = {
   userId: string;
 };
 
-export type AccessUserPopulationsDeleteUserStatus204 = unknown;
+export type AccessUserPopulationsDeleteUserStatus204 = void;
 
 export type AccessUserPopulationsDeleteUserStatus400 = AccessApiResponseCommonFailure;
 
@@ -270762,7 +270762,7 @@ export type ArtifactsNamespacesDeletePath = {
   namespace: string;
 };
 
-export type ArtifactsNamespacesDeleteStatus204 = unknown;
+export type ArtifactsNamespacesDeleteStatus204 = void;
 
 export type ArtifactsNamespacesDeleteStatus400 = {
   errors: {
@@ -278332,7 +278332,7 @@ export type BasinDeleteCatalogQuery = {
   force?: boolean | undefined;
 };
 
-export type BasinDeleteCatalogStatus204 = unknown;
+export type BasinDeleteCatalogStatus204 = void;
 
 export type BasinDeleteCatalogStatus400 = R2DataCatalogApiResponseCommonFailure;
 
@@ -278384,7 +278384,7 @@ export type BasinDisableCatalogPath = {
   bucketName: R2DataCatalogBucketName;
 };
 
-export type BasinDisableCatalogStatus204 = unknown;
+export type BasinDisableCatalogStatus204 = void;
 
 export type BasinDisableCatalogStatus400 = R2DataCatalogApiResponseCommonFailure;
 
@@ -279544,7 +279544,7 @@ export type AccountBillingProfileDeleteBillingProfilePath = {
   readonly accountId: BillSubsApiIdentifier;
 };
 
-export type AccountBillingProfileDeleteBillingProfileStatus204 = unknown;
+export type AccountBillingProfileDeleteBillingProfileStatus204 = void;
 
 export type AccountBillingProfileDeleteBillingProfileStatus400 = BillSubsApiApiResponseCommonFailure;
 
@@ -281483,7 +281483,7 @@ export type DeleteAccountsAccountIdBrandProtectionLogosLogoIdPath = {
   logoId: string;
 };
 
-export type DeleteAccountsAccountIdBrandProtectionLogosLogoIdStatus204 = unknown;
+export type DeleteAccountsAccountIdBrandProtectionLogosLogoIdStatus204 = void;
 
 export type DeleteAccountsAccountIdBrandProtectionLogosLogoIdStatus400 = BrandProtectionApiError;
 
@@ -281680,7 +281680,7 @@ export type DeleteAccountsAccountIdBrandProtectionQueriesQuery = {
   scan?: boolean | undefined;
 };
 
-export type DeleteAccountsAccountIdBrandProtectionQueriesStatus204 = unknown;
+export type DeleteAccountsAccountIdBrandProtectionQueriesStatus204 = void;
 
 export type DeleteAccountsAccountIdBrandProtectionQueriesStatus400 = BrandProtectionApiError;
 
@@ -281846,7 +281846,7 @@ export type PostAccountsAccountIdBrandProtectionQueriesQuery = {
   scan?: boolean | undefined;
 };
 
-export type PostAccountsAccountIdBrandProtectionQueriesStatus204 = unknown;
+export type PostAccountsAccountIdBrandProtectionQueriesStatus204 = void;
 
 export type PostAccountsAccountIdBrandProtectionQueriesStatus400 = BrandProtectionApiError;
 
@@ -281892,7 +281892,7 @@ export type PostAccountsAccountIdBrandProtectionQueriesBulkPath = {
   accountId: string;
 };
 
-export type PostAccountsAccountIdBrandProtectionQueriesBulkStatus204 = unknown;
+export type PostAccountsAccountIdBrandProtectionQueriesBulkStatus204 = void;
 
 export type PostAccountsAccountIdBrandProtectionQueriesBulkStatus400 = BrandProtectionApiError;
 
@@ -324950,7 +324950,7 @@ export type CustomAssetsForAnAccountDeleteACustomAssetPath = {
   accountId: CustomPagesIdentifier;
 };
 
-export type CustomAssetsForAnAccountDeleteACustomAssetStatus204 = unknown;
+export type CustomAssetsForAnAccountDeleteACustomAssetStatus204 = void;
 
 export type CustomAssetsForAnAccountDeleteACustomAssetStatus400 = CustomPagesApiResponseCommonFailure;
 
@@ -329598,7 +329598,7 @@ export type DeleteFindingTypePath = {
   findingTypeId: string;
 };
 
-export type DeleteFindingTypeStatus204 = unknown;
+export type DeleteFindingTypeStatus204 = void;
 
 /**
  * @description Standard error response structure.
@@ -350342,7 +350342,7 @@ export type EntitlementsGetAccountEntitlementsPath = {
  */
 export type EntitlementsGetAccountEntitlementsStatus200 = EntitlementsEntitlementsResponse;
 
-export type EntitlementsGetAccountEntitlementsStatus204 = unknown;
+export type EntitlementsGetAccountEntitlementsStatus204 = void;
 
 /**
  * @description Standard Cloudflare API failure response.
@@ -375818,7 +375818,7 @@ export type AccountBillingDeletePaymentMethodPath = {
 
 export type AccountBillingDeletePaymentMethodStatus200 = BillSubsApiApiResponseSingle;
 
-export type AccountBillingDeletePaymentMethodStatus204 = unknown;
+export type AccountBillingDeletePaymentMethodStatus204 = void;
 
 export type AccountBillingDeletePaymentMethodStatus400 = BillSubsApiApiResponseCommonFailure;
 
@@ -375937,7 +375937,7 @@ export type AccountBillingSetDefaultPaymentMethodPath = {
 
 export type AccountBillingSetDefaultPaymentMethodStatus200 = BillSubsApiApiResponseSingle;
 
-export type AccountBillingSetDefaultPaymentMethodStatus204 = unknown;
+export type AccountBillingSetDefaultPaymentMethodStatus204 = void;
 
 export type AccountBillingSetDefaultPaymentMethodStatus400 = BillSubsApiApiResponseCommonFailure;
 
@@ -376152,7 +376152,7 @@ export type MagicPcapCollectionDeleteBucketsForFullPacketCapturesPath = {
   readonly accountId: MagicVisibilityPcapsIdentifier;
 };
 
-export type MagicPcapCollectionDeleteBucketsForFullPacketCapturesStatus204 = unknown;
+export type MagicPcapCollectionDeleteBucketsForFullPacketCapturesStatus204 = void;
 
 export type MagicPcapCollectionDeleteBucketsForFullPacketCapturesStatus400 = MagicVisibilityPcapsApiResponseCommonFailure;
 
@@ -376275,7 +376275,7 @@ export type MagicPcapCollectionStopFullPcapPath = {
   readonly accountId: MagicVisibilityPcapsIdentifier;
 };
 
-export type MagicPcapCollectionStopFullPcapStatus204 = unknown;
+export type MagicPcapCollectionStopFullPcapStatus204 = void;
 
 export type MagicPcapCollectionStopFullPcapStatus400 = MagicVisibilityPcapsApiResponseCommonFailure;
 
@@ -378535,7 +378535,7 @@ export type AccountsModifyAccountProfilePath = {
   accountId: string;
 };
 
-export type AccountsModifyAccountProfileStatus204 = unknown;
+export type AccountsModifyAccountProfileStatus204 = void;
 
 export type AccountsModifyAccountProfileStatus400 = OrganizationsApiV4ErrorResponse;
 
@@ -380065,7 +380065,7 @@ export type DeleteCatalogQuery = {
   force?: boolean | undefined;
 };
 
-export type DeleteCatalogStatus204 = unknown;
+export type DeleteCatalogStatus204 = void;
 
 export type DeleteCatalogStatus400 = R2DataCatalogApiResponseCommonFailure;
 
@@ -380121,7 +380121,7 @@ export type DisableCatalogPath = {
   bucketName: R2DataCatalogBucketName;
 };
 
-export type DisableCatalogStatus204 = unknown;
+export type DisableCatalogStatus204 = void;
 
 export type DisableCatalogStatus400 = R2DataCatalogApiResponseCommonFailure;
 
@@ -391063,7 +391063,7 @@ export type DeleteAccountRulesetQuery = {
   dry_run?: boolean | undefined;
 };
 
-export type DeleteAccountRulesetStatus204 = unknown;
+export type DeleteAccountRulesetStatus204 = void;
 
 export type DeleteAccountRulesetStatus400 = RulesetsResponse & {
   result?: null | undefined;
@@ -391635,7 +391635,7 @@ export type DeleteAccountRulesetVersionQuery = {
   dry_run?: boolean | undefined;
 };
 
-export type DeleteAccountRulesetVersionStatus204 = unknown;
+export type DeleteAccountRulesetVersionStatus204 = void;
 
 export type DeleteAccountRulesetVersionStatus400 = RulesetsResponse & {
   result?: null | undefined;
@@ -392444,7 +392444,7 @@ export type ScimGroupsDeletePath = {
   groupId: IamScimGroupIdentifier;
 };
 
-export type ScimGroupsDeleteStatus204 = unknown;
+export type ScimGroupsDeleteStatus204 = void;
 
 /**
  * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
@@ -392945,7 +392945,7 @@ export type ScimUsersDeletePath = {
   userId: IamScimUserIdentifier;
 };
 
-export type ScimUsersDeleteStatus204 = unknown;
+export type ScimUsersDeleteStatus204 = void;
 
 /**
  * @description SCIM error envelope (RFC 7644 Section 3.12). Returned on all 4XX and 5XX responses from SCIM endpoints.
@@ -395806,7 +395806,7 @@ export type ShareExcludedRecipientsUpdatePath = {
   shareId: ResourceSharingShareId;
 };
 
-export type ShareExcludedRecipientsUpdateStatus204 = unknown;
+export type ShareExcludedRecipientsUpdateStatus204 = void;
 
 export type ShareExcludedRecipientsUpdateStatus400 = ResourceSharingApiResponseCommonFailure;
 
@@ -396063,7 +396063,7 @@ export type ShareRecipientsUpdatePath = {
   shareId: ResourceSharingShareId;
 };
 
-export type ShareRecipientsUpdateStatus204 = unknown;
+export type ShareRecipientsUpdateStatus204 = void;
 
 export type ShareRecipientsUpdateStatus400 = ResourceSharingApiResponseCommonFailure;
 
@@ -400033,7 +400033,7 @@ export type AccountSubscriptionsCancelDelayedDowngradePath = {
 
 export type AccountSubscriptionsCancelDelayedDowngradeStatus200 = BillSubsApiApiResponseSingle;
 
-export type AccountSubscriptionsCancelDelayedDowngradeStatus204 = unknown;
+export type AccountSubscriptionsCancelDelayedDowngradeStatus204 = void;
 
 export type AccountSubscriptionsCancelDelayedDowngradeStatus400 = BillSubsApiApiResponseCommonFailure;
 
@@ -400327,7 +400327,7 @@ export type TagsDeleteHeaders = {
   'If-Match'?: string | undefined;
 };
 
-export type TagsDeleteStatus204 = unknown;
+export type TagsDeleteStatus204 = void;
 
 export type TagsDeleteStatus400 = ResourceTaggingApiResponseCommonFailure;
 
@@ -420729,7 +420729,7 @@ export type WorkerSubdomainDeleteSubdomainPath = {
   accountId: WorkersIdentifier;
 };
 
-export type WorkerSubdomainDeleteSubdomainStatus204 = unknown;
+export type WorkerSubdomainDeleteSubdomainStatus204 = void;
 
 export type WorkerSubdomainDeleteSubdomainStatus400 = WorkersApiResponseCommonFailure;
 
@@ -428708,7 +428708,7 @@ export type OrganizationsModifyProfilePath = {
   organizationId: OrganizationsApiOrganizationID;
 };
 
-export type OrganizationsModifyProfileStatus204 = unknown;
+export type OrganizationsModifyProfileStatus204 = void;
 
 export type OrganizationsModifyProfileStatus400 = OrganizationsApiV4ErrorResponse;
 
@@ -445614,7 +445614,7 @@ export type CustomAssetsForAZoneDeleteACustomAssetPath = {
   zoneId: CustomPagesIdentifier;
 };
 
-export type CustomAssetsForAZoneDeleteACustomAssetStatus204 = unknown;
+export type CustomAssetsForAZoneDeleteACustomAssetStatus204 = void;
 
 export type CustomAssetsForAZoneDeleteACustomAssetStatus400 = CustomPagesApiResponseCommonFailure;
 
@@ -449044,7 +449044,7 @@ export type EntitlementsGetZoneEntitlementsPath = {
  */
 export type EntitlementsGetZoneEntitlementsStatus200 = EntitlementsEntitlementsResponse;
 
-export type EntitlementsGetZoneEntitlementsStatus204 = unknown;
+export type EntitlementsGetZoneEntitlementsStatus204 = void;
 
 /**
  * @description Standard Cloudflare API failure response.
@@ -455674,7 +455674,7 @@ export type DeleteManagedTransformsPath = {
   zoneId: RulesetsZoneId;
 };
 
-export type DeleteManagedTransformsStatus204 = unknown;
+export type DeleteManagedTransformsStatus204 = void;
 
 export type DeleteManagedTransformsStatus400 = RulesetsResponse & {
   result?: null | undefined;
@@ -458492,7 +458492,7 @@ export type PageShieldDeletePolicyPath = {
   readonly policyId: ClientSideSecurityId;
 };
 
-export type PageShieldDeletePolicyStatus204 = unknown;
+export type PageShieldDeletePolicyStatus204 = void;
 
 export type PageShieldDeletePolicyStatus400 = ClientSideSecurityApiResponseCommonFailure;
 
@@ -460627,7 +460627,7 @@ export type DeleteZoneRulesetQuery = {
   dry_run?: boolean | undefined;
 };
 
-export type DeleteZoneRulesetStatus204 = unknown;
+export type DeleteZoneRulesetStatus204 = void;
 
 export type DeleteZoneRulesetStatus400 = RulesetsResponse & {
   result?: null | undefined;
@@ -461199,7 +461199,7 @@ export type DeleteZoneRulesetVersionQuery = {
   dry_run?: boolean | undefined;
 };
 
-export type DeleteZoneRulesetVersionStatus204 = unknown;
+export type DeleteZoneRulesetVersionStatus204 = void;
 
 export type DeleteZoneRulesetVersionStatus400 = RulesetsResponse & {
   result?: null | undefined;
@@ -468259,7 +468259,7 @@ export type TagsZoneDeleteHeaders = {
   'If-Match'?: string | undefined;
 };
 
-export type TagsZoneDeleteStatus204 = unknown;
+export type TagsZoneDeleteStatus204 = void;
 
 export type TagsZoneDeleteStatus400 = ResourceTaggingApiResponseCommonFailure;
 
@@ -469156,7 +469156,7 @@ export type DeleteUrlNormalizationPath = {
   zoneId: RulesetsZoneId;
 };
 
-export type DeleteUrlNormalizationStatus204 = unknown;
+export type DeleteUrlNormalizationStatus204 = void;
 
 export type DeleteUrlNormalizationStatus400 = RulesetsResponse & {
   result?: null | undefined;

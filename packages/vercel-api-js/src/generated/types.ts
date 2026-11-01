@@ -22247,7 +22247,7 @@ export type DeleteAiGatewayByokCredentialQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteAiGatewayByokCredentialStatus204 = unknown | null;
+export type DeleteAiGatewayByokCredentialStatus204 = void;
 
 export type DeleteAiGatewayByokCredentialStatus400 = unknown;
 
@@ -22483,7 +22483,7 @@ export type DeleteAiGatewayVirtualModelConfigQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteAiGatewayVirtualModelConfigStatus204 = unknown | null;
+export type DeleteAiGatewayVirtualModelConfigStatus204 = void;
 
 export type DeleteAiGatewayVirtualModelConfigStatus400 = unknown;
 
@@ -22733,7 +22733,7 @@ export type DeleteAiGatewayVirtualModelConfigBySlugQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteAiGatewayVirtualModelConfigBySlugStatus204 = unknown | null;
+export type DeleteAiGatewayVirtualModelConfigBySlugStatus204 = void;
 
 export type DeleteAiGatewayVirtualModelConfigBySlugStatus400 = unknown;
 
@@ -23026,7 +23026,7 @@ export type DeleteAiGatewayRuleQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteAiGatewayRuleStatus204 = unknown | null;
+export type DeleteAiGatewayRuleStatus204 = void;
 
 export type DeleteAiGatewayRuleStatus400 = unknown;
 
@@ -23514,7 +23514,7 @@ export type ArchiveAiGatewayBudgetDefaultQuery = {
 	slug?: string | undefined;
 };
 
-export type ArchiveAiGatewayBudgetDefaultStatus204 = unknown;
+export type ArchiveAiGatewayBudgetDefaultStatus204 = void;
 
 export type ArchiveAiGatewayBudgetDefaultStatus400 = unknown;
 
@@ -29764,7 +29764,7 @@ export type DeleteNetworkQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteNetworkStatus204 = unknown;
+export type DeleteNetworkStatus204 = void;
 
 export type DeleteNetworkStatus400 = unknown;
 
@@ -30176,7 +30176,7 @@ export type DeletePrivateLinkEndpointQuery = {
 	slug?: string | undefined;
 };
 
-export type DeletePrivateLinkEndpointStatus204 = unknown | null;
+export type DeletePrivateLinkEndpointStatus204 = void;
 
 export type DeletePrivateLinkEndpointStatus400 = unknown;
 
@@ -30587,7 +30587,7 @@ export type DeleteConnectorQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteConnectorStatus204 = unknown;
+export type DeleteConnectorStatus204 = void;
 
 /**
  * @description Error response returned by a Connect API operation.
@@ -31450,7 +31450,7 @@ export type DeleteConnectorProjectConnectionQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteConnectorProjectConnectionStatus204 = unknown;
+export type DeleteConnectorProjectConnectionStatus204 = void;
 
 /**
  * @description Error response returned by a Connect API operation.
@@ -31553,7 +31553,7 @@ export type DisconnectConnectorProjectEnvironmentQuery = {
 	teamId?: string | undefined;
 };
 
-export type DisconnectConnectorProjectEnvironmentStatus204 = unknown;
+export type DisconnectConnectorProjectEnvironmentStatus204 = void;
 
 export type DisconnectConnectorProjectEnvironmentStatus400 = unknown;
 
@@ -47508,7 +47508,7 @@ export type UpdateDomainAutoRenewQuery = {
 	teamId?: string | undefined;
 };
 
-export type UpdateDomainAutoRenewStatus204 = unknown;
+export type UpdateDomainAutoRenewStatus204 = void;
 
 export type UpdateDomainAutoRenewStatus400 =
 	| DomainAlreadyRenewing
@@ -47572,7 +47572,7 @@ export type UpdateDomainNameserversQuery = {
 	teamId?: string | undefined;
 };
 
-export type UpdateDomainNameserversStatus204 = unknown;
+export type UpdateDomainNameserversStatus204 = void;
 
 export type UpdateDomainNameserversStatus400 = DomainNotRegistered | HttpApiDecodeError;
 
@@ -49478,7 +49478,7 @@ export type DeleteConfigurableLogDrainQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteConfigurableLogDrainStatus204 = unknown;
+export type DeleteConfigurableLogDrainStatus204 = void;
 
 export type DeleteConfigurableLogDrainStatus400 = unknown;
 
@@ -51463,7 +51463,7 @@ export type DeleteDrainQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteDrainStatus204 = unknown;
+export type DeleteDrainStatus204 = void;
 
 export type DeleteDrainStatus400 = unknown;
 
@@ -53261,7 +53261,7 @@ export type DeleteEdgeConfigQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteEdgeConfigStatus204 = unknown;
+export type DeleteEdgeConfigStatus204 = void;
 
 export type DeleteEdgeConfigStatus400 = unknown;
 
@@ -53636,7 +53636,7 @@ export type DeleteEdgeConfigSchemaQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteEdgeConfigSchemaStatus204 = unknown;
+export type DeleteEdgeConfigSchemaStatus204 = void;
 
 export type DeleteEdgeConfigSchemaStatus400 = unknown;
 
@@ -53705,7 +53705,7 @@ export type GetEdgeConfigItemQuery = {
  */
 export type GetEdgeConfigItemStatus200 = GlobalConfigItem;
 
-export type GetEdgeConfigItemStatus204 = unknown;
+export type GetEdgeConfigItemStatus204 = void;
 
 export type GetEdgeConfigItemStatus400 = unknown;
 
@@ -53814,7 +53814,7 @@ export type DeleteEdgeConfigTokensQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteEdgeConfigTokensStatus204 = unknown;
+export type DeleteEdgeConfigTokensStatus204 = void;
 
 export type DeleteEdgeConfigTokensStatus400 = unknown;
 
@@ -57264,7 +57264,7 @@ export type DeleteFlagQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteFlagStatus204 = unknown;
+export type DeleteFlagStatus204 = void;
 
 export type DeleteFlagStatus304 = unknown;
 
@@ -58987,7 +58987,7 @@ export type DeleteFlagSegmentQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteFlagSegmentStatus204 = unknown;
+export type DeleteFlagSegmentStatus204 = void;
 
 export type DeleteFlagSegmentStatus304 = unknown;
 
@@ -59674,7 +59674,7 @@ export type DeleteSdkKeyQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteSdkKeyStatus204 = unknown;
+export type DeleteSdkKeyStatus204 = void;
 
 export type DeleteSdkKeyStatus400 = unknown;
 
@@ -60146,7 +60146,7 @@ export type UpdateInstallationPath = {
 	integrationConfigurationId: string;
 };
 
-export type UpdateInstallationStatus204 = unknown;
+export type UpdateInstallationStatus204 = void;
 
 export type UpdateInstallationStatus400 = unknown;
 
@@ -60878,7 +60878,7 @@ export type DeleteIntegrationResourcePath = {
 	resourceId: string;
 };
 
-export type DeleteIntegrationResourceStatus204 = unknown;
+export type DeleteIntegrationResourceStatus204 = void;
 
 export type DeleteIntegrationResourceStatus400 = unknown;
 
@@ -61859,7 +61859,7 @@ export type FinalizeInstallationPath = {
 	integrationConfigurationId: string;
 };
 
-export type FinalizeInstallationStatus204 = unknown;
+export type FinalizeInstallationStatus204 = void;
 
 export type FinalizeInstallationStatus400 = unknown;
 
@@ -62151,7 +62151,7 @@ export type UpdateInvoicePath = {
 	invoiceId: string;
 };
 
-export type UpdateInvoiceStatus204 = unknown;
+export type UpdateInvoiceStatus204 = void;
 
 export type UpdateInvoiceStatus400 = unknown;
 
@@ -63349,7 +63349,7 @@ export type DeleteConfigurationQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteConfigurationStatus204 = unknown;
+export type DeleteConfigurationStatus204 = void;
 
 export type DeleteConfigurationStatus400 = unknown;
 
@@ -65144,7 +65144,7 @@ export type DeleteIntegrationLogDrainQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteIntegrationLogDrainStatus204 = unknown;
+export type DeleteIntegrationLogDrainStatus204 = void;
 
 export type DeleteIntegrationLogDrainStatus400 = unknown;
 
@@ -67063,7 +67063,7 @@ export type DeleteKmsIssuerQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteKmsIssuerStatus204 = unknown;
+export type DeleteKmsIssuerStatus204 = void;
 
 export type DeleteKmsIssuerStatus400 = unknown;
 
@@ -67359,7 +67359,7 @@ export type DeleteKmsIssuerPolicyQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteKmsIssuerPolicyStatus204 = unknown;
+export type DeleteKmsIssuerPolicyStatus204 = void;
 
 export type DeleteKmsIssuerPolicyStatus400 = unknown;
 
@@ -67460,7 +67460,7 @@ export type CreateInstallationsByIntegrationConfigurationIdResourcesByResourceId
 	};
 
 export type CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus204 =
-	unknown;
+	void;
 
 export type CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus400 =
 	unknown;
@@ -67556,7 +67556,7 @@ export type UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceId
 	};
 
 export type UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus204 =
-	unknown;
+	void;
 
 export type UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus400 =
 	unknown;
@@ -67645,7 +67645,7 @@ export type DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceId
 	};
 
 export type DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus204 =
-	unknown;
+	void;
 
 export type DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus400 =
 	unknown;
@@ -99457,7 +99457,7 @@ export type DeleteProjectQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteProjectStatus204 = unknown;
+export type DeleteProjectStatus204 = void;
 
 export type DeleteProjectStatus400 = unknown;
 
@@ -131861,7 +131861,7 @@ export type DeleteSecurityFirewallConfigByConfigVersionPath = {
 	configVersion: string;
 };
 
-export type DeleteSecurityFirewallConfigByConfigVersionStatus204 = "";
+export type DeleteSecurityFirewallConfigByConfigVersionStatus204 = void;
 
 export type DeleteSecurityFirewallConfigByConfigVersionStatus400 = unknown;
 
@@ -133704,7 +133704,7 @@ export type DeleteConditionalBypassQuery = {
 	teamId?: string | undefined;
 };
 
-export type DeleteConditionalBypassStatus204 = "";
+export type DeleteConditionalBypassStatus204 = void;
 
 export type DeleteConditionalBypassStatus400 = unknown;
 
@@ -139526,7 +139526,7 @@ export type RemoveRepositoryPermissionQuery = {
 	slug?: string | undefined;
 };
 
-export type RemoveRepositoryPermissionStatus204 = unknown | null;
+export type RemoveRepositoryPermissionStatus204 = void;
 
 export type RemoveRepositoryPermissionStatus400 = unknown;
 
@@ -139685,7 +139685,7 @@ export type ClearRepositoryPermissionsQuery = {
 	slug?: string | undefined;
 };
 
-export type ClearRepositoryPermissionsStatus204 = unknown | null;
+export type ClearRepositoryPermissionsStatus204 = void;
 
 export type ClearRepositoryPermissionsStatus400 = unknown;
 
@@ -140286,7 +140286,7 @@ export type GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath = {
 	uuid: string;
 };
 
-export type GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus204 = unknown | null;
+export type GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus204 = void;
 
 export type GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus400 = unknown;
 
@@ -140358,9 +140358,7 @@ export type DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath 
 	uuid: string;
 };
 
-export type DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus204 =
-	| unknown
-	| null;
+export type DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus204 = void;
 
 export type DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus400 = unknown;
 
@@ -145545,7 +145543,7 @@ export type DeleteWebhookQuery = {
 	slug?: string | undefined;
 };
 
-export type DeleteWebhookStatus204 = unknown;
+export type DeleteWebhookStatus204 = void;
 
 export type DeleteWebhookStatus400 = unknown;
 

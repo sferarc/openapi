@@ -123,10 +123,28 @@ export function responseWithLineDelimitedJson(
 	return { ...response, content: [...response.content, ...lines] };
 }
 
+// RFC 9110 forbids content in a 204 or 205 response.
+const NO_CONTENT_STATUS_CODES = new Set<ast.StatusCode>(["204", "205"]);
+
+/**
+ * Types a 204 or 205 response as `void`, since the fetchers resolve its empty body to `undefined`.
+ * The adapter's `unknown` placeholder absorbed a typed 200 in the same union, so an operation
+ * answering 200 or 204 returned `unknown`.
+ */
+export function responseWithoutContent(response: ast.ResponseNode): ast.ResponseNode {
+	if (!NO_CONTENT_STATUS_CODES.has(response.statusCode)) return response;
+	const schema = ast.factory.createSchema({ type: "void" });
+	const content = response.content?.length
+		? response.content.map((entry) => ({ ...entry, schema }))
+		: [ast.factory.createContent({ contentType: "application/json", schema })];
+	return { ...response, content };
+}
+
 function withFallbackResponse(
 	response: ast.ResponseNode,
 	everyMediaType: ast.ResponseNode | undefined,
 ): ast.ResponseNode {
+	if (NO_CONTENT_STATUS_CODES.has(response.statusCode)) return responseWithoutContent(response);
 	const content = response.content?.some(hasBodySchema)
 		? undefined
 		: responseContentFallback(everyMediaType);

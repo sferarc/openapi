@@ -3265,7 +3265,7 @@ export const updateSitePathSchema = z.object({
 
 export const deleteSitePathSiteIdSchema = z.string();
 
-export const deleteSiteStatus204Schema = z.unknown();
+export const deleteSiteStatus204Schema = z.void();
 
 export const deleteSiteStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -4115,7 +4115,7 @@ export const deleteEnvVarQuerySiteIdSchema = z
 	.optional()
 	.describe("If provided, delete the environment variable from this site");
 
-export const deleteEnvVarStatus204Schema = z.unknown();
+export const deleteEnvVarStatus204Schema = z.void();
 
 export const deleteEnvVarStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -4155,7 +4155,7 @@ export const deleteEnvVarValueQuerySiteIdSchema = z
 	.optional()
 	.describe("If provided, delete the value from an environment variable on this site");
 
-export const deleteEnvVarValueStatus204Schema = z.unknown();
+export const deleteEnvVarValueStatus204Schema = z.void();
 
 export const deleteEnvVarValueStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -4242,7 +4242,7 @@ export const deleteSiteFormPathSiteIdSchema = z.string();
 
 export const deleteSiteFormPathFormIdSchema = z.string();
 
-export const deleteSiteFormStatus204Schema = z.unknown();
+export const deleteSiteFormStatus204Schema = z.void();
 
 export const deleteSiteFormStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -4487,7 +4487,7 @@ export const deleteSiteAssetPathSiteIdSchema = z.string();
 
 export const deleteSiteAssetPathAssetIdSchema = z.string();
 
-export const deleteSiteAssetStatus204Schema = z.unknown();
+export const deleteSiteAssetStatus204Schema = z.void();
 
 export const deleteSiteAssetStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -4665,7 +4665,7 @@ export const updateSiteSnippetPathSiteIdSchema = z.string();
 
 export const updateSiteSnippetPathSnippetIdSchema = z.string();
 
-export const updateSiteSnippetStatus204Schema = z.unknown();
+export const updateSiteSnippetStatus204Schema = z.void();
 
 export const updateSiteSnippetStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -4695,7 +4695,7 @@ export const deleteSiteSnippetPathSiteIdSchema = z.string();
 
 export const deleteSiteSnippetPathSnippetIdSchema = z.string();
 
-export const deleteSiteSnippetStatus204Schema = z.unknown();
+export const deleteSiteSnippetStatus204Schema = z.void();
 
 export const deleteSiteSnippetStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -4730,7 +4730,7 @@ export const getSiteMetadataPathSchema = z.object({
 
 export const updateSiteMetadataPathSiteIdSchema = z.string();
 
-export const updateSiteMetadataStatus204Schema = z.unknown();
+export const updateSiteMetadataStatus204Schema = z.void();
 
 export const updateSiteMetadataStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -4833,7 +4833,7 @@ export const updateSiteBuildHookPathSiteIdSchema = z.string();
 
 export const updateSiteBuildHookPathIdSchema = z.string();
 
-export const updateSiteBuildHookStatus204Schema = z.unknown();
+export const updateSiteBuildHookStatus204Schema = z.void();
 
 export const updateSiteBuildHookStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -4858,7 +4858,7 @@ export const deleteSiteBuildHookPathSiteIdSchema = z.string();
 
 export const deleteSiteBuildHookPathIdSchema = z.string();
 
-export const deleteSiteBuildHookStatus204Schema = z.unknown();
+export const deleteSiteBuildHookStatus204Schema = z.void();
 
 export const deleteSiteBuildHookStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -5729,7 +5729,7 @@ export const deleteSiteDeployPathDeployIdSchema = z.string();
 
 export const deleteSiteDeployPathSiteIdSchema = z.string();
 
-export const deleteSiteDeployStatus204Schema = z.unknown();
+export const deleteSiteDeployStatus204Schema = z.void();
 
 export const deleteSiteDeployStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -6267,7 +6267,7 @@ export const unlinkSiteRepoPathSchema = z.object({
 
 export const enableSitePathSiteIdSchema = z.string();
 
-export const enableSiteStatus204Schema = z.unknown();
+export const enableSiteStatus204Schema = z.void();
 
 export const enableSiteStatus422Schema = z.object({
 	code: z.int().optional(),
@@ -6294,7 +6294,7 @@ export const disableSitePathSiteIdSchema = z.string();
 
 export const disableSiteQueryReasonSchema = z.string().describe("Reason for disabling the site");
 
-export const disableSiteStatus204Schema = z.unknown();
+export const disableSiteStatus204Schema = z.void();
 
 export const disableSiteStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -6339,7 +6339,7 @@ export const getSiteBuildPathSchema = z.object({
 
 export const updateSiteBuildLogPathBuildIdSchema = z.string();
 
-export const updateSiteBuildLogStatus204Schema = z.unknown();
+export const updateSiteBuildLogStatus204Schema = z.void();
 
 export const updateSiteBuildLogStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -6370,7 +6370,7 @@ export const notifyBuildStartQueryBuildVersionSchema = z.string().optional();
 
 export const notifyBuildStartQueryTaskIdSchema = z.string().optional();
 
-export const notifyBuildStartStatus204Schema = z.unknown();
+export const notifyBuildStartStatus204Schema = z.void();
 
 export const notifyBuildStartStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -6533,7 +6533,7 @@ export const configureDNSForSitePathSchema = z.object({
 
 export const rollbackSiteDeployPathSiteIdSchema = z.string();
 
-export const rollbackSiteDeployStatus204Schema = z.unknown();
+export const rollbackSiteDeployStatus204Schema = z.void();
 
 export const rollbackSiteDeployStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -6633,7 +6633,7 @@ export const getDeployPathSchema = z.object({
 
 export const deleteDeployPathDeployIdSchema = z.string();
 
-export const deleteDeployStatus204Schema = z.unknown();
+export const deleteDeployStatus204Schema = z.void();
 
 export const deleteDeployStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -7250,7 +7250,7 @@ export const updateHookPathSchema = z.object({
 
 export const deleteHookPathHookIdSchema = z.string();
 
-export const deleteHookStatus204Schema = z.unknown();
+export const deleteHookStatus204Schema = z.void();
 
 export const deleteHookResponseSchema = deleteHookStatus204Schema;
 
@@ -7452,7 +7452,7 @@ export const getDeployKeyPathSchema = z.object({
 
 export const deleteDeployKeyPathKeyIdSchema = z.string();
 
-export const deleteDeployKeyStatus204Schema = z.unknown();
+export const deleteDeployKeyStatus204Schema = z.void();
 
 export const deleteDeployKeyStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -8131,7 +8131,7 @@ export const removeAccountMemberPathAccountSlugSchema = z.string();
 
 export const removeAccountMemberPathMemberIdSchema = z.string();
 
-export const removeAccountMemberStatus204Schema = z.unknown();
+export const removeAccountMemberStatus204Schema = z.void();
 
 export const removeAccountMemberStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -8410,7 +8410,7 @@ export const updateAccountPathSchema = z.object({
 
 export const cancelAccountPathAccountIdSchema = z.string();
 
-export const cancelAccountStatus204Schema = z.unknown();
+export const cancelAccountStatus204Schema = z.void();
 
 export const cancelAccountStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -10160,7 +10160,7 @@ export const listFormSubmissionQuerySchema = z.object({
 
 export const deleteSubmissionPathSubmissionIdSchema = z.string();
 
-export const deleteSubmissionStatus204Schema = z.unknown();
+export const deleteSubmissionStatus204Schema = z.void();
 
 export const deleteSubmissionStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -10285,7 +10285,7 @@ export const updateServiceInstancePathAddonSchema = z.string();
 
 export const updateServiceInstancePathInstanceIdSchema = z.string();
 
-export const updateServiceInstanceStatus204Schema = z.unknown();
+export const updateServiceInstanceStatus204Schema = z.void();
 
 export const updateServiceInstanceStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -10310,7 +10310,7 @@ export const deleteServiceInstancePathAddonSchema = z.string();
 
 export const deleteServiceInstancePathInstanceIdSchema = z.string();
 
-export const deleteServiceInstanceStatus204Schema = z.unknown();
+export const deleteServiceInstanceStatus204Schema = z.void();
 
 export const deleteServiceInstanceStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -10658,7 +10658,7 @@ export const enableSplitTestPathSiteIdSchema = z.string();
 
 export const enableSplitTestPathSplitTestIdSchema = z.string();
 
-export const enableSplitTestStatus204Schema = z.unknown();
+export const enableSplitTestStatus204Schema = z.void();
 
 export const enableSplitTestStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -10678,7 +10678,7 @@ export const disableSplitTestPathSiteIdSchema = z.string();
 
 export const disableSplitTestPathSplitTestIdSchema = z.string();
 
-export const disableSplitTestStatus204Schema = z.unknown();
+export const disableSplitTestStatus204Schema = z.void();
 
 export const disableSplitTestStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -10848,7 +10848,7 @@ export const getDnsZonePathSchema = z.object({
 
 export const deleteDnsZonePathZoneIdSchema = z.string();
 
-export const deleteDnsZoneStatus204Schema = z.unknown();
+export const deleteDnsZoneStatus204Schema = z.void();
 
 export const deleteDnsZoneStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -11039,7 +11039,7 @@ export const deleteDnsRecordPathZoneIdSchema = z.string();
 
 export const deleteDnsRecordPathDnsRecordIdSchema = z.string();
 
-export const deleteDnsRecordStatus204Schema = z.unknown();
+export const deleteDnsRecordStatus204Schema = z.void();
 
 export const deleteDnsRecordStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -11335,7 +11335,7 @@ export const updateSiteDevServerHookPathSiteIdSchema = z.string();
 
 export const updateSiteDevServerHookPathIdSchema = z.string();
 
-export const updateSiteDevServerHookStatus204Schema = z.unknown();
+export const updateSiteDevServerHookStatus204Schema = z.void();
 
 export const updateSiteDevServerHookStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -11361,7 +11361,7 @@ export const deleteSiteDevServerHookPathSiteIdSchema = z.string();
 
 export const deleteSiteDevServerHookPathIdSchema = z.string();
 
-export const deleteSiteDevServerHookStatus204Schema = z.unknown();
+export const deleteSiteDevServerHookStatus204Schema = z.void();
 
 export const deleteSiteDevServerHookStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -11478,7 +11478,7 @@ export const updateSiteAgentRunnerHookPathSiteIdSchema = z.string();
 
 export const updateSiteAgentRunnerHookPathIdSchema = z.string();
 
-export const updateSiteAgentRunnerHookStatus204Schema = z.unknown();
+export const updateSiteAgentRunnerHookStatus204Schema = z.void();
 
 export const updateSiteAgentRunnerHookStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -11505,7 +11505,7 @@ export const deleteSiteAgentRunnerHookPathSiteIdSchema = z.string();
 
 export const deleteSiteAgentRunnerHookPathIdSchema = z.string();
 
-export const deleteSiteAgentRunnerHookStatus204Schema = z.unknown();
+export const deleteSiteAgentRunnerHookStatus204Schema = z.void();
 
 export const deleteSiteAgentRunnerHookStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -11676,7 +11676,7 @@ export const getSiteDatabaseQuerySchema = z.object({
 
 export const deleteSiteDatabasePathSiteIdSchema = z.string();
 
-export const deleteSiteDatabaseStatus204Schema = z.unknown();
+export const deleteSiteDatabaseStatus204Schema = z.void();
 
 export const deleteSiteDatabaseStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -11865,7 +11865,7 @@ export const deleteSiteDatabaseBranchPathSiteIdSchema = z.string();
 
 export const deleteSiteDatabaseBranchPathBranchIdSchema = z.string().describe("The branch ID");
 
-export const deleteSiteDatabaseBranchStatus204Schema = z.unknown();
+export const deleteSiteDatabaseBranchStatus204Schema = z.void();
 
 export const deleteSiteDatabaseBranchStatusDefaultSchema = z.object({
 	code: z.int().optional(),
@@ -12112,7 +12112,7 @@ export const getSiteDatabaseComputeSettingsPathSchema = z.object({
 
 export const clearSiteDatabaseComputeSettingsPathSiteIdSchema = z.string();
 
-export const clearSiteDatabaseComputeSettingsStatus204Schema = z.unknown();
+export const clearSiteDatabaseComputeSettingsStatus204Schema = z.void();
 
 export const clearSiteDatabaseComputeSettingsStatus403Schema = z.unknown();
 
@@ -12390,7 +12390,7 @@ export const deleteSiteDatabaseSnapshotPathSnapshotIdSchema = z
 	.string()
 	.describe("The snapshot ID");
 
-export const deleteSiteDatabaseSnapshotStatus204Schema = z.unknown();
+export const deleteSiteDatabaseSnapshotStatus204Schema = z.void();
 
 export const deleteSiteDatabaseSnapshotStatusDefaultSchema = z.object({
 	code: z.int().optional(),

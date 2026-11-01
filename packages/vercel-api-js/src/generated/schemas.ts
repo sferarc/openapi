@@ -18192,7 +18192,7 @@ export const deleteAiGatewayByokCredentialQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteAiGatewayByokCredentialStatus204Schema = z.unknown().nullable();
+export const deleteAiGatewayByokCredentialStatus204Schema = z.void();
 
 export const deleteAiGatewayByokCredentialStatus400Schema = z.unknown();
 
@@ -18445,7 +18445,7 @@ export const deleteAiGatewayVirtualModelConfigQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteAiGatewayVirtualModelConfigStatus204Schema = z.unknown().nullable();
+export const deleteAiGatewayVirtualModelConfigStatus204Schema = z.void();
 
 export const deleteAiGatewayVirtualModelConfigStatus400Schema = z.unknown();
 
@@ -18705,7 +18705,7 @@ export const deleteAiGatewayVirtualModelConfigBySlugQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteAiGatewayVirtualModelConfigBySlugStatus204Schema = z.unknown().nullable();
+export const deleteAiGatewayVirtualModelConfigBySlugStatus204Schema = z.void();
 
 export const deleteAiGatewayVirtualModelConfigBySlugStatus400Schema = z.unknown();
 
@@ -19006,7 +19006,7 @@ export const deleteAiGatewayRuleQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteAiGatewayRuleStatus204Schema = z.unknown().nullable();
+export const deleteAiGatewayRuleStatus204Schema = z.void();
 
 export const deleteAiGatewayRuleStatus400Schema = z.unknown();
 
@@ -19392,7 +19392,7 @@ export const archiveAiGatewayBudgetDefaultQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const archiveAiGatewayBudgetDefaultStatus204Schema = z.unknown();
+export const archiveAiGatewayBudgetDefaultStatus204Schema = z.void();
 
 export const archiveAiGatewayBudgetDefaultStatus400Schema = z.unknown();
 
@@ -24412,7 +24412,7 @@ export const deleteNetworkQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteNetworkStatus204Schema = z.unknown();
+export const deleteNetworkStatus204Schema = z.void();
 
 export const deleteNetworkStatus400Schema = z.unknown();
 
@@ -24823,7 +24823,7 @@ export const deletePrivateLinkEndpointQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deletePrivateLinkEndpointStatus204Schema = z.unknown().nullable();
+export const deletePrivateLinkEndpointStatus204Schema = z.void();
 
 export const deletePrivateLinkEndpointStatus400Schema = z.unknown();
 
@@ -25248,7 +25248,7 @@ export const deleteConnectorQuerySlugSchema = z
 	)
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteConnectorStatus204Schema = z.unknown();
+export const deleteConnectorStatus204Schema = z.void();
 
 export const deleteConnectorStatus400Schema = connectErrorSchema.describe(
 	"Error response returned by a Connect API operation.",
@@ -26069,7 +26069,7 @@ export const deleteConnectorProjectConnectionQuerySlugSchema = z
 	)
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteConnectorProjectConnectionStatus204Schema = z.unknown();
+export const deleteConnectorProjectConnectionStatus204Schema = z.void();
 
 export const deleteConnectorProjectConnectionStatus400Schema = connectErrorSchema.describe(
 	"Error response returned by a Connect API operation.",
@@ -26168,7 +26168,7 @@ export const disconnectConnectorProjectEnvironmentQueryTeamIdSchema = z
 	.describe("The Team identifier to perform the request on behalf of.")
 	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
 
-export const disconnectConnectorProjectEnvironmentStatus204Schema = z.unknown();
+export const disconnectConnectorProjectEnvironmentStatus204Schema = z.void();
 
 export const disconnectConnectorProjectEnvironmentStatus400Schema = z.unknown();
 
@@ -39132,7 +39132,7 @@ export const updateDomainAutoRenewQueryTeamIdSchema = z
 	.optional()
 	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
 
-export const updateDomainAutoRenewStatus204Schema = z.unknown();
+export const updateDomainAutoRenewStatus204Schema = z.void();
 
 export const updateDomainAutoRenewStatus400Schema = z.union([
 	domainAlreadyRenewingSchema,
@@ -39190,7 +39190,7 @@ export const updateDomainNameserversQueryTeamIdSchema = z
 	.optional()
 	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
 
-export const updateDomainNameserversStatus204Schema = z.unknown();
+export const updateDomainNameserversStatus204Schema = z.void();
 
 export const updateDomainNameserversStatus400Schema = z.union([
 	domainNotRegisteredSchema,
@@ -40957,7 +40957,7 @@ export const deleteConfigurableLogDrainQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteConfigurableLogDrainStatus204Schema = z.unknown();
+export const deleteConfigurableLogDrainStatus204Schema = z.void();
 
 export const deleteConfigurableLogDrainStatus400Schema = z.unknown();
 
@@ -42648,7 +42648,7 @@ export const deleteDrainQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteDrainStatus204Schema = z.unknown();
+export const deleteDrainStatus204Schema = z.void();
 
 export const deleteDrainStatus400Schema = z.unknown();
 
@@ -44147,7 +44147,7 @@ export const deleteEdgeConfigQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteEdgeConfigStatus204Schema = z.unknown();
+export const deleteEdgeConfigStatus204Schema = z.void();
 
 export const deleteEdgeConfigStatus400Schema = z.unknown();
 
@@ -44498,7 +44498,7 @@ export const deleteEdgeConfigSchemaQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteEdgeConfigSchemaStatus204Schema = z.unknown();
+export const deleteEdgeConfigSchemaStatus204Schema = z.void();
 
 export const deleteEdgeConfigSchemaStatus400Schema = z.unknown();
 
@@ -44562,7 +44562,7 @@ export const getEdgeConfigItemQuerySlugSchema = z
 export const getEdgeConfigItemStatus200Schema =
 	globalConfigItemSchema.describe("The Global Config.");
 
-export const getEdgeConfigItemStatus204Schema = z.unknown();
+export const getEdgeConfigItemStatus204Schema = z.void();
 
 export const getEdgeConfigItemStatus400Schema = z.unknown();
 
@@ -44672,7 +44672,7 @@ export const deleteEdgeConfigTokensQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteEdgeConfigTokensStatus204Schema = z.unknown();
+export const deleteEdgeConfigTokensStatus204Schema = z.void();
 
 export const deleteEdgeConfigTokensStatus400Schema = z.unknown();
 
@@ -47930,7 +47930,7 @@ export const deleteFlagQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteFlagStatus204Schema = z.unknown();
+export const deleteFlagStatus204Schema = z.void();
 
 export const deleteFlagStatus304Schema = z.unknown();
 
@@ -49740,7 +49740,7 @@ export const deleteFlagSegmentQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteFlagSegmentStatus204Schema = z.unknown();
+export const deleteFlagSegmentStatus204Schema = z.void();
 
 export const deleteFlagSegmentStatus304Schema = z.unknown();
 
@@ -50385,7 +50385,7 @@ export const deleteSdkKeyQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteSdkKeyStatus204Schema = z.unknown();
+export const deleteSdkKeyStatus204Schema = z.void();
 
 export const deleteSdkKeyStatus400Schema = z.unknown();
 
@@ -50873,7 +50873,7 @@ export const connectIntegrationResourceToProjectQuerySchema = z.object({
 
 export const updateInstallationPathIntegrationConfigurationIdSchema = z.string();
 
-export const updateInstallationStatus204Schema = z.unknown();
+export const updateInstallationStatus204Schema = z.void();
 
 export const updateInstallationStatus400Schema = z.unknown();
 
@@ -51390,7 +51390,7 @@ export const deleteIntegrationResourcePathIntegrationConfigurationIdSchema = z.s
 
 export const deleteIntegrationResourcePathResourceIdSchema = z.string();
 
-export const deleteIntegrationResourceStatus204Schema = z.unknown();
+export const deleteIntegrationResourceStatus204Schema = z.void();
 
 export const deleteIntegrationResourceStatus400Schema = z.unknown();
 
@@ -52057,7 +52057,7 @@ export const submitInvoicePathSchema = z.object({
 
 export const finalizeInstallationPathIntegrationConfigurationIdSchema = z.string();
 
-export const finalizeInstallationStatus204Schema = z.unknown();
+export const finalizeInstallationStatus204Schema = z.void();
 
 export const finalizeInstallationStatus400Schema = z.unknown();
 
@@ -52252,7 +52252,7 @@ export const updateInvoicePathIntegrationConfigurationIdSchema = z.string();
 
 export const updateInvoicePathInvoiceIdSchema = z.string();
 
-export const updateInvoiceStatus204Schema = z.unknown();
+export const updateInvoiceStatus204Schema = z.void();
 
 export const updateInvoiceStatus400Schema = z.unknown();
 
@@ -53320,7 +53320,7 @@ export const deleteConfigurationQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteConfigurationStatus204Schema = z.unknown();
+export const deleteConfigurationStatus204Schema = z.void();
 
 export const deleteConfigurationStatus400Schema = z.unknown();
 
@@ -54818,7 +54818,7 @@ export const deleteIntegrationLogDrainQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteIntegrationLogDrainStatus204Schema = z.unknown();
+export const deleteIntegrationLogDrainStatus204Schema = z.void();
 
 export const deleteIntegrationLogDrainStatus400Schema = z.unknown();
 
@@ -56352,7 +56352,7 @@ export const deleteKmsIssuerQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteKmsIssuerStatus204Schema = z.unknown();
+export const deleteKmsIssuerStatus204Schema = z.void();
 
 export const deleteKmsIssuerStatus400Schema = z.unknown();
 
@@ -56612,7 +56612,7 @@ export const deleteKmsIssuerPolicyQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteKmsIssuerPolicyStatus204Schema = z.unknown();
+export const deleteKmsIssuerPolicyStatus204Schema = z.void();
 
 export const deleteKmsIssuerPolicyStatus400Schema = z.unknown();
 
@@ -56720,7 +56720,7 @@ export const createInstallationsByIntegrationConfigurationIdResourcesByResourceI
 	z.string();
 
 export const createInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const createInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsStatus400Schema =
 	z.unknown();
@@ -56786,7 +56786,7 @@ export const updateInstallationsByIntegrationConfigurationIdResourcesByResourceI
 	z.string();
 
 export const updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus400Schema =
 	z.unknown();
@@ -56846,7 +56846,7 @@ export const deleteInstallationsByIntegrationConfigurationIdResourcesByResourceI
 	z.string();
 
 export const deleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const deleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus400Schema =
 	z.unknown();
@@ -85566,7 +85566,7 @@ export const deleteProjectQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteProjectStatus204Schema = z.unknown();
+export const deleteProjectStatus204Schema = z.void();
 
 export const deleteProjectStatus400Schema = z.unknown();
 
@@ -115138,7 +115138,7 @@ export const deleteSecurityFirewallConfigByConfigVersionPathConfigVersionSchema 
 	.string()
 	.describe("The deployed configVersion for the firewall configuration");
 
-export const deleteSecurityFirewallConfigByConfigVersionStatus204Schema = z.enum([""]);
+export const deleteSecurityFirewallConfigByConfigVersionStatus204Schema = z.void();
 
 export const deleteSecurityFirewallConfigByConfigVersionStatus400Schema = z.unknown();
 
@@ -116737,7 +116737,7 @@ export const deleteConditionalBypassQueryTeamIdSchema = z
 	.describe("The Team identifier to perform the request on behalf of.")
 	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
 
-export const deleteConditionalBypassStatus204Schema = z.enum([""]);
+export const deleteConditionalBypassStatus204Schema = z.void();
 
 export const deleteConditionalBypassStatus400Schema = z.unknown();
 
@@ -121913,7 +121913,7 @@ export const removeRepositoryPermissionQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const removeRepositoryPermissionStatus204Schema = z.unknown().nullable();
+export const removeRepositoryPermissionStatus204Schema = z.void();
 
 export const removeRepositoryPermissionStatus400Schema = z.unknown();
 
@@ -122076,7 +122076,7 @@ export const clearRepositoryPermissionsQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const clearRepositoryPermissionsStatus204Schema = z.unknown().nullable();
+export const clearRepositoryPermissionsStatus204Schema = z.void();
 
 export const clearRepositoryPermissionsStatus400Schema = z.unknown();
 
@@ -122671,9 +122671,7 @@ export const getByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathUui
 	.describe("Blob upload session identifier.")
 	.meta({ examples: ["0123456789abcdef0123456789abcdef01234567"] });
 
-export const getByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus204Schema = z
-	.unknown()
-	.nullable();
+export const getByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus204Schema = z.void();
 
 export const getByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus400Schema =
 	z.unknown();
@@ -122762,9 +122760,8 @@ export const deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath
 	.describe("Blob upload session identifier.")
 	.meta({ examples: ["0123456789abcdef0123456789abcdef01234567"] });
 
-export const deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus204Schema = z
-	.unknown()
-	.nullable();
+export const deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus204Schema =
+	z.void();
 
 export const deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus400Schema =
 	z.unknown();
@@ -128453,7 +128450,7 @@ export const deleteWebhookQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const deleteWebhookStatus204Schema = z.unknown();
+export const deleteWebhookStatus204Schema = z.void();
 
 export const deleteWebhookStatus400Schema = z.unknown();
 

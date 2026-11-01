@@ -151,7 +151,7 @@ export const getAccountQuerySchema = z.object({
 	userProfileMetadata: z.boolean().optional(),
 });
 
-export const updateAccountStatus204Schema = z.unknown();
+export const updateAccountStatus204Schema = z.void();
 
 export const updateAccountResponseSchema = updateAccountStatus204Schema;
 
@@ -199,7 +199,7 @@ export const updateConsentPathSchema = z.object({
 
 export const deleteConsentPathClientIdSchema = z.string().describe("client id");
 
-export const deleteConsentStatus204Schema = z.unknown();
+export const deleteConsentStatus204Schema = z.void();
 
 export const deleteConsentResponseSchema = deleteConsentStatus204Schema;
 
@@ -222,7 +222,7 @@ export const getCredentialsQuerySchema = z.object({
 
 export const deleteCredentialPathCredentialIdSchema = z.string().describe("Credential ID");
 
-export const deleteCredentialStatus204Schema = z.unknown();
+export const deleteCredentialStatus204Schema = z.void();
 
 export const deleteCredentialResponseSchema = deleteCredentialStatus204Schema;
 
@@ -232,7 +232,7 @@ export const deleteCredentialPathSchema = z.object({
 
 export const updateCredentialLabelPathCredentialIdSchema = z.string().describe("Credential ID");
 
-export const updateCredentialLabelStatus204Schema = z.unknown();
+export const updateCredentialLabelStatus204Schema = z.void();
 
 export const updateCredentialLabelResponseSchema = updateCredentialLabelStatus204Schema;
 
@@ -246,7 +246,7 @@ export const getSessionsStatus200Schema = z.array(sessionRepresentationSchema);
 
 export const getSessionsResponseSchema = getSessionsStatus200Schema;
 
-export const deleteCurrentSessionStatus204Schema = z.unknown();
+export const deleteCurrentSessionStatus204Schema = z.void();
 
 export const deleteCurrentSessionResponseSchema = deleteCurrentSessionStatus204Schema;
 
@@ -256,7 +256,7 @@ export const getDevicesResponseSchema = getDevicesStatus200Schema;
 
 export const deleteSessionPathSessionIdSchema = z.string().describe("Session ID");
 
-export const deleteSessionStatus204Schema = z.unknown();
+export const deleteSessionStatus204Schema = z.void();
 
 export const deleteSessionResponseSchema = deleteSessionStatus204Schema;
 
@@ -288,7 +288,7 @@ export const buildLinkingUriQuerySchema = z.object({
 
 export const deleteLinkedProviderPathProviderIdSchema = z.string().describe("Provider ID");
 
-export const deleteLinkedProviderStatus204Schema = z.unknown();
+export const deleteLinkedProviderStatus204Schema = z.void();
 
 export const deleteLinkedProviderResponseSchema = deleteLinkedProviderStatus204Schema;
 

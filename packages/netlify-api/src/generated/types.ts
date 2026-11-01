@@ -4908,7 +4908,7 @@ export type DeleteSitePath = {
 	site_id: string;
 };
 
-export type DeleteSiteStatus204 = unknown;
+export type DeleteSiteStatus204 = void;
 
 export type DeleteSiteStatusDefault = {
 	/**
@@ -6249,7 +6249,7 @@ export type DeleteEnvVarQuery = {
 	site_id?: string | undefined;
 };
 
-export type DeleteEnvVarStatus204 = unknown;
+export type DeleteEnvVarStatus204 = void;
 
 export type DeleteEnvVarStatusDefault = {
 	/**
@@ -6304,7 +6304,7 @@ export type DeleteEnvVarValueQuery = {
 	site_id?: string | undefined;
 };
 
-export type DeleteEnvVarValueStatus204 = unknown;
+export type DeleteEnvVarValueStatus204 = void;
 
 export type DeleteEnvVarValueStatusDefault = {
 	/**
@@ -6438,7 +6438,7 @@ export type DeleteSiteFormPath = {
 	form_id: string;
 };
 
-export type DeleteSiteFormStatus204 = unknown;
+export type DeleteSiteFormStatus204 = void;
 
 export type DeleteSiteFormStatusDefault = {
 	/**
@@ -6863,7 +6863,7 @@ export type DeleteSiteAssetPath = {
 	asset_id: string;
 };
 
-export type DeleteSiteAssetStatus204 = unknown;
+export type DeleteSiteAssetStatus204 = void;
 
 export type DeleteSiteAssetStatusDefault = {
 	/**
@@ -7162,7 +7162,7 @@ export type UpdateSiteSnippetPath = {
 	snippet_id: string;
 };
 
-export type UpdateSiteSnippetStatus204 = unknown;
+export type UpdateSiteSnippetStatus204 = void;
 
 export type UpdateSiteSnippetStatusDefault = {
 	/**
@@ -7211,7 +7211,7 @@ export type DeleteSiteSnippetPath = {
 	snippet_id: string;
 };
 
-export type DeleteSiteSnippetStatus204 = unknown;
+export type DeleteSiteSnippetStatus204 = void;
 
 export type DeleteSiteSnippetStatusDefault = {
 	/**
@@ -7277,7 +7277,7 @@ export type UpdateSiteMetadataPath = {
 	site_id: string;
 };
 
-export type UpdateSiteMetadataStatus204 = unknown;
+export type UpdateSiteMetadataStatus204 = void;
 
 export type UpdateSiteMetadataStatusDefault = {
 	/**
@@ -7454,7 +7454,7 @@ export type UpdateSiteBuildHookPath = {
 	id: string;
 };
 
-export type UpdateSiteBuildHookStatus204 = unknown;
+export type UpdateSiteBuildHookStatus204 = void;
 
 export type UpdateSiteBuildHookStatusDefault = {
 	/**
@@ -7493,7 +7493,7 @@ export type DeleteSiteBuildHookPath = {
 	id: string;
 };
 
-export type DeleteSiteBuildHookStatus204 = unknown;
+export type DeleteSiteBuildHookStatus204 = void;
 
 export type DeleteSiteBuildHookStatusDefault = {
 	/**
@@ -8604,7 +8604,7 @@ export type DeleteSiteDeployPath = {
 	site_id: string;
 };
 
-export type DeleteSiteDeployStatus204 = unknown;
+export type DeleteSiteDeployStatus204 = void;
 
 export type DeleteSiteDeployStatusDefault = {
 	/**
@@ -9298,7 +9298,7 @@ export type EnableSitePath = {
 	site_id: string;
 };
 
-export type EnableSiteStatus204 = unknown;
+export type EnableSiteStatus204 = void;
 
 export type EnableSiteStatus422 = {
 	/**
@@ -9350,7 +9350,7 @@ export type DisableSiteQuery = {
 	reason: string;
 };
 
-export type DisableSiteStatus204 = unknown;
+export type DisableSiteStatus204 = void;
 
 export type DisableSiteStatusDefault = {
 	/**
@@ -9428,7 +9428,7 @@ export type UpdateSiteBuildLogPath = {
 	build_id: string;
 };
 
-export type UpdateSiteBuildLogStatus204 = unknown;
+export type UpdateSiteBuildLogStatus204 = void;
 
 export type UpdateSiteBuildLogStatusDefault = {
 	/**
@@ -9484,7 +9484,7 @@ export type NotifyBuildStartQuery = {
 	task_id?: string | undefined;
 };
 
-export type NotifyBuildStartStatus204 = unknown;
+export type NotifyBuildStartStatus204 = void;
 
 export type NotifyBuildStartStatusDefault = {
 	/**
@@ -9750,7 +9750,7 @@ export type RollbackSiteDeployPath = {
 	site_id: string;
 };
 
-export type RollbackSiteDeployStatus204 = unknown;
+export type RollbackSiteDeployStatus204 = void;
 
 export type RollbackSiteDeployStatusDefault = {
 	/**
@@ -9901,7 +9901,7 @@ export type DeleteDeployPath = {
 	deploy_id: string;
 };
 
-export type DeleteDeployStatus204 = unknown;
+export type DeleteDeployStatus204 = void;
 
 export type DeleteDeployStatusDefault = {
 	/**
@@ -10846,7 +10846,7 @@ export type DeleteHookPath = {
 	hook_id: string;
 };
 
-export type DeleteHookStatus204 = unknown;
+export type DeleteHookStatus204 = void;
 
 export type DeleteHookOptions = {
 	body?: never | undefined;
@@ -11237,7 +11237,7 @@ export type DeleteDeployKeyPath = {
 	key_id: string;
 };
 
-export type DeleteDeployKeyStatus204 = unknown;
+export type DeleteDeployKeyStatus204 = void;
 
 export type DeleteDeployKeyStatusDefault = {
 	/**
@@ -12162,7 +12162,7 @@ export type RemoveAccountMemberPath = {
 	member_id: string;
 };
 
-export type RemoveAccountMemberStatus204 = unknown;
+export type RemoveAccountMemberStatus204 = void;
 
 export type RemoveAccountMemberStatusDefault = {
 	/**
@@ -12610,7 +12610,7 @@ export type CancelAccountPath = {
 	account_id: string;
 };
 
-export type CancelAccountStatus204 = unknown;
+export type CancelAccountStatus204 = void;
 
 export type CancelAccountStatusDefault = {
 	/**
@@ -15078,7 +15078,7 @@ export type DeleteSubmissionPath = {
 	submission_id: string;
 };
 
-export type DeleteSubmissionStatus204 = unknown;
+export type DeleteSubmissionStatus204 = void;
 
 export type DeleteSubmissionStatusDefault = {
 	/**
@@ -15286,7 +15286,7 @@ export type UpdateServiceInstancePath = {
 	instance_id: string;
 };
 
-export type UpdateServiceInstanceStatus204 = unknown;
+export type UpdateServiceInstanceStatus204 = void;
 
 export type UpdateServiceInstanceStatusDefault = {
 	/**
@@ -15323,7 +15323,7 @@ export type DeleteServiceInstancePath = {
 	instance_id: string;
 };
 
-export type DeleteServiceInstanceStatus204 = unknown;
+export type DeleteServiceInstanceStatus204 = void;
 
 export type DeleteServiceInstanceStatusDefault = {
 	/**
@@ -16011,7 +16011,7 @@ export type EnableSplitTestPath = {
 	split_test_id: string;
 };
 
-export type EnableSplitTestStatus204 = unknown;
+export type EnableSplitTestStatus204 = void;
 
 export type EnableSplitTestStatusDefault = {
 	/**
@@ -16045,7 +16045,7 @@ export type DisableSplitTestPath = {
 	split_test_id: string;
 };
 
-export type DisableSplitTestStatus204 = unknown;
+export type DisableSplitTestStatus204 = void;
 
 export type DisableSplitTestStatusDefault = {
 	/**
@@ -16332,7 +16332,7 @@ export type DeleteDnsZonePath = {
 	zone_id: string;
 };
 
-export type DeleteDnsZoneStatus204 = unknown;
+export type DeleteDnsZoneStatus204 = void;
 
 export type DeleteDnsZoneStatusDefault = {
 	/**
@@ -16671,7 +16671,7 @@ export type DeleteDnsRecordPath = {
 	dns_record_id: string;
 };
 
-export type DeleteDnsRecordStatus204 = unknown;
+export type DeleteDnsRecordStatus204 = void;
 
 export type DeleteDnsRecordStatusDefault = {
 	/**
@@ -17307,7 +17307,7 @@ export type UpdateSiteDevServerHookPath = {
 	id: string;
 };
 
-export type UpdateSiteDevServerHookStatus204 = unknown;
+export type UpdateSiteDevServerHookStatus204 = void;
 
 export type UpdateSiteDevServerHookStatusDefault = {
 	/**
@@ -17355,7 +17355,7 @@ export type DeleteSiteDevServerHookPath = {
 	id: string;
 };
 
-export type DeleteSiteDevServerHookStatus204 = unknown;
+export type DeleteSiteDevServerHookStatus204 = void;
 
 export type DeleteSiteDevServerHookStatusDefault = {
 	/**
@@ -17543,7 +17543,7 @@ export type UpdateSiteAgentRunnerHookPath = {
 	id: string;
 };
 
-export type UpdateSiteAgentRunnerHookStatus204 = unknown;
+export type UpdateSiteAgentRunnerHookStatus204 = void;
 
 export type UpdateSiteAgentRunnerHookStatusDefault = {
 	/**
@@ -17584,7 +17584,7 @@ export type DeleteSiteAgentRunnerHookPath = {
 	id: string;
 };
 
-export type DeleteSiteAgentRunnerHookStatus204 = unknown;
+export type DeleteSiteAgentRunnerHookStatus204 = void;
 
 export type DeleteSiteAgentRunnerHookStatusDefault = {
 	/**
@@ -17900,7 +17900,7 @@ export type DeleteSiteDatabasePath = {
 	site_id: string;
 };
 
-export type DeleteSiteDatabaseStatus204 = unknown;
+export type DeleteSiteDatabaseStatus204 = void;
 
 export type DeleteSiteDatabaseStatusDefault = {
 	/**
@@ -18281,7 +18281,7 @@ export type DeleteSiteDatabaseBranchPath = {
 	branch_id: string;
 };
 
-export type DeleteSiteDatabaseBranchStatus204 = unknown;
+export type DeleteSiteDatabaseBranchStatus204 = void;
 
 export type DeleteSiteDatabaseBranchStatusDefault = {
 	/**
@@ -18675,7 +18675,7 @@ export type ClearSiteDatabaseComputeSettingsPath = {
 	site_id: string;
 };
 
-export type ClearSiteDatabaseComputeSettingsStatus204 = unknown;
+export type ClearSiteDatabaseComputeSettingsStatus204 = void;
 
 export type ClearSiteDatabaseComputeSettingsStatus403 = unknown;
 
@@ -19176,7 +19176,7 @@ export type DeleteSiteDatabaseSnapshotPath = {
 	snapshot_id: string;
 };
 
-export type DeleteSiteDatabaseSnapshotStatus204 = unknown;
+export type DeleteSiteDatabaseSnapshotStatus204 = void;
 
 export type DeleteSiteDatabaseSnapshotStatusDefault = {
 	/**

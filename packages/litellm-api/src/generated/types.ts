@@ -39775,7 +39775,7 @@ export type DeleteFeedbackLensFeedbackDeleteQuery = {
 	user?: string | undefined;
 };
 
-export type DeleteFeedbackLensFeedbackDeleteStatus204 = unknown;
+export type DeleteFeedbackLensFeedbackDeleteStatus204 = void;
 
 export type DeleteFeedbackLensFeedbackDeleteStatus422 = HTTPValidationError;
 
@@ -51182,7 +51182,7 @@ export type DeleteGroupScimV2GroupsGroupIdDeleteQuery = {
 	feature?: (string | null) | undefined;
 };
 
-export type DeleteGroupScimV2GroupsGroupIdDeleteStatus204 = unknown;
+export type DeleteGroupScimV2GroupsGroupIdDeleteStatus204 = void;
 
 export type DeleteGroupScimV2GroupsGroupIdDeleteStatus422 = HTTPValidationError;
 
@@ -51514,7 +51514,7 @@ export type DeleteUserScimV2UsersUserIdDeleteQuery = {
 	feature?: (string | null) | undefined;
 };
 
-export type DeleteUserScimV2UsersUserIdDeleteStatus204 = unknown;
+export type DeleteUserScimV2UsersUserIdDeleteStatus204 = void;
 
 export type DeleteUserScimV2UsersUserIdDeleteStatus422 = HTTPValidationError;
 
@@ -52592,7 +52592,7 @@ export type DeleteAccessGroupV1AccessGroupAccessGroupIdDeletePath = {
 	access_group_id: string;
 };
 
-export type DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus204 = unknown;
+export type DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus204 = void;
 
 export type DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus422 = HTTPValidationError;
 
@@ -52715,7 +52715,7 @@ export type DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeletePath = {
 	access_group_id: string;
 };
 
-export type DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus204 = unknown;
+export type DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus204 = void;
 
 export type DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus422 = HTTPValidationError;
 

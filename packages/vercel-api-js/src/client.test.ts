@@ -1,5 +1,6 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 import { VercelApi } from "./client";
+import type { GlobalConfigItem } from "./types";
 import type { FetchImpl, RequestInit } from "./utils/fetch";
 
 describe("VercelApi.request", () => {
@@ -212,5 +213,19 @@ describe("VercelApi sandbox file upload", () => {
 				"x-cwd": "/home/vercel-sandbox",
 			}),
 		);
+	});
+});
+
+describe("VercelApi responses without content", () => {
+	it("resolves getEdgeConfigItem's 204 to undefined and keeps the item type for its 200", async () => {
+		const fetch: FetchImpl = async () => new Response(null, { status: 204 }) as never;
+		const client = new VercelApi({ token: "token", fetch });
+
+		const item = await client.api.globalConfig.getEdgeConfigItem({
+			pathParams: { edgeConfigId: "ecfg_1", edgeConfigItemKey: "missing" },
+		});
+
+		expect(item).toBeUndefined();
+		expectTypeOf(item).toEqualTypeOf<GlobalConfigItem | void>();
 	});
 });
