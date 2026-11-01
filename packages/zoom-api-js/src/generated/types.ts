@@ -877,7 +877,7 @@ export type UpdateArchivedFilePath = {
 	fileId: string;
 };
 
-export type UpdateArchivedFileStatus204 = unknown;
+export type UpdateArchivedFileStatus204 = void;
 
 export type UpdateArchivedFileStatus400 = unknown;
 
@@ -1423,7 +1423,7 @@ export type DeleteArchivedFilesPath = {
 	meetingUUID: string;
 };
 
-export type DeleteArchivedFilesStatus204 = unknown;
+export type DeleteArchivedFilesStatus204 = void;
 
 export type DeleteArchivedFilesStatus400 = unknown;
 
@@ -2000,7 +2000,7 @@ export type RecordingDeleteQuery = {
 	action?: RecordingDeleteActionKey | undefined;
 };
 
-export type RecordingDeleteStatus204 = unknown;
+export type RecordingDeleteStatus204 = void;
 
 export type RecordingDeleteStatus400 = unknown;
 
@@ -3087,7 +3087,7 @@ export type RecordingRegistrantQuestionUpdatePath = {
 	meetingId: string;
 };
 
-export type RecordingRegistrantQuestionUpdateStatus204 = unknown;
+export type RecordingRegistrantQuestionUpdateStatus204 = void;
 
 export type RecordingRegistrantQuestionUpdateStatus404 = unknown;
 
@@ -3266,7 +3266,7 @@ export type MeetingRecordingRegistrantStatusPath = {
 	meetingId: number;
 };
 
-export type MeetingRecordingRegistrantStatusStatus204 = unknown;
+export type MeetingRecordingRegistrantStatusStatus204 = void;
 
 export type MeetingRecordingRegistrantStatusStatus404 = unknown;
 
@@ -3518,7 +3518,7 @@ export type RecordingSettingsUpdatePath = {
 	meetingId: string;
 };
 
-export type RecordingSettingsUpdateStatus204 = unknown;
+export type RecordingSettingsUpdateStatus204 = void;
 
 export type RecordingSettingsUpdateStatus404 = unknown;
 
@@ -3711,7 +3711,7 @@ export type RecordingDeleteOneQuery = {
 	action?: RecordingDeleteOneActionKey | undefined;
 };
 
-export type RecordingDeleteOneStatus204 = unknown;
+export type RecordingDeleteOneStatus204 = void;
 
 export type RecordingDeleteOneStatus400 = unknown;
 
@@ -3757,7 +3757,7 @@ export type RecordingStatusUpdateOnePath = {
 	recordingId: string;
 };
 
-export type RecordingStatusUpdateOneStatus204 = unknown;
+export type RecordingStatusUpdateOneStatus204 = void;
 
 export type RecordingStatusUpdateOneStatus400 = unknown;
 
@@ -4900,7 +4900,7 @@ export type GetzdmgroupinfoResponses = {
  */
 export type GetzdmgroupinfoResponse = GetzdmgroupinfoStatus200;
 
-export type AssigndevicetoauserCommonareaStatus204 = unknown;
+export type AssigndevicetoauserCommonareaStatus204 = void;
 
 export type AssigndevicetoauserCommonareaStatus400 = unknown;
 
@@ -5194,7 +5194,7 @@ export type DeleteZpaDeviceByVendorAndMacAddressPath = {
 	macAddress: string;
 };
 
-export type DeleteZpaDeviceByVendorAndMacAddressStatus204 = unknown;
+export type DeleteZpaDeviceByVendorAndMacAddressStatus204 = void;
 
 export type DeleteZpaDeviceByVendorAndMacAddressStatus400 = unknown;
 
@@ -5493,7 +5493,7 @@ export type DeleteDevicePath = {
 	deviceId: string;
 };
 
-export type DeleteDeviceStatus204 = unknown;
+export type DeleteDeviceStatus204 = void;
 
 export type DeleteDeviceStatus400 = unknown;
 
@@ -5529,7 +5529,7 @@ export type UpdateDevicePath = {
 	deviceId: string;
 };
 
-export type UpdateDeviceStatus204 = unknown;
+export type UpdateDeviceStatus204 = void;
 
 export type UpdateDeviceStatus400 = unknown;
 
@@ -5615,7 +5615,7 @@ export type AssginGroupQuery = {
 	group_id: string;
 };
 
-export type AssginGroupStatus204 = unknown;
+export type AssginGroupStatus204 = void;
 
 export type AssginGroupStatus400 = unknown;
 
@@ -5654,7 +5654,7 @@ export type ChangeDeviceAssociationPath = {
 	deviceId: string;
 };
 
-export type ChangeDeviceAssociationStatus204 = unknown;
+export type ChangeDeviceAssociationStatus204 = void;
 
 export type ChangeDeviceAssociationStatus400 = unknown;
 
@@ -6112,7 +6112,7 @@ export type DeviceUpdatePath = {
 	deviceId: string;
 };
 
-export type DeviceUpdateStatus204 = unknown;
+export type DeviceUpdateStatus204 = void;
 
 export type DeviceUpdateStatus400 = unknown;
 
@@ -6371,7 +6371,7 @@ export type MeetingAppDeletePath = {
 	meetingId: number;
 };
 
-export type MeetingAppDeleteStatus204 = unknown;
+export type MeetingAppDeleteStatus204 = void;
 
 export type MeetingAppDeleteStatus400 = unknown;
 
@@ -6426,7 +6426,7 @@ export type DeleteMeetingChatMessageByIdQuery = {
 	file_ids?: string | undefined;
 };
 
-export type DeleteMeetingChatMessageByIdStatus204 = unknown;
+export type DeleteMeetingChatMessageByIdStatus204 = void;
 
 export type DeleteMeetingChatMessageByIdStatus400 = unknown;
 
@@ -6472,7 +6472,7 @@ export type UpdateMeetingChatMessageByIdPath = {
 	messageId: string;
 };
 
-export type UpdateMeetingChatMessageByIdStatus204 = unknown;
+export type UpdateMeetingChatMessageByIdStatus204 = void;
 
 export type UpdateMeetingChatMessageByIdStatus400 = unknown;
 
@@ -8133,7 +8133,7 @@ export type MeetingRegistrantQuestionUpdatePath = {
 	meetingId: number;
 };
 
-export type MeetingRegistrantQuestionUpdateStatus204 = unknown;
+export type MeetingRegistrantQuestionUpdateStatus204 = void;
 
 export type MeetingRegistrantQuestionUpdateStatus400 = unknown;
 
@@ -8278,7 +8278,7 @@ export type MeetingRegistrantStatusQuery = {
 	occurrence_id?: string | undefined;
 };
 
-export type MeetingRegistrantStatusStatus204 = unknown;
+export type MeetingRegistrantStatusStatus204 = void;
 
 export type MeetingRegistrantStatusStatus400 = unknown;
 
@@ -8663,7 +8663,7 @@ export type MeetingregistrantdeleteQuery = {
 	occurrence_id?: string | undefined;
 };
 
-export type MeetingregistrantdeleteStatus204 = unknown;
+export type MeetingregistrantdeleteStatus204 = void;
 
 export type MeetingregistrantdeleteStatus400 = unknown;
 
@@ -8823,7 +8823,7 @@ export type MeetingLiveStreamUpdatePath = {
 	meetingId: number;
 };
 
-export type MeetingLiveStreamUpdateStatus204 = unknown;
+export type MeetingLiveStreamUpdateStatus204 = void;
 
 export type MeetingLiveStreamUpdateStatus400 = unknown;
 
@@ -8901,7 +8901,7 @@ export type MeetingLiveStreamStatusUpdatePath = {
 	meetingId: number;
 };
 
-export type MeetingLiveStreamStatusUpdateStatus204 = unknown;
+export type MeetingLiveStreamStatusUpdateStatus204 = void;
 
 export type MeetingLiveStreamStatusUpdateStatus400 = unknown;
 
@@ -9166,7 +9166,7 @@ export type DeleteMeetingTranscriptPath = {
 	meetingId: string;
 };
 
-export type DeleteMeetingTranscriptStatus204 = unknown;
+export type DeleteMeetingTranscriptStatus204 = void;
 
 export type DeleteMeetingTranscriptStatus400 = unknown;
 
@@ -9209,7 +9209,7 @@ export type MeetingRTMSStatusUpdatePath = {
 	meetingId: number;
 };
 
-export type MeetingRTMSStatusUpdateStatus204 = unknown;
+export type MeetingRTMSStatusUpdateStatus204 = void;
 
 export type MeetingRTMSStatusUpdateStatus400 = unknown;
 
@@ -11026,7 +11026,7 @@ export type MeetingDeleteQuery = {
 	cancel_meeting_reminder?: boolean | undefined;
 };
 
-export type MeetingDeleteStatus204 = unknown;
+export type MeetingDeleteStatus204 = void;
 
 export type MeetingDeleteStatus400 = unknown;
 
@@ -11075,7 +11075,7 @@ export type MeetingUpdateQuery = {
 	occurrence_id?: string | undefined;
 };
 
-export type MeetingUpdateStatus204 = unknown;
+export type MeetingUpdateStatus204 = void;
 
 export type MeetingUpdateStatus400 = unknown;
 
@@ -12639,7 +12639,7 @@ export type MeetingStatusPath = {
 	meetingId: number;
 };
 
-export type MeetingStatusStatus204 = unknown;
+export type MeetingStatusStatus204 = void;
 
 export type MeetingStatusStatus400 = unknown;
 
@@ -18438,7 +18438,7 @@ export type MeetingPollUpdatePath = {
 	pollId: string;
 };
 
-export type MeetingPollUpdateStatus204 = unknown;
+export type MeetingPollUpdateStatus204 = void;
 
 export type MeetingPollUpdateStatus400 = unknown;
 
@@ -18719,7 +18719,7 @@ export type MeetingPollDeletePath = {
 	pollId: string;
 };
 
-export type MeetingPollDeleteStatus204 = unknown;
+export type MeetingPollDeleteStatus204 = void;
 
 export type MeetingPollDeleteStatus400 = unknown;
 
@@ -24014,7 +24014,7 @@ export type DeleteSIPPhonePhonesPath = {
 	phoneId: string;
 };
 
-export type DeleteSIPPhonePhonesStatus204 = unknown;
+export type DeleteSIPPhonePhonesStatus204 = void;
 
 export type DeleteSIPPhonePhonesStatus401 = unknown;
 
@@ -24053,7 +24053,7 @@ export type UpdateSIPPhonePhonesPath = {
 	phoneId: string;
 };
 
-export type UpdateSIPPhonePhonesStatus204 = unknown;
+export type UpdateSIPPhonePhonesStatus204 = void;
 
 export type UpdateSIPPhonePhonesStatus400 = unknown;
 
@@ -24736,7 +24736,7 @@ export type DeletemeetingorwebinarsummaryPath = {
 	meetingId: string;
 };
 
-export type DeletemeetingorwebinarsummaryStatus204 = unknown;
+export type DeletemeetingorwebinarsummaryStatus204 = void;
 
 export type DeletemeetingorwebinarsummaryStatus400 = unknown;
 
@@ -25264,7 +25264,7 @@ export type MeetingSurveyDeletePath = {
 	meetingId: number;
 };
 
-export type MeetingSurveyDeleteStatus204 = unknown;
+export type MeetingSurveyDeleteStatus204 = void;
 
 export type MeetingSurveyDeleteStatus400 = unknown;
 
@@ -25304,7 +25304,7 @@ export type MeetingSurveyUpdatePath = {
 	meetingId: number;
 };
 
-export type MeetingSurveyUpdateStatus204 = unknown;
+export type MeetingSurveyUpdateStatus204 = void;
 
 export type MeetingSurveyUpdateStatus400 = unknown;
 
@@ -25671,7 +25671,7 @@ export type TspResponses = {
  */
 export type TspResponse = TspStatus200;
 
-export type TspUpdateStatus204 = unknown;
+export type TspUpdateStatus204 = void;
 
 export type TspUpdateStatus400 = unknown;
 
@@ -26140,7 +26140,7 @@ export type TspUrlUpdatePath = {
 	userId: string;
 };
 
-export type TspUrlUpdateStatus204 = unknown;
+export type TspUrlUpdateStatus204 = void;
 
 export type TspUrlUpdateStatus400 = unknown;
 
@@ -26352,7 +26352,7 @@ export type UserTSPDeletePath = {
 	tspId: UserTSPDeleteTspIdKey;
 };
 
-export type UserTSPDeleteStatus204 = unknown;
+export type UserTSPDeleteStatus204 = void;
 
 export type UserTSPDeleteStatus400 = unknown;
 
@@ -26401,7 +26401,7 @@ export type UserTSPUpdatePath = {
 	tspId: UserTSPUpdateTspIdKey;
 };
 
-export type UserTSPUpdateStatus204 = unknown;
+export type UserTSPUpdateStatus204 = void;
 
 export type UserTSPUpdateStatus400 = unknown;
 
@@ -26904,7 +26904,7 @@ export type TrackingfieldDeletePath = {
 	fieldId: string;
 };
 
-export type TrackingfieldDeleteStatus204 = unknown;
+export type TrackingfieldDeleteStatus204 = void;
 
 export type TrackingfieldDeleteStatus404 = unknown;
 
@@ -26937,7 +26937,7 @@ export type TrackingfieldUpdatePath = {
 	fieldId: string;
 };
 
-export type TrackingfieldUpdateStatus204 = unknown;
+export type TrackingfieldUpdateStatus204 = void;
 
 export type TrackingfieldUpdateStatus400 = unknown;
 
@@ -27022,7 +27022,7 @@ export type DeleteWebinarChatMessageByIdQuery = {
 	file_ids?: string | undefined;
 };
 
-export type DeleteWebinarChatMessageByIdStatus204 = unknown;
+export type DeleteWebinarChatMessageByIdStatus204 = void;
 
 export type DeleteWebinarChatMessageByIdStatus400 = unknown;
 
@@ -31969,7 +31969,7 @@ export type WebinarDeleteQuery = {
 	cancel_webinar_reminder?: boolean | undefined;
 };
 
-export type WebinarDeleteStatus204 = unknown;
+export type WebinarDeleteStatus204 = void;
 
 export type WebinarDeleteStatus400 = unknown;
 
@@ -32016,7 +32016,7 @@ export type WebinarUpdateQuery = {
 	occurrence_id?: string | undefined;
 };
 
-export type WebinarUpdateStatus204 = unknown;
+export type WebinarUpdateStatus204 = void;
 
 export type WebinarUpdateStatus400 = unknown;
 
@@ -33522,7 +33522,7 @@ export type DeleteWebinarBrandingNameTagQuery = {
 	name_tag_ids?: string | undefined;
 };
 
-export type DeleteWebinarBrandingNameTagStatus204 = unknown;
+export type DeleteWebinarBrandingNameTagStatus204 = void;
 
 export type DeleteWebinarBrandingNameTagStatus400 = unknown;
 
@@ -33566,7 +33566,7 @@ export type UpdateWebinarBrandingNameTagPath = {
 	nameTagId: string;
 };
 
-export type UpdateWebinarBrandingNameTagStatus204 = unknown;
+export type UpdateWebinarBrandingNameTagStatus204 = void;
 
 export type UpdateWebinarBrandingNameTagStatus400 = unknown;
 
@@ -33763,7 +33763,7 @@ export type DeleteWebinarBrandingVBQuery = {
 	ids?: string | undefined;
 };
 
-export type DeleteWebinarBrandingVBStatus204 = unknown;
+export type DeleteWebinarBrandingVBStatus204 = void;
 
 export type DeleteWebinarBrandingVBStatus400 = unknown;
 
@@ -33816,7 +33816,7 @@ export type SetWebinarBrandingVBQuery = {
 	set_default_for_all_panelists?: boolean | undefined;
 };
 
-export type SetWebinarBrandingVBStatus204 = unknown;
+export type SetWebinarBrandingVBStatus204 = void;
 
 export type SetWebinarBrandingVBStatus400 = unknown;
 
@@ -33928,7 +33928,7 @@ export type DeleteWebinarBrandingWallpaperPath = {
 	webinarId: number;
 };
 
-export type DeleteWebinarBrandingWallpaperStatus204 = unknown;
+export type DeleteWebinarBrandingWallpaperStatus204 = void;
 
 export type DeleteWebinarBrandingWallpaperStatus400 = unknown;
 
@@ -34312,7 +34312,7 @@ export type WebinarLiveStreamUpdatePath = {
 	webinarId: number;
 };
 
-export type WebinarLiveStreamUpdateStatus204 = unknown;
+export type WebinarLiveStreamUpdateStatus204 = void;
 
 export type WebinarLiveStreamUpdateStatus400 = unknown;
 
@@ -34388,7 +34388,7 @@ export type WebinarLiveStreamStatusUpdatePath = {
 	webinarId: number;
 };
 
-export type WebinarLiveStreamStatusUpdateStatus204 = unknown;
+export type WebinarLiveStreamStatusUpdateStatus204 = void;
 
 export type WebinarLiveStreamStatusUpdateStatus400 = unknown;
 
@@ -34729,7 +34729,7 @@ export type WebinarPanelistsDeletePath = {
 	webinarId: number;
 };
 
-export type WebinarPanelistsDeleteStatus204 = unknown;
+export type WebinarPanelistsDeleteStatus204 = void;
 
 export type WebinarPanelistsDeleteStatus400 = unknown;
 
@@ -34773,7 +34773,7 @@ export type WebinarPanelistDeletePath = {
 	panelistId: string;
 };
 
-export type WebinarPanelistDeleteStatus204 = unknown;
+export type WebinarPanelistDeleteStatus204 = void;
 
 export type WebinarPanelistDeleteStatus400 = unknown;
 
@@ -35979,7 +35979,7 @@ export type WebinarPollUpdatePath = {
 	pollId: string;
 };
 
-export type WebinarPollUpdateStatus204 = unknown;
+export type WebinarPollUpdateStatus204 = void;
 
 export type WebinarPollUpdateStatus400 = unknown;
 
@@ -36258,7 +36258,7 @@ export type WebinarPollDeletePath = {
 	pollId: string;
 };
 
-export type WebinarPollDeleteStatus204 = unknown;
+export type WebinarPollDeleteStatus204 = void;
 
 export type WebinarPollDeleteStatus400 = unknown;
 
@@ -37226,7 +37226,7 @@ export type WebinarRegistrantQuestionUpdatePath = {
 	webinarId: number;
 };
 
-export type WebinarRegistrantQuestionUpdateStatus204 = unknown;
+export type WebinarRegistrantQuestionUpdateStatus204 = void;
 
 export type WebinarRegistrantQuestionUpdateStatus400 = unknown;
 
@@ -37419,7 +37419,7 @@ export type WebinarRegistrantStatusQuery = {
 	occurrence_id?: string | undefined;
 };
 
-export type WebinarRegistrantStatusStatus204 = unknown;
+export type WebinarRegistrantStatusStatus204 = void;
 
 export type WebinarRegistrantStatusStatus400 = unknown;
 
@@ -37848,7 +37848,7 @@ export type DeleteWebinarRegistrantQuery = {
 	occurrence_id?: string | undefined;
 };
 
-export type DeleteWebinarRegistrantStatus204 = unknown;
+export type DeleteWebinarRegistrantStatus204 = void;
 
 export type DeleteWebinarRegistrantStatus400 = unknown;
 
@@ -38301,7 +38301,7 @@ export type WebinarSurveyDeletePath = {
 	webinarId: number;
 };
 
-export type WebinarSurveyDeleteStatus204 = unknown;
+export type WebinarSurveyDeleteStatus204 = void;
 
 export type WebinarSurveyDeleteStatus400 = unknown;
 
@@ -38339,7 +38339,7 @@ export type WebinarSurveyUpdatePath = {
 	webinarId: number;
 };
 
-export type WebinarSurveyUpdateStatus204 = unknown;
+export type WebinarSurveyUpdateStatus204 = void;
 
 export type WebinarSurveyUpdateStatus400 = unknown;
 

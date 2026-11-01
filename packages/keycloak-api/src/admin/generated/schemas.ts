@@ -1622,7 +1622,7 @@ export const gETAdminRealmsRealmPathSchema = z.object({
 
 export const pUTAdminRealmsRealmPathRealmSchema = z.string().describe("realm name (not id!)");
 
-export const pUTAdminRealmsRealmStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmStatus400Schema = z.unknown();
 
@@ -1652,7 +1652,7 @@ export const pUTAdminRealmsRealmPathSchema = z.object({
 
 export const dELETEAdminRealmsRealmPathRealmSchema = z.string().describe("realm name (not id!)");
 
-export const dELETEAdminRealmsRealmStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmStatus400Schema = z.unknown();
 
@@ -1772,7 +1772,7 @@ export const dELETEAdminRealmsRealmAdminEventsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
 
-export const dELETEAdminRealmsRealmAdminEventsStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmAdminEventsStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmAdminEventsStatus403Schema = z.unknown();
 
@@ -1790,7 +1790,7 @@ export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersPathRealmSchema
 	.string()
 	.describe("realm name (not id!)");
 
-export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersResponseSchema =
 	dELETEAdminRealmsRealmAttackDetectionBruteForceUsersStatus204Schema;
@@ -1825,8 +1825,7 @@ export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersUserIdPathRealm
 export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersUserIdPathUserIdSchema =
 	z.string();
 
-export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersUserIdStatus204Schema =
-	z.unknown();
+export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersUserIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmAttackDetectionBruteForceUsersUserIdResponseSchema =
 	dELETEAdminRealmsRealmAttackDetectionBruteForceUsersUserIdStatus204Schema;
@@ -1932,7 +1931,7 @@ export const pUTAdminRealmsRealmAuthenticationConfigIdPathIdSchema = z
 	.string()
 	.describe("Configuration id");
 
-export const pUTAdminRealmsRealmAuthenticationConfigIdStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmAuthenticationConfigIdStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmAuthenticationConfigIdResponseSchema =
 	pUTAdminRealmsRealmAuthenticationConfigIdStatus204Schema;
@@ -1953,7 +1952,7 @@ export const dELETEAdminRealmsRealmAuthenticationConfigIdPathIdSchema = z
 	.string()
 	.describe("Configuration id");
 
-export const dELETEAdminRealmsRealmAuthenticationConfigIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmAuthenticationConfigIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmAuthenticationConfigIdResponseSchema =
 	dELETEAdminRealmsRealmAuthenticationConfigIdStatus204Schema;
@@ -2005,7 +2004,7 @@ export const dELETEAdminRealmsRealmAuthenticationExecutionsExecutionIdPathExecut
 	.string()
 	.describe("Execution id");
 
-export const dELETEAdminRealmsRealmAuthenticationExecutionsExecutionIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmAuthenticationExecutionsExecutionIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmAuthenticationExecutionsExecutionIdResponseSchema =
 	dELETEAdminRealmsRealmAuthenticationExecutionsExecutionIdStatus204Schema;
@@ -2075,7 +2074,7 @@ export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdLowerPriorit
 	z.string().describe("Execution id");
 
 export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdLowerPriorityStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdLowerPriorityResponseSchema =
 	pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdLowerPriorityStatus204Schema;
@@ -2094,7 +2093,7 @@ export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdRaisePriorit
 	z.string().describe("Execution id");
 
 export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdRaisePriorityStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdRaisePriorityResponseSchema =
 	pOSTAdminRealmsRealmAuthenticationExecutionsExecutionIdRaisePriorityStatus204Schema;
@@ -2196,7 +2195,7 @@ export const pUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsPathFlowAl
 	.string()
 	.describe("Flow alias");
 
-export const pUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsStatus409Schema = z.unknown();
 
@@ -2289,7 +2288,7 @@ export const pUTAdminRealmsRealmAuthenticationFlowsIdPathRealmSchema = z
 
 export const pUTAdminRealmsRealmAuthenticationFlowsIdPathIdSchema = z.string();
 
-export const pUTAdminRealmsRealmAuthenticationFlowsIdStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmAuthenticationFlowsIdStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmAuthenticationFlowsIdStatus409Schema = z.unknown();
 
@@ -2315,7 +2314,7 @@ export const dELETEAdminRealmsRealmAuthenticationFlowsIdPathIdSchema = z
 	.string()
 	.describe("Flow id");
 
-export const dELETEAdminRealmsRealmAuthenticationFlowsIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmAuthenticationFlowsIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmAuthenticationFlowsIdResponseSchema =
 	dELETEAdminRealmsRealmAuthenticationFlowsIdStatus204Schema;
@@ -2375,7 +2374,7 @@ export const pOSTAdminRealmsRealmAuthenticationRegisterRequiredActionPathRealmSc
 	.string()
 	.describe("realm name (not id!)");
 
-export const pOSTAdminRealmsRealmAuthenticationRegisterRequiredActionStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmAuthenticationRegisterRequiredActionStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmAuthenticationRegisterRequiredActionResponseSchema =
 	pOSTAdminRealmsRealmAuthenticationRegisterRequiredActionStatus204Schema;
@@ -2430,7 +2429,7 @@ export const pUTAdminRealmsRealmAuthenticationRequiredActionsAliasPathAliasSchem
 	.string()
 	.describe("Alias of required action");
 
-export const pUTAdminRealmsRealmAuthenticationRequiredActionsAliasStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmAuthenticationRequiredActionsAliasStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmAuthenticationRequiredActionsAliasResponseSchema =
 	pUTAdminRealmsRealmAuthenticationRequiredActionsAliasStatus204Schema;
@@ -2451,7 +2450,7 @@ export const dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasPathAliasSc
 	.string()
 	.describe("Alias of required action");
 
-export const dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasResponseSchema =
 	dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasStatus204Schema;
@@ -2488,8 +2487,7 @@ export const pUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigPathAlia
 	.string()
 	.describe("Alias of required action");
 
-export const pUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigStatus204Schema =
-	z.unknown();
+export const pUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigResponseSchema =
 	pUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigStatus204Schema;
@@ -2511,7 +2509,7 @@ export const dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasConfigPathA
 	.describe("Alias of required action");
 
 export const dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasConfigStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasConfigResponseSchema =
 	dELETEAdminRealmsRealmAuthenticationRequiredActionsAliasConfigStatus204Schema;
@@ -2548,7 +2546,7 @@ export const pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasLowerPriority
 	.describe("Alias of required action");
 
 export const pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasLowerPriorityStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasLowerPriorityResponseSchema =
 	pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasLowerPriorityStatus204Schema;
@@ -2568,7 +2566,7 @@ export const pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasRaisePriority
 	.describe("Alias of required action");
 
 export const pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasRaisePriorityStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasRaisePriorityResponseSchema =
 	pOSTAdminRealmsRealmAuthenticationRequiredActionsAliasRaisePriorityStatus204Schema;
@@ -2837,7 +2835,7 @@ export const pUTAdminRealmsRealmClientTypesPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
 
-export const pUTAdminRealmsRealmClientTypesStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmClientTypesStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmClientTypesResponseSchema =
 	pUTAdminRealmsRealmClientTypesStatus204Schema;
@@ -2962,7 +2960,7 @@ export const dELETEAdminRealmsRealmClientsInitialAccessIdPathRealmSchema = z
 
 export const dELETEAdminRealmsRealmClientsInitialAccessIdPathIdSchema = z.string();
 
-export const dELETEAdminRealmsRealmClientsInitialAccessIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmClientsInitialAccessIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmClientsInitialAccessIdResponseSchema =
 	dELETEAdminRealmsRealmClientsInitialAccessIdStatus204Schema;
@@ -3055,7 +3053,7 @@ export const dELETEAdminRealmsRealmComponentsIdPathRealmSchema = z
 
 export const dELETEAdminRealmsRealmComponentsIdPathIdSchema = z.string();
 
-export const dELETEAdminRealmsRealmComponentsIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmComponentsIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmComponentsIdResponseSchema =
 	dELETEAdminRealmsRealmComponentsIdStatus204Schema;
@@ -3136,8 +3134,7 @@ export const pUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdPathRealm
 export const pUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdPathClientScopeIdSchema =
 	z.string();
 
-export const pUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus204Schema =
-	z.unknown();
+export const pUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus403Schema =
 	z.unknown();
@@ -3166,7 +3163,7 @@ export const dELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdPathCl
 	z.string();
 
 export const dELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus403Schema =
 	z.unknown();
@@ -3213,7 +3210,7 @@ export const pUTAdminRealmsRealmDefaultGroupsGroupIdPathRealmSchema = z
 
 export const pUTAdminRealmsRealmDefaultGroupsGroupIdPathGroupIdSchema = z.string();
 
-export const pUTAdminRealmsRealmDefaultGroupsGroupIdStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmDefaultGroupsGroupIdStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmDefaultGroupsGroupIdStatus403Schema = z.unknown();
 
@@ -3238,7 +3235,7 @@ export const dELETEAdminRealmsRealmDefaultGroupsGroupIdPathRealmSchema = z
 
 export const dELETEAdminRealmsRealmDefaultGroupsGroupIdPathGroupIdSchema = z.string();
 
-export const dELETEAdminRealmsRealmDefaultGroupsGroupIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmDefaultGroupsGroupIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmDefaultGroupsGroupIdStatus403Schema = z.unknown();
 
@@ -3284,8 +3281,7 @@ export const pUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdPathReal
 export const pUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdPathClientScopeIdSchema =
 	z.string();
 
-export const pUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus204Schema =
-	z.unknown();
+export const pUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus403Schema =
 	z.unknown();
@@ -3314,7 +3310,7 @@ export const dELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdPathC
 	z.string();
 
 export const dELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus403Schema =
 	z.unknown();
@@ -3427,7 +3423,7 @@ export const dELETEAdminRealmsRealmEventsPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
 
-export const dELETEAdminRealmsRealmEventsStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmEventsStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmEventsStatus403Schema = z.unknown();
 
@@ -3462,7 +3458,7 @@ export const pUTAdminRealmsRealmEventsConfigPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
 
-export const pUTAdminRealmsRealmEventsConfigStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmEventsConfigStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmEventsConfigStatus403Schema = z.unknown();
 
@@ -3569,7 +3565,7 @@ export const pOSTAdminRealmsRealmGroupsPathRealmSchema = z
 
 export const pOSTAdminRealmsRealmGroupsStatus201Schema = z.unknown();
 
-export const pOSTAdminRealmsRealmGroupsStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmGroupsStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmGroupsStatus400Schema = z.unknown();
 
@@ -3760,7 +3756,7 @@ export const pUTAdminRealmsRealmIdentityProviderInstancesAliasPathRealmSchema = 
 
 export const pUTAdminRealmsRealmIdentityProviderInstancesAliasPathAliasSchema = z.string();
 
-export const pUTAdminRealmsRealmIdentityProviderInstancesAliasStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmIdentityProviderInstancesAliasStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmIdentityProviderInstancesAliasStatus400Schema = z.unknown();
 
@@ -3949,8 +3945,7 @@ export const pUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdPathIdSch
 	.string()
 	.describe("Mapper id");
 
-export const pUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdStatus204Schema =
-	z.unknown();
+export const pUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdResponseSchema =
 	pUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdStatus204Schema;
@@ -3976,7 +3971,7 @@ export const dELETEAdminRealmsRealmIdentityProviderInstancesAliasMappersIdPathId
 	.describe("Mapper id");
 
 export const dELETEAdminRealmsRealmIdentityProviderInstancesAliasMappersIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmIdentityProviderInstancesAliasMappersIdResponseSchema =
 	dELETEAdminRealmsRealmIdentityProviderInstancesAliasMappersIdStatus204Schema;
@@ -4085,7 +4080,7 @@ export const pOSTAdminRealmsRealmLocalizationLocalePathRealmSchema = z
 
 export const pOSTAdminRealmsRealmLocalizationLocalePathLocaleSchema = z.string();
 
-export const pOSTAdminRealmsRealmLocalizationLocaleStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmLocalizationLocaleStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmLocalizationLocaleStatus400Schema = z.unknown();
 
@@ -4114,7 +4109,7 @@ export const dELETEAdminRealmsRealmLocalizationLocalePathRealmSchema = z
 
 export const dELETEAdminRealmsRealmLocalizationLocalePathLocaleSchema = z.string();
 
-export const dELETEAdminRealmsRealmLocalizationLocaleStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmLocalizationLocaleStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmLocalizationLocaleStatus403Schema = z.unknown();
 
@@ -4169,7 +4164,7 @@ export const pUTAdminRealmsRealmLocalizationLocaleKeyPathKeySchema = z.string();
 
 export const pUTAdminRealmsRealmLocalizationLocaleKeyPathLocaleSchema = z.string();
 
-export const pUTAdminRealmsRealmLocalizationLocaleKeyStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmLocalizationLocaleKeyStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmLocalizationLocaleKeyStatus400Schema = z.unknown();
 
@@ -4199,7 +4194,7 @@ export const dELETEAdminRealmsRealmLocalizationLocaleKeyPathKeySchema = z.string
 
 export const dELETEAdminRealmsRealmLocalizationLocaleKeyPathLocaleSchema = z.string();
 
-export const dELETEAdminRealmsRealmLocalizationLocaleKeyStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmLocalizationLocaleKeyStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmLocalizationLocaleKeyStatus403Schema = z.unknown();
 
@@ -4571,7 +4566,7 @@ export const dELETEAdminRealmsRealmSessionsSessionQueryIsOfflineSchema = z
 	.optional()
 	.default(false);
 
-export const dELETEAdminRealmsRealmSessionsSessionStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmSessionsSessionStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmSessionsSessionStatus403Schema = z.unknown();
 
@@ -4598,7 +4593,7 @@ export const pOSTAdminRealmsRealmTestSMTPConnectionPathRealmSchema = z
 	.string()
 	.describe("realm name (not id!)");
 
-export const pOSTAdminRealmsRealmTestSMTPConnectionStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmTestSMTPConnectionStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmTestSMTPConnectionStatus500Schema = z.unknown();
 
@@ -5145,7 +5140,7 @@ export const pOSTAdminRealmsRealmWorkflowsMigrateQueryToSchema = z
 	.optional()
 	.describe("A String representing the id of the step to migrate to");
 
-export const pOSTAdminRealmsRealmWorkflowsMigrateStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmWorkflowsMigrateStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmWorkflowsMigrateStatus400Schema = z.unknown();
 
@@ -5211,7 +5206,7 @@ export const pUTAdminRealmsRealmWorkflowsIdPathIdSchema = z
 	.string()
 	.describe("Workflow identifier");
 
-export const pUTAdminRealmsRealmWorkflowsIdStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmWorkflowsIdStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmWorkflowsIdStatus400Schema = z.unknown();
 
@@ -5236,7 +5231,7 @@ export const dELETEAdminRealmsRealmWorkflowsIdPathIdSchema = z
 	.string()
 	.describe("Workflow identifier");
 
-export const dELETEAdminRealmsRealmWorkflowsIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmWorkflowsIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmWorkflowsIdStatus400Schema = z.unknown();
 
@@ -5274,7 +5269,7 @@ export const pOSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdQueryNotBefore
 		"Optional value representing the time to schedule the first workflow step. The value is either an integer representing the seconds from now, an integer followed by 'ms' representing milliseconds from now, or an ISO-8601 date string.",
 	);
 
-export const pOSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdStatus400Schema = z.unknown();
 
@@ -5316,7 +5311,7 @@ export const pOSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdPathTypeSche
 	.enum(["USERS", "CLIENTS"])
 	.describe("Resource type");
 
-export const pOSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdStatus400Schema = z.unknown();
 
@@ -5361,7 +5356,7 @@ export const pUTAdminRealmsRealmClientScopesClientScopeIdPathRealmSchema = z
 
 export const pUTAdminRealmsRealmClientScopesClientScopeIdPathClientScopeIdSchema = z.string();
 
-export const pUTAdminRealmsRealmClientScopesClientScopeIdStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmClientScopesClientScopeIdStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmClientScopesClientScopeIdStatus400Schema = z.unknown();
 
@@ -5392,7 +5387,7 @@ export const dELETEAdminRealmsRealmClientScopesClientScopeIdPathRealmSchema = z
 
 export const dELETEAdminRealmsRealmClientScopesClientScopeIdPathClientScopeIdSchema = z.string();
 
-export const dELETEAdminRealmsRealmClientScopesClientScopeIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmClientScopesClientScopeIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmClientScopesClientScopeIdStatus400Schema = z.unknown();
 
@@ -5421,7 +5416,7 @@ export const pOSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddMode
 	z.string();
 
 export const pOSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddModelsStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddModelsResponseSchema =
 	pOSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddModelsStatus204Schema;
@@ -5520,7 +5515,7 @@ export const pUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsId
 	.describe("Mapper id");
 
 export const pUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdResponseSchema =
 	pUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdStatus204Schema;
@@ -5546,7 +5541,7 @@ export const dELETEAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModel
 	.describe("Mapper id");
 
 export const dELETEAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdResponseSchema =
 	dELETEAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdStatus204Schema;
@@ -5630,7 +5625,7 @@ export const pOSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsCl
 	z.string();
 
 export const pOSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientResponseSchema =
 	pOSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientStatus204Schema;
@@ -5656,7 +5651,7 @@ export const dELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClients
 	z.string();
 
 export const dELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientResponseSchema =
 	dELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientStatus204Schema;
@@ -5754,7 +5749,7 @@ export const pOSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmPath
 	z.string();
 
 export const pOSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmResponseSchema =
 	pOSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmStatus204Schema;
@@ -5776,7 +5771,7 @@ export const dELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmPa
 	z.string();
 
 export const dELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmResponseSchema =
 	dELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmStatus204Schema;
@@ -5868,7 +5863,7 @@ export const pUTAdminRealmsRealmClientTemplatesClientScopeIdPathRealmSchema = z
 
 export const pUTAdminRealmsRealmClientTemplatesClientScopeIdPathClientScopeIdSchema = z.string();
 
-export const pUTAdminRealmsRealmClientTemplatesClientScopeIdStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmClientTemplatesClientScopeIdStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmClientTemplatesClientScopeIdStatus400Schema = z.unknown();
 
@@ -5899,7 +5894,7 @@ export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdPathRealmSchema =
 
 export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdPathClientScopeIdSchema = z.string();
 
-export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdStatus400Schema = z.unknown();
 
@@ -5928,7 +5923,7 @@ export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersAddM
 	z.string();
 
 export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersAddModelsStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersAddModelsResponseSchema =
 	pOSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersAddModelsStatus204Schema;
@@ -6023,7 +6018,7 @@ export const pUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModel
 	.describe("Mapper id");
 
 export const pUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdResponseSchema =
 	pUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdStatus204Schema;
@@ -6048,7 +6043,7 @@ export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersMo
 	z.string().describe("Mapper id");
 
 export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdResponseSchema =
 	dELETEAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdStatus204Schema;
@@ -6132,7 +6127,7 @@ export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClient
 	z.string();
 
 export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientResponseSchema =
 	pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientStatus204Schema;
@@ -6157,7 +6152,7 @@ export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClie
 	z.string();
 
 export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientResponseSchema =
 	dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientStatus204Schema;
@@ -6256,7 +6251,7 @@ export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmP
 	z.string();
 
 export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmResponseSchema =
 	pOSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmStatus204Schema;
@@ -6279,7 +6274,7 @@ export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsReal
 	z.string();
 
 export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmResponseSchema =
 	dELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmStatus204Schema;
@@ -6368,7 +6363,7 @@ export const pUTAdminRealmsRealmClientsClientUuidPathClientUuidSchema = z
 	.string()
 	.describe("id of client (not client-id!)");
 
-export const pUTAdminRealmsRealmClientsClientUuidStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmClientsClientUuidStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmClientsClientUuidStatus400Schema = z.unknown();
 
@@ -6397,7 +6392,7 @@ export const dELETEAdminRealmsRealmClientsClientUuidPathClientUuidSchema = z
 	.string()
 	.describe("id of client (not client-id!)");
 
-export const dELETEAdminRealmsRealmClientsClientUuidStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmClientsClientUuidStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmClientsClientUuidResponseSchema =
 	dELETEAdminRealmsRealmClientsClientUuidStatus204Schema;
@@ -6434,7 +6429,7 @@ export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerPathClientUu
 	.string()
 	.describe("id of client (not client-id!)");
 
-export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResponseSchema =
 	pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerStatus204Schema;
@@ -6456,7 +6451,7 @@ export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportPathC
 	.describe("id of client (not client-id!)");
 
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportResponseSchema =
 	pOSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportStatus204Schema;
@@ -6521,7 +6516,7 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSt
 	z.array(abstractPolicyRepresentationSchema);
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionResponseSchema =
 	z.union([
@@ -6641,7 +6636,7 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSe
 	abstractPolicyRepresentationSchema;
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSearchStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSearchStatus400Schema =
 	z.unknown();
@@ -6724,7 +6719,7 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyStatus
 );
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyResponseSchema = z.union([
 	gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyStatus200Schema,
@@ -6842,7 +6837,7 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearch
 	abstractPolicyRepresentationSchema;
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchStatus400Schema =
 	z.unknown();
@@ -7079,7 +7074,7 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSear
 	z.lazy(() => resourceRepresentationSchema.omit({ uri: true }));
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearchStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearchStatus400Schema =
 	z.unknown();
@@ -7233,7 +7228,7 @@ export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceReso
 	z.string();
 
 export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus404Schema =
 	z.unknown();
@@ -7313,7 +7308,7 @@ export const dELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceR
 	z.string();
 
 export const dELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus404Schema =
 	z.unknown();
@@ -7649,7 +7644,7 @@ export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchS
 	z.array(z.lazy(() => scopeRepresentationSchema));
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const gETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchStatus400Schema =
 	z.unknown();
@@ -8074,7 +8069,7 @@ export const pUTAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeI
 	z.string();
 
 export const pUTAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pUTAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdResponseSchema =
 	pUTAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdStatus204Schema;
@@ -8096,7 +8091,7 @@ export const dELETEAdminRealmsRealmClientsClientUuidDefaultClientScopesClientSco
 	z.string();
 
 export const dELETEAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdResponseSchema =
 	dELETEAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdStatus204Schema;
@@ -8449,7 +8444,7 @@ export const pOSTAdminRealmsRealmClientsClientUuidNodesPathClientUuidSchema = z
 	.string()
 	.describe("id of client (not client-id!)");
 
-export const pOSTAdminRealmsRealmClientsClientUuidNodesStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmClientsClientUuidNodesStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmClientsClientUuidNodesStatus400Schema = z.unknown();
 
@@ -8478,7 +8473,7 @@ export const dELETEAdminRealmsRealmClientsClientUuidNodesNodePathClientUuidSchem
 
 export const dELETEAdminRealmsRealmClientsClientUuidNodesNodePathNodeSchema = z.string();
 
-export const dELETEAdminRealmsRealmClientsClientUuidNodesNodeStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmClientsClientUuidNodesNodeStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmClientsClientUuidNodesNodeResponseSchema =
 	dELETEAdminRealmsRealmClientsClientUuidNodesNodeStatus204Schema;
@@ -8576,7 +8571,7 @@ export const pUTAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScope
 	z.string();
 
 export const pUTAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pUTAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdResponseSchema =
 	pUTAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdStatus204Schema;
@@ -8598,7 +8593,7 @@ export const dELETEAdminRealmsRealmClientsClientUuidOptionalClientScopesClientSc
 	z.string();
 
 export const dELETEAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdResponseSchema =
 	dELETEAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdStatus204Schema;
@@ -8619,7 +8614,7 @@ export const pOSTAdminRealmsRealmClientsClientUuidProtocolMappersAddModelsPathCl
 	.describe("id of client (not client-id!)");
 
 export const pOSTAdminRealmsRealmClientsClientUuidProtocolMappersAddModelsStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmClientsClientUuidProtocolMappersAddModelsResponseSchema =
 	pOSTAdminRealmsRealmClientsClientUuidProtocolMappersAddModelsStatus204Schema;
@@ -8717,8 +8712,7 @@ export const pUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdPathIdSc
 	.string()
 	.describe("Mapper id");
 
-export const pUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdStatus204Schema =
-	z.unknown();
+export const pUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdResponseSchema =
 	pUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdStatus204Schema;
@@ -8745,7 +8739,7 @@ export const dELETEAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdPathI
 	.describe("Mapper id");
 
 export const dELETEAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdResponseSchema =
 	dELETEAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdStatus204Schema;
@@ -8946,7 +8940,7 @@ export const pUTAdminRealmsRealmClientsClientUuidRolesRoleNamePathRoleNameSchema
 	.string()
 	.describe("role's name (not id!)");
 
-export const pUTAdminRealmsRealmClientsClientUuidRolesRoleNameStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmClientsClientUuidRolesRoleNameStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmClientsClientUuidRolesRoleNameStatus400Schema = z.unknown();
 
@@ -8987,7 +8981,7 @@ export const dELETEAdminRealmsRealmClientsClientUuidRolesRoleNamePathRoleNameSch
 	.string()
 	.describe("role's name (not id!)");
 
-export const dELETEAdminRealmsRealmClientsClientUuidRolesRoleNameStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmClientsClientUuidRolesRoleNameStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmClientsClientUuidRolesRoleNameStatus400Schema = z.unknown();
 
@@ -9057,8 +9051,7 @@ export const pOSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPathRol
 	.string()
 	.describe("role's name (not id!)");
 
-export const pOSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus204Schema =
-	z.unknown();
+export const pOSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus403Schema =
 	z.unknown();
@@ -9097,7 +9090,7 @@ export const dELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPathR
 	.describe("role's name (not id!)");
 
 export const dELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus403Schema =
 	z.unknown();
@@ -9455,7 +9448,7 @@ export const pOSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientPath
 	z.string();
 
 export const pOSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientResponseSchema =
 	pOSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientStatus204Schema;
@@ -9481,7 +9474,7 @@ export const dELETEAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientPa
 	z.string();
 
 export const dELETEAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientResponseSchema =
 	dELETEAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientStatus204Schema;
@@ -9581,7 +9574,7 @@ export const pOSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmPathClientUu
 	.string()
 	.describe("id of client (not client-id!)");
 
-export const pOSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmResponseSchema =
 	pOSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmStatus204Schema;
@@ -9603,7 +9596,7 @@ export const dELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmPathClient
 	.string()
 	.describe("id of client (not client-id!)");
 
-export const dELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmResponseSchema =
 	dELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmStatus204Schema;
@@ -9785,7 +9778,7 @@ export const pUTAdminRealmsRealmGroupsGroupIdPathRealmSchema = z
 
 export const pUTAdminRealmsRealmGroupsGroupIdPathGroupIdSchema = z.string();
 
-export const pUTAdminRealmsRealmGroupsGroupIdStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmGroupsGroupIdStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmGroupsGroupIdStatus400Schema = z.unknown();
 
@@ -9814,7 +9807,7 @@ export const dELETEAdminRealmsRealmGroupsGroupIdPathRealmSchema = z
 
 export const dELETEAdminRealmsRealmGroupsGroupIdPathGroupIdSchema = z.string();
 
-export const dELETEAdminRealmsRealmGroupsGroupIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmGroupsGroupIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmGroupsGroupIdResponseSchema =
 	dELETEAdminRealmsRealmGroupsGroupIdStatus204Schema;
@@ -9927,7 +9920,7 @@ export const pOSTAdminRealmsRealmGroupsGroupIdChildrenPathGroupIdSchema = z.stri
 
 export const pOSTAdminRealmsRealmGroupsGroupIdChildrenStatus201Schema = z.unknown();
 
-export const pOSTAdminRealmsRealmGroupsGroupIdChildrenStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmGroupsGroupIdChildrenStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmGroupsGroupIdChildrenStatus400Schema = z.unknown();
 
@@ -10090,8 +10083,7 @@ export const pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdPathCli
 	.string()
 	.describe("client id (not clientId!)");
 
-export const pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdStatus204Schema =
-	z.unknown();
+export const pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdResponseSchema =
 	pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdStatus204Schema;
@@ -10118,7 +10110,7 @@ export const dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdPathC
 	.describe("client id (not clientId!)");
 
 export const dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdResponseSchema =
 	dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdStatus204Schema;
@@ -10219,7 +10211,7 @@ export const pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmPathRealmSchema =
 
 export const pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmPathGroupIdSchema = z.string();
 
-export const pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus400Schema = z.unknown();
 
@@ -10254,7 +10246,7 @@ export const dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmPathRealmSchema
 
 export const dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmPathGroupIdSchema = z.string();
 
-export const dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus400Schema = z.unknown();
 
@@ -10437,7 +10429,7 @@ export const pUTAdminRealmsRealmOrganizationsOrgIdPathRealmSchema = z
 
 export const pUTAdminRealmsRealmOrganizationsOrgIdPathOrgIdSchema = z.string();
 
-export const pUTAdminRealmsRealmOrganizationsOrgIdStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmOrganizationsOrgIdStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmOrganizationsOrgIdStatus400Schema = z.unknown();
 
@@ -10468,7 +10460,7 @@ export const dELETEAdminRealmsRealmOrganizationsOrgIdPathRealmSchema = z
 
 export const dELETEAdminRealmsRealmOrganizationsOrgIdPathOrgIdSchema = z.string();
 
-export const dELETEAdminRealmsRealmOrganizationsOrgIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmOrganizationsOrgIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmOrganizationsOrgIdStatus400Schema = z.unknown();
 
@@ -10557,7 +10549,7 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsPathOrgIdSchema = z.str
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsStatus201Schema = z.unknown();
 
-export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsStatus400Schema = z.unknown();
 
@@ -10696,7 +10688,7 @@ export const pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdPathOrgIdSchema =
 
 export const pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdPathGroupIdSchema = z.string();
 
-export const pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus400Schema = z.unknown();
 
@@ -10731,7 +10723,7 @@ export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdPathOrgIdSchem
 
 export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdPathGroupIdSchema = z.string();
 
-export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus403Schema = z.unknown();
 
@@ -10844,8 +10836,7 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenPathGrou
 export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus201Schema =
 	z.unknown();
 
-export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus204Schema =
-	z.unknown();
+export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus400Schema =
 	z.unknown();
@@ -10951,7 +10942,7 @@ export const pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdPath
 	z.string();
 
 export const pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus400Schema =
 	z.unknown();
@@ -10996,7 +10987,7 @@ export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdP
 	z.string();
 
 export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus400Schema =
 	z.unknown();
@@ -11092,7 +11083,7 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClie
 	z.string().describe("client id (not clientId!)");
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdResponseSchema =
 	pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdStatus204Schema;
@@ -11121,7 +11112,7 @@ export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsCl
 	z.string().describe("client id (not clientId!)");
 
 export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdResponseSchema =
 	dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdStatus204Schema;
@@ -11241,7 +11232,7 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsReal
 	z.string();
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus400Schema =
 	z.unknown();
@@ -11287,7 +11278,7 @@ export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRe
 	z.string();
 
 export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus400Schema =
 	z.unknown();
@@ -11420,7 +11411,7 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersPathRealmSch
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersPathOrgIdSchema = z.string();
 
-export const pOSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersStatus400Schema = z.unknown();
 
@@ -11491,8 +11482,7 @@ export const pUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasPathOrgI
 export const pUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasPathAliasSchema =
 	z.string();
 
-export const pUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus204Schema =
-	z.unknown();
+export const pUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus400Schema =
 	z.unknown();
@@ -11532,7 +11522,7 @@ export const dELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasPathA
 	z.string();
 
 export const dELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const dELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus400Schema =
 	z.unknown();
@@ -11758,7 +11748,7 @@ export const dELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdPathOrgIdSchem
 
 export const dELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdPathIdSchema = z.string();
 
-export const dELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdStatus403Schema = z.unknown();
 
@@ -11786,7 +11776,7 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendPathOrgIdS
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendPathIdSchema = z.string();
 
-export const pOSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendStatus403Schema = z.unknown();
 
@@ -11958,7 +11948,7 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserPath
 	z.string();
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus400Schema =
 	z.unknown();
@@ -12000,7 +11990,7 @@ export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserQueryClientI
 	.optional()
 	.describe("Client id");
 
-export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus400Schema = z.unknown();
 
@@ -12074,7 +12064,7 @@ export const dELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdPathOrgIdSch
 
 export const dELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdPathMemberIdSchema = z.string();
 
-export const dELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus400Schema = z.unknown();
 
@@ -12160,7 +12150,7 @@ export const pUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeP
 	z.string();
 
 export const pUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeStatus400Schema =
 	z.unknown();
@@ -12275,7 +12265,7 @@ export const pUTAdminRealmsRealmRolesByIdRoleIdPathRealmSchema = z
 
 export const pUTAdminRealmsRealmRolesByIdRoleIdPathRoleIdSchema = z.string().describe("id of role");
 
-export const pUTAdminRealmsRealmRolesByIdRoleIdStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmRolesByIdRoleIdStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmRolesByIdRoleIdStatus400Schema = z.unknown();
 
@@ -12304,7 +12294,7 @@ export const dELETEAdminRealmsRealmRolesByIdRoleIdPathRoleIdSchema = z
 	.string()
 	.describe("id of role");
 
-export const dELETEAdminRealmsRealmRolesByIdRoleIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmRolesByIdRoleIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmRolesByIdRoleIdStatus400Schema = z.unknown();
 
@@ -12363,7 +12353,7 @@ export const pOSTAdminRealmsRealmRolesByIdRoleIdCompositesPathRealmSchema = z
 
 export const pOSTAdminRealmsRealmRolesByIdRoleIdCompositesPathRoleIdSchema = z.string();
 
-export const pOSTAdminRealmsRealmRolesByIdRoleIdCompositesStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmRolesByIdRoleIdCompositesStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmRolesByIdRoleIdCompositesStatus403Schema = z.unknown();
 
@@ -12390,7 +12380,7 @@ export const dELETEAdminRealmsRealmRolesByIdRoleIdCompositesPathRoleIdSchema = z
 	.string()
 	.describe("Role id");
 
-export const dELETEAdminRealmsRealmRolesByIdRoleIdCompositesStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmRolesByIdRoleIdCompositesStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmRolesByIdRoleIdCompositesStatus403Schema = z.unknown();
 
@@ -12546,7 +12536,7 @@ export const pUTAdminRealmsRealmRolesRoleNamePathRoleNameSchema = z
 	.string()
 	.describe("role's name (not id!)");
 
-export const pUTAdminRealmsRealmRolesRoleNameStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmRolesRoleNameStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmRolesRoleNameStatus400Schema = z.unknown();
 
@@ -12581,7 +12571,7 @@ export const dELETEAdminRealmsRealmRolesRoleNamePathRoleNameSchema = z
 	.string()
 	.describe("role's name (not id!)");
 
-export const dELETEAdminRealmsRealmRolesRoleNameStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmRolesRoleNameStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmRolesRoleNameStatus400Schema = z.unknown();
 
@@ -12639,7 +12629,7 @@ export const pOSTAdminRealmsRealmRolesRoleNameCompositesPathRoleNameSchema = z
 	.string()
 	.describe("role's name (not id!)");
 
-export const pOSTAdminRealmsRealmRolesRoleNameCompositesStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmRolesRoleNameCompositesStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmRolesRoleNameCompositesStatus403Schema = z.unknown();
 
@@ -12670,7 +12660,7 @@ export const dELETEAdminRealmsRealmRolesRoleNameCompositesPathRoleNameSchema = z
 	.string()
 	.describe("role's name (not id!)");
 
-export const dELETEAdminRealmsRealmRolesRoleNameCompositesStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmRolesRoleNameCompositesStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmRolesRoleNameCompositesStatus403Schema = z.unknown();
 
@@ -12976,7 +12966,7 @@ export const pUTAdminRealmsRealmUsersUserIdPathRealmSchema = z
 
 export const pUTAdminRealmsRealmUsersUserIdPathUserIdSchema = z.string();
 
-export const pUTAdminRealmsRealmUsersUserIdStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmUsersUserIdStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmUsersUserIdStatus400Schema = z.unknown();
 
@@ -13009,7 +12999,7 @@ export const dELETEAdminRealmsRealmUsersUserIdPathRealmSchema = z
 
 export const dELETEAdminRealmsRealmUsersUserIdPathUserIdSchema = z.string();
 
-export const dELETEAdminRealmsRealmUsersUserIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmUsersUserIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmUsersUserIdStatus400Schema = z.unknown();
 
@@ -13086,7 +13076,7 @@ export const dELETEAdminRealmsRealmUsersUserIdConsentsClientPathClientSchema = z
 	.string()
 	.describe("Client id");
 
-export const dELETEAdminRealmsRealmUsersUserIdConsentsClientStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmUsersUserIdConsentsClientStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmUsersUserIdConsentsClientStatus403Schema = z.unknown();
 
@@ -13138,7 +13128,7 @@ export const dELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdPathUserIdS
 export const dELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdPathCredentialIdSchema =
 	z.string();
 
-export const dELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdStatus403Schema = z.unknown();
 
@@ -13175,7 +13165,7 @@ export const pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewP
 		);
 
 export const pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewPreviousCredentialIdStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewPreviousCredentialIdStatus403Schema =
 	z.unknown();
@@ -13215,7 +13205,7 @@ export const pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstPa
 	z.string().describe("The credential to move");
 
 export const pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pOSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstStatus403Schema =
 	z.unknown();
@@ -13252,7 +13242,7 @@ export const pUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelPathC
 	z.string();
 
 export const pUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelStatus204Schema =
-	z.unknown();
+	z.void();
 
 export const pUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelStatus403Schema =
 	z.unknown();
@@ -13284,7 +13274,7 @@ export const pUTAdminRealmsRealmUsersUserIdDisableCredentialTypesPathRealmSchema
 
 export const pUTAdminRealmsRealmUsersUserIdDisableCredentialTypesPathUserIdSchema = z.string();
 
-export const pUTAdminRealmsRealmUsersUserIdDisableCredentialTypesStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmUsersUserIdDisableCredentialTypesStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmUsersUserIdDisableCredentialTypesStatus403Schema = z.unknown();
 
@@ -13324,7 +13314,7 @@ export const pUTAdminRealmsRealmUsersUserIdExecuteActionsEmailQueryRedirectUriSc
 	.optional()
 	.describe("Redirect uri");
 
-export const pUTAdminRealmsRealmUsersUserIdExecuteActionsEmailStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmUsersUserIdExecuteActionsEmailStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmUsersUserIdExecuteActionsEmailStatus400Schema = z.unknown();
 
@@ -13395,7 +13385,7 @@ export const pOSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderPathProvide
 	.string()
 	.describe("Social login provider id");
 
-export const pOSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus403Schema = z.unknown();
 
@@ -13429,8 +13419,7 @@ export const dELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderPathProvi
 	.string()
 	.describe("Social login provider id");
 
-export const dELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus204Schema =
-	z.unknown();
+export const dELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus403Schema =
 	z.unknown();
@@ -13531,7 +13520,7 @@ export const pUTAdminRealmsRealmUsersUserIdGroupsGroupIdPathUserIdSchema = z.str
 
 export const pUTAdminRealmsRealmUsersUserIdGroupsGroupIdPathGroupIdSchema = z.string();
 
-export const pUTAdminRealmsRealmUsersUserIdGroupsGroupIdStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmUsersUserIdGroupsGroupIdStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmUsersUserIdGroupsGroupIdStatus403Schema = z.unknown();
 
@@ -13559,7 +13548,7 @@ export const dELETEAdminRealmsRealmUsersUserIdGroupsGroupIdPathUserIdSchema = z.
 
 export const dELETEAdminRealmsRealmUsersUserIdGroupsGroupIdPathGroupIdSchema = z.string();
 
-export const dELETEAdminRealmsRealmUsersUserIdGroupsGroupIdStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmUsersUserIdGroupsGroupIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmUsersUserIdGroupsGroupIdStatus400Schema = z.unknown();
 
@@ -13621,7 +13610,7 @@ export const pOSTAdminRealmsRealmUsersUserIdLogoutPathRealmSchema = z
 
 export const pOSTAdminRealmsRealmUsersUserIdLogoutPathUserIdSchema = z.string();
 
-export const pOSTAdminRealmsRealmUsersUserIdLogoutStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmUsersUserIdLogoutStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmUsersUserIdLogoutStatus403Schema = z.unknown();
 
@@ -13673,7 +13662,7 @@ export const pUTAdminRealmsRealmUsersUserIdResetPasswordPathRealmSchema = z
 
 export const pUTAdminRealmsRealmUsersUserIdResetPasswordPathUserIdSchema = z.string();
 
-export const pUTAdminRealmsRealmUsersUserIdResetPasswordStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmUsersUserIdResetPasswordStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmUsersUserIdResetPasswordStatus400Schema = z.unknown();
 
@@ -13714,7 +13703,7 @@ export const pUTAdminRealmsRealmUsersUserIdResetPasswordEmailQueryRedirectUriSch
 	.optional()
 	.describe("redirect uri");
 
-export const pUTAdminRealmsRealmUsersUserIdResetPasswordEmailStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmUsersUserIdResetPasswordEmailStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmUsersUserIdResetPasswordEmailStatus400Schema = z.unknown();
 
@@ -13799,8 +13788,7 @@ export const pOSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdPathClien
 	.string()
 	.describe("client id (not clientId!)");
 
-export const pOSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdStatus204Schema =
-	z.unknown();
+export const pOSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdResponseSchema =
 	pOSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdStatus204Schema;
@@ -13826,8 +13814,7 @@ export const dELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdPathCli
 	.string()
 	.describe("client id (not clientId!)");
 
-export const dELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdStatus204Schema =
-	z.unknown();
+export const dELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdResponseSchema =
 	dELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdStatus204Schema;
@@ -13928,7 +13915,7 @@ export const pOSTAdminRealmsRealmUsersUserIdRoleMappingsRealmPathRealmSchema = z
 
 export const pOSTAdminRealmsRealmUsersUserIdRoleMappingsRealmPathUserIdSchema = z.string();
 
-export const pOSTAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus204Schema = z.unknown();
+export const pOSTAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus204Schema = z.void();
 
 export const pOSTAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus400Schema = z.unknown();
 
@@ -13963,7 +13950,7 @@ export const dELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmPathRealmSchema =
 
 export const dELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmPathUserIdSchema = z.string();
 
-export const dELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus204Schema = z.unknown();
+export const dELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus204Schema = z.void();
 
 export const dELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus400Schema = z.unknown();
 
@@ -14068,7 +14055,7 @@ export const pUTAdminRealmsRealmUsersUserIdSendVerifyEmailQueryRedirectUriSchema
 	.optional()
 	.describe("Redirect uri");
 
-export const pUTAdminRealmsRealmUsersUserIdSendVerifyEmailStatus204Schema = z.unknown();
+export const pUTAdminRealmsRealmUsersUserIdSendVerifyEmailStatus204Schema = z.void();
 
 export const pUTAdminRealmsRealmUsersUserIdSendVerifyEmailStatus400Schema = z.unknown();
 

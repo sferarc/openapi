@@ -174,7 +174,7 @@ export type GetAccountResponses = {
  */
 export type GetAccountResponse = GetAccountStatus200;
 
-export type UpdateAccountStatus204 = unknown;
+export type UpdateAccountStatus204 = void;
 
 export type UpdateAccountBody = AccountRepresentation;
 
@@ -302,7 +302,7 @@ export type DeleteConsentPath = {
 	clientId: string;
 };
 
-export type DeleteConsentStatus204 = unknown;
+export type DeleteConsentStatus204 = void;
 
 export type DeleteConsentOptions = {
 	body?: never | undefined;
@@ -351,7 +351,7 @@ export type DeleteCredentialPath = {
 	credentialId: string;
 };
 
-export type DeleteCredentialStatus204 = unknown;
+export type DeleteCredentialStatus204 = void;
 
 export type DeleteCredentialOptions = {
 	body?: never | undefined;
@@ -377,7 +377,7 @@ export type UpdateCredentialLabelPath = {
 	credentialId: string;
 };
 
-export type UpdateCredentialLabelStatus204 = unknown;
+export type UpdateCredentialLabelStatus204 = void;
 
 export type UpdateCredentialLabelBody = string | undefined;
 
@@ -415,7 +415,7 @@ export type GetSessionsResponses = {
  */
 export type GetSessionsResponse = GetSessionsStatus200;
 
-export type DeleteCurrentSessionStatus204 = unknown;
+export type DeleteCurrentSessionStatus204 = void;
 
 export type DeleteCurrentSessionOptions = {
 	body?: never | undefined;
@@ -459,7 +459,7 @@ export type DeleteSessionPath = {
 	sessionId: string;
 };
 
-export type DeleteSessionStatus204 = unknown;
+export type DeleteSessionStatus204 = void;
 
 export type DeleteSessionOptions = {
 	body?: never | undefined;
@@ -537,7 +537,7 @@ export type DeleteLinkedProviderPath = {
 	providerId: string;
 };
 
-export type DeleteLinkedProviderStatus204 = unknown;
+export type DeleteLinkedProviderStatus204 = void;
 
 export type DeleteLinkedProviderOptions = {
 	body?: never | undefined;

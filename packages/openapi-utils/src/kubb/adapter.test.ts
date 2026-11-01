@@ -4,6 +4,7 @@ import {
 	requestBodyFallback,
 	responseContentFallback,
 	responseWithLineDelimitedJson,
+	responseWithoutContent,
 } from "./adapter";
 
 const content = (contentType: string) =>
@@ -151,5 +152,33 @@ describe("responseWithLineDelimitedJson", () => {
 		const json = response("application/json");
 		expect(responseWithLineDelimitedJson(json, response("application/json"))).toBe(json);
 		expect(responseWithLineDelimitedJson(json, undefined)).toBe(json);
+	});
+});
+
+describe("responseWithoutContent", () => {
+	it("types a 204 or 205 as void, even when the spec gives it a body schema", () => {
+		for (const statusCode of ["204", "205"] as const) {
+			const typed = responseWithoutContent(
+				ast.factory.createResponse({ statusCode, content: [content("application/json")] }),
+			);
+			expect(typed.content?.map((c) => [c.contentType, c.schema?.type])).toEqual([
+				["application/json", "void"],
+			]);
+		}
+		const bare = responseWithoutContent(ast.factory.createResponse({ statusCode: "204" }));
+		expect(bare.content?.map((c) => c.schema?.type)).toEqual(["void"]);
+	});
+
+	it("leaves other statuses alone, an undocumented 200 body included", () => {
+		const ok = ast.factory.createResponse({
+			statusCode: "200",
+			content: [
+				ast.factory.createContent({
+					contentType: "application/json",
+					schema: ast.factory.createSchema({ type: "unknown" }),
+				}),
+			],
+		});
+		expect(responseWithoutContent(ok)).toBe(ok);
 	});
 });

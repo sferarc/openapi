@@ -2605,7 +2605,7 @@ export const postAccountsResourceQueryDeleteApiTokensSchema = z
 	.default(true)
 	.describe("If false existing API tokens are not deleted if the password is changed");
 
-export const postAccountsResourceStatus204Schema = z.unknown();
+export const postAccountsResourceStatus204Schema = z.void();
 
 export const postAccountsResourceStatus400Schema = z.unknown();
 
@@ -2633,7 +2633,7 @@ export const postAccountsResourceQuerySchema = z.object({
 		.describe("If false existing API tokens are not deleted if the password is changed"),
 });
 
-export const deleteAccountsResourceStatus204Schema = z.unknown();
+export const deleteAccountsResourceStatus204Schema = z.void();
 
 export const deleteAccountsResourceStatus401Schema = z.unknown();
 
@@ -2641,7 +2641,7 @@ export const deleteAccountsResourceResponseSchema = deleteAccountsResourceStatus
 
 export const deleteAccountsResourceErrorSchema = deleteAccountsResourceStatus401Schema;
 
-export const postAccountEmailChangeResourceStatus204Schema = z.unknown();
+export const postAccountEmailChangeResourceStatus204Schema = z.void();
 
 export const postAccountEmailChangeResourceStatus400Schema = z.unknown();
 
@@ -2662,7 +2662,7 @@ export const postAccountEmailChangeResourceBodySchema = accountEmailChangeSchema
 	"Account email change representation",
 );
 
-export const postAccountEmailVerifyResourceStatus204Schema = z.unknown();
+export const postAccountEmailVerifyResourceStatus204Schema = z.void();
 
 export const postAccountEmailVerifyResourceStatus400Schema = z.unknown();
 
@@ -2701,7 +2701,7 @@ export const deleteAccountIntegrationsResourceQueryTokenIdSchema = z
 	.optional()
 	.describe("The token id if a specific token has to be deleted but not the full api key");
 
-export const deleteAccountIntegrationsResourceStatus204Schema = z.unknown();
+export const deleteAccountIntegrationsResourceStatus204Schema = z.void();
 
 export const deleteAccountIntegrationsResourceStatus401Schema = z.unknown();
 
@@ -2724,7 +2724,7 @@ export const deleteAccountIntegrationsResourceQuerySchema = z.object({
 		.describe("The token id if a specific token has to be deleted but not the full api key"),
 });
 
-export const postAccountOtpResourceStatus204Schema = z.unknown();
+export const postAccountOtpResourceStatus204Schema = z.void();
 
 export const postAccountOtpResourceStatus400Schema = z.unknown();
 
@@ -2752,7 +2752,7 @@ export const putAccountOtpResourceResponseSchema = putAccountOtpResourceStatus20
 
 export const putAccountOtpResourceErrorSchema = putAccountOtpResourceStatus405Schema;
 
-export const deleteAccountOtpResourceStatus204Schema = z.unknown();
+export const deleteAccountOtpResourceStatus204Schema = z.void();
 
 export const deleteAccountOtpResourceStatus401Schema = z.unknown();
 
@@ -2760,7 +2760,7 @@ export const deleteAccountOtpResourceResponseSchema = deleteAccountOtpResourceSt
 
 export const deleteAccountOtpResourceErrorSchema = deleteAccountOtpResourceStatus401Schema;
 
-export const postAccountPasswordResetResourceStatus204Schema = z.unknown();
+export const postAccountPasswordResetResourceStatus204Schema = z.void();
 
 export const postAccountPasswordResetResourceStatus401Schema = z.unknown();
 
@@ -2807,7 +2807,7 @@ export const putAccountSettingResourceBodySchema = accountSettingSchema.describe
 	"Account setting representation",
 );
 
-export const deleteAccountSettingResourceStatus204Schema = z.unknown();
+export const deleteAccountSettingResourceStatus204Schema = z.void();
 
 export const deleteAccountSettingResourceStatus401Schema = z.unknown();
 
@@ -2866,7 +2866,7 @@ export const getAccountSubResourcePathSchema = z.object({
 
 export const postAccountSubResourcePathAccountIdSchema = z.int().describe("The account ID");
 
-export const postAccountSubResourceStatus204Schema = z.unknown();
+export const postAccountSubResourceStatus204Schema = z.void();
 
 export const postAccountSubResourceStatus400Schema = z.unknown();
 
@@ -2892,7 +2892,7 @@ export const postAccountSubResourcePathSchema = z.object({
 
 export const deleteAccountSubResourcePathAccountIdSchema = z.int().describe("The account ID");
 
-export const deleteAccountSubResourceStatus204Schema = z.unknown();
+export const deleteAccountSubResourceStatus204Schema = z.void();
 
 export const deleteAccountSubResourceStatus401Schema = z.unknown();
 
@@ -2974,7 +2974,7 @@ export const postAccountUserResourcePathAccountUserIdSchema = z
 
 export const postAccountUserResourceStatus200Schema = accountUserSchema;
 
-export const postAccountUserResourceStatus204Schema = z.unknown();
+export const postAccountUserResourceStatus204Schema = z.void();
 
 export const postAccountUserResourceStatus400Schema = z.unknown();
 
@@ -3005,7 +3005,7 @@ export const deleteAccountUserResourcePathAccountUserIdSchema = z
 	.int()
 	.describe("The account user ID");
 
-export const deleteAccountUserResourceStatus204Schema = z.unknown();
+export const deleteAccountUserResourceStatus204Schema = z.void();
 
 export const deleteAccountUserResourceStatus401Schema = z.unknown();
 
@@ -3093,7 +3093,7 @@ export const postAddressTokenRedeemResourceQueryEmailSchema = z
 	.optional()
 	.describe("If false, no email will be sent");
 
-export const postAddressTokenRedeemResourceStatus204Schema = z.unknown();
+export const postAddressTokenRedeemResourceStatus204Schema = z.void();
 
 export const postAddressTokenRedeemResourceStatus400Schema = z.unknown();
 
@@ -3120,7 +3120,7 @@ export const postAddressTokenRedeemResourceQuerySchema = z.object({
 
 export const postAddressResourcePathAddressIdSchema = z.int().describe("The address ID");
 
-export const postAddressResourceStatus204Schema = z.unknown();
+export const postAddressResourceStatus204Schema = z.void();
 
 export const postAddressResourceStatus400Schema = z.unknown();
 
@@ -3146,7 +3146,7 @@ export const postAddressResourcePathSchema = z.object({
 
 export const deleteAddressResourcePathAddressIdSchema = z.int().describe("The address ID");
 
-export const deleteAddressResourceStatus204Schema = z.unknown();
+export const deleteAddressResourceStatus204Schema = z.void();
 
 export const deleteAddressResourceStatus401Schema = z.unknown();
 
@@ -3187,7 +3187,7 @@ export const postAddressReservationIssueResourcePathIdSchema = z
 	.string()
 	.describe("The address reservation ID");
 
-export const postAddressReservationIssueResourceStatus204Schema = z.unknown();
+export const postAddressReservationIssueResourceStatus204Schema = z.void();
 
 export const postAddressReservationIssueResourceStatus400Schema = z.unknown();
 
@@ -3214,7 +3214,7 @@ export const postAddressReservationRevokeResourcePathIdSchema = z
 	.string()
 	.describe("The address reservation ID");
 
-export const postAddressReservationRevokeResourceStatus204Schema = z.unknown();
+export const postAddressReservationRevokeResourceStatus204Schema = z.void();
 
 export const postAddressReservationRevokeResourceStatus400Schema = z.unknown();
 
@@ -3241,7 +3241,7 @@ export const postReservationAccessTimesUpdateResourcePathIdSchema = z
 	.string()
 	.describe("The reservation ID");
 
-export const postReservationAccessTimesUpdateResourceStatus204Schema = z.unknown();
+export const postReservationAccessTimesUpdateResourceStatus204Schema = z.void();
 
 export const postReservationAccessTimesUpdateResourceStatus400Schema = z.unknown();
 
@@ -3420,7 +3420,7 @@ export const deleteDecentralWebhookResourcePathIdSchema = z
 	.int()
 	.describe("The ID of the decentral webhook");
 
-export const deleteDecentralWebhookResourceStatus204Schema = z.unknown();
+export const deleteDecentralWebhookResourceStatus204Schema = z.void();
 
 export const deleteDecentralWebhookResourceStatus401Schema = z.unknown();
 
@@ -3465,7 +3465,7 @@ export const putApiKeysResourceBodySchema = apiKeyCreateSchema.describe(
 
 export const postApiKeyResourcePathApiKeyIdSchema = z.int().describe("The API key ID");
 
-export const postApiKeyResourceStatus204Schema = z.unknown();
+export const postApiKeyResourceStatus204Schema = z.void();
 
 export const postApiKeyResourceStatus400Schema = z.unknown();
 
@@ -3491,7 +3491,7 @@ export const postApiKeyResourcePathSchema = z.object({
 
 export const deleteApiKeyResourcePathApiKeyIdSchema = z.int().describe("The API key ID");
 
-export const deleteApiKeyResourceStatus204Schema = z.unknown();
+export const deleteApiKeyResourceStatus204Schema = z.void();
 
 export const deleteApiKeyResourceStatus401Schema = z.unknown();
 
@@ -3527,7 +3527,7 @@ export const getApiKeyAdvancedResourcePathSchema = z.object({
 
 export const postApiKeyAdvancedResourcePathApiKeyIdSchema = z.int().describe("The API key ID");
 
-export const postApiKeyAdvancedResourceStatus204Schema = z.unknown();
+export const postApiKeyAdvancedResourceStatus204Schema = z.void();
 
 export const postApiKeyAdvancedResourceStatus400Schema = z.unknown();
 
@@ -3550,7 +3550,7 @@ export const postApiKeyAdvancedResourcePathSchema = z.object({
 
 export const putApiKeyAdvancedResourcePathApiKeyIdSchema = z.int().describe("The API key ID");
 
-export const putApiKeyAdvancedResourceStatus204Schema = z.unknown();
+export const putApiKeyAdvancedResourceStatus204Schema = z.void();
 
 export const putApiKeyAdvancedResourceStatus400Schema = z.unknown();
 
@@ -3573,7 +3573,7 @@ export const putApiKeyAdvancedResourcePathSchema = z.object({
 
 export const deleteApiKeyAdvancedResourcePathApiKeyIdSchema = z.int().describe("The API key ID");
 
-export const deleteApiKeyAdvancedResourceStatus204Schema = z.unknown();
+export const deleteApiKeyAdvancedResourceStatus204Schema = z.void();
 
 export const deleteApiKeyAdvancedResourceStatus401Schema = z.unknown();
 
@@ -3590,7 +3590,7 @@ export const postApiKeyAdvancedReactivateResourcePathApiKeyIdSchema = z
 	.int()
 	.describe("The API key ID");
 
-export const postApiKeyAdvancedReactivateResourceStatus204Schema = z.unknown();
+export const postApiKeyAdvancedReactivateResourceStatus204Schema = z.void();
 
 export const postApiKeyAdvancedReactivateResourceStatus400Schema = z.unknown();
 
@@ -3649,7 +3649,7 @@ export const postApiKeyTokenResourcePathApiKeyIdSchema = z.int().describe("The A
 
 export const postApiKeyTokenResourcePathIdSchema = z.string().describe("The API key token ID");
 
-export const postApiKeyTokenResourceStatus204Schema = z.unknown();
+export const postApiKeyTokenResourceStatus204Schema = z.void();
 
 export const postApiKeyTokenResourceStatus400Schema = z.unknown();
 
@@ -3675,7 +3675,7 @@ export const deleteApiKeyTokenResourcePathApiKeyIdSchema = z.int().describe("The
 
 export const deleteApiKeyTokenResourcePathIdSchema = z.string().describe("The API key token ID");
 
-export const deleteApiKeyTokenResourceStatus204Schema = z.unknown();
+export const deleteApiKeyTokenResourceStatus204Schema = z.void();
 
 export const deleteApiKeyTokenResourceStatus401Schema = z.unknown();
 
@@ -3718,7 +3718,7 @@ export const getWebhookLogsResourceQuerySchema = z.object({
 	limit: z.int().optional().default(50).describe("Amount of logs (max: 100)"),
 });
 
-export const postSmartlockBulkWebConfigResourceStatus204Schema = z.unknown();
+export const postSmartlockBulkWebConfigResourceStatus204Schema = z.void();
 
 export const postSmartlockBulkWebConfigResourceStatus400Schema = z.unknown();
 
@@ -3842,7 +3842,7 @@ export const deleteNotificationResourcePathNotificationIdSchema = z
 	.string()
 	.describe("The unique notification ID");
 
-export const deleteNotificationResourceStatus204Schema = z.unknown();
+export const deleteNotificationResourceStatus204Schema = z.void();
 
 export const deleteNotificationResourceStatus401Schema = z.unknown();
 
@@ -3975,7 +3975,7 @@ export const postServiceLinkResourcePathSchema = z.object({
 
 export const postServiceSyncResourcePathServiceIdSchema = z.string().describe("The service ID");
 
-export const postServiceSyncResourceStatus204Schema = z.unknown();
+export const postServiceSyncResourceStatus204Schema = z.void();
 
 export const postServiceSyncResourceStatus400Schema = z.unknown();
 
@@ -3994,7 +3994,7 @@ export const postServiceSyncResourcePathSchema = z.object({
 
 export const postServiceUnlinkResourcePathServiceIdSchema = z.string().describe("The service ID");
 
-export const postServiceUnlinkResourceStatus204Schema = z.unknown();
+export const postServiceUnlinkResourceStatus204Schema = z.void();
 
 export const postServiceUnlinkResourceStatus400Schema = z.unknown();
 
@@ -4064,7 +4064,7 @@ export const getSmartlocksAuthsResourceQuerySchema = z.object({
 		.describe("Filter for authorization's types (comma-separated eg: 0,2,3)"),
 });
 
-export const postSmartlocksAuthsResourceStatus204Schema = z.unknown();
+export const postSmartlocksAuthsResourceStatus204Schema = z.void();
 
 export const postSmartlocksAuthsResourceStatus400Schema = z.unknown();
 
@@ -4090,7 +4090,7 @@ export const postSmartlocksAuthsResourceBodySchema = z
 	.array(smartlockAuthMultiUpdateSchema)
 	.describe("Smartlock authorization update representations");
 
-export const putSmartlocksAuthsResourceStatus204Schema = z.unknown();
+export const putSmartlocksAuthsResourceStatus204Schema = z.void();
 
 export const putSmartlocksAuthsResourceStatus400Schema = z.unknown();
 
@@ -4113,7 +4113,7 @@ export const putSmartlocksAuthsResourceBodySchema = smartlocksAuthCreateSchema.d
 	"Smartlock authorization create representation",
 );
 
-export const deleteSmartlocksAuthsResourceStatus204Schema = z.unknown();
+export const deleteSmartlocksAuthsResourceStatus204Schema = z.void();
 
 export const deleteSmartlocksAuthsResourceStatus400Schema = z.unknown();
 
@@ -4281,7 +4281,7 @@ export const getSmartlockResourcePathSchema = z.object({
 
 export const postSmartlockResourcePathSmartlockIdSchema = z.int().describe("The smartlock ID");
 
-export const postSmartlockResourceStatus204Schema = z.unknown();
+export const postSmartlockResourceStatus204Schema = z.void();
 
 export const postSmartlockResourceStatus400Schema = z.unknown();
 
@@ -4307,7 +4307,7 @@ export const postSmartlockResourcePathSchema = z.object({
 
 export const deleteSmartlockResourcePathSmartlockIdSchema = z.int().describe("The smartlock ID");
 
-export const deleteSmartlockResourceStatus204Schema = z.unknown();
+export const deleteSmartlockResourceStatus204Schema = z.void();
 
 export const deleteSmartlockResourceStatus400Schema = z.unknown();
 
@@ -4331,7 +4331,7 @@ export const postSmartlockActionResourcePathSmartlockIdSchema = z
 	.string()
 	.describe("The smartlock ID");
 
-export const postSmartlockActionResourceStatus204Schema = z.unknown();
+export const postSmartlockActionResourceStatus204Schema = z.void();
 
 export const postSmartlockActionResourceStatus400Schema = z.unknown();
 
@@ -4392,7 +4392,7 @@ export const postSmartlockLockActionResourcePathSmartlockIdSchema = z
 	.string()
 	.describe("The smartlock ID");
 
-export const postSmartlockLockActionResourceStatus204Schema = z.unknown();
+export const postSmartlockLockActionResourceStatus204Schema = z.void();
 
 export const postSmartlockLockActionResourceStatus400Schema = z.unknown();
 
@@ -4443,7 +4443,7 @@ export const postSmartlockUnlockActionResourcePathSmartlockIdSchema = z
 	.string()
 	.describe("The smartlock ID");
 
-export const postSmartlockUnlockActionResourceStatus204Schema = z.unknown();
+export const postSmartlockUnlockActionResourceStatus204Schema = z.void();
 
 export const postSmartlockUnlockActionResourceStatus400Schema = z.unknown();
 
@@ -4494,7 +4494,7 @@ export const postSmartlockAdminPinResourcePathSmartlockIdSchema = z
 	.int()
 	.describe("The smartlock ID");
 
-export const postSmartlockAdminPinResourceStatus204Schema = z.unknown();
+export const postSmartlockAdminPinResourceStatus204Schema = z.void();
 
 export const postSmartlockAdminPinResourceStatus400Schema = z.unknown();
 
@@ -4520,7 +4520,7 @@ export const postSmartlockAdvancedConfigResourcePathSmartlockIdSchema = z
 	.int()
 	.describe("The smartlock ID");
 
-export const postSmartlockAdvancedConfigResourceStatus204Schema = z.unknown();
+export const postSmartlockAdvancedConfigResourceStatus204Schema = z.void();
 
 export const postSmartlockAdvancedConfigResourceStatus400Schema = z.unknown();
 
@@ -4546,7 +4546,7 @@ export const postSmartlockOpenerAdvancedConfigResourcePathSmartlockIdSchema = z
 	.int()
 	.describe("The smartlock (opener) ID");
 
-export const postSmartlockOpenerAdvancedConfigResourceStatus204Schema = z.unknown();
+export const postSmartlockOpenerAdvancedConfigResourceStatus204Schema = z.void();
 
 export const postSmartlockOpenerAdvancedConfigResourceStatus400Schema = z.unknown();
 
@@ -4573,7 +4573,7 @@ export const postSmartdoorAdvancedConfigResourcePathSmartlockIdSchema = z
 	.int()
 	.describe("The smartdoor ID");
 
-export const postSmartdoorAdvancedConfigResourceStatus204Schema = z.unknown();
+export const postSmartdoorAdvancedConfigResourceStatus204Schema = z.void();
 
 export const postSmartdoorAdvancedConfigResourceStatus400Schema = z.unknown();
 
@@ -4637,7 +4637,7 @@ export const getSmartlockAuthsResourceQuerySchema = z.object({
 
 export const putSmartlockAuthsResourcePathSmartlockIdSchema = z.int().describe("The smartlock ID");
 
-export const putSmartlockAuthsResourceStatus204Schema = z.unknown();
+export const putSmartlockAuthsResourceStatus204Schema = z.void();
 
 export const putSmartlockAuthsResourceStatus400Schema = z.unknown();
 
@@ -4722,7 +4722,7 @@ export const postSmartlockAuthResourcePathIdSchema = z
 	.string()
 	.describe("The smartlock authorization unique ID");
 
-export const postSmartlockAuthResourceStatus204Schema = z.unknown();
+export const postSmartlockAuthResourceStatus204Schema = z.void();
 
 export const postSmartlockAuthResourceStatus400Schema = z.unknown();
 
@@ -4761,7 +4761,7 @@ export const deleteSmartlockAuthResourcePathIdSchema = z
 	.string()
 	.describe("The smartlock authorization unique ID");
 
-export const deleteSmartlockAuthResourceStatus204Schema = z.unknown();
+export const deleteSmartlockAuthResourceStatus204Schema = z.void();
 
 export const deleteSmartlockAuthResourceStatus401Schema = z.unknown();
 
@@ -4786,7 +4786,7 @@ export const postSmartlockConfigResourcePathSmartlockIdSchema = z
 	.int()
 	.describe("The smartlock ID");
 
-export const postSmartlockConfigResourceStatus204Schema = z.unknown();
+export const postSmartlockConfigResourceStatus204Schema = z.void();
 
 export const postSmartlockConfigResourceStatus400Schema = z.unknown();
 
@@ -4886,7 +4886,7 @@ export const postSmartlockSyncResourcePathSmartlockIdSchema = z
 	.string()
 	.describe("The smartlock ID");
 
-export const postSmartlockSyncResourceStatus204Schema = z.unknown();
+export const postSmartlockSyncResourceStatus204Schema = z.void();
 
 export const postSmartlockSyncResourceStatus400Schema = z.unknown();
 
@@ -4907,7 +4907,7 @@ export const postSmartlockWebConfigResourcePathSmartlockIdSchema = z
 	.int()
 	.describe("The smartlock ID");
 
-export const postSmartlockWebConfigResourceStatus204Schema = z.unknown();
+export const postSmartlockWebConfigResourceStatus204Schema = z.void();
 
 export const postSmartlockWebConfigResourceStatus400Schema = z.unknown();
 

@@ -2536,7 +2536,7 @@ export type PUTAdminRealmsRealmPath = {
 	realm: string;
 };
 
-export type PUTAdminRealmsRealmStatus204 = unknown;
+export type PUTAdminRealmsRealmStatus204 = void;
 
 export type PUTAdminRealmsRealmStatus400 = unknown;
 
@@ -2579,7 +2579,7 @@ export type DELETEAdminRealmsRealmPath = {
 	realm: string;
 };
 
-export type DELETEAdminRealmsRealmStatus204 = unknown;
+export type DELETEAdminRealmsRealmStatus204 = void;
 
 export type DELETEAdminRealmsRealmStatus400 = unknown;
 
@@ -2688,7 +2688,7 @@ export type DELETEAdminRealmsRealmAdminEventsPath = {
 	realm: string;
 };
 
-export type DELETEAdminRealmsRealmAdminEventsStatus204 = unknown;
+export type DELETEAdminRealmsRealmAdminEventsStatus204 = void;
 
 export type DELETEAdminRealmsRealmAdminEventsStatus403 = unknown;
 
@@ -2717,7 +2717,7 @@ export type DELETEAdminRealmsRealmAttackDetectionBruteForceUsersPath = {
 	realm: string;
 };
 
-export type DELETEAdminRealmsRealmAttackDetectionBruteForceUsersStatus204 = unknown;
+export type DELETEAdminRealmsRealmAttackDetectionBruteForceUsersStatus204 = void;
 
 export type DELETEAdminRealmsRealmAttackDetectionBruteForceUsersOptions = {
 	body?: never | undefined;
@@ -2775,7 +2775,7 @@ export type DELETEAdminRealmsRealmAttackDetectionBruteForceUsersUserIdPath = {
 	userId: string;
 };
 
-export type DELETEAdminRealmsRealmAttackDetectionBruteForceUsersUserIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmAttackDetectionBruteForceUsersUserIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmAttackDetectionBruteForceUsersUserIdOptions = {
 	body?: never | undefined;
@@ -2964,7 +2964,7 @@ export type PUTAdminRealmsRealmAuthenticationConfigIdPath = {
 	id: string;
 };
 
-export type PUTAdminRealmsRealmAuthenticationConfigIdStatus204 = unknown;
+export type PUTAdminRealmsRealmAuthenticationConfigIdStatus204 = void;
 
 export type PUTAdminRealmsRealmAuthenticationConfigIdBody =
 	| AuthenticatorConfigRepresentation
@@ -3000,7 +3000,7 @@ export type DELETEAdminRealmsRealmAuthenticationConfigIdPath = {
 	id: string;
 };
 
-export type DELETEAdminRealmsRealmAuthenticationConfigIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmAuthenticationConfigIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmAuthenticationConfigIdOptions = {
 	body?: never | undefined;
@@ -3092,7 +3092,7 @@ export type DELETEAdminRealmsRealmAuthenticationExecutionsExecutionIdPath = {
 	executionId: string;
 };
 
-export type DELETEAdminRealmsRealmAuthenticationExecutionsExecutionIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmAuthenticationExecutionsExecutionIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmAuthenticationExecutionsExecutionIdOptions = {
 	body?: never | undefined;
@@ -3205,7 +3205,7 @@ export type POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdLowerPriority
 	executionId: string;
 };
 
-export type POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdLowerPriorityStatus204 = unknown;
+export type POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdLowerPriorityStatus204 = void;
 
 export type POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdLowerPriorityOptions = {
 	body?: never | undefined;
@@ -3237,7 +3237,7 @@ export type POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdRaisePriority
 	executionId: string;
 };
 
-export type POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdRaisePriorityStatus204 = unknown;
+export type POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdRaisePriorityStatus204 = void;
 
 export type POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdRaisePriorityOptions = {
 	body?: never | undefined;
@@ -3404,7 +3404,7 @@ export type PUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsPath = {
 	flowAlias: string;
 };
 
-export type PUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsStatus204 = unknown;
+export type PUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsStatus204 = void;
 
 export type PUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsStatus409 = unknown;
 
@@ -3550,7 +3550,7 @@ export type PUTAdminRealmsRealmAuthenticationFlowsIdPath = {
 	id: string;
 };
 
-export type PUTAdminRealmsRealmAuthenticationFlowsIdStatus204 = unknown;
+export type PUTAdminRealmsRealmAuthenticationFlowsIdStatus204 = void;
 
 export type PUTAdminRealmsRealmAuthenticationFlowsIdStatus409 = unknown;
 
@@ -3589,7 +3589,7 @@ export type DELETEAdminRealmsRealmAuthenticationFlowsIdPath = {
 	id: string;
 };
 
-export type DELETEAdminRealmsRealmAuthenticationFlowsIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmAuthenticationFlowsIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmAuthenticationFlowsIdOptions = {
 	body?: never | undefined;
@@ -3703,7 +3703,7 @@ export type POSTAdminRealmsRealmAuthenticationRegisterRequiredActionPath = {
 	realm: string;
 };
 
-export type POSTAdminRealmsRealmAuthenticationRegisterRequiredActionStatus204 = unknown;
+export type POSTAdminRealmsRealmAuthenticationRegisterRequiredActionStatus204 = void;
 
 export type POSTAdminRealmsRealmAuthenticationRegisterRequiredActionBody =
 	| {
@@ -3802,7 +3802,7 @@ export type PUTAdminRealmsRealmAuthenticationRequiredActionsAliasPath = {
 	alias: string;
 };
 
-export type PUTAdminRealmsRealmAuthenticationRequiredActionsAliasStatus204 = unknown;
+export type PUTAdminRealmsRealmAuthenticationRequiredActionsAliasStatus204 = void;
 
 export type PUTAdminRealmsRealmAuthenticationRequiredActionsAliasBody =
 	| RequiredActionProviderRepresentation
@@ -3838,7 +3838,7 @@ export type DELETEAdminRealmsRealmAuthenticationRequiredActionsAliasPath = {
 	alias: string;
 };
 
-export type DELETEAdminRealmsRealmAuthenticationRequiredActionsAliasStatus204 = unknown;
+export type DELETEAdminRealmsRealmAuthenticationRequiredActionsAliasStatus204 = void;
 
 export type DELETEAdminRealmsRealmAuthenticationRequiredActionsAliasOptions = {
 	body?: never | undefined;
@@ -3903,7 +3903,7 @@ export type PUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigPath = {
 	alias: string;
 };
 
-export type PUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigStatus204 = unknown;
+export type PUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigStatus204 = void;
 
 export type PUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigBody =
 	| RequiredActionConfigRepresentation
@@ -3939,7 +3939,7 @@ export type DELETEAdminRealmsRealmAuthenticationRequiredActionsAliasConfigPath =
 	alias: string;
 };
 
-export type DELETEAdminRealmsRealmAuthenticationRequiredActionsAliasConfigStatus204 = unknown;
+export type DELETEAdminRealmsRealmAuthenticationRequiredActionsAliasConfigStatus204 = void;
 
 export type DELETEAdminRealmsRealmAuthenticationRequiredActionsAliasConfigOptions = {
 	body?: never | undefined;
@@ -4004,7 +4004,7 @@ export type POSTAdminRealmsRealmAuthenticationRequiredActionsAliasLowerPriorityP
 	alias: string;
 };
 
-export type POSTAdminRealmsRealmAuthenticationRequiredActionsAliasLowerPriorityStatus204 = unknown;
+export type POSTAdminRealmsRealmAuthenticationRequiredActionsAliasLowerPriorityStatus204 = void;
 
 export type POSTAdminRealmsRealmAuthenticationRequiredActionsAliasLowerPriorityOptions = {
 	body?: never | undefined;
@@ -4036,7 +4036,7 @@ export type POSTAdminRealmsRealmAuthenticationRequiredActionsAliasRaisePriorityP
 	alias: string;
 };
 
-export type POSTAdminRealmsRealmAuthenticationRequiredActionsAliasRaisePriorityStatus204 = unknown;
+export type POSTAdminRealmsRealmAuthenticationRequiredActionsAliasRaisePriorityStatus204 = void;
 
 export type POSTAdminRealmsRealmAuthenticationRequiredActionsAliasRaisePriorityOptions = {
 	body?: never | undefined;
@@ -4465,7 +4465,7 @@ export type PUTAdminRealmsRealmClientTypesPath = {
 	realm: string;
 };
 
-export type PUTAdminRealmsRealmClientTypesStatus204 = unknown;
+export type PUTAdminRealmsRealmClientTypesStatus204 = void;
 
 export type PUTAdminRealmsRealmClientTypesBody = ClientTypesRepresentation | undefined;
 
@@ -4645,7 +4645,7 @@ export type DELETEAdminRealmsRealmClientsInitialAccessIdPath = {
 	id: string;
 };
 
-export type DELETEAdminRealmsRealmClientsInitialAccessIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmClientsInitialAccessIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmClientsInitialAccessIdOptions = {
 	body?: never | undefined;
@@ -4790,7 +4790,7 @@ export type DELETEAdminRealmsRealmComponentsIdPath = {
 	id: string;
 };
 
-export type DELETEAdminRealmsRealmComponentsIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmComponentsIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmComponentsIdOptions = {
 	body?: never | undefined;
@@ -4911,7 +4911,7 @@ export type PUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdPath = {
 	clientScopeId: string;
 };
 
-export type PUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus204 = unknown;
+export type PUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus204 = void;
 
 export type PUTAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus403 = unknown;
 
@@ -4945,7 +4945,7 @@ export type DELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdPath = 
 	clientScopeId: string;
 };
 
-export type DELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmDefaultDefaultClientScopesClientScopeIdStatus403 = unknown;
 
@@ -5008,7 +5008,7 @@ export type PUTAdminRealmsRealmDefaultGroupsGroupIdPath = {
 	groupId: string;
 };
 
-export type PUTAdminRealmsRealmDefaultGroupsGroupIdStatus204 = unknown;
+export type PUTAdminRealmsRealmDefaultGroupsGroupIdStatus204 = void;
 
 export type PUTAdminRealmsRealmDefaultGroupsGroupIdStatus403 = unknown;
 
@@ -5042,7 +5042,7 @@ export type DELETEAdminRealmsRealmDefaultGroupsGroupIdPath = {
 	groupId: string;
 };
 
-export type DELETEAdminRealmsRealmDefaultGroupsGroupIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmDefaultGroupsGroupIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmDefaultGroupsGroupIdStatus403 = unknown;
 
@@ -5106,7 +5106,7 @@ export type PUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdPath = {
 	clientScopeId: string;
 };
 
-export type PUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus204 = unknown;
+export type PUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus204 = void;
 
 export type PUTAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus403 = unknown;
 
@@ -5140,7 +5140,7 @@ export type DELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdPath =
 	clientScopeId: string;
 };
 
-export type DELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmDefaultOptionalClientScopesClientScopeIdStatus403 = unknown;
 
@@ -5258,7 +5258,7 @@ export type DELETEAdminRealmsRealmEventsPath = {
 	realm: string;
 };
 
-export type DELETEAdminRealmsRealmEventsStatus204 = unknown;
+export type DELETEAdminRealmsRealmEventsStatus204 = void;
 
 export type DELETEAdminRealmsRealmEventsStatus403 = unknown;
 
@@ -5316,7 +5316,7 @@ export type PUTAdminRealmsRealmEventsConfigPath = {
 	realm: string;
 };
 
-export type PUTAdminRealmsRealmEventsConfigStatus204 = unknown;
+export type PUTAdminRealmsRealmEventsConfigStatus204 = void;
 
 export type PUTAdminRealmsRealmEventsConfigStatus403 = unknown;
 
@@ -5451,7 +5451,7 @@ export type POSTAdminRealmsRealmGroupsPath = {
 
 export type POSTAdminRealmsRealmGroupsStatus201 = unknown;
 
-export type POSTAdminRealmsRealmGroupsStatus204 = unknown;
+export type POSTAdminRealmsRealmGroupsStatus204 = void;
 
 export type POSTAdminRealmsRealmGroupsStatus400 = unknown;
 
@@ -5699,7 +5699,7 @@ export type PUTAdminRealmsRealmIdentityProviderInstancesAliasPath = {
 	alias: string;
 };
 
-export type PUTAdminRealmsRealmIdentityProviderInstancesAliasStatus204 = unknown;
+export type PUTAdminRealmsRealmIdentityProviderInstancesAliasStatus204 = void;
 
 export type PUTAdminRealmsRealmIdentityProviderInstancesAliasStatus400 = unknown;
 
@@ -5989,7 +5989,7 @@ export type PUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdPath = {
 	id: string;
 };
 
-export type PUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdStatus204 = unknown;
+export type PUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdStatus204 = void;
 
 export type PUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdBody =
 	| IdentityProviderMapperRepresentation
@@ -6026,7 +6026,7 @@ export type DELETEAdminRealmsRealmIdentityProviderInstancesAliasMappersIdPath = 
 	id: string;
 };
 
-export type DELETEAdminRealmsRealmIdentityProviderInstancesAliasMappersIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmIdentityProviderInstancesAliasMappersIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmIdentityProviderInstancesAliasMappersIdOptions = {
 	body?: never | undefined;
@@ -6202,7 +6202,7 @@ export type POSTAdminRealmsRealmLocalizationLocalePath = {
 	locale: string;
 };
 
-export type POSTAdminRealmsRealmLocalizationLocaleStatus204 = unknown;
+export type POSTAdminRealmsRealmLocalizationLocaleStatus204 = void;
 
 export type POSTAdminRealmsRealmLocalizationLocaleStatus400 = unknown;
 
@@ -6242,7 +6242,7 @@ export type DELETEAdminRealmsRealmLocalizationLocalePath = {
 	locale: string;
 };
 
-export type DELETEAdminRealmsRealmLocalizationLocaleStatus204 = unknown;
+export type DELETEAdminRealmsRealmLocalizationLocaleStatus204 = void;
 
 export type DELETEAdminRealmsRealmLocalizationLocaleStatus403 = unknown;
 
@@ -6312,7 +6312,7 @@ export type PUTAdminRealmsRealmLocalizationLocaleKeyPath = {
 	locale: string;
 };
 
-export type PUTAdminRealmsRealmLocalizationLocaleKeyStatus204 = unknown;
+export type PUTAdminRealmsRealmLocalizationLocaleKeyStatus204 = void;
 
 export type PUTAdminRealmsRealmLocalizationLocaleKeyStatus400 = unknown;
 
@@ -6349,7 +6349,7 @@ export type DELETEAdminRealmsRealmLocalizationLocaleKeyPath = {
 	locale: string;
 };
 
-export type DELETEAdminRealmsRealmLocalizationLocaleKeyStatus204 = unknown;
+export type DELETEAdminRealmsRealmLocalizationLocaleKeyStatus204 = void;
 
 export type DELETEAdminRealmsRealmLocalizationLocaleKeyStatus403 = unknown;
 
@@ -6784,7 +6784,7 @@ export type DELETEAdminRealmsRealmSessionsSessionQuery = {
 	isOffline?: boolean | undefined;
 };
 
-export type DELETEAdminRealmsRealmSessionsSessionStatus204 = unknown;
+export type DELETEAdminRealmsRealmSessionsSessionStatus204 = void;
 
 export type DELETEAdminRealmsRealmSessionsSessionStatus403 = unknown;
 
@@ -6817,7 +6817,7 @@ export type POSTAdminRealmsRealmTestSMTPConnectionPath = {
 	realm: string;
 };
 
-export type POSTAdminRealmsRealmTestSMTPConnectionStatus204 = unknown;
+export type POSTAdminRealmsRealmTestSMTPConnectionStatus204 = void;
 
 export type POSTAdminRealmsRealmTestSMTPConnectionStatus500 = unknown;
 
@@ -7371,7 +7371,7 @@ export type POSTAdminRealmsRealmWorkflowsMigrateQuery = {
 	to?: string | undefined;
 };
 
-export type POSTAdminRealmsRealmWorkflowsMigrateStatus204 = unknown;
+export type POSTAdminRealmsRealmWorkflowsMigrateStatus204 = void;
 
 export type POSTAdminRealmsRealmWorkflowsMigrateStatus400 = unknown;
 
@@ -7448,7 +7448,7 @@ export type PUTAdminRealmsRealmWorkflowsIdPath = {
 	id: string;
 };
 
-export type PUTAdminRealmsRealmWorkflowsIdStatus204 = unknown;
+export type PUTAdminRealmsRealmWorkflowsIdStatus204 = void;
 
 export type PUTAdminRealmsRealmWorkflowsIdStatus400 = unknown;
 
@@ -7484,7 +7484,7 @@ export type DELETEAdminRealmsRealmWorkflowsIdPath = {
 	id: string;
 };
 
-export type DELETEAdminRealmsRealmWorkflowsIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmWorkflowsIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmWorkflowsIdStatus400 = unknown;
 
@@ -7544,7 +7544,7 @@ export type POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdQuery = {
 	notBefore?: string | undefined;
 };
 
-export type POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdStatus204 = unknown;
+export type POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdStatus204 = void;
 
 export type POSTAdminRealmsRealmWorkflowsIdActivateTypeResourceIdStatus400 = unknown;
 
@@ -7597,7 +7597,7 @@ export type POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdPath = {
 	type: POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdTypeKey;
 };
 
-export type POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdStatus204 = unknown;
+export type POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdStatus204 = void;
 
 export type POSTAdminRealmsRealmWorkflowsIdDeactivateTypeResourceIdStatus400 = unknown;
 
@@ -7659,7 +7659,7 @@ export type PUTAdminRealmsRealmClientScopesClientScopeIdPath = {
 	clientScopeId: string;
 };
 
-export type PUTAdminRealmsRealmClientScopesClientScopeIdStatus204 = unknown;
+export type PUTAdminRealmsRealmClientScopesClientScopeIdStatus204 = void;
 
 export type PUTAdminRealmsRealmClientScopesClientScopeIdStatus400 = unknown;
 
@@ -7700,7 +7700,7 @@ export type DELETEAdminRealmsRealmClientScopesClientScopeIdPath = {
 	clientScopeId: string;
 };
 
-export type DELETEAdminRealmsRealmClientScopesClientScopeIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmClientScopesClientScopeIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmClientScopesClientScopeIdStatus400 = unknown;
 
@@ -7737,8 +7737,7 @@ export type POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddModel
 	clientScopeId: string;
 };
 
-export type POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddModelsStatus204 =
-	unknown;
+export type POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddModelsStatus204 = void;
 
 export type POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddModelsBody =
 	| ProtocolMapperRepresentation[]
@@ -7873,7 +7872,7 @@ export type PUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdP
 	id: string;
 };
 
-export type PUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdStatus204 = unknown;
+export type PUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdStatus204 = void;
 
 export type PUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdBody =
 	| ProtocolMapperRepresentation
@@ -7910,8 +7909,7 @@ export type DELETEAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModels
 	id: string;
 };
 
-export type DELETEAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdStatus204 =
-	unknown;
+export type DELETEAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdOptions = {
 	body?: never | undefined;
@@ -8033,8 +8031,7 @@ export type POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsCli
 	client: string;
 };
 
-export type POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientStatus204 =
-	unknown;
+export type POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientStatus204 = void;
 
 export type POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientBody =
 	| RoleRepresentation[]
@@ -8068,7 +8065,7 @@ export type DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsC
 };
 
 export type DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientStatus204 =
-	unknown;
+	void;
 
 export type DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientBody =
 	| RoleRepresentation[]
@@ -8204,7 +8201,7 @@ export type POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmPath 
 	clientScopeId: string;
 };
 
-export type POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmStatus204 = unknown;
+export type POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmStatus204 = void;
 
 export type POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmBody =
 	| RoleRepresentation[]
@@ -8236,7 +8233,7 @@ export type DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmPat
 	clientScopeId: string;
 };
 
-export type DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmStatus204 = unknown;
+export type DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmStatus204 = void;
 
 export type DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmBody =
 	| RoleRepresentation[]
@@ -8366,7 +8363,7 @@ export type PUTAdminRealmsRealmClientTemplatesClientScopeIdPath = {
 	clientScopeId: string;
 };
 
-export type PUTAdminRealmsRealmClientTemplatesClientScopeIdStatus204 = unknown;
+export type PUTAdminRealmsRealmClientTemplatesClientScopeIdStatus204 = void;
 
 export type PUTAdminRealmsRealmClientTemplatesClientScopeIdStatus400 = unknown;
 
@@ -8407,7 +8404,7 @@ export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdPath = {
 	clientScopeId: string;
 };
 
-export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdStatus400 = unknown;
 
@@ -8445,7 +8442,7 @@ export type POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersAddMo
 };
 
 export type POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersAddModelsStatus204 =
-	unknown;
+	void;
 
 export type POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersAddModelsBody =
 	| ProtocolMapperRepresentation[]
@@ -8582,8 +8579,7 @@ export type PUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModels
 	id: string;
 };
 
-export type PUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdStatus204 =
-	unknown;
+export type PUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdStatus204 = void;
 
 export type PUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdBody =
 	| ProtocolMapperRepresentation
@@ -8621,7 +8617,7 @@ export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersMod
 };
 
 export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdStatus204 =
-	unknown;
+	void;
 
 export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdOptions = {
 	body?: never | undefined;
@@ -8746,7 +8742,7 @@ export type POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClients
 };
 
 export type POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientStatus204 =
-	unknown;
+	void;
 
 export type POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientBody =
 	| RoleRepresentation[]
@@ -8780,7 +8776,7 @@ export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClien
 };
 
 export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientStatus204 =
-	unknown;
+	void;
 
 export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientBody =
 	| RoleRepresentation[]
@@ -8920,7 +8916,7 @@ export type POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmPa
 	clientScopeId: string;
 };
 
-export type POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmStatus204 = unknown;
+export type POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmStatus204 = void;
 
 export type POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmBody =
 	| RoleRepresentation[]
@@ -8952,7 +8948,7 @@ export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealm
 	clientScopeId: string;
 };
 
-export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmStatus204 = unknown;
+export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmStatus204 = void;
 
 export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmBody =
 	| RoleRepresentation[]
@@ -9089,7 +9085,7 @@ export type PUTAdminRealmsRealmClientsClientUuidPath = {
 	clientUuid: string;
 };
 
-export type PUTAdminRealmsRealmClientsClientUuidStatus204 = unknown;
+export type PUTAdminRealmsRealmClientsClientUuidStatus204 = void;
 
 export type PUTAdminRealmsRealmClientsClientUuidStatus400 = unknown;
 
@@ -9129,7 +9125,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidPath = {
 	clientUuid: string;
 };
 
-export type DELETEAdminRealmsRealmClientsClientUuidStatus204 = unknown;
+export type DELETEAdminRealmsRealmClientsClientUuidStatus204 = void;
 
 export type DELETEAdminRealmsRealmClientsClientUuidOptions = {
 	body?: never | undefined;
@@ -9194,7 +9190,7 @@ export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerPath = {
 	clientUuid: string;
 };
 
-export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerStatus204 = unknown;
+export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerStatus204 = void;
 
 export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerBody =
 	| ResourceServerRepresentation
@@ -9230,7 +9226,7 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportPath =
 	clientUuid: string;
 };
 
-export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportStatus204 = unknown;
+export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportStatus204 = void;
 
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportBody =
 	| ResourceServerRepresentation
@@ -9294,7 +9290,7 @@ export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionQue
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionStatus200 =
 	AbstractPolicyRepresentation[];
 
-export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionStatus204 = unknown;
+export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionStatus204 = void;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionOptions = {
 	body?: never | undefined;
@@ -9450,8 +9446,7 @@ export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSea
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSearchStatus200 =
 	AbstractPolicyRepresentation;
 
-export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSearchStatus204 =
-	unknown;
+export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSearchStatus204 = void;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionSearchStatus400 =
 	unknown;
@@ -9517,7 +9512,7 @@ export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyQuery =
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyStatus200 =
 	AbstractPolicyRepresentation[];
 
-export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyStatus204 = unknown;
+export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyStatus204 = void;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyOptions = {
 	body?: never | undefined;
@@ -9673,7 +9668,7 @@ export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchQ
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchStatus200 =
 	AbstractPolicyRepresentation;
 
-export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchStatus204 = unknown;
+export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchStatus204 = void;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicySearchStatus400 = unknown;
 
@@ -9865,8 +9860,7 @@ export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearc
 	"uri"
 >;
 
-export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearchStatus204 =
-	unknown;
+export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearchStatus204 = void;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceSearchStatus400 =
 	unknown;
@@ -9996,7 +9990,7 @@ export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResou
 };
 
 export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus204 =
-	unknown;
+	void;
 
 export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus404 =
 	unknown;
@@ -10065,7 +10059,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceRe
 };
 
 export type DELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus204 =
-	unknown;
+	void;
 
 export type DELETEAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdStatus404 =
 	unknown;
@@ -10398,7 +10392,7 @@ export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchQu
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchStatus200 =
 	ScopeRepresentation[];
 
-export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchStatus204 = unknown;
+export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchStatus204 = void;
 
 export type GETAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeSearchStatus400 = unknown;
 
@@ -11045,7 +11039,7 @@ export type PUTAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeId
 	clientScopeId: string;
 };
 
-export type PUTAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdStatus204 = unknown;
+export type PUTAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdStatus204 = void;
 
 export type PUTAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdOptions = {
 	body?: never | undefined;
@@ -11078,8 +11072,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScop
 	clientScopeId: string;
 };
 
-export type DELETEAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdStatus204 =
-	unknown;
+export type DELETEAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmClientsClientUuidDefaultClientScopesClientScopeIdOptions = {
 	body?: never | undefined;
@@ -11541,7 +11534,7 @@ export type POSTAdminRealmsRealmClientsClientUuidNodesPath = {
 	clientUuid: string;
 };
 
-export type POSTAdminRealmsRealmClientsClientUuidNodesStatus204 = unknown;
+export type POSTAdminRealmsRealmClientsClientUuidNodesStatus204 = void;
 
 export type POSTAdminRealmsRealmClientsClientUuidNodesStatus400 = unknown;
 
@@ -11583,7 +11576,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidNodesNodePath = {
 	node: string;
 };
 
-export type DELETEAdminRealmsRealmClientsClientUuidNodesNodeStatus204 = unknown;
+export type DELETEAdminRealmsRealmClientsClientUuidNodesNodeStatus204 = void;
 
 export type DELETEAdminRealmsRealmClientsClientUuidNodesNodeOptions = {
 	body?: never | undefined;
@@ -11734,8 +11727,7 @@ export type PUTAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeI
 	clientScopeId: string;
 };
 
-export type PUTAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdStatus204 =
-	unknown;
+export type PUTAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdStatus204 = void;
 
 export type PUTAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdOptions = {
 	body?: never | undefined;
@@ -11769,7 +11761,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidOptionalClientScopesClientSco
 };
 
 export type DELETEAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdStatus204 =
-	unknown;
+	void;
 
 export type DELETEAdminRealmsRealmClientsClientUuidOptionalClientScopesClientScopeIdOptions = {
 	body?: never | undefined;
@@ -11801,7 +11793,7 @@ export type POSTAdminRealmsRealmClientsClientUuidProtocolMappersAddModelsPath = 
 	clientUuid: string;
 };
 
-export type POSTAdminRealmsRealmClientsClientUuidProtocolMappersAddModelsStatus204 = unknown;
+export type POSTAdminRealmsRealmClientsClientUuidProtocolMappersAddModelsStatus204 = void;
 
 export type POSTAdminRealmsRealmClientsClientUuidProtocolMappersAddModelsBody =
 	| ProtocolMapperRepresentation[]
@@ -11952,7 +11944,7 @@ export type PUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdPath = {
 	id: string;
 };
 
-export type PUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdStatus204 = unknown;
+export type PUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdStatus204 = void;
 
 export type PUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdBody =
 	| ProtocolMapperRepresentation
@@ -11993,7 +11985,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdPath =
 	id: string;
 };
 
-export type DELETEAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdOptions = {
 	body?: never | undefined;
@@ -12281,7 +12273,7 @@ export type PUTAdminRealmsRealmClientsClientUuidRolesRoleNamePath = {
 	roleName: string;
 };
 
-export type PUTAdminRealmsRealmClientsClientUuidRolesRoleNameStatus204 = unknown;
+export type PUTAdminRealmsRealmClientsClientUuidRolesRoleNameStatus204 = void;
 
 export type PUTAdminRealmsRealmClientsClientUuidRolesRoleNameStatus400 = unknown;
 
@@ -12332,7 +12324,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNamePath = {
 	roleName: string;
 };
 
-export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameStatus204 = unknown;
+export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameStatus204 = void;
 
 export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameStatus400 = unknown;
 
@@ -12422,7 +12414,7 @@ export type POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPath = {
 	roleName: string;
 };
 
-export type POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus204 = unknown;
+export type POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus204 = void;
 
 export type POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus403 = unknown;
 
@@ -12469,7 +12461,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPath =
 	roleName: string;
 };
 
-export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus204 = unknown;
+export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus204 = void;
 
 export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesStatus403 = unknown;
 
@@ -12898,7 +12890,7 @@ export type POSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientPath 
 	client: string;
 };
 
-export type POSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientStatus204 = unknown;
+export type POSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientStatus204 = void;
 
 export type POSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientBody =
 	| RoleRepresentation[]
@@ -12935,7 +12927,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientPat
 	client: string;
 };
 
-export type DELETEAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientStatus204 = unknown;
+export type DELETEAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientStatus204 = void;
 
 export type DELETEAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientBody =
 	| RoleRepresentation[]
@@ -13080,7 +13072,7 @@ export type POSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmPath = {
 	clientUuid: string;
 };
 
-export type POSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmStatus204 = unknown;
+export type POSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmStatus204 = void;
 
 export type POSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmBody =
 	| RoleRepresentation[]
@@ -13116,7 +13108,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmPath = {
 	clientUuid: string;
 };
 
-export type DELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmStatus204 = unknown;
+export type DELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmStatus204 = void;
 
 export type DELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmBody =
 	| RoleRepresentation[]
@@ -13398,7 +13390,7 @@ export type PUTAdminRealmsRealmGroupsGroupIdPath = {
 	groupId: string;
 };
 
-export type PUTAdminRealmsRealmGroupsGroupIdStatus204 = unknown;
+export type PUTAdminRealmsRealmGroupsGroupIdStatus204 = void;
 
 export type PUTAdminRealmsRealmGroupsGroupIdStatus400 = unknown;
 
@@ -13433,7 +13425,7 @@ export type DELETEAdminRealmsRealmGroupsGroupIdPath = {
 	groupId: string;
 };
 
-export type DELETEAdminRealmsRealmGroupsGroupIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmGroupsGroupIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmGroupsGroupIdOptions = {
 	body?: never | undefined;
@@ -13532,7 +13524,7 @@ export type POSTAdminRealmsRealmGroupsGroupIdChildrenPath = {
 
 export type POSTAdminRealmsRealmGroupsGroupIdChildrenStatus201 = unknown;
 
-export type POSTAdminRealmsRealmGroupsGroupIdChildrenStatus204 = unknown;
+export type POSTAdminRealmsRealmGroupsGroupIdChildrenStatus204 = void;
 
 export type POSTAdminRealmsRealmGroupsGroupIdChildrenStatus400 = unknown;
 
@@ -13752,7 +13744,7 @@ export type POSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdPath = {
 	clientId: string;
 };
 
-export type POSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdStatus204 = unknown;
+export type POSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdStatus204 = void;
 
 export type POSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdBody =
 	| RoleRepresentation[]
@@ -13789,7 +13781,7 @@ export type DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdPath =
 	clientId: string;
 };
 
-export type DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdBody =
 	| RoleRepresentation[]
@@ -13929,7 +13921,7 @@ export type POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmPath = {
 	groupId: string;
 };
 
-export type POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus204 = unknown;
+export type POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus204 = void;
 
 export type POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus400 = unknown;
 
@@ -13973,7 +13965,7 @@ export type DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmPath = {
 	groupId: string;
 };
 
-export type DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus204 = unknown;
+export type DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus204 = void;
 
 export type DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmStatus400 = unknown;
 
@@ -14197,7 +14189,7 @@ export type PUTAdminRealmsRealmOrganizationsOrgIdPath = {
 	orgId: string;
 };
 
-export type PUTAdminRealmsRealmOrganizationsOrgIdStatus204 = unknown;
+export type PUTAdminRealmsRealmOrganizationsOrgIdStatus204 = void;
 
 export type PUTAdminRealmsRealmOrganizationsOrgIdStatus400 = unknown;
 
@@ -14236,7 +14228,7 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdPath = {
 	orgId: string;
 };
 
-export type DELETEAdminRealmsRealmOrganizationsOrgIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmOrganizationsOrgIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdStatus400 = unknown;
 
@@ -14340,7 +14332,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsPath = {
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsStatus201 = unknown;
 
-export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsStatus204 = unknown;
+export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsStatus204 = void;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsStatus400 = unknown;
 
@@ -14481,7 +14473,7 @@ export type PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdPath = {
 	groupId: string;
 };
 
-export type PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus204 = unknown;
+export type PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus204 = void;
 
 export type PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus400 = unknown;
 
@@ -14523,7 +14515,7 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdPath = {
 	groupId: string;
 };
 
-export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdStatus403 = unknown;
 
@@ -14627,7 +14619,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenPath = {
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus201 = unknown;
 
-export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus204 = unknown;
+export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus204 = void;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenStatus400 = unknown;
 
@@ -14730,7 +14722,7 @@ export type PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdPath 
 	userId: string;
 };
 
-export type PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus204 = unknown;
+export type PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus204 = void;
 
 export type PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus400 = unknown;
 
@@ -14772,7 +14764,7 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdPa
 	userId: string;
 };
 
-export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdMembersUserIdStatus400 = unknown;
 
@@ -14885,7 +14877,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClien
 };
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdStatus204 =
-	unknown;
+	void;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdBody =
 	| RoleRepresentation[]
@@ -14926,7 +14918,7 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsCli
 };
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdStatus204 =
-	unknown;
+	void;
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdBody =
 	| RoleRepresentation[]
@@ -15082,7 +15074,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealm
 	groupId: string;
 };
 
-export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus204 = unknown;
+export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus204 = void;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus400 = unknown;
 
@@ -15127,8 +15119,7 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRea
 	groupId: string;
 };
 
-export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus204 =
-	unknown;
+export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus204 = void;
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmStatus400 =
 	unknown;
@@ -15289,7 +15280,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersPath = {
 	orgId: string;
 };
 
-export type POSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersStatus204 = unknown;
+export type POSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersStatus204 = void;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersStatus400 = unknown;
 
@@ -15371,7 +15362,7 @@ export type PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasPath = {
 	alias: string;
 };
 
-export type PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus204 = unknown;
+export type PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus204 = void;
 
 export type PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus400 = unknown;
 
@@ -15413,7 +15404,7 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasPath =
 	alias: string;
 };
 
-export type DELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus204 = unknown;
+export type DELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus204 = void;
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasStatus400 = unknown;
 
@@ -15624,7 +15615,7 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdPath = {
 	id: string;
 };
 
-export type DELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdInvitationsIdStatus403 = unknown;
 
@@ -15659,7 +15650,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendPath = {
 	id: string;
 };
 
-export type POSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendStatus204 = unknown;
+export type POSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendStatus204 = void;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdInvitationsIdResendStatus403 = unknown;
 
@@ -15843,7 +15834,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserPath 
 	orgId: string;
 };
 
-export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus204 = unknown;
+export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus204 = void;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserStatus400 = unknown;
 
@@ -15894,7 +15885,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserQuery = {
 	client_id?: string | undefined;
 };
 
-export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus204 = unknown;
+export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus204 = void;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserStatus400 = unknown;
 
@@ -15978,7 +15969,7 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdPath = {
 	memberId: string;
 };
 
-export type DELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdMembersMemberIdStatus400 = unknown;
 
@@ -16070,7 +16061,7 @@ export type PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypePa
 	memberId: string;
 };
 
-export type PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeStatus204 = unknown;
+export type PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeStatus204 = void;
 
 export type PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeStatus400 = unknown;
 
@@ -16195,7 +16186,7 @@ export type PUTAdminRealmsRealmRolesByIdRoleIdPath = {
 	roleId: string;
 };
 
-export type PUTAdminRealmsRealmRolesByIdRoleIdStatus204 = unknown;
+export type PUTAdminRealmsRealmRolesByIdRoleIdStatus204 = void;
 
 export type PUTAdminRealmsRealmRolesByIdRoleIdStatus400 = unknown;
 
@@ -16235,7 +16226,7 @@ export type DELETEAdminRealmsRealmRolesByIdRoleIdPath = {
 	roleId: string;
 };
 
-export type DELETEAdminRealmsRealmRolesByIdRoleIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmRolesByIdRoleIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmRolesByIdRoleIdStatus400 = unknown;
 
@@ -16316,7 +16307,7 @@ export type POSTAdminRealmsRealmRolesByIdRoleIdCompositesPath = {
 	roleId: string;
 };
 
-export type POSTAdminRealmsRealmRolesByIdRoleIdCompositesStatus204 = unknown;
+export type POSTAdminRealmsRealmRolesByIdRoleIdCompositesStatus204 = void;
 
 export type POSTAdminRealmsRealmRolesByIdRoleIdCompositesStatus403 = unknown;
 
@@ -16353,7 +16344,7 @@ export type DELETEAdminRealmsRealmRolesByIdRoleIdCompositesPath = {
 	roleId: string;
 };
 
-export type DELETEAdminRealmsRealmRolesByIdRoleIdCompositesStatus204 = unknown;
+export type DELETEAdminRealmsRealmRolesByIdRoleIdCompositesStatus204 = void;
 
 export type DELETEAdminRealmsRealmRolesByIdRoleIdCompositesStatus403 = unknown;
 
@@ -16562,7 +16553,7 @@ export type PUTAdminRealmsRealmRolesRoleNamePath = {
 	roleName: string;
 };
 
-export type PUTAdminRealmsRealmRolesRoleNameStatus204 = unknown;
+export type PUTAdminRealmsRealmRolesRoleNameStatus204 = void;
 
 export type PUTAdminRealmsRealmRolesRoleNameStatus400 = unknown;
 
@@ -16607,7 +16598,7 @@ export type DELETEAdminRealmsRealmRolesRoleNamePath = {
 	roleName: string;
 };
 
-export type DELETEAdminRealmsRealmRolesRoleNameStatus204 = unknown;
+export type DELETEAdminRealmsRealmRolesRoleNameStatus204 = void;
 
 export type DELETEAdminRealmsRealmRolesRoleNameStatus400 = unknown;
 
@@ -16686,7 +16677,7 @@ export type POSTAdminRealmsRealmRolesRoleNameCompositesPath = {
 	roleName: string;
 };
 
-export type POSTAdminRealmsRealmRolesRoleNameCompositesStatus204 = unknown;
+export type POSTAdminRealmsRealmRolesRoleNameCompositesStatus204 = void;
 
 export type POSTAdminRealmsRealmRolesRoleNameCompositesStatus403 = unknown;
 
@@ -16726,7 +16717,7 @@ export type DELETEAdminRealmsRealmRolesRoleNameCompositesPath = {
 	roleName: string;
 };
 
-export type DELETEAdminRealmsRealmRolesRoleNameCompositesStatus204 = unknown;
+export type DELETEAdminRealmsRealmRolesRoleNameCompositesStatus204 = void;
 
 export type DELETEAdminRealmsRealmRolesRoleNameCompositesStatus403 = unknown;
 
@@ -17075,7 +17066,7 @@ export type PUTAdminRealmsRealmUsersUserIdPath = {
 	userId: string;
 };
 
-export type PUTAdminRealmsRealmUsersUserIdStatus204 = unknown;
+export type PUTAdminRealmsRealmUsersUserIdStatus204 = void;
 
 export type PUTAdminRealmsRealmUsersUserIdStatus400 = unknown;
 
@@ -17116,7 +17107,7 @@ export type DELETEAdminRealmsRealmUsersUserIdPath = {
 	userId: string;
 };
 
-export type DELETEAdminRealmsRealmUsersUserIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmUsersUserIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmUsersUserIdStatus400 = unknown;
 
@@ -17218,7 +17209,7 @@ export type DELETEAdminRealmsRealmUsersUserIdConsentsClientPath = {
 	client: string;
 };
 
-export type DELETEAdminRealmsRealmUsersUserIdConsentsClientStatus204 = unknown;
+export type DELETEAdminRealmsRealmUsersUserIdConsentsClientStatus204 = void;
 
 export type DELETEAdminRealmsRealmUsersUserIdConsentsClientStatus403 = unknown;
 
@@ -17284,7 +17275,7 @@ export type DELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdPath = {
 	credentialId: string;
 };
 
-export type DELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmUsersUserIdCredentialsCredentialIdStatus403 = unknown;
 
@@ -17330,7 +17321,7 @@ export type POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewPr
 	};
 
 export type POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewPreviousCredentialIdStatus204 =
-	unknown;
+	void;
 
 export type POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveAfterNewPreviousCredentialIdStatus403 =
 	unknown;
@@ -17373,7 +17364,7 @@ export type POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstPat
 	credentialId: string;
 };
 
-export type POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstStatus204 = unknown;
+export type POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstStatus204 = void;
 
 export type POSTAdminRealmsRealmUsersUserIdCredentialsCredentialIdMoveToFirstStatus403 = unknown;
 
@@ -17408,7 +17399,7 @@ export type PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelPath =
 	credentialId: string;
 };
 
-export type PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelStatus204 = unknown;
+export type PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelStatus204 = void;
 
 export type PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelStatus403 = unknown;
 
@@ -17444,7 +17435,7 @@ export type PUTAdminRealmsRealmUsersUserIdDisableCredentialTypesPath = {
 	userId: string;
 };
 
-export type PUTAdminRealmsRealmUsersUserIdDisableCredentialTypesStatus204 = unknown;
+export type PUTAdminRealmsRealmUsersUserIdDisableCredentialTypesStatus204 = void;
 
 export type PUTAdminRealmsRealmUsersUserIdDisableCredentialTypesStatus403 = unknown;
 
@@ -17497,7 +17488,7 @@ export type PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailQuery = {
 	redirect_uri?: string | undefined;
 };
 
-export type PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailStatus204 = unknown;
+export type PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailStatus204 = void;
 
 export type PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailStatus400 = unknown;
 
@@ -17576,7 +17567,7 @@ export type POSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderPath = {
 	provider: string;
 };
 
-export type POSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus204 = unknown;
+export type POSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus204 = void;
 
 export type POSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus403 = unknown;
 
@@ -17619,7 +17610,7 @@ export type DELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderPath = {
 	provider: string;
 };
 
-export type DELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus204 = unknown;
+export type DELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus204 = void;
 
 export type DELETEAdminRealmsRealmUsersUserIdFederatedIdentityProviderStatus403 = unknown;
 
@@ -17743,7 +17734,7 @@ export type PUTAdminRealmsRealmUsersUserIdGroupsGroupIdPath = {
 	groupId: string;
 };
 
-export type PUTAdminRealmsRealmUsersUserIdGroupsGroupIdStatus204 = unknown;
+export type PUTAdminRealmsRealmUsersUserIdGroupsGroupIdStatus204 = void;
 
 export type PUTAdminRealmsRealmUsersUserIdGroupsGroupIdStatus403 = unknown;
 
@@ -17778,7 +17769,7 @@ export type DELETEAdminRealmsRealmUsersUserIdGroupsGroupIdPath = {
 	groupId: string;
 };
 
-export type DELETEAdminRealmsRealmUsersUserIdGroupsGroupIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmUsersUserIdGroupsGroupIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmUsersUserIdGroupsGroupIdStatus400 = unknown;
 
@@ -17854,7 +17845,7 @@ export type POSTAdminRealmsRealmUsersUserIdLogoutPath = {
 	userId: string;
 };
 
-export type POSTAdminRealmsRealmUsersUserIdLogoutStatus204 = unknown;
+export type POSTAdminRealmsRealmUsersUserIdLogoutStatus204 = void;
 
 export type POSTAdminRealmsRealmUsersUserIdLogoutStatus403 = unknown;
 
@@ -17921,7 +17912,7 @@ export type PUTAdminRealmsRealmUsersUserIdResetPasswordPath = {
 	userId: string;
 };
 
-export type PUTAdminRealmsRealmUsersUserIdResetPasswordStatus204 = unknown;
+export type PUTAdminRealmsRealmUsersUserIdResetPasswordStatus204 = void;
 
 export type PUTAdminRealmsRealmUsersUserIdResetPasswordStatus400 = unknown;
 
@@ -17973,7 +17964,7 @@ export type PUTAdminRealmsRealmUsersUserIdResetPasswordEmailQuery = {
 	redirect_uri?: string | undefined;
 };
 
-export type PUTAdminRealmsRealmUsersUserIdResetPasswordEmailStatus204 = unknown;
+export type PUTAdminRealmsRealmUsersUserIdResetPasswordEmailStatus204 = void;
 
 export type PUTAdminRealmsRealmUsersUserIdResetPasswordEmailStatus400 = unknown;
 
@@ -18087,7 +18078,7 @@ export type POSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdPath = {
 	clientId: string;
 };
 
-export type POSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdStatus204 = unknown;
+export type POSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdStatus204 = void;
 
 export type POSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdBody =
 	| RoleRepresentation[]
@@ -18124,7 +18115,7 @@ export type DELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdPath = {
 	clientId: string;
 };
 
-export type DELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdStatus204 = unknown;
+export type DELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdStatus204 = void;
 
 export type DELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdBody =
 	| RoleRepresentation[]
@@ -18264,7 +18255,7 @@ export type POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmPath = {
 	userId: string;
 };
 
-export type POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus204 = unknown;
+export type POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus204 = void;
 
 export type POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus400 = unknown;
 
@@ -18306,7 +18297,7 @@ export type DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmPath = {
 	userId: string;
 };
 
-export type DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus204 = unknown;
+export type DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus204 = void;
 
 export type DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus400 = unknown;
 
@@ -18443,7 +18434,7 @@ export type PUTAdminRealmsRealmUsersUserIdSendVerifyEmailQuery = {
 	redirect_uri?: string | undefined;
 };
 
-export type PUTAdminRealmsRealmUsersUserIdSendVerifyEmailStatus204 = unknown;
+export type PUTAdminRealmsRealmUsersUserIdSendVerifyEmailStatus204 = void;
 
 export type PUTAdminRealmsRealmUsersUserIdSendVerifyEmailStatus400 = unknown;
 

@@ -26658,7 +26658,7 @@ export const deleteFeedbackLensFeedbackDeleteQueryUserSchema = z
 	.optional()
 	.default("");
 
-export const deleteFeedbackLensFeedbackDeleteStatus204Schema = z.unknown();
+export const deleteFeedbackLensFeedbackDeleteStatus204Schema = z.void();
 
 export const deleteFeedbackLensFeedbackDeleteStatus422Schema = HTTPValidationErrorSchema;
 
@@ -33757,7 +33757,7 @@ export const deleteGroupScimV2GroupsGroupIdDeleteQueryFeatureSchema = z
 	.union([z.string(), z.null()])
 	.optional();
 
-export const deleteGroupScimV2GroupsGroupIdDeleteStatus204Schema = z.unknown();
+export const deleteGroupScimV2GroupsGroupIdDeleteStatus204Schema = z.void();
 
 export const deleteGroupScimV2GroupsGroupIdDeleteStatus422Schema = HTTPValidationErrorSchema;
 
@@ -34002,7 +34002,7 @@ export const deleteUserScimV2UsersUserIdDeleteQueryFeatureSchema = z
 	.union([z.string(), z.null()])
 	.optional();
 
-export const deleteUserScimV2UsersUserIdDeleteStatus204Schema = z.unknown();
+export const deleteUserScimV2UsersUserIdDeleteStatus204Schema = z.void();
 
 export const deleteUserScimV2UsersUserIdDeleteStatus422Schema = HTTPValidationErrorSchema;
 
@@ -34623,7 +34623,7 @@ export const createAccessGroupV1AccessGroupPostBodySchema = accessGroupCreateReq
 
 export const deleteAccessGroupV1AccessGroupAccessGroupIdDeletePathAccessGroupIdSchema = z.string();
 
-export const deleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus204Schema = z.unknown();
+export const deleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus204Schema = z.void();
 
 export const deleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus422Schema =
 	HTTPValidationErrorSchema;
@@ -34696,7 +34696,7 @@ export const createAccessGroupV1UnifiedAccessGroupPostBodySchema = accessGroupCr
 export const deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeletePathAccessGroupIdSchema =
 	z.string();
 
-export const deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus204Schema = z.unknown();
+export const deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus204Schema = z.void();
 
 export const deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus422Schema =
 	HTTPValidationErrorSchema;

@@ -724,7 +724,7 @@ export const updateArchivedFilePathFileIdSchema = z
 	.describe("Archived file ID.")
 	.meta({ examples: ["a5983951-044e-473f-9acd-5c398c0a8cce"] });
 
-export const updateArchivedFileStatus204Schema = z.unknown();
+export const updateArchivedFileStatus204Schema = z.void();
 
 export const updateArchivedFileStatus400Schema = z.unknown();
 
@@ -1091,7 +1091,7 @@ export const deleteArchivedFilesPathMeetingUUIDSchema = z
 	)
 	.meta({ examples: ["4444AAAiAAAAAiAiAiiAii=="] });
 
-export const deleteArchivedFilesStatus204Schema = z.unknown();
+export const deleteArchivedFilesStatus204Schema = z.void();
 
 export const deleteArchivedFilesStatus400Schema = z.unknown();
 
@@ -1537,7 +1537,7 @@ export const recordingDeleteQueryActionSchema = z
 	)
 	.meta({ examples: ["delete"] });
 
-export const recordingDeleteStatus204Schema = z.unknown();
+export const recordingDeleteStatus204Schema = z.void();
 
 export const recordingDeleteStatus400Schema = z.unknown();
 
@@ -2416,7 +2416,7 @@ export const recordingRegistrantQuestionUpdatePathMeetingIdSchema = z
 	)
 	.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] });
 
-export const recordingRegistrantQuestionUpdateStatus204Schema = z.unknown();
+export const recordingRegistrantQuestionUpdateStatus204Schema = z.void();
 
 export const recordingRegistrantQuestionUpdateStatus404Schema = z.unknown();
 
@@ -2510,7 +2510,7 @@ export const meetingRecordingRegistrantStatusPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
-export const meetingRecordingRegistrantStatusStatus204Schema = z.unknown();
+export const meetingRecordingRegistrantStatusStatus204Schema = z.void();
 
 export const meetingRecordingRegistrantStatusStatus404Schema = z.unknown();
 
@@ -2672,7 +2672,7 @@ export const recordingSettingsUpdatePathMeetingIdSchema = z
 	)
 	.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] });
 
-export const recordingSettingsUpdateStatus204Schema = z.unknown();
+export const recordingSettingsUpdateStatus204Schema = z.void();
 
 export const recordingSettingsUpdateStatus404Schema = z.unknown();
 
@@ -2792,7 +2792,7 @@ export const recordingDeleteOneQueryActionSchema = z
 	)
 	.meta({ examples: ["delete"] });
 
-export const recordingDeleteOneStatus204Schema = z.unknown();
+export const recordingDeleteOneStatus204Schema = z.void();
 
 export const recordingDeleteOneStatus400Schema = z.unknown();
 
@@ -2844,7 +2844,7 @@ export const recordingStatusUpdateOnePathRecordingIdSchema = z
 	.describe("The recording ID.")
 	.meta({ examples: ["a2f19f96-9294-4f51-8134-6f0eea108eb2"] });
 
-export const recordingStatusUpdateOneStatus204Schema = z.unknown();
+export const recordingStatusUpdateOneStatus204Schema = z.void();
 
 export const recordingStatusUpdateOneStatus400Schema = z.unknown();
 
@@ -3829,7 +3829,7 @@ export const getzdmgroupinfoQuerySchema = z.object({
 		.meta({ examples: ["BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2"] }),
 });
 
-export const assigndevicetoauserCommonareaStatus204Schema = z.unknown();
+export const assigndevicetoauserCommonareaStatus204Schema = z.void();
 
 export const assigndevicetoauserCommonareaStatus400Schema = z.unknown();
 
@@ -4043,7 +4043,7 @@ export const deleteZpaDeviceByVendorAndMacAddressPathMacAddressSchema = z
 	.describe("The device's mac address.")
 	.meta({ examples: ["64167ffc0ed7"] });
 
-export const deleteZpaDeviceByVendorAndMacAddressStatus204Schema = z.unknown();
+export const deleteZpaDeviceByVendorAndMacAddressStatus204Schema = z.void();
 
 export const deleteZpaDeviceByVendorAndMacAddressStatus400Schema = z.unknown();
 
@@ -4277,7 +4277,7 @@ export const deleteDevicePathDeviceIdSchema = z
 	.describe("Unique identifier of the device.")
 	.meta({ examples: ["F1C6E9DF-429E-4FA1-85DA-AC95464F3D18"] });
 
-export const deleteDeviceStatus204Schema = z.unknown();
+export const deleteDeviceStatus204Schema = z.void();
 
 export const deleteDeviceStatus400Schema = z.unknown();
 
@@ -4305,7 +4305,7 @@ export const updateDevicePathDeviceIdSchema = z
 	.describe("Unique identifier of the device.")
 	.meta({ examples: ["F1C6E9DF-429E-4FA1-85DA-AC95464F3D18"] });
 
-export const updateDeviceStatus204Schema = z.unknown();
+export const updateDeviceStatus204Schema = z.void();
 
 export const updateDeviceStatus400Schema = z.unknown();
 
@@ -4364,7 +4364,7 @@ export const assginGroupQueryGroupIdSchema = z
 	.describe("The group's ID.")
 	.meta({ examples: ["12as-asdas-sas-12asd-as01"] });
 
-export const assginGroupStatus204Schema = z.unknown();
+export const assginGroupStatus204Schema = z.void();
 
 export const assginGroupStatus400Schema = z.unknown();
 
@@ -4402,7 +4402,7 @@ export const changeDeviceAssociationPathDeviceIdSchema = z
 	.describe("The device's unique identifier.")
 	.meta({ examples: ["F1C6E9DF-429E-4FA1-85DA-AC95464F3D18"] });
 
-export const changeDeviceAssociationStatus204Schema = z.unknown();
+export const changeDeviceAssociationStatus204Schema = z.void();
 
 export const changeDeviceAssociationStatus400Schema = z.unknown();
 
@@ -4693,7 +4693,7 @@ export const deviceUpdatePathDeviceIdSchema = z
 	.describe("The device ID.")
 	.meta({ examples: ["abceHewahkrehwiK"] });
 
-export const deviceUpdateStatus204Schema = z.unknown();
+export const deviceUpdateStatus204Schema = z.void();
 
 export const deviceUpdateStatus400Schema = z.unknown();
 
@@ -4886,7 +4886,7 @@ export const meetingAppDeletePathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
-export const meetingAppDeleteStatus204Schema = z.unknown();
+export const meetingAppDeleteStatus204Schema = z.void();
 
 export const meetingAppDeleteStatus400Schema = z.unknown();
 
@@ -4935,7 +4935,7 @@ export const deleteMeetingChatMessageByIdQueryFileIdsSchema = z
 		],
 	});
 
-export const deleteMeetingChatMessageByIdStatus204Schema = z.unknown();
+export const deleteMeetingChatMessageByIdStatus204Schema = z.void();
 
 export const deleteMeetingChatMessageByIdStatus400Schema = z.unknown();
 
@@ -4991,7 +4991,7 @@ export const updateMeetingChatMessageByIdPathMessageIdSchema = z
 	.describe("The live meeting chat message's unique identifier (UUID), in base64-encoded format.")
 	.meta({ examples: ["MS17MDQ5NjE4QjYtRjk4Ny00REEwLUFBQUItMTg3QTY0RjU2MzhFfQ=="] });
 
-export const updateMeetingChatMessageByIdStatus204Schema = z.unknown();
+export const updateMeetingChatMessageByIdStatus204Schema = z.void();
 
 export const updateMeetingChatMessageByIdStatus400Schema = z.unknown();
 
@@ -6353,7 +6353,7 @@ export const meetingRegistrantQuestionUpdatePathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
-export const meetingRegistrantQuestionUpdateStatus204Schema = z.unknown();
+export const meetingRegistrantQuestionUpdateStatus204Schema = z.void();
 
 export const meetingRegistrantQuestionUpdateStatus400Schema = z.unknown();
 
@@ -6462,7 +6462,7 @@ export const meetingRegistrantStatusQueryOccurrenceIdSchema = z
 	.describe("The meeting or webinar occurrence ID.")
 	.meta({ examples: ["1648194360000"] });
 
-export const meetingRegistrantStatusStatus204Schema = z.unknown();
+export const meetingRegistrantStatusStatus204Schema = z.void();
 
 export const meetingRegistrantStatusStatus400Schema = z.unknown();
 
@@ -6750,7 +6750,7 @@ export const meetingregistrantdeleteQueryOccurrenceIdSchema = z
 	.describe("The meeting occurrence ID.")
 	.meta({ examples: ["approved"] });
 
-export const meetingregistrantdeleteStatus204Schema = z.unknown();
+export const meetingregistrantdeleteStatus204Schema = z.void();
 
 export const meetingregistrantdeleteStatus400Schema = z.unknown();
 
@@ -6891,7 +6891,7 @@ export const meetingLiveStreamUpdatePathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
-export const meetingLiveStreamUpdateStatus204Schema = z.unknown();
+export const meetingLiveStreamUpdateStatus204Schema = z.void();
 
 export const meetingLiveStreamUpdateStatus400Schema = z.unknown();
 
@@ -6951,7 +6951,7 @@ export const meetingLiveStreamStatusUpdatePathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
-export const meetingLiveStreamStatusUpdateStatus204Schema = z.unknown();
+export const meetingLiveStreamStatusUpdateStatus204Schema = z.void();
 
 export const meetingLiveStreamStatusUpdateStatus400Schema = z.unknown();
 
@@ -7131,7 +7131,7 @@ export const deleteMeetingTranscriptPathMeetingIdSchema = z
 	)
 	.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] });
 
-export const deleteMeetingTranscriptStatus204Schema = z.unknown();
+export const deleteMeetingTranscriptStatus204Schema = z.void();
 
 export const deleteMeetingTranscriptStatus400Schema = z.unknown();
 
@@ -7166,7 +7166,7 @@ export const meetingRTMSStatusUpdatePathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
-export const meetingRTMSStatusUpdateStatus204Schema = z.unknown();
+export const meetingRTMSStatusUpdateStatus204Schema = z.void();
 
 export const meetingRTMSStatusUpdateStatus400Schema = z.unknown();
 
@@ -8424,7 +8424,7 @@ export const meetingDeleteQueryCancelMeetingReminderSchema = z
 	)
 	.meta({ examples: [true] });
 
-export const meetingDeleteStatus204Schema = z.unknown();
+export const meetingDeleteStatus204Schema = z.void();
 
 export const meetingDeleteStatus400Schema = z.unknown();
 
@@ -8486,7 +8486,7 @@ export const meetingUpdateQueryOccurrenceIdSchema = z
 	)
 	.meta({ examples: ["1648194360000"] });
 
-export const meetingUpdateStatus204Schema = z.unknown();
+export const meetingUpdateStatus204Schema = z.void();
 
 export const meetingUpdateStatus400Schema = z.unknown();
 
@@ -9557,7 +9557,7 @@ export const meetingStatusPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
-export const meetingStatusStatus204Schema = z.unknown();
+export const meetingStatusStatus204Schema = z.void();
 
 export const meetingStatusStatus400Schema = z.unknown();
 
@@ -13722,7 +13722,7 @@ export const meetingPollUpdatePathPollIdSchema = z
 	.describe("The poll ID.")
 	.meta({ examples: ["QalIoKWLTJehBJ8e1xRrbQ"] });
 
-export const meetingPollUpdateStatus204Schema = z.unknown();
+export const meetingPollUpdateStatus204Schema = z.void();
 
 export const meetingPollUpdateStatus400Schema = z.unknown();
 
@@ -13924,7 +13924,7 @@ export const meetingPollDeletePathPollIdSchema = z
 	.describe("The poll ID")
 	.meta({ examples: ["QalIoKWLTJehBJ8e1xRrbQ"] });
 
-export const meetingPollDeleteStatus204Schema = z.unknown();
+export const meetingPollDeleteStatus204Schema = z.void();
 
 export const meetingPollDeleteStatus400Schema = z.unknown();
 
@@ -18794,7 +18794,7 @@ export const deleteSIPPhonePhonesPathPhoneIdSchema = z
 	.describe("The SIP phone ID. It can be retrieved from the **List SIP phones** API.")
 	.meta({ examples: ["123456"] });
 
-export const deleteSIPPhonePhonesStatus204Schema = z.unknown();
+export const deleteSIPPhonePhonesStatus204Schema = z.void();
 
 export const deleteSIPPhonePhonesStatus401Schema = z.unknown();
 
@@ -18825,7 +18825,7 @@ export const updateSIPPhonePhonesPathPhoneIdSchema = z
 	.describe("The SIP phone ID. Retrieve this with the **List SIP phones** API.")
 	.meta({ examples: ["123456"] });
 
-export const updateSIPPhonePhonesStatus204Schema = z.unknown();
+export const updateSIPPhonePhonesStatus204Schema = z.void();
 
 export const updateSIPPhonePhonesStatus400Schema = z.unknown();
 
@@ -19351,7 +19351,7 @@ export const deletemeetingorwebinarsummaryPathMeetingIdSchema = z
 	)
 	.meta({ examples: ["aDYlohsHRtCd4ii1uC2+hA=="] });
 
-export const deletemeetingorwebinarsummaryStatus204Schema = z.unknown();
+export const deletemeetingorwebinarsummaryStatus204Schema = z.void();
 
 export const deletemeetingorwebinarsummaryStatus400Schema = z.unknown();
 
@@ -19808,7 +19808,7 @@ export const meetingSurveyDeletePathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
-export const meetingSurveyDeleteStatus204Schema = z.unknown();
+export const meetingSurveyDeleteStatus204Schema = z.void();
 
 export const meetingSurveyDeleteStatus400Schema = z.unknown();
 
@@ -19840,7 +19840,7 @@ export const meetingSurveyUpdatePathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
-export const meetingSurveyUpdateStatus204Schema = z.unknown();
+export const meetingSurveyUpdateStatus204Schema = z.void();
 
 export const meetingSurveyUpdateStatus400Schema = z.unknown();
 
@@ -20122,7 +20122,7 @@ export const tspResponseSchema = tspStatus200Schema;
 
 export const tspErrorSchema = tspStatus429Schema;
 
-export const tspUpdateStatus204Schema = z.unknown();
+export const tspUpdateStatus204Schema = z.void();
 
 export const tspUpdateStatus400Schema = z.unknown();
 
@@ -20418,7 +20418,7 @@ export const tspUrlUpdatePathUserIdSchema = z
 	.describe("The user's user ID or email address.")
 	.meta({ examples: ["6dfgdfgdg444447b0egga"] });
 
-export const tspUrlUpdateStatus204Schema = z.unknown();
+export const tspUrlUpdateStatus204Schema = z.void();
 
 export const tspUrlUpdateStatus400Schema = z.unknown();
 
@@ -20560,7 +20560,7 @@ export const userTSPDeletePathTspIdSchema = z
 	.describe("TSP account ID.")
 	.meta({ examples: ["1"] });
 
-export const userTSPDeleteStatus204Schema = z.unknown();
+export const userTSPDeleteStatus204Schema = z.void();
 
 export const userTSPDeleteStatus400Schema = z.unknown();
 
@@ -20597,7 +20597,7 @@ export const userTSPUpdatePathTspIdSchema = z
 	.describe("TSP account ID.")
 	.meta({ examples: ["1"] });
 
-export const userTSPUpdateStatus204Schema = z.unknown();
+export const userTSPUpdateStatus204Schema = z.void();
 
 export const userTSPUpdateStatus400Schema = z.unknown();
 
@@ -20971,7 +20971,7 @@ export const trackingfieldDeletePathFieldIdSchema = z
 	.describe("The tracking field ID.")
 	.meta({ examples: ["a32CJji-weJ92"] });
 
-export const trackingfieldDeleteStatus204Schema = z.unknown();
+export const trackingfieldDeleteStatus204Schema = z.void();
 
 export const trackingfieldDeleteStatus404Schema = z.unknown();
 
@@ -20996,7 +20996,7 @@ export const trackingfieldUpdatePathFieldIdSchema = z
 	.describe("The tracking field ID.")
 	.meta({ examples: ["a32CJji-weJ92"] });
 
-export const trackingfieldUpdateStatus204Schema = z.unknown();
+export const trackingfieldUpdateStatus204Schema = z.void();
 
 export const trackingfieldUpdateStatus400Schema = z.unknown();
 
@@ -21063,7 +21063,7 @@ export const deleteWebinarChatMessageByIdQueryFileIdsSchema = z
 		],
 	});
 
-export const deleteWebinarChatMessageByIdStatus204Schema = z.unknown();
+export const deleteWebinarChatMessageByIdStatus204Schema = z.void();
 
 export const deleteWebinarChatMessageByIdStatus400Schema = z.unknown();
 
@@ -24567,7 +24567,7 @@ export const webinarDeleteQueryCancelWebinarReminderSchema = z
 	)
 	.meta({ examples: [true] });
 
-export const webinarDeleteStatus204Schema = z.unknown();
+export const webinarDeleteStatus204Schema = z.void();
 
 export const webinarDeleteStatus400Schema = z.unknown();
 
@@ -24618,7 +24618,7 @@ export const webinarUpdateQueryOccurrenceIdSchema = z
 	)
 	.meta({ examples: ["1648538280000"] });
 
-export const webinarUpdateStatus204Schema = z.unknown();
+export const webinarUpdateStatus204Schema = z.void();
 
 export const webinarUpdateStatus400Schema = z.unknown();
 
@@ -25619,7 +25619,7 @@ export const deleteWebinarBrandingNameTagQueryNameTagIdsSchema = z
 	.describe("A comma-separated list of the name tag IDs to delete.")
 	.meta({ examples: ["zazQjwDuQkS3Q2EprNd7jQ,AsfE0cx2TFSfqqKbE0BUZg"] });
 
-export const deleteWebinarBrandingNameTagStatus204Schema = z.unknown();
+export const deleteWebinarBrandingNameTagStatus204Schema = z.void();
 
 export const deleteWebinarBrandingNameTagStatus400Schema = z.unknown();
 
@@ -25661,7 +25661,7 @@ export const updateWebinarBrandingNameTagPathNameTagIdSchema = z
 	.describe("The name tag's ID.")
 	.meta({ examples: ["J0sFXN2PSOCGrqTqLRwgAQ"] });
 
-export const updateWebinarBrandingNameTagStatus204Schema = z.unknown();
+export const updateWebinarBrandingNameTagStatus204Schema = z.void();
 
 export const updateWebinarBrandingNameTagStatus400Schema = z.unknown();
 
@@ -25823,7 +25823,7 @@ export const deleteWebinarBrandingVBQueryIdsSchema = z
 	.describe("A comma-separated list of the virtual background file IDs to delete.")
 	.meta({ examples: ["zazQjwDuQkS3Q2EprNd7jQ,AsfE0cx2TFSfqqKbE0BUZg"] });
 
-export const deleteWebinarBrandingVBStatus204Schema = z.unknown();
+export const deleteWebinarBrandingVBStatus204Schema = z.void();
 
 export const deleteWebinarBrandingVBStatus400Schema = z.unknown();
 
@@ -25873,7 +25873,7 @@ export const setWebinarBrandingVBQuerySetDefaultForAllPanelistsSchema = z
 	)
 	.meta({ examples: [true] });
 
-export const setWebinarBrandingVBStatus204Schema = z.unknown();
+export const setWebinarBrandingVBStatus204Schema = z.void();
 
 export const setWebinarBrandingVBStatus400Schema = z.unknown();
 
@@ -25972,7 +25972,7 @@ export const deleteWebinarBrandingWallpaperPathWebinarIdSchema = z
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
-export const deleteWebinarBrandingWallpaperStatus204Schema = z.unknown();
+export const deleteWebinarBrandingWallpaperStatus204Schema = z.void();
 
 export const deleteWebinarBrandingWallpaperStatus400Schema = z.unknown();
 
@@ -26278,7 +26278,7 @@ export const webinarLiveStreamUpdatePathWebinarIdSchema = z
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
-export const webinarLiveStreamUpdateStatus204Schema = z.unknown();
+export const webinarLiveStreamUpdateStatus204Schema = z.void();
 
 export const webinarLiveStreamUpdateStatus400Schema = z.unknown();
 
@@ -26334,7 +26334,7 @@ export const webinarLiveStreamStatusUpdatePathWebinarIdSchema = z
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
-export const webinarLiveStreamStatusUpdateStatus204Schema = z.unknown();
+export const webinarLiveStreamStatusUpdateStatus204Schema = z.void();
 
 export const webinarLiveStreamStatusUpdateStatus400Schema = z.unknown();
 
@@ -26596,7 +26596,7 @@ export const webinarPanelistsDeletePathWebinarIdSchema = z
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
-export const webinarPanelistsDeleteStatus204Schema = z.unknown();
+export const webinarPanelistsDeleteStatus204Schema = z.void();
 
 export const webinarPanelistsDeleteStatus400Schema = z.unknown();
 
@@ -26629,7 +26629,7 @@ export const webinarPanelistDeletePathPanelistIdSchema = z
 	.describe("The panelist's ID or email.")
 	.meta({ examples: ["Tg2b6GhcQKKbV7nSCbDKug"] });
 
-export const webinarPanelistDeleteStatus204Schema = z.unknown();
+export const webinarPanelistDeleteStatus204Schema = z.void();
 
 export const webinarPanelistDeleteStatus400Schema = z.unknown();
 
@@ -27470,7 +27470,7 @@ export const webinarPollUpdatePathPollIdSchema = z
 	.describe("The poll ID.")
 	.meta({ examples: ["QalIoKWLTJehBJ8e1xRrbQ"] });
 
-export const webinarPollUpdateStatus204Schema = z.unknown();
+export const webinarPollUpdateStatus204Schema = z.void();
 
 export const webinarPollUpdateStatus400Schema = z.unknown();
 
@@ -27668,7 +27668,7 @@ export const webinarPollDeletePathPollIdSchema = z
 	.describe("The poll ID")
 	.meta({ examples: ["QalIoKWLTJehBJ8e1xRrbQ"] });
 
-export const webinarPollDeleteStatus204Schema = z.unknown();
+export const webinarPollDeleteStatus204Schema = z.void();
 
 export const webinarPollDeleteStatus400Schema = z.unknown();
 
@@ -28414,7 +28414,7 @@ export const webinarRegistrantQuestionUpdatePathWebinarIdSchema = z
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
-export const webinarRegistrantQuestionUpdateStatus204Schema = z.unknown();
+export const webinarRegistrantQuestionUpdateStatus204Schema = z.void();
 
 export const webinarRegistrantQuestionUpdateStatus400Schema = z.unknown();
 
@@ -28520,7 +28520,7 @@ export const webinarRegistrantStatusQueryOccurrenceIdSchema = z
 	.describe("The meeting or webinar occurrence ID.")
 	.meta({ examples: ["1648194360000"] });
 
-export const webinarRegistrantStatusStatus204Schema = z.unknown();
+export const webinarRegistrantStatusStatus204Schema = z.void();
 
 export const webinarRegistrantStatusStatus400Schema = z.unknown();
 
@@ -28844,7 +28844,7 @@ export const deleteWebinarRegistrantQueryOccurrenceIdSchema = z
 	.describe("The webinar occurrence ID.")
 	.meta({ examples: ["1648538280000"] });
 
-export const deleteWebinarRegistrantStatus204Schema = z.unknown();
+export const deleteWebinarRegistrantStatus204Schema = z.void();
 
 export const deleteWebinarRegistrantStatus400Schema = z.unknown();
 
@@ -29205,7 +29205,7 @@ export const webinarSurveyDeletePathWebinarIdSchema = z
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
-export const webinarSurveyDeleteStatus204Schema = z.unknown();
+export const webinarSurveyDeleteStatus204Schema = z.void();
 
 export const webinarSurveyDeleteStatus400Schema = z.unknown();
 
@@ -29233,7 +29233,7 @@ export const webinarSurveyUpdatePathWebinarIdSchema = z
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
-export const webinarSurveyUpdateStatus204Schema = z.unknown();
+export const webinarSurveyUpdateStatus204Schema = z.void();
 
 export const webinarSurveyUpdateStatus400Schema = z.unknown();
 
