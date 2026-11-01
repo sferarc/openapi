@@ -45728,7 +45728,7 @@ export async function spendPoliciesDelete(
 		config,
 	}: {
 		pathParams: SpendPoliciesDeletePath;
-		headers?: Partial<SpendPoliciesDeleteHeaders>;
+		headers: SpendPoliciesDeleteHeaders;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -45833,7 +45833,7 @@ export async function spendPoliciesUpdate(
 	}: {
 		pathParams: SpendPoliciesUpdatePath;
 		body: SpendPoliciesUpdateBody;
-		headers?: Partial<SpendPoliciesUpdateHeaders>;
+		headers: SpendPoliciesUpdateHeaders;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -97208,7 +97208,7 @@ export async function logpullListLogFiles(
 	}: {
 		pathParams: LogpullListLogFilesPath;
 		queryParams: LogpullListLogFilesQuery;
-		headers?: Partial<LogpullListLogFilesHeaders>;
+		headers: LogpullListLogFilesHeaders;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -97254,7 +97254,7 @@ export async function logpullRetrieveLogs(
 	}: {
 		pathParams: LogpullRetrieveLogsPath;
 		queryParams: LogpullRetrieveLogsQuery;
-		headers?: Partial<LogpullRetrieveLogsHeaders>;
+		headers: LogpullRetrieveLogsHeaders;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -111514,7 +111514,7 @@ export async function r2PatchBucket(
 		config,
 	}: {
 		pathParams: R2PatchBucketPath;
-		headers?: Partial<R2PatchBucketHeaders>;
+		headers: R2PatchBucketHeaders;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -124640,7 +124640,7 @@ export async function streamVideosInitiateVideoUploadsUsingTus(
 	}: {
 		pathParams: StreamVideosInitiateVideoUploadsUsingTusPath;
 		queryParams?: Partial<StreamVideosInitiateVideoUploadsUsingTusQuery>;
-		headers?: Partial<StreamVideosInitiateVideoUploadsUsingTusHeaders>;
+		headers: StreamVideosInitiateVideoUploadsUsingTusHeaders;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -161659,7 +161659,7 @@ export async function precursorForAZoneGetConfig(
 		config,
 	}: {
 		pathParams: PrecursorForAZoneGetConfigPath;
-		headers?: Partial<PrecursorForAZoneGetConfigHeaders>;
+		headers: PrecursorForAZoneGetConfigHeaders;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -161717,7 +161717,7 @@ export async function precursorForAZoneUpdateConfig(
 	}: {
 		pathParams: PrecursorForAZoneUpdateConfigPath;
 		body: PrecursorForAZoneUpdateConfigBody;
-		headers?: Partial<PrecursorForAZoneUpdateConfigHeaders>;
+		headers: PrecursorForAZoneUpdateConfigHeaders;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {

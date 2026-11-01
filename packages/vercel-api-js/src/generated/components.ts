@@ -6031,7 +6031,7 @@ export async function uploadArtifact(
 		pathParams: UploadArtifactPath;
 		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams?: Partial<UploadArtifactQuery>;
-		headers?: Partial<UploadArtifactHeaders>;
+		headers: UploadArtifactHeaders;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {

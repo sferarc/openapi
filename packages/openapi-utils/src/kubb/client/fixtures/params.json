@@ -39,6 +39,32 @@
 				}
 			}
 		},
+		"/policies/{id}": {
+			"delete": {
+				"operationId": "deletePolicy",
+				"tags": ["policies"],
+				"parameters": [
+					{ "name": "id", "in": "path", "required": true, "schema": { "type": "string" } },
+					{ "name": "If-Match", "in": "header", "required": true, "schema": { "type": "string" } },
+					{
+						"name": "X-Trace-Id",
+						"in": "header",
+						"required": false,
+						"schema": { "type": "string" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": { "type": "object", "properties": { "ok": { "type": "boolean" } } }
+							}
+						}
+					}
+				}
+			}
+		},
 		"/zones": {
 			"get": {
 				"operationId": "listZones",

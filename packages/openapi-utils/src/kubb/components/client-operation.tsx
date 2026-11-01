@@ -144,13 +144,17 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 	const isRawBody =
 		hasBody && !isFormData && !isUrlEncoded && !isOtherJson && contentType !== "application/json";
 
-	// plugin-ts types each parameter from its schema, refs and unions included; header params stay optional as before.
+	// plugin-ts types each parameter from its schema, refs and unions included.
 	const pathParamsType = typeSchemas.path?.name ?? "Record<string, never>";
 	const requiresQueryParams = queryParams.some((param) => !param.optional);
 	const queryParamsType = requiresQueryParams
 		? (typeSchemas.query?.name ?? "Record<string, never>")
 		: `Partial<${typeSchemas.query?.name ?? "Record<string, never>"}>`;
-	const headerParamsType = `Partial<${typeSchemas.headers?.name ?? "Record<string, never>"}>`;
+	const requiresHeaderParams = headerParams.some((param) => !param.optional);
+	const headersName = typeSchemas.headers?.name ?? "Record<string, never>";
+	// The fetcher gets the headers merged with config ones, whose type no longer proves the required keys.
+	const fetcherHeadersType = `Partial<${headersName}>`;
+	const headerParamsType = requiresHeaderParams ? headersName : fetcherHeadersType;
 	const bodyType = isRawBody ? RAW_BODY_TYPE : typeSchemas.request?.name;
 
 	const fields: string[] = [];
@@ -165,7 +169,7 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 		fields.push(`queryParams${requiresQueryParams ? "" : "?"}: ${queryParamsType}`);
 	}
 	if (headerParams.length > 0) {
-		fields.push(`headers?: ${headerParamsType}`);
+		fields.push(`headers${requiresHeaderParams ? "" : "?"}: ${headerParamsType}`);
 	}
 	fields.push("config?: Partial<FetcherConfig> & { client?: typeof defaultClient }");
 
@@ -190,7 +194,7 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 						? "string"
 						: bodyType
 			: "null",
-		headerParams.length > 0 ? headerParamsType : "Record<string, string>",
+		headerParams.length > 0 ? fetcherHeadersType : "Record<string, string>",
 		delimitedParams.length > 0
 			? "Record<string, unknown>"
 			: queryParams.length > 0
