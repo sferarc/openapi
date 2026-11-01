@@ -1,9 +1,10 @@
 import type { FetchImpl, RequestInit } from "./fetch";
 import { compactObject } from "./lang";
 
-const baseUrl = "https://api.netlify.com";
+const defaultBaseUrl = "https://api.netlify.com";
 
 export type FetcherConfig = {
+	baseUrl?: string;
 	token?: string | null;
 	fetchImpl?: FetchImpl;
 	basePath?: string;
@@ -65,6 +66,7 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 	pathParams,
 	queryParams,
 	signal,
+	baseUrl = defaultBaseUrl,
 	token = null,
 	basePath = "/api/v1",
 	fetchImpl = fetch as FetchImpl,
@@ -98,8 +100,8 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 				? JSON.stringify(body)
 				: (body as RequestInit["body"]);
 
-		// Every operation path starts with a slash, so one ending the base path would send `//path`.
-		const fullUrl = `${baseUrl}${basePath.replace(/\/+$/, "")}${resolveUrl(url, queryParams, pathParams)}`;
+		// Every operation path starts with a slash, so a base URL or base path ending in one would send `//path`.
+		const fullUrl = `${baseUrl.replace(/\/+$/, "")}${basePath.replace(/\/+$/, "")}${resolveUrl(url, queryParams, pathParams)}`;
 
 		const response = await fetchImpl(fullUrl, {
 			signal,

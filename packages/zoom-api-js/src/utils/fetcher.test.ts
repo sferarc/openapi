@@ -95,6 +95,24 @@ describe("fetcher", () => {
 		).resolves.toEqual({ ok: true });
 	});
 
+	it("sends the request to a custom base URL without doubling its trailing slash", async () => {
+		let requested = "";
+		const fetchImpl: FetchImpl = async (url) => {
+			requested = url;
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		await client({
+			url: "/thing",
+			method: "get",
+			baseUrl: "https://api.zoomgov.com/v2/",
+			fetchImpl,
+		});
+		expect(requested).toBe("https://api.zoomgov.com/v2/thing");
+	});
+
 	describe("query string", () => {
 		const searchOf = async (queryParams: Record<string, unknown>) => {
 			let requested = "";

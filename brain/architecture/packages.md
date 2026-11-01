@@ -24,6 +24,8 @@ A typical client (`packages/vercel-api-js/`):
 | `src/effect.ts` | Effect bindings built with `createEffectApi` from [[shared-utils]]. |
 | `kubb.config.ts` | Spec URL and fixups. |
 
+Every fetcher takes a `baseUrl` in its config and trims a trailing slash from it; without one, `keycloak-api` and `litellm-api` send a relative path and the others use their API's host. So `makeApiLayer({ baseUrl })` and a call's `config: { baseUrl }` reach every client, which a Zoom for Government account needs for `https://api.zoomgov.com/v2` (`src/utils/fetcher.ts` in each client).
+
 Variations: `keycloak-api` has `src/admin/` and `src/account/`, each with its own `generated/`, `types.ts`, `schemas.ts` and `components.ts`, exported as `./admin/*` and `./account/*` in place of the root `types.ts`, `schemas.ts` and `components.ts` (`configs/knip.json`, `packages/keycloak-api/package.json`). `cloudflare-api-js` has no `schemas.ts`, and `cloudflare-api-js`, `keycloak-api` and `litellm-api` have no `effect.ts` or `./effect` entry (directory listings, `exports` in each `package.json`).
 
 ### Fetcher behaviour
