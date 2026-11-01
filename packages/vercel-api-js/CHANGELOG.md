@@ -1,5 +1,12 @@
 # vercel-api-js
 
+## 2.9.0
+
+### Minor Changes
+
+- e278b2c: Send a body with the container registry uploads, whose spec describes it only in prose: the chunk upload (`PATCH /v2/{teamSlug}/{projectSlug}/{repositoryName}/blobs/uploads/{uuid}`) takes the bytes as `application/octet-stream`, the upload completion (`PUT` on the same path) an optional last chunk, and the manifest push (`PUT .../manifests/{reference}`) the manifest as `application/vnd.oci.image.manifest.v1+json`. Before, the generated operations had no `body` and sent none.
+- e278b2c: Add an `onResponse` call option that gets the status and headers of each response before its body is read, and export its `ResponseInfo` type. A call resolves to the parsed body only, so headers such as the `Location` of a container registry upload could not be read before.
+
 ## 2.8.0
 
 ### Minor Changes
