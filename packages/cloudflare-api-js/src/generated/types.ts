@@ -142816,6 +142816,14 @@ export type PagesAssetsUpsertHashesResponses = {
  */
 export type PagesAssetsUpsertHashesResponse = PagesAssetsUpsertHashesStatus200;
 
+export type PostK2ProducePath = {
+  /**
+   * @description Specifies the public ID of the K2 stream.
+   * @type string
+   */
+  streamId: string;
+};
+
 export type PostK2ProduceStatus200 = CloudflareK2K2ProduceResponse;
 
 export type PostK2ProduceStatus400 = CloudflareK2K2ProduceError;
@@ -142826,7 +142834,7 @@ export type PostK2ProduceBody = CloudflareK2K2ProduceRequest;
 
 export type PostK2ProduceOptions = {
   body: PostK2ProduceBody;
-  path?: never | undefined;
+  path: PostK2ProducePath;
   query?: never | undefined;
   headers?: never | undefined;
 };
@@ -224355,6 +224363,14 @@ export type GetSignedUrlResponses = {
  */
 export type GetSignedUrlResponse = GetSignedUrlStatus200;
 
+export type GetK2SubscriptionsPath = {
+  /**
+   * @description Specifies the public ID of the K2 stream.
+   * @type string
+   */
+  streamId: string;
+};
+
 export type GetK2SubscriptionsQuery = {
   /**
    * @description Filters by the exact subscription name, so the list has at most one subscription.
@@ -224372,7 +224388,7 @@ export type GetK2SubscriptionsStatus500 = CloudflareK2K2V4Error;
 
 export type GetK2SubscriptionsOptions = {
   body?: never | undefined;
-  path?: never | undefined;
+  path: GetK2SubscriptionsPath;
   query?: GetK2SubscriptionsQuery | undefined;
   headers?: never | undefined;
 };
@@ -224388,6 +224404,14 @@ export type GetK2SubscriptionsResponses = {
  */
 export type GetK2SubscriptionsResponse = GetK2SubscriptionsStatus200;
 
+export type PostK2SubscriptionsPath = {
+  /**
+   * @description Specifies the public ID of the K2 stream.
+   * @type string
+   */
+  streamId: string;
+};
+
 export type PostK2SubscriptionsStatus200 = CloudflareK2K2SubscriptionIdResponse;
 
 export type PostK2SubscriptionsStatus400 = CloudflareK2K2V4Error;
@@ -224398,7 +224422,7 @@ export type PostK2SubscriptionsBody = CloudflareK2CreateK2SubscriptionRequest;
 
 export type PostK2SubscriptionsOptions = {
   body: PostK2SubscriptionsBody;
-  path?: never | undefined;
+  path: PostK2SubscriptionsPath;
   query?: never | undefined;
   headers?: never | undefined;
 };
@@ -435474,6 +435498,11 @@ export type DeleteK2SubscriptionsBySubscriptionIdPath = {
    * @type string
    */
   subscriptionId: CloudflareK2WorkersK2SubscriptionId;
+  /**
+   * @description Specifies the public ID of the K2 stream.
+   * @type string
+   */
+  streamId: string;
 };
 
 export type DeleteK2SubscriptionsBySubscriptionIdStatus200 = CloudflareK2K2SubscriptionIdResponse;
@@ -435508,6 +435537,11 @@ export type GetK2SubscriptionsBySubscriptionIdPath = {
    * @type string
    */
   subscriptionId: CloudflareK2WorkersK2SubscriptionId;
+  /**
+   * @description Specifies the public ID of the K2 stream.
+   * @type string
+   */
+  streamId: string;
 };
 
 export type GetK2SubscriptionsBySubscriptionIdStatus200 = CloudflareK2K2SubscriptionResponse;
@@ -435549,6 +435583,11 @@ export type PostK2SubscriptionsBySubscriptionIdBatchesByBatchIdAckPath = {
    * @type string
    */
   batchId: CloudflareK2WorkersK2BatchId;
+  /**
+   * @description Specifies the public ID of the K2 stream.
+   * @type string
+   */
+  streamId: string;
 };
 
 export type PostK2SubscriptionsBySubscriptionIdBatchesByBatchIdAckStatus200 = CloudflareK2K2EmptyResponse;
@@ -435592,6 +435631,11 @@ export type PostK2SubscriptionsBySubscriptionIdBatchesByBatchIdExtendPath = {
    * @type string
    */
   batchId: CloudflareK2WorkersK2BatchId;
+  /**
+   * @description Specifies the public ID of the K2 stream.
+   * @type string
+   */
+  streamId: string;
 };
 
 export type PostK2SubscriptionsBySubscriptionIdBatchesByBatchIdExtendStatus200 = CloudflareK2K2ExtendResponse;
@@ -435635,6 +435679,11 @@ export type PostK2SubscriptionsBySubscriptionIdBatchesByBatchIdNackPath = {
    * @type string
    */
   batchId: CloudflareK2WorkersK2BatchId;
+  /**
+   * @description Specifies the public ID of the K2 stream.
+   * @type string
+   */
+  streamId: string;
 };
 
 export type PostK2SubscriptionsBySubscriptionIdBatchesByBatchIdNackStatus200 = CloudflareK2K2EmptyResponse;
@@ -435671,6 +435720,11 @@ export type PostK2SubscriptionsBySubscriptionIdConsumePath = {
    * @type string
    */
   subscriptionId: CloudflareK2WorkersK2SubscriptionId;
+  /**
+   * @description Specifies the public ID of the K2 stream.
+   * @type string
+   */
+  streamId: string;
 };
 
 export type PostK2SubscriptionsBySubscriptionIdConsumeStatus200 = CloudflareK2K2ConsumeResponse;

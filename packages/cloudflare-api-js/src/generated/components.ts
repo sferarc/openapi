@@ -6493,6 +6493,7 @@ import type {
 	GetK2SubscriptionsBySubscriptionIdResponse,
 	GetK2SubscriptionsBySubscriptionIdStatus400,
 	GetK2SubscriptionsBySubscriptionIdStatus500,
+	GetK2SubscriptionsPath,
 	GetK2SubscriptionsQuery,
 	GetK2SubscriptionsResponse,
 	GetK2SubscriptionsStatus400,
@@ -10023,6 +10024,7 @@ import type {
 	PostItemSearchStatus400,
 	PostItemSearchStatus404,
 	PostK2ProduceBody,
+	PostK2ProducePath,
 	PostK2ProduceResponse,
 	PostK2ProduceStatus400,
 	PostK2ProduceStatus500,
@@ -10047,6 +10049,7 @@ import type {
 	PostK2SubscriptionsBySubscriptionIdConsumeResponse,
 	PostK2SubscriptionsBySubscriptionIdConsumeStatus400,
 	PostK2SubscriptionsBySubscriptionIdConsumeStatus500,
+	PostK2SubscriptionsPath,
 	PostK2SubscriptionsResponse,
 	PostK2SubscriptionsStatus400,
 	PostK2SubscriptionsStatus500,
@@ -16193,27 +16196,33 @@ export async function pagesAssetsUpsertHashes(
  */
 export async function postK2Produce(
 	{
+		pathParams,
 		body,
 		config,
 	}: {
+		pathParams: PostK2ProducePath;
 		body: PostK2ProduceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
+	if (pathParams?.streamId == null || String(pathParams.streamId) === "") {
+		throw new Error(`Missing required path parameter: streamId`);
+	}
 	const data = await request<
 		PostK2ProduceResponse,
 		ErrorWrapper<PostK2ProduceStatus400 | PostK2ProduceStatus500>,
 		PostK2ProduceBody,
 		Record<string, string>,
 		Record<string, string>,
-		Record<string, string>
+		PostK2ProducePath
 	>({
 		method: "POST",
 		url: `/produce`,
 		body: body,
 		...requestConfig,
+		baseUrl: `https://${encodeURIComponent(String(pathParams.streamId))}.k2.cloudflarestorage.com`,
 		headers: { ...requestConfig.headers },
 	});
 
@@ -25530,27 +25539,33 @@ export async function getSignedUrl(
  */
 export async function getK2Subscriptions(
 	{
+		pathParams,
 		queryParams,
 		config,
 	}: {
+		pathParams: GetK2SubscriptionsPath;
 		queryParams?: Partial<GetK2SubscriptionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
+	if (pathParams?.streamId == null || String(pathParams.streamId) === "") {
+		throw new Error(`Missing required path parameter: streamId`);
+	}
 	const data = await request<
 		GetK2SubscriptionsResponse,
 		ErrorWrapper<GetK2SubscriptionsStatus400 | GetK2SubscriptionsStatus500>,
 		null,
 		Record<string, string>,
 		Partial<GetK2SubscriptionsQuery>,
-		Record<string, string>
+		GetK2SubscriptionsPath
 	>({
 		method: "GET",
 		url: `/subscriptions`,
 		queryParams,
 		...requestConfig,
+		baseUrl: `https://${encodeURIComponent(String(pathParams.streamId))}.k2.cloudflarestorage.com`,
 		headers: { ...requestConfig.headers },
 	});
 
@@ -25564,27 +25579,33 @@ export async function getK2Subscriptions(
  */
 export async function postK2Subscriptions(
 	{
+		pathParams,
 		body,
 		config,
 	}: {
+		pathParams: PostK2SubscriptionsPath;
 		body: PostK2SubscriptionsBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
+	if (pathParams?.streamId == null || String(pathParams.streamId) === "") {
+		throw new Error(`Missing required path parameter: streamId`);
+	}
 	const data = await request<
 		PostK2SubscriptionsResponse,
 		ErrorWrapper<PostK2SubscriptionsStatus400 | PostK2SubscriptionsStatus500>,
 		PostK2SubscriptionsBody,
 		Record<string, string>,
 		Record<string, string>,
-		Record<string, string>
+		PostK2SubscriptionsPath
 	>({
 		method: "POST",
 		url: `/subscriptions`,
 		body: body,
 		...requestConfig,
+		baseUrl: `https://${encodeURIComponent(String(pathParams.streamId))}.k2.cloudflarestorage.com`,
 		headers: { ...requestConfig.headers },
 	});
 
@@ -141786,6 +141807,10 @@ export async function deleteK2SubscriptionsBySubscriptionId(
 	if (pathParams?.subscriptionId == null || String(pathParams.subscriptionId) === "") {
 		throw new Error(`Missing required path parameter: subscriptionId`);
 	}
+
+	if (pathParams?.streamId == null || String(pathParams.streamId) === "") {
+		throw new Error(`Missing required path parameter: streamId`);
+	}
 	const data = await request<
 		DeleteK2SubscriptionsBySubscriptionIdResponse,
 		ErrorWrapper<
@@ -141800,6 +141825,7 @@ export async function deleteK2SubscriptionsBySubscriptionId(
 		method: "DELETE",
 		url: `/subscriptions/${encodeURIComponent(String(pathParams.subscriptionId))}`,
 		...requestConfig,
+		baseUrl: `https://${encodeURIComponent(String(pathParams.streamId))}.k2.cloudflarestorage.com`,
 		headers: { ...requestConfig.headers },
 	});
 
@@ -141825,6 +141851,10 @@ export async function getK2SubscriptionsBySubscriptionId(
 	if (pathParams?.subscriptionId == null || String(pathParams.subscriptionId) === "") {
 		throw new Error(`Missing required path parameter: subscriptionId`);
 	}
+
+	if (pathParams?.streamId == null || String(pathParams.streamId) === "") {
+		throw new Error(`Missing required path parameter: streamId`);
+	}
 	const data = await request<
 		GetK2SubscriptionsBySubscriptionIdResponse,
 		ErrorWrapper<
@@ -141838,6 +141868,7 @@ export async function getK2SubscriptionsBySubscriptionId(
 		method: "GET",
 		url: `/subscriptions/${encodeURIComponent(String(pathParams.subscriptionId))}`,
 		...requestConfig,
+		baseUrl: `https://${encodeURIComponent(String(pathParams.streamId))}.k2.cloudflarestorage.com`,
 		headers: { ...requestConfig.headers },
 	});
 
@@ -141869,6 +141900,10 @@ export async function postK2SubscriptionsBySubscriptionIdBatchesByBatchIdAck(
 	if (pathParams?.batchId == null || String(pathParams.batchId) === "") {
 		throw new Error(`Missing required path parameter: batchId`);
 	}
+
+	if (pathParams?.streamId == null || String(pathParams.streamId) === "") {
+		throw new Error(`Missing required path parameter: streamId`);
+	}
 	const data = await request<
 		PostK2SubscriptionsBySubscriptionIdBatchesByBatchIdAckResponse,
 		ErrorWrapper<
@@ -141884,6 +141919,7 @@ export async function postK2SubscriptionsBySubscriptionIdBatchesByBatchIdAck(
 		url: `/subscriptions/${encodeURIComponent(String(pathParams.subscriptionId))}/batches/${encodeURIComponent(String(pathParams.batchId))}/ack`,
 		body: body,
 		...requestConfig,
+		baseUrl: `https://${encodeURIComponent(String(pathParams.streamId))}.k2.cloudflarestorage.com`,
 		headers: { ...requestConfig.headers },
 	});
 
@@ -141915,6 +141951,10 @@ export async function postK2SubscriptionsBySubscriptionIdBatchesByBatchIdExtend(
 	if (pathParams?.batchId == null || String(pathParams.batchId) === "") {
 		throw new Error(`Missing required path parameter: batchId`);
 	}
+
+	if (pathParams?.streamId == null || String(pathParams.streamId) === "") {
+		throw new Error(`Missing required path parameter: streamId`);
+	}
 	const data = await request<
 		PostK2SubscriptionsBySubscriptionIdBatchesByBatchIdExtendResponse,
 		ErrorWrapper<
@@ -141930,6 +141970,7 @@ export async function postK2SubscriptionsBySubscriptionIdBatchesByBatchIdExtend(
 		url: `/subscriptions/${encodeURIComponent(String(pathParams.subscriptionId))}/batches/${encodeURIComponent(String(pathParams.batchId))}/extend`,
 		body: body,
 		...requestConfig,
+		baseUrl: `https://${encodeURIComponent(String(pathParams.streamId))}.k2.cloudflarestorage.com`,
 		headers: { ...requestConfig.headers },
 	});
 
@@ -141961,6 +142002,10 @@ export async function postK2SubscriptionsBySubscriptionIdBatchesByBatchIdNack(
 	if (pathParams?.batchId == null || String(pathParams.batchId) === "") {
 		throw new Error(`Missing required path parameter: batchId`);
 	}
+
+	if (pathParams?.streamId == null || String(pathParams.streamId) === "") {
+		throw new Error(`Missing required path parameter: streamId`);
+	}
 	const data = await request<
 		PostK2SubscriptionsBySubscriptionIdBatchesByBatchIdNackResponse,
 		ErrorWrapper<
@@ -141976,6 +142021,7 @@ export async function postK2SubscriptionsBySubscriptionIdBatchesByBatchIdNack(
 		url: `/subscriptions/${encodeURIComponent(String(pathParams.subscriptionId))}/batches/${encodeURIComponent(String(pathParams.batchId))}/nack`,
 		body: body,
 		...requestConfig,
+		baseUrl: `https://${encodeURIComponent(String(pathParams.streamId))}.k2.cloudflarestorage.com`,
 		headers: { ...requestConfig.headers },
 	});
 
@@ -142003,6 +142049,10 @@ export async function postK2SubscriptionsBySubscriptionIdConsume(
 	if (pathParams?.subscriptionId == null || String(pathParams.subscriptionId) === "") {
 		throw new Error(`Missing required path parameter: subscriptionId`);
 	}
+
+	if (pathParams?.streamId == null || String(pathParams.streamId) === "") {
+		throw new Error(`Missing required path parameter: streamId`);
+	}
 	const data = await request<
 		PostK2SubscriptionsBySubscriptionIdConsumeResponse,
 		ErrorWrapper<
@@ -142018,6 +142068,7 @@ export async function postK2SubscriptionsBySubscriptionIdConsume(
 		url: `/subscriptions/${encodeURIComponent(String(pathParams.subscriptionId))}/consume`,
 		body: body,
 		...requestConfig,
+		baseUrl: `https://${encodeURIComponent(String(pathParams.streamId))}.k2.cloudflarestorage.com`,
 		headers: { ...requestConfig.headers },
 	});
 

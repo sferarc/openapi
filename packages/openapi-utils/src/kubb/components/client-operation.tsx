@@ -292,6 +292,11 @@ ${delimitedParams
 	else if (queryParams.length > 0) clientCallParts.push("queryParams");
 	if (bodyExpression !== undefined) clientCallParts.push(`body: ${bodyExpression}`);
 	clientCallParts.push("...requestConfig");
+	// An operation served from its own host (`inlinePathServers`) ignores the client's base URL.
+	const serverUrl: unknown = node.extensions?.["x-server-url"];
+	if (typeof serverUrl === "string") {
+		clientCallParts.push(`baseUrl: \`${buildUrlTemplate(serverUrl)}\``);
+	}
 	clientCallParts.push(`headers: { ${headerEntries.join(", ")} }`);
 
 	const callArgs = `{\n\t\t${clientCallParts.join(",\n\t\t")},\n\t}`;
