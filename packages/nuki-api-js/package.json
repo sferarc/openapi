@@ -1,6 +1,6 @@
 {
 	"name": "nuki-api-js",
-	"version": "3.0.3",
+	"version": "3.0.4",
 	"description": "Nuki auto-generated type-safe API client",
 	"type": "module",
 	"author": "SferaDev",
