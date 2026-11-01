@@ -1,9 +1,10 @@
 import type { FetchImpl } from "./fetch";
 import { compactObject } from "./lang";
 
-const baseUrl = "https://api.nuki.io";
+const defaultBaseUrl = "https://api.nuki.io";
 
 export type FetcherConfig = {
+	baseUrl?: string;
 	token?: string | null;
 	fetchImpl?: FetchImpl;
 	headers?: Record<string, any>;
@@ -52,6 +53,7 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 	pathParams,
 	queryParams,
 	signal,
+	baseUrl = defaultBaseUrl,
 	token = null,
 	fetchImpl = fetch as FetchImpl,
 }: FetcherOptions<TBody, THeaders, TQueryParams, TPathParams>): Promise<TData> {
@@ -80,7 +82,8 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 					? JSON.stringify(body)
 					: (body as unknown as string);
 
-		const fullUrl = `${baseUrl}${resolveUrl(url, queryParams, pathParams)}`;
+		// Every operation path starts with a slash, so one ending the base URL would send `//path`.
+		const fullUrl = `${baseUrl.replace(/\/+$/, "")}${resolveUrl(url, queryParams, pathParams)}`;
 
 		const response = await fetchImpl(fullUrl, {
 			signal,

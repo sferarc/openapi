@@ -27,4 +27,19 @@ describe("effect bindings", () => {
 		});
 		expect(error).toBeInstanceOf(NetworkError);
 	});
+
+	it("send the request to the layer's baseUrl", async () => {
+		let requested = "";
+		const fetchImpl = async (url: string) => {
+			requested = url;
+			return new Response("{}", { headers: { "content-type": "application/json" } });
+		};
+		await Effect.runPromise(
+			operation({}).pipe(
+				Effect.provide(Layer.succeed(ApiConfig, { fetchImpl, baseUrl: "https://proxy.test/" })),
+			),
+		);
+		expect(requested.startsWith("https://proxy.test/")).toBe(true);
+		expect(requested).not.toContain("proxy.test//");
+	});
 });

@@ -63,6 +63,8 @@ await Effect.runPromise(
 );
 ```
 
+`makeApiLayer` also takes a `baseUrl`, for example `https://api.zoomgov.com/v2` for a Zoom for Government account; a single call can pass it as `config: { baseUrl }`.
+
 Errors are typed as `ApiError`, `NetworkError` and `ValidationError`. An HTTP error response fails with `ApiError`, which carries the HTTP `status`; a request that never gets a response fails with `NetworkError`.
 
 ## Entrypoints

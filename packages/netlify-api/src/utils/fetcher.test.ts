@@ -109,6 +109,19 @@ describe("fetcher", () => {
 		expect(requested).toBe("https://api.netlify.com/api/v1/thing");
 	});
 
+	it("sends the request to a custom base URL without doubling its trailing slash", async () => {
+		let requested = "";
+		const fetchImpl: FetchImpl = async (url) => {
+			requested = url;
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		await client({ url: "/thing", method: "get", baseUrl: "http://localhost:4010/", fetchImpl });
+		expect(requested).toBe("http://localhost:4010/api/v1/thing");
+	});
+
 	describe("query string", () => {
 		const searchOf = async (queryParams: Record<string, unknown>) => {
 			let requested = "";
