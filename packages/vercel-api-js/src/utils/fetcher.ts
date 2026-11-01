@@ -9,6 +9,8 @@ export type FetcherConfig = {
 	fetchImpl?: FetchImpl;
 	headers?: Record<string, any>;
 	signal?: AbortSignal | undefined;
+	/** How a line-delimited JSON response resolves: `"array"` (the default) once the body ends, `"stream"` as an async iterable of each line as it arrives. */
+	jsonLines?: "array" | "stream";
 };
 
 /** What a failed request rejects with: the HTTP status and the parsed error body, or the raw body text, truncated, when it is not JSON. */
@@ -60,6 +62,31 @@ const parseJsonLines = (text: string): unknown[] =>
 		.filter((line) => line.trim())
 		.map((line) => JSON.parse(line));
 
+/** Whether a call made with `jsonLines: "stream"` resolved to a stream of parsed lines rather than a body read whole. */
+export const isJsonLineStream = (value: unknown): value is AsyncIterable<unknown> =>
+	typeof value === "object" && value !== null && Symbol.asyncIterator in value;
+
+// Yields each line as soon as its newline arrives, so a body the server keeps open is read while it grows.
+async function* readJsonLines(body: ReadableStream<Uint8Array>): AsyncGenerator<unknown> {
+	const reader = body.getReader();
+	const decoder = new TextDecoder();
+	let pending = "";
+	try {
+		while (true) {
+			const { done, value } = await reader.read();
+			if (done) break;
+			const lines = (pending + decoder.decode(value, { stream: true })).split(/\r?\n/);
+			pending = lines.pop() ?? "";
+			for (const line of lines) if (line.trim()) yield JSON.parse(line);
+		}
+		pending += decoder.decode();
+		if (pending.trim()) yield JSON.parse(pending);
+	} finally {
+		// Releases the connection when the caller stops early; on a failed read the read's own error is the one thrown.
+		await reader.cancel().catch(() => {});
+	}
+}
+
 const isJsonMediaType = (contentType: string | undefined) =>
 	contentType?.split(";")[0]?.trim().toLowerCase() === "application/json";
 
@@ -83,6 +110,7 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 	headers,
 	queryParams,
 	signal,
+	jsonLines = "array",
 	baseUrl = defaultBaseUrl,
 	token = null,
 	fetchImpl = fetch as FetchImpl,
@@ -151,6 +179,10 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 			const blob = await response.blob();
 			if (!blob.size) return undefined as TData;
 			return blob as unknown as TData;
+		}
+
+		if (jsonLines === "stream" && response.body && isLineDelimitedJson(contentType)) {
+			return readJsonLines(response.body) as unknown as TData;
 		}
 
 		// A 204 or an empty body (common on DELETE) has nothing to parse.

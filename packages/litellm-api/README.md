@@ -47,6 +47,24 @@ const client = new LiteLLMApi({
 });
 ```
 
+### Line-delimited JSON
+
+An operation that answers with line-delimited JSON (`application/x-ndjson` and similar), such as the Lens dataset export, resolves to an array with one parsed value per line once the body ends. To read each line as it arrives, for example from a stream the server keeps open, pass `jsonLines: "stream"` in `config` and iterate the result:
+
+```ts
+import { isJsonLineStream } from "litellm-api";
+
+const rows = await client.request("GET /lens/datasets/{dataset_id}/export", {
+  pathParams: { dataset_id: datasetId },
+  config: { jsonLines: "stream" },
+});
+if (isJsonLineStream(rows)) {
+  for await (const line of rows) console.log(line);
+}
+```
+
+Leaving the loop early cancels the response body. A response of another type resolves as usual, and so does any response when a custom `fetch` returns no `body`.
+
 ## Errors
 
 A call that gets an HTTP error response rejects with `{ status, payload }`: `status` is the HTTP status code and `payload` is the parsed JSON error body, or the raw body text, up to 1000 characters, when it is not JSON. A request that gets no response at all, for example because the network failed, rejects with an `Error` whose message names the method, the path and the reason, and whose `cause` is the original exception. A request cancelled through `signal` rejects with what the signal was aborted with, as is: the `AbortError`, or the `TimeoutError` of `AbortSignal.timeout()`.

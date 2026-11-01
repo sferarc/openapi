@@ -1,16 +1,43 @@
 import { describe, expect, expectTypeOf, it } from "vitest";
-import { createAccessGroup, readAccessGroup, runSessionCommand } from "../generated/components";
+import {
+	createAccessGroup,
+	getRuntimeLogs,
+	readAccessGroup,
+	runSessionCommand,
+} from "../generated/components";
 import type {
 	RunSessionCommandStatus200Json,
 	RunSessionCommandStatus200XNdjson,
 } from "../generated/types";
 import type { FetchImpl, RequestInit } from "./fetch";
-import client from "./fetcher";
+import client, { isJsonLineStream } from "./fetcher";
 
 const respond =
 	(status: number, body: string, contentType = "application/json"): FetchImpl =>
 	async () =>
 		new Response(body, { status, headers: { "content-type": contentType } }) as never;
+
+// An ndjson body that stays open until the test closes it, as a log stream would.
+const openNdjsonBody = () => {
+	const encoder = new TextEncoder();
+	let source: ReadableStreamDefaultController<Uint8Array> | undefined;
+	const state = { cancelled: false };
+	const body = new ReadableStream<Uint8Array>({
+		start: (controller) => {
+			source = controller;
+		},
+		cancel: () => {
+			state.cancelled = true;
+		},
+	});
+	const fetchImpl: FetchImpl = async () =>
+		new Response(body, {
+			status: 200,
+			headers: { "content-type": "application/x-ndjson" },
+		}) as never;
+	const push = (chunk: string) => source?.enqueue(encoder.encode(chunk));
+	return { fetchImpl, push, state };
+};
 
 describe("fetcher", () => {
 	it("rejects an HTTP error with its status and parsed body", async () => {
@@ -112,6 +139,46 @@ describe("fetcher", () => {
 			).resolves.toEqual([{ id: 1 }, { id: 2 }]);
 		},
 	);
+
+	it('reads getRuntimeLogs line by line with jsonLines: "stream" while the body stays open', async () => {
+		const { fetchImpl, push, state } = openNdjsonBody();
+		const lines = await getRuntimeLogs({
+			pathParams: { projectId: "prj_1", deploymentId: "dpl_1" },
+			config: { jsonLines: "stream", fetchImpl },
+		});
+		if (!isJsonLineStream(lines)) throw new Error("expected a stream of lines");
+		const iterator = lines[Symbol.asyncIterator]();
+		push('{"id":1}\r\n{"id"');
+		await expect(iterator.next()).resolves.toEqual({ done: false, value: { id: 1 } });
+		push(":2}\n\n");
+		await expect(iterator.next()).resolves.toEqual({ done: false, value: { id: 2 } });
+		await iterator.return?.();
+		expect(state.cancelled).toBe(true);
+	});
+
+	it('ends a jsonLines: "stream" read with the last line when it has no newline', async () => {
+		const lines = await client({
+			url: "/thing",
+			method: "get",
+			jsonLines: "stream",
+			fetchImpl: respond(200, '{"id":1}\n{"id":2}', "application/x-ndjson"),
+		});
+		if (!isJsonLineStream(lines)) throw new Error("expected a stream of lines");
+		const values: unknown[] = [];
+		for await (const line of lines) values.push(line);
+		expect(values).toEqual([{ id: 1 }, { id: 2 }]);
+	});
+
+	it('parses a JSON response whole with jsonLines: "stream"', async () => {
+		await expect(
+			client({
+				url: "/thing",
+				method: "get",
+				jsonLines: "stream",
+				fetchImpl: respond(200, '{"ok":true}'),
+			}),
+		).resolves.toEqual({ ok: true });
+	});
 
 	it("types runSessionCommand as its JSON body or the ndjson lines it resolves to with wait", async () => {
 		const line = { command: { id: "cmd_1", exitCode: 0 }, data: "", stream: "status" };
