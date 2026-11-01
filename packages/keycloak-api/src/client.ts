@@ -108,7 +108,8 @@ export class KeycloakAccountApi {
 		const operation = findOperation(accountOperationsByPath, endpoint);
 		const result = await operation(
 			withConfig(params, {
-				baseUrl: `${this.#baseUrl.replace(/\/+$/, "")}/realms/${this.#realm}`,
+				// Encoded like the admin API's `{realm}`: Keycloak allows `%` and spaces in a realm name.
+				baseUrl: `${this.#baseUrl.replace(/\/+$/, "")}/realms/${encodeURIComponent(this.#realm)}`,
 				token: this.#token,
 				fetchImpl: this.#fetch,
 			}),

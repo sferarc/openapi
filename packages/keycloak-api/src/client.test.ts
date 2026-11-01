@@ -158,6 +158,25 @@ describe("KeycloakAccountApi.request", () => {
 		expect(urls).toEqual(["https://keycloak.example.com/realms/main/account/"]);
 	});
 
+	it("percent-encodes the realm", async () => {
+		const urls: string[] = [];
+		const fetch: FetchImpl = async (url) => {
+			urls.push(url);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		const client = new KeycloakAccountApi({
+			baseUrl: "https://keycloak.example.com",
+			realm: "50% off",
+			token: "token",
+			fetch,
+		});
+		await client.request("GET /account/");
+		expect(urls).toEqual(["https://keycloak.example.com/realms/50%25%20off/account/"]);
+	});
+
 	it("rejects an unknown endpoint", async () => {
 		const { client } = setup();
 		await expect(client.request("GET /nope" as never, {} as never)).rejects.toThrow(
