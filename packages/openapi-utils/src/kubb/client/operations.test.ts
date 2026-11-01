@@ -29,6 +29,7 @@ let source: string;
 let types: string;
 let operations: Record<
 	| "getMember"
+	| "deletePolicy"
 	| "getHealth"
 	| "listZones"
 	| "uploadScript"
@@ -78,6 +79,25 @@ describe("generated operations", () => {
 		expect(source).toContain("queryParams: GetMemberQuery;");
 		expect(types).toContain("fields: string;");
 		expect(source).toContain("queryParams?: Partial<ListZonesQuery>;");
+	});
+
+	it("requires headers only when the operation has a required header parameter", () => {
+		expect(source).toContain("headers: DeletePolicyHeaders;");
+		expect(types).toMatch(/["']If-Match["']: string;/);
+		expect(source).toContain("headers?: Partial<GetMemberHeaders>;");
+	});
+
+	it("sends a required header param", async () => {
+		const fetchImpl = fakeFetch();
+		await operations.deletePolicy({
+			pathParams: { id: "p1" },
+			headers: { "If-Match": '"3"' },
+			config: { fetchImpl },
+		});
+
+		const [url, init] = fetchImpl.mock.calls[0]!;
+		expect(url).toBe("https://api.test/policies/p1");
+		expect(init).toMatchObject({ method: "DELETE", headers: { "If-Match": '"3"' } });
 	});
 
 	it("encodes path parameters, keeps a falsy value and forwards query and header params", async () => {

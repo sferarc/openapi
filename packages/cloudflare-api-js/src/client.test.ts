@@ -42,6 +42,14 @@ describe("CloudflareApi.request", () => {
 			client.request("GET /accounts/{accountId}", { pathParams: { accountId: "a" }, nope: 1 }),
 			// @ts-expect-error pathParams needs accountId
 			client.api.accounts.accountsAccountDetails({ pathParams: {} }),
+			// @ts-expect-error the spec requires the If-Match header
+			client.request("DELETE /accounts/{accountId}/billing/spend-policies/{policyId}", {
+				pathParams: { accountId: "a", policyId: "p" },
+			}),
+			client.api.spendPolicies.spendPoliciesDelete({
+				pathParams: { accountId: "a", policyId: "p" },
+				headers: { "If-Match": '"3"' },
+			}),
 		];
 		expect(typeChecks).toBeTypeOf("function");
 	});

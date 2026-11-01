@@ -44,6 +44,13 @@ describe("VercelApi.request", () => {
 			client.api.projects.getProject({ pathParams: {} }),
 			// Header parameters share the name `headers` with the fetcher config but are kept.
 			client.api.deployments.uploadFile({ headers: { "x-now-size": 1 } }),
+			// @ts-expect-error the spec requires the Content-Length header
+			client.api.artifacts.uploadArtifact({ pathParams: { hash: "h" }, body: "" }),
+			client.api.artifacts.uploadArtifact({
+				pathParams: { hash: "h" },
+				body: "",
+				headers: { "Content-Length": 0 },
+			}),
 		];
 		expect(typeChecks).toBeTypeOf("function");
 	});

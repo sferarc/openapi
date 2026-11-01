@@ -12,6 +12,7 @@ Every test runs with vitest and offline: each one stubs or injects `fetch`, so n
   - The clients with a `client.api` proxy (all but `keycloak-api`) also check that `Object.prototype` names such as `constructor`, `toString` and `hasOwnProperty` are neither tags nor operations, while a real operation is still a function.
   - Every client checks that `config.headers` passed to `request()`, and to `client.api` where it exists, reach `fetch` next to the client's `Authorization` header.
   - Each also holds `@ts-expect-error` lines, never run, that `pnpm tsc` checks: `request()`, and `client.api` where it exists, reject a `pathParams` missing its key and an unknown top-level key, `request()` rejects a missing params argument when `pathParams` is required (its call without parameters passes none, `.changeset/request-optional-params-*.md`), `vercel-api-js` accepts header parameters under `headers` (`.changeset/typed-call-params-*.md`), and `v0-api` rejects `GET /deployments` without its required `chatId` and `versionId` query params (`.changeset/required-query-params.md`).
+  - `cloudflare-api-js` rejects `DELETE /accounts/{accountId}/billing/spend-policies/{policyId}` without its required `If-Match` header, and `vercel-api-js` rejects `uploadArtifact` without its required `Content-Length` header, in `@ts-expect-error` lines (`.changeset/required-header-params.md`).
 - The OAuth helpers on `client.auth` are tested in the same files (#30): `vercel-api-js` `accessToken`, and `refreshToken` in `netlify-api`, `cloudflare-api-js` and `zoom-api-js`. Each test asserts the URL, method, headers including `Authorization`, the body encoding and the mapped result, and what a non-2xx response does: Vercel and Netlify reject with the status, Zoom rejects with an `Error` naming it, and Cloudflare resolves the raw `Response` for the caller to check. The Cloudflare test pins `https://dash.cloudflare.com/oauth2/token` and a form-encoded body (`.changeset/cloudflare-oauth-token-endpoint.md`).
 - `src/utils/fetcher.test.ts`, in every client:
   - The hand-written fetcher surfaces an HTTP error with its status (#8).
@@ -40,6 +41,7 @@ Run alone with `pnpm turbo run test --filter=@sferadev/openapi-utils`.
   - A path parameter that is not a JS identifier (`team-id`) is read with bracket access and percent-encoded.
   - A falsy required value (`0`) is kept.
   - Query and header params are forwarded.
+  - `deletePolicy`, with a required `If-Match` header param, types `headers: DeletePolicyHeaders` rather than `headers?: Partial<...>`, and sends the header (`.changeset/required-header-params.md`).
   - A header param overrides the same header in `config.headers` unless it is `undefined`.
   - An array query parameter with `explode: false` is joined with `,` and one with `style: pipeDelimited` with `|` while a default one repeats its key.
   - An operation without parameters works.
