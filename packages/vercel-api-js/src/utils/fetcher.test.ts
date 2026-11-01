@@ -128,6 +128,22 @@ describe("fetcher", () => {
 		expect((error as Error).message).toBe("GET /thing failed: fetch failed");
 	});
 
+	it("reports an onResponse that throws as the hook's error, not a failed request", async () => {
+		const cause = new Error("no Location header");
+		const error = await client({
+			url: "/thing",
+			method: "post",
+			queryParams: { secret: "s3cret" },
+			fetchImpl: async () => new Response(null, { status: 202 }) as never,
+			onResponse: () => {
+				throw cause;
+			},
+		}).catch((e: unknown) => e);
+		expect(error).toBeInstanceOf(Error);
+		expect((error as Error).cause).toBe(cause);
+		expect((error as Error).message).toBe("onResponse threw on POST /thing: no Location header");
+	});
+
 	it("resolves a binary response as a Blob with its bytes intact", async () => {
 		const bytes = new Uint8Array([0x50, 0x4b, 0x03, 0x04, 0xff, 0x00, 0x80]);
 		const fetchImpl: FetchImpl = async () =>

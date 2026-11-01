@@ -106,6 +106,8 @@ function paramsAt(node: ast.HttpOperationNode, where: ast.ParameterLocation): Pa
 }
 
 const RAW_BODY_TYPE = "Blob | ArrayBuffer | Uint8Array | ReadableStream | string";
+const IS_RAW_BODY =
+	'(typeof body === "string" || body instanceof Blob || body instanceof ArrayBuffer || ArrayBuffer.isView(body) || body instanceof ReadableStream)';
 
 const URL_ENCODED = "application/x-www-form-urlencoded";
 const MULTIPART = "multipart/form-data";
@@ -155,7 +157,12 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 	// The fetcher gets the headers merged with config ones, whose type no longer proves the required keys.
 	const fetcherHeadersType = `Partial<${headersName}>`;
 	const headerParamsType = requiresHeaderParams ? headersName : fetcherHeadersType;
-	const bodyType = isRawBody ? RAW_BODY_TYPE : typeSchemas.request?.name;
+	// A JSON suffix body may also be given already encoded, such as manifest bytes that must hash to their digest.
+	const bodyType = isRawBody
+		? RAW_BODY_TYPE
+		: isOtherJson && typeSchemas.request
+			? `${typeSchemas.request.name} | ${RAW_BODY_TYPE}`
+			: typeSchemas.request?.name;
 
 	const fields: string[] = [];
 	if (pathParams.length > 0) {
@@ -191,7 +198,7 @@ export function ClientOperation({ name, node, typeSchemas }: Props): KubbReactNo
 				: isUrlEncoded
 					? "URLSearchParams"
 					: isOtherJson
-						? "string"
+						? RAW_BODY_TYPE
 						: bodyType
 			: "null",
 		headerParams.length > 0 ? fetcherHeadersType : "Record<string, string>",
@@ -278,7 +285,7 @@ ${delimitedParams
 			: isUrlEncoded
 				? "form"
 				: isOtherJson
-					? "body === undefined ? undefined : JSON.stringify(body)"
+					? `body === undefined || ${IS_RAW_BODY} ? body : JSON.stringify(body)`
 					: "body"
 		: undefined;
 

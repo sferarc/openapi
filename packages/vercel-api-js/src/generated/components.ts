@@ -24275,7 +24275,13 @@ export async function replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByR
 		config,
 	}: {
 		pathParams: ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath;
-		body: ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceBody;
+		body:
+			| ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceBody
+			| Blob
+			| ArrayBuffer
+			| Uint8Array
+			| ReadableStream
+			| string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24307,14 +24313,22 @@ export async function replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByR
 			| ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410
 			| ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus413
 		>,
-		string,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath
 	>({
 		method: "PUT",
 		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/manifests/${encodeURIComponent(String(pathParams.reference))}`,
-		body: body === undefined ? undefined : JSON.stringify(body),
+		body:
+			body === undefined ||
+			typeof body === "string" ||
+			body instanceof Blob ||
+			body instanceof ArrayBuffer ||
+			ArrayBuffer.isView(body) ||
+			body instanceof ReadableStream
+				? body
+				: JSON.stringify(body),
 		...requestConfig,
 		headers: {
 			"Content-Type": "application/vnd.oci.image.manifest.v1+json",

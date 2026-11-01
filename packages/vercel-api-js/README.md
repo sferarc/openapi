@@ -72,6 +72,20 @@ await client.api.vcr.createByTeamSlugByProjectSlugByRepositoryNameBlobsUploads({
 });
 ```
 
+An error thrown inside `onResponse` rejects the call with an `Error` whose message starts with `onResponse threw on` and whose `cause` is what was thrown.
+
+### Pushing a manifest
+
+The manifest push encodes an object body as JSON and sends it as `application/vnd.oci.image.manifest.v1+json`. To push by digest, pass the manifest as a string or bytes instead: they are sent as is, so the registry hashes the exact bytes the digest names. An image index or a Docker v2 manifest needs its own media type, which `config.headers` sets:
+
+```ts
+await client.api.vcr.replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReference({
+  pathParams: { teamSlug, projectSlug, repositoryName, reference: digest },
+  body: manifestBytes,
+  config: { headers: { "Content-Type": "application/vnd.oci.image.index.v1+json" } },
+});
+```
+
 ## Errors
 
 A call that gets an HTTP error response rejects with `{ status, payload }`: `status` is the HTTP status code and `payload` is the parsed JSON error body, or the raw body text, up to 1000 characters, when it is not JSON. A request that gets no response at all, for example because the network failed, rejects with an `Error` whose message names the method, the path and the reason, and whose `cause` is the original exception. A request cancelled through `signal` rejects with what the signal was aborted with, as is: the `AbortError`, or the `TimeoutError` of `AbortSignal.timeout()`.
