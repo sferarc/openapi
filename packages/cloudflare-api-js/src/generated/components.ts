@@ -119825,7 +119825,7 @@ export async function scimGroupsCreate(
 		config,
 	}: {
 		pathParams: ScimGroupsCreatePath;
-		body: ScimGroupsCreateBody;
+		body: ScimGroupsCreateBody | Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -119837,14 +119837,22 @@ export async function scimGroupsCreate(
 	const data = await request<
 		ScimGroupsCreateResponse,
 		ErrorWrapper<ScimGroupsCreateStatus400>,
-		string,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		ScimGroupsCreatePath
 	>({
 		method: "POST",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/scim/v2/Groups`,
-		body: body === undefined ? undefined : JSON.stringify(body),
+		body:
+			body === undefined ||
+			typeof body === "string" ||
+			body instanceof Blob ||
+			body instanceof ArrayBuffer ||
+			ArrayBuffer.isView(body) ||
+			body instanceof ReadableStream
+				? body
+				: JSON.stringify(body),
 		...requestConfig,
 		headers: { "Content-Type": "application/scim+json", ...requestConfig.headers },
 	});
@@ -119944,7 +119952,7 @@ export async function scimGroupsPatch(
 		config,
 	}: {
 		pathParams: ScimGroupsPatchPath;
-		body: ScimGroupsPatchBody;
+		body: ScimGroupsPatchBody | Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -119960,14 +119968,22 @@ export async function scimGroupsPatch(
 	const data = await request<
 		ScimGroupsPatchResponse,
 		ErrorWrapper<ScimGroupsPatchStatus400>,
-		string,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		ScimGroupsPatchPath
 	>({
 		method: "PATCH",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/scim/v2/Groups/${encodeURIComponent(String(pathParams.groupId))}`,
-		body: body === undefined ? undefined : JSON.stringify(body),
+		body:
+			body === undefined ||
+			typeof body === "string" ||
+			body instanceof Blob ||
+			body instanceof ArrayBuffer ||
+			ArrayBuffer.isView(body) ||
+			body instanceof ReadableStream
+				? body
+				: JSON.stringify(body),
 		...requestConfig,
 		headers: { "Content-Type": "application/scim+json", ...requestConfig.headers },
 	});
@@ -119987,7 +120003,7 @@ export async function scimGroupsPut(
 		config,
 	}: {
 		pathParams: ScimGroupsPutPath;
-		body: ScimGroupsPutBody;
+		body: ScimGroupsPutBody | Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -120003,14 +120019,22 @@ export async function scimGroupsPut(
 	const data = await request<
 		ScimGroupsPutResponse,
 		ErrorWrapper<ScimGroupsPutStatus400>,
-		string,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		ScimGroupsPutPath
 	>({
 		method: "PUT",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/scim/v2/Groups/${encodeURIComponent(String(pathParams.groupId))}`,
-		body: body === undefined ? undefined : JSON.stringify(body),
+		body:
+			body === undefined ||
+			typeof body === "string" ||
+			body instanceof Blob ||
+			body instanceof ArrayBuffer ||
+			ArrayBuffer.isView(body) ||
+			body instanceof ReadableStream
+				? body
+				: JSON.stringify(body),
 		...requestConfig,
 		headers: { "Content-Type": "application/scim+json", ...requestConfig.headers },
 	});
@@ -120257,7 +120281,7 @@ export async function scimUsersCreate(
 		config,
 	}: {
 		pathParams: ScimUsersCreatePath;
-		body: ScimUsersCreateBody;
+		body: ScimUsersCreateBody | Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -120269,14 +120293,22 @@ export async function scimUsersCreate(
 	const data = await request<
 		ScimUsersCreateResponse,
 		ErrorWrapper<ScimUsersCreateStatus400>,
-		string,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		ScimUsersCreatePath
 	>({
 		method: "POST",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/scim/v2/Users`,
-		body: body === undefined ? undefined : JSON.stringify(body),
+		body:
+			body === undefined ||
+			typeof body === "string" ||
+			body instanceof Blob ||
+			body instanceof ArrayBuffer ||
+			ArrayBuffer.isView(body) ||
+			body instanceof ReadableStream
+				? body
+				: JSON.stringify(body),
 		...requestConfig,
 		headers: { "Content-Type": "application/scim+json", ...requestConfig.headers },
 	});
@@ -120376,7 +120408,7 @@ export async function scimUsersPatch(
 		config,
 	}: {
 		pathParams: ScimUsersPatchPath;
-		body: ScimUsersPatchBody;
+		body: ScimUsersPatchBody | Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -120392,14 +120424,22 @@ export async function scimUsersPatch(
 	const data = await request<
 		ScimUsersPatchResponse,
 		ErrorWrapper<ScimUsersPatchStatus400>,
-		string,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		ScimUsersPatchPath
 	>({
 		method: "PATCH",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/scim/v2/Users/${encodeURIComponent(String(pathParams.userId))}`,
-		body: body === undefined ? undefined : JSON.stringify(body),
+		body:
+			body === undefined ||
+			typeof body === "string" ||
+			body instanceof Blob ||
+			body instanceof ArrayBuffer ||
+			ArrayBuffer.isView(body) ||
+			body instanceof ReadableStream
+				? body
+				: JSON.stringify(body),
 		...requestConfig,
 		headers: { "Content-Type": "application/scim+json", ...requestConfig.headers },
 	});
@@ -120419,7 +120459,7 @@ export async function scimUsersPut(
 		config,
 	}: {
 		pathParams: ScimUsersPutPath;
-		body: ScimUsersPutBody;
+		body: ScimUsersPutBody | Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -120435,14 +120475,22 @@ export async function scimUsersPut(
 	const data = await request<
 		ScimUsersPutResponse,
 		ErrorWrapper<ScimUsersPutStatus400>,
-		string,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		ScimUsersPutPath
 	>({
 		method: "PUT",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/scim/v2/Users/${encodeURIComponent(String(pathParams.userId))}`,
-		body: body === undefined ? undefined : JSON.stringify(body),
+		body:
+			body === undefined ||
+			typeof body === "string" ||
+			body instanceof Blob ||
+			body instanceof ArrayBuffer ||
+			ArrayBuffer.isView(body) ||
+			body instanceof ReadableStream
+				? body
+				: JSON.stringify(body),
 		...requestConfig,
 		headers: { "Content-Type": "application/scim+json", ...requestConfig.headers },
 	});

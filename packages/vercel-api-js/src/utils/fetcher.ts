@@ -111,6 +111,13 @@ class ResponseError {
 	constructor(readonly error: ErrorWrapper<unknown>) {}
 }
 
+// What the caller's onResponse threw, kept apart from a failed request.
+class ResponseHookError {
+	constructor(readonly error: unknown) {}
+}
+
+const errorReason = (error: unknown) => (error instanceof Error ? error.message : String(error));
+
 async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>({
 	url,
 	method,
@@ -171,7 +178,11 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 			...(payload instanceof ReadableStream ? { duplex: "half" as const } : {}),
 		});
 
-		onResponse?.({ status: response.status, headers: response.headers ?? noHeaders });
+		try {
+			onResponse?.({ status: response.status, headers: response.headers ?? noHeaders });
+		} catch (e) {
+			throw new ResponseHookError(e);
+		}
 
 		if (!response.ok) {
 			const text = await response.text();
@@ -205,12 +216,17 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 	} catch (e) {
 		// Rethrown as is so the HTTP status survives; the Effect bindings map it to ApiError.
 		if (e instanceof ResponseError) throw e.error;
+		// Only the path: query values can carry secrets.
+		const request = `${method.toUpperCase()} ${url.split("?")[0]}`;
+		if (e instanceof ResponseHookError) {
+			throw new Error(`onResponse threw on ${request}: ${errorReason(e.error)}`, {
+				cause: e.error,
+			});
+		}
 		// A cancelled call rejects with the signal's reason as is, such as the TimeoutError of AbortSignal.timeout().
 		if (signal?.aborted || (e instanceof Error && e.name === "AbortError")) throw e;
 
-		const reason = e instanceof Error ? e.message : String(e);
-		// Only the path: query values can carry secrets.
-		throw new Error(`${method.toUpperCase()} ${url.split("?")[0]} failed: ${reason}`, { cause: e });
+		throw new Error(`${request} failed: ${errorReason(e)}`, { cause: e });
 	}
 }
 

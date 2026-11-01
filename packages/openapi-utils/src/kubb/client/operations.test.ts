@@ -301,4 +301,26 @@ describe("generated operations", () => {
 			body: '{"userName":"ada@example.com","active":true}',
 		});
 	});
+
+	it("sends a JSON suffix body given as text or bytes as is", async () => {
+		const fetchImpl = fakeFetch();
+		const text = '{ "userName": "ada@example.com" }';
+		const bytes = new TextEncoder().encode(text);
+		await operations.createScimUser({
+			pathParams: { org: "acme" },
+			body: text,
+			config: { fetchImpl },
+		});
+		await operations.createScimUser({
+			pathParams: { org: "acme" },
+			body: bytes,
+			config: { fetchImpl },
+		});
+
+		expect(fetchImpl.mock.calls[0]![1].body).toBe(text);
+		expect(fetchImpl.mock.calls[1]![1].body).toBe(bytes);
+		expect(source).toMatch(
+			/export async function createScimUser\([^)]*body: CreateScimUserBody \| Blob \| ArrayBuffer \| Uint8Array \| ReadableStream \| string;/,
+		);
+	});
 });

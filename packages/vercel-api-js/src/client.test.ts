@@ -286,6 +286,27 @@ describe("VercelApi container registry uploads", () => {
 			expect.objectContaining({ "Content-Type": "application/vnd.oci.image.manifest.v1+json" }),
 		);
 	});
+
+	it("pushes manifest bytes by digest as is, under the Content-Type the caller gives", async () => {
+		const { calls, client } = registryFetch(201, {});
+		const index = new TextEncoder().encode(
+			'{"schemaVersion":2,"mediaType":"application/vnd.oci.image.index.v1+json","manifests":[]}',
+		);
+
+		await client.api.vcr.replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReference({
+			pathParams: { ...repository, reference: "sha256:0123" },
+			body: index,
+			config: { headers: { "Content-Type": "application/vnd.oci.image.index.v1+json" } },
+		});
+
+		expect(new URL(calls[0]?.url ?? "").pathname).toBe(
+			"/v2/team/project/app/manifests/sha256%3A0123",
+		);
+		expect(calls[0]?.init?.body).toBe(index);
+		expect(calls[0]?.init?.headers).toEqual(
+			expect.objectContaining({ "Content-Type": "application/vnd.oci.image.index.v1+json" }),
+		);
+	});
 });
 
 describe("VercelApi responses without content", () => {
