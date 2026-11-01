@@ -31,11 +31,11 @@ Every client in `packages/` is regenerated from its live spec on a schedule and 
 - The older clients' fetchers used to report an HTTP error status as `NetworkError` rather than `ApiError` (#6).
 - #8 fixed that, and each Effect client's `src/effect.test.ts` asserts `ApiError` with the status (checked 2026-10-13).
 
-### Object query parameters (partly shipped)
+### Object query parameters (shipped)
 
 - `v0-api` sends an object query parameter as `deepObject` keys (#119), matching the only such parameter in its live spec.
 - `cloudflare-api-js` sends one as a key per property (`.changeset/cloudflare-form-object-query.md`), matching the only such parameter in its live spec.
-- The other fetchers still call `String()` on one, which no generated operation reaches today: #234.
+- The other six fetchers send one the same way, the default form style, instead of `[object Object]` (#234); no generated operation of theirs has one yet ([[architecture/packages#Fetcher behaviour]]).
 
 ### Client follow-ups after the first release
 

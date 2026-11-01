@@ -218,7 +218,16 @@ const resolveUrl = (url: string, queryParams: any = {}) => {
 	const search = new URLSearchParams();
 	for (const [key, value] of Object.entries(queryParams ?? {})) {
 		if (value === undefined || value === null) continue;
-		for (const item of Array.isArray(value) ? value : [value]) search.append(key, String(item));
+		if (Array.isArray(value)) {
+			for (const item of value) search.append(key, String(item));
+		} else if (typeof value === "object") {
+			// OpenAPI's default query style, form with explode, sends each property as its own key.
+			for (const [name, item] of Object.entries(value)) {
+				if (item !== undefined && item !== null) search.append(name, String(item));
+			}
+		} else {
+			search.append(key, String(value));
+		}
 	}
 	const query = search.toString() ? `?${search.toString()}` : "";
 	return url + query;
