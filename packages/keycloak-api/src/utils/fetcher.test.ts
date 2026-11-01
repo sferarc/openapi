@@ -133,6 +133,15 @@ describe("fetcher", () => {
 		it("encodes reserved characters and spaces", async () => {
 			expect(await searchOf({ q: "a&b c" })).toBe("?q=a%26b+c");
 		});
+
+		it("sends an object as one key per property", async () => {
+			expect(
+				await searchOf({
+					range: { start: "2021-04-01", end: "2021-04-30", skip: undefined, cursor: null },
+					limit: 5,
+				}),
+			).toBe("?start=2021-04-01&end=2021-04-30&limit=5");
+		});
 	});
 });
 
