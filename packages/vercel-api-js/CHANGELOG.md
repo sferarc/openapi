@@ -1,5 +1,12 @@
 # vercel-api-js
 
+## 2.9.2
+
+### Patch Changes
+
+- e11c73b: Send a request body with a JSON suffix media type as is when it is already text or bytes, so a container registry manifest pushed by digest keeps the exact bytes its digest hashes. `replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReference` in vercel-api-js and the SCIM user and group operations in cloudflare-api-js take a string, `Blob`, `ArrayBuffer`, `Uint8Array` or `ReadableStream` besides the object, which they still encode as JSON.
+- e11c73b: Report an `onResponse` that throws as `onResponse threw on <METHOD> <path>: <message>`, with the thrown value as `cause`, instead of a request that failed.
+
 ## 2.9.1
 
 ### Patch Changes
