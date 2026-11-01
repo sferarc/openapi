@@ -10,17 +10,25 @@ Releases use changesets (`.changeset/config.json`): every client is versioned an
 
 Authentication is npm trusted publishing: `id-token: write` lets npm exchange the GitHub OIDC token for a publish credential, and each package's `publishConfig` sets `provenance: true`. No npm token is stored and nothing writes `~/.npmrc`. Each package's trusted publisher on npmjs.com must name this repository and `release.yml` (comments in `release.yml`).
 
-## Publishing is on, and every publish so far failed
+## Publishing works since 2026-10-31
 
 The release job only runs when the repository variable `RELEASE_ENABLED` is `true` (`if:` in `release.yml`). The owner set it on 2026-10-28 at 15:30 UTC (`gh variable list`), so every push to `main` now runs the job and every changeset reaches a "Version Packages" PR.
+
+The first publish that worked was the second attempt of release run 41231843444, started at 20:37 UTC on 2026-10-31 on `main` at e444df5, after version PR #217. It published `cloudflare-api-js` 4.2.0, `keycloak-api` 3.1.0, `litellm-api` 2.3.0, `netlify-api` 3.0.4, `nuki-api-js` 3.0.1, `v0-api` 1.0.16, `vercel-api-js` 2.7.0 and `zoom-api-js` 3.0.2 with provenance (`gh run view 41231843444 --log`).
+That run tagged each version `<name>@<version>` on e444df5 and created a GitHub release per package as `sferarc-hq[bot]` (`git ls-remote --tags origin`, `gh release view cloudflare-api-js@4.2.0`).
+Its first attempt, at 18:56 UTC, had failed with the same 404 as the runs below. Nothing in this repository changed between the two attempts, so the fix was on npmjs.com, presumably the trusted publishers from the checklist; what exactly the owner changed there is unknown.
+Every release run since has succeeded (`gh run list --workflow release.yml`, checked 2026-11-01).
+On 2026-11-01 `npm view <package> version` matched the version in each client's `package.json` on `main` at 0ea3347, and `npm view <package> dist.attestations` shows a SLSA provenance attestation.
+
+### Before 2026-10-31, every publish failed
 
 What happened on 2026-10-28 (`gh run list --workflow release.yml`, checked again on 2026-10-29):
 
 1. The version PRs #107, #116, #118, #120, #122 and #131 were opened by `changesets/action` with the `sferarc-hq` App token and merged on their own, so the App token and auto-merge work through the ruleset. They consumed every pending changeset: each client's `package.json` and `CHANGELOG.md` on `main` (c1d8dea) carry the bumped version (`cloudflare-api-js` 2.2.0, `keycloak-api` 2.1.1, `litellm-api` 2.0.3, `netlify-api` 2.0.2, `nuki-api-js` 2.0.2, `v0-api` 1.0.4, `vercel-api-js` 2.1.2, `zoom-api-js` 2.1.2).
 2. The publish run after each of those merges failed (runs 40742321131, 40755161663, 40771838753, 40774105723, and 40789102913 after #131). In the last one, `changeset publish` rejected all eight clients with `ERR_PNPM_FAILED_TO_PUBLISH ... (status 404 Not Found)`, so nothing was published, tagged or released.
-3. npm still serves the versions published from the earlier monorepo (`npm view <package> version` on 2026-10-28: `cloudflare-api-js` 1.1.0, `keycloak-api` 1.2.0, `litellm-api` 1.1.0, `netlify-api` 1.4.1, `nuki-api-js` 1.2.0, `v0-api` 0.3.1, `vercel-api-js` 1.38.2, `zoom-api-js` 1.3.2). The newest git tags are from those releases too (`git tag -l`). On 2026-10-29 `npm view` still returned 1.1.0 for `cloudflare-api-js`, 1.38.2 for `vercel-api-js` and 0.3.1 for `v0-api`.
+3. npm still served the versions published from the earlier monorepo (`npm view <package> version` on 2026-10-28: `cloudflare-api-js` 1.1.0, `keycloak-api` 1.2.0, `litellm-api` 1.1.0, `netlify-api` 1.4.1, `nuki-api-js` 1.2.0, `v0-api` 0.3.1, `vercel-api-js` 1.38.2, `zoom-api-js` 1.3.2). The newest git tags were from those releases too (`git tag -l`). On 2026-10-29 `npm view` still returned 1.1.0 for `cloudflare-api-js`, 1.38.2 for `vercel-api-js` and 0.3.1 for `v0-api`.
 
-Nothing changed through 2026-10-30. Version PRs kept landing (#205 and #207 among them), and every push to `main` that leaves no pending changeset runs the publish, which fails the same way: run 41089606790 after #207 tried `cloudflare-api-js` 4.1.0, `keycloak-api` 3.1.0, `litellm-api` 2.2.2, `netlify-api` 3.0.4, `nuki-api-js` 3.0.1, `v0-api` 1.0.16, `vercel-api-js` 2.5.9 and `zoom-api-js` 3.0.2, the versions in each `package.json` on `main` at c0e3b7a, and got `ERR_PNPM_FAILED_TO_PUBLISH ... (status 404 Not Found)` for all eight. The newest tags are still the earlier monorepo's (`git tag -l`). The 404 is most likely the missing npm trusted publishers from the checklist below, since OIDC is the only credential the job has; that is unconfirmed, because the npm side cannot be read from this repository. Fixing it is the owner's step on npmjs.com. After that, rerunning the last failed run publishes every version npm lacks, the majors from the first version PR included.
+Nothing changed through 2026-10-30. Version PRs kept landing (#205 and #207 among them), and every push to `main` that left no pending changeset ran the publish, which failed the same way: run 41089606790 after #207 tried `cloudflare-api-js` 4.1.0, `keycloak-api` 3.1.0, `litellm-api` 2.2.2, `netlify-api` 3.0.4, `nuki-api-js` 3.0.1, `v0-api` 1.0.16, `vercel-api-js` 2.5.9 and `zoom-api-js` 3.0.2, the versions in each `package.json` on `main` at c0e3b7a, and got `ERR_PNPM_FAILED_TO_PUBLISH ... (status 404 Not Found)` for all eight. The newest tags were still the earlier monorepo's (`git tag -l`). The 404 was most likely the missing npm trusted publishers from the checklist below, since OIDC is the only credential the job has; that is unconfirmed, because the npm side cannot be read from this repository. The failures stopped with the rerun of run 41231843444 described above, which published every version npm lacked, the majors from the first version PR included.
 
 ## The release sequence
 
@@ -34,12 +42,12 @@ If the OIDC publish of one client fails, `changeset publish` exits non-zero afte
 
 ## Checklist
 
-Checked on 2026-10-28:
+Checked on 2026-10-28, and the trusted publisher item on 2026-11-01:
 
 - [x] `RELEASE_ENABLED` is `true` (`gh variable list`).
 - [x] The `HQ_APP_ID` and `HQ_APP_PRIVATE_KEY` organization secrets are visible to this repository: the release runs mint the App token and open the version PRs.
 - [x] "Allow auto-merge" is on, and the version PRs landed through it.
-- [ ] Each of the eight published clients has a trusted publisher on npmjs.com naming `sferarc/openapi` and `release.yml`. They were configured for the earlier monorepo; the 404s above suggest they are still missing.
+- [x] Each of the eight published clients publishes from `sferarc/openapi` over OIDC: run 41231843444 published all eight with no npm token, and every release run since has succeeded. The trusted publisher settings themselves cannot be read from this repository.
 - [x] Nothing in the Release job needs an npm token, so no secret has to be added.
 
 ## Pending changesets

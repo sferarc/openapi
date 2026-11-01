@@ -12,9 +12,9 @@ Every client in `packages/` is regenerated from its live spec on a schedule and 
 
 - The owner set `RELEASE_ENABLED` on 2026-10-28.
 - Every publish run failed with a 404 from npm for every client until 2026-10-31.
-- Release run 41231208403 on 2026-10-31 was the first to succeed, and npm has served the versions on `main` since (`gh run list --workflow release.yml`, `npm view`, checked 2026-11-01).
+- The rerun of release run 41231843444 on 2026-10-31 was the first to publish, and npm has served the versions on `main` since (`gh run list --workflow release.yml`, `npm view`, checked 2026-11-01). Run 41231208403 before it only opened version PR #217.
 - That first publish was a major for every published client: the Effect clients for Effect 4 ([[decisions/2026-10-08-effect-4-major]]), and every client for the HTTP error shape change (#9).
-- Recording the working state in [[development/release]] is #231.
+- [[development/release]] records the first working publish (#231).
 
 ### Scheduled regeneration (shipped)
 
