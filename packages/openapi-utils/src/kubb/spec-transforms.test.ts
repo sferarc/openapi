@@ -8,6 +8,7 @@ import {
 	fixArrayItems,
 	fixRegexPatterns,
 	fixUnionConstraints,
+	inlinePathServers,
 	optionalReadOnlyInRequestBodies,
 	renameReservedWords,
 	stripBasePathPrefix,
@@ -200,6 +201,61 @@ describe("addMissingPathParams", () => {
 			{ name: "org", in: "path", required: true },
 			{ name: "id", in: "path", required: true, schema: { type: "string" } },
 		]);
+	});
+});
+
+describe("inlinePathServers", () => {
+	const server = {
+		url: "https://{stream_id}.k2.test/",
+		variables: { stream_id: { default: "s0", description: "The stream ID." } },
+	};
+
+	it("records a path's server on each operation and adds its variables as path params", () => {
+		const result = inlinePathServers(
+			spec({
+				"/produce": { servers: [server], post: {}, get: { parameters: [] } },
+				"/other": { get: {} },
+			}),
+		);
+		const produce = result.paths["/produce"];
+		for (const operation of [produce?.post, produce?.get]) {
+			expect(operation?.["x-server-url"]).toBe("https://{stream_id}.k2.test");
+			expect(operation?.parameters).toEqual([
+				{
+					name: "stream_id",
+					in: "path",
+					required: true,
+					description: "The stream ID.",
+					schema: { type: "string" },
+				},
+			]);
+		}
+		expect(result.paths["/other"].get).toEqual({});
+	});
+
+	it("prefers an operation's own server and keeps a param the spec already declares", () => {
+		const result = inlinePathServers(
+			spec({
+				"/produce": {
+					servers: [{ url: "https://path.test" }],
+					parameters: [{ name: "stream_id", in: "path", required: true }],
+					post: { servers: [server] },
+				},
+			}),
+		);
+		expect(result.paths["/produce"]?.post).toEqual({
+			servers: [server],
+			"x-server-url": "https://{stream_id}.k2.test",
+		});
+	});
+
+	it("is followed by camelCasePathParams in the server URL and its params", () => {
+		const result = camelCasePathParams(
+			inlinePathServers(spec({ "/produce": { servers: [server], post: {} } })),
+		);
+		const operation = result.paths["/produce"]?.post;
+		expect(operation?.["x-server-url"]).toBe("https://{streamId}.k2.test");
+		expect(operation?.parameters).toMatchObject([{ name: "streamId", in: "path" }]);
 	});
 });
 

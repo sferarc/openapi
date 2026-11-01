@@ -7,17 +7,17 @@ import { createConfig } from "../index";
 import spec from "./fixtures/params.json" with { type: "json" };
 
 const FETCHER = `
-export type FetcherConfig = { fetchImpl: (url: string, init: RequestInit) => Promise<Response> };
+export type FetcherConfig = { fetchImpl: (url: string, init: RequestInit) => Promise<Response>; baseUrl?: string };
 export type ErrorWrapper<T> = { status: number; payload: T };
 
-export default async function client({ url, method, queryParams, headers, body, fetchImpl }: any) {
+export default async function client({ url, method, queryParams, headers, body, fetchImpl, baseUrl = "https://api.test" }: any) {
 	const search = new URLSearchParams();
 	for (const [key, value] of Object.entries(queryParams ?? {})) {
 		if (value == null) continue;
 		for (const item of Array.isArray(value) ? value : [value]) search.append(key, String(item));
 	}
 	const query = search.toString();
-	const response = await fetchImpl(\`https://api.test\${url}\${query ? \`?\${query}\` : ""}\`, { method, headers, body });
+	const response = await fetchImpl(\`\${baseUrl}\${url}\${query ? \`?\${query}\` : ""}\`, { method, headers, body });
 	return response.json();
 }
 `;
@@ -35,7 +35,8 @@ let operations: Record<
 	| "uploadScript"
 	| "inviteMember"
 	| "uploadLogo"
-	| "createScimUser",
+	| "createScimUser"
+	| "produceMessages",
 	Operation
 >;
 
@@ -171,6 +172,27 @@ describe("generated operations", () => {
 
 		await operations.listZones({ config: { fetchImpl } });
 		expect(fetchImpl.mock.calls[1]![0]).toBe("https://api.test/zones");
+	});
+
+	it("calls the x-server-url of inlinePathServers, filling its variables from path params", async () => {
+		const fetchImpl = fakeFetch();
+		await operations.produceMessages({
+			pathParams: { stream_id: "a1 b", stream: "orders" },
+			body: { value: "x" },
+			config: { fetchImpl, baseUrl: "https://api.other" },
+		});
+		expect(fetchImpl.mock.calls[0]![0]).toBe(
+			"https://a1%20b.streams.test/v1/streams/orders/messages",
+		);
+		expect(types).toMatch(/export type ProduceMessagesPath = \{[^}]*stream_id: string;/);
+
+		await expect(
+			operations.produceMessages({
+				pathParams: { stream: "orders" },
+				body: {},
+				config: { fetchImpl },
+			}),
+		).rejects.toThrow("Missing required path parameter: stream_id");
 	});
 
 	it("calls an operation without parameters", async () => {

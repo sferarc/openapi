@@ -3,6 +3,7 @@ import {
 	cleanOperationIds,
 	createConfig,
 	fetchSpec,
+	inlinePathServers,
 	optionalReadOnlyInRequestBodies,
 } from "@sferadev/openapi-utils";
 import c from "case";
@@ -20,6 +21,8 @@ export default defineConfig(async () => {
 	);
 
 	openAPIDocument = cleanOperationIds(openAPIDocument);
+	// K2 stream endpoints live on each stream's own host, not api.cloudflare.com.
+	openAPIDocument = inlinePathServers(openAPIDocument);
 	openAPIDocument = camelCasePathParams(openAPIDocument);
 
 	// The spec marks this `explode: false`, but its description asks for repeated keys (`id=foo&id=bar`).

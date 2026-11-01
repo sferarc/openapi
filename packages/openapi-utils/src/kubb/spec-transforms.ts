@@ -239,6 +239,41 @@ export function addMissingPathParams(openAPIDocument: OpenAPIObject): OpenAPIObj
 	return openAPIDocument;
 }
 
+/** Copies a path's or operation's own server into `x-server-url`, each variable becoming a required path param. */
+export function inlinePathServers(openAPIDocument: OpenAPIObject): OpenAPIObject {
+	for (const pathItem of Object.values(openAPIDocument.paths ?? {}) as PathItemObject[]) {
+		for (const method of HTTP_METHODS) {
+			const operation = pathItem[method];
+			const server = operation?.servers?.[0] ?? pathItem.servers?.[0];
+			if (!operation || !server) continue;
+
+			operation["x-server-url"] = server.url.replace(/\/+$/, "");
+			const declared = [...(pathItem.parameters ?? []), ...(operation.parameters ?? [])];
+			for (const [, name] of server.url.matchAll(/\{([^}]+)\}/g)) {
+				if (!name) continue;
+				const exists = declared.some(
+					(param) => !isReferenceObject(param) && param.in === "path" && param.name === name,
+				);
+				if (exists) continue;
+				const variable = server.variables?.[name];
+				operation.parameters = [
+					...(operation.parameters ?? []),
+					{
+						name,
+						in: "path",
+						required: true,
+						...(variable?.description ? { description: variable.description } : {}),
+						schema: variable?.enum
+							? { type: "string", enum: variable.enum.map(String) }
+							: { type: "string" },
+					},
+				];
+			}
+		}
+	}
+	return openAPIDocument;
+}
+
 /** Drops a base path prefix that a spec path repeats, since the fetcher already prepends the base path. */
 export function stripBasePathPrefix(
 	openAPIDocument: OpenAPIObject,
@@ -340,6 +375,22 @@ export function camelCasePathParams(openAPIDocument: OpenAPIObject): OpenAPIObje
 				if (p.in === "path" && p.name !== c.camel(p.name)) {
 					p.name = c.camel(p.name);
 				}
+			}
+		}
+	}
+
+	// The server variables that inlinePathServers turned into path params follow the same casing.
+	for (const pathItem of Object.values(openAPIDocument.paths ?? {}) as PathItemObject[]) {
+		for (const method of HTTP_METHODS) {
+			const operation = pathItem[method];
+			const serverUrl: unknown = operation?.["x-server-url"];
+			if (!operation || typeof serverUrl !== "string") continue;
+			operation["x-server-url"] = serverUrl.replace(
+				/\{([^}]+)\}/g,
+				(_, name: string) => `{${c.camel(name)}}`,
+			);
+			for (const param of operation.parameters ?? []) {
+				if (!isReferenceObject(param) && param.in === "path") param.name = c.camel(param.name);
 			}
 		}
 	}

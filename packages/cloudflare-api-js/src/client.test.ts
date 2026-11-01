@@ -239,6 +239,47 @@ describe("CloudflareApi per-call config", () => {
 	});
 });
 
+describe("K2 stream endpoints", () => {
+	function setup() {
+		const urls: string[] = [];
+		const fetch: FetchImpl = async (url) => {
+			urls.push(url);
+			return new Response('{"success":true}', {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { urls, client: new CloudflareApi({ token: "token", fetch }) };
+	}
+
+	const streamId = "053e105f4ecef8ad9ca31a8372d0c353";
+
+	it("calls the stream's own host instead of api.cloudflare.com", async () => {
+		const { urls, client } = setup();
+		await client.request("POST /produce", {
+			pathParams: { streamId },
+			body: { records: [{ content: "eyJvcmRlcl9pZCI6MTAwMX0=" }] },
+		});
+		await client.request("POST /subscriptions/{subscriptionId}/consume", {
+			pathParams: { streamId, subscriptionId: "sub" },
+			body: { max_records: 10, worker_id: "worker-1" },
+		});
+		expect(urls).toEqual([
+			`https://${streamId}.k2.cloudflarestorage.com/produce`,
+			`https://${streamId}.k2.cloudflarestorage.com/subscriptions/sub/consume`,
+		]);
+	});
+
+	it("rejects a call without the stream ID before calling fetch", async () => {
+		const { urls, client } = setup();
+		await expect(
+			// @ts-expect-error streamId is required
+			client.request("GET /subscriptions", { pathParams: {} }),
+		).rejects.toThrow("Missing required path parameter: streamId");
+		expect(urls).toEqual([]);
+	});
+});
+
 describe("Worker script uploads", () => {
 	const metadata = { main_module: "worker.js", compatibility_date: "2026-10-30" };
 	const file = () =>

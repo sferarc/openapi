@@ -273,6 +273,35 @@
 				}
 			}
 		},
+		"/streams/{stream}/messages": {
+			"post": {
+				"operationId": "produceMessages",
+				"tags": ["streams"],
+				"x-server-url": "https://{stream_id}.streams.test/v1",
+				"parameters": [
+					{ "name": "stream", "in": "path", "required": true, "schema": { "type": "string" } },
+					{ "name": "stream_id", "in": "path", "required": true, "schema": { "type": "string" } }
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": { "type": "object", "properties": { "value": { "type": "string" } } }
+						}
+					}
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"application/json": {
+								"schema": { "type": "object", "properties": { "ok": { "type": "boolean" } } }
+							}
+						}
+					}
+				}
+			}
+		},
 		"/health": {
 			"get": {
 				"operationId": "getHealth",
