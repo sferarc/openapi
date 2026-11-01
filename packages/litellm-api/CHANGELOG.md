@@ -1,5 +1,16 @@
 # litellm-api
 
+## 2.4.0
+
+### Minor Changes
+
+- ab25c6a: [BREAKING] Path and response types for /toolset/{toolset_name}/mcp and /{mcp_server_name}/mcp have been renamed and swapped to match new HTTP methods for each operation.
+- ab25c6a: [BREAKING] The HTTP methods for /toolset/{toolset_name}/mcp and /{mcp_server_name}/mcp operations have changed, leading to renamed and reshuffled function exports for these endpoints.
+
+### Patch Changes
+
+- ab25c6a: Response and parameter types for GET, POST, PUT, PATCH, HEAD, DELETE, and OPTIONS operations on toolset and mcp routes were updated for consistency with the new HTTP method mapping.
+
 ## 2.3.2
 
 ### Patch Changes
