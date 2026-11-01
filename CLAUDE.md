@@ -27,4 +27,4 @@ Read `brain/` files relevant to your task before acting, and update them in the 
 | CI checks and branch rules | `brain/development/ci.md` |
 | Changesets and publishing to npm | `brain/development/release.md` |
 | Decisions, dated | `brain/decisions/index.md` |
-| Open work | `brain/plans/index.md` |
+| Roadmap phases (open work lives in GitHub Issues) | `brain/plans/index.md` |

@@ -1,13 +1,48 @@
 # Plans
 
-The repository has no roadmap file; its only open issue is #75, the dead `GIT_TOKEN` behind item 3, labelled `needs-human` (checked 2026-10-30). Its problem is gone: the workflow mints an App token instead (#86) and the scheduled runs open their PRs with it, so #75 should be closed by a person. The first release publishes the eight existing clients ([[development/release]]). Known open work, from the sources cited:
+GitHub Issues in `sferarc/openapi` are the source of truth for open work, its progress and its priority (label `product:openapi`). This note keeps the vision, the phases and what shipped, and links each phase to its tracking issue. Add new work as an issue, not as a line here.
 
-1. First publish from this repository. The owner set `RELEASE_ENABLED` on 2026-10-28 and every version PR since #107 has consumed the pending changesets, but each publish run failed with a 404 from npm for all eight clients, the last one after #207 on 2026-10-30, so npm still serves the old monorepo versions. It most likely waits on each package's npm trusted publisher, the owner's step; details in [[development/release]].
-2. That first publish is a major for every published client: the five Effect clients for Effect 4 ([[decisions/2026-10-08-effect-4-major]]), and all eight for the HTTP error shape change (#9). The bumped versions are in each client's `package.json` and `CHANGELOG.md`.
-3. Scheduled client regeneration, on since the owner set `SPEC_UPDATES_ENABLED` on 2026-10-26; no scheduled run had gone through at that point. #64 repointed the dead `litellm-api` and `zoom-api-js` spec URLs (merged 2026-10-21); each matrix job now has `timeout-minutes: 45`. kubb 5.13.1 (#72) brings the `cloudflare-api-js` generate from over 14 minutes without finishing to under a minute, and `cleanOperationIds` now renames a later operation whose ID collides with an earlier one, which unblocks the Cloudflare spec's two `deleteWebhook` operations. The scheduled runs on 2026-10-26 and 2026-10-27 generated every client but could not push, because `GIT_TOKEN` is dead; the workflow now mints a `sferarc-hq` App token (#86), and since 2026-10-28 the scheduled runs succeed and their spec PRs auto-merge (#101 was the first). Details in [[architecture/pipeline]].
+## Vision
 
-4. Object query parameters: `v0-api`'s fetcher sends an object as `deepObject` keys (`metadata[env]=prod`), matching `style: deepObject, explode: true` on the `metadata` filter of `GET /chats`, its only object query parameter in the live spec (#119). `cloudflare-api-js`'s fetcher sends an object as one key per property (`start=...&end=...`), the default `form` style with `explode` that applies to `start_end_params` on `GET /accounts/{account_id}/intel/dns`, the only object query parameter in its live spec (`.changeset/cloudflare-form-object-query.md`). The Keycloak, LiteLLM, Netlify, Nuki, Vercel and Zoom live specs have no object query parameter (checked 2026-10-28), so their fetchers still call `String()` on one without affecting a generated operation.
+Every client in `packages/` is regenerated from its live spec on a schedule and published to npm from this repository without a person in the loop, and calling a generated operation sends what the spec describes ([[architecture/pipeline]], [[development/release]]).
 
-The older clients' fetchers used to report an HTTP error status as `NetworkError` rather than `ApiError` (#6). #8 fixed that, and each Effect client's `src/effect.test.ts` asserts `ApiError` with the status (checked 2026-10-13).
+## Phases
 
-Add a note here for planning detail that does not fit a line, and link it from this list.
+### Release from this repository (shipped)
+
+- The owner set `RELEASE_ENABLED` on 2026-10-28.
+- Every publish run failed with a 404 from npm for every client until 2026-10-31.
+- Release run 41231208403 on 2026-10-31 was the first to succeed, and npm has served the versions on `main` since (`gh run list --workflow release.yml`, `npm view`, checked 2026-11-01).
+- That first publish was a major for every published client: the Effect clients for Effect 4 ([[decisions/2026-10-08-effect-4-major]]), and every client for the HTTP error shape change (#9).
+- Recording the working state in [[development/release]] is #231.
+
+### Scheduled regeneration (shipped)
+
+- On since the owner set `SPEC_UPDATES_ENABLED` on 2026-10-26.
+- #64 repointed the dead `litellm-api` and `zoom-api-js` spec URLs.
+- Each matrix job has `timeout-minutes: 45`.
+- kubb 5.13.1 (#72) brought the `cloudflare-api-js` generate under a minute, and `cleanOperationIds` renames a later colliding operation ID.
+- The workflow mints a `sferarc-hq` App token instead of the dead `GIT_TOKEN` (#86), and since 2026-10-28 the scheduled runs succeed and their spec PRs auto-merge (#101 was the first).
+- Issue #75, about the dead `GIT_TOKEN`, describes a problem #86 removed.
+- Details in [[architecture/pipeline]].
+
+### HTTP error status (shipped)
+
+- The older clients' fetchers used to report an HTTP error status as `NetworkError` rather than `ApiError` (#6).
+- #8 fixed that, and each Effect client's `src/effect.test.ts` asserts `ApiError` with the status (checked 2026-10-13).
+
+### Object query parameters (partly shipped)
+
+- `v0-api` sends an object query parameter as `deepObject` keys (#119), matching the only such parameter in its live spec.
+- `cloudflare-api-js` sends one as a key per property (`.changeset/cloudflare-form-object-query.md`), matching the only such parameter in its live spec.
+- The other fetchers still call `String()` on one, which no generated operation reaches today: #234.
+
+### Client follow-ups after the first release
+
+Tracking issue: #236.
+
+- #231 Record in the release note that npm publishing works since 2026-10-31
+- #232 Let a caller read line-delimited JSON responses as a stream
+- #233 Expose response headers so the Vercel registry uploads can return Location
+- #234 Serialize object query parameters by style in the remaining fetchers
+- #235 Confirm the Cloudflare OAuth refresh works with a real client (waits on the owner)
