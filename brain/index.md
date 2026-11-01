@@ -18,4 +18,4 @@ The root `README.md` and each package's `README.md` are the user documentation. 
 
 ## Plans
 
-- [[plans/index]]: known open work
+- [[plans/index]]: vision, phases and links to the open issues
