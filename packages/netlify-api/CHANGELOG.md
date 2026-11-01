@@ -1,5 +1,11 @@
 # netlify-api
 
+## 3.0.8
+
+### Patch Changes
+
+- a4f1437: Send an object query parameter as one key per property (`start=2021-04-01&end=2021-04-30`), OpenAPI's default form style, leaving out nullish entries, instead of `range=[object Object]`, so a spec update that adds one works without a fetcher change.
+
 ## 3.0.7
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # zoom-api-js
 
+## 3.0.6
+
+### Patch Changes
+
+- a4f1437: Send an object query parameter as one key per property (`start=2021-04-01&end=2021-04-30`), OpenAPI's default form style, leaving out nullish entries, instead of `range=[object Object]`, so a spec update that adds one works without a fetcher change.
+
 ## 3.0.5
 
 ### Patch Changes
