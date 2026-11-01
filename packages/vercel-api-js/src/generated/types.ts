@@ -140450,8 +140450,10 @@ export type UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatu
 
 export type UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus413 = unknown;
 
+export type UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidBody = Blob;
+
 export type UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidOptions = {
-	body?: never | undefined;
+	body: UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidBody;
 	path: UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -140541,8 +140543,10 @@ export type ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStat
 
 export type ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus413 = unknown;
 
+export type ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidBody = Blob | undefined;
+
 export type ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidOptions = {
-	body?: never | undefined;
+	body: ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidBody;
 	path: ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath;
 	query: ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidQuery;
 	headers?: never | undefined;
@@ -140700,8 +140704,12 @@ export type ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceSt
 
 export type ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus413 = unknown;
 
+export type ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceBody = {
+	[key: string]: unknown;
+};
+
 export type ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceOptions = {
-	body?: never | undefined;
+	body: ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceBody;
 	path: ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath;
 	query?: never | undefined;
 	headers?: never | undefined;

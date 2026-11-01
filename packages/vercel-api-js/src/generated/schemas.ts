@@ -122892,6 +122892,9 @@ export const updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidErro
 	updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus413Schema,
 ]);
 
+export const updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidBodySchema =
+	z.instanceof(File);
+
 export const updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathSchema = z.object({
 	teamSlug: z
 		.string()
@@ -122997,6 +123000,10 @@ export const replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidErr
 	replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus410Schema,
 	replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus413Schema,
 ]);
+
+export const replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidBodySchema = z
+	.instanceof(File)
+	.optional();
 
 export const replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathSchema = z.object({
 	teamSlug: z
@@ -123211,6 +123218,9 @@ export const replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceE
 		replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410Schema,
 		replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus413Schema,
 	]);
+
+export const replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceBodySchema =
+	z.looseObject({});
 
 export const replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathSchema =
 	z.object({
