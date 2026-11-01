@@ -11,7 +11,15 @@ export type FetcherConfig = {
 	signal?: AbortSignal | undefined;
 	/** How a line-delimited JSON response resolves: `"array"` (the default) once the body ends, `"stream"` as an async iterable of each line as it arrives. */
 	jsonLines?: "array" | "stream";
+	/** Called with the status and headers of the response before its body is read, for headers such as the `Location` of a registry upload. */
+	onResponse?: (response: ResponseInfo) => void;
 };
+
+/** The status and headers of a response, which the parsed result leaves out. */
+export type ResponseInfo = { status: number; headers: { get(name: string): string | null } };
+
+// A custom fetch may return a response without headers.
+const noHeaders: ResponseInfo["headers"] = { get: () => null };
 
 /** What a failed request rejects with: the HTTP status and the parsed error body, or the raw body text, truncated, when it is not JSON. */
 export type ErrorWrapper<TError> = { status: number; payload: TError | string };
@@ -111,6 +119,7 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 	queryParams,
 	signal,
 	jsonLines = "array",
+	onResponse,
 	baseUrl = defaultBaseUrl,
 	token = null,
 	fetchImpl = fetch as FetchImpl,
@@ -161,6 +170,8 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 			// fetch refuses a stream body unless the request is marked half duplex.
 			...(payload instanceof ReadableStream ? { duplex: "half" as const } : {}),
 		});
+
+		onResponse?.({ status: response.status, headers: response.headers ?? noHeaders });
 
 		if (!response.ok) {
 			const text = await response.text();

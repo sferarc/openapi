@@ -2,6 +2,7 @@ import { describe, expect, expectTypeOf, it } from "vitest";
 import { VercelApi } from "./client";
 import type { GlobalConfigItem } from "./types";
 import type { FetchImpl, RequestInit } from "./utils/fetch";
+import type { ResponseInfo } from "./utils/fetcher";
 
 describe("VercelApi.request", () => {
 	function setup() {
@@ -212,6 +213,77 @@ describe("VercelApi sandbox file upload", () => {
 				"Content-Type": "application/gzip",
 				"x-cwd": "/home/vercel-sandbox",
 			}),
+		);
+	});
+});
+
+describe("VercelApi container registry uploads", () => {
+	const repository = { teamSlug: "team", projectSlug: "project", repositoryName: "app" };
+
+	function registryFetch(status: number, headers: Record<string, string>) {
+		const calls: { url: string; init: RequestInit | undefined }[] = [];
+		const fetch: FetchImpl = async (url, init) => {
+			calls.push({ url, init });
+			return new Response(null, { status, headers }) as never;
+		};
+		return { calls, client: new VercelApi({ token: "token", fetch }) };
+	}
+
+	it("uploads a blob in chunks and reads the upload Location from the response headers", async () => {
+		const location = "/v2/team/project/app/blobs/uploads/uuid-1";
+		const { calls, client } = registryFetch(202, { Location: location });
+		const locations: (string | null)[] = [];
+		const config = {
+			onResponse: ({ headers }: ResponseInfo) => {
+				locations.push(headers.get("Location"));
+			},
+		};
+		const chunk = new Uint8Array([1, 2, 3]);
+
+		await client.api.vcr.createByTeamSlugByProjectSlugByRepositoryNameBlobsUploads({
+			pathParams: repository,
+			config,
+		});
+		await client.api.vcr.updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuid({
+			pathParams: { ...repository, uuid: "uuid-1" },
+			body: chunk,
+			config,
+		});
+		await client.api.vcr.replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuid({
+			pathParams: { ...repository, uuid: "uuid-1" },
+			queryParams: { digest: "sha256:abc" },
+			config,
+		});
+
+		expect(locations).toEqual([location, location, location]);
+		expect(calls[1]?.init?.method).toBe("PATCH");
+		expect(calls[1]?.init?.body).toBe(chunk);
+		expect(calls[1]?.init?.headers).toEqual(
+			expect.objectContaining({ "Content-Type": "application/octet-stream" }),
+		);
+		expect(new URL(calls[2]?.url ?? "").search).toBe("?digest=sha256%3Aabc");
+		expect(calls[2]?.init?.body).toBeUndefined();
+	});
+
+	it("pushes a manifest as OCI JSON and reads its digest from Docker-Content-Digest", async () => {
+		const { calls, client } = registryFetch(201, { "Docker-Content-Digest": "sha256:def" });
+		const manifest = { schemaVersion: 2, mediaType: "application/vnd.oci.image.manifest.v1+json" };
+		let digest: string | null = null;
+
+		await client.api.vcr.replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReference({
+			pathParams: { ...repository, reference: "latest" },
+			body: manifest,
+			config: {
+				onResponse: ({ headers }) => {
+					digest = headers.get("Docker-Content-Digest");
+				},
+			},
+		});
+
+		expect(digest).toBe("sha256:def");
+		expect(calls[0]?.init?.body).toBe(JSON.stringify(manifest));
+		expect(calls[0]?.init?.headers).toEqual(
+			expect.objectContaining({ "Content-Type": "application/vnd.oci.image.manifest.v1+json" }),
 		);
 	});
 });

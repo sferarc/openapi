@@ -44,6 +44,50 @@ export default defineConfig(async () => {
 		}),
 	);
 
+	// The registry uploads describe their bodies in prose only; the upload UUID and digest come back in response headers (`onResponse`).
+	const registry = "/v2/{teamSlug}/{projectSlug}/{repositoryName}";
+	const blobBody = (required: boolean) => ({
+		required,
+		content: {
+			"application/octet-stream": { schema: { type: "string" as const, format: "binary" } },
+		},
+	});
+	openAPIDocument = updateMethod(
+		openAPIDocument,
+		`${registry}/blobs/uploads/{uuid}`,
+		"patch",
+		(op) => ({
+			...op,
+			requestBody: op.requestBody ?? blobBody(true),
+		}),
+	);
+	// Completing an upload may carry its last chunk, or the whole blob in a monolithic upload.
+	openAPIDocument = updateMethod(
+		openAPIDocument,
+		`${registry}/blobs/uploads/{uuid}`,
+		"put",
+		(op) => ({
+			...op,
+			requestBody: op.requestBody ?? blobBody(false),
+		}),
+	);
+	openAPIDocument = updateMethod(
+		openAPIDocument,
+		`${registry}/manifests/{reference}`,
+		"put",
+		(op) => ({
+			...op,
+			requestBody: op.requestBody ?? {
+				required: true,
+				content: {
+					"application/vnd.oci.image.manifest.v1+json": {
+						schema: { type: "object", additionalProperties: true },
+					},
+				},
+			},
+		}),
+	);
+
 	openAPIDocument = sortArrays(openAPIDocument);
 	openAPIDocument = fixWrongGroupIds(openAPIDocument);
 	openAPIDocument = fixArrayItems(openAPIDocument);

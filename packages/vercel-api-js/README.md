@@ -60,6 +60,18 @@ if (isJsonLineStream(logs)) {
 
 Leaving the loop early cancels the response body. A response of another type resolves as usual, and so does any response when a custom `fetch` returns no `body`.
 
+### Response headers
+
+A call resolves to the parsed body only. To read a response header, pass `onResponse` in `config`; it gets the status and headers of the response before the body is read, an error response included. The container registry uploads need it, as they return the upload location and the manifest digest in headers:
+
+```ts
+let location: string | null = null;
+await client.api.vcr.createByTeamSlugByProjectSlugByRepositoryNameBlobsUploads({
+  pathParams: { teamSlug, projectSlug, repositoryName },
+  config: { onResponse: ({ headers }) => (location = headers.get("Location")) },
+});
+```
+
 ## Errors
 
 A call that gets an HTTP error response rejects with `{ status, payload }`: `status` is the HTTP status code and `payload` is the parsed JSON error body, or the raw body text, up to 1000 characters, when it is not JSON. A request that gets no response at all, for example because the network failed, rejects with an `Error` whose message names the method, the path and the reason, and whose `cause` is the original exception. A request cancelled through `signal` rejects with what the signal was aborted with, as is: the `AbortError`, or the `TimeoutError` of `AbortSignal.timeout()`.

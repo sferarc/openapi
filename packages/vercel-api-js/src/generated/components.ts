@@ -3435,6 +3435,7 @@ import type {
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus408,
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus410,
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus413,
+	ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceBody,
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath,
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceResponse,
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus400,
@@ -24093,9 +24094,11 @@ export async function deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsB
 export async function updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuid(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath;
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24128,15 +24131,16 @@ export async function updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsB
 			| UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus410
 			| UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus413
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath
 	>({
 		method: "PATCH",
 		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/blobs/uploads/${encodeURIComponent(String(pathParams.uuid))}`,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "application/octet-stream", ...requestConfig.headers },
 	});
 
 	return data;
@@ -24150,10 +24154,12 @@ export async function updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsB
 export async function replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuid(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath;
+		body?: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		queryParams: ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidQuery;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -24187,7 +24193,7 @@ export async function replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploads
 			| ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus410
 			| ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStatus413
 		>,
-		null,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidQuery,
 		ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath
@@ -24195,8 +24201,9 @@ export async function replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploads
 		method: "PUT",
 		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/blobs/uploads/${encodeURIComponent(String(pathParams.uuid))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "application/octet-stream", ...requestConfig.headers },
 	});
 
 	return data;
@@ -24264,9 +24271,11 @@ export async function createByTeamSlugByProjectSlugByRepositoryNameBlobsUploads(
 export async function replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReference(
 	{
 		pathParams,
+		body,
 		config,
 	}: {
 		pathParams: ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath;
+		body: ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -24298,15 +24307,19 @@ export async function replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByR
 			| ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410
 			| ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus413
 		>,
-		null,
+		string,
 		Record<string, string>,
 		Record<string, string>,
 		ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath
 	>({
 		method: "PUT",
 		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/manifests/${encodeURIComponent(String(pathParams.reference))}`,
+		body: body === undefined ? undefined : JSON.stringify(body),
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: {
+			"Content-Type": "application/vnd.oci.image.manifest.v1+json",
+			...requestConfig.headers,
+		},
 	});
 
 	return data;

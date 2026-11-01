@@ -50,6 +50,49 @@ describe("fetcher", () => {
 		).rejects.toEqual({ status: 404, payload: { message: "not found" } });
 	});
 
+	it("passes the status and headers of an error response to onResponse before rejecting", async () => {
+		const seen: { status: number; retryAfter: string | null }[] = [];
+		const fetchImpl: FetchImpl = async () =>
+			new Response("{}", {
+				status: 429,
+				headers: { "content-type": "application/json", "retry-after": "30" },
+			}) as never;
+
+		await expect(
+			client({
+				url: "/thing",
+				method: "get",
+				fetchImpl,
+				onResponse: ({ status, headers }) => {
+					seen.push({ status, retryAfter: headers.get("Retry-After") });
+				},
+			}),
+		).rejects.toEqual({ status: 429, payload: {} });
+		expect(seen).toEqual([{ status: 429, retryAfter: "30" }]);
+	});
+
+	it("gives onResponse empty headers when a custom fetch returns none", async () => {
+		let location: string | null | undefined;
+		const fetchImpl: FetchImpl = async () => ({
+			ok: true,
+			status: 202,
+			url: "",
+			json: async () => undefined,
+			text: async () => "",
+		});
+
+		await client({
+			url: "/thing",
+			method: "post",
+			fetchImpl,
+			onResponse: ({ headers }) => {
+				location = headers.get("Location");
+			},
+		});
+
+		expect(location).toBeNull();
+	});
+
 	it("keeps the raw body when the error body is not JSON", async () => {
 		await expect(
 			client({
