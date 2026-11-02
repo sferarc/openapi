@@ -112,7 +112,7 @@ Errors are typed as `ApiError`, `NetworkError` and `ValidationError`.
 
 A call can pass its own `config`, which layers over the layer's: its `headers` join the layer's, and its other fields, such as `onResponse` for the `Link` header, replace them. An `onResponse` that throws makes the effect die with the `onResponse threw on` error as a defect rather than fail with `NetworkError`.
 
-`makeApiLayer` accepts `token` and `headers`. Its `baseUrl` option is ignored by this client, which always calls `https://api.netlify.com/api/v1`.
+`makeApiLayer` accepts `token`, `headers` and `baseUrl`. `baseUrl` is the host only, such as a proxy or a test server, and defaults to `https://api.netlify.com`; the `/api/v1` base path is added to it. A single call can pass it as `config: { baseUrl }`.
 
 ## Entrypoints
 
