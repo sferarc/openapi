@@ -1,5 +1,11 @@
 # netlify-api
 
+## 3.2.1
+
+### Patch Changes
+
+- 98ab0e2: Document that the Effect layer and a call's `config` take a `baseUrl` host, which the README said was ignored.
+
 ## 3.2.0
 
 ### Minor Changes
