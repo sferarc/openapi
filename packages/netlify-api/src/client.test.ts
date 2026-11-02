@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { NetlifyApi } from "./client";
 import type { FetchImpl, RequestInit } from "./utils/fetch";
+import type { ResponseInfo } from "./utils/fetcher";
 
 describe("NetlifyApi.request", () => {
 	function setup() {
@@ -189,5 +190,41 @@ describe("NetlifyApi per-call config", () => {
 		await client.request("GET /sites", { config: { signal } });
 		await client.api.site.listSites({ config: { signal } });
 		expect(signals).toEqual([signal, signal]);
+	});
+});
+
+describe("NetlifyApi response headers", () => {
+	const link =
+		'<https://api.netlify.com/api/v1/sites?page=2&per_page=1>; rel="next", <https://api.netlify.com/api/v1/sites?page=3&per_page=1>; rel="last"';
+
+	function setup() {
+		const fetch: FetchImpl = async () =>
+			new Response(JSON.stringify([{ id: "site-1" }]), {
+				status: 200,
+				headers: { "content-type": "application/json", Link: link },
+			}) as never;
+		return new NetlifyApi({ token: "token", fetch });
+	}
+
+	it("reads the Link to the next page of a list from the api proxy", async () => {
+		const client = setup();
+		const seen: ResponseInfo[] = [];
+
+		const sites = await client.api.site.listSites({
+			queryParams: { per_page: 1 },
+			config: { onResponse: (response) => seen.push(response) },
+		});
+
+		expect(sites).toEqual([{ id: "site-1" }]);
+		expect(seen.map(({ status, headers }) => [status, headers.get("Link")])).toEqual([[200, link]]);
+	});
+
+	it("passes onResponse through request()", async () => {
+		const client = setup();
+		const links: (string | null)[] = [];
+		await client.request("GET /sites", {
+			config: { onResponse: ({ headers }) => links.push(headers.get("link")) },
+		});
+		expect(links).toEqual([link]);
 	});
 });

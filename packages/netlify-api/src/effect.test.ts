@@ -1,7 +1,14 @@
-import { Effect, Layer } from "effect";
-import { describe, expect, it } from "vitest";
+import { Cause, Effect, Exit, Layer } from "effect";
+import { assert, describe, expect, it } from "vitest";
 import { operationsByPath } from "./components";
-import { ApiConfig, ApiError, effectByPath, NetworkError } from "./effect";
+import {
+	ApiConfig,
+	ApiError,
+	ApiService,
+	effectByPath,
+	makeApiLayer,
+	NetworkError,
+} from "./effect";
 
 const endpoint = Object.keys(operationsByPath).find((key) => !key.includes("{"));
 if (!endpoint) throw new Error("expected an operation without path parameters");
@@ -41,5 +48,43 @@ describe("effect bindings", () => {
 		);
 		expect(requested.startsWith("https://proxy.test/")).toBe(true);
 		expect(requested).not.toContain("proxy.test//");
+	});
+
+	it("pass a call's onResponse the Link header of a list", async () => {
+		const link = '<https://api.netlify.com/api/v1/sites?page=2>; rel="next"';
+		let received: string | null = null;
+		const program = ApiService.site.listSites({
+			queryParams: { per_page: 1 },
+			config: { onResponse: ({ headers }) => (received = headers.get("Link")) },
+		});
+		const fetchImpl = async () =>
+			new Response("[]", { headers: { "content-type": "application/json", Link: link } });
+
+		await Effect.runPromise(program.pipe(Effect.provide(makeApiLayer({ fetchImpl }))));
+
+		expect(received).toBe(link);
+	});
+
+	it("die with the error an onResponse hook threw", async () => {
+		const thrown = new Error("no Link header");
+		const program = operation({
+			config: {
+				onResponse: () => {
+					throw thrown;
+				},
+			},
+		});
+		const exit = await Effect.runPromise(
+			Effect.exit(program).pipe(
+				Effect.provide(makeApiLayer({ fetchImpl: async () => new Response("{}") })),
+			),
+		);
+
+		assert(Exit.isFailure(exit));
+		expect(Cause.hasFails(exit.cause)).toBe(false);
+		const defect = Cause.squash(exit.cause);
+		assert(defect instanceof Error);
+		expect(defect.message).toMatch(/^onResponse threw on [A-Z]+ \/.*: no Link header$/);
+		expect(defect.cause).toBe(thrown);
 	});
 });

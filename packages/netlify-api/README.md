@@ -62,6 +62,23 @@ const { tokenType, accessToken, refreshToken, scope, createdAt } = await client.
 
 This posts to `https://api.netlify.com/oauth/token` and returns the new token pair, with `createdAt` as a Unix timestamp.
 
+### Response headers
+
+A call resolves to the parsed body only. To read a response header, pass `onResponse` in `config`; it gets the status and headers of the response before the body is read, an error response included. Netlify pages its lists with `page` and `per_page` and links the next page in the `Link` header:
+
+```ts
+import type { ResponseInfo } from "netlify-api";
+
+const responses: ResponseInfo[] = [];
+const sites = await client.api.site.listSites({
+  queryParams: { per_page: 100 },
+  config: { onResponse: (response) => responses.push(response) },
+});
+const hasNextPage = responses[0]?.headers.get("Link")?.includes('rel="next"') ?? false;
+```
+
+An error thrown inside `onResponse` rejects the call with an `Error` whose message starts with `onResponse threw on` and whose `cause` is what was thrown.
+
 ### Errors
 
 A request that gets an HTTP error response rejects with `{ status, payload }`: `status` is the HTTP status code and `payload` is the parsed error body, or the raw body text, up to 1000 characters, when it is not JSON. A request that never gets a response rejects with an `Error` whose message names the method, the path and the reason, and whose `cause` is the original exception. A request cancelled through `signal` rejects with what the signal was aborted with, as is: the `AbortError`, or the `TimeoutError` of `AbortSignal.timeout()`.
@@ -92,6 +109,8 @@ await Effect.runPromise(
 ```
 
 Errors are typed as `ApiError`, `NetworkError` and `ValidationError`.
+
+A call can pass its own `config`, which layers over the layer's: its `headers` join the layer's, and its other fields, such as `onResponse` for the `Link` header, replace them. An `onResponse` that throws makes the effect die with the `onResponse threw on` error as a defect rather than fail with `NetworkError`.
 
 `makeApiLayer` accepts `token` and `headers`. Its `baseUrl` option is ignored by this client, which always calls `https://api.netlify.com/api/v1`.
 
