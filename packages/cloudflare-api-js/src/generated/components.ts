@@ -122490,7 +122490,7 @@ export async function sharesList(
 
 /**
  * @summary Trigger a share creation
- * @description Creates a new resource share for sharing Cloudflare resources with other accounts or organizations.
+ * @description Creates a share that makes a resource available to specific accounts in the caller's organization, or to the whole organization.
  * @link /accounts/{accountId}/shares
  */
 export async function shareCreate(
@@ -122611,18 +122611,10 @@ export async function sharesGetById(
 }
 
 /**
- * @summary Trigger a share rename
- * @description Updates the share's display name and tags. This endpoint does **not**
- * modify recipients or resources — those are managed via dedicated
- * subresource endpoints:
- * - **Recipients**: Use `POST /accounts/{account_id}/shares/{share_id}/recipients`
- *   to add a single recipient, `PUT /accounts/{account_id}/shares/{share_id}/recipients`
- *   to replace the full recipient list, or
- *   `DELETE /accounts/{account_id}/shares/{share_id}/recipients/{recipient_id}`
- *   to remove a recipient.
- * - **Resources**: Use the share's resource subresource endpoints.
- * Updating is not immediate; an updated share object with a new status
- * will be returned.
+ * @summary Trigger a share update
+ * @description Updates the share's display name and tags. Omitting `tags` leaves the
+ * existing tags unchanged. Recipients and resources are managed via their
+ * subresource endpoints.
  * @link /accounts/{accountId}/shares/{shareId}
  */
 export async function shareUpdate(
@@ -122665,7 +122657,7 @@ export async function shareUpdate(
 
 /**
  * @summary List share excluded recipients by share ID
- * @description Lists the accounts excluded from an organization-targeted share. Only valid for shares with `target_type=organization`.
+ * @description Lists the accounts excluded from an organization-targeted share. Returns an empty list for account-targeted shares.
  * @link /accounts/{accountId}/shares/{shareId}/excluded-recipients
  */
 export async function shareExcludedRecipientsList(
@@ -122980,9 +122972,9 @@ export async function shareRecipientCreate(
  * new accounts are added, accounts no longer in the list are marked for
  * disassociation, and unchanged accounts are left as-is.
  * Returns an error if the share targets an organization
- * (`target_type=organization`); org-targeted shares derive their
- * recipients dynamically from org membership and cannot be modified
- * through this endpoint.
+ * (`target_type=organization`) and the list is non-empty; org-targeted
+ * shares derive their recipients dynamically from org membership and
+ * cannot be modified through this endpoint.
  * @link /accounts/{accountId}/shares/{shareId}/recipients
  */
 export async function shareRecipientsUpdate(
@@ -123299,7 +123291,7 @@ export async function shareResourcesGetById(
 
 /**
  * @summary Trigger a resource metadata update in a share
- * @description Update is not immediate, an updated share resource object with a new status will be returned.
+ * @description Updates the resource's `meta`. Only resources with `status=active` can be updated.
  * @link /accounts/{accountId}/shares/{shareId}/resources/{shareResourceId}
  */
 export async function shareResourceUpdate(
@@ -147920,8 +147912,8 @@ export async function argoSmartRoutingPatchArgoSmartRoutingSetting(
 }
 
 /**
- * @summary Get Tiered Caching setting
- * @description Tiered Cache works by dividing Cloudflare's data centers into a hierarchy of lower-tiers and upper-tiers. If content is not cached in lower-tier data centers (generally the ones closest to a visitor), the lower-tier must ask an upper-tier to see if it has the content. If the upper-tier does not have the content, only the upper-tier can ask the origin for content. This practice improves bandwidth efficiency by limiting the number of data centers that can ask the origin for content, which reduces origin load and makes websites more cost-effective to operate. Additionally, Tiered Cache concentrates connections to origin servers so they come from a small number of data centers rather than the full set of network locations. This results in fewer open connections using server resources.
+ * @summary Get Tiered Cache
+ * @description Retrieves whether Tiered Cache is enabled for a zone. Tiered Cache reduces origin traffic by serving lower-tier cache misses from upper-tier data centers before requesting content from your origin.
  * @link /zones/{zoneId}/argo/tiered_caching
  */
 export async function tieredCachingGetTieredCachingSetting(
@@ -147956,8 +147948,8 @@ export async function tieredCachingGetTieredCachingSetting(
 }
 
 /**
- * @summary Patch Tiered Caching setting
- * @description Tiered Cache works by dividing Cloudflare's data centers into a hierarchy of lower-tiers and upper-tiers. If content is not cached in lower-tier data centers (generally the ones closest to a visitor), the lower-tier must ask an upper-tier to see if it has the content. If the upper-tier does not have the content, only the upper-tier can ask the origin for content. This practice improves bandwidth efficiency by limiting the number of data centers that can ask the origin for content, which reduces origin load and makes websites more cost-effective to operate. Additionally, Tiered Cache concentrates connections to origin servers so they come from a small number of data centers rather than the full set of network locations. This results in fewer open connections using server resources.
+ * @summary Update Tiered Cache
+ * @description Enables or disables Tiered Cache for a zone. Tiered Cache reduces origin traffic by serving lower-tier cache misses from upper-tier data centers before requesting content from your origin.
  * @link /zones/{zoneId}/argo/tiered_caching
  */
 export async function tieredCachingPatchTieredCachingSetting(
