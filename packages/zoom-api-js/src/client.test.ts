@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { ZoomApi } from "./client";
 import type { FetchImpl, RequestInit } from "./utils/fetch";
+import type { ResponseInfo } from "./utils/fetcher";
 
 describe("ZoomApi.request", () => {
 	function setup() {
@@ -184,5 +185,45 @@ describe("ZoomApi per-call config", () => {
 		await client.request("GET /archive_files", { config: { signal } });
 		await client.api.archiving.listArchivedFiles({ config: { signal } });
 		expect(signals).toEqual([signal, signal]);
+	});
+});
+
+describe("ZoomApi response headers", () => {
+	function setup() {
+		const fetch: FetchImpl = async () =>
+			new Response(
+				JSON.stringify({ code: 429, message: "You have reached the maximum daily rate limit" }),
+				{
+					status: 429,
+					headers: { "content-type": "application/json", "retry-after": "2026-11-03T00:00:00Z" },
+				},
+			) as never;
+		return new ZoomApi({ token: "token", fetch });
+	}
+
+	it("reads the headers of a rate limited response from the api proxy", async () => {
+		const client = setup();
+		const seen: ResponseInfo[] = [];
+
+		await expect(
+			client.api.archiving.listArchivedFiles({
+				config: { onResponse: (response) => seen.push(response) },
+			}),
+		).rejects.toMatchObject({ status: 429 });
+		expect(seen.map(({ status, headers }) => [status, headers.get("Retry-After")])).toEqual([
+			[429, "2026-11-03T00:00:00Z"],
+		]);
+	});
+
+	it("passes onResponse through request()", async () => {
+		const client = setup();
+		const retryAfter: (string | null)[] = [];
+
+		await expect(
+			client.request("GET /archive_files", {
+				config: { onResponse: ({ headers }) => retryAfter.push(headers.get("retry-after")) },
+			}),
+		).rejects.toMatchObject({ status: 429 });
+		expect(retryAfter).toEqual(["2026-11-03T00:00:00Z"]);
 	});
 });
