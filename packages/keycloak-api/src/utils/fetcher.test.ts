@@ -18,6 +18,65 @@ describe("fetcher", () => {
 		).rejects.toEqual({ status: 404, payload: { message: "not found" } });
 	});
 
+	it("passes the status and headers of an error response to onResponse before rejecting", async () => {
+		const seen: { status: number; location: string | null }[] = [];
+		const fetchImpl: FetchImpl = async () =>
+			new Response("{}", {
+				status: 409,
+				headers: { "content-type": "application/json", location: "https://kc/users/1" },
+			}) as never;
+
+		await expect(
+			client({
+				url: "/thing",
+				method: "post",
+				fetchImpl,
+				onResponse: ({ status, headers }) => {
+					seen.push({ status, location: headers.get("Location") });
+				},
+			}),
+		).rejects.toEqual({ status: 409, payload: {} });
+		expect(seen).toEqual([{ status: 409, location: "https://kc/users/1" }]);
+	});
+
+	it("gives onResponse empty headers when a custom fetch returns none", async () => {
+		let location: string | null | undefined;
+		const fetchImpl: FetchImpl = async () => ({
+			ok: true,
+			status: 201,
+			url: "",
+			json: async () => undefined,
+			text: async () => "",
+		});
+
+		await client({
+			url: "/thing",
+			method: "post",
+			fetchImpl,
+			onResponse: ({ headers }) => {
+				location = headers.get("Location");
+			},
+		});
+
+		expect(location).toBeNull();
+	});
+
+	it("reports an onResponse that throws as the hook's error, not a failed request", async () => {
+		const cause = new Error("no Location header");
+		const error = await client({
+			url: "/thing",
+			method: "post",
+			queryParams: { secret: "s3cret" },
+			fetchImpl: respond(201, ""),
+			onResponse: () => {
+				throw cause;
+			},
+		}).catch((e: unknown) => e);
+		expect(error).toBeInstanceOf(Error);
+		expect((error as Error).cause).toBe(cause);
+		expect((error as Error).message).toBe("onResponse threw on POST /thing: no Location header");
+	});
+
 	it("keeps the raw body when the error body is not JSON", async () => {
 		await expect(
 			client({

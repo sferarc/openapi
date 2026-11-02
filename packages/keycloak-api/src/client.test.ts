@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { KeycloakAccountApi, KeycloakAdminApi } from "./client";
 import type { FetchImpl } from "./utils/fetch";
+import type { ResponseInfo } from "./utils/fetcher";
 
 describe("KeycloakAdminApi.request", () => {
 	function setup() {
@@ -228,6 +229,45 @@ describe("Keycloak per-call config", () => {
 		await admin.request("GET /admin/realms", { config: { signal } });
 		await account.request("GET /account/", { config: { signal } });
 		expect(signals).toEqual([signal, signal]);
+	});
+});
+
+describe("Keycloak response headers", () => {
+	const location = "https://keycloak.example.com/admin/realms/master/users/4f1c";
+
+	function setup() {
+		const fetch: FetchImpl = async () =>
+			new Response(null, { status: 201, headers: { Location: location } }) as never;
+		const options = { baseUrl: "https://keycloak.example.com", token: "token", fetch };
+		return {
+			admin: new KeycloakAdminApi(options),
+			account: new KeycloakAccountApi({ ...options, realm: "master" }),
+		};
+	}
+
+	it("reads the Location of a created user, whose body is empty", async () => {
+		const { admin } = setup();
+		const seen: ResponseInfo[] = [];
+
+		const result = await admin.request("POST /admin/realms/{realm}/users", {
+			pathParams: { realm: "master" },
+			body: { username: "ada" },
+			config: { onResponse: (response) => seen.push(response) },
+		});
+
+		expect(result).toBeUndefined();
+		expect(seen.map(({ status, headers }) => [status, headers.get("Location")])).toEqual([
+			[201, location],
+		]);
+	});
+
+	it("passes onResponse through the account client", async () => {
+		const { account } = setup();
+		const statuses: number[] = [];
+		await account.request("GET /account/", {
+			config: { onResponse: ({ status }) => statuses.push(status) },
+		});
+		expect(statuses).toEqual([201]);
 	});
 });
 
