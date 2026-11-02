@@ -1,5 +1,24 @@
 # litellm-api
 
+## 2.6.0
+
+### Minor Changes
+
+- 9c56512: [BREAKING] The operation dynamicMcpRouteMcpServerNameMcpPost has been renamed to dynamicMcpRouteMcpServerNameMcpDelete, and its method changed from POST to DELETE.
+- 9c56512: [BREAKING] The operation toolsetMcpRouteToolsetToolsetNameMcpGet has been renamed to toolsetMcpRouteToolsetToolsetNameMcpOptions, and its method changed from GET to OPTIONS.
+- 9c56512: [BREAKING] The operation toolsetMcpRouteToolsetToolsetNameMcpPut has been renamed to toolsetMcpRouteToolsetToolsetNameMcpPatch, and its method changed from PUT to PATCH.
+- 9c56512: [BREAKING] The operation toolsetMcpRouteToolsetToolsetNameMcpPost has been renamed to toolsetMcpRouteToolsetToolsetNameMcpDelete, and its method changed from POST to DELETE.
+- 9c56512: [BREAKING] The operation dynamicMcpRouteMcpServerNameMcpOptions has been renamed to dynamicMcpRouteMcpServerNameMcpHead, and its method changed from OPTIONS to HEAD.
+- 9c56512: [BREAKING] The operation dynamicMcpRouteMcpServerNameMcpDelete has been renamed to dynamicMcpRouteMcpServerNameMcpPut, and its method changed from DELETE to PUT.
+- 9c56512: [BREAKING] The operation toolsetMcpRouteToolsetToolsetNameMcpPatch has been renamed to toolsetMcpRouteToolsetToolsetNameMcpPost, and its method changed from PATCH to POST.
+- 9c56512: [BREAKING] The operation dynamicMcpRouteMcpServerNameMcpPatch has been renamed to dynamicMcpRouteMcpServerNameMcpPost, and its method changed from PATCH to POST.
+- 9c56512: [BREAKING] The operation toolsetMcpRouteToolsetToolsetNameMcpDelete has been renamed to toolsetMcpRouteToolsetToolsetNameMcpPut, and its method changed from DELETE to PUT.
+- 9c56512: [BREAKING] The operation dynamicMcpRouteMcpServerNameMcpHead has been renamed to dynamicMcpRouteMcpServerNameMcpGet, and its method changed from HEAD to GET.
+- 9c56512: [BREAKING] The operation toolsetMcpRouteToolsetToolsetNameMcpOptions has been renamed to toolsetMcpRouteToolsetToolsetNameMcpHead, and its method changed from OPTIONS to HEAD.
+- 9c56512: [BREAKING] The operation dynamicMcpRouteMcpServerNameMcpPut has been renamed to dynamicMcpRouteMcpServerNameMcpPatch, and its method changed from PUT to PATCH.
+- 9c56512: [BREAKING] The operation dynamicMcpRouteMcpServerNameMcpGet has been renamed to dynamicMcpRouteMcpServerNameMcpOptions, and its method changed from GET to OPTIONS.
+- 9c56512: [BREAKING] The operation toolsetMcpRouteToolsetToolsetNameMcpHead has been renamed to toolsetMcpRouteToolsetToolsetNameMcpGet, and its method changed from HEAD to GET.
+
 ## 2.5.1
 
 ### Patch Changes
