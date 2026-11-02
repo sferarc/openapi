@@ -1,5 +1,33 @@
 # cloudflare-api-js
 
+## 4.5.0
+
+### Minor Changes
+
+- 043ce48: Add support for including share tags in sharesList and sharesGetById endpoints via the include_tags_from parameter.
+- 043ce48: Add new readonly origin_worker_name and origin_worker_status fields to SpectrumConfigAppConfig for better Spectrum Worker origin details.
+- 043ce48: Add new tags field to ResourceSharingCreateShareRequest, ResourceSharingShareObject, and ResourceSharingUpdateShareRequest types.
+- 043ce48: ResourceSharingShareRecipientMutationRequest now includes both recipient_account_id and a deprecated account_id alias for recipient specification.
+- 043ce48: OrganizationSharesListQuery type no longer includes kind, target_type, and resource_types filters.
+- 043ce48: Add new ResourceSharingShareTags type and support for tags in relevant resource sharing types and endpoints.
+- 043ce48: [BREAKING] Make recipients and resources fields optional in ResourceSharingCreateShareRequest, updating how shares are created.
+
+### Patch Changes
+
+- 043ce48: ResourceSharingRecipientResourceErrorTerminal type is now boolean | null instead of just boolean.
+- 043ce48: Update result handling for ResourceSharingApiResponseCommonFailure to allow result to be object or null.
+- 043ce48: Clarify and update descriptions for Tiered Cache endpoints and types, renaming 'Tiered Caching' to 'Tiered Cache' and updating enablement descriptions.
+- 043ce48: Update and clarify type descriptions, minLength, and pattern attributes for various resource sharing path and ID fields.
+- 043ce48: Deprecate GENERIC_RESTRICTED, SPONSORED, and INFRASTRUCTURE TLD types for RadarGetTldsQuery, following IANA changes.
+- 043ce48: ResourceSharingRecipientResourceVersion type is now number | null and used in recipient resource objects.
+- 043ce48: Switch DnsFirewallDnsFirewallReverseDnsResponse2 type references to DnsFirewallDnsFirewallReverseDnsResponse in DnsFirewallShowDnsFirewallClusterReverseDnsStatus200 and DnsFirewallUpdateDnsFirewallClusterReverseDnsStatus200.
+- 043ce48: Clarify and update documentation and descriptions for resource sharing endpoints and types, including improved details for exclusions, status, and error handling.
+- 043ce48: Clarify interval default for AI Search Instance sync settings to 86400 (24h).
+- 043ce48: Clarify behavior of shareResourcesGetById endpoint to specify only resources with status=active can be updated, and meta is updated.
+- 043ce48: ResourceSharingUpdateShareRecipientsRequest and ShareRecipientCreateBody now use ResourceSharingShareRecipientMutationRequest for more flexible recipient specification.
+- 043ce48: Update pagination parameter documentation for shares and share resources listing endpoints to clarify defaults and non-paginated behavior.
+- 043ce48: ResourceSharingShareRecipientResourceObject now allows null for terminal and resource_version fields instead of requiring concrete values.
+
 ## 4.4.0
 
 ### Minor Changes
