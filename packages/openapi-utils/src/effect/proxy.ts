@@ -43,6 +43,11 @@ function convertError(error: unknown): ApiError | NetworkError | ValidationError
 	return new NetworkError({ cause: error });
 }
 
+// The vercel-api-js fetcher rejects with this message when the caller's onResponse throws.
+function isResponseHookError(error: unknown): error is Error {
+	return error instanceof Error && error.message.startsWith("onResponse threw on ");
+}
+
 // ============================================================================
 // Proxy Factories
 // ============================================================================
@@ -57,8 +62,13 @@ function toEffect(op: (params: Record<string, unknown>) => Promise<unknown>) {
 			const config = yield* ApiConfig;
 			return yield* Effect.tryPromise({
 				try: (signal) => op({ ...(params ?? {}), config: { ...config, signal } }),
-				catch: convertError,
-			});
+				catch: (error) => error,
+			}).pipe(
+				// A bug in the caller's own callback is a defect, not a failed request.
+				Effect.catch((error) =>
+					isResponseHookError(error) ? Effect.die(error) : Effect.fail(convertError(error)),
+				),
+			);
 		});
 }
 

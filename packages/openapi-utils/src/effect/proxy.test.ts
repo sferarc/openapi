@@ -1,4 +1,4 @@
-import { Duration, Effect, Layer } from "effect";
+import { Cause, Duration, Effect, Exit, Layer } from "effect";
 import { assert, describe, expect, it, vi } from "vitest";
 import { ApiConfig, ApiError, makeApiLayer, NetworkError, ValidationError } from "./errors";
 import { createEffectApi, createEffectByPath } from "./proxy";
@@ -133,6 +133,22 @@ describe("error mapping", () => {
 
 		assert(error instanceof ValidationError);
 		expect(error.field).toBe("projectId");
+	});
+
+	it("dies with the error an onResponse hook threw instead of failing with NetworkError", async () => {
+		const thrown = new Error("no Location header");
+		const rejection = new Error("onResponse threw on POST /thing: no Location header", {
+			cause: thrown,
+		});
+		const api = createEffectByPath({
+			"/thing": (_: Params): Promise<never> => Promise.reject(rejection),
+		});
+
+		const exit = await run(Effect.exit(api["/thing"]({})));
+
+		assert(Exit.isFailure(exit));
+		expect(Cause.hasFails(exit.cause)).toBe(false);
+		expect(Cause.squash(exit.cause)).toBe(rejection);
 	});
 
 	it("maps any other rejection to NetworkError", async () => {
