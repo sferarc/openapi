@@ -59713,6 +59713,241 @@ export type DeleteSdkKeyResponses = {
  */
 export type DeleteSdkKeyResponse = DeleteSdkKeyStatus204;
 
+export type GetFlagsProjectConnectionsPath = {
+	/**
+	 * @description The project id or name
+	 * @type string
+	 */
+	projectIdOrName: string;
+};
+
+export const getFlagsProjectConnectionsRole = {
+	source: "source",
+	consumer: "consumer",
+} as const;
+
+export type GetFlagsProjectConnectionsRoleKey =
+	(typeof getFlagsProjectConnectionsRole)[keyof typeof getFlagsProjectConnectionsRole];
+
+export type GetFlagsProjectConnectionsQuery = {
+	/**
+	 * @description List connections where this project is the source (default) or the consumer
+	 * @type string | undefined
+	 */
+	role?: GetFlagsProjectConnectionsRoleKey | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type GetFlagsProjectConnectionsStatus200 =
+	| object
+	| {
+			data: {
+				consumerProjectId: string;
+				consumerProjectName?: string | undefined;
+				createdAt: number;
+				createdBy: string;
+				sourceProjectId: string;
+				sourceProjectName?: string | undefined;
+			}[];
+	  };
+
+export type GetFlagsProjectConnectionsStatus400 = unknown;
+
+export type GetFlagsProjectConnectionsStatus401 = unknown;
+
+export type GetFlagsProjectConnectionsStatus402 = unknown;
+
+export type GetFlagsProjectConnectionsStatus403 = unknown;
+
+export type GetFlagsProjectConnectionsStatus404 = unknown;
+
+export type GetFlagsProjectConnectionsStatus410 = unknown;
+
+export type GetFlagsProjectConnectionsOptions = {
+	body?: never | undefined;
+	path: GetFlagsProjectConnectionsPath;
+	query?: GetFlagsProjectConnectionsQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type GetFlagsProjectConnectionsResponses = {
+	"200": GetFlagsProjectConnectionsStatus200;
+	"400": GetFlagsProjectConnectionsStatus400;
+	"401": GetFlagsProjectConnectionsStatus401;
+	"402": GetFlagsProjectConnectionsStatus402;
+	"403": GetFlagsProjectConnectionsStatus403;
+	"404": GetFlagsProjectConnectionsStatus404;
+	"410": GetFlagsProjectConnectionsStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetFlagsProjectConnectionsResponse = GetFlagsProjectConnectionsStatus200;
+
+export type CreateFlagsProjectConnectionPath = {
+	/**
+	 * @description The project id or name
+	 * @type string
+	 */
+	projectIdOrName: string;
+};
+
+export type CreateFlagsProjectConnectionQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type CreateFlagsProjectConnectionStatus200 = {
+	consumerProjectId: string;
+	consumerProjectName: string;
+	createdAt: number;
+	createdBy: string;
+	sourceProjectId: string;
+	sourceProjectName: string;
+};
+
+export type CreateFlagsProjectConnectionStatus400 = unknown;
+
+export type CreateFlagsProjectConnectionStatus401 = unknown;
+
+export type CreateFlagsProjectConnectionStatus402 = unknown;
+
+export type CreateFlagsProjectConnectionStatus403 = unknown;
+
+export type CreateFlagsProjectConnectionStatus404 = unknown;
+
+export type CreateFlagsProjectConnectionStatus409 = unknown;
+
+export type CreateFlagsProjectConnectionStatus410 = unknown;
+
+export type CreateFlagsProjectConnectionStatus503 = unknown;
+
+export type CreateFlagsProjectConnectionBody =
+	| {
+			/**
+			 * @description The project in the same team that may read the flags of this project
+			 * @type string
+			 */
+			consumerProjectId: string;
+	  }
+	| undefined;
+
+export type CreateFlagsProjectConnectionOptions = {
+	body: CreateFlagsProjectConnectionBody;
+	path: CreateFlagsProjectConnectionPath;
+	query?: CreateFlagsProjectConnectionQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateFlagsProjectConnectionResponses = {
+	"200": CreateFlagsProjectConnectionStatus200;
+	"400": CreateFlagsProjectConnectionStatus400;
+	"401": CreateFlagsProjectConnectionStatus401;
+	"402": CreateFlagsProjectConnectionStatus402;
+	"403": CreateFlagsProjectConnectionStatus403;
+	"404": CreateFlagsProjectConnectionStatus404;
+	"409": CreateFlagsProjectConnectionStatus409;
+	"410": CreateFlagsProjectConnectionStatus410;
+	"503": CreateFlagsProjectConnectionStatus503;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateFlagsProjectConnectionResponse = CreateFlagsProjectConnectionStatus200;
+
+export type DeleteFlagsProjectConnectionPath = {
+	/**
+	 * @description The project id or name
+	 * @type string
+	 */
+	projectIdOrName: string;
+	/**
+	 * @description The connected consumer project id
+	 * @type string
+	 */
+	consumerProjectId: string;
+};
+
+export type DeleteFlagsProjectConnectionQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type DeleteFlagsProjectConnectionStatus204 = void;
+
+export type DeleteFlagsProjectConnectionStatus400 = unknown;
+
+export type DeleteFlagsProjectConnectionStatus401 = unknown;
+
+export type DeleteFlagsProjectConnectionStatus402 = unknown;
+
+export type DeleteFlagsProjectConnectionStatus403 = unknown;
+
+export type DeleteFlagsProjectConnectionStatus404 = unknown;
+
+export type DeleteFlagsProjectConnectionStatus409 = unknown;
+
+export type DeleteFlagsProjectConnectionStatus410 = unknown;
+
+export type DeleteFlagsProjectConnectionStatus503 = unknown;
+
+export type DeleteFlagsProjectConnectionOptions = {
+	body?: never | undefined;
+	path: DeleteFlagsProjectConnectionPath;
+	query?: DeleteFlagsProjectConnectionQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteFlagsProjectConnectionResponses = {
+	"204": DeleteFlagsProjectConnectionStatus204;
+	"400": DeleteFlagsProjectConnectionStatus400;
+	"401": DeleteFlagsProjectConnectionStatus401;
+	"402": DeleteFlagsProjectConnectionStatus402;
+	"403": DeleteFlagsProjectConnectionStatus403;
+	"404": DeleteFlagsProjectConnectionStatus404;
+	"409": DeleteFlagsProjectConnectionStatus409;
+	"410": DeleteFlagsProjectConnectionStatus410;
+	"503": DeleteFlagsProjectConnectionStatus503;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteFlagsProjectConnectionResponse = DeleteFlagsProjectConnectionStatus204;
+
 export const gitNamespacesProvider = {
 	github: "github",
 	"github-limited": "github-limited",
