@@ -26253,12 +26253,12 @@ export const cacheSettingsValue = {
 export type CacheSettingsValueKey = (typeof cacheSettingsValue)[keyof typeof cacheSettingsValue];
 
 /**
- * @description Update enablement of Tiered Caching.
+ * @description Updates whether Tiered Cache is enabled for a zone.
  * @type object
  */
 export type CacheSettingsPatch = {
   /**
-   * @description Enables Tiered Caching.
+   * @description Enables or disables Tiered Cache.
    * @example on
    * @type string
    */
@@ -31385,17 +31385,23 @@ export type CloudforceOnePortScanApiApiResponseCommon = {
   success: true;
 };
 
-export type CloudforceOnePortScanApiApiResponseCommonFailure = CloudforceOnePortScanApiApiResponseCommon & {
+export type CloudforceOnePortScanApiApiResponseCommonFailure = {
   /**
-   * @example {"code":10433,"message":"request error"}
-   * @type object | undefined
+   * @example [{"code":10433,"message":"request error"}]
+   * @type array
    */
-  errors?: object | undefined;
+  errors: CloudforceOnePortScanApiMessages;
   /**
+   * @example []
+   * @type array
+   */
+  messages: CloudforceOnePortScanApiMessages;
+  /**
+   * @description Whether the API call was successful.
    * @example false
-   * @type boolean | undefined
+   * @type boolean
    */
-  success?: boolean | undefined;
+  success: false;
 };
 
 /**
@@ -43722,7 +43728,7 @@ export type DnsFirewallDnsFirewallReverseDns = {
 
 export type DnsFirewallDnsFirewallReverseDnsPatch = DnsFirewallDnsFirewallReverseDns;
 
-export type DnsFirewallDnsFirewallReverseDnsResponse = DnsFirewallDnsFirewallReverseDns & {
+export type DnsFirewallDnsFirewallReverseDnsResponseWithPtr = DnsFirewallDnsFirewallReverseDns & {
   /**
    * @description Map of cluster IP addresses to PTR record contents
    * @type object
@@ -43734,6 +43740,10 @@ export type DnsFirewallDnsFirewallReverseDnsResponse = DnsFirewallDnsFirewallRev
 
 export type DnsFirewallDnsFirewallResponseCollection = DnsFirewallApiResponseCollection & {
   result?: DnsFirewallDnsFirewallClusterResponse[] | undefined;
+};
+
+export type DnsFirewallDnsFirewallReverseDnsResponse = DnsFirewallApiResponseSingle & {
+  result?: DnsFirewallDnsFirewallReverseDnsResponseWithPtr | undefined;
 };
 
 export type DnsFirewallDnsFirewallSingleResponse = DnsFirewallApiResponseSingle & {
@@ -93977,7 +93987,9 @@ export type RequestTracerTrace = {
 
 /**
  * @description Account identifier.
+ * @minLength 32
  * @maxLength 32
+ * @pattern ^[0-9a-fA-F]{32}$
  * @example 023e105f4ecef8ad9ca31a8372d0c353
  * @type string
  */
@@ -93991,10 +94003,6 @@ export type ResourceSharingAccountId = string;
 export type ResourceSharingAccountName = string;
 
 export type ResourceSharingV4Error = {
-  /**
-   * @minLength 1000
-   * @type integer
-   */
   code: number;
   message: string;
 };
@@ -94021,33 +94029,33 @@ export type ResourceSharingApiResponseCommon = {
 
 export type ResourceSharingResultInfo = {
   /**
-   * @description Total number of results for the requested service.
+   * @description Number of results on the current page.
    * @example 1
-   * @type number | undefined
+   * @type integer | undefined
    */
   count?: number | undefined;
   /**
    * @description Current page within paginated list of results.
    * @example 1
-   * @type number | undefined
+   * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of results per page of results.
    * @example 20
-   * @type number | undefined
+   * @type integer | undefined
    */
   per_page?: number | undefined;
   /**
-   * @description Total results available without any search parameters.
+   * @description Total number of results matching the current filters before pagination.
    * @example 2000
-   * @type number | undefined
+   * @type integer | undefined
    */
   total_count?: number | undefined;
   /**
    * @description Total number of pages using the given per page.
    * @example 50
-   * @type number | undefined
+   * @type integer | undefined
    */
   total_pages?: number | undefined;
 };
@@ -94064,7 +94072,7 @@ export type ResourceSharingApiResponseCommonFailure = {
    * @type array
    */
   errors: ResourceSharingV4Errors;
-  result: null;
+  result: object | null;
   /**
    * @description Whether the API call was successful.
    * @example false
@@ -94076,7 +94084,9 @@ export type ResourceSharingApiResponseCommonFailure = {
 export type ResourceSharingCreateShareExcludedRecipientRequest = {
   /**
    * @description The account to exclude from the organization-targeted share.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
@@ -94085,7 +94095,9 @@ export type ResourceSharingCreateShareExcludedRecipientRequest = {
 
 /**
  * @description Organization identifier.
+ * @minLength 32
  * @maxLength 32
+ * @pattern ^[0-9a-fA-F]{32}$
  * @example 023e105f4ecef8ad9ca31a8372d0c353
  * @type string
  */
@@ -94103,21 +94115,27 @@ export type ResourceSharingCreateShareRecipientRequest = {
    * The body field collided with the URL path parameter of the same name, which prevented SDK generators from distinguishing the source account (in the URL) from the recipient account (in the body). Both names will continue to be accepted until 2027-05-26 (see `x-sunset`).
    *
    * @deprecated
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string | undefined
    */
   account_id?: ResourceSharingAccountId | undefined;
   /**
    * @description Organization identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string | undefined
    */
   organization_id?: ResourceSharingOrganizationId | undefined;
   /**
    * @description The account that will receive the share.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string | undefined
    */
@@ -94138,9 +94156,8 @@ export type ResourceSharingShareName = string;
 export type ResourceSharingResourceMeta = object;
 
 /**
- * @description Share Resource identifier.
- * @maxLength 32
- * @example 023e105f4ecef8ad9ca31a8372d0c353
+ * @description Identifier assigned by the service that owns the shared resource.
+ * @example 0a679032-bbb2-4b7e-9acc-dd5c5cb27a17
  * @type string
  */
 export type ResourceSharingResourceResourceId = string;
@@ -94164,16 +94181,17 @@ export type ResourceSharingCreateShareResourceRequest = {
    */
   meta: ResourceSharingResourceMeta;
   /**
-   * @description Account identifier.
+   * @description The account that owns the resource. Must match the `account_id` in the path.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   resource_account_id: ResourceSharingAccountId;
   /**
-   * @description Share Resource identifier.
-   * @maxLength 32
-   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @description Identifier assigned by the service that owns the shared resource.
+   * @example 0a679032-bbb2-4b7e-9acc-dd5c5cb27a17
    * @type string
    */
   resource_id: ResourceSharingResourceResourceId;
@@ -94184,19 +94202,37 @@ export type ResourceSharingCreateShareResourceRequest = {
   resource_type: ResourceSharingResourceTypeKey;
 };
 
+/**
+ * @description Tags associated with the share.
+ * @type object
+ */
+export type ResourceSharingShareTags = {
+  [key: string]: string;
+};
+
 export type ResourceSharingCreateShareRequest = {
+  /**
+   * @description Accounts to exclude from an organization-targeted share. Only allowed when `recipients` contains no account entries. The share owner cannot be excluded. Duplicate entries are ignored.
+   * @type array | undefined
+   */
+  excluded_recipients?: ResourceSharingCreateShareExcludedRecipientRequest[] | undefined;
   /**
    * @description The name of the share.
    * @example My Shared WAF Managed Rule
    * @type string
    */
   name: ResourceSharingShareName;
-  recipients: ResourceSharingCreateShareRecipientRequest[];
-  resources: ResourceSharingCreateShareResourceRequest[];
+  recipients?: ResourceSharingCreateShareRecipientRequest[] | undefined;
+  resources?: ResourceSharingCreateShareResourceRequest[] | undefined;
+  /**
+   * @description Tags associated with the share.
+   * @type object | undefined
+   */
+  tags?: ResourceSharingShareTags | undefined;
 };
 
 /**
- * @description When the share was created.
+ * @description When the object was created.
  *
  * Format: `date-time`
  * @example 2023-09-21T18:56:32.624632Z
@@ -94206,14 +94242,16 @@ export type ResourceSharingCreated = string;
 
 /**
  * @description Share Excluded Recipient identifier tag.
+ * @minLength 32
  * @maxLength 32
+ * @pattern ^[0-9a-fA-F]{32}$
  * @example 4ae96b85c43850f2c0a7b9101a0eeb18
  * @type string
  */
 export type ResourceSharingExcludedRecipientId = string;
 
 /**
- * @description When the share was modified.
+ * @description When the object was last modified.
  *
  * Format: `date-time`
  * @example 2023-09-21T18:56:32.624632Z
@@ -94232,14 +94270,16 @@ export type ResourceSharingRecipientAssociationStatusKey = (typeof resourceShari
 
 /**
  * @description Share Recipient identifier tag.
+ * @minLength 32
  * @maxLength 32
+ * @pattern ^[0-9a-fA-F]{32}$
  * @example 3fd85f74b32742f1bff64a85009dda07
  * @type string
  */
 export type ResourceSharingRecipientId = string;
 
 /**
- * @description Share Recipient error message.
+ * @description Error from the most recent attempt to apply the resource to the recipient. Empty string when no error has been recorded.
  * @example Recipient is missing necessary entitlement
  * @type string
  */
@@ -94250,11 +94290,19 @@ export type ResourceSharingRecipientResourceError = string;
  * @example true
  * @type boolean
  */
-export type ResourceSharingRecipientResourceErrorTerminal = boolean;
+export type ResourceSharingRecipientResourceErrorTerminal = boolean | null;
+
+/**
+ * @description Resource version applied to the recipient, if reconciliation has occurred.
+ * @type integer
+ */
+export type ResourceSharingRecipientResourceVersion = number | null;
 
 /**
  * @description Share Resource identifier.
+ * @minLength 32
  * @maxLength 32
+ * @pattern ^[0-9a-fA-F]{32}$
  * @example 023e105f4ecef8ad9ca31a8372d0c353
  * @type string
  */
@@ -94277,13 +94325,15 @@ export type ResourceSharingResourceVersion = number;
 export type ResourceSharingShareExcludedRecipientObject = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   account_id: ResourceSharingAccountId;
   /**
-   * @description When the share was created.
+   * @description When the object was created.
    *
    * Format: `date-time`
    * @example 2023-09-21T18:56:32.624632Z
@@ -94292,13 +94342,15 @@ export type ResourceSharingShareExcludedRecipientObject = {
   created: ResourceSharingCreated;
   /**
    * @description Share Excluded Recipient identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 4ae96b85c43850f2c0a7b9101a0eeb18
    * @type string
    */
   id: ResourceSharingExcludedRecipientId;
   /**
-   * @description When the share was modified.
+   * @description When the object was last modified.
    *
    * Format: `date-time`
    * @example 2023-09-21T18:56:32.624632Z
@@ -94321,7 +94373,9 @@ export type ResourceSharingShareExcludedRecipientResponseSingle = ResourceSharin
 
 /**
  * @description Share identifier tag.
+ * @minLength 32
  * @maxLength 32
+ * @pattern ^[0-9a-fA-F]{32}$
  * @example 3fd85f74b32742f1bff64a85009dda07
  * @type string
  */
@@ -94336,7 +94390,7 @@ export type ResourceSharingShareKindKey = (typeof resourceSharingShareKind)[keyo
 
 export type ResourceSharingShareResourceObject = {
   /**
-   * @description When the share was created.
+   * @description When the object was created.
    *
    * Format: `date-time`
    * @example 2023-09-21T18:56:32.624632Z
@@ -94345,7 +94399,9 @@ export type ResourceSharingShareResourceObject = {
   created: ResourceSharingCreated;
   /**
    * @description Share Resource identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
@@ -94356,7 +94412,7 @@ export type ResourceSharingShareResourceObject = {
    */
   meta: ResourceSharingResourceMeta;
   /**
-   * @description When the share was modified.
+   * @description When the object was last modified.
    *
    * Format: `date-time`
    * @example 2023-09-21T18:56:32.624632Z
@@ -94365,15 +94421,16 @@ export type ResourceSharingShareResourceObject = {
   modified: ResourceSharingModified;
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   resource_account_id: ResourceSharingAccountId;
   /**
-   * @description Share Resource identifier.
-   * @maxLength 32
-   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @description Identifier assigned by the service that owns the shared resource.
+   * @example 0a679032-bbb2-4b7e-9acc-dd5c5cb27a17
    * @type string
    */
   resource_id: ResourceSharingResourceResourceId;
@@ -94412,7 +94469,9 @@ export type ResourceSharingShareTargetTypeKey = (typeof resourceSharingShareTarg
 export type ResourceSharingShareObject = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
@@ -94436,7 +94495,7 @@ export type ResourceSharingShareObject = {
    */
   associating_recipient_count?: number | undefined;
   /**
-   * @description When the share was created.
+   * @description When the object was created.
    *
    * Format: `date-time`
    * @example 2023-09-21T18:56:32.624632Z
@@ -94457,14 +94516,16 @@ export type ResourceSharingShareObject = {
   disassociating_recipient_count?: number | undefined;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
   id: ResourceSharingShareId;
   kind?: ResourceSharingShareKindKey | undefined;
   /**
-   * @description When the share was modified.
+   * @description When the object was last modified.
    *
    * Format: `date-time`
    * @example 2023-09-21T18:56:32.624632Z
@@ -94479,7 +94540,9 @@ export type ResourceSharingShareObject = {
   name: ResourceSharingShareName;
   /**
    * @description Organization identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
@@ -94490,34 +94553,68 @@ export type ResourceSharingShareObject = {
    */
   resources?: ResourceSharingShareResourceObject[] | undefined;
   status: ResourceSharingShareStatusKey;
+  /**
+   * @description Tags associated with the share. Included in create and update responses when tags are supplied, and in read responses when the `include_tags_from` parameter is set.
+   * @type object | undefined
+   */
+  tags?: ResourceSharingShareTags | undefined;
   target_type: ResourceSharingShareTargetTypeKey;
+};
+
+/**
+ * @description Specify the account receiving the share using `recipient_account_id`.
+ * The legacy field `account_id` is accepted as a synonym during the deprecation period (see `x-sunset` on that field).
+ *
+ * @type object
+ */
+export type ResourceSharingShareRecipientMutationRequest = {
+  /**
+   * @description Deprecated alias for `recipient_account_id`. Use `recipient_account_id` instead.
+   * The body field collided with the URL path parameter of the same name, which prevented SDK generators from distinguishing the source account (in the URL) from the recipient account (in the body). Both names will continue to be accepted until 2027-05-26 (see `x-sunset`).
+   *
+   * @deprecated
+   * @minLength 32
+   * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string | undefined
+   */
+  account_id?: ResourceSharingAccountId | undefined;
+  /**
+   * @description The account that will receive the share.
+   * @minLength 32
+   * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string | undefined
+   */
+  recipient_account_id?: ResourceSharingAccountId | undefined;
 };
 
 export type ResourceSharingShareRecipientResourceObject = {
   /**
-   * @description Share Recipient error message.
+   * @description Error from the most recent attempt to apply the resource to the recipient. Empty string when no error has been recorded.
    * @example Recipient is missing necessary entitlement
    * @type string
    */
   error: ResourceSharingRecipientResourceError;
   /**
-   * @description Share Resource identifier.
-   * @maxLength 32
-   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @description Identifier assigned by the service that owns the shared resource.
+   * @example 0a679032-bbb2-4b7e-9acc-dd5c5cb27a17
    * @type string
    */
   resource_id: ResourceSharingResourceResourceId;
   /**
-   * @description Resource Version.
+   * @description Resource version applied to the recipient, if reconciliation has occurred.
    * @type integer
    */
-  resource_version: ResourceSharingResourceVersion;
+  resource_version: ResourceSharingRecipientResourceVersion | null;
   /**
    * @description Whether the error is terminal or will be continually retried.
    * @example true
    * @type boolean
    */
-  terminal: ResourceSharingRecipientResourceErrorTerminal;
+  terminal: ResourceSharingRecipientResourceErrorTerminal | null;
 };
 
 /**
@@ -94531,7 +94628,9 @@ export type ResourceSharingShareRecipientResourceObject = {
 export type ResourceSharingShareRecipientObject = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
@@ -94556,7 +94655,7 @@ export type ResourceSharingShareRecipientObject = {
    */
   association_status: ResourceSharingRecipientAssociationStatusKey;
   /**
-   * @description When the share was created.
+   * @description When the object was created.
    *
    * Format: `date-time`
    * @example 2023-09-21T18:56:32.624632Z
@@ -94565,13 +94664,15 @@ export type ResourceSharingShareRecipientObject = {
   created: ResourceSharingCreated;
   /**
    * @description Share Recipient identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
   id: ResourceSharingRecipientId;
   /**
-   * @description When the share was modified.
+   * @description When the object was last modified.
    *
    * Format: `date-time`
    * @example 2023-09-21T18:56:32.624632Z
@@ -94627,7 +94728,7 @@ export type ResourceSharingShareResponseSingle = ResourceSharingApiResponseCommo
 
 export type ResourceSharingUpdateShareExcludedRecipientsRequest = ResourceSharingCreateShareExcludedRecipientRequest[];
 
-export type ResourceSharingUpdateShareRecipientsRequest = ResourceSharingCreateShareRecipientRequest[];
+export type ResourceSharingUpdateShareRecipientsRequest = ResourceSharingShareRecipientMutationRequest[];
 
 /**
  * @description Request body for `PUT /accounts/{account_id}/shares/{share_id}`. The
@@ -94645,6 +94746,11 @@ export type ResourceSharingUpdateShareRequest = {
    * @type string
    */
   name: ResourceSharingShareName;
+  /**
+   * @description Tags associated with the share.
+   * @type object | undefined
+   */
+  tags?: ResourceSharingShareTags | undefined;
 };
 
 export type ResourceSharingUpdateShareResourceRequest = {
@@ -104118,6 +104224,20 @@ export type SpectrumConfigOriginPort = number | string;
 export type SpectrumConfigOriginWorkerId = string;
 
 /**
+ * @description Name of the Worker origin. Omitted when the Worker is not found or its name cannot be resolved.
+ * @type string
+ */
+export type SpectrumConfigOriginWorkerName = string;
+
+export const spectrumConfigOriginWorkerStatus = {
+  available: 'available',
+  not_found: 'not_found',
+  unknown: 'unknown',
+} as const;
+
+export type SpectrumConfigOriginWorkerStatusKey = (typeof spectrumConfigOriginWorkerStatus)[keyof typeof spectrumConfigOriginWorkerStatus];
+
+/**
  * @description The port configuration at Cloudflare's edge. May specify a single port, for example `"tcp/1000"`, or a range of ports, for example `"tcp/1000-2000"`.
  * @example tcp/22
  * @type string
@@ -104210,6 +104330,16 @@ export type SpectrumConfigAppConfig = SpectrumConfigBaseAppConfig & {
    * @type string | undefined
    */
   origin_worker_id?: SpectrumConfigOriginWorkerId | undefined;
+  /**
+   * @description Name of the Worker origin. Omitted when the Worker is not found or its name cannot be resolved.
+   * @type string | undefined
+   */
+  readonly origin_worker_name?: SpectrumConfigOriginWorkerName | undefined;
+  /**
+   * @description Lookup status of the Worker origin. Unknown indicates that its name could not be resolved. Only returned for Worker origins.
+   * @type string | undefined
+   */
+  readonly origin_worker_status?: SpectrumConfigOriginWorkerStatusKey | undefined;
   /**
    * @description The port configuration at Cloudflare's edge. May specify a single port, for example `"tcp/1000"`, or a range of ports, for example `"tcp/1000-2000"`.
    * @example tcp/22
@@ -138821,10 +138951,6 @@ export type AaaAuditLogsResponseCollection2 = {
    */
   success?: boolean | undefined;
 } | AaaApiResponseCommon;
-
-export type DnsFirewallDnsFirewallReverseDnsResponse2 = DnsFirewallApiResponseSingle & {
-  result?: DnsFirewallDnsFirewallReverseDnsResponse | undefined;
-};
 
 export type IntelSinkholesApiResponseCommonFailure2 = IntelSinkholesApiResponseCommonFailure;
 
@@ -222430,6 +222556,7 @@ export type RadarGetTcpResetsTimeoutsTimeseriesGroupResponse = RadarGetTcpResets
 export const radarGetTldsTldType = {
   GENERIC: 'GENERIC',
   COUNTRY_CODE: 'COUNTRY_CODE',
+  SPECIAL_USE: 'SPECIAL_USE',
   GENERIC_RESTRICTED: 'GENERIC_RESTRICTED',
   INFRASTRUCTURE: 'INFRASTRUCTURE',
   SPONSORED: 'SPONSORED',
@@ -222466,7 +222593,7 @@ export type RadarGetTldsQuery = {
    */
   tldManager?: string | undefined;
   /**
-   * @description Filters results by TLD type.
+   * @description Filters results by TLD type. GENERIC_RESTRICTED and SPONSORED are deprecated and return no results, as IANA consolidated them into GENERIC. INFRASTRUCTURE is deprecated, as IANA reclassified .arpa as SPECIAL_USE.
    * @type string | undefined
    */
   tldType?: RadarGetTldsTldTypeKey | undefined;
@@ -254099,7 +254226,7 @@ export type AiSearchCreateInstanceStatus201 = {
     } | null) | undefined;
     readonly status?: string | undefined;
     /**
-     * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 21600 (6h); instances crawling a domain outside the account may be set to 86400.
+     * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 86400 (24h).
      */
     sync_interval?: (900 | 1800 | 3600 | 7200 | 14400 | 21600 | 43200 | 86400) | undefined;
     /**
@@ -254604,7 +254731,7 @@ export type AiSearchCreateInstanceBody = {
     } | undefined;
   } | null) | undefined;
   /**
-   * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 21600 (6h); instances crawling a domain outside the account may be set to 86400.
+   * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 86400 (24h).
    */
   sync_interval?: (900 | 1800 | 3600 | 7200 | 14400 | 21600 | 43200 | 86400) | undefined;
   /**
@@ -255132,7 +255259,7 @@ export type AiSearchDeleteInstanceStatus200 = {
     } | null) | undefined;
     readonly status?: string | undefined;
     /**
-     * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 21600 (6h); instances crawling a domain outside the account may be set to 86400.
+     * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 86400 (24h).
      */
     sync_interval?: (900 | 1800 | 3600 | 7200 | 14400 | 21600 | 43200 | 86400) | undefined;
     /**
@@ -255676,7 +255803,7 @@ export type AiSearchFetchInstanceStatus200 = {
     } | null) | undefined;
     readonly status?: string | undefined;
     /**
-     * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 21600 (6h); instances crawling a domain outside the account may be set to 86400.
+     * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 86400 (24h).
      */
     sync_interval?: (900 | 1800 | 3600 | 7200 | 14400 | 21600 | 43200 | 86400) | undefined;
     /**
@@ -256211,7 +256338,7 @@ export type AiSearchUpdateInstanceStatus200 = {
     } | null) | undefined;
     readonly status?: string | undefined;
     /**
-     * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 21600 (6h); instances crawling a domain outside the account may be set to 86400.
+     * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 86400 (24h).
      */
     sync_interval?: (900 | 1800 | 3600 | 7200 | 14400 | 21600 | 43200 | 86400) | undefined;
     /**
@@ -256695,7 +256822,7 @@ export type AiSearchUpdateInstanceBody = {
   summarization?: boolean | undefined;
   summarization_model?: (string | null) | undefined;
   /**
-   * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 21600 (6h); instances crawling a domain outside the account may be set to 86400.
+   * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 86400 (24h).
    */
   sync_interval?: (900 | 1800 | 3600 | 7200 | 14400 | 21600 | 43200 | 86400) | undefined;
   system_prompt_ai_search?: (string | null) | undefined;
@@ -259365,7 +259492,7 @@ export type AiSearchNamespaceCreateInstanceStatus201 = {
     } | null) | undefined;
     readonly status?: string | undefined;
     /**
-     * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 21600 (6h); instances crawling a domain outside the account may be set to 86400.
+     * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 86400 (24h).
      */
     sync_interval?: (900 | 1800 | 3600 | 7200 | 14400 | 21600 | 43200 | 86400) | undefined;
     /**
@@ -259870,7 +259997,7 @@ export type AiSearchNamespaceCreateInstanceBody = {
     } | undefined;
   } | null) | undefined;
   /**
-   * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 21600 (6h); instances crawling a domain outside the account may be set to 86400.
+   * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 86400 (24h).
    */
   sync_interval?: (900 | 1800 | 3600 | 7200 | 14400 | 21600 | 43200 | 86400) | undefined;
   /**
@@ -260400,7 +260527,7 @@ export type AiSearchNamespaceDeleteInstanceStatus200 = {
     } | null) | undefined;
     readonly status?: string | undefined;
     /**
-     * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 21600 (6h); instances crawling a domain outside the account may be set to 86400.
+     * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 86400 (24h).
      */
     sync_interval?: (900 | 1800 | 3600 | 7200 | 14400 | 21600 | 43200 | 86400) | undefined;
     /**
@@ -260946,7 +261073,7 @@ export type AiSearchNamespaceFetchInstanceStatus200 = {
     } | null) | undefined;
     readonly status?: string | undefined;
     /**
-     * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 21600 (6h); instances crawling a domain outside the account may be set to 86400.
+     * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 86400 (24h).
      */
     sync_interval?: (900 | 1800 | 3600 | 7200 | 14400 | 21600 | 43200 | 86400) | undefined;
     /**
@@ -261564,7 +261691,7 @@ export type AiSearchNamespaceUpdateInstanceStatus200 = {
     } | null) | undefined;
     readonly status?: string | undefined;
     /**
-     * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 21600 (6h); instances crawling a domain outside the account may be set to 86400.
+     * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 86400 (24h).
      */
     sync_interval?: (900 | 1800 | 3600 | 7200 | 14400 | 21600 | 43200 | 86400) | undefined;
     /**
@@ -262048,7 +262175,7 @@ export type AiSearchNamespaceUpdateInstanceBody = {
   summarization?: boolean | undefined;
   summarization_model?: (string | null) | undefined;
   /**
-   * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 21600 (6h); instances crawling a domain outside the account may be set to 86400.
+   * @description Interval between automatic syncs, in seconds. Allowed values: 900 (15min), 1800 (30min), 3600 (1h), 7200 (2h), 14400 (4h), 21600 (6h), 43200 (12h), 86400 (24h). Defaults to 86400 (24h).
    */
   sync_interval?: (900 | 1800 | 3600 | 7200 | 14400 | 21600 | 43200 | 86400) | undefined;
   system_prompt_ai_search?: (string | null) | undefined;
@@ -342335,7 +342462,7 @@ export type DnsFirewallShowDnsFirewallClusterReverseDnsPath = {
   accountId: DnsFirewallIdentifier;
 };
 
-export type DnsFirewallShowDnsFirewallClusterReverseDnsStatus200 = DnsFirewallDnsFirewallReverseDnsResponse2;
+export type DnsFirewallShowDnsFirewallClusterReverseDnsStatus200 = DnsFirewallDnsFirewallReverseDnsResponse;
 
 export type DnsFirewallShowDnsFirewallClusterReverseDnsStatus400 = DnsFirewallApiResponseCommonFailure;
 
@@ -342373,7 +342500,7 @@ export type DnsFirewallUpdateDnsFirewallClusterReverseDnsPath = {
   accountId: DnsFirewallIdentifier;
 };
 
-export type DnsFirewallUpdateDnsFirewallClusterReverseDnsStatus200 = DnsFirewallDnsFirewallReverseDnsResponse2;
+export type DnsFirewallUpdateDnsFirewallClusterReverseDnsStatus200 = DnsFirewallDnsFirewallReverseDnsResponse;
 
 export type DnsFirewallUpdateDnsFirewallClusterReverseDnsStatus400 = DnsFirewallApiResponseCommonFailure;
 
@@ -395382,7 +395509,9 @@ export type AccountSettingsChangeUtBillingSettingResponse = AccountSettingsChang
 export type SharesListPath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
@@ -395402,6 +395531,13 @@ export const sharesListDirection = {
 } as const;
 
 export type SharesListDirectionKey = (typeof sharesListDirection)[keyof typeof sharesListDirection];
+
+export const sharesListIncludeTagsFrom = {
+  api: 'api',
+  mirror: 'mirror',
+} as const;
+
+export type SharesListIncludeTagsFromKey = (typeof sharesListIncludeTagsFrom)[keyof typeof sharesListIncludeTagsFrom];
 
 export type SharesListQuery = {
   /**
@@ -395437,9 +395573,7 @@ export type SharesListQuery = {
    */
   direction?: SharesListDirectionKey | undefined;
   /**
-   * @description Page number. Defaults to `1` when `per_page` is supplied without
-   * `page`. May be omitted entirely along with `per_page` to receive a
-   * non-paginated response.
+   * @description Page number. Defaults to `1` when omitted.
    * @minLength 1
    * @default 1
    * @example 2
@@ -395447,7 +395581,7 @@ export type SharesListQuery = {
    */
   page?: number | undefined;
   /**
-   * @description Number of objects to return per page. Defaults to `20` when `page` is supplied without `per_page`. May be omitted entirely along with `page` to receive a non-paginated response.
+   * @description Number of objects to return per page. Defaults to `20` when omitted.
    * @minLength 1
    * @maxLength 100
    * @default 20
@@ -395467,6 +395601,11 @@ export type SharesListQuery = {
    * @type boolean | undefined
    */
   include_recipient_counts?: boolean | undefined;
+  /**
+   * @description Include share tags in the response. `api` reads tags from the tag service; `mirror` reads a local, eventually consistent replica. If the tag lookup fails, the response omits `tags`.
+   * @type string | undefined
+   */
+  include_tags_from?: SharesListIncludeTagsFromKey | undefined;
   /**
    * @description Filter shares by tag. Each value is either `key=value` (matches shares whose tags contain that key/value pair) or `key` alone (matches shares that have any value for that key). May be repeated; multiple `tag` parameters are ANDed together. Maximum 20 `tag` parameters per request.
    * @type array | undefined
@@ -395501,7 +395640,9 @@ export type SharesListResponse = SharesListStatus200;
 export type ShareCreatePath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
@@ -395537,14 +395678,18 @@ export type ShareCreateResponse = ShareCreateStatus201;
 export type ShareDeletePath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
@@ -395578,19 +395723,30 @@ export type ShareDeleteResponse = ShareDeleteStatus200;
 export type SharesGetByIdPath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
   shareId: ResourceSharingShareId;
 };
+
+export const sharesGetByIdIncludeTagsFrom = {
+  api: 'api',
+  mirror: 'mirror',
+} as const;
+
+export type SharesGetByIdIncludeTagsFromKey = (typeof sharesGetByIdIncludeTagsFrom)[keyof typeof sharesGetByIdIncludeTagsFrom];
 
 export type SharesGetByIdQuery = {
   /**
@@ -395605,6 +395761,11 @@ export type SharesGetByIdQuery = {
    * @type boolean | undefined
    */
   include_recipient_counts?: boolean | undefined;
+  /**
+   * @description Include share tags in the response. `api` reads tags from the tag service; `mirror` reads a local, eventually consistent replica. If the tag lookup fails, the response omits `tags`.
+   * @type string | undefined
+   */
+  include_tags_from?: SharesGetByIdIncludeTagsFromKey | undefined;
 };
 
 export type SharesGetByIdStatus200 = ResourceSharingShareResponseSingle;
@@ -395634,14 +395795,18 @@ export type SharesGetByIdResponse = SharesGetByIdStatus200;
 export type ShareUpdatePath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
@@ -395686,14 +395851,18 @@ export type ShareUpdateResponse = ShareUpdateStatus200;
 export type ShareExcludedRecipientsListPath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
@@ -395702,9 +395871,7 @@ export type ShareExcludedRecipientsListPath = {
 
 export type ShareExcludedRecipientsListQuery = {
   /**
-   * @description Page number. Defaults to `1` when `per_page` is supplied without
-   * `page`. May be omitted entirely along with `per_page` to receive a
-   * non-paginated response.
+   * @description Page number. Defaults to `1` when omitted.
    * @minLength 1
    * @default 1
    * @example 2
@@ -395712,7 +395879,7 @@ export type ShareExcludedRecipientsListQuery = {
    */
   page?: number | undefined;
   /**
-   * @description Number of objects to return per page. Defaults to `20` when `page` is supplied without `per_page`. May be omitted entirely along with `page` to receive a non-paginated response.
+   * @description Number of objects to return per page. Defaults to `20` when omitted.
    * @minLength 1
    * @maxLength 100
    * @default 20
@@ -395749,14 +395916,18 @@ export type ShareExcludedRecipientsListResponse = ShareExcludedRecipientsListSta
 export type ShareExcludedRecipientCreatePath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
@@ -395792,14 +395963,18 @@ export type ShareExcludedRecipientCreateResponse = ShareExcludedRecipientCreateS
 export type ShareExcludedRecipientsUpdatePath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
@@ -395835,21 +396010,27 @@ export type ShareExcludedRecipientsUpdateResponse = ShareExcludedRecipientsUpdat
 export type ShareExcludedRecipientDeletePath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
   shareId: ResourceSharingShareId;
   /**
    * @description Share Excluded Recipient identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 4ae96b85c43850f2c0a7b9101a0eeb18
    * @type string
    */
@@ -395883,21 +396064,27 @@ export type ShareExcludedRecipientDeleteResponse = ShareExcludedRecipientDeleteS
 export type ShareExcludedRecipientsGetByIdPath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
   shareId: ResourceSharingShareId;
   /**
    * @description Share Excluded Recipient identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 4ae96b85c43850f2c0a7b9101a0eeb18
    * @type string
    */
@@ -395931,14 +396118,18 @@ export type ShareExcludedRecipientsGetByIdResponse = ShareExcludedRecipientsGetB
 export type ShareRecipientsListPath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
@@ -395953,9 +396144,7 @@ export type ShareRecipientsListQuery = {
    */
   include_resources?: boolean | undefined;
   /**
-   * @description Page number. Defaults to `1` when `per_page` is supplied without
-   * `page`. May be omitted entirely along with `per_page` to receive a
-   * non-paginated response.
+   * @description Page number. Defaults to `1` when omitted.
    * @minLength 1
    * @default 1
    * @example 2
@@ -395963,7 +396152,7 @@ export type ShareRecipientsListQuery = {
    */
   page?: number | undefined;
   /**
-   * @description Number of objects to return per page. Defaults to `20` when `page` is supplied without `per_page`. May be omitted entirely along with `page` to receive a non-paginated response.
+   * @description Number of objects to return per page. Defaults to `20` when omitted.
    * @minLength 1
    * @maxLength 100
    * @default 20
@@ -396000,14 +396189,18 @@ export type ShareRecipientsListResponse = ShareRecipientsListStatus200;
 export type ShareRecipientCreatePath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
@@ -396021,12 +396214,12 @@ export type ShareRecipientCreateStatus400 = ResourceSharingApiResponseCommonFail
 export type ShareRecipientCreateStatus500 = ResourceSharingApiResponseCommonFailure;
 
 /**
- * @description Optionally specify `recipient_account_id` to target a specific account, or `organization_id` to target the caller's whole organization. If neither is provided, the caller's organization is used.
- * The legacy field `account_id` is accepted as a synonym for `recipient_account_id` during the deprecation period (see `x-sunset` on that field).
+ * @description Specify the account receiving the share using `recipient_account_id`.
+ * The legacy field `account_id` is accepted as a synonym during the deprecation period (see `x-sunset` on that field).
  *
  * @type object
  */
-export type ShareRecipientCreateBody = ResourceSharingCreateShareRecipientRequest;
+export type ShareRecipientCreateBody = ResourceSharingShareRecipientMutationRequest;
 
 export type ShareRecipientCreateOptions = {
   body: ShareRecipientCreateBody;
@@ -396049,14 +396242,18 @@ export type ShareRecipientCreateResponse = ShareRecipientCreateStatus201;
 export type ShareRecipientsUpdatePath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
@@ -396092,21 +396289,27 @@ export type ShareRecipientsUpdateResponse = ShareRecipientsUpdateStatus204;
 export type ShareRecipientDeletePath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
   shareId: ResourceSharingShareId;
   /**
    * @description Share Recipient identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
@@ -396140,21 +396343,27 @@ export type ShareRecipientDeleteResponse = ShareRecipientDeleteStatus200;
 export type ShareRecipientsGetByIdPath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
   shareId: ResourceSharingShareId;
   /**
    * @description Share Recipient identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
@@ -396197,14 +396406,18 @@ export type ShareRecipientsGetByIdResponse = ShareRecipientsGetByIdStatus200;
 export type ShareResourcesListPath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
@@ -396223,9 +396436,7 @@ export type ShareResourcesListQuery = {
    */
   resource_type?: ResourceSharingResourceTypeKey | undefined;
   /**
-   * @description Page number. Defaults to `1` when `per_page` is supplied without
-   * `page`. May be omitted entirely along with `per_page` to receive a
-   * non-paginated response.
+   * @description Page number. Defaults to `1` when omitted.
    * @minLength 1
    * @default 1
    * @example 2
@@ -396233,7 +396444,7 @@ export type ShareResourcesListQuery = {
    */
   page?: number | undefined;
   /**
-   * @description Number of objects to return per page. Defaults to `20` when `page` is supplied without `per_page`. May be omitted entirely along with `page` to receive a non-paginated response.
+   * @description Number of objects to return per page. Defaults to `20` when omitted.
    * @minLength 1
    * @maxLength 100
    * @default 20
@@ -396270,14 +396481,18 @@ export type ShareResourcesListResponse = ShareResourcesListStatus200;
 export type ShareResourceCreatePath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
@@ -396313,21 +396528,27 @@ export type ShareResourceCreateResponse = ShareResourceCreateStatus201;
 export type ShareResourceDeletePath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
   shareId: ResourceSharingShareId;
   /**
    * @description Share Resource identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
@@ -396361,21 +396582,27 @@ export type ShareResourceDeleteResponse = ShareResourceDeleteStatus200;
 export type ShareResourcesGetByIdPath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
   shareId: ResourceSharingShareId;
   /**
    * @description Share Resource identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
@@ -396409,21 +396636,27 @@ export type ShareResourcesGetByIdResponse = ShareResourcesGetByIdStatus200;
 export type ShareResourceUpdatePath = {
   /**
    * @description Account identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
   accountId: ResourceSharingAccountId;
   /**
    * @description Share identifier tag.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 3fd85f74b32742f1bff64a85009dda07
    * @type string
    */
   shareId: ResourceSharingShareId;
   /**
    * @description Share Resource identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
@@ -428742,7 +428975,9 @@ export type OrganizationsModifyProfileResponse = OrganizationsModifyProfileStatu
 export type OrganizationSharesListPath = {
   /**
    * @description Organization identifier.
+   * @minLength 32
    * @maxLength 32
+   * @pattern ^[0-9a-fA-F]{32}$
    * @example 023e105f4ecef8ad9ca31a8372d0c353
    * @type string
    */
@@ -428770,21 +429005,6 @@ export type OrganizationSharesListQuery = {
    */
   status?: ResourceSharingShareStatusKey | undefined;
   /**
-   * @description Filter shares by kind.
-   * @type string | undefined
-   */
-  kind?: ResourceSharingShareKindKey | undefined;
-  /**
-   * @description Filter shares by target_type.
-   * @type string | undefined
-   */
-  target_type?: ResourceSharingShareTargetTypeKey | undefined;
-  /**
-   * @description Filter share resources by resource_types.
-   * @type array | undefined
-   */
-  resource_types?: ResourceSharingResourceTypeKey[] | undefined;
-  /**
    * @description Order shares by values in the given field.
    * @default 'created'
    * @type string | undefined
@@ -428797,9 +429017,7 @@ export type OrganizationSharesListQuery = {
    */
   direction?: OrganizationSharesListDirectionKey | undefined;
   /**
-   * @description Page number. Defaults to `1` when `per_page` is supplied without
-   * `page`. May be omitted entirely along with `per_page` to receive a
-   * non-paginated response.
+   * @description Page number. Defaults to `1` when omitted.
    * @minLength 1
    * @default 1
    * @example 2
@@ -428807,7 +429025,7 @@ export type OrganizationSharesListQuery = {
    */
   page?: number | undefined;
   /**
-   * @description Number of objects to return per page. Defaults to `20` when `page` is supplied without `per_page`. May be omitted entirely along with `page` to receive a non-paginated response.
+   * @description Number of objects to return per page. Defaults to `20` when omitted.
    * @minLength 1
    * @maxLength 100
    * @default 20
@@ -442133,7 +442351,7 @@ export type TieredCachingPatchTieredCachingSettingStatus200 = CacheSettingsZoneC
 export type TieredCachingPatchTieredCachingSettingStatus400 = CacheSettingsApiResponseCommonFailure;
 
 /**
- * @description Update enablement of Tiered Caching.
+ * @description Updates whether Tiered Cache is enabled for a zone.
  * @type object
  */
 export type TieredCachingPatchTieredCachingSettingBody = CacheSettingsPatch;
