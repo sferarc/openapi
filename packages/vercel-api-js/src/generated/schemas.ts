@@ -48541,7 +48541,7 @@ export const updateFlagSettingsBodySchema = z
 											value: z.string().max(128),
 										}),
 									)
-									.max(256)
+									.max(1000)
 									.optional(),
 							}),
 						)
@@ -50419,6 +50419,237 @@ export const deleteSdkKeyPathSchema = z.object({
 });
 
 export const deleteSdkKeyQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const getFlagsProjectConnectionsPathProjectIdOrNameSchema = z
+	.string()
+	.describe("The project id or name");
+
+export const getFlagsProjectConnectionsQueryRoleSchema = z
+	.enum(["source", "consumer"])
+	.optional()
+	.describe("List connections where this project is the source (default) or the consumer");
+
+export const getFlagsProjectConnectionsQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const getFlagsProjectConnectionsQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const getFlagsProjectConnectionsStatus200Schema = z.union([
+	z.strictObject({}),
+	z.strictObject({
+		data: z.array(
+			z.object({
+				consumerProjectId: z.string(),
+				consumerProjectName: z.string().optional(),
+				createdAt: z.number(),
+				createdBy: z.string(),
+				sourceProjectId: z.string(),
+				sourceProjectName: z.string().optional(),
+			}),
+		),
+	}),
+]);
+
+export const getFlagsProjectConnectionsStatus400Schema = z.unknown();
+
+export const getFlagsProjectConnectionsStatus401Schema = z.unknown();
+
+export const getFlagsProjectConnectionsStatus402Schema = z.unknown();
+
+export const getFlagsProjectConnectionsStatus403Schema = z.unknown();
+
+export const getFlagsProjectConnectionsStatus404Schema = z.unknown();
+
+export const getFlagsProjectConnectionsStatus410Schema = z.unknown();
+
+export const getFlagsProjectConnectionsResponseSchema = getFlagsProjectConnectionsStatus200Schema;
+
+export const getFlagsProjectConnectionsErrorSchema = z.union([
+	getFlagsProjectConnectionsStatus400Schema,
+	getFlagsProjectConnectionsStatus401Schema,
+	getFlagsProjectConnectionsStatus402Schema,
+	getFlagsProjectConnectionsStatus403Schema,
+	getFlagsProjectConnectionsStatus404Schema,
+	getFlagsProjectConnectionsStatus410Schema,
+]);
+
+export const getFlagsProjectConnectionsPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+});
+
+export const getFlagsProjectConnectionsQuerySchema = z.object({
+	role: z
+		.enum(["source", "consumer"])
+		.optional()
+		.describe("List connections where this project is the source (default) or the consumer"),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const createFlagsProjectConnectionPathProjectIdOrNameSchema = z
+	.string()
+	.describe("The project id or name");
+
+export const createFlagsProjectConnectionQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const createFlagsProjectConnectionQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const createFlagsProjectConnectionStatus200Schema = z.object({
+	consumerProjectId: z.string(),
+	consumerProjectName: z.string(),
+	createdAt: z.number(),
+	createdBy: z.string(),
+	sourceProjectId: z.string(),
+	sourceProjectName: z.string(),
+});
+
+export const createFlagsProjectConnectionStatus400Schema = z.unknown();
+
+export const createFlagsProjectConnectionStatus401Schema = z.unknown();
+
+export const createFlagsProjectConnectionStatus402Schema = z.unknown();
+
+export const createFlagsProjectConnectionStatus403Schema = z.unknown();
+
+export const createFlagsProjectConnectionStatus404Schema = z.unknown();
+
+export const createFlagsProjectConnectionStatus409Schema = z.unknown();
+
+export const createFlagsProjectConnectionStatus410Schema = z.unknown();
+
+export const createFlagsProjectConnectionStatus503Schema = z.unknown();
+
+export const createFlagsProjectConnectionResponseSchema =
+	createFlagsProjectConnectionStatus200Schema;
+
+export const createFlagsProjectConnectionErrorSchema = z.union([
+	createFlagsProjectConnectionStatus400Schema,
+	createFlagsProjectConnectionStatus401Schema,
+	createFlagsProjectConnectionStatus402Schema,
+	createFlagsProjectConnectionStatus403Schema,
+	createFlagsProjectConnectionStatus404Schema,
+	createFlagsProjectConnectionStatus409Schema,
+	createFlagsProjectConnectionStatus410Schema,
+	createFlagsProjectConnectionStatus503Schema,
+]);
+
+export const createFlagsProjectConnectionBodySchema = z
+	.strictObject({
+		consumerProjectId: z
+			.string()
+			.describe("The project in the same team that may read the flags of this project"),
+	})
+	.optional();
+
+export const createFlagsProjectConnectionPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+});
+
+export const createFlagsProjectConnectionQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const deleteFlagsProjectConnectionPathProjectIdOrNameSchema = z
+	.string()
+	.describe("The project id or name");
+
+export const deleteFlagsProjectConnectionPathConsumerProjectIdSchema = z
+	.string()
+	.describe("The connected consumer project id");
+
+export const deleteFlagsProjectConnectionQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const deleteFlagsProjectConnectionQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const deleteFlagsProjectConnectionStatus204Schema = z.void();
+
+export const deleteFlagsProjectConnectionStatus400Schema = z.unknown();
+
+export const deleteFlagsProjectConnectionStatus401Schema = z.unknown();
+
+export const deleteFlagsProjectConnectionStatus402Schema = z.unknown();
+
+export const deleteFlagsProjectConnectionStatus403Schema = z.unknown();
+
+export const deleteFlagsProjectConnectionStatus404Schema = z.unknown();
+
+export const deleteFlagsProjectConnectionStatus409Schema = z.unknown();
+
+export const deleteFlagsProjectConnectionStatus410Schema = z.unknown();
+
+export const deleteFlagsProjectConnectionStatus503Schema = z.unknown();
+
+export const deleteFlagsProjectConnectionResponseSchema =
+	deleteFlagsProjectConnectionStatus204Schema;
+
+export const deleteFlagsProjectConnectionErrorSchema = z.union([
+	deleteFlagsProjectConnectionStatus400Schema,
+	deleteFlagsProjectConnectionStatus401Schema,
+	deleteFlagsProjectConnectionStatus402Schema,
+	deleteFlagsProjectConnectionStatus403Schema,
+	deleteFlagsProjectConnectionStatus404Schema,
+	deleteFlagsProjectConnectionStatus409Schema,
+	deleteFlagsProjectConnectionStatus410Schema,
+	deleteFlagsProjectConnectionStatus503Schema,
+]);
+
+export const deleteFlagsProjectConnectionPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+	consumerProjectId: z.string().describe("The connected consumer project id"),
+});
+
+export const deleteFlagsProjectConnectionQuerySchema = z.object({
 	teamId: z
 		.string()
 		.optional()

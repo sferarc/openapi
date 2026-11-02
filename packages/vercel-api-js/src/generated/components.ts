@@ -469,6 +469,18 @@ import type {
 	CreateFlagStatus404,
 	CreateFlagStatus409,
 	CreateFlagStatus410,
+	CreateFlagsProjectConnectionBody,
+	CreateFlagsProjectConnectionPath,
+	CreateFlagsProjectConnectionQuery,
+	CreateFlagsProjectConnectionResponse,
+	CreateFlagsProjectConnectionStatus400,
+	CreateFlagsProjectConnectionStatus401,
+	CreateFlagsProjectConnectionStatus402,
+	CreateFlagsProjectConnectionStatus403,
+	CreateFlagsProjectConnectionStatus404,
+	CreateFlagsProjectConnectionStatus409,
+	CreateFlagsProjectConnectionStatus410,
+	CreateFlagsProjectConnectionStatus503,
 	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsBody,
 	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsPath,
 	CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsResponse,
@@ -1125,6 +1137,17 @@ import type {
 	DeleteFlagStatus404,
 	DeleteFlagStatus409,
 	DeleteFlagStatus410,
+	DeleteFlagsProjectConnectionPath,
+	DeleteFlagsProjectConnectionQuery,
+	DeleteFlagsProjectConnectionResponse,
+	DeleteFlagsProjectConnectionStatus400,
+	DeleteFlagsProjectConnectionStatus401,
+	DeleteFlagsProjectConnectionStatus402,
+	DeleteFlagsProjectConnectionStatus403,
+	DeleteFlagsProjectConnectionStatus404,
+	DeleteFlagsProjectConnectionStatus409,
+	DeleteFlagsProjectConnectionStatus410,
+	DeleteFlagsProjectConnectionStatus503,
 	DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPath,
 	DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdResponse,
 	DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus400,
@@ -2008,6 +2031,15 @@ import type {
 	GetFlagStatus403,
 	GetFlagStatus404,
 	GetFlagStatus410,
+	GetFlagsProjectConnectionsPath,
+	GetFlagsProjectConnectionsQuery,
+	GetFlagsProjectConnectionsResponse,
+	GetFlagsProjectConnectionsStatus400,
+	GetFlagsProjectConnectionsStatus401,
+	GetFlagsProjectConnectionsStatus402,
+	GetFlagsProjectConnectionsStatus403,
+	GetFlagsProjectConnectionsStatus404,
+	GetFlagsProjectConnectionsStatus410,
 	GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath,
 	GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse,
 	GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus400,
@@ -13521,6 +13553,155 @@ export async function deleteSdkKey(
 	>({
 		method: "DELETE",
 		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/sdk-keys/${encodeURIComponent(String(pathParams.hashKey))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List flags project connections
+ * @description Lists the flags project connections of a project. By default these are the projects that may read this project's flags; with `role=consumer` these are the projects whose flags this project may read. Connections are within one team and apply across environments. Requires permission to list connections on the selected project.
+ * @link /v1/projects/{projectIdOrName}/feature-flags/connections
+ */
+export async function getFlagsProjectConnections(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: GetFlagsProjectConnectionsPath;
+		queryParams?: Partial<GetFlagsProjectConnectionsQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
+		throw new Error(`Missing required path parameter: projectIdOrName`);
+	}
+	const data = await request<
+		GetFlagsProjectConnectionsResponse,
+		ErrorWrapper<
+			| GetFlagsProjectConnectionsStatus400
+			| GetFlagsProjectConnectionsStatus401
+			| GetFlagsProjectConnectionsStatus402
+			| GetFlagsProjectConnectionsStatus403
+			| GetFlagsProjectConnectionsStatus404
+			| GetFlagsProjectConnectionsStatus410
+		>,
+		null,
+		Record<string, string>,
+		Partial<GetFlagsProjectConnectionsQuery>,
+		GetFlagsProjectConnectionsPath
+	>({
+		method: "GET",
+		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/connections`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Connect a project to the flags of this project
+ * @description Connects a project in the same team to the flags of this project. The consumer project reads this project's flags with its own deployment identity by naming this project in the Flags SDK. Connections grant read and evaluate access across environments, with the consumer deployment's environment selecting the source environment. Requires connection management permission on the source project and read access to the consumer project.
+ * @link /v1/projects/{projectIdOrName}/feature-flags/connections
+ */
+export async function createFlagsProjectConnection(
+	{
+		pathParams,
+		body,
+		queryParams,
+		config,
+	}: {
+		pathParams: CreateFlagsProjectConnectionPath;
+		body?: CreateFlagsProjectConnectionBody;
+		queryParams?: Partial<CreateFlagsProjectConnectionQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
+		throw new Error(`Missing required path parameter: projectIdOrName`);
+	}
+	const data = await request<
+		CreateFlagsProjectConnectionResponse,
+		ErrorWrapper<
+			| CreateFlagsProjectConnectionStatus400
+			| CreateFlagsProjectConnectionStatus401
+			| CreateFlagsProjectConnectionStatus402
+			| CreateFlagsProjectConnectionStatus403
+			| CreateFlagsProjectConnectionStatus404
+			| CreateFlagsProjectConnectionStatus409
+			| CreateFlagsProjectConnectionStatus410
+			| CreateFlagsProjectConnectionStatus503
+		>,
+		CreateFlagsProjectConnectionBody,
+		Record<string, string>,
+		Partial<CreateFlagsProjectConnectionQuery>,
+		CreateFlagsProjectConnectionPath
+	>({
+		method: "PUT",
+		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/connections`,
+		queryParams,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Disconnect a project from the flags of this project
+ * @description Disconnects a project from the flags of this project. The consumer loses access without a redeploy. Requires connection management permission on the source project; access to the consumer project is not required.
+ * @link /v1/projects/{projectIdOrName}/feature-flags/connections/{consumerProjectId}
+ */
+export async function deleteFlagsProjectConnection(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: DeleteFlagsProjectConnectionPath;
+		queryParams?: Partial<DeleteFlagsProjectConnectionQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
+		throw new Error(`Missing required path parameter: projectIdOrName`);
+	}
+
+	if (pathParams?.consumerProjectId == null || String(pathParams.consumerProjectId) === "") {
+		throw new Error(`Missing required path parameter: consumerProjectId`);
+	}
+	const data = await request<
+		DeleteFlagsProjectConnectionResponse,
+		ErrorWrapper<
+			| DeleteFlagsProjectConnectionStatus400
+			| DeleteFlagsProjectConnectionStatus401
+			| DeleteFlagsProjectConnectionStatus402
+			| DeleteFlagsProjectConnectionStatus403
+			| DeleteFlagsProjectConnectionStatus404
+			| DeleteFlagsProjectConnectionStatus409
+			| DeleteFlagsProjectConnectionStatus410
+			| DeleteFlagsProjectConnectionStatus503
+		>,
+		null,
+		Record<string, string>,
+		Partial<DeleteFlagsProjectConnectionQuery>,
+		DeleteFlagsProjectConnectionPath
+	>({
+		method: "DELETE",
+		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/connections/${encodeURIComponent(String(pathParams.consumerProjectId))}`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -26935,6 +27116,10 @@ export const operationsByPath = {
 	"GET /v1/projects/{projectIdOrName}/feature-flags/sdk-keys": getSdkKeys,
 	"PUT /v1/projects/{projectIdOrName}/feature-flags/sdk-keys": createSdkKey,
 	"DELETE /v1/projects/{projectIdOrName}/feature-flags/sdk-keys/{hashKey}": deleteSdkKey,
+	"GET /v1/projects/{projectIdOrName}/feature-flags/connections": getFlagsProjectConnections,
+	"PUT /v1/projects/{projectIdOrName}/feature-flags/connections": createFlagsProjectConnection,
+	"DELETE /v1/projects/{projectIdOrName}/feature-flags/connections/{consumerProjectId}":
+		deleteFlagsProjectConnection,
 	"GET /v1/integrations/git-namespaces": gitNamespaces,
 	"GET /v1/integrations/search-repo": searchRepo,
 	"GET /v1/integrations/integration/{integrationIdOrSlug}/products/{productIdOrSlug}/plans":
@@ -27532,6 +27717,9 @@ export const operationsByTag = {
 		getSdkKeys,
 		createSdkKey,
 		deleteSdkKey,
+		getFlagsProjectConnections,
+		createFlagsProjectConnection,
+		deleteFlagsProjectConnection,
 	},
 	marketplace: {
 		updateInstallation,
@@ -28094,10 +28282,11 @@ export const tagDictionary = {
 			"getFlagSegment",
 			"getDeploymentFeatureFlags",
 			"getSdkKeys",
+			"getFlagsProjectConnections",
 		],
-		PUT: ["createFlag", "createFlagSegment", "createSdkKey"],
+		PUT: ["createFlag", "createFlagSegment", "createSdkKey", "createFlagsProjectConnection"],
 		PATCH: ["updateFlag", "updateFlagSettings", "updateFlagSegment"],
-		DELETE: ["deleteFlag", "deleteFlagSegment", "deleteSdkKey"],
+		DELETE: ["deleteFlag", "deleteFlagSegment", "deleteSdkKey", "deleteFlagsProjectConnection"],
 		POST: ["lookupFlagLabels"],
 	},
 	marketplace: {
