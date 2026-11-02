@@ -84,6 +84,55 @@ describe("createEffectByPath", () => {
 	});
 });
 
+describe("call config", () => {
+	it("layers a call's config over the ApiConfig service and joins their headers", async () => {
+		const op = vi.fn(async (params: Params) => params);
+		const onResponse = () => {};
+		const api = createEffectApi({ projects: { list: op } });
+
+		await run(
+			api.projects.list({ config: { token: "call", headers: { "x-call": "2" }, onResponse } }),
+		);
+
+		expect(op).toHaveBeenCalledWith({
+			config: {
+				...withSignal,
+				token: "call",
+				headers: { "x-extra": "1", "x-call": "2" },
+				onResponse,
+			},
+		});
+	});
+
+	it("passes the effect's signal, not one the call config carries", async () => {
+		const op = vi.fn(async (params: Params) => params);
+		const api = createEffectByPath({ "/projects": op });
+		const callSignal = new AbortController().signal;
+
+		await run(api["/projects"]({ config: { signal: callSignal } }));
+
+		expect(op).toHaveBeenCalledWith({ config: withSignal });
+		expect(op).not.toHaveBeenCalledWith({ config: { ...config, signal: callSignal } });
+	});
+
+	it("types the call config from the operation, without its signal", () => {
+		type Config = { onResponse?: (response: { status: number }) => void; signal?: AbortSignal };
+		const op = async (_: { limit?: number; config?: Config } = {}) => null;
+		const api = createEffectApi({ projects: { list: op } });
+		const byPath = createEffectByPath({ "/projects": op });
+		// Never called: tsc fails if a @ts-expect-error below stops finding an error.
+		const typeChecks = () => [
+			api.projects.list({ config: { onResponse: ({ status }) => void status } }),
+			byPath["/projects"]({ config: { onResponse: ({ status }) => void status } }),
+			// @ts-expect-error onResponse gets the response, not a string
+			api.projects.list({ config: { onResponse: (_: string) => {} } }),
+			// @ts-expect-error the effect owns the signal
+			byPath["/projects"]({ config: { signal: new AbortController().signal } }),
+		];
+		expect(typeChecks).toBeTypeOf("function");
+	});
+});
+
 describe("param types", () => {
 	it("keeps the params of an operation whose params argument is optional", () => {
 		// Generated operations default their params to {}, so Parameters gives `params | undefined`.
