@@ -1,5 +1,5 @@
-import { Effect, Layer } from "effect";
-import { describe, expect, it } from "vitest";
+import { Cause, Effect, Exit, Layer } from "effect";
+import { assert, describe, expect, it } from "vitest";
 import { operationsByPath } from "./components";
 import { ApiConfig, ApiError, effectByPath, NetworkError } from "./effect";
 
@@ -28,5 +28,26 @@ describe("effect bindings", () => {
 		});
 		expect(error).toBeInstanceOf(NetworkError);
 		expect((error as NetworkError).message).toBe(`Network error: ${endpoint} failed: fetch failed`);
+	});
+
+	it("die with the error an onResponse hook threw", async () => {
+		const thrown = new Error("no Location header");
+		// ApiConfig declares no onResponse; the fetcher still reads it from the layer's config.
+		const config = {
+			fetchImpl: async () => new Response("{}"),
+			onResponse: () => {
+				throw thrown;
+			},
+		};
+		const exit = await Effect.runPromise(
+			Effect.exit(operation({})).pipe(Effect.provide(Layer.succeed(ApiConfig, config))),
+		);
+
+		assert(Exit.isFailure(exit));
+		expect(Cause.hasFails(exit.cause)).toBe(false);
+		const defect = Cause.squash(exit.cause);
+		assert(defect instanceof Error);
+		expect(defect.message).toMatch(/^onResponse threw on [A-Z]+ \/.*: no Location header$/);
+		expect(defect.cause).toBe(thrown);
 	});
 });
