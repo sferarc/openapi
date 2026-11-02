@@ -3,21 +3,21 @@ packages:
   - packages/*
   - configs/*
 catalog:
-  '@ai-sdk/openai': 4.0.102
-  '@biomejs/biome': 2.6.3
+  '@ai-sdk/openai': 4.0.106
+  '@biomejs/biome': 2.6.4
   '@changesets/cli': 3.0.3
-  '@kubb/adapter-oas': 5.14.2
-  '@kubb/plugin-ts': 5.2.0
-  '@kubb/plugin-zod': 5.7.2
+  '@kubb/adapter-oas': 5.15.3
+  '@kubb/plugin-ts': 5.4.0
+  '@kubb/plugin-zod': 5.8.0
   '@radix-ui/react-slot': 1.5.0
   '@radix-ui/react-tabs': 1.2.1
   '@tailwindcss/postcss': 4.3.3
-  '@types/node': 26.6.5
+  '@types/node': 26.6.6
   '@types/pg': 8.23.1
   '@types/react': 19.3.0
   '@types/react-dom': 19.3.0
-  ai: 7.0.153
-  better-auth: 1.7.13
+  ai: 7.0.159
+  better-auth: 1.7.15
   bunchee: 7.0.2
   case: 1.6.3
   class-variance-authority: 0.7.1
@@ -25,16 +25,16 @@ catalog:
   dotenv: 18.0.9
   drizzle-kit: 0.31.11
   drizzle-orm: 0.45.4
-  effect: 4.0.6
+  effect: 4.1.1
   is-tree-shakable: 0.5.0
-  knip: 6.43.0
-  kubb: 5.14.2
+  knip: 6.44.1
+  kubb: 5.15.3
   lefthook: 2.2.2
-  lucide-react: 1.61.0
+  lucide-react: 1.66.0
   next: 16.4.3
   openapi3-ts: 4.6.2
   pg: 8.23.1
-  postcss: 8.5.31
+  postcss: 8.5.32
   react: 19.3.1
   react-dom: 19.3.1
   rimraf: 6.1.3
