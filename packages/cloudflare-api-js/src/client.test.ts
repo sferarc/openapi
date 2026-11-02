@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { CloudflareApi } from "./client";
 import type { FetchImpl, RequestInit } from "./utils/fetch";
+import type { ResponseInfo } from "./utils/fetcher";
 
 describe("CloudflareApi.request", () => {
 	function setup() {
@@ -236,6 +237,56 @@ describe("CloudflareApi per-call config", () => {
 		await client.request("GET /accounts", { config: { signal } });
 		await client.api.accounts.accountsListAccounts({ config: { signal } });
 		expect(signals).toEqual([signal, signal]);
+	});
+});
+
+describe("CloudflareApi response headers", () => {
+	function setup(headers: Record<string, string>, body: BodyInit = "{}") {
+		const fetch: FetchImpl = async () => new Response(body, { status: 200, headers }) as never;
+		return new CloudflareApi({ token: "token", fetch });
+	}
+
+	it("reads a spend policy's ETag from the api proxy and request()", async () => {
+		const client = setup({ "content-type": "application/json", ETag: '"3"' });
+		const pathParams = { accountId: "a", policyId: "p" };
+		const etags: (string | null)[] = [];
+		const config = {
+			onResponse: ({ headers }: ResponseInfo) => {
+				etags.push(headers.get("ETag"));
+			},
+		};
+
+		await client.api.spendPolicies.spendPoliciesGet({ pathParams, config });
+		await client.request("GET /accounts/{accountId}/billing/spend-policies/{policyId}", {
+			pathParams,
+			config,
+		});
+
+		expect(etags).toEqual(['"3"', '"3"']);
+	});
+
+	it("reads an R2 object's metadata headers alongside its body", async () => {
+		const client = setup(
+			{
+				"content-type": "application/octet-stream",
+				ETag: '"d41d8"',
+				"Last-Modified": "Mon, 02 Nov 2026 10:00:00 GMT",
+			},
+			new Uint8Array([1, 2, 3]),
+		);
+		let metadata: { etag: string | null; lastModified: string | null } | undefined;
+
+		const object = await client.api.r2Object.r2GetObject({
+			pathParams: { accountId: "a", bucketName: "b", objectKey: "data.bin" },
+			config: {
+				onResponse: ({ headers }) => {
+					metadata = { etag: headers.get("ETag"), lastModified: headers.get("Last-Modified") };
+				},
+			},
+		});
+
+		expect(metadata).toEqual({ etag: '"d41d8"', lastModified: "Mon, 02 Nov 2026 10:00:00 GMT" });
+		expect(object).toBeInstanceOf(Blob);
 	});
 });
 

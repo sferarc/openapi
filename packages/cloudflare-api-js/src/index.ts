@@ -5,4 +5,4 @@ export {
 	tagDictionary,
 } from "./generated/components";
 export * from "./generated/types";
-export { isJsonLineStream } from "./utils/fetcher";
+export { isJsonLineStream, type ResponseInfo } from "./utils/fetcher";
