@@ -9,7 +9,15 @@ export type FetcherConfig = {
 	signal?: AbortSignal | undefined;
 	/** How a line-delimited JSON response resolves: `"array"` (the default) once the body ends, `"stream"` as an async iterable of each line as it arrives. */
 	jsonLines?: "array" | "stream";
+	/** Called with the status and headers of the response before its body is read, for headers such as `x-litellm-model-id`. */
+	onResponse?: (response: ResponseInfo) => void;
 };
+
+/** The status and headers of a response, which the parsed result leaves out. */
+export type ResponseInfo = { status: number; headers: { get(name: string): string | null } };
+
+// A custom fetch may return a response without headers.
+const noHeaders: ResponseInfo["headers"] = { get: () => null };
 
 /** What a failed request rejects with: the HTTP status and the parsed error body, or the raw body text, truncated, when it is not JSON. */
 export type ErrorWrapper<TError> = { status: number; payload: TError | string };
@@ -89,6 +97,13 @@ class ResponseError {
 	constructor(readonly error: ErrorWrapper<unknown>) {}
 }
 
+// What the caller's onResponse threw, kept apart from a failed request.
+class ResponseHookError {
+	constructor(readonly error: unknown) {}
+}
+
+const errorReason = (error: unknown) => (error instanceof Error ? error.message : String(error));
+
 async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>({
 	url,
 	method,
@@ -97,6 +112,7 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 	pathParams,
 	queryParams,
 	signal,
+	onResponse,
 	jsonLines = "array",
 	baseUrl = "",
 	token = null,
@@ -137,6 +153,12 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 			headers: requestHeaders,
 		});
 
+		try {
+			onResponse?.({ status: response.status, headers: response.headers ?? noHeaders });
+		} catch (e) {
+			throw new ResponseHookError(e);
+		}
+
 		if (!response.ok) {
 			const text = await response.text();
 			let payload: TError | string;
@@ -169,12 +191,17 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 	} catch (e) {
 		// Rethrown as is so the HTTP status survives; the Effect bindings map it to ApiError.
 		if (e instanceof ResponseError) throw e.error;
+		// Only the path: query values can carry secrets.
+		const request = `${method.toUpperCase()} ${url.split("?")[0]}`;
+		if (e instanceof ResponseHookError) {
+			throw new Error(`onResponse threw on ${request}: ${errorReason(e.error)}`, {
+				cause: e.error,
+			});
+		}
 		// A cancelled call rejects with the signal's reason as is, such as the TimeoutError of AbortSignal.timeout().
 		if (signal?.aborted || (e instanceof Error && e.name === "AbortError")) throw e;
 
-		const reason = e instanceof Error ? e.message : String(e);
-		// Only the path: query values can carry secrets.
-		throw new Error(`${method.toUpperCase()} ${url.split("?")[0]} failed: ${reason}`, { cause: e });
+		throw new Error(`${request} failed: ${errorReason(e)}`, { cause: e });
 	}
 }
 

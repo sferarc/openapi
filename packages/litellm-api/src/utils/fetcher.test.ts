@@ -40,6 +40,65 @@ describe("fetcher", () => {
 		).rejects.toEqual({ status: 404, payload: { message: "not found" } });
 	});
 
+	it("passes the status and headers of an error response to onResponse before rejecting", async () => {
+		const seen: { status: number; retryAfter: string | null }[] = [];
+		const fetchImpl: FetchImpl = async () =>
+			new Response("{}", {
+				status: 429,
+				headers: { "content-type": "application/json", "retry-after": "30" },
+			}) as never;
+
+		await expect(
+			client({
+				url: "/thing",
+				method: "post",
+				fetchImpl,
+				onResponse: ({ status, headers }) => {
+					seen.push({ status, retryAfter: headers.get("Retry-After") });
+				},
+			}),
+		).rejects.toEqual({ status: 429, payload: {} });
+		expect(seen).toEqual([{ status: 429, retryAfter: "30" }]);
+	});
+
+	it("gives onResponse empty headers when a custom fetch returns none", async () => {
+		let modelId: string | null | undefined;
+		const fetchImpl: FetchImpl = async () => ({
+			ok: true,
+			status: 200,
+			url: "",
+			json: async () => ({}),
+			text: async () => "{}",
+		});
+
+		await client({
+			url: "/thing",
+			method: "post",
+			fetchImpl,
+			onResponse: ({ headers }) => {
+				modelId = headers.get("x-litellm-model-id");
+			},
+		});
+
+		expect(modelId).toBeNull();
+	});
+
+	it("reports an onResponse that throws as the hook's error, not a failed request", async () => {
+		const cause = new Error("no model id");
+		const error = await client({
+			url: "/thing",
+			method: "post",
+			queryParams: { secret: "s3cret" },
+			fetchImpl: respond(200, "{}"),
+			onResponse: () => {
+				throw cause;
+			},
+		}).catch((e: unknown) => e);
+		expect(error).toBeInstanceOf(Error);
+		expect((error as Error).cause).toBe(cause);
+		expect((error as Error).message).toBe("onResponse threw on POST /thing: no model id");
+	});
+
 	it("keeps the raw body when the error body is not JSON", async () => {
 		await expect(
 			client({

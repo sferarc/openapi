@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { LiteLLMApi } from "./client";
 import type { FetchImpl } from "./utils/fetch";
+import type { ResponseInfo } from "./utils/fetcher";
 
 describe("LiteLLMApi", () => {
 	it("reaches untagged operations through the default namespace", async () => {
@@ -139,5 +140,62 @@ describe("LiteLLMApi per-call config", () => {
 		await client.request("GET /routes", { config: { signal } });
 		await client.api.default.getRoutesRoutesGet({ config: { signal } });
 		expect(signals).toEqual([signal, signal]);
+	});
+});
+
+describe("LiteLLMApi response headers", () => {
+	const modelId = "0f3c6a1e-model";
+
+	function setup() {
+		const urls: string[] = [];
+		const fetch: FetchImpl = async (url) => {
+			urls.push(url);
+			return new Response(JSON.stringify({ id: "chatcmpl-1" }), {
+				status: 200,
+				headers: {
+					"content-type": "application/json",
+					"x-litellm-model-id": modelId,
+					"x-litellm-cache-key": "cache-key-1",
+				},
+			}) as never;
+		};
+		return {
+			urls,
+			client: new LiteLLMApi({ baseUrl: "https://api.example.com", token: "token", fetch }),
+		};
+	}
+
+	it("reads the deployment that answered a chat completion from the api proxy", async () => {
+		const { client } = setup();
+		const seen: ResponseInfo[] = [];
+
+		const completion = await client.api.chatCompletions.chatCompletionChatCompletionsPost({
+			body: { model: "gpt-4o", messages: [{ role: "user", content: "Hello" }] },
+			config: { onResponse: (response) => seen.push(response) },
+		});
+
+		expect(completion).toEqual({ id: "chatcmpl-1" });
+		expect(
+			seen.map(({ status, headers }) => [
+				status,
+				headers.get("x-litellm-model-id"),
+				headers.get("x-litellm-cache-key"),
+			]),
+		).toEqual([[200, modelId, "cache-key-1"]]);
+	});
+
+	it("passes onResponse through request() and looks the deployment up by its id", async () => {
+		const { urls, client } = setup();
+		const ids: (string | null)[] = [];
+		await client.request("POST /chat/completions", {
+			body: { model: "gpt-4o", messages: [{ role: "user", content: "Hello" }] },
+			config: { onResponse: ({ headers }) => ids.push(headers.get("X-LiteLLM-Model-Id")) },
+		});
+		await client.request("GET /model/info", {
+			queryParams: { litellm_model_id: ids[0] },
+		});
+
+		expect(ids).toEqual([modelId]);
+		expect(new URL(urls[1] ?? "").searchParams.get("litellm_model_id")).toBe(modelId);
 	});
 });
