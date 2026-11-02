@@ -59864,6 +59864,12 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						.describe(
 							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 						),
+					schedulePreview: z
+						.array(ACLActionSchema)
+						.optional()
+						.describe(
+							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+						),
 					seawallConfig: z
 						.array(ACLActionSchema)
 						.optional()
@@ -70784,6 +70790,12 @@ export const getProjectsStatus200Schema = z
 								.describe(
 									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 								),
+							schedulePreview: z
+								.array(ACLActionSchema)
+								.optional()
+								.describe(
+									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+								),
 							seawallConfig: z
 								.array(ACLActionSchema)
 								.optional()
@@ -74988,6 +75000,12 @@ export const createProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			schedule: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			schedulePreview: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -79525,6 +79543,12 @@ export const getProjectStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			schedulePreview: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			seawallConfig: z
 				.array(ACLActionSchema)
 				.optional()
@@ -83531,6 +83555,12 @@ export const updateProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			schedule: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			schedulePreview: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -88416,6 +88446,12 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			schedulePreview: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			seawallConfig: z
 				.array(ACLActionSchema)
 				.optional()
@@ -92429,6 +92465,12 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			schedule: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			schedulePreview: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -102696,6 +102738,12 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			schedule: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			schedulePreview: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
