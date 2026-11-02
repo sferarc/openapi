@@ -107,6 +107,18 @@ await Effect.runPromise(
 
 Errors are typed as `ApiError`, `NetworkError` and `ValidationError`. An HTTP error response fails with `ApiError`, which carries the HTTP `status`; a request that never gets a response fails with `NetworkError`.
 
+A call can pass its own `config`, which layers over the layer's: its `headers` join the layer's, and its other fields, such as `onResponse` for the registry upload headers, replace them. Cancelling is the effect's job (`Effect.timeout`, interruption), so `config` takes no `signal`:
+
+```ts
+let location: string | null = null;
+const upload = ApiService.vcr.createByTeamSlugByProjectSlugByRepositoryNameBlobsUploads({
+  pathParams: { teamSlug, projectSlug, repositoryName },
+  config: { onResponse: ({ headers }) => (location = headers.get("Location")) },
+});
+```
+
+An `onResponse` that throws makes the effect die with the `onResponse threw on` error as a defect rather than fail with `NetworkError`.
+
 ## Entrypoints
 
 | Import | Contents |

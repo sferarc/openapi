@@ -1,7 +1,14 @@
 import { Cause, Effect, Exit, Layer } from "effect";
 import { assert, describe, expect, it } from "vitest";
 import { operationsByPath } from "./components";
-import { ApiConfig, ApiError, effectByPath, NetworkError } from "./effect";
+import {
+	ApiConfig,
+	ApiError,
+	ApiService,
+	effectByPath,
+	makeApiLayer,
+	NetworkError,
+} from "./effect";
 
 const endpoint = Object.keys(operationsByPath).find((key) => !key.includes("{"));
 if (!endpoint) throw new Error("expected an operation without path parameters");
@@ -30,17 +37,34 @@ describe("effect bindings", () => {
 		expect((error as NetworkError).message).toBe(`Network error: ${endpoint} failed: fetch failed`);
 	});
 
+	it("pass a call's onResponse the headers of the registry upload response", async () => {
+		const location = "/v2/team/project/repo/blobs/uploads/42";
+		let received: string | null = null;
+		const program = ApiService.vcr.createByTeamSlugByProjectSlugByRepositoryNameBlobsUploads({
+			pathParams: { teamSlug: "team", projectSlug: "project", repositoryName: "repo" },
+			config: { onResponse: ({ headers }) => (received = headers.get("Location")) },
+		});
+		const fetchImpl = async () =>
+			new Response(null, { status: 202, headers: { Location: location } });
+
+		await Effect.runPromise(program.pipe(Effect.provide(makeApiLayer({ fetchImpl }))));
+
+		expect(received).toBe(location);
+	});
+
 	it("die with the error an onResponse hook threw", async () => {
 		const thrown = new Error("no Location header");
-		// ApiConfig declares no onResponse; the fetcher still reads it from the layer's config.
-		const config = {
-			fetchImpl: async () => new Response("{}"),
-			onResponse: () => {
-				throw thrown;
+		const program = operation({
+			config: {
+				onResponse: () => {
+					throw thrown;
+				},
 			},
-		};
+		});
 		const exit = await Effect.runPromise(
-			Effect.exit(operation({})).pipe(Effect.provide(Layer.succeed(ApiConfig, config))),
+			Effect.exit(program).pipe(
+				Effect.provide(makeApiLayer({ fetchImpl: async () => new Response("{}") })),
+			),
 		);
 
 		assert(Exit.isFailure(exit));

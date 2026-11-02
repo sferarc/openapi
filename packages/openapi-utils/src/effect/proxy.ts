@@ -9,9 +9,14 @@ type RequiredKeys<T> = {
 	[K in keyof T]-?: {} extends Pick<T, K> ? never : K;
 }[keyof T];
 
+// A call's own config layers over the ApiConfig service; the effect owns the signal.
+type EffectParams<P> = "config" extends keyof P
+	? Omit<P, "config"> & { config?: Omit<NonNullable<P["config"]>, "signal"> }
+	: P;
+
 // The params argument is optional when the operation requires none of its fields, as in the Promise clients.
 type EffectOperation<Op> = Op extends (params: infer P) => Promise<infer R>
-	? Omit<NonNullable<P>, "config"> extends infer Params
+	? EffectParams<NonNullable<P>> extends infer Params
 		? [RequiredKeys<Params>] extends [never]
 			? (params?: Params) => Effect.Effect<R, ApiError | ValidationError | NetworkError, ApiConfig>
 			: (params: Params) => Effect.Effect<R, ApiError | ValidationError | NetworkError, ApiConfig>
@@ -56,12 +61,20 @@ function ownValue(target: object, key: string | symbol): any {
 	return Object.hasOwn(target, key) ? (target as any)[key] : undefined;
 }
 
+type CallParams = Record<string, unknown> & {
+	config?: Record<string, unknown> & { headers?: Record<string, string> };
+};
+
 function toEffect(op: (params: Record<string, unknown>) => Promise<unknown>) {
-	return (params?: Record<string, unknown>) =>
+	return (params?: CallParams) =>
 		Effect.gen(function* () {
-			const config = yield* ApiConfig;
+			const layerConfig = yield* ApiConfig;
+			const { config: callConfig, ...rest } = params ?? {};
+			// The call's headers join the layer's rather than replacing them all.
+			const headers = callConfig?.headers && { ...layerConfig.headers, ...callConfig.headers };
+			const config = { ...layerConfig, ...callConfig, ...(headers && { headers }) };
 			return yield* Effect.tryPromise({
-				try: (signal) => op({ ...(params ?? {}), config: { ...config, signal } }),
+				try: (signal) => op({ ...rest, config: { ...config, signal } }),
 				catch: (error) => error,
 			}).pipe(
 				// A bug in the caller's own callback is a defect, not a failed request.
