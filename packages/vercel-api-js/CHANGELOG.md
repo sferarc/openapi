@@ -1,5 +1,11 @@
 # vercel-api-js
 
+## 2.10.1
+
+### Patch Changes
+
+- 57f5750: Added optional 'schedulePreview' field to several status response types to indicate authorized operations when 'checkPermissions' is used.
+
 ## 2.10.0
 
 ### Minor Changes
