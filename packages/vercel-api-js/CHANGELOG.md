@@ -1,5 +1,13 @@
 # vercel-api-js
 
+## 2.11.0
+
+### Minor Changes
+
+- 5e55c9d: Added new operation to list flags project connections via getFlagsProjectConnections.
+- 5e55c9d: Added new operation to connect a project to the flags of another project via createFlagsProjectConnection.
+- 5e55c9d: Added new operation to disconnect a project from the flags of another project via deleteFlagsProjectConnection.
+
 ## 2.10.1
 
 ### Patch Changes
