@@ -42804,6 +42804,88 @@ export type AggregateMcpRouteMcpPatchResponses = {
  */
 export type AggregateMcpRouteMcpPatchResponse = AggregateMcpRouteMcpPatchStatus200;
 
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchPath = {
+	toolset_name: string;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200 = unknown;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422 = HTTPValidationError;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchOptions = {
+	body?: never | undefined;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpPatchPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostPath = {
+	toolset_name: string;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200 = {
+	[key: string]: unknown;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422 = HTTPValidationError;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostOptions = {
+	body?: never | undefined;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpPostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetPath = {
+	toolset_name: string;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200 = {
+	[key: string]: unknown;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetStatus422 = HTTPValidationError;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetOptions = {
+	body?: never | undefined;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200;
+
 export type ToolsetMcpRouteToolsetToolsetNameMcpPutPath = {
 	toolset_name: string;
 };
@@ -42831,32 +42913,6 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpPutResponses = {
  */
 export type ToolsetMcpRouteToolsetToolsetNameMcpPutResponse =
 	ToolsetMcpRouteToolsetToolsetNameMcpPutStatus200;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchPath = {
-	toolset_name: string;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200 = unknown;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422 = HTTPValidationError;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchOptions = {
-	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpPatchPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
 
 export type ToolsetMcpRouteToolsetToolsetNameMcpHeadPath = {
 	toolset_name: string;
@@ -42938,61 +42994,87 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponses = {
 export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponse =
 	ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostPath = {
-	toolset_name: string;
+export type DynamicMcpRouteMcpServerNameMcpPatchPath = {
+	mcp_server_name: string;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200 = {
-	[key: string]: unknown;
-};
+export type DynamicMcpRouteMcpServerNameMcpPatchStatus200 = unknown;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422 = HTTPValidationError;
+export type DynamicMcpRouteMcpServerNameMcpPatchStatus422 = HTTPValidationError;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostOptions = {
+export type DynamicMcpRouteMcpServerNameMcpPatchOptions = {
 	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpPostPath;
+	path: DynamicMcpRouteMcpServerNameMcpPatchPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422;
+export type DynamicMcpRouteMcpServerNameMcpPatchResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpPatchStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpPatchStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
+export type DynamicMcpRouteMcpServerNameMcpPatchResponse =
+	DynamicMcpRouteMcpServerNameMcpPatchStatus200;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetPath = {
-	toolset_name: string;
+export type DynamicMcpRouteMcpServerNameMcpPostPath = {
+	mcp_server_name: string;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200 = {
+export type DynamicMcpRouteMcpServerNameMcpPostStatus200 = {
 	[key: string]: unknown;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetStatus422 = HTTPValidationError;
+export type DynamicMcpRouteMcpServerNameMcpPostStatus422 = HTTPValidationError;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetOptions = {
+export type DynamicMcpRouteMcpServerNameMcpPostOptions = {
 	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpGetPath;
+	path: DynamicMcpRouteMcpServerNameMcpPostPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpGetStatus422;
+export type DynamicMcpRouteMcpServerNameMcpPostResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpPostStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200;
+export type DynamicMcpRouteMcpServerNameMcpPostResponse =
+	DynamicMcpRouteMcpServerNameMcpPostStatus200;
+
+export type DynamicMcpRouteMcpServerNameMcpGetPath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpGetStatus200 = {
+	[key: string]: unknown;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpGetStatus422 = HTTPValidationError;
+
+export type DynamicMcpRouteMcpServerNameMcpGetOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpGetResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpGetStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpGetResponse =
+	DynamicMcpRouteMcpServerNameMcpGetStatus200;
 
 export type DynamicMcpRouteMcpServerNameMcpPutPath = {
 	mcp_server_name: string;
@@ -43021,32 +43103,6 @@ export type DynamicMcpRouteMcpServerNameMcpPutResponses = {
  */
 export type DynamicMcpRouteMcpServerNameMcpPutResponse =
 	DynamicMcpRouteMcpServerNameMcpPutStatus200;
-
-export type DynamicMcpRouteMcpServerNameMcpPatchPath = {
-	mcp_server_name: string;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpPatchStatus200 = unknown;
-
-export type DynamicMcpRouteMcpServerNameMcpPatchStatus422 = HTTPValidationError;
-
-export type DynamicMcpRouteMcpServerNameMcpPatchOptions = {
-	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpPatchPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpPatchResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpPatchStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpPatchStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DynamicMcpRouteMcpServerNameMcpPatchResponse =
-	DynamicMcpRouteMcpServerNameMcpPatchStatus200;
 
 export type DynamicMcpRouteMcpServerNameMcpHeadPath = {
 	mcp_server_name: string;
@@ -43127,62 +43183,6 @@ export type DynamicMcpRouteMcpServerNameMcpOptionsResponses = {
  */
 export type DynamicMcpRouteMcpServerNameMcpOptionsResponse =
 	DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
-
-export type DynamicMcpRouteMcpServerNameMcpPostPath = {
-	mcp_server_name: string;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpPostStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpPostStatus422 = HTTPValidationError;
-
-export type DynamicMcpRouteMcpServerNameMcpPostOptions = {
-	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpPostPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpPostResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpPostStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DynamicMcpRouteMcpServerNameMcpPostResponse =
-	DynamicMcpRouteMcpServerNameMcpPostStatus200;
-
-export type DynamicMcpRouteMcpServerNameMcpGetPath = {
-	mcp_server_name: string;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpGetStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpGetStatus422 = HTTPValidationError;
-
-export type DynamicMcpRouteMcpServerNameMcpGetOptions = {
-	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpGetPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpGetResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpGetStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DynamicMcpRouteMcpServerNameMcpGetResponse =
-	DynamicMcpRouteMcpServerNameMcpGetStatus200;
 
 export type WebsocketVertexAiLivePassthroughEndpointStatus101 = unknown;
 
