@@ -7,4 +7,4 @@ export {
 export * from "./generated/schemas";
 export * from "./generated/types";
 export type { FetchImpl } from "./utils/fetch";
-export type { FetcherConfig } from "./utils/fetcher";
+export type { FetcherConfig, ResponseInfo } from "./utils/fetcher";

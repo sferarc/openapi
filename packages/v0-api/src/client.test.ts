@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { V0Api } from "./client";
 import type { FetchImpl } from "./utils/fetch";
+import type { ResponseInfo } from "./utils/fetcher";
 
 describe("V0Api.request", () => {
 	function setup() {
@@ -114,5 +115,45 @@ describe("V0Api per-call config", () => {
 		await client.request("GET /chats", { config: { signal } });
 		await client.api.chats.chatsFind({ config: { signal } });
 		expect(signals).toEqual([signal, signal]);
+	});
+});
+
+describe("V0Api response headers", () => {
+	function setup() {
+		const fetch: FetchImpl = async () =>
+			new Response(
+				JSON.stringify({
+					error: { message: "Rate limit exceeded", type: "too_many_requests_error" },
+				}),
+				{
+					status: 429,
+					headers: { "content-type": "application/json", "retry-after": "60" },
+				},
+			) as never;
+		return new V0Api({ token: "token", fetch });
+	}
+
+	it("reads the headers of a rate limited response from the api proxy", async () => {
+		const client = setup();
+		const seen: ResponseInfo[] = [];
+
+		await expect(
+			client.api.chats.chatsFind({ config: { onResponse: (response) => seen.push(response) } }),
+		).rejects.toMatchObject({ status: 429 });
+		expect(seen.map(({ status, headers }) => [status, headers.get("Retry-After")])).toEqual([
+			[429, "60"],
+		]);
+	});
+
+	it("passes onResponse through request()", async () => {
+		const client = setup();
+		const retryAfter: (string | null)[] = [];
+
+		await expect(
+			client.request("GET /chats", {
+				config: { onResponse: ({ headers }) => retryAfter.push(headers.get("retry-after")) },
+			}),
+		).rejects.toMatchObject({ status: 429 });
+		expect(retryAfter).toEqual(["60"]);
 	});
 });
