@@ -117,8 +117,8 @@ export type Account = {
 	 * @description The type: 0 .. user, 1 .. company, 2 .. caretaker
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 2
+	 * @minimum 0
+	 * @maximum 2
 	 * @type integer
 	 */
 	type: number;
@@ -148,8 +148,8 @@ export type Account = {
 	 * @description The rights bitmask if it's a sub account: 1 .. manage smartlock, 2 .. operate smartlock, 4 .. manage smartlock config, 8 .. manage smartlock authorizations, 16 .. view smartlock logs, 32 .. manage sub accounts, 64 .. create smartlocks
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 127
+	 * @minimum 0
+	 * @maximum 127
 	 * @type integer | undefined
 	 */
 	rights?: number | undefined;
@@ -418,8 +418,8 @@ export type AccountSubCreate = {
 	 * @description The right bitmask of the sub account: 1 .. operate smartlock, 2 .. change smartlock config, 4 .. manage smartlock users, 8 .. view smartlock logs, 16 .. manage sub accounts
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 31
+	 * @minimum 0
+	 * @maximum 31
 	 * @type integer
 	 */
 	rights: number;
@@ -457,8 +457,8 @@ export type AccountSubUpdate = {
 	 * @description The new right bitmask of the sub account: 1 .. operate smartlock, 2 .. change smartlock config, 4 .. manage smartlock users, 8 .. view smartlock logs, 16 .. manage sub accounts, 32 .. manage sub accounts, 64 .. create smartlocks
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 127
+	 * @minimum 0
+	 * @maximum 127
 	 * @type integer | undefined
 	 */
 	rights?: number | undefined;
@@ -534,8 +534,8 @@ export type AccountUser = {
 	 * @description The optional type: 0 .. user, 1 .. company
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 1
+	 * @minimum 0
+	 * @maximum 1
 	 * @type integer | undefined
 	 */
 	type?: number | undefined;
@@ -595,8 +595,8 @@ export type AccountUserCreate = {
 	 * @description The optional type - only allowed for caretakers: 0 .. user, 1 .. company
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 1
+	 * @minimum 0
+	 * @maximum 1
 	 * @type integer | undefined
 	 */
 	type?: number | undefined;
@@ -2248,8 +2248,8 @@ export type MyAccount = {
 	 * @description The type: 0 .. user, 1 .. company, 2 .. caretaker
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 2
+	 * @minimum 0
+	 * @maximum 2
 	 * @type integer
 	 */
 	type: number;
@@ -2279,8 +2279,8 @@ export type MyAccount = {
 	 * @description The rights bitmask if it's a sub account: 1 .. manage smartlock, 2 .. operate smartlock, 4 .. manage smartlock config, 8 .. manage smartlock authorizations, 16 .. view smartlock logs, 32 .. manage sub accounts, 64 .. create smartlocks
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 127
+	 * @minimum 0
+	 * @maximum 127
 	 * @type integer | undefined
 	 */
 	rights?: number | undefined;
@@ -3038,8 +3038,8 @@ export type SmartlockConfig = {
 	 * @description The capabilities indicate whether door opening via app is possible, RTO is possible or both: 0 .. only door opening possible, 1 .. both possible, 2 .. only RTO possible (only for type=2)
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 2
+	 * @minimum 0
+	 * @maximum 2
 	 * @type integer | undefined
 	 */
 	readonly capabilities?: number | undefined;
@@ -3098,8 +3098,8 @@ export type SmartlockConfig = {
 	 * @description The fob action if button is pressed once: type=0/3/4: 0 .. none, 1 .. unlock, 2 .. lock, 3 .. lock 'n' go, 4 .. intelligent (lock/unlocked based on the current state); type=2: 0 .. none, 1 .. toggle ring to open, 2 .. activate ring to open, 3 .. deactivate ring to open, 7 .. open (electric strike actuation), 8 .. ring
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 8
+	 * @minimum 0
+	 * @maximum 8
 	 * @type integer | undefined
 	 */
 	readonly fobAction1?: number | undefined;
@@ -3107,8 +3107,8 @@ export type SmartlockConfig = {
 	 * @description The fob action if button is pressed twice: type=0/3/4: 0 .. none, 1 .. unlock, 2 .. lock, 3 .. lock 'n' go, 4 .. intelligent (lock/unlocked based on the current state); type=2: 0 .. none, 1 .. toggle ring to open, 2 .. activate ring to open, 3 .. deactivate ring to open, 7 .. open (electric strike actuation), 8 .. ring
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 8
+	 * @minimum 0
+	 * @maximum 8
 	 * @type integer | undefined
 	 */
 	readonly fobAction2?: number | undefined;
@@ -3116,8 +3116,8 @@ export type SmartlockConfig = {
 	 * @description The fob action if button is pressed 3 times: type=0/3/4: 0 .. none, 1 .. unlock, 2 .. lock, 3 .. lock 'n' go, 4 .. intelligent (lock/unlocked based on the current state); type=2: 0 .. none, 1 .. toggle ring to open, 2 .. activate ring to open, 3 .. deactivate ring to open, 7 .. open (electric strike actuation), 8 .. ring
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 8
+	 * @minimum 0
+	 * @maximum 8
 	 * @type integer | undefined
 	 */
 	readonly fobAction3?: number | undefined;
@@ -3137,8 +3137,8 @@ export type SmartlockConfig = {
 	 * @description The advertising mode (battery saving): 0 .. automatic, 1 .. normal, 2 .. slow, 3 .. slowest
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 3
+	 * @minimum 0
+	 * @maximum 3
 	 * @type integer
 	 */
 	advertisingMode: number;
@@ -3156,8 +3156,8 @@ export type SmartlockConfig = {
 	 * @description The homekit state: 0 .. unavailable, 1 .. disabled, 2 .. enabled, 3 .. enabled & paired
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 3
+	 * @minimum 0
+	 * @maximum 3
 	 * @type integer | undefined
 	 */
 	readonly homekitState?: number | undefined;
@@ -3165,8 +3165,8 @@ export type SmartlockConfig = {
 	 * @description The matter state: 0 .. not available, 1 .. disabled and no certificate available, 2 .. disabled, 3 .. enabled, 4 .. enabled & paired
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 4
+	 * @minimum 0
+	 * @maximum 4
 	 * @type integer | undefined
 	 */
 	readonly matterState?: number | undefined;
@@ -3174,8 +3174,8 @@ export type SmartlockConfig = {
 	 * @description The timezone id (check https://developer.nuki.io for ids)
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 45
+	 * @minimum 0
+	 * @maximum 45
 	 * @type integer
 	 */
 	timezoneId: number;
@@ -3200,8 +3200,8 @@ export type SmartlockConfig = {
 	 * @description The product variant for Smartlock 5: 1 .. Go, 2 .. Pro, 3 .. Ultra
 	 *
 	 * Format: `int32`
-	 * @minLength 1
-	 * @maxLength 3
+	 * @minimum 1
+	 * @maximum 3
 	 * @type integer | undefined
 	 */
 	readonly productVariant?: number | undefined;
@@ -3548,8 +3548,8 @@ export type SmartlockState = {
 	 * @description The smartlock mode: 0 .. uninitialized, 1 .. pairing, 2 .. door (default), 3 .. continuous (type=2 only), 4 .. maintenance, 5 .. off-door charging
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 4
+	 * @minimum 0
+	 * @maximum 4
 	 * @type integer
 	 */
 	mode: number;
@@ -3557,8 +3557,8 @@ export type SmartlockState = {
 	 * @description The smartlock state: type=0/3/4: 0 .. uncalibrated, 1 .. locked, 2 .. unlocking, 3 .. unlocked, 4 .. locking, 5 .. unlatched, 6 .. unlocked (lock 'n' go), 7 .. unlatching, 224 .. Error wrong entry code, 225 .. Error wrong Fingerprint, 254 .. motor blocked, 255 .. undefined; type=2: 0 .. untrained, 1 .. online, 3 .. ring to open active, 5 .. open, 7 .. opening, 253 .. boot run, 255 .. undefined
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 255
+	 * @minimum 0
+	 * @maximum 255
 	 * @type integer
 	 */
 	state: number;
@@ -3566,8 +3566,8 @@ export type SmartlockState = {
 	 * @description  The state trigger: 0 .. system, 1 .. manual, 2 .. button, 3 .. automatic, 4 .. web (type=1 only), 5 .. app (type=1 only), 6 .. continuous mode (type=2 only), 7 .. accessory (type=3 only)
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 6
+	 * @minimum 0
+	 * @maximum 6
 	 * @type integer
 	 */
 	trigger: number;
@@ -3575,8 +3575,8 @@ export type SmartlockState = {
 	 * @description The action: type=0/3/4: 1 .. unlock, 2 .. lock, 3 .. unlatch, 4 .. lock 'n' go, 5 .. lock 'n' go with unlatch; type=1: 1 .. unlock; type=2: 1 .. activate ring to open, 2 .. deactivate ring to open, 3 .. open (electric strike actuation)
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 5
+	 * @minimum 0
+	 * @maximum 5
 	 * @type integer
 	 */
 	lastAction: number;
@@ -3594,8 +3594,8 @@ export type SmartlockState = {
 	 * @description Remaining capacity of a Nuki battery pack in %
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 100
+	 * @minimum 0
+	 * @maximum 100
 	 * @type integer | undefined
 	 */
 	batteryCharge?: number | undefined;
@@ -3613,8 +3613,8 @@ export type SmartlockState = {
 	 * @description The door state: 0 .. unavailable/not paired, 1 .. deactivated, 2 .. door closed, 3 .. door opened, 4 .. door state unknown, 5 .. calibrating, 16 .. uncalibrated, 240 .. removed, 255 .. unknown
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 255
+	 * @minimum 0
+	 * @maximum 255
 	 * @type integer
 	 */
 	doorState: number;
@@ -3622,8 +3622,8 @@ export type SmartlockState = {
 	 * @description The keypad mounting state: 0 .. unknown/disabled/n.a., 1 .. mounted, 2 .. moved (dismounted), 255 .. error (theft detection) (only available for supported devices)
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 255
+	 * @minimum 0
+	 * @maximum 255
 	 * @type integer | undefined
 	 */
 	keypadMountingState?: number | undefined;
@@ -3631,8 +3631,8 @@ export type SmartlockState = {
 	 * @description [deprecated] Remaining ring to open time; 0 if ring to open is not active (type=2 only)
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 65535
+	 * @minimum 0
+	 * @maximum 65535
 	 * @type integer
 	 */
 	ringToOpenTimer: number;
@@ -3754,8 +3754,8 @@ export type Smartlock = {
 	 * @description The server state: 0 .. ok, 1 .. unregistered, 2 .. auth uuid invalid, 3 .. auth invalid, 4 .. offline
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 4
+	 * @minimum 0
+	 * @maximum 4
 	 * @type integer
 	 */
 	serverState: number;
@@ -3763,8 +3763,8 @@ export type Smartlock = {
 	 * @description The admin pin state: 0 .. ok, 1 .. missing, 2 .. invalid
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 2
+	 * @minimum 0
+	 * @maximum 2
 	 * @type integer
 	 */
 	adminPinState: number;
@@ -3827,8 +3827,8 @@ export type SmartlockAction = {
 	 * @description The action: type=0/3/4: 1 .. unlock, 2 .. lock, 3 .. unlatch, 4 .. lock 'n' go, 5 .. lock 'n' go with unlatch; type=1: 1 .. unlock; type=2: 1 activate ring to open, 2 .. deactivate ring to open, 3 .. open (electric strike actuation), 6 ... activate continuous mode, 7 ... deactivate continuous mode
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 7
+	 * @minimum 0
+	 * @maximum 7
 	 * @type integer
 	 */
 	action: number;
@@ -3836,8 +3836,8 @@ export type SmartlockAction = {
 	 * @description The option mask: 0 .. none, 2 .. force, 4 .. full lock
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 7
+	 * @minimum 0
+	 * @maximum 7
 	 * @type integer | undefined
 	 */
 	option?: number | undefined;
@@ -3848,8 +3848,8 @@ export type SmartlockAdminPinUpdate = {
 	 * @description The admin pin
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 9999
+	 * @minimum 0
+	 * @maximum 9999
 	 * @type integer
 	 */
 	adminPin: number;
@@ -3898,8 +3898,8 @@ export type SmartlockAuth = {
 	 * @description The type of the authorization: 0 .. app, 1 .. bridge, 2 .. fob, 3 .. keypad, 13 .. keypad code, 14 .. z-key, 15 .. virtual
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 2
+	 * @minimum 0
+	 * @maximum 2
 	 * @type integer
 	 */
 	readonly type: number;
@@ -3943,8 +3943,8 @@ export type SmartlockAuth = {
 	 * @description The allowed weekdays bitmask: 64 .. monday, 32 .. tuesday, 16 .. wednesday, 8 .. thursday, 4 .. friday, 2 .. saturday, 1 .. sunday
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 127
+	 * @minimum 0
+	 * @maximum 127
 	 * @type integer | undefined
 	 */
 	allowedWeekDays?: number | undefined;
@@ -4027,8 +4027,8 @@ export type SmartlockAuthCreate = {
 	 * @description The allowed weekdays bitmask: 64 .. monday, 32 .. tuesday, 16 .. wednesday, 8 .. thursday, 4 .. friday, 2 .. saturday, 1 .. sunday
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 127
+	 * @minimum 0
+	 * @maximum 127
 	 * @type integer | undefined
 	 */
 	allowedWeekDays?: number | undefined;
@@ -4103,8 +4103,8 @@ export type SmartlockAuthMultiUpdate = {
 	 * @description The allowed weekdays bitmask: 64 .. monday, 32 .. tuesday, 16 .. wednesday, 8 .. thursday, 4 .. friday, 2 .. saturday, 1 .. sunday
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 127
+	 * @minimum 0
+	 * @maximum 127
 	 * @type integer | undefined
 	 */
 	allowedWeekDays?: number | undefined;
@@ -4177,8 +4177,8 @@ export type SmartlockAuthUpdate = {
 	 * @description The allowed weekdays bitmask: 64 .. monday, 32 .. tuesday, 16 .. wednesday, 8 .. thursday, 4 .. friday, 2 .. saturday, 1 .. sunday
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 127
+	 * @minimum 0
+	 * @maximum 127
 	 * @type integer | undefined
 	 */
 	allowedWeekDays?: number | undefined;
@@ -4246,8 +4246,8 @@ export type SmartlockAuthWithSharedKeyCreate = {
 	 * @description The allowed weekdays bitmask: 64 .. monday, 32 .. tuesday, 16 .. wednesday, 8 .. thursday, 4 .. friday, 2 .. saturday, 1 .. sunday
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 127
+	 * @minimum 0
+	 * @maximum 127
 	 * @type integer | undefined
 	 */
 	allowedWeekDays?: number | undefined;
@@ -4289,8 +4289,8 @@ export type SmartlockLogOpenerLog = {
 	 * @description The cause of the activation of ring to open or continuous mode: 0 .. doorbell, 1 .. timecontrol, 2 .. app, 3 .. button, 4 .. fob, 5 .. bridge, 6 .. keypad
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 6
+	 * @minimum 0
+	 * @maximum 6
 	 * @type integer
 	 */
 	source: number;
@@ -4352,8 +4352,8 @@ export type SmartlockLog = {
 	 * @description The action: 1 .. unlock, 2 .. lock, 3 .. unlatch, 4 .. lock'n'go, 5 .. lock'n'go with unlatch, 11 .. Restore reset to default setting, 208 .. door warning ajar, 209 door warning status mismatch, 224 .. doorbell recognition (only Opener), 240 .. door opened, 241 .. door closed, 242 .. door sensor jammed, 243 .. firmware update, 250 .. door log enabled, 251 .. door log disabled, 252 .. initialization, 253 .. calibration, 254 .. log enabled, 255 .. log disabled
 	 *
 	 * Format: `int32`
-	 * @minLength 1
-	 * @maxLength 255
+	 * @minimum 1
+	 * @maximum 255
 	 * @type integer
 	 */
 	action: number;
@@ -4361,8 +4361,8 @@ export type SmartlockLog = {
 	 * @description The trigger: 0 .. system, 1 .. manual, 2 .. button, 3 .. automatic, 4 .. web, 5 .. app, 6 .. auto lock, 7 .. accessory, 253 .. keypad error, 254 .. nuki mode, 255 .. keypad
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 255
+	 * @minimum 0
+	 * @maximum 255
 	 * @type integer
 	 */
 	trigger: number;
@@ -4371,8 +4371,8 @@ export type SmartlockLog = {
 	 * For source=3 and trigger=253 the following states are used: 0 .. Access document revoked, 1 .. Send NFC failed, 2 .. Control flow, 3 .. Command time expired, 7 .. Invalid data content, 37 .. Invalid access rights, 255 .. Unknown
 	 *
 	 * Format: `int32`
-	 * @minLength 1
-	 * @maxLength 255
+	 * @minimum 1
+	 * @maximum 255
 	 * @type integer
 	 */
 	state: number;
@@ -4451,8 +4451,8 @@ export type SmartlocksAuthAdvancedCreate = {
 	 * @description The allowed weekdays bitmask: 64 .. monday, 32 .. tuesday, 16 .. wednesday, 8 .. thursday, 4 .. friday, 2 .. saturday, 1 .. sunday
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 127
+	 * @minimum 0
+	 * @maximum 127
 	 * @type integer | undefined
 	 */
 	allowedWeekDays?: number | undefined;
@@ -4518,8 +4518,8 @@ export type SmartlocksAuthCreate = {
 	 * @description The allowed weekdays bitmask: 64 .. monday, 32 .. tuesday, 16 .. wednesday, 8 .. thursday, 4 .. friday, 2 .. saturday, 1 .. sunday
 	 *
 	 * Format: `int32`
-	 * @minLength 0
-	 * @maxLength 127
+	 * @minimum 0
+	 * @maximum 127
 	 * @type integer | undefined
 	 */
 	allowedWeekDays?: number | undefined;

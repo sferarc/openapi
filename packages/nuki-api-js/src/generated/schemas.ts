@@ -667,7 +667,7 @@ export const resourceBundleSchema = z.object({
 
 export const loggerSchema = z.object({
 	name: z.string().optional(),
-	get parent() {
+	get parent(): z.ZodOptional<typeof loggerSchema> {
 		return loggerSchema.optional();
 	},
 	filter: filterSchema.optional(),
@@ -680,18 +680,18 @@ export const loggerSchema = z.object({
 
 export const restletSchema = z.object({
 	author: z.string().optional(),
-	get context() {
+	get context(): z.ZodOptional<typeof contextSchema> {
 		return contextSchema.optional();
 	},
 	description: z.string().optional(),
 	name: z.string().optional(),
 	owner: z.string().optional(),
 	started: z.boolean().optional(),
-	get logger() {
+	get logger(): z.ZodOptional<typeof loggerSchema> {
 		return loggerSchema.optional();
 	},
 	stopped: z.boolean().optional(),
-	get application() {
+	get application(): z.ZodOptional<typeof applicationSchema> {
 		return applicationSchema.optional();
 	},
 });
@@ -711,14 +711,14 @@ export const scheduledExecutorServiceSchema = z.object({
 });
 
 export const contextSchema = z.object({
-	get clientDispatcher() {
+	get clientDispatcher(): z.ZodOptional<typeof restletSchema> {
 		return restletSchema.optional();
 	},
-	get serverDispatcher() {
+	get serverDispatcher(): z.ZodOptional<typeof restletSchema> {
 		return restletSchema.optional();
 	},
 	attributes: z.record(z.string(), z.object({})).optional(),
-	get logger() {
+	get logger(): z.ZodOptional<typeof loggerSchema> {
 		return loggerSchema.optional();
 	},
 	parameters: z.array(parameterSchema).optional(),
@@ -728,10 +728,10 @@ export const contextSchema = z.object({
 });
 
 export const roleSchema = z.object({
-	get application() {
+	get application(): z.ZodOptional<typeof applicationSchema> {
 		return applicationSchema.optional();
 	},
-	get childRoles() {
+	get childRoles(): z.ZodOptional<z.ZodArray<typeof roleSchema>> {
 		return z.array(roleSchema).optional();
 	},
 	description: z.string().optional(),
@@ -739,7 +739,7 @@ export const roleSchema = z.object({
 });
 
 export const serviceSchema = z.object({
-	get context() {
+	get context(): z.ZodOptional<typeof contextSchema> {
 		return contextSchema.optional();
 	},
 	enabled: z.boolean().optional(),
@@ -748,7 +748,7 @@ export const serviceSchema = z.object({
 });
 
 export const connegServiceSchema = z.object({
-	get context() {
+	get context(): z.ZodOptional<typeof contextSchema> {
 		return contextSchema.optional();
 	},
 	enabled: z.boolean().optional(),
@@ -758,7 +758,7 @@ export const connegServiceSchema = z.object({
 });
 
 export const converterServiceSchema = z.object({
-	get context() {
+	get context(): z.ZodOptional<typeof contextSchema> {
 		return contextSchema.optional();
 	},
 	enabled: z.boolean().optional(),
@@ -777,7 +777,7 @@ export const protocolSchema = z.object({
 });
 
 export const referenceSchema = z.object({
-	get baseRef() {
+	get baseRef(): z.ZodOptional<typeof referenceSchema> {
 		return referenceSchema.optional();
 	},
 	absolute: z.boolean().optional(),
@@ -801,17 +801,17 @@ export const referenceSchema = z.object({
 	hostIdentifier: z.string().optional(),
 	hostPort: z.int32().optional(),
 	lastSegment: z.string().optional(),
-	get parentRef() {
+	get parentRef(): z.ZodOptional<typeof referenceSchema> {
 		return referenceSchema.optional();
 	},
 	relativePart: z.string().optional(),
-	get relativeRef() {
+	get relativeRef(): z.ZodOptional<typeof referenceSchema> {
 		return referenceSchema.optional();
 	},
 	remainingPart: z.string().optional(),
 	schemeProtocol: protocolSchema.optional(),
 	segments: z.array(z.string()).optional(),
-	get targetRef() {
+	get targetRef(): z.ZodOptional<typeof referenceSchema> {
 		return referenceSchema.optional();
 	},
 	hierarchical: z.boolean().optional(),
@@ -820,7 +820,7 @@ export const referenceSchema = z.object({
 export const metadataSchema = z.object({
 	description: z.string().optional(),
 	name: z.string().optional(),
-	get parent() {
+	get parent(): z.ZodOptional<typeof metadataSchema> {
 		return metadataSchema.optional();
 	},
 });
@@ -828,7 +828,7 @@ export const metadataSchema = z.object({
 export const characterSetSchema = z.object({
 	description: z.string().optional(),
 	name: z.string().optional(),
-	get parent() {
+	get parent(): z.ZodOptional<typeof metadataSchema> {
 		return metadataSchema.optional();
 	},
 });
@@ -836,7 +836,7 @@ export const characterSetSchema = z.object({
 export const encodingSchema = z.object({
 	description: z.string().optional(),
 	name: z.string().optional(),
-	get parent() {
+	get parent(): z.ZodOptional<typeof metadataSchema> {
 		return metadataSchema.optional();
 	},
 });
@@ -845,7 +845,7 @@ export const languageSchema = z.object({
 	description: z.string().optional(),
 	name: z.string().optional(),
 	subTags: z.array(z.string()).optional(),
-	get parent() {
+	get parent(): z.ZodOptional<typeof languageSchema> {
 		return languageSchema.optional();
 	},
 	primaryTag: z.string().optional(),
@@ -855,7 +855,7 @@ export const mediaTypeSchema = z.object({
 	description: z.string().optional(),
 	name: z.string().optional(),
 	parameters: z.array(parameterSchema).optional(),
-	get parent() {
+	get parent(): z.ZodOptional<typeof mediaTypeSchema> {
 		return mediaTypeSchema.optional();
 	},
 	mainType: z.string().optional(),
@@ -864,17 +864,17 @@ export const mediaTypeSchema = z.object({
 });
 
 export const metadataServiceSchema = z.object({
-	get context() {
+	get context(): z.ZodOptional<typeof contextSchema> {
 		return contextSchema.optional();
 	},
 	enabled: z.boolean().optional(),
 	started: z.boolean().optional(),
 	defaultCharacterSet: characterSetSchema.optional(),
 	defaultEncoding: encodingSchema.optional(),
-	get defaultLanguage() {
+	get defaultLanguage(): z.ZodOptional<typeof languageSchema> {
 		return languageSchema.optional();
 	},
-	get defaultMediaType() {
+	get defaultMediaType(): z.ZodOptional<typeof mediaTypeSchema> {
 		return mediaTypeSchema.optional();
 	},
 	allEncodingExtensionNames: z.array(z.string()).optional(),
@@ -886,22 +886,22 @@ export const metadataServiceSchema = z.object({
 });
 
 export const statusServiceSchema = z.object({
-	get context() {
+	get context(): z.ZodOptional<typeof contextSchema> {
 		return contextSchema.optional();
 	},
 	enabled: z.boolean().optional(),
 	started: z.boolean().optional(),
-	get connegService() {
+	get connegService(): z.ZodOptional<typeof connegServiceSchema> {
 		return connegServiceSchema.optional();
 	},
 	contactEmail: z.string().optional(),
-	get converterService() {
+	get converterService(): z.ZodOptional<typeof converterServiceSchema> {
 		return converterServiceSchema.optional();
 	},
-	get homeRef() {
+	get homeRef(): z.ZodOptional<typeof referenceSchema> {
 		return referenceSchema.optional();
 	},
-	get metadataService() {
+	get metadataService(): z.ZodOptional<typeof metadataServiceSchema> {
 		return metadataServiceSchema.optional();
 	},
 	overwriting: z.boolean().optional(),
@@ -909,7 +909,7 @@ export const statusServiceSchema = z.object({
 });
 
 export const taskServiceSchema = z.object({
-	get context() {
+	get context(): z.ZodOptional<typeof contextSchema> {
 		return contextSchema.optional();
 	},
 	enabled: z.boolean().optional(),
@@ -923,7 +923,7 @@ export const taskServiceSchema = z.object({
 });
 
 export const tunnelServiceSchema = z.object({
-	get context() {
+	get context(): z.ZodOptional<typeof contextSchema> {
 		return contextSchema.optional();
 	},
 	enabled: z.boolean().optional(),
@@ -944,7 +944,7 @@ export const tunnelServiceSchema = z.object({
 });
 
 export const connectorServiceSchema = z.object({
-	get context() {
+	get context(): z.ZodOptional<typeof contextSchema> {
 		return contextSchema.optional();
 	},
 	enabled: z.boolean().optional(),
@@ -955,7 +955,7 @@ export const connectorServiceSchema = z.object({
 });
 
 export const decoderServiceSchema = z.object({
-	get context() {
+	get context(): z.ZodOptional<typeof contextSchema> {
 		return contextSchema.optional();
 	},
 	enabled: z.boolean().optional(),
@@ -964,15 +964,15 @@ export const decoderServiceSchema = z.object({
 });
 
 export const encoderServiceSchema = z.object({
-	get context() {
+	get context(): z.ZodOptional<typeof contextSchema> {
 		return contextSchema.optional();
 	},
 	enabled: z.boolean().optional(),
 	started: z.boolean().optional(),
-	get acceptedMediaTypes() {
+	get acceptedMediaTypes(): z.ZodOptional<z.ZodArray<typeof mediaTypeSchema>> {
 		return z.array(mediaTypeSchema).optional();
 	},
-	get ignoredMediaTypes() {
+	get ignoredMediaTypes(): z.ZodOptional<z.ZodArray<typeof mediaTypeSchema>> {
 		return z.array(mediaTypeSchema).optional();
 	},
 	minimumSize: z.int().optional(),
@@ -980,7 +980,7 @@ export const encoderServiceSchema = z.object({
 });
 
 export const rangeServiceSchema = z.object({
-	get context() {
+	get context(): z.ZodOptional<typeof contextSchema> {
 		return contextSchema.optional();
 	},
 	enabled: z.boolean().optional(),
@@ -990,7 +990,7 @@ export const rangeServiceSchema = z.object({
 
 export const applicationSchema = z.object({
 	author: z.string().optional(),
-	get context() {
+	get context(): z.ZodOptional<typeof contextSchema> {
 		return contextSchema.optional();
 	},
 	description: z.string().optional(),
@@ -998,53 +998,53 @@ export const applicationSchema = z.object({
 	owner: z.string().optional(),
 	started: z.boolean().optional(),
 	debugging: z.boolean().optional(),
-	get inboundRoot() {
+	get inboundRoot(): z.ZodOptional<typeof restletSchema> {
 		return restletSchema.optional();
 	},
-	get outboundRoot() {
+	get outboundRoot(): z.ZodOptional<typeof restletSchema> {
 		return restletSchema.optional();
 	},
-	get roles() {
+	get roles(): z.ZodOptional<z.ZodArray<typeof roleSchema>> {
 		return z.array(roleSchema).optional();
 	},
-	get services() {
+	get services(): z.ZodOptional<z.ZodArray<typeof serviceSchema>> {
 		return z.array(serviceSchema).optional();
 	},
-	get statusService() {
+	get statusService(): z.ZodOptional<typeof statusServiceSchema> {
 		return statusServiceSchema.optional();
 	},
-	get connegService() {
+	get connegService(): z.ZodOptional<typeof connegServiceSchema> {
 		return connegServiceSchema.optional();
 	},
-	get metadataService() {
+	get metadataService(): z.ZodOptional<typeof metadataServiceSchema> {
 		return metadataServiceSchema.optional();
 	},
-	get converterService() {
+	get converterService(): z.ZodOptional<typeof converterServiceSchema> {
 		return converterServiceSchema.optional();
 	},
-	get taskService() {
+	get taskService(): z.ZodOptional<typeof taskServiceSchema> {
 		return taskServiceSchema.optional();
 	},
-	get tunnelService() {
+	get tunnelService(): z.ZodOptional<typeof tunnelServiceSchema> {
 		return tunnelServiceSchema.optional();
 	},
-	get connectorService() {
+	get connectorService(): z.ZodOptional<typeof connectorServiceSchema> {
 		return connectorServiceSchema.optional();
 	},
-	get decoderService() {
+	get decoderService(): z.ZodOptional<typeof decoderServiceSchema> {
 		return decoderServiceSchema.optional();
 	},
-	get encoderService() {
+	get encoderService(): z.ZodOptional<typeof encoderServiceSchema> {
 		return encoderServiceSchema.optional();
 	},
-	get rangeService() {
+	get rangeService(): z.ZodOptional<typeof rangeServiceSchema> {
 		return rangeServiceSchema.optional();
 	},
-	get logger() {
+	get logger(): z.ZodOptional<typeof loggerSchema> {
 		return loggerSchema.optional();
 	},
 	stopped: z.boolean().optional(),
-	get application() {
+	get application(): z.ZodOptional<typeof applicationSchema> {
 		return applicationSchema.optional();
 	},
 });
@@ -1114,7 +1114,7 @@ export const challengeRequestSchema = z.object({
 	opaque: z.string().optional(),
 	digestAlgorithm: z.string().optional(),
 	qualityOptions: z.array(z.string()).optional(),
-	get domainRefs() {
+	get domainRefs(): z.ZodOptional<z.ZodArray<typeof referenceSchema>> {
 		return z.array(referenceSchema).optional();
 	},
 	stale: z.boolean().optional(),
@@ -1133,7 +1133,7 @@ export const challengeResponseSchema = z.object({
 	opaque: z.string().optional(),
 	digestAlgorithm: z.string().optional(),
 	clientNonce: z.string().optional(),
-	get digestRef() {
+	get digestRef(): z.ZodOptional<typeof referenceSchema> {
 		return referenceSchema.optional();
 	},
 	identifier: z.string().optional(),
@@ -1159,7 +1159,7 @@ export const preferenceEncodingSchema = z.object({
 });
 
 export const preferenceLanguageSchema = z.object({
-	get metadata() {
+	get metadata(): z.ZodOptional<typeof languageSchema> {
 		return languageSchema.optional();
 	},
 	parameters: z.array(parameterSchema).optional(),
@@ -1167,7 +1167,7 @@ export const preferenceLanguageSchema = z.object({
 });
 
 export const preferenceMediaTypeSchema = z.object({
-	get metadata() {
+	get metadata(): z.ZodOptional<typeof mediaTypeSchema> {
 		return mediaTypeSchema.optional();
 	},
 	parameters: z.array(parameterSchema).optional(),
@@ -1213,7 +1213,7 @@ export const clientInfoSchema = z.object({
 	from: z.string().optional(),
 	port: z.int32().optional(),
 	principals: z.array(principalSchema).optional(),
-	get roles() {
+	get roles(): z.ZodOptional<z.ZodArray<typeof roleSchema>> {
 		return z.array(roleSchema).optional();
 	},
 	user: userSchema.optional(),
@@ -1475,7 +1475,7 @@ export const paginatedResponseSchema = z.object({
 });
 
 export const preferenceSchema = z.object({
-	get metadata() {
+	get metadata(): z.ZodOptional<typeof metadataSchema> {
 		return metadataSchema.optional();
 	},
 	parameters: z.array(parameterSchema).optional(),
@@ -1527,13 +1527,13 @@ export const selectionRegistrationSchema = z.object({
 export const representationSchema = z.object({
 	characterSet: characterSetSchema.optional(),
 	encodings: z.array(encodingSchema).optional(),
-	get locationRef() {
+	get locationRef(): z.ZodOptional<typeof referenceSchema> {
 		return referenceSchema.optional();
 	},
-	get languages() {
+	get languages(): z.ZodOptional<z.ZodArray<typeof languageSchema>> {
 		return z.array(languageSchema).optional();
 	},
-	get mediaType() {
+	get mediaType(): z.ZodOptional<typeof mediaTypeSchema> {
 		return mediaTypeSchema.optional();
 	},
 	modificationDate: z.iso.datetime({ offset: true }).optional(),
@@ -1569,12 +1569,12 @@ export const stackTraceElementSchema = z.object({
 });
 
 export const throwableSchema = z.object({
-	get cause() {
+	get cause(): z.ZodOptional<typeof throwableSchema> {
 		return throwableSchema.optional();
 	},
 	stackTrace: z.array(stackTraceElementSchema).optional(),
 	message: z.string().optional(),
-	get suppressed() {
+	get suppressed(): z.ZodOptional<z.ZodArray<typeof throwableSchema>> {
 		return z.array(throwableSchema).optional();
 	},
 	localizedMessage: z.string().optional(),
@@ -1584,7 +1584,7 @@ export const statusSchema = z.object({
 	code: z.int32().optional(),
 	description: z.string().optional(),
 	reasonPhrase: z.string().optional(),
-	get throwable() {
+	get throwable(): z.ZodOptional<typeof throwableSchema> {
 		return throwableSchema.optional();
 	},
 	uri: z.string().optional(),
@@ -1626,26 +1626,26 @@ export const requestSchema = z.object({
 	clientInfo: clientInfoSchema.optional(),
 	conditions: conditionsSchema.optional(),
 	cookies: z.array(cookieSchema).optional(),
-	get hostRef() {
+	get hostRef(): z.ZodOptional<typeof referenceSchema> {
 		return referenceSchema.optional();
 	},
 	loggable: z.boolean().optional(),
 	maxForwards: z.int32().optional(),
 	method: methodSchema.optional(),
 	onResponse: uniformSchema.optional(),
-	get originalRef() {
+	get originalRef(): z.ZodOptional<typeof referenceSchema> {
 		return referenceSchema.optional();
 	},
 	protocol: protocolSchema.optional(),
 	proxyChallengeResponse: challengeResponseSchema.optional(),
 	ranges: z.array(rangeSchema).optional(),
-	get referrerRef() {
+	get referrerRef(): z.ZodOptional<typeof referenceSchema> {
 		return referenceSchema.optional();
 	},
-	get resourceRef() {
+	get resourceRef(): z.ZodOptional<typeof referenceSchema> {
 		return referenceSchema.optional();
 	},
-	get rootRef() {
+	get rootRef(): z.ZodOptional<typeof referenceSchema> {
 		return referenceSchema.optional();
 	},
 	confidential: z.boolean().optional(),
@@ -1730,7 +1730,7 @@ export const responseSchema = z.object({
 			message: "Array entries must be unique",
 		})
 		.optional(),
-	get locationRef() {
+	get locationRef(): z.ZodOptional<typeof referenceSchema> {
 		return referenceSchema.optional();
 	},
 	proxyChallengeRequests: z.array(challengeRequestSchema).optional(),
@@ -2553,13 +2553,13 @@ export const smartlocksAuthCreateSchema = z.object({
 export const variantSchema = z.object({
 	characterSet: characterSetSchema.optional(),
 	encodings: z.array(encodingSchema).optional(),
-	get locationRef() {
+	get locationRef(): z.ZodOptional<typeof referenceSchema> {
 		return referenceSchema.optional();
 	},
-	get languages() {
+	get languages(): z.ZodOptional<z.ZodArray<typeof languageSchema>> {
 		return z.array(languageSchema).optional();
 	},
-	get mediaType() {
+	get mediaType(): z.ZodOptional<typeof mediaTypeSchema> {
 		return mediaTypeSchema.optional();
 	},
 });
