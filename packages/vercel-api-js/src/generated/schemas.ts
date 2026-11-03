@@ -3487,7 +3487,7 @@ export const userEventSchema = z
 						})
 						.nullish()
 						.describe(
-							"Spend budget on an AI Gateway API key, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.",
+							"Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.",
 						),
 					bypassAll: z
 						.union([z.literal(false), z.literal(true)])
@@ -3519,9 +3519,20 @@ export const userEventSchema = z
 						})
 						.nullish()
 						.describe(
-							"Spend budget on an AI Gateway API key, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.",
+							"Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.",
 						),
 					change: z.enum(["disable", "enable", "remove", "set"]),
+					justification: z.string().optional(),
+					previousBudget: z
+						.object({
+							alertThresholds: z.array(z.number()).optional(),
+							limitAmount: z.number().describe("Spend cap, in dollars."),
+							refreshPeriod: z.enum(["daily", "monthly", "none", "weekly"]),
+						})
+						.nullish()
+						.describe(
+							"Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.",
+						),
 				}),
 				z.strictObject({
 					change: z.enum([
@@ -3561,9 +3572,20 @@ export const userEventSchema = z
 						})
 						.nullish()
 						.describe(
-							"Spend budget on an AI Gateway API key, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.",
+							"Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.",
 						),
 					change: z.enum(["disable", "enable", "remove", "set"]),
+					justification: z.string().optional(),
+					previousBudget: z
+						.object({
+							alertThresholds: z.array(z.number()).optional(),
+							limitAmount: z.number().describe("Spend cap, in dollars."),
+							refreshPeriod: z.enum(["daily", "monthly", "none", "weekly"]),
+						})
+						.nullish()
+						.describe(
+							"Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.",
+						),
 					scopeType: z.enum(["api-key", "project", "team", "user"]),
 				}),
 				z.strictObject({
@@ -3575,9 +3597,20 @@ export const userEventSchema = z
 						})
 						.nullish()
 						.describe(
-							"Spend budget on an AI Gateway API key, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.",
+							"Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.",
 						),
 					change: z.enum(["disable", "enable", "remove", "set"]),
+					justification: z.string().optional(),
+					previousBudget: z
+						.object({
+							alertThresholds: z.array(z.number()).optional(),
+							limitAmount: z.number().describe("Spend cap, in dollars."),
+							refreshPeriod: z.enum(["daily", "monthly", "none", "weekly"]),
+						})
+						.nullish()
+						.describe(
+							"Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.",
+						),
 					projectId: z
 						.string()
 						.optional()
@@ -11581,6 +11614,7 @@ export const userEventSchema = z
 				"project-elastic-concurrency-updated",
 				"project-expiration-locked",
 				"project-expiration-reached",
+				"project-expiration-removed",
 				"project-expiration-scheduled",
 				"project-expiration-unlocked",
 				"project-external-rewrite-caching-updated",
@@ -12438,6 +12472,7 @@ export const listEventTypeSchema = z
 				"project-elastic-concurrency-updated",
 				"project-expiration-locked",
 				"project-expiration-reached",
+				"project-expiration-removed",
 				"project-expiration-scheduled",
 				"project-expiration-unlocked",
 				"project-external-rewrite-caching-updated",
@@ -13197,6 +13232,7 @@ export const listEventTypeSchema = z
 					"project-elastic-concurrency-updated",
 					"project-expiration-locked",
 					"project-expiration-reached",
+					"project-expiration-removed",
 					"project-expiration-scheduled",
 					"project-expiration-unlocked",
 					"project-external-rewrite-caching-updated",
@@ -19387,8 +19423,8 @@ export const upsertAiGatewayBudgetErrorSchema = z.union([
 export const upsertAiGatewayBudgetBodySchema = z
 	.strictObject({
 		scopeType: z.enum(["project", "team", "user"]),
-		projectId: z.string().optional().describe('Required when scopeType is "project".'),
-		userId: z.string().optional().describe('Required when scopeType is "user".'),
+		projectId: z.string().optional().describe('Required when scopeType is \\"project\\".'),
+		userId: z.string().optional().describe('Required when scopeType is \\"user\\".'),
 		limitAmount: z.number().min(1).describe("Budget limit in dollars."),
 		refreshPeriod: z.enum(["daily", "monthly", "none", "weekly"]).optional().default("monthly"),
 		includeByokInQuota: z
@@ -19396,6 +19432,12 @@ export const upsertAiGatewayBudgetBodySchema = z
 			.optional()
 			.describe("Whether BYOK usage counts toward this budget."),
 		alertThresholds: z.array(z.union([z.literal(100), z.literal(50), z.literal(75)])).optional(),
+		justification: z
+			.string()
+			.optional()
+			.describe(
+				"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains.",
+			),
 	})
 	.optional();
 
@@ -19419,12 +19461,19 @@ export const archiveAiGatewayBudgetQueryScopeTypeSchema = z
 export const archiveAiGatewayBudgetQueryProjectIdSchema = z
 	.string()
 	.optional()
-	.describe('Required when scopeType is "project".');
+	.describe('Required when scopeType is \\"project\\".');
 
 export const archiveAiGatewayBudgetQueryUserIdSchema = z
 	.string()
 	.optional()
-	.describe('Required when scopeType is "user".');
+	.describe('Required when scopeType is \\"user\\".');
+
+export const archiveAiGatewayBudgetQueryJustificationSchema = z
+	.string()
+	.optional()
+	.describe(
+		"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains.",
+	);
 
 export const archiveAiGatewayBudgetQueryTeamIdSchema = z
 	.string()
@@ -19465,8 +19514,14 @@ export const archiveAiGatewayBudgetErrorSchema = z.union([
 
 export const archiveAiGatewayBudgetQuerySchema = z.object({
 	scopeType: z.enum(["team", "project", "user"]).describe("The budget scope to archive."),
-	projectId: z.string().optional().describe('Required when scopeType is "project".'),
-	userId: z.string().optional().describe('Required when scopeType is "user".'),
+	projectId: z.string().optional().describe('Required when scopeType is \\"project\\".'),
+	userId: z.string().optional().describe('Required when scopeType is \\"user\\".'),
+	justification: z
+		.string()
+		.optional()
+		.describe(
+			"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains.",
+		),
 	teamId: z
 		.string()
 		.optional()
@@ -19573,6 +19628,12 @@ export const upsertAiGatewayBudgetDefaultBodySchema = z
 		limitAmount: z.number().min(1).describe("Default budget limit in dollars."),
 		refreshPeriod: z.enum(["daily", "monthly", "none", "weekly"]).optional(),
 		alertThresholds: z.array(z.union([z.literal(100), z.literal(50), z.literal(75)])).optional(),
+		justification: z
+			.string()
+			.optional()
+			.describe(
+				"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains.",
+			),
 	})
 	.optional();
 
@@ -19592,6 +19653,13 @@ export const upsertAiGatewayBudgetDefaultQuerySchema = z.object({
 export const archiveAiGatewayBudgetDefaultQueryScopeTypeSchema = z
 	.enum(["team", "project", "api-key", "user"])
 	.describe("The budget default scope to delete.");
+
+export const archiveAiGatewayBudgetDefaultQueryJustificationSchema = z
+	.string()
+	.optional()
+	.describe(
+		"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains. Only recorded when scopeType is set.",
+	);
 
 export const archiveAiGatewayBudgetDefaultQueryTeamIdSchema = z
 	.string()
@@ -19635,6 +19703,12 @@ export const archiveAiGatewayBudgetDefaultQuerySchema = z.object({
 	scopeType: z
 		.enum(["team", "project", "api-key", "user"])
 		.describe("The budget default scope to delete."),
+	justification: z
+		.string()
+		.optional()
+		.describe(
+			"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains. Only recorded when scopeType is set.",
+		),
 	teamId: z
 		.string()
 		.optional()
@@ -39827,6 +39901,11 @@ export const getOrderStatus200Schema = z.strictObject({
 			z.discriminatedUnion("code", [
 				z.strictObject({
 					code: z.enum(["payment-failed"]),
+					details: z
+						.strictObject({
+							reason: z.enum(["authentication-required"]),
+						})
+						.optional(),
 				}),
 				z.strictObject({
 					code: z.enum(["tld-outage"]),
@@ -52327,6 +52406,17 @@ export const updateResourceBodySchema = z
 			})
 			.optional()
 			.describe("Custom claims embedded in the resource tokens Vercel mints for this resource."),
+		credentialTypes: z
+			.array(z.enum(["oidc", "static"]))
+			.min(1)
+			.max(2)
+			.refine((items) => new Set(items).size === items.length, {
+				message: "Array entries must be unique",
+			})
+			.optional()
+			.describe(
+				"The credential types the resource accepts: `static` for long-lived secrets, `oidc` for Vercel resource OIDC tokens. Can be set freely while the resource has none. After that, only to confirm a change Vercel requested with a secrets rotation, once it is complete. Without `static`, all long-lived secrets must be expired and removed, and no new ones minted or injected.",
+			),
 	})
 	.optional();
 
@@ -55605,6 +55695,12 @@ export const updateApiKeyQuotaBodySchema = z
 			.describe(
 				"Spend percentages (a subset of [50, 75, 100]) at which to send a spend alert. Pass an empty array to disable alerts.",
 			),
+		justification: z
+			.string()
+			.optional()
+			.describe(
+				"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains.",
+			),
 	})
 	.optional();
 
@@ -55814,6 +55910,13 @@ export const listKmsIssuersStatus200Schema = z.object({
 						tokenClaims: z.looseObject({}).optional(),
 						updatedAt: z.string(),
 					}),
+					z.strictObject({
+						createdAt: z.string(),
+						integrationId: z.string(),
+						kind: z.enum(["integration-tokens-grant"]),
+						tokenClaims: z.looseObject({}).optional(),
+						updatedAt: z.string(),
+					}),
 				]),
 			),
 			signingKeys: z.array(
@@ -55981,6 +56084,13 @@ export const createKmsIssuerStatus201Schema = z.object({
 				tokenClaims: z.looseObject({}).optional(),
 				updatedAt: z.string(),
 			}),
+			z.strictObject({
+				createdAt: z.string(),
+				integrationId: z.string(),
+				kind: z.enum(["integration-tokens-grant"]),
+				tokenClaims: z.looseObject({}).optional(),
+				updatedAt: z.string(),
+			}),
 		]),
 	),
 	signingKeys: z.array(
@@ -56108,6 +56218,16 @@ export const createKmsIssuerBodySchema = z
 				z.strictObject({
 					kind: z.enum(["connex-grant"]),
 					clientId: z.string().describe("The Connex client ID for the Connex grant policy."),
+					tokenClaims: z
+						.looseObject({})
+						.optional()
+						.describe("The claims that KMS should include in signed JWTs for this policy."),
+				}),
+				z.strictObject({
+					kind: z.enum(["integration-tokens-grant"]),
+					integrationId: z
+						.string()
+						.describe("The marketplace integration ID for the integration tokens grant policy."),
 					tokenClaims: z
 						.looseObject({})
 						.optional()
@@ -56482,6 +56602,13 @@ export const revokeKmsSigningKeyStatus200Schema = z.object({
 				tokenClaims: z.looseObject({}).optional(),
 				updatedAt: z.string(),
 			}),
+			z.strictObject({
+				createdAt: z.string(),
+				integrationId: z.string(),
+				kind: z.enum(["integration-tokens-grant"]),
+				tokenClaims: z.looseObject({}).optional(),
+				updatedAt: z.string(),
+			}),
 		]),
 	),
 	signingKeys: z.array(
@@ -56650,6 +56777,13 @@ export const getKmsIssuerStatus200Schema = z.object({
 				tokenClaims: z.looseObject({}).optional(),
 				updatedAt: z.string(),
 			}),
+			z.strictObject({
+				createdAt: z.string(),
+				integrationId: z.string(),
+				kind: z.enum(["integration-tokens-grant"]),
+				tokenClaims: z.looseObject({}).optional(),
+				updatedAt: z.string(),
+			}),
 		]),
 	),
 	signingKeys: z.array(
@@ -56807,6 +56941,13 @@ export const updateKmsIssuerStatus200Schema = z.object({
 				clientId: z.string(),
 				createdAt: z.string(),
 				kind: z.enum(["connex-grant"]),
+				tokenClaims: z.looseObject({}).optional(),
+				updatedAt: z.string(),
+			}),
+			z.strictObject({
+				createdAt: z.string(),
+				integrationId: z.string(),
+				kind: z.enum(["integration-tokens-grant"]),
 				tokenClaims: z.looseObject({}).optional(),
 				updatedAt: z.string(),
 			}),
@@ -57028,6 +57169,13 @@ export const createKmsIssuerPolicyStatus201Schema = z.discriminatedUnion("kind",
 		tokenClaims: z.looseObject({}).optional(),
 		updatedAt: z.string(),
 	}),
+	z.strictObject({
+		createdAt: z.string(),
+		integrationId: z.string(),
+		kind: z.enum(["integration-tokens-grant"]),
+		tokenClaims: z.looseObject({}).optional(),
+		updatedAt: z.string(),
+	}),
 ]);
 
 export const createKmsIssuerPolicyStatus400Schema = z.unknown();
@@ -57130,6 +57278,13 @@ export const updateKmsIssuerPolicyStatus200Schema = z.discriminatedUnion("kind",
 		tokenClaims: z.looseObject({}).optional(),
 		updatedAt: z.string(),
 	}),
+	z.strictObject({
+		createdAt: z.string(),
+		integrationId: z.string(),
+		kind: z.enum(["integration-tokens-grant"]),
+		tokenClaims: z.looseObject({}).optional(),
+		updatedAt: z.string(),
+	}),
 ]);
 
 export const updateKmsIssuerPolicyStatus400Schema = z.unknown();
@@ -57195,7 +57350,7 @@ export const updateKmsIssuerPolicyQuerySchema = z.object({
 export const deleteKmsIssuerPolicyPathIssuerIdSchema = z.string().describe("The ID of the issuer.");
 
 export const deleteKmsIssuerPolicyPathKindSchema = z
-	.enum(["project-grant", "connex-grant"])
+	.enum(["project-grant", "connex-grant", "integration-tokens-grant"])
 	.describe("The issuer policy kind.");
 
 export const deleteKmsIssuerPolicyPathPolicyKeySchema = z
@@ -57238,7 +57393,9 @@ export const deleteKmsIssuerPolicyErrorSchema = z.union([
 
 export const deleteKmsIssuerPolicyPathSchema = z.object({
 	issuerId: z.string().describe("The ID of the issuer."),
-	kind: z.enum(["project-grant", "connex-grant"]).describe("The issuer policy kind."),
+	kind: z
+		.enum(["project-grant", "connex-grant", "integration-tokens-grant"])
+		.describe("The issuer policy kind."),
 	policyKey: z.string().describe("The policy identifier."),
 });
 
@@ -77131,6 +77288,14 @@ export const createProjectBodySchema = z
 			.boolean()
 			.nullish()
 			.describe("Opt-in to production toolbar on the project level"),
+		expiration: z
+			.strictObject({
+				timeframe: z
+					.enum(["1-day", "1-hour", "1-month", "1-week", "2-week"])
+					.describe("How far in the future the project will be automatically deleted"),
+			})
+			.optional()
+			.describe("Schedules the project for automatic deletion after the given timeframe."),
 		previewDeploymentsDisabled: z
 			.boolean()
 			.nullish()
@@ -119365,6 +119530,7 @@ export const createIntegrationStoreDirectStatus200Schema = z.object({
 					agentTools: z.union([z.literal(false), z.literal(true)]).optional(),
 					autoSensitive: z.union([z.literal(false), z.literal(true)]).optional(),
 					billable: z.union([z.literal(false), z.literal(true)]).optional(),
+					credentialTypesTransitions: z.array(z.array(z.enum(["oidc", "static"]))).optional(),
 					mcp: z.union([z.literal(false), z.literal(true)]).optional(),
 					mcpReadonly: z.union([z.literal(false), z.literal(true)]).optional(),
 					projects: z.union([z.literal(false), z.literal(true)]).optional(),
@@ -119383,6 +119549,22 @@ export const createIntegrationStoreDirectStatus200Schema = z.object({
 					v0: z.union([z.literal(false), z.literal(true)]).optional(),
 				})
 				.optional(),
+			credentialTypes: z
+				.array(z.enum(["oidc", "static"]))
+				.optional()
+				.describe(
+					"The credential types the resource accepts: `static` for long-lived secrets, `oidc` for resource OIDC tokens.",
+				),
+			credentialTypesTransition: z
+				.object({
+					completedAt: z.number().optional(),
+					requestedAt: z.number(),
+					to: z.array(z.enum(["oidc", "static"])),
+				})
+				.optional()
+				.describe(
+					"The latest requested change of `credentialTypes`, and when the provider completed it.",
+				),
 			directPartnerConsoleUrl: z.string().optional(),
 			externalResourceId: z.string(),
 			externalResourceStatus: z

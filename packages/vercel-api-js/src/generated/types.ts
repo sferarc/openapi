@@ -5075,6 +5075,16 @@ export const userEventPayloadChangeEnum = {
 export type UserEventPayloadChangeEnumKey =
 	(typeof userEventPayloadChangeEnum)[keyof typeof userEventPayloadChangeEnum];
 
+export const userEventPayloadPreviousBudgetRefreshPeriodEnum = {
+	daily: "daily",
+	monthly: "monthly",
+	none: "none",
+	weekly: "weekly",
+} as const;
+
+export type UserEventPayloadPreviousBudgetRefreshPeriodEnumKey =
+	(typeof userEventPayloadPreviousBudgetRefreshPeriodEnum)[keyof typeof userEventPayloadPreviousBudgetRefreshPeriodEnum];
+
 export const userEventPayloadChangeEnum2 = {
 	disable: "disable",
 	"disable-commitment": "disable-commitment",
@@ -5106,6 +5116,16 @@ export const userEventPayloadChangeEnum3 = {
 export type UserEventPayloadChangeEnum3Key =
 	(typeof userEventPayloadChangeEnum3)[keyof typeof userEventPayloadChangeEnum3];
 
+export const userEventPayloadPreviousBudgetRefreshPeriodEnum2 = {
+	daily: "daily",
+	monthly: "monthly",
+	none: "none",
+	weekly: "weekly",
+} as const;
+
+export type UserEventPayloadPreviousBudgetRefreshPeriodEnum2Key =
+	(typeof userEventPayloadPreviousBudgetRefreshPeriodEnum2)[keyof typeof userEventPayloadPreviousBudgetRefreshPeriodEnum2];
+
 export const userEventPayloadScopeTypeEnum = {
 	"api-key": "api-key",
 	project: "project",
@@ -5135,6 +5155,16 @@ export const userEventPayloadChangeEnum4 = {
 
 export type UserEventPayloadChangeEnum4Key =
 	(typeof userEventPayloadChangeEnum4)[keyof typeof userEventPayloadChangeEnum4];
+
+export const userEventPayloadPreviousBudgetRefreshPeriodEnum3 = {
+	daily: "daily",
+	monthly: "monthly",
+	none: "none",
+	weekly: "weekly",
+} as const;
+
+export type UserEventPayloadPreviousBudgetRefreshPeriodEnum3Key =
+	(typeof userEventPayloadPreviousBudgetRefreshPeriodEnum3)[keyof typeof userEventPayloadPreviousBudgetRefreshPeriodEnum3];
 
 export const userEventPayloadScopeTypeEnum2 = {
 	project: "project",
@@ -8350,6 +8380,7 @@ export const userEventTypeEnum = {
 	"project-elastic-concurrency-updated": "project-elastic-concurrency-updated",
 	"project-expiration-locked": "project-expiration-locked",
 	"project-expiration-reached": "project-expiration-reached",
+	"project-expiration-removed": "project-expiration-removed",
 	"project-expiration-scheduled": "project-expiration-scheduled",
 	"project-expiration-unlocked": "project-expiration-unlocked",
 	"project-external-rewrite-caching-updated": "project-external-rewrite-caching-updated",
@@ -9002,7 +9033,7 @@ export type UserEvent = {
 							name: string;
 						};
 						/**
-						 * @description Spend budget on an AI Gateway API key, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.
+						 * @description Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.
 						 * @type object | undefined
 						 */
 						budget?:
@@ -9039,7 +9070,7 @@ export type UserEvent = {
 							name: string;
 						};
 						/**
-						 * @description Spend budget on an AI Gateway API key, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.
+						 * @description Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.
 						 * @type object | undefined
 						 */
 						budget?:
@@ -9054,6 +9085,22 @@ export type UserEvent = {
 							  } | null)
 							| undefined;
 						change: UserEventPayloadChangeEnumKey;
+						justification?: string | undefined;
+						/**
+						 * @description Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.
+						 * @type object | undefined
+						 */
+						previousBudget?:
+							| ({
+									alertThresholds?: number[] | undefined;
+									/**
+									 * @description Spend cap, in dollars.
+									 * @type number
+									 */
+									limitAmount: number;
+									refreshPeriod: UserEventPayloadPreviousBudgetRefreshPeriodEnumKey;
+							  } | null)
+							| undefined;
 				  }
 				| {
 						change: UserEventPayloadChangeEnum2Key;
@@ -9080,7 +9127,7 @@ export type UserEvent = {
 				  }
 				| {
 						/**
-						 * @description Spend budget on an AI Gateway API key, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.
+						 * @description Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.
 						 * @type object | undefined
 						 */
 						budget?:
@@ -9095,11 +9142,27 @@ export type UserEvent = {
 							  } | null)
 							| undefined;
 						change: UserEventPayloadChangeEnum3Key;
+						justification?: string | undefined;
+						/**
+						 * @description Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.
+						 * @type object | undefined
+						 */
+						previousBudget?:
+							| ({
+									alertThresholds?: number[] | undefined;
+									/**
+									 * @description Spend cap, in dollars.
+									 * @type number
+									 */
+									limitAmount: number;
+									refreshPeriod: UserEventPayloadPreviousBudgetRefreshPeriodEnum2Key;
+							  } | null)
+							| undefined;
 						scopeType: UserEventPayloadScopeTypeEnumKey;
 				  }
 				| {
 						/**
-						 * @description Spend budget on an AI Gateway API key, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.
+						 * @description Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.
 						 * @type object | undefined
 						 */
 						budget?:
@@ -9114,6 +9177,22 @@ export type UserEvent = {
 							  } | null)
 							| undefined;
 						change: UserEventPayloadChangeEnum4Key;
+						justification?: string | undefined;
+						/**
+						 * @description Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.
+						 * @type object | undefined
+						 */
+						previousBudget?:
+							| ({
+									alertThresholds?: number[] | undefined;
+									/**
+									 * @description Spend cap, in dollars.
+									 * @type number
+									 */
+									limitAmount: number;
+									refreshPeriod: UserEventPayloadPreviousBudgetRefreshPeriodEnum3Key;
+							  } | null)
+							| undefined;
 						/**
 						 * @description Associates the event with a project for filtering; not rendered.
 						 * @type string | undefined
@@ -16469,6 +16548,7 @@ export const listEventTypeNameEnum = {
 	"project-elastic-concurrency-updated": "project-elastic-concurrency-updated",
 	"project-expiration-locked": "project-expiration-locked",
 	"project-expiration-reached": "project-expiration-reached",
+	"project-expiration-removed": "project-expiration-removed",
 	"project-expiration-scheduled": "project-expiration-scheduled",
 	"project-expiration-unlocked": "project-expiration-unlocked",
 	"project-external-rewrite-caching-updated": "project-external-rewrite-caching-updated",
@@ -17244,6 +17324,7 @@ export const listEventTypeReplacedByEnum = {
 	"project-elastic-concurrency-updated": "project-elastic-concurrency-updated",
 	"project-expiration-locked": "project-expiration-locked",
 	"project-expiration-reached": "project-expiration-reached",
+	"project-expiration-removed": "project-expiration-removed",
 	"project-expiration-scheduled": "project-expiration-scheduled",
 	"project-expiration-unlocked": "project-expiration-unlocked",
 	"project-external-rewrite-caching-updated": "project-external-rewrite-caching-updated",
@@ -24690,12 +24771,12 @@ export type UpsertAiGatewayBudgetBody =
 	| {
 			scopeType: UpsertAiGatewayBudgetRequestScopeTypeEnumKey;
 			/**
-			 * @description Required when scopeType is "project".
+			 * @description Required when scopeType is \"project\".
 			 * @type string | undefined
 			 */
 			projectId?: string | undefined;
 			/**
-			 * @description Required when scopeType is "user".
+			 * @description Required when scopeType is \"user\".
 			 * @type string | undefined
 			 */
 			userId?: string | undefined;
@@ -24716,6 +24797,11 @@ export type UpsertAiGatewayBudgetBody =
 			 */
 			includeByokInQuota?: boolean | undefined;
 			alertThresholds?: UpsertAiGatewayBudgetRequestAlertThresholdsEnumKey[] | undefined;
+			/**
+			 * @description Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains.
+			 * @type string | undefined
+			 */
+			justification?: string | undefined;
 	  }
 	| undefined;
 
@@ -24757,15 +24843,20 @@ export type ArchiveAiGatewayBudgetQuery = {
 	 */
 	scopeType: ArchiveAiGatewayBudgetScopeTypeKey;
 	/**
-	 * @description Required when scopeType is "project".
+	 * @description Required when scopeType is \"project\".
 	 * @type string | undefined
 	 */
 	projectId?: string | undefined;
 	/**
-	 * @description Required when scopeType is "user".
+	 * @description Required when scopeType is \"user\".
 	 * @type string | undefined
 	 */
 	userId?: string | undefined;
+	/**
+	 * @description Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains.
+	 * @type string | undefined
+	 */
+	justification?: string | undefined;
 	/**
 	 * @description The Team identifier to perform the request on behalf of.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
@@ -24936,6 +25027,11 @@ export type UpsertAiGatewayBudgetDefaultBody =
 			limitAmount: number;
 			refreshPeriod?: UpsertAiGatewayBudgetDefaultRequestRefreshPeriodEnumKey | undefined;
 			alertThresholds?: UpsertAiGatewayBudgetDefaultRequestAlertThresholdsEnumKey[] | undefined;
+			/**
+			 * @description Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains.
+			 * @type string | undefined
+			 */
+			justification?: string | undefined;
 	  }
 	| undefined;
 
@@ -24977,6 +25073,11 @@ export type ArchiveAiGatewayBudgetDefaultQuery = {
 	 * @type string
 	 */
 	scopeType: ArchiveAiGatewayBudgetDefaultScopeTypeKey;
+	/**
+	 * @description Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains. Only recorded when scopeType is set.
+	 * @type string | undefined
+	 */
+	justification?: string | undefined;
 	/**
 	 * @description The Team identifier to perform the request on behalf of.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
@@ -50642,6 +50743,11 @@ export type GetOrderStatus200 = {
 				| (
 						| {
 								code: "payment-failed";
+								details?:
+									| {
+											reason: "authentication-required";
+									  }
+									| undefined;
 						  }
 						| {
 								code: "tld-outage";
@@ -65003,6 +65109,14 @@ export const updateResourceRequestNotificationLevelEnum = {
 export type UpdateResourceRequestNotificationLevelEnumKey =
 	(typeof updateResourceRequestNotificationLevelEnum)[keyof typeof updateResourceRequestNotificationLevelEnum];
 
+export const updateResourceRequestCredentialTypesEnum = {
+	oidc: "oidc",
+	static: "static",
+} as const;
+
+export type UpdateResourceRequestCredentialTypesEnumKey =
+	(typeof updateResourceRequestCredentialTypesEnum)[keyof typeof updateResourceRequestCredentialTypesEnum];
+
 export type UpdateResourceBody =
 	| {
 			ownership?: UpdateResourceRequestOwnershipEnumKey | undefined;
@@ -65173,6 +65287,11 @@ export type UpdateResourceBody =
 							| undefined;
 				  }
 				| undefined;
+			/**
+			 * @description The credential types the resource accepts: `static` for long-lived secrets, `oidc` for Vercel resource OIDC tokens. Can be set freely while the resource has none. After that, only to confirm a change Vercel requested with a secrets rotation, once it is complete. Without `static`, all long-lived secrets must be expired and removed, and no new ones minted or injected.
+			 * @type array | undefined
+			 */
+			credentialTypes?: UpdateResourceRequestCredentialTypesEnumKey[] | undefined;
 	  }
 	| undefined;
 
@@ -69432,6 +69551,11 @@ export type UpdateApiKeyQuotaBody =
 			 * @type array | undefined
 			 */
 			alertThresholds?: UpdateApiKeyQuotaRequestAlertThresholdsEnumKey[] | undefined;
+			/**
+			 * @description Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains.
+			 * @type string | undefined
+			 */
+			justification?: string | undefined;
 	  }
 	| undefined;
 
@@ -69728,6 +69852,17 @@ export type ListKmsIssuersStatus200 = {
 						| undefined;
 					updatedAt: string;
 			  }
+			| {
+					createdAt: string;
+					integrationId: string;
+					kind: "integration-tokens-grant";
+					tokenClaims?:
+						| {
+								[key: string]: unknown;
+						  }
+						| undefined;
+					updatedAt: string;
+			  }
 		)[];
 		signingKeys: {
 			activateAt?: string | undefined;
@@ -69920,6 +70055,17 @@ export type CreateKmsIssuerStatus201 = {
 					| undefined;
 				updatedAt: string;
 		  }
+		| {
+				createdAt: string;
+				integrationId: string;
+				kind: "integration-tokens-grant";
+				tokenClaims?:
+					| {
+							[key: string]: unknown;
+					  }
+					| undefined;
+				updatedAt: string;
+		  }
 	)[];
 	signingKeys: {
 		activateAt?: string | undefined;
@@ -70063,6 +70209,23 @@ export type CreateKmsIssuerBody =
 								 * @type string
 								 */
 								clientId: string;
+								/**
+								 * @description The claims that KMS should include in signed JWTs for this policy.
+								 * @type object | undefined
+								 */
+								tokenClaims?:
+									| {
+											[key: string]: unknown;
+									  }
+									| undefined;
+						  }
+						| {
+								kind: "integration-tokens-grant";
+								/**
+								 * @description The marketplace integration ID for the integration tokens grant policy.
+								 * @type string
+								 */
+								integrationId: string;
 								/**
 								 * @description The claims that KMS should include in signed JWTs for this policy.
 								 * @type object | undefined
@@ -70521,6 +70684,17 @@ export type RevokeKmsSigningKeyStatus200 = {
 					| undefined;
 				updatedAt: string;
 		  }
+		| {
+				createdAt: string;
+				integrationId: string;
+				kind: "integration-tokens-grant";
+				tokenClaims?:
+					| {
+							[key: string]: unknown;
+					  }
+					| undefined;
+				updatedAt: string;
+		  }
 	)[];
 	signingKeys: {
 		activateAt?: string | undefined;
@@ -70719,6 +70893,17 @@ export type GetKmsIssuerStatus200 = {
 					| undefined;
 				updatedAt: string;
 		  }
+		| {
+				createdAt: string;
+				integrationId: string;
+				kind: "integration-tokens-grant";
+				tokenClaims?:
+					| {
+							[key: string]: unknown;
+					  }
+					| undefined;
+				updatedAt: string;
+		  }
 	)[];
 	signingKeys: {
 		activateAt?: string | undefined;
@@ -70907,6 +71092,17 @@ export type UpdateKmsIssuerStatus200 = {
 				clientId: string;
 				createdAt: string;
 				kind: "connex-grant";
+				tokenClaims?:
+					| {
+							[key: string]: unknown;
+					  }
+					| undefined;
+				updatedAt: string;
+		  }
+		| {
+				createdAt: string;
+				integrationId: string;
+				kind: "integration-tokens-grant";
 				tokenClaims?:
 					| {
 							[key: string]: unknown;
@@ -71129,6 +71325,17 @@ export type CreateKmsIssuerPolicyStatus201 =
 				  }
 				| undefined;
 			updatedAt: string;
+	  }
+	| {
+			createdAt: string;
+			integrationId: string;
+			kind: "integration-tokens-grant";
+			tokenClaims?:
+				| {
+						[key: string]: unknown;
+				  }
+				| undefined;
+			updatedAt: string;
 	  };
 
 export type CreateKmsIssuerPolicyStatus400 = unknown;
@@ -71248,6 +71455,17 @@ export type UpdateKmsIssuerPolicyStatus200 =
 				  }
 				| undefined;
 			updatedAt: string;
+	  }
+	| {
+			createdAt: string;
+			integrationId: string;
+			kind: "integration-tokens-grant";
+			tokenClaims?:
+				| {
+						[key: string]: unknown;
+				  }
+				| undefined;
+			updatedAt: string;
 	  };
 
 export type UpdateKmsIssuerPolicyStatus400 = unknown;
@@ -71303,6 +71521,7 @@ export type UpdateKmsIssuerPolicyResponse = UpdateKmsIssuerPolicyStatus200;
 export const deleteKmsIssuerPolicyKind = {
 	"project-grant": "project-grant",
 	"connex-grant": "connex-grant",
+	"integration-tokens-grant": "integration-tokens-grant",
 } as const;
 
 export type DeleteKmsIssuerPolicyKindKey =
@@ -94361,6 +94580,17 @@ export type CreateProjectStatus429 = unknown;
 
 export type CreateProjectStatus500 = unknown;
 
+export const createProjectRequestExpirationTimeframeEnum = {
+	"1-day": "1-day",
+	"1-hour": "1-hour",
+	"1-month": "1-month",
+	"1-week": "1-week",
+	"2-week": "2-week",
+} as const;
+
+export type CreateProjectRequestExpirationTimeframeEnumKey =
+	(typeof createProjectRequestExpirationTimeframeEnum)[keyof typeof createProjectRequestExpirationTimeframeEnum];
+
 export const createProjectRequestEnvironmentVariablesTarget = {
 	production: "production",
 	preview: "preview",
@@ -94622,6 +94852,19 @@ export type CreateProjectBody =
 			 * @type boolean | undefined
 			 */
 			enableProductionFeedback?: (boolean | null) | undefined;
+			/**
+			 * @description Schedules the project for automatic deletion after the given timeframe.
+			 * @type object | undefined
+			 */
+			expiration?:
+				| {
+						/**
+						 * @description How far in the future the project will be automatically deleted
+						 * @type string
+						 */
+						timeframe: CreateProjectRequestExpirationTimeframeEnumKey;
+				  }
+				| undefined;
 			/**
 			 * @description Specifies whether preview deployments are disabled for this project.
 			 * @type boolean | undefined
@@ -142334,6 +142577,31 @@ export const createIntegrationStoreDirectStatus200StoreBillingPlanTypeEnum = {
 export type CreateIntegrationStoreDirectStatus200StoreBillingPlanTypeEnumKey =
 	(typeof createIntegrationStoreDirectStatus200StoreBillingPlanTypeEnum)[keyof typeof createIntegrationStoreDirectStatus200StoreBillingPlanTypeEnum];
 
+export const createIntegrationStoreDirectStatus200StoreCapabilitiesCredentialTypesTransitionsEnum =
+	{
+		oidc: "oidc",
+		static: "static",
+	} as const;
+
+export type CreateIntegrationStoreDirectStatus200StoreCapabilitiesCredentialTypesTransitionsEnumKey =
+	(typeof createIntegrationStoreDirectStatus200StoreCapabilitiesCredentialTypesTransitionsEnum)[keyof typeof createIntegrationStoreDirectStatus200StoreCapabilitiesCredentialTypesTransitionsEnum];
+
+export const createIntegrationStoreDirectStatus200StoreCredentialTypesEnum = {
+	oidc: "oidc",
+	static: "static",
+} as const;
+
+export type CreateIntegrationStoreDirectStatus200StoreCredentialTypesEnumKey =
+	(typeof createIntegrationStoreDirectStatus200StoreCredentialTypesEnum)[keyof typeof createIntegrationStoreDirectStatus200StoreCredentialTypesEnum];
+
+export const createIntegrationStoreDirectStatus200StoreCredentialTypesTransitionToEnum = {
+	oidc: "oidc",
+	static: "static",
+} as const;
+
+export type CreateIntegrationStoreDirectStatus200StoreCredentialTypesTransitionToEnumKey =
+	(typeof createIntegrationStoreDirectStatus200StoreCredentialTypesTransitionToEnum)[keyof typeof createIntegrationStoreDirectStatus200StoreCredentialTypesTransitionToEnum];
+
 export const createIntegrationStoreDirectStatus200StoreExternalResourceStatusEnum = {
 	error: "error",
 	onboarding: "onboarding",
@@ -142600,6 +142868,9 @@ export type CreateIntegrationStoreDirectStatus200 = {
 					agentTools?: (false | true) | undefined;
 					autoSensitive?: (false | true) | undefined;
 					billable?: (false | true) | undefined;
+					credentialTypesTransitions?:
+						| CreateIntegrationStoreDirectStatus200StoreCapabilitiesCredentialTypesTransitionsEnumKey[][]
+						| undefined;
 					mcp?: (false | true) | undefined;
 					mcpReadonly?: (false | true) | undefined;
 					projects?: (false | true) | undefined;
@@ -142616,6 +142887,24 @@ export type CreateIntegrationStoreDirectStatus200 = {
 					sso?: (false | true) | undefined;
 					transferable?: (false | true) | undefined;
 					v0?: (false | true) | undefined;
+			  }
+			| undefined;
+		/**
+		 * @description The credential types the resource accepts: `static` for long-lived secrets, `oidc` for resource OIDC tokens.
+		 * @type array | undefined
+		 */
+		credentialTypes?:
+			| CreateIntegrationStoreDirectStatus200StoreCredentialTypesEnumKey[]
+			| undefined;
+		/**
+		 * @description The latest requested change of `credentialTypes`, and when the provider completed it.
+		 * @type object | undefined
+		 */
+		credentialTypesTransition?:
+			| {
+					completedAt?: number | undefined;
+					requestedAt: number;
+					to: CreateIntegrationStoreDirectStatus200StoreCredentialTypesTransitionToEnumKey[];
 			  }
 			| undefined;
 		directPartnerConsoleUrl?: string | undefined;
