@@ -1,5 +1,11 @@
 # v0-api
 
+## 1.2.1
+
+### Patch Changes
+
+- 63e5c9e: Changed field validations from @minLength/@maxLength to @minimum/@maximum in various query types for stricter numeric constraints.
+
 ## 1.2.0
 
 ### Minor Changes

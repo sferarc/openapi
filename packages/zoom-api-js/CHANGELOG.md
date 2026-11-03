@@ -1,5 +1,15 @@
 # zoom-api-js
 
+## 3.3.0
+
+### Minor Changes
+
+- 872b995: Updated MeetingRegistrantGetStatus200.status to use a new enum meetingRegistrantGetStatus200StatusEnum2Key, with possible values 'approved', 'pending', and 'denied'.
+
+### Patch Changes
+
+- 872b995: Changed many type property constraints from @minLength and @maxLength to @minimum and @maximum for various query and body types to reflect numeric validation.
+
 ## 3.2.0
 
 ### Minor Changes
