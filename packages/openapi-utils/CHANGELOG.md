@@ -1,5 +1,11 @@
 # @sferadev/openapi-utils
 
+## 0.0.3
+
+### Patch Changes
+
+- 4108b72: Run the operation ID, path parameter and server transforms on OPTIONS operations too, so an OPTIONS without an ID, with another method's ID or with an undeclared path parameter still generates.
+
 ## 0.0.2
 
 ### Patch Changes
