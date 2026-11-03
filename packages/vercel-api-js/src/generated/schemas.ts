@@ -3679,17 +3679,15 @@ export const userEventSchema = z
 					}),
 				}),
 				z.strictObject({
-					rule: z.object({
-						id: z.string(),
-						model: z.string().optional(),
-						type: z.string(),
-					}),
-				}),
-				z.strictObject({
+					changedFields: z
+						.array(z.enum(["description", "enabled", "reason", "rewriteModel"]))
+						.optional(),
 					enabled: z.union([z.literal(false), z.literal(true)]).optional(),
+					previousRewriteModel: z.string().optional(),
 					rule: z.object({
 						id: z.string(),
 						model: z.string().optional(),
+						rewriteModel: z.string().optional(),
 						type: z.string(),
 					}),
 				}),
@@ -9647,6 +9645,7 @@ export const userEventSchema = z
 							"Currently emitted surfaces: dashboard, internal, slack, automation, github.",
 						),
 					branchRef: z.string().nullable(),
+					commitSha: z.string().nullish(),
 					deploymentId: z
 						.string()
 						.nullable()
@@ -9654,6 +9653,13 @@ export const userEventSchema = z
 					environment: z.string().nullable().describe("Null for a repository's findings."),
 					findingId: z.string(),
 					findingNumber: z.number(),
+					pullRequestNumber: z.number().nullish(),
+					repository: z
+						.string()
+						.nullish()
+						.describe(
+							"The GitHub repository, such as `acme/app`, commit, and pull request the event's review read: the one that found the finding, or for a resolution, the one that fixed it. Null for uploaded files; absent from events recorded before they were sent.",
+						),
 					severity: z.string(),
 					targetId: z.string(),
 					targetKind: z
@@ -9661,6 +9667,41 @@ export const userEventSchema = z
 						.describe("A repository's findings are in code no project runs."),
 					targetName: z.string(),
 					vulnerabilityClass: z.string(),
+				}),
+				z.strictObject({
+					eventId: z.string(),
+					occurredAt: z.number(),
+					sessionId: z.string(),
+					sessionKind: z.string().describe("Currently emitted session kinds: chat, investigation."),
+					surface: z
+						.string()
+						.describe(
+							"Currently emitted surfaces: dashboard, internal, slack, automation, github.",
+						),
+					branchRef: z.string().nullable(),
+					commitSha: z.string().nullish(),
+					deploymentId: z
+						.string()
+						.nullable()
+						.describe("Null for a repository's findings and those of an undeployed commit."),
+					environment: z.string().nullable().describe("Null for a repository's findings."),
+					findingId: z.string(),
+					findingNumber: z.number(),
+					pullRequestNumber: z.number().nullish(),
+					repository: z
+						.string()
+						.nullish()
+						.describe(
+							"The GitHub repository, such as `acme/app`, commit, and pull request the event's review read: the one that found the finding, or for a resolution, the one that fixed it. Null for uploaded files; absent from events recorded before they were sent.",
+						),
+					severity: z.string(),
+					targetId: z.string(),
+					targetKind: z
+						.enum(["project", "repository"])
+						.describe("A repository's findings are in code no project runs."),
+					targetName: z.string(),
+					vulnerabilityClass: z.string(),
+					dismissalReason: z.enum(["accepted-risk", "false-positive"]),
 				}),
 				z.strictObject({
 					next: z.enum(["auto-approval", "block", "manual-approval"]).nullable(),
@@ -11806,6 +11847,9 @@ export const userEventSchema = z
 				"vercel-agent-elevated-permissions-approved",
 				"vercel-agent-elevated-permissions-requested",
 				"vercel-agent-security-finding-created",
+				"vercel-agent-security-finding-dismissed",
+				"vercel-agent-security-finding-reopened",
+				"vercel-agent-security-finding-resolved",
 				"vercel-agent-session-created",
 				"vercel-agent-team-trial-credits-applied",
 				"vercel-app-installation-request-dismissed",
@@ -12660,6 +12704,9 @@ export const listEventTypeSchema = z
 				"vercel-agent-elevated-permissions-approved",
 				"vercel-agent-elevated-permissions-requested",
 				"vercel-agent-security-finding-created",
+				"vercel-agent-security-finding-dismissed",
+				"vercel-agent-security-finding-reopened",
+				"vercel-agent-security-finding-resolved",
 				"vercel-agent-session-created",
 				"vercel-agent-team-trial-credits-applied",
 				"vercel-app-installation-request-dismissed",
@@ -13416,6 +13463,9 @@ export const listEventTypeSchema = z
 					"vercel-agent-elevated-permissions-approved",
 					"vercel-agent-elevated-permissions-requested",
 					"vercel-agent-security-finding-created",
+					"vercel-agent-security-finding-dismissed",
+					"vercel-agent-security-finding-reopened",
+					"vercel-agent-security-finding-resolved",
 					"vercel-agent-session-created",
 					"vercel-agent-team-trial-credits-applied",
 					"vercel-app-installation-request-dismissed",
@@ -14292,6 +14342,20 @@ export const sandboxPublicRouteSchema = z
 	})
 	.describe("This object represents a public route in a Vercel Sandbox.");
 
+export const sandboxForwardRuleSchema = z
+	.object({
+		domain: z
+			.string()
+			.describe("The domain (or wildcard pattern) that this forwarding rule applies to."),
+		forwardURL: z.string().describe("The URL to forward matching requests to."),
+		matchDimensions: z
+			.array(z.string())
+			.optional()
+			.describe("Request dimensions used to match this rule. Matcher values are omitted.")
+			.meta({ examples: [["method", "path"]] }),
+	})
+	.describe("Rules that forward outgoing requests matching specific domains.");
+
 export const sandboxInjectionRuleSchema = z
 	.object({
 		domain: z
@@ -14307,8 +14371,27 @@ export const sandboxInjectionRuleSchema = z
 				"The names of HTTP headers that have value that will be injected for requests to this domain.",
 			)
 			.meta({ examples: [["Authorization", "X-API-Key"]] }),
+		matchDimensions: z
+			.array(z.string())
+			.optional()
+			.describe("Request dimensions used to match this rule. Matcher values are omitted.")
+			.meta({ examples: [["method", "path"]] }),
 	})
 	.describe("HTTP header injection rules for outgoing requests matching specific domains.");
+
+export const sandboxResponseRuleSchema = z
+	.object({
+		domain: z
+			.string()
+			.describe("The domain (or wildcard pattern) that this response rule applies to."),
+		matchDimensions: z
+			.array(z.string())
+			.optional()
+			.describe("Request dimensions used to match this rule. Matcher values are omitted.")
+			.meta({ examples: [["method", "path"]] }),
+		statusCode: z.number().describe("The HTTP status code returned for matching requests."),
+	})
+	.describe("Rules that return custom responses for requests matching specific domains.");
 
 export const sandboxNetworkPolicySchema = z
 	.object({
@@ -14333,6 +14416,10 @@ export const sandboxNetworkPolicySchema = z
 				"List of IP address ranges (in CIDR notation) the sandbox is blocked from connecting to. These rules take precedence over all allowed rules.",
 			)
 			.meta({ examples: [["10.0.0.0/8"]] }),
+		forwardRules: z
+			.array(sandboxForwardRuleSchema)
+			.optional()
+			.describe("Rules that forward outgoing requests matching specific domains."),
 		injectionRules: z
 			.array(sandboxInjectionRuleSchema)
 			.optional()
@@ -14343,6 +14430,10 @@ export const sandboxNetworkPolicySchema = z
 				"The network policy mode. - 'allow-all': All traffic is allowed. - 'deny-all': All traffic is blocked. - 'custom': Traffic is controlled by explicit allow/deny rules.",
 			)
 			.meta({ examples: ["custom"] }),
+		responseRules: z
+			.array(sandboxResponseRuleSchema)
+			.optional()
+			.describe("Rules that return custom responses for requests matching specific domains."),
 	})
 	.describe("The network policy applied to this sandbox, if any.");
 
