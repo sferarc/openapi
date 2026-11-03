@@ -343,6 +343,28 @@ describe("fetcher edge responses and headers", () => {
 		expect(headers.get("authorization")).toBe("Bearer caller");
 	});
 
+	it("sends a Global API Key as X-Auth-Key and X-Auth-Email without a bearer token", async () => {
+		let init: Parameters<FetchImpl>[1];
+		const fetchImpl: FetchImpl = async (_url, requestInit) => {
+			init = requestInit;
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		await client({
+			url: "/thing",
+			method: "get",
+			apiKey: "key",
+			email: "me@example.com",
+			fetchImpl,
+		});
+		const headers = new Headers(init?.headers);
+		expect(headers.get("x-auth-key")).toBe("key");
+		expect(headers.get("x-auth-email")).toBe("me@example.com");
+		expect(headers.has("authorization")).toBe(false);
+	});
+
 	it("lets a lowercase content-type header replace the default", async () => {
 		const { headers, body } = await sent({
 			headers: { "content-type": "text/plain" },

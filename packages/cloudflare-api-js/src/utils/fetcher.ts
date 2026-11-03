@@ -6,6 +6,9 @@ const defaultBaseUrl = "https://api.cloudflare.com/client/v4";
 export type FetcherConfig = {
 	baseUrl?: string;
 	token?: string | null;
+	/** The legacy Global API Key, sent with `email` instead of a token as `X-Auth-Key` and `X-Auth-Email`. */
+	apiKey?: string | null;
+	email?: string | null;
 	fetchImpl?: FetchImpl;
 	headers?: Record<string, any>;
 	signal?: AbortSignal | undefined;
@@ -130,12 +133,16 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 	onResponse,
 	baseUrl = defaultBaseUrl,
 	token = null,
+	apiKey = null,
+	email = null,
 	fetchImpl = fetch as FetchImpl,
 }: FetcherOptions<TBody, THeaders, TQueryParams, TPathParams>): Promise<TData> {
 	try {
 		const mergedHeaders: Record<string, string | undefined> = {
 			"Content-Type": "application/json",
 			Authorization: token ? `Bearer ${token}` : undefined,
+			"X-Auth-Email": email || undefined,
+			"X-Auth-Key": apiKey || undefined,
 		};
 		// Header names are case-insensitive: a caller's `authorization` replaces the default rather than joining it.
 		for (const [name, value] of Object.entries(headers ?? {})) {
