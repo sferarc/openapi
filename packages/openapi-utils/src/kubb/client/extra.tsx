@@ -4,10 +4,10 @@ import { ast, defineGenerator } from "kubb/kit";
 import type { PluginClient } from "../plugin";
 import { clientFile, fileBanner, operationName } from "../utils";
 
-const HTTP_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE"] as const;
+const HTTP_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"] as const;
 type HttpMethod = (typeof HTTP_METHODS)[number];
 
-function isWriteOrReadMethod(method: string): method is HttpMethod {
+function isRequestMethod(method: string): method is HttpMethod {
 	return (HTTP_METHODS as readonly string[]).includes(method);
 }
 
@@ -38,7 +38,7 @@ export const extraGenerator = defineGenerator<PluginClient>({
 		});
 
 		const eligible = operations.filter(
-			(node) => isWriteOrReadMethod(node.method) && node.operationId !== undefined,
+			(node) => isRequestMethod(node.method) && node.operationId !== undefined,
 		);
 
 		const eligibleSet = new Set(eligible);

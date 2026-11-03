@@ -83,6 +83,22 @@ describe("LiteLLMApi.request", () => {
 			"Unknown endpoint: GET /nope",
 		);
 	});
+
+	it("calls OPTIONS and HEAD endpoints", async () => {
+		const methods: (string | undefined)[] = [];
+		const fetch: FetchImpl = async (_url, init) => {
+			methods.push(init?.method);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		const client = new LiteLLMApi({ baseUrl: "https://api.example.com", token: null, fetch });
+
+		await client.request("OPTIONS /mcp");
+		await client.request("HEAD /mcp");
+		expect(methods).toEqual(["OPTIONS", "HEAD"]);
+	});
 });
 
 describe("LiteLLMApi.api", () => {
