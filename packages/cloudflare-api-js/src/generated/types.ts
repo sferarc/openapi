@@ -21664,7 +21664,6 @@ export const billingSpendPoliciesPolicyCurrentStateStatusEnum = {
   no_current_period: 'no_current_period',
   unavailable: 'unavailable',
   below_limit: 'below_limit',
-  approaching_limit: 'approaching_limit',
   limit_reached: 'limit_reached',
 } as const;
 
@@ -21909,13 +21908,6 @@ export const billingSpendPoliciesPolicyAuditEntrySourceEnum = {
 
 export type BillingSpendPoliciesPolicyAuditEntrySourceEnumKey = (typeof billingSpendPoliciesPolicyAuditEntrySourceEnum)[keyof typeof billingSpendPoliciesPolicyAuditEntrySourceEnum];
 
-export const billingSpendPoliciesPolicyAuditEntryTriggerEnum = {
-  approaching_limit: 'approaching_limit',
-  limit_reached: 'limit_reached',
-} as const;
-
-export type BillingSpendPoliciesPolicyAuditEntryTriggerEnumKey = (typeof billingSpendPoliciesPolicyAuditEntryTriggerEnum)[keyof typeof billingSpendPoliciesPolicyAuditEntryTriggerEnum];
-
 /**
  * @description A state transition recorded when the policy was evaluated against the account's balance.
  * @type object
@@ -21988,11 +21980,11 @@ export type BillingSpendPoliciesPolicyAuditEntry = {
    */
   threshold_cents: number;
   /**
-   * @description The state the balance moved into. `approaching_limit` means the balance is at least 80% of the threshold (rounded up to a whole cent), but below the threshold. `limit_reached` means the balance reached or exceeded the threshold.
+   * @description The trigger recorded at evaluation time. New evaluations record `limit_reached` when the balance reaches or exceeds the configured threshold. Earlier entries retain their recorded trigger.
    * @example limit_reached
    * @type string
    */
-  trigger: BillingSpendPoliciesPolicyAuditEntryTriggerEnumKey;
+  trigger: string;
 };
 
 /**
@@ -128865,6 +128857,10 @@ export type WorkersCreatedOn = string;
 export type WorkersCursor = string;
 
 export type WorkersDeployment = {
+  /**
+   * @description Metadata attached to the deployment.
+   * @type object | undefined
+   */
   annotations?: {
     /**
      * @description Human-readable message about the deployment. Truncated to 1000 bytes if longer.
@@ -128907,6 +128903,10 @@ export type WorkersDeployment = {
    * @type string
    */
   readonly source: string;
+  /**
+   * @description Strategy for routing traffic across the listed versions. `percentage` splits traffic according to each version's `percentage`.
+   * @type string
+   */
   strategy: 'percentage';
   /**
    * @description Worker versions included in this deployment. Each object must contain a `version_id` UUID and a `percentage`; percentages across all objects must total 100. In the `cf` CLI, pass the entire array as one JSON value to `--versions`, either inline, for example `--versions '[{"version_id":"023e105f-2a42-4f8b-a1c1-73f6a2a30c0f","percentage":100}]'`, or from a JSON file with `--versions @versions.json`.
@@ -139589,6 +139589,10 @@ export type WorkersDomainWritable = {
 };
 
 export type WorkersDeploymentWritable = {
+  /**
+   * @description Metadata attached to the deployment.
+   * @type object | undefined
+   */
   annotations?: {
     /**
      * @description Human-readable message about the deployment. Truncated to 1000 bytes if longer.
@@ -139631,6 +139635,10 @@ export type WorkersDeploymentWritable = {
    * @type string | undefined
    */
   readonly source?: string | undefined;
+  /**
+   * @description Strategy for routing traffic across the listed versions. `percentage` splits traffic according to each version's `percentage`.
+   * @type string
+   */
   strategy: 'percentage';
   /**
    * @description Worker versions included in this deployment. Each object must contain a `version_id` UUID and a `percentage`; percentages across all objects must total 100. In the `cf` CLI, pass the entire array as one JSON value to `--versions`, either inline, for example `--versions '[{"version_id":"023e105f-2a42-4f8b-a1c1-73f6a2a30c0f","percentage":100}]'`, or from a JSON file with `--versions @versions.json`.
@@ -280212,6 +280220,13 @@ export type SpendPoliciesActivityPath = {
   accountId: BillingSpendPoliciesIdentifier;
 };
 
+export const spendPoliciesActivityPeriod = {
+  current_billing_cycle: 'current_billing_cycle',
+  all: 'all',
+} as const;
+
+export type SpendPoliciesActivityPeriodKey = (typeof spendPoliciesActivityPeriod)[keyof typeof spendPoliciesActivityPeriod];
+
 export type SpendPoliciesActivityQuery = {
   /**
    * @description Maximum number of audit entries to return. Defaults to 50. Values above 100 are capped at 100 rather than rejected.
@@ -280221,6 +280236,12 @@ export type SpendPoliciesActivityQuery = {
    * @type integer | undefined
    */
   limit?: number | undefined;
+  /**
+   * @description Select current subscription billing-cycle history or history across all cycles.
+   * @default 'current_billing_cycle'
+   * @type string | undefined
+   */
+  period?: SpendPoliciesActivityPeriodKey | undefined;
   /**
    * @description Opaque token from the preceding response's result_info.cursor. Pass it unchanged to retrieve older entries.
    * @maxLength 1024
@@ -280618,6 +280639,13 @@ export type SpendPoliciesListAuditPath = {
   policyId: BillingSpendPoliciesPolicyId;
 };
 
+export const spendPoliciesListAuditPeriod = {
+  current_billing_cycle: 'current_billing_cycle',
+  all: 'all',
+} as const;
+
+export type SpendPoliciesListAuditPeriodKey = (typeof spendPoliciesListAuditPeriod)[keyof typeof spendPoliciesListAuditPeriod];
+
 export type SpendPoliciesListAuditQuery = {
   /**
    * @description Maximum number of audit entries to return. Defaults to 50. Values above 100 are capped at 100 rather than rejected.
@@ -280627,6 +280655,12 @@ export type SpendPoliciesListAuditQuery = {
    * @type integer | undefined
    */
   limit?: number | undefined;
+  /**
+   * @description Select current subscription billing-cycle history or history across all cycles.
+   * @default 'current_billing_cycle'
+   * @type string | undefined
+   */
+  period?: SpendPoliciesListAuditPeriodKey | undefined;
 };
 
 /**
@@ -328684,6 +328718,14 @@ export type D1ListDatabasesQuery = {
    */
   name?: string | undefined;
   /**
+   * @description Comma-separated list of database UUIDs to return, up to 50. Databases that do not
+   * exist or belong to another account are omitted from the results. Can be combined
+   * with `name` and pagination.
+   *
+   * @type array | undefined
+   */
+  ids?: string[] | undefined;
+  /**
    * @description Page number of paginated results.
    * @minimum 1
    * @default 1
@@ -329086,6 +329128,13 @@ export type D1ExportDatabaseStatus202 = D1ApiResponseCommon & {
 
 export type D1ExportDatabaseStatus400 = D1ApiResponseCommonFailure;
 
+export const D1ExportDatabaseRequestDumpOptionsCompatibilityEnum = {
+  d1: 'd1',
+  sqlite3_cli_only: 'sqlite3_cli_only',
+} as const;
+
+export type D1ExportDatabaseRequestDumpOptionsCompatibilityEnumKey = (typeof D1ExportDatabaseRequestDumpOptionsCompatibilityEnum)[keyof typeof D1ExportDatabaseRequestDumpOptionsCompatibilityEnum];
+
 export type D1ExportDatabaseBody = {
   /**
    * @description To poll an in-progress export, provide the current bookmark (returned by your first polling response)
@@ -329093,6 +329142,12 @@ export type D1ExportDatabaseBody = {
    */
   current_bookmark?: string | undefined;
   dump_options?: {
+    /**
+     * @description Dump format. `d1` (the default) gives a dump that D1 can import. `sqlite3_cli_only` matches the output of the `sqlite3 .dump` command, including virtual tables such as FTS5 or R*Tree tables, but cannot be imported back into D1.
+     * @default 'd1'
+     * @type string | undefined
+     */
+    compatibility?: D1ExportDatabaseRequestDumpOptionsCompatibilityEnumKey | undefined;
     /**
      * @description Export only the table definitions, not their contents
      * @type boolean | undefined
@@ -420122,7 +420177,8 @@ export type WorkerDeploymentsDeleteDeploymentPath = {
    */
   scriptName: WorkersScriptName;
   /**
-   * @description
+   * @description Identifier of the Worker Deployment.
+   *
    * Format: `uuid`
    * @type string
    */
@@ -420166,7 +420222,8 @@ export type WorkerDeploymentsGetDeploymentPath = {
    */
   scriptName: WorkersScriptName;
   /**
-   * @description
+   * @description Identifier of the Worker Deployment.
+   *
    * Format: `uuid`
    * @type string
    */
@@ -466292,7 +466349,7 @@ export type PutZonesZoneIdentifierZarazWorkflowStatus200 = ZarazZarazWorkflowRes
 export type PutZonesZoneIdentifierZarazWorkflowStatus400 = ZarazApiResponseCommonFailure;
 
 /**
- * @description Zaraz workflow.
+ * @description Send the workflow name as plain text (`realtime` or `preview`), without JSON quotes.
  * @type string
  */
 export type PutZonesZoneIdentifierZarazWorkflowBody = ZarazZarazWorkflowKey;
