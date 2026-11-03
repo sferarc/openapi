@@ -10399,7 +10399,6 @@ import type {
 	PutZonesZoneIdentifierZarazHistoryPath,
 	PutZonesZoneIdentifierZarazHistoryResponse,
 	PutZonesZoneIdentifierZarazHistoryStatus400,
-	PutZonesZoneIdentifierZarazWorkflowBody,
 	PutZonesZoneIdentifierZarazWorkflowPath,
 	PutZonesZoneIdentifierZarazWorkflowResponse,
 	PutZonesZoneIdentifierZarazWorkflowStatus400,
@@ -45693,7 +45692,7 @@ export async function spendPoliciesCreate(
 
 /**
  * @summary List Spend Policy Activity
- * @description Returns configuration history from immutable policy revisions for the account, including deleted policies. Entries contain before/after values and verified actor attribution. Pages use descending revision IDs, not event or commit order; refresh the first page for new entries. This cursor is not an incremental consumer checkpoint.
+ * @description Returns configuration history from immutable policy revisions for the account, including deleted policies. Entries contain before/after values and verified actor attribution. Pages use descending revision IDs, not event or commit order; refresh the first page for new entries. This cursor is not an incremental consumer checkpoint. Defaults to `period=current_billing_cycle`: each revision's timestamp must be within its product's current subscription cycle (inclusive start, exclusive end). Each product's cycle is resolved independently from canonical aggregates, including for disabled or deleted policies. Set `period=all` for history across cycles. Filtering happens before pagination. No current cycles returns an empty page; unavailable or disabled cycle resolution returns `503` with code `1013`. Cursors pin resolved cycle bounds across pages and must be used with the same period selection. Cursors obtained before this filter was introduced must be refreshed.
  * @link /accounts/{accountId}/billing/spend-policies/activity
  */
 export async function spendPoliciesActivity(
@@ -45902,7 +45901,7 @@ export async function spendPoliciesUpdate(
 
 /**
  * @summary List Spend Policy Audit Entries
- * @description Returns the policy's evaluation history, newest first. At most one entry is recorded per trigger (`approaching_limit` or `limit_reached`), policy version and billing period, so a policy update can record a new entry without any change in balance. Disabled policies still return their history; deleted policies return `404`. There is no pagination: use `limit` to set how many entries come back.
+ * @description Returns the policy's evaluation history, newest first. At most one threshold-crossing entry (`limit_reached`) is recorded per policy version and billing period, so a policy update can record a new entry without any change in balance. Disabled policies still return their history; deleted policies return `404`. There is no pagination: use `limit` to set how many entries come back. Defaults to `period=current_billing_cycle`, resolved from the product's canonical aggregates, not calendar months. Crossings match their recorded billing-period bounds, even if recorded late. Set `period=all` for history across cycles. Filtering happens before LIMIT. No current cycle returns an empty array; unavailable or disabled cycle resolution returns `503` with code `1013`, never an empty success.
  * @link /accounts/{accountId}/billing/spend-policies/{policyId}/audit
  */
 export async function spendPoliciesListAudit(
@@ -68981,17 +68980,21 @@ export async function d1ListDatabases(
 	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
 		throw new Error(`Missing required path parameter: accountId`);
 	}
+	const query = queryParams && {
+		...queryParams,
+		ids: Array.isArray(queryParams.ids) ? queryParams.ids.join(",") : queryParams.ids,
+	};
 	const data = await request<
 		D1ListDatabasesResponse,
 		ErrorWrapper<D1ListDatabasesStatus400>,
 		null,
 		Record<string, string>,
-		Partial<D1ListDatabasesQuery>,
+		Record<string, unknown>,
 		D1ListDatabasesPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/d1/database`,
-		queryParams,
+		queryParams: query,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -132012,8 +132015,18 @@ export async function namespaceWorkerScriptWorkerDetails(
 }
 
 /**
- * @summary Upload Workers for Platforms Script Module
- * @description Upload a Workers for Platforms script module to a dispatch namespace. You can find more about the multipart metadata on our docs: https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/.
+ * @summary Upload Workers for Platforms Script
+ * @description Upload Worker code and configuration to a Workers for Platforms dispatch
+ * namespace. For ES module and other module-based Workers, use
+ * `multipart/form-data` with a JSON `metadata` part whose `main_module`
+ * field names the entrypoint file. Upload each module as a separate file
+ * part; JavaScript ES module parts use the `application/javascript+module`
+ * content type.
+ * Raw `application/javascript` and `text/javascript` request bodies accept
+ * only legacy service-worker syntax using `addEventListener`. They do not
+ * accept ES module syntax such as `export default`. To upload a module
+ * Worker, use the multipart request format instead.
+ * Learn more about multipart metadata in the [documentation](https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/).
  * @link /accounts/{accountId}/workers/dispatch/namespaces/{dispatchNamespace}/scripts/{scriptName}
  */
 export async function namespaceWorkerScriptUploadWorkerModule(
@@ -134988,8 +135001,17 @@ export async function workerScriptDownloadWorker(
 }
 
 /**
- * @summary Upload Worker Module
- * @description Upload a worker module. You can find more about the multipart metadata on our docs: https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/.
+ * @summary Upload Worker
+ * @description Upload Worker code and configuration. For ES module and other module-based
+ * Workers, use `multipart/form-data` with a JSON `metadata` part whose
+ * `main_module` field names the entrypoint file. Upload each module as a
+ * separate file part; JavaScript ES module parts use the
+ * `application/javascript+module` content type.
+ * Raw `application/javascript` and `text/javascript` request bodies accept
+ * only legacy service-worker syntax using `addEventListener`. They do not
+ * accept ES module syntax such as `export default`. To upload a module
+ * Worker, use the multipart request format instead.
+ * Learn more about multipart metadata in the [documentation](https://developers.cloudflare.com/workers/configuration/multipart-upload-metadata/).
  * @link /accounts/{accountId}/workers/scripts/{scriptName}
  */
 export async function workerScriptUploadWorkerModule(
@@ -166538,7 +166560,7 @@ export async function putZonesZoneIdentifierZarazWorkflow(
 		config,
 	}: {
 		pathParams: PutZonesZoneIdentifierZarazWorkflowPath;
-		body: PutZonesZoneIdentifierZarazWorkflowBody;
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -166550,7 +166572,7 @@ export async function putZonesZoneIdentifierZarazWorkflow(
 	const data = await request<
 		PutZonesZoneIdentifierZarazWorkflowResponse,
 		ErrorWrapper<PutZonesZoneIdentifierZarazWorkflowStatus400>,
-		PutZonesZoneIdentifierZarazWorkflowBody,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
 		Record<string, string>,
 		Record<string, string>,
 		PutZonesZoneIdentifierZarazWorkflowPath
@@ -166559,7 +166581,7 @@ export async function putZonesZoneIdentifierZarazWorkflow(
 		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/settings/zaraz/workflow`,
 		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: { "Content-Type": "text/plain", ...requestConfig.headers },
 	});
 
 	return data;
