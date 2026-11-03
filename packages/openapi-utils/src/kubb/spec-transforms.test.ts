@@ -177,13 +177,35 @@ describe("cleanOperationIds", () => {
 
 	it("deletes head operations only with deleteHead", () => {
 		const kept = cleanOperationIds(spec({ "/users": { get: {}, head: {} } }));
-		expect((kept.paths["/users"] as any).head).toEqual({});
+		expect((kept.paths["/users"] as any).head).toEqual({ operationId: "hEADUsers" });
 
 		const removed = cleanOperationIds(spec({ "/users": { get: {}, head: {} } }), {
 			deleteHead: true,
 		});
 		expect((removed.paths["/users"] as any).head).toBeUndefined();
 		expect((removed.paths["/users"] as any).get).toBeDefined();
+	});
+
+	it("camelCases a kept head operation id", () => {
+		const result = cleanOperationIds(
+			spec({ "/artifacts/{hash}": { head: { operationId: "artifact_exists" } } }),
+		);
+		expect(result.paths["/artifacts/{hash}"]?.head?.operationId).toBe("artifactExists");
+	});
+
+	it("renames a kept head operation whose id a get already uses", () => {
+		const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+		const result = cleanOperationIds(
+			spec({
+				"/artifacts/{hash}": {
+					head: { operationId: "getArtifact" },
+					get: { operationId: "getArtifact" },
+				},
+			}),
+		);
+		expect(result.paths["/artifacts/{hash}"]?.get?.operationId).toBe("getArtifact");
+		expect(result.paths["/artifacts/{hash}"]?.head?.operationId).toBe("headArtifactsHash");
+		warn.mockRestore();
 	});
 });
 
@@ -200,6 +222,13 @@ describe("addMissingPathParams", () => {
 		expect(parameters).toEqual([
 			{ name: "org", in: "path", required: true },
 			{ name: "id", in: "path", required: true, schema: { type: "string" } },
+		]);
+	});
+
+	it("adds a missing path param to a head operation", () => {
+		const result = addMissingPathParams(spec({ "/artifacts/{hash}": { head: {} } }));
+		expect(result.paths["/artifacts/{hash}"]?.head?.parameters).toEqual([
+			{ name: "hash", in: "path", required: true, schema: { type: "string" } },
 		]);
 	});
 });
@@ -358,6 +387,17 @@ describe("camelCasePathParams", () => {
 		expect(pathItem.get.parameters[0].name).toBe("projectId");
 		expect(pathItem.get.parameters[1].name).toBe("page_size");
 		expect((result.components as any).parameters.Team.name).toBe("teamId");
+	});
+
+	it("renames the path params of a head operation", () => {
+		const result = camelCasePathParams(
+			spec({
+				"/teams/{team_id}": { head: { parameters: [{ name: "team_id", in: "path" }] } },
+			}),
+		);
+		expect(result.paths["/teams/{teamId}"]?.head?.parameters).toEqual([
+			{ name: "teamId", in: "path" },
+		]);
 	});
 });
 
