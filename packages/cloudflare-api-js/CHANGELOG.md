@@ -1,5 +1,21 @@
 # cloudflare-api-js
 
+## 4.9.0
+
+### Minor Changes
+
+- 0dfab90: Added detailed response and error types for OHTTP Gateway API operations.
+- 0dfab90: [BREAKING] Updated the query parameter handling for d1ListDatabases to use Partial<D1ListDatabasesQuery> directly instead of generating a joined string for ids.
+- 0dfab90: Added new OHTTP Gateway operations: ohttpGatewayDisable, ohttpGatewayGetEnablement, and ohttpGatewayEnable.
+
+### Patch Changes
+
+- 0dfab90: Added a new error type BrandProtectionApiSavedQueryDeleteUnavailable for 503 responses in Brand Protection queries.
+- 0dfab90: Improved documentation and usage for the 'random_steering' and priority fields in load balancing rule-related types.
+- 0dfab90: Expanded support for networks in pool and load balancer PATCH/UPDATE/CREATE types.
+- 0dfab90: Improved documentation and added new fields for Load Balancing API types related to health checks, health sources, networks, and priority handling.
+- 0dfab90: Added the 'pool_sets' property to load balancer and pool editable types for specifying pool sets independently of steering fields.
+
 ## 4.8.1
 
 ### Patch Changes
