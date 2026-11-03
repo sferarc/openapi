@@ -207,6 +207,26 @@ describe("cleanOperationIds", () => {
 		expect(result.paths["/artifacts/{hash}"]?.head?.operationId).toBe("headArtifactsHash");
 		warn.mockRestore();
 	});
+
+	it("gives an options operation without an id the method and path fallback", () => {
+		const result = cleanOperationIds(spec({ "/mcp": { options: {} } }));
+		expect(result.paths["/mcp"]?.options?.operationId).toBe("oPTIONSMcp");
+	});
+
+	it("renames an options operation whose id a get already uses", () => {
+		const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+		const result = cleanOperationIds(
+			spec({
+				"/mcp/{server_id}": {
+					options: { operationId: "get_mcp_server" },
+					get: { operationId: "get_mcp_server" },
+				},
+			}),
+		);
+		expect(result.paths["/mcp/{server_id}"]?.get?.operationId).toBe("getMcpServer");
+		expect(result.paths["/mcp/{server_id}"]?.options?.operationId).toBe("optionsMcpServerId");
+		warn.mockRestore();
+	});
 });
 
 describe("addMissingPathParams", () => {
@@ -229,6 +249,13 @@ describe("addMissingPathParams", () => {
 		const result = addMissingPathParams(spec({ "/artifacts/{hash}": { head: {} } }));
 		expect(result.paths["/artifacts/{hash}"]?.head?.parameters).toEqual([
 			{ name: "hash", in: "path", required: true, schema: { type: "string" } },
+		]);
+	});
+
+	it("adds a missing path param to an options operation", () => {
+		const result = addMissingPathParams(spec({ "/mcp/{server_id}": { options: {} } }));
+		expect(result.paths["/mcp/{server_id}"]?.options?.parameters).toEqual([
+			{ name: "server_id", in: "path", required: true, schema: { type: "string" } },
 		]);
 	});
 });

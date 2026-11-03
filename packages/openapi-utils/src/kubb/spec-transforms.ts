@@ -9,8 +9,8 @@ import {
 	type SchemaObject,
 } from "openapi3-ts/oas30";
 
-// HEAD comes after GET so a HEAD reusing a GET's operation id is the one renamed.
-const HTTP_METHODS = ["get", "put", "post", "patch", "delete", "head"] as const;
+// HEAD and OPTIONS come last so one reusing another method's operation id is the one renamed.
+const HTTP_METHODS = ["get", "put", "post", "patch", "delete", "head", "options"] as const;
 const FETCH_TIMEOUT_MS = 30_000;
 
 const JS_RESERVED_WORDS = new Set([
