@@ -1,5 +1,11 @@
 # zoom-api-js
 
+## 3.3.2
+
+### Patch Changes
+
+- a487d84: `request()` and the Effect `effectByPath` binding reach HEAD and OPTIONS operations, which only `client.api` did before: `client.request("HEAD /v8/artifacts/{hash}", ...)` in `vercel-api-js` and `client.request("OPTIONS /mcp")` in `litellm-api` compiled to an error and threw `Unknown endpoint` at runtime. `ApiOperationByMethod` accepts `"HEAD"` and `"OPTIONS"` in every client.
+
 ## 3.3.1
 
 ### Patch Changes
