@@ -2881,7 +2881,7 @@ import type {
 	ListDrivesStatus422,
 	ListDrivesStatus429,
 	ListEventTypesQuery,
-	ListEventTypesResponse,
+	ListEventTypesResponse2,
 	ListEventTypesStatus400,
 	ListEventTypesStatus401,
 	ListEventTypesStatus403,
@@ -12374,7 +12374,7 @@ export async function listEventTypes(
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	const data = await request<
-		ListEventTypesResponse,
+		ListEventTypesResponse2,
 		ErrorWrapper<
 			| ListEventTypesStatus400
 			| ListEventTypesStatus401
@@ -25640,7 +25640,7 @@ export async function getVercelCiInvocationLogs(
 
 /**
  * @summary Get log lines for the tasks of an invocation attempt
- * @description Returns log lines for the tasks of an invocation attempt in a single request, grouped by task. Tasks can be narrowed by name and by conclusion, for example `conclusion=failed` to fetch only the logs of failed tasks. With `search`, every matching task is searched at once and only tasks with matching lines are returned.
+ * @description Returns log lines for the tasks of an invocation attempt in a single request, grouped by task. Tasks can be narrowed by name and by conclusion, for example `conclusion=failed` to fetch only the logs of failed tasks. With `search`, every matching task is searched at once and only tasks with matching lines are returned. Without `search`, a task restored from the remote cache returns the log of the run that produced the cache entry.
  * @link /v1/vercel-ci/invocations/{invocationId}/attempts/{attempt}/task-logs
  */
 export async function getVercelCiTaskLogs(
@@ -25792,7 +25792,7 @@ export async function getVercelCiJobRunLogs(
 
 /**
  * @summary Get log lines for a specific task run attempt
- * @description Get Task Run Logs With `follow=1` the response is a newline-delimited JSON stream of log lines that ends once the task run has finished and its logs are flushed, or when the stream reaches its maximum duration.
+ * @description Get Task Run Logs With `follow=1` the response is a newline-delimited JSON stream of log lines that ends once the task run has finished and its logs are flushed, or when the stream reaches its maximum duration. A task run restored from the remote cache returns the log of the run that produced the cache entry, timestamped when the cached run completed.
  * @link /v1/vercel-ci/invocations/{invocationId}/attempts/{attempt}/job-definitions/{jobDefinitionId}/runs/{runAttempt}/task-definitions/{taskDefinitionId}/runs/{taskRunAttempt}/logs
  */
 export async function getVercelCiTaskRunLogs(
