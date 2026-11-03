@@ -4179,10 +4179,10 @@ export async function pastMeetings(
  * @description Retrieve participant information for a past meeting.
  * **Prerequisites:**
  * * A paid account with a Pro plan or higher.
- * * If the meeting UUID starts with `/` or contains `//`, you must double-encode the UUID before sending the request.
+ * * If the meeting UUID contains any `/` characters, you must double-encode the UUID before sending the request.
  * * The meeting must be within the last 15 months. Participant data is not available for meetings older than 15 months.
  * * By default, this endpoint does not return participant data for meetings with only one participant. To include one-participant meetings, enable the account setting **Show one person meetings and webinars on Dashboard and Reports**.
- * * For meetings with hundreds of participants, attendance data may take time to be generated. If participant durations are returned as `0`, the request may have been made before processing completed. Wait briefly and retry.
+ * * For meetings with hundreds of participants, attendance data may take time to generate. If participant durations are returned as `0`, the request may have been made before processing completed. Wait briefly and retry.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:admin`,`meeting:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:list_past_participants`,`meeting:read:list_past_participants:admin`
  * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
