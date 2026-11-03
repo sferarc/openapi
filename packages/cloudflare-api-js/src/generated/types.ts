@@ -22943,6 +22943,19 @@ export type BrandProtectionApiQueryMatch = {
   total?: number | undefined;
 };
 
+export type BrandProtectionApiSavedQueryDeleteUnavailable = {
+  errors: {
+    code: number;
+    message: string;
+  }[];
+  messages: {
+    code: number;
+    message: string;
+  }[];
+  result: object[];
+  success: false;
+};
+
 export type BrandProtectionApiURLInfo = {
   result?: {
     [key: string]: object;
@@ -39640,6 +39653,7 @@ export type DlpAttachedEntry = {
 };
 
 export const dlpRiskLevel = {
+  info: 'info',
   low: 'low',
   medium: 'medium',
   high: 'high',
@@ -63128,7 +63142,8 @@ export type LoadBalancingSchemasEnabled = boolean;
 export type LoadBalancingOriginFailureReason = string;
 
 /**
- * @description Whether the origin is reported as healthy.
+ * @description If true, filter events where the origin status is healthy. If false, filter events where the origin status is unhealthy.
+ * @default true
  * @example true
  * @type boolean
  */
@@ -63175,7 +63190,8 @@ export type LoadBalancingOriginAnalytics = {
    */
   failure_reason?: LoadBalancingOriginFailureReason | undefined;
   /**
-   * @description Whether the origin is reported as healthy.
+   * @description If true, filter events where the origin status is healthy. If false, filter events where the origin status is unhealthy.
+   * @default true
    * @example true
    * @type boolean | undefined
    */
@@ -64081,13 +64097,30 @@ export type LoadBalancingRuleOverrides = {
    */
   pop_pools?: LoadBalancingPopPools | undefined;
   /**
-   * @description Configures pool weights.
+   * @description Configures pool weights for a rule override. An omitted default_weight inherits the load balancer's default weight.
    * - `steering_policy="random"`: A random pool is selected with probability proportional to pool weights.
    * - `steering_policy="least_outstanding_requests"`: Use pool weights to scale each pool's outstanding requests.
    * - `steering_policy="least_connections"`: Use pool weights to scale each pool's open connections.
    * @type object | undefined
    */
-  random_steering?: LoadBalancingRandomSteering | undefined;
+  random_steering?: {
+    /**
+     * @description The default weight for pools in the load balancer that are not specified in the pool_weights map. An omitted value inherits the load balancer's default weight.
+     * @minimum 0
+     * @maximum 1
+     * @example 0.2
+     * @type number | undefined
+     */
+    default_weight?: number | undefined;
+    /**
+     * @description A mapping of pool IDs to custom weights. The weight is relative to other pools in the load balancer.
+     * @example {"9290f38c5d07c2e2f4df57b1f61d4196":0.5,"de90f38ced07c2e2f4df50b1f61d4194":0.3}
+     * @type object | undefined
+     */
+    pool_weights?: {
+      [key: string]: number;
+    } | undefined;
+  } | undefined;
   /**
    * @description A mapping of region codes to a list of pool IDs (ordered by their failover priority) for the given region. Any regions not explicitly defined will fall back to using default_pools.
    * @example {"ENAM":["00920f38ce07c2e2f4df50b1f61d4194"],"WNAM":["de90f38ced07c2e2f4df50b1f61d4194","9290f38c5d07c2e2f4df57b1f61d4196"]}
@@ -64170,9 +64203,8 @@ export type LoadBalancingRules = {
    */
   overrides?: LoadBalancingRuleOverrides | undefined;
   /**
-   * @description The order in which rules should be executed in relation to each other. Lower values are executed first. Values do not need to be sequential. If no value is provided for any rule the array order of the rules field will be used to assign a priority.
+   * @description The order in which rules should be executed in relation to each other. Lower values are executed first. Values do not need to be sequential. If all priorities are omitted or zero, the API assigns priorities based on the array order of the rules field.
    * @minimum 0
-   * @default 0
    * @type integer | undefined
    */
   priority?: number | undefined;
@@ -64395,6 +64427,11 @@ export type LoadBalancingLoadBalancerEditable = {
    * @type array | undefined
    */
   networks?: LoadBalancingNetworks | undefined;
+  /**
+   * @description An optional list of pool sets, evaluated in array order with first match wins. Pool sets are independent from the standard steering fields (`region_pools` / `country_pools` / `pop_pools` / `default_pools` / `steering_policy` / `random_steering` / `fallback_pool` / `rules`). On a PATCH, an empty array (`pool_sets: []`) clears all pool sets, while omitting the field leaves existing pool sets unchanged.
+   * @type array | undefined
+   */
+  pool_sets?: LoadBalancingPoolSets | undefined;
   /**
    * @description Enterprise only: A mapping of Cloudflare PoP identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). Any PoPs not explicitly defined will fall back to using the corresponding country_pool, then region_pool mapping if it exists else to default_pools.
    * @example {"LAX":["de90f38ced07c2e2f4df50b1f61d4194","9290f38c5d07c2e2f4df57b1f61d4196"],"LHR":["abd90f38ced07c2e2f4df50b1f61d4194","f9138c5d07c2e2f4df57b1f61d4196"],"SJC":["00920f38ce07c2e2f4df50b1f61d4194"]}
@@ -76953,6 +76990,103 @@ export type ObservatoryTrend = {
 export type ObservatoryTrendResponse = ObservatoryApiResponseSingle & {
   result?: ObservatoryTrend | undefined;
 };
+
+/**
+ * @description Represents an error that the API returns.
+ * @type object
+ */
+export type OhttpGatewayApiError = {
+  /**
+   * @description Numeric error code.
+   * @example 1013
+   * @type integer
+   */
+  code: number;
+  /**
+   * @description Human-readable error message.
+   * @example upstream failure: could not enable OHTTP
+   * @type string
+   */
+  message: string;
+};
+
+/**
+ * @description Represents an informational message that the API returns.
+ * @type object
+ */
+export type OhttpGatewayApiMessage = {
+  /**
+   * @description Numeric message code.
+   * @example 0
+   * @type integer
+   */
+  code: number;
+  /**
+   * @description Human-readable message.
+   * @example
+   * @type string
+   */
+  message: string;
+};
+
+/**
+ * @description Standard Cloudflare API failure response.
+ * @type object
+ */
+export type OhttpGatewayApiResponseFailure = {
+  errors: OhttpGatewayApiError[];
+  messages: OhttpGatewayApiMessage[];
+  /**
+   * @description Always null for error responses.
+   * @type object
+   */
+  result: object | null;
+  /**
+   * @description Always false for error responses.
+   * @example false
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export const ohttpGatewayApiSuccessResponseResultEnum = {
+  'ohttp is active': 'ohttp is active',
+  'ohttp is inactive': 'ohttp is inactive',
+} as const;
+
+export type OhttpGatewayApiSuccessResponseResultEnumKey = (typeof ohttpGatewayApiSuccessResponseResultEnum)[keyof typeof ohttpGatewayApiSuccessResponseResultEnum];
+
+/**
+ * @description Standard Cloudflare API response wrapping the result of an operation.
+ * @type object
+ */
+export type OhttpGatewayApiSuccessResponse = {
+  /**
+   * @description List of errors, empty on success.
+   * @type array
+   */
+  errors: OhttpGatewayApiError[];
+  /**
+   * @description List of informational messages, empty on success.
+   * @example []
+   * @type array
+   */
+  messages: OhttpGatewayApiMessage[];
+  result: OhttpGatewayApiSuccessResponseResultEnumKey;
+  /**
+   * @description Whether the API call was successful.
+   * @example true
+   * @type boolean
+   */
+  success: boolean;
+};
+
+/**
+ * @maxLength 32
+ * @example 023e105f4ecef8ad9ca31a8372d0c353
+ * @type string
+ */
+export type OhttpGatewayIdentifier = string;
 
 /**
  * @description Authentication method available for a vendor.
@@ -139019,14 +139153,6 @@ export type ZonesZoneSettingsSingleRequest = {
 };
 
 export type IntelSinkholesApiResponseCommonFailure2 = IntelSinkholesApiResponseCommonFailure;
-
-/**
- * @description If true, filter events where the origin status is healthy. If false, filter events where the origin status is unhealthy.
- * @default true
- * @example true
- * @type boolean
- */
-export type LoadBalancingOriginHealthy2 = boolean;
 
 /**
  * @description An email allow policy.
@@ -225522,7 +225648,7 @@ export type LoadBalancerHealthcheckEventsListHealthcheckEventsQuery = {
    * @example true
    * @type boolean | undefined
    */
-  origin_healthy?: LoadBalancingOriginHealthy2 | undefined;
+  origin_healthy?: LoadBalancingOriginHealthy | undefined;
   /**
    * @example 17b5962d775c646f3f9725cbc7a53df4
    * @type string | undefined
@@ -282018,6 +282144,8 @@ export type DeleteAccountsAccountIdBrandProtectionQueriesStatus429 = BrandProtec
 
 export type DeleteAccountsAccountIdBrandProtectionQueriesStatus500 = BrandProtectionApiError;
 
+export type DeleteAccountsAccountIdBrandProtectionQueriesStatus503 = BrandProtectionApiSavedQueryDeleteUnavailable;
+
 export type DeleteAccountsAccountIdBrandProtectionQueriesOptions = {
   body?: never | undefined;
   path: DeleteAccountsAccountIdBrandProtectionQueriesPath;
@@ -282033,6 +282161,7 @@ export type DeleteAccountsAccountIdBrandProtectionQueriesResponses = {
   '422': DeleteAccountsAccountIdBrandProtectionQueriesStatus422;
   '429': DeleteAccountsAccountIdBrandProtectionQueriesStatus429;
   '500': DeleteAccountsAccountIdBrandProtectionQueriesStatus500;
+  '503': DeleteAccountsAccountIdBrandProtectionQueriesStatus503;
 };
 
 /**
@@ -328718,14 +328847,6 @@ export type D1ListDatabasesQuery = {
    */
   name?: string | undefined;
   /**
-   * @description Comma-separated list of database UUIDs to return, up to 50. Databases that do not
-   * exist or belong to another account are omitted from the results. Can be combined
-   * with `name` and pagination.
-   *
-   * @type array | undefined
-   */
-  ids?: string[] | undefined;
-  /**
    * @description Page number of paginated results.
    * @minimum 1
    * @default 1
@@ -361771,6 +361892,12 @@ export type AccountLoadBalancerPoolsCreatePoolStatus400 = LoadBalancingApiRespon
 
 export type AccountLoadBalancerPoolsCreatePoolBody = {
   /**
+   * @description A list of regions from which to run health checks. Null means every Cloudflare data center.
+   * @example ["WEU","ENAM"]
+   * @type array | undefined
+   */
+  check_regions?: (LoadBalancingCheckRegions | null) | undefined;
+  /**
    * @description A human-readable description of the pool.
    * @default ''
    * @example Primary data center - Provider XYZ
@@ -361784,6 +361911,12 @@ export type AccountLoadBalancerPoolsCreatePoolBody = {
    * @type boolean | undefined
    */
   enabled?: LoadBalancingEnabled | undefined;
+  /**
+   * @description A list of health sources, ordered from highest to lowest priority, used to evaluate individual origin health and overall pool health. The load balancer uses the first source that has data and falls back to the next. Currently accepted values are null or the exact array ["regional", "global"]; any other combination is rejected. Null (the default) behaves like ["local", "global"]. ["regional", "global"] makes each region steer on its own health, falling back to the global decision when a region has no fresh data. Setting regional requires at least one region in check_regions.
+   * @example ["regional","global"]
+   * @type array | undefined
+   */
+  health_sources?: (LoadBalancingHealthSources | null) | undefined;
   /**
    * @description The latitude of the data center containing the origins used in this pool in decimal degrees. If this is set, longitude must also be set.
    * @type number | undefined
@@ -361821,6 +361954,12 @@ export type AccountLoadBalancerPoolsCreatePoolBody = {
    * @type string
    */
   name: LoadBalancingName;
+  /**
+   * @description List of networks where Load Balancer or Pool is enabled.
+   * @example ["cloudflare","jdcloud"]
+   * @type array | undefined
+   */
+  networks?: LoadBalancingNetworks | undefined;
   /**
    * @description This field is now deprecated. It has been moved to Cloudflare's Centralized Notification service https://developers.cloudflare.com/fundamentals/notifications/. The email address to send health status notifications to. This can be an individual mailbox or a mailing list. Multiple emails can be supplied as a comma delimited list.
    * @default ''
@@ -362026,6 +362165,12 @@ export type AccountLoadBalancerPoolsPatchPoolBody = {
    */
   name?: LoadBalancingName | undefined;
   /**
+   * @description List of networks where Load Balancer or Pool is enabled.
+   * @example ["cloudflare","jdcloud"]
+   * @type array | undefined
+   */
+  networks?: LoadBalancingNetworks | undefined;
+  /**
    * @description This field is now deprecated. It has been moved to Cloudflare's Centralized Notification service https://developers.cloudflare.com/fundamentals/notifications/. The email address to send health status notifications to. This can be an individual mailbox or a mailing list. Multiple emails can be supplied as a comma delimited list.
    * @default ''
    * @example someone@example.com,sometwo@example.com
@@ -362157,6 +362302,12 @@ export type AccountLoadBalancerPoolsUpdatePoolBody = {
    * @type string
    */
   name: LoadBalancingName;
+  /**
+   * @description List of networks where Load Balancer or Pool is enabled.
+   * @example ["cloudflare","jdcloud"]
+   * @type array | undefined
+   */
+  networks?: LoadBalancingNetworks | undefined;
   /**
    * @description This field is now deprecated. It has been moved to Cloudflare's Centralized Notification service https://developers.cloudflare.com/fundamentals/notifications/. The email address to send health status notifications to. This can be an individual mailbox or a mailing list. Multiple emails can be supplied as a comma delimited list.
    * @default ''
@@ -437423,6 +437574,12 @@ export type LoadBalancerPoolsPatchPoolBody = {
    */
   name?: LoadBalancingName | undefined;
   /**
+   * @description List of networks where Load Balancer or Pool is enabled.
+   * @example ["cloudflare","jdcloud"]
+   * @type array | undefined
+   */
+  networks?: LoadBalancingNetworks | undefined;
+  /**
    * @description This field is now deprecated. It has been moved to Cloudflare's Centralized Notification service https://developers.cloudflare.com/fundamentals/notifications/. The email address to send health status notifications to. This can be an individual mailbox or a mailing list. Multiple emails can be supplied as a comma delimited list.
    * @default ''
    * @example someone@example.com,sometwo@example.com
@@ -449951,7 +450108,7 @@ export type EntitlementsGetZoneEntitlementsStatus200 = EntitlementsEntitlementsR
 export type EntitlementsGetZoneEntitlementsStatus204 = void;
 
 /**
- * @description Standard Cloudflare API failure response.
+ * @example {"errors":[{"code":2005,"message":"failed to fetch entitlements: invalid object type"}],"messages":[],"result":null,"success":false}
  * @type object
  */
 export type EntitlementsGetZoneEntitlementsStatus400 = EntitlementsApiResponseFailure;
@@ -449969,25 +450126,25 @@ export type EntitlementsGetZoneEntitlementsStatus401 = EntitlementsApiResponseFa
 export type EntitlementsGetZoneEntitlementsStatus403 = EntitlementsApiResponseFailure;
 
 /**
- * @description Standard Cloudflare API failure response.
+ * @example {"errors":[{"code":2004,"message":"failed to fetch entitlements: unknown route"}],"messages":[],"result":null,"success":false}
  * @type object
  */
 export type EntitlementsGetZoneEntitlementsStatus404 = EntitlementsApiResponseFailure;
 
 /**
- * @description Standard Cloudflare API failure response.
+ * @example {"errors":[{"code":2001,"message":"failed to fetch entitlements: method not allowed"}],"messages":[],"result":null,"success":false}
  * @type object
  */
 export type EntitlementsGetZoneEntitlementsStatus405 = EntitlementsApiResponseFailure;
 
 /**
- * @description Standard Cloudflare API failure response.
+ * @example {"errors":[{"code":2000,"message":"failed to fetch entitlements: internal server error"}],"messages":[],"result":null,"success":false}
  * @type object
  */
 export type EntitlementsGetZoneEntitlementsStatus500 = EntitlementsApiResponseFailure;
 
 /**
- * @description Standard Cloudflare API failure response.
+ * @example {"errors":[{"code":2003,"message":"failed to fetch entitlements: timeout occurred"}],"messages":[],"result":null,"success":false}
  * @type object
  */
 export type EntitlementsGetZoneEntitlementsStatus503 = EntitlementsApiResponseFailure;
@@ -454748,6 +454905,13 @@ export type LoadBalancersCreateLoadBalancerBody = {
    */
   description?: LoadBalancingComponentsSchemasDescription | undefined;
   /**
+   * @description Whether to enable (the default) this load balancer.
+   * @default true
+   * @example true
+   * @type boolean | undefined
+   */
+  enabled?: LoadBalancingComponentsSchemasEnabled | undefined;
+  /**
    * @description The pool ID to use when all other pools are detected as unhealthy.
    * @type string
    */
@@ -454769,6 +454933,11 @@ export type LoadBalancersCreateLoadBalancerBody = {
    * @type array | undefined
    */
   networks?: LoadBalancingNetworks | undefined;
+  /**
+   * @description An optional list of pool sets, evaluated in array order with first match wins. Pool sets are independent from the standard steering fields (`region_pools` / `country_pools` / `pop_pools` / `default_pools` / `steering_policy` / `random_steering` / `fallback_pool` / `rules`). On a PATCH, an empty array (`pool_sets: []`) clears all pool sets, while omitting the field leaves existing pool sets unchanged.
+   * @type array | undefined
+   */
+  pool_sets?: LoadBalancingPoolSets | undefined;
   /**
    * @description Enterprise only: A mapping of Cloudflare PoP identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). Any PoPs not explicitly defined will fall back to using the corresponding country_pool, then region_pool mapping if it exists else to default_pools.
    * @example {"LAX":["de90f38ced07c2e2f4df50b1f61d4194","9290f38c5d07c2e2f4df57b1f61d4196"],"LHR":["abd90f38ced07c2e2f4df50b1f61d4194","f9138c5d07c2e2f4df57b1f61d4196"],"SJC":["00920f38ce07c2e2f4df50b1f61d4194"]}
@@ -454992,6 +455161,17 @@ export type LoadBalancersPatchLoadBalancerBody = {
    */
   name?: LoadBalancingComponentsSchemasName | undefined;
   /**
+   * @description List of networks where Load Balancer or Pool is enabled.
+   * @example ["cloudflare","jdcloud"]
+   * @type array | undefined
+   */
+  networks?: LoadBalancingNetworks | undefined;
+  /**
+   * @description An optional list of pool sets, evaluated in array order with first match wins. Pool sets are independent from the standard steering fields (`region_pools` / `country_pools` / `pop_pools` / `default_pools` / `steering_policy` / `random_steering` / `fallback_pool` / `rules`). On a PATCH, an empty array (`pool_sets: []`) clears all pool sets, while omitting the field leaves existing pool sets unchanged.
+   * @type array | undefined
+   */
+  pool_sets?: LoadBalancingPoolSets | undefined;
+  /**
    * @description Enterprise only: A mapping of Cloudflare PoP identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). Any PoPs not explicitly defined will fall back to using the corresponding country_pool, then region_pool mapping if it exists else to default_pools.
    * @example {"LAX":["de90f38ced07c2e2f4df50b1f61d4194","9290f38c5d07c2e2f4df57b1f61d4196"],"LHR":["abd90f38ced07c2e2f4df50b1f61d4194","f9138c5d07c2e2f4df57b1f61d4196"],"SJC":["00920f38ce07c2e2f4df50b1f61d4194"]}
    * @type object | undefined
@@ -455151,6 +455331,11 @@ export type LoadBalancersUpdateLoadBalancerBody = {
    * @type array | undefined
    */
   networks?: LoadBalancingNetworks | undefined;
+  /**
+   * @description An optional list of pool sets, evaluated in array order with first match wins. Pool sets are independent from the standard steering fields (`region_pools` / `country_pools` / `pop_pools` / `default_pools` / `steering_policy` / `random_steering` / `fallback_pool` / `rules`). On a PATCH, an empty array (`pool_sets: []`) clears all pool sets, while omitting the field leaves existing pool sets unchanged.
+   * @type array | undefined
+   */
+  pool_sets?: LoadBalancingPoolSets | undefined;
   /**
    * @description Enterprise only: A mapping of Cloudflare PoP identifiers to a list of pool IDs (ordered by their failover priority) for the PoP (datacenter). Any PoPs not explicitly defined will fall back to using the corresponding country_pool, then region_pool mapping if it exists else to default_pools.
    * @example {"LAX":["de90f38ced07c2e2f4df50b1f61d4194","9290f38c5d07c2e2f4df57b1f61d4196"],"LHR":["abd90f38ced07c2e2f4df50b1f61d4194","f9138c5d07c2e2f4df57b1f61d4196"],"SJC":["00920f38ce07c2e2f4df50b1f61d4194"]}
@@ -465231,6 +465416,172 @@ export type NelSettingsEditResponses = {
  * @description Union of all possible responses
  */
 export type NelSettingsEditResponse = NelSettingsEditStatus200;
+
+export type OhttpGatewayDisablePath = {
+  /**
+   * @description The zone tag.
+   * @maxLength 32
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  zoneId: OhttpGatewayIdentifier;
+};
+
+/**
+ * @description Standard Cloudflare API response wrapping the result of an operation.
+ * @type object
+ */
+export type OhttpGatewayDisableStatus200 = OhttpGatewayApiSuccessResponse;
+
+/**
+ * @description Standard Cloudflare API failure response.
+ * @type object
+ */
+export type OhttpGatewayDisableStatus400 = OhttpGatewayApiResponseFailure;
+
+/**
+ * @description Standard Cloudflare API failure response.
+ * @type object
+ */
+export type OhttpGatewayDisableStatus403 = OhttpGatewayApiResponseFailure;
+
+/**
+ * @description Standard Cloudflare API failure response.
+ * @type object
+ */
+export type OhttpGatewayDisableStatus500 = OhttpGatewayApiResponseFailure;
+
+export type OhttpGatewayDisableOptions = {
+  body?: never | undefined;
+  path: OhttpGatewayDisablePath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type OhttpGatewayDisableResponses = {
+  '200': OhttpGatewayDisableStatus200;
+  '400': OhttpGatewayDisableStatus400;
+  '403': OhttpGatewayDisableStatus403;
+  '500': OhttpGatewayDisableStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type OhttpGatewayDisableResponse = OhttpGatewayDisableStatus200;
+
+export type OhttpGatewayGetEnablementPath = {
+  /**
+   * @description The zone tag.
+   * @maxLength 32
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  zoneId: OhttpGatewayIdentifier;
+};
+
+/**
+ * @description Standard Cloudflare API response wrapping the result of an operation.
+ * @type object
+ */
+export type OhttpGatewayGetEnablementStatus200 = OhttpGatewayApiSuccessResponse;
+
+/**
+ * @description Standard Cloudflare API failure response.
+ * @type object
+ */
+export type OhttpGatewayGetEnablementStatus400 = OhttpGatewayApiResponseFailure;
+
+/**
+ * @description Standard Cloudflare API failure response.
+ * @type object
+ */
+export type OhttpGatewayGetEnablementStatus403 = OhttpGatewayApiResponseFailure;
+
+/**
+ * @description Standard Cloudflare API failure response.
+ * @type object
+ */
+export type OhttpGatewayGetEnablementStatus500 = OhttpGatewayApiResponseFailure;
+
+export type OhttpGatewayGetEnablementOptions = {
+  body?: never | undefined;
+  path: OhttpGatewayGetEnablementPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type OhttpGatewayGetEnablementResponses = {
+  '200': OhttpGatewayGetEnablementStatus200;
+  '400': OhttpGatewayGetEnablementStatus400;
+  '403': OhttpGatewayGetEnablementStatus403;
+  '500': OhttpGatewayGetEnablementStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type OhttpGatewayGetEnablementResponse = OhttpGatewayGetEnablementStatus200;
+
+export type OhttpGatewayEnablePath = {
+  /**
+   * @description The zone tag.
+   * @maxLength 32
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  zoneId: OhttpGatewayIdentifier;
+};
+
+/**
+ * @description Standard Cloudflare API response wrapping the result of an operation.
+ * @type object
+ */
+export type OhttpGatewayEnableStatus200 = OhttpGatewayApiSuccessResponse;
+
+/**
+ * @description Standard Cloudflare API response wrapping the result of an operation.
+ * @type object
+ */
+export type OhttpGatewayEnableStatus201 = OhttpGatewayApiSuccessResponse;
+
+/**
+ * @description Standard Cloudflare API failure response.
+ * @type object
+ */
+export type OhttpGatewayEnableStatus400 = OhttpGatewayApiResponseFailure;
+
+/**
+ * @description Standard Cloudflare API failure response.
+ * @type object
+ */
+export type OhttpGatewayEnableStatus403 = OhttpGatewayApiResponseFailure;
+
+/**
+ * @description Standard Cloudflare API failure response.
+ * @type object
+ */
+export type OhttpGatewayEnableStatus500 = OhttpGatewayApiResponseFailure;
+
+export type OhttpGatewayEnableOptions = {
+  body?: never | undefined;
+  path: OhttpGatewayEnablePath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type OhttpGatewayEnableResponses = {
+  '200': OhttpGatewayEnableStatus200;
+  '201': OhttpGatewayEnableStatus201;
+  '400': OhttpGatewayEnableStatus400;
+  '403': OhttpGatewayEnableStatus403;
+  '500': OhttpGatewayEnableStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type OhttpGatewayEnableResponse = OhttpGatewayEnableStatus200 | OhttpGatewayEnableStatus201;
 
 export type ZoneCacheSettingsGetOriginH2MaxStreamsSettingPath = {
   /**

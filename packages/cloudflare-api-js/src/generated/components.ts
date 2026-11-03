@@ -3864,6 +3864,7 @@ import type {
 	DeleteAccountsAccountIdBrandProtectionQueriesStatus422,
 	DeleteAccountsAccountIdBrandProtectionQueriesStatus429,
 	DeleteAccountsAccountIdBrandProtectionQueriesStatus500,
+	DeleteAccountsAccountIdBrandProtectionQueriesStatus503,
 	DeleteAccountsAccountIdLogpushJobsJobIdPath,
 	DeleteAccountsAccountIdLogpushJobsJobIdResponse,
 	DeleteAccountsAccountIdLogpushJobsJobIdStatus400,
@@ -9057,6 +9058,21 @@ import type {
 	ObservabilityUsageLimitGetStatus403,
 	ObservabilityUsageLimitGetStatus429,
 	ObservabilityUsageLimitGetStatus500,
+	OhttpGatewayDisablePath,
+	OhttpGatewayDisableResponse,
+	OhttpGatewayDisableStatus400,
+	OhttpGatewayDisableStatus403,
+	OhttpGatewayDisableStatus500,
+	OhttpGatewayEnablePath,
+	OhttpGatewayEnableResponse,
+	OhttpGatewayEnableStatus400,
+	OhttpGatewayEnableStatus403,
+	OhttpGatewayEnableStatus500,
+	OhttpGatewayGetEnablementPath,
+	OhttpGatewayGetEnablementResponse,
+	OhttpGatewayGetEnablementStatus400,
+	OhttpGatewayGetEnablementStatus403,
+	OhttpGatewayGetEnablementStatus500,
 	OrganizationListOrganizationsQuery,
 	OrganizationListOrganizationsResponse,
 	OrganizationListOrganizationsStatus400,
@@ -47148,6 +47164,7 @@ export async function deleteAccountsAccountIdBrandProtectionQueries(
 			| DeleteAccountsAccountIdBrandProtectionQueriesStatus422
 			| DeleteAccountsAccountIdBrandProtectionQueriesStatus429
 			| DeleteAccountsAccountIdBrandProtectionQueriesStatus500
+			| DeleteAccountsAccountIdBrandProtectionQueriesStatus503
 		>,
 		null,
 		Record<string, string>,
@@ -68980,21 +68997,17 @@ export async function d1ListDatabases(
 	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
 		throw new Error(`Missing required path parameter: accountId`);
 	}
-	const query = queryParams && {
-		...queryParams,
-		ids: Array.isArray(queryParams.ids) ? queryParams.ids.join(",") : queryParams.ids,
-	};
 	const data = await request<
 		D1ListDatabasesResponse,
 		ErrorWrapper<D1ListDatabasesStatus400>,
 		null,
 		Record<string, string>,
-		Record<string, unknown>,
+		Partial<D1ListDatabasesQuery>,
 		D1ListDatabasesPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/d1/database`,
-		queryParams: query,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -165443,6 +165456,122 @@ export async function nelSettingsEdit(
 }
 
 /**
+ * @summary Disable OHTTP Gateway
+ * @description Idempotently disables Oblivious HTTP Gateway for the zone. Requires product subscription to call.
+ * @link /zones/{zoneId}/settings/ohttp-gateway
+ */
+export async function ohttpGatewayDisable(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: OhttpGatewayDisablePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
+		throw new Error(`Missing required path parameter: zoneId`);
+	}
+	const data = await request<
+		OhttpGatewayDisableResponse,
+		ErrorWrapper<
+			OhttpGatewayDisableStatus400 | OhttpGatewayDisableStatus403 | OhttpGatewayDisableStatus500
+		>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		OhttpGatewayDisablePath
+	>({
+		method: "DELETE",
+		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/settings/ohttp-gateway`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get OHTTP Gateway enablement
+ * @description Returns the state of Oblivious HTTP enablement for the zone. Requires product subscription to call.
+ * @link /zones/{zoneId}/settings/ohttp-gateway
+ */
+export async function ohttpGatewayGetEnablement(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: OhttpGatewayGetEnablementPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
+		throw new Error(`Missing required path parameter: zoneId`);
+	}
+	const data = await request<
+		OhttpGatewayGetEnablementResponse,
+		ErrorWrapper<
+			| OhttpGatewayGetEnablementStatus400
+			| OhttpGatewayGetEnablementStatus403
+			| OhttpGatewayGetEnablementStatus500
+		>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		OhttpGatewayGetEnablementPath
+	>({
+		method: "GET",
+		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/settings/ohttp-gateway`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Enable OHTTP Gateway
+ * @description Enables OHTTP Gateway for the zone. Enabling an already-enabled zone is idempotent and returns HTTP 200 status code; enabling a zone for the first time returns HTTP 201. Requires product subscription to call.
+ * @link /zones/{zoneId}/settings/ohttp-gateway
+ */
+export async function ohttpGatewayEnable(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: OhttpGatewayEnablePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
+		throw new Error(`Missing required path parameter: zoneId`);
+	}
+	const data = await request<
+		OhttpGatewayEnableResponse,
+		ErrorWrapper<
+			OhttpGatewayEnableStatus400 | OhttpGatewayEnableStatus403 | OhttpGatewayEnableStatus500
+		>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		OhttpGatewayEnablePath
+	>({
+		method: "PUT",
+		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/settings/ohttp-gateway`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Get Origin H2 Max Streams Setting
  * @description Origin H2 Max Streams configures the max number of concurrent requests that Cloudflare will send within the same connection when communicating with the origin server, if the origin supports it. Note that if your origin does not support H2 multiplexing, 5xx errors may be observed, particularly 520s. Also note that the default value is `100` for all plan types except Enterprise where it is `1`. `1` means that H2 multiplexing is disabled.
  * @link /zones/{zoneId}/settings/origin_h2_max_streams
@@ -176484,6 +176613,9 @@ export const operationsByPath = {
 	"PATCH /zones/{zoneId}/settings/image_resizing": zoneSettingsChangeImageResizingSetting,
 	"GET /zones/{zoneId}/settings/nel": nelSettingsGet,
 	"PATCH /zones/{zoneId}/settings/nel": nelSettingsEdit,
+	"DELETE /zones/{zoneId}/settings/ohttp-gateway": ohttpGatewayDisable,
+	"GET /zones/{zoneId}/settings/ohttp-gateway": ohttpGatewayGetEnablement,
+	"PUT /zones/{zoneId}/settings/ohttp-gateway": ohttpGatewayEnable,
 	"GET /zones/{zoneId}/settings/origin_h2_max_streams":
 		zoneCacheSettingsGetOriginH2MaxStreamsSetting,
 	"PATCH /zones/{zoneId}/settings/origin_h2_max_streams":
@@ -181501,6 +181633,11 @@ export const operationsByTag = {
 	nelSettings: {
 		nelSettingsGet,
 		nelSettingsEdit,
+	},
+	ohttpGateway: {
+		ohttpGatewayDisable,
+		ohttpGatewayGetEnablement,
+		ohttpGatewayEnable,
 	},
 	automaticSslTls: {
 		sslDetectorAutomaticModeGetEnrollment,
@@ -186738,6 +186875,11 @@ export const tagDictionary = {
 	nelSettings: {
 		GET: ["nelSettingsGet"],
 		PATCH: ["nelSettingsEdit"],
+	},
+	ohttpGateway: {
+		DELETE: ["ohttpGatewayDisable"],
+		GET: ["ohttpGatewayGetEnablement"],
+		PUT: ["ohttpGatewayEnable"],
 	},
 	automaticSslTls: {
 		GET: ["sslDetectorAutomaticModeGetEnrollment"],
