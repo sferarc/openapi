@@ -160,7 +160,7 @@ export type AaaAlertTypeKey = (typeof aaaAlertType)[keyof typeof aaaAlertType];
  */
 export type AaaMessages3 = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer | undefined
    */
   code?: number | undefined;
@@ -233,7 +233,7 @@ export type AaaApiResponseCollection = AaaApiResponseCommon2 & {
  */
 export type AaaMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -1544,8 +1544,8 @@ export type AaaMechanisms = {
 
 /**
  * @description Number of items per page.
- * @minLength 5
- * @maxLength 1000
+ * @minimum 5
+ * @maximum 1000
  * @default 25
  * @type number
  */
@@ -2011,6 +2011,11 @@ export type AbuseReportsAbuseReport = {
    * @type string
    */
   domain: string;
+  /**
+   * @description Whether the report is in an open Notice and Takedown notice period: no mitigation is placed yet, but one will take effect when the period ends.
+   * @type boolean | undefined
+   */
+  has_pending_notice?: boolean | undefined;
   /**
    * @description Public facing ID of abuse report, aka abuse_rand.
    * @type string
@@ -3567,7 +3572,7 @@ export type AccessActiveDeviceCount = number;
  */
 export type AccessMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -4443,7 +4448,7 @@ export type AccessAppPolicyLink = {
 export type AccessApprovalGroup = {
   /**
    * @description The number of approvals needed to obtain access.
-   * @minLength 0
+   * @minimum 0
    * @example 1
    * @type number
    */
@@ -5858,8 +5863,8 @@ export type AccessEndUserProps = {
 
 /**
  * @description The maximum number of seconds the results of a preflight request can be cached.
- * @minLength -1
- * @maxLength 86400
+ * @minimum -1
+ * @maximum 86400
  * @example -1
  * @type number
  */
@@ -5906,8 +5911,8 @@ export type AccessCorsHeaders = {
   allowed_origins?: AccessAllowedOrigins | undefined;
   /**
    * @description The maximum number of seconds the results of a preflight request can be cached.
-   * @minLength -1
-   * @maxLength 86400
+   * @minimum -1
+   * @maximum 86400
    * @example -1
    * @type number | undefined
    */
@@ -6859,6 +6864,8 @@ export type AccessTargetCriteriaBase = ({
    * @type object | undefined
    */
   target_attributes?: AccessTargetAttributes | undefined;
+} & {
+  protocol: unknown;
 };
 
 export const accessProtocolInfraApp = {
@@ -9569,8 +9576,8 @@ export type AccessServiceTokenInactivity = {
   enabled: boolean;
   /**
    * @description The number of days a service token must be inactive before the configured action is applied.
-   * @minLength 30
-   * @maxLength 365
+   * @minimum 30
+   * @maximum 365
    * @example 30
    * @type integer
    */
@@ -10392,8 +10399,8 @@ export type AccessSaml = AccessIdentityProvider & {
      * is stored server-side and a short nonce is passed to the IdP instead.
      * Set this if your IdP enforces a URL length limit.
      *
-     * @minLength 512
-     * @maxLength 100000
+     * @minimum 512
+     * @maximum 100000
      * @example 8192
      * @type integer | undefined
      */
@@ -10564,8 +10571,8 @@ export type AccessSaml2 = AccessIdentityProvider2 & {
      * is stored server-side and a short nonce is passed to the IdP instead.
      * Set this if your IdP enforces a URL length limit.
      *
-     * @minLength 512
-     * @maxLength 100000
+     * @minimum 512
+     * @maximum 100000
      * @example 8192
      * @type integer | undefined
      */
@@ -10798,8 +10805,8 @@ export type AccessJitRequestLogDetail = AccessJitRequestLog & {
 
 /**
  * @description The number of days between key rotations.
- * @minLength 21
- * @maxLength 365
+ * @minimum 21
+ * @maximum 365
  * @example 30
  * @type number
  */
@@ -10823,8 +10830,8 @@ export type AccessKeyConfig = {
   readonly days_until_next_rotation?: AccessDaysUntilNextRotation | undefined;
   /**
    * @description The number of days between key rotations.
-   * @minLength 21
-   * @maxLength 365
+   * @minimum 21
+   * @maximum 365
    * @example 30
    * @type number | undefined
    */
@@ -12837,7 +12844,7 @@ export type AddressingAdvertisedModifiedAtNullable = string | null;
  */
 export type AddressingMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -12977,8 +12984,8 @@ export type AddressingAsn2 = number | null;
 
 /**
  * @description Number of times to prepend the Cloudflare ASN to the BGP AS-Path attribute
- * @minLength 0
- * @maxLength 3
+ * @minimum 0
+ * @maximum 3
  * @default 0
  * @example 2
  * @type integer
@@ -13070,8 +13077,8 @@ export type AddressingBgpPrefixIdentifier = string;
 export type AddressingBgpPrefixUpdateAdvertisement = {
   /**
    * @description Number of times to prepend the Cloudflare ASN to the BGP AS-Path attribute
-   * @minLength 0
-   * @maxLength 3
+   * @minimum 0
+   * @maximum 3
    * @default 0
    * @example 2
    * @type integer | undefined
@@ -13259,8 +13266,8 @@ export type AddressingIpamBgpPrefixes = {
   asn?: (AddressingAsn2 | null) | undefined;
   /**
    * @description Number of times to prepend the Cloudflare ASN to the BGP AS-Path attribute
-   * @minLength 0
-   * @maxLength 3
+   * @minimum 0
+   * @maximum 3
    * @default 0
    * @example 2
    * @type integer | undefined
@@ -14393,7 +14400,7 @@ export type AdvancedDdosProtectionUpdateProtectionStatus = {
  */
 export type AdvancedDdosProtectionMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -14583,7 +14590,7 @@ export type AdvancedDdosProtectionUuid = string;
 
 export type AiAuditApiMessage = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -15297,7 +15304,7 @@ export type AigBillingTopupStatusResponse = {
  */
 export type AlexandriaMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -15428,8 +15435,8 @@ export type AlexandriaApplicationTypeDescription = string;
  * @description Numeric identifier for an application category.
  *
  * Format: `int64`
- * @minLength 1
- * @maxLength 4294967295
+ * @minimum 1
+ * @maximum 4294967295
  * @example 12
  * @type integer
  */
@@ -15469,8 +15476,8 @@ export type AlexandriaApplicationHumanId = string;
  * @description Numeric identifier for the application.
  *
  * Format: `int64`
- * @minLength 0
- * @maxLength 4294967295
+ * @minimum 0
+ * @maximum 4294967295
  * @example 498
  * @type integer
  */
@@ -15570,8 +15577,8 @@ export type AlexandriaApplication = {
    * @description Numeric identifier for an application category.
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 4294967295
+   * @minimum 1
+   * @maximum 4294967295
    * @example 12
    * @type integer
    */
@@ -15606,8 +15613,8 @@ export type AlexandriaApplication = {
    * @description Numeric identifier for the application.
    *
    * Format: `int64`
-   * @minLength 0
-   * @maxLength 4294967295
+   * @minimum 0
+   * @maximum 4294967295
    * @example 498
    * @type integer
    */
@@ -15706,8 +15713,8 @@ export type AlexandriaApplicationListItem = {
    * @description Numeric identifier for an application category.
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 4294967295
+   * @minimum 1
+   * @maximum 4294967295
    * @example 12
    * @type integer | undefined
    */
@@ -15742,8 +15749,8 @@ export type AlexandriaApplicationListItem = {
    * @description Numeric identifier for the application.
    *
    * Format: `int64`
-   * @minLength 0
-   * @maxLength 4294967295
+   * @minimum 0
+   * @maximum 4294967295
    * @example 498
    * @type integer
    */
@@ -15862,8 +15869,8 @@ export type AlexandriaCategory = {
    * @description Numeric identifier for an application category.
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 4294967295
+   * @minimum 1
+   * @maximum 4294967295
    * @example 12
    * @type integer
    */
@@ -15897,8 +15904,8 @@ export type AlexandriaCreateApplicationRequest = ({
    * @description Numeric identifier for an application category.
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 4294967295
+   * @minimum 1
+   * @maximum 4294967295
    * @example 12
    * @type integer
    */
@@ -15944,7 +15951,7 @@ export type AlexandriaCreateApplicationRequest = ({
 export type AlexandriaDeleteApplicationConflictResponse = {
   errors: {
     /**
-     * @minLength 1000
+     * @minimum 1000
      * @type integer
      */
     code: number;
@@ -16091,7 +16098,7 @@ export type AnalyticsSqlApiErrorResponse = {
    * @description Machine-readable error code.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   code: number;
@@ -16126,7 +16133,7 @@ export type AnalyticsSqlSqlQueryStatistics = {
    * @description Number of source bytes read while executing the query.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   bytes_read: number;
@@ -16134,7 +16141,7 @@ export type AnalyticsSqlSqlQueryStatistics = {
    * @description Backend execution time in milliseconds.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   elapsed_ms: number;
@@ -16142,7 +16149,7 @@ export type AnalyticsSqlSqlQueryStatistics = {
    * @description Number of source rows read while executing the query.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   rows_read: number;
@@ -16159,7 +16166,7 @@ export type AnalyticsSqlClickHouseJsonQueryResponse = {
   /**
    * @description
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   rows: number;
@@ -16167,7 +16174,7 @@ export type AnalyticsSqlClickHouseJsonQueryResponse = {
    * @description ClickHouse pre-limit count, or rows when unavailable.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   rows_before_limit_at_least: number;
@@ -16381,7 +16388,7 @@ export type AnalyticsSqlLogExplorerQueryResponse = {
    * @description Number of rows in data.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   rows: number;
@@ -16478,7 +16485,7 @@ export type AnalyticsSqlSqlQueryResponse = {
    * @description Number of rows in `data`.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   rows: number;
@@ -16868,7 +16875,7 @@ export type ApiShieldAfter = {
  */
 export type ApiShieldMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -17491,7 +17498,7 @@ export type ApiShieldDiscoveryOperation = {
 export type ApiShieldIndex = {
   /**
    * @description Move rule to this position
-   * @minLength 1
+   * @minimum 1
    * @example 2
    * @type integer
    */
@@ -18507,7 +18514,7 @@ export type ApiShieldSchemaHosts = {
 export type ApiShieldSchemaIssueNotification = {
   /**
    * @description A unique error code that describes the kind of issue with the schema
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -18556,7 +18563,7 @@ export type ApiShieldSingleOperationResponse = ApiShieldApiResponseCommon & {
  */
 export type ArgoAnalyticsMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -18625,7 +18632,7 @@ export type ArgoAnalyticsResponseSingle = ArgoAnalyticsApiResponseSingle & {
  */
 export type ArgoConfigMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -18738,7 +18745,7 @@ export type ArgoConfigCountZonesResponse = {
   messages: ArgoConfigMessages;
   /**
    * @description The number of zones with Argo Smart Routing enabled.
-   * @minLength 0
+   * @minimum 0
    * @example 3
    * @type integer
    */
@@ -18888,7 +18895,7 @@ export type ArtDataSecurityContentFindingsTopNQuery = {
    * @description Maximum number of integrations to return.
    *
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @example 10
    * @type integer
    */
@@ -19037,7 +19044,7 @@ export type ArtQueryTopN = ArtCommonQuery & {
    * @description Maximum number of results to return.
    *
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @example 10
    * @type integer
    */
@@ -19221,7 +19228,7 @@ export type BillSubsApiAccountBillingHistory = {
  */
 export type BillSubsApiMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -21791,7 +21798,7 @@ export type BillingSpendPoliciesPolicy = {
    * @description Optimistic-concurrency version. It starts at 1 and goes up by one on every update or delete. This value is also returned in `ETag`.
    *
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @example 1
    * @type integer
    */
@@ -21849,7 +21856,7 @@ export type BillingSpendPoliciesPolicyActivityEvent = {
   /**
    * @description
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   policy_version: number;
@@ -21864,7 +21871,7 @@ export type BillingSpendPoliciesPolicyActivityResponse = BillingSpendPoliciesApi
   result_info: {
     /**
      * @description Number of entries in this response.
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     count: number;
@@ -22038,7 +22045,7 @@ export type BillingSpendPoliciesPolicyInput = {
    * @description The spend threshold for the current billing period, in US cents. Must be greater than zero.
    *
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @example 100
    * @type integer
    */
@@ -22159,7 +22166,7 @@ export type BotManagementAiUserKey = (typeof botManagementAiUser)[keyof typeof b
  */
 export type BotManagementMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -22781,7 +22788,7 @@ export type BotManagementIdentifier = string;
  */
 export type BotnetFeedApiMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -23209,14 +23216,14 @@ export type BrexExtensionEventsSearchRequest = {
    */
   includeTotal?: boolean | undefined;
   /**
-   * @minLength 1
-   * @maxLength 200
+   * @minimum 1
+   * @maximum 200
    * @default 50
    * @type integer | undefined
    */
   limit?: number | undefined;
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
@@ -23305,7 +23312,7 @@ export type BrexExtensionEventsTimeseriesSlot = {
    */
   eventName?: string | undefined;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   eventsTotal: number;
@@ -25463,7 +25470,7 @@ export type CachePurgeSingleFileWithUrlAndHeaders = {
  */
 export type CachePurgeMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -25588,7 +25595,7 @@ export type CacheSettingsAegisResponseValue = {
  */
 export type CacheSettingsMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -26119,8 +26126,8 @@ export type CacheSettingsOriginCloudRegionsListResult = {
 
 /**
  * @description Value of the Origin H2 Max Streams Setting.
- * @minLength 1
- * @maxLength 1000
+ * @minimum 1
+ * @maximum 1000
  * @example 50
  * @type integer
  */
@@ -26138,8 +26145,8 @@ export type CacheSettingsOriginH2MaxStreams = CacheSettingsBase & {
   id?: 'origin_h2_max_streams' | undefined;
   /**
    * @description Value of the Origin H2 Max Streams Setting.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @example 50
    * @type integer | undefined
    */
@@ -26573,7 +26580,7 @@ export type CacheSettingsZoneCacheSettingsResponseSingle = CacheSettingsApiRespo
  */
 export type CacheMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -26785,7 +26792,7 @@ export type CallsAccountIdentifier = string;
  */
 export type CallsMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -27514,8 +27521,8 @@ export type CcApplicationObservability = {
  * @description Grace period for active instances to stay alive before becoming eligible for shutdown signal due to a rollout, in seconds.
  * Defaults to 0.
  *
- * @minLength 0
- * @maxLength 604800
+ * @minimum 0
+ * @maximum 604800
  * @default 0
  * @type integer
  */
@@ -27591,8 +27598,8 @@ export type CcApplication = {
    * @description Grace period for active instances to stay alive before becoming eligible for shutdown signal due to a rollout, in seconds.
    * Defaults to 0.
    *
-   * @minLength 0
-   * @maxLength 604800
+   * @minimum 0
+   * @maximum 604800
    * @default 0
    * @type integer | undefined
    */
@@ -27974,13 +27981,13 @@ export type CcContainerImagePreparation = {
 export type CcContainerInstanceConfiguration = {
   /**
    * @description Disk allocated to the container instance, in decimal MB.
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   disk: number;
   /**
    * @description Memory allocated to the container instance, in MiB.
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   memory: number;
@@ -28189,8 +28196,8 @@ export type CcWranglerSSHConfig = {
    */
   enabled?: boolean | undefined;
   /**
-   * @minLength 1
-   * @maxLength 65535
+   * @minimum 1
+   * @maximum 65535
    * @default 22
    * @type integer | undefined
    */
@@ -28245,13 +28252,13 @@ export type CcDurableObjectApplicationHealth = {
   instances: {
     /**
      * @description Number of instances whose runtime reports running or stopping.
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     active: number;
     /**
      * @description Number of instances whose runtime reports starting.
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     starting: number;
@@ -28416,13 +28423,13 @@ export type CcContainersCreateScheduledApplicationRequest = {
   durable_objects?: CcDurableObjectsConfiguration | undefined;
   /**
    * @description The initial number of deployments to create.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   instances: number;
   /**
    * @description Sets the maximum number of instances that the application can run.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   max_instances: number;
@@ -28442,8 +28449,8 @@ export type CcContainersCreateScheduledApplicationRequest = {
    * @description Grace period for active instances to stay alive before becoming eligible for shutdown signal due to a rollout, in seconds.
    * Defaults to 0.
    *
-   * @minLength 0
-   * @maxLength 604800
+   * @minimum 0
+   * @maximum 604800
    * @default 0
    * @type integer | undefined
    */
@@ -28591,8 +28598,8 @@ export type CcContainersCreateApplicationRolloutRequest = {
    * @description Initial target version percentage (0-100). Version sync actively replaces instances to match.
    * Required when strategy is "new_instances" and kind is "full_manual". When strategy is "new_instances" and kind is "full_auto", omitted percentage starts at 10% or the smallest percentage that targets at least one instance. Unused for "rolling".
    *
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @type integer | undefined
    */
   percentage?: number | undefined;
@@ -28811,7 +28818,7 @@ export type CcContainersModifyApplicationRequestBody = {
   constraints?: CcApplicationConstraints | undefined;
   /**
    * @description Maximum number of instances that an autoscaling application can run.
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   max_instances?: number | undefined;
@@ -28828,8 +28835,8 @@ export type CcContainersModifyApplicationRequestBody = {
    * @description Grace period for active instances to stay alive before becoming eligible for shutdown signal due to a rollout, in seconds.
    * Defaults to 0.
    *
-   * @minLength 0
-   * @maxLength 604800
+   * @minimum 0
+   * @maximum 604800
    * @default 0
    * @type integer | undefined
    */
@@ -28888,7 +28895,7 @@ export type CcImageRegistryPermissionsKey = (typeof ccImageRegistryPermissions)[
 export type CcImageRegistryCredentialsConfiguration = {
   /**
    * @description The number of minutes Cloudflare managed registry credentials stay valid. Required for managed registries and must remain positive. Cloudflare ignores this value for external registries.
-   * @minLength 1
+   * @minimum 1
    * @type integer | undefined
    */
   expiration_minutes?: number | undefined;
@@ -28905,7 +28912,7 @@ export type CcImageRegistryCredentialsConfiguration = {
  */
 export type CcMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -28994,7 +29001,7 @@ export type CcV4PaginatedResultInfo = {
  */
 export type ClientSideSecurityMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -29267,16 +29274,16 @@ export type ClientSideSecurityCookie = {
 
 /**
  * @description The cryptomining score of the JavaScript content.
- * @minLength 1
- * @maxLength 99
+ * @minimum 1
+ * @maximum 99
  * @type integer
  */
 export type ClientSideSecurityCryptominingScore = number | null;
 
 /**
  * @description The dataflow score of the JavaScript content. This field has been deprecated in favour of js_integrity_score.
- * @minLength 1
- * @maxLength 99
+ * @minimum 1
+ * @maximum 99
  * @type integer
  */
 export type ClientSideSecurityDataflowScore = number | null;
@@ -29438,32 +29445,32 @@ export type ClientSideSecurityHash = string | null;
 
 /**
  * @description The integrity score of the JavaScript content.
- * @minLength 1
- * @maxLength 99
+ * @minimum 1
+ * @maximum 99
  * @type integer
  */
 export type ClientSideSecurityJsIntegrityScore = number | null;
 
 /**
  * @description The magecart score of the JavaScript content.
- * @minLength 1
- * @maxLength 99
+ * @minimum 1
+ * @maximum 99
  * @type integer
  */
 export type ClientSideSecurityMagecartScore = number | null;
 
 /**
  * @description The malware score of the JavaScript content.
- * @minLength 1
- * @maxLength 99
+ * @minimum 1
+ * @maximum 99
  * @type integer
  */
 export type ClientSideSecurityMalwareScore = number | null;
 
 /**
  * @description The obfuscation score of the JavaScript content. This field has been deprecated in favour of js_integrity_score.
- * @minLength 1
- * @maxLength 99
+ * @minimum 1
+ * @maximum 99
  * @type integer
  */
 export type ClientSideSecurityObfuscationScore = number | null;
@@ -29478,16 +29485,16 @@ export type ClientSideSecurityScript = {
   added_at: string;
   /**
    * @description The cryptomining score of the JavaScript content.
-   * @minLength 1
-   * @maxLength 99
+   * @minimum 1
+   * @maximum 99
    * @type integer | undefined
    */
   cryptomining_score?: (ClientSideSecurityCryptominingScore | null) | undefined;
   /**
    * @description The dataflow score of the JavaScript content. This field has been deprecated in favour of js_integrity_score.
    * @deprecated
-   * @minLength 1
-   * @maxLength 99
+   * @minimum 1
+   * @maximum 99
    * @type integer | undefined
    */
   dataflow_score?: (ClientSideSecurityDataflowScore | null) | undefined;
@@ -29534,8 +29541,8 @@ export type ClientSideSecurityScript = {
   readonly id: ClientSideSecurityId;
   /**
    * @description The integrity score of the JavaScript content.
-   * @minLength 1
-   * @maxLength 99
+   * @minimum 1
+   * @maximum 99
    * @type integer | undefined
    */
   js_integrity_score?: (ClientSideSecurityJsIntegrityScore | null) | undefined;
@@ -29548,8 +29555,8 @@ export type ClientSideSecurityScript = {
   last_seen_at: string;
   /**
    * @description The magecart score of the JavaScript content.
-   * @minLength 1
-   * @maxLength 99
+   * @minimum 1
+   * @maximum 99
    * @type integer | undefined
    */
   magecart_score?: (ClientSideSecurityMagecartScore | null) | undefined;
@@ -29565,16 +29572,16 @@ export type ClientSideSecurityScript = {
   malicious_url_categories?: string[] | undefined;
   /**
    * @description The malware score of the JavaScript content.
-   * @minLength 1
-   * @maxLength 99
+   * @minimum 1
+   * @maximum 99
    * @type integer | undefined
    */
   malware_score?: (ClientSideSecurityMalwareScore | null) | undefined;
   /**
    * @description The obfuscation score of the JavaScript content. This field has been deprecated in favour of js_integrity_score.
    * @deprecated
-   * @minLength 1
-   * @maxLength 99
+   * @minimum 1
+   * @maximum 99
    * @type integer | undefined
    */
   obfuscation_score?: (ClientSideSecurityObfuscationScore | null) | undefined;
@@ -29607,16 +29614,16 @@ export type ClientSideSecurityScript = {
 export type ClientSideSecurityVersion = {
   /**
    * @description The cryptomining score of the JavaScript content.
-   * @minLength 1
-   * @maxLength 99
+   * @minimum 1
+   * @maximum 99
    * @type integer | undefined
    */
   cryptomining_score?: (ClientSideSecurityCryptominingScore | null) | undefined;
   /**
    * @description The dataflow score of the JavaScript content. This field has been deprecated in favour of js_integrity_score.
    * @deprecated
-   * @minLength 1
-   * @maxLength 99
+   * @minimum 1
+   * @maximum 99
    * @type integer | undefined
    */
   dataflow_score?: (ClientSideSecurityDataflowScore | null) | undefined;
@@ -29634,30 +29641,30 @@ export type ClientSideSecurityVersion = {
   hash?: (ClientSideSecurityHash | null) | undefined;
   /**
    * @description The integrity score of the JavaScript content.
-   * @minLength 1
-   * @maxLength 99
+   * @minimum 1
+   * @maximum 99
    * @type integer | undefined
    */
   js_integrity_score?: (ClientSideSecurityJsIntegrityScore | null) | undefined;
   /**
    * @description The magecart score of the JavaScript content.
-   * @minLength 1
-   * @maxLength 99
+   * @minimum 1
+   * @maximum 99
    * @type integer | undefined
    */
   magecart_score?: (ClientSideSecurityMagecartScore | null) | undefined;
   /**
    * @description The malware score of the JavaScript content.
-   * @minLength 1
-   * @maxLength 99
+   * @minimum 1
+   * @maximum 99
    * @type integer | undefined
    */
   malware_score?: (ClientSideSecurityMalwareScore | null) | undefined;
   /**
    * @description The obfuscation score of the JavaScript content. This field has been deprecated in favour of js_integrity_score.
    * @deprecated
-   * @minLength 1
-   * @maxLength 99
+   * @minimum 1
+   * @maximum 99
    * @type integer | undefined
    */
   obfuscation_score?: (ClientSideSecurityObfuscationScore | null) | undefined;
@@ -29774,7 +29781,7 @@ export type ClientSideSecurityZoneSettingsResponseSingle = ClientSideSecurityApi
  */
 export type CloudConnectorMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -29955,8 +29962,8 @@ export type CloudflareK2CreateK2StreamRequest = {
   name: string;
   /**
    * @description Sets the record retention period from 1 hour (3600 seconds) to 30 days (2592000 seconds), inclusive.
-   * @minLength 3600
-   * @maxLength 2592000
+   * @minimum 3600
+   * @maximum 2592000
    * @default 604800
    * @type integer | undefined
    */
@@ -30014,8 +30021,8 @@ export type CloudflareK2K2BatchRequest = {
 export type CloudflareK2K2ConsumeRequest = {
   /**
    * @description Sets the maximum number of records to return.
-   * @minLength 1
-   * @maxLength 10000
+   * @minimum 1
+   * @maximum 10000
    * @example 100
    * @type integer
    */
@@ -30289,8 +30296,8 @@ export type CloudflareK2K2Stream = {
   name: string;
   /**
    * @description Shows the configured record retention period from 1 hour (3600 seconds) to 30 days (2592000 seconds), inclusive.
-   * @minLength 3600
-   * @maxLength 2592000
+   * @minimum 3600
+   * @maximum 2592000
    * @example 604800
    * @type integer
    */
@@ -30428,8 +30435,8 @@ export type CloudflareK2UpdateK2StreamRequest = {
   http?: CloudflareK2K2StreamHttpInput | undefined;
   /**
    * @description Sets the record retention period from 1 hour (3600 seconds) to 30 days (2592000 seconds), inclusive.
-   * @minLength 3600
-   * @maxLength 2592000
+   * @minimum 3600
+   * @maximum 2592000
    * @type integer | undefined
    */
   retention_seconds?: number | undefined;
@@ -30552,7 +30559,7 @@ export type CloudflarePipelinesParquetFormat = {
   /**
    * @description
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   row_group_bytes?: (number | null) | undefined;
@@ -30578,7 +30585,7 @@ export type CloudflarePipelinesPipelineEdge = {
   /**
    * @description
    * Format: `int32`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   dest_id: number;
@@ -30587,7 +30594,7 @@ export type CloudflarePipelinesPipelineEdge = {
   /**
    * @description
    * Format: `int32`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   src_id: number;
@@ -30599,7 +30606,7 @@ export type CloudflarePipelinesPipelineNode = {
   /**
    * @description
    * Format: `int32`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   node_id: number;
@@ -30607,7 +30614,7 @@ export type CloudflarePipelinesPipelineNode = {
   /**
    * @description
    * Format: `int32`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   parallelism: number;
@@ -30733,7 +30740,7 @@ export type CloudflarePipelinesR2Table = {
      * @description Files will be rolled after reaching this number of bytes
      *
      * Format: `uint64`
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     file_size_bytes?: number | undefined;
@@ -30741,7 +30748,7 @@ export type CloudflarePipelinesR2Table = {
      * @description Number of seconds of inactivity to wait before rolling over to a new file
      *
      * Format: `uint64`
-     * @minLength 1
+     * @minimum 1
      * @type integer | undefined
      */
     inactivity_seconds?: number | undefined;
@@ -30749,7 +30756,7 @@ export type CloudflarePipelinesR2Table = {
      * @description Number of seconds to wait before rolling over to a new file
      *
      * Format: `uint64`
-     * @minLength 1
+     * @minimum 1
      * @type integer | undefined
      */
     interval_seconds?: number | undefined;
@@ -30832,7 +30839,7 @@ export type CloudflarePipelinesR2TablePublic = {
      * @description Files will be rolled after reaching this number of bytes
      *
      * Format: `uint64`
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     file_size_bytes?: number | undefined;
@@ -30840,7 +30847,7 @@ export type CloudflarePipelinesR2TablePublic = {
      * @description Number of seconds of inactivity to wait before rolling over to a new file
      *
      * Format: `uint64`
-     * @minLength 1
+     * @minimum 1
      * @type integer | undefined
      */
     inactivity_seconds?: number | undefined;
@@ -30848,7 +30855,7 @@ export type CloudflarePipelinesR2TablePublic = {
      * @description Number of seconds to wait before rolling over to a new file
      *
      * Format: `uint64`
-     * @minLength 1
+     * @minimum 1
      * @type integer | undefined
      */
     interval_seconds?: number | undefined;
@@ -30888,7 +30895,7 @@ export type CloudflarePipelinesR2DataCatalogTable = {
      * @description Files will be rolled after reaching this number of bytes
      *
      * Format: `uint64`
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     file_size_bytes?: number | undefined;
@@ -30896,7 +30903,7 @@ export type CloudflarePipelinesR2DataCatalogTable = {
      * @description Number of seconds of inactivity to wait before rolling over to a new file
      *
      * Format: `uint64`
-     * @minLength 1
+     * @minimum 1
      * @type integer | undefined
      */
     inactivity_seconds?: number | undefined;
@@ -30904,7 +30911,7 @@ export type CloudflarePipelinesR2DataCatalogTable = {
      * @description Number of seconds to wait before rolling over to a new file
      *
      * Format: `uint64`
-     * @minLength 1
+     * @minimum 1
      * @type integer | undefined
      */
     interval_seconds?: number | undefined;
@@ -30957,7 +30964,7 @@ export type CloudflarePipelinesR2DataCatalogTablePublic = {
      * @description Files will be rolled after reaching this number of bytes
      *
      * Format: `uint64`
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     file_size_bytes?: number | undefined;
@@ -30965,7 +30972,7 @@ export type CloudflarePipelinesR2DataCatalogTablePublic = {
      * @description Number of seconds of inactivity to wait before rolling over to a new file
      *
      * Format: `uint64`
-     * @minLength 1
+     * @minimum 1
      * @type integer | undefined
      */
     inactivity_seconds?: number | undefined;
@@ -30973,7 +30980,7 @@ export type CloudflarePipelinesR2DataCatalogTablePublic = {
      * @description Number of seconds to wait before rolling over to a new file
      *
      * Format: `uint64`
-     * @minLength 1
+     * @minimum 1
      * @type integer | undefined
      */
     interval_seconds?: number | undefined;
@@ -31058,24 +31065,24 @@ export type CloudflarePipelinesWorkersPipelinesPipeline = {
     batch: {
       /**
        * @description Specifies rough maximum size of files.
-       * @minLength 1000
-       * @maxLength 100000000
+       * @minimum 1000
+       * @maximum 100000000
        * @default 100000000
        * @type integer
        */
       max_bytes: number;
       /**
        * @description Specifies duration to wait to aggregate batches files.
-       * @minLength 0.25
-       * @maxLength 300
+       * @minimum 0.25
+       * @maximum 300
        * @default 300
        * @type number
        */
       max_duration_s: number;
       /**
        * @description Specifies rough maximum number of rows per file.
-       * @minLength 100
-       * @maxLength 10000000
+       * @minimum 100
+       * @maximum 10000000
        * @default 10000000
        * @type integer
        */
@@ -31298,8 +31305,8 @@ export type CloudforceOneEventsRelationshipEdgeEntityTypeEnumKey = (typeof cloud
 export type CloudforceOneEventsRelationshipEdge = {
   /**
    * @description Confidence score 0–100, or null.
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @type integer
    */
   confidence: number | null;
@@ -31355,7 +31362,7 @@ export type CloudforceOneEventsRelationshipEdge = {
  */
 export type CloudforceOnePortScanApiMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -31481,7 +31488,7 @@ export type CloudforceOnePortScanApiScanConfig = {
  */
 export type CloudforceOneRequestsMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -32203,7 +32210,7 @@ export type CloudforceOneRequestsRequestTypes = string[];
  */
 export type CloudforceOneWhoisSchemasMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -32239,7 +32246,7 @@ export type CloudforceOneWhoisApiResponseCommon = {
  */
 export type CloudforceOneWhoisMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -33585,8 +33592,8 @@ export type CloudforceOneRuleApprovalsListResponse = {
 export type CloudforceOneRuleSearchResult = CloudforceOneRulePreview & {
   /**
    * @description Relevance score in [0,1]. Present only when AI Search powers the query.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @example 0.87
    * @type number | undefined
    */
@@ -33643,7 +33650,7 @@ export type CloudforceOneRulesSearchResponse = {
   mode: string;
   results: CloudforceOneRuleSearchResult[];
   /**
-   * @minLength 0
+   * @minimum 0
    * @example 12
    * @type integer
    */
@@ -33782,7 +33789,7 @@ export type CloudforceOneValidationResponse = {
 export type CpsApiResponseMessage = {
   /**
    * @description Error or message code.
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -34180,7 +34187,7 @@ export type CsamConfigServiceZoneIdentifier = string;
  */
 export type CustomIndicatorFeedsMessages2 = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -34218,7 +34225,7 @@ export type CustomIndicatorFeedsApiResponseSingle = CustomIndicatorFeedsApiRespo
  */
 export type CustomIndicatorFeedsMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -34834,7 +34841,7 @@ export type CustomIndicatorFeedsUploadStatusStageEnumKey = (typeof customIndicat
 
 export type CustomIndicatorFeedsUploadStatus = {
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   attempts: number;
@@ -34858,8 +34865,8 @@ export type CustomIndicatorFeedsUploadStatus = {
   filename: string;
   /**
    * @description Recommended delay before the next poll; 0 means terminal.
-   * @minLength 0
-   * @maxLength 30
+   * @minimum 0
+   * @maximum 30
    * @type integer
    */
   poll_after_seconds: number;
@@ -34900,7 +34907,7 @@ export type CustomIndicatorFeedsUploadStatusResponse = CustomIndicatorFeedsApiRe
  */
 export type CustomPagesMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -37015,7 +37022,7 @@ export type D1AccountIdentifier = string;
  */
 export type D1Messages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -37495,7 +37502,7 @@ export type DigitalExperienceMonitoringAggregateTimeSlot = {
  */
 export type DigitalExperienceMonitoringMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -37719,8 +37726,8 @@ export type DigitalExperienceMonitoringCpuPctByApp = {
    * @description CPU usage percentage, on a scale of 0 to 100.
    *
    * Format: `float`
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @type number | undefined
    */
   cpu_pct?: (number | null) | undefined;
@@ -37788,8 +37795,8 @@ export type DigitalExperienceMonitoringRamUsedPctByApp = {
    * @description RAM usage percentage, on a scale of 0 to 100.
    *
    * Format: `float`
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @type number | undefined
    */
   ram_used_pct?: (number | null) | undefined;
@@ -38931,7 +38938,7 @@ export type DigitalExperienceMonitoringListRulesResponse = {
 
 /**
  * @description Page number of paginated results.
- * @minLength 1
+ * @minimum 1
  * @default 1
  * @example 1
  * @type number
@@ -38954,8 +38961,8 @@ export type DigitalExperienceMonitoringPatchRuleBody = {
 
 /**
  * @description Number of results per page.
- * @minLength 1
- * @maxLength 50
+ * @minimum 1
+ * @maximum 50
  * @example 10
  * @type number
  */
@@ -39013,8 +39020,8 @@ export type DigitalExperienceMonitoringPostCommandsResponse = {
 
 /**
  * @description Number of minutes before current time.
- * @minLength 1
- * @maxLength 60
+ * @minimum 1
+ * @maximum 60
  * @default 10
  * @example 10
  * @type number
@@ -40087,8 +40094,8 @@ export type DlpCustomProfile = {
    * @description Related DLP policies will trigger when the match count exceeds the number set.
    *
    * Format: `int32`
-   * @minLength 0
-   * @maxLength 1000
+   * @minimum 0
+   * @maximum 1000
    * @default 0
    * @example 5
    * @type integer
@@ -40531,7 +40538,7 @@ export type DlpDataset = {
   /**
    * @description
    * Format: `int32`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   encoding_version: number;
@@ -40572,14 +40579,14 @@ export type DlpDatasetCreation = {
    * @description Encoding version to use for dataset.
    *
    * Format: `int32`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   encoding_version: number;
   /**
    * @description
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   max_cells: number;
@@ -40607,14 +40614,14 @@ export type DlpDatasetNewVersion = {
   /**
    * @description
    * Format: `int32`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   encoding_version: number;
   /**
    * @description
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   max_cells: number;
@@ -40872,7 +40879,7 @@ export type DlpEmailRule = {
   /**
    * @description
    * Format: `int32`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   priority: number;
@@ -41074,7 +41081,7 @@ export type DlpLimits = {
    * @description Maximum number of custom regex entries allowed for the account.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   max_custom_regex_entries: number;
@@ -41082,7 +41089,7 @@ export type DlpLimits = {
    * @description Maximum number of dataset cells allowed for the account, across all EDM and CWL datasets.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   max_dataset_cells: number;
@@ -41090,7 +41097,7 @@ export type DlpLimits = {
    * @description Maximum number of document fingerprints allowed for the account.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   max_document_fingerprints: number;
@@ -41098,7 +41105,7 @@ export type DlpLimits = {
    * @description Number of custom regex entries currently configured for the account.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   used_custom_regex_entries: number;
@@ -41106,7 +41113,7 @@ export type DlpLimits = {
    * @description Number of dataset cells currently configured for the account, across all EDM and CWL datasets. Document fingerprints do not count towards this limit.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   used_dataset_cells: number;
@@ -41114,7 +41121,7 @@ export type DlpLimits = {
    * @description Number of document fingerprints currently configured for the account.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   used_document_fingerprints: number;
@@ -41140,8 +41147,8 @@ export type DlpNewCustomProfile = {
    * @description Related DLP policies will trigger when the match count exceeds the number set.
    *
    * Format: `int32`
-   * @minLength 0
-   * @maxLength 1000
+   * @minimum 0
+   * @maximum 1000
    * @default 0
    * @example 5
    * @type integer | undefined
@@ -41262,7 +41269,7 @@ export type DlpNewDataset = {
    * the same as 1.
    *
    * Format: `int32`
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   encoding_version?: number | undefined;
@@ -41291,7 +41298,7 @@ export type DlpNewDatasetColumn = ({
   /**
    * @description
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   num_cells: number;
@@ -41374,8 +41381,8 @@ export type DlpPredefinedProfileUpdate = {
   /**
    * @description
    * Format: `int32`
-   * @minLength 0
-   * @maxLength 1000
+   * @minimum 0
+   * @maximum 1000
    * @default 0
    * @example 5
    * @type integer | undefined
@@ -41582,8 +41589,8 @@ export type DlpPredefinedProfileConfigUpdate = {
   /**
    * @description
    * Format: `int32`
-   * @minLength 0
-   * @maxLength 1000
+   * @minimum 0
+   * @maximum 1000
    * @default 0
    * @example 5
    * @type integer | undefined
@@ -41665,7 +41672,7 @@ export type DlpValidatorReferences = {
    * @description Number of detection entries this validator is attached to.
    *
    * Format: `int32`
-   * @minLength 0
+   * @minimum 0
    * @example 3
    * @type integer
    */
@@ -41763,7 +41770,7 @@ export type DlpRegexValidationQuery = {
    * has a maximum length of 1024 bytes.
    *
    * Format: `int32`
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   max_match_bytes?: (number | null) | undefined;
@@ -41850,7 +41857,7 @@ export type DlpRiskScoreIntegrationArray = DlpRiskScoreIntegration[];
 export type DlpUserRiskInfo = {
   email: string;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   event_count: number;
@@ -42155,7 +42162,7 @@ export type DlpWorkerValidatorWrite = {
  */
 export type DlpMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -42269,7 +42276,7 @@ export type DlsCreatePrefixBindingInput = {
 
 export type DlsCodedMessage = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -42431,7 +42438,7 @@ export type DlsAccountIdentifier = string;
  */
 export type DlsMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -42590,7 +42597,7 @@ export type DlsRegionalHostnameResponse = {
  */
 export type DnsAnalyticsMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -42767,7 +42774,7 @@ export type DnsAnalyticsResult = {
   data: DnsAnalyticsData;
   /**
    * @description Number of seconds between current time and last processed event, in another words how many seconds of data could be missing.
-   * @minLength 0
+   * @minimum 0
    * @example 60
    * @type number
    */
@@ -42785,7 +42792,7 @@ export type DnsAnalyticsResult = {
   query: DnsAnalyticsQuery;
   /**
    * @description Total number of rows in the result.
-   * @minLength 0
+   * @minimum 0
    * @example 100
    * @type number
    */
@@ -42864,8 +42871,8 @@ export type DnsCustomNameserversNsName = string;
 
 /**
  * @description The number of the set that this name server belongs to.
- * @minLength 1
- * @maxLength 5
+ * @minimum 1
+ * @maximum 5
  * @default 1
  * @example 1
  * @type number
@@ -42928,8 +42935,8 @@ export type DnsCustomNameserversCustomNS = {
   ns_name: DnsCustomNameserversNsName;
   /**
    * @description The number of the set that this name server belongs to.
-   * @minLength 1
-   * @maxLength 5
+   * @minimum 1
+   * @maximum 5
    * @default 1
    * @example 1
    * @type number | undefined
@@ -42999,8 +43006,8 @@ export type DnsCustomNameserversCustomNS2 = {
   ns_name: DnsCustomNameserversNsName;
   /**
    * @description The number of the set that this name server belongs to.
-   * @minLength 1
-   * @maxLength 5
+   * @minimum 1
+   * @maximum 5
    * @default 1
    * @example 1
    * @type number | undefined
@@ -43033,8 +43040,8 @@ export type DnsCustomNameserversCustomNSInput = {
   ns_name: DnsCustomNameserversNsName;
   /**
    * @description The number of the set that this name server belongs to.
-   * @minLength 1
-   * @maxLength 5
+   * @minimum 1
+   * @maximum 5
    * @default 1
    * @example 1
    * @type number | undefined
@@ -43048,7 +43055,7 @@ export type DnsCustomNameserversCustomNSInput = {
  */
 export type DnsCustomNameserversMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -43168,8 +43175,8 @@ export type DnsCustomNameserversZoneMetadata = {
   enabled?: boolean | undefined;
   /**
    * @description The number of the name server set to assign to the zone.
-   * @minLength 1
-   * @maxLength 5
+   * @minimum 1
+   * @maximum 5
    * @default 1
    * @example 1
    * @type number | undefined
@@ -43213,7 +43220,7 @@ export type DnsCustomNameserversTcnsResponseSingle = DnsCustomNameserversApiResp
  */
 export type DnsFirewallMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -43344,8 +43351,8 @@ export type DnsFirewallEcsFallback = boolean;
  * Cloudflare returns to clients. Cloudflare will always forward the TTL
  * value received from upstream nameservers.
  *
- * @minLength 30
- * @maxLength 36000
+ * @minimum 30
+ * @maximum 36000
  * @default 900
  * @example 900
  * @type number
@@ -43367,8 +43374,8 @@ export type DnsFirewallMaximumCacheTtl = number;
  * responses may be removed earlier for capacity or other operational
  * reasons.
  *
- * @minLength 30
- * @maxLength 36000
+ * @minimum 30
+ * @maximum 36000
  * @default 60
  * @example 60
  * @type number
@@ -43392,8 +43399,8 @@ export type DnsFirewallName = string;
  * Cloudflare returns to clients. Cloudflare will always forward the TTL
  * value received from upstream nameservers.
  *
- * @minLength 30
- * @maxLength 36000
+ * @minimum 30
+ * @maximum 36000
  * @example 900
  * @type number
  */
@@ -43401,8 +43408,8 @@ export type DnsFirewallNegativeCacheTtl = number | null;
 
 /**
  * @description Maximum number of DNS queries per second that will be forwarded to your upstream nameservers. The limit is enforced per server, where each server receives a fraction of the configured value. The actual aggregate rate for a data center may vary depending on how many servers are present. Responses served from cache do not count toward this limit. Set to null to disable rate limiting.
- * @minLength 100
- * @maxLength 1000000000
+ * @minimum 100
+ * @maximum 1000000000
  * @example 600
  * @type number
  */
@@ -43410,8 +43417,8 @@ export type DnsFirewallRatelimit = number | null;
 
 /**
  * @description Number of retries for fetching DNS responses from upstream nameservers (not counting the initial attempt)
- * @minLength 0
- * @maxLength 2
+ * @minimum 0
+ * @maximum 2
  * @default 2
  * @example 2
  * @type number
@@ -43452,8 +43459,8 @@ export type DnsFirewallDnsFirewallCluster = {
    * Cloudflare returns to clients. Cloudflare will always forward the TTL
    * value received from upstream nameservers.
    *
-   * @minLength 30
-   * @maxLength 36000
+   * @minimum 30
+   * @maximum 36000
    * @default 900
    * @example 900
    * @type number | undefined
@@ -43474,8 +43481,8 @@ export type DnsFirewallDnsFirewallCluster = {
    * responses may be removed earlier for capacity or other operational
    * reasons.
    *
-   * @minLength 30
-   * @maxLength 36000
+   * @minimum 30
+   * @maximum 36000
    * @default 60
    * @example 60
    * @type number | undefined
@@ -43497,24 +43504,24 @@ export type DnsFirewallDnsFirewallCluster = {
    * Cloudflare returns to clients. Cloudflare will always forward the TTL
    * value received from upstream nameservers.
    *
-   * @minLength 30
-   * @maxLength 36000
+   * @minimum 30
+   * @maximum 36000
    * @example 900
    * @type number | undefined
    */
   negative_cache_ttl?: (DnsFirewallNegativeCacheTtl | null) | undefined;
   /**
    * @description Maximum number of DNS queries per second that will be forwarded to your upstream nameservers. The limit is enforced per server, where each server receives a fraction of the configured value. The actual aggregate rate for a data center may vary depending on how many servers are present. Responses served from cache do not count toward this limit. Set to null to disable rate limiting.
-   * @minLength 100
-   * @maxLength 1000000000
+   * @minimum 100
+   * @maximum 1000000000
    * @example 600
    * @type number | undefined
    */
   ratelimit?: (DnsFirewallRatelimit | null) | undefined;
   /**
    * @description Number of retries for fetching DNS responses from upstream nameservers (not counting the initial attempt)
-   * @minLength 0
-   * @maxLength 2
+   * @minimum 0
+   * @maximum 2
    * @default 2
    * @example 2
    * @type number | undefined
@@ -43531,8 +43538,8 @@ export type DnsFirewallDnsFirewallClusterPatch = DnsFirewallDnsFirewallCluster;
 
 /**
  * @description Number of IPv4 addresses to assign to the DNS Firewall cluster. Only used during cluster creation and cannot be changed later.
- * @minLength 1
- * @maxLength 10
+ * @minimum 1
+ * @maximum 10
  * @default 2
  * @example 2
  * @type integer
@@ -43542,8 +43549,8 @@ export type DnsFirewallDnsFirewallIpCount = number;
 export type DnsFirewallDnsFirewallClusterPost = DnsFirewallDnsFirewallCluster & {
   /**
    * @description Number of IPv4 addresses to assign to the DNS Firewall cluster. Only used during cluster creation and cannot be changed later.
-   * @minLength 1
-   * @maxLength 10
+   * @minimum 1
+   * @maximum 10
    * @default 2
    * @example 2
    * @type integer | undefined
@@ -43641,8 +43648,8 @@ export type DnsFirewallDnsFirewallClusterResponse = DnsFirewallDnsFirewallCluste
    * responses may be removed earlier for capacity or other operational
    * reasons.
    *
-   * @minLength 30
-   * @maxLength 36000
+   * @minimum 30
+   * @maximum 36000
    * @default 60
    * @example 60
    * @type number
@@ -43659,8 +43666,8 @@ export type DnsFirewallDnsFirewallClusterResponse = DnsFirewallDnsFirewallCluste
    * Cloudflare returns to clients. Cloudflare will always forward the TTL
    * value received from upstream nameservers.
    *
-   * @minLength 30
-   * @maxLength 36000
+   * @minimum 30
+   * @maximum 36000
    * @default 900
    * @example 900
    * @type number
@@ -43675,8 +43682,8 @@ export type DnsFirewallDnsFirewallClusterResponse = DnsFirewallDnsFirewallCluste
    * Cloudflare returns to clients. Cloudflare will always forward the TTL
    * value received from upstream nameservers.
    *
-   * @minLength 30
-   * @maxLength 36000
+   * @minimum 30
+   * @maximum 36000
    * @example 900
    * @type number
    */
@@ -43698,8 +43705,8 @@ export type DnsFirewallDnsFirewallClusterResponse = DnsFirewallDnsFirewallCluste
 } & {
   /**
    * @description Maximum number of DNS queries per second that will be forwarded to your upstream nameservers. The limit is enforced per server, where each server receives a fraction of the configured value. The actual aggregate rate for a data center may vary depending on how many servers are present. Responses served from cache do not count toward this limit. Set to null to disable rate limiting.
-   * @minLength 100
-   * @maxLength 1000000000
+   * @minimum 100
+   * @maximum 1000000000
    * @example 600
    * @type number
    */
@@ -43707,8 +43714,8 @@ export type DnsFirewallDnsFirewallClusterResponse = DnsFirewallDnsFirewallCluste
 } & {
   /**
    * @description Number of retries for fetching DNS responses from upstream nameservers (not counting the initial attempt)
-   * @minLength 0
-   * @maxLength 2
+   * @minimum 0
+   * @maximum 2
    * @default 2
    * @example 2
    * @type number
@@ -43911,8 +43918,8 @@ export type DnsRecordsCAARecord = DnsRecordsDnsRecordSharedFields & {
   data?: {
     /**
      * @description Flags for the CAA record.
-     * @minLength 0
-     * @maxLength 255
+     * @minimum 0
+     * @maximum 255
      * @example 1
      * @type number | undefined
      */
@@ -43950,8 +43957,8 @@ export type DnsRecordsCERTRecord = DnsRecordsDnsRecordSharedFields & {
   data?: {
     /**
      * @description Algorithm.
-     * @minLength 0
-     * @maxLength 255
+     * @minimum 0
+     * @maximum 255
      * @example 8
      * @type number | undefined
      */
@@ -43963,16 +43970,16 @@ export type DnsRecordsCERTRecord = DnsRecordsDnsRecordSharedFields & {
     certificate?: string | undefined;
     /**
      * @description Key Tag.
-     * @minLength 0
-     * @maxLength 65535
+     * @minimum 0
+     * @maximum 65535
      * @example 1
      * @type number | undefined
      */
     key_tag?: number | undefined;
     /**
      * @description Type.
-     * @minLength 0
-     * @maxLength 65535
+     * @minimum 0
+     * @maximum 65535
      * @example 9
      * @type number | undefined
      */
@@ -44022,24 +44029,24 @@ export type DnsRecordsDNSKEYRecord = DnsRecordsDnsRecordSharedFields & {
   data?: {
     /**
      * @description Algorithm.
-     * @minLength 0
-     * @maxLength 255
+     * @minimum 0
+     * @maximum 255
      * @example 5
      * @type number | undefined
      */
     algorithm?: number | undefined;
     /**
      * @description Flags.
-     * @minLength 0
-     * @maxLength 65535
+     * @minimum 0
+     * @maximum 65535
      * @example 1
      * @type number | undefined
      */
     flags?: number | undefined;
     /**
      * @description Protocol.
-     * @minLength 0
-     * @maxLength 255
+     * @minimum 0
+     * @maximum 255
      * @example 3
      * @type number | undefined
      */
@@ -44071,8 +44078,8 @@ export type DnsRecordsDSRecord = DnsRecordsDnsRecordSharedFields & {
   data?: {
     /**
      * @description Algorithm.
-     * @minLength 0
-     * @maxLength 255
+     * @minimum 0
+     * @maximum 255
      * @example 3
      * @type number | undefined
      */
@@ -44084,16 +44091,16 @@ export type DnsRecordsDSRecord = DnsRecordsDnsRecordSharedFields & {
     digest?: string | undefined;
     /**
      * @description Digest Type.
-     * @minLength 0
-     * @maxLength 255
+     * @minimum 0
+     * @maximum 255
      * @example 1
      * @type number | undefined
      */
     digest_type?: number | undefined;
     /**
      * @description Key Tag.
-     * @minLength 0
-     * @maxLength 65535
+     * @minimum 0
+     * @maximum 65535
      * @example 1
      * @type number | undefined
      */
@@ -44120,8 +44127,8 @@ export type DnsRecordsHTTPSRecord = DnsRecordsDnsRecordSharedFields & {
   data?: {
     /**
      * @description Priority.
-     * @minLength 0
-     * @maxLength 65535
+     * @minimum 0
+     * @maximum 65535
      * @example 1
      * @type number | undefined
      */
@@ -44175,16 +44182,16 @@ export type DnsRecordsLOCRecord = DnsRecordsDnsRecordSharedFields & {
   data?: {
     /**
      * @description Altitude of location in meters.
-     * @minLength -100000
-     * @maxLength 42849672.95
+     * @minimum -100000
+     * @maximum 42849672.95
      * @example 0
      * @type number | undefined
      */
     altitude?: number | undefined;
     /**
      * @description Degrees of latitude.
-     * @minLength 0
-     * @maxLength 90
+     * @minimum 0
+     * @maximum 90
      * @example 37
      * @type number | undefined
      */
@@ -44197,24 +44204,24 @@ export type DnsRecordsLOCRecord = DnsRecordsDnsRecordSharedFields & {
     lat_direction?: DnsRecordsLOCRecordDataLatDirectionEnumKey | undefined;
     /**
      * @description Minutes of latitude.
-     * @minLength 0
-     * @maxLength 59
+     * @minimum 0
+     * @maximum 59
      * @example 46
      * @type number | undefined
      */
     lat_minutes?: number | undefined;
     /**
      * @description Seconds of latitude.
-     * @minLength 0
-     * @maxLength 59.999
+     * @minimum 0
+     * @maximum 59.999
      * @example 46
      * @type number | undefined
      */
     lat_seconds?: number | undefined;
     /**
      * @description Degrees of longitude.
-     * @minLength 0
-     * @maxLength 180
+     * @minimum 0
+     * @maximum 180
      * @example 122
      * @type number | undefined
      */
@@ -44227,40 +44234,40 @@ export type DnsRecordsLOCRecord = DnsRecordsDnsRecordSharedFields & {
     long_direction?: DnsRecordsLOCRecordDataLongDirectionEnumKey | undefined;
     /**
      * @description Minutes of longitude.
-     * @minLength 0
-     * @maxLength 59
+     * @minimum 0
+     * @maximum 59
      * @example 23
      * @type number | undefined
      */
     long_minutes?: number | undefined;
     /**
      * @description Seconds of longitude.
-     * @minLength 0
-     * @maxLength 59.999
+     * @minimum 0
+     * @maximum 59.999
      * @example 35
      * @type number | undefined
      */
     long_seconds?: number | undefined;
     /**
      * @description Horizontal precision of location.
-     * @minLength 0
-     * @maxLength 90000000
+     * @minimum 0
+     * @maximum 90000000
      * @example 0
      * @type number | undefined
      */
     precision_horz?: number | undefined;
     /**
      * @description Vertical precision of location.
-     * @minLength 0
-     * @maxLength 90000000
+     * @minimum 0
+     * @maximum 90000000
      * @example 0
      * @type number | undefined
      */
     precision_vert?: number | undefined;
     /**
      * @description Size of location in meters.
-     * @minLength 0
-     * @maxLength 90000000
+     * @minimum 0
+     * @maximum 90000000
      * @example 100
      * @type number | undefined
      */
@@ -44276,8 +44283,8 @@ export type DnsRecordsLOCRecord = DnsRecordsDnsRecordSharedFields & {
 
 /**
  * @description Required for MX and URI records; ignored for other record types (but may still be returned by the API). Records with lower priorities are preferred. This field is to be deprecated in favor of the priority field within the data map.
- * @minLength 0
- * @maxLength 65535
+ * @minimum 0
+ * @maximum 65535
  * @example 10
  * @type number
  */
@@ -44294,8 +44301,8 @@ export type DnsRecordsMXRecord = DnsRecordsDnsRecordSharedFields & {
   content?: string | undefined;
   /**
    * @description Required for MX and URI records; ignored for other record types (but may still be returned by the API). Records with lower priorities are preferred. This field is to be deprecated in favor of the priority field within the data map.
-   * @minLength 0
-   * @maxLength 65535
+   * @minimum 0
+   * @maximum 65535
    * @example 10
    * @type number | undefined
    */
@@ -44326,16 +44333,16 @@ export type DnsRecordsNAPTRRecord = DnsRecordsDnsRecordSharedFields & {
     flags?: string | undefined;
     /**
      * @description Order.
-     * @minLength 0
-     * @maxLength 65535
+     * @minimum 0
+     * @maximum 65535
      * @example 100
      * @type number | undefined
      */
     order?: number | undefined;
     /**
      * @description Preference.
-     * @minLength 0
-     * @maxLength 65535
+     * @minimum 0
+     * @maximum 65535
      * @example 10
      * @type number | undefined
      */
@@ -44426,24 +44433,24 @@ export type DnsRecordsSMIMEARecord = DnsRecordsDnsRecordSharedFields & {
     certificate?: string | undefined;
     /**
      * @description Matching Type.
-     * @minLength 0
-     * @maxLength 255
+     * @minimum 0
+     * @maximum 255
      * @example 0
      * @type number | undefined
      */
     matching_type?: number | undefined;
     /**
      * @description Selector.
-     * @minLength 0
-     * @maxLength 255
+     * @minimum 0
+     * @maximum 255
      * @example 0
      * @type number | undefined
      */
     selector?: number | undefined;
     /**
      * @description Usage.
-     * @minLength 0
-     * @maxLength 255
+     * @minimum 0
+     * @maximum 255
      * @example 3
      * @type number | undefined
      */
@@ -44471,16 +44478,16 @@ export type DnsRecordsSRVRecord = DnsRecordsDnsRecordSharedFields & {
   data?: {
     /**
      * @description The port of the service.
-     * @minLength 0
-     * @maxLength 65535
+     * @minimum 0
+     * @maximum 65535
      * @example 8806
      * @type number | undefined
      */
     port?: number | undefined;
     /**
      * @description Required for MX and URI records; ignored for other record types (but may still be returned by the API). Records with lower priorities are preferred. This field is to be deprecated in favor of the priority field within the data map.
-     * @minLength 0
-     * @maxLength 65535
+     * @minimum 0
+     * @maximum 65535
      * @example 10
      * @type number | undefined
      */
@@ -44495,8 +44502,8 @@ export type DnsRecordsSRVRecord = DnsRecordsDnsRecordSharedFields & {
     target?: string | undefined;
     /**
      * @description The record weight.
-     * @minLength 0
-     * @maxLength 65535
+     * @minimum 0
+     * @maximum 65535
      * @example 5
      * @type number | undefined
      */
@@ -44523,8 +44530,8 @@ export type DnsRecordsSSHFPRecord = DnsRecordsDnsRecordSharedFields & {
   data?: {
     /**
      * @description Algorithm.
-     * @minLength 0
-     * @maxLength 255
+     * @minimum 0
+     * @maximum 255
      * @example 2
      * @type number | undefined
      */
@@ -44536,8 +44543,8 @@ export type DnsRecordsSSHFPRecord = DnsRecordsDnsRecordSharedFields & {
     fingerprint?: string | undefined;
     /**
      * @description Type.
-     * @minLength 0
-     * @maxLength 255
+     * @minimum 0
+     * @maximum 255
      * @example 1
      * @type number | undefined
      */
@@ -44564,8 +44571,8 @@ export type DnsRecordsSVCBRecord = DnsRecordsDnsRecordSharedFields & {
   data?: {
     /**
      * @description Priority.
-     * @minLength 0
-     * @maxLength 65535
+     * @minimum 0
+     * @maximum 65535
      * @example 1
      * @type number | undefined
      */
@@ -44609,24 +44616,24 @@ export type DnsRecordsTLSARecord = DnsRecordsDnsRecordSharedFields & {
     certificate?: string | undefined;
     /**
      * @description Matching Type.
-     * @minLength 0
-     * @maxLength 255
+     * @minimum 0
+     * @maximum 255
      * @example 1
      * @type number | undefined
      */
     matching_type?: number | undefined;
     /**
      * @description Selector.
-     * @minLength 0
-     * @maxLength 255
+     * @minimum 0
+     * @maximum 255
      * @example 0
      * @type number | undefined
      */
     selector?: number | undefined;
     /**
      * @description Usage.
-     * @minLength 0
-     * @maxLength 255
+     * @minimum 0
+     * @maximum 255
      * @example 0
      * @type number | undefined
      */
@@ -44676,8 +44683,8 @@ export type DnsRecordsURIRecord = DnsRecordsDnsRecordSharedFields & {
     target?: string | undefined;
     /**
      * @description The record weight.
-     * @minLength 0
-     * @maxLength 65535
+     * @minimum 0
+     * @maximum 65535
      * @example 20
      * @type number | undefined
      */
@@ -44685,8 +44692,8 @@ export type DnsRecordsURIRecord = DnsRecordsDnsRecordSharedFields & {
   } | undefined;
   /**
    * @description Required for MX and URI records; ignored for other record types (but may still be returned by the API). Records with lower priorities are preferred. This field is to be deprecated in favor of the priority field within the data map.
-   * @minLength 0
-   * @maxLength 65535
+   * @minimum 0
+   * @maximum 65535
    * @example 10
    * @type number | undefined
    */
@@ -44705,7 +44712,7 @@ export type DnsRecordsURIRecord = DnsRecordsDnsRecordSharedFields & {
  */
 export type DnsRecordsMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -44907,8 +44914,8 @@ export type DnsRecordsDnsRecordResponse = (DnsRecordsDnsRecordWithoutData | DnsR
     /**
      * @description Number of records shadowed by this NS delegation. See [Shadowed records](https://developers.cloudflare.com/dns/manage-dns-records/reference/shadowed-records).
      *
-     * @minLength 0
-     * @maxLength 10000
+     * @minimum 0
+     * @maximum 10000
      * @example 42
      * @type integer | undefined
      */
@@ -44986,28 +44993,28 @@ export type DnsRecordsDnsResponseAccountUsage = DnsRecordsApiResponseSingle & {
   result?: {
     /**
      * @description Maximum number of DNS records allowed across all internal zones in the account. Only present if internal DNS is enabled.
-     * @minLength 0
+     * @minimum 0
      * @example 1000000
      * @type integer | undefined
      */
     internal_record_quota?: number | undefined;
     /**
      * @description Current number of DNS records across all internal zones in the account. Only present if internal DNS is enabled.
-     * @minLength 0
+     * @minimum 0
      * @example 5000
      * @type integer | undefined
      */
     internal_record_usage?: number | undefined;
     /**
      * @description Maximum number of DNS records allowed across all public zones in the account. Null if using zone-level quota.
-     * @minLength 0
+     * @minimum 0
      * @example 1000000
      * @type integer
      */
     record_quota: number | null;
     /**
      * @description Current number of DNS records across all public zones in the account.
-     * @minLength 0
+     * @minimum 0
      * @example 5000
      * @type integer
      */
@@ -45054,14 +45061,14 @@ export type DnsRecordsDnsResponseZoneUsage = DnsRecordsApiResponseSingle & {
   result?: {
     /**
      * @description Maximum number of DNS records allowed for the zone. Null if using account-level quota.
-     * @minLength 0
+     * @minimum 0
      * @example 200
      * @type integer
      */
     record_quota: number | null;
     /**
      * @description Current number of DNS records in the zone.
-     * @minLength 0
+     * @minimum 0
      * @example 150
      * @type integer
      */
@@ -45088,7 +45095,7 @@ export type DnsRecordsOrderKey = (typeof dnsRecordsOrder)[keyof typeof dnsRecord
 
 /**
  * @description Page number of paginated results.
- * @minLength 1
+ * @minimum 1
  * @default 1
  * @type number
  */
@@ -45096,8 +45103,8 @@ export type DnsRecordsPage = number;
 
 /**
  * @description Number of DNS records per page.
- * @minLength 1
- * @maxLength 5000000
+ * @minimum 1
+ * @maximum 5000000
  * @default 100
  * @example 5
  * @type number
@@ -45189,8 +45196,8 @@ export type DnsSettingsMultiProvider = boolean;
 
 /**
  * @description The time to live (TTL) of the zone's nameserver (NS) records.
- * @minLength 30
- * @maxLength 86400
+ * @minimum 30
+ * @maximum 86400
  * @example 86400
  * @type number
  */
@@ -45210,16 +45217,16 @@ export type DnsSettingsSecondaryOverrides = boolean;
 export type DnsSettingsSoaBase = {
   /**
    * @description Time in seconds of being unable to query the primary server after which secondary servers should stop serving the zone.
-   * @minLength 86400
-   * @maxLength 2419200
+   * @minimum 86400
+   * @maximum 2419200
    * @example 604800
    * @type number | undefined
    */
   expire?: number | undefined;
   /**
    * @description The time to live (TTL) for negative caching of records within the zone.
-   * @minLength 60
-   * @maxLength 86400
+   * @minimum 60
+   * @maximum 86400
    * @example 1800
    * @type number | undefined
    */
@@ -45232,16 +45239,16 @@ export type DnsSettingsSoaBase = {
   mname?: (string | null) | undefined;
   /**
    * @description Time in seconds after which secondary servers should re-check the SOA record to see if the zone has been updated.
-   * @minLength 600
-   * @maxLength 86400
+   * @minimum 600
+   * @maximum 86400
    * @example 10000
    * @type number | undefined
    */
   refresh?: number | undefined;
   /**
    * @description Time in seconds after which secondary servers should retry queries after the primary server was unresponsive.
-   * @minLength 600
-   * @maxLength 86400
+   * @minimum 600
+   * @maximum 86400
    * @example 2400
    * @type number | undefined
    */
@@ -45254,8 +45261,8 @@ export type DnsSettingsSoaBase = {
   rname?: string | undefined;
   /**
    * @description The time to live (TTL) of the SOA record itself.
-   * @minLength 300
-   * @maxLength 86400
+   * @minimum 300
+   * @maximum 86400
    * @example 3600
    * @type number | undefined
    */
@@ -45297,8 +45304,8 @@ export type DnsSettingsDnsSettingsBase = {
   multi_provider?: DnsSettingsMultiProvider | undefined;
   /**
    * @description The time to live (TTL) of the zone's nameserver (NS) records.
-   * @minLength 30
-   * @maxLength 86400
+   * @minimum 30
+   * @maximum 86400
    * @example 86400
    * @type number | undefined
    */
@@ -45346,40 +45353,40 @@ export type DnsSettingsSoaResponse = DnsSettingsSoaBase & {
   rname: string;
   /**
    * @description Time in seconds after which secondary servers should re-check the SOA record to see if the zone has been updated.
-   * @minLength 600
-   * @maxLength 86400
+   * @minimum 600
+   * @maximum 86400
    * @example 10000
    * @type number
    */
   refresh: number;
   /**
    * @description Time in seconds after which secondary servers should retry queries after the primary server was unresponsive.
-   * @minLength 600
-   * @maxLength 86400
+   * @minimum 600
+   * @maximum 86400
    * @example 2400
    * @type number
    */
   retry: number;
   /**
    * @description Time in seconds of being unable to query the primary server after which secondary servers should stop serving the zone.
-   * @minLength 86400
-   * @maxLength 2419200
+   * @minimum 86400
+   * @maximum 2419200
    * @example 604800
    * @type number
    */
   expire: number;
   /**
    * @description The time to live (TTL) for negative caching of records within the zone.
-   * @minLength 60
-   * @maxLength 86400
+   * @minimum 60
+   * @maximum 86400
    * @example 1800
    * @type number
    */
   min_ttl: number;
   /**
    * @description The time to live (TTL) of the SOA record itself.
-   * @minLength 300
-   * @maxLength 86400
+   * @minimum 300
+   * @maximum 86400
    * @example 3600
    * @type number
    */
@@ -45416,8 +45423,8 @@ export type DnsSettingsDnsSettingsResponse = DnsSettingsDnsSettingsBase & {
   secondary_overrides: DnsSettingsSecondaryOverrides;
   /**
    * @description The time to live (TTL) of the zone's nameserver (NS) records.
-   * @minLength 30
-   * @maxLength 86400
+   * @minimum 30
+   * @maximum 86400
    * @example 86400
    * @type number
    */
@@ -45520,7 +45527,7 @@ export type DnsSettingsAccountSettingsPatch = {
  */
 export type DnsSettingsMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -45650,8 +45657,8 @@ export type DnsSettingsZoneNameserversCustomExistingTypeEnumKey = (typeof dnsSet
 export type DnsSettingsZoneNameserversCustomExisting = {
   /**
    * @description Configured nameserver set number to use for this zone.
-   * @minLength 1
-   * @maxLength 5
+   * @minimum 1
+   * @maximum 5
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -45898,7 +45905,7 @@ export type DnsSettingsNameserverSetAddressGroups = DnsSettingsNameserverSetAddr
  * @description Selects the account-specific IP set that supplies the nameserver addresses. Nameserver sets with the same `ip_set` and `advanced` value may reuse addresses; otherwise, they use disjoint address groups.
  *
  * Format: `int64`
- * @minLength 1
+ * @minimum 1
  * @default 1
  * @example 1
  * @type integer
@@ -45936,7 +45943,7 @@ export type DnsSettingsNameserverSetResponseBase = {
    * @description Selects the account-specific IP set that supplies the nameserver addresses. Nameserver sets with the same `ip_set` and `advanced` value may reuse addresses; otherwise, they use disjoint address groups.
    *
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer
@@ -46007,8 +46014,8 @@ export type DnsSettingsNameserverSetAdvancedResponse = DnsSettingsNameserverSetR
  * @description Number of IPv4 addresses and number of IPv6 addresses to allocate to this nameserver. All nameservers in an Advanced nameserver set must use the same value.
  *
  * Format: `int64`
- * @minLength 1
- * @maxLength 3
+ * @minimum 1
+ * @maximum 3
  * @default 1
  * @example 1
  * @type integer
@@ -46020,8 +46027,8 @@ export type DnsSettingsNameserverSetCreateMember = {
    * @description Number of IPv4 addresses and number of IPv6 addresses to allocate to this nameserver. All nameservers in an Advanced nameserver set must use the same value.
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 3
+   * @minimum 1
+   * @maximum 3
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -46047,7 +46054,7 @@ export type DnsSettingsNameserverSetCreate = {
    * @description Selects the account-specific IP set that supplies the nameserver addresses. Nameserver sets with the same `ip_set` and `advanced` value may reuse addresses; otherwise, they use disjoint address groups.
    *
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -46178,7 +46185,7 @@ export type DnsSettingsOrderKey = (typeof dnsSettingsOrder)[keyof typeof dnsSett
 
 /**
  * @description Page number of paginated results.
- * @minLength 1
+ * @minimum 1
  * @default 1
  * @type integer
  */
@@ -46186,8 +46193,8 @@ export type DnsSettingsPage = number;
 
 /**
  * @description Number of results per page.
- * @minLength 1
- * @maxLength 5000000
+ * @minimum 1
+ * @maximum 5000000
  * @default 100
  * @example 5
  * @type integer
@@ -46207,7 +46214,7 @@ export type DnssecAlgorithm = string | null;
  */
 export type DnssecMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -47113,7 +47120,7 @@ export type EmailAuthSpfComponent = {
  */
 export type EmailAuthMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -47472,7 +47479,7 @@ export type EmailSecurityAttachment = {
   sha256?: (string | null) | undefined;
   /**
    * @description Size of the attachment in bytes.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   size: number;
@@ -48402,8 +48409,8 @@ export type EmailSecurityCreateDomain = {
   ip_restrictions: string[];
   /**
    * @description Number of hops to trace back through received headers when reconstructing the original message (1-20).
-   * @minLength 1
-   * @maxLength 20
+   * @minimum 1
+   * @maximum 20
    * @type integer | undefined
    */
   lookback_hops?: (number | null) | undefined;
@@ -48780,7 +48787,7 @@ export type EmailSecurityCreateUrlIgnorePattern = {
 export type EmailSecurityCursorResultInfo = {
   /**
    * @description Number of items in current page.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   count: number;
@@ -48792,13 +48799,13 @@ export type EmailSecurityCursorResultInfo = {
   /**
    * @description Deprecated: Always returns 0. End of life: November 1, 2026.
    * @deprecated
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of items per page.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   per_page: number;
@@ -48810,7 +48817,7 @@ export type EmailSecurityCursorResultInfo = {
   /**
    * @description Deprecated: Always returns 0. End of life: November 1, 2026.
    * @deprecated
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   total_count: number;
@@ -48957,12 +48964,12 @@ export type EmailSecurityEmailsProcessed = {
    */
   readonly timestamp: string;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   total_emails_processed: number;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   total_emails_processed_previous: number;
@@ -49468,8 +49475,8 @@ export type EmailSecurityReplaceDomain = {
   ip_restrictions: string[];
   /**
    * @description Number of hops to trace back through received headers when reconstructing the original message (1-20).
-   * @minLength 1
-   * @maxLength 20
+   * @minimum 1
+   * @maximum 20
    * @type integer | undefined
    */
   lookback_hops?: (number | null) | undefined;
@@ -49635,8 +49642,8 @@ export type EmailSecurityUpdateDomain = {
   ip_restrictions?: string[] | undefined;
   /**
    * @description Number of hops to trace back through received headers when reconstructing the original message (1-20).
-   * @minLength 1
-   * @maxLength 20
+   * @minimum 1
+   * @maximum 20
    * @type integer | undefined
    */
   lookback_hops?: number | undefined;
@@ -49758,7 +49765,7 @@ export type EmailSecurityUrlIgnorePattern = {
  */
 export type EmailSecurityMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -50131,8 +50138,8 @@ export type EmailReputationThreshold = {
    * @description The rate at or above which the metric enters the at-risk band. A fraction between 0 and 1.
    *
    * Format: `double`
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @example 0.05
    * @type number
    */
@@ -50141,7 +50148,7 @@ export type EmailReputationThreshold = {
    * @description The smallest eligible event count for this metric. Below this, the metric is skipped and cannot affect the account's status.
    *
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @example 100
    * @type integer
    */
@@ -50150,8 +50157,8 @@ export type EmailReputationThreshold = {
    * @description The rate at or above which the metric enters the warning band. A fraction between 0 and 1.
    *
    * Format: `double`
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @example 0.02
    * @type number
    */
@@ -50178,7 +50185,7 @@ export type EmailReputationPolicy = {
    * @description The grace period before suspension. The value must be a whole number of days. It applies only while grace_started_at is set; when grace_started_at is null, the account is not counting down to an automatic suspension.
    *
    * Format: `int64`
-   * @minLength 24
+   * @minimum 24
    * @example 168
    * @type integer
    */
@@ -50289,7 +50296,7 @@ export type EmailRuleName = string;
 
 /**
  * @description Priority of the routing rule.
- * @minLength 0
+ * @minimum 0
  * @default 0
  * @type number
  */
@@ -50345,7 +50352,7 @@ export type EmailRuleProperties = {
   name?: EmailRuleName | undefined;
   /**
    * @description Priority of the routing rule.
-   * @minLength 0
+   * @minimum 0
    * @default 0
    * @type number | undefined
    */
@@ -50644,7 +50651,7 @@ export type EmailAccountRulesPlanRequest = {
  */
 export type EmailMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -50954,7 +50961,7 @@ export type EmailCreateRuleProperties = {
   owner_worker_tag?: EmailRuleOwnerWorkerTag | undefined;
   /**
    * @description Priority of the routing rule.
-   * @minLength 0
+   * @minimum 0
    * @default 0
    * @type number | undefined
    */
@@ -51057,8 +51064,8 @@ export type EmailDnsRecord = {
   name?: string | undefined;
   /**
    * @description Required for MX, SRV and URI records. Unused by other record types. Records with lower priorities are preferred.
-   * @minLength 0
-   * @maxLength 65535
+   * @minimum 0
+   * @maximum 65535
    * @example 12
    * @type number | undefined
    */
@@ -51150,8 +51157,8 @@ export type EmailEmailDomainDnsRecord = {
    * @description MX preference; present only for MX records.
    *
    * Format: `int64`
-   * @minLength 0
-   * @maxLength 65535
+   * @minimum 0
+   * @maximum 65535
    * @example 10
    * @type integer | undefined
    */
@@ -51471,7 +51478,7 @@ export type EmailEmailDomainChangeCollectionResponse = {
   result_info: {
     /**
      * @description Number of changes in this response.
-     * @minLength 0
+     * @minimum 0
      * @example 2
      * @type integer
      */
@@ -51490,7 +51497,7 @@ export type EmailEmailDomainChangeCollectionResponse = {
     next_cursor: string;
     /**
      * @description Requested maximum number of changes per page.
-     * @minLength 1
+     * @minimum 1
      * @example 20
      * @type integer
      */
@@ -51505,7 +51512,7 @@ export type EmailEmailDomainCollectionResponse = {
   result: EmailEmailDomain[];
   result_info: {
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     count: number;
@@ -51516,7 +51523,7 @@ export type EmailEmailDomainCollectionResponse = {
      */
     next_cursor: string;
     /**
-     * @minLength 1
+     * @minimum 1
      * @type integer
      */
     per_page: number;
@@ -51552,7 +51559,7 @@ export type EmailEmailDomainErrorResponse = {
      * @description Stable numeric code: 2076 invalid request, 2077 invalid hostname, 2078 not found, 2079 forbidden, 2080 dependency unavailable, 2081 quota exceeded, 2082 verification rate limited, 2083 hostname reserved, 2084 invalid state, 2085 internal failure, or 2086 expired change cursor. Clients must tolerate unknown future values.
      *
      * Format: `int64`
-     * @minLength 2000
+     * @minimum 2000
      * @example 2077
      * @type integer
      */
@@ -51574,7 +51581,7 @@ export type EmailEmailDomainErrorResponse = {
      * @description Stable numeric code: 2076 invalid request, 2077 invalid hostname, 2078 not found, 2079 forbidden, 2080 dependency unavailable, 2081 quota exceeded, 2082 verification rate limited, 2083 hostname reserved, 2084 invalid state, 2085 internal failure, or 2086 expired change cursor. Clients must tolerate unknown future values.
      *
      * Format: `int64`
-     * @minLength 2000
+     * @minimum 2000
      * @example 2077
      * @type integer
      */
@@ -52088,7 +52095,7 @@ export type EmailSendingSubdomainPreviewResponse = EmailApiResponseSingle & {
 export type EmailSendingSubdomainReputationComplaints = {
   /**
    * @description The number of matched complaints for the sending subdomain in the requested time window.
-   * @minLength 0
+   * @minimum 0
    * @example 3
    * @type integer
    */
@@ -52226,7 +52233,7 @@ export type EmailUpdateRuleProperties = {
   owner_worker_tag?: EmailRuleOwnerWorkerTag | undefined;
   /**
    * @description Priority of the routing rule.
-   * @minLength 0
+   * @minimum 0
    * @default 0
    * @type number | undefined
    */
@@ -52660,8 +52667,8 @@ export type FirewallCustomResponse = {
 /**
  * @description The time in seconds during which Cloudflare will perform the mitigation action. Must be an integer value greater than or equal to the period.
  * Notes: If "mode" is "challenge", "managed_challenge", or "js_challenge", Cloudflare will use the zone's Challenge Passage time and you should not provide this value.
- * @minLength 1
- * @maxLength 86400
+ * @minimum 1
+ * @maximum 86400
  * @example 86400
  * @type number
  */
@@ -52685,8 +52692,8 @@ export type FirewallAction = {
   /**
    * @description The time in seconds during which Cloudflare will perform the mitigation action. Must be an integer value greater than or equal to the period.
    * Notes: If "mode" is "challenge", "managed_challenge", or "js_challenge", Cloudflare will use the zone's Challenge Passage time and you should not provide this value.
-   * @minLength 1
-   * @maxLength 86400
+   * @minimum 1
+   * @maximum 86400
    * @example 86400
    * @type number | undefined
    */
@@ -52897,7 +52904,7 @@ export type FirewallAnomalyPackage = FirewallPackageDefinition & {
  */
 export type FirewallMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -53055,8 +53062,8 @@ export type FirewallComponentsSchemasPaused = boolean;
 
 /**
  * @description The priority of the rule. Optional value used to define the processing order. A lower number indicates a higher priority. If not provided, rules with a defined priority will be processed before rules without a priority.
- * @minLength 0
- * @maxLength 2147483647
+ * @minimum 0
+ * @maximum 2147483647
  * @example 50
  * @type number
  */
@@ -53407,8 +53414,8 @@ export type FirewallFilterRuleBase = {
   paused?: FirewallComponentsSchemasPaused | undefined;
   /**
    * @description The priority of the rule. Optional value used to define the processing order. A lower number indicates a higher priority. If not provided, rules with a defined priority will be processed before rules without a priority.
-   * @minLength 0
-   * @maxLength 2147483647
+   * @minimum 0
+   * @maximum 2147483647
    * @example 50
    * @type number | undefined
    */
@@ -53737,8 +53744,8 @@ export type FirewallPayloadLoggingKeyResponseSingle = FirewallApiResponseCommon 
 
 /**
  * @description The time in seconds (an integer value) to count matching traffic. If the count exceeds the configured threshold within this period, Cloudflare will perform the configured action.
- * @minLength 10
- * @maxLength 86400
+ * @minimum 10
+ * @maximum 86400
  * @example 900
  * @type number
  */
@@ -53825,6 +53832,13 @@ export const firewallSchemasRuleScopeTypeEnum = {
 
 export type FirewallSchemasRuleScopeTypeEnumKey = (typeof firewallSchemasRuleScopeTypeEnum)[keyof typeof firewallSchemasRuleScopeTypeEnum];
 
+export const firewallSchemasRuleScopeTypeEnum2 = {
+  user: 'user',
+  organization: 'organization',
+} as const;
+
+export type FirewallSchemasRuleScopeTypeEnum2Key = (typeof firewallSchemasRuleScopeTypeEnum2)[keyof typeof firewallSchemasRuleScopeTypeEnum2];
+
 export type FirewallSchemasRule = FirewallRule & {
   /**
    * @description All zones owned by the user will have the rule applied.
@@ -53904,7 +53918,7 @@ export type FirewallSchemasRule = FirewallRule & {
      * @example user
      * @type string | undefined
      */
-    readonly type?: FirewallSchemasRuleScopeTypeEnumKey | undefined;
+    readonly type?: FirewallSchemasRuleScopeTypeEnum2Key | undefined;
   };
 };
 
@@ -54027,7 +54041,7 @@ export type FirewallSchemasUrls = string[];
 
 /**
  * @description The threshold that will trigger the configured mitigation action. Configure this value along with the `period` property to establish a threshold per period.
- * @minLength 1
+ * @minimum 1
  * @example 60
  * @type number
  */
@@ -54245,7 +54259,7 @@ export type FlagshipRule = {
   conditions: FlagshipCondition[];
   /**
    * @description Evaluation order: the API evaluates rules with lower numbers first. Must be unique across the flag's rules.
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   priority: number;
@@ -54259,8 +54273,8 @@ export type FlagshipRule = {
     attribute?: string | undefined;
     /**
      * @description Percentage of matching traffic (0–100, up to 2 decimal places) served this variation. For multi-way splits, use cumulative upper bounds across rules (e.g. 30, 70, 100).
-     * @minLength 0
-     * @maxLength 100
+     * @minimum 0
+     * @maximum 100
      * @type number
      */
     percentage: number;
@@ -54445,8 +54459,8 @@ export type FlagshipEvaluationRule = {
     attribute?: string | undefined;
     /**
      * @description Percentage of matching traffic (0–100, up to 2 decimal places) served this variation. For multi-way splits, use cumulative upper bounds across rules (e.g. 30, 70, 100).
-     * @minLength 0
-     * @maxLength 100
+     * @minimum 0
+     * @maximum 100
      * @type number
      */
     percentage: number;
@@ -54505,7 +54519,7 @@ export type FlagshipFlagsPage = FlagshipFlag[];
 export type FlagshipResultInfo = {
   /**
    * @description Number of items returned in this page.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   count: number;
@@ -54522,7 +54536,7 @@ export type FlagshipResultInfo = {
  */
 export type FraudMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -54696,7 +54710,7 @@ export type FraudIdentifier = string;
  */
 export type GoogleTagGatewayMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -54812,7 +54826,7 @@ export type HealthchecksAddress = string;
  */
 export type HealthchecksMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -55322,7 +55336,7 @@ export type HealthchecksSingleResponse = HealthchecksApiResponseSingle & {
  */
 export type HyperdriveMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -55438,15 +55452,15 @@ export type HyperdriveHyperdriveCachingCreateEnabled = {
   disabled?: false | undefined;
   /**
    * @description Specify the maximum duration (in seconds) items should persist in the cache. Defaults to 60 seconds if not specified.
-   * @minLength 1
-   * @maxLength 3600
+   * @minimum 1
+   * @maximum 3600
    * @example 60
    * @type integer | undefined
    */
   max_age?: (number | null) | undefined;
   /**
    * @description Specify the number of seconds the cache may serve a stale response. Defaults to 15 seconds if not specified.
-   * @minLength 0
+   * @minimum 0
    * @example 15
    * @type integer | undefined
    */
@@ -55463,14 +55477,14 @@ export type HyperdriveHyperdriveCachingResponse = {
   disabled: boolean;
   /**
    * @description Defines the maximum duration (in seconds) items persist in the cache.
-   * @minLength 1
-   * @maxLength 3600
+   * @minimum 1
+   * @maximum 3600
    * @type integer | undefined
    */
   max_age?: number | undefined;
   /**
    * @description Defines the number of seconds the cache may serve a stale response.
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   stale_while_revalidate?: number | undefined;
@@ -55593,8 +55607,8 @@ export type HyperdriveInternetOrigin = {
   host: string;
   /**
    * @description Defines the port of your origin database. Defaults to 5432 for PostgreSQL or 3306 for MySQL if not specified.
-   * @minLength 1
-   * @maxLength 65535
+   * @minimum 1
+   * @maximum 65535
    * @example 5432
    * @type integer
    */
@@ -55649,7 +55663,7 @@ export type HyperdriveHyperdriveOriginFull = HyperdriveHyperdriveDatabaseFull & 
  * Certain Cloudflare-managed origins may be permitted a higher limit.
  * Contact Cloudflare if you need a higher limit.
  *
- * @minLength 5
+ * @minimum 5
  * @example 60
  * @type integer
  */
@@ -55704,7 +55718,7 @@ export type HyperdriveHyperdriveConfig = {
    * Certain Cloudflare-managed origins may be permitted a higher limit.
    * Contact Cloudflare if you need a higher limit.
    *
-   * @minLength 5
+   * @minimum 5
    * @example 60
    * @type integer | undefined
    */
@@ -55741,7 +55755,7 @@ export type HyperdriveHyperdriveConfigCreateCommon = {
    * Certain Cloudflare-managed origins may be permitted a higher limit.
    * Contact Cloudflare if you need a higher limit.
    *
-   * @minLength 5
+   * @minimum 5
    * @example 60
    * @type integer | undefined
    */
@@ -55843,7 +55857,7 @@ export type HyperdriveHyperdriveConfigPatch = {
    * Certain Cloudflare-managed origins may be permitted a higher limit.
    * Contact Cloudflare if you need a higher limit.
    *
-   * @minLength 5
+   * @minimum 5
    * @example 60
    * @type integer | undefined
    */
@@ -55904,7 +55918,7 @@ export type HyperdriveHyperdriveConfigResponse = {
    * Certain Cloudflare-managed origins may be permitted a higher limit.
    * Contact Cloudflare if you need a higher limit.
    *
-   * @minLength 5
+   * @minimum 5
    * @example 60
    * @type integer | undefined
    */
@@ -55982,6 +55996,36 @@ export type IamAccount = {
    */
   id: IamCommonComponentsSchemasIdentifier;
   /**
+   * @description Legacy account flags.
+   * @type object | undefined
+   */
+  readonly legacy_flags?: {
+    /**
+     * @description Enterprise zone quota for standard and enterprise accounts. Accounts without a quota have a maximum of 0.
+     * @type object | undefined
+     */
+    enterprise_zone_quota?: {
+      /**
+       * @description Number of additional Enterprise zones available. Returns 0 if the quota is not allocated or is exhausted.
+       * @example 168
+       * @type integer | undefined
+       */
+      available?: number | undefined;
+      /**
+       * @description Current number of Enterprise zones.
+       * @example 82
+       * @type integer | undefined
+       */
+      current?: number | undefined;
+      /**
+       * @description Maximum number of Enterprise zones allowed.
+       * @example 250
+       * @type integer | undefined
+       */
+      maximum?: number | undefined;
+    } | undefined;
+  } | undefined;
+  /**
    * @description Parent container details
    * @type object | undefined
    */
@@ -56053,9 +56097,9 @@ export type IamAccountIdentifier = IamCommonComponentsSchemasIdentifier;
  * @example []
  * @type array
  */
-export type IamMessages2 = {
+export type IamMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -56071,12 +56115,12 @@ export type IamApiResponseCommon = {
    * @example []
    * @type array
    */
-  errors: IamMessages2;
+  errors: IamMessages;
   /**
    * @example []
    * @type array
    */
-  messages: IamMessages2;
+  messages: IamMessages;
   /**
    * @description Whether the API call was successful.
    * @example true
@@ -56121,12 +56165,12 @@ export type IamApiResponseCommonFailure = {
    * @example [{"code":7003,"message":"No route for the URI"}]
    * @type array
    */
-  errors: IamMessages2;
+  errors: IamMessages;
   /**
    * @example []
    * @type array
    */
-  messages: IamMessages2;
+  messages: IamMessages;
   result: null;
   /**
    * @description Whether the API call was successful.
@@ -56164,14 +56208,6 @@ export type IamApiAccessEnabled = boolean | null;
  * @type array
  */
 export type IamCidrList = string[];
-
-/**
- * @description The unique activation code for the account membership.
- * @maxLength 64
- * @example 05dd05cce12bbed97c0d87cd78e89bc2fd41a6cee72f27f6fc84af2e45c0fac0
- * @type string
- */
-export type IamCode = string;
 
 /**
  * @description The contact email address of the user.
@@ -56343,7 +56379,7 @@ export type IamResourceGroup = {
    */
   readonly name?: string | undefined;
   /**
-   * @description A scope is a combination of scope objects which provides additional context.
+   * @description The scope associated to the resource group
    * @type object
    */
   scope: IamScope;
@@ -56494,11 +56530,7 @@ export type IamRole = {
    * @type string
    */
   readonly name: string;
-  /**
-   * @example {"analytics":{"read":true,"write":false},"zones":{"read":true,"write":true}}
-   * @type object
-   */
-  readonly permissions: IamPermissions;
+  permissions: IamPermissions & object;
 };
 
 /**
@@ -57386,6 +57418,13 @@ export type IamCreateAccount = {
    * @type boolean | undefined
    */
   standalone?: true | undefined;
+  /**
+   * @description the type of account being created. For self-serve customers, use standard. for enterprise customers, use enterprise.
+   * @deprecated
+   * @default 'standard'
+   * @example standard
+   * @type string | undefined
+   */
   type?: IamAccountTypeKey | undefined;
   /**
    * @description Information related to the tenant unit. Provide its ID and omit `standalone` to create the Account within an Organization. See https://developers.cloudflare.com/tenant/how-to/manage-accounts/.
@@ -57711,19 +57750,6 @@ export type IamInvitedMemberEmail = string;
  */
 export type IamInvitedOn = string;
 
-/**
- * @example []
- * @type array
- */
-export type IamMessages = {
-  /**
-   * @minLength 1000
-   * @type integer
-   */
-  code: number;
-  message: string;
-}[];
-
 export type IamOauthClientCreateRequest = IamOauthClientCommon & {
   /**
    * @description Human-readable name of the OAuth client.
@@ -57876,7 +57902,7 @@ export type IamRequestCreateResourceGroup = {
    */
   name: string;
   /**
-   * @description A scope is a combination of scope objects which provides additional context.
+   * @description The scope associated to the resource group
    * @type object
    */
   scope: IamCreateScope;
@@ -57890,18 +57916,18 @@ export type IamRequestUpdateResourceGroup = {
    */
   name?: string | undefined;
   /**
-   * @description A scope is a combination of scope objects which provides additional context.
+   * @description The scope associated to the resource group
    * @type object | undefined
    */
   scope?: IamCreateScope | undefined;
 };
 
-export type IamResponseCollection = IamApiResponseCollection & {
-  result?: object[] | undefined;
-};
-
 export type IamResponseCollectionAccounts = IamApiResponseCollection & {
   result?: IamAccount[] | undefined;
+};
+
+export type IamResponseSingleAccount = IamApiResponseSingle & {
+  result?: IamAccount | undefined;
 };
 
 /**
@@ -57912,27 +57938,6 @@ export type IamResponseCollectionAccounts = IamApiResponseCollection & {
  * @type string
  */
 export type IamValue = string;
-
-export type IamResponseCreate = IamApiResponseSingle & {
-  result?: object & {
-    /**
-     * @description The token value.
-     * @minLength 40
-     * @maxLength 80
-     * @example 8M7wS6hCpXVc-DoRnPPY_UCWPgy8aea4Wy6kCe5T
-     * @type string | undefined
-     */
-    readonly value?: IamValue | undefined;
-  } | undefined;
-};
-
-export type IamResponseSingle = IamApiResponseSingle & {
-  result?: object | undefined;
-};
-
-export type IamResponseSingleAccount = IamApiResponseSingle & {
-  result?: IamAccount | undefined;
-};
 
 export type IamResponseSingleValue = IamApiResponseSingle & {
   /**
@@ -58466,12 +58471,11 @@ export type IamScimPatchOperation = {
    */
   path?: string | undefined;
   /**
-   * @description The value(s) for the operation. For `replace` without a path, this should be an object of attribute name/value pairs. For member path operations, this should be an array of member value objects.
+   * @description The value(s) for the operation. For `replace` without a path, this should be an object of attribute name/value pairs. For member path operations, this should be an array of member value objects. For `replace` with a path, this is the new value of the targeted attribute.
    *
    * @example {"active":false}
-   * @type unknown | undefined
    */
-  value?: unknown | undefined;
+  value?: (object | object[] | boolean | string) | undefined;
 };
 
 /**
@@ -59137,10 +59141,6 @@ export type IamSingleMemberResponseWithPolicies = IamApiResponseSingle & {
   result?: IamMemberWithPolicies | undefined;
 };
 
-export type IamSingleMembershipResponse = IamApiResponseSingle & {
-  result?: IamMembership | undefined;
-};
-
 export type IamSingleMembershipResponseWithPolicies = IamApiResponseSingle & {
   result?: IamMembershipWithPolicies | undefined;
 };
@@ -59403,7 +59403,7 @@ export type IamSsoConnectorResponse = IamApiResponseSingle & {
   result?: IamSsoConnector | undefined;
 };
 
-export type IamTokenBody = IamTokenBase & object & {
+export type IamTokenBody = IamTokenBase & {
   /**
    * @description Token name.
    * @maxLength 120
@@ -59451,13 +59451,6 @@ export type IamTokenVerifyResponseSingleSegment = IamApiResponseSingle & {
     status: IamTokenStatusKey;
   } | undefined;
 };
-
-/**
- * @description Tenant unit identifier.
- * @example f267e341f3dd4697bd3b9f71dd96247f
- * @type string
- */
-export type IamUnitIdentifier = string;
 
 export type IamUpdateMemberWithPolicies = {
   /**
@@ -59580,9 +59573,9 @@ export type IamUserGroup = {
    */
   readonly created_on: string;
   /**
-   * @description User Group identifier tag.
+   * @description Identifier of the user group.
    */
-  id: IamUserGroupIdentifier;
+  readonly id: IamUserGroupIdentifier;
   /**
    * @description Last time the user group was modified.
    *
@@ -59762,7 +59755,7 @@ export type ImagesAccountIdentifier = string;
  */
 export type ImagesMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -60186,7 +60179,7 @@ export type ImagesImageVariantFitKey = (typeof imagesImageVariantFit)[keyof type
 
 /**
  * @description Maximum height in image pixels.
- * @minLength 1
+ * @minimum 1
  * @example 768
  * @type number
  */
@@ -60202,7 +60195,7 @@ export type ImagesImageVariantSchemasMetadataKey = (typeof imagesImageVariantSch
 
 /**
  * @description Maximum width in image pixels.
- * @minLength 1
+ * @minimum 1
  * @example 1366
  * @type number
  */
@@ -60221,7 +60214,7 @@ export type ImagesImageVariantOptions = {
   fit: ImagesImageVariantFitKey;
   /**
    * @description Maximum height in image pixels.
-   * @minLength 1
+   * @minimum 1
    * @example 768
    * @type number
    */
@@ -60234,7 +60227,7 @@ export type ImagesImageVariantOptions = {
   metadata: ImagesImageVariantSchemasMetadataKey;
   /**
    * @description Maximum width in image pixels.
-   * @minLength 1
+   * @minimum 1
    * @example 1366
    * @type number
    */
@@ -61036,7 +61029,7 @@ export type InfraHttpServiceConfig = InfraServiceCommon & {
   /**
    * @description
    * Format: `int32`
-   * @minLength 1
+   * @minimum 1
    * @example 8080
    * @type integer | undefined
    */
@@ -61044,7 +61037,7 @@ export type InfraHttpServiceConfig = InfraServiceCommon & {
   /**
    * @description
    * Format: `int32`
-   * @minLength 1
+   * @minimum 1
    * @example 8443
    * @type integer | undefined
    */
@@ -61070,7 +61063,7 @@ export type InfraTcpServiceConfig = InfraServiceCommon & {
   /**
    * @description
    * Format: `int32`
-   * @minLength 1
+   * @minimum 1
    * @example 5432
    * @type integer | undefined
    */
@@ -61193,7 +61186,7 @@ export type InfraTargetArray = InfraTarget[];
  */
 export type InfraMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -61286,7 +61279,7 @@ export type InfraApiResponseSingle = InfraApiResponseCommon;
  */
 export type IntelSinkholesMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -61509,7 +61502,7 @@ export type IntelAdditionalInformation = {
  */
 export type IntelMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -61594,7 +61587,7 @@ export type IntelApiResponseCommonFailure = {
  */
 export type IntelSchemasMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -62555,7 +62548,7 @@ export type ListsAccountId = string;
  */
 export type ListsMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -63221,7 +63214,7 @@ export type LoadBalancingAnalytics = {
  */
 export type LoadBalancingMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -63746,8 +63739,8 @@ export type LoadBalancingMatch = {
 
 /**
  * @description The default weight for pools not listed in `pool_weights`. The declarative alternative to `random_steering.default_weight`; mutually exclusive with `random_steering`.
- * @minLength 0
- * @maxLength 1
+ * @minimum 0
+ * @maximum 1
  * @example 0.2
  * @type number
  */
@@ -63794,8 +63787,8 @@ export type LoadBalancingPoolSetOverrides = {
   fallback_pool?: LoadBalancingFallbackPool | undefined;
   /**
    * @description The default weight for pools not listed in `pool_weights`. The declarative alternative to `random_steering.default_weight`; mutually exclusive with `random_steering`.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @example 0.2
    * @type number | undefined
    */
@@ -63898,8 +63891,8 @@ export type LoadBalancingProxied = boolean;
 export type LoadBalancingRandomSteering = {
   /**
    * @description The default weight for pools in the load balancer that are not specified in the pool_weights map.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 1
    * @example 0.2
    * @type number | undefined
@@ -64052,8 +64045,8 @@ export type LoadBalancingRuleOverrides = {
   location_strategy?: LoadBalancingLocationStrategy | undefined;
   /**
    * @description The default weight for pools not listed in `pool_weights`. The declarative alternative to `random_steering.default_weight`; mutually exclusive with `random_steering`.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @example 0.2
    * @type number | undefined
    */
@@ -64167,7 +64160,7 @@ export type LoadBalancingRules = {
   overrides?: LoadBalancingRuleOverrides | undefined;
   /**
    * @description The order in which rules should be executed in relation to each other. Lower values are executed first. Values do not need to be sequential. If no value is provided for any rule the array order of the rules field will be used to assign a priority.
-   * @minLength 0
+   * @minimum 0
    * @default 0
    * @type integer | undefined
    */
@@ -64543,8 +64536,8 @@ export type LoadBalancingLoadSheddingDefaultPolicyEnumKey = (typeof loadBalancin
 export type LoadBalancingLoadShedding = {
   /**
    * @description The percent of traffic to shed from the pool, according to the default policy. Applies to new sessions and traffic without session affinity.
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @default 0
    * @type number | undefined
    */
@@ -64557,8 +64550,8 @@ export type LoadBalancingLoadShedding = {
   default_policy?: LoadBalancingLoadSheddingDefaultPolicyEnumKey | undefined;
   /**
    * @description The percent of existing sessions to shed from the pool, according to the session policy.
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @default 0
    * @type number | undefined
    */
@@ -64982,8 +64975,8 @@ export type LoadBalancingVirtualNetworkId = string;
  * @description The weight of this origin relative to other origins in the pool. Based on the configured weight the total traffic is distributed among origins within the pool.
  * - `origin_steering.policy="least_outstanding_requests"`: Use weight to scale the origin's outstanding requests.
  * - `origin_steering.policy="least_connections"`: Use weight to scale the origin's open connections.
- * @minLength 0
- * @maxLength 1
+ * @minimum 0
+ * @maximum 1
  * @default 1
  * @example 0.6
  * @type number
@@ -65044,8 +65037,8 @@ export type LoadBalancingOrigin = {
    * @description The weight of this origin relative to other origins in the pool. Based on the configured weight the total traffic is distributed among origins within the pool.
    * - `origin_steering.policy="least_outstanding_requests"`: Use weight to scale the origin's outstanding requests.
    * - `origin_steering.policy="least_connections"`: Use weight to scale the origin's open connections.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 1
    * @example 0.6
    * @type number | undefined
@@ -65467,7 +65460,7 @@ export type LogcontrolAllowOutOfRegionAccess = boolean;
  */
 export type LogcontrolMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -65605,8 +65598,8 @@ export type LogpullAccountId = string;
 export type LogpullBucket = string;
 
 /**
- * @minLength 1
- * @maxLength 1000
+ * @minimum 1
+ * @maximum 1000
  * @example 1000
  * @type integer
  */
@@ -65638,7 +65631,7 @@ export type LogpullTimestampRFC3339 = string;
  */
 export type LogpushMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -65834,7 +65827,7 @@ export type LogpushGetOwnershipResponse = LogpushApiResponseCommon & {
 
 /**
  * @description Unique id of the job.
- * @minLength 1
+ * @minimum 1
  * @type integer
  */
 export type LogpushId = number;
@@ -66055,7 +66048,7 @@ export type LogpushOutputOptions = {
    * @description Specifies the sampling rate as a floating number greater than 0 and at most 1. Sampling is applied on top of filtering, and regardless of the current `sample_interval` of the data.
    *
    * Format: `float`
-   * @maxLength 1
+   * @maximum 1
    * @type number | undefined
    */
   sample_rate?: (number | null) | undefined;
@@ -66111,7 +66104,7 @@ export type LogpushLogpushJob = {
   frequency?: (LogpushFrequencyKey | null) | undefined;
   /**
    * @description Unique id of the job.
-   * @minLength 1
+   * @minimum 1
    * @type integer | undefined
    */
   id?: LogpushId | undefined;
@@ -66244,7 +66237,7 @@ export type LogpushTransformerDescription = string;
 
 /**
  * @description The transformer ID.
- * @minLength 1
+ * @minimum 1
  * @example 42
  * @type integer
  */
@@ -66287,7 +66280,7 @@ export type LogpushTransformer = {
   description?: LogpushTransformerDescription | undefined;
   /**
    * @description The transformer ID.
-   * @minLength 1
+   * @minimum 1
    * @example 42
    * @type integer | undefined
    */
@@ -66437,14 +66430,14 @@ export type LogpushTransformerVersion = {
    * @description Unique identifier for this version.
    *
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @example 1
    * @type integer | undefined
    */
   id?: number | undefined;
   /**
    * @description Sequential version number.
-   * @minLength 1
+   * @minimum 1
    * @example 3
    * @type integer | undefined
    */
@@ -66482,7 +66475,7 @@ export type LogpushValidateResponse = LogpushApiResponseCommon & {
 
 export type LogshareMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -66511,7 +66504,7 @@ export type LogshareApiResponseCommonFailure = {
 
 /**
  * @description When `?count=` is provided, the response will contain up to `count` results. Since results are not sorted, you are likely to get different data for repeated requests. `count` must be an integer > 0.
- * @minLength 1
+ * @minimum 1
  * @type integer
  */
 export type LogshareCount = number;
@@ -66554,8 +66547,8 @@ export type LogshareRayIdentifier = string;
 
 /**
  * @description When `?sample=` is provided, a sample of matching records is returned. If `sample=0.1` then 10% of records will be returned. Sampling is random: repeated calls will not only return different records, but likely will also vary slightly in number of returned records. When `?count=` is also specified, `count` is applied to the number of returned records, not the sampled records. So, with `sample=0.05` and `count=7`, when there is a total of 100 records available, approximately five will be returned. When there are 1000 records, seven will be returned. When there are 10,000 records, seven will be returned.
- * @minLength 0
- * @maxLength 1
+ * @minimum 0
+ * @maximum 1
  * @example 0.1
  * @type number
  */
@@ -66589,7 +66582,7 @@ export type LogshareZoneIdentifier = string;
  */
 export type MagicTransitMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -66954,8 +66947,8 @@ export type MagicTransitIdentifier = string;
 
 /**
  * @description Max TTL.
- * @minLength 0
- * @maxLength 64
+ * @minimum 0
+ * @maximum 64
  * @default 15
  * @type integer
  */
@@ -66973,8 +66966,8 @@ export type MagicTransitPacketTypeKey = (typeof magicTransitPacketType)[keyof ty
 
 /**
  * @description Number of packets sent at each TTL.
- * @minLength 0
- * @maxLength 10
+ * @minimum 0
+ * @maximum 10
  * @default 3
  * @type integer
  */
@@ -66982,8 +66975,8 @@ export type MagicTransitPacketsPerTtl = number;
 
 /**
  * @description For UDP and TCP, specifies the destination port. For ICMP, specifies the initial ICMP sequence value. Default value 0 will choose the best value to use for each protocol.
- * @minLength 0
- * @maxLength 65535
+ * @minimum 0
+ * @maximum 65535
  * @default 0
  * @type integer
  */
@@ -66991,8 +66984,8 @@ export type MagicTransitPort = number;
 
 /**
  * @description Set the time (in seconds) to wait for a response to a probe.
- * @minLength 1
- * @maxLength 5
+ * @minimum 1
+ * @maximum 5
  * @default 1
  * @type integer
  */
@@ -67005,8 +66998,8 @@ export type MagicTransitWaitTime = number;
 export type MagicTransitOptions = {
   /**
    * @description Max TTL.
-   * @minLength 0
-   * @maxLength 64
+   * @minimum 0
+   * @maximum 64
    * @default 15
    * @type integer | undefined
    */
@@ -67020,24 +67013,24 @@ export type MagicTransitOptions = {
   packet_type?: MagicTransitPacketTypeKey | undefined;
   /**
    * @description Number of packets sent at each TTL.
-   * @minLength 0
-   * @maxLength 10
+   * @minimum 0
+   * @maximum 10
    * @default 3
    * @type integer | undefined
    */
   packets_per_ttl?: MagicTransitPacketsPerTtl | undefined;
   /**
    * @description For UDP and TCP, specifies the destination port. For ICMP, specifies the initial ICMP sequence value. Default value 0 will choose the best value to use for each protocol.
-   * @minLength 0
-   * @maxLength 65535
+   * @minimum 0
+   * @maximum 65535
    * @default 0
    * @type integer | undefined
    */
   port?: MagicTransitPort | undefined;
   /**
    * @description Set the time (in seconds) to wait for a response to a probe.
-   * @minLength 1
-   * @maxLength 5
+   * @minimum 1
+   * @maximum 5
    * @default 1
    * @type integer | undefined
    */
@@ -67083,7 +67076,7 @@ export type MagicVisibilityMnmAccountIdentifier = string;
  */
 export type MagicVisibilityMnmMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -67168,7 +67161,7 @@ export type MagicVisibilityMnmApiResponseSingle = MagicVisibilityMnmApiResponseC
 
 /**
  * @description Fallback sampling rate of flow messages being sent in packets per second. This should match the packet sampling rate configured on the router.
- * @minLength 1
+ * @minimum 1
  * @default 1
  * @type number
  */
@@ -67220,7 +67213,7 @@ export type MagicVisibilityMnmMnmConfigWarpDevices = MagicVisibilityMnmMnmConfig
 export type MagicVisibilityMnmMnmConfig = {
   /**
    * @description Fallback sampling rate of flow messages being sent in packets per second. This should match the packet sampling rate configured on the router.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number
    */
@@ -67248,7 +67241,7 @@ export type MagicVisibilityMnmMnmRuleAutomaticAdvertisement = boolean | null;
 
 /**
  * @description The number of bits per second for the rule. When this value is exceeded for the set duration, an alert notification is sent. Minimum of 1 and no maximum.
- * @minLength 1
+ * @minimum 1
  * @example 1000
  * @type number
  */
@@ -67283,7 +67276,7 @@ export type MagicVisibilityMnmMnmRuleName = string;
 
 /**
  * @description The number of packets per second for the rule. When this value is exceeded for the set duration, an alert notification is sent. Minimum of 1 and no maximum.
- * @minLength 1
+ * @minimum 1
  * @example 10000
  * @type number
  */
@@ -67338,7 +67331,7 @@ export type MagicVisibilityMnmMnmRule = {
   automatic_advertisement: MagicVisibilityMnmMnmRuleAutomaticAdvertisement | null;
   /**
    * @description The number of bits per second for the rule. When this value is exceeded for the set duration, an alert notification is sent. Minimum of 1 and no maximum.
-   * @minLength 1
+   * @minimum 1
    * @example 1000
    * @type number | undefined
    */
@@ -67364,7 +67357,7 @@ export type MagicVisibilityMnmMnmRule = {
   name: MagicVisibilityMnmMnmRuleName;
   /**
    * @description The number of packets per second for the rule. When this value is exceeded for the set duration, an alert notification is sent. Minimum of 1 and no maximum.
-   * @minLength 1
+   * @minimum 1
    * @example 10000
    * @type number | undefined
    */
@@ -67418,7 +67411,7 @@ export type MagicVisibilityMnmMnmRuleCreate = {
   automatic_advertisement: MagicVisibilityMnmMnmRuleAutomaticAdvertisement | null;
   /**
    * @description The number of bits per second for the rule. When this value is exceeded for the set duration, an alert notification is sent. Minimum of 1 and no maximum.
-   * @minLength 1
+   * @minimum 1
    * @example 1000
    * @type number | undefined
    */
@@ -67438,7 +67431,7 @@ export type MagicVisibilityMnmMnmRuleCreate = {
   name: MagicVisibilityMnmMnmRuleName;
   /**
    * @description The number of packets per second for the rule. When this value is exceeded for the set duration, an alert notification is sent. Minimum of 1 and no maximum.
-   * @minLength 1
+   * @minimum 1
    * @example 10000
    * @type number | undefined
    */
@@ -67500,7 +67493,7 @@ export type MagicVisibilityMnmMnmVpcFlowsSingleResponse = MagicVisibilityMnmApiR
  */
 export type MagicVisibilityPcapsMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -67593,8 +67586,8 @@ export type MagicVisibilityPcapsIdentifier = string;
 
 /**
  * @description The maximum number of bytes to capture. This field only applies to `full` packet captures.
- * @minLength 1
- * @maxLength 1000000000
+ * @minimum 1
+ * @maximum 1000000000
  * @example 500000
  * @type number
  */
@@ -67683,8 +67676,8 @@ export type MagicVisibilityPcapsPcapsSystemKey = (typeof magicVisibilityPcapsPca
 
 /**
  * @description The packet capture duration in seconds.
- * @minLength 1
- * @maxLength 300
+ * @minimum 1
+ * @maximum 300
  * @example 300
  * @type number
  */
@@ -67739,8 +67732,8 @@ export type MagicVisibilityPcapsPcapsResponseSimple = {
   system?: MagicVisibilityPcapsPcapsSystemKey | undefined;
   /**
    * @description The packet capture duration in seconds.
-   * @minLength 1
-   * @maxLength 300
+   * @minimum 1
+   * @maximum 300
    * @example 300
    * @type number | undefined
    */
@@ -67790,8 +67783,8 @@ export type MagicVisibilityPcapsPcapsStopRequested = string;
 
 /**
  * @description The packet capture duration in seconds.
- * @minLength 1
- * @maxLength 86400
+ * @minimum 1
+ * @maximum 86400
  * @example 86400
  * @type number
  */
@@ -67800,8 +67793,8 @@ export type MagicVisibilityPcapsPcapsTimeLimitFull = number;
 export type MagicVisibilityPcapsPcapsResponseFull = {
   /**
    * @description The maximum number of bytes to capture. This field only applies to `full` packet captures.
-   * @minLength 1
-   * @maxLength 1000000000
+   * @minimum 1
+   * @maximum 1000000000
    * @example 500000
    * @type number | undefined
    */
@@ -67869,8 +67862,8 @@ export type MagicVisibilityPcapsPcapsResponseFull = {
   system?: MagicVisibilityPcapsPcapsSystemKey | undefined;
   /**
    * @description The packet capture duration in seconds.
-   * @minLength 1
-   * @maxLength 86400
+   * @minimum 1
+   * @maximum 86400
    * @example 86400
    * @type number | undefined
    */
@@ -67977,8 +67970,8 @@ export type MagicVisibilityPcapsPcapsOwnershipValidateRequest = {
 
 /**
  * @description The limit of packets contained in a packet capture.
- * @minLength 1
- * @maxLength 10000
+ * @minimum 1
+ * @maximum 10000
  * @example 10000
  * @type number
  */
@@ -67987,8 +67980,8 @@ export type MagicVisibilityPcapsPcapsPacketLimit = number;
 export type MagicVisibilityPcapsPcapsRequestFull = {
   /**
    * @description The maximum number of bytes to capture. This field only applies to `full` packet captures.
-   * @minLength 1
-   * @maxLength 1000000000
+   * @minimum 1
+   * @maximum 1000000000
    * @example 500000
    * @type number | undefined
    */
@@ -68012,8 +68005,8 @@ export type MagicVisibilityPcapsPcapsRequestFull = {
   filter_v1?: MagicVisibilityPcapsPcapsFilterV1 | undefined;
   /**
    * @description The limit of packets contained in a packet capture.
-   * @minLength 1
-   * @maxLength 10000
+   * @minimum 1
+   * @maximum 10000
    * @example 10000
    * @type number | undefined
    */
@@ -68026,8 +68019,8 @@ export type MagicVisibilityPcapsPcapsRequestFull = {
   system: MagicVisibilityPcapsPcapsSystemKey;
   /**
    * @description The packet capture duration in seconds.
-   * @minLength 1
-   * @maxLength 86400
+   * @minimum 1
+   * @maximum 86400
    * @example 86400
    * @type number
    */
@@ -68056,8 +68049,8 @@ export type MagicVisibilityPcapsPcapsRequestSimple = {
   offset_time?: MagicVisibilityPcapsPcapsOffsetTime | undefined;
   /**
    * @description The limit of packets contained in a packet capture.
-   * @minLength 1
-   * @maxLength 10000
+   * @minimum 1
+   * @maximum 10000
    * @example 10000
    * @type number
    */
@@ -68070,8 +68063,8 @@ export type MagicVisibilityPcapsPcapsRequestSimple = {
   system: MagicVisibilityPcapsPcapsSystemKey;
   /**
    * @description The packet capture duration in seconds.
-   * @minLength 1
-   * @maxLength 300
+   * @minimum 1
+   * @maximum 300
    * @example 300
    * @type number
    */
@@ -68299,7 +68292,7 @@ export type MagicAcl = {
  */
 export type MagicMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -68576,8 +68569,8 @@ export type MagicAppBreakoutPreferredWans = MagicIdentifier[];
 
 /**
  * @description Priority of traffic. 0 is default, anything greater is prioritized. (Currently only 0 and 1 are supported)
- * @minLength 0
- * @maxLength 1
+ * @minimum 0
+ * @maximum 1
  * @type integer
  */
 export type MagicAppPriority = number;
@@ -68606,8 +68599,8 @@ export type MagicAppConfig = {
   preferred_wans?: MagicAppBreakoutPreferredWans | undefined;
   /**
    * @description Priority of traffic. 0 is default, anything greater is prioritized. (Currently only 0 and 1 are supported)
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @type integer | undefined
    */
   priority?: MagicAppPriority | undefined;
@@ -68658,8 +68651,8 @@ export type MagicAppConfigAddSingleRequest = ({
 } | {
   /**
    * @description Priority of traffic. 0 is default, anything greater is prioritized. (Currently only 0 and 1 are supported)
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @type integer
    */
   priority: MagicAppPriority;
@@ -68677,8 +68670,8 @@ export type MagicAppConfigAddSingleRequest = ({
   preferred_wans?: MagicAppBreakoutPreferredWans | undefined;
   /**
    * @description Priority of traffic. 0 is default, anything greater is prioritized. (Currently only 0 and 1 are supported)
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @type integer | undefined
    */
   priority?: MagicAppPriority | undefined;
@@ -68737,8 +68730,8 @@ export type MagicAppConfigUpdateRequest = {
   preferred_wans?: MagicAppBreakoutPreferredWans | undefined;
   /**
    * @description Priority of traffic. 0 is default, anything greater is prioritized. (Currently only 0 and 1 are supported)
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @type integer | undefined
    */
   priority?: MagicAppPriority | undefined;
@@ -68855,7 +68848,7 @@ export type MagicBgpConfig = {
    * @description ASN used on the customer end of the BGP session
    *
    * Format: `int32`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   customer_asn: number;
@@ -68983,7 +68976,7 @@ export type MagicBgpSettings = {
    * @description Route advertisements from Cloudflare to ramps in this account will use this ASN.
    *
    * Format: `uint32`
-   * @minLength 1
+   * @minimum 1
    * @example 13335
    * @type integer
    */
@@ -69018,8 +69011,8 @@ export type MagicBgpStatusWithState = {
    */
   cf_speaker_ip?: string | undefined;
   /**
-   * @minLength 1
-   * @maxLength 65535
+   * @minimum 1
+   * @maximum 65535
    * @type integer | undefined
    */
   cf_speaker_port?: number | undefined;
@@ -69030,8 +69023,8 @@ export type MagicBgpStatusWithState = {
    */
   customer_speaker_ip?: string | undefined;
   /**
-   * @minLength 1
-   * @maxLength 65535
+   * @minimum 1
+   * @maximum 65535
    * @type integer | undefined
    */
   customer_speaker_port?: number | undefined;
@@ -70173,8 +70166,8 @@ export type MagicDhcpOptionTypeEnumKey = (typeof magicDhcpOptionTypeEnum)[keyof 
 export type MagicDhcpOption = {
   /**
    * @description DHCP option number (1-254). Options 0 and 255 are reserved by RFC 2132. Options 3, 6, and 51 are not allowed because they conflict with connector-managed configuration.
-   * @minLength 1
-   * @maxLength 254
+   * @minimum 1
+   * @maximum 254
    * @type integer
    */
   code: number;
@@ -70907,8 +70900,8 @@ export type MagicMultipleRouteModifiedResponse = MagicApiResponseSingle & {
 export type MagicNetflowConfig = {
   /**
    * @description Timeout in seconds for active flows (defaults to 30).
-   * @minLength 1
-   * @maxLength 5400
+   * @minimum 1
+   * @maximum 5400
    * @example 30
    * @type integer | undefined
    */
@@ -70921,24 +70914,24 @@ export type MagicNetflowConfig = {
   collector_ip: string;
   /**
    * @description UDP port of the NetFlow collector (defaults to 2055).
-   * @minLength 1
-   * @maxLength 65535
+   * @minimum 1
+   * @maximum 65535
    * @example 2055
    * @type integer | undefined
    */
   collector_port?: number | undefined;
   /**
    * @description Timeout in seconds for inactive flows (defaults to 15).
-   * @minLength 1
-   * @maxLength 5400
+   * @minimum 1
+   * @maximum 5400
    * @example 15
    * @type integer | undefined
    */
   inactive_timeout?: number | undefined;
   /**
    * @description Sampling rate for NetFlow records (1 = every packet, 1000 = 1 in 1000 packets). Defaults to 1.
-   * @minLength 1
-   * @maxLength 10000
+   * @minimum 1
+   * @maximum 10000
    * @example 100
    * @type integer | undefined
    */
@@ -70948,8 +70941,8 @@ export type MagicNetflowConfig = {
 export type MagicNetflowConfigRequest = {
   /**
    * @description Timeout in seconds for active flows.
-   * @minLength 1
-   * @maxLength 5400
+   * @minimum 1
+   * @maximum 5400
    * @example 30
    * @type integer | undefined
    */
@@ -70962,24 +70955,24 @@ export type MagicNetflowConfigRequest = {
   collector_ip?: string | undefined;
   /**
    * @description UDP port of the NetFlow collector.
-   * @minLength 1
-   * @maxLength 65535
+   * @minimum 1
+   * @maximum 65535
    * @example 2055
    * @type integer | undefined
    */
   collector_port?: number | undefined;
   /**
    * @description Timeout in seconds for inactive flows.
-   * @minLength 1
-   * @maxLength 5400
+   * @minimum 1
+   * @maximum 5400
    * @example 15
    * @type integer | undefined
    */
   inactive_timeout?: number | undefined;
   /**
    * @description Sampling rate for NetFlow records (1 = every packet).
-   * @minLength 1
-   * @maxLength 10000
+   * @minimum 1
+   * @maximum 10000
    * @example 100
    * @type integer | undefined
    */
@@ -71444,7 +71437,7 @@ export type MagicUpdateBgpSettingsRequest = {
    * @description Route advertisements from Cloudflare to ramps in this account will use this ASN.
    *
    * Format: `uint32`
-   * @minLength 1
+   * @minimum 1
    * @example 13335
    * @type integer | undefined
    */
@@ -71524,16 +71517,16 @@ export type MagicWan = {
   priority?: number | undefined;
   /**
    * @description Provisioned download rate of the WAN circuit in kilobits per second.
-   * @minLength 1
-   * @maxLength 1000000000
+   * @minimum 1
+   * @maximum 1000000000
    * @example 500
    * @type integer | undefined
    */
   provisioned_download_kbps?: number | undefined;
   /**
    * @description Provisioned upload rate of the WAN circuit in kilobits per second.
-   * @minLength 1
-   * @maxLength 1000000000
+   * @minimum 1
+   * @maximum 1000000000
    * @example 100
    * @type integer | undefined
    */
@@ -71657,16 +71650,16 @@ export type MagicWanUpdateRequest = {
   priority?: number | undefined;
   /**
    * @description Provisioned download rate of the WAN circuit in kilobits per second. Set to null to remove it.
-   * @minLength 1
-   * @maxLength 1000000000
+   * @minimum 1
+   * @maximum 1000000000
    * @example 500
    * @type integer | undefined
    */
   provisioned_download_kbps?: (number | null) | undefined;
   /**
    * @description Provisioned upload rate of the WAN circuit in kilobits per second. Set to null to remove it.
-   * @minLength 1
-   * @maxLength 1000000000
+   * @minimum 1
+   * @maximum 1000000000
    * @example 100
    * @type integer | undefined
    */
@@ -71714,16 +71707,16 @@ export type MagicWansAddSingleRequest = {
   priority?: number | undefined;
   /**
    * @description Provisioned download rate of the WAN circuit in kilobits per second.
-   * @minLength 1
-   * @maxLength 1000000000
+   * @minimum 1
+   * @maximum 1000000000
    * @example 500
    * @type integer | undefined
    */
   provisioned_download_kbps?: number | undefined;
   /**
    * @description Provisioned upload rate of the WAN circuit in kilobits per second.
-   * @minLength 1
-   * @maxLength 1000000000
+   * @minimum 1
+   * @maximum 1000000000
    * @example 100
    * @type integer | undefined
    */
@@ -71747,7 +71740,7 @@ export type MagicWansCollectionResponse = MagicApiResponseSingle & {
 
 export type ManagedDefenseVulnerabilityDiscoveryMessage = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @example 10005
    * @type integer
    */
@@ -71779,7 +71772,7 @@ export type ManagedDefenseVulnerabilityDiscoveryCuratedReportPublication = {
    */
   revision_id: string;
   /**
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   version: number;
@@ -71813,7 +71806,7 @@ export type ManagedDefenseVulnerabilityDiscoveryReportReachability = {
 
 export type ManagedDefenseVulnerabilityDiscoveryReportTraceStep = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   line: number;
@@ -71972,7 +71965,7 @@ export type ManagedDefenseVulnerabilityDiscoveryReportFinding = {
      */
     file: string;
     /**
-     * @minLength 1
+     * @minimum 1
      * @type integer
      */
     line: number;
@@ -72042,7 +72035,7 @@ export type ManagedDefenseVulnerabilityDiscoveryReportFinding = {
 
 export type ManagedDefenseVulnerabilityDiscoveryReportErrorPath = {
   /**
-   * @minLength 0
+   * @minimum 0
    * @type number
    */
   hits: number;
@@ -72062,8 +72055,8 @@ export type ManagedDefenseVulnerabilityDiscoveryReportErrorPath = {
    */
   path: string;
   /**
-   * @minLength 100
-   * @maxLength 599
+   * @minimum 100
+   * @maximum 599
    * @type integer
    */
   status: number;
@@ -72071,7 +72064,7 @@ export type ManagedDefenseVulnerabilityDiscoveryReportErrorPath = {
 
 export type ManagedDefenseVulnerabilityDiscoveryReportHotPath = {
   /**
-   * @minLength 0
+   * @minimum 0
    * @type number
    */
   hits: number;
@@ -72091,8 +72084,8 @@ export type ManagedDefenseVulnerabilityDiscoveryReportHotPath = {
    */
   path: string;
   /**
-   * @minLength 100
-   * @maxLength 599
+   * @minimum 100
+   * @maximum 599
    * @type integer
    */
   top_status: number;
@@ -72136,7 +72129,7 @@ export type ManagedDefenseVulnerabilityDiscoveryReportTelemetryTarget = {
 
 export type ManagedDefenseVulnerabilityDiscoveryReportObservedPath = {
   /**
-   * @minLength 0
+   * @minimum 0
    * @type number
    */
   hit_volume: number;
@@ -72159,7 +72152,7 @@ export type ManagedDefenseVulnerabilityDiscoveryReportObservedPath = {
 
 export type ManagedDefenseVulnerabilityDiscoveryReportObservedWafRule = {
   /**
-   * @minLength 0
+   * @minimum 0
    * @type number
    */
   hit_volume: number;
@@ -72175,7 +72168,7 @@ export type ManagedDefenseVulnerabilityDiscoveryReportObservedWafRule = {
    */
   rule_id: string;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   rule_version: number | null;
@@ -72183,18 +72176,18 @@ export type ManagedDefenseVulnerabilityDiscoveryReportObservedWafRule = {
 
 export type ManagedDefenseVulnerabilityDiscoveryReportWebAssetsPerformance = {
   /**
-   * @minLength 0
+   * @minimum 0
    * @type number
    */
   avg_origin_latency_ms: number | null;
   /**
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @type number
    */
   error_rate: number;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type number
    */
   estimated_requests: number;
@@ -72236,18 +72229,18 @@ export type ManagedDefenseVulnerabilityDiscoveryReportWebAssetsOperation = {
 
 export type ManagedDefenseVulnerabilityDiscoveryReportWebAssetsPath = {
   /**
-   * @minLength 0
+   * @minimum 0
    * @type number
    */
   avg_origin_latency_ms: number | null;
   /**
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @type number
    */
   error_rate: number;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type number
    */
   estimated_requests: number;
@@ -72273,7 +72266,7 @@ export type ManagedDefenseVulnerabilityDiscoveryReportTrafficContext = {
     error_paths: ManagedDefenseVulnerabilityDiscoveryReportErrorPath[];
     hot_paths: ManagedDefenseVulnerabilityDiscoveryReportHotPath[];
     /**
-     * @minLength 0
+     * @minimum 0
      * @type number
      */
     request_volume: number;
@@ -72281,7 +72274,7 @@ export type ManagedDefenseVulnerabilityDiscoveryReportTrafficContext = {
   target: ManagedDefenseVulnerabilityDiscoveryReportTelemetryTarget | null;
   waf: {
     /**
-     * @minLength 0
+     * @minimum 0
      * @type number
      */
     hit_volume: number;
@@ -72298,7 +72291,7 @@ export type ManagedDefenseVulnerabilityDiscoveryReportTrafficContext = {
        */
       name: string;
       /**
-       * @minLength 0
+       * @minimum 0
        * @type integer
        */
       operation_count: number;
@@ -72576,8 +72569,8 @@ export type ManagedDefenseVulnerabilityDiscoveryFailureResponse = {
 
 export type ManagedDefenseVulnerabilityDiscoveryResultInfo = {
   /**
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @type integer
    */
   count: number;
@@ -72587,8 +72580,8 @@ export type ManagedDefenseVulnerabilityDiscoveryResultInfo = {
    */
   cursor: string;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @type integer
    */
   per_page: number;
@@ -74371,7 +74364,7 @@ export type MconnAccountId = string;
 
 export type MconnCodedMessage = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -74512,8 +74505,8 @@ export type MconnCustomerConnector = {
    */
   interrupt_window_days_of_week: MconnDayOfWeekKey[];
   /**
-   * @minLength 1
-   * @maxLength 24
+   * @minimum 1
+   * @maximum 24
    * @type number
    */
   interrupt_window_duration_hours: number;
@@ -74539,8 +74532,8 @@ export type MconnCustomerConnectorFields = {
    */
   interrupt_window_days_of_week?: MconnDayOfWeekKey[] | undefined;
   /**
-   * @minLength 1
-   * @maxLength 24
+   * @minimum 1
+   * @maximum 24
    * @type number | undefined
    */
   interrupt_window_duration_hours?: number | undefined;
@@ -75237,7 +75230,7 @@ export type MoqTokensEnvelope = {
  */
 export type MqApiV4Error = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -76093,7 +76086,7 @@ export type NscBgpControl = {
    * @description ASN used on the customer end of the BGP session
    *
    * Format: `int32`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   customer_asn: number;
@@ -76146,7 +76139,7 @@ export type NscMagicSettings = {
   /**
    * @description
    * Format: `int32`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   mtu: number;
@@ -76336,7 +76329,7 @@ export type NscSettings = {
   /**
    * @description
    * Format: `int32`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   default_asn: number;
@@ -76346,7 +76339,7 @@ export type NscSettingsRequest = {
   /**
    * @description
    * Format: `int32`
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   default_asn?: (number | null) | undefined;
@@ -76412,7 +76405,7 @@ export type NscStatusInfo = {
  */
 export type ObservatoryMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -78715,6 +78708,10 @@ export type OrganizationsApiModifyProfileRequest = {
 export type OrganizationsApiMoveAccountResult = {
   account_id: string;
   destination_organization_id: string;
+  /**
+   * @description Empty string when the account did not belong to an organization before the move.
+   * @type string
+   */
   source_organization_id: string;
 };
 
@@ -78858,7 +78855,7 @@ export type OrganizationsApiV4ErrorResponse = {
  */
 export type PagesMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -80571,8 +80568,8 @@ export type PayPerCrawlDaricConfig = {
   enabled?: boolean | undefined;
   /**
    * @description Price in microcents 1 USD = 100,000,000 microcents. Must be 0 or a multiple of 100,000 $0.001. Range: $0.001–$9,999.999.
-   * @minLength 0
-   * @maxLength 999999900000
+   * @minimum 0
+   * @maximum 999999900000
    * @type integer | undefined
    */
   price_usd_microcents?: number | undefined;
@@ -80582,8 +80579,8 @@ export type PayPerCrawlDaricConfigCreate = PayPerCrawlDaricConfig & {
   enabled: boolean;
   /**
    * @description Price in microcents 1 USD = 100,000,000 microcents. Must be 0 or a multiple of 100,000 $0.001. Range: $0.001–$9,999.999.
-   * @minLength 0
-   * @maxLength 999999900000
+   * @minimum 0
+   * @maximum 999999900000
    * @type integer
    */
   price_usd_microcents: number;
@@ -80721,8 +80718,8 @@ export type PayPerCrawlMsg = {
 export type PayPerCrawlPPUOperatorConfiguration = {
   /**
    * @description Default price in microcents. 1 USD = 100,000,000 microcents. Must be a multiple of 100,000 ($0.001) between $0.001 and $9,999.999.
-   * @minLength 100000
-   * @maxLength 999999900000
+   * @minimum 100000
+   * @maximum 999999900000
    * @type integer
    */
   default_price_usd_microcents: number;
@@ -80741,8 +80738,8 @@ export type PayPerCrawlPPUOperatorConfigurationResponse = {
 export type PayPerCrawlPPUOperatorConfigurationResult = {
   /**
    * @description Default price in microcents. 1 USD = 100,000,000 microcents. Must be a multiple of 100,000 ($0.001) between $0.001 and $9,999.999.
-   * @minLength 100000
-   * @maxLength 999999900000
+   * @minimum 100000
+   * @maximum 999999900000
    * @type integer
    */
   default_price_usd_microcents: number;
@@ -80768,8 +80765,8 @@ export type PayPerCrawlPPUOperatorConfigurationResultResponse = {
 export type PayPerCrawlPPUOperatorConfigurationUpdate = {
   /**
    * @description Default price in microcents. 1 USD = 100,000,000 microcents. Must be a multiple of 100,000 ($0.001) between $0.001 and $9,999.999.
-   * @minLength 100000
-   * @maxLength 999999900000
+   * @minimum 100000
+   * @maximum 999999900000
    * @type integer | undefined
    */
   default_price_usd_microcents?: number | undefined;
@@ -80874,7 +80871,7 @@ export type PayPerCrawlPPUOperatorProposalActionRequest = {
    * @description Pending pay-per-use price id returned in the operator proposal queue.
    *
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   price_id: number;
@@ -80935,8 +80932,8 @@ export type PayPerCrawlPPUPublisherPriceProposeRequest = {
    * @description Price in microcents. Must be a multiple of 100,000 ($0.001) between $0.001 and $9,999.999.
    *
    * Format: `int64`
-   * @minLength 100000
-   * @maxLength 999999900000
+   * @minimum 100000
+   * @maximum 999999900000
    * @type integer
    */
   price_usd_microcents: number;
@@ -80974,7 +80971,7 @@ export type PayPerCrawlPPUUsageStatsBuyer = {
    * @description Full gross value attributed to this buyer over the resolved range before the publisher revenue share.
    *
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   total_price_usd_microcents: number;
@@ -80982,7 +80979,7 @@ export type PayPerCrawlPPUUsageStatsBuyer = {
    * @description Number of reported usage events attributed to this buyer over the resolved range.
    *
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   usage_count: number;
@@ -81009,14 +81006,14 @@ export type PayPerCrawlPPUUsageStatsDataPoint = {
    * @description Full gross value of this data point in USD microcents before the publisher revenue share.
    *
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   total_price_usd_microcents: number;
   /**
    * @description
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   usage_count: number;
@@ -81027,7 +81024,7 @@ export type PayPerCrawlPPUUsageStatsTotals = {
    * @description Full gross value of reported usage in USD microcents before the publisher revenue share. 1 USD = 100,000,000 microcents.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   total_price_usd_microcents: number;
@@ -81035,7 +81032,7 @@ export type PayPerCrawlPPUUsageStatsTotals = {
    * @description Number of reported usage events in the selected window.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   usage_count: number;
@@ -81214,7 +81211,7 @@ export type PayPerCrawlStripeConnection = {
 
 export type PayPerCrawlUsageReportCreated = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   entry_count: number;
@@ -81228,7 +81225,7 @@ export type PayPerCrawlUsageReportCreated = {
    * @description Monotonically increasing submission ID scoped to the participant account
    *
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   submission_id: number;
@@ -81243,7 +81240,7 @@ export type PayPerCrawlUsageReportValidationError = {
   code: string;
   field?: string | undefined;
   /**
-   * @minLength 1
+   * @minimum 1
    * @type integer | undefined
    */
   line?: number | undefined;
@@ -81252,7 +81249,7 @@ export type PayPerCrawlUsageReportValidationError = {
 
 export type PayPerCrawlUsageReportValidationResult = {
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   entry_count: number;
@@ -81507,7 +81504,7 @@ export type PostureApiAssetSchemaDetail = {
 export type PostureApiMessages = {
   /**
    * @description Error or message code.
-   * @minLength 1000
+   * @minimum 1000
    * @example 1000
    * @type integer
    */
@@ -81821,16 +81818,16 @@ export type PostureApiDlpContext = {
   id?: string | undefined;
   /**
    * @description DLP Right Boundary of match context.
-   * @minLength 0
-   * @maxLength 2147483647
+   * @minimum 0
+   * @maximum 2147483647
    * @example 512
    * @type integer | undefined
    */
   match_context_max_extent?: (number | null) | undefined;
   /**
    * @description DLP Left Boundary of match context.
-   * @minLength 0
-   * @maxLength 2147483647
+   * @minimum 0
+   * @maximum 2147483647
    * @example 1
    * @type integer | undefined
    */
@@ -84662,7 +84659,10 @@ export type PostureApiCreateFindingTypeRequest = {
   /**
    * @description Rego expression body for the policy. `package cloudflare.casb.custom` and `import rego.v1` are added automatically. Do not include package or import declarations. This field cannot be changed after creation. Maximum 4096 characters.
    * @maxLength 4096
-   * @example result := "pass"
+   * @example default result := "pass"
+   *
+   * result := "fail" if input.asset.publicLinkDisabled == false
+   *
    * @type string
    */
   expression: string;
@@ -84901,7 +84901,7 @@ export type PostureApiWebhookResponse = PostureApiApiResponseCommon & {
  */
 export type PrecursorMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -85066,7 +85066,7 @@ export type PrecursorPrecursorConfigResponseBody = PrecursorApiResponseSingle & 
  */
 export type PublicIpMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -85343,7 +85343,7 @@ export type R2DataCatalogSnapshotExpirationConfig = {
    * @description Specifies the minimum number of snapshots to retain. Defaults to 100.
    *
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @example 100
    * @type integer
    */
@@ -85551,7 +85551,7 @@ export type R2DataCatalogSnapshotExpirationUpdateParams = {
    * @description Updates the minimum number of snapshots to retain optionally.
    *
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @type integer | undefined
    */
   min_snapshots_to_keep?: number | undefined;
@@ -85683,7 +85683,7 @@ export type R2DataCatalogGetTableResponse = {
    * snapshot falls outside the recent window, the result includes it in the
    * set, leading to a possible total of 11.
    *
-   * @minLength 0
+   * @minimum 0
    * @example 10
    * @type integer
    */
@@ -85698,7 +85698,7 @@ export type R2DataCatalogGetTableResponse = {
   table_uuid: string;
   /**
    * @description Indicates the total number of snapshots stored for the table, before pruning.
-   * @minLength 0
+   * @minimum 0
    * @example 122113
    * @type integer
    */
@@ -86036,7 +86036,7 @@ export type R2DataCatalogTableSnapshotExpirationConfig = {
    * @description Specifies the minimum number of snapshots to retain. Defaults to 100.
    *
    * Format: `int64`
-   * @minLength 1
+   * @minimum 1
    * @example 100
    * @type integer
    */
@@ -86276,7 +86276,7 @@ export type R2SlurperJobResponse = {
  */
 export type R2SlurperApiV4Error = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -87097,7 +87097,7 @@ export type R2EnableSippyS3 = {
 
 export type R2Errors = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -87524,43 +87524,43 @@ export type R2StorageClassMigrationJob = {
     destinationStorageClass: R2StorageClassMigrationJobStorageClassMigrationDestinationStorageClassEnumKey;
     /**
      * @description Payload bytes belonging to failed object versions.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     failedBytes?: number | undefined;
     /**
      * @description Number of object versions that failed migration.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     failedObjects?: number | undefined;
     /**
      * @description Object payload bytes migrated successfully. Present for Metadata Worker jobs.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     migratedBytes?: number | undefined;
     /**
      * @description Object metadata bytes migrated successfully. Present for Metadata Worker jobs.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     migratedMetadataBytes?: number | undefined;
     /**
      * @description Number of object versions migrated successfully.
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     migratedObjects: number;
     /**
      * @description Payload bytes belonging to skipped object versions.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     skippedBytes?: number | undefined;
     /**
      * @description Number of object versions skipped.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     skippedObjects?: number | undefined;
@@ -87822,7 +87822,7 @@ export type R2ResultInfo = {
   per_page?: number | undefined;
   /**
    * @description Total number of active buckets in the requested jurisdiction. This count is not affected by filtering or pagination and is eventually consistent for accounts with elevated bucket limits.
-   * @minLength 0
+   * @minimum 0
    * @example 42
    * @type integer
    */
@@ -87934,7 +87934,7 @@ export type R2TempAccessCredsRequest = {
   prefixes?: string[] | undefined;
   /**
    * @description Lifetime of the temporary credentials in seconds, up to 604800 seconds (7 days).
-   * @maxLength 604800
+   * @maximum 604800
    * @default 900
    * @type number
    */
@@ -88030,8 +88030,8 @@ export type RealtimekitSummarizationConfig = {
   text_format?: RealtimekitSummarizationConfigTextFormatEnumKey | undefined;
   /**
    * @description Sets the maximum number of words in the meeting summary.
-   * @minLength 150
-   * @maxLength 1000
+   * @minimum 150
+   * @maximum 1000
    * @default 500
    * @type integer | undefined
    */
@@ -88674,7 +88674,29 @@ export type RealtimekitRealtimekitBucketConfig = {
   enabled: boolean;
 };
 
-export const realtimekitStorageConfigTypeEnum = {
+export const realtimekitStorageConfigTypeEnum2 = {
+  aws: 'aws',
+  azure: 'azure',
+  digitalocean: 'digitalocean',
+} as const;
+
+export type RealtimekitStorageConfigTypeEnum2Key = (typeof realtimekitStorageConfigTypeEnum2)[keyof typeof realtimekitStorageConfigTypeEnum2];
+
+export const realtimekitStorageConfigAuthMethodEnum3 = {
+  KEY: 'KEY',
+  PASSWORD: 'PASSWORD',
+} as const;
+
+export type RealtimekitStorageConfigAuthMethodEnum3Key = (typeof realtimekitStorageConfigAuthMethodEnum3)[keyof typeof realtimekitStorageConfigAuthMethodEnum3];
+
+export const realtimekitStorageConfigAuthMethodEnum4 = {
+  KEY: 'KEY',
+  PASSWORD: 'PASSWORD',
+} as const;
+
+export type RealtimekitStorageConfigAuthMethodEnum4Key = (typeof realtimekitStorageConfigAuthMethodEnum4)[keyof typeof realtimekitStorageConfigAuthMethodEnum4];
+
+export const realtimekitStorageConfigTypeEnum4 = {
   aws: 'aws',
   azure: 'azure',
   digitalocean: 'digitalocean',
@@ -88682,14 +88704,7 @@ export const realtimekitStorageConfigTypeEnum = {
   sftp: 'sftp',
 } as const;
 
-export type RealtimekitStorageConfigTypeEnumKey = (typeof realtimekitStorageConfigTypeEnum)[keyof typeof realtimekitStorageConfigTypeEnum];
-
-export const realtimekitStorageConfigAuthMethodEnum = {
-  KEY: 'KEY',
-  PASSWORD: 'PASSWORD',
-} as const;
-
-export type RealtimekitStorageConfigAuthMethodEnumKey = (typeof realtimekitStorageConfigAuthMethodEnum)[keyof typeof realtimekitStorageConfigAuthMethodEnum];
+export type RealtimekitStorageConfigTypeEnum4Key = (typeof realtimekitStorageConfigTypeEnum4)[keyof typeof realtimekitStorageConfigTypeEnum4];
 
 export type RealtimekitStorageConfig = ({
   type?: 'gcs' | undefined;
@@ -88704,7 +88719,7 @@ export type RealtimekitStorageConfig = ({
    * @type string
    */
   region: string;
-  type?: RealtimekitStorageConfigTypeEnumKey | undefined;
+  type?: RealtimekitStorageConfigTypeEnum2Key | undefined;
 } | ({
   auth_method?: 'KEY' | undefined;
   private_key: unknown;
@@ -88728,7 +88743,7 @@ export type RealtimekitStorageConfig = ({
    *
    * @type string
    */
-  auth_method: RealtimekitStorageConfigAuthMethodEnumKey;
+  auth_method: RealtimekitStorageConfigAuthMethodEnum3Key;
   /**
    * @description SSH destination server username for SFTP type storage medium
    * @type string
@@ -88757,7 +88772,7 @@ export type RealtimekitStorageConfig = ({
    *
    * @type string | undefined
    */
-  auth_method?: RealtimekitStorageConfigAuthMethodEnumKey | undefined;
+  auth_method?: RealtimekitStorageConfigAuthMethodEnum4Key | undefined;
   /**
    * @description Name of the storage medium's bucket.
    * @type string
@@ -88803,7 +88818,7 @@ export type RealtimekitStorageConfig = ({
    * @description Type of storage media.
    * @type string
    */
-  type: RealtimekitStorageConfigTypeEnumKey;
+  type: RealtimekitStorageConfigTypeEnum4Key;
   /**
    * @description SSH destination server username for SFTP type storage medium
    * @type string | undefined
@@ -88843,8 +88858,8 @@ export type RealtimekitVideoConfig = {
   export_file?: boolean | undefined;
   /**
    * @description Height of the recording video in pixels
-   * @minLength 1
-   * @maxLength 1920
+   * @minimum 1
+   * @maximum 1920
    * @default 720
    * @example 720
    * @type integer | undefined
@@ -88868,13 +88883,13 @@ export type RealtimekitVideoConfig = {
     size?: {
       /**
        * @description Height of the watermark in px
-       * @minLength 1
+       * @minimum 1
        * @type integer | undefined
        */
       height?: number | undefined;
       /**
        * @description Width of the watermark in px
-       * @minLength 1
+       * @minimum 1
        * @type integer | undefined
        */
       width?: number | undefined;
@@ -88889,8 +88904,8 @@ export type RealtimekitVideoConfig = {
   } | undefined;
   /**
    * @description Width of the recording video in pixels
-   * @minLength 1
-   * @maxLength 1920
+   * @minimum 1
+   * @maximum 1920
    * @default 1280
    * @example 1280
    * @type integer | undefined
@@ -88917,8 +88932,8 @@ export type RealtimekitRecordingConfig = {
   live_streaming_config?: RealtimekitLivestreamingConfig | undefined;
   /**
    * @description Specifies the maximum duration for recording in seconds, ranging from a minimum of 60 seconds to a maximum of 24 hours.
-   * @minLength 60
-   * @maxLength 86400
+   * @minimum 60
+   * @maximum 86400
    * @type number | undefined
    */
   max_seconds?: number | undefined;
@@ -88972,8 +88987,8 @@ export type RealtimekitMeeting = {
   recording_config?: RealtimekitRecordingConfig | undefined;
   /**
    * @description Time in seconds, for which a session remains active, after the last participant has left the meeting.
-   * @minLength 60
-   * @maxLength 600
+   * @minimum 60
+   * @maximum 600
    * @default 60
    * @type number | undefined
    */
@@ -89019,7 +89034,7 @@ export type RealtimekitPagingInfo = {
    */
   start_offset: number;
   /**
-   * @minLength 0
+   * @minimum 0
    * @example 30
    * @type number
    */
@@ -89934,7 +89949,7 @@ export type RealtimekitPreset = {
       video: {
         /**
          * @description Frame rate of participants' video
-         * @maxLength 30
+         * @maximum 30
          * @type number
          */
         frame_rate: number;
@@ -90152,7 +90167,7 @@ export type RealtimekitPreset = {
        */
       logo?: string | undefined;
       /**
-       * @minLength 1
+       * @minimum 1
        * @type number
        */
       spacing_base: number;
@@ -90527,7 +90542,7 @@ export type RealtimekitUpdatePreset = {
       video?: {
         /**
          * @description Frame rate of participants' video
-         * @maxLength 30
+         * @maximum 30
          * @type number | undefined
          */
         frame_rate?: number | undefined;
@@ -90744,7 +90759,7 @@ export type RealtimekitUpdatePreset = {
        */
       logo?: string | undefined;
       /**
-       * @minLength 1
+       * @minimum 1
        * @type number | undefined
        */
       spacing_base?: number | undefined;
@@ -91013,7 +91028,7 @@ export type RealtimekitStopReason = {
  */
 export type RegistrarApiSandboxMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -91793,8 +91808,8 @@ export type RegistrarApiSandboxRegistrationCreateRequest = {
    * request above that maximum fails. When uncertain, omit this field to
    * use the default.
    *
-   * @minLength 1
-   * @maxLength 10
+   * @minimum 1
+   * @maximum 10
    * @example 1
    * @type integer | undefined
    */
@@ -91945,7 +91960,7 @@ export type RegistrarApiSandboxWorkflowStatusResponseSingle = RegistrarApiSandbo
  */
 export type RegistrarApiMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -92932,8 +92947,8 @@ export type RegistrarApiRegistrationCreateRequest = {
    * request above that maximum fails. When uncertain, omit this field to
    * use the default.
    *
-   * @minLength 1
-   * @maxLength 10
+   * @minimum 1
+   * @maximum 10
    * @example 1
    * @type integer | undefined
    */
@@ -93284,7 +93299,7 @@ export type ReportsApplicationSecurityReportV1Data = {
   top_countries_by_mitigated_requests: {
     /**
      * @description Number of requests from this country.
-     * @minLength 0
+     * @minimum 0
      * @example 8934
      * @type integer
      */
@@ -93305,7 +93320,7 @@ export type ReportsApplicationSecurityReportV1Data = {
   top_countries_by_served_requests: {
     /**
      * @description Number of requests from this country.
-     * @minLength 0
+     * @minimum 0
      * @example 8934
      * @type integer
      */
@@ -93326,7 +93341,7 @@ export type ReportsApplicationSecurityReportV1Data = {
   top_hostnames_by_mitigated_requests: {
     /**
      * @description Number of requests for this hostname.
-     * @minLength 0
+     * @minimum 0
      * @example 15420
      * @type integer
      */
@@ -93345,7 +93360,7 @@ export type ReportsApplicationSecurityReportV1Data = {
   top_rules_by_mitigated_requests: {
     /**
      * @description Number of requests that triggered this firewall rule
-     * @minLength 0
+     * @minimum 0
      * @example 234
      * @type integer
      */
@@ -93386,7 +93401,7 @@ export type ReportsApplicationSecurityReportV1Data = {
   total_requests: {
     /**
      * @description Total count of requests.
-     * @minLength 0
+     * @minimum 0
      * @example 1250000
      * @type integer
      */
@@ -93405,7 +93420,7 @@ export type ReportsApplicationSecurityReportV1Data = {
   total_requests_mitigated: {
     /**
      * @description Total count of requests.
-     * @minLength 0
+     * @minimum 0
      * @example 1250000
      * @type integer
      */
@@ -93424,7 +93439,7 @@ export type ReportsApplicationSecurityReportV1Data = {
   total_requests_served: {
     /**
      * @description Total count of requests.
-     * @minLength 0
+     * @minimum 0
      * @example 1250000
      * @type integer
      */
@@ -93438,14 +93453,14 @@ export type ReportsApplicationSecurityReportV1Data = {
   };
   /**
    * @description Total number of zones (domains) in this account
-   * @minLength 0
+   * @minimum 0
    * @example 25
    * @type integer
    */
   total_zones: number;
   /**
    * @description Number of zones that were included in this security analysis
-   * @minLength 0
+   * @minimum 0
    * @example 23
    * @type integer
    */
@@ -93888,7 +93903,7 @@ export type RequestTracerAccountIdentifier = string;
 
 export type RequestTracerMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -94876,7 +94891,7 @@ export type ResourceTaggingAccountResourceTypeWorkerVersionEnumKey = (typeof res
  */
 export type ResourceTaggingMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -95996,7 +96011,7 @@ export type ResourceTaggingZoneResourceTypeKey = (typeof resourceTaggingZoneReso
 
 export type RlanalyticsMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -96288,14 +96303,14 @@ export type RulesetsRuleRatelimit = {
   mitigation_timeout?: number | undefined;
   /**
    * @description Period in seconds over which the counter is being incremented.
-   * @minLength 0
+   * @minimum 0
    * @example 60
    * @type integer
    */
   period: number;
   /**
    * @description The threshold of requests per period after which the action will be executed for the first time.
-   * @minLength 1
+   * @minimum 1
    * @example 1000
    * @type integer | undefined
    */
@@ -96427,8 +96442,8 @@ export type RulesetsBlockRule = RulesetsRuleSchema & {
       content_type: string;
       /**
        * @description The status code to return.
-       * @minLength 400
-       * @maxLength 499
+       * @minimum 400
+       * @maximum 499
        * @type integer
        */
       status_code: number;
@@ -96935,8 +96950,8 @@ export type RulesetsManagedTransformsPatch = {
 
 /**
  * @description The number of rulesets to return per page.
- * @minLength 1
- * @maxLength 50
+ * @minimum 1
+ * @maximum 50
  * @example 3
  * @type integer
  */
@@ -97205,8 +97220,8 @@ export type RulesetsRouteOrigin = {
   host?: string | undefined;
   /**
    * @description A destination port to route to.
-   * @minLength 1
-   * @maxLength 65535
+   * @minimum 1
+   * @maximum 65535
    * @example 80
    * @type integer | undefined
    */
@@ -97290,8 +97305,8 @@ export type RulesetsServeErrorContentTypeKey = (typeof rulesetsServeErrorContent
 
 /**
  * @description The status code to use for the error.
- * @minLength 400
- * @maxLength 999
+ * @minimum 400
+ * @maximum 999
  * @example 500
  * @type integer
  */
@@ -97326,8 +97341,8 @@ export type RulesetsServeErrorRule = RulesetsRuleSchema & {
     content_type: RulesetsServeErrorContentTypeKey;
     /**
      * @description The status code to use for the error.
-     * @minLength 400
-     * @maxLength 999
+     * @minimum 400
+     * @maximum 999
      * @example 500
      * @type integer | undefined
      */
@@ -97410,7 +97425,7 @@ export type RulesetsSetCacheControlDirectiveWithValue = {
   operation: RulesetsSetCacheControlOperationKey & 'set';
   /**
    * @description The duration value in seconds for the directive.
-   * @minLength 0
+   * @minimum 0
    * @example 3600
    * @type integer
    */
@@ -97539,7 +97554,7 @@ export type RulesetsSetCacheSettingsBrowserTTLModeEnumKey = (typeof rulesetsSetC
 export type RulesetsSetCacheSettingsBrowserTTL = {
   /**
    * @description The browser TTL (in seconds) if you choose the "override_origin" mode.
-   * @minLength 0
+   * @minimum 0
    * @example 60
    * @type integer | undefined
    */
@@ -97759,7 +97774,7 @@ export type RulesetsSetCacheSettingsCacheReserve = {
   eligible: boolean;
   /**
    * @description The minimum file size eligible for storage in Cache Reserve.
-   * @minLength 0
+   * @minimum 0
    * @example 1024
    * @type integer | undefined
    */
@@ -97773,8 +97788,8 @@ export type RulesetsSetCacheSettingsCacheReserve = {
 export type RulesetsSetCacheSettingsStatusCodeTTL = {
   /**
    * @description A single status code to apply the TTL to.
-   * @minLength 100
-   * @maxLength 999
+   * @minimum 100
+   * @maximum 999
    * @example 200
    * @type integer | undefined
    */
@@ -97786,16 +97801,16 @@ export type RulesetsSetCacheSettingsStatusCodeTTL = {
   status_code_range?: {
     /**
      * @description The lower bound of the range.
-     * @minLength 100
-     * @maxLength 999
+     * @minimum 100
+     * @maximum 999
      * @example 200
      * @type integer | undefined
      */
     from?: number | undefined;
     /**
      * @description The upper bound of the range.
-     * @minLength 100
-     * @maxLength 999
+     * @minimum 100
+     * @maximum 999
      * @example 299
      * @type integer | undefined
      */
@@ -97824,7 +97839,7 @@ export type RulesetsSetCacheSettingsEdgeTTLModeEnumKey = (typeof rulesetsSetCach
 export type RulesetsSetCacheSettingsEdgeTTL = {
   /**
    * @description The edge TTL (in seconds) if you choose the "override_origin" mode.
-   * @minLength 0
+   * @minimum 0
    * @example 60
    * @type integer | undefined
    */
@@ -97879,8 +97894,8 @@ export type RulesetsSetCacheSettingsOriginRangeRequests = {
 
 /**
  * @description A timeout value between two successive read operations to use for your origin server. Historically, the timeout value between two read options from Cloudflare to an origin server is 100 seconds. If you are attempting to reduce HTTP 524 errors because of timeouts from an origin server, try increasing this timeout value.
- * @minLength 100
- * @maxLength 6000
+ * @minimum 100
+ * @maximum 6000
  * @example 900
  * @type integer
  */
@@ -98067,8 +98082,8 @@ export type RulesetsSetCacheSettingsRule = RulesetsRuleSchema & {
     origin_range_requests?: RulesetsSetCacheSettingsOriginRangeRequests | undefined;
     /**
      * @description A timeout value between two successive read operations to use for your origin server. Historically, the timeout value between two read options from Cloudflare to an origin server is 100 seconds. If you are attempting to reduce HTTP 524 errors because of timeouts from an origin server, try increasing this timeout value.
-     * @minLength 100
-     * @maxLength 6000
+     * @minimum 100
+     * @maximum 6000
      * @example 900
      * @type integer | undefined
      */
@@ -98749,8 +98764,8 @@ export type RulesetsBlockRuleWritable = RulesetsRuleWritable & {
       content_type: string;
       /**
        * @description The status code to return.
-       * @minLength 400
-       * @maxLength 499
+       * @minimum 400
+       * @maximum 499
        * @type integer
        */
       status_code: number;
@@ -99004,8 +99019,8 @@ export type RulesetsServeErrorRuleWritable = RulesetsRuleWritable & {
     content_type: RulesetsServeErrorContentTypeKey;
     /**
      * @description The status code to use for the error.
-     * @minLength 400
-     * @maxLength 999
+     * @minimum 400
+     * @maximum 999
      * @example 500
      * @type integer | undefined
      */
@@ -99152,8 +99167,8 @@ export type RulesetsSetCacheSettingsRuleWritable = RulesetsRuleWritable & {
     origin_range_requests?: RulesetsSetCacheSettingsOriginRangeRequests | undefined;
     /**
      * @description A timeout value between two successive read operations to use for your origin server. Historically, the timeout value between two read options from Cloudflare to an origin server is 100 seconds. If you are attempting to reduce HTTP 524 errors because of timeouts from an origin server, try increasing this timeout value.
-     * @minLength 100
-     * @maxLength 6000
+     * @minimum 100
+     * @maximum 6000
      * @example 900
      * @type integer | undefined
      */
@@ -99589,7 +99604,7 @@ export type RulesetsRuleRequest = RulesetsRequestRuleWritable & {
   } | RulesetsRulePosition & {
     /**
      * @description An index at which to place the rule, where index 1 is the first rule.
-     * @minLength 1
+     * @minimum 1
      * @example 1
      * @type integer | undefined
      */
@@ -99728,7 +99743,7 @@ export type RulesetsZoneId = string;
  */
 export type RumMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -99760,7 +99775,7 @@ export type RumApiResponseCommon = {
  */
 export type RumMessages2 = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -100360,7 +100375,7 @@ export type SecondaryDnsAlgo = string;
  */
 export type SecondaryDnsMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -100450,7 +100465,7 @@ export type SecondaryDnsApiResponseSingle = SecondaryDnsApiResponseCommon;
 /**
  * @description How often should a secondary zone auto refresh regardless of DNS NOTIFY.
  * Not applicable for primary zones.
- * @minLength 300
+ * @minimum 300
  * @default 86400
  * @example 86400
  * @type number
@@ -100497,7 +100512,7 @@ export type SecondaryDnsDnsSecondarySecondaryZone = {
   /**
    * @description How often should a secondary zone auto refresh regardless of DNS NOTIFY.
    * Not applicable for primary zones.
-   * @minLength 300
+   * @minimum 300
    * @default 86400
    * @example 86400
    * @type number
@@ -100782,7 +100797,7 @@ export type SecondaryDnsSingleResponseIncoming = SecondaryDnsApiResponseSingle &
     /**
      * @description How often should a secondary zone auto refresh regardless of DNS NOTIFY.
      * Not applicable for primary zones.
-     * @minLength 300
+     * @minimum 300
      * @default 86400
      * @example 86400
      * @type number | undefined
@@ -100900,7 +100915,7 @@ export type SecretsStoreAccountIdentifier = string;
  */
 export type SecretsStoreMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -101337,7 +101352,7 @@ export type SecretsStoreStoresResponseCollection = SecretsStoreApiResponseCollec
  */
 export type SecurityCenterMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -101727,7 +101742,7 @@ export type SecurityCenterPartnerAssetResultInfo = {
    * @description Number of items in the current page.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @example 25
    * @type integer
    */
@@ -101741,8 +101756,8 @@ export type SecurityCenterPartnerAssetResultInfo = {
    * @description Requested maximum number of items per page.
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @example 25
    * @type integer
    */
@@ -101807,8 +101822,8 @@ export type SecurityCenterPartnerSettingsPostResponse = SecurityCenterApiRespons
 
 /**
  * @description Sets the number of results per page of results.
- * @minLength 1
- * @maxLength 1000
+ * @minimum 1
+ * @maximum 1000
  * @example 25
  * @type integer
  */
@@ -101990,7 +102005,7 @@ export type SecurityCenterShadowHost = {
    * @description Number of active Security Center insights associated with the host. Present only in zone-level shadow-host responses.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @example 4
    * @type integer | undefined
    */
@@ -102026,7 +102041,7 @@ export type SecurityCenterShadowHostsResponse = SecurityCenterApiResponseCommon 
      * @description Total number of shadow hosts discovered beneath the domain.
      *
      * Format: `int64`
-     * @minLength 0
+     * @minimum 0
      * @example 30
      * @type integer
      */
@@ -102054,7 +102069,7 @@ export type SecurityCenterShadowZone = {
    * @description Number of partner-discovered hosts beneath the domain that are not in the account.
    *
    * Format: `int64`
-   * @minLength 0
+   * @minimum 0
    * @example 4
    * @type integer
    */
@@ -102084,7 +102099,7 @@ export type SecurityCenterShadowZonesResponse = SecurityCenterApiResponseCommon 
      * @description Total number of shadow zones discovered for the account.
      *
      * Format: `int64`
-     * @minLength 0
+     * @minimum 0
      * @example 30
      * @type integer
      */
@@ -102155,7 +102170,7 @@ export type SmartshieldAddress = string;
  */
 export type SmartshieldMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -103236,7 +103251,7 @@ export type SnippetsMessages = SnippetsMessage[];
 
 /**
  * @description Specifies the current page number.
- * @minLength 1
+ * @minimum 1
  * @default 1
  * @example 1
  * @type integer
@@ -103245,7 +103260,7 @@ export type SnippetsPage = number;
 
 /**
  * @description Specifies how many results to return per page.
- * @minLength 1
+ * @minimum 1
  * @default 25
  * @example 25
  * @type integer
@@ -103281,14 +103296,14 @@ export type SnippetsResponse = {
 export type SnippetsResultInfo = {
   /**
    * @description Specify the number of results in the current page.
-   * @minLength 0
+   * @minimum 0
    * @example 25
    * @type integer
    */
   count: number;
   /**
    * @description Specifies the current page number.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer
@@ -103296,7 +103311,7 @@ export type SnippetsResultInfo = {
   page: SnippetsPage;
   /**
    * @description Specifies how many results to return per page.
-   * @minLength 1
+   * @minimum 1
    * @default 25
    * @example 25
    * @type integer
@@ -103304,14 +103319,14 @@ export type SnippetsResultInfo = {
   per_page: SnippetsPerPage;
   /**
    * @description Specify the total number of results.
-   * @minLength 0
+   * @minimum 0
    * @example 100
    * @type integer
    */
   total_count: number;
   /**
    * @description Specify the total number of pages.
-   * @minLength 1
+   * @minimum 1
    * @example 10
    * @type integer
    */
@@ -103357,7 +103372,7 @@ export type SnippetsSnippetSchema = {
 };
 
 export type SnippetsSnippetResponse = SnippetsResponse & {
-  errors?: ''[] | undefined;
+  errors?: [][] | undefined;
   /**
    * @description Define a snippet.
    * @type object | undefined
@@ -103431,7 +103446,7 @@ export type SnippetsSnippetRulesSchema = {
 }[];
 
 export type SnippetsSnippetRulesResponse = SnippetsResponse & {
-  errors?: ''[] | undefined;
+  errors?: [][] | undefined;
   /**
    * @description Lists snippet rules.
    * @type array | undefined
@@ -103516,7 +103531,7 @@ export type SnippetsZoneId = string;
  */
 export type SpectrumAnalyticsMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -103817,7 +103832,7 @@ export type SpectrumAnalyticsQueryResponseSingle = SpectrumAnalyticsApiResponseS
     data: SpectrumAnalyticsColumn[];
     /**
      * @description Number of seconds between current time and last processed event, i.e. how many seconds of data could be missing.
-     * @minLength 0
+     * @minimum 0
      * @example 3
      * @type number
      */
@@ -103837,7 +103852,7 @@ export type SpectrumAnalyticsQueryResponseSingle = SpectrumAnalyticsApiResponseS
     query: SpectrumAnalyticsQuery;
     /**
      * @description Total number of rows in the result.
-     * @minLength 0
+     * @minimum 0
      * @example 5
      * @type number
      */
@@ -103899,7 +103914,7 @@ export type SpectrumAnalyticsZonesReportResponse = SpectrumAnalyticsApiResponseC
  */
 export type SpectrumConfigMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -104167,7 +104182,7 @@ export type SpectrumConfigOriginDnsName = string;
 
 /**
  * @description The TTL of our resolution of your DNS record in seconds.
- * @minLength 600
+ * @minimum 600
  * @type integer
  */
 export type SpectrumConfigDnsTtl = number;
@@ -104196,7 +104211,7 @@ export type SpectrumConfigOriginDns = {
   name?: SpectrumConfigOriginDnsName | undefined;
   /**
    * @description The TTL of our resolution of your DNS record in seconds.
-   * @minLength 600
+   * @minimum 600
    * @type integer | undefined
    */
   ttl?: SpectrumConfigDnsTtl | undefined;
@@ -104451,7 +104466,7 @@ export type SpectrumConfigZoneIdentifier = SpectrumConfigIdentifier;
  */
 export type SpeedMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -104978,7 +104993,7 @@ export type StreamAccountIdentifier = string;
  */
 export type StreamMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -105224,8 +105239,8 @@ export type StreamLiveInput = string;
 
 /**
  * @description The maximum duration in seconds for a video upload. Can be set for a video that is not yet uploaded to limit its duration. Uploads that exceed the specified duration will fail during processing. A value of `-1` means the value is unknown.
- * @minLength 1
- * @maxLength 36000
+ * @minimum 1
+ * @maximum 36000
  * @type integer
  */
 export type StreamMaxDurationSeconds = number;
@@ -105385,8 +105400,8 @@ export type StreamThumbnailUrl = string;
 
 /**
  * @description The timestamp for a thumbnail image calculated as a percentage value of the video's duration. To convert from a second-wise timestamp to a percentage, divide the desired timestamp by the total duration of the video.  If this value is not set, the default thumbnail image is taken from 0s of the video.
- * @minLength 0
- * @maxLength 1
+ * @minimum 0
+ * @maximum 1
  * @default 0
  * @example 0.529241
  * @type number
@@ -105443,8 +105458,8 @@ export type StreamName = string;
 
 /**
  * @description The translucency of the image. A value of `0.0` makes the image completely transparent, and `1.0` makes the image completely opaque. Note that if the image is already semi-transparent, setting this to `1.0` will not make the image completely opaque.
- * @minLength 0
- * @maxLength 1
+ * @minimum 0
+ * @maximum 1
  * @default 1
  * @example 0.75
  * @type number
@@ -105453,8 +105468,8 @@ export type StreamOpacity = number;
 
 /**
  * @description The whitespace between the adjacent edges (determined by position) of the video and the image. `0.0` indicates no padding, and `1.0` indicates a fully padded video width or length, as determined by the algorithm.
- * @minLength 0
- * @maxLength 1
+ * @minimum 0
+ * @maximum 1
  * @default 0.05
  * @example 0.1
  * @type number
@@ -105471,8 +105486,8 @@ export type StreamPosition = string;
 
 /**
  * @description The size of the image relative to the overall size of the video. This parameter will adapt to horizontal and vertical videos automatically. `0.0` indicates no scaling (use the size of the image as-is), and `1.0 `fills the entire video.
- * @minLength 0
- * @maxLength 1
+ * @minimum 0
+ * @maximum 1
  * @default 0.15
  * @example 0.1
  * @type number
@@ -105529,8 +105544,8 @@ export type StreamWatermarks = {
   name?: StreamName | undefined;
   /**
    * @description The translucency of the image. A value of `0.0` makes the image completely transparent, and `1.0` makes the image completely opaque. Note that if the image is already semi-transparent, setting this to `1.0` will not make the image completely opaque.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 1
    * @example 0.75
    * @type number | undefined
@@ -105538,8 +105553,8 @@ export type StreamWatermarks = {
   opacity?: StreamOpacity | undefined;
   /**
    * @description The whitespace between the adjacent edges (determined by position) of the video and the image. `0.0` indicates no padding, and `1.0` indicates a fully padded video width or length, as determined by the algorithm.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 0.05
    * @example 0.1
    * @type number | undefined
@@ -105554,8 +105569,8 @@ export type StreamWatermarks = {
   position?: StreamPosition | undefined;
   /**
    * @description The size of the image relative to the overall size of the video. This parameter will adapt to horizontal and vertical videos automatically. `0.0` indicates no scaling (use the size of the image as-is), and `1.0 `fills the entire video.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 0.15
    * @example 0.1
    * @type number | undefined
@@ -105624,8 +105639,8 @@ export type StreamVideos = {
   liveInput?: StreamLiveInput | undefined;
   /**
    * @description The maximum duration in seconds for a video upload. Can be set for a video that is not yet uploaded to limit its duration. Uploads that exceed the specified duration will fail during processing. A value of `-1` means the value is unknown.
-   * @minLength 1
-   * @maxLength 36000
+   * @minimum 1
+   * @maximum 36000
    * @type integer | undefined
    */
   maxDurationSeconds?: StreamMaxDurationSeconds | undefined;
@@ -105720,8 +105735,8 @@ export type StreamVideos = {
   thumbnail?: StreamThumbnailUrl | undefined;
   /**
    * @description The timestamp for a thumbnail image calculated as a percentage value of the video's duration. To convert from a second-wise timestamp to a percentage, divide the desired timestamp by the total duration of the video.  If this value is not set, the default thumbnail image is taken from 0s of the video.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 0
    * @example 0.529241
    * @type number | undefined
@@ -105790,7 +105805,7 @@ export type StreamLiveInputDefaultCreator = string;
 
 /**
  * @description Indicates the number of days after which the live inputs recordings will be deleted. When a stream completes and the recording is ready, the value is used to calculate a scheduled deletion date for that recording. Omit the field to indicate no change, or include with a `null` value to remove an existing scheduled deletion.
- * @minLength 30
+ * @minimum 30
  * @example 45
  * @type number
  */
@@ -105905,7 +105920,7 @@ export type StreamCreateInputRequest = {
   defaultCreator?: StreamLiveInputDefaultCreator | undefined;
   /**
    * @description Indicates the number of days after which the live inputs recordings will be deleted. When a stream completes and the recording is ready, the value is used to calculate a scheduled deletion date for that recording. Omit the field to indicate no change, or include with a `null` value to remove an existing scheduled deletion.
-   * @minLength 30
+   * @minimum 30
    * @example 45
    * @type number | undefined
    */
@@ -106025,8 +106040,8 @@ export type StreamDirectUploadRequest = {
   expiry?: string | undefined;
   /**
    * @description The maximum duration in seconds for a video upload. Can be set for a video that is not yet uploaded to limit its duration. Uploads that exceed the specified duration will fail during processing. A value of `-1` means the value is unknown.
-   * @minLength 1
-   * @maxLength 36000
+   * @minimum 1
+   * @maximum 36000
    * @type integer
    */
   maxDurationSeconds: StreamMaxDurationSeconds;
@@ -106053,8 +106068,8 @@ export type StreamDirectUploadRequest = {
   scheduledDeletion?: StreamScheduledDeletion | undefined;
   /**
    * @description The timestamp for a thumbnail image calculated as a percentage value of the video's duration. To convert from a second-wise timestamp to a percentage, divide the desired timestamp by the total duration of the video.  If this value is not set, the default thumbnail image is taken from 0s of the video.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 0
    * @example 0.529241
    * @type number | undefined
@@ -106100,8 +106115,8 @@ export type StreamDirectUser = boolean;
 
 /**
  * @description Indicates the progress as a percentage between 0 and 100.
- * @minLength 0
- * @maxLength 100
+ * @minimum 0
+ * @maximum 100
  * @type number
  */
 export type StreamDownloadPercentComplete = number;
@@ -106133,8 +106148,8 @@ export type StreamDownloadUrl = string;
 export type StreamDownloads = {
   /**
    * @description Indicates the progress as a percentage between 0 and 100.
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @type number
    */
   percentComplete: StreamDownloadPercentComplete;
@@ -106464,7 +106479,7 @@ export type StreamLiveInputObjectWithoutUrl = {
   created?: StreamLiveInputCreated | undefined;
   /**
    * @description Indicates the number of days after which the live inputs recordings will be deleted. When a stream completes and the recording is ready, the value is used to calculate a scheduled deletion date for that recording. Omit the field to indicate no change, or include with a `null` value to remove an existing scheduled deletion.
-   * @minLength 30
+   * @minimum 30
    * @example 45
    * @type number | undefined
    */
@@ -106677,7 +106692,7 @@ export type StreamLiveInput2 = {
   created?: StreamLiveInputCreated | undefined;
   /**
    * @description Indicates the number of days after which the live inputs recordings will be deleted. When a stream completes and the recording is ready, the value is used to calculate a scheduled deletion date for that recording. Omit the field to indicate no change, or include with a `null` value to remove an existing scheduled deletion.
-   * @minLength 30
+   * @minimum 30
    * @example 45
    * @type number | undefined
    */
@@ -106967,7 +106982,7 @@ export type StreamUpdateInputRequest = {
   defaultCreator?: StreamLiveInputDefaultCreator | undefined;
   /**
    * @description Indicates the number of days after which the live inputs recordings will be deleted. When a stream completes and the recording is ready, the value is used to calculate a scheduled deletion date for that recording. Omit the field to indicate no change, or include with a `null` value to remove an existing scheduled deletion.
-   * @minLength 30
+   * @minimum 30
    * @example 45
    * @type number | undefined
    */
@@ -107012,7 +107027,7 @@ export type StreamUpdateOutputRequest = {
 
 /**
  * @description Indicates the size of the entire upload in bytes. The value must be a non-negative integer.
- * @minLength 0
+ * @minimum 0
  * @type integer
  */
 export type StreamUploadLength = number;
@@ -107103,8 +107118,8 @@ export type StreamVideoClipStandard = {
   startTimeSeconds: StreamStartTimeSeconds;
   /**
    * @description The timestamp for a thumbnail image calculated as a percentage value of the video's duration. To convert from a second-wise timestamp to a percentage, divide the desired timestamp by the total duration of the video.  If this value is not set, the default thumbnail image is taken from 0s of the video.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 0
    * @example 0.529241
    * @type number | undefined
@@ -107193,8 +107208,8 @@ export type StreamVideoCopyRequest = ({
   scheduledDeletion?: StreamScheduledDeletion | undefined;
   /**
    * @description The timestamp for a thumbnail image calculated as a percentage value of the video's duration. To convert from a second-wise timestamp to a percentage, divide the desired timestamp by the total duration of the video.  If this value is not set, the default thumbnail image is taken from 0s of the video.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 0
    * @example 0.529241
    * @type number | undefined
@@ -107255,8 +107270,8 @@ export type StreamVideoUpdate = {
   creator?: StreamCreator | undefined;
   /**
    * @description The maximum duration in seconds for a video upload. Can be set for a video that is not yet uploaded to limit its duration. Uploads that exceed the specified duration will fail during processing. A value of `-1` means the value is unknown.
-   * @minLength 1
-   * @maxLength 36000
+   * @minimum 1
+   * @maximum 36000
    * @type integer | undefined
    */
   maxDurationSeconds?: StreamMaxDurationSeconds | undefined;
@@ -107293,8 +107308,8 @@ export type StreamVideoUpdate = {
   scheduledDeletion?: StreamScheduledDeletion | undefined;
   /**
    * @description The timestamp for a thumbnail image calculated as a percentage value of the video's duration. To convert from a second-wise timestamp to a percentage, divide the desired timestamp by the total duration of the video.  If this value is not set, the default thumbnail image is taken from 0s of the video.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 0
    * @example 0.529241
    * @type number | undefined
@@ -107332,8 +107347,8 @@ export type StreamWatermarkBasicUpload = {
   name?: StreamName | undefined;
   /**
    * @description The translucency of the image. A value of `0.0` makes the image completely transparent, and `1.0` makes the image completely opaque. Note that if the image is already semi-transparent, setting this to `1.0` will not make the image completely opaque.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 1
    * @example 0.75
    * @type number | undefined
@@ -107341,8 +107356,8 @@ export type StreamWatermarkBasicUpload = {
   opacity?: StreamOpacity | undefined;
   /**
    * @description The whitespace between the adjacent edges (determined by position) of the video and the image. `0.0` indicates no padding, and `1.0` indicates a fully padded video width or length, as determined by the algorithm.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 0.05
    * @example 0.1
    * @type number | undefined
@@ -107357,8 +107372,8 @@ export type StreamWatermarkBasicUpload = {
   position?: StreamPosition | undefined;
   /**
    * @description The size of the image relative to the overall size of the video. This parameter will adapt to horizontal and vertical videos automatically. `0.0` indicates no scaling (use the size of the image as-is), and `1.0 `fills the entire video.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 0.15
    * @example 0.1
    * @type number | undefined
@@ -107513,7 +107528,7 @@ export type TeamsDevicesAntivirusInputRequest = {
  */
 export type TeamsDevicesMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -110692,8 +110707,8 @@ export type TeamsDevicesOverrideCodeCreateRequest = {
   device_id?: string | undefined;
   /**
    * @description Number of hours for which the override code should remain valid.
-   * @minLength 1
-   * @maxLength 24
+   * @minimum 1
+   * @maximum 24
    * @type integer
    */
   duration_hours: number;
@@ -111222,7 +111237,7 @@ export type TeamsDevicesZeroTrustAccountDeviceSettingsResponse = TeamsDevicesApi
  */
 export type TlsCertificatesAndHostnamesMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -115285,11 +115300,20 @@ export type TlsCertificatesAndHostnamesStatus12 = string;
 export type TlsCertificatesAndHostnamesUpdatedAt5 = string;
 
 export const tlsCertificatesAndHostnamesValue = {
+  '1.0': '1.0',
+  '1.1': '1.1',
+  '1.2': '1.2',
+  '1.3': '1.3',
+} as const;
+
+export type TlsCertificatesAndHostnamesValueKey = (typeof tlsCertificatesAndHostnamesValue)[keyof typeof tlsCertificatesAndHostnamesValue];
+
+export const tlsCertificatesAndHostnamesValue2 = {
   on: 'on',
   off: 'off',
 } as const;
 
-export type TlsCertificatesAndHostnamesValueKey = (typeof tlsCertificatesAndHostnamesValue)[keyof typeof tlsCertificatesAndHostnamesValue];
+export type TlsCertificatesAndHostnamesValue2Key = (typeof tlsCertificatesAndHostnamesValue2)[keyof typeof tlsCertificatesAndHostnamesValue2];
 
 /**
  * @description The TLS setting value.
@@ -115298,7 +115322,7 @@ export type TlsCertificatesAndHostnamesValueKey = (typeof tlsCertificatesAndHost
  * - `min_tls_version`: a string indicating the minimum TLS version — one of `"1.0"`, `"1.1"`, `"1.2"`, or `"1.3"` (e.g., `"1.2"`).
  * - `http2`: a string indicating whether HTTP/2 is enabled — `"on"` or `"off"` (e.g., `"on"`).
  */
-export type TlsCertificatesAndHostnamesValue = string[] | TlsCertificatesAndHostnamesValueKey | TlsCertificatesAndHostnamesValueKey;
+export type TlsCertificatesAndHostnamesValue = string[] | TlsCertificatesAndHostnamesValueKey | TlsCertificatesAndHostnamesValue2Key;
 
 export type TlsCertificatesAndHostnamesSettingObject = {
   /**
@@ -115888,7 +115912,7 @@ export type TunnelAddressFamilyKey = (typeof tunnelAddressFamily)[keyof typeof t
  */
 export type TunnelMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -115960,7 +115984,7 @@ export type TunnelApiResponseCollection = TunnelApiResponseCommon & {
  */
 export type TunnelMessages2 = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -116967,7 +116991,7 @@ export type TunnelOfframpWarpEnabled = boolean;
 
 /**
  * @description Page number of paginated results.
- * @minLength 1
+ * @minimum 1
  * @default 1
  * @type number
  */
@@ -116975,8 +116999,8 @@ export type TunnelPageNumber = number;
 
 /**
  * @description Number of results to display.
- * @minLength 1
- * @maxLength 1000
+ * @minimum 1
+ * @maximum 1000
  * @type number
  */
 export type TunnelPerPage = number;
@@ -117791,7 +117815,7 @@ export type TunnelZeroTrustConnectivitySettingsResponse = TunnelApiResponseCommo
  */
 export type TurnstileMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -118464,7 +118488,7 @@ export type UsageAnalyticsStreamUsageResponse = {
  */
 export type VectorizeMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -118517,8 +118541,8 @@ export type VectorizeApiResponseSingle = VectorizeApiResponseCommon & {
 
 /**
  * @description Specifies the number of dimensions for the index
- * @minLength 1
- * @maxLength 1536
+ * @minimum 1
+ * @maximum 1536
  * @example 768
  * @type integer
  */
@@ -118535,8 +118559,8 @@ export type VectorizeIndexMetricKey = (typeof vectorizeIndexMetric)[keyof typeof
 export type VectorizeIndexDimensionConfiguration = {
   /**
    * @description Specifies the number of dimensions for the index
-   * @minLength 1
-   * @maxLength 1536
+   * @minimum 1
+   * @maximum 1536
    * @example 768
    * @type integer
    */
@@ -118790,8 +118814,8 @@ export type VectorizeIndexGetVectorsByIdResponse = {
 export type VectorizeIndexInfoResponse = {
   /**
    * @description Specifies the number of dimensions for the index
-   * @minLength 1
-   * @maxLength 1536
+   * @minimum 1
+   * @maximum 1536
    * @example 768
    * @type integer | undefined
    */
@@ -119103,7 +119127,7 @@ export type VectorizeUpdateIndexRequest = {
  */
 export type VulnScannerMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -119195,15 +119219,15 @@ export type VulnScannerApiResponseCommonFailure = {
 export type VulnScannerBolaHttpStatusRange = {
   /**
    * @description Maximum (inclusive) status code of the range.
-   * @minLength 0
-   * @maxLength 65535
+   * @minimum 0
+   * @maximum 65535
    * @type integer
    */
   max: number;
   /**
    * @description Minimum (inclusive) status code of the range.
-   * @minLength 0
-   * @maxLength 65535
+   * @minimum 0
+   * @maximum 65535
    * @type integer
    */
   min: number;
@@ -119355,7 +119379,7 @@ export type VulnScannerBolaTestError = {
    * @description Numeric error code identifying the class of error, if available.
    *
    * Format: `uint32`
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   error_code?: (number | null) | undefined;
@@ -119478,8 +119502,8 @@ export type VulnScannerBolaTestResponse = {
   header_names: string[];
   /**
    * @description HTTP status code.
-   * @minLength 0
-   * @maxLength 65535
+   * @minimum 0
+   * @maximum 65535
    * @type integer
    */
   status: number;
@@ -120193,7 +120217,7 @@ export type WafManagedRulesAnomalyRule = WafManagedRulesSchemasBase & {
  */
 export type WafManagedRulesMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -120608,7 +120632,7 @@ export type WafManagedRulesSchemasIdentifier = string;
  */
 export type WafProductApiBundleMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -120953,7 +120977,7 @@ export type WaitingroomAdditionalRoutes = {
  */
 export type WaitingroomMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -121448,8 +121472,8 @@ export type WaitingroomEventIdResponse = WaitingroomApiResponseSingle & {
 
 /**
  * @description If set, the event will override the waiting room's `new_users_per_minute` property while it is active. If null, the event will inherit it. This can only be set if the event's `total_active_users` property is also set.
- * @minLength 200
- * @maxLength 2147483647
+ * @minimum 200
+ * @maximum 2147483647
  * @type integer
  */
 export type WaitingroomEventNewUsersPerMinute = number | null;
@@ -121463,16 +121487,16 @@ export type WaitingroomEventQueueingMethod = string | null;
 
 /**
  * @description If set, the event will override the waiting room's `session_duration` property while it is active. If null, the event will inherit it.
- * @minLength 1
- * @maxLength 30
+ * @minimum 1
+ * @maximum 30
  * @type integer
  */
 export type WaitingroomEventSessionDuration = number | null;
 
 /**
  * @description If set, the event will override the waiting room's `total_active_users` property while it is active. If null, the event will inherit it. This can only be set if the event's `new_users_per_minute` property is also set.
- * @minLength 200
- * @maxLength 2147483647
+ * @minimum 200
+ * @maximum 2147483647
  * @type integer
  */
 export type WaitingroomEventTotalActiveUsers = number | null;
@@ -121551,8 +121575,8 @@ export type WaitingroomEventResult = {
   name?: WaitingroomEventName | undefined;
   /**
    * @description If set, the event will override the waiting room's `new_users_per_minute` property while it is active. If null, the event will inherit it. This can only be set if the event's `total_active_users` property is also set.
-   * @minLength 200
-   * @maxLength 2147483647
+   * @minimum 200
+   * @maximum 2147483647
    * @type integer | undefined
    */
   new_users_per_minute?: (WaitingroomEventNewUsersPerMinute | null) | undefined;
@@ -121570,8 +121594,8 @@ export type WaitingroomEventResult = {
   queueing_method?: (WaitingroomEventQueueingMethod | null) | undefined;
   /**
    * @description If set, the event will override the waiting room's `session_duration` property while it is active. If null, the event will inherit it.
-   * @minLength 1
-   * @maxLength 30
+   * @minimum 1
+   * @maximum 30
    * @type integer | undefined
    */
   session_duration?: (WaitingroomEventSessionDuration | null) | undefined;
@@ -121589,8 +121613,8 @@ export type WaitingroomEventResult = {
   suspended?: WaitingroomEventSuspended | undefined;
   /**
    * @description If set, the event will override the waiting room's `total_active_users` property while it is active. If null, the event will inherit it. This can only be set if the event's `new_users_per_minute` property is also set.
-   * @minLength 200
-   * @maxLength 2147483647
+   * @minimum 200
+   * @maximum 2147483647
    * @type integer | undefined
    */
   total_active_users?: (WaitingroomEventTotalActiveUsers | null) | undefined;
@@ -121738,8 +121762,8 @@ export type WaitingroomName = string;
 
 /**
  * @description Sets the number of new users that will be let into the route every minute. This value is used as baseline for the number of users that are let in per minute. So it is possible that there is a little more or little less traffic coming to the route based on the traffic patterns at that time around the world.
- * @minLength 200
- * @maxLength 2147483647
+ * @minimum 200
+ * @maximum 2147483647
  * @type integer
  */
 export type WaitingroomNewUsersPerMinute = number;
@@ -121881,8 +121905,8 @@ export type WaitingroomQueryEvent = {
   name: WaitingroomEventName;
   /**
    * @description If set, the event will override the waiting room's `new_users_per_minute` property while it is active. If null, the event will inherit it. This can only be set if the event's `total_active_users` property is also set.
-   * @minLength 200
-   * @maxLength 2147483647
+   * @minimum 200
+   * @maximum 2147483647
    * @type integer | undefined
    */
   new_users_per_minute?: (WaitingroomEventNewUsersPerMinute | null) | undefined;
@@ -121900,8 +121924,8 @@ export type WaitingroomQueryEvent = {
   queueing_method?: (WaitingroomEventQueueingMethod | null) | undefined;
   /**
    * @description If set, the event will override the waiting room's `session_duration` property while it is active. If null, the event will inherit it.
-   * @minLength 1
-   * @maxLength 30
+   * @minimum 1
+   * @maximum 30
    * @type integer | undefined
    */
   session_duration?: (WaitingroomEventSessionDuration | null) | undefined;
@@ -121919,8 +121943,8 @@ export type WaitingroomQueryEvent = {
   suspended?: WaitingroomEventSuspended | undefined;
   /**
    * @description If set, the event will override the waiting room's `total_active_users` property while it is active. If null, the event will inherit it. This can only be set if the event's `new_users_per_minute` property is also set.
-   * @minLength 200
-   * @maxLength 2147483647
+   * @minimum 200
+   * @maximum 2147483647
    * @type integer | undefined
    */
   total_active_users?: (WaitingroomEventTotalActiveUsers | null) | undefined;
@@ -121981,8 +122005,8 @@ export type WaitingroomQueueingStatusCodeKey = (typeof waitingroomQueueingStatus
 
 /**
  * @description Lifetime of a cookie (in minutes) set by Cloudflare for users who get access to the route. If a user is not seen by Cloudflare again in that time period, they will be treated as a new user that visits the route.
- * @minLength 1
- * @maxLength 30
+ * @minimum 1
+ * @maximum 30
  * @default 5
  * @type integer
  */
@@ -121997,8 +122021,8 @@ export type WaitingroomSuspended = boolean;
 
 /**
  * @description Sets the total number of active user sessions on the route at a point in time. A route is a combination of host and path on which a waiting room is available. This value is used as a baseline for the total number of active user sessions on the route. It is possible to have a situation where there are more or less active users sessions on the route based on the traffic patterns at that time around the world.
- * @minLength 200
- * @maxLength 2147483647
+ * @minimum 200
+ * @maximum 2147483647
  * @type integer
  */
 export type WaitingroomTotalActiveUsers = number;
@@ -122190,8 +122214,8 @@ export type WaitingroomQueryWaitingroom = {
   name: WaitingroomName;
   /**
    * @description Sets the number of new users that will be let into the route every minute. This value is used as baseline for the number of users that are let in per minute. So it is possible that there is a little more or little less traffic coming to the route based on the traffic patterns at that time around the world.
-   * @minLength 200
-   * @maxLength 2147483647
+   * @minimum 200
+   * @maximum 2147483647
    * @type integer
    */
   new_users_per_minute: WaitingroomNewUsersPerMinute;
@@ -122229,8 +122253,8 @@ export type WaitingroomQueryWaitingroom = {
   queueing_status_code?: WaitingroomQueueingStatusCodeKey | undefined;
   /**
    * @description Lifetime of a cookie (in minutes) set by Cloudflare for users who get access to the route. If a user is not seen by Cloudflare again in that time period, they will be treated as a new user that visits the route.
-   * @minLength 1
-   * @maxLength 30
+   * @minimum 1
+   * @maximum 30
    * @default 5
    * @type integer | undefined
    */
@@ -122243,8 +122267,8 @@ export type WaitingroomQueryWaitingroom = {
   suspended?: WaitingroomSuspended | undefined;
   /**
    * @description Sets the total number of active user sessions on the route at a point in time. A route is a combination of host and path on which a waiting room is available. This value is used as a baseline for the total number of active user sessions on the route. It is possible to have a situation where there are more or less active users sessions on the route based on the traffic patterns at that time around the world.
-   * @minLength 200
-   * @maxLength 2147483647
+   * @minimum 200
+   * @maximum 2147483647
    * @type integer
    */
   total_active_users: WaitingroomTotalActiveUsers;
@@ -122468,8 +122492,8 @@ export type WaitingroomWaitingroom = {
   name?: WaitingroomName | undefined;
   /**
    * @description Sets the number of new users that will be let into the route every minute. This value is used as baseline for the number of users that are let in per minute. So it is possible that there is a little more or little less traffic coming to the route based on the traffic patterns at that time around the world.
-   * @minLength 200
-   * @maxLength 2147483647
+   * @minimum 200
+   * @maximum 2147483647
    * @type integer | undefined
    */
   new_users_per_minute?: WaitingroomNewUsersPerMinute | undefined;
@@ -122519,8 +122543,8 @@ export type WaitingroomWaitingroom = {
   queueing_status_code?: WaitingroomQueueingStatusCodeKey | undefined;
   /**
    * @description Lifetime of a cookie (in minutes) set by Cloudflare for users who get access to the route. If a user is not seen by Cloudflare again in that time period, they will be treated as a new user that visits the route.
-   * @minLength 1
-   * @maxLength 30
+   * @minimum 1
+   * @maximum 30
    * @default 5
    * @type integer | undefined
    */
@@ -122533,8 +122557,8 @@ export type WaitingroomWaitingroom = {
   suspended?: WaitingroomSuspended | undefined;
   /**
    * @description Sets the total number of active user sessions on the route at a point in time. A route is a combination of host and path on which a waiting room is available. This value is used as a baseline for the total number of active user sessions on the route. It is possible to have a situation where there are more or less active users sessions on the route based on the traffic patterns at that time around the world.
-   * @minLength 200
-   * @maxLength 2147483647
+   * @minimum 200
+   * @maximum 2147483647
    * @type integer | undefined
    */
   total_active_users?: WaitingroomTotalActiveUsers | undefined;
@@ -122726,7 +122750,7 @@ export type WaitingroomZoneSettingsResponse = WaitingroomApiResponseSingle & {
  */
 export type Web3Messages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -123153,7 +123177,7 @@ export type WorkersKvAny = string | number | number | boolean | {
  */
 export type WorkersKvMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -123306,7 +123330,7 @@ export type WorkersKvBulkDelete = WorkersKvKeyNameBulk[];
 
 /**
  * @description Number of seconds until the key expires. Must be at least 60. Takes precedence over `expiration` when both are specified.
- * @minLength 60
+ * @minimum 60
  * @example 300
  * @type number
  */
@@ -123333,7 +123357,7 @@ export type WorkersKvBulkWrite = {
   expiration?: WorkersKvExpiration | undefined;
   /**
    * @description Number of seconds until the key expires. Must be at least 60. Takes precedence over `expiration` when both are specified.
-   * @minLength 60
+   * @minimum 60
    * @example 300
    * @type number | undefined
    */
@@ -123551,7 +123575,7 @@ export type WorkersObservabilityAgentSession = {
   inputTokens?: number | undefined;
   /**
    * @description End of the latest observed agent invocation in the session, as Unix epoch milliseconds. Sessions are ordered by this value.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   lastActiveMs: number;
@@ -123572,13 +123596,13 @@ export type WorkersObservabilityAgentSession = {
   providers: string[];
   /**
    * @description Elapsed time from sessionStartMs to lastActiveMs, in milliseconds.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   sessionDurationMs: number;
   /**
    * @description Start of the earliest observed agent invocation in the session, as Unix epoch milliseconds.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   sessionStartMs: number;
@@ -123589,7 +123613,7 @@ export type WorkersObservabilityAgentSession = {
   status: WorkersObservabilityAgentSessionStatusEnumKey;
   /**
    * @description Number of distinct traces associated with the session during the requested time range.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   traceCount: number;
@@ -123640,7 +123664,7 @@ export type WorkersObservabilityAgentSessionRun = {
   services: string[];
   /**
    * @description Number of observed spans in the trace during the requested time range.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   spans: number;
@@ -123651,13 +123675,13 @@ export type WorkersObservabilityAgentSessionRun = {
   status: WorkersObservabilityAgentSessionRunStatusEnumKey;
   /**
    * @description Elapsed time from traceStartMs to traceEndMs, in milliseconds.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   traceDurationMs: number;
   /**
    * @description End of the latest observed span in the trace, as Unix epoch milliseconds.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   traceEndMs: number;
@@ -123668,7 +123692,7 @@ export type WorkersObservabilityAgentSessionRun = {
   traceId: string;
   /**
    * @description Start of the earliest observed span in the trace, as Unix epoch milliseconds.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   traceStartMs: number;
@@ -123854,7 +123878,7 @@ export type WorkersObservabilityIssueOccurrence = {
     scheduledTime?: number | undefined;
     spanId?: string | undefined;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     statusCode?: number | undefined;
@@ -123940,6 +123964,21 @@ export const workersObservabilityQueryParametersCalculationsKeyTypeEnum = {
 export type WorkersObservabilityQueryParametersCalculationsKeyTypeEnumKey = (typeof workersObservabilityQueryParametersCalculationsKeyTypeEnum)[keyof typeof workersObservabilityQueryParametersCalculationsKeyTypeEnum];
 
 export const workersObservabilityQueryParametersCalculationsOperatorEnum = {
+  count: 'count',
+  COUNT: 'COUNT',
+} as const;
+
+export type WorkersObservabilityQueryParametersCalculationsOperatorEnumKey = (typeof workersObservabilityQueryParametersCalculationsOperatorEnum)[keyof typeof workersObservabilityQueryParametersCalculationsOperatorEnum];
+
+export const workersObservabilityQueryParametersCalculationsKeyTypeEnum2 = {
+  string: 'string',
+  number: 'number',
+  boolean: 'boolean',
+} as const;
+
+export type WorkersObservabilityQueryParametersCalculationsKeyTypeEnum2Key = (typeof workersObservabilityQueryParametersCalculationsKeyTypeEnum2)[keyof typeof workersObservabilityQueryParametersCalculationsKeyTypeEnum2];
+
+export const workersObservabilityQueryParametersCalculationsOperatorEnum2 = {
   uniq: 'uniq',
   max: 'max',
   min: 'min',
@@ -123978,7 +124017,7 @@ export const workersObservabilityQueryParametersCalculationsOperatorEnum = {
   VARIANCE: 'VARIANCE',
 } as const;
 
-export type WorkersObservabilityQueryParametersCalculationsOperatorEnumKey = (typeof workersObservabilityQueryParametersCalculationsOperatorEnum)[keyof typeof workersObservabilityQueryParametersCalculationsOperatorEnum];
+export type WorkersObservabilityQueryParametersCalculationsOperatorEnum2Key = (typeof workersObservabilityQueryParametersCalculationsOperatorEnum2)[keyof typeof workersObservabilityQueryParametersCalculationsOperatorEnum2];
 
 export const workersObservabilityQueryParametersFilterCombinationEnum = {
   and: 'and',
@@ -124059,8 +124098,8 @@ export type WorkersObservabilityQuery = {
        * @type string
        */
       key: string;
-      keyType?: WorkersObservabilityQueryParametersCalculationsKeyTypeEnumKey | undefined;
-      operator: WorkersObservabilityQueryParametersCalculationsOperatorEnumKey;
+      keyType?: WorkersObservabilityQueryParametersCalculationsKeyTypeEnum2Key | undefined;
+      operator: WorkersObservabilityQueryParametersCalculationsOperatorEnum2Key;
     })[] | undefined;
     /**
      * @description Set the Datasets to query. Leave it empty to query all the datasets.
@@ -124097,8 +124136,8 @@ export type WorkersObservabilityQuery = {
     }[] | undefined;
     /**
      * @description Set a limit on the number of results / records returned by the query
-     * @minLength 0
-     * @maxLength 100
+     * @minimum 0
+     * @maximum 100
      * @type integer | undefined
      */
     limit?: number | undefined;
@@ -124169,6 +124208,30 @@ export const workersObservabilityTelemetryEventworkersExecutionModelEnum = {
 
 export type WorkersObservabilityTelemetryEventworkersExecutionModelEnumKey = (typeof workersObservabilityTelemetryEventworkersExecutionModelEnum)[keyof typeof workersObservabilityTelemetryEventworkersExecutionModelEnum];
 
+export const workersObservabilityTelemetryEventworkersEventTypeEnum2 = {
+  fetch: 'fetch',
+  scheduled: 'scheduled',
+  alarm: 'alarm',
+  cron: 'cron',
+  queue: 'queue',
+  email: 'email',
+  tail: 'tail',
+  rpc: 'rpc',
+  jsrpc: 'jsrpc',
+  websocket: 'websocket',
+  workflow: 'workflow',
+  unknown: 'unknown',
+} as const;
+
+export type WorkersObservabilityTelemetryEventworkersEventTypeEnum2Key = (typeof workersObservabilityTelemetryEventworkersEventTypeEnum2)[keyof typeof workersObservabilityTelemetryEventworkersEventTypeEnum2];
+
+export const workersObservabilityTelemetryEventworkersExecutionModelEnum2 = {
+  durableObject: 'durableObject',
+  stateless: 'stateless',
+} as const;
+
+export type WorkersObservabilityTelemetryEventworkersExecutionModelEnum2Key = (typeof workersObservabilityTelemetryEventworkersExecutionModelEnum2)[keyof typeof workersObservabilityTelemetryEventworkersExecutionModelEnum2];
+
 /**
  * @description A single telemetry event representing a log line, span, or metric data point emitted by a Worker.
  * @type object
@@ -124209,7 +124272,7 @@ export type WorkersObservabilityTelemetryEvent = {
     duration?: number | undefined;
     /**
      * @description Span end time as a Unix epoch in milliseconds.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     endTime?: number | undefined;
@@ -124230,7 +124293,7 @@ export type WorkersObservabilityTelemetryEvent = {
     errorTemplate?: string | undefined;
     /**
      * @description Size of the stored telemetry event in bytes.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     eventSize?: number | undefined;
@@ -124326,7 +124389,7 @@ export type WorkersObservabilityTelemetryEvent = {
     stackId?: string | undefined;
     /**
      * @description Span start time as a Unix epoch in milliseconds.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     startTime?: number | undefined;
@@ -124416,8 +124479,8 @@ export type WorkersObservabilityTelemetryEvent = {
     event?: {
       [key: string]: unknown;
     } | undefined;
-    eventType: WorkersObservabilityTelemetryEventworkersEventTypeEnumKey;
-    executionModel?: WorkersObservabilityTelemetryEventworkersExecutionModelEnumKey | undefined;
+    eventType: WorkersObservabilityTelemetryEventworkersEventTypeEnum2Key;
+    executionModel?: WorkersObservabilityTelemetryEventworkersExecutionModelEnum2Key | undefined;
     outcome: string;
     preview?: {
       id?: string | undefined;
@@ -124449,7 +124512,7 @@ export type WorkersObservabilityTelemetryEvent = {
   };
   /**
    * @description Event timestamp as a Unix epoch in milliseconds.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   timestamp: number;
@@ -124537,15 +124600,15 @@ export type WorkersObservabilityQueryRun = {
   timeframe: {
     /**
      * @description Start timestamp for the query timeframe. Unix timestamp in milliseconds
-     * @minLength 0
-     * @maxLength 253402300799999
+     * @minimum 0
+     * @maximum 253402300799999
      * @type integer
      */
     from: number;
     /**
      * @description End timestamp for the query timeframe. Unix timestamp in milliseconds
-     * @minLength 0
-     * @maxLength 253402300799999
+     * @minimum 0
+     * @maximum 253402300799999
      * @type integer
      */
     to: number;
@@ -125015,8 +125078,8 @@ export type WorkersObservabilityUsageLimit = {
   resets_at: string | null;
   /**
    * @description Share of the account's events being kept, from 0 to 1.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @example 0.01
    * @type number
    */
@@ -125112,7 +125175,7 @@ export type WorkersErrorAuthSchema = {
  */
 export type WorkersMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -128706,8 +128769,8 @@ export type WorkersCodeUpdateStrategy = {
 } | {
   /**
    * @description Set the maximum number of seconds to wait before forcing the update. When omitted, the default maximum delay applies.
-   * @minLength 0
-   * @maxLength 86400
+   * @minimum 0
+   * @maximum 86400
    * @type number | undefined
    */
   max_delay?: (number | null) | undefined;
@@ -128834,8 +128897,8 @@ export type WorkersDeployment = {
   versions: {
     /**
      * @description Percentage of traffic served by this version.
-     * @minLength 0.01
-     * @maxLength 100
+     * @minimum 0.01
+     * @maximum 100
      * @example 100
      * @type number
      */
@@ -130673,7 +130736,7 @@ export type WorkersVersionsUploadResponse = WorkersApiResponseCommon & {
  */
 export type ZarazMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -130851,7 +130914,7 @@ export type ZarazClickListenerRule = {
     selector: string;
     type: ZarazClickListenerRuleSettingsTypeEnumKey;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     waitForTags: number;
@@ -130946,12 +131009,12 @@ export type ZarazTimerRule = {
   id: string;
   settings: {
     /**
-     * @minLength 50
+     * @minimum 50
      * @type integer
      */
     interval: number;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     limit: number;
@@ -130999,8 +131062,8 @@ export type ZarazZarazConfigBase = {
     enabled?: boolean | undefined;
     /**
      * @description Session expiration time (seconds).
-     * @minLength 60
-     * @maxLength 86400
+     * @minimum 60
+     * @maximum 86400
      * @type integer | undefined
      */
     sessionExpTime?: number | undefined;
@@ -131461,7 +131524,7 @@ export type ZeroTrustGatewayAntiVirusSettings = {
  */
 export type ZeroTrustGatewayMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -132516,7 +132579,7 @@ export type ZeroTrustGatewayEndpoints = {
 export type ZeroTrustGatewayExpiration = {
   /**
    * @description Defines the default duration a policy active in minutes. Must set in order to use the `reset_expiration` endpoint on this rule.
-   * @minLength 5
+   * @minimum 5
    * @example 10
    * @type integer | undefined
    */
@@ -132697,8 +132760,8 @@ export type ZeroTrustGatewayInspectionSettings = {
 
 /**
  * @description Account-level cap on DNS response TTLs, in seconds. Gateway rewrites DNS responses so returned record TTLs do not exceed this value. Null means no cap. Each DNS location can inherit, override, or disable it through the location `max_ttl` setting.
- * @minLength 60
- * @maxLength 36000
+ * @minimum 60
+ * @maximum 36000
  * @example 3600
  * @type integer
  */
@@ -132823,8 +132886,8 @@ export type ZeroTrustGatewayGatewayAccountSettings = {
     inspection?: (ZeroTrustGatewayInspectionSettings | null) | undefined;
     /**
      * @description Account-level cap on DNS response TTLs, in seconds. Gateway rewrites DNS responses so returned record TTLs do not exceed this value. Null means no cap. Each DNS location can inherit, override, or disable it through the location `max_ttl` setting.
-     * @minLength 60
-     * @maxLength 36000
+     * @minimum 60
+     * @maximum 36000
      * @example 3600
      * @type integer | undefined
      */
@@ -133158,8 +133221,8 @@ export type ZeroTrustGatewayMaxTtl = {
   mode: ZeroTrustGatewayMaxTtlModeEnumKey;
   /**
    * @description Location-specific cap on DNS response TTLs, in seconds. Required when `mode` is `override`. Must be omitted when `mode` is `inherit` or `disabled`.
-   * @minLength 60
-   * @maxLength 36000
+   * @minimum 60
+   * @maximum 36000
    * @example 3600
    * @type integer | undefined
    */
@@ -134492,7 +134555,7 @@ export type ZeroTrustGatewaySingleResponseWithListItems = ZeroTrustGatewayApiRes
  */
 export type ZoneActivationMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -134558,7 +134621,7 @@ export type ZoneActivationIdentifier = string;
  */
 export type ZoneAnalyticsApiMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -135396,8 +135459,8 @@ export type ZonesBrowserCacheTtl = {
    * @description The number of seconds to cache resources for.
    * Setting this to 0 enables "Respect Existing Headers".
    *
-   * @minLength 0
-   * @maxLength 31536000
+   * @minimum 0
+   * @maximum 31536000
    * @example 3600
    * @type integer | undefined
    */
@@ -135761,8 +135824,8 @@ export type ZonesEdgeCacheTtl = {
    */
   id?: 'edge_cache_ttl' | undefined;
   /**
-   * @minLength 1
-   * @maxLength 31536000
+   * @minimum 1
+   * @maximum 31536000
    * @type integer | undefined
    */
   value?: number | undefined;
@@ -136302,7 +136365,7 @@ export type ZonesAlwaysUseHttps2 = ZonesBase & {
  */
 export type ZonesMessages = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -136334,7 +136397,7 @@ export type ZonesApiResponseCommon = {
  */
 export type ZonesMessages2 = {
   /**
-   * @minLength 1000
+   * @minimum 1000
    * @type integer
    */
   code: number;
@@ -136611,8 +136674,8 @@ export type ZonesBrotli = ZonesBase & {
  * - Business: 1 second
  * - Enterprise: 1 second
  * Setting a TTL of 0 is equivalent to selecting `Respect Existing Headers` and is allowed for all plans.
- * @minLength 0
- * @maxLength 31536000
+ * @minimum 0
+ * @maximum 31536000
  * @default 14400
  * @type integer
  */
@@ -136636,8 +136699,8 @@ export type ZonesBrowserCacheTtl2 = ZonesBase & {
    * - Business: 1 second
    * - Enterprise: 1 second
    * Setting a TTL of 0 is equivalent to selecting `Respect Existing Headers` and is allowed for all plans.
-   * @minLength 0
-   * @maxLength 31536000
+   * @minimum 0
+   * @maximum 31536000
    * @default 14400
    * @type integer | undefined
    */
@@ -136722,8 +136785,8 @@ export type ZonesCacheRulesAegis = ZonesCacheRulesBase & {
 
 /**
  * @description Value of the Origin H2 Max Streams Setting.
- * @minLength 1
- * @maxLength 1000
+ * @minimum 1
+ * @maximum 1000
  * @example 50
  * @type integer
  */
@@ -136741,8 +136804,8 @@ export type ZonesCacheRulesOriginH2MaxStreams = ZonesCacheRulesBase & {
   id?: 'origin_h2_max_streams' | undefined;
   /**
    * @description Value of the Origin H2 Max Streams Setting.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @example 50
    * @type integer | undefined
    */
@@ -138402,7 +138465,10 @@ export type ZonesUrlTarget = {
 /**
  * @description A request condition target.
  */
-export type ZonesTarget = ZonesUrlTarget;
+export type ZonesTarget = ZonesUrlTarget & {
+  target: unknown;
+  constraint: unknown;
+};
 
 /**
  * @description The rule targets to evaluate on each request.
@@ -139204,6 +139270,13 @@ export const firewallSchemasRuleWritableScopeTypeEnum = {
 
 export type FirewallSchemasRuleWritableScopeTypeEnumKey = (typeof firewallSchemasRuleWritableScopeTypeEnum)[keyof typeof firewallSchemasRuleWritableScopeTypeEnum];
 
+export const firewallSchemasRuleWritableScopeTypeEnum2 = {
+  user: 'user',
+  organization: 'organization',
+} as const;
+
+export type FirewallSchemasRuleWritableScopeTypeEnum2Key = (typeof firewallSchemasRuleWritableScopeTypeEnum2)[keyof typeof firewallSchemasRuleWritableScopeTypeEnum2];
+
 export type FirewallSchemasRuleWritable = FirewallRuleWritable & {
   /**
    * @description All zones owned by the user will have the rule applied.
@@ -139283,7 +139356,7 @@ export type FirewallSchemasRuleWritable = FirewallRuleWritable & {
      * @example user
      * @type string | undefined
      */
-    readonly type?: FirewallSchemasRuleWritableScopeTypeEnumKey | undefined;
+    readonly type?: FirewallSchemasRuleWritableScopeTypeEnum2Key | undefined;
   };
 };
 
@@ -139343,11 +139416,7 @@ export type IamRoleWritable = {
    * @type string | undefined
    */
   readonly name?: string | undefined;
-  /**
-   * @example {"analytics":{"read":true,"write":false},"zones":{"read":true,"write":true}}
-   * @type object | undefined
-   */
-  readonly permissions?: IamPermissions | undefined;
+  permissions?: IamPermissions & object | undefined;
 };
 
 export const iamUpdateMemberWithRolesWritableStatusEnum = {
@@ -139571,8 +139640,8 @@ export type WorkersDeploymentWritable = {
   versions: {
     /**
      * @description Percentage of traffic served by this version.
-     * @minLength 0.01
-     * @maxLength 100
+     * @minimum 0.01
+     * @maximum 100
      * @example 100
      * @type number
      */
@@ -141052,7 +141121,7 @@ export type RealtimekitGetSessions = {
     end_offset?: number | undefined;
     start_offset?: number | undefined;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type number | undefined
      */
     total_count?: number | undefined;
@@ -141193,13 +141262,13 @@ export type SnippetsFailure = SnippetsResponse & {
 };
 
 export type SnippetsNull = SnippetsResponse & {
-  errors?: ''[] | undefined;
+  errors?: [][] | undefined;
   result?: null | undefined;
   success?: true | undefined;
 };
 
 export type SnippetsSnippets = SnippetsResponse & {
-  errors?: ''[] | undefined;
+  errors?: [][] | undefined;
   /**
    * @description Contain snippets.
    * @type array | undefined
@@ -141459,8 +141528,8 @@ export type RealtimekitCreateMeetingBody = {
   recording_config?: RealtimekitRecordingConfig | undefined;
   /**
    * @description Time in seconds, for which a session remains active, after the last participant has left the meeting.
-   * @minLength 60
-   * @maxLength 600
+   * @minimum 60
+   * @maximum 600
    * @default 60
    * @type number | undefined
    */
@@ -141612,8 +141681,8 @@ export type RealtimekitStartRecording = {
   interactive_config?: RealtimekitInteractiveConfig | undefined;
   /**
    * @description Specifies the maximum duration for recording in seconds, ranging from a minimum of 60 seconds to a maximum of 24 hours.
-   * @minLength 60
-   * @maxLength 86400
+   * @minimum 60
+   * @maximum 86400
    * @type integer | undefined
    */
   max_seconds?: number | undefined;
@@ -141695,8 +141764,8 @@ export type RealtimekitUpdateMeetingBody = {
   recording_config?: RealtimekitRecordingConfig | undefined;
   /**
    * @description Time in seconds, for which a session remains active, after the last participant has left the meeting.
-   * @minLength 60
-   * @maxLength 600
+   * @minimum 60
+   * @maximum 600
    * @type number | undefined
    */
   session_keep_alive_time_in_secs?: number | undefined;
@@ -141814,8 +141883,8 @@ export type WorkersWorkerProfileRequest = {
    * @description Profile duration in milliseconds.
    *
    * Format: `int32`
-   * @minLength 1000
-   * @maxLength 50000
+   * @minimum 1000
+   * @maximum 50000
    * @type integer
    */
   duration_ms: number;
@@ -141868,15 +141937,15 @@ export type AccountsListAccountsQuery = {
   readonly name?: string | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -142182,15 +142251,15 @@ export type OriginCaListCertificatesQuery = {
   zone_id: TlsCertificatesAndHostnamesIdentifier;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of records per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -142306,8 +142375,8 @@ export type CwsListCategoryApisQuery = {
    * @description Number of items per page (1-100, default 20)
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -142364,8 +142433,8 @@ export type CwsListCategoryApplicationsQuery = {
    * @description Number of items per page (1-100, default 20)
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -142411,8 +142480,8 @@ export type CwsListCategoryOperationsQuery = {
    * @description Number of items per page (1-100, default 20)
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -142621,15 +142690,15 @@ export type UserSAccountMembershipsListMembershipsQuery = {
   'account.name'?: IamPropertiesName | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of memberships per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -142801,8 +142870,8 @@ export type OrganizationListOrganizationsQuery = {
   page_token?: string | undefined;
   /**
    * @description The amount of items to return. Defaults to 10.
-   * @minLength 0
-   * @maxLength 1000
+   * @minimum 0
+   * @maximum 1000
    * @type integer | undefined
    */
   page_size?: number | undefined;
@@ -147149,7 +147218,7 @@ export type RadarGetAnnotationsQuery = {
   limit?: number | undefined;
   /**
    * @description Skips the specified number of objects before fetching the results.
-   * @minLength 0
+   * @minimum 0
    * @example 0
    * @type integer | undefined
    */
@@ -147623,7 +147692,7 @@ export type RadarGetAnnotationsOutagesQuery = {
   limit?: number | undefined;
   /**
    * @description Skips the specified number of objects before fetching the results.
-   * @minLength 0
+   * @minimum 0
    * @example 0
    * @type integer | undefined
    */
@@ -170651,7 +170720,7 @@ export type RadarGetBgpHijacksEventsQuery = {
   /**
    * @example 1.1.1.0/24
    */
-  prefix?: (string | string) | undefined;
+  prefix?: string | undefined;
   /**
    * @description Filters events by minimum confidence score (1-4 low, 5-7 mid, 8+ high).
    * @type integer | undefined
@@ -171108,8 +171177,8 @@ export type RadarGetBgpIpsTopAsesQuery = {
   date?: string | undefined;
   /**
    * @description Limits the number of objects returned in the response.
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @default 5
    * @example 5
    * @type integer | undefined
@@ -171565,7 +171634,7 @@ export type RadarGetBgpPfx2AsMoasQuery = {
   /**
    * @example 1.1.1.0/24
    */
-  prefix?: (string | string) | undefined;
+  prefix?: string | undefined;
   /**
    * @description Lookup only RPKI invalid MOASes.
    * @type boolean | undefined
@@ -171783,7 +171852,7 @@ export type RadarGetBgpPfx2AsQuery = {
   /**
    * @example 1.1.1.0/24
    */
-  prefix?: (string | string) | undefined;
+  prefix?: string | undefined;
   /**
    * @description Lookup prefixes originated by the given ASN.
    * @type integer | undefined
@@ -171870,7 +171939,7 @@ export type RadarGetBgpRoutesRealtimeQuery = {
   /**
    * @example 1.1.1.0/24
    */
-  prefix?: (string | string) | undefined;
+  prefix?: string | undefined;
   /**
    * @description Format in which results will be returned.
    * @example json
@@ -172872,7 +172941,7 @@ export type RadarGetBgpTimeseriesQuery = {
    * @example 1.1.1.0/24
    * @type array | undefined
    */
-  prefix?: (string | string)[] | undefined;
+  prefix?: string[] | undefined;
   /**
    * @description Filters results by BGP update type.
    * @example ANNOUNCEMENT
@@ -173116,7 +173185,7 @@ export type RadarGetBgpTopAsesQuery = {
    * @example 1.1.1.0/24
    * @type array | undefined
    */
-  prefix?: (string | string)[] | undefined;
+  prefix?: string[] | undefined;
   /**
    * @description Filters results by BGP update type.
    * @example ANNOUNCEMENT
@@ -173465,7 +173534,7 @@ export type RadarGetBotsQuery = {
   limit?: number | undefined;
   /**
    * @description Skips the specified number of objects before fetching the results.
-   * @minLength 0
+   * @minimum 0
    * @example 0
    * @type integer | undefined
    */
@@ -175297,7 +175366,7 @@ export type RadarGetCertificateAuthoritiesQuery = {
   limit?: number | undefined;
   /**
    * @description Skips the specified number of objects before fetching the results.
-   * @minLength 0
+   * @minimum 0
    * @example 0
    * @type integer | undefined
    */
@@ -175435,7 +175504,7 @@ export type RadarGetCertificateLogsQuery = {
   limit?: number | undefined;
   /**
    * @description Skips the specified number of objects before fetching the results.
-   * @minLength 0
+   * @minimum 0
    * @example 0
    * @type integer | undefined
    */
@@ -176956,7 +177025,7 @@ export type RadarGetReportsDatasetsQuery = {
   limit?: number | undefined;
   /**
    * @description Skips the specified number of objects before fetching the results.
-   * @minLength 0
+   * @minimum 0
    * @example 0
    * @type integer | undefined
    */
@@ -200826,7 +200895,7 @@ export type RadarGetEntitiesAsnListQuery = {
   limit?: number | undefined;
   /**
    * @description Skips the specified number of objects before fetching the results.
-   * @minLength 0
+   * @minimum 0
    * @example 0
    * @type integer | undefined
    */
@@ -200966,7 +201035,7 @@ export type RadarGetAsBotnetThreatFeedQuery = {
   limit?: number | undefined;
   /**
    * @description Skips the specified number of objects before fetching the results.
-   * @minLength 0
+   * @minimum 0
    * @example 0
    * @type integer | undefined
    */
@@ -201701,7 +201770,7 @@ export type RadarGetEntitiesLocationsQuery = {
   limit?: number | undefined;
   /**
    * @description Skips the specified number of objects before fetching the results.
-   * @minLength 0
+   * @minimum 0
    * @example 0
    * @type integer | undefined
    */
@@ -201945,7 +202014,7 @@ export type RadarGetGeolocationsQuery = {
   limit?: number | undefined;
   /**
    * @description Skips the specified number of objects before fetching the results.
-   * @minLength 0
+   * @minimum 0
    * @example 0
    * @type integer | undefined
    */
@@ -216498,7 +216567,7 @@ export type RadarGetOriginsQuery = {
   limit?: number | undefined;
   /**
    * @description Skips the specified number of objects before fetching the results.
-   * @minLength 0
+   * @minimum 0
    * @example 0
    * @type integer | undefined
    */
@@ -222581,7 +222650,7 @@ export type RadarGetTldsQuery = {
   limit?: number | undefined;
   /**
    * @description Skips the specified number of objects before fetching the results.
-   * @minLength 0
+   * @minimum 0
    * @example 0
    * @type integer | undefined
    */
@@ -223420,7 +223489,7 @@ export type RadarGetTrafficAnomaliesQuery = {
   limit?: number | undefined;
   /**
    * @description Skips the specified number of objects before fetching the results.
-   * @minLength 0
+   * @minimum 0
    * @example 0
    * @type integer | undefined
    */
@@ -224779,8 +224848,8 @@ export type AuditLogsGetUserAuditLogsQuery = {
   direction?: AuditLogsGetUserAuditLogsDirectionKey | undefined;
   /**
    * @description Sets the number of results to return per page.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 100
    * @example 25
    * @type number | undefined
@@ -224788,7 +224857,7 @@ export type AuditLogsGetUserAuditLogsQuery = {
   per_page?: number | undefined;
   /**
    * @description Defines which page of results to return.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 50
    * @type number | undefined
@@ -224834,15 +224903,15 @@ export type UserBillingHistoryDeprecatedBillingHistoryDetailsOrderKey = (typeof 
 export type UserBillingHistoryDeprecatedBillingHistoryDetailsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of items per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -225534,15 +225603,15 @@ export type UserSOrganizationsListOrganizationsQuery = {
   name?: IamSchemasName | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of organizations per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -225785,15 +225854,15 @@ export type UserApiTokensListTokensDirectionKey = (typeof userApiTokensListToken
 export type UserApiTokensListTokensQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -226163,15 +226232,15 @@ export type ZonesGetQuery = {
   'account.name'?: string | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of zones per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -226424,6 +226493,11 @@ export type ListAbuseReportsQuery = {
    * @type string | undefined
    */
   mitigation_status?: AbuseReportsMitigationStatusKey | undefined;
+  /**
+   * @description Also include reports in an open Notice and Takedown notice period. Combined with mitigation_status using OR, e.g. ?mitigation_status=active&pending_notice=true.
+   * @type boolean | undefined
+   */
+  pending_notice?: boolean | undefined;
 };
 
 export type ListAbuseReportsStatus200 = {
@@ -226495,15 +226569,15 @@ export type ListSubmittedAbuseReportsPath = {
 export type ListSubmittedAbuseReportsQuery = {
   /**
    * @description Page of submitted reports to return.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of submitted reports per page.
-   * @minLength 1
-   * @maxLength 200
+   * @minimum 1
+   * @maximum 200
    * @default 100
    * @type integer | undefined
    */
@@ -227229,8 +227303,8 @@ export type McpPortalsApiPortalToolCallTimeseriesQuery = {
   tz?: string | undefined;
   /**
    * @description Daily trailing-window size; defaults to 7 and is ignored for monthly
-   * @minLength 1
-   * @maxLength 179
+   * @minimum 1
+   * @maximum 179
    * @type integer | undefined
    */
   days?: number | undefined;
@@ -227359,8 +227433,8 @@ export type McpPortalsApiServerToolCallTimeseriesQuery = {
   tz?: string | undefined;
   /**
    * @description Daily trailing-window size; defaults to 7 and is ignored for monthly
-   * @minLength 1
-   * @maxLength 179
+   * @minimum 1
+   * @maximum 179
    * @type integer | undefined
    */
   days?: number | undefined;
@@ -227488,8 +227562,8 @@ export type McpPortalsApiAccountToolCallTimeseriesQuery = {
   tz?: string | undefined;
   /**
    * @description Daily trailing-window size; defaults to 7 and is ignored for monthly
-   * @minLength 1
-   * @maxLength 179
+   * @minimum 1
+   * @maximum 179
    * @type integer | undefined
    */
   days?: number | undefined;
@@ -227577,14 +227651,14 @@ export type McpPortalsApiListPortalsPath = {
 
 export type McpPortalsApiListPortalsQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -229600,14 +229674,14 @@ export type McpPortalsApiListServersPath = {
 
 export type McpPortalsApiListServersQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -231475,7 +231549,7 @@ export type AccessApplicationsListAccessApplicationsQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @maxLength 1000
+   * @maximum 1000
    * @default 1000
    * @type integer | undefined
    */
@@ -231557,7 +231631,7 @@ export type AccessShortLivedCertificateCAsListShortLivedCertificateCAsQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @maxLength 1000
+   * @maximum 1000
    * @default 100
    * @type integer | undefined
    */
@@ -231825,7 +231899,7 @@ export type AccessPoliciesListAccessAppPoliciesQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @maxLength 1000
+   * @maximum 1000
    * @default 200
    * @type integer | undefined
    */
@@ -232450,7 +232524,7 @@ export type AccessMtlsAuthenticationListMtlsCertificatesQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @maxLength 1000
+   * @maximum 1000
    * @default 50
    * @type integer | undefined
    */
@@ -232745,7 +232819,7 @@ export type AccessCustomPagesListCustomPagesQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @maxLength 1000
+   * @maximum 1000
    * @default 50
    * @type integer | undefined
    */
@@ -233094,7 +233168,7 @@ export type AccessGroupsListAccessGroupsQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @maxLength 1000
+   * @maximum 1000
    * @default 1000
    * @type integer | undefined
    */
@@ -233350,7 +233424,7 @@ export type AccessIdentityProvidersListAccessIdentityProvidersQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @maxLength 1000
+   * @maximum 1000
    * @default 200
    * @type integer | undefined
    */
@@ -233626,7 +233700,7 @@ export type AccessIdentityProvidersListScimGroupResourcesQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @maxLength 100
+   * @maximum 100
    * @default 100
    * @type integer | undefined
    */
@@ -233808,7 +233882,7 @@ export type AccessIdentityProvidersListScimUserResourcesQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @maxLength 100
+   * @maximum 100
    * @default 100
    * @type integer | undefined
    */
@@ -234120,8 +234194,8 @@ export type AccessKeyConfigurationUpdateTheAccessKeyConfigurationStatus400 = Acc
 export type AccessKeyConfigurationUpdateTheAccessKeyConfigurationBody = {
   /**
    * @description The number of days between key rotations.
-   * @minLength 21
-   * @maxLength 365
+   * @minimum 21
+   * @maximum 365
    * @example 30
    * @type number
    */
@@ -234435,7 +234509,7 @@ export type AccessJitRequestLogsListQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @maxLength 1000
+   * @maximum 1000
    * @default 25
    * @type integer | undefined
    */
@@ -234636,7 +234710,7 @@ export type AccessScimUpdateLogsListAccessScimUpdateLogsQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @maxLength 1000
+   * @maximum 1000
    * @default 20
    * @type integer | undefined
    */
@@ -235320,7 +235394,7 @@ export type AccessPoliciesListAccessReusablePoliciesQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @maxLength 1000
+   * @maximum 1000
    * @default 100
    * @type integer | undefined
    */
@@ -235601,7 +235675,7 @@ export type AccessPolicyTestsGetAUserPageQuery = {
    */
   page?: number | undefined;
   /**
-   * @maxLength 1000
+   * @maximum 1000
    * @default 25
    * @type integer | undefined
    */
@@ -235647,15 +235721,15 @@ export type AccessSamlCertificatesListCertificateSetsPath = {
 export type AccessSamlCertificatesListCertificateSetsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 25
    * @type integer | undefined
    */
@@ -235876,7 +235950,7 @@ export type AccessServiceTokensListServiceTokensQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @maxLength 1000
+   * @maximum 1000
    * @default 1000
    * @type integer | undefined
    */
@@ -236237,7 +236311,7 @@ export type AccessTagsListTagsQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @maxLength 1000
+   * @maximum 1000
    * @default 50
    * @type integer | undefined
    */
@@ -236441,7 +236515,7 @@ export type AccessUserPopulationsListUserPopulationsQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @maxLength 1000
+   * @maximum 1000
    * @default 100
    * @type integer | undefined
    */
@@ -236643,14 +236717,14 @@ export type AccessUserPopulationsListUsersQuery = {
   filter?: string | undefined;
   /**
    * @description The 1-based index of the first result to return.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   startIndex?: number | undefined;
   /**
    * @description The maximum number of results to return.
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   count?: number | undefined;
@@ -236958,7 +237032,7 @@ export type ZeroTrustUsersGetUsersQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @maxLength 1000
+   * @maximum 1000
    * @default 1000
    * @type integer | undefined
    */
@@ -239214,8 +239288,8 @@ export type AgentMemoryNamespaceListDirectionKey = (typeof agentMemoryNamespaceL
 export type AgentMemoryNamespaceListQuery = {
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @example 20
    * @type integer | undefined
    */
@@ -240096,8 +240170,8 @@ export type AgentMemoryProfileListPath = {
 export type AgentMemoryProfileListQuery = {
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 500
+   * @minimum 1
+   * @maximum 500
    * @example 20
    * @type integer | undefined
    */
@@ -240787,8 +240861,8 @@ export type AgentMemoryMemoryListTypeKey = (typeof agentMemoryMemoryListType)[ke
 export type AgentMemoryMemoryListQuery = {
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 500
+   * @minimum 1
+   * @maximum 500
    * @example 20
    * @type integer | undefined
    */
@@ -242569,6 +242643,11 @@ export type AigBillingGetCreditBalanceResponses = {
   '404': AigBillingGetCreditBalanceStatus404;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type AigBillingGetCreditBalanceResponse2 = AigBillingGetCreditBalanceStatus200;
+
 export type AigBillingGetInvoiceHistoryPath = {
   /**
    * @description Cloudflare account ID.
@@ -242617,6 +242696,11 @@ export type AigBillingGetInvoiceHistoryResponses = {
   '404': AigBillingGetInvoiceHistoryStatus404;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type AigBillingGetInvoiceHistoryResponse2 = AigBillingGetInvoiceHistoryStatus200;
+
 export type AigBillingGetInvoicePreviewPath = {
   /**
    * @description Cloudflare account ID.
@@ -242646,6 +242730,11 @@ export type AigBillingGetInvoicePreviewResponses = {
   '403': AigBillingGetInvoicePreviewStatus403;
   '404': AigBillingGetInvoicePreviewStatus404;
 };
+
+/**
+ * @description Union of all possible responses
+ */
+export type AigBillingGetInvoicePreviewResponse2 = AigBillingGetInvoicePreviewStatus200;
 
 export type AigBillingDeleteSpendingLimitPath = {
   /**
@@ -242677,6 +242766,11 @@ export type AigBillingDeleteSpendingLimitResponses = {
   '404': AigBillingDeleteSpendingLimitStatus404;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type AigBillingDeleteSpendingLimitResponse2 = AigBillingDeleteSpendingLimitStatus200;
+
 export type AigBillingGetSpendingLimitPath = {
   /**
    * @description Cloudflare account ID.
@@ -242706,6 +242800,11 @@ export type AigBillingGetSpendingLimitResponses = {
   '403': AigBillingGetSpendingLimitStatus403;
   '404': AigBillingGetSpendingLimitStatus404;
 };
+
+/**
+ * @description Union of all possible responses
+ */
+export type AigBillingGetSpendingLimitResponse2 = AigBillingGetSpendingLimitStatus200;
 
 export type AigBillingSetSpendingLimitPath = {
   /**
@@ -242741,7 +242840,7 @@ export type AigBillingSetSpendingLimitRequestStrategyEnumKey = (typeof aigBillin
 export type AigBillingSetSpendingLimitBody = {
   /**
    * @description Spending limit amount in cents (min 100).
-   * @minLength 100
+   * @minimum 100
    * @example 10000
    * @type integer
    */
@@ -242778,6 +242877,11 @@ export type AigBillingSetSpendingLimitResponses = {
   '404': AigBillingSetSpendingLimitStatus404;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type AigBillingSetSpendingLimitResponse2 = AigBillingSetSpendingLimitStatus201;
+
 export type AigBillingCreateTopupPath = {
   /**
    * @description Cloudflare account ID.
@@ -242799,7 +242903,7 @@ export type AigBillingCreateTopupStatus404 = AigBillingErrorResponse;
 export type AigBillingCreateTopupBody = {
   /**
    * @description Top-up amount in cents (min 1000).
-   * @minLength 1000
+   * @minimum 1000
    * @example 5000
    * @type integer
    */
@@ -242826,6 +242930,11 @@ export type AigBillingCreateTopupResponses = {
   '403': AigBillingCreateTopupStatus403;
   '404': AigBillingCreateTopupStatus404;
 };
+
+/**
+ * @description Union of all possible responses
+ */
+export type AigBillingCreateTopupResponse2 = AigBillingCreateTopupStatus200;
 
 export type AigBillingDeleteTopupConfigPath = {
   /**
@@ -242857,6 +242966,11 @@ export type AigBillingDeleteTopupConfigResponses = {
   '404': AigBillingDeleteTopupConfigStatus404;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type AigBillingDeleteTopupConfigResponse2 = AigBillingDeleteTopupConfigStatus200;
+
 export type AigBillingGetTopupConfigPath = {
   /**
    * @description Cloudflare account ID.
@@ -242887,6 +243001,11 @@ export type AigBillingGetTopupConfigResponses = {
   '404': AigBillingGetTopupConfigStatus404;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type AigBillingGetTopupConfigResponse2 = AigBillingGetTopupConfigStatus200;
+
 export type AigBillingSetTopupConfigPath = {
   /**
    * @description Cloudflare account ID.
@@ -242910,14 +243029,14 @@ export type AigBillingSetTopupConfigStatus409 = AigBillingErrorResponse;
 export type AigBillingSetTopupConfigBody = {
   /**
    * @description Auto top-up amount in cents (min 1000).
-   * @minLength 1000
+   * @minimum 1000
    * @example 5000
    * @type integer
    */
   amount: number;
   /**
    * @description Balance threshold in cents that triggers auto top-up (min 500).
-   * @minLength 500
+   * @minimum 500
    * @example 500
    * @type integer
    */
@@ -242925,7 +243044,7 @@ export type AigBillingSetTopupConfigBody = {
 } | {
   /**
    * @description Auto top-up amount in cents (min 1000).
-   * @minLength 1000
+   * @minimum 1000
    * @example 5000
    * @type integer
    */
@@ -242960,7 +243079,7 @@ export type AigBillingSetTopupConfigBody = {
   setup_intent_id?: string | undefined;
   /**
    * @description Balance threshold in cents that triggers auto top-up (min 500).
-   * @minLength 500
+   * @minimum 500
    * @example 500
    * @type integer
    */
@@ -242982,6 +243101,11 @@ export type AigBillingSetTopupConfigResponses = {
   '404': AigBillingSetTopupConfigStatus404;
   '409': AigBillingSetTopupConfigStatus409;
 };
+
+/**
+ * @description Union of all possible responses
+ */
+export type AigBillingSetTopupConfigResponse2 = AigBillingSetTopupConfigStatus200;
 
 export type AigBillingTopupEligibilityPath = {
   /**
@@ -243074,6 +243198,11 @@ export type AigBillingGetTopupLimitsResponses = {
   '403': AigBillingGetTopupLimitsStatus403;
   '404': AigBillingGetTopupLimitsStatus404;
 };
+
+/**
+ * @description Union of all possible responses
+ */
+export type AigBillingGetTopupLimitsResponse2 = AigBillingGetTopupLimitsStatus200;
 
 export type AigBillingCheckTopupStatusPath = {
   /**
@@ -243177,6 +243306,11 @@ export type AigBillingGetUsageHistoryResponses = {
   '404': AigBillingGetUsageHistoryStatus404;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type AigBillingGetUsageHistoryResponse2 = AigBillingGetUsageHistoryStatus200;
+
 export type AigConfigListAccountProviderPath = {
   /**
    * @example 3ebbcb006d4d46d7bb6a8c7f14676cb0
@@ -243187,14 +243321,14 @@ export type AigConfigListAccountProviderPath = {
 
 export type AigConfigListAccountProviderQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -243425,14 +243559,14 @@ export type AigConfigListAccountProviderCostModelRuleKey = (typeof aigConfigList
 
 export type AigConfigListAccountProviderCostQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -244427,14 +244561,14 @@ export type AigConfigListEvaluatorsOrderByDirectionKey = (typeof aigConfigListEv
 
 export type AigConfigListEvaluatorsQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -244520,14 +244654,14 @@ export type AigConfigListGatewayPath = {
 
 export type AigConfigListGatewayQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -244841,7 +244975,7 @@ export type AigConfigListGatewayStatus200 = {
     byok_only?: boolean | undefined;
     cache_invalidate_on_update: boolean;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     cache_ttl: number | null;
@@ -244924,8 +245058,8 @@ export type AigConfigListGatewayStatus200 = {
     is_default?: boolean | undefined;
     log_classification?: boolean | undefined;
     /**
-     * @minLength 10000
-     * @maxLength 10000000
+     * @minimum 10000
+     * @maximum 10000000
      * @type integer | undefined
      */
     log_management?: (number | null) | undefined;
@@ -244966,12 +245100,12 @@ export type AigConfigListGatewayStatus200 = {
       url: string;
     }[] | null) | undefined;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     rate_limiting_interval: number | null;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     rate_limiting_limit: number | null;
@@ -244983,15 +245117,15 @@ export type AigConfigListGatewayStatus200 = {
     retry_backoff?: (AigConfigListGatewayStatus200ResultRetryBackoffEnumKey | null) | undefined;
     /**
      * @description Delay between retry attempts in milliseconds (0-60000)
-     * @minLength 0
-     * @maxLength 60000
+     * @minimum 0
+     * @maximum 60000
      * @type integer | undefined
      */
     retry_delay?: (number | null) | undefined;
     /**
      * @description Maximum number of retry attempts for failed requests (1-5)
-     * @minLength 1
-     * @maxLength 5
+     * @minimum 1
+     * @maximum 5
      * @type integer | undefined
      */
     retry_max_attempts?: (number | null) | undefined;
@@ -245410,7 +245544,7 @@ export type AigConfigCreateGatewayStatus200 = {
     byok_only?: boolean | undefined;
     cache_invalidate_on_update: boolean;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     cache_ttl: number | null;
@@ -245493,8 +245627,8 @@ export type AigConfigCreateGatewayStatus200 = {
     is_default?: boolean | undefined;
     log_classification?: boolean | undefined;
     /**
-     * @minLength 10000
-     * @maxLength 10000000
+     * @minimum 10000
+     * @maximum 10000000
      * @type integer | undefined
      */
     log_management?: (number | null) | undefined;
@@ -245535,12 +245669,12 @@ export type AigConfigCreateGatewayStatus200 = {
       url: string;
     }[] | null) | undefined;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     rate_limiting_interval: number | null;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     rate_limiting_limit: number | null;
@@ -245552,15 +245686,15 @@ export type AigConfigCreateGatewayStatus200 = {
     retry_backoff?: (AigConfigCreateGatewayStatus200ResultRetryBackoffEnumKey | null) | undefined;
     /**
      * @description Delay between retry attempts in milliseconds (0-60000)
-     * @minLength 0
-     * @maxLength 60000
+     * @minimum 0
+     * @maximum 60000
      * @type integer | undefined
      */
     retry_delay?: (number | null) | undefined;
     /**
      * @description Maximum number of retry attempts for failed requests (1-5)
-     * @minLength 1
-     * @maxLength 5
+     * @minimum 1
+     * @maximum 5
      * @type integer | undefined
      */
     retry_max_attempts?: (number | null) | undefined;
@@ -245939,7 +246073,7 @@ export type AigConfigCreateGatewayBody = {
   byok_only?: boolean | undefined;
   cache_invalidate_on_update: boolean;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   cache_ttl: number | null;
@@ -246005,8 +246139,8 @@ export type AigConfigCreateGatewayBody = {
   id: string;
   log_classification?: boolean | undefined;
   /**
-   * @minLength 10000
-   * @maxLength 10000000
+   * @minimum 10000
+   * @maximum 10000000
    * @type integer | undefined
    */
   log_management?: (number | null) | undefined;
@@ -246041,12 +246175,12 @@ export type AigConfigCreateGatewayBody = {
     url: string;
   }[] | null) | undefined;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   rate_limiting_interval: number | null;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   rate_limiting_limit: number | null;
@@ -246058,15 +246192,15 @@ export type AigConfigCreateGatewayBody = {
   retry_backoff?: (AigConfigCreateGatewayRequestRetryBackoffEnumKey | null) | undefined;
   /**
    * @description Delay between retry attempts in milliseconds (0-60000)
-   * @minLength 0
-   * @maxLength 60000
+   * @minimum 0
+   * @maximum 60000
    * @type integer | undefined
    */
   retry_delay?: (number | null) | undefined;
   /**
    * @description Maximum number of retry attempts for failed requests (1-5)
-   * @minLength 1
-   * @maxLength 5
+   * @minimum 1
+   * @maximum 5
    * @type integer | undefined
    */
   retry_max_attempts?: (number | null) | undefined;
@@ -246185,14 +246319,14 @@ export type AigConfigListCustomDomainStatusKey = (typeof aigConfigListCustomDoma
 
 export type AigConfigListCustomDomainQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -246622,14 +246756,14 @@ export type AigConfigListDatasetPath = {
 
 export type AigConfigListDatasetQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -247297,14 +247431,14 @@ export type AigConfigListEvaluationsPath = {
 
 export type AigConfigListEvaluationsQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -248054,8 +248188,8 @@ export type AigConfigDeleteGatewayLogsQuery = {
     value: (string | number | boolean)[];
   }[] | undefined;
   /**
-   * @minLength 1
-   * @maxLength 10000
+   * @minimum 1
+   * @maximum 10000
    * @default 10000
    * @type integer | undefined
    */
@@ -248183,14 +248317,14 @@ export type AigConfigListGatewayLogsQuery = {
    */
   search?: string | undefined;
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -248529,8 +248663,8 @@ export type AigConfigPatchGatewayLogStatus404 = {
 
 export type AigConfigPatchGatewayLogBody = {
   /**
-   * @minLength -1
-   * @maxLength 1
+   * @minimum -1
+   * @maximum 1
    * @type number | undefined
    */
   feedback?: (number | null) | undefined;
@@ -248538,8 +248672,8 @@ export type AigConfigPatchGatewayLogBody = {
     [key: string]: string | number | boolean;
   } | null) | undefined;
   /**
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @type number | undefined
    */
   score?: (number | null) | undefined;
@@ -248687,14 +248821,14 @@ export type AigConfigListProvidersPath = {
 
 export type AigConfigListProvidersQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -251284,7 +251418,7 @@ export type AigConfigDeleteGatewayStatus200 = {
     byok_only?: boolean | undefined;
     cache_invalidate_on_update: boolean;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     cache_ttl: number | null;
@@ -251367,8 +251501,8 @@ export type AigConfigDeleteGatewayStatus200 = {
     is_default?: boolean | undefined;
     log_classification?: boolean | undefined;
     /**
-     * @minLength 10000
-     * @maxLength 10000000
+     * @minimum 10000
+     * @maximum 10000000
      * @type integer | undefined
      */
     log_management?: (number | null) | undefined;
@@ -251409,12 +251543,12 @@ export type AigConfigDeleteGatewayStatus200 = {
       url: string;
     }[] | null) | undefined;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     rate_limiting_interval: number | null;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     rate_limiting_limit: number | null;
@@ -251426,15 +251560,15 @@ export type AigConfigDeleteGatewayStatus200 = {
     retry_backoff?: (AigConfigDeleteGatewayStatus200ResultRetryBackoffEnumKey | null) | undefined;
     /**
      * @description Delay between retry attempts in milliseconds (0-60000)
-     * @minLength 0
-     * @maxLength 60000
+     * @minimum 0
+     * @maximum 60000
      * @type integer | undefined
      */
     retry_delay?: (number | null) | undefined;
     /**
      * @description Maximum number of retry attempts for failed requests (1-5)
-     * @minLength 1
-     * @maxLength 5
+     * @minimum 1
+     * @maximum 5
      * @type integer | undefined
      */
     retry_max_attempts?: (number | null) | undefined;
@@ -251879,7 +252013,7 @@ export type AigConfigFetchGatewayStatus200 = {
     byok_only?: boolean | undefined;
     cache_invalidate_on_update: boolean;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     cache_ttl: number | null;
@@ -251962,8 +252096,8 @@ export type AigConfigFetchGatewayStatus200 = {
     is_default?: boolean | undefined;
     log_classification?: boolean | undefined;
     /**
-     * @minLength 10000
-     * @maxLength 10000000
+     * @minimum 10000
+     * @maximum 10000000
      * @type integer | undefined
      */
     log_management?: (number | null) | undefined;
@@ -252004,12 +252138,12 @@ export type AigConfigFetchGatewayStatus200 = {
       url: string;
     }[] | null) | undefined;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     rate_limiting_interval: number | null;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     rate_limiting_limit: number | null;
@@ -252021,15 +252155,15 @@ export type AigConfigFetchGatewayStatus200 = {
     retry_backoff?: (AigConfigFetchGatewayStatus200ResultRetryBackoffEnumKey | null) | undefined;
     /**
      * @description Delay between retry attempts in milliseconds (0-60000)
-     * @minLength 0
-     * @maxLength 60000
+     * @minimum 0
+     * @maximum 60000
      * @type integer | undefined
      */
     retry_delay?: (number | null) | undefined;
     /**
      * @description Maximum number of retry attempts for failed requests (1-5)
-     * @minLength 1
-     * @maxLength 5
+     * @minimum 1
+     * @maximum 5
      * @type integer | undefined
      */
     retry_max_attempts?: (number | null) | undefined;
@@ -252474,7 +252608,7 @@ export type AigConfigUpdateGatewayStatus200 = {
     byok_only?: boolean | undefined;
     cache_invalidate_on_update: boolean;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     cache_ttl: number | null;
@@ -252557,8 +252691,8 @@ export type AigConfigUpdateGatewayStatus200 = {
     is_default?: boolean | undefined;
     log_classification?: boolean | undefined;
     /**
-     * @minLength 10000
-     * @maxLength 10000000
+     * @minimum 10000
+     * @maximum 10000000
      * @type integer | undefined
      */
     log_management?: (number | null) | undefined;
@@ -252599,12 +252733,12 @@ export type AigConfigUpdateGatewayStatus200 = {
       url: string;
     }[] | null) | undefined;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     rate_limiting_interval: number | null;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     rate_limiting_limit: number | null;
@@ -252616,15 +252750,15 @@ export type AigConfigUpdateGatewayStatus200 = {
     retry_backoff?: (AigConfigUpdateGatewayStatus200ResultRetryBackoffEnumKey | null) | undefined;
     /**
      * @description Delay between retry attempts in milliseconds (0-60000)
-     * @minLength 0
-     * @maxLength 60000
+     * @minimum 0
+     * @maximum 60000
      * @type integer | undefined
      */
     retry_delay?: (number | null) | undefined;
     /**
      * @description Maximum number of retry attempts for failed requests (1-5)
-     * @minLength 1
-     * @maxLength 5
+     * @minimum 1
+     * @maximum 5
      * @type integer | undefined
      */
     retry_max_attempts?: (number | null) | undefined;
@@ -253019,7 +253153,7 @@ export type AigConfigUpdateGatewayBody = {
   byok_only?: boolean | undefined;
   cache_invalidate_on_update: boolean;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   cache_ttl: number | null;
@@ -253076,8 +253210,8 @@ export type AigConfigUpdateGatewayBody = {
   } | null) | undefined;
   log_classification?: boolean | undefined;
   /**
-   * @minLength 10000
-   * @maxLength 10000000
+   * @minimum 10000
+   * @maximum 10000000
    * @type integer | undefined
    */
   log_management?: (number | null) | undefined;
@@ -253112,12 +253246,12 @@ export type AigConfigUpdateGatewayBody = {
     url: string;
   }[] | null) | undefined;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   rate_limiting_interval: number | null;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   rate_limiting_limit: number | null;
@@ -253129,15 +253263,15 @@ export type AigConfigUpdateGatewayBody = {
   retry_backoff?: (AigConfigUpdateGatewayRequestRetryBackoffEnumKey | null) | undefined;
   /**
    * @description Delay between retry attempts in milliseconds (0-60000)
-   * @minLength 0
-   * @maxLength 60000
+   * @minimum 0
+   * @maximum 60000
    * @type integer | undefined
    */
   retry_delay?: (number | null) | undefined;
   /**
    * @description Maximum number of retry attempts for failed requests (1-5)
-   * @minLength 1
-   * @maxLength 5
+   * @minimum 1
+   * @maximum 5
    * @type integer | undefined
    */
   retry_max_attempts?: (number | null) | undefined;
@@ -253242,7 +253376,7 @@ export type AigConfigGetLoggingStateStatus200ResultPlatformEnumKey = (typeof aig
 export type AigConfigGetLoggingStateStatus200 = {
   result: {
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     migrated_at: number | null;
@@ -253305,7 +253439,7 @@ export type AigConfigPatchLoggingStateStatus200ResultPlatformEnumKey = (typeof a
 export type AigConfigPatchLoggingStateStatus200 = {
   result: {
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     migrated_at: number | null;
@@ -253369,7 +253503,7 @@ export type AiSearchListInstancesOrderByDirectionKey = (typeof aiSearchListInsta
 export type AiSearchListInstancesQuery = {
   /**
    * @description Page number (1-indexed).
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -253377,8 +253511,8 @@ export type AiSearchListInstancesQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -253594,13 +253728,13 @@ export type AiSearchListInstancesStatus200 = {
       } | undefined;
       rate_limit?: {
         /**
-         * @minLength 60000
-         * @maxLength 3600000
+         * @minimum 60000
+         * @maximum 3600000
          * @type integer | undefined
          */
         period_ms?: number | undefined;
         /**
-         * @minLength 1
+         * @minimum 1
          * @type integer | undefined
          */
         requests?: number | undefined;
@@ -253642,8 +253776,8 @@ export type AiSearchListInstancesStatus200 = {
       web_crawler?: {
         discover_options?: {
           /**
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @type number | undefined
            */
           depth?: number | undefined;
@@ -253651,14 +253785,14 @@ export type AiSearchListInstancesStatus200 = {
           include_subdomains?: boolean | undefined;
           /**
            * @description Maximum number of pages to crawl. New values have a maximum of 100000; instances configured before that cap may report a higher stored value, which the crawler clamps at run time.
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @type number | undefined
            */
           limit?: number | undefined;
           /**
-           * @minLength 0
-           * @maxLength 604800
+           * @minimum 0
+           * @maximum 604800
            * @type number | undefined
            */
           max_age?: number | undefined;
@@ -253859,14 +253993,14 @@ export type AiSearchCreateInstanceStatus201 = {
      */
     cache_ttl?: (600 | 1800 | 3600 | 7200 | 21600 | 43200 | 86400 | 172800 | 259200 | 518400) | undefined;
     /**
-     * @minLength 0
-     * @maxLength 30
+     * @minimum 0
+     * @maximum 30
      * @default 10
      * @type integer | undefined
      */
     chunk_overlap?: number | undefined;
     /**
-     * @minLength 64
+     * @minimum 64
      * @type integer | undefined
      */
     chunk_size?: number | undefined;
@@ -253946,8 +254080,8 @@ export type AiSearchCreateInstanceStatus201 = {
      */
     readonly last_activity?: (string | null) | undefined;
     /**
-     * @minLength 1
-     * @maxLength 50
+     * @minimum 1
+     * @maximum 50
      * @default 10
      * @type integer | undefined
      */
@@ -254016,13 +254150,13 @@ export type AiSearchCreateInstanceStatus201 = {
       } | undefined;
       rate_limit?: {
         /**
-         * @minLength 60000
-         * @maxLength 3600000
+         * @minimum 60000
+         * @maximum 3600000
          * @type integer | undefined
          */
         period_ms?: number | undefined;
         /**
-         * @minLength 1
+         * @minimum 1
          * @type integer | undefined
          */
         requests?: number | undefined;
@@ -254082,8 +254216,8 @@ export type AiSearchCreateInstanceStatus201 = {
     rewrite_query?: boolean | undefined;
     /**
      * @description Minimum similarity score a chunk must reach to be returned. Defaults to 0.4.
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @type number | undefined
      */
     score_threshold?: number | undefined;
@@ -254119,8 +254253,8 @@ export type AiSearchCreateInstanceStatus201 = {
         discover_options?: {
           /**
            * @description Maximum link-follow depth from the seed URL.
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @default 5
            * @example 5
            * @type number | undefined
@@ -254142,8 +254276,8 @@ export type AiSearchCreateInstanceStatus201 = {
           include_subdomains?: boolean | undefined;
           /**
            * @description Maximum number of pages to crawl (1-100000).
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @default 100000
            * @example 10000
            * @type number | undefined
@@ -254151,8 +254285,8 @@ export type AiSearchCreateInstanceStatus201 = {
           limit?: number | undefined;
           /**
            * @description Maximum content age in seconds to accept (0–604800).
-           * @minLength 0
-           * @maxLength 604800
+           * @minimum 0
+           * @maximum 604800
            * @default 86400
            * @example 86400
            * @type number | undefined
@@ -254394,14 +254528,14 @@ export type AiSearchCreateInstanceBody = {
    */
   chunk?: boolean | undefined;
   /**
-   * @minLength 0
-   * @maxLength 30
+   * @minimum 0
+   * @maximum 30
    * @default 10
    * @type integer | undefined
    */
   chunk_overlap?: number | undefined;
   /**
-   * @minLength 64
+   * @minimum 64
    * @type integer | undefined
    */
   chunk_size?: number | undefined;
@@ -254466,8 +254600,8 @@ export type AiSearchCreateInstanceBody = {
     use_ocr?: boolean | undefined;
   } | null) | undefined;
   /**
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @default 10
    * @type integer | undefined
    */
@@ -254522,13 +254656,13 @@ export type AiSearchCreateInstanceBody = {
     } | undefined;
     rate_limit?: {
       /**
-       * @minLength 60000
-       * @maxLength 3600000
+       * @minimum 60000
+       * @maximum 3600000
        * @type integer | undefined
        */
       period_ms?: number | undefined;
       /**
-       * @minLength 1
+       * @minimum 1
        * @type integer | undefined
        */
       requests?: number | undefined;
@@ -254588,8 +254722,8 @@ export type AiSearchCreateInstanceBody = {
   rewrite_query?: boolean | undefined;
   /**
    * @description Minimum similarity score a chunk must reach to be returned. Defaults to 0.4.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @type number | undefined
    */
   score_threshold?: number | undefined;
@@ -254625,8 +254759,8 @@ export type AiSearchCreateInstanceBody = {
       discover_options?: {
         /**
          * @description Maximum link-follow depth from the seed URL.
-         * @minLength 1
-         * @maxLength 100000
+         * @minimum 1
+         * @maximum 100000
          * @default 5
          * @example 5
          * @type number | undefined
@@ -254648,8 +254782,8 @@ export type AiSearchCreateInstanceBody = {
         include_subdomains?: boolean | undefined;
         /**
          * @description Maximum number of pages to crawl (1-100000).
-         * @minLength 1
-         * @maxLength 100000
+         * @minimum 1
+         * @maximum 100000
          * @default 100000
          * @example 10000
          * @type number | undefined
@@ -254657,8 +254791,8 @@ export type AiSearchCreateInstanceBody = {
         limit?: number | undefined;
         /**
          * @description Maximum content age in seconds to accept (0–604800).
-         * @minLength 0
-         * @maxLength 604800
+         * @minimum 0
+         * @maximum 604800
          * @default 86400
          * @example 86400
          * @type number | undefined
@@ -254892,14 +255026,14 @@ export type AiSearchDeleteInstanceStatus200 = {
      */
     cache_ttl?: (600 | 1800 | 3600 | 7200 | 21600 | 43200 | 86400 | 172800 | 259200 | 518400) | undefined;
     /**
-     * @minLength 0
-     * @maxLength 30
+     * @minimum 0
+     * @maximum 30
      * @default 10
      * @type integer | undefined
      */
     chunk_overlap?: number | undefined;
     /**
-     * @minLength 64
+     * @minimum 64
      * @type integer | undefined
      */
     chunk_size?: number | undefined;
@@ -254979,8 +255113,8 @@ export type AiSearchDeleteInstanceStatus200 = {
      */
     readonly last_activity?: (string | null) | undefined;
     /**
-     * @minLength 1
-     * @maxLength 50
+     * @minimum 1
+     * @maximum 50
      * @default 10
      * @type integer | undefined
      */
@@ -255049,13 +255183,13 @@ export type AiSearchDeleteInstanceStatus200 = {
       } | undefined;
       rate_limit?: {
         /**
-         * @minLength 60000
-         * @maxLength 3600000
+         * @minimum 60000
+         * @maximum 3600000
          * @type integer | undefined
          */
         period_ms?: number | undefined;
         /**
-         * @minLength 1
+         * @minimum 1
          * @type integer | undefined
          */
         requests?: number | undefined;
@@ -255115,8 +255249,8 @@ export type AiSearchDeleteInstanceStatus200 = {
     rewrite_query?: boolean | undefined;
     /**
      * @description Minimum similarity score a chunk must reach to be returned. Defaults to 0.4.
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @type number | undefined
      */
     score_threshold?: number | undefined;
@@ -255152,8 +255286,8 @@ export type AiSearchDeleteInstanceStatus200 = {
         discover_options?: {
           /**
            * @description Maximum link-follow depth from the seed URL.
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @default 5
            * @example 5
            * @type number | undefined
@@ -255175,8 +255309,8 @@ export type AiSearchDeleteInstanceStatus200 = {
           include_subdomains?: boolean | undefined;
           /**
            * @description Maximum number of pages to crawl (1-100000).
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @default 100000
            * @example 10000
            * @type number | undefined
@@ -255184,8 +255318,8 @@ export type AiSearchDeleteInstanceStatus200 = {
           limit?: number | undefined;
           /**
            * @description Maximum content age in seconds to accept (0–604800).
-           * @minLength 0
-           * @maxLength 604800
+           * @minimum 0
+           * @maximum 604800
            * @default 86400
            * @example 86400
            * @type number | undefined
@@ -255436,14 +255570,14 @@ export type AiSearchFetchInstanceStatus200 = {
      */
     cache_ttl?: (600 | 1800 | 3600 | 7200 | 21600 | 43200 | 86400 | 172800 | 259200 | 518400) | undefined;
     /**
-     * @minLength 0
-     * @maxLength 30
+     * @minimum 0
+     * @maximum 30
      * @default 10
      * @type integer | undefined
      */
     chunk_overlap?: number | undefined;
     /**
-     * @minLength 64
+     * @minimum 64
      * @type integer | undefined
      */
     chunk_size?: number | undefined;
@@ -255523,8 +255657,8 @@ export type AiSearchFetchInstanceStatus200 = {
      */
     readonly last_activity?: (string | null) | undefined;
     /**
-     * @minLength 1
-     * @maxLength 50
+     * @minimum 1
+     * @maximum 50
      * @default 10
      * @type integer | undefined
      */
@@ -255593,13 +255727,13 @@ export type AiSearchFetchInstanceStatus200 = {
       } | undefined;
       rate_limit?: {
         /**
-         * @minLength 60000
-         * @maxLength 3600000
+         * @minimum 60000
+         * @maximum 3600000
          * @type integer | undefined
          */
         period_ms?: number | undefined;
         /**
-         * @minLength 1
+         * @minimum 1
          * @type integer | undefined
          */
         requests?: number | undefined;
@@ -255659,8 +255793,8 @@ export type AiSearchFetchInstanceStatus200 = {
     rewrite_query?: boolean | undefined;
     /**
      * @description Minimum similarity score a chunk must reach to be returned. Defaults to 0.4.
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @type number | undefined
      */
     score_threshold?: number | undefined;
@@ -255696,8 +255830,8 @@ export type AiSearchFetchInstanceStatus200 = {
         discover_options?: {
           /**
            * @description Maximum link-follow depth from the seed URL.
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @default 5
            * @example 5
            * @type number | undefined
@@ -255719,8 +255853,8 @@ export type AiSearchFetchInstanceStatus200 = {
           include_subdomains?: boolean | undefined;
           /**
            * @description Maximum number of pages to crawl (1-100000).
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @default 100000
            * @example 10000
            * @type number | undefined
@@ -255728,8 +255862,8 @@ export type AiSearchFetchInstanceStatus200 = {
           limit?: number | undefined;
           /**
            * @description Maximum content age in seconds to accept (0–604800).
-           * @minLength 0
-           * @maxLength 604800
+           * @minimum 0
+           * @maximum 604800
            * @default 86400
            * @example 86400
            * @type number | undefined
@@ -255971,14 +256105,14 @@ export type AiSearchUpdateInstanceStatus200 = {
      */
     cache_ttl?: (600 | 1800 | 3600 | 7200 | 21600 | 43200 | 86400 | 172800 | 259200 | 518400) | undefined;
     /**
-     * @minLength 0
-     * @maxLength 30
+     * @minimum 0
+     * @maximum 30
      * @default 10
      * @type integer | undefined
      */
     chunk_overlap?: number | undefined;
     /**
-     * @minLength 64
+     * @minimum 64
      * @type integer | undefined
      */
     chunk_size?: number | undefined;
@@ -256058,8 +256192,8 @@ export type AiSearchUpdateInstanceStatus200 = {
      */
     readonly last_activity?: (string | null) | undefined;
     /**
-     * @minLength 1
-     * @maxLength 50
+     * @minimum 1
+     * @maximum 50
      * @default 10
      * @type integer | undefined
      */
@@ -256128,13 +256262,13 @@ export type AiSearchUpdateInstanceStatus200 = {
       } | undefined;
       rate_limit?: {
         /**
-         * @minLength 60000
-         * @maxLength 3600000
+         * @minimum 60000
+         * @maximum 3600000
          * @type integer | undefined
          */
         period_ms?: number | undefined;
         /**
-         * @minLength 1
+         * @minimum 1
          * @type integer | undefined
          */
         requests?: number | undefined;
@@ -256194,8 +256328,8 @@ export type AiSearchUpdateInstanceStatus200 = {
     rewrite_query?: boolean | undefined;
     /**
      * @description Minimum similarity score a chunk must reach to be returned. Defaults to 0.4.
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @type number | undefined
      */
     score_threshold?: number | undefined;
@@ -256231,8 +256365,8 @@ export type AiSearchUpdateInstanceStatus200 = {
         discover_options?: {
           /**
            * @description Maximum link-follow depth from the seed URL.
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @default 5
            * @example 5
            * @type number | undefined
@@ -256254,8 +256388,8 @@ export type AiSearchUpdateInstanceStatus200 = {
           include_subdomains?: boolean | undefined;
           /**
            * @description Maximum number of pages to crawl (1-100000).
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @default 100000
            * @example 10000
            * @type number | undefined
@@ -256263,8 +256397,8 @@ export type AiSearchUpdateInstanceStatus200 = {
           limit?: number | undefined;
           /**
            * @description Maximum content age in seconds to accept (0–604800).
-           * @minLength 0
-           * @maxLength 604800
+           * @minimum 0
+           * @maximum 604800
            * @default 86400
            * @example 86400
            * @type number | undefined
@@ -256493,14 +256627,14 @@ export type AiSearchUpdateInstanceBody = {
    */
   chunk?: boolean | undefined;
   /**
-   * @minLength 0
-   * @maxLength 30
+   * @minimum 0
+   * @maximum 30
    * @default 10
    * @type integer | undefined
    */
   chunk_overlap?: number | undefined;
   /**
-   * @minLength 64
+   * @minimum 64
    * @type integer | undefined
    */
   chunk_size?: number | undefined;
@@ -256550,8 +256684,8 @@ export type AiSearchUpdateInstanceBody = {
     use_ocr?: boolean | undefined;
   } | null) | undefined;
   /**
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @default 10
    * @type integer | undefined
    */
@@ -256607,13 +256741,13 @@ export type AiSearchUpdateInstanceBody = {
     } | undefined;
     rate_limit?: {
       /**
-       * @minLength 60000
-       * @maxLength 3600000
+       * @minimum 60000
+       * @maximum 3600000
        * @type integer | undefined
        */
       period_ms?: number | undefined;
       /**
-       * @minLength 1
+       * @minimum 1
        * @type integer | undefined
        */
       requests?: number | undefined;
@@ -256673,8 +256807,8 @@ export type AiSearchUpdateInstanceBody = {
   rewrite_query?: boolean | undefined;
   /**
    * @description Minimum similarity score a chunk must reach to be returned. Defaults to 0.4.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @type number | undefined
    */
   score_threshold?: number | undefined;
@@ -256710,8 +256844,8 @@ export type AiSearchUpdateInstanceBody = {
       discover_options?: {
         /**
          * @description Maximum link-follow depth from the seed URL.
-         * @minLength 1
-         * @maxLength 100000
+         * @minimum 1
+         * @maximum 100000
          * @default 5
          * @example 5
          * @type number | undefined
@@ -256733,8 +256867,8 @@ export type AiSearchUpdateInstanceBody = {
         include_subdomains?: boolean | undefined;
         /**
          * @description Maximum number of pages to crawl (1-100000).
-         * @minLength 1
-         * @maxLength 100000
+         * @minimum 1
+         * @maximum 100000
          * @default 100000
          * @example 10000
          * @type number | undefined
@@ -256742,8 +256876,8 @@ export type AiSearchUpdateInstanceBody = {
         limit?: number | undefined;
         /**
          * @description Maximum content age in seconds to accept (0–604800).
-         * @minLength 0
-         * @maxLength 604800
+         * @minimum 0
+         * @maximum 604800
          * @default 86400
          * @example 86400
          * @type number | undefined
@@ -256955,19 +257089,19 @@ export type AiSearchInstanceChatCompletionStatus200 = {
     } | undefined;
     /**
      * @description Audio/video transcript chunks only: end, in milliseconds from the start of the media (whole seconds), of the last transcript section the matched chunk covers. Describes the matched chunk before any context expansion, not the expanded `text`.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     media_end_ms?: number | undefined;
     /**
      * @description Audio/video transcript chunks only: start, in milliseconds from the start of the media (whole seconds), of the transcript section the matched chunk begins in. Describes the matched chunk before any context expansion, not the expanded `text`.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     media_start_ms?: number | undefined;
     /**
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @type number
      */
     score: number;
@@ -256975,20 +257109,20 @@ export type AiSearchInstanceChatCompletionStatus200 = {
       fusion_method?: AiSearchInstanceChatCompletionStatus200ChunksScoringDetailsFusionMethodEnumKey | undefined;
       keyword_rank?: number | undefined;
       /**
-       * @minLength 0
+       * @minimum 0
        * @type number | undefined
        */
       keyword_score?: number | undefined;
       /**
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @type number | undefined
        */
       reranking_score?: number | undefined;
       vector_rank?: number | undefined;
       /**
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @type number | undefined
        */
       vector_score?: number | undefined;
@@ -257129,8 +257263,8 @@ export type AiSearchInstanceChatCompletionBody = {
     reranking?: {
       enabled?: boolean | undefined;
       /**
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @default 0.4
        * @type number | undefined
        */
@@ -257159,8 +257293,8 @@ export type AiSearchInstanceChatCompletionBody = {
         field: string;
       }[] | undefined;
       /**
-       * @minLength 0
-       * @maxLength 3
+       * @minimum 0
+       * @maximum 3
        * @default 0
        * @type integer | undefined
        */
@@ -257176,15 +257310,15 @@ export type AiSearchInstanceChatCompletionBody = {
       keyword_match_mode?: AiSearchInstanceChatCompletionRequestAiSearchOptionsRetrievalKeywordMatchModeEnumKey | undefined;
       /**
        * @description Minimum similarity score a chunk must reach to be returned. When omitted, falls back to the instance-level score_threshold, then to 0.4.
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @type number | undefined
        */
       match_threshold?: number | undefined;
       /**
        * @description Maximum number of results to return. When omitted, falls back to the instance-level max_num_results, then to 10.
-       * @minLength 1
-       * @maxLength 50
+       * @minimum 1
+       * @maximum 50
        * @type integer | undefined
        */
       max_num_results?: number | undefined;
@@ -257288,14 +257422,14 @@ export type AiSearchInstanceListJobsPath = {
 
 export type AiSearchInstanceListJobsQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 0
-   * @maxLength 50
+   * @minimum 0
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -257666,14 +257800,14 @@ export type AiSearchInstanceListJobLogsPath = {
 
 export type AiSearchInstanceListJobLogsQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 0
-   * @maxLength 500
+   * @minimum 0
+   * @maximum 500
    * @default 20
    * @type integer | undefined
    */
@@ -257796,19 +257930,19 @@ export type AiSearchInstanceSearchStatus200 = {
       } | undefined;
       /**
        * @description Audio/video transcript chunks only: end, in milliseconds from the start of the media (whole seconds), of the last transcript section the matched chunk covers. Describes the matched chunk before any context expansion, not the expanded `text`.
-       * @minLength 0
+       * @minimum 0
        * @type integer | undefined
        */
       media_end_ms?: number | undefined;
       /**
        * @description Audio/video transcript chunks only: start, in milliseconds from the start of the media (whole seconds), of the transcript section the matched chunk begins in. Describes the matched chunk before any context expansion, not the expanded `text`.
-       * @minLength 0
+       * @minimum 0
        * @type integer | undefined
        */
       media_start_ms?: number | undefined;
       /**
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @type number
        */
       score: number;
@@ -257816,20 +257950,20 @@ export type AiSearchInstanceSearchStatus200 = {
         fusion_method?: AiSearchInstanceSearchStatus200ResultChunksScoringDetailsFusionMethodEnumKey | undefined;
         keyword_rank?: number | undefined;
         /**
-         * @minLength 0
+         * @minimum 0
          * @type number | undefined
          */
         keyword_score?: number | undefined;
         /**
-         * @minLength 0
-         * @maxLength 1
+         * @minimum 0
+         * @maximum 1
          * @type number | undefined
          */
         reranking_score?: number | undefined;
         vector_rank?: number | undefined;
         /**
-         * @minLength 0
-         * @maxLength 1
+         * @minimum 0
+         * @maximum 1
          * @type number | undefined
          */
         vector_score?: number | undefined;
@@ -257962,8 +258096,8 @@ export type AiSearchInstanceSearchBody = {
     reranking?: {
       enabled?: boolean | undefined;
       /**
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @default 0.4
        * @type number | undefined
        */
@@ -257992,8 +258126,8 @@ export type AiSearchInstanceSearchBody = {
         field: string;
       }[] | undefined;
       /**
-       * @minLength 0
-       * @maxLength 3
+       * @minimum 0
+       * @maximum 3
        * @default 0
        * @type integer | undefined
        */
@@ -258009,15 +258143,15 @@ export type AiSearchInstanceSearchBody = {
       keyword_match_mode?: AiSearchInstanceSearchRequestAiSearchOptionsRetrievalKeywordMatchModeEnumKey | undefined;
       /**
        * @description Minimum similarity score a chunk must reach to be returned. When omitted, falls back to the instance-level score_threshold, then to 0.4.
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @type number | undefined
        */
       match_threshold?: number | undefined;
       /**
        * @description Maximum number of results to return. When omitted, falls back to the instance-level max_num_results, then to 10.
-       * @minLength 1
-       * @maxLength 50
+       * @minimum 1
+       * @maximum 50
        * @type integer | undefined
        */
       max_num_results?: number | undefined;
@@ -258213,7 +258347,7 @@ export type AiSearchListNamespacesPath = {
 export type AiSearchListNamespacesQuery = {
   /**
    * @description Page number (1-indexed).
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -258221,8 +258355,8 @@ export type AiSearchListNamespacesQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -258314,13 +258448,13 @@ export type AiSearchListNamespacesStatus200 = {
       } | undefined;
       rate_limit?: {
         /**
-         * @minLength 60000
-         * @maxLength 3600000
+         * @minimum 60000
+         * @maximum 3600000
          * @type integer | undefined
          */
         period_ms?: number | undefined;
         /**
-         * @minLength 1
+         * @minimum 1
          * @type integer | undefined
          */
         requests?: number | undefined;
@@ -258456,13 +258590,13 @@ export type AiSearchCreateNamespaceStatus201 = {
       } | undefined;
       rate_limit?: {
         /**
-         * @minLength 60000
-         * @maxLength 3600000
+         * @minimum 60000
+         * @maximum 3600000
          * @type integer | undefined
          */
         period_ms?: number | undefined;
         /**
-         * @minLength 1
+         * @minimum 1
          * @type integer | undefined
          */
         requests?: number | undefined;
@@ -258573,13 +258707,13 @@ export type AiSearchCreateNamespaceBody = {
     } | undefined;
     rate_limit?: {
       /**
-       * @minLength 60000
-       * @maxLength 3600000
+       * @minimum 60000
+       * @maximum 3600000
        * @type integer | undefined
        */
       period_ms?: number | undefined;
       /**
-       * @minLength 1
+       * @minimum 1
        * @type integer | undefined
        */
       requests?: number | undefined;
@@ -258639,7 +258773,7 @@ export type AiSearchNamespaceListInstancesOrderByDirectionKey = (typeof aiSearch
 export type AiSearchNamespaceListInstancesQuery = {
   /**
    * @description Page number (1-indexed).
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -258647,8 +258781,8 @@ export type AiSearchNamespaceListInstancesQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -258858,13 +258992,13 @@ export type AiSearchNamespaceListInstancesStatus200 = {
       } | undefined;
       rate_limit?: {
         /**
-         * @minLength 60000
-         * @maxLength 3600000
+         * @minimum 60000
+         * @maximum 3600000
          * @type integer | undefined
          */
         period_ms?: number | undefined;
         /**
-         * @minLength 1
+         * @minimum 1
          * @type integer | undefined
          */
         requests?: number | undefined;
@@ -258906,8 +259040,8 @@ export type AiSearchNamespaceListInstancesStatus200 = {
       web_crawler?: {
         discover_options?: {
           /**
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @type number | undefined
            */
           depth?: number | undefined;
@@ -258915,14 +259049,14 @@ export type AiSearchNamespaceListInstancesStatus200 = {
           include_subdomains?: boolean | undefined;
           /**
            * @description Maximum number of pages to crawl. New values have a maximum of 100000; instances configured before that cap may report a higher stored value, which the crawler clamps at run time.
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @type number | undefined
            */
           limit?: number | undefined;
           /**
-           * @minLength 0
-           * @maxLength 604800
+           * @minimum 0
+           * @maximum 604800
            * @type number | undefined
            */
           max_age?: number | undefined;
@@ -259125,14 +259259,14 @@ export type AiSearchNamespaceCreateInstanceStatus201 = {
      */
     cache_ttl?: (600 | 1800 | 3600 | 7200 | 21600 | 43200 | 86400 | 172800 | 259200 | 518400) | undefined;
     /**
-     * @minLength 0
-     * @maxLength 30
+     * @minimum 0
+     * @maximum 30
      * @default 10
      * @type integer | undefined
      */
     chunk_overlap?: number | undefined;
     /**
-     * @minLength 64
+     * @minimum 64
      * @type integer | undefined
      */
     chunk_size?: number | undefined;
@@ -259212,8 +259346,8 @@ export type AiSearchNamespaceCreateInstanceStatus201 = {
      */
     readonly last_activity?: (string | null) | undefined;
     /**
-     * @minLength 1
-     * @maxLength 50
+     * @minimum 1
+     * @maximum 50
      * @default 10
      * @type integer | undefined
      */
@@ -259282,13 +259416,13 @@ export type AiSearchNamespaceCreateInstanceStatus201 = {
       } | undefined;
       rate_limit?: {
         /**
-         * @minLength 60000
-         * @maxLength 3600000
+         * @minimum 60000
+         * @maximum 3600000
          * @type integer | undefined
          */
         period_ms?: number | undefined;
         /**
-         * @minLength 1
+         * @minimum 1
          * @type integer | undefined
          */
         requests?: number | undefined;
@@ -259348,8 +259482,8 @@ export type AiSearchNamespaceCreateInstanceStatus201 = {
     rewrite_query?: boolean | undefined;
     /**
      * @description Minimum similarity score a chunk must reach to be returned. Defaults to 0.4.
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @type number | undefined
      */
     score_threshold?: number | undefined;
@@ -259385,8 +259519,8 @@ export type AiSearchNamespaceCreateInstanceStatus201 = {
         discover_options?: {
           /**
            * @description Maximum link-follow depth from the seed URL.
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @default 5
            * @example 5
            * @type number | undefined
@@ -259408,8 +259542,8 @@ export type AiSearchNamespaceCreateInstanceStatus201 = {
           include_subdomains?: boolean | undefined;
           /**
            * @description Maximum number of pages to crawl (1-100000).
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @default 100000
            * @example 10000
            * @type number | undefined
@@ -259417,8 +259551,8 @@ export type AiSearchNamespaceCreateInstanceStatus201 = {
           limit?: number | undefined;
           /**
            * @description Maximum content age in seconds to accept (0–604800).
-           * @minLength 0
-           * @maxLength 604800
+           * @minimum 0
+           * @maximum 604800
            * @default 86400
            * @example 86400
            * @type number | undefined
@@ -259660,14 +259794,14 @@ export type AiSearchNamespaceCreateInstanceBody = {
    */
   chunk?: boolean | undefined;
   /**
-   * @minLength 0
-   * @maxLength 30
+   * @minimum 0
+   * @maximum 30
    * @default 10
    * @type integer | undefined
    */
   chunk_overlap?: number | undefined;
   /**
-   * @minLength 64
+   * @minimum 64
    * @type integer | undefined
    */
   chunk_size?: number | undefined;
@@ -259732,8 +259866,8 @@ export type AiSearchNamespaceCreateInstanceBody = {
     use_ocr?: boolean | undefined;
   } | null) | undefined;
   /**
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @default 10
    * @type integer | undefined
    */
@@ -259788,13 +259922,13 @@ export type AiSearchNamespaceCreateInstanceBody = {
     } | undefined;
     rate_limit?: {
       /**
-       * @minLength 60000
-       * @maxLength 3600000
+       * @minimum 60000
+       * @maximum 3600000
        * @type integer | undefined
        */
       period_ms?: number | undefined;
       /**
-       * @minLength 1
+       * @minimum 1
        * @type integer | undefined
        */
       requests?: number | undefined;
@@ -259854,8 +259988,8 @@ export type AiSearchNamespaceCreateInstanceBody = {
   rewrite_query?: boolean | undefined;
   /**
    * @description Minimum similarity score a chunk must reach to be returned. Defaults to 0.4.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @type number | undefined
    */
   score_threshold?: number | undefined;
@@ -259891,8 +260025,8 @@ export type AiSearchNamespaceCreateInstanceBody = {
       discover_options?: {
         /**
          * @description Maximum link-follow depth from the seed URL.
-         * @minLength 1
-         * @maxLength 100000
+         * @minimum 1
+         * @maximum 100000
          * @default 5
          * @example 5
          * @type number | undefined
@@ -259914,8 +260048,8 @@ export type AiSearchNamespaceCreateInstanceBody = {
         include_subdomains?: boolean | undefined;
         /**
          * @description Maximum number of pages to crawl (1-100000).
-         * @minLength 1
-         * @maxLength 100000
+         * @minimum 1
+         * @maximum 100000
          * @default 100000
          * @example 10000
          * @type number | undefined
@@ -259923,8 +260057,8 @@ export type AiSearchNamespaceCreateInstanceBody = {
         limit?: number | undefined;
         /**
          * @description Maximum content age in seconds to accept (0–604800).
-         * @minLength 0
-         * @maxLength 604800
+         * @minimum 0
+         * @maximum 604800
          * @default 86400
          * @example 86400
          * @type number | undefined
@@ -260160,14 +260294,14 @@ export type AiSearchNamespaceDeleteInstanceStatus200 = {
      */
     cache_ttl?: (600 | 1800 | 3600 | 7200 | 21600 | 43200 | 86400 | 172800 | 259200 | 518400) | undefined;
     /**
-     * @minLength 0
-     * @maxLength 30
+     * @minimum 0
+     * @maximum 30
      * @default 10
      * @type integer | undefined
      */
     chunk_overlap?: number | undefined;
     /**
-     * @minLength 64
+     * @minimum 64
      * @type integer | undefined
      */
     chunk_size?: number | undefined;
@@ -260247,8 +260381,8 @@ export type AiSearchNamespaceDeleteInstanceStatus200 = {
      */
     readonly last_activity?: (string | null) | undefined;
     /**
-     * @minLength 1
-     * @maxLength 50
+     * @minimum 1
+     * @maximum 50
      * @default 10
      * @type integer | undefined
      */
@@ -260317,13 +260451,13 @@ export type AiSearchNamespaceDeleteInstanceStatus200 = {
       } | undefined;
       rate_limit?: {
         /**
-         * @minLength 60000
-         * @maxLength 3600000
+         * @minimum 60000
+         * @maximum 3600000
          * @type integer | undefined
          */
         period_ms?: number | undefined;
         /**
-         * @minLength 1
+         * @minimum 1
          * @type integer | undefined
          */
         requests?: number | undefined;
@@ -260383,8 +260517,8 @@ export type AiSearchNamespaceDeleteInstanceStatus200 = {
     rewrite_query?: boolean | undefined;
     /**
      * @description Minimum similarity score a chunk must reach to be returned. Defaults to 0.4.
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @type number | undefined
      */
     score_threshold?: number | undefined;
@@ -260420,8 +260554,8 @@ export type AiSearchNamespaceDeleteInstanceStatus200 = {
         discover_options?: {
           /**
            * @description Maximum link-follow depth from the seed URL.
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @default 5
            * @example 5
            * @type number | undefined
@@ -260443,8 +260577,8 @@ export type AiSearchNamespaceDeleteInstanceStatus200 = {
           include_subdomains?: boolean | undefined;
           /**
            * @description Maximum number of pages to crawl (1-100000).
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @default 100000
            * @example 10000
            * @type number | undefined
@@ -260452,8 +260586,8 @@ export type AiSearchNamespaceDeleteInstanceStatus200 = {
           limit?: number | undefined;
           /**
            * @description Maximum content age in seconds to accept (0–604800).
-           * @minLength 0
-           * @maxLength 604800
+           * @minimum 0
+           * @maximum 604800
            * @default 86400
            * @example 86400
            * @type number | undefined
@@ -260706,14 +260840,14 @@ export type AiSearchNamespaceFetchInstanceStatus200 = {
      */
     cache_ttl?: (600 | 1800 | 3600 | 7200 | 21600 | 43200 | 86400 | 172800 | 259200 | 518400) | undefined;
     /**
-     * @minLength 0
-     * @maxLength 30
+     * @minimum 0
+     * @maximum 30
      * @default 10
      * @type integer | undefined
      */
     chunk_overlap?: number | undefined;
     /**
-     * @minLength 64
+     * @minimum 64
      * @type integer | undefined
      */
     chunk_size?: number | undefined;
@@ -260793,8 +260927,8 @@ export type AiSearchNamespaceFetchInstanceStatus200 = {
      */
     readonly last_activity?: (string | null) | undefined;
     /**
-     * @minLength 1
-     * @maxLength 50
+     * @minimum 1
+     * @maximum 50
      * @default 10
      * @type integer | undefined
      */
@@ -260863,13 +260997,13 @@ export type AiSearchNamespaceFetchInstanceStatus200 = {
       } | undefined;
       rate_limit?: {
         /**
-         * @minLength 60000
-         * @maxLength 3600000
+         * @minimum 60000
+         * @maximum 3600000
          * @type integer | undefined
          */
         period_ms?: number | undefined;
         /**
-         * @minLength 1
+         * @minimum 1
          * @type integer | undefined
          */
         requests?: number | undefined;
@@ -260929,8 +261063,8 @@ export type AiSearchNamespaceFetchInstanceStatus200 = {
     rewrite_query?: boolean | undefined;
     /**
      * @description Minimum similarity score a chunk must reach to be returned. Defaults to 0.4.
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @type number | undefined
      */
     score_threshold?: number | undefined;
@@ -260966,8 +261100,8 @@ export type AiSearchNamespaceFetchInstanceStatus200 = {
         discover_options?: {
           /**
            * @description Maximum link-follow depth from the seed URL.
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @default 5
            * @example 5
            * @type number | undefined
@@ -260989,8 +261123,8 @@ export type AiSearchNamespaceFetchInstanceStatus200 = {
           include_subdomains?: boolean | undefined;
           /**
            * @description Maximum number of pages to crawl (1-100000).
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @default 100000
            * @example 10000
            * @type number | undefined
@@ -260998,8 +261132,8 @@ export type AiSearchNamespaceFetchInstanceStatus200 = {
           limit?: number | undefined;
           /**
            * @description Maximum content age in seconds to accept (0–604800).
-           * @minLength 0
-           * @maxLength 604800
+           * @minimum 0
+           * @maximum 604800
            * @default 86400
            * @example 86400
            * @type number | undefined
@@ -261324,14 +261458,14 @@ export type AiSearchNamespaceUpdateInstanceStatus200 = {
      */
     cache_ttl?: (600 | 1800 | 3600 | 7200 | 21600 | 43200 | 86400 | 172800 | 259200 | 518400) | undefined;
     /**
-     * @minLength 0
-     * @maxLength 30
+     * @minimum 0
+     * @maximum 30
      * @default 10
      * @type integer | undefined
      */
     chunk_overlap?: number | undefined;
     /**
-     * @minLength 64
+     * @minimum 64
      * @type integer | undefined
      */
     chunk_size?: number | undefined;
@@ -261411,8 +261545,8 @@ export type AiSearchNamespaceUpdateInstanceStatus200 = {
      */
     readonly last_activity?: (string | null) | undefined;
     /**
-     * @minLength 1
-     * @maxLength 50
+     * @minimum 1
+     * @maximum 50
      * @default 10
      * @type integer | undefined
      */
@@ -261481,13 +261615,13 @@ export type AiSearchNamespaceUpdateInstanceStatus200 = {
       } | undefined;
       rate_limit?: {
         /**
-         * @minLength 60000
-         * @maxLength 3600000
+         * @minimum 60000
+         * @maximum 3600000
          * @type integer | undefined
          */
         period_ms?: number | undefined;
         /**
-         * @minLength 1
+         * @minimum 1
          * @type integer | undefined
          */
         requests?: number | undefined;
@@ -261547,8 +261681,8 @@ export type AiSearchNamespaceUpdateInstanceStatus200 = {
     rewrite_query?: boolean | undefined;
     /**
      * @description Minimum similarity score a chunk must reach to be returned. Defaults to 0.4.
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @type number | undefined
      */
     score_threshold?: number | undefined;
@@ -261584,8 +261718,8 @@ export type AiSearchNamespaceUpdateInstanceStatus200 = {
         discover_options?: {
           /**
            * @description Maximum link-follow depth from the seed URL.
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @default 5
            * @example 5
            * @type number | undefined
@@ -261607,8 +261741,8 @@ export type AiSearchNamespaceUpdateInstanceStatus200 = {
           include_subdomains?: boolean | undefined;
           /**
            * @description Maximum number of pages to crawl (1-100000).
-           * @minLength 1
-           * @maxLength 100000
+           * @minimum 1
+           * @maximum 100000
            * @default 100000
            * @example 10000
            * @type number | undefined
@@ -261616,8 +261750,8 @@ export type AiSearchNamespaceUpdateInstanceStatus200 = {
           limit?: number | undefined;
           /**
            * @description Maximum content age in seconds to accept (0–604800).
-           * @minLength 0
-           * @maxLength 604800
+           * @minimum 0
+           * @maximum 604800
            * @default 86400
            * @example 86400
            * @type number | undefined
@@ -261846,14 +261980,14 @@ export type AiSearchNamespaceUpdateInstanceBody = {
    */
   chunk?: boolean | undefined;
   /**
-   * @minLength 0
-   * @maxLength 30
+   * @minimum 0
+   * @maximum 30
    * @default 10
    * @type integer | undefined
    */
   chunk_overlap?: number | undefined;
   /**
-   * @minLength 64
+   * @minimum 64
    * @type integer | undefined
    */
   chunk_size?: number | undefined;
@@ -261903,8 +262037,8 @@ export type AiSearchNamespaceUpdateInstanceBody = {
     use_ocr?: boolean | undefined;
   } | null) | undefined;
   /**
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @default 10
    * @type integer | undefined
    */
@@ -261960,13 +262094,13 @@ export type AiSearchNamespaceUpdateInstanceBody = {
     } | undefined;
     rate_limit?: {
       /**
-       * @minLength 60000
-       * @maxLength 3600000
+       * @minimum 60000
+       * @maximum 3600000
        * @type integer | undefined
        */
       period_ms?: number | undefined;
       /**
-       * @minLength 1
+       * @minimum 1
        * @type integer | undefined
        */
       requests?: number | undefined;
@@ -262026,8 +262160,8 @@ export type AiSearchNamespaceUpdateInstanceBody = {
   rewrite_query?: boolean | undefined;
   /**
    * @description Minimum similarity score a chunk must reach to be returned. Defaults to 0.4.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @type number | undefined
    */
   score_threshold?: number | undefined;
@@ -262063,8 +262197,8 @@ export type AiSearchNamespaceUpdateInstanceBody = {
       discover_options?: {
         /**
          * @description Maximum link-follow depth from the seed URL.
-         * @minLength 1
-         * @maxLength 100000
+         * @minimum 1
+         * @maximum 100000
          * @default 5
          * @example 5
          * @type number | undefined
@@ -262086,8 +262220,8 @@ export type AiSearchNamespaceUpdateInstanceBody = {
         include_subdomains?: boolean | undefined;
         /**
          * @description Maximum number of pages to crawl (1-100000).
-         * @minLength 1
-         * @maxLength 100000
+         * @minimum 1
+         * @maximum 100000
          * @default 100000
          * @example 10000
          * @type number | undefined
@@ -262095,8 +262229,8 @@ export type AiSearchNamespaceUpdateInstanceBody = {
         limit?: number | undefined;
         /**
          * @description Maximum content age in seconds to accept (0–604800).
-         * @minLength 0
-         * @maxLength 604800
+         * @minimum 0
+         * @maximum 604800
          * @default 86400
          * @example 86400
          * @type number | undefined
@@ -262310,19 +262444,19 @@ export type AiSearchNamespaceInstanceChatCompletionStatus200 = {
     } | undefined;
     /**
      * @description Audio/video transcript chunks only: end, in milliseconds from the start of the media (whole seconds), of the last transcript section the matched chunk covers. Describes the matched chunk before any context expansion, not the expanded `text`.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     media_end_ms?: number | undefined;
     /**
      * @description Audio/video transcript chunks only: start, in milliseconds from the start of the media (whole seconds), of the transcript section the matched chunk begins in. Describes the matched chunk before any context expansion, not the expanded `text`.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     media_start_ms?: number | undefined;
     /**
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @type number
      */
     score: number;
@@ -262330,20 +262464,20 @@ export type AiSearchNamespaceInstanceChatCompletionStatus200 = {
       fusion_method?: AiSearchNamespaceInstanceChatCompletionStatus200ChunksScoringDetailsFusionMethodEnumKey | undefined;
       keyword_rank?: number | undefined;
       /**
-       * @minLength 0
+       * @minimum 0
        * @type number | undefined
        */
       keyword_score?: number | undefined;
       /**
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @type number | undefined
        */
       reranking_score?: number | undefined;
       vector_rank?: number | undefined;
       /**
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @type number | undefined
        */
       vector_score?: number | undefined;
@@ -262484,8 +262618,8 @@ export type AiSearchNamespaceInstanceChatCompletionBody = {
     reranking?: {
       enabled?: boolean | undefined;
       /**
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @default 0.4
        * @type number | undefined
        */
@@ -262514,8 +262648,8 @@ export type AiSearchNamespaceInstanceChatCompletionBody = {
         field: string;
       }[] | undefined;
       /**
-       * @minLength 0
-       * @maxLength 3
+       * @minimum 0
+       * @maximum 3
        * @default 0
        * @type integer | undefined
        */
@@ -262531,15 +262665,15 @@ export type AiSearchNamespaceInstanceChatCompletionBody = {
       keyword_match_mode?: AiSearchNamespaceInstanceChatCompletionRequestAiSearchOptionsRetrievalKeywordMatchModeEnumKey | undefined;
       /**
        * @description Minimum similarity score a chunk must reach to be returned. When omitted, falls back to the instance-level score_threshold, then to 0.4.
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @type number | undefined
        */
       match_threshold?: number | undefined;
       /**
        * @description Maximum number of results to return. When omitted, falls back to the instance-level max_num_results, then to 10.
-       * @minLength 1
-       * @maxLength 50
+       * @minimum 1
+       * @maximum 50
        * @type integer | undefined
        */
       max_num_results?: number | undefined;
@@ -262663,14 +262797,14 @@ export type AiSearchNamespaceInstanceListItemsStatusKey = (typeof aiSearchNamesp
 
 export type AiSearchNamespaceInstanceListItemsQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 0
-   * @maxLength 50
+   * @minimum 0
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -262771,8 +262905,8 @@ export type AiSearchNamespaceInstanceListItemsStatus200 = {
     count: number;
     page: number;
     /**
-     * @minLength 5
-     * @maxLength 50
+     * @minimum 5
+     * @maximum 50
      * @default 20
      * @type integer | undefined
      */
@@ -263585,14 +263719,14 @@ export type AiSearchNamespaceInstanceListItemChunksPath = {
 
 export type AiSearchNamespaceInstanceListItemChunksQuery = {
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
   limit?: number | undefined;
   /**
-   * @minLength 0
+   * @minimum 0
    * @default 0
    * @type integer | undefined
    */
@@ -263619,13 +263753,13 @@ export type AiSearchNamespaceInstanceListItemChunksStatus200 = {
     };
     /**
      * @description Audio/video transcript chunks only: end, in milliseconds from the start of the media (whole seconds), of the last transcript section the chunk covers.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     media_end_ms?: number | undefined;
     /**
      * @description Audio/video transcript chunks only: start, in milliseconds from the start of the media (whole seconds), of the transcript section the chunk begins in.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     media_start_ms?: number | undefined;
@@ -263809,8 +263943,8 @@ export type AiSearchNamespaceInstanceLogsItemPath = {
 
 export type AiSearchNamespaceInstanceLogsItemQuery = {
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 50
    * @type integer | undefined
    */
@@ -263915,14 +264049,14 @@ export type AiSearchNamespaceInstanceListJobsPath = {
 
 export type AiSearchNamespaceInstanceListJobsQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 0
-   * @maxLength 50
+   * @minimum 0
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -264301,14 +264435,14 @@ export type AiSearchNamespaceInstanceListJobLogsPath = {
 
 export type AiSearchNamespaceInstanceListJobLogsQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 0
-   * @maxLength 500
+   * @minimum 0
+   * @maximum 500
    * @default 20
    * @type integer | undefined
    */
@@ -264490,19 +264624,19 @@ export type AiSearchNamespaceInstanceSearchStatus200 = {
       } | undefined;
       /**
        * @description Audio/video transcript chunks only: end, in milliseconds from the start of the media (whole seconds), of the last transcript section the matched chunk covers. Describes the matched chunk before any context expansion, not the expanded `text`.
-       * @minLength 0
+       * @minimum 0
        * @type integer | undefined
        */
       media_end_ms?: number | undefined;
       /**
        * @description Audio/video transcript chunks only: start, in milliseconds from the start of the media (whole seconds), of the transcript section the matched chunk begins in. Describes the matched chunk before any context expansion, not the expanded `text`.
-       * @minLength 0
+       * @minimum 0
        * @type integer | undefined
        */
       media_start_ms?: number | undefined;
       /**
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @type number
        */
       score: number;
@@ -264510,20 +264644,20 @@ export type AiSearchNamespaceInstanceSearchStatus200 = {
         fusion_method?: AiSearchNamespaceInstanceSearchStatus200ResultChunksScoringDetailsFusionMethodEnumKey | undefined;
         keyword_rank?: number | undefined;
         /**
-         * @minLength 0
+         * @minimum 0
          * @type number | undefined
          */
         keyword_score?: number | undefined;
         /**
-         * @minLength 0
-         * @maxLength 1
+         * @minimum 0
+         * @maximum 1
          * @type number | undefined
          */
         reranking_score?: number | undefined;
         vector_rank?: number | undefined;
         /**
-         * @minLength 0
-         * @maxLength 1
+         * @minimum 0
+         * @maximum 1
          * @type number | undefined
          */
         vector_score?: number | undefined;
@@ -264656,8 +264790,8 @@ export type AiSearchNamespaceInstanceSearchBody = {
     reranking?: {
       enabled?: boolean | undefined;
       /**
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @default 0.4
        * @type number | undefined
        */
@@ -264686,8 +264820,8 @@ export type AiSearchNamespaceInstanceSearchBody = {
         field: string;
       }[] | undefined;
       /**
-       * @minLength 0
-       * @maxLength 3
+       * @minimum 0
+       * @maximum 3
        * @default 0
        * @type integer | undefined
        */
@@ -264703,15 +264837,15 @@ export type AiSearchNamespaceInstanceSearchBody = {
       keyword_match_mode?: AiSearchNamespaceInstanceSearchRequestAiSearchOptionsRetrievalKeywordMatchModeEnumKey | undefined;
       /**
        * @description Minimum similarity score a chunk must reach to be returned. When omitted, falls back to the instance-level score_threshold, then to 0.4.
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @type number | undefined
        */
       match_threshold?: number | undefined;
       /**
        * @description Maximum number of results to return. When omitted, falls back to the instance-level max_num_results, then to 10.
-       * @minLength 1
-       * @maxLength 50
+       * @minimum 1
+       * @maximum 50
        * @type integer | undefined
        */
       max_num_results?: number | undefined;
@@ -265045,13 +265179,13 @@ export type AiSearchFetchNamespaceStatus200 = {
       } | undefined;
       rate_limit?: {
         /**
-         * @minLength 60000
-         * @maxLength 3600000
+         * @minimum 60000
+         * @maximum 3600000
          * @type integer | undefined
          */
         period_ms?: number | undefined;
         /**
-         * @minLength 1
+         * @minimum 1
          * @type integer | undefined
          */
         requests?: number | undefined;
@@ -265185,13 +265319,13 @@ export type AiSearchUpdateNamespaceStatus200 = {
       } | undefined;
       rate_limit?: {
         /**
-         * @minLength 60000
-         * @maxLength 3600000
+         * @minimum 60000
+         * @maximum 3600000
          * @type integer | undefined
          */
         period_ms?: number | undefined;
         /**
-         * @minLength 1
+         * @minimum 1
          * @type integer | undefined
          */
         requests?: number | undefined;
@@ -265297,13 +265431,13 @@ export type AiSearchUpdateNamespaceBody = {
     } | undefined;
     rate_limit?: {
       /**
-       * @minLength 60000
-       * @maxLength 3600000
+       * @minimum 60000
+       * @maximum 3600000
        * @type integer | undefined
        */
       period_ms?: number | undefined;
       /**
-       * @minLength 1
+       * @minimum 1
        * @type integer | undefined
        */
       requests?: number | undefined;
@@ -265431,19 +265565,19 @@ export type AiSearchNamespaceMultiInstanceChatCompletionStatus200 = {
     } | undefined;
     /**
      * @description Audio/video transcript chunks only: end, in milliseconds from the start of the media (whole seconds), of the last transcript section the matched chunk covers. Describes the matched chunk before any context expansion, not the expanded `text`.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     media_end_ms?: number | undefined;
     /**
      * @description Audio/video transcript chunks only: start, in milliseconds from the start of the media (whole seconds), of the transcript section the matched chunk begins in. Describes the matched chunk before any context expansion, not the expanded `text`.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     media_start_ms?: number | undefined;
     /**
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @type number
      */
     score: number;
@@ -265451,20 +265585,20 @@ export type AiSearchNamespaceMultiInstanceChatCompletionStatus200 = {
       fusion_method?: AiSearchNamespaceMultiInstanceChatCompletionStatus200ChunksScoringDetailsFusionMethodEnumKey | undefined;
       keyword_rank?: number | undefined;
       /**
-       * @minLength 0
+       * @minimum 0
        * @type number | undefined
        */
       keyword_score?: number | undefined;
       /**
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @type number | undefined
        */
       reranking_score?: number | undefined;
       vector_rank?: number | undefined;
       /**
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @type number | undefined
        */
       vector_score?: number | undefined;
@@ -265610,8 +265744,8 @@ export type AiSearchNamespaceMultiInstanceChatCompletionBody = {
     reranking?: {
       enabled?: boolean | undefined;
       /**
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @default 0.4
        * @type number | undefined
        */
@@ -265640,8 +265774,8 @@ export type AiSearchNamespaceMultiInstanceChatCompletionBody = {
         field: string;
       }[] | undefined;
       /**
-       * @minLength 0
-       * @maxLength 3
+       * @minimum 0
+       * @maximum 3
        * @default 0
        * @type integer | undefined
        */
@@ -265657,15 +265791,15 @@ export type AiSearchNamespaceMultiInstanceChatCompletionBody = {
       keyword_match_mode?: AiSearchNamespaceMultiInstanceChatCompletionRequestAiSearchOptionsRetrievalKeywordMatchModeEnumKey | undefined;
       /**
        * @description Minimum score a chunk must reach to be returned. When omitted, each instance's chunks are filtered by that instance's score_threshold, capped at the lower of the first instance's score_threshold and 0.4.
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @type number | undefined
        */
       match_threshold?: number | undefined;
       /**
        * @description Maximum number of merged results to return. When omitted, defaults to the first instance's max_num_results, then 10.
-       * @minLength 1
-       * @maxLength 50
+       * @minimum 1
+       * @maximum 50
        * @type integer | undefined
        */
       max_num_results?: number | undefined;
@@ -265795,19 +265929,19 @@ export type AiSearchNamespaceMultiInstanceSearchStatus200 = {
       } | undefined;
       /**
        * @description Audio/video transcript chunks only: end, in milliseconds from the start of the media (whole seconds), of the last transcript section the matched chunk covers. Describes the matched chunk before any context expansion, not the expanded `text`.
-       * @minLength 0
+       * @minimum 0
        * @type integer | undefined
        */
       media_end_ms?: number | undefined;
       /**
        * @description Audio/video transcript chunks only: start, in milliseconds from the start of the media (whole seconds), of the transcript section the matched chunk begins in. Describes the matched chunk before any context expansion, not the expanded `text`.
-       * @minLength 0
+       * @minimum 0
        * @type integer | undefined
        */
       media_start_ms?: number | undefined;
       /**
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @type number
        */
       score: number;
@@ -265815,20 +265949,20 @@ export type AiSearchNamespaceMultiInstanceSearchStatus200 = {
         fusion_method?: AiSearchNamespaceMultiInstanceSearchStatus200ResultChunksScoringDetailsFusionMethodEnumKey | undefined;
         keyword_rank?: number | undefined;
         /**
-         * @minLength 0
+         * @minimum 0
          * @type number | undefined
          */
         keyword_score?: number | undefined;
         /**
-         * @minLength 0
-         * @maxLength 1
+         * @minimum 0
+         * @maximum 1
          * @type number | undefined
          */
         reranking_score?: number | undefined;
         vector_rank?: number | undefined;
         /**
-         * @minLength 0
-         * @maxLength 1
+         * @minimum 0
+         * @maximum 1
          * @type number | undefined
          */
         vector_score?: number | undefined;
@@ -265966,8 +266100,8 @@ export type AiSearchNamespaceMultiInstanceSearchBody = {
     reranking?: {
       enabled?: boolean | undefined;
       /**
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @default 0.4
        * @type number | undefined
        */
@@ -265996,8 +266130,8 @@ export type AiSearchNamespaceMultiInstanceSearchBody = {
         field: string;
       }[] | undefined;
       /**
-       * @minLength 0
-       * @maxLength 3
+       * @minimum 0
+       * @maximum 3
        * @default 0
        * @type integer | undefined
        */
@@ -266013,15 +266147,15 @@ export type AiSearchNamespaceMultiInstanceSearchBody = {
       keyword_match_mode?: AiSearchNamespaceMultiInstanceSearchRequestAiSearchOptionsRetrievalKeywordMatchModeEnumKey | undefined;
       /**
        * @description Minimum score a chunk must reach to be returned. When omitted, each instance's chunks are filtered by that instance's score_threshold, capped at 0.4.
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @type number | undefined
        */
       match_threshold?: number | undefined;
       /**
        * @description Maximum number of merged results to return. When omitted, defaults to the sum of the searched instances' max_num_results (each falling back to 10), up to 50.
-       * @minLength 1
-       * @maxLength 50
+       * @minimum 1
+       * @maximum 50
        * @type integer | undefined
        */
       max_num_results?: number | undefined;
@@ -266115,8 +266249,8 @@ export type AiSearchListTokensPath = {
 export type AiSearchListTokensQuery = {
   /**
    * @description Page number (1-indexed).
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -266124,8 +266258,8 @@ export type AiSearchListTokensQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -267444,6 +267578,13 @@ export const workersAiPostRunModelRequestResponseFormatTypeEnum = {
 
 export type WorkersAiPostRunModelRequestResponseFormatTypeEnumKey = (typeof workersAiPostRunModelRequestResponseFormatTypeEnum)[keyof typeof workersAiPostRunModelRequestResponseFormatTypeEnum];
 
+export const workersAiPostRunModelRequestResponseFormatTypeEnum2 = {
+  json_object: 'json_object',
+  json_schema: 'json_schema',
+} as const;
+
+export type WorkersAiPostRunModelRequestResponseFormatTypeEnum2Key = (typeof workersAiPostRunModelRequestResponseFormatTypeEnum2)[keyof typeof workersAiPostRunModelRequestResponseFormatTypeEnum2];
+
 export type WorkersAiPostRunModelBody = ({
   /**
    * @description The text that you want to classify
@@ -267460,8 +267601,8 @@ export type WorkersAiPostRunModelBody = ({
   guidance?: number | undefined;
   /**
    * @description The height of the generated image in pixels
-   * @minLength 256
-   * @maxLength 2048
+   * @minimum 256
+   * @maximum 2048
    * @type integer | undefined
    */
   height?: number | undefined;
@@ -267487,7 +267628,7 @@ export type WorkersAiPostRunModelBody = ({
   negative_prompt?: string | undefined;
   /**
    * @description The number of diffusion steps; higher values can improve quality but take longer
-   * @maxLength 20
+   * @maximum 20
    * @default 20
    * @type integer | undefined
    */
@@ -267511,8 +267652,8 @@ export type WorkersAiPostRunModelBody = ({
   strength?: number | undefined;
   /**
    * @description The width of the generated image in pixels
-   * @minLength 256
-   * @maxLength 2048
+   * @minimum 256
+   * @maximum 2048
    * @type integer | undefined
    */
   width?: number | undefined;
@@ -267562,8 +267703,8 @@ export type WorkersAiPostRunModelBody = ({
 }) | ({
   /**
    * @description Decreases the likelihood of the model repeating the same lines verbatim.
-   * @minLength -2
-   * @maxLength 2
+   * @minimum -2
+   * @maximum 2
    * @type number | undefined
    */
   frequency_penalty?: number | undefined;
@@ -267580,8 +267721,8 @@ export type WorkersAiPostRunModelBody = ({
   max_tokens?: number | undefined;
   /**
    * @description Increases the likelihood of the model introducing new topics.
-   * @minLength -2
-   * @maxLength 2
+   * @minimum -2
+   * @maximum 2
    * @type number | undefined
    */
   presence_penalty?: number | undefined;
@@ -267599,8 +267740,8 @@ export type WorkersAiPostRunModelBody = ({
   raw?: boolean | undefined;
   /**
    * @description Penalty for repeated tokens; higher values discourage repetition.
-   * @minLength 0
-   * @maxLength 2
+   * @minimum 0
+   * @maximum 2
    * @type number | undefined
    */
   repetition_penalty?: number | undefined;
@@ -267610,8 +267751,8 @@ export type WorkersAiPostRunModelBody = ({
   } | undefined;
   /**
    * @description Random seed for reproducibility of the generation.
-   * @minLength 1
-   * @maxLength 9999999999
+   * @minimum 1
+   * @maximum 9999999999
    * @type integer | undefined
    */
   seed?: number | undefined;
@@ -267623,31 +267764,31 @@ export type WorkersAiPostRunModelBody = ({
   stream?: boolean | undefined;
   /**
    * @description Controls the randomness of the output; higher values produce more random results.
-   * @minLength 0
-   * @maxLength 5
+   * @minimum 0
+   * @maximum 5
    * @default 0.6
    * @type number | undefined
    */
   temperature?: number | undefined;
   /**
    * @description Limits the AI to choose from the top 'k' most probable words. Lower values make responses more focused; higher values introduce more variety and potential surprises.
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @type integer | undefined
    */
   top_k?: number | undefined;
   /**
    * @description Adjusts the creativity of the AI's responses by controlling how many possible words it considers. Lower values make outputs more predictable; higher values allow for more varied and creative responses.
-   * @minLength 0.001
-   * @maxLength 1
+   * @minimum 0.001
+   * @maximum 1
    * @type number | undefined
    */
   top_p?: number | undefined;
 } | {
   /**
    * @description Decreases the likelihood of the model repeating the same lines verbatim.
-   * @minLength -2
-   * @maxLength 2
+   * @minimum -2
+   * @maximum 2
    * @type number | undefined
    */
   frequency_penalty?: number | undefined;
@@ -267686,8 +267827,8 @@ export type WorkersAiPostRunModelBody = ({
   }[];
   /**
    * @description Increases the likelihood of the model introducing new topics.
-   * @minLength -2
-   * @maxLength 2
+   * @minimum -2
+   * @maximum 2
    * @type number | undefined
    */
   presence_penalty?: number | undefined;
@@ -267699,19 +267840,19 @@ export type WorkersAiPostRunModelBody = ({
   raw?: boolean | undefined;
   /**
    * @description Penalty for repeated tokens; higher values discourage repetition.
-   * @minLength 0
-   * @maxLength 2
+   * @minimum 0
+   * @maximum 2
    * @type number | undefined
    */
   repetition_penalty?: number | undefined;
   response_format?: {
     json_schema?: object | undefined;
-    type?: WorkersAiPostRunModelRequestResponseFormatTypeEnumKey | undefined;
+    type?: WorkersAiPostRunModelRequestResponseFormatTypeEnum2Key | undefined;
   } | undefined;
   /**
    * @description Random seed for reproducibility of the generation.
-   * @minLength 1
-   * @maxLength 9999999999
+   * @minimum 1
+   * @maximum 9999999999
    * @type integer | undefined
    */
   seed?: number | undefined;
@@ -267723,8 +267864,8 @@ export type WorkersAiPostRunModelBody = ({
   stream?: boolean | undefined;
   /**
    * @description Controls the randomness of the output; higher values produce more random results.
-   * @minLength 0
-   * @maxLength 5
+   * @minimum 0
+   * @maximum 5
    * @default 0.6
    * @type number | undefined
    */
@@ -267837,15 +267978,15 @@ export type WorkersAiPostRunModelBody = ({
   })[] | undefined;
   /**
    * @description Limits the AI to choose from the top 'k' most probable words. Lower values make responses more focused; higher values introduce more variety and potential surprises.
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @type integer | undefined
    */
   top_k?: number | undefined;
   /**
    * @description Adjusts the creativity of the AI's responses by controlling how many possible words it considers. Lower values make outputs more predictable; higher values allow for more varied and creative responses.
-   * @minLength 0.001
-   * @maxLength 1
+   * @minimum 0.001
+   * @maximum 1
    * @type number | undefined
    */
   top_p?: number | undefined;
@@ -268364,8 +268505,8 @@ export type WorkersAiAiGatewayWebSearchBody = {
    */
   byokAlias?: string | undefined;
   /**
-   * @minLength 1
-   * @maxLength 10
+   * @minimum 1
+   * @maximum 10
    * @type integer | undefined
    */
   limit?: number | undefined;
@@ -268832,8 +268973,8 @@ export type NotificationHistoryListHistoryPath = {
 export type NotificationHistoryListHistoryQuery = {
   /**
    * @description Number of items per page.
-   * @minLength 5
-   * @maxLength 1000
+   * @minimum 5
+   * @maximum 1000
    * @default 25
    * @type number | undefined
    */
@@ -268848,7 +268989,7 @@ export type NotificationHistoryListHistoryQuery = {
   before?: AaaBefore | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
@@ -270188,8 +270329,8 @@ export type ArtifactsNamespacesListPath = {
 
 export type ArtifactsNamespacesListQuery = {
   /**
-   * @minLength 1
-   * @maxLength 200
+   * @minimum 1
+   * @maximum 200
    * @default 100
    * @type integer | undefined
    */
@@ -270209,8 +270350,8 @@ export type ArtifactsNamespacesListStatus200ResultJurisdictionEnumKey = (typeof 
 export type ArtifactsNamespacesListStatus200 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270227,8 +270368,8 @@ export type ArtifactsNamespacesListStatus200 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270253,8 +270394,8 @@ export type ArtifactsNamespacesListStatus200 = {
     jurisdiction: ArtifactsNamespacesListStatus200ResultJurisdictionEnumKey;
     namespace: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     repo_count: number;
@@ -270267,46 +270408,46 @@ export type ArtifactsNamespacesListStatus200 = {
   }[];
   result_info?: ({
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     cursor: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
   } | {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_pages: number;
@@ -270317,8 +270458,8 @@ export type ArtifactsNamespacesListStatus200 = {
 export type ArtifactsNamespacesListStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270335,8 +270476,8 @@ export type ArtifactsNamespacesListStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270358,8 +270499,8 @@ export type ArtifactsNamespacesListStatus400 = {
 export type ArtifactsNamespacesListStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270376,8 +270517,8 @@ export type ArtifactsNamespacesListStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270399,8 +270540,8 @@ export type ArtifactsNamespacesListStatus401 = {
 export type ArtifactsNamespacesListStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270417,8 +270558,8 @@ export type ArtifactsNamespacesListStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270440,8 +270581,8 @@ export type ArtifactsNamespacesListStatus403 = {
 export type ArtifactsNamespacesListStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270458,8 +270599,8 @@ export type ArtifactsNamespacesListStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270518,8 +270659,8 @@ export type ArtifactsNamespacesCreateStatus201ResultJurisdictionEnumKey = (typeo
 export type ArtifactsNamespacesCreateStatus201 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270536,8 +270677,8 @@ export type ArtifactsNamespacesCreateStatus201 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270562,8 +270703,8 @@ export type ArtifactsNamespacesCreateStatus201 = {
     jurisdiction: ArtifactsNamespacesCreateStatus201ResultJurisdictionEnumKey;
     namespace: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     repo_count: number;
@@ -270576,46 +270717,46 @@ export type ArtifactsNamespacesCreateStatus201 = {
   };
   result_info?: ({
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     cursor: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
   } | {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_pages: number;
@@ -270626,8 +270767,8 @@ export type ArtifactsNamespacesCreateStatus201 = {
 export type ArtifactsNamespacesCreateStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270644,8 +270785,8 @@ export type ArtifactsNamespacesCreateStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270667,8 +270808,8 @@ export type ArtifactsNamespacesCreateStatus400 = {
 export type ArtifactsNamespacesCreateStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270685,8 +270826,8 @@ export type ArtifactsNamespacesCreateStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270708,8 +270849,8 @@ export type ArtifactsNamespacesCreateStatus401 = {
 export type ArtifactsNamespacesCreateStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270726,8 +270867,8 @@ export type ArtifactsNamespacesCreateStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270749,8 +270890,8 @@ export type ArtifactsNamespacesCreateStatus403 = {
 export type ArtifactsNamespacesCreateStatus409 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270767,8 +270908,8 @@ export type ArtifactsNamespacesCreateStatus409 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270790,8 +270931,8 @@ export type ArtifactsNamespacesCreateStatus409 = {
 export type ArtifactsNamespacesCreateStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270808,8 +270949,8 @@ export type ArtifactsNamespacesCreateStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270894,8 +271035,8 @@ export type ArtifactsNamespacesDeleteStatus204 = void;
 export type ArtifactsNamespacesDeleteStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270912,8 +271053,8 @@ export type ArtifactsNamespacesDeleteStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270935,8 +271076,8 @@ export type ArtifactsNamespacesDeleteStatus400 = {
 export type ArtifactsNamespacesDeleteStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270953,8 +271094,8 @@ export type ArtifactsNamespacesDeleteStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270976,8 +271117,8 @@ export type ArtifactsNamespacesDeleteStatus401 = {
 export type ArtifactsNamespacesDeleteStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -270994,8 +271135,8 @@ export type ArtifactsNamespacesDeleteStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271017,8 +271158,8 @@ export type ArtifactsNamespacesDeleteStatus403 = {
 export type ArtifactsNamespacesDeleteStatus404 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271035,8 +271176,8 @@ export type ArtifactsNamespacesDeleteStatus404 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271058,8 +271199,8 @@ export type ArtifactsNamespacesDeleteStatus404 = {
 export type ArtifactsNamespacesDeleteStatus409 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271076,8 +271217,8 @@ export type ArtifactsNamespacesDeleteStatus409 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271099,8 +271240,8 @@ export type ArtifactsNamespacesDeleteStatus409 = {
 export type ArtifactsNamespacesDeleteStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271117,8 +271258,8 @@ export type ArtifactsNamespacesDeleteStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271187,8 +271328,8 @@ export type ArtifactsNamespacesGetStatus200ResultJurisdictionEnumKey = (typeof a
 export type ArtifactsNamespacesGetStatus200 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271205,8 +271346,8 @@ export type ArtifactsNamespacesGetStatus200 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271231,8 +271372,8 @@ export type ArtifactsNamespacesGetStatus200 = {
     jurisdiction: ArtifactsNamespacesGetStatus200ResultJurisdictionEnumKey;
     namespace: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     repo_count: number;
@@ -271245,46 +271386,46 @@ export type ArtifactsNamespacesGetStatus200 = {
   };
   result_info?: ({
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     cursor: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
   } | {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_pages: number;
@@ -271295,8 +271436,8 @@ export type ArtifactsNamespacesGetStatus200 = {
 export type ArtifactsNamespacesGetStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271313,8 +271454,8 @@ export type ArtifactsNamespacesGetStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271336,8 +271477,8 @@ export type ArtifactsNamespacesGetStatus400 = {
 export type ArtifactsNamespacesGetStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271354,8 +271495,8 @@ export type ArtifactsNamespacesGetStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271377,8 +271518,8 @@ export type ArtifactsNamespacesGetStatus401 = {
 export type ArtifactsNamespacesGetStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271395,8 +271536,8 @@ export type ArtifactsNamespacesGetStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271418,8 +271559,8 @@ export type ArtifactsNamespacesGetStatus403 = {
 export type ArtifactsNamespacesGetStatus404 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271436,8 +271577,8 @@ export type ArtifactsNamespacesGetStatus404 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271459,8 +271600,8 @@ export type ArtifactsNamespacesGetStatus404 = {
 export type ArtifactsNamespacesGetStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271477,8 +271618,8 @@ export type ArtifactsNamespacesGetStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271552,8 +271693,8 @@ export type ArtifactsReposListDirectionKey = (typeof artifactsReposListDirection
 
 export type ArtifactsReposListQuery = {
   /**
-   * @minLength 1
-   * @maxLength 200
+   * @minimum 1
+   * @maximum 200
    * @default 50
    * @type integer | undefined
    */
@@ -271575,8 +271716,8 @@ export type ArtifactsReposListQuery = {
 export type ArtifactsReposListStatus200 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271593,8 +271734,8 @@ export type ArtifactsReposListStatus200 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271642,46 +271783,46 @@ export type ArtifactsReposListStatus200 = {
   }[];
   result_info?: ({
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     cursor: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
   } | {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_pages: number;
@@ -271692,8 +271833,8 @@ export type ArtifactsReposListStatus200 = {
 export type ArtifactsReposListStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271710,8 +271851,8 @@ export type ArtifactsReposListStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271733,8 +271874,8 @@ export type ArtifactsReposListStatus400 = {
 export type ArtifactsReposListStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271751,8 +271892,8 @@ export type ArtifactsReposListStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271774,8 +271915,8 @@ export type ArtifactsReposListStatus401 = {
 export type ArtifactsReposListStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271792,8 +271933,8 @@ export type ArtifactsReposListStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271815,8 +271956,8 @@ export type ArtifactsReposListStatus403 = {
 export type ArtifactsReposListStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271833,8 +271974,8 @@ export type ArtifactsReposListStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271892,8 +272033,8 @@ export type ArtifactsReposCreatePath = {
 export type ArtifactsReposCreateStatus201 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271910,8 +272051,8 @@ export type ArtifactsReposCreateStatus201 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -271936,46 +272077,46 @@ export type ArtifactsReposCreateStatus201 = {
   };
   result_info?: ({
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     cursor: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
   } | {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_pages: number;
@@ -271986,8 +272127,8 @@ export type ArtifactsReposCreateStatus201 = {
 export type ArtifactsReposCreateStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272004,8 +272145,8 @@ export type ArtifactsReposCreateStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272027,8 +272168,8 @@ export type ArtifactsReposCreateStatus400 = {
 export type ArtifactsReposCreateStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272045,8 +272186,8 @@ export type ArtifactsReposCreateStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272068,8 +272209,8 @@ export type ArtifactsReposCreateStatus401 = {
 export type ArtifactsReposCreateStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272086,8 +272227,8 @@ export type ArtifactsReposCreateStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272109,8 +272250,8 @@ export type ArtifactsReposCreateStatus403 = {
 export type ArtifactsReposCreateStatus409 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272127,8 +272268,8 @@ export type ArtifactsReposCreateStatus409 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272150,8 +272291,8 @@ export type ArtifactsReposCreateStatus409 = {
 export type ArtifactsReposCreateStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272168,8 +272309,8 @@ export type ArtifactsReposCreateStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272256,8 +272397,8 @@ export type ArtifactsReposDeletePath = {
 export type ArtifactsReposDeleteStatus202 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272274,8 +272415,8 @@ export type ArtifactsReposDeleteStatus202 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272295,46 +272436,46 @@ export type ArtifactsReposDeleteStatus202 = {
   };
   result_info?: ({
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     cursor: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
   } | {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_pages: number;
@@ -272345,8 +272486,8 @@ export type ArtifactsReposDeleteStatus202 = {
 export type ArtifactsReposDeleteStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272363,8 +272504,8 @@ export type ArtifactsReposDeleteStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272386,8 +272527,8 @@ export type ArtifactsReposDeleteStatus400 = {
 export type ArtifactsReposDeleteStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272404,8 +272545,8 @@ export type ArtifactsReposDeleteStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272427,8 +272568,8 @@ export type ArtifactsReposDeleteStatus401 = {
 export type ArtifactsReposDeleteStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272445,8 +272586,8 @@ export type ArtifactsReposDeleteStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272468,8 +272609,8 @@ export type ArtifactsReposDeleteStatus403 = {
 export type ArtifactsReposDeleteStatus404 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272486,8 +272627,8 @@ export type ArtifactsReposDeleteStatus404 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272509,8 +272650,8 @@ export type ArtifactsReposDeleteStatus404 = {
 export type ArtifactsReposDeleteStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272527,8 +272668,8 @@ export type ArtifactsReposDeleteStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272593,8 +272734,8 @@ export type ArtifactsReposGetPath = {
 export type ArtifactsReposGetStatus200 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272611,8 +272752,8 @@ export type ArtifactsReposGetStatus200 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272660,46 +272801,46 @@ export type ArtifactsReposGetStatus200 = {
   };
   result_info?: ({
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     cursor: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
   } | {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_pages: number;
@@ -272710,8 +272851,8 @@ export type ArtifactsReposGetStatus200 = {
 export type ArtifactsReposGetStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272728,8 +272869,8 @@ export type ArtifactsReposGetStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272751,8 +272892,8 @@ export type ArtifactsReposGetStatus400 = {
 export type ArtifactsReposGetStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272769,8 +272910,8 @@ export type ArtifactsReposGetStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272792,8 +272933,8 @@ export type ArtifactsReposGetStatus401 = {
 export type ArtifactsReposGetStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272810,8 +272951,8 @@ export type ArtifactsReposGetStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272833,8 +272974,8 @@ export type ArtifactsReposGetStatus403 = {
 export type ArtifactsReposGetStatus404 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272851,8 +272992,8 @@ export type ArtifactsReposGetStatus404 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272874,8 +273015,8 @@ export type ArtifactsReposGetStatus404 = {
 export type ArtifactsReposGetStatus409 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272892,8 +273033,8 @@ export type ArtifactsReposGetStatus409 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272915,8 +273056,8 @@ export type ArtifactsReposGetStatus409 = {
 export type ArtifactsReposGetStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -272933,8 +273074,8 @@ export type ArtifactsReposGetStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273008,8 +273149,8 @@ export type ArtifactsReposBlobGetStatus200 = Blob;
 export type ArtifactsReposBlobGetStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273026,8 +273167,8 @@ export type ArtifactsReposBlobGetStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273049,8 +273190,8 @@ export type ArtifactsReposBlobGetStatus400 = {
 export type ArtifactsReposBlobGetStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273067,8 +273208,8 @@ export type ArtifactsReposBlobGetStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273090,8 +273231,8 @@ export type ArtifactsReposBlobGetStatus401 = {
 export type ArtifactsReposBlobGetStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273108,8 +273249,8 @@ export type ArtifactsReposBlobGetStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273131,8 +273272,8 @@ export type ArtifactsReposBlobGetStatus403 = {
 export type ArtifactsReposBlobGetStatus404 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273149,8 +273290,8 @@ export type ArtifactsReposBlobGetStatus404 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273172,8 +273313,8 @@ export type ArtifactsReposBlobGetStatus404 = {
 export type ArtifactsReposBlobGetStatus413 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273190,8 +273331,8 @@ export type ArtifactsReposBlobGetStatus413 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273213,8 +273354,8 @@ export type ArtifactsReposBlobGetStatus413 = {
 export type ArtifactsReposBlobGetStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273231,8 +273372,8 @@ export type ArtifactsReposBlobGetStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273304,8 +273445,8 @@ export type ArtifactsReposCommitGetPath = {
 export type ArtifactsReposCommitGetStatus200 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273322,8 +273463,8 @@ export type ArtifactsReposCommitGetStatus200 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273344,14 +273485,14 @@ export type ArtifactsReposCommitGetStatus200 = {
       name: string;
     };
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     authoredAt: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     committedAt: number;
@@ -273374,46 +273515,46 @@ export type ArtifactsReposCommitGetStatus200 = {
   };
   result_info?: ({
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     cursor: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
   } | {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_pages: number;
@@ -273424,8 +273565,8 @@ export type ArtifactsReposCommitGetStatus200 = {
 export type ArtifactsReposCommitGetStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273442,8 +273583,8 @@ export type ArtifactsReposCommitGetStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273465,8 +273606,8 @@ export type ArtifactsReposCommitGetStatus400 = {
 export type ArtifactsReposCommitGetStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273483,8 +273624,8 @@ export type ArtifactsReposCommitGetStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273506,8 +273647,8 @@ export type ArtifactsReposCommitGetStatus401 = {
 export type ArtifactsReposCommitGetStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273524,8 +273665,8 @@ export type ArtifactsReposCommitGetStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273547,8 +273688,8 @@ export type ArtifactsReposCommitGetStatus403 = {
 export type ArtifactsReposCommitGetStatus404 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273565,8 +273706,8 @@ export type ArtifactsReposCommitGetStatus404 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273588,8 +273729,8 @@ export type ArtifactsReposCommitGetStatus404 = {
 export type ArtifactsReposCommitGetStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273606,8 +273747,8 @@ export type ArtifactsReposCommitGetStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273689,8 +273830,8 @@ export type ArtifactsReposFileGetStatus200 = Blob;
 export type ArtifactsReposFileGetStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273707,8 +273848,8 @@ export type ArtifactsReposFileGetStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273730,8 +273871,8 @@ export type ArtifactsReposFileGetStatus400 = {
 export type ArtifactsReposFileGetStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273748,8 +273889,8 @@ export type ArtifactsReposFileGetStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273771,8 +273912,8 @@ export type ArtifactsReposFileGetStatus401 = {
 export type ArtifactsReposFileGetStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273789,8 +273930,8 @@ export type ArtifactsReposFileGetStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273812,8 +273953,8 @@ export type ArtifactsReposFileGetStatus403 = {
 export type ArtifactsReposFileGetStatus404 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273830,8 +273971,8 @@ export type ArtifactsReposFileGetStatus404 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273853,8 +273994,8 @@ export type ArtifactsReposFileGetStatus404 = {
 export type ArtifactsReposFileGetStatus413 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273871,8 +274012,8 @@ export type ArtifactsReposFileGetStatus413 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273894,8 +274035,8 @@ export type ArtifactsReposFileGetStatus413 = {
 export type ArtifactsReposFileGetStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273912,8 +274053,8 @@ export type ArtifactsReposFileGetStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273979,8 +274120,8 @@ export type ArtifactsReposForkPath = {
 export type ArtifactsReposForkStatus201 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -273997,8 +274138,8 @@ export type ArtifactsReposForkStatus201 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274019,8 +274160,8 @@ export type ArtifactsReposForkStatus201 = {
     id: string;
     name: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     objects: number;
@@ -274029,46 +274170,46 @@ export type ArtifactsReposForkStatus201 = {
   };
   result_info?: ({
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     cursor: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
   } | {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_pages: number;
@@ -274079,8 +274220,8 @@ export type ArtifactsReposForkStatus201 = {
 export type ArtifactsReposForkStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274097,8 +274238,8 @@ export type ArtifactsReposForkStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274120,8 +274261,8 @@ export type ArtifactsReposForkStatus400 = {
 export type ArtifactsReposForkStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274138,8 +274279,8 @@ export type ArtifactsReposForkStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274161,8 +274302,8 @@ export type ArtifactsReposForkStatus401 = {
 export type ArtifactsReposForkStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274179,8 +274320,8 @@ export type ArtifactsReposForkStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274202,8 +274343,8 @@ export type ArtifactsReposForkStatus403 = {
 export type ArtifactsReposForkStatus404 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274220,8 +274361,8 @@ export type ArtifactsReposForkStatus404 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274243,8 +274384,8 @@ export type ArtifactsReposForkStatus404 = {
 export type ArtifactsReposForkStatus409 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274261,8 +274402,8 @@ export type ArtifactsReposForkStatus409 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274284,8 +274425,8 @@ export type ArtifactsReposForkStatus409 = {
 export type ArtifactsReposForkStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274302,8 +274443,8 @@ export type ArtifactsReposForkStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274325,8 +274466,8 @@ export type ArtifactsReposForkStatus500 = {
 export type ArtifactsReposForkStatus503 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274343,8 +274484,8 @@ export type ArtifactsReposForkStatus503 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274426,8 +274567,8 @@ export type ArtifactsReposImportPath = {
 export type ArtifactsReposImportStatus201 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274444,8 +274585,8 @@ export type ArtifactsReposImportStatus201 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274470,46 +274611,46 @@ export type ArtifactsReposImportStatus201 = {
   };
   result_info?: ({
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     cursor: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
   } | {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_pages: number;
@@ -274520,8 +274661,8 @@ export type ArtifactsReposImportStatus201 = {
 export type ArtifactsReposImportStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274538,8 +274679,8 @@ export type ArtifactsReposImportStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274561,8 +274702,8 @@ export type ArtifactsReposImportStatus400 = {
 export type ArtifactsReposImportStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274579,8 +274720,8 @@ export type ArtifactsReposImportStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274602,8 +274743,8 @@ export type ArtifactsReposImportStatus401 = {
 export type ArtifactsReposImportStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274620,8 +274761,8 @@ export type ArtifactsReposImportStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274643,8 +274784,8 @@ export type ArtifactsReposImportStatus403 = {
 export type ArtifactsReposImportStatus404 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274661,8 +274802,8 @@ export type ArtifactsReposImportStatus404 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274684,8 +274825,8 @@ export type ArtifactsReposImportStatus404 = {
 export type ArtifactsReposImportStatus409 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274702,8 +274843,8 @@ export type ArtifactsReposImportStatus409 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274725,8 +274866,8 @@ export type ArtifactsReposImportStatus409 = {
 export type ArtifactsReposImportStatus413 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274743,8 +274884,8 @@ export type ArtifactsReposImportStatus413 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274766,8 +274907,8 @@ export type ArtifactsReposImportStatus413 = {
 export type ArtifactsReposImportStatus422 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274784,8 +274925,8 @@ export type ArtifactsReposImportStatus422 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274807,8 +274948,8 @@ export type ArtifactsReposImportStatus422 = {
 export type ArtifactsReposImportStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274825,8 +274966,8 @@ export type ArtifactsReposImportStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274848,8 +274989,8 @@ export type ArtifactsReposImportStatus500 = {
 export type ArtifactsReposImportStatus502 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274866,8 +275007,8 @@ export type ArtifactsReposImportStatus502 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274889,8 +275030,8 @@ export type ArtifactsReposImportStatus502 = {
 export type ArtifactsReposImportStatus503 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274907,8 +275048,8 @@ export type ArtifactsReposImportStatus503 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274930,8 +275071,8 @@ export type ArtifactsReposImportStatus503 = {
 export type ArtifactsReposImportStatus504 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274948,8 +275089,8 @@ export type ArtifactsReposImportStatus504 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -274978,8 +275119,8 @@ export type ArtifactsReposImportBody = {
    */
   branch?: string | undefined;
   /**
-   * @minLength 1
-   * @maxLength 9007199254740991
+   * @minimum 1
+   * @maximum 9007199254740991
    * @type integer | undefined
    */
   depth?: number | undefined;
@@ -275049,13 +275190,13 @@ export type ArtifactsReposLogGetQuery = {
    */
   ref?: string | undefined;
   /**
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @type integer | undefined
    */
   limit?: number | undefined;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   offset?: number | undefined;
@@ -275064,8 +275205,8 @@ export type ArtifactsReposLogGetQuery = {
 export type ArtifactsReposLogGetStatus200 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275082,8 +275223,8 @@ export type ArtifactsReposLogGetStatus200 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275104,14 +275245,14 @@ export type ArtifactsReposLogGetStatus200 = {
       name: string;
     };
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     authoredAt: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     committedAt: number;
@@ -275134,46 +275275,46 @@ export type ArtifactsReposLogGetStatus200 = {
   }[];
   result_info?: ({
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     cursor: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
   } | {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_pages: number;
@@ -275184,8 +275325,8 @@ export type ArtifactsReposLogGetStatus200 = {
 export type ArtifactsReposLogGetStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275202,8 +275343,8 @@ export type ArtifactsReposLogGetStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275225,8 +275366,8 @@ export type ArtifactsReposLogGetStatus400 = {
 export type ArtifactsReposLogGetStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275243,8 +275384,8 @@ export type ArtifactsReposLogGetStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275266,8 +275407,8 @@ export type ArtifactsReposLogGetStatus401 = {
 export type ArtifactsReposLogGetStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275284,8 +275425,8 @@ export type ArtifactsReposLogGetStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275307,8 +275448,8 @@ export type ArtifactsReposLogGetStatus403 = {
 export type ArtifactsReposLogGetStatus404 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275325,8 +275466,8 @@ export type ArtifactsReposLogGetStatus404 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275348,8 +275489,8 @@ export type ArtifactsReposLogGetStatus404 = {
 export type ArtifactsReposLogGetStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275366,8 +275507,8 @@ export type ArtifactsReposLogGetStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275446,8 +275587,8 @@ export type ArtifactsReposRawGetStatus200 = string;
 export type ArtifactsReposRawGetStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275464,8 +275605,8 @@ export type ArtifactsReposRawGetStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275487,8 +275628,8 @@ export type ArtifactsReposRawGetStatus400 = {
 export type ArtifactsReposRawGetStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275505,8 +275646,8 @@ export type ArtifactsReposRawGetStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275528,8 +275669,8 @@ export type ArtifactsReposRawGetStatus401 = {
 export type ArtifactsReposRawGetStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275546,8 +275687,8 @@ export type ArtifactsReposRawGetStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275569,8 +275710,8 @@ export type ArtifactsReposRawGetStatus403 = {
 export type ArtifactsReposRawGetStatus404 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275587,8 +275728,8 @@ export type ArtifactsReposRawGetStatus404 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275610,8 +275751,8 @@ export type ArtifactsReposRawGetStatus404 = {
 export type ArtifactsReposRawGetStatus413 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275628,8 +275769,8 @@ export type ArtifactsReposRawGetStatus413 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275651,8 +275792,8 @@ export type ArtifactsReposRawGetStatus413 = {
 export type ArtifactsReposRawGetStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275669,8 +275810,8 @@ export type ArtifactsReposRawGetStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275749,14 +275890,14 @@ export type ArtifactsRepoTokensListQuery = {
    */
   state?: ArtifactsRepoTokensListStateKey | undefined;
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 30
    * @type integer | undefined
    */
@@ -275781,8 +275922,8 @@ export type ArtifactsRepoTokensListStatus200ResultStateEnumKey = (typeof artifac
 export type ArtifactsRepoTokensListStatus200 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275799,8 +275940,8 @@ export type ArtifactsRepoTokensListStatus200 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275834,46 +275975,46 @@ export type ArtifactsRepoTokensListStatus200 = {
   }[];
   result_info?: ({
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     cursor: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
   } | {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_pages: number;
@@ -275884,8 +276025,8 @@ export type ArtifactsRepoTokensListStatus200 = {
 export type ArtifactsRepoTokensListStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275902,8 +276043,8 @@ export type ArtifactsRepoTokensListStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275925,8 +276066,8 @@ export type ArtifactsRepoTokensListStatus400 = {
 export type ArtifactsRepoTokensListStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275943,8 +276084,8 @@ export type ArtifactsRepoTokensListStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275966,8 +276107,8 @@ export type ArtifactsRepoTokensListStatus401 = {
 export type ArtifactsRepoTokensListStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -275984,8 +276125,8 @@ export type ArtifactsRepoTokensListStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276007,8 +276148,8 @@ export type ArtifactsRepoTokensListStatus403 = {
 export type ArtifactsRepoTokensListStatus404 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276025,8 +276166,8 @@ export type ArtifactsRepoTokensListStatus404 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276048,8 +276189,8 @@ export type ArtifactsRepoTokensListStatus404 = {
 export type ArtifactsRepoTokensListStatus409 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276066,8 +276207,8 @@ export type ArtifactsRepoTokensListStatus409 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276089,8 +276230,8 @@ export type ArtifactsRepoTokensListStatus409 = {
 export type ArtifactsRepoTokensListStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276107,8 +276248,8 @@ export type ArtifactsRepoTokensListStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276190,8 +276331,8 @@ export type ArtifactsReposTreeGetStatus200ResultTypeEnumKey = (typeof artifactsR
 export type ArtifactsReposTreeGetStatus200 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276208,8 +276349,8 @@ export type ArtifactsReposTreeGetStatus200 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276236,46 +276377,46 @@ export type ArtifactsReposTreeGetStatus200 = {
   }[];
   result_info?: ({
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     cursor: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
   } | {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_pages: number;
@@ -276286,8 +276427,8 @@ export type ArtifactsReposTreeGetStatus200 = {
 export type ArtifactsReposTreeGetStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276304,8 +276445,8 @@ export type ArtifactsReposTreeGetStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276327,8 +276468,8 @@ export type ArtifactsReposTreeGetStatus400 = {
 export type ArtifactsReposTreeGetStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276345,8 +276486,8 @@ export type ArtifactsReposTreeGetStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276368,8 +276509,8 @@ export type ArtifactsReposTreeGetStatus401 = {
 export type ArtifactsReposTreeGetStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276386,8 +276527,8 @@ export type ArtifactsReposTreeGetStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276409,8 +276550,8 @@ export type ArtifactsReposTreeGetStatus403 = {
 export type ArtifactsReposTreeGetStatus404 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276427,8 +276568,8 @@ export type ArtifactsReposTreeGetStatus404 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276450,8 +276591,8 @@ export type ArtifactsReposTreeGetStatus404 = {
 export type ArtifactsReposTreeGetStatus422 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276468,8 +276609,8 @@ export type ArtifactsReposTreeGetStatus422 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276491,8 +276632,8 @@ export type ArtifactsReposTreeGetStatus422 = {
 export type ArtifactsReposTreeGetStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276509,8 +276650,8 @@ export type ArtifactsReposTreeGetStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276577,8 +276718,8 @@ export type ArtifactsTokensCreateStatus201ResultScopeEnumKey = (typeof artifacts
 export type ArtifactsTokensCreateStatus201 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276595,8 +276736,8 @@ export type ArtifactsTokensCreateStatus201 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276624,46 +276765,46 @@ export type ArtifactsTokensCreateStatus201 = {
   };
   result_info?: ({
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     cursor: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
   } | {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_pages: number;
@@ -276674,8 +276815,8 @@ export type ArtifactsTokensCreateStatus201 = {
 export type ArtifactsTokensCreateStatus400 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276692,8 +276833,8 @@ export type ArtifactsTokensCreateStatus400 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276715,8 +276856,8 @@ export type ArtifactsTokensCreateStatus400 = {
 export type ArtifactsTokensCreateStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276733,8 +276874,8 @@ export type ArtifactsTokensCreateStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276756,8 +276897,8 @@ export type ArtifactsTokensCreateStatus401 = {
 export type ArtifactsTokensCreateStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276774,8 +276915,8 @@ export type ArtifactsTokensCreateStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276797,8 +276938,8 @@ export type ArtifactsTokensCreateStatus403 = {
 export type ArtifactsTokensCreateStatus404 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276815,8 +276956,8 @@ export type ArtifactsTokensCreateStatus404 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276838,8 +276979,8 @@ export type ArtifactsTokensCreateStatus404 = {
 export type ArtifactsTokensCreateStatus409 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276856,8 +276997,8 @@ export type ArtifactsTokensCreateStatus409 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276879,8 +277020,8 @@ export type ArtifactsTokensCreateStatus409 = {
 export type ArtifactsTokensCreateStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276897,8 +277038,8 @@ export type ArtifactsTokensCreateStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -276932,8 +277073,8 @@ export type ArtifactsTokensCreateBody = {
   repo: string;
   scope?: ArtifactsTokensCreateRequestScopeEnumKey | undefined;
   /**
-   * @minLength 60
-   * @maxLength 31536000
+   * @minimum 60
+   * @maximum 31536000
    * @type integer | undefined
    */
   ttl?: number | undefined;
@@ -276986,8 +277127,8 @@ export type ArtifactsTokensRevokePath = {
 export type ArtifactsTokensRevokeStatus200 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -277004,8 +277145,8 @@ export type ArtifactsTokensRevokeStatus200 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -277025,46 +277166,46 @@ export type ArtifactsTokensRevokeStatus200 = {
   };
   result_info?: ({
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     cursor: string;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
   } | {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     per_page: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_count: number;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     total_pages: number;
@@ -277075,8 +277216,8 @@ export type ArtifactsTokensRevokeStatus200 = {
 export type ArtifactsTokensRevokeStatus401 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -277093,8 +277234,8 @@ export type ArtifactsTokensRevokeStatus401 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -277116,8 +277257,8 @@ export type ArtifactsTokensRevokeStatus401 = {
 export type ArtifactsTokensRevokeStatus403 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -277134,8 +277275,8 @@ export type ArtifactsTokensRevokeStatus403 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -277157,8 +277298,8 @@ export type ArtifactsTokensRevokeStatus403 = {
 export type ArtifactsTokensRevokeStatus404 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -277175,8 +277316,8 @@ export type ArtifactsTokensRevokeStatus404 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -277198,8 +277339,8 @@ export type ArtifactsTokensRevokeStatus404 = {
 export type ArtifactsTokensRevokeStatus500 = {
   errors: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -277216,8 +277357,8 @@ export type ArtifactsTokensRevokeStatus500 = {
   }[];
   messages: {
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     code: number;
@@ -277323,8 +277464,8 @@ export type AuditLogsGetAccountAuditLogsQuery = {
   direction?: AuditLogsGetAccountAuditLogsDirectionKey | undefined;
   /**
    * @description Sets the number of results to return per page.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 100
    * @example 25
    * @type number | undefined
@@ -277332,7 +277473,7 @@ export type AuditLogsGetAccountAuditLogsQuery = {
   per_page?: number | undefined;
   /**
    * @description Defines which page of results to return.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 50
    * @type number | undefined
@@ -277426,8 +277567,12 @@ export type AutoragConfigAiSearchStatus404 = {
 };
 
 export const autoragConfigAiSearchRequestFiltersTypeEnum = {
-  and: 'and',
-  or: 'or',
+  eq: 'eq',
+  ne: 'ne',
+  gt: 'gt',
+  gte: 'gte',
+  lt: 'lt',
+  lte: 'lte',
 } as const;
 
 export type AutoragConfigAiSearchRequestFiltersTypeEnumKey = (typeof autoragConfigAiSearchRequestFiltersTypeEnum)[keyof typeof autoragConfigAiSearchRequestFiltersTypeEnum];
@@ -277442,6 +277587,13 @@ export const autoragConfigAiSearchRequestFiltersFiltersTypeEnum = {
 } as const;
 
 export type AutoragConfigAiSearchRequestFiltersFiltersTypeEnumKey = (typeof autoragConfigAiSearchRequestFiltersFiltersTypeEnum)[keyof typeof autoragConfigAiSearchRequestFiltersFiltersTypeEnum];
+
+export const autoragConfigAiSearchRequestFiltersTypeEnum2 = {
+  and: 'and',
+  or: 'or',
+} as const;
+
+export type AutoragConfigAiSearchRequestFiltersTypeEnum2Key = (typeof autoragConfigAiSearchRequestFiltersTypeEnum2)[keyof typeof autoragConfigAiSearchRequestFiltersTypeEnum2];
 
 export const autoragConfigAiSearchRequestModel = {
   '@cf/meta/llama-3.3-70b-instruct-fp8-fast': '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
@@ -277484,11 +277636,11 @@ export type AutoragConfigAiSearchBody = {
       type: AutoragConfigAiSearchRequestFiltersFiltersTypeEnumKey;
       value: string | number | boolean;
     }[];
-    type: AutoragConfigAiSearchRequestFiltersTypeEnumKey;
+    type: AutoragConfigAiSearchRequestFiltersTypeEnum2Key;
   }) | undefined;
   /**
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @default 10
    * @type integer | undefined
    */
@@ -277502,8 +277654,8 @@ export type AutoragConfigAiSearchBody = {
   ranking_options?: {
     ranker?: string | undefined;
     /**
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @default 0.4
      * @type number | undefined
      */
@@ -277575,14 +277727,14 @@ export type AutoragConfigFilesStatusKey = (typeof autoragConfigFilesStatus)[keyo
 
 export type AutoragConfigFilesQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 0
-   * @maxLength 50
+   * @minimum 0
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -277600,8 +277752,8 @@ export type AutoragConfigFilesStatus200 = {
     count: number;
     page: number;
     /**
-     * @minLength 5
-     * @maxLength 50
+     * @minimum 5
+     * @maximum 50
      * @default 20
      * @type integer | undefined
      */
@@ -277680,14 +277832,14 @@ export type AutoragConfigListJobsPath = {
 
 export type AutoragConfigListJobsQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 0
-   * @maxLength 50
+   * @minimum 0
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -277876,14 +278028,14 @@ export type AutoragConfigListJobLogsPath = {
 
 export type AutoragConfigListJobLogsQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 0
-   * @maxLength 500
+   * @minimum 0
+   * @maximum 500
    * @default 20
    * @type integer | undefined
    */
@@ -278014,8 +278166,12 @@ export type AutoragConfigSearchStatus404 = {
 };
 
 export const autoragConfigSearchRequestFiltersTypeEnum = {
-  and: 'and',
-  or: 'or',
+  eq: 'eq',
+  ne: 'ne',
+  gt: 'gt',
+  gte: 'gte',
+  lt: 'lt',
+  lte: 'lte',
 } as const;
 
 export type AutoragConfigSearchRequestFiltersTypeEnumKey = (typeof autoragConfigSearchRequestFiltersTypeEnum)[keyof typeof autoragConfigSearchRequestFiltersTypeEnum];
@@ -278031,6 +278187,13 @@ export const autoragConfigSearchRequestFiltersFiltersTypeEnum = {
 
 export type AutoragConfigSearchRequestFiltersFiltersTypeEnumKey = (typeof autoragConfigSearchRequestFiltersFiltersTypeEnum)[keyof typeof autoragConfigSearchRequestFiltersFiltersTypeEnum];
 
+export const autoragConfigSearchRequestFiltersTypeEnum2 = {
+  and: 'and',
+  or: 'or',
+} as const;
+
+export type AutoragConfigSearchRequestFiltersTypeEnum2Key = (typeof autoragConfigSearchRequestFiltersTypeEnum2)[keyof typeof autoragConfigSearchRequestFiltersTypeEnum2];
+
 export type AutoragConfigSearchBody = {
   filters?: ({
     key: string;
@@ -278042,11 +278205,11 @@ export type AutoragConfigSearchBody = {
       type: AutoragConfigSearchRequestFiltersFiltersTypeEnumKey;
       value: string | number | boolean;
     }[];
-    type: AutoragConfigSearchRequestFiltersTypeEnumKey;
+    type: AutoragConfigSearchRequestFiltersTypeEnum2Key;
   }) | undefined;
   /**
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @default 10
    * @type integer | undefined
    */
@@ -278059,8 +278222,8 @@ export type AutoragConfigSearchBody = {
   ranking_options?: {
     ranker?: string | undefined;
     /**
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @default 0.4
      * @type number | undefined
      */
@@ -278768,8 +278931,8 @@ export type BasinListNamespacesQuery = {
    * @description Maximum number of namespaces to return per page.
    * Defaults to 100, maximum 1000.
    *
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 100
    * @type integer | undefined
    */
@@ -278877,8 +279040,8 @@ export type BasinListTablesQuery = {
    * @description Maximum number of tables to return per page.
    * Defaults to 100, maximum 1000.
    *
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 100
    * @type integer | undefined
    */
@@ -279243,8 +279406,8 @@ export type BasinListTableMaintenanceRunsPath = {
 
 export type BasinListTableMaintenanceRunsQuery = {
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @type integer | undefined
    */
   page_size?: number | undefined;
@@ -279621,14 +279784,14 @@ export type AccountBillingHistoryGetBillingHistoryPath = {
 export type AccountBillingHistoryGetBillingHistoryQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of items per page.
-   * @minLength 1
+   * @minimum 1
    * @default 20
    * @type integer | undefined
    */
@@ -280052,7 +280215,7 @@ export type SpendPoliciesActivityPath = {
 export type SpendPoliciesActivityQuery = {
   /**
    * @description Maximum number of audit entries to return. Defaults to 50. Values above 100 are capped at 100 rather than rejected.
-   * @minLength 1
+   * @minimum 1
    * @default 50
    * @example 50
    * @type integer | undefined
@@ -280458,7 +280621,7 @@ export type SpendPoliciesListAuditPath = {
 export type SpendPoliciesListAuditQuery = {
   /**
    * @description Maximum number of audit entries to return. Defaults to 50. Values above 100 are capped at 100 rather than rejected.
-   * @minLength 1
+   * @minimum 1
    * @default 50
    * @example 50
    * @type integer | undefined
@@ -280619,8 +280782,8 @@ export type UsageAnalyticsGetAccountBillingUsageQuery = {
   /**
    * @description Maximum number of data points to return. The actual number of results depends on the interaction between the time range (since/until) and time_delta granularity. Results are truncated to this limit without error if the time range produces more data points than the limit allows.
    *
-   * @minLength 1
-   * @maxLength 10000
+   * @minimum 1
+   * @maximum 10000
    * @default 100
    * @example 100
    * @type integer | undefined
@@ -282064,12 +282227,12 @@ export type PostAccountsAccountIdBrandProtectionQueriesQueryIdMatchesDomainIdDis
    */
   accountId: string;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   queryId: number;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   domainId: number;
@@ -282115,12 +282278,12 @@ export type PostAccountsAccountIdBrandProtectionQueriesQueryIdMatchesDomainIdUnd
    */
   accountId: string;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   queryId: number;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   domainId: number;
@@ -282808,8 +282971,8 @@ export type AccountsBrowserExtensionInventoriesListQuery = {
   cursor?: string | undefined;
   /**
    * @description Number of results per page (default 50, max 200).
-   * @minLength 1
-   * @maxLength 200
+   * @minimum 1
+   * @maximum 200
    * @default 50
    * @type integer | undefined
    */
@@ -283005,8 +283168,8 @@ export type BrapiPostAccessibilityTreePath = {
 export type BrapiPostAccessibilityTreeQuery = {
   /**
    * @description Cache TTL default is 5s. Set to 0 to disable.
-   * @minLength 0
-   * @maxLength 86400
+   * @minimum 0
+   * @maximum 86400
    * @default 5
    * @type number | undefined
    */
@@ -283177,7 +283340,7 @@ export type BrapiPostAccessibilityTreeBody = ({
 }) & {
   /**
    * @description The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   actionTimeout?: number | undefined;
@@ -283274,7 +283437,7 @@ export type BrapiPostAccessibilityTreeBody = ({
     referer?: string | undefined;
     referrerPolicy?: string | undefined;
     /**
-     * @maxLength 60000
+     * @maximum 60000
      * @default 30000
      * @type number | undefined
      */
@@ -283341,7 +283504,7 @@ export type BrapiPostAccessibilityTreeBody = ({
     hidden?: true | undefined;
     selector: string;
     /**
-     * @maxLength 120000
+     * @maximum 120000
      * @type number | undefined
      */
     timeout?: number | undefined;
@@ -283349,7 +283512,7 @@ export type BrapiPostAccessibilityTreeBody = ({
   } | undefined;
   /**
    * @description Waits for a specified timeout before continuing.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   waitForTimeout?: number | undefined;
@@ -283386,8 +283549,8 @@ export type BrapiPostContentPath = {
 export type BrapiPostContentQuery = {
   /**
    * @description Cache TTL default is 5s. Set to 0 to disable.
-   * @minLength 0
-   * @maxLength 86400
+   * @minimum 0
+   * @maximum 86400
    * @default 5
    * @type number | undefined
    */
@@ -283560,7 +283723,7 @@ export type BrapiPostContentBody = ({
 }) & {
   /**
    * @description The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   actionTimeout?: number | undefined;
@@ -283657,7 +283820,7 @@ export type BrapiPostContentBody = ({
     referer?: string | undefined;
     referrerPolicy?: string | undefined;
     /**
-     * @maxLength 60000
+     * @maximum 60000
      * @default 30000
      * @type number | undefined
      */
@@ -283722,7 +283885,7 @@ export type BrapiPostContentBody = ({
     hidden?: true | undefined;
     selector: string;
     /**
-     * @maxLength 120000
+     * @maximum 120000
      * @type number | undefined
      */
     timeout?: number | undefined;
@@ -283730,7 +283893,7 @@ export type BrapiPostContentBody = ({
   } | undefined;
   /**
    * @description Waits for a specified timeout before continuing.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   waitForTimeout?: number | undefined;
@@ -283767,8 +283930,8 @@ export type BrapiPostCrawlPath = {
 export type BrapiPostCrawlQuery = {
   /**
    * @description Cache TTL default is 5s. Set to 0 to disable.
-   * @minLength 0
-   * @maxLength 86400
+   * @minimum 0
+   * @maximum 86400
    * @default 5
    * @type number | undefined
    */
@@ -283863,7 +284026,7 @@ export type BrapiPostCrawlStatus500 = {
 export type BrapiPostCrawlBody = {
   /**
    * @description The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   actionTimeout?: number | undefined;
@@ -283968,8 +284131,8 @@ export type BrapiPostCrawlBody = {
   crawlPurposes?: ('search' | 'ai-input' | 'ai-train')[] | undefined;
   /**
    * @description Maximum number of levels deep the crawler will traverse from the starting URL.
-   * @minLength 1
-   * @maxLength 100000
+   * @minimum 1
+   * @maximum 100000
    * @default 100000
    * @type number | undefined
    */
@@ -283990,7 +284153,7 @@ export type BrapiPostCrawlBody = {
     referer?: string | undefined;
     referrerPolicy?: string | undefined;
     /**
-     * @maxLength 60000
+     * @maximum 60000
      * @default 30000
      * @type number | undefined
      */
@@ -284035,16 +284198,16 @@ export type BrapiPostCrawlBody = {
   } | undefined;
   /**
    * @description Maximum number of URLs to crawl.
-   * @minLength 1
-   * @maxLength 100000
+   * @minimum 1
+   * @maximum 100000
    * @default 10
    * @type number | undefined
    */
   limit?: number | undefined;
   /**
    * @description Maximum age of a resource that can be returned from cache in seconds. Default is 1 day.
-   * @minLength 0
-   * @maxLength 604800
+   * @minimum 0
+   * @maximum 604800
    * @default 86400
    * @type number | undefined
    */
@@ -284136,7 +284299,7 @@ export type BrapiPostCrawlBody = {
     hidden?: true | undefined;
     selector: string;
     /**
-     * @maxLength 120000
+     * @maximum 120000
      * @type number | undefined
      */
     timeout?: number | undefined;
@@ -284144,7 +284307,7 @@ export type BrapiPostCrawlBody = {
   } | undefined;
   /**
    * @description Waits for a specified timeout before continuing.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   waitForTimeout?: number | undefined;
@@ -284162,8 +284325,8 @@ export type BrapiPostCrawlBody = {
   crawlPurposes?: ('search' | 'ai-input' | 'ai-train')[] | undefined;
   /**
    * @description Maximum number of levels deep the crawler will traverse from the starting URL.
-   * @minLength 1
-   * @maxLength 100000
+   * @minimum 1
+   * @maximum 100000
    * @default 100000
    * @type number | undefined
    */
@@ -284209,16 +284372,16 @@ export type BrapiPostCrawlBody = {
   } | undefined;
   /**
    * @description Maximum number of URLs to crawl.
-   * @minLength 1
-   * @maxLength 100000
+   * @minimum 1
+   * @maximum 100000
    * @default 10
    * @type number | undefined
    */
   limit?: number | undefined;
   /**
    * @description Maximum age of a resource that can be returned from cache in seconds. Default is 1 day.
-   * @minLength 0
-   * @maxLength 604800
+   * @minimum 0
+   * @maximum 604800
    * @default 86400
    * @type number | undefined
    */
@@ -284447,8 +284610,8 @@ export type BrapiGetCrawlResultStatusKey = (typeof brapiGetCrawlResultStatus)[ke
 export type BrapiGetCrawlResultQuery = {
   /**
    * @description Cache TTL default is 5s. Set to 0 to disable.
-   * @minLength 0
-   * @maxLength 86400
+   * @minimum 0
+   * @maximum 86400
    * @default 5
    * @type number | undefined
    */
@@ -284744,8 +284907,8 @@ export type BrapiPostDevtoolsAcquirePath = {
 export type BrapiPostDevtoolsAcquireQuery = {
   /**
    * @description Keep-alive time in milliseconds.
-   * @minLength 10000
-   * @maxLength 1200000
+   * @minimum 10000
+   * @maximum 1200000
    * @default 60000
    * @type number | undefined
    */
@@ -284764,8 +284927,8 @@ export type BrapiPostDevtoolsAcquireQuery = {
   targets?: boolean | undefined;
   /**
    * @description How long the live view URL remains valid, in milliseconds (max 60 minutes). Only used when targets is true.
-   * @minLength 60000
-   * @maxLength 3600000
+   * @minimum 60000
+   * @maximum 3600000
    * @default 300000
    * @type number | undefined
    */
@@ -284905,8 +285068,8 @@ export type BrapiGetDevtoolsJsonPath = {
 export type BrapiGetDevtoolsJsonQuery = {
   /**
    * @description How long the live view URLs remain valid, in milliseconds (max 60 minutes)
-   * @minLength 60000
-   * @maxLength 3600000
+   * @minimum 60000
+   * @maximum 3600000
    * @default 300000
    * @type number | undefined
    */
@@ -285243,8 +285406,8 @@ export type BrapiGetDevtoolsJsonListPath = {
 export type BrapiGetDevtoolsJsonListQuery = {
   /**
    * @description How long the live view URLs remain valid, in milliseconds (max 60 minutes)
-   * @minLength 60000
-   * @maxLength 3600000
+   * @minimum 60000
+   * @maximum 3600000
    * @default 300000
    * @type number | undefined
    */
@@ -285509,8 +285672,8 @@ export type BrapiPutDevtoolsJsonNewQuery = {
   url?: string | undefined;
   /**
    * @description How long the live view URL remains valid, in milliseconds (max 60 minutes)
-   * @minLength 60000
-   * @maxLength 3600000
+   * @minimum 60000
+   * @maximum 3600000
    * @default 300000
    * @type number | undefined
    */
@@ -285983,8 +286146,8 @@ export type BrapiPostDevtoolsLiveViewRequestModeEnumKey = (typeof brapiPostDevto
 export type BrapiPostDevtoolsLiveViewBody = {
   /**
    * @description How long the live view URLs remain valid, in milliseconds. Default: 5 minutes. Max: 60 minutes.
-   * @minLength 60000
-   * @maxLength 3600000
+   * @minimum 60000
+   * @maximum 3600000
    * @default 300000
    * @type number | undefined
    */
@@ -286039,14 +286202,14 @@ export type BrapiGetDevtoolsSessionListPath = {
 
 export type BrapiGetDevtoolsSessionListQuery = {
   /**
-   * @minLength 1
-   * @maxLength 200
+   * @minimum 1
+   * @maximum 200
    * @default 200
    * @type number | undefined
    */
   limit?: number | undefined;
   /**
-   * @minLength 0
+   * @minimum 0
    * @default 0
    * @type number | undefined
    */
@@ -286240,8 +286403,8 @@ export type BrapiPostJsonPath = {
 export type BrapiPostJsonQuery = {
   /**
    * @description Cache TTL default is 5s. Set to 0 to disable.
-   * @minLength 0
-   * @maxLength 86400
+   * @minimum 0
+   * @maximum 86400
    * @default 5
    * @type number | undefined
    */
@@ -286417,7 +286580,7 @@ export type BrapiPostJsonBody = ({
 }) & {
   /**
    * @description The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   actionTimeout?: number | undefined;
@@ -286530,7 +286693,7 @@ export type BrapiPostJsonBody = ({
     referer?: string | undefined;
     referrerPolicy?: string | undefined;
     /**
-     * @maxLength 60000
+     * @maximum 60000
      * @default 30000
      * @type number | undefined
      */
@@ -286606,7 +286769,7 @@ export type BrapiPostJsonBody = ({
     hidden?: true | undefined;
     selector: string;
     /**
-     * @maxLength 120000
+     * @maximum 120000
      * @type number | undefined
      */
     timeout?: number | undefined;
@@ -286614,7 +286777,7 @@ export type BrapiPostJsonBody = ({
   } | undefined;
   /**
    * @description Waits for a specified timeout before continuing.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   waitForTimeout?: number | undefined;
@@ -286651,8 +286814,8 @@ export type BrapiPostLinksPath = {
 export type BrapiPostLinksQuery = {
   /**
    * @description Cache TTL default is 5s. Set to 0 to disable.
-   * @minLength 0
-   * @maxLength 86400
+   * @minimum 0
+   * @maximum 86400
    * @default 5
    * @type number | undefined
    */
@@ -286821,7 +286984,7 @@ export type BrapiPostLinksBody = ({
 }) & {
   /**
    * @description The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   actionTimeout?: number | undefined;
@@ -286923,7 +287086,7 @@ export type BrapiPostLinksBody = ({
     referer?: string | undefined;
     referrerPolicy?: string | undefined;
     /**
-     * @maxLength 60000
+     * @maximum 60000
      * @default 30000
      * @type number | undefined
      */
@@ -286993,7 +287156,7 @@ export type BrapiPostLinksBody = ({
     hidden?: true | undefined;
     selector: string;
     /**
-     * @maxLength 120000
+     * @maximum 120000
      * @type number | undefined
      */
     timeout?: number | undefined;
@@ -287001,7 +287164,7 @@ export type BrapiPostLinksBody = ({
   } | undefined;
   /**
    * @description Waits for a specified timeout before continuing.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   waitForTimeout?: number | undefined;
@@ -287038,8 +287201,8 @@ export type BrapiPostMarkdownPath = {
 export type BrapiPostMarkdownQuery = {
   /**
    * @description Cache TTL default is 5s. Set to 0 to disable.
-   * @minLength 0
-   * @maxLength 86400
+   * @minimum 0
+   * @maximum 86400
    * @default 5
    * @type number | undefined
    */
@@ -287212,7 +287375,7 @@ export type BrapiPostMarkdownBody = ({
 }) & {
   /**
    * @description The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   actionTimeout?: number | undefined;
@@ -287309,7 +287472,7 @@ export type BrapiPostMarkdownBody = ({
     referer?: string | undefined;
     referrerPolicy?: string | undefined;
     /**
-     * @maxLength 60000
+     * @maximum 60000
      * @default 30000
      * @type number | undefined
      */
@@ -287374,7 +287537,7 @@ export type BrapiPostMarkdownBody = ({
     hidden?: true | undefined;
     selector: string;
     /**
-     * @maxLength 120000
+     * @maximum 120000
      * @type number | undefined
      */
     timeout?: number | undefined;
@@ -287382,7 +287545,7 @@ export type BrapiPostMarkdownBody = ({
   } | undefined;
   /**
    * @description Waits for a specified timeout before continuing.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   waitForTimeout?: number | undefined;
@@ -287419,8 +287582,8 @@ export type BrapiPostPdfPath = {
 export type BrapiPostPdfQuery = {
   /**
    * @description Cache TTL default is 5s. Set to 0 to disable.
-   * @minLength 0
-   * @maxLength 86400
+   * @minimum 0
+   * @maximum 86400
    * @default 5
    * @type number | undefined
    */
@@ -287542,7 +287705,7 @@ export type BrapiPostPdfBody = ({
 }) & {
   /**
    * @description The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   actionTimeout?: number | undefined;
@@ -287639,7 +287802,7 @@ export type BrapiPostPdfBody = ({
     referer?: string | undefined;
     referrerPolicy?: string | undefined;
     /**
-     * @maxLength 60000
+     * @maximum 60000
      * @default 30000
      * @type number | undefined
      */
@@ -287735,8 +287898,8 @@ export type BrapiPostPdfBody = ({
     printBackground?: boolean | undefined;
     /**
      * @description Scales the rendering of the web page. Amount must be between 0.1 and 2.
-     * @minLength 0.1
-     * @maxLength 2
+     * @minimum 0.1
+     * @maximum 2
      * @default 1
      * @type number | undefined
      */
@@ -287806,7 +287969,7 @@ export type BrapiPostPdfBody = ({
     hidden?: true | undefined;
     selector: string;
     /**
-     * @maxLength 120000
+     * @maximum 120000
      * @type number | undefined
      */
     timeout?: number | undefined;
@@ -287814,7 +287977,7 @@ export type BrapiPostPdfBody = ({
   } | undefined;
   /**
    * @description Waits for a specified timeout before continuing.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   waitForTimeout?: number | undefined;
@@ -288075,8 +288238,8 @@ export type BrapiPostScrapePath = {
 export type BrapiPostScrapeQuery = {
   /**
    * @description Cache TTL default is 5s. Set to 0 to disable.
-   * @minLength 0
-   * @maxLength 86400
+   * @minimum 0
+   * @maximum 86400
    * @default 5
    * @type number | undefined
    */
@@ -288295,7 +288458,7 @@ export type BrapiPostScrapeBody = ({
 }) & {
   /**
    * @description The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   actionTimeout?: number | undefined;
@@ -288395,7 +288558,7 @@ export type BrapiPostScrapeBody = ({
     referer?: string | undefined;
     referrerPolicy?: string | undefined;
     /**
-     * @maxLength 60000
+     * @maximum 60000
      * @default 30000
      * @type number | undefined
      */
@@ -288460,7 +288623,7 @@ export type BrapiPostScrapeBody = ({
     hidden?: true | undefined;
     selector: string;
     /**
-     * @maxLength 120000
+     * @maximum 120000
      * @type number | undefined
      */
     timeout?: number | undefined;
@@ -288468,7 +288631,7 @@ export type BrapiPostScrapeBody = ({
   } | undefined;
   /**
    * @description Waits for a specified timeout before continuing.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   waitForTimeout?: number | undefined;
@@ -288505,8 +288668,8 @@ export type BrapiPostScreenshotPath = {
 export type BrapiPostScreenshotQuery = {
   /**
    * @description Cache TTL default is 5s. Set to 0 to disable.
-   * @minLength 0
-   * @maxLength 86400
+   * @minimum 0
+   * @maximum 86400
    * @default 5
    * @type number | undefined
    */
@@ -288627,7 +288790,7 @@ export type BrapiPostScreenshotBody = ({
 }) & {
   /**
    * @description The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   actionTimeout?: number | undefined;
@@ -288724,7 +288887,7 @@ export type BrapiPostScreenshotBody = ({
     referer?: string | undefined;
     referrerPolicy?: string | undefined;
     /**
-     * @maxLength 60000
+     * @maximum 60000
      * @default 30000
      * @type number | undefined
      */
@@ -288819,7 +288982,7 @@ export type BrapiPostScreenshotBody = ({
     hidden?: true | undefined;
     selector: string;
     /**
-     * @maxLength 120000
+     * @maximum 120000
      * @type number | undefined
      */
     timeout?: number | undefined;
@@ -288827,7 +288990,7 @@ export type BrapiPostScreenshotBody = ({
   } | undefined;
   /**
    * @description Waits for a specified timeout before continuing.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   waitForTimeout?: number | undefined;
@@ -288864,8 +289027,8 @@ export type BrapiPostSnapshotPath = {
 export type BrapiPostSnapshotQuery = {
   /**
    * @description Cache TTL default is 5s. Set to 0 to disable.
-   * @minLength 0
-   * @maxLength 86400
+   * @minimum 0
+   * @maximum 86400
    * @default 5
    * @type number | undefined
    */
@@ -289064,7 +289227,7 @@ export type BrapiPostSnapshotBody = ({
 }) & {
   /**
    * @description The maximum duration allowed for the browser action to complete after the page has loaded (such as taking screenshots, extracting content, or generating PDFs). If this time limit is exceeded, the action stops and returns a timeout error.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   actionTimeout?: number | undefined;
@@ -289166,7 +289329,7 @@ export type BrapiPostSnapshotBody = ({
     referer?: string | undefined;
     referrerPolicy?: string | undefined;
     /**
-     * @maxLength 60000
+     * @maximum 60000
      * @default 30000
      * @type number | undefined
      */
@@ -289254,7 +289417,7 @@ export type BrapiPostSnapshotBody = ({
     hidden?: true | undefined;
     selector: string;
     /**
-     * @maxLength 120000
+     * @maximum 120000
      * @type number | undefined
      */
     timeout?: number | undefined;
@@ -289262,7 +289425,7 @@ export type BrapiPostSnapshotBody = ({
   } | undefined;
   /**
    * @description Waits for a specified timeout before continuing.
-   * @maxLength 120000
+   * @maximum 120000
    * @type number | undefined
    */
   waitForTimeout?: number | undefined;
@@ -289740,15 +289903,15 @@ export type ListBuildTokensPath = {
 export type ListBuildTokensQuery = {
   /**
    * @description Page number for pagination
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of items per page
-   * @minLength 1
-   * @maxLength 200
+   * @minimum 1
+   * @maximum 200
    * @default 50
    * @type integer | undefined
    */
@@ -290347,15 +290510,15 @@ export type ListBuildsByScriptPath = {
 export type ListBuildsByScriptQuery = {
   /**
    * @description Page number for pagination
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of items per page
-   * @minLength 1
-   * @maxLength 200
+   * @minimum 1
+   * @maximum 200
    * @default 50
    * @type integer | undefined
    */
@@ -290995,15 +291158,15 @@ export type ListWorkerPreviewsPath = {
 export type ListWorkerPreviewsQuery = {
   /**
    * @description Page number for pagination
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of items per page
-   * @minLength 1
-   * @maxLength 200
+   * @minimum 1
+   * @maximum 200
    * @default 50
    * @type integer | undefined
    */
@@ -291200,15 +291363,15 @@ export type ListBuildsByPreviewPath = {
 export type ListBuildsByPreviewQuery = {
   /**
    * @description Page number for pagination
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of items per page
-   * @minLength 1
-   * @maxLength 200
+   * @minimum 1
+   * @maximum 200
    * @default 50
    * @type integer | undefined
    */
@@ -291799,14 +291962,14 @@ export type CloudflareTunnelListCloudflareTunnelsQuery = {
   status?: TunnelStatusKey | undefined;
   /**
    * @description Number of results to display.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @type number | undefined
    */
   per_page?: TunnelPerPage | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
@@ -292365,15 +292528,15 @@ export type AccountsTurnstileWidgetsListDirectionKey = (typeof accountsTurnstile
 export type AccountsTurnstileWidgetsListQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of items per page.
-   * @minLength 5
-   * @maxLength 1000
+   * @minimum 5
+   * @maximum 1000
    * @default 25
    * @type number | undefined
    */
@@ -292463,15 +292626,15 @@ export type AccountsTurnstileWidgetCreateDirectionKey = (typeof accountsTurnstil
 export type AccountsTurnstileWidgetCreateQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of items per page.
-   * @minLength 5
-   * @maxLength 1000
+   * @minimum 5
+   * @maximum 1000
    * @default 25
    * @type number | undefined
    */
@@ -293070,9 +293233,56 @@ export const getEventListGetSearchOpEnum = {
   gte: 'gte',
   lt: 'lt',
   lte: 'lte',
+  like: 'like',
+  contains: 'contains',
+  startsWith: 'startsWith',
+  endsWith: 'endsWith',
+  find: 'find',
 } as const;
 
 export type GetEventListGetSearchOpEnumKey = (typeof getEventListGetSearchOpEnum)[keyof typeof getEventListGetSearchOpEnum];
+
+export const getEventListGetSearchFieldEnum2 = {
+  attacker: 'attacker',
+  attackerCountry: 'attackerCountry',
+  category: 'category',
+  createdAt: 'createdAt',
+  date: 'date',
+  event: 'event',
+  indicator: 'indicator',
+  indicatorType: 'indicatorType',
+  mitreAttack: 'mitreAttack',
+  mitreCapec: 'mitreCapec',
+  tags: 'tags',
+  targetCountry: 'targetCountry',
+  targetIndustry: 'targetIndustry',
+  tlp: 'tlp',
+  uuid: 'uuid',
+} as const;
+
+export type GetEventListGetSearchFieldEnum2Key = (typeof getEventListGetSearchFieldEnum2)[keyof typeof getEventListGetSearchFieldEnum2];
+
+export const getEventListGetSearchOpEnum3 = {
+  equals: 'equals',
+  not: 'not',
+  gt: 'gt',
+  gte: 'gte',
+  lt: 'lt',
+  lte: 'lte',
+} as const;
+
+export type GetEventListGetSearchOpEnum3Key = (typeof getEventListGetSearchOpEnum3)[keyof typeof getEventListGetSearchOpEnum3];
+
+export const getEventListGetSearchOpEnum5 = {
+  equals: 'equals',
+  not: 'not',
+  gt: 'gt',
+  gte: 'gte',
+  lt: 'lt',
+  lte: 'lte',
+} as const;
+
+export type GetEventListGetSearchOpEnum5Key = (typeof getEventListGetSearchOpEnum5)[keyof typeof getEventListGetSearchOpEnum5];
 
 export const getEventListGetSearchBranchesFieldEnum = {
   attacker: 'attacker',
@@ -293101,9 +293311,56 @@ export const getEventListGetSearchBranchesOpEnum = {
   gte: 'gte',
   lt: 'lt',
   lte: 'lte',
+  like: 'like',
+  contains: 'contains',
+  startsWith: 'startsWith',
+  endsWith: 'endsWith',
+  find: 'find',
 } as const;
 
 export type GetEventListGetSearchBranchesOpEnumKey = (typeof getEventListGetSearchBranchesOpEnum)[keyof typeof getEventListGetSearchBranchesOpEnum];
+
+export const getEventListGetSearchBranchesFieldEnum2 = {
+  attacker: 'attacker',
+  attackerCountry: 'attackerCountry',
+  category: 'category',
+  createdAt: 'createdAt',
+  date: 'date',
+  event: 'event',
+  indicator: 'indicator',
+  indicatorType: 'indicatorType',
+  mitreAttack: 'mitreAttack',
+  mitreCapec: 'mitreCapec',
+  tags: 'tags',
+  targetCountry: 'targetCountry',
+  targetIndustry: 'targetIndustry',
+  tlp: 'tlp',
+  uuid: 'uuid',
+} as const;
+
+export type GetEventListGetSearchBranchesFieldEnum2Key = (typeof getEventListGetSearchBranchesFieldEnum2)[keyof typeof getEventListGetSearchBranchesFieldEnum2];
+
+export const getEventListGetSearchBranchesOpEnum3 = {
+  equals: 'equals',
+  not: 'not',
+  gt: 'gt',
+  gte: 'gte',
+  lt: 'lt',
+  lte: 'lte',
+} as const;
+
+export type GetEventListGetSearchBranchesOpEnum3Key = (typeof getEventListGetSearchBranchesOpEnum3)[keyof typeof getEventListGetSearchBranchesOpEnum3];
+
+export const getEventListGetSearchBranchesOpEnum5 = {
+  equals: 'equals',
+  not: 'not',
+  gt: 'gt',
+  gte: 'gte',
+  lt: 'lt',
+  lte: 'lte',
+} as const;
+
+export type GetEventListGetSearchBranchesOpEnum5Key = (typeof getEventListGetSearchBranchesOpEnum5)[keyof typeof getEventListGetSearchBranchesOpEnum5];
 
 export const getEventListGetOrder = {
   asc: 'asc',
@@ -293141,12 +293398,12 @@ export type GetEventListGetQuery = {
      */
     value: string;
   } | {
-    field: GetEventListGetSearchFieldEnumKey;
+    field: GetEventListGetSearchFieldEnum2Key;
     op: 'in';
     value: string[];
   } | {
     field: 'killChain';
-    op: GetEventListGetSearchOpEnumKey;
+    op: GetEventListGetSearchOpEnum3Key;
     value: number | string;
   } | {
     field: 'killChain';
@@ -293154,7 +293411,7 @@ export type GetEventListGetQuery = {
     value: (number | string)[];
   } | {
     field: 'hasChildren';
-    op: GetEventListGetSearchOpEnumKey;
+    op: GetEventListGetSearchOpEnum5Key;
     value: boolean | 'true' | 'false' | 1 | 0 | '1' | '0';
   } | {
     field: 'hasChildren';
@@ -293175,12 +293432,12 @@ export type GetEventListGetQuery = {
      */
     value: string;
   } | {
-    field: GetEventListGetSearchBranchesFieldEnumKey;
+    field: GetEventListGetSearchBranchesFieldEnum2Key;
     op: 'in';
     value: string[];
   } | {
     field: 'killChain';
-    op: GetEventListGetSearchBranchesOpEnumKey;
+    op: GetEventListGetSearchBranchesOpEnum3Key;
     value: number | string;
   } | {
     field: 'killChain';
@@ -293188,7 +293445,7 @@ export type GetEventListGetQuery = {
     value: (number | string)[];
   } | {
     field: 'hasChildren';
-    op: GetEventListGetSearchBranchesOpEnumKey;
+    op: GetEventListGetSearchBranchesOpEnum5Key;
     value: boolean | 'true' | 'false' | 1 | 0 | '1' | '0';
   } | {
     field: 'hasChildren';
@@ -293519,9 +293776,56 @@ export const postEventListRequestSearchOpEnum = {
   gte: 'gte',
   lt: 'lt',
   lte: 'lte',
+  like: 'like',
+  contains: 'contains',
+  startsWith: 'startsWith',
+  endsWith: 'endsWith',
+  find: 'find',
 } as const;
 
 export type PostEventListRequestSearchOpEnumKey = (typeof postEventListRequestSearchOpEnum)[keyof typeof postEventListRequestSearchOpEnum];
+
+export const postEventListRequestSearchFieldEnum2 = {
+  attacker: 'attacker',
+  attackerCountry: 'attackerCountry',
+  category: 'category',
+  createdAt: 'createdAt',
+  date: 'date',
+  event: 'event',
+  indicator: 'indicator',
+  indicatorType: 'indicatorType',
+  mitreAttack: 'mitreAttack',
+  mitreCapec: 'mitreCapec',
+  tags: 'tags',
+  targetCountry: 'targetCountry',
+  targetIndustry: 'targetIndustry',
+  tlp: 'tlp',
+  uuid: 'uuid',
+} as const;
+
+export type PostEventListRequestSearchFieldEnum2Key = (typeof postEventListRequestSearchFieldEnum2)[keyof typeof postEventListRequestSearchFieldEnum2];
+
+export const postEventListRequestSearchOpEnum3 = {
+  equals: 'equals',
+  not: 'not',
+  gt: 'gt',
+  gte: 'gte',
+  lt: 'lt',
+  lte: 'lte',
+} as const;
+
+export type PostEventListRequestSearchOpEnum3Key = (typeof postEventListRequestSearchOpEnum3)[keyof typeof postEventListRequestSearchOpEnum3];
+
+export const postEventListRequestSearchOpEnum5 = {
+  equals: 'equals',
+  not: 'not',
+  gt: 'gt',
+  gte: 'gte',
+  lt: 'lt',
+  lte: 'lte',
+} as const;
+
+export type PostEventListRequestSearchOpEnum5Key = (typeof postEventListRequestSearchOpEnum5)[keyof typeof postEventListRequestSearchOpEnum5];
 
 export const postEventListRequestSearchBranchesFieldEnum = {
   attacker: 'attacker',
@@ -293550,9 +293854,56 @@ export const postEventListRequestSearchBranchesOpEnum = {
   gte: 'gte',
   lt: 'lt',
   lte: 'lte',
+  like: 'like',
+  contains: 'contains',
+  startsWith: 'startsWith',
+  endsWith: 'endsWith',
+  find: 'find',
 } as const;
 
 export type PostEventListRequestSearchBranchesOpEnumKey = (typeof postEventListRequestSearchBranchesOpEnum)[keyof typeof postEventListRequestSearchBranchesOpEnum];
+
+export const postEventListRequestSearchBranchesFieldEnum2 = {
+  attacker: 'attacker',
+  attackerCountry: 'attackerCountry',
+  category: 'category',
+  createdAt: 'createdAt',
+  date: 'date',
+  event: 'event',
+  indicator: 'indicator',
+  indicatorType: 'indicatorType',
+  mitreAttack: 'mitreAttack',
+  mitreCapec: 'mitreCapec',
+  tags: 'tags',
+  targetCountry: 'targetCountry',
+  targetIndustry: 'targetIndustry',
+  tlp: 'tlp',
+  uuid: 'uuid',
+} as const;
+
+export type PostEventListRequestSearchBranchesFieldEnum2Key = (typeof postEventListRequestSearchBranchesFieldEnum2)[keyof typeof postEventListRequestSearchBranchesFieldEnum2];
+
+export const postEventListRequestSearchBranchesOpEnum3 = {
+  equals: 'equals',
+  not: 'not',
+  gt: 'gt',
+  gte: 'gte',
+  lt: 'lt',
+  lte: 'lte',
+} as const;
+
+export type PostEventListRequestSearchBranchesOpEnum3Key = (typeof postEventListRequestSearchBranchesOpEnum3)[keyof typeof postEventListRequestSearchBranchesOpEnum3];
+
+export const postEventListRequestSearchBranchesOpEnum5 = {
+  equals: 'equals',
+  not: 'not',
+  gt: 'gt',
+  gte: 'gte',
+  lt: 'lt',
+  lte: 'lte',
+} as const;
+
+export type PostEventListRequestSearchBranchesOpEnum5Key = (typeof postEventListRequestSearchBranchesOpEnum5)[keyof typeof postEventListRequestSearchBranchesOpEnum5];
 
 export type PostEventListBody = {
   /**
@@ -293597,12 +293948,12 @@ export type PostEventListBody = {
      */
     value: string;
   } | {
-    field: PostEventListRequestSearchFieldEnumKey;
+    field: PostEventListRequestSearchFieldEnum2Key;
     op: 'in';
     value: string[];
   } | {
     field: 'killChain';
-    op: PostEventListRequestSearchOpEnumKey;
+    op: PostEventListRequestSearchOpEnum3Key;
     value: number | string;
   } | {
     field: 'killChain';
@@ -293610,7 +293961,7 @@ export type PostEventListBody = {
     value: (number | string)[];
   } | {
     field: 'hasChildren';
-    op: PostEventListRequestSearchOpEnumKey;
+    op: PostEventListRequestSearchOpEnum5Key;
     value: boolean | 'true' | 'false' | 1 | 0 | '1' | '0';
   } | {
     field: 'hasChildren';
@@ -293631,12 +293982,12 @@ export type PostEventListBody = {
      */
     value: string;
   } | {
-    field: PostEventListRequestSearchBranchesFieldEnumKey;
+    field: PostEventListRequestSearchBranchesFieldEnum2Key;
     op: 'in';
     value: string[];
   } | {
     field: 'killChain';
-    op: PostEventListRequestSearchBranchesOpEnumKey;
+    op: PostEventListRequestSearchBranchesOpEnum3Key;
     value: number | string;
   } | {
     field: 'killChain';
@@ -293644,7 +293995,7 @@ export type PostEventListBody = {
     value: (number | string)[];
   } | {
     field: 'hasChildren';
-    op: PostEventListRequestSearchBranchesOpEnumKey;
+    op: PostEventListRequestSearchBranchesOpEnum5Key;
     value: boolean | 'true' | 'false' | 1 | 0 | '1' | '0';
   } | {
     field: 'hasChildren';
@@ -296699,7 +297050,7 @@ export type DeleteIndicatorDeleteBulkQuery = {
 export type DeleteIndicatorDeleteBulkStatus200 = {
   /**
    * @description Number of indicators deleted.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   deletedCount: number;
@@ -297690,8 +298041,8 @@ export type GetIndicatorRelationshipsListQuery = {
   cursor?: string | undefined;
   /**
    * @description Page size (1–100, default 25).
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 25
    * @type integer | undefined
    */
@@ -297801,8 +298152,8 @@ export type PostIndicatorRelationshipCreateRequestTargetTypeEnumKey = (typeof po
 export type PostIndicatorRelationshipCreateBody = {
   /**
    * @description Confidence score 0–100.
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @type integer | undefined
    */
   confidence?: number | undefined;
@@ -297978,8 +298329,8 @@ export type PatchIndicatorRelationshipUpdateStatus404 = {
 export type PatchIndicatorRelationshipUpdateBody = {
   /**
    * @description Updated confidence. null clears it.
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @type integer | undefined
    */
   confidence?: (number | null) | undefined;
@@ -300626,8 +300977,8 @@ export type GetIndicatorAggregateQuery = {
   eventDateBefore?: string | undefined;
   /**
    * @description Maximum number of aggregation results to return (1-100)
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 10
    * @type number | undefined
    */
@@ -302288,8 +302639,8 @@ export type GetTagListStatus200 = {
      */
     aliases?: {
       /**
-       * @minLength 1
-       * @maxLength 10
+       * @minimum 1
+       * @maximum 10
        * @example 8
        * @type integer | undefined
        */
@@ -302323,8 +302674,8 @@ export type GetTagListStatus200 = {
     categoryUuid?: string | undefined;
     /**
      * @description Overall tag confidence (1-10).
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @example 8
      * @type integer | undefined
      */
@@ -302363,8 +302714,8 @@ export type GetTagListStatus200 = {
      */
     internalAliases?: {
       /**
-       * @minLength 1
-       * @maxLength 10
+       * @minimum 1
+       * @maximum 10
        * @example 8
        * @type integer | undefined
        */
@@ -302764,8 +303115,8 @@ export type GetTaggedActorListStatus200 = {
      */
     aliases?: {
       /**
-       * @minLength 1
-       * @maxLength 10
+       * @minimum 1
+       * @maximum 10
        * @example 8
        * @type integer | undefined
        */
@@ -302799,8 +303150,8 @@ export type GetTaggedActorListStatus200 = {
     categoryUuid?: string | undefined;
     /**
      * @description Overall tag confidence (1-10).
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @example 8
      * @type integer | undefined
      */
@@ -302839,8 +303190,8 @@ export type GetTaggedActorListStatus200 = {
      */
     internalAliases?: {
       /**
-       * @minLength 1
-       * @maxLength 10
+       * @minimum 1
+       * @maximum 10
        * @example 8
        * @type integer | undefined
        */
@@ -303442,8 +303793,8 @@ export type PostTagCreateStatus200 = {
    */
   aliases?: {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @example 8
      * @type integer | undefined
      */
@@ -303477,8 +303828,8 @@ export type PostTagCreateStatus200 = {
   categoryUuid?: string | undefined;
   /**
    * @description Overall tag confidence (1-10).
-   * @minLength 1
-   * @maxLength 10
+   * @minimum 1
+   * @maximum 10
    * @example 8
    * @type integer | undefined
    */
@@ -303517,8 +303868,8 @@ export type PostTagCreateStatus200 = {
    */
   internalAliases?: {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @example 8
      * @type integer | undefined
      */
@@ -303755,8 +304106,8 @@ export type PostTagCreateRequestTlpEnumKey = (typeof postTagCreateRequestTlpEnum
 export type PostTagCreateBody = {
   activeDuration?: (string | {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @type integer | undefined
      */
     confidence?: number | undefined;
@@ -303765,8 +304116,8 @@ export type PostTagCreateBody = {
   }) | undefined;
   actorCategory?: (string | {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @type integer | undefined
      */
     confidence?: number | undefined;
@@ -303781,8 +304132,8 @@ export type PostTagCreateBody = {
    */
   aliases?: {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @example 8
      * @type integer | undefined
      */
@@ -303800,8 +304151,8 @@ export type PostTagCreateBody = {
   }[] | undefined;
   attributionOrganization?: (string | {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @type integer | undefined
      */
     confidence?: number | undefined;
@@ -303816,8 +304167,8 @@ export type PostTagCreateBody = {
   categoryUuid?: string | undefined;
   /**
    * @description Overall tag confidence (1-10). Optional.
-   * @minLength 1
-   * @maxLength 10
+   * @minimum 1
+   * @maximum 10
    * @example 8
    * @type integer | undefined
    */
@@ -303857,8 +304208,8 @@ export type PostTagCreateBody = {
    */
   internalAliases?: {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @example 8
      * @type integer | undefined
      */
@@ -303878,8 +304229,8 @@ export type PostTagCreateBody = {
   lastSeen?: string | undefined;
   motive?: (string | {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @type integer | undefined
      */
     confidence?: number | undefined;
@@ -303888,8 +304239,8 @@ export type PostTagCreateBody = {
   }) | undefined;
   opsecLevel?: (string | {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @type integer | undefined
      */
     confidence?: number | undefined;
@@ -303898,8 +304249,8 @@ export type PostTagCreateBody = {
   }) | undefined;
   originCountryISO?: (string | {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @type integer | undefined
      */
     confidence?: number | undefined;
@@ -303908,8 +304259,8 @@ export type PostTagCreateBody = {
   }) | undefined;
   priority?: (number | {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @type integer | undefined
      */
     confidence?: number | undefined;
@@ -303925,8 +304276,8 @@ export type PostTagCreateBody = {
   } | undefined;
   sophisticationLevel?: (string | {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @type integer | undefined
      */
     confidence?: number | undefined;
@@ -304204,8 +304555,8 @@ export type GetTagDetailStatus200 = {
    */
   aliases?: {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @example 8
      * @type integer | undefined
      */
@@ -304239,8 +304590,8 @@ export type GetTagDetailStatus200 = {
   categoryUuid?: string | undefined;
   /**
    * @description Overall tag confidence (1-10).
-   * @minLength 1
-   * @maxLength 10
+   * @minimum 1
+   * @maximum 10
    * @example 8
    * @type integer | undefined
    */
@@ -304279,8 +304630,8 @@ export type GetTagDetailStatus200 = {
    */
   internalAliases?: {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @example 8
      * @type integer | undefined
      */
@@ -304564,8 +304915,8 @@ export type PatchTagUpdateStatus200 = {
    */
   aliases?: {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @example 8
      * @type integer | undefined
      */
@@ -304599,8 +304950,8 @@ export type PatchTagUpdateStatus200 = {
   categoryUuid?: string | undefined;
   /**
    * @description Overall tag confidence (1-10).
-   * @minLength 1
-   * @maxLength 10
+   * @minimum 1
+   * @maximum 10
    * @example 8
    * @type integer | undefined
    */
@@ -304639,8 +304990,8 @@ export type PatchTagUpdateStatus200 = {
    */
   internalAliases?: {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @example 8
      * @type integer | undefined
      */
@@ -304877,8 +305228,8 @@ export type PatchTagUpdateRequestTlpEnumKey = (typeof patchTagUpdateRequestTlpEn
 export type PatchTagUpdateBody = {
   activeDuration?: (string | {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @type integer | undefined
      */
     confidence?: number | undefined;
@@ -304887,8 +305238,8 @@ export type PatchTagUpdateBody = {
   }) | undefined;
   actorCategory?: (string | {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @type integer | undefined
      */
     confidence?: number | undefined;
@@ -304903,8 +305254,8 @@ export type PatchTagUpdateBody = {
    */
   aliases?: {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @example 8
      * @type integer | undefined
      */
@@ -304922,8 +305273,8 @@ export type PatchTagUpdateBody = {
   }[] | undefined;
   attributionOrganization?: (string | {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @type integer | undefined
      */
     confidence?: number | undefined;
@@ -304938,8 +305289,8 @@ export type PatchTagUpdateBody = {
   categoryUuid?: string | undefined;
   /**
    * @description Overall tag confidence (1-10). Omit to preserve existing.
-   * @minLength 1
-   * @maxLength 10
+   * @minimum 1
+   * @maximum 10
    * @example 8
    * @type integer | undefined
    */
@@ -304975,8 +305326,8 @@ export type PatchTagUpdateBody = {
    */
   internalAliases?: {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @example 8
      * @type integer | undefined
      */
@@ -304996,8 +305347,8 @@ export type PatchTagUpdateBody = {
   lastSeen?: string | undefined;
   motive?: (string | {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @type integer | undefined
      */
     confidence?: number | undefined;
@@ -305006,8 +305357,8 @@ export type PatchTagUpdateBody = {
   }) | undefined;
   opsecLevel?: (string | {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @type integer | undefined
      */
     confidence?: number | undefined;
@@ -305016,8 +305367,8 @@ export type PatchTagUpdateBody = {
   }) | undefined;
   originCountryISO?: (string | {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @type integer | undefined
      */
     confidence?: number | undefined;
@@ -305026,8 +305377,8 @@ export type PatchTagUpdateBody = {
   }) | undefined;
   priority?: (number | {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @type integer | undefined
      */
     confidence?: number | undefined;
@@ -305043,8 +305394,8 @@ export type PatchTagUpdateBody = {
   } | undefined;
   sophisticationLevel?: (string | {
     /**
-     * @minLength 1
-     * @maxLength 10
+     * @minimum 1
+     * @maximum 10
      * @type integer | undefined
      */
     confidence?: number | undefined;
@@ -305371,8 +305722,8 @@ export type GetTagRelationshipsListQuery = {
   cursor?: string | undefined;
   /**
    * @description Page size (1–100, default 25).
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 25
    * @type integer | undefined
    */
@@ -305466,8 +305817,8 @@ export type PostTagRelationshipCreateRequestTargetTypeEnumKey = (typeof postTagR
 export type PostTagRelationshipCreateBody = {
   /**
    * @description Confidence score 0–100.
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @type integer | undefined
    */
   confidence?: number | undefined;
@@ -305650,8 +306001,8 @@ export type PatchTagRelationshipUpdateStatus404 = {
 export type PatchTagRelationshipUpdateBody = {
   /**
    * @description Updated confidence. null clears it.
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @type integer | undefined
    */
   confidence?: (number | null) | undefined;
@@ -308009,15 +308360,15 @@ export type CloudforceOneListRulesQuery = {
    */
   is_public?: CloudforceOneListRulesIsPublicKey | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 50
    * @example 50
    * @type number | undefined
    */
   limit?: number | undefined;
   /**
-   * @minLength 0
+   * @minimum 0
    * @default 0
    * @example 0
    * @type number | undefined
@@ -308151,15 +308502,15 @@ export type CloudforceOneListRuleApprovalsQuery = {
    */
   latest_only?: CloudforceOneListRuleApprovalsLatestOnlyKey | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 50
    * @example 50
    * @type number | undefined
    */
   limit?: number | undefined;
   /**
-   * @minLength 0
+   * @minimum 0
    * @default 0
    * @example 0
    * @type number | undefined
@@ -308474,8 +308825,10 @@ export type CloudforceOneUpdateAccountExemptionsStatus404 = CloudforceOneErrorRe
 
 export type CloudforceOneUpdateAccountExemptionsStatus409 = CloudforceOneErrorResponse;
 
+export type CloudforceOneUpdateAccountExemptionsBody2 = CloudforceOneUpdateAccountExemptionsBody | undefined;
+
 export type CloudforceOneUpdateAccountExemptionsOptions = {
-  body: CloudforceOneUpdateAccountExemptionsBody;
+  body: CloudforceOneUpdateAccountExemptionsBody2;
   path: CloudforceOneUpdateAccountExemptionsPath;
   query?: never | undefined;
   headers?: never | undefined;
@@ -308602,15 +308955,15 @@ export type CloudforceOneSearchRulesQuery = {
    */
   is_public?: CloudforceOneSearchRulesIsPublicKey | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 50
    * @example 50
    * @type number | undefined
    */
   limit?: number | undefined;
   /**
-   * @minLength 0
+   * @minimum 0
    * @default 0
    * @example 0
    * @type number | undefined
@@ -308704,14 +309057,14 @@ export type CloudforceOneListEmailRulesPath = {
 
 export type CloudforceOneListEmailRulesQuery = {
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 50
    * @type number | undefined
    */
   limit?: number | undefined;
   /**
-   * @minLength 0
+   * @minimum 0
    * @default 0
    * @type number | undefined
    */
@@ -309757,8 +310110,10 @@ export type CloudforceOneDeleteRuleStatus404 = CloudforceOneErrorResponse;
 
 export type CloudforceOneDeleteRuleStatus409 = CloudforceOneApprovalConflictResponse;
 
+export type CloudforceOneDeleteRuleBody2 = CloudforceOneDeleteRuleBody | undefined;
+
 export type CloudforceOneDeleteRuleOptions = {
-  body: CloudforceOneDeleteRuleBody;
+  body: CloudforceOneDeleteRuleBody2;
   path: CloudforceOneDeleteRulePath;
   query?: never | undefined;
   headers?: never | undefined;
@@ -310186,7 +310541,7 @@ export type GetDomainMatchListStatus200 = {
     source: string | null;
   }[];
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   total: number;
@@ -310287,13 +310642,13 @@ export type GetGetDomainQueriesQuery = {
   id?: string | undefined;
   /**
    * @description Optional page number for paginated list requests. Defaults to 1 when only per_page is supplied. Omit page and per_page to preserve the legacy full-list response.
-   * @maxLength 1000000
+   * @maximum 1000000
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Optional number of queries per page for paginated list requests. Defaults to 100 when only page is supplied. Maximum 100. Omit page and per_page to preserve the legacy full-list response.
-   * @maxLength 100
+   * @maximum 100
    * @type integer | undefined
    */
   per_page?: number | undefined;
@@ -310351,14 +310706,14 @@ export type GetGetDomainQueriesStatus200 = {
    */
   result_info?: {
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     count: number;
     page: number;
     per_page: number;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     total_count: number;
@@ -310556,14 +310911,14 @@ export type PostDomainTrialPath = {
 export type PostDomainTrialStatus200 = {
   matches: {
     /**
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @type number
      */
     confidence: number;
     domain: string;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     domain_id: number;
@@ -311193,7 +311548,7 @@ export type GetLogoMatchListStatus200 = {
     url_scan_id: string | null;
   }[];
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   total: number;
@@ -311307,8 +311662,8 @@ export type PostInsertLogoQueryBody = {
   search_lookback?: boolean | undefined;
   /**
    * @description Minimum similarity score (0-1) required for visual matches
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @type number
    */
   similarity_threshold: number;
@@ -311432,16 +311787,16 @@ export type PostSearchLogoSimilarityBody = {
   image_data: string;
   /**
    * @description Minimum similarity score threshold for matches (0-1, default: 0)
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 0
    * @type number | undefined
    */
   score_threshold?: number | undefined;
   /**
    * @description Number of closest matches to return (1-100, default: 10)
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 10
    * @type integer | undefined
    */
@@ -312195,7 +312550,7 @@ export type GetTotalQueriesPath = {
 
 export type GetTotalQueriesStatus200 = {
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   total_queries: number;
@@ -312318,7 +312673,7 @@ export type PostCollectionCreateStatus201 = {
       id: string;
       name: string;
       /**
-       * @minLength 0
+       * @minimum 0
        * @type integer
        */
       position: number;
@@ -312340,7 +312695,7 @@ export type PostCollectionCreateStatus201 = {
      */
     id: string;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     item_count: number;
@@ -312372,6 +312727,15 @@ export const postCollectionCreateRequestColumnsTypeEnum = {
 } as const;
 
 export type PostCollectionCreateRequestColumnsTypeEnumKey = (typeof postCollectionCreateRequestColumnsTypeEnum)[keyof typeof postCollectionCreateRequestColumnsTypeEnum];
+
+export const postCollectionCreateRequestColumnsTypeEnum2 = {
+  text: 'text',
+  number: 'number',
+  boolean: 'boolean',
+  date: 'date',
+} as const;
+
+export type PostCollectionCreateRequestColumnsTypeEnum2Key = (typeof postCollectionCreateRequestColumnsTypeEnum2)[keyof typeof postCollectionCreateRequestColumnsTypeEnum2];
 
 export type PostCollectionCreateBody = ({
   columns: {
@@ -312451,7 +312815,7 @@ export type PostCollectionCreateBody = ({
      * @type boolean | undefined
      */
     required?: boolean | undefined;
-    type: PostCollectionCreateRequestColumnsTypeEnumKey;
+    type: PostCollectionCreateRequestColumnsTypeEnum2Key;
   }[];
   /**
    * @maxLength 500
@@ -313283,8 +313647,8 @@ export type PostItemSearchBody = {
     or: object[];
   }) | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -313345,7 +313709,7 @@ export type GetDomainListQuery = {
   page?: number | undefined;
   /**
    * @description Items per page
-   * @maxLength 100
+   * @maximum 100
    * @default 100
    * @type integer | undefined
    */
@@ -313540,7 +313904,7 @@ export type GetMatchListQuery = {
   page?: number | undefined;
   /**
    * @description Items per page
-   * @maxLength 1000
+   * @maximum 1000
    * @default 100
    * @type integer | undefined
    */
@@ -313644,14 +314008,14 @@ export type GetPirListPath = {
 
 export type GetPirListQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -313738,9 +314102,56 @@ export const postPirCreateRequestQueryBranchesOpEnum = {
   gte: 'gte',
   lt: 'lt',
   lte: 'lte',
+  like: 'like',
+  contains: 'contains',
+  startsWith: 'startsWith',
+  endsWith: 'endsWith',
+  find: 'find',
 } as const;
 
 export type PostPirCreateRequestQueryBranchesOpEnumKey = (typeof postPirCreateRequestQueryBranchesOpEnum)[keyof typeof postPirCreateRequestQueryBranchesOpEnum];
+
+export const postPirCreateRequestQueryBranchesFieldEnum2 = {
+  attacker: 'attacker',
+  attackerCountry: 'attackerCountry',
+  category: 'category',
+  createdAt: 'createdAt',
+  date: 'date',
+  event: 'event',
+  indicator: 'indicator',
+  indicatorType: 'indicatorType',
+  mitreAttack: 'mitreAttack',
+  mitreCapec: 'mitreCapec',
+  tags: 'tags',
+  targetCountry: 'targetCountry',
+  targetIndustry: 'targetIndustry',
+  tlp: 'tlp',
+  uuid: 'uuid',
+} as const;
+
+export type PostPirCreateRequestQueryBranchesFieldEnum2Key = (typeof postPirCreateRequestQueryBranchesFieldEnum2)[keyof typeof postPirCreateRequestQueryBranchesFieldEnum2];
+
+export const postPirCreateRequestQueryBranchesOpEnum3 = {
+  equals: 'equals',
+  not: 'not',
+  gt: 'gt',
+  gte: 'gte',
+  lt: 'lt',
+  lte: 'lte',
+} as const;
+
+export type PostPirCreateRequestQueryBranchesOpEnum3Key = (typeof postPirCreateRequestQueryBranchesOpEnum3)[keyof typeof postPirCreateRequestQueryBranchesOpEnum3];
+
+export const postPirCreateRequestQueryBranchesOpEnum5 = {
+  equals: 'equals',
+  not: 'not',
+  gt: 'gt',
+  gte: 'gte',
+  lt: 'lt',
+  lte: 'lte',
+} as const;
+
+export type PostPirCreateRequestQueryBranchesOpEnum5Key = (typeof postPirCreateRequestQueryBranchesOpEnum5)[keyof typeof postPirCreateRequestQueryBranchesOpEnum5];
 
 export const postPirCreateRequestQuerySourceEnum = {
   generated: 'generated',
@@ -313804,7 +314215,7 @@ export type PostPirCreateBody = {
    */
   notification_mode?: PostPirCreateRequestNotificationModeEnumKey | undefined;
   /**
-   * @minLength 0
+   * @minimum 0
    * @default 0
    * @type integer | undefined
    */
@@ -313824,12 +314235,12 @@ export type PostPirCreateBody = {
        */
       value: string;
     } | {
-      field: PostPirCreateRequestQueryBranchesFieldEnumKey;
+      field: PostPirCreateRequestQueryBranchesFieldEnum2Key;
       op: 'in';
       value: string[];
     } | {
       field: 'killChain';
-      op: PostPirCreateRequestQueryBranchesOpEnumKey;
+      op: PostPirCreateRequestQueryBranchesOpEnum3Key;
       value: number | string;
     } | {
       field: 'killChain';
@@ -313837,7 +314248,7 @@ export type PostPirCreateBody = {
       value: (number | string)[];
     } | {
       field: 'hasChildren';
-      op: PostPirCreateRequestQueryBranchesOpEnumKey;
+      op: PostPirCreateRequestQueryBranchesOpEnum5Key;
       value: boolean | 'true' | 'false' | 1 | 0 | '1' | '0';
     } | {
       field: 'hasChildren';
@@ -313983,9 +314394,56 @@ export const postPirFilterGenerateStatus200ResultBranchesOpEnum = {
   gte: 'gte',
   lt: 'lt',
   lte: 'lte',
+  like: 'like',
+  contains: 'contains',
+  startsWith: 'startsWith',
+  endsWith: 'endsWith',
+  find: 'find',
 } as const;
 
 export type PostPirFilterGenerateStatus200ResultBranchesOpEnumKey = (typeof postPirFilterGenerateStatus200ResultBranchesOpEnum)[keyof typeof postPirFilterGenerateStatus200ResultBranchesOpEnum];
+
+export const postPirFilterGenerateStatus200ResultBranchesFieldEnum2 = {
+  attacker: 'attacker',
+  attackerCountry: 'attackerCountry',
+  category: 'category',
+  createdAt: 'createdAt',
+  date: 'date',
+  event: 'event',
+  indicator: 'indicator',
+  indicatorType: 'indicatorType',
+  mitreAttack: 'mitreAttack',
+  mitreCapec: 'mitreCapec',
+  tags: 'tags',
+  targetCountry: 'targetCountry',
+  targetIndustry: 'targetIndustry',
+  tlp: 'tlp',
+  uuid: 'uuid',
+} as const;
+
+export type PostPirFilterGenerateStatus200ResultBranchesFieldEnum2Key = (typeof postPirFilterGenerateStatus200ResultBranchesFieldEnum2)[keyof typeof postPirFilterGenerateStatus200ResultBranchesFieldEnum2];
+
+export const postPirFilterGenerateStatus200ResultBranchesOpEnum3 = {
+  equals: 'equals',
+  not: 'not',
+  gt: 'gt',
+  gte: 'gte',
+  lt: 'lt',
+  lte: 'lte',
+} as const;
+
+export type PostPirFilterGenerateStatus200ResultBranchesOpEnum3Key = (typeof postPirFilterGenerateStatus200ResultBranchesOpEnum3)[keyof typeof postPirFilterGenerateStatus200ResultBranchesOpEnum3];
+
+export const postPirFilterGenerateStatus200ResultBranchesOpEnum5 = {
+  equals: 'equals',
+  not: 'not',
+  gt: 'gt',
+  gte: 'gte',
+  lt: 'lt',
+  lte: 'lte',
+} as const;
+
+export type PostPirFilterGenerateStatus200ResultBranchesOpEnum5Key = (typeof postPirFilterGenerateStatus200ResultBranchesOpEnum5)[keyof typeof postPirFilterGenerateStatus200ResultBranchesOpEnum5];
 
 export const postPirFilterGenerateStatus200ResultCoverageEnum = {
   full: 'full',
@@ -314013,13 +314471,13 @@ export type PostPirFilterGenerateStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -314032,13 +314490,13 @@ export type PostPirFilterGenerateStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -314062,12 +314520,12 @@ export type PostPirFilterGenerateStatus200 = {
        */
       value: string;
     } | {
-      field: PostPirFilterGenerateStatus200ResultBranchesFieldEnumKey;
+      field: PostPirFilterGenerateStatus200ResultBranchesFieldEnum2Key;
       op: 'in';
       value: string[];
     } | {
       field: 'killChain';
-      op: PostPirFilterGenerateStatus200ResultBranchesOpEnumKey;
+      op: PostPirFilterGenerateStatus200ResultBranchesOpEnum3Key;
       value: number | string;
     } | {
       field: 'killChain';
@@ -314075,7 +314533,7 @@ export type PostPirFilterGenerateStatus200 = {
       value: (number | string)[];
     } | {
       field: 'hasChildren';
-      op: PostPirFilterGenerateStatus200ResultBranchesOpEnumKey;
+      op: PostPirFilterGenerateStatus200ResultBranchesOpEnum5Key;
       value: boolean | 'true' | 'false' | 1 | 0 | '1' | '0';
     } | {
       field: 'hasChildren';
@@ -314179,14 +314637,14 @@ export type GetPirInterestListEnabledKey = (typeof getPirInterestListEnabled)[ke
 
 export type GetPirInterestListQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -314298,46 +314756,46 @@ export type PostPirInterestBacktestCreateBody = {
    */
   as_of?: string | undefined;
   /**
-   * @minLength 1
-   * @maxLength 90
+   * @minimum 1
+   * @maximum 90
    * @default 30
    * @type integer | undefined
    */
   backtest_days?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @type integer | undefined
    */
   candidate_limit?: number | undefined;
   dataset_ids?: string[] | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100000
+   * @minimum 1
+   * @maximum 100000
    * @type integer | undefined
    */
   emerging_min_current_count?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100000
+   * @minimum 1
+   * @maximum 100000
    * @type integer | undefined
    */
   established_min_absolute_delta?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100000
+   * @minimum 1
+   * @maximum 100000
    * @type integer | undefined
    */
   established_min_prior_count?: number | undefined;
   /**
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @type number | undefined
    */
   established_min_relative_delta?: (number | null) | undefined;
   /**
-   * @minLength 1
-   * @maxLength 30
+   * @minimum 1
+   * @maximum 30
    * @default 7
    * @type integer | undefined
    */
@@ -314419,39 +314877,39 @@ export type PostPirInterestEvaluationCreateBody = {
    */
   as_of?: string | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @type integer | undefined
    */
   candidate_limit?: number | undefined;
   dataset_ids?: string[] | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100000
+   * @minimum 1
+   * @maximum 100000
    * @type integer | undefined
    */
   emerging_min_current_count?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100000
+   * @minimum 1
+   * @maximum 100000
    * @type integer | undefined
    */
   established_min_absolute_delta?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100000
+   * @minimum 1
+   * @maximum 100000
    * @type integer | undefined
    */
   established_min_prior_count?: number | undefined;
   /**
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @type number | undefined
    */
   established_min_relative_delta?: (number | null) | undefined;
   /**
-   * @minLength 1
-   * @maxLength 30
+   * @minimum 1
+   * @maximum 30
    * @default 7
    * @type integer | undefined
    */
@@ -314632,8 +315090,8 @@ export type GetPirAllMatchAggregatesQuery = {
   aggregate_by: string;
   /**
    * @description Top values returned per field.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 10
    * @type integer | undefined
    */
@@ -315165,9 +315623,56 @@ export const putPirUpdateRequestQueryBranchesOpEnum = {
   gte: 'gte',
   lt: 'lt',
   lte: 'lte',
+  like: 'like',
+  contains: 'contains',
+  startsWith: 'startsWith',
+  endsWith: 'endsWith',
+  find: 'find',
 } as const;
 
 export type PutPirUpdateRequestQueryBranchesOpEnumKey = (typeof putPirUpdateRequestQueryBranchesOpEnum)[keyof typeof putPirUpdateRequestQueryBranchesOpEnum];
+
+export const putPirUpdateRequestQueryBranchesFieldEnum2 = {
+  attacker: 'attacker',
+  attackerCountry: 'attackerCountry',
+  category: 'category',
+  createdAt: 'createdAt',
+  date: 'date',
+  event: 'event',
+  indicator: 'indicator',
+  indicatorType: 'indicatorType',
+  mitreAttack: 'mitreAttack',
+  mitreCapec: 'mitreCapec',
+  tags: 'tags',
+  targetCountry: 'targetCountry',
+  targetIndustry: 'targetIndustry',
+  tlp: 'tlp',
+  uuid: 'uuid',
+} as const;
+
+export type PutPirUpdateRequestQueryBranchesFieldEnum2Key = (typeof putPirUpdateRequestQueryBranchesFieldEnum2)[keyof typeof putPirUpdateRequestQueryBranchesFieldEnum2];
+
+export const putPirUpdateRequestQueryBranchesOpEnum3 = {
+  equals: 'equals',
+  not: 'not',
+  gt: 'gt',
+  gte: 'gte',
+  lt: 'lt',
+  lte: 'lte',
+} as const;
+
+export type PutPirUpdateRequestQueryBranchesOpEnum3Key = (typeof putPirUpdateRequestQueryBranchesOpEnum3)[keyof typeof putPirUpdateRequestQueryBranchesOpEnum3];
+
+export const putPirUpdateRequestQueryBranchesOpEnum5 = {
+  equals: 'equals',
+  not: 'not',
+  gt: 'gt',
+  gte: 'gte',
+  lt: 'lt',
+  lte: 'lte',
+} as const;
+
+export type PutPirUpdateRequestQueryBranchesOpEnum5Key = (typeof putPirUpdateRequestQueryBranchesOpEnum5)[keyof typeof putPirUpdateRequestQueryBranchesOpEnum5];
 
 export const putPirUpdateRequestQuerySourceEnum = {
   generated: 'generated',
@@ -315230,7 +315735,7 @@ export type PutPirUpdateBody = {
    */
   notification_mode?: PutPirUpdateRequestNotificationModeEnumKey | undefined;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   priority?: number | undefined;
@@ -315249,12 +315754,12 @@ export type PutPirUpdateBody = {
        */
       value: string;
     } | {
-      field: PutPirUpdateRequestQueryBranchesFieldEnumKey;
+      field: PutPirUpdateRequestQueryBranchesFieldEnum2Key;
       op: 'in';
       value: string[];
     } | {
       field: 'killChain';
-      op: PutPirUpdateRequestQueryBranchesOpEnumKey;
+      op: PutPirUpdateRequestQueryBranchesOpEnum3Key;
       value: number | string;
     } | {
       field: 'killChain';
@@ -315262,7 +315767,7 @@ export type PutPirUpdateBody = {
       value: (number | string)[];
     } | {
       field: 'hasChildren';
-      op: PutPirUpdateRequestQueryBranchesOpEnumKey;
+      op: PutPirUpdateRequestQueryBranchesOpEnum5Key;
       value: boolean | 'true' | 'false' | 1 | 0 | '1' | '0';
     } | {
       field: 'hasChildren';
@@ -315348,8 +315853,8 @@ export type GetPirMatchesListQuery = {
   cursor?: string | undefined;
   /**
    * @description Matches per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 50
    * @type integer | undefined
    */
@@ -315494,8 +315999,8 @@ export type GetPirMatchAggregatesQuery = {
   aggregate_by: string;
   /**
    * @description Top values returned per field.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 10
    * @type integer | undefined
    */
@@ -316718,18 +317223,18 @@ export type GetDashboardRequestTypesListStatus200 = {
       description: string;
       id: string;
       /**
-       * @minLength 0
+       * @minimum 0
        * @type integer
        */
       message_tokens: number;
       name: string;
       /**
-       * @minLength 0
+       * @minimum 0
        * @type integer
        */
       request_tokens: number;
       /**
-       * @minLength 0
+       * @minimum 0
        * @type integer
        */
       response_tokens: number;
@@ -318385,13 +318890,13 @@ export type SearchThreatIntelligenceStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -318404,13 +318909,13 @@ export type SearchThreatIntelligenceStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -318421,7 +318926,7 @@ export type SearchThreatIntelligenceStatus200 = {
   }[];
   result: {
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     count: number;
@@ -318559,8 +319064,8 @@ export type SearchThreatIntelligenceBody = {
   include_analytics_datasets?: boolean | undefined;
   /**
    * @description Maximum number of results to return. Defaults to 20.
-   * @minLength 1
-   * @maxLength 20
+   * @minimum 1
+   * @maximum 20
    * @default 20
    * @type integer | undefined
    */
@@ -318640,8 +319145,8 @@ export type RssArticleListQuery = {
   cursor?: string | undefined;
   /**
    * @description Number of articles per cursor page, from 1 to 100. Defaults to 20.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -318953,13 +319458,13 @@ export type RssArticleBulkMarkReadStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -319044,17 +319549,17 @@ export type RssArticleRelevanceAggregateStatus200 = {
        */
       articles: {
         /**
-         * @minLength 0
+         * @minimum 0
          * @type integer
          */
         high: number;
         /**
-         * @minLength 0
+         * @minimum 0
          * @type integer
          */
         low: number;
         /**
-         * @minLength 0
+         * @minimum 0
          * @type integer
          */
         medium: number;
@@ -319071,17 +319576,17 @@ export type RssArticleRelevanceAggregateStatus200 = {
        */
       articles: {
         /**
-         * @minLength 0
+         * @minimum 0
          * @type integer
          */
         high: number;
         /**
-         * @minLength 0
+         * @minimum 0
          * @type integer
          */
         low: number;
         /**
-         * @minLength 0
+         * @minimum 0
          * @type integer
          */
         medium: number;
@@ -319174,27 +319679,27 @@ export type RssArticleSeverityAggregateStatus200 = {
      */
     articles: {
       /**
-       * @minLength 0
+       * @minimum 0
        * @type integer
        */
       critical: number;
       /**
-       * @minLength 0
+       * @minimum 0
        * @type integer
        */
       high: number;
       /**
-       * @minLength 0
+       * @minimum 0
        * @type integer
        */
       informational: number;
       /**
-       * @minLength 0
+       * @minimum 0
        * @type integer
        */
       low: number;
       /**
-       * @minLength 0
+       * @minimum 0
        * @type integer
        */
       medium: number;
@@ -319210,27 +319715,27 @@ export type RssArticleSeverityAggregateStatus200 = {
        */
       articles: {
         /**
-         * @minLength 0
+         * @minimum 0
          * @type integer
          */
         critical: number;
         /**
-         * @minLength 0
+         * @minimum 0
          * @type integer
          */
         high: number;
         /**
-         * @minLength 0
+         * @minimum 0
          * @type integer
          */
         informational: number;
         /**
-         * @minLength 0
+         * @minimum 0
          * @type integer
          */
         low: number;
         /**
-         * @minLength 0
+         * @minimum 0
          * @type integer
          */
         medium: number;
@@ -319701,13 +320206,13 @@ export type RssArticleReprocessStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -319720,13 +320225,13 @@ export type RssArticleReprocessStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -319837,13 +320342,13 @@ export type RssArticleCustomSkillsListStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -319855,8 +320360,8 @@ export type RssArticleCustomSkillsListStatus200 = {
   result: {
     /**
      * @description Number of returned custom skills, capped at 20.
-     * @minLength 0
-     * @maxLength 20
+     * @minimum 0
+     * @maximum 20
      * @type integer
      */
     count: number;
@@ -319966,13 +320471,13 @@ export type RssArticleSkillOutputGetStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -320171,13 +320676,13 @@ export type RssArticleSkillRunStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -320190,13 +320695,13 @@ export type RssArticleSkillRunStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -320411,13 +320916,13 @@ export type RssArticleTagGenerateStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -320510,13 +321015,13 @@ export type RssArticleTagAddStatus201 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -320619,13 +321124,13 @@ export type RssArticleTagRemoveStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -320737,23 +321242,23 @@ export type RssFeedListSourceTypeKey = (typeof rssFeedListSourceType)[keyof type
 export type RssFeedListQuery = {
   /**
    * @description 1-based page number. Minimum 1; defaults to 1.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of feeds per page, from 1 to 100. Defaults to 20.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
   per_page?: number | undefined;
   /**
    * @description Optional 1–100 alias for per_page. When provided, limit takes precedence.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @type integer | undefined
    */
   limit?: number | undefined;
@@ -320807,13 +321312,13 @@ export type RssFeedListStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -320830,13 +321335,13 @@ export type RssFeedListStatus200 = {
     count: number;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     custom_feed_count: number;
     /**
      * @description The resolved custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     custom_feed_limit: number;
@@ -320922,13 +321427,13 @@ export type RssFeedListStatus503 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -320941,13 +321446,13 @@ export type RssFeedListStatus503 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -321002,13 +321507,13 @@ export type RssFeedCreateStatus201 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -321093,13 +321598,13 @@ export type RssFeedCreateStatus400 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -321112,13 +321617,13 @@ export type RssFeedCreateStatus400 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -321160,13 +321665,13 @@ export type RssFeedCreateStatus403 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -321179,13 +321684,13 @@ export type RssFeedCreateStatus403 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -321227,13 +321732,13 @@ export type RssFeedCreateStatus503 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -321246,13 +321751,13 @@ export type RssFeedCreateStatus503 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -321305,8 +321810,8 @@ export type RssFeedCreateBody = {
   enabled?: boolean | undefined;
   /**
    * @description Polling interval in seconds (60-86400). Default 300s (5 minutes).
-   * @minLength 60
-   * @maxLength 86400
+   * @minimum 60
+   * @maximum 86400
    * @default 300
    * @type integer | undefined
    */
@@ -321436,13 +321941,13 @@ export type RssFeedDeleteStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -321548,13 +322053,13 @@ export type RssFeedUpdateStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -321644,8 +322149,8 @@ export type RssFeedUpdateBody = {
   enabled?: boolean | undefined;
   /**
    * @description New polling interval in seconds (60-86400). Omit to keep current value.
-   * @minLength 60
-   * @maxLength 86400
+   * @minimum 60
+   * @maximum 86400
    * @type integer | undefined
    */
   poll_interval_s?: number | undefined;
@@ -321752,13 +322257,13 @@ export type RssFeedSkillsGetStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -321860,13 +322365,13 @@ export type RssFeedSkillsSetStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -321947,8 +322452,8 @@ export type RssArticleIndicatorListQuery = {
   search?: string | undefined;
   /**
    * @description Number of indicators per cursor page, from 1 to 100. Defaults to 20.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -322010,7 +322515,7 @@ export type RssArticleIndicatorListStatus200 = {
     }[];
     pagination: {
       /**
-       * @minLength 0
+       * @minimum 0
        * @type integer
        */
       count: number;
@@ -322018,18 +322523,18 @@ export type RssArticleIndicatorListStatus200 = {
       has_more: boolean;
       /**
        * @description Ordinal of this cursor page; not a total-results offset.
-       * @minLength 1
+       * @minimum 1
        * @type integer
        */
       page: number;
       /**
-       * @minLength 1
-       * @maxLength 100
+       * @minimum 1
+       * @maximum 100
        * @type integer
        */
       per_page: number;
       /**
-       * @minLength 0
+       * @minimum 0
        * @type integer
        */
       total_count: number | null;
@@ -322090,7 +322595,7 @@ export type SearchThreatSignalsStatus200 = {
   result: {
     /**
      * @description Number of unique article candidates returned in this response. Equal to results.length.
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     count: number;
@@ -322152,15 +322657,15 @@ export type RssSkillListPath = {
 export type RssSkillListQuery = {
   /**
    * @description Page number (≥ 1, default 1).
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Results per page (1–100, default 20).
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -322194,13 +322699,13 @@ export type RssSkillListStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -322309,13 +322814,13 @@ export type RssSkillCreateStatus201 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -322452,13 +322957,13 @@ export type RssSkillDeleteStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -322557,13 +323062,13 @@ export type RssSkillGetStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -322662,13 +323167,13 @@ export type RssSkillUpdateStatus200 = {
     code?: number | undefined;
     /**
      * @description The current count of custom feeds for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_count?: number | undefined;
     /**
      * @description The custom feed limit for the account.
-     * @minLength 0
+     * @minimum 0
      * @type integer | undefined
      */
     custom_feed_limit?: number | undefined;
@@ -322877,7 +323382,7 @@ export type ListCnisQuery = {
    */
   cursor?: (number | null) | undefined;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   limit?: (number | null) | undefined;
@@ -323101,7 +323606,7 @@ export type ListInterconnectsQuery = {
    */
   cursor?: (number | null) | undefined;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   limit?: (number | null) | undefined;
@@ -323481,7 +323986,7 @@ export type ListSlotsQuery = {
    */
   cursor?: (number | null) | undefined;
   /**
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   limit?: (number | null) | undefined;
@@ -323568,7 +324073,7 @@ export type ConnectivityServicesListQuery = {
    * @description Current page in the response
    *
    * Format: `int32`
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
@@ -323577,8 +324082,8 @@ export type ConnectivityServicesListQuery = {
    * @description Max amount of entries returned per page
    *
    * Format: `int32`
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 1000
    * @type integer | undefined
    */
@@ -323754,8 +324259,8 @@ export type ListApplicationsPath = {
 export type ListApplicationsQuery = {
   /**
    * @description Maximum number of applications to return per page. Defaults to all, or 100 when `page_token` is set.
-   * @minLength 1
-   * @maxLength 500
+   * @minimum 1
+   * @maximum 500
    * @type integer | undefined
    */
   per_page?: number | undefined;
@@ -324051,8 +324556,8 @@ export type ListContainerInstancesStateKey = (typeof listContainerInstancesState
 export type ListContainerInstancesQuery = {
   /**
    * @description Maximum number of instances to return per page. Defaults to all.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @type integer | undefined
    */
   per_page?: number | undefined;
@@ -324144,8 +324649,8 @@ export type ListContainerInstancesV2StateKey = (typeof listContainerInstancesV2S
 export type ListContainerInstancesV2Query = {
   /**
    * @description Maximum number of instances to return per page. Defaults to 100.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @type integer | undefined
    */
   per_page?: number | undefined;
@@ -324659,15 +325164,15 @@ export type CustomCsrsForAnAccountListCustomCsrsDirectionKey = (typeof customCsr
 export type CustomCsrsForAnAccountListCustomCsrsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of custom CSRs per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 50
    * @type number | undefined
    */
@@ -324967,15 +325472,15 @@ export type CustomAssetsForAnAccountListCustomAssetsPath = {
 export type CustomAssetsForAnAccountListCustomAssetsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of custom assets per page.
-   * @minLength 1
-   * @maxLength 200
+   * @minimum 1
+   * @maximum 200
    * @default 20
    * @type integer | undefined
    */
@@ -325354,8 +325859,8 @@ export type CwsListBasicAuthCredentialsQuery = {
    * @description Number of items per page (1-100, default 20)
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -325566,8 +326071,8 @@ export type CwsListBasicAuthSecretsQuery = {
    * @description Number of items per page (1-100, default 20)
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -325636,8 +326141,10 @@ export type CwsCreateBasicAuthSecretStatus500 = CwsErrorResponse;
 
 export type CwsCreateBasicAuthSecretStatus503 = CwsErrorResponse;
 
+export type CwsCreateBasicAuthSecretBody2 = CwsCreateBasicAuthSecretBody;
+
 export type CwsCreateBasicAuthSecretOptions = {
-  body: CwsCreateBasicAuthSecretBody;
+  body: CwsCreateBasicAuthSecretBody2;
   path: CwsCreateBasicAuthSecretPath;
   query?: never | undefined;
   headers?: never | undefined;
@@ -325789,8 +326296,8 @@ export type CwsListDeploymentsQuery = {
    * @description Number of items per page (1-100, default 20)
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -326039,8 +326546,8 @@ export type CwsListDomainAclsQuery = {
    * @description Number of items per page (1-100, default 20)
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -326296,8 +326803,8 @@ export type CwsListPoliciesQuery = {
    * @description Number of items per page (1-100, default 20)
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -326564,8 +327071,8 @@ export type CwsListPolicySetsQuery = {
    * @description Number of items per page (1-100, default 20)
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -326821,8 +327328,8 @@ export type CwsListRegoMetadataQuery = {
    * @description Number of items per page (1-100, default 20)
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -327076,8 +327583,8 @@ export type CwsListRegoModulesQuery = {
    * @description Number of items per page (1-100, default 20)
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -327337,8 +327844,8 @@ export type CwsListTenantStructuresQuery = {
    * @description Number of items per page (1-100, default 20)
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -327599,8 +328106,8 @@ export type CwsListTenantNodesQuery = {
    * @description Number of items per page (1-100, default 20)
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -327939,8 +328446,8 @@ export type CwsListWorkloadsQuery = {
    * @description Number of items per page (1-100, default 20)
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -328178,15 +328685,15 @@ export type D1ListDatabasesQuery = {
   name?: string | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of items per page.
-   * @minLength 10
-   * @maxLength 10000
+   * @minimum 10
+   * @maximum 10000
    * @default 1000
    * @type number | undefined
    */
@@ -328977,6 +329484,11 @@ export type D1TimeTravelRestoreResponses = {
   '200': D1TimeTravelRestoreStatus200;
   '400': D1TimeTravelRestoreStatus400;
 };
+
+/**
+ * @description Union of all possible responses
+ */
+export type D1TimeTravelRestoreResponse2 = D1TimeTravelRestoreStatus200;
 
 export type D1UndeleteDatabasePath = {
   /**
@@ -332123,15 +332635,15 @@ export type ListClientVersionsQuery = {
   release_track: ListClientVersionsReleaseTrackKey;
   /**
    * @description The page number to return.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description The maximum number of versions to return per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -332214,15 +332726,15 @@ export type ListDeploymentGroupsPath = {
 export type ListDeploymentGroupsQuery = {
   /**
    * @description The page number to return.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description The maximum number of deployment groups to return per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 50
    * @type integer | undefined
    */
@@ -332421,15 +332933,15 @@ export type ListIpProfilesPath = {
 export type ListIpProfilesQuery = {
   /**
    * @description The page number to return.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description The number of IP profiles to return per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 50
    * @type integer | undefined
    */
@@ -335809,7 +336321,7 @@ export type GetCommandsStatusKey = (typeof getCommandsStatus)[keyof typeof getCo
 export type GetCommandsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type number
@@ -335817,8 +336329,8 @@ export type GetCommandsQuery = {
   page: number;
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @example 10
    * @type number
    */
@@ -335934,21 +336446,21 @@ export type PostCommandsBody = {
     } | {
       /**
        * @description Maximum file size (in MB) for the capture file. If the capture artifact exceeds the specified max file size, it will NOT be uploaded.
-       * @minLength 1
+       * @minimum 1
        * @default 5
        * @type number | undefined
        */
       'max-file-size-mb'?: number | undefined;
       /**
        * @description Maximum number of bytes to save for each packet
-       * @minLength 1
+       * @minimum 1
        * @default 160
        * @type number | undefined
        */
       'packet-size-bytes'?: number | undefined;
       /**
        * @description Limit on capture duration (in minutes)
-       * @minLength 1
+       * @minimum 1
        * @default 5
        * @type number | undefined
        */
@@ -336013,7 +336525,7 @@ export type GetCommandsEligibleDevicesPath = {
 export type GetCommandsEligibleDevicesQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type number
@@ -336021,8 +336533,8 @@ export type GetCommandsEligibleDevicesQuery = {
   page: number;
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @example 10
    * @type number
    */
@@ -336152,7 +336664,7 @@ export type DeviceDexTestDetailsKindKey = (typeof deviceDexTestDetailsKind)[keyo
 export type DeviceDexTestDetailsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type number | undefined
@@ -336160,8 +336672,8 @@ export type DeviceDexTestDetailsQuery = {
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @default 10
    * @example 10
    * @type number | undefined
@@ -336368,8 +336880,8 @@ export type DevicesLiveStatusPath = {
 export type DevicesLiveStatusQuery = {
   /**
    * @description Number of minutes before current time.
-   * @minLength 1
-   * @maxLength 60
+   * @minimum 1
+   * @maximum 60
    * @default 10
    * @example 10
    * @type number
@@ -336509,7 +337021,7 @@ export type DexEndpointsListDeviceIspsSortOrderKey = (typeof dexEndpointsListDev
 export type DexEndpointsListDeviceIspsQuery = {
   /**
    * @description Page number of paginated results. Mutually exclusive with cursor.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -336517,8 +337029,8 @@ export type DexEndpointsListDeviceIspsQuery = {
   page?: number | undefined;
   /**
    * @description Number of items per page
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @example 10
    * @type integer
    */
@@ -336604,7 +337116,7 @@ export type DexFleetStatusDevicesQuery = {
   from: DigitalExperienceMonitoringTimestamp;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type number
@@ -336612,8 +337124,8 @@ export type DexFleetStatusDevicesQuery = {
   page: DigitalExperienceMonitoringPage;
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @example 10
    * @type number
    */
@@ -336707,8 +337219,8 @@ export type DexFleetStatusLivePath = {
 export type DexFleetStatusLiveQuery = {
   /**
    * @description Number of minutes before current time.
-   * @minLength 1
-   * @maxLength 60
+   * @minimum 1
+   * @maximum 60
    * @default 10
    * @example 10
    * @type number
@@ -336967,7 +337479,7 @@ export type ListDexRulesSortByKey = (typeof listDexRulesSortBy)[keyof typeof lis
 export type ListDexRulesQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type number
@@ -336975,8 +337487,8 @@ export type ListDexRulesQuery = {
   page: number;
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @example 10
    * @type number
    */
@@ -337222,7 +337734,7 @@ export type DexEndpointsListTestsOverviewQuery = {
   registration_id?: string | undefined;
   /**
    * @description Page number of paginated results
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type number | undefined
@@ -337230,8 +337742,8 @@ export type DexEndpointsListTestsOverviewQuery = {
   page?: number | undefined;
   /**
    * @description Number of items per page
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @default 10
    * @example 10
    * @type number | undefined
@@ -337601,7 +338113,7 @@ export type ListWarpChangeEventsSortOrderKey = (typeof listWarpChangeEventsSortO
 export type ListWarpChangeEventsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type number
@@ -337609,8 +338121,8 @@ export type ListWarpChangeEventsQuery = {
   page: number;
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @example 10
    * @type number
    */
@@ -340220,8 +340732,8 @@ export type DlpProfilesDeleteIntegrationProfileQuery = {
    * Defaults to `0`.
    *
    * Format: `int32`
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @type integer | undefined
    */
   recursive?: number | undefined;
@@ -341687,8 +342199,8 @@ export type PublicListPrefixBindingsQuery = {
    */
   cursor?: string | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 25
    * @type integer | undefined
    */
@@ -341947,8 +342459,8 @@ export type PublicListRegionsQuery = {
    */
   cursor?: string | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 25
    * @type integer | undefined
    */
@@ -342052,15 +342564,15 @@ export type DnsFirewallListDnsFirewallClustersPath = {
 export type DnsFirewallListDnsFirewallClustersQuery = {
   /**
    * @description Page number of paginated results
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of clusters per page
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type number | undefined
    */
@@ -342631,15 +343143,15 @@ export type DnsSettingsForAnAccountListCustomNameserverSetsPath = {
 export type DnsSettingsForAnAccountListCustomNameserverSetsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: DnsSettingsPage | undefined;
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 100
    * @example 5
    * @type integer | undefined
@@ -342897,15 +343409,15 @@ export type DnsViewsForAnAccountListInternalDnsViewsQuery = {
   match?: DnsSettingsMatchKey | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: DnsSettingsPage | undefined;
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 5000000
+   * @minimum 1
+   * @maximum 5000000
    * @default 100
    * @example 5
    * @type integer | undefined
@@ -343276,8 +343788,8 @@ export type EmailSecurityInvestigateQuery = {
   cursor?: string | undefined;
   /**
    * @description The number of results per page. Maximum value is 1000.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -343285,7 +343797,7 @@ export type EmailSecurityInvestigateQuery = {
   per_page?: number | undefined;
   /**
    * @description Deprecated: Use cursor pagination instead. End of life: November 1, 2026.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
@@ -343346,7 +343858,7 @@ export type EmailSecurityGetBulkJobsActionTypeKey = (typeof emailSecurityGetBulk
 export type EmailSecurityGetBulkJobsQuery = {
   /**
    * @description Current page within paginated list of results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -343354,8 +343866,8 @@ export type EmailSecurityGetBulkJobsQuery = {
   page?: number | undefined;
   /**
    * @description The number of results per page. Maximum value is 1000.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -343583,7 +344095,7 @@ export type EmailSecurityGetBulkJobMessagesPath = {
 export type EmailSecurityGetBulkJobMessagesQuery = {
   /**
    * @description Current page within paginated list of results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -343591,8 +344103,8 @@ export type EmailSecurityGetBulkJobMessagesQuery = {
   page?: number | undefined;
   /**
    * @description The number of results per page. Maximum value is 1000.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -343841,7 +344353,7 @@ export type EmailSecurityGetMessageActionLogPath = {
 export type EmailSecurityGetMessageActionLogQuery = {
   /**
    * @description Current page within paginated list of results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -343849,8 +344361,8 @@ export type EmailSecurityGetMessageActionLogQuery = {
   page?: number | undefined;
   /**
    * @description The number of results per page. Maximum value is 1000.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -344176,7 +344688,7 @@ export type EmailSecurityGetPhishguardReportsQuery = {
   to_date?: string | undefined;
   /**
    * @description Current page within paginated list of results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -344184,8 +344696,8 @@ export type EmailSecurityGetPhishguardReportsQuery = {
   page?: number | undefined;
   /**
    * @description The number of results per page. Maximum value is 1000.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -344243,7 +344755,7 @@ export type EmailSecurityListAllowPoliciesDirectionKey = (typeof emailSecurityLi
 export type EmailSecurityListAllowPoliciesQuery = {
   /**
    * @description Current page within paginated list of results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -344251,8 +344763,8 @@ export type EmailSecurityListAllowPoliciesQuery = {
   page?: number | undefined;
   /**
    * @description The number of results per page. Maximum value is 1000.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -344678,7 +345190,7 @@ export type EmailSecurityListBlockedSendersDirectionKey = (typeof emailSecurityL
 export type EmailSecurityListBlockedSendersQuery = {
   /**
    * @description Current page within paginated list of results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -344686,8 +345198,8 @@ export type EmailSecurityListBlockedSendersQuery = {
   page?: number | undefined;
   /**
    * @description The number of results per page. Maximum value is 1000.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -345093,7 +345605,7 @@ export type EmailSecurityListContentPoliciesDirectionKey = (typeof emailSecurity
 export type EmailSecurityListContentPoliciesQuery = {
   /**
    * @description Current page within paginated list of results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -345101,8 +345613,8 @@ export type EmailSecurityListContentPoliciesQuery = {
   page?: number | undefined;
   /**
    * @description The number of results per page. Maximum value is 1000.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -345505,7 +346017,7 @@ export type EmailSecurityListDomainsDirectionKey = (typeof emailSecurityListDoma
 export type EmailSecurityListDomainsQuery = {
   /**
    * @description Current page within paginated list of results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -345513,8 +346025,8 @@ export type EmailSecurityListDomainsQuery = {
   page?: number | undefined;
   /**
    * @description The number of results per page. Maximum value is 1000.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -345953,7 +346465,7 @@ export type EmailSecurityListImpersonationRegistryDirectionKey = (typeof emailSe
 export type EmailSecurityListImpersonationRegistryQuery = {
   /**
    * @description Current page within paginated list of results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -345961,8 +346473,8 @@ export type EmailSecurityListImpersonationRegistryQuery = {
   page?: number | undefined;
   /**
    * @description The number of results per page. Maximum value is 1000.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -346215,7 +346727,7 @@ export type EmailSecurityListSendingDomainRestrictionsDirectionKey = (typeof ema
 export type EmailSecurityListSendingDomainRestrictionsQuery = {
   /**
    * @description Current page within paginated list of results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -346223,8 +346735,8 @@ export type EmailSecurityListSendingDomainRestrictionsQuery = {
   page?: number | undefined;
   /**
    * @description The number of results per page. Maximum value is 1000.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -346537,7 +347049,7 @@ export type EmailSecurityListTrustedDomainsDirectionKey = (typeof emailSecurityL
 export type EmailSecurityListTrustedDomainsQuery = {
   /**
    * @description Current page within paginated list of results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -346545,8 +347057,8 @@ export type EmailSecurityListTrustedDomainsQuery = {
   page?: number | undefined;
   /**
    * @description The number of results per page. Maximum value is 1000.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -346933,7 +347445,7 @@ export type EmailSecurityListUrlIgnorePatternsPath = {
 export type EmailSecurityListUrlIgnorePatternsQuery = {
   /**
    * @description Current page within paginated list of results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -346941,8 +347453,8 @@ export type EmailSecurityListUrlIgnorePatternsQuery = {
   page?: number | undefined;
   /**
    * @description The number of results per page. Maximum value is 1000.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -347344,7 +347856,7 @@ export type EmailSecuritySubmissionsQuery = {
   direction?: EmailSecuritySubmissionsDirectionKey | undefined;
   /**
    * @description Current page within paginated list of results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -347352,8 +347864,8 @@ export type EmailSecuritySubmissionsQuery = {
   page?: number | undefined;
   /**
    * @description The number of results per page. Maximum value is 1000.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -347442,8 +347954,8 @@ export type EmailDomainsChangesQuery = {
    * @description Maximum changes to return in one page.
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -347515,8 +348027,8 @@ export type EmailDomainsListQuery = {
   /**
    * @description
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -347806,15 +348318,15 @@ export type EmailRoutingDestinationAddressesListDestinationAddressesVerifiedKey 
 export type EmailRoutingDestinationAddressesListDestinationAddressesQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -348025,15 +348537,15 @@ export type EmailRoutingRoutingRulesListAccountRoutingRulesEnabledKey = (typeof 
 export type EmailRoutingRoutingRulesListAccountRoutingRulesQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -348135,14 +348647,14 @@ export type GetPublicListSuppressionRoutingDirectionKey = (typeof getPublicListS
 
 export type GetPublicListSuppressionRoutingQuery = {
   /**
-   * @minLength 0
+   * @minimum 0
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 0
-   * @maxLength 1000
+   * @minimum 0
+   * @maximum 1000
    * @default 100
    * @type integer | undefined
    */
@@ -348817,14 +349329,14 @@ export type GetPublicListSuppressionSendingDirectionKey = (typeof getPublicListS
 
 export type GetPublicListSuppressionSendingQuery = {
   /**
-   * @minLength 0
+   * @minimum 0
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 0
-   * @maxLength 1000
+   * @minimum 0
+   * @maximum 1000
    * @default 100
    * @type integer | undefined
    */
@@ -349150,8 +349662,8 @@ export type GetPublicListSendingSuppressionsScopeTypeKey = (typeof getPublicList
 export type GetPublicListSendingSuppressionsQuery = {
   /**
    * @description Maximum number of suppressions to return per page.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 100
    * @example 100
    * @type integer | undefined
@@ -350849,15 +351361,15 @@ export type SubscriptionsListDirectionKey = (typeof subscriptionsListDirection)[
 export type SubscriptionsListQuery = {
   /**
    * @description Page number for pagination
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of items per page
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -352190,8 +352702,8 @@ export type FlagshipListFlagsPath = {
 export type FlagshipListFlagsQuery = {
   /**
    * @description Max items to return (1–200).
-   * @minLength 1
-   * @maxLength 200
+   * @minimum 1
+   * @maximum 200
    * @type integer | undefined
    */
   limit?: number | undefined;
@@ -352730,8 +353242,8 @@ export type FlagshipGetFlagChangelogPath = {
 export type FlagshipGetFlagChangelogQuery = {
   /**
    * @description Max items to return (1–200).
-   * @minLength 1
-   * @maxLength 200
+   * @minimum 1
+   * @maximum 200
    * @type integer | undefined
    */
   limit?: number | undefined;
@@ -353898,15 +354410,15 @@ export type ZeroTrustListsZeroTrustListItemsPath = {
 export type ZeroTrustListsZeroTrustListItemsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of items per page.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 50
    * @type integer | undefined
    */
@@ -354406,15 +354918,15 @@ export type ZeroTrustGatewayPacfilesListPath = {
 export type ZeroTrustGatewayPacfilesListQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of items per page.
-   * @minLength 1
-   * @maxLength 200
+   * @minimum 1
+   * @maximum 200
    * @default 50
    * @type integer | undefined
    */
@@ -355474,15 +355986,15 @@ export type ListHyperdrivePath = {
 export type ListHyperdriveQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -355817,15 +356329,15 @@ export type AccountPermissionGroupListQuery = {
   label?: string | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -356107,15 +356619,15 @@ export type AccountUserGroupListQuery = {
   fuzzyName?: string | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 1
-   * @maxLength 500
+   * @minimum 1
+   * @maximum 500
    * @default 100
    * @type number | undefined
    */
@@ -356323,15 +356835,15 @@ export type AccountUserGroupMemberListDirectionKey = (typeof accountUserGroupMem
 export type AccountUserGroupMemberListQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 1
-   * @maxLength 500
+   * @minimum 1
+   * @maximum 500
    * @default 100
    * @type number | undefined
    */
@@ -356556,15 +357068,15 @@ export type CloudflareImagesListImagesPath = {
 export type CloudflareImagesListImagesQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of items per page.
-   * @minLength 10
-   * @maxLength 10000
+   * @minimum 10
+   * @maximum 10000
    * @default 1000
    * @type number | undefined
    */
@@ -357212,8 +357724,8 @@ export type CloudflareImagesListImagesV2Query = {
   readonly continuation_token?: (ImagesImagesListContinuationToken | null) | undefined;
   /**
    * @description Number of items per page
-   * @minLength 10
-   * @maxLength 10000
+   * @minimum 10
+   * @maximum 10000
    * @default 1000
    * @type number | undefined
    */
@@ -357353,15 +357865,15 @@ export type CloudflareImagesSourcingkitListMigrationsPath = {
 export type CloudflareImagesSourcingkitListMigrationsQuery = {
   /**
    * @description Number of items to skip before returning results.
-   * @minLength 0
+   * @minimum 0
    * @default 0
    * @type integer | undefined
    */
   offset?: number | undefined;
   /**
    * @description Maximum number of items to return.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 25
    * @type integer | undefined
    */
@@ -357638,15 +358150,15 @@ export type CloudflareImagesSourcingkitListMigrationLogsPath = {
 export type CloudflareImagesSourcingkitListMigrationLogsQuery = {
   /**
    * @description Number of items to skip before returning results.
-   * @minLength 0
+   * @minimum 0
    * @default 0
    * @type integer | undefined
    */
   offset?: number | undefined;
   /**
    * @description Maximum number of items to return.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 25
    * @type integer | undefined
    */
@@ -357687,15 +358199,15 @@ export type CloudflareImagesSourcingkitListSourcesPath = {
 export type CloudflareImagesSourcingkitListSourcesQuery = {
   /**
    * @description Number of items to skip before returning results.
-   * @minLength 0
+   * @minimum 0
    * @default 0
    * @type integer | undefined
    */
   offset?: number | undefined;
   /**
    * @description Maximum number of items to return.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 25
    * @type integer | undefined
    */
@@ -358079,7 +358591,7 @@ export type InfraTargetsListQuery = {
    * @description Current page in the response
    *
    * Format: `int32`
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
@@ -358088,8 +358600,8 @@ export type InfraTargetsListQuery = {
    * @description Max amount of entries returned per page
    *
    * Format: `int32`
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 1000
    * @type integer | undefined
    */
@@ -358734,8 +359246,8 @@ export type GetSecurityCenterIssuesQuery = {
   page?: SecurityCenterPage | undefined;
   /**
    * @description Sets the number of results per page of results.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 25
    * @example 25
    * @type integer | undefined
@@ -358760,8 +359272,8 @@ export type GetSecurityCenterIssuesStatus200 = SecurityCenterApiResponseCommon &
     page?: SecurityCenterPage | undefined;
     /**
      * @description Sets the number of results per page of results.
-     * @minLength 1
-     * @maxLength 1000
+     * @minimum 1
+     * @maximum 1000
      * @example 25
      * @type integer | undefined
      */
@@ -359433,6 +359945,11 @@ export type CustomIndicatorFeedsCreateProviderResponses = {
   '200': CustomIndicatorFeedsCreateProviderStatus200;
   '400': CustomIndicatorFeedsCreateProviderStatus400;
 };
+
+/**
+ * @description Union of all possible responses
+ */
+export type CustomIndicatorFeedsCreateProviderResponse2 = CustomIndicatorFeedsCreateProviderStatus200;
 
 export type CustomIndicatorFeedsRemovePermissionPath = {
   /**
@@ -360208,14 +360725,14 @@ export type GetV4AccountsByAccountIdK2StreamsQuery = {
    */
   name?: string | undefined;
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 25
    * @type integer | undefined
    */
@@ -361897,13 +362414,13 @@ export type AccountLoadBalancerSearchSearchResourcesQuery = {
    */
   references?: AccountLoadBalancerSearchSearchResourcesReferencesKey | undefined;
   /**
-   * @minLength 1
+   * @minimum 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 25
    * @type number | undefined
    */
@@ -362368,7 +362885,7 @@ export type PostAccountsAccountIdLogpushJobsResponse = PostAccountsAccountIdLogp
 export type DeleteAccountsAccountIdLogpushJobsJobIdPath = {
   /**
    * @description Unique id of the job.
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   jobId: LogpushId;
@@ -362385,7 +362902,7 @@ export type DeleteAccountsAccountIdLogpushJobsJobIdStatus200 = LogpushApiRespons
   result?: {
     /**
      * @description Unique id of the job.
-     * @minLength 1
+     * @minimum 1
      * @type integer | undefined
      */
     id?: LogpushId | undefined;
@@ -362414,7 +362931,7 @@ export type DeleteAccountsAccountIdLogpushJobsJobIdResponse = DeleteAccountsAcco
 export type GetAccountsAccountIdLogpushJobsJobIdPath = {
   /**
    * @description Unique id of the job.
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   jobId: LogpushId;
@@ -362451,7 +362968,7 @@ export type GetAccountsAccountIdLogpushJobsJobIdResponse = GetAccountsAccountIdL
 export type PutAccountsAccountIdLogpushJobsJobIdPath = {
   /**
    * @description Unique id of the job.
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   jobId: LogpushId;
@@ -362778,7 +363295,7 @@ export type DeleteAccountsAccountIdLogpushTransformersTransformerIdPath = {
   accountId: LogpushIdentifier;
   /**
    * @description The transformer ID.
-   * @minLength 1
+   * @minimum 1
    * @example 42
    * @type integer
    */
@@ -362819,7 +363336,7 @@ export type GetAccountsAccountIdLogpushTransformersTransformerIdPath = {
   accountId: LogpushIdentifier;
   /**
    * @description The transformer ID.
-   * @minLength 1
+   * @minimum 1
    * @example 42
    * @type integer
    */
@@ -362857,7 +363374,7 @@ export type PutAccountsAccountIdLogpushTransformersTransformerIdPath = {
   accountId: LogpushIdentifier;
   /**
    * @description The transformer ID.
-   * @minLength 1
+   * @minimum 1
    * @example 42
    * @type integer
    */
@@ -362897,7 +363414,7 @@ export type GetAccountsAccountIdLogpushTransformersTransformerIdContentPath = {
   accountId: LogpushIdentifier;
   /**
    * @description The transformer ID.
-   * @minLength 1
+   * @minimum 1
    * @example 42
    * @type integer
    */
@@ -362945,7 +363462,7 @@ export type GetAccountsAccountIdLogpushTransformersTransformerIdVersionsPath = {
   accountId: LogpushIdentifier;
   /**
    * @description The transformer ID.
-   * @minLength 1
+   * @minimum 1
    * @example 42
    * @type integer
    */
@@ -362955,8 +363472,8 @@ export type GetAccountsAccountIdLogpushTransformersTransformerIdVersionsPath = {
 export type GetAccountsAccountIdLogpushTransformersTransformerIdVersionsQuery = {
   /**
    * @description Maximum number of versions to return.
-   * @minLength 1
-   * @maxLength 10
+   * @minimum 1
+   * @maximum 10
    * @default 10
    * @type integer | undefined
    */
@@ -363491,8 +364008,8 @@ export type AuditLogsV2GetAccountAuditLogsQuery = {
   direction?: AuditLogsV2GetAccountAuditLogsDirectionKey | undefined;
   /**
    * @description The number limits the objects to return. The cursor attribute may be used to iterate over the next batch of objects if there are more than the limit.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 100
    * @example 25
    * @type number | undefined
@@ -363615,8 +364132,8 @@ export type AuditLogsV2GetAccountAuditLogHistoryQuery = {
   direction?: AuditLogsV2GetAccountAuditLogHistoryDirectionKey | undefined;
   /**
    * @description The number limits the objects to return. The cursor attribute may be used to iterate over the next batch of objects if there are more than the limit.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 100
    * @example 25
    * @type number | undefined
@@ -364145,8 +364662,8 @@ export type LogpullListLogFilesQuery = {
   prefix?: LogpullPrefix | undefined;
   /**
    * @description Maximum number of results to return.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @example 1000
    * @type integer | undefined
    */
@@ -367452,6 +367969,11 @@ export type MconnConnectorInterruptsListResponses = {
   '500': MconnConnectorInterruptsListStatus500;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type MconnConnectorInterruptsListResponse2 = MconnConnectorInterruptsListStatus200;
+
 export type MconnConnectorInterruptsCreatePath = {
   /**
    * @maxLength 32
@@ -367498,6 +368020,11 @@ export type MconnConnectorInterruptsCreateResponses = {
   '409': MconnConnectorInterruptsCreateStatus409;
   '500': MconnConnectorInterruptsCreateStatus500;
 };
+
+/**
+ * @description Union of all possible responses
+ */
+export type MconnConnectorInterruptsCreateResponse2 = MconnConnectorInterruptsCreateStatus200;
 
 export type MconnConnectorTelemetryEventsListPath = {
   /**
@@ -370279,8 +370806,8 @@ export type ListAccountVulnerabilityDiscoveryRepositoriesPath = {
 
 export type ListAccountVulnerabilityDiscoveryRepositoriesQuery = {
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 50
    * @type integer | undefined
    */
@@ -370388,8 +370915,8 @@ export type GetAccountVulnerabilityDiscoveryRepositoryPath = {
 
 export type GetAccountVulnerabilityDiscoveryRepositoryQuery = {
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 50
    * @type integer | undefined
    */
@@ -370558,8 +371085,8 @@ export type ListAccountVulnerabilityDiscoveryScansStatusEnumKey = (typeof listAc
 
 export type ListAccountVulnerabilityDiscoveryScansQuery = {
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 50
    * @type integer | undefined
    */
@@ -370811,8 +371338,8 @@ export type UsageAnalyticsGetAccountMediaUsageQuery = {
   /**
    * @description Maximum number of data points to return. The actual number of results depends on the interaction between the time range (since/until) and time_delta granularity. Results are truncated to this limit without error if the time range produces more data points than the limit allows.
    *
-   * @minLength 1
-   * @maxLength 10000
+   * @minimum 1
+   * @maximum 10000
    * @default 100
    * @example 100
    * @type integer | undefined
@@ -370916,15 +371443,15 @@ export type AccountMembersListMembersQuery = {
   status?: AccountMembersListMembersStatusKey | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -371168,7 +371695,7 @@ export type MagicNetworkMonitoringConfigurationUpdateAccountConfigurationFieldsS
 export type MagicNetworkMonitoringConfigurationUpdateAccountConfigurationFieldsBody = {
   /**
    * @description Fallback sampling rate of flow messages being sent in packets per second. This should match the packet sampling rate configured on the router.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
@@ -371215,7 +371742,7 @@ export type MagicNetworkMonitoringConfigurationCreateAccountConfigurationStatus4
 export type MagicNetworkMonitoringConfigurationCreateAccountConfigurationBody = {
   /**
    * @description Fallback sampling rate of flow messages being sent in packets per second. This should match the packet sampling rate configured on the router.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number
    */
@@ -371262,7 +371789,7 @@ export type MagicNetworkMonitoringConfigurationUpdateAnEntireAccountConfiguratio
 export type MagicNetworkMonitoringConfigurationUpdateAnEntireAccountConfigurationBody = {
   /**
    * @description Fallback sampling rate of flow messages being sent in packets per second. This should match the packet sampling rate configured on the router.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number
    */
@@ -371756,8 +372283,8 @@ export type MoqRelaysListQuery = {
    * @description Maximum number of relays to return per page. Values above the maximum are
    * clamped to it rather than rejected.
    *
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 1000
    * @example 50
    * @type integer | undefined
@@ -375132,6 +375659,11 @@ export type PayPerCrawlListCrawlersResponses = {
   '400': PayPerCrawlListCrawlersStatus400;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type PayPerCrawlListCrawlersResponse2 = PayPerCrawlListCrawlersStatus200;
+
 export type PayPerCrawlPublisherDeleteStripeConfigPath = {
   /**
    * @description account id
@@ -375243,6 +375775,11 @@ export type PayPerCrawlGetTermsSignatureLinkResponses = {
   '400': PayPerCrawlGetTermsSignatureLinkStatus400;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type PayPerCrawlGetTermsSignatureLinkResponse2 = PayPerCrawlGetTermsSignatureLinkStatus200;
+
 export type PayPerCrawlGetTermsPath = {
   /**
    * @description account id
@@ -375266,6 +375803,11 @@ export type PayPerCrawlGetTermsResponses = {
   '200': PayPerCrawlGetTermsStatus200;
   '400': PayPerCrawlGetTermsStatus400;
 };
+
+/**
+ * @description Union of all possible responses
+ */
+export type PayPerCrawlGetTermsResponse2 = PayPerCrawlGetTermsStatus200;
 
 export type PayPerCrawlGetTermsSignaturePath = {
   /**
@@ -375298,6 +375840,11 @@ export type PayPerCrawlGetTermsSignatureResponses = {
   '200': PayPerCrawlGetTermsSignatureStatus200;
   '400': PayPerCrawlGetTermsSignatureStatus400;
 };
+
+/**
+ * @description Union of all possible responses
+ */
+export type PayPerCrawlGetTermsSignatureResponse2 = PayPerCrawlGetTermsSignatureStatus200;
 
 export type PayPerCrawlSendTermsSignatureEventPath = {
   /**
@@ -375413,6 +375960,11 @@ export type PayPerCrawlQueryZonesCanBeEnabledResponses = {
   '400': PayPerCrawlQueryZonesCanBeEnabledStatus400;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type PayPerCrawlQueryZonesCanBeEnabledResponse2 = PayPerCrawlQueryZonesCanBeEnabledStatus200;
+
 export type PayPerUseListEnabledDomainsPath = {
   /**
    * @description Account identifier for the participant
@@ -375429,8 +375981,8 @@ export type PayPerUseListEnabledDomainsQuery = {
   cursor?: string | undefined;
   /**
    * @description Maximum number of domains to return
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 100
    * @type integer | undefined
    */
@@ -375595,15 +376147,15 @@ export type PayPerCrawlListPPUProposalsPath = {
 export type PayPerCrawlListPPUProposalsQuery = {
   /**
    * @description Page number.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Results per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 100
    * @type integer | undefined
    */
@@ -375765,15 +376317,15 @@ export type PayPerCrawlGetPPUUsageStatsQuery = {
   until: string;
   /**
    * @description Page number.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Results per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 100
    * @type integer | undefined
    */
@@ -375858,14 +376410,14 @@ export type AccountBillingListPaymentMethodsPath = {
 export type AccountBillingListPaymentMethodsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of items per page.
-   * @minLength 1
+   * @minimum 1
    * @default 20
    * @type integer | undefined
    */
@@ -376585,24 +377137,24 @@ export type PostV4AccountsByAccountIdPipelinesDeprecatedBody = {
     batch: {
       /**
        * @description Specifies rough maximum size of files.
-       * @minLength 1000
-       * @maxLength 100000000
+       * @minimum 1000
+       * @maximum 100000000
        * @default 100000000
        * @type integer | undefined
        */
       max_bytes?: number | undefined;
       /**
        * @description Specifies duration to wait to aggregate batches files.
-       * @minLength 0.25
-       * @maxLength 300
+       * @minimum 0.25
+       * @maximum 300
        * @default 300
        * @type number | undefined
        */
       max_duration_s?: number | undefined;
       /**
        * @description Specifies rough maximum number of rows per file.
-       * @minLength 100
-       * @maxLength 10000000
+       * @minimum 100
+       * @maximum 10000000
        * @default 10000000
        * @type integer | undefined
        */
@@ -378253,24 +378805,24 @@ export type PostV4AccountsByAccountIdPipelinesV1ValidateSqlStatus422 = {
     span?: ({
       end: {
         /**
-         * @minLength 0
+         * @minimum 0
          * @type integer
          */
         column: number;
         /**
-         * @minLength 0
+         * @minimum 0
          * @type integer
          */
         line: number;
       };
       start: {
         /**
-         * @minLength 0
+         * @minimum 0
          * @type integer
          */
         column: number;
         /**
-         * @minLength 0
+         * @minimum 0
          * @type integer
          */
         line: number;
@@ -378488,24 +379040,24 @@ export type PutV4AccountsByAccountIdPipelinesByPipelineNameDeprecatedBody = {
     batch: {
       /**
        * @description Specifies rough maximum size of files.
-       * @minLength 1000
-       * @maxLength 100000000
+       * @minimum 1000
+       * @maximum 100000000
        * @default 100000000
        * @type integer | undefined
        */
       max_bytes?: number | undefined;
       /**
        * @description Specifies duration to wait to aggregate batches files.
-       * @minLength 0.25
-       * @maxLength 300
+       * @minimum 0.25
+       * @maximum 300
        * @default 300
        * @type number | undefined
        */
       max_duration_s?: number | undefined;
       /**
        * @description Specifies rough maximum number of rows per file.
-       * @minLength 100
-       * @maxLength 10000000
+       * @minimum 100
+       * @maximum 10000000
        * @default 10000000
        * @type integer | undefined
        */
@@ -380521,8 +381073,8 @@ export type ListNamespacesQuery = {
    * @description Maximum number of namespaces to return per page.
    * Defaults to 100, maximum 1000.
    *
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 100
    * @type integer | undefined
    */
@@ -380634,8 +381186,8 @@ export type ListTablesQuery = {
    * @description Maximum number of tables to return per page.
    * Defaults to 100, maximum 1000.
    *
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 100
    * @type integer | undefined
    */
@@ -381020,8 +381572,8 @@ export type ListTableMaintenanceRunsPath = {
 
 export type ListTableMaintenanceRunsQuery = {
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @type integer | undefined
    */
   page_size?: number | undefined;
@@ -381096,8 +381648,8 @@ export type R2ListBucketsQuery = {
   start_after?: string | undefined;
   /**
    * @description Maximum number of buckets to return in a single call.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @type number | undefined
    */
@@ -381758,6 +382310,11 @@ export type R2ListCustomDomainsResponses = {
   '400': R2ListCustomDomainsStatus400;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type R2ListCustomDomainsResponse2 = R2ListCustomDomainsStatus200;
+
 export type R2AddCustomDomainPath = {
   /**
    * @description Cloudflare account ID that owns the R2 resource.
@@ -381823,6 +382380,11 @@ export type R2AddCustomDomainResponses = {
   '200': R2AddCustomDomainStatus200;
   '400': R2AddCustomDomainStatus400;
 };
+
+/**
+ * @description Union of all possible responses
+ */
+export type R2AddCustomDomainResponse2 = R2AddCustomDomainStatus200;
 
 export type R2DeleteCustomDomainPath = {
   /**
@@ -382218,8 +382780,8 @@ export type R2ListBucketJobsQuery = {
   status?: R2R2BucketJobStatusKey | undefined;
   /**
    * @description Maximum number of jobs to return.
-   * @minLength 0
-   * @maxLength 1000
+   * @minimum 0
+   * @maximum 1000
    * @type integer | undefined
    */
   maxKeys?: number | undefined;
@@ -382963,8 +383525,8 @@ export type R2ListObjectsPath = {
 export type R2ListObjectsQuery = {
   /**
    * @description Maximum number of objects to return per page.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @type integer | undefined
    */
@@ -383582,14 +384144,14 @@ export type GetAppsSortOrderKey = (typeof getAppsSortOrder)[keyof typeof getApps
 export type GetAppsQuery = {
   /**
    * @description The page number from which you want your page search results to be displayed.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page_no?: number | undefined;
   /**
    * @description Number of results per page.
-   * @minLength 1
+   * @minimum 1
    * @default 20
    * @type integer | undefined
    */
@@ -384387,13 +384949,13 @@ export type GetAllMeetingsStatusKey = (typeof getAllMeetingsStatus)[keyof typeof
 export type GetAllMeetingsQuery = {
   /**
    * @description The page number from which you want your page search results to be displayed.
-   * @minLength 0
+   * @minimum 0
    * @type number | undefined
    */
   page_no?: number | undefined;
   /**
    * @description Number of results per page
-   * @minLength 0
+   * @minimum 0
    * @type number | undefined
    */
   per_page?: number | undefined;
@@ -384521,8 +385083,8 @@ export type CreateMeetingBody = {
   recording_config?: RealtimekitRecordingConfig | undefined;
   /**
    * @description Time in seconds, for which a session remains active, after the last participant has left the meeting.
-   * @minLength 60
-   * @maxLength 600
+   * @minimum 60
+   * @maximum 600
    * @default 60
    * @type number | undefined
    */
@@ -384721,8 +385283,8 @@ export type UpdateMeetingBody = {
   recording_config?: RealtimekitRecordingConfig | undefined;
   /**
    * @description Time in seconds, for which a session remains active, after the last participant has left the meeting.
-   * @minLength 60
-   * @maxLength 600
+   * @minimum 60
+   * @maximum 600
    * @type number | undefined
    */
   session_keep_alive_time_in_secs?: number | undefined;
@@ -384849,8 +385411,8 @@ export type ReplaceMeetingBody = {
   recording_config?: RealtimekitRecordingConfig | undefined;
   /**
    * @description Time in seconds, for which a session remains active, after the last participant has left the meeting.
-   * @minLength 60
-   * @maxLength 600
+   * @minimum 60
+   * @maximum 600
    * @default 60
    * @type number | undefined
    */
@@ -385543,13 +386105,13 @@ export type GetMeetingParticipantsPath = {
 export type GetMeetingParticipantsQuery = {
   /**
    * @description The page number from which you want your page search results to be displayed.
-   * @minLength 0
+   * @minimum 0
    * @type number | undefined
    */
   page_no?: number | undefined;
   /**
    * @description Number of results per page
-   * @minLength 0
+   * @minimum 0
    * @type number | undefined
    */
   per_page?: number | undefined;
@@ -386194,13 +386756,13 @@ export type GetPresetsPath = {
 export type GetPresetsQuery = {
   /**
    * @description Number of results per page
-   * @minLength 0
+   * @minimum 0
    * @type number | undefined
    */
   per_page?: number | undefined;
   /**
    * @description The page number from which you want your page search results to be displayed.
-   * @minLength 0
+   * @minimum 0
    * @type number | undefined
    */
   page_no?: number | undefined;
@@ -386617,13 +387179,13 @@ export type GetAllRecordingsQuery = {
   meeting_id?: string | undefined;
   /**
    * @description The page number from which you want your page search results to be displayed.
-   * @minLength 0
+   * @minimum 0
    * @type number | undefined
    */
   page_no?: number | undefined;
   /**
    * @description Number of results per page
-   * @minLength 0
+   * @minimum 0
    * @type number | undefined
    */
   per_page?: number | undefined;
@@ -386737,8 +387299,8 @@ export type StartRecordingBody = {
   interactive_config?: RealtimekitInteractiveConfig | undefined;
   /**
    * @description Specifies the maximum duration for recording in seconds, ranging from a minimum of 60 seconds to a maximum of 24 hours.
-   * @minLength 60
-   * @maxLength 86400
+   * @minimum 60
+   * @maximum 86400
    * @type integer | undefined
    */
   max_seconds?: number | undefined;
@@ -387042,13 +387604,13 @@ export type GetSessionsStatusKey = (typeof getSessionsStatus)[keyof typeof getSe
 export type GetSessionsQuery = {
   /**
    * @description The page number from which you want your page search results to be displayed.
-   * @minLength 0
+   * @minimum 0
    * @type number | undefined
    */
   page_no?: number | undefined;
   /**
    * @description Number of results per page
-   * @minLength 0
+   * @minimum 0
    * @type number | undefined
    */
   per_page?: number | undefined;
@@ -387096,7 +387658,7 @@ export type GetSessionsStatus200 = {
     end_offset?: number | undefined;
     start_offset?: number | undefined;
     /**
-     * @minLength 0
+     * @minimum 0
      * @type number | undefined
      */
     total_count?: number | undefined;
@@ -387414,14 +387976,14 @@ export type GetSessionParticipantsQuery = {
   search?: string | undefined;
   /**
    * @description The page number from which you want your page search results to be displayed.
-   * @minLength 0
+   * @minimum 0
    * @type number | undefined
    */
   page_no?: number | undefined;
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 200
+   * @minimum 1
+   * @maximum 200
    * @default 25
    * @type integer | undefined
    */
@@ -388121,8 +388683,8 @@ export type SandboxRegistrarDomainDiscoverySearchQuery = {
   /**
    * @description Maximum number of domain suggestions to return. Defaults to 20 if not specified.
    *
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -388194,8 +388756,8 @@ export type SandboxRegistrarExtensionListQuery = {
   cursor?: string | undefined;
   /**
    * @description Number of items to return per page.
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -388316,8 +388878,8 @@ export type SandboxRegistrarDomainRegistrationListQuery = {
   cursor?: string | undefined;
   /**
    * @description Number of items to return per page.
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -388654,8 +389216,8 @@ export type RegistrarDomainDiscoverySearchQuery = {
   /**
    * @description Maximum number of domain suggestions to return. Defaults to 20 if not specified.
    *
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -388767,8 +389329,8 @@ export type RegistrarExtensionListQuery = {
   cursor?: string | undefined;
   /**
    * @description Number of items to return per page.
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -388889,8 +389451,8 @@ export type RegistrarDomainRegistrationListQuery = {
   cursor?: string | undefined;
   /**
    * @description Number of items to return per page.
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -389880,8 +390442,8 @@ export type DeleteResourceLibraryApplicationPath = {
    * @description Application ID.
    *
    * Format: `int64`
-   * @minLength 0
-   * @maxLength 4294967295
+   * @minimum 0
+   * @maximum 4294967295
    * @example 498
    * @type integer
    */
@@ -389925,8 +390487,8 @@ export type GetResourceLibraryApplicationByIdPath = {
    * @description Application ID.
    *
    * Format: `int64`
-   * @minLength 0
-   * @maxLength 4294967295
+   * @minimum 0
+   * @maximum 4294967295
    * @example 498
    * @type integer
    */
@@ -389964,8 +390526,8 @@ export type UpdateResourceLibraryApplicationPath = {
    * @description Application ID.
    *
    * Format: `int64`
-   * @minLength 0
-   * @maxLength 4294967295
+   * @minimum 0
+   * @maximum 4294967295
    * @example 498
    * @type integer
    */
@@ -390070,8 +390632,8 @@ export type GetResourceLibraryCategoryByIdPath = {
    * @description Application category ID.
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 4294967295
+   * @minimum 1
+   * @maximum 4294967295
    * @example 12
    * @type integer
    */
@@ -390109,15 +390671,15 @@ export type AccountRolesListRolesPath = {
 export type AccountRolesListRolesQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of roles per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -390529,8 +391091,8 @@ export type ListsGetListItemsQuery = {
   cursor?: string | undefined;
   /**
    * @description Amount of results to include in each paginated response. A non-negative 32 bit integer.
-   * @minLength 1
-   * @maxLength 500
+   * @minimum 1
+   * @maximum 500
    * @type integer | undefined
    */
   per_page?: number | undefined;
@@ -390715,8 +391277,8 @@ export type ListAccountRulesetsQuery = {
   cursor?: RulesetsCursor | undefined;
   /**
    * @description The number of rulesets to return per page.
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @example 3
    * @type integer | undefined
    */
@@ -391448,7 +392010,7 @@ export type CreateAccountRulesetRuleBody = RulesetsRequestRuleWritable & {
   } | RulesetsRulePosition & {
     /**
      * @description An index at which to place the rule, where index 1 is the first rule.
-     * @minLength 1
+     * @minimum 1
      * @example 1
      * @type integer | undefined
      */
@@ -391636,7 +392198,7 @@ export type UpdateAccountRulesetRuleBody = RulesetsRequestRuleWritable & {
   } | RulesetsRulePosition & {
     /**
      * @description An index at which to place the rule, where index 1 is the first rule.
-     * @minLength 1
+     * @minimum 1
      * @example 1
      * @type integer | undefined
      */
@@ -392461,7 +393023,7 @@ export type ScimGroupsListQuery = {
   /**
    * @description The 1-based index of the first result in the current set of list results. Values less than 1 are treated as 1.
    *
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
@@ -392469,7 +393031,7 @@ export type ScimGroupsListQuery = {
   /**
    * @description Specifies the desired maximum number of query results per page.
    *
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   count?: number | undefined;
@@ -392962,7 +393524,7 @@ export type ScimUsersListQuery = {
   /**
    * @description The 1-based index of the first result in the current set of list results. Values less than 1 are treated as 1.
    *
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
@@ -392970,7 +393532,7 @@ export type ScimUsersListQuery = {
   /**
    * @description Specifies the desired maximum number of query results per page.
    *
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   count?: number | undefined;
@@ -393782,6 +394344,11 @@ export type SecretsStoreQuotaResponses = {
   '400': SecretsStoreQuotaStatus400;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type SecretsStoreQuotaResponse2 = SecretsStoreQuotaStatus200;
+
 export type SecretsStoreListPath = {
   /**
    * @description Account identifier.
@@ -393816,15 +394383,15 @@ export type SecretsStoreListQuery = {
   direction?: SecretsStoreListDirectionKey | undefined;
   /**
    * @description Page number.
-   * @minLength 0
+   * @minimum 0
    * @example 2
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of objects to return per page.
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @example 20
    * @type integer | undefined
    */
@@ -394080,15 +394647,15 @@ export type SecretsStoreSecretsListQuery = {
   direction?: SecretsStoreSecretsListDirectionKey | undefined;
   /**
    * @description Page number.
-   * @minLength 0
+   * @minimum 0
    * @example 2
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of objects to return per page.
-   * @minLength 0
-   * @maxLength 100
+   * @minimum 0
+   * @maximum 100
    * @example 20
    * @type integer | undefined
    */
@@ -394428,8 +394995,8 @@ export type GetSecurityCenterInsightsQuery = {
   page?: SecurityCenterPage | undefined;
   /**
    * @description Sets the number of results per page of results.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 25
    * @example 25
    * @type integer | undefined
@@ -394454,8 +395021,8 @@ export type GetSecurityCenterInsightsStatus200 = SecurityCenterApiResponseCommon
     page?: SecurityCenterPage | undefined;
     /**
      * @description Sets the number of results per page of results.
-     * @minLength 1
-     * @maxLength 1000
+     * @minimum 1
+     * @maximum 1000
      * @example 25
      * @type integer | undefined
      */
@@ -394509,8 +395076,8 @@ export type GetSecurityCenterAccountAuditLogOrderKey = (typeof getSecurityCenter
 export type GetSecurityCenterAccountAuditLogQuery = {
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 25
    * @type integer | undefined
    */
@@ -394965,8 +395532,8 @@ export type GetSecurityCenterIssueAuditLogOrderKey = (typeof getSecurityCenterIs
 export type GetSecurityCenterIssueAuditLogQuery = {
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 25
    * @type integer | undefined
    */
@@ -395236,8 +395803,8 @@ export type GetSecurityCenterPartnerShadowZonesQuery = {
   cursor?: string | undefined;
   /**
    * @description Number of premium partner asset results per page. Values other than 1 must be a multiple of 5.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 25
    * @type integer | undefined
    */
@@ -395294,8 +395861,8 @@ export type GetSecurityCenterPartnerShadowZoneHostsQuery = {
   cursor?: string | undefined;
   /**
    * @description Number of premium partner asset results per page. Values other than 1 must be a multiple of 5.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 25
    * @type integer | undefined
    */
@@ -395574,7 +396141,7 @@ export type SharesListQuery = {
   direction?: SharesListDirectionKey | undefined;
   /**
    * @description Page number. Defaults to `1` when omitted.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 2
    * @type integer | undefined
@@ -395582,8 +396149,8 @@ export type SharesListQuery = {
   page?: number | undefined;
   /**
    * @description Number of objects to return per page. Defaults to `20` when omitted.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -395872,7 +396439,7 @@ export type ShareExcludedRecipientsListPath = {
 export type ShareExcludedRecipientsListQuery = {
   /**
    * @description Page number. Defaults to `1` when omitted.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 2
    * @type integer | undefined
@@ -395880,8 +396447,8 @@ export type ShareExcludedRecipientsListQuery = {
   page?: number | undefined;
   /**
    * @description Number of objects to return per page. Defaults to `20` when omitted.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -396145,7 +396712,7 @@ export type ShareRecipientsListQuery = {
   include_resources?: boolean | undefined;
   /**
    * @description Page number. Defaults to `1` when omitted.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 2
    * @type integer | undefined
@@ -396153,8 +396720,8 @@ export type ShareRecipientsListQuery = {
   page?: number | undefined;
   /**
    * @description Number of objects to return per page. Defaults to `20` when omitted.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -396437,7 +397004,7 @@ export type ShareResourcesListQuery = {
   resource_type?: ResourceSharingResourceTypeKey | undefined;
   /**
    * @description Page number. Defaults to `1` when omitted.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 2
    * @type integer | undefined
@@ -396445,8 +397012,8 @@ export type ShareResourcesListQuery = {
   page?: number | undefined;
   /**
    * @description Number of objects to return per page. Defaults to `20` when omitted.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -396695,7 +397262,7 @@ export type SlurperListJobsPath = {
 
 export type SlurperListJobsQuery = {
   /**
-   * @maxLength 50
+   * @maximum 50
    * @type integer | undefined
    */
   limit?: number | undefined;
@@ -396880,7 +397447,7 @@ export type SlurperGetJobLogsPath = {
 
 export type SlurperGetJobLogsQuery = {
   /**
-   * @maxLength 50
+   * @maximum 50
    * @type integer | undefined
    */
   limit?: number | undefined;
@@ -397305,15 +397872,15 @@ export type WorkersKvNamespaceListNamespacesDirectionKey = (typeof workersKvName
 export type WorkersKvNamespaceListNamespacesQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @type number | undefined
    */
@@ -397733,8 +398300,8 @@ export type WorkersKvNamespaceListANamespaceSKeysPath = {
 export type WorkersKvNamespaceListANamespaceSKeysQuery = {
   /**
    * @description Maximum number of keys to return in one response. Pass `result_info.cursor` from the response as `cursor` to request the next page.
-   * @minLength 10
-   * @maxLength 1000
+   * @minimum 10
+   * @maximum 1000
    * @default 1000
    * @type number | undefined
    */
@@ -397954,7 +398521,7 @@ export type WorkersKvNamespaceWriteKeyValuePairWithMetadataQuery = {
   expiration?: WorkersKvExpiration | undefined;
   /**
    * @description Number of seconds until the key expires. Must be at least 60. Takes precedence over `expiration` when both are specified.
-   * @minLength 60
+   * @minimum 60
    * @example 300
    * @type number | undefined
    */
@@ -398092,8 +398659,8 @@ export type StreamVideosListVideosQuery = {
   after?: string | undefined;
   /**
    * @description Maximum number of videos to return (default 1000, max 1000).
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @type integer | undefined
    */
   limit?: number | undefined;
@@ -398157,7 +398724,7 @@ export type StreamVideosInitiateVideoUploadsUsingTusHeaders = {
   'Upload-Creator'?: StreamCreator | undefined;
   /**
    * @description Indicates the size of the entire upload in bytes. The value must be a non-negative integer.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   'Upload-Length': StreamUploadLength;
@@ -398996,8 +399563,8 @@ export type UsageAnalyticsGetAccountStreamUsageQuery = {
   /**
    * @description Maximum number of data points to return. The actual number of results depends on the interaction between the time range (since/until) and time_delta granularity. Results are truncated to this limit without error if the time range produces more data points than the limit allows.
    *
-   * @minLength 1
-   * @maxLength 10000
+   * @minimum 1
+   * @maximum 10000
    * @default 100
    * @example 100
    * @type integer | undefined
@@ -399110,8 +399677,8 @@ export type StreamWatermarkProfileCreateWatermarkProfilesViaBasicUploadBody = {
   name?: StreamName | undefined;
   /**
    * @description The translucency of the image. A value of `0.0` makes the image completely transparent, and `1.0` makes the image completely opaque. Note that if the image is already semi-transparent, setting this to `1.0` will not make the image completely opaque.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 1
    * @example 0.75
    * @type number | undefined
@@ -399119,8 +399686,8 @@ export type StreamWatermarkProfileCreateWatermarkProfilesViaBasicUploadBody = {
   opacity?: StreamOpacity | undefined;
   /**
    * @description The whitespace between the adjacent edges (determined by position) of the video and the image. `0.0` indicates no padding, and `1.0` indicates a fully padded video width or length, as determined by the algorithm.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 0.05
    * @example 0.1
    * @type number | undefined
@@ -399135,8 +399702,8 @@ export type StreamWatermarkProfileCreateWatermarkProfilesViaBasicUploadBody = {
   position?: StreamPosition | undefined;
   /**
    * @description The size of the image relative to the overall size of the video. This parameter will adapt to horizontal and vertical videos automatically. `0.0` indicates no scaling (use the size of the image as-is), and `1.0 `fills the entire video.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @default 0.15
    * @example 0.1
    * @type number | undefined
@@ -400970,14 +401537,14 @@ export type TunnelRouteListTunnelRoutesQuery = {
   virtual_network_id?: TunnelVirtualNetworkId | undefined;
   /**
    * @description Number of results to display.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @type number | undefined
    */
   per_page?: TunnelPerPage | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
@@ -401636,32 +402203,8 @@ export type TunnelVirtualNetworkGetStatus200 = TunnelVnetResponseSingle;
 
 export type TunnelVirtualNetworkGetStatus400 = TunnelVnetResponseSingle & TunnelApiResponseCommonFailure;
 
-export type TunnelVirtualNetworkGetBody = {
-  /**
-   * @description Optional remark describing the virtual network.
-   * @maxLength 256
-   * @default ''
-   * @example Staging VPC for data science
-   * @type string | undefined
-   */
-  comment?: TunnelVirtualNetworkComment | undefined;
-  /**
-   * @description If `true`, this virtual network is the default for the account.
-   * @example true
-   * @type boolean | undefined
-   */
-  is_default_network?: TunnelIsDefaultNetwork | undefined;
-  /**
-   * @description A user-friendly name for the virtual network.
-   * @maxLength 256
-   * @example us-east-1-vpc
-   * @type string | undefined
-   */
-  name?: TunnelVirtualNetworkName | undefined;
-};
-
 export type TunnelVirtualNetworkGetOptions = {
-  body: TunnelVirtualNetworkGetBody;
+  body?: never | undefined;
   path: TunnelVirtualNetworkGetPath;
   query?: never | undefined;
   headers?: never | undefined;
@@ -401758,15 +402301,15 @@ export type AccountApiTokensListTokensDirectionKey = (typeof accountApiTokensLis
 export type AccountApiTokensListTokensQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -402072,8 +402615,8 @@ export type WorDeleteScriptTriggersStatus200 = {
   }[];
   result: {
     /**
-     * @minLength 0
-     * @maxLength 9007199254740991
+     * @minimum 0
+     * @maximum 9007199254740991
      * @type integer
      */
     deleted: number;
@@ -402565,14 +403108,14 @@ export type CloudflareTunnelListAllTunnelsQuery = {
   status?: TunnelStatusKey | undefined;
   /**
    * @description Number of results to display.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @type number | undefined
    */
   per_page?: TunnelPerPage | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
@@ -409114,6 +409657,11 @@ export type VectorizeIndexInfoResponses = {
   '400': VectorizeIndexInfoStatus400;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type VectorizeIndexInfoResponse2 = VectorizeIndexInfoStatus200;
+
 export type VectorizeInsertVectorPath = {
   /**
    * @description Identifier
@@ -409194,8 +409742,8 @@ export type VectorizeListVectorsPath = {
 export type VectorizeListVectorsQuery = {
   /**
    * @description Maximum number of vectors to return
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 100
    * @example 50
    * @type integer | undefined
@@ -409268,6 +409816,11 @@ export type VectorizeCreateMetadataIndexResponses = {
   '400': VectorizeCreateMetadataIndexStatus400;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type VectorizeCreateMetadataIndexResponse2 = VectorizeCreateMetadataIndexStatus200;
+
 export type VectorizeDeleteMetadataIndexPath = {
   /**
    * @description Identifier
@@ -409303,6 +409856,11 @@ export type VectorizeDeleteMetadataIndexResponses = {
   '200': VectorizeDeleteMetadataIndexStatus200;
   '400': VectorizeDeleteMetadataIndexStatus400;
 };
+
+/**
+ * @description Union of all possible responses
+ */
+export type VectorizeDeleteMetadataIndexResponse2 = VectorizeDeleteMetadataIndexStatus200;
 
 export type VectorizeListMetadataIndexesPath = {
   /**
@@ -409462,15 +410020,15 @@ export type ListCredentialSetsPath = {
 export type ListCredentialSetsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -409734,15 +410292,15 @@ export type ListCredentialsPath = {
 export type ListCredentialsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -410058,15 +410616,15 @@ export type ListScansPath = {
 export type ListScansQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -410236,15 +410794,15 @@ export type ListTargetEnvironmentsPath = {
 export type ListTargetEnvironmentsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -410507,15 +411065,15 @@ export type WaitingRoomListWaitingRoomsAccountPath = {
 export type WaitingRoomListWaitingRoomsAccountQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page. Must be a multiple of 5.
-   * @minLength 5
-   * @maxLength 1000
+   * @minimum 5
+   * @maximum 1000
    * @default 25
    * @type number | undefined
    */
@@ -410615,14 +411173,14 @@ export type CloudflareTunnelListWarpConnectorTunnelsQuery = {
   status?: TunnelStatusKey | undefined;
   /**
    * @description Number of results to display.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @type number | undefined
    */
   per_page?: TunnelPerPage | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
@@ -412874,15 +413432,15 @@ export type DurableObjectsNamespaceListNamespacesPath = {
 export type DurableObjectsNamespaceListNamespacesQuery = {
   /**
    * @description Current page.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Items per-page.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @type integer | undefined
    */
@@ -412933,8 +413491,8 @@ export type DurableObjectsNamespaceListObjectsPath = {
 export type DurableObjectsNamespaceListObjectsQuery = {
   /**
    * @description The number of objects to return. The cursor attribute may be used to iterate over the next batch of objects if there are more than the limit.
-   * @minLength 10
-   * @maxLength 10000
+   * @minimum 10
+   * @maximum 10000
    * @default 1000
    * @type number | undefined
    */
@@ -413066,13 +413624,13 @@ export type AgentsSessionsListQuery = {
   agent: string;
   /**
    * @description Start of the requested time range, as Unix epoch milliseconds. Values earlier than the 7-day retention boundary are clamped.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   from: number;
   /**
    * @description End of the requested time range, as Unix epoch milliseconds. Must be later than from.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   to: number;
@@ -413085,8 +413643,8 @@ export type AgentsSessionsListQuery = {
   cursor?: string | undefined;
   /**
    * @description Maximum number of items to return. Defaults to 20 and cannot exceed 100.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @type integer | undefined
    */
   per_page?: number | undefined;
@@ -413103,7 +413661,7 @@ export type AgentsSessionsListStatus200 = {
   result_info: {
     /**
      * @description Number of items returned on this page.
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     count: number;
@@ -413116,7 +413674,7 @@ export type AgentsSessionsListStatus200 = {
     };
     /**
      * @description Maximum number of items requested for this page.
-     * @minLength 1
+     * @minimum 1
      * @type integer
      */
     per_page: number;
@@ -413244,13 +413802,13 @@ export type AgentsSessionsRunsListQuery = {
   agent: string;
   /**
    * @description Start of the requested time range, as Unix epoch milliseconds. Values earlier than the 7-day retention boundary are clamped.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   from: number;
   /**
    * @description End of the requested time range, as Unix epoch milliseconds. Must be later than from.
-   * @minLength 0
+   * @minimum 0
    * @type integer
    */
   to: number;
@@ -413263,8 +413821,8 @@ export type AgentsSessionsRunsListQuery = {
   cursor?: string | undefined;
   /**
    * @description Maximum number of items to return. Defaults to 20 and cannot exceed 100.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @type integer | undefined
    */
   per_page?: number | undefined;
@@ -413281,7 +413839,7 @@ export type AgentsSessionsRunsListStatus200 = {
   result_info: {
     /**
      * @description Number of items returned on this page.
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     count: number;
@@ -413294,7 +413852,7 @@ export type AgentsSessionsRunsListStatus200 = {
     };
     /**
      * @description Maximum number of items requested for this page.
-     * @minLength 1
+     * @minimum 1
      * @type integer
      */
     per_page: number;
@@ -413414,14 +413972,14 @@ export type DestinationListOrderByKey = (typeof destinationListOrderBy)[keyof ty
 
 export type DestinationListQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -413923,13 +414481,13 @@ export type IssuesListStatusKey = (typeof issuesListStatus)[keyof typeof issuesL
 
 export type IssuesListQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @type integer | undefined
    */
   perPage?: number | undefined;
@@ -414327,14 +414885,14 @@ export type IssuesAutomationsCreateStatus500 = {
 
 export type IssuesAutomationsCreateBody = {
   /**
-   * @minLength 3600
-   * @maxLength 31536000
+   * @minimum 3600
+   * @maximum 31536000
    * @type integer | undefined
    */
   afterInactivitySeconds?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 9007199254740991
+   * @minimum 1
+   * @maximum 9007199254740991
    * @type integer | undefined
    */
   afterOccurrences?: number | undefined;
@@ -414721,14 +415279,14 @@ export type IssuesAutomationsUpdateStatus500 = {
 
 export type IssuesAutomationsUpdateBody = {
   /**
-   * @minLength 3600
-   * @maxLength 31536000
+   * @minimum 3600
+   * @maximum 31536000
    * @type integer | undefined
    */
   afterInactivitySeconds?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 9007199254740991
+   * @minimum 1
+   * @maximum 9007199254740991
    * @type integer | undefined
    */
   afterOccurrences?: number | undefined;
@@ -415875,8 +416433,8 @@ export type IssuesOccurrencesListQuery = {
    */
   cursor?: string | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @type integer | undefined
    */
   per_page?: number | undefined;
@@ -415892,7 +416450,7 @@ export type IssuesOccurrencesListStatus200 = {
   result: WorkersObservabilityIssueOccurrence[];
   result_info: {
     /**
-     * @minLength 0
+     * @minimum 0
      * @type integer
      */
     count: number;
@@ -415900,7 +416458,7 @@ export type IssuesOccurrencesListStatus200 = {
       after: string | null;
     };
     /**
-     * @minLength 1
+     * @minimum 1
      * @type integer
      */
     per_page: number;
@@ -416229,14 +416787,14 @@ export type QueriesListOrderByKey = (typeof queriesListOrderBy)[keyof typeof que
 
 export type QueriesListQuery = {
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -416377,6 +416935,21 @@ export const queriesPostRequestParametersCalculationsKeyTypeEnum = {
 export type QueriesPostRequestParametersCalculationsKeyTypeEnumKey = (typeof queriesPostRequestParametersCalculationsKeyTypeEnum)[keyof typeof queriesPostRequestParametersCalculationsKeyTypeEnum];
 
 export const queriesPostRequestParametersCalculationsOperatorEnum = {
+  count: 'count',
+  COUNT: 'COUNT',
+} as const;
+
+export type QueriesPostRequestParametersCalculationsOperatorEnumKey = (typeof queriesPostRequestParametersCalculationsOperatorEnum)[keyof typeof queriesPostRequestParametersCalculationsOperatorEnum];
+
+export const queriesPostRequestParametersCalculationsKeyTypeEnum2 = {
+  string: 'string',
+  number: 'number',
+  boolean: 'boolean',
+} as const;
+
+export type QueriesPostRequestParametersCalculationsKeyTypeEnum2Key = (typeof queriesPostRequestParametersCalculationsKeyTypeEnum2)[keyof typeof queriesPostRequestParametersCalculationsKeyTypeEnum2];
+
+export const queriesPostRequestParametersCalculationsOperatorEnum2 = {
   uniq: 'uniq',
   max: 'max',
   min: 'min',
@@ -416415,7 +416988,7 @@ export const queriesPostRequestParametersCalculationsOperatorEnum = {
   VARIANCE: 'VARIANCE',
 } as const;
 
-export type QueriesPostRequestParametersCalculationsOperatorEnumKey = (typeof queriesPostRequestParametersCalculationsOperatorEnum)[keyof typeof queriesPostRequestParametersCalculationsOperatorEnum];
+export type QueriesPostRequestParametersCalculationsOperatorEnum2Key = (typeof queriesPostRequestParametersCalculationsOperatorEnum2)[keyof typeof queriesPostRequestParametersCalculationsOperatorEnum2];
 
 export const queriesPostRequestParametersFilterCombinationEnum = {
   and: 'and',
@@ -416487,8 +417060,8 @@ export type QueriesPostBody = {
        * @type string
        */
       key: string;
-      keyType?: QueriesPostRequestParametersCalculationsKeyTypeEnumKey | undefined;
-      operator: QueriesPostRequestParametersCalculationsOperatorEnumKey;
+      keyType?: QueriesPostRequestParametersCalculationsKeyTypeEnum2Key | undefined;
+      operator: QueriesPostRequestParametersCalculationsOperatorEnum2Key;
     })[] | undefined;
     /**
      * @description Set the Datasets to query. Leave it empty to query all the datasets.
@@ -416525,8 +417098,8 @@ export type QueriesPostBody = {
     }[] | undefined;
     /**
      * @description Set a limit on the number of results / records returned by the query
-     * @minLength 0
-     * @maxLength 100
+     * @minimum 0
+     * @maximum 100
      * @type integer | undefined
      */
     limit?: number | undefined;
@@ -416783,6 +417356,21 @@ export const queriesPatchRequestParametersCalculationsKeyTypeEnum = {
 export type QueriesPatchRequestParametersCalculationsKeyTypeEnumKey = (typeof queriesPatchRequestParametersCalculationsKeyTypeEnum)[keyof typeof queriesPatchRequestParametersCalculationsKeyTypeEnum];
 
 export const queriesPatchRequestParametersCalculationsOperatorEnum = {
+  count: 'count',
+  COUNT: 'COUNT',
+} as const;
+
+export type QueriesPatchRequestParametersCalculationsOperatorEnumKey = (typeof queriesPatchRequestParametersCalculationsOperatorEnum)[keyof typeof queriesPatchRequestParametersCalculationsOperatorEnum];
+
+export const queriesPatchRequestParametersCalculationsKeyTypeEnum2 = {
+  string: 'string',
+  number: 'number',
+  boolean: 'boolean',
+} as const;
+
+export type QueriesPatchRequestParametersCalculationsKeyTypeEnum2Key = (typeof queriesPatchRequestParametersCalculationsKeyTypeEnum2)[keyof typeof queriesPatchRequestParametersCalculationsKeyTypeEnum2];
+
+export const queriesPatchRequestParametersCalculationsOperatorEnum2 = {
   uniq: 'uniq',
   max: 'max',
   min: 'min',
@@ -416821,7 +417409,7 @@ export const queriesPatchRequestParametersCalculationsOperatorEnum = {
   VARIANCE: 'VARIANCE',
 } as const;
 
-export type QueriesPatchRequestParametersCalculationsOperatorEnumKey = (typeof queriesPatchRequestParametersCalculationsOperatorEnum)[keyof typeof queriesPatchRequestParametersCalculationsOperatorEnum];
+export type QueriesPatchRequestParametersCalculationsOperatorEnum2Key = (typeof queriesPatchRequestParametersCalculationsOperatorEnum2)[keyof typeof queriesPatchRequestParametersCalculationsOperatorEnum2];
 
 export const queriesPatchRequestParametersFilterCombinationEnum = {
   and: 'and',
@@ -416893,8 +417481,8 @@ export type QueriesPatchBody = {
        * @type string
        */
       key: string;
-      keyType?: QueriesPatchRequestParametersCalculationsKeyTypeEnumKey | undefined;
-      operator: QueriesPatchRequestParametersCalculationsOperatorEnumKey;
+      keyType?: QueriesPatchRequestParametersCalculationsKeyTypeEnum2Key | undefined;
+      operator: QueriesPatchRequestParametersCalculationsOperatorEnum2Key;
     })[] | undefined;
     /**
      * @description Set the Datasets to query. Leave it empty to query all the datasets.
@@ -416931,8 +417519,8 @@ export type QueriesPatchBody = {
     }[] | undefined;
     /**
      * @description Set a limit on the number of results / records returned by the query
-     * @minLength 0
-     * @maxLength 100
+     * @minimum 0
+     * @maximum 100
      * @type integer | undefined
      */
     limit?: number | undefined;
@@ -417077,6 +417665,21 @@ export const sharedQueryPostRequestParametersCalculationsKeyTypeEnum = {
 export type SharedQueryPostRequestParametersCalculationsKeyTypeEnumKey = (typeof sharedQueryPostRequestParametersCalculationsKeyTypeEnum)[keyof typeof sharedQueryPostRequestParametersCalculationsKeyTypeEnum];
 
 export const sharedQueryPostRequestParametersCalculationsOperatorEnum = {
+  count: 'count',
+  COUNT: 'COUNT',
+} as const;
+
+export type SharedQueryPostRequestParametersCalculationsOperatorEnumKey = (typeof sharedQueryPostRequestParametersCalculationsOperatorEnum)[keyof typeof sharedQueryPostRequestParametersCalculationsOperatorEnum];
+
+export const sharedQueryPostRequestParametersCalculationsKeyTypeEnum2 = {
+  string: 'string',
+  number: 'number',
+  boolean: 'boolean',
+} as const;
+
+export type SharedQueryPostRequestParametersCalculationsKeyTypeEnum2Key = (typeof sharedQueryPostRequestParametersCalculationsKeyTypeEnum2)[keyof typeof sharedQueryPostRequestParametersCalculationsKeyTypeEnum2];
+
+export const sharedQueryPostRequestParametersCalculationsOperatorEnum2 = {
   uniq: 'uniq',
   max: 'max',
   min: 'min',
@@ -417115,7 +417718,7 @@ export const sharedQueryPostRequestParametersCalculationsOperatorEnum = {
   VARIANCE: 'VARIANCE',
 } as const;
 
-export type SharedQueryPostRequestParametersCalculationsOperatorEnumKey = (typeof sharedQueryPostRequestParametersCalculationsOperatorEnum)[keyof typeof sharedQueryPostRequestParametersCalculationsOperatorEnum];
+export type SharedQueryPostRequestParametersCalculationsOperatorEnum2Key = (typeof sharedQueryPostRequestParametersCalculationsOperatorEnum2)[keyof typeof sharedQueryPostRequestParametersCalculationsOperatorEnum2];
 
 export const sharedQueryPostRequestParametersFilterCombinationEnum = {
   and: 'and',
@@ -417216,7 +417819,7 @@ export type SharedQueryPostBody = {
   ignoreSeries?: boolean | undefined;
   /**
    * @description Maximum number of events to return when view is 'events'. Also controls the number of group-by rows when view is 'calculations'.
-   * @maxLength 2000
+   * @maximum 2000
    * @default 50
    * @type number | undefined
    */
@@ -417282,12 +417885,12 @@ export type SharedQueryPostBody = {
        * @description Data type of the key. Required when key is provided to ensure correct aggregation.
        * @type string | undefined
        */
-      keyType?: SharedQueryPostRequestParametersCalculationsKeyTypeEnumKey | undefined;
+      keyType?: SharedQueryPostRequestParametersCalculationsKeyTypeEnum2Key | undefined;
       /**
        * @description Aggregation operator to apply. Examples: count, avg, sum, min, max, median, p90, p95, p99, uniq, stddev, variance.
        * @type string
        */
-      operator: SharedQueryPostRequestParametersCalculationsOperatorEnumKey;
+      operator: SharedQueryPostRequestParametersCalculationsOperatorEnum2Key;
     })[] | undefined;
     /**
      * @description Datasets to query. Leave empty to query all available datasets.
@@ -417360,8 +417963,8 @@ export type SharedQueryPostBody = {
     }[] | undefined;
     /**
      * @description Maximum number of group-by rows to return in calculation results. A value of 10 is a sensible default for most use cases.
-     * @minLength 0
-     * @maxLength 2000
+     * @minimum 0
+     * @maximum 2000
      * @type integer | undefined
      */
     limit?: number | undefined;
@@ -417414,15 +418017,15 @@ export type SharedQueryPostBody = {
   timeframe: {
     /**
      * @description Start timestamp for the query timeframe. Unix timestamp in milliseconds
-     * @minLength 0
-     * @maxLength 253402300799999
+     * @minimum 0
+     * @maximum 253402300799999
      * @type integer
      */
     from: number;
     /**
      * @description End timestamp for the query timeframe. Unix timestamp in milliseconds
-     * @minLength 0
-     * @maxLength 253402300799999
+     * @minimum 0
+     * @maximum 253402300799999
      * @type integer
      */
     to: number;
@@ -418087,6 +418690,21 @@ export const telemetryQueryRequestParametersCalculationsKeyTypeEnum = {
 export type TelemetryQueryRequestParametersCalculationsKeyTypeEnumKey = (typeof telemetryQueryRequestParametersCalculationsKeyTypeEnum)[keyof typeof telemetryQueryRequestParametersCalculationsKeyTypeEnum];
 
 export const telemetryQueryRequestParametersCalculationsOperatorEnum = {
+  count: 'count',
+  COUNT: 'COUNT',
+} as const;
+
+export type TelemetryQueryRequestParametersCalculationsOperatorEnumKey = (typeof telemetryQueryRequestParametersCalculationsOperatorEnum)[keyof typeof telemetryQueryRequestParametersCalculationsOperatorEnum];
+
+export const telemetryQueryRequestParametersCalculationsKeyTypeEnum2 = {
+  string: 'string',
+  number: 'number',
+  boolean: 'boolean',
+} as const;
+
+export type TelemetryQueryRequestParametersCalculationsKeyTypeEnum2Key = (typeof telemetryQueryRequestParametersCalculationsKeyTypeEnum2)[keyof typeof telemetryQueryRequestParametersCalculationsKeyTypeEnum2];
+
+export const telemetryQueryRequestParametersCalculationsOperatorEnum2 = {
   uniq: 'uniq',
   max: 'max',
   min: 'min',
@@ -418125,7 +418743,7 @@ export const telemetryQueryRequestParametersCalculationsOperatorEnum = {
   VARIANCE: 'VARIANCE',
 } as const;
 
-export type TelemetryQueryRequestParametersCalculationsOperatorEnumKey = (typeof telemetryQueryRequestParametersCalculationsOperatorEnum)[keyof typeof telemetryQueryRequestParametersCalculationsOperatorEnum];
+export type TelemetryQueryRequestParametersCalculationsOperatorEnum2Key = (typeof telemetryQueryRequestParametersCalculationsOperatorEnum2)[keyof typeof telemetryQueryRequestParametersCalculationsOperatorEnum2];
 
 export const telemetryQueryRequestParametersFilterCombinationEnum = {
   and: 'and',
@@ -418226,7 +418844,7 @@ export type TelemetryQueryBody = {
   ignoreSeries?: boolean | undefined;
   /**
    * @description Maximum number of events to return when view is 'events'. Also controls the number of group-by rows when view is 'calculations'.
-   * @maxLength 2000
+   * @maximum 2000
    * @default 50
    * @type number | undefined
    */
@@ -418292,12 +418910,12 @@ export type TelemetryQueryBody = {
        * @description Data type of the key. Required when key is provided to ensure correct aggregation.
        * @type string | undefined
        */
-      keyType?: TelemetryQueryRequestParametersCalculationsKeyTypeEnumKey | undefined;
+      keyType?: TelemetryQueryRequestParametersCalculationsKeyTypeEnum2Key | undefined;
       /**
        * @description Aggregation operator to apply. Examples: count, avg, sum, min, max, median, p90, p95, p99, uniq, stddev, variance.
        * @type string
        */
-      operator: TelemetryQueryRequestParametersCalculationsOperatorEnumKey;
+      operator: TelemetryQueryRequestParametersCalculationsOperatorEnum2Key;
     })[] | undefined;
     /**
      * @description Datasets to query. Leave empty to query all available datasets.
@@ -418370,8 +418988,8 @@ export type TelemetryQueryBody = {
     }[] | undefined;
     /**
      * @description Maximum number of group-by rows to return in calculation results. A value of 10 is a sensible default for most use cases.
-     * @minLength 0
-     * @maxLength 2000
+     * @minimum 0
+     * @maximum 2000
      * @type integer | undefined
      */
     limit?: number | undefined;
@@ -418424,15 +419042,15 @@ export type TelemetryQueryBody = {
   timeframe: {
     /**
      * @description Start timestamp for the query timeframe. Unix timestamp in milliseconds
-     * @minLength 0
-     * @maxLength 253402300799999
+     * @minimum 0
+     * @maximum 253402300799999
      * @type integer
      */
     from: number;
     /**
      * @description End timestamp for the query timeframe. Unix timestamp in milliseconds
-     * @minLength 0
-     * @maxLength 253402300799999
+     * @minimum 0
+     * @maximum 253402300799999
      * @type integer
      */
     to: number;
@@ -418949,15 +419567,15 @@ export type WorkerScriptSearchWorkersQuery = {
   order_by?: WorkerScriptSearchWorkersOrderByKey | undefined;
   /**
    * @description Current page.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Items per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 10
    * @type integer | undefined
    */
@@ -419398,15 +420016,15 @@ export type WorkerDeploymentsListDeploymentsQuery = {
   until?: string | undefined;
   /**
    * @description Current page.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Items per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 10
    * @type integer | undefined
    */
@@ -421080,15 +421698,15 @@ export type ListWorkersOrderKey = (typeof listWorkersOrder)[keyof typeof listWor
 export type ListWorkersQuery = {
   /**
    * @description Current page.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Items per-page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 10
    * @type integer | undefined
    */
@@ -421567,15 +422185,15 @@ export type WorkersPreviewsListOrderKey = (typeof workersPreviewsListOrder)[keyo
 export type WorkersPreviewsListQuery = {
   /**
    * @description Current page.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Items per-page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 10
    * @type integer | undefined
    */
@@ -421925,15 +422543,15 @@ export type WorkersPreviewsDeploymentsListPath = {
 export type WorkersPreviewsDeploymentsListQuery = {
   /**
    * @description Current page.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Items per-page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 10
    * @type integer | undefined
    */
@@ -422195,15 +422813,15 @@ export type ListWorkerVersionsPath = {
 export type ListWorkerVersionsQuery = {
   /**
    * @description Current page.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Items per-page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 10
    * @type integer | undefined
    */
@@ -422534,8 +423152,8 @@ export type ProfileWorkerVersionBody = {
    * @description Profile duration in milliseconds.
    *
    * Format: `int32`
-   * @minLength 1000
-   * @maxLength 50000
+   * @minimum 1000
+   * @maximum 50000
    * @type integer
    */
   duration_ms: number;
@@ -422580,14 +423198,14 @@ export type WorListWorkflowsPath = {
 
 export type WorListWorkflowsQuery = {
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 10
    * @type number | undefined
    */
   per_page?: number | undefined;
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
@@ -422715,14 +423333,14 @@ export type WorListConcurrencyKeysPath = {
 
 export type WorListConcurrencyKeysQuery = {
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 10
    * @type number | undefined
    */
   per_page?: number | undefined;
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
@@ -422754,7 +423372,7 @@ export type WorListConcurrencyKeysStatus200 = {
     id: string;
     /**
      * @description Maximum number of steps that may concurrently hold this key.
-     * @maxLength 9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     limit: number;
@@ -422844,7 +423462,7 @@ export type WorCreateConcurrencyKeyStatus200 = {
     id: string;
     /**
      * @description Maximum number of steps that may concurrently hold this key.
-     * @maxLength 9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     limit: number;
@@ -422900,7 +423518,7 @@ export type WorCreateConcurrencyKeyStatus409 = {
 export type WorCreateConcurrencyKeyBody = {
   /**
    * @description Maximum number of steps that may concurrently hold this key.
-   * @maxLength 9007199254740991
+   * @maximum 9007199254740991
    * @type integer
    */
   limit: number;
@@ -423063,7 +423681,7 @@ export type WorGetConcurrencyKeyStatus200 = {
     id: string;
     /**
      * @description Maximum number of steps that may concurrently hold this key.
-     * @maxLength 9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     limit: number;
@@ -423184,7 +423802,7 @@ export type WorUpdateConcurrencyKeyStatus200 = {
     id: string;
     /**
      * @description Maximum number of steps that may concurrently hold this key.
-     * @maxLength 9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     limit: number;
@@ -423240,7 +423858,7 @@ export type WorUpdateConcurrencyKeyStatus404 = {
 export type WorUpdateConcurrencyKeyBody = {
   /**
    * @description Maximum number of steps that may concurrently hold this key.
-   * @maxLength 9007199254740991
+   * @maximum 9007199254740991
    * @type integer
    */
   limit: number;
@@ -423282,15 +423900,15 @@ export type WorGetWorkflowSettingsStatus200 = {
     default_retention?: {
       /**
        * @description Default error retention in milliseconds.
-       * @minLength -9007199254740991
-       * @maxLength 9007199254740991
+       * @minimum -9007199254740991
+       * @maximum 9007199254740991
        * @type integer | undefined
        */
       error_retention?: number | undefined;
       /**
        * @description Default success retention in milliseconds.
-       * @minLength -9007199254740991
-       * @maxLength 9007199254740991
+       * @minimum -9007199254740991
+       * @maximum 9007199254740991
        * @type integer | undefined
        */
       success_retention?: number | undefined;
@@ -423351,15 +423969,15 @@ export type WorUpdateWorkflowSettingsStatus200 = {
     default_retention?: {
       /**
        * @description Default error retention in milliseconds.
-       * @minLength -9007199254740991
-       * @maxLength 9007199254740991
+       * @minimum -9007199254740991
+       * @maximum 9007199254740991
        * @type integer | undefined
        */
       error_retention?: number | undefined;
       /**
        * @description Default success retention in milliseconds.
-       * @minLength -9007199254740991
-       * @maxLength 9007199254740991
+       * @minimum -9007199254740991
+       * @maximum 9007199254740991
        * @type integer | undefined
        */
       success_retention?: number | undefined;
@@ -423747,8 +424365,8 @@ export type WorCreateOrModifyWorkflowBody = {
   concurrency?: {
     /**
      * @description Maximum number of instances of this workflow that can run concurrently. Additional instances are queued and started as running instances complete. Must not exceed the account concurrency limit.
-     * @minLength 1
-     * @maxLength 9007199254740991
+     * @minimum 1
+     * @maximum 9007199254740991
      * @type integer | undefined
      */
     limit?: number | undefined;
@@ -423774,8 +424392,8 @@ export type WorCreateOrModifyWorkflowBody = {
   jurisdiction?: WorCreateOrModifyWorkflowRequestJurisdictionEnumKey | undefined;
   limits?: {
     /**
-     * @minLength 1
-     * @maxLength 9007199254740991
+     * @minimum 1
+     * @maximum 9007199254740991
      * @type integer | undefined
      */
     steps?: number | undefined;
@@ -423850,13 +424468,13 @@ export type WorListWorkflowInstancesQuery = {
   /**
    * @description Deprecated: use `cursor` for pagination instead.
    * @deprecated
-   * @minLength 1
+   * @minimum 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 50
    * @type number | undefined
    */
@@ -424800,8 +425418,8 @@ export type WorDescribeWorkflowInstanceStatus200 = {
     start: string | null;
     status: WorDescribeWorkflowInstanceStatus200ResultStatusEnumKey;
     /**
-     * @minLength -9007199254740991
-     * @maxLength 9007199254740991
+     * @minimum -9007199254740991
+     * @maximum 9007199254740991
      * @type integer
      */
     step_count: number;
@@ -425181,7 +425799,7 @@ export type WorChangeStatusWorkflowInstanceBody = {
    */
   from?: {
     /**
-     * @maxLength 9007199254740991
+     * @maximum 9007199254740991
      * @type integer | undefined
      */
     count?: number | undefined;
@@ -425254,7 +425872,7 @@ export type WorGetWorkflowInstanceStepQuery = {
   type: WorGetWorkflowInstanceStepTypeKey;
   /**
    * @description Specific attempt number to retrieve output or error for.
-   * @maxLength 9007199254740991
+   * @maximum 9007199254740991
    * @type integer | undefined
    */
   attempt?: number | undefined;
@@ -425468,14 +426086,14 @@ export type WorListWorkflowVersionsPath = {
 
 export type WorListWorkflowVersionsQuery = {
   /**
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 50
    * @type number | undefined
    */
   per_page?: number | undefined;
   /**
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
@@ -425503,8 +426121,8 @@ export type WorListWorkflowVersionsStatus200 = {
     concurrency?: {
       /**
        * @description Maximum number of instances of this workflow that can run concurrently. Additional instances are queued and started as running instances complete. Must not exceed the account concurrency limit.
-       * @minLength 1
-       * @maxLength 9007199254740991
+       * @minimum 1
+       * @maximum 9007199254740991
        * @type integer | undefined
        */
       limit?: number | undefined;
@@ -425518,15 +426136,15 @@ export type WorListWorkflowVersionsStatus200 = {
     default_retention?: {
       /**
        * @description Default error retention in milliseconds.
-       * @minLength -9007199254740991
-       * @maxLength 9007199254740991
+       * @minimum -9007199254740991
+       * @maximum 9007199254740991
        * @type integer | undefined
        */
       error_retention?: number | undefined;
       /**
        * @description Default success retention in milliseconds.
-       * @minLength -9007199254740991
-       * @maxLength 9007199254740991
+       * @minimum -9007199254740991
+       * @maximum 9007199254740991
        * @type integer | undefined
        */
       success_retention?: number | undefined;
@@ -425545,8 +426163,8 @@ export type WorListWorkflowVersionsStatus200 = {
     language: WorListWorkflowVersionsStatus200ResultLanguageEnumKey;
     limits?: {
       /**
-       * @minLength 1
-       * @maxLength 9007199254740991
+       * @minimum 1
+       * @maximum 9007199254740991
        * @type integer | undefined
        */
       steps?: number | undefined;
@@ -425640,8 +426258,8 @@ export type WorDescribeWorkflowVersionsStatus200 = {
     concurrency?: {
       /**
        * @description Maximum number of instances of this workflow that can run concurrently. Additional instances are queued and started as running instances complete. Must not exceed the account concurrency limit.
-       * @minLength 1
-       * @maxLength 9007199254740991
+       * @minimum 1
+       * @maximum 9007199254740991
        * @type integer | undefined
        */
       limit?: number | undefined;
@@ -425655,15 +426273,15 @@ export type WorDescribeWorkflowVersionsStatus200 = {
     default_retention?: {
       /**
        * @description Default error retention in milliseconds.
-       * @minLength -9007199254740991
-       * @maxLength 9007199254740991
+       * @minimum -9007199254740991
+       * @maximum 9007199254740991
        * @type integer | undefined
        */
       error_retention?: number | undefined;
       /**
        * @description Default success retention in milliseconds.
-       * @minLength -9007199254740991
-       * @maxLength 9007199254740991
+       * @minimum -9007199254740991
+       * @maximum 9007199254740991
        * @type integer | undefined
        */
       success_retention?: number | undefined;
@@ -425682,8 +426300,8 @@ export type WorDescribeWorkflowVersionsStatus200 = {
     language: WorDescribeWorkflowVersionsStatus200ResultLanguageEnumKey;
     limits?: {
       /**
-       * @minLength 1
-       * @maxLength 9007199254740991
+       * @minimum 1
+       * @maximum 9007199254740991
        * @type integer | undefined
        */
       steps?: number | undefined;
@@ -425868,11 +426486,20 @@ export const worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesCo
 export type WorDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesConfigRetriesBackoffEnumKey = (typeof worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesConfigRetriesBackoffEnum)[keyof typeof worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesConfigRetriesBackoffEnum];
 
 export const worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesKindEnum = {
+  all: 'all',
+  any: 'any',
+  all_settled: 'all_settled',
+  race: 'race',
+} as const;
+
+export type WorDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesKindEnumKey = (typeof worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesKindEnum)[keyof typeof worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesKindEnum];
+
+export const worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesKindEnum2 = {
   break: 'break',
   return: 'return',
 } as const;
 
-export type WorDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesKindEnumKey = (typeof worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesKindEnum)[keyof typeof worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesKindEnum];
+export type WorDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesKindEnum2Key = (typeof worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesKindEnum2)[keyof typeof worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesKindEnum2];
 
 export type WorDescribeWorkflowVersionsGraphStatus200 = {
   errors: {
@@ -426121,7 +426748,7 @@ export type WorDescribeWorkflowVersionsGraphStatus200 = {
            * @description Break or return from a loop.
            * @type string
            */
-          kind: WorDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesKindEnumKey;
+          kind: WorDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesKindEnum2Key;
           type: 'break';
         })[];
         /**
@@ -426332,14 +426959,14 @@ export type ZeroTrustNetworksRouteHostnameListQuery = {
   is_deleted?: boolean | undefined;
   /**
    * @description Number of results to display.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @type number | undefined
    */
   per_page?: TunnelPerPage | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
@@ -426644,14 +427271,14 @@ export type ZeroTrustNetworksSubnetsListQuery = {
   subnet_types?: ZeroTrustNetworksSubnetsListSubnetTypesKey | undefined;
   /**
    * @description Number of results to display.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @type number | undefined
    */
   per_page?: TunnelPerPage | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
@@ -427528,8 +428155,8 @@ export type CwsListCategoryApplicationVersionsQuery = {
    * @description Number of items per page (1-100, default 20)
    *
    * Format: `int64`
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -427956,7 +428583,8 @@ export type OrganizationsGetAccountsQuery = {
   'account_pubname.contains'?: string | undefined;
   /**
    * @description (case-sensitive) Filter the list of accounts to where the name is equal to a
-   * particular string.
+   * particular string. At most one of `name`, `name.startsWith`, `name.endsWith`,
+   * or `name.contains` may be supplied per request.
    * @type string | undefined
    */
   name?: string | undefined;
@@ -428032,8 +428660,8 @@ export type OrganizationsGetAccountsQuery = {
   page_token?: string | undefined;
   /**
    * @description The amount of items to return. Defaults to 10.
-   * @minLength 0
-   * @maxLength 1000
+   * @minimum 0
+   * @maximum 1000
    * @type integer | undefined
    */
   page_size?: number | undefined;
@@ -428499,8 +429127,8 @@ export type AuditLogsV2GetOrganizationAuditLogsQuery = {
   direction?: AuditLogsV2GetOrganizationAuditLogsDirectionKey | undefined;
   /**
    * @description The number limits the objects to return. The cursor attribute may be used to iterate over the next batch of objects if there are more than the limit.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 100
    * @example 25
    * @type number | undefined
@@ -428593,8 +429221,8 @@ export type AuditLogsV2GetOrganizationAuditLogHistoryQuery = {
   direction?: AuditLogsV2GetOrganizationAuditLogHistoryDirectionKey | undefined;
   /**
    * @description The number limits the objects to return. The cursor attribute may be used to iterate over the next batch of objects if there are more than the limit.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 100
    * @example 25
    * @type number | undefined
@@ -428656,7 +429284,7 @@ export type MembersListStatusEnumKey = (typeof membersListStatusEnum)[keyof type
 
 export type MembersListQuery = {
   /**
-   * @description Filter the list of memberships by membership status.
+   * @description Filter the list of memberships by membership status. Defaults to `active`, `pending`, and `rejected`; pass `canceled` explicitly to include canceled memberships.
    * @type array | undefined
    */
   status?: MembersListStatusEnumKey[] | undefined;
@@ -428691,8 +429319,8 @@ export type MembersListQuery = {
   page_token?: string | undefined;
   /**
    * @description The amount of items to return. Defaults to 10.
-   * @minLength 0
-   * @maxLength 1000
+   * @minimum 0
+   * @maximum 1000
    * @type integer | undefined
    */
   page_size?: number | undefined;
@@ -429018,7 +429646,7 @@ export type OrganizationSharesListQuery = {
   direction?: OrganizationSharesListDirectionKey | undefined;
   /**
    * @description Page number. Defaults to `1` when omitted.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 2
    * @type integer | undefined
@@ -429026,8 +429654,8 @@ export type OrganizationSharesListQuery = {
   page?: number | undefined;
   /**
    * @description Number of objects to return per page. Defaults to `20` when omitted.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @example 20
    * @type integer | undefined
@@ -436020,7 +436648,8 @@ export type TenantsListAccountsQuery = {
   'account_pubname.contains'?: string | undefined;
   /**
    * @description (case-sensitive) Filter the list of accounts to where the name is equal to a
-   * particular string.
+   * particular string. At most one of `name`, `name.startsWith`, `name.endsWith`,
+   * or `name.contains` may be supplied per request.
    * @type string | undefined
    */
   name?: string | undefined;
@@ -436089,8 +436718,8 @@ export type TenantsListAccountsQuery = {
   page_token?: string | undefined;
   /**
    * @description The amount of items to return. Defaults to 10.
-   * @minLength 0
-   * @maxLength 1000
+   * @minimum 0
+   * @maximum 1000
    * @type integer | undefined
    */
   page_size?: number | undefined;
@@ -439415,15 +440044,15 @@ export type CustomOriginTrustStoreListDetailsPath = {
 export type CustomOriginTrustStoreListDetailsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of records per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -440475,15 +441104,15 @@ export type ApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneOrderKey = (
 export type ApiShieldApiDiscoveryRetrieveDiscoveredOperationsOnAZoneQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -440722,15 +441351,15 @@ export type ApiShieldLabelsGetLabelsDirectionKey = (typeof apiShieldLabelsGetLab
 export type ApiShieldLabelsGetLabelsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -441170,15 +441799,15 @@ export type ApiShieldEndpointManagementRetrieveInformationAboutAllOperationsOnAZ
 export type ApiShieldEndpointManagementRetrieveInformationAboutAllOperationsOnAZoneQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -441843,15 +442472,15 @@ export type ApiShieldSchemaValidationRetrieveInformationAboutAllSchemasPath = {
 export type ApiShieldSchemaValidationRetrieveInformationAboutAllSchemasQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -441966,15 +442595,15 @@ export type ApiShieldSchemaValidationRetrieveUserSchemaHostsPath = {
 export type ApiShieldSchemaValidationRetrieveUserSchemaHostsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -442189,15 +442818,15 @@ export type ApiShieldSchemaValidationExtractOperationsFromSchemaQuery = {
   endpoint?: string | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -443598,15 +444227,15 @@ export type ClientCertificateForAZoneListClientCertificatesQuery = {
   status?: ClientCertificateForAZoneListClientCertificatesStatusKey | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of records per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -444303,15 +444932,15 @@ export type CustomSslForAZoneListSslConfigurationsStatusKey = (typeof customSslF
 export type CustomSslForAZoneListSslConfigurationsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of zones per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -444762,15 +445391,15 @@ export type CustomCsrsForAZoneListCustomCsrsPath = {
 export type CustomCsrsForAZoneListCustomCsrsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of custom CSRs per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -445036,15 +445665,15 @@ export type CustomHostnameForAZoneListCustomHostnamesQuery = {
   id?: string | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of hostnames per page.
-   * @minLength 5
-   * @maxLength 1000
+   * @minimum 5
+   * @maximum 1000
    * @default 20
    * @type number | undefined
    */
@@ -445722,15 +446351,15 @@ export type CustomAssetsForAZoneListCustomAssetsPath = {
 export type CustomAssetsForAZoneListCustomAssetsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of custom assets per page.
-   * @minLength 1
-   * @maxLength 200
+   * @minimum 1
+   * @maximum 200
    * @default 20
    * @type integer | undefined
    */
@@ -446570,15 +447199,15 @@ export type DnsRecordsForAZoneListDnsRecordsQuery = {
   tag_match?: DnsRecordsTagMatchKey | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: DnsRecordsPage | undefined;
   /**
    * @description Number of DNS records per page.
-   * @minLength 1
-   * @maxLength 5000000
+   * @minimum 1
+   * @maximum 5000000
    * @default 100
    * @example 5
    * @type number | undefined
@@ -447879,15 +448508,15 @@ export type EmailRoutingRoutingRulesListRoutingRulesEnabledKey = (typeof emailRo
 export type EmailRoutingRoutingRulesListRoutingRulesQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -448168,14 +448797,14 @@ export type GetPublicListSuppressionZoneRoutingDirectionKey = (typeof getPublicL
 
 export type GetPublicListSuppressionZoneRoutingQuery = {
   /**
-   * @minLength 0
+   * @minimum 0
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 0
-   * @maxLength 1000
+   * @minimum 0
+   * @maximum 1000
    * @default 100
    * @type integer | undefined
    */
@@ -448940,14 +449569,14 @@ export type GetPublicListSuppressionZoneSendingDirectionKey = (typeof getPublicL
 
 export type GetPublicListSuppressionZoneSendingQuery = {
   /**
-   * @minLength 0
+   * @minimum 0
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @minLength 0
-   * @maxLength 1000
+   * @minimum 0
+   * @maximum 1000
    * @default 100
    * @type integer | undefined
    */
@@ -449671,15 +450300,15 @@ export type FiltersListFiltersQuery = {
   ref?: string | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of filters per page.
-   * @minLength 5
-   * @maxLength 100
+   * @minimum 5
+   * @maximum 100
    * @default 25
    * @type number | undefined
    */
@@ -450214,7 +450843,7 @@ export type ZoneLockdownListZoneLockdownRulesPath = {
 export type ZoneLockdownListZoneLockdownRulesQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
@@ -450259,8 +450888,8 @@ export type ZoneLockdownListZoneLockdownRulesQuery = {
   ip_range_search?: FirewallIpRangeSearch | undefined;
   /**
    * @description The maximum number of results per page. You can only set the value to `1` or to a multiple of 5 such as `5`, `10`, `15`, or `20`.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @type number | undefined
    */
@@ -450673,15 +451302,15 @@ export type FirewallRulesListFirewallRulesQuery = {
   action?: string | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of firewall rules per page.
-   * @minLength 5
-   * @maxLength 100
+   * @minimum 5
+   * @maximum 100
    * @default 25
    * @type number | undefined
    */
@@ -451079,7 +451708,7 @@ export type UserAgentBlockingRulesListUserAgentBlockingRulesPath = {
 export type UserAgentBlockingRulesListUserAgentBlockingRulesQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
@@ -451092,8 +451721,8 @@ export type UserAgentBlockingRulesListUserAgentBlockingRulesQuery = {
   description?: FirewallDescriptionSearch | undefined;
   /**
    * @description The maximum number of results per page. You can only set the value to `1` or to a multiple of 5 such as `5`, `10`, `15`, or `20`.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @type number | undefined
    */
@@ -451357,15 +451986,15 @@ export type WafOverridesListWafOverridesPath = {
 export type WafOverridesListWafOverridesQuery = {
   /**
    * @description The page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description The number of WAF overrides per page.
-   * @minLength 5
-   * @maxLength 100
+   * @minimum 5
+   * @maximum 100
    * @default 50
    * @type number | undefined
    */
@@ -451604,15 +452233,15 @@ export type WafPackagesListWafPackagesMatchKey = (typeof wafPackagesListWafPacka
 export type WafPackagesListWafPackagesQuery = {
   /**
    * @description The page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description The number of packages per page.
-   * @minLength 5
-   * @maxLength 100
+   * @minimum 5
+   * @maximum 100
    * @default 50
    * @type number | undefined
    */
@@ -451816,15 +452445,15 @@ export type WafRuleGroupsListWafRuleGroupsQuery = {
   mode?: WafManagedRulesModeKey | undefined;
   /**
    * @description Defines the page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Defines the number of rule groups per page.
-   * @minLength 5
-   * @maxLength 100
+   * @minimum 5
+   * @maximum 100
    * @default 50
    * @type number | undefined
    */
@@ -452058,15 +452687,15 @@ export type WafRulesListWafRulesQuery = {
   readonly group_id?: WafManagedRulesComponentsSchemasIdentifier | undefined;
   /**
    * @description Defines the page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Defines the number of rules per page.
-   * @minLength 5
-   * @maxLength 100
+   * @minimum 5
+   * @maximum 100
    * @default 50
    * @type number | undefined
    */
@@ -452327,15 +452956,15 @@ export type HealthChecksListHealthChecksPath = {
 export type HealthChecksListHealthChecksQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page. Must be a multiple of 5.
-   * @minLength 5
-   * @maxLength 1000
+   * @minimum 5
+   * @maximum 1000
    * @default 25
    * @type number | undefined
    */
@@ -454878,7 +455507,7 @@ export type PostZonesZoneIdLogpushJobsResponse = PostZonesZoneIdLogpushJobsStatu
 export type DeleteZonesZoneIdLogpushJobsJobIdPath = {
   /**
    * @description Unique id of the job.
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   jobId: LogpushId;
@@ -454895,7 +455524,7 @@ export type DeleteZonesZoneIdLogpushJobsJobIdStatus200 = LogpushApiResponseCommo
   result?: {
     /**
      * @description Unique id of the job.
-     * @minLength 1
+     * @minimum 1
      * @type integer | undefined
      */
     id?: LogpushId | undefined;
@@ -454924,7 +455553,7 @@ export type DeleteZonesZoneIdLogpushJobsJobIdResponse = DeleteZonesZoneIdLogpush
 export type GetZonesZoneIdLogpushJobsJobIdPath = {
   /**
    * @description Unique id of the job.
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   jobId: LogpushId;
@@ -454961,7 +455590,7 @@ export type GetZonesZoneIdLogpushJobsJobIdResponse = GetZonesZoneIdLogpushJobsJo
 export type PutZonesZoneIdLogpushJobsJobIdPath = {
   /**
    * @description Unique id of the job.
-   * @minLength 1
+   * @minimum 1
    * @type integer
    */
   jobId: LogpushId;
@@ -455804,15 +456433,15 @@ export type GetZonesZoneIdLogsReceivedQuery = {
   fields?: LogshareFields | undefined;
   /**
    * @description When `?sample=` is provided, a sample of matching records is returned. If `sample=0.1` then 10% of records will be returned. Sampling is random: repeated calls will not only return different records, but likely will also vary slightly in number of returned records. When `?count=` is also specified, `count` is applied to the number of returned records, not the sampled records. So, with `sample=0.05` and `count=7`, when there is a total of 100 records available, approximately five will be returned. When there are 1000 records, seven will be returned. When there are 10,000 records, seven will be returned.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @example 0.1
    * @type number | undefined
    */
   sample?: LogshareSample | undefined;
   /**
    * @description When `?count=` is provided, the response will contain up to `count` results. Since results are not sorted, you are likely to get different data for repeated requests. `count` must be an integer > 0.
-   * @minLength 1
+   * @minimum 1
    * @type integer | undefined
    */
   count?: LogshareCount | undefined;
@@ -456065,8 +456694,8 @@ export type UsageAnalyticsGetZoneMediaUsageQuery = {
   /**
    * @description Maximum number of data points to return. The actual number of results depends on the interaction between the time range (since/until) and time_delta granularity. Results are truncated to this limit without error if the time range produces more data points than the limit allows.
    *
-   * @minLength 1
-   * @maxLength 10000
+   * @minimum 1
+   * @maximum 10000
    * @default 100
    * @example 100
    * @type integer | undefined
@@ -456471,8 +457100,8 @@ export type ZoneObservabilityTracingRulesDeleteStatus200 = {
       action_parameters: {
         /**
          * @description The ratio of requests sampled for tracing, from 0 to 1.
-         * @minLength 0
-         * @maxLength 1
+         * @minimum 0
+         * @maximum 1
          * @type number
          */
         sampling_ratio: number;
@@ -456584,8 +457213,8 @@ export type ZoneObservabilityTracingRulesGetStatus200 = {
       action_parameters: {
         /**
          * @description The ratio of requests sampled for tracing, from 0 to 1.
-         * @minLength 0
-         * @maxLength 1
+         * @minimum 0
+         * @maximum 1
          * @type number
          */
         sampling_ratio: number;
@@ -456697,8 +457326,8 @@ export type ZoneObservabilityTracingRulesUpdateStatus200 = {
       action_parameters: {
         /**
          * @description The ratio of requests sampled for tracing, from 0 to 1.
-         * @minLength 0
-         * @maxLength 1
+         * @minimum 0
+         * @maximum 1
          * @type number
          */
         sampling_ratio: number;
@@ -456779,8 +457408,8 @@ export type ZoneObservabilityTracingRulesUpdateBody = {
     action_parameters: {
       /**
        * @description The ratio of requests sampled for tracing, from 0 to 1.
-       * @minLength 0
-       * @maxLength 1
+       * @minimum 0
+       * @maximum 1
        * @type number
        */
       sampling_ratio: number;
@@ -456872,8 +457501,8 @@ export type ZoneObservabilityTracingSettingsDeleteStatus200 = {
     propagation_policy: ZoneObservabilityTracingSettingsDeleteStatus200ResultPropagationPolicyEnumKey;
     /**
      * @description The ratio of requests sampled for tracing, from 0 to 1.
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @type number
      */
     sampling_ratio: number;
@@ -456996,8 +457625,8 @@ export type ZoneObservabilityTracingSettingsGetStatus200 = {
     propagation_policy: ZoneObservabilityTracingSettingsGetStatus200ResultPropagationPolicyEnumKey;
     /**
      * @description The ratio of requests sampled for tracing, from 0 to 1.
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @type number
      */
     sampling_ratio: number;
@@ -457120,8 +457749,8 @@ export type ZoneObservabilityTracingSettingsUpdateStatus200 = {
     propagation_policy: ZoneObservabilityTracingSettingsUpdateStatus200ResultPropagationPolicyEnumKey;
     /**
      * @description The ratio of requests sampled for tracing, from 0 to 1.
-     * @minLength 0
-     * @maxLength 1
+     * @minimum 0
+     * @maximum 1
      * @type number
      */
     sampling_ratio: number;
@@ -457213,8 +457842,8 @@ export type ZoneObservabilityTracingSettingsUpdateBody = {
   propagation_policy?: ZoneObservabilityTracingSettingsUpdateRequestPropagationPolicyEnumKey | undefined;
   /**
    * @description The ratio of requests sampled for tracing, from 0 to 1.
-   * @minLength 0
-   * @maxLength 1
+   * @minimum 0
+   * @maximum 1
    * @type number | undefined
    */
   sampling_ratio?: number | undefined;
@@ -457253,15 +457882,15 @@ export type OriginCloudRegionsV2ListPath = {
 export type OriginCloudRegionsV2ListQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of items per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type integer | undefined
    */
@@ -457697,15 +458326,15 @@ export type PerHostnameAuthenticatedOriginPullListHostnameAssociationsStatusKey 
 export type PerHostnameAuthenticatedOriginPullListHostnameAssociationsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of associations per page.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 50
    * @type number | undefined
    */
@@ -458310,8 +458939,8 @@ export type PageShieldListConnectionsQuery = {
   page?: string | undefined;
   /**
    * @description The number of results per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @example 100
    * @type number | undefined
    */
@@ -458486,8 +459115,8 @@ export type PageShieldListCookiesQuery = {
   page?: string | undefined;
   /**
    * @description The number of results per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @example 100
    * @type number | undefined
    */
@@ -458902,8 +459531,8 @@ export type PageShieldListScriptsQuery = {
   page?: string | undefined;
   /**
    * @description The number of results per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @example 100
    * @type number | undefined
    */
@@ -459482,6 +460111,11 @@ export type PayPerCrawlGetZoneCanBeEnabledResponses = {
   '400': PayPerCrawlGetZoneCanBeEnabledStatus400;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type PayPerCrawlGetZoneCanBeEnabledResponse2 = PayPerCrawlGetZoneCanBeEnabledStatus200;
+
 export type PayPerCrawlGetConfigPath = {
   /**
    * @description zone id
@@ -459505,6 +460139,11 @@ export type PayPerCrawlGetConfigResponses = {
   '200': PayPerCrawlGetConfigStatus200;
   '400': PayPerCrawlGetConfigStatus400;
 };
+
+/**
+ * @description Union of all possible responses
+ */
+export type PayPerCrawlGetConfigResponse2 = PayPerCrawlGetConfigStatus200;
 
 export type PayPerCrawlPatchConfigPath = {
   /**
@@ -459688,15 +460327,15 @@ export type PayPerCrawlListPPUOperatorsPath = {
 export type PayPerCrawlListPPUOperatorsQuery = {
   /**
    * @description Page number.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Results per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 100
    * @type integer | undefined
    */
@@ -459849,15 +460488,15 @@ export type PayPerCrawlGetPPUZoneUsageStatsQuery = {
   until: string;
   /**
    * @description Page number.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Results per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 100
    * @type integer | undefined
    */
@@ -460112,15 +460751,15 @@ export type RateLimitsForAZoneListRateLimitsPath = {
 export type RateLimitsForAZoneListRateLimitsQuery = {
   /**
    * @description Defines the page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Defines the maximum number of results per page. You can only set the value to `1` or to a multiple of 5 such as `5`, `10`, `15`, or `20`.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 20
    * @type number | undefined
    */
@@ -460172,15 +460811,15 @@ export type RateLimitsForAZoneCreateARateLimitBody = {
   match: FirewallMatch;
   /**
    * @description The time in seconds (an integer value) to count matching traffic. If the count exceeds the configured threshold within this period, Cloudflare will perform the configured action.
-   * @minLength 10
-   * @maxLength 86400
+   * @minimum 10
+   * @maximum 86400
    * @example 900
    * @type number
    */
   period: FirewallPeriod;
   /**
    * @description The threshold that will trigger the configured mitigation action. Configure this value along with the `period` property to establish a threshold per period.
-   * @minLength 1
+   * @minimum 1
    * @example 60
    * @type number
    */
@@ -460315,15 +460954,15 @@ export type RateLimitsForAZoneUpdateARateLimitBody = {
   match: FirewallMatch;
   /**
    * @description The time in seconds (an integer value) to count matching traffic. If the count exceeds the configured threshold within this period, Cloudflare will perform the configured action.
-   * @minLength 10
-   * @maxLength 86400
+   * @minimum 10
+   * @maximum 86400
    * @example 900
    * @type number
    */
   period: FirewallPeriod;
   /**
    * @description The threshold that will trigger the configured mitigation action. Configure this value along with the `period` property to establish a threshold per period.
-   * @minLength 1
+   * @minimum 1
    * @example 60
    * @type number
    */
@@ -460370,8 +461009,8 @@ export type ListZoneRulesetsQuery = {
   cursor?: RulesetsCursor | undefined;
   /**
    * @description The number of rulesets to return per page.
-   * @minLength 1
-   * @maxLength 50
+   * @minimum 1
+   * @maximum 50
    * @example 3
    * @type integer | undefined
    */
@@ -461103,7 +461742,7 @@ export type CreateZoneRulesetRuleBody = RulesetsRequestRuleWritable & {
   } | RulesetsRulePosition & {
     /**
      * @description An index at which to place the rule, where index 1 is the first rule.
-     * @minLength 1
+     * @minimum 1
      * @example 1
      * @type integer | undefined
      */
@@ -461291,7 +461930,7 @@ export type UpdateZoneRulesetRuleBody = RulesetsRequestRuleWritable & {
   } | RulesetsRulePosition & {
     /**
      * @description An index at which to place the rule, where index 1 is the first rule.
-     * @minLength 1
+     * @minimum 1
      * @example 1
      * @type integer | undefined
      */
@@ -461597,15 +462236,15 @@ export type SchemaValidationListSchemasPaginatedPath = {
 export type SchemaValidationListSchemasPaginatedQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -461726,15 +462365,15 @@ export type SchemaValidationListSchemaHostsPath = {
 export type SchemaValidationListSchemaHostsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -461923,15 +462562,15 @@ export type SchemaValidationExtractOperationsFromSchemaQuery = {
   endpoint?: string | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -462080,15 +462719,15 @@ export type SchemaValidationListPerOperationSettingsPath = {
 export type SchemaValidationListPerOperationSettingsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -462134,6 +462773,14 @@ export type SchemaValidationBulkEditPerOperationSettingsStatus200 = ApiShieldApi
 
 export type SchemaValidationBulkEditPerOperationSettingsStatus400 = ApiShieldApiResponseCommonFailure;
 
+export const mitigationActionEnum2 = {
+  none: 'none',
+  log: 'log',
+  block: 'block',
+} as const;
+
+export type MitigationActionEnum2Key = (typeof mitigationActionEnum2)[keyof typeof mitigationActionEnum2];
+
 /**
  * @example {"3818d821-5901-4147-a474-f5f5aec1d54e":{"mitigation_action":"log"},"b17c8043-99a0-4202-b7d9-8f7cdbee02cd":{"mitigation_action":"block"}}
  * @type object
@@ -462147,7 +462794,7 @@ export type SchemaValidationBulkEditPerOperationSettingsBody = {
      * @example block
      * @type string | undefined
      */
-    mitigation_action?: (MitigationActionEnumKey | null) | undefined;
+    mitigation_action?: (MitigationActionEnum2Key | null) | undefined;
   };
 };
 
@@ -462752,8 +463399,8 @@ export type GetZoneSecurityCenterInsightsQuery = {
   page?: SecurityCenterPage | undefined;
   /**
    * @description Sets the number of results per page of results.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 25
    * @example 25
    * @type integer | undefined
@@ -462778,8 +463425,8 @@ export type GetZoneSecurityCenterInsightsStatus200 = SecurityCenterApiResponseCo
     page?: SecurityCenterPage | undefined;
     /**
      * @description Sets the number of results per page of results.
-     * @minLength 1
-     * @maxLength 1000
+     * @minimum 1
+     * @maximum 1000
      * @example 25
      * @type integer | undefined
      */
@@ -462833,8 +463480,8 @@ export type GetZoneSecurityCenterAuditLogOrderKey = (typeof getZoneSecurityCente
 export type GetZoneSecurityCenterAuditLogQuery = {
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 25
    * @type integer | undefined
    */
@@ -463289,8 +463936,8 @@ export type GetZoneSecurityCenterIssueAuditLogOrderKey = (typeof getZoneSecurity
 export type GetZoneSecurityCenterIssueAuditLogQuery = {
   /**
    * @description Number of results per page.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 25
    * @type integer | undefined
    */
@@ -463450,8 +464097,8 @@ export type GetZoneSecurityCenterPartnerShadowHostsQuery = {
   cursor?: string | undefined;
   /**
    * @description Number of premium partner asset results per page. Values other than 1 must be a multiple of 5.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @default 25
    * @type integer | undefined
    */
@@ -464576,8 +465223,8 @@ export type ZoneCacheSettingsChangeOriginH2MaxStreamsSettingStatus400 = CacheSet
 export type ZoneCacheSettingsChangeOriginH2MaxStreamsSettingBody = {
   /**
    * @description Value of the Origin H2 Max Streams Setting.
-   * @minLength 1
-   * @maxLength 1000
+   * @minimum 1
+   * @maximum 1000
    * @example 50
    * @type integer
    */
@@ -465434,13 +466081,13 @@ export type GetZonesZoneIdentifierZarazHistorySortOrderKey = (typeof getZonesZon
 export type GetZonesZoneIdentifierZarazHistoryQuery = {
   /**
    * @description Ordinal number to start listing the results with. Default value is 0.
-   * @minLength 0
+   * @minimum 0
    * @type integer | undefined
    */
   offset?: number | undefined;
   /**
    * @description Maximum amount of results to list. Default value is 10.
-   * @minLength 1
+   * @minimum 1
    * @type integer | undefined
    */
   limit?: number | undefined;
@@ -465493,7 +466140,7 @@ export type PutZonesZoneIdentifierZarazHistoryStatus400 = ZarazApiResponseCommon
 
 /**
  * @description ID of the Zaraz configuration to restore.
- * @minLength 1
+ * @minimum 1
  * @example 12345
  * @type integer
  */
@@ -465935,15 +466582,15 @@ export type SmartShieldListHealthChecksPath = {
 export type SmartShieldListHealthChecksQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page. Must be a multiple of 5.
-   * @minLength 5
-   * @maxLength 1000
+   * @minimum 5
+   * @maximum 1000
    * @default 25
    * @type number | undefined
    */
@@ -466197,7 +466844,7 @@ export type ListZoneSnippetsPath = {
 export type ListZoneSnippetsQuery = {
   /**
    * @description Specifies the current page number.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -466205,7 +466852,7 @@ export type ListZoneSnippetsQuery = {
   page?: SnippetsPage | undefined;
   /**
    * @description Specifies how many results to return per page.
-   * @minLength 1
+   * @minimum 1
    * @default 25
    * @example 25
    * @type integer | undefined
@@ -466214,7 +466861,7 @@ export type ListZoneSnippetsQuery = {
 };
 
 export type ListZoneSnippetsStatus200 = SnippetsResponse & {
-  errors?: ''[] | undefined;
+  errors?: [][] | undefined;
   /**
    * @description Contain snippets.
    * @type array | undefined
@@ -466267,7 +466914,7 @@ export type DeleteZoneSnippetRulesPath = {
 };
 
 export type DeleteZoneSnippetRulesStatus200 = SnippetsResponse & {
-  errors?: ''[] | undefined;
+  errors?: [][] | undefined;
   /**
    * @description Lists snippet rules.
    * @type array | undefined
@@ -466315,7 +466962,7 @@ export type ListZoneSnippetRulesPath = {
 };
 
 export type ListZoneSnippetRulesStatus200 = SnippetsResponse & {
-  errors?: ''[] | undefined;
+  errors?: [][] | undefined;
   /**
    * @description Lists snippet rules.
    * @type array | undefined
@@ -466363,7 +467010,7 @@ export type UpdateZoneSnippetRulesPath = {
 };
 
 export type UpdateZoneSnippetRulesStatus200 = SnippetsResponse & {
-  errors?: ''[] | undefined;
+  errors?: [][] | undefined;
   /**
    * @description Lists snippet rules.
    * @type array | undefined
@@ -466430,7 +467077,7 @@ export type DeleteZoneSnippetPath = {
 };
 
 export type DeleteZoneSnippetStatus200 = SnippetsResponse & {
-  errors?: ''[] | undefined;
+  errors?: [][] | undefined;
   result?: null | undefined;
   success?: true | undefined;
 };
@@ -466481,7 +467128,7 @@ export type GetZoneSnippetPath = {
 };
 
 export type GetZoneSnippetStatus200 = SnippetsResponse & {
-  errors?: ''[] | undefined;
+  errors?: [][] | undefined;
   /**
    * @description Define a snippet.
    * @type object | undefined
@@ -466536,7 +467183,7 @@ export type UpdateZoneSnippetPath = {
 };
 
 export type UpdateZoneSnippetStatus200 = SnippetsResponse & {
-  errors?: ''[] | undefined;
+  errors?: [][] | undefined;
   /**
    * @description Define a snippet.
    * @type object | undefined
@@ -466914,15 +467561,15 @@ export type SpectrumApplicationsListSpectrumApplicationsOrderKey = (typeof spect
 export type SpectrumApplicationsListSpectrumApplicationsQuery = {
   /**
    * @description Page number of paginated results. This parameter is required in order to use other pagination parameters. If included in the query, `result_info` will be present in the response.
-   * @minLength 1
+   * @minimum 1
    * @example 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Sets the maximum number of results per page.
-   * @minLength 1
-   * @maxLength 100
+   * @minimum 1
+   * @maximum 100
    * @default 20
    * @type number | undefined
    */
@@ -467246,8 +467893,8 @@ export type SpeedListTestHistoryQuery = {
    */
   page?: number | undefined;
   /**
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -467650,15 +468297,15 @@ export type CertificatePacksListCertificatePacksDeployKey = (typeof certificateP
 export type CertificatePacksListCertificatePacksQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of certificate packs per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type number | undefined
    */
@@ -468153,8 +468800,8 @@ export type UsageAnalyticsGetZoneStreamUsageQuery = {
   /**
    * @description Maximum number of data points to return. The actual number of results depends on the interaction between the time range (since/until) and time_delta granularity. Results are truncated to this limit without error if the time range produces more data points than the limit allows.
    *
-   * @minLength 1
-   * @maxLength 10000
+   * @minimum 1
+   * @maximum 10000
    * @default 100
    * @example 100
    * @type integer | undefined
@@ -468622,15 +469269,15 @@ export type TokenValidationConfigListPath = {
 export type TokenValidationConfigListQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
@@ -468932,15 +469579,15 @@ export type TokenValidationRulesListPath = {
 export type TokenValidationRulesListQuery = {
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
   per_page?: number | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
@@ -469121,15 +469768,15 @@ export type TokenValidationRulesPreviewPath = {
 export type TokenValidationRulesPreviewQuery = {
   /**
    * @description Maximum number of results per page.
-   * @minLength 5
-   * @maxLength 50
+   * @minimum 5
+   * @maximum 50
    * @default 20
    * @type integer | undefined
    */
   per_page?: number | undefined;
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type integer | undefined
    */
@@ -469501,15 +470148,15 @@ export type WaitingRoomListWaitingRoomsPath = {
 export type WaitingRoomListWaitingRoomsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page. Must be a multiple of 5.
-   * @minLength 5
-   * @maxLength 1000
+   * @minimum 5
+   * @maximum 1000
    * @default 25
    * @type number | undefined
    */
@@ -469866,15 +470513,15 @@ export type WaitingRoomListEventsPath = {
 export type WaitingRoomListEventsQuery = {
   /**
    * @description Page number of paginated results.
-   * @minLength 1
+   * @minimum 1
    * @default 1
    * @type number | undefined
    */
   page?: number | undefined;
   /**
    * @description Maximum number of results per page. Must be a multiple of 5.
-   * @minLength 5
-   * @maxLength 1000
+   * @minimum 5
+   * @maximum 1000
    * @default 25
    * @type number | undefined
    */

@@ -1037,67 +1037,67 @@ import type {
 	AigBillingCheckTopupStatusStatus404,
 	AigBillingCreateTopupBody,
 	AigBillingCreateTopupPath,
-	AigBillingCreateTopupResponse,
+	AigBillingCreateTopupResponse2,
 	AigBillingCreateTopupStatus400,
 	AigBillingCreateTopupStatus402,
 	AigBillingCreateTopupStatus403,
 	AigBillingCreateTopupStatus404,
 	AigBillingDeleteSpendingLimitPath,
-	AigBillingDeleteSpendingLimitResponse,
+	AigBillingDeleteSpendingLimitResponse2,
 	AigBillingDeleteSpendingLimitStatus400,
 	AigBillingDeleteSpendingLimitStatus403,
 	AigBillingDeleteSpendingLimitStatus404,
 	AigBillingDeleteTopupConfigPath,
-	AigBillingDeleteTopupConfigResponse,
+	AigBillingDeleteTopupConfigResponse2,
 	AigBillingDeleteTopupConfigStatus400,
 	AigBillingDeleteTopupConfigStatus403,
 	AigBillingDeleteTopupConfigStatus404,
 	AigBillingGetCreditBalancePath,
-	AigBillingGetCreditBalanceResponse,
+	AigBillingGetCreditBalanceResponse2,
 	AigBillingGetCreditBalanceStatus400,
 	AigBillingGetCreditBalanceStatus403,
 	AigBillingGetCreditBalanceStatus404,
 	AigBillingGetInvoiceHistoryPath,
 	AigBillingGetInvoiceHistoryQuery,
-	AigBillingGetInvoiceHistoryResponse,
+	AigBillingGetInvoiceHistoryResponse2,
 	AigBillingGetInvoiceHistoryStatus400,
 	AigBillingGetInvoiceHistoryStatus403,
 	AigBillingGetInvoiceHistoryStatus404,
 	AigBillingGetInvoicePreviewPath,
-	AigBillingGetInvoicePreviewResponse,
+	AigBillingGetInvoicePreviewResponse2,
 	AigBillingGetInvoicePreviewStatus400,
 	AigBillingGetInvoicePreviewStatus403,
 	AigBillingGetInvoicePreviewStatus404,
 	AigBillingGetSpendingLimitPath,
-	AigBillingGetSpendingLimitResponse,
+	AigBillingGetSpendingLimitResponse2,
 	AigBillingGetSpendingLimitStatus400,
 	AigBillingGetSpendingLimitStatus403,
 	AigBillingGetSpendingLimitStatus404,
 	AigBillingGetTopupConfigPath,
-	AigBillingGetTopupConfigResponse,
+	AigBillingGetTopupConfigResponse2,
 	AigBillingGetTopupConfigStatus400,
 	AigBillingGetTopupConfigStatus403,
 	AigBillingGetTopupConfigStatus404,
 	AigBillingGetTopupLimitsPath,
-	AigBillingGetTopupLimitsResponse,
+	AigBillingGetTopupLimitsResponse2,
 	AigBillingGetTopupLimitsStatus400,
 	AigBillingGetTopupLimitsStatus403,
 	AigBillingGetTopupLimitsStatus404,
 	AigBillingGetUsageHistoryPath,
 	AigBillingGetUsageHistoryQuery,
-	AigBillingGetUsageHistoryResponse,
+	AigBillingGetUsageHistoryResponse2,
 	AigBillingGetUsageHistoryStatus400,
 	AigBillingGetUsageHistoryStatus403,
 	AigBillingGetUsageHistoryStatus404,
 	AigBillingSetSpendingLimitBody,
 	AigBillingSetSpendingLimitPath,
-	AigBillingSetSpendingLimitResponse,
+	AigBillingSetSpendingLimitResponse2,
 	AigBillingSetSpendingLimitStatus400,
 	AigBillingSetSpendingLimitStatus403,
 	AigBillingSetSpendingLimitStatus404,
 	AigBillingSetTopupConfigBody,
 	AigBillingSetTopupConfigPath,
-	AigBillingSetTopupConfigResponse,
+	AigBillingSetTopupConfigResponse2,
 	AigBillingSetTopupConfigStatus400,
 	AigBillingSetTopupConfigStatus402,
 	AigBillingSetTopupConfigStatus403,
@@ -2745,7 +2745,7 @@ import type {
 	CloudforceOneDeleteEmailRuleStatus401,
 	CloudforceOneDeleteEmailRuleStatus404,
 	CloudforceOneDeleteEmailRuleStatus409,
-	CloudforceOneDeleteRuleBody,
+	CloudforceOneDeleteRuleBody2,
 	CloudforceOneDeleteRulePath,
 	CloudforceOneDeleteRuleResponse,
 	CloudforceOneDeleteRuleStatus400,
@@ -2907,7 +2907,7 @@ import type {
 	CloudforceOneTestEmailRuleResponse,
 	CloudforceOneTestEmailRuleStatus400,
 	CloudforceOneTestEmailRuleStatus404,
-	CloudforceOneUpdateAccountExemptionsBody,
+	CloudforceOneUpdateAccountExemptionsBody2,
 	CloudforceOneUpdateAccountExemptionsPath,
 	CloudforceOneUpdateAccountExemptionsResponse,
 	CloudforceOneUpdateAccountExemptionsStatus400,
@@ -3367,7 +3367,7 @@ import type {
 	CustomIndicatorFeedsCreateIndicatorFeedsStatus400,
 	CustomIndicatorFeedsCreateProviderBody,
 	CustomIndicatorFeedsCreateProviderPath,
-	CustomIndicatorFeedsCreateProviderResponse,
+	CustomIndicatorFeedsCreateProviderResponse2,
 	CustomIndicatorFeedsCreateProviderStatus400,
 	CustomIndicatorFeedsDownloadIndicatorFeedDataPath,
 	CustomIndicatorFeedsDownloadIndicatorFeedDataResponse,
@@ -3476,7 +3476,7 @@ import type {
 	CwsCreateBasicAuthCredentialResponse,
 	CwsCreateBasicAuthCredentialStatus400,
 	CwsCreateBasicAuthCredentialStatus500,
-	CwsCreateBasicAuthSecretBody,
+	CwsCreateBasicAuthSecretBody2,
 	CwsCreateBasicAuthSecretPath,
 	CwsCreateBasicAuthSecretResponse,
 	CwsCreateBasicAuthSecretStatus400,
@@ -3787,7 +3787,7 @@ import type {
 	D1TimeTravelGetBookmarkStatus400,
 	D1TimeTravelRestorePath,
 	D1TimeTravelRestoreQuery,
-	D1TimeTravelRestoreResponse,
+	D1TimeTravelRestoreResponse2,
 	D1TimeTravelRestoreStatus400,
 	D1UndeleteDatabaseBody,
 	D1UndeleteDatabasePath,
@@ -8490,7 +8490,7 @@ import type {
 	MagicStaticRoutesUpdateRouteStatus400,
 	MconnConnectorInterruptsCreateBody,
 	MconnConnectorInterruptsCreatePath,
-	MconnConnectorInterruptsCreateResponse,
+	MconnConnectorInterruptsCreateResponse2,
 	MconnConnectorInterruptsCreateStatus400,
 	MconnConnectorInterruptsCreateStatus401,
 	MconnConnectorInterruptsCreateStatus403,
@@ -8498,7 +8498,7 @@ import type {
 	MconnConnectorInterruptsCreateStatus409,
 	MconnConnectorInterruptsCreateStatus500,
 	MconnConnectorInterruptsListPath,
-	MconnConnectorInterruptsListResponse,
+	MconnConnectorInterruptsListResponse2,
 	MconnConnectorInterruptsListStatus400,
 	MconnConnectorInterruptsListStatus401,
 	MconnConnectorInterruptsListStatus403,
@@ -9556,7 +9556,7 @@ import type {
 	PayPerCrawlDeletePPUPublisherPriceStatus403,
 	PayPerCrawlDeletePPUPublisherPriceStatus404,
 	PayPerCrawlGetConfigPath,
-	PayPerCrawlGetConfigResponse,
+	PayPerCrawlGetConfigResponse2,
 	PayPerCrawlGetConfigStatus400,
 	PayPerCrawlGetPPUOperatorConfigurationPath,
 	PayPerCrawlGetPPUOperatorConfigurationResponse,
@@ -9582,20 +9582,20 @@ import type {
 	PayPerCrawlGetPPUZoneUsageStatsStatus404,
 	PayPerCrawlGetPPUZoneUsageStatsStatus500,
 	PayPerCrawlGetTermsPath,
-	PayPerCrawlGetTermsResponse,
+	PayPerCrawlGetTermsResponse2,
 	PayPerCrawlGetTermsSignatureLinkPath,
-	PayPerCrawlGetTermsSignatureLinkResponse,
+	PayPerCrawlGetTermsSignatureLinkResponse2,
 	PayPerCrawlGetTermsSignatureLinkStatus400,
 	PayPerCrawlGetTermsSignaturePath,
 	PayPerCrawlGetTermsSignatureQuery,
-	PayPerCrawlGetTermsSignatureResponse,
+	PayPerCrawlGetTermsSignatureResponse2,
 	PayPerCrawlGetTermsSignatureStatus400,
 	PayPerCrawlGetTermsStatus400,
 	PayPerCrawlGetZoneCanBeEnabledPath,
-	PayPerCrawlGetZoneCanBeEnabledResponse,
+	PayPerCrawlGetZoneCanBeEnabledResponse2,
 	PayPerCrawlGetZoneCanBeEnabledStatus400,
 	PayPerCrawlListCrawlersPath,
-	PayPerCrawlListCrawlersResponse,
+	PayPerCrawlListCrawlersResponse2,
 	PayPerCrawlListCrawlersStatus400,
 	PayPerCrawlListPPUOperatorsPath,
 	PayPerCrawlListPPUOperatorsQuery,
@@ -9658,7 +9658,7 @@ import type {
 	PayPerCrawlPutPPUOperatorConfigurationStatus409,
 	PayPerCrawlQueryZonesCanBeEnabledBody,
 	PayPerCrawlQueryZonesCanBeEnabledPath,
-	PayPerCrawlQueryZonesCanBeEnabledResponse,
+	PayPerCrawlQueryZonesCanBeEnabledResponse2,
 	PayPerCrawlQueryZonesCanBeEnabledStatus400,
 	PayPerCrawlSendTermsSignatureEventPath,
 	PayPerCrawlSendTermsSignatureEventQuery,
@@ -10530,7 +10530,7 @@ import type {
 	R2AddCustomDomainBody,
 	R2AddCustomDomainHeaders,
 	R2AddCustomDomainPath,
-	R2AddCustomDomainResponse,
+	R2AddCustomDomainResponse2,
 	R2AddCustomDomainStatus400,
 	R2CreateBucketBody,
 	R2CreateBucketByNameHeaders,
@@ -10656,7 +10656,7 @@ import type {
 	R2ListBucketsStatus400,
 	R2ListCustomDomainsHeaders,
 	R2ListCustomDomainsPath,
-	R2ListCustomDomainsResponse,
+	R2ListCustomDomainsResponse2,
 	R2ListCustomDomainsStatus400,
 	R2ListObjectsHeaders,
 	R2ListObjectsPath,
@@ -12168,7 +12168,7 @@ import type {
 	SecretsStorePatchByIdResponse,
 	SecretsStorePatchByIdStatus400,
 	SecretsStoreQuotaPath,
-	SecretsStoreQuotaResponse,
+	SecretsStoreQuotaResponse2,
 	SecretsStoreQuotaStatus400,
 	SecretsStoreSecretCreateBody,
 	SecretsStoreSecretCreatePath,
@@ -13082,7 +13082,6 @@ import type {
 	TunnelVirtualNetworkDeletePath,
 	TunnelVirtualNetworkDeleteResponse,
 	TunnelVirtualNetworkDeleteStatus400,
-	TunnelVirtualNetworkGetBody,
 	TunnelVirtualNetworkGetPath,
 	TunnelVirtualNetworkGetResponse,
 	TunnelVirtualNetworkGetStatus400,
@@ -13604,7 +13603,7 @@ import type {
 	ValidateFindingTypeStatus500,
 	VectorizeCreateMetadataIndexBody,
 	VectorizeCreateMetadataIndexPath,
-	VectorizeCreateMetadataIndexResponse,
+	VectorizeCreateMetadataIndexResponse2,
 	VectorizeCreateMetadataIndexStatus400,
 	VectorizeCreateVectorizeIndexBody,
 	VectorizeCreateVectorizeIndexPath,
@@ -13612,7 +13611,7 @@ import type {
 	VectorizeCreateVectorizeIndexStatus400,
 	VectorizeDeleteMetadataIndexBody,
 	VectorizeDeleteMetadataIndexPath,
-	VectorizeDeleteMetadataIndexResponse,
+	VectorizeDeleteMetadataIndexResponse2,
 	VectorizeDeleteMetadataIndexStatus400,
 	VectorizeDeleteVectorizeIndexPath,
 	VectorizeDeleteVectorizeIndexResponse,
@@ -13664,7 +13663,7 @@ import type {
 	VectorizeGetVectorsByIdResponse,
 	VectorizeGetVectorsByIdStatus400,
 	VectorizeIndexInfoPath,
-	VectorizeIndexInfoResponse,
+	VectorizeIndexInfoResponse2,
 	VectorizeIndexInfoStatus400,
 	VectorizeInsertVectorPath,
 	VectorizeInsertVectorQuery,
@@ -26443,8 +26442,9 @@ export async function userSubscriptionUpdateUserSubscription(
 
 /**
  * @summary List user tenants
- * @description Retrieves the legacy Tenants associated with the authenticated user. Use `GET /organizations`
- * to list modern Organizations the user has access to.
+ * @description Lists the Cloudflare tenants in which the authenticated user has direct membership using the
+ * legacy Tenant response shape. Use `GET /organizations` to list Organizations the user can
+ * access, including through hierarchy, using the modern Organization response shape.
  * @link /user/tenants
  */
 export async function userListUserTenants(
@@ -35527,7 +35527,7 @@ export async function aigBillingGetCreditBalance(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		AigBillingGetCreditBalanceResponse,
+		AigBillingGetCreditBalanceResponse2,
 		ErrorWrapper<
 			| AigBillingGetCreditBalanceStatus400
 			| AigBillingGetCreditBalanceStatus403
@@ -35569,7 +35569,7 @@ export async function aigBillingGetInvoiceHistory(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		AigBillingGetInvoiceHistoryResponse,
+		AigBillingGetInvoiceHistoryResponse2,
 		ErrorWrapper<
 			| AigBillingGetInvoiceHistoryStatus400
 			| AigBillingGetInvoiceHistoryStatus403
@@ -35610,7 +35610,7 @@ export async function aigBillingGetInvoicePreview(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		AigBillingGetInvoicePreviewResponse,
+		AigBillingGetInvoicePreviewResponse2,
 		ErrorWrapper<
 			| AigBillingGetInvoicePreviewStatus400
 			| AigBillingGetInvoicePreviewStatus403
@@ -35650,7 +35650,7 @@ export async function aigBillingDeleteSpendingLimit(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		AigBillingDeleteSpendingLimitResponse,
+		AigBillingDeleteSpendingLimitResponse2,
 		ErrorWrapper<
 			| AigBillingDeleteSpendingLimitStatus400
 			| AigBillingDeleteSpendingLimitStatus403
@@ -35690,7 +35690,7 @@ export async function aigBillingGetSpendingLimit(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		AigBillingGetSpendingLimitResponse,
+		AigBillingGetSpendingLimitResponse2,
 		ErrorWrapper<
 			| AigBillingGetSpendingLimitStatus400
 			| AigBillingGetSpendingLimitStatus403
@@ -35733,7 +35733,7 @@ export async function aigBillingSetSpendingLimit(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		AigBillingSetSpendingLimitResponse,
+		AigBillingSetSpendingLimitResponse2,
 		ErrorWrapper<
 			| AigBillingSetSpendingLimitStatus400
 			| AigBillingSetSpendingLimitStatus403
@@ -35776,7 +35776,7 @@ export async function aigBillingCreateTopup(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		AigBillingCreateTopupResponse,
+		AigBillingCreateTopupResponse2,
 		ErrorWrapper<
 			| AigBillingCreateTopupStatus400
 			| AigBillingCreateTopupStatus402
@@ -35818,7 +35818,7 @@ export async function aigBillingDeleteTopupConfig(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		AigBillingDeleteTopupConfigResponse,
+		AigBillingDeleteTopupConfigResponse2,
 		ErrorWrapper<
 			| AigBillingDeleteTopupConfigStatus400
 			| AigBillingDeleteTopupConfigStatus403
@@ -35858,7 +35858,7 @@ export async function aigBillingGetTopupConfig(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		AigBillingGetTopupConfigResponse,
+		AigBillingGetTopupConfigResponse2,
 		ErrorWrapper<
 			| AigBillingGetTopupConfigStatus400
 			| AigBillingGetTopupConfigStatus403
@@ -35900,7 +35900,7 @@ export async function aigBillingSetTopupConfig(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		AigBillingSetTopupConfigResponse,
+		AigBillingSetTopupConfigResponse2,
 		ErrorWrapper<
 			| AigBillingSetTopupConfigStatus400
 			| AigBillingSetTopupConfigStatus402
@@ -35986,7 +35986,7 @@ export async function aigBillingGetTopupLimits(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		AigBillingGetTopupLimitsResponse,
+		AigBillingGetTopupLimitsResponse2,
 		ErrorWrapper<
 			| AigBillingGetTopupLimitsStatus400
 			| AigBillingGetTopupLimitsStatus403
@@ -36071,7 +36071,7 @@ export async function aigBillingGetUsageHistory(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		AigBillingGetUsageHistoryResponse,
+		AigBillingGetUsageHistoryResponse2,
 		ErrorWrapper<
 			| AigBillingGetUsageHistoryStatus400
 			| AigBillingGetUsageHistoryStatus403
@@ -58298,7 +58298,7 @@ export async function cloudforceOneUpdateAccountExemptions(
 		config,
 	}: {
 		pathParams: CloudforceOneUpdateAccountExemptionsPath;
-		body?: CloudforceOneUpdateAccountExemptionsBody;
+		body?: CloudforceOneUpdateAccountExemptionsBody2;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -58316,7 +58316,7 @@ export async function cloudforceOneUpdateAccountExemptions(
 			| CloudforceOneUpdateAccountExemptionsStatus404
 			| CloudforceOneUpdateAccountExemptionsStatus409
 		>,
-		CloudforceOneUpdateAccountExemptionsBody,
+		CloudforceOneUpdateAccountExemptionsBody2,
 		Record<string, string>,
 		Record<string, string>,
 		CloudforceOneUpdateAccountExemptionsPath
@@ -58960,7 +58960,7 @@ export async function cloudforceOneDeleteRule(
 		config,
 	}: {
 		pathParams: CloudforceOneDeleteRulePath;
-		body?: CloudforceOneDeleteRuleBody;
+		body?: CloudforceOneDeleteRuleBody2;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -58981,7 +58981,7 @@ export async function cloudforceOneDeleteRule(
 			| CloudforceOneDeleteRuleStatus404
 			| CloudforceOneDeleteRuleStatus409
 		>,
-		CloudforceOneDeleteRuleBody,
+		CloudforceOneDeleteRuleBody2,
 		Record<string, string>,
 		Record<string, string>,
 		CloudforceOneDeleteRulePath
@@ -66959,7 +66959,7 @@ export async function cwsCreateBasicAuthSecret(
 		config,
 	}: {
 		pathParams: CwsCreateBasicAuthSecretPath;
-		body: CwsCreateBasicAuthSecretBody;
+		body: CwsCreateBasicAuthSecretBody2;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -66979,7 +66979,7 @@ export async function cwsCreateBasicAuthSecret(
 			| CwsCreateBasicAuthSecretStatus500
 			| CwsCreateBasicAuthSecretStatus503
 		>,
-		CwsCreateBasicAuthSecretBody,
+		CwsCreateBasicAuthSecretBody2,
 		Record<string, string>,
 		Record<string, string>,
 		CwsCreateBasicAuthSecretPath
@@ -69456,7 +69456,7 @@ export async function d1TimeTravelRestore(
 		throw new Error(`Missing required path parameter: databaseId`);
 	}
 	const data = await request<
-		D1TimeTravelRestoreResponse,
+		D1TimeTravelRestoreResponse2,
 		ErrorWrapper<D1TimeTravelRestoreStatus400>,
 		null,
 		Record<string, string>,
@@ -93237,7 +93237,7 @@ export async function customIndicatorFeedsCreateProvider(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		CustomIndicatorFeedsCreateProviderResponse,
+		CustomIndicatorFeedsCreateProviderResponse2,
 		ErrorWrapper<CustomIndicatorFeedsCreateProviderStatus400>,
 		CustomIndicatorFeedsCreateProviderBody,
 		Record<string, string>,
@@ -100413,7 +100413,7 @@ export async function mconnConnectorInterruptsList(
 		throw new Error(`Missing required path parameter: connectorId`);
 	}
 	const data = await request<
-		MconnConnectorInterruptsListResponse,
+		MconnConnectorInterruptsListResponse2,
 		ErrorWrapper<
 			| MconnConnectorInterruptsListStatus400
 			| MconnConnectorInterruptsListStatus401
@@ -100461,7 +100461,7 @@ export async function mconnConnectorInterruptsCreate(
 		throw new Error(`Missing required path parameter: connectorId`);
 	}
 	const data = await request<
-		MconnConnectorInterruptsCreateResponse,
+		MconnConnectorInterruptsCreateResponse2,
 		ErrorWrapper<
 			| MconnConnectorInterruptsCreateStatus400
 			| MconnConnectorInterruptsCreateStatus401
@@ -107321,7 +107321,7 @@ export async function payPerCrawlListCrawlers(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		PayPerCrawlListCrawlersResponse,
+		PayPerCrawlListCrawlersResponse2,
 		ErrorWrapper<PayPerCrawlListCrawlersStatus400>,
 		null,
 		Record<string, string>,
@@ -107465,7 +107465,7 @@ export async function payPerCrawlGetTermsSignatureLink(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		PayPerCrawlGetTermsSignatureLinkResponse,
+		PayPerCrawlGetTermsSignatureLinkResponse2,
 		ErrorWrapper<PayPerCrawlGetTermsSignatureLinkStatus400>,
 		null,
 		Record<string, string>,
@@ -107501,7 +107501,7 @@ export async function payPerCrawlGetTerms(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		PayPerCrawlGetTermsResponse,
+		PayPerCrawlGetTermsResponse2,
 		ErrorWrapper<PayPerCrawlGetTermsStatus400>,
 		null,
 		Record<string, string>,
@@ -107539,7 +107539,7 @@ export async function payPerCrawlGetTermsSignature(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		PayPerCrawlGetTermsSignatureResponse,
+		PayPerCrawlGetTermsSignatureResponse2,
 		ErrorWrapper<PayPerCrawlGetTermsSignatureStatus400>,
 		null,
 		Record<string, string>,
@@ -107656,7 +107656,7 @@ export async function payPerCrawlQueryZonesCanBeEnabled(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		PayPerCrawlQueryZonesCanBeEnabledResponse,
+		PayPerCrawlQueryZonesCanBeEnabledResponse2,
 		ErrorWrapper<PayPerCrawlQueryZonesCanBeEnabledStatus400>,
 		PayPerCrawlQueryZonesCanBeEnabledBody,
 		Record<string, string>,
@@ -111787,7 +111787,7 @@ export async function r2ListCustomDomains(
 		throw new Error(`Missing required path parameter: bucketName`);
 	}
 	const data = await request<
-		R2ListCustomDomainsResponse,
+		R2ListCustomDomainsResponse2,
 		ErrorWrapper<R2ListCustomDomainsStatus400>,
 		null,
 		Partial<R2ListCustomDomainsHeaders>,
@@ -111836,7 +111836,7 @@ export async function r2AddCustomDomain(
 		throw new Error(`Missing required path parameter: bucketName`);
 	}
 	const data = await request<
-		R2AddCustomDomainResponse,
+		R2AddCustomDomainResponse2,
 		ErrorWrapper<R2AddCustomDomainStatus400>,
 		R2AddCustomDomainBody,
 		Partial<R2AddCustomDomainHeaders>,
@@ -121112,7 +121112,7 @@ export async function secretsStoreQuota(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		SecretsStoreQuotaResponse,
+		SecretsStoreQuotaResponse2,
 		ErrorWrapper<SecretsStoreQuotaStatus400>,
 		null,
 		Record<string, string>,
@@ -127868,11 +127868,9 @@ export async function tunnelVirtualNetworkDelete(
 export async function tunnelVirtualNetworkGet(
 	{
 		pathParams,
-		body,
 		config,
 	}: {
 		pathParams: TunnelVirtualNetworkGetPath;
-		body: TunnelVirtualNetworkGetBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -127888,14 +127886,13 @@ export async function tunnelVirtualNetworkGet(
 	const data = await request<
 		TunnelVirtualNetworkGetResponse,
 		ErrorWrapper<TunnelVirtualNetworkGetStatus400>,
-		TunnelVirtualNetworkGetBody,
+		null,
 		Record<string, string>,
 		Record<string, string>,
 		TunnelVirtualNetworkGetPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/teamnet/virtual_networks/${encodeURIComponent(String(pathParams.virtualNetworkId))}`,
-		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -129737,7 +129734,7 @@ export async function vectorizeIndexInfo(
 		throw new Error(`Missing required path parameter: indexName`);
 	}
 	const data = await request<
-		VectorizeIndexInfoResponse,
+		VectorizeIndexInfoResponse2,
 		ErrorWrapper<VectorizeIndexInfoStatus400>,
 		null,
 		Record<string, string>,
@@ -129868,7 +129865,7 @@ export async function vectorizeCreateMetadataIndex(
 		throw new Error(`Missing required path parameter: indexName`);
 	}
 	const data = await request<
-		VectorizeCreateMetadataIndexResponse,
+		VectorizeCreateMetadataIndexResponse2,
 		ErrorWrapper<VectorizeCreateMetadataIndexStatus400>,
 		VectorizeCreateMetadataIndexBody,
 		Record<string, string>,
@@ -129911,7 +129908,7 @@ export async function vectorizeDeleteMetadataIndex(
 		throw new Error(`Missing required path parameter: indexName`);
 	}
 	const data = await request<
-		VectorizeDeleteMetadataIndexResponse,
+		VectorizeDeleteMetadataIndexResponse2,
 		ErrorWrapper<VectorizeDeleteMetadataIndexStatus400>,
 		VectorizeDeleteMetadataIndexBody,
 		Record<string, string>,
@@ -142117,8 +142114,9 @@ export async function postK2SubscriptionsBySubscriptionIdConsume(
 
 /**
  * @summary List tenant accounts
- * @description Lists the Cloudflare accounts associated with this tenant using the legacy Account response
- * shape. Use `GET /organizations/{organization_id}/accounts` for the modern Account response.
+ * @description Lists all Cloudflare accounts across this tenant's hierarchy using the legacy Account
+ * response shape. Use `GET /organizations/{organization_id}/accounts` to list only accounts
+ * immediately attached to a specific Organization using the modern Account response shape.
  * Use `page_token` and `page_size` for cursor pagination, or provide `page` and `per_page`
  * together for legacy offset pagination. Cursor pagination takes precedence when requested.
  * @link /tenants/{tenantId}/accounts
@@ -161312,7 +161310,7 @@ export async function payPerCrawlGetZoneCanBeEnabled(
 		throw new Error(`Missing required path parameter: zoneId`);
 	}
 	const data = await request<
-		PayPerCrawlGetZoneCanBeEnabledResponse,
+		PayPerCrawlGetZoneCanBeEnabledResponse2,
 		ErrorWrapper<PayPerCrawlGetZoneCanBeEnabledStatus400>,
 		null,
 		Record<string, string>,
@@ -161348,7 +161346,7 @@ export async function payPerCrawlGetConfig(
 		throw new Error(`Missing required path parameter: zoneId`);
 	}
 	const data = await request<
-		PayPerCrawlGetConfigResponse,
+		PayPerCrawlGetConfigResponse2,
 		ErrorWrapper<PayPerCrawlGetConfigStatus400>,
 		null,
 		Record<string, string>,
