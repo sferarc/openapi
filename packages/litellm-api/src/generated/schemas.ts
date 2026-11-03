@@ -28397,7 +28397,7 @@ export const proxyMcpRouteMcpProxyOptionsStatus200Schema = z.unknown();
 export const proxyMcpRouteMcpProxyOptionsResponseSchema =
 	proxyMcpRouteMcpProxyOptionsStatus200Schema;
 
-export const proxyMcpRouteMcpProxyHeadStatus200Schema = z.unknown();
+export const proxyMcpRouteMcpProxyHeadStatus200Schema = z.void();
 
 export const proxyMcpRouteMcpProxyHeadResponseSchema = proxyMcpRouteMcpProxyHeadStatus200Schema;
 
@@ -28425,7 +28425,7 @@ export const aggregateMcpRouteMcpOptionsStatus200Schema = z.unknown();
 
 export const aggregateMcpRouteMcpOptionsResponseSchema = aggregateMcpRouteMcpOptionsStatus200Schema;
 
-export const aggregateMcpRouteMcpHeadStatus200Schema = z.unknown();
+export const aggregateMcpRouteMcpHeadStatus200Schema = z.void();
 
 export const aggregateMcpRouteMcpHeadResponseSchema = aggregateMcpRouteMcpHeadStatus200Schema;
 
@@ -28483,9 +28483,9 @@ export const toolsetMcpRouteToolsetToolsetNameMcpOptionsPathSchema = z.object({
 
 export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathToolsetNameSchema = z.string();
 
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema = z.unknown();
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema = z.void();
 
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema = HTTPValidationErrorSchema;
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema = z.void();
 
 export const toolsetMcpRouteToolsetToolsetNameMcpHeadResponseSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema;
@@ -28595,9 +28595,9 @@ export const dynamicMcpRouteMcpServerNameMcpOptionsPathSchema = z.object({
 
 export const dynamicMcpRouteMcpServerNameMcpHeadPathMcpServerNameSchema = z.string();
 
-export const dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema = z.unknown();
+export const dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema = z.void();
 
-export const dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema = HTTPValidationErrorSchema;
+export const dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema = z.void();
 
 export const dynamicMcpRouteMcpServerNameMcpHeadResponseSchema =
 	dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema;

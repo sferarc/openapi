@@ -5333,6 +5333,7 @@ export const userEventPayloadPermissionsEnum = {
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
 	"use:github": "use:github",
+	"use:private-npm": "use:private-npm",
 } as const;
 
 export type UserEventPayloadPermissionsEnumKey =
@@ -5429,6 +5430,7 @@ export const userEventPayloadNextPermissionsEnum = {
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
 	"use:github": "use:github",
+	"use:private-npm": "use:private-npm",
 } as const;
 
 export type UserEventPayloadNextPermissionsEnumKey =
@@ -5522,6 +5524,7 @@ export const userEventPayloadAfterPermissionsEnum = {
 	"read:web-analytics": "read:web-analytics",
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
+	"use:private-npm": "use:private-npm",
 } as const;
 
 export type UserEventPayloadAfterPermissionsEnumKey =
@@ -5605,6 +5608,7 @@ export const userEventPayloadBeforePermissionsEnum = {
 	"read:web-analytics": "read:web-analytics",
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
+	"use:private-npm": "use:private-npm",
 } as const;
 
 export type UserEventPayloadBeforePermissionsEnumKey =
@@ -5688,6 +5692,7 @@ export const userEventPayloadPermissionsEnum2 = {
 	"read:web-analytics": "read:web-analytics",
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
+	"use:private-npm": "use:private-npm",
 } as const;
 
 export type UserEventPayloadPermissionsEnum2Key =
@@ -25440,19 +25445,19 @@ export type ArtifactExistsQuery = {
 	slug?: string | undefined;
 };
 
-export type ArtifactExistsStatus200 = unknown;
+export type ArtifactExistsStatus200 = void;
 
-export type ArtifactExistsStatus400 = unknown;
+export type ArtifactExistsStatus400 = void;
 
-export type ArtifactExistsStatus401 = unknown;
+export type ArtifactExistsStatus401 = void;
 
-export type ArtifactExistsStatus402 = unknown;
+export type ArtifactExistsStatus402 = void;
 
-export type ArtifactExistsStatus403 = unknown;
+export type ArtifactExistsStatus403 = void;
 
-export type ArtifactExistsStatus404 = unknown;
+export type ArtifactExistsStatus404 = void;
 
-export type ArtifactExistsStatus410 = unknown;
+export type ArtifactExistsStatus410 = void;
 
 export type ArtifactExistsOptions = {
 	body?: never | undefined;
@@ -71669,44 +71674,26 @@ export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdEx
 		resourceId: string;
 	};
 
-export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200PurposeEnum =
-	{
-		experimentation: "experimentation",
-		flags: "flags",
-	} as const;
-
-export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200PurposeEnumKey =
-	(typeof headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200PurposeEnum)[keyof typeof headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200PurposeEnum];
-
 export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200 =
-	{
-		digest: string;
-		items: {
-			[key: string]: GlobalConfigItemValue;
-		};
-		purpose?:
-			| HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200PurposeEnumKey
-			| undefined;
-		updatedAt: number;
-	};
+	void;
 
 export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus304 =
-	unknown;
+	void;
 
 export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus400 =
-	unknown;
+	void;
 
 export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus401 =
-	unknown;
+	void;
 
 export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus403 =
-	unknown;
+	void;
 
 export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus404 =
-	unknown;
+	void;
 
 export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410 =
-	unknown;
+	void;
 
 export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigOptions =
 	{
@@ -75150,6 +75137,11 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					 * @type array | undefined
 					 */
 					privateLinkEndpoint?: ACLActionKey[] | undefined;
+					/**
+					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+					 * @type array | undefined
+					 */
+					privateNpmUsage?: ACLActionKey[] | undefined;
 					/**
 					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 					 * @type array | undefined
@@ -88456,6 +88448,11 @@ export type GetProjectsStatus200 =
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 									 * @type array | undefined
 									 */
+									privateNpmUsage?: ACLActionKey[] | undefined;
+									/**
+									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+									 * @type array | undefined
+									 */
 									productionAliasProtectionBypass?: ACLActionKey[] | undefined;
 									/**
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -93050,6 +93047,11 @@ export type CreateProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				privateLinkEndpoint?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				privateNpmUsage?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -98214,6 +98216,11 @@ export type GetProjectStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				privateNpmUsage?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				productionAliasProtectionBypass?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -102681,6 +102688,11 @@ export type UpdateProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				privateLinkEndpoint?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				privateNpmUsage?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -108227,6 +108239,11 @@ export type UploadProjectAvatarStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				privateNpmUsage?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				productionAliasProtectionBypass?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -112732,6 +112749,11 @@ export type DeleteProjectAvatarStatus200 = {
 				 * @type array | undefined
 				 */
 				privateLinkEndpoint?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				privateNpmUsage?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -124620,6 +124642,11 @@ export type UpdateMicrofrontendsStatus200 = {
 				 * @type array | undefined
 				 */
 				privateLinkEndpoint?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				privateNpmUsage?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -147656,19 +147683,19 @@ export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath = {
 	digest: string;
 };
 
-export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus200 = unknown | null;
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus200 = void;
 
-export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus400 = unknown;
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus400 = void;
 
-export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus401 = unknown;
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus401 = void;
 
-export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus402 = unknown;
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus402 = void;
 
-export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus403 = unknown;
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus403 = void;
 
-export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus404 = unknown;
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus404 = void;
 
-export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus410 = unknown;
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus410 = void;
 
 export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestOptions = {
 	body?: never | undefined;
@@ -148365,21 +148392,19 @@ export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath 
 	reference: string;
 };
 
-export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus200 =
-	| unknown
-	| null;
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus200 = void;
 
-export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus400 = unknown;
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus400 = void;
 
-export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus401 = unknown;
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus401 = void;
 
-export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus402 = unknown;
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus402 = void;
 
-export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus403 = unknown;
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus403 = void;
 
-export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus404 = unknown;
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus404 = void;
 
-export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410 = unknown;
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410 = void;
 
 export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceOptions = {
 	body?: never | undefined;

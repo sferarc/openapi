@@ -30,6 +30,25 @@ const spec = {
 					"204": { description: "No item under that key" },
 				},
 			},
+			head: {
+				operationId: "checkItem",
+				parameters: [{ name: "key", in: "path", required: true, schema: { type: "string" } }],
+				responses: {
+					"200": {
+						description: "The item exists, with the GET body copied onto the HEAD",
+						content: {
+							"application/json": {
+								schema: {
+									type: "object",
+									required: ["key"],
+									properties: { key: { type: "string" } },
+								},
+							},
+						},
+					},
+					"404": { description: "No item under that key" },
+				},
+			},
 			delete: {
 				operationId: "deleteItem",
 				parameters: [{ name: "key", in: "path", required: true, schema: { type: "string" } }],
@@ -75,6 +94,16 @@ describe("generated no content responses", () => {
 		expect(types).toContain("export type GetItemResponse = GetItemStatus200 | GetItemStatus204;");
 		expect(types).toContain("export type DeleteItemStatus204 = void;");
 		expect(components).toMatch(/request<\s*GetItemResponse,/);
+	});
+
+	it("types a HEAD operation as void, whatever body its spec copies from the GET", () => {
+		expect(types).toContain("export type CheckItemStatus200 = void;");
+		expect(types).toContain("export type CheckItemResponse = CheckItemStatus200;");
+		expect(components).toMatch(/request<\s*CheckItemResponse,/);
+		const schema = schemas.checkItemResponseSchema;
+		if (!isSchema(schema)) throw new Error("checkItemResponseSchema was not generated");
+		expect(schema.safeParse(undefined).success).toBe(true);
+		expect(schema.safeParse({ key: "greeting" }).success).toBe(false);
 	});
 
 	it("keeps a 200 without a documented body as unknown", () => {

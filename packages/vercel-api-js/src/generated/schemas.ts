@@ -4001,6 +4001,7 @@ export const userEventSchema = z
 								"read:webhooks",
 								"use:ai-gateway",
 								"use:github",
+								"use:private-npm",
 							]),
 						)
 						.optional(),
@@ -4096,6 +4097,7 @@ export const userEventSchema = z
 								"read:webhooks",
 								"use:ai-gateway",
 								"use:github",
+								"use:private-npm",
 							]),
 						)
 						.optional(),
@@ -4184,6 +4186,7 @@ export const userEventSchema = z
 										"read:web-analytics",
 										"read:webhooks",
 										"use:ai-gateway",
+										"use:private-npm",
 									]),
 								)
 								.optional(),
@@ -4286,6 +4289,7 @@ export const userEventSchema = z
 										"read:web-analytics",
 										"read:webhooks",
 										"use:ai-gateway",
+										"use:private-npm",
 									]),
 								)
 								.optional(),
@@ -4391,6 +4395,7 @@ export const userEventSchema = z
 								"read:web-analytics",
 								"read:webhooks",
 								"use:ai-gateway",
+								"use:private-npm",
 							]),
 						)
 						.optional(),
@@ -20090,19 +20095,19 @@ export const artifactExistsQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const artifactExistsStatus200Schema = z.unknown();
+export const artifactExistsStatus200Schema = z.void();
 
-export const artifactExistsStatus400Schema = z.unknown();
+export const artifactExistsStatus400Schema = z.void();
 
-export const artifactExistsStatus401Schema = z.unknown();
+export const artifactExistsStatus401Schema = z.void();
 
-export const artifactExistsStatus402Schema = z.unknown();
+export const artifactExistsStatus402Schema = z.void();
 
-export const artifactExistsStatus403Schema = z.unknown();
+export const artifactExistsStatus403Schema = z.void();
 
-export const artifactExistsStatus404Schema = z.unknown();
+export const artifactExistsStatus404Schema = z.void();
 
-export const artifactExistsStatus410Schema = z.unknown();
+export const artifactExistsStatus410Schema = z.void();
 
 export const artifactExistsResponseSchema = artifactExistsStatus200Schema;
 
@@ -57486,32 +57491,25 @@ export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdE
 	z.string();
 
 export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200Schema =
-	z.object({
-		digest: z.string(),
-		get items() {
-			return z.record(z.string(), globalConfigItemValueSchema);
-		},
-		purpose: z.enum(["experimentation", "flags"]).optional(),
-		updatedAt: z.number(),
-	});
+	z.void();
 
 export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus304Schema =
-	z.unknown();
+	z.void();
 
 export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus400Schema =
-	z.unknown();
+	z.void();
 
 export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus401Schema =
-	z.unknown();
+	z.void();
 
 export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus403Schema =
-	z.unknown();
+	z.void();
 
 export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus404Schema =
-	z.unknown();
+	z.void();
 
 export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410Schema =
-	z.unknown();
+	z.void();
 
 export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponseSchema =
 	headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200Schema;
@@ -60205,6 +60203,12 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 						),
 					privateLinkEndpoint: z
+						.array(ACLActionSchema)
+						.optional()
+						.describe(
+							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+						),
+					privateNpmUsage: z
 						.array(ACLActionSchema)
 						.optional()
 						.describe(
@@ -71227,6 +71231,12 @@ export const getProjectsStatus200Schema = z
 								.describe(
 									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 								),
+							privateNpmUsage: z
+								.array(ACLActionSchema)
+								.optional()
+								.describe(
+									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+								),
 							productionAliasProtectionBypass: z
 								.array(ACLActionSchema)
 								.optional()
@@ -75514,6 +75524,12 @@ export const createProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			privateLinkEndpoint: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			privateNpmUsage: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -80130,6 +80146,12 @@ export const getProjectStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			privateNpmUsage: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			productionAliasProtectionBypass: z
 				.array(ACLActionSchema)
 				.optional()
@@ -84215,6 +84237,12 @@ export const updateProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			privateLinkEndpoint: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			privateNpmUsage: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -89226,6 +89254,12 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			privateNpmUsage: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			productionAliasProtectionBypass: z
 				.array(ACLActionSchema)
 				.optional()
@@ -93318,6 +93352,12 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			privateLinkEndpoint: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			privateNpmUsage: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -103664,6 +103704,12 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			privateLinkEndpoint: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			privateNpmUsage: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -124030,21 +124076,19 @@ export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathDigestS
 	.describe("Content-addressable digest (algorithm:hex).")
 	.meta({ examples: ["sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"] });
 
-export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus200Schema = z
-	.unknown()
-	.nullable();
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus200Schema = z.void();
 
-export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus400Schema = z.unknown();
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus400Schema = z.void();
 
-export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus401Schema = z.unknown();
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus401Schema = z.void();
 
-export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus402Schema = z.unknown();
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus402Schema = z.void();
 
-export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus403Schema = z.unknown();
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus403Schema = z.void();
 
-export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus404Schema = z.unknown();
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus404Schema = z.void();
 
-export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus410Schema = z.unknown();
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus410Schema = z.void();
 
 export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestResponseSchema =
 	headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus200Schema;
@@ -124898,27 +124942,26 @@ export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath
 	.describe("Manifest reference: a tag or digest.")
 	.meta({ examples: ["latest"] });
 
-export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus200Schema = z
-	.unknown()
-	.nullable();
+export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus200Schema =
+	z.void();
 
 export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus400Schema =
-	z.unknown();
+	z.void();
 
 export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus401Schema =
-	z.unknown();
+	z.void();
 
 export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus402Schema =
-	z.unknown();
+	z.void();
 
 export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus403Schema =
-	z.unknown();
+	z.void();
 
 export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus404Schema =
-	z.unknown();
+	z.void();
 
 export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410Schema =
-	z.unknown();
+	z.void();
 
 export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceResponseSchema =
 	headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus200Schema;

@@ -342,6 +342,7 @@ describe("VercelApi remote cache artifactExists", () => {
 		});
 
 		expect(found).toBeUndefined();
+		expectTypeOf(found).toEqualTypeOf<void>();
 		expect(calls[0]?.init?.method).toBe("HEAD");
 		const url = new URL(calls[0]?.url ?? "");
 		expect(url.pathname).toBe("/v8/artifacts/abc123");
@@ -369,5 +370,26 @@ describe("VercelApi responses without content", () => {
 
 		expect(item).toBeUndefined();
 		expectTypeOf(item).toEqualTypeOf<GlobalConfigItem | void>();
+	});
+
+	it("types the experimentation global config HEAD check as void, not the GET body the spec copies", async () => {
+		const calls: { url: string; init: RequestInit | undefined }[] = [];
+		const fetch: FetchImpl = async (url, init) => {
+			calls.push({ url, init });
+			return new Response(null, { status: 200 }) as never;
+		};
+		const client = new VercelApi({ token: "token", fetch });
+
+		const config =
+			await client.api.marketplace.headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfig(
+				{ pathParams: { integrationConfigurationId: "icfg_1", resourceId: "res_1" } },
+			);
+
+		expect(config).toBeUndefined();
+		expectTypeOf(config).toEqualTypeOf<void>();
+		expect(calls[0]?.init?.method).toBe("HEAD");
+		expect(new URL(calls[0]?.url ?? "").pathname).toBe(
+			"/v1/installations/icfg_1/resources/res_1/experimentation/global-config",
+		);
 	});
 });
