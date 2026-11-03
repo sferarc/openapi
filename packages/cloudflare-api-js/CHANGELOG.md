@@ -1,5 +1,27 @@
 # cloudflare-api-js
 
+## 4.8.0
+
+### Minor Changes
+
+- 0f58600: [BREAKING] Removed 'approaching_limit' from 'billingSpendPoliciesPolicyAuditEntryTriggerEnum' and replaced the 'trigger' field in 'BillingSpendPoliciesPolicyAuditEntry' with a freeform string.
+- 0f58600: [BREAKING] Removed 'approaching_limit' from 'billingSpendPoliciesPolicyCurrentStateStatusEnum'.
+
+### Patch Changes
+
+- 0f58600: Added 'period' parameter to 'SpendPoliciesActivityQuery' and 'SpendPoliciesListAuditQuery', allowing selection of billing cycle or all-cycle history.
+- 0f58600: Updated documentation for the 'workerScriptDownloadWorker' operation to clarify multipart upload formats and requirements for ES module and service-worker Workers.
+- 0f58600: Changed the request body type for 'putZonesZoneIdentifierZarazWorkflow' to accept Blob, ArrayBuffer, Uint8Array, ReadableStream, or string, and set the Content-Type header to 'text/plain'.
+- 0f58600: Updated documentation on uploading Workers for Platforms Scripts via the 'namespaceWorkerScriptWorkerDetails' operation to clarify multipart upload options for modern ES module and legacy service-worker formats.
+- 0f58600: Added 'compatibility' option to 'D1ExportDatabaseBody' for choosing between D1 and sqlite3_cli_only dump formats.
+- 0f58600: Added documentation and typing for the 'ids' field in 'D1ListDatabasesQuery', allowing querying multiple database UUIDs.
+- 0f58600: Added 'metadata' and 'strategy' fields to 'WorkersDeployment' and 'WorkersDeploymentWritable'.
+- 0f58600: Clarified the request format for 'PutZonesZoneIdentifierZarazWorkflowStatus400' to specify plain-text workflow name without JSON quotes.
+- 0f58600: Extended the description and default behavior for the 'spendPoliciesCreate' operation to clarify pagination and billing cycle filtering.
+- 0f58600: Improved query param handling in the 'd1ListDatabases' operation by serializing ids to a comma-separated string if it is an array.
+- 0f58600: Clarified the behavior and default 'period' parameter for the 'spendPoliciesUpdate' operation, including handling of cross-cycle history and error responses.
+- 0f58600: Added descriptions to 'WorkerDeploymentsDeleteDeploymentPath' and 'WorkerDeploymentsGetDeploymentPath' fields.
+
 ## 4.7.0
 
 ### Minor Changes
