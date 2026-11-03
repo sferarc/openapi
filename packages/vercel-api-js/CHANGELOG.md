@@ -1,5 +1,21 @@
 # vercel-api-js
 
+## 2.16.0
+
+### Minor Changes
+
+- 9aa5efe: Added 'credentialTypes' field to UpdateResourceBody, allowing specification of resource credential types.
+- 9aa5efe: Added the 'project-expiration-removed' value to userEventTypeEnum, listEventTypeNameEnum, and listEventTypeReplacedByEnum.
+- 9aa5efe: Added new types and enums related to KMS issuer and integration tokens grant, supporting 'tokenClaims' and integrationId fields.
+- 9aa5efe: Added new enums and types for integration store direct status, supporting credential type transitions and changes.
+- 9aa5efe: Added 'justification' and 'previousBudget' fields to UserEvent type to record budget change explanations and previous budget details.
+- 9aa5efe: Added 'expiration' field to CreateProjectBody, supporting scheduled project automatic deletion after a specified timeframe.
+- 9aa5efe: Added new enums and types for user event payload previous budget refresh periods.
+
+### Patch Changes
+
+- 9aa5efe: Added 'justification' field to UpsertAiGatewayBudgetBody, ArchiveAiGatewayBudgetQuery, UpsertAiGatewayBudgetDefaultBody, ArchiveAiGatewayBudgetDefaultQuery, and UpdateApiKeyQuotaBody to track reasons for budget changes.
+
 ## 2.15.0
 
 ### Minor Changes
