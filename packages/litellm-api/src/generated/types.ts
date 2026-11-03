@@ -42622,7 +42622,7 @@ export type ProxyMcpRouteMcpProxyOptionsResponses = {
  */
 export type ProxyMcpRouteMcpProxyOptionsResponse = ProxyMcpRouteMcpProxyOptionsStatus200;
 
-export type ProxyMcpRouteMcpProxyHeadStatus200 = unknown;
+export type ProxyMcpRouteMcpProxyHeadStatus200 = void;
 
 export type ProxyMcpRouteMcpProxyHeadOptions = {
 	body?: never | undefined;
@@ -42756,7 +42756,7 @@ export type AggregateMcpRouteMcpOptionsResponses = {
  */
 export type AggregateMcpRouteMcpOptionsResponse = AggregateMcpRouteMcpOptionsStatus200;
 
-export type AggregateMcpRouteMcpHeadStatus200 = unknown;
+export type AggregateMcpRouteMcpHeadStatus200 = void;
 
 export type AggregateMcpRouteMcpHeadOptions = {
 	body?: never | undefined;
@@ -42876,9 +42876,9 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpHeadPath = {
 	toolset_name: string;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200 = unknown;
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200 = void;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422 = HTTPValidationError;
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422 = void;
 
 export type ToolsetMcpRouteToolsetToolsetNameMcpHeadOptions = {
 	body?: never | undefined;
@@ -43066,9 +43066,9 @@ export type DynamicMcpRouteMcpServerNameMcpHeadPath = {
 	mcp_server_name: string;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpHeadStatus200 = unknown;
+export type DynamicMcpRouteMcpServerNameMcpHeadStatus200 = void;
 
-export type DynamicMcpRouteMcpServerNameMcpHeadStatus422 = HTTPValidationError;
+export type DynamicMcpRouteMcpServerNameMcpHeadStatus422 = void;
 
 export type DynamicMcpRouteMcpServerNameMcpHeadOptions = {
 	body?: never | undefined;

@@ -4001,6 +4001,7 @@ export const userEventSchema = z
 								"read:webhooks",
 								"use:ai-gateway",
 								"use:github",
+								"use:private-npm",
 							]),
 						)
 						.optional(),
@@ -4096,6 +4097,7 @@ export const userEventSchema = z
 								"read:webhooks",
 								"use:ai-gateway",
 								"use:github",
+								"use:private-npm",
 							]),
 						)
 						.optional(),
@@ -4184,6 +4186,7 @@ export const userEventSchema = z
 										"read:web-analytics",
 										"read:webhooks",
 										"use:ai-gateway",
+										"use:private-npm",
 									]),
 								)
 								.optional(),
@@ -4286,6 +4289,7 @@ export const userEventSchema = z
 										"read:web-analytics",
 										"read:webhooks",
 										"use:ai-gateway",
+										"use:private-npm",
 									]),
 								)
 								.optional(),
@@ -4391,6 +4395,7 @@ export const userEventSchema = z
 								"read:web-analytics",
 								"read:webhooks",
 								"use:ai-gateway",
+								"use:private-npm",
 							]),
 						)
 						.optional(),
@@ -20071,6 +20076,68 @@ export const downloadArtifactHeadersSchema = z.object({
 		.optional()
 		.describe("1 if the client is an interactive shell. Otherwise 0")
 		.meta({ examples: [0] }),
+});
+
+export const artifactExistsPathHashSchema = z
+	.string()
+	.describe("The artifact hash")
+	.meta({ examples: ["12HKQaOmR5t5Uy6vdcQsNIiZgHGB"] });
+
+export const artifactExistsQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const artifactExistsQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const artifactExistsStatus200Schema = z.void();
+
+export const artifactExistsStatus400Schema = z.void();
+
+export const artifactExistsStatus401Schema = z.void();
+
+export const artifactExistsStatus402Schema = z.void();
+
+export const artifactExistsStatus403Schema = z.void();
+
+export const artifactExistsStatus404Schema = z.void();
+
+export const artifactExistsStatus410Schema = z.void();
+
+export const artifactExistsResponseSchema = artifactExistsStatus200Schema;
+
+export const artifactExistsErrorSchema = z.union([
+	artifactExistsStatus400Schema,
+	artifactExistsStatus401Schema,
+	artifactExistsStatus402Schema,
+	artifactExistsStatus403Schema,
+	artifactExistsStatus404Schema,
+	artifactExistsStatus410Schema,
+]);
+
+export const artifactExistsPathSchema = z.object({
+	hash: z
+		.string()
+		.describe("The artifact hash")
+		.meta({ examples: ["12HKQaOmR5t5Uy6vdcQsNIiZgHGB"] }),
+});
+
+export const artifactExistsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
 });
 
 export const artifactQueryQueryTeamIdSchema = z
@@ -41451,7 +41518,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 					source: z.discriminatedUnion("kind", [
 						z.strictObject({
 							defaultFor: z
-								.enum(["eve-tracing"])
+								.enum(["eve-tracing", "nextjs-tracing"])
 								.optional()
 								.describe("Informational marker for a system-owned default drain."),
 							kind: z.enum(["self-served"]),
@@ -41630,7 +41697,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 					source: z.discriminatedUnion("kind", [
 						z.strictObject({
 							defaultFor: z
-								.enum(["eve-tracing"])
+								.enum(["eve-tracing", "nextjs-tracing"])
 								.optional()
 								.describe("Informational marker for a system-owned default drain."),
 							kind: z.enum(["self-served"]),
@@ -41975,7 +42042,7 @@ export const createDrainStatus200Schema = z.union([
 		source: z.discriminatedUnion("kind", [
 			z.strictObject({
 				defaultFor: z
-					.enum(["eve-tracing"])
+					.enum(["eve-tracing", "nextjs-tracing"])
 					.optional()
 					.describe("Informational marker for a system-owned default drain."),
 				kind: z.enum(["self-served"]),
@@ -42150,7 +42217,7 @@ export const createDrainStatus200Schema = z.union([
 		source: z.discriminatedUnion("kind", [
 			z.strictObject({
 				defaultFor: z
-					.enum(["eve-tracing"])
+					.enum(["eve-tracing", "nextjs-tracing"])
 					.optional()
 					.describe("Informational marker for a system-owned default drain."),
 				kind: z.enum(["self-served"]),
@@ -42542,7 +42609,7 @@ export const getDrainsStatus200Schema = z.object({
 				source: z.discriminatedUnion("kind", [
 					z.strictObject({
 						defaultFor: z
-							.enum(["eve-tracing"])
+							.enum(["eve-tracing", "nextjs-tracing"])
 							.optional()
 							.describe("Informational marker for a system-owned default drain."),
 						kind: z.enum(["self-served"]),
@@ -42719,7 +42786,7 @@ export const getDrainsStatus200Schema = z.object({
 				source: z.discriminatedUnion("kind", [
 					z.strictObject({
 						defaultFor: z
-							.enum(["eve-tracing"])
+							.enum(["eve-tracing", "nextjs-tracing"])
 							.optional()
 							.describe("Informational marker for a system-owned default drain."),
 						kind: z.enum(["self-served"]),
@@ -43034,7 +43101,7 @@ export const getDrainStatus200Schema = z.object({
 	source: z.discriminatedUnion("kind", [
 		z.strictObject({
 			defaultFor: z
-				.enum(["eve-tracing"])
+				.enum(["eve-tracing", "nextjs-tracing"])
 				.optional()
 				.describe("Informational marker for a system-owned default drain."),
 			kind: z.enum(["self-served"]),
@@ -43264,7 +43331,7 @@ export const updateDrainStatus200Schema = z.union([
 		source: z.discriminatedUnion("kind", [
 			z.strictObject({
 				defaultFor: z
-					.enum(["eve-tracing"])
+					.enum(["eve-tracing", "nextjs-tracing"])
 					.optional()
 					.describe("Informational marker for a system-owned default drain."),
 				kind: z.enum(["self-served"]),
@@ -43439,7 +43506,7 @@ export const updateDrainStatus200Schema = z.union([
 		source: z.discriminatedUnion("kind", [
 			z.strictObject({
 				defaultFor: z
-					.enum(["eve-tracing"])
+					.enum(["eve-tracing", "nextjs-tracing"])
 					.optional()
 					.describe("Informational marker for a system-owned default drain."),
 				kind: z.enum(["self-served"]),
@@ -55041,7 +55108,7 @@ export const getIntegrationLogDrainsStatus200Schema = z.array(
 		source: z.discriminatedUnion("kind", [
 			z.strictObject({
 				defaultFor: z
-					.enum(["eve-tracing"])
+					.enum(["eve-tracing", "nextjs-tracing"])
 					.optional()
 					.describe("Informational marker for a system-owned default drain."),
 				kind: z.enum(["self-served"]),
@@ -55180,7 +55247,7 @@ export const createLogDrainStatus200Schema = z.object({
 	source: z.discriminatedUnion("kind", [
 		z.strictObject({
 			defaultFor: z
-				.enum(["eve-tracing"])
+				.enum(["eve-tracing", "nextjs-tracing"])
 				.optional()
 				.describe("Informational marker for a system-owned default drain."),
 			kind: z.enum(["self-served"]),
@@ -57415,6 +57482,52 @@ export const deleteInstallationsByIntegrationConfigurationIdResourcesByResourceI
 		integrationConfigurationId: z.string(),
 		resourceId: z.string(),
 		itemId: z.string(),
+	});
+
+export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPathIntegrationConfigurationIdSchema =
+	z.string();
+
+export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPathResourceIdSchema =
+	z.string();
+
+export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200Schema =
+	z.void();
+
+export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus304Schema =
+	z.void();
+
+export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus400Schema =
+	z.void();
+
+export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus401Schema =
+	z.void();
+
+export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus403Schema =
+	z.void();
+
+export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus404Schema =
+	z.void();
+
+export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410Schema =
+	z.void();
+
+export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponseSchema =
+	headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200Schema;
+
+export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigErrorSchema =
+	z.union([
+		headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus304Schema,
+		headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus400Schema,
+		headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus401Schema,
+		headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus403Schema,
+		headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus404Schema,
+		headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410Schema,
+	]);
+
+export const headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPathSchema =
+	z.object({
+		integrationConfigurationId: z.string(),
+		resourceId: z.string(),
 	});
 
 export const getInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPathIntegrationConfigurationIdSchema =
@@ -60090,6 +60203,12 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 						),
 					privateLinkEndpoint: z
+						.array(ACLActionSchema)
+						.optional()
+						.describe(
+							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+						),
+					privateNpmUsage: z
 						.array(ACLActionSchema)
 						.optional()
 						.describe(
@@ -71112,6 +71231,12 @@ export const getProjectsStatus200Schema = z
 								.describe(
 									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 								),
+							privateNpmUsage: z
+								.array(ACLActionSchema)
+								.optional()
+								.describe(
+									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+								),
 							productionAliasProtectionBypass: z
 								.array(ACLActionSchema)
 								.optional()
@@ -75399,6 +75524,12 @@ export const createProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			privateLinkEndpoint: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			privateNpmUsage: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -80015,6 +80146,12 @@ export const getProjectStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			privateNpmUsage: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			productionAliasProtectionBypass: z
 				.array(ACLActionSchema)
 				.optional()
@@ -84100,6 +84237,12 @@ export const updateProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			privateLinkEndpoint: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			privateNpmUsage: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -89111,6 +89254,12 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			privateNpmUsage: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			productionAliasProtectionBypass: z
 				.array(ACLActionSchema)
 				.optional()
@@ -93203,6 +93352,12 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			privateLinkEndpoint: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			privateNpmUsage: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -103549,6 +103704,12 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			privateLinkEndpoint: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			privateNpmUsage: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -123887,6 +124048,89 @@ export const getRootErrorSchema = z.union([
 	getRootStatus410Schema,
 ]);
 
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathTeamSlugSchema = z
+	.string()
+	.max(255)
+	.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+	.describe("Single Docker repository team slug component.")
+	.meta({ examples: ["team-slug"] });
+
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathProjectSlugSchema = z
+	.string()
+	.max(255)
+	.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+	.describe("Single Docker repository project slug component.")
+	.meta({ examples: ["project-slug"] });
+
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathRepositoryNameSchema = z
+	.string()
+	.max(255)
+	.regex(/^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/)
+	.describe("Single Docker repository name component.")
+	.meta({ examples: ["nginx"] });
+
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathDigestSchema = z
+	.string()
+	.max(255)
+	.regex(/^[A-Za-z0-9_+.-]+:[A-Fa-f0-9]+$/)
+	.describe("Content-addressable digest (algorithm:hex).")
+	.meta({ examples: ["sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"] });
+
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus200Schema = z.void();
+
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus400Schema = z.void();
+
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus401Schema = z.void();
+
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus402Schema = z.void();
+
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus403Schema = z.void();
+
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus404Schema = z.void();
+
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus410Schema = z.void();
+
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestResponseSchema =
+	headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus200Schema;
+
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestErrorSchema = z.union([
+	headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus400Schema,
+	headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus401Schema,
+	headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus402Schema,
+	headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus403Schema,
+	headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus404Schema,
+	headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus410Schema,
+]);
+
+export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathSchema = z.object({
+	teamSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository team slug component.")
+		.meta({ examples: ["team-slug"] }),
+	projectSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository project slug component.")
+		.meta({ examples: ["project-slug"] }),
+	repositoryName: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/)
+		.describe("Single Docker repository name component.")
+		.meta({ examples: ["nginx"] }),
+	digest: z
+		.string()
+		.max(255)
+		.regex(/^[A-Za-z0-9_+.-]+:[A-Fa-f0-9]+$/)
+		.describe("Content-addressable digest (algorithm:hex).")
+		.meta({
+			examples: ["sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"],
+		}),
+});
+
 export const getByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathTeamSlugSchema = z
 	.string()
 	.max(255)
@@ -124667,6 +124911,96 @@ export const replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceP
 			.describe("Manifest reference: a tag or digest.")
 			.meta({ examples: ["latest"] }),
 	});
+
+export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathTeamSlugSchema = z
+	.string()
+	.max(255)
+	.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+	.describe("Single Docker repository team slug component.")
+	.meta({ examples: ["team-slug"] });
+
+export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathProjectSlugSchema =
+	z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository project slug component.")
+		.meta({ examples: ["project-slug"] });
+
+export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathRepositoryNameSchema =
+	z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/)
+		.describe("Single Docker repository name component.")
+		.meta({ examples: ["nginx"] });
+
+export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathReferenceSchema = z
+	.string()
+	.max(255)
+	.regex(/^(?:[a-zA-Z0-9_][a-zA-Z0-9._-]{0,127}|[A-Za-z0-9_+.-]+:[A-Fa-f0-9]+)$/)
+	.describe("Manifest reference: a tag or digest.")
+	.meta({ examples: ["latest"] });
+
+export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus200Schema =
+	z.void();
+
+export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus400Schema =
+	z.void();
+
+export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus401Schema =
+	z.void();
+
+export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus402Schema =
+	z.void();
+
+export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus403Schema =
+	z.void();
+
+export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus404Schema =
+	z.void();
+
+export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410Schema =
+	z.void();
+
+export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceResponseSchema =
+	headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus200Schema;
+
+export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceErrorSchema = z.union([
+	headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus400Schema,
+	headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus401Schema,
+	headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus402Schema,
+	headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus403Schema,
+	headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus404Schema,
+	headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410Schema,
+]);
+
+export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathSchema = z.object({
+	teamSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository team slug component.")
+		.meta({ examples: ["team-slug"] }),
+	projectSlug: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.describe("Single Docker repository project slug component.")
+		.meta({ examples: ["project-slug"] }),
+	repositoryName: z
+		.string()
+		.max(255)
+		.regex(/^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/)
+		.describe("Single Docker repository name component.")
+		.meta({ examples: ["nginx"] }),
+	reference: z
+		.string()
+		.max(255)
+		.regex(/^(?:[a-zA-Z0-9_][a-zA-Z0-9._-]{0,127}|[A-Za-z0-9_+.-]+:[A-Fa-f0-9]+)$/)
+		.describe("Manifest reference: a tag or digest.")
+		.meta({ examples: ["latest"] }),
+});
 
 export const getByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathTeamSlugSchema = z
 	.string()

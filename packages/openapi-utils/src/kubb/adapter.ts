@@ -123,16 +123,24 @@ export function responseWithLineDelimitedJson(
 	return { ...response, content: [...response.content, ...lines] };
 }
 
-// RFC 9110 forbids content in a 204 or 205 response.
+// RFC 9110 forbids content in a 204 or 205 response, and in any response to HEAD.
 const NO_CONTENT_STATUS_CODES = new Set<ast.StatusCode>(["204", "205"]);
 
+function hasNoContent(response: ast.ResponseNode, method: string | undefined): boolean {
+	return method?.toUpperCase() === "HEAD" || NO_CONTENT_STATUS_CODES.has(response.statusCode);
+}
+
 /**
- * Types a 204 or 205 response as `void`, since the fetchers resolve its empty body to `undefined`.
- * The adapter's `unknown` placeholder absorbed a typed 200 in the same union, so an operation
- * answering 200 or 204 returned `unknown`.
+ * Types a 204 or 205 response, or any response to HEAD, as `void`, since the fetchers resolve its
+ * empty body to `undefined`. The adapter's `unknown` placeholder absorbed a typed 200 in the same
+ * union, so an operation answering 200 or 204 returned `unknown`, and a HEAD operation whose spec
+ * copies the GET body was typed as that body.
  */
-export function responseWithoutContent(response: ast.ResponseNode): ast.ResponseNode {
-	if (!NO_CONTENT_STATUS_CODES.has(response.statusCode)) return response;
+export function responseWithoutContent(
+	response: ast.ResponseNode,
+	method?: string,
+): ast.ResponseNode {
+	if (!hasNoContent(response, method)) return response;
 	const schema = ast.factory.createSchema({ type: "void" });
 	const content = response.content?.length
 		? response.content.map((entry) => ({ ...entry, schema }))
@@ -143,8 +151,9 @@ export function responseWithoutContent(response: ast.ResponseNode): ast.Response
 function withFallbackResponse(
 	response: ast.ResponseNode,
 	everyMediaType: ast.ResponseNode | undefined,
+	method: string | undefined,
 ): ast.ResponseNode {
-	if (NO_CONTENT_STATUS_CODES.has(response.statusCode)) return responseWithoutContent(response);
+	if (hasNoContent(response, method)) return responseWithoutContent(response, method);
 	const content = response.content?.some(hasBodySchema)
 		? undefined
 		: responseContentFallback(everyMediaType);
@@ -182,10 +191,12 @@ export function adapterOasWithRawBodies(options: AdapterOasOptions): Adapter {
 				...input,
 				operations: input.operations.map((node) => {
 					const fallback = fallbackOperations.get(operationKey(node));
+					const method = ast.isHttpOperationNode(node) ? node.method : undefined;
 					const responses = node.responses.map((response) =>
 						withFallbackResponse(
 							response,
 							fallback?.responses.find((other) => other.statusCode === response.statusCode),
+							method,
 						),
 					);
 					if (node.requestBody?.content?.length) return { ...node, responses };

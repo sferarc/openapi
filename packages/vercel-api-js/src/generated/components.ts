@@ -131,6 +131,15 @@ import type {
 	ArchiveAiGatewayBudgetStatus404,
 	ArchiveAiGatewayBudgetStatus410,
 	ArchiveAiGatewayBudgetStatus500,
+	ArtifactExistsPath,
+	ArtifactExistsQuery,
+	ArtifactExistsResponse,
+	ArtifactExistsStatus400,
+	ArtifactExistsStatus401,
+	ArtifactExistsStatus402,
+	ArtifactExistsStatus403,
+	ArtifactExistsStatus404,
+	ArtifactExistsStatus410,
 	ArtifactQueryBody,
 	ArtifactQueryQuery,
 	ArtifactQueryResponse,
@@ -2648,6 +2657,29 @@ import type {
 	GitNamespacesStatus410,
 	GitNamespacesStatus429,
 	GitNamespacesStatus500,
+	HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath,
+	HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestResponse,
+	HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus400,
+	HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus401,
+	HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus402,
+	HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus403,
+	HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus404,
+	HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus410,
+	HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath,
+	HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceResponse,
+	HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus400,
+	HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus401,
+	HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus402,
+	HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus403,
+	HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus404,
+	HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410,
+	HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath,
+	HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse,
+	HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus400,
+	HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus401,
+	HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus403,
+	HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus404,
+	HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410,
 	ImportResourceBody,
 	ImportResourcePath,
 	ImportResourceResponse,
@@ -6153,6 +6185,52 @@ export async function downloadArtifact(
 				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
 			),
 		},
+	});
+
+	return data;
+}
+
+/**
+ * @summary Check if a cache artifact exists
+ * @description Check that a cache artifact with the given `hash` exists. This request returns response headers only and is equivalent to a `GET` request to this endpoint where the response contains no body.
+ * @link /v8/artifacts/{hash}
+ */
+export async function artifactExists(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: ArtifactExistsPath;
+		queryParams?: Partial<ArtifactExistsQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.hash == null || String(pathParams.hash) === "") {
+		throw new Error(`Missing required path parameter: hash`);
+	}
+	const data = await request<
+		ArtifactExistsResponse,
+		ErrorWrapper<
+			| ArtifactExistsStatus400
+			| ArtifactExistsStatus401
+			| ArtifactExistsStatus402
+			| ArtifactExistsStatus403
+			| ArtifactExistsStatus404
+			| ArtifactExistsStatus410
+		>,
+		null,
+		Record<string, string>,
+		Partial<ArtifactExistsQuery>,
+		ArtifactExistsPath
+	>({
+		method: "HEAD",
+		url: `/v8/artifacts/${encodeURIComponent(String(pathParams.hash))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -16105,6 +16183,55 @@ export async function deleteInstallationsByIntegrationConfigurationIdResourcesBy
  * @description When the user enabled Global Config syncing, then this endpoint can be used by the partner to fetch the contents of the Global Config.
  * @link /v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/global-config
  */
+export async function headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfig(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (
+		pathParams?.integrationConfigurationId == null ||
+		String(pathParams.integrationConfigurationId) === ""
+	) {
+		throw new Error(`Missing required path parameter: integrationConfigurationId`);
+	}
+
+	if (pathParams?.resourceId == null || String(pathParams.resourceId) === "") {
+		throw new Error(`Missing required path parameter: resourceId`);
+	}
+	const data = await request<
+		HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse,
+		ErrorWrapper<
+			| HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus400
+			| HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus401
+			| HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus403
+			| HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus404
+			| HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410
+		>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath
+	>({
+		method: "HEAD",
+		url: `/v1/installations/${encodeURIComponent(String(pathParams.integrationConfigurationId))}/resources/${encodeURIComponent(String(pathParams.resourceId))}/experimentation/global-config`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get the data of a user-provided Global Config
+ * @description When the user enabled Global Config syncing, then this endpoint can be used by the partner to fetch the contents of the Global Config.
+ * @link /v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/global-config
+ */
 export async function getInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfig(
 	{
 		pathParams,
@@ -24046,6 +24173,61 @@ export async function getRoot(
 }
 
 /**
+ * @summary Check if a blob exists
+ * @description HEAD /v2/:teamSlug/:projectSlug/:repositoryName/blobs/:digest Check whether a blob exists. Used by the Docker client before pushing a layer to avoid re-uploading content that already exists.
+ * @link /v2/{teamSlug}/{projectSlug}/{repositoryName}/blobs/{digest}
+ */
+export async function headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigest(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.teamSlug == null || String(pathParams.teamSlug) === "") {
+		throw new Error(`Missing required path parameter: teamSlug`);
+	}
+
+	if (pathParams?.projectSlug == null || String(pathParams.projectSlug) === "") {
+		throw new Error(`Missing required path parameter: projectSlug`);
+	}
+
+	if (pathParams?.repositoryName == null || String(pathParams.repositoryName) === "") {
+		throw new Error(`Missing required path parameter: repositoryName`);
+	}
+
+	if (pathParams?.digest == null || String(pathParams.digest) === "") {
+		throw new Error(`Missing required path parameter: digest`);
+	}
+	const data = await request<
+		HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestResponse,
+		ErrorWrapper<
+			| HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus400
+			| HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus401
+			| HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus402
+			| HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus403
+			| HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus404
+			| HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus410
+		>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath
+	>({
+		method: "HEAD",
+		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/blobs/${encodeURIComponent(String(pathParams.digest))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Download a blob
  * @description GET /v2/:teamSlug/:projectSlug/:repositoryName/blobs/:digest Fetch a blob by digest.
  * @link /v2/{teamSlug}/{projectSlug}/{repositoryName}/blobs/{digest}
@@ -24515,6 +24697,61 @@ export async function replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByR
 			"Content-Type": "application/vnd.oci.image.manifest.v1+json",
 			...requestConfig.headers,
 		},
+	});
+
+	return data;
+}
+
+/**
+ * @summary Check if a manifest exists
+ * @description HEAD /v2/:teamSlug/:projectSlug/:repositoryName/manifests/:reference Check whether a manifest exists. Used by Docker client during push to determine if a manifest (or config blob referenced by digest) is already present.
+ * @link /v2/{teamSlug}/{projectSlug}/{repositoryName}/manifests/{reference}
+ */
+export async function headByTeamSlugByProjectSlugByRepositoryNameManifestsByReference(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.teamSlug == null || String(pathParams.teamSlug) === "") {
+		throw new Error(`Missing required path parameter: teamSlug`);
+	}
+
+	if (pathParams?.projectSlug == null || String(pathParams.projectSlug) === "") {
+		throw new Error(`Missing required path parameter: projectSlug`);
+	}
+
+	if (pathParams?.repositoryName == null || String(pathParams.repositoryName) === "") {
+		throw new Error(`Missing required path parameter: repositoryName`);
+	}
+
+	if (pathParams?.reference == null || String(pathParams.reference) === "") {
+		throw new Error(`Missing required path parameter: reference`);
+	}
+	const data = await request<
+		HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceResponse,
+		ErrorWrapper<
+			| HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus400
+			| HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus401
+			| HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus402
+			| HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus403
+			| HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus404
+			| HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410
+		>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath
+	>({
+		method: "HEAD",
+		url: `/v2/${encodeURIComponent(String(pathParams.teamSlug))}/${encodeURIComponent(String(pathParams.projectSlug))}/${encodeURIComponent(String(pathParams.repositoryName))}/manifests/${encodeURIComponent(String(pathParams.reference))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -27487,6 +27724,7 @@ export const operationsByTag = {
 		status,
 		uploadArtifact,
 		downloadArtifact,
+		artifactExists,
 		artifactQuery,
 		deleteAllArtifacts,
 	},
@@ -27745,6 +27983,7 @@ export const operationsByTag = {
 		createInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItems,
 		updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemId,
 		deleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemId,
+		headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfig,
 		getInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfig,
 		replaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfig,
 	},
@@ -27949,6 +28188,7 @@ export const operationsByTag = {
 		getRepositoryImage,
 		deleteRepositoryImage,
 		getRoot,
+		headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigest,
 		getByTeamSlugByProjectSlugByRepositoryNameBlobsByDigest,
 		deleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigest,
 		getByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuid,
@@ -27957,6 +28197,7 @@ export const operationsByTag = {
 		replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuid,
 		createByTeamSlugByProjectSlugByRepositoryNameBlobsUploads,
 		replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReference,
+		headByTeamSlugByProjectSlugByRepositoryNameManifestsByReference,
 		getByTeamSlugByProjectSlugByRepositoryNameManifestsByReference,
 		deleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReference,
 		getByTeamSlugByProjectSlugByRepositoryNameTagsList,

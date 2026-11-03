@@ -181,4 +181,21 @@ describe("responseWithoutContent", () => {
 		});
 		expect(responseWithoutContent(ok)).toBe(ok);
 	});
+
+	it("types every response to HEAD as void, even one that copies the GET body", () => {
+		for (const statusCode of ["200", "404"] as const) {
+			const typed = responseWithoutContent(
+				ast.factory.createResponse({ statusCode, content: [content("application/json")] }),
+				"HEAD",
+			);
+			expect(typed.content?.map((c) => [c.contentType, c.schema?.type])).toEqual([
+				["application/json", "void"],
+			]);
+		}
+		const ok = ast.factory.createResponse({
+			statusCode: "200",
+			content: [content("application/json")],
+		});
+		expect(responseWithoutContent(ok, "GET")).toBe(ok);
+	});
 });

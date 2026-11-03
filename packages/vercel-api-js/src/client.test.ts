@@ -307,6 +307,56 @@ describe("VercelApi container registry uploads", () => {
 			expect.objectContaining({ "Content-Type": "application/vnd.oci.image.index.v1+json" }),
 		);
 	});
+
+	it("checks whether a blob exists with HEAD and reads its digest from the headers", async () => {
+		const { calls, client } = registryFetch(200, { "Docker-Content-Digest": "sha256:abc" });
+		let digest: string | null = null;
+
+		await client.api.vcr.headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigest({
+			pathParams: { ...repository, digest: "sha256:abc" },
+			config: {
+				onResponse: ({ headers }) => {
+					digest = headers.get("Docker-Content-Digest");
+				},
+			},
+		});
+
+		expect(calls[0]?.init?.method).toBe("HEAD");
+		expect(new URL(calls[0]?.url ?? "").pathname).toBe("/v2/team/project/app/blobs/sha256%3Aabc");
+		expect(digest).toBe("sha256:abc");
+	});
+});
+
+describe("VercelApi remote cache artifactExists", () => {
+	it("sends HEAD for the artifact and resolves a found one to undefined", async () => {
+		const calls: { url: string; init: RequestInit | undefined }[] = [];
+		const fetch: FetchImpl = async (url, init) => {
+			calls.push({ url, init });
+			return new Response(null, { status: 200 }) as never;
+		};
+		const client = new VercelApi({ token: "token", fetch });
+
+		const found = await client.api.artifacts.artifactExists({
+			pathParams: { hash: "abc123" },
+			queryParams: { teamId: "team_1" },
+		});
+
+		expect(found).toBeUndefined();
+		expectTypeOf(found).toEqualTypeOf<void>();
+		expect(calls[0]?.init?.method).toBe("HEAD");
+		const url = new URL(calls[0]?.url ?? "");
+		expect(url.pathname).toBe("/v8/artifacts/abc123");
+		expect(url.search).toBe("?teamId=team_1");
+	});
+
+	it("rejects a missing artifact with its 404 status", async () => {
+		const fetch: FetchImpl = async () => new Response(null, { status: 404 }) as never;
+		const client = new VercelApi({ token: "token", fetch });
+
+		await expect(
+			client.api.artifacts.artifactExists({ pathParams: { hash: "missing" } }),
+		).rejects.toMatchObject({ status: 404 });
+	});
 });
 
 describe("VercelApi responses without content", () => {
@@ -320,5 +370,26 @@ describe("VercelApi responses without content", () => {
 
 		expect(item).toBeUndefined();
 		expectTypeOf(item).toEqualTypeOf<GlobalConfigItem | void>();
+	});
+
+	it("types the experimentation global config HEAD check as void, not the GET body the spec copies", async () => {
+		const calls: { url: string; init: RequestInit | undefined }[] = [];
+		const fetch: FetchImpl = async (url, init) => {
+			calls.push({ url, init });
+			return new Response(null, { status: 200 }) as never;
+		};
+		const client = new VercelApi({ token: "token", fetch });
+
+		const config =
+			await client.api.marketplace.headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfig(
+				{ pathParams: { integrationConfigurationId: "icfg_1", resourceId: "res_1" } },
+			);
+
+		expect(config).toBeUndefined();
+		expectTypeOf(config).toEqualTypeOf<void>();
+		expect(calls[0]?.init?.method).toBe("HEAD");
+		expect(new URL(calls[0]?.url ?? "").pathname).toBe(
+			"/v1/installations/icfg_1/resources/res_1/experimentation/global-config",
+		);
 	});
 });

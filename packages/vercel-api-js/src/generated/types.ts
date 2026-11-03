@@ -5333,6 +5333,7 @@ export const userEventPayloadPermissionsEnum = {
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
 	"use:github": "use:github",
+	"use:private-npm": "use:private-npm",
 } as const;
 
 export type UserEventPayloadPermissionsEnumKey =
@@ -5429,6 +5430,7 @@ export const userEventPayloadNextPermissionsEnum = {
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
 	"use:github": "use:github",
+	"use:private-npm": "use:private-npm",
 } as const;
 
 export type UserEventPayloadNextPermissionsEnumKey =
@@ -5522,6 +5524,7 @@ export const userEventPayloadAfterPermissionsEnum = {
 	"read:web-analytics": "read:web-analytics",
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
+	"use:private-npm": "use:private-npm",
 } as const;
 
 export type UserEventPayloadAfterPermissionsEnumKey =
@@ -5605,6 +5608,7 @@ export const userEventPayloadBeforePermissionsEnum = {
 	"read:web-analytics": "read:web-analytics",
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
+	"use:private-npm": "use:private-npm",
 } as const;
 
 export type UserEventPayloadBeforePermissionsEnumKey =
@@ -5688,6 +5692,7 @@ export const userEventPayloadPermissionsEnum2 = {
 	"read:web-analytics": "read:web-analytics",
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
+	"use:private-npm": "use:private-npm",
 } as const;
 
 export type UserEventPayloadPermissionsEnum2Key =
@@ -25415,6 +25420,66 @@ export type DownloadArtifactResponses = {
  * @description Union of all possible responses
  */
 export type DownloadArtifactResponse = DownloadArtifactStatus200;
+
+export type ArtifactExistsPath = {
+	/**
+	 * @description The artifact hash
+	 * @example 12HKQaOmR5t5Uy6vdcQsNIiZgHGB
+	 * @type string
+	 */
+	hash: string;
+};
+
+export type ArtifactExistsQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type ArtifactExistsStatus200 = void;
+
+export type ArtifactExistsStatus400 = void;
+
+export type ArtifactExistsStatus401 = void;
+
+export type ArtifactExistsStatus402 = void;
+
+export type ArtifactExistsStatus403 = void;
+
+export type ArtifactExistsStatus404 = void;
+
+export type ArtifactExistsStatus410 = void;
+
+export type ArtifactExistsOptions = {
+	body?: never | undefined;
+	path: ArtifactExistsPath;
+	query?: ArtifactExistsQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type ArtifactExistsResponses = {
+	"200": ArtifactExistsStatus200;
+	"400": ArtifactExistsStatus400;
+	"401": ArtifactExistsStatus401;
+	"402": ArtifactExistsStatus402;
+	"403": ArtifactExistsStatus403;
+	"404": ArtifactExistsStatus404;
+	"410": ArtifactExistsStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ArtifactExistsResponse = ArtifactExistsStatus200;
 
 export type ArtifactQueryQuery = {
 	/**
@@ -52308,6 +52373,14 @@ export const getAllLogDrainsStatus200DrainsSamplingEnvEnum = {
 export type GetAllLogDrainsStatus200DrainsSamplingEnvEnumKey =
 	(typeof getAllLogDrainsStatus200DrainsSamplingEnvEnum)[keyof typeof getAllLogDrainsStatus200DrainsSamplingEnvEnum];
 
+export const getAllLogDrainsStatus200DrainsSourceDefaultForEnum = {
+	"eve-tracing": "eve-tracing",
+	"nextjs-tracing": "nextjs-tracing",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsSourceDefaultForEnumKey =
+	(typeof getAllLogDrainsStatus200DrainsSourceDefaultForEnum)[keyof typeof getAllLogDrainsStatus200DrainsSourceDefaultForEnum];
+
 export const getAllLogDrainsStatus200DrainsStatusEnum = {
 	disabled: "disabled",
 	enabled: "enabled",
@@ -52419,6 +52492,14 @@ export const getAllLogDrainsStatus200DrainsSamplingEnvEnum2 = {
 
 export type GetAllLogDrainsStatus200DrainsSamplingEnvEnum2Key =
 	(typeof getAllLogDrainsStatus200DrainsSamplingEnvEnum2)[keyof typeof getAllLogDrainsStatus200DrainsSamplingEnvEnum2];
+
+export const getAllLogDrainsStatus200DrainsSourceDefaultForEnum2 = {
+	"eve-tracing": "eve-tracing",
+	"nextjs-tracing": "nextjs-tracing",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsSourceDefaultForEnum2Key =
+	(typeof getAllLogDrainsStatus200DrainsSourceDefaultForEnum2)[keyof typeof getAllLogDrainsStatus200DrainsSourceDefaultForEnum2];
 
 export const getAllLogDrainsStatus200DrainsStatusEnum2 = {
 	disabled: "disabled",
@@ -52592,7 +52673,7 @@ export type GetAllLogDrainsStatus200 =
 									 * @description Informational marker for a system-owned default drain.
 									 * @type string | undefined
 									 */
-									defaultFor?: "eve-tracing" | undefined;
+									defaultFor?: GetAllLogDrainsStatus200DrainsSourceDefaultForEnumKey | undefined;
 									kind: "self-served";
 							  }
 							| {
@@ -52752,7 +52833,7 @@ export type GetAllLogDrainsStatus200 =
 									 * @description Informational marker for a system-owned default drain.
 									 * @type string | undefined
 									 */
-									defaultFor?: "eve-tracing" | undefined;
+									defaultFor?: GetAllLogDrainsStatus200DrainsSourceDefaultForEnum2Key | undefined;
 									kind: "self-served";
 							  }
 							| {
@@ -53077,6 +53158,14 @@ export const createDrainStatus200SamplingEnvEnum = {
 export type CreateDrainStatus200SamplingEnvEnumKey =
 	(typeof createDrainStatus200SamplingEnvEnum)[keyof typeof createDrainStatus200SamplingEnvEnum];
 
+export const createDrainStatus200SourceDefaultForEnum = {
+	"eve-tracing": "eve-tracing",
+	"nextjs-tracing": "nextjs-tracing",
+} as const;
+
+export type CreateDrainStatus200SourceDefaultForEnumKey =
+	(typeof createDrainStatus200SourceDefaultForEnum)[keyof typeof createDrainStatus200SourceDefaultForEnum];
+
 export const createDrainStatus200StatusEnum = {
 	disabled: "disabled",
 	enabled: "enabled",
@@ -53188,6 +53277,14 @@ export const createDrainStatus200SamplingEnvEnum2 = {
 
 export type CreateDrainStatus200SamplingEnvEnum2Key =
 	(typeof createDrainStatus200SamplingEnvEnum2)[keyof typeof createDrainStatus200SamplingEnvEnum2];
+
+export const createDrainStatus200SourceDefaultForEnum2 = {
+	"eve-tracing": "eve-tracing",
+	"nextjs-tracing": "nextjs-tracing",
+} as const;
+
+export type CreateDrainStatus200SourceDefaultForEnum2Key =
+	(typeof createDrainStatus200SourceDefaultForEnum2)[keyof typeof createDrainStatus200SourceDefaultForEnum2];
 
 export const createDrainStatus200StatusEnum2 = {
 	disabled: "disabled",
@@ -53336,7 +53433,7 @@ export type CreateDrainStatus200 =
 						 * @description Informational marker for a system-owned default drain.
 						 * @type string | undefined
 						 */
-						defaultFor?: "eve-tracing" | undefined;
+						defaultFor?: CreateDrainStatus200SourceDefaultForEnumKey | undefined;
 						kind: "self-served";
 				  }
 				| {
@@ -53492,7 +53589,7 @@ export type CreateDrainStatus200 =
 						 * @description Informational marker for a system-owned default drain.
 						 * @type string | undefined
 						 */
-						defaultFor?: "eve-tracing" | undefined;
+						defaultFor?: CreateDrainStatus200SourceDefaultForEnum2Key | undefined;
 						kind: "self-served";
 				  }
 				| {
@@ -53945,6 +54042,14 @@ export const getDrainsStatus200DrainsSamplingEnvEnum = {
 export type GetDrainsStatus200DrainsSamplingEnvEnumKey =
 	(typeof getDrainsStatus200DrainsSamplingEnvEnum)[keyof typeof getDrainsStatus200DrainsSamplingEnvEnum];
 
+export const getDrainsStatus200DrainsSourceDefaultForEnum = {
+	"eve-tracing": "eve-tracing",
+	"nextjs-tracing": "nextjs-tracing",
+} as const;
+
+export type GetDrainsStatus200DrainsSourceDefaultForEnumKey =
+	(typeof getDrainsStatus200DrainsSourceDefaultForEnum)[keyof typeof getDrainsStatus200DrainsSourceDefaultForEnum];
+
 export const getDrainsStatus200DrainsStatusEnum = {
 	disabled: "disabled",
 	enabled: "enabled",
@@ -54056,6 +54161,14 @@ export const getDrainsStatus200DrainsSamplingEnvEnum2 = {
 
 export type GetDrainsStatus200DrainsSamplingEnvEnum2Key =
 	(typeof getDrainsStatus200DrainsSamplingEnvEnum2)[keyof typeof getDrainsStatus200DrainsSamplingEnvEnum2];
+
+export const getDrainsStatus200DrainsSourceDefaultForEnum2 = {
+	"eve-tracing": "eve-tracing",
+	"nextjs-tracing": "nextjs-tracing",
+} as const;
+
+export type GetDrainsStatus200DrainsSourceDefaultForEnum2Key =
+	(typeof getDrainsStatus200DrainsSourceDefaultForEnum2)[keyof typeof getDrainsStatus200DrainsSourceDefaultForEnum2];
 
 export const getDrainsStatus200DrainsStatusEnum2 = {
 	disabled: "disabled",
@@ -54205,7 +54318,7 @@ export type GetDrainsStatus200 = {
 							 * @description Informational marker for a system-owned default drain.
 							 * @type string | undefined
 							 */
-							defaultFor?: "eve-tracing" | undefined;
+							defaultFor?: GetDrainsStatus200DrainsSourceDefaultForEnumKey | undefined;
 							kind: "self-served";
 					  }
 					| {
@@ -54363,7 +54476,7 @@ export type GetDrainsStatus200 = {
 							 * @description Informational marker for a system-owned default drain.
 							 * @type string | undefined
 							 */
-							defaultFor?: "eve-tracing" | undefined;
+							defaultFor?: GetDrainsStatus200DrainsSourceDefaultForEnum2Key | undefined;
 							kind: "self-served";
 					  }
 					| {
@@ -54632,6 +54745,14 @@ export const getDrainStatus200SamplingEnvEnum = {
 export type GetDrainStatus200SamplingEnvEnumKey =
 	(typeof getDrainStatus200SamplingEnvEnum)[keyof typeof getDrainStatus200SamplingEnvEnum];
 
+export const getDrainStatus200SourceDefaultForEnum = {
+	"eve-tracing": "eve-tracing",
+	"nextjs-tracing": "nextjs-tracing",
+} as const;
+
+export type GetDrainStatus200SourceDefaultForEnumKey =
+	(typeof getDrainStatus200SourceDefaultForEnum)[keyof typeof getDrainStatus200SourceDefaultForEnum];
+
 export const getDrainStatus200StatusEnum = {
 	disabled: "disabled",
 	enabled: "enabled",
@@ -54760,7 +54881,7 @@ export type GetDrainStatus200 = {
 				 * @description Informational marker for a system-owned default drain.
 				 * @type string | undefined
 				 */
-				defaultFor?: "eve-tracing" | undefined;
+				defaultFor?: GetDrainStatus200SourceDefaultForEnumKey | undefined;
 				kind: "self-served";
 		  }
 		| {
@@ -54952,6 +55073,14 @@ export const updateDrainStatus200SamplingEnvEnum = {
 export type UpdateDrainStatus200SamplingEnvEnumKey =
 	(typeof updateDrainStatus200SamplingEnvEnum)[keyof typeof updateDrainStatus200SamplingEnvEnum];
 
+export const updateDrainStatus200SourceDefaultForEnum = {
+	"eve-tracing": "eve-tracing",
+	"nextjs-tracing": "nextjs-tracing",
+} as const;
+
+export type UpdateDrainStatus200SourceDefaultForEnumKey =
+	(typeof updateDrainStatus200SourceDefaultForEnum)[keyof typeof updateDrainStatus200SourceDefaultForEnum];
+
 export const updateDrainStatus200StatusEnum = {
 	disabled: "disabled",
 	enabled: "enabled",
@@ -55063,6 +55192,14 @@ export const updateDrainStatus200SamplingEnvEnum2 = {
 
 export type UpdateDrainStatus200SamplingEnvEnum2Key =
 	(typeof updateDrainStatus200SamplingEnvEnum2)[keyof typeof updateDrainStatus200SamplingEnvEnum2];
+
+export const updateDrainStatus200SourceDefaultForEnum2 = {
+	"eve-tracing": "eve-tracing",
+	"nextjs-tracing": "nextjs-tracing",
+} as const;
+
+export type UpdateDrainStatus200SourceDefaultForEnum2Key =
+	(typeof updateDrainStatus200SourceDefaultForEnum2)[keyof typeof updateDrainStatus200SourceDefaultForEnum2];
 
 export const updateDrainStatus200StatusEnum2 = {
 	disabled: "disabled",
@@ -55211,7 +55348,7 @@ export type UpdateDrainStatus200 =
 						 * @description Informational marker for a system-owned default drain.
 						 * @type string | undefined
 						 */
-						defaultFor?: "eve-tracing" | undefined;
+						defaultFor?: UpdateDrainStatus200SourceDefaultForEnumKey | undefined;
 						kind: "self-served";
 				  }
 				| {
@@ -55367,7 +55504,7 @@ export type UpdateDrainStatus200 =
 						 * @description Informational marker for a system-owned default drain.
 						 * @type string | undefined
 						 */
-						defaultFor?: "eve-tracing" | undefined;
+						defaultFor?: UpdateDrainStatus200SourceDefaultForEnum2Key | undefined;
 						kind: "self-served";
 				  }
 				| {
@@ -68513,6 +68650,14 @@ export const getIntegrationLogDrainsStatus200EnvironmentsEnum = {
 export type GetIntegrationLogDrainsStatus200EnvironmentsEnumKey =
 	(typeof getIntegrationLogDrainsStatus200EnvironmentsEnum)[keyof typeof getIntegrationLogDrainsStatus200EnvironmentsEnum];
 
+export const getIntegrationLogDrainsStatus200SourceDefaultForEnum = {
+	"eve-tracing": "eve-tracing",
+	"nextjs-tracing": "nextjs-tracing",
+} as const;
+
+export type GetIntegrationLogDrainsStatus200SourceDefaultForEnumKey =
+	(typeof getIntegrationLogDrainsStatus200SourceDefaultForEnum)[keyof typeof getIntegrationLogDrainsStatus200SourceDefaultForEnum];
+
 export const getIntegrationLogDrainsStatus200SourcesEnum = {
 	build: "build",
 	edge: "edge",
@@ -68620,7 +68765,7 @@ export type GetIntegrationLogDrainsStatus200 = {
 				 * @description Informational marker for a system-owned default drain.
 				 * @type string | undefined
 				 */
-				defaultFor?: "eve-tracing" | undefined;
+				defaultFor?: GetIntegrationLogDrainsStatus200SourceDefaultForEnumKey | undefined;
 				kind: "self-served";
 		  }
 		| {
@@ -68714,6 +68859,14 @@ export const createLogDrainStatus200EnvironmentsEnum = {
 
 export type CreateLogDrainStatus200EnvironmentsEnumKey =
 	(typeof createLogDrainStatus200EnvironmentsEnum)[keyof typeof createLogDrainStatus200EnvironmentsEnum];
+
+export const createLogDrainStatus200SourceDefaultForEnum = {
+	"eve-tracing": "eve-tracing",
+	"nextjs-tracing": "nextjs-tracing",
+} as const;
+
+export type CreateLogDrainStatus200SourceDefaultForEnumKey =
+	(typeof createLogDrainStatus200SourceDefaultForEnum)[keyof typeof createLogDrainStatus200SourceDefaultForEnum];
 
 export const createLogDrainStatus200SourcesEnum = {
 	build: "build",
@@ -68822,7 +68975,7 @@ export type CreateLogDrainStatus200 = {
 				 * @description Informational marker for a system-owned default drain.
 				 * @type string | undefined
 				 */
-				defaultFor?: "eve-tracing" | undefined;
+				defaultFor?: CreateLogDrainStatus200SourceDefaultForEnumKey | undefined;
 				kind: "self-served";
 		  }
 		| {
@@ -71514,6 +71667,58 @@ export type DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceId
  */
 export type DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdResponse =
 	DeleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdStatus204;
+
+export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath =
+	{
+		integrationConfigurationId: string;
+		resourceId: string;
+	};
+
+export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200 =
+	void;
+
+export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus304 =
+	void;
+
+export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus400 =
+	void;
+
+export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus401 =
+	void;
+
+export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus403 =
+	void;
+
+export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus404 =
+	void;
+
+export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410 =
+	void;
+
+export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigOptions =
+	{
+		body?: never | undefined;
+		path: HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath;
+		query?: never | undefined;
+		headers?: never | undefined;
+	};
+
+export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponses =
+	{
+		"200": HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200;
+		"304": HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus304;
+		"400": HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus400;
+		"401": HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus401;
+		"403": HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus403;
+		"404": HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus404;
+		"410": HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus410;
+	};
+
+/**
+ * @description Union of all possible responses
+ */
+export type HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigResponse =
+	HeadInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigStatus200;
 
 export type GetInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath =
 	{
@@ -74932,6 +75137,11 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					 * @type array | undefined
 					 */
 					privateLinkEndpoint?: ACLActionKey[] | undefined;
+					/**
+					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+					 * @type array | undefined
+					 */
+					privateNpmUsage?: ACLActionKey[] | undefined;
 					/**
 					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 					 * @type array | undefined
@@ -88238,6 +88448,11 @@ export type GetProjectsStatus200 =
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 									 * @type array | undefined
 									 */
+									privateNpmUsage?: ACLActionKey[] | undefined;
+									/**
+									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+									 * @type array | undefined
+									 */
 									productionAliasProtectionBypass?: ACLActionKey[] | undefined;
 									/**
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -92832,6 +93047,11 @@ export type CreateProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				privateLinkEndpoint?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				privateNpmUsage?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -97996,6 +98216,11 @@ export type GetProjectStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				privateNpmUsage?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				productionAliasProtectionBypass?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -102463,6 +102688,11 @@ export type UpdateProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				privateLinkEndpoint?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				privateNpmUsage?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -108009,6 +108239,11 @@ export type UploadProjectAvatarStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				privateNpmUsage?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				productionAliasProtectionBypass?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -112514,6 +112749,11 @@ export type DeleteProjectAvatarStatus200 = {
 				 * @type array | undefined
 				 */
 				privateLinkEndpoint?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				privateNpmUsage?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -124402,6 +124642,11 @@ export type UpdateMicrofrontendsStatus200 = {
 				 * @type array | undefined
 				 */
 				privateLinkEndpoint?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				privateNpmUsage?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -147403,6 +147648,78 @@ export type GetRootResponses = {
  */
 export type GetRootResponse = GetRootStatus200;
 
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath = {
+	/**
+	 * @description Single Docker repository team slug component.
+	 * @maxLength 255
+	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @example team-slug
+	 * @type string
+	 */
+	teamSlug: string;
+	/**
+	 * @description Single Docker repository project slug component.
+	 * @maxLength 255
+	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @example project-slug
+	 * @type string
+	 */
+	projectSlug: string;
+	/**
+	 * @description Single Docker repository name component.
+	 * @maxLength 255
+	 * @pattern ^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$
+	 * @example nginx
+	 * @type string
+	 */
+	repositoryName: string;
+	/**
+	 * @description Content-addressable digest (algorithm:hex).
+	 * @maxLength 255
+	 * @pattern ^[A-Za-z0-9_+.-]+:[A-Fa-f0-9]+$
+	 * @example sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+	 * @type string
+	 */
+	digest: string;
+};
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus200 = void;
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus400 = void;
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus401 = void;
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus402 = void;
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus403 = void;
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus404 = void;
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus410 = void;
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestOptions = {
+	body?: never | undefined;
+	path: HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestResponses = {
+	"200": HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus200;
+	"400": HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus400;
+	"401": HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus401;
+	"402": HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus402;
+	"403": HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus403;
+	"404": HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus404;
+	"410": HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestResponse =
+	HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestStatus200;
+
 export type GetByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath = {
 	/**
 	 * @description Single Docker repository team slug component.
@@ -148039,6 +148356,78 @@ export type ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceRe
  */
 export type ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceResponse =
 	ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus201;
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath = {
+	/**
+	 * @description Single Docker repository team slug component.
+	 * @maxLength 255
+	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @example team-slug
+	 * @type string
+	 */
+	teamSlug: string;
+	/**
+	 * @description Single Docker repository project slug component.
+	 * @maxLength 255
+	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @example project-slug
+	 * @type string
+	 */
+	projectSlug: string;
+	/**
+	 * @description Single Docker repository name component.
+	 * @maxLength 255
+	 * @pattern ^[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$
+	 * @example nginx
+	 * @type string
+	 */
+	repositoryName: string;
+	/**
+	 * @description Manifest reference: a tag or digest.
+	 * @maxLength 255
+	 * @pattern ^(?:[a-zA-Z0-9_][a-zA-Z0-9._-]{0,127}|[A-Za-z0-9_+.-]+:[A-Fa-f0-9]+)$
+	 * @example latest
+	 * @type string
+	 */
+	reference: string;
+};
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus200 = void;
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus400 = void;
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus401 = void;
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus402 = void;
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus403 = void;
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus404 = void;
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410 = void;
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceOptions = {
+	body?: never | undefined;
+	path: HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceResponses = {
+	"200": HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus200;
+	"400": HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus400;
+	"401": HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus401;
+	"402": HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus402;
+	"403": HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus403;
+	"404": HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus404;
+	"410": HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceResponse =
+	HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceStatus200;
 
 export type GetByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath = {
 	/**
