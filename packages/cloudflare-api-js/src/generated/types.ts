@@ -607,7 +607,7 @@ export type AaaResultInfo = {
   cursor?: string | undefined;
 };
 
-export type AaaAuditLogsResponseCollection = {
+export type AaaAuditLogsSuccessResponseCollection = {
   /**
    * @example []
    * @type array | undefined
@@ -916,7 +916,7 @@ export type AaaAuditLogsV2OrgHistoryResponseCollection = {
   success: true;
 };
 
-export type AaaAuditLogsV2OrgResponseCollection = AaaAuditLogsResponseCollection & {
+export type AaaAuditLogsV2OrgResponseCollection = AaaAuditLogsSuccessResponseCollection & {
   result?: AaaAuditLogsV2Org[] | undefined;
 };
 
@@ -978,9 +978,28 @@ export type AaaAuditLogsV2ProductCategoriesResponseCollection = {
   success?: true | undefined;
 };
 
-export type AaaAuditLogsV2ResponseCollection = AaaAuditLogsResponseCollection & {
+export type AaaAuditLogsV2ResponseCollection = AaaAuditLogsSuccessResponseCollection & {
   result?: AaaAuditLogsV2[] | undefined;
 };
+
+export type AaaAuditLogsResponseCollection = {
+  /**
+   * @example []
+   * @type array | undefined
+   */
+  errors?: AaaMessages | undefined;
+  /**
+   * @example []
+   * @type array | undefined
+   */
+  messages?: AaaMessages | undefined;
+  result?: AaaAuditLogs[] | undefined;
+  /**
+   * @example true
+   * @type boolean | undefined
+   */
+  success?: boolean | undefined;
+} | AaaApiResponseCommon;
 
 /**
  * @description Limit the returned results to history records older than the specified date. This must be a timestamp that conforms to RFC3339.
@@ -138999,25 +139018,6 @@ export type ZonesZoneSettingsSingleRequest = {
   value?: ZonesSettingValue | undefined;
 };
 
-export type AaaAuditLogsResponseCollection2 = {
-  /**
-   * @example []
-   * @type array | undefined
-   */
-  errors?: AaaMessages | undefined;
-  /**
-   * @example []
-   * @type array | undefined
-   */
-  messages?: AaaMessages | undefined;
-  result?: AaaAuditLogs[] | undefined;
-  /**
-   * @example true
-   * @type boolean | undefined
-   */
-  success?: boolean | undefined;
-} | AaaApiResponseCommon;
-
 export type IntelSinkholesApiResponseCommonFailure2 = IntelSinkholesApiResponseCommonFailure;
 
 /**
@@ -224871,9 +224871,9 @@ export type AuditLogsGetUserAuditLogsQuery = {
   hide_user_logs?: boolean | undefined;
 };
 
-export type AuditLogsGetUserAuditLogsStatus200 = AaaAuditLogsResponseCollection2;
+export type AuditLogsGetUserAuditLogsStatus200 = AaaAuditLogsResponseCollection;
 
-export type AuditLogsGetUserAuditLogsStatus400 = AaaAuditLogsResponseCollection2 & AaaApiResponseCommonFailure;
+export type AuditLogsGetUserAuditLogsStatus400 = AaaAuditLogsResponseCollection & AaaApiResponseCommonFailure;
 
 export type AuditLogsGetUserAuditLogsOptions = {
   body?: never | undefined;
@@ -277487,9 +277487,9 @@ export type AuditLogsGetAccountAuditLogsQuery = {
   hide_user_logs?: boolean | undefined;
 };
 
-export type AuditLogsGetAccountAuditLogsStatus200 = AaaAuditLogsResponseCollection2;
+export type AuditLogsGetAccountAuditLogsStatus200 = AaaAuditLogsResponseCollection;
 
-export type AuditLogsGetAccountAuditLogsStatus400 = AaaAuditLogsResponseCollection2 & AaaApiResponseCommonFailure;
+export type AuditLogsGetAccountAuditLogsStatus400 = AaaAuditLogsResponseCollection & AaaApiResponseCommonFailure;
 
 export type AuditLogsGetAccountAuditLogsOptions = {
   body?: never | undefined;
