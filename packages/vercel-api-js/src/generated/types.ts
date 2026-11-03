@@ -1986,7 +1986,7 @@ export type ConnectConnectorCreateData =
 			defaultResource?: string | undefined;
 			/**
 			 * @description Default token lifetime in seconds to use when the token response omits expires_in.
-			 * @minLength 60
+			 * @minimum 60
 			 * @type number | undefined
 			 */
 			defaultTokenExpiresIn?: number | undefined;
@@ -3343,7 +3343,7 @@ export type ConnectConnectorUpdateData =
 			defaultResource?: string | undefined;
 			/**
 			 * @description Default token lifetime in seconds to use when the token response omits expires_in.
-			 * @minLength 60
+			 * @minimum 60
 			 * @type number | undefined
 			 */
 			defaultTokenExpiresIn?: number | undefined;
@@ -3479,11 +3479,11 @@ export type ConnectConnectorUpdateData =
 						/**
 						 * @description Replacement API key value. Use null to keep the stored value.
 						 */
-						value?: (string | string) | undefined;
+						value?: string | undefined;
 						/**
 						 * @description Replacement scope. Use null to remove the scope.
 						 */
-						scope?: (string | string) | undefined;
+						scope?: string | undefined;
 						/**
 						 * @description The timestamp when the API key value expires in milliseconds.
 						 */
@@ -4927,40 +4927,98 @@ export type UserEventEntitiesTypeEnumKey =
 	(typeof userEventEntitiesTypeEnum)[keyof typeof userEventEntitiesTypeEnum];
 
 export const userEventPayloadActionEnum = {
-	"add-passkey": "add-passkey",
-	"add-totp": "add-totp",
-	"admin-remove": "admin-remove",
-	disable: "disable",
-	enable: "enable",
-	"regenerate-recovery-codes": "regenerate-recovery-codes",
-	"remove-passkey": "remove-passkey",
+	archived: "archived",
+	created: "created",
+	deleted: "deleted",
+	unarchived: "unarchived",
+	updated: "updated",
 } as const;
 
 export type UserEventPayloadActionEnumKey =
 	(typeof userEventPayloadActionEnum)[keyof typeof userEventPayloadActionEnum];
 
+export const userEventPayloadActionEnum2 = {
+	created: "created",
+	deleted: "deleted",
+	transitioned: "transitioned",
+	updated: "updated",
+} as const;
+
+export type UserEventPayloadActionEnum2Key =
+	(typeof userEventPayloadActionEnum2)[keyof typeof userEventPayloadActionEnum2];
+
+export const userEventPayloadActionEnum3 = {
+	added: "added",
+	deleted: "deleted",
+	rotated: "rotated",
+} as const;
+
+export type UserEventPayloadActionEnum3Key =
+	(typeof userEventPayloadActionEnum3)[keyof typeof userEventPayloadActionEnum3];
+
 export const userEventPayloadVisibilityEnum = {
-	config: "config",
-	secret: "secret",
+	private: "private",
+	team: "team",
 } as const;
 
 export type UserEventPayloadVisibilityEnumKey =
 	(typeof userEventPayloadVisibilityEnum)[keyof typeof userEventPayloadVisibilityEnum];
 
 export const userEventPayloadProviderEnum = {
-	apple: "apple",
-	bitbucket: "bitbucket",
 	chatgpt: "chatgpt",
-	github: "github",
-	"github-custom-host": "github-custom-host",
-	"github-limited": "github-limited",
-	gitlab: "gitlab",
-	google: "google",
-	saml: "saml",
+	stripe: "stripe",
 } as const;
 
 export type UserEventPayloadProviderEnumKey =
 	(typeof userEventPayloadProviderEnum)[keyof typeof userEventPayloadProviderEnum];
+
+export const userEventPayloadProviderEnum2 = {
+	chatgpt: "chatgpt",
+	stripe: "stripe",
+} as const;
+
+export type UserEventPayloadProviderEnum2Key =
+	(typeof userEventPayloadProviderEnum2)[keyof typeof userEventPayloadProviderEnum2];
+
+export const userEventPayloadProviderEnum3 = {
+	chatgpt: "chatgpt",
+	stripe: "stripe",
+} as const;
+
+export type UserEventPayloadProviderEnum3Key =
+	(typeof userEventPayloadProviderEnum3)[keyof typeof userEventPayloadProviderEnum3];
+
+export const userEventPayloadProviderEnum4 = {
+	chatgpt: "chatgpt",
+	stripe: "stripe",
+} as const;
+
+export type UserEventPayloadProviderEnum4Key =
+	(typeof userEventPayloadProviderEnum4)[keyof typeof userEventPayloadProviderEnum4];
+
+export const userEventPayloadProviderEnum5 = {
+	chatgpt: "chatgpt",
+	stripe: "stripe",
+} as const;
+
+export type UserEventPayloadProviderEnum5Key =
+	(typeof userEventPayloadProviderEnum5)[keyof typeof userEventPayloadProviderEnum5];
+
+export const userEventPayloadProviderEnum6 = {
+	chatgpt: "chatgpt",
+	stripe: "stripe",
+} as const;
+
+export type UserEventPayloadProviderEnum6Key =
+	(typeof userEventPayloadProviderEnum6)[keyof typeof userEventPayloadProviderEnum6];
+
+export const userEventPayloadProviderEnum7 = {
+	chatgpt: "chatgpt",
+	stripe: "stripe",
+} as const;
+
+export type UserEventPayloadProviderEnum7Key =
+	(typeof userEventPayloadProviderEnum7)[keyof typeof userEventPayloadProviderEnum7];
 
 export const userEventPayloadFromPlanEnum = {
 	hobby: "hobby",
@@ -4997,6 +5055,16 @@ export const userEventPayloadBudgetRefreshPeriodEnum = {
 export type UserEventPayloadBudgetRefreshPeriodEnumKey =
 	(typeof userEventPayloadBudgetRefreshPeriodEnum)[keyof typeof userEventPayloadBudgetRefreshPeriodEnum];
 
+export const userEventPayloadBudgetRefreshPeriodEnum2 = {
+	daily: "daily",
+	monthly: "monthly",
+	none: "none",
+	weekly: "weekly",
+} as const;
+
+export type UserEventPayloadBudgetRefreshPeriodEnum2Key =
+	(typeof userEventPayloadBudgetRefreshPeriodEnum2)[keyof typeof userEventPayloadBudgetRefreshPeriodEnum2];
+
 export const userEventPayloadChangeEnum = {
 	disable: "disable",
 	enable: "enable",
@@ -5007,7 +5075,39 @@ export const userEventPayloadChangeEnum = {
 export type UserEventPayloadChangeEnumKey =
 	(typeof userEventPayloadChangeEnum)[keyof typeof userEventPayloadChangeEnum];
 
+export const userEventPayloadChangeEnum2 = {
+	disable: "disable",
+	"disable-commitment": "disable-commitment",
+	enable: "enable",
+	"enable-commitment": "enable-commitment",
+	update: "update",
+} as const;
+
+export type UserEventPayloadChangeEnum2Key =
+	(typeof userEventPayloadChangeEnum2)[keyof typeof userEventPayloadChangeEnum2];
+
+export const userEventPayloadBudgetRefreshPeriodEnum3 = {
+	daily: "daily",
+	monthly: "monthly",
+	none: "none",
+	weekly: "weekly",
+} as const;
+
+export type UserEventPayloadBudgetRefreshPeriodEnum3Key =
+	(typeof userEventPayloadBudgetRefreshPeriodEnum3)[keyof typeof userEventPayloadBudgetRefreshPeriodEnum3];
+
+export const userEventPayloadChangeEnum3 = {
+	disable: "disable",
+	enable: "enable",
+	remove: "remove",
+	set: "set",
+} as const;
+
+export type UserEventPayloadChangeEnum3Key =
+	(typeof userEventPayloadChangeEnum3)[keyof typeof userEventPayloadChangeEnum3];
+
 export const userEventPayloadScopeTypeEnum = {
+	"api-key": "api-key",
 	project: "project",
 	team: "team",
 	user: "user",
@@ -5015,6 +5115,35 @@ export const userEventPayloadScopeTypeEnum = {
 
 export type UserEventPayloadScopeTypeEnumKey =
 	(typeof userEventPayloadScopeTypeEnum)[keyof typeof userEventPayloadScopeTypeEnum];
+
+export const userEventPayloadBudgetRefreshPeriodEnum4 = {
+	daily: "daily",
+	monthly: "monthly",
+	none: "none",
+	weekly: "weekly",
+} as const;
+
+export type UserEventPayloadBudgetRefreshPeriodEnum4Key =
+	(typeof userEventPayloadBudgetRefreshPeriodEnum4)[keyof typeof userEventPayloadBudgetRefreshPeriodEnum4];
+
+export const userEventPayloadChangeEnum4 = {
+	disable: "disable",
+	enable: "enable",
+	remove: "remove",
+	set: "set",
+} as const;
+
+export type UserEventPayloadChangeEnum4Key =
+	(typeof userEventPayloadChangeEnum4)[keyof typeof userEventPayloadChangeEnum4];
+
+export const userEventPayloadScopeTypeEnum2 = {
+	project: "project",
+	team: "team",
+	user: "user",
+} as const;
+
+export type UserEventPayloadScopeTypeEnum2Key =
+	(typeof userEventPayloadScopeTypeEnum2)[keyof typeof userEventPayloadScopeTypeEnum2];
 
 export const userEventPayloadRetentionCeilingModeEnum = {
 	days: "days",
@@ -5033,12 +5162,31 @@ export type UserEventPayloadRetentionDefaultModeEnumKey =
 	(typeof userEventPayloadRetentionDefaultModeEnum)[keyof typeof userEventPayloadRetentionDefaultModeEnum];
 
 export const userEventPayloadChangedFieldsEnum = {
-	address: "address",
-	email: "email",
-	language: "language",
-	name: "name",
-	purchaseOrder: "purchaseOrder",
-	tax: "tax",
+	allowFallbackFromFast: "allowFallbackFromFast",
+	baseUrl: "baseUrl",
+	byokCredentialIds: "byokCredentialIds",
+	caching: "caching",
+	description: "description",
+	disallowPromptTraining: "disallowPromptTraining",
+	displayName: "displayName",
+	has: "has",
+	hipaaCompliant: "hipaaCompliant",
+	inferenceRegion: "inferenceRegion",
+	modelSlug: "modelSlug",
+	models: "models",
+	observabilityTags: "observabilityTags",
+	providerOnly: "providerOnly",
+	providerOptions: "providerOptions",
+	providerOrder: "providerOrder",
+	providerTimeouts: "providerTimeouts",
+	selector: "selector",
+	selectorOptions: "selectorOptions",
+	serviceTier: "serviceTier",
+	sort: "sort",
+	speed: "speed",
+	status: "status",
+	visibility: "visibility",
+	zeroDataRetention: "zeroDataRetention",
 } as const;
 
 export type UserEventPayloadChangedFieldsEnumKey =
@@ -5075,7 +5223,27 @@ export const userEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum =
 export type UserEventPayloadDeploymentAllowListedReadyStateReasonInternalEnumKey =
 	(typeof userEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum)[keyof typeof userEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum];
 
+export const userEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum2 = {
+	EARLY_IGNORE_STEP: "EARLY_IGNORE_STEP",
+	IGNORE_STEP: "IGNORE_STEP",
+	NAMESPACE_PRUNED: "NAMESPACE_PRUNED",
+	UNAFFECTED_PROJECT: "UNAFFECTED_PROJECT",
+	UNVERIFIED_COMMIT: "UNVERIFIED_COMMIT",
+} as const;
+
+export type UserEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum2Key =
+	(typeof userEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum2)[keyof typeof userEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum2];
+
+export const userEventPayloadActionEnum5 = {
+	created: "created",
+	removed: "removed",
+} as const;
+
+export type UserEventPayloadActionEnum5Key =
+	(typeof userEventPayloadActionEnum5)[keyof typeof userEventPayloadActionEnum5];
+
 export const userEventPayloadPermissionsEnum = {
+	"*": "*",
 	"manage:speed-insights": "manage:speed-insights",
 	"manage:web-analytics": "manage:web-analytics",
 	"read-write:access-group": "read-write:access-group",
@@ -5149,10 +5317,12 @@ export const userEventPayloadPermissionsEnum = {
 	"read:schedule": "read:schedule",
 	"read:speed-insights": "read:speed-insights",
 	"read:team": "read:team",
+	"read:user": "read:user",
 	"read:vcr": "read:vcr",
 	"read:web-analytics": "read:web-analytics",
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
+	"use:github": "use:github",
 } as const;
 
 export type UserEventPayloadPermissionsEnumKey =
@@ -5430,6 +5600,89 @@ export const userEventPayloadBeforePermissionsEnum = {
 export type UserEventPayloadBeforePermissionsEnumKey =
 	(typeof userEventPayloadBeforePermissionsEnum)[keyof typeof userEventPayloadBeforePermissionsEnum];
 
+export const userEventPayloadPermissionsEnum2 = {
+	"manage:speed-insights": "manage:speed-insights",
+	"manage:web-analytics": "manage:web-analytics",
+	"read-write:access-group": "read-write:access-group",
+	"read-write:ai-gateway-api-key": "read-write:ai-gateway-api-key",
+	"read-write:ai-gateway-budgets": "read-write:ai-gateway-budgets",
+	"read-write:ai-gateway-byok-credentials": "read-write:ai-gateway-byok-credentials",
+	"read-write:ai-gateway-guardrails": "read-write:ai-gateway-guardrails",
+	"read-write:ai-gateway-private-models": "read-write:ai-gateway-private-models",
+	"read-write:ai-gateway-rules": "read-write:ai-gateway-rules",
+	"read-write:ai-gateway-virtual-model-configs": "read-write:ai-gateway-virtual-model-configs",
+	"read-write:alerts": "read-write:alerts",
+	"read-write:automations": "read-write:automations",
+	"read-write:billing": "read-write:billing",
+	"read-write:blob": "read-write:blob",
+	"read-write:connect": "read-write:connect",
+	"read-write:deployment": "read-write:deployment",
+	"read-write:domain": "read-write:domain",
+	"read-write:domain-registrar": "read-write:domain-registrar",
+	"read-write:drains": "read-write:drains",
+	"read-write:edge-cache": "read-write:edge-cache",
+	"read-write:edge-config": "read-write:edge-config",
+	"read-write:firewall": "read-write:firewall",
+	"read-write:integration-configuration": "read-write:integration-configuration",
+	"read-write:integration-resource": "read-write:integration-resource",
+	"read-write:kms": "read-write:kms",
+	"read-write:messageboard": "read-write:messageboard",
+	"read-write:project": "read-write:project",
+	"read-write:project-env-vars": "read-write:project-env-vars",
+	"read-write:project-env-vars-non-production": "read-write:project-env-vars-non-production",
+	"read-write:project-env-vars-production": "read-write:project-env-vars-production",
+	"read-write:project-flags-non-production": "read-write:project-flags-non-production",
+	"read-write:project-flags-production": "read-write:project-flags-production",
+	"read-write:project-members": "read-write:project-members",
+	"read-write:project-protection-bypass": "read-write:project-protection-bypass",
+	"read-write:project-trusted-sources": "read-write:project-trusted-sources",
+	"read-write:remote-cache": "read-write:remote-cache",
+	"read-write:sandbox": "read-write:sandbox",
+	"read-write:schedule": "read-write:schedule",
+	"read-write:team-members": "read-write:team-members",
+	"read-write:vcr": "read-write:vcr",
+	"read-write:webhooks": "read-write:webhooks",
+	"read:access-group": "read:access-group",
+	"read:ai-gateway-budgets": "read:ai-gateway-budgets",
+	"read:ai-gateway-byok-credentials": "read:ai-gateway-byok-credentials",
+	"read:ai-gateway-guardrails": "read:ai-gateway-guardrails",
+	"read:ai-gateway-private-models": "read:ai-gateway-private-models",
+	"read:ai-gateway-rules": "read:ai-gateway-rules",
+	"read:ai-gateway-virtual-model-configs": "read:ai-gateway-virtual-model-configs",
+	"read:alerts": "read:alerts",
+	"read:audit-log": "read:audit-log",
+	"read:automations": "read:automations",
+	"read:billing": "read:billing",
+	"read:connect": "read:connect",
+	"read:deployment": "read:deployment",
+	"read:domain": "read:domain",
+	"read:event": "read:event",
+	"read:firewall": "read:firewall",
+	"read:integration-configuration": "read:integration-configuration",
+	"read:integration-resource": "read:integration-resource",
+	"read:kms": "read:kms",
+	"read:messageboard": "read:messageboard",
+	"read:monitoring": "read:monitoring",
+	"read:project": "read:project",
+	"read:project-env-vars-non-production": "read:project-env-vars-non-production",
+	"read:project-env-vars-production": "read:project-env-vars-production",
+	"read:project-flags": "read:project-flags",
+	"read:project-members": "read:project-members",
+	"read:project-trusted-sources": "read:project-trusted-sources",
+	"read:remote-cache": "read:remote-cache",
+	"read:sandbox": "read:sandbox",
+	"read:schedule": "read:schedule",
+	"read:speed-insights": "read:speed-insights",
+	"read:team": "read:team",
+	"read:vcr": "read:vcr",
+	"read:web-analytics": "read:web-analytics",
+	"read:webhooks": "read:webhooks",
+	"use:ai-gateway": "use:ai-gateway",
+} as const;
+
+export type UserEventPayloadPermissionsEnum2Key =
+	(typeof userEventPayloadPermissionsEnum2)[keyof typeof userEventPayloadPermissionsEnum2];
+
 export const userEventPayloadSettlementMethodEnum = {
 	"credited-paid": "credited-paid",
 	"credited-payment-pending": "credited-payment-pending",
@@ -5440,6 +5693,18 @@ export const userEventPayloadSettlementMethodEnum = {
 export type UserEventPayloadSettlementMethodEnumKey =
 	(typeof userEventPayloadSettlementMethodEnum)[keyof typeof userEventPayloadSettlementMethodEnum];
 
+export const userEventPayloadChangedFieldsEnum2 = {
+	address: "address",
+	email: "email",
+	language: "language",
+	name: "name",
+	purchaseOrder: "purchaseOrder",
+	tax: "tax",
+} as const;
+
+export type UserEventPayloadChangedFieldsEnum2Key =
+	(typeof userEventPayloadChangedFieldsEnum2)[keyof typeof userEventPayloadChangedFieldsEnum2];
+
 export const userEventPayloadDataPlanSlugEnum = {
 	v0_business: "v0_business",
 	v0_teams: "v0_teams",
@@ -5447,6 +5712,14 @@ export const userEventPayloadDataPlanSlugEnum = {
 
 export type UserEventPayloadDataPlanSlugEnumKey =
 	(typeof userEventPayloadDataPlanSlugEnum)[keyof typeof userEventPayloadDataPlanSlugEnum];
+
+export const userEventPayloadDataPlanSlugEnum3 = {
+	v0_business: "v0_business",
+	v0_teams: "v0_teams",
+} as const;
+
+export type UserEventPayloadDataPlanSlugEnum3Key =
+	(typeof userEventPayloadDataPlanSlugEnum3)[keyof typeof userEventPayloadDataPlanSlugEnum3];
 
 export const userEventPayloadSubjectTypeEnum = {
 	app: "app",
@@ -5506,14 +5779,13 @@ export const userEventPayloadOldSsoProtectionDeploymentTypeEnum = {
 export type UserEventPayloadOldSsoProtectionDeploymentTypeEnumKey =
 	(typeof userEventPayloadOldSsoProtectionDeploymentTypeEnum)[keyof typeof userEventPayloadOldSsoProtectionDeploymentTypeEnum];
 
-export const userEventPayloadScopeEnum = {
-	project: "project",
+export const userEventPayloadScopeEnum2 = {
+	organization: "organization",
 	team: "team",
-	user: "user",
 } as const;
 
-export type UserEventPayloadScopeEnumKey =
-	(typeof userEventPayloadScopeEnum)[keyof typeof userEventPayloadScopeEnum];
+export type UserEventPayloadScopeEnum2Key =
+	(typeof userEventPayloadScopeEnum2)[keyof typeof userEventPayloadScopeEnum2];
 
 export const userEventPayloadSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum = {
 	all: "all",
@@ -5544,6 +5816,17 @@ export const userEventPayloadSsoProtectionDeploymentTypeEnum = {
 
 export type UserEventPayloadSsoProtectionDeploymentTypeEnumKey =
 	(typeof userEventPayloadSsoProtectionDeploymentTypeEnum)[keyof typeof userEventPayloadSsoProtectionDeploymentTypeEnum];
+
+export const userEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum3 = {
+	EARLY_IGNORE_STEP: "EARLY_IGNORE_STEP",
+	IGNORE_STEP: "IGNORE_STEP",
+	NAMESPACE_PRUNED: "NAMESPACE_PRUNED",
+	UNAFFECTED_PROJECT: "UNAFFECTED_PROJECT",
+	UNVERIFIED_COMMIT: "UNVERIFIED_COMMIT",
+} as const;
+
+export type UserEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum3Key =
+	(typeof userEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum3)[keyof typeof userEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum3];
 
 export const userEventPayloadJobCommitVerificationEnum = {
 	unknown: "unknown",
@@ -5587,14 +5870,242 @@ export const userEventPayloadJobNsnbSideEffectActionEnum = {
 export type UserEventPayloadJobNsnbSideEffectActionEnumKey =
 	(typeof userEventPayloadJobNsnbSideEffectActionEnum)[keyof typeof userEventPayloadJobNsnbSideEffectActionEnum];
 
-export const userEventPayloadJobProviderEnum = {
+export const userEventPayloadJobCommitVerificationEnum2 = {
+	unknown: "unknown",
+	unverified: "unverified",
+	verified: "verified",
+} as const;
+
+export type UserEventPayloadJobCommitVerificationEnum2Key =
+	(typeof userEventPayloadJobCommitVerificationEnum2)[keyof typeof userEventPayloadJobCommitVerificationEnum2];
+
+export const userEventPayloadJobGitHashtagVercelEnum2 = {
+	"#VERCEL_BUILD_MACHINE=TURBO": "#VERCEL_BUILD_MACHINE=TURBO",
+	"#VERCEL_BUILD_PRIO_1": "#VERCEL_BUILD_PRIO_1",
+	"#VERCEL_BUILD_PRIO_10": "#VERCEL_BUILD_PRIO_10",
+	"#VERCEL_BUILD_PRIO_2": "#VERCEL_BUILD_PRIO_2",
+	"#VERCEL_BUILD_PRIO_3": "#VERCEL_BUILD_PRIO_3",
+	"#VERCEL_BUILD_PRIO_4": "#VERCEL_BUILD_PRIO_4",
+	"#VERCEL_BUILD_PRIO_5": "#VERCEL_BUILD_PRIO_5",
+	"#VERCEL_BUILD_PRIO_6": "#VERCEL_BUILD_PRIO_6",
+	"#VERCEL_BUILD_PRIO_7": "#VERCEL_BUILD_PRIO_7",
+	"#VERCEL_BUILD_PRIO_8": "#VERCEL_BUILD_PRIO_8",
+	"#VERCEL_BUILD_PRIO_9": "#VERCEL_BUILD_PRIO_9",
+	"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL": "#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL",
+	"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR": "#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR",
+	"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL": "#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL",
+	"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR": "#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR",
+	"#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR": "#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR",
+	"#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR": "#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR",
+	"#VERCEL_SKIP": "#VERCEL_SKIP",
+	"#VERCEL_V0_MESSAGE": "#VERCEL_V0_MESSAGE",
+} as const;
+
+export type UserEventPayloadJobGitHashtagVercelEnum2Key =
+	(typeof userEventPayloadJobGitHashtagVercelEnum2)[keyof typeof userEventPayloadJobGitHashtagVercelEnum2];
+
+export const userEventPayloadJobNsnbSideEffectActionEnum2 = {
+	"auto-approved-member": "auto-approved-member",
+	"auto-approved-pending-invite": "auto-approved-pending-invite",
+} as const;
+
+export type UserEventPayloadJobNsnbSideEffectActionEnum2Key =
+	(typeof userEventPayloadJobNsnbSideEffectActionEnum2)[keyof typeof userEventPayloadJobNsnbSideEffectActionEnum2];
+
+export const userEventPayloadJobProviderEnum3 = {
 	github: "github",
 	"github-custom-host": "github-custom-host",
 	"github-limited": "github-limited",
 } as const;
 
-export type UserEventPayloadJobProviderEnumKey =
-	(typeof userEventPayloadJobProviderEnum)[keyof typeof userEventPayloadJobProviderEnum];
+export type UserEventPayloadJobProviderEnum3Key =
+	(typeof userEventPayloadJobProviderEnum3)[keyof typeof userEventPayloadJobProviderEnum3];
+
+export const userEventPayloadJobCommitVerificationEnum3 = {
+	unknown: "unknown",
+	unverified: "unverified",
+	verified: "verified",
+} as const;
+
+export type UserEventPayloadJobCommitVerificationEnum3Key =
+	(typeof userEventPayloadJobCommitVerificationEnum3)[keyof typeof userEventPayloadJobCommitVerificationEnum3];
+
+export const userEventPayloadJobGitHashtagVercelEnum3 = {
+	"#VERCEL_BUILD_MACHINE=TURBO": "#VERCEL_BUILD_MACHINE=TURBO",
+	"#VERCEL_BUILD_PRIO_1": "#VERCEL_BUILD_PRIO_1",
+	"#VERCEL_BUILD_PRIO_10": "#VERCEL_BUILD_PRIO_10",
+	"#VERCEL_BUILD_PRIO_2": "#VERCEL_BUILD_PRIO_2",
+	"#VERCEL_BUILD_PRIO_3": "#VERCEL_BUILD_PRIO_3",
+	"#VERCEL_BUILD_PRIO_4": "#VERCEL_BUILD_PRIO_4",
+	"#VERCEL_BUILD_PRIO_5": "#VERCEL_BUILD_PRIO_5",
+	"#VERCEL_BUILD_PRIO_6": "#VERCEL_BUILD_PRIO_6",
+	"#VERCEL_BUILD_PRIO_7": "#VERCEL_BUILD_PRIO_7",
+	"#VERCEL_BUILD_PRIO_8": "#VERCEL_BUILD_PRIO_8",
+	"#VERCEL_BUILD_PRIO_9": "#VERCEL_BUILD_PRIO_9",
+	"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL": "#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL",
+	"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR": "#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR",
+	"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL": "#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL",
+	"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR": "#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR",
+	"#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR": "#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR",
+	"#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR": "#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR",
+	"#VERCEL_SKIP": "#VERCEL_SKIP",
+	"#VERCEL_V0_MESSAGE": "#VERCEL_V0_MESSAGE",
+} as const;
+
+export type UserEventPayloadJobGitHashtagVercelEnum3Key =
+	(typeof userEventPayloadJobGitHashtagVercelEnum3)[keyof typeof userEventPayloadJobGitHashtagVercelEnum3];
+
+export const userEventPayloadJobNsnbSideEffectActionEnum3 = {
+	"auto-approved-member": "auto-approved-member",
+	"auto-approved-pending-invite": "auto-approved-pending-invite",
+} as const;
+
+export type UserEventPayloadJobNsnbSideEffectActionEnum3Key =
+	(typeof userEventPayloadJobNsnbSideEffectActionEnum3)[keyof typeof userEventPayloadJobNsnbSideEffectActionEnum3];
+
+export const userEventPayloadJobProviderEnum4 = {
+	github: "github",
+	"github-custom-host": "github-custom-host",
+	"github-limited": "github-limited",
+} as const;
+
+export type UserEventPayloadJobProviderEnum4Key =
+	(typeof userEventPayloadJobProviderEnum4)[keyof typeof userEventPayloadJobProviderEnum4];
+
+export const userEventPayloadJobProviderEnum5 = {
+	github: "github",
+	"github-custom-host": "github-custom-host",
+	"github-limited": "github-limited",
+} as const;
+
+export type UserEventPayloadJobProviderEnum5Key =
+	(typeof userEventPayloadJobProviderEnum5)[keyof typeof userEventPayloadJobProviderEnum5];
+
+export const userEventPayloadJobCommitVerificationEnum4 = {
+	unknown: "unknown",
+	unverified: "unverified",
+	verified: "verified",
+} as const;
+
+export type UserEventPayloadJobCommitVerificationEnum4Key =
+	(typeof userEventPayloadJobCommitVerificationEnum4)[keyof typeof userEventPayloadJobCommitVerificationEnum4];
+
+export const userEventPayloadJobGitHashtagVercelEnum4 = {
+	"#VERCEL_BUILD_MACHINE=TURBO": "#VERCEL_BUILD_MACHINE=TURBO",
+	"#VERCEL_BUILD_PRIO_1": "#VERCEL_BUILD_PRIO_1",
+	"#VERCEL_BUILD_PRIO_10": "#VERCEL_BUILD_PRIO_10",
+	"#VERCEL_BUILD_PRIO_2": "#VERCEL_BUILD_PRIO_2",
+	"#VERCEL_BUILD_PRIO_3": "#VERCEL_BUILD_PRIO_3",
+	"#VERCEL_BUILD_PRIO_4": "#VERCEL_BUILD_PRIO_4",
+	"#VERCEL_BUILD_PRIO_5": "#VERCEL_BUILD_PRIO_5",
+	"#VERCEL_BUILD_PRIO_6": "#VERCEL_BUILD_PRIO_6",
+	"#VERCEL_BUILD_PRIO_7": "#VERCEL_BUILD_PRIO_7",
+	"#VERCEL_BUILD_PRIO_8": "#VERCEL_BUILD_PRIO_8",
+	"#VERCEL_BUILD_PRIO_9": "#VERCEL_BUILD_PRIO_9",
+	"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL": "#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL",
+	"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR": "#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR",
+	"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL": "#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL",
+	"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR": "#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR",
+	"#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR": "#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR",
+	"#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR": "#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR",
+	"#VERCEL_SKIP": "#VERCEL_SKIP",
+	"#VERCEL_V0_MESSAGE": "#VERCEL_V0_MESSAGE",
+} as const;
+
+export type UserEventPayloadJobGitHashtagVercelEnum4Key =
+	(typeof userEventPayloadJobGitHashtagVercelEnum4)[keyof typeof userEventPayloadJobGitHashtagVercelEnum4];
+
+export const userEventPayloadJobNsnbSideEffectActionEnum4 = {
+	"auto-approved-member": "auto-approved-member",
+	"auto-approved-pending-invite": "auto-approved-pending-invite",
+} as const;
+
+export type UserEventPayloadJobNsnbSideEffectActionEnum4Key =
+	(typeof userEventPayloadJobNsnbSideEffectActionEnum4)[keyof typeof userEventPayloadJobNsnbSideEffectActionEnum4];
+
+export const userEventPayloadJobCommitVerificationEnum5 = {
+	unknown: "unknown",
+	unverified: "unverified",
+	verified: "verified",
+} as const;
+
+export type UserEventPayloadJobCommitVerificationEnum5Key =
+	(typeof userEventPayloadJobCommitVerificationEnum5)[keyof typeof userEventPayloadJobCommitVerificationEnum5];
+
+export const userEventPayloadJobGitHashtagVercelEnum5 = {
+	"#VERCEL_BUILD_MACHINE=TURBO": "#VERCEL_BUILD_MACHINE=TURBO",
+	"#VERCEL_BUILD_PRIO_1": "#VERCEL_BUILD_PRIO_1",
+	"#VERCEL_BUILD_PRIO_10": "#VERCEL_BUILD_PRIO_10",
+	"#VERCEL_BUILD_PRIO_2": "#VERCEL_BUILD_PRIO_2",
+	"#VERCEL_BUILD_PRIO_3": "#VERCEL_BUILD_PRIO_3",
+	"#VERCEL_BUILD_PRIO_4": "#VERCEL_BUILD_PRIO_4",
+	"#VERCEL_BUILD_PRIO_5": "#VERCEL_BUILD_PRIO_5",
+	"#VERCEL_BUILD_PRIO_6": "#VERCEL_BUILD_PRIO_6",
+	"#VERCEL_BUILD_PRIO_7": "#VERCEL_BUILD_PRIO_7",
+	"#VERCEL_BUILD_PRIO_8": "#VERCEL_BUILD_PRIO_8",
+	"#VERCEL_BUILD_PRIO_9": "#VERCEL_BUILD_PRIO_9",
+	"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL": "#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL",
+	"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR": "#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR",
+	"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL": "#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL",
+	"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR": "#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR",
+	"#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR": "#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR",
+	"#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR": "#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR",
+	"#VERCEL_SKIP": "#VERCEL_SKIP",
+	"#VERCEL_V0_MESSAGE": "#VERCEL_V0_MESSAGE",
+} as const;
+
+export type UserEventPayloadJobGitHashtagVercelEnum5Key =
+	(typeof userEventPayloadJobGitHashtagVercelEnum5)[keyof typeof userEventPayloadJobGitHashtagVercelEnum5];
+
+export const userEventPayloadJobNsnbSideEffectActionEnum5 = {
+	"auto-approved-member": "auto-approved-member",
+	"auto-approved-pending-invite": "auto-approved-pending-invite",
+} as const;
+
+export type UserEventPayloadJobNsnbSideEffectActionEnum5Key =
+	(typeof userEventPayloadJobNsnbSideEffectActionEnum5)[keyof typeof userEventPayloadJobNsnbSideEffectActionEnum5];
+
+export const userEventPayloadJobCommitVerificationEnum6 = {
+	unknown: "unknown",
+	unverified: "unverified",
+	verified: "verified",
+} as const;
+
+export type UserEventPayloadJobCommitVerificationEnum6Key =
+	(typeof userEventPayloadJobCommitVerificationEnum6)[keyof typeof userEventPayloadJobCommitVerificationEnum6];
+
+export const userEventPayloadJobGitHashtagVercelEnum6 = {
+	"#VERCEL_BUILD_MACHINE=TURBO": "#VERCEL_BUILD_MACHINE=TURBO",
+	"#VERCEL_BUILD_PRIO_1": "#VERCEL_BUILD_PRIO_1",
+	"#VERCEL_BUILD_PRIO_10": "#VERCEL_BUILD_PRIO_10",
+	"#VERCEL_BUILD_PRIO_2": "#VERCEL_BUILD_PRIO_2",
+	"#VERCEL_BUILD_PRIO_3": "#VERCEL_BUILD_PRIO_3",
+	"#VERCEL_BUILD_PRIO_4": "#VERCEL_BUILD_PRIO_4",
+	"#VERCEL_BUILD_PRIO_5": "#VERCEL_BUILD_PRIO_5",
+	"#VERCEL_BUILD_PRIO_6": "#VERCEL_BUILD_PRIO_6",
+	"#VERCEL_BUILD_PRIO_7": "#VERCEL_BUILD_PRIO_7",
+	"#VERCEL_BUILD_PRIO_8": "#VERCEL_BUILD_PRIO_8",
+	"#VERCEL_BUILD_PRIO_9": "#VERCEL_BUILD_PRIO_9",
+	"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL": "#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_CANCEL",
+	"#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR": "#VERCEL_SDDJ_AFTER_GET_REPO_FORCE_ERROR",
+	"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL": "#VERCEL_SDDJ_AFTER_VERIFY_FORCE_CANCEL",
+	"#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR": "#VERCEL_SDDJ_AFTER_VERIFY_FORCE_ERROR",
+	"#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR": "#VERCEL_SDDJ_BEFORE_BUILD_JOB_QUEUED_ERROR",
+	"#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR": "#VERCEL_SDDJ_FORCE_GIT_FORK_ERROR",
+	"#VERCEL_SKIP": "#VERCEL_SKIP",
+	"#VERCEL_V0_MESSAGE": "#VERCEL_V0_MESSAGE",
+} as const;
+
+export type UserEventPayloadJobGitHashtagVercelEnum6Key =
+	(typeof userEventPayloadJobGitHashtagVercelEnum6)[keyof typeof userEventPayloadJobGitHashtagVercelEnum6];
+
+export const userEventPayloadJobNsnbSideEffectActionEnum6 = {
+	"auto-approved-member": "auto-approved-member",
+	"auto-approved-pending-invite": "auto-approved-pending-invite",
+} as const;
+
+export type UserEventPayloadJobNsnbSideEffectActionEnum6Key =
+	(typeof userEventPayloadJobNsnbSideEffectActionEnum6)[keyof typeof userEventPayloadJobNsnbSideEffectActionEnum6];
 
 export const userEventPayloadRuleNameEnum = {
 	deploymentSources: "deploymentSources",
@@ -5613,21 +6124,32 @@ export const userEventPayloadRuleProvenanceEnum = {
 export type UserEventPayloadRuleProvenanceEnumKey =
 	(typeof userEventPayloadRuleProvenanceEnum)[keyof typeof userEventPayloadRuleProvenanceEnum];
 
-export const userEventPayloadModeEnum = {
-	organization: "organization",
-	team: "team",
+export const userEventPayloadModeEnum2 = {
+	all: "all",
+	"email-domain": "email-domain",
+	none: "none",
 } as const;
 
-export type UserEventPayloadModeEnumKey =
-	(typeof userEventPayloadModeEnum)[keyof typeof userEventPayloadModeEnum];
+export type UserEventPayloadModeEnum2Key =
+	(typeof userEventPayloadModeEnum2)[keyof typeof userEventPayloadModeEnum2];
 
-export const userEventPayloadPreviousModeEnum = {
-	organization: "organization",
-	team: "team",
+export const userEventPayloadPreviousModeEnum2 = {
+	all: "all",
+	"email-domain": "email-domain",
+	none: "none",
 } as const;
 
-export type UserEventPayloadPreviousModeEnumKey =
-	(typeof userEventPayloadPreviousModeEnum)[keyof typeof userEventPayloadPreviousModeEnum];
+export type UserEventPayloadPreviousModeEnum2Key =
+	(typeof userEventPayloadPreviousModeEnum2)[keyof typeof userEventPayloadPreviousModeEnum2];
+
+export const userEventPayloadActionEnum9 = {
+	add: "add",
+	delete: "delete",
+	update: "update",
+} as const;
+
+export type UserEventPayloadActionEnum9Key =
+	(typeof userEventPayloadActionEnum9)[keyof typeof userEventPayloadActionEnum9];
 
 export const userEventPayloadInitiatorEnum = {
 	system: "system",
@@ -5654,6 +6176,14 @@ export const userEventPayloadPreviousEchModeEnum = {
 
 export type UserEventPayloadPreviousEchModeEnumKey =
 	(typeof userEventPayloadPreviousEchModeEnum)[keyof typeof userEventPayloadPreviousEchModeEnum];
+
+export const userEventPayloadInitiatorEnum2 = {
+	system: "system",
+	user: "user",
+} as const;
+
+export type UserEventPayloadInitiatorEnum2Key =
+	(typeof userEventPayloadInitiatorEnum2)[keyof typeof userEventPayloadInitiatorEnum2];
 
 export const userEventPayloadFromAccountTypeEnum = {
 	team: "team",
@@ -5689,6 +6219,14 @@ export const userEventPayloadUpdateDiffOldTargetEnum = {
 export type UserEventPayloadUpdateDiffOldTargetEnumKey =
 	(typeof userEventPayloadUpdateDiffOldTargetEnum)[keyof typeof userEventPayloadUpdateDiffOldTargetEnum];
 
+export const userEventPayloadVisibilityEnum2 = {
+	config: "config",
+	secret: "secret",
+} as const;
+
+export type UserEventPayloadVisibilityEnum2Key =
+	(typeof userEventPayloadVisibilityEnum2)[keyof typeof userEventPayloadVisibilityEnum2];
+
 export const userEventPayloadTargetEnum = {
 	development: "development",
 	preview: "preview",
@@ -5699,15 +6237,23 @@ export type UserEventPayloadTargetEnumKey =
 	(typeof userEventPayloadTargetEnum)[keyof typeof userEventPayloadTargetEnum];
 
 export const userEventPayloadTypeEnum = {
-	blob: "blob",
-	"edge-config": "edge-config",
-	integration: "integration",
-	postgres: "postgres",
-	redis: "redis",
+	encrypted: "encrypted",
+	plain: "plain",
+	sensitive: "sensitive",
+	system: "system",
 } as const;
 
 export type UserEventPayloadTypeEnumKey =
 	(typeof userEventPayloadTypeEnum)[keyof typeof userEventPayloadTypeEnum];
+
+export const userEventPayloadTargetEnum2 = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type UserEventPayloadTargetEnum2Key =
+	(typeof userEventPayloadTargetEnum2)[keyof typeof userEventPayloadTargetEnum2];
 
 export const userEventPayloadNewEnvVarTargetEnum = {
 	development: "development",
@@ -5747,6 +6293,24 @@ export const userEventPayloadOldEnvVarTypeEnum = {
 export type UserEventPayloadOldEnvVarTypeEnumKey =
 	(typeof userEventPayloadOldEnvVarTypeEnum)[keyof typeof userEventPayloadOldEnvVarTypeEnum];
 
+export const userEventPayloadUpdateDiffNewTargetEnum2 = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type UserEventPayloadUpdateDiffNewTargetEnum2Key =
+	(typeof userEventPayloadUpdateDiffNewTargetEnum2)[keyof typeof userEventPayloadUpdateDiffNewTargetEnum2];
+
+export const userEventPayloadUpdateDiffOldTargetEnum2 = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type UserEventPayloadUpdateDiffOldTargetEnum2Key =
+	(typeof userEventPayloadUpdateDiffOldTargetEnum2)[keyof typeof userEventPayloadUpdateDiffOldTargetEnum2];
+
 export const actionEnum = {
 	challenge: "challenge",
 	deny: "deny",
@@ -5755,27 +6319,27 @@ export const actionEnum = {
 
 export type ActionEnumKey = (typeof actionEnum)[keyof typeof actionEnum];
 
+export const userEventPayloadActionEnum10 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type UserEventPayloadActionEnum10Key =
+	(typeof userEventPayloadActionEnum10)[keyof typeof userEventPayloadActionEnum10];
+
+export const userEventPayloadActionEnum11 = {
+	disable: "disable",
+	enable: "enable",
+} as const;
+
+export type UserEventPayloadActionEnum11Key =
+	(typeof userEventPayloadActionEnum11)[keyof typeof userEventPayloadActionEnum11];
+
 export const userEventPayloadSourceEnum = {
-	"account-update": "account-update",
-	bitbucket: "bitbucket",
-	dsync: "dsync",
-	feedback: "feedback",
-	github: "github",
-	gitlab: "gitlab",
-	import: "import",
-	link: "link",
-	mail: "mail",
-	"nsnb-auto-approve": "nsnb-auto-approve",
-	"nsnb-hobby-upgrade": "nsnb-hobby-upgrade",
-	"nsnb-invite": "nsnb-invite",
-	"nsnb-redeploy": "nsnb-redeploy",
-	"nsnb-redeploy-attribution-card": "nsnb-redeploy-attribution-card",
-	"nsnb-request-access": "nsnb-request-access",
-	"nsnb-viewer-upgrade": "nsnb-viewer-upgrade",
-	"org-admin-sync": "org-admin-sync",
-	"organization-teams": "organization-teams",
-	saml: "saml",
-	teams: "teams",
+	create: "create",
+	enable: "enable",
+	upgrade: "upgrade",
 } as const;
 
 export type UserEventPayloadSourceEnumKey =
@@ -5793,12 +6357,22 @@ export type UserEventPayloadFailureStageEnumKey =
 	(typeof userEventPayloadFailureStageEnum)[keyof typeof userEventPayloadFailureStageEnum];
 
 export const userEventPayloadOutcomeEnum = {
-	"account-matched": "account-matched",
-	"linking-required": "linking-required",
+	failure: "failure",
+	success: "success",
 } as const;
 
 export type UserEventPayloadOutcomeEnumKey =
 	(typeof userEventPayloadOutcomeEnum)[keyof typeof userEventPayloadOutcomeEnum];
+
+export const userEventPayloadProviderEnum8 = {
+	bitbucket: "bitbucket",
+	"cursor-origin": "cursor-origin",
+	github: "github",
+	gitlab: "gitlab",
+} as const;
+
+export type UserEventPayloadProviderEnum8Key =
+	(typeof userEventPayloadProviderEnum8)[keyof typeof userEventPayloadProviderEnum8];
 
 export const userEventPayloadQueryTypeEnum = {
 	"data-edit": "data-edit",
@@ -5810,20 +6384,84 @@ export const userEventPayloadQueryTypeEnum = {
 export type UserEventPayloadQueryTypeEnumKey =
 	(typeof userEventPayloadQueryTypeEnum)[keyof typeof userEventPayloadQueryTypeEnum];
 
+export const userEventPayloadProviderEnum9 = {
+	apple: "apple",
+	bitbucket: "bitbucket",
+	chatgpt: "chatgpt",
+	github: "github",
+	"github-custom-host": "github-custom-host",
+	"github-limited": "github-limited",
+	gitlab: "gitlab",
+	google: "google",
+	saml: "saml",
+} as const;
+
+export type UserEventPayloadProviderEnum9Key =
+	(typeof userEventPayloadProviderEnum9)[keyof typeof userEventPayloadProviderEnum9];
+
+export const userEventPayloadProviderEnum10 = {
+	apple: "apple",
+	bitbucket: "bitbucket",
+	chatgpt: "chatgpt",
+	github: "github",
+	"github-custom-host": "github-custom-host",
+	"github-limited": "github-limited",
+	gitlab: "gitlab",
+	google: "google",
+	saml: "saml",
+} as const;
+
+export type UserEventPayloadProviderEnum10Key =
+	(typeof userEventPayloadProviderEnum10)[keyof typeof userEventPayloadProviderEnum10];
+
 export const userEventPayloadFactorsOriginEnum = {
 	apple: "apple",
 	bitbucket: "bitbucket",
 	chatgpt: "chatgpt",
 	email: "email",
+	"emu-recovery": "emu-recovery",
 	github: "github",
 	gitlab: "gitlab",
 	google: "google",
+	invite: "invite",
+	"magic-link": "magic-link",
 	otp: "otp",
+	"otp-link": "otp-link",
 	saml: "saml",
+	webauthn: "webauthn",
 } as const;
 
 export type UserEventPayloadFactorsOriginEnumKey =
 	(typeof userEventPayloadFactorsOriginEnum)[keyof typeof userEventPayloadFactorsOriginEnum];
+
+export const userEventPayloadFactorsOriginEnum2 = {
+	apple: "apple",
+	bitbucket: "bitbucket",
+	chatgpt: "chatgpt",
+	email: "email",
+	"emu-recovery": "emu-recovery",
+	github: "github",
+	gitlab: "gitlab",
+	google: "google",
+	invite: "invite",
+	"magic-link": "magic-link",
+	otp: "otp",
+	"otp-link": "otp-link",
+	saml: "saml",
+	webauthn: "webauthn",
+} as const;
+
+export type UserEventPayloadFactorsOriginEnum2Key =
+	(typeof userEventPayloadFactorsOriginEnum2)[keyof typeof userEventPayloadFactorsOriginEnum2];
+
+export const userEventPayloadFactorsOriginEnum3 = {
+	"recovery-code": "recovery-code",
+	totp: "totp",
+	webauthn: "webauthn",
+} as const;
+
+export type UserEventPayloadFactorsOriginEnum3Key =
+	(typeof userEventPayloadFactorsOriginEnum3)[keyof typeof userEventPayloadFactorsOriginEnum3];
 
 export const userEventPayloadNextTeamRolesEnum = {
 	BILLING: "BILLING",
@@ -5878,6 +6516,22 @@ export const userEventPayloadPreviousDsyncModeEnum = {
 export type UserEventPayloadPreviousDsyncModeEnumKey =
 	(typeof userEventPayloadPreviousDsyncModeEnum)[keyof typeof userEventPayloadPreviousDsyncModeEnum];
 
+export const userEventPayloadModeEnum3 = {
+	organization: "organization",
+	team: "team",
+} as const;
+
+export type UserEventPayloadModeEnum3Key =
+	(typeof userEventPayloadModeEnum3)[keyof typeof userEventPayloadModeEnum3];
+
+export const userEventPayloadPreviousModeEnum3 = {
+	organization: "organization",
+	team: "team",
+} as const;
+
+export type UserEventPayloadPreviousModeEnum3Key =
+	(typeof userEventPayloadPreviousModeEnum3)[keyof typeof userEventPayloadPreviousModeEnum3];
+
 export const userEventPayloadNextEnforcementScopeEnum = {
 	all: "all",
 	preview: "preview",
@@ -5926,6 +6580,14 @@ export const userEventPayloadKindEnum = {
 export type UserEventPayloadKindEnumKey =
 	(typeof userEventPayloadKindEnum)[keyof typeof userEventPayloadKindEnum];
 
+export const userEventPayloadKindEnum2 = {
+	connectSrc: "connectSrc",
+	script: "script",
+} as const;
+
+export type UserEventPayloadKindEnum2Key =
+	(typeof userEventPayloadKindEnum2)[keyof typeof userEventPayloadKindEnum2];
+
 export const userEventPayloadNextPassportDeploymentTypeEnum = {
 	all: "all",
 	all_except_custom_domains: "all_except_custom_domains",
@@ -5945,6 +6607,26 @@ export const userEventPayloadPreviousPassportDeploymentTypeEnum = {
 
 export type UserEventPayloadPreviousPassportDeploymentTypeEnumKey =
 	(typeof userEventPayloadPreviousPassportDeploymentTypeEnum)[keyof typeof userEventPayloadPreviousPassportDeploymentTypeEnum];
+
+export const userEventPayloadNextPassportDeploymentTypeEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type UserEventPayloadNextPassportDeploymentTypeEnum2Key =
+	(typeof userEventPayloadNextPassportDeploymentTypeEnum2)[keyof typeof userEventPayloadNextPassportDeploymentTypeEnum2];
+
+export const userEventPayloadPreviousPassportDeploymentTypeEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type UserEventPayloadPreviousPassportDeploymentTypeEnum2Key =
+	(typeof userEventPayloadPreviousPassportDeploymentTypeEnum2)[keyof typeof userEventPayloadPreviousPassportDeploymentTypeEnum2];
 
 export const originEnum = {
 	"account-update": "account-update",
@@ -5984,6 +6666,54 @@ export const roleEnum = {
 
 export type RoleEnumKey = (typeof roleEnum)[keyof typeof roleEnum];
 
+export const originEnum2 = {
+	"account-update": "account-update",
+	bitbucket: "bitbucket",
+	dsync: "dsync",
+	feedback: "feedback",
+	github: "github",
+	gitlab: "gitlab",
+	import: "import",
+	link: "link",
+	mail: "mail",
+	"nsnb-auto-approve": "nsnb-auto-approve",
+	"nsnb-hobby-upgrade": "nsnb-hobby-upgrade",
+	"nsnb-invite": "nsnb-invite",
+	"nsnb-redeploy": "nsnb-redeploy",
+	"nsnb-redeploy-attribution-card": "nsnb-redeploy-attribution-card",
+	"nsnb-request-access": "nsnb-request-access",
+	"nsnb-viewer-upgrade": "nsnb-viewer-upgrade",
+	"org-admin-sync": "org-admin-sync",
+	"organization-teams": "organization-teams",
+	saml: "saml",
+	teams: "teams",
+} as const;
+
+export type OriginEnum2Key = (typeof originEnum2)[keyof typeof originEnum2];
+
+export const roleEnum2 = {
+	BILLING: "BILLING",
+	CONTRIBUTOR: "CONTRIBUTOR",
+	DEVELOPER: "DEVELOPER",
+	MEMBER: "MEMBER",
+	OWNER: "OWNER",
+	SECURITY: "SECURITY",
+	VIEWER: "VIEWER",
+	VIEWER_FOR_PLUS: "VIEWER_FOR_PLUS",
+} as const;
+
+export type RoleEnum2Key = (typeof roleEnum2)[keyof typeof roleEnum2];
+
+export const userEventPayloadActionEnum12 = {
+	disabled: "disabled",
+	enabled: "enabled",
+	regenerated: "regenerated",
+	updated: "updated",
+} as const;
+
+export type UserEventPayloadActionEnum12Key =
+	(typeof userEventPayloadActionEnum12)[keyof typeof userEventPayloadActionEnum12];
+
 export const userEventPayloadWidgetEnum = {
 	alert: "alert",
 	"analytics-online": "analytics-online",
@@ -6005,6 +6735,14 @@ export const userEventPayloadWidgetEnum = {
 
 export type UserEventPayloadWidgetEnumKey =
 	(typeof userEventPayloadWidgetEnum)[keyof typeof userEventPayloadWidgetEnum];
+
+export const userEventPayloadActionEnum13 = {
+	disabled: "disabled",
+	enabled: "enabled",
+} as const;
+
+export type UserEventPayloadActionEnum13Key =
+	(typeof userEventPayloadActionEnum13)[keyof typeof userEventPayloadActionEnum13];
 
 export const userEventPayloadBuildQueueConfigurationEnum = {
 	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
@@ -6130,6 +6868,16 @@ export const userEventPayloadRemovedMembershipRoleEnum = {
 export type UserEventPayloadRemovedMembershipRoleEnumKey =
 	(typeof userEventPayloadRemovedMembershipRoleEnum)[keyof typeof userEventPayloadRemovedMembershipRoleEnum];
 
+export const userEventPayloadProjectMembershipRoleEnum2 = {
+	ADMIN: "ADMIN",
+	PROJECT_DEVELOPER: "PROJECT_DEVELOPER",
+	PROJECT_GUEST: "PROJECT_GUEST",
+	PROJECT_VIEWER: "PROJECT_VIEWER",
+} as const;
+
+export type UserEventPayloadProjectMembershipRoleEnum2Key =
+	(typeof userEventPayloadProjectMembershipRoleEnum2)[keyof typeof userEventPayloadProjectMembershipRoleEnum2];
+
 export const userEventPayloadProjectMembershipPreviousRoleEnum = {
 	ADMIN: "ADMIN",
 	PROJECT_DEVELOPER: "PROJECT_DEVELOPER",
@@ -6140,6 +6888,16 @@ export const userEventPayloadProjectMembershipPreviousRoleEnum = {
 export type UserEventPayloadProjectMembershipPreviousRoleEnumKey =
 	(typeof userEventPayloadProjectMembershipPreviousRoleEnum)[keyof typeof userEventPayloadProjectMembershipPreviousRoleEnum];
 
+export const userEventPayloadOldPasswordProtectionDeploymentTypeEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type UserEventPayloadOldPasswordProtectionDeploymentTypeEnum2Key =
+	(typeof userEventPayloadOldPasswordProtectionDeploymentTypeEnum2)[keyof typeof userEventPayloadOldPasswordProtectionDeploymentTypeEnum2];
+
 export const userEventPayloadOldPasswordProtection = {
 	all: "all",
 	all_except_custom_domains: "all_except_custom_domains",
@@ -6149,6 +6907,16 @@ export const userEventPayloadOldPasswordProtection = {
 
 export type UserEventPayloadOldPasswordProtectionKey =
 	(typeof userEventPayloadOldPasswordProtection)[keyof typeof userEventPayloadOldPasswordProtection];
+
+export const userEventPayloadPasswordProtectionDeploymentTypeEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type UserEventPayloadPasswordProtectionDeploymentTypeEnum2Key =
+	(typeof userEventPayloadPasswordProtectionDeploymentTypeEnum2)[keyof typeof userEventPayloadPasswordProtectionDeploymentTypeEnum2];
 
 export const userEventPayloadPasswordProtection = {
 	all: "all",
@@ -6162,6 +6930,7 @@ export type UserEventPayloadPasswordProtectionKey =
 
 export const userEventPayloadReasonCodeEnum = {
 	BACKOFFICE: "BACKOFFICE",
+	BUDGET_REACHED: "BUDGET_REACHED",
 	PUBLIC_API: "PUBLIC_API",
 } as const;
 
@@ -6192,6 +6961,36 @@ export const userEventPayloadPreviousIssuerModeEnum = {
 export type UserEventPayloadPreviousIssuerModeEnumKey =
 	(typeof userEventPayloadPreviousIssuerModeEnum)[keyof typeof userEventPayloadPreviousIssuerModeEnum];
 
+export const userEventPayloadOldSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type UserEventPayloadOldSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum2Key =
+	(typeof userEventPayloadOldSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum2)[keyof typeof userEventPayloadOldSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum2];
+
+export const userEventPayloadOldSsoProtectionCve55182MigrationAppliedFromEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type UserEventPayloadOldSsoProtectionCve55182MigrationAppliedFromEnum2Key =
+	(typeof userEventPayloadOldSsoProtectionCve55182MigrationAppliedFromEnum2)[keyof typeof userEventPayloadOldSsoProtectionCve55182MigrationAppliedFromEnum2];
+
+export const userEventPayloadOldSsoProtectionDeploymentTypeEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type UserEventPayloadOldSsoProtectionDeploymentTypeEnum2Key =
+	(typeof userEventPayloadOldSsoProtectionDeploymentTypeEnum2)[keyof typeof userEventPayloadOldSsoProtectionDeploymentTypeEnum2];
+
 export const userEventPayloadOldSsoProtection = {
 	all: "all",
 	all_except_custom_domains: "all_except_custom_domains",
@@ -6201,6 +7000,36 @@ export const userEventPayloadOldSsoProtection = {
 
 export type UserEventPayloadOldSsoProtectionKey =
 	(typeof userEventPayloadOldSsoProtection)[keyof typeof userEventPayloadOldSsoProtection];
+
+export const userEventPayloadSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type UserEventPayloadSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum2Key =
+	(typeof userEventPayloadSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum2)[keyof typeof userEventPayloadSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum2];
+
+export const userEventPayloadSsoProtectionCve55182MigrationAppliedFromEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type UserEventPayloadSsoProtectionCve55182MigrationAppliedFromEnum2Key =
+	(typeof userEventPayloadSsoProtectionCve55182MigrationAppliedFromEnum2)[keyof typeof userEventPayloadSsoProtectionCve55182MigrationAppliedFromEnum2];
+
+export const userEventPayloadSsoProtectionDeploymentTypeEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type UserEventPayloadSsoProtectionDeploymentTypeEnum2Key =
+	(typeof userEventPayloadSsoProtectionDeploymentTypeEnum2)[keyof typeof userEventPayloadSsoProtectionDeploymentTypeEnum2];
 
 export const userEventPayloadSsoProtection = {
 	all: "all",
@@ -6233,6 +7062,29 @@ export const userEventPayloadTrustedIpsEnum = {
 
 export type UserEventPayloadTrustedIpsEnumKey =
 	(typeof userEventPayloadTrustedIpsEnum)[keyof typeof userEventPayloadTrustedIpsEnum];
+
+export const userEventPayloadReasonCodeEnum2 = {
+	BACKOFFICE: "BACKOFFICE",
+	PUBLIC_API: "PUBLIC_API",
+} as const;
+
+export type UserEventPayloadReasonCodeEnum2Key =
+	(typeof userEventPayloadReasonCodeEnum2)[keyof typeof userEventPayloadReasonCodeEnum2];
+
+export const userEventPayloadFactorsOriginEnum4 = {
+	apple: "apple",
+	bitbucket: "bitbucket",
+	chatgpt: "chatgpt",
+	email: "email",
+	github: "github",
+	gitlab: "gitlab",
+	google: "google",
+	otp: "otp",
+	saml: "saml",
+} as const;
+
+export type UserEventPayloadFactorsOriginEnum4Key =
+	(typeof userEventPayloadFactorsOriginEnum4)[keyof typeof userEventPayloadFactorsOriginEnum4];
 
 export const userEventPayloadBudgetBudgetItemPricingPlanEnum = {
 	flex: "flex",
@@ -6276,6 +7128,48 @@ export const userEventPayloadBudgetScopeEnum = {
 export type UserEventPayloadBudgetScopeEnumKey =
 	(typeof userEventPayloadBudgetScopeEnum)[keyof typeof userEventPayloadBudgetScopeEnum];
 
+export const userEventPayloadBudgetPricingPlanEnum2 = {
+	flex: "flex",
+	legacy: "legacy",
+	platform: "platform",
+	plus: "plus",
+	unbundled: "unbundled",
+} as const;
+
+export type UserEventPayloadBudgetPricingPlanEnum2Key =
+	(typeof userEventPayloadBudgetPricingPlanEnum2)[keyof typeof userEventPayloadBudgetPricingPlanEnum2];
+
+export const userEventPayloadBudgetScopeEnum2 = {
+	organization: "organization",
+	product: "product",
+	project: "project",
+	team: "team",
+} as const;
+
+export type UserEventPayloadBudgetScopeEnum2Key =
+	(typeof userEventPayloadBudgetScopeEnum2)[keyof typeof userEventPayloadBudgetScopeEnum2];
+
+export const userEventPayloadBudgetPricingPlanEnum3 = {
+	flex: "flex",
+	legacy: "legacy",
+	platform: "platform",
+	plus: "plus",
+	unbundled: "unbundled",
+} as const;
+
+export type UserEventPayloadBudgetPricingPlanEnum3Key =
+	(typeof userEventPayloadBudgetPricingPlanEnum3)[keyof typeof userEventPayloadBudgetPricingPlanEnum3];
+
+export const userEventPayloadBudgetScopeEnum3 = {
+	organization: "organization",
+	product: "product",
+	project: "project",
+	team: "team",
+} as const;
+
+export type UserEventPayloadBudgetScopeEnum3Key =
+	(typeof userEventPayloadBudgetScopeEnum3)[keyof typeof userEventPayloadBudgetScopeEnum3];
+
 export const userEventPayloadPrevBudgetPricingPlanEnum = {
 	flex: "flex",
 	legacy: "legacy",
@@ -6298,6 +7192,14 @@ export type UserEventPayloadPrevBudgetScopeEnumKey =
 	(typeof userEventPayloadPrevBudgetScopeEnum)[keyof typeof userEventPayloadPrevBudgetScopeEnum];
 
 export const userEventPayloadStoreTypeEnum = {
+	postgres: "postgres",
+	redis: "redis",
+} as const;
+
+export type UserEventPayloadStoreTypeEnumKey =
+	(typeof userEventPayloadStoreTypeEnum)[keyof typeof userEventPayloadStoreTypeEnum];
+
+export const userEventPayloadStoreTypeEnum2 = {
 	blob: "blob",
 	"edge-config": "edge-config",
 	integration: "integration",
@@ -6305,8 +7207,30 @@ export const userEventPayloadStoreTypeEnum = {
 	redis: "redis",
 } as const;
 
-export type UserEventPayloadStoreTypeEnumKey =
-	(typeof userEventPayloadStoreTypeEnum)[keyof typeof userEventPayloadStoreTypeEnum];
+export type UserEventPayloadStoreTypeEnum2Key =
+	(typeof userEventPayloadStoreTypeEnum2)[keyof typeof userEventPayloadStoreTypeEnum2];
+
+export const userEventPayloadStoreTypeEnum3 = {
+	blob: "blob",
+	"edge-config": "edge-config",
+	integration: "integration",
+	postgres: "postgres",
+	redis: "redis",
+} as const;
+
+export type UserEventPayloadStoreTypeEnum3Key =
+	(typeof userEventPayloadStoreTypeEnum3)[keyof typeof userEventPayloadStoreTypeEnum3];
+
+export const userEventPayloadStoreTypeEnum4 = {
+	blob: "blob",
+	"edge-config": "edge-config",
+	integration: "integration",
+	postgres: "postgres",
+	redis: "redis",
+} as const;
+
+export type UserEventPayloadStoreTypeEnum4Key =
+	(typeof userEventPayloadStoreTypeEnum4)[keyof typeof userEventPayloadStoreTypeEnum4];
 
 export const userEventPayloadAccessEnum = {
 	private: "private",
@@ -6316,13 +7240,43 @@ export const userEventPayloadAccessEnum = {
 export type UserEventPayloadAccessEnumKey =
 	(typeof userEventPayloadAccessEnum)[keyof typeof userEventPayloadAccessEnum];
 
-export const userEventPayloadActorTypeEnum = {
+export const userEventPayloadTypeEnum5 = {
+	blob: "blob",
+	"edge-config": "edge-config",
+	integration: "integration",
+	postgres: "postgres",
+	redis: "redis",
+} as const;
+
+export type UserEventPayloadTypeEnum5Key =
+	(typeof userEventPayloadTypeEnum5)[keyof typeof userEventPayloadTypeEnum5];
+
+export const userEventPayloadAccessEnum2 = {
+	private: "private",
+	public: "public",
+} as const;
+
+export type UserEventPayloadAccessEnum2Key =
+	(typeof userEventPayloadAccessEnum2)[keyof typeof userEventPayloadAccessEnum2];
+
+export const userEventPayloadTypeEnum6 = {
+	blob: "blob",
+	"edge-config": "edge-config",
+	integration: "integration",
+	postgres: "postgres",
+	redis: "redis",
+} as const;
+
+export type UserEventPayloadTypeEnum6Key =
+	(typeof userEventPayloadTypeEnum6)[keyof typeof userEventPayloadTypeEnum6];
+
+export const userEventPayloadActorTypeEnum9 = {
 	admin: "admin",
 	user: "user",
 } as const;
 
-export type UserEventPayloadActorTypeEnumKey =
-	(typeof userEventPayloadActorTypeEnum)[keyof typeof userEventPayloadActorTypeEnum];
+export type UserEventPayloadActorTypeEnum9Key =
+	(typeof userEventPayloadActorTypeEnum9)[keyof typeof userEventPayloadActorTypeEnum9];
 
 export const userEventPayloadNextScopeEnum = {
 	all: "all",
@@ -6369,17 +7323,24 @@ export type UserEventPayloadTargetKindEnumKey =
 	(typeof userEventPayloadTargetKindEnum)[keyof typeof userEventPayloadTargetKindEnum];
 
 export const userEventPayloadNextEnum = {
-	basic: "basic",
-	elastic: "elastic",
-	enhanced: "enhanced",
-	standard: "standard",
-	turbo: "turbo",
+	"auto-approval": "auto-approval",
+	block: "block",
+	"manual-approval": "manual-approval",
 } as const;
 
 export type UserEventPayloadNextEnumKey =
 	(typeof userEventPayloadNextEnum)[keyof typeof userEventPayloadNextEnum];
 
 export const userEventPayloadPreviousEnum = {
+	"auto-approval": "auto-approval",
+	block: "block",
+	"manual-approval": "manual-approval",
+} as const;
+
+export type UserEventPayloadPreviousEnumKey =
+	(typeof userEventPayloadPreviousEnum)[keyof typeof userEventPayloadPreviousEnum];
+
+export const userEventPayloadNextEnum2 = {
 	basic: "basic",
 	elastic: "elastic",
 	enhanced: "enhanced",
@@ -6387,10 +7348,21 @@ export const userEventPayloadPreviousEnum = {
 	turbo: "turbo",
 } as const;
 
-export type UserEventPayloadPreviousEnumKey =
-	(typeof userEventPayloadPreviousEnum)[keyof typeof userEventPayloadPreviousEnum];
+export type UserEventPayloadNextEnum2Key =
+	(typeof userEventPayloadNextEnum2)[keyof typeof userEventPayloadNextEnum2];
 
-export const userEventPayloadReasonEnum = {
+export const userEventPayloadPreviousEnum2 = {
+	basic: "basic",
+	elastic: "elastic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type UserEventPayloadPreviousEnum2Key =
+	(typeof userEventPayloadPreviousEnum2)[keyof typeof userEventPayloadPreviousEnum2];
+
+export const userEventPayloadReasonEnum2 = {
 	"basic-floor": "basic-floor",
 	"build-timeout-failure": "build-timeout-failure",
 	"enospc-failure": "enospc-failure",
@@ -6405,8 +7377,29 @@ export const userEventPayloadReasonEnum = {
 	"sustained-high-cpu": "sustained-high-cpu",
 } as const;
 
-export type UserEventPayloadReasonEnumKey =
-	(typeof userEventPayloadReasonEnum)[keyof typeof userEventPayloadReasonEnum];
+export type UserEventPayloadReasonEnum2Key =
+	(typeof userEventPayloadReasonEnum2)[keyof typeof userEventPayloadReasonEnum2];
+
+export const roleEnum3 = {
+	BILLING: "BILLING",
+	CONTRIBUTOR: "CONTRIBUTOR",
+	DEVELOPER: "DEVELOPER",
+	MEMBER: "MEMBER",
+	OWNER: "OWNER",
+	SECURITY: "SECURITY",
+	VIEWER: "VIEWER",
+	VIEWER_FOR_PLUS: "VIEWER_FOR_PLUS",
+} as const;
+
+export type RoleEnum3Key = (typeof roleEnum3)[keyof typeof roleEnum3];
+
+export const userEventPayloadActionEnum14 = {
+	reset: "reset",
+	updated: "updated",
+} as const;
+
+export type UserEventPayloadActionEnum14Key =
+	(typeof userEventPayloadActionEnum14)[keyof typeof userEventPayloadActionEnum14];
 
 export const userEventPayloadEnvironmentEnum = {
 	preview: "preview",
@@ -6418,12 +7411,23 @@ export type UserEventPayloadEnvironmentEnumKey =
 
 export const userEventPayloadEnabledEnum = {
 	default: "default",
+	"default-force": "default-force",
 	off: "off",
+	"off-force": "off-force",
 	on: "on",
+	"on-force": "on-force",
 } as const;
 
 export type UserEventPayloadEnabledEnumKey =
 	(typeof userEventPayloadEnabledEnum)[keyof typeof userEventPayloadEnabledEnum];
+
+export const userEventPayloadEnvironmentEnum2 = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type UserEventPayloadEnvironmentEnum2Key =
+	(typeof userEventPayloadEnvironmentEnum2)[keyof typeof userEventPayloadEnvironmentEnum2];
 
 export const userEventPayloadNewPlanEnum = {
 	enterprise: "enterprise",
@@ -6456,6 +7460,32 @@ export const userEventPayloadRoleEnum = {
 
 export type UserEventPayloadRoleEnumKey =
 	(typeof userEventPayloadRoleEnum)[keyof typeof userEventPayloadRoleEnum];
+
+export const userEventPayloadSourceEnum2 = {
+	"account-update": "account-update",
+	bitbucket: "bitbucket",
+	dsync: "dsync",
+	feedback: "feedback",
+	github: "github",
+	gitlab: "gitlab",
+	import: "import",
+	link: "link",
+	mail: "mail",
+	"nsnb-auto-approve": "nsnb-auto-approve",
+	"nsnb-hobby-upgrade": "nsnb-hobby-upgrade",
+	"nsnb-invite": "nsnb-invite",
+	"nsnb-redeploy": "nsnb-redeploy",
+	"nsnb-redeploy-attribution-card": "nsnb-redeploy-attribution-card",
+	"nsnb-request-access": "nsnb-request-access",
+	"nsnb-viewer-upgrade": "nsnb-viewer-upgrade",
+	"org-admin-sync": "org-admin-sync",
+	"organization-teams": "organization-teams",
+	saml: "saml",
+	teams: "teams",
+} as const;
+
+export type UserEventPayloadSourceEnum2Key =
+	(typeof userEventPayloadSourceEnum2)[keyof typeof userEventPayloadSourceEnum2];
 
 export const userEventPayloadPreviousTeamPermissionsEnum = {
 	AiGatewayBudgetManager: "AiGatewayBudgetManager",
@@ -6544,6 +7574,15 @@ export const userEventPayloadPlanEnum = {
 export type UserEventPayloadPlanEnumKey =
 	(typeof userEventPayloadPlanEnum)[keyof typeof userEventPayloadPlanEnum];
 
+export const userEventPayloadPlanEnum2 = {
+	enterprise: "enterprise",
+	hobby: "hobby",
+	pro: "pro",
+} as const;
+
+export type UserEventPayloadPlanEnum2Key =
+	(typeof userEventPayloadPlanEnum2)[keyof typeof userEventPayloadPlanEnum2];
+
 export const userEventPayloadDecisionEnum = {
 	keep_on: "keep_on",
 	turn_off: "turn_off",
@@ -6551,6 +7590,31 @@ export const userEventPayloadDecisionEnum = {
 
 export type UserEventPayloadDecisionEnumKey =
 	(typeof userEventPayloadDecisionEnum)[keyof typeof userEventPayloadDecisionEnum];
+
+export const userEventPayloadConsentEnum2 = {
+	granted: "granted",
+	refused: "refused",
+} as const;
+
+export type UserEventPayloadConsentEnum2Key =
+	(typeof userEventPayloadConsentEnum2)[keyof typeof userEventPayloadConsentEnum2];
+
+export const userEventPayloadEnabledEnum2 = {
+	default: "default",
+	off: "off",
+	on: "on",
+} as const;
+
+export type UserEventPayloadEnabledEnum2Key =
+	(typeof userEventPayloadEnabledEnum2)[keyof typeof userEventPayloadEnabledEnum2];
+
+export const userEventPayloadScopeEnum11 = {
+	dashboard: "dashboard",
+	"log-drains": "log-drains",
+} as const;
+
+export type UserEventPayloadScopeEnum11Key =
+	(typeof userEventPayloadScopeEnum11)[keyof typeof userEventPayloadScopeEnum11];
 
 export const userEventPayloadSamplingEnvEnum = {
 	preview: "preview",
@@ -6560,11 +7624,19 @@ export const userEventPayloadSamplingEnvEnum = {
 export type UserEventPayloadSamplingEnvEnumKey =
 	(typeof userEventPayloadSamplingEnvEnum)[keyof typeof userEventPayloadSamplingEnvEnum];
 
+export const userEventPayloadActorTypeEnum14 = {
+	admin: "admin",
+	user: "user",
+} as const;
+
+export type UserEventPayloadActorTypeEnum14Key =
+	(typeof userEventPayloadActorTypeEnum14)[keyof typeof userEventPayloadActorTypeEnum14];
+
 export const userEventPayloadMethodEnum = {
-	passkey: "passkey",
-	self_serve_recovery: "self_serve_recovery",
+	"email-otp": "email-otp",
+	"recovery-code": "recovery-code",
 	totp: "totp",
-	user_disabled: "user_disabled",
+	webauthn: "webauthn",
 } as const;
 
 export type UserEventPayloadMethodEnumKey =
@@ -6578,6 +7650,29 @@ export const userEventPayloadAllowedMethodsEnum = {
 
 export type UserEventPayloadAllowedMethodsEnumKey =
 	(typeof userEventPayloadAllowedMethodsEnum)[keyof typeof userEventPayloadAllowedMethodsEnum];
+
+export const userEventPayloadActionEnum15 = {
+	"add-passkey": "add-passkey",
+	"add-totp": "add-totp",
+	"admin-remove": "admin-remove",
+	disable: "disable",
+	enable: "enable",
+	"regenerate-recovery-codes": "regenerate-recovery-codes",
+	"remove-passkey": "remove-passkey",
+} as const;
+
+export type UserEventPayloadActionEnum15Key =
+	(typeof userEventPayloadActionEnum15)[keyof typeof userEventPayloadActionEnum15];
+
+export const userEventPayloadMethodEnum2 = {
+	passkey: "passkey",
+	self_serve_recovery: "self_serve_recovery",
+	totp: "totp",
+	user_disabled: "user_disabled",
+} as const;
+
+export type UserEventPayloadMethodEnum2Key =
+	(typeof userEventPayloadMethodEnum2)[keyof typeof userEventPayloadMethodEnum2];
 
 export const userEventPayloadContextEnum = {
 	login: "login",
@@ -6606,6 +7701,14 @@ export const userEventPayloadDecisionMxOutcomeEnum = {
 export type UserEventPayloadDecisionMxOutcomeEnumKey =
 	(typeof userEventPayloadDecisionMxOutcomeEnum)[keyof typeof userEventPayloadDecisionMxOutcomeEnum];
 
+export const userEventPayloadOutcomeEnum2 = {
+	"account-matched": "account-matched",
+	"linking-required": "linking-required",
+} as const;
+
+export type UserEventPayloadOutcomeEnum2Key =
+	(typeof userEventPayloadOutcomeEnum2)[keyof typeof userEventPayloadOutcomeEnum2];
+
 export const userEventPayloadTierEnum = {
 	plus: "plus",
 	pro: "pro",
@@ -6613,6 +7716,14 @@ export const userEventPayloadTierEnum = {
 
 export type UserEventPayloadTierEnumKey =
 	(typeof userEventPayloadTierEnum)[keyof typeof userEventPayloadTierEnum];
+
+export const userEventPayloadScopeEnum12 = {
+	organization: "organization",
+	team: "team",
+} as const;
+
+export type UserEventPayloadScopeEnum12Key =
+	(typeof userEventPayloadScopeEnum12)[keyof typeof userEventPayloadScopeEnum12];
 
 export const userEventPayloadAppClientAuthenticationUsedMethodEnum = {
 	client_secret_basic: "client_secret_basic",
@@ -6690,6 +7801,15 @@ export const userEventPayloadProjectScopeEnum = {
 export type UserEventPayloadProjectScopeEnumKey =
 	(typeof userEventPayloadProjectScopeEnum)[keyof typeof userEventPayloadProjectScopeEnum];
 
+export const userEventPayloadScopeEnum13 = {
+	project: "project",
+	team: "team",
+	user: "user",
+} as const;
+
+export type UserEventPayloadScopeEnum13Key =
+	(typeof userEventPayloadScopeEnum13)[keyof typeof userEventPayloadScopeEnum13];
+
 export const userEventPayloadLogoutSourceEnum = {
 	v0: "v0",
 	vercel: "vercel",
@@ -6697,6 +7817,38 @@ export const userEventPayloadLogoutSourceEnum = {
 
 export type UserEventPayloadLogoutSourceEnumKey =
 	(typeof userEventPayloadLogoutSourceEnum)[keyof typeof userEventPayloadLogoutSourceEnum];
+
+export const userEventPayloadOriginEnum2 = {
+	app: "app",
+	apple: "apple",
+	bitbucket: "bitbucket",
+	chatgpt: "chatgpt",
+	email: "email",
+	emu: "emu",
+	github: "github",
+	"github-webhook": "github-webhook",
+	gitlab: "gitlab",
+	google: "google",
+	invite: "invite",
+	manual: "manual",
+	otp: "otp",
+	passkey: "passkey",
+	saml: "saml",
+	sms: "sms",
+	"token-exchange-oidc": "token-exchange-oidc",
+} as const;
+
+export type UserEventPayloadOriginEnum2Key =
+	(typeof userEventPayloadOriginEnum2)[keyof typeof userEventPayloadOriginEnum2];
+
+export const userEventPayloadScopeEnum14 = {
+	project: "project",
+	team: "team",
+	user: "user",
+} as const;
+
+export type UserEventPayloadScopeEnum14Key =
+	(typeof userEventPayloadScopeEnum14)[keyof typeof userEventPayloadScopeEnum14];
 
 export const userEventTypeEnum = {
 	"access-group-created": "access-group-created",
@@ -7546,7 +8698,7 @@ export type UserEvent = {
 						slug: string;
 				  }
 				| {
-						action: UserEventPayloadActionEnumKey;
+						action: UserEventPayloadActionEnum2Key;
 						id: string;
 						name: string;
 						projectId: string;
@@ -7555,7 +8707,7 @@ export type UserEvent = {
 						state: string;
 				  }
 				| {
-						action: UserEventPayloadActionEnumKey;
+						action: UserEventPayloadActionEnum3Key;
 						environment: string;
 						label?: string | undefined;
 						projectId?: string | undefined;
@@ -7645,7 +8797,7 @@ export type UserEvent = {
 						 * @description Present on new events only. Equivalent to "stripe" when absent.
 						 * @type string | undefined
 						 */
-						provider?: UserEventPayloadProviderEnumKey | undefined;
+						provider?: UserEventPayloadProviderEnum2Key | undefined;
 						/**
 						 * @description Present on new events only. Equivalent to `stripeAccount` when absent.
 						 * @type string | undefined
@@ -7668,7 +8820,7 @@ export type UserEvent = {
 						 * @description Present on new events only. Equivalent to "stripe" when absent.
 						 * @type string | undefined
 						 */
-						provider?: UserEventPayloadProviderEnumKey | undefined;
+						provider?: UserEventPayloadProviderEnum3Key | undefined;
 						/**
 						 * @description Present on new events only. Equivalent to `stripeAccount` when absent.
 						 * @type string | undefined
@@ -7692,7 +8844,7 @@ export type UserEvent = {
 						 * @description Present on new events only. Equivalent to "stripe" when absent.
 						 * @type string | undefined
 						 */
-						provider?: UserEventPayloadProviderEnumKey | undefined;
+						provider?: UserEventPayloadProviderEnum4Key | undefined;
 						/**
 						 * @description Present on new events only. Equivalent to `stripeAccount` when absent.
 						 * @type string | undefined
@@ -7716,7 +8868,7 @@ export type UserEvent = {
 						 * @description Present on new events only. Equivalent to "stripe" when absent.
 						 * @type string | undefined
 						 */
-						provider?: UserEventPayloadProviderEnumKey | undefined;
+						provider?: UserEventPayloadProviderEnum5Key | undefined;
 						/**
 						 * @description Present on new events only. Equivalent to `stripeAccount` when absent.
 						 * @type string | undefined
@@ -7735,7 +8887,7 @@ export type UserEvent = {
 						 * @description Present on new events only. Equivalent to "stripe" when absent.
 						 * @type string | undefined
 						 */
-						provider?: UserEventPayloadProviderEnumKey | undefined;
+						provider?: UserEventPayloadProviderEnum6Key | undefined;
 						/**
 						 * @description Present on new events only. Equivalent to `stripeAccount` when absent.
 						 * @type string | undefined
@@ -7765,7 +8917,7 @@ export type UserEvent = {
 						 * @description Present on new events only. Equivalent to "stripe" when absent.
 						 * @type string | undefined
 						 */
-						provider?: UserEventPayloadProviderEnumKey | undefined;
+						provider?: UserEventPayloadProviderEnum7Key | undefined;
 						/**
 						 * @description Present on new events only. Equivalent to `stripeAccount` when absent.
 						 * @type string | undefined
@@ -7864,13 +9016,13 @@ export type UserEvent = {
 									 * @type number
 									 */
 									limitAmount: number;
-									refreshPeriod: UserEventPayloadBudgetRefreshPeriodEnumKey;
+									refreshPeriod: UserEventPayloadBudgetRefreshPeriodEnum2Key;
 							  } | null)
 							| undefined;
 						change: UserEventPayloadChangeEnumKey;
 				  }
 				| {
-						change: UserEventPayloadChangeEnumKey;
+						change: UserEventPayloadChangeEnum2Key;
 						commitment?:
 							| {
 									deferredInvoiceTargetBalance: string;
@@ -7905,10 +9057,10 @@ export type UserEvent = {
 									 * @type number
 									 */
 									limitAmount: number;
-									refreshPeriod: UserEventPayloadBudgetRefreshPeriodEnumKey;
+									refreshPeriod: UserEventPayloadBudgetRefreshPeriodEnum3Key;
 							  } | null)
 							| undefined;
-						change: UserEventPayloadChangeEnumKey;
+						change: UserEventPayloadChangeEnum3Key;
 						scopeType: UserEventPayloadScopeTypeEnumKey;
 				  }
 				| {
@@ -7924,17 +9076,17 @@ export type UserEvent = {
 									 * @type number
 									 */
 									limitAmount: number;
-									refreshPeriod: UserEventPayloadBudgetRefreshPeriodEnumKey;
+									refreshPeriod: UserEventPayloadBudgetRefreshPeriodEnum4Key;
 							  } | null)
 							| undefined;
-						change: UserEventPayloadChangeEnumKey;
+						change: UserEventPayloadChangeEnum4Key;
 						/**
 						 * @description Associates the event with a project for filtering; not rendered.
 						 * @type string | undefined
 						 */
 						projectId?: string | undefined;
 						projectName?: string | undefined;
-						scopeType: UserEventPayloadScopeTypeEnumKey;
+						scopeType: UserEventPayloadScopeTypeEnum2Key;
 						/**
 						 * @description Associates the event with a member for filtering; not rendered.
 						 * @type string | undefined
@@ -8157,7 +9309,7 @@ export type UserEvent = {
 									 * @type string | undefined
 									 */
 									allowListedReadyStateReasonInternal?:
-										| UserEventPayloadDeploymentAllowListedReadyStateReasonInternalEnumKey
+										| UserEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum2Key
 										| undefined;
 									id: string;
 									meta: {
@@ -8209,7 +9361,7 @@ export type UserEvent = {
 						projectName?: string | undefined;
 				  }
 				| {
-						action: UserEventPayloadActionEnumKey;
+						action: UserEventPayloadActionEnum5Key;
 						alias: string;
 						projectId?: string | undefined;
 						projectName: string;
@@ -8295,7 +9447,7 @@ export type UserEvent = {
 						appId?: string | undefined;
 						appName: string;
 						organizationId?: string | undefined;
-						permissions?: UserEventPayloadPermissionsEnumKey[] | undefined;
+						permissions?: UserEventPayloadPermissionsEnum2Key[] | undefined;
 						resources?:
 							| {
 									/**
@@ -8397,7 +9549,7 @@ export type UserEvent = {
 						paymentMethodId: string;
 				  }
 				| {
-						changedFields: UserEventPayloadChangedFieldsEnumKey[];
+						changedFields: UserEventPayloadChangedFieldsEnum2Key[];
 				  }
 				| {
 						subscriptionId?: string | undefined;
@@ -8419,7 +9571,7 @@ export type UserEvent = {
 						subscriptionId?: string | undefined;
 						action: "resume_plan";
 						data: {
-							planSlug: UserEventPayloadDataPlanSlugEnumKey;
+							planSlug: UserEventPayloadDataPlanSlugEnum3Key;
 						};
 				  }
 				| {
@@ -8671,7 +9823,7 @@ export type UserEvent = {
 								| undefined;
 							deploymentType: UserEventPayloadOldSsoProtectionDeploymentTypeEnumKey;
 						} | null;
-						scope: UserEventPayloadScopeEnumKey;
+						scope: UserEventPayloadScopeEnum2Key;
 						ssoProtection: {
 							april2026SecurityIncidentMigrationAppliedFrom?:
 								| (UserEventPayloadSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnumKey | null)
@@ -8718,7 +9870,7 @@ export type UserEvent = {
 									 * @type string | undefined
 									 */
 									allowListedReadyStateReasonInternal?:
-										| UserEventPayloadDeploymentAllowListedReadyStateReasonInternalEnumKey
+										| UserEventPayloadDeploymentAllowListedReadyStateReasonInternalEnum3Key
 										| undefined;
 									id: string;
 									meta: {
@@ -8892,7 +10044,7 @@ export type UserEvent = {
 									 * @description Since 6 Nov 2025 The verification status of the commit. - 'verified' if the commit is verified - 'unverified' if the commit is not verified - 'unknown' if the commit verification status is unknown or not supported
 									 * @type string | undefined
 									 */
-									commitVerification?: UserEventPayloadJobCommitVerificationEnumKey | undefined;
+									commitVerification?: UserEventPayloadJobCommitVerificationEnum2Key | undefined;
 									/**
 									 * @description Since April 2023 Cached count of how many projects are connected to the repo. Saves a few Cosmos queries down the road in the main flow.
 									 * @type number | undefined
@@ -8927,7 +10079,7 @@ export type UserEvent = {
 									 * @description Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING
 									 * @type array | undefined
 									 */
-									gitHashtagVercel?: UserEventPayloadJobGitHashtagVercelEnumKey[] | undefined;
+									gitHashtagVercel?: UserEventPayloadJobGitHashtagVercelEnum2Key[] | undefined;
 									githubDeploymentId?: string | undefined;
 									/**
 									 * @description Information about the head commit/branch for a GitHub repository
@@ -8964,7 +10116,7 @@ export type UserEvent = {
 									 */
 									nsnbSideEffect?:
 										| {
-												action: UserEventPayloadJobNsnbSideEffectActionEnumKey;
+												action: UserEventPayloadJobNsnbSideEffectActionEnum2Key;
 												gitUserLogin: string;
 										  }
 										| undefined;
@@ -8976,7 +10128,7 @@ export type UserEvent = {
 									 */
 									prIdOrZero?: number | undefined;
 									projectId?: string | undefined;
-									provider: UserEventPayloadJobProviderEnumKey;
+									provider: UserEventPayloadJobProviderEnum3Key;
 									repo: string;
 									repoId: number;
 									/**
@@ -9013,7 +10165,7 @@ export type UserEvent = {
 									 * @description Since 6 Nov 2025 The verification status of the commit. - 'verified' if the commit is verified - 'unverified' if the commit is not verified - 'unknown' if the commit verification status is unknown or not supported
 									 * @type string | undefined
 									 */
-									commitVerification?: UserEventPayloadJobCommitVerificationEnumKey | undefined;
+									commitVerification?: UserEventPayloadJobCommitVerificationEnum3Key | undefined;
 									/**
 									 * @description Since April 2023 Cached count of how many projects are connected to the repo. Saves a few Cosmos queries down the road in the main flow.
 									 * @type number | undefined
@@ -9049,7 +10201,7 @@ export type UserEvent = {
 									 * @description Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING
 									 * @type array | undefined
 									 */
-									gitHashtagVercel?: UserEventPayloadJobGitHashtagVercelEnumKey[] | undefined;
+									gitHashtagVercel?: UserEventPayloadJobGitHashtagVercelEnum3Key[] | undefined;
 									githubDeploymentId?: string | undefined;
 									/**
 									 * @description Information about the head commit/branch for a GitHub repository
@@ -9086,7 +10238,7 @@ export type UserEvent = {
 									 */
 									nsnbSideEffect?:
 										| {
-												action: UserEventPayloadJobNsnbSideEffectActionEnumKey;
+												action: UserEventPayloadJobNsnbSideEffectActionEnum3Key;
 												gitUserLogin: string;
 										  }
 										| undefined;
@@ -9098,7 +10250,7 @@ export type UserEvent = {
 									 */
 									prIdOrZero?: number | undefined;
 									projectId?: string | undefined;
-									provider: UserEventPayloadJobProviderEnumKey;
+									provider: UserEventPayloadJobProviderEnum4Key;
 									repo: string;
 									repoId: number;
 									repoPushedAt: number | null;
@@ -9141,7 +10293,7 @@ export type UserEvent = {
 									org: string;
 									prId: number;
 									projectId: unknown | null;
-									provider: UserEventPayloadJobProviderEnumKey;
+									provider: UserEventPayloadJobProviderEnum5Key;
 									repo: string;
 									repoId: number;
 									type: "now-comment";
@@ -9163,7 +10315,7 @@ export type UserEvent = {
 									 * @description Since 6 Nov 2025 The verification status of the commit. - 'verified' if the commit is verified - 'unverified' if the commit is not verified - 'unknown' if the commit verification status is unknown or not supported
 									 * @type string | undefined
 									 */
-									commitVerification?: UserEventPayloadJobCommitVerificationEnumKey | undefined;
+									commitVerification?: UserEventPayloadJobCommitVerificationEnum4Key | undefined;
 									/**
 									 * @description Since April 2023 Cached count of how many projects are connected to the repo. Saves a few Cosmos queries down the road in the main flow.
 									 * @type number | undefined
@@ -9196,7 +10348,7 @@ export type UserEvent = {
 									 * @description Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING
 									 * @type array | undefined
 									 */
-									gitHashtagVercel?: UserEventPayloadJobGitHashtagVercelEnumKey[] | undefined;
+									gitHashtagVercel?: UserEventPayloadJobGitHashtagVercelEnum4Key[] | undefined;
 									/**
 									 * @description GitLab
 									 * @type object
@@ -9235,7 +10387,7 @@ export type UserEvent = {
 									 */
 									nsnbSideEffect?:
 										| {
-												action: UserEventPayloadJobNsnbSideEffectActionEnumKey;
+												action: UserEventPayloadJobNsnbSideEffectActionEnum4Key;
 												gitUserLogin: string;
 										  }
 										| undefined;
@@ -9318,7 +10470,7 @@ export type UserEvent = {
 									 * @description Since 6 Nov 2025 The verification status of the commit. - 'verified' if the commit is verified - 'unverified' if the commit is not verified - 'unknown' if the commit verification status is unknown or not supported
 									 * @type string | undefined
 									 */
-									commitVerification?: UserEventPayloadJobCommitVerificationEnumKey | undefined;
+									commitVerification?: UserEventPayloadJobCommitVerificationEnum5Key | undefined;
 									/**
 									 * @description Since April 2023 Cached count of how many projects are connected to the repo. Saves a few Cosmos queries down the road in the main flow.
 									 * @type number | undefined
@@ -9348,7 +10500,7 @@ export type UserEvent = {
 									 * @description Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING
 									 * @type array | undefined
 									 */
-									gitHashtagVercel?: UserEventPayloadJobGitHashtagVercelEnumKey[] | undefined;
+									gitHashtagVercel?: UserEventPayloadJobGitHashtagVercelEnum5Key[] | undefined;
 									/**
 									 * @description Vercel
 									 * @type object
@@ -9396,7 +10548,7 @@ export type UserEvent = {
 									 */
 									nsnbSideEffect?:
 										| {
-												action: UserEventPayloadJobNsnbSideEffectActionEnumKey;
+												action: UserEventPayloadJobNsnbSideEffectActionEnum5Key;
 												gitUserLogin: string;
 										  }
 										| undefined;
@@ -9431,7 +10583,7 @@ export type UserEvent = {
 									 * @description Since 6 Nov 2025 The verification status of the commit. - 'verified' if the commit is verified - 'unverified' if the commit is not verified - 'unknown' if the commit verification status is unknown or not supported
 									 * @type string | undefined
 									 */
-									commitVerification?: UserEventPayloadJobCommitVerificationEnumKey | undefined;
+									commitVerification?: UserEventPayloadJobCommitVerificationEnum6Key | undefined;
 									/**
 									 * @description Since April 2023 Cached count of how many projects are connected to the repo. Saves a few Cosmos queries down the road in the main flow.
 									 * @type number | undefined
@@ -9466,7 +10618,7 @@ export type UserEvent = {
 									 * @description Since February 2022 All the hashtag-vercel tags found in the commit message triggering the deploy. For example, #VERCEL_DO_SOMETHING
 									 * @type array | undefined
 									 */
-									gitHashtagVercel?: UserEventPayloadJobGitHashtagVercelEnumKey[] | undefined;
+									gitHashtagVercel?: UserEventPayloadJobGitHashtagVercelEnum6Key[] | undefined;
 									/**
 									 * @description Cursor Origin
 									 * @type object
@@ -9522,7 +10674,7 @@ export type UserEvent = {
 									 */
 									nsnbSideEffect?:
 										| {
-												action: UserEventPayloadJobNsnbSideEffectActionEnumKey;
+												action: UserEventPayloadJobNsnbSideEffectActionEnum6Key;
 												gitUserLogin: string;
 										  }
 										| undefined;
@@ -9667,8 +10819,8 @@ export type UserEvent = {
 						scope: "organization";
 				  }
 				| {
-						mode: UserEventPayloadModeEnumKey;
-						previousMode: UserEventPayloadPreviousModeEnumKey;
+						mode: UserEventPayloadModeEnum2Key;
+						previousMode: UserEventPayloadPreviousModeEnum2Key;
 				  }
 				| {
 						deploymentId: string;
@@ -9694,7 +10846,7 @@ export type UserEvent = {
 						value: string;
 				  }
 				| {
-						action: UserEventPayloadActionEnumKey;
+						action: UserEventPayloadActionEnum9Key;
 						domain: string;
 						id: string;
 						initiator: UserEventPayloadInitiatorEnumKey;
@@ -9774,7 +10926,7 @@ export type UserEvent = {
 				  }
 				| {
 						domain: string;
-						initiator: UserEventPayloadInitiatorEnumKey;
+						initiator: UserEventPayloadInitiatorEnum2Key;
 						previousZone?: (false | true) | undefined;
 						source?: string | undefined;
 						zone: false | true;
@@ -9995,7 +11147,7 @@ export type UserEvent = {
 						organizationId: string;
 						provider: string;
 						repository: string;
-						visibility: UserEventPayloadVisibilityEnumKey;
+						visibility: UserEventPayloadVisibilityEnum2Key;
 				  }
 				| {
 						/**
@@ -10134,7 +11286,7 @@ export type UserEvent = {
 						organizationId: string;
 						provider: string;
 						repository: string;
-						target: UserEventPayloadTargetEnumKey[];
+						target: UserEventPayloadTargetEnum2Key[];
 				  }
 				| {
 						newEnvVar?:
@@ -10411,10 +11563,10 @@ export type UserEvent = {
 									key?: string | undefined;
 									newCustomEnvironmentIds?: string[] | undefined;
 									newKey?: string | undefined;
-									newTarget?: UserEventPayloadUpdateDiffNewTargetEnumKey[] | undefined;
+									newTarget?: UserEventPayloadUpdateDiffNewTargetEnum2Key[] | undefined;
 									newType?: string | undefined;
 									oldCustomEnvironmentIds?: string[] | undefined;
-									oldTarget?: UserEventPayloadUpdateDiffOldTargetEnumKey[] | undefined;
+									oldTarget?: UserEventPayloadUpdateDiffOldTargetEnum2Key[] | undefined;
 									oldType?: string | undefined;
 									id: string;
 									newProjects?:
@@ -10475,7 +11627,7 @@ export type UserEvent = {
 						rulesetName: string;
 				  }
 				| {
-						action?: UserEventPayloadActionEnumKey | undefined;
+						action?: UserEventPayloadActionEnum10Key | undefined;
 						active: false | true;
 						projectId: string;
 						rulesetName: string;
@@ -10493,7 +11645,7 @@ export type UserEvent = {
 						projectName?: string | undefined;
 				  }
 				| {
-						action: UserEventPayloadActionEnumKey;
+						action: UserEventPayloadActionEnum11Key;
 				  }
 				| {
 						source: UserEventPayloadSourceEnumKey;
@@ -10525,7 +11677,7 @@ export type UserEvent = {
 						 */
 						failureCode?: string | undefined;
 						/**
-						 * @description Mirrors `PushFailureStage` in `@api/git-push-repo`.
+						 * @description Mirrors `PushFailureStage` in `api-git-providers`.
 						 * @type string | undefined
 						 */
 						failureStage?: UserEventPayloadFailureStageEnumKey | undefined;
@@ -10535,7 +11687,7 @@ export type UserEvent = {
 						 */
 						installationId: string | null;
 						outcome: UserEventPayloadOutcomeEnumKey;
-						provider: UserEventPayloadProviderEnumKey;
+						provider: UserEventPayloadProviderEnum8Key;
 						resultCommitSha: string | null;
 						sourceCommitSha: string | null;
 						/**
@@ -10747,10 +11899,10 @@ export type UserEvent = {
 				  }
 				| {
 						login: string;
-						provider: UserEventPayloadProviderEnumKey;
+						provider: UserEventPayloadProviderEnum9Key;
 				  }
 				| {
-						provider: UserEventPayloadProviderEnumKey;
+						provider: UserEventPayloadProviderEnum10Key;
 				  }
 				| {
 						env?: string | undefined;
@@ -10766,13 +11918,13 @@ export type UserEvent = {
 									| (
 											| {
 													legacy?: (false | true) | undefined;
-													origin: UserEventPayloadFactorsOriginEnumKey;
+													origin: UserEventPayloadFactorsOriginEnum2Key;
 													ssoType?: string | undefined;
 													teamId?: string | undefined;
 													username?: string | undefined;
 											  }
 											| {
-													origin: UserEventPayloadFactorsOriginEnumKey;
+													origin: UserEventPayloadFactorsOriginEnum3Key;
 											  }
 									  )[]
 							  )
@@ -10949,7 +12101,7 @@ export type UserEvent = {
 											| {
 													enabled: false;
 													freeProjectForLegacyLimits?: (false | true) | undefined;
-													groupIds: (string | string)[];
+													groupIds: string[];
 													updatedAt: number;
 											  }
 									  )
@@ -11029,7 +12181,7 @@ export type UserEvent = {
 										| {
 												enabled: false;
 												freeProjectForLegacyLimits?: (false | true) | undefined;
-												groupIds: (string | string)[];
+												groupIds: string[];
 												updatedAt: number;
 										  }
 								  )
@@ -11146,9 +12298,9 @@ export type UserEvent = {
 						previousEnforced: false | true;
 				  }
 				| {
-						mode: UserEventPayloadModeEnumKey;
+						mode: UserEventPayloadModeEnum3Key;
 						organizationId: string;
-						previousMode: UserEventPayloadPreviousModeEnumKey;
+						previousMode: UserEventPayloadPreviousModeEnum3Key;
 						teamId: string;
 						teamName: string;
 				  }
@@ -11260,7 +12412,7 @@ export type UserEvent = {
 				| {
 						headerName?: string | undefined;
 						justification: string | null;
-						kind?: UserEventPayloadKindEnumKey | undefined;
+						kind?: UserEventPayloadKindEnum2Key | undefined;
 						previousStatus: string;
 						projectId: string;
 						url?: string | undefined;
@@ -11315,7 +12467,7 @@ export type UserEvent = {
 							passport?:
 								| ({
 										connectorId: string;
-										deploymentType: UserEventPayloadNextPassportDeploymentTypeEnumKey;
+										deploymentType: UserEventPayloadNextPassportDeploymentTypeEnum2Key;
 								  } | null)
 								| undefined;
 						};
@@ -11323,7 +12475,7 @@ export type UserEvent = {
 							passport?:
 								| ({
 										connectorId: string;
-										deploymentType: UserEventPayloadPreviousPassportDeploymentTypeEnumKey;
+										deploymentType: UserEventPayloadPreviousPassportDeploymentTypeEnum2Key;
 								  } | null)
 								| undefined;
 						};
@@ -11404,14 +12556,14 @@ export type UserEvent = {
 													gitUserId?: (string | number) | undefined;
 													gitUserLogin?: string | undefined;
 													idpUserId?: string | undefined;
-													origin: OriginEnumKey;
+													origin: OriginEnum2Key;
 													repoId?: string | undefined;
 													repoPath?: string | undefined;
 													ssoConnectedAt?: number | undefined;
 													ssoUserId?: string | undefined;
 											  }
 											| undefined;
-										role: RoleEnumKey;
+										role: RoleEnum2Key;
 									};
 							  }
 							| undefined;
@@ -11582,7 +12734,7 @@ export type UserEvent = {
 						projectName?: string | undefined;
 				  }
 				| {
-						action: UserEventPayloadActionEnumKey;
+						action: UserEventPayloadActionEnum12Key;
 						isEnvVar?: (false | true) | undefined;
 						note?: string | undefined;
 						projectId: string;
@@ -11709,7 +12861,7 @@ export type UserEvent = {
 						projectName?: string | undefined;
 				  }
 				| {
-						action: UserEventPayloadActionEnumKey;
+						action: UserEventPayloadActionEnum13Key;
 						projectId: string;
 						projectName: string;
 				  }
@@ -12026,7 +13178,7 @@ export type UserEvent = {
 						};
 						projectMembership: {
 							createdAt?: number | undefined;
-							role?: UserEventPayloadProjectMembershipRoleEnumKey | undefined;
+							role?: UserEventPayloadProjectMembershipRoleEnum2Key | undefined;
 							uid?: string | undefined;
 							previousRole?: UserEventPayloadProjectMembershipPreviousRoleEnumKey | undefined;
 							username?: string | undefined;
@@ -12089,7 +13241,7 @@ export type UserEvent = {
 						oldPasswordProtection:
 							| (
 									| {
-											deploymentType: UserEventPayloadOldPasswordProtectionDeploymentTypeEnumKey;
+											deploymentType: UserEventPayloadOldPasswordProtectionDeploymentTypeEnum2Key;
 									  }
 									| UserEventPayloadOldPasswordProtectionKey
 							  )
@@ -12098,7 +13250,7 @@ export type UserEvent = {
 						passwordProtection:
 							| (
 									| {
-											deploymentType: UserEventPayloadPasswordProtectionDeploymentTypeEnumKey;
+											deploymentType: UserEventPayloadPasswordProtectionDeploymentTypeEnum2Key;
 									  }
 									| UserEventPayloadPasswordProtectionKey
 							  )
@@ -12148,16 +13300,83 @@ export type UserEvent = {
 									 * @type string
 									 */
 									description: string;
+									principal?:
+										| (
+												| {
+														project: {
+															id: string;
+														};
+														type: "project";
+												  }
+												| {
+														app: {
+															/**
+															 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+															 * @type string | undefined
+															 */
+															clientId?: string | undefined;
+															/**
+															 * @description The internal ID of the Vercel App backing this principal.
+															 * @type string
+															 */
+															id: string;
+														};
+														type: "app";
+												  }
+												| {
+														integration: {
+															configurationId: string;
+															integrationId: string;
+														};
+														type: "integration";
+												  }
+												| {
+														type: "system";
+												  }
+												| {
+														type: "user";
+														via:
+															| (
+																	| {
+																			app: {
+																				/**
+																				 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+																				 * @type string | undefined
+																				 */
+																				clientId?: string | undefined;
+																				/**
+																				 * @description The internal ID of the Vercel App backing this principal.
+																				 * @type string
+																				 */
+																				id: string;
+																			};
+																			type: "app";
+																	  }
+																	| {
+																			integration: {
+																				configurationId: string;
+																				integrationId: string;
+																			};
+																			type: "integration";
+																	  }
+															  )
+															| null;
+														user: {
+															id: string;
+														};
+												  }
+										  )
+										| undefined;
 									/**
-									 * @description The user who rolled back the project.
-									 * @type string
+									 * @description The ID of the user who rolled back the project, when the principal was a user.
+									 * @type string | undefined
 									 */
-									userId: string;
+									userId?: string | undefined;
 									/**
-									 * @description The username of the user who rolled back the project.
-									 * @type string
+									 * @description The username of the user who rolled back the project, when the principal was a user.
+									 * @type string | undefined
 									 */
-									username: string;
+									username?: string | undefined;
 							  }
 							| undefined;
 				  }
@@ -12282,12 +13501,12 @@ export type UserEvent = {
 							| (
 									| {
 											april2026SecurityIncidentMigrationAppliedFrom?:
-												| (UserEventPayloadOldSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnumKey | null)
+												| (UserEventPayloadOldSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum2Key | null)
 												| undefined;
 											cve55182MigrationAppliedFrom?:
-												| (UserEventPayloadOldSsoProtectionCve55182MigrationAppliedFromEnumKey | null)
+												| (UserEventPayloadOldSsoProtectionCve55182MigrationAppliedFromEnum2Key | null)
 												| undefined;
-											deploymentType: UserEventPayloadOldSsoProtectionDeploymentTypeEnumKey;
+											deploymentType: UserEventPayloadOldSsoProtectionDeploymentTypeEnum2Key;
 									  }
 									| UserEventPayloadOldSsoProtectionKey
 							  )
@@ -12298,12 +13517,12 @@ export type UserEvent = {
 							| (
 									| {
 											april2026SecurityIncidentMigrationAppliedFrom?:
-												| (UserEventPayloadSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnumKey | null)
+												| (UserEventPayloadSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum2Key | null)
 												| undefined;
 											cve55182MigrationAppliedFrom?:
-												| (UserEventPayloadSsoProtectionCve55182MigrationAppliedFromEnumKey | null)
+												| (UserEventPayloadSsoProtectionCve55182MigrationAppliedFromEnum2Key | null)
 												| undefined;
-											deploymentType: UserEventPayloadSsoProtectionDeploymentTypeEnumKey;
+											deploymentType: UserEventPayloadSsoProtectionDeploymentTypeEnum2Key;
 									  }
 									| UserEventPayloadSsoProtectionKey
 							  )
@@ -12365,7 +13584,7 @@ export type UserEvent = {
 						 * @type string | undefined
 						 */
 						projectName?: string | undefined;
-						reasonCode?: UserEventPayloadReasonCodeEnumKey | undefined;
+						reasonCode?: UserEventPayloadReasonCodeEnum2Key | undefined;
 				  }
 				| {
 						prevProjectWebAnalytics?:
@@ -12516,7 +13735,7 @@ export type UserEvent = {
 						factors?:
 							| {
 									legacy?: (false | true) | undefined;
-									origin: UserEventPayloadFactorsOriginEnumKey;
+									origin: UserEventPayloadFactorsOriginEnum4Key;
 									ssoType?: string | undefined;
 									teamId?: string | undefined;
 									username?: string | undefined;
@@ -12823,12 +14042,12 @@ export type UserEvent = {
 							 * @description The acive pricing plan the team is billed with
 							 * @type string | undefined
 							 */
-							pricingPlan?: UserEventPayloadBudgetPricingPlanEnumKey | undefined;
+							pricingPlan?: UserEventPayloadBudgetPricingPlanEnum2Key | undefined;
 							/**
 							 * @description Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).
 							 * @type string | undefined
 							 */
-							scope?: UserEventPayloadBudgetScopeEnumKey | undefined;
+							scope?: UserEventPayloadBudgetScopeEnum2Key | undefined;
 							/**
 							 * @description Project id when `scope` is `project`; product id when `scope` is `product`.
 							 * @type string | undefined
@@ -12917,12 +14136,12 @@ export type UserEvent = {
 							 * @description The acive pricing plan the team is billed with
 							 * @type string | undefined
 							 */
-							pricingPlan?: UserEventPayloadBudgetPricingPlanEnumKey | undefined;
+							pricingPlan?: UserEventPayloadBudgetPricingPlanEnum3Key | undefined;
 							/**
 							 * @description Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).
 							 * @type string | undefined
 							 */
-							scope?: UserEventPayloadBudgetScopeEnumKey | undefined;
+							scope?: UserEventPayloadBudgetScopeEnum3Key | undefined;
 							/**
 							 * @description Project id when `scope` is `project`; product id when `scope` is `product`.
 							 * @type string | undefined
@@ -13067,14 +14286,14 @@ export type UserEvent = {
 						store: {
 							id: string;
 							name?: string | undefined;
-							type: UserEventPayloadStoreTypeEnumKey;
+							type: UserEventPayloadStoreTypeEnum2Key;
 						};
 				  }
 				| {
 						store: {
 							id: string;
 							name?: string | undefined;
-							type: UserEventPayloadStoreTypeEnumKey;
+							type: UserEventPayloadStoreTypeEnum3Key;
 						};
 						destinationTeamId: string;
 						destinationTeamName: string;
@@ -13083,7 +14302,7 @@ export type UserEvent = {
 						store: {
 							id: string;
 							name?: string | undefined;
-							type: UserEventPayloadStoreTypeEnumKey;
+							type: UserEventPayloadStoreTypeEnum4Key;
 						};
 						originTeamId: string;
 						originTeamName: string;
@@ -13095,7 +14314,7 @@ export type UserEvent = {
 						id: string;
 						name?: string | undefined;
 						suspendTimeoutSeconds?: number | undefined;
-						type: UserEventPayloadTypeEnumKey;
+						type: UserEventPayloadTypeEnum5Key;
 				  }
 				| {
 						ownerId?: string | undefined;
@@ -13105,18 +14324,18 @@ export type UserEvent = {
 						};
 				  }
 				| {
-						access?: UserEventPayloadAccessEnumKey | undefined;
+						access?: UserEventPayloadAccessEnum2Key | undefined;
 						computeUnitsMax?: number | undefined;
 						computeUnitsMin?: number | undefined;
 						id: string;
 						name?: string | undefined;
 						suspendTimeoutSeconds?: number | undefined;
-						type: UserEventPayloadTypeEnumKey;
+						type: UserEventPayloadTypeEnum6Key;
 						locked: false | true;
 				  }
 				| {
 						actorId?: string | undefined;
-						actorType?: UserEventPayloadActorTypeEnumKey | undefined;
+						actorType?: UserEventPayloadActorTypeEnum9Key | undefined;
 						caseNumber?: string | undefined;
 						client?: string | undefined;
 						reason?: string | undefined;
@@ -13310,9 +14529,9 @@ export type UserEvent = {
 				  }
 				| {
 						isSystemInitiated?: (false | true) | undefined;
-						next?: UserEventPayloadNextEnumKey | undefined;
-						previous?: UserEventPayloadPreviousEnumKey | undefined;
-						reason?: UserEventPayloadReasonEnumKey | undefined;
+						next?: UserEventPayloadNextEnum2Key | undefined;
+						previous?: UserEventPayloadPreviousEnum2Key | undefined;
+						reason?: UserEventPayloadReasonEnum2Key | undefined;
 				  }
 				| {
 						enrolled?: (false | true) | undefined;
@@ -13334,7 +14553,7 @@ export type UserEvent = {
 									[key: string]: {
 										confirmed: false | true;
 										confirmedAt?: number | undefined;
-										role: RoleEnumKey;
+										role: RoleEnum3Key;
 									};
 							  }
 							| undefined;
@@ -13357,7 +14576,7 @@ export type UserEvent = {
 						} | null;
 				  }
 				| {
-						action: UserEventPayloadActionEnumKey;
+						action: UserEventPayloadActionEnum14Key;
 						targetId: string;
 				  }
 				| {
@@ -13372,7 +14591,7 @@ export type UserEvent = {
 				  }
 				| {
 						enabled: UserEventPayloadEnabledEnumKey;
-						environment: UserEventPayloadEnvironmentEnumKey;
+						environment: UserEventPayloadEnvironmentEnum2Key;
 				  }
 				| {
 						emailDomain?: (string | null) | undefined;
@@ -13487,7 +14706,7 @@ export type UserEvent = {
 						requestedTeamName: string;
 						requestedTeamSlug?: string | undefined;
 						requestedUserName?: string | undefined;
-						source?: UserEventPayloadSourceEnumKey | undefined;
+						source?: UserEventPayloadSourceEnum2Key | undefined;
 				  }
 				| {
 						directoryType?: string | undefined;
@@ -13543,7 +14762,7 @@ export type UserEvent = {
 				| {
 						convertedFromTrial: false | true;
 						invoiceId: string;
-						plan: UserEventPayloadPlanEnumKey;
+						plan: UserEventPayloadPlanEnum2Key;
 				  }
 				| {
 						inviteCode?: string | undefined;
@@ -13570,7 +14789,7 @@ export type UserEvent = {
 						termsVersion: string;
 				  }
 				| {
-						consent: UserEventPayloadConsentEnumKey;
+						consent: UserEventPayloadConsentEnum2Key;
 				  }
 				| {
 						/**
@@ -13587,11 +14806,11 @@ export type UserEvent = {
 						deletedCount: number;
 				  }
 				| {
-						enabled: UserEventPayloadEnabledEnumKey;
+						enabled: UserEventPayloadEnabledEnum2Key;
 				  }
 				| {
 						enabled: false | true;
-						scope: UserEventPayloadScopeEnumKey;
+						scope: UserEventPayloadScopeEnum11Key;
 				  }
 				| {
 						next?:
@@ -13762,7 +14981,7 @@ export type UserEvent = {
 						 * @type string | undefined
 						 */
 						actorName?: string | undefined;
-						actorType?: UserEventPayloadActorTypeEnumKey | undefined;
+						actorType?: UserEventPayloadActorTypeEnum14Key | undefined;
 						reason?: string | undefined;
 						recoveryCodes: number;
 						totp: false | true;
@@ -13826,11 +15045,11 @@ export type UserEvent = {
 						loginSessionId?: string | undefined;
 				  }
 				| {
-						action: UserEventPayloadActionEnumKey;
+						action: UserEventPayloadActionEnum15Key;
 						reason: string;
 				  }
 				| {
-						method?: UserEventPayloadMethodEnumKey | undefined;
+						method?: UserEventPayloadMethodEnum2Key | undefined;
 						next: {
 							enabled: false | true;
 							totpVerified: false | true;
@@ -13880,7 +15099,7 @@ export type UserEvent = {
 							hostedDomainMatch: false | true;
 							mxOutcome: UserEventPayloadDecisionMxOutcomeEnumKey;
 						};
-						outcome: UserEventPayloadOutcomeEnumKey;
+						outcome: UserEventPayloadOutcomeEnum2Key;
 						provider: "google";
 						providerSubjectId: string;
 				  }
@@ -14067,7 +15286,7 @@ export type UserEvent = {
 							enabled: false | true;
 							issuerUrls: string[];
 						};
-						scope: UserEventPayloadScopeEnumKey;
+						scope: UserEventPayloadScopeEnum12Key;
 				  }
 				| {
 						/**
@@ -14417,7 +15636,7 @@ export type UserEvent = {
 						 * @description Scope of the token: - `'user'`: full-account token (not tied to any team). - `'team'`: scoped to a single team. - `'project'`: scoped to a single project within a team.
 						 * @type string
 						 */
-						scope: UserEventPayloadScopeEnumKey;
+						scope: UserEventPayloadScopeEnum13Key;
 						source?: "v0" | undefined;
 						/**
 						 * @description Present when `scope` is `'team'` or `'project'`.
@@ -14486,12 +15705,12 @@ export type UserEvent = {
 						ip?: (string | null) | undefined;
 						leaked?: (false | true) | undefined;
 						logoutSource?: UserEventPayloadLogoutSourceEnumKey | undefined;
-						origin?: UserEventPayloadOriginEnumKey | undefined;
+						origin?: UserEventPayloadOriginEnum2Key | undefined;
 						reason?: "logout" | undefined;
 						reqId?: string | undefined;
 						reqUrl?: string | undefined;
 						revoked?: (false | true) | undefined;
-						scope?: UserEventPayloadScopeEnumKey | undefined;
+						scope?: UserEventPayloadScopeEnum14Key | undefined;
 						source?: "v0" | undefined;
 						teamId?: string | undefined;
 						tokenId: string;
@@ -16346,12 +17565,12 @@ export const cmpEnum = {
 
 export type CmpEnumKey = (typeof cmpEnum)[keyof typeof cmpEnum];
 
-export const typeEnum = {
+export const typeEnum10 = {
 	list: "list",
 	"list/inline": "list/inline",
 } as const;
 
-export type TypeEnumKey = (typeof typeEnum)[keyof typeof typeEnum];
+export type TypeEnum10Key = (typeof typeEnum10)[keyof typeof typeEnum10];
 
 export const flagKindEnum = {
 	boolean: "boolean",
@@ -16465,7 +17684,7 @@ export type Flag = {
 													value: string;
 											  }
 										)[];
-										type: TypeEnumKey;
+										type: TypeEnum10Key;
 								  }
 								| {
 										flags: string;
@@ -16833,7 +18052,7 @@ export type APIKeyQuota = {
 	/**
 	 * @description How often the quota refreshes.
 	 */
-	refreshPeriod: string | string | string | string;
+	refreshPeriod: string;
 	/**
 	 * @description Whether the quota is currently active.
 	 * @type boolean
@@ -18479,6 +19698,19 @@ export type Team = {
 				 * @description Default job configuration applied to new projects created in this team.
 				 * @type object | undefined
 				 */
+				"health-check"?:
+					| {
+							/**
+							 * @description Default job configuration applied to new projects created in this team.
+							 * @type array
+							 */
+							targets: string[];
+					  }
+					| undefined;
+				/**
+				 * @description Default job configuration applied to new projects created in this team.
+				 * @type object | undefined
+				 */
 				lint?:
 					| {
 							/**
@@ -19406,6 +20638,29 @@ export const authTokenScopesSudoOriginEnum = {
 export type AuthTokenScopesSudoOriginEnumKey =
 	(typeof authTokenScopesSudoOriginEnum)[keyof typeof authTokenScopesSudoOriginEnum];
 
+export const authTokenScopesOriginEnum2 = {
+	app: "app",
+	apple: "apple",
+	bitbucket: "bitbucket",
+	chatgpt: "chatgpt",
+	email: "email",
+	emu: "emu",
+	github: "github",
+	"github-webhook": "github-webhook",
+	gitlab: "gitlab",
+	google: "google",
+	invite: "invite",
+	manual: "manual",
+	otp: "otp",
+	passkey: "passkey",
+	saml: "saml",
+	sms: "sms",
+	"token-exchange-oidc": "token-exchange-oidc",
+} as const;
+
+export type AuthTokenScopesOriginEnum2Key =
+	(typeof authTokenScopesOriginEnum2)[keyof typeof authTokenScopesOriginEnum2];
+
 /**
  * @description Authentication token metadata.
  * @type object
@@ -19495,7 +20750,7 @@ export type AuthToken = {
 				| {
 						createdAt: number;
 						expiresAt?: number | undefined;
-						origin?: AuthTokenScopesOriginEnumKey | undefined;
+						origin?: AuthTokenScopesOriginEnum2Key | undefined;
 						teamId: string;
 						type: "team";
 				  }
@@ -20396,7 +21651,79 @@ export const vcrImageLayerOperationEnum = {
 export type VcrImageLayerOperationEnumKey =
 	(typeof vcrImageLayerOperationEnum)[keyof typeof vcrImageLayerOperationEnum];
 
-export const vcrImageLayerTypeEnum = {
+export const vcrImageLayerOperationEnum2 = {
+	ADD: "ADD",
+	ARG: "ARG",
+	CMD: "CMD",
+	COPY: "COPY",
+	ENTRYPOINT: "ENTRYPOINT",
+	ENV: "ENV",
+	EXPOSE: "EXPOSE",
+	FROM: "FROM",
+	HEALTHCHECK: "HEALTHCHECK",
+	LABEL: "LABEL",
+	ONBUILD: "ONBUILD",
+	RUN: "RUN",
+	SHELL: "SHELL",
+	STOPSIGNAL: "STOPSIGNAL",
+	UNKNOWN: "UNKNOWN",
+	USER: "USER",
+	VOLUME: "VOLUME",
+	WORKDIR: "WORKDIR",
+} as const;
+
+export type VcrImageLayerOperationEnum2Key =
+	(typeof vcrImageLayerOperationEnum2)[keyof typeof vcrImageLayerOperationEnum2];
+
+export const vcrImageLayerOperationEnum3 = {
+	ADD: "ADD",
+	ARG: "ARG",
+	CMD: "CMD",
+	COPY: "COPY",
+	ENTRYPOINT: "ENTRYPOINT",
+	ENV: "ENV",
+	EXPOSE: "EXPOSE",
+	FROM: "FROM",
+	HEALTHCHECK: "HEALTHCHECK",
+	LABEL: "LABEL",
+	ONBUILD: "ONBUILD",
+	RUN: "RUN",
+	SHELL: "SHELL",
+	STOPSIGNAL: "STOPSIGNAL",
+	UNKNOWN: "UNKNOWN",
+	USER: "USER",
+	VOLUME: "VOLUME",
+	WORKDIR: "WORKDIR",
+} as const;
+
+export type VcrImageLayerOperationEnum3Key =
+	(typeof vcrImageLayerOperationEnum3)[keyof typeof vcrImageLayerOperationEnum3];
+
+export const vcrImageLayerOperationEnum4 = {
+	ADD: "ADD",
+	ARG: "ARG",
+	CMD: "CMD",
+	COPY: "COPY",
+	ENTRYPOINT: "ENTRYPOINT",
+	ENV: "ENV",
+	EXPOSE: "EXPOSE",
+	FROM: "FROM",
+	HEALTHCHECK: "HEALTHCHECK",
+	LABEL: "LABEL",
+	ONBUILD: "ONBUILD",
+	RUN: "RUN",
+	SHELL: "SHELL",
+	STOPSIGNAL: "STOPSIGNAL",
+	UNKNOWN: "UNKNOWN",
+	USER: "USER",
+	VOLUME: "VOLUME",
+	WORKDIR: "WORKDIR",
+} as const;
+
+export type VcrImageLayerOperationEnum4Key =
+	(typeof vcrImageLayerOperationEnum4)[keyof typeof vcrImageLayerOperationEnum4];
+
+export const vcrImageLayerTypeEnum4 = {
 	ADD: "ADD",
 	ARG: "ARG",
 	CMD: "CMD",
@@ -20414,8 +21741,8 @@ export const vcrImageLayerTypeEnum = {
 	WORKDIR: "WORKDIR",
 } as const;
 
-export type VcrImageLayerTypeEnumKey =
-	(typeof vcrImageLayerTypeEnum)[keyof typeof vcrImageLayerTypeEnum];
+export type VcrImageLayerTypeEnum4Key =
+	(typeof vcrImageLayerTypeEnum4)[keyof typeof vcrImageLayerTypeEnum4];
 
 export type VcrImageLayer =
 	| {
@@ -20439,7 +21766,7 @@ export type VcrImageLayer =
 			 * @description Docker/OCI build instruction associated with an image layer.
 			 * @type string
 			 */
-			operation: VcrImageLayerOperationEnumKey;
+			operation: VcrImageLayerOperationEnum2Key;
 			sizeBytes: number | null;
 			command: string | null;
 			type: "RUN";
@@ -20451,7 +21778,7 @@ export type VcrImageLayer =
 			 * @description Docker/OCI build instruction associated with an image layer.
 			 * @type string
 			 */
-			operation: VcrImageLayerOperationEnumKey;
+			operation: VcrImageLayerOperationEnum3Key;
 			sizeBytes: number | null;
 			env: string | null;
 			type: "ENV";
@@ -20463,9 +21790,9 @@ export type VcrImageLayer =
 			 * @description Docker/OCI build instruction associated with an image layer.
 			 * @type string
 			 */
-			operation: VcrImageLayerOperationEnumKey;
+			operation: VcrImageLayerOperationEnum4Key;
 			sizeBytes: number | null;
-			type: VcrImageLayerTypeEnumKey;
+			type: VcrImageLayerTypeEnum4Key;
 			value: string | null;
 	  };
 
@@ -20649,22 +21976,22 @@ export type VercelBadRequestError = {
 
 export type RateLimitNotice = {
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @type integer
 	 */
 	remaining: number;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @type integer
 	 */
 	reset: number;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @type integer
 	 */
 	resetMs: number;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @type integer
 	 */
 	total: number;
@@ -21027,8 +22354,8 @@ export type ListAccessGroupMembersPath = {
 export type ListAccessGroupMembersQuery = {
 	/**
 	 * @description Limit how many access group members should be returned.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @example 20
 	 * @type integer | undefined
 	 */
@@ -21133,24 +22460,24 @@ export type ListAccessGroupsQuery = {
 	search?: string | undefined;
 	/**
 	 * @description Number of members to include in the response.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @example 20
 	 * @type integer | undefined
 	 */
 	membersLimit?: number | undefined;
 	/**
 	 * @description Number of projects to include in the response.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @example 20
 	 * @type integer | undefined
 	 */
 	projectsLimit?: number | undefined;
 	/**
 	 * @description Limit how many access group should be returned.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @example 20
 	 * @type integer | undefined
 	 */
@@ -21418,8 +22745,8 @@ export type ListAccessGroupProjectsPath = {
 export type ListAccessGroupProjectsQuery = {
 	/**
 	 * @description Limit how many access group projects should be returned.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @example 20
 	 * @type integer | undefined
 	 */
@@ -22348,7 +23675,7 @@ export type GetAiGatewayVirtualModelConfigQuery = {
 	ownerId?: string | undefined;
 	virtualModelSlug?: string | undefined;
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
@@ -22530,7 +23857,7 @@ export type ListAiGatewayVirtualModelConfigsIncludeArchivedKey =
 export type ListAiGatewayVirtualModelConfigsQuery = {
 	ownerId?: string | undefined;
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
@@ -22896,7 +24223,7 @@ export type ListAiGatewayRulesQuery = {
 	includeDisabled?: ListAiGatewayRulesIncludeDisabledKey | undefined;
 	/**
 	 * @description Maximum number of rules to return (capped at 200). Enables pagination.
-	 * @minLength 1
+	 * @minimum 1
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
@@ -23093,7 +24420,7 @@ export type ListAiGatewayBudgetsQuery = {
 	includeDefaultCovered?: ListAiGatewayBudgetsIncludeDefaultCoveredKey | undefined;
 	/**
 	 * @description Maximum number of budgets to return (capped at 200). Enables pagination.
-	 * @minLength 1
+	 * @minimum 1
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
@@ -23224,7 +24551,7 @@ export type UpsertAiGatewayBudgetBody =
 			userId?: string | undefined;
 			/**
 			 * @description Budget limit in dollars.
-			 * @minLength 1
+			 * @minimum 1
 			 * @type number
 			 */
 			limitAmount: number;
@@ -23453,7 +24780,7 @@ export type UpsertAiGatewayBudgetDefaultBody =
 			scopeType: UpsertAiGatewayBudgetDefaultRequestScopeTypeEnumKey;
 			/**
 			 * @description Default budget limit in dollars.
-			 * @minLength 1
+			 * @minimum 1
 			 * @type number
 			 */
 			limitAmount: number;
@@ -23575,8 +24902,8 @@ export type RecordEventsHeaders = {
 	"x-artifact-client-ci"?: string | undefined;
 	/**
 	 * @description 1 if the client is an interactive shell. Otherwise 0
-	 * @minLength 0
-	 * @maxLength 1
+	 * @minimum 0
+	 * @maximum 1
 	 * @example 0
 	 * @type integer | undefined
 	 */
@@ -23690,6 +25017,16 @@ export const statusStatus200StatusEnum = {
 export type StatusStatus200StatusEnumKey =
 	(typeof statusStatus200StatusEnum)[keyof typeof statusStatus200StatusEnum];
 
+export const statusStatus200StatusEnum2 = {
+	disabled: "disabled",
+	enabled: "enabled",
+	over_limit: "over_limit",
+	paused: "paused",
+} as const;
+
+export type StatusStatus200StatusEnum2Key =
+	(typeof statusStatus200StatusEnum2)[keyof typeof statusStatus200StatusEnum2];
+
 export type StatusStatus200 =
 	| {
 			status: string;
@@ -23703,7 +25040,7 @@ export type StatusStatus200 =
 			 * @type boolean | undefined
 			 */
 			readOnly?: (false | true) | undefined;
-			status: StatusStatus200StatusEnumKey;
+			status: StatusStatus200StatusEnum2Key;
 	  };
 
 export type StatusStatus400 = unknown;
@@ -23785,8 +25122,8 @@ export type UploadArtifactHeaders = {
 	"x-artifact-client-ci"?: string | undefined;
 	/**
 	 * @description 1 if the client is an interactive shell. Otherwise 0
-	 * @minLength 0
-	 * @maxLength 1
+	 * @minimum 0
+	 * @maximum 1
 	 * @example 0
 	 * @type integer | undefined
 	 */
@@ -23886,8 +25223,8 @@ export type DownloadArtifactHeaders = {
 	"x-artifact-client-ci"?: string | undefined;
 	/**
 	 * @description 1 if the client is an interactive shell. Otherwise 0
-	 * @minLength 0
-	 * @maxLength 1
+	 * @minimum 0
+	 * @maximum 1
 	 * @example 0
 	 * @type integer | undefined
 	 */
@@ -24266,6 +25603,70 @@ export const buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingS
 
 export type BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnumKey =
 	(typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum)[keyof typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum];
+
+export const buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum2 = {
+	end_of_term: "end_of_term",
+	immediate: "immediate",
+} as const;
+
+export type BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum2Key =
+	(typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum2)[keyof typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum2];
+
+export const buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum2 = {
+	copper: "copper",
+	orb: "orb",
+} as const;
+
+export type BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum2Key =
+	(typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum2)[keyof typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum2];
+
+export const buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum3 = {
+	end_of_term: "end_of_term",
+	immediate: "immediate",
+} as const;
+
+export type BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum3Key =
+	(typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum3)[keyof typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum3];
+
+export const buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum3 = {
+	copper: "copper",
+	orb: "orb",
+} as const;
+
+export type BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum3Key =
+	(typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum3)[keyof typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum3];
+
+export const buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum4 = {
+	end_of_term: "end_of_term",
+	immediate: "immediate",
+} as const;
+
+export type BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum4Key =
+	(typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum4)[keyof typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum4];
+
+export const buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum4 = {
+	copper: "copper",
+	orb: "orb",
+} as const;
+
+export type BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum4Key =
+	(typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum4)[keyof typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum4];
+
+export const buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum5 = {
+	end_of_term: "end_of_term",
+	immediate: "immediate",
+} as const;
+
+export type BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum5Key =
+	(typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum5)[keyof typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum5];
+
+export const buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum5 = {
+	copper: "copper",
+	orb: "orb",
+} as const;
+
+export type BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum5Key =
+	(typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum5)[keyof typeof buyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum5];
 
 export const buyCreditsStatus200OrbSubscriptionIntentOrbUpdateStatusEnum = {
 	canceled: "canceled",
@@ -25200,7 +26601,7 @@ export type BuyCreditsStatus200 =
 								 * @description When the subscription change should take effect.
 								 * @type string
 								 */
-								effectiveBehavior: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnumKey;
+								effectiveBehavior: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum2Key;
 								/**
 								 * @description Optional metadata associated with the intent to update the Orb subscription with.
 								 * @type object | undefined
@@ -25224,7 +26625,7 @@ export type BuyCreditsStatus200 =
 								 * @description The source used as the authoritative price for this intent.
 								 * @type string
 								 */
-								pricingSource: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnumKey;
+								pricingSource: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum2Key;
 								/**
 								 * @description The product ID associated with this intent.
 								 * @type string
@@ -25325,7 +26726,7 @@ export type BuyCreditsStatus200 =
 								 * @description When the subscription change should take effect.
 								 * @type string
 								 */
-								effectiveBehavior: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnumKey;
+								effectiveBehavior: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum3Key;
 								/**
 								 * @description Optional metadata associated with the intent to update the Orb subscription with.
 								 * @type object | undefined
@@ -25349,7 +26750,7 @@ export type BuyCreditsStatus200 =
 								 * @description The source used as the authoritative price for this intent.
 								 * @type string
 								 */
-								pricingSource: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnumKey;
+								pricingSource: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum3Key;
 								/**
 								 * @description The product ID associated with this intent.
 								 * @type string
@@ -25450,7 +26851,7 @@ export type BuyCreditsStatus200 =
 								 * @description When the subscription change should take effect.
 								 * @type string
 								 */
-								effectiveBehavior: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnumKey;
+								effectiveBehavior: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum4Key;
 								/**
 								 * @description Optional metadata associated with the intent to update the Orb subscription with.
 								 * @type object | undefined
@@ -25474,7 +26875,7 @@ export type BuyCreditsStatus200 =
 								 * @description The source used as the authoritative price for this intent.
 								 * @type string
 								 */
-								pricingSource: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnumKey;
+								pricingSource: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum4Key;
 								/**
 								 * @description The product ID associated with this intent.
 								 * @type string
@@ -25580,7 +26981,7 @@ export type BuyCreditsStatus200 =
 								 * @description When the subscription change should take effect.
 								 * @type string
 								 */
-								effectiveBehavior: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnumKey;
+								effectiveBehavior: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputEffectiveBehaviorEnum5Key;
 								/**
 								 * @description Optional metadata associated with the intent to update the Orb subscription with.
 								 * @type object | undefined
@@ -25604,7 +27005,7 @@ export type BuyCreditsStatus200 =
 								 * @description The source used as the authoritative price for this intent.
 								 * @type string
 								 */
-								pricingSource: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnumKey;
+								pricingSource: BuyCreditsStatus200OrbSubscriptionIntentConfigurationOutputPricingSourceEnum5Key;
 								/**
 								 * @description The product ID associated with this intent.
 								 * @type string
@@ -25725,7 +27126,7 @@ export type BuyCreditsBody = {
 		creditType: BuyCreditsRequestItemCreditTypeEnumKey;
 		/**
 		 * @description The amount of credits to purchase.
-		 * @minLength 1
+		 * @minimum 1
 		 * @type integer
 		 */
 		amount: number;
@@ -25906,13 +27307,13 @@ export type GetRedirectsQuery = {
 	q?: string | undefined;
 	diff?: (boolean | "only") | undefined;
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @type integer | undefined
 	 */
 	page?: number | undefined;
 	/**
-	 * @minLength 10
-	 * @maxLength 250
+	 * @minimum 10
+	 * @maximum 250
 	 * @type integer | undefined
 	 */
 	per_page?: number | undefined;
@@ -26770,15 +28171,15 @@ export const listProjectChecksStatus200ChecksSourceProviderEnum = {
 export type ListProjectChecksStatus200ChecksSourceProviderEnumKey =
 	(typeof listProjectChecksStatus200ChecksSourceProviderEnum)[keyof typeof listProjectChecksStatus200ChecksSourceProviderEnum];
 
-export const listProjectChecksStatus200ChecksSourceKindEnum = {
+export const listProjectChecksStatus200ChecksSourceKindEnum4 = {
 	"git-provider": "git-provider",
 	integration: "integration",
 	vercel: "vercel",
 	webhook: "webhook",
 } as const;
 
-export type ListProjectChecksStatus200ChecksSourceKindEnumKey =
-	(typeof listProjectChecksStatus200ChecksSourceKindEnum)[keyof typeof listProjectChecksStatus200ChecksSourceKindEnum];
+export type ListProjectChecksStatus200ChecksSourceKindEnum4Key =
+	(typeof listProjectChecksStatus200ChecksSourceKindEnum4)[keyof typeof listProjectChecksStatus200ChecksSourceKindEnum4];
 
 export type ListProjectChecksStatus200 = {
 	availableNativeChecks: string[];
@@ -26810,7 +28211,7 @@ export type ListProjectChecksStatus200 = {
 					provider: ListProjectChecksStatus200ChecksSourceProviderEnumKey;
 			  };
 		sourceIntegrationConfigurationId?: string | undefined;
-		sourceKind: ListProjectChecksStatus200ChecksSourceKindEnumKey;
+		sourceKind: ListProjectChecksStatus200ChecksSourceKindEnum4Key;
 		targets: string[];
 		timeout: number;
 		updatedAt: number;
@@ -26899,15 +28300,15 @@ export const createProjectCheckStatus200SourceProviderEnum = {
 export type CreateProjectCheckStatus200SourceProviderEnumKey =
 	(typeof createProjectCheckStatus200SourceProviderEnum)[keyof typeof createProjectCheckStatus200SourceProviderEnum];
 
-export const createProjectCheckStatus200SourceKindEnum = {
+export const createProjectCheckStatus200SourceKindEnum4 = {
 	"git-provider": "git-provider",
 	integration: "integration",
 	vercel: "vercel",
 	webhook: "webhook",
 } as const;
 
-export type CreateProjectCheckStatus200SourceKindEnumKey =
-	(typeof createProjectCheckStatus200SourceKindEnum)[keyof typeof createProjectCheckStatus200SourceKindEnum];
+export type CreateProjectCheckStatus200SourceKindEnum4Key =
+	(typeof createProjectCheckStatus200SourceKindEnum4)[keyof typeof createProjectCheckStatus200SourceKindEnum4];
 
 export type CreateProjectCheckStatus200 = {
 	blocks: CreateProjectCheckStatus200BlocksEnumKey;
@@ -26937,7 +28338,7 @@ export type CreateProjectCheckStatus200 = {
 				provider: CreateProjectCheckStatus200SourceProviderEnumKey;
 		  };
 	sourceIntegrationConfigurationId?: string | undefined;
-	sourceKind: CreateProjectCheckStatus200SourceKindEnumKey;
+	sourceKind: CreateProjectCheckStatus200SourceKindEnum4Key;
 	targets: string[];
 	timeout: number;
 	updatedAt: number;
@@ -27098,15 +28499,15 @@ export const getProjectCheckStatus200SourceProviderEnum = {
 export type GetProjectCheckStatus200SourceProviderEnumKey =
 	(typeof getProjectCheckStatus200SourceProviderEnum)[keyof typeof getProjectCheckStatus200SourceProviderEnum];
 
-export const getProjectCheckStatus200SourceKindEnum = {
+export const getProjectCheckStatus200SourceKindEnum4 = {
 	"git-provider": "git-provider",
 	integration: "integration",
 	vercel: "vercel",
 	webhook: "webhook",
 } as const;
 
-export type GetProjectCheckStatus200SourceKindEnumKey =
-	(typeof getProjectCheckStatus200SourceKindEnum)[keyof typeof getProjectCheckStatus200SourceKindEnum];
+export type GetProjectCheckStatus200SourceKindEnum4Key =
+	(typeof getProjectCheckStatus200SourceKindEnum4)[keyof typeof getProjectCheckStatus200SourceKindEnum4];
 
 export type GetProjectCheckStatus200 = {
 	blocks: GetProjectCheckStatus200BlocksEnumKey;
@@ -27136,7 +28537,7 @@ export type GetProjectCheckStatus200 = {
 				provider: GetProjectCheckStatus200SourceProviderEnumKey;
 		  };
 	sourceIntegrationConfigurationId?: string | undefined;
-	sourceKind: GetProjectCheckStatus200SourceKindEnumKey;
+	sourceKind: GetProjectCheckStatus200SourceKindEnum4Key;
 	targets: string[];
 	timeout: number;
 	updatedAt: number;
@@ -27225,15 +28626,15 @@ export const updateProjectCheckStatus200SourceProviderEnum = {
 export type UpdateProjectCheckStatus200SourceProviderEnumKey =
 	(typeof updateProjectCheckStatus200SourceProviderEnum)[keyof typeof updateProjectCheckStatus200SourceProviderEnum];
 
-export const updateProjectCheckStatus200SourceKindEnum = {
+export const updateProjectCheckStatus200SourceKindEnum4 = {
 	"git-provider": "git-provider",
 	integration: "integration",
 	vercel: "vercel",
 	webhook: "webhook",
 } as const;
 
-export type UpdateProjectCheckStatus200SourceKindEnumKey =
-	(typeof updateProjectCheckStatus200SourceKindEnum)[keyof typeof updateProjectCheckStatus200SourceKindEnum];
+export type UpdateProjectCheckStatus200SourceKindEnum4Key =
+	(typeof updateProjectCheckStatus200SourceKindEnum4)[keyof typeof updateProjectCheckStatus200SourceKindEnum4];
 
 export type UpdateProjectCheckStatus200 = {
 	blocks: UpdateProjectCheckStatus200BlocksEnumKey;
@@ -27263,7 +28664,7 @@ export type UpdateProjectCheckStatus200 = {
 				provider: UpdateProjectCheckStatus200SourceProviderEnumKey;
 		  };
 	sourceIntegrationConfigurationId?: string | undefined;
-	sourceKind: UpdateProjectCheckStatus200SourceKindEnumKey;
+	sourceKind: UpdateProjectCheckStatus200SourceKindEnum4Key;
 	targets: string[];
 	timeout: number;
 	updatedAt: number;
@@ -27487,6 +28888,47 @@ export const listCheckRunsStatus200RunsSourceOriginEnum = {
 export type ListCheckRunsStatus200RunsSourceOriginEnumKey =
 	(typeof listCheckRunsStatus200RunsSourceOriginEnum)[keyof typeof listCheckRunsStatus200RunsSourceOriginEnum];
 
+export const listCheckRunsStatus200RunsBlocksEnum2 = {
+	"build-start": "build-start",
+	"deployment-alias": "deployment-alias",
+	"deployment-promotion": "deployment-promotion",
+	"deployment-start": "deployment-start",
+	none: "none",
+} as const;
+
+export type ListCheckRunsStatus200RunsBlocksEnum2Key =
+	(typeof listCheckRunsStatus200RunsBlocksEnum2)[keyof typeof listCheckRunsStatus200RunsBlocksEnum2];
+
+export const listCheckRunsStatus200RunsConclusionEnum2 = {
+	canceled: "canceled",
+	failed: "failed",
+	neutral: "neutral",
+	skipped: "skipped",
+	succeeded: "succeeded",
+	timeout: "timeout",
+} as const;
+
+export type ListCheckRunsStatus200RunsConclusionEnum2Key =
+	(typeof listCheckRunsStatus200RunsConclusionEnum2)[keyof typeof listCheckRunsStatus200RunsConclusionEnum2];
+
+export const listCheckRunsStatus200RunsRequiresEnum2 = {
+	"build-ready": "build-ready",
+	"deployment-url": "deployment-url",
+	none: "none",
+} as const;
+
+export type ListCheckRunsStatus200RunsRequiresEnum2Key =
+	(typeof listCheckRunsStatus200RunsRequiresEnum2)[keyof typeof listCheckRunsStatus200RunsRequiresEnum2];
+
+export const listCheckRunsStatus200RunsStatusEnum2 = {
+	completed: "completed",
+	queued: "queued",
+	running: "running",
+} as const;
+
+export type ListCheckRunsStatus200RunsStatusEnum2Key =
+	(typeof listCheckRunsStatus200RunsStatusEnum2)[keyof typeof listCheckRunsStatus200RunsStatusEnum2];
+
 export type ListCheckRunsStatus200 = {
 	runs: (
 		| {
@@ -27576,9 +29018,9 @@ export type ListCheckRunsStatus200 = {
 					  };
 		  }
 		| {
-				blocks?: ListCheckRunsStatus200RunsBlocksEnumKey | undefined;
+				blocks?: ListCheckRunsStatus200RunsBlocksEnum2Key | undefined;
 				completedAt?: number | undefined;
-				conclusion?: ListCheckRunsStatus200RunsConclusionEnumKey | undefined;
+				conclusion?: ListCheckRunsStatus200RunsConclusionEnum2Key | undefined;
 				conclusionText?: string | undefined;
 				createdAt: number;
 				deploymentId: string;
@@ -27606,9 +29048,9 @@ export type ListCheckRunsStatus200 = {
 					| undefined;
 				ownerId: string;
 				projectId?: string | undefined;
-				requires?: ListCheckRunsStatus200RunsRequiresEnumKey | undefined;
+				requires?: ListCheckRunsStatus200RunsRequiresEnum2Key | undefined;
 				startedAt?: number | undefined;
-				status: ListCheckRunsStatus200RunsStatusEnumKey;
+				status: ListCheckRunsStatus200RunsStatusEnum2Key;
 				targets?: string[] | undefined;
 				taskSummary?:
 					| {
@@ -27747,6 +29189,47 @@ export const listDeploymentCheckRunsStatus200RunsSourceOriginEnum = {
 export type ListDeploymentCheckRunsStatus200RunsSourceOriginEnumKey =
 	(typeof listDeploymentCheckRunsStatus200RunsSourceOriginEnum)[keyof typeof listDeploymentCheckRunsStatus200RunsSourceOriginEnum];
 
+export const listDeploymentCheckRunsStatus200RunsBlocksEnum2 = {
+	"build-start": "build-start",
+	"deployment-alias": "deployment-alias",
+	"deployment-promotion": "deployment-promotion",
+	"deployment-start": "deployment-start",
+	none: "none",
+} as const;
+
+export type ListDeploymentCheckRunsStatus200RunsBlocksEnum2Key =
+	(typeof listDeploymentCheckRunsStatus200RunsBlocksEnum2)[keyof typeof listDeploymentCheckRunsStatus200RunsBlocksEnum2];
+
+export const listDeploymentCheckRunsStatus200RunsConclusionEnum2 = {
+	canceled: "canceled",
+	failed: "failed",
+	neutral: "neutral",
+	skipped: "skipped",
+	succeeded: "succeeded",
+	timeout: "timeout",
+} as const;
+
+export type ListDeploymentCheckRunsStatus200RunsConclusionEnum2Key =
+	(typeof listDeploymentCheckRunsStatus200RunsConclusionEnum2)[keyof typeof listDeploymentCheckRunsStatus200RunsConclusionEnum2];
+
+export const listDeploymentCheckRunsStatus200RunsRequiresEnum2 = {
+	"build-ready": "build-ready",
+	"deployment-url": "deployment-url",
+	none: "none",
+} as const;
+
+export type ListDeploymentCheckRunsStatus200RunsRequiresEnum2Key =
+	(typeof listDeploymentCheckRunsStatus200RunsRequiresEnum2)[keyof typeof listDeploymentCheckRunsStatus200RunsRequiresEnum2];
+
+export const listDeploymentCheckRunsStatus200RunsStatusEnum2 = {
+	completed: "completed",
+	queued: "queued",
+	running: "running",
+} as const;
+
+export type ListDeploymentCheckRunsStatus200RunsStatusEnum2Key =
+	(typeof listDeploymentCheckRunsStatus200RunsStatusEnum2)[keyof typeof listDeploymentCheckRunsStatus200RunsStatusEnum2];
+
 export type ListDeploymentCheckRunsStatus200 = {
 	runs: (
 		| {
@@ -27836,9 +29319,9 @@ export type ListDeploymentCheckRunsStatus200 = {
 					  };
 		  }
 		| {
-				blocks?: ListDeploymentCheckRunsStatus200RunsBlocksEnumKey | undefined;
+				blocks?: ListDeploymentCheckRunsStatus200RunsBlocksEnum2Key | undefined;
 				completedAt?: number | undefined;
-				conclusion?: ListDeploymentCheckRunsStatus200RunsConclusionEnumKey | undefined;
+				conclusion?: ListDeploymentCheckRunsStatus200RunsConclusionEnum2Key | undefined;
 				conclusionText?: string | undefined;
 				createdAt: number;
 				deploymentId: string;
@@ -27866,9 +29349,9 @@ export type ListDeploymentCheckRunsStatus200 = {
 					| undefined;
 				ownerId: string;
 				projectId?: string | undefined;
-				requires?: ListDeploymentCheckRunsStatus200RunsRequiresEnumKey | undefined;
+				requires?: ListDeploymentCheckRunsStatus200RunsRequiresEnum2Key | undefined;
 				startedAt?: number | undefined;
-				status: ListDeploymentCheckRunsStatus200RunsStatusEnumKey;
+				status: ListDeploymentCheckRunsStatus200RunsStatusEnum2Key;
 				targets?: string[] | undefined;
 				taskSummary?:
 					| {
@@ -28007,6 +29490,47 @@ export const createDeploymentCheckRunStatus200SourceOriginEnum = {
 export type CreateDeploymentCheckRunStatus200SourceOriginEnumKey =
 	(typeof createDeploymentCheckRunStatus200SourceOriginEnum)[keyof typeof createDeploymentCheckRunStatus200SourceOriginEnum];
 
+export const createDeploymentCheckRunStatus200BlocksEnum2 = {
+	"build-start": "build-start",
+	"deployment-alias": "deployment-alias",
+	"deployment-promotion": "deployment-promotion",
+	"deployment-start": "deployment-start",
+	none: "none",
+} as const;
+
+export type CreateDeploymentCheckRunStatus200BlocksEnum2Key =
+	(typeof createDeploymentCheckRunStatus200BlocksEnum2)[keyof typeof createDeploymentCheckRunStatus200BlocksEnum2];
+
+export const createDeploymentCheckRunStatus200ConclusionEnum2 = {
+	canceled: "canceled",
+	failed: "failed",
+	neutral: "neutral",
+	skipped: "skipped",
+	succeeded: "succeeded",
+	timeout: "timeout",
+} as const;
+
+export type CreateDeploymentCheckRunStatus200ConclusionEnum2Key =
+	(typeof createDeploymentCheckRunStatus200ConclusionEnum2)[keyof typeof createDeploymentCheckRunStatus200ConclusionEnum2];
+
+export const createDeploymentCheckRunStatus200RequiresEnum2 = {
+	"build-ready": "build-ready",
+	"deployment-url": "deployment-url",
+	none: "none",
+} as const;
+
+export type CreateDeploymentCheckRunStatus200RequiresEnum2Key =
+	(typeof createDeploymentCheckRunStatus200RequiresEnum2)[keyof typeof createDeploymentCheckRunStatus200RequiresEnum2];
+
+export const createDeploymentCheckRunStatus200StatusEnum2 = {
+	completed: "completed",
+	queued: "queued",
+	running: "running",
+} as const;
+
+export type CreateDeploymentCheckRunStatus200StatusEnum2Key =
+	(typeof createDeploymentCheckRunStatus200StatusEnum2)[keyof typeof createDeploymentCheckRunStatus200StatusEnum2];
+
 export type CreateDeploymentCheckRunStatus200 =
 	| {
 			blocks?: CreateDeploymentCheckRunStatus200BlocksEnumKey | undefined;
@@ -28095,9 +29619,9 @@ export type CreateDeploymentCheckRunStatus200 =
 				  };
 	  }
 	| {
-			blocks?: CreateDeploymentCheckRunStatus200BlocksEnumKey | undefined;
+			blocks?: CreateDeploymentCheckRunStatus200BlocksEnum2Key | undefined;
 			completedAt?: number | undefined;
-			conclusion?: CreateDeploymentCheckRunStatus200ConclusionEnumKey | undefined;
+			conclusion?: CreateDeploymentCheckRunStatus200ConclusionEnum2Key | undefined;
 			conclusionText?: string | undefined;
 			createdAt: number;
 			deploymentId: string;
@@ -28125,9 +29649,9 @@ export type CreateDeploymentCheckRunStatus200 =
 				| undefined;
 			ownerId: string;
 			projectId?: string | undefined;
-			requires?: CreateDeploymentCheckRunStatus200RequiresEnumKey | undefined;
+			requires?: CreateDeploymentCheckRunStatus200RequiresEnum2Key | undefined;
 			startedAt?: number | undefined;
-			status: CreateDeploymentCheckRunStatus200StatusEnumKey;
+			status: CreateDeploymentCheckRunStatus200StatusEnum2Key;
 			targets?: string[] | undefined;
 			taskSummary?:
 				| {
@@ -28276,6 +29800,47 @@ export const getDeploymentCheckRunStatus200SourceOriginEnum = {
 export type GetDeploymentCheckRunStatus200SourceOriginEnumKey =
 	(typeof getDeploymentCheckRunStatus200SourceOriginEnum)[keyof typeof getDeploymentCheckRunStatus200SourceOriginEnum];
 
+export const getDeploymentCheckRunStatus200BlocksEnum2 = {
+	"build-start": "build-start",
+	"deployment-alias": "deployment-alias",
+	"deployment-promotion": "deployment-promotion",
+	"deployment-start": "deployment-start",
+	none: "none",
+} as const;
+
+export type GetDeploymentCheckRunStatus200BlocksEnum2Key =
+	(typeof getDeploymentCheckRunStatus200BlocksEnum2)[keyof typeof getDeploymentCheckRunStatus200BlocksEnum2];
+
+export const getDeploymentCheckRunStatus200ConclusionEnum2 = {
+	canceled: "canceled",
+	failed: "failed",
+	neutral: "neutral",
+	skipped: "skipped",
+	succeeded: "succeeded",
+	timeout: "timeout",
+} as const;
+
+export type GetDeploymentCheckRunStatus200ConclusionEnum2Key =
+	(typeof getDeploymentCheckRunStatus200ConclusionEnum2)[keyof typeof getDeploymentCheckRunStatus200ConclusionEnum2];
+
+export const getDeploymentCheckRunStatus200RequiresEnum2 = {
+	"build-ready": "build-ready",
+	"deployment-url": "deployment-url",
+	none: "none",
+} as const;
+
+export type GetDeploymentCheckRunStatus200RequiresEnum2Key =
+	(typeof getDeploymentCheckRunStatus200RequiresEnum2)[keyof typeof getDeploymentCheckRunStatus200RequiresEnum2];
+
+export const getDeploymentCheckRunStatus200StatusEnum2 = {
+	completed: "completed",
+	queued: "queued",
+	running: "running",
+} as const;
+
+export type GetDeploymentCheckRunStatus200StatusEnum2Key =
+	(typeof getDeploymentCheckRunStatus200StatusEnum2)[keyof typeof getDeploymentCheckRunStatus200StatusEnum2];
+
 export type GetDeploymentCheckRunStatus200 =
 	| {
 			blocks?: GetDeploymentCheckRunStatus200BlocksEnumKey | undefined;
@@ -28364,9 +29929,9 @@ export type GetDeploymentCheckRunStatus200 =
 				  };
 	  }
 	| {
-			blocks?: GetDeploymentCheckRunStatus200BlocksEnumKey | undefined;
+			blocks?: GetDeploymentCheckRunStatus200BlocksEnum2Key | undefined;
 			completedAt?: number | undefined;
-			conclusion?: GetDeploymentCheckRunStatus200ConclusionEnumKey | undefined;
+			conclusion?: GetDeploymentCheckRunStatus200ConclusionEnum2Key | undefined;
 			conclusionText?: string | undefined;
 			createdAt: number;
 			deploymentId: string;
@@ -28394,9 +29959,9 @@ export type GetDeploymentCheckRunStatus200 =
 				| undefined;
 			ownerId: string;
 			projectId?: string | undefined;
-			requires?: GetDeploymentCheckRunStatus200RequiresEnumKey | undefined;
+			requires?: GetDeploymentCheckRunStatus200RequiresEnum2Key | undefined;
 			startedAt?: number | undefined;
-			status: GetDeploymentCheckRunStatus200StatusEnumKey;
+			status: GetDeploymentCheckRunStatus200StatusEnum2Key;
 			targets?: string[] | undefined;
 			taskSummary?:
 				| {
@@ -28534,6 +30099,47 @@ export const updateDeploymentCheckRunStatus200SourceOriginEnum = {
 export type UpdateDeploymentCheckRunStatus200SourceOriginEnumKey =
 	(typeof updateDeploymentCheckRunStatus200SourceOriginEnum)[keyof typeof updateDeploymentCheckRunStatus200SourceOriginEnum];
 
+export const updateDeploymentCheckRunStatus200BlocksEnum2 = {
+	"build-start": "build-start",
+	"deployment-alias": "deployment-alias",
+	"deployment-promotion": "deployment-promotion",
+	"deployment-start": "deployment-start",
+	none: "none",
+} as const;
+
+export type UpdateDeploymentCheckRunStatus200BlocksEnum2Key =
+	(typeof updateDeploymentCheckRunStatus200BlocksEnum2)[keyof typeof updateDeploymentCheckRunStatus200BlocksEnum2];
+
+export const updateDeploymentCheckRunStatus200ConclusionEnum2 = {
+	canceled: "canceled",
+	failed: "failed",
+	neutral: "neutral",
+	skipped: "skipped",
+	succeeded: "succeeded",
+	timeout: "timeout",
+} as const;
+
+export type UpdateDeploymentCheckRunStatus200ConclusionEnum2Key =
+	(typeof updateDeploymentCheckRunStatus200ConclusionEnum2)[keyof typeof updateDeploymentCheckRunStatus200ConclusionEnum2];
+
+export const updateDeploymentCheckRunStatus200RequiresEnum2 = {
+	"build-ready": "build-ready",
+	"deployment-url": "deployment-url",
+	none: "none",
+} as const;
+
+export type UpdateDeploymentCheckRunStatus200RequiresEnum2Key =
+	(typeof updateDeploymentCheckRunStatus200RequiresEnum2)[keyof typeof updateDeploymentCheckRunStatus200RequiresEnum2];
+
+export const updateDeploymentCheckRunStatus200StatusEnum2 = {
+	completed: "completed",
+	queued: "queued",
+	running: "running",
+} as const;
+
+export type UpdateDeploymentCheckRunStatus200StatusEnum2Key =
+	(typeof updateDeploymentCheckRunStatus200StatusEnum2)[keyof typeof updateDeploymentCheckRunStatus200StatusEnum2];
+
 export type UpdateDeploymentCheckRunStatus200 =
 	| {
 			blocks?: UpdateDeploymentCheckRunStatus200BlocksEnumKey | undefined;
@@ -28622,9 +30228,9 @@ export type UpdateDeploymentCheckRunStatus200 =
 				  };
 	  }
 	| {
-			blocks?: UpdateDeploymentCheckRunStatus200BlocksEnumKey | undefined;
+			blocks?: UpdateDeploymentCheckRunStatus200BlocksEnum2Key | undefined;
 			completedAt?: number | undefined;
-			conclusion?: UpdateDeploymentCheckRunStatus200ConclusionEnumKey | undefined;
+			conclusion?: UpdateDeploymentCheckRunStatus200ConclusionEnum2Key | undefined;
 			conclusionText?: string | undefined;
 			createdAt: number;
 			deploymentId: string;
@@ -28652,9 +30258,9 @@ export type UpdateDeploymentCheckRunStatus200 =
 				| undefined;
 			ownerId: string;
 			projectId?: string | undefined;
-			requires?: UpdateDeploymentCheckRunStatus200RequiresEnumKey | undefined;
+			requires?: UpdateDeploymentCheckRunStatus200RequiresEnum2Key | undefined;
 			startedAt?: number | undefined;
-			status: UpdateDeploymentCheckRunStatus200StatusEnumKey;
+			status: UpdateDeploymentCheckRunStatus200StatusEnum2Key;
 			targets?: string[] | undefined;
 			taskSummary?:
 				| {
@@ -29463,16 +31069,16 @@ export type UpdateCheckBody = {
 								| {
 										/**
 										 * @description The calculated Virtual Experience Score value, between 0 and 100
-										 * @minLength 0
-										 * @maxLength 100
+										 * @minimum 0
+										 * @maximum 100
 										 * @example 30
 										 * @type integer
 										 */
 										value: number | null;
 										/**
 										 * @description A previous Virtual Experience Score value to display a delta, between 0 and 100
-										 * @minLength 0
-										 * @maxLength 100
+										 * @minimum 0
+										 * @maximum 100
 										 * @example 35
 										 * @type integer | undefined
 										 */
@@ -30323,8 +31929,8 @@ export type ListConnectorsSortKey = (typeof listConnectorsSort)[keyof typeof lis
 export type ListConnectorsQuery = {
 	/**
 	 * @description Maximum number of connectors to return. Defaults to 20.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
@@ -31107,8 +32713,8 @@ export type ListConnectorProjectConnectionsPath = {
 export type ListConnectorProjectConnectionsQuery = {
 	/**
 	 * @description Maximum number of project connections to return. Defaults to 50.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
@@ -31613,8 +33219,8 @@ export type ListProjectConnectorConnectionsPath = {
 export type ListProjectConnectorConnectionsQuery = {
 	/**
 	 * @description Maximum number of connector connections to return. Defaults to 50.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
@@ -31760,6 +33366,15 @@ export type GetConnectorTokenStatus429 = unknown;
 
 export type GetConnectorTokenStatus500 = unknown;
 
+export const typeEnum18 = {
+	app: "app",
+	user: "user",
+	"jwt-bearer": "jwt-bearer",
+	token: "token",
+} as const;
+
+export type TypeEnum18Key = (typeof typeEnum18)[keyof typeof typeEnum18];
+
 export type GetConnectorTokenBody =
 	| {
 			subject?:
@@ -31899,6 +33514,15 @@ export type CreateConnectorAuthorizationRequestStatus410 = unknown;
 export type CreateConnectorAuthorizationRequestStatus422 = unknown;
 
 export type CreateConnectorAuthorizationRequestStatus500 = unknown;
+
+export const typeEnum19 = {
+	app: "app",
+	user: "user",
+	"jwt-bearer": "jwt-bearer",
+	token: "token",
+} as const;
+
+export type TypeEnum19Key = (typeof typeEnum19)[keyof typeof typeEnum19];
 
 export type CreateConnectorAuthorizationRequestBody =
 	| {
@@ -32508,6 +34132,91 @@ export const getDeploymentEventsStatus200LevelEnum = {
 export type GetDeploymentEventsStatus200LevelEnumKey =
 	(typeof getDeploymentEventsStatus200LevelEnum)[keyof typeof getDeploymentEventsStatus200LevelEnum];
 
+export const getDeploymentEventsStatus200TypeEnum2 = {
+	command: "command",
+	delimiter: "delimiter",
+	"deployment-state": "deployment-state",
+	"edge-function-invocation": "edge-function-invocation",
+	exit: "exit",
+	fatal: "fatal",
+	metric: "metric",
+	middleware: "middleware",
+	"middleware-invocation": "middleware-invocation",
+	report: "report",
+	stderr: "stderr",
+	stdout: "stdout",
+} as const;
+
+export type GetDeploymentEventsStatus200TypeEnum2Key =
+	(typeof getDeploymentEventsStatus200TypeEnum2)[keyof typeof getDeploymentEventsStatus200TypeEnum2];
+
+export const getDeploymentEventsStatus200PayloadProxyVercelCacheEnum2 = {
+	BYPASS: "BYPASS",
+	HIT: "HIT",
+	MISS: "MISS",
+	PRERENDER: "PRERENDER",
+	REVALIDATED: "REVALIDATED",
+	STALE: "STALE",
+} as const;
+
+export type GetDeploymentEventsStatus200PayloadProxyVercelCacheEnum2Key =
+	(typeof getDeploymentEventsStatus200PayloadProxyVercelCacheEnum2)[keyof typeof getDeploymentEventsStatus200PayloadProxyVercelCacheEnum2];
+
+export const getDeploymentEventsStatus200PayloadProxyWafActionEnum2 = {
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type GetDeploymentEventsStatus200PayloadProxyWafActionEnum2Key =
+	(typeof getDeploymentEventsStatus200PayloadProxyWafActionEnum2)[keyof typeof getDeploymentEventsStatus200PayloadProxyWafActionEnum2];
+
+export const getDeploymentEventsStatus200TypeEnum3 = {
+	command: "command",
+	delimiter: "delimiter",
+	"deployment-state": "deployment-state",
+	"edge-function-invocation": "edge-function-invocation",
+	exit: "exit",
+	fatal: "fatal",
+	metric: "metric",
+	middleware: "middleware",
+	"middleware-invocation": "middleware-invocation",
+	report: "report",
+	stderr: "stderr",
+	stdout: "stdout",
+} as const;
+
+export type GetDeploymentEventsStatus200TypeEnum3Key =
+	(typeof getDeploymentEventsStatus200TypeEnum3)[keyof typeof getDeploymentEventsStatus200TypeEnum3];
+
+export const getDeploymentEventsStatus200LevelEnum2 = {
+	error: "error",
+	warning: "warning",
+} as const;
+
+export type GetDeploymentEventsStatus200LevelEnum2Key =
+	(typeof getDeploymentEventsStatus200LevelEnum2)[keyof typeof getDeploymentEventsStatus200LevelEnum2];
+
+export const getDeploymentEventsStatus200TypeEnum4 = {
+	command: "command",
+	delimiter: "delimiter",
+	"deployment-state": "deployment-state",
+	"edge-function-invocation": "edge-function-invocation",
+	exit: "exit",
+	fatal: "fatal",
+	metric: "metric",
+	middleware: "middleware",
+	"middleware-invocation": "middleware-invocation",
+	report: "report",
+	stderr: "stderr",
+	stdout: "stdout",
+} as const;
+
+export type GetDeploymentEventsStatus200TypeEnum4Key =
+	(typeof getDeploymentEventsStatus200TypeEnum4)[keyof typeof getDeploymentEventsStatus200TypeEnum4];
+
 export type GetDeploymentEventsStatus200Json =
 	| (
 			| {
@@ -32577,7 +34286,7 @@ export type GetDeploymentEventsStatus200Json =
 					level?: GetDeploymentEventsStatus200LevelEnumKey | undefined;
 					serial: string;
 					text?: string | undefined;
-					type: GetDeploymentEventsStatus200TypeEnumKey;
+					type: GetDeploymentEventsStatus200TypeEnum2Key;
 			  }
 			| (
 					| {
@@ -32616,11 +34325,11 @@ export type GetDeploymentEventsStatus200Json =
 											timestamp: number;
 											userAgent?: string[] | undefined;
 											vercelCache?:
-												| GetDeploymentEventsStatus200PayloadProxyVercelCacheEnumKey
+												| GetDeploymentEventsStatus200PayloadProxyVercelCacheEnum2Key
 												| undefined;
 											vercelId?: string | undefined;
 											wafAction?:
-												| GetDeploymentEventsStatus200PayloadProxyWafActionEnumKey
+												| GetDeploymentEventsStatus200PayloadProxyWafActionEnum2Key
 												| undefined;
 											wafRuleId?: string | undefined;
 									  }
@@ -32630,7 +34339,7 @@ export type GetDeploymentEventsStatus200Json =
 								statusCode?: number | undefined;
 								text?: string | undefined;
 							};
-							type: GetDeploymentEventsStatus200TypeEnumKey;
+							type: GetDeploymentEventsStatus200TypeEnum3Key;
 					  }
 					| {
 							created: number;
@@ -32646,10 +34355,10 @@ export type GetDeploymentEventsStatus200Json =
 								step?: string | undefined;
 								type: string;
 							};
-							level?: GetDeploymentEventsStatus200LevelEnumKey | undefined;
+							level?: GetDeploymentEventsStatus200LevelEnum2Key | undefined;
 							serial: string;
 							text?: string | undefined;
-							type: GetDeploymentEventsStatus200TypeEnumKey;
+							type: GetDeploymentEventsStatus200TypeEnum4Key;
 					  }
 					| {
 							date: number;
@@ -32670,6 +34379,140 @@ export type GetDeploymentEventsStatus200Json =
 			  )
 	  )[]
 	| null;
+
+export const getDeploymentEventsStatus200PayloadProxyVercelCacheEnum3 = {
+	BYPASS: "BYPASS",
+	HIT: "HIT",
+	MISS: "MISS",
+	PRERENDER: "PRERENDER",
+	REVALIDATED: "REVALIDATED",
+	STALE: "STALE",
+} as const;
+
+export type GetDeploymentEventsStatus200PayloadProxyVercelCacheEnum3Key =
+	(typeof getDeploymentEventsStatus200PayloadProxyVercelCacheEnum3)[keyof typeof getDeploymentEventsStatus200PayloadProxyVercelCacheEnum3];
+
+export const getDeploymentEventsStatus200PayloadProxyWafActionEnum3 = {
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type GetDeploymentEventsStatus200PayloadProxyWafActionEnum3Key =
+	(typeof getDeploymentEventsStatus200PayloadProxyWafActionEnum3)[keyof typeof getDeploymentEventsStatus200PayloadProxyWafActionEnum3];
+
+export const getDeploymentEventsStatus200TypeEnum6 = {
+	command: "command",
+	delimiter: "delimiter",
+	"deployment-state": "deployment-state",
+	"edge-function-invocation": "edge-function-invocation",
+	exit: "exit",
+	fatal: "fatal",
+	metric: "metric",
+	middleware: "middleware",
+	"middleware-invocation": "middleware-invocation",
+	report: "report",
+	stderr: "stderr",
+	stdout: "stdout",
+} as const;
+
+export type GetDeploymentEventsStatus200TypeEnum6Key =
+	(typeof getDeploymentEventsStatus200TypeEnum6)[keyof typeof getDeploymentEventsStatus200TypeEnum6];
+
+export const getDeploymentEventsStatus200LevelEnum3 = {
+	error: "error",
+	warning: "warning",
+} as const;
+
+export type GetDeploymentEventsStatus200LevelEnum3Key =
+	(typeof getDeploymentEventsStatus200LevelEnum3)[keyof typeof getDeploymentEventsStatus200LevelEnum3];
+
+export const getDeploymentEventsStatus200TypeEnum7 = {
+	command: "command",
+	delimiter: "delimiter",
+	"deployment-state": "deployment-state",
+	"edge-function-invocation": "edge-function-invocation",
+	exit: "exit",
+	fatal: "fatal",
+	metric: "metric",
+	middleware: "middleware",
+	"middleware-invocation": "middleware-invocation",
+	report: "report",
+	stderr: "stderr",
+	stdout: "stdout",
+} as const;
+
+export type GetDeploymentEventsStatus200TypeEnum7Key =
+	(typeof getDeploymentEventsStatus200TypeEnum7)[keyof typeof getDeploymentEventsStatus200TypeEnum7];
+
+export const getDeploymentEventsStatus200PayloadProxyVercelCacheEnum4 = {
+	BYPASS: "BYPASS",
+	HIT: "HIT",
+	MISS: "MISS",
+	PRERENDER: "PRERENDER",
+	REVALIDATED: "REVALIDATED",
+	STALE: "STALE",
+} as const;
+
+export type GetDeploymentEventsStatus200PayloadProxyVercelCacheEnum4Key =
+	(typeof getDeploymentEventsStatus200PayloadProxyVercelCacheEnum4)[keyof typeof getDeploymentEventsStatus200PayloadProxyVercelCacheEnum4];
+
+export const getDeploymentEventsStatus200PayloadProxyWafActionEnum4 = {
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type GetDeploymentEventsStatus200PayloadProxyWafActionEnum4Key =
+	(typeof getDeploymentEventsStatus200PayloadProxyWafActionEnum4)[keyof typeof getDeploymentEventsStatus200PayloadProxyWafActionEnum4];
+
+export const getDeploymentEventsStatus200TypeEnum8 = {
+	command: "command",
+	delimiter: "delimiter",
+	"deployment-state": "deployment-state",
+	"edge-function-invocation": "edge-function-invocation",
+	exit: "exit",
+	fatal: "fatal",
+	metric: "metric",
+	middleware: "middleware",
+	"middleware-invocation": "middleware-invocation",
+	report: "report",
+	stderr: "stderr",
+	stdout: "stdout",
+} as const;
+
+export type GetDeploymentEventsStatus200TypeEnum8Key =
+	(typeof getDeploymentEventsStatus200TypeEnum8)[keyof typeof getDeploymentEventsStatus200TypeEnum8];
+
+export const getDeploymentEventsStatus200LevelEnum4 = {
+	error: "error",
+	warning: "warning",
+} as const;
+
+export type GetDeploymentEventsStatus200LevelEnum4Key =
+	(typeof getDeploymentEventsStatus200LevelEnum4)[keyof typeof getDeploymentEventsStatus200LevelEnum4];
+
+export const getDeploymentEventsStatus200TypeEnum9 = {
+	command: "command",
+	delimiter: "delimiter",
+	"deployment-state": "deployment-state",
+	"edge-function-invocation": "edge-function-invocation",
+	exit: "exit",
+	fatal: "fatal",
+	metric: "metric",
+	middleware: "middleware",
+	"middleware-invocation": "middleware-invocation",
+	report: "report",
+	stderr: "stderr",
+	stdout: "stdout",
+} as const;
+
+export type GetDeploymentEventsStatus200TypeEnum9Key =
+	(typeof getDeploymentEventsStatus200TypeEnum9)[keyof typeof getDeploymentEventsStatus200TypeEnum9];
 
 export type GetDeploymentEventsStatus200StreamJson = (
 	| {
@@ -32707,9 +34550,9 @@ export type GetDeploymentEventsStatus200StreamJson = (
 							statusCode?: number | undefined;
 							timestamp: number;
 							userAgent?: string[] | undefined;
-							vercelCache?: GetDeploymentEventsStatus200PayloadProxyVercelCacheEnumKey | undefined;
+							vercelCache?: GetDeploymentEventsStatus200PayloadProxyVercelCacheEnum3Key | undefined;
 							vercelId?: string | undefined;
-							wafAction?: GetDeploymentEventsStatus200PayloadProxyWafActionEnumKey | undefined;
+							wafAction?: GetDeploymentEventsStatus200PayloadProxyWafActionEnum3Key | undefined;
 							wafRuleId?: string | undefined;
 					  }
 					| undefined;
@@ -32718,7 +34561,7 @@ export type GetDeploymentEventsStatus200StreamJson = (
 				statusCode?: number | undefined;
 				text?: string | undefined;
 			};
-			type: GetDeploymentEventsStatus200TypeEnumKey;
+			type: GetDeploymentEventsStatus200TypeEnum6Key;
 	  }
 	| {
 			created: number;
@@ -32734,10 +34577,10 @@ export type GetDeploymentEventsStatus200StreamJson = (
 				step?: string | undefined;
 				type: string;
 			};
-			level?: GetDeploymentEventsStatus200LevelEnumKey | undefined;
+			level?: GetDeploymentEventsStatus200LevelEnum3Key | undefined;
 			serial: string;
 			text?: string | undefined;
-			type: GetDeploymentEventsStatus200TypeEnumKey;
+			type: GetDeploymentEventsStatus200TypeEnum7Key;
 	  }
 	| (
 			| {
@@ -32776,10 +34619,10 @@ export type GetDeploymentEventsStatus200StreamJson = (
 									timestamp: number;
 									userAgent?: string[] | undefined;
 									vercelCache?:
-										| GetDeploymentEventsStatus200PayloadProxyVercelCacheEnumKey
+										| GetDeploymentEventsStatus200PayloadProxyVercelCacheEnum4Key
 										| undefined;
 									vercelId?: string | undefined;
-									wafAction?: GetDeploymentEventsStatus200PayloadProxyWafActionEnumKey | undefined;
+									wafAction?: GetDeploymentEventsStatus200PayloadProxyWafActionEnum4Key | undefined;
 									wafRuleId?: string | undefined;
 							  }
 							| undefined;
@@ -32788,7 +34631,7 @@ export type GetDeploymentEventsStatus200StreamJson = (
 						statusCode?: number | undefined;
 						text?: string | undefined;
 					};
-					type: GetDeploymentEventsStatus200TypeEnumKey;
+					type: GetDeploymentEventsStatus200TypeEnum8Key;
 			  }
 			| {
 					created: number;
@@ -32804,10 +34647,10 @@ export type GetDeploymentEventsStatus200StreamJson = (
 						step?: string | undefined;
 						type: string;
 					};
-					level?: GetDeploymentEventsStatus200LevelEnumKey | undefined;
+					level?: GetDeploymentEventsStatus200LevelEnum4Key | undefined;
 					serial: string;
 					text?: string | undefined;
-					type: GetDeploymentEventsStatus200TypeEnumKey;
+					type: GetDeploymentEventsStatus200TypeEnum9Key;
 			  }
 			| {
 					date: number;
@@ -33174,6 +35017,38 @@ export const getDeploymentStatus200GitRepoOwnerTypeEnum = {
 export type GetDeploymentStatus200GitRepoOwnerTypeEnumKey =
 	(typeof getDeploymentStatus200GitRepoOwnerTypeEnum)[keyof typeof getDeploymentStatus200GitRepoOwnerTypeEnum];
 
+export const getDeploymentStatus200GitRepoOwnerTypeEnum2 = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type GetDeploymentStatus200GitRepoOwnerTypeEnum2Key =
+	(typeof getDeploymentStatus200GitRepoOwnerTypeEnum2)[keyof typeof getDeploymentStatus200GitRepoOwnerTypeEnum2];
+
+export const getDeploymentStatus200GitRepoOwnerTypeEnum3 = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type GetDeploymentStatus200GitRepoOwnerTypeEnum3Key =
+	(typeof getDeploymentStatus200GitRepoOwnerTypeEnum3)[keyof typeof getDeploymentStatus200GitRepoOwnerTypeEnum3];
+
+export const getDeploymentStatus200GitRepoOwnerTypeEnum4 = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type GetDeploymentStatus200GitRepoOwnerTypeEnum4Key =
+	(typeof getDeploymentStatus200GitRepoOwnerTypeEnum4)[keyof typeof getDeploymentStatus200GitRepoOwnerTypeEnum4];
+
+export const getDeploymentStatus200GitRepoOwnerTypeEnum5 = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type GetDeploymentStatus200GitRepoOwnerTypeEnum5Key =
+	(typeof getDeploymentStatus200GitRepoOwnerTypeEnum5)[keyof typeof getDeploymentStatus200GitRepoOwnerTypeEnum5];
+
 export const getDeploymentStatus200ImagesContentDispositionTypeEnum = {
 	attachment: "attachment",
 	inline: "inline",
@@ -33366,6 +35241,19 @@ export const getDeploymentStatus200ProjectSettingsNodeVersionEnum = {
 export type GetDeploymentStatus200ProjectSettingsNodeVersionEnumKey =
 	(typeof getDeploymentStatus200ProjectSettingsNodeVersionEnum)[keyof typeof getDeploymentStatus200ProjectSettingsNodeVersionEnum];
 
+export const getDeploymentStatus200ReadyStateEnum2 = {
+	BLOCKED: "BLOCKED",
+	BUILDING: "BUILDING",
+	CANCELED: "CANCELED",
+	ERROR: "ERROR",
+	INITIALIZING: "INITIALIZING",
+	QUEUED: "QUEUED",
+	READY: "READY",
+} as const;
+
+export type GetDeploymentStatus200ReadyStateEnum2Key =
+	(typeof getDeploymentStatus200ReadyStateEnum2)[keyof typeof getDeploymentStatus200ReadyStateEnum2];
+
 export const getDeploymentStatus200ReadySubstateEnum = {
 	PROMOTED: "PROMOTED",
 	ROLLING: "ROLLING",
@@ -33376,6 +35264,7 @@ export type GetDeploymentStatus200ReadySubstateEnumKey =
 	(typeof getDeploymentStatus200ReadySubstateEnum)[keyof typeof getDeploymentStatus200ReadySubstateEnum];
 
 export const getDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -33407,23 +35296,55 @@ export const getDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum
 export type GetDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnumKey =
 	(typeof getDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum)[keyof typeof getDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum];
 
-export const getDeploymentStatus200RoutesHasTypeEnum = {
+export const getDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum2 = {
+	basic: "basic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type GetDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum2Key =
+	(typeof getDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum2)[keyof typeof getDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum2];
+
+export const getDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnum2 = {
+	basic: "basic",
+	enhanced: "enhanced",
+	none: "none",
+	standard: "standard",
+} as const;
+
+export type GetDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnum2Key =
+	(typeof getDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnum2)[keyof typeof getDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnum2];
+
+export const getDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum2 = {
+	"deployment-override": "deployment-override",
+	"elastic-algorithm": "elastic-algorithm",
+	"plan-default": "plan-default",
+	"project-setting": "project-setting",
+	"team-entitlement": "team-entitlement",
+	"team-setting": "team-setting",
+} as const;
+
+export type GetDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum2Key =
+	(typeof getDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum2)[keyof typeof getDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum2];
+
+export const getDeploymentStatus200RoutesHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type GetDeploymentStatus200RoutesHasTypeEnumKey =
-	(typeof getDeploymentStatus200RoutesHasTypeEnum)[keyof typeof getDeploymentStatus200RoutesHasTypeEnum];
+export type GetDeploymentStatus200RoutesHasTypeEnum2Key =
+	(typeof getDeploymentStatus200RoutesHasTypeEnum2)[keyof typeof getDeploymentStatus200RoutesHasTypeEnum2];
 
-export const getDeploymentStatus200RoutesMissingTypeEnum = {
+export const getDeploymentStatus200RoutesMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type GetDeploymentStatus200RoutesMissingTypeEnumKey =
-	(typeof getDeploymentStatus200RoutesMissingTypeEnum)[keyof typeof getDeploymentStatus200RoutesMissingTypeEnum];
+export type GetDeploymentStatus200RoutesMissingTypeEnum2Key =
+	(typeof getDeploymentStatus200RoutesMissingTypeEnum2)[keyof typeof getDeploymentStatus200RoutesMissingTypeEnum2];
 
 export const getDeploymentStatus200RoutesMitigateActionEnum = {
 	challenge: "challenge",
@@ -33498,6 +35419,13 @@ export const getDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsM
 export type GetDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnumKey =
 	(typeof getDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum)[keyof typeof getDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum];
 
+export const architectureEnum2 = {
+	arm64: "arm64",
+	x86_64: "x86_64",
+} as const;
+
+export type ArchitectureEnum2Key = (typeof architectureEnum2)[keyof typeof architectureEnum2];
+
 export const getDeploymentStatus200ServicesRoutePrefixSourceEnum = {
 	configured: "configured",
 	generated: "generated",
@@ -33525,77 +35453,109 @@ export const getDeploymentStatus200ServicesTypeEnum = {
 export type GetDeploymentStatus200ServicesTypeEnumKey =
 	(typeof getDeploymentStatus200ServicesTypeEnum)[keyof typeof getDeploymentStatus200ServicesTypeEnum];
 
-export const getDeploymentStatus200ServicesHeadersHasTypeEnum = {
+export const getDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum2 = {
+	HTTP: "HTTP",
+	HTTPS: "HTTPS",
+} as const;
+
+export type GetDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum2Key =
+	(typeof getDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum2)[keyof typeof getDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum2];
+
+export const getDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum2 = {
+	"1Gi": "1Gi",
+	"2Gi": "2Gi",
+	"4Gi": "4Gi",
+	"8Gi": "8Gi",
+} as const;
+
+export type GetDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum2Key =
+	(typeof getDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum2)[keyof typeof getDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum2];
+
+export const architectureEnum3 = {
+	arm64: "arm64",
+	x86_64: "x86_64",
+} as const;
+
+export type ArchitectureEnum3Key = (typeof architectureEnum3)[keyof typeof architectureEnum3];
+
+export const architectureEnum4 = {
+	arm64: "arm64",
+	x86_64: "x86_64",
+} as const;
+
+export type ArchitectureEnum4Key = (typeof architectureEnum4)[keyof typeof architectureEnum4];
+
+export const getDeploymentStatus200ServicesHeadersHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type GetDeploymentStatus200ServicesHeadersHasTypeEnumKey =
-	(typeof getDeploymentStatus200ServicesHeadersHasTypeEnum)[keyof typeof getDeploymentStatus200ServicesHeadersHasTypeEnum];
+export type GetDeploymentStatus200ServicesHeadersHasTypeEnum2Key =
+	(typeof getDeploymentStatus200ServicesHeadersHasTypeEnum2)[keyof typeof getDeploymentStatus200ServicesHeadersHasTypeEnum2];
 
-export const getDeploymentStatus200ServicesHeadersMissingTypeEnum = {
+export const getDeploymentStatus200ServicesHeadersMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type GetDeploymentStatus200ServicesHeadersMissingTypeEnumKey =
-	(typeof getDeploymentStatus200ServicesHeadersMissingTypeEnum)[keyof typeof getDeploymentStatus200ServicesHeadersMissingTypeEnum];
+export type GetDeploymentStatus200ServicesHeadersMissingTypeEnum2Key =
+	(typeof getDeploymentStatus200ServicesHeadersMissingTypeEnum2)[keyof typeof getDeploymentStatus200ServicesHeadersMissingTypeEnum2];
 
-export const getDeploymentStatus200ServicesRedirectsHasTypeEnum = {
+export const getDeploymentStatus200ServicesRedirectsHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type GetDeploymentStatus200ServicesRedirectsHasTypeEnumKey =
-	(typeof getDeploymentStatus200ServicesRedirectsHasTypeEnum)[keyof typeof getDeploymentStatus200ServicesRedirectsHasTypeEnum];
+export type GetDeploymentStatus200ServicesRedirectsHasTypeEnum2Key =
+	(typeof getDeploymentStatus200ServicesRedirectsHasTypeEnum2)[keyof typeof getDeploymentStatus200ServicesRedirectsHasTypeEnum2];
 
-export const getDeploymentStatus200ServicesRedirectsMissingTypeEnum = {
+export const getDeploymentStatus200ServicesRedirectsMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type GetDeploymentStatus200ServicesRedirectsMissingTypeEnumKey =
-	(typeof getDeploymentStatus200ServicesRedirectsMissingTypeEnum)[keyof typeof getDeploymentStatus200ServicesRedirectsMissingTypeEnum];
+export type GetDeploymentStatus200ServicesRedirectsMissingTypeEnum2Key =
+	(typeof getDeploymentStatus200ServicesRedirectsMissingTypeEnum2)[keyof typeof getDeploymentStatus200ServicesRedirectsMissingTypeEnum2];
 
-export const getDeploymentStatus200ServicesRewritesHasTypeEnum = {
+export const getDeploymentStatus200ServicesRewritesHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type GetDeploymentStatus200ServicesRewritesHasTypeEnumKey =
-	(typeof getDeploymentStatus200ServicesRewritesHasTypeEnum)[keyof typeof getDeploymentStatus200ServicesRewritesHasTypeEnum];
+export type GetDeploymentStatus200ServicesRewritesHasTypeEnum2Key =
+	(typeof getDeploymentStatus200ServicesRewritesHasTypeEnum2)[keyof typeof getDeploymentStatus200ServicesRewritesHasTypeEnum2];
 
-export const getDeploymentStatus200ServicesRewritesMissingTypeEnum = {
+export const getDeploymentStatus200ServicesRewritesMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type GetDeploymentStatus200ServicesRewritesMissingTypeEnumKey =
-	(typeof getDeploymentStatus200ServicesRewritesMissingTypeEnum)[keyof typeof getDeploymentStatus200ServicesRewritesMissingTypeEnum];
+export type GetDeploymentStatus200ServicesRewritesMissingTypeEnum2Key =
+	(typeof getDeploymentStatus200ServicesRewritesMissingTypeEnum2)[keyof typeof getDeploymentStatus200ServicesRewritesMissingTypeEnum2];
 
-export const getDeploymentStatus200ServicesRoutesHasTypeEnum = {
+export const getDeploymentStatus200ServicesRoutesHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type GetDeploymentStatus200ServicesRoutesHasTypeEnumKey =
-	(typeof getDeploymentStatus200ServicesRoutesHasTypeEnum)[keyof typeof getDeploymentStatus200ServicesRoutesHasTypeEnum];
+export type GetDeploymentStatus200ServicesRoutesHasTypeEnum2Key =
+	(typeof getDeploymentStatus200ServicesRoutesHasTypeEnum2)[keyof typeof getDeploymentStatus200ServicesRoutesHasTypeEnum2];
 
-export const getDeploymentStatus200ServicesRoutesMissingTypeEnum = {
+export const getDeploymentStatus200ServicesRoutesMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type GetDeploymentStatus200ServicesRoutesMissingTypeEnumKey =
-	(typeof getDeploymentStatus200ServicesRoutesMissingTypeEnum)[keyof typeof getDeploymentStatus200ServicesRoutesMissingTypeEnum];
+export type GetDeploymentStatus200ServicesRoutesMissingTypeEnum2Key =
+	(typeof getDeploymentStatus200ServicesRoutesMissingTypeEnum2)[keyof typeof getDeploymentStatus200ServicesRoutesMissingTypeEnum2];
 
 export const getDeploymentStatus200ServicesRoutesMitigateActionEnum = {
 	challenge: "challenge",
@@ -33663,6 +35623,166 @@ export const getDeploymentStatus200StatusEnum = {
 
 export type GetDeploymentStatus200StatusEnumKey =
 	(typeof getDeploymentStatus200StatusEnum)[keyof typeof getDeploymentStatus200StatusEnum];
+
+export const getDeploymentStatus200TargetEnum2 = {
+	production: "production",
+	staging: "staging",
+} as const;
+
+export type GetDeploymentStatus200TargetEnum2Key =
+	(typeof getDeploymentStatus200TargetEnum2)[keyof typeof getDeploymentStatus200TargetEnum2];
+
+export const getDeploymentStatus200ChecksConclusionEnum2 = {
+	canceled: "canceled",
+	failed: "failed",
+	skipped: "skipped",
+	succeeded: "succeeded",
+} as const;
+
+export type GetDeploymentStatus200ChecksConclusionEnum2Key =
+	(typeof getDeploymentStatus200ChecksConclusionEnum2)[keyof typeof getDeploymentStatus200ChecksConclusionEnum2];
+
+export const getDeploymentStatus200ChecksStateEnum2 = {
+	completed: "completed",
+	registered: "registered",
+	running: "running",
+} as const;
+
+export type GetDeploymentStatus200ChecksStateEnum2Key =
+	(typeof getDeploymentStatus200ChecksStateEnum2)[keyof typeof getDeploymentStatus200ChecksStateEnum2];
+
+export const getDeploymentStatus200CreatorTypeEnum2 = {
+	app: "app",
+	integration: "integration",
+	project: "project",
+	system: "system",
+	user: "user",
+} as const;
+
+export type GetDeploymentStatus200CreatorTypeEnum2Key =
+	(typeof getDeploymentStatus200CreatorTypeEnum2)[keyof typeof getDeploymentStatus200CreatorTypeEnum2];
+
+export const getDeploymentStatus200CustomEnvironmentBranchMatcherTypeEnum2 = {
+	endsWith: "endsWith",
+	equals: "equals",
+	startsWith: "startsWith",
+} as const;
+
+export type GetDeploymentStatus200CustomEnvironmentBranchMatcherTypeEnum2Key =
+	(typeof getDeploymentStatus200CustomEnvironmentBranchMatcherTypeEnum2)[keyof typeof getDeploymentStatus200CustomEnvironmentBranchMatcherTypeEnum2];
+
+export const getDeploymentStatus200CustomEnvironmentDomainsRedirectStatusCodeEnum2 = {
+	"301": 301,
+	"302": 302,
+	"307": 307,
+	"308": 308,
+} as const;
+
+export type GetDeploymentStatus200CustomEnvironmentDomainsRedirectStatusCodeEnum2Key =
+	(typeof getDeploymentStatus200CustomEnvironmentDomainsRedirectStatusCodeEnum2)[keyof typeof getDeploymentStatus200CustomEnvironmentDomainsRedirectStatusCodeEnum2];
+
+export const getDeploymentStatus200CustomEnvironmentTypeEnum2 = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type GetDeploymentStatus200CustomEnvironmentTypeEnum2Key =
+	(typeof getDeploymentStatus200CustomEnvironmentTypeEnum2)[keyof typeof getDeploymentStatus200CustomEnvironmentTypeEnum2];
+
+export const getDeploymentStatus200LambdasReadyStateEnum2 = {
+	BUILDING: "BUILDING",
+	ERROR: "ERROR",
+	INITIALIZING: "INITIALIZING",
+	READY: "READY",
+} as const;
+
+export type GetDeploymentStatus200LambdasReadyStateEnum2Key =
+	(typeof getDeploymentStatus200LambdasReadyStateEnum2)[keyof typeof getDeploymentStatus200LambdasReadyStateEnum2];
+
+export const getDeploymentStatus200ManualProvisioningStateEnum2 = {
+	COMPLETE: "COMPLETE",
+	PENDING: "PENDING",
+	TIMEOUT: "TIMEOUT",
+} as const;
+
+export type GetDeploymentStatus200ManualProvisioningStateEnum2Key =
+	(typeof getDeploymentStatus200ManualProvisioningStateEnum2)[keyof typeof getDeploymentStatus200ManualProvisioningStateEnum2];
+
+export const getDeploymentStatus200NodeVersionEnum2 = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type GetDeploymentStatus200NodeVersionEnum2Key =
+	(typeof getDeploymentStatus200NodeVersionEnum2)[keyof typeof getDeploymentStatus200NodeVersionEnum2];
+
+export const getDeploymentStatus200ReadyStateEnum3 = {
+	BLOCKED: "BLOCKED",
+	BUILDING: "BUILDING",
+	CANCELED: "CANCELED",
+	ERROR: "ERROR",
+	INITIALIZING: "INITIALIZING",
+	QUEUED: "QUEUED",
+	READY: "READY",
+} as const;
+
+export type GetDeploymentStatus200ReadyStateEnum3Key =
+	(typeof getDeploymentStatus200ReadyStateEnum3)[keyof typeof getDeploymentStatus200ReadyStateEnum3];
+
+export const getDeploymentStatus200ReadySubstateEnum2 = {
+	PROMOTED: "PROMOTED",
+	ROLLING: "ROLLING",
+	STAGED: "STAGED",
+} as const;
+
+export type GetDeploymentStatus200ReadySubstateEnum2Key =
+	(typeof getDeploymentStatus200ReadySubstateEnum2)[keyof typeof getDeploymentStatus200ReadySubstateEnum2];
+
+export const getDeploymentStatus200SourceEnum2 = {
+	"api-trigger-git-deploy": "api-trigger-git-deploy",
+	cli: "cli",
+	"clone/repo": "clone/repo",
+	drop: "drop",
+	git: "git",
+	"git-deploy-hook": "git-deploy-hook",
+	import: "import",
+	"import/repo": "import/repo",
+	redeploy: "redeploy",
+	"v0-web": "v0-web",
+} as const;
+
+export type GetDeploymentStatus200SourceEnum2Key =
+	(typeof getDeploymentStatus200SourceEnum2)[keyof typeof getDeploymentStatus200SourceEnum2];
+
+export const getDeploymentStatus200StatusEnum2 = {
+	BLOCKED: "BLOCKED",
+	BUILDING: "BUILDING",
+	CANCELED: "CANCELED",
+	ERROR: "ERROR",
+	INITIALIZING: "INITIALIZING",
+	QUEUED: "QUEUED",
+	READY: "READY",
+} as const;
+
+export type GetDeploymentStatus200StatusEnum2Key =
+	(typeof getDeploymentStatus200StatusEnum2)[keyof typeof getDeploymentStatus200StatusEnum2];
+
+export const getDeploymentStatus200TargetEnum3 = {
+	production: "production",
+	staging: "staging",
+} as const;
+
+export type GetDeploymentStatus200TargetEnum3Key =
+	(typeof getDeploymentStatus200TargetEnum3)[keyof typeof getDeploymentStatus200TargetEnum3];
 
 export type GetDeploymentStatus200 =
 	| {
@@ -34309,7 +36429,7 @@ export type GetDeploymentStatus200 =
 										defaultBranch: string;
 										name: string;
 										org: string;
-										ownerType: GetDeploymentStatus200GitRepoOwnerTypeEnumKey;
+										ownerType: GetDeploymentStatus200GitRepoOwnerTypeEnum2Key;
 										path: string;
 										private: false | true;
 										repo: string;
@@ -34321,7 +36441,7 @@ export type GetDeploymentStatus200 =
 										defaultBranch: string;
 										name: string;
 										owner: string;
-										ownerType: GetDeploymentStatus200GitRepoOwnerTypeEnumKey;
+										ownerType: GetDeploymentStatus200GitRepoOwnerTypeEnum3Key;
 										path: string;
 										private: false | true;
 										repoUuid: string;
@@ -34333,7 +36453,7 @@ export type GetDeploymentStatus200 =
 										defaultBranch: string;
 										name: string;
 										org: string;
-										ownerType: GetDeploymentStatus200GitRepoOwnerTypeEnumKey;
+										ownerType: GetDeploymentStatus200GitRepoOwnerTypeEnum4Key;
 										path: string;
 										private: false | true;
 										repo: string;
@@ -34347,7 +36467,7 @@ export type GetDeploymentStatus200 =
 										 * @type string
 										 */
 										owner: string;
-										ownerType: GetDeploymentStatus200GitRepoOwnerTypeEnumKey;
+										ownerType: GetDeploymentStatus200GitRepoOwnerTypeEnum5Key;
 										path: string;
 										private: false | true;
 										repo: string;
@@ -34896,7 +37016,7 @@ export type GetDeploymentStatus200 =
 			 * @example READY
 			 * @type string
 			 */
-			readyState: GetDeploymentStatus200ReadyStateEnumKey;
+			readyState: GetDeploymentStatus200ReadyStateEnum2Key;
 			readyStateReason?: string | undefined;
 			/**
 			 * @description Substate of deployment when readyState is 'READY' Tracks whether or not deployment has seen production traffic: - STAGED: never seen production traffic - ROLLING: in the process of having production traffic gradually transitioned. - PROMOTED: has seen production traffic
@@ -34962,7 +37082,7 @@ export type GetDeploymentStatus200 =
 											 * @type string | undefined
 											 */
 											purchaseType?:
-												| GetDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnumKey
+												| GetDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum2Key
 												| undefined;
 											/**
 											 * @description Build cores. Deployment creation sets the requested value; dispatch replaces it with the cores assigned by routing.
@@ -34974,7 +37094,7 @@ export type GetDeploymentStatus200 =
 											 * @type string | undefined
 											 */
 											defaultPurchaseType?:
-												| GetDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnumKey
+												| GetDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnum2Key
 												| undefined;
 											/**
 											 * @description Build memory, in MiB. Deployment creation sets the requested value; dispatch replaces it with the memory assigned by routing.
@@ -34986,7 +37106,7 @@ export type GetDeploymentStatus200 =
 											 * @type string | undefined
 											 */
 											selectionSource?:
-												| GetDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnumKey
+												| GetDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum2Key
 												| undefined;
 									  }
 							  )
@@ -35041,7 +37161,7 @@ export type GetDeploymentStatus200 =
 											  }
 											| {
 													key: string;
-													type: GetDeploymentStatus200RoutesHasTypeEnumKey;
+													type: GetDeploymentStatus200RoutesHasTypeEnum2Key;
 													value?:
 														| (
 																| string
@@ -35117,7 +37237,7 @@ export type GetDeploymentStatus200 =
 											  }
 											| {
 													key: string;
-													type: GetDeploymentStatus200RoutesMissingTypeEnumKey;
+													type: GetDeploymentStatus200RoutesMissingTypeEnum2Key;
 													value?:
 														| (
 																| string
@@ -35353,7 +37473,7 @@ export type GetDeploymentStatus200 =
 																			mode: "strict";
 																	  }
 																	| undefined;
-																architecture?: ArchitectureEnumKey | undefined;
+																architecture?: ArchitectureEnum2Key | undefined;
 																excludeFiles?: string | undefined;
 																experimentalTriggers?:
 																	| (
@@ -35680,7 +37800,7 @@ export type GetDeploymentStatus200 =
 																			path?: string | undefined;
 																			port: number;
 																			scheme?:
-																				| GetDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnumKey
+																				| GetDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum2Key
 																				| undefined;
 																		};
 																		initialDelaySeconds?: number | undefined;
@@ -35701,7 +37821,7 @@ export type GetDeploymentStatus200 =
 															resources?:
 																| {
 																		requests: {
-																			memory: GetDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnumKey;
+																			memory: GetDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum2Key;
 																		};
 																  }
 																| undefined;
@@ -35722,7 +37842,7 @@ export type GetDeploymentStatus200 =
 																			mode: "strict";
 																	  }
 																	| undefined;
-																architecture?: ArchitectureEnumKey | undefined;
+																architecture?: ArchitectureEnum3Key | undefined;
 																excludeFiles?: string | undefined;
 																experimentalTriggers?:
 																	| (
@@ -35929,7 +38049,7 @@ export type GetDeploymentStatus200 =
 															mode: "strict";
 													  }
 													| undefined;
-												architecture?: ArchitectureEnumKey | undefined;
+												architecture?: ArchitectureEnum4Key | undefined;
 												excludeFiles?: string | undefined;
 												experimentalTriggers?:
 													| (
@@ -36051,7 +38171,7 @@ export type GetDeploymentStatus200 =
 														  }
 														| {
 																key: string;
-																type: GetDeploymentStatus200ServicesHeadersHasTypeEnumKey;
+																type: GetDeploymentStatus200ServicesHeadersHasTypeEnum2Key;
 																value?:
 																	| (
 																			| string
@@ -36099,7 +38219,7 @@ export type GetDeploymentStatus200 =
 														  }
 														| {
 																key: string;
-																type: GetDeploymentStatus200ServicesHeadersMissingTypeEnumKey;
+																type: GetDeploymentStatus200ServicesHeadersMissingTypeEnum2Key;
 																value?:
 																	| (
 																			| string
@@ -36154,7 +38274,7 @@ export type GetDeploymentStatus200 =
 														  }
 														| {
 																key: string;
-																type: GetDeploymentStatus200ServicesRedirectsHasTypeEnumKey;
+																type: GetDeploymentStatus200ServicesRedirectsHasTypeEnum2Key;
 																value?:
 																	| (
 																			| string
@@ -36198,7 +38318,7 @@ export type GetDeploymentStatus200 =
 														  }
 														| {
 																key: string;
-																type: GetDeploymentStatus200ServicesRedirectsMissingTypeEnumKey;
+																type: GetDeploymentStatus200ServicesRedirectsMissingTypeEnum2Key;
 																value?:
 																	| (
 																			| string
@@ -36265,7 +38385,7 @@ export type GetDeploymentStatus200 =
 														  }
 														| {
 																key: string;
-																type: GetDeploymentStatus200ServicesRewritesHasTypeEnumKey;
+																type: GetDeploymentStatus200ServicesRewritesHasTypeEnum2Key;
 																value?:
 																	| (
 																			| string
@@ -36309,7 +38429,7 @@ export type GetDeploymentStatus200 =
 														  }
 														| {
 																key: string;
-																type: GetDeploymentStatus200ServicesRewritesMissingTypeEnumKey;
+																type: GetDeploymentStatus200ServicesRewritesMissingTypeEnum2Key;
 																value?:
 																	| (
 																			| string
@@ -36397,7 +38517,7 @@ export type GetDeploymentStatus200 =
 																  }
 																| {
 																		key: string;
-																		type: GetDeploymentStatus200ServicesRoutesHasTypeEnumKey;
+																		type: GetDeploymentStatus200ServicesRoutesHasTypeEnum2Key;
 																		value?:
 																			| (
 																					| string
@@ -36473,7 +38593,7 @@ export type GetDeploymentStatus200 =
 																  }
 																| {
 																		key: string;
-																		type: GetDeploymentStatus200ServicesRoutesMissingTypeEnumKey;
+																		type: GetDeploymentStatus200ServicesRoutesMissingTypeEnum2Key;
 																		value?:
 																			| (
 																					| string
@@ -36575,7 +38695,7 @@ export type GetDeploymentStatus200 =
 			 * @example null
 			 * @type string | undefined
 			 */
-			target?: (GetDeploymentStatus200TargetEnumKey | null) | undefined;
+			target?: (GetDeploymentStatus200TargetEnum2Key | null) | undefined;
 			/**
 			 * @description The team that owns the deployment if any
 			 * @type object | undefined
@@ -36670,8 +38790,8 @@ export type GetDeploymentStatus200 =
 			buildingAt: number;
 			buildSkipped: false | true;
 			canceledAt?: number | undefined;
-			checksConclusion?: GetDeploymentStatus200ChecksConclusionEnumKey | undefined;
-			checksState?: GetDeploymentStatus200ChecksStateEnumKey | undefined;
+			checksConclusion?: GetDeploymentStatus200ChecksConclusionEnum2Key | undefined;
+			checksState?: GetDeploymentStatus200ChecksStateEnum2Key | undefined;
 			/**
 			 * @description A number containing the date when the deployment was created in milliseconds
 			 * @example 1540257589405
@@ -36692,7 +38812,7 @@ export type GetDeploymentStatus200 =
 				 * @description Principal type of the deployment creator.
 				 * @type string | undefined
 				 */
-				type?: GetDeploymentStatus200CreatorTypeEnumKey | undefined;
+				type?: GetDeploymentStatus200CreatorTypeEnum2Key | undefined;
 				/**
 				 * @description Stable creator id across principal types (user id, app id, integration configuration id, or `system`).
 				 * @example 96SnxkFiMyVKsK3pnoHfx3Hz
@@ -36724,7 +38844,7 @@ export type GetDeploymentStatus200 =
 											 * @description The type of matching to perform
 											 * @type string
 											 */
-											type: GetDeploymentStatus200CustomEnvironmentBranchMatcherTypeEnumKey;
+											type: GetDeploymentStatus200CustomEnvironmentBranchMatcherTypeEnum2Key;
 									  }
 									| undefined;
 								/**
@@ -36756,7 +38876,7 @@ export type GetDeploymentStatus200 =
 											projectId: string;
 											redirect?: (string | null) | undefined;
 											redirectStatusCode?:
-												| (GetDeploymentStatus200CustomEnvironmentDomainsRedirectStatusCodeEnumKey | null)
+												| (GetDeploymentStatus200CustomEnvironmentDomainsRedirectStatusCodeEnum2Key | null)
 												| undefined;
 											updatedAt?: number | undefined;
 											/**
@@ -36792,7 +38912,7 @@ export type GetDeploymentStatus200 =
 								 * @description The type of environment (production, preview, or development)
 								 * @type string
 								 */
-								type: GetDeploymentStatus200CustomEnvironmentTypeEnumKey;
+								type: GetDeploymentStatus200CustomEnvironmentTypeEnum2Key;
 								/**
 								 * @description Timestamp when the environment was last updated
 								 * @type number
@@ -37067,7 +39187,7 @@ export type GetDeploymentStatus200 =
 						createdAt?: number | undefined;
 						entrypoint?: (string | null) | undefined;
 						id: string;
-						readyState?: GetDeploymentStatus200LambdasReadyStateEnumKey | undefined;
+						readyState?: GetDeploymentStatus200LambdasReadyStateEnum2Key | undefined;
 						readyStateAt?: number | undefined;
 						output: {
 							functionName: string;
@@ -37090,7 +39210,7 @@ export type GetDeploymentStatus200 =
 						 * @description Current provisioning state
 						 * @type string
 						 */
-						state: GetDeploymentStatus200ManualProvisioningStateEnumKey;
+						state: GetDeploymentStatus200ManualProvisioningStateEnum2Key;
 				  }
 				| undefined;
 			meta: {
@@ -37106,7 +39226,7 @@ export type GetDeploymentStatus200 =
 			 * @description If set it overrides the `projectSettings.nodeVersion` for this deployment.
 			 * @type string | undefined
 			 */
-			nodeVersion?: GetDeploymentStatus200NodeVersionEnumKey | undefined;
+			nodeVersion?: GetDeploymentStatus200NodeVersionEnum2Key | undefined;
 			oidcTokenClaims?:
 				| {
 						aud: string;
@@ -37161,13 +39281,13 @@ export type GetDeploymentStatus200 =
 			 * @example READY
 			 * @type string
 			 */
-			readyState: GetDeploymentStatus200ReadyStateEnumKey;
+			readyState: GetDeploymentStatus200ReadyStateEnum3Key;
 			readyStateReason?: string | undefined;
 			/**
 			 * @description Substate of deployment when readyState is 'READY' Tracks whether or not deployment has seen production traffic: - STAGED: never seen production traffic - ROLLING: in the process of having production traffic gradually transitioned. - PROMOTED: has seen production traffic
 			 * @type string | undefined
 			 */
-			readySubstate?: GetDeploymentStatus200ReadySubstateEnumKey | undefined;
+			readySubstate?: GetDeploymentStatus200ReadySubstateEnum2Key | undefined;
 			/**
 			 * @description The regions the deployment exists in
 			 * @example ["sfo1"]
@@ -37185,14 +39305,14 @@ export type GetDeploymentStatus200 =
 			 * @example cli
 			 * @type string | undefined
 			 */
-			source?: GetDeploymentStatus200SourceEnumKey | undefined;
-			status: GetDeploymentStatus200StatusEnumKey;
+			source?: GetDeploymentStatus200SourceEnum2Key | undefined;
+			status: GetDeploymentStatus200StatusEnum2Key;
 			/**
 			 * @description If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.
 			 * @example null
 			 * @type string | undefined
 			 */
-			target?: (GetDeploymentStatus200TargetEnumKey | null) | undefined;
+			target?: (GetDeploymentStatus200TargetEnum3Key | null) | undefined;
 			/**
 			 * @description The team that owns the deployment if any
 			 * @type object | undefined
@@ -37468,6 +39588,13 @@ export const createDeploymentStatus200CustomEnvironmentTypeEnum = {
 export type CreateDeploymentStatus200CustomEnvironmentTypeEnumKey =
 	(typeof createDeploymentStatus200CustomEnvironmentTypeEnum)[keyof typeof createDeploymentStatus200CustomEnvironmentTypeEnum];
 
+export const architectureEnum5 = {
+	arm64: "arm64",
+	x86_64: "x86_64",
+} as const;
+
+export type ArchitectureEnum5Key = (typeof architectureEnum5)[keyof typeof architectureEnum5];
+
 export const createDeploymentStatus200GitRepoOwnerTypeEnum = {
 	team: "team",
 	user: "user",
@@ -37475,6 +39602,38 @@ export const createDeploymentStatus200GitRepoOwnerTypeEnum = {
 
 export type CreateDeploymentStatus200GitRepoOwnerTypeEnumKey =
 	(typeof createDeploymentStatus200GitRepoOwnerTypeEnum)[keyof typeof createDeploymentStatus200GitRepoOwnerTypeEnum];
+
+export const createDeploymentStatus200GitRepoOwnerTypeEnum2 = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type CreateDeploymentStatus200GitRepoOwnerTypeEnum2Key =
+	(typeof createDeploymentStatus200GitRepoOwnerTypeEnum2)[keyof typeof createDeploymentStatus200GitRepoOwnerTypeEnum2];
+
+export const createDeploymentStatus200GitRepoOwnerTypeEnum3 = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type CreateDeploymentStatus200GitRepoOwnerTypeEnum3Key =
+	(typeof createDeploymentStatus200GitRepoOwnerTypeEnum3)[keyof typeof createDeploymentStatus200GitRepoOwnerTypeEnum3];
+
+export const createDeploymentStatus200GitRepoOwnerTypeEnum4 = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type CreateDeploymentStatus200GitRepoOwnerTypeEnum4Key =
+	(typeof createDeploymentStatus200GitRepoOwnerTypeEnum4)[keyof typeof createDeploymentStatus200GitRepoOwnerTypeEnum4];
+
+export const createDeploymentStatus200GitRepoOwnerTypeEnum5 = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type CreateDeploymentStatus200GitRepoOwnerTypeEnum5Key =
+	(typeof createDeploymentStatus200GitRepoOwnerTypeEnum5)[keyof typeof createDeploymentStatus200GitRepoOwnerTypeEnum5];
 
 export const createDeploymentStatus200ImagesContentDispositionTypeEnum = {
 	attachment: "attachment",
@@ -37668,6 +39827,19 @@ export const createDeploymentStatus200ProjectSettingsNodeVersionEnum = {
 export type CreateDeploymentStatus200ProjectSettingsNodeVersionEnumKey =
 	(typeof createDeploymentStatus200ProjectSettingsNodeVersionEnum)[keyof typeof createDeploymentStatus200ProjectSettingsNodeVersionEnum];
 
+export const createDeploymentStatus200ReadyStateEnum2 = {
+	BLOCKED: "BLOCKED",
+	BUILDING: "BUILDING",
+	CANCELED: "CANCELED",
+	ERROR: "ERROR",
+	INITIALIZING: "INITIALIZING",
+	QUEUED: "QUEUED",
+	READY: "READY",
+} as const;
+
+export type CreateDeploymentStatus200ReadyStateEnum2Key =
+	(typeof createDeploymentStatus200ReadyStateEnum2)[keyof typeof createDeploymentStatus200ReadyStateEnum2];
+
 export const createDeploymentStatus200ReadySubstateEnum = {
 	PROMOTED: "PROMOTED",
 	ROLLING: "ROLLING",
@@ -37678,6 +39850,7 @@ export type CreateDeploymentStatus200ReadySubstateEnumKey =
 	(typeof createDeploymentStatus200ReadySubstateEnum)[keyof typeof createDeploymentStatus200ReadySubstateEnum];
 
 export const createDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -37709,23 +39882,55 @@ export const createDeploymentStatus200ResourceConfigBuildMachineSelectionSourceE
 export type CreateDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnumKey =
 	(typeof createDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum)[keyof typeof createDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum];
 
-export const createDeploymentStatus200RoutesHasTypeEnum = {
+export const createDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum2 = {
+	basic: "basic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type CreateDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum2Key =
+	(typeof createDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum2)[keyof typeof createDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum2];
+
+export const createDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnum2 = {
+	basic: "basic",
+	enhanced: "enhanced",
+	none: "none",
+	standard: "standard",
+} as const;
+
+export type CreateDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnum2Key =
+	(typeof createDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnum2)[keyof typeof createDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnum2];
+
+export const createDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum2 = {
+	"deployment-override": "deployment-override",
+	"elastic-algorithm": "elastic-algorithm",
+	"plan-default": "plan-default",
+	"project-setting": "project-setting",
+	"team-entitlement": "team-entitlement",
+	"team-setting": "team-setting",
+} as const;
+
+export type CreateDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum2Key =
+	(typeof createDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum2)[keyof typeof createDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum2];
+
+export const createDeploymentStatus200RoutesHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CreateDeploymentStatus200RoutesHasTypeEnumKey =
-	(typeof createDeploymentStatus200RoutesHasTypeEnum)[keyof typeof createDeploymentStatus200RoutesHasTypeEnum];
+export type CreateDeploymentStatus200RoutesHasTypeEnum2Key =
+	(typeof createDeploymentStatus200RoutesHasTypeEnum2)[keyof typeof createDeploymentStatus200RoutesHasTypeEnum2];
 
-export const createDeploymentStatus200RoutesMissingTypeEnum = {
+export const createDeploymentStatus200RoutesMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CreateDeploymentStatus200RoutesMissingTypeEnumKey =
-	(typeof createDeploymentStatus200RoutesMissingTypeEnum)[keyof typeof createDeploymentStatus200RoutesMissingTypeEnum];
+export type CreateDeploymentStatus200RoutesMissingTypeEnum2Key =
+	(typeof createDeploymentStatus200RoutesMissingTypeEnum2)[keyof typeof createDeploymentStatus200RoutesMissingTypeEnum2];
 
 export const createDeploymentStatus200RoutesMitigateActionEnum = {
 	challenge: "challenge",
@@ -37800,6 +40005,13 @@ export const createDeploymentStatus200ServicesBuilderConfigDaemonResourcesReques
 export type CreateDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnumKey =
 	(typeof createDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum)[keyof typeof createDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum];
 
+export const architectureEnum6 = {
+	arm64: "arm64",
+	x86_64: "x86_64",
+} as const;
+
+export type ArchitectureEnum6Key = (typeof architectureEnum6)[keyof typeof architectureEnum6];
+
 export const createDeploymentStatus200ServicesRoutePrefixSourceEnum = {
 	configured: "configured",
 	generated: "generated",
@@ -37827,77 +40039,109 @@ export const createDeploymentStatus200ServicesTypeEnum = {
 export type CreateDeploymentStatus200ServicesTypeEnumKey =
 	(typeof createDeploymentStatus200ServicesTypeEnum)[keyof typeof createDeploymentStatus200ServicesTypeEnum];
 
-export const createDeploymentStatus200ServicesHeadersHasTypeEnum = {
+export const createDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum2 = {
+	HTTP: "HTTP",
+	HTTPS: "HTTPS",
+} as const;
+
+export type CreateDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum2Key =
+	(typeof createDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum2)[keyof typeof createDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum2];
+
+export const createDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum2 = {
+	"1Gi": "1Gi",
+	"2Gi": "2Gi",
+	"4Gi": "4Gi",
+	"8Gi": "8Gi",
+} as const;
+
+export type CreateDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum2Key =
+	(typeof createDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum2)[keyof typeof createDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum2];
+
+export const architectureEnum7 = {
+	arm64: "arm64",
+	x86_64: "x86_64",
+} as const;
+
+export type ArchitectureEnum7Key = (typeof architectureEnum7)[keyof typeof architectureEnum7];
+
+export const architectureEnum8 = {
+	arm64: "arm64",
+	x86_64: "x86_64",
+} as const;
+
+export type ArchitectureEnum8Key = (typeof architectureEnum8)[keyof typeof architectureEnum8];
+
+export const createDeploymentStatus200ServicesHeadersHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CreateDeploymentStatus200ServicesHeadersHasTypeEnumKey =
-	(typeof createDeploymentStatus200ServicesHeadersHasTypeEnum)[keyof typeof createDeploymentStatus200ServicesHeadersHasTypeEnum];
+export type CreateDeploymentStatus200ServicesHeadersHasTypeEnum2Key =
+	(typeof createDeploymentStatus200ServicesHeadersHasTypeEnum2)[keyof typeof createDeploymentStatus200ServicesHeadersHasTypeEnum2];
 
-export const createDeploymentStatus200ServicesHeadersMissingTypeEnum = {
+export const createDeploymentStatus200ServicesHeadersMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CreateDeploymentStatus200ServicesHeadersMissingTypeEnumKey =
-	(typeof createDeploymentStatus200ServicesHeadersMissingTypeEnum)[keyof typeof createDeploymentStatus200ServicesHeadersMissingTypeEnum];
+export type CreateDeploymentStatus200ServicesHeadersMissingTypeEnum2Key =
+	(typeof createDeploymentStatus200ServicesHeadersMissingTypeEnum2)[keyof typeof createDeploymentStatus200ServicesHeadersMissingTypeEnum2];
 
-export const createDeploymentStatus200ServicesRedirectsHasTypeEnum = {
+export const createDeploymentStatus200ServicesRedirectsHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CreateDeploymentStatus200ServicesRedirectsHasTypeEnumKey =
-	(typeof createDeploymentStatus200ServicesRedirectsHasTypeEnum)[keyof typeof createDeploymentStatus200ServicesRedirectsHasTypeEnum];
+export type CreateDeploymentStatus200ServicesRedirectsHasTypeEnum2Key =
+	(typeof createDeploymentStatus200ServicesRedirectsHasTypeEnum2)[keyof typeof createDeploymentStatus200ServicesRedirectsHasTypeEnum2];
 
-export const createDeploymentStatus200ServicesRedirectsMissingTypeEnum = {
+export const createDeploymentStatus200ServicesRedirectsMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CreateDeploymentStatus200ServicesRedirectsMissingTypeEnumKey =
-	(typeof createDeploymentStatus200ServicesRedirectsMissingTypeEnum)[keyof typeof createDeploymentStatus200ServicesRedirectsMissingTypeEnum];
+export type CreateDeploymentStatus200ServicesRedirectsMissingTypeEnum2Key =
+	(typeof createDeploymentStatus200ServicesRedirectsMissingTypeEnum2)[keyof typeof createDeploymentStatus200ServicesRedirectsMissingTypeEnum2];
 
-export const createDeploymentStatus200ServicesRewritesHasTypeEnum = {
+export const createDeploymentStatus200ServicesRewritesHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CreateDeploymentStatus200ServicesRewritesHasTypeEnumKey =
-	(typeof createDeploymentStatus200ServicesRewritesHasTypeEnum)[keyof typeof createDeploymentStatus200ServicesRewritesHasTypeEnum];
+export type CreateDeploymentStatus200ServicesRewritesHasTypeEnum2Key =
+	(typeof createDeploymentStatus200ServicesRewritesHasTypeEnum2)[keyof typeof createDeploymentStatus200ServicesRewritesHasTypeEnum2];
 
-export const createDeploymentStatus200ServicesRewritesMissingTypeEnum = {
+export const createDeploymentStatus200ServicesRewritesMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CreateDeploymentStatus200ServicesRewritesMissingTypeEnumKey =
-	(typeof createDeploymentStatus200ServicesRewritesMissingTypeEnum)[keyof typeof createDeploymentStatus200ServicesRewritesMissingTypeEnum];
+export type CreateDeploymentStatus200ServicesRewritesMissingTypeEnum2Key =
+	(typeof createDeploymentStatus200ServicesRewritesMissingTypeEnum2)[keyof typeof createDeploymentStatus200ServicesRewritesMissingTypeEnum2];
 
-export const createDeploymentStatus200ServicesRoutesHasTypeEnum = {
+export const createDeploymentStatus200ServicesRoutesHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CreateDeploymentStatus200ServicesRoutesHasTypeEnumKey =
-	(typeof createDeploymentStatus200ServicesRoutesHasTypeEnum)[keyof typeof createDeploymentStatus200ServicesRoutesHasTypeEnum];
+export type CreateDeploymentStatus200ServicesRoutesHasTypeEnum2Key =
+	(typeof createDeploymentStatus200ServicesRoutesHasTypeEnum2)[keyof typeof createDeploymentStatus200ServicesRoutesHasTypeEnum2];
 
-export const createDeploymentStatus200ServicesRoutesMissingTypeEnum = {
+export const createDeploymentStatus200ServicesRoutesMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CreateDeploymentStatus200ServicesRoutesMissingTypeEnumKey =
-	(typeof createDeploymentStatus200ServicesRoutesMissingTypeEnum)[keyof typeof createDeploymentStatus200ServicesRoutesMissingTypeEnum];
+export type CreateDeploymentStatus200ServicesRoutesMissingTypeEnum2Key =
+	(typeof createDeploymentStatus200ServicesRoutesMissingTypeEnum2)[keyof typeof createDeploymentStatus200ServicesRoutesMissingTypeEnum2];
 
 export const createDeploymentStatus200ServicesRoutesMitigateActionEnum = {
 	challenge: "challenge",
@@ -37965,6 +40209,14 @@ export const createDeploymentStatus200StatusEnum = {
 
 export type CreateDeploymentStatus200StatusEnumKey =
 	(typeof createDeploymentStatus200StatusEnum)[keyof typeof createDeploymentStatus200StatusEnum];
+
+export const createDeploymentStatus200TargetEnum2 = {
+	production: "production",
+	staging: "staging",
+} as const;
+
+export type CreateDeploymentStatus200TargetEnum2Key =
+	(typeof createDeploymentStatus200TargetEnum2)[keyof typeof createDeploymentStatus200TargetEnum2];
 
 export type CreateDeploymentStatus200 =
 	| {
@@ -38495,7 +40747,7 @@ export type CreateDeploymentStatus200 =
 										mode: "strict";
 								  }
 								| undefined;
-							architecture?: ArchitectureEnumKey | undefined;
+							architecture?: ArchitectureEnum5Key | undefined;
 							excludeFiles?: string | undefined;
 							experimentalTriggers?:
 								| (
@@ -38611,7 +40863,7 @@ export type CreateDeploymentStatus200 =
 										defaultBranch: string;
 										name: string;
 										org: string;
-										ownerType: CreateDeploymentStatus200GitRepoOwnerTypeEnumKey;
+										ownerType: CreateDeploymentStatus200GitRepoOwnerTypeEnum2Key;
 										path: string;
 										private: false | true;
 										repo: string;
@@ -38623,7 +40875,7 @@ export type CreateDeploymentStatus200 =
 										defaultBranch: string;
 										name: string;
 										owner: string;
-										ownerType: CreateDeploymentStatus200GitRepoOwnerTypeEnumKey;
+										ownerType: CreateDeploymentStatus200GitRepoOwnerTypeEnum3Key;
 										path: string;
 										private: false | true;
 										repoUuid: string;
@@ -38635,7 +40887,7 @@ export type CreateDeploymentStatus200 =
 										defaultBranch: string;
 										name: string;
 										org: string;
-										ownerType: CreateDeploymentStatus200GitRepoOwnerTypeEnumKey;
+										ownerType: CreateDeploymentStatus200GitRepoOwnerTypeEnum4Key;
 										path: string;
 										private: false | true;
 										repo: string;
@@ -38649,7 +40901,7 @@ export type CreateDeploymentStatus200 =
 										 * @type string
 										 */
 										owner: string;
-										ownerType: CreateDeploymentStatus200GitRepoOwnerTypeEnumKey;
+										ownerType: CreateDeploymentStatus200GitRepoOwnerTypeEnum5Key;
 										path: string;
 										private: false | true;
 										repo: string;
@@ -39200,7 +41452,7 @@ export type CreateDeploymentStatus200 =
 			 * @example READY
 			 * @type string
 			 */
-			readyState: CreateDeploymentStatus200ReadyStateEnumKey;
+			readyState: CreateDeploymentStatus200ReadyStateEnum2Key;
 			readyStateReason?: string | undefined;
 			/**
 			 * @description Substate of deployment when readyState is 'READY' Tracks whether or not deployment has seen production traffic: - STAGED: never seen production traffic - ROLLING: in the process of having production traffic gradually transitioned. - PROMOTED: has seen production traffic
@@ -39266,7 +41518,7 @@ export type CreateDeploymentStatus200 =
 											 * @type string | undefined
 											 */
 											purchaseType?:
-												| CreateDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnumKey
+												| CreateDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum2Key
 												| undefined;
 											/**
 											 * @description Build cores. Deployment creation sets the requested value; dispatch replaces it with the cores assigned by routing.
@@ -39278,7 +41530,7 @@ export type CreateDeploymentStatus200 =
 											 * @type string | undefined
 											 */
 											defaultPurchaseType?:
-												| CreateDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnumKey
+												| CreateDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnum2Key
 												| undefined;
 											/**
 											 * @description Build memory, in MiB. Deployment creation sets the requested value; dispatch replaces it with the memory assigned by routing.
@@ -39290,7 +41542,7 @@ export type CreateDeploymentStatus200 =
 											 * @type string | undefined
 											 */
 											selectionSource?:
-												| CreateDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnumKey
+												| CreateDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum2Key
 												| undefined;
 									  }
 							  )
@@ -39345,7 +41597,7 @@ export type CreateDeploymentStatus200 =
 											  }
 											| {
 													key: string;
-													type: CreateDeploymentStatus200RoutesHasTypeEnumKey;
+													type: CreateDeploymentStatus200RoutesHasTypeEnum2Key;
 													value?:
 														| (
 																| string
@@ -39421,7 +41673,7 @@ export type CreateDeploymentStatus200 =
 											  }
 											| {
 													key: string;
-													type: CreateDeploymentStatus200RoutesMissingTypeEnumKey;
+													type: CreateDeploymentStatus200RoutesMissingTypeEnum2Key;
 													value?:
 														| (
 																| string
@@ -39657,7 +41909,7 @@ export type CreateDeploymentStatus200 =
 																			mode: "strict";
 																	  }
 																	| undefined;
-																architecture?: ArchitectureEnumKey | undefined;
+																architecture?: ArchitectureEnum6Key | undefined;
 																excludeFiles?: string | undefined;
 																experimentalTriggers?:
 																	| (
@@ -39984,7 +42236,7 @@ export type CreateDeploymentStatus200 =
 																			path?: string | undefined;
 																			port: number;
 																			scheme?:
-																				| CreateDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnumKey
+																				| CreateDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum2Key
 																				| undefined;
 																		};
 																		initialDelaySeconds?: number | undefined;
@@ -40005,7 +42257,7 @@ export type CreateDeploymentStatus200 =
 															resources?:
 																| {
 																		requests: {
-																			memory: CreateDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnumKey;
+																			memory: CreateDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum2Key;
 																		};
 																  }
 																| undefined;
@@ -40026,7 +42278,7 @@ export type CreateDeploymentStatus200 =
 																			mode: "strict";
 																	  }
 																	| undefined;
-																architecture?: ArchitectureEnumKey | undefined;
+																architecture?: ArchitectureEnum7Key | undefined;
 																excludeFiles?: string | undefined;
 																experimentalTriggers?:
 																	| (
@@ -40233,7 +42485,7 @@ export type CreateDeploymentStatus200 =
 															mode: "strict";
 													  }
 													| undefined;
-												architecture?: ArchitectureEnumKey | undefined;
+												architecture?: ArchitectureEnum8Key | undefined;
 												excludeFiles?: string | undefined;
 												experimentalTriggers?:
 													| (
@@ -40355,7 +42607,7 @@ export type CreateDeploymentStatus200 =
 														  }
 														| {
 																key: string;
-																type: CreateDeploymentStatus200ServicesHeadersHasTypeEnumKey;
+																type: CreateDeploymentStatus200ServicesHeadersHasTypeEnum2Key;
 																value?:
 																	| (
 																			| string
@@ -40403,7 +42655,7 @@ export type CreateDeploymentStatus200 =
 														  }
 														| {
 																key: string;
-																type: CreateDeploymentStatus200ServicesHeadersMissingTypeEnumKey;
+																type: CreateDeploymentStatus200ServicesHeadersMissingTypeEnum2Key;
 																value?:
 																	| (
 																			| string
@@ -40458,7 +42710,7 @@ export type CreateDeploymentStatus200 =
 														  }
 														| {
 																key: string;
-																type: CreateDeploymentStatus200ServicesRedirectsHasTypeEnumKey;
+																type: CreateDeploymentStatus200ServicesRedirectsHasTypeEnum2Key;
 																value?:
 																	| (
 																			| string
@@ -40502,7 +42754,7 @@ export type CreateDeploymentStatus200 =
 														  }
 														| {
 																key: string;
-																type: CreateDeploymentStatus200ServicesRedirectsMissingTypeEnumKey;
+																type: CreateDeploymentStatus200ServicesRedirectsMissingTypeEnum2Key;
 																value?:
 																	| (
 																			| string
@@ -40569,7 +42821,7 @@ export type CreateDeploymentStatus200 =
 														  }
 														| {
 																key: string;
-																type: CreateDeploymentStatus200ServicesRewritesHasTypeEnumKey;
+																type: CreateDeploymentStatus200ServicesRewritesHasTypeEnum2Key;
 																value?:
 																	| (
 																			| string
@@ -40613,7 +42865,7 @@ export type CreateDeploymentStatus200 =
 														  }
 														| {
 																key: string;
-																type: CreateDeploymentStatus200ServicesRewritesMissingTypeEnumKey;
+																type: CreateDeploymentStatus200ServicesRewritesMissingTypeEnum2Key;
 																value?:
 																	| (
 																			| string
@@ -40701,7 +42953,7 @@ export type CreateDeploymentStatus200 =
 																  }
 																| {
 																		key: string;
-																		type: CreateDeploymentStatus200ServicesRoutesHasTypeEnumKey;
+																		type: CreateDeploymentStatus200ServicesRoutesHasTypeEnum2Key;
 																		value?:
 																			| (
 																					| string
@@ -40777,7 +43029,7 @@ export type CreateDeploymentStatus200 =
 																  }
 																| {
 																		key: string;
-																		type: CreateDeploymentStatus200ServicesRoutesMissingTypeEnumKey;
+																		type: CreateDeploymentStatus200ServicesRoutesMissingTypeEnum2Key;
 																		value?:
 																			| (
 																					| string
@@ -40879,7 +43131,7 @@ export type CreateDeploymentStatus200 =
 			 * @example null
 			 * @type string | undefined
 			 */
-			target?: (CreateDeploymentStatus200TargetEnumKey | null) | undefined;
+			target?: (CreateDeploymentStatus200TargetEnum2Key | null) | undefined;
 			/**
 			 * @description The team that owns the deployment if any
 			 * @type object | undefined
@@ -41691,6 +43943,13 @@ export const cancelDeploymentStatus200CustomEnvironmentTypeEnum = {
 export type CancelDeploymentStatus200CustomEnvironmentTypeEnumKey =
 	(typeof cancelDeploymentStatus200CustomEnvironmentTypeEnum)[keyof typeof cancelDeploymentStatus200CustomEnvironmentTypeEnum];
 
+export const architectureEnum9 = {
+	arm64: "arm64",
+	x86_64: "x86_64",
+} as const;
+
+export type ArchitectureEnum9Key = (typeof architectureEnum9)[keyof typeof architectureEnum9];
+
 export const cancelDeploymentStatus200GitRepoOwnerTypeEnum = {
 	team: "team",
 	user: "user",
@@ -41698,6 +43957,38 @@ export const cancelDeploymentStatus200GitRepoOwnerTypeEnum = {
 
 export type CancelDeploymentStatus200GitRepoOwnerTypeEnumKey =
 	(typeof cancelDeploymentStatus200GitRepoOwnerTypeEnum)[keyof typeof cancelDeploymentStatus200GitRepoOwnerTypeEnum];
+
+export const cancelDeploymentStatus200GitRepoOwnerTypeEnum2 = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type CancelDeploymentStatus200GitRepoOwnerTypeEnum2Key =
+	(typeof cancelDeploymentStatus200GitRepoOwnerTypeEnum2)[keyof typeof cancelDeploymentStatus200GitRepoOwnerTypeEnum2];
+
+export const cancelDeploymentStatus200GitRepoOwnerTypeEnum3 = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type CancelDeploymentStatus200GitRepoOwnerTypeEnum3Key =
+	(typeof cancelDeploymentStatus200GitRepoOwnerTypeEnum3)[keyof typeof cancelDeploymentStatus200GitRepoOwnerTypeEnum3];
+
+export const cancelDeploymentStatus200GitRepoOwnerTypeEnum4 = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type CancelDeploymentStatus200GitRepoOwnerTypeEnum4Key =
+	(typeof cancelDeploymentStatus200GitRepoOwnerTypeEnum4)[keyof typeof cancelDeploymentStatus200GitRepoOwnerTypeEnum4];
+
+export const cancelDeploymentStatus200GitRepoOwnerTypeEnum5 = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type CancelDeploymentStatus200GitRepoOwnerTypeEnum5Key =
+	(typeof cancelDeploymentStatus200GitRepoOwnerTypeEnum5)[keyof typeof cancelDeploymentStatus200GitRepoOwnerTypeEnum5];
 
 export const cancelDeploymentStatus200ImagesContentDispositionTypeEnum = {
 	attachment: "attachment",
@@ -41914,6 +44205,7 @@ export type CancelDeploymentStatus200ReadySubstateEnumKey =
 	(typeof cancelDeploymentStatus200ReadySubstateEnum)[keyof typeof cancelDeploymentStatus200ReadySubstateEnum];
 
 export const cancelDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum = {
+	"14cpu-28gb": "14cpu-28gb",
 	basic: "basic",
 	enhanced: "enhanced",
 	standard: "standard",
@@ -41945,23 +44237,55 @@ export const cancelDeploymentStatus200ResourceConfigBuildMachineSelectionSourceE
 export type CancelDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnumKey =
 	(typeof cancelDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum)[keyof typeof cancelDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum];
 
-export const cancelDeploymentStatus200RoutesHasTypeEnum = {
+export const cancelDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum2 = {
+	basic: "basic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type CancelDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum2Key =
+	(typeof cancelDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum2)[keyof typeof cancelDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum2];
+
+export const cancelDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnum2 = {
+	basic: "basic",
+	enhanced: "enhanced",
+	none: "none",
+	standard: "standard",
+} as const;
+
+export type CancelDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnum2Key =
+	(typeof cancelDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnum2)[keyof typeof cancelDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnum2];
+
+export const cancelDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum2 = {
+	"deployment-override": "deployment-override",
+	"elastic-algorithm": "elastic-algorithm",
+	"plan-default": "plan-default",
+	"project-setting": "project-setting",
+	"team-entitlement": "team-entitlement",
+	"team-setting": "team-setting",
+} as const;
+
+export type CancelDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum2Key =
+	(typeof cancelDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum2)[keyof typeof cancelDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum2];
+
+export const cancelDeploymentStatus200RoutesHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CancelDeploymentStatus200RoutesHasTypeEnumKey =
-	(typeof cancelDeploymentStatus200RoutesHasTypeEnum)[keyof typeof cancelDeploymentStatus200RoutesHasTypeEnum];
+export type CancelDeploymentStatus200RoutesHasTypeEnum2Key =
+	(typeof cancelDeploymentStatus200RoutesHasTypeEnum2)[keyof typeof cancelDeploymentStatus200RoutesHasTypeEnum2];
 
-export const cancelDeploymentStatus200RoutesMissingTypeEnum = {
+export const cancelDeploymentStatus200RoutesMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CancelDeploymentStatus200RoutesMissingTypeEnumKey =
-	(typeof cancelDeploymentStatus200RoutesMissingTypeEnum)[keyof typeof cancelDeploymentStatus200RoutesMissingTypeEnum];
+export type CancelDeploymentStatus200RoutesMissingTypeEnum2Key =
+	(typeof cancelDeploymentStatus200RoutesMissingTypeEnum2)[keyof typeof cancelDeploymentStatus200RoutesMissingTypeEnum2];
 
 export const cancelDeploymentStatus200RoutesMitigateActionEnum = {
 	challenge: "challenge",
@@ -42036,6 +44360,13 @@ export const cancelDeploymentStatus200ServicesBuilderConfigDaemonResourcesReques
 export type CancelDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnumKey =
 	(typeof cancelDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum)[keyof typeof cancelDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum];
 
+export const architectureEnum10 = {
+	arm64: "arm64",
+	x86_64: "x86_64",
+} as const;
+
+export type ArchitectureEnum10Key = (typeof architectureEnum10)[keyof typeof architectureEnum10];
+
 export const cancelDeploymentStatus200ServicesRoutePrefixSourceEnum = {
 	configured: "configured",
 	generated: "generated",
@@ -42063,77 +44394,109 @@ export const cancelDeploymentStatus200ServicesTypeEnum = {
 export type CancelDeploymentStatus200ServicesTypeEnumKey =
 	(typeof cancelDeploymentStatus200ServicesTypeEnum)[keyof typeof cancelDeploymentStatus200ServicesTypeEnum];
 
-export const cancelDeploymentStatus200ServicesHeadersHasTypeEnum = {
+export const cancelDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum2 = {
+	HTTP: "HTTP",
+	HTTPS: "HTTPS",
+} as const;
+
+export type CancelDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum2Key =
+	(typeof cancelDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum2)[keyof typeof cancelDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum2];
+
+export const cancelDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum2 = {
+	"1Gi": "1Gi",
+	"2Gi": "2Gi",
+	"4Gi": "4Gi",
+	"8Gi": "8Gi",
+} as const;
+
+export type CancelDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum2Key =
+	(typeof cancelDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum2)[keyof typeof cancelDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum2];
+
+export const architectureEnum11 = {
+	arm64: "arm64",
+	x86_64: "x86_64",
+} as const;
+
+export type ArchitectureEnum11Key = (typeof architectureEnum11)[keyof typeof architectureEnum11];
+
+export const architectureEnum12 = {
+	arm64: "arm64",
+	x86_64: "x86_64",
+} as const;
+
+export type ArchitectureEnum12Key = (typeof architectureEnum12)[keyof typeof architectureEnum12];
+
+export const cancelDeploymentStatus200ServicesHeadersHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CancelDeploymentStatus200ServicesHeadersHasTypeEnumKey =
-	(typeof cancelDeploymentStatus200ServicesHeadersHasTypeEnum)[keyof typeof cancelDeploymentStatus200ServicesHeadersHasTypeEnum];
+export type CancelDeploymentStatus200ServicesHeadersHasTypeEnum2Key =
+	(typeof cancelDeploymentStatus200ServicesHeadersHasTypeEnum2)[keyof typeof cancelDeploymentStatus200ServicesHeadersHasTypeEnum2];
 
-export const cancelDeploymentStatus200ServicesHeadersMissingTypeEnum = {
+export const cancelDeploymentStatus200ServicesHeadersMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CancelDeploymentStatus200ServicesHeadersMissingTypeEnumKey =
-	(typeof cancelDeploymentStatus200ServicesHeadersMissingTypeEnum)[keyof typeof cancelDeploymentStatus200ServicesHeadersMissingTypeEnum];
+export type CancelDeploymentStatus200ServicesHeadersMissingTypeEnum2Key =
+	(typeof cancelDeploymentStatus200ServicesHeadersMissingTypeEnum2)[keyof typeof cancelDeploymentStatus200ServicesHeadersMissingTypeEnum2];
 
-export const cancelDeploymentStatus200ServicesRedirectsHasTypeEnum = {
+export const cancelDeploymentStatus200ServicesRedirectsHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CancelDeploymentStatus200ServicesRedirectsHasTypeEnumKey =
-	(typeof cancelDeploymentStatus200ServicesRedirectsHasTypeEnum)[keyof typeof cancelDeploymentStatus200ServicesRedirectsHasTypeEnum];
+export type CancelDeploymentStatus200ServicesRedirectsHasTypeEnum2Key =
+	(typeof cancelDeploymentStatus200ServicesRedirectsHasTypeEnum2)[keyof typeof cancelDeploymentStatus200ServicesRedirectsHasTypeEnum2];
 
-export const cancelDeploymentStatus200ServicesRedirectsMissingTypeEnum = {
+export const cancelDeploymentStatus200ServicesRedirectsMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CancelDeploymentStatus200ServicesRedirectsMissingTypeEnumKey =
-	(typeof cancelDeploymentStatus200ServicesRedirectsMissingTypeEnum)[keyof typeof cancelDeploymentStatus200ServicesRedirectsMissingTypeEnum];
+export type CancelDeploymentStatus200ServicesRedirectsMissingTypeEnum2Key =
+	(typeof cancelDeploymentStatus200ServicesRedirectsMissingTypeEnum2)[keyof typeof cancelDeploymentStatus200ServicesRedirectsMissingTypeEnum2];
 
-export const cancelDeploymentStatus200ServicesRewritesHasTypeEnum = {
+export const cancelDeploymentStatus200ServicesRewritesHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CancelDeploymentStatus200ServicesRewritesHasTypeEnumKey =
-	(typeof cancelDeploymentStatus200ServicesRewritesHasTypeEnum)[keyof typeof cancelDeploymentStatus200ServicesRewritesHasTypeEnum];
+export type CancelDeploymentStatus200ServicesRewritesHasTypeEnum2Key =
+	(typeof cancelDeploymentStatus200ServicesRewritesHasTypeEnum2)[keyof typeof cancelDeploymentStatus200ServicesRewritesHasTypeEnum2];
 
-export const cancelDeploymentStatus200ServicesRewritesMissingTypeEnum = {
+export const cancelDeploymentStatus200ServicesRewritesMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CancelDeploymentStatus200ServicesRewritesMissingTypeEnumKey =
-	(typeof cancelDeploymentStatus200ServicesRewritesMissingTypeEnum)[keyof typeof cancelDeploymentStatus200ServicesRewritesMissingTypeEnum];
+export type CancelDeploymentStatus200ServicesRewritesMissingTypeEnum2Key =
+	(typeof cancelDeploymentStatus200ServicesRewritesMissingTypeEnum2)[keyof typeof cancelDeploymentStatus200ServicesRewritesMissingTypeEnum2];
 
-export const cancelDeploymentStatus200ServicesRoutesHasTypeEnum = {
+export const cancelDeploymentStatus200ServicesRoutesHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CancelDeploymentStatus200ServicesRoutesHasTypeEnumKey =
-	(typeof cancelDeploymentStatus200ServicesRoutesHasTypeEnum)[keyof typeof cancelDeploymentStatus200ServicesRoutesHasTypeEnum];
+export type CancelDeploymentStatus200ServicesRoutesHasTypeEnum2Key =
+	(typeof cancelDeploymentStatus200ServicesRoutesHasTypeEnum2)[keyof typeof cancelDeploymentStatus200ServicesRoutesHasTypeEnum2];
 
-export const cancelDeploymentStatus200ServicesRoutesMissingTypeEnum = {
+export const cancelDeploymentStatus200ServicesRoutesMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type CancelDeploymentStatus200ServicesRoutesMissingTypeEnumKey =
-	(typeof cancelDeploymentStatus200ServicesRoutesMissingTypeEnum)[keyof typeof cancelDeploymentStatus200ServicesRoutesMissingTypeEnum];
+export type CancelDeploymentStatus200ServicesRoutesMissingTypeEnum2Key =
+	(typeof cancelDeploymentStatus200ServicesRoutesMissingTypeEnum2)[keyof typeof cancelDeploymentStatus200ServicesRoutesMissingTypeEnum2];
 
 export const cancelDeploymentStatus200ServicesRoutesMitigateActionEnum = {
 	challenge: "challenge",
@@ -42662,7 +45025,7 @@ export type CancelDeploymentStatus200 = {
 								mode: "strict";
 						  }
 						| undefined;
-					architecture?: ArchitectureEnumKey | undefined;
+					architecture?: ArchitectureEnum9Key | undefined;
 					excludeFiles?: string | undefined;
 					experimentalTriggers?:
 						| (
@@ -42778,7 +45141,7 @@ export type CancelDeploymentStatus200 = {
 								defaultBranch: string;
 								name: string;
 								org: string;
-								ownerType: CancelDeploymentStatus200GitRepoOwnerTypeEnumKey;
+								ownerType: CancelDeploymentStatus200GitRepoOwnerTypeEnum2Key;
 								path: string;
 								private: false | true;
 								repo: string;
@@ -42790,7 +45153,7 @@ export type CancelDeploymentStatus200 = {
 								defaultBranch: string;
 								name: string;
 								owner: string;
-								ownerType: CancelDeploymentStatus200GitRepoOwnerTypeEnumKey;
+								ownerType: CancelDeploymentStatus200GitRepoOwnerTypeEnum3Key;
 								path: string;
 								private: false | true;
 								repoUuid: string;
@@ -42802,7 +45165,7 @@ export type CancelDeploymentStatus200 = {
 								defaultBranch: string;
 								name: string;
 								org: string;
-								ownerType: CancelDeploymentStatus200GitRepoOwnerTypeEnumKey;
+								ownerType: CancelDeploymentStatus200GitRepoOwnerTypeEnum4Key;
 								path: string;
 								private: false | true;
 								repo: string;
@@ -42816,7 +45179,7 @@ export type CancelDeploymentStatus200 = {
 								 * @type string
 								 */
 								owner: string;
-								ownerType: CancelDeploymentStatus200GitRepoOwnerTypeEnumKey;
+								ownerType: CancelDeploymentStatus200GitRepoOwnerTypeEnum5Key;
 								path: string;
 								private: false | true;
 								repo: string;
@@ -43431,7 +45794,7 @@ export type CancelDeploymentStatus200 = {
 									 * @type string | undefined
 									 */
 									purchaseType?:
-										| CancelDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnumKey
+										| CancelDeploymentStatus200ResourceConfigBuildMachinePurchaseTypeEnum2Key
 										| undefined;
 									/**
 									 * @description Build cores. Deployment creation sets the requested value; dispatch replaces it with the cores assigned by routing.
@@ -43443,7 +45806,7 @@ export type CancelDeploymentStatus200 = {
 									 * @type string | undefined
 									 */
 									defaultPurchaseType?:
-										| CancelDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnumKey
+										| CancelDeploymentStatus200ResourceConfigBuildMachineDefaultPurchaseTypeEnum2Key
 										| undefined;
 									/**
 									 * @description Build memory, in MiB. Deployment creation sets the requested value; dispatch replaces it with the memory assigned by routing.
@@ -43455,7 +45818,7 @@ export type CancelDeploymentStatus200 = {
 									 * @type string | undefined
 									 */
 									selectionSource?:
-										| CancelDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnumKey
+										| CancelDeploymentStatus200ResourceConfigBuildMachineSelectionSourceEnum2Key
 										| undefined;
 							  }
 					  )
@@ -43510,7 +45873,7 @@ export type CancelDeploymentStatus200 = {
 									  }
 									| {
 											key: string;
-											type: CancelDeploymentStatus200RoutesHasTypeEnumKey;
+											type: CancelDeploymentStatus200RoutesHasTypeEnum2Key;
 											value?:
 												| (
 														| string
@@ -43586,7 +45949,7 @@ export type CancelDeploymentStatus200 = {
 									  }
 									| {
 											key: string;
-											type: CancelDeploymentStatus200RoutesMissingTypeEnumKey;
+											type: CancelDeploymentStatus200RoutesMissingTypeEnum2Key;
 											value?:
 												| (
 														| string
@@ -43822,7 +46185,7 @@ export type CancelDeploymentStatus200 = {
 																	mode: "strict";
 															  }
 															| undefined;
-														architecture?: ArchitectureEnumKey | undefined;
+														architecture?: ArchitectureEnum10Key | undefined;
 														excludeFiles?: string | undefined;
 														experimentalTriggers?:
 															| (
@@ -44149,7 +46512,7 @@ export type CancelDeploymentStatus200 = {
 																	path?: string | undefined;
 																	port: number;
 																	scheme?:
-																		| CancelDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnumKey
+																		| CancelDeploymentStatus200ServicesBuilderConfigDaemonLivenessProbeHttpGetSchemeEnum2Key
 																		| undefined;
 																};
 																initialDelaySeconds?: number | undefined;
@@ -44170,7 +46533,7 @@ export type CancelDeploymentStatus200 = {
 													resources?:
 														| {
 																requests: {
-																	memory: CancelDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnumKey;
+																	memory: CancelDeploymentStatus200ServicesBuilderConfigDaemonResourcesRequestsMemoryEnum2Key;
 																};
 														  }
 														| undefined;
@@ -44191,7 +46554,7 @@ export type CancelDeploymentStatus200 = {
 																	mode: "strict";
 															  }
 															| undefined;
-														architecture?: ArchitectureEnumKey | undefined;
+														architecture?: ArchitectureEnum11Key | undefined;
 														excludeFiles?: string | undefined;
 														experimentalTriggers?:
 															| (
@@ -44398,7 +46761,7 @@ export type CancelDeploymentStatus200 = {
 													mode: "strict";
 											  }
 											| undefined;
-										architecture?: ArchitectureEnumKey | undefined;
+										architecture?: ArchitectureEnum12Key | undefined;
 										excludeFiles?: string | undefined;
 										experimentalTriggers?:
 											| (
@@ -44520,7 +46883,7 @@ export type CancelDeploymentStatus200 = {
 												  }
 												| {
 														key: string;
-														type: CancelDeploymentStatus200ServicesHeadersHasTypeEnumKey;
+														type: CancelDeploymentStatus200ServicesHeadersHasTypeEnum2Key;
 														value?:
 															| (
 																	| string
@@ -44568,7 +46931,7 @@ export type CancelDeploymentStatus200 = {
 												  }
 												| {
 														key: string;
-														type: CancelDeploymentStatus200ServicesHeadersMissingTypeEnumKey;
+														type: CancelDeploymentStatus200ServicesHeadersMissingTypeEnum2Key;
 														value?:
 															| (
 																	| string
@@ -44623,7 +46986,7 @@ export type CancelDeploymentStatus200 = {
 												  }
 												| {
 														key: string;
-														type: CancelDeploymentStatus200ServicesRedirectsHasTypeEnumKey;
+														type: CancelDeploymentStatus200ServicesRedirectsHasTypeEnum2Key;
 														value?:
 															| (
 																	| string
@@ -44667,7 +47030,7 @@ export type CancelDeploymentStatus200 = {
 												  }
 												| {
 														key: string;
-														type: CancelDeploymentStatus200ServicesRedirectsMissingTypeEnumKey;
+														type: CancelDeploymentStatus200ServicesRedirectsMissingTypeEnum2Key;
 														value?:
 															| (
 																	| string
@@ -44734,7 +47097,7 @@ export type CancelDeploymentStatus200 = {
 												  }
 												| {
 														key: string;
-														type: CancelDeploymentStatus200ServicesRewritesHasTypeEnumKey;
+														type: CancelDeploymentStatus200ServicesRewritesHasTypeEnum2Key;
 														value?:
 															| (
 																	| string
@@ -44778,7 +47141,7 @@ export type CancelDeploymentStatus200 = {
 												  }
 												| {
 														key: string;
-														type: CancelDeploymentStatus200ServicesRewritesMissingTypeEnumKey;
+														type: CancelDeploymentStatus200ServicesRewritesMissingTypeEnum2Key;
 														value?:
 															| (
 																	| string
@@ -44866,7 +47229,7 @@ export type CancelDeploymentStatus200 = {
 														  }
 														| {
 																key: string;
-																type: CancelDeploymentStatus200ServicesRoutesHasTypeEnumKey;
+																type: CancelDeploymentStatus200ServicesRoutesHasTypeEnum2Key;
 																value?:
 																	| (
 																			| string
@@ -44942,7 +47305,7 @@ export type CancelDeploymentStatus200 = {
 														  }
 														| {
 																key: string;
-																type: CancelDeploymentStatus200ServicesRoutesMissingTypeEnumKey;
+																type: CancelDeploymentStatus200ServicesRoutesMissingTypeEnum2Key;
 																value?:
 																	| (
 																			| string
@@ -45179,6 +47542,22 @@ export const getRecordsStatus200RecordsTypeEnum = {
 export type GetRecordsStatus200RecordsTypeEnumKey =
 	(typeof getRecordsStatus200RecordsTypeEnum)[keyof typeof getRecordsStatus200RecordsTypeEnum];
 
+export const getRecordsStatus200RecordsTypeEnum2 = {
+	A: "A",
+	AAAA: "AAAA",
+	ALIAS: "ALIAS",
+	CAA: "CAA",
+	CNAME: "CNAME",
+	HTTPS: "HTTPS",
+	MX: "MX",
+	NS: "NS",
+	SRV: "SRV",
+	TXT: "TXT",
+} as const;
+
+export type GetRecordsStatus200RecordsTypeEnum2Key =
+	(typeof getRecordsStatus200RecordsTypeEnum2)[keyof typeof getRecordsStatus200RecordsTypeEnum2];
+
 export type GetRecordsStatus200 =
 	| string
 	| {
@@ -45216,7 +47595,7 @@ export type GetRecordsStatus200 =
 				priority?: number | undefined;
 				slug: string;
 				ttl?: number | undefined;
-				type: GetRecordsStatus200RecordsTypeEnumKey;
+				type: GetRecordsStatus200RecordsTypeEnum2Key;
 				updated: number | null;
 				updatedAt: number | null;
 				value: string;
@@ -45306,7 +47685,7 @@ export type CreateRecordStatus409 = unknown;
 
 export type CreateRecordStatus410 = unknown;
 
-export const createRecordRequestTypeEnum = {
+export const createRecordRequestTypeEnum11 = {
 	A: "A",
 	AAAA: "AAAA",
 	ALIAS: "ALIAS",
@@ -45319,8 +47698,8 @@ export const createRecordRequestTypeEnum = {
 	TXT: "TXT",
 } as const;
 
-export type CreateRecordRequestTypeEnumKey =
-	(typeof createRecordRequestTypeEnum)[keyof typeof createRecordRequestTypeEnum];
+export type CreateRecordRequestTypeEnum11Key =
+	(typeof createRecordRequestTypeEnum11)[keyof typeof createRecordRequestTypeEnum11];
 
 export type CreateRecordBody = (
 	| {
@@ -45337,8 +47716,8 @@ export type CreateRecordBody = (
 			type: "A";
 			/**
 			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
-			 * @minLength 60
-			 * @maxLength 2147483647
+			 * @minimum 60
+			 * @maximum 2147483647
 			 * @example 60
 			 * @type number | undefined
 			 */
@@ -45373,8 +47752,8 @@ export type CreateRecordBody = (
 			type: "AAAA";
 			/**
 			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
-			 * @minLength 60
-			 * @maxLength 2147483647
+			 * @minimum 60
+			 * @maximum 2147483647
 			 * @example 60
 			 * @type number | undefined
 			 */
@@ -45409,8 +47788,8 @@ export type CreateRecordBody = (
 			type: "ALIAS";
 			/**
 			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
-			 * @minLength 60
-			 * @maxLength 2147483647
+			 * @minimum 60
+			 * @maximum 2147483647
 			 * @example 60
 			 * @type number | undefined
 			 */
@@ -45443,8 +47822,8 @@ export type CreateRecordBody = (
 			type: "CAA";
 			/**
 			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
-			 * @minLength 60
-			 * @maxLength 2147483647
+			 * @minimum 60
+			 * @maximum 2147483647
 			 * @example 60
 			 * @type number | undefined
 			 */
@@ -45477,8 +47856,8 @@ export type CreateRecordBody = (
 			type: "CNAME";
 			/**
 			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
-			 * @minLength 60
-			 * @maxLength 2147483647
+			 * @minimum 60
+			 * @maximum 2147483647
 			 * @example 60
 			 * @type number | undefined
 			 */
@@ -45511,8 +47890,8 @@ export type CreateRecordBody = (
 			type: "MX";
 			/**
 			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
-			 * @minLength 60
-			 * @maxLength 2147483647
+			 * @minimum 60
+			 * @maximum 2147483647
 			 * @example 60
 			 * @type number | undefined
 			 */
@@ -45524,8 +47903,8 @@ export type CreateRecordBody = (
 			 */
 			value: string;
 			/**
-			 * @minLength 0
-			 * @maxLength 65535
+			 * @minimum 0
+			 * @maximum 65535
 			 * @example 10
 			 * @type number
 			 */
@@ -45546,8 +47925,8 @@ export type CreateRecordBody = (
 			type: "SRV";
 			/**
 			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
-			 * @minLength 60
-			 * @maxLength 2147483647
+			 * @minimum 60
+			 * @maximum 2147483647
 			 * @example 60
 			 * @type number | undefined
 			 */
@@ -45579,8 +47958,8 @@ export type CreateRecordBody = (
 			type: "TXT";
 			/**
 			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
-			 * @minLength 60
-			 * @maxLength 2147483647
+			 * @minimum 60
+			 * @maximum 2147483647
 			 * @example 60
 			 * @type number | undefined
 			 */
@@ -45614,8 +47993,8 @@ export type CreateRecordBody = (
 			type: "NS";
 			/**
 			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
-			 * @minLength 60
-			 * @maxLength 2147483647
+			 * @minimum 60
+			 * @maximum 2147483647
 			 * @example 60
 			 * @type number | undefined
 			 */
@@ -45642,8 +48021,8 @@ export type CreateRecordBody = (
 			type: "HTTPS";
 			/**
 			 * @description The TTL value. Must be a number between 60 and 2147483647. Default value is 60.
-			 * @minLength 60
-			 * @maxLength 2147483647
+			 * @minimum 60
+			 * @maximum 2147483647
 			 * @example 60
 			 * @type number | undefined
 			 */
@@ -45675,7 +48054,7 @@ export type CreateRecordBody = (
 	 * @description The type of record, it could be one of the valid DNS records.
 	 * @type string
 	 */
-	type: CreateRecordRequestTypeEnumKey;
+	type: CreateRecordRequestTypeEnum11Key;
 };
 
 export type CreateRecordOptions = {
@@ -45813,8 +48192,8 @@ export type UpdateRecordBody = {
 	type?: (UpdateRecordRequestTypeEnumKey | null) | undefined;
 	/**
 	 * @description The Time to live (TTL) value of the DNS record
-	 * @minLength 60
-	 * @maxLength 2147483647
+	 * @minimum 60
+	 * @maximum 2147483647
 	 * @example 60
 	 * @type integer | undefined
 	 */
@@ -46764,7 +49143,7 @@ export type BuySingleDomainBody = {
 	 */
 	years: number;
 	/**
-	 * @minLength 0.01
+	 * @minimum 0.01
 	 * @type number
 	 */
 	expectedPrice: number;
@@ -46892,6 +49271,16 @@ export type BuyDomainsQuery = {
 	teamId?: string | undefined;
 };
 
+export const methodEnum2 = {
+	DELETE: "DELETE",
+	GET: "GET",
+	PATCH: "PATCH",
+	POST: "POST",
+	PUT: "PUT",
+} as const;
+
+export type MethodEnum2Key = (typeof methodEnum2)[keyof typeof methodEnum2];
+
 export type BuyDomainsStatus200 = {
 	/**
 	 * @description A valid order ID
@@ -46901,7 +49290,7 @@ export type BuyDomainsStatus200 = {
 	_links: {
 		[key: string]: {
 			href: string;
-			method: MethodEnumKey;
+			method: MethodEnum2Key;
 		};
 	};
 };
@@ -46946,7 +49335,7 @@ export type BuyDomainsBody = {
 		 */
 		years: number;
 		/**
-		 * @minLength 0.01
+		 * @minimum 0.01
 		 * @type number
 		 */
 		expectedPrice: number;
@@ -47083,6 +49472,16 @@ export type TransferInDomainQuery = {
 	teamId?: string | undefined;
 };
 
+export const methodEnum3 = {
+	DELETE: "DELETE",
+	GET: "GET",
+	PATCH: "PATCH",
+	POST: "POST",
+	PUT: "PUT",
+} as const;
+
+export type MethodEnum3Key = (typeof methodEnum3)[keyof typeof methodEnum3];
+
 export type TransferInDomainStatus200 = {
 	/**
 	 * @description A valid order ID
@@ -47092,7 +49491,7 @@ export type TransferInDomainStatus200 = {
 	_links: {
 		[key: string]: {
 			href: string;
-			method: MethodEnumKey;
+			method: MethodEnum3Key;
 		};
 	};
 };
@@ -47132,7 +49531,7 @@ export type TransferInDomainBody = {
 	 */
 	years: number;
 	/**
-	 * @minLength 0.01
+	 * @minimum 0.01
 	 * @type number
 	 */
 	expectedPrice: number;
@@ -47335,6 +49734,16 @@ export type RenewDomainQuery = {
 	teamId?: string | undefined;
 };
 
+export const methodEnum4 = {
+	DELETE: "DELETE",
+	GET: "GET",
+	PATCH: "PATCH",
+	POST: "POST",
+	PUT: "PUT",
+} as const;
+
+export type MethodEnum4Key = (typeof methodEnum4)[keyof typeof methodEnum4];
+
 export type RenewDomainStatus200 = {
 	/**
 	 * @description A valid order ID
@@ -47344,7 +49753,7 @@ export type RenewDomainStatus200 = {
 	_links: {
 		[key: string]: {
 			href: string;
-			method: MethodEnumKey;
+			method: MethodEnum4Key;
 		};
 	};
 };
@@ -47379,7 +49788,7 @@ export type RenewDomainBody = {
 	 */
 	years: number;
 	/**
-	 * @minLength 0.01
+	 * @minimum 0.01
 	 * @type number
 	 */
 	expectedPrice: number;
@@ -47720,6 +50129,64 @@ export const getOrderStatus200DomainsErrorDetailsInvalidFieldEnum = {
 export type GetOrderStatus200DomainsErrorDetailsInvalidFieldEnumKey =
 	(typeof getOrderStatus200DomainsErrorDetailsInvalidFieldEnum)[keyof typeof getOrderStatus200DomainsErrorDetailsInvalidFieldEnum];
 
+export const getOrderStatus200DomainsStatusEnum2 = {
+	pending: "pending",
+	completed: "completed",
+	failed: "failed",
+	refunded: "refunded",
+	"refund-failed": "refund-failed",
+} as const;
+
+export type GetOrderStatus200DomainsStatusEnum2Key =
+	(typeof getOrderStatus200DomainsStatusEnum2)[keyof typeof getOrderStatus200DomainsStatusEnum2];
+
+export const getOrderStatus200DomainsErrorDetailsInvalidFieldEnum2 = {
+	firstName: "firstName",
+	lastName: "lastName",
+	email: "email",
+	phone: "phone",
+	address1: "address1",
+	address2: "address2",
+	city: "city",
+	state: "state",
+	zip: "zip",
+	country: "country",
+	companyName: "companyName",
+	fax: "fax",
+} as const;
+
+export type GetOrderStatus200DomainsErrorDetailsInvalidFieldEnum2Key =
+	(typeof getOrderStatus200DomainsErrorDetailsInvalidFieldEnum2)[keyof typeof getOrderStatus200DomainsErrorDetailsInvalidFieldEnum2];
+
+export const getOrderStatus200DomainsStatusEnum3 = {
+	pending: "pending",
+	completed: "completed",
+	failed: "failed",
+	refunded: "refunded",
+	"refund-failed": "refund-failed",
+} as const;
+
+export type GetOrderStatus200DomainsStatusEnum3Key =
+	(typeof getOrderStatus200DomainsStatusEnum3)[keyof typeof getOrderStatus200DomainsStatusEnum3];
+
+export const getOrderStatus200DomainsErrorDetailsInvalidFieldEnum3 = {
+	firstName: "firstName",
+	lastName: "lastName",
+	email: "email",
+	phone: "phone",
+	address1: "address1",
+	address2: "address2",
+	city: "city",
+	state: "state",
+	zip: "zip",
+	country: "country",
+	companyName: "companyName",
+	fax: "fax",
+} as const;
+
+export type GetOrderStatus200DomainsErrorDetailsInvalidFieldEnum3Key =
+	(typeof getOrderStatus200DomainsErrorDetailsInvalidFieldEnum3)[keyof typeof getOrderStatus200DomainsErrorDetailsInvalidFieldEnum3];
+
 export const getOrderStatus200StatusEnum = {
 	completed: "completed",
 	draft: "draft",
@@ -47752,7 +50219,7 @@ export type GetOrderStatus200 = {
 				domainName: DomainName;
 				status: GetOrderStatus200DomainsStatusEnumKey;
 				/**
-				 * @minLength 0.01
+				 * @minimum 0.01
 				 * @type number
 				 */
 				price: number;
@@ -47823,9 +50290,9 @@ export type GetOrderStatus200 = {
 				 * @type string
 				 */
 				domainName: DomainName;
-				status: GetOrderStatus200DomainsStatusEnumKey;
+				status: GetOrderStatus200DomainsStatusEnum2Key;
 				/**
-				 * @minLength 0.01
+				 * @minimum 0.01
 				 * @type number
 				 */
 				price: number;
@@ -47872,7 +50339,7 @@ export type GetOrderStatus200 = {
 											code: "invalid-contact";
 											details: {
 												invalidField?:
-													| GetOrderStatus200DomainsErrorDetailsInvalidFieldEnumKey
+													| GetOrderStatus200DomainsErrorDetailsInvalidFieldEnum2Key
 													| undefined;
 											};
 									  }
@@ -47897,9 +50364,9 @@ export type GetOrderStatus200 = {
 				 * @type string
 				 */
 				domainName: DomainName;
-				status: GetOrderStatus200DomainsStatusEnumKey;
+				status: GetOrderStatus200DomainsStatusEnum3Key;
 				/**
-				 * @minLength 0.01
+				 * @minimum 0.01
 				 * @type number
 				 */
 				price: number;
@@ -47946,7 +50413,7 @@ export type GetOrderStatus200 = {
 											code: "invalid-contact";
 											details: {
 												invalidField?:
-													| GetOrderStatus200DomainsErrorDetailsInvalidFieldEnumKey
+													| GetOrderStatus200DomainsErrorDetailsInvalidFieldEnum3Key
 													| undefined;
 											};
 									  }
@@ -49639,6 +52106,22 @@ export const getAllLogDrainsStatus200DrainsDeliveryEncodingEnum = {
 export type GetAllLogDrainsStatus200DrainsDeliveryEncodingEnumKey =
 	(typeof getAllLogDrainsStatus200DrainsDeliveryEncodingEnum)[keyof typeof getAllLogDrainsStatus200DrainsDeliveryEncodingEnum];
 
+export const getAllLogDrainsStatus200DrainsDeliveryEncodingEnum2 = {
+	json: "json",
+	proto: "proto",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsDeliveryEncodingEnum2Key =
+	(typeof getAllLogDrainsStatus200DrainsDeliveryEncodingEnum2)[keyof typeof getAllLogDrainsStatus200DrainsDeliveryEncodingEnum2];
+
+export const getAllLogDrainsStatus200DrainsDeliveryEncodingEnum3 = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsDeliveryEncodingEnum3Key =
+	(typeof getAllLogDrainsStatus200DrainsDeliveryEncodingEnum3)[keyof typeof getAllLogDrainsStatus200DrainsDeliveryEncodingEnum3];
+
 export const getAllLogDrainsStatus200DrainsDeliveryObjectAclEnum = {
 	"authenticated-read": "authenticated-read",
 	"aws-exec-read": "aws-exec-read",
@@ -49719,6 +52202,118 @@ export const getAllLogDrainsStatus200DrainsFilterV2FilterLogSourcesEnum = {
 export type GetAllLogDrainsStatus200DrainsFilterV2FilterLogSourcesEnumKey =
 	(typeof getAllLogDrainsStatus200DrainsFilterV2FilterLogSourcesEnum)[keyof typeof getAllLogDrainsStatus200DrainsFilterV2FilterLogSourcesEnum];
 
+export const getAllLogDrainsStatus200DrainsDeliveryCompressionEnum3 = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsDeliveryCompressionEnum3Key =
+	(typeof getAllLogDrainsStatus200DrainsDeliveryCompressionEnum3)[keyof typeof getAllLogDrainsStatus200DrainsDeliveryCompressionEnum3];
+
+export const getAllLogDrainsStatus200DrainsDeliveryEncodingEnum4 = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsDeliveryEncodingEnum4Key =
+	(typeof getAllLogDrainsStatus200DrainsDeliveryEncodingEnum4)[keyof typeof getAllLogDrainsStatus200DrainsDeliveryEncodingEnum4];
+
+export const getAllLogDrainsStatus200DrainsDeliveryEncodingEnum5 = {
+	json: "json",
+	proto: "proto",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsDeliveryEncodingEnum5Key =
+	(typeof getAllLogDrainsStatus200DrainsDeliveryEncodingEnum5)[keyof typeof getAllLogDrainsStatus200DrainsDeliveryEncodingEnum5];
+
+export const getAllLogDrainsStatus200DrainsDeliveryEncodingEnum6 = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsDeliveryEncodingEnum6Key =
+	(typeof getAllLogDrainsStatus200DrainsDeliveryEncodingEnum6)[keyof typeof getAllLogDrainsStatus200DrainsDeliveryEncodingEnum6];
+
+export const getAllLogDrainsStatus200DrainsDeliveryObjectAclEnum2 = {
+	"authenticated-read": "authenticated-read",
+	"aws-exec-read": "aws-exec-read",
+	"bucket-owner-full-control": "bucket-owner-full-control",
+	"bucket-owner-read": "bucket-owner-read",
+	private: "private",
+	"public-read": "public-read",
+	"public-read-write": "public-read-write",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsDeliveryObjectAclEnum2Key =
+	(typeof getAllLogDrainsStatus200DrainsDeliveryObjectAclEnum2)[keyof typeof getAllLogDrainsStatus200DrainsDeliveryObjectAclEnum2];
+
+export const getAllLogDrainsStatus200DrainsDeliveryServerSideEncryptionEnum2 = {
+	AES256: "AES256",
+	"aws:kms": "aws:kms",
+	"aws:kms:dsse": "aws:kms:dsse",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsDeliveryServerSideEncryptionEnum2Key =
+	(typeof getAllLogDrainsStatus200DrainsDeliveryServerSideEncryptionEnum2)[keyof typeof getAllLogDrainsStatus200DrainsDeliveryServerSideEncryptionEnum2];
+
+export const getAllLogDrainsStatus200DrainsDisabledReasonEnum2 = {
+	"account-plan-downgrade": "account-plan-downgrade",
+	"disabled-by-admin": "disabled-by-admin",
+	"disabled-by-owner": "disabled-by-owner",
+	"feature-not-available": "feature-not-available",
+	"limits-exceeded": "limits-exceeded",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsDisabledReasonEnum2Key =
+	(typeof getAllLogDrainsStatus200DrainsDisabledReasonEnum2)[keyof typeof getAllLogDrainsStatus200DrainsDisabledReasonEnum2];
+
+export const getAllLogDrainsStatus200DrainsSamplingEnvEnum2 = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsSamplingEnvEnum2Key =
+	(typeof getAllLogDrainsStatus200DrainsSamplingEnvEnum2)[keyof typeof getAllLogDrainsStatus200DrainsSamplingEnvEnum2];
+
+export const getAllLogDrainsStatus200DrainsStatusEnum2 = {
+	disabled: "disabled",
+	enabled: "enabled",
+	errored: "errored",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsStatusEnum2Key =
+	(typeof getAllLogDrainsStatus200DrainsStatusEnum2)[keyof typeof getAllLogDrainsStatus200DrainsStatusEnum2];
+
+export const getAllLogDrainsStatus200DrainsDeliveryStatsStateEnum2 = {
+	failing: "failing",
+	healthy: "healthy",
+	unknown: "unknown",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsDeliveryStatsStateEnum2Key =
+	(typeof getAllLogDrainsStatus200DrainsDeliveryStatsStateEnum2)[keyof typeof getAllLogDrainsStatus200DrainsDeliveryStatsStateEnum2];
+
+export const getAllLogDrainsStatus200DrainsFilterV2FilterDeploymentEnvironmentsEnum2 = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsFilterV2FilterDeploymentEnvironmentsEnum2Key =
+	(typeof getAllLogDrainsStatus200DrainsFilterV2FilterDeploymentEnvironmentsEnum2)[keyof typeof getAllLogDrainsStatus200DrainsFilterV2FilterDeploymentEnvironmentsEnum2];
+
+export const getAllLogDrainsStatus200DrainsFilterV2FilterLogSourcesEnum2 = {
+	build: "build",
+	edge: "edge",
+	external: "external",
+	firewall: "firewall",
+	lambda: "lambda",
+	redirect: "redirect",
+	static: "static",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsFilterV2FilterLogSourcesEnum2Key =
+	(typeof getAllLogDrainsStatus200DrainsFilterV2FilterLogSourcesEnum2)[keyof typeof getAllLogDrainsStatus200DrainsFilterV2FilterLogSourcesEnum2];
+
 export const getAllLogDrainsStatus200DrainsProjectAccessManagedByEnum = {
 	drain: "drain",
 	integration: "integration",
@@ -49726,6 +52321,14 @@ export const getAllLogDrainsStatus200DrainsProjectAccessManagedByEnum = {
 
 export type GetAllLogDrainsStatus200DrainsProjectAccessManagedByEnumKey =
 	(typeof getAllLogDrainsStatus200DrainsProjectAccessManagedByEnum)[keyof typeof getAllLogDrainsStatus200DrainsProjectAccessManagedByEnum];
+
+export const getAllLogDrainsStatus200DrainsProjectAccessManagedByEnum2 = {
+	drain: "drain",
+	integration: "integration",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsProjectAccessManagedByEnum2Key =
+	(typeof getAllLogDrainsStatus200DrainsProjectAccessManagedByEnum2)[keyof typeof getAllLogDrainsStatus200DrainsProjectAccessManagedByEnum2];
 
 export type GetAllLogDrainsStatus200 =
 	| {
@@ -49774,7 +52377,7 @@ export type GetAllLogDrainsStatus200 =
 									type: "http";
 							  }
 							| {
-									encoding: GetAllLogDrainsStatus200DrainsDeliveryEncodingEnumKey;
+									encoding: GetAllLogDrainsStatus200DrainsDeliveryEncodingEnum2Key;
 									endpoint: {
 										traces: string;
 									};
@@ -49798,7 +52401,7 @@ export type GetAllLogDrainsStatus200 =
 							  }
 							| {
 									compression: "none";
-									encoding: GetAllLogDrainsStatus200DrainsDeliveryEncodingEnumKey;
+									encoding: GetAllLogDrainsStatus200DrainsDeliveryEncodingEnum3Key;
 									endpoint: string;
 									fileStructure: "hive";
 									objectAcl?: GetAllLogDrainsStatus200DrainsDeliveryObjectAclEnumKey | undefined;
@@ -49916,9 +52519,9 @@ export type GetAllLogDrainsStatus200 =
 						delivery:
 							| {
 									compression?:
-										| GetAllLogDrainsStatus200DrainsDeliveryCompressionEnumKey
+										| GetAllLogDrainsStatus200DrainsDeliveryCompressionEnum3Key
 										| undefined;
-									encoding: GetAllLogDrainsStatus200DrainsDeliveryEncodingEnumKey;
+									encoding: GetAllLogDrainsStatus200DrainsDeliveryEncodingEnum4Key;
 									endpoint: string;
 									headers: {
 										[key: string]: string;
@@ -49934,7 +52537,7 @@ export type GetAllLogDrainsStatus200 =
 									type: "http";
 							  }
 							| {
-									encoding: GetAllLogDrainsStatus200DrainsDeliveryEncodingEnumKey;
+									encoding: GetAllLogDrainsStatus200DrainsDeliveryEncodingEnum5Key;
 									endpoint: {
 										traces: string;
 									};
@@ -49958,14 +52561,14 @@ export type GetAllLogDrainsStatus200 =
 							  }
 							| {
 									compression: "none";
-									encoding: GetAllLogDrainsStatus200DrainsDeliveryEncodingEnumKey;
+									encoding: GetAllLogDrainsStatus200DrainsDeliveryEncodingEnum6Key;
 									endpoint: string;
 									fileStructure: "hive";
-									objectAcl?: GetAllLogDrainsStatus200DrainsDeliveryObjectAclEnumKey | undefined;
+									objectAcl?: GetAllLogDrainsStatus200DrainsDeliveryObjectAclEnum2Key | undefined;
 									region: string;
 									roleArn: string;
 									serverSideEncryption?:
-										| GetAllLogDrainsStatus200DrainsDeliveryServerSideEncryptionEnumKey
+										| GetAllLogDrainsStatus200DrainsDeliveryServerSideEncryptionEnum2Key
 										| undefined;
 									type: "s3";
 							  }
@@ -49975,7 +52578,7 @@ export type GetAllLogDrainsStatus200 =
 							  };
 						disabledAt?: number | undefined;
 						disabledBy?: string | undefined;
-						disabledReason?: GetAllLogDrainsStatus200DrainsDisabledReasonEnumKey | undefined;
+						disabledReason?: GetAllLogDrainsStatus200DrainsDisabledReasonEnum2Key | undefined;
 						firstErrorTimestamp?: number | undefined;
 						id: string;
 						name: string;
@@ -49983,7 +52586,7 @@ export type GetAllLogDrainsStatus200 =
 						projectIds?: string[] | undefined;
 						sampling?:
 							| {
-									env?: GetAllLogDrainsStatus200DrainsSamplingEnvEnumKey | undefined;
+									env?: GetAllLogDrainsStatus200DrainsSamplingEnvEnum2Key | undefined;
 									rate: number;
 									requestPath?: string | undefined;
 									type: "head_sampling";
@@ -50014,7 +52617,7 @@ export type GetAllLogDrainsStatus200 =
 									kind: "integration";
 									resourceId?: string | undefined;
 							  };
-						status?: GetAllLogDrainsStatus200DrainsStatusEnumKey | undefined;
+						status?: GetAllLogDrainsStatus200DrainsStatusEnum2Key | undefined;
 						teamId?: (string | null) | undefined;
 						updatedAt: number;
 						/**
@@ -50033,7 +52636,7 @@ export type GetAllLogDrainsStatus200 =
 									 * @type number
 									 */
 									failures: number;
-									state: GetAllLogDrainsStatus200DrainsDeliveryStatsStateEnumKey;
+									state: GetAllLogDrainsStatus200DrainsDeliveryStatsStateEnum2Key;
 									window: "24h";
 							  }
 							| undefined;
@@ -50044,7 +52647,7 @@ export type GetAllLogDrainsStatus200 =
 												deployment?:
 													| {
 															environments?:
-																| GetAllLogDrainsStatus200DrainsFilterV2FilterDeploymentEnvironmentsEnumKey[]
+																| GetAllLogDrainsStatus200DrainsFilterV2FilterDeploymentEnvironmentsEnum2Key[]
 																| undefined;
 													  }
 													| undefined;
@@ -50052,7 +52655,7 @@ export type GetAllLogDrainsStatus200 =
 													| {
 															legacy_excludeCachedStaticAssetLogs?: (false | true) | undefined;
 															sources?:
-																| GetAllLogDrainsStatus200DrainsFilterV2FilterLogSourcesEnumKey[]
+																| GetAllLogDrainsStatus200DrainsFilterV2FilterLogSourcesEnum2Key[]
 																| undefined;
 													  }
 													| undefined;
@@ -50082,7 +52685,7 @@ export type GetAllLogDrainsStatus200 =
 									| {
 											access: "some";
 											projectIds: string[];
-											managedBy: GetAllLogDrainsStatus200DrainsProjectAccessManagedByEnumKey;
+											managedBy: GetAllLogDrainsStatus200DrainsProjectAccessManagedByEnum2Key;
 									  }
 							  )
 							| undefined;
@@ -50208,8 +52811,8 @@ export type CreateConfigurableLogDrainBody = {
 	secret?: string | undefined;
 	/**
 	 * @description The sampling rate for this log drain. It should be a percentage rate between 0 and 100. With max 2 decimal points
-	 * @minLength 0.01
-	 * @maxLength 1
+	 * @minimum 0.01
+	 * @maximum 1
 	 * @type number | undefined
 	 */
 	samplingRate?: number | undefined;
@@ -50271,6 +52874,22 @@ export const createDrainStatus200DeliveryEncodingEnum = {
 
 export type CreateDrainStatus200DeliveryEncodingEnumKey =
 	(typeof createDrainStatus200DeliveryEncodingEnum)[keyof typeof createDrainStatus200DeliveryEncodingEnum];
+
+export const createDrainStatus200DeliveryEncodingEnum2 = {
+	json: "json",
+	proto: "proto",
+} as const;
+
+export type CreateDrainStatus200DeliveryEncodingEnum2Key =
+	(typeof createDrainStatus200DeliveryEncodingEnum2)[keyof typeof createDrainStatus200DeliveryEncodingEnum2];
+
+export const createDrainStatus200DeliveryEncodingEnum3 = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type CreateDrainStatus200DeliveryEncodingEnum3Key =
+	(typeof createDrainStatus200DeliveryEncodingEnum3)[keyof typeof createDrainStatus200DeliveryEncodingEnum3];
 
 export const createDrainStatus200DeliveryObjectAclEnum = {
 	"authenticated-read": "authenticated-read",
@@ -50352,6 +52971,118 @@ export const createDrainStatus200FilterV2FilterLogSourcesEnum = {
 export type CreateDrainStatus200FilterV2FilterLogSourcesEnumKey =
 	(typeof createDrainStatus200FilterV2FilterLogSourcesEnum)[keyof typeof createDrainStatus200FilterV2FilterLogSourcesEnum];
 
+export const createDrainStatus200DeliveryCompressionEnum3 = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type CreateDrainStatus200DeliveryCompressionEnum3Key =
+	(typeof createDrainStatus200DeliveryCompressionEnum3)[keyof typeof createDrainStatus200DeliveryCompressionEnum3];
+
+export const createDrainStatus200DeliveryEncodingEnum4 = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type CreateDrainStatus200DeliveryEncodingEnum4Key =
+	(typeof createDrainStatus200DeliveryEncodingEnum4)[keyof typeof createDrainStatus200DeliveryEncodingEnum4];
+
+export const createDrainStatus200DeliveryEncodingEnum5 = {
+	json: "json",
+	proto: "proto",
+} as const;
+
+export type CreateDrainStatus200DeliveryEncodingEnum5Key =
+	(typeof createDrainStatus200DeliveryEncodingEnum5)[keyof typeof createDrainStatus200DeliveryEncodingEnum5];
+
+export const createDrainStatus200DeliveryEncodingEnum6 = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type CreateDrainStatus200DeliveryEncodingEnum6Key =
+	(typeof createDrainStatus200DeliveryEncodingEnum6)[keyof typeof createDrainStatus200DeliveryEncodingEnum6];
+
+export const createDrainStatus200DeliveryObjectAclEnum2 = {
+	"authenticated-read": "authenticated-read",
+	"aws-exec-read": "aws-exec-read",
+	"bucket-owner-full-control": "bucket-owner-full-control",
+	"bucket-owner-read": "bucket-owner-read",
+	private: "private",
+	"public-read": "public-read",
+	"public-read-write": "public-read-write",
+} as const;
+
+export type CreateDrainStatus200DeliveryObjectAclEnum2Key =
+	(typeof createDrainStatus200DeliveryObjectAclEnum2)[keyof typeof createDrainStatus200DeliveryObjectAclEnum2];
+
+export const createDrainStatus200DeliveryServerSideEncryptionEnum2 = {
+	AES256: "AES256",
+	"aws:kms": "aws:kms",
+	"aws:kms:dsse": "aws:kms:dsse",
+} as const;
+
+export type CreateDrainStatus200DeliveryServerSideEncryptionEnum2Key =
+	(typeof createDrainStatus200DeliveryServerSideEncryptionEnum2)[keyof typeof createDrainStatus200DeliveryServerSideEncryptionEnum2];
+
+export const createDrainStatus200DisabledReasonEnum2 = {
+	"account-plan-downgrade": "account-plan-downgrade",
+	"disabled-by-admin": "disabled-by-admin",
+	"disabled-by-owner": "disabled-by-owner",
+	"feature-not-available": "feature-not-available",
+	"limits-exceeded": "limits-exceeded",
+} as const;
+
+export type CreateDrainStatus200DisabledReasonEnum2Key =
+	(typeof createDrainStatus200DisabledReasonEnum2)[keyof typeof createDrainStatus200DisabledReasonEnum2];
+
+export const createDrainStatus200SamplingEnvEnum2 = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type CreateDrainStatus200SamplingEnvEnum2Key =
+	(typeof createDrainStatus200SamplingEnvEnum2)[keyof typeof createDrainStatus200SamplingEnvEnum2];
+
+export const createDrainStatus200StatusEnum2 = {
+	disabled: "disabled",
+	enabled: "enabled",
+	errored: "errored",
+} as const;
+
+export type CreateDrainStatus200StatusEnum2Key =
+	(typeof createDrainStatus200StatusEnum2)[keyof typeof createDrainStatus200StatusEnum2];
+
+export const createDrainStatus200DeliveryStatsStateEnum2 = {
+	failing: "failing",
+	healthy: "healthy",
+	unknown: "unknown",
+} as const;
+
+export type CreateDrainStatus200DeliveryStatsStateEnum2Key =
+	(typeof createDrainStatus200DeliveryStatsStateEnum2)[keyof typeof createDrainStatus200DeliveryStatsStateEnum2];
+
+export const createDrainStatus200FilterV2FilterDeploymentEnvironmentsEnum2 = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type CreateDrainStatus200FilterV2FilterDeploymentEnvironmentsEnum2Key =
+	(typeof createDrainStatus200FilterV2FilterDeploymentEnvironmentsEnum2)[keyof typeof createDrainStatus200FilterV2FilterDeploymentEnvironmentsEnum2];
+
+export const createDrainStatus200FilterV2FilterLogSourcesEnum2 = {
+	build: "build",
+	edge: "edge",
+	external: "external",
+	firewall: "firewall",
+	lambda: "lambda",
+	redirect: "redirect",
+	static: "static",
+} as const;
+
+export type CreateDrainStatus200FilterV2FilterLogSourcesEnum2Key =
+	(typeof createDrainStatus200FilterV2FilterLogSourcesEnum2)[keyof typeof createDrainStatus200FilterV2FilterLogSourcesEnum2];
+
 export const createDrainStatus200ProjectAccessManagedByEnum = {
 	drain: "drain",
 	integration: "integration",
@@ -50359,6 +53090,14 @@ export const createDrainStatus200ProjectAccessManagedByEnum = {
 
 export type CreateDrainStatus200ProjectAccessManagedByEnumKey =
 	(typeof createDrainStatus200ProjectAccessManagedByEnum)[keyof typeof createDrainStatus200ProjectAccessManagedByEnum];
+
+export const createDrainStatus200ProjectAccessManagedByEnum2 = {
+	drain: "drain",
+	integration: "integration",
+} as const;
+
+export type CreateDrainStatus200ProjectAccessManagedByEnum2Key =
+	(typeof createDrainStatus200ProjectAccessManagedByEnum2)[keyof typeof createDrainStatus200ProjectAccessManagedByEnum2];
 
 export type CreateDrainStatus200 =
 	| {
@@ -50382,7 +53121,7 @@ export type CreateDrainStatus200 =
 						type: "http";
 				  }
 				| {
-						encoding: CreateDrainStatus200DeliveryEncodingEnumKey;
+						encoding: CreateDrainStatus200DeliveryEncodingEnum2Key;
 						endpoint: {
 							traces: string;
 						};
@@ -50406,7 +53145,7 @@ export type CreateDrainStatus200 =
 				  }
 				| {
 						compression: "none";
-						encoding: CreateDrainStatus200DeliveryEncodingEnumKey;
+						encoding: CreateDrainStatus200DeliveryEncodingEnum3Key;
 						endpoint: string;
 						fileStructure: "hive";
 						objectAcl?: CreateDrainStatus200DeliveryObjectAclEnumKey | undefined;
@@ -50521,8 +53260,8 @@ export type CreateDrainStatus200 =
 			createdAt: number;
 			delivery:
 				| {
-						compression?: CreateDrainStatus200DeliveryCompressionEnumKey | undefined;
-						encoding: CreateDrainStatus200DeliveryEncodingEnumKey;
+						compression?: CreateDrainStatus200DeliveryCompressionEnum3Key | undefined;
+						encoding: CreateDrainStatus200DeliveryEncodingEnum4Key;
 						endpoint: string;
 						headers: {
 							[key: string]: string;
@@ -50538,7 +53277,7 @@ export type CreateDrainStatus200 =
 						type: "http";
 				  }
 				| {
-						encoding: CreateDrainStatus200DeliveryEncodingEnumKey;
+						encoding: CreateDrainStatus200DeliveryEncodingEnum5Key;
 						endpoint: {
 							traces: string;
 						};
@@ -50562,14 +53301,14 @@ export type CreateDrainStatus200 =
 				  }
 				| {
 						compression: "none";
-						encoding: CreateDrainStatus200DeliveryEncodingEnumKey;
+						encoding: CreateDrainStatus200DeliveryEncodingEnum6Key;
 						endpoint: string;
 						fileStructure: "hive";
-						objectAcl?: CreateDrainStatus200DeliveryObjectAclEnumKey | undefined;
+						objectAcl?: CreateDrainStatus200DeliveryObjectAclEnum2Key | undefined;
 						region: string;
 						roleArn: string;
 						serverSideEncryption?:
-							| CreateDrainStatus200DeliveryServerSideEncryptionEnumKey
+							| CreateDrainStatus200DeliveryServerSideEncryptionEnum2Key
 							| undefined;
 						type: "s3";
 				  }
@@ -50579,7 +53318,7 @@ export type CreateDrainStatus200 =
 				  };
 			disabledAt?: number | undefined;
 			disabledBy?: string | undefined;
-			disabledReason?: CreateDrainStatus200DisabledReasonEnumKey | undefined;
+			disabledReason?: CreateDrainStatus200DisabledReasonEnum2Key | undefined;
 			firstErrorTimestamp?: number | undefined;
 			id: string;
 			name: string;
@@ -50587,7 +53326,7 @@ export type CreateDrainStatus200 =
 			projectIds?: string[] | undefined;
 			sampling?:
 				| {
-						env?: CreateDrainStatus200SamplingEnvEnumKey | undefined;
+						env?: CreateDrainStatus200SamplingEnvEnum2Key | undefined;
 						rate: number;
 						requestPath?: string | undefined;
 						type: "head_sampling";
@@ -50618,7 +53357,7 @@ export type CreateDrainStatus200 =
 						kind: "integration";
 						resourceId?: string | undefined;
 				  };
-			status?: CreateDrainStatus200StatusEnumKey | undefined;
+			status?: CreateDrainStatus200StatusEnum2Key | undefined;
 			teamId?: (string | null) | undefined;
 			updatedAt: number;
 			/**
@@ -50637,7 +53376,7 @@ export type CreateDrainStatus200 =
 						 * @type number
 						 */
 						failures: number;
-						state: CreateDrainStatus200DeliveryStatsStateEnumKey;
+						state: CreateDrainStatus200DeliveryStatsStateEnum2Key;
 						window: "24h";
 				  }
 				| undefined;
@@ -50648,14 +53387,16 @@ export type CreateDrainStatus200 =
 									deployment?:
 										| {
 												environments?:
-													| CreateDrainStatus200FilterV2FilterDeploymentEnvironmentsEnumKey[]
+													| CreateDrainStatus200FilterV2FilterDeploymentEnvironmentsEnum2Key[]
 													| undefined;
 										  }
 										| undefined;
 									log?:
 										| {
 												legacy_excludeCachedStaticAssetLogs?: (false | true) | undefined;
-												sources?: CreateDrainStatus200FilterV2FilterLogSourcesEnumKey[] | undefined;
+												sources?:
+													| CreateDrainStatus200FilterV2FilterLogSourcesEnum2Key[]
+													| undefined;
 										  }
 										| undefined;
 									project?:
@@ -50684,7 +53425,7 @@ export type CreateDrainStatus200 =
 						| {
 								access: "some";
 								projectIds: string[];
-								managedBy: CreateDrainStatus200ProjectAccessManagedByEnumKey;
+								managedBy: CreateDrainStatus200ProjectAccessManagedByEnum2Key;
 						  }
 				  )
 				| undefined;
@@ -50746,6 +53487,22 @@ export const createDrainRequestDeliveryEncodingEnum = {
 
 export type CreateDrainRequestDeliveryEncodingEnumKey =
 	(typeof createDrainRequestDeliveryEncodingEnum)[keyof typeof createDrainRequestDeliveryEncodingEnum];
+
+export const createDrainRequestDeliveryEncodingEnum2 = {
+	proto: "proto",
+	json: "json",
+} as const;
+
+export type CreateDrainRequestDeliveryEncodingEnum2Key =
+	(typeof createDrainRequestDeliveryEncodingEnum2)[keyof typeof createDrainRequestDeliveryEncodingEnum2];
+
+export const createDrainRequestDeliveryEncodingEnum3 = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type CreateDrainRequestDeliveryEncodingEnum3Key =
+	(typeof createDrainRequestDeliveryEncodingEnum3)[keyof typeof createDrainRequestDeliveryEncodingEnum3];
 
 export const createDrainRequestDeliveryServerSideEncryptionEnum = {
 	AES256: "AES256",
@@ -50830,7 +53587,7 @@ export type CreateDrainBody =
 								endpoint: {
 									traces: string;
 								};
-								encoding: CreateDrainRequestDeliveryEncodingEnumKey;
+								encoding: CreateDrainRequestDeliveryEncodingEnum2Key;
 								headers: {
 									[key: string]: string;
 								};
@@ -50839,7 +53596,7 @@ export type CreateDrainBody =
 						| {
 								type: string;
 								endpoint: string;
-								encoding: CreateDrainRequestDeliveryEncodingEnumKey;
+								encoding: CreateDrainRequestDeliveryEncodingEnum3Key;
 								compression: "none";
 								fileStructure: "hive";
 								roleArn: string;
@@ -50860,8 +53617,8 @@ export type CreateDrainBody =
 						type: string;
 						/**
 						 * @description Sampling rate from 0 to 1 (e.g., 0.1 for 10%)
-						 * @minLength 0
-						 * @maxLength 1
+						 * @minimum 0
+						 * @maximum 1
 						 * @type number
 						 */
 						rate: number;
@@ -50986,6 +53743,22 @@ export const getDrainsStatus200DrainsDeliveryEncodingEnum = {
 export type GetDrainsStatus200DrainsDeliveryEncodingEnumKey =
 	(typeof getDrainsStatus200DrainsDeliveryEncodingEnum)[keyof typeof getDrainsStatus200DrainsDeliveryEncodingEnum];
 
+export const getDrainsStatus200DrainsDeliveryEncodingEnum2 = {
+	json: "json",
+	proto: "proto",
+} as const;
+
+export type GetDrainsStatus200DrainsDeliveryEncodingEnum2Key =
+	(typeof getDrainsStatus200DrainsDeliveryEncodingEnum2)[keyof typeof getDrainsStatus200DrainsDeliveryEncodingEnum2];
+
+export const getDrainsStatus200DrainsDeliveryEncodingEnum3 = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type GetDrainsStatus200DrainsDeliveryEncodingEnum3Key =
+	(typeof getDrainsStatus200DrainsDeliveryEncodingEnum3)[keyof typeof getDrainsStatus200DrainsDeliveryEncodingEnum3];
+
 export const getDrainsStatus200DrainsDeliveryObjectAclEnum = {
 	"authenticated-read": "authenticated-read",
 	"aws-exec-read": "aws-exec-read",
@@ -51066,6 +53839,118 @@ export const getDrainsStatus200DrainsFilterV2FilterLogSourcesEnum = {
 export type GetDrainsStatus200DrainsFilterV2FilterLogSourcesEnumKey =
 	(typeof getDrainsStatus200DrainsFilterV2FilterLogSourcesEnum)[keyof typeof getDrainsStatus200DrainsFilterV2FilterLogSourcesEnum];
 
+export const getDrainsStatus200DrainsDeliveryCompressionEnum3 = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type GetDrainsStatus200DrainsDeliveryCompressionEnum3Key =
+	(typeof getDrainsStatus200DrainsDeliveryCompressionEnum3)[keyof typeof getDrainsStatus200DrainsDeliveryCompressionEnum3];
+
+export const getDrainsStatus200DrainsDeliveryEncodingEnum4 = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type GetDrainsStatus200DrainsDeliveryEncodingEnum4Key =
+	(typeof getDrainsStatus200DrainsDeliveryEncodingEnum4)[keyof typeof getDrainsStatus200DrainsDeliveryEncodingEnum4];
+
+export const getDrainsStatus200DrainsDeliveryEncodingEnum5 = {
+	json: "json",
+	proto: "proto",
+} as const;
+
+export type GetDrainsStatus200DrainsDeliveryEncodingEnum5Key =
+	(typeof getDrainsStatus200DrainsDeliveryEncodingEnum5)[keyof typeof getDrainsStatus200DrainsDeliveryEncodingEnum5];
+
+export const getDrainsStatus200DrainsDeliveryEncodingEnum6 = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type GetDrainsStatus200DrainsDeliveryEncodingEnum6Key =
+	(typeof getDrainsStatus200DrainsDeliveryEncodingEnum6)[keyof typeof getDrainsStatus200DrainsDeliveryEncodingEnum6];
+
+export const getDrainsStatus200DrainsDeliveryObjectAclEnum2 = {
+	"authenticated-read": "authenticated-read",
+	"aws-exec-read": "aws-exec-read",
+	"bucket-owner-full-control": "bucket-owner-full-control",
+	"bucket-owner-read": "bucket-owner-read",
+	private: "private",
+	"public-read": "public-read",
+	"public-read-write": "public-read-write",
+} as const;
+
+export type GetDrainsStatus200DrainsDeliveryObjectAclEnum2Key =
+	(typeof getDrainsStatus200DrainsDeliveryObjectAclEnum2)[keyof typeof getDrainsStatus200DrainsDeliveryObjectAclEnum2];
+
+export const getDrainsStatus200DrainsDeliveryServerSideEncryptionEnum2 = {
+	AES256: "AES256",
+	"aws:kms": "aws:kms",
+	"aws:kms:dsse": "aws:kms:dsse",
+} as const;
+
+export type GetDrainsStatus200DrainsDeliveryServerSideEncryptionEnum2Key =
+	(typeof getDrainsStatus200DrainsDeliveryServerSideEncryptionEnum2)[keyof typeof getDrainsStatus200DrainsDeliveryServerSideEncryptionEnum2];
+
+export const getDrainsStatus200DrainsDisabledReasonEnum2 = {
+	"account-plan-downgrade": "account-plan-downgrade",
+	"disabled-by-admin": "disabled-by-admin",
+	"disabled-by-owner": "disabled-by-owner",
+	"feature-not-available": "feature-not-available",
+	"limits-exceeded": "limits-exceeded",
+} as const;
+
+export type GetDrainsStatus200DrainsDisabledReasonEnum2Key =
+	(typeof getDrainsStatus200DrainsDisabledReasonEnum2)[keyof typeof getDrainsStatus200DrainsDisabledReasonEnum2];
+
+export const getDrainsStatus200DrainsSamplingEnvEnum2 = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type GetDrainsStatus200DrainsSamplingEnvEnum2Key =
+	(typeof getDrainsStatus200DrainsSamplingEnvEnum2)[keyof typeof getDrainsStatus200DrainsSamplingEnvEnum2];
+
+export const getDrainsStatus200DrainsStatusEnum2 = {
+	disabled: "disabled",
+	enabled: "enabled",
+	errored: "errored",
+} as const;
+
+export type GetDrainsStatus200DrainsStatusEnum2Key =
+	(typeof getDrainsStatus200DrainsStatusEnum2)[keyof typeof getDrainsStatus200DrainsStatusEnum2];
+
+export const getDrainsStatus200DrainsDeliveryStatsStateEnum2 = {
+	failing: "failing",
+	healthy: "healthy",
+	unknown: "unknown",
+} as const;
+
+export type GetDrainsStatus200DrainsDeliveryStatsStateEnum2Key =
+	(typeof getDrainsStatus200DrainsDeliveryStatsStateEnum2)[keyof typeof getDrainsStatus200DrainsDeliveryStatsStateEnum2];
+
+export const getDrainsStatus200DrainsFilterV2FilterDeploymentEnvironmentsEnum2 = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type GetDrainsStatus200DrainsFilterV2FilterDeploymentEnvironmentsEnum2Key =
+	(typeof getDrainsStatus200DrainsFilterV2FilterDeploymentEnvironmentsEnum2)[keyof typeof getDrainsStatus200DrainsFilterV2FilterDeploymentEnvironmentsEnum2];
+
+export const getDrainsStatus200DrainsFilterV2FilterLogSourcesEnum2 = {
+	build: "build",
+	edge: "edge",
+	external: "external",
+	firewall: "firewall",
+	lambda: "lambda",
+	redirect: "redirect",
+	static: "static",
+} as const;
+
+export type GetDrainsStatus200DrainsFilterV2FilterLogSourcesEnum2Key =
+	(typeof getDrainsStatus200DrainsFilterV2FilterLogSourcesEnum2)[keyof typeof getDrainsStatus200DrainsFilterV2FilterLogSourcesEnum2];
+
 export const getDrainsStatus200DrainsProjectAccessManagedByEnum = {
 	drain: "drain",
 	integration: "integration",
@@ -51073,6 +53958,14 @@ export const getDrainsStatus200DrainsProjectAccessManagedByEnum = {
 
 export type GetDrainsStatus200DrainsProjectAccessManagedByEnumKey =
 	(typeof getDrainsStatus200DrainsProjectAccessManagedByEnum)[keyof typeof getDrainsStatus200DrainsProjectAccessManagedByEnum];
+
+export const getDrainsStatus200DrainsProjectAccessManagedByEnum2 = {
+	drain: "drain",
+	integration: "integration",
+} as const;
+
+export type GetDrainsStatus200DrainsProjectAccessManagedByEnum2Key =
+	(typeof getDrainsStatus200DrainsProjectAccessManagedByEnum2)[keyof typeof getDrainsStatus200DrainsProjectAccessManagedByEnum2];
 
 export type GetDrainsStatus200 = {
 	drains:
@@ -51097,7 +53990,7 @@ export type GetDrainsStatus200 = {
 							type: "http";
 					  }
 					| {
-							encoding: GetDrainsStatus200DrainsDeliveryEncodingEnumKey;
+							encoding: GetDrainsStatus200DrainsDeliveryEncodingEnum2Key;
 							endpoint: {
 								traces: string;
 							};
@@ -51121,7 +54014,7 @@ export type GetDrainsStatus200 = {
 					  }
 					| {
 							compression: "none";
-							encoding: GetDrainsStatus200DrainsDeliveryEncodingEnumKey;
+							encoding: GetDrainsStatus200DrainsDeliveryEncodingEnum3Key;
 							endpoint: string;
 							fileStructure: "hive";
 							objectAcl?: GetDrainsStatus200DrainsDeliveryObjectAclEnumKey | undefined;
@@ -51238,8 +54131,8 @@ export type GetDrainsStatus200 = {
 				createdAt: number;
 				delivery:
 					| {
-							compression?: GetDrainsStatus200DrainsDeliveryCompressionEnumKey | undefined;
-							encoding: GetDrainsStatus200DrainsDeliveryEncodingEnumKey;
+							compression?: GetDrainsStatus200DrainsDeliveryCompressionEnum3Key | undefined;
+							encoding: GetDrainsStatus200DrainsDeliveryEncodingEnum4Key;
 							endpoint: string;
 							headers: {
 								[key: string]: string;
@@ -51255,7 +54148,7 @@ export type GetDrainsStatus200 = {
 							type: "http";
 					  }
 					| {
-							encoding: GetDrainsStatus200DrainsDeliveryEncodingEnumKey;
+							encoding: GetDrainsStatus200DrainsDeliveryEncodingEnum5Key;
 							endpoint: {
 								traces: string;
 							};
@@ -51279,14 +54172,14 @@ export type GetDrainsStatus200 = {
 					  }
 					| {
 							compression: "none";
-							encoding: GetDrainsStatus200DrainsDeliveryEncodingEnumKey;
+							encoding: GetDrainsStatus200DrainsDeliveryEncodingEnum6Key;
 							endpoint: string;
 							fileStructure: "hive";
-							objectAcl?: GetDrainsStatus200DrainsDeliveryObjectAclEnumKey | undefined;
+							objectAcl?: GetDrainsStatus200DrainsDeliveryObjectAclEnum2Key | undefined;
 							region: string;
 							roleArn: string;
 							serverSideEncryption?:
-								| GetDrainsStatus200DrainsDeliveryServerSideEncryptionEnumKey
+								| GetDrainsStatus200DrainsDeliveryServerSideEncryptionEnum2Key
 								| undefined;
 							type: "s3";
 					  }
@@ -51296,7 +54189,7 @@ export type GetDrainsStatus200 = {
 					  };
 				disabledAt?: number | undefined;
 				disabledBy?: string | undefined;
-				disabledReason?: GetDrainsStatus200DrainsDisabledReasonEnumKey | undefined;
+				disabledReason?: GetDrainsStatus200DrainsDisabledReasonEnum2Key | undefined;
 				firstErrorTimestamp?: number | undefined;
 				id: string;
 				name: string;
@@ -51304,7 +54197,7 @@ export type GetDrainsStatus200 = {
 				projectIds?: string[] | undefined;
 				sampling?:
 					| {
-							env?: GetDrainsStatus200DrainsSamplingEnvEnumKey | undefined;
+							env?: GetDrainsStatus200DrainsSamplingEnvEnum2Key | undefined;
 							rate: number;
 							requestPath?: string | undefined;
 							type: "head_sampling";
@@ -51335,7 +54228,7 @@ export type GetDrainsStatus200 = {
 							kind: "integration";
 							resourceId?: string | undefined;
 					  };
-				status?: GetDrainsStatus200DrainsStatusEnumKey | undefined;
+				status?: GetDrainsStatus200DrainsStatusEnum2Key | undefined;
 				teamId?: (string | null) | undefined;
 				updatedAt: number;
 				/**
@@ -51354,7 +54247,7 @@ export type GetDrainsStatus200 = {
 							 * @type number
 							 */
 							failures: number;
-							state: GetDrainsStatus200DrainsDeliveryStatsStateEnumKey;
+							state: GetDrainsStatus200DrainsDeliveryStatsStateEnum2Key;
 							window: "24h";
 					  }
 					| undefined;
@@ -51365,7 +54258,7 @@ export type GetDrainsStatus200 = {
 										deployment?:
 											| {
 													environments?:
-														| GetDrainsStatus200DrainsFilterV2FilterDeploymentEnvironmentsEnumKey[]
+														| GetDrainsStatus200DrainsFilterV2FilterDeploymentEnvironmentsEnum2Key[]
 														| undefined;
 											  }
 											| undefined;
@@ -51373,7 +54266,7 @@ export type GetDrainsStatus200 = {
 											| {
 													legacy_excludeCachedStaticAssetLogs?: (false | true) | undefined;
 													sources?:
-														| GetDrainsStatus200DrainsFilterV2FilterLogSourcesEnumKey[]
+														| GetDrainsStatus200DrainsFilterV2FilterLogSourcesEnum2Key[]
 														| undefined;
 											  }
 											| undefined;
@@ -51403,7 +54296,7 @@ export type GetDrainsStatus200 = {
 							| {
 									access: "some";
 									projectIds: string[];
-									managedBy: GetDrainsStatus200DrainsProjectAccessManagedByEnumKey;
+									managedBy: GetDrainsStatus200DrainsProjectAccessManagedByEnum2Key;
 							  }
 					  )
 					| undefined;
@@ -51537,6 +54430,22 @@ export const getDrainStatus200DeliveryEncodingEnum = {
 export type GetDrainStatus200DeliveryEncodingEnumKey =
 	(typeof getDrainStatus200DeliveryEncodingEnum)[keyof typeof getDrainStatus200DeliveryEncodingEnum];
 
+export const getDrainStatus200DeliveryEncodingEnum2 = {
+	json: "json",
+	proto: "proto",
+} as const;
+
+export type GetDrainStatus200DeliveryEncodingEnum2Key =
+	(typeof getDrainStatus200DeliveryEncodingEnum2)[keyof typeof getDrainStatus200DeliveryEncodingEnum2];
+
+export const getDrainStatus200DeliveryEncodingEnum3 = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type GetDrainStatus200DeliveryEncodingEnum3Key =
+	(typeof getDrainStatus200DeliveryEncodingEnum3)[keyof typeof getDrainStatus200DeliveryEncodingEnum3];
+
 export const getDrainStatus200DeliveryObjectAclEnum = {
 	"authenticated-read": "authenticated-read",
 	"aws-exec-read": "aws-exec-read",
@@ -51638,7 +54547,7 @@ export type GetDrainStatus200 = {
 				type: "http";
 		  }
 		| {
-				encoding: GetDrainStatus200DeliveryEncodingEnumKey;
+				encoding: GetDrainStatus200DeliveryEncodingEnum2Key;
 				endpoint: {
 					traces: string;
 				};
@@ -51662,7 +54571,7 @@ export type GetDrainStatus200 = {
 		  }
 		| {
 				compression: "none";
-				encoding: GetDrainStatus200DeliveryEncodingEnumKey;
+				encoding: GetDrainStatus200DeliveryEncodingEnum3Key;
 				endpoint: string;
 				fileStructure: "hive";
 				objectAcl?: GetDrainStatus200DeliveryObjectAclEnumKey | undefined;
@@ -51841,6 +54750,22 @@ export const updateDrainStatus200DeliveryEncodingEnum = {
 export type UpdateDrainStatus200DeliveryEncodingEnumKey =
 	(typeof updateDrainStatus200DeliveryEncodingEnum)[keyof typeof updateDrainStatus200DeliveryEncodingEnum];
 
+export const updateDrainStatus200DeliveryEncodingEnum2 = {
+	json: "json",
+	proto: "proto",
+} as const;
+
+export type UpdateDrainStatus200DeliveryEncodingEnum2Key =
+	(typeof updateDrainStatus200DeliveryEncodingEnum2)[keyof typeof updateDrainStatus200DeliveryEncodingEnum2];
+
+export const updateDrainStatus200DeliveryEncodingEnum3 = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type UpdateDrainStatus200DeliveryEncodingEnum3Key =
+	(typeof updateDrainStatus200DeliveryEncodingEnum3)[keyof typeof updateDrainStatus200DeliveryEncodingEnum3];
+
 export const updateDrainStatus200DeliveryObjectAclEnum = {
 	"authenticated-read": "authenticated-read",
 	"aws-exec-read": "aws-exec-read",
@@ -51921,6 +54846,118 @@ export const updateDrainStatus200FilterV2FilterLogSourcesEnum = {
 export type UpdateDrainStatus200FilterV2FilterLogSourcesEnumKey =
 	(typeof updateDrainStatus200FilterV2FilterLogSourcesEnum)[keyof typeof updateDrainStatus200FilterV2FilterLogSourcesEnum];
 
+export const updateDrainStatus200DeliveryCompressionEnum3 = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type UpdateDrainStatus200DeliveryCompressionEnum3Key =
+	(typeof updateDrainStatus200DeliveryCompressionEnum3)[keyof typeof updateDrainStatus200DeliveryCompressionEnum3];
+
+export const updateDrainStatus200DeliveryEncodingEnum4 = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type UpdateDrainStatus200DeliveryEncodingEnum4Key =
+	(typeof updateDrainStatus200DeliveryEncodingEnum4)[keyof typeof updateDrainStatus200DeliveryEncodingEnum4];
+
+export const updateDrainStatus200DeliveryEncodingEnum5 = {
+	json: "json",
+	proto: "proto",
+} as const;
+
+export type UpdateDrainStatus200DeliveryEncodingEnum5Key =
+	(typeof updateDrainStatus200DeliveryEncodingEnum5)[keyof typeof updateDrainStatus200DeliveryEncodingEnum5];
+
+export const updateDrainStatus200DeliveryEncodingEnum6 = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type UpdateDrainStatus200DeliveryEncodingEnum6Key =
+	(typeof updateDrainStatus200DeliveryEncodingEnum6)[keyof typeof updateDrainStatus200DeliveryEncodingEnum6];
+
+export const updateDrainStatus200DeliveryObjectAclEnum2 = {
+	"authenticated-read": "authenticated-read",
+	"aws-exec-read": "aws-exec-read",
+	"bucket-owner-full-control": "bucket-owner-full-control",
+	"bucket-owner-read": "bucket-owner-read",
+	private: "private",
+	"public-read": "public-read",
+	"public-read-write": "public-read-write",
+} as const;
+
+export type UpdateDrainStatus200DeliveryObjectAclEnum2Key =
+	(typeof updateDrainStatus200DeliveryObjectAclEnum2)[keyof typeof updateDrainStatus200DeliveryObjectAclEnum2];
+
+export const updateDrainStatus200DeliveryServerSideEncryptionEnum2 = {
+	AES256: "AES256",
+	"aws:kms": "aws:kms",
+	"aws:kms:dsse": "aws:kms:dsse",
+} as const;
+
+export type UpdateDrainStatus200DeliveryServerSideEncryptionEnum2Key =
+	(typeof updateDrainStatus200DeliveryServerSideEncryptionEnum2)[keyof typeof updateDrainStatus200DeliveryServerSideEncryptionEnum2];
+
+export const updateDrainStatus200DisabledReasonEnum2 = {
+	"account-plan-downgrade": "account-plan-downgrade",
+	"disabled-by-admin": "disabled-by-admin",
+	"disabled-by-owner": "disabled-by-owner",
+	"feature-not-available": "feature-not-available",
+	"limits-exceeded": "limits-exceeded",
+} as const;
+
+export type UpdateDrainStatus200DisabledReasonEnum2Key =
+	(typeof updateDrainStatus200DisabledReasonEnum2)[keyof typeof updateDrainStatus200DisabledReasonEnum2];
+
+export const updateDrainStatus200SamplingEnvEnum2 = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type UpdateDrainStatus200SamplingEnvEnum2Key =
+	(typeof updateDrainStatus200SamplingEnvEnum2)[keyof typeof updateDrainStatus200SamplingEnvEnum2];
+
+export const updateDrainStatus200StatusEnum2 = {
+	disabled: "disabled",
+	enabled: "enabled",
+	errored: "errored",
+} as const;
+
+export type UpdateDrainStatus200StatusEnum2Key =
+	(typeof updateDrainStatus200StatusEnum2)[keyof typeof updateDrainStatus200StatusEnum2];
+
+export const updateDrainStatus200DeliveryStatsStateEnum2 = {
+	failing: "failing",
+	healthy: "healthy",
+	unknown: "unknown",
+} as const;
+
+export type UpdateDrainStatus200DeliveryStatsStateEnum2Key =
+	(typeof updateDrainStatus200DeliveryStatsStateEnum2)[keyof typeof updateDrainStatus200DeliveryStatsStateEnum2];
+
+export const updateDrainStatus200FilterV2FilterDeploymentEnvironmentsEnum2 = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type UpdateDrainStatus200FilterV2FilterDeploymentEnvironmentsEnum2Key =
+	(typeof updateDrainStatus200FilterV2FilterDeploymentEnvironmentsEnum2)[keyof typeof updateDrainStatus200FilterV2FilterDeploymentEnvironmentsEnum2];
+
+export const updateDrainStatus200FilterV2FilterLogSourcesEnum2 = {
+	build: "build",
+	edge: "edge",
+	external: "external",
+	firewall: "firewall",
+	lambda: "lambda",
+	redirect: "redirect",
+	static: "static",
+} as const;
+
+export type UpdateDrainStatus200FilterV2FilterLogSourcesEnum2Key =
+	(typeof updateDrainStatus200FilterV2FilterLogSourcesEnum2)[keyof typeof updateDrainStatus200FilterV2FilterLogSourcesEnum2];
+
 export const updateDrainStatus200ProjectAccessManagedByEnum = {
 	drain: "drain",
 	integration: "integration",
@@ -51928,6 +54965,14 @@ export const updateDrainStatus200ProjectAccessManagedByEnum = {
 
 export type UpdateDrainStatus200ProjectAccessManagedByEnumKey =
 	(typeof updateDrainStatus200ProjectAccessManagedByEnum)[keyof typeof updateDrainStatus200ProjectAccessManagedByEnum];
+
+export const updateDrainStatus200ProjectAccessManagedByEnum2 = {
+	drain: "drain",
+	integration: "integration",
+} as const;
+
+export type UpdateDrainStatus200ProjectAccessManagedByEnum2Key =
+	(typeof updateDrainStatus200ProjectAccessManagedByEnum2)[keyof typeof updateDrainStatus200ProjectAccessManagedByEnum2];
 
 export type UpdateDrainStatus200 =
 	| {
@@ -51951,7 +54996,7 @@ export type UpdateDrainStatus200 =
 						type: "http";
 				  }
 				| {
-						encoding: UpdateDrainStatus200DeliveryEncodingEnumKey;
+						encoding: UpdateDrainStatus200DeliveryEncodingEnum2Key;
 						endpoint: {
 							traces: string;
 						};
@@ -51975,7 +55020,7 @@ export type UpdateDrainStatus200 =
 				  }
 				| {
 						compression: "none";
-						encoding: UpdateDrainStatus200DeliveryEncodingEnumKey;
+						encoding: UpdateDrainStatus200DeliveryEncodingEnum3Key;
 						endpoint: string;
 						fileStructure: "hive";
 						objectAcl?: UpdateDrainStatus200DeliveryObjectAclEnumKey | undefined;
@@ -52090,8 +55135,8 @@ export type UpdateDrainStatus200 =
 			createdAt: number;
 			delivery:
 				| {
-						compression?: UpdateDrainStatus200DeliveryCompressionEnumKey | undefined;
-						encoding: UpdateDrainStatus200DeliveryEncodingEnumKey;
+						compression?: UpdateDrainStatus200DeliveryCompressionEnum3Key | undefined;
+						encoding: UpdateDrainStatus200DeliveryEncodingEnum4Key;
 						endpoint: string;
 						headers: {
 							[key: string]: string;
@@ -52107,7 +55152,7 @@ export type UpdateDrainStatus200 =
 						type: "http";
 				  }
 				| {
-						encoding: UpdateDrainStatus200DeliveryEncodingEnumKey;
+						encoding: UpdateDrainStatus200DeliveryEncodingEnum5Key;
 						endpoint: {
 							traces: string;
 						};
@@ -52131,14 +55176,14 @@ export type UpdateDrainStatus200 =
 				  }
 				| {
 						compression: "none";
-						encoding: UpdateDrainStatus200DeliveryEncodingEnumKey;
+						encoding: UpdateDrainStatus200DeliveryEncodingEnum6Key;
 						endpoint: string;
 						fileStructure: "hive";
-						objectAcl?: UpdateDrainStatus200DeliveryObjectAclEnumKey | undefined;
+						objectAcl?: UpdateDrainStatus200DeliveryObjectAclEnum2Key | undefined;
 						region: string;
 						roleArn: string;
 						serverSideEncryption?:
-							| UpdateDrainStatus200DeliveryServerSideEncryptionEnumKey
+							| UpdateDrainStatus200DeliveryServerSideEncryptionEnum2Key
 							| undefined;
 						type: "s3";
 				  }
@@ -52148,7 +55193,7 @@ export type UpdateDrainStatus200 =
 				  };
 			disabledAt?: number | undefined;
 			disabledBy?: string | undefined;
-			disabledReason?: UpdateDrainStatus200DisabledReasonEnumKey | undefined;
+			disabledReason?: UpdateDrainStatus200DisabledReasonEnum2Key | undefined;
 			firstErrorTimestamp?: number | undefined;
 			id: string;
 			name: string;
@@ -52156,7 +55201,7 @@ export type UpdateDrainStatus200 =
 			projectIds?: string[] | undefined;
 			sampling?:
 				| {
-						env?: UpdateDrainStatus200SamplingEnvEnumKey | undefined;
+						env?: UpdateDrainStatus200SamplingEnvEnum2Key | undefined;
 						rate: number;
 						requestPath?: string | undefined;
 						type: "head_sampling";
@@ -52187,7 +55232,7 @@ export type UpdateDrainStatus200 =
 						kind: "integration";
 						resourceId?: string | undefined;
 				  };
-			status?: UpdateDrainStatus200StatusEnumKey | undefined;
+			status?: UpdateDrainStatus200StatusEnum2Key | undefined;
 			teamId?: (string | null) | undefined;
 			updatedAt: number;
 			/**
@@ -52206,7 +55251,7 @@ export type UpdateDrainStatus200 =
 						 * @type number
 						 */
 						failures: number;
-						state: UpdateDrainStatus200DeliveryStatsStateEnumKey;
+						state: UpdateDrainStatus200DeliveryStatsStateEnum2Key;
 						window: "24h";
 				  }
 				| undefined;
@@ -52217,14 +55262,16 @@ export type UpdateDrainStatus200 =
 									deployment?:
 										| {
 												environments?:
-													| UpdateDrainStatus200FilterV2FilterDeploymentEnvironmentsEnumKey[]
+													| UpdateDrainStatus200FilterV2FilterDeploymentEnvironmentsEnum2Key[]
 													| undefined;
 										  }
 										| undefined;
 									log?:
 										| {
 												legacy_excludeCachedStaticAssetLogs?: (false | true) | undefined;
-												sources?: UpdateDrainStatus200FilterV2FilterLogSourcesEnumKey[] | undefined;
+												sources?:
+													| UpdateDrainStatus200FilterV2FilterLogSourcesEnum2Key[]
+													| undefined;
 										  }
 										| undefined;
 									project?:
@@ -52253,7 +55300,7 @@ export type UpdateDrainStatus200 =
 						| {
 								access: "some";
 								projectIds: string[];
-								managedBy: UpdateDrainStatus200ProjectAccessManagedByEnumKey;
+								managedBy: UpdateDrainStatus200ProjectAccessManagedByEnum2Key;
 						  }
 				  )
 				| undefined;
@@ -52315,6 +55362,22 @@ export const updateDrainRequestDeliveryEncodingEnum = {
 
 export type UpdateDrainRequestDeliveryEncodingEnumKey =
 	(typeof updateDrainRequestDeliveryEncodingEnum)[keyof typeof updateDrainRequestDeliveryEncodingEnum];
+
+export const updateDrainRequestDeliveryEncodingEnum2 = {
+	proto: "proto",
+	json: "json",
+} as const;
+
+export type UpdateDrainRequestDeliveryEncodingEnum2Key =
+	(typeof updateDrainRequestDeliveryEncodingEnum2)[keyof typeof updateDrainRequestDeliveryEncodingEnum2];
+
+export const updateDrainRequestDeliveryEncodingEnum3 = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type UpdateDrainRequestDeliveryEncodingEnum3Key =
+	(typeof updateDrainRequestDeliveryEncodingEnum3)[keyof typeof updateDrainRequestDeliveryEncodingEnum3];
 
 export const updateDrainRequestDeliveryServerSideEncryptionEnum = {
 	AES256: "AES256",
@@ -52412,7 +55475,7 @@ export type UpdateDrainBody =
 								endpoint: {
 									traces: string;
 								};
-								encoding: UpdateDrainRequestDeliveryEncodingEnumKey;
+								encoding: UpdateDrainRequestDeliveryEncodingEnum2Key;
 								headers: {
 									[key: string]: string;
 								};
@@ -52421,7 +55484,7 @@ export type UpdateDrainBody =
 						| {
 								type: string;
 								endpoint: string;
-								encoding: UpdateDrainRequestDeliveryEncodingEnumKey;
+								encoding: UpdateDrainRequestDeliveryEncodingEnum3Key;
 								compression: "none";
 								fileStructure: "hive";
 								roleArn: string;
@@ -52443,8 +55506,8 @@ export type UpdateDrainBody =
 								type: string;
 								/**
 								 * @description Sampling rate from 0 to 1 (e.g., 0.1 for 10%)
-								 * @minLength 0
-								 * @maxLength 1
+								 * @minimum 0
+								 * @maximum 1
 								 * @type number
 								 */
 								rate: number;
@@ -52583,6 +55646,22 @@ export const testDrainRequestDeliveryEncodingEnum = {
 export type TestDrainRequestDeliveryEncodingEnumKey =
 	(typeof testDrainRequestDeliveryEncodingEnum)[keyof typeof testDrainRequestDeliveryEncodingEnum];
 
+export const testDrainRequestDeliveryEncodingEnum2 = {
+	proto: "proto",
+	json: "json",
+} as const;
+
+export type TestDrainRequestDeliveryEncodingEnum2Key =
+	(typeof testDrainRequestDeliveryEncodingEnum2)[keyof typeof testDrainRequestDeliveryEncodingEnum2];
+
+export const testDrainRequestDeliveryEncodingEnum3 = {
+	json: "json",
+	ndjson: "ndjson",
+} as const;
+
+export type TestDrainRequestDeliveryEncodingEnum3Key =
+	(typeof testDrainRequestDeliveryEncodingEnum3)[keyof typeof testDrainRequestDeliveryEncodingEnum3];
+
 export const testDrainRequestDeliveryServerSideEncryptionEnum = {
 	AES256: "AES256",
 	"aws:kms": "aws:kms",
@@ -52624,7 +55703,7 @@ export type TestDrainBody =
 						endpoint: {
 							traces: string;
 						};
-						encoding: TestDrainRequestDeliveryEncodingEnumKey;
+						encoding: TestDrainRequestDeliveryEncodingEnum2Key;
 						headers: {
 							[key: string]: string;
 						};
@@ -52633,7 +55712,7 @@ export type TestDrainBody =
 				| {
 						type: string;
 						endpoint: string;
-						encoding: TestDrainRequestDeliveryEncodingEnumKey;
+						encoding: TestDrainRequestDeliveryEncodingEnum3Key;
 						compression: "none";
 						fileStructure: "hive";
 						roleArn: string;
@@ -52773,8 +55852,8 @@ export type DangerouslyDeleteByTagsRequestTargetEnumKey =
 export type DangerouslyDeleteByTagsBody =
 	| {
 			/**
-			 * @minLength 0
-			 * @maxLength 31536000
+			 * @minimum 0
+			 * @maximum 31536000
 			 * @type integer | undefined
 			 */
 			revalidationDeadlineSeconds?: number | undefined;
@@ -52895,8 +55974,8 @@ export type DangerouslyDeleteBySrcImagesStatus410 = unknown;
 export type DangerouslyDeleteBySrcImagesBody =
 	| {
 			/**
-			 * @minLength 0
-			 * @maxLength 31536000
+			 * @minimum 0
+			 * @maximum 31536000
 			 * @type integer | undefined
 			 */
 			revalidationDeadlineSeconds?: number | undefined;
@@ -53396,15 +56475,31 @@ export type PatchEdgeConfigItemsStatus410 = unknown;
 
 export type PatchEdgeConfigItemsStatus412 = unknown;
 
-export const patchEdgeConfigItemsRequestItemsOperationEnum = {
+export const patchEdgeConfigItemsRequestItemsOperationEnum2 = {
+	update: "update",
+	upsert: "upsert",
+} as const;
+
+export type PatchEdgeConfigItemsRequestItemsOperationEnum2Key =
+	(typeof patchEdgeConfigItemsRequestItemsOperationEnum2)[keyof typeof patchEdgeConfigItemsRequestItemsOperationEnum2];
+
+export const patchEdgeConfigItemsRequestItemsOperationEnum3 = {
+	update: "update",
+	upsert: "upsert",
+} as const;
+
+export type PatchEdgeConfigItemsRequestItemsOperationEnum3Key =
+	(typeof patchEdgeConfigItemsRequestItemsOperationEnum3)[keyof typeof patchEdgeConfigItemsRequestItemsOperationEnum3];
+
+export const patchEdgeConfigItemsRequestItemsOperationEnum5 = {
 	create: "create",
 	update: "update",
 	upsert: "upsert",
 	delete: "delete",
 } as const;
 
-export type PatchEdgeConfigItemsRequestItemsOperationEnumKey =
-	(typeof patchEdgeConfigItemsRequestItemsOperationEnum)[keyof typeof patchEdgeConfigItemsRequestItemsOperationEnum];
+export type PatchEdgeConfigItemsRequestItemsOperationEnum5Key =
+	(typeof patchEdgeConfigItemsRequestItemsOperationEnum5)[keyof typeof patchEdgeConfigItemsRequestItemsOperationEnum5];
 
 export type PatchEdgeConfigItemsBody =
 	| {
@@ -53420,7 +56515,7 @@ export type PatchEdgeConfigItemsBody =
 						value: unknown;
 				  }
 				| {
-						operation: PatchEdgeConfigItemsRequestItemsOperationEnumKey;
+						operation: PatchEdgeConfigItemsRequestItemsOperationEnum2Key;
 						/**
 						 * @maxLength 256
 						 * @pattern ^[\w-]+$
@@ -53430,7 +56525,7 @@ export type PatchEdgeConfigItemsBody =
 						value: unknown;
 				  }
 				| {
-						operation: PatchEdgeConfigItemsRequestItemsOperationEnumKey;
+						operation: PatchEdgeConfigItemsRequestItemsOperationEnum3Key;
 						/**
 						 * @maxLength 256
 						 * @pattern ^[\w-]+$
@@ -53453,7 +56548,7 @@ export type PatchEdgeConfigItemsBody =
 						key: string;
 				  }
 			) & {
-				operation?: PatchEdgeConfigItemsRequestItemsOperationEnumKey | undefined;
+				operation?: PatchEdgeConfigItemsRequestItemsOperationEnum5Key | undefined;
 				/**
 				 * @maxLength 256
 				 * @pattern ^[\w-]+$
@@ -54200,8 +57295,8 @@ export type GetEdgeConfigBackupsPath = {
 export type GetEdgeConfigBackupsQuery = {
 	next?: string | undefined;
 	/**
-	 * @minLength 0
-	 * @maxLength 50
+	 * @minimum 0
+	 * @maximum 50
 	 * @type number | undefined
 	 */
 	limit?: number | undefined;
@@ -54512,6 +57607,15 @@ export const createSharedEnvVariableRequestTypeEnum = {
 export type CreateSharedEnvVariableRequestTypeEnumKey =
 	(typeof createSharedEnvVariableRequestTypeEnum)[keyof typeof createSharedEnvVariableRequestTypeEnum];
 
+export const createSharedEnvVariableRequestTargetEnum2 = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type CreateSharedEnvVariableRequestTargetEnum2Key =
+	(typeof createSharedEnvVariableRequestTargetEnum2)[keyof typeof createSharedEnvVariableRequestTargetEnum2];
+
 export type CreateSharedEnvVariableBody =
 	| ((
 			| {
@@ -54561,7 +57665,7 @@ export type CreateSharedEnvVariableBody =
 			 * @example ["preview","production"]
 			 * @type array | undefined
 			 */
-			target?: CreateSharedEnvVariableRequestTargetEnumKey[] | undefined;
+			target?: CreateSharedEnvVariableRequestTargetEnum2Key[] | undefined;
 			/**
 			 * @description Associate a Shared Environment Variable to projects.
 			 * @deprecated
@@ -55067,6 +58171,13 @@ export type UpdateSharedEnvVariableStatus404 = unknown;
 
 export type UpdateSharedEnvVariableStatus410 = unknown;
 
+export const typeEnum59 = {
+	encrypted: "encrypted",
+	sensitive: "sensitive",
+} as const;
+
+export type TypeEnum59Key = (typeof typeEnum59)[keyof typeof typeEnum59];
+
 export type UpdateSharedEnvVariableBody =
 	| {
 			/**
@@ -55125,7 +58236,7 @@ export type UpdateSharedEnvVariableBody =
 					 * @example encrypted
 					 * @type string | undefined
 					 */
-					type?: TypeEnumKey | undefined;
+					type?: TypeEnum59Key | undefined;
 					/**
 					 * @description A comment to add context on what this Shared Environment Variable is for
 					 * @maxLength 500
@@ -55686,6 +58797,11 @@ export type ListEventTypesResponses = {
 	"410": ListEventTypesStatus410;
 };
 
+/**
+ * @description Union of all possible responses
+ */
+export type ListEventTypesResponse2 = ListEventTypesStatus200;
+
 export type ListFlagsV2Path = {
 	/**
 	 * @description The project id or name
@@ -55709,8 +58825,8 @@ export type ListFlagsV2Query = {
 	state?: ListFlagsV2StateKey | undefined;
 	/**
 	 * @description Maximum number of flags to return.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 25
 	 * @type integer | undefined
 	 */
@@ -55834,8 +58950,8 @@ export type ListFlagsQuery = {
 	withMetadata?: boolean | undefined;
 	/**
 	 * @description Maximum number of flags to return. When not set, all flags are returned.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
@@ -55933,6 +59049,41 @@ export type CreateFlagQuery = {
 	slug?: string | undefined;
 };
 
+export const cmpEnum3 = {
+	"!contains": "!contains",
+	"!endsWith": "!endsWith",
+	"!eq": "!eq",
+	"!ex": "!ex",
+	"!oneOf": "!oneOf",
+	"!regex": "!regex",
+	"!startsWith": "!startsWith",
+	after: "after",
+	before: "before",
+	contains: "contains",
+	containsAllOf: "containsAllOf",
+	containsAnyOf: "containsAnyOf",
+	containsNoneOf: "containsNoneOf",
+	endsWith: "endsWith",
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	lt: "lt",
+	lte: "lte",
+	oneOf: "oneOf",
+	regex: "regex",
+	startsWith: "startsWith",
+} as const;
+
+export type CmpEnum3Key = (typeof cmpEnum3)[keyof typeof cmpEnum3];
+
+export const typeEnum70 = {
+	list: "list",
+	"list/inline": "list/inline",
+} as const;
+
+export type TypeEnum70Key = (typeof typeEnum70)[keyof typeof typeEnum70];
+
 export const createFlagStatus201KindEnum = {
 	boolean: "boolean",
 	json: "json",
@@ -56016,7 +59167,7 @@ export type CreateFlagStatus201 = {
 			revision?: number | undefined;
 			rules: {
 				conditions: {
-					cmp: CmpEnumKey;
+					cmp: CmpEnum3Key;
 					cmpOptions?:
 						| {
 								ignoreCase?: (false | true) | undefined;
@@ -56048,7 +59199,7 @@ export type CreateFlagStatus201 = {
 													value: string;
 											  }
 										)[];
-										type: TypeEnumKey;
+										type: TypeEnum70Key;
 								  }
 								| {
 										flags: string;
@@ -56169,6 +59320,41 @@ export const createFlagRequestKindEnum = {
 export type CreateFlagRequestKindEnumKey =
 	(typeof createFlagRequestKindEnum)[keyof typeof createFlagRequestKindEnum];
 
+export const cmpEnum2 = {
+	"!contains": "!contains",
+	"!endsWith": "!endsWith",
+	"!eq": "!eq",
+	"!ex": "!ex",
+	"!oneOf": "!oneOf",
+	"!regex": "!regex",
+	"!startsWith": "!startsWith",
+	after: "after",
+	before: "before",
+	contains: "contains",
+	containsAllOf: "containsAllOf",
+	containsAnyOf: "containsAnyOf",
+	containsNoneOf: "containsNoneOf",
+	endsWith: "endsWith",
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	lt: "lt",
+	lte: "lte",
+	oneOf: "oneOf",
+	regex: "regex",
+	startsWith: "startsWith",
+} as const;
+
+export type CmpEnum2Key = (typeof cmpEnum2)[keyof typeof cmpEnum2];
+
+export const typeEnum60 = {
+	"list/inline": "list/inline",
+	list: "list",
+} as const;
+
+export type TypeEnum60Key = (typeof typeEnum60)[keyof typeof typeEnum60];
+
 export const createFlagRequestStateEnum = {
 	active: "active",
 	archived: "archived",
@@ -56211,7 +59397,7 @@ export type CreateFlagBody =
 						 * @type string | undefined
 						 */
 						description?: string | undefined;
-						value: string | number | boolean | object | unknown[] | string;
+						value: string | number | boolean | object | unknown[];
 				  }[]
 				| undefined;
 			/**
@@ -56271,11 +59457,11 @@ export type CreateFlagBody =
 										kind: string;
 										attribute: string;
 								  };
-							cmp: CmpEnumKey;
+							cmp: CmpEnum2Key;
 							rhs?:
 								| (
 										| {
-												type: TypeEnumKey;
+												type: TypeEnum60Key;
 												items: (
 													| {
 															label?: string | undefined;
@@ -56364,22 +59550,22 @@ export type CreateFlagBody =
 									slots: {
 										/**
 										 * @description Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)
-										 * @minLength 0
-										 * @maxLength 100000
+										 * @minimum 0
+										 * @maximum 100000
 										 * @type number
 										 */
 										promille: number;
 										/**
 										 * @description How long this promille is served in ms before moving to the next slot.
-										 * @minLength 0
+										 * @minimum 0
 										 * @type number
 										 */
 										durationMs: number;
 									}[];
 									/**
 									 * @description Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.
-									 * @minLength 0
-									 * @maxLength 100000
+									 * @minimum 0
+									 * @maximum 100000
 									 * @type number | undefined
 									 */
 									finalPromille?: number | undefined;
@@ -56444,22 +59630,22 @@ export type CreateFlagBody =
 								slots: {
 									/**
 									 * @description Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)
-									 * @minLength 0
-									 * @maxLength 100000
+									 * @minimum 0
+									 * @maximum 100000
 									 * @type number
 									 */
 									promille: number;
 									/**
 									 * @description How long this promille is served in ms before moving to the next slot.
-									 * @minLength 0
+									 * @minimum 0
 									 * @type number
 									 */
 									durationMs: number;
 								}[];
 								/**
 								 * @description Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.
-								 * @minLength 0
-								 * @maxLength 100000
+								 * @minimum 0
+								 * @maximum 100000
 								 * @type number | undefined
 								 */
 								finalPromille?: number | undefined;
@@ -56473,8 +59659,8 @@ export type CreateFlagBody =
 			};
 			/**
 			 * @description A random seed to prevent split points in different flags from having the same targets
-			 * @minLength 0
-			 * @maxLength 100000
+			 * @minimum 0
+			 * @maximum 100000
 			 * @type number | undefined
 			 */
 			seed?: number | undefined;
@@ -56640,6 +59826,41 @@ export type UpdateFlagQuery = {
 	slug?: string | undefined;
 };
 
+export const cmpEnum5 = {
+	"!contains": "!contains",
+	"!endsWith": "!endsWith",
+	"!eq": "!eq",
+	"!ex": "!ex",
+	"!oneOf": "!oneOf",
+	"!regex": "!regex",
+	"!startsWith": "!startsWith",
+	after: "after",
+	before: "before",
+	contains: "contains",
+	containsAllOf: "containsAllOf",
+	containsAnyOf: "containsAnyOf",
+	containsNoneOf: "containsNoneOf",
+	endsWith: "endsWith",
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	lt: "lt",
+	lte: "lte",
+	oneOf: "oneOf",
+	regex: "regex",
+	startsWith: "startsWith",
+} as const;
+
+export type CmpEnum5Key = (typeof cmpEnum5)[keyof typeof cmpEnum5];
+
+export const typeEnum88 = {
+	list: "list",
+	"list/inline": "list/inline",
+} as const;
+
+export type TypeEnum88Key = (typeof typeEnum88)[keyof typeof typeEnum88];
+
 export const updateFlagStatus200KindEnum = {
 	boolean: "boolean",
 	json: "json",
@@ -56723,7 +59944,7 @@ export type UpdateFlagStatus200 = {
 			revision?: number | undefined;
 			rules: {
 				conditions: {
-					cmp: CmpEnumKey;
+					cmp: CmpEnum5Key;
 					cmpOptions?:
 						| {
 								ignoreCase?: (false | true) | undefined;
@@ -56755,7 +59976,7 @@ export type UpdateFlagStatus200 = {
 													value: string;
 											  }
 										)[];
-										type: TypeEnumKey;
+										type: TypeEnum88Key;
 								  }
 								| {
 										flags: string;
@@ -56868,6 +60089,41 @@ export type UpdateFlagStatus409 = unknown;
 
 export type UpdateFlagStatus410 = unknown;
 
+export const cmpEnum4 = {
+	"!contains": "!contains",
+	"!endsWith": "!endsWith",
+	"!eq": "!eq",
+	"!ex": "!ex",
+	"!oneOf": "!oneOf",
+	"!regex": "!regex",
+	"!startsWith": "!startsWith",
+	after: "after",
+	before: "before",
+	contains: "contains",
+	containsAllOf: "containsAllOf",
+	containsAnyOf: "containsAnyOf",
+	containsNoneOf: "containsNoneOf",
+	endsWith: "endsWith",
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	lt: "lt",
+	lte: "lte",
+	oneOf: "oneOf",
+	regex: "regex",
+	startsWith: "startsWith",
+} as const;
+
+export type CmpEnum4Key = (typeof cmpEnum4)[keyof typeof cmpEnum4];
+
+export const typeEnum78 = {
+	"list/inline": "list/inline",
+	list: "list",
+} as const;
+
+export type TypeEnum78Key = (typeof typeEnum78)[keyof typeof typeEnum78];
+
 export const updateFlagRequestStateEnum = {
 	active: "active",
 	archived: "archived",
@@ -56909,7 +60165,7 @@ export type UpdateFlagBody =
 						 * @type string | undefined
 						 */
 						description?: string | undefined;
-						value: string | number | boolean | object | unknown[] | string;
+						value: string | number | boolean | object | unknown[];
 				  }[]
 				| undefined;
 			/**
@@ -56970,11 +60226,11 @@ export type UpdateFlagBody =
 												kind: string;
 												attribute: string;
 										  };
-									cmp: CmpEnumKey;
+									cmp: CmpEnum4Key;
 									rhs?:
 										| (
 												| {
-														type: TypeEnumKey;
+														type: TypeEnum78Key;
 														items: (
 															| {
 																	label?: string | undefined;
@@ -57063,22 +60319,22 @@ export type UpdateFlagBody =
 											slots: {
 												/**
 												 * @description Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)
-												 * @minLength 0
-												 * @maxLength 100000
+												 * @minimum 0
+												 * @maximum 100000
 												 * @type number
 												 */
 												promille: number;
 												/**
 												 * @description How long this promille is served in ms before moving to the next slot.
-												 * @minLength 0
+												 * @minimum 0
 												 * @type number
 												 */
 												durationMs: number;
 											}[];
 											/**
 											 * @description Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.
-											 * @minLength 0
-											 * @maxLength 100000
+											 * @minimum 0
+											 * @maximum 100000
 											 * @type number | undefined
 											 */
 											finalPromille?: number | undefined;
@@ -57143,22 +60399,22 @@ export type UpdateFlagBody =
 										slots: {
 											/**
 											 * @description Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)
-											 * @minLength 0
-											 * @maxLength 100000
+											 * @minimum 0
+											 * @maximum 100000
 											 * @type number
 											 */
 											promille: number;
 											/**
 											 * @description How long this promille is served in ms before moving to the next slot.
-											 * @minLength 0
+											 * @minimum 0
 											 * @type number
 											 */
 											durationMs: number;
 										}[];
 										/**
 										 * @description Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.
-										 * @minLength 0
-										 * @maxLength 100000
+										 * @minimum 0
+										 * @maximum 100000
 										 * @type number | undefined
 										 */
 										finalPromille?: number | undefined;
@@ -57173,8 +60429,8 @@ export type UpdateFlagBody =
 				| undefined;
 			/**
 			 * @description A random seed to prevent split points in different flags from having the same targets
-			 * @minLength 0
-			 * @maxLength 100000
+			 * @minimum 0
+			 * @maximum 100000
 			 * @type number | undefined
 			 */
 			seed?: number | undefined;
@@ -57313,8 +60569,8 @@ export type ListFlagVersionsPath = {
 
 export type ListFlagVersionsQuery = {
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 20
 	 * @type number | undefined
 	 */
@@ -57348,6 +60604,41 @@ export type ListFlagVersionsQuery = {
 	 */
 	slug?: string | undefined;
 };
+
+export const cmpEnum6 = {
+	"!contains": "!contains",
+	"!endsWith": "!endsWith",
+	"!eq": "!eq",
+	"!ex": "!ex",
+	"!oneOf": "!oneOf",
+	"!regex": "!regex",
+	"!startsWith": "!startsWith",
+	after: "after",
+	before: "before",
+	contains: "contains",
+	containsAllOf: "containsAllOf",
+	containsAnyOf: "containsAnyOf",
+	containsNoneOf: "containsNoneOf",
+	endsWith: "endsWith",
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	lt: "lt",
+	lte: "lte",
+	oneOf: "oneOf",
+	regex: "regex",
+	startsWith: "startsWith",
+} as const;
+
+export type CmpEnum6Key = (typeof cmpEnum6)[keyof typeof cmpEnum6];
+
+export const typeEnum105 = {
+	list: "list",
+	"list/inline": "list/inline",
+} as const;
+
+export type TypeEnum105Key = (typeof typeEnum105)[keyof typeof typeEnum105];
 
 export const listFlagVersionsStatus200VersionsDataStateEnum = {
 	active: "active",
@@ -57430,7 +60721,7 @@ export type ListFlagVersionsStatus200 = {
 					revision?: number | undefined;
 					rules: {
 						conditions: {
-							cmp: CmpEnumKey;
+							cmp: CmpEnum6Key;
 							cmpOptions?:
 								| {
 										ignoreCase?: (false | true) | undefined;
@@ -57462,7 +60753,7 @@ export type ListFlagVersionsStatus200 = {
 															value: string;
 													  }
 												)[];
-												type: TypeEnumKey;
+												type: TypeEnum105Key;
 										  }
 										| {
 												flags: string;
@@ -57872,8 +61163,8 @@ export type ListFlagLabelsPath = {
 
 export type ListFlagLabelsQuery = {
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 20
 	 * @type integer | undefined
 	 */
@@ -57971,8 +61262,8 @@ export type ListFlagLabelCountsQuery = {
 	 */
 	entityKind?: string | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 20
+	 * @minimum 1
+	 * @maximum 20
 	 * @default 20
 	 * @type integer | undefined
 	 */
@@ -58146,8 +61437,8 @@ export type ListTeamFlagSettingsPath = {
 export type ListTeamFlagSettingsQuery = {
 	/**
 	 * @description Maximum number of settings to return.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 20
 	 * @type integer | undefined
 	 */
@@ -58269,8 +61560,8 @@ export type ListTeamFlagsV2Query = {
 	state?: ListTeamFlagsV2StateKey | undefined;
 	/**
 	 * @description Maximum number of flags to return.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 25
 	 * @type integer | undefined
 	 */
@@ -58400,8 +61691,8 @@ export type ListTeamFlagsQuery = {
 	withMetadata?: boolean | undefined;
 	/**
 	 * @description Maximum number of flags to return.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 20
 	 * @type integer | undefined
 	 */
@@ -60041,7 +63332,7 @@ export type SearchRepoProviderKey = (typeof searchRepoProvider)[keyof typeof sea
 
 export type SearchRepoQuery = {
 	query?: string | undefined;
-	namespaceId?: ((string | number | string | number) | null) | undefined;
+	namespaceId?: ((string | number) | null) | undefined;
 	provider?: SearchRepoProviderKey | undefined;
 	installationId?: string | undefined;
 	/**
@@ -60085,7 +63376,15 @@ export const searchRepoStatus200GitAccountProviderEnum = {
 export type SearchRepoStatus200GitAccountProviderEnumKey =
 	(typeof searchRepoStatus200GitAccountProviderEnum)[keyof typeof searchRepoStatus200GitAccountProviderEnum];
 
-export const searchRepoStatus200ReposProviderEnum = {
+export const searchRepoStatus200ReposOwnerTypeEnum2 = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type SearchRepoStatus200ReposOwnerTypeEnum2Key =
+	(typeof searchRepoStatus200ReposOwnerTypeEnum2)[keyof typeof searchRepoStatus200ReposOwnerTypeEnum2];
+
+export const searchRepoStatus200ReposProviderEnum2 = {
 	bitbucket: "bitbucket",
 	"cursor-origin": "cursor-origin",
 	github: "github",
@@ -60095,8 +63394,8 @@ export const searchRepoStatus200ReposProviderEnum = {
 	vercel: "vercel",
 } as const;
 
-export type SearchRepoStatus200ReposProviderEnumKey =
-	(typeof searchRepoStatus200ReposProviderEnum)[keyof typeof searchRepoStatus200ReposProviderEnum];
+export type SearchRepoStatus200ReposProviderEnum2Key =
+	(typeof searchRepoStatus200ReposProviderEnum2)[keyof typeof searchRepoStatus200ReposProviderEnum2];
 
 export type SearchRepoStatus200 =
 	| object
@@ -60142,9 +63441,9 @@ export type SearchRepoStatus200 =
 					id: string | number;
 					name: string;
 				};
-				ownerType: SearchRepoStatus200ReposOwnerTypeEnumKey;
+				ownerType: SearchRepoStatus200ReposOwnerTypeEnum2Key;
 				private: false | true;
-				provider: SearchRepoStatus200ReposProviderEnumKey;
+				provider: SearchRepoStatus200ReposProviderEnum2Key;
 				slug: string;
 				updatedAt: number;
 				url: string;
@@ -62758,6 +66057,26 @@ export const getConfigurationsStatus200StatusEnum = {
 export type GetConfigurationsStatus200StatusEnumKey =
 	(typeof getConfigurationsStatus200StatusEnum)[keyof typeof getConfigurationsStatus200StatusEnum];
 
+export const getConfigurationsStatus200DisabledReasonEnum2 = {
+	"account-plan-downgrade": "account-plan-downgrade",
+	"disabled-by-admin": "disabled-by-admin",
+	"disabled-by-owner": "disabled-by-owner",
+	"feature-not-available": "feature-not-available",
+	"original-owner-left-the-team": "original-owner-left-the-team",
+	"original-owner-role-downgraded": "original-owner-role-downgraded",
+} as const;
+
+export type GetConfigurationsStatus200DisabledReasonEnum2Key =
+	(typeof getConfigurationsStatus200DisabledReasonEnum2)[keyof typeof getConfigurationsStatus200DisabledReasonEnum2];
+
+export const getConfigurationsStatus200InstallationTypeEnum2 = {
+	external: "external",
+	marketplace: "marketplace",
+} as const;
+
+export type GetConfigurationsStatus200InstallationTypeEnum2Key =
+	(typeof getConfigurationsStatus200InstallationTypeEnum2)[keyof typeof getConfigurationsStatus200InstallationTypeEnum2];
+
 export const getConfigurationsStatus200IntegrationTagIdsEnum = {
 	tag_agents: "tag_agents",
 	tag_ai: "tag_ai",
@@ -62791,6 +66110,36 @@ export const getConfigurationsStatus200IntegrationTagIdsEnum = {
 
 export type GetConfigurationsStatus200IntegrationTagIdsEnumKey =
 	(typeof getConfigurationsStatus200IntegrationTagIdsEnum)[keyof typeof getConfigurationsStatus200IntegrationTagIdsEnum];
+
+export const getConfigurationsStatus200SourceEnum2 = {
+	backoffice: "backoffice",
+	cli: "cli",
+	"deploy-button": "deploy-button",
+	external: "external",
+	"import-recommended-integrations": "import-recommended-integrations",
+	marketplace: "marketplace",
+	oauth: "oauth",
+	organization: "organization",
+	"project-overview-recommended-integrations": "project-overview-recommended-integrations",
+	"resource-claims": "resource-claims",
+	v0: "v0",
+} as const;
+
+export type GetConfigurationsStatus200SourceEnum2Key =
+	(typeof getConfigurationsStatus200SourceEnum2)[keyof typeof getConfigurationsStatus200SourceEnum2];
+
+export const getConfigurationsStatus200StatusEnum2 = {
+	error: "error",
+	onboarding: "onboarding",
+	pending: "pending",
+	ready: "ready",
+	resumed: "resumed",
+	suspended: "suspended",
+	uninstalled: "uninstalled",
+} as const;
+
+export type GetConfigurationsStatus200StatusEnum2Key =
+	(typeof getConfigurationsStatus200StatusEnum2)[keyof typeof getConfigurationsStatus200StatusEnum2];
 
 export type GetConfigurationsStatus200 =
 	| {
@@ -62953,7 +66302,7 @@ export type GetConfigurationsStatus200 =
 			 * @type number | undefined
 			 */
 			disabledAt?: number | undefined;
-			disabledReason?: GetConfigurationsStatus200DisabledReasonEnumKey | undefined;
+			disabledReason?: GetConfigurationsStatus200DisabledReasonEnum2Key | undefined;
 			/**
 			 * @description An external identifier defined by the integration vendor.
 			 * @type string | undefined
@@ -62969,7 +66318,7 @@ export type GetConfigurationsStatus200 =
 			 * @description Defines the installation type. - 'external' integrations are installed via the existing integrations flow - 'marketplace' integrations are natively installed: - when accepting the TOS of a partner during the store creation process - if undefined, assume 'external'
 			 * @type string | undefined
 			 */
-			installationType?: GetConfigurationsStatus200InstallationTypeEnumKey | undefined;
+			installationType?: GetConfigurationsStatus200InstallationTypeEnum2Key | undefined;
 			integration: {
 				assignedBetaLabelAt?: number | undefined;
 				flags?: string[] | undefined;
@@ -63013,12 +66362,12 @@ export type GetConfigurationsStatus200 =
 			 * @example marketplace
 			 * @type string | undefined
 			 */
-			source?: GetConfigurationsStatus200SourceEnumKey | undefined;
+			source?: GetConfigurationsStatus200SourceEnum2Key | undefined;
 			/**
 			 * @description The configuration status. Optional. If not defined, assume 'ready'.
 			 * @type string | undefined
 			 */
-			status?: GetConfigurationsStatus200StatusEnumKey | undefined;
+			status?: GetConfigurationsStatus200StatusEnum2Key | undefined;
 			/**
 			 * @description When the configuration was created for a team, this will show the ID of the team.
 			 * @example team_nLlpyC6RE1qxydlFKbrxDlud
@@ -63161,6 +66510,106 @@ export const getConfigurationStatus200StatusEnum = {
 
 export type GetConfigurationStatus200StatusEnumKey =
 	(typeof getConfigurationStatus200StatusEnum)[keyof typeof getConfigurationStatus200StatusEnum];
+
+export const getConfigurationStatus200DisabledReasonEnum2 = {
+	"account-plan-downgrade": "account-plan-downgrade",
+	"disabled-by-admin": "disabled-by-admin",
+	"disabled-by-owner": "disabled-by-owner",
+	"feature-not-available": "feature-not-available",
+	"original-owner-left-the-team": "original-owner-left-the-team",
+	"original-owner-role-downgraded": "original-owner-role-downgraded",
+} as const;
+
+export type GetConfigurationStatus200DisabledReasonEnum2Key =
+	(typeof getConfigurationStatus200DisabledReasonEnum2)[keyof typeof getConfigurationStatus200DisabledReasonEnum2];
+
+export const getConfigurationStatus200InstallationTypeEnum2 = {
+	external: "external",
+	marketplace: "marketplace",
+} as const;
+
+export type GetConfigurationStatus200InstallationTypeEnum2Key =
+	(typeof getConfigurationStatus200InstallationTypeEnum2)[keyof typeof getConfigurationStatus200InstallationTypeEnum2];
+
+export const getConfigurationStatus200SourceEnum2 = {
+	backoffice: "backoffice",
+	cli: "cli",
+	"deploy-button": "deploy-button",
+	external: "external",
+	"import-recommended-integrations": "import-recommended-integrations",
+	marketplace: "marketplace",
+	oauth: "oauth",
+	organization: "organization",
+	"project-overview-recommended-integrations": "project-overview-recommended-integrations",
+	"resource-claims": "resource-claims",
+	v0: "v0",
+} as const;
+
+export type GetConfigurationStatus200SourceEnum2Key =
+	(typeof getConfigurationStatus200SourceEnum2)[keyof typeof getConfigurationStatus200SourceEnum2];
+
+export const getConfigurationStatus200StatusEnum2 = {
+	error: "error",
+	onboarding: "onboarding",
+	pending: "pending",
+	ready: "ready",
+	resumed: "resumed",
+	suspended: "suspended",
+	uninstalled: "uninstalled",
+} as const;
+
+export type GetConfigurationStatus200StatusEnum2Key =
+	(typeof getConfigurationStatus200StatusEnum2)[keyof typeof getConfigurationStatus200StatusEnum2];
+
+export const getConfigurationStatus200DisabledReasonEnum3 = {
+	"account-plan-downgrade": "account-plan-downgrade",
+	"disabled-by-admin": "disabled-by-admin",
+	"disabled-by-owner": "disabled-by-owner",
+	"feature-not-available": "feature-not-available",
+	"original-owner-left-the-team": "original-owner-left-the-team",
+	"original-owner-role-downgraded": "original-owner-role-downgraded",
+} as const;
+
+export type GetConfigurationStatus200DisabledReasonEnum3Key =
+	(typeof getConfigurationStatus200DisabledReasonEnum3)[keyof typeof getConfigurationStatus200DisabledReasonEnum3];
+
+export const getConfigurationStatus200InstallationTypeEnum3 = {
+	external: "external",
+	marketplace: "marketplace",
+} as const;
+
+export type GetConfigurationStatus200InstallationTypeEnum3Key =
+	(typeof getConfigurationStatus200InstallationTypeEnum3)[keyof typeof getConfigurationStatus200InstallationTypeEnum3];
+
+export const getConfigurationStatus200SourceEnum3 = {
+	backoffice: "backoffice",
+	cli: "cli",
+	"deploy-button": "deploy-button",
+	external: "external",
+	"import-recommended-integrations": "import-recommended-integrations",
+	marketplace: "marketplace",
+	oauth: "oauth",
+	organization: "organization",
+	"project-overview-recommended-integrations": "project-overview-recommended-integrations",
+	"resource-claims": "resource-claims",
+	v0: "v0",
+} as const;
+
+export type GetConfigurationStatus200SourceEnum3Key =
+	(typeof getConfigurationStatus200SourceEnum3)[keyof typeof getConfigurationStatus200SourceEnum3];
+
+export const getConfigurationStatus200StatusEnum3 = {
+	error: "error",
+	onboarding: "onboarding",
+	pending: "pending",
+	ready: "ready",
+	resumed: "resumed",
+	suspended: "suspended",
+	uninstalled: "uninstalled",
+} as const;
+
+export type GetConfigurationStatus200StatusEnum3Key =
+	(typeof getConfigurationStatus200StatusEnum3)[keyof typeof getConfigurationStatus200StatusEnum3];
 
 export type GetConfigurationStatus200 =
 	| {
@@ -63336,7 +66785,7 @@ export type GetConfigurationStatus200 =
 			 * @type number | undefined
 			 */
 			disabledAt?: number | undefined;
-			disabledReason?: GetConfigurationStatus200DisabledReasonEnumKey | undefined;
+			disabledReason?: GetConfigurationStatus200DisabledReasonEnum2Key | undefined;
 			/**
 			 * @description An external identifier defined by the integration vendor.
 			 * @type string | undefined
@@ -63352,7 +66801,7 @@ export type GetConfigurationStatus200 =
 			 * @description Defines the installation type. - 'external' integrations are installed via the existing integrations flow - 'marketplace' integrations are natively installed: - when accepting the TOS of a partner during the store creation process - if undefined, assume 'external'
 			 * @type string | undefined
 			 */
-			installationType?: GetConfigurationStatus200InstallationTypeEnumKey | undefined;
+			installationType?: GetConfigurationStatus200InstallationTypeEnum2Key | undefined;
 			/**
 			 * @description The unique identifier of the app the configuration was created for
 			 * @example oac_xzpVzcUOgcB1nrVlirtKhbWV
@@ -63388,12 +66837,12 @@ export type GetConfigurationStatus200 =
 			 * @example marketplace
 			 * @type string | undefined
 			 */
-			source?: GetConfigurationStatus200SourceEnumKey | undefined;
+			source?: GetConfigurationStatus200SourceEnum2Key | undefined;
 			/**
 			 * @description The configuration status. Optional. If not defined, assume 'ready'.
 			 * @type string | undefined
 			 */
-			status?: GetConfigurationStatus200StatusEnumKey | undefined;
+			status?: GetConfigurationStatus200StatusEnum2Key | undefined;
 			/**
 			 * @description When the configuration was created for a team, this will show the ID of the team.
 			 * @example team_nLlpyC6RE1qxydlFKbrxDlud
@@ -63455,7 +66904,7 @@ export type GetConfigurationStatus200 =
 			 * @type number | undefined
 			 */
 			disabledAt?: number | undefined;
-			disabledReason?: GetConfigurationStatus200DisabledReasonEnumKey | undefined;
+			disabledReason?: GetConfigurationStatus200DisabledReasonEnum3Key | undefined;
 			/**
 			 * @description An external identifier defined by the integration vendor.
 			 * @type string | undefined
@@ -63471,7 +66920,7 @@ export type GetConfigurationStatus200 =
 			 * @description Defines the installation type. - 'external' integrations are installed via the existing integrations flow - 'marketplace' integrations are natively installed: - when accepting the TOS of a partner during the store creation process - if undefined, assume 'external'
 			 * @type string | undefined
 			 */
-			installationType?: GetConfigurationStatus200InstallationTypeEnumKey | undefined;
+			installationType?: GetConfigurationStatus200InstallationTypeEnum3Key | undefined;
 			/**
 			 * @description The unique identifier of the app the configuration was created for
 			 * @example oac_xzpVzcUOgcB1nrVlirtKhbWV
@@ -63507,12 +66956,12 @@ export type GetConfigurationStatus200 =
 			 * @example marketplace
 			 * @type string | undefined
 			 */
-			source?: GetConfigurationStatus200SourceEnumKey | undefined;
+			source?: GetConfigurationStatus200SourceEnum3Key | undefined;
 			/**
 			 * @description The configuration status. Optional. If not defined, assume 'ready'.
 			 * @type string | undefined
 			 */
-			status?: GetConfigurationStatus200StatusEnumKey | undefined;
+			status?: GetConfigurationStatus200StatusEnum3Key | undefined;
 			/**
 			 * @description When the configuration was created for a team, this will show the ID of the team.
 			 * @example team_nLlpyC6RE1qxydlFKbrxDlud
@@ -65515,7 +68964,7 @@ export type CreateApiKeysBody =
 				| {
 						/**
 						 * @description The quota limit amount.
-						 * @minLength 1
+						 * @minimum 1
 						 * @type number
 						 */
 						limitAmount: number;
@@ -65656,7 +69105,7 @@ export type UpdateApiKeyQuotaBody =
 	| {
 			/**
 			 * @description The quota limit amount. Required if the quota does not yet exist.
-			 * @minLength 1
+			 * @minimum 1
 			 * @type number | undefined
 			 */
 			limitAmount?: number | undefined;
@@ -65871,8 +69320,8 @@ export type SignKmsTokenResponse = SignKmsTokenStatus200;
 export type ListKmsIssuersQuery = {
 	/**
 	 * @description Maximum number of issuers to return.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
@@ -66481,7 +69930,7 @@ export type CreateKmsSigningKeyBody =
 			activation?: CreateKmsSigningKeyRequestActivationEnumKey | undefined;
 			/**
 			 * @description For automatic activation, how many hours after activation the previous signing key should stop being used. Defaults to a 1 hour grace period so already-issued tokens keep verifying.
-			 * @minLength 0
+			 * @minimum 0
 			 * @type number | undefined
 			 */
 			revokePreviousAfterHours?: number | undefined;
@@ -66634,7 +70083,7 @@ export type ActivateKmsSigningKeyBody =
 	| {
 			/**
 			 * @description How many hours after activation the previously-active key should stop being used. Defaults to a 1 hour grace period so already-issued tokens keep verifying.
-			 * @minLength 0
+			 * @minimum 0
 			 * @type number | undefined
 			 */
 			revokePreviousAfterHours?: number | undefined;
@@ -68839,6 +72288,27 @@ export const getMicrofrontendsInGroupStatus200ProjectsSecurityManagedRulesVercel
 export type GetMicrofrontendsInGroupStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnumKey =
 	(typeof getMicrofrontendsInGroupStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnum];
 
+export const actionEnum2 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type ActionEnum2Key = (typeof actionEnum2)[keyof typeof actionEnum2];
+
+export const actionEnum3 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type ActionEnum3Key = (typeof actionEnum3)[keyof typeof actionEnum3];
+
 export const algoEnum = {
 	fixed_window: "fixed_window",
 	token_bucket: "token_bucket",
@@ -68968,6 +72438,14 @@ export const getMicrofrontendsInGroupStatus200ProjectsSsoProtectionDeploymentTyp
 export type GetMicrofrontendsInGroupStatus200ProjectsSsoProtectionDeploymentTypeEnumKey =
 	(typeof getMicrofrontendsInGroupStatus200ProjectsSsoProtectionDeploymentTypeEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsSsoProtectionDeploymentTypeEnum];
 
+export const typeEnum128 = {
+	endsWith: "endsWith",
+	equals: "equals",
+	startsWith: "startsWith",
+} as const;
+
+export type TypeEnum128Key = (typeof typeEnum128)[keyof typeof typeEnum128];
+
 export const checksConclusionEnum = {
 	canceled: "canceled",
 	failed: "failed",
@@ -69048,6 +72526,17 @@ export const getMicrofrontendsInGroupStatus200ProjectsTrustedIpsProtectionModeEn
 
 export type GetMicrofrontendsInGroupStatus200ProjectsTrustedIpsProtectionModeEnumKey =
 	(typeof getMicrofrontendsInGroupStatus200ProjectsTrustedIpsProtectionModeEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsTrustedIpsProtectionModeEnum];
+
+export const getMicrofrontendsInGroupStatus200ProjectsTrustedIpsDeploymentTypeEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+	production: "production",
+} as const;
+
+export type GetMicrofrontendsInGroupStatus200ProjectsTrustedIpsDeploymentTypeEnum2Key =
+	(typeof getMicrofrontendsInGroupStatus200ProjectsTrustedIpsDeploymentTypeEnum2)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsTrustedIpsDeploymentTypeEnum2];
 
 export type GetMicrofrontendsInGroupStatus200 = {
 	projects: {
@@ -69896,6 +73385,11 @@ export type GetMicrofrontendsInGroupStatus200 = {
 								targets: string[];
 						  }
 						| undefined;
+					"health-check"?:
+						| {
+								targets: string[];
+						  }
+						| undefined;
 					lint?:
 						| {
 								targets: string[];
@@ -70299,7 +73793,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					| {
 							enabled: false;
 							freeProjectForLegacyLimits?: (false | true) | undefined;
-							groupIds: (string | string)[];
+							groupIds: string[];
 							updatedAt: number;
 					  }
 			  )
@@ -71954,16 +75448,83 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					 * @type string
 					 */
 					description: string;
+					principal?:
+						| (
+								| {
+										type: "user";
+										via:
+											| (
+													| {
+															app: {
+																/**
+																 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+																 * @type string | undefined
+																 */
+																clientId?: string | undefined;
+																/**
+																 * @description The internal ID of the Vercel App backing this principal.
+																 * @type string
+																 */
+																id: string;
+															};
+															type: "app";
+													  }
+													| {
+															integration: {
+																configurationId: string;
+																integrationId: string;
+															};
+															type: "integration";
+													  }
+											  )
+											| null;
+										user: {
+											id: string;
+										};
+								  }
+								| {
+										project: {
+											id: string;
+										};
+										type: "project";
+								  }
+								| {
+										app: {
+											/**
+											 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+											 * @type string | undefined
+											 */
+											clientId?: string | undefined;
+											/**
+											 * @description The internal ID of the Vercel App backing this principal.
+											 * @type string
+											 */
+											id: string;
+										};
+										type: "app";
+								  }
+								| {
+										integration: {
+											configurationId: string;
+											integrationId: string;
+										};
+										type: "integration";
+								  }
+								| {
+										type: "system";
+								  }
+						  )
+						| undefined;
 					/**
-					 * @description The user who rolled back the project.
-					 * @type string
+					 * @description The ID of the user who rolled back the project, when the principal was a user.
+					 * @type string | undefined
 					 */
-					userId: string;
+					userId?: string | undefined;
 					/**
-					 * @description The username of the user who rolled back the project.
-					 * @type string
+					 * @description The username of the user who rolled back the project, when the principal was a user.
+					 * @type string | undefined
 					 */
-					username: string;
+					username?: string | undefined;
 			  }
 			| undefined;
 		/**
@@ -72156,13 +75717,13 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					rulesets?:
 						| {
 								[key: string]: {
-									action: ActionEnumKey;
+									action: ActionEnum2Key;
 									actionDuration?: (string | null) | undefined;
 									bypassSystem?: ((false | true) | null) | undefined;
 									logHeaders?: (string[] | "*") | undefined;
 									rateLimit?:
 										| ({
-												action?: (ActionEnumKey | null) | undefined;
+												action?: (ActionEnum3Key | null) | undefined;
 												algo: AlgoEnumKey;
 												keys: string[];
 												limit: number;
@@ -72269,7 +75830,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 									 * @description The type of matching to perform
 									 * @type string
 									 */
-									type: TypeEnumKey;
+									type: TypeEnum128Key;
 							  }
 							| undefined;
 						buildingAt?: number | undefined;
@@ -72385,7 +75946,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 									protectionMode: GetMicrofrontendsInGroupStatus200ProjectsTrustedIpsProtectionModeEnumKey;
 							  }
 							| {
-									deploymentType: GetMicrofrontendsInGroupStatus200ProjectsTrustedIpsDeploymentTypeEnumKey;
+									deploymentType: GetMicrofrontendsInGroupStatus200ProjectsTrustedIpsDeploymentTypeEnum2Key;
 							  }
 					  )
 					| null
@@ -73664,13 +77225,13 @@ export type AddOrganizationTeamStatus410 = unknown;
 
 export type AddOrganizationTeamStatus500 = unknown;
 
-export const addOrganizationTeamRequestModeEnum = {
+export const addOrganizationTeamRequestModeEnum4 = {
 	create: "create",
 	link: "link",
 } as const;
 
-export type AddOrganizationTeamRequestModeEnumKey =
-	(typeof addOrganizationTeamRequestModeEnum)[keyof typeof addOrganizationTeamRequestModeEnum];
+export type AddOrganizationTeamRequestModeEnum4Key =
+	(typeof addOrganizationTeamRequestModeEnum4)[keyof typeof addOrganizationTeamRequestModeEnum4];
 
 export const addOrganizationTeamRequestBillingPlanEnum = {
 	enterprise: "enterprise",
@@ -73712,7 +77273,7 @@ export type AddOrganizationTeamBody =
 			 * @description Whether to create a new team under the organization (\"create\") or link an existing one (\"link\").
 			 * @type string
 			 */
-			mode: AddOrganizationTeamRequestModeEnumKey;
+			mode: AddOrganizationTeamRequestModeEnum4Key;
 			/**
 			 * @description The ID of an existing team to add to the organization (link mode).
 			 * @type string | undefined
@@ -73819,8 +77380,8 @@ export type GetProjectMembersPath = {
 export type GetProjectMembersQuery = {
 	/**
 	 * @description Limit how many project members should be returned
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @example 20
 	 * @type integer | undefined
 	 */
@@ -74235,23 +77796,23 @@ export type GetRoutesQuery = {
 	slug?: string | undefined;
 };
 
-export const getRoutesStatus200RoutesRouteHasTypeEnum = {
+export const getRoutesStatus200RoutesRouteHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type GetRoutesStatus200RoutesRouteHasTypeEnumKey =
-	(typeof getRoutesStatus200RoutesRouteHasTypeEnum)[keyof typeof getRoutesStatus200RoutesRouteHasTypeEnum];
+export type GetRoutesStatus200RoutesRouteHasTypeEnum2Key =
+	(typeof getRoutesStatus200RoutesRouteHasTypeEnum2)[keyof typeof getRoutesStatus200RoutesRouteHasTypeEnum2];
 
-export const getRoutesStatus200RoutesRouteMissingTypeEnum = {
+export const getRoutesStatus200RoutesRouteMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type GetRoutesStatus200RoutesRouteMissingTypeEnumKey =
-	(typeof getRoutesStatus200RoutesRouteMissingTypeEnum)[keyof typeof getRoutesStatus200RoutesRouteMissingTypeEnum];
+export type GetRoutesStatus200RoutesRouteMissingTypeEnum2Key =
+	(typeof getRoutesStatus200RoutesRouteMissingTypeEnum2)[keyof typeof getRoutesStatus200RoutesRouteMissingTypeEnum2];
 
 export const getRoutesStatus200RoutesRouteMitigateActionEnum = {
 	challenge: "challenge",
@@ -74297,6 +77858,132 @@ export const getRoutesStatus200RoutesSrcSyntaxEnum = {
 
 export type GetRoutesStatus200RoutesSrcSyntaxEnumKey =
 	(typeof getRoutesStatus200RoutesSrcSyntaxEnum)[keyof typeof getRoutesStatus200RoutesSrcSyntaxEnum];
+
+export const getRoutesStatus200RoutesRouteHasTypeEnum4 = {
+	cookie: "cookie",
+	header: "header",
+	query: "query",
+} as const;
+
+export type GetRoutesStatus200RoutesRouteHasTypeEnum4Key =
+	(typeof getRoutesStatus200RoutesRouteHasTypeEnum4)[keyof typeof getRoutesStatus200RoutesRouteHasTypeEnum4];
+
+export const getRoutesStatus200RoutesRouteMissingTypeEnum4 = {
+	cookie: "cookie",
+	header: "header",
+	query: "query",
+} as const;
+
+export type GetRoutesStatus200RoutesRouteMissingTypeEnum4Key =
+	(typeof getRoutesStatus200RoutesRouteMissingTypeEnum4)[keyof typeof getRoutesStatus200RoutesRouteMissingTypeEnum4];
+
+export const getRoutesStatus200RoutesRouteMitigateActionEnum2 = {
+	challenge: "challenge",
+	deny: "deny",
+} as const;
+
+export type GetRoutesStatus200RoutesRouteMitigateActionEnum2Key =
+	(typeof getRoutesStatus200RoutesRouteMitigateActionEnum2)[keyof typeof getRoutesStatus200RoutesRouteMitigateActionEnum2];
+
+export const getRoutesStatus200RoutesRouteTransformsOpEnum3 = {
+	append: "append",
+	delete: "delete",
+	set: "set",
+} as const;
+
+export type GetRoutesStatus200RoutesRouteTransformsOpEnum3Key =
+	(typeof getRoutesStatus200RoutesRouteTransformsOpEnum3)[keyof typeof getRoutesStatus200RoutesRouteTransformsOpEnum3];
+
+export const getRoutesStatus200RoutesRouteTransformsTypeEnum3 = {
+	"request.headers": "request.headers",
+	"request.query": "request.query",
+	"response.headers": "response.headers",
+} as const;
+
+export type GetRoutesStatus200RoutesRouteTransformsTypeEnum3Key =
+	(typeof getRoutesStatus200RoutesRouteTransformsTypeEnum3)[keyof typeof getRoutesStatus200RoutesRouteTransformsTypeEnum3];
+
+export const getRoutesStatus200RoutesRouteTypeEnum2 = {
+	redirect: "redirect",
+	rewrite: "rewrite",
+	set_status: "set_status",
+	transform: "transform",
+} as const;
+
+export type GetRoutesStatus200RoutesRouteTypeEnum2Key =
+	(typeof getRoutesStatus200RoutesRouteTypeEnum2)[keyof typeof getRoutesStatus200RoutesRouteTypeEnum2];
+
+export const getRoutesStatus200RoutesSrcSyntaxEnum2 = {
+	equals: "equals",
+	"path-to-regexp": "path-to-regexp",
+	regex: "regex",
+} as const;
+
+export type GetRoutesStatus200RoutesSrcSyntaxEnum2Key =
+	(typeof getRoutesStatus200RoutesSrcSyntaxEnum2)[keyof typeof getRoutesStatus200RoutesSrcSyntaxEnum2];
+
+export const getRoutesStatus200RoutesRouteHasTypeEnum6 = {
+	cookie: "cookie",
+	header: "header",
+	query: "query",
+} as const;
+
+export type GetRoutesStatus200RoutesRouteHasTypeEnum6Key =
+	(typeof getRoutesStatus200RoutesRouteHasTypeEnum6)[keyof typeof getRoutesStatus200RoutesRouteHasTypeEnum6];
+
+export const getRoutesStatus200RoutesRouteMissingTypeEnum6 = {
+	cookie: "cookie",
+	header: "header",
+	query: "query",
+} as const;
+
+export type GetRoutesStatus200RoutesRouteMissingTypeEnum6Key =
+	(typeof getRoutesStatus200RoutesRouteMissingTypeEnum6)[keyof typeof getRoutesStatus200RoutesRouteMissingTypeEnum6];
+
+export const getRoutesStatus200RoutesRouteMitigateActionEnum3 = {
+	challenge: "challenge",
+	deny: "deny",
+} as const;
+
+export type GetRoutesStatus200RoutesRouteMitigateActionEnum3Key =
+	(typeof getRoutesStatus200RoutesRouteMitigateActionEnum3)[keyof typeof getRoutesStatus200RoutesRouteMitigateActionEnum3];
+
+export const getRoutesStatus200RoutesRouteTransformsOpEnum5 = {
+	append: "append",
+	delete: "delete",
+	set: "set",
+} as const;
+
+export type GetRoutesStatus200RoutesRouteTransformsOpEnum5Key =
+	(typeof getRoutesStatus200RoutesRouteTransformsOpEnum5)[keyof typeof getRoutesStatus200RoutesRouteTransformsOpEnum5];
+
+export const getRoutesStatus200RoutesRouteTransformsTypeEnum5 = {
+	"request.headers": "request.headers",
+	"request.query": "request.query",
+	"response.headers": "response.headers",
+} as const;
+
+export type GetRoutesStatus200RoutesRouteTransformsTypeEnum5Key =
+	(typeof getRoutesStatus200RoutesRouteTransformsTypeEnum5)[keyof typeof getRoutesStatus200RoutesRouteTransformsTypeEnum5];
+
+export const getRoutesStatus200RoutesRouteTypeEnum3 = {
+	redirect: "redirect",
+	rewrite: "rewrite",
+	set_status: "set_status",
+	transform: "transform",
+} as const;
+
+export type GetRoutesStatus200RoutesRouteTypeEnum3Key =
+	(typeof getRoutesStatus200RoutesRouteTypeEnum3)[keyof typeof getRoutesStatus200RoutesRouteTypeEnum3];
+
+export const getRoutesStatus200RoutesSrcSyntaxEnum3 = {
+	equals: "equals",
+	"path-to-regexp": "path-to-regexp",
+	regex: "regex",
+} as const;
+
+export type GetRoutesStatus200RoutesSrcSyntaxEnum3Key =
+	(typeof getRoutesStatus200RoutesSrcSyntaxEnum3)[keyof typeof getRoutesStatus200RoutesSrcSyntaxEnum3];
 
 export type GetRoutesStatus200 =
 	| object
@@ -74383,7 +78070,7 @@ export type GetRoutesStatus200 =
 								  }
 								| {
 										key: string;
-										type: GetRoutesStatus200RoutesRouteHasTypeEnumKey;
+										type: GetRoutesStatus200RoutesRouteHasTypeEnum2Key;
 										value?:
 											| (
 													| string
@@ -74459,7 +78146,7 @@ export type GetRoutesStatus200 =
 								  }
 								| {
 										key: string;
-										type: GetRoutesStatus200RoutesRouteMissingTypeEnumKey;
+										type: GetRoutesStatus200RoutesRouteMissingTypeEnum2Key;
 										value?:
 											| (
 													| string
@@ -74674,7 +78361,7 @@ export type GetRoutesStatus200 =
 								  }
 								| {
 										key: string;
-										type: GetRoutesStatus200RoutesRouteHasTypeEnumKey;
+										type: GetRoutesStatus200RoutesRouteHasTypeEnum4Key;
 										value?:
 											| (
 													| string
@@ -74750,7 +78437,7 @@ export type GetRoutesStatus200 =
 								  }
 								| {
 										key: string;
-										type: GetRoutesStatus200RoutesRouteMissingTypeEnumKey;
+										type: GetRoutesStatus200RoutesRouteMissingTypeEnum4Key;
 										value?:
 											| (
 													| string
@@ -74774,7 +78461,7 @@ export type GetRoutesStatus200 =
 						| undefined;
 					mitigate?:
 						| {
-								action: GetRoutesStatus200RoutesRouteMitigateActionEnumKey;
+								action: GetRoutesStatus200RoutesRouteMitigateActionEnum2Key;
 						  }
 						| undefined;
 					override?: (false | true) | undefined;
@@ -74792,7 +78479,7 @@ export type GetRoutesStatus200 =
 								| {
 										args?: (string | string[]) | undefined;
 										env?: string[] | undefined;
-										op: GetRoutesStatus200RoutesRouteTransformsOpEnumKey;
+										op: GetRoutesStatus200RoutesRouteTransformsOpEnum3Key;
 										target: {
 											key:
 												| string
@@ -74809,7 +78496,7 @@ export type GetRoutesStatus200 =
 														suf?: string | undefined;
 												  };
 										};
-										type: GetRoutesStatus200RoutesRouteTransformsTypeEnumKey;
+										type: GetRoutesStatus200RoutesRouteTransformsTypeEnum3Key;
 								  }
 								| {
 										args: string;
@@ -74824,12 +78511,12 @@ export type GetRoutesStatus200 =
 				 * @description Computed route type based on the route configuration. Only present in API responses, not stored in S3.
 				 * @type string | undefined
 				 */
-				routeType?: GetRoutesStatus200RoutesRouteTypeEnumKey | undefined;
+				routeType?: GetRoutesStatus200RoutesRouteTypeEnum2Key | undefined;
 				/**
 				 * @description The syntax type of the source pattern. Determines how the pattern is compiled to regex.
 				 * @type string | undefined
 				 */
-				srcSyntax?: GetRoutesStatus200RoutesSrcSyntaxEnumKey | undefined;
+				srcSyntax?: GetRoutesStatus200RoutesSrcSyntaxEnum2Key | undefined;
 				/**
 				 * @description Whether this route is new and not yet published to production. Set to true only when a route is first created via add-route. Cleared (set to false) when a version is promoted to production.
 				 * @type boolean | undefined
@@ -74969,7 +78656,7 @@ export type GetRoutesStatus200 =
 								  }
 								| {
 										key: string;
-										type: GetRoutesStatus200RoutesRouteHasTypeEnumKey;
+										type: GetRoutesStatus200RoutesRouteHasTypeEnum6Key;
 										value?:
 											| (
 													| string
@@ -75045,7 +78732,7 @@ export type GetRoutesStatus200 =
 								  }
 								| {
 										key: string;
-										type: GetRoutesStatus200RoutesRouteMissingTypeEnumKey;
+										type: GetRoutesStatus200RoutesRouteMissingTypeEnum6Key;
 										value?:
 											| (
 													| string
@@ -75069,7 +78756,7 @@ export type GetRoutesStatus200 =
 						| undefined;
 					mitigate?:
 						| {
-								action: GetRoutesStatus200RoutesRouteMitigateActionEnumKey;
+								action: GetRoutesStatus200RoutesRouteMitigateActionEnum3Key;
 						  }
 						| undefined;
 					override?: (false | true) | undefined;
@@ -75087,7 +78774,7 @@ export type GetRoutesStatus200 =
 								| {
 										args?: (string | string[]) | undefined;
 										env?: string[] | undefined;
-										op: GetRoutesStatus200RoutesRouteTransformsOpEnumKey;
+										op: GetRoutesStatus200RoutesRouteTransformsOpEnum5Key;
 										target: {
 											key:
 												| string
@@ -75104,7 +78791,7 @@ export type GetRoutesStatus200 =
 														suf?: string | undefined;
 												  };
 										};
-										type: GetRoutesStatus200RoutesRouteTransformsTypeEnumKey;
+										type: GetRoutesStatus200RoutesRouteTransformsTypeEnum5Key;
 								  }
 								| {
 										args: string;
@@ -75119,12 +78806,12 @@ export type GetRoutesStatus200 =
 				 * @description Computed route type based on the route configuration. Only present in API responses, not stored in S3.
 				 * @type string | undefined
 				 */
-				routeType?: GetRoutesStatus200RoutesRouteTypeEnumKey | undefined;
+				routeType?: GetRoutesStatus200RoutesRouteTypeEnum3Key | undefined;
 				/**
 				 * @description The syntax type of the source pattern. Determines how the pattern is compiled to regex.
 				 * @type string | undefined
 				 */
-				srcSyntax?: GetRoutesStatus200RoutesSrcSyntaxEnumKey | undefined;
+				srcSyntax?: GetRoutesStatus200RoutesSrcSyntaxEnum3Key | undefined;
 				/**
 				 * @description Whether this route is new and not yet published to production. Set to true only when a route is first created via add-route. Cleared (set to false) when a version is promoted to production.
 				 * @type boolean | undefined
@@ -75433,23 +79120,23 @@ export type AddRouteQuery = {
 	slug?: string | undefined;
 };
 
-export const addRouteStatus200RouteRouteHasTypeEnum = {
+export const addRouteStatus200RouteRouteHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type AddRouteStatus200RouteRouteHasTypeEnumKey =
-	(typeof addRouteStatus200RouteRouteHasTypeEnum)[keyof typeof addRouteStatus200RouteRouteHasTypeEnum];
+export type AddRouteStatus200RouteRouteHasTypeEnum2Key =
+	(typeof addRouteStatus200RouteRouteHasTypeEnum2)[keyof typeof addRouteStatus200RouteRouteHasTypeEnum2];
 
-export const addRouteStatus200RouteRouteMissingTypeEnum = {
+export const addRouteStatus200RouteRouteMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type AddRouteStatus200RouteRouteMissingTypeEnumKey =
-	(typeof addRouteStatus200RouteRouteMissingTypeEnum)[keyof typeof addRouteStatus200RouteRouteMissingTypeEnum];
+export type AddRouteStatus200RouteRouteMissingTypeEnum2Key =
+	(typeof addRouteStatus200RouteRouteMissingTypeEnum2)[keyof typeof addRouteStatus200RouteRouteMissingTypeEnum2];
 
 export const addRouteStatus200RouteRouteMitigateActionEnum = {
 	challenge: "challenge",
@@ -75578,7 +79265,7 @@ export type AddRouteStatus200 = {
 						  }
 						| {
 								key: string;
-								type: AddRouteStatus200RouteRouteHasTypeEnumKey;
+								type: AddRouteStatus200RouteRouteHasTypeEnum2Key;
 								value?:
 									| (
 											| string
@@ -75654,7 +79341,7 @@ export type AddRouteStatus200 = {
 						  }
 						| {
 								key: string;
-								type: AddRouteStatus200RouteRouteMissingTypeEnumKey;
+								type: AddRouteStatus200RouteRouteMissingTypeEnum2Key;
 								value?:
 									| (
 											| string
@@ -76086,23 +79773,23 @@ export type EditRouteQuery = {
 	slug?: string | undefined;
 };
 
-export const editRouteStatus200RouteRouteHasTypeEnum = {
+export const editRouteStatus200RouteRouteHasTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type EditRouteStatus200RouteRouteHasTypeEnumKey =
-	(typeof editRouteStatus200RouteRouteHasTypeEnum)[keyof typeof editRouteStatus200RouteRouteHasTypeEnum];
+export type EditRouteStatus200RouteRouteHasTypeEnum2Key =
+	(typeof editRouteStatus200RouteRouteHasTypeEnum2)[keyof typeof editRouteStatus200RouteRouteHasTypeEnum2];
 
-export const editRouteStatus200RouteRouteMissingTypeEnum = {
+export const editRouteStatus200RouteRouteMissingTypeEnum2 = {
 	cookie: "cookie",
 	header: "header",
 	query: "query",
 } as const;
 
-export type EditRouteStatus200RouteRouteMissingTypeEnumKey =
-	(typeof editRouteStatus200RouteRouteMissingTypeEnum)[keyof typeof editRouteStatus200RouteRouteMissingTypeEnum];
+export type EditRouteStatus200RouteRouteMissingTypeEnum2Key =
+	(typeof editRouteStatus200RouteRouteMissingTypeEnum2)[keyof typeof editRouteStatus200RouteRouteMissingTypeEnum2];
 
 export const editRouteStatus200RouteRouteMitigateActionEnum = {
 	challenge: "challenge",
@@ -76232,7 +79919,7 @@ export type EditRouteStatus200 = {
 								  }
 								| {
 										key: string;
-										type: EditRouteStatus200RouteRouteHasTypeEnumKey;
+										type: EditRouteStatus200RouteRouteHasTypeEnum2Key;
 										value?:
 											| (
 													| string
@@ -76308,7 +79995,7 @@ export type EditRouteStatus200 = {
 								  }
 								| {
 										key: string;
-										type: EditRouteStatus200RouteRouteMissingTypeEnumKey;
+										type: EditRouteStatus200RouteRouteMissingTypeEnum2Key;
 										value?:
 											| (
 													| string
@@ -77648,6 +81335,25 @@ export const getProjectsStatus200SecurityManagedRulesVercelRulesetActionEnum = {
 export type GetProjectsStatus200SecurityManagedRulesVercelRulesetActionEnumKey =
 	(typeof getProjectsStatus200SecurityManagedRulesVercelRulesetActionEnum)[keyof typeof getProjectsStatus200SecurityManagedRulesVercelRulesetActionEnum];
 
+export const actionEnum4 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type ActionEnum4Key = (typeof actionEnum4)[keyof typeof actionEnum4];
+
+export const algoEnum2 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type AlgoEnum2Key = (typeof algoEnum2)[keyof typeof algoEnum2];
+
 export const getProjectsStatus200SsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum = {
 	all: "all",
 	all_except_custom_domains: "all_except_custom_domains",
@@ -77677,6 +81383,60 @@ export const getProjectsStatus200SsoProtectionDeploymentTypeEnum = {
 
 export type GetProjectsStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof getProjectsStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof getProjectsStatus200SsoProtectionDeploymentTypeEnum];
+
+export const typeEnum130 = {
+	endsWith: "endsWith",
+	equals: "equals",
+	startsWith: "startsWith",
+} as const;
+
+export type TypeEnum130Key = (typeof typeEnum130)[keyof typeof typeEnum130];
+
+export const checksConclusionEnum2 = {
+	canceled: "canceled",
+	failed: "failed",
+	skipped: "skipped",
+	succeeded: "succeeded",
+} as const;
+
+export type ChecksConclusionEnum2Key =
+	(typeof checksConclusionEnum2)[keyof typeof checksConclusionEnum2];
+
+export const checksStateEnum2 = {
+	completed: "completed",
+	registered: "registered",
+	running: "running",
+} as const;
+
+export type ChecksStateEnum2Key = (typeof checksStateEnum2)[keyof typeof checksStateEnum2];
+
+export const planEnum2 = {
+	enterprise: "enterprise",
+	hobby: "hobby",
+	pro: "pro",
+} as const;
+
+export type PlanEnum2Key = (typeof planEnum2)[keyof typeof planEnum2];
+
+export const readyStateEnum2 = {
+	BLOCKED: "BLOCKED",
+	BUILDING: "BUILDING",
+	CANCELED: "CANCELED",
+	ERROR: "ERROR",
+	INITIALIZING: "INITIALIZING",
+	QUEUED: "QUEUED",
+	READY: "READY",
+} as const;
+
+export type ReadyStateEnum2Key = (typeof readyStateEnum2)[keyof typeof readyStateEnum2];
+
+export const readySubstateEnum2 = {
+	PROMOTED: "PROMOTED",
+	ROLLING: "ROLLING",
+	STAGED: "STAGED",
+} as const;
+
+export type ReadySubstateEnum2Key = (typeof readySubstateEnum2)[keyof typeof readySubstateEnum2];
 
 export const getProjectsStatus200ProjectsAliasConfiguredByEnum = {
 	A: "A",
@@ -78193,6 +81953,25 @@ export const getProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetAction
 export type GetProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnumKey =
 	(typeof getProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnum)[keyof typeof getProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnum];
 
+export const actionEnum5 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type ActionEnum5Key = (typeof actionEnum5)[keyof typeof actionEnum5];
+
+export const algoEnum3 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type AlgoEnum3Key = (typeof algoEnum3)[keyof typeof algoEnum3];
+
 export const getProjectsStatus200ProjectsSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum =
 	{
 		all: "all",
@@ -78223,6 +82002,164 @@ export const getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum = {
 
 export type GetProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnumKey =
 	(typeof getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum)[keyof typeof getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum];
+
+export const typeEnum132 = {
+	endsWith: "endsWith",
+	equals: "equals",
+	startsWith: "startsWith",
+} as const;
+
+export type TypeEnum132Key = (typeof typeEnum132)[keyof typeof typeEnum132];
+
+export const checksConclusionEnum3 = {
+	canceled: "canceled",
+	failed: "failed",
+	skipped: "skipped",
+	succeeded: "succeeded",
+} as const;
+
+export type ChecksConclusionEnum3Key =
+	(typeof checksConclusionEnum3)[keyof typeof checksConclusionEnum3];
+
+export const checksStateEnum3 = {
+	completed: "completed",
+	registered: "registered",
+	running: "running",
+} as const;
+
+export type ChecksStateEnum3Key = (typeof checksStateEnum3)[keyof typeof checksStateEnum3];
+
+export const planEnum3 = {
+	enterprise: "enterprise",
+	hobby: "hobby",
+	pro: "pro",
+} as const;
+
+export type PlanEnum3Key = (typeof planEnum3)[keyof typeof planEnum3];
+
+export const readyStateEnum3 = {
+	BLOCKED: "BLOCKED",
+	BUILDING: "BUILDING",
+	CANCELED: "CANCELED",
+	ERROR: "ERROR",
+	INITIALIZING: "INITIALIZING",
+	QUEUED: "QUEUED",
+	READY: "READY",
+} as const;
+
+export type ReadyStateEnum3Key = (typeof readyStateEnum3)[keyof typeof readyStateEnum3];
+
+export const readySubstateEnum3 = {
+	PROMOTED: "PROMOTED",
+	ROLLING: "ROLLING",
+	STAGED: "STAGED",
+} as const;
+
+export type ReadySubstateEnum3Key = (typeof readySubstateEnum3)[keyof typeof readySubstateEnum3];
+
+export const getProjectsStatus200ProjectsAliasConfiguredByEnum2 = {
+	A: "A",
+	CNAME: "CNAME",
+	"dns-01": "dns-01",
+	http: "http",
+} as const;
+
+export type GetProjectsStatus200ProjectsAliasConfiguredByEnum2Key =
+	(typeof getProjectsStatus200ProjectsAliasConfiguredByEnum2)[keyof typeof getProjectsStatus200ProjectsAliasConfiguredByEnum2];
+
+export const getProjectsStatus200ProjectsAliasDeploymentAliasAssigned2 = {
+	false: false,
+	true: true,
+} as const;
+
+export type GetProjectsStatus200ProjectsAliasDeploymentAliasAssigned2Key =
+	(typeof getProjectsStatus200ProjectsAliasDeploymentAliasAssigned2)[keyof typeof getProjectsStatus200ProjectsAliasDeploymentAliasAssigned2];
+
+export const getProjectsStatus200ProjectsAliasDeploymentBranchMatcherTypeEnum2 = {
+	endsWith: "endsWith",
+	equals: "equals",
+	startsWith: "startsWith",
+} as const;
+
+export type GetProjectsStatus200ProjectsAliasDeploymentBranchMatcherTypeEnum2Key =
+	(typeof getProjectsStatus200ProjectsAliasDeploymentBranchMatcherTypeEnum2)[keyof typeof getProjectsStatus200ProjectsAliasDeploymentBranchMatcherTypeEnum2];
+
+export const getProjectsStatus200ProjectsAliasDeploymentChecksConclusionEnum2 = {
+	canceled: "canceled",
+	failed: "failed",
+	skipped: "skipped",
+	succeeded: "succeeded",
+} as const;
+
+export type GetProjectsStatus200ProjectsAliasDeploymentChecksConclusionEnum2Key =
+	(typeof getProjectsStatus200ProjectsAliasDeploymentChecksConclusionEnum2)[keyof typeof getProjectsStatus200ProjectsAliasDeploymentChecksConclusionEnum2];
+
+export const getProjectsStatus200ProjectsAliasDeploymentChecksStateEnum2 = {
+	completed: "completed",
+	registered: "registered",
+	running: "running",
+} as const;
+
+export type GetProjectsStatus200ProjectsAliasDeploymentChecksStateEnum2Key =
+	(typeof getProjectsStatus200ProjectsAliasDeploymentChecksStateEnum2)[keyof typeof getProjectsStatus200ProjectsAliasDeploymentChecksStateEnum2];
+
+export const getProjectsStatus200ProjectsAliasDeploymentPlanEnum2 = {
+	enterprise: "enterprise",
+	hobby: "hobby",
+	pro: "pro",
+} as const;
+
+export type GetProjectsStatus200ProjectsAliasDeploymentPlanEnum2Key =
+	(typeof getProjectsStatus200ProjectsAliasDeploymentPlanEnum2)[keyof typeof getProjectsStatus200ProjectsAliasDeploymentPlanEnum2];
+
+export const getProjectsStatus200ProjectsAliasDeploymentReadyStateEnum2 = {
+	BLOCKED: "BLOCKED",
+	BUILDING: "BUILDING",
+	CANCELED: "CANCELED",
+	ERROR: "ERROR",
+	INITIALIZING: "INITIALIZING",
+	QUEUED: "QUEUED",
+	READY: "READY",
+} as const;
+
+export type GetProjectsStatus200ProjectsAliasDeploymentReadyStateEnum2Key =
+	(typeof getProjectsStatus200ProjectsAliasDeploymentReadyStateEnum2)[keyof typeof getProjectsStatus200ProjectsAliasDeploymentReadyStateEnum2];
+
+export const getProjectsStatus200ProjectsAliasDeploymentReadySubstateEnum2 = {
+	PROMOTED: "PROMOTED",
+	ROLLING: "ROLLING",
+	STAGED: "STAGED",
+} as const;
+
+export type GetProjectsStatus200ProjectsAliasDeploymentReadySubstateEnum2Key =
+	(typeof getProjectsStatus200ProjectsAliasDeploymentReadySubstateEnum2)[keyof typeof getProjectsStatus200ProjectsAliasDeploymentReadySubstateEnum2];
+
+export const getProjectsStatus200ProjectsAliasEnvironmentEnum2 = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type GetProjectsStatus200ProjectsAliasEnvironmentEnum2Key =
+	(typeof getProjectsStatus200ProjectsAliasEnvironmentEnum2)[keyof typeof getProjectsStatus200ProjectsAliasEnvironmentEnum2];
+
+export const getProjectsStatus200ProjectsAliasRedirectStatusCodeEnum2 = {
+	"301": 301,
+	"302": 302,
+	"307": 307,
+	"308": 308,
+} as const;
+
+export type GetProjectsStatus200ProjectsAliasRedirectStatusCodeEnum2Key =
+	(typeof getProjectsStatus200ProjectsAliasRedirectStatusCodeEnum2)[keyof typeof getProjectsStatus200ProjectsAliasRedirectStatusCodeEnum2];
+
+export const getProjectsStatus200ProjectsAliasTargetEnum2 = {
+	PREVIEW: "PREVIEW",
+	PRODUCTION: "PRODUCTION",
+	STAGING: "STAGING",
+} as const;
+
+export type GetProjectsStatus200ProjectsAliasTargetEnum2Key =
+	(typeof getProjectsStatus200ProjectsAliasTargetEnum2)[keyof typeof getProjectsStatus200ProjectsAliasTargetEnum2];
 
 export const getProjectsStatus200ProjectsCustomEnvironmentsBranchMatcherTypeEnum = {
 	endsWith: "endsWith",
@@ -78383,6 +82320,131 @@ export const getProjectsStatus200ProjectsDismissedToastsValue = {
 export type GetProjectsStatus200ProjectsDismissedToastsValueKey =
 	(typeof getProjectsStatus200ProjectsDismissedToastsValue)[keyof typeof getProjectsStatus200ProjectsDismissedToastsValue];
 
+export const getProjectsStatus200ProjectsEnvTargetEnum2 = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type GetProjectsStatus200ProjectsEnvTargetEnum2Key =
+	(typeof getProjectsStatus200ProjectsEnvTargetEnum2)[keyof typeof getProjectsStatus200ProjectsEnvTargetEnum2];
+
+export const getProjectsStatus200ProjectsEnvTarget2 = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type GetProjectsStatus200ProjectsEnvTarget2Key =
+	(typeof getProjectsStatus200ProjectsEnvTarget2)[keyof typeof getProjectsStatus200ProjectsEnvTarget2];
+
+export const getProjectsStatus200ProjectsEnvTypeEnum2 = {
+	encrypted: "encrypted",
+	plain: "plain",
+	secret: "secret",
+	sensitive: "sensitive",
+	system: "system",
+} as const;
+
+export type GetProjectsStatus200ProjectsEnvTypeEnum2Key =
+	(typeof getProjectsStatus200ProjectsEnvTypeEnum2)[keyof typeof getProjectsStatus200ProjectsEnvTypeEnum2];
+
+export const getProjectsStatus200ProjectsEnvVisibilityEnum2 = {
+	config: "config",
+	secret: "secret",
+} as const;
+
+export type GetProjectsStatus200ProjectsEnvVisibilityEnum2Key =
+	(typeof getProjectsStatus200ProjectsEnvVisibilityEnum2)[keyof typeof getProjectsStatus200ProjectsEnvVisibilityEnum2];
+
+export const getProjectsStatus200ProjectsFrameworkEnum2 = {
+	"actix-web": "actix-web",
+	angular: "angular",
+	ash: "ash",
+	astro: "astro",
+	axum: "axum",
+	blitzjs: "blitzjs",
+	brunch: "brunch",
+	bun: "bun",
+	container: "container",
+	"create-react-app": "create-react-app",
+	django: "django",
+	docusaurus: "docusaurus",
+	"docusaurus-2": "docusaurus-2",
+	dojo: "dojo",
+	eleventy: "eleventy",
+	elysia: "elysia",
+	ember: "ember",
+	eve: "eve",
+	express: "express",
+	"factory-eve": "factory-eve",
+	fastapi: "fastapi",
+	fasthtml: "fasthtml",
+	fastify: "fastify",
+	flask: "flask",
+	gatsby: "gatsby",
+	go: "go",
+	gridsome: "gridsome",
+	h3: "h3",
+	hexo: "hexo",
+	hono: "hono",
+	hugo: "hugo",
+	hydrogen: "hydrogen",
+	"ionic-angular": "ionic-angular",
+	"ionic-react": "ionic-react",
+	jekyll: "jekyll",
+	koa: "koa",
+	mastra: "mastra",
+	middleman: "middleman",
+	nestjs: "nestjs",
+	nextjs: "nextjs",
+	nitro: "nitro",
+	node: "node",
+	nuxtjs: "nuxtjs",
+	parcel: "parcel",
+	polymer: "polymer",
+	preact: "preact",
+	python: "python",
+	"react-router": "react-router",
+	redwoodjs: "redwoodjs",
+	remix: "remix",
+	ruby: "ruby",
+	rust: "rust",
+	saber: "saber",
+	sanity: "sanity",
+	"sanity-v2": "sanity-v2",
+	sapper: "sapper",
+	scully: "scully",
+	services: "services",
+	solidstart: "solidstart",
+	"solidstart-1": "solidstart-1",
+	stencil: "stencil",
+	storybook: "storybook",
+	svelte: "svelte",
+	sveltekit: "sveltekit",
+	"sveltekit-1": "sveltekit-1",
+	"tanstack-start": "tanstack-start",
+	"tanstack-start-lovable": "tanstack-start-lovable",
+	umijs: "umijs",
+	vite: "vite",
+	vitepress: "vitepress",
+	vue: "vue",
+	vuepress: "vuepress",
+	xmcp: "xmcp",
+	zola: "zola",
+} as const;
+
+export type GetProjectsStatus200ProjectsFrameworkEnum2Key =
+	(typeof getProjectsStatus200ProjectsFrameworkEnum2)[keyof typeof getProjectsStatus200ProjectsFrameworkEnum2];
+
+export const getProjectsStatus200ProjectsGitProviderOptionsCreateDeploymentsEnum2 = {
+	disabled: "disabled",
+	enabled: "enabled",
+} as const;
+
+export type GetProjectsStatus200ProjectsGitProviderOptionsCreateDeploymentsEnum2Key =
+	(typeof getProjectsStatus200ProjectsGitProviderOptionsCreateDeploymentsEnum2)[keyof typeof getProjectsStatus200ProjectsGitProviderOptionsCreateDeploymentsEnum2];
+
 export const getProjectsStatus200ProjectsLastAliasRequestJobStatusEnum = {
 	failed: "failed",
 	"in-progress": "in-progress",
@@ -78402,6 +82464,107 @@ export const getProjectsStatus200ProjectsLastAliasRequestTypeEnum = {
 export type GetProjectsStatus200ProjectsLastAliasRequestTypeEnumKey =
 	(typeof getProjectsStatus200ProjectsLastAliasRequestTypeEnum)[keyof typeof getProjectsStatus200ProjectsLastAliasRequestTypeEnum];
 
+export const getProjectsStatus200ProjectsLatestDeploymentsAliasAssigned2 = {
+	false: false,
+	true: true,
+} as const;
+
+export type GetProjectsStatus200ProjectsLatestDeploymentsAliasAssigned2Key =
+	(typeof getProjectsStatus200ProjectsLatestDeploymentsAliasAssigned2)[keyof typeof getProjectsStatus200ProjectsLatestDeploymentsAliasAssigned2];
+
+export const getProjectsStatus200ProjectsLatestDeploymentsBranchMatcherTypeEnum2 = {
+	endsWith: "endsWith",
+	equals: "equals",
+	startsWith: "startsWith",
+} as const;
+
+export type GetProjectsStatus200ProjectsLatestDeploymentsBranchMatcherTypeEnum2Key =
+	(typeof getProjectsStatus200ProjectsLatestDeploymentsBranchMatcherTypeEnum2)[keyof typeof getProjectsStatus200ProjectsLatestDeploymentsBranchMatcherTypeEnum2];
+
+export const getProjectsStatus200ProjectsLatestDeploymentsChecksConclusionEnum2 = {
+	canceled: "canceled",
+	failed: "failed",
+	skipped: "skipped",
+	succeeded: "succeeded",
+} as const;
+
+export type GetProjectsStatus200ProjectsLatestDeploymentsChecksConclusionEnum2Key =
+	(typeof getProjectsStatus200ProjectsLatestDeploymentsChecksConclusionEnum2)[keyof typeof getProjectsStatus200ProjectsLatestDeploymentsChecksConclusionEnum2];
+
+export const getProjectsStatus200ProjectsLatestDeploymentsChecksStateEnum2 = {
+	completed: "completed",
+	registered: "registered",
+	running: "running",
+} as const;
+
+export type GetProjectsStatus200ProjectsLatestDeploymentsChecksStateEnum2Key =
+	(typeof getProjectsStatus200ProjectsLatestDeploymentsChecksStateEnum2)[keyof typeof getProjectsStatus200ProjectsLatestDeploymentsChecksStateEnum2];
+
+export const getProjectsStatus200ProjectsLatestDeploymentsPlanEnum2 = {
+	enterprise: "enterprise",
+	hobby: "hobby",
+	pro: "pro",
+} as const;
+
+export type GetProjectsStatus200ProjectsLatestDeploymentsPlanEnum2Key =
+	(typeof getProjectsStatus200ProjectsLatestDeploymentsPlanEnum2)[keyof typeof getProjectsStatus200ProjectsLatestDeploymentsPlanEnum2];
+
+export const getProjectsStatus200ProjectsLatestDeploymentsReadyStateEnum2 = {
+	BLOCKED: "BLOCKED",
+	BUILDING: "BUILDING",
+	CANCELED: "CANCELED",
+	ERROR: "ERROR",
+	INITIALIZING: "INITIALIZING",
+	QUEUED: "QUEUED",
+	READY: "READY",
+} as const;
+
+export type GetProjectsStatus200ProjectsLatestDeploymentsReadyStateEnum2Key =
+	(typeof getProjectsStatus200ProjectsLatestDeploymentsReadyStateEnum2)[keyof typeof getProjectsStatus200ProjectsLatestDeploymentsReadyStateEnum2];
+
+export const getProjectsStatus200ProjectsLatestDeploymentsReadySubstateEnum2 = {
+	PROMOTED: "PROMOTED",
+	ROLLING: "ROLLING",
+	STAGED: "STAGED",
+} as const;
+
+export type GetProjectsStatus200ProjectsLatestDeploymentsReadySubstateEnum2Key =
+	(typeof getProjectsStatus200ProjectsLatestDeploymentsReadySubstateEnum2)[keyof typeof getProjectsStatus200ProjectsLatestDeploymentsReadySubstateEnum2];
+
+export const getProjectsStatus200ProjectsNodeVersionEnum2 = {
+	"10.x": "10.x",
+	"12.x": "12.x",
+	"14.x": "14.x",
+	"16.x": "16.x",
+	"18.x": "18.x",
+	"20.x": "20.x",
+	"22.x": "22.x",
+	"24.x": "24.x",
+	"26.x": "26.x",
+	"8.10.x": "8.10.x",
+} as const;
+
+export type GetProjectsStatus200ProjectsNodeVersionEnum2Key =
+	(typeof getProjectsStatus200ProjectsNodeVersionEnum2)[keyof typeof getProjectsStatus200ProjectsNodeVersionEnum2];
+
+export const getProjectsStatus200ProjectsOidcTokenConfigIssuerModeEnum2 = {
+	global: "global",
+	team: "team",
+} as const;
+
+export type GetProjectsStatus200ProjectsOidcTokenConfigIssuerModeEnum2Key =
+	(typeof getProjectsStatus200ProjectsOidcTokenConfigIssuerModeEnum2)[keyof typeof getProjectsStatus200ProjectsOidcTokenConfigIssuerModeEnum2];
+
+export const getProjectsStatus200ProjectsPassportDeploymentTypeEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type GetProjectsStatus200ProjectsPassportDeploymentTypeEnum2Key =
+	(typeof getProjectsStatus200ProjectsPassportDeploymentTypeEnum2)[keyof typeof getProjectsStatus200ProjectsPassportDeploymentTypeEnum2];
+
 export const getProjectsStatus200ProjectsPasswordProtectionDeploymentTypeEnum = {
 	all: "all",
 	all_except_custom_domains: "all_except_custom_domains",
@@ -78411,6 +82574,76 @@ export const getProjectsStatus200ProjectsPasswordProtectionDeploymentTypeEnum = 
 
 export type GetProjectsStatus200ProjectsPasswordProtectionDeploymentTypeEnumKey =
 	(typeof getProjectsStatus200ProjectsPasswordProtectionDeploymentTypeEnum)[keyof typeof getProjectsStatus200ProjectsPasswordProtectionDeploymentTypeEnum];
+
+export const getProjectsStatus200ProjectsResourceConfigBuildMachineElasticReasonEnum2 = {
+	"basic-floor": "basic-floor",
+	"build-timeout-failure": "build-timeout-failure",
+	"enospc-failure": "enospc-failure",
+	"enterprise-floor": "enterprise-floor",
+	"high-peak-disk": "high-peak-disk",
+	"high-peak-memory": "high-peak-memory",
+	"long-build-duration": "long-build-duration",
+	"oom-failure": "oom-failure",
+	"short-build-duration": "short-build-duration",
+	"sustained-high-cpu": "sustained-high-cpu",
+} as const;
+
+export type GetProjectsStatus200ProjectsResourceConfigBuildMachineElasticReasonEnum2Key =
+	(typeof getProjectsStatus200ProjectsResourceConfigBuildMachineElasticReasonEnum2)[keyof typeof getProjectsStatus200ProjectsResourceConfigBuildMachineElasticReasonEnum2];
+
+export const getProjectsStatus200ProjectsResourceConfigBuildMachineElasticTransitionDirectionEnum2 =
+	{
+		downgrade: "downgrade",
+		upgrade: "upgrade",
+	} as const;
+
+export type GetProjectsStatus200ProjectsResourceConfigBuildMachineElasticTransitionDirectionEnum2Key =
+	(typeof getProjectsStatus200ProjectsResourceConfigBuildMachineElasticTransitionDirectionEnum2)[keyof typeof getProjectsStatus200ProjectsResourceConfigBuildMachineElasticTransitionDirectionEnum2];
+
+export const getProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnum2 = {
+	elastic: "elastic",
+	fixed: "fixed",
+} as const;
+
+export type GetProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnum2Key =
+	(typeof getProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnum2)[keyof typeof getProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnum2];
+
+export const getProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum2 = {
+	"14cpu-28gb": "14cpu-28gb",
+	basic: "basic",
+	enhanced: "enhanced",
+	standard: "standard",
+	turbo: "turbo",
+} as const;
+
+export type GetProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum2Key =
+	(typeof getProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum2)[keyof typeof getProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum2];
+
+export const getProjectsStatus200ProjectsResourceConfigBuildQueueConfigurationEnum2 = {
+	SKIP_NAMESPACE_QUEUE: "SKIP_NAMESPACE_QUEUE",
+	WAIT_FOR_NAMESPACE_QUEUE: "WAIT_FOR_NAMESPACE_QUEUE",
+} as const;
+
+export type GetProjectsStatus200ProjectsResourceConfigBuildQueueConfigurationEnum2Key =
+	(typeof getProjectsStatus200ProjectsResourceConfigBuildQueueConfigurationEnum2)[keyof typeof getProjectsStatus200ProjectsResourceConfigBuildQueueConfigurationEnum2];
+
+export const getProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum2 = {
+	performance: "performance",
+	performance_xl: "performance_xl",
+	standard: "standard",
+	standard_legacy: "standard_legacy",
+} as const;
+
+export type GetProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum2Key =
+	(typeof getProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum2)[keyof typeof getProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum2];
+
+export const getProjectsStatus200ProjectsRollingReleaseGateActionEnum2 = {
+	pause: "pause",
+	rollback: "rollback",
+} as const;
+
+export type GetProjectsStatus200ProjectsRollingReleaseGateActionEnum2Key =
+	(typeof getProjectsStatus200ProjectsRollingReleaseGateActionEnum2)[keyof typeof getProjectsStatus200ProjectsRollingReleaseGateActionEnum2];
 
 export const getProjectsStatus200ProjectsSandboxFailoverRegionsEnum = {
 	arn1: "arn1",
@@ -78461,6 +82694,70 @@ export const getProjectsStatus200ProjectsSandboxRegionEnum = {
 
 export type GetProjectsStatus200ProjectsSandboxRegionEnumKey =
 	(typeof getProjectsStatus200ProjectsSandboxRegionEnum)[keyof typeof getProjectsStatus200ProjectsSandboxRegionEnum];
+
+export const getProjectsStatus200ProjectsSecurityManagedRulesAiBotsActionEnum2 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type GetProjectsStatus200ProjectsSecurityManagedRulesAiBotsActionEnum2Key =
+	(typeof getProjectsStatus200ProjectsSecurityManagedRulesAiBotsActionEnum2)[keyof typeof getProjectsStatus200ProjectsSecurityManagedRulesAiBotsActionEnum2];
+
+export const getProjectsStatus200ProjectsSecurityManagedRulesBotFilterActionEnum2 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type GetProjectsStatus200ProjectsSecurityManagedRulesBotFilterActionEnum2Key =
+	(typeof getProjectsStatus200ProjectsSecurityManagedRulesBotFilterActionEnum2)[keyof typeof getProjectsStatus200ProjectsSecurityManagedRulesBotFilterActionEnum2];
+
+export const getProjectsStatus200ProjectsSecurityManagedRulesOwaspActionEnum2 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type GetProjectsStatus200ProjectsSecurityManagedRulesOwaspActionEnum2Key =
+	(typeof getProjectsStatus200ProjectsSecurityManagedRulesOwaspActionEnum2)[keyof typeof getProjectsStatus200ProjectsSecurityManagedRulesOwaspActionEnum2];
+
+export const getProjectsStatus200ProjectsSecurityManagedRulesTrafficSourcesActionEnum2 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type GetProjectsStatus200ProjectsSecurityManagedRulesTrafficSourcesActionEnum2Key =
+	(typeof getProjectsStatus200ProjectsSecurityManagedRulesTrafficSourcesActionEnum2)[keyof typeof getProjectsStatus200ProjectsSecurityManagedRulesTrafficSourcesActionEnum2];
+
+export const getProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnum2 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type GetProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnum2Key =
+	(typeof getProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnum2)[keyof typeof getProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnum2];
+
+export const actionEnum6 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type ActionEnum6Key = (typeof actionEnum6)[keyof typeof actionEnum6];
+
+export const algoEnum4 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type AlgoEnum4Key = (typeof algoEnum4)[keyof typeof algoEnum4];
 
 export const getProjectsStatus200ProjectsServicesFrameworkEnum = {
 	"actix-web": "actix-web",
@@ -78552,6 +82849,91 @@ export const getProjectsStatus200ProjectsServicesServiceTypeEnum = {
 export type GetProjectsStatus200ProjectsServicesServiceTypeEnumKey =
 	(typeof getProjectsStatus200ProjectsServicesServiceTypeEnum)[keyof typeof getProjectsStatus200ProjectsServicesServiceTypeEnum];
 
+export const getProjectsStatus200ProjectsSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum2 =
+	{
+		all: "all",
+		all_except_custom_domains: "all_except_custom_domains",
+		preview: "preview",
+		prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+	} as const;
+
+export type GetProjectsStatus200ProjectsSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum2Key =
+	(typeof getProjectsStatus200ProjectsSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum2)[keyof typeof getProjectsStatus200ProjectsSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum2];
+
+export const getProjectsStatus200ProjectsSsoProtectionCve55182MigrationAppliedFromEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type GetProjectsStatus200ProjectsSsoProtectionCve55182MigrationAppliedFromEnum2Key =
+	(typeof getProjectsStatus200ProjectsSsoProtectionCve55182MigrationAppliedFromEnum2)[keyof typeof getProjectsStatus200ProjectsSsoProtectionCve55182MigrationAppliedFromEnum2];
+
+export const getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+} as const;
+
+export type GetProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum2Key =
+	(typeof getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum2)[keyof typeof getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum2];
+
+export const typeEnum134 = {
+	endsWith: "endsWith",
+	equals: "equals",
+	startsWith: "startsWith",
+} as const;
+
+export type TypeEnum134Key = (typeof typeEnum134)[keyof typeof typeEnum134];
+
+export const checksConclusionEnum4 = {
+	canceled: "canceled",
+	failed: "failed",
+	skipped: "skipped",
+	succeeded: "succeeded",
+} as const;
+
+export type ChecksConclusionEnum4Key =
+	(typeof checksConclusionEnum4)[keyof typeof checksConclusionEnum4];
+
+export const checksStateEnum4 = {
+	completed: "completed",
+	registered: "registered",
+	running: "running",
+} as const;
+
+export type ChecksStateEnum4Key = (typeof checksStateEnum4)[keyof typeof checksStateEnum4];
+
+export const planEnum4 = {
+	enterprise: "enterprise",
+	hobby: "hobby",
+	pro: "pro",
+} as const;
+
+export type PlanEnum4Key = (typeof planEnum4)[keyof typeof planEnum4];
+
+export const readyStateEnum4 = {
+	BLOCKED: "BLOCKED",
+	BUILDING: "BUILDING",
+	CANCELED: "CANCELED",
+	ERROR: "ERROR",
+	INITIALIZING: "INITIALIZING",
+	QUEUED: "QUEUED",
+	READY: "READY",
+} as const;
+
+export type ReadyStateEnum4Key = (typeof readyStateEnum4)[keyof typeof readyStateEnum4];
+
+export const readySubstateEnum4 = {
+	PROMOTED: "PROMOTED",
+	ROLLING: "ROLLING",
+	STAGED: "STAGED",
+} as const;
+
+export type ReadySubstateEnum4Key = (typeof readySubstateEnum4)[keyof typeof readySubstateEnum4];
+
 export const getProjectsStatus200ProjectsTracingSamplingRulesDestinationEnum = {
 	external: "external",
 	internal: "internal",
@@ -78586,6 +82968,17 @@ export const getProjectsStatus200ProjectsTrustedIpsProtectionModeEnum = {
 
 export type GetProjectsStatus200ProjectsTrustedIpsProtectionModeEnumKey =
 	(typeof getProjectsStatus200ProjectsTrustedIpsProtectionModeEnum)[keyof typeof getProjectsStatus200ProjectsTrustedIpsProtectionModeEnum];
+
+export const getProjectsStatus200ProjectsTrustedIpsDeploymentTypeEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+	production: "production",
+} as const;
+
+export type GetProjectsStatus200ProjectsTrustedIpsDeploymentTypeEnum2Key =
+	(typeof getProjectsStatus200ProjectsTrustedIpsDeploymentTypeEnum2)[keyof typeof getProjectsStatus200ProjectsTrustedIpsDeploymentTypeEnum2];
 
 export type GetProjectsStatus200 =
 	| (
@@ -79740,13 +84133,13 @@ export type GetProjectsStatus200 =
 								rulesets?:
 									| {
 											[key: string]: {
-												action: ActionEnumKey;
+												action: ActionEnum4Key;
 												actionDuration?: (string | null) | undefined;
 												bypassSystem?: ((false | true) | null) | undefined;
 												logHeaders?: (string[] | "*") | undefined;
 												rateLimit?:
 													| ({
-															algo: AlgoEnumKey;
+															algo: AlgoEnum2Key;
 															keys: string[];
 															limit: number;
 															window: number;
@@ -79817,7 +84210,7 @@ export type GetProjectsStatus200 =
 												 * @description The type of matching to perform
 												 * @type string
 												 */
-												type: TypeEnumKey;
+												type: TypeEnum130Key;
 										  }
 										| undefined;
 									buildingAt?: number | undefined;
@@ -79828,8 +84221,8 @@ export type GetProjectsStatus200 =
 												use: string;
 										  }[]
 										| undefined;
-									checksConclusion?: ChecksConclusionEnumKey | undefined;
-									checksState?: ChecksStateEnumKey | undefined;
+									checksConclusion?: ChecksConclusionEnum2Key | undefined;
+									checksState?: ChecksStateEnum2Key | undefined;
 									connectBuildsEnabled?: (false | true) | undefined;
 									connectConfigurationId?: string | undefined;
 									createdAt: number;
@@ -79869,7 +84262,7 @@ export type GetProjectsStatus200 =
 												sub: string;
 										  }
 										| undefined;
-									plan: PlanEnumKey;
+									plan: PlanEnum2Key;
 									/**
 									 * @description Whether or not preview comments are enabled for the deployment
 									 * @example false
@@ -79878,8 +84271,8 @@ export type GetProjectsStatus200 =
 									previewCommentsEnabled?: (false | true) | undefined;
 									private: false | true;
 									readyAt?: number | undefined;
-									readyState: ReadyStateEnumKey;
-									readySubstate?: ReadySubstateEnumKey | undefined;
+									readyState: ReadyStateEnum2Key;
+									readySubstate?: ReadySubstateEnum2Key | undefined;
 									requestedAt?: number | undefined;
 									target?: (string | null) | undefined;
 									teamId?: (string | null) | undefined;
@@ -81181,13 +85574,13 @@ export type GetProjectsStatus200 =
 									rulesets?:
 										| {
 												[key: string]: {
-													action: ActionEnumKey;
+													action: ActionEnum5Key;
 													actionDuration?: (string | null) | undefined;
 													bypassSystem?: ((false | true) | null) | undefined;
 													logHeaders?: (string[] | "*") | undefined;
 													rateLimit?:
 														| ({
-																algo: AlgoEnumKey;
+																algo: AlgoEnum3Key;
 																keys: string[];
 																limit: number;
 																window: number;
@@ -81258,7 +85651,7 @@ export type GetProjectsStatus200 =
 													 * @description The type of matching to perform
 													 * @type string
 													 */
-													type: TypeEnumKey;
+													type: TypeEnum132Key;
 											  }
 											| undefined;
 										buildingAt?: number | undefined;
@@ -81269,8 +85662,8 @@ export type GetProjectsStatus200 =
 													use: string;
 											  }[]
 											| undefined;
-										checksConclusion?: ChecksConclusionEnumKey | undefined;
-										checksState?: ChecksStateEnumKey | undefined;
+										checksConclusion?: ChecksConclusionEnum3Key | undefined;
+										checksState?: ChecksStateEnum3Key | undefined;
 										connectBuildsEnabled?: (false | true) | undefined;
 										connectConfigurationId?: string | undefined;
 										createdAt: number;
@@ -81310,7 +85703,7 @@ export type GetProjectsStatus200 =
 													sub: string;
 											  }
 											| undefined;
-										plan: PlanEnumKey;
+										plan: PlanEnum3Key;
 										/**
 										 * @description Whether or not preview comments are enabled for the deployment
 										 * @example false
@@ -81319,8 +85712,8 @@ export type GetProjectsStatus200 =
 										previewCommentsEnabled?: (false | true) | undefined;
 										private: false | true;
 										readyAt?: number | undefined;
-										readyState: ReadyStateEnumKey;
-										readySubstate?: ReadySubstateEnumKey | undefined;
+										readyState: ReadyStateEnum3Key;
+										readySubstate?: ReadySubstateEnum3Key | undefined;
 										requestedAt?: number | undefined;
 										target?: (string | null) | undefined;
 										teamId?: (string | null) | undefined;
@@ -81458,14 +85851,14 @@ export type GetProjectsStatus200 =
 						accountId: string;
 						alias: {
 							configuredBy?:
-								| (GetProjectsStatus200ProjectsAliasConfiguredByEnumKey | null)
+								| (GetProjectsStatus200ProjectsAliasConfiguredByEnum2Key | null)
 								| undefined;
 							configuredChangedAt?: (number | null) | undefined;
 							createdAt?: (number | null) | undefined;
 							deployment: {
 								alias?: string[] | undefined;
 								aliasAssigned?:
-									| ((number | GetProjectsStatus200ProjectsAliasDeploymentAliasAssignedKey) | null)
+									| ((number | GetProjectsStatus200ProjectsAliasDeploymentAliasAssigned2Key) | null)
 									| undefined;
 								aliasError?:
 									| ({
@@ -81486,7 +85879,7 @@ export type GetProjectsStatus200 =
 											 * @description The type of matching to perform
 											 * @type string
 											 */
-											type: GetProjectsStatus200ProjectsAliasDeploymentBranchMatcherTypeEnumKey;
+											type: GetProjectsStatus200ProjectsAliasDeploymentBranchMatcherTypeEnum2Key;
 									  }
 									| undefined;
 								buildingAt?: number | undefined;
@@ -81498,10 +85891,10 @@ export type GetProjectsStatus200 =
 									  }[]
 									| undefined;
 								checksConclusion?:
-									| GetProjectsStatus200ProjectsAliasDeploymentChecksConclusionEnumKey
+									| GetProjectsStatus200ProjectsAliasDeploymentChecksConclusionEnum2Key
 									| undefined;
 								checksState?:
-									| GetProjectsStatus200ProjectsAliasDeploymentChecksStateEnumKey
+									| GetProjectsStatus200ProjectsAliasDeploymentChecksStateEnum2Key
 									| undefined;
 								connectBuildsEnabled?: (false | true) | undefined;
 								connectConfigurationId?: string | undefined;
@@ -81542,7 +85935,7 @@ export type GetProjectsStatus200 =
 											sub: string;
 									  }
 									| undefined;
-								plan: GetProjectsStatus200ProjectsAliasDeploymentPlanEnumKey;
+								plan: GetProjectsStatus200ProjectsAliasDeploymentPlanEnum2Key;
 								/**
 								 * @description Whether or not preview comments are enabled for the deployment
 								 * @example false
@@ -81551,9 +85944,9 @@ export type GetProjectsStatus200 =
 								previewCommentsEnabled?: (false | true) | undefined;
 								private: false | true;
 								readyAt?: number | undefined;
-								readyState: GetProjectsStatus200ProjectsAliasDeploymentReadyStateEnumKey;
+								readyState: GetProjectsStatus200ProjectsAliasDeploymentReadyStateEnum2Key;
 								readySubstate?:
-									| GetProjectsStatus200ProjectsAliasDeploymentReadySubstateEnumKey
+									| GetProjectsStatus200ProjectsAliasDeploymentReadySubstateEnum2Key
 									| undefined;
 								requestedAt?: number | undefined;
 								target?: (string | null) | undefined;
@@ -81568,13 +85961,13 @@ export type GetProjectsStatus200 =
 								withCache?: (false | true) | undefined;
 							} | null;
 							domain: string;
-							environment: GetProjectsStatus200ProjectsAliasEnvironmentEnumKey;
+							environment: GetProjectsStatus200ProjectsAliasEnvironmentEnum2Key;
 							gitBranch?: (string | null) | undefined;
 							redirect?: (string | null) | undefined;
 							redirectStatusCode?:
-								| (GetProjectsStatus200ProjectsAliasRedirectStatusCodeEnumKey | null)
+								| (GetProjectsStatus200ProjectsAliasRedirectStatusCodeEnum2Key | null)
 								| undefined;
-							target: GetProjectsStatus200ProjectsAliasTargetEnumKey;
+							target: GetProjectsStatus200ProjectsAliasTargetEnum2Key;
 						}[];
 						analytics?:
 							| {
@@ -82146,11 +86539,11 @@ export type GetProjectsStatus200 =
 									sunsetSecretId?: string | undefined;
 									target?:
 										| (
-												| GetProjectsStatus200ProjectsEnvTargetEnumKey[]
-												| GetProjectsStatus200ProjectsEnvTargetKey
+												| GetProjectsStatus200ProjectsEnvTargetEnum2Key[]
+												| GetProjectsStatus200ProjectsEnvTarget2Key
 										  )
 										| undefined;
-									type: GetProjectsStatus200ProjectsEnvTypeEnumKey;
+									type: GetProjectsStatus200ProjectsEnvTypeEnum2Key;
 									updatedAt?: number | undefined;
 									updatedBy?: (string | null) | undefined;
 									value: string;
@@ -82158,7 +86551,7 @@ export type GetProjectsStatus200 =
 									 * @description User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
 									 * @type string | undefined
 									 */
-									visibility?: GetProjectsStatus200ProjectsEnvVisibilityEnumKey | undefined;
+									visibility?: GetProjectsStatus200ProjectsEnvVisibilityEnum2Key | undefined;
 									vsmValue?: string | undefined;
 							  }[]
 							| undefined;
@@ -82190,7 +86583,7 @@ export type GetProjectsStatus200 =
 									webAnalytics?: (false | true) | undefined;
 							  }
 							| undefined;
-						framework?: (GetProjectsStatus200ProjectsFrameworkEnumKey | null) | undefined;
+						framework?: (GetProjectsStatus200ProjectsFrameworkEnum2Key | null) | undefined;
 						gitComments?:
 							| {
 									/**
@@ -82231,7 +86624,7 @@ export type GetProjectsStatus200 =
 									 * @description Whether the Vercel bot should automatically create GitHub deployments https://docs.github.com/en/rest/deployments/deployments#about-deployments NOTE: repository-dispatch events should be used instead
 									 * @type string
 									 */
-									createDeployments: GetProjectsStatus200ProjectsGitProviderOptionsCreateDeploymentsEnumKey;
+									createDeployments: GetProjectsStatus200ProjectsGitProviderOptionsCreateDeploymentsEnum2Key;
 									/**
 									 * @description Whether the Vercel bot should not automatically create GitHub repository-dispatch events on deployment events. https://vercel.com/docs/git/vercel-for-github#repository-dispatch-events - `true`: disable repository-dispatch events for this project (explicit override of the team setting). - `false`: enable repository-dispatch events for this project (explicit override of the team setting). - absent: inherit from `team.disableRepositoryDispatchEvents`.
 									 * @type boolean | undefined
@@ -82297,6 +86690,11 @@ export type GetProjectsStatus200 =
 												targets: string[];
 										  }
 										| undefined;
+									"health-check"?:
+										| {
+												targets: string[];
+										  }
+										| undefined;
 									lint?:
 										| {
 												targets: string[];
@@ -82334,7 +86732,7 @@ export type GetProjectsStatus200 =
 									alias?: string[] | undefined;
 									aliasAssigned?:
 										| (
-												| (number | GetProjectsStatus200ProjectsLatestDeploymentsAliasAssignedKey)
+												| (number | GetProjectsStatus200ProjectsLatestDeploymentsAliasAssigned2Key)
 												| null
 										  )
 										| undefined;
@@ -82357,7 +86755,7 @@ export type GetProjectsStatus200 =
 												 * @description The type of matching to perform
 												 * @type string
 												 */
-												type: GetProjectsStatus200ProjectsLatestDeploymentsBranchMatcherTypeEnumKey;
+												type: GetProjectsStatus200ProjectsLatestDeploymentsBranchMatcherTypeEnum2Key;
 										  }
 										| undefined;
 									buildingAt?: number | undefined;
@@ -82369,10 +86767,10 @@ export type GetProjectsStatus200 =
 										  }[]
 										| undefined;
 									checksConclusion?:
-										| GetProjectsStatus200ProjectsLatestDeploymentsChecksConclusionEnumKey
+										| GetProjectsStatus200ProjectsLatestDeploymentsChecksConclusionEnum2Key
 										| undefined;
 									checksState?:
-										| GetProjectsStatus200ProjectsLatestDeploymentsChecksStateEnumKey
+										| GetProjectsStatus200ProjectsLatestDeploymentsChecksStateEnum2Key
 										| undefined;
 									connectBuildsEnabled?: (false | true) | undefined;
 									connectConfigurationId?: string | undefined;
@@ -82413,7 +86811,7 @@ export type GetProjectsStatus200 =
 												sub: string;
 										  }
 										| undefined;
-									plan: GetProjectsStatus200ProjectsLatestDeploymentsPlanEnumKey;
+									plan: GetProjectsStatus200ProjectsLatestDeploymentsPlanEnum2Key;
 									/**
 									 * @description Whether or not preview comments are enabled for the deployment
 									 * @example false
@@ -82422,9 +86820,9 @@ export type GetProjectsStatus200 =
 									previewCommentsEnabled?: (false | true) | undefined;
 									private: false | true;
 									readyAt?: number | undefined;
-									readyState: GetProjectsStatus200ProjectsLatestDeploymentsReadyStateEnumKey;
+									readyState: GetProjectsStatus200ProjectsLatestDeploymentsReadyStateEnum2Key;
 									readySubstate?:
-										| GetProjectsStatus200ProjectsLatestDeploymentsReadySubstateEnumKey
+										| GetProjectsStatus200ProjectsLatestDeploymentsReadySubstateEnum2Key
 										| undefined;
 									requestedAt?: number | undefined;
 									target?: (string | null) | undefined;
@@ -82697,13 +87095,13 @@ export type GetProjectsStatus200 =
 									| {
 											enabled: false;
 											freeProjectForLegacyLimits?: (false | true) | undefined;
-											groupIds: (string | string)[];
+											groupIds: string[];
 											updatedAt: number;
 									  }
 							  )
 							| undefined;
 						name: string;
-						nodeVersion: GetProjectsStatus200ProjectsNodeVersionEnumKey;
+						nodeVersion: GetProjectsStatus200ProjectsNodeVersionEnum2Key;
 						oidcTokenConfig?:
 							| {
 									/**
@@ -82716,7 +87114,7 @@ export type GetProjectsStatus200 =
 									 * @type string | undefined
 									 */
 									issuerMode?:
-										| GetProjectsStatus200ProjectsOidcTokenConfigIssuerModeEnumKey
+										| GetProjectsStatus200ProjectsOidcTokenConfigIssuerModeEnum2Key
 										| undefined;
 							  }
 							| undefined;
@@ -82732,7 +87130,7 @@ export type GetProjectsStatus200 =
 						passport?:
 							| ({
 									connectorId: string;
-									deploymentType: GetProjectsStatus200ProjectsPassportDeploymentTypeEnumKey;
+									deploymentType: GetProjectsStatus200ProjectsPassportDeploymentTypeEnum2Key;
 							  } | null)
 							| undefined;
 						/**
@@ -84279,25 +88677,25 @@ export type GetProjectsStatus200 =
 						resourceConfig: {
 							buildMachineElasticLastUpdated?: number | undefined;
 							buildMachineElasticReason?:
-								| GetProjectsStatus200ProjectsResourceConfigBuildMachineElasticReasonEnumKey
+								| GetProjectsStatus200ProjectsResourceConfigBuildMachineElasticReasonEnum2Key
 								| undefined;
 							buildMachineElasticTransition?:
 								| {
 										algorithmVersion: string;
 										at: number;
-										direction: GetProjectsStatus200ProjectsResourceConfigBuildMachineElasticTransitionDirectionEnumKey;
+										direction: GetProjectsStatus200ProjectsResourceConfigBuildMachineElasticTransitionDirectionEnum2Key;
 								  }
 								| undefined;
 							buildMachineSelection?:
-								| GetProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnumKey
+								| GetProjectsStatus200ProjectsResourceConfigBuildMachineSelectionEnum2Key
 								| undefined;
 							buildMachineType?:
-								| GetProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnumKey
+								| GetProjectsStatus200ProjectsResourceConfigBuildMachineTypeEnum2Key
 								| undefined;
 							buildQueue?:
 								| {
 										configuration?:
-											| GetProjectsStatus200ProjectsResourceConfigBuildQueueConfigurationEnumKey
+											| GetProjectsStatus200ProjectsResourceConfigBuildQueueConfigurationEnum2Key
 											| undefined;
 								  }
 								| undefined;
@@ -84305,7 +88703,7 @@ export type GetProjectsStatus200 =
 							enableFunctionsBeta?: (false | true) | undefined;
 							fluid?: (false | true) | undefined;
 							functionDefaultMemoryType?:
-								| GetProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnumKey
+								| GetProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum2Key
 								| undefined;
 							functionDefaultRegions: string[];
 							functionDefaultTimeout?: number | undefined;
@@ -84352,16 +88750,83 @@ export type GetProjectsStatus200 =
 									 * @type string
 									 */
 									description: string;
+									principal?:
+										| (
+												| {
+														type: "user";
+														via:
+															| (
+																	| {
+																			app: {
+																				/**
+																				 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+																				 * @type string | undefined
+																				 */
+																				clientId?: string | undefined;
+																				/**
+																				 * @description The internal ID of the Vercel App backing this principal.
+																				 * @type string
+																				 */
+																				id: string;
+																			};
+																			type: "app";
+																	  }
+																	| {
+																			integration: {
+																				configurationId: string;
+																				integrationId: string;
+																			};
+																			type: "integration";
+																	  }
+															  )
+															| null;
+														user: {
+															id: string;
+														};
+												  }
+												| {
+														project: {
+															id: string;
+														};
+														type: "project";
+												  }
+												| {
+														app: {
+															/**
+															 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+															 * @type string | undefined
+															 */
+															clientId?: string | undefined;
+															/**
+															 * @description The internal ID of the Vercel App backing this principal.
+															 * @type string
+															 */
+															id: string;
+														};
+														type: "app";
+												  }
+												| {
+														integration: {
+															configurationId: string;
+															integrationId: string;
+														};
+														type: "integration";
+												  }
+												| {
+														type: "system";
+												  }
+										  )
+										| undefined;
 									/**
-									 * @description The user who rolled back the project.
-									 * @type string
+									 * @description The ID of the user who rolled back the project, when the principal was a user.
+									 * @type string | undefined
 									 */
-									userId: string;
+									userId?: string | undefined;
 									/**
-									 * @description The username of the user who rolled back the project.
-									 * @type string
+									 * @description The username of the user who rolled back the project, when the principal was a user.
+									 * @type string | undefined
 									 */
-									username: string;
+									username?: string | undefined;
 							  }
 							| undefined;
 						/**
@@ -84386,7 +88851,7 @@ export type GetProjectsStatus200 =
 												 * @description What to do when the gate trips: pause the rollout, or roll it back.
 												 * @type string
 												 */
-												action: GetProjectsStatus200ProjectsRollingReleaseGateActionEnumKey;
+												action: GetProjectsStatus200ProjectsRollingReleaseGateActionEnum2Key;
 												/**
 												 * @description The checks to evaluate. An empty array means nothing is evaluated.
 												 * @type array
@@ -84516,31 +88981,31 @@ export type GetProjectsStatus200 =
 										| ({
 												ai_bots: {
 													action?:
-														| GetProjectsStatus200ProjectsSecurityManagedRulesAiBotsActionEnumKey
+														| GetProjectsStatus200ProjectsSecurityManagedRulesAiBotsActionEnum2Key
 														| undefined;
 													active: false | true;
 												};
 												bot_filter: {
 													action?:
-														| GetProjectsStatus200ProjectsSecurityManagedRulesBotFilterActionEnumKey
+														| GetProjectsStatus200ProjectsSecurityManagedRulesBotFilterActionEnum2Key
 														| undefined;
 													active: false | true;
 												};
 												owasp: {
 													action?:
-														| GetProjectsStatus200ProjectsSecurityManagedRulesOwaspActionEnumKey
+														| GetProjectsStatus200ProjectsSecurityManagedRulesOwaspActionEnum2Key
 														| undefined;
 													active: false | true;
 												};
 												traffic_sources: {
 													action?:
-														| GetProjectsStatus200ProjectsSecurityManagedRulesTrafficSourcesActionEnumKey
+														| GetProjectsStatus200ProjectsSecurityManagedRulesTrafficSourcesActionEnum2Key
 														| undefined;
 													active: false | true;
 												};
 												vercel_ruleset: {
 													action?:
-														| GetProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnumKey
+														| GetProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnum2Key
 														| undefined;
 													active: false | true;
 												};
@@ -84554,13 +89019,13 @@ export type GetProjectsStatus200 =
 									rulesets?:
 										| {
 												[key: string]: {
-													action: ActionEnumKey;
+													action: ActionEnum6Key;
 													actionDuration?: (string | null) | undefined;
 													bypassSystem?: ((false | true) | null) | undefined;
 													logHeaders?: (string[] | "*") | undefined;
 													rateLimit?:
 														| ({
-																algo: AlgoEnumKey;
+																algo: AlgoEnum4Key;
 																keys: string[];
 																limit: number;
 																window: number;
@@ -84625,12 +89090,12 @@ export type GetProjectsStatus200 =
 						ssoProtection?:
 							| ({
 									april2026SecurityIncidentMigrationAppliedFrom?:
-										| (GetProjectsStatus200ProjectsSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnumKey | null)
+										| (GetProjectsStatus200ProjectsSsoProtectionApril2026SecurityIncidentMigrationAppliedFromEnum2Key | null)
 										| undefined;
 									cve55182MigrationAppliedFrom?:
-										| (GetProjectsStatus200ProjectsSsoProtectionCve55182MigrationAppliedFromEnumKey | null)
+										| (GetProjectsStatus200ProjectsSsoProtectionCve55182MigrationAppliedFromEnum2Key | null)
 										| undefined;
-									deploymentType: GetProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnumKey;
+									deploymentType: GetProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum2Key;
 							  } | null)
 							| undefined;
 						staticIps?:
@@ -84664,7 +89129,7 @@ export type GetProjectsStatus200 =
 													 * @description The type of matching to perform
 													 * @type string
 													 */
-													type: TypeEnumKey;
+													type: TypeEnum134Key;
 											  }
 											| undefined;
 										buildingAt?: number | undefined;
@@ -84675,8 +89140,8 @@ export type GetProjectsStatus200 =
 													use: string;
 											  }[]
 											| undefined;
-										checksConclusion?: ChecksConclusionEnumKey | undefined;
-										checksState?: ChecksStateEnumKey | undefined;
+										checksConclusion?: ChecksConclusionEnum4Key | undefined;
+										checksState?: ChecksStateEnum4Key | undefined;
 										connectBuildsEnabled?: (false | true) | undefined;
 										connectConfigurationId?: string | undefined;
 										createdAt: number;
@@ -84716,7 +89181,7 @@ export type GetProjectsStatus200 =
 													sub: string;
 											  }
 											| undefined;
-										plan: PlanEnumKey;
+										plan: PlanEnum4Key;
 										/**
 										 * @description Whether or not preview comments are enabled for the deployment
 										 * @example false
@@ -84725,8 +89190,8 @@ export type GetProjectsStatus200 =
 										previewCommentsEnabled?: (false | true) | undefined;
 										private: false | true;
 										readyAt?: number | undefined;
-										readyState: ReadyStateEnumKey;
-										readySubstate?: ReadySubstateEnumKey | undefined;
+										readyState: ReadyStateEnum4Key;
+										readySubstate?: ReadySubstateEnum4Key | undefined;
 										requestedAt?: number | undefined;
 										target?: (string | null) | undefined;
 										teamId?: (string | null) | undefined;
@@ -84780,7 +89245,7 @@ export type GetProjectsStatus200 =
 													protectionMode: GetProjectsStatus200ProjectsTrustedIpsProtectionModeEnumKey;
 											  }
 											| {
-													deploymentType: GetProjectsStatus200ProjectsTrustedIpsDeploymentTypeEnumKey;
+													deploymentType: GetProjectsStatus200ProjectsTrustedIpsDeploymentTypeEnum2Key;
 											  }
 									  )
 									| null
@@ -85762,6 +90227,25 @@ export const createProjectStatus200SecurityManagedRulesVercelRulesetActionEnum =
 export type CreateProjectStatus200SecurityManagedRulesVercelRulesetActionEnumKey =
 	(typeof createProjectStatus200SecurityManagedRulesVercelRulesetActionEnum)[keyof typeof createProjectStatus200SecurityManagedRulesVercelRulesetActionEnum];
 
+export const actionEnum7 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type ActionEnum7Key = (typeof actionEnum7)[keyof typeof actionEnum7];
+
+export const algoEnum5 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type AlgoEnum5Key = (typeof algoEnum5)[keyof typeof algoEnum5];
+
 export const createProjectStatus200ServicesFrameworkEnum = {
 	"actix-web": "actix-web",
 	angular: "angular",
@@ -85883,6 +90367,60 @@ export const createProjectStatus200SsoProtectionDeploymentTypeEnum = {
 export type CreateProjectStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof createProjectStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof createProjectStatus200SsoProtectionDeploymentTypeEnum];
 
+export const typeEnum136 = {
+	endsWith: "endsWith",
+	equals: "equals",
+	startsWith: "startsWith",
+} as const;
+
+export type TypeEnum136Key = (typeof typeEnum136)[keyof typeof typeEnum136];
+
+export const checksConclusionEnum5 = {
+	canceled: "canceled",
+	failed: "failed",
+	skipped: "skipped",
+	succeeded: "succeeded",
+} as const;
+
+export type ChecksConclusionEnum5Key =
+	(typeof checksConclusionEnum5)[keyof typeof checksConclusionEnum5];
+
+export const checksStateEnum5 = {
+	completed: "completed",
+	registered: "registered",
+	running: "running",
+} as const;
+
+export type ChecksStateEnum5Key = (typeof checksStateEnum5)[keyof typeof checksStateEnum5];
+
+export const planEnum5 = {
+	enterprise: "enterprise",
+	hobby: "hobby",
+	pro: "pro",
+} as const;
+
+export type PlanEnum5Key = (typeof planEnum5)[keyof typeof planEnum5];
+
+export const readyStateEnum5 = {
+	BLOCKED: "BLOCKED",
+	BUILDING: "BUILDING",
+	CANCELED: "CANCELED",
+	ERROR: "ERROR",
+	INITIALIZING: "INITIALIZING",
+	QUEUED: "QUEUED",
+	READY: "READY",
+} as const;
+
+export type ReadyStateEnum5Key = (typeof readyStateEnum5)[keyof typeof readyStateEnum5];
+
+export const readySubstateEnum5 = {
+	PROMOTED: "PROMOTED",
+	ROLLING: "ROLLING",
+	STAGED: "STAGED",
+} as const;
+
+export type ReadySubstateEnum5Key = (typeof readySubstateEnum5)[keyof typeof readySubstateEnum5];
+
 export const createProjectStatus200TracingSamplingRulesDestinationEnum = {
 	external: "external",
 	internal: "internal",
@@ -85917,6 +90455,17 @@ export const createProjectStatus200TrustedIpsProtectionModeEnum = {
 
 export type CreateProjectStatus200TrustedIpsProtectionModeEnumKey =
 	(typeof createProjectStatus200TrustedIpsProtectionModeEnum)[keyof typeof createProjectStatus200TrustedIpsProtectionModeEnum];
+
+export const createProjectStatus200TrustedIpsDeploymentTypeEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+	production: "production",
+} as const;
+
+export type CreateProjectStatus200TrustedIpsDeploymentTypeEnum2Key =
+	(typeof createProjectStatus200TrustedIpsDeploymentTypeEnum2)[keyof typeof createProjectStatus200TrustedIpsDeploymentTypeEnum2];
 
 export type CreateProjectStatus200 = {
 	accountId: string;
@@ -86748,6 +91297,11 @@ export type CreateProjectStatus200 = {
 							targets: string[];
 					  }
 					| undefined;
+				"health-check"?:
+					| {
+							targets: string[];
+					  }
+					| undefined;
 				lint?:
 					| {
 							targets: string[];
@@ -87141,7 +91695,7 @@ export type CreateProjectStatus200 = {
 				| {
 						enabled: false;
 						freeProjectForLegacyLimits?: (false | true) | undefined;
-						groupIds: (string | string)[];
+						groupIds: string[];
 						updatedAt: number;
 				  }
 		  )
@@ -88792,16 +93346,83 @@ export type CreateProjectStatus200 = {
 				 * @type string
 				 */
 				description: string;
+				principal?:
+					| (
+							| {
+									type: "user";
+									via:
+										| (
+												| {
+														app: {
+															/**
+															 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+															 * @type string | undefined
+															 */
+															clientId?: string | undefined;
+															/**
+															 * @description The internal ID of the Vercel App backing this principal.
+															 * @type string
+															 */
+															id: string;
+														};
+														type: "app";
+												  }
+												| {
+														integration: {
+															configurationId: string;
+															integrationId: string;
+														};
+														type: "integration";
+												  }
+										  )
+										| null;
+									user: {
+										id: string;
+									};
+							  }
+							| {
+									project: {
+										id: string;
+									};
+									type: "project";
+							  }
+							| {
+									app: {
+										/**
+										 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+										 * @type string | undefined
+										 */
+										clientId?: string | undefined;
+										/**
+										 * @description The internal ID of the Vercel App backing this principal.
+										 * @type string
+										 */
+										id: string;
+									};
+									type: "app";
+							  }
+							| {
+									integration: {
+										configurationId: string;
+										integrationId: string;
+									};
+									type: "integration";
+							  }
+							| {
+									type: "system";
+							  }
+					  )
+					| undefined;
 				/**
-				 * @description The user who rolled back the project.
-				 * @type string
+				 * @description The ID of the user who rolled back the project, when the principal was a user.
+				 * @type string | undefined
 				 */
-				userId: string;
+				userId?: string | undefined;
 				/**
-				 * @description The username of the user who rolled back the project.
-				 * @type string
+				 * @description The username of the user who rolled back the project, when the principal was a user.
+				 * @type string | undefined
 				 */
-				username: string;
+				username?: string | undefined;
 		  }
 		| undefined;
 	/**
@@ -88988,13 +93609,13 @@ export type CreateProjectStatus200 = {
 				rulesets?:
 					| {
 							[key: string]: {
-								action: ActionEnumKey;
+								action: ActionEnum7Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
-											algo: AlgoEnumKey;
+											algo: AlgoEnum5Key;
 											keys: string[];
 											limit: number;
 											window: number;
@@ -89098,7 +93719,7 @@ export type CreateProjectStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnumKey;
+								type: TypeEnum136Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -89109,8 +93730,8 @@ export type CreateProjectStatus200 = {
 								use: string;
 						  }[]
 						| undefined;
-					checksConclusion?: ChecksConclusionEnumKey | undefined;
-					checksState?: ChecksStateEnumKey | undefined;
+					checksConclusion?: ChecksConclusionEnum5Key | undefined;
+					checksState?: ChecksStateEnum5Key | undefined;
 					connectBuildsEnabled?: (false | true) | undefined;
 					connectConfigurationId?: string | undefined;
 					createdAt: number;
@@ -89150,7 +93771,7 @@ export type CreateProjectStatus200 = {
 								sub: string;
 						  }
 						| undefined;
-					plan: PlanEnumKey;
+					plan: PlanEnum5Key;
 					/**
 					 * @description Whether or not preview comments are enabled for the deployment
 					 * @example false
@@ -89159,8 +93780,8 @@ export type CreateProjectStatus200 = {
 					previewCommentsEnabled?: (false | true) | undefined;
 					private: false | true;
 					readyAt?: number | undefined;
-					readyState: ReadyStateEnumKey;
-					readySubstate?: ReadySubstateEnumKey | undefined;
+					readyState: ReadyStateEnum5Key;
+					readySubstate?: ReadySubstateEnum5Key | undefined;
 					requestedAt?: number | undefined;
 					target?: (string | null) | undefined;
 					teamId?: (string | null) | undefined;
@@ -89212,7 +93833,7 @@ export type CreateProjectStatus200 = {
 								protectionMode: CreateProjectStatus200TrustedIpsProtectionModeEnumKey;
 						  }
 						| {
-								deploymentType: CreateProjectStatus200TrustedIpsDeploymentTypeEnumKey;
+								deploymentType: CreateProjectStatus200TrustedIpsDeploymentTypeEnum2Key;
 						  }
 				  )
 				| null
@@ -89840,8 +94461,8 @@ export type CreateProjectBody =
 						 */
 						functionDefaultRegions?: string[] | undefined;
 						/**
-						 * @minLength 1
-						 * @maxLength 900
+						 * @minimum 1
+						 * @maximum 900
 						 * @type number | undefined
 						 */
 						functionDefaultTimeout?: number | undefined;
@@ -90752,6 +95373,25 @@ export const getProjectStatus200SecurityManagedRulesVercelRulesetActionEnum = {
 export type GetProjectStatus200SecurityManagedRulesVercelRulesetActionEnumKey =
 	(typeof getProjectStatus200SecurityManagedRulesVercelRulesetActionEnum)[keyof typeof getProjectStatus200SecurityManagedRulesVercelRulesetActionEnum];
 
+export const actionEnum8 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type ActionEnum8Key = (typeof actionEnum8)[keyof typeof actionEnum8];
+
+export const algoEnum6 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type AlgoEnum6Key = (typeof algoEnum6)[keyof typeof algoEnum6];
+
 export const getProjectStatus200ServicesFrameworkEnum = {
 	"actix-web": "actix-web",
 	angular: "angular",
@@ -90872,6 +95512,60 @@ export const getProjectStatus200SsoProtectionDeploymentTypeEnum = {
 export type GetProjectStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof getProjectStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof getProjectStatus200SsoProtectionDeploymentTypeEnum];
 
+export const typeEnum138 = {
+	endsWith: "endsWith",
+	equals: "equals",
+	startsWith: "startsWith",
+} as const;
+
+export type TypeEnum138Key = (typeof typeEnum138)[keyof typeof typeEnum138];
+
+export const checksConclusionEnum6 = {
+	canceled: "canceled",
+	failed: "failed",
+	skipped: "skipped",
+	succeeded: "succeeded",
+} as const;
+
+export type ChecksConclusionEnum6Key =
+	(typeof checksConclusionEnum6)[keyof typeof checksConclusionEnum6];
+
+export const checksStateEnum6 = {
+	completed: "completed",
+	registered: "registered",
+	running: "running",
+} as const;
+
+export type ChecksStateEnum6Key = (typeof checksStateEnum6)[keyof typeof checksStateEnum6];
+
+export const planEnum6 = {
+	enterprise: "enterprise",
+	hobby: "hobby",
+	pro: "pro",
+} as const;
+
+export type PlanEnum6Key = (typeof planEnum6)[keyof typeof planEnum6];
+
+export const readyStateEnum6 = {
+	BLOCKED: "BLOCKED",
+	BUILDING: "BUILDING",
+	CANCELED: "CANCELED",
+	ERROR: "ERROR",
+	INITIALIZING: "INITIALIZING",
+	QUEUED: "QUEUED",
+	READY: "READY",
+} as const;
+
+export type ReadyStateEnum6Key = (typeof readyStateEnum6)[keyof typeof readyStateEnum6];
+
+export const readySubstateEnum6 = {
+	PROMOTED: "PROMOTED",
+	ROLLING: "ROLLING",
+	STAGED: "STAGED",
+} as const;
+
+export type ReadySubstateEnum6Key = (typeof readySubstateEnum6)[keyof typeof readySubstateEnum6];
+
 export const getProjectStatus200TracingSamplingRulesDestinationEnum = {
 	external: "external",
 	internal: "internal",
@@ -90906,6 +95600,17 @@ export const getProjectStatus200TrustedIpsProtectionModeEnum = {
 
 export type GetProjectStatus200TrustedIpsProtectionModeEnumKey =
 	(typeof getProjectStatus200TrustedIpsProtectionModeEnum)[keyof typeof getProjectStatus200TrustedIpsProtectionModeEnum];
+
+export const getProjectStatus200TrustedIpsDeploymentTypeEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+	production: "production",
+} as const;
+
+export type GetProjectStatus200TrustedIpsDeploymentTypeEnum2Key =
+	(typeof getProjectStatus200TrustedIpsDeploymentTypeEnum2)[keyof typeof getProjectStatus200TrustedIpsDeploymentTypeEnum2];
 
 export type GetProjectStatus200 = {
 	accountId: string;
@@ -91754,6 +96459,11 @@ export type GetProjectStatus200 = {
 							targets: string[];
 					  }
 					| undefined;
+				"health-check"?:
+					| {
+							targets: string[];
+					  }
+					| undefined;
 				lint?:
 					| {
 							targets: string[];
@@ -92145,7 +96855,7 @@ export type GetProjectStatus200 = {
 				| {
 						enabled: false;
 						freeProjectForLegacyLimits?: (false | true) | undefined;
-						groupIds: (string | string)[];
+						groupIds: string[];
 						updatedAt: number;
 				  }
 		  )
@@ -93796,16 +98506,83 @@ export type GetProjectStatus200 = {
 				 * @type string
 				 */
 				description: string;
+				principal?:
+					| (
+							| {
+									type: "user";
+									via:
+										| (
+												| {
+														app: {
+															/**
+															 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+															 * @type string | undefined
+															 */
+															clientId?: string | undefined;
+															/**
+															 * @description The internal ID of the Vercel App backing this principal.
+															 * @type string
+															 */
+															id: string;
+														};
+														type: "app";
+												  }
+												| {
+														integration: {
+															configurationId: string;
+															integrationId: string;
+														};
+														type: "integration";
+												  }
+										  )
+										| null;
+									user: {
+										id: string;
+									};
+							  }
+							| {
+									project: {
+										id: string;
+									};
+									type: "project";
+							  }
+							| {
+									app: {
+										/**
+										 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+										 * @type string | undefined
+										 */
+										clientId?: string | undefined;
+										/**
+										 * @description The internal ID of the Vercel App backing this principal.
+										 * @type string
+										 */
+										id: string;
+									};
+									type: "app";
+							  }
+							| {
+									integration: {
+										configurationId: string;
+										integrationId: string;
+									};
+									type: "integration";
+							  }
+							| {
+									type: "system";
+							  }
+					  )
+					| undefined;
 				/**
-				 * @description The user who rolled back the project.
-				 * @type string
+				 * @description The ID of the user who rolled back the project, when the principal was a user.
+				 * @type string | undefined
 				 */
-				userId: string;
+				userId?: string | undefined;
 				/**
-				 * @description The username of the user who rolled back the project.
-				 * @type string
+				 * @description The username of the user who rolled back the project, when the principal was a user.
+				 * @type string | undefined
 				 */
-				username: string;
+				username?: string | undefined;
 		  }
 		| undefined;
 	/**
@@ -93990,13 +98767,13 @@ export type GetProjectStatus200 = {
 				rulesets?:
 					| {
 							[key: string]: {
-								action: ActionEnumKey;
+								action: ActionEnum8Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
-											algo: AlgoEnumKey;
+											algo: AlgoEnum6Key;
 											keys: string[];
 											limit: number;
 											window: number;
@@ -94100,7 +98877,7 @@ export type GetProjectStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnumKey;
+								type: TypeEnum138Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -94111,8 +98888,8 @@ export type GetProjectStatus200 = {
 								use: string;
 						  }[]
 						| undefined;
-					checksConclusion?: ChecksConclusionEnumKey | undefined;
-					checksState?: ChecksStateEnumKey | undefined;
+					checksConclusion?: ChecksConclusionEnum6Key | undefined;
+					checksState?: ChecksStateEnum6Key | undefined;
 					connectBuildsEnabled?: (false | true) | undefined;
 					connectConfigurationId?: string | undefined;
 					createdAt: number;
@@ -94152,7 +98929,7 @@ export type GetProjectStatus200 = {
 								sub: string;
 						  }
 						| undefined;
-					plan: PlanEnumKey;
+					plan: PlanEnum6Key;
 					/**
 					 * @description Whether or not preview comments are enabled for the deployment
 					 * @example false
@@ -94161,8 +98938,8 @@ export type GetProjectStatus200 = {
 					previewCommentsEnabled?: (false | true) | undefined;
 					private: false | true;
 					readyAt?: number | undefined;
-					readyState: ReadyStateEnumKey;
-					readySubstate?: ReadySubstateEnumKey | undefined;
+					readyState: ReadyStateEnum6Key;
+					readySubstate?: ReadySubstateEnum6Key | undefined;
 					requestedAt?: number | undefined;
 					target?: (string | null) | undefined;
 					teamId?: (string | null) | undefined;
@@ -94212,7 +98989,7 @@ export type GetProjectStatus200 = {
 								protectionMode: GetProjectStatus200TrustedIpsProtectionModeEnumKey;
 						  }
 						| {
-								deploymentType: GetProjectStatus200TrustedIpsDeploymentTypeEnumKey;
+								deploymentType: GetProjectStatus200TrustedIpsDeploymentTypeEnum2Key;
 						  }
 				  )
 				| null
@@ -95083,6 +99860,25 @@ export const updateProjectStatus200SecurityManagedRulesVercelRulesetActionEnum =
 export type UpdateProjectStatus200SecurityManagedRulesVercelRulesetActionEnumKey =
 	(typeof updateProjectStatus200SecurityManagedRulesVercelRulesetActionEnum)[keyof typeof updateProjectStatus200SecurityManagedRulesVercelRulesetActionEnum];
 
+export const actionEnum9 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type ActionEnum9Key = (typeof actionEnum9)[keyof typeof actionEnum9];
+
+export const algoEnum7 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type AlgoEnum7Key = (typeof algoEnum7)[keyof typeof algoEnum7];
+
 export const updateProjectStatus200ServicesFrameworkEnum = {
 	"actix-web": "actix-web",
 	angular: "angular",
@@ -95204,6 +100000,60 @@ export const updateProjectStatus200SsoProtectionDeploymentTypeEnum = {
 export type UpdateProjectStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof updateProjectStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof updateProjectStatus200SsoProtectionDeploymentTypeEnum];
 
+export const typeEnum140 = {
+	endsWith: "endsWith",
+	equals: "equals",
+	startsWith: "startsWith",
+} as const;
+
+export type TypeEnum140Key = (typeof typeEnum140)[keyof typeof typeEnum140];
+
+export const checksConclusionEnum7 = {
+	canceled: "canceled",
+	failed: "failed",
+	skipped: "skipped",
+	succeeded: "succeeded",
+} as const;
+
+export type ChecksConclusionEnum7Key =
+	(typeof checksConclusionEnum7)[keyof typeof checksConclusionEnum7];
+
+export const checksStateEnum7 = {
+	completed: "completed",
+	registered: "registered",
+	running: "running",
+} as const;
+
+export type ChecksStateEnum7Key = (typeof checksStateEnum7)[keyof typeof checksStateEnum7];
+
+export const planEnum7 = {
+	enterprise: "enterprise",
+	hobby: "hobby",
+	pro: "pro",
+} as const;
+
+export type PlanEnum7Key = (typeof planEnum7)[keyof typeof planEnum7];
+
+export const readyStateEnum7 = {
+	BLOCKED: "BLOCKED",
+	BUILDING: "BUILDING",
+	CANCELED: "CANCELED",
+	ERROR: "ERROR",
+	INITIALIZING: "INITIALIZING",
+	QUEUED: "QUEUED",
+	READY: "READY",
+} as const;
+
+export type ReadyStateEnum7Key = (typeof readyStateEnum7)[keyof typeof readyStateEnum7];
+
+export const readySubstateEnum7 = {
+	PROMOTED: "PROMOTED",
+	ROLLING: "ROLLING",
+	STAGED: "STAGED",
+} as const;
+
+export type ReadySubstateEnum7Key = (typeof readySubstateEnum7)[keyof typeof readySubstateEnum7];
+
 export const updateProjectStatus200TracingSamplingRulesDestinationEnum = {
 	external: "external",
 	internal: "internal",
@@ -95238,6 +100088,17 @@ export const updateProjectStatus200TrustedIpsProtectionModeEnum = {
 
 export type UpdateProjectStatus200TrustedIpsProtectionModeEnumKey =
 	(typeof updateProjectStatus200TrustedIpsProtectionModeEnum)[keyof typeof updateProjectStatus200TrustedIpsProtectionModeEnum];
+
+export const updateProjectStatus200TrustedIpsDeploymentTypeEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+	production: "production",
+} as const;
+
+export type UpdateProjectStatus200TrustedIpsDeploymentTypeEnum2Key =
+	(typeof updateProjectStatus200TrustedIpsDeploymentTypeEnum2)[keyof typeof updateProjectStatus200TrustedIpsDeploymentTypeEnum2];
 
 export type UpdateProjectStatus200 = {
 	accountId: string;
@@ -96067,6 +100928,11 @@ export type UpdateProjectStatus200 = {
 							targets: string[];
 					  }
 					| undefined;
+				"health-check"?:
+					| {
+							targets: string[];
+					  }
+					| undefined;
 				lint?:
 					| {
 							targets: string[];
@@ -96460,7 +101326,7 @@ export type UpdateProjectStatus200 = {
 				| {
 						enabled: false;
 						freeProjectForLegacyLimits?: (false | true) | undefined;
-						groupIds: (string | string)[];
+						groupIds: string[];
 						updatedAt: number;
 				  }
 		  )
@@ -98111,16 +102977,83 @@ export type UpdateProjectStatus200 = {
 				 * @type string
 				 */
 				description: string;
+				principal?:
+					| (
+							| {
+									type: "user";
+									via:
+										| (
+												| {
+														app: {
+															/**
+															 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+															 * @type string | undefined
+															 */
+															clientId?: string | undefined;
+															/**
+															 * @description The internal ID of the Vercel App backing this principal.
+															 * @type string
+															 */
+															id: string;
+														};
+														type: "app";
+												  }
+												| {
+														integration: {
+															configurationId: string;
+															integrationId: string;
+														};
+														type: "integration";
+												  }
+										  )
+										| null;
+									user: {
+										id: string;
+									};
+							  }
+							| {
+									project: {
+										id: string;
+									};
+									type: "project";
+							  }
+							| {
+									app: {
+										/**
+										 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+										 * @type string | undefined
+										 */
+										clientId?: string | undefined;
+										/**
+										 * @description The internal ID of the Vercel App backing this principal.
+										 * @type string
+										 */
+										id: string;
+									};
+									type: "app";
+							  }
+							| {
+									integration: {
+										configurationId: string;
+										integrationId: string;
+									};
+									type: "integration";
+							  }
+							| {
+									type: "system";
+							  }
+					  )
+					| undefined;
 				/**
-				 * @description The user who rolled back the project.
-				 * @type string
+				 * @description The ID of the user who rolled back the project, when the principal was a user.
+				 * @type string | undefined
 				 */
-				userId: string;
+				userId?: string | undefined;
 				/**
-				 * @description The username of the user who rolled back the project.
-				 * @type string
+				 * @description The username of the user who rolled back the project, when the principal was a user.
+				 * @type string | undefined
 				 */
-				username: string;
+				username?: string | undefined;
 		  }
 		| undefined;
 	/**
@@ -98307,13 +103240,13 @@ export type UpdateProjectStatus200 = {
 				rulesets?:
 					| {
 							[key: string]: {
-								action: ActionEnumKey;
+								action: ActionEnum9Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
-											algo: AlgoEnumKey;
+											algo: AlgoEnum7Key;
 											keys: string[];
 											limit: number;
 											window: number;
@@ -98417,7 +103350,7 @@ export type UpdateProjectStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnumKey;
+								type: TypeEnum140Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -98428,8 +103361,8 @@ export type UpdateProjectStatus200 = {
 								use: string;
 						  }[]
 						| undefined;
-					checksConclusion?: ChecksConclusionEnumKey | undefined;
-					checksState?: ChecksStateEnumKey | undefined;
+					checksConclusion?: ChecksConclusionEnum7Key | undefined;
+					checksState?: ChecksStateEnum7Key | undefined;
 					connectBuildsEnabled?: (false | true) | undefined;
 					connectConfigurationId?: string | undefined;
 					createdAt: number;
@@ -98469,7 +103402,7 @@ export type UpdateProjectStatus200 = {
 								sub: string;
 						  }
 						| undefined;
-					plan: PlanEnumKey;
+					plan: PlanEnum7Key;
 					/**
 					 * @description Whether or not preview comments are enabled for the deployment
 					 * @example false
@@ -98478,8 +103411,8 @@ export type UpdateProjectStatus200 = {
 					previewCommentsEnabled?: (false | true) | undefined;
 					private: false | true;
 					readyAt?: number | undefined;
-					readyState: ReadyStateEnumKey;
-					readySubstate?: ReadySubstateEnumKey | undefined;
+					readyState: ReadyStateEnum7Key;
+					readySubstate?: ReadySubstateEnum7Key | undefined;
 					requestedAt?: number | undefined;
 					target?: (string | null) | undefined;
 					teamId?: (string | null) | undefined;
@@ -98531,7 +103464,7 @@ export type UpdateProjectStatus200 = {
 								protectionMode: UpdateProjectStatus200TrustedIpsProtectionModeEnumKey;
 						  }
 						| {
-								deploymentType: UpdateProjectStatus200TrustedIpsDeploymentTypeEnumKey;
+								deploymentType: UpdateProjectStatus200TrustedIpsDeploymentTypeEnum2Key;
 						  }
 				  )
 				| null
@@ -99120,8 +104053,8 @@ export type UpdateProjectBody = {
 				 */
 				functionDefaultRegions?: string[] | undefined;
 				/**
-				 * @minLength 1
-				 * @maxLength 900
+				 * @minimum 1
+				 * @maximum 900
 				 * @type number | undefined
 				 */
 				functionDefaultTimeout?: number | undefined;
@@ -99172,13 +104105,13 @@ export type UpdateProjectBody = {
 	serverlessFunctionZeroConfigFailover?: boolean | undefined;
 	/**
 	 * @description Deployments created before this absolute datetime have Skew Protection disabled. Value is in milliseconds since epoch to match \"createdAt\" fields.
-	 * @minLength 0
+	 * @minimum 0
 	 * @type integer | undefined
 	 */
 	skewProtectionBoundaryAt?: number | undefined;
 	/**
 	 * @description Deployments created before this rolling window have Skew Protection disabled. Value is in seconds to match \"revalidate\" fields.
-	 * @minLength 0
+	 * @minimum 0
 	 * @type integer | undefined
 	 */
 	skewProtectionMaxAge?: number | undefined;
@@ -99255,8 +104188,8 @@ export type UpdateProjectBody = {
 					| {
 							/**
 							 * @description Sampling rate from 0 to 1
-							 * @minLength 0
-							 * @maxLength 1
+							 * @minimum 0
+							 * @maximum 1
 							 * @type number
 							 */
 							rate: number;
@@ -99656,7 +104589,6 @@ export type UpdateProjectBody = {
 				 */
 				action: UpdateProjectRequestDismissedToastsActionEnumKey;
 				value:
-					| string
 					| string
 					| boolean
 					| number
@@ -100459,6 +105391,25 @@ export const uploadProjectAvatarStatus200SecurityManagedRulesVercelRulesetAction
 export type UploadProjectAvatarStatus200SecurityManagedRulesVercelRulesetActionEnumKey =
 	(typeof uploadProjectAvatarStatus200SecurityManagedRulesVercelRulesetActionEnum)[keyof typeof uploadProjectAvatarStatus200SecurityManagedRulesVercelRulesetActionEnum];
 
+export const actionEnum10 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type ActionEnum10Key = (typeof actionEnum10)[keyof typeof actionEnum10];
+
+export const algoEnum8 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type AlgoEnum8Key = (typeof algoEnum8)[keyof typeof algoEnum8];
+
 export const uploadProjectAvatarStatus200ServicesFrameworkEnum = {
 	"actix-web": "actix-web",
 	angular: "angular",
@@ -100580,6 +105531,60 @@ export const uploadProjectAvatarStatus200SsoProtectionDeploymentTypeEnum = {
 export type UploadProjectAvatarStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof uploadProjectAvatarStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof uploadProjectAvatarStatus200SsoProtectionDeploymentTypeEnum];
 
+export const typeEnum142 = {
+	endsWith: "endsWith",
+	equals: "equals",
+	startsWith: "startsWith",
+} as const;
+
+export type TypeEnum142Key = (typeof typeEnum142)[keyof typeof typeEnum142];
+
+export const checksConclusionEnum8 = {
+	canceled: "canceled",
+	failed: "failed",
+	skipped: "skipped",
+	succeeded: "succeeded",
+} as const;
+
+export type ChecksConclusionEnum8Key =
+	(typeof checksConclusionEnum8)[keyof typeof checksConclusionEnum8];
+
+export const checksStateEnum8 = {
+	completed: "completed",
+	registered: "registered",
+	running: "running",
+} as const;
+
+export type ChecksStateEnum8Key = (typeof checksStateEnum8)[keyof typeof checksStateEnum8];
+
+export const planEnum8 = {
+	enterprise: "enterprise",
+	hobby: "hobby",
+	pro: "pro",
+} as const;
+
+export type PlanEnum8Key = (typeof planEnum8)[keyof typeof planEnum8];
+
+export const readyStateEnum8 = {
+	BLOCKED: "BLOCKED",
+	BUILDING: "BUILDING",
+	CANCELED: "CANCELED",
+	ERROR: "ERROR",
+	INITIALIZING: "INITIALIZING",
+	QUEUED: "QUEUED",
+	READY: "READY",
+} as const;
+
+export type ReadyStateEnum8Key = (typeof readyStateEnum8)[keyof typeof readyStateEnum8];
+
+export const readySubstateEnum8 = {
+	PROMOTED: "PROMOTED",
+	ROLLING: "ROLLING",
+	STAGED: "STAGED",
+} as const;
+
+export type ReadySubstateEnum8Key = (typeof readySubstateEnum8)[keyof typeof readySubstateEnum8];
+
 export const uploadProjectAvatarStatus200TracingSamplingRulesDestinationEnum = {
 	external: "external",
 	internal: "internal",
@@ -100614,6 +105619,17 @@ export const uploadProjectAvatarStatus200TrustedIpsProtectionModeEnum = {
 
 export type UploadProjectAvatarStatus200TrustedIpsProtectionModeEnumKey =
 	(typeof uploadProjectAvatarStatus200TrustedIpsProtectionModeEnum)[keyof typeof uploadProjectAvatarStatus200TrustedIpsProtectionModeEnum];
+
+export const uploadProjectAvatarStatus200TrustedIpsDeploymentTypeEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+	production: "production",
+} as const;
+
+export type UploadProjectAvatarStatus200TrustedIpsDeploymentTypeEnum2Key =
+	(typeof uploadProjectAvatarStatus200TrustedIpsDeploymentTypeEnum2)[keyof typeof uploadProjectAvatarStatus200TrustedIpsDeploymentTypeEnum2];
 
 export type UploadProjectAvatarStatus200 = {
 	accountId: string;
@@ -101452,6 +106468,11 @@ export type UploadProjectAvatarStatus200 = {
 							targets: string[];
 					  }
 					| undefined;
+				"health-check"?:
+					| {
+							targets: string[];
+					  }
+					| undefined;
 				lint?:
 					| {
 							targets: string[];
@@ -101847,7 +106868,7 @@ export type UploadProjectAvatarStatus200 = {
 				| {
 						enabled: false;
 						freeProjectForLegacyLimits?: (false | true) | undefined;
-						groupIds: (string | string)[];
+						groupIds: string[];
 						updatedAt: number;
 				  }
 		  )
@@ -103500,16 +108521,83 @@ export type UploadProjectAvatarStatus200 = {
 				 * @type string
 				 */
 				description: string;
+				principal?:
+					| (
+							| {
+									type: "user";
+									via:
+										| (
+												| {
+														app: {
+															/**
+															 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+															 * @type string | undefined
+															 */
+															clientId?: string | undefined;
+															/**
+															 * @description The internal ID of the Vercel App backing this principal.
+															 * @type string
+															 */
+															id: string;
+														};
+														type: "app";
+												  }
+												| {
+														integration: {
+															configurationId: string;
+															integrationId: string;
+														};
+														type: "integration";
+												  }
+										  )
+										| null;
+									user: {
+										id: string;
+									};
+							  }
+							| {
+									project: {
+										id: string;
+									};
+									type: "project";
+							  }
+							| {
+									app: {
+										/**
+										 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+										 * @type string | undefined
+										 */
+										clientId?: string | undefined;
+										/**
+										 * @description The internal ID of the Vercel App backing this principal.
+										 * @type string
+										 */
+										id: string;
+									};
+									type: "app";
+							  }
+							| {
+									integration: {
+										configurationId: string;
+										integrationId: string;
+									};
+									type: "integration";
+							  }
+							| {
+									type: "system";
+							  }
+					  )
+					| undefined;
 				/**
-				 * @description The user who rolled back the project.
-				 * @type string
+				 * @description The ID of the user who rolled back the project, when the principal was a user.
+				 * @type string | undefined
 				 */
-				userId: string;
+				userId?: string | undefined;
 				/**
-				 * @description The username of the user who rolled back the project.
-				 * @type string
+				 * @description The username of the user who rolled back the project, when the principal was a user.
+				 * @type string | undefined
 				 */
-				username: string;
+				username?: string | undefined;
 		  }
 		| undefined;
 	/**
@@ -103700,13 +108788,13 @@ export type UploadProjectAvatarStatus200 = {
 				rulesets?:
 					| {
 							[key: string]: {
-								action: ActionEnumKey;
+								action: ActionEnum10Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
-											algo: AlgoEnumKey;
+											algo: AlgoEnum8Key;
 											keys: string[];
 											limit: number;
 											window: number;
@@ -103810,7 +108898,7 @@ export type UploadProjectAvatarStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnumKey;
+								type: TypeEnum142Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -103821,8 +108909,8 @@ export type UploadProjectAvatarStatus200 = {
 								use: string;
 						  }[]
 						| undefined;
-					checksConclusion?: ChecksConclusionEnumKey | undefined;
-					checksState?: ChecksStateEnumKey | undefined;
+					checksConclusion?: ChecksConclusionEnum8Key | undefined;
+					checksState?: ChecksStateEnum8Key | undefined;
 					connectBuildsEnabled?: (false | true) | undefined;
 					connectConfigurationId?: string | undefined;
 					createdAt: number;
@@ -103862,7 +108950,7 @@ export type UploadProjectAvatarStatus200 = {
 								sub: string;
 						  }
 						| undefined;
-					plan: PlanEnumKey;
+					plan: PlanEnum8Key;
 					/**
 					 * @description Whether or not preview comments are enabled for the deployment
 					 * @example false
@@ -103871,8 +108959,8 @@ export type UploadProjectAvatarStatus200 = {
 					previewCommentsEnabled?: (false | true) | undefined;
 					private: false | true;
 					readyAt?: number | undefined;
-					readyState: ReadyStateEnumKey;
-					readySubstate?: ReadySubstateEnumKey | undefined;
+					readyState: ReadyStateEnum8Key;
+					readySubstate?: ReadySubstateEnum8Key | undefined;
 					requestedAt?: number | undefined;
 					target?: (string | null) | undefined;
 					teamId?: (string | null) | undefined;
@@ -103924,7 +109012,7 @@ export type UploadProjectAvatarStatus200 = {
 								protectionMode: UploadProjectAvatarStatus200TrustedIpsProtectionModeEnumKey;
 						  }
 						| {
-								deploymentType: UploadProjectAvatarStatus200TrustedIpsDeploymentTypeEnumKey;
+								deploymentType: UploadProjectAvatarStatus200TrustedIpsDeploymentTypeEnum2Key;
 						  }
 				  )
 				| null
@@ -104812,6 +109900,25 @@ export const deleteProjectAvatarStatus200SecurityManagedRulesVercelRulesetAction
 export type DeleteProjectAvatarStatus200SecurityManagedRulesVercelRulesetActionEnumKey =
 	(typeof deleteProjectAvatarStatus200SecurityManagedRulesVercelRulesetActionEnum)[keyof typeof deleteProjectAvatarStatus200SecurityManagedRulesVercelRulesetActionEnum];
 
+export const actionEnum11 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type ActionEnum11Key = (typeof actionEnum11)[keyof typeof actionEnum11];
+
+export const algoEnum9 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type AlgoEnum9Key = (typeof algoEnum9)[keyof typeof algoEnum9];
+
 export const deleteProjectAvatarStatus200ServicesFrameworkEnum = {
 	"actix-web": "actix-web",
 	angular: "angular",
@@ -104933,6 +110040,60 @@ export const deleteProjectAvatarStatus200SsoProtectionDeploymentTypeEnum = {
 export type DeleteProjectAvatarStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof deleteProjectAvatarStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof deleteProjectAvatarStatus200SsoProtectionDeploymentTypeEnum];
 
+export const typeEnum144 = {
+	endsWith: "endsWith",
+	equals: "equals",
+	startsWith: "startsWith",
+} as const;
+
+export type TypeEnum144Key = (typeof typeEnum144)[keyof typeof typeEnum144];
+
+export const checksConclusionEnum9 = {
+	canceled: "canceled",
+	failed: "failed",
+	skipped: "skipped",
+	succeeded: "succeeded",
+} as const;
+
+export type ChecksConclusionEnum9Key =
+	(typeof checksConclusionEnum9)[keyof typeof checksConclusionEnum9];
+
+export const checksStateEnum9 = {
+	completed: "completed",
+	registered: "registered",
+	running: "running",
+} as const;
+
+export type ChecksStateEnum9Key = (typeof checksStateEnum9)[keyof typeof checksStateEnum9];
+
+export const planEnum9 = {
+	enterprise: "enterprise",
+	hobby: "hobby",
+	pro: "pro",
+} as const;
+
+export type PlanEnum9Key = (typeof planEnum9)[keyof typeof planEnum9];
+
+export const readyStateEnum9 = {
+	BLOCKED: "BLOCKED",
+	BUILDING: "BUILDING",
+	CANCELED: "CANCELED",
+	ERROR: "ERROR",
+	INITIALIZING: "INITIALIZING",
+	QUEUED: "QUEUED",
+	READY: "READY",
+} as const;
+
+export type ReadyStateEnum9Key = (typeof readyStateEnum9)[keyof typeof readyStateEnum9];
+
+export const readySubstateEnum9 = {
+	PROMOTED: "PROMOTED",
+	ROLLING: "ROLLING",
+	STAGED: "STAGED",
+} as const;
+
+export type ReadySubstateEnum9Key = (typeof readySubstateEnum9)[keyof typeof readySubstateEnum9];
+
 export const deleteProjectAvatarStatus200TracingSamplingRulesDestinationEnum = {
 	external: "external",
 	internal: "internal",
@@ -104967,6 +110128,17 @@ export const deleteProjectAvatarStatus200TrustedIpsProtectionModeEnum = {
 
 export type DeleteProjectAvatarStatus200TrustedIpsProtectionModeEnumKey =
 	(typeof deleteProjectAvatarStatus200TrustedIpsProtectionModeEnum)[keyof typeof deleteProjectAvatarStatus200TrustedIpsProtectionModeEnum];
+
+export const deleteProjectAvatarStatus200TrustedIpsDeploymentTypeEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+	production: "production",
+} as const;
+
+export type DeleteProjectAvatarStatus200TrustedIpsDeploymentTypeEnum2Key =
+	(typeof deleteProjectAvatarStatus200TrustedIpsDeploymentTypeEnum2)[keyof typeof deleteProjectAvatarStatus200TrustedIpsDeploymentTypeEnum2];
 
 export type DeleteProjectAvatarStatus200 = {
 	accountId: string;
@@ -105805,6 +110977,11 @@ export type DeleteProjectAvatarStatus200 = {
 							targets: string[];
 					  }
 					| undefined;
+				"health-check"?:
+					| {
+							targets: string[];
+					  }
+					| undefined;
 				lint?:
 					| {
 							targets: string[];
@@ -106200,7 +111377,7 @@ export type DeleteProjectAvatarStatus200 = {
 				| {
 						enabled: false;
 						freeProjectForLegacyLimits?: (false | true) | undefined;
-						groupIds: (string | string)[];
+						groupIds: string[];
 						updatedAt: number;
 				  }
 		  )
@@ -107853,16 +113030,83 @@ export type DeleteProjectAvatarStatus200 = {
 				 * @type string
 				 */
 				description: string;
+				principal?:
+					| (
+							| {
+									type: "user";
+									via:
+										| (
+												| {
+														app: {
+															/**
+															 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+															 * @type string | undefined
+															 */
+															clientId?: string | undefined;
+															/**
+															 * @description The internal ID of the Vercel App backing this principal.
+															 * @type string
+															 */
+															id: string;
+														};
+														type: "app";
+												  }
+												| {
+														integration: {
+															configurationId: string;
+															integrationId: string;
+														};
+														type: "integration";
+												  }
+										  )
+										| null;
+									user: {
+										id: string;
+									};
+							  }
+							| {
+									project: {
+										id: string;
+									};
+									type: "project";
+							  }
+							| {
+									app: {
+										/**
+										 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+										 * @type string | undefined
+										 */
+										clientId?: string | undefined;
+										/**
+										 * @description The internal ID of the Vercel App backing this principal.
+										 * @type string
+										 */
+										id: string;
+									};
+									type: "app";
+							  }
+							| {
+									integration: {
+										configurationId: string;
+										integrationId: string;
+									};
+									type: "integration";
+							  }
+							| {
+									type: "system";
+							  }
+					  )
+					| undefined;
 				/**
-				 * @description The user who rolled back the project.
-				 * @type string
+				 * @description The ID of the user who rolled back the project, when the principal was a user.
+				 * @type string | undefined
 				 */
-				userId: string;
+				userId?: string | undefined;
 				/**
-				 * @description The username of the user who rolled back the project.
-				 * @type string
+				 * @description The username of the user who rolled back the project, when the principal was a user.
+				 * @type string | undefined
 				 */
-				username: string;
+				username?: string | undefined;
 		  }
 		| undefined;
 	/**
@@ -108053,13 +113297,13 @@ export type DeleteProjectAvatarStatus200 = {
 				rulesets?:
 					| {
 							[key: string]: {
-								action: ActionEnumKey;
+								action: ActionEnum11Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
-											algo: AlgoEnumKey;
+											algo: AlgoEnum9Key;
 											keys: string[];
 											limit: number;
 											window: number;
@@ -108163,7 +113407,7 @@ export type DeleteProjectAvatarStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnumKey;
+								type: TypeEnum144Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -108174,8 +113418,8 @@ export type DeleteProjectAvatarStatus200 = {
 								use: string;
 						  }[]
 						| undefined;
-					checksConclusion?: ChecksConclusionEnumKey | undefined;
-					checksState?: ChecksStateEnumKey | undefined;
+					checksConclusion?: ChecksConclusionEnum9Key | undefined;
+					checksState?: ChecksStateEnum9Key | undefined;
 					connectBuildsEnabled?: (false | true) | undefined;
 					connectConfigurationId?: string | undefined;
 					createdAt: number;
@@ -108215,7 +113459,7 @@ export type DeleteProjectAvatarStatus200 = {
 								sub: string;
 						  }
 						| undefined;
-					plan: PlanEnumKey;
+					plan: PlanEnum9Key;
 					/**
 					 * @description Whether or not preview comments are enabled for the deployment
 					 * @example false
@@ -108224,8 +113468,8 @@ export type DeleteProjectAvatarStatus200 = {
 					previewCommentsEnabled?: (false | true) | undefined;
 					private: false | true;
 					readyAt?: number | undefined;
-					readyState: ReadyStateEnumKey;
-					readySubstate?: ReadySubstateEnumKey | undefined;
+					readyState: ReadyStateEnum9Key;
+					readySubstate?: ReadySubstateEnum9Key | undefined;
 					requestedAt?: number | undefined;
 					target?: (string | null) | undefined;
 					teamId?: (string | null) | undefined;
@@ -108277,7 +113521,7 @@ export type DeleteProjectAvatarStatus200 = {
 								protectionMode: DeleteProjectAvatarStatus200TrustedIpsProtectionModeEnumKey;
 						  }
 						| {
-								deploymentType: DeleteProjectAvatarStatus200TrustedIpsDeploymentTypeEnumKey;
+								deploymentType: DeleteProjectAvatarStatus200TrustedIpsDeploymentTypeEnum2Key;
 						  }
 				  )
 				| null
@@ -109724,6 +114968,16 @@ export const getProjectDomainsStatus200DomainsRedirectStatusCodeEnum = {
 export type GetProjectDomainsStatus200DomainsRedirectStatusCodeEnumKey =
 	(typeof getProjectDomainsStatus200DomainsRedirectStatusCodeEnum)[keyof typeof getProjectDomainsStatus200DomainsRedirectStatusCodeEnum];
 
+export const getProjectDomainsStatus200DomainsRedirectStatusCodeEnum2 = {
+	"301": 301,
+	"302": 302,
+	"307": 307,
+	"308": 308,
+} as const;
+
+export type GetProjectDomainsStatus200DomainsRedirectStatusCodeEnum2Key =
+	(typeof getProjectDomainsStatus200DomainsRedirectStatusCodeEnum2)[keyof typeof getProjectDomainsStatus200DomainsRedirectStatusCodeEnum2];
+
 export type GetProjectDomainsStatus200 =
 	| {
 			domains: {
@@ -109772,7 +115026,7 @@ export type GetProjectDomainsStatus200 =
 				projectId: string;
 				redirect?: (string | null) | undefined;
 				redirectStatusCode?:
-					| (GetProjectDomainsStatus200DomainsRedirectStatusCodeEnumKey | null)
+					| (GetProjectDomainsStatus200DomainsRedirectStatusCodeEnum2Key | null)
 					| undefined;
 				updatedAt?: number | undefined;
 				/**
@@ -110664,6 +115918,51 @@ export const filterProjectEnvsStatus200EnvsVisibilityEnum = {
 export type FilterProjectEnvsStatus200EnvsVisibilityEnumKey =
 	(typeof filterProjectEnvsStatus200EnvsVisibilityEnum)[keyof typeof filterProjectEnvsStatus200EnvsVisibilityEnum];
 
+export const filterProjectEnvsStatus200EnvsSecurityIssuesEnum2 = {
+	"flags-secret-needs-split": "flags-secret-needs-split",
+	"readable-secret": "readable-secret",
+} as const;
+
+export type FilterProjectEnvsStatus200EnvsSecurityIssuesEnum2Key =
+	(typeof filterProjectEnvsStatus200EnvsSecurityIssuesEnum2)[keyof typeof filterProjectEnvsStatus200EnvsSecurityIssuesEnum2];
+
+export const filterProjectEnvsStatus200EnvsTargetEnum2 = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type FilterProjectEnvsStatus200EnvsTargetEnum2Key =
+	(typeof filterProjectEnvsStatus200EnvsTargetEnum2)[keyof typeof filterProjectEnvsStatus200EnvsTargetEnum2];
+
+export const filterProjectEnvsStatus200EnvsTarget2 = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type FilterProjectEnvsStatus200EnvsTarget2Key =
+	(typeof filterProjectEnvsStatus200EnvsTarget2)[keyof typeof filterProjectEnvsStatus200EnvsTarget2];
+
+export const filterProjectEnvsStatus200EnvsTypeEnum2 = {
+	encrypted: "encrypted",
+	plain: "plain",
+	secret: "secret",
+	sensitive: "sensitive",
+	system: "system",
+} as const;
+
+export type FilterProjectEnvsStatus200EnvsTypeEnum2Key =
+	(typeof filterProjectEnvsStatus200EnvsTypeEnum2)[keyof typeof filterProjectEnvsStatus200EnvsTypeEnum2];
+
+export const filterProjectEnvsStatus200EnvsVisibilityEnum2 = {
+	config: "config",
+	secret: "secret",
+} as const;
+
+export type FilterProjectEnvsStatus200EnvsVisibilityEnum2Key =
+	(typeof filterProjectEnvsStatus200EnvsVisibilityEnum2)[keyof typeof filterProjectEnvsStatus200EnvsVisibilityEnum2];
+
 export type FilterProjectEnvsStatus200 =
 	| {
 			comment?: string | undefined;
@@ -110986,7 +116285,7 @@ export type FilterProjectEnvsStatus200 =
 				gitBranch?: string | undefined;
 				id?: string | undefined;
 				key: string;
-				securityIssues: FilterProjectEnvsStatus200EnvsSecurityIssuesEnumKey[];
+				securityIssues: FilterProjectEnvsStatus200EnvsSecurityIssuesEnum2Key[];
 				/**
 				 * @description This is used to identify variables that have been migrated from type secret to sensitive.
 				 * @type string | undefined
@@ -110995,11 +116294,11 @@ export type FilterProjectEnvsStatus200 =
 				system?: (false | true) | undefined;
 				target?:
 					| (
-							| FilterProjectEnvsStatus200EnvsTargetEnumKey[]
-							| FilterProjectEnvsStatus200EnvsTargetKey
+							| FilterProjectEnvsStatus200EnvsTargetEnum2Key[]
+							| FilterProjectEnvsStatus200EnvsTarget2Key
 					  )
 					| undefined;
-				type: FilterProjectEnvsStatus200EnvsTypeEnumKey;
+				type: FilterProjectEnvsStatus200EnvsTypeEnum2Key;
 				updatedAt?: number | undefined;
 				updatedBy?: (string | null) | undefined;
 				value: string;
@@ -111007,7 +116306,7 @@ export type FilterProjectEnvsStatus200 =
 				 * @description User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
 				 * @type string | undefined
 				 */
-				visibility?: FilterProjectEnvsStatus200EnvsVisibilityEnumKey | undefined;
+				visibility?: FilterProjectEnvsStatus200EnvsVisibilityEnum2Key | undefined;
 			}[];
 			hiddenProductionEnvCount: number;
 	  };
@@ -111109,6 +116408,34 @@ export const createProjectEnvStatus201CreatedVisibilityEnum = {
 
 export type CreateProjectEnvStatus201CreatedVisibilityEnumKey =
 	(typeof createProjectEnvStatus201CreatedVisibilityEnum)[keyof typeof createProjectEnvStatus201CreatedVisibilityEnum];
+
+export const createProjectEnvStatus201CreatedTarget2 = {
+	production: "production",
+	preview: "preview",
+	development: "development",
+} as const;
+
+export type CreateProjectEnvStatus201CreatedTarget2Key =
+	(typeof createProjectEnvStatus201CreatedTarget2)[keyof typeof createProjectEnvStatus201CreatedTarget2];
+
+export const createProjectEnvStatus201CreatedTypeEnum2 = {
+	encrypted: "encrypted",
+	plain: "plain",
+	secret: "secret",
+	sensitive: "sensitive",
+	system: "system",
+} as const;
+
+export type CreateProjectEnvStatus201CreatedTypeEnum2Key =
+	(typeof createProjectEnvStatus201CreatedTypeEnum2)[keyof typeof createProjectEnvStatus201CreatedTypeEnum2];
+
+export const createProjectEnvStatus201CreatedVisibilityEnum2 = {
+	config: "config",
+	secret: "secret",
+} as const;
+
+export type CreateProjectEnvStatus201CreatedVisibilityEnum2Key =
+	(typeof createProjectEnvStatus201CreatedVisibilityEnum2)[keyof typeof createProjectEnvStatus201CreatedVisibilityEnum2];
 
 export const createProjectEnvStatus201FailedErrorTargetEnum = {
 	development: "development",
@@ -111386,8 +116713,8 @@ export type CreateProjectEnvStatus201 = {
 						 * @type string | undefined
 						 */
 						sunsetSecretId?: string | undefined;
-						target?: (string[] | CreateProjectEnvStatus201CreatedTargetKey) | undefined;
-						type: CreateProjectEnvStatus201CreatedTypeEnumKey;
+						target?: (string[] | CreateProjectEnvStatus201CreatedTarget2Key) | undefined;
+						type: CreateProjectEnvStatus201CreatedTypeEnum2Key;
 						updatedAt?: number | undefined;
 						updatedBy?: (string | null) | undefined;
 						value: string;
@@ -111395,7 +116722,7 @@ export type CreateProjectEnvStatus201 = {
 						 * @description User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
 						 * @type string | undefined
 						 */
-						visibility?: CreateProjectEnvStatus201CreatedVisibilityEnumKey | undefined;
+						visibility?: CreateProjectEnvStatus201CreatedVisibilityEnum2Key | undefined;
 						vsmValue?: string | undefined;
 						system?: (false | true) | undefined;
 				  }[]
@@ -111460,6 +116787,43 @@ export const createProjectEnvRequestTypeEnum = {
 export type CreateProjectEnvRequestTypeEnumKey =
 	(typeof createProjectEnvRequestTypeEnum)[keyof typeof createProjectEnvRequestTypeEnum];
 
+export const createProjectEnvRequestTargetEnum2 = {
+	production: "production",
+	preview: "preview",
+	development: "development",
+} as const;
+
+export type CreateProjectEnvRequestTargetEnum2Key =
+	(typeof createProjectEnvRequestTargetEnum2)[keyof typeof createProjectEnvRequestTargetEnum2];
+
+export const createProjectEnvRequestTargetEnum3 = {
+	production: "production",
+	preview: "preview",
+	development: "development",
+} as const;
+
+export type CreateProjectEnvRequestTargetEnum3Key =
+	(typeof createProjectEnvRequestTargetEnum3)[keyof typeof createProjectEnvRequestTargetEnum3];
+
+export const createProjectEnvRequestTypeEnum2 = {
+	system: "system",
+	encrypted: "encrypted",
+	plain: "plain",
+	sensitive: "sensitive",
+} as const;
+
+export type CreateProjectEnvRequestTypeEnum2Key =
+	(typeof createProjectEnvRequestTypeEnum2)[keyof typeof createProjectEnvRequestTypeEnum2];
+
+export const createProjectEnvRequestTargetEnum4 = {
+	production: "production",
+	preview: "preview",
+	development: "development",
+} as const;
+
+export type CreateProjectEnvRequestTargetEnum4Key =
+	(typeof createProjectEnvRequestTargetEnum4)[keyof typeof createProjectEnvRequestTargetEnum4];
+
 export type CreateProjectEnvBody =
 	| ((
 			| {
@@ -111501,7 +116865,7 @@ export type CreateProjectEnvBody =
 			 * @example ["preview"]
 			 * @type array | undefined
 			 */
-			target?: CreateProjectEnvRequestTargetEnumKey[] | undefined;
+			target?: CreateProjectEnvRequestTargetEnum2Key[] | undefined;
 			/**
 			 * @description If defined, the git branch of the environment variable (must have target=preview)
 			 * @maxLength 250
@@ -111529,7 +116893,7 @@ export type CreateProjectEnvBody =
 					 * @example ["preview"]
 					 * @type array
 					 */
-					target: CreateProjectEnvRequestTargetEnumKey[];
+					target: CreateProjectEnvRequestTargetEnum3Key[];
 			  }
 			| {
 					/**
@@ -111556,13 +116920,13 @@ export type CreateProjectEnvBody =
 			 * @example plain
 			 * @type string
 			 */
-			type: CreateProjectEnvRequestTypeEnumKey;
+			type: CreateProjectEnvRequestTypeEnum2Key;
 			/**
 			 * @description The target environment of the environment variable
 			 * @example ["preview"]
 			 * @type array | undefined
 			 */
-			target?: CreateProjectEnvRequestTargetEnumKey[] | undefined;
+			target?: CreateProjectEnvRequestTargetEnum4Key[] | undefined;
 			/**
 			 * @description If defined, the git branch of the environment variable (must have target=preview)
 			 * @maxLength 250
@@ -111639,9 +117003,9 @@ export type GetProjectEnvQuery = {
 };
 
 export const getProjectEnvStatus200TargetEnum = {
-	production: "production",
-	preview: "preview",
 	development: "development",
+	preview: "preview",
+	production: "production",
 } as const;
 
 export type GetProjectEnvStatus200TargetEnumKey =
@@ -111674,6 +117038,71 @@ export const getProjectEnvStatus200VisibilityEnum = {
 
 export type GetProjectEnvStatus200VisibilityEnumKey =
 	(typeof getProjectEnvStatus200VisibilityEnum)[keyof typeof getProjectEnvStatus200VisibilityEnum];
+
+export const getProjectEnvStatus200TargetEnum2 = {
+	production: "production",
+	preview: "preview",
+	development: "development",
+} as const;
+
+export type GetProjectEnvStatus200TargetEnum2Key =
+	(typeof getProjectEnvStatus200TargetEnum2)[keyof typeof getProjectEnvStatus200TargetEnum2];
+
+export const getProjectEnvStatus200Target2 = {
+	production: "production",
+	preview: "preview",
+	development: "development",
+} as const;
+
+export type GetProjectEnvStatus200Target2Key =
+	(typeof getProjectEnvStatus200Target2)[keyof typeof getProjectEnvStatus200Target2];
+
+export const getProjectEnvStatus200TypeEnum2 = {
+	encrypted: "encrypted",
+	plain: "plain",
+	secret: "secret",
+	sensitive: "sensitive",
+	system: "system",
+} as const;
+
+export type GetProjectEnvStatus200TypeEnum2Key =
+	(typeof getProjectEnvStatus200TypeEnum2)[keyof typeof getProjectEnvStatus200TypeEnum2];
+
+export const getProjectEnvStatus200VisibilityEnum2 = {
+	config: "config",
+	secret: "secret",
+} as const;
+
+export type GetProjectEnvStatus200VisibilityEnum2Key =
+	(typeof getProjectEnvStatus200VisibilityEnum2)[keyof typeof getProjectEnvStatus200VisibilityEnum2];
+
+export const getProjectEnvStatus200Target3 = {
+	production: "production",
+	preview: "preview",
+	development: "development",
+} as const;
+
+export type GetProjectEnvStatus200Target3Key =
+	(typeof getProjectEnvStatus200Target3)[keyof typeof getProjectEnvStatus200Target3];
+
+export const getProjectEnvStatus200TypeEnum3 = {
+	encrypted: "encrypted",
+	plain: "plain",
+	secret: "secret",
+	sensitive: "sensitive",
+	system: "system",
+} as const;
+
+export type GetProjectEnvStatus200TypeEnum3Key =
+	(typeof getProjectEnvStatus200TypeEnum3)[keyof typeof getProjectEnvStatus200TypeEnum3];
+
+export const getProjectEnvStatus200VisibilityEnum3 = {
+	config: "config",
+	secret: "secret",
+} as const;
+
+export type GetProjectEnvStatus200VisibilityEnum3Key =
+	(typeof getProjectEnvStatus200VisibilityEnum3)[keyof typeof getProjectEnvStatus200VisibilityEnum3];
 
 export type GetProjectEnvStatus200 =
 	| {
@@ -111879,9 +117308,9 @@ export type GetProjectEnvStatus200 =
 			 */
 			sunsetSecretId?: string | undefined;
 			target?:
-				| (GetProjectEnvStatus200TargetEnumKey[] | GetProjectEnvStatus200TargetKey)
+				| (GetProjectEnvStatus200TargetEnum2Key[] | GetProjectEnvStatus200Target2Key)
 				| undefined;
-			type: GetProjectEnvStatus200TypeEnumKey;
+			type: GetProjectEnvStatus200TypeEnum2Key;
 			updatedAt?: number | undefined;
 			updatedBy?: (string | null) | undefined;
 			value: string;
@@ -111889,7 +117318,7 @@ export type GetProjectEnvStatus200 =
 			 * @description User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
 			 * @type string | undefined
 			 */
-			visibility?: GetProjectEnvStatus200VisibilityEnumKey | undefined;
+			visibility?: GetProjectEnvStatus200VisibilityEnum2Key | undefined;
 	  }
 	| {
 			comment?: string | undefined;
@@ -112005,8 +117434,8 @@ export type GetProjectEnvStatus200 =
 			 * @type string | undefined
 			 */
 			sunsetSecretId?: string | undefined;
-			target?: (string[] | GetProjectEnvStatus200TargetKey) | undefined;
-			type: GetProjectEnvStatus200TypeEnumKey;
+			target?: (string[] | GetProjectEnvStatus200Target3Key) | undefined;
+			type: GetProjectEnvStatus200TypeEnum3Key;
 			updatedAt?: number | undefined;
 			updatedBy?: (string | null) | undefined;
 			value: string;
@@ -112014,7 +117443,7 @@ export type GetProjectEnvStatus200 =
 			 * @description User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
 			 * @type string | undefined
 			 */
-			visibility?: GetProjectEnvStatus200VisibilityEnumKey | undefined;
+			visibility?: GetProjectEnvStatus200VisibilityEnum3Key | undefined;
 	  };
 
 export type GetProjectEnvStatus400 = unknown;
@@ -112120,6 +117549,80 @@ export const removeProjectEnvStatus200VisibilityEnum = {
 
 export type RemoveProjectEnvStatus200VisibilityEnumKey =
 	(typeof removeProjectEnvStatus200VisibilityEnum)[keyof typeof removeProjectEnvStatus200VisibilityEnum];
+
+export const removeProjectEnvStatus200TargetEnum2 = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type RemoveProjectEnvStatus200TargetEnum2Key =
+	(typeof removeProjectEnvStatus200TargetEnum2)[keyof typeof removeProjectEnvStatus200TargetEnum2];
+
+export const removeProjectEnvStatus200Target2 = {
+	production: "production",
+	preview: "preview",
+	development: "development",
+} as const;
+
+export type RemoveProjectEnvStatus200Target2Key =
+	(typeof removeProjectEnvStatus200Target2)[keyof typeof removeProjectEnvStatus200Target2];
+
+export const removeProjectEnvStatus200TypeEnum2 = {
+	encrypted: "encrypted",
+	plain: "plain",
+	secret: "secret",
+	sensitive: "sensitive",
+	system: "system",
+} as const;
+
+export type RemoveProjectEnvStatus200TypeEnum2Key =
+	(typeof removeProjectEnvStatus200TypeEnum2)[keyof typeof removeProjectEnvStatus200TypeEnum2];
+
+export const removeProjectEnvStatus200VisibilityEnum2 = {
+	config: "config",
+	secret: "secret",
+} as const;
+
+export type RemoveProjectEnvStatus200VisibilityEnum2Key =
+	(typeof removeProjectEnvStatus200VisibilityEnum2)[keyof typeof removeProjectEnvStatus200VisibilityEnum2];
+
+export const removeProjectEnvStatus200TargetEnum3 = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type RemoveProjectEnvStatus200TargetEnum3Key =
+	(typeof removeProjectEnvStatus200TargetEnum3)[keyof typeof removeProjectEnvStatus200TargetEnum3];
+
+export const removeProjectEnvStatus200Target3 = {
+	production: "production",
+	preview: "preview",
+	development: "development",
+} as const;
+
+export type RemoveProjectEnvStatus200Target3Key =
+	(typeof removeProjectEnvStatus200Target3)[keyof typeof removeProjectEnvStatus200Target3];
+
+export const removeProjectEnvStatus200TypeEnum3 = {
+	encrypted: "encrypted",
+	plain: "plain",
+	secret: "secret",
+	sensitive: "sensitive",
+	system: "system",
+} as const;
+
+export type RemoveProjectEnvStatus200TypeEnum3Key =
+	(typeof removeProjectEnvStatus200TypeEnum3)[keyof typeof removeProjectEnvStatus200TypeEnum3];
+
+export const removeProjectEnvStatus200VisibilityEnum3 = {
+	config: "config",
+	secret: "secret",
+} as const;
+
+export type RemoveProjectEnvStatus200VisibilityEnum3Key =
+	(typeof removeProjectEnvStatus200VisibilityEnum3)[keyof typeof removeProjectEnvStatus200VisibilityEnum3];
 
 export type RemoveProjectEnvStatus200 =
 	| {
@@ -112365,9 +117868,9 @@ export type RemoveProjectEnvStatus200 =
 			sunsetSecretId?: string | undefined;
 			system?: (false | true) | undefined;
 			target?:
-				| (RemoveProjectEnvStatus200TargetEnumKey[] | RemoveProjectEnvStatus200TargetKey)
+				| (RemoveProjectEnvStatus200TargetEnum2Key[] | RemoveProjectEnvStatus200Target2Key)
 				| undefined;
-			type: RemoveProjectEnvStatus200TypeEnumKey;
+			type: RemoveProjectEnvStatus200TypeEnum2Key;
 			updatedAt?: number | undefined;
 			updatedBy?: (string | null) | undefined;
 			value: string;
@@ -112375,7 +117878,7 @@ export type RemoveProjectEnvStatus200 =
 			 * @description User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
 			 * @type string | undefined
 			 */
-			visibility?: RemoveProjectEnvStatus200VisibilityEnumKey | undefined;
+			visibility?: RemoveProjectEnvStatus200VisibilityEnum2Key | undefined;
 	  }
 	| {
 			comment?: string | undefined;
@@ -112492,9 +117995,9 @@ export type RemoveProjectEnvStatus200 =
 			 */
 			sunsetSecretId?: string | undefined;
 			target?:
-				| (RemoveProjectEnvStatus200TargetEnumKey[] | RemoveProjectEnvStatus200TargetKey)
+				| (RemoveProjectEnvStatus200TargetEnum3Key[] | RemoveProjectEnvStatus200Target3Key)
 				| undefined;
-			type: RemoveProjectEnvStatus200TypeEnumKey;
+			type: RemoveProjectEnvStatus200TypeEnum3Key;
 			updatedAt?: number | undefined;
 			updatedBy?: (string | null) | undefined;
 			value: string;
@@ -112502,7 +118005,7 @@ export type RemoveProjectEnvStatus200 =
 			 * @description User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.
 			 * @type string | undefined
 			 */
-			visibility?: RemoveProjectEnvStatus200VisibilityEnumKey | undefined;
+			visibility?: RemoveProjectEnvStatus200VisibilityEnum3Key | undefined;
 	  };
 
 export type RemoveProjectEnvStatus400 = unknown;
@@ -116285,6 +121788,25 @@ export const updateMicrofrontendsStatus200SecurityManagedRulesVercelRulesetActio
 export type UpdateMicrofrontendsStatus200SecurityManagedRulesVercelRulesetActionEnumKey =
 	(typeof updateMicrofrontendsStatus200SecurityManagedRulesVercelRulesetActionEnum)[keyof typeof updateMicrofrontendsStatus200SecurityManagedRulesVercelRulesetActionEnum];
 
+export const actionEnum12 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type ActionEnum12Key = (typeof actionEnum12)[keyof typeof actionEnum12];
+
+export const algoEnum10 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type AlgoEnum10Key = (typeof algoEnum10)[keyof typeof algoEnum10];
+
 export const updateMicrofrontendsStatus200ServicesFrameworkEnum = {
 	"actix-web": "actix-web",
 	angular: "angular",
@@ -116406,6 +121928,60 @@ export const updateMicrofrontendsStatus200SsoProtectionDeploymentTypeEnum = {
 export type UpdateMicrofrontendsStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof updateMicrofrontendsStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof updateMicrofrontendsStatus200SsoProtectionDeploymentTypeEnum];
 
+export const typeEnum146 = {
+	endsWith: "endsWith",
+	equals: "equals",
+	startsWith: "startsWith",
+} as const;
+
+export type TypeEnum146Key = (typeof typeEnum146)[keyof typeof typeEnum146];
+
+export const checksConclusionEnum10 = {
+	canceled: "canceled",
+	failed: "failed",
+	skipped: "skipped",
+	succeeded: "succeeded",
+} as const;
+
+export type ChecksConclusionEnum10Key =
+	(typeof checksConclusionEnum10)[keyof typeof checksConclusionEnum10];
+
+export const checksStateEnum10 = {
+	completed: "completed",
+	registered: "registered",
+	running: "running",
+} as const;
+
+export type ChecksStateEnum10Key = (typeof checksStateEnum10)[keyof typeof checksStateEnum10];
+
+export const planEnum10 = {
+	enterprise: "enterprise",
+	hobby: "hobby",
+	pro: "pro",
+} as const;
+
+export type PlanEnum10Key = (typeof planEnum10)[keyof typeof planEnum10];
+
+export const readyStateEnum10 = {
+	BLOCKED: "BLOCKED",
+	BUILDING: "BUILDING",
+	CANCELED: "CANCELED",
+	ERROR: "ERROR",
+	INITIALIZING: "INITIALIZING",
+	QUEUED: "QUEUED",
+	READY: "READY",
+} as const;
+
+export type ReadyStateEnum10Key = (typeof readyStateEnum10)[keyof typeof readyStateEnum10];
+
+export const readySubstateEnum10 = {
+	PROMOTED: "PROMOTED",
+	ROLLING: "ROLLING",
+	STAGED: "STAGED",
+} as const;
+
+export type ReadySubstateEnum10Key = (typeof readySubstateEnum10)[keyof typeof readySubstateEnum10];
+
 export const updateMicrofrontendsStatus200TracingSamplingRulesDestinationEnum = {
 	external: "external",
 	internal: "internal",
@@ -116440,6 +122016,17 @@ export const updateMicrofrontendsStatus200TrustedIpsProtectionModeEnum = {
 
 export type UpdateMicrofrontendsStatus200TrustedIpsProtectionModeEnumKey =
 	(typeof updateMicrofrontendsStatus200TrustedIpsProtectionModeEnum)[keyof typeof updateMicrofrontendsStatus200TrustedIpsProtectionModeEnum];
+
+export const updateMicrofrontendsStatus200TrustedIpsDeploymentTypeEnum2 = {
+	all: "all",
+	all_except_custom_domains: "all_except_custom_domains",
+	preview: "preview",
+	prod_deployment_urls_and_all_previews: "prod_deployment_urls_and_all_previews",
+	production: "production",
+} as const;
+
+export type UpdateMicrofrontendsStatus200TrustedIpsDeploymentTypeEnum2Key =
+	(typeof updateMicrofrontendsStatus200TrustedIpsDeploymentTypeEnum2)[keyof typeof updateMicrofrontendsStatus200TrustedIpsDeploymentTypeEnum2];
 
 export type UpdateMicrofrontendsStatus200 = {
 	accountId: string;
@@ -117278,6 +122865,11 @@ export type UpdateMicrofrontendsStatus200 = {
 							targets: string[];
 					  }
 					| undefined;
+				"health-check"?:
+					| {
+							targets: string[];
+					  }
+					| undefined;
 				lint?:
 					| {
 							targets: string[];
@@ -117673,7 +123265,7 @@ export type UpdateMicrofrontendsStatus200 = {
 				| {
 						enabled: false;
 						freeProjectForLegacyLimits?: (false | true) | undefined;
-						groupIds: (string | string)[];
+						groupIds: string[];
 						updatedAt: number;
 				  }
 		  )
@@ -119326,16 +124918,83 @@ export type UpdateMicrofrontendsStatus200 = {
 				 * @type string
 				 */
 				description: string;
+				principal?:
+					| (
+							| {
+									type: "user";
+									via:
+										| (
+												| {
+														app: {
+															/**
+															 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+															 * @type string | undefined
+															 */
+															clientId?: string | undefined;
+															/**
+															 * @description The internal ID of the Vercel App backing this principal.
+															 * @type string
+															 */
+															id: string;
+														};
+														type: "app";
+												  }
+												| {
+														integration: {
+															configurationId: string;
+															integrationId: string;
+														};
+														type: "integration";
+												  }
+										  )
+										| null;
+									user: {
+										id: string;
+									};
+							  }
+							| {
+									project: {
+										id: string;
+									};
+									type: "project";
+							  }
+							| {
+									app: {
+										/**
+										 * @description The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.
+										 * @type string | undefined
+										 */
+										clientId?: string | undefined;
+										/**
+										 * @description The internal ID of the Vercel App backing this principal.
+										 * @type string
+										 */
+										id: string;
+									};
+									type: "app";
+							  }
+							| {
+									integration: {
+										configurationId: string;
+										integrationId: string;
+									};
+									type: "integration";
+							  }
+							| {
+									type: "system";
+							  }
+					  )
+					| undefined;
 				/**
-				 * @description The user who rolled back the project.
-				 * @type string
+				 * @description The ID of the user who rolled back the project, when the principal was a user.
+				 * @type string | undefined
 				 */
-				userId: string;
+				userId?: string | undefined;
 				/**
-				 * @description The username of the user who rolled back the project.
-				 * @type string
+				 * @description The username of the user who rolled back the project, when the principal was a user.
+				 * @type string | undefined
 				 */
-				username: string;
+				username?: string | undefined;
 		  }
 		| undefined;
 	/**
@@ -119526,13 +125185,13 @@ export type UpdateMicrofrontendsStatus200 = {
 				rulesets?:
 					| {
 							[key: string]: {
-								action: ActionEnumKey;
+								action: ActionEnum12Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
-											algo: AlgoEnumKey;
+											algo: AlgoEnum10Key;
 											keys: string[];
 											limit: number;
 											window: number;
@@ -119636,7 +125295,7 @@ export type UpdateMicrofrontendsStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnumKey;
+								type: TypeEnum146Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -119647,8 +125306,8 @@ export type UpdateMicrofrontendsStatus200 = {
 								use: string;
 						  }[]
 						| undefined;
-					checksConclusion?: ChecksConclusionEnumKey | undefined;
-					checksState?: ChecksStateEnumKey | undefined;
+					checksConclusion?: ChecksConclusionEnum10Key | undefined;
+					checksState?: ChecksStateEnum10Key | undefined;
 					connectBuildsEnabled?: (false | true) | undefined;
 					connectConfigurationId?: string | undefined;
 					createdAt: number;
@@ -119688,7 +125347,7 @@ export type UpdateMicrofrontendsStatus200 = {
 								sub: string;
 						  }
 						| undefined;
-					plan: PlanEnumKey;
+					plan: PlanEnum10Key;
 					/**
 					 * @description Whether or not preview comments are enabled for the deployment
 					 * @example false
@@ -119697,8 +125356,8 @@ export type UpdateMicrofrontendsStatus200 = {
 					previewCommentsEnabled?: (false | true) | undefined;
 					private: false | true;
 					readyAt?: number | undefined;
-					readyState: ReadyStateEnumKey;
-					readySubstate?: ReadySubstateEnumKey | undefined;
+					readyState: ReadyStateEnum10Key;
+					readySubstate?: ReadySubstateEnum10Key | undefined;
 					requestedAt?: number | undefined;
 					target?: (string | null) | undefined;
 					teamId?: (string | null) | undefined;
@@ -119750,7 +125409,7 @@ export type UpdateMicrofrontendsStatus200 = {
 								protectionMode: UpdateMicrofrontendsStatus200TrustedIpsProtectionModeEnumKey;
 						  }
 						| {
-								deploymentType: UpdateMicrofrontendsStatus200TrustedIpsDeploymentTypeEnumKey;
+								deploymentType: UpdateMicrofrontendsStatus200TrustedIpsDeploymentTypeEnum2Key;
 						  }
 				  )
 				| null
@@ -120038,7 +125697,7 @@ export type ListPromoteAliasesPath = {
 export type ListPromoteAliasesQuery = {
 	/**
 	 * @description Maximum number of aliases to list from a request (max 100).
-	 * @maxLength 100
+	 * @maximum 100
 	 * @example 20
 	 * @type number | undefined
 	 */
@@ -120274,8 +125933,8 @@ export type ListNamedSandboxesQuery = {
 	project?: string | undefined;
 	/**
 	 * @description Maximum number of named sandboxes to return in the response. Used for pagination.
-	 * @minLength 1
-	 * @maxLength 50
+	 * @minimum 1
+	 * @maximum 50
 	 * @default 20
 	 * @example 20
 	 * @type number | undefined
@@ -120452,6 +126111,13 @@ export const createSandboxesV2RequestArchitectureEnum = {
 
 export type CreateSandboxesV2RequestArchitectureEnumKey =
 	(typeof createSandboxesV2RequestArchitectureEnum)[keyof typeof createSandboxesV2RequestArchitectureEnum];
+
+export const modeEnum14 = {
+	"read-write": "read-write",
+	snapshot: "snapshot",
+} as const;
+
+export type ModeEnum14Key = (typeof modeEnum14)[keyof typeof modeEnum14];
 
 export const createSandboxesV2RequestRegionEnum = {
 	arn1: "arn1",
@@ -120819,8 +126485,8 @@ export type CreateSandboxesV2Body =
 															| {
 																	/**
 																	 * @description HTTP status code returned to the sandbox.
-																	 * @minLength 200
-																	 * @maxLength 599
+																	 * @minimum 200
+																	 * @maximum 599
 																	 * @type integer
 																	 */
 																	statusCode: number;
@@ -120879,7 +126545,7 @@ export type CreateSandboxesV2Body =
 				| {
 						/**
 						 * @description The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.
-						 * @minLength 1
+						 * @minimum 1
 						 * @default 2
 						 * @example 2
 						 * @type integer | undefined
@@ -120887,7 +126553,7 @@ export type CreateSandboxesV2Body =
 						vcpus?: number | undefined;
 						/**
 						 * @description The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.
-						 * @minLength 2048
+						 * @minimum 2048
 						 * @example 4096
 						 * @type integer | undefined
 						 */
@@ -120925,7 +126591,7 @@ export type CreateSandboxesV2Body =
 								password?: string | undefined;
 								/**
 								 * @description Create a shallow clone with history truncated to the specified number of commits. Useful for faster cloning of large repositories.
-								 * @minLength 1
+								 * @minimum 1
 								 * @example 1
 								 * @type integer | undefined
 								 */
@@ -120987,7 +126653,7 @@ export type CreateSandboxesV2Body =
 			image?: string | undefined;
 			/**
 			 * @description Maximum duration in milliseconds that the sandbox can run before being automatically stopped.
-			 * @minLength 1000
+			 * @minimum 1000
 			 * @example 300000
 			 * @type integer | undefined
 			 */
@@ -121021,7 +126687,7 @@ export type CreateSandboxesV2Body =
 							 * @description Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.
 							 * @type string | undefined
 							 */
-							mode?: ModeEnumKey | undefined;
+							mode?: ModeEnum14Key | undefined;
 						};
 				  }
 				| undefined;
@@ -121071,8 +126737,8 @@ export type CreateSandboxesV2Body =
 				| {
 						/**
 						 * @description Number of most recent snapshots to keep.
-						 * @minLength 1
-						 * @maxLength 10
+						 * @minimum 1
+						 * @maximum 10
 						 * @type integer
 						 */
 						count: number;
@@ -121152,8 +126818,8 @@ export type ListDrivesQuery = {
 	projectId?: string | undefined;
 	/**
 	 * @description Maximum number of drives to return in the response. Used for pagination.
-	 * @minLength 1
-	 * @maxLength 50
+	 * @minimum 1
+	 * @maximum 50
 	 * @default 20
 	 * @example 20
 	 * @type number | undefined
@@ -121658,8 +127324,8 @@ export type ListSessionSnapshotsQuery = {
 	name?: string | undefined;
 	/**
 	 * @description Maximum number of snapshots to return in the response. Used for pagination.
-	 * @minLength 1
-	 * @maxLength 50
+	 * @minimum 1
+	 * @maximum 50
 	 * @default 20
 	 * @example 20
 	 * @type number | undefined
@@ -121904,8 +127570,8 @@ export type ListSessionsQuery = {
 	name?: string | undefined;
 	/**
 	 * @description Maximum number of sessions to return in the response. Used for pagination.
-	 * @minLength 1
-	 * @maxLength 50
+	 * @minimum 1
+	 * @maximum 50
 	 * @default 20
 	 * @example 20
 	 * @type number | undefined
@@ -122315,6 +127981,13 @@ export const updateSandboxRequestFailoverRegionsEnum = {
 export type UpdateSandboxRequestFailoverRegionsEnumKey =
 	(typeof updateSandboxRequestFailoverRegionsEnum)[keyof typeof updateSandboxRequestFailoverRegionsEnum];
 
+export const modeEnum15 = {
+	"read-write": "read-write",
+	snapshot: "snapshot",
+} as const;
+
+export type ModeEnum15Key = (typeof modeEnum15)[keyof typeof modeEnum15];
+
 export type UpdateSandboxBody =
 	| {
 			/**
@@ -122325,14 +127998,14 @@ export type UpdateSandboxBody =
 				| {
 						/**
 						 * @description The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.
-						 * @minLength 1
+						 * @minimum 1
 						 * @example 2
 						 * @type integer | undefined
 						 */
 						vcpus?: number | undefined;
 						/**
 						 * @description The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.
-						 * @minLength 2048
+						 * @minimum 2048
 						 * @example 4096
 						 * @type integer | undefined
 						 */
@@ -122347,7 +128020,7 @@ export type UpdateSandboxBody =
 			runtime?: UpdateSandboxRequestRuntimeEnumKey | undefined;
 			/**
 			 * @description Maximum duration in milliseconds that the sandbox can run before being automatically stopped.
-			 * @minLength 1000
+			 * @minimum 1000
 			 * @example 300000
 			 * @type integer | undefined
 			 */
@@ -122371,8 +128044,8 @@ export type UpdateSandboxBody =
 						| {
 								/**
 								 * @description Number of most recent snapshots to keep.
-								 * @minLength 1
-								 * @maxLength 10
+								 * @minimum 1
+								 * @maximum 10
 								 * @type integer
 								 */
 								count: number;
@@ -122702,8 +128375,8 @@ export type UpdateSandboxBody =
 															| {
 																	/**
 																	 * @description HTTP status code returned to the sandbox.
-																	 * @minLength 200
-																	 * @maxLength 599
+																	 * @minimum 200
+																	 * @maximum 599
 																	 * @type integer
 																	 */
 																	statusCode: number;
@@ -122771,7 +128444,7 @@ export type UpdateSandboxBody =
 							 * @description Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.
 							 * @type string | undefined
 							 */
-							mode?: ModeEnumKey | undefined;
+							mode?: ModeEnum15Key | undefined;
 						};
 				  }
 				| undefined;
@@ -123107,8 +128780,8 @@ export type RunSessionCommandBody =
 			logs?: boolean | undefined;
 			/**
 			 * @description Maximum duration in milliseconds the command may run before it is killed with SIGKILL, up to 5 hours. Enforced at exec time, independently of `wait`.
-			 * @minLength 100
-			 * @maxLength 18000000
+			 * @minimum 100
+			 * @maximum 18000000
 			 * @example 30000
 			 * @type integer | undefined
 			 */
@@ -123398,7 +129071,7 @@ export type WriteSessionCommandStdinBody =
 			data?: string | undefined;
 			/**
 			 * @description The position in the command stdin where `data` starts. Bytes before the total already written are skipped, so a resent request does not write them twice. Fails with 409 if it is past the bytes written so far. Without it, `data` is appended.
-			 * @minLength 0
+			 * @minimum 0
 			 * @example 0
 			 * @type integer | undefined
 			 */
@@ -123649,7 +129322,7 @@ export type ExtendSessionTimeoutBody =
 	| {
 			/**
 			 * @description The amount of time in milliseconds to add to the current timeout. Must be at least 1000ms (1 second).
-			 * @minLength 1000
+			 * @minimum 1000
 			 * @example 300000
 			 * @type number
 			 */
@@ -124054,8 +129727,8 @@ export type UpdateSessionNetworkPolicyBody =
 												| {
 														/**
 														 * @description HTTP status code returned to the sandbox.
-														 * @minLength 200
-														 * @maxLength 599
+														 * @minimum 200
+														 * @maximum 599
 														 * @type integer
 														 */
 														statusCode: number;
@@ -124528,6 +130201,13 @@ export const createSandboxesByNameForkV2RequestNetworkPolicyModeEnum = {
 export type CreateSandboxesByNameForkV2RequestNetworkPolicyModeEnumKey =
 	(typeof createSandboxesByNameForkV2RequestNetworkPolicyModeEnum)[keyof typeof createSandboxesByNameForkV2RequestNetworkPolicyModeEnum];
 
+export const modeEnum16 = {
+	"read-write": "read-write",
+	snapshot: "snapshot",
+} as const;
+
+export type ModeEnum16Key = (typeof modeEnum16)[keyof typeof modeEnum16];
+
 export const createSandboxesByNameForkV2RequestRegionEnum = {
 	arn1: "arn1",
 	bom1: "bom1",
@@ -124894,8 +130574,8 @@ export type CreateSandboxesByNameForkV2Body =
 															| {
 																	/**
 																	 * @description HTTP status code returned to the sandbox.
-																	 * @minLength 200
-																	 * @maxLength 599
+																	 * @minimum 200
+																	 * @maximum 599
 																	 * @type integer
 																	 */
 																	statusCode: number;
@@ -124941,7 +130621,7 @@ export type CreateSandboxesByNameForkV2Body =
 				| {
 						/**
 						 * @description The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.
-						 * @minLength 1
+						 * @minimum 1
 						 * @default 2
 						 * @example 2
 						 * @type integer | undefined
@@ -124949,7 +130629,7 @@ export type CreateSandboxesByNameForkV2Body =
 						vcpus?: number | undefined;
 						/**
 						 * @description The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.
-						 * @minLength 2048
+						 * @minimum 2048
 						 * @example 4096
 						 * @type integer | undefined
 						 */
@@ -124970,7 +130650,7 @@ export type CreateSandboxesByNameForkV2Body =
 			image?: string | undefined;
 			/**
 			 * @description Maximum duration in milliseconds that the sandbox can run before being automatically stopped.
-			 * @minLength 1000
+			 * @minimum 1000
 			 * @example 300000
 			 * @type integer | undefined
 			 */
@@ -125004,7 +130684,7 @@ export type CreateSandboxesByNameForkV2Body =
 							 * @description Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.
 							 * @type string | undefined
 							 */
-							mode?: ModeEnumKey | undefined;
+							mode?: ModeEnum16Key | undefined;
 						};
 				  }
 				| undefined;
@@ -125053,8 +130733,8 @@ export type CreateSandboxesByNameForkV2Body =
 				| {
 						/**
 						 * @description Number of most recent snapshots to keep.
-						 * @minLength 1
-						 * @maxLength 10
+						 * @minimum 1
+						 * @maximum 10
 						 * @type integer
 						 */
 						count: number;
@@ -125181,6 +130861,13 @@ export const createSandboxesV3RequestArchitectureEnum = {
 
 export type CreateSandboxesV3RequestArchitectureEnumKey =
 	(typeof createSandboxesV3RequestArchitectureEnum)[keyof typeof createSandboxesV3RequestArchitectureEnum];
+
+export const modeEnum17 = {
+	"read-write": "read-write",
+	snapshot: "snapshot",
+} as const;
+
+export type ModeEnum17Key = (typeof modeEnum17)[keyof typeof modeEnum17];
 
 export const createSandboxesV3RequestRegionEnum = {
 	arn1: "arn1",
@@ -125548,8 +131235,8 @@ export type CreateSandboxesV3Body =
 															| {
 																	/**
 																	 * @description HTTP status code returned to the sandbox.
-																	 * @minLength 200
-																	 * @maxLength 599
+																	 * @minimum 200
+																	 * @maximum 599
 																	 * @type integer
 																	 */
 																	statusCode: number;
@@ -125601,7 +131288,7 @@ export type CreateSandboxesV3Body =
 				| {
 						/**
 						 * @description The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.
-						 * @minLength 1
+						 * @minimum 1
 						 * @default 2
 						 * @example 2
 						 * @type integer | undefined
@@ -125609,7 +131296,7 @@ export type CreateSandboxesV3Body =
 						vcpus?: number | undefined;
 						/**
 						 * @description The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.
-						 * @minLength 2048
+						 * @minimum 2048
 						 * @example 4096
 						 * @type integer | undefined
 						 */
@@ -125647,7 +131334,7 @@ export type CreateSandboxesV3Body =
 								password?: string | undefined;
 								/**
 								 * @description Create a shallow clone with history truncated to the specified number of commits. Useful for faster cloning of large repositories.
-								 * @minLength 1
+								 * @minimum 1
 								 * @example 1
 								 * @type integer | undefined
 								 */
@@ -125709,7 +131396,7 @@ export type CreateSandboxesV3Body =
 			image?: string | undefined;
 			/**
 			 * @description Maximum duration in milliseconds that the sandbox can run before being automatically stopped.
-			 * @minLength 1000
+			 * @minimum 1000
 			 * @example 300000
 			 * @type integer | undefined
 			 */
@@ -125743,7 +131430,7 @@ export type CreateSandboxesV3Body =
 							 * @description Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.
 							 * @type string | undefined
 							 */
-							mode?: ModeEnumKey | undefined;
+							mode?: ModeEnum17Key | undefined;
 						};
 				  }
 				| undefined;
@@ -125793,8 +131480,8 @@ export type CreateSandboxesV3Body =
 				| {
 						/**
 						 * @description Number of most recent snapshots to keep.
-						 * @minLength 1
-						 * @maxLength 10
+						 * @minimum 1
+						 * @maximum 10
 						 * @type integer
 						 */
 						count: number;
@@ -126019,6 +131706,13 @@ export const createSandboxesByNameForkV3RequestNetworkPolicyModeEnum = {
 
 export type CreateSandboxesByNameForkV3RequestNetworkPolicyModeEnumKey =
 	(typeof createSandboxesByNameForkV3RequestNetworkPolicyModeEnum)[keyof typeof createSandboxesByNameForkV3RequestNetworkPolicyModeEnum];
+
+export const modeEnum18 = {
+	"read-write": "read-write",
+	snapshot: "snapshot",
+} as const;
+
+export type ModeEnum18Key = (typeof modeEnum18)[keyof typeof modeEnum18];
 
 export const createSandboxesByNameForkV3RequestRegionEnum = {
 	arn1: "arn1",
@@ -126386,8 +132080,8 @@ export type CreateSandboxesByNameForkV3Body =
 															| {
 																	/**
 																	 * @description HTTP status code returned to the sandbox.
-																	 * @minLength 200
-																	 * @maxLength 599
+																	 * @minimum 200
+																	 * @maximum 599
 																	 * @type integer
 																	 */
 																	statusCode: number;
@@ -126433,7 +132127,7 @@ export type CreateSandboxesByNameForkV3Body =
 				| {
 						/**
 						 * @description The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.
-						 * @minLength 1
+						 * @minimum 1
 						 * @default 2
 						 * @example 2
 						 * @type integer | undefined
@@ -126441,7 +132135,7 @@ export type CreateSandboxesByNameForkV3Body =
 						vcpus?: number | undefined;
 						/**
 						 * @description The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.
-						 * @minLength 2048
+						 * @minimum 2048
 						 * @example 4096
 						 * @type integer | undefined
 						 */
@@ -126462,7 +132156,7 @@ export type CreateSandboxesByNameForkV3Body =
 			image?: string | undefined;
 			/**
 			 * @description Maximum duration in milliseconds that the sandbox can run before being automatically stopped.
-			 * @minLength 1000
+			 * @minimum 1000
 			 * @example 300000
 			 * @type integer | undefined
 			 */
@@ -126496,7 +132190,7 @@ export type CreateSandboxesByNameForkV3Body =
 							 * @description Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.
 							 * @type string | undefined
 							 */
-							mode?: ModeEnumKey | undefined;
+							mode?: ModeEnum18Key | undefined;
 						};
 				  }
 				| undefined;
@@ -126546,8 +132240,8 @@ export type CreateSandboxesByNameForkV3Body =
 						| {
 								/**
 								 * @description Number of most recent snapshots to keep.
-								 * @minLength 1
-								 * @maxLength 10
+								 * @minimum 1
+								 * @maximum 10
 								 * @type integer
 								 */
 								count: number;
@@ -126675,6 +132369,13 @@ export const createSandboxesV4RequestArchitectureEnum = {
 
 export type CreateSandboxesV4RequestArchitectureEnumKey =
 	(typeof createSandboxesV4RequestArchitectureEnum)[keyof typeof createSandboxesV4RequestArchitectureEnum];
+
+export const modeEnum19 = {
+	"read-write": "read-write",
+	snapshot: "snapshot",
+} as const;
+
+export type ModeEnum19Key = (typeof modeEnum19)[keyof typeof modeEnum19];
 
 export const createSandboxesV4RequestRegionEnum = {
 	arn1: "arn1",
@@ -127042,8 +132743,8 @@ export type CreateSandboxesV4Body =
 															| {
 																	/**
 																	 * @description HTTP status code returned to the sandbox.
-																	 * @minLength 200
-																	 * @maxLength 599
+																	 * @minimum 200
+																	 * @maximum 599
 																	 * @type integer
 																	 */
 																	statusCode: number;
@@ -127095,7 +132796,7 @@ export type CreateSandboxesV4Body =
 				| {
 						/**
 						 * @description The number of virtual CPUs to allocate to the sandbox. Must be 1, or an even number.
-						 * @minLength 1
+						 * @minimum 1
 						 * @default 2
 						 * @example 2
 						 * @type integer | undefined
@@ -127103,7 +132804,7 @@ export type CreateSandboxesV4Body =
 						vcpus?: number | undefined;
 						/**
 						 * @description The amount of memory in megabytes to allocate to the sandbox. Must equal vcpus * 2048.
-						 * @minLength 2048
+						 * @minimum 2048
 						 * @example 4096
 						 * @type integer | undefined
 						 */
@@ -127141,7 +132842,7 @@ export type CreateSandboxesV4Body =
 								password?: string | undefined;
 								/**
 								 * @description Create a shallow clone with history truncated to the specified number of commits. Useful for faster cloning of large repositories.
-								 * @minLength 1
+								 * @minimum 1
 								 * @example 1
 								 * @type integer | undefined
 								 */
@@ -127203,7 +132904,7 @@ export type CreateSandboxesV4Body =
 			image?: string | undefined;
 			/**
 			 * @description Maximum duration in milliseconds that the sandbox can run before being automatically stopped.
-			 * @minLength 1000
+			 * @minimum 1000
 			 * @example 300000
 			 * @type integer | undefined
 			 */
@@ -127237,7 +132938,7 @@ export type CreateSandboxesV4Body =
 							 * @description Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.
 							 * @type string | undefined
 							 */
-							mode?: ModeEnumKey | undefined;
+							mode?: ModeEnum19Key | undefined;
 						};
 				  }
 				| undefined;
@@ -127288,8 +132989,8 @@ export type CreateSandboxesV4Body =
 						| {
 								/**
 								 * @description Number of most recent snapshots to keep.
-								 * @minLength 1
-								 * @maxLength 10
+								 * @minimum 1
+								 * @maximum 10
 								 * @type integer
 								 */
 								count: number;
@@ -127704,6 +133405,98 @@ export const getSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditio
 export type GetSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnumKey =
 	(typeof getSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnum)[keyof typeof getSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnum];
 
+export const getSecurityFirewallConfigStatus200ActiveRulesActionMitigateActionEnum2 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type GetSecurityFirewallConfigStatus200ActiveRulesActionMitigateActionEnum2Key =
+	(typeof getSecurityFirewallConfigStatus200ActiveRulesActionMitigateActionEnum2)[keyof typeof getSecurityFirewallConfigStatus200ActiveRulesActionMitigateActionEnum2];
+
+export const getSecurityFirewallConfigStatus200ActiveRulesActionMitigateRateLimitActionEnum2 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type GetSecurityFirewallConfigStatus200ActiveRulesActionMitigateRateLimitActionEnum2Key =
+	(typeof getSecurityFirewallConfigStatus200ActiveRulesActionMitigateRateLimitActionEnum2)[keyof typeof getSecurityFirewallConfigStatus200ActiveRulesActionMitigateRateLimitActionEnum2];
+
+export const getSecurityFirewallConfigStatus200ActiveRulesActionMitigateRateLimitAlgoEnum2 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type GetSecurityFirewallConfigStatus200ActiveRulesActionMitigateRateLimitAlgoEnum2Key =
+	(typeof getSecurityFirewallConfigStatus200ActiveRulesActionMitigateRateLimitAlgoEnum2)[keyof typeof getSecurityFirewallConfigStatus200ActiveRulesActionMitigateRateLimitAlgoEnum2];
+
+export const getSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditionsOpEnum2 = {
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	inc: "inc",
+	list: "list",
+	lt: "lt",
+	lte: "lte",
+	neq: "neq",
+	nex: "nex",
+	ninc: "ninc",
+	pre: "pre",
+	re: "re",
+	sub: "sub",
+	suf: "suf",
+} as const;
+
+export type GetSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditionsOpEnum2Key =
+	(typeof getSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditionsOpEnum2)[keyof typeof getSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditionsOpEnum2];
+
+export const getSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnum2 = {
+	bot_category: "bot_category",
+	bot_name: "bot_name",
+	bot_protection: "bot_protection",
+	bot_status: "bot_status",
+	cookie: "cookie",
+	domain_environment: "domain_environment",
+	environment: "environment",
+	geo_as_number: "geo_as_number",
+	geo_city: "geo_city",
+	geo_continent: "geo_continent",
+	geo_country: "geo_country",
+	geo_country_region: "geo_country_region",
+	header: "header",
+	host: "host",
+	ip_address: "ip_address",
+	ja3_digest: "ja3_digest",
+	ja4_digest: "ja4_digest",
+	method: "method",
+	path: "path",
+	protocol: "protocol",
+	query: "query",
+	rate_limit_api_id: "rate_limit_api_id",
+	raw_path: "raw_path",
+	region: "region",
+	response_code: "response_code",
+	route: "route",
+	ruleset: "ruleset",
+	scheme: "scheme",
+	server_action: "server_action",
+	shared_condition: "shared_condition",
+	target_path: "target_path",
+	traffic_source: "traffic_source",
+	trusted_source: "trusted_source",
+	user_agent: "user_agent",
+} as const;
+
+export type GetSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnum2Key =
+	(typeof getSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnum2)[keyof typeof getSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnum2];
+
 export const getSecurityFirewallConfigStatus200ActiveRulesetsConditionGroupConditionsOpEnum = {
 	eq: "eq",
 	ex: "ex",
@@ -127795,6 +133588,34 @@ export const getSecurityFirewallConfigStatus200ActiveRulesetsActionMitigateRateL
 
 export type GetSecurityFirewallConfigStatus200ActiveRulesetsActionMitigateRateLimitAlgoEnumKey =
 	(typeof getSecurityFirewallConfigStatus200ActiveRulesetsActionMitigateRateLimitAlgoEnum)[keyof typeof getSecurityFirewallConfigStatus200ActiveRulesetsActionMitigateRateLimitAlgoEnum];
+
+export const actionEnum13 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type ActionEnum13Key = (typeof actionEnum13)[keyof typeof actionEnum13];
+
+export const actionEnum14 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type ActionEnum14Key = (typeof actionEnum14)[keyof typeof actionEnum14];
+
+export const algoEnum11 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type AlgoEnum11Key = (typeof algoEnum11)[keyof typeof algoEnum11];
 
 export const getSecurityFirewallConfigStatus200DraftConditionsConditionGroupConditionsOpEnum = {
 	eq: "eq",
@@ -128092,6 +133913,98 @@ export const getSecurityFirewallConfigStatus200DraftRulesConditionGroupCondition
 export type GetSecurityFirewallConfigStatus200DraftRulesConditionGroupConditionsTypeEnumKey =
 	(typeof getSecurityFirewallConfigStatus200DraftRulesConditionGroupConditionsTypeEnum)[keyof typeof getSecurityFirewallConfigStatus200DraftRulesConditionGroupConditionsTypeEnum];
 
+export const getSecurityFirewallConfigStatus200DraftRulesActionMitigateActionEnum2 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type GetSecurityFirewallConfigStatus200DraftRulesActionMitigateActionEnum2Key =
+	(typeof getSecurityFirewallConfigStatus200DraftRulesActionMitigateActionEnum2)[keyof typeof getSecurityFirewallConfigStatus200DraftRulesActionMitigateActionEnum2];
+
+export const getSecurityFirewallConfigStatus200DraftRulesActionMitigateRateLimitActionEnum2 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type GetSecurityFirewallConfigStatus200DraftRulesActionMitigateRateLimitActionEnum2Key =
+	(typeof getSecurityFirewallConfigStatus200DraftRulesActionMitigateRateLimitActionEnum2)[keyof typeof getSecurityFirewallConfigStatus200DraftRulesActionMitigateRateLimitActionEnum2];
+
+export const getSecurityFirewallConfigStatus200DraftRulesActionMitigateRateLimitAlgoEnum2 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type GetSecurityFirewallConfigStatus200DraftRulesActionMitigateRateLimitAlgoEnum2Key =
+	(typeof getSecurityFirewallConfigStatus200DraftRulesActionMitigateRateLimitAlgoEnum2)[keyof typeof getSecurityFirewallConfigStatus200DraftRulesActionMitigateRateLimitAlgoEnum2];
+
+export const getSecurityFirewallConfigStatus200DraftRulesConditionGroupConditionsOpEnum2 = {
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	inc: "inc",
+	list: "list",
+	lt: "lt",
+	lte: "lte",
+	neq: "neq",
+	nex: "nex",
+	ninc: "ninc",
+	pre: "pre",
+	re: "re",
+	sub: "sub",
+	suf: "suf",
+} as const;
+
+export type GetSecurityFirewallConfigStatus200DraftRulesConditionGroupConditionsOpEnum2Key =
+	(typeof getSecurityFirewallConfigStatus200DraftRulesConditionGroupConditionsOpEnum2)[keyof typeof getSecurityFirewallConfigStatus200DraftRulesConditionGroupConditionsOpEnum2];
+
+export const getSecurityFirewallConfigStatus200DraftRulesConditionGroupConditionsTypeEnum2 = {
+	bot_category: "bot_category",
+	bot_name: "bot_name",
+	bot_protection: "bot_protection",
+	bot_status: "bot_status",
+	cookie: "cookie",
+	domain_environment: "domain_environment",
+	environment: "environment",
+	geo_as_number: "geo_as_number",
+	geo_city: "geo_city",
+	geo_continent: "geo_continent",
+	geo_country: "geo_country",
+	geo_country_region: "geo_country_region",
+	header: "header",
+	host: "host",
+	ip_address: "ip_address",
+	ja3_digest: "ja3_digest",
+	ja4_digest: "ja4_digest",
+	method: "method",
+	path: "path",
+	protocol: "protocol",
+	query: "query",
+	rate_limit_api_id: "rate_limit_api_id",
+	raw_path: "raw_path",
+	region: "region",
+	response_code: "response_code",
+	route: "route",
+	ruleset: "ruleset",
+	scheme: "scheme",
+	server_action: "server_action",
+	shared_condition: "shared_condition",
+	target_path: "target_path",
+	traffic_source: "traffic_source",
+	trusted_source: "trusted_source",
+	user_agent: "user_agent",
+} as const;
+
+export type GetSecurityFirewallConfigStatus200DraftRulesConditionGroupConditionsTypeEnum2Key =
+	(typeof getSecurityFirewallConfigStatus200DraftRulesConditionGroupConditionsTypeEnum2)[keyof typeof getSecurityFirewallConfigStatus200DraftRulesConditionGroupConditionsTypeEnum2];
+
 export const getSecurityFirewallConfigStatus200DraftRulesetsConditionGroupConditionsOpEnum = {
 	eq: "eq",
 	ex: "ex",
@@ -128183,6 +134096,34 @@ export const getSecurityFirewallConfigStatus200DraftRulesetsActionMitigateRateLi
 
 export type GetSecurityFirewallConfigStatus200DraftRulesetsActionMitigateRateLimitAlgoEnumKey =
 	(typeof getSecurityFirewallConfigStatus200DraftRulesetsActionMitigateRateLimitAlgoEnum)[keyof typeof getSecurityFirewallConfigStatus200DraftRulesetsActionMitigateRateLimitAlgoEnum];
+
+export const actionEnum15 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type ActionEnum15Key = (typeof actionEnum15)[keyof typeof actionEnum15];
+
+export const actionEnum16 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type ActionEnum16Key = (typeof actionEnum16)[keyof typeof actionEnum16];
+
+export const algoEnum12 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type AlgoEnum12Key = (typeof algoEnum12)[keyof typeof algoEnum12];
 
 export const getSecurityFirewallConfigStatus200VersionsConditionsConditionGroupConditionsOpEnum = {
 	eq: "eq",
@@ -128481,6 +134422,98 @@ export const getSecurityFirewallConfigStatus200VersionsRulesConditionGroupCondit
 export type GetSecurityFirewallConfigStatus200VersionsRulesConditionGroupConditionsTypeEnumKey =
 	(typeof getSecurityFirewallConfigStatus200VersionsRulesConditionGroupConditionsTypeEnum)[keyof typeof getSecurityFirewallConfigStatus200VersionsRulesConditionGroupConditionsTypeEnum];
 
+export const getSecurityFirewallConfigStatus200VersionsRulesActionMitigateActionEnum2 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type GetSecurityFirewallConfigStatus200VersionsRulesActionMitigateActionEnum2Key =
+	(typeof getSecurityFirewallConfigStatus200VersionsRulesActionMitigateActionEnum2)[keyof typeof getSecurityFirewallConfigStatus200VersionsRulesActionMitigateActionEnum2];
+
+export const getSecurityFirewallConfigStatus200VersionsRulesActionMitigateRateLimitActionEnum2 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type GetSecurityFirewallConfigStatus200VersionsRulesActionMitigateRateLimitActionEnum2Key =
+	(typeof getSecurityFirewallConfigStatus200VersionsRulesActionMitigateRateLimitActionEnum2)[keyof typeof getSecurityFirewallConfigStatus200VersionsRulesActionMitigateRateLimitActionEnum2];
+
+export const getSecurityFirewallConfigStatus200VersionsRulesActionMitigateRateLimitAlgoEnum2 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type GetSecurityFirewallConfigStatus200VersionsRulesActionMitigateRateLimitAlgoEnum2Key =
+	(typeof getSecurityFirewallConfigStatus200VersionsRulesActionMitigateRateLimitAlgoEnum2)[keyof typeof getSecurityFirewallConfigStatus200VersionsRulesActionMitigateRateLimitAlgoEnum2];
+
+export const getSecurityFirewallConfigStatus200VersionsRulesConditionGroupConditionsOpEnum2 = {
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	inc: "inc",
+	list: "list",
+	lt: "lt",
+	lte: "lte",
+	neq: "neq",
+	nex: "nex",
+	ninc: "ninc",
+	pre: "pre",
+	re: "re",
+	sub: "sub",
+	suf: "suf",
+} as const;
+
+export type GetSecurityFirewallConfigStatus200VersionsRulesConditionGroupConditionsOpEnum2Key =
+	(typeof getSecurityFirewallConfigStatus200VersionsRulesConditionGroupConditionsOpEnum2)[keyof typeof getSecurityFirewallConfigStatus200VersionsRulesConditionGroupConditionsOpEnum2];
+
+export const getSecurityFirewallConfigStatus200VersionsRulesConditionGroupConditionsTypeEnum2 = {
+	bot_category: "bot_category",
+	bot_name: "bot_name",
+	bot_protection: "bot_protection",
+	bot_status: "bot_status",
+	cookie: "cookie",
+	domain_environment: "domain_environment",
+	environment: "environment",
+	geo_as_number: "geo_as_number",
+	geo_city: "geo_city",
+	geo_continent: "geo_continent",
+	geo_country: "geo_country",
+	geo_country_region: "geo_country_region",
+	header: "header",
+	host: "host",
+	ip_address: "ip_address",
+	ja3_digest: "ja3_digest",
+	ja4_digest: "ja4_digest",
+	method: "method",
+	path: "path",
+	protocol: "protocol",
+	query: "query",
+	rate_limit_api_id: "rate_limit_api_id",
+	raw_path: "raw_path",
+	region: "region",
+	response_code: "response_code",
+	route: "route",
+	ruleset: "ruleset",
+	scheme: "scheme",
+	server_action: "server_action",
+	shared_condition: "shared_condition",
+	target_path: "target_path",
+	traffic_source: "traffic_source",
+	trusted_source: "trusted_source",
+	user_agent: "user_agent",
+} as const;
+
+export type GetSecurityFirewallConfigStatus200VersionsRulesConditionGroupConditionsTypeEnum2Key =
+	(typeof getSecurityFirewallConfigStatus200VersionsRulesConditionGroupConditionsTypeEnum2)[keyof typeof getSecurityFirewallConfigStatus200VersionsRulesConditionGroupConditionsTypeEnum2];
+
 export const getSecurityFirewallConfigStatus200VersionsRulesetsConditionGroupConditionsOpEnum = {
 	eq: "eq",
 	ex: "ex",
@@ -128572,6 +134605,34 @@ export const getSecurityFirewallConfigStatus200VersionsRulesetsActionMitigateRat
 
 export type GetSecurityFirewallConfigStatus200VersionsRulesetsActionMitigateRateLimitAlgoEnumKey =
 	(typeof getSecurityFirewallConfigStatus200VersionsRulesetsActionMitigateRateLimitAlgoEnum)[keyof typeof getSecurityFirewallConfigStatus200VersionsRulesetsActionMitigateRateLimitAlgoEnum];
+
+export const actionEnum17 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type ActionEnum17Key = (typeof actionEnum17)[keyof typeof actionEnum17];
+
+export const actionEnum18 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type ActionEnum18Key = (typeof actionEnum18)[keyof typeof actionEnum18];
+
+export const algoEnum13 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type AlgoEnum13Key = (typeof algoEnum13)[keyof typeof algoEnum13];
 
 export type GetSecurityFirewallConfigStatus200 = {
 	active: {
@@ -128762,16 +134823,16 @@ export type GetSecurityFirewallConfigStatus200 = {
 					action: {
 						mitigate?:
 							| {
-									action: GetSecurityFirewallConfigStatus200ActiveRulesActionMitigateActionEnumKey;
+									action: GetSecurityFirewallConfigStatus200ActiveRulesActionMitigateActionEnum2Key;
 									actionDuration?: (string | null) | undefined;
 									bypassSystem?: ((false | true) | null) | undefined;
 									logHeaders?: (string[] | "*") | undefined;
 									rateLimit?:
 										| ({
 												action?:
-													| (GetSecurityFirewallConfigStatus200ActiveRulesActionMitigateRateLimitActionEnumKey | null)
+													| (GetSecurityFirewallConfigStatus200ActiveRulesActionMitigateRateLimitActionEnum2Key | null)
 													| undefined;
-												algo: GetSecurityFirewallConfigStatus200ActiveRulesActionMitigateRateLimitAlgoEnumKey;
+												algo: GetSecurityFirewallConfigStatus200ActiveRulesActionMitigateRateLimitAlgoEnum2Key;
 												keys: string[];
 												limit: number;
 												window: number;
@@ -128791,8 +134852,8 @@ export type GetSecurityFirewallConfigStatus200 = {
 						conditions: {
 							key?: string | undefined;
 							neg?: (false | true) | undefined;
-							op: GetSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditionsOpEnumKey;
-							type: GetSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnumKey;
+							op: GetSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditionsOpEnum2Key;
+							type: GetSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnum2Key;
 							value?: (string | number | string[]) | undefined;
 						}[];
 					}[];
@@ -128851,14 +134912,14 @@ export type GetSecurityFirewallConfigStatus200 = {
 					  }[]
 					| {
 							[key: string]: {
-								action: ActionEnumKey;
+								action: ActionEnum13Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
-											action?: (ActionEnumKey | null) | undefined;
-											algo: AlgoEnumKey;
+											action?: (ActionEnum14Key | null) | undefined;
+											algo: AlgoEnum11Key;
 											keys: string[];
 											limit: number;
 											window: number;
@@ -129065,16 +135126,16 @@ export type GetSecurityFirewallConfigStatus200 = {
 					action: {
 						mitigate?:
 							| {
-									action: GetSecurityFirewallConfigStatus200DraftRulesActionMitigateActionEnumKey;
+									action: GetSecurityFirewallConfigStatus200DraftRulesActionMitigateActionEnum2Key;
 									actionDuration?: (string | null) | undefined;
 									bypassSystem?: ((false | true) | null) | undefined;
 									logHeaders?: (string[] | "*") | undefined;
 									rateLimit?:
 										| ({
 												action?:
-													| (GetSecurityFirewallConfigStatus200DraftRulesActionMitigateRateLimitActionEnumKey | null)
+													| (GetSecurityFirewallConfigStatus200DraftRulesActionMitigateRateLimitActionEnum2Key | null)
 													| undefined;
-												algo: GetSecurityFirewallConfigStatus200DraftRulesActionMitigateRateLimitAlgoEnumKey;
+												algo: GetSecurityFirewallConfigStatus200DraftRulesActionMitigateRateLimitAlgoEnum2Key;
 												keys: string[];
 												limit: number;
 												window: number;
@@ -129094,8 +135155,8 @@ export type GetSecurityFirewallConfigStatus200 = {
 						conditions: {
 							key?: string | undefined;
 							neg?: (false | true) | undefined;
-							op: GetSecurityFirewallConfigStatus200DraftRulesConditionGroupConditionsOpEnumKey;
-							type: GetSecurityFirewallConfigStatus200DraftRulesConditionGroupConditionsTypeEnumKey;
+							op: GetSecurityFirewallConfigStatus200DraftRulesConditionGroupConditionsOpEnum2Key;
+							type: GetSecurityFirewallConfigStatus200DraftRulesConditionGroupConditionsTypeEnum2Key;
 							value?: (string | number | string[]) | undefined;
 						}[];
 					}[];
@@ -129154,14 +135215,14 @@ export type GetSecurityFirewallConfigStatus200 = {
 					  }[]
 					| {
 							[key: string]: {
-								action: ActionEnumKey;
+								action: ActionEnum15Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
-											action?: (ActionEnumKey | null) | undefined;
-											algo: AlgoEnumKey;
+											action?: (ActionEnum16Key | null) | undefined;
+											algo: AlgoEnum12Key;
 											keys: string[];
 											limit: number;
 											window: number;
@@ -129368,16 +135429,16 @@ export type GetSecurityFirewallConfigStatus200 = {
 					action: {
 						mitigate?:
 							| {
-									action: GetSecurityFirewallConfigStatus200VersionsRulesActionMitigateActionEnumKey;
+									action: GetSecurityFirewallConfigStatus200VersionsRulesActionMitigateActionEnum2Key;
 									actionDuration?: (string | null) | undefined;
 									bypassSystem?: ((false | true) | null) | undefined;
 									logHeaders?: (string[] | "*") | undefined;
 									rateLimit?:
 										| ({
 												action?:
-													| (GetSecurityFirewallConfigStatus200VersionsRulesActionMitigateRateLimitActionEnumKey | null)
+													| (GetSecurityFirewallConfigStatus200VersionsRulesActionMitigateRateLimitActionEnum2Key | null)
 													| undefined;
-												algo: GetSecurityFirewallConfigStatus200VersionsRulesActionMitigateRateLimitAlgoEnumKey;
+												algo: GetSecurityFirewallConfigStatus200VersionsRulesActionMitigateRateLimitAlgoEnum2Key;
 												keys: string[];
 												limit: number;
 												window: number;
@@ -129397,8 +135458,8 @@ export type GetSecurityFirewallConfigStatus200 = {
 						conditions: {
 							key?: string | undefined;
 							neg?: (false | true) | undefined;
-							op: GetSecurityFirewallConfigStatus200VersionsRulesConditionGroupConditionsOpEnumKey;
-							type: GetSecurityFirewallConfigStatus200VersionsRulesConditionGroupConditionsTypeEnumKey;
+							op: GetSecurityFirewallConfigStatus200VersionsRulesConditionGroupConditionsOpEnum2Key;
+							type: GetSecurityFirewallConfigStatus200VersionsRulesConditionGroupConditionsTypeEnum2Key;
 							value?: (string | number | string[]) | undefined;
 						}[];
 					}[];
@@ -129457,14 +135518,14 @@ export type GetSecurityFirewallConfigStatus200 = {
 					  }[]
 					| {
 							[key: string]: {
-								action: ActionEnumKey;
+								action: ActionEnum17Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
-											action?: (ActionEnumKey | null) | undefined;
-											algo: AlgoEnumKey;
+											action?: (ActionEnum18Key | null) | undefined;
+											algo: AlgoEnum13Key;
 											keys: string[];
 											limit: number;
 											window: number;
@@ -129828,6 +135889,98 @@ export const putFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEn
 export type PutFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnumKey =
 	(typeof putFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnum)[keyof typeof putFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnum];
 
+export const putFirewallConfigStatus200ActiveRulesActionMitigateActionEnum2 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type PutFirewallConfigStatus200ActiveRulesActionMitigateActionEnum2Key =
+	(typeof putFirewallConfigStatus200ActiveRulesActionMitigateActionEnum2)[keyof typeof putFirewallConfigStatus200ActiveRulesActionMitigateActionEnum2];
+
+export const putFirewallConfigStatus200ActiveRulesActionMitigateRateLimitActionEnum2 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type PutFirewallConfigStatus200ActiveRulesActionMitigateRateLimitActionEnum2Key =
+	(typeof putFirewallConfigStatus200ActiveRulesActionMitigateRateLimitActionEnum2)[keyof typeof putFirewallConfigStatus200ActiveRulesActionMitigateRateLimitActionEnum2];
+
+export const putFirewallConfigStatus200ActiveRulesActionMitigateRateLimitAlgoEnum2 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type PutFirewallConfigStatus200ActiveRulesActionMitigateRateLimitAlgoEnum2Key =
+	(typeof putFirewallConfigStatus200ActiveRulesActionMitigateRateLimitAlgoEnum2)[keyof typeof putFirewallConfigStatus200ActiveRulesActionMitigateRateLimitAlgoEnum2];
+
+export const putFirewallConfigStatus200ActiveRulesConditionGroupConditionsOpEnum2 = {
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	inc: "inc",
+	list: "list",
+	lt: "lt",
+	lte: "lte",
+	neq: "neq",
+	nex: "nex",
+	ninc: "ninc",
+	pre: "pre",
+	re: "re",
+	sub: "sub",
+	suf: "suf",
+} as const;
+
+export type PutFirewallConfigStatus200ActiveRulesConditionGroupConditionsOpEnum2Key =
+	(typeof putFirewallConfigStatus200ActiveRulesConditionGroupConditionsOpEnum2)[keyof typeof putFirewallConfigStatus200ActiveRulesConditionGroupConditionsOpEnum2];
+
+export const putFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnum2 = {
+	bot_category: "bot_category",
+	bot_name: "bot_name",
+	bot_protection: "bot_protection",
+	bot_status: "bot_status",
+	cookie: "cookie",
+	domain_environment: "domain_environment",
+	environment: "environment",
+	geo_as_number: "geo_as_number",
+	geo_city: "geo_city",
+	geo_continent: "geo_continent",
+	geo_country: "geo_country",
+	geo_country_region: "geo_country_region",
+	header: "header",
+	host: "host",
+	ip_address: "ip_address",
+	ja3_digest: "ja3_digest",
+	ja4_digest: "ja4_digest",
+	method: "method",
+	path: "path",
+	protocol: "protocol",
+	query: "query",
+	rate_limit_api_id: "rate_limit_api_id",
+	raw_path: "raw_path",
+	region: "region",
+	response_code: "response_code",
+	route: "route",
+	ruleset: "ruleset",
+	scheme: "scheme",
+	server_action: "server_action",
+	shared_condition: "shared_condition",
+	target_path: "target_path",
+	traffic_source: "traffic_source",
+	trusted_source: "trusted_source",
+	user_agent: "user_agent",
+} as const;
+
+export type PutFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnum2Key =
+	(typeof putFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnum2)[keyof typeof putFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnum2];
+
 export const putFirewallConfigStatus200ActiveRulesetsConditionGroupConditionsOpEnum = {
 	eq: "eq",
 	ex: "ex",
@@ -129919,6 +136072,34 @@ export const putFirewallConfigStatus200ActiveRulesetsActionMitigateRateLimitAlgo
 
 export type PutFirewallConfigStatus200ActiveRulesetsActionMitigateRateLimitAlgoEnumKey =
 	(typeof putFirewallConfigStatus200ActiveRulesetsActionMitigateRateLimitAlgoEnum)[keyof typeof putFirewallConfigStatus200ActiveRulesetsActionMitigateRateLimitAlgoEnum];
+
+export const actionEnum20 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type ActionEnum20Key = (typeof actionEnum20)[keyof typeof actionEnum20];
+
+export const actionEnum21 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type ActionEnum21Key = (typeof actionEnum21)[keyof typeof actionEnum21];
+
+export const algoEnum14 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type AlgoEnum14Key = (typeof algoEnum14)[keyof typeof algoEnum14];
 
 export type PutFirewallConfigStatus200 = {
 	active: {
@@ -130155,16 +136336,16 @@ export type PutFirewallConfigStatus200 = {
 					action: {
 						mitigate?:
 							| {
-									action: PutFirewallConfigStatus200ActiveRulesActionMitigateActionEnumKey;
+									action: PutFirewallConfigStatus200ActiveRulesActionMitigateActionEnum2Key;
 									actionDuration?: (string | null) | undefined;
 									bypassSystem?: ((false | true) | null) | undefined;
 									logHeaders?: (string[] | "*") | undefined;
 									rateLimit?:
 										| ({
 												action?:
-													| (PutFirewallConfigStatus200ActiveRulesActionMitigateRateLimitActionEnumKey | null)
+													| (PutFirewallConfigStatus200ActiveRulesActionMitigateRateLimitActionEnum2Key | null)
 													| undefined;
-												algo: PutFirewallConfigStatus200ActiveRulesActionMitigateRateLimitAlgoEnumKey;
+												algo: PutFirewallConfigStatus200ActiveRulesActionMitigateRateLimitAlgoEnum2Key;
 												keys: string[];
 												limit: number;
 												window: number;
@@ -130184,8 +136365,8 @@ export type PutFirewallConfigStatus200 = {
 						conditions: {
 							key?: string | undefined;
 							neg?: (false | true) | undefined;
-							op: PutFirewallConfigStatus200ActiveRulesConditionGroupConditionsOpEnumKey;
-							type: PutFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnumKey;
+							op: PutFirewallConfigStatus200ActiveRulesConditionGroupConditionsOpEnum2Key;
+							type: PutFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEnum2Key;
 							value?: (string | number | string[]) | undefined;
 						}[];
 					}[];
@@ -130244,14 +136425,14 @@ export type PutFirewallConfigStatus200 = {
 					  }[]
 					| {
 							[key: string]: {
-								action: ActionEnumKey;
+								action: ActionEnum20Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
-											action?: (ActionEnumKey | null) | undefined;
-											algo: AlgoEnumKey;
+											action?: (ActionEnum21Key | null) | undefined;
+											algo: AlgoEnum14Key;
 											keys: string[];
 											limit: number;
 											window: number;
@@ -130533,6 +136714,15 @@ export const putFirewallConfigRequestRulesetsActionMitigateActionEnum = {
 export type PutFirewallConfigRequestRulesetsActionMitigateActionEnumKey =
 	(typeof putFirewallConfigRequestRulesetsActionMitigateActionEnum)[keyof typeof putFirewallConfigRequestRulesetsActionMitigateActionEnum];
 
+export const actionEnum19 = {
+	deny: "deny",
+	challenge: "challenge",
+	log: "log",
+	allow: "allow",
+} as const;
+
+export type ActionEnum19Key = (typeof actionEnum19)[keyof typeof actionEnum19];
+
 export const putFirewallConfigRequestIpsActionEnum = {
 	bypass: "bypass",
 	challenge: "challenge",
@@ -130778,7 +136968,7 @@ export type PutFirewallConfigBody = {
 				  }[]
 				| {
 						[key: string]: {
-							action: ActionEnumKey;
+							action: ActionEnum19Key;
 						};
 				  }
 		  )
@@ -130912,6 +137102,274 @@ export type UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnumKey =
 	(typeof updateFirewallConfigRequestValueConditionGroupConditionsOpEnum)[keyof typeof updateFirewallConfigRequestValueConditionGroupConditionsOpEnum];
 
 export const updateFirewallConfigRequestValueActionMitigateActionEnum = {
+	deny: "deny",
+	challenge: "challenge",
+	log: "log",
+} as const;
+
+export type UpdateFirewallConfigRequestValueActionMitigateActionEnumKey =
+	(typeof updateFirewallConfigRequestValueActionMitigateActionEnum)[keyof typeof updateFirewallConfigRequestValueActionMitigateActionEnum];
+
+export const updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum2 = {
+	host: "host",
+	path: "path",
+	method: "method",
+	header: "header",
+	query: "query",
+	cookie: "cookie",
+	target_path: "target_path",
+	route: "route",
+	raw_path: "raw_path",
+	ip_address: "ip_address",
+	region: "region",
+	protocol: "protocol",
+	scheme: "scheme",
+	environment: "environment",
+	domain_environment: "domain_environment",
+	user_agent: "user_agent",
+	geo_continent: "geo_continent",
+	geo_country: "geo_country",
+	geo_country_region: "geo_country_region",
+	geo_city: "geo_city",
+	geo_as_number: "geo_as_number",
+	ja4_digest: "ja4_digest",
+	ja3_digest: "ja3_digest",
+	rate_limit_api_id: "rate_limit_api_id",
+	server_action: "server_action",
+	bot_name: "bot_name",
+	bot_category: "bot_category",
+	bot_status: "bot_status",
+	bot_protection: "bot_protection",
+	shared_condition: "shared_condition",
+	traffic_source: "traffic_source",
+	ruleset: "ruleset",
+	response_code: "response_code",
+} as const;
+
+export type UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnum2Key =
+	(typeof updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum2)[keyof typeof updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum2];
+
+export const updateFirewallConfigRequestValueConditionGroupConditionsOpEnum2 = {
+	re: "re",
+	eq: "eq",
+	neq: "neq",
+	ex: "ex",
+	nex: "nex",
+	inc: "inc",
+	ninc: "ninc",
+	pre: "pre",
+	suf: "suf",
+	sub: "sub",
+	gt: "gt",
+	gte: "gte",
+	lt: "lt",
+	lte: "lte",
+	list: "list",
+} as const;
+
+export type UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnum2Key =
+	(typeof updateFirewallConfigRequestValueConditionGroupConditionsOpEnum2)[keyof typeof updateFirewallConfigRequestValueConditionGroupConditionsOpEnum2];
+
+export const updateFirewallConfigRequestValueActionMitigateActionEnum2 = {
+	deny: "deny",
+	challenge: "challenge",
+	log: "log",
+} as const;
+
+export type UpdateFirewallConfigRequestValueActionMitigateActionEnum2Key =
+	(typeof updateFirewallConfigRequestValueActionMitigateActionEnum2)[keyof typeof updateFirewallConfigRequestValueActionMitigateActionEnum2];
+
+export const updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum3 = {
+	host: "host",
+	path: "path",
+	method: "method",
+	header: "header",
+	query: "query",
+	cookie: "cookie",
+	target_path: "target_path",
+	route: "route",
+	raw_path: "raw_path",
+	ip_address: "ip_address",
+	region: "region",
+	protocol: "protocol",
+	scheme: "scheme",
+	environment: "environment",
+	domain_environment: "domain_environment",
+	user_agent: "user_agent",
+	geo_continent: "geo_continent",
+	geo_country: "geo_country",
+	geo_country_region: "geo_country_region",
+	geo_city: "geo_city",
+	geo_as_number: "geo_as_number",
+	ja4_digest: "ja4_digest",
+	ja3_digest: "ja3_digest",
+	rate_limit_api_id: "rate_limit_api_id",
+	server_action: "server_action",
+	bot_name: "bot_name",
+	bot_category: "bot_category",
+	bot_status: "bot_status",
+	bot_protection: "bot_protection",
+	shared_condition: "shared_condition",
+	traffic_source: "traffic_source",
+	ruleset: "ruleset",
+	response_code: "response_code",
+} as const;
+
+export type UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnum3Key =
+	(typeof updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum3)[keyof typeof updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum3];
+
+export const updateFirewallConfigRequestValueConditionGroupConditionsOpEnum3 = {
+	re: "re",
+	eq: "eq",
+	neq: "neq",
+	ex: "ex",
+	nex: "nex",
+	inc: "inc",
+	ninc: "ninc",
+	pre: "pre",
+	suf: "suf",
+	sub: "sub",
+	gt: "gt",
+	gte: "gte",
+	lt: "lt",
+	lte: "lte",
+	list: "list",
+} as const;
+
+export type UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnum3Key =
+	(typeof updateFirewallConfigRequestValueConditionGroupConditionsOpEnum3)[keyof typeof updateFirewallConfigRequestValueConditionGroupConditionsOpEnum3];
+
+export const updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum4 = {
+	host: "host",
+	path: "path",
+	method: "method",
+	header: "header",
+	query: "query",
+	cookie: "cookie",
+	target_path: "target_path",
+	route: "route",
+	raw_path: "raw_path",
+	ip_address: "ip_address",
+	region: "region",
+	protocol: "protocol",
+	scheme: "scheme",
+	environment: "environment",
+	domain_environment: "domain_environment",
+	user_agent: "user_agent",
+	geo_continent: "geo_continent",
+	geo_country: "geo_country",
+	geo_country_region: "geo_country_region",
+	geo_city: "geo_city",
+	geo_as_number: "geo_as_number",
+	ja4_digest: "ja4_digest",
+	ja3_digest: "ja3_digest",
+	rate_limit_api_id: "rate_limit_api_id",
+	server_action: "server_action",
+	bot_name: "bot_name",
+	bot_category: "bot_category",
+	bot_status: "bot_status",
+	bot_protection: "bot_protection",
+	shared_condition: "shared_condition",
+	traffic_source: "traffic_source",
+	ruleset: "ruleset",
+	response_code: "response_code",
+} as const;
+
+export type UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnum4Key =
+	(typeof updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum4)[keyof typeof updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum4];
+
+export const updateFirewallConfigRequestValueConditionGroupConditionsOpEnum4 = {
+	re: "re",
+	eq: "eq",
+	neq: "neq",
+	ex: "ex",
+	nex: "nex",
+	inc: "inc",
+	ninc: "ninc",
+	pre: "pre",
+	suf: "suf",
+	sub: "sub",
+	gt: "gt",
+	gte: "gte",
+	lt: "lt",
+	lte: "lte",
+	list: "list",
+} as const;
+
+export type UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnum4Key =
+	(typeof updateFirewallConfigRequestValueConditionGroupConditionsOpEnum4)[keyof typeof updateFirewallConfigRequestValueConditionGroupConditionsOpEnum4];
+
+export const updateFirewallConfigRequestValueActionEnum = {
+	deny: "deny",
+	challenge: "challenge",
+	log: "log",
+	allow: "allow",
+} as const;
+
+export type UpdateFirewallConfigRequestValueActionEnumKey =
+	(typeof updateFirewallConfigRequestValueActionEnum)[keyof typeof updateFirewallConfigRequestValueActionEnum];
+
+export const updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum5 = {
+	host: "host",
+	path: "path",
+	method: "method",
+	header: "header",
+	query: "query",
+	cookie: "cookie",
+	target_path: "target_path",
+	route: "route",
+	raw_path: "raw_path",
+	ip_address: "ip_address",
+	region: "region",
+	protocol: "protocol",
+	scheme: "scheme",
+	environment: "environment",
+	domain_environment: "domain_environment",
+	user_agent: "user_agent",
+	geo_continent: "geo_continent",
+	geo_country: "geo_country",
+	geo_country_region: "geo_country_region",
+	geo_city: "geo_city",
+	geo_as_number: "geo_as_number",
+	ja4_digest: "ja4_digest",
+	ja3_digest: "ja3_digest",
+	rate_limit_api_id: "rate_limit_api_id",
+	server_action: "server_action",
+	bot_name: "bot_name",
+	bot_category: "bot_category",
+	bot_status: "bot_status",
+	bot_protection: "bot_protection",
+	shared_condition: "shared_condition",
+	traffic_source: "traffic_source",
+	ruleset: "ruleset",
+	response_code: "response_code",
+} as const;
+
+export type UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnum5Key =
+	(typeof updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum5)[keyof typeof updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum5];
+
+export const updateFirewallConfigRequestValueConditionGroupConditionsOpEnum5 = {
+	re: "re",
+	eq: "eq",
+	neq: "neq",
+	ex: "ex",
+	nex: "nex",
+	inc: "inc",
+	ninc: "ninc",
+	pre: "pre",
+	suf: "suf",
+	sub: "sub",
+	gt: "gt",
+	gte: "gte",
+	lt: "lt",
+	lte: "lte",
+	list: "list",
+} as const;
+
+export type UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnum5Key =
+	(typeof updateFirewallConfigRequestValueConditionGroupConditionsOpEnum5)[keyof typeof updateFirewallConfigRequestValueConditionGroupConditionsOpEnum5];
+
+export const updateFirewallConfigRequestValueActionMitigateActionEnum3 = {
 	log: "log",
 	challenge: "challenge",
 	deny: "deny",
@@ -130920,17 +137378,8 @@ export const updateFirewallConfigRequestValueActionMitigateActionEnum = {
 	redirect: "redirect",
 } as const;
 
-export type UpdateFirewallConfigRequestValueActionMitigateActionEnumKey =
-	(typeof updateFirewallConfigRequestValueActionMitigateActionEnum)[keyof typeof updateFirewallConfigRequestValueActionMitigateActionEnum];
-
-export const updateFirewallConfigRequestValueActionEnum = {
-	log: "log",
-	challenge: "challenge",
-	deny: "deny",
-} as const;
-
-export type UpdateFirewallConfigRequestValueActionEnumKey =
-	(typeof updateFirewallConfigRequestValueActionEnum)[keyof typeof updateFirewallConfigRequestValueActionEnum];
+export type UpdateFirewallConfigRequestValueActionMitigateActionEnum3Key =
+	(typeof updateFirewallConfigRequestValueActionMitigateActionEnum3)[keyof typeof updateFirewallConfigRequestValueActionMitigateActionEnum3];
 
 export const updateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum = {
 	fixed_window: "fixed_window",
@@ -130940,7 +137389,132 @@ export const updateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum = {
 export type UpdateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnumKey =
 	(typeof updateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum)[keyof typeof updateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum];
 
+export const updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum6 = {
+	host: "host",
+	path: "path",
+	method: "method",
+	header: "header",
+	query: "query",
+	cookie: "cookie",
+	target_path: "target_path",
+	route: "route",
+	raw_path: "raw_path",
+	ip_address: "ip_address",
+	region: "region",
+	protocol: "protocol",
+	scheme: "scheme",
+	environment: "environment",
+	domain_environment: "domain_environment",
+	user_agent: "user_agent",
+	geo_continent: "geo_continent",
+	geo_country: "geo_country",
+	geo_country_region: "geo_country_region",
+	geo_city: "geo_city",
+	geo_as_number: "geo_as_number",
+	ja4_digest: "ja4_digest",
+	ja3_digest: "ja3_digest",
+	rate_limit_api_id: "rate_limit_api_id",
+	server_action: "server_action",
+	bot_name: "bot_name",
+	bot_category: "bot_category",
+	bot_status: "bot_status",
+	bot_protection: "bot_protection",
+	shared_condition: "shared_condition",
+	traffic_source: "traffic_source",
+	ruleset: "ruleset",
+	response_code: "response_code",
+} as const;
+
+export type UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnum6Key =
+	(typeof updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum6)[keyof typeof updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum6];
+
+export const updateFirewallConfigRequestValueConditionGroupConditionsOpEnum6 = {
+	re: "re",
+	eq: "eq",
+	neq: "neq",
+	ex: "ex",
+	nex: "nex",
+	inc: "inc",
+	ninc: "ninc",
+	pre: "pre",
+	suf: "suf",
+	sub: "sub",
+	gt: "gt",
+	gte: "gte",
+	lt: "lt",
+	lte: "lte",
+	list: "list",
+} as const;
+
+export type UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnum6Key =
+	(typeof updateFirewallConfigRequestValueConditionGroupConditionsOpEnum6)[keyof typeof updateFirewallConfigRequestValueConditionGroupConditionsOpEnum6];
+
+export const updateFirewallConfigRequestValueActionMitigateActionEnum4 = {
+	log: "log",
+	challenge: "challenge",
+	deny: "deny",
+	bypass: "bypass",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type UpdateFirewallConfigRequestValueActionMitigateActionEnum4Key =
+	(typeof updateFirewallConfigRequestValueActionMitigateActionEnum4)[keyof typeof updateFirewallConfigRequestValueActionMitigateActionEnum4];
+
+export const updateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum2 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type UpdateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum2Key =
+	(typeof updateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum2)[keyof typeof updateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum2];
+
 export const updateFirewallConfigRequestIdEnum = {
+	sd: "sd",
+	ma: "ma",
+	lfi: "lfi",
+	rfi: "rfi",
+	rce: "rce",
+	php: "php",
+	gen: "gen",
+	xss: "xss",
+	sqli: "sqli",
+	sf: "sf",
+	java: "java",
+} as const;
+
+export type UpdateFirewallConfigRequestIdEnumKey =
+	(typeof updateFirewallConfigRequestIdEnum)[keyof typeof updateFirewallConfigRequestIdEnum];
+
+export const updateFirewallConfigRequestValueActionEnum2 = {
+	deny: "deny",
+	log: "log",
+} as const;
+
+export type UpdateFirewallConfigRequestValueActionEnum2Key =
+	(typeof updateFirewallConfigRequestValueActionEnum2)[keyof typeof updateFirewallConfigRequestValueActionEnum2];
+
+export const updateFirewallConfigRequestValueActionEnum3 = {
+	deny: "deny",
+	challenge: "challenge",
+	log: "log",
+	bypass: "bypass",
+} as const;
+
+export type UpdateFirewallConfigRequestValueActionEnum3Key =
+	(typeof updateFirewallConfigRequestValueActionEnum3)[keyof typeof updateFirewallConfigRequestValueActionEnum3];
+
+export const updateFirewallConfigRequestValueActionEnum4 = {
+	deny: "deny",
+	challenge: "challenge",
+	log: "log",
+	bypass: "bypass",
+} as const;
+
+export type UpdateFirewallConfigRequestValueActionEnum4Key =
+	(typeof updateFirewallConfigRequestValueActionEnum4)[keyof typeof updateFirewallConfigRequestValueActionEnum4];
+
+export const updateFirewallConfigRequestIdEnum2 = {
 	ai_bots: "ai_bots",
 	bot_filter: "bot_filter",
 	bot_protection: "bot_protection",
@@ -130949,8 +137523,37 @@ export const updateFirewallConfigRequestIdEnum = {
 	owasp: "owasp",
 } as const;
 
-export type UpdateFirewallConfigRequestIdEnumKey =
-	(typeof updateFirewallConfigRequestIdEnum)[keyof typeof updateFirewallConfigRequestIdEnum];
+export type UpdateFirewallConfigRequestIdEnum2Key =
+	(typeof updateFirewallConfigRequestIdEnum2)[keyof typeof updateFirewallConfigRequestIdEnum2];
+
+export const updateFirewallConfigRequestValueActionEnum5 = {
+	log: "log",
+	challenge: "challenge",
+	deny: "deny",
+} as const;
+
+export type UpdateFirewallConfigRequestValueActionEnum5Key =
+	(typeof updateFirewallConfigRequestValueActionEnum5)[keyof typeof updateFirewallConfigRequestValueActionEnum5];
+
+export const updateFirewallConfigRequestIdEnum3 = {
+	ai_bots: "ai_bots",
+	bot_filter: "bot_filter",
+	bot_protection: "bot_protection",
+	traffic_sources: "traffic_sources",
+	vercel_ruleset: "vercel_ruleset",
+	owasp: "owasp",
+} as const;
+
+export type UpdateFirewallConfigRequestIdEnum3Key =
+	(typeof updateFirewallConfigRequestIdEnum3)[keyof typeof updateFirewallConfigRequestIdEnum3];
+
+export const actionEnum22 = {
+	log: "log",
+	challenge: "challenge",
+	deny: "deny",
+} as const;
+
+export type ActionEnum22Key = (typeof actionEnum22)[keyof typeof actionEnum22];
 
 export type UpdateFirewallConfigBody =
 	| {
@@ -131007,8 +137610,8 @@ export type UpdateFirewallConfigBody =
 				active: boolean;
 				conditionGroup: {
 					conditions: {
-						type: UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnumKey;
-						op: UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnumKey;
+						type: UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnum2Key;
+						op: UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnum2Key;
 						neg?: boolean | undefined;
 						key?: string | undefined;
 						value?: (string | string[] | number) | undefined;
@@ -131018,7 +137621,7 @@ export type UpdateFirewallConfigBody =
 					| {
 							mitigate?:
 								| {
-										action: UpdateFirewallConfigRequestValueActionMitigateActionEnumKey;
+										action: UpdateFirewallConfigRequestValueActionMitigateActionEnum2Key;
 								  }
 								| undefined;
 					  }
@@ -131054,8 +137657,8 @@ export type UpdateFirewallConfigBody =
 				active: boolean;
 				conditionGroup: {
 					conditions: {
-						type: UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnumKey;
-						op: UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnumKey;
+						type: UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnum3Key;
+						op: UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnum3Key;
 						neg?: boolean | undefined;
 						key?: string | undefined;
 						value?: (string | string[] | number) | undefined;
@@ -131082,8 +137685,8 @@ export type UpdateFirewallConfigBody =
 				active: boolean;
 				conditionGroup: {
 					conditions: {
-						type: UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnumKey;
-						op: UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnumKey;
+						type: UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnum4Key;
+						op: UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnum4Key;
 						neg?: boolean | undefined;
 						key?: string | undefined;
 						value?: (string | string[] | number) | undefined;
@@ -131140,8 +137743,8 @@ export type UpdateFirewallConfigBody =
 				active: boolean;
 				conditionGroup: {
 					conditions: {
-						type: UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnumKey;
-						op: UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnumKey;
+						type: UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnum5Key;
+						op: UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnum5Key;
 						neg?: boolean | undefined;
 						key?: string | undefined;
 						value?: (string | string[] | number) | undefined;
@@ -131150,7 +137753,7 @@ export type UpdateFirewallConfigBody =
 				action: {
 					mitigate?:
 						| {
-								action: UpdateFirewallConfigRequestValueActionMitigateActionEnumKey;
+								action: UpdateFirewallConfigRequestValueActionMitigateActionEnum3Key;
 								rateLimit?:
 									| (
 											| {
@@ -131199,8 +137802,8 @@ export type UpdateFirewallConfigBody =
 				active: boolean;
 				conditionGroup: {
 					conditions: {
-						type: UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnumKey;
-						op: UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnumKey;
+						type: UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnum6Key;
+						op: UpdateFirewallConfigRequestValueConditionGroupConditionsOpEnum6Key;
 						neg?: boolean | undefined;
 						key?: string | undefined;
 						value?: (string | string[] | number) | undefined;
@@ -131209,11 +137812,11 @@ export type UpdateFirewallConfigBody =
 				action: {
 					mitigate?:
 						| {
-								action: UpdateFirewallConfigRequestValueActionMitigateActionEnumKey;
+								action: UpdateFirewallConfigRequestValueActionMitigateActionEnum4Key;
 								rateLimit?:
 									| (
 											| {
-													algo: UpdateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnumKey;
+													algo: UpdateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum2Key;
 													window: number;
 													limit: number;
 													keys: string[];
@@ -131256,7 +137859,7 @@ export type UpdateFirewallConfigBody =
 			id: UpdateFirewallConfigRequestIdEnumKey;
 			value: {
 				active: boolean;
-				action: UpdateFirewallConfigRequestValueActionEnumKey;
+				action: UpdateFirewallConfigRequestValueActionEnum2Key;
 			};
 	  }
 	| {
@@ -131271,7 +137874,7 @@ export type UpdateFirewallConfigBody =
 				hostname: string;
 				ip: string;
 				notes?: string | undefined;
-				action: UpdateFirewallConfigRequestValueActionEnumKey;
+				action: UpdateFirewallConfigRequestValueActionEnum3Key;
 			};
 	  }
 	| {
@@ -131281,7 +137884,7 @@ export type UpdateFirewallConfigBody =
 				hostname: string;
 				ip: string;
 				notes?: string | undefined;
-				action: UpdateFirewallConfigRequestValueActionEnumKey;
+				action: UpdateFirewallConfigRequestValueActionEnum4Key;
 			};
 	  }
 	| {
@@ -131291,19 +137894,19 @@ export type UpdateFirewallConfigBody =
 	  }
 	| {
 			action: string;
-			id: UpdateFirewallConfigRequestIdEnumKey;
+			id: UpdateFirewallConfigRequestIdEnum2Key;
 			value: {
-				action?: UpdateFirewallConfigRequestValueActionEnumKey | undefined;
+				action?: UpdateFirewallConfigRequestValueActionEnum5Key | undefined;
 				active: boolean;
 			};
 	  }
 	| {
 			action: string;
-			id: UpdateFirewallConfigRequestIdEnumKey;
+			id: UpdateFirewallConfigRequestIdEnum3Key;
 			value: {
 				[key: string]: {
 					active: boolean;
-					action?: ActionEnumKey | undefined;
+					action?: ActionEnum22Key | undefined;
 				};
 			};
 	  }
@@ -131315,7 +137918,7 @@ export type UpdateFirewallConfigBody =
 	| {
 			action: string;
 			id?: string | undefined;
-			value: string | string[] | string;
+			value: string | string[];
 	  };
 
 export type UpdateFirewallConfigOptions = {
@@ -131661,6 +138264,98 @@ export const getFirewallConfigStatus200RulesConditionGroupConditionsTypeEnum = {
 export type GetFirewallConfigStatus200RulesConditionGroupConditionsTypeEnumKey =
 	(typeof getFirewallConfigStatus200RulesConditionGroupConditionsTypeEnum)[keyof typeof getFirewallConfigStatus200RulesConditionGroupConditionsTypeEnum];
 
+export const getFirewallConfigStatus200RulesActionMitigateActionEnum2 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type GetFirewallConfigStatus200RulesActionMitigateActionEnum2Key =
+	(typeof getFirewallConfigStatus200RulesActionMitigateActionEnum2)[keyof typeof getFirewallConfigStatus200RulesActionMitigateActionEnum2];
+
+export const getFirewallConfigStatus200RulesActionMitigateRateLimitActionEnum2 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type GetFirewallConfigStatus200RulesActionMitigateRateLimitActionEnum2Key =
+	(typeof getFirewallConfigStatus200RulesActionMitigateRateLimitActionEnum2)[keyof typeof getFirewallConfigStatus200RulesActionMitigateRateLimitActionEnum2];
+
+export const getFirewallConfigStatus200RulesActionMitigateRateLimitAlgoEnum2 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type GetFirewallConfigStatus200RulesActionMitigateRateLimitAlgoEnum2Key =
+	(typeof getFirewallConfigStatus200RulesActionMitigateRateLimitAlgoEnum2)[keyof typeof getFirewallConfigStatus200RulesActionMitigateRateLimitAlgoEnum2];
+
+export const getFirewallConfigStatus200RulesConditionGroupConditionsOpEnum2 = {
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	inc: "inc",
+	list: "list",
+	lt: "lt",
+	lte: "lte",
+	neq: "neq",
+	nex: "nex",
+	ninc: "ninc",
+	pre: "pre",
+	re: "re",
+	sub: "sub",
+	suf: "suf",
+} as const;
+
+export type GetFirewallConfigStatus200RulesConditionGroupConditionsOpEnum2Key =
+	(typeof getFirewallConfigStatus200RulesConditionGroupConditionsOpEnum2)[keyof typeof getFirewallConfigStatus200RulesConditionGroupConditionsOpEnum2];
+
+export const getFirewallConfigStatus200RulesConditionGroupConditionsTypeEnum2 = {
+	bot_category: "bot_category",
+	bot_name: "bot_name",
+	bot_protection: "bot_protection",
+	bot_status: "bot_status",
+	cookie: "cookie",
+	domain_environment: "domain_environment",
+	environment: "environment",
+	geo_as_number: "geo_as_number",
+	geo_city: "geo_city",
+	geo_continent: "geo_continent",
+	geo_country: "geo_country",
+	geo_country_region: "geo_country_region",
+	header: "header",
+	host: "host",
+	ip_address: "ip_address",
+	ja3_digest: "ja3_digest",
+	ja4_digest: "ja4_digest",
+	method: "method",
+	path: "path",
+	protocol: "protocol",
+	query: "query",
+	rate_limit_api_id: "rate_limit_api_id",
+	raw_path: "raw_path",
+	region: "region",
+	response_code: "response_code",
+	route: "route",
+	ruleset: "ruleset",
+	scheme: "scheme",
+	server_action: "server_action",
+	shared_condition: "shared_condition",
+	target_path: "target_path",
+	traffic_source: "traffic_source",
+	trusted_source: "trusted_source",
+	user_agent: "user_agent",
+} as const;
+
+export type GetFirewallConfigStatus200RulesConditionGroupConditionsTypeEnum2Key =
+	(typeof getFirewallConfigStatus200RulesConditionGroupConditionsTypeEnum2)[keyof typeof getFirewallConfigStatus200RulesConditionGroupConditionsTypeEnum2];
+
 export const getFirewallConfigStatus200RulesetsConditionGroupConditionsOpEnum = {
 	eq: "eq",
 	ex: "ex",
@@ -131752,6 +138447,34 @@ export const getFirewallConfigStatus200RulesetsActionMitigateRateLimitAlgoEnum =
 
 export type GetFirewallConfigStatus200RulesetsActionMitigateRateLimitAlgoEnumKey =
 	(typeof getFirewallConfigStatus200RulesetsActionMitigateRateLimitAlgoEnum)[keyof typeof getFirewallConfigStatus200RulesetsActionMitigateRateLimitAlgoEnum];
+
+export const actionEnum23 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type ActionEnum23Key = (typeof actionEnum23)[keyof typeof actionEnum23];
+
+export const actionEnum24 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type ActionEnum24Key = (typeof actionEnum24)[keyof typeof actionEnum24];
+
+export const algoEnum15 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type AlgoEnum15Key = (typeof algoEnum15)[keyof typeof algoEnum15];
 
 export type GetFirewallConfigStatus200 = {
 	botIdEnabled?: (false | true) | undefined;
@@ -131981,16 +138704,16 @@ export type GetFirewallConfigStatus200 = {
 				action: {
 					mitigate?:
 						| {
-								action: GetFirewallConfigStatus200RulesActionMitigateActionEnumKey;
+								action: GetFirewallConfigStatus200RulesActionMitigateActionEnum2Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
 											action?:
-												| (GetFirewallConfigStatus200RulesActionMitigateRateLimitActionEnumKey | null)
+												| (GetFirewallConfigStatus200RulesActionMitigateRateLimitActionEnum2Key | null)
 												| undefined;
-											algo: GetFirewallConfigStatus200RulesActionMitigateRateLimitAlgoEnumKey;
+											algo: GetFirewallConfigStatus200RulesActionMitigateRateLimitAlgoEnum2Key;
 											keys: string[];
 											limit: number;
 											window: number;
@@ -132010,8 +138733,8 @@ export type GetFirewallConfigStatus200 = {
 					conditions: {
 						key?: string | undefined;
 						neg?: (false | true) | undefined;
-						op: GetFirewallConfigStatus200RulesConditionGroupConditionsOpEnumKey;
-						type: GetFirewallConfigStatus200RulesConditionGroupConditionsTypeEnumKey;
+						op: GetFirewallConfigStatus200RulesConditionGroupConditionsOpEnum2Key;
+						type: GetFirewallConfigStatus200RulesConditionGroupConditionsTypeEnum2Key;
 						value?: (string | number | string[]) | undefined;
 					}[];
 				}[];
@@ -132070,14 +138793,14 @@ export type GetFirewallConfigStatus200 = {
 				  }[]
 				| {
 						[key: string]: {
-							action: ActionEnumKey;
+							action: ActionEnum23Key;
 							actionDuration?: (string | null) | undefined;
 							bypassSystem?: ((false | true) | null) | undefined;
 							logHeaders?: (string[] | "*") | undefined;
 							rateLimit?:
 								| ({
-										action?: (ActionEnumKey | null) | undefined;
-										algo: AlgoEnumKey;
+										action?: (ActionEnum24Key | null) | undefined;
+										algo: AlgoEnum15Key;
 										keys: string[];
 										limit: number;
 										window: number;
@@ -132489,6 +139212,103 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200RulesCo
 export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesConditionGroupConditionsTypeEnumKey =
 	(typeof createSecurityFirewallConfigByConfigVersionActivateStatus200RulesConditionGroupConditionsTypeEnum)[keyof typeof createSecurityFirewallConfigByConfigVersionActivateStatus200RulesConditionGroupConditionsTypeEnum];
 
+export const createSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateActionEnum2 =
+	{
+		allow: "allow",
+		bypass: "bypass",
+		challenge: "challenge",
+		deny: "deny",
+		log: "log",
+		rate_limit: "rate_limit",
+		redirect: "redirect",
+	} as const;
+
+export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateActionEnum2Key =
+	(typeof createSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateActionEnum2)[keyof typeof createSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateActionEnum2];
+
+export const createSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateRateLimitActionEnum2 =
+	{
+		challenge: "challenge",
+		deny: "deny",
+		log: "log",
+		rate_limit: "rate_limit",
+	} as const;
+
+export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateRateLimitActionEnum2Key =
+	(typeof createSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateRateLimitActionEnum2)[keyof typeof createSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateRateLimitActionEnum2];
+
+export const createSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateRateLimitAlgoEnum2 =
+	{
+		fixed_window: "fixed_window",
+		token_bucket: "token_bucket",
+	} as const;
+
+export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateRateLimitAlgoEnum2Key =
+	(typeof createSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateRateLimitAlgoEnum2)[keyof typeof createSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateRateLimitAlgoEnum2];
+
+export const createSecurityFirewallConfigByConfigVersionActivateStatus200RulesConditionGroupConditionsOpEnum2 =
+	{
+		eq: "eq",
+		ex: "ex",
+		gt: "gt",
+		gte: "gte",
+		inc: "inc",
+		list: "list",
+		lt: "lt",
+		lte: "lte",
+		neq: "neq",
+		nex: "nex",
+		ninc: "ninc",
+		pre: "pre",
+		re: "re",
+		sub: "sub",
+		suf: "suf",
+	} as const;
+
+export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesConditionGroupConditionsOpEnum2Key =
+	(typeof createSecurityFirewallConfigByConfigVersionActivateStatus200RulesConditionGroupConditionsOpEnum2)[keyof typeof createSecurityFirewallConfigByConfigVersionActivateStatus200RulesConditionGroupConditionsOpEnum2];
+
+export const createSecurityFirewallConfigByConfigVersionActivateStatus200RulesConditionGroupConditionsTypeEnum2 =
+	{
+		bot_category: "bot_category",
+		bot_name: "bot_name",
+		bot_protection: "bot_protection",
+		bot_status: "bot_status",
+		cookie: "cookie",
+		domain_environment: "domain_environment",
+		environment: "environment",
+		geo_as_number: "geo_as_number",
+		geo_city: "geo_city",
+		geo_continent: "geo_continent",
+		geo_country: "geo_country",
+		geo_country_region: "geo_country_region",
+		header: "header",
+		host: "host",
+		ip_address: "ip_address",
+		ja3_digest: "ja3_digest",
+		ja4_digest: "ja4_digest",
+		method: "method",
+		path: "path",
+		protocol: "protocol",
+		query: "query",
+		rate_limit_api_id: "rate_limit_api_id",
+		raw_path: "raw_path",
+		region: "region",
+		response_code: "response_code",
+		route: "route",
+		ruleset: "ruleset",
+		scheme: "scheme",
+		server_action: "server_action",
+		shared_condition: "shared_condition",
+		target_path: "target_path",
+		traffic_source: "traffic_source",
+		trusted_source: "trusted_source",
+		user_agent: "user_agent",
+	} as const;
+
+export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesConditionGroupConditionsTypeEnum2Key =
+	(typeof createSecurityFirewallConfigByConfigVersionActivateStatus200RulesConditionGroupConditionsTypeEnum2)[keyof typeof createSecurityFirewallConfigByConfigVersionActivateStatus200RulesConditionGroupConditionsTypeEnum2];
+
 export const createSecurityFirewallConfigByConfigVersionActivateStatus200RulesetsConditionGroupConditionsOpEnum =
 	{
 		eq: "eq",
@@ -132585,6 +139405,34 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200Ruleset
 
 export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesetsActionMitigateRateLimitAlgoEnumKey =
 	(typeof createSecurityFirewallConfigByConfigVersionActivateStatus200RulesetsActionMitigateRateLimitAlgoEnum)[keyof typeof createSecurityFirewallConfigByConfigVersionActivateStatus200RulesetsActionMitigateRateLimitAlgoEnum];
+
+export const actionEnum25 = {
+	allow: "allow",
+	bypass: "bypass",
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+	redirect: "redirect",
+} as const;
+
+export type ActionEnum25Key = (typeof actionEnum25)[keyof typeof actionEnum25];
+
+export const actionEnum26 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type ActionEnum26Key = (typeof actionEnum26)[keyof typeof actionEnum26];
+
+export const algoEnum16 = {
+	fixed_window: "fixed_window",
+	token_bucket: "token_bucket",
+} as const;
+
+export type AlgoEnum16Key = (typeof algoEnum16)[keyof typeof algoEnum16];
 
 export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200 = {
 	botIdEnabled?: (false | true) | undefined;
@@ -132774,16 +139622,16 @@ export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200 = {
 				action: {
 					mitigate?:
 						| {
-								action: CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateActionEnumKey;
+								action: CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateActionEnum2Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
 											action?:
-												| (CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateRateLimitActionEnumKey | null)
+												| (CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateRateLimitActionEnum2Key | null)
 												| undefined;
-											algo: CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateRateLimitAlgoEnumKey;
+											algo: CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesActionMitigateRateLimitAlgoEnum2Key;
 											keys: string[];
 											limit: number;
 											window: number;
@@ -132803,8 +139651,8 @@ export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200 = {
 					conditions: {
 						key?: string | undefined;
 						neg?: (false | true) | undefined;
-						op: CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesConditionGroupConditionsOpEnumKey;
-						type: CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesConditionGroupConditionsTypeEnumKey;
+						op: CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesConditionGroupConditionsOpEnum2Key;
+						type: CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesConditionGroupConditionsTypeEnum2Key;
 						value?: (string | number | string[]) | undefined;
 					}[];
 				}[];
@@ -132863,14 +139711,14 @@ export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200 = {
 				  }[]
 				| {
 						[key: string]: {
-							action: ActionEnumKey;
+							action: ActionEnum25Key;
 							actionDuration?: (string | null) | undefined;
 							bypassSystem?: ((false | true) | null) | undefined;
 							logHeaders?: (string[] | "*") | undefined;
 							rateLimit?:
 								| ({
-										action?: (ActionEnumKey | null) | undefined;
-										algo: AlgoEnumKey;
+										action?: (ActionEnum26Key | null) | undefined;
+										algo: AlgoEnum16Key;
 										keys: string[];
 										limit: number;
 										window: number;
@@ -132931,7 +139779,7 @@ export type CreateSecurityFirewallConfigByConfigVersionActivateResponse =
 export type GetActiveAttackStatusQuery = {
 	projectId: string;
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @type number | undefined
 	 */
 	since?: number | undefined;
@@ -133019,7 +139867,7 @@ export type GetActiveAttackStatusResponse = GetActiveAttackStatusStatus200;
 export type GetBypassIpQuery = {
 	projectId: string;
 	/**
-	 * @maxLength 256
+	 * @maximum 256
 	 * @example 10
 	 * @type number | undefined
 	 */
@@ -133687,6 +140535,26 @@ export const createConditionalBypassRequestConditionGroupConditionsOpEnum = {
 export type CreateConditionalBypassRequestConditionGroupConditionsOpEnumKey =
 	(typeof createConditionalBypassRequestConditionGroupConditionsOpEnum)[keyof typeof createConditionalBypassRequestConditionGroupConditionsOpEnum];
 
+export const createConditionalBypassRequestConditionGroupConditionsOpEnum2 = {
+	eq: "eq",
+	pre: "pre",
+	suf: "suf",
+	sub: "sub",
+} as const;
+
+export type CreateConditionalBypassRequestConditionGroupConditionsOpEnum2Key =
+	(typeof createConditionalBypassRequestConditionGroupConditionsOpEnum2)[keyof typeof createConditionalBypassRequestConditionGroupConditionsOpEnum2];
+
+export const createConditionalBypassRequestConditionGroupConditionsOpEnum3 = {
+	eq: "eq",
+	pre: "pre",
+	suf: "suf",
+	sub: "sub",
+} as const;
+
+export type CreateConditionalBypassRequestConditionGroupConditionsOpEnum3Key =
+	(typeof createConditionalBypassRequestConditionGroupConditionsOpEnum3)[keyof typeof createConditionalBypassRequestConditionGroupConditionsOpEnum3];
+
 export type CreateConditionalBypassBody =
 	| {
 			domain: string;
@@ -133704,7 +140572,7 @@ export type CreateConditionalBypassBody =
 					  }
 					| {
 							type: "path";
-							op: CreateConditionalBypassRequestConditionGroupConditionsOpEnumKey;
+							op: CreateConditionalBypassRequestConditionGroupConditionsOpEnum2Key;
 							/**
 							 * @maxLength 500
 							 * @type string
@@ -133713,7 +140581,7 @@ export type CreateConditionalBypassBody =
 					  }
 					| {
 							type: "header";
-							op: CreateConditionalBypassRequestConditionGroupConditionsOpEnumKey;
+							op: CreateConditionalBypassRequestConditionGroupConditionsOpEnum3Key;
 							/**
 							 * @maxLength 128
 							 * @pattern ^[!#$%&'*+.^_`|~0-9A-Za-z-]+$
@@ -133883,6 +140751,26 @@ export const updateConditionalBypassRequestConditionGroupConditionsOpEnum = {
 export type UpdateConditionalBypassRequestConditionGroupConditionsOpEnumKey =
 	(typeof updateConditionalBypassRequestConditionGroupConditionsOpEnum)[keyof typeof updateConditionalBypassRequestConditionGroupConditionsOpEnum];
 
+export const updateConditionalBypassRequestConditionGroupConditionsOpEnum2 = {
+	eq: "eq",
+	pre: "pre",
+	suf: "suf",
+	sub: "sub",
+} as const;
+
+export type UpdateConditionalBypassRequestConditionGroupConditionsOpEnum2Key =
+	(typeof updateConditionalBypassRequestConditionGroupConditionsOpEnum2)[keyof typeof updateConditionalBypassRequestConditionGroupConditionsOpEnum2];
+
+export const updateConditionalBypassRequestConditionGroupConditionsOpEnum3 = {
+	eq: "eq",
+	pre: "pre",
+	suf: "suf",
+	sub: "sub",
+} as const;
+
+export type UpdateConditionalBypassRequestConditionGroupConditionsOpEnum3Key =
+	(typeof updateConditionalBypassRequestConditionGroupConditionsOpEnum3)[keyof typeof updateConditionalBypassRequestConditionGroupConditionsOpEnum3];
+
 export type UpdateConditionalBypassBody =
 	| {
 			domain: string;
@@ -133900,7 +140788,7 @@ export type UpdateConditionalBypassBody =
 					  }
 					| {
 							type: "path";
-							op: UpdateConditionalBypassRequestConditionGroupConditionsOpEnumKey;
+							op: UpdateConditionalBypassRequestConditionGroupConditionsOpEnum2Key;
 							/**
 							 * @maxLength 500
 							 * @type string
@@ -133909,7 +140797,7 @@ export type UpdateConditionalBypassBody =
 					  }
 					| {
 							type: "header";
-							op: UpdateConditionalBypassRequestConditionGroupConditionsOpEnumKey;
+							op: UpdateConditionalBypassRequestConditionGroupConditionsOpEnum3Key;
 							/**
 							 * @maxLength 128
 							 * @pattern ^[!#$%&'*+.^_`|~0-9A-Za-z-]+$
@@ -134050,8 +140938,8 @@ export type GetSecurityFirewallEventsRuleKindKey =
 export type GetSecurityFirewallEventsQuery = {
 	sort?: GetSecurityFirewallEventsSortKey | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 5000
+	 * @minimum 1
+	 * @maximum 5000
 	 * @type number | undefined
 	 */
 	limit?: number | undefined;
@@ -136525,7 +143413,7 @@ export type CreateIntegrationStoreDirectBody =
 			paymentMethodId?: string | undefined;
 			/**
 			 * @description Amount in cents for prepayment billing plans. Required only for prepayment plans with variable amounts.
-			 * @minLength 50
+			 * @minimum 50
 			 * @example 5000
 			 * @type number | undefined
 			 */
@@ -136582,7 +143470,7 @@ export type GetTeamMembersRoleKey = (typeof getTeamMembersRole)[keyof typeof get
 export type GetTeamMembersQuery = {
 	/**
 	 * @description Limit how many teams should be returned
-	 * @minLength 1
+	 * @minimum 1
 	 * @example 20
 	 * @type number | undefined
 	 */
@@ -139417,8 +146305,8 @@ export type ListRepositoriesQuery = {
 	 */
 	projectId: string;
 	/**
-	 * @minLength 1
-	 * @maxLength 1000
+	 * @minimum 1
+	 * @maximum 1000
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
@@ -139622,8 +146510,8 @@ export type ListRepositoryImagesQuery = {
 	 */
 	projectId: string;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
@@ -139870,8 +146758,8 @@ export type ListRepositoryPermissionsQuery = {
 	 */
 	projectId: string;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
@@ -140024,8 +146912,8 @@ export type ListRepositoryTagsQuery = {
 	 */
 	projectId: string;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
@@ -141184,8 +148072,8 @@ export type GetByTeamSlugByProjectSlugByRepositoryNameTagsListPath = {
 
 export type GetByTeamSlugByProjectSlugByRepositoryNameTagsListQuery = {
 	/**
-	 * @minLength 1
-	 * @maxLength 1000
+	 * @minimum 1
+	 * @maximum 1000
 	 * @type integer | undefined
 	 */
 	n?: number | undefined;
@@ -141717,8 +148605,8 @@ export type ListVercelCiBranchesQuery = {
 	 */
 	query?: string | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 50
+	 * @minimum 1
+	 * @maximum 50
 	 * @type number | undefined
 	 */
 	limit?: number | undefined;
@@ -144325,8 +151213,8 @@ export type AggregatePageviewsQuery = {
 	until: number | string;
 	/**
 	 * @description Number of distinct results, default to 10. Other results are grouped into "Others" group.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 10
 	 * @example 3
 	 * @type integer | undefined
@@ -144498,8 +151386,8 @@ export type AggregateEventsQuery = {
 	until: number | string;
 	/**
 	 * @description Number of distinct results, default to 10. Other results are grouped into "Others" group.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 10
 	 * @example 3
 	 * @type integer | undefined
@@ -145460,6 +152348,126 @@ export const getWebhooksStatus200ProjectsMetadataFrameworkEnum = {
 export type GetWebhooksStatus200ProjectsMetadataFrameworkEnumKey =
 	(typeof getWebhooksStatus200ProjectsMetadataFrameworkEnum)[keyof typeof getWebhooksStatus200ProjectsMetadataFrameworkEnum];
 
+export const getWebhooksStatus200EventsEnum2 = {
+	"ai-gateway.auto-reload.limit-reached": "ai-gateway.auto-reload.limit-reached",
+	"ai-gateway.balance-depleted": "ai-gateway.balance-depleted",
+	"alerts.triggered": "alerts.triggered",
+	"botid.anomaly": "botid.anomaly",
+	"budget.reached": "budget.reached",
+	"comment.created": "comment.created",
+	"comment.deleted": "comment.deleted",
+	"comment.mentioned": "comment.mentioned",
+	"comment.reaction-added": "comment.reaction-added",
+	"comment.reaction-removed": "comment.reaction-removed",
+	"comment.resolved": "comment.resolved",
+	"comment.unresolved": "comment.unresolved",
+	"comment.updated": "comment.updated",
+	deployment: "deployment",
+	"deployment-canceled": "deployment-canceled",
+	"deployment-check-rerequested": "deployment-check-rerequested",
+	"deployment-checks-completed": "deployment-checks-completed",
+	"deployment-error": "deployment-error",
+	"deployment-prepared": "deployment-prepared",
+	"deployment-ready": "deployment-ready",
+	"deployment.blocked": "deployment.blocked",
+	"deployment.build-requested": "deployment.build-requested",
+	"deployment.canceled": "deployment.canceled",
+	"deployment.check-rerequested": "deployment.check-rerequested",
+	"deployment.checkrun.cancel": "deployment.checkrun.cancel",
+	"deployment.checkrun.start": "deployment.checkrun.start",
+	"deployment.checks.failed": "deployment.checks.failed",
+	"deployment.checks.succeeded": "deployment.checks.succeeded",
+	"deployment.cleanup": "deployment.cleanup",
+	"deployment.created": "deployment.created",
+	"deployment.error": "deployment.error",
+	"deployment.integration.action.cancel": "deployment.integration.action.cancel",
+	"deployment.integration.action.cleanup": "deployment.integration.action.cleanup",
+	"deployment.integration.action.start": "deployment.integration.action.start",
+	"deployment.promoted": "deployment.promoted",
+	"deployment.ready": "deployment.ready",
+	"deployment.rollback": "deployment.rollback",
+	"deployment.succeeded": "deployment.succeeded",
+	"domain-created": "domain-created",
+	"domain.auto-renew.changed": "domain.auto-renew.changed",
+	"domain.certificate.add": "domain.certificate.add",
+	"domain.certificate.add.failed": "domain.certificate.add.failed",
+	"domain.certificate.deleted": "domain.certificate.deleted",
+	"domain.certificate.renew": "domain.certificate.renew",
+	"domain.certificate.renew.failed": "domain.certificate.renew.failed",
+	"domain.created": "domain.created",
+	"domain.dns.records.changed": "domain.dns.records.changed",
+	"domain.renewal": "domain.renewal",
+	"domain.renewal.failed": "domain.renewal.failed",
+	"domain.transfer-in.completed": "domain.transfer-in.completed",
+	"domain.transfer-in.failed": "domain.transfer-in.failed",
+	"domain.transfer-in.started": "domain.transfer-in.started",
+	"edge-config.created": "edge-config.created",
+	"edge-config.deleted": "edge-config.deleted",
+	"edge-config.items.updated": "edge-config.items.updated",
+	"firewall.attack": "firewall.attack",
+	"firewall.custom-rule-anomaly": "firewall.custom-rule-anomaly",
+	"firewall.system-rule-anomaly": "firewall.system-rule-anomaly",
+	"flag.created": "flag.created",
+	"flag.deleted": "flag.deleted",
+	"flag.segment.created": "flag.segment.created",
+	"flag.segment.deleted": "flag.segment.deleted",
+	"flag.segment.updated": "flag.segment.updated",
+	"flag.updated": "flag.updated",
+	"function.archival-required": "function.archival-required",
+	"function.removal-required": "function.removal-required",
+	"integration-configuration-permission-updated": "integration-configuration-permission-updated",
+	"integration-configuration-removed": "integration-configuration-removed",
+	"integration-configuration-scope-change-confirmed":
+		"integration-configuration-scope-change-confirmed",
+	"integration-configuration.permission-upgraded": "integration-configuration.permission-upgraded",
+	"integration-configuration.removed": "integration-configuration.removed",
+	"integration-configuration.scope-change-confirmed":
+		"integration-configuration.scope-change-confirmed",
+	"integration-configuration.transferred": "integration-configuration.transferred",
+	"integration-resource.project-connected": "integration-resource.project-connected",
+	"integration-resource.project-disconnected": "integration-resource.project-disconnected",
+	"marketplace.invoice.created": "marketplace.invoice.created",
+	"marketplace.invoice.notpaid": "marketplace.invoice.notpaid",
+	"marketplace.invoice.overdue": "marketplace.invoice.overdue",
+	"marketplace.invoice.paid": "marketplace.invoice.paid",
+	"marketplace.invoice.refunded": "marketplace.invoice.refunded",
+	"marketplace.member.changed": "marketplace.member.changed",
+	"message.created": "message.created",
+	"message.deleted": "message.deleted",
+	"message.mentioned": "message.mentioned",
+	"message.reaction-added": "message.reaction-added",
+	"message.reaction-removed": "message.reaction-removed",
+	"message.updated": "message.updated",
+	"observability.anomaly": "observability.anomaly",
+	"observability.anomaly-error": "observability.anomaly-error",
+	"observability.error-anomaly": "observability.error-anomaly",
+	"observability.usage-anomaly": "observability.usage-anomaly",
+	"project-created": "project-created",
+	"project-removed": "project-removed",
+	"project.created": "project.created",
+	"project.domain.created": "project.domain.created",
+	"project.domain.deleted": "project.domain.deleted",
+	"project.domain.moved": "project.domain.moved",
+	"project.domain.unverified": "project.domain.unverified",
+	"project.domain.updated": "project.domain.updated",
+	"project.domain.verified": "project.domain.verified",
+	"project.env-variable.created": "project.env-variable.created",
+	"project.env-variable.deleted": "project.env-variable.deleted",
+	"project.env-variable.updated": "project.env-variable.updated",
+	"project.removed": "project.removed",
+	"project.renamed": "project.renamed",
+	"project.rolling-release.aborted": "project.rolling-release.aborted",
+	"project.rolling-release.approved": "project.rolling-release.approved",
+	"project.rolling-release.completed": "project.rolling-release.completed",
+	"project.rolling-release.started": "project.rolling-release.started",
+	"test-webhook": "test-webhook",
+	"thread.resolved": "thread.resolved",
+	"thread.unresolved": "thread.unresolved",
+} as const;
+
+export type GetWebhooksStatus200EventsEnum2Key =
+	(typeof getWebhooksStatus200EventsEnum2)[keyof typeof getWebhooksStatus200EventsEnum2];
+
 export type GetWebhooksStatus200 =
 	| {
 			alertRuleIds?: string[] | undefined;
@@ -145527,7 +152535,7 @@ export type GetWebhooksStatus200 =
 			 * @example deployment.created
 			 * @type array
 			 */
-			events: GetWebhooksStatus200EventsEnumKey[];
+			events: GetWebhooksStatus200EventsEnum2Key[];
 			/**
 			 * @description The webhook id
 			 * @example account_hook_GflD6EYyo7F4ViYS
@@ -146149,6 +153157,13 @@ export type ListAliasesQuery = {
 	slug?: string | undefined;
 };
 
+export const accessEnum2 = {
+	granted: "granted",
+	requested: "requested",
+} as const;
+
+export type AccessEnum2Key = (typeof accessEnum2)[keyof typeof accessEnum2];
+
 export const listAliasesStatus200AliasesRedirectStatusCodeEnum = {
 	"301": 301,
 	"302": 302,
@@ -146334,7 +153349,7 @@ export type ListAliasesStatus200 = {
 								scope: "shareable-link";
 						  }
 						| {
-								access: AccessEnumKey;
+								access: AccessEnum2Key;
 								createdAt: number;
 								lastUpdatedAt: number;
 								lastUpdatedBy: string;
@@ -146461,6 +153476,13 @@ export type GetAliasQuery = {
 	 */
 	slug?: string | undefined;
 };
+
+export const accessEnum3 = {
+	granted: "granted",
+	requested: "requested",
+} as const;
+
+export type AccessEnum3Key = (typeof accessEnum3)[keyof typeof accessEnum3];
 
 export const getAliasStatus200RedirectStatusCodeEnum = {
 	"301": 301,
@@ -146646,7 +153668,7 @@ export type GetAliasStatus200 = {
 							scope: "shareable-link";
 					  }
 					| {
-							access: AccessEnumKey;
+							access: AccessEnum3Key;
 							createdAt: number;
 							lastUpdatedAt: number;
 							lastUpdatedBy: string;
@@ -146826,6 +153848,13 @@ export const patchUrlProtectionBypassRequestScopeAccessEnum = {
 export type PatchUrlProtectionBypassRequestScopeAccessEnumKey =
 	(typeof patchUrlProtectionBypassRequestScopeAccessEnum)[keyof typeof patchUrlProtectionBypassRequestScopeAccessEnum];
 
+export const accessEnum4 = {
+	denied: "denied",
+	granted: "granted",
+} as const;
+
+export type AccessEnum4Key = (typeof accessEnum4)[keyof typeof accessEnum4];
+
 export const patchUrlProtectionBypassRequestOverrideActionEnum = {
 	create: "create",
 	revoke: "revoke",
@@ -146839,7 +153868,7 @@ export type PatchUrlProtectionBypassBody =
 			| {
 					/**
 					 * @description Optional time the shareable link is valid for in seconds. If not provided, the shareable link will never expire.
-					 * @maxLength 63072000
+					 * @maximum 63072000
 					 * @type number | undefined
 					 */
 					ttl?: number | undefined;
@@ -146906,7 +153935,7 @@ export type PatchUrlProtectionBypassBody =
 						 * @description Invitation status for the user scoped bypass.
 						 * @type string | undefined
 						 */
-						access?: AccessEnumKey | undefined;
+						access?: AccessEnum4Key | undefined;
 					};
 			  }
 			| {

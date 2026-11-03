@@ -12,12 +12,12 @@ export const aiGatewayEvaluationFallbackConditionSchema: z.ZodType = z.union([
 		question: z.string().optional(),
 	}),
 	z.strictObject({
-		get any() {
+		get any(): z.ZodArray<typeof aiGatewayEvaluationFallbackConditionSchema> {
 			return z.array(aiGatewayEvaluationFallbackConditionSchema);
 		},
 	}),
 	z.strictObject({
-		get all() {
+		get all(): z.ZodArray<typeof aiGatewayEvaluationFallbackConditionSchema> {
 			return z.array(aiGatewayEvaluationFallbackConditionSchema);
 		},
 	}),
@@ -1669,7 +1669,21 @@ export const connectCreateConnectorRequestSchema = z
 					"Connection method slug of the service. Use it with service to select preset configuration.",
 				),
 			params: z
-				.record(z.string(), z.string().max(256))
+				.pipe(
+					z
+						.unknown()
+						.check(
+							z.refine(
+								(value) =>
+									typeof value !== "object" ||
+									value === null ||
+									Array.isArray(value) ||
+									Object.keys(value).length <= 16,
+								{ message: "Object must have at most 16 properties" },
+							),
+						),
+					z.record(z.string(), z.string().max(256)),
+				)
 				.optional()
 				.describe(
 					"Values for the selected connection method's template fields. Requires connectionMethod.",
@@ -1730,23 +1744,37 @@ export const connectCreateConnectorRequestSchema = z
 				),
 			triggerDestination: z
 				.union([
-					z.strictObject({
-						projectId: z
-							.string()
-							.min(1)
-							.optional()
-							.describe(
-								"Project that receives triggers. During connector creation, omit it to use the top-level projectId.",
+					z.pipe(
+						z
+							.unknown()
+							.check(
+								z.refine(
+									(value) =>
+										typeof value !== "object" ||
+										value === null ||
+										Array.isArray(value) ||
+										Object.keys(value).length >= 1,
+									{ message: "Object must have at least 1 properties" },
+								),
 							),
-						path: z
-							.string()
-							.min(1)
-							.max(2048)
-							.optional()
-							.describe(
-								"Route path on the linked project that receives forwarded trigger requests.",
-							),
-					}),
+						z.strictObject({
+							projectId: z
+								.string()
+								.min(1)
+								.optional()
+								.describe(
+									"Project that receives triggers. During connector creation, omit it to use the top-level projectId.",
+								),
+							path: z
+								.string()
+								.min(1)
+								.max(2048)
+								.optional()
+								.describe(
+									"Route path on the linked project that receives forwarded trigger requests.",
+								),
+						}),
+					),
 					z.strictObject({
 						projectId: z
 							.string()
@@ -2175,11 +2203,11 @@ export const connectConnectorUpdateDataSchema = z
 					z.strictObject({
 						id: z.string().describe("Stored API key value ID."),
 						value: z
-							.union([z.string(), z.string()])
+							.string()
 							.optional()
 							.describe("Replacement API key value. Use null to keep the stored value."),
 						scope: z
-							.union([z.string(), z.string()])
+							.string()
 							.optional()
 							.describe("Replacement scope. Use null to remove the scope."),
 						expiresAt: z
@@ -2444,55 +2472,69 @@ export const connectConnectorUpdateDataSchema = z
 	.describe("Provider configuration fields for the connector type.");
 
 export const connectUpdateConnectorRequestSchema = z
-	.strictObject({
-		triggers: z
-			.boolean()
-			.optional()
-			.describe("Whether the triggers are enabled for this connector."),
-		triggerVerificationInput: z
-			.looseObject({})
-			.optional()
-			.describe(
-				"Plaintext verification inputs, validated by the trigger driver and encrypted into stored triggerData. An empty object makes no changes.",
+	.pipe(
+		z
+			.unknown()
+			.check(
+				z.refine(
+					(value) =>
+						typeof value !== "object" ||
+						value === null ||
+						Array.isArray(value) ||
+						Object.keys(value).length >= 1,
+					{ message: "Object must have at least 1 properties" },
+				),
 			),
-		triggerRegistrationInput: z
-			.looseObject({})
-			.optional()
-			.describe(
-				"Additional registration inputs, validated by the trigger driver. Requires triggers: true. Shared verification credentials are read from triggerData.",
-			),
-		events: z.array(z.string()).optional().describe("Default trigger events for this connector."),
-		mcpEventsUiVisibility: z
-			.enum(["auto", "hide", "show"])
-			.optional()
-			.describe(
-				"MCP Events dashboard visibility. Auto (the default) shows the UI after the first successful delivery. Show and hide persist regardless of future deliveries. This does not enable or disable event delivery.",
-			),
-		data: connectConnectorUpdateDataSchema
-			.optional()
-			.describe("Provider configuration fields to update."),
-		icon: z
-			.string()
-			.regex(/^[0-9a-fA-F]{40}$/)
-			.optional()
-			.describe(
-				"SHA-1 digest of a PNG or JPEG icon that is at least 640 by 640 pixels. This field does not accept a URL or image bytes.\n\nFirst compute the digest and upload the raw image with [POST /v2/files](https://vercel.com/docs/rest-api/deployments/upload-deployment-files). Send `Content-Length` and the same 40-character digest in `x-vercel-digest`. Then set `icon` to that digest.\n\n```js\nimport { createHash } from 'node:crypto';\nimport { readFile } from 'node:fs/promises';\n\nconst VERCEL_TOKEN = process.env.VERCEL_TOKEN;\nconst connectorId = 'scl_...';\nconst bytes = await readFile('icon.png');\nconst digest = createHash('sha1').update(bytes).digest('hex');\n\nawait fetch('https://api.vercel.com/v2/files', {\n  method: 'POST',\n  headers: {\n    Authorization: `Bearer ${VERCEL_TOKEN}`,\n    'Content-Type': 'application/octet-stream',\n    'Content-Length': String(bytes.length),\n    'x-vercel-digest': digest,\n  },\n  body: bytes,\n});\n\nawait fetch(`https://api.vercel.com/v2/connect/connectors/${connectorId}`, {\n  method: 'PATCH',\n  headers: {\n    Authorization: `Bearer ${VERCEL_TOKEN}`,\n    'Content-Type': 'application/json',\n  },\n  body: JSON.stringify({ icon: digest }),\n});\n```\n",
-			),
-		backgroundColor: z.string().optional(),
-		accentColor: z.string().optional(),
-		uid: z
-			.string()
-			.optional()
-			.describe(
-				"Full team-scoped UID, such as `slack/my-bot`. It cannot contain whitespace, `%`, `#`, control characters, or Vercel-owned namespaces. Changing it breaks callers that use the old UID. The stable connector ID does not change.",
-			),
-		name: z
-			.string()
-			.optional()
-			.describe(
-				"Display name for the connector. It is trimmed and cannot be empty or contain control characters.",
-			),
-	})
+		z.strictObject({
+			triggers: z
+				.boolean()
+				.optional()
+				.describe("Whether the triggers are enabled for this connector."),
+			triggerVerificationInput: z
+				.looseObject({})
+				.optional()
+				.describe(
+					"Plaintext verification inputs, validated by the trigger driver and encrypted into stored triggerData. An empty object makes no changes.",
+				),
+			triggerRegistrationInput: z
+				.looseObject({})
+				.optional()
+				.describe(
+					"Additional registration inputs, validated by the trigger driver. Requires triggers: true. Shared verification credentials are read from triggerData.",
+				),
+			events: z.array(z.string()).optional().describe("Default trigger events for this connector."),
+			mcpEventsUiVisibility: z
+				.enum(["auto", "hide", "show"])
+				.optional()
+				.describe(
+					"MCP Events dashboard visibility. Auto (the default) shows the UI after the first successful delivery. Show and hide persist regardless of future deliveries. This does not enable or disable event delivery.",
+				),
+			data: connectConnectorUpdateDataSchema
+				.optional()
+				.describe("Provider configuration fields to update."),
+			icon: z
+				.string()
+				.regex(/^[0-9a-fA-F]{40}$/)
+				.optional()
+				.describe(
+					"SHA-1 digest of a PNG or JPEG icon that is at least 640 by 640 pixels. This field does not accept a URL or image bytes.\n\nFirst compute the digest and upload the raw image with [POST /v2/files](https://vercel.com/docs/rest-api/deployments/upload-deployment-files). Send `Content-Length` and the same 40-character digest in `x-vercel-digest`. Then set `icon` to that digest.\n\n```js\nimport { createHash } from 'node:crypto';\nimport { readFile } from 'node:fs/promises';\n\nconst VERCEL_TOKEN = process.env.VERCEL_TOKEN;\nconst connectorId = 'scl_...';\nconst bytes = await readFile('icon.png');\nconst digest = createHash('sha1').update(bytes).digest('hex');\n\nawait fetch('https://api.vercel.com/v2/files', {\n  method: 'POST',\n  headers: {\n    Authorization: `Bearer ${VERCEL_TOKEN}`,\n    'Content-Type': 'application/octet-stream',\n    'Content-Length': String(bytes.length),\n    'x-vercel-digest': digest,\n  },\n  body: bytes,\n});\n\nawait fetch(`https://api.vercel.com/v2/connect/connectors/${connectorId}`, {\n  method: 'PATCH',\n  headers: {\n    Authorization: `Bearer ${VERCEL_TOKEN}`,\n    'Content-Type': 'application/json',\n  },\n  body: JSON.stringify({ icon: digest }),\n});\n```\n",
+				),
+			backgroundColor: z.string().optional(),
+			accentColor: z.string().optional(),
+			uid: z
+				.string()
+				.optional()
+				.describe(
+					"Full team-scoped UID, such as `slack/my-bot`. It cannot contain whitespace, `%`, `#`, control characters, or Vercel-owned namespaces. Changing it breaks callers that use the old UID. The stable connector ID does not change.",
+				),
+			name: z
+				.string()
+				.optional()
+				.describe(
+					"Display name for the connector. It is trimmed and cannot be empty or contain control characters.",
+				),
+		}),
+	)
 	.describe("Connector fields to update.");
 
 export const connectTriggerDestinationInputSchema = z
@@ -3037,7 +3079,7 @@ export const globalConfigItemSchema = z
 		edgeConfigId: z.string(),
 		key: z.string(),
 		updatedAt: z.number(),
-		get value() {
+		get value(): z.ZodNullable<typeof globalConfigItemValueSchema> {
 			return globalConfigItemValueSchema.nullable();
 		},
 	})
@@ -6681,7 +6723,7 @@ export const userEventSchema = z
 					failureStage: z
 						.enum(["authorization", "push", "unexpected", "unknown", "validation"])
 						.optional()
-						.describe("Mirrors `PushFailureStage` in `@api/git-push-repo`."),
+						.describe("Mirrors `PushFailureStage` in `api-git-providers`."),
 					installationId: z
 						.string()
 						.nullable()
@@ -7175,10 +7217,7 @@ export const userEventSchema = z
 										freeProjectForLegacyLimits: z
 											.union([z.literal(false), z.literal(true)])
 											.optional(),
-										groupIds: z
-											.array(z.union([z.string(), z.string()]))
-											.min(2)
-											.max(2),
+										groupIds: z.array(z.string()).min(2).max(2),
 										updatedAt: z.number(),
 									}),
 								])
@@ -7260,10 +7299,7 @@ export const userEventSchema = z
 									freeProjectForLegacyLimits: z
 										.union([z.literal(false), z.literal(true)])
 										.optional(),
-									groupIds: z
-										.array(z.union([z.string(), z.string()]))
-										.min(2)
-										.max(2),
+									groupIds: z.array(z.string()).min(2).max(2),
 									updatedAt: z.number(),
 								}),
 							])
@@ -8548,10 +8584,85 @@ export const userEventSchema = z
 								.describe(
 									"User-supplied explanation of why they rolled back the project. Limited to 250 characters.",
 								),
-							userId: z.string().describe("The user who rolled back the project."),
+							principal: z
+								.discriminatedUnion("type", [
+									z.strictObject({
+										project: z.object({
+											id: z.string(),
+										}),
+										type: z.enum(["project"]),
+									}),
+									z.strictObject({
+										app: z.object({
+											clientId: z
+												.string()
+												.optional()
+												.describe(
+													"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+												),
+											id: z
+												.string()
+												.describe("The internal ID of the Vercel App backing this principal."),
+										}),
+										type: z.enum(["app"]),
+									}),
+									z.strictObject({
+										integration: z.object({
+											configurationId: z.string(),
+											integrationId: z.string(),
+										}),
+										type: z.enum(["integration"]),
+									}),
+									z.strictObject({
+										type: z.enum(["system"]),
+									}),
+									z.strictObject({
+										type: z.enum(["user"]),
+										via: z
+											.discriminatedUnion("type", [
+												z.strictObject({
+													app: z.object({
+														clientId: z
+															.string()
+															.optional()
+															.describe(
+																"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+															),
+														id: z
+															.string()
+															.describe(
+																"The internal ID of the Vercel App backing this principal.",
+															),
+													}),
+													type: z.enum(["app"]),
+												}),
+												z.strictObject({
+													integration: z.object({
+														configurationId: z.string(),
+														integrationId: z.string(),
+													}),
+													type: z.enum(["integration"]),
+												}),
+											])
+											.nullable(),
+										user: z.object({
+											id: z.string(),
+										}),
+									}),
+								])
+								.optional(),
+							userId: z
+								.string()
+								.optional()
+								.describe(
+									"The ID of the user who rolled back the project, when the principal was a user.",
+								),
 							username: z
 								.string()
-								.describe("The username of the user who rolled back the project."),
+								.optional()
+								.describe(
+									"The username of the user who rolled back the project, when the principal was a user.",
+								),
 						})
 						.optional()
 						.describe(
@@ -13808,9 +13919,7 @@ export const APIKeyQuotaSchema = z
 		includeByokInQuota: z
 			.boolean()
 			.describe("Whether BYOK (Bring Your Own Key) spend counts against the quota."),
-		refreshPeriod: z
-			.union([z.string(), z.string(), z.string(), z.string()])
-			.describe("How often the quota refreshes."),
+		refreshPeriod: z.string().describe("How often the quota refreshes."),
 		active: z.boolean().describe("Whether the quota is currently active."),
 		archived: z.boolean().describe("Whether the quota has been archived."),
 		alertThresholds: z
@@ -14705,6 +14814,14 @@ export const teamSchema = z
 		defaultProjectJobs: z
 			.object({
 				"flag-definitions-present": z
+					.object({
+						targets: z
+							.array(z.string())
+							.describe("Default job configuration applied to new projects created in this team."),
+					})
+					.optional()
+					.describe("Default job configuration applied to new projects created in this team."),
+				"health-check": z
 					.object({
 						targets: z
 							.array(z.string())
@@ -16645,7 +16762,7 @@ export const vcrRepositoryPermissionListSchema = z
 
 export const fileTreeSchema = z
 	.object({
-		get children() {
+		get children(): z.ZodOptional<z.ZodArray<typeof fileTreeSchema>> {
 			return z
 				.array(fileTreeSchema)
 				.optional()
@@ -16689,14 +16806,14 @@ export const vercelForbiddenErrorSchema = z.object({
 export const vercelNotFoundErrorSchema = z.object({
 	error: vercelBaseErrorSchema.extend({
 		code: z.string(),
-		message: z.string().optional(),
+		message: z.string(),
 	}),
 });
 
 export const vercelBadRequestErrorSchema = z.object({
 	error: vercelBaseErrorSchema.extend({
 		code: z.string(),
-		message: z.string().optional(),
+		message: z.string(),
 	}),
 });
 
@@ -34336,7 +34453,21 @@ export const createDeploymentBodySchema = z.strictObject({
 			"Defines the Git Repository source to be deployed. This property can not be used in combination with `files`.",
 		),
 	meta: z
-		.record(z.string(), z.string().max(65536))
+		.pipe(
+			z
+				.unknown()
+				.check(
+					z.refine(
+						(value) =>
+							typeof value !== "object" ||
+							value === null ||
+							Array.isArray(value) ||
+							Object.keys(value).length <= 100,
+						{ message: "Object must have at most 100 properties" },
+					),
+				),
+			z.record(z.string(), z.string().max(65536)),
+		)
 		.optional()
 		.describe(
 			"An object containing the deployment's metadata. Multiple key-value pairs can be attached to a deployment. For deployments created with a Cursor Origin `gitSource`, Vercel automatically adds `cursorOriginDeployment`, `cursorOriginCommitSha`, `cursorOriginCommitRef`, `cursorOriginCommitMessage`, `cursorOriginCommitAuthorName`, `cursorOriginCommitAuthorEmail` when available, `cursorOriginOwner`, `cursorOriginRepo`, `cursorOriginRepoId`, and `cursorOriginPrId` for pull request deployments.",
@@ -45397,7 +45528,19 @@ export const listSharedEnvVariableQueryExcludeIdsSchema = z
 	.describe("Filter SharedEnvVariables based on comma separated ids")
 	.meta({ examples: ["env_2WjyKQmM8ZnGcJsPWMrHRHrE,env_2WjyKQmM8ZnGcJsPWMrHRCRV"] });
 
+export const listSharedEnvVariableQueryExcludeIdsSchema2 = z
+	.string()
+	.optional()
+	.describe("Filter SharedEnvVariables based on comma separated ids")
+	.meta({ examples: ["env_2WjyKQmM8ZnGcJsPWMrHRHrE,env_2WjyKQmM8ZnGcJsPWMrHRCRV"] });
+
 export const listSharedEnvVariableQueryExcludeProjectIdSchema = z
+	.string()
+	.optional()
+	.describe("Filter SharedEnvVariables that belong to a project")
+	.meta({ examples: ["prj_2WjyKQmM8ZnGcJsPWMrHRHrE"] });
+
+export const listSharedEnvVariableQueryExcludeProjectIdSchema2 = z
 	.string()
 	.optional()
 	.describe("Filter SharedEnvVariables that belong to a project")
@@ -46331,6 +46474,8 @@ export const listEventTypesStatus403Schema = z.unknown();
 
 export const listEventTypesStatus410Schema = z.unknown();
 
+export const listEventTypesResponseSchema2 = listEventTypesStatus200Schema;
+
 export const listEventTypesErrorSchema = z.union([
 	listEventTypesStatus400Schema,
 	listEventTypesStatus401Schema,
@@ -46908,268 +47053,279 @@ export const createFlagBodySchema = z
 					id: z.string().describe("The id of the variant"),
 					label: z.string().optional().describe("A label for the variant"),
 					description: z.string().optional().describe("A description of the variant"),
-					value: z.union([
-						z.string(),
-						z.number(),
-						z.boolean(),
-						z.object({}),
-						z.array(z.unknown()),
-						z.string(),
-					]),
+					value: z.union([z.string(), z.number(), z.boolean(), z.object({}), z.array(z.unknown())]),
 				}),
 			)
 			.optional()
 			.describe("The variants of the flag"),
 		environments: z
-			.record(
-				z.string(),
-				z.strictObject({
-					active: z.boolean(),
-					reuse: z
-						.strictObject({
-							active: z.boolean().describe("Whether the reuse is active or not"),
-							environment: z.string().describe("The environment to link to"),
-						})
-						.optional()
-						.describe(
-							"Allows linking this environment to another environment so this flag will be evaluated with the other flag's configuration",
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 10,
+							{ message: "Object must have at most 10 properties" },
 						),
-					targets: z
-						.record(
-							z.string(),
-							z.record(
+					),
+				z.record(
+					z.string(),
+					z.strictObject({
+						active: z.boolean(),
+						reuse: z
+							.strictObject({
+								active: z.boolean().describe("Whether the reuse is active or not"),
+								environment: z.string().describe("The environment to link to"),
+							})
+							.optional()
+							.describe(
+								"Allows linking this environment to another environment so this flag will be evaluated with the other flag's configuration",
+							),
+						targets: z
+							.record(
 								z.string(),
 								z.record(
 									z.string(),
-									z
-										.array(
-											z.strictObject({
-												note: z.string().optional(),
-												value: z.string(),
-											}),
-										)
-										.max(10000),
+									z.record(
+										z.string(),
+										z
+											.array(
+												z.strictObject({
+													note: z.string().optional(),
+													value: z.string(),
+												}),
+											)
+											.max(10000),
+									),
 								),
-							),
-						)
-						.optional()
-						.describe("Allows assigning targets to variants while bypassing the flag's rules"),
-					pausedOutcome: z.strictObject({
-						type: z.unknown(),
-						variantId: z.string(),
-					}),
-					rules: z
-						.array(
-							z.strictObject({
-								id: z.string(),
-								conditions: z.array(
-									z.strictObject({
-										lhs: z.union([
-											z.strictObject({
-												type: z.unknown(),
-											}),
-											z.strictObject({
+							)
+							.optional()
+							.describe("Allows assigning targets to variants while bypassing the flag's rules"),
+						pausedOutcome: z.strictObject({
+							type: z.unknown(),
+							variantId: z.string(),
+						}),
+						rules: z
+							.array(
+								z.strictObject({
+									id: z.string(),
+									conditions: z.array(
+										z.strictObject({
+											lhs: z.union([
+												z.strictObject({
+													type: z.unknown(),
+												}),
+												z.strictObject({
+													type: z.unknown(),
+													kind: z.string(),
+													attribute: z.string(),
+												}),
+											]),
+											cmp: z.enum([
+												"!contains",
+												"!endsWith",
+												"!eq",
+												"!ex",
+												"!oneOf",
+												"!regex",
+												"!startsWith",
+												"after",
+												"before",
+												"contains",
+												"containsAllOf",
+												"containsAnyOf",
+												"containsNoneOf",
+												"endsWith",
+												"eq",
+												"ex",
+												"gt",
+												"gte",
+												"lt",
+												"lte",
+												"oneOf",
+												"regex",
+												"startsWith",
+											]),
+											rhs: z
+												.union([
+													z.strictObject({
+														type: z.enum(["list/inline", "list"]),
+														items: z
+															.array(
+																z.union([
+																	z.strictObject({
+																		label: z.string().optional(),
+																		note: z.string().optional(),
+																		value: z.number(),
+																	}),
+																	z.strictObject({
+																		label: z.string().optional(),
+																		note: z.string().optional(),
+																		value: z.string(),
+																	}),
+																]),
+															)
+															.max(10000),
+													}),
+													z.strictObject({
+														type: z.unknown(),
+														pattern: z.string(),
+														flags: z.string(),
+													}),
+													z.string(),
+													z.number(),
+													z.boolean(),
+												])
+												.optional(),
+											cmpOptions: z
+												.strictObject({
+													ignoreCase: z.boolean().optional(),
+												})
+												.optional(),
+										}),
+									),
+									outcome: z.union([
+										z.strictObject({
+											type: z.unknown(),
+											variantId: z.string(),
+										}),
+										z.strictObject({
+											type: z.unknown(),
+											base: z.strictObject({
 												type: z.unknown(),
 												kind: z.string(),
 												attribute: z.string(),
 											}),
-										]),
-										cmp: z.enum([
-											"!contains",
-											"!endsWith",
-											"!eq",
-											"!ex",
-											"!oneOf",
-											"!regex",
-											"!startsWith",
-											"after",
-											"before",
-											"contains",
-											"containsAllOf",
-											"containsAnyOf",
-											"containsNoneOf",
-											"endsWith",
-											"eq",
-											"ex",
-											"gt",
-											"gte",
-											"lt",
-											"lte",
-											"oneOf",
-											"regex",
-											"startsWith",
-										]),
-										rhs: z
-											.union([
-												z.strictObject({
-													type: z.enum(["list/inline", "list"]),
-													items: z
-														.array(
-															z.union([
-																z.strictObject({
-																	label: z.string().optional(),
-																	note: z.string().optional(),
-																	value: z.number(),
-																}),
-																z.strictObject({
-																	label: z.string().optional(),
-																	note: z.string().optional(),
-																	value: z.string(),
-																}),
-															]),
-														)
-														.max(10000),
-												}),
-												z.strictObject({
-													type: z.unknown(),
-													pattern: z.string(),
-													flags: z.string(),
-												}),
-												z.string(),
-												z.number(),
-												z.boolean(),
-											])
-											.optional(),
-										cmpOptions: z
-											.strictObject({
-												ignoreCase: z.boolean().optional(),
-											})
-											.optional(),
-									}),
-								),
-								outcome: z.union([
-									z.strictObject({
-										type: z.unknown(),
-										variantId: z.string(),
-									}),
-									z.strictObject({
-										type: z.unknown(),
-										base: z.strictObject({
-											type: z.unknown(),
-											kind: z.string(),
-											attribute: z.string(),
+											weights: z
+												.record(z.string(), z.number())
+												.describe("The distribution for each variant"),
+											defaultVariantId: z
+												.string()
+												.describe(
+													"This variant will be used when the base attribute does not exist",
+												),
 										}),
-										weights: z
-											.record(z.string(), z.number())
-											.describe("The distribution for each variant"),
-										defaultVariantId: z
-											.string()
-											.describe("This variant will be used when the base attribute does not exist"),
-									}),
-									z.strictObject({
-										type: z.unknown(),
-										base: z.strictObject({
+										z.strictObject({
 											type: z.unknown(),
-											kind: z.string(),
-											attribute: z.string(),
+											base: z.strictObject({
+												type: z.unknown(),
+												kind: z.string(),
+												attribute: z.string(),
+											}),
+											startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
+											rollFromVariantId: z.string().describe("The variant to roll away from"),
+											rollToVariantId: z.string().describe("The variant to roll towards"),
+											defaultVariantId: z
+												.string()
+												.describe(
+													"This variant will be used when the base attribute does not exist",
+												),
+											slots: z
+												.array(
+													z.strictObject({
+														promille: z
+															.number()
+															.min(0)
+															.max(100000)
+															.describe(
+																"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
+															),
+														durationMs: z
+															.number()
+															.min(0)
+															.describe(
+																"How long this promille is served in ms before moving to the next slot.",
+															),
+													}),
+												)
+												.min(1)
+												.describe(
+													"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
+												),
+											finalPromille: z
+												.number()
+												.min(0)
+												.max(100000)
+												.optional()
+												.describe(
+													"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
+												),
 										}),
-										startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
-										rollFromVariantId: z.string().describe("The variant to roll away from"),
-										rollToVariantId: z.string().describe("The variant to roll towards"),
-										defaultVariantId: z
-											.string()
-											.describe("This variant will be used when the base attribute does not exist"),
-										slots: z
-											.array(
-												z.strictObject({
-													promille: z
-														.number()
-														.min(0)
-														.max(100000)
-														.describe(
-															"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
-														),
-													durationMs: z
-														.number()
-														.min(0)
-														.describe(
-															"How long this promille is served in ms before moving to the next slot.",
-														),
-												}),
-											)
-											.min(1)
-											.describe(
-												"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
-											),
-										finalPromille: z
-											.number()
-											.min(0)
-											.max(100000)
-											.optional()
-											.describe(
-												"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
-											),
-									}),
-								]),
-							}),
-						)
-						.max(10000),
-					fallthrough: z.union([
-						z.strictObject({
-							type: z.unknown(),
-							variantId: z.string(),
-						}),
-						z.strictObject({
-							type: z.unknown(),
-							base: z.strictObject({
+									]),
+								}),
+							)
+							.max(10000),
+						fallthrough: z.union([
+							z.strictObject({
 								type: z.unknown(),
-								kind: z.string(),
-								attribute: z.string(),
+								variantId: z.string(),
 							}),
-							weights: z
-								.record(z.string(), z.number())
-								.describe("The distribution for each variant"),
-							defaultVariantId: z
-								.string()
-								.describe("This variant will be used when the base attribute does not exist"),
-						}),
-						z.strictObject({
-							type: z.unknown(),
-							base: z.strictObject({
+							z.strictObject({
 								type: z.unknown(),
-								kind: z.string(),
-								attribute: z.string(),
+								base: z.strictObject({
+									type: z.unknown(),
+									kind: z.string(),
+									attribute: z.string(),
+								}),
+								weights: z
+									.record(z.string(), z.number())
+									.describe("The distribution for each variant"),
+								defaultVariantId: z
+									.string()
+									.describe("This variant will be used when the base attribute does not exist"),
 							}),
-							startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
-							rollFromVariantId: z.string().describe("The variant to roll away from"),
-							rollToVariantId: z.string().describe("The variant to roll towards"),
-							defaultVariantId: z
-								.string()
-								.describe("This variant will be used when the base attribute does not exist"),
-							slots: z
-								.array(
-									z.strictObject({
-										promille: z
-											.number()
-											.min(0)
-											.max(100000)
-											.describe(
-												"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
-											),
-										durationMs: z
-											.number()
-											.min(0)
-											.describe(
-												"How long this promille is served in ms before moving to the next slot.",
-											),
-									}),
-								)
-								.min(1)
-								.describe(
-									"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
-								),
-							finalPromille: z
-								.number()
-								.min(0)
-								.max(100000)
-								.optional()
-								.describe(
-									"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
-								),
-						}),
-					]),
-					revision: z.number().optional().describe("The revision of the environment config"),
-				}),
+							z.strictObject({
+								type: z.unknown(),
+								base: z.strictObject({
+									type: z.unknown(),
+									kind: z.string(),
+									attribute: z.string(),
+								}),
+								startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
+								rollFromVariantId: z.string().describe("The variant to roll away from"),
+								rollToVariantId: z.string().describe("The variant to roll towards"),
+								defaultVariantId: z
+									.string()
+									.describe("This variant will be used when the base attribute does not exist"),
+								slots: z
+									.array(
+										z.strictObject({
+											promille: z
+												.number()
+												.min(0)
+												.max(100000)
+												.describe(
+													"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
+												),
+											durationMs: z
+												.number()
+												.min(0)
+												.describe(
+													"How long this promille is served in ms before moving to the next slot.",
+												),
+										}),
+									)
+									.min(1)
+									.describe(
+										"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
+									),
+								finalPromille: z
+									.number()
+									.min(0)
+									.max(100000)
+									.optional()
+									.describe(
+										"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
+									),
+							}),
+						]),
+						revision: z.number().optional().describe("The revision of the environment config"),
+					}),
+				),
 			)
 			.describe("The configuration for the flag in different environments"),
 		seed: z
@@ -47586,268 +47742,279 @@ export const updateFlagBodySchema = z
 					id: z.string().describe("The id of the variant"),
 					label: z.string().optional().describe("A label for the variant"),
 					description: z.string().optional().describe("A description of the variant"),
-					value: z.union([
-						z.string(),
-						z.number(),
-						z.boolean(),
-						z.object({}),
-						z.array(z.unknown()),
-						z.string(),
-					]),
+					value: z.union([z.string(), z.number(), z.boolean(), z.object({}), z.array(z.unknown())]),
 				}),
 			)
 			.optional()
 			.describe("The variants of the flag"),
 		environments: z
-			.record(
-				z.string(),
-				z.strictObject({
-					active: z.boolean(),
-					reuse: z
-						.strictObject({
-							active: z.boolean().describe("Whether the reuse is active or not"),
-							environment: z.string().describe("The environment to link to"),
-						})
-						.optional()
-						.describe(
-							"Allows linking this environment to another environment so this flag will be evaluated with the other flag's configuration",
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 10,
+							{ message: "Object must have at most 10 properties" },
 						),
-					targets: z
-						.record(
-							z.string(),
-							z.record(
+					),
+				z.record(
+					z.string(),
+					z.strictObject({
+						active: z.boolean(),
+						reuse: z
+							.strictObject({
+								active: z.boolean().describe("Whether the reuse is active or not"),
+								environment: z.string().describe("The environment to link to"),
+							})
+							.optional()
+							.describe(
+								"Allows linking this environment to another environment so this flag will be evaluated with the other flag's configuration",
+							),
+						targets: z
+							.record(
 								z.string(),
 								z.record(
 									z.string(),
-									z
-										.array(
-											z.strictObject({
-												note: z.string().optional(),
-												value: z.string(),
-											}),
-										)
-										.max(10000),
+									z.record(
+										z.string(),
+										z
+											.array(
+												z.strictObject({
+													note: z.string().optional(),
+													value: z.string(),
+												}),
+											)
+											.max(10000),
+									),
 								),
-							),
-						)
-						.optional()
-						.describe("Allows assigning targets to variants while bypassing the flag's rules"),
-					pausedOutcome: z.strictObject({
-						type: z.unknown(),
-						variantId: z.string(),
-					}),
-					rules: z
-						.array(
-							z.strictObject({
-								id: z.string(),
-								conditions: z.array(
-									z.strictObject({
-										lhs: z.union([
-											z.strictObject({
-												type: z.unknown(),
-											}),
-											z.strictObject({
+							)
+							.optional()
+							.describe("Allows assigning targets to variants while bypassing the flag's rules"),
+						pausedOutcome: z.strictObject({
+							type: z.unknown(),
+							variantId: z.string(),
+						}),
+						rules: z
+							.array(
+								z.strictObject({
+									id: z.string(),
+									conditions: z.array(
+										z.strictObject({
+											lhs: z.union([
+												z.strictObject({
+													type: z.unknown(),
+												}),
+												z.strictObject({
+													type: z.unknown(),
+													kind: z.string(),
+													attribute: z.string(),
+												}),
+											]),
+											cmp: z.enum([
+												"!contains",
+												"!endsWith",
+												"!eq",
+												"!ex",
+												"!oneOf",
+												"!regex",
+												"!startsWith",
+												"after",
+												"before",
+												"contains",
+												"containsAllOf",
+												"containsAnyOf",
+												"containsNoneOf",
+												"endsWith",
+												"eq",
+												"ex",
+												"gt",
+												"gte",
+												"lt",
+												"lte",
+												"oneOf",
+												"regex",
+												"startsWith",
+											]),
+											rhs: z
+												.union([
+													z.strictObject({
+														type: z.enum(["list/inline", "list"]),
+														items: z
+															.array(
+																z.union([
+																	z.strictObject({
+																		label: z.string().optional(),
+																		note: z.string().optional(),
+																		value: z.number(),
+																	}),
+																	z.strictObject({
+																		label: z.string().optional(),
+																		note: z.string().optional(),
+																		value: z.string(),
+																	}),
+																]),
+															)
+															.max(10000),
+													}),
+													z.strictObject({
+														type: z.unknown(),
+														pattern: z.string(),
+														flags: z.string(),
+													}),
+													z.string(),
+													z.number(),
+													z.boolean(),
+												])
+												.optional(),
+											cmpOptions: z
+												.strictObject({
+													ignoreCase: z.boolean().optional(),
+												})
+												.optional(),
+										}),
+									),
+									outcome: z.union([
+										z.strictObject({
+											type: z.unknown(),
+											variantId: z.string(),
+										}),
+										z.strictObject({
+											type: z.unknown(),
+											base: z.strictObject({
 												type: z.unknown(),
 												kind: z.string(),
 												attribute: z.string(),
 											}),
-										]),
-										cmp: z.enum([
-											"!contains",
-											"!endsWith",
-											"!eq",
-											"!ex",
-											"!oneOf",
-											"!regex",
-											"!startsWith",
-											"after",
-											"before",
-											"contains",
-											"containsAllOf",
-											"containsAnyOf",
-											"containsNoneOf",
-											"endsWith",
-											"eq",
-											"ex",
-											"gt",
-											"gte",
-											"lt",
-											"lte",
-											"oneOf",
-											"regex",
-											"startsWith",
-										]),
-										rhs: z
-											.union([
-												z.strictObject({
-													type: z.enum(["list/inline", "list"]),
-													items: z
-														.array(
-															z.union([
-																z.strictObject({
-																	label: z.string().optional(),
-																	note: z.string().optional(),
-																	value: z.number(),
-																}),
-																z.strictObject({
-																	label: z.string().optional(),
-																	note: z.string().optional(),
-																	value: z.string(),
-																}),
-															]),
-														)
-														.max(10000),
-												}),
-												z.strictObject({
-													type: z.unknown(),
-													pattern: z.string(),
-													flags: z.string(),
-												}),
-												z.string(),
-												z.number(),
-												z.boolean(),
-											])
-											.optional(),
-										cmpOptions: z
-											.strictObject({
-												ignoreCase: z.boolean().optional(),
-											})
-											.optional(),
-									}),
-								),
-								outcome: z.union([
-									z.strictObject({
-										type: z.unknown(),
-										variantId: z.string(),
-									}),
-									z.strictObject({
-										type: z.unknown(),
-										base: z.strictObject({
-											type: z.unknown(),
-											kind: z.string(),
-											attribute: z.string(),
+											weights: z
+												.record(z.string(), z.number())
+												.describe("The distribution for each variant"),
+											defaultVariantId: z
+												.string()
+												.describe(
+													"This variant will be used when the base attribute does not exist",
+												),
 										}),
-										weights: z
-											.record(z.string(), z.number())
-											.describe("The distribution for each variant"),
-										defaultVariantId: z
-											.string()
-											.describe("This variant will be used when the base attribute does not exist"),
-									}),
-									z.strictObject({
-										type: z.unknown(),
-										base: z.strictObject({
+										z.strictObject({
 											type: z.unknown(),
-											kind: z.string(),
-											attribute: z.string(),
+											base: z.strictObject({
+												type: z.unknown(),
+												kind: z.string(),
+												attribute: z.string(),
+											}),
+											startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
+											rollFromVariantId: z.string().describe("The variant to roll away from"),
+											rollToVariantId: z.string().describe("The variant to roll towards"),
+											defaultVariantId: z
+												.string()
+												.describe(
+													"This variant will be used when the base attribute does not exist",
+												),
+											slots: z
+												.array(
+													z.strictObject({
+														promille: z
+															.number()
+															.min(0)
+															.max(100000)
+															.describe(
+																"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
+															),
+														durationMs: z
+															.number()
+															.min(0)
+															.describe(
+																"How long this promille is served in ms before moving to the next slot.",
+															),
+													}),
+												)
+												.min(1)
+												.describe(
+													"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
+												),
+											finalPromille: z
+												.number()
+												.min(0)
+												.max(100000)
+												.optional()
+												.describe(
+													"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
+												),
 										}),
-										startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
-										rollFromVariantId: z.string().describe("The variant to roll away from"),
-										rollToVariantId: z.string().describe("The variant to roll towards"),
-										defaultVariantId: z
-											.string()
-											.describe("This variant will be used when the base attribute does not exist"),
-										slots: z
-											.array(
-												z.strictObject({
-													promille: z
-														.number()
-														.min(0)
-														.max(100000)
-														.describe(
-															"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
-														),
-													durationMs: z
-														.number()
-														.min(0)
-														.describe(
-															"How long this promille is served in ms before moving to the next slot.",
-														),
-												}),
-											)
-											.min(1)
-											.describe(
-												"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
-											),
-										finalPromille: z
-											.number()
-											.min(0)
-											.max(100000)
-											.optional()
-											.describe(
-												"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
-											),
-									}),
-								]),
-							}),
-						)
-						.max(10000),
-					fallthrough: z.union([
-						z.strictObject({
-							type: z.unknown(),
-							variantId: z.string(),
-						}),
-						z.strictObject({
-							type: z.unknown(),
-							base: z.strictObject({
+									]),
+								}),
+							)
+							.max(10000),
+						fallthrough: z.union([
+							z.strictObject({
 								type: z.unknown(),
-								kind: z.string(),
-								attribute: z.string(),
+								variantId: z.string(),
 							}),
-							weights: z
-								.record(z.string(), z.number())
-								.describe("The distribution for each variant"),
-							defaultVariantId: z
-								.string()
-								.describe("This variant will be used when the base attribute does not exist"),
-						}),
-						z.strictObject({
-							type: z.unknown(),
-							base: z.strictObject({
+							z.strictObject({
 								type: z.unknown(),
-								kind: z.string(),
-								attribute: z.string(),
+								base: z.strictObject({
+									type: z.unknown(),
+									kind: z.string(),
+									attribute: z.string(),
+								}),
+								weights: z
+									.record(z.string(), z.number())
+									.describe("The distribution for each variant"),
+								defaultVariantId: z
+									.string()
+									.describe("This variant will be used when the base attribute does not exist"),
 							}),
-							startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
-							rollFromVariantId: z.string().describe("The variant to roll away from"),
-							rollToVariantId: z.string().describe("The variant to roll towards"),
-							defaultVariantId: z
-								.string()
-								.describe("This variant will be used when the base attribute does not exist"),
-							slots: z
-								.array(
-									z.strictObject({
-										promille: z
-											.number()
-											.min(0)
-											.max(100000)
-											.describe(
-												"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
-											),
-										durationMs: z
-											.number()
-											.min(0)
-											.describe(
-												"How long this promille is served in ms before moving to the next slot.",
-											),
-									}),
-								)
-								.min(1)
-								.describe(
-									"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
-								),
-							finalPromille: z
-								.number()
-								.min(0)
-								.max(100000)
-								.optional()
-								.describe(
-									"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
-								),
-						}),
-					]),
-					revision: z.number().optional().describe("The revision of the environment config"),
-				}),
+							z.strictObject({
+								type: z.unknown(),
+								base: z.strictObject({
+									type: z.unknown(),
+									kind: z.string(),
+									attribute: z.string(),
+								}),
+								startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
+								rollFromVariantId: z.string().describe("The variant to roll away from"),
+								rollToVariantId: z.string().describe("The variant to roll towards"),
+								defaultVariantId: z
+									.string()
+									.describe("This variant will be used when the base attribute does not exist"),
+								slots: z
+									.array(
+										z.strictObject({
+											promille: z
+												.number()
+												.min(0)
+												.max(100000)
+												.describe(
+													"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
+												),
+											durationMs: z
+												.number()
+												.min(0)
+												.describe(
+													"How long this promille is served in ms before moving to the next slot.",
+												),
+										}),
+									)
+									.min(1)
+									.describe(
+										"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
+									),
+								finalPromille: z
+									.number()
+									.min(0)
+									.max(100000)
+									.optional()
+									.describe(
+										"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
+									),
+							}),
+						]),
+						revision: z.number().optional().describe("The revision of the environment config"),
+					}),
+				),
 			)
 			.optional()
 			.describe("The configuration for the flag in different environments"),
@@ -50739,9 +50906,7 @@ export const gitNamespacesQuerySchema = z.object({
 
 export const searchRepoQueryQuerySchema = z.string().optional();
 
-export const searchRepoQueryNamespaceIdSchema = z
-	.union([z.string(), z.number(), z.string(), z.number()])
-	.nullish();
+export const searchRepoQueryNamespaceIdSchema = z.union([z.string(), z.number()]).nullish();
 
 export const searchRepoQueryProviderSchema = z
 	.enum(["github", "github-limited", "github-custom-host", "gitlab", "bitbucket", "cursor-origin"])
@@ -50872,7 +51037,7 @@ export const searchRepoErrorSchema = z.union([
 
 export const searchRepoQuerySchema = z.object({
 	query: z.string().optional(),
-	namespaceId: z.union([z.string(), z.number(), z.string(), z.number()]).nullish(),
+	namespaceId: z.union([z.string(), z.number()]).nullish(),
 	provider: z
 		.enum([
 			"github",
@@ -55377,8 +55542,42 @@ export const signKmsTokenErrorSchema = z.union([
 
 export const signKmsTokenBodySchema = z
 	.object({
-		claims: z.object({}).optional().describe("The claims to include in the token."),
-		headers: z.object({}).optional().describe("Additional headers to include in the token."),
+		claims: z
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 128,
+							{ message: "Object must have at most 128 properties" },
+						),
+					),
+				z.object({}),
+			)
+			.optional()
+			.describe("The claims to include in the token."),
+		headers: z
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 64,
+							{ message: "Object must have at most 64 properties" },
+						),
+					),
+				z.object({}),
+			)
+			.optional()
+			.describe("Additional headers to include in the token."),
 		ttl: z.number().nullish().default(300).describe("The time-to-live for the token, in seconds."),
 	})
 	.optional();
@@ -56541,15 +56740,29 @@ export const updateKmsIssuerErrorSchema = z.union([
 ]);
 
 export const updateKmsIssuerBodySchema = z
-	.strictObject({
-		name: z.string().optional().describe("The name of the issuer."),
-		claimsSchema: z
-			.looseObject({})
-			.nullish()
-			.describe(
-				"A JSON Schema used to validate the resolved token claims when signing tokens for this issuer. Pass null to remove it.",
+	.pipe(
+		z
+			.unknown()
+			.check(
+				z.refine(
+					(value) =>
+						typeof value !== "object" ||
+						value === null ||
+						Array.isArray(value) ||
+						Object.keys(value).length >= 1,
+					{ message: "Object must have at least 1 properties" },
+				),
 			),
-	})
+		z.strictObject({
+			name: z.string().optional().describe("The name of the issuer."),
+			claimsSchema: z
+				.looseObject({})
+				.nullish()
+				.describe(
+					"A JSON Schema used to validate the resolved token claims when signing tokens for this issuer. Pass null to remove it.",
+				),
+		}),
+	)
 	.optional();
 
 export const updateKmsIssuerPathSchema = z.object({
@@ -58188,6 +58401,11 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 							targets: z.array(z.string()),
 						})
 						.optional(),
+					"health-check": z
+						.object({
+							targets: z.array(z.string()),
+						})
+						.optional(),
 					lint: z
 						.object({
 							targets: z.array(z.string()),
@@ -58590,10 +58808,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 					z.strictObject({
 						enabled: z.literal(false),
 						freeProjectForLegacyLimits: z.union([z.literal(false), z.literal(true)]).optional(),
-						groupIds: z
-							.array(z.union([z.string(), z.string()]))
-							.min(2)
-							.max(2),
+						groupIds: z.array(z.string()).min(2).max(2),
 						updatedAt: z.number(),
 					}),
 				])
@@ -60563,8 +60778,83 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						.describe(
 							"User-supplied explanation of why they rolled back the project. Limited to 250 characters.",
 						),
-					userId: z.string().describe("The user who rolled back the project."),
-					username: z.string().describe("The username of the user who rolled back the project."),
+					principal: z
+						.discriminatedUnion("type", [
+							z.strictObject({
+								type: z.enum(["user"]),
+								via: z
+									.discriminatedUnion("type", [
+										z.strictObject({
+											app: z.object({
+												clientId: z
+													.string()
+													.optional()
+													.describe(
+														"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+													),
+												id: z
+													.string()
+													.describe("The internal ID of the Vercel App backing this principal."),
+											}),
+											type: z.enum(["app"]),
+										}),
+										z.strictObject({
+											integration: z.object({
+												configurationId: z.string(),
+												integrationId: z.string(),
+											}),
+											type: z.enum(["integration"]),
+										}),
+									])
+									.nullable(),
+								user: z.object({
+									id: z.string(),
+								}),
+							}),
+							z.strictObject({
+								project: z.object({
+									id: z.string(),
+								}),
+								type: z.enum(["project"]),
+							}),
+							z.strictObject({
+								app: z.object({
+									clientId: z
+										.string()
+										.optional()
+										.describe(
+											"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+										),
+									id: z
+										.string()
+										.describe("The internal ID of the Vercel App backing this principal."),
+								}),
+								type: z.enum(["app"]),
+							}),
+							z.strictObject({
+								integration: z.object({
+									configurationId: z.string(),
+									integrationId: z.string(),
+								}),
+								type: z.enum(["integration"]),
+							}),
+							z.strictObject({
+								type: z.enum(["system"]),
+							}),
+						])
+						.optional(),
+					userId: z
+						.string()
+						.optional()
+						.describe(
+							"The ID of the user who rolled back the project, when the principal was a user.",
+						),
+					username: z
+						.string()
+						.optional()
+						.describe(
+							"The username of the user who rolled back the project, when the principal was a user.",
+						),
 				})
 				.optional()
 				.describe(
@@ -62204,23 +62494,37 @@ export const updateOrganizationErrorSchema = z.union([
 ]);
 
 export const updateOrganizationBodySchema = z
-	.strictObject({
-		avatar: z
-			.string()
-			.max(40)
-			.regex(/^[0-9a-f]+$/)
-			.nullish()
-			.describe(
-				"The hash value of an uploaded image, or `null` to clear the organization avatar. Omit to leave it unchanged.",
+	.pipe(
+		z
+			.unknown()
+			.check(
+				z.refine(
+					(value) =>
+						typeof value !== "object" ||
+						value === null ||
+						Array.isArray(value) ||
+						Object.keys(value).length >= 1,
+					{ message: "Object must have at least 1 properties" },
+				),
 			),
-		name: z.string().max(256).optional().describe("The new display name for the organization."),
-		slug: z
-			.string()
-			.max(48)
-			.regex(/^(?!-)(?:[a-z0-9-]{1,48})(?<!-)$/)
-			.optional()
-			.describe("The new slug for the organization."),
-	})
+		z.strictObject({
+			avatar: z
+				.string()
+				.max(40)
+				.regex(/^[0-9a-f]+$/)
+				.nullish()
+				.describe(
+					"The hash value of an uploaded image, or `null` to clear the organization avatar. Omit to leave it unchanged.",
+				),
+			name: z.string().max(256).optional().describe("The new display name for the organization."),
+			slug: z
+				.string()
+				.max(48)
+				.regex(/^(?!-)(?:[a-z0-9-]{1,48})(?<!-)$/)
+				.optional()
+				.describe("The new slug for the organization."),
+		}),
+	)
 	.optional();
 
 export const updateOrganizationPathSchema = z.object({
@@ -62312,7 +62616,7 @@ export const addOrganizationTeamErrorSchema = z.union([
 
 export const addOrganizationTeamBodySchema = z
 	.union([
-		z.strictObject({
+		z.object({
 			mode: z.enum(["create"]),
 			name: z.unknown(),
 			slug: z
@@ -62628,21 +62932,21 @@ export const addProjectMemberErrorSchema = z.union([
 
 export const addProjectMemberBodySchema = z
 	.union([
-		z.strictObject({
+		z.object({
 			uid: z
 				.string()
 				.max(256)
 				.describe("The ID of the team member that should be added to this project.")
 				.meta({ examples: ["ndlgr43fadlPyCtREAqxxdyFK"] }),
 		}),
-		z.strictObject({
+		z.object({
 			username: z
 				.string()
 				.max(256)
 				.describe("The username of the team member that should be added to this project.")
 				.meta({ examples: ["example"] }),
 		}),
-		z.strictObject({
+		z.object({
 			email: z
 				.email()
 				.describe("The email of the team member that should be added to this project.")
@@ -69112,6 +69416,11 @@ export const getProjectsStatus200Schema = z
 									targets: z.array(z.string()),
 								})
 								.optional(),
+							"health-check": z
+								.object({
+									targets: z.array(z.string()),
+								})
+								.optional(),
 							lint: z
 								.object({
 									targets: z.array(z.string()),
@@ -69516,10 +69825,7 @@ export const getProjectsStatus200Schema = z
 							z.strictObject({
 								enabled: z.literal(false),
 								freeProjectForLegacyLimits: z.union([z.literal(false), z.literal(true)]).optional(),
-								groupIds: z
-									.array(z.union([z.string(), z.string()]))
-									.min(2)
-									.max(2),
+								groupIds: z.array(z.string()).min(2).max(2),
 								updatedAt: z.number(),
 							}),
 						])
@@ -71493,10 +71799,85 @@ export const getProjectsStatus200Schema = z
 								.describe(
 									"User-supplied explanation of why they rolled back the project. Limited to 250 characters.",
 								),
-							userId: z.string().describe("The user who rolled back the project."),
+							principal: z
+								.discriminatedUnion("type", [
+									z.strictObject({
+										type: z.enum(["user"]),
+										via: z
+											.discriminatedUnion("type", [
+												z.strictObject({
+													app: z.object({
+														clientId: z
+															.string()
+															.optional()
+															.describe(
+																"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+															),
+														id: z
+															.string()
+															.describe(
+																"The internal ID of the Vercel App backing this principal.",
+															),
+													}),
+													type: z.enum(["app"]),
+												}),
+												z.strictObject({
+													integration: z.object({
+														configurationId: z.string(),
+														integrationId: z.string(),
+													}),
+													type: z.enum(["integration"]),
+												}),
+											])
+											.nullable(),
+										user: z.object({
+											id: z.string(),
+										}),
+									}),
+									z.strictObject({
+										project: z.object({
+											id: z.string(),
+										}),
+										type: z.enum(["project"]),
+									}),
+									z.strictObject({
+										app: z.object({
+											clientId: z
+												.string()
+												.optional()
+												.describe(
+													"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+												),
+											id: z
+												.string()
+												.describe("The internal ID of the Vercel App backing this principal."),
+										}),
+										type: z.enum(["app"]),
+									}),
+									z.strictObject({
+										integration: z.object({
+											configurationId: z.string(),
+											integrationId: z.string(),
+										}),
+										type: z.enum(["integration"]),
+									}),
+									z.strictObject({
+										type: z.enum(["system"]),
+									}),
+								])
+								.optional(),
+							userId: z
+								.string()
+								.optional()
+								.describe(
+									"The ID of the user who rolled back the project, when the principal was a user.",
+								),
 							username: z
 								.string()
-								.describe("The username of the user who rolled back the project."),
+								.optional()
+								.describe(
+									"The username of the user who rolled back the project, when the principal was a user.",
+								),
 						})
 						.optional()
 						.describe(
@@ -73333,6 +73714,11 @@ export const createProjectStatus200Schema = z.object({
 					targets: z.array(z.string()),
 				})
 				.optional(),
+			"health-check": z
+				.object({
+					targets: z.array(z.string()),
+				})
+				.optional(),
 			lint: z
 				.object({
 					targets: z.array(z.string()),
@@ -73731,10 +74117,7 @@ export const createProjectStatus200Schema = z.object({
 			z.strictObject({
 				enabled: z.literal(false),
 				freeProjectForLegacyLimits: z.union([z.literal(false), z.literal(true)]).optional(),
-				groupIds: z
-					.array(z.union([z.string(), z.string()]))
-					.min(2)
-					.max(2),
+				groupIds: z.array(z.string()).min(2).max(2),
 				updatedAt: z.number(),
 			}),
 		])
@@ -75702,8 +76085,79 @@ export const createProjectStatus200Schema = z.object({
 				.describe(
 					"User-supplied explanation of why they rolled back the project. Limited to 250 characters.",
 				),
-			userId: z.string().describe("The user who rolled back the project."),
-			username: z.string().describe("The username of the user who rolled back the project."),
+			principal: z
+				.discriminatedUnion("type", [
+					z.strictObject({
+						type: z.enum(["user"]),
+						via: z
+							.discriminatedUnion("type", [
+								z.strictObject({
+									app: z.object({
+										clientId: z
+											.string()
+											.optional()
+											.describe(
+												"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+											),
+										id: z
+											.string()
+											.describe("The internal ID of the Vercel App backing this principal."),
+									}),
+									type: z.enum(["app"]),
+								}),
+								z.strictObject({
+									integration: z.object({
+										configurationId: z.string(),
+										integrationId: z.string(),
+									}),
+									type: z.enum(["integration"]),
+								}),
+							])
+							.nullable(),
+						user: z.object({
+							id: z.string(),
+						}),
+					}),
+					z.strictObject({
+						project: z.object({
+							id: z.string(),
+						}),
+						type: z.enum(["project"]),
+					}),
+					z.strictObject({
+						app: z.object({
+							clientId: z
+								.string()
+								.optional()
+								.describe(
+									"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+								),
+							id: z.string().describe("The internal ID of the Vercel App backing this principal."),
+						}),
+						type: z.enum(["app"]),
+					}),
+					z.strictObject({
+						integration: z.object({
+							configurationId: z.string(),
+							integrationId: z.string(),
+						}),
+						type: z.enum(["integration"]),
+					}),
+					z.strictObject({
+						type: z.enum(["system"]),
+					}),
+				])
+				.optional(),
+			userId: z
+				.string()
+				.optional()
+				.describe("The ID of the user who rolled back the project, when the principal was a user."),
+			username: z
+				.string()
+				.optional()
+				.describe(
+					"The username of the user who rolled back the project, when the principal was a user.",
+				),
 		})
 		.optional()
 		.describe(
@@ -77871,6 +78325,11 @@ export const getProjectStatus200Schema = z.object({
 					targets: z.array(z.string()),
 				})
 				.optional(),
+			"health-check": z
+				.object({
+					targets: z.array(z.string()),
+				})
+				.optional(),
 			lint: z
 				.object({
 					targets: z.array(z.string()),
@@ -78269,10 +78728,7 @@ export const getProjectStatus200Schema = z.object({
 			z.strictObject({
 				enabled: z.literal(false),
 				freeProjectForLegacyLimits: z.union([z.literal(false), z.literal(true)]).optional(),
-				groupIds: z
-					.array(z.union([z.string(), z.string()]))
-					.min(2)
-					.max(2),
+				groupIds: z.array(z.string()).min(2).max(2),
 				updatedAt: z.number(),
 			}),
 		])
@@ -80240,8 +80696,79 @@ export const getProjectStatus200Schema = z.object({
 				.describe(
 					"User-supplied explanation of why they rolled back the project. Limited to 250 characters.",
 				),
-			userId: z.string().describe("The user who rolled back the project."),
-			username: z.string().describe("The username of the user who rolled back the project."),
+			principal: z
+				.discriminatedUnion("type", [
+					z.strictObject({
+						type: z.enum(["user"]),
+						via: z
+							.discriminatedUnion("type", [
+								z.strictObject({
+									app: z.object({
+										clientId: z
+											.string()
+											.optional()
+											.describe(
+												"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+											),
+										id: z
+											.string()
+											.describe("The internal ID of the Vercel App backing this principal."),
+									}),
+									type: z.enum(["app"]),
+								}),
+								z.strictObject({
+									integration: z.object({
+										configurationId: z.string(),
+										integrationId: z.string(),
+									}),
+									type: z.enum(["integration"]),
+								}),
+							])
+							.nullable(),
+						user: z.object({
+							id: z.string(),
+						}),
+					}),
+					z.strictObject({
+						project: z.object({
+							id: z.string(),
+						}),
+						type: z.enum(["project"]),
+					}),
+					z.strictObject({
+						app: z.object({
+							clientId: z
+								.string()
+								.optional()
+								.describe(
+									"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+								),
+							id: z.string().describe("The internal ID of the Vercel App backing this principal."),
+						}),
+						type: z.enum(["app"]),
+					}),
+					z.strictObject({
+						integration: z.object({
+							configurationId: z.string(),
+							integrationId: z.string(),
+						}),
+						type: z.enum(["integration"]),
+					}),
+					z.strictObject({
+						type: z.enum(["system"]),
+					}),
+				])
+				.optional(),
+			userId: z
+				.string()
+				.optional()
+				.describe("The ID of the user who rolled back the project, when the principal was a user."),
+			username: z
+				.string()
+				.optional()
+				.describe(
+					"The username of the user who rolled back the project, when the principal was a user.",
+				),
 		})
 		.optional()
 		.describe(
@@ -81888,6 +82415,11 @@ export const updateProjectStatus200Schema = z.object({
 					targets: z.array(z.string()),
 				})
 				.optional(),
+			"health-check": z
+				.object({
+					targets: z.array(z.string()),
+				})
+				.optional(),
 			lint: z
 				.object({
 					targets: z.array(z.string()),
@@ -82286,10 +82818,7 @@ export const updateProjectStatus200Schema = z.object({
 			z.strictObject({
 				enabled: z.literal(false),
 				freeProjectForLegacyLimits: z.union([z.literal(false), z.literal(true)]).optional(),
-				groupIds: z
-					.array(z.union([z.string(), z.string()]))
-					.min(2)
-					.max(2),
+				groupIds: z.array(z.string()).min(2).max(2),
 				updatedAt: z.number(),
 			}),
 		])
@@ -84257,8 +84786,79 @@ export const updateProjectStatus200Schema = z.object({
 				.describe(
 					"User-supplied explanation of why they rolled back the project. Limited to 250 characters.",
 				),
-			userId: z.string().describe("The user who rolled back the project."),
-			username: z.string().describe("The username of the user who rolled back the project."),
+			principal: z
+				.discriminatedUnion("type", [
+					z.strictObject({
+						type: z.enum(["user"]),
+						via: z
+							.discriminatedUnion("type", [
+								z.strictObject({
+									app: z.object({
+										clientId: z
+											.string()
+											.optional()
+											.describe(
+												"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+											),
+										id: z
+											.string()
+											.describe("The internal ID of the Vercel App backing this principal."),
+									}),
+									type: z.enum(["app"]),
+								}),
+								z.strictObject({
+									integration: z.object({
+										configurationId: z.string(),
+										integrationId: z.string(),
+									}),
+									type: z.enum(["integration"]),
+								}),
+							])
+							.nullable(),
+						user: z.object({
+							id: z.string(),
+						}),
+					}),
+					z.strictObject({
+						project: z.object({
+							id: z.string(),
+						}),
+						type: z.enum(["project"]),
+					}),
+					z.strictObject({
+						app: z.object({
+							clientId: z
+								.string()
+								.optional()
+								.describe(
+									"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+								),
+							id: z.string().describe("The internal ID of the Vercel App backing this principal."),
+						}),
+						type: z.enum(["app"]),
+					}),
+					z.strictObject({
+						integration: z.object({
+							configurationId: z.string(),
+							integrationId: z.string(),
+						}),
+						type: z.enum(["integration"]),
+					}),
+					z.strictObject({
+						type: z.enum(["system"]),
+					}),
+				])
+				.optional(),
+			userId: z
+				.string()
+				.optional()
+				.describe("The ID of the user who rolled back the project, when the principal was a user."),
+			username: z
+				.string()
+				.optional()
+				.describe(
+					"The username of the user who rolled back the project, when the principal was a user.",
+				),
 		})
 		.optional()
 		.describe(
@@ -85514,17 +86114,128 @@ export const updateProjectBodySchema = z.strictObject({
 					"Allow same-team Vercel CI access to preview and production deployments built from the same repository as the CI run. The deployment source repository, not the current project repository link, is authoritative. Defaults to enabled when not stored. Omitting this field preserves its stored value, including when trustedSources is cleared. Set true explicitly to re-enable.",
 				),
 			projects: z
-				.record(
-					z.string(),
-					z.strictObject({
-						label: z
-							.string()
-							.max(100)
-							.optional()
-							.describe("The label or description of the trusted source"),
-						customAllow: z
+				.pipe(
+					z
+						.unknown()
+						.check(
+							z.refine(
+								(value) =>
+									typeof value !== "object" ||
+									value === null ||
+									Array.isArray(value) ||
+									Object.keys(value).length <= 100,
+								{ message: "Object must have at most 100 properties" },
+							),
+						),
+					z.record(
+						z.string(),
+						z.strictObject({
+							label: z
+								.string()
+								.max(100)
+								.optional()
+								.describe("The label or description of the trusted source"),
+							customAllow: z
+								.array(
+									z.strictObject({
+										to: z
+											.union([
+												z.object({
+													slugs: z
+														.array(z.string().max(64))
+														.min(1)
+														.max(10)
+														.refine((items) => new Set(items).size === items.length, {
+															message: "Array entries must be unique",
+														}),
+												}),
+												z.object({
+													preset: z.enum(["all-custom"]),
+												}),
+											])
+											.and(
+												z.strictObject({
+													slugs: z
+														.array(z.string().max(64))
+														.min(1)
+														.max(10)
+														.refine((items) => new Set(items).size === items.length, {
+															message: "Array entries must be unique",
+														})
+														.optional(),
+													preset: z.enum(["all-custom"]).optional(),
+												}),
+											)
+											.describe(
+												"A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.",
+											),
+										from: z
+											.union([
+												z.object({
+													slugs: z
+														.array(z.string().max(64))
+														.min(1)
+														.max(10)
+														.refine((items) => new Set(items).size === items.length, {
+															message: "Array entries must be unique",
+														}),
+												}),
+												z.object({
+													preset: z.enum(["all-custom"]),
+												}),
+											])
+											.and(
+												z.strictObject({
+													slugs: z
+														.array(z.string().max(64))
+														.min(1)
+														.max(10)
+														.refine((items) => new Set(items).size === items.length, {
+															message: "Array entries must be unique",
+														})
+														.optional(),
+													preset: z.enum(["all-custom"]).optional(),
+												}),
+											)
+											.describe(
+												"A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.",
+											),
+									}),
+								)
+								.min(0)
+								.max(20)
+								.optional()
+								.describe(
+									"Optional overrides for the default same-env-by-slug matching. An empty array denies all access and is only allowed for the current project.",
+								),
+						}),
+					),
+				)
+				.optional(),
+			oidcProviders: z
+				.pipe(
+					z
+						.unknown()
+						.check(
+							z.refine(
+								(value) =>
+									typeof value !== "object" ||
+									value === null ||
+									Array.isArray(value) ||
+									Object.keys(value).length <= 50,
+								{ message: "Object must have at most 50 properties" },
+							),
+						),
+					z.record(
+						z.string(),
+						z
 							.array(
 								z.strictObject({
+									label: z
+										.string()
+										.max(100)
+										.optional()
+										.describe("The label or description of the trusted source"),
 									to: z
 										.union([
 											z.object({
@@ -85556,95 +86267,32 @@ export const updateProjectBodySchema = z.strictObject({
 										.describe(
 											"A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.",
 										),
-									from: z
-										.union([
-											z.object({
-												slugs: z
-													.array(z.string().max(64))
-													.min(1)
-													.max(10)
-													.refine((items) => new Set(items).size === items.length, {
-														message: "Array entries must be unique",
-													}),
-											}),
-											z.object({
-												preset: z.enum(["all-custom"]),
-											}),
-										])
-										.and(
-											z.strictObject({
-												slugs: z
-													.array(z.string().max(64))
-													.min(1)
-													.max(10)
-													.refine((items) => new Set(items).size === items.length, {
-														message: "Array entries must be unique",
-													})
-													.optional(),
-												preset: z.enum(["all-custom"]).optional(),
-											}),
-										)
-										.describe(
-											"A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.",
+									claims: z.pipe(
+										z.unknown().check(
+											z.refine(
+												(value) =>
+													typeof value !== "object" ||
+													value === null ||
+													Array.isArray(value) ||
+													Object.keys(value).length >= 1,
+												{ message: "Object must have at least 1 properties" },
+											),
+											z.refine(
+												(value) =>
+													typeof value !== "object" ||
+													value === null ||
+													Array.isArray(value) ||
+													Object.keys(value).length <= 20,
+												{ message: "Object must have at most 20 properties" },
+											),
 										),
+										z.record(z.string(), z.array(z.string().max(256)).min(1).max(20)),
+									),
 								}),
 							)
-							.min(0)
-							.max(20)
-							.optional()
-							.describe(
-								"Optional overrides for the default same-env-by-slug matching. An empty array denies all access and is only allowed for the current project.",
-							),
-					}),
-				)
-				.optional(),
-			oidcProviders: z
-				.record(
-					z.string(),
-					z
-						.array(
-							z.strictObject({
-								label: z
-									.string()
-									.max(100)
-									.optional()
-									.describe("The label or description of the trusted source"),
-								to: z
-									.union([
-										z.object({
-											slugs: z
-												.array(z.string().max(64))
-												.min(1)
-												.max(10)
-												.refine((items) => new Set(items).size === items.length, {
-													message: "Array entries must be unique",
-												}),
-										}),
-										z.object({
-											preset: z.enum(["all-custom"]),
-										}),
-									])
-									.and(
-										z.strictObject({
-											slugs: z
-												.array(z.string().max(64))
-												.min(1)
-												.max(10)
-												.refine((items) => new Set(items).size === items.length, {
-													message: "Array entries must be unique",
-												})
-												.optional(),
-											preset: z.enum(["all-custom"]).optional(),
-										}),
-									)
-									.describe(
-										"A set of environments, expressed as explicit slugs, a named preset, or both. At least one of `slugs` or `preset` must be set.",
-									),
-								claims: z.record(z.string(), z.array(z.string().max(256)).min(1).max(20)),
-							}),
-						)
-						.min(1)
-						.max(10),
+							.min(1)
+							.max(10),
+					),
 				)
 				.optional(),
 		})
@@ -85738,7 +86386,7 @@ export const updateProjectBodySchema = z.strictObject({
 		),
 	connectConfigurations: z
 		.array(
-			z.strictObject({}).and(
+			z.object({}).and(
 				z.strictObject({
 					envId: z.string().describe("The ID of the environment"),
 					connectConfigurationId: z.string().describe("The ID of the Secure Compute network"),
@@ -85771,7 +86419,6 @@ export const updateProjectBodySchema = z.strictObject({
 						"Whether the toast was dismissed, the action was accepted, or the dismissal with this key should be removed",
 					),
 				value: z.union([
-					z.string(),
 					z.string(),
 					z.boolean(),
 					z.number(),
@@ -86774,6 +87421,11 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 					targets: z.array(z.string()),
 				})
 				.optional(),
+			"health-check": z
+				.object({
+					targets: z.array(z.string()),
+				})
+				.optional(),
 			lint: z
 				.object({
 					targets: z.array(z.string()),
@@ -87172,10 +87824,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 			z.strictObject({
 				enabled: z.literal(false),
 				freeProjectForLegacyLimits: z.union([z.literal(false), z.literal(true)]).optional(),
-				groupIds: z
-					.array(z.union([z.string(), z.string()]))
-					.min(2)
-					.max(2),
+				groupIds: z.array(z.string()).min(2).max(2),
 				updatedAt: z.number(),
 			}),
 		])
@@ -89143,8 +89792,79 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				.describe(
 					"User-supplied explanation of why they rolled back the project. Limited to 250 characters.",
 				),
-			userId: z.string().describe("The user who rolled back the project."),
-			username: z.string().describe("The username of the user who rolled back the project."),
+			principal: z
+				.discriminatedUnion("type", [
+					z.strictObject({
+						type: z.enum(["user"]),
+						via: z
+							.discriminatedUnion("type", [
+								z.strictObject({
+									app: z.object({
+										clientId: z
+											.string()
+											.optional()
+											.describe(
+												"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+											),
+										id: z
+											.string()
+											.describe("The internal ID of the Vercel App backing this principal."),
+									}),
+									type: z.enum(["app"]),
+								}),
+								z.strictObject({
+									integration: z.object({
+										configurationId: z.string(),
+										integrationId: z.string(),
+									}),
+									type: z.enum(["integration"]),
+								}),
+							])
+							.nullable(),
+						user: z.object({
+							id: z.string(),
+						}),
+					}),
+					z.strictObject({
+						project: z.object({
+							id: z.string(),
+						}),
+						type: z.enum(["project"]),
+					}),
+					z.strictObject({
+						app: z.object({
+							clientId: z
+								.string()
+								.optional()
+								.describe(
+									"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+								),
+							id: z.string().describe("The internal ID of the Vercel App backing this principal."),
+						}),
+						type: z.enum(["app"]),
+					}),
+					z.strictObject({
+						integration: z.object({
+							configurationId: z.string(),
+							integrationId: z.string(),
+						}),
+						type: z.enum(["integration"]),
+					}),
+					z.strictObject({
+						type: z.enum(["system"]),
+					}),
+				])
+				.optional(),
+			userId: z
+				.string()
+				.optional()
+				.describe("The ID of the user who rolled back the project, when the principal was a user."),
+			username: z
+				.string()
+				.optional()
+				.describe(
+					"The username of the user who rolled back the project, when the principal was a user.",
+				),
 		})
 		.optional()
 		.describe(
@@ -90798,6 +91518,11 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 					targets: z.array(z.string()),
 				})
 				.optional(),
+			"health-check": z
+				.object({
+					targets: z.array(z.string()),
+				})
+				.optional(),
 			lint: z
 				.object({
 					targets: z.array(z.string()),
@@ -91196,10 +91921,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 			z.strictObject({
 				enabled: z.literal(false),
 				freeProjectForLegacyLimits: z.union([z.literal(false), z.literal(true)]).optional(),
-				groupIds: z
-					.array(z.union([z.string(), z.string()]))
-					.min(2)
-					.max(2),
+				groupIds: z.array(z.string()).min(2).max(2),
 				updatedAt: z.number(),
 			}),
 		])
@@ -93167,8 +93889,79 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				.describe(
 					"User-supplied explanation of why they rolled back the project. Limited to 250 characters.",
 				),
-			userId: z.string().describe("The user who rolled back the project."),
-			username: z.string().describe("The username of the user who rolled back the project."),
+			principal: z
+				.discriminatedUnion("type", [
+					z.strictObject({
+						type: z.enum(["user"]),
+						via: z
+							.discriminatedUnion("type", [
+								z.strictObject({
+									app: z.object({
+										clientId: z
+											.string()
+											.optional()
+											.describe(
+												"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+											),
+										id: z
+											.string()
+											.describe("The internal ID of the Vercel App backing this principal."),
+									}),
+									type: z.enum(["app"]),
+								}),
+								z.strictObject({
+									integration: z.object({
+										configurationId: z.string(),
+										integrationId: z.string(),
+									}),
+									type: z.enum(["integration"]),
+								}),
+							])
+							.nullable(),
+						user: z.object({
+							id: z.string(),
+						}),
+					}),
+					z.strictObject({
+						project: z.object({
+							id: z.string(),
+						}),
+						type: z.enum(["project"]),
+					}),
+					z.strictObject({
+						app: z.object({
+							clientId: z
+								.string()
+								.optional()
+								.describe(
+									"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+								),
+							id: z.string().describe("The internal ID of the Vercel App backing this principal."),
+						}),
+						type: z.enum(["app"]),
+					}),
+					z.strictObject({
+						integration: z.object({
+							configurationId: z.string(),
+							integrationId: z.string(),
+						}),
+						type: z.enum(["integration"]),
+					}),
+					z.strictObject({
+						type: z.enum(["system"]),
+					}),
+				])
+				.optional(),
+			userId: z
+				.string()
+				.optional()
+				.describe("The ID of the user who rolled back the project, when the principal was a user."),
+			username: z
+				.string()
+				.optional()
+				.describe(
+					"The username of the user who rolled back the project, when the principal was a user.",
+				),
 		})
 		.optional()
 		.describe(
@@ -101071,6 +101864,11 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 					targets: z.array(z.string()),
 				})
 				.optional(),
+			"health-check": z
+				.object({
+					targets: z.array(z.string()),
+				})
+				.optional(),
 			lint: z
 				.object({
 					targets: z.array(z.string()),
@@ -101469,10 +102267,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 			z.strictObject({
 				enabled: z.literal(false),
 				freeProjectForLegacyLimits: z.union([z.literal(false), z.literal(true)]).optional(),
-				groupIds: z
-					.array(z.union([z.string(), z.string()]))
-					.min(2)
-					.max(2),
+				groupIds: z.array(z.string()).min(2).max(2),
 				updatedAt: z.number(),
 			}),
 		])
@@ -103440,8 +104235,79 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				.describe(
 					"User-supplied explanation of why they rolled back the project. Limited to 250 characters.",
 				),
-			userId: z.string().describe("The user who rolled back the project."),
-			username: z.string().describe("The username of the user who rolled back the project."),
+			principal: z
+				.discriminatedUnion("type", [
+					z.strictObject({
+						type: z.enum(["user"]),
+						via: z
+							.discriminatedUnion("type", [
+								z.strictObject({
+									app: z.object({
+										clientId: z
+											.string()
+											.optional()
+											.describe(
+												"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+											),
+										id: z
+											.string()
+											.describe("The internal ID of the Vercel App backing this principal."),
+									}),
+									type: z.enum(["app"]),
+								}),
+								z.strictObject({
+									integration: z.object({
+										configurationId: z.string(),
+										integrationId: z.string(),
+									}),
+									type: z.enum(["integration"]),
+								}),
+							])
+							.nullable(),
+						user: z.object({
+							id: z.string(),
+						}),
+					}),
+					z.strictObject({
+						project: z.object({
+							id: z.string(),
+						}),
+						type: z.enum(["project"]),
+					}),
+					z.strictObject({
+						app: z.object({
+							clientId: z
+								.string()
+								.optional()
+								.describe(
+									"The protocol-facing OAuth client ID. This may differ from {@link id} when Client ID Metadata Documents (CIMD) are used.",
+								),
+							id: z.string().describe("The internal ID of the Vercel App backing this principal."),
+						}),
+						type: z.enum(["app"]),
+					}),
+					z.strictObject({
+						integration: z.object({
+							configurationId: z.string(),
+							integrationId: z.string(),
+						}),
+						type: z.enum(["integration"]),
+					}),
+					z.strictObject({
+						type: z.enum(["system"]),
+					}),
+				])
+				.optional(),
+			userId: z
+				.string()
+				.optional()
+				.describe("The ID of the user who rolled back the project, when the principal was a user."),
+			username: z
+				.string()
+				.optional()
+				.describe(
+					"The username of the user who rolled back the project, when the principal was a user.",
+				),
 		})
 		.optional()
 		.describe(
@@ -105185,21 +106051,35 @@ export const createSandboxesV2BodySchema = z
 			)
 			.meta({ examples: [{ NODE_ENV: "production", HELLO: "world" }] }),
 		mounts: z
-			.record(
-				z.string(),
-				z.strictObject({
-					drive: z
-						.string()
-						.max(64)
-						.regex(/^[a-zA-Z0-9_-]+$/)
-						.describe("Name of the drive to mount. The drive must already exist."),
-					mode: z
-						.enum(["read-write", "snapshot"])
-						.optional()
-						.describe(
-							"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 4,
+							{ message: "Object must have at most 4 properties" },
 						),
-				}),
+					),
+				z.record(
+					z.string(),
+					z.strictObject({
+						drive: z
+							.string()
+							.max(64)
+							.regex(/^[a-zA-Z0-9_-]+$/)
+							.describe("Name of the drive to mount. The drive must already exist."),
+						mode: z
+							.enum(["read-write", "snapshot"])
+							.optional()
+							.describe(
+								"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+							),
+					}),
+				),
 			)
 			.optional()
 			.describe("List of drives to mount to the sandbox at the provided path."),
@@ -105304,7 +106184,21 @@ export const createSandboxesV2BodySchema = z
 			.optional()
 			.describe("Protect the N most recent snapshots with different expiration/deletion behavior."),
 		tags: z
-			.record(z.string(), z.string().max(256))
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 5,
+							{ message: "Object must have at most 5 properties" },
+						),
+					),
+				z.record(z.string(), z.string().max(256)),
+			)
 			.optional()
 			.describe("Key-value tags to associate with the sandbox. Maximum 5 tags.")
 			.meta({ examples: [{ env: "staging", team: "platform" }] }),
@@ -107017,21 +107911,35 @@ export const updateSandboxBodySchema = z
 			.describe("The regions the sandbox falls back to when it cannot be created in `region`.")
 			.meta({ examples: [["cle1", "sfo1"]] }),
 		mounts: z
-			.record(
-				z.string(),
-				z.strictObject({
-					drive: z
-						.string()
-						.max(64)
-						.regex(/^[a-zA-Z0-9_-]+$/)
-						.describe("Name of the drive to mount. The drive must already exist."),
-					mode: z
-						.enum(["read-write", "snapshot"])
-						.optional()
-						.describe(
-							"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 4,
+							{ message: "Object must have at most 4 properties" },
 						),
-				}),
+					),
+				z.record(
+					z.string(),
+					z.strictObject({
+						drive: z
+							.string()
+							.max(64)
+							.regex(/^[a-zA-Z0-9_-]+$/)
+							.describe("Name of the drive to mount. The drive must already exist."),
+						mode: z
+							.enum(["read-write", "snapshot"])
+							.optional()
+							.describe(
+								"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+							),
+					}),
+				),
 			)
 			.optional()
 			.describe(
@@ -107067,7 +107975,21 @@ export const updateSandboxBodySchema = z
 				"The snapshot ID to set as the current snapshot. Must be active and belong to the same project.",
 			),
 		tags: z
-			.record(z.string(), z.string().max(256))
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 5,
+							{ message: "Object must have at most 5 properties" },
+						),
+					),
+				z.record(z.string(), z.string().max(256)),
+			)
 			.optional()
 			.describe(
 				"Key-value tags to associate with the sandbox. Replaces existing tags. Set to empty object to clear. Maximum 5 tags.",
@@ -109179,21 +110101,35 @@ export const createSandboxesByNameForkV2BodySchema = z
 			)
 			.meta({ examples: [{ NODE_ENV: "production", HELLO: "world" }] }),
 		mounts: z
-			.record(
-				z.string(),
-				z.strictObject({
-					drive: z
-						.string()
-						.max(64)
-						.regex(/^[a-zA-Z0-9_-]+$/)
-						.describe("Name of the drive to mount. The drive must already exist."),
-					mode: z
-						.enum(["read-write", "snapshot"])
-						.optional()
-						.describe(
-							"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 4,
+							{ message: "Object must have at most 4 properties" },
 						),
-				}),
+					),
+				z.record(
+					z.string(),
+					z.strictObject({
+						drive: z
+							.string()
+							.max(64)
+							.regex(/^[a-zA-Z0-9_-]+$/)
+							.describe("Name of the drive to mount. The drive must already exist."),
+						mode: z
+							.enum(["read-write", "snapshot"])
+							.optional()
+							.describe(
+								"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+							),
+					}),
+				),
 			)
 			.optional()
 			.describe("List of drives to mount to the sandbox at the provided path."),
@@ -109297,7 +110233,21 @@ export const createSandboxesByNameForkV2BodySchema = z
 			.optional()
 			.describe("Protect the N most recent snapshots with different expiration/deletion behavior."),
 		tags: z
-			.record(z.string(), z.string().max(256))
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 5,
+							{ message: "Object must have at most 5 properties" },
+						),
+					),
+				z.record(z.string(), z.string().max(256)),
+			)
 			.optional()
 			.describe("Key-value tags to associate with the sandbox. Maximum 5 tags.")
 			.meta({ examples: [{ env: "staging", team: "platform" }] }),
@@ -109836,21 +110786,35 @@ export const createSandboxesV3BodySchema = z
 			)
 			.meta({ examples: [{ NODE_ENV: "production", HELLO: "world" }] }),
 		mounts: z
-			.record(
-				z.string(),
-				z.strictObject({
-					drive: z
-						.string()
-						.max(64)
-						.regex(/^[a-zA-Z0-9_-]+$/)
-						.describe("Name of the drive to mount. The drive must already exist."),
-					mode: z
-						.enum(["read-write", "snapshot"])
-						.optional()
-						.describe(
-							"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 4,
+							{ message: "Object must have at most 4 properties" },
 						),
-				}),
+					),
+				z.record(
+					z.string(),
+					z.strictObject({
+						drive: z
+							.string()
+							.max(64)
+							.regex(/^[a-zA-Z0-9_-]+$/)
+							.describe("Name of the drive to mount. The drive must already exist."),
+						mode: z
+							.enum(["read-write", "snapshot"])
+							.optional()
+							.describe(
+								"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+							),
+					}),
+				),
 			)
 			.optional()
 			.describe("List of drives to mount to the sandbox at the provided path."),
@@ -109955,7 +110919,21 @@ export const createSandboxesV3BodySchema = z
 			.optional()
 			.describe("Protect the N most recent snapshots with different expiration/deletion behavior."),
 		tags: z
-			.record(z.string(), z.string().max(256))
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 5,
+							{ message: "Object must have at most 5 properties" },
+						),
+					),
+				z.record(z.string(), z.string().max(256)),
+			)
 			.optional()
 			.describe("Key-value tags to associate with the sandbox. Maximum 5 tags.")
 			.meta({ examples: [{ env: "staging", team: "platform" }] }),
@@ -110518,21 +111496,35 @@ export const createSandboxesByNameForkV3BodySchema = z
 			)
 			.meta({ examples: [{ NODE_ENV: "production", HELLO: "world" }] }),
 		mounts: z
-			.record(
-				z.string(),
-				z.strictObject({
-					drive: z
-						.string()
-						.max(64)
-						.regex(/^[a-zA-Z0-9_-]+$/)
-						.describe("Name of the drive to mount. The drive must already exist."),
-					mode: z
-						.enum(["read-write", "snapshot"])
-						.optional()
-						.describe(
-							"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 4,
+							{ message: "Object must have at most 4 properties" },
 						),
-				}),
+					),
+				z.record(
+					z.string(),
+					z.strictObject({
+						drive: z
+							.string()
+							.max(64)
+							.regex(/^[a-zA-Z0-9_-]+$/)
+							.describe("Name of the drive to mount. The drive must already exist."),
+						mode: z
+							.enum(["read-write", "snapshot"])
+							.optional()
+							.describe(
+								"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+							),
+					}),
+				),
 			)
 			.optional()
 			.describe("List of drives to mount to the sandbox at the provided path."),
@@ -110641,7 +111633,21 @@ export const createSandboxesByNameForkV3BodySchema = z
 				"Protect the N most recent snapshots with different expiration/deletion behavior. Persistent sandboxes default to keeping only the last snapshot (evicted snapshots are deleted). Set to null to disable the limit.",
 			),
 		tags: z
-			.record(z.string(), z.string().max(256))
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 5,
+							{ message: "Object must have at most 5 properties" },
+						),
+					),
+				z.record(z.string(), z.string().max(256)),
+			)
 			.optional()
 			.describe("Key-value tags to associate with the sandbox. Maximum 5 tags.")
 			.meta({ examples: [{ env: "staging", team: "platform" }] }),
@@ -111180,21 +112186,35 @@ export const createSandboxesV4BodySchema = z
 			)
 			.meta({ examples: [{ NODE_ENV: "production", HELLO: "world" }] }),
 		mounts: z
-			.record(
-				z.string(),
-				z.strictObject({
-					drive: z
-						.string()
-						.max(64)
-						.regex(/^[a-zA-Z0-9_-]+$/)
-						.describe("Name of the drive to mount. The drive must already exist."),
-					mode: z
-						.enum(["read-write", "snapshot"])
-						.optional()
-						.describe(
-							"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 4,
+							{ message: "Object must have at most 4 properties" },
 						),
-				}),
+					),
+				z.record(
+					z.string(),
+					z.strictObject({
+						drive: z
+							.string()
+							.max(64)
+							.regex(/^[a-zA-Z0-9_-]+$/)
+							.describe("Name of the drive to mount. The drive must already exist."),
+						mode: z
+							.enum(["read-write", "snapshot"])
+							.optional()
+							.describe(
+								"Mount the drive as read-write, or as a read-only snapshot. One writer is permitted at a time.",
+							),
+					}),
+				),
 			)
 			.optional()
 			.describe("List of drives to mount to the sandbox at the provided path."),
@@ -111304,7 +112324,21 @@ export const createSandboxesV4BodySchema = z
 				"Protect the N most recent snapshots with different expiration/deletion behavior. Persistent sandboxes default to keeping only the last snapshot (evicted snapshots are deleted). Set to null to disable the limit.",
 			),
 		tags: z
-			.record(z.string(), z.string().max(256))
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 5,
+							{ message: "Object must have at most 5 properties" },
+						),
+					),
+				z.record(z.string(), z.string().max(256)),
+			)
 			.optional()
 			.describe("Key-value tags to associate with the sandbox. Maximum 5 tags.")
 			.meta({ examples: [{ env: "staging", team: "platform" }] }),
@@ -114006,11 +115040,25 @@ export const putFirewallConfigBodySchema = z.strictObject({
 					validationErrors: z.union([z.array(z.string()), z.string()]).optional(),
 				}),
 			),
-			z.record(
-				z.string(),
-				z.strictObject({
-					action: z.enum(["deny", "challenge", "log", "allow"]),
-				}),
+			z.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 25,
+							{ message: "Object must have at most 25 properties" },
+						),
+					),
+				z.record(
+					z.string(),
+					z.strictObject({
+						action: z.enum(["deny", "challenge", "log", "allow"]),
+					}),
+				),
 			),
 		])
 		.optional(),
@@ -114755,7 +115803,7 @@ export const updateFirewallConfigBodySchema = z.union([
 	z.strictObject({
 		action: z.string(),
 		id: z.string().optional(),
-		value: z.union([z.string(), z.array(z.string()), z.string()]),
+		value: z.union([z.string(), z.array(z.string())]),
 	}),
 ]);
 
@@ -116328,13 +117376,13 @@ export const addBypassIpErrorSchema = z.union([
 
 export const addBypassIpBodySchema = z
 	.union([
-		z.strictObject({
+		z.object({
 			domain: z
 				.string()
 				.max(2544)
 				.regex(/([a-z]+[a-z.]+)$/),
 		}),
-		z.strictObject({
+		z.object({
 			projectScope: z
 				.boolean()
 				.describe("If the specified bypass will apply to all domains for a project."),
@@ -116419,13 +117467,13 @@ export const removeBypassIpErrorSchema = z.union([
 
 export const removeBypassIpBodySchema = z
 	.union([
-		z.strictObject({
+		z.object({
 			domain: z
 				.string()
 				.max(2544)
 				.regex(/([a-z]+[a-z.]+)$/),
 		}),
-		z.strictObject({
+		z.object({
 			projectScope: z.boolean(),
 		}),
 	])
