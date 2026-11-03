@@ -19,7 +19,7 @@ export const groupRepresentationSchema = z.object({
 	name: z.string().optional(),
 	path: z.string().optional(),
 	realmRoles: z.array(z.string()).optional(),
-	get subGroups() {
+	get subGroups(): z.ZodOptional<z.ZodArray<typeof groupRepresentationSchema>> {
 		return z.array(groupRepresentationSchema).optional();
 	},
 });
