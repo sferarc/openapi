@@ -3345,7 +3345,7 @@ export type ChatsFindIsFavoriteKey = (typeof chatsFindIsFavorite)[keyof typeof c
 export type ChatsFindQuery = {
 	/**
 	 * @description Specifies the maximum number of chat records to return in a single response. Useful for paginating results when there are many chats.
-	 * @maxLength 60
+	 * @maximum 60
 	 * @default 60
 	 * @type number | undefined
 	 */
@@ -4184,8 +4184,8 @@ export type ChatsFindMessagesPath = {
 export type ChatsFindMessagesQuery = {
 	/**
 	 * @description Specifies the maximum number of message records to return in a single response. Useful for paginating results when there are many messages.
-	 * @minLength 1
-	 * @maxLength 150
+	 * @minimum 1
+	 * @maximum 150
 	 * @default 20
 	 * @type number | undefined
 	 */
@@ -4535,8 +4535,8 @@ export type ChatsFindVersionsPath = {
 export type ChatsFindVersionsQuery = {
 	/**
 	 * @description Specifies the maximum number of version records to return in a single response. Useful for paginating results when there are many versions.
-	 * @minLength 1
-	 * @maxLength 150
+	 * @minimum 1
+	 * @maximum 150
 	 * @default 20
 	 * @type number | undefined
 	 */
@@ -7369,8 +7369,8 @@ export type ReportsGetUsageQuery = {
 	userId?: string | undefined;
 	/**
 	 * @description Bounds the raw billing transactions scanned per ledger group and page. A page can contain more events than this value (large teams are scanned in parallel ledger groups), and a filtered page (chatId, userId, or messageId) can contain fewer or zero events while more data remains. Events are sorted newest-first within a page but not across pages on large teams. Always paginate with `pagination.hasMore` and `pagination.nextCursor` rather than stopping on an empty page.
-	 * @minLength 1
-	 * @maxLength 150
+	 * @minimum 1
+	 * @maximum 150
 	 * @default 20
 	 * @type number | undefined
 	 */
@@ -7514,8 +7514,8 @@ export type ReportsGetAIUsageQuery = {
 	cursor?: string | undefined;
 	/**
 	 * @description Maximum number of rows to return.
-	 * @minLength 1
-	 * @maxLength 5000
+	 * @minimum 1
+	 * @maximum 5000
 	 * @default 1000
 	 * @type integer | undefined
 	 */
