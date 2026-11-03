@@ -1,5 +1,11 @@
 # litellm-api
 
+## 2.9.1
+
+### Patch Changes
+
+- 640c586: Type the MCP route HEAD operations' responses as `void`, which is what the fetcher resolves a HEAD response to: their `200` was `unknown` and their `422` the GET's `HTTPValidationError` body.
+
 ## 2.9.0
 
 ### Minor Changes
