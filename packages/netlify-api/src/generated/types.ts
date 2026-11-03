@@ -599,8 +599,8 @@ export type DatabaseComputeSettingsRequest = {
 	 * @description Minimum compute units (0.25 to 16.0). Must be less than or equal to max_cu.
 	 *
 	 * Format: `double`
-	 * @minLength 0.25
-	 * @maxLength 16
+	 * @minimum 0.25
+	 * @maximum 16
 	 * @type number | undefined
 	 */
 	min_cu?: (number | null) | undefined;
@@ -608,8 +608,8 @@ export type DatabaseComputeSettingsRequest = {
 	 * @description Maximum compute units (0.25 to 16.0). Must be greater than or equal to min_cu. max_cu - min_cu must not exceed 8.0.
 	 *
 	 * Format: `double`
-	 * @minLength 0.25
-	 * @maxLength 16
+	 * @minimum 0.25
+	 * @maximum 16
 	 * @type number | undefined
 	 */
 	max_cu?: (number | null) | undefined;
@@ -617,7 +617,7 @@ export type DatabaseComputeSettingsRequest = {
 	 * @description Seconds of inactivity before the compute endpoint is suspended. Use -1 for always on, or a non-negative value.
 	 *
 	 * Format: `int64`
-	 * @minLength -1
+	 * @minimum -1
 	 * @type integer | undefined
 	 */
 	sleep_timeout_seconds?: (number | null) | undefined;
@@ -1983,7 +1983,7 @@ export type DeployFiles = {
 							 *
 							 *
 							 * Format: `int64`
-							 * @minLength 0
+							 * @minimum 0
 							 * @type integer | undefined
 							 */
 							min?: (number | null) | undefined;
@@ -1993,7 +1993,7 @@ export type DeployFiles = {
 							 *
 							 *
 							 * Format: `int64`
-							 * @minLength 1
+							 * @minimum 1
 							 * @type integer | undefined
 							 */
 							max?: (number | null) | undefined;
@@ -7833,6 +7833,13 @@ export const createSiteDeployRequestServerRoutesMethodsEnum = {
 export type CreateSiteDeployRequestServerRoutesMethodsEnumKey =
 	(typeof createSiteDeployRequestServerRoutesMethodsEnum)[keyof typeof createSiteDeployRequestServerRoutesMethodsEnum];
 
+export const typeEnum2 = {
+	ip: "ip",
+	domain: "domain",
+} as const;
+
+export type TypeEnum2Key = (typeof typeEnum2)[keyof typeof typeEnum2];
+
 export const createSiteDeployRequestEnvironmentScopesEnum = {
 	builds: "builds",
 	functions: "functions",
@@ -7946,7 +7953,7 @@ export type CreateSiteDeployBody = {
 							 *
 							 *
 							 * Format: `int64`
-							 * @minLength 0
+							 * @minimum 0
 							 * @type integer | undefined
 							 */
 							min?: (number | null) | undefined;
@@ -7956,7 +7963,7 @@ export type CreateSiteDeployBody = {
 							 *
 							 *
 							 * Format: `int64`
-							 * @minLength 1
+							 * @minimum 1
 							 * @type integer | undefined
 							 */
 							max?: (number | null) | undefined;
@@ -8019,7 +8026,7 @@ export type CreateSiteDeployBody = {
 															| {
 																	keys?:
 																		| {
-																				type?: TypeEnumKey | undefined;
+																				type?: TypeEnum2Key | undefined;
 																		  }[]
 																		| undefined;
 															  }
@@ -8339,6 +8346,13 @@ export const updateSiteDeployRequestServerRoutesMethodsEnum = {
 export type UpdateSiteDeployRequestServerRoutesMethodsEnumKey =
 	(typeof updateSiteDeployRequestServerRoutesMethodsEnum)[keyof typeof updateSiteDeployRequestServerRoutesMethodsEnum];
 
+export const typeEnum3 = {
+	ip: "ip",
+	domain: "domain",
+} as const;
+
+export type TypeEnum3Key = (typeof typeEnum3)[keyof typeof typeEnum3];
+
 export const updateSiteDeployRequestEnvironmentScopesEnum = {
 	builds: "builds",
 	functions: "functions",
@@ -8452,7 +8466,7 @@ export type UpdateSiteDeployBody = {
 							 *
 							 *
 							 * Format: `int64`
-							 * @minLength 0
+							 * @minimum 0
 							 * @type integer | undefined
 							 */
 							min?: (number | null) | undefined;
@@ -8462,7 +8476,7 @@ export type UpdateSiteDeployBody = {
 							 *
 							 *
 							 * Format: `int64`
-							 * @minLength 1
+							 * @minimum 1
 							 * @type integer | undefined
 							 */
 							max?: (number | null) | undefined;
@@ -8525,7 +8539,7 @@ export type UpdateSiteDeployBody = {
 															| {
 																	keys?:
 																		| {
-																				type?: TypeEnumKey | undefined;
+																				type?: TypeEnum3Key | undefined;
 																		  }[]
 																		| undefined;
 															  }
@@ -18471,8 +18485,8 @@ export type SetSiteDatabaseBranchComputeSettingsBody = {
 	 * @description Minimum compute units (0.25 to 16.0). Must be less than or equal to max_cu.
 	 *
 	 * Format: `double`
-	 * @minLength 0.25
-	 * @maxLength 16
+	 * @minimum 0.25
+	 * @maximum 16
 	 * @type number | undefined
 	 */
 	min_cu?: (number | null) | undefined;
@@ -18480,8 +18494,8 @@ export type SetSiteDatabaseBranchComputeSettingsBody = {
 	 * @description Maximum compute units (0.25 to 16.0). Must be greater than or equal to min_cu. max_cu - min_cu must not exceed 8.0.
 	 *
 	 * Format: `double`
-	 * @minLength 0.25
-	 * @maxLength 16
+	 * @minimum 0.25
+	 * @maximum 16
 	 * @type number | undefined
 	 */
 	max_cu?: (number | null) | undefined;
@@ -18489,7 +18503,7 @@ export type SetSiteDatabaseBranchComputeSettingsBody = {
 	 * @description Seconds of inactivity before the compute endpoint is suspended. Use -1 for always on, or a non-negative value.
 	 *
 	 * Format: `int64`
-	 * @minLength -1
+	 * @minimum -1
 	 * @type integer | undefined
 	 */
 	sleep_timeout_seconds?: (number | null) | undefined;
@@ -18567,8 +18581,8 @@ export type SetSiteDatabaseComputeSettingsBody = {
 	 * @description Minimum compute units (0.25 to 16.0). Must be less than or equal to max_cu.
 	 *
 	 * Format: `double`
-	 * @minLength 0.25
-	 * @maxLength 16
+	 * @minimum 0.25
+	 * @maximum 16
 	 * @type number | undefined
 	 */
 	min_cu?: (number | null) | undefined;
@@ -18576,8 +18590,8 @@ export type SetSiteDatabaseComputeSettingsBody = {
 	 * @description Maximum compute units (0.25 to 16.0). Must be greater than or equal to min_cu. max_cu - min_cu must not exceed 8.0.
 	 *
 	 * Format: `double`
-	 * @minLength 0.25
-	 * @maxLength 16
+	 * @minimum 0.25
+	 * @maximum 16
 	 * @type number | undefined
 	 */
 	max_cu?: (number | null) | undefined;
@@ -18585,7 +18599,7 @@ export type SetSiteDatabaseComputeSettingsBody = {
 	 * @description Seconds of inactivity before the compute endpoint is suspended. Use -1 for always on, or a non-negative value.
 	 *
 	 * Format: `int64`
-	 * @minLength -1
+	 * @minimum -1
 	 * @type integer | undefined
 	 */
 	sleep_timeout_seconds?: (number | null) | undefined;
