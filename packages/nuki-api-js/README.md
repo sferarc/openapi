@@ -42,6 +42,22 @@ const client = new NukiApi({
 });
 ```
 
+### Response headers
+
+A call resolves to the parsed body only. To read a response header, pass `onResponse` in `config`; it gets the status and headers of the response before the body is read, an error response included:
+
+```ts
+import type { ResponseInfo } from "nuki-api-js";
+
+const responses: ResponseInfo[] = [];
+await client.api.account.getAccountsResource({
+  config: { onResponse: (response) => responses.push(response) },
+});
+console.log(responses[0]?.headers.get("Date"));
+```
+
+An error thrown inside `onResponse` rejects the call with an `Error` whose message starts with `onResponse threw on` and whose `cause` is what was thrown.
+
 ## Errors
 
 A call that gets an HTTP error response rejects with `{ status, payload }`: `status` is the HTTP status code and `payload` is the parsed JSON error body, or the raw body text, up to 1000 characters, when it is not JSON. A request that gets no response at all, for example because the network failed, rejects with an `Error` whose message names the method, the path and the reason, and whose `cause` is the original exception. A request cancelled through `signal` rejects with what the signal was aborted with, as is: the `AbortError`, or the `TimeoutError` of `AbortSignal.timeout()`.
@@ -62,6 +78,8 @@ await Effect.runPromise(
 ```
 
 Errors are typed as `ApiError`, `NetworkError` and `ValidationError`. An HTTP error response fails with `ApiError`, which carries the HTTP `status`; a request that never gets a response fails with `NetworkError`.
+
+A call can pass its own `config`, which layers over the layer's: its `headers` join the layer's, and its other fields, such as `onResponse`, replace them. An `onResponse` that throws makes the effect die with the `onResponse threw on` error as a defect rather than fail with `NetworkError`.
 
 ## Entrypoints
 

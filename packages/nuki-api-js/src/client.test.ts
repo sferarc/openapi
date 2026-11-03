@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { NukiApi } from "./client";
 import type { FetchImpl } from "./utils/fetch";
+import type { ResponseInfo } from "./utils/fetcher";
 
 describe("NukiApi.request", () => {
 	function setup() {
@@ -114,5 +115,42 @@ describe("NukiApi per-call config", () => {
 		await client.request("GET /account", { config: { signal } });
 		await client.api.account.getAccountsResource({ config: { signal } });
 		expect(signals).toEqual([signal, signal]);
+	});
+});
+
+describe("NukiApi response headers", () => {
+	function setup() {
+		const fetch: FetchImpl = async () =>
+			new Response(JSON.stringify({ message: "Too many requests" }), {
+				status: 429,
+				headers: { "content-type": "application/json", "retry-after": "30" },
+			}) as never;
+		return new NukiApi({ token: "token", fetch });
+	}
+
+	it("reads the headers of a rate limited response from the api proxy", async () => {
+		const client = setup();
+		const seen: ResponseInfo[] = [];
+
+		await expect(
+			client.api.account.getAccountsResource({
+				config: { onResponse: (response) => seen.push(response) },
+			}),
+		).rejects.toMatchObject({ status: 429 });
+		expect(seen.map(({ status, headers }) => [status, headers.get("Retry-After")])).toEqual([
+			[429, "30"],
+		]);
+	});
+
+	it("passes onResponse through request()", async () => {
+		const client = setup();
+		const retryAfter: (string | null)[] = [];
+
+		await expect(
+			client.request("GET /account", {
+				config: { onResponse: ({ headers }) => retryAfter.push(headers.get("retry-after")) },
+			}),
+		).rejects.toMatchObject({ status: 429 });
+		expect(retryAfter).toEqual(["30"]);
 	});
 });
