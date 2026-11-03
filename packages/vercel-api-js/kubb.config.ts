@@ -15,10 +15,7 @@ export default defineConfig(async () => {
 	let openAPIDocument = await fetchSpec("https://openapi.vercel.sh");
 
 	openAPIDocument = addMissingPathParams(openAPIDocument);
-	openAPIDocument = cleanOperationIds(openAPIDocument, {
-		deleteHead: true,
-		hardcodedOperationIds,
-	});
+	openAPIDocument = cleanOperationIds(openAPIDocument, { hardcodedOperationIds });
 
 	openAPIDocument = updateMethod(openAPIDocument, "/v1/integrations/search-repo", "get", (op) => ({
 		...op,
