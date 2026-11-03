@@ -286,7 +286,7 @@ export type ToolCountNameEnumKey = (typeof toolCountNameEnum)[keyof typeof toolC
 export type ToolCount = {
 	name: ToolCountNameEnumKey;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @type integer
 	 */
 	calls: number;
@@ -408,7 +408,7 @@ export type ActivitySelection = {
 	filters?: MetadataFilter[] | undefined;
 	sample_size?: (number | null) | undefined;
 	/**
-	 * @maxLength 100
+	 * @maximum 100
 	 * @default 100
 	 * @type number | undefined
 	 */
@@ -427,15 +427,15 @@ export type ActivitySelection = {
 
 export type AdaptiveRouterWeights = {
 	/**
-	 * @minLength 0
-	 * @maxLength 1
+	 * @minimum 0
+	 * @maximum 1
 	 * @default 0.7
 	 * @type number | undefined
 	 */
 	quality?: number | undefined;
 	/**
-	 * @minLength 0
-	 * @maxLength 1
+	 * @minimum 0
+	 * @maximum 1
 	 * @default 0.3
 	 * @type number | undefined
 	 */
@@ -1600,28 +1600,28 @@ export type AgentNode = {
 	name: string;
 	parent_agent: string | null;
 	/**
-	 * @minLength 0
-	 * @maxLength 18446744073709552000
+	 * @minimum 0
+	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	invocations: number;
 	/**
-	 * @minLength 0
-	 * @maxLength 18446744073709552000
+	 * @minimum 0
+	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	llm_calls: number;
 	/**
-	 * @minLength 0
-	 * @maxLength 18446744073709552000
+	 * @minimum 0
+	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	tool_calls: number;
 	duration_ms: number;
 	spend: number | null;
 	/**
-	 * @minLength 0
-	 * @maxLength 18446744073709552000
+	 * @minimum 0
+	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	priced_calls: number;
@@ -2204,14 +2204,10 @@ export type ClassificationRubricKey =
  */
 export type AutoRouterClassifierPromptPreviewRequest = {
 	tier_definitions?: (TierDefinition[] | null) | undefined;
-	tier_labels?:
-		| ({
-				[key: string]: string;
-		  } | null)
-		| undefined;
+	tier_labels?: (Partial<Record<ComplexityTierKey, string>> | null) | undefined;
 	classification_rubric?: (ClassificationRubricKey | null) | undefined;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 3
 	 * @type integer | undefined
 	 */
@@ -2299,7 +2295,7 @@ export type CustomDimension = {
 	 */
 	name: string;
 	/**
-	 * @maxLength 1
+	 * @maximum 1
 	 * @type number
 	 */
 	weight: number;
@@ -2365,13 +2361,13 @@ export type LLMV2Config = {
 	harness_preset?: (string | null) | undefined;
 	/**
 	 * @description Maximum estimated success loss allowed for efficient.
-	 * @minLength 0
-	 * @maxLength 1
+	 * @minimum 0
+	 * @maximum 1
 	 * @type number
 	 */
 	max_quality_gap: number;
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1024
 	 * @type integer | undefined
 	 */
@@ -2386,13 +2382,13 @@ export type LLMV2Config = {
 
 export type TierGlobalStatistic = {
 	/**
-	 * @minLength 1
-	 * @maxLength 4
+	 * @minimum 1
+	 * @maximum 4
 	 * @type integer
 	 */
 	tier: number;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @type number
 	 */
 	successes: number;
@@ -2413,13 +2409,13 @@ export type RequestTypeKey = (typeof requestType)[keyof typeof requestType];
 
 export type TierDomainStatistic = {
 	/**
-	 * @minLength 1
-	 * @maxLength 4
+	 * @minimum 1
+	 * @maximum 4
 	 * @type integer
 	 */
 	tier: number;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @type number
 	 */
 	successes: number;
@@ -2433,13 +2429,13 @@ export type TierDomainStatistic = {
 
 export type TierCohortStatistic = {
 	/**
-	 * @minLength 1
-	 * @maxLength 4
+	 * @minimum 1
+	 * @maximum 4
 	 * @type integer
 	 */
 	tier: number;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @type number
 	 */
 	successes: number;
@@ -2504,8 +2500,8 @@ export type TrainedTierArtifact = {
 	 */
 	cohort_prior_mass?: number | undefined;
 	/**
-	 * @minLength 0
-	 * @maxLength 1
+	 * @minimum 0
+	 * @maximum 1
 	 * @default 0.75
 	 * @type number | undefined
 	 */
@@ -2546,7 +2542,7 @@ export type ClassifierVisionConfig = {
 	enabled?: boolean | undefined;
 	/**
 	 * @description How many images from the newest user turn to forward, in wire order. Bounds the added cost of a turn that attaches many images. Images on earlier turns are never forwarded.
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
@@ -2622,14 +2618,14 @@ export type CapabilityCalibrationConfig = {
 	 */
 	version: string;
 	/**
-	 * @minLength 0
-	 * @maxLength 20
+	 * @minimum 0
+	 * @maximum 20
 	 * @type number
 	 */
 	slope: number;
 	/**
-	 * @minLength -20
-	 * @maxLength 20
+	 * @minimum -20
+	 * @maximum 20
 	 * @type number
 	 */
 	intercept: number;
@@ -2660,21 +2656,21 @@ export type CapabilityClassifierConfig = {
 	capable_tier: string;
 	/**
 	 * @description Lowest p_solve that routes a supported task to efficient_tier
-	 * @minLength 0
-	 * @maxLength 1
+	 * @minimum 0
+	 * @maximum 1
 	 * @type number
 	 */
 	base_threshold: number;
 	/**
 	 * @description Amount added once for uncertain or unmatched verdicts and twice for unsupported verdicts
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type number | undefined
 	 */
 	threshold_step?: number | undefined;
 	/**
 	 * @description Maximum completion tokens available to the capability classifier verdict
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 4096
 	 * @type integer | undefined
 	 */
@@ -2722,7 +2718,7 @@ export type OpenSourceClassifierConfig = {
 	 */
 	api_base?: (string | null) | undefined;
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 3000
 	 * @type integer | undefined
 	 */
@@ -2768,7 +2764,7 @@ export type ContextCompactionConfig = {
 	 */
 	trigger_ratio?: number | undefined;
 	/**
-	 * @minLength 512
+	 * @minimum 512
 	 * @default 4096
 	 * @type integer | undefined
 	 */
@@ -2896,11 +2892,7 @@ export type RequestComplexityRouterConfig = {
 	 * @description Display names for the complexity tiers, so a deployment can use its own vocabulary (e.g. Cheap/Standard/Premium/Deep) in the dashboard, spend logs, and the LLM classifier rubric. Purely operator-facing: config keys stay canonical (tiers, keyword_tier_rules[].tier, tier_boundaries), API callers never see these names, and the heuristic scorer never reads them. Unlisted tiers keep their canonical name. Partial maps are allowed.
 	 * @type object | undefined
 	 */
-	tier_labels?:
-		| {
-				[key: string]: string;
-		  }
-		| undefined;
+	tier_labels?: Partial<Record<ComplexityTierKey, string>> | undefined;
 	/**
 	 * @description Score boundaries between tiers. These keys (simple_medium, medium_complex, complex_reasoning) name the gaps between the default tier names and are not renameable by tier_labels; they are scorer knobs persisted by name on every routing decision
 	 * @type object | undefined
@@ -3027,14 +3019,14 @@ export type RequestComplexityRouterConfig = {
 	classifier_fallback?: RequestComplexityRouterConfigClassifierFallbackEnumKey | undefined;
 	/**
 	 * @description Number of prior user turns (tool output and harness reminders excluded) to include as context in the LLM or JEV classifier input, so a follow-up like 'now do the same for the streaming path' is classified against what it refers to. Counts turns of both roles when classifier_context_include_assistant_turns is enabled. These turns are sent to the classifier model (the configured TypeSafe endpoint for JEV), which may be a different deployment or provider than the routed completion model; that call carries the current user ask and, except for Claude Code requests, the extracted system-role text in full. Claude Code system text is omitted to avoid classifying harness instructions; the routed completion still receives it. Set to 0 to omit prior turns and the conversation-depth summary; the current ask and selected system text are still sent. Applies to LLM and JEV classification.
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 3
 	 * @type integer | undefined
 	 */
 	classifier_context_window_size?: number | undefined;
 	/**
 	 * @description Maximum characters of prior-turn text quoted to the LLM or JEV classifier, across the whole context window, per classification call. Turns are taken newest first and quoted whole while they fit, so a conversation small enough to quote entirely is never cut; once the budget runs out the older turns are dropped whole and only the turn straddling the boundary is truncated, into whatever space is left. The current ask and, except for Claude Code requests, the extracted system-role text sit outside this budget and are sent in full, as does the numbering each quoted turn carries. A budget under 120 leaves no room to quote a turn and suppresses the block; set classifier_context_window_size to 0 to turn context off deliberately. Applies to LLM and JEV classification.
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 8000
 	 * @type integer | undefined
 	 */
@@ -3062,7 +3054,7 @@ export type RequestComplexityRouterConfig = {
 	adaptive_weights?: AdaptiveRouterWeights | undefined;
 	/**
 	 * @description Score penalty per tier-step away from the classified tier when adaptive=True
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0.5
 	 * @type number | undefined
 	 */
@@ -3095,7 +3087,7 @@ export type RequestComplexityRouterConfig = {
 	stall_escalation_window?: number | undefined;
 	/**
 	 * @description How many of the last stall_escalation_window tool calls must repeat the newest call, or must have errored alongside it, before the task counts as stalled. Must not exceed stall_escalation_window, or the condition could never be reached.
-	 * @minLength 2
+	 * @minimum 2
 	 * @default 3
 	 * @type integer | undefined
 	 */
@@ -3136,7 +3128,7 @@ export type RequestComplexityRouterConfig = {
 	enable_context_window_escalation?: boolean | undefined;
 	/**
 	 * @description Fraction of a model's declared context window the estimated prompt must fit within. The token count is an estimate, so fitting against the full window would dispatch prompts that the provider's own tokenizer then rejects; 0.95 leaves room for that drift plus the response tokens.
-	 * @maxLength 1
+	 * @maximum 1
 	 * @default 0.95
 	 * @type number | undefined
 	 */
@@ -3165,8 +3157,8 @@ export type RequestComplexityRouterConfig = {
 	embedding_model?: (string | null) | undefined;
 	/**
 	 * @description Minimum cosine similarity for a semantic keyword match
-	 * @minLength 0
-	 * @maxLength 1
+	 * @minimum 0
+	 * @maximum 1
 	 * @default 0.5
 	 * @type number | undefined
 	 */
@@ -3185,7 +3177,7 @@ export type RequestComplexityRouterConfig = {
 	cache_aware_routing?: boolean | undefined;
 	/**
 	 * @description Expected output tokens used in cache-aware cost comparisons; capped by each model's effective output limit.
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 1024
 	 * @type integer | undefined
 	 */
@@ -4140,7 +4132,7 @@ export type BudgetReservation = {
 	id: string;
 	job_id: string;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @type number
 	 */
 	amount: number;
@@ -5155,25 +5147,25 @@ export type BulkUpdateUserResponse = {
 
 export type CacheTokenBuckets = {
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
 	uncached_input_tokens?: number | undefined;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
 	cache_read_input_tokens?: number | undefined;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
 	cache_creation_5m_input_tokens?: number | undefined;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
@@ -5922,7 +5914,7 @@ export type LensSettings = {
 	filters?: MetadataFilter[] | undefined;
 	sample_size?: (number | null) | undefined;
 	/**
-	 * @maxLength 100
+	 * @maximum 100
 	 * @default 100
 	 * @type number | undefined
 	 */
@@ -5948,7 +5940,7 @@ export type LensSettings = {
 	 */
 	context?: string | undefined;
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 24
 	 * @type integer | undefined
 	 */
@@ -5969,13 +5961,13 @@ export type LensSettings = {
 	 */
 	enabled?: boolean | undefined;
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 15
 	 * @type integer | undefined
 	 */
 	interval_minutes?: number | undefined;
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 8
 	 * @type integer | undefined
 	 */
@@ -6039,19 +6031,19 @@ export type Coverage = {
 	 */
 	unassessable?: number | undefined;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
 	failed_tasks?: number | undefined;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
 	reused?: number | undefined;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
@@ -6432,7 +6424,7 @@ export type Review = {
 	cannot_assess?: boolean | undefined;
 	model: string;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @type integer
 	 */
 	duration_ms: number;
@@ -6772,33 +6764,33 @@ export type CostEstimateRequest = {
 	model: string;
 	/**
 	 * @description Expected input tokens per request
-	 * @minLength 0
+	 * @minimum 0
 	 * @type integer
 	 */
 	input_tokens: number;
 	/**
 	 * @description Expected output tokens per request
-	 * @minLength 0
+	 * @minimum 0
 	 * @type integer
 	 */
 	output_tokens: number;
 	/**
 	 * @description Input tokens read from the prompt cache; counted within input_tokens
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
 	cache_read_input_tokens?: number | undefined;
 	/**
 	 * @description Input tokens written to the prompt cache; counted within input_tokens
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
 	cache_creation_input_tokens?: number | undefined;
 	/**
 	 * @description Reasoning tokens the model emits; counted within output_tokens
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
@@ -8150,8 +8142,8 @@ export type Feedback = {
 	 */
 	trace_ref?: string | undefined;
 	/**
-	 * @minLength 0
-	 * @maxLength 10
+	 * @minimum 0
+	 * @maximum 10
 	 * @type integer
 	 */
 	score: number;
@@ -8173,8 +8165,8 @@ export type Feedback = {
 
 export type FeedbackSubmission = {
 	/**
-	 * @minLength 0
-	 * @maxLength 10
+	 * @minimum 0
+	 * @maximum 10
 	 * @type integer
 	 */
 	score: number;
@@ -10652,16 +10644,16 @@ export type MCPSemanticFilterSettings = {
 	embedding_model?: string | undefined;
 	/**
 	 * @description Number of most relevant tools to return
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 10
 	 * @type integer | undefined
 	 */
 	top_k?: number | undefined;
 	/**
 	 * @description Minimum similarity score for tool inclusion (0.0 to 1.0, where 1.0 = exact match)
-	 * @minLength 0
-	 * @maxLength 1
+	 * @minimum 0
+	 * @maximum 1
 	 * @default 0.3
 	 * @type number | undefined
 	 */
@@ -10692,16 +10684,16 @@ export type MCPToolSearchSettings = {
 	embedding_model?: (string | null) | undefined;
 	/**
 	 * @description Most ranked tools a search returns. A smaller top_k in the tool call wins. Core tools do not count.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 5
 	 * @type integer | undefined
 	 */
 	top_k?: number | undefined;
 	/**
 	 * @description Lowest cosine similarity a tool needs to appear in semantic results (0.0 = no cutoff).
-	 * @minLength 0
-	 * @maxLength 1
+	 * @minimum 0
+	 * @maximum 1
 	 * @default 0
 	 * @type number | undefined
 	 */
@@ -12256,14 +12248,14 @@ export type PerUserAnalyticsResponse = {
 export type Preview = {
 	as_of?: (string | null) | undefined;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
 	offset?: number | undefined;
 	selection: ActivitySelection;
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 24
 	 * @type integer | undefined
 	 */
@@ -13753,7 +13745,7 @@ export type ReviewPage = {
 
 export type RevisionSave = {
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @type integer
 	 */
 	base_revision: number;
@@ -13786,11 +13778,7 @@ export type RoleMappings = {
 	 * @description Mapping of LiteLLM role names to arrays of SSO group names. Example: {'proxy_admin': ['group-1', 'group-2'], 'proxy_admin_viewer': ['group-3']}
 	 * @type object | undefined
 	 */
-	roles?:
-		| {
-				[key: string]: string[];
-		  }
-		| undefined;
+	roles?: Partial<Record<LitellmUserRolesKey, string[]>> | undefined;
 };
 
 export type RouterSettingsField = {
@@ -14326,8 +14314,8 @@ export type SignalConfig = {
 	 */
 	model?: string | undefined;
 	/**
-	 * @minLength 0.05
-	 * @maxLength 0.95
+	 * @minimum 0.05
+	 * @maximum 0.95
 	 * @default 0.5
 	 * @type number | undefined
 	 */
@@ -14343,8 +14331,8 @@ export type SignalFlag = {
 	signal_id: string;
 	name: string;
 	/**
-	 * @minLength 0
-	 * @maxLength 1
+	 * @minimum 0
+	 * @maximum 1
 	 * @type number
 	 */
 	score: number;
@@ -14400,14 +14388,14 @@ export type Span = {
 	input_preview: string;
 	model: string | null;
 	/**
-	 * @minLength 0
-	 * @maxLength 4294967295
+	 * @minimum 0
+	 * @maximum 4294967295
 	 * @type integer
 	 */
 	input_tokens: number;
 	/**
-	 * @minLength 0
-	 * @maxLength 4294967295
+	 * @minimum 0
+	 * @maximum 4294967295
 	 * @type integer
 	 */
 	output_tokens: number;
@@ -14473,8 +14461,8 @@ export type SpanErrorPage = {
 	span_id: string;
 	message: string;
 	/**
-	 * @minLength 0
-	 * @maxLength 18446744073709552000
+	 * @minimum 0
+	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	total_chars: number;
@@ -14560,8 +14548,8 @@ export type StartShadowEvalRequest = {
 	baseline_model?: (string | null) | undefined;
 	/**
 	 * @description Percentage of each target's requests to duplicate through the router
-	 * @minLength 0.1
-	 * @maxLength 100
+	 * @minimum 0.1
+	 * @maximum 100
 	 * @type number
 	 */
 	shadow_percentage: number;
@@ -14573,16 +14561,16 @@ export type StartShadowEvalRequest = {
 	judge_model?: string | undefined;
 	/**
 	 * @description How many days the job samples traffic before completing on its own
-	 * @minLength 1
-	 * @maxLength 30
+	 * @minimum 1
+	 * @maximum 30
 	 * @default 7
 	 * @type integer | undefined
 	 */
 	duration_days?: number | undefined;
 	/**
 	 * @description Per-target USD budget for the eval's own overhead, the shadow-arm and judge calls, priced with the same figures the spend pipeline bills. EACH scoped target samples until its recorded eval spend reaches this, so a job over N targets spends at most about N times max_budget; in-flight samples can overshoot the cap by one sampling cache window. Every router arm draws from the same per-target budget, so a multi-router job reaches it proportionally sooner
-	 * @minLength 0.01
-	 * @maxLength 10000
+	 * @minimum 0.01
+	 * @maximum 10000
 	 * @default 10
 	 * @type number | undefined
 	 */
@@ -15215,58 +15203,58 @@ export type TraceSummary = {
 	duration_ms: number;
 	status: TraceSummaryStatusEnumKey;
 	/**
-	 * @minLength 0
-	 * @maxLength 18446744073709552000
+	 * @minimum 0
+	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	span_count: number;
 	/**
-	 * @minLength 0
-	 * @maxLength 18446744073709552000
+	 * @minimum 0
+	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	agent_count: number;
 	/**
-	 * @minLength 0
-	 * @maxLength 18446744073709552000
+	 * @minimum 0
+	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	agent_invocations: number;
 	/**
-	 * @minLength 0
-	 * @maxLength 18446744073709552000
+	 * @minimum 0
+	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	llm_calls: number;
 	/**
-	 * @minLength 0
-	 * @maxLength 18446744073709552000
+	 * @minimum 0
+	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	tool_calls: number;
 	/**
-	 * @minLength 0
-	 * @maxLength 18446744073709552000
+	 * @minimum 0
+	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	error_count: number;
 	/**
-	 * @minLength 0
-	 * @maxLength 18446744073709552000
+	 * @minimum 0
+	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	input_tokens: number;
 	/**
-	 * @minLength 0
-	 * @maxLength 18446744073709552000
+	 * @minimum 0
+	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	output_tokens: number;
 	models: string[];
 	spend: number | null;
 	/**
-	 * @minLength 0
-	 * @maxLength 18446744073709552000
+	 * @minimum 0
+	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	priced_calls: number;
@@ -15287,12 +15275,12 @@ export type Trace = {
 export type TraceAgent = {
 	name: string;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @type integer
 	 */
 	runs: number;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @type integer
 	 */
 	failed_runs: number;
@@ -15362,7 +15350,7 @@ export type TraceFeedbackSummary = {
 	 */
 	trace_ref?: string | undefined;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @type integer
 	 */
 	count: number;
@@ -15495,14 +15483,14 @@ export type TraceQueryMetadata = {
 	column: string;
 	fields: TraceQueryMetadataField[];
 	/**
-	 * @minLength 0
-	 * @maxLength 18446744073709552000
+	 * @minimum 0
+	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	sampled_rows: number;
 	/**
-	 * @minLength 0
-	 * @maxLength 18446744073709552000
+	 * @minimum 0
+	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	invalid_json_rows: number;
@@ -19375,8 +19363,8 @@ export type DecisionModelCheck = {
 	 */
 	name: string;
 	/**
-	 * @minLength 0
-	 * @maxLength 1
+	 * @minimum 0
+	 * @maximum 1
 	 * @default 0.7
 	 * @type number | undefined
 	 */
@@ -19760,8 +19748,8 @@ export type LitellmParams = {
 	client_secret?: (string | null) | undefined;
 	/**
 	 * @description Only block or mask when detection confidence >= this value; below threshold, allow or log_only.
-	 * @minLength 0
-	 * @maxLength 1
+	 * @minimum 0
+	 * @maximum 1
 	 * @default 0.5
 	 * @type number | undefined
 	 */
@@ -26839,14 +26827,14 @@ export type ModelInfoV2V2ModelInfoGetQuery = {
 	debug?: (boolean | null) | undefined;
 	/**
 	 * @description Page number
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	page?: number | undefined;
 	/**
 	 * @description Page size
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -31715,15 +31703,15 @@ export type HealthCheckHistoryEndpointHealthHistoryGetQuery = {
 	status_filter?: (string | null) | undefined;
 	/**
 	 * @description Number of records to return
-	 * @minLength 1
-	 * @maxLength 1000
+	 * @minimum 1
+	 * @maximum 1000
 	 * @default 100
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
 	/**
 	 * @description Number of records to skip
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
@@ -32462,15 +32450,15 @@ export type ResetKeySpendFnKeyKeyResetSpendPostResponse =
 export type ListKeysKeyListGetQuery = {
 	/**
 	 * @description Page number
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	page?: number | undefined;
 	/**
 	 * @description Page size
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 10
 	 * @type integer | undefined
 	 */
@@ -32583,15 +32571,15 @@ export type ListKeysKeyListGetResponse = ListKeysKeyListGetStatus200;
 export type KeyAliasesKeyAliasesGetQuery = {
 	/**
 	 * @description Page number
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	page?: number | undefined;
 	/**
 	 * @description Page size
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -32885,15 +32873,15 @@ export type GetUsersUserListGetQuery = {
 	team?: (string | null) | undefined;
 	/**
 	 * @description Page number
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	page?: number | undefined;
 	/**
 	 * @description Number of items per page
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 25
 	 * @type integer | undefined
 	 */
@@ -32994,15 +32982,15 @@ export type GetUserDailyActivityUserDailyActivityGetQuery = {
 	user_id?: (string | null) | undefined;
 	/**
 	 * @description Page number for pagination
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	page?: number | undefined;
 	/**
 	 * @description Items per page
-	 * @minLength 1
-	 * @maxLength 1000
+	 * @minimum 1
+	 * @maximum 1000
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -33043,8 +33031,8 @@ export type GetUserDailyActivityUserDailyActivityGetResponse =
 
 export type GetUserDailyActivityAggregatedUserDailyActivityAggregatedGetQuery = {
 	/**
-	 * @minLength 1
-	 * @maxLength 1000
+	 * @minimum 1
+	 * @maximum 1000
 	 * @default 100
 	 * @type integer | undefined
 	 */
@@ -33107,14 +33095,14 @@ export type GetUserDailyActivityAggregatedUserDailyActivityAggregatedGetResponse
 
 export type GetUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQuery = {
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
 	offset?: number | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -33182,8 +33170,8 @@ export type GetUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearc
 	 */
 	search: string;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 100
 	 * @type integer | undefined
 	 */
@@ -33256,8 +33244,8 @@ export type GetUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopK
 	 */
 	by_model_group?: boolean | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 5
 	 * @type integer | undefined
 	 */
@@ -33394,8 +33382,8 @@ export type GetUserDailyActivityExportUserDailyActivityExportGetResponse =
 export type GetUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQuery =
 	{
 		/**
-		 * @minLength 1
-		 * @maxLength 100
+		 * @minimum 1
+		 * @maximum 100
 		 * @default 20
 		 * @type integer | undefined
 		 */
@@ -33462,8 +33450,8 @@ export type GetUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCache
 
 export type GetTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetQuery = {
 	/**
-	 * @minLength 1
-	 * @maxLength 1000
+	 * @minimum 1
+	 * @maximum 1000
 	 * @default 100
 	 * @type integer | undefined
 	 */
@@ -33503,14 +33491,14 @@ export type GetTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetResponse
 
 export type GetTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetQuery = {
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
 	offset?: number | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -33555,8 +33543,8 @@ export type GetTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearc
 	 */
 	search: string;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 100
 	 * @type integer | undefined
 	 */
@@ -33606,8 +33594,8 @@ export type GetTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopK
 	 */
 	by_model_group?: boolean | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 5
 	 * @type integer | undefined
 	 */
@@ -33697,8 +33685,8 @@ export type GetTeamDailyActivityExportTeamDailyActivityExportGetResponse =
 
 export type GetTagDailyActivityAggregatedTagDailyActivityAggregatedGetQuery = {
 	/**
-	 * @minLength 1
-	 * @maxLength 1000
+	 * @minimum 1
+	 * @maximum 1000
 	 * @default 100
 	 * @type integer | undefined
 	 */
@@ -33737,14 +33725,14 @@ export type GetTagDailyActivityAggregatedTagDailyActivityAggregatedGetResponse =
 
 export type GetTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetQuery = {
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
 	offset?: number | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -33788,8 +33776,8 @@ export type GetTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchG
 	 */
 	search: string;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 100
 	 * @type integer | undefined
 	 */
@@ -33838,8 +33826,8 @@ export type GetTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKey
 	 */
 	by_model_group?: boolean | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 5
 	 * @type integer | undefined
 	 */
@@ -33927,8 +33915,8 @@ export type GetTagDailyActivityExportTagDailyActivityExportGetResponse =
 
 export type GetOrganizationDailyActivityAggregatedOrganizationDailyActivityAggregatedGetQuery = {
 	/**
-	 * @minLength 1
-	 * @maxLength 1000
+	 * @minimum 1
+	 * @maximum 1000
 	 * @default 100
 	 * @type integer | undefined
 	 */
@@ -33972,14 +33960,14 @@ export type GetOrganizationDailyActivityAggregatedOrganizationDailyActivityAggre
 export type GetOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetQuery =
 	{
 		/**
-		 * @minLength 0
+		 * @minimum 0
 		 * @default 0
 		 * @type integer | undefined
 		 */
 		offset?: number | undefined;
 		/**
-		 * @minLength 1
-		 * @maxLength 100
+		 * @minimum 1
+		 * @maximum 100
 		 * @default 50
 		 * @type integer | undefined
 		 */
@@ -34029,8 +34017,8 @@ export type GetOrganizationDailyActivityAggregatedSearchOrganizationDailyActivit
 		 */
 		search: string;
 		/**
-		 * @minLength 1
-		 * @maxLength 100
+		 * @minimum 1
+		 * @maximum 100
 		 * @default 100
 		 * @type integer | undefined
 		 */
@@ -34083,8 +34071,8 @@ export type GetOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAgg
 		 */
 		by_model_group?: boolean | undefined;
 		/**
-		 * @minLength 1
-		 * @maxLength 100
+		 * @minimum 1
+		 * @maximum 100
 		 * @default 5
 		 * @type integer | undefined
 		 */
@@ -34180,8 +34168,8 @@ export type GetOrganizationDailyActivityExportOrganizationDailyActivityExportGet
 
 export type GetCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetQuery = {
 	/**
-	 * @minLength 1
-	 * @maxLength 1000
+	 * @minimum 1
+	 * @maximum 1000
 	 * @default 100
 	 * @type integer | undefined
 	 */
@@ -34221,14 +34209,14 @@ export type GetCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGet
 
 export type GetCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetQuery = {
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
 	offset?: number | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -34277,8 +34265,8 @@ export type GetCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggrega
 		 */
 		search: string;
 		/**
-		 * @minLength 1
-		 * @maxLength 100
+		 * @minimum 1
+		 * @maximum 100
 		 * @default 100
 		 * @type integer | undefined
 		 */
@@ -34331,8 +34319,8 @@ export type GetCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedM
 		 */
 		by_model_group?: boolean | undefined;
 		/**
-		 * @minLength 1
-		 * @maxLength 100
+		 * @minimum 1
+		 * @maximum 100
 		 * @default 5
 		 * @type integer | undefined
 		 */
@@ -34425,8 +34413,8 @@ export type GetCustomerDailyActivityExportCustomerDailyActivityExportGetResponse
 
 export type GetAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetQuery = {
 	/**
-	 * @minLength 1
-	 * @maxLength 1000
+	 * @minimum 1
+	 * @maximum 1000
 	 * @default 100
 	 * @type integer | undefined
 	 */
@@ -34466,14 +34454,14 @@ export type GetAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetRespon
 
 export type GetAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetQuery = {
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
 	offset?: number | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -34518,8 +34506,8 @@ export type GetAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSea
 	 */
 	search: string;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 100
 	 * @type integer | undefined
 	 */
@@ -34569,8 +34557,8 @@ export type GetAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTo
 	 */
 	by_model_group?: boolean | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 5
 	 * @type integer | undefined
 	 */
@@ -35238,15 +35226,15 @@ export type ListTeamV2V2TeamListGetQuery = {
 	search_team_id_match?: ListTeamV2V2TeamListGetSearchTeamIdMatchKey | undefined;
 	/**
 	 * @description Page number for pagination
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	page?: number | undefined;
 	/**
 	 * @description Number of teams per page
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 10
 	 * @type integer | undefined
 	 */
@@ -36174,15 +36162,15 @@ export type ListSpendLogEndUsersManagementV1SpendLogsEndUsersGetQuery = {
 	q?: (string | null) | undefined;
 	/**
 	 * @description Page number
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	page?: number | undefined;
 	/**
 	 * @description Page size
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -36236,15 +36224,15 @@ export type ListSpendLogUsersManagementV1SpendLogsUsersGetQuery = {
 	q?: (string | null) | undefined;
 	/**
 	 * @description Page number
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	page?: number | undefined;
 	/**
 	 * @description Page size
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -36487,7 +36475,7 @@ export type GetSpendCaptureRateSpendCaptureRateGetQuery = {
 	provider?: "openai" | undefined;
 	/**
 	 * @description Ratio under which the report flags below_threshold
-	 * @maxLength 1
+	 * @maximum 1
 	 * @default 0.9
 	 * @type number | undefined
 	 */
@@ -36845,15 +36833,15 @@ export type UiViewSpendLogsSpendLogsV2GetQuery = {
 	end_date?: (string | null) | undefined;
 	/**
 	 * @description Page number for pagination
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	page?: number | undefined;
 	/**
 	 * @description Number of items per page
-	 * @minLength 1
-	 * @maxLength 1000
+	 * @minimum 1
+	 * @maximum 1000
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -38849,8 +38837,8 @@ export type ListShadowEvalJobsAutoRouterShadowEvalGetQuery = {
 	target_id?: (string | null) | undefined;
 	/**
 	 * @description Newest jobs to return
-	 * @minLength 1
-	 * @maxLength 200
+	 * @minimum 1
+	 * @maximum 200
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -39149,8 +39137,8 @@ export type ListWorkflowRunsV1WorkflowsRunsGetQuery = {
 	workflow_type?: (string | null) | undefined;
 	status?: (string | null) | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 250
+	 * @minimum 1
+	 * @maximum 250
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -39273,8 +39261,8 @@ export type ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetPath = {
 
 export type ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetQuery = {
 	/**
-	 * @minLength 1
-	 * @maxLength 500
+	 * @minimum 1
+	 * @maximum 500
 	 * @default 100
 	 * @type integer | undefined
 	 */
@@ -39342,8 +39330,8 @@ export type ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetPath = {
 
 export type ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetQuery = {
 	/**
-	 * @minLength 1
-	 * @maxLength 500
+	 * @minimum 1
+	 * @maximum 500
 	 * @default 100
 	 * @type integer | undefined
 	 */
@@ -39411,14 +39399,14 @@ export type ListMemoryV1MemoryGetQuery = {
 	 */
 	search?: (string | null) | undefined;
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	page?: number | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 500
+	 * @minimum 1
+	 * @maximum 500
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -40196,7 +40184,7 @@ export type ListRunsLensLensIdRunsGetPath = {
 
 export type ListRunsLensLensIdRunsGetQuery = {
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
@@ -40257,7 +40245,7 @@ export type ReadReviewsLensLensIdRunsJobIdReviewsGetPath = {
 
 export type ReadReviewsLensLensIdRunsJobIdReviewsGetQuery = {
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
@@ -40483,7 +40471,7 @@ export type ProgressLensWorkerLensIdJobIdProgressPostPath = {
 
 export type ProgressLensWorkerLensIdJobIdProgressPostHeaders = {
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
@@ -40521,7 +40509,7 @@ export type CachedReviewsLensWorkerLensIdJobIdReviewsGetPath = {
 
 export type CachedReviewsLensWorkerLensIdJobIdReviewsGetHeaders = {
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
@@ -40557,7 +40545,7 @@ export type SampleLensWorkerLensIdJobIdSampleGetPath = {
 
 export type SampleLensWorkerLensIdJobIdSampleGetHeaders = {
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
@@ -40599,7 +40587,7 @@ export type ContentLensWorkerLensIdJobIdContentGetQuery = {
 	 */
 	cursor?: string | undefined;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
@@ -40608,7 +40596,7 @@ export type ContentLensWorkerLensIdJobIdContentGetQuery = {
 
 export type ContentLensWorkerLensIdJobIdContentGetHeaders = {
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
@@ -40644,7 +40632,7 @@ export type ModelLensWorkerLensIdJobIdModelPostPath = {
 
 export type ModelLensWorkerLensIdJobIdModelPostHeaders = {
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
@@ -40682,7 +40670,7 @@ export type ResultLensWorkerLensIdJobIdResultPostPath = {
 
 export type ResultLensWorkerLensIdJobIdResultPostHeaders = {
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
@@ -40720,7 +40708,7 @@ export type HeartbeatLensWorkerLensIdJobIdHeartbeatPostPath = {
 
 export type HeartbeatLensWorkerLensIdJobIdHeartbeatPostHeaders = {
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
@@ -40761,7 +40749,7 @@ export type EvidenceContentLensLensIdExecutionsExecutionIdGetQuery = {
 	 */
 	cursor?: string | undefined;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 0
 	 * @type integer | undefined
 	 */
@@ -41069,8 +41057,8 @@ export type GetPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQuer
 	 */
 	end_date: string;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -41613,15 +41601,15 @@ export type GetPerUserAnalyticsTagUserAgentPerUserAnalyticsGetQuery = {
 	tag_filters?: (string[] | null) | undefined;
 	/**
 	 * @description Page number for pagination
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	page?: number | undefined;
 	/**
 	 * @description Items per page
-	 * @minLength 1
-	 * @maxLength 1000
+	 * @minimum 1
+	 * @maximum 1000
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -41758,14 +41746,14 @@ export type ResetEventSettingsEmailEventSettingsResetPostResponse =
 
 export type GetAuditLogsAuditGetQuery = {
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	page?: number | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 10
 	 * @type integer | undefined
 	 */
@@ -43652,14 +43640,14 @@ export type GuardrailsUsageLogsGuardrailsUsageLogsGetQuery = {
 	guardrail_id?: (string | null) | undefined;
 	policy_id?: (string | null) | undefined;
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	page?: number | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -44841,8 +44829,8 @@ export type GetAgentsV1AgentsGetQuery = {
 	query?: (string | null) | undefined;
 	/**
 	 * @description With query: the maximum number of ranked agents to return.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 5
 	 * @type integer | undefined
 	 */
@@ -46487,14 +46475,14 @@ export type GetToolUsageLogsV1ToolToolNameLogsGetPath = {
 
 export type GetToolUsageLogsV1ToolToolNameLogsGetQuery = {
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	page?: number | undefined;
 	/**
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 50
 	 * @type integer | undefined
 	 */
@@ -49444,8 +49432,8 @@ export type ListSkillsV1SkillsGetQuery = {
 	query?: (string | null) | undefined;
 	/**
 	 * @description With query: the maximum number of ranked skills to return.
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 5
 	 * @type integer | undefined
 	 */
@@ -50265,15 +50253,17 @@ export type SystemoneSystemonePostBody = {
 					 * @description Optional descriptions of what makes the answer true and what makes it false
 					 */
 					criteria?:
-						| ({
-								[key: string]:
+						| (Partial<
+								Record<
+									"true" | "false",
 									| string
 									| {
 											[key: string]: unknown;
 									  }
 									| unknown[]
-									| null;
-						  } | null)
+									| null
+								>
+						  > | null)
 						| undefined;
 					/**
 					 * @description The yes/no question to ask about the state
@@ -50596,6 +50586,14 @@ export type DecisionsV1DecisionsPostResponse = DecisionsV1DecisionsPostStatus200
 
 export type SystemoneV1SystemonePostStatus200 = DecisionsResponse;
 
+export const formatEnum2 = {
+	png: "png",
+	jpg: "jpg",
+	jpeg: "jpeg",
+} as const;
+
+export type FormatEnum2Key = (typeof formatEnum2)[keyof typeof formatEnum2];
+
 export type SystemoneV1SystemonePostBody = {
 	/**
 	 * @description TypeSafe only. Images keyed by a reference string. Write the reference in state, instructions or criteria where the image belongs
@@ -50613,7 +50611,7 @@ export type SystemoneV1SystemonePostBody = {
 					 * @description The image's format, in lowercase
 					 * @type string
 					 */
-					format: FormatEnumKey;
+					format: FormatEnum2Key;
 					type?: ("image" | null) | undefined;
 				};
 		  } | null)
@@ -50683,15 +50681,17 @@ export type SystemoneV1SystemonePostBody = {
 					 * @description Optional descriptions of what makes the answer true and what makes it false
 					 */
 					criteria?:
-						| ({
-								[key: string]:
+						| (Partial<
+								Record<
+									"true" | "false",
 									| string
 									| {
 											[key: string]: unknown;
 									  }
 									| unknown[]
-									| null;
-						  } | null)
+									| null
+								>
+						  > | null)
 						| undefined;
 					/**
 					 * @description The yes/no question to ask about the state
@@ -51111,13 +51111,13 @@ export type GetScimBaseScimV2GetResponse = GetScimBaseScimV2GetStatus200;
 
 export type GetGroupsScimV2GroupsGetQuery = {
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	startIndex?: number | undefined;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 10
 	 * @type integer | undefined
 	 */
@@ -51443,13 +51443,13 @@ export type GetServiceProviderConfigScimV2ServiceProviderConfigGetResponse =
 
 export type GetUsersScimV2UsersGetQuery = {
 	/**
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	startIndex?: number | undefined;
 	/**
-	 * @minLength 0
+	 * @minimum 0
 	 * @default 10
 	 * @type integer | undefined
 	 */
@@ -52391,15 +52391,15 @@ export type InfoJwtKeyMappingJwtKeyMappingInfoGetResponse =
 export type ListJwtKeyMappingsJwtKeyMappingListGetQuery = {
 	/**
 	 * @description Page number
-	 * @minLength 1
+	 * @minimum 1
 	 * @default 1
 	 * @type integer | undefined
 	 */
 	page?: number | undefined;
 	/**
 	 * @description Page size
-	 * @minLength 1
-	 * @maxLength 100
+	 * @minimum 1
+	 * @maximum 100
 	 * @default 50
 	 * @type integer | undefined
 	 */
