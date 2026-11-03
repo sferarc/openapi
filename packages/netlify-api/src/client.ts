@@ -22,7 +22,7 @@ export type ApiClient = {
 	};
 };
 
-type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH" | "HEAD" | "OPTIONS";
 
 export type ApiOperation = {
 	[Tag in keyof typeof operationsByTag]: keyof (typeof operationsByTag)[Tag] extends string

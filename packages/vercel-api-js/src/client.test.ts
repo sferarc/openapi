@@ -1,5 +1,5 @@
 import { describe, expect, expectTypeOf, it } from "vitest";
-import { VercelApi } from "./client";
+import { type ApiOperationByMethod, VercelApi } from "./client";
 import type { GlobalConfigItem } from "./types";
 import type { FetchImpl, RequestInit } from "./utils/fetch";
 import type { ResponseInfo } from "./utils/fetcher";
@@ -347,6 +347,25 @@ describe("VercelApi remote cache artifactExists", () => {
 		const url = new URL(calls[0]?.url ?? "");
 		expect(url.pathname).toBe("/v8/artifacts/abc123");
 		expect(url.search).toBe("?teamId=team_1");
+	});
+
+	it("sends HEAD for the artifact through request()", async () => {
+		const calls: { url: string; init: RequestInit | undefined }[] = [];
+		const fetch: FetchImpl = async (url, init) => {
+			calls.push({ url, init });
+			return new Response(null, { status: 200 }) as never;
+		};
+		const client = new VercelApi({ token: "token", fetch });
+
+		const found = await client.request("HEAD /v8/artifacts/{hash}", {
+			pathParams: { hash: "abc123" },
+		});
+
+		expect(found).toBeUndefined();
+		expectTypeOf(found).toEqualTypeOf<void>();
+		expect(calls[0]?.init?.method).toBe("HEAD");
+		expect(new URL(calls[0]?.url ?? "").pathname).toBe("/v8/artifacts/abc123");
+		expectTypeOf<"artifacts.artifactExists">().toExtend<ApiOperationByMethod<"HEAD">>();
 	});
 
 	it("rejects a missing artifact with its 404 status", async () => {

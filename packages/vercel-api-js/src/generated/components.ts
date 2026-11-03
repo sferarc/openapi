@@ -27186,6 +27186,7 @@ export const operationsByPath = {
 	"GET /v8/artifacts/status": status,
 	"PUT /v8/artifacts/{hash}": uploadArtifact,
 	"GET /v8/artifacts/{hash}": downloadArtifact,
+	"HEAD /v8/artifacts/{hash}": artifactExists,
 	"POST /v8/artifacts": artifactQuery,
 	"DELETE /v8/artifacts": deleteAllArtifacts,
 	"GET /v1/billing/charges": listBillingCharges,
@@ -27419,6 +27420,8 @@ export const operationsByPath = {
 		updateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemId,
 	"DELETE /v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/items/{itemId}":
 		deleteInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemId,
+	"HEAD /v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/global-config":
+		headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfig,
 	"GET /v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/global-config":
 		getInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfig,
 	"PUT /v1/installations/{integrationConfigurationId}/resources/{resourceId}/experimentation/global-config":
@@ -27598,6 +27601,8 @@ export const operationsByPath = {
 	"GET /v1/vcr/repository/{idOrName}/images/{imageIdOrDigest}": getRepositoryImage,
 	"DELETE /v1/vcr/repository/{idOrName}/images/{imageId}": deleteRepositoryImage,
 	"GET /v2/": getRoot,
+	"HEAD /v2/{teamSlug}/{projectSlug}/{repositoryName}/blobs/{digest}":
+		headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigest,
 	"GET /v2/{teamSlug}/{projectSlug}/{repositoryName}/blobs/{digest}":
 		getByTeamSlugByProjectSlugByRepositoryNameBlobsByDigest,
 	"DELETE /v2/{teamSlug}/{projectSlug}/{repositoryName}/blobs/{digest}":
@@ -27614,6 +27619,8 @@ export const operationsByPath = {
 		createByTeamSlugByProjectSlugByRepositoryNameBlobsUploads,
 	"PUT /v2/{teamSlug}/{projectSlug}/{repositoryName}/manifests/{reference}":
 		replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReference,
+	"HEAD /v2/{teamSlug}/{projectSlug}/{repositoryName}/manifests/{reference}":
+		headByTeamSlugByProjectSlugByRepositoryNameManifestsByReference,
 	"GET /v2/{teamSlug}/{projectSlug}/{repositoryName}/manifests/{reference}":
 		getByTeamSlugByProjectSlugByRepositoryNameManifestsByReference,
 	"DELETE /v2/{teamSlug}/{projectSlug}/{repositoryName}/manifests/{reference}":
@@ -28307,6 +28314,7 @@ export const tagDictionary = {
 		POST: ["recordEvents", "artifactQuery"],
 		GET: ["status", "downloadArtifact"],
 		PUT: ["uploadArtifact"],
+		HEAD: ["artifactExists"],
 		DELETE: ["deleteAllArtifacts"],
 	},
 	billing: {
@@ -28566,6 +28574,9 @@ export const tagDictionary = {
 			"updateResourceSecretsById",
 			"replaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfig",
 		],
+		HEAD: [
+			"headInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfig",
+		],
 	},
 	authentication: {
 		POST: ["exchangeSsoToken", "createAuthToken"],
@@ -28779,6 +28790,10 @@ export const tagDictionary = {
 			"deleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigest",
 			"deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuid",
 			"deleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReference",
+		],
+		HEAD: [
+			"headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigest",
+			"headByTeamSlugByProjectSlugByRepositoryNameManifestsByReference",
 		],
 		PATCH: ["updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuid"],
 		PUT: [

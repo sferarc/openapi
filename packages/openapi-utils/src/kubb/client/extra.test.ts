@@ -32,6 +32,21 @@ describe("generated operationsByTag", () => {
 	});
 });
 
+describe("generated operationsByPath", () => {
+	it.each(componentFiles)("lists every operation of %s, HEAD and OPTIONS included", (file) => {
+		const source = readFileSync(join(packagesDir, file), "utf8");
+		const operations = Array.from(
+			source.matchAll(/^export async function (\w+)/gm),
+			(match) => match[1],
+		);
+		const byPath = new Set(
+			Array.from(block(source, "operationsByPath").matchAll(/(?:: |^\t\t)(\w+),?$/gm), (m) => m[1]),
+		);
+
+		expect(operations.filter((name) => !byPath.has(name))).toEqual([]);
+	});
+});
+
 describe("generated request headers", () => {
 	it.each(componentFiles)("sends only real media types as Content-Type in %s", (file) => {
 		const source = readFileSync(join(packagesDir, file), "utf8");
