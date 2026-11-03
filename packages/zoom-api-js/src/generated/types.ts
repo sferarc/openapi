@@ -30,7 +30,7 @@ export type ListArchivedFilesFileTypeKey =
 export type ListArchivedFilesQuery = {
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -584,7 +584,7 @@ export type ListArchivedFilesResponse = ListArchivedFilesStatus200;
 export type ListArchiveFileDownloadAuditQuery = {
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -1472,8 +1472,8 @@ export type RecordingGetQuery = {
 	include_fields?: string | undefined;
 	/**
 	 * @description The `download_access_token` Time to Live (TTL) value. This parameter is only valid if the `include_fields` query parameter contains the value `download_access_token`.
-	 * @minLength 0
-	 * @maxLength 604800
+	 * @minimum 0
+	 * @maximum 604800
 	 * @example 1
 	 * @type integer | undefined
 	 */
@@ -2051,7 +2051,7 @@ export type AnalyticsDetailsTypeKey =
 export type AnalyticsDetailsQuery = {
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -2114,7 +2114,7 @@ export type AnalyticsDetailsStatus200 = {
 	next_page_token?: string | undefined;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @example 30
 	 * @type integer | undefined
 	 */
@@ -2323,7 +2323,7 @@ export type MeetingRecordingRegistrantsQuery = {
 	status?: MeetingRecordingRegistrantsStatusKey | undefined;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -2418,7 +2418,7 @@ export type MeetingRecordingRegistrantsStatus200 = {
 	page_number?: number | undefined;
 	/**
 	 * @description The number of records returned with a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -3871,7 +3871,7 @@ export type RecordingsListRecordingSourceTypeKey =
 export type RecordingsListQuery = {
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -4093,7 +4093,7 @@ export type RecordingsListStatus200 = {
 	page_count?: number | undefined;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -4508,7 +4508,7 @@ export type ListDevicesQuery = {
 	device_status?: ListDevicesDeviceStatusKey | undefined;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -5720,7 +5720,7 @@ export type ChangeDeviceAssociationResponse = ChangeDeviceAssociationStatus204;
 export type DeviceListQuery = {
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -5799,7 +5799,7 @@ export type DeviceListStatus200 = {
 	page_number?: number | undefined;
 	/**
 	 * @description The number of records returned with a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -7217,8 +7217,8 @@ export type MeetingInviteLinksCreateBody =
 			 * This value defaults to `7200`.
 			 *
 			 * Format: `int64`
-			 * @minLength 0
-			 * @maxLength 7776000
+			 * @minimum 0
+			 * @maximum 7776000
 			 * @default 7200
 			 * @example 1000
 			 * @type integer | undefined
@@ -7287,7 +7287,7 @@ export type MeetingRegistrantsQuery = {
 	status?: MeetingRegistrantsStatusKey | undefined;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -7382,7 +7382,7 @@ export type MeetingRegistrantsStatus200 = {
 	page_number?: number | undefined;
 	/**
 	 * @description The number of records returned with a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -8415,12 +8415,21 @@ export type MeetingRegistrantGetStatus200RoleInPurchaseProcessEnumKey =
 
 export const meetingRegistrantGetStatus200StatusEnum = {
 	approved: "approved",
-	pending: "pending",
 	denied: "denied",
+	pending: "pending",
 } as const;
 
 export type MeetingRegistrantGetStatus200StatusEnumKey =
 	(typeof meetingRegistrantGetStatus200StatusEnum)[keyof typeof meetingRegistrantGetStatus200StatusEnum];
+
+export const meetingRegistrantGetStatus200StatusEnum2 = {
+	approved: "approved",
+	pending: "pending",
+	denied: "denied",
+} as const;
+
+export type MeetingRegistrantGetStatus200StatusEnum2Key =
+	(typeof meetingRegistrantGetStatus200StatusEnum2)[keyof typeof meetingRegistrantGetStatus200StatusEnum2];
 
 export type MeetingRegistrantGetStatus200 = {
 	/**
@@ -8603,7 +8612,7 @@ export type MeetingRegistrantGetStatus200 = {
 	 * @example approved
 	 * @type string | undefined
 	 */
-	status?: MeetingRegistrantGetStatus200StatusEnumKey | undefined;
+	status?: MeetingRegistrantGetStatus200StatusEnum2Key | undefined;
 	/**
 	 * @description The participant PIN code is used to authenticate audio participants before they join the meeting.
 	 *
@@ -9804,7 +9813,7 @@ export type MeetingStatus200 = {
 				end_date_time?: string | undefined;
 				/**
 				 * @description Select how many times the meeting should recur before it is canceled. If `end_times` is set to 0, it means there is no end time. The maximum number of recurrences is 60. Cannot be used with `end_date_time`.
-				 * @maxLength 60
+				 * @maximum 60
 				 * @default 1
 				 * @example 7
 				 * @type integer | undefined
@@ -11391,8 +11400,8 @@ export type MeetingUpdateBody =
 			agenda?: string | undefined;
 			/**
 			 * @description The meeting's scheduled duration, in minutes. This field is used for type `2` scheduled meetings and type `8` recurring meetings with a fixed time. The value must be between 1 and 1440 minutes, which equates to 24 hours.
-			 * @minLength 1
-			 * @maxLength 1440
+			 * @minimum 1
+			 * @maximum 1440
 			 * @example 60
 			 * @type integer | undefined
 			 */
@@ -11440,7 +11449,7 @@ export type MeetingUpdateBody =
 						end_date_time?: string | undefined;
 						/**
 						 * @description Select how many times the meeting should recur before it is canceled. If `end_times` is set to 0, it means there is no end time. The maximum number of recurrences is 60. Cannot be used with `end_date_time`.
-						 * @maxLength 60
+						 * @maximum 60
 						 * @default 1
 						 * @example 7
 						 * @type integer | undefined
@@ -12951,7 +12960,7 @@ export type PastMeetingParticipantsPath = {
 export type PastMeetingParticipantsQuery = {
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -12988,7 +12997,7 @@ export type PastMeetingParticipantsStatus200 = {
 	page_count?: number | undefined;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -13236,7 +13245,7 @@ export type MeetingsQuery = {
 	type?: MeetingsTypeKey | undefined;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -13322,7 +13331,7 @@ export type MeetingsStatus200 = {
 	page_number?: number | undefined;
 	/**
 	 * @description The number of records returned with a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -13949,7 +13958,7 @@ export type MeetingCreateStatus201 = {
 				end_date_time?: string | undefined;
 				/**
 				 * @description Select how many times the meeting should recur before it is canceled. If `end_times` is set to 0, it means there is no end time. The maximum number of recurring is 60. Cannot be used with `end_date_time`.
-				 * @maxLength 60
+				 * @maximum 60
 				 * @default 1
 				 * @example 7
 				 * @type integer | undefined
@@ -15400,8 +15409,8 @@ export type MeetingCreateBody =
 			default_password?: boolean | undefined;
 			/**
 			 * @description The meeting's scheduled duration, in minutes. This field is used for `2` scheduled meetings and `8` recurring meetings with a fixed time. The value must be between 1 and 1440 minutes, which is equivalent to 24 hours.
-			 * @minLength 1
-			 * @maxLength 1440
+			 * @minimum 1
+			 * @maximum 1440
 			 * @default 60
 			 * @example 60
 			 * @type integer | undefined
@@ -15444,7 +15453,7 @@ export type MeetingCreateBody =
 						end_date_time?: string | undefined;
 						/**
 						 * @description This field selects how many times the meeting should recur before it is canceled. If `end_times` is set to 0, it means there is no end time. The maximum number of recurring is 60. Cannot be used with `end_date_time`.
-						 * @maxLength 60
+						 * @maximum 60
 						 * @default 1
 						 * @example 7
 						 * @type integer | undefined
@@ -16914,7 +16923,7 @@ export type CreateBatchPollsStatus201 = {
 							rating_max_label?: string | undefined;
 							/**
 							 * @description The rating scale's maximum value. This field only returns for `rating_scale` polls.
-							 * @maxLength 10
+							 * @maximum 10
 							 * @example 4
 							 * @type integer | undefined
 							 */
@@ -17084,7 +17093,7 @@ export type CreateBatchPollsBody =
 									answer_max_character?: number | undefined;
 									/**
 									 * @description The allowed minimum number of characters. This field only applies to `short_answer` and `long_answer` polls. You must provide at least a **one** character minimum value.
-									 * @minLength 1
+									 * @minimum 1
 									 * @example 1
 									 * @type integer | undefined
 									 */
@@ -17164,7 +17173,7 @@ export type CreateBatchPollsBody =
 									 * @description The rating scale's maximum value, up to a maximum value of 10.
 									 *
 									 * This field only applies to the `rating_scale` poll.
-									 * @maxLength 10
+									 * @maximum 10
 									 * @example 4
 									 * @type integer | undefined
 									 */
@@ -17181,7 +17190,7 @@ export type CreateBatchPollsBody =
 									 * @description The rating scale's minimum value. This value cannot be less than zero.
 									 *
 									 * This field only applies to the `rating_scale` poll.
-									 * @minLength 1
+									 * @minimum 1
 									 * @example 1
 									 * @type integer | undefined
 									 */
@@ -17398,7 +17407,7 @@ export type MeetingPollsStatus200 = {
 							answer_max_character?: number | undefined;
 							/**
 							 * @description The allowed minimum number of characters. This field only applies to `short_answer` and `long_answer` polls. You must provide at least a **one** character minimum value.
-							 * @minLength 1
+							 * @minimum 1
 							 * @example 1
 							 * @type integer | undefined
 							 */
@@ -17478,7 +17487,7 @@ export type MeetingPollsStatus200 = {
 							 * @description The rating scale's maximum value, up to a maximum value of 10.
 							 *
 							 * This field only applies to the `rating_scale` poll.
-							 * @maxLength 10
+							 * @maximum 10
 							 * @example 4
 							 * @type integer | undefined
 							 */
@@ -17495,7 +17504,7 @@ export type MeetingPollsStatus200 = {
 							 * @description The rating scale's minimum value. This value cannot be less than zero.
 							 *
 							 * This field only applies to the `rating_scale` poll.
-							 * @minLength 0
+							 * @minimum 0
 							 * @example 0
 							 * @type integer | undefined
 							 */
@@ -17712,7 +17721,7 @@ export type MeetingPollCreateStatus201 = {
 				answer_max_character?: number | undefined;
 				/**
 				 * @description The allowed minimum number of characters. This field only applies to `short_answer` and `long_answer` polls. You must provide at least a **one** character minimum value.
-				 * @minLength 1
+				 * @minimum 1
 				 * @example 1
 				 * @type integer | undefined
 				 */
@@ -17792,7 +17801,7 @@ export type MeetingPollCreateStatus201 = {
 				 * @description The rating scale's maximum value, up to a maximum value of 10.
 				 *
 				 * This field only applies to the `rating_scale` poll.
-				 * @maxLength 10
+				 * @maximum 10
 				 * @example 4
 				 * @type integer | undefined
 				 */
@@ -17809,7 +17818,7 @@ export type MeetingPollCreateStatus201 = {
 				 * @description The rating scale's minimum value. This value cannot be less than zero.
 				 *
 				 * This field only applies to the `rating_scale` poll.
-				 * @minLength 0
+				 * @minimum 0
 				 * @example 0
 				 * @type integer | undefined
 				 */
@@ -17952,7 +17961,7 @@ export type MeetingPollCreateBody =
 						answer_max_character?: number | undefined;
 						/**
 						 * @description The allowed minimum number of characters. This field only applies to `short_answer` and `long_answer` polls. You must provide at least a **one** character minimum value.
-						 * @minLength 1
+						 * @minimum 1
 						 * @example 1
 						 * @type integer | undefined
 						 */
@@ -18032,7 +18041,7 @@ export type MeetingPollCreateBody =
 						 * @description The rating scale's maximum value, up to a maximum value of 10.
 						 *
 						 * This field only applies to the `rating_scale` poll.
-						 * @maxLength 10
+						 * @maximum 10
 						 * @example 4
 						 * @type integer | undefined
 						 */
@@ -18049,7 +18058,7 @@ export type MeetingPollCreateBody =
 						 * @description The rating scale's minimum value. This value cannot be less than zero.
 						 *
 						 * This field only applies to the `rating_scale` poll.
-						 * @minLength 0
+						 * @minimum 0
 						 * @example 0
 						 * @type integer | undefined
 						 */
@@ -18249,7 +18258,7 @@ export type MeetingPollGetStatus200 = {
 				answer_max_character?: number | undefined;
 				/**
 				 * @description The allowed minimum number of characters. This field only applies to `short_answer` and `long_answer` polls. You must provide at least a one-character minimum value.
-				 * @minLength 1
+				 * @minimum 1
 				 * @example 1
 				 * @type integer | undefined
 				 */
@@ -18329,7 +18338,7 @@ export type MeetingPollGetStatus200 = {
 				 * @description The rating scale's maximum value, up to a maximum value of 10.
 				 *
 				 * This field only applies to the `rating_scale` poll.
-				 * @maxLength 10
+				 * @maximum 10
 				 * @example 4
 				 * @type integer | undefined
 				 */
@@ -18346,7 +18355,7 @@ export type MeetingPollGetStatus200 = {
 				 * @description The rating scale's minimum value. This value cannot be less than zero.
 				 *
 				 * This field only applies to the `rating_scale` poll.
-				 * @minLength 0
+				 * @minimum 0
 				 * @example 0
 				 * @type integer | undefined
 				 */
@@ -18535,7 +18544,7 @@ export type MeetingPollUpdateBody =
 						answer_max_character?: number | undefined;
 						/**
 						 * @description The allowed minimum number of characters. This field only applies to `short_answer` and `long_answer` polls. You must provide at least a one character minimum value.
-						 * @minLength 1
+						 * @minimum 1
 						 * @example 1
 						 * @type integer | undefined
 						 */
@@ -18615,7 +18624,7 @@ export type MeetingPollUpdateBody =
 						 * @description The rating scale's maximum value, up to a maximum value of 10.
 						 *
 						 * This field only applies to the `rating_scale` poll.
-						 * @maxLength 10
+						 * @maximum 10
 						 * @example 4
 						 * @type integer | undefined
 						 */
@@ -18632,7 +18641,7 @@ export type MeetingPollUpdateBody =
 						 * @description The rating scale's minimum value. This value cannot be less than zero.
 						 *
 						 * This field only applies to the `rating_scale` poll.
-						 * @minLength 0
+						 * @minimum 0
 						 * @example 0
 						 * @type integer | undefined
 						 */
@@ -20205,7 +20214,7 @@ export type ReportMeetingactivitylogsQuery = {
 	to: string;
 	/**
 	 * @description The number of records to be returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -20520,7 +20529,7 @@ export type ReportMeetingParticipantsPath = {
 export type ReportMeetingParticipantsQuery = {
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -20563,7 +20572,7 @@ export type ReportMeetingParticipantsStatus200 = {
 	page_count?: number | undefined;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -21208,7 +21217,7 @@ export type ReportOperationLogsQuery = {
 	to: string;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -21252,7 +21261,7 @@ export type ReportOperationLogsStatus200 = {
 	next_page_token?: string | undefined;
 	/**
 	 * @description The amount of records returns within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -21543,7 +21552,7 @@ export type ReportTelephoneQuery = {
 	to: string;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -21796,7 +21805,7 @@ export type ReportUpcomingEventsQuery = {
 	to: string;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -21847,7 +21856,7 @@ export type ReportUpcomingEventsStatus200 = {
 	next_page_token?: string | undefined;
 	/**
 	 * @description The number of records returned in a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -21963,7 +21972,7 @@ export type ReportUsersQuery = {
 	to: string;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -22022,7 +22031,7 @@ export type ReportUsersStatus200 = {
 	page_number?: number | undefined;
 	/**
 	 * @description The number of records returned with a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -22203,7 +22212,7 @@ export type ReportMeetingsQuery = {
 	to: string;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -22273,7 +22282,7 @@ export type ReportMeetingsStatus200 = {
 	page_number?: number | undefined;
 	/**
 	 * @description The number of records returned with a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -22709,7 +22718,7 @@ export type ReportWebinarParticipantsPath = {
 export type ReportWebinarParticipantsQuery = {
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -22753,7 +22762,7 @@ export type ReportWebinarParticipantsStatus200 = {
 	page_count?: number | undefined;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -23371,7 +23380,7 @@ export type ListSIPPhonePhonesQuery = {
 	search_key?: string | undefined;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -23423,7 +23432,7 @@ export type ListSIPPhonePhonesStatus200 = {
 	next_page_token?: string | undefined;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -23671,8 +23680,8 @@ export type EnableSIPPhonePhonesStatus201 = {
 	password?: string | undefined;
 	/**
 	 * @description The number of minutes after which the SIP registration of the Zoom client user will expire, and the client will auto register to the SIP server.
-	 * @minLength 1
-	 * @maxLength 127
+	 * @minimum 1
+	 * @maximum 127
 	 * @default 60
 	 * @example 60
 	 * @type integer | undefined
@@ -23861,8 +23870,8 @@ export type EnableSIPPhonePhonesBody =
 			password: string;
 			/**
 			 * @description The number of minutes after which the SIP registration of the Zoom client user expires, and the client will auto register to the SIP server.
-			 * @minLength 1
-			 * @maxLength 127
+			 * @minimum 1
+			 * @maximum 127
 			 * @default 60
 			 * @example 60
 			 * @type integer | undefined
@@ -24119,8 +24128,8 @@ export type UpdateSIPPhonePhonesBody =
 			password?: string | undefined;
 			/**
 			 * @description The number of minutes after which the SIP registration of the Zoom client user will expire, and the client will auto register to the SIP server.
-			 * @minLength 1
-			 * @maxLength 127
+			 * @minimum 1
+			 * @maximum 127
 			 * @default 60
 			 * @example 60
 			 * @type integer | undefined
@@ -24269,7 +24278,7 @@ export type ListmeetingsummariesTimeFilterFieldKey =
 export type ListmeetingsummariesQuery = {
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -24309,7 +24318,7 @@ export type ListmeetingsummariesQuery = {
 export type ListmeetingsummariesStatus200 = {
 	/**
 	 * @description The number of records returned with a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -24786,7 +24795,7 @@ export type ListUserMeetingSummariesTimeFilterFieldKey =
 export type ListUserMeetingSummariesQuery = {
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -24826,7 +24835,7 @@ export type ListUserMeetingSummariesQuery = {
 export type ListUserMeetingSummariesStatus200 = {
 	/**
 	 * @description The number of records returned with a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -25153,7 +25162,7 @@ export type MeetingSurveyGetStatus200 = {
 								| undefined;
 							/**
 							 * @description The allowed minimum number of characters. This field only applies to `short_answer` and `long_answer` questions. You must provide at least a **one** character minimum value.
-							 * @minLength 1
+							 * @minimum 1
 							 * @example 1
 							 * @type integer | undefined
 							 */
@@ -25170,7 +25179,7 @@ export type MeetingSurveyGetStatus200 = {
 							 * @description The rating scale's minimum value. This value cannot be less than zero.
 							 *
 							 *  This field only applies to the `rating_scale` survey.
-							 * @minLength 0
+							 * @minimum 0
 							 * @example 1
 							 * @type integer | undefined
 							 */
@@ -25179,7 +25188,7 @@ export type MeetingSurveyGetStatus200 = {
 							 * @description The rating scale's maximum value, up to a maximum value of 10.
 							 *
 							 *  This field only applies to the `rating_scale` survey.
-							 * @maxLength 10
+							 * @maximum 10
 							 * @example 4
 							 * @type integer | undefined
 							 */
@@ -25479,7 +25488,7 @@ export type MeetingSurveyUpdateBody =
 										| undefined;
 									/**
 									 * @description The allowed minimum number of characters. This field only applies to `short_answer` and `long_answer` questions. You must provide at least a **one** character minimum value.
-									 * @minLength 1
+									 * @minimum 1
 									 * @example 1
 									 * @type integer | undefined
 									 */
@@ -25496,7 +25505,7 @@ export type MeetingSurveyUpdateBody =
 									 * @description The rating scale's minimum value. This value cannot be less than zero.
 									 *
 									 *  This field only applies to the `rating_scale` survey.
-									 * @minLength 0
+									 * @minimum 0
 									 * @example 1
 									 * @type integer | undefined
 									 */
@@ -25505,7 +25514,7 @@ export type MeetingSurveyUpdateBody =
 									 * @description The rating scale's maximum value, up to a maximum value of 10.
 									 *
 									 *  This field only applies to the `rating_scale` survey.
-									 * @maxLength 10
+									 * @maximum 10
 									 * @example 4
 									 * @type integer | undefined
 									 */
@@ -27069,7 +27078,7 @@ export type WebinarAbsenteesQuery = {
 	occurrence_id?: string | undefined;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -27157,7 +27166,7 @@ export type WebinarAbsenteesStatus200 = {
 	page_number?: number | undefined;
 	/**
 	 * @description The number of records returned with a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -27476,7 +27485,7 @@ export type ListWebinarParticipantsPath = {
 export type ListWebinarParticipantsQuery = {
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -27513,7 +27522,7 @@ export type ListWebinarParticipantsStatus200 = {
 	page_count?: number | undefined;
 	/**
 	 * @description The total number of records returned from a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -28015,7 +28024,7 @@ export type WebinarsQuery = {
 	type?: WebinarsTypeKey | undefined;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -28071,7 +28080,7 @@ export type WebinarsStatus200 = {
 	page_number?: number | undefined;
 	/**
 	 * @description The number of records returned with a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -28671,7 +28680,7 @@ export type WebinarCreateStatus201 = {
 				end_date_time?: string | undefined;
 				/**
 				 * @description How many times the webinar will recur before it is canceled. The maximum number of recurring is 60. Can't be used with `end_date_time`.
-				 * @maxLength 60
+				 * @maximum 60
 				 * @default 1
 				 * @example 7
 				 * @type integer | undefined
@@ -29279,8 +29288,8 @@ export type WebinarCreateStatus201 = {
 				registrants_email_notification?: boolean | undefined;
 				/**
 				 * @description Restrict number of registrants for a webinar. By default, it is set to `0`. A `0` value means that the restriction option is disabled. Provide a number higher than 0 to restrict the webinar registrants by the that number.
-				 * @minLength 0
-				 * @maxLength 20000
+				 * @minimum 0
+				 * @maximum 20000
 				 * @default 0
 				 * @example 100
 				 * @type integer | undefined
@@ -29831,7 +29840,7 @@ export type WebinarCreateBody =
 						end_date_time?: string | undefined;
 						/**
 						 * @description Select how many times the webinar will recur before it is canceled. The maximum number of recurring is 60. Cannot be used with `end_date_time`.
-						 * @maxLength 60
+						 * @maximum 60
 						 * @default 1
 						 * @example 7
 						 * @type integer | undefined
@@ -30404,8 +30413,8 @@ export type WebinarCreateBody =
 						registrants_email_notification?: boolean | undefined;
 						/**
 						 * @description Restrict number of registrants for a webinar. By default, it is set to `0`. A `0` value means that the restriction option is disabled. Provide a number higher than 0 to restrict the webinar registrants by the that number.
-						 * @minLength 0
-						 * @maxLength 20000
+						 * @minimum 0
+						 * @maximum 20000
 						 * @default 0
 						 * @example 100
 						 * @type integer | undefined
@@ -31103,7 +31112,7 @@ export type WebinarStatus200 = {
 				end_date_time?: string | undefined;
 				/**
 				 * @description How many times the webinar will recur before it is canceled. The maximum number of recurring is 60. Cannot be used with `end_date_time`.
-				 * @maxLength 60
+				 * @maximum 60
 				 * @default 1
 				 * @example 7
 				 * @type integer | undefined
@@ -31711,8 +31720,8 @@ export type WebinarStatus200 = {
 				registrants_email_notification?: boolean | undefined;
 				/**
 				 * @description Restrict number of registrants for a webinar. By default, it is set to `0`. A `0` value means that the restriction option is disabled. Provide a number higher than 0 to restrict the webinar registrants by the that number.
-				 * @minLength 0
-				 * @maxLength 20000
+				 * @minimum 0
+				 * @maximum 20000
 				 * @default 0
 				 * @example 100
 				 * @type integer | undefined
@@ -32383,7 +32392,7 @@ export type WebinarUpdateBody =
 						end_date_time?: string | undefined;
 						/**
 						 * @description Select how many times the webinar will recur before it is canceled. The maximum number of recurring is 60. Cannot be used with `end_date_time`.
-						 * @maxLength 60
+						 * @maximum 60
 						 * @default 1
 						 * @example 7
 						 * @type integer | undefined
@@ -32958,8 +32967,8 @@ export type WebinarUpdateBody =
 						registrants_email_notification?: boolean | undefined;
 						/**
 						 * @description Restrict number of registrants for a webinar. By default, it is set to `0`. A `0` value means that the restriction option is disabled. Provide a number higher than 0 to restrict the webinar registrants by the that number.
-						 * @minLength 0
-						 * @maxLength 20000
+						 * @minimum 0
+						 * @maximum 20000
 						 * @default 0
 						 * @example 100
 						 * @type integer | undefined
@@ -34040,8 +34049,8 @@ export type WebinarInviteLinksCreateBody =
 			 * This value defaults to `7200`.
 			 *
 			 * Format: `int64`
-			 * @minLength 0
-			 * @maxLength 7776000
+			 * @minimum 0
+			 * @maximum 7776000
 			 * @default 7200
 			 * @example 1000
 			 * @type integer | undefined
@@ -34945,7 +34954,7 @@ export type WebinarPollsStatus200 = {
 							answer_max_character?: number | undefined;
 							/**
 							 * @description The allowed minimum number of characters. This field only applies to `short_answer` and `long_answer` polls. You must provide at least a **one** character minimum value.
-							 * @minLength 1
+							 * @minimum 1
 							 * @example 1
 							 * @type integer | undefined
 							 */
@@ -35025,7 +35034,7 @@ export type WebinarPollsStatus200 = {
 							 * @description The rating scale's maximum value, up to a maximum value of 10.
 							 *
 							 * This field only applies to the `rating_scale` poll.
-							 * @maxLength 10
+							 * @maximum 10
 							 * @example 4
 							 * @type integer | undefined
 							 */
@@ -35042,7 +35051,7 @@ export type WebinarPollsStatus200 = {
 							 * @description The rating scale's minimum value. This value cannot be less than zero.
 							 *
 							 * This field only applies to the `rating_scale` poll.
-							 * @minLength 0
+							 * @minimum 0
 							 * @example 0
 							 * @type integer | undefined
 							 */
@@ -35257,7 +35266,7 @@ export type WebinarPollCreateStatus201 = {
 				answer_max_character?: number | undefined;
 				/**
 				 * @description The allowed minimum number of characters. This field only applies to `short_answer` and `long_answer` polls. You must provide at least a **one** character minimum value.
-				 * @minLength 1
+				 * @minimum 1
 				 * @example 1
 				 * @type integer | undefined
 				 */
@@ -35337,7 +35346,7 @@ export type WebinarPollCreateStatus201 = {
 				 * @description The rating scale's maximum value, up to a maximum value of 10.
 				 *
 				 * This field only applies to the `rating_scale` poll.
-				 * @maxLength 10
+				 * @maximum 10
 				 * @example 4
 				 * @type integer | undefined
 				 */
@@ -35354,7 +35363,7 @@ export type WebinarPollCreateStatus201 = {
 				 * @description The rating scale's minimum value. This value cannot be less than zero.
 				 *
 				 * This field only applies to the `rating_scale` poll.
-				 * @minLength 0
+				 * @minimum 0
 				 * @example 0
 				 * @type integer | undefined
 				 */
@@ -35497,7 +35506,7 @@ export type WebinarPollCreateBody =
 						answer_max_character?: number | undefined;
 						/**
 						 * @description The allowed minimum number of characters. This field only applies to `short_answer` and `long_answer` polls. You must provide at least a **one** character minimum value.
-						 * @minLength 1
+						 * @minimum 1
 						 * @example 1
 						 * @type integer | undefined
 						 */
@@ -35577,7 +35586,7 @@ export type WebinarPollCreateBody =
 						 * @description The rating scale's maximum value, up to a maximum value of 10.
 						 *
 						 * This field only applies to the `rating_scale` poll.
-						 * @maxLength 10
+						 * @maximum 10
 						 * @example 4
 						 * @type integer | undefined
 						 */
@@ -35594,7 +35603,7 @@ export type WebinarPollCreateBody =
 						 * @description The rating scale's minimum value. This value cannot be less than zero.
 						 *
 						 * This field only applies to the `rating_scale` poll.
-						 * @minLength 0
+						 * @minimum 0
 						 * @example 0
 						 * @type integer | undefined
 						 */
@@ -35792,7 +35801,7 @@ export type WebinarPollGetStatus200 = {
 				answer_max_character?: number | undefined;
 				/**
 				 * @description The allowed minimum number of characters. This field only applies to `short_answer` and `long_answer` polls. You must provide at least a **one** character minimum value.
-				 * @minLength 1
+				 * @minimum 1
 				 * @example 1
 				 * @type integer | undefined
 				 */
@@ -35872,7 +35881,7 @@ export type WebinarPollGetStatus200 = {
 				 * @description The rating scale's maximum value, up to a maximum value of 10.
 				 *
 				 * This field only applies to the `rating_scale` poll.
-				 * @maxLength 10
+				 * @maximum 10
 				 * @example 4
 				 * @type integer | undefined
 				 */
@@ -35889,7 +35898,7 @@ export type WebinarPollGetStatus200 = {
 				 * @description The rating scale's minimum value. This value cannot be less than zero.
 				 *
 				 * This field only applies to the `rating_scale` poll.
-				 * @minLength 0
+				 * @minimum 0
 				 * @example 0
 				 * @type integer | undefined
 				 */
@@ -36076,7 +36085,7 @@ export type WebinarPollUpdateBody =
 						answer_max_character?: number | undefined;
 						/**
 						 * @description The allowed minimum number of characters. This field only applies to `short_answer` and `long_answer` polls. You must provide at least a **one** character minimum value.
-						 * @minLength 1
+						 * @minimum 1
 						 * @example 1
 						 * @type integer | undefined
 						 */
@@ -36156,7 +36165,7 @@ export type WebinarPollUpdateBody =
 						 * @description The rating scale's maximum value, up to a maximum value of 10.
 						 *
 						 * This field only applies to the `rating_scale` poll.
-						 * @maxLength 10
+						 * @maximum 10
 						 * @example 4
 						 * @type integer | undefined
 						 */
@@ -36173,7 +36182,7 @@ export type WebinarPollUpdateBody =
 						 * @description The rating scale's minimum value. This value cannot be less than zero.
 						 *
 						 * This field only applies to the `rating_scale` poll.
-						 * @minLength 0
+						 * @minimum 0
 						 * @example 0
 						 * @type integer | undefined
 						 */
@@ -36330,7 +36339,7 @@ export type WebinarRegistrantsQuery = {
 	tracking_source_id?: string | undefined;
 	/**
 	 * @description The number of records returned within a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -36425,7 +36434,7 @@ export type WebinarRegistrantsStatus200 = {
 	page_number?: number | undefined;
 	/**
 	 * @description The number of records returned with a single API call.
-	 * @maxLength 300
+	 * @maximum 300
 	 * @default 30
 	 * @example 30
 	 * @type integer | undefined
@@ -38181,7 +38190,7 @@ export type WebinarSurveyGetStatus200 = {
 								| undefined;
 							/**
 							 * @description The allowed minimum number of characters. This field only applies to `short_answer` and `long_answer` questions. You must provide at least a **one** character minimum value.
-							 * @minLength 1
+							 * @minimum 1
 							 * @example 1
 							 * @type integer | undefined
 							 */
@@ -38198,7 +38207,7 @@ export type WebinarSurveyGetStatus200 = {
 							 * @description The rating scale's minimum value. This value cannot be less than zero.
 							 *
 							 *  This field only applies to the `rating_scale` survey.
-							 * @minLength 0
+							 * @minimum 0
 							 * @example 1
 							 * @type integer | undefined
 							 */
@@ -38207,7 +38216,7 @@ export type WebinarSurveyGetStatus200 = {
 							 * @description The rating scale's maximum value, up to a maximum value of 10.
 							 *
 							 *  This field only applies to the `rating_scale` survey.
-							 * @maxLength 10
+							 * @maximum 10
 							 * @example 4
 							 * @type integer | undefined
 							 */
@@ -38516,7 +38525,7 @@ export type WebinarSurveyUpdateBody =
 										| undefined;
 									/**
 									 * @description The allowed minimum number of characters. This field only applies to `short_answer` and `long_answer` questions. You must provide at least a **one** character minimum value.
-									 * @minLength 1
+									 * @minimum 1
 									 * @example 1
 									 * @type integer | undefined
 									 */
@@ -38533,7 +38542,7 @@ export type WebinarSurveyUpdateBody =
 									 * @description The rating scale's minimum value. This value can't be less than zero.
 									 *
 									 *  This field only applies to the `rating_scale` survey.
-									 * @minLength 0
+									 * @minimum 0
 									 * @example 1
 									 * @type integer | undefined
 									 */
@@ -38542,7 +38551,7 @@ export type WebinarSurveyUpdateBody =
 									 * @description The rating scale's maximum value, up to a maximum value of 10.
 									 *
 									 *  This field only applies to the `rating_scale` survey.
-									 * @maxLength 10
+									 * @maximum 10
 									 * @example 4
 									 * @type integer | undefined
 									 */
