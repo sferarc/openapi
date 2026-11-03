@@ -32,6 +32,17 @@ Every operation can also be called by method and path:
 const accounts = await client.request("GET /accounts");
 ```
 
+### Global API Key
+
+Some operations, such as the Cloudforce One requests, accept only the legacy Global API Key. Pass it with the email of its account instead of a token; the client sends them as `X-Auth-Key` and `X-Auth-Email`:
+
+```ts
+const client = new CloudflareApi({
+  apiKey: process.env.CLOUDFLARE_API_KEY ?? "",
+  email: process.env.CLOUDFLARE_EMAIL ?? "",
+});
+```
+
 ### Custom fetch
 
 ```ts

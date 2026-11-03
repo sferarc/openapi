@@ -184,6 +184,20 @@ describe("CloudflareApi.auth.refreshToken", () => {
 	});
 });
 
+describe("CloudflareApi credentials", () => {
+	it("requires a token, or an API key and its email", () => {
+		// @ts-expect-error a token or an API key is required
+		expect(() => new CloudflareApi({})).toThrow("Token, or API key and email, is required");
+		expect(() => new CloudflareApi({ token: "" })).toThrow(
+			"Token, or API key and email, is required",
+		);
+		// @ts-expect-error the API key needs its email
+		expect(() => new CloudflareApi({ apiKey: "key" })).toThrow(
+			"Token, or API key and email, is required",
+		);
+	});
+});
+
 describe("CloudflareApi.api", () => {
 	const fetch: FetchImpl = async () => {
 		throw new Error("fetch called");
@@ -229,6 +243,26 @@ describe("CloudflareApi per-call config", () => {
 		expect(headers).toEqual([
 			expect.objectContaining({ Authorization: "Bearer token", "X-Request-Id": "abc" }),
 		]);
+	});
+
+	it("keeps the Global API Key headers alongside the caller's headers", async () => {
+		const headers: unknown[] = [];
+		const fetch: FetchImpl = async (_url, init) => {
+			headers.push(init?.headers);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		const client = new CloudflareApi({ apiKey: "key", email: "me@example.com", fetch });
+		await client.request("GET /accounts", { config: { headers: { "X-Request-Id": "abc" } } });
+		await client.api.accounts.accountsListAccounts();
+		const keyHeaders = { "X-Auth-Email": "me@example.com", "X-Auth-Key": "key" };
+		expect(headers).toEqual([
+			expect.objectContaining({ ...keyHeaders, "X-Request-Id": "abc" }),
+			expect.objectContaining(keyHeaders),
+		]);
+		expect(headers.some((sent) => Object.hasOwn(sent as object, "Authorization"))).toBe(false);
 	});
 
 	it("passes the caller's signal to fetch from request() and the api proxy", async () => {
