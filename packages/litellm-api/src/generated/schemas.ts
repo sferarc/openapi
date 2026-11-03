@@ -6152,7 +6152,7 @@ export const liteLLMOrganizationTableWithMembersSchema = z
 		object_permission: z.union([liteLLMObjectPermissionTableSchema, z.null()]).optional(),
 		object_permission_id: z.union([z.string(), z.null()]).optional(),
 		members: z.array(liteLLMOrganizationMembershipTableSchema).optional().default([]),
-		get teams() {
+		get teams(): z.ZodDefault<z.ZodOptional<z.ZodArray<typeof liteLLMTeamTableSchema>>> {
 			return z.array(liteLLMTeamTableSchema).optional().default([]);
 		},
 		created_at: z.iso.datetime({ offset: true }),
@@ -33185,60 +33185,100 @@ export const systemoneSystemonePostBodySchema = z.looseObject({
 		.describe("Images as data URLs or content_type plus base64, for providers that look at images"),
 	model: z.string().describe("A decision model from the proxy model_list"),
 	questions: z
-		.record(
-			z.string().min(1),
-			z.discriminatedUnion("type", [
-				z.looseObject({
-					criteria: z
-						.union([
-							z.partialRecord(
-								z.enum(["true", "false"]),
-								z.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()]),
+		.pipe(
+			z.unknown().check(
+				z.refine(
+					(value) =>
+						typeof value !== "object" ||
+						value === null ||
+						Array.isArray(value) ||
+						Object.keys(value).length >= 1,
+					{ message: "Object must have at least 1 properties" },
+				),
+				z.refine(
+					(value) =>
+						typeof value !== "object" ||
+						value === null ||
+						Array.isArray(value) ||
+						Object.keys(value).length <= 128,
+					{ message: "Object must have at most 128 properties" },
+				),
+			),
+			z.record(
+				z.string().min(1),
+				z.discriminatedUnion("type", [
+					z.looseObject({
+						criteria: z
+							.union([
+								z.partialRecord(
+									z.enum(["true", "false"]),
+									z.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()]),
+								),
+								z.null(),
+							])
+							.optional()
+							.describe(
+								"Optional descriptions of what makes the answer true and what makes it false",
 							),
-							z.null(),
-						])
-						.optional()
-						.describe(
-							"Optional descriptions of what makes the answer true and what makes it false",
-						),
-					instructions: z
-						.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()])
-						.optional()
-						.describe("The yes/no question to ask about the state"),
-					type: z.enum(["noul"]),
-				}),
-				z.looseObject({
-					criteria: z
-						.record(
-							z.string(),
-							z.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()]),
-						)
-						.describe("Candidate labels mapped to an optional description of each"),
-					instructions: z
-						.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()])
-						.optional()
-						.describe("The question to ask about the state"),
-					type: z.enum(["choice"]),
-				}),
-				z.looseObject({
-					criteria: z
-						.array(z.union([z.string(), z.looseObject({}), z.array(z.unknown())]))
-						.min(1)
-						.max(10)
-						.describe("Scale levels from lowest to highest. The score is a level index"),
-					instructions: z
-						.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()])
-						.optional()
-						.describe("The question to ask about the state"),
-					type: z.enum(["score"]),
-				}),
-				z.looseObject({
-					instructions: z
-						.union([z.string(), z.looseObject({}), z.array(z.unknown())])
-						.describe("What to find, and in which image, such as 'the coffee mug in `photo`'"),
-					type: z.enum(["box"]),
-				}),
-			]),
+						instructions: z
+							.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()])
+							.optional()
+							.describe("The yes/no question to ask about the state"),
+						type: z.enum(["noul"]),
+					}),
+					z.looseObject({
+						criteria: z
+							.pipe(
+								z.unknown().check(
+									z.refine(
+										(value) =>
+											typeof value !== "object" ||
+											value === null ||
+											Array.isArray(value) ||
+											Object.keys(value).length >= 1,
+										{ message: "Object must have at least 1 properties" },
+									),
+									z.refine(
+										(value) =>
+											typeof value !== "object" ||
+											value === null ||
+											Array.isArray(value) ||
+											Object.keys(value).length <= 255,
+										{ message: "Object must have at most 255 properties" },
+									),
+								),
+								z.record(
+									z.string(),
+									z.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()]),
+								),
+							)
+							.describe("Candidate labels mapped to an optional description of each"),
+						instructions: z
+							.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()])
+							.optional()
+							.describe("The question to ask about the state"),
+						type: z.enum(["choice"]),
+					}),
+					z.looseObject({
+						criteria: z
+							.array(z.union([z.string(), z.looseObject({}), z.array(z.unknown())]))
+							.min(1)
+							.max(10)
+							.describe("Scale levels from lowest to highest. The score is a level index"),
+						instructions: z
+							.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()])
+							.optional()
+							.describe("The question to ask about the state"),
+						type: z.enum(["score"]),
+					}),
+					z.looseObject({
+						instructions: z
+							.union([z.string(), z.looseObject({}), z.array(z.unknown())])
+							.describe("What to find, and in which image, such as 'the coffee mug in `photo`'"),
+						type: z.enum(["box"]),
+					}),
+				]),
+			),
 		)
 		.describe("Named noul, choice and score questions. Each key becomes a key in the answers"),
 	state: z
@@ -33471,60 +33511,100 @@ export const systemoneV1SystemonePostBodySchema = z.looseObject({
 		.describe("Images as data URLs or content_type plus base64, for providers that look at images"),
 	model: z.string().describe("A decision model from the proxy model_list"),
 	questions: z
-		.record(
-			z.string().min(1),
-			z.discriminatedUnion("type", [
-				z.looseObject({
-					criteria: z
-						.union([
-							z.partialRecord(
-								z.enum(["true", "false"]),
-								z.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()]),
+		.pipe(
+			z.unknown().check(
+				z.refine(
+					(value) =>
+						typeof value !== "object" ||
+						value === null ||
+						Array.isArray(value) ||
+						Object.keys(value).length >= 1,
+					{ message: "Object must have at least 1 properties" },
+				),
+				z.refine(
+					(value) =>
+						typeof value !== "object" ||
+						value === null ||
+						Array.isArray(value) ||
+						Object.keys(value).length <= 128,
+					{ message: "Object must have at most 128 properties" },
+				),
+			),
+			z.record(
+				z.string().min(1),
+				z.discriminatedUnion("type", [
+					z.looseObject({
+						criteria: z
+							.union([
+								z.partialRecord(
+									z.enum(["true", "false"]),
+									z.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()]),
+								),
+								z.null(),
+							])
+							.optional()
+							.describe(
+								"Optional descriptions of what makes the answer true and what makes it false",
 							),
-							z.null(),
-						])
-						.optional()
-						.describe(
-							"Optional descriptions of what makes the answer true and what makes it false",
-						),
-					instructions: z
-						.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()])
-						.optional()
-						.describe("The yes/no question to ask about the state"),
-					type: z.enum(["noul"]),
-				}),
-				z.looseObject({
-					criteria: z
-						.record(
-							z.string(),
-							z.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()]),
-						)
-						.describe("Candidate labels mapped to an optional description of each"),
-					instructions: z
-						.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()])
-						.optional()
-						.describe("The question to ask about the state"),
-					type: z.enum(["choice"]),
-				}),
-				z.looseObject({
-					criteria: z
-						.array(z.union([z.string(), z.looseObject({}), z.array(z.unknown())]))
-						.min(1)
-						.max(10)
-						.describe("Scale levels from lowest to highest. The score is a level index"),
-					instructions: z
-						.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()])
-						.optional()
-						.describe("The question to ask about the state"),
-					type: z.enum(["score"]),
-				}),
-				z.looseObject({
-					instructions: z
-						.union([z.string(), z.looseObject({}), z.array(z.unknown())])
-						.describe("What to find, and in which image, such as 'the coffee mug in `photo`'"),
-					type: z.enum(["box"]),
-				}),
-			]),
+						instructions: z
+							.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()])
+							.optional()
+							.describe("The yes/no question to ask about the state"),
+						type: z.enum(["noul"]),
+					}),
+					z.looseObject({
+						criteria: z
+							.pipe(
+								z.unknown().check(
+									z.refine(
+										(value) =>
+											typeof value !== "object" ||
+											value === null ||
+											Array.isArray(value) ||
+											Object.keys(value).length >= 1,
+										{ message: "Object must have at least 1 properties" },
+									),
+									z.refine(
+										(value) =>
+											typeof value !== "object" ||
+											value === null ||
+											Array.isArray(value) ||
+											Object.keys(value).length <= 255,
+										{ message: "Object must have at most 255 properties" },
+									),
+								),
+								z.record(
+									z.string(),
+									z.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()]),
+								),
+							)
+							.describe("Candidate labels mapped to an optional description of each"),
+						instructions: z
+							.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()])
+							.optional()
+							.describe("The question to ask about the state"),
+						type: z.enum(["choice"]),
+					}),
+					z.looseObject({
+						criteria: z
+							.array(z.union([z.string(), z.looseObject({}), z.array(z.unknown())]))
+							.min(1)
+							.max(10)
+							.describe("Scale levels from lowest to highest. The score is a level index"),
+						instructions: z
+							.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()])
+							.optional()
+							.describe("The question to ask about the state"),
+						type: z.enum(["score"]),
+					}),
+					z.looseObject({
+						instructions: z
+							.union([z.string(), z.looseObject({}), z.array(z.unknown())])
+							.describe("What to find, and in which image, such as 'the coffee mug in `photo`'"),
+						type: z.enum(["box"]),
+					}),
+				]),
+			),
 		)
 		.describe("Named noul, choice and score questions. Each key becomes a key in the answers"),
 	state: z
