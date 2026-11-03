@@ -1,5 +1,23 @@
 # vercel-api-js
 
+## 2.12.0
+
+### Minor Changes
+
+- 58eb7dd: The userEventPayloadActionEnum, userEventPayloadVisibilityEnum, userEventPayloadProviderEnum, userEventPayloadChangedFieldsEnum, userEventPayloadPermissionsEnum, userEventPayloadScopesEnum, userEventPayloadModeEnum, userEventPayloadPreviousModeEnum, userEventPayloadTypeEnum, and userEventPayloadSourceEnum enums have been significantly modified, with many values added, removed, or renamed.
+- 58eb7dd: Many new enums and associated types were added for various userEventPayload settings, including provider enums, action enums, scope enums, permission enums, target enums, and more.
+- 58eb7dd: [BREAKING] Numerous enum values were removed from userEventPayloadProviderEnum and related enums for authentication providers (e.g., apple, bitbucket, github, gitlab, google, saml).
+- 58eb7dd: [BREAKING] The userEventPayloadChangedFieldsEnum set of field names changed, with previous fields like name, email, address, and language replaced by keys like allowFallbackFromFast, description, and providerOptions.
+- 58eb7dd: Various new enums were introduced to represent states, actions, providers, and roles for user event payloads, supporting more granular event typing.
+- 58eb7dd: [BREAKING] The old permissions and scopes enums (userEventPayloadPermissionsEnum, userEventPayloadBeforePermissionsEnum, etc.) were replaced or renamed, with new variants and values introduced.
+
+### Patch Changes
+
+- 58eb7dd: The value and scope fields in some types were changed from type (string | string) | undefined to string | undefined.
+- 58eb7dd: The getVercelCiInvocationLogs and getVercelCiJobRunLogs operations updated their descriptions to include more details about logs restored from the remote cache.
+- 58eb7dd: The response type for the listEventTypes operation was changed from ListEventTypesResponse to ListEventTypesResponse2.
+- 58eb7dd: The ConnectConnectorCreateData and ConnectConnectorUpdateData types changed their string length validation from @minLength 60 to @minimum 60.
+
 ## 2.11.0
 
 ### Minor Changes

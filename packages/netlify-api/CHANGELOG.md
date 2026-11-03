@@ -1,5 +1,16 @@
 # netlify-api
 
+## 3.3.0
+
+### Minor Changes
+
+- b2eb233: Added new enums typeEnum2 and typeEnum3 and their key types TypeEnum2Key and TypeEnum3Key.
+- b2eb233: [BREAKING] The 'type' field in CreateSiteDeployBody and UpdateSiteDeployBody now uses TypeEnum2Key and TypeEnum3Key instead of TypeEnumKey.
+
+### Patch Changes
+
+- b2eb233: Replaced @minLength and @maxLength annotations with @minimum and @maximum throughout several types.
+
 ## 3.2.1
 
 ### Patch Changes

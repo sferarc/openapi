@@ -1,5 +1,11 @@
 # nuki-api-js
 
+## 3.1.1
+
+### Patch Changes
+
+- 70e2b09: Changed validation on multiple number fields in API types from string-based @minLength/@maxLength to number-based @minimum/@maximum.
+
 ## 3.1.0
 
 ### Minor Changes

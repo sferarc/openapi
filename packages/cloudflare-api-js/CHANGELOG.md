@@ -1,5 +1,28 @@
 # cloudflare-api-js
 
+## 4.6.0
+
+### Minor Changes
+
+- 3b9c318: [BREAKING] The tunnelVirtualNetworkGet operation body parameter type changed from TunnelVirtualNetworkGetBody to null.
+- 3b9c318: [BREAKING] Removed IamMessages, IamResponseCollection, IamResponseCreate, and IamResponseSingle types.
+- 3b9c318: [BREAKING] Changed the permissions property of IamRole from readonly to mutable and to IamPermissions & object.
+- 3b9c318: [BREAKING] Changed IamMessages2 to IamMessages, and updated usages in IamApiResponseCommon and IamApiResponseCommonFailure.
+- 3b9c318: [BREAKING] Removed the IamCode and IamUnitIdentifier alias types.
+- 3b9c318: [BREAKING] For IamScimPatchOperation, the value property is now (object | object[] | boolean | string) instead of unknown.
+
+### Patch Changes
+
+- 3b9c318: Added several new enum types and values for Realtimekit storage configuration authentication and type fields.
+- 3b9c318: Added enhanced documentation for results and scopes in several types, such as OrganizationsApiMoveAccountResult and PostureApiCreateFindingTypeRequest.
+- 3b9c318: Added the optional has_pending_notice field to AbuseReportsAbuseReport indicating open Notice and Takedown status.
+- 3b9c318: Changed various minimum/maximum annotations on types from @minLength/@maxLength to @minimum/@maximum for better schema compatibility.
+- 3b9c318: Added the legacy_flags property to IamAccount, including enterprise zone quota details.
+- 3b9c318: Changed documentation for tenant and user group identifiers in several IAM types.
+- 3b9c318: Changed IamTokenBody to extend only IamTokenBase instead of including object.
+- 3b9c318: Improved descriptions for several IAM-related types (IamResourceGroup, IamRequestCreateResourceGroup, IamRequestUpdateResourceGroup, IamUserGroup), including documentation for scope and identifiers.
+- 3b9c318: Changed a large number of response type references for many API endpoints, such as Billing, R2, PayPerCrawl, and Vectorize, appending a '2' to the response type name.
+
 ## 4.5.0
 
 ### Minor Changes

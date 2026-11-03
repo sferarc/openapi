@@ -1,5 +1,17 @@
 # litellm-api
 
+## 2.8.0
+
+### Minor Changes
+
+- d026169: Added new type FormatEnum2Key and constant formatEnum2 for enumerated formats (png, jpg, jpeg).
+- d026169: [BREAKING] Changed SystemoneV1SystemonePostBody and related types to use FormatEnum2Key for the format field with a new enum {png, jpg, jpeg}, potentially affecting clients relying on previous formatting logic.
+
+### Patch Changes
+
+- d026169: Changed many numeric type constraints (e.g., @minLength/@maxLength) to @minimum/@maximum for numeric validation, aligning with JSON Schema.
+- d026169: Relaxed some object properties to use Partial<Record<K, V>> for tier_labels and roles fields to allow partial keys and make object shapes more flexible.
+
 ## 2.7.0
 
 ### Minor Changes
