@@ -9811,7 +9811,7 @@ export const pastMeetingsQuerySchema = z.object({
 export const pastMeetingParticipantsPathMeetingIdSchema = z
 	.string()
 	.describe(
-		"The meeting's ID or universally unique ID (UUID). \n* If you provide a meeting ID, the API will return a response for the latest meeting instance. \n* If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.",
+		"The meeting's ID or universally unique ID (UUID). \n* If you provide a meeting ID, the API returns a response for the latest meeting instance. \n* If you provide a meeting UUID that contains any `/` characters, you **must** double-encode the meeting UUID before making an API request.",
 	)
 	.meta({ examples: ["ABCDE12345"] });
 
@@ -9951,7 +9951,7 @@ export const pastMeetingParticipantsPathSchema = z.object({
 	meetingId: z
 		.string()
 		.describe(
-			"The meeting's ID or universally unique ID (UUID). \n* If you provide a meeting ID, the API will return a response for the latest meeting instance. \n* If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.",
+			"The meeting's ID or universally unique ID (UUID). \n* If you provide a meeting ID, the API returns a response for the latest meeting instance. \n* If you provide a meeting UUID that contains any `/` characters, you **must** double-encode the meeting UUID before making an API request.",
 		)
 		.meta({ examples: ["ABCDE12345"] }),
 });

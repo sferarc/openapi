@@ -12949,8 +12949,8 @@ export type PastMeetingsResponse = PastMeetingsStatus200;
 export type PastMeetingParticipantsPath = {
 	/**
 	 * @description The meeting's ID or universally unique ID (UUID).
-	 * * If you provide a meeting ID, the API will return a response for the latest meeting instance.
-	 * * If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.
+	 * * If you provide a meeting ID, the API returns a response for the latest meeting instance.
+	 * * If you provide a meeting UUID that contains any `/` characters, you **must** double-encode the meeting UUID before making an API request.
 	 * @example ABCDE12345
 	 * @type string
 	 */
