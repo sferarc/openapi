@@ -5162,6 +5162,16 @@ export type UserEventPayloadRetentionDefaultModeEnumKey =
 	(typeof userEventPayloadRetentionDefaultModeEnum)[keyof typeof userEventPayloadRetentionDefaultModeEnum];
 
 export const userEventPayloadChangedFieldsEnum = {
+	description: "description",
+	enabled: "enabled",
+	reason: "reason",
+	rewriteModel: "rewriteModel",
+} as const;
+
+export type UserEventPayloadChangedFieldsEnumKey =
+	(typeof userEventPayloadChangedFieldsEnum)[keyof typeof userEventPayloadChangedFieldsEnum];
+
+export const userEventPayloadChangedFieldsEnum2 = {
 	allowFallbackFromFast: "allowFallbackFromFast",
 	baseUrl: "baseUrl",
 	byokCredentialIds: "byokCredentialIds",
@@ -5189,8 +5199,8 @@ export const userEventPayloadChangedFieldsEnum = {
 	zeroDataRetention: "zeroDataRetention",
 } as const;
 
-export type UserEventPayloadChangedFieldsEnumKey =
-	(typeof userEventPayloadChangedFieldsEnum)[keyof typeof userEventPayloadChangedFieldsEnum];
+export type UserEventPayloadChangedFieldsEnum2Key =
+	(typeof userEventPayloadChangedFieldsEnum2)[keyof typeof userEventPayloadChangedFieldsEnum2];
 
 export const userEventPayloadNextRoleEnum = {
 	ADMIN: "ADMIN",
@@ -5693,7 +5703,7 @@ export const userEventPayloadSettlementMethodEnum = {
 export type UserEventPayloadSettlementMethodEnumKey =
 	(typeof userEventPayloadSettlementMethodEnum)[keyof typeof userEventPayloadSettlementMethodEnum];
 
-export const userEventPayloadChangedFieldsEnum2 = {
+export const userEventPayloadChangedFieldsEnum3 = {
 	address: "address",
 	email: "email",
 	language: "language",
@@ -5702,8 +5712,8 @@ export const userEventPayloadChangedFieldsEnum2 = {
 	tax: "tax",
 } as const;
 
-export type UserEventPayloadChangedFieldsEnum2Key =
-	(typeof userEventPayloadChangedFieldsEnum2)[keyof typeof userEventPayloadChangedFieldsEnum2];
+export type UserEventPayloadChangedFieldsEnum3Key =
+	(typeof userEventPayloadChangedFieldsEnum3)[keyof typeof userEventPayloadChangedFieldsEnum3];
 
 export const userEventPayloadDataPlanSlugEnum = {
 	v0_business: "v0_business",
@@ -7322,6 +7332,22 @@ export const userEventPayloadTargetKindEnum = {
 export type UserEventPayloadTargetKindEnumKey =
 	(typeof userEventPayloadTargetKindEnum)[keyof typeof userEventPayloadTargetKindEnum];
 
+export const userEventPayloadTargetKindEnum2 = {
+	project: "project",
+	repository: "repository",
+} as const;
+
+export type UserEventPayloadTargetKindEnum2Key =
+	(typeof userEventPayloadTargetKindEnum2)[keyof typeof userEventPayloadTargetKindEnum2];
+
+export const userEventPayloadDismissalReasonEnum = {
+	"accepted-risk": "accepted-risk",
+	"false-positive": "false-positive",
+} as const;
+
+export type UserEventPayloadDismissalReasonEnumKey =
+	(typeof userEventPayloadDismissalReasonEnum)[keyof typeof userEventPayloadDismissalReasonEnum];
+
 export const userEventPayloadNextEnum = {
 	"auto-approval": "auto-approval",
 	block: "block",
@@ -8596,6 +8622,9 @@ export const userEventTypeEnum = {
 	"vercel-agent-elevated-permissions-approved": "vercel-agent-elevated-permissions-approved",
 	"vercel-agent-elevated-permissions-requested": "vercel-agent-elevated-permissions-requested",
 	"vercel-agent-security-finding-created": "vercel-agent-security-finding-created",
+	"vercel-agent-security-finding-dismissed": "vercel-agent-security-finding-dismissed",
+	"vercel-agent-security-finding-reopened": "vercel-agent-security-finding-reopened",
+	"vercel-agent-security-finding-resolved": "vercel-agent-security-finding-resolved",
 	"vercel-agent-session-created": "vercel-agent-session-created",
 	"vercel-agent-team-trial-credits-applied": "vercel-agent-team-trial-credits-applied",
 	"vercel-app-installation-request-dismissed": "vercel-app-installation-request-dismissed",
@@ -9183,17 +9212,13 @@ export type UserEvent = {
 						};
 				  }
 				| {
-						rule: {
-							id: string;
-							model?: string | undefined;
-							type: string;
-						};
-				  }
-				| {
+						changedFields?: UserEventPayloadChangedFieldsEnumKey[] | undefined;
 						enabled?: (false | true) | undefined;
+						previousRewriteModel?: string | undefined;
 						rule: {
 							id: string;
 							model?: string | undefined;
+							rewriteModel?: string | undefined;
 							type: string;
 						};
 				  }
@@ -9205,7 +9230,7 @@ export type UserEvent = {
 						};
 				  }
 				| {
-						changedFields?: UserEventPayloadChangedFieldsEnumKey[] | undefined;
+						changedFields?: UserEventPayloadChangedFieldsEnum2Key[] | undefined;
 						virtualModelConfig: {
 							displayName?: string | undefined;
 							id: string;
@@ -9549,7 +9574,7 @@ export type UserEvent = {
 						paymentMethodId: string;
 				  }
 				| {
-						changedFields: UserEventPayloadChangedFieldsEnum2Key[];
+						changedFields: UserEventPayloadChangedFieldsEnum3Key[];
 				  }
 				| {
 						subscriptionId?: string | undefined;
@@ -14495,6 +14520,7 @@ export type UserEvent = {
 						 */
 						surface: string;
 						branchRef: string | null;
+						commitSha?: (string | null) | undefined;
 						/**
 						 * @description Null for a repository's findings and those of an undeployed commit.
 						 * @type string
@@ -14507,6 +14533,12 @@ export type UserEvent = {
 						environment: string | null;
 						findingId: string;
 						findingNumber: number;
+						pullRequestNumber?: (number | null) | undefined;
+						/**
+						 * @description The GitHub repository, such as `acme/app`, commit, and pull request the event's review read: the one that found the finding, or for a resolution, the one that fixed it. Null for uploaded files; absent from events recorded before they were sent.
+						 * @type string | undefined
+						 */
+						repository?: (string | null) | undefined;
 						severity: string;
 						targetId: string;
 						/**
@@ -14516,6 +14548,51 @@ export type UserEvent = {
 						targetKind: UserEventPayloadTargetKindEnumKey;
 						targetName: string;
 						vulnerabilityClass: string;
+				  }
+				| {
+						eventId: string;
+						occurredAt: number;
+						sessionId: string;
+						/**
+						 * @description Currently emitted session kinds: chat, investigation.
+						 * @type string
+						 */
+						sessionKind: string;
+						/**
+						 * @description Currently emitted surfaces: dashboard, internal, slack, automation, github.
+						 * @type string
+						 */
+						surface: string;
+						branchRef: string | null;
+						commitSha?: (string | null) | undefined;
+						/**
+						 * @description Null for a repository's findings and those of an undeployed commit.
+						 * @type string
+						 */
+						deploymentId: string | null;
+						/**
+						 * @description Null for a repository's findings.
+						 * @type string
+						 */
+						environment: string | null;
+						findingId: string;
+						findingNumber: number;
+						pullRequestNumber?: (number | null) | undefined;
+						/**
+						 * @description The GitHub repository, such as `acme/app`, commit, and pull request the event's review read: the one that found the finding, or for a resolution, the one that fixed it. Null for uploaded files; absent from events recorded before they were sent.
+						 * @type string | undefined
+						 */
+						repository?: (string | null) | undefined;
+						severity: string;
+						targetId: string;
+						/**
+						 * @description A repository's findings are in code no project runs.
+						 * @type string
+						 */
+						targetKind: UserEventPayloadTargetKindEnum2Key;
+						targetName: string;
+						vulnerabilityClass: string;
+						dismissalReason: UserEventPayloadDismissalReasonEnumKey;
 				  }
 				| {
 						next: UserEventPayloadNextEnumKey | null;
@@ -16664,6 +16741,9 @@ export const listEventTypeNameEnum = {
 	"vercel-agent-elevated-permissions-approved": "vercel-agent-elevated-permissions-approved",
 	"vercel-agent-elevated-permissions-requested": "vercel-agent-elevated-permissions-requested",
 	"vercel-agent-security-finding-created": "vercel-agent-security-finding-created",
+	"vercel-agent-security-finding-dismissed": "vercel-agent-security-finding-dismissed",
+	"vercel-agent-security-finding-reopened": "vercel-agent-security-finding-reopened",
+	"vercel-agent-security-finding-resolved": "vercel-agent-security-finding-resolved",
 	"vercel-agent-session-created": "vercel-agent-session-created",
 	"vercel-agent-team-trial-credits-applied": "vercel-agent-team-trial-credits-applied",
 	"vercel-app-installation-request-dismissed": "vercel-app-installation-request-dismissed",
@@ -17436,6 +17516,9 @@ export const listEventTypeReplacedByEnum = {
 	"vercel-agent-elevated-permissions-approved": "vercel-agent-elevated-permissions-approved",
 	"vercel-agent-elevated-permissions-requested": "vercel-agent-elevated-permissions-requested",
 	"vercel-agent-security-finding-created": "vercel-agent-security-finding-created",
+	"vercel-agent-security-finding-dismissed": "vercel-agent-security-finding-dismissed",
+	"vercel-agent-security-finding-reopened": "vercel-agent-security-finding-reopened",
+	"vercel-agent-security-finding-resolved": "vercel-agent-security-finding-resolved",
 	"vercel-agent-session-created": "vercel-agent-session-created",
 	"vercel-agent-team-trial-credits-applied": "vercel-agent-team-trial-credits-applied",
 	"vercel-app-installation-request-dismissed": "vercel-app-installation-request-dismissed",
@@ -18646,6 +18729,29 @@ export type SandboxPublicRoute = {
 };
 
 /**
+ * @description Rules that forward outgoing requests matching specific domains.
+ * @type object
+ */
+export type SandboxForwardRule = {
+	/**
+	 * @description The domain (or wildcard pattern) that this forwarding rule applies to.
+	 * @type string
+	 */
+	domain: string;
+	/**
+	 * @description The URL to forward matching requests to.
+	 * @type string
+	 */
+	forwardURL: string;
+	/**
+	 * @description Request dimensions used to match this rule. Matcher values are omitted.
+	 * @example ["method","path"]
+	 * @type array | undefined
+	 */
+	matchDimensions?: string[] | undefined;
+};
+
+/**
  * @description HTTP header injection rules for outgoing requests matching specific domains.
  * @type object
  */
@@ -18662,6 +18768,35 @@ export type SandboxInjectionRule = {
 	 * @type array | undefined
 	 */
 	headerNames?: string[] | undefined;
+	/**
+	 * @description Request dimensions used to match this rule. Matcher values are omitted.
+	 * @example ["method","path"]
+	 * @type array | undefined
+	 */
+	matchDimensions?: string[] | undefined;
+};
+
+/**
+ * @description Rules that return custom responses for requests matching specific domains.
+ * @type object
+ */
+export type SandboxResponseRule = {
+	/**
+	 * @description The domain (or wildcard pattern) that this response rule applies to.
+	 * @type string
+	 */
+	domain: string;
+	/**
+	 * @description Request dimensions used to match this rule. Matcher values are omitted.
+	 * @example ["method","path"]
+	 * @type array | undefined
+	 */
+	matchDimensions?: string[] | undefined;
+	/**
+	 * @description The HTTP status code returned for matching requests.
+	 * @type number
+	 */
+	statusCode: number;
 };
 
 export const sandboxNetworkPolicyModeEnum = {
@@ -18697,6 +18832,11 @@ export type SandboxNetworkPolicy = {
 	 */
 	deniedCIDRs?: string[] | undefined;
 	/**
+	 * @description Rules that forward outgoing requests matching specific domains.
+	 * @type array | undefined
+	 */
+	forwardRules?: SandboxForwardRule[] | undefined;
+	/**
 	 * @description HTTP header injection rules for outgoing requests matching specific domains.
 	 * @type array | undefined
 	 */
@@ -18707,6 +18847,11 @@ export type SandboxNetworkPolicy = {
 	 * @type string
 	 */
 	mode: SandboxNetworkPolicyModeEnumKey;
+	/**
+	 * @description Rules that return custom responses for requests matching specific domains.
+	 * @type array | undefined
+	 */
+	responseRules?: SandboxResponseRule[] | undefined;
 };
 
 export const sessionArchitectureEnum = {
