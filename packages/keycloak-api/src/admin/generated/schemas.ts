@@ -33,7 +33,7 @@ export const policyRepresentationSchema = z.object({
 	decisionStrategy: decisionStrategySchema.optional(),
 	owner: z.string().optional(),
 	resourceType: z.string().optional(),
-	get resourcesData() {
+	get resourcesData(): z.ZodOptional<z.ZodArray<typeof resourceRepresentationSchema>> {
 		return z
 			.array(resourceRepresentationSchema)
 			.refine((items) => new Set(items).size === items.length, {
@@ -41,7 +41,7 @@ export const policyRepresentationSchema = z.object({
 			})
 			.optional();
 	},
-	get scopesData() {
+	get scopesData(): z.ZodOptional<z.ZodArray<typeof scopeRepresentationSchema>> {
 		return z
 			.array(scopeRepresentationSchema)
 			.refine((items) => new Set(items).size === items.length, {
@@ -56,10 +56,10 @@ export const scopeRepresentationSchema = z.object({
 	id: z.string().optional(),
 	name: z.string().optional(),
 	iconUri: z.string().optional(),
-	get policies() {
+	get policies(): z.ZodOptional<z.ZodArray<typeof policyRepresentationSchema>> {
 		return z.array(policyRepresentationSchema).optional();
 	},
-	get resources() {
+	get resources(): z.ZodOptional<z.ZodArray<typeof resourceRepresentationSchema>> {
 		return z.array(resourceRepresentationSchema).optional();
 	},
 	displayName: z.string().optional(),
@@ -80,7 +80,7 @@ export const resourceRepresentationSchema = z.object({
 		})
 		.optional(),
 	type: z.string().optional(),
-	get scopes() {
+	get scopes(): z.ZodOptional<z.ZodArray<typeof scopeRepresentationSchema>> {
 		return z
 			.array(scopeRepresentationSchema)
 			.refine((items) => new Set(items).size === items.length, {
@@ -94,7 +94,7 @@ export const resourceRepresentationSchema = z.object({
 	displayName: z.string().optional(),
 	attributes: z.record(z.string(), z.array(z.string())).optional(),
 	uri: z.string().optional(),
-	get scopesUma() {
+	get scopesUma(): z.ZodOptional<z.ZodArray<typeof scopeRepresentationSchema>> {
 		return z
 			.array(scopeRepresentationSchema)
 			.refine((items) => new Set(items).size === items.length, {
@@ -131,7 +131,7 @@ export const abstractPolicyRepresentationSchema = z.object({
 	decisionStrategy: decisionStrategySchema.optional(),
 	owner: z.string().optional(),
 	resourceType: z.string().optional(),
-	get resourcesData() {
+	get resourcesData(): z.ZodOptional<z.ZodArray<typeof resourceRepresentationSchema>> {
 		return z
 			.array(resourceRepresentationSchema)
 			.refine((items) => new Set(items).size === items.length, {
@@ -139,7 +139,7 @@ export const abstractPolicyRepresentationSchema = z.object({
 			})
 			.optional();
 	},
-	get scopesData() {
+	get scopesData(): z.ZodOptional<z.ZodArray<typeof scopeRepresentationSchema>> {
 		return z
 			.array(scopeRepresentationSchema)
 			.refine((items) => new Set(items).size === items.length, {
@@ -315,13 +315,13 @@ export const resourceServerRepresentationSchema = z.object({
 	name: z.string().optional(),
 	allowRemoteResourceManagement: z.boolean().optional(),
 	policyEnforcementMode: policyEnforcementModeSchema.optional(),
-	get resources() {
+	get resources(): z.ZodOptional<z.ZodArray<typeof resourceRepresentationSchema>> {
 		return z.array(resourceRepresentationSchema).optional();
 	},
-	get policies() {
+	get policies(): z.ZodOptional<z.ZodArray<typeof policyRepresentationSchema>> {
 		return z.array(policyRepresentationSchema).optional();
 	},
-	get scopes() {
+	get scopes(): z.ZodOptional<z.ZodArray<typeof scopeRepresentationSchema>> {
 		return z.array(scopeRepresentationSchema).optional();
 	},
 	decisionStrategy: decisionStrategySchema.optional(),
@@ -661,7 +661,9 @@ export const componentExportRepresentationSchema = z.object({
 	name: z.string().optional(),
 	providerId: z.string().optional(),
 	subType: z.string().optional(),
-	get subComponents() {
+	get subComponents(): z.ZodOptional<
+		typeof multivaluedHashMapStringComponentExportRepresentationSchema
+	> {
 		return multivaluedHashMapStringComponentExportRepresentationSchema.optional();
 	},
 	config: multivaluedHashMapStringStringSchema.optional(),
@@ -713,17 +715,17 @@ export const errorRepresentationSchema = z.object({
 	field: z.string().optional(),
 	errorMessage: z.string().optional(),
 	params: z.array(z.unknown()).optional(),
-	get errors() {
+	get errors(): z.ZodOptional<z.ZodArray<typeof errorRepresentationSchema>> {
 		return z.array(errorRepresentationSchema).optional();
 	},
 });
 
 export const policyResultRepresentationSchema = z.object({
-	get policy() {
+	get policy(): z.ZodOptional<typeof policyRepresentationSchema> {
 		return policyRepresentationSchema.optional();
 	},
 	status: decisionEffectSchema.optional(),
-	get associatedPolicies() {
+	get associatedPolicies(): z.ZodOptional<z.ZodArray<typeof policyResultRepresentationSchema>> {
 		return z.array(policyResultRepresentationSchema).optional();
 	},
 	scopes: z
@@ -736,13 +738,13 @@ export const policyResultRepresentationSchema = z.object({
 });
 
 export const evaluationResultRepresentationSchema = z.object({
-	get resource() {
+	get resource(): z.ZodOptional<typeof resourceRepresentationSchema> {
 		return resourceRepresentationSchema.optional();
 	},
-	get scopes() {
+	get scopes(): z.ZodOptional<z.ZodArray<typeof scopeRepresentationSchema>> {
 		return z.array(scopeRepresentationSchema).optional();
 	},
-	get policies() {
+	get policies(): z.ZodOptional<z.ZodArray<typeof policyResultRepresentationSchema>> {
 		return z
 			.array(policyResultRepresentationSchema)
 			.refine((items) => new Set(items).size === items.length, {
@@ -751,7 +753,7 @@ export const evaluationResultRepresentationSchema = z.object({
 			.optional();
 	},
 	status: decisionEffectSchema.optional(),
-	get allowedScopes() {
+	get allowedScopes(): z.ZodOptional<z.ZodArray<typeof scopeRepresentationSchema>> {
 		return z
 			.array(scopeRepresentationSchema)
 			.refine((items) => new Set(items).size === items.length, {
@@ -759,7 +761,7 @@ export const evaluationResultRepresentationSchema = z.object({
 			})
 			.optional();
 	},
-	get deniedScopes() {
+	get deniedScopes(): z.ZodOptional<z.ZodArray<typeof scopeRepresentationSchema>> {
 		return z
 			.array(scopeRepresentationSchema)
 			.refine((items) => new Set(items).size === items.length, {
@@ -800,7 +802,7 @@ export const groupRepresentationSchema = z.object({
 	path: z.string().optional(),
 	parentId: z.string().optional(),
 	subGroupCount: z.int().optional(),
-	get subGroups() {
+	get subGroups(): z.ZodOptional<z.ZodArray<typeof groupRepresentationSchema>> {
 		return z.array(groupRepresentationSchema).optional();
 	},
 	attributes: z.record(z.string(), z.array(z.string())).optional(),
@@ -1117,14 +1119,14 @@ export const organizationRepresentationSchema = z.object({
 		.optional(),
 	members: z.array(memberRepresentationSchema).optional(),
 	identityProviders: z.array(identityProviderRepresentationSchema).optional(),
-	get groups() {
+	get groups(): z.ZodOptional<z.ZodArray<typeof groupRepresentationSchema>> {
 		return z.array(groupRepresentationSchema).optional();
 	},
 });
 
 export const policyEvaluationRequestSchema = z.object({
 	context: z.record(z.string(), z.record(z.string(), z.string())).optional(),
-	get resources() {
+	get resources(): z.ZodOptional<z.ZodArray<typeof resourceRepresentationSchema>> {
 		return z.array(resourceRepresentationSchema).optional();
 	},
 	resourceType: z.string().optional(),
@@ -1318,7 +1320,7 @@ export const realmRepresentationSchema = z.object({
 	certificate: z.string().optional(),
 	codeSecret: z.string().optional(),
 	roles: rolesRepresentationSchema.optional(),
-	get groups() {
+	get groups(): z.ZodOptional<z.ZodArray<typeof groupRepresentationSchema>> {
 		return z.array(groupRepresentationSchema).optional();
 	},
 	defaultRoles: z.array(z.string()).optional(),
@@ -1394,7 +1396,9 @@ export const realmRepresentationSchema = z.object({
 	identityProviders: z.array(identityProviderRepresentationSchema).optional(),
 	identityProviderMappers: z.array(identityProviderMapperRepresentationSchema).optional(),
 	protocolMappers: z.array(protocolMapperRepresentationSchema).optional(),
-	get components() {
+	get components(): z.ZodOptional<
+		typeof multivaluedHashMapStringComponentExportRepresentationSchema
+	> {
 		return multivaluedHashMapStringComponentExportRepresentationSchema.optional();
 	},
 	internationalizationEnabled: z.boolean().optional(),
