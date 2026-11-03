@@ -1,5 +1,11 @@
 # zoom-api-js
 
+## 3.3.1
+
+### Patch Changes
+
+- 131037d: Clarified the documentation to specify double-encoding is required if the meeting UUID contains any '/' characters, instead of starting with '/' or containing '//'.
+
 ## 3.3.0
 
 ### Minor Changes

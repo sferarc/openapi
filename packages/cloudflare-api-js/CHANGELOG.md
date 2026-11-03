@@ -1,5 +1,18 @@
 # cloudflare-api-js
 
+## 4.7.0
+
+### Minor Changes
+
+- ed05da3: [BREAKING] Type AaaAuditLogsV2ResponseCollection now extends AaaAuditLogsSuccessResponseCollection instead of AaaAuditLogsResponseCollection.
+- ed05da3: [BREAKING] Renamed type AaaAuditLogsResponseCollection to AaaAuditLogsSuccessResponseCollection.
+- ed05da3: [BREAKING] Type AaaAuditLogsV2OrgResponseCollection now extends AaaAuditLogsSuccessResponseCollection instead of AaaAuditLogsResponseCollection.
+
+### Patch Changes
+
+- ed05da3: Added a new AaaAuditLogsResponseCollection type, which may be AaaApiResponseCommon.
+- ed05da3: Removed AaaAuditLogsResponseCollection2 type and replaced usages with the new AaaAuditLogsResponseCollection type for several audit log status types.
+
 ## 4.6.0
 
 ### Minor Changes

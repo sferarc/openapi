@@ -1,5 +1,18 @@
 # vercel-api-js
 
+## 2.13.0
+
+### Minor Changes
+
+- 08270ed: Added new types and properties for SandboxForwardRule and SandboxResponseRule to SandboxNetworkPolicy.
+- 08270ed: Added new enum values and keys to userEventTypeEnum and related types for Vercel agent security finding events.
+- 08270ed: Added new enum userEventPayloadChangedFieldsEnum with new keys including description, enabled, reason, and rewriteModel.
+- 08270ed: Expanded UserEvent type with new properties such as eventId, occurredAt, sessionId, sessionKind, surface, branchRef, deploymentId, environment, findingId, findingNumber, repository, severity, targetId, targetKind, targetName, vulnerabilityClass, and dismissalReason.
+
+### Patch Changes
+
+- 08270ed: Added optional matchDimensions property to SandboxInjectionRule, SandboxForwardRule, and SandboxResponseRule types.
+
 ## 2.12.0
 
 ### Minor Changes

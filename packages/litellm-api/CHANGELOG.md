@@ -1,5 +1,28 @@
 # litellm-api
 
+## 2.9.0
+
+### Minor Changes
+
+- 87b10ad: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpPut to toolsetMcpRouteToolsetToolsetNameMcpHead and its HTTP method from PUT to HEAD.
+- 87b10ad: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpGet to toolsetMcpRouteToolsetToolsetNameMcpOptions and its HTTP method from GET to OPTIONS.
+- 87b10ad: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpPut to dynamicMcpRouteMcpServerNameMcpHead and its HTTP method from PUT to HEAD.
+- 87b10ad: [BREAKING] Renamed dynamicMcpRouteMcpServerNameMcpPatch to dynamicMcpRouteMcpServerNameMcpGet and changed its HTTP method from PATCH to GET.
+- 87b10ad: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpDelete to toolsetMcpRouteToolsetToolsetNameMcpPut and its HTTP method from DELETE to PUT.
+- 87b10ad: [BREAKING] Renamed the toolsetMcpRouteToolsetToolsetNameMcpPatch function to toolsetMcpRouteToolsetToolsetNameMcpGet and changed its HTTP method from PATCH to GET.
+- 87b10ad: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpDelete to dynamicMcpRouteMcpServerNameMcpPut and its HTTP method from DELETE to PUT.
+- 87b10ad: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpHead to toolsetMcpRouteToolsetToolsetNameMcpPost and its HTTP method from HEAD to POST.
+- 87b10ad: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpPost to dynamicMcpRouteMcpServerNameMcpPatch and its HTTP method from POST to PATCH.
+- 87b10ad: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpHead to dynamicMcpRouteMcpServerNameMcpPost and its HTTP method from HEAD to POST.
+- 87b10ad: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpOptions to dynamicMcpRouteMcpServerNameMcpDelete and its HTTP method from OPTIONS to DELETE.
+- 87b10ad: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpPost to toolsetMcpRouteToolsetToolsetNameMcpPatch and its HTTP method from POST to PATCH.
+- 87b10ad: [BREAKING] Changed dynamicMcpRouteMcpServerNameMcpGet to dynamicMcpRouteMcpServerNameMcpOptions and its HTTP method from GET to OPTIONS.
+- 87b10ad: [BREAKING] Changed toolsetMcpRouteToolsetToolsetNameMcpOptions to toolsetMcpRouteToolsetToolsetNameMcpDelete and its HTTP method from OPTIONS to DELETE.
+
+### Patch Changes
+
+- 87b10ad: Updated operation type and path definitions to match the changed operation and HTTP method names.
+
 ## 2.8.0
 
 ### Minor Changes
