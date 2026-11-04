@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3766 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3767 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## health
 
@@ -100,10 +100,10 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3766 operatio
 | `client.api.brandProtection.getAccountsAccountIdBrandProtectionTrackedDomains` | `GET /accounts/{accountId}/brand-protection/tracked-domains` | Read submitted domains by pattern |
 | `client.api.brandProtection.getAccountsAccountIdBrandProtectionUrlInfo` | `GET /accounts/{accountId}/brand-protection/url-info` | Read submitted URLs by ID |
 | `client.api.brandProtection.patchAccountsAccountIdBrandProtectionVerify` | `PATCH /accounts/{accountId}/brand-protection/verify` | Update verification statuses of submitted URLs to confirmed by ID |
-| `client.api.brandProtection.getDomainMatchList` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/matches` | List saved query matches |
+| `client.api.brandProtection.getDomainMatchList` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/matches` | List domain matches |
 | `client.api.brandProtection.postBulkDismissMatches` | `POST /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/matches/bulk-dismiss` | Bulk dismiss or undismiss matches |
-| `client.api.brandProtection.getGetDomainQueries` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/queries` | Get queries |
-| `client.api.brandProtection.postInsertDomainQuery` | `POST /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/queries` | Insert query |
+| `client.api.brandProtection.getGetDomainQueries` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/queries` | List domain queries |
+| `client.api.brandProtection.postInsertDomainQuery` | `POST /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/queries` | Create domain query |
 | `client.api.brandProtection.deleteDeleteDomainQuery` | `DELETE /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/queries/{queryId}` | Delete domain query |
 | `client.api.brandProtection.patchUpdateDomainQuery` | `PATCH /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/queries/{queryId}` | Update domain query |
 | `client.api.brandProtection.postDomainTrial` | `POST /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/trial` | Analyze domains for brand impersonation |
@@ -115,12 +115,12 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3766 operatio
 | `client.api.brandProtection.getLetterTemplateGet` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/letter/templates/{templateId}` | Get letter template |
 | `client.api.brandProtection.putLetterTemplateUpdate` | `PUT /accounts/{accountId}/cloudforce-one/v2/brand-protection/letter/templates/{templateId}` | Update letter template |
 | `client.api.brandProtection.getLogoMatchList` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/logo/matches` | List logo matches |
-| `client.api.brandProtection.getGetLogoQueries` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/logo/queries` | Get logo queries |
-| `client.api.brandProtection.postInsertLogoQuery` | `POST /accounts/{accountId}/cloudforce-one/v2/brand-protection/logo/queries` | Insert logo query |
+| `client.api.brandProtection.getGetLogoQueries` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/logo/queries` | List logo queries |
+| `client.api.brandProtection.postInsertLogoQuery` | `POST /accounts/{accountId}/cloudforce-one/v2/brand-protection/logo/queries` | Create logo query |
 | `client.api.brandProtection.deleteDeleteLogoQuery` | `DELETE /accounts/{accountId}/cloudforce-one/v2/brand-protection/logo/queries/{queryId}` | Delete logo query |
 | `client.api.brandProtection.postSearchLogoSimilarity` | `POST /accounts/{accountId}/cloudforce-one/v2/brand-protection/logo/search` | Search scanned images |
-| `client.api.brandProtection.postDismissMatch` | `POST /accounts/{accountId}/cloudforce-one/v2/brand-protection/queries/{queryId}/matches/{domainId}/dismiss` | Dismiss a match |
-| `client.api.brandProtection.postUndismissMatch` | `POST /accounts/{accountId}/cloudforce-one/v2/brand-protection/queries/{queryId}/matches/{domainId}/undismiss` | Undismiss a match |
+| `client.api.brandProtection.postDismissMatch` | `POST /accounts/{accountId}/cloudforce-one/v2/brand-protection/queries/{queryId}/matches/{domainId}/dismiss` | Dismiss a domain match |
+| `client.api.brandProtection.postUndismissMatch` | `POST /accounts/{accountId}/cloudforce-one/v2/brand-protection/queries/{queryId}/matches/{domainId}/undismiss` | Undismiss a domain match |
 | `client.api.brandProtection.getTakedownNoticeList` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/takedown-notices` | List takedown notices |
 | `client.api.brandProtection.postTakedownNoticeCreate` | `POST /accounts/{accountId}/cloudforce-one/v2/brand-protection/takedown-notices` | Create takedown notice |
 | `client.api.brandProtection.postTakedownNoticeLookup` | `POST /accounts/{accountId}/cloudforce-one/v2/brand-protection/takedown-notices/lookup` | Lookup takedown notices by domains |
@@ -132,7 +132,7 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3766 operatio
 | `client.api.brandProtection.deleteTakedownLetterDelete` | `DELETE /accounts/{accountId}/cloudforce-one/v2/brand-protection/takedown-notices/{noticeId}/letters/{letterId}` | Delete takedown letter |
 | `client.api.brandProtection.getTakedownLetterGet` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/takedown-notices/{noticeId}/letters/{letterId}` | Get takedown letter |
 | `client.api.brandProtection.getTakedownLetterPdfGet` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/takedown-notices/{noticeId}/letters/{letterId}/pdf` | Download takedown letter PDF |
-| `client.api.brandProtection.getTotalQueries` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/total-queries` | Get total queries |
+| `client.api.brandProtection.getTotalQueries` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/total-queries` | Get total query count |
 
 ## cloudflareIps
 
@@ -5343,8 +5343,9 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3766 operatio
 
 | Call | Request | Summary |
 | --- | --- | --- |
-| `client.api.agents.agentsSessionsList` | `GET /accounts/{accountId}/workers/observability/agents/sessions` | List Agent sessions |
-| `client.api.agents.agentsSessionsRunsList` | `GET /accounts/{accountId}/workers/observability/agents/sessions/{conversationId}/runs` | List Agent session runs |
+| `client.api.agents.agentsTracesList` | `GET /accounts/{accountId}/workers/observability/agents/traces` | List Agent Traces |
+| `client.api.agents.agentsTracesGet` | `GET /accounts/{accountId}/workers/observability/agents/traces/{traceId}` | Get an Agent Trace |
+| `client.api.agents.agentsTracesEvents` | `GET /accounts/{accountId}/workers/observability/agents/traces/{traceId}/events` | List Agent Trace events |
 
 ## destinations
 

@@ -992,24 +992,36 @@ import type {
 	AgentMemorySummaryPath,
 	AgentMemorySummaryResponse,
 	AgentMemorySummaryStatus400,
-	AgentsSessionsListPath,
-	AgentsSessionsListQuery,
-	AgentsSessionsListResponse,
-	AgentsSessionsListStatus400,
-	AgentsSessionsListStatus401,
-	AgentsSessionsListStatus403,
-	AgentsSessionsListStatus429,
-	AgentsSessionsListStatus500,
-	AgentsSessionsListStatus504,
-	AgentsSessionsRunsListPath,
-	AgentsSessionsRunsListQuery,
-	AgentsSessionsRunsListResponse,
-	AgentsSessionsRunsListStatus400,
-	AgentsSessionsRunsListStatus401,
-	AgentsSessionsRunsListStatus403,
-	AgentsSessionsRunsListStatus429,
-	AgentsSessionsRunsListStatus500,
-	AgentsSessionsRunsListStatus504,
+	AgentsTracesEventsPath,
+	AgentsTracesEventsQuery,
+	AgentsTracesEventsResponse,
+	AgentsTracesEventsStatus400,
+	AgentsTracesEventsStatus401,
+	AgentsTracesEventsStatus403,
+	AgentsTracesEventsStatus404,
+	AgentsTracesEventsStatus429,
+	AgentsTracesEventsStatus500,
+	AgentsTracesEventsStatus504,
+	AgentsTracesGetPath,
+	AgentsTracesGetQuery,
+	AgentsTracesGetResponse,
+	AgentsTracesGetStatus400,
+	AgentsTracesGetStatus401,
+	AgentsTracesGetStatus403,
+	AgentsTracesGetStatus404,
+	AgentsTracesGetStatus429,
+	AgentsTracesGetStatus500,
+	AgentsTracesGetStatus504,
+	AgentsTracesListPath,
+	AgentsTracesListQuery,
+	AgentsTracesListResponse,
+	AgentsTracesListStatus400,
+	AgentsTracesListStatus401,
+	AgentsTracesListStatus403,
+	AgentsTracesListStatus404,
+	AgentsTracesListStatus429,
+	AgentsTracesListStatus500,
+	AgentsTracesListStatus504,
 	AiAuditBulkGetRobotsBody,
 	AiAuditBulkGetRobotsPath,
 	AiAuditBulkGetRobotsResponse,
@@ -14047,6 +14059,7 @@ import type {
 	WorCreateWorkflowInstanceSubscriptionTokenResponse,
 	WorCreateWorkflowInstanceSubscriptionTokenStatus400,
 	WorCreateWorkflowInstanceSubscriptionTokenStatus404,
+	WorCreateWorkflowInstanceSubscriptionTokenStatus429,
 	WorDeleteConcurrencyKeyPath,
 	WorDeleteConcurrencyKeyResponse,
 	WorDeleteConcurrencyKeyStatus400,
@@ -14069,6 +14082,7 @@ import type {
 	WorDescribeWorkflowInstanceResponse,
 	WorDescribeWorkflowInstanceStatus400,
 	WorDescribeWorkflowInstanceStatus404,
+	WorDescribeWorkflowInstanceStatus429,
 	WorDescribeWorkflowVersionsDagPath,
 	WorDescribeWorkflowVersionsDagResponse,
 	WorDescribeWorkflowVersionsDagStatus404,
@@ -34788,7 +34802,7 @@ export async function ipAddressManagementPrefixDelegationDeletePrefixDelegation(
 
 /**
  * @summary Validate Prefix
- * @description Triggers a new prefix validation. The checks are run asynchronously and include IRR, RPKI, and prefix ownership.
+ * @description Triggers a new prefix validation. The checks run asynchronously and include IRR, RPKI, prefix ownership, and, when applicable, ASN ownership and Autonomous System Provider Authorization (ASPA). Use Prefix Details to monitor the results. Approval does not advertise the prefix or activate traffic.
  * @link /accounts/{accountId}/addressing/prefixes/{prefixId}/validate
  */
 export async function ipAddressManagementPrefixesValidatePrefix(
@@ -52956,7 +52970,7 @@ export async function getCountryRead(
 
 /**
  * @summary Create an event
- * @description Creates an event. Without `datasetId`, the event is created in the default Cloudforce One Threat Events dataset. To create a dataset, use `threat-intel datasets create`.
+ * @description Creates an event in the dataset given by `datasetId`. Omitting `datasetId` is deprecated: the event is created in the default Cloudforce One Threat Events dataset, and a future release will reject the request. To create a dataset, use `threat-intel datasets create`.
  * @link /accounts/{accountId}/cloudforce-one/events/create
  */
 export async function postEventCreate(
@@ -59298,8 +59312,8 @@ export async function getGetOpenPorts(
 }
 
 /**
- * @summary List saved query matches
- * @description Get paginated list of domain matches for one or more brand protection queries. When multiple query_ids are provided (comma-separated), matches are deduplicated across queries and each match includes a match_details array with per-match query metadata and individual dismissed state.
+ * @summary List domain matches
+ * @description Lists domains that matched one or more saved domain queries, most recently matched first by default. When you pass several comma-separated `query_id` values, matches are deduplicated by domain and each match includes a `match_details` array with per-query dismissed state. Set `include_domain_id=true` to get the `domain_id` needed to dismiss or undismiss a match.
  * @link /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/matches
  */
 export async function getDomainMatchList(
@@ -59338,7 +59352,7 @@ export async function getDomainMatchList(
 
 /**
  * @summary Bulk dismiss or undismiss matches
- * @description Dismiss or undismiss multiple matches in a single request. Accepts either the new format (matches: [{query_id, domain_id}]) for per-query control, or the legacy format (match_ids: [number]) which dismisses for all queries sharing each match's hash. Returns per-item success/error results.
+ * @description Dismisses or undismisses up to 100 domain matches in one request and returns a result for each item. Send `matches` as (`query_id`, `domain_id`) pairs to change each match for one query. The legacy `match_ids` format is still accepted, but it changes each match for every query that shares it; prefer `matches`.
  * @link /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/matches/bulk-dismiss
  */
 export async function postBulkDismissMatches(
@@ -59376,8 +59390,8 @@ export async function postBulkDismissMatches(
 }
 
 /**
- * @summary Get queries
- * @description Get all saved brand protection queries for an account
+ * @summary List domain queries
+ * @description Lists the account's saved domain queries, most recently updated first. Set `id` to return a single query object instead of an array. Set `page` or `per_page` to paginate the list; the response then includes `result_info`. Without them, every query is returned.
  * @link /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/queries
  */
 export async function getGetDomainQueries(
@@ -59415,8 +59429,8 @@ export async function getGetDomainQueries(
 }
 
 /**
- * @summary Insert query
- * @description Create a new saved brand protection query with string match patterns
+ * @summary Create domain query
+ * @description Creates a saved domain query that matches domain names against your brand patterns. The tag must be unique among the account's domain queries. By default, the new query also searches domains observed in the last 7 days (see `search_lookback`). Creation fails when the account has reached its Brand Protection query limit, which counts domain and logo queries together.
  * @link /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/queries
  */
 export async function postInsertDomainQuery(
@@ -59455,7 +59469,7 @@ export async function postInsertDomainQuery(
 
 /**
  * @summary Delete domain query
- * @description Delete a saved brand protection domain query from the account_queries table. This operation will remove the query from the durable object database. Returns 404 if the query ID doesn't exist.
+ * @description Deletes a saved domain query. The query stops matching new domains and generating alerts, and its matches can no longer be listed. If the query does not exist in this account or was already deleted, the request fails with error code 404.
  * @link /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/queries/{queryId}
  */
 export async function deleteDeleteDomainQuery(
@@ -59495,7 +59509,7 @@ export async function deleteDeleteDomainQuery(
 
 /**
  * @summary Update domain query
- * @description Update a saved brand protection domain query with string match patterns
+ * @description Replaces a saved domain query's tag and patterns. `tag` and `string_matches` are required, and the patterns you send replace the existing ones, so include every pattern you want to keep. Changing the patterns starts a new set of matches for the query: matches listed before the change are no longer returned, and only newly observed domains that match the new patterns are listed. Sending the same patterns in any order (for example, to change only `tag`) keeps the existing matches. If the new patterns are identical to a set already used in this account, such as the query's earlier patterns, matches already found for that set are listed as well. Omitting both `scan_matches` and its alias `scan` resets scanning to `false`. If both are supplied, `scan_matches` takes precedence. `search_lookback`, `min_time`, and `max_time` are ignored on update, so changing patterns does not search previously observed domains. If the query does not exist in this account, the request fails with error code 404.
  * @link /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/queries/{queryId}
  */
 export async function patchUpdateDomainQuery(
@@ -59850,7 +59864,7 @@ export async function putLetterTemplateUpdate(
 
 /**
  * @summary List logo matches
- * @description Get paginated list of logo matches for a specific brand protection logo query
+ * @description Lists images that matched a saved logo query, most recently matched first by default. Set `download=true` to include each matched image as base64 data.
  * @link /accounts/{accountId}/cloudforce-one/v2/brand-protection/logo/matches
  */
 export async function getLogoMatchList(
@@ -59888,8 +59902,8 @@ export async function getLogoMatchList(
 }
 
 /**
- * @summary Get logo queries
- * @description Get all saved brand protection logo queries for an account. Optionally specify id to get a single query. Set download=true to include base64-encoded image data.
+ * @summary List logo queries
+ * @description Lists the account's saved logo queries. Set `id` to return a single query object instead of an array. Set `download=true` to include each logo image as base64 data.
  * @link /accounts/{accountId}/cloudforce-one/v2/brand-protection/logo/queries
  */
 export async function getGetLogoQueries(
@@ -59927,8 +59941,8 @@ export async function getGetLogoQueries(
 }
 
 /**
- * @summary Insert logo query
- * @description Create a new saved brand protection logo query for visual similarity matching
+ * @summary Create logo query
+ * @description Uploads a logo and creates a saved logo query that finds visually similar images on scanned websites. The tag must be unique among the account's logo queries. By default, the new query also searches previously scanned images (see `search_lookback`). Creation fails when the account has reached its Brand Protection query limit, which counts domain and logo queries together.
  * @link /accounts/{accountId}/cloudforce-one/v2/brand-protection/logo/queries
  */
 export async function postInsertLogoQuery(
@@ -59967,7 +59981,7 @@ export async function postInsertLogoQuery(
 
 /**
  * @summary Delete logo query
- * @description Delete a saved brand protection logo query. Returns 404 if the query ID doesn't exist.
+ * @description Permanently deletes a saved logo query and all of its matches. If the query does not exist in this account, the request fails with error code 404.
  * @link /accounts/{accountId}/cloudforce-one/v2/brand-protection/logo/queries/{queryId}
  */
 export async function deleteDeleteLogoQuery(
@@ -60048,8 +60062,8 @@ export async function postSearchLogoSimilarity(
 }
 
 /**
- * @summary Dismiss a match
- * @description Mark a specific domain as dismissed for a given query. Dismissals are per-query — dismissing a domain in one query does not affect other queries.
+ * @summary Dismiss a domain match
+ * @description Marks a matched domain as dismissed for one domain query. Dismissals are per query: dismissing a domain in one query does not affect other queries. Get `domain_id` from List domain matches with `include_domain_id=true`. Dismissing an already dismissed match succeeds. If the query or match does not exist, the request fails with error code 404.
  * @link /accounts/{accountId}/cloudforce-one/v2/brand-protection/queries/{queryId}/matches/{domainId}/dismiss
  */
 export async function postDismissMatch(
@@ -60092,8 +60106,8 @@ export async function postDismissMatch(
 }
 
 /**
- * @summary Undismiss a match
- * @description Remove the dismissed status from a specific domain for a given query. Undismissals are per-query — undismissing a domain in one query does not affect other queries.
+ * @summary Undismiss a domain match
+ * @description Removes the dismissed status from a matched domain for one domain query. Undismissing a domain in one query does not affect other queries. Get `domain_id` from List domain matches with `include_domain_id=true`. Undismissing a match that is not dismissed succeeds. If the query or match does not exist, the request fails with error code 404.
  * @link /accounts/{accountId}/cloudforce-one/v2/brand-protection/queries/{queryId}/matches/{domainId}/undismiss
  */
 export async function postUndismissMatch(
@@ -60588,8 +60602,8 @@ export async function getTakedownLetterPdfGet(
 }
 
 /**
- * @summary Get total queries
- * @description Get the total number of saved brand protection queries (domain + logo) for an account
+ * @summary Get total query count
+ * @description Returns the number of saved domain and logo queries in the account. This is the count checked against the account's Brand Protection query limit.
  * @link /accounts/{accountId}/cloudforce-one/v2/brand-protection/total-queries
  */
 export async function getTotalQueries(
@@ -133216,18 +133230,18 @@ export async function durableObjectsNamespaceQuery(
 }
 
 /**
- * @summary List Agent sessions
- * @description Lists sessions in which the specified agent participated, ordered by most recent activity. A session is identified by gen_ai.conversation.id and includes authorized activity from every agent in that conversation during the requested time range. Agent invocation and chat spans without a conversation ID are attributed only when their trace is associated with exactly one observed conversation.
- * @link /accounts/{accountId}/workers/observability/agents/sessions
+ * @summary List Agent Traces
+ * @description Lists Traces with a named Agent invocation in the window, ordered by lastActivityMs, newest first, including work without a Conversation ID. The window defaults to the last 24 hours. Summaries include the Agent names and Conversation IDs seen, authorized Trace duration, chat input/output/total tokens, models, providers, LLM/tool call counts and span-error counts within the effective window.
+ * @link /accounts/{accountId}/workers/observability/agents/traces
  */
-export async function agentsSessionsList(
+export async function agentsTracesList(
 	{
 		pathParams,
 		queryParams,
 		config,
 	}: {
-		pathParams: AgentsSessionsListPath;
-		queryParams: AgentsSessionsListQuery;
+		pathParams: AgentsTracesListPath;
+		queryParams?: Partial<AgentsTracesListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -133237,22 +133251,23 @@ export async function agentsSessionsList(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 	const data = await request<
-		AgentsSessionsListResponse,
+		AgentsTracesListResponse,
 		ErrorWrapper<
-			| AgentsSessionsListStatus400
-			| AgentsSessionsListStatus401
-			| AgentsSessionsListStatus403
-			| AgentsSessionsListStatus429
-			| AgentsSessionsListStatus500
-			| AgentsSessionsListStatus504
+			| AgentsTracesListStatus400
+			| AgentsTracesListStatus401
+			| AgentsTracesListStatus403
+			| AgentsTracesListStatus404
+			| AgentsTracesListStatus429
+			| AgentsTracesListStatus500
+			| AgentsTracesListStatus504
 		>,
 		null,
 		Record<string, string>,
-		AgentsSessionsListQuery,
-		AgentsSessionsListPath
+		Partial<AgentsTracesListQuery>,
+		AgentsTracesListPath
 	>({
 		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/workers/observability/agents/sessions`,
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/workers/observability/agents/traces`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -133262,18 +133277,18 @@ export async function agentsSessionsList(
 }
 
 /**
- * @summary List Agent session runs
- * @description Lists the traces associated with a session, ordered by most recent activity. The service and agent parameters must identify an agent that participated in the conversation. Results include every authorized trace containing an agent invocation in that conversation during the requested time range.
- * @link /accounts/{accountId}/workers/observability/agents/sessions/{conversationId}/runs
+ * @summary Get an Agent Trace
+ * @description Returns the summary of one Trace containing named Agent activity, with the same fields as the Trace list. Searches the full 7-day retention unless from or to narrow it. List the Trace's events with /agents/traces/{traceId}/events.
+ * @link /accounts/{accountId}/workers/observability/agents/traces/{traceId}
  */
-export async function agentsSessionsRunsList(
+export async function agentsTracesGet(
 	{
 		pathParams,
 		queryParams,
 		config,
 	}: {
-		pathParams: AgentsSessionsRunsListPath;
-		queryParams: AgentsSessionsRunsListQuery;
+		pathParams: AgentsTracesGetPath;
+		queryParams?: Partial<AgentsTracesGetQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -133283,26 +133298,78 @@ export async function agentsSessionsRunsList(
 		throw new Error(`Missing required path parameter: accountId`);
 	}
 
-	if (pathParams?.conversationId == null || String(pathParams.conversationId) === "") {
-		throw new Error(`Missing required path parameter: conversationId`);
+	if (pathParams?.traceId == null || String(pathParams.traceId) === "") {
+		throw new Error(`Missing required path parameter: traceId`);
 	}
 	const data = await request<
-		AgentsSessionsRunsListResponse,
+		AgentsTracesGetResponse,
 		ErrorWrapper<
-			| AgentsSessionsRunsListStatus400
-			| AgentsSessionsRunsListStatus401
-			| AgentsSessionsRunsListStatus403
-			| AgentsSessionsRunsListStatus429
-			| AgentsSessionsRunsListStatus500
-			| AgentsSessionsRunsListStatus504
+			| AgentsTracesGetStatus400
+			| AgentsTracesGetStatus401
+			| AgentsTracesGetStatus403
+			| AgentsTracesGetStatus404
+			| AgentsTracesGetStatus429
+			| AgentsTracesGetStatus500
+			| AgentsTracesGetStatus504
 		>,
 		null,
 		Record<string, string>,
-		AgentsSessionsRunsListQuery,
-		AgentsSessionsRunsListPath
+		Partial<AgentsTracesGetQuery>,
+		AgentsTracesGetPath
 	>({
 		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/workers/observability/agents/sessions/${encodeURIComponent(String(pathParams.conversationId))}/runs`,
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/workers/observability/agents/traces/${encodeURIComponent(String(pathParams.traceId))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List Agent Trace events
+ * @description Returns a page of authorized canonical otel events for a Trace containing named Agent activity, using the existing events-query flow. Searches the full 7-day retention unless from or to narrow it. Events are ordered by event timestamp and ID, newest first. Continue with result_info.cursors.after; one page is not a complete span tree.
+ * @link /accounts/{accountId}/workers/observability/agents/traces/{traceId}/events
+ */
+export async function agentsTracesEvents(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: AgentsTracesEventsPath;
+		queryParams?: Partial<AgentsTracesEventsQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.traceId == null || String(pathParams.traceId) === "") {
+		throw new Error(`Missing required path parameter: traceId`);
+	}
+	const data = await request<
+		AgentsTracesEventsResponse,
+		ErrorWrapper<
+			| AgentsTracesEventsStatus400
+			| AgentsTracesEventsStatus401
+			| AgentsTracesEventsStatus403
+			| AgentsTracesEventsStatus404
+			| AgentsTracesEventsStatus429
+			| AgentsTracesEventsStatus500
+			| AgentsTracesEventsStatus504
+		>,
+		null,
+		Record<string, string>,
+		Partial<AgentsTracesEventsQuery>,
+		AgentsTracesEventsPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/workers/observability/agents/traces/${encodeURIComponent(String(pathParams.traceId))}/events`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -138618,7 +138685,11 @@ export async function worDescribeWorkflowInstance(
 	}
 	const data = await request<
 		WorDescribeWorkflowInstanceResponse,
-		ErrorWrapper<WorDescribeWorkflowInstanceStatus400 | WorDescribeWorkflowInstanceStatus404>,
+		ErrorWrapper<
+			| WorDescribeWorkflowInstanceStatus400
+			| WorDescribeWorkflowInstanceStatus404
+			| WorDescribeWorkflowInstanceStatus429
+		>,
 		null,
 		Record<string, string>,
 		Partial<WorDescribeWorkflowInstanceQuery>,
@@ -138820,6 +138891,7 @@ export async function worCreateWorkflowInstanceSubscriptionToken(
 		ErrorWrapper<
 			| WorCreateWorkflowInstanceSubscriptionTokenStatus400
 			| WorCreateWorkflowInstanceSubscriptionTokenStatus404
+			| WorCreateWorkflowInstanceSubscriptionTokenStatus429
 		>,
 		null,
 		Record<string, string>,
@@ -165535,7 +165607,7 @@ export async function ohttpGatewayGetEnablement(
 
 /**
  * @summary Enable OHTTP Gateway
- * @description Enables OHTTP Gateway for the zone. Enabling an already-enabled zone is idempotent and returns HTTP 200 status code; enabling a zone for the first time returns HTTP 201. Requires product subscription to call.
+ * @description Idempotently enables OHTTP Gateway for the zone. Requires product subscription to call.
  * @link /zones/{zoneId}/settings/ohttp-gateway
  */
 export async function ohttpGatewayEnable(
@@ -175576,9 +175648,10 @@ export const operationsByPath = {
 		durableObjectsNamespaceListObjects,
 	"POST /accounts/{accountId}/workers/durable_objects/namespaces/{id}/query/v2":
 		durableObjectsNamespaceQuery,
-	"GET /accounts/{accountId}/workers/observability/agents/sessions": agentsSessionsList,
-	"GET /accounts/{accountId}/workers/observability/agents/sessions/{conversationId}/runs":
-		agentsSessionsRunsList,
+	"GET /accounts/{accountId}/workers/observability/agents/traces": agentsTracesList,
+	"GET /accounts/{accountId}/workers/observability/agents/traces/{traceId}": agentsTracesGet,
+	"GET /accounts/{accountId}/workers/observability/agents/traces/{traceId}/events":
+		agentsTracesEvents,
 	"GET /accounts/{accountId}/workers/observability/destinations": destinationList,
 	"POST /accounts/{accountId}/workers/observability/destinations": destinationCreate,
 	"DELETE /accounts/{accountId}/workers/observability/destinations/{slug}": destinationsDelete,
@@ -180784,8 +180857,9 @@ export const operationsByTag = {
 		durableObjectsNamespaceQuery,
 	},
 	agents: {
-		agentsSessionsList,
-		agentsSessionsRunsList,
+		agentsTracesList,
+		agentsTracesGet,
+		agentsTracesEvents,
 	},
 	destinations: {
 		destinationList,
@@ -185951,7 +186025,7 @@ export const tagDictionary = {
 		POST: ["durableObjectsNamespaceQuery"],
 	},
 	agents: {
-		GET: ["agentsSessionsList", "agentsSessionsRunsList"],
+		GET: ["agentsTracesList", "agentsTracesGet", "agentsTracesEvents"],
 	},
 	destinations: {
 		GET: ["destinationList"],
