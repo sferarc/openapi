@@ -1,5 +1,18 @@
 # cloudflare-api-js
 
+## 4.12.0
+
+### Minor Changes
+
+- 92ba397: [BREAKING] Changed CloudflareK2K2StreamWorkerBindingInput 'enabled' property to always be a boolean instead of a discriminated union.
+
+### Patch Changes
+
+- 92ba397: Added AigBillingErrorResponseErrorsActionEnum and its type for possible billing error actions.
+- 92ba397: Added a more precise type annotation to the body parameter of CloudflareK2CreateK2StreamRequest.
+- 92ba397: Added optional 'action' and 'reason' fields to the AigBillingErrorResponse type.
+- 92ba397: Added AigBillingErrorResponseErrorsReasonEnum and its type for possible billing error reasons.
+
 ## 4.11.0
 
 ### Minor Changes
