@@ -14832,10 +14832,53 @@ export type AigBillingDeleteTopupConfigResponse = {
   success: true;
 };
 
+export const aigBillingErrorResponseErrorsActionEnum = {
+  contact_support: 'contact_support',
+  contact_bank: 'contact_bank',
+  change_payment_method: 'change_payment_method',
+  update_payment_details: 'update_payment_details',
+  authenticate: 'authenticate',
+  retry_authentication: 'retry_authentication',
+  restart_card_setup: 'restart_card_setup',
+  wait: 'wait',
+  retry_later: 'retry_later',
+} as const;
+
+export type AigBillingErrorResponseErrorsActionEnumKey = (typeof aigBillingErrorResponseErrorsActionEnum)[keyof typeof aigBillingErrorResponseErrorsActionEnum];
+
+export const aigBillingErrorResponseErrorsReasonEnum = {
+  no_default_card: 'no_default_card',
+  payment_declined: 'payment_declined',
+  issuer_declined: 'issuer_declined',
+  insufficient_funds: 'insufficient_funds',
+  expired_card: 'expired_card',
+  incorrect_cvc: 'incorrect_cvc',
+  incorrect_postal_code: 'incorrect_postal_code',
+  incorrect_address: 'incorrect_address',
+  incorrect_card_number: 'incorrect_card_number',
+  invalid_expiry: 'invalid_expiry',
+  card_limit_exceeded: 'card_limit_exceeded',
+  card_not_supported: 'card_not_supported',
+  currency_not_supported: 'currency_not_supported',
+  prepaid_card_not_supported: 'prepaid_card_not_supported',
+  authentication_required: 'authentication_required',
+  authentication_failed: 'authentication_failed',
+  card_not_3ds_capable: 'card_not_3ds_capable',
+  card_setup_canceled: 'card_setup_canceled',
+  card_setup_processing: 'card_setup_processing',
+  card_setup_incomplete: 'card_setup_incomplete',
+  card_setup_not_started: 'card_setup_not_started',
+  payment_temporarily_unavailable: 'payment_temporarily_unavailable',
+} as const;
+
+export type AigBillingErrorResponseErrorsReasonEnumKey = (typeof aigBillingErrorResponseErrorsReasonEnum)[keyof typeof aigBillingErrorResponseErrorsReasonEnum];
+
 export type AigBillingErrorResponse = {
   errors: {
+    action?: AigBillingErrorResponseErrorsActionEnumKey | undefined;
     code: number;
     message: string;
+    reason?: AigBillingErrorResponseErrorsReasonEnumKey | undefined;
   }[];
   result: object | null;
   success: false;
@@ -29959,13 +30002,7 @@ export type CloudflareK2K2StreamWorkerBindingInput = {
    * @description Indicates whether Workers bindings can produce records to the stream.
    * @type boolean
    */
-  enabled: false;
-} | {
-  /**
-   * @description Indicates whether Workers bindings can produce records to the stream.
-   * @type boolean
-   */
-  enabled: true;
+  enabled: boolean;
 };
 
 export type CloudflareK2CreateK2StreamRequest = {
@@ -29994,6 +30031,7 @@ export type CloudflareK2CreateK2StreamRequest = {
   retention_seconds?: number | undefined;
   /**
    * @default {"enabled":true}
+   * @type object | undefined
    */
   worker_binding?: CloudflareK2K2StreamWorkerBindingInput | undefined;
 };
