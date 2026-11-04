@@ -1,5 +1,11 @@
 # keycloak-api
 
+## 3.3.0
+
+### Minor Changes
+
+- 308ee63: Take a function as `token` in `KeycloakAdminApi` and `KeycloakAccountApi`, called before every request, so a short-lived Keycloak access token can be refreshed without building a new client. A fixed token works as before.
+
 ## 3.2.1
 
 ### Patch Changes
