@@ -8347,6 +8347,7 @@ export const userEventTypeEnum = {
 	"organization-slug-update": "organization-slug-update",
 	"organization-sso-deleted": "organization-sso-deleted",
 	"organization-sso-enforced": "organization-sso-enforced",
+	"organization-sso-new-teams-update": "organization-sso-new-teams-update",
 	"organization-team-add": "organization-team-add",
 	"organization-team-create": "organization-team-create",
 	"organization-team-delete": "organization-team-delete",
@@ -8480,6 +8481,7 @@ export const userEventTypeEnum = {
 	"project-passport-updated": "project-passport-updated",
 	"project-password-protection": "project-password-protection",
 	"project-paused": "project-paused",
+	"project-perimeters-updated": "project-perimeters-updated",
 	"project-preview-deployment-suffix": "project-preview-deployment-suffix",
 	"project-preview-environment-branch-tracking-updated":
 		"project-preview-environment-branch-tracking-updated",
@@ -12464,6 +12466,12 @@ export type UserEvent = {
 						previousEnforced: false | true;
 				  }
 				| {
+						enabled: false | true;
+						organizationId: string;
+						organizationSlug: string;
+						previousEnabled: false | true;
+				  }
+				| {
 						mode: UserEventPayloadModeEnum3Key;
 						organizationId: string;
 						previousMode: UserEventPayloadPreviousModeEnum3Key;
@@ -12645,6 +12653,38 @@ export type UserEvent = {
 								  } | null)
 								| undefined;
 						};
+				  }
+				| {
+						next: {
+							/**
+							 * @description Explicit opt-in; missing values are false.
+							 * @type boolean | undefined
+							 */
+							enableBuilds?: (false | true) | undefined;
+							/**
+							 * @description Explicit opt-in; missing values are false. Authorization does not enable a workload.
+							 * @type boolean | undefined
+							 */
+							enableFunctions?: (false | true) | undefined;
+							envId: string;
+							perimeterId: string;
+						}[];
+						previous: {
+							/**
+							 * @description Explicit opt-in; missing values are false.
+							 * @type boolean | undefined
+							 */
+							enableBuilds?: (false | true) | undefined;
+							/**
+							 * @description Explicit opt-in; missing values are false. Authorization does not enable a workload.
+							 * @type boolean | undefined
+							 */
+							enableFunctions?: (false | true) | undefined;
+							envId: string;
+							perimeterId: string;
+						}[];
+						projectId: string;
+						projectName: string;
 				  }
 				| {
 						/**
@@ -14033,7 +14073,7 @@ export type UserEvent = {
 								 */
 								scope?: UserEventPayloadBudgetBudgetItemScopeEnumKey | undefined;
 								/**
-								 * @description Project id when `scope` is `project`; product id when `scope` is `product`.
+								 * @description What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.
 								 * @type string | undefined
 								 */
 								scopeId?: string | undefined;
@@ -14123,7 +14163,7 @@ export type UserEvent = {
 							 */
 							scope?: UserEventPayloadBudgetScopeEnumKey | undefined;
 							/**
-							 * @description Project id when `scope` is `project`; product id when `scope` is `product`.
+							 * @description What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.
 							 * @type string | undefined
 							 */
 							scopeId?: string | undefined;
@@ -14218,7 +14258,7 @@ export type UserEvent = {
 							 */
 							scope?: UserEventPayloadBudgetScopeEnum2Key | undefined;
 							/**
-							 * @description Project id when `scope` is `project`; product id when `scope` is `product`.
+							 * @description What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.
 							 * @type string | undefined
 							 */
 							scopeId?: string | undefined;
@@ -14312,7 +14352,7 @@ export type UserEvent = {
 							 */
 							scope?: UserEventPayloadBudgetScopeEnum3Key | undefined;
 							/**
-							 * @description Project id when `scope` is `project`; product id when `scope` is `product`.
+							 * @description What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.
 							 * @type string | undefined
 							 */
 							scopeId?: string | undefined;
@@ -14394,7 +14434,7 @@ export type UserEvent = {
 									 */
 									scope?: UserEventPayloadPrevBudgetScopeEnumKey | undefined;
 									/**
-									 * @description Project id when `scope` is `project`; product id when `scope` is `product`.
+									 * @description What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.
 									 * @type string | undefined
 									 */
 									scopeId?: string | undefined;
@@ -16538,6 +16578,7 @@ export const listEventTypeNameEnum = {
 	"organization-slug-update": "organization-slug-update",
 	"organization-sso-deleted": "organization-sso-deleted",
 	"organization-sso-enforced": "organization-sso-enforced",
+	"organization-sso-new-teams-update": "organization-sso-new-teams-update",
 	"organization-team-add": "organization-team-add",
 	"organization-team-create": "organization-team-create",
 	"organization-team-delete": "organization-team-delete",
@@ -16671,6 +16712,7 @@ export const listEventTypeNameEnum = {
 	"project-passport-updated": "project-passport-updated",
 	"project-password-protection": "project-password-protection",
 	"project-paused": "project-paused",
+	"project-perimeters-updated": "project-perimeters-updated",
 	"project-preview-deployment-suffix": "project-preview-deployment-suffix",
 	"project-preview-environment-branch-tracking-updated":
 		"project-preview-environment-branch-tracking-updated",
@@ -17316,6 +17358,7 @@ export const listEventTypeReplacedByEnum = {
 	"organization-slug-update": "organization-slug-update",
 	"organization-sso-deleted": "organization-sso-deleted",
 	"organization-sso-enforced": "organization-sso-enforced",
+	"organization-sso-new-teams-update": "organization-sso-new-teams-update",
 	"organization-team-add": "organization-team-add",
 	"organization-team-create": "organization-team-create",
 	"organization-team-delete": "organization-team-delete",
@@ -17449,6 +17492,7 @@ export const listEventTypeReplacedByEnum = {
 	"project-passport-updated": "project-passport-updated",
 	"project-password-protection": "project-password-protection",
 	"project-paused": "project-paused",
+	"project-perimeters-updated": "project-perimeters-updated",
 	"project-preview-deployment-suffix": "project-preview-deployment-suffix",
 	"project-preview-environment-branch-tracking-updated":
 		"project-preview-environment-branch-tracking-updated",
@@ -104431,6 +104475,8 @@ export type UpdateProjectStatus428 = unknown;
 
 export type UpdateProjectStatus500 = unknown;
 
+export type UpdateProjectStatus503 = unknown;
+
 export const updateProjectRequestFrameworkEnum = {
 	"actix-web": "actix-web",
 	angular: "angular",
@@ -105424,6 +105470,7 @@ export type UpdateProjectResponses = {
 	"410": UpdateProjectStatus410;
 	"428": UpdateProjectStatus428;
 	"500": UpdateProjectStatus500;
+	"503": UpdateProjectStatus503;
 };
 
 /**
