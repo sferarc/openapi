@@ -412,3 +412,50 @@ describe("VercelApi responses without content", () => {
 		);
 	});
 });
+
+describe("VercelApi baseUrl", () => {
+	function setup(options: { baseUrl?: string } = {}) {
+		const urls: string[] = [];
+		const fetch: FetchImpl = async (url) => {
+			urls.push(url);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { urls, client: new VercelApi({ token: "token", fetch, ...options }) };
+	}
+
+	it("sends request() and api proxy calls to the constructor's baseUrl", async () => {
+		const { urls, client } = setup({ baseUrl: "https://proxy.test/vercel/" });
+		await client.request("GET /v1/access-groups");
+		await client.api.accessGroups.listAccessGroups();
+		expect(urls).toEqual([
+			"https://proxy.test/vercel/v1/access-groups",
+			"https://proxy.test/vercel/v1/access-groups",
+		]);
+	});
+
+	it("lets a call's config.baseUrl replace the constructor's", async () => {
+		const { urls, client } = setup({ baseUrl: "https://ignored.test" });
+		await client.request("GET /v1/access-groups", { config: { baseUrl: "https://per-call.test" } });
+		expect(urls).toEqual(["https://per-call.test/v1/access-groups"]);
+	});
+
+	it("defaults to the API's own URL", async () => {
+		const { urls, client } = setup();
+		await client.request("GET /v1/access-groups");
+		expect(urls).toEqual(["https://api.vercel.com/v1/access-groups"]);
+	});
+
+	it("exchanges an OAuth code at the constructor's baseUrl", async () => {
+		const { urls, client } = setup({ baseUrl: "https://proxy.test/vercel" });
+		await client.auth.accessToken({
+			code: "c",
+			redirectUri: "r",
+			clientId: "i",
+			clientSecret: "s",
+		});
+		expect(urls).toEqual(["https://proxy.test/vercel/v2/oauth/access_token"]);
+	});
+});

@@ -6,6 +6,8 @@ import type { RequiredKeys } from "./utils/types";
 export interface NukiApiOptions {
 	token: string | null;
 	fetch?: FetchImpl;
+	/** Where calls go instead of `https://api.nuki.io`, such as a proxy. */
+	baseUrl?: string;
 }
 
 export type ApiClient = {
@@ -81,16 +83,19 @@ type CallParams = Record<string, unknown> & { config?: Partial<FetcherConfig> };
 export class NukiApi {
 	#token: string | null;
 	#fetch: FetchImpl;
+	#baseUrl: string | undefined;
 
 	constructor(options: NukiApiOptions) {
 		this.#token = options.token;
 
+		this.#baseUrl = options.baseUrl;
 		this.#fetch = options.fetch || (fetch as FetchImpl);
 		if (!this.#fetch) throw new Error("Fetch is required");
 	}
 
 	#config(): FetcherConfig {
 		return {
+			baseUrl: this.#baseUrl,
 			token: this.#token,
 			fetchImpl: this.#fetch,
 		};

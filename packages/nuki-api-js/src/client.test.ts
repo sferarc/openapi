@@ -154,3 +154,36 @@ describe("NukiApi response headers", () => {
 		expect(retryAfter).toEqual(["30"]);
 	});
 });
+
+describe("NukiApi baseUrl", () => {
+	function setup(options: { baseUrl?: string } = {}) {
+		const urls: string[] = [];
+		const fetch: FetchImpl = async (url) => {
+			urls.push(url);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { urls, client: new NukiApi({ token: "token", fetch, ...options }) };
+	}
+
+	it("sends request() and api proxy calls to the constructor's baseUrl", async () => {
+		const { urls, client } = setup({ baseUrl: "https://proxy.test/nuki/" });
+		await client.request("GET /account");
+		await client.api.account.getAccountsResource();
+		expect(urls).toEqual(["https://proxy.test/nuki/account", "https://proxy.test/nuki/account"]);
+	});
+
+	it("lets a call's config.baseUrl replace the constructor's", async () => {
+		const { urls, client } = setup({ baseUrl: "https://ignored.test" });
+		await client.request("GET /account", { config: { baseUrl: "https://per-call.test" } });
+		expect(urls).toEqual(["https://per-call.test/account"]);
+	});
+
+	it("defaults to the API's own URL", async () => {
+		const { urls, client } = setup();
+		await client.request("GET /account");
+		expect(urls).toEqual(["https://api.nuki.io/account"]);
+	});
+});

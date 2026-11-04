@@ -227,3 +227,39 @@ describe("ZoomApi response headers", () => {
 		expect(retryAfter).toEqual(["2026-11-03T00:00:00Z"]);
 	});
 });
+
+describe("ZoomApi baseUrl", () => {
+	function setup(options: { baseUrl?: string } = {}) {
+		const urls: string[] = [];
+		const fetch: FetchImpl = async (url) => {
+			urls.push(url);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { urls, client: new ZoomApi({ token: "token", fetch, ...options }) };
+	}
+
+	it("sends request() and api proxy calls to the constructor's baseUrl", async () => {
+		const { urls, client } = setup({ baseUrl: "https://api.zoomgov.com/v2/" });
+		await client.request("GET /archive_files");
+		await client.api.archiving.listArchivedFiles();
+		expect(urls).toEqual([
+			"https://api.zoomgov.com/v2/archive_files",
+			"https://api.zoomgov.com/v2/archive_files",
+		]);
+	});
+
+	it("lets a call's config.baseUrl replace the constructor's", async () => {
+		const { urls, client } = setup({ baseUrl: "https://ignored.test" });
+		await client.request("GET /archive_files", { config: { baseUrl: "https://per-call.test" } });
+		expect(urls).toEqual(["https://per-call.test/archive_files"]);
+	});
+
+	it("defaults to the API's own URL", async () => {
+		const { urls, client } = setup();
+		await client.request("GET /archive_files");
+		expect(urls).toEqual(["https://api.zoom.us/v2/archive_files"]);
+	});
+});

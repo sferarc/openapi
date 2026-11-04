@@ -6,6 +6,8 @@ import type { RequiredKeys } from "./utils/types";
 export interface VercelApiOptions {
 	token: string | null;
 	fetch?: FetchImpl;
+	/** Where calls go instead of `https://api.v0.dev/v1`, such as a proxy. */
+	baseUrl?: string;
 }
 
 export type ApiClient = {
@@ -81,9 +83,11 @@ type CallParams = Record<string, unknown> & { config?: Partial<FetcherConfig> };
 export class V0Api {
 	token: string | null;
 	fetch: FetchImpl;
+	#baseUrl: string | undefined;
 
 	constructor(options: VercelApiOptions) {
 		this.token = options.token;
+		this.#baseUrl = options.baseUrl;
 
 		this.fetch = options.fetch || (fetch as FetchImpl);
 		if (!this.fetch) throw new Error("Fetch is required");
@@ -91,6 +95,7 @@ export class V0Api {
 
 	#config(): FetcherConfig {
 		return {
+			baseUrl: this.#baseUrl,
 			token: this.token,
 			fetchImpl: this.fetch,
 		};

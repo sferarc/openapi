@@ -44,6 +44,17 @@ const client = new ZoomApi({
 });
 ```
 
+### Base URL
+
+Calls go to `https://api.zoom.us/v2` unless the client takes a `baseUrl`, for example `https://api.zoomgov.com/v2` for a Zoom for Government account; a single call can pass its own as `config: { baseUrl }`.
+
+```ts
+const client = new ZoomApi({
+  token: process.env.ZOOM_TOKEN ?? null,
+  baseUrl: "https://api.zoomgov.com/v2",
+});
+```
+
 ### Response headers
 
 A call resolves to the parsed body only. To read a response header, pass `onResponse` in `config`; it gets the status and headers of the response before the body is read, an error response included. Zoom's [rate limits](https://developers.zoom.us/docs/api/rate-limits/) page says a `429` for a reached daily limit tells you in the response headers when you may call again:

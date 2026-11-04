@@ -3,7 +3,11 @@ import type { FetchImpl } from "./utils/fetch";
 import type { FetcherConfig } from "./utils/fetcher";
 import type { RequiredKeys } from "./utils/types";
 
-export type CloudflareApiOptions = { fetch?: FetchImpl } & (
+export type CloudflareApiOptions = {
+	fetch?: FetchImpl;
+	/** Where calls go instead of `https://api.cloudflare.com/client/v4`, such as a proxy. */
+	baseUrl?: string;
+} & (
 	| { token: string }
 	/** The legacy Global API Key and the email of its account, which some operations accept instead of a token. */
 	| { apiKey: string; email: string }
@@ -84,6 +88,7 @@ export class CloudflareApi {
 	#apiKey: string | null = null;
 	#email: string | null = null;
 	#fetch: FetchImpl;
+	#baseUrl: string | undefined;
 
 	constructor(options: CloudflareApiOptions) {
 		if ("token" in options && options.token) {
@@ -95,12 +100,14 @@ export class CloudflareApi {
 			throw new Error("Token, or API key and email, is required");
 		}
 
+		this.#baseUrl = options.baseUrl;
 		this.#fetch = options.fetch || (fetch as FetchImpl);
 		if (!this.#fetch) throw new Error("Fetch is required");
 	}
 
 	#config(): FetcherConfig {
 		return {
+			baseUrl: this.#baseUrl,
 			token: this.#token,
 			apiKey: this.#apiKey,
 			email: this.#email,

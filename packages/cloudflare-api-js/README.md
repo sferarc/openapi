@@ -52,6 +52,10 @@ const client = new CloudflareApi({
 });
 ```
 
+### Base URL
+
+Calls go to `https://api.cloudflare.com/client/v4` unless the client takes a `baseUrl`, such as a proxy; a single call can pass its own as `config: { baseUrl }`.
+
 ### Line-delimited JSON
 
 An operation that answers with line-delimited JSON (`application/x-ndjson` and similar), such as `getCollectionExportEndpoint`, resolves to an array with one parsed value per line once the body ends. To read each line as it arrives, for example from a stream the server keeps open, pass `jsonLines: "stream"` in `config` and iterate the result:

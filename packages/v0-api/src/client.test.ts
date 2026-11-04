@@ -157,3 +157,36 @@ describe("V0Api response headers", () => {
 		expect(retryAfter).toEqual(["60"]);
 	});
 });
+
+describe("V0Api baseUrl", () => {
+	function setup(options: { baseUrl?: string } = {}) {
+		const urls: string[] = [];
+		const fetch: FetchImpl = async (url) => {
+			urls.push(url);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { urls, client: new V0Api({ token: "token", fetch, ...options }) };
+	}
+
+	it("sends request() and api proxy calls to the constructor's baseUrl", async () => {
+		const { urls, client } = setup({ baseUrl: "https://proxy.test/v0/" });
+		await client.request("GET /chats");
+		await client.api.chats.chatsFind();
+		expect(urls).toEqual(["https://proxy.test/v0/chats", "https://proxy.test/v0/chats"]);
+	});
+
+	it("lets a call's config.baseUrl replace the constructor's", async () => {
+		const { urls, client } = setup({ baseUrl: "https://ignored.test" });
+		await client.request("GET /chats", { config: { baseUrl: "https://per-call.test" } });
+		expect(urls).toEqual(["https://per-call.test/chats"]);
+	});
+
+	it("defaults to the API's own URL", async () => {
+		const { urls, client } = setup();
+		await client.request("GET /chats");
+		expect(urls).toEqual(["https://api.v0.dev/v1/chats"]);
+	});
+});
