@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { chatsCreate } from "../generated/components";
+import { chatsCreate, chatsResume } from "../generated/components";
 import type { FetchImpl, RequestInit } from "./fetch";
-import client from "./fetcher";
+import client, { isEventStream, type ServerSentEvent } from "./fetcher";
 
 const respond =
 	(status: number, body: string, contentType = "application/json"): FetchImpl =>
@@ -321,5 +321,112 @@ describe("fetcher edge responses and headers", () => {
 			body: new FormData(),
 		});
 		expect(headers.get("content-type")).toBeNull();
+	});
+});
+
+const openEventStream = () => {
+	const encoder = new TextEncoder();
+	let source: ReadableStreamDefaultController<Uint8Array> | undefined;
+	const state = { cancelled: false };
+	const body = new ReadableStream<Uint8Array>({
+		start: (controller) => {
+			source = controller;
+		},
+		cancel: () => {
+			state.cancelled = true;
+		},
+	});
+	const fetchImpl: FetchImpl = async () =>
+		new Response(body, {
+			status: 200,
+			headers: { "content-type": "text/event-stream; charset=utf-8" },
+		}) as never;
+	const push = (chunk: string) => source?.enqueue(encoder.encode(chunk));
+	const end = () => source?.close();
+	return { fetchImpl, push, end, state };
+};
+
+const readAll = async (result: unknown) => {
+	if (!isEventStream(result)) throw new Error("expected a stream of events");
+	const events: ServerSentEvent[] = [];
+	for await (const event of result) events.push(event);
+	return events;
+};
+
+describe("fetcher event streams", () => {
+	it('reads chatsResume event by event with eventStream: "stream" while the body stays open', async () => {
+		const { fetchImpl, push, state } = openEventStream();
+		const events = await chatsResume({
+			pathParams: { chatId: "chat_1", messageId: "msg_1" },
+			config: { eventStream: "stream", fetchImpl },
+		});
+		if (!isEventStream(events)) throw new Error("expected a stream of events");
+		const iterator = events[Symbol.asyncIterator]();
+		push('event: delta\ndata: {"a":');
+		push("1}\n\n");
+		await expect(iterator.next()).resolves.toEqual({
+			done: false,
+			value: { event: "delta", data: '{"a":1}', id: "" },
+		});
+		push("data: next\n\n");
+		await expect(iterator.next()).resolves.toEqual({
+			done: false,
+			value: { event: "message", data: "next", id: "" },
+		});
+		await iterator.return?.();
+		expect(state.cancelled).toBe(true);
+	});
+
+	it("joins data lines, skips comments and keeps the last id across events", async () => {
+		const { fetchImpl, push, end } = openEventStream();
+		const result = client({ url: "/stream", method: "post", eventStream: "stream", fetchImpl });
+		push(": keep-alive\r\nid: 7\r\ndata: one\r\ndata:two\r\n\r\n");
+		push("data\n\nevent: done\ndata: last\n\n");
+		end();
+		expect(await readAll(await result)).toEqual([
+			{ event: "message", data: "one\ntwo", id: "7" },
+			{ event: "message", data: "", id: "7" },
+			{ event: "done", data: "last", id: "7" },
+		]);
+	});
+
+	it("reads a CRLF split across chunks as one line ending", async () => {
+		const { fetchImpl, push, end } = openEventStream();
+		const result = client({ url: "/stream", method: "post", eventStream: "stream", fetchImpl });
+		push("data: a\r");
+		push("\ndata: b\r");
+		push("\n\r");
+		push("\n");
+		end();
+		expect(await readAll(await result)).toEqual([{ event: "message", data: "a\nb", id: "" }]);
+	});
+
+	it("drops an event the body ends before its blank line and ignores events with no data", async () => {
+		const { fetchImpl, push, end } = openEventStream();
+		const result = client({ url: "/stream", method: "post", eventStream: "stream", fetchImpl });
+		push("event: ping\n\ndata: kept\n\ndata: cut off");
+		end();
+		expect(await readAll(await result)).toEqual([{ event: "message", data: "kept", id: "" }]);
+	});
+
+	it("resolves an event stream to its raw text by default", async () => {
+		await expect(
+			client({
+				url: "/stream",
+				method: "post",
+				fetchImpl: respond(200, "data: one\n\n", "text/event-stream"),
+			}),
+		).resolves.toBe("data: one\n\n");
+	});
+
+	it('parses a JSON response whole with eventStream: "stream"', async () => {
+		await expect(
+			client({
+				url: "/chats",
+				method: "post",
+				eventStream: "stream",
+				fetchImpl: respond(200, '{"id":"chat_1"}'),
+			}),
+		).resolves.toEqual({ id: "chat_1" });
 	});
 });

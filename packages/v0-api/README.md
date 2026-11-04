@@ -42,6 +42,24 @@ const client = new V0Api({
 });
 ```
 
+### Server-Sent Events
+
+`chatsResume` answers with Server-Sent Events (`text/event-stream`), and so do `chatsCreate`, `chatsSendMessage` and `chatsResolveTask` when the body sets `responseMode: "experimental_stream"`. By default such a call resolves to the raw text of the stream once it ends. To read each event as it arrives, pass `eventStream: "stream"` in `config` and iterate the result:
+
+```ts
+import { isEventStream } from "v0-api";
+
+const events = await client.api.chats.chatsResume({
+  pathParams: { chatId, messageId },
+  config: { eventStream: "stream" },
+});
+if (isEventStream(events)) {
+  for await (const { event, data } of events) console.log(event, data);
+}
+```
+
+Each event has its `event` type (`message` unless the stream names one), its `data` lines joined by newlines, and the last `id` the stream sent. Leaving the loop early cancels the response body. A response of another type resolves as usual, and so does any response when a custom `fetch` returns no `body`.
+
 ### Response headers
 
 A call resolves to the parsed body only. To read a response header, pass `onResponse` in `config`; it gets the status and headers of the response before the body is read, an error response included. Every operation in the v0 spec can answer `429 Too Many Requests`, and the spec names no response headers, so this is how you see what a rate limited response carries:
