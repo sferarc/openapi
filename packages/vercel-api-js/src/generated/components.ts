@@ -720,6 +720,7 @@ import type {
 	CreateSandboxesSessionsBySessionIdSnapshotV2Status422,
 	CreateSandboxesSessionsBySessionIdSnapshotV2Status429,
 	CreateSandboxesSessionsBySessionIdSnapshotV2Status500,
+	CreateSandboxesSessionsBySessionIdSnapshotV2Status504,
 	CreateSandboxesSessionsBySessionIdSnapshotV3Body,
 	CreateSandboxesSessionsBySessionIdSnapshotV3Path,
 	CreateSandboxesSessionsBySessionIdSnapshotV3Query,
@@ -733,6 +734,7 @@ import type {
 	CreateSandboxesSessionsBySessionIdSnapshotV3Status422,
 	CreateSandboxesSessionsBySessionIdSnapshotV3Status429,
 	CreateSandboxesSessionsBySessionIdSnapshotV3Status500,
+	CreateSandboxesSessionsBySessionIdSnapshotV3Status504,
 	CreateSandboxesV2Body,
 	CreateSandboxesV2Query,
 	CreateSandboxesV2Response,
@@ -21238,6 +21240,7 @@ export async function createSandboxesSessionsBySessionIdSnapshotV2(
 			| CreateSandboxesSessionsBySessionIdSnapshotV2Status422
 			| CreateSandboxesSessionsBySessionIdSnapshotV2Status429
 			| CreateSandboxesSessionsBySessionIdSnapshotV2Status500
+			| CreateSandboxesSessionsBySessionIdSnapshotV2Status504
 		>,
 		CreateSandboxesSessionsBySessionIdSnapshotV2Body,
 		Record<string, string>,
@@ -21395,6 +21398,7 @@ export async function createSandboxesSessionsBySessionIdSnapshotV3(
 			| CreateSandboxesSessionsBySessionIdSnapshotV3Status422
 			| CreateSandboxesSessionsBySessionIdSnapshotV3Status429
 			| CreateSandboxesSessionsBySessionIdSnapshotV3Status500
+			| CreateSandboxesSessionsBySessionIdSnapshotV3Status504
 		>,
 		CreateSandboxesSessionsBySessionIdSnapshotV3Body,
 		Record<string, string>,

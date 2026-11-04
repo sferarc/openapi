@@ -7378,6 +7378,12 @@ export const userEventSchema = z
 					alertName: z.string(),
 				}),
 				z.strictObject({
+					reason: z.string(),
+					actorId: z.string().describe("Okta user id."),
+					actorName: z.string().optional(),
+					actorType: z.enum(["admin"]),
+				}),
+				z.strictObject({
 					projectId: z.string().optional(),
 					projectName: z.string(),
 				}),
@@ -9041,12 +9047,15 @@ export const userEventSchema = z
 					connectionId: z.string(),
 					actorName: z.string().optional(),
 					actorType: z.enum(["admin"]),
+					certificateFingerprints: z.array(z.string()),
+					created: z.union([z.literal(false), z.literal(true)]),
+					previousCertificateFingerprints: z.array(z.string()).optional(),
 				}),
 				z.strictObject({
-					connectionId: z.string(),
+					connectionId: z.string().optional(),
 					actorName: z.string().optional(),
-					actorType: z.enum(["admin"]),
-					created: z.union([z.literal(false), z.literal(true)]),
+					actorType: z.enum(["admin"]).optional(),
+					certificateFingerprints: z.array(z.string()).optional(),
 				}),
 				z.strictObject({
 					connectionId: z.string(),
@@ -10627,6 +10636,14 @@ export const userEventSchema = z
 					}),
 				}),
 				z.strictObject({
+					cadence: z.enum(["monthly", "weekly"]),
+					projectIds: z.array(z.string()),
+					team: z.object({
+						id: z.string(),
+						name: z.string().optional(),
+					}),
+				}),
+				z.strictObject({
 					tier: z.enum(["plus", "pro"]),
 				}),
 				z.strictObject({
@@ -11193,6 +11210,7 @@ export const userEventSchema = z
 				"access-group-user-added",
 				"access-group-user-removed",
 				"admin-agentic-provisioning-account-unlinked",
+				"admin-observability-disabled",
 				"admin-plan-updated",
 				"admin-preview-deployment-suffix-clear",
 				"admin-saml-idp-material-deleted",
@@ -11934,6 +11952,7 @@ export const userEventSchema = z
 				"vpc-peering-connection-rejected",
 				"vpc-peering-connection-updated",
 				"vulnerability-banner-dismissed",
+				"web-analytics-summary-subscription-updated",
 				"web-analytics-tier-updated",
 				"webhook-created",
 				"webhook-deleted",
@@ -12051,6 +12070,7 @@ export const listEventTypeSchema = z
 				"access-group-user-added",
 				"access-group-user-removed",
 				"admin-agentic-provisioning-account-unlinked",
+				"admin-observability-disabled",
 				"admin-plan-updated",
 				"admin-preview-deployment-suffix-clear",
 				"admin-saml-idp-material-deleted",
@@ -12792,6 +12812,7 @@ export const listEventTypeSchema = z
 				"vpc-peering-connection-rejected",
 				"vpc-peering-connection-updated",
 				"vulnerability-banner-dismissed",
+				"web-analytics-summary-subscription-updated",
 				"web-analytics-tier-updated",
 				"webhook-created",
 				"webhook-deleted",
@@ -12811,6 +12832,7 @@ export const listEventTypeSchema = z
 					"access-group-user-added",
 					"access-group-user-removed",
 					"admin-agentic-provisioning-account-unlinked",
+					"admin-observability-disabled",
 					"admin-plan-updated",
 					"admin-preview-deployment-suffix-clear",
 					"admin-saml-idp-material-deleted",
@@ -13552,6 +13574,7 @@ export const listEventTypeSchema = z
 					"vpc-peering-connection-rejected",
 					"vpc-peering-connection-updated",
 					"vulnerability-banner-dismissed",
+					"web-analytics-summary-subscription-updated",
 					"web-analytics-tier-updated",
 					"webhook-created",
 					"webhook-deleted",
@@ -110167,6 +110190,8 @@ export const createSandboxesSessionsBySessionIdSnapshotV2Status429Schema = z.unk
 
 export const createSandboxesSessionsBySessionIdSnapshotV2Status500Schema = z.unknown();
 
+export const createSandboxesSessionsBySessionIdSnapshotV2Status504Schema = z.unknown();
+
 export const createSandboxesSessionsBySessionIdSnapshotV2ResponseSchema =
 	createSandboxesSessionsBySessionIdSnapshotV2Status201Schema;
 
@@ -110180,6 +110205,7 @@ export const createSandboxesSessionsBySessionIdSnapshotV2ErrorSchema = z.union([
 	createSandboxesSessionsBySessionIdSnapshotV2Status422Schema,
 	createSandboxesSessionsBySessionIdSnapshotV2Status429Schema,
 	createSandboxesSessionsBySessionIdSnapshotV2Status500Schema,
+	createSandboxesSessionsBySessionIdSnapshotV2Status504Schema,
 ]);
 
 export const createSandboxesSessionsBySessionIdSnapshotV2BodySchema = z
@@ -111562,6 +111588,8 @@ export const createSandboxesSessionsBySessionIdSnapshotV3Status429Schema = z.unk
 
 export const createSandboxesSessionsBySessionIdSnapshotV3Status500Schema = z.unknown();
 
+export const createSandboxesSessionsBySessionIdSnapshotV3Status504Schema = z.unknown();
+
 export const createSandboxesSessionsBySessionIdSnapshotV3ResponseSchema =
 	createSandboxesSessionsBySessionIdSnapshotV3Status201Schema;
 
@@ -111575,6 +111603,7 @@ export const createSandboxesSessionsBySessionIdSnapshotV3ErrorSchema = z.union([
 	createSandboxesSessionsBySessionIdSnapshotV3Status422Schema,
 	createSandboxesSessionsBySessionIdSnapshotV3Status429Schema,
 	createSandboxesSessionsBySessionIdSnapshotV3Status500Schema,
+	createSandboxesSessionsBySessionIdSnapshotV3Status504Schema,
 ]);
 
 export const createSandboxesSessionsBySessionIdSnapshotV3BodySchema = z
