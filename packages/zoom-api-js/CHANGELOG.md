@@ -1,5 +1,11 @@
 # zoom-api-js
 
+## 3.5.0
+
+### Minor Changes
+
+- 5a75788: Take a function as `token` in `ZoomApi`, called before every request, so an hourly Zoom access token can be refreshed without building a new client. A fixed token works as before.
+
 ## 3.4.0
 
 ### Minor Changes
