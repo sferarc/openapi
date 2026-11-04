@@ -7512,6 +7512,12 @@ export const userEventSchema = z
 					previousEnforced: z.union([z.literal(false), z.literal(true)]),
 				}),
 				z.strictObject({
+					enabled: z.union([z.literal(false), z.literal(true)]),
+					organizationId: z.string(),
+					organizationSlug: z.string(),
+					previousEnabled: z.union([z.literal(false), z.literal(true)]),
+				}),
+				z.strictObject({
 					mode: z.enum(["organization", "team"]),
 					organizationId: z.string(),
 					previousMode: z.enum(["organization", "team"]),
@@ -7718,6 +7724,42 @@ export const userEventSchema = z
 							})
 							.nullish(),
 					}),
+				}),
+				z.strictObject({
+					next: z.array(
+						z.object({
+							enableBuilds: z
+								.union([z.literal(false), z.literal(true)])
+								.optional()
+								.describe("Explicit opt-in; missing values are false."),
+							enableFunctions: z
+								.union([z.literal(false), z.literal(true)])
+								.optional()
+								.describe(
+									"Explicit opt-in; missing values are false. Authorization does not enable a workload.",
+								),
+							envId: z.string(),
+							perimeterId: z.string(),
+						}),
+					),
+					previous: z.array(
+						z.object({
+							enableBuilds: z
+								.union([z.literal(false), z.literal(true)])
+								.optional()
+								.describe("Explicit opt-in; missing values are false."),
+							enableFunctions: z
+								.union([z.literal(false), z.literal(true)])
+								.optional()
+								.describe(
+									"Explicit opt-in; missing values are false. Authorization does not enable a workload.",
+								),
+							envId: z.string(),
+							perimeterId: z.string(),
+						}),
+					),
+					projectId: z.string(),
+					projectName: z.string(),
 				}),
 				z.strictObject({
 					automated: z
@@ -9286,7 +9328,7 @@ export const userEventSchema = z
 									.string()
 									.optional()
 									.describe(
-										"Project id when `scope` is `project`; product id when `scope` is `product`.",
+										"What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.",
 									),
 								teamId: z.string().describe("Partition key"),
 								type: z.enum(["fixed"]).describe("The budget type"),
@@ -9343,7 +9385,7 @@ export const userEventSchema = z
 								.string()
 								.optional()
 								.describe(
-									"Project id when `scope` is `project`; product id when `scope` is `product`.",
+									"What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.",
 								),
 							teamId: z.string().describe("Partition key"),
 							type: z.enum(["fixed"]).describe("The budget type"),
@@ -9402,7 +9444,7 @@ export const userEventSchema = z
 								.string()
 								.optional()
 								.describe(
-									"Project id when `scope` is `project`; product id when `scope` is `product`.",
+									"What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.",
 								),
 							teamId: z.string().describe("Partition key"),
 							type: z.enum(["fixed"]).describe("The budget type"),
@@ -9460,7 +9502,7 @@ export const userEventSchema = z
 								.string()
 								.optional()
 								.describe(
-									"Project id when `scope` is `project`; product id when `scope` is `product`.",
+									"What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.",
 								),
 							teamId: z.string().describe("Partition key"),
 							type: z.enum(["fixed"]).describe("The budget type"),
@@ -9507,7 +9549,7 @@ export const userEventSchema = z
 								.string()
 								.optional()
 								.describe(
-									"Project id when `scope` is `project`; product id when `scope` is `product`.",
+									"What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.",
 								),
 							teamId: z.string().describe("Partition key"),
 							type: z.enum(["fixed"]).describe("The budget type"),
@@ -11588,6 +11630,7 @@ export const userEventSchema = z
 				"organization-slug-update",
 				"organization-sso-deleted",
 				"organization-sso-enforced",
+				"organization-sso-new-teams-update",
 				"organization-team-add",
 				"organization-team-create",
 				"organization-team-delete",
@@ -11714,6 +11757,7 @@ export const userEventSchema = z
 				"project-passport-updated",
 				"project-password-protection",
 				"project-paused",
+				"project-perimeters-updated",
 				"project-preview-deployment-suffix",
 				"project-preview-environment-branch-tracking-updated",
 				"project-prioritize-production-builds-updated",
@@ -12448,6 +12492,7 @@ export const listEventTypeSchema = z
 				"organization-slug-update",
 				"organization-sso-deleted",
 				"organization-sso-enforced",
+				"organization-sso-new-teams-update",
 				"organization-team-add",
 				"organization-team-create",
 				"organization-team-delete",
@@ -12574,6 +12619,7 @@ export const listEventTypeSchema = z
 				"project-passport-updated",
 				"project-password-protection",
 				"project-paused",
+				"project-perimeters-updated",
 				"project-preview-deployment-suffix",
 				"project-preview-environment-branch-tracking-updated",
 				"project-prioritize-production-builds-updated",
@@ -13210,6 +13256,7 @@ export const listEventTypeSchema = z
 					"organization-slug-update",
 					"organization-sso-deleted",
 					"organization-sso-enforced",
+					"organization-sso-new-teams-update",
 					"organization-team-add",
 					"organization-team-create",
 					"organization-team-delete",
@@ -13336,6 +13383,7 @@ export const listEventTypeSchema = z
 					"project-passport-updated",
 					"project-password-protection",
 					"project-paused",
+					"project-perimeters-updated",
 					"project-preview-deployment-suffix",
 					"project-preview-environment-branch-tracking-updated",
 					"project-prioritize-production-builds-updated",
@@ -86153,6 +86201,8 @@ export const updateProjectStatus428Schema = z.unknown();
 
 export const updateProjectStatus500Schema = z.unknown();
 
+export const updateProjectStatus503Schema = z.unknown();
+
 export const updateProjectResponseSchema = updateProjectStatus200Schema;
 
 export const updateProjectErrorSchema = z.union([
@@ -86165,6 +86215,7 @@ export const updateProjectErrorSchema = z.union([
 	updateProjectStatus410Schema,
 	updateProjectStatus428Schema,
 	updateProjectStatus500Schema,
+	updateProjectStatus503Schema,
 ]);
 
 export const updateProjectBodySchema = z.strictObject({
