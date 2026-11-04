@@ -1,18 +1,13 @@
-import c from "case";
 import { File, jsxRenderer } from "kubb/jsx";
 import { ast, defineGenerator } from "kubb/kit";
 import type { PluginClient } from "../plugin";
-import { clientFile, fileBanner, operationName } from "../utils";
+import { clientFile, fileBanner, operationName, tagKey } from "../utils";
 
 const HTTP_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"] as const;
 type HttpMethod = (typeof HTTP_METHODS)[number];
 
 function isRequestMethod(method: string): method is HttpMethod {
 	return (HTTP_METHODS as readonly string[]).includes(method);
-}
-
-function tagKey(tag: string): string {
-	return c.camel(tag.toLowerCase());
 }
 
 export const extraGenerator = defineGenerator<PluginClient>({

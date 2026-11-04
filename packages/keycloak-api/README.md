@@ -20,6 +20,8 @@ npm install keycloak-api
 Keycloak is self-hosted, so both clients require the `baseUrl` of your server. Endpoints are addressed
 as `"<METHOD> <path>"`.
 
+[`src/admin/generated/OPERATIONS.md`](./src/admin/generated/OPERATIONS.md) and [`src/account/generated/OPERATIONS.md`](./src/account/generated/OPERATIONS.md) list every admin and account operation with its `"<METHOD> <path>"` request and the spec's summary, one table per tag. They ship in the package, so `grep` in `node_modules/keycloak-api` finds an operation without reading the types.
+
 ### Admin API
 
 ```ts

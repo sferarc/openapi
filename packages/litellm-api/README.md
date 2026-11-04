@@ -31,6 +31,8 @@ const routes = await client.api.default.getRoutesRoutesGet();
 
 Operations are grouped by tag: `client.api.<tag>.<operation>(params)`. Operations without a tag live under `client.api.default`.
 
+[`OPERATIONS.md`](./src/generated/OPERATIONS.md) lists every operation with its `client.api` call, its `"<METHOD> <path>"` request and the spec's summary, one table per tag. It ships in the package, so `grep` in `node_modules/litellm-api` finds an operation without reading the types.
+
 Every operation can also be called by method and path:
 
 ```ts

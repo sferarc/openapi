@@ -27,6 +27,8 @@ const sites = await client.api.site.listSites({});
 
 Operations are grouped by tag: `client.api.<tag>.<operation>(params)`.
 
+[`OPERATIONS.md`](./src/generated/OPERATIONS.md) lists every operation with its `client.api` call, its `"<METHOD> <path>"` request and the spec's summary, one table per tag. It ships in the package, so `grep` in `node_modules/netlify-api` finds an operation without reading the types.
+
 ### Options
 
 ```ts
