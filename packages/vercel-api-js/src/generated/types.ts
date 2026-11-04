@@ -7352,13 +7352,13 @@ export const userEventPayloadTypeEnum6 = {
 export type UserEventPayloadTypeEnum6Key =
 	(typeof userEventPayloadTypeEnum6)[keyof typeof userEventPayloadTypeEnum6];
 
-export const userEventPayloadActorTypeEnum9 = {
+export const userEventPayloadActorTypeEnum10 = {
 	admin: "admin",
 	user: "user",
 } as const;
 
-export type UserEventPayloadActorTypeEnum9Key =
-	(typeof userEventPayloadActorTypeEnum9)[keyof typeof userEventPayloadActorTypeEnum9];
+export type UserEventPayloadActorTypeEnum10Key =
+	(typeof userEventPayloadActorTypeEnum10)[keyof typeof userEventPayloadActorTypeEnum10];
 
 export const userEventPayloadNextScopeEnum = {
 	all: "all",
@@ -7722,13 +7722,13 @@ export const userEventPayloadSamplingEnvEnum = {
 export type UserEventPayloadSamplingEnvEnumKey =
 	(typeof userEventPayloadSamplingEnvEnum)[keyof typeof userEventPayloadSamplingEnvEnum];
 
-export const userEventPayloadActorTypeEnum14 = {
+export const userEventPayloadActorTypeEnum15 = {
 	admin: "admin",
 	user: "user",
 } as const;
 
-export type UserEventPayloadActorTypeEnum14Key =
-	(typeof userEventPayloadActorTypeEnum14)[keyof typeof userEventPayloadActorTypeEnum14];
+export type UserEventPayloadActorTypeEnum15Key =
+	(typeof userEventPayloadActorTypeEnum15)[keyof typeof userEventPayloadActorTypeEnum15];
 
 export const userEventPayloadMethodEnum = {
 	"email-otp": "email-otp",
@@ -7806,6 +7806,14 @@ export const userEventPayloadOutcomeEnum2 = {
 
 export type UserEventPayloadOutcomeEnum2Key =
 	(typeof userEventPayloadOutcomeEnum2)[keyof typeof userEventPayloadOutcomeEnum2];
+
+export const userEventPayloadCadenceEnum = {
+	monthly: "monthly",
+	weekly: "weekly",
+} as const;
+
+export type UserEventPayloadCadenceEnumKey =
+	(typeof userEventPayloadCadenceEnum)[keyof typeof userEventPayloadCadenceEnum];
 
 export const userEventPayloadTierEnum = {
 	plus: "plus",
@@ -7956,6 +7964,7 @@ export const userEventTypeEnum = {
 	"access-group-user-added": "access-group-user-added",
 	"access-group-user-removed": "access-group-user-removed",
 	"admin-agentic-provisioning-account-unlinked": "admin-agentic-provisioning-account-unlinked",
+	"admin-observability-disabled": "admin-observability-disabled",
 	"admin-plan-updated": "admin-plan-updated",
 	"admin-preview-deployment-suffix-clear": "admin-preview-deployment-suffix-clear",
 	"admin-saml-idp-material-deleted": "admin-saml-idp-material-deleted",
@@ -8713,6 +8722,7 @@ export const userEventTypeEnum = {
 	"vpc-peering-connection-rejected": "vpc-peering-connection-rejected",
 	"vpc-peering-connection-updated": "vpc-peering-connection-updated",
 	"vulnerability-banner-dismissed": "vulnerability-banner-dismissed",
+	"web-analytics-summary-subscription-updated": "web-analytics-summary-subscription-updated",
 	"web-analytics-tier-updated": "web-analytics-tier-updated",
 	"webhook-created": "webhook-created",
 	"webhook-deleted": "webhook-deleted",
@@ -12340,6 +12350,16 @@ export type UserEvent = {
 						alertName: string;
 				  }
 				| {
+						reason: string;
+						/**
+						 * @description Okta user id.
+						 * @type string
+						 */
+						actorId: string;
+						actorName?: string | undefined;
+						actorType: "admin";
+				  }
+				| {
 						projectId?: string | undefined;
 						projectName: string;
 				  }
@@ -13767,12 +13787,15 @@ export type UserEvent = {
 						connectionId: string;
 						actorName?: string | undefined;
 						actorType: "admin";
+						certificateFingerprints: string[];
+						created: false | true;
+						previousCertificateFingerprints?: string[] | undefined;
 				  }
 				| {
-						connectionId: string;
+						connectionId?: string | undefined;
 						actorName?: string | undefined;
-						actorType: "admin";
-						created: false | true;
+						actorType?: "admin" | undefined;
+						certificateFingerprints?: string[] | undefined;
 				  }
 				| {
 						connectionId: string;
@@ -14481,7 +14504,7 @@ export type UserEvent = {
 				  }
 				| {
 						actorId?: string | undefined;
-						actorType?: UserEventPayloadActorTypeEnum9Key | undefined;
+						actorType?: UserEventPayloadActorTypeEnum10Key | undefined;
 						caseNumber?: string | undefined;
 						client?: string | undefined;
 						reason?: string | undefined;
@@ -15179,7 +15202,7 @@ export type UserEvent = {
 						 * @type string | undefined
 						 */
 						actorName?: string | undefined;
-						actorType?: UserEventPayloadActorTypeEnum14Key | undefined;
+						actorType?: UserEventPayloadActorTypeEnum15Key | undefined;
 						reason?: string | undefined;
 						recoveryCodes: number;
 						totp: false | true;
@@ -15432,6 +15455,14 @@ export type UserEvent = {
 						team: {
 							id: string;
 							name: string;
+						};
+				  }
+				| {
+						cadence: UserEventPayloadCadenceEnumKey;
+						projectIds: string[];
+						team: {
+							id: string;
+							name?: string | undefined;
 						};
 				  }
 				| {
@@ -16124,6 +16155,7 @@ export const listEventTypeNameEnum = {
 	"access-group-user-added": "access-group-user-added",
 	"access-group-user-removed": "access-group-user-removed",
 	"admin-agentic-provisioning-account-unlinked": "admin-agentic-provisioning-account-unlinked",
+	"admin-observability-disabled": "admin-observability-disabled",
 	"admin-plan-updated": "admin-plan-updated",
 	"admin-preview-deployment-suffix-clear": "admin-preview-deployment-suffix-clear",
 	"admin-saml-idp-material-deleted": "admin-saml-idp-material-deleted",
@@ -16881,6 +16913,7 @@ export const listEventTypeNameEnum = {
 	"vpc-peering-connection-rejected": "vpc-peering-connection-rejected",
 	"vpc-peering-connection-updated": "vpc-peering-connection-updated",
 	"vulnerability-banner-dismissed": "vulnerability-banner-dismissed",
+	"web-analytics-summary-subscription-updated": "web-analytics-summary-subscription-updated",
 	"web-analytics-tier-updated": "web-analytics-tier-updated",
 	"webhook-created": "webhook-created",
 	"webhook-deleted": "webhook-deleted",
@@ -16900,6 +16933,7 @@ export const listEventTypeReplacedByEnum = {
 	"access-group-user-added": "access-group-user-added",
 	"access-group-user-removed": "access-group-user-removed",
 	"admin-agentic-provisioning-account-unlinked": "admin-agentic-provisioning-account-unlinked",
+	"admin-observability-disabled": "admin-observability-disabled",
 	"admin-plan-updated": "admin-plan-updated",
 	"admin-preview-deployment-suffix-clear": "admin-preview-deployment-suffix-clear",
 	"admin-saml-idp-material-deleted": "admin-saml-idp-material-deleted",
@@ -17657,6 +17691,7 @@ export const listEventTypeReplacedByEnum = {
 	"vpc-peering-connection-rejected": "vpc-peering-connection-rejected",
 	"vpc-peering-connection-updated": "vpc-peering-connection-updated",
 	"vulnerability-banner-dismissed": "vulnerability-banner-dismissed",
+	"web-analytics-summary-subscription-updated": "web-analytics-summary-subscription-updated",
 	"web-analytics-tier-updated": "web-analytics-tier-updated",
 	"webhook-created": "webhook-created",
 	"webhook-deleted": "webhook-deleted",
@@ -130872,6 +130907,8 @@ export type CreateSandboxesSessionsBySessionIdSnapshotV2Status429 = unknown;
 
 export type CreateSandboxesSessionsBySessionIdSnapshotV2Status500 = unknown;
 
+export type CreateSandboxesSessionsBySessionIdSnapshotV2Status504 = unknown;
+
 export type CreateSandboxesSessionsBySessionIdSnapshotV2Body =
 	| {
 			/**
@@ -130899,6 +130936,7 @@ export type CreateSandboxesSessionsBySessionIdSnapshotV2Responses = {
 	"422": CreateSandboxesSessionsBySessionIdSnapshotV2Status422;
 	"429": CreateSandboxesSessionsBySessionIdSnapshotV2Status429;
 	"500": CreateSandboxesSessionsBySessionIdSnapshotV2Status500;
+	"504": CreateSandboxesSessionsBySessionIdSnapshotV2Status504;
 };
 
 /**
@@ -132378,6 +132416,8 @@ export type CreateSandboxesSessionsBySessionIdSnapshotV3Status429 = unknown;
 
 export type CreateSandboxesSessionsBySessionIdSnapshotV3Status500 = unknown;
 
+export type CreateSandboxesSessionsBySessionIdSnapshotV3Status504 = unknown;
+
 export type CreateSandboxesSessionsBySessionIdSnapshotV3Body =
 	| {
 			/**
@@ -132405,6 +132445,7 @@ export type CreateSandboxesSessionsBySessionIdSnapshotV3Responses = {
 	"422": CreateSandboxesSessionsBySessionIdSnapshotV3Status422;
 	"429": CreateSandboxesSessionsBySessionIdSnapshotV3Status429;
 	"500": CreateSandboxesSessionsBySessionIdSnapshotV3Status500;
+	"504": CreateSandboxesSessionsBySessionIdSnapshotV3Status504;
 };
 
 /**
