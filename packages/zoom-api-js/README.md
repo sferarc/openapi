@@ -35,6 +35,35 @@ const files = await client.request("GET /archive_files");
 
 Path parameters are percent-encoded. A meeting or webinar UUID that begins with `/` or contains `//` is encoded twice, as Zoom requires, so pass the UUID as Zoom returns it.
 
+### Refreshing the token
+
+Zoom OAuth access tokens expire after an hour. Pass a function as `token`, sync or async, and the client calls it before every request, so each call sends the token it returns; `auth.refreshToken` gets a new one:
+
+```ts
+const { auth } = new ZoomApi({ token: null });
+let session = { accessToken: "", refreshToken: process.env.ZOOM_REFRESH_TOKEN ?? "", expiresAt: 0 };
+
+const client = new ZoomApi({
+  token: async () => {
+    if (Date.now() >= session.expiresAt) {
+      const result = await auth.refreshToken({
+        refreshToken: session.refreshToken,
+        clientId: process.env.ZOOM_CLIENT_ID ?? "",
+        clientSecret: process.env.ZOOM_CLIENT_SECRET ?? "",
+      });
+      session = {
+        accessToken: result.access_token,
+        refreshToken: result.refresh_token,
+        expiresAt: Date.now() + (result.expires_in - 60) * 1000,
+      };
+    }
+    return session.accessToken;
+  },
+});
+```
+
+A call rejects with what the function threw, before any request is sent. A call's own `config.token` still wins.
+
 ### Custom fetch
 
 ```ts
