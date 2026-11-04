@@ -1,5 +1,11 @@
 # cloudflare-api-js
 
+## 4.10.0
+
+### Minor Changes
+
+- 06200b0: `CloudflareApi` accepts the legacy Global API Key: pass `apiKey` and `email` instead of `token` and every call sends them as `X-Auth-Key` and `X-Auth-Email`, which operations such as the Cloudforce One requests require.
+
 ## 4.9.0
 
 ### Minor Changes
