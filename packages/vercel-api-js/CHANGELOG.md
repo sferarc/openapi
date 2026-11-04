@@ -1,5 +1,17 @@
 # vercel-api-js
 
+## 2.19.0
+
+### Minor Changes
+
+- bfae9b1: [BREAKING] UserEvent type changed: field 'connectionId' is now optional, 'certificateFingerprints' is now optional, and the 'actorType' type reference was updated.
+- bfae9b1: Added new event types 'admin-observability-disabled' and 'web-analytics-summary-subscription-updated' to UserEvent and related enums.
+- bfae9b1: Added userEventPayloadCadenceEnum and corresponding type for scheduling cadence options.
+
+### Patch Changes
+
+- bfae9b1: Added 504 response types to createSandboxesSessionsBySessionIdSnapshotV2 and createSandboxesSessionsBySessionIdSnapshotV3 operations.
+
 ## 2.18.1
 
 ### Patch Changes
