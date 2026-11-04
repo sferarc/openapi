@@ -1,5 +1,22 @@
 # cloudflare-api-js
 
+## 4.13.0
+
+### Minor Changes
+
+- b4bab96: Expanded bot category enumerations for bot-related endpoints with new categories such as AI_ASSISTANT, AI_CRAWLER, COMMERCE, and others, and updated documentation to indicate legacy/deprecated categories.
+- b4bab96: [BREAKING] The error response types for several Lists and WAF operations were simplified and now use only the base failure type instead of including the previous response collection types.
+- b4bab96: Added the 'avif' zone image setting and related types to support AVIF image codec configuration in zone settings.
+- b4bab96: The bot details response now includes new fields: accessLevel, categories, contentUse, documentationUrl, and operatorWebsiteUrl, with 'category' and 'documentation' fields marked as deprecated.
+- b4bab96: Added BOT_OPERATORS as a possible include/exclude filter option for radarGetSearchGlobal queries.
+- b4bab96: [BREAKING] The base type for ListsListsAsyncResponse changed from ListsApiResponseCollection to ListsApiResponseCommon.
+
+### Patch Changes
+
+- b4bab96: The query default values for radarGetAttacksLayer3TimeseriesByBytes and radarGetQualitySpeedHistogram now use uppercase string values (e.g., 'BYTES', 'BANDWIDTH').
+- b4bab96: Radar search global endpoint's description now mentions support for bot operators as a searchable item type.
+- b4bab96: The type for jurisdiction fields in R2Slurper types now allows null values in addition to undefined.
+
 ## 4.12.1
 
 ### Patch Changes
