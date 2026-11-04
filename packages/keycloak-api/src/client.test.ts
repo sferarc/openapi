@@ -232,6 +232,63 @@ describe("Keycloak per-call config", () => {
 	});
 });
 
+describe("Keycloak token function", () => {
+	function setup() {
+		const authorizations: unknown[] = [];
+		const fetch: FetchImpl = async (_url, init) => {
+			authorizations.push((init?.headers as Record<string, string> | undefined)?.Authorization);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { authorizations, fetch, baseUrl: "https://keycloak.example.com" };
+	}
+
+	it("asks the admin client's token function again on every call", async () => {
+		const { authorizations, ...options } = setup();
+		let current = 0;
+		const admin = new KeycloakAdminApi({ ...options, token: async () => `token-${++current}` });
+		await admin.request("GET /admin/realms");
+		await admin.request("GET /admin/realms");
+		expect(authorizations).toEqual(["Bearer token-1", "Bearer token-2"]);
+	});
+
+	it("takes a synchronous token function in the account client", async () => {
+		const { authorizations, ...options } = setup();
+		const account = new KeycloakAccountApi({ ...options, realm: "main", token: () => "fresh" });
+		await account.request("GET /account/");
+		expect(authorizations).toEqual(["Bearer fresh"]);
+	});
+
+	it("sends no Authorization header when the function returns null", async () => {
+		const { authorizations, ...options } = setup();
+		const admin = new KeycloakAdminApi({ ...options, token: () => null });
+		await admin.request("GET /admin/realms");
+		expect(authorizations).toEqual([undefined]);
+	});
+
+	it("lets a call's own config.token win over the function", async () => {
+		const { authorizations, ...options } = setup();
+		const admin = new KeycloakAdminApi({ ...options, token: () => "client" });
+		await admin.request("GET /admin/realms", { config: { token: "call" } });
+		expect(authorizations).toEqual(["Bearer call"]);
+	});
+
+	it("rejects with what the token function threw, before calling fetch", async () => {
+		const { authorizations, ...options } = setup();
+		const failure = new Error("refresh failed");
+		const admin = new KeycloakAdminApi({
+			...options,
+			token: async () => {
+				throw failure;
+			},
+		});
+		await expect(admin.request("GET /admin/realms")).rejects.toBe(failure);
+		expect(authorizations).toEqual([]);
+	});
+});
+
 describe("Keycloak response headers", () => {
 	const location = "https://keycloak.example.com/admin/realms/master/users/4f1c";
 

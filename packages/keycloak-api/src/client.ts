@@ -4,16 +4,19 @@ import type { FetchImpl } from "./utils/fetch";
 import type { FetcherConfig } from "./utils/fetcher";
 import type { RequiredKeys } from "./utils/types";
 
+/** A fixed access token, or a function the client calls before every request for the current one. */
+export type KeycloakToken = string | null | (() => string | null | Promise<string | null>);
+
 export interface KeycloakAdminApiOptions {
 	baseUrl: string;
-	token: string | null;
+	token: KeycloakToken;
 	fetch?: FetchImpl;
 }
 
 export interface KeycloakAccountApiOptions {
 	baseUrl: string;
 	realm: string;
-	token: string | null;
+	token: KeycloakToken;
 	fetch?: FetchImpl;
 }
 
@@ -55,6 +58,11 @@ function findOperation(operations: Record<string, unknown>, endpoint: string): O
 	return operations[endpoint] as Operation;
 }
 
+// Keycloak access tokens expire after minutes, so a function is asked again on every call.
+async function resolveToken(token: KeycloakToken): Promise<string | null> {
+	return typeof token === "function" ? await token() : token;
+}
+
 // The caller's per-call config, such as extra headers, layers over the client's own.
 function withConfig(params: unknown, clientConfig: FetcherConfig): CallParams {
 	const { config, ...rest } = (params ?? {}) as CallParams;
@@ -63,7 +71,7 @@ function withConfig(params: unknown, clientConfig: FetcherConfig): CallParams {
 
 export class KeycloakAdminApi {
 	#baseUrl: string;
-	#token: string | null;
+	#token: KeycloakToken;
 	#fetch: FetchImpl;
 
 	constructor(options: KeycloakAdminApiOptions) {
@@ -80,7 +88,11 @@ export class KeycloakAdminApi {
 	) {
 		const operation = findOperation(adminOperationsByPath, endpoint);
 		const result = await operation(
-			withConfig(params, { baseUrl: this.#baseUrl, token: this.#token, fetchImpl: this.#fetch }),
+			withConfig(params, {
+				baseUrl: this.#baseUrl,
+				token: await resolveToken(this.#token),
+				fetchImpl: this.#fetch,
+			}),
 		);
 		return result as AdminRequestEndpointResult<Endpoint>;
 	}
@@ -89,7 +101,7 @@ export class KeycloakAdminApi {
 export class KeycloakAccountApi {
 	#baseUrl: string;
 	#realm: string;
-	#token: string | null;
+	#token: KeycloakToken;
 	#fetch: FetchImpl;
 
 	constructor(options: KeycloakAccountApiOptions) {
@@ -110,7 +122,7 @@ export class KeycloakAccountApi {
 			withConfig(params, {
 				// Encoded like the admin API's `{realm}`: Keycloak allows `%` and spaces in a realm name.
 				baseUrl: `${this.#baseUrl.replace(/\/+$/, "")}/realms/${encodeURIComponent(this.#realm)}`,
-				token: this.#token,
+				token: await resolveToken(this.#token),
 				fetchImpl: this.#fetch,
 			}),
 		);
