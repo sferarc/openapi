@@ -12981,14 +12981,14 @@ export type AddressingApiResponseCommonFailure = {
 };
 
 /**
- * @description Approval state of the prefix (P = pending, V = active).
+ * @description Approval state of the prefix (P = pending, V = approved). Approval does not advertise the prefix or activate traffic.
  * @example P
  * @type string
  */
 export type AddressingApproved = string;
 
 /**
- * @description Autonomous System Number (ASN) the prefix will be advertised under.
+ * @description Autonomous System Number (ASN) the prefix will be advertised under. Use 13335 for Cloudflare's ASN, or your own ASN as an integer without the AS prefix. The IRR route and RPKI ROA must authorize this ASN.
  * @example 13335
  * @type integer
  */
@@ -13001,6 +13001,15 @@ export type AddressingAsn = number;
  */
 export type AddressingAsn2 = number | null;
 
+export const addressingAsnOwnershipValidationState = {
+  pending: 'pending',
+  valid: 'valid',
+  missing: 'missing',
+  invalid: 'invalid',
+} as const;
+
+export type AddressingAsnOwnershipValidationStateKey = (typeof addressingAsnOwnershipValidationState)[keyof typeof addressingAsnOwnershipValidationState];
+
 /**
  * @description Number of times to prepend the Cloudflare ASN to the BGP AS-Path attribute
  * @minimum 0
@@ -13010,6 +13019,14 @@ export type AddressingAsn2 = number | null;
  * @type integer
  */
 export type AddressingAsnPrependCount = number;
+
+export const addressingAspaValidationState = {
+  pending: 'pending',
+  valid: 'valid',
+  invalid: 'invalid',
+} as const;
+
+export type AddressingAspaValidationStateKey = (typeof addressingAspaValidationState)[keyof typeof addressingAspaValidationState];
 
 /**
  * @description Determines if Cloudflare advertises a BYOIP BGP prefix even when there is no matching BGP prefix in the Magic routing table. When true, Cloudflare will automatically withdraw the BGP prefix when there are no matching BGP routes, and will resume advertising when there is at least one matching BGP route.
@@ -13414,7 +13431,7 @@ export type AddressingOnDemandEnabled = boolean;
 export type AddressingOnDemandLocked = boolean;
 
 /**
- * @description Token provided to demonstrate ownership of the prefix.
+ * @description Token used to verify ownership of the prefix and, when applicable, its ASN. Use the same token for both checks. Refer to the [BYOIP onboarding guide](https://developers.cloudflare.com/byoip/get-started/) for verification instructions.
  * @example 1234a5b6-1234-1abc-12a3-1234a5b6789c
  * @type string
  */
@@ -13445,17 +13462,29 @@ export type AddressingIpamPrefixes = {
    */
   advertised_modified_at?: (AddressingAdvertisedModifiedAtNullable | null) | undefined;
   /**
-   * @description Approval state of the prefix (P = pending, V = active).
+   * @description Approval state of the prefix (P = pending, V = approved). Approval does not advertise the prefix or activate traffic.
    * @example P
    * @type string | undefined
    */
   approved?: AddressingApproved | undefined;
   /**
-   * @description Autonomous System Number (ASN) the prefix will be advertised under.
+   * @description Autonomous System Number (ASN) the prefix will be advertised under. Use 13335 for Cloudflare's ASN, or your own ASN as an integer without the AS prefix. The IRR route and RPKI ROA must authorize this ASN.
    * @example 13335
    * @type integer | undefined
    */
   asn?: AddressingAsn | undefined;
+  /**
+   * @description State of ASN ownership validation for a customer-owned Autonomous System Number (ASN). Returned when an ASN ownership validation result exists. Omitted when validation does not apply, such as for Cloudflare-owned ASNs. Verification is reused for prefixes with the same account and ASN. Refer to [ASN ownership validation states](https://developers.cloudflare.com/byoip/troubleshooting/prefix-validation/#asn-ownership-validation) for state meanings and resolutions.
+   * @example pending
+   * @type string | undefined
+   */
+  asn_ownership_validation_state?: AddressingAsnOwnershipValidationStateKey | undefined;
+  /**
+   * @description State of Autonomous System Provider Authorization (ASPA) validation for a customer-owned ASN. Returned when an ASPA validation result exists. Publishing an ASPA is optional. A published ASPA must authorize AS13335 as a provider. An invalid result blocks approval. If omitted, no ASPA validation result is available. Omission does not indicate successful validation or confirm that no ASPA exists. Refer to [ASPA validation states](https://developers.cloudflare.com/byoip/troubleshooting/prefix-validation/#aspa-validation) for state meanings and resolutions, and [ASPA authorization](https://developers.cloudflare.com/byoip/concepts/route-filtering-rpki/#aspa-authorization) for publication guidance.
+   * @example pending
+   * @type string | undefined
+   */
+  aspa_validation_state?: AddressingAspaValidationStateKey | undefined;
   /**
    * @description IP Prefix in Classless Inter-Domain Routing format.
    * @example 192.0.2.0/24
@@ -13531,7 +13560,7 @@ export type AddressingIpamPrefixes = {
    */
   ownership_validation_state?: AddressingValidationState | undefined;
   /**
-   * @description Token provided to demonstrate ownership of the prefix.
+   * @description Token used to verify ownership of the prefix and, when applicable, its ASN. Use the same token for both checks. Refer to the [BYOIP onboarding guide](https://developers.cloudflare.com/byoip/get-started/) for verification instructions.
    * @example 1234a5b6-1234-1abc-12a3-1234a5b6789c
    * @type string | undefined
    */
@@ -56144,7 +56173,7 @@ export type IamAccount = {
      */
     enforce_twofactor?: boolean | undefined;
   } | undefined;
-  type: IamAccountTypeKey;
+  readonly type: IamAccountTypeKey;
 };
 
 /**
@@ -77036,7 +77065,7 @@ export type ObservatoryTrendResponse = ObservatoryApiResponseSingle & {
 export type OhttpGatewayApiError = {
   /**
    * @description Numeric error code.
-   * @example 1013
+   * @example 1010
    * @type integer
    */
   code: number;
@@ -77087,18 +77116,18 @@ export type OhttpGatewayApiResponseFailure = {
   success: boolean;
 };
 
-export const ohttpGatewayApiSuccessResponseResultEnum = {
-  'ohttp is active': 'ohttp is active',
-  'ohttp is inactive': 'ohttp is inactive',
+export const ohttpGatewayGetApiSuccessResponseResultEnum = {
+  on: 'on',
+  off: 'off',
 } as const;
 
-export type OhttpGatewayApiSuccessResponseResultEnumKey = (typeof ohttpGatewayApiSuccessResponseResultEnum)[keyof typeof ohttpGatewayApiSuccessResponseResultEnum];
+export type OhttpGatewayGetApiSuccessResponseResultEnumKey = (typeof ohttpGatewayGetApiSuccessResponseResultEnum)[keyof typeof ohttpGatewayGetApiSuccessResponseResultEnum];
 
 /**
  * @description Standard Cloudflare API response wrapping the result of an operation.
  * @type object
  */
-export type OhttpGatewayApiSuccessResponse = {
+export type OhttpGatewayGetApiSuccessResponse = {
   /**
    * @description List of errors, empty on success.
    * @type array
@@ -77110,13 +77139,21 @@ export type OhttpGatewayApiSuccessResponse = {
    * @type array
    */
   messages: OhttpGatewayApiMessage[];
-  result: OhttpGatewayApiSuccessResponseResultEnumKey;
+  result: OhttpGatewayGetApiSuccessResponseResultEnumKey;
   /**
    * @description Whether the API call was successful.
    * @example true
    * @type boolean
    */
   success: boolean;
+};
+
+export type OhttpGatewayCreateApiSuccessResponse = OhttpGatewayGetApiSuccessResponse & {
+  result?: 'on' | undefined;
+};
+
+export type OhttpGatewayDeleteApiSuccessResponse = OhttpGatewayGetApiSuccessResponse & {
+  result?: 'off' | undefined;
 };
 
 /**
@@ -123738,147 +123775,178 @@ export type WorkersKvNamespace = {
  */
 export type WorkersKvValue = string | Blob;
 
-export const workersObservabilityAgentSessionStatusEnum = {
-  observed_no_error: 'observed_no_error',
-  error: 'error',
-} as const;
-
-export type WorkersObservabilityAgentSessionStatusEnumKey = (typeof workersObservabilityAgentSessionStatusEnum)[keyof typeof workersObservabilityAgentSessionStatusEnum];
-
-export type WorkersObservabilityAgentSession = {
+export type WorkersObservabilityAgentResultInfo = {
   /**
-   * @description OpenTelemetry gen_ai.conversation.id value that identifies the session within the account.
-   * @type string
-   */
-  conversationId: string;
-  /**
-   * @description Sum of input tokens reported by chat spans attributed to the session. Omitted when no span reports input-token usage.
-   * @type number | undefined
-   */
-  inputTokens?: number | undefined;
-  /**
-   * @description End of the latest observed agent invocation in the session, as Unix epoch milliseconds. Sessions are ordered by this value.
+   * @description Items returned on this page. Not a total: a page can be short or empty while more results remain.
    * @minimum 0
    * @type integer
    */
-  lastActiveMs: number;
+  count: number;
+  cursors: {
+    /**
+     * @description Opaque cursor for the next page. Only null means there are no more results; earlier pages can be short or empty.
+     * @type string
+     */
+    after: string | null;
+  };
   /**
-   * @description Distinct models reported by chat spans attributed to the session.
-   * @type array
-   */
-  models: string[];
-  /**
-   * @description Sum of output tokens reported by chat spans attributed to the session. Omitted when no span reports output-token usage.
-   * @type number | undefined
-   */
-  outputTokens?: number | undefined;
-  /**
-   * @description Distinct generative AI providers reported by chat spans attributed to the session.
-   * @type array
-   */
-  providers: string[];
-  /**
-   * @description Elapsed time from sessionStartMs to lastActiveMs, in milliseconds.
+   * @description Effective start of the time window, after defaults and retention clamping.
    * @minimum 0
    * @type integer
    */
-  sessionDurationMs: number;
+  from: number;
   /**
-   * @description Start of the earliest observed agent invocation in the session, as Unix epoch milliseconds.
+   * @description Maximum items requested for this page.
+   * @minimum 1
+   * @type integer
+   */
+  per_page: number;
+  /**
+   * @description Effective end of the time window.
    * @minimum 0
    * @type integer
    */
-  sessionStartMs: number;
-  /**
-   * @description Observed status of agent invocation and chat spans attributed to the session. error means at least one span reported an error; observed_no_error means no error was observed. This does not guarantee that the session completed successfully.
-   * @type string
-   */
-  status: WorkersObservabilityAgentSessionStatusEnumKey;
-  /**
-   * @description Number of distinct traces associated with the session during the requested time range.
-   * @minimum 0
-   * @type integer
-   */
-  traceCount: number;
+  to: number;
 };
 
-export const workersObservabilityAgentSessionRunStatusEnum = {
-  completed: 'completed',
-  error: 'error',
-} as const;
-
-export type WorkersObservabilityAgentSessionRunStatusEnumKey = (typeof workersObservabilityAgentSessionRunStatusEnum)[keyof typeof workersObservabilityAgentSessionRunStatusEnum];
-
-export type WorkersObservabilityAgentSessionRun = {
+export type WorkersObservabilityTraceSummary = {
   /**
-   * @description OpenTelemetry gen_ai.conversation.id value that identifies the session containing the run.
-   * @type string
+   * @description Recorded spans with a nonempty error or ERROR status. Counts spans, not distinct messages or incidents.
+   * @minimum 0
+   * @type integer
    */
-  conversationId: string;
+  errorCount: number;
   /**
-   * @description Distinct errors reported by the observed spans in the trace.
-   * @type array
+   * @description Error messages encountered during the trace, if any.
+   * @type array | undefined
    */
-  errors: string[];
+  errors?: string[] | undefined;
   /**
-   * @description Sum of input tokens reported by chat spans attributed to the session within this trace. Omitted when none report input-token usage.
-   * @type number | undefined
+   * @description Input tokens reported by chat spans in the authorized Trace window; null when none report input usage. Informational, not billing data.
+   * @minimum 0
+   * @type number
    */
-  inputTokens?: number | undefined;
+  inputTokens: number | null;
   /**
-   * @description Distinct models reported by chat spans attributed to the session within this trace.
+   * @description Recorded chat spans in the authorized Trace window.
+   * @minimum 0
+   * @type integer
+   */
+  llmCallCount: number;
+  /**
+   * @description Recorded chat spans with a nonempty error or ERROR status.
+   * @minimum 0
+   * @type integer
+   */
+  llmErrorCount: number;
+  /**
+   * @description Sorted distinct response models, falling back to request models, from chat spans in the authorized Trace window.
    * @type array
    */
   models: string[];
   /**
-   * @description Sum of output tokens reported by chat spans attributed to the session within this trace. Omitted when none report output-token usage.
-   * @type number | undefined
+   * @description Output tokens reported by chat spans in the authorized Trace window; null when none report output usage. Informational, not billing data.
+   * @minimum 0
+   * @type number
    */
-  outputTokens?: number | undefined;
+  outputTokens: number | null;
   /**
-   * @description Distinct generative AI providers reported by chat spans attributed to the session within this trace.
+   * @description Sorted distinct GenAI providers from chat spans in the authorized Trace window.
    * @type array
    */
   providers: string[];
   /**
-   * @description Distinct Worker services represented by the observed spans in the trace.
+   * @description Name of the root span that initiated the trace.
+   * @type string
+   */
+  rootSpanName: string;
+  /**
+   * @description Logical transaction name for the root span.
+   * @type string
+   */
+  rootTransactionName: string;
+  /**
+   * @description Authorized Worker services represented in the trace.
    * @type array
    */
   services: string[];
   /**
-   * @description Number of observed spans in the trace during the requested time range.
-   * @minimum 0
-   * @type integer
+   * @description Total number of spans in the trace.
+   * @type number
    */
   spans: number;
   /**
-   * @description Observed trace status. error means at least one observed span reported an error; completed means no error was observed. This does not guarantee that the complete trace was observed.
-   * @type string
-   */
-  status: WorkersObservabilityAgentSessionRunStatusEnumKey;
-  /**
-   * @description Elapsed time from traceStartMs to traceEndMs, in milliseconds.
+   * @description Recorded execute_tool spans in the authorized Trace window. Custom-named approval spans are not counted.
    * @minimum 0
    * @type integer
+   */
+  toolCallCount: number;
+  /**
+   * @description Recorded execute_tool spans with a nonempty error or ERROR status.
+   * @minimum 0
+   * @type integer
+   */
+  toolErrorCount: number;
+  /**
+   * @description Input plus output tokens; null if either direction is unreported. Does not add cache or reasoning breakdowns.
+   * @minimum 0
+   * @type number
+   */
+  totalTokens: number | null;
+  /**
+   * @description Total duration of the trace in milliseconds.
+   * @type number
    */
   traceDurationMs: number;
   /**
-   * @description End of the latest observed span in the trace, as Unix epoch milliseconds.
-   * @minimum 0
-   * @type integer
+   * @description Trace end time as a Unix epoch in milliseconds.
+   * @type number
    */
   traceEndMs: number;
   /**
-   * @description Trace identifier for the run.
+   * @description Unique identifier for the distributed trace.
    * @type string
    */
   traceId: string;
   /**
-   * @description Start of the earliest observed span in the trace, as Unix epoch milliseconds.
+   * @description Trace start time as a Unix epoch in milliseconds.
+   * @type number
+   */
+  traceStartMs: number;
+};
+
+export type WorkersObservabilityAgentTraceSummary = WorkersObservabilityTraceSummary & {
+  /**
+   * @description Sorted distinct gen_ai.agent.name values of authorized Agent invocations in the Trace within the effective window. Includes every Agent in the Trace, not only those matching the agent filter.
+   * @type array
+   */
+  agents: string[];
+  /**
+   * @description Sorted distinct gen_ai.conversation.id values of authorized Agent invocations in the Trace within the effective window. Empty when none are recorded.
+   * @type array
+   */
+  conversationIds: string[];
+  /**
+   * @description Latest start of an authorized Agent invocation in the Trace within the effective window, as Unix epoch milliseconds. The Trace list is ordered by this value, newest first.
    * @minimum 0
    * @type integer
    */
-  traceStartMs: number;
+  lastActivityMs: number;
+};
+
+export type WorkersObservabilityAgentWindowInfo = {
+  /**
+   * @description Effective start of the time window, after defaults and retention clamping.
+   * @minimum 0
+   * @type integer
+   */
+  from: number;
+  /**
+   * @description Effective end of the time window.
+   * @minimum 0
+   * @type integer
+   */
+  to: number;
 };
 
 export const workersObservabilityDistributionResultBucketModeEnum = {
@@ -139216,6 +139284,120 @@ export type ZonesZoneSettingsSingleRequest = {
 };
 
 export type IntelSinkholesApiResponseCommonFailure2 = IntelSinkholesApiResponseCommonFailure;
+
+export type IamAccountWritable = {
+  /**
+   * @description Timestamp for the creation of the account
+   *
+   * Format: `date-time`
+   * @example 2014-03-01T12:21:02Z
+   * @type string | undefined
+   */
+  readonly created_on?: string | undefined;
+  /**
+   * @description Identifier
+   * @minLength 32
+   * @maxLength 32
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  id: IamCommonComponentsSchemasIdentifier;
+  /**
+   * @description Legacy account flags.
+   * @type object | undefined
+   */
+  readonly legacy_flags?: {
+    /**
+     * @description Enterprise zone quota for standard and enterprise accounts. Accounts without a quota have a maximum of 0.
+     * @type object | undefined
+     */
+    enterprise_zone_quota?: {
+      /**
+       * @description Number of additional Enterprise zones available. Returns 0 if the quota is not allocated or is exhausted.
+       * @example 168
+       * @type integer | undefined
+       */
+      available?: number | undefined;
+      /**
+       * @description Current number of Enterprise zones.
+       * @example 82
+       * @type integer | undefined
+       */
+      current?: number | undefined;
+      /**
+       * @description Maximum number of Enterprise zones allowed.
+       * @example 250
+       * @type integer | undefined
+       */
+      maximum?: number | undefined;
+    } | undefined;
+  } | undefined;
+  /**
+   * @description Parent container details
+   * @type object | undefined
+   */
+  managed_by?: {
+    /**
+     * @description ID of the parent Organization, if one exists
+     * @maxLength 32
+     * @example 4536bcfad5faccb111b47003c79917fa
+     * @type string | undefined
+     */
+    readonly parent_org_id?: string | undefined;
+    /**
+     * @description Name of the parent Organization, if one exists
+     * @example Demo Parent Organization
+     * @type string | undefined
+     */
+    readonly parent_org_name?: string | undefined;
+    /**
+     * @description ID of the root Organization, if one exists
+     * @maxLength 32
+     * @example 46f0a1ce86ec3d91fae00db3b8b48cee
+     * @type string | undefined
+     */
+    readonly root_org_id?: string | undefined;
+    /**
+     * @description Indicates whether the parent Organization hierarchy should be displayed
+     * @example true
+     * @type boolean | undefined
+     */
+    readonly should_display_parent_orgs?: boolean | undefined;
+  } | undefined;
+  /**
+   * @description Account name
+   * @example Demo Account
+   * @type string
+   */
+  name: string;
+  /**
+   * @description Account settings
+   * @type object | undefined
+   */
+  settings?: {
+    /**
+     * @description Sets an abuse contact email to notify for abuse reports.
+     * @type string | undefined
+     */
+    abuse_contact_email?: string | undefined;
+    /**
+     * @description Indicates whether membership in this account requires that
+     * Two-Factor Authentication is enabled
+     * @default false
+     * @type boolean | undefined
+     */
+    enforce_twofactor?: boolean | undefined;
+  } | undefined;
+  readonly type?: IamAccountTypeKey | undefined;
+};
+
+export type IamComponentsSchemasAccountWritable = IamAccountWritable & {
+  /**
+   * @description Account name, limited to 65 UTF-8 bytes.
+   * @type string | undefined
+   */
+  name?: string | undefined;
+};
 
 /**
  * @description An email allow policy.
@@ -226635,7 +226817,7 @@ export type AccountsUpdateAccountStatus200 = IamResponseSingleAccount;
 
 export type AccountsUpdateAccountStatus400 = IamApiResponseCommonFailure;
 
-export type AccountsUpdateAccountBody = IamComponentsSchemasAccount;
+export type AccountsUpdateAccountBody = IamComponentsSchemasAccountWritable;
 
 export type AccountsUpdateAccountOptions = {
   body: AccountsUpdateAccountBody;
@@ -238557,7 +238739,7 @@ export type IpAddressManagementPrefixesAddPrefixStatus400 = AddressingSingleResp
 
 export type IpAddressManagementPrefixesAddPrefixBody = {
   /**
-   * @description Autonomous System Number (ASN) the prefix will be advertised under.
+   * @description Autonomous System Number (ASN) the prefix will be advertised under. Use 13335 for Cloudflare's ASN, or your own ASN as an integer without the AS prefix. The IRR route and RPKI ROA must authorize this ASN.
    * @example 13335
    * @type integer
    */
@@ -248688,6 +248870,11 @@ export type AigConfigListGatewayLogsQuery = {
 export type AigConfigListGatewayLogsStatus200 = {
   result: {
     cached: boolean;
+    /**
+     * @description Whether the request and response bodies were eligible to be stored. False when the request sent `cf-aig-collect-log-payload: false`, logging was off, or the gateway does not store bodies for the request. Null for logs written before this field existed.
+     * @type boolean | undefined
+     */
+    collect_log_payload?: (boolean | null) | undefined;
     cost?: number | undefined;
     /**
      * @description
@@ -248781,6 +248968,11 @@ export type AigConfigGetGatewayLogDetailPath = {
 export type AigConfigGetGatewayLogDetailStatus200 = {
   result: {
     cached: boolean;
+    /**
+     * @description Whether the request and response bodies were eligible to be stored. False when the request sent `cf-aig-collect-log-payload: false`, logging was off, or the gateway does not store bodies for the request. Null for logs written before this field existed.
+     * @type boolean | undefined
+     */
+    collect_log_payload?: (boolean | null) | undefined;
     cost?: number | undefined;
     /**
      * @description
@@ -293492,6 +293684,7 @@ export const getEventListGetSearchOpEnum = {
   startsWith: 'startsWith',
   endsWith: 'endsWith',
   find: 'find',
+  notContains: 'notContains',
 } as const;
 
 export type GetEventListGetSearchOpEnumKey = (typeof getEventListGetSearchOpEnum)[keyof typeof getEventListGetSearchOpEnum];
@@ -293516,6 +293709,13 @@ export const getEventListGetSearchFieldEnum2 = {
 
 export type GetEventListGetSearchFieldEnum2Key = (typeof getEventListGetSearchFieldEnum2)[keyof typeof getEventListGetSearchFieldEnum2];
 
+export const getEventListGetSearchOpEnum2 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type GetEventListGetSearchOpEnum2Key = (typeof getEventListGetSearchOpEnum2)[keyof typeof getEventListGetSearchOpEnum2];
+
 export const getEventListGetSearchOpEnum3 = {
   equals: 'equals',
   not: 'not',
@@ -293527,6 +293727,13 @@ export const getEventListGetSearchOpEnum3 = {
 
 export type GetEventListGetSearchOpEnum3Key = (typeof getEventListGetSearchOpEnum3)[keyof typeof getEventListGetSearchOpEnum3];
 
+export const getEventListGetSearchOpEnum4 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type GetEventListGetSearchOpEnum4Key = (typeof getEventListGetSearchOpEnum4)[keyof typeof getEventListGetSearchOpEnum4];
+
 export const getEventListGetSearchOpEnum5 = {
   equals: 'equals',
   not: 'not',
@@ -293537,6 +293744,13 @@ export const getEventListGetSearchOpEnum5 = {
 } as const;
 
 export type GetEventListGetSearchOpEnum5Key = (typeof getEventListGetSearchOpEnum5)[keyof typeof getEventListGetSearchOpEnum5];
+
+export const getEventListGetSearchOpEnum6 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type GetEventListGetSearchOpEnum6Key = (typeof getEventListGetSearchOpEnum6)[keyof typeof getEventListGetSearchOpEnum6];
 
 export const getEventListGetSearchBranchesFieldEnum = {
   attacker: 'attacker',
@@ -293570,6 +293784,7 @@ export const getEventListGetSearchBranchesOpEnum = {
   startsWith: 'startsWith',
   endsWith: 'endsWith',
   find: 'find',
+  notContains: 'notContains',
 } as const;
 
 export type GetEventListGetSearchBranchesOpEnumKey = (typeof getEventListGetSearchBranchesOpEnum)[keyof typeof getEventListGetSearchBranchesOpEnum];
@@ -293594,6 +293809,13 @@ export const getEventListGetSearchBranchesFieldEnum2 = {
 
 export type GetEventListGetSearchBranchesFieldEnum2Key = (typeof getEventListGetSearchBranchesFieldEnum2)[keyof typeof getEventListGetSearchBranchesFieldEnum2];
 
+export const getEventListGetSearchBranchesOpEnum2 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type GetEventListGetSearchBranchesOpEnum2Key = (typeof getEventListGetSearchBranchesOpEnum2)[keyof typeof getEventListGetSearchBranchesOpEnum2];
+
 export const getEventListGetSearchBranchesOpEnum3 = {
   equals: 'equals',
   not: 'not',
@@ -293605,6 +293827,13 @@ export const getEventListGetSearchBranchesOpEnum3 = {
 
 export type GetEventListGetSearchBranchesOpEnum3Key = (typeof getEventListGetSearchBranchesOpEnum3)[keyof typeof getEventListGetSearchBranchesOpEnum3];
 
+export const getEventListGetSearchBranchesOpEnum4 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type GetEventListGetSearchBranchesOpEnum4Key = (typeof getEventListGetSearchBranchesOpEnum4)[keyof typeof getEventListGetSearchBranchesOpEnum4];
+
 export const getEventListGetSearchBranchesOpEnum5 = {
   equals: 'equals',
   not: 'not',
@@ -293615,6 +293844,13 @@ export const getEventListGetSearchBranchesOpEnum5 = {
 } as const;
 
 export type GetEventListGetSearchBranchesOpEnum5Key = (typeof getEventListGetSearchBranchesOpEnum5)[keyof typeof getEventListGetSearchBranchesOpEnum5];
+
+export const getEventListGetSearchBranchesOpEnum6 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type GetEventListGetSearchBranchesOpEnum6Key = (typeof getEventListGetSearchBranchesOpEnum6)[keyof typeof getEventListGetSearchBranchesOpEnum6];
 
 export const getEventListGetOrder = {
   asc: 'asc',
@@ -293639,6 +293875,7 @@ export type GetEventListGetQuery = {
    */
   cursor?: string | undefined;
   /**
+   * @description JSON-encoded. Structured search as a JSON array of {field, op, value} objects, AND'd together. Max 10 conditions per request. `in` and `notIn` take an array of up to 100 values. Exclusions: `not` drops events without a value for the field; `notIn` and `notContains` keep them. On intelligence datasets, a `notIn` list containing `"unknown"` also drops them; analytics datasets treat `"unknown"` as a literal value.
    * @default []
    * @type array | undefined
    */
@@ -293653,7 +293890,7 @@ export type GetEventListGetQuery = {
     value: string;
   } | {
     field: GetEventListGetSearchFieldEnum2Key;
-    op: 'in';
+    op: GetEventListGetSearchOpEnum2Key;
     value: string[];
   } | {
     field: 'killChain';
@@ -293661,7 +293898,7 @@ export type GetEventListGetQuery = {
     value: number | string;
   } | {
     field: 'killChain';
-    op: 'in';
+    op: GetEventListGetSearchOpEnum4Key;
     value: (number | string)[];
   } | {
     field: 'hasChildren';
@@ -293669,7 +293906,7 @@ export type GetEventListGetQuery = {
     value: boolean | 'true' | 'false' | 1 | 0 | '1' | '0';
   } | {
     field: 'hasChildren';
-    op: 'in';
+    op: GetEventListGetSearchOpEnum6Key;
     value: (boolean | 'true' | 'false' | 1 | 0 | '1' | '0')[];
   })[] | undefined;
   /**
@@ -293687,7 +293924,7 @@ export type GetEventListGetQuery = {
     value: string;
   } | {
     field: GetEventListGetSearchBranchesFieldEnum2Key;
-    op: 'in';
+    op: GetEventListGetSearchBranchesOpEnum2Key;
     value: string[];
   } | {
     field: 'killChain';
@@ -293695,7 +293932,7 @@ export type GetEventListGetQuery = {
     value: number | string;
   } | {
     field: 'killChain';
-    op: 'in';
+    op: GetEventListGetSearchBranchesOpEnum4Key;
     value: (number | string)[];
   } | {
     field: 'hasChildren';
@@ -293703,7 +293940,7 @@ export type GetEventListGetQuery = {
     value: boolean | 'true' | 'false' | 1 | 0 | '1' | '0';
   } | {
     field: 'hasChildren';
-    op: 'in';
+    op: GetEventListGetSearchBranchesOpEnum6Key;
     value: (boolean | 'true' | 'false' | 1 | 0 | '1' | '0')[];
   })[][] | undefined;
   /**
@@ -294035,6 +294272,7 @@ export const postEventListRequestSearchOpEnum = {
   startsWith: 'startsWith',
   endsWith: 'endsWith',
   find: 'find',
+  notContains: 'notContains',
 } as const;
 
 export type PostEventListRequestSearchOpEnumKey = (typeof postEventListRequestSearchOpEnum)[keyof typeof postEventListRequestSearchOpEnum];
@@ -294059,6 +294297,13 @@ export const postEventListRequestSearchFieldEnum2 = {
 
 export type PostEventListRequestSearchFieldEnum2Key = (typeof postEventListRequestSearchFieldEnum2)[keyof typeof postEventListRequestSearchFieldEnum2];
 
+export const postEventListRequestSearchOpEnum2 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type PostEventListRequestSearchOpEnum2Key = (typeof postEventListRequestSearchOpEnum2)[keyof typeof postEventListRequestSearchOpEnum2];
+
 export const postEventListRequestSearchOpEnum3 = {
   equals: 'equals',
   not: 'not',
@@ -294070,6 +294315,13 @@ export const postEventListRequestSearchOpEnum3 = {
 
 export type PostEventListRequestSearchOpEnum3Key = (typeof postEventListRequestSearchOpEnum3)[keyof typeof postEventListRequestSearchOpEnum3];
 
+export const postEventListRequestSearchOpEnum4 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type PostEventListRequestSearchOpEnum4Key = (typeof postEventListRequestSearchOpEnum4)[keyof typeof postEventListRequestSearchOpEnum4];
+
 export const postEventListRequestSearchOpEnum5 = {
   equals: 'equals',
   not: 'not',
@@ -294080,6 +294332,13 @@ export const postEventListRequestSearchOpEnum5 = {
 } as const;
 
 export type PostEventListRequestSearchOpEnum5Key = (typeof postEventListRequestSearchOpEnum5)[keyof typeof postEventListRequestSearchOpEnum5];
+
+export const postEventListRequestSearchOpEnum6 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type PostEventListRequestSearchOpEnum6Key = (typeof postEventListRequestSearchOpEnum6)[keyof typeof postEventListRequestSearchOpEnum6];
 
 export const postEventListRequestSearchBranchesFieldEnum = {
   attacker: 'attacker',
@@ -294113,6 +294372,7 @@ export const postEventListRequestSearchBranchesOpEnum = {
   startsWith: 'startsWith',
   endsWith: 'endsWith',
   find: 'find',
+  notContains: 'notContains',
 } as const;
 
 export type PostEventListRequestSearchBranchesOpEnumKey = (typeof postEventListRequestSearchBranchesOpEnum)[keyof typeof postEventListRequestSearchBranchesOpEnum];
@@ -294137,6 +294397,13 @@ export const postEventListRequestSearchBranchesFieldEnum2 = {
 
 export type PostEventListRequestSearchBranchesFieldEnum2Key = (typeof postEventListRequestSearchBranchesFieldEnum2)[keyof typeof postEventListRequestSearchBranchesFieldEnum2];
 
+export const postEventListRequestSearchBranchesOpEnum2 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type PostEventListRequestSearchBranchesOpEnum2Key = (typeof postEventListRequestSearchBranchesOpEnum2)[keyof typeof postEventListRequestSearchBranchesOpEnum2];
+
 export const postEventListRequestSearchBranchesOpEnum3 = {
   equals: 'equals',
   not: 'not',
@@ -294148,6 +294415,13 @@ export const postEventListRequestSearchBranchesOpEnum3 = {
 
 export type PostEventListRequestSearchBranchesOpEnum3Key = (typeof postEventListRequestSearchBranchesOpEnum3)[keyof typeof postEventListRequestSearchBranchesOpEnum3];
 
+export const postEventListRequestSearchBranchesOpEnum4 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type PostEventListRequestSearchBranchesOpEnum4Key = (typeof postEventListRequestSearchBranchesOpEnum4)[keyof typeof postEventListRequestSearchBranchesOpEnum4];
+
 export const postEventListRequestSearchBranchesOpEnum5 = {
   equals: 'equals',
   not: 'not',
@@ -294158,6 +294432,13 @@ export const postEventListRequestSearchBranchesOpEnum5 = {
 } as const;
 
 export type PostEventListRequestSearchBranchesOpEnum5Key = (typeof postEventListRequestSearchBranchesOpEnum5)[keyof typeof postEventListRequestSearchBranchesOpEnum5];
+
+export const postEventListRequestSearchBranchesOpEnum6 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type PostEventListRequestSearchBranchesOpEnum6Key = (typeof postEventListRequestSearchBranchesOpEnum6)[keyof typeof postEventListRequestSearchBranchesOpEnum6];
 
 export type PostEventListBody = {
   /**
@@ -294188,7 +294469,7 @@ export type PostEventListBody = {
    */
   pageSize?: number | undefined;
   /**
-   * @description Structured search as a JSON array of {field, op, value} objects. Use the 'in' operator with an array value to bulk-check up to 100 values. Multiple conditions are AND'd together. Max 10 conditions per request.
+   * @description Structured search as a JSON array of {field, op, value} objects, AND'd together. Max 10 conditions per request. `in` and `notIn` take an array of up to 100 values. Exclusions: `not` drops events without a value for the field; `notIn` and `notContains` keep them. On intelligence datasets, a `notIn` list containing `"unknown"` also drops them; analytics datasets treat `"unknown"` as a literal value.
    * @default []
    * @type array | undefined
    */
@@ -294203,7 +294484,7 @@ export type PostEventListBody = {
     value: string;
   } | {
     field: PostEventListRequestSearchFieldEnum2Key;
-    op: 'in';
+    op: PostEventListRequestSearchOpEnum2Key;
     value: string[];
   } | {
     field: 'killChain';
@@ -294211,7 +294492,7 @@ export type PostEventListBody = {
     value: number | string;
   } | {
     field: 'killChain';
-    op: 'in';
+    op: PostEventListRequestSearchOpEnum4Key;
     value: (number | string)[];
   } | {
     field: 'hasChildren';
@@ -294219,7 +294500,7 @@ export type PostEventListBody = {
     value: boolean | 'true' | 'false' | 1 | 0 | '1' | '0';
   } | {
     field: 'hasChildren';
-    op: 'in';
+    op: PostEventListRequestSearchOpEnum6Key;
     value: (boolean | 'true' | 'false' | 1 | 0 | '1' | '0')[];
   })[] | undefined;
   /**
@@ -294237,7 +294518,7 @@ export type PostEventListBody = {
     value: string;
   } | {
     field: PostEventListRequestSearchBranchesFieldEnum2Key;
-    op: 'in';
+    op: PostEventListRequestSearchBranchesOpEnum2Key;
     value: string[];
   } | {
     field: 'killChain';
@@ -294245,7 +294526,7 @@ export type PostEventListBody = {
     value: number | string;
   } | {
     field: 'killChain';
-    op: 'in';
+    op: PostEventListRequestSearchBranchesOpEnum4Key;
     value: (number | string)[];
   } | {
     field: 'hasChildren';
@@ -294253,7 +294534,7 @@ export type PostEventListBody = {
     value: boolean | 'true' | 'false' | 1 | 0 | '1' | '0';
   } | {
     field: 'hasChildren';
-    op: 'in';
+    op: PostEventListRequestSearchBranchesOpEnum6Key;
     value: (boolean | 'true' | 'false' | 1 | 0 | '1' | '0')[];
   })[][] | undefined;
 } | undefined;
@@ -299187,7 +299468,15 @@ export const getDatasetTagIndicatorsListSearchOpEnum = {
 export type GetDatasetTagIndicatorsListSearchOpEnumKey = (typeof getDatasetTagIndicatorsListSearchOpEnum)[keyof typeof getDatasetTagIndicatorsListSearchOpEnum];
 
 export type GetDatasetTagIndicatorsListQuery = {
+  /**
+   * @description Page number (default 1). page × pageSize may not exceed 10000.
+   * @type number | undefined
+   */
   page?: number | undefined;
+  /**
+   * @description Results per page (default 100, maximum 1000; larger values are clamped).
+   * @type number | undefined
+   */
   pageSize?: number | undefined;
   indicatorType?: string | undefined;
   /**
@@ -299220,6 +299509,11 @@ export type GetDatasetTagIndicatorsListQuery = {
 };
 
 export type GetDatasetTagIndicatorsListStatus200 = {
+  /**
+   * @description Number of shards that failed or timed out. Present only with partialResults.
+   * @type number | undefined
+   */
+  failedShardCount?: number | undefined;
   indicators: {
     /**
      * @description
@@ -299306,6 +299600,11 @@ export type GetDatasetTagIndicatorsListStatus200 = {
     totalCount: number;
     totalPages: number;
   };
+  /**
+   * @description Present and true when one or more shards failed or timed out. Indicators from those shards may be missing from this page and from totalCount.
+   * @type boolean | undefined
+   */
+  partialResults?: boolean | undefined;
 };
 
 export type GetDatasetTagIndicatorsListStatus400 = {
@@ -305731,7 +306030,15 @@ export type GetTagIndicatorsListQuery = {
    * @type array | undefined
    */
   datasetIds?: string[] | undefined;
+  /**
+   * @description Page number (default 1). page × pageSize may not exceed 10000.
+   * @type number | undefined
+   */
   page?: number | undefined;
+  /**
+   * @description Results per page (default 100, maximum 1000; larger values are clamped).
+   * @type number | undefined
+   */
   pageSize?: number | undefined;
   indicatorType?: string | undefined;
   /**
@@ -305764,6 +306071,11 @@ export type GetTagIndicatorsListQuery = {
 };
 
 export type GetTagIndicatorsListStatus200 = {
+  /**
+   * @description Number of shards that failed or timed out. Present only with partialResults.
+   * @type number | undefined
+   */
+  failedShardCount?: number | undefined;
   indicators: {
     /**
      * @description
@@ -305850,6 +306162,11 @@ export type GetTagIndicatorsListStatus200 = {
     totalCount: number;
     totalPages: number;
   };
+  /**
+   * @description Present and true when one or more shards failed or timed out. Indicators from those shards may be missing from this page and from totalCount.
+   * @type boolean | undefined
+   */
+  partialResults?: boolean | undefined;
 };
 
 export type GetTagIndicatorsListStatus400 = {
@@ -305970,7 +306287,7 @@ export type GetTagRelationshipsListQuery = {
    */
   expand?: string[] | undefined;
   /**
-   * @description Offset cursor from a previous page.
+   * @description Opaque cursor from a previous page. Results are ordered by createdAt ascending. Cursors in an older format are rejected; restart without a cursor.
    * @type string | undefined
    */
   cursor?: string | undefined;
@@ -310722,38 +311039,45 @@ export type GetDomainMatchListOrderKey = (typeof getDomainMatchListOrder)[keyof 
 
 export type GetDomainMatchListQuery = {
   /**
+   * @description Number of matches to skip, for pagination. Defaults to 0.
    * @default '0'
    * @type string | undefined
    */
   offset?: string | undefined;
   /**
+   * @description Maximum number of matches to return. Defaults to 50.
    * @default '50'
    * @type string | undefined
    */
   limit?: string | undefined;
   /**
-   * @description Query ID or comma-separated list of Query IDs. When multiple IDs are provided, matches are deduplicated across queries and each match includes a match_details array with per-match query metadata and dismissed state.
+   * @description ID of a domain query, or a comma-separated list of domain query IDs. When you pass several IDs, matches are deduplicated by domain and each match includes a `match_details` array with per-query metadata and dismissed state.
    * @type array
    */
   query_id: string[];
   /**
+   * @description Set to `true` to include `domain_id` on each match. Required to dismiss or undismiss a match. Defaults to `false`.
    * @default 'false'
    * @type string | undefined
    */
   include_domain_id?: string | undefined;
+  /**
+   * @description Set to `false` to exclude dismissed matches. Dismissed matches are included when this is omitted or `true`.
+   * @type string | undefined
+   */
   include_dismissed?: string | undefined;
   /**
-   * @description Filter matches by domain name (substring match)
+   * @description Return only matches whose domain contains this text (case-insensitive).
    * @type string | undefined
    */
   domain_search?: string | undefined;
   /**
-   * @description Column to sort by. Options: 'domain', 'first_seen', or 'registrar'
+   * @description Field to sort by: `domain`, `first_seen`, or `registrar`. Defaults to `first_seen`.
    * @type string | undefined
    */
   orderBy?: GetDomainMatchListOrderByKey | undefined;
   /**
-   * @description Sort order. Options: 'asc' (ascending) or 'desc' (descending)
+   * @description Sort direction: `asc` or `desc`. Defaults to `desc`. For single-query requests, `asc` applies only when `orderBy` is set.
    * @type string | undefined
    */
   order?: GetDomainMatchListOrderKey | undefined;
@@ -310766,7 +311090,20 @@ export type GetDomainMatchListStatus200 = {
      * @type boolean | undefined
      */
     dismissed?: boolean | undefined;
+    /**
+     * @description The matched domain name.
+     * @type string
+     */
     domain: string;
+    /**
+     * @description ID of the matched domain. Present only when `include_domain_id=true`. Use it with `query_id` to dismiss or undismiss the match.
+     * @type integer | undefined
+     */
+    domain_id?: number | undefined;
+    /**
+     * @description When the domain was matched. For multi-query requests, the most recent match time across the requested queries.
+     * @type string
+     */
     first_seen: string;
     /**
      * @description Per-match detail objects with query metadata and individual dismissed state. Only present when multiple query_ids are requested.
@@ -310778,7 +311115,15 @@ export type GetDomainMatchListStatus200 = {
        * @type boolean
        */
       dismissed: boolean;
+      /**
+       * @description ID of the match. Accepted by the legacy `match_ids` format.
+       * @type integer
+       */
       match_id: number;
+      /**
+       * @description ID of the domain query that produced this match.
+       * @type integer
+       */
       query_id: number;
       /**
        * @description Tag associated with the query, if one exists.
@@ -310789,12 +311134,17 @@ export type GetDomainMatchListStatus200 = {
     public_scans: {
       submission_id: string;
     } | null;
+    /**
+     * @description Registrar of the matched domain, if known.
+     * @type string
+     */
     registrar: string | null;
     scan_status: string;
     scan_submission_id: number | null;
     source: string | null;
   }[];
   /**
+   * @description Number of matching domains available for pagination. For requests with several `query_id` values, matches are deduplicated from at most 5,000 query-domain rows, so `total` can be lower than the actual number of matches.
    * @minimum 0
    * @type integer
    */
@@ -310832,8 +311182,16 @@ export type PostBulkDismissMatchesStatus200 = {
   result: {
     results: {
       domain_id: number;
+      /**
+       * @description Why this item failed, such as `Query not found` or `Match not found`.
+       * @type string | undefined
+       */
       error?: string | undefined;
       query_id: number;
+      /**
+       * @description Whether this item succeeded. Items already in the requested state succeed.
+       * @type boolean
+       */
       success: boolean;
     }[];
   };
@@ -310859,10 +311217,30 @@ export const postBulkDismissMatchesRequestActionEnum = {
 export type PostBulkDismissMatchesRequestActionEnumKey = (typeof postBulkDismissMatchesRequestActionEnum)[keyof typeof postBulkDismissMatchesRequestActionEnum];
 
 export type PostBulkDismissMatchesBody = {
+  /**
+   * @description `dismiss` to dismiss the matches, or `undismiss` to restore them.
+   * @type string
+   */
   action: PostBulkDismissMatchesRequestActionEnumKey;
+  /**
+   * @description Legacy format; prefer `matches`. Match IDs to update. Each ID changes the match for every query that shares it, not just one query. 1 to 100 items; duplicate IDs are rejected.
+   * @type array | undefined
+   */
   match_ids?: number[] | undefined;
+  /**
+   * @description Matches to update, as (`query_id`, `domain_id`) pairs. Each pair changes the match for that query only. 1 to 100 items; duplicate pairs are rejected. Send only one format. If both are supplied, `match_ids` takes precedence and `matches` is ignored.
+   * @type array | undefined
+   */
   matches?: {
+    /**
+     * @description ID of the matched domain, as returned in `domain_id` by List domain matches with `include_domain_id=true`.
+     * @type integer
+     */
     domain_id: number;
+    /**
+     * @description ID of the domain query.
+     * @type integer
+     */
     query_id: number;
   }[] | undefined;
 } | undefined;
@@ -310893,15 +311271,19 @@ export type GetGetDomainQueriesPath = {
 };
 
 export type GetGetDomainQueriesQuery = {
+  /**
+   * @description ID of a domain query. When set, `result` is that single query object instead of an array, and `page` and `per_page` are ignored.
+   * @type string | undefined
+   */
   id?: string | undefined;
   /**
-   * @description Optional page number for paginated list requests. Defaults to 1 when only per_page is supplied. Omit page and per_page to preserve the legacy full-list response.
+   * @description Page number for paginated list requests. Defaults to 1 when only per_page is supplied. Omit page and per_page to return every query.
    * @maximum 1000000
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
-   * @description Optional number of queries per page for paginated list requests. Defaults to 100 when only page is supplied. Maximum 100. Omit page and per_page to preserve the legacy full-list response.
+   * @description Number of queries per page for paginated list requests. Defaults to 100 when only page is supplied. Maximum 100. Omit page and per_page to return every query.
    * @maximum 100
    * @type integer | undefined
    */
@@ -311004,6 +311386,10 @@ export type PostInsertDomainQueryPath = {
 
 export type PostInsertDomainQueryStatus200 = {
   message: string;
+  /**
+   * @description ID of the created or updated domain query.
+   * @type integer | undefined
+   */
   query_id?: number | undefined;
   success: boolean;
 };
@@ -311011,16 +311397,32 @@ export type PostInsertDomainQueryStatus200 = {
 export type PostInsertDomainQueryStatus400 = unknown;
 
 export type PostInsertDomainQueryBody = {
+  /**
+   * @description Not currently used. Accepted and ignored.
+   * @type string | undefined
+   */
   max_time?: string | undefined;
+  /**
+   * @description Not currently used. Accepted and ignored.
+   * @type string | undefined
+   */
   min_time?: string | undefined;
+  /**
+   * @description Alias for `scan_matches`. If both are set, `scan_matches` takes precedence.
+   * @type boolean | undefined
+   */
   scan?: boolean | undefined;
   scan_matches?: boolean | undefined;
   /**
-   * @description If true, search recent domain lookback entries for matches
+   * @description On create, also search domains observed in the last 7 days for matches. Defaults to `true`. Ignored on update.
    * @default true
    * @type boolean | undefined
    */
   search_lookback?: boolean | undefined;
+  /**
+   * @description Patterns to match against domain names, 1 to 100 per query. Each `pattern` is a brand name or keyword of up to 200 characters. Matching also catches close variants such as typos and look-alike characters; patterns are not regular expressions. On update, this list replaces the query's existing patterns.
+   * @type array
+   */
   string_matches: {
     /**
      * @minLength 1
@@ -311030,6 +311432,7 @@ export type PostInsertDomainQueryBody = {
     pattern: string;
   }[];
   /**
+   * @description Name of the query. Must be unique among the account's domain queries.
    * @minLength 1
    * @type string
    */
@@ -311060,6 +311463,7 @@ export type DeleteDeleteDomainQueryPath = {
    */
   accountId: string;
   /**
+   * @description ID of the domain query.
    * @minLength 1
    * @type string
    */
@@ -311097,6 +311501,7 @@ export type PatchUpdateDomainQueryPath = {
    */
   accountId: string;
   /**
+   * @description ID of the domain query.
    * @minLength 1
    * @type string
    */
@@ -311105,6 +311510,10 @@ export type PatchUpdateDomainQueryPath = {
 
 export type PatchUpdateDomainQueryStatus200 = {
   message: string;
+  /**
+   * @description ID of the created or updated domain query.
+   * @type integer | undefined
+   */
   query_id?: number | undefined;
   success: boolean;
 };
@@ -311112,16 +311521,32 @@ export type PatchUpdateDomainQueryStatus200 = {
 export type PatchUpdateDomainQueryStatus400 = unknown;
 
 export type PatchUpdateDomainQueryBody = {
+  /**
+   * @description Not currently used. Accepted and ignored.
+   * @type string | undefined
+   */
   max_time?: string | undefined;
+  /**
+   * @description Not currently used. Accepted and ignored.
+   * @type string | undefined
+   */
   min_time?: string | undefined;
+  /**
+   * @description Alias for `scan_matches`. If both are set, `scan_matches` takes precedence.
+   * @type boolean | undefined
+   */
   scan?: boolean | undefined;
   scan_matches?: boolean | undefined;
   /**
-   * @description If true, search recent domain lookback entries for matches
+   * @description On create, also search domains observed in the last 7 days for matches. Defaults to `true`. Ignored on update.
    * @default true
    * @type boolean | undefined
    */
   search_lookback?: boolean | undefined;
+  /**
+   * @description Patterns to match against domain names, 1 to 100 per query. Each `pattern` is a brand name or keyword of up to 200 characters. Matching also catches close variants such as typos and look-alike characters; patterns are not regular expressions. On update, this list replaces the query's existing patterns.
+   * @type array
+   */
   string_matches: {
     /**
      * @minLength 1
@@ -311131,6 +311556,7 @@ export type PatchUpdateDomainQueryBody = {
     pattern: string;
   }[];
   /**
+   * @description Name of the query. Must be unique among the account's domain queries.
    * @minLength 1
    * @type string
    */
@@ -311762,28 +312188,35 @@ export type GetLogoMatchListOrderKey = (typeof getLogoMatchListOrder)[keyof type
 
 export type GetLogoMatchListQuery = {
   /**
+   * @description Number of matches to skip, for pagination. Defaults to 0.
    * @default '0'
    * @type string | undefined
    */
   offset?: string | undefined;
   /**
+   * @description Maximum number of matches to return. Defaults to 50.
    * @default '50'
    * @type string | undefined
    */
   limit?: string | undefined;
   /**
+   * @description ID of the logo query whose matches to list.
    * @minLength 1
    * @type string
    */
   query_id: string;
+  /**
+   * @description Set to `true` to include each matched image as base64 data in `image_data`, with its MIME type in `content_type`.
+   * @type string | undefined
+   */
   download?: string | undefined;
   /**
-   * @description Column to sort by. Options: 'matchedAt', 'domain', 'similarityScore', or 'registrar'
+   * @description Field to sort by: `matchedAt`, `domain`, `similarityScore`, or `registrar`. Defaults to `matchedAt`.
    * @type string | undefined
    */
   orderBy?: GetLogoMatchListOrderByKey | undefined;
   /**
-   * @description Sort order. Options: 'asc' (ascending) or 'desc' (descending)
+   * @description Sort direction: `asc` or `desc`. Defaults to `desc`.
    * @type string | undefined
    */
   order?: GetLogoMatchListOrderKey | undefined;
@@ -311791,13 +312224,45 @@ export type GetLogoMatchListQuery = {
 
 export type GetLogoMatchListStatus200 = {
   matches: {
+    /**
+     * @description MIME type of the matched image (only present when download=true)
+     * @type string | undefined
+     */
     content_type?: string | undefined;
+    /**
+     * @description Domain where the matching image was found, if known.
+     * @type string
+     */
     domain: string | null;
+    /**
+     * @description ID of the logo match.
+     * @type integer
+     */
     id: number;
+    /**
+     * @description Base64-encoded matched image (only present when download=true)
+     * @type string | undefined
+     */
     image_data?: string | undefined;
+    /**
+     * @description When the match was recorded.
+     * @type string
+     */
     matched_at: string | null;
+    /**
+     * @description ID of the logo query that produced this match.
+     * @type integer
+     */
     query_id: number;
+    /**
+     * @description Registrar of `domain`, if known.
+     * @type string
+     */
     registrar: string | null;
+    /**
+     * @description Visual similarity between the matched image and the query logo. Higher is closer.
+     * @type number
+     */
     similarity_score: number;
     url_scan_id: string | null;
   }[];
@@ -311837,12 +312302,12 @@ export type GetGetLogoQueriesPath = {
 
 export type GetGetLogoQueriesQuery = {
   /**
-   * @description Optional query ID to retrieve a specific logo query
+   * @description ID of a logo query. When set, `result` is that single query object instead of an array.
    * @type string | undefined
    */
   id?: string | undefined;
   /**
-   * @description If true, include base64-encoded image data in the response
+   * @description Set to `true` to include each logo image as base64 data in `image_data`, with its MIME type in `content_type`.
    * @type string | undefined
    */
   download?: string | undefined;
@@ -311854,6 +312319,10 @@ export type GetGetLogoQueriesStatus200 = {
    * @type string | undefined
    */
   content_type?: string | undefined;
+  /**
+   * @description ID of the logo query.
+   * @type integer
+   */
   id: number;
   /**
    * @description Base64-encoded image data (only present when download=true)
@@ -311861,8 +312330,20 @@ export type GetGetLogoQueriesStatus200 = {
    */
   image_data?: string | undefined;
   r2_path: string;
+  /**
+   * @description Minimum similarity score (0-1) required for a visual match.
+   * @type number
+   */
   similarity_threshold: number;
+  /**
+   * @description Name of the logo query.
+   * @type string
+   */
   tag: string;
+  /**
+   * @description When the logo was uploaded.
+   * @type string
+   */
   uploaded_at: string | null;
 }[];
 
@@ -311895,6 +312376,10 @@ export type PostInsertLogoQueryPath = {
 
 export type PostInsertLogoQueryStatus200 = {
   message: string;
+  /**
+   * @description ID of the created logo query.
+   * @type integer | undefined
+   */
   query_id?: number | undefined;
   success: boolean;
 };
@@ -311903,13 +312388,13 @@ export type PostInsertLogoQueryStatus400 = unknown;
 
 export type PostInsertLogoQueryBody = {
   /**
-   * @description Base64 encoded image data. Can include data URI prefix (e.g., 'data:image/png;base64,...') or just the base64 string.
+   * @description Base64 encoded image data. Can include data URI prefix (e.g., 'data:image/png;base64,...') or just the base64 string. Supported formats: PNG, JPEG, GIF, WebP, BMP, and SVG. ICO is also accepted when the data includes a `data:image/x-icon;base64,` prefix.
    * @minLength 1
    * @type string
    */
   image_data: string;
   /**
-   * @description If true, search historic scanned images for matches above the similarity threshold
+   * @description If true, also search previously scanned images for matches above the similarity threshold. Defaults to `true`.
    * @default true
    * @type boolean | undefined
    */
@@ -311922,7 +312407,7 @@ export type PostInsertLogoQueryBody = {
    */
   similarity_threshold: number;
   /**
-   * @description Unique identifier for the logo query
+   * @description Name of the logo query. Must be unique among the account's logo queries.
    * @minLength 1
    * @type string
    */
@@ -311953,6 +312438,7 @@ export type DeleteDeleteLogoQueryPath = {
    */
   accountId: string;
   /**
+   * @description ID of the logo query.
    * @minLength 1
    * @type string
    */
@@ -312048,7 +312534,7 @@ export type PostSearchLogoSimilarityBody = {
    */
   score_threshold?: number | undefined;
   /**
-   * @description Number of closest matches to return (1-100, default: 10)
+   * @description Number of closest matches to return. Defaults to 10. Accepts 1 to 100, but values above 50 are treated as 50.
    * @minimum 1
    * @maximum 100
    * @default 10
@@ -312080,7 +312566,15 @@ export type PostDismissMatchPath = {
    * @type string
    */
   accountId: string;
+  /**
+   * @description ID of the domain query that the match belongs to.
+   * @type integer
+   */
   queryId: number;
+  /**
+   * @description ID of the matched domain, as returned in `domain_id` by List domain matches with `include_domain_id=true`.
+   * @type integer
+   */
   domainId: number;
 };
 
@@ -312118,7 +312612,15 @@ export type PostUndismissMatchPath = {
    * @type string
    */
   accountId: string;
+  /**
+   * @description ID of the domain query that the match belongs to.
+   * @type integer
+   */
   queryId: number;
+  /**
+   * @description ID of the matched domain, as returned in `domain_id` by List domain matches with `include_domain_id=true`.
+   * @type integer
+   */
   domainId: number;
 };
 
@@ -312804,6 +313306,7 @@ export type GetTotalQueriesPath = {
 
 export type GetTotalQueriesStatus200 = {
   /**
+   * @description Number of saved domain and logo queries in the account.
    * @minimum 0
    * @type integer
    */
@@ -314361,6 +314864,7 @@ export const postPirCreateRequestQueryBranchesOpEnum = {
   startsWith: 'startsWith',
   endsWith: 'endsWith',
   find: 'find',
+  notContains: 'notContains',
 } as const;
 
 export type PostPirCreateRequestQueryBranchesOpEnumKey = (typeof postPirCreateRequestQueryBranchesOpEnum)[keyof typeof postPirCreateRequestQueryBranchesOpEnum];
@@ -314385,6 +314889,13 @@ export const postPirCreateRequestQueryBranchesFieldEnum2 = {
 
 export type PostPirCreateRequestQueryBranchesFieldEnum2Key = (typeof postPirCreateRequestQueryBranchesFieldEnum2)[keyof typeof postPirCreateRequestQueryBranchesFieldEnum2];
 
+export const postPirCreateRequestQueryBranchesOpEnum2 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type PostPirCreateRequestQueryBranchesOpEnum2Key = (typeof postPirCreateRequestQueryBranchesOpEnum2)[keyof typeof postPirCreateRequestQueryBranchesOpEnum2];
+
 export const postPirCreateRequestQueryBranchesOpEnum3 = {
   equals: 'equals',
   not: 'not',
@@ -314396,6 +314907,13 @@ export const postPirCreateRequestQueryBranchesOpEnum3 = {
 
 export type PostPirCreateRequestQueryBranchesOpEnum3Key = (typeof postPirCreateRequestQueryBranchesOpEnum3)[keyof typeof postPirCreateRequestQueryBranchesOpEnum3];
 
+export const postPirCreateRequestQueryBranchesOpEnum4 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type PostPirCreateRequestQueryBranchesOpEnum4Key = (typeof postPirCreateRequestQueryBranchesOpEnum4)[keyof typeof postPirCreateRequestQueryBranchesOpEnum4];
+
 export const postPirCreateRequestQueryBranchesOpEnum5 = {
   equals: 'equals',
   not: 'not',
@@ -314406,6 +314924,13 @@ export const postPirCreateRequestQueryBranchesOpEnum5 = {
 } as const;
 
 export type PostPirCreateRequestQueryBranchesOpEnum5Key = (typeof postPirCreateRequestQueryBranchesOpEnum5)[keyof typeof postPirCreateRequestQueryBranchesOpEnum5];
+
+export const postPirCreateRequestQueryBranchesOpEnum6 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type PostPirCreateRequestQueryBranchesOpEnum6Key = (typeof postPirCreateRequestQueryBranchesOpEnum6)[keyof typeof postPirCreateRequestQueryBranchesOpEnum6];
 
 export const postPirCreateRequestQuerySourceEnum = {
   generated: 'generated',
@@ -314448,6 +314973,20 @@ export type PostPirCreateBody = {
       target_industries: string[];
       techniques: string[];
     }[];
+    /**
+     * @default {"actors":[],"attacker_countries":[],"categories":[],"cves":[],"keywords":[],"target_countries":[],"target_industries":[],"techniques":[]}
+     * @type object | undefined
+     */
+    exclusions?: {
+      actors: string[];
+      attacker_countries: string[];
+      categories: string[];
+      cves: string[];
+      keywords: string[];
+      target_countries: string[];
+      target_industries: string[];
+      techniques: string[];
+    } | undefined;
     indicators: string[];
     unsupported_terms: string[];
   } | undefined;
@@ -314490,7 +315029,7 @@ export type PostPirCreateBody = {
       value: string;
     } | {
       field: PostPirCreateRequestQueryBranchesFieldEnum2Key;
-      op: 'in';
+      op: PostPirCreateRequestQueryBranchesOpEnum2Key;
       value: string[];
     } | {
       field: 'killChain';
@@ -314498,7 +315037,7 @@ export type PostPirCreateBody = {
       value: number | string;
     } | {
       field: 'killChain';
-      op: 'in';
+      op: PostPirCreateRequestQueryBranchesOpEnum4Key;
       value: (number | string)[];
     } | {
       field: 'hasChildren';
@@ -314506,7 +315045,7 @@ export type PostPirCreateBody = {
       value: boolean | 'true' | 'false' | 1 | 0 | '1' | '0';
     } | {
       field: 'hasChildren';
-      op: 'in';
+      op: PostPirCreateRequestQueryBranchesOpEnum6Key;
       value: (boolean | 'true' | 'false' | 1 | 0 | '1' | '0')[];
     })[][];
     /**
@@ -314653,6 +315192,7 @@ export const postPirFilterGenerateStatus200ResultBranchesOpEnum = {
   startsWith: 'startsWith',
   endsWith: 'endsWith',
   find: 'find',
+  notContains: 'notContains',
 } as const;
 
 export type PostPirFilterGenerateStatus200ResultBranchesOpEnumKey = (typeof postPirFilterGenerateStatus200ResultBranchesOpEnum)[keyof typeof postPirFilterGenerateStatus200ResultBranchesOpEnum];
@@ -314677,6 +315217,13 @@ export const postPirFilterGenerateStatus200ResultBranchesFieldEnum2 = {
 
 export type PostPirFilterGenerateStatus200ResultBranchesFieldEnum2Key = (typeof postPirFilterGenerateStatus200ResultBranchesFieldEnum2)[keyof typeof postPirFilterGenerateStatus200ResultBranchesFieldEnum2];
 
+export const postPirFilterGenerateStatus200ResultBranchesOpEnum2 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type PostPirFilterGenerateStatus200ResultBranchesOpEnum2Key = (typeof postPirFilterGenerateStatus200ResultBranchesOpEnum2)[keyof typeof postPirFilterGenerateStatus200ResultBranchesOpEnum2];
+
 export const postPirFilterGenerateStatus200ResultBranchesOpEnum3 = {
   equals: 'equals',
   not: 'not',
@@ -314688,6 +315235,13 @@ export const postPirFilterGenerateStatus200ResultBranchesOpEnum3 = {
 
 export type PostPirFilterGenerateStatus200ResultBranchesOpEnum3Key = (typeof postPirFilterGenerateStatus200ResultBranchesOpEnum3)[keyof typeof postPirFilterGenerateStatus200ResultBranchesOpEnum3];
 
+export const postPirFilterGenerateStatus200ResultBranchesOpEnum4 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type PostPirFilterGenerateStatus200ResultBranchesOpEnum4Key = (typeof postPirFilterGenerateStatus200ResultBranchesOpEnum4)[keyof typeof postPirFilterGenerateStatus200ResultBranchesOpEnum4];
+
 export const postPirFilterGenerateStatus200ResultBranchesOpEnum5 = {
   equals: 'equals',
   not: 'not',
@@ -314698,6 +315252,13 @@ export const postPirFilterGenerateStatus200ResultBranchesOpEnum5 = {
 } as const;
 
 export type PostPirFilterGenerateStatus200ResultBranchesOpEnum5Key = (typeof postPirFilterGenerateStatus200ResultBranchesOpEnum5)[keyof typeof postPirFilterGenerateStatus200ResultBranchesOpEnum5];
+
+export const postPirFilterGenerateStatus200ResultBranchesOpEnum6 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type PostPirFilterGenerateStatus200ResultBranchesOpEnum6Key = (typeof postPirFilterGenerateStatus200ResultBranchesOpEnum6)[keyof typeof postPirFilterGenerateStatus200ResultBranchesOpEnum6];
 
 export const postPirFilterGenerateStatus200ResultCoverageEnum = {
   full: 'full',
@@ -314714,6 +315275,7 @@ export const postPirFilterGenerateStatus200ResultUnresolvedTermsReasonEnum = {
   no_matching_category: 'no_matching_category',
   invalid_keyword: 'invalid_keyword',
   branch_limit: 'branch_limit',
+  filter_limit: 'filter_limit',
   indicators_not_supported: 'indicators_not_supported',
   no_matching_field: 'no_matching_field',
 } as const;
@@ -314775,7 +315337,7 @@ export type PostPirFilterGenerateStatus200 = {
       value: string;
     } | {
       field: PostPirFilterGenerateStatus200ResultBranchesFieldEnum2Key;
-      op: 'in';
+      op: PostPirFilterGenerateStatus200ResultBranchesOpEnum2Key;
       value: string[];
     } | {
       field: 'killChain';
@@ -314783,7 +315345,7 @@ export type PostPirFilterGenerateStatus200 = {
       value: number | string;
     } | {
       field: 'killChain';
-      op: 'in';
+      op: PostPirFilterGenerateStatus200ResultBranchesOpEnum4Key;
       value: (number | string)[];
     } | {
       field: 'hasChildren';
@@ -314791,7 +315353,7 @@ export type PostPirFilterGenerateStatus200 = {
       value: boolean | 'true' | 'false' | 1 | 0 | '1' | '0';
     } | {
       field: 'hasChildren';
-      op: 'in';
+      op: PostPirFilterGenerateStatus200ResultBranchesOpEnum6Key;
       value: (boolean | 'true' | 'false' | 1 | 0 | '1' | '0')[];
     })[][];
     /**
@@ -314814,6 +315376,20 @@ export type PostPirFilterGenerateStatus200 = {
         target_industries: string[];
         techniques: string[];
       }[];
+      /**
+       * @default {"actors":[],"attacker_countries":[],"categories":[],"cves":[],"keywords":[],"target_countries":[],"target_industries":[],"techniques":[]}
+       * @type object | undefined
+       */
+      exclusions?: {
+        actors: string[];
+        attacker_countries: string[];
+        categories: string[];
+        cves: string[];
+        keywords: string[];
+        target_countries: string[];
+        target_industries: string[];
+        techniques: string[];
+      } | undefined;
       indicators: string[];
       unsupported_terms: string[];
     };
@@ -315882,6 +316458,7 @@ export const putPirUpdateRequestQueryBranchesOpEnum = {
   startsWith: 'startsWith',
   endsWith: 'endsWith',
   find: 'find',
+  notContains: 'notContains',
 } as const;
 
 export type PutPirUpdateRequestQueryBranchesOpEnumKey = (typeof putPirUpdateRequestQueryBranchesOpEnum)[keyof typeof putPirUpdateRequestQueryBranchesOpEnum];
@@ -315906,6 +316483,13 @@ export const putPirUpdateRequestQueryBranchesFieldEnum2 = {
 
 export type PutPirUpdateRequestQueryBranchesFieldEnum2Key = (typeof putPirUpdateRequestQueryBranchesFieldEnum2)[keyof typeof putPirUpdateRequestQueryBranchesFieldEnum2];
 
+export const putPirUpdateRequestQueryBranchesOpEnum2 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type PutPirUpdateRequestQueryBranchesOpEnum2Key = (typeof putPirUpdateRequestQueryBranchesOpEnum2)[keyof typeof putPirUpdateRequestQueryBranchesOpEnum2];
+
 export const putPirUpdateRequestQueryBranchesOpEnum3 = {
   equals: 'equals',
   not: 'not',
@@ -315917,6 +316501,13 @@ export const putPirUpdateRequestQueryBranchesOpEnum3 = {
 
 export type PutPirUpdateRequestQueryBranchesOpEnum3Key = (typeof putPirUpdateRequestQueryBranchesOpEnum3)[keyof typeof putPirUpdateRequestQueryBranchesOpEnum3];
 
+export const putPirUpdateRequestQueryBranchesOpEnum4 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type PutPirUpdateRequestQueryBranchesOpEnum4Key = (typeof putPirUpdateRequestQueryBranchesOpEnum4)[keyof typeof putPirUpdateRequestQueryBranchesOpEnum4];
+
 export const putPirUpdateRequestQueryBranchesOpEnum5 = {
   equals: 'equals',
   not: 'not',
@@ -315927,6 +316518,13 @@ export const putPirUpdateRequestQueryBranchesOpEnum5 = {
 } as const;
 
 export type PutPirUpdateRequestQueryBranchesOpEnum5Key = (typeof putPirUpdateRequestQueryBranchesOpEnum5)[keyof typeof putPirUpdateRequestQueryBranchesOpEnum5];
+
+export const putPirUpdateRequestQueryBranchesOpEnum6 = {
+  in: 'in',
+  notIn: 'notIn',
+} as const;
+
+export type PutPirUpdateRequestQueryBranchesOpEnum6Key = (typeof putPirUpdateRequestQueryBranchesOpEnum6)[keyof typeof putPirUpdateRequestQueryBranchesOpEnum6];
 
 export const putPirUpdateRequestQuerySourceEnum = {
   generated: 'generated',
@@ -315973,6 +316571,20 @@ export type PutPirUpdateBody = {
       target_industries: string[];
       techniques: string[];
     }[];
+    /**
+     * @default {"actors":[],"attacker_countries":[],"categories":[],"cves":[],"keywords":[],"target_countries":[],"target_industries":[],"techniques":[]}
+     * @type object | undefined
+     */
+    exclusions?: {
+      actors: string[];
+      attacker_countries: string[];
+      categories: string[];
+      cves: string[];
+      keywords: string[];
+      target_countries: string[];
+      target_industries: string[];
+      techniques: string[];
+    } | undefined;
     indicators: string[];
     unsupported_terms: string[];
   } | null) | undefined;
@@ -316009,7 +316621,7 @@ export type PutPirUpdateBody = {
       value: string;
     } | {
       field: PutPirUpdateRequestQueryBranchesFieldEnum2Key;
-      op: 'in';
+      op: PutPirUpdateRequestQueryBranchesOpEnum2Key;
       value: string[];
     } | {
       field: 'killChain';
@@ -316017,7 +316629,7 @@ export type PutPirUpdateBody = {
       value: number | string;
     } | {
       field: 'killChain';
-      op: 'in';
+      op: PutPirUpdateRequestQueryBranchesOpEnum4Key;
       value: (number | string)[];
     } | {
       field: 'hasChildren';
@@ -316025,7 +316637,7 @@ export type PutPirUpdateBody = {
       value: boolean | 'true' | 'false' | 1 | 0 | '1' | '0';
     } | {
       field: 'hasChildren';
-      op: 'in';
+      op: PutPirUpdateRequestQueryBranchesOpEnum6Key;
       value: (boolean | 'true' | 'false' | 1 | 0 | '1' | '0')[];
     })[][];
     /**
@@ -360050,6 +360662,16 @@ export type DomainIntelligenceGetMultipleDomainDetailsQuery = {
    * @type boolean | undefined
    */
   include_ranking?: boolean | undefined;
+  /**
+   * @description Skip the DNS resolution-history lookup for faster responses. Defaults
+   * to `false`. Set to `true` if you only need categorization data; no
+   * DNS resolution history is returned for any domain. Matches the
+   * `skip_dns` parameter on `/intel/domain`.
+   *
+   * @default false
+   * @type boolean | undefined
+   */
+  skip_dns?: boolean | undefined;
   /**
    * @description **Deprecated.** Previously controlled whether the ranking lookup
    * was skipped (defaulted to `false`, meaning ranking ran). The
@@ -413896,7 +414518,7 @@ export type DurableObjectsNamespaceQueryResponses = {
  */
 export type DurableObjectsNamespaceQueryResponse = DurableObjectsNamespaceQueryStatus200;
 
-export type AgentsSessionsListPath = {
+export type AgentsTracesListPath = {
   /**
    * @description Your Cloudflare account ID.
    * @type string
@@ -413904,82 +414526,62 @@ export type AgentsSessionsListPath = {
   accountId: string;
 };
 
-export type AgentsSessionsListQuery = {
+export type AgentsTracesListQuery = {
   /**
-   * @description Worker service name associated with the participating agent.
+   * @description Only include work in which an Agent of this Worker service took part.
    * @minLength 1
    * @maxLength 512
-   * @type string
-   */
-  service: string;
-  /**
-   * @description Agent name reported in gen_ai.agent.name. The request is limited to conversations in which this service and agent participated.
-   * @minLength 1
-   * @maxLength 512
-   * @type string
-   */
-  agent: string;
-  /**
-   * @description Start of the requested time range, as Unix epoch milliseconds. Values earlier than the 7-day retention boundary are clamped.
-   * @minimum 0
-   * @type integer
-   */
-  from: number;
-  /**
-   * @description End of the requested time range, as Unix epoch milliseconds. Must be later than from.
-   * @minimum 0
-   * @type integer
-   */
-  to: number;
-  /**
-   * @description Opaque cursor from result_info.cursors.after in the previous response.
-   * @minLength 1
-   * @maxLength 2048
    * @type string | undefined
    */
-  cursor?: string | undefined;
+  service?: string | undefined;
   /**
-   * @description Maximum number of items to return. Defaults to 20 and cannot exceed 100.
+   * @description Only include work in which an Agent with this gen_ai.agent.name took part. With service, both must match the same Agent.
+   * @minLength 1
+   * @maxLength 512
+   * @type string | undefined
+   */
+  agent?: string | undefined;
+  /**
+   * @description Start of the search window, as Unix epoch milliseconds. Defaults to 24 hours before to. Clamped to the 7-day retention boundary; the effective value is in result_info.from.
+   * @minimum 0
+   * @type integer | undefined
+   */
+  from?: number | undefined;
+  /**
+   * @description End of the search window, as Unix epoch milliseconds. Defaults to now.
+   * @minimum 0
+   * @type integer | undefined
+   */
+  to?: number | undefined;
+  /**
+   * @description Maximum items to return per page. Defaults to 20.
    * @minimum 1
    * @maximum 100
    * @type integer | undefined
    */
   per_page?: number | undefined;
+  /**
+   * @description Opaque cursor from result_info.cursors.after in the previous response. Send it with the same filters; its window replaces from and to.
+   * @minLength 1
+   * @maxLength 4096
+   * @type string | undefined
+   */
+  cursor?: string | undefined;
 };
 
-export type AgentsSessionsListStatus200 = {
+export type AgentsTracesListStatus200 = {
   errors: {
     message: string;
   }[];
   messages: {
     message: 'Successful request';
   }[];
-  result: WorkersObservabilityAgentSession[];
-  result_info: {
-    /**
-     * @description Number of items returned on this page.
-     * @minimum 0
-     * @type integer
-     */
-    count: number;
-    cursors: {
-      /**
-       * @description Opaque cursor for the next page, or null when there are no more results.
-       * @type string
-       */
-      after: string | null;
-    };
-    /**
-     * @description Maximum number of items requested for this page.
-     * @minimum 1
-     * @type integer
-     */
-    per_page: number;
-  };
+  result: WorkersObservabilityAgentTraceSummary[];
+  result_info: WorkersObservabilityAgentResultInfo;
   success: true;
 };
 
-export type AgentsSessionsListStatus400 = {
+export type AgentsTracesListStatus400 = {
   errors: {
     detail?: string | undefined;
     message: 'Bad Request';
@@ -413990,7 +414592,7 @@ export type AgentsSessionsListStatus400 = {
   success: false;
 };
 
-export type AgentsSessionsListStatus401 = {
+export type AgentsTracesListStatus401 = {
   errors: {
     detail?: string | undefined;
     message: 'Unauthorized';
@@ -414001,7 +414603,7 @@ export type AgentsSessionsListStatus401 = {
   success: false;
 };
 
-export type AgentsSessionsListStatus403 = {
+export type AgentsTracesListStatus403 = {
   errors: {
     detail?: string | undefined;
     message: 'Forbidden';
@@ -414012,7 +414614,18 @@ export type AgentsSessionsListStatus403 = {
   success: false;
 };
 
-export type AgentsSessionsListStatus429 = {
+export type AgentsTracesListStatus404 = {
+  errors: {
+    detail?: string | undefined;
+    message: 'Not found';
+  }[];
+  messages: {
+    message: string;
+  }[];
+  success: false;
+};
+
+export type AgentsTracesListStatus429 = {
   errors: {
     detail?: string | undefined;
     message: 'Too many requests';
@@ -414023,7 +414636,7 @@ export type AgentsSessionsListStatus429 = {
   success: false;
 };
 
-export type AgentsSessionsListStatus500 = {
+export type AgentsTracesListStatus500 = {
   errors: {
     detail?: string | undefined;
     message: 'Internal error';
@@ -414034,7 +414647,7 @@ export type AgentsSessionsListStatus500 = {
   success: false;
 };
 
-export type AgentsSessionsListStatus504 = {
+export type AgentsTracesListStatus504 = {
   errors: {
     detail?: string | undefined;
     message: 'Gateway timeout';
@@ -414045,119 +414658,71 @@ export type AgentsSessionsListStatus504 = {
   success: false;
 };
 
-export type AgentsSessionsListOptions = {
+export type AgentsTracesListOptions = {
   body?: never | undefined;
-  path: AgentsSessionsListPath;
-  query: AgentsSessionsListQuery;
+  path: AgentsTracesListPath;
+  query?: AgentsTracesListQuery | undefined;
   headers?: never | undefined;
 };
 
-export type AgentsSessionsListResponses = {
-  '200': AgentsSessionsListStatus200;
-  '400': AgentsSessionsListStatus400;
-  '401': AgentsSessionsListStatus401;
-  '403': AgentsSessionsListStatus403;
-  '429': AgentsSessionsListStatus429;
-  '500': AgentsSessionsListStatus500;
-  '504': AgentsSessionsListStatus504;
+export type AgentsTracesListResponses = {
+  '200': AgentsTracesListStatus200;
+  '400': AgentsTracesListStatus400;
+  '401': AgentsTracesListStatus401;
+  '403': AgentsTracesListStatus403;
+  '404': AgentsTracesListStatus404;
+  '429': AgentsTracesListStatus429;
+  '500': AgentsTracesListStatus500;
+  '504': AgentsTracesListStatus504;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type AgentsSessionsListResponse = AgentsSessionsListStatus200;
+export type AgentsTracesListResponse = AgentsTracesListStatus200;
 
-export type AgentsSessionsRunsListPath = {
+export type AgentsTracesGetPath = {
   /**
    * @description Your Cloudflare account ID.
    * @type string
    */
   accountId: string;
   /**
-   * @description OpenTelemetry gen_ai.conversation.id value that identifies the session.
-   * @minLength 1
-   * @maxLength 512
+   * @description Trace ID: 32 hexadecimal characters, matched case-insensitively.
+   * @pattern ^[0-9a-f]{32}$
    * @type string
    */
-  conversationId: string;
+  traceId: string;
 };
 
-export type AgentsSessionsRunsListQuery = {
+export type AgentsTracesGetQuery = {
   /**
-   * @description Worker service name associated with the participating agent.
-   * @minLength 1
-   * @maxLength 512
-   * @type string
-   */
-  service: string;
-  /**
-   * @description Agent name reported in gen_ai.agent.name. The request is limited to conversations in which this service and agent participated.
-   * @minLength 1
-   * @maxLength 512
-   * @type string
-   */
-  agent: string;
-  /**
-   * @description Start of the requested time range, as Unix epoch milliseconds. Values earlier than the 7-day retention boundary are clamped.
+   * @description Optional. Narrows the search, which by default covers the full 7-day retention, so any retained Trace ID can be fetched without a window. Start as Unix epoch milliseconds; the effective value is in result_info.from.
    * @minimum 0
-   * @type integer
-   */
-  from: number;
-  /**
-   * @description End of the requested time range, as Unix epoch milliseconds. Must be later than from.
-   * @minimum 0
-   * @type integer
-   */
-  to: number;
-  /**
-   * @description Opaque cursor from result_info.cursors.after in the previous response.
-   * @minLength 1
-   * @maxLength 2048
-   * @type string | undefined
-   */
-  cursor?: string | undefined;
-  /**
-   * @description Maximum number of items to return. Defaults to 20 and cannot exceed 100.
-   * @minimum 1
-   * @maximum 100
    * @type integer | undefined
    */
-  per_page?: number | undefined;
+  from?: number | undefined;
+  /**
+   * @description Optional. Narrows the search; end as Unix epoch milliseconds. Defaults to now.
+   * @minimum 0
+   * @type integer | undefined
+   */
+  to?: number | undefined;
 };
 
-export type AgentsSessionsRunsListStatus200 = {
+export type AgentsTracesGetStatus200 = {
   errors: {
     message: string;
   }[];
   messages: {
     message: 'Successful request';
   }[];
-  result: WorkersObservabilityAgentSessionRun[];
-  result_info: {
-    /**
-     * @description Number of items returned on this page.
-     * @minimum 0
-     * @type integer
-     */
-    count: number;
-    cursors: {
-      /**
-       * @description Opaque cursor for the next page, or null when there are no more results.
-       * @type string
-       */
-      after: string | null;
-    };
-    /**
-     * @description Maximum number of items requested for this page.
-     * @minimum 1
-     * @type integer
-     */
-    per_page: number;
-  };
+  result: WorkersObservabilityAgentTraceSummary;
+  result_info: WorkersObservabilityAgentWindowInfo;
   success: true;
 };
 
-export type AgentsSessionsRunsListStatus400 = {
+export type AgentsTracesGetStatus400 = {
   errors: {
     detail?: string | undefined;
     message: 'Bad Request';
@@ -414168,7 +414733,7 @@ export type AgentsSessionsRunsListStatus400 = {
   success: false;
 };
 
-export type AgentsSessionsRunsListStatus401 = {
+export type AgentsTracesGetStatus401 = {
   errors: {
     detail?: string | undefined;
     message: 'Unauthorized';
@@ -414179,7 +414744,7 @@ export type AgentsSessionsRunsListStatus401 = {
   success: false;
 };
 
-export type AgentsSessionsRunsListStatus403 = {
+export type AgentsTracesGetStatus403 = {
   errors: {
     detail?: string | undefined;
     message: 'Forbidden';
@@ -414190,7 +414755,18 @@ export type AgentsSessionsRunsListStatus403 = {
   success: false;
 };
 
-export type AgentsSessionsRunsListStatus429 = {
+export type AgentsTracesGetStatus404 = {
+  errors: {
+    detail?: string | undefined;
+    message: 'Not found';
+  }[];
+  messages: {
+    message: string;
+  }[];
+  success: false;
+};
+
+export type AgentsTracesGetStatus429 = {
   errors: {
     detail?: string | undefined;
     message: 'Too many requests';
@@ -414201,7 +414777,7 @@ export type AgentsSessionsRunsListStatus429 = {
   success: false;
 };
 
-export type AgentsSessionsRunsListStatus500 = {
+export type AgentsTracesGetStatus500 = {
   errors: {
     detail?: string | undefined;
     message: 'Internal error';
@@ -414212,7 +414788,7 @@ export type AgentsSessionsRunsListStatus500 = {
   success: false;
 };
 
-export type AgentsSessionsRunsListStatus504 = {
+export type AgentsTracesGetStatus504 = {
   errors: {
     detail?: string | undefined;
     message: 'Gateway timeout';
@@ -414223,27 +414799,183 @@ export type AgentsSessionsRunsListStatus504 = {
   success: false;
 };
 
-export type AgentsSessionsRunsListOptions = {
+export type AgentsTracesGetOptions = {
   body?: never | undefined;
-  path: AgentsSessionsRunsListPath;
-  query: AgentsSessionsRunsListQuery;
+  path: AgentsTracesGetPath;
+  query?: AgentsTracesGetQuery | undefined;
   headers?: never | undefined;
 };
 
-export type AgentsSessionsRunsListResponses = {
-  '200': AgentsSessionsRunsListStatus200;
-  '400': AgentsSessionsRunsListStatus400;
-  '401': AgentsSessionsRunsListStatus401;
-  '403': AgentsSessionsRunsListStatus403;
-  '429': AgentsSessionsRunsListStatus429;
-  '500': AgentsSessionsRunsListStatus500;
-  '504': AgentsSessionsRunsListStatus504;
+export type AgentsTracesGetResponses = {
+  '200': AgentsTracesGetStatus200;
+  '400': AgentsTracesGetStatus400;
+  '401': AgentsTracesGetStatus401;
+  '403': AgentsTracesGetStatus403;
+  '404': AgentsTracesGetStatus404;
+  '429': AgentsTracesGetStatus429;
+  '500': AgentsTracesGetStatus500;
+  '504': AgentsTracesGetStatus504;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type AgentsSessionsRunsListResponse = AgentsSessionsRunsListStatus200;
+export type AgentsTracesGetResponse = AgentsTracesGetStatus200;
+
+export type AgentsTracesEventsPath = {
+  /**
+   * @description Your Cloudflare account ID.
+   * @type string
+   */
+  accountId: string;
+  /**
+   * @description Trace ID: 32 hexadecimal characters, matched case-insensitively.
+   * @pattern ^[0-9a-f]{32}$
+   * @type string
+   */
+  traceId: string;
+};
+
+export type AgentsTracesEventsQuery = {
+  /**
+   * @description Optional. Narrows the search, which by default covers the full 7-day retention, so any retained Trace ID can be fetched without a window. Start as Unix epoch milliseconds; the effective value is in result_info.from.
+   * @minimum 0
+   * @type integer | undefined
+   */
+  from?: number | undefined;
+  /**
+   * @description Optional. Narrows the search; end as Unix epoch milliseconds. Defaults to now.
+   * @minimum 0
+   * @type integer | undefined
+   */
+  to?: number | undefined;
+  /**
+   * @description Maximum items to return per page. Defaults to 100.
+   * @minimum 1
+   * @maximum 500
+   * @type integer | undefined
+   */
+  per_page?: number | undefined;
+  /**
+   * @description Opaque cursor from result_info.cursors.after in the previous response. Send it with the same filters; its window replaces from and to.
+   * @minLength 1
+   * @maxLength 4096
+   * @type string | undefined
+   */
+  cursor?: string | undefined;
+};
+
+export type AgentsTracesEventsStatus200 = {
+  errors: {
+    message: string;
+  }[];
+  messages: {
+    message: 'Successful request';
+  }[];
+  result: WorkersObservabilityTelemetryEvent[];
+  result_info: WorkersObservabilityAgentResultInfo;
+  success: true;
+};
+
+export type AgentsTracesEventsStatus400 = {
+  errors: {
+    detail?: string | undefined;
+    message: 'Bad Request';
+  }[];
+  messages: {
+    message: string;
+  }[];
+  success: false;
+};
+
+export type AgentsTracesEventsStatus401 = {
+  errors: {
+    detail?: string | undefined;
+    message: 'Unauthorized';
+  }[];
+  messages: {
+    message: string;
+  }[];
+  success: false;
+};
+
+export type AgentsTracesEventsStatus403 = {
+  errors: {
+    detail?: string | undefined;
+    message: 'Forbidden';
+  }[];
+  messages: {
+    message: string;
+  }[];
+  success: false;
+};
+
+export type AgentsTracesEventsStatus404 = {
+  errors: {
+    detail?: string | undefined;
+    message: 'Not found';
+  }[];
+  messages: {
+    message: string;
+  }[];
+  success: false;
+};
+
+export type AgentsTracesEventsStatus429 = {
+  errors: {
+    detail?: string | undefined;
+    message: 'Too many requests';
+  }[];
+  messages: {
+    message: string;
+  }[];
+  success: false;
+};
+
+export type AgentsTracesEventsStatus500 = {
+  errors: {
+    detail?: string | undefined;
+    message: 'Internal error';
+  }[];
+  messages: {
+    message: string;
+  }[];
+  success: false;
+};
+
+export type AgentsTracesEventsStatus504 = {
+  errors: {
+    detail?: string | undefined;
+    message: 'Gateway timeout';
+  }[];
+  messages: {
+    message: string;
+  }[];
+  success: false;
+};
+
+export type AgentsTracesEventsOptions = {
+  body?: never | undefined;
+  path: AgentsTracesEventsPath;
+  query?: AgentsTracesEventsQuery | undefined;
+  headers?: never | undefined;
+};
+
+export type AgentsTracesEventsResponses = {
+  '200': AgentsTracesEventsStatus200;
+  '400': AgentsTracesEventsStatus400;
+  '401': AgentsTracesEventsStatus401;
+  '403': AgentsTracesEventsStatus403;
+  '404': AgentsTracesEventsStatus404;
+  '429': AgentsTracesEventsStatus429;
+  '500': AgentsTracesEventsStatus500;
+  '504': AgentsTracesEventsStatus504;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type AgentsTracesEventsResponse = AgentsTracesEventsStatus200;
 
 export type DestinationListPath = {
   /**
@@ -425867,6 +426599,16 @@ export type WorDescribeWorkflowInstanceStatus404 = {
   success: false;
 };
 
+export type WorDescribeWorkflowInstanceStatus429 = {
+  errors: {
+    code: number;
+    message: string;
+  }[];
+  messages: string[];
+  result: null;
+  success: false;
+};
+
 export type WorDescribeWorkflowInstanceOptions = {
   body?: never | undefined;
   path: WorDescribeWorkflowInstancePath;
@@ -425878,6 +426620,7 @@ export type WorDescribeWorkflowInstanceResponses = {
   '200': WorDescribeWorkflowInstanceStatus200;
   '400': WorDescribeWorkflowInstanceStatus400;
   '404': WorDescribeWorkflowInstanceStatus404;
+  '429': WorDescribeWorkflowInstanceStatus429;
 };
 
 /**
@@ -426354,6 +427097,16 @@ export type WorCreateWorkflowInstanceSubscriptionTokenStatus404 = {
   success: false;
 };
 
+export type WorCreateWorkflowInstanceSubscriptionTokenStatus429 = {
+  errors: {
+    code: number;
+    message: string;
+  }[];
+  messages: string[];
+  result: null;
+  success: false;
+};
+
 export type WorCreateWorkflowInstanceSubscriptionTokenOptions = {
   body?: never | undefined;
   path: WorCreateWorkflowInstanceSubscriptionTokenPath;
@@ -426365,6 +427118,7 @@ export type WorCreateWorkflowInstanceSubscriptionTokenResponses = {
   '200': WorCreateWorkflowInstanceSubscriptionTokenStatus200;
   '400': WorCreateWorkflowInstanceSubscriptionTokenStatus400;
   '404': WorCreateWorkflowInstanceSubscriptionTokenStatus404;
+  '429': WorCreateWorkflowInstanceSubscriptionTokenStatus429;
 };
 
 /**
@@ -465547,11 +466301,7 @@ export type OhttpGatewayDisablePath = {
   zoneId: OhttpGatewayIdentifier;
 };
 
-/**
- * @description Standard Cloudflare API response wrapping the result of an operation.
- * @type object
- */
-export type OhttpGatewayDisableStatus200 = OhttpGatewayApiSuccessResponse;
+export type OhttpGatewayDisableStatus200 = OhttpGatewayDeleteApiSuccessResponse;
 
 /**
  * @description Standard Cloudflare API failure response.
@@ -465604,7 +466354,7 @@ export type OhttpGatewayGetEnablementPath = {
  * @description Standard Cloudflare API response wrapping the result of an operation.
  * @type object
  */
-export type OhttpGatewayGetEnablementStatus200 = OhttpGatewayApiSuccessResponse;
+export type OhttpGatewayGetEnablementStatus200 = OhttpGatewayGetApiSuccessResponse;
 
 /**
  * @description Standard Cloudflare API failure response.
@@ -465653,17 +466403,7 @@ export type OhttpGatewayEnablePath = {
   zoneId: OhttpGatewayIdentifier;
 };
 
-/**
- * @description Standard Cloudflare API response wrapping the result of an operation.
- * @type object
- */
-export type OhttpGatewayEnableStatus200 = OhttpGatewayApiSuccessResponse;
-
-/**
- * @description Standard Cloudflare API response wrapping the result of an operation.
- * @type object
- */
-export type OhttpGatewayEnableStatus201 = OhttpGatewayApiSuccessResponse;
+export type OhttpGatewayEnableStatus200 = OhttpGatewayCreateApiSuccessResponse;
 
 /**
  * @description Standard Cloudflare API failure response.
@@ -465692,7 +466432,6 @@ export type OhttpGatewayEnableOptions = {
 
 export type OhttpGatewayEnableResponses = {
   '200': OhttpGatewayEnableStatus200;
-  '201': OhttpGatewayEnableStatus201;
   '400': OhttpGatewayEnableStatus400;
   '403': OhttpGatewayEnableStatus403;
   '500': OhttpGatewayEnableStatus500;
@@ -465701,7 +466440,7 @@ export type OhttpGatewayEnableResponses = {
 /**
  * @description Union of all possible responses
  */
-export type OhttpGatewayEnableResponse = OhttpGatewayEnableStatus200 | OhttpGatewayEnableStatus201;
+export type OhttpGatewayEnableResponse = OhttpGatewayEnableStatus200;
 
 export type ZoneCacheSettingsGetOriginH2MaxStreamsSettingPath = {
   /**
