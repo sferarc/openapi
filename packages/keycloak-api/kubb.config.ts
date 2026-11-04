@@ -33,6 +33,7 @@ export default defineConfig(async () => {
 			...createConfig({
 				outputPath: "./src/account/generated",
 				importPath: "../../utils/fetcher",
+				operationsDoc: { callPrefix: false, requestTarget: "account" },
 			}),
 			input: accountSpec,
 		};
@@ -42,6 +43,7 @@ export default defineConfig(async () => {
 		...createConfig({
 			outputPath: "./src/admin/generated",
 			importPath: "../../utils/fetcher",
+			operationsDoc: { callPrefix: false, requestTarget: "admin" },
 		}),
 		input: adminSpec,
 	};

@@ -27,6 +27,8 @@ const accounts = await client.api.account.getAccountsResource({});
 
 Operations are grouped by tag: `client.api.<tag>.<operation>(params)`.
 
+[`OPERATIONS.md`](./src/generated/OPERATIONS.md) lists every operation with its `client.api` call, its `"<METHOD> <path>"` request and the spec's summary, one table per tag. It ships in the package, so `grep` in `node_modules/nuki-api-js` finds an operation without reading the types.
+
 Every operation can also be called by method and path:
 
 ```ts

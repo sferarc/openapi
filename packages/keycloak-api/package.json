@@ -37,7 +37,9 @@
 		"vitest": "catalog:"
 	},
 	"files": [
-		"dist"
+		"dist",
+		"src/admin/generated/OPERATIONS.md",
+		"src/account/generated/OPERATIONS.md"
 	],
 	"main": "dist/index.cjs",
 	"module": "dist/index.mjs",

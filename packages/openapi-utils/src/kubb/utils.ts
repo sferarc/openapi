@@ -1,4 +1,5 @@
 import { pluginTsName } from "@kubb/plugin-ts";
+import c from "case";
 import type { ast, GeneratorContext } from "kubb/kit";
 import type { PluginClient } from "./plugin";
 
@@ -24,6 +25,11 @@ export function clientFile(ctx: ClientContext, node: ast.HttpOperationNode) {
 export function typesFile(ctx: ClientContext, node: ast.HttpOperationNode) {
 	const output = ctx.requirePlugin(pluginTsName).options?.output ?? ctx.options.output;
 	return ctx.getResolver(pluginTsName).file({ ...entryFor(node), root: ctx.root, output });
+}
+
+/** The key a tag gets in `operationsByTag`, and so in `client.api`. */
+export function tagKey(tag: string): string {
+	return c.camel(tag.toLowerCase());
 }
 
 export function operationName(ctx: ClientContext, node: ast.HttpOperationNode): string {

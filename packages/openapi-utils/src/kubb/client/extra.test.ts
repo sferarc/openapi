@@ -57,3 +57,24 @@ describe("generated request headers", () => {
 		expect([...contentTypes].filter((type) => !/^[\w.+-]+\/[\w.+-]+$/.test(type))).toEqual([]);
 	});
 });
+
+describe("generated OPERATIONS.md", () => {
+	it.each(componentFiles)("has one row per operation of %s", (file) => {
+		const source = readFileSync(join(packagesDir, file), "utf8");
+		const doc = readFileSync(
+			join(packagesDir, file.replace(/components\.ts$/, "OPERATIONS.md")),
+			"utf8",
+		);
+		const operations = Array.from(source.matchAll(/^export async function (\w+)/gm));
+		const byPath = Array.from(
+			block(source, "operationsByPath").matchAll(/^\t"([^"]+)"/gm),
+			(m) => m[1],
+		);
+		const requests = new Set(
+			Array.from(doc.matchAll(/^\| (?:`[^`]+` \| )?`([A-Z]+ [^`]+)` \|/gm), (m) => m[1]),
+		);
+
+		expect(requests.size).toBe(operations.length);
+		expect([...requests].sort()).toEqual([...byPath].sort());
+	});
+});

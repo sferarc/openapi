@@ -44,7 +44,8 @@
 		}
 	},
 	"files": [
-		"dist"
+		"dist",
+		"src/generated/OPERATIONS.md"
 	],
 	"main": "dist/index.cjs",
 	"module": "dist/index.mjs",
