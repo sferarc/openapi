@@ -7,4 +7,9 @@ export {
 export * from "./generated/schemas";
 export * from "./generated/types";
 export type { FetchImpl } from "./utils/fetch";
-export type { FetcherConfig, ResponseInfo } from "./utils/fetcher";
+export {
+	type FetcherConfig,
+	isEventStream,
+	type ResponseInfo,
+	type ServerSentEvent,
+} from "./utils/fetcher";
