@@ -268,163 +268,6 @@ export type ActiveUsersAnalyticsResponse = {
 	results: TagActiveUsersResponse[];
 };
 
-export const toolCountNameEnum = {
-	model: "model",
-	read: "read",
-	search: "search",
-	python: "python",
-	catalog: "catalog",
-	review_catalog: "review_catalog",
-	read_reviews: "read_reviews",
-	search_reviews: "search_reviews",
-	history: "history",
-	checkpoint: "checkpoint",
-} as const;
-
-export type ToolCountNameEnumKey = (typeof toolCountNameEnum)[keyof typeof toolCountNameEnum];
-
-export type ToolCount = {
-	name: ToolCountNameEnumKey;
-	/**
-	 * @minimum 0
-	 * @type integer
-	 */
-	calls: number;
-};
-
-export const activityPhaseEnum = {
-	load: "load",
-	review: "review",
-	group: "group",
-	reconcile: "reconcile",
-	investigate: "investigate",
-} as const;
-
-export type ActivityPhaseEnumKey = (typeof activityPhaseEnum)[keyof typeof activityPhaseEnum];
-
-export const activityOperationsEnum = {
-	model: "model",
-	read: "read",
-	search: "search",
-	python: "python",
-	catalog: "catalog",
-	review_catalog: "review_catalog",
-	read_reviews: "read_reviews",
-	search_reviews: "search_reviews",
-	history: "history",
-	checkpoint: "checkpoint",
-} as const;
-
-export type ActivityOperationsEnumKey =
-	(typeof activityOperationsEnum)[keyof typeof activityOperationsEnum];
-
-export type Activity = {
-	id: string;
-	phase: ActivityPhaseEnumKey;
-	label: string;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	execution_ids?: string[] | undefined;
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	started_at: string;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	operations?: ActivityOperationsEnumKey[] | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	tool_calls?: ToolCount[] | undefined;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	finished?: boolean | undefined;
-};
-
-export type ActivityAvailability = {
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	traces?: boolean | undefined;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	requests?: boolean | undefined;
-};
-
-export type MetadataFilter = {
-	/**
-	 * @minLength 1
-	 * @type string
-	 */
-	key: string;
-	/**
-	 * @minLength 1
-	 * @type string
-	 */
-	value: string;
-};
-
-export const activitySelectionSourceEnum = {
-	traces: "traces",
-	requests: "requests",
-	both: "both",
-} as const;
-
-export type ActivitySelectionSourceEnumKey =
-	(typeof activitySelectionSourceEnum)[keyof typeof activitySelectionSourceEnum];
-
-export type ActivitySelection = {
-	/**
-	 * @default 'traces'
-	 * @type string | undefined
-	 */
-	source?: ActivitySelectionSourceEnumKey | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	service?: string | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	agent_name?: string | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	filters?: MetadataFilter[] | undefined;
-	sample_size?: (number | null) | undefined;
-	/**
-	 * @maximum 100
-	 * @default 100
-	 * @type number | undefined
-	 */
-	sample_percent?: number | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	team_id?: string | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	execution_ids?: string[] | undefined;
-};
-
 export type AdaptiveRouterWeights = {
 	/**
 	 * @minimum 0
@@ -473,7 +316,7 @@ export type FunctionToolAllowedCallersEnumKey =
 /**
  * @description Defines a function in your own code the model can choose to call.
  *
- * Learn more about [function calling](https://platform.openai.com/docs/guides/function-calling).
+ * Learn more about [function calling](https://developers.openai.com/api/docs/guides/function-calling).
  * @type object
  */
 export type FunctionTool = {
@@ -486,6 +329,7 @@ export type FunctionTool = {
 	strict?: (boolean | null) | undefined;
 	type: "function";
 	allowed_callers?: (FunctionToolAllowedCallersEnumKey[] | null) | undefined;
+	async?: (boolean | null) | undefined;
 	defer_loading?: (boolean | null) | undefined;
 	description?: (string | null) | undefined;
 	output_schema?:
@@ -571,7 +415,7 @@ export type RankingOptions = {
 /**
  * @description A tool that searches for relevant content from uploaded files.
  *
- * Learn more about the [file search tool](https://platform.openai.com/docs/guides/tools-file-search).
+ * Learn more about the [file search tool](https://developers.openai.com/api/docs/guides/tools-file-search).
  * @type object
  */
 export type FileSearchTool = {
@@ -586,7 +430,7 @@ export type FileSearchTool = {
 /**
  * @description A tool that controls a virtual computer.
  *
- * Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+ * Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
  * @type object
  */
 export type ComputerTool = {
@@ -608,7 +452,7 @@ export type ComputerUsePreviewToolEnvironmentEnumKey =
 /**
  * @description A tool that controls a virtual computer.
  *
- * Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+ * Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
  * @type object
  */
 export type ComputerUsePreviewTool = {
@@ -630,6 +474,10 @@ export type Filters = {
 
 /**
  * @description The approximate location of the user.
+ *
+ * If omitted or null, defaults to the
+ * United States. To avoid this fallback, pass `{"type": "approximate"}` without
+ * location fields. To localize results, provide the relevant location fields.
  * @type object
  */
 export type OpenaiTypesResponsesWebSearchToolUserLocation = {
@@ -662,11 +510,12 @@ export type WebSearchToolSearchContextSizeKey =
  * @description Search the Internet for sources related to the prompt.
  *
  * Learn more about the
- * [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+ * [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
  * @type object
  */
 export type WebSearchTool = {
 	type: WebSearchToolTypeEnumKey;
+	external_web_access?: (boolean | null) | undefined;
 	filters?: (Filters | null) | undefined;
 	search_context_size?: (WebSearchToolSearchContextSizeKey | null) | undefined;
 	user_location?: (OpenaiTypesResponsesWebSearchToolUserLocation | null) | undefined;
@@ -747,7 +596,7 @@ export type McpRequireApprovalKey = (typeof mcpRequireApproval)[keyof typeof mcp
 
 /**
  * @description Give the model access to additional tools via remote Model Context Protocol
- * (MCP) servers. [Learn more about MCP](https://platform.openai.com/docs/guides/tools-remote-mcp).
+ * (MCP) servers. [Learn more about MCP](https://developers.openai.com/api/docs/guides/tools-connectors-mcp).
  * @type object
  */
 export type Mcp = {
@@ -901,6 +750,8 @@ export const imageGenerationQuality = {
 	low: "low",
 	medium: "medium",
 	high: "high",
+	xhigh: "xhigh",
+	max: "max",
 	auto: "auto",
 } as const;
 
@@ -1029,7 +880,7 @@ export type FunctionShellTool = {
  * @description Unconstrained free-form text.
  * @type object
  */
-export type Text = {
+export type OpenaiTypesSharedCustomToolInputFormatText = {
 	type: "text";
 	[key: string]: unknown;
 };
@@ -1063,16 +914,17 @@ export type CustomToolAllowedCallersEnumKey =
 /**
  * @description A custom tool that processes input using a specified format.
  *
- * Learn more about   [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
+ * Learn more about   [custom tools](https://developers.openai.com/api/docs/guides/function-calling#custom-tools)
  * @type object
  */
 export type CustomTool = {
 	name: string;
 	type: "custom";
 	allowed_callers?: (CustomToolAllowedCallersEnumKey[] | null) | undefined;
+	async?: (boolean | null) | undefined;
 	defer_loading?: (boolean | null) | undefined;
 	description?: (string | null) | undefined;
-	format?: (Text | Grammar | null) | undefined;
+	format?: (OpenaiTypesSharedCustomToolInputFormatText | Grammar | null) | undefined;
 	[key: string]: unknown;
 };
 
@@ -1088,6 +940,7 @@ export type ToolFunction = {
 	name: string;
 	type: "function";
 	allowed_callers?: (ToolFunctionAllowedCallersEnumKey[] | null) | undefined;
+	async?: (boolean | null) | undefined;
 	defer_loading?: (boolean | null) | undefined;
 	description?: (string | null) | undefined;
 	output_schema?:
@@ -1133,7 +986,9 @@ export type ToolSearchTool = {
 };
 
 /**
- * @description The user's location.
+ * @description The approximate location of the user.
+ *
+ * If omitted or null, defaults to the United States. To avoid this fallback, pass `{"type": "approximate"}` without location fields. To localize results, provide the relevant location fields.
  * @type object
  */
 export type OpenaiTypesResponsesWebSearchPreviewToolUserLocation = {
@@ -1173,7 +1028,7 @@ export type WebSearchPreviewToolSearchContextSizeKey =
 /**
  * @description This tool searches the web for relevant results to use in a response.
  *
- * Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+ * Learn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
  * @type object
  */
 export type WebSearchPreviewTool = {
@@ -1239,6 +1094,25 @@ export type AdditionalTools = {
 	)[];
 	type: "additional_tools";
 	[key: string]: unknown;
+};
+
+export type AdminIgnore = {
+	/**
+	 * @default 'admin'
+	 * @type string | undefined
+	 */
+	source?: "admin" | undefined;
+	ignored_by: string;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	ignored_at: string;
+	/**
+	 * @description When the snooze ends. Null means the warning is ignored until an admin restores it.
+	 */
+	ignored_until?: (string | null) | undefined;
 };
 
 /**
@@ -1597,8 +1471,7 @@ export type AgentKillSwitchConfig = {
 };
 
 export type AgentNode = {
-	name: string;
-	parent_agent: string | null;
+	duration_ms: number;
 	/**
 	 * @minimum 0
 	 * @maximum 18446744073709552000
@@ -1611,20 +1484,21 @@ export type AgentNode = {
 	 * @type integer
 	 */
 	llm_calls: number;
-	/**
-	 * @minimum 0
-	 * @maximum 18446744073709552000
-	 * @type integer
-	 */
-	tool_calls: number;
-	duration_ms: number;
-	spend: number | null;
+	name: string;
+	parent_agent: string | null;
 	/**
 	 * @minimum 0
 	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	priced_calls: number;
+	spend: number | null;
+	/**
+	 * @minimum 0
+	 * @maximum 18446744073709552000
+	 * @type integer
+	 */
+	tool_calls: number;
 };
 
 export const agentResponseExecutionModeEnum = {
@@ -1709,19 +1583,6 @@ export type AgentSkillsIndex = {
 	 */
 	$schema?: string | undefined;
 	skills: AgentSkillsIndexEntry[];
-};
-
-export type AgentTestCase = {
-	/**
-	 * @minLength 1
-	 * @type string
-	 */
-	input: string;
-	/**
-	 * @minLength 1
-	 * @type string
-	 */
-	expected: string;
 };
 
 export const allowedVectorStoreIndexItemIndexPermissionsEnum = {
@@ -3869,6 +3730,11 @@ export type SpendMetrics = {
 	flat_cost?: number | undefined;
 	/**
 	 * @default 0
+	 * @type number | undefined
+	 */
+	ptu_hours?: number | undefined;
+	/**
+	 * @default 0
 	 * @type integer | undefined
 	 */
 	prompt_tokens?: number | undefined;
@@ -4126,197 +3992,6 @@ export type BudgetNewRequest = {
 
 export type BudgetRequest = {
 	budgets: string[];
-};
-
-export type BudgetReservation = {
-	id: string;
-	job_id: string;
-	/**
-	 * @minimum 0
-	 * @type number
-	 */
-	amount: number;
-	month: string;
-	expires_at?: (string | null) | undefined;
-};
-
-export type TraceSource = {
-	/**
-	 * @default 'trace'
-	 * @type string | undefined
-	 */
-	kind?: "trace" | undefined;
-	/**
-	 * @minLength 1
-	 * @type string
-	 */
-	trace_id: string;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	trace_ref?: string | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	span_id?: string | undefined;
-};
-
-export type FindingSource = {
-	/**
-	 * @default 'finding'
-	 * @type string | undefined
-	 */
-	kind?: "finding" | undefined;
-	/**
-	 * @minLength 1
-	 * @type string
-	 */
-	lens_id: string;
-	finding_ids: string[];
-};
-
-export type TextSource = {
-	/**
-	 * @default 'text'
-	 * @type string | undefined
-	 */
-	kind?: "text" | undefined;
-	/**
-	 * @minLength 1
-	 * @type string
-	 */
-	text: string;
-};
-
-export type BuildRequest = {
-	sources: (
-		| (TraceSource & {
-				kind: "trace";
-		  })
-		| (FindingSource & {
-				kind: "finding";
-		  })
-		| (TextSource & {
-				kind: "text";
-		  })
-	)[];
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	dataset_id?: string | undefined;
-};
-
-export type DatasetToolCall = {
-	name: string;
-	arguments: string;
-};
-
-export const datasetMessageRoleEnum = {
-	system: "system",
-	user: "user",
-	assistant: "assistant",
-	tool: "tool",
-} as const;
-
-export type DatasetMessageRoleEnumKey =
-	(typeof datasetMessageRoleEnum)[keyof typeof datasetMessageRoleEnum];
-
-export type DatasetMessage = {
-	role: DatasetMessageRoleEnumKey;
-	content: string;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	name?: string | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	tool_calls?: DatasetToolCall[] | undefined;
-};
-
-export type CaseSource = {
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	trace_id?: string | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	trace_ref?: string | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	span_id?: string | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	finding_id?: string | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	lens_id?: string | undefined;
-};
-
-export type DatasetCase = {
-	id: string;
-	messages: DatasetMessage[];
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	reply?: string | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	tool_calls?: DatasetToolCall[] | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	expected?: string | undefined;
-	/**
-	 * @default true
-	 * @type boolean | undefined
-	 */
-	included?: boolean | undefined;
-	source: CaseSource;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	agent_version?: string | undefined;
-};
-
-export const skippedCaseReasonEnum = {
-	duplicate: "duplicate",
-	no_content: "no_content",
-	too_large: "too_large",
-	over_limit: "over_limit",
-	invalid: "invalid",
-} as const;
-
-export type SkippedCaseReasonEnumKey =
-	(typeof skippedCaseReasonEnum)[keyof typeof skippedCaseReasonEnum];
-
-export type SkippedCase = {
-	source: CaseSource;
-	reason: SkippedCaseReasonEnumKey;
-};
-
-export type BuildResult = {
-	cases: DatasetCase[];
-	skipped: SkippedCase[];
 };
 
 /**
@@ -5747,6 +5422,7 @@ export type ChatCompletionRedactedThinkingBlock = {
 				| null
 		  )
 		| undefined;
+	index?: number | undefined;
 	[key: string]: unknown;
 };
 
@@ -5763,6 +5439,7 @@ export type ChatCompletionThinkingBlock = {
 				| null
 		  )
 		| undefined;
+	index?: number | undefined;
 	[key: string]: unknown;
 };
 
@@ -5779,24 +5456,6 @@ export type ChatCompletionTokenLogprob = {
 	logprob: number;
 	top_logprobs: TopLogprob[];
 	[key: string]: unknown;
-};
-
-export type Check = {
-	/**
-	 * @minLength 1
-	 * @type string
-	 */
-	id: string;
-	/**
-	 * @minLength 3
-	 * @type string
-	 */
-	instruction: string;
-	/**
-	 * @default true
-	 * @type boolean | undefined
-	 */
-	enabled?: boolean | undefined;
 };
 
 export type ChoiceLogprobs = {
@@ -5836,6 +5495,7 @@ export type MessageRoleEnumKey = (typeof messageRoleEnum)[keyof typeof messageRo
 export type Message = {
 	content: string | null;
 	role: MessageRoleEnumKey;
+	refusal?: (string | null) | undefined;
 	tool_calls: (ChatCompletionMessageToolCall | ChatCompletionMessageCustomToolCall)[] | null;
 	function_call: FunctionCall | null;
 	audio?: (ChatCompletionAudioResponse | null) | undefined;
@@ -5880,726 +5540,6 @@ export type Choices = {
 		  } | null)
 		| undefined;
 	[key: string]: unknown;
-};
-
-export const lensSettingsSourceEnum = {
-	traces: "traces",
-	requests: "requests",
-	both: "both",
-} as const;
-
-export type LensSettingsSourceEnumKey =
-	(typeof lensSettingsSourceEnum)[keyof typeof lensSettingsSourceEnum];
-
-export type LensSettings = {
-	/**
-	 * @default 'traces'
-	 * @type string | undefined
-	 */
-	source?: LensSettingsSourceEnumKey | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	service?: string | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	agent_name?: string | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	filters?: MetadataFilter[] | undefined;
-	sample_size?: (number | null) | undefined;
-	/**
-	 * @maximum 100
-	 * @default 100
-	 * @type number | undefined
-	 */
-	sample_percent?: number | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	team_id?: string | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	execution_ids?: string[] | undefined;
-	/**
-	 * @minLength 1
-	 * @type string
-	 */
-	name: string;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	context?: string | undefined;
-	/**
-	 * @minimum 1
-	 * @default 24
-	 * @type integer | undefined
-	 */
-	lookback_hours?: number | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	checks?: Check[] | undefined;
-	/**
-	 * @minLength 1
-	 * @type string
-	 */
-	model: string;
-	/**
-	 * @default true
-	 * @type boolean | undefined
-	 */
-	enabled?: boolean | undefined;
-	/**
-	 * @minimum 1
-	 * @default 15
-	 * @type integer | undefined
-	 */
-	interval_minutes?: number | undefined;
-	/**
-	 * @minimum 1
-	 * @default 8
-	 * @type integer | undefined
-	 */
-	concurrency?: number | undefined;
-	/**
-	 * @default 100
-	 * @type number | undefined
-	 */
-	monthly_budget?: number | undefined;
-};
-
-export type Coverage = {
-	/**
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	eligible?: number | undefined;
-	/**
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	selected?: number | undefined;
-	/**
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	screened?: number | undefined;
-	/**
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	investigated?: number | undefined;
-	/**
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	inconclusive?: number | undefined;
-	/**
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	grouping_batches?: number | undefined;
-	/**
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	grouped_batches?: number | undefined;
-	/**
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	candidates?: number | undefined;
-	/**
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	partial?: number | undefined;
-	/**
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	unassessable?: number | undefined;
-	/**
-	 * @minimum 0
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	failed_tasks?: number | undefined;
-	/**
-	 * @minimum 0
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	reused?: number | undefined;
-	/**
-	 * @minimum 0
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	reusable?: number | undefined;
-};
-
-export const executionSourceEnum = {
-	traces: "traces",
-	requests: "requests",
-} as const;
-
-export type ExecutionSourceEnumKey = (typeof executionSourceEnum)[keyof typeof executionSourceEnum];
-
-export type Execution = {
-	id: string;
-	source: ExecutionSourceEnumKey;
-	trace_id: string;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	trace_ref?: string | undefined;
-	team_id: string;
-	name: string;
-	start_time: string;
-	span_count: number;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	root_seen?: boolean | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	service?: string | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	metadata?: MetadataFilter[] | undefined;
-};
-
-export type Sample = {
-	executions: Execution[];
-	eligible: number;
-	/**
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	selected?: number | undefined;
-	next_offset?: (number | null) | undefined;
-	next_cursor?: (string | null) | undefined;
-};
-
-export type IssueBrief = {
-	/**
-	 * @minLength 10
-	 * @type string
-	 */
-	problem: string;
-	/**
-	 * @minLength 3
-	 * @type string
-	 */
-	user_goal: string;
-	/**
-	 * @minLength 3
-	 * @type string
-	 */
-	what_happened: string;
-	test_cases: AgentTestCase[];
-};
-
-export const evidenceRoleEnum = {
-	support: "support",
-	counterexample: "counterexample",
-} as const;
-
-export type EvidenceRoleEnumKey = (typeof evidenceRoleEnum)[keyof typeof evidenceRoleEnum];
-
-export type Evidence = {
-	execution_id: string;
-	span_id: string;
-	/**
-	 * @minLength 1
-	 * @type string
-	 */
-	quote: string;
-	/**
-	 * @default 'support'
-	 * @type string | undefined
-	 */
-	role?: EvidenceRoleEnumKey | undefined;
-};
-
-export const findingKindEnum = {
-	issue: "issue",
-	pattern: "pattern",
-} as const;
-
-export type FindingKindEnumKey = (typeof findingKindEnum)[keyof typeof findingKindEnum];
-
-export const findingPriorityEnum = {
-	high: "high",
-	medium: "medium",
-	low: "low",
-} as const;
-
-export type FindingPriorityEnumKey = (typeof findingPriorityEnum)[keyof typeof findingPriorityEnum];
-
-export const findingStatusEnum = {
-	open: "open",
-	resolved: "resolved",
-	dismissed: "dismissed",
-} as const;
-
-export type FindingStatusEnumKey = (typeof findingStatusEnum)[keyof typeof findingStatusEnum];
-
-export type Finding = {
-	/**
-	 * @minLength 3
-	 * @type string
-	 */
-	title: string;
-	/**
-	 * @minLength 10
-	 * @type string
-	 */
-	description: string;
-	check_id: string;
-	/**
-	 * @default 'issue'
-	 * @type string | undefined
-	 */
-	kind?: FindingKindEnumKey | undefined;
-	/**
-	 * @default 'medium'
-	 * @type string | undefined
-	 */
-	priority?: FindingPriorityEnumKey | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	suggestion?: string | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	limitation?: string | undefined;
-	brief?: (IssueBrief | null) | undefined;
-	evidence: Evidence[];
-	existing_finding_id?: (string | null) | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	check_ids?: string[] | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	merged_finding_ids?: string[] | undefined;
-	id: string;
-	/**
-	 * @default 'open'
-	 * @type string | undefined
-	 */
-	status?: FindingStatusEnumKey | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	reason?: string | undefined;
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	first_seen: string;
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	last_seen: string;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	occurrences?: string[] | undefined;
-	revision: number;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	investigation_runs?: string[] | undefined;
-};
-
-export type RunAssessment = {
-	execution_id: string;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	issue_checks?: string[] | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	pattern_checks?: string[] | undefined;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	cannot_assess?: boolean | undefined;
-};
-
-export const stepKindEnum = {
-	stage: "stage",
-	model: "model",
-	error: "error",
-} as const;
-
-export type StepKindEnumKey = (typeof stepKindEnum)[keyof typeof stepKindEnum];
-
-export type Step = {
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	at: string;
-	kind: StepKindEnumKey;
-	/**
-	 * @maxLength 200
-	 * @type string
-	 */
-	label: string;
-	/**
-	 * @maxLength 200
-	 * @default ''
-	 * @type string | undefined
-	 */
-	model?: string | undefined;
-	/**
-	 * @maxLength 40
-	 * @default ''
-	 * @type string | undefined
-	 */
-	purpose?: string | undefined;
-	/**
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	prompt_tokens?: number | undefined;
-	/**
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	completion_tokens?: number | undefined;
-	/**
-	 * @default 0
-	 * @type number | undefined
-	 */
-	cost?: number | undefined;
-};
-
-export type ReviewSpan = {
-	span_id: string;
-	/**
-	 * @maxLength 120
-	 * @type string
-	 */
-	name: string;
-	/**
-	 * @maxLength 40
-	 * @type string
-	 */
-	kind: string;
-	/**
-	 * @maxLength 240
-	 * @type string
-	 */
-	preview: string;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	cited?: boolean | undefined;
-};
-
-export const reviewVerdictKindEnum = {
-	issue: "issue",
-	pattern: "pattern",
-} as const;
-
-export type ReviewVerdictKindEnumKey =
-	(typeof reviewVerdictKindEnum)[keyof typeof reviewVerdictKindEnum];
-
-export type ReviewVerdict = {
-	check_id: string;
-	kind: ReviewVerdictKindEnumKey;
-	/**
-	 * @maxLength 300
-	 * @type string
-	 */
-	summary: string;
-};
-
-export const observationKindEnum = {
-	issue: "issue",
-	pattern: "pattern",
-} as const;
-
-export type ObservationKindEnumKey = (typeof observationKindEnum)[keyof typeof observationKindEnum];
-
-export type Observation = {
-	check_id: string;
-	/**
-	 * @default 'issue'
-	 * @type string | undefined
-	 */
-	kind?: ObservationKindEnumKey | undefined;
-	summary: string;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	evidence?: Evidence[] | undefined;
-};
-
-export type Extraction = {
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	observations?: Observation[] | undefined;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	cannot_assess?: boolean | undefined;
-	/**
-	 * @maxLength 800
-	 * @default ''
-	 * @type string | undefined
-	 */
-	reasoning?: string | undefined;
-};
-
-export type Review = {
-	execution_id: string;
-	trace_id: string;
-	agent: string;
-	name: string;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	spans?: ReviewSpan[] | undefined;
-	/**
-	 * @maxLength 800
-	 * @default ''
-	 * @type string | undefined
-	 */
-	reasoning?: string | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	verdicts?: ReviewVerdict[] | undefined;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	cannot_assess?: boolean | undefined;
-	model: string;
-	/**
-	 * @minimum 0
-	 * @type integer
-	 */
-	duration_ms: number;
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	at: string;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	tool_calls?: ToolCount[] | undefined;
-	extraction?: (Extraction | null) | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	content_version?: string | undefined;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	reused?: boolean | undefined;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	consolidated?: boolean | undefined;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	partial?: boolean | undefined;
-};
-
-export type InFlight = {
-	execution_id: string;
-	trace_id: string;
-	agent: string;
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	started_at: string;
-};
-
-export type ReviewVersion = {
-	execution_id: string;
-	content_version: string;
-};
-
-export const jobStatusEnum = {
-	queued: "queued",
-	running: "running",
-	completed: "completed",
-	failed: "failed",
-	cancelled: "cancelled",
-} as const;
-
-export type JobStatusEnumKey = (typeof jobStatusEnum)[keyof typeof jobStatusEnum];
-
-export const jobTriggerEnum = {
-	schedule: "schedule",
-	manual: "manual",
-} as const;
-
-export type JobTriggerEnumKey = (typeof jobTriggerEnum)[keyof typeof jobTriggerEnum];
-
-export type Job = {
-	id: string;
-	/**
-	 * @default 'queued'
-	 * @type string | undefined
-	 */
-	status?: JobStatusEnumKey | undefined;
-	/**
-	 * @default 'Queued'
-	 * @type string | undefined
-	 */
-	stage?: string | undefined;
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	created_at: string;
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	start: string;
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	end: string;
-	settings: LensSettings;
-	revision: number;
-	worker_id?: (string | null) | undefined;
-	lease_until?: (string | null) | undefined;
-	/**
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	attempts?: number | undefined;
-	finished_at?: (string | null) | undefined;
-	/**
-	 * @default {"eligible":0,"selected":0,"screened":0,"investigated":0,"inconclusive":0,"grouping_batches":0,"grouped_batches":0,"candidates":0,"partial":0,"unassessable":0,"failed_tasks":0,"reused":0,"reusable":0}
-	 * @type object | undefined
-	 */
-	coverage?: Coverage | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	error?: string | undefined;
-	sample?: (Sample | null) | undefined;
-	/**
-	 * @default 0
-	 * @type number | undefined
-	 */
-	cost?: number | undefined;
-	findings?: (Finding[] | null) | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	assessments?: RunAssessment[] | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	steps?: Step[] | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	reviews?: Review[] | undefined;
-	/**
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	reviewed?: number | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	reading?: InFlight[] | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	activities?: Activity[] | undefined;
-	/**
-	 * @default 'schedule'
-	 * @type string | undefined
-	 */
-	trigger?: JobTriggerEnumKey | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	review_versions?: ReviewVersion[] | undefined;
-};
-
-export type Claim = {
-	lens_id: string;
-	job: Job;
-	findings: Finding[];
-	reviews?: (Review[] | null) | undefined;
 };
 
 export const clickButtonEnum = {
@@ -7105,6 +6045,54 @@ export type DailyActivityKeySearchResponse = {
 	api_keys: KeyActivityRow[];
 };
 
+export type UserActivityRow = {
+	user_id?: (string | null) | undefined;
+	user_email?: (string | null) | undefined;
+	user_alias?: (string | null) | undefined;
+	/**
+	 * @default 0
+	 * @type number | undefined
+	 */
+	spend?: number | undefined;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	prompt_tokens?: number | undefined;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	completion_tokens?: number | undefined;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	total_tokens?: number | undefined;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	api_requests?: number | undefined;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	successful_requests?: number | undefined;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	failed_requests?: number | undefined;
+};
+
+export type DailyActivityUserPageResponse = {
+	users: UserActivityRow[];
+	total_users: number;
+	offset: number;
+	limit: number;
+};
+
 export type DailySpendData = {
 	/**
 	 * @description
@@ -7131,6 +6119,11 @@ export type DailySpendMetadata = {
 	 * @type number | undefined
 	 */
 	total_flat_cost?: number | undefined;
+	/**
+	 * @default 0
+	 * @type number | undefined
+	 */
+	total_ptu_hours?: number | undefined;
 	/**
 	 * @default 0
 	 * @type integer | undefined
@@ -7237,50 +6230,6 @@ export type DailySpendMetadata = {
 				[key: string]: number;
 		  } | null)
 		| undefined;
-};
-
-export type Dataset = {
-	id: string;
-	name: string;
-	agent_name: string;
-	team_id: string;
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	created_at: string;
-	revision: number;
-	created_by: string;
-	cases: DatasetCase[];
-};
-
-export type DatasetCreate = {
-	/**
-	 * @minLength 1
-	 * @maxLength 120
-	 * @type string
-	 */
-	name: string;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	agent_name?: string | undefined;
-};
-
-export type DatasetSummary = {
-	id: string;
-	name: string;
-	agent_name: string;
-	revision: number;
-	case_count: number;
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	updated_at: string;
 };
 
 export const defaultInternalUserParamsUserRole = {
@@ -7434,6 +6383,27 @@ export type DeleteUserRequest = {
 	user_ids: string[];
 };
 
+/**
+ * @description Timeout configuration.
+ *
+ * **Usage**:
+ *
+ * Timeout(None)               # No timeouts.
+ * Timeout(5.0)                # 5s timeout on all operations.
+ * Timeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.
+ * Timeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.
+ * Timeout(5.0, pool=None)     # No timeout on acquiring connection from pool.
+ *                             # 5s timeout elsewhere.
+ * @type object
+ */
+export type Timeout = {
+	connect: number | null;
+	read: number | null;
+	write: number | null;
+	pool: number | null;
+	[key: string]: unknown;
+};
+
 export type ModelResponse = {
 	id: string;
 	created: number;
@@ -7465,6 +6435,7 @@ export type LiteLLMParams = {
 		| undefined;
 	cost_per_second?: (number | null) | undefined;
 	input_cost_per_second?: (number | null) | undefined;
+	input_cost_per_text_message?: (number | null) | undefined;
 	output_cost_per_second?: (number | null) | undefined;
 	output_cost_per_second_1080p?: (number | null) | undefined;
 	output_cost_per_second_480p?: (number | null) | undefined;
@@ -7658,12 +6629,16 @@ export type LiteLLMParams = {
 	openai_identity_provider_id?: (string | null) | undefined;
 	openai_service_account_id?: (string | null) | undefined;
 	openai_identity_token_file?: (string | null) | undefined;
+	token_exchange_endpoint?: (string | null) | undefined;
+	token_exchange_profile?: (string | null) | undefined;
+	token_exchange_scope?: (string | null) | undefined;
+	token_exchange_audience?: (string | null) | undefined;
 	custom_llm_provider?: (string | null) | undefined;
 	tpm?: (number | null) | undefined;
 	rpm?: (number | null) | undefined;
 	itpm?: (number | null) | undefined;
 	otpm?: (number | null) | undefined;
-	timeout?: (number | string | null) | undefined;
+	timeout?: (number | string | Timeout | null) | undefined;
 	stream_timeout?: (number | string | null) | undefined;
 	timeout_by_service_tier?:
 		| ({
@@ -7828,6 +6803,11 @@ export type ModelInfo = {
 	cost_per_ptu_per_hour?: (number | null) | undefined;
 	ptu_effective_from?: (string | null) | undefined;
 	ptu_effective_to?: (string | null) | undefined;
+	ptu_shares?:
+		| ({
+				[key: string]: number;
+		  } | null)
+		| undefined;
 	allow_fail_open?: (boolean | null) | undefined;
 	enable_tag_filtering?: (boolean | null) | undefined;
 	internal_router_model?: (boolean | null) | undefined;
@@ -7844,6 +6824,67 @@ export type Deployment = {
 	model_info: ModelInfo;
 	blocked?: (boolean | null) | undefined;
 	[key: string]: unknown;
+};
+
+export type EnvVarIgnore = {
+	/**
+	 * @default 'env_var'
+	 * @type string | undefined
+	 */
+	source?: "env_var" | undefined;
+	env_var: string;
+};
+
+export const deploymentWarningSeverityEnum = {
+	critical: "critical",
+	warning: "warning",
+} as const;
+
+export type DeploymentWarningSeverityEnumKey =
+	(typeof deploymentWarningSeverityEnum)[keyof typeof deploymentWarningSeverityEnum];
+
+export type DeploymentWarning = {
+	id: string;
+	severity: DeploymentWarningSeverityEnumKey;
+	ignore?:
+		| (
+				| (
+						| (AdminIgnore & {
+								source: "admin";
+						  })
+						| (EnvVarIgnore & {
+								source: "env_var";
+						  })
+				  )
+				| null
+		  )
+		| undefined;
+};
+
+export type DeploymentWarningIgnoreResponse = {
+	id: string;
+	ignore: AdminIgnore | null;
+};
+
+export type DeploymentWarningIgnoreUpdate = {
+	/**
+	 * @description True ignores the warning for every admin, false restores it.
+	 * @type boolean
+	 */
+	ignored: boolean;
+	/**
+	 * @description How long to ignore the warning, up to 30 days. Leave it out to ignore it forever.
+	 */
+	snooze_seconds?: (number | null) | undefined;
+};
+
+export type DeploymentWarningsResponse = {
+	warnings: DeploymentWarning[];
+	/**
+	 * @description False when no database is connected, so warnings cannot be ignored.
+	 * @type boolean
+	 */
+	ignore_available: boolean;
 };
 
 /**
@@ -7931,51 +6972,6 @@ export type ErrorResponse = {
 	detail: {
 		[key: string]: unknown;
 	};
-};
-
-export type EvalCases = {
-	dataset_id: string;
-	revision: number;
-	cases: DatasetCase[];
-};
-
-export type TracePart = {
-	execution_id: string;
-	span_id: string;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	parent_span_id?: string | undefined;
-	name: string;
-	kind: string;
-	content: string;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	truncated?: boolean | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	start_time?: string | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	end_time?: string | undefined;
-};
-
-export type ExecutionContent = {
-	execution: Execution;
-	parts: TracePart[];
-	next_cursor?: (string | null) | undefined;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	partial?: boolean | undefined;
 };
 
 export const exportType = {
@@ -8128,152 +7124,6 @@ export type FallbackResponse = {
 	message: string;
 };
 
-export type Feedback = {
-	/**
-	 * @minLength 1
-	 * @maxLength 128
-	 * @type string
-	 */
-	trace_id: string;
-	/**
-	 * @maxLength 512
-	 * @default ''
-	 * @type string | undefined
-	 */
-	trace_ref?: string | undefined;
-	/**
-	 * @minimum 0
-	 * @maximum 10
-	 * @type integer
-	 */
-	score: number;
-	comment: string;
-	author: string;
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	created_at: string;
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	updated_at: string;
-};
-
-export type FeedbackSubmission = {
-	/**
-	 * @minimum 0
-	 * @maximum 10
-	 * @type integer
-	 */
-	score: number;
-	/**
-	 * @maxLength 10000
-	 * @default ''
-	 * @type string | undefined
-	 */
-	comment?: string | undefined;
-	/**
-	 * @maxLength 256
-	 * @default ''
-	 * @type string | undefined
-	 */
-	user?: string | undefined;
-	trace_id?: (string | null) | undefined;
-	session_id?: (string | null) | undefined;
-	/**
-	 * @maxLength 512
-	 * @default ''
-	 * @type string | undefined
-	 */
-	trace_ref?: string | undefined;
-};
-
-export const findingDraftKindEnum = {
-	issue: "issue",
-	pattern: "pattern",
-} as const;
-
-export type FindingDraftKindEnumKey =
-	(typeof findingDraftKindEnum)[keyof typeof findingDraftKindEnum];
-
-export const findingDraftPriorityEnum = {
-	high: "high",
-	medium: "medium",
-	low: "low",
-} as const;
-
-export type FindingDraftPriorityEnumKey =
-	(typeof findingDraftPriorityEnum)[keyof typeof findingDraftPriorityEnum];
-
-export type FindingDraft = {
-	/**
-	 * @minLength 3
-	 * @type string
-	 */
-	title: string;
-	/**
-	 * @minLength 10
-	 * @type string
-	 */
-	description: string;
-	check_id: string;
-	/**
-	 * @default 'issue'
-	 * @type string | undefined
-	 */
-	kind?: FindingDraftKindEnumKey | undefined;
-	/**
-	 * @default 'medium'
-	 * @type string | undefined
-	 */
-	priority?: FindingDraftPriorityEnumKey | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	suggestion?: string | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	limitation?: string | undefined;
-	brief?: (IssueBrief | null) | undefined;
-	evidence: Evidence[];
-	existing_finding_id?: (string | null) | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	check_ids?: string[] | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	merged_finding_ids?: string[] | undefined;
-};
-
-export const findingUpdateStatusEnum = {
-	open: "open",
-	resolved: "resolved",
-	dismissed: "dismissed",
-} as const;
-
-export type FindingUpdateStatusEnumKey =
-	(typeof findingUpdateStatusEnum)[keyof typeof findingUpdateStatusEnum];
-
-export type FindingUpdate = {
-	status: FindingUpdateStatusEnumKey;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	reason?: string | undefined;
-};
-
 export type FuseHarnessPreset = {
 	id: string;
 	label: string;
@@ -8334,6 +7184,15 @@ export type GatewayRequestBreakdownEntry = {
 	failed_requests?: number | undefined;
 };
 
+export type GatewayRequestStatusCodeEntry = {
+	status_code: number;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	failed_requests?: number | undefined;
+};
+
 /**
  * @description Response for GET /gateway/daily/activity.
  * @type object
@@ -8359,6 +7218,11 @@ export type GatewayRequestActivityResponse = {
 	 * @type array | undefined
 	 */
 	by_route?: GatewayRequestBreakdownEntry[] | undefined;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	by_status_code?: GatewayRequestStatusCodeEntry[] | undefined;
 };
 
 /**
@@ -8484,6 +7348,7 @@ export type UpdateRouterConfig = {
 		| undefined;
 	tag_routing_prefix?: (string | null) | undefined;
 	optional_pre_call_checks?: (UpdateRouterConfigOptionalPreCallChecksEnumKey[] | null) | undefined;
+	fallback_on_unsupported_params?: (boolean | null) | undefined;
 };
 
 export const liteLLMKeyType = {
@@ -8864,6 +7729,13 @@ export type GetTeamMemberPermissionsResponse = {
 	all_available_permissions: string[];
 };
 
+export type HTTPError = {
+	code: number;
+	message: string;
+	type: "http_error";
+	[key: string]: unknown;
+};
+
 export type ValidationError = {
 	loc: (string | number)[];
 	msg: string;
@@ -8887,6 +7759,38 @@ export type IPAddress = {
 	ip: string;
 };
 
+export const imageGenerationCallErrorModerationDetailsModerationStageEnum = {
+	input: "input",
+	output: "output",
+	unknown: "unknown",
+} as const;
+
+export type ImageGenerationCallErrorModerationDetailsModerationStageEnumKey =
+	(typeof imageGenerationCallErrorModerationDetailsModerationStageEnum)[keyof typeof imageGenerationCallErrorModerationDetailsModerationStageEnum];
+
+/**
+ * @description Public details for a `moderation_blocked` error, when available.
+ * @type object
+ */
+export type ImageGenerationCallErrorModerationDetails = {
+	categories: string[];
+	moderation_stage: ImageGenerationCallErrorModerationDetailsModerationStageEnumKey;
+	[key: string]: unknown;
+};
+
+/**
+ * @description Details of a moderation failure, when available.
+ * @type object
+ */
+export type ImageGenerationCallError = {
+	code?: (string | null) | undefined;
+	message: string;
+	param?: (string | null) | undefined;
+	type: string;
+	moderation_details?: (ImageGenerationCallErrorModerationDetails | null) | undefined;
+	[key: string]: unknown;
+};
+
 export const imageGenerationCallStatusEnum = {
 	in_progress: "in_progress",
 	completed: "completed",
@@ -8897,6 +7801,45 @@ export const imageGenerationCallStatusEnum = {
 export type ImageGenerationCallStatusEnumKey =
 	(typeof imageGenerationCallStatusEnum)[keyof typeof imageGenerationCallStatusEnum];
 
+export const imageGenerationCallAction = {
+	generate: "generate",
+	edit: "edit",
+	auto: "auto",
+} as const;
+
+export type ImageGenerationCallActionKey =
+	(typeof imageGenerationCallAction)[keyof typeof imageGenerationCallAction];
+
+export const imageGenerationCallBackground = {
+	transparent: "transparent",
+	opaque: "opaque",
+	auto: "auto",
+} as const;
+
+export type ImageGenerationCallBackgroundKey =
+	(typeof imageGenerationCallBackground)[keyof typeof imageGenerationCallBackground];
+
+export const imageGenerationCallOutputFormat = {
+	png: "png",
+	webp: "webp",
+	jpeg: "jpeg",
+} as const;
+
+export type ImageGenerationCallOutputFormatKey =
+	(typeof imageGenerationCallOutputFormat)[keyof typeof imageGenerationCallOutputFormat];
+
+export const imageGenerationCallQuality = {
+	low: "low",
+	medium: "medium",
+	high: "high",
+	xhigh: "xhigh",
+	max: "max",
+	auto: "auto",
+} as const;
+
+export type ImageGenerationCallQualityKey =
+	(typeof imageGenerationCallQuality)[keyof typeof imageGenerationCallQuality];
+
 /**
  * @description An image generation request made by the model.
  * @type object
@@ -8906,12 +7849,21 @@ export type ImageGenerationCall = {
 	result?: (string | null) | undefined;
 	status: ImageGenerationCallStatusEnumKey;
 	type: "image_generation_call";
+	action?: (ImageGenerationCallActionKey | null) | undefined;
+	background?: (ImageGenerationCallBackgroundKey | null) | undefined;
+	error?: (ImageGenerationCallError | null) | undefined;
+	output_format?: (ImageGenerationCallOutputFormatKey | null) | undefined;
+	quality?: (ImageGenerationCallQualityKey | null) | undefined;
+	revised_prompt?: (string | null) | undefined;
+	size?: (string | null) | undefined;
 	[key: string]: unknown;
 };
 
 export const incompleteDetailsReason = {
 	max_output_tokens: "max_output_tokens",
+	max_messages: "max_messages",
 	content_filter: "content_filter",
+	steered: "steered",
 } as const;
 
 export type IncompleteDetailsReasonKey =
@@ -8924,72 +7876,6 @@ export type IncompleteDetailsReasonKey =
 export type IncompleteDetails = {
 	reason?: (IncompleteDetailsReasonKey | null) | undefined;
 	[key: string]: unknown;
-};
-
-export type IngestionTenant = {
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	team_id?: string | undefined;
-	user_id: string;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	org_id?: string | undefined;
-	api_key_hash: string;
-};
-
-export type IngestionCredential = {
-	token_hash: string;
-	tenant: IngestionTenant;
-	expires_at: number | null;
-};
-
-export type IngestionKey = {
-	id: string;
-	name: string;
-	tenant: IngestionTenant;
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	created_at: string;
-	expires_at: number | null;
-};
-
-export type IngestionKeyCreated = {
-	key: string;
-	record: IngestionKey;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	active?: boolean | undefined;
-};
-
-export type IngestionKeyRequest = {
-	/**
-	 * @minLength 1
-	 * @maxLength 128
-	 * @default 'Agent tracing'
-	 * @type string | undefined
-	 */
-	name?: string | undefined;
-	/**
-	 * @maxLength 256
-	 * @default ''
-	 * @type string | undefined
-	 */
-	team_id?: string | undefined;
-	expires_at?: (string | null) | undefined;
-};
-
-export type IngestionSnapshot = {
-	issued_at: number;
-	keys: IngestionCredential[];
 };
 
 export type InputTokensDetails = {
@@ -9515,99 +8401,6 @@ export type LatestReleaseInfo = {
 	release_url: string;
 };
 
-export type Scope = {
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	team_id?: string | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	api_key_hash?: string | undefined;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	all_teams?: boolean | undefined;
-};
-
-export type Lens = {
-	id: string;
-	scope: Scope;
-	settings: LensSettings;
-	/**
-	 * @default 1
-	 * @type integer | undefined
-	 */
-	revision?: number | undefined;
-	/**
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	version?: number | undefined;
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	created_at: string;
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	next_run_at: string;
-	last_scan_at?: (string | null) | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	jobs?: Job[] | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	findings?: Finding[] | undefined;
-	budget_month: string;
-	/**
-	 * @default 0
-	 * @type number | undefined
-	 */
-	spent?: number | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	reservations?: BudgetReservation[] | undefined;
-	criteria_updated_at?: (string | null) | undefined;
-};
-
-export type Worker = {
-	analysis_key_id?: (string | null) | undefined;
-	id: string;
-	name: string;
-	scope: Scope;
-	/**
-	 * @description
-	 * Format: `date-time`
-	 * @type string
-	 */
-	last_seen: string;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	revoked?: boolean | undefined;
-};
-
-export type LensList = {
-	lenses: Lens[];
-	workers: Worker[];
-	tracing_enabled: boolean;
-};
-
 export type ListAccessGroupsResponse = {
 	access_groups: AccessGroupInfo[];
 };
@@ -9708,6 +8501,7 @@ export type ModelGroupInfoProxy = {
 	configurable_clientside_auth_params?:
 		| ((string | ConfigurableClientsideParamsCustomAuthOutput)[] | null)
 		| undefined;
+	description?: (string | null) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -10745,6 +9539,19 @@ export type McpApprovalResponse = {
 	[key: string]: unknown;
 };
 
+export type McpProtocolError = {
+	code: number;
+	message: string;
+	type: "mcp_protocol_error";
+	[key: string]: unknown;
+};
+
+export type McpToolExecutionError = {
+	content: unknown;
+	type: "mcp_tool_execution_error";
+	[key: string]: unknown;
+};
+
 export const mcpCallStatus = {
 	in_progress: "in_progress",
 	completed: "completed",
@@ -10766,7 +9573,7 @@ export type McpCall = {
 	server_label: string;
 	type: "mcp_call";
 	approval_request_id?: (string | null) | undefined;
-	error?: (string | null) | undefined;
+	error?: (McpProtocolError | McpToolExecutionError | HTTPError | null) | undefined;
 	output?: (string | null) | undefined;
 	status?: (McpCallStatusKey | null) | undefined;
 	[key: string]: unknown;
@@ -10879,6 +9686,10 @@ export type ModelDeprecationInfo = {
 	 * @description The provider this model belongs to.
 	 */
 	litellm_provider?: (string | null) | undefined;
+	/**
+	 * @description The model to migrate to, as set in model_info.successor_model on the deployment.
+	 */
+	successor_model?: (string | null) | undefined;
 };
 
 export type ModelDeprecationResponse = {
@@ -10913,53 +9724,6 @@ export type ModelDeprecationResponse = {
 
 export type ModelInfoDelete = {
 	id: string;
-};
-
-export const modelMessageRoleEnum = {
-	system: "system",
-	user: "user",
-	assistant: "assistant",
-} as const;
-
-export type ModelMessageRoleEnumKey =
-	(typeof modelMessageRoleEnum)[keyof typeof modelMessageRoleEnum];
-
-export type ModelMessage = {
-	role: ModelMessageRoleEnumKey;
-	content: string;
-};
-
-export const modelRequestPurposeEnum = {
-	extract: "extract",
-	cluster: "cluster",
-	investigate: "investigate",
-} as const;
-
-export type ModelRequestPurposeEnumKey =
-	(typeof modelRequestPurposeEnum)[keyof typeof modelRequestPurposeEnum];
-
-export type ModelRequest = {
-	/**
-	 * @minLength 1
-	 * @type string
-	 */
-	prompt: string;
-	purpose: ModelRequestPurposeEnumKey;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	messages?: ModelMessage[] | undefined;
-};
-
-export type ModelResult = {
-	content: string;
-	cost: number;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	context_exceeded?: boolean | undefined;
 };
 
 export type ModelTopKeysResponse = {
@@ -11382,6 +10146,7 @@ export type NewTeamRequest = {
 	allowed_passthrough_routes?: (unknown[] | null) | undefined;
 	denied_passthrough_routes?: (string[] | null) | undefined;
 	disable_global_guardrails?: (boolean | null) | undefined;
+	require_trace_id?: (boolean | null) | undefined;
 	secret_manager_settings?:
 		| ({
 				[key: string]: unknown;
@@ -11415,6 +10180,11 @@ export type NewTeamRequest = {
 	team_member_tpm_limit?: (number | null) | undefined;
 	team_member_key_duration?: (string | null) | undefined;
 	team_member_budget_duration?: (string | null) | undefined;
+	team_member_model_max_budget?:
+		| ({
+				[key: string]: BudgetConfig;
+		  } | null)
+		| undefined;
 	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | null) | undefined;
 	enforced_batch_output_expires_after?:
 		| ({
@@ -11968,6 +10738,33 @@ export type OutputTokensDetails = {
 	[key: string]: unknown;
 };
 
+export const outputToolSearchCallExecutionEnum = {
+	server: "server",
+	client: "client",
+} as const;
+
+export type OutputToolSearchCallExecutionEnumKey =
+	(typeof outputToolSearchCallExecutionEnum)[keyof typeof outputToolSearchCallExecutionEnum];
+
+export const outputToolSearchCallStatusEnum = {
+	in_progress: "in_progress",
+	completed: "completed",
+	incomplete: "incomplete",
+} as const;
+
+export type OutputToolSearchCallStatusEnumKey =
+	(typeof outputToolSearchCallStatusEnum)[keyof typeof outputToolSearchCallStatusEnum];
+
+export type OutputToolSearchCall = {
+	id: string;
+	arguments: unknown;
+	call_id?: (string | null) | undefined;
+	execution: OutputToolSearchCallExecutionEnumKey;
+	status: OutputToolSearchCallStatusEnumKey;
+	type: "tool_search_call";
+	[key: string]: unknown;
+};
+
 /**
  * @description Response model for paginated audit logs
  * @type object
@@ -12128,8 +10925,14 @@ export type PatchTeamRequest = {
 	policies?: (string[] | null) | undefined;
 	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
 	disable_global_guardrails?: (boolean | null) | undefined;
+	require_trace_id?: (boolean | null) | undefined;
 	team_member_budget?: (number | null) | undefined;
 	team_member_budget_duration?: (string | null) | undefined;
+	team_member_model_max_budget?:
+		| ({
+				[key: string]: BudgetConfig;
+		  } | null)
+		| undefined;
 	team_member_rpm_limit?: (number | null) | undefined;
 	team_member_tpm_limit?: (number | null) | undefined;
 	team_member_key_duration?: (string | null) | undefined;
@@ -12245,23 +11048,6 @@ export type PerUserAnalyticsResponse = {
 	total_pages: number;
 };
 
-export type Preview = {
-	as_of?: (string | null) | undefined;
-	/**
-	 * @minimum 0
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	offset?: number | undefined;
-	selection: ActivitySelection;
-	/**
-	 * @minimum 1
-	 * @default 24
-	 * @type integer | undefined
-	 */
-	lookback_hours?: number | undefined;
-};
-
 export type Program = {
 	id: string;
 	call_id: string;
@@ -12288,22 +11074,23 @@ export type ProgramOutput = {
 	[key: string]: unknown;
 };
 
-export type Progress = {
-	stage?: (string | null) | undefined;
-	coverage?: (Coverage | null) | undefined;
-	review?: (Review | null) | undefined;
-	reading?: (InFlight[] | null) | undefined;
-	activity?: (Activity | null) | undefined;
-};
+export const promptCacheBreakpointTtl = {
+	"30m": "30m",
+	"12h": "12h",
+} as const;
+
+export type PromptCacheBreakpointTtlKey =
+	(typeof promptCacheBreakpointTtl)[keyof typeof promptCacheBreakpointTtl];
 
 /**
  * @description Marks the exact end of a reusable prompt prefix.
  *
- * The breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
+ * When `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
  * @type object
  */
 export type PromptCacheBreakpoint = {
 	mode: "explicit";
+	ttl?: (PromptCacheBreakpointTtlKey | null) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12450,6 +11237,27 @@ export type RawRequestTypedDict = {
 		  } | null)
 		| undefined;
 	error?: (string | null) | undefined;
+};
+
+export const reasoningEffort = {
+	none: "none",
+	minimal: "minimal",
+	low: "low",
+	medium: "medium",
+	high: "high",
+	xhigh: "xhigh",
+	max: "max",
+} as const;
+
+export type ReasoningEffortKey = (typeof reasoningEffort)[keyof typeof reasoningEffort];
+
+/**
+ * @description The reasoning configuration applied by this update.
+ * @type object
+ */
+export type Reasoning = {
+	effort?: (ReasoningEffortKey | null) | undefined;
+	[key: string]: unknown;
 };
 
 export const regenerateKeyRequestRpmLimitType = {
@@ -12607,6 +11415,112 @@ export type RegenerateKeyRequest = {
 	grace_period?: (string | null) | undefined;
 };
 
+export type RequestErrorStatusCodeEntry = {
+	status_code: number;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	failed_requests?: number | undefined;
+};
+
+export type RequestErrorDailyEntry = {
+	date: string;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	successful_requests?: number | undefined;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	failed_requests?: number | undefined;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	client_errors?: number | undefined;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	server_errors?: number | undefined;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	by_status_code?: RequestErrorStatusCodeEntry[] | undefined;
+};
+
+export type RequestErrorEntityEntry = {
+	id: string;
+	label?: (string | null) | undefined;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	api_requests?: number | undefined;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	failed_requests?: number | undefined;
+	top_status_code?: (number | null) | undefined;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	top_status_code_requests?: number | undefined;
+};
+
+/**
+ * @description Response for GET /gateway/errors/activity.
+ * @type object
+ */
+export type RequestErrorActivityResponse = {
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	total_successful_requests?: number | undefined;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	total_failed_requests?: number | undefined;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	by_date?: RequestErrorDailyEntry[] | undefined;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	by_status_code?: RequestErrorStatusCodeEntry[] | undefined;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	by_key?: RequestErrorEntityEntry[] | undefined;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	by_team?: RequestErrorEntityEntry[] | undefined;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	by_user?: RequestErrorEntityEntry[] | undefined;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	by_model?: RequestErrorEntityEntry[] | undefined;
+};
+
 export type ResetSpendRequest = {
 	reset_to: number;
 };
@@ -12693,7 +11607,7 @@ export type ResponseCodeInterpreterToolCall = {
 };
 
 /**
- * @description A compaction item generated by the [`v1/responses/compact` API](https://platform.openai.com/docs/api-reference/responses/compact).
+ * @description A compaction item generated by the [`v1/responses/compact` API](https://developers.openai.com/api/reference/resources/responses/methods/compact).
  * @type object
  */
 export type ResponseCompactionItem = {
@@ -12759,7 +11673,7 @@ export type ResponseComputerToolCallStatusEnumKey =
  * @description A tool call to a computer use tool.
  *
  * See the
- * [computer use guide](https://platform.openai.com/docs/guides/tools-computer-use) for more information.
+ * [computer use guide](https://developers.openai.com/api/docs/guides/tools-computer-use) for more information.
  * @type object
  */
 export type ResponseComputerToolCall = {
@@ -12825,6 +11739,57 @@ export type ResponseComputerToolCallOutputItem = {
 };
 
 /**
+ * @description Default response format. Used to generate text responses.
+ * @type object
+ */
+export type ResponseFormatText = {
+	type: "text";
+	[key: string]: unknown;
+};
+
+/**
+ * @description JSON Schema response format.
+ *
+ * Used to generate structured JSON responses.
+ * Learn more about [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs).
+ * @type object
+ */
+export type ResponseFormatTextJSONSchemaConfig = {
+	name: string;
+	schema: {
+		[key: string]: unknown;
+	};
+	type: "json_schema";
+	description?: (string | null) | undefined;
+	strict?: (boolean | null) | undefined;
+	[key: string]: unknown;
+};
+
+/**
+ * @description The text output configuration for subsequent responses.
+ * @type object
+ */
+export type OpenaiTypesResponsesResponseConfigurationUpdateItemText = {
+	format: ResponseFormatText | ResponseFormatTextJSONSchemaConfig;
+	[key: string]: unknown;
+};
+
+/**
+ * @description A configuration update for subsequent responses.
+ *
+ * Each setting stays in effect
+ * until a later update replaces that setting.
+ * @type object
+ */
+export type ResponseConfigurationUpdateItem = {
+	id: string;
+	type: "configuration_update";
+	reasoning?: (Reasoning | null) | undefined;
+	text?: (OpenaiTypesResponsesResponseConfigurationUpdateItemText | null) | undefined;
+	[key: string]: unknown;
+};
+
+/**
  * @description Represents a container created with /v1/containers.
  * @type object
  */
@@ -12844,6 +11809,7 @@ export type ResponseCustomToolCall = {
 	name: string;
 	type: "custom_tool_call";
 	id?: (string | null) | undefined;
+	async?: (boolean | null) | undefined;
 	caller?: (CallerDirect | CallerProgram | null) | undefined;
 	namespace?: (string | null) | undefined;
 	[key: string]: unknown;
@@ -12868,6 +11834,7 @@ export type ResponseCustomToolCallItem = {
 	name: string;
 	type: "custom_tool_call";
 	id: string;
+	async?: (boolean | null) | undefined;
 	caller?: (CallerDirect | CallerProgram | null) | undefined;
 	namespace?: (string | null) | undefined;
 	status: ResponseCustomToolCallItemStatusEnumKey;
@@ -12899,7 +11866,7 @@ export type ResponseInputImageDetailEnumKey =
 /**
  * @description An image input to the model.
  *
- * Learn about [image inputs](https://platform.openai.com/docs/guides/vision).
+ * Learn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision).
  * @type object
  */
 export type ResponseInputImage = {
@@ -12959,7 +11926,7 @@ export type ResponseCustomToolCallOutputItem = {
 	[key: string]: unknown;
 };
 
-export type ResultOutput = {
+export type Result = {
 	attributes?:
 		| ({
 				[key: string]: string | number | boolean;
@@ -12987,7 +11954,7 @@ export type ResponseFileSearchToolCallStatusEnumKey =
  * @description The results of a file search tool call.
  *
  * See the
- * [file search guide](https://platform.openai.com/docs/guides/tools-file-search) for more information.
+ * [file search guide](https://developers.openai.com/api/docs/guides/tools-file-search) for more information.
  * @type object
  */
 export type ResponseFileSearchToolCall = {
@@ -12995,7 +11962,7 @@ export type ResponseFileSearchToolCall = {
 	queries: string[];
 	status: ResponseFileSearchToolCallStatusEnumKey;
 	type: "file_search_call";
-	results?: (ResultOutput[] | null) | undefined;
+	results?: (Result[] | null) | undefined;
 	[key: string]: unknown;
 };
 
@@ -13014,19 +11981,10 @@ export type ResponseFormatJSONObject = {
 };
 
 /**
- * @description Default response format. Used to generate text responses.
- * @type object
- */
-export type ResponseFormatText = {
-	type: "text";
-	[key: string]: unknown;
-};
-
-/**
  * @description JSON Schema response format.
  *
  * Used to generate structured JSON responses.
- * Learn more about [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs).
+ * Learn more about [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs).
  * @type object
  */
 export type ResponseFormatTextJSONSchemaConfigParam = {
@@ -13116,7 +12074,7 @@ export type ResponseFunctionToolCallStatusKey =
  * @description A tool call to run a function.
  *
  * See the
- * [function calling guide](https://platform.openai.com/docs/guides/function-calling) for more information.
+ * [function calling guide](https://developers.openai.com/api/docs/guides/function-calling) for more information.
  * @type object
  */
 export type ResponseFunctionToolCall = {
@@ -13125,6 +12083,7 @@ export type ResponseFunctionToolCall = {
 	name: string;
 	type: "function_call";
 	id?: (string | null) | undefined;
+	async?: (boolean | null) | undefined;
 	caller?: (CallerDirect | CallerProgram | null) | undefined;
 	namespace?: (string | null) | undefined;
 	status?: (ResponseFunctionToolCallStatusKey | null) | undefined;
@@ -13144,7 +12103,7 @@ export type ResponseFunctionToolCallItemStatusEnumKey =
  * @description A tool call to run a function.
  *
  * See the
- * [function calling guide](https://platform.openai.com/docs/guides/function-calling) for more information.
+ * [function calling guide](https://developers.openai.com/api/docs/guides/function-calling) for more information.
  * @type object
  */
 export type ResponseFunctionToolCallItem = {
@@ -13153,6 +12112,7 @@ export type ResponseFunctionToolCallItem = {
 	name: string;
 	type: "function_call";
 	id: string;
+	async?: (boolean | null) | undefined;
 	caller?: (CallerDirect | CallerProgram | null) | undefined;
 	namespace?: (string | null) | undefined;
 	status: ResponseFunctionToolCallItemStatusEnumKey;
@@ -13171,10 +12131,10 @@ export type ResponseFunctionToolCallOutputItemStatusEnumKey =
 
 export type ResponseFunctionToolCallOutputItem = {
 	id: string;
-	call_id: string;
 	output: string | (ResponseInputText | ResponseInputImage | ResponseInputFile)[];
 	status: ResponseFunctionToolCallOutputItemStatusEnumKey;
 	type: "function_call_output";
+	call_id?: (string | null) | undefined;
 	caller?: (CallerDirect | CallerProgram | null) | undefined;
 	created_by?: (string | null) | undefined;
 	name?: (string | null) | undefined;
@@ -13187,6 +12147,7 @@ export const responseFunctionWebSearchStatusEnum = {
 	searching: "searching",
 	completed: "completed",
 	failed: "failed",
+	incomplete: "incomplete",
 } as const;
 
 export type ResponseFunctionWebSearchStatusEnumKey =
@@ -13196,7 +12157,7 @@ export type ResponseFunctionWebSearchStatusEnumKey =
  * @description The results of a web search tool call.
  *
  * See the
- * [web search guide](https://platform.openai.com/docs/guides/tools-web-search) for more information.
+ * [web search guide](https://developers.openai.com/api/docs/guides/tools-web-search) for more information.
  * @type object
  */
 export type ResponseFunctionWebSearch = {
@@ -13388,7 +12349,7 @@ export type ResponseReasoningItemStatusKey =
  * @description A description of the chain of thought used by a reasoning model while generating
  * a response. Be sure to include these items in your `input` to the Responses API
  * for subsequent turns of a conversation if you are manually
- * [managing context](https://platform.openai.com/docs/guides/conversation-state).
+ * [managing context](https://developers.openai.com/api/docs/guides/conversation-state).
  * @type object
  */
 export type ResponseReasoningItem = {
@@ -13418,6 +12379,7 @@ export type ResponseItemList = {
 		| ResponseToolSearchCall
 		| ResponseToolSearchOutputItem
 		| AdditionalTools
+		| ResponseConfigurationUpdateItem
 		| ResponseReasoningItem
 		| Program
 		| ProgramOutput
@@ -13458,8 +12420,8 @@ export type ResponseTextConfigParamVerbosityKey =
  *
  * Can be plain
  * text or structured JSON data. Learn more:
- * - [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
- * - [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+ * - [Text inputs and outputs](https://developers.openai.com/api/docs/guides/text)
+ * - [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)
  * @type object
  */
 export type ResponseTextConfigParam = {
@@ -13507,7 +12469,7 @@ export type ToolChoiceTypesParamTypeEnumKey =
 
 /**
  * @description Indicates that the model should use a built-in tool to generate a response.
- * [Learn more about built-in tools](https://platform.openai.com/docs/guides/tools).
+ * [Learn more about built-in tools](https://developers.openai.com/api/docs/guides/tools).
  * @type object
  */
 export type ToolChoiceTypesParam = {
@@ -13645,6 +12607,7 @@ export type ResponsesAPIResponse = {
 				| ResponseFunctionToolCall
 				| ResponseFunctionWebSearch
 				| CustomToolCallOutputItem
+				| OutputToolSearchCall
 		  )[];
 	parallel_tool_calls?: (boolean | null) | undefined;
 	temperature?: (number | null) | undefined;
@@ -13712,44 +12675,6 @@ export type ResponsesAPIResponse = {
 	user?: (string | null) | undefined;
 	store?: (boolean | null) | undefined;
 	[key: string]: unknown;
-};
-
-export type ResultInput = {
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	assessments?: RunAssessment[] | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	findings?: FindingDraft[] | undefined;
-	coverage: Coverage;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	error?: string | undefined;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	review_versions?: ReviewVersion[] | undefined;
-};
-
-export type ReviewPage = {
-	reviews: Review[];
-	reviewed: number;
-};
-
-export type RevisionSave = {
-	/**
-	 * @minimum 0
-	 * @type integer
-	 */
-	base_revision: number;
-	cases: DatasetCase[];
 };
 
 /**
@@ -13846,14 +12771,6 @@ export type RouterSettingsResponse = {
 	};
 };
 
-export type RunRequest = {
-	settings?: (LensSettings | null) | undefined;
-	lookback_hours?: (number | null) | undefined;
-	start?: (string | null) | undefined;
-	end?: (string | null) | undefined;
-	agent_name?: (string | null) | undefined;
-};
-
 export const runSourceTypeEnum = {
 	slack: "slack",
 	teams: "teams",
@@ -13867,9 +12784,9 @@ export const runSourceTypeEnum = {
 export type RunSourceTypeEnumKey = (typeof runSourceTypeEnum)[keyof typeof runSourceTypeEnum];
 
 export type RunSource = {
+	title: string;
 	type: RunSourceTypeEnumKey;
 	url: string;
-	title: string;
 	user?: string | undefined;
 };
 
@@ -14013,6 +12930,11 @@ export type ServiceStatus = {
 	 * @type integer | undefined
 	 */
 	protocol_version?: number | undefined;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	public_contract?: number | undefined;
 };
 
 export type ServiceConnection = {
@@ -14287,56 +13209,23 @@ export type ShadowEvalJobResponse = {
 	readonly status: ShadowEvalJobResponseStatusEnumKey;
 };
 
-export type Signal = {
-	/**
-	 * @pattern ^[a-z][a-z0-9_]{0,63}$
-	 * @type string
-	 */
-	id: string;
-	/**
-	 * @minLength 1
-	 * @maxLength 60
-	 * @type string
-	 */
-	name: string;
-	/**
-	 * @minLength 3
-	 * @maxLength 500
-	 * @type string
-	 */
-	question: string;
-};
+export const spanSpendMatch = {
+	matched: "matched",
+	no_call_id: "no_call_id",
+	no_spend_log: "no_spend_log",
+	ambiguous: "ambiguous",
+	incomplete_evidence: "incomplete_evidence",
+} as const;
 
-export type SignalConfig = {
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	model?: string | undefined;
-	/**
-	 * @minimum 0.05
-	 * @maximum 0.95
-	 * @default 0.5
-	 * @type number | undefined
-	 */
-	threshold?: number | undefined;
-	/**
-	 * @default [{"id":"user_frustration","name":"User frustration","question":"Does the user show frustration, annoyance or dissatisfaction with the agent in this run, for example complaints, irritated corrections, all caps, profanity, or giving up on the task?"},{"id":"missing_capability","name":"Missing capability","question":"Does the user ask for something the agent cannot do in this run, so that the agent refuses, says it lacks a tool, permission, integration or data source, or fails because the capability does not exist?"},{"id":"repeated_request","name":"Repeated request","question":"Does the user ask for the same thing more than once in this run, usually because the agent did not deliver it the first time?"}]
-	 * @type array | undefined
-	 */
-	signals?: Signal[] | undefined;
-};
+export type SpanSpendMatchKey = (typeof spanSpendMatch)[keyof typeof spanSpendMatch];
 
-export type SignalFlag = {
-	signal_id: string;
-	name: string;
-	/**
-	 * @minimum 0
-	 * @maximum 1
-	 * @type number
-	 */
-	score: number;
-};
+export const spanStatusEnum = {
+	ok: "ok",
+	error: "error",
+	unset: "unset",
+} as const;
+
+export type SpanStatusEnumKey = (typeof spanStatusEnum)[keyof typeof spanStatusEnum];
 
 export const spanTypeEnum = {
 	agent: "agent",
@@ -14355,59 +13244,41 @@ export const spanTypeEnum = {
 
 export type SpanTypeEnumKey = (typeof spanTypeEnum)[keyof typeof spanTypeEnum];
 
-export const spanStatusEnum = {
-	ok: "ok",
-	error: "error",
-	unset: "unset",
-} as const;
-
-export type SpanStatusEnumKey = (typeof spanStatusEnum)[keyof typeof spanStatusEnum];
-
-export const spanSpendMatch = {
-	matched: "matched",
-	no_call_id: "no_call_id",
-	no_spend_log: "no_spend_log",
-	ambiguous: "ambiguous",
-	incomplete_evidence: "incomplete_evidence",
-} as const;
-
-export type SpanSpendMatchKey = (typeof spanSpendMatch)[keyof typeof spanSpendMatch];
-
 export type Span = {
-	span_id: string;
-	parent_span_id: string | null;
-	name: string;
-	type: SpanTypeEnumKey;
 	agent: string;
-	framework: string;
-	start_offset_ms: number;
 	duration_ms: number;
-	status: SpanStatusEnumKey;
 	error: string | null;
 	error_truncated: boolean;
+	framework: string;
 	input_preview: string;
-	model: string | null;
 	/**
 	 * @minimum 0
 	 * @maximum 4294967295
 	 * @type integer
 	 */
 	input_tokens: number;
+	litellm_request_id: string | null;
+	model: string | null;
+	name: string;
 	/**
 	 * @minimum 0
 	 * @maximum 4294967295
 	 * @type integer
 	 */
 	output_tokens: number;
-	litellm_request_id: string | null;
+	parent_span_id: string | null;
+	span_id: string;
 	spend: number | null;
 	spend_log_request_id: string | null;
 	spend_match: SpanSpendMatchKey | null;
+	start_offset_ms: number;
+	status: SpanStatusEnumKey;
+	type: SpanTypeEnumKey;
 };
 
 export type UIToolCall = {
-	name: string;
 	arguments: string;
+	name: string;
 };
 
 export const UIMessageRoleEnum = {
@@ -14420,15 +13291,15 @@ export const UIMessageRoleEnum = {
 export type UIMessageRoleEnumKey = (typeof UIMessageRoleEnum)[keyof typeof UIMessageRoleEnum];
 
 export type UIMessage = {
-	role: UIMessageRoleEnumKey;
 	content: string;
 	name?: (string | null) | undefined;
+	role: UIMessageRoleEnumKey;
 	tool_calls?: UIToolCall[] | undefined;
 };
 
 export type UIMessages = {
-	messages: UIMessage[];
 	kind: "messages";
+	messages: UIMessage[];
 };
 
 export type UIField = {
@@ -14442,31 +13313,31 @@ export type UIFields = {
 };
 
 export type UIText = {
-	text: string;
 	kind: "text";
+	text: string;
 };
 
 export type SpanDetail = {
-	span_id: string;
-	input_ui: UIMessages | UIFields | UIText;
-	output_ui: UIMessages | UIFields | UIText;
-	input: string;
-	output: string;
 	attributes: {
 		[key: string]: string;
 	};
+	input: string;
+	input_ui: UIMessages | UIFields | UIText;
+	output: string;
+	output_ui: UIMessages | UIFields | UIText;
+	span_id: string;
 };
 
 export type SpanErrorPage = {
-	span_id: string;
 	message: string;
+	next_cursor: string | null;
+	span_id: string;
 	/**
 	 * @minimum 0
 	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	total_chars: number;
-	next_cursor: string | null;
 };
 
 export type SpendAnalyticsPaginatedResponse = {
@@ -14575,6 +13446,13 @@ export type StartShadowEvalRequest = {
 	 * @type number | undefined
 	 */
 	max_budget?: number | undefined;
+};
+
+export type StoredReport = {
+	id: string;
+	window_start: number;
+	window_end: number;
+	report: JsonValue;
 };
 
 export type SupportedEndpoint = {
@@ -14855,6 +13733,7 @@ export type TeamListItem = {
 	access_group_models?: (string[] | null) | undefined;
 	access_group_mcp_server_ids?: (string[] | null) | undefined;
 	access_group_agent_ids?: (string[] | null) | undefined;
+	access_group_skill_names?: (string[] | null) | undefined;
 };
 
 /**
@@ -14992,6 +13871,14 @@ export type TeamMemberUpdateRequest = {
 	 * @description UTC expiry for temp_budget_increase
 	 */
 	temp_budget_expiry?: (string | null) | undefined;
+	/**
+	 * @description Per-model spend caps for this team member, each with its own budget_duration. Overrides the team's default per-model member budget. Pass an empty dict to fall back to the team default.
+	 */
+	model_max_budget?:
+		| ({
+				[key: string]: BudgetConfig;
+		  } | null)
+		| undefined;
 };
 
 export type TeamMemberUpdateResponse = {
@@ -15005,6 +13892,11 @@ export type TeamMemberUpdateResponse = {
 	allowed_models?: (string[] | null) | undefined;
 	temp_budget_increase?: (number | null) | undefined;
 	temp_budget_expiry?: (string | null) | undefined;
+	model_max_budget?:
+		| ({
+				[key: string]: BudgetConfig;
+		  } | null)
+		| undefined;
 };
 
 /**
@@ -15096,6 +13988,67 @@ export type TeamUserSpendResponse = {
 	start_date: string;
 	end_date: string;
 	results: TeamUserSpendRow[];
+};
+
+export const telemetryDestination = {
+	local_table: "local_table",
+	http: "http",
+} as const;
+
+export type TelemetryDestinationKey =
+	(typeof telemetryDestination)[keyof typeof telemetryDestination];
+
+export const telemetryGroup = {
+	heartbeat: "heartbeat",
+	request_success: "request_success",
+	token_info: "token_info",
+	request_taxonomy: "request_taxonomy",
+	event_details: "event_details",
+	instance_configuration: "instance_configuration",
+	page_navigation: "page_navigation",
+} as const;
+
+export type TelemetryGroupKey = (typeof telemetryGroup)[keyof typeof telemetryGroup];
+
+export type TelemetryGroupInfo = {
+	/**
+	 * @description A telemetry group describes a group of metrics that can be toggled on/off separately. One
+	 * group may have dependencies on another.
+	 * @type string
+	 */
+	group: TelemetryGroupKey;
+	requires: TelemetryGroupKey | null;
+	enabled: boolean;
+};
+
+export type TelemetryReportsResponse = {
+	reports: StoredReport[];
+	next_after: number | null;
+	next_after_id: string | null;
+};
+
+export type TelemetrySettingsResponse = {
+	groups: TelemetryGroupInfo[];
+	stored_groups: TelemetryGroupKey[] | null;
+	vetoed: boolean;
+	set_by_environment: boolean;
+	environment_variables: string[];
+	editable: boolean;
+	destination: TelemetryDestinationKey | null;
+	stored_destination: TelemetryDestinationKey | null;
+	destination_set_by_environment: boolean;
+	available_destinations: TelemetryDestinationKey[];
+	flush_interval_seconds: number;
+	retention_days: number;
+	report: {
+		[key: string]: JsonValue;
+	} | null;
+	report_is_sample: boolean;
+};
+
+export type TelemetrySettingsUpdate = {
+	groups: string[];
+	destination?: (TelemetryDestinationKey | null) | undefined;
 };
 
 export const tokenCountDetailsResponseLitellmCountSourceEnum = {
@@ -15191,23 +14144,6 @@ export type TraceSummaryStatusEnumKey =
 	(typeof traceSummaryStatusEnum)[keyof typeof traceSummaryStatusEnum];
 
 export type TraceSummary = {
-	resolution_limited?: boolean | undefined;
-	trace_id: string;
-	trace_ref?: string | undefined;
-	name: string;
-	service: string;
-	agent_names?: string[] | undefined;
-	frameworks?: string[] | undefined;
-	input_preview: string;
-	start_time: string;
-	duration_ms: number;
-	status: TraceSummaryStatusEnumKey;
-	/**
-	 * @minimum 0
-	 * @maximum 18446744073709552000
-	 * @type integer
-	 */
-	span_count: number;
 	/**
 	 * @minimum 0
 	 * @maximum 18446744073709552000
@@ -15220,24 +14156,16 @@ export type TraceSummary = {
 	 * @type integer
 	 */
 	agent_invocations: number;
-	/**
-	 * @minimum 0
-	 * @maximum 18446744073709552000
-	 * @type integer
-	 */
-	llm_calls: number;
-	/**
-	 * @minimum 0
-	 * @maximum 18446744073709552000
-	 * @type integer
-	 */
-	tool_calls: number;
+	agent_names?: string[] | undefined;
+	duration_ms: number;
 	/**
 	 * @minimum 0
 	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	error_count: number;
+	frameworks?: string[] | undefined;
+	input_preview: string;
 	/**
 	 * @minimum 0
 	 * @maximum 18446744073709552000
@@ -15249,23 +14177,48 @@ export type TraceSummary = {
 	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
-	output_tokens: number;
+	llm_calls: number;
 	models: string[];
-	spend: number | null;
+	name: string;
+	/**
+	 * @minimum 0
+	 * @maximum 18446744073709552000
+	 * @type integer
+	 */
+	output_tokens: number;
 	/**
 	 * @minimum 0
 	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	priced_calls: number;
+	resolution_limited?: boolean | undefined;
+	service: string;
 	source?: (RunSource | null) | undefined;
+	/**
+	 * @minimum 0
+	 * @maximum 18446744073709552000
+	 * @type integer
+	 */
+	span_count: number;
+	spend: number | null;
+	start_time: string;
+	status: TraceSummaryStatusEnumKey;
+	/**
+	 * @minimum 0
+	 * @maximum 18446744073709552000
+	 * @type integer
+	 */
+	tool_calls: number;
+	trace_id: string;
+	trace_ref?: string | undefined;
 };
 
 export type Trace = {
-	summary: TraceSummary;
 	agents: AgentNode[];
-	spans: Span[];
 	next_cursor?: (string | null) | undefined;
+	spans: Span[];
+	summary: TraceSummary;
 };
 
 /**
@@ -15301,92 +14254,15 @@ export type TraceAgentList = {
 	agents: TraceAgent[];
 };
 
-export type TraceFeedback = {
-	/**
-	 * @minLength 1
-	 * @maxLength 128
-	 * @type string
-	 */
-	trace_id: string;
-	/**
-	 * @maxLength 512
-	 * @default ''
-	 * @type string | undefined
-	 */
-	trace_ref?: string | undefined;
-	feedback: Feedback[];
-};
-
-export type TraceIdentity = {
-	/**
-	 * @minLength 1
-	 * @maxLength 128
-	 * @type string
-	 */
-	trace_id: string;
-	/**
-	 * @maxLength 512
-	 * @default ''
-	 * @type string | undefined
-	 */
-	trace_ref?: string | undefined;
-};
-
-export type TraceFeedbackRequest = {
-	traces: TraceIdentity[];
-};
-
-export type TraceFeedbackSummary = {
-	/**
-	 * @minLength 1
-	 * @maxLength 128
-	 * @type string
-	 */
-	trace_id: string;
-	/**
-	 * @maxLength 512
-	 * @default ''
-	 * @type string | undefined
-	 */
-	trace_ref?: string | undefined;
-	/**
-	 * @minimum 0
-	 * @type integer
-	 */
-	count: number;
-	average: number | null;
-	lowest: number | null;
-};
-
-export type TraceFindingCount = {
-	/**
-	 * @minLength 1
-	 * @maxLength 128
-	 * @type string
-	 */
-	trace_id: string;
-	/**
-	 * @maxLength 512
-	 * @default ''
-	 * @type string | undefined
-	 */
-	trace_ref?: string | undefined;
-	finding_count: number | null;
-};
-
-export type TraceFindingsRequest = {
-	traces: TraceIdentity[];
-};
-
 export type TracePage = {
 	data: TraceSummary[];
 	next_cursor: string | null;
 };
 
 export type TraceQueryAttributeField = {
+	expression: string;
 	key: string;
 	type: "String";
-	expression: string;
 };
 
 export const traceQueryAttributesTableEnum = {
@@ -15399,13 +14275,13 @@ export type TraceQueryAttributesTableEnumKey =
 	(typeof traceQueryAttributesTableEnum)[keyof typeof traceQueryAttributesTableEnum];
 
 export type TraceQueryAttributes = {
-	table: TraceQueryAttributesTableEnumKey;
 	column: string;
-	fields: TraceQueryAttributeField[];
-	truncated: boolean;
-	error?: (string | null) | undefined;
 	discovery_sql: string;
+	error?: (string | null) | undefined;
+	fields: TraceQueryAttributeField[];
 	scope: string;
+	table: TraceQueryAttributesTableEnumKey;
+	truncated: boolean;
 };
 
 export type TraceQueryColumn = {
@@ -15417,37 +14293,6 @@ export type TraceQueryColumn = {
 export type TraceQueryExample = {
 	name: string;
 	sql: string;
-};
-
-export const traceQueryTableNameEnum = {
-	otel_traces: "otel_traces",
-	agent_traces_by_key: "agent_traces_by_key",
-	spend_logs: "spend_logs",
-} as const;
-
-export type TraceQueryTableNameEnumKey =
-	(typeof traceQueryTableNameEnum)[keyof typeof traceQueryTableNameEnum];
-
-export type TraceQueryTable = {
-	name: TraceQueryTableNameEnumKey;
-	columns: TraceQueryColumn[];
-};
-
-export const traceQueryNormalizedFieldTableEnum = {
-	otel_traces: "otel_traces",
-	agent_traces_by_key: "agent_traces_by_key",
-	spend_logs: "spend_logs",
-} as const;
-
-export type TraceQueryNormalizedFieldTableEnumKey =
-	(typeof traceQueryNormalizedFieldTableEnum)[keyof typeof traceQueryNormalizedFieldTableEnum];
-
-export type TraceQueryNormalizedField = {
-	table: TraceQueryNormalizedFieldTableEnumKey;
-	name: string;
-	column: string;
-	type: string;
-	meaning: string;
 };
 
 export const traceQueryMetadataFieldTypesEnum = {
@@ -15464,9 +14309,9 @@ export type TraceQueryMetadataFieldTypesEnumKey =
 	(typeof traceQueryMetadataFieldTypesEnum)[keyof typeof traceQueryMetadataFieldTypesEnum];
 
 export type TraceQueryMetadataField = {
+	expression: string;
 	path: (string | number)[];
 	types: TraceQueryMetadataFieldTypesEnumKey[];
-	expression: string;
 };
 
 export const traceQueryMetadataTableEnum = {
@@ -15479,46 +14324,77 @@ export type TraceQueryMetadataTableEnumKey =
 	(typeof traceQueryMetadataTableEnum)[keyof typeof traceQueryMetadataTableEnum];
 
 export type TraceQueryMetadata = {
-	table: TraceQueryMetadataTableEnumKey;
 	column: string;
+	error?: (string | null) | undefined;
 	fields: TraceQueryMetadataField[];
 	/**
 	 * @minimum 0
 	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
-	sampled_rows: number;
+	invalid_json_rows: number;
+	sample_sql: string;
 	/**
 	 * @minimum 0
 	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
-	invalid_json_rows: number;
-	truncated: boolean;
-	error?: (string | null) | undefined;
-	sample_sql: string;
+	sampled_rows: number;
 	scope: string;
+	table: TraceQueryMetadataTableEnumKey;
+	truncated: boolean;
+};
+
+export const traceQueryNormalizedFieldTableEnum = {
+	otel_traces: "otel_traces",
+	agent_traces_by_key: "agent_traces_by_key",
+	spend_logs: "spend_logs",
+} as const;
+
+export type TraceQueryNormalizedFieldTableEnumKey =
+	(typeof traceQueryNormalizedFieldTableEnum)[keyof typeof traceQueryNormalizedFieldTableEnum];
+
+export type TraceQueryNormalizedField = {
+	column: string;
+	meaning: string;
+	name: string;
+	table: TraceQueryNormalizedFieldTableEnumKey;
+	type: string;
 };
 
 export type TraceQueryRelationship = {
-	left: string;
-	right: string;
 	additional_predicates: string;
+	left: string;
 	meaning: string;
+	right: string;
+};
+
+export const traceQueryTableNameEnum = {
+	otel_traces: "otel_traces",
+	agent_traces_by_key: "agent_traces_by_key",
+	spend_logs: "spend_logs",
+} as const;
+
+export type TraceQueryTableNameEnumKey =
+	(typeof traceQueryTableNameEnum)[keyof typeof traceQueryTableNameEnum];
+
+export type TraceQueryTable = {
+	columns: TraceQueryColumn[];
+	name: TraceQueryTableNameEnumKey;
 };
 
 export type TraceQueryHelp = {
-	dialect: string;
 	access: string;
-	response: string;
-	tables: TraceQueryTable[];
-	normalized_fields: TraceQueryNormalizedField[];
-	metadata: TraceQueryMetadata;
 	attributes: TraceQueryAttributes[];
-	relationships: TraceQueryRelationship[];
+	dialect: string;
 	examples: TraceQueryExample[];
 	gotchas: string[];
 	guide: string;
+	metadata: TraceQueryMetadata;
+	normalized_fields: TraceQueryNormalizedField[];
+	relationships: TraceQueryRelationship[];
+	response: string;
+	tables: TraceQueryTable[];
 };
 
 export type TraceQueryRequest = {
@@ -15531,48 +14407,42 @@ export type TraceSQLResponse = {
 	}[];
 };
 
-export const traceSignalsStatusEnum = {
-	unclassified: "unclassified",
-	pending: "pending",
-	classified: "classified",
-	failed: "failed",
-} as const;
-
-export type TraceSignalsStatusEnumKey =
-	(typeof traceSignalsStatusEnum)[keyof typeof traceSignalsStatusEnum];
-
-export type TraceSignals = {
-	/**
-	 * @minLength 1
-	 * @maxLength 128
-	 * @type string
-	 */
-	trace_id: string;
-	/**
-	 * @maxLength 512
-	 * @default ''
-	 * @type string | undefined
-	 */
-	trace_ref?: string | undefined;
-	status: TraceSignalsStatusEnumKey;
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	flags?: SignalFlag[] | undefined;
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	model?: string | undefined;
-	classified_at?: (string | null) | undefined;
-};
-
 export type TransformRequestBody = {
 	call_type: CallTypesKey;
 	request_body: {
 		[key: string]: unknown;
 	};
+};
+
+export const UIAction = {
+	view: "view",
+	click: "click",
+	submit: "submit",
+} as const;
+
+export type UIActionKey = (typeof UIAction)[keyof typeof UIAction];
+
+export type UIEventAccepted = {
+	/**
+	 * @default true
+	 * @type boolean | undefined
+	 */
+	accepted?: true | undefined;
+};
+
+export type UIEventBody = {
+	/**
+	 * @maxLength 48
+	 * @pattern ^[a-z]+(-[a-z]+)*$
+	 * @type string
+	 */
+	page: string;
+	action: UIActionKey;
+	target?: (string | null) | undefined;
+};
+
+export type UIEventsEnabledResponse = {
+	enabled: boolean;
 };
 
 /**
@@ -15632,6 +14502,7 @@ export type WorkerRegistryEntry = {
 export type UiDiscoveryEndpoints = {
 	server_root_path: string;
 	proxy_base_url: string | null;
+	gateway_base_url?: (string | null) | undefined;
 	auto_redirect_to_sso: boolean;
 	admin_ui_disabled: boolean;
 	sso_configured: boolean;
@@ -15980,8 +14851,14 @@ export type UpdateTeamRequest = {
 	policies?: (string[] | null) | undefined;
 	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
 	disable_global_guardrails?: (boolean | null) | undefined;
+	require_trace_id?: (boolean | null) | undefined;
 	team_member_budget?: (number | null) | undefined;
 	team_member_budget_duration?: (string | null) | undefined;
+	team_member_model_max_budget?:
+		| ({
+				[key: string]: BudgetConfig;
+		  } | null)
+		| undefined;
 	team_member_rpm_limit?: (number | null) | undefined;
 	team_member_tpm_limit?: (number | null) | undefined;
 	team_member_key_duration?: (string | null) | undefined;
@@ -16122,6 +14999,40 @@ export type UserBannerUpdate = {
 	severity?: UserBannerUpdateSeverityEnumKey | undefined;
 };
 
+export type UserConnectionDeleteResponse = {
+	status: string;
+};
+
+export type UserConnectionPollRequest = {
+	flow_handle: string;
+};
+
+export const userConnectionPollResponseStatusEnum = {
+	pending: "pending",
+	slow_down: "slow_down",
+	expired: "expired",
+	denied: "denied",
+	connected: "connected",
+	no_copilot_seat: "no_copilot_seat",
+} as const;
+
+export type UserConnectionPollResponseStatusEnumKey =
+	(typeof userConnectionPollResponseStatusEnum)[keyof typeof userConnectionPollResponseStatusEnum];
+
+export type UserConnectionPollResponse = {
+	status: UserConnectionPollResponseStatusEnumKey;
+	interval?: (number | null) | undefined;
+	github_login?: (string | null) | undefined;
+};
+
+export type UserConnectionStartResponse = {
+	user_code: string;
+	verification_uri: string;
+	expires_in: number;
+	interval: number;
+	flow_handle: string;
+};
+
 export type UserInfoResponse = {
 	user_id: string | null;
 	user_info:
@@ -16201,19 +15112,16 @@ export type UserListResponse = {
 	total_pages: number;
 };
 
-export type WatchSkipped = {
-	id: string;
-	name: string;
-	reason: string;
+export type UserProviderConnection = {
+	credential_name: string;
+	provider: string;
+	connected: boolean;
+	github_login?: (string | null) | undefined;
+	connected_at?: (string | null) | undefined;
 };
 
-export type WatchAllResult = {
-	watching: string[];
-	/**
-	 * @default []
-	 * @type array | undefined
-	 */
-	skipped?: WatchSkipped[] | undefined;
+export type UserProviderConnectionsResponse = {
+	connections: UserProviderConnection[];
 };
 
 /**
@@ -16259,44 +15167,6 @@ export type WebSearchInterceptionSettingsResponse = {
 	 * @type boolean | undefined
 	 */
 	active_on_this_pod?: boolean | undefined;
-};
-
-export type WorkerBilling = {
-	/**
-	 * @pattern ^[a-f0-9]{64}$
-	 * @type string
-	 */
-	analysis_key_id: string;
-};
-
-export type WorkerCreated = {
-	image: string;
-	worker: Worker;
-	token: string;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	managed?: boolean | undefined;
-};
-
-export type WorkerName = {
-	/**
-	 * @pattern ^[a-f0-9]{64}$
-	 * @type string
-	 */
-	analysis_key_id: string;
-	/**
-	 * @minLength 1
-	 * @default 'Lens worker'
-	 * @type string | undefined
-	 */
-	name?: string | undefined;
-	/**
-	 * @default false
-	 * @type boolean | undefined
-	 */
-	managed?: boolean | undefined;
 };
 
 export type WorkflowEventCreateRequest = {
@@ -16371,6 +15241,7 @@ export type UpdateLiteLLMParams = {
 		| undefined;
 	cost_per_second?: (number | null) | undefined;
 	input_cost_per_second?: (number | null) | undefined;
+	input_cost_per_text_message?: (number | null) | undefined;
 	output_cost_per_second?: (number | null) | undefined;
 	output_cost_per_second_1080p?: (number | null) | undefined;
 	output_cost_per_second_480p?: (number | null) | undefined;
@@ -16564,12 +15435,16 @@ export type UpdateLiteLLMParams = {
 	openai_identity_provider_id?: (string | null) | undefined;
 	openai_service_account_id?: (string | null) | undefined;
 	openai_identity_token_file?: (string | null) | undefined;
+	token_exchange_endpoint?: (string | null) | undefined;
+	token_exchange_profile?: (string | null) | undefined;
+	token_exchange_scope?: (string | null) | undefined;
+	token_exchange_audience?: (string | null) | undefined;
 	custom_llm_provider?: (string | null) | undefined;
 	tpm?: (number | null) | undefined;
 	rpm?: (number | null) | undefined;
 	itpm?: (number | null) | undefined;
 	otpm?: (number | null) | undefined;
-	timeout?: (number | string | null) | undefined;
+	timeout?: (number | string | Timeout | null) | undefined;
 	stream_timeout?: (number | string | null) | undefined;
 	timeout_by_service_tier?:
 		| ({
@@ -16753,7 +15628,7 @@ export type ChatCompletionAudioObject = {
 	/**
 	 * @description Marks the exact end of a reusable prompt prefix.
 	 *
-	 * The breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
+	 * When `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
 	 * @type object | undefined
 	 */
 	prompt_cache_breakpoint?: PromptCacheBreakpoint | undefined;
@@ -17123,10 +15998,11 @@ export type FunctionToolParamAllowedCallersEnumKey =
 /**
  * @description Defines a function in your own code the model can choose to call.
  *
- * Learn more about [function calling](https://platform.openai.com/docs/guides/function-calling).
+ * Learn more about [function calling](https://developers.openai.com/api/docs/guides/function-calling).
  * @type object
  */
 export type FunctionToolParam = {
+	async?: boolean | undefined;
 	name: string;
 	parameters: {
 		[key: string]: unknown;
@@ -17146,7 +16022,7 @@ export type FunctionToolParam = {
 /**
  * @description A tool that searches for relevant content from uploaded files.
  *
- * Learn more about the [file search tool](https://platform.openai.com/docs/guides/tools-file-search).
+ * Learn more about the [file search tool](https://developers.openai.com/api/docs/guides/tools-file-search).
  * @type object
  */
 export type FileSearchToolParam = {
@@ -17164,7 +16040,7 @@ export type FileSearchToolParam = {
 /**
  * @description A tool that controls a virtual computer.
  *
- * Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+ * Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
  * @type object
  */
 export type OpenaiTypesResponsesComputerToolParamComputerToolParam = {
@@ -17185,7 +16061,7 @@ export type ComputerUsePreviewToolParamEnvironmentEnumKey =
 /**
  * @description A tool that controls a virtual computer.
  *
- * Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+ * Learn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).
  * @type object
  */
 export type ComputerUsePreviewToolParam = {
@@ -17197,6 +16073,10 @@ export type ComputerUsePreviewToolParam = {
 
 /**
  * @description The approximate location of the user.
+ *
+ * If omitted or null, defaults to the
+ * United States. To avoid this fallback, pass `{"type": "approximate"}` without
+ * location fields. To localize results, provide the relevant location fields.
  * @type object
  */
 export type OpenaiTypesResponsesWebSearchToolParamUserLocation = {
@@ -17228,11 +16108,12 @@ export type WebSearchToolParamSearchContextSizeEnumKey =
  * @description Search the Internet for sources related to the prompt.
  *
  * Learn more about the
- * [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+ * [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
  * @type object
  */
 export type WebSearchToolParam = {
 	type: WebSearchToolParamTypeEnumKey;
+	external_web_access?: boolean | undefined;
 	filters?: (Filters | null) | undefined;
 	search_context_size?: WebSearchToolParamSearchContextSizeEnumKey | undefined;
 	user_location?: (OpenaiTypesResponsesWebSearchToolParamUserLocation | null) | undefined;
@@ -17337,6 +16218,14 @@ export type FunctionShellToolParam = {
 		| undefined;
 };
 
+/**
+ * @description Unconstrained free-form text.
+ * @type object
+ */
+export type OpenaiTypesSharedParamsCustomToolInputFormatText = {
+	type: "text";
+};
+
 export const customToolParamAllowedCallersEnum = {
 	direct: "direct",
 	programmatic: "programmatic",
@@ -17348,16 +16237,17 @@ export type CustomToolParamAllowedCallersEnumKey =
 /**
  * @description A custom tool that processes input using a specified format.
  *
- * Learn more about   [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
+ * Learn more about   [custom tools](https://developers.openai.com/api/docs/guides/function-calling#custom-tools)
  * @type object
  */
 export type CustomToolParam = {
+	async?: boolean | undefined;
 	name: string;
 	type: "custom";
 	allowed_callers?: (CustomToolParamAllowedCallersEnumKey[] | null) | undefined;
 	defer_loading?: boolean | undefined;
 	description?: string | undefined;
-	format?: (Text | Grammar) | undefined;
+	format?: (OpenaiTypesSharedParamsCustomToolInputFormatText | Grammar) | undefined;
 };
 
 /**
@@ -17391,7 +16281,9 @@ export type ToolSearchToolParam = {
 };
 
 /**
- * @description The user's location.
+ * @description The approximate location of the user.
+ *
+ * If omitted or null, defaults to the United States. To avoid this fallback, pass `{"type": "approximate"}` without location fields. To localize results, provide the relevant location fields.
  * @type object
  */
 export type OpenaiTypesResponsesWebSearchPreviewToolParamUserLocation = {
@@ -17430,7 +16322,7 @@ export type WebSearchPreviewToolParamSearchContextSizeEnumKey =
 /**
  * @description This tool searches the web for relevant results to use in a response.
  *
- * Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+ * Learn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).
  * @type object
  */
 export type WebSearchPreviewToolParam = {
@@ -17581,6 +16473,7 @@ export type ApplyPatchCallOutput = {
  */
 export type CompactionTrigger = {
 	type: "compaction_trigger";
+	id?: (string | null) | undefined;
 };
 
 /**
@@ -17660,7 +16553,7 @@ export type ResponseInputTextParam = {
 	/**
 	 * @description Marks the exact end of a reusable prompt prefix.
 	 *
-	 * The breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
+	 * When `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
 	 * @type object | undefined
 	 */
 	prompt_cache_breakpoint?: PromptCacheBreakpoint | undefined;
@@ -17679,7 +16572,7 @@ export type ResponseInputImageParamDetailEnumKey =
 /**
  * @description An image input to the model.
  *
- * Learn about [image inputs](https://platform.openai.com/docs/guides/vision).
+ * Learn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision).
  * @type object
  */
 export type ResponseInputImageParam = {
@@ -17690,7 +16583,7 @@ export type ResponseInputImageParam = {
 	/**
 	 * @description Marks the exact end of a reusable prompt prefix.
 	 *
-	 * The breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
+	 * When `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
 	 * @type object | undefined
 	 */
 	prompt_cache_breakpoint?: PromptCacheBreakpoint | undefined;
@@ -17719,7 +16612,7 @@ export type ResponseInputFileParam = {
 	/**
 	 * @description Marks the exact end of a reusable prompt prefix.
 	 *
-	 * The breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
+	 * When `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
 	 * @type object | undefined
 	 */
 	prompt_cache_breakpoint?: PromptCacheBreakpoint | undefined;
@@ -17781,7 +16674,7 @@ export type ResponseInputImageContentParamDetailKey =
 /**
  * @description An image input to the model.
  *
- * Learn about [image inputs](https://platform.openai.com/docs/guides/vision)
+ * Learn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision)
  * @type object
  */
 export type ResponseInputImageContentParam = {
@@ -17838,7 +16731,6 @@ export type FunctionCallOutputStatusKey =
  * @type object
  */
 export type FunctionCallOutput = {
-	call_id: string;
 	output:
 		| string
 		| (
@@ -17848,10 +16740,27 @@ export type FunctionCallOutput = {
 		  )[];
 	type: "function_call_output";
 	id?: (string | null) | undefined;
+	call_id?: (string | null) | undefined;
 	caller?: (FunctionCallOutputCallerDirect | FunctionCallOutputCallerProgram | null) | undefined;
 	name?: (string | null) | undefined;
 	namespace?: (string | null) | undefined;
 	status?: (FunctionCallOutputStatusKey | null) | undefined;
+};
+
+/**
+ * @description Details of a moderation failure, when available.
+ * @type object
+ */
+export type ResponsesAPIRequestParamsImageGenerationCallError = {
+	code: string | null;
+	message: string;
+	param: string | null;
+	type: string;
+	/**
+	 * @description Public details for a `moderation_blocked` error, when available.
+	 * @type object | undefined
+	 */
+	moderation_details?: ImageGenerationCallErrorModerationDetails | undefined;
 };
 
 export const responsesAPIRequestParamsImageGenerationCallStatusEnum = {
@@ -17864,6 +16773,45 @@ export const responsesAPIRequestParamsImageGenerationCallStatusEnum = {
 export type ResponsesAPIRequestParamsImageGenerationCallStatusEnumKey =
 	(typeof responsesAPIRequestParamsImageGenerationCallStatusEnum)[keyof typeof responsesAPIRequestParamsImageGenerationCallStatusEnum];
 
+export const responsesAPIRequestParamsImageGenerationCallAction = {
+	generate: "generate",
+	edit: "edit",
+	auto: "auto",
+} as const;
+
+export type ResponsesAPIRequestParamsImageGenerationCallActionKey =
+	(typeof responsesAPIRequestParamsImageGenerationCallAction)[keyof typeof responsesAPIRequestParamsImageGenerationCallAction];
+
+export const responsesAPIRequestParamsImageGenerationCallBackground = {
+	transparent: "transparent",
+	opaque: "opaque",
+	auto: "auto",
+} as const;
+
+export type ResponsesAPIRequestParamsImageGenerationCallBackgroundKey =
+	(typeof responsesAPIRequestParamsImageGenerationCallBackground)[keyof typeof responsesAPIRequestParamsImageGenerationCallBackground];
+
+export const responsesAPIRequestParamsImageGenerationCallOutputFormat = {
+	png: "png",
+	webp: "webp",
+	jpeg: "jpeg",
+} as const;
+
+export type ResponsesAPIRequestParamsImageGenerationCallOutputFormatKey =
+	(typeof responsesAPIRequestParamsImageGenerationCallOutputFormat)[keyof typeof responsesAPIRequestParamsImageGenerationCallOutputFormat];
+
+export const responsesAPIRequestParamsImageGenerationCallQuality = {
+	low: "low",
+	medium: "medium",
+	high: "high",
+	xhigh: "xhigh",
+	max: "max",
+	auto: "auto",
+} as const;
+
+export type ResponsesAPIRequestParamsImageGenerationCallQualityKey =
+	(typeof responsesAPIRequestParamsImageGenerationCallQuality)[keyof typeof responsesAPIRequestParamsImageGenerationCallQuality];
+
 /**
  * @description An image generation request made by the model.
  * @type object
@@ -17873,6 +16821,17 @@ export type ResponsesAPIRequestParamsImageGenerationCall = {
 	result: string | null;
 	status: ResponsesAPIRequestParamsImageGenerationCallStatusEnumKey;
 	type: "image_generation_call";
+	action?: (ResponsesAPIRequestParamsImageGenerationCallActionKey | null) | undefined;
+	background?: (ResponsesAPIRequestParamsImageGenerationCallBackgroundKey | null) | undefined;
+	/**
+	 * @description Details of a moderation failure, when available.
+	 * @type object | undefined
+	 */
+	error?: ResponsesAPIRequestParamsImageGenerationCallError | undefined;
+	output_format?: (ResponsesAPIRequestParamsImageGenerationCallOutputFormatKey | null) | undefined;
+	quality?: (ResponsesAPIRequestParamsImageGenerationCallQualityKey | null) | undefined;
+	revised_prompt?: (string | null) | undefined;
+	size?: (string | null) | undefined;
 };
 
 /**
@@ -17927,6 +16886,11 @@ export type ResponsesAPIRequestParamsMessage = {
 	type?: "message" | undefined;
 };
 
+export type OpenAIToolSearchToolParam = {
+	type: "tool_search";
+	execution?: string | undefined;
+};
+
 /**
  * @description Indicates that the shell commands finished and returned an exit code.
  * @type object
@@ -17971,58 +16935,6 @@ export type PromptObject = {
 	version?: (string | null) | undefined;
 };
 
-export const reasoningContext = {
-	auto: "auto",
-	current_turn: "current_turn",
-	all_turns: "all_turns",
-} as const;
-
-export type ReasoningContextKey = (typeof reasoningContext)[keyof typeof reasoningContext];
-
-export const reasoningEffort = {
-	none: "none",
-	minimal: "minimal",
-	low: "low",
-	medium: "medium",
-	high: "high",
-	xhigh: "xhigh",
-	max: "max",
-} as const;
-
-export type ReasoningEffortKey = (typeof reasoningEffort)[keyof typeof reasoningEffort];
-
-export const reasoningGenerateSummary = {
-	auto: "auto",
-	concise: "concise",
-	detailed: "detailed",
-} as const;
-
-export type ReasoningGenerateSummaryKey =
-	(typeof reasoningGenerateSummary)[keyof typeof reasoningGenerateSummary];
-
-export const reasoningSummary = {
-	auto: "auto",
-	concise: "concise",
-	detailed: "detailed",
-} as const;
-
-export type ReasoningSummaryKey = (typeof reasoningSummary)[keyof typeof reasoningSummary];
-
-/**
- * @description **gpt-5 and o-series models only**
- *
- * Configuration options for
- * [reasoning models](https://platform.openai.com/docs/guides/reasoning).
- * @type object
- */
-export type Reasoning = {
-	context?: (ReasoningContextKey | null) | undefined;
-	effort?: (ReasoningEffortKey | null) | undefined;
-	generate_summary?: (ReasoningGenerateSummaryKey | null) | undefined;
-	mode?: string | undefined;
-	summary?: (ReasoningSummaryKey | null) | undefined;
-};
-
 export const responseCodeInterpreterToolCallParamStatusEnum = {
 	in_progress: "in_progress",
 	completed: "completed",
@@ -18048,7 +16960,7 @@ export type ResponseCodeInterpreterToolCallParam = {
 };
 
 /**
- * @description A compaction item generated by the [`v1/responses/compact` API](https://platform.openai.com/docs/api-reference/responses/compact).
+ * @description A compaction item generated by the [`v1/responses/compact` API](https://developers.openai.com/api/reference/resources/responses/methods/compact).
  * @type object
  */
 export type ResponseCompactionItemParamParam = {
@@ -18070,7 +16982,7 @@ export type ResponseComputerToolCallParamStatusEnumKey =
  * @description A tool call to a computer use tool.
  *
  * See the
- * [computer use guide](https://platform.openai.com/docs/guides/tools-computer-use) for more information.
+ * [computer use guide](https://developers.openai.com/api/docs/guides/tools-computer-use) for more information.
  * @type object
  */
 export type ResponseComputerToolCallParam = {
@@ -18107,6 +17019,59 @@ export type ResponseComputerToolCallParam = {
 		| undefined;
 };
 
+export const openaiTypesResponsesResponseConfigurationUpdateItemParamParamReasoningEffort = {
+	none: "none",
+	minimal: "minimal",
+	low: "low",
+	medium: "medium",
+	high: "high",
+	xhigh: "xhigh",
+	max: "max",
+} as const;
+
+export type OpenaiTypesResponsesResponseConfigurationUpdateItemParamParamReasoningEffortKey =
+	(typeof openaiTypesResponsesResponseConfigurationUpdateItemParamParamReasoningEffort)[keyof typeof openaiTypesResponsesResponseConfigurationUpdateItemParamParamReasoningEffort];
+
+/**
+ * @description Updates to reasoning configuration. Only effort is supported.
+ * @type object
+ */
+export type OpenaiTypesResponsesResponseConfigurationUpdateItemParamParamReasoning = {
+	effort?:
+		| (OpenaiTypesResponsesResponseConfigurationUpdateItemParamParamReasoningEffortKey | null)
+		| undefined;
+};
+
+/**
+ * @description The text output configuration for subsequent responses.
+ * @type object
+ */
+export type OpenaiTypesResponsesResponseConfigurationUpdateItemParamParamText = {
+	format: ResponseFormatText | ResponseFormatTextJSONSchemaConfigParam;
+};
+
+/**
+ * @description An update to the conversation's response configuration.
+ *
+ * Supply reasoning,
+ * text, or both. Each setting stays in effect until a later update replaces it.
+ * @type object
+ */
+export type ResponseConfigurationUpdateItemParamParam = {
+	type: "configuration_update";
+	id?: (string | null) | undefined;
+	/**
+	 * @description Updates to reasoning configuration. Only effort is supported.
+	 * @type object | undefined
+	 */
+	reasoning?: OpenaiTypesResponsesResponseConfigurationUpdateItemParamParamReasoning | undefined;
+	/**
+	 * @description The text output configuration for subsequent responses.
+	 * @type object | undefined
+	 */
+	text?: OpenaiTypesResponsesResponseConfigurationUpdateItemParamParamText | undefined;
+};
+
 /**
  * @description The output of a custom tool call from your code, being sent back to the model.
  * @type object
@@ -18124,6 +17089,7 @@ export type ResponseCustomToolCallOutputParam = {
  * @type object
  */
 export type ResponseCustomToolCallParam = {
+	async?: boolean | undefined;
 	call_id: string;
 	input: string;
 	name: string;
@@ -18131,18 +17097,6 @@ export type ResponseCustomToolCallParam = {
 	id?: string | undefined;
 	caller?: (CallerDirect | CallerProgram | null) | undefined;
 	namespace?: string | undefined;
-};
-
-export type Result = {
-	attributes?:
-		| ({
-				[key: string]: string | number | boolean;
-		  } | null)
-		| undefined;
-	file_id?: string | undefined;
-	filename?: string | undefined;
-	score?: number | undefined;
-	text?: string | undefined;
 };
 
 export const responseFileSearchToolCallParamStatusEnum = {
@@ -18160,7 +17114,7 @@ export type ResponseFileSearchToolCallParamStatusEnumKey =
  * @description The results of a file search tool call.
  *
  * See the
- * [file search guide](https://platform.openai.com/docs/guides/tools-file-search) for more information.
+ * [file search guide](https://developers.openai.com/api/docs/guides/tools-file-search) for more information.
  * @type object
  */
 export type ResponseFileSearchToolCallParam = {
@@ -18194,10 +17148,11 @@ export type ResponseFunctionToolCallParamStatusEnumKey =
  * @description A tool call to run a function.
  *
  * See the
- * [function calling guide](https://platform.openai.com/docs/guides/function-calling) for more information.
+ * [function calling guide](https://developers.openai.com/api/docs/guides/function-calling) for more information.
  * @type object
  */
 export type ResponseFunctionToolCallParam = {
+	async?: boolean | undefined;
 	arguments: string;
 	call_id: string;
 	name: string;
@@ -18212,6 +17167,7 @@ export const responseFunctionWebSearchParamStatusEnum = {
 	in_progress: "in_progress",
 	searching: "searching",
 	completed: "completed",
+	incomplete: "incomplete",
 	failed: "failed",
 } as const;
 
@@ -18222,7 +17178,7 @@ export type ResponseFunctionWebSearchParamStatusEnumKey =
  * @description The results of a web search tool call.
  *
  * See the
- * [web search guide](https://platform.openai.com/docs/guides/tools-web-search) for more information.
+ * [web search guide](https://developers.openai.com/api/docs/guides/tools-web-search) for more information.
  * @type object
  */
 export type ResponseFunctionWebSearchParam = {
@@ -18300,7 +17256,7 @@ export type ResponseReasoningItemParamStatusEnumKey =
  * @description A description of the chain of thought used by a reasoning model while generating
  * a response. Be sure to include these items in your `input` to the Responses API
  * for subsequent turns of a conversation if you are manually
- * [managing context](https://platform.openai.com/docs/guides/conversation-state).
+ * [managing context](https://developers.openai.com/api/docs/guides/conversation-state).
  * @type object
  */
 export type ResponseReasoningItemParam = {
@@ -18310,6 +17266,271 @@ export type ResponseReasoningItemParam = {
 	content?: Content[] | undefined;
 	encrypted_content?: (string | null) | undefined;
 	status?: ResponseReasoningItemParamStatusEnumKey | undefined;
+};
+
+/**
+ * @description A filter object to specify which tools are allowed.
+ * @type object
+ */
+export type ToolMcpAllowedToolsMcpToolFilter = {
+	read_only?: boolean | undefined;
+	tool_names?: string[] | undefined;
+};
+
+/**
+ * @description A filter object to specify which tools are allowed.
+ * @type object
+ */
+export type ToolMcpRequireApprovalMcpToolApprovalFilterAlways = {
+	read_only?: boolean | undefined;
+	tool_names?: string[] | undefined;
+};
+
+/**
+ * @description A filter object to specify which tools are allowed.
+ * @type object
+ */
+export type ToolMcpRequireApprovalMcpToolApprovalFilterNever = {
+	read_only?: boolean | undefined;
+	tool_names?: string[] | undefined;
+};
+
+/**
+ * @description Specify which of the MCP server's tools require approval.
+ *
+ * Can be
+ * `always`, `never`, or a filter object associated with tools
+ * that require approval.
+ * @type object
+ */
+export type ToolMcpRequireApprovalMcpToolApprovalFilter = {
+	/**
+	 * @description A filter object to specify which tools are allowed.
+	 * @type object | undefined
+	 */
+	always?: ToolMcpRequireApprovalMcpToolApprovalFilterAlways | undefined;
+	/**
+	 * @description A filter object to specify which tools are allowed.
+	 * @type object | undefined
+	 */
+	never?: ToolMcpRequireApprovalMcpToolApprovalFilterNever | undefined;
+};
+
+export const toolMcpAllowedCallersEnum = {
+	direct: "direct",
+	programmatic: "programmatic",
+} as const;
+
+export type ToolMcpAllowedCallersEnumKey =
+	(typeof toolMcpAllowedCallersEnum)[keyof typeof toolMcpAllowedCallersEnum];
+
+export const toolMcpConnectorIdEnum = {
+	connector_dropbox: "connector_dropbox",
+	connector_gmail: "connector_gmail",
+	connector_googlecalendar: "connector_googlecalendar",
+	connector_googledrive: "connector_googledrive",
+	connector_microsoftteams: "connector_microsoftteams",
+	connector_outlookcalendar: "connector_outlookcalendar",
+	connector_outlookemail: "connector_outlookemail",
+	connector_sharepoint: "connector_sharepoint",
+} as const;
+
+export type ToolMcpConnectorIdEnumKey =
+	(typeof toolMcpConnectorIdEnum)[keyof typeof toolMcpConnectorIdEnum];
+
+export const toolMcpRequireApproval = {
+	always: "always",
+	never: "never",
+} as const;
+
+export type ToolMcpRequireApprovalKey =
+	(typeof toolMcpRequireApproval)[keyof typeof toolMcpRequireApproval];
+
+/**
+ * @description Give the model access to additional tools via remote Model Context Protocol
+ * (MCP) servers. [Learn more about MCP](https://developers.openai.com/api/docs/guides/tools-connectors-mcp).
+ * @type object
+ */
+export type ToolMcp = {
+	server_label: string;
+	type: "mcp";
+	allowed_callers?: (ToolMcpAllowedCallersEnumKey[] | null) | undefined;
+	allowed_tools?: (string[] | ToolMcpAllowedToolsMcpToolFilter | null) | undefined;
+	authorization?: string | undefined;
+	connector_id?: ToolMcpConnectorIdEnumKey | undefined;
+	defer_loading?: boolean | undefined;
+	headers?:
+		| ({
+				[key: string]: string;
+		  } | null)
+		| undefined;
+	require_approval?:
+		| (ToolMcpRequireApprovalMcpToolApprovalFilter | ToolMcpRequireApprovalKey | null)
+		| undefined;
+	server_description?: string | undefined;
+	server_url?: string | undefined;
+	tunnel_id?: string | undefined;
+};
+
+export const toolCodeInterpreterContainerCodeInterpreterToolAutoMemoryLimit = {
+	"1g": "1g",
+	"4g": "4g",
+	"16g": "16g",
+	"64g": "64g",
+} as const;
+
+export type ToolCodeInterpreterContainerCodeInterpreterToolAutoMemoryLimitKey =
+	(typeof toolCodeInterpreterContainerCodeInterpreterToolAutoMemoryLimit)[keyof typeof toolCodeInterpreterContainerCodeInterpreterToolAutoMemoryLimit];
+
+/**
+ * @description Configuration for a code interpreter container.
+ *
+ * Optionally specify the IDs of the files to run the code on.
+ * @type object
+ */
+export type ToolCodeInterpreterContainerCodeInterpreterToolAuto = {
+	type: "auto";
+	file_ids?: string[] | undefined;
+	memory_limit?:
+		| (ToolCodeInterpreterContainerCodeInterpreterToolAutoMemoryLimitKey | null)
+		| undefined;
+	network_policy?:
+		| (ContainerNetworkPolicyDisabledParam | ContainerNetworkPolicyAllowlistParam)
+		| undefined;
+};
+
+export const toolCodeInterpreterAllowedCallersEnum = {
+	direct: "direct",
+	programmatic: "programmatic",
+} as const;
+
+export type ToolCodeInterpreterAllowedCallersEnumKey =
+	(typeof toolCodeInterpreterAllowedCallersEnum)[keyof typeof toolCodeInterpreterAllowedCallersEnum];
+
+/**
+ * @description A tool that runs Python code to help generate a response to a prompt.
+ * @type object
+ */
+export type ToolCodeInterpreter = {
+	container: string | ToolCodeInterpreterContainerCodeInterpreterToolAuto;
+	type: "code_interpreter";
+	allowed_callers?: (ToolCodeInterpreterAllowedCallersEnumKey[] | null) | undefined;
+};
+
+export type ToolProgrammaticToolCalling = {
+	type: "programmatic_tool_calling";
+};
+
+/**
+ * @description Optional mask for inpainting.
+ *
+ * Contains `image_url`
+ * (string, optional) and `file_id` (string, optional).
+ * @type object
+ */
+export type ToolImageGenerationInputImageMask = {
+	file_id?: string | undefined;
+	image_url?: string | undefined;
+};
+
+export const toolImageGenerationActionEnum = {
+	generate: "generate",
+	edit: "edit",
+	auto: "auto",
+} as const;
+
+export type ToolImageGenerationActionEnumKey =
+	(typeof toolImageGenerationActionEnum)[keyof typeof toolImageGenerationActionEnum];
+
+export const toolImageGenerationBackgroundEnum = {
+	transparent: "transparent",
+	opaque: "opaque",
+	auto: "auto",
+} as const;
+
+export type ToolImageGenerationBackgroundEnumKey =
+	(typeof toolImageGenerationBackgroundEnum)[keyof typeof toolImageGenerationBackgroundEnum];
+
+export const toolImageGenerationInputFidelity = {
+	high: "high",
+	low: "low",
+} as const;
+
+export type ToolImageGenerationInputFidelityKey =
+	(typeof toolImageGenerationInputFidelity)[keyof typeof toolImageGenerationInputFidelity];
+
+export const toolImageGenerationModerationEnum = {
+	auto: "auto",
+	low: "low",
+} as const;
+
+export type ToolImageGenerationModerationEnumKey =
+	(typeof toolImageGenerationModerationEnum)[keyof typeof toolImageGenerationModerationEnum];
+
+export const toolImageGenerationOutputFormatEnum = {
+	png: "png",
+	webp: "webp",
+	jpeg: "jpeg",
+} as const;
+
+export type ToolImageGenerationOutputFormatEnumKey =
+	(typeof toolImageGenerationOutputFormatEnum)[keyof typeof toolImageGenerationOutputFormatEnum];
+
+export const toolImageGenerationQualityEnum = {
+	low: "low",
+	medium: "medium",
+	high: "high",
+	xhigh: "xhigh",
+	max: "max",
+	auto: "auto",
+} as const;
+
+export type ToolImageGenerationQualityEnumKey =
+	(typeof toolImageGenerationQualityEnum)[keyof typeof toolImageGenerationQualityEnum];
+
+/**
+ * @description A tool that generates images using the GPT image models.
+ * @type object
+ */
+export type ToolImageGeneration = {
+	type: "image_generation";
+	action?: ToolImageGenerationActionEnumKey | undefined;
+	background?: ToolImageGenerationBackgroundEnumKey | undefined;
+	input_fidelity?: (ToolImageGenerationInputFidelityKey | null) | undefined;
+	/**
+	 * @description Optional mask for inpainting.
+	 *
+	 * Contains `image_url`
+	 * (string, optional) and `file_id` (string, optional).
+	 * @type object | undefined
+	 */
+	input_image_mask?: ToolImageGenerationInputImageMask | undefined;
+	model?: string | undefined;
+	moderation?: ToolImageGenerationModerationEnumKey | undefined;
+	output_compression?: number | undefined;
+	output_format?: ToolImageGenerationOutputFormatEnumKey | undefined;
+	partial_images?: number | undefined;
+	quality?: ToolImageGenerationQualityEnumKey | undefined;
+	size?: string | undefined;
+};
+
+/**
+ * @description A tool that allows the model to execute shell commands in a local environment.
+ * @type object
+ */
+export type ToolLocalShell = {
+	type: "local_shell";
+};
+
+/**
+ * @description Groups function/custom tools under a shared namespace.
+ * @type object
+ */
+export type ToolSearchOutputNamespaceToolParam = {
+	description: string;
+	name: string;
+	tools: (ToolFunction | CustomToolParam)[];
+	type: "namespace";
 };
 
 export const responseToolSearchOutputItemParamParamExecutionEnum = {
@@ -18336,14 +17557,14 @@ export type ResponseToolSearchOutputItemParamParam = {
 		| OpenaiTypesResponsesComputerToolParamComputerToolParam
 		| ComputerUsePreviewToolParam
 		| WebSearchToolParam
-		| Mcp
-		| CodeInterpreter
-		| ProgrammaticToolCalling
-		| ImageGeneration
-		| LocalShell
+		| ToolMcp
+		| ToolCodeInterpreter
+		| ToolProgrammaticToolCalling
+		| ToolImageGeneration
+		| ToolLocalShell
 		| FunctionShellToolParam
 		| CustomToolParam
-		| NamespaceToolParam
+		| ToolSearchOutputNamespaceToolParam
 		| ToolSearchToolParam
 		| WebSearchPreviewToolParam
 		| ApplyPatchToolParam
@@ -18481,6 +17702,61 @@ export type LitellmTypesLlmsOpenaiComputerToolParam = {
 	type: "computer_use_preview" | (string & {});
 };
 
+export const openaiTypesSharedParamsReasoningReasoningContext = {
+	auto: "auto",
+	current_turn: "current_turn",
+	all_turns: "all_turns",
+} as const;
+
+export type OpenaiTypesSharedParamsReasoningReasoningContextKey =
+	(typeof openaiTypesSharedParamsReasoningReasoningContext)[keyof typeof openaiTypesSharedParamsReasoningReasoningContext];
+
+export const openaiTypesSharedParamsReasoningReasoningEffort = {
+	none: "none",
+	minimal: "minimal",
+	low: "low",
+	medium: "medium",
+	high: "high",
+	xhigh: "xhigh",
+	max: "max",
+} as const;
+
+export type OpenaiTypesSharedParamsReasoningReasoningEffortKey =
+	(typeof openaiTypesSharedParamsReasoningReasoningEffort)[keyof typeof openaiTypesSharedParamsReasoningReasoningEffort];
+
+export const openaiTypesSharedParamsReasoningReasoningGenerateSummary = {
+	auto: "auto",
+	concise: "concise",
+	detailed: "detailed",
+} as const;
+
+export type OpenaiTypesSharedParamsReasoningReasoningGenerateSummaryKey =
+	(typeof openaiTypesSharedParamsReasoningReasoningGenerateSummary)[keyof typeof openaiTypesSharedParamsReasoningReasoningGenerateSummary];
+
+export const openaiTypesSharedParamsReasoningReasoningSummary = {
+	auto: "auto",
+	concise: "concise",
+	detailed: "detailed",
+} as const;
+
+export type OpenaiTypesSharedParamsReasoningReasoningSummaryKey =
+	(typeof openaiTypesSharedParamsReasoningReasoningSummary)[keyof typeof openaiTypesSharedParamsReasoningReasoningSummary];
+
+/**
+ * @description Configuration options for
+ * [reasoning models](https://developers.openai.com/api/docs/guides/reasoning).
+ * @type object
+ */
+export type OpenaiTypesSharedParamsReasoningReasoning = {
+	context?: (OpenaiTypesSharedParamsReasoningReasoningContextKey | null) | undefined;
+	effort?: (OpenaiTypesSharedParamsReasoningReasoningEffortKey | null) | undefined;
+	generate_summary?:
+		| (OpenaiTypesSharedParamsReasoningReasoningGenerateSummaryKey | null)
+		| undefined;
+	mode?: string | undefined;
+	summary?: (OpenaiTypesSharedParamsReasoningReasoningSummaryKey | null) | undefined;
+};
+
 export const responsesAPIRequestParamsIncludeEnum = {
 	"file_search_call.results": "file_search_call.results",
 	"web_search_call.results": "web_search_call.results",
@@ -18527,7 +17803,7 @@ export type ResponsesAPIRequestParams = {
 		| undefined;
 	parallel_tool_calls?: (boolean | null) | undefined;
 	previous_response_id?: (string | null) | undefined;
-	reasoning?: (Reasoning | null) | undefined;
+	reasoning?: (OpenaiTypesSharedParamsReasoningReasoning | null) | undefined;
 	store?: (boolean | null) | undefined;
 	background?: (boolean | null) | undefined;
 	stream?: (boolean | null) | undefined;
@@ -18568,6 +17844,7 @@ export type ResponsesAPIRequestParams = {
 						| ApplyPatchToolParam
 						| LitellmTypesLlmsOpenaiComputerToolParam
 						| ShellToolParam
+						| OpenAIToolSearchToolParam
 				  )[]
 				| null
 		  )
@@ -18601,6 +17878,7 @@ export type ResponsesAPIRequestParams = {
 				| ToolSearchCall
 				| ResponseToolSearchOutputItemParamParam
 				| ResponsesAPIRequestParamsAdditionalTools
+				| ResponseConfigurationUpdateItemParamParam
 				| ResponseReasoningItemParam
 				| ResponseCompactionItemParamParam
 				| ResponsesAPIRequestParamsImageGenerationCall
@@ -19093,7 +18371,7 @@ export type BaseLitellmParams = {
 	 */
 	skip_tool_message_in_guardrail?: (boolean | null) | undefined;
 	/**
-	 * @description Implemented by guardrail='model_armor'. When True, attachment references that carry no inline bytes (file_id, gs://, or http(s) URLs) pass through unscanned instead of blocking, while fail_on_error still governs real Model Armor API errors. Default False blocks them.
+	 * @description Implemented by guardrail='model_armor' and guardrail='bedrock'. When True, attachments the guardrail cannot scan pass through unscanned instead of blocking. For Model Armor these are references with no inline bytes (file_id, gs://, or http(s) URLs), and fail_on_error still governs real Model Armor API errors. For Bedrock these are documents, files, audio, video, and images that are not inline PNG or JPEG up to 4 MB. Default False blocks them.
 	 * @default false
 	 */
 	skip_unscannable_attachments?: (boolean | null) | undefined;
@@ -20228,7 +19506,7 @@ export type LitellmParams = {
 	 */
 	skip_tool_message_in_guardrail?: (boolean | null) | undefined;
 	/**
-	 * @description Implemented by guardrail='model_armor'. When True, attachment references that carry no inline bytes (file_id, gs://, or http(s) URLs) pass through unscanned instead of blocking, while fail_on_error still governs real Model Armor API errors. Default False blocks them.
+	 * @description Implemented by guardrail='model_armor' and guardrail='bedrock'. When True, attachments the guardrail cannot scan pass through unscanned instead of blocking. For Model Armor these are references with no inline bytes (file_id, gs://, or http(s) URLs), and fail_on_error still governs real Model Armor API errors. For Bedrock these are documents, files, audio, video, and images that are not inline PNG or JPEG up to 4 MB. Default False blocks them.
 	 * @default false
 	 */
 	skip_unscannable_attachments?: (boolean | null) | undefined;
@@ -20298,6 +19576,10 @@ export type LitellmParams = {
 	 * @description Custom message when a guardrail blocks an action. Supports placeholders like {tool_name}, {rule_id}, and {default_message}.
 	 */
 	violation_message_template?: (string | null) | undefined;
+	/**
+	 * @description Wingback external gateway integration name for request attribution (sent as additional_provider_specific_params.wingback_app_id).
+	 */
+	wingback_app_id?: (string | null) | undefined;
 	/**
 	 * @description XecGuard scanning model identifier. Defaults to 'xecguard_v2'.
 	 */
@@ -20639,6 +19921,7 @@ export type ChatCompletionToolParamFunctionChunk = {
 export type ChatCompletionToolParam = {
 	allowed_callers?: string[] | undefined;
 	cache_control?: ChatCompletionCachedContent | undefined;
+	defer_loading?: boolean | undefined;
 	eager_input_streaming?: boolean | undefined;
 	function: ChatCompletionToolParamFunctionChunk;
 	type: "function" | (string & {});
@@ -22155,6 +21438,7 @@ export type ModelInsightsResponse = {
 export type SearchToolLiteLLMParams = {
 	api_base?: (string | null) | undefined;
 	api_key?: (string | null) | undefined;
+	input_cost_per_query?: (number | null) | undefined;
 	max_retries?: (number | null) | undefined;
 	search_provider: string;
 	timeout?: (number | null) | undefined;
@@ -22298,7 +21582,10 @@ export type MCPCredentials = {
 	dcr_issuer?: (string | null) | undefined;
 	dcr_server_url?: (string | null) | undefined;
 	id_jag_resource?: (string | null) | undefined;
+	id_jag_resource_client_id?: (string | null) | undefined;
+	id_jag_resource_client_secret?: (string | null) | undefined;
 	id_jag_resource_token_endpoint?: (string | null) | undefined;
+	id_jag_subject_source?: (string | null) | undefined;
 	redirect_uris?: (string[] | null) | undefined;
 	scopes?: (string[] | null) | undefined;
 	subject_token_type?: (string | null) | undefined;
@@ -23075,7 +22362,8 @@ export type BodyRevokeEndpointRevokePost = {
 };
 
 export type BodyTokenEndpointMcpServerNameTokenPost = {
-	client_id: string;
+	assertion?: (string | null) | undefined;
+	client_id?: (string | null) | undefined;
 	client_secret?: (string | null) | undefined;
 	code?: string | undefined;
 	code_verifier?: string | undefined;
@@ -23090,7 +22378,8 @@ export type BodyTokenEndpointMcpServerNameTokenPost = {
 };
 
 export type BodyTokenEndpointTokenPost = {
-	client_id: string;
+	assertion?: (string | null) | undefined;
+	client_id?: (string | null) | undefined;
 	client_secret?: (string | null) | undefined;
 	code?: string | undefined;
 	code_verifier?: string | undefined;
@@ -23259,6 +22548,15 @@ export type RealtimeTranscriptionSessionResponse = {
 				[key: string]: unknown;
 		  } | null)
 		| undefined;
+	[key: string]: unknown;
+};
+
+/**
+ * @description Unconstrained free-form text.
+ * @type object
+ */
+export type Text = {
+	type: "text";
 	[key: string]: unknown;
 };
 
@@ -23748,6 +23046,15 @@ export type PluginAuthor = {
 	name: string;
 };
 
+export const pluginListItemInstallationPreference = {
+	available: "available",
+	auto_install: "auto_install",
+	required: "required",
+} as const;
+
+export type PluginListItemInstallationPreferenceKey =
+	(typeof pluginListItemInstallationPreference)[keyof typeof pluginListItemInstallationPreference];
+
 /**
  * @description Plugin item in list responses.
  * @type object
@@ -23761,6 +23068,7 @@ export type PluginListItem = {
 	enabled: boolean;
 	homepage?: (string | null) | undefined;
 	id: string;
+	installation_preference?: (PluginListItemInstallationPreferenceKey | null) | undefined;
 	keywords?: (string[] | null) | undefined;
 	name: string;
 	namespace?: (string | null) | undefined;
@@ -23779,6 +23087,15 @@ export type ListPluginsResponse = {
 	count: number;
 	plugins: PluginListItem[];
 };
+
+export const pluginResponseInstallationPreference = {
+	available: "available",
+	auto_install: "auto_install",
+	required: "required",
+} as const;
+
+export type PluginResponseInstallationPreferenceKey =
+	(typeof pluginResponseInstallationPreference)[keyof typeof pluginResponseInstallationPreference];
 
 /**
  * @description Plugin information in API responses.
@@ -23800,6 +23117,10 @@ export type PluginResponse = {
 	 */
 	id: string;
 	/**
+	 * @description Plugin installation preference
+	 */
+	installation_preference?: (PluginResponseInstallationPreferenceKey | null) | undefined;
+	/**
 	 * @description Plugin name
 	 * @type string
 	 */
@@ -23816,6 +23137,15 @@ export type PluginResponse = {
 	 */
 	version?: (string | null) | undefined;
 };
+
+export const registerPluginRequestInstallationPreference = {
+	available: "available",
+	auto_install: "auto_install",
+	required: "required",
+} as const;
+
+export type RegisterPluginRequestInstallationPreferenceKey =
+	(typeof registerPluginRequestInstallationPreference)[keyof typeof registerPluginRequestInstallationPreference];
 
 /**
  * @description Request body for registering a plugin in the marketplace.
@@ -23845,6 +23175,10 @@ export type RegisterPluginRequest = {
 	 * @description Plugin homepage URL
 	 */
 	homepage?: (string | null) | undefined;
+	/**
+	 * @description Emitted as installationPreference on this plugin's marketplace.json entry. Needs an archive source, the only plugins Claude Desktop lists from a marketplace.json URL, and 'auto_install' or 'required' also need its sha256. Claude Desktop honors the mark only when the archive and marketplace.json share its inference gateway origin
+	 */
+	installation_preference?: (RegisterPluginRequestInstallationPreferenceKey | null) | undefined;
 	/**
 	 * @description Search keywords
 	 */
@@ -23899,6 +23233,15 @@ export type RegisterPluginResponse = {
 	status: string;
 };
 
+export const updatePluginRequestInstallationPreference = {
+	available: "available",
+	auto_install: "auto_install",
+	required: "required",
+} as const;
+
+export type UpdatePluginRequestInstallationPreferenceKey =
+	(typeof updatePluginRequestInstallationPreference)[keyof typeof updatePluginRequestInstallationPreference];
+
 /**
  * @description Request body for replacing an existing plugin.
  *
@@ -23929,6 +23272,10 @@ export type UpdatePluginRequest = {
 	 * @description Plugin homepage URL
 	 */
 	homepage?: (string | null) | undefined;
+	/**
+	 * @description Emitted as installationPreference on this plugin's marketplace.json entry. Needs an archive source, the only plugins Claude Desktop lists from a marketplace.json URL, and 'auto_install' or 'required' also need its sha256. Claude Desktop honors the mark only when the archive and marketplace.json share its inference gateway origin
+	 */
+	installation_preference?: (UpdatePluginRequestInstallationPreferenceKey | null) | undefined;
 	/**
 	 * @description Search keywords
 	 */
@@ -24638,9 +23985,15 @@ export type AccessGroupCreateRequest = {
 	access_group_name: string;
 	access_mcp_server_ids?: (string[] | null) | undefined;
 	access_model_names?: (string[] | null) | undefined;
+	access_skill_names?: (string[] | null) | undefined;
 	assigned_key_ids?: (string[] | null) | undefined;
 	assigned_team_ids?: (string[] | null) | undefined;
 	description?: (string | null) | undefined;
+	mcp_tool_permissions?:
+		| ({
+				[key: string]: string[];
+		  } | null)
+		| undefined;
 };
 
 /**
@@ -24660,6 +24013,11 @@ export type AccessGroupResponse = {
 	access_mcp_server_ids: string[];
 	access_mcp_servers: AccessGroupResource[];
 	access_model_names: string[];
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	access_skill_names?: string[] | undefined;
 	assigned_key_ids: string[];
 	assigned_keys: AccessGroupResource[];
 	assigned_team_ids: string[];
@@ -24672,6 +24030,11 @@ export type AccessGroupResponse = {
 	created_at: string;
 	created_by?: (string | null) | undefined;
 	description?: (string | null) | undefined;
+	mcp_tool_permissions?:
+		| ({
+				[key: string]: string[];
+		  } | null)
+		| undefined;
 	/**
 	 * @description
 	 * Format: `date-time`
@@ -24686,9 +24049,15 @@ export type AccessGroupUpdateRequest = {
 	access_group_name?: (string | null) | undefined;
 	access_mcp_server_ids?: (string[] | null) | undefined;
 	access_model_names?: (string[] | null) | undefined;
+	access_skill_names?: (string[] | null) | undefined;
 	assigned_key_ids?: (string[] | null) | undefined;
 	assigned_team_ids?: (string[] | null) | undefined;
 	description?: (string | null) | undefined;
+	mcp_tool_permissions?:
+		| ({
+				[key: string]: string[];
+		  } | null)
+		| undefined;
 };
 
 export type ModelListModelsGetQuery = {
@@ -26861,6 +26230,10 @@ export type ModelInfoV2V2ModelInfoGetQuery = {
 	 */
 	sortOrder?: (string | null) | undefined;
 	/**
+	 * @description Filter by routing status: false = active deployments, true = paused (blocked) deployments. Omit to return both.
+	 */
+	blocked?: (boolean | null) | undefined;
+	/**
 	 * @description Omit auto-router deployments (litellm model prefixed `auto_router/`). They select among deployments rather than being deployments themselves, so a caller rendering a deployment list can leave them out. Defaults to false, so existing callers are unaffected
 	 * @default false
 	 */
@@ -27172,7 +26545,7 @@ export type ResponsesApiOpenaiV1ResponsesPostBody = {
 		| undefined;
 	parallel_tool_calls?: (boolean | null) | undefined;
 	previous_response_id?: (string | null) | undefined;
-	reasoning?: (Reasoning | null) | undefined;
+	reasoning?: (OpenaiTypesSharedParamsReasoningReasoning | null) | undefined;
 	store?: (boolean | null) | undefined;
 	background?: (boolean | null) | undefined;
 	stream?: (boolean | null) | undefined;
@@ -27213,6 +26586,7 @@ export type ResponsesApiOpenaiV1ResponsesPostBody = {
 						| ApplyPatchToolParam
 						| LitellmTypesLlmsOpenaiComputerToolParam
 						| ShellToolParam
+						| OpenAIToolSearchToolParam
 				  )[]
 				| null
 		  )
@@ -27246,6 +26620,7 @@ export type ResponsesApiOpenaiV1ResponsesPostBody = {
 				| ToolSearchCall
 				| ResponseToolSearchOutputItemParamParam
 				| ResponsesAPIRequestParamsAdditionalTools
+				| ResponseConfigurationUpdateItemParamParam
 				| ResponseReasoningItemParam
 				| ResponseCompactionItemParamParam
 				| ResponsesAPIRequestParamsImageGenerationCall
@@ -27330,7 +26705,7 @@ export type ResponsesApiResponsesPostBody = {
 		| undefined;
 	parallel_tool_calls?: (boolean | null) | undefined;
 	previous_response_id?: (string | null) | undefined;
-	reasoning?: (Reasoning | null) | undefined;
+	reasoning?: (OpenaiTypesSharedParamsReasoningReasoning | null) | undefined;
 	store?: (boolean | null) | undefined;
 	background?: (boolean | null) | undefined;
 	stream?: (boolean | null) | undefined;
@@ -27371,6 +26746,7 @@ export type ResponsesApiResponsesPostBody = {
 						| ApplyPatchToolParam
 						| LitellmTypesLlmsOpenaiComputerToolParam
 						| ShellToolParam
+						| OpenAIToolSearchToolParam
 				  )[]
 				| null
 		  )
@@ -27404,6 +26780,7 @@ export type ResponsesApiResponsesPostBody = {
 				| ToolSearchCall
 				| ResponseToolSearchOutputItemParamParam
 				| ResponsesAPIRequestParamsAdditionalTools
+				| ResponseConfigurationUpdateItemParamParam
 				| ResponseReasoningItemParam
 				| ResponseCompactionItemParamParam
 				| ResponsesAPIRequestParamsImageGenerationCall
@@ -27488,7 +26865,7 @@ export type ResponsesApiV1ResponsesPostBody = {
 		| undefined;
 	parallel_tool_calls?: (boolean | null) | undefined;
 	previous_response_id?: (string | null) | undefined;
-	reasoning?: (Reasoning | null) | undefined;
+	reasoning?: (OpenaiTypesSharedParamsReasoningReasoning | null) | undefined;
 	store?: (boolean | null) | undefined;
 	background?: (boolean | null) | undefined;
 	stream?: (boolean | null) | undefined;
@@ -27529,6 +26906,7 @@ export type ResponsesApiV1ResponsesPostBody = {
 						| ApplyPatchToolParam
 						| LitellmTypesLlmsOpenaiComputerToolParam
 						| ShellToolParam
+						| OpenAIToolSearchToolParam
 				  )[]
 				| null
 		  )
@@ -27562,6 +26940,7 @@ export type ResponsesApiV1ResponsesPostBody = {
 				| ToolSearchCall
 				| ResponseToolSearchOutputItemParamParam
 				| ResponsesAPIRequestParamsAdditionalTools
+				| ResponseConfigurationUpdateItemParamParam
 				| ResponseReasoningItemParam
 				| ResponseCompactionItemParamParam
 				| ResponsesAPIRequestParamsImageGenerationCall
@@ -29768,15 +29147,15 @@ export type ListSearchToolsV1SearchToolsGetResponses = {
 export type ListSearchToolsV1SearchToolsGetResponse = ListSearchToolsV1SearchToolsGetStatus200;
 
 export type ListAgentTracesV1TracesGetQuery = {
-	/**
-	 * @description Window start, unix ms. Default: 24h ago
-	 */
-	start_ms?: (number | null) | undefined;
+	cursor?: (string | null) | undefined;
 	/**
 	 * @description Window end, unix ms. Default: now
 	 */
 	end_ms?: (number | null) | undefined;
-	cursor?: (string | null) | undefined;
+	/**
+	 * @description Window start, unix ms. Default: 24h ago
+	 */
+	start_ms?: (number | null) | undefined;
 };
 
 export type ListAgentTracesV1TracesGetStatus200 = TracePage;
@@ -29873,13 +29252,13 @@ export type GetAgentTraceV1TracesTraceIdGetPath = {
 };
 
 export type GetAgentTraceV1TracesTraceIdGetQuery = {
+	cursor?: (string | null) | undefined;
+	page_size?: (number | null) | undefined;
 	/**
 	 * @default ''
 	 * @type string | undefined
 	 */
 	trace_ref?: string | undefined;
-	cursor?: (string | null) | undefined;
-	page_size?: (number | null) | undefined;
 };
 
 export type GetAgentTraceV1TracesTraceIdGetStatus200 = Trace;
@@ -29944,12 +29323,12 @@ export type GetAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetPath = {
 };
 
 export type GetAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetQuery = {
+	cursor?: (string | null) | undefined;
 	/**
 	 * @default ''
 	 * @type string | undefined
 	 */
 	trace_ref?: string | undefined;
-	cursor?: (string | null) | undefined;
 };
 
 export type GetAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetStatus200 = SpanErrorPage;
@@ -30568,6 +29947,125 @@ export type GetCredentialByModelCredentialsByModelModelIdGetResponses = {
  */
 export type GetCredentialByModelCredentialsByModelModelIdGetResponse =
 	GetCredentialByModelCredentialsByModelModelIdGetStatus200;
+
+export type ListUserConnectionsCredentialsUserConnectionsGetStatus200 =
+	UserProviderConnectionsResponse;
+
+export type ListUserConnectionsCredentialsUserConnectionsGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ListUserConnectionsCredentialsUserConnectionsGetResponses = {
+	"200": ListUserConnectionsCredentialsUserConnectionsGetStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListUserConnectionsCredentialsUserConnectionsGetResponse =
+	ListUserConnectionsCredentialsUserConnectionsGetStatus200;
+
+export type StartUserConnectionCredentialsCredentialNameUserConnectionStartPostPath = {
+	/**
+	 * @description The credential name, percent-decoded
+	 * @type string
+	 */
+	credential_name: string;
+};
+
+export type StartUserConnectionCredentialsCredentialNameUserConnectionStartPostStatus200 =
+	UserConnectionStartResponse;
+
+export type StartUserConnectionCredentialsCredentialNameUserConnectionStartPostStatus422 =
+	HTTPValidationError;
+
+export type StartUserConnectionCredentialsCredentialNameUserConnectionStartPostOptions = {
+	body?: never | undefined;
+	path: StartUserConnectionCredentialsCredentialNameUserConnectionStartPostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type StartUserConnectionCredentialsCredentialNameUserConnectionStartPostResponses = {
+	"200": StartUserConnectionCredentialsCredentialNameUserConnectionStartPostStatus200;
+	"422": StartUserConnectionCredentialsCredentialNameUserConnectionStartPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type StartUserConnectionCredentialsCredentialNameUserConnectionStartPostResponse =
+	StartUserConnectionCredentialsCredentialNameUserConnectionStartPostStatus200;
+
+export type PollUserConnectionCredentialsCredentialNameUserConnectionPollPostPath = {
+	/**
+	 * @description The credential name, percent-decoded
+	 * @type string
+	 */
+	credential_name: string;
+};
+
+export type PollUserConnectionCredentialsCredentialNameUserConnectionPollPostStatus200 =
+	UserConnectionPollResponse;
+
+export type PollUserConnectionCredentialsCredentialNameUserConnectionPollPostStatus422 =
+	HTTPValidationError;
+
+export type PollUserConnectionCredentialsCredentialNameUserConnectionPollPostBody =
+	UserConnectionPollRequest;
+
+export type PollUserConnectionCredentialsCredentialNameUserConnectionPollPostOptions = {
+	body: PollUserConnectionCredentialsCredentialNameUserConnectionPollPostBody;
+	path: PollUserConnectionCredentialsCredentialNameUserConnectionPollPostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type PollUserConnectionCredentialsCredentialNameUserConnectionPollPostResponses = {
+	"200": PollUserConnectionCredentialsCredentialNameUserConnectionPollPostStatus200;
+	"422": PollUserConnectionCredentialsCredentialNameUserConnectionPollPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type PollUserConnectionCredentialsCredentialNameUserConnectionPollPostResponse =
+	PollUserConnectionCredentialsCredentialNameUserConnectionPollPostStatus200;
+
+export type DeleteUserConnectionCredentialsCredentialNameUserConnectionDeletePath = {
+	/**
+	 * @description The credential name, percent-decoded
+	 * @type string
+	 */
+	credential_name: string;
+};
+
+export type DeleteUserConnectionCredentialsCredentialNameUserConnectionDeleteStatus200 =
+	UserConnectionDeleteResponse;
+
+export type DeleteUserConnectionCredentialsCredentialNameUserConnectionDeleteStatus422 =
+	HTTPValidationError;
+
+export type DeleteUserConnectionCredentialsCredentialNameUserConnectionDeleteOptions = {
+	body?: never | undefined;
+	path: DeleteUserConnectionCredentialsCredentialNameUserConnectionDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteUserConnectionCredentialsCredentialNameUserConnectionDeleteResponses = {
+	"200": DeleteUserConnectionCredentialsCredentialNameUserConnectionDeleteStatus200;
+	"422": DeleteUserConnectionCredentialsCredentialNameUserConnectionDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteUserConnectionCredentialsCredentialNameUserConnectionDeleteResponse =
+	DeleteUserConnectionCredentialsCredentialNameUserConnectionDeleteStatus200;
 
 export type DeleteCredentialCredentialsCredentialNameDeletePath = {
 	/**
@@ -32052,6 +31550,56 @@ export type TestModelConnectionHealthTestConnectionPostResponses = {
 export type TestModelConnectionHealthTestConnectionPostResponse =
 	TestModelConnectionHealthTestConnectionPostStatus200;
 
+export type GetDeploymentWarningsHealthDeploymentWarningsGetStatus200 = DeploymentWarningsResponse;
+
+export type GetDeploymentWarningsHealthDeploymentWarningsGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetDeploymentWarningsHealthDeploymentWarningsGetResponses = {
+	"200": GetDeploymentWarningsHealthDeploymentWarningsGetStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetDeploymentWarningsHealthDeploymentWarningsGetResponse =
+	GetDeploymentWarningsHealthDeploymentWarningsGetStatus200;
+
+export type UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchPath = {
+	warning_id: string;
+};
+
+export type UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchStatus200 =
+	DeploymentWarningIgnoreResponse;
+
+export type UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchStatus422 =
+	HTTPValidationError;
+
+export type UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchBody =
+	DeploymentWarningIgnoreUpdate;
+
+export type UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchOptions = {
+	body: UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchBody;
+	path: UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchResponses = {
+	"200": UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchStatus200;
+	"422": UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchResponse =
+	UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchStatus200;
+
 export type GenerateKeyFnKeyGeneratePostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
@@ -33378,6 +32926,76 @@ export type GetUserDailyActivityExportUserDailyActivityExportGetResponses = {
  */
 export type GetUserDailyActivityExportUserDailyActivityExportGetResponse =
 	GetUserDailyActivityExportUserDailyActivityExportGetStatus200;
+
+export type GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQuery = {
+	/**
+	 * @minimum 0
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	offset?: number | undefined;
+	/**
+	 * @minimum 1
+	 * @maximum 100
+	 * @default 50
+	 * @type integer | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @description Start date in YYYY-MM-DD format
+	 */
+	start_date?: (string | null) | undefined;
+	/**
+	 * @description End date in YYYY-MM-DD format
+	 */
+	end_date?: (string | null) | undefined;
+	/**
+	 * @description Filter by specific model
+	 */
+	model?: (string | null) | undefined;
+	/**
+	 * @description Filter by specific API key
+	 */
+	api_key?: (string | null) | undefined;
+	/**
+	 * @description Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
+	 */
+	user_id?: (string | null) | undefined;
+	/**
+	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
+	 */
+	timezone?: (number | null) | undefined;
+	/**
+	 * @description When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
+	 * @default false
+	 * @type boolean | undefined
+	 */
+	include_current_utc_day?: boolean | undefined;
+};
+
+export type GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetStatus200 =
+	DailyActivityUserPageResponse;
+
+export type GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetStatus422 =
+	HTTPValidationError;
+
+export type GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetResponses = {
+	"200": GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetStatus200;
+	"422": GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetResponse =
+	GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetStatus200;
 
 export type GetUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQuery =
 	{
@@ -39511,303 +39129,6 @@ export type DeleteMemoryV1MemoryKeyDeleteResponses = {
  */
 export type DeleteMemoryV1MemoryKeyDeleteResponse = DeleteMemoryV1MemoryKeyDeleteStatus200;
 
-export type ListDatasetsLensDatasetsGetStatus200 = DatasetSummary[];
-
-export type ListDatasetsLensDatasetsGetOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ListDatasetsLensDatasetsGetResponses = {
-	"200": ListDatasetsLensDatasetsGetStatus200;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ListDatasetsLensDatasetsGetResponse = ListDatasetsLensDatasetsGetStatus200;
-
-export type CreateDatasetLensDatasetsPostStatus200 = Dataset;
-
-export type CreateDatasetLensDatasetsPostStatus422 = HTTPValidationError;
-
-export type CreateDatasetLensDatasetsPostBody = DatasetCreate;
-
-export type CreateDatasetLensDatasetsPostOptions = {
-	body: CreateDatasetLensDatasetsPostBody;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type CreateDatasetLensDatasetsPostResponses = {
-	"200": CreateDatasetLensDatasetsPostStatus200;
-	"422": CreateDatasetLensDatasetsPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type CreateDatasetLensDatasetsPostResponse = CreateDatasetLensDatasetsPostStatus200;
-
-export type BuildDatasetCasesLensDatasetsBuildPostStatus200 = BuildResult;
-
-export type BuildDatasetCasesLensDatasetsBuildPostStatus422 = HTTPValidationError;
-
-export type BuildDatasetCasesLensDatasetsBuildPostBody = BuildRequest;
-
-export type BuildDatasetCasesLensDatasetsBuildPostOptions = {
-	body: BuildDatasetCasesLensDatasetsBuildPostBody;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type BuildDatasetCasesLensDatasetsBuildPostResponses = {
-	"200": BuildDatasetCasesLensDatasetsBuildPostStatus200;
-	"422": BuildDatasetCasesLensDatasetsBuildPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type BuildDatasetCasesLensDatasetsBuildPostResponse =
-	BuildDatasetCasesLensDatasetsBuildPostStatus200;
-
-export type ReadDatasetLensDatasetsDatasetIdGetPath = {
-	dataset_id: string;
-};
-
-export type ReadDatasetLensDatasetsDatasetIdGetQuery = {
-	revision?: (number | null) | undefined;
-};
-
-export type ReadDatasetLensDatasetsDatasetIdGetStatus200 = Dataset;
-
-export type ReadDatasetLensDatasetsDatasetIdGetStatus422 = HTTPValidationError;
-
-export type ReadDatasetLensDatasetsDatasetIdGetOptions = {
-	body?: never | undefined;
-	path: ReadDatasetLensDatasetsDatasetIdGetPath;
-	query?: ReadDatasetLensDatasetsDatasetIdGetQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type ReadDatasetLensDatasetsDatasetIdGetResponses = {
-	"200": ReadDatasetLensDatasetsDatasetIdGetStatus200;
-	"422": ReadDatasetLensDatasetsDatasetIdGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ReadDatasetLensDatasetsDatasetIdGetResponse =
-	ReadDatasetLensDatasetsDatasetIdGetStatus200;
-
-export type SaveRevisionLensDatasetsDatasetIdRevisionsPostPath = {
-	dataset_id: string;
-};
-
-export type SaveRevisionLensDatasetsDatasetIdRevisionsPostStatus200 = Dataset;
-
-export type SaveRevisionLensDatasetsDatasetIdRevisionsPostStatus422 = HTTPValidationError;
-
-export type SaveRevisionLensDatasetsDatasetIdRevisionsPostBody = RevisionSave;
-
-export type SaveRevisionLensDatasetsDatasetIdRevisionsPostOptions = {
-	body: SaveRevisionLensDatasetsDatasetIdRevisionsPostBody;
-	path: SaveRevisionLensDatasetsDatasetIdRevisionsPostPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type SaveRevisionLensDatasetsDatasetIdRevisionsPostResponses = {
-	"200": SaveRevisionLensDatasetsDatasetIdRevisionsPostStatus200;
-	"422": SaveRevisionLensDatasetsDatasetIdRevisionsPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type SaveRevisionLensDatasetsDatasetIdRevisionsPostResponse =
-	SaveRevisionLensDatasetsDatasetIdRevisionsPostStatus200;
-
-export type ExportDatasetLensDatasetsDatasetIdExportGetPath = {
-	dataset_id: string;
-};
-
-export type ExportDatasetLensDatasetsDatasetIdExportGetQuery = {
-	revision?: (number | null) | undefined;
-};
-
-export type ExportDatasetLensDatasetsDatasetIdExportGetStatus200 = unknown;
-
-export type ExportDatasetLensDatasetsDatasetIdExportGetStatus422 = HTTPValidationError;
-
-export type ExportDatasetLensDatasetsDatasetIdExportGetOptions = {
-	body?: never | undefined;
-	path: ExportDatasetLensDatasetsDatasetIdExportGetPath;
-	query?: ExportDatasetLensDatasetsDatasetIdExportGetQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type ExportDatasetLensDatasetsDatasetIdExportGetResponses = {
-	"200": ExportDatasetLensDatasetsDatasetIdExportGetStatus200;
-	"422": ExportDatasetLensDatasetsDatasetIdExportGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ExportDatasetLensDatasetsDatasetIdExportGetResponse =
-	ExportDatasetLensDatasetsDatasetIdExportGetStatus200;
-
-export type EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetPath = {
-	dataset_id: string;
-	revision: number;
-};
-
-export type EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetStatus200 = EvalCases;
-
-export type EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetStatus422 = HTTPValidationError;
-
-export type EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetOptions = {
-	body?: never | undefined;
-	path: EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetResponses = {
-	"200": EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetStatus200;
-	"422": EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetResponse =
-	EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetStatus200;
-
-export type ReadFeedbackLensFeedbackGetQuery = {
-	trace_id?: (string | null) | undefined;
-	session_id?: (string | null) | undefined;
-	/**
-	 * @maxLength 512
-	 * @default ''
-	 * @type string | undefined
-	 */
-	trace_ref?: string | undefined;
-};
-
-export type ReadFeedbackLensFeedbackGetStatus200 = TraceFeedback;
-
-export type ReadFeedbackLensFeedbackGetStatus422 = HTTPValidationError;
-
-export type ReadFeedbackLensFeedbackGetOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: ReadFeedbackLensFeedbackGetQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type ReadFeedbackLensFeedbackGetResponses = {
-	"200": ReadFeedbackLensFeedbackGetStatus200;
-	"422": ReadFeedbackLensFeedbackGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ReadFeedbackLensFeedbackGetResponse = ReadFeedbackLensFeedbackGetStatus200;
-
-export type SubmitFeedbackLensFeedbackPutStatus200 = Feedback;
-
-export type SubmitFeedbackLensFeedbackPutStatus422 = HTTPValidationError;
-
-export type SubmitFeedbackLensFeedbackPutBody = FeedbackSubmission;
-
-export type SubmitFeedbackLensFeedbackPutOptions = {
-	body: SubmitFeedbackLensFeedbackPutBody;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type SubmitFeedbackLensFeedbackPutResponses = {
-	"200": SubmitFeedbackLensFeedbackPutStatus200;
-	"422": SubmitFeedbackLensFeedbackPutStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type SubmitFeedbackLensFeedbackPutResponse = SubmitFeedbackLensFeedbackPutStatus200;
-
-export type DeleteFeedbackLensFeedbackDeleteQuery = {
-	trace_id?: (string | null) | undefined;
-	session_id?: (string | null) | undefined;
-	/**
-	 * @maxLength 512
-	 * @default ''
-	 * @type string | undefined
-	 */
-	trace_ref?: string | undefined;
-	/**
-	 * @maxLength 256
-	 * @default ''
-	 * @type string | undefined
-	 */
-	user?: string | undefined;
-};
-
-export type DeleteFeedbackLensFeedbackDeleteStatus204 = void;
-
-export type DeleteFeedbackLensFeedbackDeleteStatus422 = HTTPValidationError;
-
-export type DeleteFeedbackLensFeedbackDeleteOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: DeleteFeedbackLensFeedbackDeleteQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type DeleteFeedbackLensFeedbackDeleteResponses = {
-	"204": DeleteFeedbackLensFeedbackDeleteStatus204;
-	"422": DeleteFeedbackLensFeedbackDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteFeedbackLensFeedbackDeleteResponse = DeleteFeedbackLensFeedbackDeleteStatus204;
-
-export type FeedbackSummaryLensFeedbackSummaryPostStatus200 = TraceFeedbackSummary[];
-
-export type FeedbackSummaryLensFeedbackSummaryPostStatus422 = HTTPValidationError;
-
-export type FeedbackSummaryLensFeedbackSummaryPostBody = TraceFeedbackRequest;
-
-export type FeedbackSummaryLensFeedbackSummaryPostOptions = {
-	body: FeedbackSummaryLensFeedbackSummaryPostBody;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type FeedbackSummaryLensFeedbackSummaryPostResponses = {
-	"200": FeedbackSummaryLensFeedbackSummaryPostStatus200;
-	"422": FeedbackSummaryLensFeedbackSummaryPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type FeedbackSummaryLensFeedbackSummaryPostResponse =
-	FeedbackSummaryLensFeedbackSummaryPostStatus200;
-
 export type ServiceConnectionLensServiceGetStatus200 = ServiceConnection;
 
 export type ServiceConnectionLensServiceGetOptions = {
@@ -39826,957 +39147,291 @@ export type ServiceConnectionLensServiceGetResponses = {
  */
 export type ServiceConnectionLensServiceGetResponse = ServiceConnectionLensServiceGetStatus200;
 
-export type ListIngestionKeysLensTracingKeysGetStatus200 = IngestionKey[];
+export type LensRequestLensPathPostPath = {
+	path: string;
+};
 
-export type ListIngestionKeysLensTracingKeysGetOptions = {
+export type LensRequestLensPathPostStatus200 = {
+	[key: string]: unknown;
+};
+
+export type LensRequestLensPathPostStatus422 = HTTPValidationError;
+
+export type LensRequestLensPathPostOptions = {
 	body?: never | undefined;
-	path?: never | undefined;
+	path: LensRequestLensPathPostPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type ListIngestionKeysLensTracingKeysGetResponses = {
-	"200": ListIngestionKeysLensTracingKeysGetStatus200;
+export type LensRequestLensPathPostResponses = {
+	"200": LensRequestLensPathPostStatus200;
+	"422": LensRequestLensPathPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ListIngestionKeysLensTracingKeysGetResponse =
-	ListIngestionKeysLensTracingKeysGetStatus200;
+export type LensRequestLensPathPostResponse = LensRequestLensPathPostStatus200;
 
-export type CreateIngestionKeyLensTracingKeysPostStatus200 = IngestionKeyCreated;
-
-export type CreateIngestionKeyLensTracingKeysPostStatus422 = HTTPValidationError;
-
-export type CreateIngestionKeyLensTracingKeysPostBody = IngestionKeyRequest;
-
-export type CreateIngestionKeyLensTracingKeysPostOptions = {
-	body: CreateIngestionKeyLensTracingKeysPostBody;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
+export type LensRequestLensPathDeletePath = {
+	path: string;
 };
 
-export type CreateIngestionKeyLensTracingKeysPostResponses = {
-	"200": CreateIngestionKeyLensTracingKeysPostStatus200;
-	"422": CreateIngestionKeyLensTracingKeysPostStatus422;
+export type LensRequestLensPathDeleteStatus200 = {
+	[key: string]: unknown;
 };
 
-/**
- * @description Union of all possible responses
- */
-export type CreateIngestionKeyLensTracingKeysPostResponse =
-	CreateIngestionKeyLensTracingKeysPostStatus200;
+export type LensRequestLensPathDeleteStatus422 = HTTPValidationError;
 
-export type RevokeIngestionKeyLensTracingKeysKeyIdDeletePath = {
-	key_id: string;
-};
-
-export type RevokeIngestionKeyLensTracingKeysKeyIdDeleteStatus200 = boolean;
-
-export type RevokeIngestionKeyLensTracingKeysKeyIdDeleteStatus422 = HTTPValidationError;
-
-export type RevokeIngestionKeyLensTracingKeysKeyIdDeleteOptions = {
+export type LensRequestLensPathDeleteOptions = {
 	body?: never | undefined;
-	path: RevokeIngestionKeyLensTracingKeysKeyIdDeletePath;
+	path: LensRequestLensPathDeletePath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type RevokeIngestionKeyLensTracingKeysKeyIdDeleteResponses = {
-	"200": RevokeIngestionKeyLensTracingKeysKeyIdDeleteStatus200;
-	"422": RevokeIngestionKeyLensTracingKeysKeyIdDeleteStatus422;
+export type LensRequestLensPathDeleteResponses = {
+	"200": LensRequestLensPathDeleteStatus200;
+	"422": LensRequestLensPathDeleteStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type RevokeIngestionKeyLensTracingKeysKeyIdDeleteResponse =
-	RevokeIngestionKeyLensTracingKeysKeyIdDeleteStatus200;
+export type LensRequestLensPathDeleteResponse = LensRequestLensPathDeleteStatus200;
 
-export type IngestionCredentialsLensInternalIngestionCredentialsGetStatus200 = IngestionSnapshot;
+export type LensRequestLensPathPutPath = {
+	path: string;
+};
 
-export type IngestionCredentialsLensInternalIngestionCredentialsGetOptions = {
+export type LensRequestLensPathPutStatus200 = {
+	[key: string]: unknown;
+};
+
+export type LensRequestLensPathPutStatus422 = HTTPValidationError;
+
+export type LensRequestLensPathPutOptions = {
 	body?: never | undefined;
-	path?: never | undefined;
+	path: LensRequestLensPathPutPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type IngestionCredentialsLensInternalIngestionCredentialsGetResponses = {
-	"200": IngestionCredentialsLensInternalIngestionCredentialsGetStatus200;
+export type LensRequestLensPathPutResponses = {
+	"200": LensRequestLensPathPutStatus200;
+	"422": LensRequestLensPathPutStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type IngestionCredentialsLensInternalIngestionCredentialsGetResponse =
-	IngestionCredentialsLensInternalIngestionCredentialsGetStatus200;
+export type LensRequestLensPathPutResponse = LensRequestLensPathPutStatus200;
 
-export type ListLensesLensGetStatus200 = LensList;
+export type LensRequestLensPathPatchPath = {
+	path: string;
+};
 
-export type ListLensesLensGetOptions = {
+export type LensRequestLensPathPatchStatus200 = unknown;
+
+export type LensRequestLensPathPatchStatus422 = HTTPValidationError;
+
+export type LensRequestLensPathPatchOptions = {
 	body?: never | undefined;
-	path?: never | undefined;
+	path: LensRequestLensPathPatchPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type ListLensesLensGetResponses = {
-	"200": ListLensesLensGetStatus200;
+export type LensRequestLensPathPatchResponses = {
+	"200": LensRequestLensPathPatchStatus200;
+	"422": LensRequestLensPathPatchStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ListLensesLensGetResponse = ListLensesLensGetStatus200;
+export type LensRequestLensPathPatchResponse = LensRequestLensPathPatchStatus200;
 
-export type CreateLensLensPostStatus200 = Lens;
-
-export type CreateLensLensPostStatus422 = HTTPValidationError;
-
-export type CreateLensLensPostBody = LensSettings;
-
-export type CreateLensLensPostOptions = {
-	body: CreateLensLensPostBody;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
+export type LensRequestLensPathGetPath = {
+	path: string;
 };
 
-export type CreateLensLensPostResponses = {
-	"200": CreateLensLensPostStatus200;
-	"422": CreateLensLensPostStatus422;
+export type LensRequestLensPathGetStatus200 = {
+	[key: string]: unknown;
 };
 
-/**
- * @description Union of all possible responses
- */
-export type CreateLensLensPostResponse = CreateLensLensPostStatus200;
+export type LensRequestLensPathGetStatus422 = HTTPValidationError;
 
-export type ActivityAvailableLensActivityAvailableGetStatus200 = ActivityAvailability;
-
-export type ActivityAvailableLensActivityAvailableGetOptions = {
+export type LensRequestLensPathGetOptions = {
 	body?: never | undefined;
-	path?: never | undefined;
+	path: LensRequestLensPathGetPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type ActivityAvailableLensActivityAvailableGetResponses = {
-	"200": ActivityAvailableLensActivityAvailableGetStatus200;
+export type LensRequestLensPathGetResponses = {
+	"200": LensRequestLensPathGetStatus200;
+	"422": LensRequestLensPathGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ActivityAvailableLensActivityAvailableGetResponse =
-	ActivityAvailableLensActivityAvailableGetStatus200;
+export type LensRequestLensPathGetResponse = LensRequestLensPathGetStatus200;
 
-export type ListAgentsLensAgentsGetStatus200 = string[];
-
-export type ListAgentsLensAgentsGetOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ListAgentsLensAgentsGetResponses = {
-	"200": ListAgentsLensAgentsGetStatus200;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ListAgentsLensAgentsGetResponse = ListAgentsLensAgentsGetStatus200;
-
-export type GetSignalsLensSignalsGetStatus200 = SignalConfig;
-
-export type GetSignalsLensSignalsGetOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type GetSignalsLensSignalsGetResponses = {
-	"200": GetSignalsLensSignalsGetStatus200;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type GetSignalsLensSignalsGetResponse = GetSignalsLensSignalsGetStatus200;
-
-export type PutSignalsLensSignalsPutStatus200 = SignalConfig;
-
-export type PutSignalsLensSignalsPutStatus422 = HTTPValidationError;
-
-export type PutSignalsLensSignalsPutBody = SignalConfig;
-
-export type PutSignalsLensSignalsPutOptions = {
-	body: PutSignalsLensSignalsPutBody;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type PutSignalsLensSignalsPutResponses = {
-	"200": PutSignalsLensSignalsPutStatus200;
-	"422": PutSignalsLensSignalsPutStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type PutSignalsLensSignalsPutResponse = PutSignalsLensSignalsPutStatus200;
-
-export type TraceSignalStatusesLensTracesSignalsPostStatus200 = TraceSignals[];
-
-export type TraceSignalStatusesLensTracesSignalsPostStatus422 = HTTPValidationError;
-
-export type TraceSignalStatusesLensTracesSignalsPostBody = TraceFindingsRequest;
-
-export type TraceSignalStatusesLensTracesSignalsPostOptions = {
-	body: TraceSignalStatusesLensTracesSignalsPostBody;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type TraceSignalStatusesLensTracesSignalsPostResponses = {
-	"200": TraceSignalStatusesLensTracesSignalsPostStatus200;
-	"422": TraceSignalStatusesLensTracesSignalsPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type TraceSignalStatusesLensTracesSignalsPostResponse =
-	TraceSignalStatusesLensTracesSignalsPostStatus200;
-
-export type TraceFindingsLensTracesFindingsPostStatus200 = TraceFindingCount[];
-
-export type TraceFindingsLensTracesFindingsPostStatus422 = HTTPValidationError;
-
-export type TraceFindingsLensTracesFindingsPostBody = TraceFindingsRequest;
-
-export type TraceFindingsLensTracesFindingsPostOptions = {
-	body: TraceFindingsLensTracesFindingsPostBody;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type TraceFindingsLensTracesFindingsPostResponses = {
-	"200": TraceFindingsLensTracesFindingsPostStatus200;
-	"422": TraceFindingsLensTracesFindingsPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type TraceFindingsLensTracesFindingsPostResponse =
-	TraceFindingsLensTracesFindingsPostStatus200;
-
-export type WatchAllLensWatchAllPostStatus200 = WatchAllResult;
-
-export type WatchAllLensWatchAllPostOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type WatchAllLensWatchAllPostResponses = {
-	"200": WatchAllLensWatchAllPostStatus200;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type WatchAllLensWatchAllPostResponse = WatchAllLensWatchAllPostStatus200;
-
-export type UpdateLensLensLensIdPutPath = {
-	lens_id: string;
-};
-
-export type UpdateLensLensLensIdPutStatus200 = Lens;
-
-export type UpdateLensLensLensIdPutStatus422 = HTTPValidationError;
-
-export type UpdateLensLensLensIdPutBody = LensSettings;
-
-export type UpdateLensLensLensIdPutOptions = {
-	body: UpdateLensLensLensIdPutBody;
-	path: UpdateLensLensLensIdPutPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type UpdateLensLensLensIdPutResponses = {
-	"200": UpdateLensLensLensIdPutStatus200;
-	"422": UpdateLensLensLensIdPutStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type UpdateLensLensLensIdPutResponse = UpdateLensLensLensIdPutStatus200;
-
-export type ReadLensLensLensIdGetPath = {
-	lens_id: string;
-};
-
-export type ReadLensLensLensIdGetStatus200 = Lens;
-
-export type ReadLensLensLensIdGetStatus422 = HTTPValidationError;
-
-export type ReadLensLensLensIdGetOptions = {
-	body?: never | undefined;
-	path: ReadLensLensLensIdGetPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ReadLensLensLensIdGetResponses = {
-	"200": ReadLensLensLensIdGetStatus200;
-	"422": ReadLensLensLensIdGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ReadLensLensLensIdGetResponse = ReadLensLensLensIdGetStatus200;
-
-export type RunLensLensLensIdRunsPostPath = {
-	lens_id: string;
-};
-
-export type RunLensLensLensIdRunsPostStatus200 = Lens;
-
-export type RunLensLensLensIdRunsPostStatus422 = HTTPValidationError;
-
-export type RunLensLensLensIdRunsPostBody = RunRequest;
-
-export type RunLensLensLensIdRunsPostOptions = {
-	body: RunLensLensLensIdRunsPostBody;
-	path: RunLensLensLensIdRunsPostPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type RunLensLensLensIdRunsPostResponses = {
-	"200": RunLensLensLensIdRunsPostStatus200;
-	"422": RunLensLensLensIdRunsPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type RunLensLensLensIdRunsPostResponse = RunLensLensLensIdRunsPostStatus200;
-
-export type ListRunsLensLensIdRunsGetPath = {
-	lens_id: string;
-};
-
-export type ListRunsLensLensIdRunsGetQuery = {
-	/**
-	 * @minimum 0
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	offset?: number | undefined;
-};
-
-export type ListRunsLensLensIdRunsGetStatus200 = Job[];
-
-export type ListRunsLensLensIdRunsGetStatus422 = HTTPValidationError;
-
-export type ListRunsLensLensIdRunsGetOptions = {
-	body?: never | undefined;
-	path: ListRunsLensLensIdRunsGetPath;
-	query?: ListRunsLensLensIdRunsGetQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type ListRunsLensLensIdRunsGetResponses = {
-	"200": ListRunsLensLensIdRunsGetStatus200;
-	"422": ListRunsLensLensIdRunsGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ListRunsLensLensIdRunsGetResponse = ListRunsLensLensIdRunsGetStatus200;
-
-export type ReadRunLensLensIdRunsJobIdGetPath = {
-	lens_id: string;
-	job_id: string;
-};
-
-export type ReadRunLensLensIdRunsJobIdGetStatus200 = Job;
-
-export type ReadRunLensLensIdRunsJobIdGetStatus422 = HTTPValidationError;
-
-export type ReadRunLensLensIdRunsJobIdGetOptions = {
-	body?: never | undefined;
-	path: ReadRunLensLensIdRunsJobIdGetPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ReadRunLensLensIdRunsJobIdGetResponses = {
-	"200": ReadRunLensLensIdRunsJobIdGetStatus200;
-	"422": ReadRunLensLensIdRunsJobIdGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ReadRunLensLensIdRunsJobIdGetResponse = ReadRunLensLensIdRunsJobIdGetStatus200;
-
-export type ReadReviewsLensLensIdRunsJobIdReviewsGetPath = {
-	lens_id: string;
-	job_id: string;
-};
-
-export type ReadReviewsLensLensIdRunsJobIdReviewsGetQuery = {
-	/**
-	 * @minimum 0
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	after?: number | undefined;
-};
-
-export type ReadReviewsLensLensIdRunsJobIdReviewsGetStatus200 = ReviewPage;
-
-export type ReadReviewsLensLensIdRunsJobIdReviewsGetStatus422 = HTTPValidationError;
-
-export type ReadReviewsLensLensIdRunsJobIdReviewsGetOptions = {
-	body?: never | undefined;
-	path: ReadReviewsLensLensIdRunsJobIdReviewsGetPath;
-	query?: ReadReviewsLensLensIdRunsJobIdReviewsGetQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type ReadReviewsLensLensIdRunsJobIdReviewsGetResponses = {
-	"200": ReadReviewsLensLensIdRunsJobIdReviewsGetStatus200;
-	"422": ReadReviewsLensLensIdRunsJobIdReviewsGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ReadReviewsLensLensIdRunsJobIdReviewsGetResponse =
-	ReadReviewsLensLensIdRunsJobIdReviewsGetStatus200;
-
-export type CancelLensLensLensIdCancelPostPath = {
-	lens_id: string;
-};
-
-export type CancelLensLensLensIdCancelPostStatus200 = Lens;
-
-export type CancelLensLensLensIdCancelPostStatus422 = HTTPValidationError;
-
-export type CancelLensLensLensIdCancelPostOptions = {
-	body?: never | undefined;
-	path: CancelLensLensLensIdCancelPostPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type CancelLensLensLensIdCancelPostResponses = {
-	"200": CancelLensLensLensIdCancelPostStatus200;
-	"422": CancelLensLensLensIdCancelPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type CancelLensLensLensIdCancelPostResponse = CancelLensLensLensIdCancelPostStatus200;
-
-export type UpdateFindingLensLensIdFindingsFindingIdPatchPath = {
-	lens_id: string;
-	finding_id: string;
-};
-
-export type UpdateFindingLensLensIdFindingsFindingIdPatchStatus200 = Lens;
-
-export type UpdateFindingLensLensIdFindingsFindingIdPatchStatus422 = HTTPValidationError;
-
-export type UpdateFindingLensLensIdFindingsFindingIdPatchBody = FindingUpdate;
-
-export type UpdateFindingLensLensIdFindingsFindingIdPatchOptions = {
-	body: UpdateFindingLensLensIdFindingsFindingIdPatchBody;
-	path: UpdateFindingLensLensIdFindingsFindingIdPatchPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type UpdateFindingLensLensIdFindingsFindingIdPatchResponses = {
-	"200": UpdateFindingLensLensIdFindingsFindingIdPatchStatus200;
-	"422": UpdateFindingLensLensIdFindingsFindingIdPatchStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type UpdateFindingLensLensIdFindingsFindingIdPatchResponse =
-	UpdateFindingLensLensIdFindingsFindingIdPatchStatus200;
-
-export type PreviewSampleLensPreviewSamplePostStatus200 = Sample;
-
-export type PreviewSampleLensPreviewSamplePostStatus422 = HTTPValidationError;
-
-export type PreviewSampleLensPreviewSamplePostBody = Preview;
-
-export type PreviewSampleLensPreviewSamplePostOptions = {
-	body: PreviewSampleLensPreviewSamplePostBody;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type PreviewSampleLensPreviewSamplePostResponses = {
-	"200": PreviewSampleLensPreviewSamplePostStatus200;
-	"422": PreviewSampleLensPreviewSamplePostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type PreviewSampleLensPreviewSamplePostResponse =
-	PreviewSampleLensPreviewSamplePostStatus200;
-
-export type RegisterWorkerLensWorkersRegisterPostStatus200 = WorkerCreated;
-
-export type RegisterWorkerLensWorkersRegisterPostStatus422 = HTTPValidationError;
-
-export type RegisterWorkerLensWorkersRegisterPostBody = WorkerName;
-
-export type RegisterWorkerLensWorkersRegisterPostOptions = {
-	body: RegisterWorkerLensWorkersRegisterPostBody;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type RegisterWorkerLensWorkersRegisterPostResponses = {
-	"200": RegisterWorkerLensWorkersRegisterPostStatus200;
-	"422": RegisterWorkerLensWorkersRegisterPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type RegisterWorkerLensWorkersRegisterPostResponse =
-	RegisterWorkerLensWorkersRegisterPostStatus200;
-
-export type SetWorkerBillingLensWorkersWorkerIdBillingKeyPutPath = {
-	worker_id: string;
-};
-
-export type SetWorkerBillingLensWorkersWorkerIdBillingKeyPutStatus200 = Worker;
-
-export type SetWorkerBillingLensWorkersWorkerIdBillingKeyPutStatus422 = HTTPValidationError;
-
-export type SetWorkerBillingLensWorkersWorkerIdBillingKeyPutBody = WorkerBilling;
-
-export type SetWorkerBillingLensWorkersWorkerIdBillingKeyPutOptions = {
-	body: SetWorkerBillingLensWorkersWorkerIdBillingKeyPutBody;
-	path: SetWorkerBillingLensWorkersWorkerIdBillingKeyPutPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type SetWorkerBillingLensWorkersWorkerIdBillingKeyPutResponses = {
-	"200": SetWorkerBillingLensWorkersWorkerIdBillingKeyPutStatus200;
-	"422": SetWorkerBillingLensWorkersWorkerIdBillingKeyPutStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type SetWorkerBillingLensWorkersWorkerIdBillingKeyPutResponse =
-	SetWorkerBillingLensWorkersWorkerIdBillingKeyPutStatus200;
-
-export type RevokeWorkerLensWorkersWorkerIdDeletePath = {
-	worker_id: string;
-};
-
-export type RevokeWorkerLensWorkersWorkerIdDeleteStatus200 = boolean;
-
-export type RevokeWorkerLensWorkersWorkerIdDeleteStatus422 = HTTPValidationError;
-
-export type RevokeWorkerLensWorkersWorkerIdDeleteOptions = {
-	body?: never | undefined;
-	path: RevokeWorkerLensWorkersWorkerIdDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type RevokeWorkerLensWorkersWorkerIdDeleteResponses = {
-	"200": RevokeWorkerLensWorkersWorkerIdDeleteStatus200;
-	"422": RevokeWorkerLensWorkersWorkerIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type RevokeWorkerLensWorkersWorkerIdDeleteResponse =
-	RevokeWorkerLensWorkersWorkerIdDeleteStatus200;
-
-export type ClaimLensWorkerClaimPostQuery = {
-	/**
-	 * @default 1
-	 * @type integer | undefined
-	 */
-	protocol_version?: number | undefined;
+export type LensRequestLensPostQuery = {
 	/**
 	 * @default ''
 	 * @type string | undefined
 	 */
-	worker_release?: string | undefined;
+	path?: string | undefined;
 };
 
-export type ClaimLensWorkerClaimPostStatus200 = Claim | null;
+export type LensRequestLensPostStatus200 = {
+	[key: string]: unknown;
+};
 
-export type ClaimLensWorkerClaimPostStatus422 = HTTPValidationError;
+export type LensRequestLensPostStatus422 = HTTPValidationError;
 
-export type ClaimLensWorkerClaimPostOptions = {
+export type LensRequestLensPostOptions = {
 	body?: never | undefined;
 	path?: never | undefined;
-	query?: ClaimLensWorkerClaimPostQuery | undefined;
+	query?: LensRequestLensPostQuery | undefined;
 	headers?: never | undefined;
 };
 
-export type ClaimLensWorkerClaimPostResponses = {
-	"200": ClaimLensWorkerClaimPostStatus200;
-	"422": ClaimLensWorkerClaimPostStatus422;
+export type LensRequestLensPostResponses = {
+	"200": LensRequestLensPostStatus200;
+	"422": LensRequestLensPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ClaimLensWorkerClaimPostResponse = ClaimLensWorkerClaimPostStatus200;
+export type LensRequestLensPostResponse = LensRequestLensPostStatus200;
 
-export type ProgressLensWorkerLensIdJobIdProgressPostPath = {
-	lens_id: string;
-	job_id: string;
-};
-
-export type ProgressLensWorkerLensIdJobIdProgressPostHeaders = {
-	/**
-	 * @minimum 1
-	 * @default 1
-	 * @type integer | undefined
-	 */
-	"X-LiteLLM-Lens-Attempt"?: number | undefined;
-};
-
-export type ProgressLensWorkerLensIdJobIdProgressPostStatus200 = boolean;
-
-export type ProgressLensWorkerLensIdJobIdProgressPostStatus422 = HTTPValidationError;
-
-export type ProgressLensWorkerLensIdJobIdProgressPostBody = Progress;
-
-export type ProgressLensWorkerLensIdJobIdProgressPostOptions = {
-	body: ProgressLensWorkerLensIdJobIdProgressPostBody;
-	path: ProgressLensWorkerLensIdJobIdProgressPostPath;
-	query?: never | undefined;
-	headers?: ProgressLensWorkerLensIdJobIdProgressPostHeaders | undefined;
-};
-
-export type ProgressLensWorkerLensIdJobIdProgressPostResponses = {
-	"200": ProgressLensWorkerLensIdJobIdProgressPostStatus200;
-	"422": ProgressLensWorkerLensIdJobIdProgressPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ProgressLensWorkerLensIdJobIdProgressPostResponse =
-	ProgressLensWorkerLensIdJobIdProgressPostStatus200;
-
-export type CachedReviewsLensWorkerLensIdJobIdReviewsGetPath = {
-	lens_id: string;
-	job_id: string;
-};
-
-export type CachedReviewsLensWorkerLensIdJobIdReviewsGetHeaders = {
-	/**
-	 * @minimum 1
-	 * @default 1
-	 * @type integer | undefined
-	 */
-	"X-LiteLLM-Lens-Attempt"?: number | undefined;
-};
-
-export type CachedReviewsLensWorkerLensIdJobIdReviewsGetStatus200 = Review[];
-
-export type CachedReviewsLensWorkerLensIdJobIdReviewsGetStatus422 = HTTPValidationError;
-
-export type CachedReviewsLensWorkerLensIdJobIdReviewsGetOptions = {
-	body?: never | undefined;
-	path: CachedReviewsLensWorkerLensIdJobIdReviewsGetPath;
-	query?: never | undefined;
-	headers?: CachedReviewsLensWorkerLensIdJobIdReviewsGetHeaders | undefined;
-};
-
-export type CachedReviewsLensWorkerLensIdJobIdReviewsGetResponses = {
-	"200": CachedReviewsLensWorkerLensIdJobIdReviewsGetStatus200;
-	"422": CachedReviewsLensWorkerLensIdJobIdReviewsGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type CachedReviewsLensWorkerLensIdJobIdReviewsGetResponse =
-	CachedReviewsLensWorkerLensIdJobIdReviewsGetStatus200;
-
-export type SampleLensWorkerLensIdJobIdSampleGetPath = {
-	lens_id: string;
-	job_id: string;
-};
-
-export type SampleLensWorkerLensIdJobIdSampleGetHeaders = {
-	/**
-	 * @minimum 1
-	 * @default 1
-	 * @type integer | undefined
-	 */
-	"X-LiteLLM-Lens-Attempt"?: number | undefined;
-};
-
-export type SampleLensWorkerLensIdJobIdSampleGetStatus200 = Sample;
-
-export type SampleLensWorkerLensIdJobIdSampleGetStatus422 = HTTPValidationError;
-
-export type SampleLensWorkerLensIdJobIdSampleGetOptions = {
-	body?: never | undefined;
-	path: SampleLensWorkerLensIdJobIdSampleGetPath;
-	query?: never | undefined;
-	headers?: SampleLensWorkerLensIdJobIdSampleGetHeaders | undefined;
-};
-
-export type SampleLensWorkerLensIdJobIdSampleGetResponses = {
-	"200": SampleLensWorkerLensIdJobIdSampleGetStatus200;
-	"422": SampleLensWorkerLensIdJobIdSampleGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type SampleLensWorkerLensIdJobIdSampleGetResponse =
-	SampleLensWorkerLensIdJobIdSampleGetStatus200;
-
-export type ContentLensWorkerLensIdJobIdContentGetPath = {
-	lens_id: string;
-	job_id: string;
-};
-
-export type ContentLensWorkerLensIdJobIdContentGetQuery = {
-	execution_id: string;
+export type LensRequestLensDeleteQuery = {
 	/**
 	 * @default ''
 	 * @type string | undefined
 	 */
-	cursor?: string | undefined;
-	/**
-	 * @minimum 0
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	offset?: number | undefined;
+	path?: string | undefined;
 };
 
-export type ContentLensWorkerLensIdJobIdContentGetHeaders = {
-	/**
-	 * @minimum 1
-	 * @default 1
-	 * @type integer | undefined
-	 */
-	"X-LiteLLM-Lens-Attempt"?: number | undefined;
+export type LensRequestLensDeleteStatus200 = {
+	[key: string]: unknown;
 };
 
-export type ContentLensWorkerLensIdJobIdContentGetStatus200 = ExecutionContent;
+export type LensRequestLensDeleteStatus422 = HTTPValidationError;
 
-export type ContentLensWorkerLensIdJobIdContentGetStatus422 = HTTPValidationError;
-
-export type ContentLensWorkerLensIdJobIdContentGetOptions = {
+export type LensRequestLensDeleteOptions = {
 	body?: never | undefined;
-	path: ContentLensWorkerLensIdJobIdContentGetPath;
-	query: ContentLensWorkerLensIdJobIdContentGetQuery;
-	headers?: ContentLensWorkerLensIdJobIdContentGetHeaders | undefined;
+	path?: never | undefined;
+	query?: LensRequestLensDeleteQuery | undefined;
+	headers?: never | undefined;
 };
 
-export type ContentLensWorkerLensIdJobIdContentGetResponses = {
-	"200": ContentLensWorkerLensIdJobIdContentGetStatus200;
-	"422": ContentLensWorkerLensIdJobIdContentGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ContentLensWorkerLensIdJobIdContentGetResponse =
-	ContentLensWorkerLensIdJobIdContentGetStatus200;
-
-export type ModelLensWorkerLensIdJobIdModelPostPath = {
-	lens_id: string;
-	job_id: string;
-};
-
-export type ModelLensWorkerLensIdJobIdModelPostHeaders = {
-	/**
-	 * @minimum 1
-	 * @default 1
-	 * @type integer | undefined
-	 */
-	"X-LiteLLM-Lens-Attempt"?: number | undefined;
-};
-
-export type ModelLensWorkerLensIdJobIdModelPostStatus200 = ModelResult;
-
-export type ModelLensWorkerLensIdJobIdModelPostStatus422 = HTTPValidationError;
-
-export type ModelLensWorkerLensIdJobIdModelPostBody = ModelRequest;
-
-export type ModelLensWorkerLensIdJobIdModelPostOptions = {
-	body: ModelLensWorkerLensIdJobIdModelPostBody;
-	path: ModelLensWorkerLensIdJobIdModelPostPath;
-	query?: never | undefined;
-	headers?: ModelLensWorkerLensIdJobIdModelPostHeaders | undefined;
-};
-
-export type ModelLensWorkerLensIdJobIdModelPostResponses = {
-	"200": ModelLensWorkerLensIdJobIdModelPostStatus200;
-	"422": ModelLensWorkerLensIdJobIdModelPostStatus422;
+export type LensRequestLensDeleteResponses = {
+	"200": LensRequestLensDeleteStatus200;
+	"422": LensRequestLensDeleteStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ModelLensWorkerLensIdJobIdModelPostResponse =
-	ModelLensWorkerLensIdJobIdModelPostStatus200;
+export type LensRequestLensDeleteResponse = LensRequestLensDeleteStatus200;
 
-export type ResultLensWorkerLensIdJobIdResultPostPath = {
-	lens_id: string;
-	job_id: string;
-};
-
-export type ResultLensWorkerLensIdJobIdResultPostHeaders = {
-	/**
-	 * @minimum 1
-	 * @default 1
-	 * @type integer | undefined
-	 */
-	"X-LiteLLM-Lens-Attempt"?: number | undefined;
-};
-
-export type ResultLensWorkerLensIdJobIdResultPostStatus200 = Lens;
-
-export type ResultLensWorkerLensIdJobIdResultPostStatus422 = HTTPValidationError;
-
-export type ResultLensWorkerLensIdJobIdResultPostBody = ResultInput;
-
-export type ResultLensWorkerLensIdJobIdResultPostOptions = {
-	body: ResultLensWorkerLensIdJobIdResultPostBody;
-	path: ResultLensWorkerLensIdJobIdResultPostPath;
-	query?: never | undefined;
-	headers?: ResultLensWorkerLensIdJobIdResultPostHeaders | undefined;
-};
-
-export type ResultLensWorkerLensIdJobIdResultPostResponses = {
-	"200": ResultLensWorkerLensIdJobIdResultPostStatus200;
-	"422": ResultLensWorkerLensIdJobIdResultPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ResultLensWorkerLensIdJobIdResultPostResponse =
-	ResultLensWorkerLensIdJobIdResultPostStatus200;
-
-export type HeartbeatLensWorkerLensIdJobIdHeartbeatPostPath = {
-	lens_id: string;
-	job_id: string;
-};
-
-export type HeartbeatLensWorkerLensIdJobIdHeartbeatPostHeaders = {
-	/**
-	 * @minimum 1
-	 * @default 1
-	 * @type integer | undefined
-	 */
-	"X-LiteLLM-Lens-Attempt"?: number | undefined;
-};
-
-export type HeartbeatLensWorkerLensIdJobIdHeartbeatPostStatus200 = boolean;
-
-export type HeartbeatLensWorkerLensIdJobIdHeartbeatPostStatus422 = HTTPValidationError;
-
-export type HeartbeatLensWorkerLensIdJobIdHeartbeatPostOptions = {
-	body?: never | undefined;
-	path: HeartbeatLensWorkerLensIdJobIdHeartbeatPostPath;
-	query?: never | undefined;
-	headers?: HeartbeatLensWorkerLensIdJobIdHeartbeatPostHeaders | undefined;
-};
-
-export type HeartbeatLensWorkerLensIdJobIdHeartbeatPostResponses = {
-	"200": HeartbeatLensWorkerLensIdJobIdHeartbeatPostStatus200;
-	"422": HeartbeatLensWorkerLensIdJobIdHeartbeatPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type HeartbeatLensWorkerLensIdJobIdHeartbeatPostResponse =
-	HeartbeatLensWorkerLensIdJobIdHeartbeatPostStatus200;
-
-export type EvidenceContentLensLensIdExecutionsExecutionIdGetPath = {
-	lens_id: string;
-	execution_id: string;
-};
-
-export type EvidenceContentLensLensIdExecutionsExecutionIdGetQuery = {
+export type LensRequestLensPutQuery = {
 	/**
 	 * @default ''
 	 * @type string | undefined
 	 */
-	cursor?: string | undefined;
-	/**
-	 * @minimum 0
-	 * @default 0
-	 * @type integer | undefined
-	 */
-	offset?: number | undefined;
+	path?: string | undefined;
 };
 
-export type EvidenceContentLensLensIdExecutionsExecutionIdGetStatus200 = ExecutionContent;
+export type LensRequestLensPutStatus200 = {
+	[key: string]: unknown;
+};
 
-export type EvidenceContentLensLensIdExecutionsExecutionIdGetStatus422 = HTTPValidationError;
+export type LensRequestLensPutStatus422 = HTTPValidationError;
 
-export type EvidenceContentLensLensIdExecutionsExecutionIdGetOptions = {
+export type LensRequestLensPutOptions = {
 	body?: never | undefined;
-	path: EvidenceContentLensLensIdExecutionsExecutionIdGetPath;
-	query?: EvidenceContentLensLensIdExecutionsExecutionIdGetQuery | undefined;
+	path?: never | undefined;
+	query?: LensRequestLensPutQuery | undefined;
 	headers?: never | undefined;
 };
 
-export type EvidenceContentLensLensIdExecutionsExecutionIdGetResponses = {
-	"200": EvidenceContentLensLensIdExecutionsExecutionIdGetStatus200;
-	"422": EvidenceContentLensLensIdExecutionsExecutionIdGetStatus422;
+export type LensRequestLensPutResponses = {
+	"200": LensRequestLensPutStatus200;
+	"422": LensRequestLensPutStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type EvidenceContentLensLensIdExecutionsExecutionIdGetResponse =
-	EvidenceContentLensLensIdExecutionsExecutionIdGetStatus200;
+export type LensRequestLensPutResponse = LensRequestLensPutStatus200;
+
+export type LensRequestLensPatchQuery = {
+	/**
+	 * @default ''
+	 * @type string | undefined
+	 */
+	path?: string | undefined;
+};
+
+export type LensRequestLensPatchStatus200 = unknown;
+
+export type LensRequestLensPatchStatus422 = HTTPValidationError;
+
+export type LensRequestLensPatchOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: LensRequestLensPatchQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type LensRequestLensPatchResponses = {
+	"200": LensRequestLensPatchStatus200;
+	"422": LensRequestLensPatchStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type LensRequestLensPatchResponse = LensRequestLensPatchStatus200;
+
+export type LensRequestLensGetQuery = {
+	/**
+	 * @default ''
+	 * @type string | undefined
+	 */
+	path?: string | undefined;
+};
+
+export type LensRequestLensGetStatus200 = {
+	[key: string]: unknown;
+};
+
+export type LensRequestLensGetStatus422 = HTTPValidationError;
+
+export type LensRequestLensGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: LensRequestLensGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type LensRequestLensGetResponses = {
+	"200": LensRequestLensGetStatus200;
+	"422": LensRequestLensGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type LensRequestLensGetResponse = LensRequestLensGetStatus200;
 
 export type ListPluginsApiPluginsGetStatus200 = {
 	[key: string]: string;
@@ -41679,6 +40334,173 @@ export type GetGatewayDailyActivityGatewayDailyActivityGetResponses = {
  */
 export type GetGatewayDailyActivityGatewayDailyActivityGetResponse =
 	GetGatewayDailyActivityGatewayDailyActivityGetStatus200;
+
+export type GetRequestErrorActivityGatewayErrorsActivityGetQuery = {
+	/**
+	 * @description Start date in YYYY-MM-DD format
+	 */
+	start_date?: (string | null) | undefined;
+	/**
+	 * @description End date in YYYY-MM-DD format
+	 */
+	end_date?: (string | null) | undefined;
+};
+
+/**
+ * @description Response for GET /gateway/errors/activity.
+ * @type object
+ */
+export type GetRequestErrorActivityGatewayErrorsActivityGetStatus200 = RequestErrorActivityResponse;
+
+export type GetRequestErrorActivityGatewayErrorsActivityGetStatus422 = HTTPValidationError;
+
+export type GetRequestErrorActivityGatewayErrorsActivityGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: GetRequestErrorActivityGatewayErrorsActivityGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type GetRequestErrorActivityGatewayErrorsActivityGetResponses = {
+	"200": GetRequestErrorActivityGatewayErrorsActivityGetStatus200;
+	"422": GetRequestErrorActivityGatewayErrorsActivityGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetRequestErrorActivityGatewayErrorsActivityGetResponse =
+	GetRequestErrorActivityGatewayErrorsActivityGetStatus200;
+
+export type RecordUiEventTelemetryUiEventsPostStatus200 = UIEventAccepted;
+
+export type RecordUiEventTelemetryUiEventsPostStatus422 = HTTPValidationError;
+
+export type RecordUiEventTelemetryUiEventsPostBody = UIEventBody;
+
+export type RecordUiEventTelemetryUiEventsPostOptions = {
+	body: RecordUiEventTelemetryUiEventsPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type RecordUiEventTelemetryUiEventsPostResponses = {
+	"200": RecordUiEventTelemetryUiEventsPostStatus200;
+	"422": RecordUiEventTelemetryUiEventsPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type RecordUiEventTelemetryUiEventsPostResponse =
+	RecordUiEventTelemetryUiEventsPostStatus200;
+
+export type ExportTelemetryReportsTelemetryReportsGetQuery = {
+	/**
+	 * @description window_end of the last report already exported
+	 * @default 0
+	 * @type number | undefined
+	 */
+	after?: number | undefined;
+	/**
+	 * @description id of the last report already exported
+	 * @default ''
+	 * @type string | undefined
+	 */
+	after_id?: string | undefined;
+	/**
+	 * @minimum 1
+	 * @maximum 5000
+	 * @default 500
+	 * @type integer | undefined
+	 */
+	limit?: number | undefined;
+};
+
+export type ExportTelemetryReportsTelemetryReportsGetStatus200 = TelemetryReportsResponse;
+
+export type ExportTelemetryReportsTelemetryReportsGetStatus422 = HTTPValidationError;
+
+export type ExportTelemetryReportsTelemetryReportsGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: ExportTelemetryReportsTelemetryReportsGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type ExportTelemetryReportsTelemetryReportsGetResponses = {
+	"200": ExportTelemetryReportsTelemetryReportsGetStatus200;
+	"422": ExportTelemetryReportsTelemetryReportsGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ExportTelemetryReportsTelemetryReportsGetResponse =
+	ExportTelemetryReportsTelemetryReportsGetStatus200;
+
+export type GetTelemetrySettingsTelemetrySettingsGetStatus200 = TelemetrySettingsResponse;
+
+export type GetTelemetrySettingsTelemetrySettingsGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetTelemetrySettingsTelemetrySettingsGetResponses = {
+	"200": GetTelemetrySettingsTelemetrySettingsGetStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetTelemetrySettingsTelemetrySettingsGetResponse =
+	GetTelemetrySettingsTelemetrySettingsGetStatus200;
+
+export type UpdateTelemetrySettingsTelemetrySettingsPutStatus200 = TelemetrySettingsResponse;
+
+export type UpdateTelemetrySettingsTelemetrySettingsPutStatus422 = HTTPValidationError;
+
+export type UpdateTelemetrySettingsTelemetrySettingsPutBody = TelemetrySettingsUpdate;
+
+export type UpdateTelemetrySettingsTelemetrySettingsPutOptions = {
+	body: UpdateTelemetrySettingsTelemetrySettingsPutBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdateTelemetrySettingsTelemetrySettingsPutResponses = {
+	"200": UpdateTelemetrySettingsTelemetrySettingsPutStatus200;
+	"422": UpdateTelemetrySettingsTelemetrySettingsPutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateTelemetrySettingsTelemetrySettingsPutResponse =
+	UpdateTelemetrySettingsTelemetrySettingsPutStatus200;
+
+export type UiEventsEnabledTelemetryUiEventsEnabledGetStatus200 = UIEventsEnabledResponse;
+
+export type UiEventsEnabledTelemetryUiEventsEnabledGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UiEventsEnabledTelemetryUiEventsEnabledGetResponses = {
+	"200": UiEventsEnabledTelemetryUiEventsEnabledGetStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UiEventsEnabledTelemetryUiEventsEnabledGetResponse =
+	UiEventsEnabledTelemetryUiEventsEnabledGetStatus200;
 
 export type GetEmailEventSettingsEmailEventSettingsGetStatus200 = EmailEventSettingsResponse;
 
@@ -42792,112 +41614,6 @@ export type AggregateMcpRouteMcpPatchResponses = {
  */
 export type AggregateMcpRouteMcpPatchResponse = AggregateMcpRouteMcpPatchStatus200;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetPath = {
-	toolset_name: string;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200 = {
-	[key: string]: unknown;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetStatus422 = HTTPValidationError;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetOptions = {
-	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpGetPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchPath = {
-	toolset_name: string;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200 = unknown;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422 = HTTPValidationError;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchOptions = {
-	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpPatchPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath = {
-	toolset_name: string;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200 = unknown;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422 = HTTPValidationError;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsOptions = {
-	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadPath = {
-	toolset_name: string;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200 = void;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422 = void;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadOptions = {
-	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpHeadPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
-
 export type ToolsetMcpRouteToolsetToolsetNameMcpPostPath = {
 	toolset_name: string;
 };
@@ -42926,33 +41642,31 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponses = {
 export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponse =
 	ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPutPath = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath = {
 	toolset_name: string;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPutStatus200 = {
-	[key: string]: unknown;
-};
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200 = unknown;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPutStatus422 = HTTPValidationError;
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422 = HTTPValidationError;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPutOptions = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsOptions = {
 	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpPutPath;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPutResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpPutStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpPutStatus422;
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ToolsetMcpRouteToolsetToolsetNameMcpPutResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpPutStatus200;
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200;
 
 export type ToolsetMcpRouteToolsetToolsetNameMcpDeletePath = {
 	toolset_name: string;
@@ -42982,111 +41696,113 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpDeleteResponses = {
 export type ToolsetMcpRouteToolsetToolsetNameMcpDeleteResponse =
 	ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200;
 
-export type DynamicMcpRouteMcpServerNameMcpGetPath = {
-	mcp_server_name: string;
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadPath = {
+	toolset_name: string;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpGetStatus200 = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200 = void;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422 = void;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadOptions = {
+	body?: never | undefined;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpHeadPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPutPath = {
+	toolset_name: string;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPutStatus200 = {
 	[key: string]: unknown;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpGetStatus422 = HTTPValidationError;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPutStatus422 = HTTPValidationError;
 
-export type DynamicMcpRouteMcpServerNameMcpGetOptions = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpPutOptions = {
 	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpGetPath;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpPutPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpGetResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpGetStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpGetStatus422;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPutResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpPutStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpPutStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type DynamicMcpRouteMcpServerNameMcpGetResponse =
-	DynamicMcpRouteMcpServerNameMcpGetStatus200;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPutResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpPutStatus200;
 
-export type DynamicMcpRouteMcpServerNameMcpPatchPath = {
-	mcp_server_name: string;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchPath = {
+	toolset_name: string;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpPatchStatus200 = unknown;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200 = unknown;
 
-export type DynamicMcpRouteMcpServerNameMcpPatchStatus422 = HTTPValidationError;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422 = HTTPValidationError;
 
-export type DynamicMcpRouteMcpServerNameMcpPatchOptions = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchOptions = {
 	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpPatchPath;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpPatchPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpPatchResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpPatchStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpPatchStatus422;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type DynamicMcpRouteMcpServerNameMcpPatchResponse =
-	DynamicMcpRouteMcpServerNameMcpPatchStatus200;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
 
-export type DynamicMcpRouteMcpServerNameMcpOptionsPath = {
-	mcp_server_name: string;
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetPath = {
+	toolset_name: string;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpOptionsStatus200 = unknown;
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200 = {
+	[key: string]: unknown;
+};
 
-export type DynamicMcpRouteMcpServerNameMcpOptionsStatus422 = HTTPValidationError;
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetStatus422 = HTTPValidationError;
 
-export type DynamicMcpRouteMcpServerNameMcpOptionsOptions = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetOptions = {
 	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpOptionsPath;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpGetPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpOptionsResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpOptionsStatus422;
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type DynamicMcpRouteMcpServerNameMcpOptionsResponse =
-	DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
-
-export type DynamicMcpRouteMcpServerNameMcpHeadPath = {
-	mcp_server_name: string;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpHeadStatus200 = void;
-
-export type DynamicMcpRouteMcpServerNameMcpHeadStatus422 = void;
-
-export type DynamicMcpRouteMcpServerNameMcpHeadOptions = {
-	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpHeadPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpHeadResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpHeadStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpHeadStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DynamicMcpRouteMcpServerNameMcpHeadResponse =
-	DynamicMcpRouteMcpServerNameMcpHeadStatus200;
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200;
 
 export type DynamicMcpRouteMcpServerNameMcpPostPath = {
 	mcp_server_name: string;
@@ -43116,33 +41832,31 @@ export type DynamicMcpRouteMcpServerNameMcpPostResponses = {
 export type DynamicMcpRouteMcpServerNameMcpPostResponse =
 	DynamicMcpRouteMcpServerNameMcpPostStatus200;
 
-export type DynamicMcpRouteMcpServerNameMcpPutPath = {
+export type DynamicMcpRouteMcpServerNameMcpOptionsPath = {
 	mcp_server_name: string;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpPutStatus200 = {
-	[key: string]: unknown;
-};
+export type DynamicMcpRouteMcpServerNameMcpOptionsStatus200 = unknown;
 
-export type DynamicMcpRouteMcpServerNameMcpPutStatus422 = HTTPValidationError;
+export type DynamicMcpRouteMcpServerNameMcpOptionsStatus422 = HTTPValidationError;
 
-export type DynamicMcpRouteMcpServerNameMcpPutOptions = {
+export type DynamicMcpRouteMcpServerNameMcpOptionsOptions = {
 	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpPutPath;
+	path: DynamicMcpRouteMcpServerNameMcpOptionsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpPutResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpPutStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpPutStatus422;
+export type DynamicMcpRouteMcpServerNameMcpOptionsResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpOptionsStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type DynamicMcpRouteMcpServerNameMcpPutResponse =
-	DynamicMcpRouteMcpServerNameMcpPutStatus200;
+export type DynamicMcpRouteMcpServerNameMcpOptionsResponse =
+	DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
 
 export type DynamicMcpRouteMcpServerNameMcpDeletePath = {
 	mcp_server_name: string;
@@ -43171,6 +41885,114 @@ export type DynamicMcpRouteMcpServerNameMcpDeleteResponses = {
  */
 export type DynamicMcpRouteMcpServerNameMcpDeleteResponse =
 	DynamicMcpRouteMcpServerNameMcpDeleteStatus200;
+
+export type DynamicMcpRouteMcpServerNameMcpHeadPath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpHeadStatus200 = void;
+
+export type DynamicMcpRouteMcpServerNameMcpHeadStatus422 = void;
+
+export type DynamicMcpRouteMcpServerNameMcpHeadOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpHeadPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpHeadResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpHeadStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpHeadStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpHeadResponse =
+	DynamicMcpRouteMcpServerNameMcpHeadStatus200;
+
+export type DynamicMcpRouteMcpServerNameMcpPutPath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPutStatus200 = {
+	[key: string]: unknown;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPutStatus422 = HTTPValidationError;
+
+export type DynamicMcpRouteMcpServerNameMcpPutOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpPutPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPutResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpPutStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpPutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpPutResponse =
+	DynamicMcpRouteMcpServerNameMcpPutStatus200;
+
+export type DynamicMcpRouteMcpServerNameMcpPatchPath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPatchStatus200 = unknown;
+
+export type DynamicMcpRouteMcpServerNameMcpPatchStatus422 = HTTPValidationError;
+
+export type DynamicMcpRouteMcpServerNameMcpPatchOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpPatchPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPatchResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpPatchStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpPatchStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpPatchResponse =
+	DynamicMcpRouteMcpServerNameMcpPatchStatus200;
+
+export type DynamicMcpRouteMcpServerNameMcpGetPath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpGetStatus200 = {
+	[key: string]: unknown;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpGetStatus422 = HTTPValidationError;
+
+export type DynamicMcpRouteMcpServerNameMcpGetOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpGetResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpGetStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpGetResponse =
+	DynamicMcpRouteMcpServerNameMcpGetStatus200;
 
 export type WebsocketVertexAiLivePassthroughEndpointStatus101 = unknown;
 
@@ -43247,6 +42069,63 @@ export type WebsocketRealtimeWebsocketEndpointGet3Responses = {
  */
 export type WebsocketRealtimeWebsocketEndpointGet3Response =
 	WebsocketRealtimeWebsocketEndpointGet3Status101;
+
+export type WebsocketLiveSessionsWebsocketEndpointGetStatus101 = unknown;
+
+export type WebsocketLiveSessionsWebsocketEndpointGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type WebsocketLiveSessionsWebsocketEndpointGetResponses = {
+	"101": WebsocketLiveSessionsWebsocketEndpointGetStatus101;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type WebsocketLiveSessionsWebsocketEndpointGetResponse =
+	WebsocketLiveSessionsWebsocketEndpointGetStatus101;
+
+export type WebsocketLiveSessionsWebsocketEndpointGet2Status101 = unknown;
+
+export type WebsocketLiveSessionsWebsocketEndpointGet2Options = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type WebsocketLiveSessionsWebsocketEndpointGet2Responses = {
+	"101": WebsocketLiveSessionsWebsocketEndpointGet2Status101;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type WebsocketLiveSessionsWebsocketEndpointGet2Response =
+	WebsocketLiveSessionsWebsocketEndpointGet2Status101;
+
+export type WebsocketLiveSessionsWebsocketEndpointGet3Status101 = unknown;
+
+export type WebsocketLiveSessionsWebsocketEndpointGet3Options = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type WebsocketLiveSessionsWebsocketEndpointGet3Responses = {
+	"101": WebsocketLiveSessionsWebsocketEndpointGet3Status101;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type WebsocketLiveSessionsWebsocketEndpointGet3Response =
+	WebsocketLiveSessionsWebsocketEndpointGet3Status101;
 
 export type ApplyGuardrailApplyGuardrailPostStatus200 = ApplyGuardrailResponse;
 
@@ -46985,6 +45864,10 @@ export type FetchAllMcpServersV1McpServerGetQuery = {
 	 */
 	team_id?: (string | null) | undefined;
 	/**
+	 * @description Filter MCP servers by internal user scope. When provided (and team_id is not), returns the union of the servers each of the user's teams has access to plus globally available (allow_all_keys) servers. A user who belongs to no team gets the unscoped list. Used by the Internal User and Virtual Key edit UIs.
+	 */
+	user_id?: (string | null) | undefined;
+	/**
 	 * @description Annotate each returned server with connected_app_reachable: whether a connected app authorized by the calling user (a gateway OAuth session) is served this server on the aggregate MCP endpoint.
 	 * @default false
 	 * @type boolean | undefined
@@ -47958,6 +46841,47 @@ export type ListMcpUserEnvVarStatusV1McpUserEnvVarsStatusGetResponses = {
 export type ListMcpUserEnvVarStatusV1McpUserEnvVarsStatusGetResponse =
 	ListMcpUserEnvVarStatusV1McpUserEnvVarsStatusGetStatus200;
 
+export type JwksJsonWellKnownJwksJsonGetStatus200 = {
+	[key: string]: unknown;
+};
+
+export type JwksJsonWellKnownJwksJsonGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type JwksJsonWellKnownJwksJsonGetResponses = {
+	"200": JwksJsonWellKnownJwksJsonGetStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type JwksJsonWellKnownJwksJsonGetResponse = JwksJsonWellKnownJwksJsonGetStatus200;
+
+export type NativeClientAuthDiscoveryWellKnownLitellmCliAuthGetStatus200 = {
+	[key: string]: unknown;
+};
+
+export type NativeClientAuthDiscoveryWellKnownLitellmCliAuthGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type NativeClientAuthDiscoveryWellKnownLitellmCliAuthGetResponses = {
+	"200": NativeClientAuthDiscoveryWellKnownLitellmCliAuthGetStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type NativeClientAuthDiscoveryWellKnownLitellmCliAuthGetResponse =
+	NativeClientAuthDiscoveryWellKnownLitellmCliAuthGetStatus200;
+
 export type OauthAuthorizationServerMcpWellKnownOauthAuthorizationServerGetQuery = {
 	mcp_server_name?: (string | null) | undefined;
 };
@@ -48209,47 +47133,6 @@ export type OauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNam
 export type OauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNameMcpGetResponse =
 	OauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNameMcpGetStatus200;
 
-export type JwksJsonWellKnownJwksJsonGetStatus200 = {
-	[key: string]: unknown;
-};
-
-export type JwksJsonWellKnownJwksJsonGetOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type JwksJsonWellKnownJwksJsonGetResponses = {
-	"200": JwksJsonWellKnownJwksJsonGetStatus200;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type JwksJsonWellKnownJwksJsonGetResponse = JwksJsonWellKnownJwksJsonGetStatus200;
-
-export type NativeClientAuthDiscoveryWellKnownLitellmCliAuthGetStatus200 = {
-	[key: string]: unknown;
-};
-
-export type NativeClientAuthDiscoveryWellKnownLitellmCliAuthGetOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type NativeClientAuthDiscoveryWellKnownLitellmCliAuthGetResponses = {
-	"200": NativeClientAuthDiscoveryWellKnownLitellmCliAuthGetStatus200;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type NativeClientAuthDiscoveryWellKnownLitellmCliAuthGetResponse =
-	NativeClientAuthDiscoveryWellKnownLitellmCliAuthGetStatus200;
-
 export type OpenidConfigurationWellKnownOpenidConfigurationGetStatus200 = {
 	[key: string]: unknown;
 };
@@ -48375,6 +47258,7 @@ export type AuthorizeMcpSessionAuthorizeMcpSessionGetQuery = {
 	code_challenge_method?: (string | null) | undefined;
 	response_type?: (string | null) | undefined;
 	resource?: (string | null) | undefined;
+	scope?: (string | null) | undefined;
 };
 
 export type AuthorizeMcpSessionAuthorizeMcpSessionGetStatus200 = {
