@@ -188,6 +188,64 @@ describe("ZoomApi per-call config", () => {
 	});
 });
 
+describe("ZoomApi token function", () => {
+	function setup() {
+		const authorizations: unknown[] = [];
+		const fetch: FetchImpl = async (_url, init) => {
+			authorizations.push((init?.headers as Record<string, string> | undefined)?.Authorization);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { authorizations, fetch };
+	}
+
+	it("asks the token function again on every call from request() and the api proxy", async () => {
+		const { authorizations, fetch } = setup();
+		let current = 0;
+		const client = new ZoomApi({ fetch, token: async () => `token-${++current}` });
+		await client.request("GET /archive_files");
+		await client.api.archiving.listArchivedFiles();
+		expect(authorizations).toEqual(["Bearer token-1", "Bearer token-2"]);
+	});
+
+	it("takes a synchronous token function", async () => {
+		const { authorizations, fetch } = setup();
+		const client = new ZoomApi({ fetch, token: () => "fresh" });
+		await client.request("GET /archive_files");
+		expect(authorizations).toEqual(["Bearer fresh"]);
+	});
+
+	it("sends no Authorization header when the function returns null", async () => {
+		const { authorizations, fetch } = setup();
+		const client = new ZoomApi({ fetch, token: () => null });
+		await client.request("GET /archive_files");
+		expect(authorizations).toEqual([undefined]);
+	});
+
+	it("lets a call's own config.token win over the function", async () => {
+		const { authorizations, fetch } = setup();
+		const client = new ZoomApi({ fetch, token: () => "client" });
+		await client.api.archiving.listArchivedFiles({ config: { token: "call" } });
+		expect(authorizations).toEqual(["Bearer call"]);
+	});
+
+	it("rejects with what the token function threw, before calling fetch", async () => {
+		const { authorizations, fetch } = setup();
+		const failure = new Error("refresh failed");
+		const client = new ZoomApi({
+			fetch,
+			token: async () => {
+				throw failure;
+			},
+		});
+		await expect(client.request("GET /archive_files")).rejects.toBe(failure);
+		await expect(client.api.archiving.listArchivedFiles()).rejects.toBe(failure);
+		expect(authorizations).toEqual([]);
+	});
+});
+
 describe("ZoomApi response headers", () => {
 	function setup() {
 		const fetch: FetchImpl = async () =>
