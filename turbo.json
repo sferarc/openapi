@@ -15,6 +15,7 @@
 			"dependsOn": ["^build"]
 		},
 		"@sferadev/openapi-website#build": {
+			"inputs": ["$TURBO_DEFAULT$", ".env*", "$TURBO_ROOT$/packages/*/README.md"],
 			"env": [
 				"BETTER_AUTH_SECRET",
 				"BETTER_AUTH_URL",
