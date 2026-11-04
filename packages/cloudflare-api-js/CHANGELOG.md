@@ -1,5 +1,11 @@
 # cloudflare-api-js
 
+## 4.11.0
+
+### Minor Changes
+
+- 5ee6059: Take an optional `baseUrl` in the client constructor, so a proxy or a Zoom for Government account no longer needs `config: { baseUrl }` on every call. A call's own `config.baseUrl` still wins.
+
 ## 4.10.0
 
 ### Minor Changes

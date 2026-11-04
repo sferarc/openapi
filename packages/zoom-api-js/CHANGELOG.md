@@ -1,5 +1,11 @@
 # zoom-api-js
 
+## 3.4.0
+
+### Minor Changes
+
+- 5ee6059: Take an optional `baseUrl` in the client constructor, so a proxy or a Zoom for Government account no longer needs `config: { baseUrl }` on every call. A call's own `config.baseUrl` still wins.
+
 ## 3.3.2
 
 ### Patch Changes
