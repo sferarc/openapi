@@ -63116,7 +63116,7 @@ export type ListsListsAsyncResponse = {
      */
     readonly operation_id: ListsOperationId;
   } | undefined;
-} & ListsApiResponseCollection;
+} & ListsApiResponseCommon;
 
 export type ListsListsResponseCollection = {
   result?: ListsList[] | undefined;
@@ -86344,7 +86344,7 @@ export type R2SlurperJurisdictionKey = (typeof r2SlurperJurisdiction)[keyof type
 
 export type R2SlurperR2SourceSchema = {
   bucket: string;
-  jurisdiction?: R2SlurperJurisdictionKey | undefined;
+  jurisdiction?: (R2SlurperJurisdictionKey | null) | undefined;
   keys?: (string[] | null) | undefined;
   pathPrefix?: (string | null) | undefined;
   secret: R2SlurperS3LikeCredsSchema;
@@ -86355,7 +86355,7 @@ export type R2SlurperSourceJobSchema = R2SlurperS3SourceSchema | R2SlurperGCSSou
 
 export type R2SlurperR2TargetSchema = {
   bucket: string;
-  jurisdiction?: R2SlurperJurisdictionKey | undefined;
+  jurisdiction?: (R2SlurperJurisdictionKey | null) | undefined;
   secret: R2SlurperS3LikeCredsSchema;
   vendor: 'r2';
 };
@@ -86440,7 +86440,7 @@ export type R2SlurperJobResponse = {
     vendor?: 'gcs' | undefined;
   } | {
     bucket?: string | undefined;
-    jurisdiction?: R2SlurperJurisdictionKey | undefined;
+    jurisdiction?: (R2SlurperJurisdictionKey | null) | undefined;
     keys?: (string[] | null) | undefined;
     pathPrefix?: (string | null) | undefined;
     vendor?: 'r2' | undefined;
@@ -86448,7 +86448,7 @@ export type R2SlurperJobResponse = {
   status?: R2SlurperJobStatusKey | undefined;
   target?: {
     bucket?: string | undefined;
-    jurisdiction?: R2SlurperJurisdictionKey | undefined;
+    jurisdiction?: (R2SlurperJurisdictionKey | null) | undefined;
     vendor?: 'r2' | undefined;
   } | undefined;
 };
@@ -136832,6 +136832,31 @@ export type ZonesAutomaticPlatformOptimization = {
   wp_plugin: boolean;
 };
 
+export const zonesAvifValue = {
+  off: 'off',
+  on: 'on',
+} as const;
+
+export type ZonesAvifValueKey = (typeof zonesAvifValue)[keyof typeof zonesAvifValue];
+
+/**
+ * @description When the client requesting the image supports the AVIF image codec, and AVIF offers a performance advantage over the original image format, Cloudflare will serve an AVIF version of the original image.
+ */
+export type ZonesAvif = ZonesBase & {
+  /**
+   * @description ID of the zone setting.
+   * @example avif
+   * @type string | undefined
+   */
+  id?: 'avif' | undefined;
+  /**
+   * @description Value of the zone setting.
+   * @default 'off'
+   * @type string | undefined
+   */
+  value?: ZonesAvifValueKey | undefined;
+};
+
 export const zonesBrotliValue = {
   off: 'off',
   on: 'on',
@@ -138570,7 +138595,7 @@ export type ZonesWebsockets = ZonesBase & {
   value?: ZonesWebsocketsValueKey | undefined;
 };
 
-export type ZonesMultipleSettings = (Zones0Rtt | ZonesAdvancedDdos | ZonesCacheRulesAegis | ZonesAlwaysOnline | ZonesAlwaysUseHttps2 | ZonesAutomaticHttpsRewrites2 | ZonesBrotli | ZonesBrowserCacheTtl2 | ZonesBrowserCheck2 | ZonesCacheLevel2 | ZonesChallengeTtl | ZonesChinaNetworkEnabled | ZonesContentConverter | ZonesCiphers | ZonesCnameFlattening | ZonesDevelopmentMode | ZonesEarlyHints | ZonesEdgeCacheTtl2 | ZonesEmailObfuscation2 | ZonesH2Prioritization | ZonesHotlinkProtection | ZonesHttp2 | ZonesHttp3 | ZonesIpGeolocation2 | ZonesIpv6 | ZonesMaxUpload | ZonesMinTlsVersion | ZonesMirage2 | ZonesNel | ZonesOpportunisticEncryption2 | ZonesOpportunisticOnion | ZonesOrangeToOrange | ZonesOriginErrorPagePassThru2 | ZonesCacheRulesOriginH2MaxStreams | ZonesCacheRulesOriginMaxHttpVersion | ZonesPolish2 | ZonesPrefetchPreload | ZonesPreRender | ZonesPrivacyPass | ZonesProxyReadTimeout | ZonesPseudoIpv4 | ZonesRedirectsForAiTraining | ZonesReplaceInsecureJs | ZonesResponseBuffering2 | ZonesRocketLoader2 | ZonesSchemasAutomaticPlatformOptimization | ZonesSearchForAgents | ZonesSecurityHeader | ZonesSecurityLevel2 | ZonesServerSideExclude | ZonesSha1Support | ZonesSortQueryStringForCache2 | ZonesSsl2 | ZonesSslRecommender | ZonesTls12Only | ZonesTls13 | ZonesTlsClientAuth | ZonesTrueClientIpHeader2 | ZonesWaf2 | ZonesWebmcpEnabled | ZonesWebmcpMcpUrl | ZonesWebmcpPacks | ZonesWebp | ZonesWebsockets)[];
+export type ZonesMultipleSettings = (Zones0Rtt | ZonesAdvancedDdos | ZonesCacheRulesAegis | ZonesAlwaysOnline | ZonesAlwaysUseHttps2 | ZonesAutomaticHttpsRewrites2 | ZonesBrotli | ZonesBrowserCacheTtl2 | ZonesBrowserCheck2 | ZonesCacheLevel2 | ZonesChallengeTtl | ZonesChinaNetworkEnabled | ZonesContentConverter | ZonesCiphers | ZonesCnameFlattening | ZonesDevelopmentMode | ZonesEarlyHints | ZonesEdgeCacheTtl2 | ZonesEmailObfuscation2 | ZonesH2Prioritization | ZonesHotlinkProtection | ZonesHttp2 | ZonesHttp3 | ZonesIpGeolocation2 | ZonesIpv6 | ZonesMaxUpload | ZonesMinTlsVersion | ZonesMirage2 | ZonesNel | ZonesOpportunisticEncryption2 | ZonesOpportunisticOnion | ZonesOrangeToOrange | ZonesOriginErrorPagePassThru2 | ZonesCacheRulesOriginH2MaxStreams | ZonesCacheRulesOriginMaxHttpVersion | ZonesPolish2 | ZonesPrefetchPreload | ZonesPreRender | ZonesPrivacyPass | ZonesProxyReadTimeout | ZonesPseudoIpv4 | ZonesRedirectsForAiTraining | ZonesReplaceInsecureJs | ZonesResponseBuffering2 | ZonesRocketLoader2 | ZonesSchemasAutomaticPlatformOptimization | ZonesSearchForAgents | ZonesSecurityHeader | ZonesSecurityLevel2 | ZonesServerSideExclude | ZonesSha1Support | ZonesSortQueryStringForCache2 | ZonesSsl2 | ZonesSslRecommender | ZonesTls12Only | ZonesTls13 | ZonesTlsClientAuth | ZonesTrueClientIpHeader2 | ZonesWaf2 | ZonesWebmcpEnabled | ZonesWebmcpMcpUrl | ZonesWebmcpPacks | ZonesWebp | ZonesAvif | ZonesWebsockets)[];
 
 /**
  * @description The domain name. Per [RFC 1035](https://datatracker.ietf.org/doc/html/rfc1035#section-2.3.4) the overall zone name can be up to 253 characters, with each segment ("label") not exceeding 63 characters.
@@ -138813,7 +138838,7 @@ export type ZonesTransformationsAllowedOrigins = ZonesBase & {
   value?: ZonesTransformationsAllowedOriginsValue | undefined;
 };
 
-export type ZonesSetting = Zones0Rtt | ZonesAdvancedDdos | ZonesCacheRulesAegis | ZonesAlwaysOnline | ZonesAlwaysUseHttps2 | ZonesAutomaticHttpsRewrites2 | ZonesBrotli | ZonesBrowserCacheTtl2 | ZonesBrowserCheck2 | ZonesCacheLevel2 | ZonesChallengeTtl | ZonesChinaNetworkEnabled | ZonesContentConverter | ZonesCiphers | ZonesCnameFlattening | ZonesDevelopmentMode | ZonesEarlyHints | ZonesEdgeCacheTtl2 | ZonesEmailObfuscation2 | ZonesH2Prioritization | ZonesHotlinkProtection | ZonesHttp2 | ZonesHttp3 | ZonesImageResizing | ZonesIpGeolocation2 | ZonesIpv6 | ZonesMaxUpload | ZonesMinTlsVersion | ZonesMirage2 | ZonesNel | ZonesOpportunisticEncryption2 | ZonesOpportunisticOnion | ZonesOrangeToOrange | ZonesOriginErrorPagePassThru2 | ZonesCacheRulesOriginH2MaxStreams | ZonesCacheRulesOriginMaxHttpVersion | ZonesPolish2 | ZonesPrefetchPreload | ZonesPreRender | ZonesPrivacyPass | ZonesProxyReadTimeout | ZonesPseudoIpv4 | ZonesRedirectsForAiTraining | ZonesReplaceInsecureJs | ZonesResponseBuffering2 | ZonesRocketLoader2 | ZonesSchemasAutomaticPlatformOptimization | ZonesSearchForAgents | ZonesSecurityHeader | ZonesSecurityLevel2 | ZonesServerSideExclude | ZonesSha1Support | ZonesSortQueryStringForCache2 | ZonesSsl2 | ZonesSslRecommender | ZonesTls12Only | ZonesTls13 | ZonesTlsClientAuth | ZonesTransformations | ZonesTransformationsAllowedOrigins | ZonesTrueClientIpHeader2 | ZonesWaf2 | ZonesWebmcpEnabled | ZonesWebmcpMcpUrl | ZonesWebmcpPacks | ZonesWebp | ZonesWebsockets;
+export type ZonesSetting = Zones0Rtt | ZonesAdvancedDdos | ZonesCacheRulesAegis | ZonesAlwaysOnline | ZonesAlwaysUseHttps2 | ZonesAutomaticHttpsRewrites2 | ZonesBrotli | ZonesBrowserCacheTtl2 | ZonesBrowserCheck2 | ZonesCacheLevel2 | ZonesChallengeTtl | ZonesChinaNetworkEnabled | ZonesContentConverter | ZonesCiphers | ZonesCnameFlattening | ZonesDevelopmentMode | ZonesEarlyHints | ZonesEdgeCacheTtl2 | ZonesEmailObfuscation2 | ZonesH2Prioritization | ZonesHotlinkProtection | ZonesHttp2 | ZonesHttp3 | ZonesImageResizing | ZonesIpGeolocation2 | ZonesIpv6 | ZonesMaxUpload | ZonesMinTlsVersion | ZonesMirage2 | ZonesNel | ZonesOpportunisticEncryption2 | ZonesOpportunisticOnion | ZonesOrangeToOrange | ZonesOriginErrorPagePassThru2 | ZonesCacheRulesOriginH2MaxStreams | ZonesCacheRulesOriginMaxHttpVersion | ZonesPolish2 | ZonesPrefetchPreload | ZonesPreRender | ZonesPrivacyPass | ZonesProxyReadTimeout | ZonesPseudoIpv4 | ZonesRedirectsForAiTraining | ZonesReplaceInsecureJs | ZonesResponseBuffering2 | ZonesRocketLoader2 | ZonesSchemasAutomaticPlatformOptimization | ZonesSearchForAgents | ZonesSecurityHeader | ZonesSecurityLevel2 | ZonesServerSideExclude | ZonesSha1Support | ZonesSortQueryStringForCache2 | ZonesSsl2 | ZonesSslRecommender | ZonesTls12Only | ZonesTls13 | ZonesTlsClientAuth | ZonesTransformations | ZonesTransformationsAllowedOrigins | ZonesTrueClientIpHeader2 | ZonesWaf2 | ZonesWebmcpEnabled | ZonesWebmcpMcpUrl | ZonesWebmcpPacks | ZonesWebp | ZonesAvif | ZonesWebsockets;
 
 /**
  * @description Setting name
@@ -138822,7 +138847,7 @@ export type ZonesSetting = Zones0Rtt | ZonesAdvancedDdos | ZonesCacheRulesAegis 
  */
 export type ZonesSettingName = string;
 
-export type ZonesSettingValue = Zones0RttValueKey | ZonesAdvancedDdosValueKey | ZonesCacheRulesAegisValue | ZonesAlwaysOnlineValueKey | ZonesAlwaysUseHttpsValueKey | ZonesAutomaticHttpsRewritesValueKey | ZonesBrotliValueKey | ZonesBrowserCacheTtlValue | ZonesBrowserCheckValueKey | ZonesCacheLevelValueKey | ZonesChallengeTtlValueKey | ZonesChinaNetworkEnabledValueKey | ZonesContentConverterValueKey | ZonesCiphersValue | ZonesCnameFlatteningValueKey | ZonesDevelopmentModeValueKey | ZonesEarlyHintsValueKey | ZonesEdgeCacheTtlValueKey | ZonesEmailObfuscationValueKey | ZonesH2PrioritizationValueKey | ZonesHotlinkProtectionValueKey | ZonesHttp2ValueKey | ZonesHttp3ValueKey | ZonesImageResizingValueKey | ZonesIpGeolocationValueKey | ZonesIpv6ValueKey | ZonesMaxUploadValueKey | ZonesMinTlsVersionValueKey | ZonesMirageValueKey | ZonesNelValue | ZonesOpportunisticEncryptionValueKey | ZonesOpportunisticOnionValueKey | ZonesOrangeToOrangeValueKey | ZonesOriginErrorPagePassThruValueKey | ZonesCacheRulesOriginH2MaxStreamsValue | ZonesCacheRulesOriginMaxHttpVersionValueKey | ZonesPolishValueKey | ZonesPrefetchPreloadValueKey | ZonesPreRenderValueKey | ZonesPrivacyPassValueKey | ZonesProxyReadTimeoutValue | ZonesPseudoIpv4ValueKey | ZonesRedirectsForAiTrainingValueKey | ZonesReplaceInsecureJsValueKey | ZonesResponseBufferingValueKey | ZonesRocketLoaderValueKey | ZonesAutomaticPlatformOptimization | ZonesSearchForAgentsValueKey | ZonesSecurityHeaderValue | ZonesSecurityLevelValueKey | ZonesServerSideExcludeValueKey | ZonesSha1SupportValueKey | ZonesSortQueryStringForCacheValueKey | ZonesSslValueKey | ZonesTls12OnlyValueKey | ZonesTls13ValueKey | ZonesTlsClientAuthValueKey | ZonesTrueClientIpHeaderValueKey | ZonesWafValueKey | ZonesWebmcpEnabledValueKey | ZonesWebmcpMcpUrlValue | ZonesWebmcpPacksValue | ZonesWebpValueKey | ZonesWebsocketsValueKey;
+export type ZonesSettingValue = Zones0RttValueKey | ZonesAdvancedDdosValueKey | ZonesCacheRulesAegisValue | ZonesAlwaysOnlineValueKey | ZonesAlwaysUseHttpsValueKey | ZonesAutomaticHttpsRewritesValueKey | ZonesBrotliValueKey | ZonesBrowserCacheTtlValue | ZonesBrowserCheckValueKey | ZonesCacheLevelValueKey | ZonesChallengeTtlValueKey | ZonesChinaNetworkEnabledValueKey | ZonesContentConverterValueKey | ZonesCiphersValue | ZonesCnameFlatteningValueKey | ZonesDevelopmentModeValueKey | ZonesEarlyHintsValueKey | ZonesEdgeCacheTtlValueKey | ZonesEmailObfuscationValueKey | ZonesH2PrioritizationValueKey | ZonesHotlinkProtectionValueKey | ZonesHttp2ValueKey | ZonesHttp3ValueKey | ZonesImageResizingValueKey | ZonesIpGeolocationValueKey | ZonesIpv6ValueKey | ZonesMaxUploadValueKey | ZonesMinTlsVersionValueKey | ZonesMirageValueKey | ZonesNelValue | ZonesOpportunisticEncryptionValueKey | ZonesOpportunisticOnionValueKey | ZonesOrangeToOrangeValueKey | ZonesOriginErrorPagePassThruValueKey | ZonesCacheRulesOriginH2MaxStreamsValue | ZonesCacheRulesOriginMaxHttpVersionValueKey | ZonesPolishValueKey | ZonesPrefetchPreloadValueKey | ZonesPreRenderValueKey | ZonesPrivacyPassValueKey | ZonesProxyReadTimeoutValue | ZonesPseudoIpv4ValueKey | ZonesRedirectsForAiTrainingValueKey | ZonesReplaceInsecureJsValueKey | ZonesResponseBufferingValueKey | ZonesRocketLoaderValueKey | ZonesAutomaticPlatformOptimization | ZonesSearchForAgentsValueKey | ZonesSecurityHeaderValue | ZonesSecurityLevelValueKey | ZonesServerSideExcludeValueKey | ZonesSha1SupportValueKey | ZonesSortQueryStringForCacheValueKey | ZonesSslValueKey | ZonesTls12OnlyValueKey | ZonesTls13ValueKey | ZonesTlsClientAuthValueKey | ZonesTrueClientIpHeaderValueKey | ZonesWafValueKey | ZonesWebmcpEnabledValueKey | ZonesWebmcpMcpUrlValue | ZonesWebmcpPacksValue | ZonesWebpValueKey | ZonesAvifValueKey | ZonesWebsocketsValueKey;
 
 /**
  * @description Settings available for the zone.
@@ -139176,7 +139201,7 @@ export type ZonesZone = {
 };
 
 export type ZonesZoneSettingsResponseCollection = ZonesApiResponseCommon4 & {
-  result?: (Zones0Rtt | ZonesAdvancedDdos | ZonesCacheRulesAegis | ZonesAlwaysOnline | ZonesAlwaysUseHttps2 | ZonesAutomaticHttpsRewrites2 | ZonesBrotli | ZonesBrowserCacheTtl2 | ZonesBrowserCheck2 | ZonesCacheLevel2 | ZonesChallengeTtl | ZonesCiphers | ZonesContentConverter | ZonesCnameFlattening | ZonesDevelopmentMode | ZonesEarlyHints | ZonesEdgeCacheTtl2 | ZonesEmailObfuscation2 | ZonesH2Prioritization | ZonesHotlinkProtection | ZonesHttp2 | ZonesHttp3 | ZonesImageResizing | ZonesIpGeolocation2 | ZonesIpv6 | ZonesMaxUpload | ZonesMinTlsVersion | ZonesMirage2 | ZonesNel | ZonesOpportunisticEncryption2 | ZonesOpportunisticOnion | ZonesOrangeToOrange | ZonesOriginErrorPagePassThru2 | ZonesCacheRulesOriginH2MaxStreams | ZonesCacheRulesOriginMaxHttpVersion | ZonesPolish2 | ZonesPrefetchPreload | ZonesPreRender | ZonesPrivacyPass | ZonesProxyReadTimeout | ZonesPseudoIpv4 | ZonesRedirectsForAiTraining | ZonesReplaceInsecureJs | ZonesResponseBuffering2 | ZonesRocketLoader2 | ZonesSchemasAutomaticPlatformOptimization | ZonesSearchForAgents | ZonesSecurityHeader | ZonesSecurityLevel2 | ZonesServerSideExclude | ZonesSha1Support | ZonesSortQueryStringForCache2 | ZonesSsl2 | ZonesSslRecommender | ZonesTls12Only | ZonesTls13 | ZonesTlsClientAuth | ZonesTransformations | ZonesTransformationsAllowedOrigins | ZonesTrueClientIpHeader2 | ZonesWaf2 | ZonesWebmcpEnabled | ZonesWebmcpMcpUrl | ZonesWebmcpPacks | ZonesWebp | ZonesWebsockets)[] | undefined;
+  result?: (Zones0Rtt | ZonesAdvancedDdos | ZonesCacheRulesAegis | ZonesAlwaysOnline | ZonesAlwaysUseHttps2 | ZonesAutomaticHttpsRewrites2 | ZonesBrotli | ZonesBrowserCacheTtl2 | ZonesBrowserCheck2 | ZonesCacheLevel2 | ZonesChallengeTtl | ZonesCiphers | ZonesContentConverter | ZonesCnameFlattening | ZonesDevelopmentMode | ZonesEarlyHints | ZonesEdgeCacheTtl2 | ZonesEmailObfuscation2 | ZonesH2Prioritization | ZonesHotlinkProtection | ZonesHttp2 | ZonesHttp3 | ZonesImageResizing | ZonesIpGeolocation2 | ZonesIpv6 | ZonesMaxUpload | ZonesMinTlsVersion | ZonesMirage2 | ZonesNel | ZonesOpportunisticEncryption2 | ZonesOpportunisticOnion | ZonesOrangeToOrange | ZonesOriginErrorPagePassThru2 | ZonesCacheRulesOriginH2MaxStreams | ZonesCacheRulesOriginMaxHttpVersion | ZonesPolish2 | ZonesPrefetchPreload | ZonesPreRender | ZonesPrivacyPass | ZonesProxyReadTimeout | ZonesPseudoIpv4 | ZonesRedirectsForAiTraining | ZonesReplaceInsecureJs | ZonesResponseBuffering2 | ZonesRocketLoader2 | ZonesSchemasAutomaticPlatformOptimization | ZonesSearchForAgents | ZonesSecurityHeader | ZonesSecurityLevel2 | ZonesServerSideExclude | ZonesSha1Support | ZonesSortQueryStringForCache2 | ZonesSsl2 | ZonesSslRecommender | ZonesTls12Only | ZonesTls13 | ZonesTlsClientAuth | ZonesTransformations | ZonesTransformationsAllowedOrigins | ZonesTrueClientIpHeader2 | ZonesWaf2 | ZonesWebmcpEnabled | ZonesWebmcpMcpUrl | ZonesWebmcpPacks | ZonesWebp | ZonesAvif | ZonesWebsockets)[] | undefined;
 };
 
 export type ZonesZoneSettingsSingleRequest = {
@@ -157845,7 +157870,7 @@ export type RadarGetAttacksLayer3TimeseriesByBytesQuery = {
   normalization?: RadarGetAttacksLayer3TimeseriesByBytesNormalizationKey | undefined;
   /**
    * @description Measurement units, eg. bytes.
-   * @default 'bytes'
+   * @default 'BYTES'
    * @type string | undefined
    */
   metric?: RadarGetAttacksLayer3TimeseriesByBytesMetricKey | undefined;
@@ -173662,22 +173687,24 @@ export type RadarGetBgpTopPrefixesResponses = {
 export type RadarGetBgpTopPrefixesResponse = RadarGetBgpTopPrefixesStatus200;
 
 export const radarGetBotsBotCategory = {
+  ACADEMIC_RESEARCH: 'ACADEMIC_RESEARCH',
+  ADVERTISING_AND_MARKETING: 'ADVERTISING_AND_MARKETING',
+  AI_ASSISTANT: 'AI_ASSISTANT',
+  AI_CRAWLER: 'AI_CRAWLER',
+  COMMERCE: 'COMMERCE',
+  FEED_FETCHER: 'FEED_FETCHER',
+  MONITORING_AND_ANALYTICS: 'MONITORING_AND_ANALYTICS',
+  OTHER: 'OTHER',
+  PAGE_PREVIEW: 'PAGE_PREVIEW',
   SEARCH_ENGINE_CRAWLER: 'SEARCH_ENGINE_CRAWLER',
   SEARCH_ENGINE_OPTIMIZATION: 'SEARCH_ENGINE_OPTIMIZATION',
-  MONITORING_AND_ANALYTICS: 'MONITORING_AND_ANALYTICS',
-  ADVERTISING_AND_MARKETING: 'ADVERTISING_AND_MARKETING',
-  SOCIAL_MEDIA_MARKETING: 'SOCIAL_MEDIA_MARKETING',
-  PAGE_PREVIEW: 'PAGE_PREVIEW',
-  ACADEMIC_RESEARCH: 'ACADEMIC_RESEARCH',
   SECURITY: 'SECURITY',
   ACCESSIBILITY: 'ACCESSIBILITY',
-  WEBHOOKS: 'WEBHOOKS',
-  FEED_FETCHER: 'FEED_FETCHER',
-  AI_CRAWLER: 'AI_CRAWLER',
   AGGREGATOR: 'AGGREGATOR',
-  AI_ASSISTANT: 'AI_ASSISTANT',
   AI_SEARCH: 'AI_SEARCH',
   ARCHIVER: 'ARCHIVER',
+  SOCIAL_MEDIA_MARKETING: 'SOCIAL_MEDIA_MARKETING',
+  WEBHOOKS: 'WEBHOOKS',
 } as const;
 
 export type RadarGetBotsBotCategoryKey = (typeof radarGetBotsBotCategory)[keyof typeof radarGetBotsBotCategory];
@@ -173712,7 +173739,7 @@ export type RadarGetBotsQuery = {
    */
   offset?: number | undefined;
   /**
-   * @description Filters results by bot category.
+   * @description Filters results by bot category. `ACCESSIBILITY`, `AGGREGATOR`, `AI_SEARCH`, `ARCHIVER`, `SOCIAL_MEDIA_MARKETING` and `WEBHOOKS` are deprecated legacy categories that match only that exact category.
    * @type string | undefined
    */
   botCategory?: RadarGetBotsBotCategoryKey | undefined;
@@ -173744,11 +173771,29 @@ export type RadarGetBotsStatus200 = {
   result: {
     bots: {
       /**
-       * @description The category of the bot.
+       * @description Who can operate the bot: DIRECT bots reach origins under their own identity, while INTERMEDIARY bots forward requests on behalf of another agent or a person.
+       * @example DIRECT
+       * @type string
+       */
+      accessLevel: string | null;
+      /**
+       * @description The categories of the bot.
+       * @type array
+       */
+      categories: string[];
+      /**
+       * @description The category of the bot. Deprecated: use `categories`.
+       * @deprecated
        * @example AI_CRAWLER
        * @type string
        */
       category: string;
+      /**
+       * @description How the bot uses the content it fetches (e.g., immediate, reference or full).
+       * @example full
+       * @type string
+       */
+      contentUse: string | null;
       /**
        * @description A summary for the bot (e.g., purpose).
        * @example OpenAI/ChatGPT's web crawler
@@ -174511,22 +174556,24 @@ export type RadarGetBotsSummaryPath = {
 };
 
 export const radarGetBotsSummaryBotCategoryEnum = {
+  ACADEMIC_RESEARCH: 'ACADEMIC_RESEARCH',
+  ADVERTISING_AND_MARKETING: 'ADVERTISING_AND_MARKETING',
+  AI_ASSISTANT: 'AI_ASSISTANT',
+  AI_CRAWLER: 'AI_CRAWLER',
+  COMMERCE: 'COMMERCE',
+  FEED_FETCHER: 'FEED_FETCHER',
+  MONITORING_AND_ANALYTICS: 'MONITORING_AND_ANALYTICS',
+  OTHER: 'OTHER',
+  PAGE_PREVIEW: 'PAGE_PREVIEW',
   SEARCH_ENGINE_CRAWLER: 'SEARCH_ENGINE_CRAWLER',
   SEARCH_ENGINE_OPTIMIZATION: 'SEARCH_ENGINE_OPTIMIZATION',
-  MONITORING_AND_ANALYTICS: 'MONITORING_AND_ANALYTICS',
-  ADVERTISING_AND_MARKETING: 'ADVERTISING_AND_MARKETING',
-  SOCIAL_MEDIA_MARKETING: 'SOCIAL_MEDIA_MARKETING',
-  PAGE_PREVIEW: 'PAGE_PREVIEW',
-  ACADEMIC_RESEARCH: 'ACADEMIC_RESEARCH',
   SECURITY: 'SECURITY',
   ACCESSIBILITY: 'ACCESSIBILITY',
-  WEBHOOKS: 'WEBHOOKS',
-  FEED_FETCHER: 'FEED_FETCHER',
-  AI_CRAWLER: 'AI_CRAWLER',
   AGGREGATOR: 'AGGREGATOR',
-  AI_ASSISTANT: 'AI_ASSISTANT',
   AI_SEARCH: 'AI_SEARCH',
   ARCHIVER: 'ARCHIVER',
+  SOCIAL_MEDIA_MARKETING: 'SOCIAL_MEDIA_MARKETING',
+  WEBHOOKS: 'WEBHOOKS',
 } as const;
 
 export type RadarGetBotsSummaryBotCategoryEnumKey = (typeof radarGetBotsSummaryBotCategoryEnum)[keyof typeof radarGetBotsSummaryBotCategoryEnum];
@@ -174604,7 +174651,7 @@ export type RadarGetBotsSummaryQuery = {
    */
   botOperator?: string[] | undefined;
   /**
-   * @description Filters results by bot category.
+   * @description Filters results by bot category. `ACCESSIBILITY`, `AGGREGATOR`, `AI_SEARCH`, `ARCHIVER`, `SOCIAL_MEDIA_MARKETING` and `WEBHOOKS` are deprecated legacy categories that match only that exact category.
    * @type array | undefined
    */
   botCategory?: RadarGetBotsSummaryBotCategoryEnumKey[] | undefined;
@@ -174835,22 +174882,24 @@ export const radarGetBotsTimeseriesAggInterval = {
 export type RadarGetBotsTimeseriesAggIntervalKey = (typeof radarGetBotsTimeseriesAggInterval)[keyof typeof radarGetBotsTimeseriesAggInterval];
 
 export const radarGetBotsTimeseriesBotCategoryEnum = {
+  ACADEMIC_RESEARCH: 'ACADEMIC_RESEARCH',
+  ADVERTISING_AND_MARKETING: 'ADVERTISING_AND_MARKETING',
+  AI_ASSISTANT: 'AI_ASSISTANT',
+  AI_CRAWLER: 'AI_CRAWLER',
+  COMMERCE: 'COMMERCE',
+  FEED_FETCHER: 'FEED_FETCHER',
+  MONITORING_AND_ANALYTICS: 'MONITORING_AND_ANALYTICS',
+  OTHER: 'OTHER',
+  PAGE_PREVIEW: 'PAGE_PREVIEW',
   SEARCH_ENGINE_CRAWLER: 'SEARCH_ENGINE_CRAWLER',
   SEARCH_ENGINE_OPTIMIZATION: 'SEARCH_ENGINE_OPTIMIZATION',
-  MONITORING_AND_ANALYTICS: 'MONITORING_AND_ANALYTICS',
-  ADVERTISING_AND_MARKETING: 'ADVERTISING_AND_MARKETING',
-  SOCIAL_MEDIA_MARKETING: 'SOCIAL_MEDIA_MARKETING',
-  PAGE_PREVIEW: 'PAGE_PREVIEW',
-  ACADEMIC_RESEARCH: 'ACADEMIC_RESEARCH',
   SECURITY: 'SECURITY',
   ACCESSIBILITY: 'ACCESSIBILITY',
-  WEBHOOKS: 'WEBHOOKS',
-  FEED_FETCHER: 'FEED_FETCHER',
-  AI_CRAWLER: 'AI_CRAWLER',
   AGGREGATOR: 'AGGREGATOR',
-  AI_ASSISTANT: 'AI_ASSISTANT',
   AI_SEARCH: 'AI_SEARCH',
   ARCHIVER: 'ARCHIVER',
+  SOCIAL_MEDIA_MARKETING: 'SOCIAL_MEDIA_MARKETING',
+  WEBHOOKS: 'WEBHOOKS',
 } as const;
 
 export type RadarGetBotsTimeseriesBotCategoryEnumKey = (typeof radarGetBotsTimeseriesBotCategoryEnum)[keyof typeof radarGetBotsTimeseriesBotCategoryEnum];
@@ -174928,7 +174977,7 @@ export type RadarGetBotsTimeseriesQuery = {
    */
   botOperator?: string[] | undefined;
   /**
-   * @description Filters results by bot category.
+   * @description Filters results by bot category. `ACCESSIBILITY`, `AGGREGATOR`, `AI_SEARCH`, `ARCHIVER`, `SOCIAL_MEDIA_MARKETING` and `WEBHOOKS` are deprecated legacy categories that match only that exact category.
    * @type array | undefined
    */
   botCategory?: RadarGetBotsTimeseriesBotCategoryEnumKey[] | undefined;
@@ -175185,22 +175234,24 @@ export const radarGetBotsTimeseriesGroupAggInterval = {
 export type RadarGetBotsTimeseriesGroupAggIntervalKey = (typeof radarGetBotsTimeseriesGroupAggInterval)[keyof typeof radarGetBotsTimeseriesGroupAggInterval];
 
 export const radarGetBotsTimeseriesGroupBotCategoryEnum = {
+  ACADEMIC_RESEARCH: 'ACADEMIC_RESEARCH',
+  ADVERTISING_AND_MARKETING: 'ADVERTISING_AND_MARKETING',
+  AI_ASSISTANT: 'AI_ASSISTANT',
+  AI_CRAWLER: 'AI_CRAWLER',
+  COMMERCE: 'COMMERCE',
+  FEED_FETCHER: 'FEED_FETCHER',
+  MONITORING_AND_ANALYTICS: 'MONITORING_AND_ANALYTICS',
+  OTHER: 'OTHER',
+  PAGE_PREVIEW: 'PAGE_PREVIEW',
   SEARCH_ENGINE_CRAWLER: 'SEARCH_ENGINE_CRAWLER',
   SEARCH_ENGINE_OPTIMIZATION: 'SEARCH_ENGINE_OPTIMIZATION',
-  MONITORING_AND_ANALYTICS: 'MONITORING_AND_ANALYTICS',
-  ADVERTISING_AND_MARKETING: 'ADVERTISING_AND_MARKETING',
-  SOCIAL_MEDIA_MARKETING: 'SOCIAL_MEDIA_MARKETING',
-  PAGE_PREVIEW: 'PAGE_PREVIEW',
-  ACADEMIC_RESEARCH: 'ACADEMIC_RESEARCH',
   SECURITY: 'SECURITY',
   ACCESSIBILITY: 'ACCESSIBILITY',
-  WEBHOOKS: 'WEBHOOKS',
-  FEED_FETCHER: 'FEED_FETCHER',
-  AI_CRAWLER: 'AI_CRAWLER',
   AGGREGATOR: 'AGGREGATOR',
-  AI_ASSISTANT: 'AI_ASSISTANT',
   AI_SEARCH: 'AI_SEARCH',
   ARCHIVER: 'ARCHIVER',
+  SOCIAL_MEDIA_MARKETING: 'SOCIAL_MEDIA_MARKETING',
+  WEBHOOKS: 'WEBHOOKS',
 } as const;
 
 export type RadarGetBotsTimeseriesGroupBotCategoryEnumKey = (typeof radarGetBotsTimeseriesGroupBotCategoryEnum)[keyof typeof radarGetBotsTimeseriesGroupBotCategoryEnum];
@@ -175284,7 +175335,7 @@ export type RadarGetBotsTimeseriesGroupQuery = {
    */
   botOperator?: string[] | undefined;
   /**
-   * @description Filters results by bot category.
+   * @description Filters results by bot category. `ACCESSIBILITY`, `AGGREGATOR`, `AI_SEARCH`, `ARCHIVER`, `SOCIAL_MEDIA_MARKETING` and `WEBHOOKS` are deprecated legacy categories that match only that exact category.
    * @type array | undefined
    */
   botCategory?: RadarGetBotsTimeseriesGroupBotCategoryEnumKey[] | undefined;
@@ -219073,8 +219124,8 @@ export type RadarGetQualitySpeedHistogramQuery = {
   bucketSize?: number | undefined;
   /**
    * @description Metrics to be returned.
-   * @default 'bandwidth'
-   * @example bandwidth
+   * @default 'BANDWIDTH'
+   * @example BANDWIDTH
    * @type string | undefined
    */
   metricGroup?: RadarGetQualitySpeedHistogramMetricGroupKey | undefined;
@@ -222096,6 +222147,7 @@ export const radarGetSearchGlobalIncludeEnum = {
   ADM1S: 'ADM1S',
   ASNS: 'ASNS',
   BOTS: 'BOTS',
+  BOT_OPERATORS: 'BOT_OPERATORS',
   CERTIFICATE_AUTHORITIES: 'CERTIFICATE_AUTHORITIES',
   CERTIFICATE_LOGS: 'CERTIFICATE_LOGS',
   ORIGINS: 'ORIGINS',
@@ -222113,6 +222165,7 @@ export const radarGetSearchGlobalExcludeEnum = {
   ADM1S: 'ADM1S',
   ASNS: 'ASNS',
   BOTS: 'BOTS',
+  BOT_OPERATORS: 'BOT_OPERATORS',
   CERTIFICATE_AUTHORITIES: 'CERTIFICATE_AUTHORITIES',
   CERTIFICATE_LOGS: 'CERTIFICATE_LOGS',
   ORIGINS: 'ORIGINS',
@@ -391007,7 +391060,7 @@ export type ListsGetListsPath = {
 
 export type ListsGetListsStatus200 = ListsListsResponseCollection;
 
-export type ListsGetListsStatus400 = ListsListsResponseCollection & ListsApiResponseCommonFailure;
+export type ListsGetListsStatus400 = ListsApiResponseCommonFailure;
 
 export type ListsGetListsOptions = {
   body?: never | undefined;
@@ -391039,7 +391092,7 @@ export type ListsCreateAListPath = {
 
 export type ListsCreateAListStatus200 = ListsListResponseCollection;
 
-export type ListsCreateAListStatus400 = ListsListResponseCollection & ListsApiResponseCommonFailure;
+export type ListsCreateAListStatus400 = ListsApiResponseCommonFailure;
 
 export type ListsCreateAListBody = {
   /**
@@ -391101,7 +391154,7 @@ export type ListsGetBulkOperationStatusPath = {
 
 export type ListsGetBulkOperationStatusStatus200 = ListsBulkOperationResponseSingle;
 
-export type ListsGetBulkOperationStatusStatus400 = ListsBulkOperationResponseSingle & ListsApiResponseCommonFailure;
+export type ListsGetBulkOperationStatusStatus400 = ListsApiResponseCommonFailure;
 
 export type ListsGetBulkOperationStatusOptions = {
   body?: never | undefined;
@@ -391141,7 +391194,7 @@ export type ListsDeleteAListPath = {
 
 export type ListsDeleteAListStatus200 = ListsListDeleteResponseCollection;
 
-export type ListsDeleteAListStatus400 = ListsListDeleteResponseCollection & ListsApiResponseCommonFailure;
+export type ListsDeleteAListStatus400 = ListsApiResponseCommonFailure;
 
 export type ListsDeleteAListOptions = {
   body?: never | undefined;
@@ -391181,7 +391234,7 @@ export type ListsGetAListPath = {
 
 export type ListsGetAListStatus200 = ListsListResponseCollection;
 
-export type ListsGetAListStatus400 = ListsListResponseCollection & ListsApiResponseCommonFailure;
+export type ListsGetAListStatus400 = ListsApiResponseCommonFailure;
 
 export type ListsGetAListOptions = {
   body?: never | undefined;
@@ -391221,7 +391274,7 @@ export type ListsUpdateAListPath = {
 
 export type ListsUpdateAListStatus200 = ListsListResponseCollection;
 
-export type ListsUpdateAListStatus400 = ListsListResponseCollection & ListsApiResponseCommonFailure;
+export type ListsUpdateAListStatus400 = ListsApiResponseCommonFailure;
 
 export type ListsUpdateAListBody = {
   /**
@@ -391271,7 +391324,7 @@ export type ListsDeleteListItemsPath = {
 
 export type ListsDeleteListItemsStatus200 = ListsListsAsyncResponse;
 
-export type ListsDeleteListItemsStatus400 = ListsListsAsyncResponse & ListsApiResponseCommonFailure;
+export type ListsDeleteListItemsStatus400 = ListsApiResponseCommonFailure;
 
 export type ListsDeleteListItemsBody = {
   /**
@@ -391350,7 +391403,7 @@ export type ListsGetListItemsQuery = {
 
 export type ListsGetListItemsStatus200 = ListsItemsListResponseCollection;
 
-export type ListsGetListItemsStatus400 = ListsItemsListResponseCollection & ListsApiResponseCommonFailure;
+export type ListsGetListItemsStatus400 = ListsApiResponseCommonFailure;
 
 export type ListsGetListItemsOptions = {
   body?: never | undefined;
@@ -391390,7 +391443,7 @@ export type ListsCreateListItemsPath = {
 
 export type ListsCreateListItemsStatus200 = ListsListsAsyncResponse;
 
-export type ListsCreateListItemsStatus400 = ListsListsAsyncResponse & ListsApiResponseCommonFailure;
+export type ListsCreateListItemsStatus400 = ListsApiResponseCommonFailure;
 
 export type ListsCreateListItemsBody = ListsItemsUpdateRequestCollection;
 
@@ -391432,7 +391485,7 @@ export type ListsUpdateAllListItemsPath = {
 
 export type ListsUpdateAllListItemsStatus200 = ListsListsAsyncResponse;
 
-export type ListsUpdateAllListItemsStatus400 = ListsListsAsyncResponse & ListsApiResponseCommonFailure;
+export type ListsUpdateAllListItemsStatus400 = ListsApiResponseCommonFailure;
 
 export type ListsUpdateAllListItemsBody = ListsItemsUpdateRequestCollection;
 
@@ -391482,7 +391535,7 @@ export type ListsGetAListItemPath = {
 
 export type ListsGetAListItemStatus200 = ListsItemResponseSingle;
 
-export type ListsGetAListItemStatus400 = ListsItemResponseSingle & ListsApiResponseCommonFailure;
+export type ListsGetAListItemStatus400 = ListsApiResponseCommonFailure;
 
 export type ListsGetAListItemOptions = {
   body?: never | undefined;
@@ -430243,17 +430296,41 @@ export type RadarGetBotDetailsStatus200 = {
   result: {
     bot: {
       /**
-       * @description The category of the bot.
+       * @description Who can operate the bot: DIRECT bots reach origins under their own identity, while INTERMEDIARY bots forward requests on behalf of another agent or a person.
+       * @example DIRECT
+       * @type string
+       */
+      accessLevel: string | null;
+      /**
+       * @description The categories of the bot.
+       * @type array
+       */
+      categories: string[];
+      /**
+       * @description The category of the bot. Deprecated: use `categories`.
+       * @deprecated
        * @example AI_CRAWLER
        * @type string
        */
       category: string;
+      /**
+       * @description How the bot uses the content it fetches (e.g., immediate, reference or full).
+       * @example full
+       * @type string
+       */
+      contentUse: string | null;
       /**
        * @description A summary for the bot (e.g., purpose).
        * @example OpenAI/ChatGPT's web crawler
        * @type string
        */
       description: string;
+      /**
+       * @description The link to the bot documentation.
+       * @example https://platform.openai.com/docs/bots
+       * @type string
+       */
+      documentationUrl: string | null;
       /**
        * @description The kind of the bot.
        * @deprecated
@@ -430274,11 +430351,18 @@ export type RadarGetBotDetailsStatus200 = {
        */
       operator: string;
       /**
-       * @description The link to the bot documentation.
+       * @description The link to the bot documentation. Deprecated: use `documentationUrl`.
+       * @deprecated
        * @example https://platform.openai.com/docs/bots
        * @type string
        */
       operatorUrl: string;
+      /**
+       * @description The link to the operator's website.
+       * @example https://openai.com
+       * @type string
+       */
+      operatorWebsiteUrl: string | null;
       /**
        * @description The URL of the agent's [Web Bot Auth](https://blog.cloudflare.com/web-bot-auth/) resource. Null for bots not verified via request signature.
        * @example https://example.com/signature-agent
@@ -452745,7 +452829,7 @@ export type WafRuleGroupsListWafRuleGroupsQuery = {
 
 export type WafRuleGroupsListWafRuleGroupsStatus200 = WafManagedRulesRuleGroupResponseCollection;
 
-export type WafRuleGroupsListWafRuleGroupsStatus400 = WafManagedRulesRuleGroupResponseCollection & WafManagedRulesApiResponseCommonFailure;
+export type WafRuleGroupsListWafRuleGroupsStatus400 = WafManagedRulesApiResponseCommonFailure;
 
 /**
  * @deprecated
@@ -452794,7 +452878,7 @@ export type WafRuleGroupsGetAWafRuleGroupPath = {
 
 export type WafRuleGroupsGetAWafRuleGroupStatus200 = WafManagedRulesRuleGroupResponseSingle;
 
-export type WafRuleGroupsGetAWafRuleGroupStatus400 = WafManagedRulesRuleGroupResponseSingle & WafManagedRulesApiResponseCommonFailure;
+export type WafRuleGroupsGetAWafRuleGroupStatus400 = WafManagedRulesApiResponseCommonFailure;
 
 /**
  * @deprecated
@@ -452843,7 +452927,7 @@ export type WafRuleGroupsUpdateAWafRuleGroupPath = {
 
 export type WafRuleGroupsUpdateAWafRuleGroupStatus200 = WafManagedRulesRuleGroupResponseSingle;
 
-export type WafRuleGroupsUpdateAWafRuleGroupStatus400 = WafManagedRulesRuleGroupResponseSingle & WafManagedRulesApiResponseCommonFailure;
+export type WafRuleGroupsUpdateAWafRuleGroupStatus400 = WafManagedRulesApiResponseCommonFailure;
 
 export type WafRuleGroupsUpdateAWafRuleGroupBody = {
   /**
@@ -452985,7 +453069,7 @@ export type WafRulesListWafRulesQuery = {
 
 export type WafRulesListWafRulesStatus200 = WafManagedRulesRuleResponseCollection;
 
-export type WafRulesListWafRulesStatus400 = WafManagedRulesRuleResponseCollection & WafManagedRulesApiResponseCommonFailure;
+export type WafRulesListWafRulesStatus400 = WafManagedRulesApiResponseCommonFailure;
 
 /**
  * @deprecated
@@ -453034,7 +453118,7 @@ export type WafRulesGetAWafRulePath = {
 
 export type WafRulesGetAWafRuleStatus200 = WafManagedRulesRuleResponseSingle;
 
-export type WafRulesGetAWafRuleStatus400 = WafManagedRulesRuleResponseSingle & WafManagedRulesApiResponseCommonFailure;
+export type WafRulesGetAWafRuleStatus400 = WafManagedRulesApiResponseCommonFailure;
 
 /**
  * @deprecated
@@ -453085,9 +453169,7 @@ export type WafRulesUpdateAWafRuleStatus200 = WafManagedRulesRuleResponseSingle 
   result?: (WafManagedRulesAnomalyRule | WafManagedRulesTraditionalDenyRule | WafManagedRulesTraditionalAllowRule) | undefined;
 };
 
-export type WafRulesUpdateAWafRuleStatus400 = WafManagedRulesRuleResponseSingle & {
-  result?: (WafManagedRulesAnomalyRule | WafManagedRulesTraditionalDenyRule | WafManagedRulesTraditionalAllowRule) | undefined;
-} & WafManagedRulesApiResponseCommonFailure;
+export type WafRulesUpdateAWafRuleStatus400 = WafManagedRulesApiResponseCommonFailure;
 
 export const wafRulesUpdateAWafRuleRequestModeEnum = {
   default: 'default',
@@ -460834,7 +460916,7 @@ export type PrecursorForAZoneGetConfigHeaders = {
 
 export type PrecursorForAZoneGetConfigStatus200 = PrecursorPrecursorConfigResponseBody;
 
-export type PrecursorForAZoneGetConfigStatus400 = PrecursorPrecursorConfigResponseBody & PrecursorApiResponseCommonFailure;
+export type PrecursorForAZoneGetConfigStatus400 = PrecursorApiResponseCommonFailure;
 
 export type PrecursorForAZoneGetConfigOptions = {
   body?: never | undefined;
@@ -460874,7 +460956,7 @@ export type PrecursorForAZoneUpdateConfigHeaders = {
 
 export type PrecursorForAZoneUpdateConfigStatus200 = PrecursorPrecursorConfigResponseBody;
 
-export type PrecursorForAZoneUpdateConfigStatus400 = PrecursorPrecursorConfigResponseBody & PrecursorApiResponseCommonFailure;
+export type PrecursorForAZoneUpdateConfigStatus400 = PrecursorApiResponseCommonFailure;
 
 /**
  * @example {"mode":"arm","rules":[{"description":"Show an interstitial on the shop page","enabled":true,"expression":"http.request.uri.path eq \"/shop\"","show_interstitial":true}],"show_interstitial":false}
