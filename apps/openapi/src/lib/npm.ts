@@ -18,7 +18,7 @@ function unavailable(packageName: string, failure: RegistryFailure): Record<stri
 	};
 }
 
-async function fetchPackageVersion(packageName: string): Promise<Record<string, string>> {
+export async function fetchPackageVersion(packageName: string): Promise<Record<string, string>> {
 	let response: Response;
 	try {
 		response = await fetch(`https://registry.npmjs.org/${packageName}/latest`, {

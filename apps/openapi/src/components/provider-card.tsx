@@ -1,6 +1,7 @@
 "use client";
 
 import { CodeXml } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CodeBlock } from "@/components/code-block";
 import { Badge } from "@/components/ui/badge";
@@ -97,6 +98,12 @@ export function UnifiedProviderInterface({ providers }: UnifiedProviderInterface
 									<h3 className="text-base font-semibold mb-2">Usage Example</h3>
 									<CodeBlock language="typescript" code={provider.usage} />
 								</div>
+								<Link
+									href={`/${provider.packageName}`}
+									className="inline-block text-sm font-medium underline hover:text-muted-foreground"
+								>
+									{provider.packageName}: authentication, examples and links
+								</Link>
 							</CardContent>
 						</Card>
 					</div>

@@ -1,6 +1,5 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 import { type Client, clients } from "./clients";
+import { readReadme } from "./readme";
 import { siteDescription, siteName, siteUrl } from "./site";
 
 const rawBase = "https://raw.githubusercontent.com/sferarc/openapi/main/packages";
@@ -39,13 +38,6 @@ export function buildLlmsTxt(): string {
 		...clients.flatMap(operationsLines),
 		"",
 	].join("\n");
-}
-
-// Next runs this in the app directory at build time, so the READMEs come from the same commit as the packages.
-const packagesDir = join(process.cwd(), "..", "..", "packages");
-
-async function readReadme(client: Client): Promise<string> {
-	return readFile(join(packagesDir, client.packageName, "README.md"), "utf-8");
 }
 
 export async function buildLlmsFullTxt(): Promise<string> {
