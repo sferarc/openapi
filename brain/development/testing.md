@@ -92,6 +92,8 @@ Run alone with `pnpm turbo run test --filter=@sferadev/openapi-utils`.
 
 `@sferadev/openapi-website` tests the Vercel OAuth profile mapping in `apps/openapi/src/lib/vercel-user-info.test.ts` with an injected `fetch`, so it needs no `DATABASE_URL` or network: a missing access token or a failed request throws, the bearer token is sent, the nested `user` profile maps with `name` falling back to the email and a null avatar omitted, and an un-nested profile is rejected (#31). Run it with `pnpm turbo run test --filter=@sferadev/openapi-website`.
 
+`apps/openapi/src/app/metadata-routes.test.ts` checks that `robots.txt` allows every crawler and names `https://openapi.sferadev.com/sitemap.xml`, and that the sitemap lists the home page on that host (#341).
+
 ## Changeset script
 
 `.github/workflows/scripts/changeset.test.ts` tests `changeset.ts`, the pure parts that `changes.ts` imports when `update-openapi.yml` writes a changeset: the diff summary, entry resolution and its fallbacks, and changeset rendering (#27). The root `pnpm test` runs it after the turbo tests (`package.json`). `package-exports.test.ts` next to it checks that every package's `exports` entry types `import` with `.d.mts` and `require` with `.d.cts` declarations, and that every published package maps each subpath to those `.d.cts` declarations in `typesVersions` ([[architecture/packages]]).

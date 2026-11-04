@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { siteDescription, siteName, siteTitle, siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,8 +14,18 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-	title: "OpenAPI Clients",
-	description: "A collection of OpenAPI clients for various APIs",
+	metadataBase: new URL(siteUrl),
+	title: siteTitle,
+	description: siteDescription,
+	alternates: { canonical: "/" },
+	openGraph: {
+		type: "website",
+		url: "/",
+		siteName,
+		title: siteTitle,
+		description: siteDescription,
+	},
+	twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({
