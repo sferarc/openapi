@@ -92,7 +92,9 @@ Run alone with `pnpm turbo run test --filter=@sferadev/openapi-utils`.
 
 `@sferadev/openapi-website` tests the Vercel OAuth profile mapping in `apps/openapi/src/lib/vercel-user-info.test.ts` with an injected `fetch`, so it needs no `DATABASE_URL` or network: a missing access token or a failed request throws, the bearer token is sent, the nested `user` profile maps with `name` falling back to the email and a null avatar omitted, and an un-nested profile is rejected (#31). Run it with `pnpm turbo run test --filter=@sferadev/openapi-website`.
 
-`apps/openapi/src/app/metadata-routes.test.ts` checks that `robots.txt` allows every crawler and names `https://openapi.sferadev.com/sitemap.xml`, and that the sitemap lists the home page on that host (#341).
+`apps/openapi/src/app/metadata-routes.test.ts` checks that `robots.txt` allows every crawler and names `https://openapi.sferadev.com/sitemap.xml`, and that the sitemap lists the home page and every client page on that host (#341, #342).
+
+`apps/openapi/src/lib/client-page.test.ts` checks that each client page has a unique title and description, a canonical and Open Graph URL on its own path and the shared share image, and that every client README yields two or three Quick Start examples, the first importing the package (#342).
 
 `apps/openapi/src/app/llms-routes.test.ts` checks that the client list names every directory in `packages/` but `openapi-utils`, that both llms routes send plain text, that `llms.txt` links every client's README, npm page, `OPERATIONS.md` and spec, that each linked `OPERATIONS.md` exists, and that `llms-full.txt` holds every README (#347).
 
