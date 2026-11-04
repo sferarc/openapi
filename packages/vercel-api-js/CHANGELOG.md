@@ -1,5 +1,17 @@
 # vercel-api-js
 
+## 2.20.0
+
+### Minor Changes
+
+- 8b2b1e9: Expanded the UserEvent type with new variants for organization SSO updates and project perimeters updates.
+- 8b2b1e9: Added new event types 'organization-sso-new-teams-update' and 'project-perimeters-updated' to userEventTypeEnum, listEventTypeNameEnum, and listEventTypeReplacedByEnum.
+- 8b2b1e9: Added 503 status response type (UpdateProjectStatus503) to the updateProject operation.
+
+### Patch Changes
+
+- 8b2b1e9: Updated the description of budget cap fields to specify the meaning for team, organization, project, and product scopes.
+
 ## 2.19.0
 
 ### Minor Changes

@@ -1,5 +1,21 @@
 # cloudflare-api-js
 
+## 4.14.0
+
+### Minor Changes
+
+- 70ff367: Added a new operation to list events for an individual agent trace.
+- 70ff367: [BREAKING] Remove operations no longer in the cloudflare-api-js OpenAPI spec: `agentsSessionsList`, `agentsSessionsRunsList`.
+- 70ff367: [BREAKING] The Agent Sessions Observability API was replaced by the new Agents Tracing API with changed endpoints, path parameters, and response models for listing agent traces and details.
+
+### Patch Changes
+
+- 70ff367: OHTTP Gateway enablement and response shape improved: now returns a clearer on/off state and consistent API response types for enable/disable.
+- 70ff367: Improved documentation and query parameter options for brand protection operations, including more detailed descriptions for matching, dismissing, and listing domain and logo queries and matches.
+- 70ff367: Expanded event search and filtering enums in intelligence APIs to allow more structured search operators and exclusions.
+- 70ff367: Brand Protection query create/update APIs now clarify the use of `search_lookback` and explain how pattern matching and result history work on update.
+- 70ff367: The BYOIP Addressing API now includes ASN ownership and ASPA validation states, with extra documentation for approval states and the ASN ownership process.
+
 ## 4.13.0
 
 ### Minor Changes
