@@ -1,13 +1,4 @@
-const packages = [
-	"vercel-api-js",
-	"cloudflare-api-js",
-	"netlify-api",
-	"keycloak-api",
-	"zoom-api-js",
-	"nuki-api-js",
-	"litellm-api",
-	"v0-api",
-];
+import { clients } from "./clients";
 
 type RegistryFailure = { status: number } | { reason: string };
 
@@ -60,7 +51,9 @@ async function fetchPackageVersion(packageName: string): Promise<Record<string, 
 }
 
 export async function fetchAllPackageVersions(): Promise<Record<string, string>> {
-	const packageInfos = await Promise.all(packages.map((pkg) => fetchPackageVersion(pkg)));
+	const packageInfos = await Promise.all(
+		clients.map((client) => fetchPackageVersion(client.packageName)),
+	);
 
 	const versionMap: Record<string, string> = {};
 	packageInfos.forEach((info) => {
