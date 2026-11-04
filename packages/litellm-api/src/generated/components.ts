@@ -8,7 +8,6 @@ import defaultClient from "../utils/fetcher";
 import type {
 	ActiveCallbacksActiveCallbacksGetResponse,
 	ActiveCallbacksSettingsGetResponse,
-	ActivityAvailableLensActivityAvailableGetResponse,
 	AddAllowedIpAddAllowedIpPostBody,
 	AddAllowedIpAddAllowedIpPostResponse,
 	AddAllowedIpAddAllowedIpPostStatus422,
@@ -113,9 +112,6 @@ import type {
 	BudgetSettingsBudgetSettingsGetQuery,
 	BudgetSettingsBudgetSettingsGetResponse,
 	BudgetSettingsBudgetSettingsGetStatus422,
-	BuildDatasetCasesLensDatasetsBuildPostBody,
-	BuildDatasetCasesLensDatasetsBuildPostResponse,
-	BuildDatasetCasesLensDatasetsBuildPostStatus422,
 	BulkCreateUsersRouteManagementV1UsersBulkPostBody,
 	BulkCreateUsersRouteManagementV1UsersBulkPostResponse,
 	BulkCreateUsersRouteManagementV1UsersBulkPostStatus422,
@@ -151,10 +147,6 @@ import type {
 	BulkUserUpdateUserBulkUpdatePostResponse,
 	BulkUserUpdateUserBulkUpdatePostStatus422,
 	CacheDeleteCacheDeletePostResponse,
-	CachedReviewsLensWorkerLensIdJobIdReviewsGetHeaders,
-	CachedReviewsLensWorkerLensIdJobIdReviewsGetPath,
-	CachedReviewsLensWorkerLensIdJobIdReviewsGetResponse,
-	CachedReviewsLensWorkerLensIdJobIdReviewsGetStatus422,
 	CacheFlushallCacheFlushallPostResponse,
 	CachePingCachePingGetResponse,
 	CacheRedisInfoCacheRedisInfoGetResponse,
@@ -192,9 +184,6 @@ import type {
 	CancelInteractionV1BetaInteractionsInteractionIdCancelPostPath,
 	CancelInteractionV1BetaInteractionsInteractionIdCancelPostResponse,
 	CancelInteractionV1BetaInteractionsInteractionIdCancelPostStatus422,
-	CancelLensLensLensIdCancelPostPath,
-	CancelLensLensLensIdCancelPostResponse,
-	CancelLensLensLensIdCancelPostStatus422,
 	CancelResponseOpenaiV1ResponsesResponseIdCancelPostPath,
 	CancelResponseOpenaiV1ResponsesResponseIdCancelPostResponse,
 	CancelResponseOpenaiV1ResponsesResponseIdCancelPostStatus422,
@@ -243,9 +232,6 @@ import type {
 	CheckGdprComplianceComplianceGdprPostBody,
 	CheckGdprComplianceComplianceGdprPostResponse,
 	CheckGdprComplianceComplianceGdprPostStatus422,
-	ClaimLensWorkerClaimPostQuery,
-	ClaimLensWorkerClaimPostResponse,
-	ClaimLensWorkerClaimPostStatus422,
 	ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeletePath,
 	ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteResponse,
 	ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteStatus422,
@@ -277,11 +263,6 @@ import type {
 	ComprehendMedicalProxyRouteComprehendmedicalOperationPostResponse,
 	ComprehendMedicalProxyRouteComprehendmedicalOperationPostStatus422,
 	ComprehendMedicalSdkProxyRouteComprehendmedicalPostResponse,
-	ContentLensWorkerLensIdJobIdContentGetHeaders,
-	ContentLensWorkerLensIdJobIdContentGetPath,
-	ContentLensWorkerLensIdJobIdContentGetQuery,
-	ContentLensWorkerLensIdJobIdContentGetResponse,
-	ContentLensWorkerLensIdJobIdContentGetStatus422,
 	ConvertPromptFileToJsonUtilsDotpromptJsonConverterPostBody,
 	ConvertPromptFileToJsonUtilsDotpromptJsonConverterPostResponse,
 	ConvertPromptFileToJsonUtilsDotpromptJsonConverterPostStatus422,
@@ -311,9 +292,6 @@ import type {
 	CreateCredentialCredentialsPostBody,
 	CreateCredentialCredentialsPostResponse,
 	CreateCredentialCredentialsPostStatus422,
-	CreateDatasetLensDatasetsPostBody,
-	CreateDatasetLensDatasetsPostResponse,
-	CreateDatasetLensDatasetsPostStatus422,
 	CreateEvalV1EvalsPostQuery,
 	CreateEvalV1EvalsPostResponse,
 	CreateEvalV1EvalsPostStatus422,
@@ -346,17 +324,11 @@ import type {
 	CreateGuardrailGuardrailsPostBody,
 	CreateGuardrailGuardrailsPostResponse,
 	CreateGuardrailGuardrailsPostStatus422,
-	CreateIngestionKeyLensTracingKeysPostBody,
-	CreateIngestionKeyLensTracingKeysPostResponse,
-	CreateIngestionKeyLensTracingKeysPostStatus422,
 	CreateInteractionInteractionsPostResponse,
 	CreateInteractionV1BetaInteractionsPostResponse,
 	CreateJwtKeyMappingJwtKeyMappingNewPostBody,
 	CreateJwtKeyMappingJwtKeyMappingNewPostResponse,
 	CreateJwtKeyMappingJwtKeyMappingNewPostStatus422,
-	CreateLensLensPostBody,
-	CreateLensLensPostResponse,
-	CreateLensLensPostStatus422,
 	CreateMemoryV1MemoryPostBody,
 	CreateMemoryV1MemoryPostResponse,
 	CreateMemoryV1MemoryPostStatus422,
@@ -465,9 +437,6 @@ import type {
 	DeleteFallbackFallbackModelDeleteQuery,
 	DeleteFallbackFallbackModelDeleteResponse,
 	DeleteFallbackFallbackModelDeleteStatus422,
-	DeleteFeedbackLensFeedbackDeleteQuery,
-	DeleteFeedbackLensFeedbackDeleteResponse,
-	DeleteFeedbackLensFeedbackDeleteStatus422,
 	DeleteFileFilesFileIdDeletePath,
 	DeleteFileFilesFileIdDeleteQuery,
 	DeleteFileFilesFileIdDeleteResponse,
@@ -579,6 +548,9 @@ import type {
 	DeleteToolPolicyOverrideV1ToolToolNameOverridesDeleteQuery,
 	DeleteToolPolicyOverrideV1ToolToolNameOverridesDeleteResponse,
 	DeleteToolPolicyOverrideV1ToolToolNameOverridesDeleteStatus422,
+	DeleteUserConnectionCredentialsCredentialNameUserConnectionDeletePath,
+	DeleteUserConnectionCredentialsCredentialNameUserConnectionDeleteResponse,
+	DeleteUserConnectionCredentialsCredentialNameUserConnectionDeleteStatus422,
 	DeleteUserScimV2UsersUserIdDeletePath,
 	DeleteUserScimV2UsersUserIdDeleteQuery,
 	DeleteUserScimV2UsersUserIdDeleteResponse,
@@ -668,21 +640,10 @@ import type {
 	EstimateCostCostEstimatePostBody,
 	EstimateCostCostEstimatePostResponse,
 	EstimateCostCostEstimatePostStatus422,
-	EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetPath,
-	EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetResponse,
-	EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetStatus422,
 	EventLoggingBatchApiEventLoggingBatchPostResponse,
-	EvidenceContentLensLensIdExecutionsExecutionIdGetPath,
-	EvidenceContentLensLensIdExecutionsExecutionIdGetQuery,
-	EvidenceContentLensLensIdExecutionsExecutionIdGetResponse,
-	EvidenceContentLensLensIdExecutionsExecutionIdGetStatus422,
-	ExportDatasetLensDatasetsDatasetIdExportGetPath,
-	ExportDatasetLensDatasetsDatasetIdExportGetQuery,
-	ExportDatasetLensDatasetsDatasetIdExportGetResponse,
-	ExportDatasetLensDatasetsDatasetIdExportGetStatus422,
-	FeedbackSummaryLensFeedbackSummaryPostBody,
-	FeedbackSummaryLensFeedbackSummaryPostResponse,
-	FeedbackSummaryLensFeedbackSummaryPostStatus422,
+	ExportTelemetryReportsTelemetryReportsGetQuery,
+	ExportTelemetryReportsTelemetryReportsGetResponse,
+	ExportTelemetryReportsTelemetryReportsGetStatus422,
 	FetchAllMcpServersV1McpServerGetQuery,
 	FetchAllMcpServersV1McpServerGetResponse,
 	FetchAllMcpServersV1McpServerGetStatus422,
@@ -832,6 +793,7 @@ import type {
 	GetDailyActiveUsersTagDauGetResponse,
 	GetDailyActiveUsersTagDauGetStatus422,
 	GetDefaultTeamSettingsGetDefaultTeamSettingsGetResponse,
+	GetDeploymentWarningsHealthDeploymentWarningsGetResponse,
 	GetDistinctUserAgentTagsTagDistinctGetResponse,
 	GetEmailEventSettingsEmailEventSettingsGetResponse,
 	GetEvalV1EvalsEvalIdGetPath,
@@ -1005,6 +967,9 @@ import type {
 	GetProviderSpecificParamsGuardrailsUiProviderSpecificParamsGetResponse,
 	GetPublicAutorouterPresetsPublicAutorouterPresetsGetResponse,
 	GetPublicFusePresetsPublicComplexityRouterFusePresetsGetResponse,
+	GetRequestErrorActivityGatewayErrorsActivityGetQuery,
+	GetRequestErrorActivityGatewayErrorsActivityGetResponse,
+	GetRequestErrorActivityGatewayErrorsActivityGetStatus422,
 	GetResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGetPath,
 	GetResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGetResponse,
 	GetResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGetStatus422,
@@ -1060,7 +1025,6 @@ import type {
 	GetShadowEvalJobAutoRouterShadowEvalJobIdGetPath,
 	GetShadowEvalJobAutoRouterShadowEvalJobIdGetResponse,
 	GetShadowEvalJobAutoRouterShadowEvalJobIdGetStatus422,
-	GetSignalsLensSignalsGetResponse,
 	GetSkillV1SkillsSkillIdGetPath,
 	GetSkillV1SkillsSkillIdGetQuery,
 	GetSkillV1SkillsSkillIdGetResponse,
@@ -1120,6 +1084,7 @@ import type {
 	GetTeamSpendReportTeamSpendReportGetQuery,
 	GetTeamSpendReportTeamSpendReportGetResponse,
 	GetTeamSpendReportTeamSpendReportGetStatus422,
+	GetTelemetrySettingsTelemetrySettingsGetResponse,
 	GetThreadThreadsThreadIdGetPath,
 	GetThreadThreadsThreadIdGetResponse,
 	GetThreadThreadsThreadIdGetStatus422,
@@ -1154,6 +1119,9 @@ import type {
 	GetUserDailyActivityAggregatedUserDailyActivityAggregatedGetQuery,
 	GetUserDailyActivityAggregatedUserDailyActivityAggregatedGetResponse,
 	GetUserDailyActivityAggregatedUserDailyActivityAggregatedGetStatus422,
+	GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQuery,
+	GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetResponse,
+	GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetStatus422,
 	GetUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQuery,
 	GetUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetResponse,
 	GetUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetStatus422,
@@ -1274,10 +1242,6 @@ import type {
 	HealthServicesEndpointHealthServicesGetQuery,
 	HealthServicesEndpointHealthServicesGetResponse,
 	HealthServicesEndpointHealthServicesGetStatus422,
-	HeartbeatLensWorkerLensIdJobIdHeartbeatPostHeaders,
-	HeartbeatLensWorkerLensIdJobIdHeartbeatPostPath,
-	HeartbeatLensWorkerLensIdJobIdHeartbeatPostResponse,
-	HeartbeatLensWorkerLensIdJobIdHeartbeatPostStatus422,
 	HelpAgentTraceQueriesV1TracesQueryHelpGetResponse,
 	HomeGetResponse,
 	ImageEditApiImagesEditsPostBody,
@@ -1326,7 +1290,6 @@ import type {
 	IngestCallbackLogsV1RustControlPlaneLogsPostBody,
 	IngestCallbackLogsV1RustControlPlaneLogsPostResponse,
 	IngestCallbackLogsV1RustControlPlaneLogsPostStatus422,
-	IngestionCredentialsLensInternalIngestionCredentialsGetResponse,
 	InitCloudzeroSettingsCloudzeroInitPostBody,
 	InitCloudzeroSettingsCloudzeroInitPostResponse,
 	InitCloudzeroSettingsCloudzeroInitPostStatus422,
@@ -1353,10 +1316,39 @@ import type {
 	LatestHealthChecksEndpointHealthLatestGetResponse,
 	LatestReleaseInfoGetLatestReleaseInfoGetResponse,
 	LayaProxyRouteLayaV1SystemonePostResponse,
+	LensRequestLensDeleteQuery,
+	LensRequestLensDeleteResponse,
+	LensRequestLensDeleteStatus422,
+	LensRequestLensGetQuery,
+	LensRequestLensGetResponse,
+	LensRequestLensGetStatus422,
+	LensRequestLensPatchQuery,
+	LensRequestLensPatchResponse,
+	LensRequestLensPatchStatus422,
+	LensRequestLensPathDeletePath,
+	LensRequestLensPathDeleteResponse,
+	LensRequestLensPathDeleteStatus422,
+	LensRequestLensPathGetPath,
+	LensRequestLensPathGetResponse,
+	LensRequestLensPathGetStatus422,
+	LensRequestLensPathPatchPath,
+	LensRequestLensPathPatchResponse,
+	LensRequestLensPathPatchStatus422,
+	LensRequestLensPathPostPath,
+	LensRequestLensPathPostResponse,
+	LensRequestLensPathPostStatus422,
+	LensRequestLensPathPutPath,
+	LensRequestLensPathPutResponse,
+	LensRequestLensPathPutStatus422,
+	LensRequestLensPostQuery,
+	LensRequestLensPostResponse,
+	LensRequestLensPostStatus422,
+	LensRequestLensPutQuery,
+	LensRequestLensPutResponse,
+	LensRequestLensPutStatus422,
 	ListAccessGroupsAccessGroupListGetResponse,
 	ListAccessGroupsV1AccessGroupGetResponse,
 	ListAccessGroupsV1UnifiedAccessGroupGetResponse,
-	ListAgentsLensAgentsGetResponse,
 	ListAgentTracesV1TracesGetQuery,
 	ListAgentTracesV1TracesGetResponse,
 	ListAgentTracesV1TracesGetStatus422,
@@ -1382,7 +1374,6 @@ import type {
 	ListContainersV1ContainersGetQuery,
 	ListContainersV1ContainersGetResponse,
 	ListContainersV1ContainersGetStatus422,
-	ListDatasetsLensDatasetsGetResponse,
 	ListEndUserCustomerListGetResponse,
 	ListEvalsV1EvalsGetQuery,
 	ListEvalsV1EvalsGetResponse,
@@ -1412,14 +1403,12 @@ import type {
 	ListGuardrailSubmissionsGuardrailsSubmissionsGetStatus422,
 	ListGuardrailsGuardrailsListGetResponse,
 	ListGuardrailsV2V2GuardrailsListGetResponse,
-	ListIngestionKeysLensTracingKeysGetResponse,
 	ListJwtKeyMappingsJwtKeyMappingListGetQuery,
 	ListJwtKeyMappingsJwtKeyMappingListGetResponse,
 	ListJwtKeyMappingsJwtKeyMappingListGetStatus422,
 	ListKeysKeyListGetQuery,
 	ListKeysKeyListGetResponse,
 	ListKeysKeyListGetStatus422,
-	ListLensesLensGetResponse,
 	ListMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGetPath,
 	ListMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGetResponse,
 	ListMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGetStatus422,
@@ -1450,10 +1439,6 @@ import type {
 	ListPromptsPromptsListGetQuery,
 	ListPromptsPromptsListGetResponse,
 	ListPromptsPromptsListGetStatus422,
-	ListRunsLensLensIdRunsGetPath,
-	ListRunsLensLensIdRunsGetQuery,
-	ListRunsLensLensIdRunsGetResponse,
-	ListRunsLensLensIdRunsGetStatus422,
 	ListRunsV1EvalsEvalIdRunsGetPath,
 	ListRunsV1EvalsEvalIdRunsGetQuery,
 	ListRunsV1EvalsEvalIdRunsGetResponse,
@@ -1491,6 +1476,7 @@ import type {
 	ListTraceAgentsV1TracesAgentsGetQuery,
 	ListTraceAgentsV1TracesAgentsGetResponse,
 	ListTraceAgentsV1TracesAgentsGetStatus422,
+	ListUserConnectionsCredentialsUserConnectionsGetResponse,
 	ListVectorStoresV1VectorStoreListGetQuery,
 	ListVectorStoresV1VectorStoreListGetResponse,
 	ListVectorStoresV1VectorStoreListGetStatus422,
@@ -1553,11 +1539,6 @@ import type {
 	ModelInfoV2V2ModelInfoGetQuery,
 	ModelInfoV2V2ModelInfoGetResponse,
 	ModelInfoV2V2ModelInfoGetStatus422,
-	ModelLensWorkerLensIdJobIdModelPostBody,
-	ModelLensWorkerLensIdJobIdModelPostHeaders,
-	ModelLensWorkerLensIdJobIdModelPostPath,
-	ModelLensWorkerLensIdJobIdModelPostResponse,
-	ModelLensWorkerLensIdJobIdModelPostStatus422,
 	ModelListModelsGetQuery,
 	ModelListModelsGetResponse,
 	ModelListModelsGetStatus422,
@@ -1672,6 +1653,10 @@ import type {
 	PoliciesUsageOverviewPoliciesUsageOverviewGetQuery,
 	PoliciesUsageOverviewPoliciesUsageOverviewGetResponse,
 	PoliciesUsageOverviewPoliciesUsageOverviewGetStatus422,
+	PollUserConnectionCredentialsCredentialNameUserConnectionPollPostBody,
+	PollUserConnectionCredentialsCredentialNameUserConnectionPollPostPath,
+	PollUserConnectionCredentialsCredentialNameUserConnectionPollPostResponse,
+	PollUserConnectionCredentialsCredentialNameUserConnectionPollPostStatus422,
 	PredictCacheCostCostPredictCachePostBody,
 	PredictCacheCostCostPredictCachePostResponse,
 	PredictCacheCostCostPredictCachePostStatus422,
@@ -1681,14 +1666,6 @@ import type {
 	PreviewAutoRouterRoutingAutoRouterTestRoutingPostBody,
 	PreviewAutoRouterRoutingAutoRouterTestRoutingPostResponse,
 	PreviewAutoRouterRoutingAutoRouterTestRoutingPostStatus422,
-	PreviewSampleLensPreviewSamplePostBody,
-	PreviewSampleLensPreviewSamplePostResponse,
-	PreviewSampleLensPreviewSamplePostStatus422,
-	ProgressLensWorkerLensIdJobIdProgressPostBody,
-	ProgressLensWorkerLensIdJobIdProgressPostHeaders,
-	ProgressLensWorkerLensIdJobIdProgressPostPath,
-	ProgressLensWorkerLensIdJobIdProgressPostResponse,
-	ProgressLensWorkerLensIdJobIdProgressPostStatus422,
 	ProjectInfoProjectInfoGetQuery,
 	ProjectInfoProjectInfoGetResponse,
 	ProjectInfoProjectInfoGetStatus422,
@@ -1710,9 +1687,6 @@ import type {
 	PublicModelHubListPublicV1ModelHubGetResponse,
 	PublicModelHubPublicModelHubGetResponse,
 	PublicSkillHubPublicSkillHubGetResponse,
-	PutSignalsLensSignalsPutBody,
-	PutSignalsLensSignalsPutResponse,
-	PutSignalsLensSignalsPutStatus422,
 	QueryAgentTracesV1TracesQueryPostBody,
 	QueryAgentTracesV1TracesQueryPostResponse,
 	QueryAgentTracesV1TracesQueryPostStatus422,
@@ -1720,23 +1694,9 @@ import type {
 	RagIngestV1RagIngestPostResponse,
 	RagQueryRagQueryPostResponse,
 	RagQueryV1RagQueryPostResponse,
-	ReadDatasetLensDatasetsDatasetIdGetPath,
-	ReadDatasetLensDatasetsDatasetIdGetQuery,
-	ReadDatasetLensDatasetsDatasetIdGetResponse,
-	ReadDatasetLensDatasetsDatasetIdGetStatus422,
-	ReadFeedbackLensFeedbackGetQuery,
-	ReadFeedbackLensFeedbackGetResponse,
-	ReadFeedbackLensFeedbackGetStatus422,
-	ReadLensLensLensIdGetPath,
-	ReadLensLensLensIdGetResponse,
-	ReadLensLensLensIdGetStatus422,
-	ReadReviewsLensLensIdRunsJobIdReviewsGetPath,
-	ReadReviewsLensLensIdRunsJobIdReviewsGetQuery,
-	ReadReviewsLensLensIdRunsJobIdReviewsGetResponse,
-	ReadReviewsLensLensIdRunsJobIdReviewsGetStatus422,
-	ReadRunLensLensIdRunsJobIdGetPath,
-	ReadRunLensLensIdRunsJobIdGetResponse,
-	ReadRunLensLensIdRunsJobIdGetStatus422,
+	RecordUiEventTelemetryUiEventsPostBody,
+	RecordUiEventTelemetryUiEventsPostResponse,
+	RecordUiEventTelemetryUiEventsPostStatus422,
 	RegenerateKeyFnKeyKeyRegeneratePostBody,
 	RegenerateKeyFnKeyKeyRegeneratePostHeaders,
 	RegenerateKeyFnKeyKeyRegeneratePostPath,
@@ -1762,9 +1722,6 @@ import type {
 	RegisterPluginClaudeCodePluginsPostBody,
 	RegisterPluginClaudeCodePluginsPostResponse,
 	RegisterPluginClaudeCodePluginsPostStatus422,
-	RegisterWorkerLensWorkersRegisterPostBody,
-	RegisterWorkerLensWorkersRegisterPostResponse,
-	RegisterWorkerLensWorkersRegisterPostStatus422,
 	RejectGuardrailSubmissionGuardrailsSubmissionsGuardrailIdRejectPostPath,
 	RejectGuardrailSubmissionGuardrailsSubmissionsGuardrailIdRejectPostResponse,
 	RejectGuardrailSubmissionGuardrailsSubmissionsGuardrailIdRejectPostStatus422,
@@ -1809,11 +1766,6 @@ import type {
 	ResponsesInputTokensOpenaiV1ResponsesInputTokensPostResponse,
 	ResponsesInputTokensResponsesInputTokensPostResponse,
 	ResponsesInputTokensV1ResponsesInputTokensPostResponse,
-	ResultLensWorkerLensIdJobIdResultPostBody,
-	ResultLensWorkerLensIdJobIdResultPostHeaders,
-	ResultLensWorkerLensIdJobIdResultPostPath,
-	ResultLensWorkerLensIdJobIdResultPostResponse,
-	ResultLensWorkerLensIdJobIdResultPostStatus422,
 	RetrieveBatchBatchesBatchIdGetPath,
 	RetrieveBatchBatchesBatchIdGetQuery,
 	RetrieveBatchBatchesBatchIdGetResponse,
@@ -1842,30 +1794,12 @@ import type {
 	RevokeEndpointRevokePostBody,
 	RevokeEndpointRevokePostResponse,
 	RevokeEndpointRevokePostStatus422,
-	RevokeIngestionKeyLensTracingKeysKeyIdDeletePath,
-	RevokeIngestionKeyLensTracingKeysKeyIdDeleteResponse,
-	RevokeIngestionKeyLensTracingKeysKeyIdDeleteStatus422,
-	RevokeWorkerLensWorkersWorkerIdDeletePath,
-	RevokeWorkerLensWorkersWorkerIdDeleteResponse,
-	RevokeWorkerLensWorkersWorkerIdDeleteStatus422,
-	RunLensLensLensIdRunsPostBody,
-	RunLensLensLensIdRunsPostPath,
-	RunLensLensLensIdRunsPostResponse,
-	RunLensLensLensIdRunsPostStatus422,
 	RunThreadThreadsThreadIdRunsPostPath,
 	RunThreadThreadsThreadIdRunsPostResponse,
 	RunThreadThreadsThreadIdRunsPostStatus422,
 	RunThreadV1ThreadsThreadIdRunsPostPath,
 	RunThreadV1ThreadsThreadIdRunsPostResponse,
 	RunThreadV1ThreadsThreadIdRunsPostStatus422,
-	SampleLensWorkerLensIdJobIdSampleGetHeaders,
-	SampleLensWorkerLensIdJobIdSampleGetPath,
-	SampleLensWorkerLensIdJobIdSampleGetResponse,
-	SampleLensWorkerLensIdJobIdSampleGetStatus422,
-	SaveRevisionLensDatasetsDatasetIdRevisionsPostBody,
-	SaveRevisionLensDatasetsDatasetIdRevisionsPostPath,
-	SaveRevisionLensDatasetsDatasetIdRevisionsPostResponse,
-	SaveRevisionLensDatasetsDatasetIdRevisionsPostStatus422,
 	SearchSearchPostQuery,
 	SearchSearchPostResponse,
 	SearchSearchPostStatus422,
@@ -1884,15 +1818,14 @@ import type {
 	SetAccessGroupBudgetAccessGroupAccessGroupBudgetPutPath,
 	SetAccessGroupBudgetAccessGroupAccessGroupBudgetPutResponse,
 	SetAccessGroupBudgetAccessGroupAccessGroupBudgetPutStatus422,
-	SetWorkerBillingLensWorkersWorkerIdBillingKeyPutBody,
-	SetWorkerBillingLensWorkersWorkerIdBillingKeyPutPath,
-	SetWorkerBillingLensWorkersWorkerIdBillingKeyPutResponse,
-	SetWorkerBillingLensWorkersWorkerIdBillingKeyPutStatus422,
 	SharedHealthCheckStatusEndpointHealthSharedStatusGetResponse,
 	SsoReadinessSsoReadinessGetResponse,
 	StartShadowEvalAutoRouterShadowEvalStartPostBody,
 	StartShadowEvalAutoRouterShadowEvalStartPostResponse,
 	StartShadowEvalAutoRouterShadowEvalStartPostStatus422,
+	StartUserConnectionCredentialsCredentialNameUserConnectionStartPostPath,
+	StartUserConnectionCredentialsCredentialNameUserConnectionStartPostResponse,
+	StartUserConnectionCredentialsCredentialNameUserConnectionStartPostStatus422,
 	StopShadowEvalJobAutoRouterShadowEvalJobIdStopPostPath,
 	StopShadowEvalJobAutoRouterShadowEvalJobIdStopPostResponse,
 	StopShadowEvalJobAutoRouterShadowEvalJobIdStopPostStatus422,
@@ -1908,9 +1841,6 @@ import type {
 	StoreMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPostPath,
 	StoreMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPostResponse,
 	StoreMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPostStatus422,
-	SubmitFeedbackLensFeedbackPutBody,
-	SubmitFeedbackLensFeedbackPutResponse,
-	SubmitFeedbackLensFeedbackPutStatus422,
 	SuggestPolicyTemplatesPolicyTemplatesSuggestPostBody,
 	SuggestPolicyTemplatesPolicyTemplatesSuggestPostResponse,
 	SuggestPolicyTemplatesPolicyTemplatesSuggestPostStatus422,
@@ -2014,12 +1944,6 @@ import type {
 	ToolsetMcpRouteToolsetToolsetNameMcpPutPath,
 	ToolsetMcpRouteToolsetToolsetNameMcpPutResponse,
 	ToolsetMcpRouteToolsetToolsetNameMcpPutStatus422,
-	TraceFindingsLensTracesFindingsPostBody,
-	TraceFindingsLensTracesFindingsPostResponse,
-	TraceFindingsLensTracesFindingsPostStatus422,
-	TraceSignalStatusesLensTracesSignalsPostBody,
-	TraceSignalStatusesLensTracesSignalsPostResponse,
-	TraceSignalStatusesLensTracesSignalsPostStatus422,
 	TranscribeProxyRouteTranscribeOperationPostPath,
 	TranscribeProxyRouteTranscribeOperationPostResponse,
 	TranscribeProxyRouteTranscribeOperationPostStatus422,
@@ -2030,6 +1954,7 @@ import type {
 	TriggerAgentKillSwitchV1AgentsAgentIdKillSwitchPostPath,
 	TriggerAgentKillSwitchV1AgentsAgentIdKillSwitchPostResponse,
 	TriggerAgentKillSwitchV1AgentsAgentIdKillSwitchPostStatus422,
+	UiEventsEnabledTelemetryUiEventsEnabledGetResponse,
 	UiViewSpendLogsSpendLogsV2GetQuery,
 	UiViewSpendLogsSpendLogsV2GetResponse,
 	UiViewSpendLogsSpendLogsV2GetStatus422,
@@ -2100,6 +2025,10 @@ import type {
 	UpdateDefaultTeamSettingsUpdateDefaultTeamSettingsPatchBody,
 	UpdateDefaultTeamSettingsUpdateDefaultTeamSettingsPatchResponse,
 	UpdateDefaultTeamSettingsUpdateDefaultTeamSettingsPatchStatus422,
+	UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchBody,
+	UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchPath,
+	UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchResponse,
+	UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchStatus422,
 	UpdateEndUserCustomerUpdatePostBody,
 	UpdateEndUserCustomerUpdatePostResponse,
 	UpdateEndUserCustomerUpdatePostStatus422,
@@ -2110,10 +2039,6 @@ import type {
 	UpdateEventSettingsEmailEventSettingsPatchBody,
 	UpdateEventSettingsEmailEventSettingsPatchResponse,
 	UpdateEventSettingsEmailEventSettingsPatchStatus422,
-	UpdateFindingLensLensIdFindingsFindingIdPatchBody,
-	UpdateFindingLensLensIdFindingsFindingIdPatchPath,
-	UpdateFindingLensLensIdFindingsFindingIdPatchResponse,
-	UpdateFindingLensLensIdFindingsFindingIdPatchStatus422,
 	UpdateGroupScimV2GroupsGroupIdPutBody,
 	UpdateGroupScimV2GroupsGroupIdPutPath,
 	UpdateGroupScimV2GroupsGroupIdPutQuery,
@@ -2137,10 +2062,6 @@ import type {
 	UpdateKeyFnKeyUpdatePostHeaders,
 	UpdateKeyFnKeyUpdatePostResponse,
 	UpdateKeyFnKeyUpdatePostStatus422,
-	UpdateLensLensLensIdPutBody,
-	UpdateLensLensLensIdPutPath,
-	UpdateLensLensLensIdPutResponse,
-	UpdateLensLensLensIdPutStatus422,
 	UpdateMcpSemanticFilterSettingsUpdateMcpSemanticFilterSettingsPatchBody,
 	UpdateMcpSemanticFilterSettingsUpdateMcpSemanticFilterSettingsPatchResponse,
 	UpdateMcpSemanticFilterSettingsUpdateMcpSemanticFilterSettingsPatchStatus422,
@@ -2198,6 +2119,9 @@ import type {
 	UpdateTeamTeamUpdatePostHeaders,
 	UpdateTeamTeamUpdatePostResponse,
 	UpdateTeamTeamUpdatePostStatus422,
+	UpdateTelemetrySettingsTelemetrySettingsPutBody,
+	UpdateTelemetrySettingsTelemetrySettingsPutResponse,
+	UpdateTelemetrySettingsTelemetrySettingsPutStatus422,
 	UpdateToolPolicyV1ToolPolicyPostBody,
 	UpdateToolPolicyV1ToolPolicyPostResponse,
 	UpdateToolPolicyV1ToolPolicyPostStatus422,
@@ -2381,7 +2305,9 @@ import type {
 	ViewSpendTagsSpendTagsGetQuery,
 	ViewSpendTagsSpendTagsGetResponse,
 	ViewSpendTagsSpendTagsGetStatus422,
-	WatchAllLensWatchAllPostResponse,
+	WebsocketLiveSessionsWebsocketEndpointGet2Response,
+	WebsocketLiveSessionsWebsocketEndpointGet3Response,
+	WebsocketLiveSessionsWebsocketEndpointGetResponse,
 	WebsocketRealtimeWebsocketEndpointGet2Response,
 	WebsocketRealtimeWebsocketEndpointGet3Response,
 	WebsocketRealtimeWebsocketEndpointGetResponse,
@@ -4109,6 +4035,7 @@ export async function transformRequestUtilsTransformRequestPost(
  *     modelId: Return a single deployment by LiteLLM model id.
  *     teamId: Filter to models with direct access or team membership for this team id.
  *     sortBy / sortOrder: Sort by model_name, created_at, updated_at, costs, or status.
+ *     blocked: Filter by routing status (false = active, true = paused).
  *     access_group: Only return deployments in this model access group.
  *     wildcard_only: Only return deployments whose `model_name` contains `*`.
  * Example request:
@@ -4315,7 +4242,8 @@ export async function modelInfoV1ModelInfoGet(
  * @description List models with known deprecation/sunset dates, bucketed by urgency.
  * Reads `deprecation_date` metadata from `model_prices_and_context_window.json`
  * (and any per-deployment `model_info.deprecation_date` overrides) for the
- * models configured on this proxy.
+ * models configured on this proxy. An entry also names its `successor_model`
+ * when the deployment sets `model_info.successor_model`.
  * Parameters:
  *     warn_within_days: Window (in days) used to bucket "imminent" models,
  *         30 by default.
@@ -4366,7 +4294,8 @@ export async function modelDeprecationsV1ModelDeprecationsGet(
  * @description List models with known deprecation/sunset dates, bucketed by urgency.
  * Reads `deprecation_date` metadata from `model_prices_and_context_window.json`
  * (and any per-deployment `model_info.deprecation_date` overrides) for the
- * models configured on this proxy.
+ * models configured on this proxy. An entry also names its `successor_model`
+ * when the deployment sets `model_info.successor_model`.
  * Parameters:
  *     warn_within_days: Window (in days) used to bucket "imminent" models,
  *         30 by default.
@@ -5805,6 +5734,8 @@ export async function getSupportedProvidersPublicProvidersGet(
 /**
  * @summary Get Provider Fields
  * @description Return provider metadata required by the dashboard create-model flow.
+ * Reads from the bundled local file. Result is cached in-process for the
+ * lifetime of the server process.
  * @link /public/providers/fields
  */
 export async function getProviderFieldsPublicProvidersFieldsGet(
@@ -6012,6 +5943,8 @@ export async function getSupportedEndpointsPublicEndpointsGet(
  * @description Return agent type metadata required by the dashboard create-agent flow.
  * If an agent has `inherit_credentials_from_provider`, the provider's credential
  * fields are automatically appended to the agent's credential_fields.
+ * Reads from the bundled local files. Result is cached in-process for the
+ * lifetime of the server process.
  * @link /public/agents/fields
  */
 export async function getAgentFieldsPublicAgentsFieldsGet(
@@ -9509,6 +9442,144 @@ export async function getCredentialByModelCredentialsByModelModelIdGet(
 }
 
 /**
+ * @summary List User Connections
+ * @description List the calling user's per-user provider connections.
+ * @link /credentials/user_connections
+ */
+export async function listUserConnectionsCredentialsUserConnectionsGet(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ListUserConnectionsCredentialsUserConnectionsGetResponse,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/credentials/user_connections`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Start User Connection
+ * @description Begin a GitHub device flow for the calling user's connection to a per-user credential.
+ * @link /credentials/{credential_name}/user_connection/start
+ */
+export async function startUserConnectionCredentialsCredentialNameUserConnectionStartPost(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: StartUserConnectionCredentialsCredentialNameUserConnectionStartPostPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.credential_name == null || String(pathParams.credential_name) === "") {
+		throw new Error(`Missing required path parameter: credential_name`);
+	}
+	const data = await request<
+		StartUserConnectionCredentialsCredentialNameUserConnectionStartPostResponse,
+		ErrorWrapper<StartUserConnectionCredentialsCredentialNameUserConnectionStartPostStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		StartUserConnectionCredentialsCredentialNameUserConnectionStartPostPath
+	>({
+		method: "POST",
+		url: `/credentials/${encodeURIComponent(String(pathParams.credential_name))}/user_connection/start`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Poll User Connection
+ * @description Poll the device flow once and persist the connection on completion.
+ * @link /credentials/{credential_name}/user_connection/poll
+ */
+export async function pollUserConnectionCredentialsCredentialNameUserConnectionPollPost(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: PollUserConnectionCredentialsCredentialNameUserConnectionPollPostPath;
+		body: PollUserConnectionCredentialsCredentialNameUserConnectionPollPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.credential_name == null || String(pathParams.credential_name) === "") {
+		throw new Error(`Missing required path parameter: credential_name`);
+	}
+	const data = await request<
+		PollUserConnectionCredentialsCredentialNameUserConnectionPollPostResponse,
+		ErrorWrapper<PollUserConnectionCredentialsCredentialNameUserConnectionPollPostStatus422>,
+		PollUserConnectionCredentialsCredentialNameUserConnectionPollPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		PollUserConnectionCredentialsCredentialNameUserConnectionPollPostPath
+	>({
+		method: "POST",
+		url: `/credentials/${encodeURIComponent(String(pathParams.credential_name))}/user_connection/poll`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete User Connection
+ * @description Disconnect the calling user's stored GitHub token for a per-user credential. Idempotent.
+ * @link /credentials/{credential_name}/user_connection
+ */
+export async function deleteUserConnectionCredentialsCredentialNameUserConnectionDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DeleteUserConnectionCredentialsCredentialNameUserConnectionDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.credential_name == null || String(pathParams.credential_name) === "") {
+		throw new Error(`Missing required path parameter: credential_name`);
+	}
+	const data = await request<
+		DeleteUserConnectionCredentialsCredentialNameUserConnectionDeleteResponse,
+		ErrorWrapper<DeleteUserConnectionCredentialsCredentialNameUserConnectionDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DeleteUserConnectionCredentialsCredentialNameUserConnectionDeletePath
+	>({
+		method: "DELETE",
+		url: `/credentials/${encodeURIComponent(String(pathParams.credential_name))}/user_connection`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Delete Credential
  * @description [BETA] endpoint. This might change unexpectedly.
  * @link /credentials/{credential_name}
@@ -11699,6 +11770,74 @@ export async function testModelConnectionHealthTestConnectionPost(
 }
 
 /**
+ * @summary Get Deployment Warnings
+ * @description List the active deployment warnings with their severity and whether an admin ignored or snoozed them.
+ * Readable by proxy admins and proxy admin viewers.
+ * @link /health/deployment_warnings
+ */
+export async function getDeploymentWarningsHealthDeploymentWarningsGet(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		GetDeploymentWarningsHealthDeploymentWarningsGetResponse,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/health/deployment_warnings`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Deployment Warning Ignore
+ * @description Ignore, snooze, or restore one deployment warning for every admin of this proxy.
+ * Only proxy admins can call this, and it needs a database.
+ * @link /health/deployment_warnings/{warning_id}
+ */
+export async function updateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatch(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchPath;
+		body: UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.warning_id == null || String(pathParams.warning_id) === "") {
+		throw new Error(`Missing required path parameter: warning_id`);
+	}
+	const data = await request<
+		UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchResponse,
+		ErrorWrapper<UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchStatus422>,
+		UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchBody,
+		Record<string, string>,
+		Record<string, string>,
+		UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchPath
+	>({
+		method: "PATCH",
+		url: `/health/deployment_warnings/${encodeURIComponent(String(pathParams.warning_id))}`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Generate Key Fn
  * @description Generate an API key based on the provided data.
  * Docs: https://docs.litellm.ai/docs/proxy/virtual_keys
@@ -11707,7 +11846,7 @@ export async function testModelConnectionHealthTestConnectionPost(
  * - key_alias: Optional[str] - User defined key alias
  * - key: Optional[str] - User defined key value. Must start with 'sk-' and be at least 16 characters long. If not set, a 16-digit unique sk-key is created for you.
  * - team_id: Optional[str] - The team id of the key
- * - user_id: Optional[str] - The user id of the key
+ * - user_id: Optional[str] - The user id of the key. Non-admin callers may only pass their own id, except a team admin creating a key in a team they administer for another member of that team, when a proxy admin has added `create_member_keys` to `team_admin_editable_team_fields`. That member must have the `internal_user` or `internal_user_viewer` role, and the key is always an `llm_api` key.
  * - agent_id: Optional[str] - The agent id associated with the key.
  * - organization_id: Optional[str] - The organization id of the key. If not set, and team_id is set, the organization id will be the same as the team id. If conflict, an error will be raised.
  * - project_id: Optional[str] - The project id of the key. When set, models and max_budget are validated against the project's limits.
@@ -12217,7 +12356,8 @@ export async function deleteKeyFnKeyDeletePost(
  *       hour), so subtracting budget_duration from it does not give the window's start
  *     - model_max_budget: dict - Per-model budgets, e.g. {"gpt-4": {"budget_limit": 0.0005, "time_period": "30d"}}
  *     - model_max_budget_usage: dict | None - Current-window spend per model, present only when
- *       the key has per-model budgets
+ *       the key has per-model budgets. Each entry's budget_reset_at is when that model's open
+ *       window ends and its spend resets, or None when no window is open or it ends after year 9999
  *     - budget_limits: list | None - Concurrent budget windows, exactly as stored
  *     - budget_limits_usage: dict | None - Current-window spend per budget window, e.g.
  *       {"1h": {"current_spend": 0.0009}}, present only when the key has budget windows
@@ -13470,6 +13610,39 @@ export async function getUserDailyActivityExportUserDailyActivityExportGet(
 }
 
 /**
+ * @summary Get User Daily Activity Aggregated Users
+ * @link /user/daily/activity/aggregated/users
+ */
+export async function getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetResponse,
+		ErrorWrapper<GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQuery>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/user/daily/activity/aggregated/users`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Get User Daily Activity Cache Leakage Keys
  * @link /user/daily/activity/aggregated/cache_leakage_keys
  */
@@ -14451,9 +14624,11 @@ export async function sessionLogoutSessionLogoutPost(
  * - guardrails: Optional[List[str]] - Guardrails for the team. [Docs](https://docs.litellm.ai/docs/proxy/guardrails)
  * - policies: Optional[List[str]] - Policies for the team. [Docs](https://docs.litellm.ai/docs/proxy/guardrails/guardrail_policies)
  * - disable_global_guardrails: Optional[bool] - Whether to disable global guardrails for the team. Proxy admin only.
+ * - require_trace_id: Optional[bool] - Reject LLM, MCP and agent requests from this team that carry no trace ID.
  * - object_permission: Optional[LiteLLM_ObjectPermissionBase] - team-specific object permission. Example - {"vector_stores": ["vector_store_1", "vector_store_2"], "agents": ["agent_1", "agent_2"], "agent_access_groups": ["dev_group"]}. IF null or {} then no object permission.
  * - team_member_budget: Optional[float] - The maximum budget allocated to an individual team member.
  * - team_member_budget_duration: Optional[str] - The duration of the budget for the team member. Doc [here](https://docs.litellm.ai/docs/proxy/team_budgets)
+ * - team_member_model_max_budget: Optional[dict] - Per-model budgets shared by team members without an override.
  * - team_member_rpm_limit: Optional[int] - The RPM (Requests Per Minute) limit for individual team members.
  * - team_member_tpm_limit: Optional[int] - The TPM (Tokens Per Minute) limit for individual team members.
  * - team_member_key_duration: Optional[str] - The duration for a team member's key. e.g. "1d", "1w", "1mo"
@@ -14550,9 +14725,11 @@ export async function newTeamTeamNewPost(
  * - guardrails: Optional[List[str]] - Guardrails for the team. [Docs](https://docs.litellm.ai/docs/proxy/guardrails)
  * - policies: Optional[List[str]] - Policies for the team. [Docs](https://docs.litellm.ai/docs/proxy/guardrails/guardrail_policies)
  * - disable_global_guardrails: Optional[bool] - Whether to disable global guardrails for the team. Proxy admin only.
+ * - require_trace_id: Optional[bool] - Reject LLM, MCP and agent requests from this team that carry no trace ID.
  * - object_permission: Optional[LiteLLM_ObjectPermissionBase] - team-specific object permission. Example - {"vector_stores": ["vector_store_1", "vector_store_2"], "agents": ["agent_1", "agent_2"], "agent_access_groups": ["dev_group"]}. IF null or {} then no object permission.
  * - team_member_budget: Optional[float] - The maximum budget allocated to an individual team member.
  * - team_member_budget_duration: Optional[str] - The duration of the budget for the team member. Doc [here](https://docs.litellm.ai/docs/proxy/team_budgets)
+ * - team_member_model_max_budget: Optional[dict] - Per-model budgets shared by team members without an override.
  * - team_member_rpm_limit: Optional[int] - The RPM (Requests Per Minute) limit for individual team members.
  * - team_member_tpm_limit: Optional[int] - The TPM (Tokens Per Minute) limit for individual team members.
  * - team_member_key_duration: Optional[str] - The duration for a team member's key. e.g. "1d", "1w", "1mo"
@@ -16835,6 +17012,10 @@ export async function bulkDeleteUsersActionManagementV1UsersBulkDeletePost(
 /**
  * @summary View Spend Tags
  * @description LiteLLM Enterprise - View Spend Per Request Tag
+ * - Admin callers (PROXY_ADMIN / PROXY_ADMIN_VIEW_ONLY) see tag aggregates
+ *   across every spend log.
+ * - All other callers see aggregates over their own spend logs and those of
+ *   teams they may view, exactly like ``/spend/logs/ui``.
  * Example Request:
  * ```
  * curl -X GET "http://0.0.0.0:8000/spend/tags" -H "Authorization: Bearer $LITELLM_MASTER_KEY"
@@ -18471,6 +18652,10 @@ export async function latestReleaseInfoGetLatestReleaseInfoGet(
  *     - langfuse_host: The host for the Langfuse callback
  *     - langfuse_environment: The tracing environment for the Langfuse callback (lowercase; falls back to LANGFUSE_TRACING_ENVIRONMENT)
  *     - langfuse_span_scope: For langfuse_otel, "full" (default) sends the whole request trace, "llm_only" sends only the model-call spans
+ *     - capture_message_content: For OTel v2 callbacks, "no_content" or "span_only".
+ *       An explicit value overrides the global setting for this destination; omitted follows the proxy's own callback for that backend, else the global setting.
+ *       "span_only" puts prompt and response content on the destination's spans, "no_content" leaves it out
+ *     - excluded_services: For OTel v2 callbacks, a comma-separated list of datastore names such as "redis,postgres", or "none" to exclude nothing. An explicit value replaces the global exclusions; omitted follows them
  *     - gcs_bucket_name: The name of the GCS bucket
  *     - gcs_path_service_account: The path to the GCS service account
  *     - langsmith_api_key: The API key for the Langsmith callback
@@ -20815,383 +21000,6 @@ export async function deleteMemoryV1MemoryKeyDelete(
 }
 
 /**
- * @summary List Datasets
- * @link /lens/datasets
- */
-export async function listDatasetsLensDatasetsGet(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		ListDatasetsLensDatasetsGetResponse,
-		ErrorWrapper<Error>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "GET",
-		url: `/lens/datasets`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Create Dataset
- * @link /lens/datasets
- */
-export async function createDatasetLensDatasetsPost(
-	{
-		body,
-		config,
-	}: {
-		body: CreateDatasetLensDatasetsPostBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		CreateDatasetLensDatasetsPostResponse,
-		ErrorWrapper<CreateDatasetLensDatasetsPostStatus422>,
-		CreateDatasetLensDatasetsPostBody,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/lens/datasets`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Build Dataset Cases
- * @link /lens/datasets/build
- */
-export async function buildDatasetCasesLensDatasetsBuildPost(
-	{
-		body,
-		config,
-	}: {
-		body: BuildDatasetCasesLensDatasetsBuildPostBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		BuildDatasetCasesLensDatasetsBuildPostResponse,
-		ErrorWrapper<BuildDatasetCasesLensDatasetsBuildPostStatus422>,
-		BuildDatasetCasesLensDatasetsBuildPostBody,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/lens/datasets/build`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Read Dataset
- * @link /lens/datasets/{dataset_id}
- */
-export async function readDatasetLensDatasetsDatasetIdGet(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: ReadDatasetLensDatasetsDatasetIdGetPath;
-		queryParams?: Partial<ReadDatasetLensDatasetsDatasetIdGetQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.dataset_id == null || String(pathParams.dataset_id) === "") {
-		throw new Error(`Missing required path parameter: dataset_id`);
-	}
-	const data = await request<
-		ReadDatasetLensDatasetsDatasetIdGetResponse,
-		ErrorWrapper<ReadDatasetLensDatasetsDatasetIdGetStatus422>,
-		null,
-		Record<string, string>,
-		Partial<ReadDatasetLensDatasetsDatasetIdGetQuery>,
-		ReadDatasetLensDatasetsDatasetIdGetPath
-	>({
-		method: "GET",
-		url: `/lens/datasets/${encodeURIComponent(String(pathParams.dataset_id))}`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Save Revision
- * @link /lens/datasets/{dataset_id}/revisions
- */
-export async function saveRevisionLensDatasetsDatasetIdRevisionsPost(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: SaveRevisionLensDatasetsDatasetIdRevisionsPostPath;
-		body: SaveRevisionLensDatasetsDatasetIdRevisionsPostBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.dataset_id == null || String(pathParams.dataset_id) === "") {
-		throw new Error(`Missing required path parameter: dataset_id`);
-	}
-	const data = await request<
-		SaveRevisionLensDatasetsDatasetIdRevisionsPostResponse,
-		ErrorWrapper<SaveRevisionLensDatasetsDatasetIdRevisionsPostStatus422>,
-		SaveRevisionLensDatasetsDatasetIdRevisionsPostBody,
-		Record<string, string>,
-		Record<string, string>,
-		SaveRevisionLensDatasetsDatasetIdRevisionsPostPath
-	>({
-		method: "POST",
-		url: `/lens/datasets/${encodeURIComponent(String(pathParams.dataset_id))}/revisions`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Export Dataset
- * @link /lens/datasets/{dataset_id}/export
- */
-export async function exportDatasetLensDatasetsDatasetIdExportGet(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: ExportDatasetLensDatasetsDatasetIdExportGetPath;
-		queryParams?: Partial<ExportDatasetLensDatasetsDatasetIdExportGetQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.dataset_id == null || String(pathParams.dataset_id) === "") {
-		throw new Error(`Missing required path parameter: dataset_id`);
-	}
-	const data = await request<
-		ExportDatasetLensDatasetsDatasetIdExportGetResponse,
-		ErrorWrapper<ExportDatasetLensDatasetsDatasetIdExportGetStatus422>,
-		null,
-		Record<string, string>,
-		Partial<ExportDatasetLensDatasetsDatasetIdExportGetQuery>,
-		ExportDatasetLensDatasetsDatasetIdExportGetPath
-	>({
-		method: "GET",
-		url: `/lens/datasets/${encodeURIComponent(String(pathParams.dataset_id))}/export`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Eval Cases
- * @link /lens/datasets/{dataset_id}/revisions/{revision}/cases
- */
-export async function evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGet(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.dataset_id == null || String(pathParams.dataset_id) === "") {
-		throw new Error(`Missing required path parameter: dataset_id`);
-	}
-
-	if (pathParams?.revision == null || String(pathParams.revision) === "") {
-		throw new Error(`Missing required path parameter: revision`);
-	}
-	const data = await request<
-		EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetResponse,
-		ErrorWrapper<EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		EvalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetPath
-	>({
-		method: "GET",
-		url: `/lens/datasets/${encodeURIComponent(String(pathParams.dataset_id))}/revisions/${encodeURIComponent(String(pathParams.revision))}/cases`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Read Feedback
- * @link /lens/feedback
- */
-export async function readFeedbackLensFeedbackGet(
-	{
-		queryParams,
-		config,
-	}: {
-		queryParams?: Partial<ReadFeedbackLensFeedbackGetQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		ReadFeedbackLensFeedbackGetResponse,
-		ErrorWrapper<ReadFeedbackLensFeedbackGetStatus422>,
-		null,
-		Record<string, string>,
-		Partial<ReadFeedbackLensFeedbackGetQuery>,
-		Record<string, string>
-	>({
-		method: "GET",
-		url: `/lens/feedback`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Submit Feedback
- * @link /lens/feedback
- */
-export async function submitFeedbackLensFeedbackPut(
-	{
-		body,
-		config,
-	}: {
-		body: SubmitFeedbackLensFeedbackPutBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		SubmitFeedbackLensFeedbackPutResponse,
-		ErrorWrapper<SubmitFeedbackLensFeedbackPutStatus422>,
-		SubmitFeedbackLensFeedbackPutBody,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "PUT",
-		url: `/lens/feedback`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Delete Feedback
- * @link /lens/feedback
- */
-export async function deleteFeedbackLensFeedbackDelete(
-	{
-		queryParams,
-		config,
-	}: {
-		queryParams?: Partial<DeleteFeedbackLensFeedbackDeleteQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		DeleteFeedbackLensFeedbackDeleteResponse,
-		ErrorWrapper<DeleteFeedbackLensFeedbackDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Partial<DeleteFeedbackLensFeedbackDeleteQuery>,
-		Record<string, string>
-	>({
-		method: "DELETE",
-		url: `/lens/feedback`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Feedback Summary
- * @link /lens/feedback/summary
- */
-export async function feedbackSummaryLensFeedbackSummaryPost(
-	{
-		body,
-		config,
-	}: {
-		body: FeedbackSummaryLensFeedbackSummaryPostBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		FeedbackSummaryLensFeedbackSummaryPostResponse,
-		ErrorWrapper<FeedbackSummaryLensFeedbackSummaryPostStatus422>,
-		FeedbackSummaryLensFeedbackSummaryPostBody,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/lens/feedback/summary`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Service Connection
  * @link /lens/service
  */
@@ -21218,92 +21026,68 @@ export async function serviceConnectionLensServiceGet(
 }
 
 /**
- * @summary List Ingestion Keys
- * @link /lens/tracing/keys
+ * @summary Lens Request
+ * @link /lens/{path}
  */
-export async function listIngestionKeysLensTracingKeysGet(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		ListIngestionKeysLensTracingKeysGetResponse,
-		ErrorWrapper<Error>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "GET",
-		url: `/lens/tracing/keys`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Create Ingestion Key
- * @link /lens/tracing/keys
- */
-export async function createIngestionKeyLensTracingKeysPost(
-	{
-		body,
-		config,
-	}: {
-		body: CreateIngestionKeyLensTracingKeysPostBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		CreateIngestionKeyLensTracingKeysPostResponse,
-		ErrorWrapper<CreateIngestionKeyLensTracingKeysPostStatus422>,
-		CreateIngestionKeyLensTracingKeysPostBody,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/lens/tracing/keys`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Revoke Ingestion Key
- * @link /lens/tracing/keys/{key_id}
- */
-export async function revokeIngestionKeyLensTracingKeysKeyIdDelete(
+export async function lensRequestLensPathPost(
 	{
 		pathParams,
 		config,
 	}: {
-		pathParams: RevokeIngestionKeyLensTracingKeysKeyIdDeletePath;
+		pathParams: LensRequestLensPathPostPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams?.key_id == null || String(pathParams.key_id) === "") {
-		throw new Error(`Missing required path parameter: key_id`);
+	if (pathParams?.path == null || String(pathParams.path) === "") {
+		throw new Error(`Missing required path parameter: path`);
 	}
 	const data = await request<
-		RevokeIngestionKeyLensTracingKeysKeyIdDeleteResponse,
-		ErrorWrapper<RevokeIngestionKeyLensTracingKeysKeyIdDeleteStatus422>,
+		LensRequestLensPathPostResponse,
+		ErrorWrapper<LensRequestLensPathPostStatus422>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		RevokeIngestionKeyLensTracingKeysKeyIdDeletePath
+		LensRequestLensPathPostPath
+	>({
+		method: "POST",
+		url: `/lens/${String(pathParams.path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Lens Request
+ * @link /lens/{path}
+ */
+export async function lensRequestLensPathDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: LensRequestLensPathDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.path == null || String(pathParams.path) === "") {
+		throw new Error(`Missing required path parameter: path`);
+	}
+	const data = await request<
+		LensRequestLensPathDeleteResponse,
+		ErrorWrapper<LensRequestLensPathDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		LensRequestLensPathDeletePath
 	>({
 		method: "DELETE",
-		url: `/lens/tracing/keys/${encodeURIComponent(String(pathParams.key_id))}`,
+		url: `/lens/${String(pathParams.path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -21312,194 +21096,33 @@ export async function revokeIngestionKeyLensTracingKeysKeyIdDelete(
 }
 
 /**
- * @summary Ingestion Credentials
- * @link /lens/internal/ingestion-credentials
+ * @summary Lens Request
+ * @link /lens/{path}
  */
-export async function ingestionCredentialsLensInternalIngestionCredentialsGet(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		IngestionCredentialsLensInternalIngestionCredentialsGetResponse,
-		ErrorWrapper<Error>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "GET",
-		url: `/lens/internal/ingestion-credentials`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List Lenses
- * @link /lens
- */
-export async function listLensesLensGet(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		ListLensesLensGetResponse,
-		ErrorWrapper<Error>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "GET",
-		url: `/lens`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Create Lens
- * @link /lens
- */
-export async function createLensLensPost(
+export async function lensRequestLensPathPut(
 	{
-		body,
+		pathParams,
 		config,
 	}: {
-		body: CreateLensLensPostBody;
+		pathParams: LensRequestLensPathPutPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
+	if (pathParams?.path == null || String(pathParams.path) === "") {
+		throw new Error(`Missing required path parameter: path`);
+	}
 	const data = await request<
-		CreateLensLensPostResponse,
-		ErrorWrapper<CreateLensLensPostStatus422>,
-		CreateLensLensPostBody,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/lens`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Activity Available
- * @link /lens/activity/available
- */
-export async function activityAvailableLensActivityAvailableGet(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		ActivityAvailableLensActivityAvailableGetResponse,
-		ErrorWrapper<Error>,
+		LensRequestLensPathPutResponse,
+		ErrorWrapper<LensRequestLensPathPutStatus422>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "GET",
-		url: `/lens/activity/available`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List Agents
- * @link /lens/agents
- */
-export async function listAgentsLensAgentsGet(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		ListAgentsLensAgentsGetResponse,
-		ErrorWrapper<Error>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "GET",
-		url: `/lens/agents`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Get Signals
- * @link /lens/signals
- */
-export async function getSignalsLensSignalsGet(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		GetSignalsLensSignalsGetResponse,
-		ErrorWrapper<Error>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "GET",
-		url: `/lens/signals`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Put Signals
- * @link /lens/signals
- */
-export async function putSignalsLensSignalsPut(
-	{
-		body,
-		config,
-	}: {
-		body: PutSignalsLensSignalsPutBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		PutSignalsLensSignalsPutResponse,
-		ErrorWrapper<PutSignalsLensSignalsPutStatus422>,
-		PutSignalsLensSignalsPutBody,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
+		LensRequestLensPathPutPath
 	>({
 		method: "PUT",
-		url: `/lens/signals`,
-		body: body,
+		url: `/lens/${String(pathParams.path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -21508,397 +21131,33 @@ export async function putSignalsLensSignalsPut(
 }
 
 /**
- * @summary Trace Signal Statuses
- * @link /lens/traces/signals
+ * @summary Lens Request
+ * @link /lens/{path}
  */
-export async function traceSignalStatusesLensTracesSignalsPost(
+export async function lensRequestLensPathPatch(
 	{
-		body,
+		pathParams,
 		config,
 	}: {
-		body: TraceSignalStatusesLensTracesSignalsPostBody;
+		pathParams: LensRequestLensPathPatchPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
+	if (pathParams?.path == null || String(pathParams.path) === "") {
+		throw new Error(`Missing required path parameter: path`);
+	}
 	const data = await request<
-		TraceSignalStatusesLensTracesSignalsPostResponse,
-		ErrorWrapper<TraceSignalStatusesLensTracesSignalsPostStatus422>,
-		TraceSignalStatusesLensTracesSignalsPostBody,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/lens/traces/signals`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Trace Findings
- * @link /lens/traces/findings
- */
-export async function traceFindingsLensTracesFindingsPost(
-	{
-		body,
-		config,
-	}: {
-		body: TraceFindingsLensTracesFindingsPostBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		TraceFindingsLensTracesFindingsPostResponse,
-		ErrorWrapper<TraceFindingsLensTracesFindingsPostStatus422>,
-		TraceFindingsLensTracesFindingsPostBody,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/lens/traces/findings`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Watch All
- * @link /lens/watch-all
- */
-export async function watchAllLensWatchAllPost(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		WatchAllLensWatchAllPostResponse,
-		ErrorWrapper<Error>,
+		LensRequestLensPathPatchResponse,
+		ErrorWrapper<LensRequestLensPathPatchStatus422>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/lens/watch-all`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Update Lens
- * @link /lens/{lens_id}
- */
-export async function updateLensLensLensIdPut(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: UpdateLensLensLensIdPutPath;
-		body: UpdateLensLensLensIdPutBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.lens_id == null || String(pathParams.lens_id) === "") {
-		throw new Error(`Missing required path parameter: lens_id`);
-	}
-	const data = await request<
-		UpdateLensLensLensIdPutResponse,
-		ErrorWrapper<UpdateLensLensLensIdPutStatus422>,
-		UpdateLensLensLensIdPutBody,
-		Record<string, string>,
-		Record<string, string>,
-		UpdateLensLensLensIdPutPath
-	>({
-		method: "PUT",
-		url: `/lens/${encodeURIComponent(String(pathParams.lens_id))}`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Read Lens
- * @link /lens/{lens_id}
- */
-export async function readLensLensLensIdGet(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ReadLensLensLensIdGetPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.lens_id == null || String(pathParams.lens_id) === "") {
-		throw new Error(`Missing required path parameter: lens_id`);
-	}
-	const data = await request<
-		ReadLensLensLensIdGetResponse,
-		ErrorWrapper<ReadLensLensLensIdGetStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ReadLensLensLensIdGetPath
-	>({
-		method: "GET",
-		url: `/lens/${encodeURIComponent(String(pathParams.lens_id))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Run Lens
- * @link /lens/{lens_id}/runs
- */
-export async function runLensLensLensIdRunsPost(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: RunLensLensLensIdRunsPostPath;
-		body: RunLensLensLensIdRunsPostBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.lens_id == null || String(pathParams.lens_id) === "") {
-		throw new Error(`Missing required path parameter: lens_id`);
-	}
-	const data = await request<
-		RunLensLensLensIdRunsPostResponse,
-		ErrorWrapper<RunLensLensLensIdRunsPostStatus422>,
-		RunLensLensLensIdRunsPostBody,
-		Record<string, string>,
-		Record<string, string>,
-		RunLensLensLensIdRunsPostPath
-	>({
-		method: "POST",
-		url: `/lens/${encodeURIComponent(String(pathParams.lens_id))}/runs`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List Runs
- * @link /lens/{lens_id}/runs
- */
-export async function listRunsLensLensIdRunsGet(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: ListRunsLensLensIdRunsGetPath;
-		queryParams?: Partial<ListRunsLensLensIdRunsGetQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.lens_id == null || String(pathParams.lens_id) === "") {
-		throw new Error(`Missing required path parameter: lens_id`);
-	}
-	const data = await request<
-		ListRunsLensLensIdRunsGetResponse,
-		ErrorWrapper<ListRunsLensLensIdRunsGetStatus422>,
-		null,
-		Record<string, string>,
-		Partial<ListRunsLensLensIdRunsGetQuery>,
-		ListRunsLensLensIdRunsGetPath
-	>({
-		method: "GET",
-		url: `/lens/${encodeURIComponent(String(pathParams.lens_id))}/runs`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Read Run
- * @link /lens/{lens_id}/runs/{job_id}
- */
-export async function readRunLensLensIdRunsJobIdGet(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ReadRunLensLensIdRunsJobIdGetPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.lens_id == null || String(pathParams.lens_id) === "") {
-		throw new Error(`Missing required path parameter: lens_id`);
-	}
-
-	if (pathParams?.job_id == null || String(pathParams.job_id) === "") {
-		throw new Error(`Missing required path parameter: job_id`);
-	}
-	const data = await request<
-		ReadRunLensLensIdRunsJobIdGetResponse,
-		ErrorWrapper<ReadRunLensLensIdRunsJobIdGetStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ReadRunLensLensIdRunsJobIdGetPath
-	>({
-		method: "GET",
-		url: `/lens/${encodeURIComponent(String(pathParams.lens_id))}/runs/${encodeURIComponent(String(pathParams.job_id))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Read Reviews
- * @link /lens/{lens_id}/runs/{job_id}/reviews
- */
-export async function readReviewsLensLensIdRunsJobIdReviewsGet(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: ReadReviewsLensLensIdRunsJobIdReviewsGetPath;
-		queryParams?: Partial<ReadReviewsLensLensIdRunsJobIdReviewsGetQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.lens_id == null || String(pathParams.lens_id) === "") {
-		throw new Error(`Missing required path parameter: lens_id`);
-	}
-
-	if (pathParams?.job_id == null || String(pathParams.job_id) === "") {
-		throw new Error(`Missing required path parameter: job_id`);
-	}
-	const data = await request<
-		ReadReviewsLensLensIdRunsJobIdReviewsGetResponse,
-		ErrorWrapper<ReadReviewsLensLensIdRunsJobIdReviewsGetStatus422>,
-		null,
-		Record<string, string>,
-		Partial<ReadReviewsLensLensIdRunsJobIdReviewsGetQuery>,
-		ReadReviewsLensLensIdRunsJobIdReviewsGetPath
-	>({
-		method: "GET",
-		url: `/lens/${encodeURIComponent(String(pathParams.lens_id))}/runs/${encodeURIComponent(String(pathParams.job_id))}/reviews`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Cancel Lens
- * @link /lens/{lens_id}/cancel
- */
-export async function cancelLensLensLensIdCancelPost(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: CancelLensLensLensIdCancelPostPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.lens_id == null || String(pathParams.lens_id) === "") {
-		throw new Error(`Missing required path parameter: lens_id`);
-	}
-	const data = await request<
-		CancelLensLensLensIdCancelPostResponse,
-		ErrorWrapper<CancelLensLensLensIdCancelPostStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		CancelLensLensLensIdCancelPostPath
-	>({
-		method: "POST",
-		url: `/lens/${encodeURIComponent(String(pathParams.lens_id))}/cancel`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Update Finding
- * @link /lens/{lens_id}/findings/{finding_id}
- */
-export async function updateFindingLensLensIdFindingsFindingIdPatch(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: UpdateFindingLensLensIdFindingsFindingIdPatchPath;
-		body: UpdateFindingLensLensIdFindingsFindingIdPatchBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.lens_id == null || String(pathParams.lens_id) === "") {
-		throw new Error(`Missing required path parameter: lens_id`);
-	}
-
-	if (pathParams?.finding_id == null || String(pathParams.finding_id) === "") {
-		throw new Error(`Missing required path parameter: finding_id`);
-	}
-	const data = await request<
-		UpdateFindingLensLensIdFindingsFindingIdPatchResponse,
-		ErrorWrapper<UpdateFindingLensLensIdFindingsFindingIdPatchStatus422>,
-		UpdateFindingLensLensIdFindingsFindingIdPatchBody,
-		Record<string, string>,
-		Record<string, string>,
-		UpdateFindingLensLensIdFindingsFindingIdPatchPath
+		LensRequestLensPathPatchPath
 	>({
 		method: "PATCH",
-		url: `/lens/${encodeURIComponent(String(pathParams.lens_id))}/findings/${encodeURIComponent(String(pathParams.finding_id))}`,
-		body: body,
+		url: `/lens/${String(pathParams.path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -21907,137 +21166,99 @@ export async function updateFindingLensLensIdFindingsFindingIdPatch(
 }
 
 /**
- * @summary Preview Sample
- * @link /lens/preview/sample
+ * @summary Lens Request
+ * @link /lens/{path}
  */
-export async function previewSampleLensPreviewSamplePost(
-	{
-		body,
-		config,
-	}: {
-		body: PreviewSampleLensPreviewSamplePostBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		PreviewSampleLensPreviewSamplePostResponse,
-		ErrorWrapper<PreviewSampleLensPreviewSamplePostStatus422>,
-		PreviewSampleLensPreviewSamplePostBody,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/lens/preview/sample`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Register Worker
- * @link /lens/workers/register
- */
-export async function registerWorkerLensWorkersRegisterPost(
-	{
-		body,
-		config,
-	}: {
-		body: RegisterWorkerLensWorkersRegisterPostBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		RegisterWorkerLensWorkersRegisterPostResponse,
-		ErrorWrapper<RegisterWorkerLensWorkersRegisterPostStatus422>,
-		RegisterWorkerLensWorkersRegisterPostBody,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/lens/workers/register`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Set Worker Billing
- * @link /lens/workers/{worker_id}/billing-key
- */
-export async function setWorkerBillingLensWorkersWorkerIdBillingKeyPut(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: SetWorkerBillingLensWorkersWorkerIdBillingKeyPutPath;
-		body: SetWorkerBillingLensWorkersWorkerIdBillingKeyPutBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.worker_id == null || String(pathParams.worker_id) === "") {
-		throw new Error(`Missing required path parameter: worker_id`);
-	}
-	const data = await request<
-		SetWorkerBillingLensWorkersWorkerIdBillingKeyPutResponse,
-		ErrorWrapper<SetWorkerBillingLensWorkersWorkerIdBillingKeyPutStatus422>,
-		SetWorkerBillingLensWorkersWorkerIdBillingKeyPutBody,
-		Record<string, string>,
-		Record<string, string>,
-		SetWorkerBillingLensWorkersWorkerIdBillingKeyPutPath
-	>({
-		method: "PUT",
-		url: `/lens/workers/${encodeURIComponent(String(pathParams.worker_id))}/billing-key`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Revoke Worker
- * @link /lens/workers/{worker_id}
- */
-export async function revokeWorkerLensWorkersWorkerIdDelete(
+export async function lensRequestLensPathGet(
 	{
 		pathParams,
 		config,
 	}: {
-		pathParams: RevokeWorkerLensWorkersWorkerIdDeletePath;
+		pathParams: LensRequestLensPathGetPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams?.worker_id == null || String(pathParams.worker_id) === "") {
-		throw new Error(`Missing required path parameter: worker_id`);
+	if (pathParams?.path == null || String(pathParams.path) === "") {
+		throw new Error(`Missing required path parameter: path`);
 	}
 	const data = await request<
-		RevokeWorkerLensWorkersWorkerIdDeleteResponse,
-		ErrorWrapper<RevokeWorkerLensWorkersWorkerIdDeleteStatus422>,
+		LensRequestLensPathGetResponse,
+		ErrorWrapper<LensRequestLensPathGetStatus422>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		RevokeWorkerLensWorkersWorkerIdDeletePath
+		LensRequestLensPathGetPath
+	>({
+		method: "GET",
+		url: `/lens/${String(pathParams.path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Lens Request
+ * @link /lens
+ */
+export async function lensRequestLensPost(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<LensRequestLensPostQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		LensRequestLensPostResponse,
+		ErrorWrapper<LensRequestLensPostStatus422>,
+		null,
+		Record<string, string>,
+		Partial<LensRequestLensPostQuery>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/lens`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Lens Request
+ * @link /lens
+ */
+export async function lensRequestLensDelete(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<LensRequestLensDeleteQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		LensRequestLensDeleteResponse,
+		ErrorWrapper<LensRequestLensDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Partial<LensRequestLensDeleteQuery>,
+		Record<string, string>
 	>({
 		method: "DELETE",
-		url: `/lens/workers/${encodeURIComponent(String(pathParams.worker_id))}`,
+		url: `/lens`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -22046,30 +21267,30 @@ export async function revokeWorkerLensWorkersWorkerIdDelete(
 }
 
 /**
- * @summary Claim
- * @link /lens/worker/claim
+ * @summary Lens Request
+ * @link /lens
  */
-export async function claimLensWorkerClaimPost(
+export async function lensRequestLensPut(
 	{
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ClaimLensWorkerClaimPostQuery>;
+		queryParams?: Partial<LensRequestLensPutQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	const data = await request<
-		ClaimLensWorkerClaimPostResponse,
-		ErrorWrapper<ClaimLensWorkerClaimPostStatus422>,
+		LensRequestLensPutResponse,
+		ErrorWrapper<LensRequestLensPutStatus422>,
 		null,
 		Record<string, string>,
-		Partial<ClaimLensWorkerClaimPostQuery>,
+		Partial<LensRequestLensPutQuery>,
 		Record<string, string>
 	>({
-		method: "POST",
-		url: `/lens/worker/claim`,
+		method: "PUT",
+		url: `/lens`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -22079,373 +21300,63 @@ export async function claimLensWorkerClaimPost(
 }
 
 /**
- * @summary Progress
- * @link /lens/worker/{lens_id}/{job_id}/progress
+ * @summary Lens Request
+ * @link /lens
  */
-export async function progressLensWorkerLensIdJobIdProgressPost(
+export async function lensRequestLensPatch(
 	{
-		pathParams,
-		body,
-		headers,
-		config,
-	}: {
-		pathParams: ProgressLensWorkerLensIdJobIdProgressPostPath;
-		body: ProgressLensWorkerLensIdJobIdProgressPostBody;
-		headers?: Partial<ProgressLensWorkerLensIdJobIdProgressPostHeaders>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.lens_id == null || String(pathParams.lens_id) === "") {
-		throw new Error(`Missing required path parameter: lens_id`);
-	}
-
-	if (pathParams?.job_id == null || String(pathParams.job_id) === "") {
-		throw new Error(`Missing required path parameter: job_id`);
-	}
-	const data = await request<
-		ProgressLensWorkerLensIdJobIdProgressPostResponse,
-		ErrorWrapper<ProgressLensWorkerLensIdJobIdProgressPostStatus422>,
-		ProgressLensWorkerLensIdJobIdProgressPostBody,
-		Partial<ProgressLensWorkerLensIdJobIdProgressPostHeaders>,
-		Record<string, string>,
-		ProgressLensWorkerLensIdJobIdProgressPostPath
-	>({
-		method: "POST",
-		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/progress`,
-		body: body,
-		...requestConfig,
-		headers: {
-			...requestConfig.headers,
-			...Object.fromEntries(
-				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
-			),
-		},
-	});
-
-	return data;
-}
-
-/**
- * @summary Cached Reviews
- * @link /lens/worker/{lens_id}/{job_id}/reviews
- */
-export async function cachedReviewsLensWorkerLensIdJobIdReviewsGet(
-	{
-		pathParams,
-		headers,
-		config,
-	}: {
-		pathParams: CachedReviewsLensWorkerLensIdJobIdReviewsGetPath;
-		headers?: Partial<CachedReviewsLensWorkerLensIdJobIdReviewsGetHeaders>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.lens_id == null || String(pathParams.lens_id) === "") {
-		throw new Error(`Missing required path parameter: lens_id`);
-	}
-
-	if (pathParams?.job_id == null || String(pathParams.job_id) === "") {
-		throw new Error(`Missing required path parameter: job_id`);
-	}
-	const data = await request<
-		CachedReviewsLensWorkerLensIdJobIdReviewsGetResponse,
-		ErrorWrapper<CachedReviewsLensWorkerLensIdJobIdReviewsGetStatus422>,
-		null,
-		Partial<CachedReviewsLensWorkerLensIdJobIdReviewsGetHeaders>,
-		Record<string, string>,
-		CachedReviewsLensWorkerLensIdJobIdReviewsGetPath
-	>({
-		method: "GET",
-		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/reviews`,
-		...requestConfig,
-		headers: {
-			...requestConfig.headers,
-			...Object.fromEntries(
-				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
-			),
-		},
-	});
-
-	return data;
-}
-
-/**
- * @summary Sample
- * @link /lens/worker/{lens_id}/{job_id}/sample
- */
-export async function sampleLensWorkerLensIdJobIdSampleGet(
-	{
-		pathParams,
-		headers,
-		config,
-	}: {
-		pathParams: SampleLensWorkerLensIdJobIdSampleGetPath;
-		headers?: Partial<SampleLensWorkerLensIdJobIdSampleGetHeaders>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.lens_id == null || String(pathParams.lens_id) === "") {
-		throw new Error(`Missing required path parameter: lens_id`);
-	}
-
-	if (pathParams?.job_id == null || String(pathParams.job_id) === "") {
-		throw new Error(`Missing required path parameter: job_id`);
-	}
-	const data = await request<
-		SampleLensWorkerLensIdJobIdSampleGetResponse,
-		ErrorWrapper<SampleLensWorkerLensIdJobIdSampleGetStatus422>,
-		null,
-		Partial<SampleLensWorkerLensIdJobIdSampleGetHeaders>,
-		Record<string, string>,
-		SampleLensWorkerLensIdJobIdSampleGetPath
-	>({
-		method: "GET",
-		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/sample`,
-		...requestConfig,
-		headers: {
-			...requestConfig.headers,
-			...Object.fromEntries(
-				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
-			),
-		},
-	});
-
-	return data;
-}
-
-/**
- * @summary Content
- * @link /lens/worker/{lens_id}/{job_id}/content
- */
-export async function contentLensWorkerLensIdJobIdContentGet(
-	{
-		pathParams,
-		queryParams,
-		headers,
-		config,
-	}: {
-		pathParams: ContentLensWorkerLensIdJobIdContentGetPath;
-		queryParams: ContentLensWorkerLensIdJobIdContentGetQuery;
-		headers?: Partial<ContentLensWorkerLensIdJobIdContentGetHeaders>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.lens_id == null || String(pathParams.lens_id) === "") {
-		throw new Error(`Missing required path parameter: lens_id`);
-	}
-
-	if (pathParams?.job_id == null || String(pathParams.job_id) === "") {
-		throw new Error(`Missing required path parameter: job_id`);
-	}
-	const data = await request<
-		ContentLensWorkerLensIdJobIdContentGetResponse,
-		ErrorWrapper<ContentLensWorkerLensIdJobIdContentGetStatus422>,
-		null,
-		Partial<ContentLensWorkerLensIdJobIdContentGetHeaders>,
-		ContentLensWorkerLensIdJobIdContentGetQuery,
-		ContentLensWorkerLensIdJobIdContentGetPath
-	>({
-		method: "GET",
-		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/content`,
-		queryParams,
-		...requestConfig,
-		headers: {
-			...requestConfig.headers,
-			...Object.fromEntries(
-				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
-			),
-		},
-	});
-
-	return data;
-}
-
-/**
- * @summary Model
- * @link /lens/worker/{lens_id}/{job_id}/model
- */
-export async function modelLensWorkerLensIdJobIdModelPost(
-	{
-		pathParams,
-		body,
-		headers,
-		config,
-	}: {
-		pathParams: ModelLensWorkerLensIdJobIdModelPostPath;
-		body: ModelLensWorkerLensIdJobIdModelPostBody;
-		headers?: Partial<ModelLensWorkerLensIdJobIdModelPostHeaders>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.lens_id == null || String(pathParams.lens_id) === "") {
-		throw new Error(`Missing required path parameter: lens_id`);
-	}
-
-	if (pathParams?.job_id == null || String(pathParams.job_id) === "") {
-		throw new Error(`Missing required path parameter: job_id`);
-	}
-	const data = await request<
-		ModelLensWorkerLensIdJobIdModelPostResponse,
-		ErrorWrapper<ModelLensWorkerLensIdJobIdModelPostStatus422>,
-		ModelLensWorkerLensIdJobIdModelPostBody,
-		Partial<ModelLensWorkerLensIdJobIdModelPostHeaders>,
-		Record<string, string>,
-		ModelLensWorkerLensIdJobIdModelPostPath
-	>({
-		method: "POST",
-		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/model`,
-		body: body,
-		...requestConfig,
-		headers: {
-			...requestConfig.headers,
-			...Object.fromEntries(
-				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
-			),
-		},
-	});
-
-	return data;
-}
-
-/**
- * @summary Result
- * @link /lens/worker/{lens_id}/{job_id}/result
- */
-export async function resultLensWorkerLensIdJobIdResultPost(
-	{
-		pathParams,
-		body,
-		headers,
-		config,
-	}: {
-		pathParams: ResultLensWorkerLensIdJobIdResultPostPath;
-		body: ResultLensWorkerLensIdJobIdResultPostBody;
-		headers?: Partial<ResultLensWorkerLensIdJobIdResultPostHeaders>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.lens_id == null || String(pathParams.lens_id) === "") {
-		throw new Error(`Missing required path parameter: lens_id`);
-	}
-
-	if (pathParams?.job_id == null || String(pathParams.job_id) === "") {
-		throw new Error(`Missing required path parameter: job_id`);
-	}
-	const data = await request<
-		ResultLensWorkerLensIdJobIdResultPostResponse,
-		ErrorWrapper<ResultLensWorkerLensIdJobIdResultPostStatus422>,
-		ResultLensWorkerLensIdJobIdResultPostBody,
-		Partial<ResultLensWorkerLensIdJobIdResultPostHeaders>,
-		Record<string, string>,
-		ResultLensWorkerLensIdJobIdResultPostPath
-	>({
-		method: "POST",
-		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/result`,
-		body: body,
-		...requestConfig,
-		headers: {
-			...requestConfig.headers,
-			...Object.fromEntries(
-				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
-			),
-		},
-	});
-
-	return data;
-}
-
-/**
- * @summary Heartbeat
- * @link /lens/worker/{lens_id}/{job_id}/heartbeat
- */
-export async function heartbeatLensWorkerLensIdJobIdHeartbeatPost(
-	{
-		pathParams,
-		headers,
-		config,
-	}: {
-		pathParams: HeartbeatLensWorkerLensIdJobIdHeartbeatPostPath;
-		headers?: Partial<HeartbeatLensWorkerLensIdJobIdHeartbeatPostHeaders>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.lens_id == null || String(pathParams.lens_id) === "") {
-		throw new Error(`Missing required path parameter: lens_id`);
-	}
-
-	if (pathParams?.job_id == null || String(pathParams.job_id) === "") {
-		throw new Error(`Missing required path parameter: job_id`);
-	}
-	const data = await request<
-		HeartbeatLensWorkerLensIdJobIdHeartbeatPostResponse,
-		ErrorWrapper<HeartbeatLensWorkerLensIdJobIdHeartbeatPostStatus422>,
-		null,
-		Partial<HeartbeatLensWorkerLensIdJobIdHeartbeatPostHeaders>,
-		Record<string, string>,
-		HeartbeatLensWorkerLensIdJobIdHeartbeatPostPath
-	>({
-		method: "POST",
-		url: `/lens/worker/${encodeURIComponent(String(pathParams.lens_id))}/${encodeURIComponent(String(pathParams.job_id))}/heartbeat`,
-		...requestConfig,
-		headers: {
-			...requestConfig.headers,
-			...Object.fromEntries(
-				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
-			),
-		},
-	});
-
-	return data;
-}
-
-/**
- * @summary Evidence Content
- * @link /lens/{lens_id}/executions/{execution_id}
- */
-export async function evidenceContentLensLensIdExecutionsExecutionIdGet(
-	{
-		pathParams,
 		queryParams,
 		config,
 	}: {
-		pathParams: EvidenceContentLensLensIdExecutionsExecutionIdGetPath;
-		queryParams?: Partial<EvidenceContentLensLensIdExecutionsExecutionIdGetQuery>;
+		queryParams?: Partial<LensRequestLensPatchQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams?.lens_id == null || String(pathParams.lens_id) === "") {
-		throw new Error(`Missing required path parameter: lens_id`);
-	}
-
-	if (pathParams?.execution_id == null || String(pathParams.execution_id) === "") {
-		throw new Error(`Missing required path parameter: execution_id`);
-	}
 	const data = await request<
-		EvidenceContentLensLensIdExecutionsExecutionIdGetResponse,
-		ErrorWrapper<EvidenceContentLensLensIdExecutionsExecutionIdGetStatus422>,
+		LensRequestLensPatchResponse,
+		ErrorWrapper<LensRequestLensPatchStatus422>,
 		null,
 		Record<string, string>,
-		Partial<EvidenceContentLensLensIdExecutionsExecutionIdGetQuery>,
-		EvidenceContentLensLensIdExecutionsExecutionIdGetPath
+		Partial<LensRequestLensPatchQuery>,
+		Record<string, string>
+	>({
+		method: "PATCH",
+		url: `/lens`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Lens Request
+ * @link /lens
+ */
+export async function lensRequestLensGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<LensRequestLensGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		LensRequestLensGetResponse,
+		ErrorWrapper<LensRequestLensGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<LensRequestLensGetQuery>,
+		Record<string, string>
 	>({
 		method: "GET",
-		url: `/lens/${encodeURIComponent(String(pathParams.lens_id))}/executions/${encodeURIComponent(String(pathParams.execution_id))}`,
+		url: `/lens`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -22600,10 +21511,13 @@ export async function getCostDiscountConfigConfigCostDiscountConfigGet(
  * @description Update cost discount configuration.
  * Updates the cost_discount_config in litellm_settings.
  * Discounts should be between 0 and 1 (e.g., 0.05 = 5% discount).
+ * A key may also be <provider>/<model-pattern>, where the pattern is an
+ * fnmatch glob matched against the model name.
  * Example:
  * ```json
  * {
  *     "vertex_ai": 0.05,
+ *     "vertex_ai/claude-*": 0.20,
  *     "gemini": 0.05,
  *     "openai": 0.01
  * }
@@ -23575,6 +22489,200 @@ export async function getGatewayDailyActivityGatewayDailyActivityGet(
 		method: "GET",
 		url: `/gateway/daily/activity`,
 		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Request Error Activity
+ * @description Failed requests over time by HTTP status, and the keys, teams, users and
+ * model groups they land on. Deployment-wide, so admin-only.
+ * @link /gateway/errors/activity
+ */
+export async function getRequestErrorActivityGatewayErrorsActivityGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<GetRequestErrorActivityGatewayErrorsActivityGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		GetRequestErrorActivityGatewayErrorsActivityGetResponse,
+		ErrorWrapper<GetRequestErrorActivityGatewayErrorsActivityGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<GetRequestErrorActivityGatewayErrorsActivityGetQuery>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/gateway/errors/activity`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Record Ui Event
+ * @description Count one Admin UI page view or tab click. Events are dropped unless Page navigation is on
+ * @link /telemetry/ui_events
+ */
+export async function recordUiEventTelemetryUiEventsPost(
+	{
+		body,
+		config,
+	}: {
+		body: RecordUiEventTelemetryUiEventsPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		RecordUiEventTelemetryUiEventsPostResponse,
+		ErrorWrapper<RecordUiEventTelemetryUiEventsPostStatus422>,
+		RecordUiEventTelemetryUiEventsPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/telemetry/ui_events`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Export Telemetry Reports
+ * @description Stored telemetry reports, oldest first, for installs that keep telemetry local instead of sending it.
+ * Page with ``after=next_after&after_id=next_after_id`` until ``next_after`` is null. Another worker can commit a
+ * report just after a newer one is exported, so resume a later export a few windows before the last cursor and skip
+ * ids already seen
+ * @link /telemetry/reports
+ */
+export async function exportTelemetryReportsTelemetryReportsGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<ExportTelemetryReportsTelemetryReportsGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ExportTelemetryReportsTelemetryReportsGetResponse,
+		ErrorWrapper<ExportTelemetryReportsTelemetryReportsGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<ExportTelemetryReportsTelemetryReportsGetQuery>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/telemetry/reports`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Telemetry Settings
+ * @description Which telemetry groups are on, whether env vars control them, where reports go and a last or sample report.
+ * Nothing is recorded until a destination is chosen by ``LITELLM_TELEMETRY_DESTINATION`` or a saved setting
+ * @link /telemetry/settings
+ */
+export async function getTelemetrySettingsTelemetrySettingsGet(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		GetTelemetrySettingsTelemetrySettingsGetResponse,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/telemetry/settings`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Telemetry Settings
+ * @description Store the telemetry groups and destination for every worker, applied from the next report window
+ * @link /telemetry/settings
+ */
+export async function updateTelemetrySettingsTelemetrySettingsPut(
+	{
+		body,
+		config,
+	}: {
+		body: UpdateTelemetrySettingsTelemetrySettingsPutBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		UpdateTelemetrySettingsTelemetrySettingsPutResponse,
+		ErrorWrapper<UpdateTelemetrySettingsTelemetrySettingsPutStatus422>,
+		UpdateTelemetrySettingsTelemetrySettingsPutBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "PUT",
+		url: `/telemetry/settings`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Ui Events Enabled
+ * @link /telemetry/ui_events/enabled
+ */
+export async function uiEventsEnabledTelemetryUiEventsEnabledGet(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		UiEventsEnabledTelemetryUiEventsEnabledGetResponse,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/telemetry/ui_events/enabled`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -24667,7 +23775,7 @@ export async function deleteInteractionV1BetaInteractionsInteractionIdDelete(
 /**
  * @summary Cancel Interaction
  * @description Cancel an interaction by ID.
- * Per OpenAPI spec: POST /{api_version}/interactions/{interaction_id}:cancel
+ * Per OpenAPI spec: POST /{api_version}/interactions/{interaction_id}/cancel
  * @link /interactions/{interaction_id}/cancel
  */
 export async function cancelInteractionInteractionsInteractionIdCancelPost(
@@ -24704,7 +23812,7 @@ export async function cancelInteractionInteractionsInteractionIdCancelPost(
 /**
  * @summary Cancel Interaction
  * @description Cancel an interaction by ID.
- * Per OpenAPI spec: POST /{api_version}/interactions/{interaction_id}:cancel
+ * Per OpenAPI spec: POST /{api_version}/interactions/{interaction_id}/cancel
  * @link /v1beta/interactions/{interaction_id}/cancel
  */
 export async function cancelInteractionV1BetaInteractionsInteractionIdCancelPost(
@@ -25139,12 +24247,12 @@ export async function aggregateMcpRouteMcpPatch(
  * will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
-export async function toolsetMcpRouteToolsetToolsetNameMcpGet(
+export async function toolsetMcpRouteToolsetToolsetNameMcpPost(
 	{
 		pathParams,
 		config,
 	}: {
-		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpGetPath;
+		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpPostPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25154,54 +24262,14 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpGet(
 		throw new Error(`Missing required path parameter: toolset_name`);
 	}
 	const data = await request<
-		ToolsetMcpRouteToolsetToolsetNameMcpGetResponse,
-		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpGetStatus422>,
+		ToolsetMcpRouteToolsetToolsetNameMcpPostResponse,
+		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		ToolsetMcpRouteToolsetToolsetNameMcpGetPath
+		ToolsetMcpRouteToolsetToolsetNameMcpPostPath
 	>({
-		method: "GET",
-		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Toolset Mcp Route
- * @description Namespace a toolset as its own MCP endpoint.
- * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
- * @link /toolset/{toolset_name}/mcp
- */
-export async function toolsetMcpRouteToolsetToolsetNameMcpPatch(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpPatchPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
-		throw new Error(`Missing required path parameter: toolset_name`);
-	}
-	const data = await request<
-		ToolsetMcpRouteToolsetToolsetNameMcpPatchResponse,
-		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ToolsetMcpRouteToolsetToolsetNameMcpPatchPath
-	>({
-		method: "PATCH",
+		method: "POST",
 		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -25259,6 +24327,46 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpOptions(
  * will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
+export async function toolsetMcpRouteToolsetToolsetNameMcpDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
+		throw new Error(`Missing required path parameter: toolset_name`);
+	}
+	const data = await request<
+		ToolsetMcpRouteToolsetToolsetNameMcpDeleteResponse,
+		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		ToolsetMcpRouteToolsetToolsetNameMcpDeletePath
+	>({
+		method: "DELETE",
+		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Toolset Mcp Route
+ * @description Namespace a toolset as its own MCP endpoint.
+ * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
+ * the toolset. Access is enforced: non-admin API keys must have the toolset
+ * listed in their object_permission.mcp_toolsets grant list, or the request
+ * will be rejected with a 403.
+ * @link /toolset/{toolset_name}/mcp
+ */
 export async function toolsetMcpRouteToolsetToolsetNameMcpHead(
 	{
 		pathParams,
@@ -25282,46 +24390,6 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpHead(
 		ToolsetMcpRouteToolsetToolsetNameMcpHeadPath
 	>({
 		method: "HEAD",
-		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Toolset Mcp Route
- * @description Namespace a toolset as its own MCP endpoint.
- * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
- * @link /toolset/{toolset_name}/mcp
- */
-export async function toolsetMcpRouteToolsetToolsetNameMcpPost(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpPostPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
-		throw new Error(`Missing required path parameter: toolset_name`);
-	}
-	const data = await request<
-		ToolsetMcpRouteToolsetToolsetNameMcpPostResponse,
-		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ToolsetMcpRouteToolsetToolsetNameMcpPostPath
-	>({
-		method: "POST",
 		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -25379,12 +24447,12 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpPut(
  * will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
-export async function toolsetMcpRouteToolsetToolsetNameMcpDelete(
+export async function toolsetMcpRouteToolsetToolsetNameMcpPatch(
 	{
 		pathParams,
 		config,
 	}: {
-		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpDeletePath;
+		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpPatchPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25394,14 +24462,54 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpDelete(
 		throw new Error(`Missing required path parameter: toolset_name`);
 	}
 	const data = await request<
-		ToolsetMcpRouteToolsetToolsetNameMcpDeleteResponse,
-		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422>,
+		ToolsetMcpRouteToolsetToolsetNameMcpPatchResponse,
+		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		ToolsetMcpRouteToolsetToolsetNameMcpDeletePath
+		ToolsetMcpRouteToolsetToolsetNameMcpPatchPath
 	>({
-		method: "DELETE",
+		method: "PATCH",
+		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Toolset Mcp Route
+ * @description Namespace a toolset as its own MCP endpoint.
+ * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
+ * the toolset. Access is enforced: non-admin API keys must have the toolset
+ * listed in their object_permission.mcp_toolsets grant list, or the request
+ * will be rejected with a 403.
+ * @link /toolset/{toolset_name}/mcp
+ */
+export async function toolsetMcpRouteToolsetToolsetNameMcpGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
+		throw new Error(`Missing required path parameter: toolset_name`);
+	}
+	const data = await request<
+		ToolsetMcpRouteToolsetToolsetNameMcpGetResponse,
+		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		ToolsetMcpRouteToolsetToolsetNameMcpGetPath
+	>({
+		method: "GET",
 		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -25420,12 +24528,12 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpDelete(
  * 4. MCP access group tag (DB lookup, cached)
  * @link /{mcp_server_name}/mcp
  */
-export async function dynamicMcpRouteMcpServerNameMcpGet(
+export async function dynamicMcpRouteMcpServerNameMcpPost(
 	{
 		pathParams,
 		config,
 	}: {
-		pathParams: DynamicMcpRouteMcpServerNameMcpGetPath;
+		pathParams: DynamicMcpRouteMcpServerNameMcpPostPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25435,55 +24543,14 @@ export async function dynamicMcpRouteMcpServerNameMcpGet(
 		throw new Error(`Missing required path parameter: mcp_server_name`);
 	}
 	const data = await request<
-		DynamicMcpRouteMcpServerNameMcpGetResponse,
-		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpGetStatus422>,
+		DynamicMcpRouteMcpServerNameMcpPostResponse,
+		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpPostStatus422>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		DynamicMcpRouteMcpServerNameMcpGetPath
+		DynamicMcpRouteMcpServerNameMcpPostPath
 	>({
-		method: "GET",
-		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Dynamic Mcp Route
- * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
- * Resolution order:
- * 1. Registered MCP server alias / name
- * 2. Comma-separated list
- * 3. Toolset name (DB lookup, cached)
- * 4. MCP access group tag (DB lookup, cached)
- * @link /{mcp_server_name}/mcp
- */
-export async function dynamicMcpRouteMcpServerNameMcpPatch(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DynamicMcpRouteMcpServerNameMcpPatchPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
-		throw new Error(`Missing required path parameter: mcp_server_name`);
-	}
-	const data = await request<
-		DynamicMcpRouteMcpServerNameMcpPatchResponse,
-		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpPatchStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DynamicMcpRouteMcpServerNameMcpPatchPath
-	>({
-		method: "PATCH",
+		method: "POST",
 		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -25543,6 +24610,47 @@ export async function dynamicMcpRouteMcpServerNameMcpOptions(
  * 4. MCP access group tag (DB lookup, cached)
  * @link /{mcp_server_name}/mcp
  */
+export async function dynamicMcpRouteMcpServerNameMcpDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DynamicMcpRouteMcpServerNameMcpDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
+		throw new Error(`Missing required path parameter: mcp_server_name`);
+	}
+	const data = await request<
+		DynamicMcpRouteMcpServerNameMcpDeleteResponse,
+		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DynamicMcpRouteMcpServerNameMcpDeletePath
+	>({
+		method: "DELETE",
+		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Dynamic Mcp Route
+ * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
+ * Resolution order:
+ * 1. Registered MCP server alias / name
+ * 2. Comma-separated list
+ * 3. Toolset name (DB lookup, cached)
+ * 4. MCP access group tag (DB lookup, cached)
+ * @link /{mcp_server_name}/mcp
+ */
 export async function dynamicMcpRouteMcpServerNameMcpHead(
 	{
 		pathParams,
@@ -25566,47 +24674,6 @@ export async function dynamicMcpRouteMcpServerNameMcpHead(
 		DynamicMcpRouteMcpServerNameMcpHeadPath
 	>({
 		method: "HEAD",
-		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Dynamic Mcp Route
- * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
- * Resolution order:
- * 1. Registered MCP server alias / name
- * 2. Comma-separated list
- * 3. Toolset name (DB lookup, cached)
- * 4. MCP access group tag (DB lookup, cached)
- * @link /{mcp_server_name}/mcp
- */
-export async function dynamicMcpRouteMcpServerNameMcpPost(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DynamicMcpRouteMcpServerNameMcpPostPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
-		throw new Error(`Missing required path parameter: mcp_server_name`);
-	}
-	const data = await request<
-		DynamicMcpRouteMcpServerNameMcpPostResponse,
-		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpPostStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DynamicMcpRouteMcpServerNameMcpPostPath
-	>({
-		method: "POST",
 		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -25666,12 +24733,12 @@ export async function dynamicMcpRouteMcpServerNameMcpPut(
  * 4. MCP access group tag (DB lookup, cached)
  * @link /{mcp_server_name}/mcp
  */
-export async function dynamicMcpRouteMcpServerNameMcpDelete(
+export async function dynamicMcpRouteMcpServerNameMcpPatch(
 	{
 		pathParams,
 		config,
 	}: {
-		pathParams: DynamicMcpRouteMcpServerNameMcpDeletePath;
+		pathParams: DynamicMcpRouteMcpServerNameMcpPatchPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -25681,14 +24748,55 @@ export async function dynamicMcpRouteMcpServerNameMcpDelete(
 		throw new Error(`Missing required path parameter: mcp_server_name`);
 	}
 	const data = await request<
-		DynamicMcpRouteMcpServerNameMcpDeleteResponse,
-		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpDeleteStatus422>,
+		DynamicMcpRouteMcpServerNameMcpPatchResponse,
+		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpPatchStatus422>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		DynamicMcpRouteMcpServerNameMcpDeletePath
+		DynamicMcpRouteMcpServerNameMcpPatchPath
 	>({
-		method: "DELETE",
+		method: "PATCH",
+		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Dynamic Mcp Route
+ * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
+ * Resolution order:
+ * 1. Registered MCP server alias / name
+ * 2. Comma-separated list
+ * 3. Toolset name (DB lookup, cached)
+ * 4. MCP access group tag (DB lookup, cached)
+ * @link /{mcp_server_name}/mcp
+ */
+export async function dynamicMcpRouteMcpServerNameMcpGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DynamicMcpRouteMcpServerNameMcpGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
+		throw new Error(`Missing required path parameter: mcp_server_name`);
+	}
+	const data = await request<
+		DynamicMcpRouteMcpServerNameMcpGetResponse,
+		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DynamicMcpRouteMcpServerNameMcpGetPath
+	>({
+		method: "GET",
 		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -25798,6 +24906,87 @@ export async function websocketRealtimeWebsocketEndpointGet3(
 	>({
 		method: "GET",
 		url: `/openai/v1/realtime`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary WebSocket: live_sessions_websocket_endpoint
+ * @description WebSocket connection endpoint
+ * @link /live/sessions
+ */
+export async function websocketLiveSessionsWebsocketEndpointGet(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		WebsocketLiveSessionsWebsocketEndpointGetResponse,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/live/sessions`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary WebSocket: live_sessions_websocket_endpoint
+ * @description WebSocket connection endpoint
+ * @link /v1/live/sessions
+ */
+export async function websocketLiveSessionsWebsocketEndpointGet2(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		WebsocketLiveSessionsWebsocketEndpointGet2Response,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/v1/live/sessions`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary WebSocket: live_sessions_websocket_endpoint
+ * @description WebSocket connection endpoint
+ * @link /openai/v1/live/sessions
+ */
+export async function websocketLiveSessionsWebsocketEndpointGet3(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		WebsocketLiveSessionsWebsocketEndpointGet3Response,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/openai/v1/live/sessions`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -32678,6 +31867,64 @@ export async function listMcpUserEnvVarStatusV1McpUserEnvVarsStatusGet(
 }
 
 /**
+ * @summary Jwks Json
+ * @description JSON Web Key Set endpoint.
+ * Returns the RSA public key used by MCPJWTSigner to sign outbound MCP tokens.
+ * MCP servers and gateways use this endpoint to verify liteLLM-issued JWTs.
+ * Returns an empty key set if MCPJWTSigner is not configured.
+ * @link /.well-known/jwks.json
+ */
+export async function jwksJsonWellKnownJwksJsonGet(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		JwksJsonWellKnownJwksJsonGetResponse,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/.well-known/jwks.json`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Native Client Auth Discovery
+ * @description The versioned contract a native client (``lite login --pkce``, or a CLI in any other
+ * language) reads to sign a user in through the browser and obtain a proxy credential.
+ * @link /.well-known/litellm-cli-auth
+ */
+export async function nativeClientAuthDiscoveryWellKnownLitellmCliAuthGet(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		NativeClientAuthDiscoveryWellKnownLitellmCliAuthGetResponse,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/.well-known/litellm-cli-auth`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Oauth Authorization Server Mcp
  * @description OAuth authorization server discovery endpoint.
  * Supports both legacy pattern (/{server_name}) and root endpoint.
@@ -32987,64 +32234,6 @@ export async function oauthProtectedResourceMcpWellKnownOauthProtectedResourceMc
 	>({
 		method: "GET",
 		url: `/.well-known/oauth-protected-resource/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Jwks Json
- * @description JSON Web Key Set endpoint.
- * Returns the RSA public key used by MCPJWTSigner to sign outbound MCP tokens.
- * MCP servers and gateways use this endpoint to verify liteLLM-issued JWTs.
- * Returns an empty key set if MCPJWTSigner is not configured.
- * @link /.well-known/jwks.json
- */
-export async function jwksJsonWellKnownJwksJsonGet(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		JwksJsonWellKnownJwksJsonGetResponse,
-		ErrorWrapper<Error>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "GET",
-		url: `/.well-known/jwks.json`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Native Client Auth Discovery
- * @description The versioned contract a native client (``lite login --pkce``, or a CLI in any other
- * language) reads to sign a user in through the browser and obtain a proxy credential.
- * @link /.well-known/litellm-cli-auth
- */
-export async function nativeClientAuthDiscoveryWellKnownLitellmCliAuthGet(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		NativeClientAuthDiscoveryWellKnownLitellmCliAuthGetResponse,
-		ErrorWrapper<Error>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "GET",
-		url: `/.well-known/litellm-cli-auth`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -35461,7 +34650,7 @@ export async function systemoneV1SystemonePost(
  * - claude plugin install <name>@<marketplace>
  * Without `key` the catalog holds the enabled (public) plugins. With `?key=sk-...`
  * the key is authenticated and the catalog also holds the disabled plugins granted
- * to it through `object_permission.skills` on the key or its team.
+ * to it through `object_permission.skills` or an access group on the key or its team.
  * Returns:
  *     Marketplace catalog with list of available plugins and their git sources.
  * Example:
@@ -35558,6 +34747,7 @@ export async function listPluginsClaudeCodePluginsGet(
  *     - homepage: Plugin homepage URL (optional)
  *     - keywords: Search keywords (optional)
  *     - category: Plugin category (optional)
+ *     - installation_preference: 'available', 'auto_install', or 'required' (optional)
  * Returns:
  *     Registration status (action is always "created") and plugin information.
  * Example:
@@ -35702,6 +34892,7 @@ export async function getPluginClaudeCodePluginsPluginNameGet(
  *     - homepage: Plugin homepage URL (optional)
  *     - keywords: Search keywords (optional)
  *     - category: Plugin category (optional)
+ *     - installation_preference: 'available', 'auto_install', or 'required' (optional)
  * Returns:
  *     Update status (action is always "updated") and plugin information.
  * Example:
@@ -38407,6 +37598,13 @@ export const operationsByPath = {
 	"GET /credentials/{credential_name}/jwks":
 		getCredentialInternalIssuerJwksCredentialsCredentialNameJwksGet,
 	"GET /credentials/by_model/{model_id}": getCredentialByModelCredentialsByModelModelIdGet,
+	"GET /credentials/user_connections": listUserConnectionsCredentialsUserConnectionsGet,
+	"POST /credentials/{credential_name}/user_connection/start":
+		startUserConnectionCredentialsCredentialNameUserConnectionStartPost,
+	"POST /credentials/{credential_name}/user_connection/poll":
+		pollUserConnectionCredentialsCredentialNameUserConnectionPollPost,
+	"DELETE /credentials/{credential_name}/user_connection":
+		deleteUserConnectionCredentialsCredentialNameUserConnectionDelete,
 	"DELETE /credentials/{credential_name}": deleteCredentialCredentialsCredentialNameDelete,
 	"PATCH /credentials/{credential_name}": updateCredentialCredentialsCredentialNamePatch,
 	"POST /batches": createBatchBatchesPost,
@@ -38462,6 +37660,9 @@ export const operationsByPath = {
 	"GET /health/liveliness": healthLivelinessHealthLivelinessGet,
 	"OPTIONS /health/liveliness": healthLivelinessOptionsHealthLivelinessOptions,
 	"POST /health/test_connection": testModelConnectionHealthTestConnectionPost,
+	"GET /health/deployment_warnings": getDeploymentWarningsHealthDeploymentWarningsGet,
+	"PATCH /health/deployment_warnings/{warning_id}":
+		updateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatch,
 	"POST /key/generate": generateKeyFnKeyGeneratePost,
 	"POST /key/service-account/generate": generateServiceAccountKeyFnKeyServiceAccountGeneratePost,
 	"POST /key/update": updateKeyFnKeyUpdatePost,
@@ -38497,6 +37698,8 @@ export const operationsByPath = {
 	"GET /user/daily/activity/aggregated/model_top_keys":
 		getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGet,
 	"GET /user/daily/activity/export": getUserDailyActivityExportUserDailyActivityExportGet,
+	"GET /user/daily/activity/aggregated/users":
+		getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGet,
 	"GET /user/daily/activity/aggregated/cache_leakage_keys":
 		getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGet,
 	"GET /team/daily/activity/aggregated":
@@ -38716,55 +37919,17 @@ export const operationsByPath = {
 	"GET /v1/memory/{key}": getMemoryV1MemoryKeyGet,
 	"PUT /v1/memory/{key}": upsertMemoryV1MemoryKeyPut,
 	"DELETE /v1/memory/{key}": deleteMemoryV1MemoryKeyDelete,
-	"GET /lens/datasets": listDatasetsLensDatasetsGet,
-	"POST /lens/datasets": createDatasetLensDatasetsPost,
-	"POST /lens/datasets/build": buildDatasetCasesLensDatasetsBuildPost,
-	"GET /lens/datasets/{dataset_id}": readDatasetLensDatasetsDatasetIdGet,
-	"POST /lens/datasets/{dataset_id}/revisions": saveRevisionLensDatasetsDatasetIdRevisionsPost,
-	"GET /lens/datasets/{dataset_id}/export": exportDatasetLensDatasetsDatasetIdExportGet,
-	"GET /lens/datasets/{dataset_id}/revisions/{revision}/cases":
-		evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGet,
-	"GET /lens/feedback": readFeedbackLensFeedbackGet,
-	"PUT /lens/feedback": submitFeedbackLensFeedbackPut,
-	"DELETE /lens/feedback": deleteFeedbackLensFeedbackDelete,
-	"POST /lens/feedback/summary": feedbackSummaryLensFeedbackSummaryPost,
 	"GET /lens/service": serviceConnectionLensServiceGet,
-	"GET /lens/tracing/keys": listIngestionKeysLensTracingKeysGet,
-	"POST /lens/tracing/keys": createIngestionKeyLensTracingKeysPost,
-	"DELETE /lens/tracing/keys/{key_id}": revokeIngestionKeyLensTracingKeysKeyIdDelete,
-	"GET /lens/internal/ingestion-credentials":
-		ingestionCredentialsLensInternalIngestionCredentialsGet,
-	"GET /lens": listLensesLensGet,
-	"POST /lens": createLensLensPost,
-	"GET /lens/activity/available": activityAvailableLensActivityAvailableGet,
-	"GET /lens/agents": listAgentsLensAgentsGet,
-	"GET /lens/signals": getSignalsLensSignalsGet,
-	"PUT /lens/signals": putSignalsLensSignalsPut,
-	"POST /lens/traces/signals": traceSignalStatusesLensTracesSignalsPost,
-	"POST /lens/traces/findings": traceFindingsLensTracesFindingsPost,
-	"POST /lens/watch-all": watchAllLensWatchAllPost,
-	"PUT /lens/{lens_id}": updateLensLensLensIdPut,
-	"GET /lens/{lens_id}": readLensLensLensIdGet,
-	"POST /lens/{lens_id}/runs": runLensLensLensIdRunsPost,
-	"GET /lens/{lens_id}/runs": listRunsLensLensIdRunsGet,
-	"GET /lens/{lens_id}/runs/{job_id}": readRunLensLensIdRunsJobIdGet,
-	"GET /lens/{lens_id}/runs/{job_id}/reviews": readReviewsLensLensIdRunsJobIdReviewsGet,
-	"POST /lens/{lens_id}/cancel": cancelLensLensLensIdCancelPost,
-	"PATCH /lens/{lens_id}/findings/{finding_id}": updateFindingLensLensIdFindingsFindingIdPatch,
-	"POST /lens/preview/sample": previewSampleLensPreviewSamplePost,
-	"POST /lens/workers/register": registerWorkerLensWorkersRegisterPost,
-	"PUT /lens/workers/{worker_id}/billing-key": setWorkerBillingLensWorkersWorkerIdBillingKeyPut,
-	"DELETE /lens/workers/{worker_id}": revokeWorkerLensWorkersWorkerIdDelete,
-	"POST /lens/worker/claim": claimLensWorkerClaimPost,
-	"POST /lens/worker/{lens_id}/{job_id}/progress": progressLensWorkerLensIdJobIdProgressPost,
-	"GET /lens/worker/{lens_id}/{job_id}/reviews": cachedReviewsLensWorkerLensIdJobIdReviewsGet,
-	"GET /lens/worker/{lens_id}/{job_id}/sample": sampleLensWorkerLensIdJobIdSampleGet,
-	"GET /lens/worker/{lens_id}/{job_id}/content": contentLensWorkerLensIdJobIdContentGet,
-	"POST /lens/worker/{lens_id}/{job_id}/model": modelLensWorkerLensIdJobIdModelPost,
-	"POST /lens/worker/{lens_id}/{job_id}/result": resultLensWorkerLensIdJobIdResultPost,
-	"POST /lens/worker/{lens_id}/{job_id}/heartbeat": heartbeatLensWorkerLensIdJobIdHeartbeatPost,
-	"GET /lens/{lens_id}/executions/{execution_id}":
-		evidenceContentLensLensIdExecutionsExecutionIdGet,
+	"POST /lens/{path}": lensRequestLensPathPost,
+	"DELETE /lens/{path}": lensRequestLensPathDelete,
+	"PUT /lens/{path}": lensRequestLensPathPut,
+	"PATCH /lens/{path}": lensRequestLensPathPatch,
+	"GET /lens/{path}": lensRequestLensPathGet,
+	"POST /lens": lensRequestLensPost,
+	"DELETE /lens": lensRequestLensDelete,
+	"PUT /lens": lensRequestLensPut,
+	"PATCH /lens": lensRequestLensPatch,
+	"GET /lens": lensRequestLensGet,
 	"GET /api/plugins": listPluginsApiPluginsGet,
 	"GET /api/plugins/auth-token": pluginAuthTokenApiPluginsAuthTokenGet,
 	"POST /cost/predict-cache": predictCacheCostCostPredictCachePost,
@@ -38798,6 +37963,12 @@ export const operationsByPath = {
 	"GET /tag/summary": getTagSummaryTagSummaryGet,
 	"GET /tag/user-agent/per-user-analytics": getPerUserAnalyticsTagUserAgentPerUserAnalyticsGet,
 	"GET /gateway/daily/activity": getGatewayDailyActivityGatewayDailyActivityGet,
+	"GET /gateway/errors/activity": getRequestErrorActivityGatewayErrorsActivityGet,
+	"POST /telemetry/ui_events": recordUiEventTelemetryUiEventsPost,
+	"GET /telemetry/reports": exportTelemetryReportsTelemetryReportsGet,
+	"GET /telemetry/settings": getTelemetrySettingsTelemetrySettingsGet,
+	"PUT /telemetry/settings": updateTelemetrySettingsTelemetrySettingsPut,
+	"GET /telemetry/ui_events/enabled": uiEventsEnabledTelemetryUiEventsEnabledGet,
 	"GET /email/event_settings": getEmailEventSettingsEmailEventSettingsGet,
 	"PATCH /email/event_settings": updateEventSettingsEmailEventSettingsPatch,
 	"POST /email/event_settings/reset": resetEventSettingsEmailEventSettingsResetPost,
@@ -38850,24 +38021,27 @@ export const operationsByPath = {
 	"OPTIONS /mcp": aggregateMcpRouteMcpOptions,
 	"HEAD /mcp": aggregateMcpRouteMcpHead,
 	"PATCH /mcp": aggregateMcpRouteMcpPatch,
-	"GET /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpGet,
-	"PATCH /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPatch,
-	"OPTIONS /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpOptions,
-	"HEAD /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpHead,
 	"POST /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPost,
-	"PUT /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPut,
+	"OPTIONS /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpOptions,
 	"DELETE /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpDelete,
-	"GET /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpGet,
-	"PATCH /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPatch,
-	"OPTIONS /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpOptions,
-	"HEAD /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpHead,
+	"HEAD /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpHead,
+	"PUT /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPut,
+	"PATCH /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPatch,
+	"GET /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpGet,
 	"POST /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPost,
-	"PUT /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPut,
+	"OPTIONS /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpOptions,
 	"DELETE /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpDelete,
+	"HEAD /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpHead,
+	"PUT /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPut,
+	"PATCH /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPatch,
+	"GET /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpGet,
 	"GET /vertex_ai/live": websocketVertexAiLivePassthroughEndpoint,
 	"GET /realtime": websocketRealtimeWebsocketEndpointGet,
 	"GET /v1/realtime": websocketRealtimeWebsocketEndpointGet2,
 	"GET /openai/v1/realtime": websocketRealtimeWebsocketEndpointGet3,
+	"GET /live/sessions": websocketLiveSessionsWebsocketEndpointGet,
+	"GET /v1/live/sessions": websocketLiveSessionsWebsocketEndpointGet2,
+	"GET /openai/v1/live/sessions": websocketLiveSessionsWebsocketEndpointGet3,
 	"POST /apply_guardrail": applyGuardrailApplyGuardrailPost,
 	"POST /guardrails": createGuardrailGuardrailsPost,
 	"POST /guardrails/apply_guardrail": applyGuardrailGuardrailsApplyGuardrailPost,
@@ -39072,6 +38246,8 @@ export const operationsByPath = {
 	"GET /v1/mcp/toolset/{toolset_id}": fetchMcpToolsetV1McpToolsetToolsetIdGet,
 	"GET /v1/mcp/user-credentials": listMcpUserCredentialsV1McpUserCredentialsGet,
 	"GET /v1/mcp/user-env-vars/status": listMcpUserEnvVarStatusV1McpUserEnvVarsStatusGet,
+	"GET /.well-known/jwks.json": jwksJsonWellKnownJwksJsonGet,
+	"GET /.well-known/litellm-cli-auth": nativeClientAuthDiscoveryWellKnownLitellmCliAuthGet,
 	"GET /.well-known/oauth-authorization-server":
 		oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerGet,
 	"GET /.well-known/oauth-authorization-server/mcp":
@@ -39090,8 +38266,6 @@ export const operationsByPath = {
 		oauthProtectedResourceMcpStandardWellKnownOauthProtectedResourceMcpMcpServerNameGet,
 	"GET /.well-known/oauth-protected-resource/{mcp_server_name}/mcp":
 		oauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNameMcpGet,
-	"GET /.well-known/jwks.json": jwksJsonWellKnownJwksJsonGet,
-	"GET /.well-known/litellm-cli-auth": nativeClientAuthDiscoveryWellKnownLitellmCliAuthGet,
 	"GET /.well-known/openid-configuration": openidConfigurationWellKnownOpenidConfigurationGet,
 	"GET /authorize": authorizeAuthorizeGet,
 	"POST /authorize/complete": authorizeCompleteAuthorizeCompletePost,
@@ -39358,20 +38532,20 @@ export const operationsByTag = {
 		aggregateMcpRouteMcpOptions,
 		aggregateMcpRouteMcpHead,
 		aggregateMcpRouteMcpPatch,
-		toolsetMcpRouteToolsetToolsetNameMcpGet,
-		toolsetMcpRouteToolsetToolsetNameMcpPatch,
-		toolsetMcpRouteToolsetToolsetNameMcpOptions,
-		toolsetMcpRouteToolsetToolsetNameMcpHead,
 		toolsetMcpRouteToolsetToolsetNameMcpPost,
-		toolsetMcpRouteToolsetToolsetNameMcpPut,
+		toolsetMcpRouteToolsetToolsetNameMcpOptions,
 		toolsetMcpRouteToolsetToolsetNameMcpDelete,
-		dynamicMcpRouteMcpServerNameMcpGet,
-		dynamicMcpRouteMcpServerNameMcpPatch,
-		dynamicMcpRouteMcpServerNameMcpOptions,
-		dynamicMcpRouteMcpServerNameMcpHead,
+		toolsetMcpRouteToolsetToolsetNameMcpHead,
+		toolsetMcpRouteToolsetToolsetNameMcpPut,
+		toolsetMcpRouteToolsetToolsetNameMcpPatch,
+		toolsetMcpRouteToolsetToolsetNameMcpGet,
 		dynamicMcpRouteMcpServerNameMcpPost,
-		dynamicMcpRouteMcpServerNameMcpPut,
+		dynamicMcpRouteMcpServerNameMcpOptions,
 		dynamicMcpRouteMcpServerNameMcpDelete,
+		dynamicMcpRouteMcpServerNameMcpHead,
+		dynamicMcpRouteMcpServerNameMcpPut,
+		dynamicMcpRouteMcpServerNameMcpPatch,
+		dynamicMcpRouteMcpServerNameMcpGet,
 	},
 	adaptiveRouter: {
 		getAdaptiveRouterStateAdaptiveRouterStateGet,
@@ -39549,6 +38723,10 @@ export const operationsByTag = {
 		getCredentialByNameCredentialsByNameCredentialNameGet,
 		getCredentialInternalIssuerJwksCredentialsCredentialNameJwksGet,
 		getCredentialByModelCredentialsByModelModelIdGet,
+		listUserConnectionsCredentialsUserConnectionsGet,
+		startUserConnectionCredentialsCredentialNameUserConnectionStartPost,
+		pollUserConnectionCredentialsCredentialNameUserConnectionPollPost,
+		deleteUserConnectionCredentialsCredentialNameUserConnectionDelete,
 		deleteCredentialCredentialsCredentialNameDelete,
 		updateCredentialCredentialsCredentialNamePatch,
 		migrateEncryptionEndpointCredentialsMigrateEncryptionPost,
@@ -39605,6 +38783,8 @@ export const operationsByTag = {
 		healthLivelinessHealthLivelinessGet,
 		healthLivelinessOptionsHealthLivelinessOptions,
 		testModelConnectionHealthTestConnectionPost,
+		getDeploymentWarningsHealthDeploymentWarningsGet,
+		updateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatch,
 	},
 	keyManagement: {
 		generateKeyFnKeyGeneratePost,
@@ -39637,6 +38817,7 @@ export const operationsByTag = {
 		getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGet,
 		getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGet,
 		getUserDailyActivityExportUserDailyActivityExportGet,
+		getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGet,
 		getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGet,
 		changePasswordUserPasswordChangePost,
 		bulkCreateUsersRouteManagementV1UsersBulkPost,
@@ -39650,6 +38831,7 @@ export const operationsByTag = {
 		getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGet,
 		getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGet,
 		getUserDailyActivityExportUserDailyActivityExportGet,
+		getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGet,
 		getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGet,
 		listSpendLogEndUsersManagementV1SpendLogsEndUsersGet,
 		listSpendLogUsersManagementV1SpendLogsUsersGet,
@@ -39668,6 +38850,7 @@ export const operationsByTag = {
 		addAllowedIpAddAllowedIpPost,
 		deleteAllowedIpDeleteAllowedIpPost,
 		getGatewayDailyActivityGatewayDailyActivityGet,
+		getRequestErrorActivityGatewayErrorsActivityGet,
 	},
 	teamManagement: {
 		getTeamDailyActivityAggregatedTeamDailyActivityAggregatedGet,
@@ -39843,52 +39026,17 @@ export const operationsByTag = {
 		deleteMemoryV1MemoryKeyDelete,
 	},
 	lens: {
-		listDatasetsLensDatasetsGet,
-		createDatasetLensDatasetsPost,
-		buildDatasetCasesLensDatasetsBuildPost,
-		readDatasetLensDatasetsDatasetIdGet,
-		saveRevisionLensDatasetsDatasetIdRevisionsPost,
-		exportDatasetLensDatasetsDatasetIdExportGet,
-		evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGet,
-		readFeedbackLensFeedbackGet,
-		submitFeedbackLensFeedbackPut,
-		deleteFeedbackLensFeedbackDelete,
-		feedbackSummaryLensFeedbackSummaryPost,
 		serviceConnectionLensServiceGet,
-		listIngestionKeysLensTracingKeysGet,
-		createIngestionKeyLensTracingKeysPost,
-		revokeIngestionKeyLensTracingKeysKeyIdDelete,
-		ingestionCredentialsLensInternalIngestionCredentialsGet,
-		listLensesLensGet,
-		createLensLensPost,
-		activityAvailableLensActivityAvailableGet,
-		listAgentsLensAgentsGet,
-		getSignalsLensSignalsGet,
-		putSignalsLensSignalsPut,
-		traceSignalStatusesLensTracesSignalsPost,
-		traceFindingsLensTracesFindingsPost,
-		watchAllLensWatchAllPost,
-		updateLensLensLensIdPut,
-		readLensLensLensIdGet,
-		runLensLensLensIdRunsPost,
-		listRunsLensLensIdRunsGet,
-		readRunLensLensIdRunsJobIdGet,
-		readReviewsLensLensIdRunsJobIdReviewsGet,
-		cancelLensLensLensIdCancelPost,
-		updateFindingLensLensIdFindingsFindingIdPatch,
-		previewSampleLensPreviewSamplePost,
-		registerWorkerLensWorkersRegisterPost,
-		setWorkerBillingLensWorkersWorkerIdBillingKeyPut,
-		revokeWorkerLensWorkersWorkerIdDelete,
-		claimLensWorkerClaimPost,
-		progressLensWorkerLensIdJobIdProgressPost,
-		cachedReviewsLensWorkerLensIdJobIdReviewsGet,
-		sampleLensWorkerLensIdJobIdSampleGet,
-		contentLensWorkerLensIdJobIdContentGet,
-		modelLensWorkerLensIdJobIdModelPost,
-		resultLensWorkerLensIdJobIdResultPost,
-		heartbeatLensWorkerLensIdJobIdHeartbeatPost,
-		evidenceContentLensLensIdExecutionsExecutionIdGet,
+		lensRequestLensPathPost,
+		lensRequestLensPathDelete,
+		lensRequestLensPathPut,
+		lensRequestLensPathPatch,
+		lensRequestLensPathGet,
+		lensRequestLensPost,
+		lensRequestLensDelete,
+		lensRequestLensPut,
+		lensRequestLensPatch,
+		lensRequestLensGet,
 	},
 	plugins: {
 		listPluginsApiPluginsGet,
@@ -39933,6 +39081,13 @@ export const operationsByTag = {
 		getMonthlyActiveUsersTagMauGet,
 		getTagSummaryTagSummaryGet,
 		getPerUserAnalyticsTagUserAgentPerUserAnalyticsGet,
+	},
+	telemetry: {
+		recordUiEventTelemetryUiEventsPost,
+		exportTelemetryReportsTelemetryReportsGet,
+		getTelemetrySettingsTelemetrySettingsGet,
+		updateTelemetrySettingsTelemetrySettingsPut,
+		uiEventsEnabledTelemetryUiEventsEnabledGet,
 	},
 	emailManagement: {
 		getEmailEventSettingsEmailEventSettingsGet,
@@ -39985,6 +39140,9 @@ export const operationsByTag = {
 		websocketRealtimeWebsocketEndpointGet,
 		websocketRealtimeWebsocketEndpointGet2,
 		websocketRealtimeWebsocketEndpointGet3,
+		websocketLiveSessionsWebsocketEndpointGet,
+		websocketLiveSessionsWebsocketEndpointGet2,
+		websocketLiveSessionsWebsocketEndpointGet3,
 	},
 	guardrails: {
 		applyGuardrailApplyGuardrailPost,
@@ -40176,7 +39334,9 @@ export const operationsByTag = {
 		listMcpUserCredentialsV1McpUserCredentialsGet,
 		listMcpUserEnvVarStatusV1McpUserEnvVarsStatusGet,
 	},
-	mcpByokOauth: {
+	mcpDiscoverable: {
+		jwksJsonWellKnownJwksJsonGet,
+		nativeClientAuthDiscoveryWellKnownLitellmCliAuthGet,
 		oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerGet,
 		oauthAuthorizationServerAggregateWellKnownOauthAuthorizationServerMcpGet,
 		oauthAuthorizationServerMcpStandardWellKnownOauthAuthorizationServerMcpMcpServerNameGet,
@@ -40186,10 +39346,6 @@ export const operationsByTag = {
 		oauthProtectedResourceAggregateWellKnownOauthProtectedResourceMcpGet,
 		oauthProtectedResourceMcpStandardWellKnownOauthProtectedResourceMcpMcpServerNameGet,
 		oauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNameMcpGet,
-	},
-	mcpDiscoverable: {
-		jwksJsonWellKnownJwksJsonGet,
-		nativeClientAuthDiscoveryWellKnownLitellmCliAuthGet,
 		openidConfigurationWellKnownOpenidConfigurationGet,
 		authorizeAuthorizeGet,
 		authorizeCompleteAuthorizeCompletePost,
@@ -40723,13 +39879,19 @@ export const tagDictionary = {
 			"getCredentialByNameCredentialsByNameCredentialNameGet",
 			"getCredentialInternalIssuerJwksCredentialsCredentialNameJwksGet",
 			"getCredentialByModelCredentialsByModelModelIdGet",
+			"listUserConnectionsCredentialsUserConnectionsGet",
 			"checkEncryptionEndpointCredentialsMigrateEncryptionCheckGet",
 		],
 		POST: [
 			"createCredentialCredentialsPost",
+			"startUserConnectionCredentialsCredentialNameUserConnectionStartPost",
+			"pollUserConnectionCredentialsCredentialNameUserConnectionPollPost",
 			"migrateEncryptionEndpointCredentialsMigrateEncryptionPost",
 		],
-		DELETE: ["deleteCredentialCredentialsCredentialNameDelete"],
+		DELETE: [
+			"deleteUserConnectionCredentialsCredentialNameUserConnectionDelete",
+			"deleteCredentialCredentialsCredentialNameDelete",
+		],
 		PATCH: ["updateCredentialCredentialsCredentialNamePatch"],
 	},
 	batch: {
@@ -40786,6 +39948,7 @@ export const tagDictionary = {
 			"healthDrainHealthDrainGet",
 			"healthLivelinessHealthLivenessGet",
 			"healthLivelinessHealthLivelinessGet",
+			"getDeploymentWarningsHealthDeploymentWarningsGet",
 		],
 		OPTIONS: [
 			"healthReadinessOptionsHealthReadinessOptions",
@@ -40793,6 +39956,7 @@ export const tagDictionary = {
 			"healthLivelinessOptionsHealthLivelinessOptions",
 		],
 		POST: ["testModelConnectionHealthTestConnectionPost"],
+		PATCH: ["updateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatch"],
 	},
 	keyManagement: {
 		POST: [
@@ -40831,6 +39995,7 @@ export const tagDictionary = {
 			"getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGet",
 			"getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGet",
 			"getUserDailyActivityExportUserDailyActivityExportGet",
+			"getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGet",
 			"getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGet",
 			"availableEnterpriseUsersUserAvailableUsersGet",
 		],
@@ -40843,6 +40008,7 @@ export const tagDictionary = {
 			"getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGet",
 			"getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGet",
 			"getUserDailyActivityExportUserDailyActivityExportGet",
+			"getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGet",
 			"getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGet",
 			"listSpendLogEndUsersManagementV1SpendLogsEndUsersGet",
 			"listSpendLogUsersManagementV1SpendLogsUsersGet",
@@ -40857,6 +40023,7 @@ export const tagDictionary = {
 			"uiViewSpendLogsSpendLogsV2Get",
 			"viewSpendLogsSpendLogsGet",
 			"getGatewayDailyActivityGatewayDailyActivityGet",
+			"getRequestErrorActivityGatewayErrorsActivityGet",
 		],
 		POST: [
 			"calculateSpendSpendCalculatePost",
@@ -41076,60 +40243,11 @@ export const tagDictionary = {
 		DELETE: ["deleteMemoryV1MemoryKeyDelete"],
 	},
 	lens: {
-		GET: [
-			"listDatasetsLensDatasetsGet",
-			"readDatasetLensDatasetsDatasetIdGet",
-			"exportDatasetLensDatasetsDatasetIdExportGet",
-			"evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGet",
-			"readFeedbackLensFeedbackGet",
-			"serviceConnectionLensServiceGet",
-			"listIngestionKeysLensTracingKeysGet",
-			"ingestionCredentialsLensInternalIngestionCredentialsGet",
-			"listLensesLensGet",
-			"activityAvailableLensActivityAvailableGet",
-			"listAgentsLensAgentsGet",
-			"getSignalsLensSignalsGet",
-			"readLensLensLensIdGet",
-			"listRunsLensLensIdRunsGet",
-			"readRunLensLensIdRunsJobIdGet",
-			"readReviewsLensLensIdRunsJobIdReviewsGet",
-			"cachedReviewsLensWorkerLensIdJobIdReviewsGet",
-			"sampleLensWorkerLensIdJobIdSampleGet",
-			"contentLensWorkerLensIdJobIdContentGet",
-			"evidenceContentLensLensIdExecutionsExecutionIdGet",
-		],
-		POST: [
-			"createDatasetLensDatasetsPost",
-			"buildDatasetCasesLensDatasetsBuildPost",
-			"saveRevisionLensDatasetsDatasetIdRevisionsPost",
-			"feedbackSummaryLensFeedbackSummaryPost",
-			"createIngestionKeyLensTracingKeysPost",
-			"createLensLensPost",
-			"traceSignalStatusesLensTracesSignalsPost",
-			"traceFindingsLensTracesFindingsPost",
-			"watchAllLensWatchAllPost",
-			"runLensLensLensIdRunsPost",
-			"cancelLensLensLensIdCancelPost",
-			"previewSampleLensPreviewSamplePost",
-			"registerWorkerLensWorkersRegisterPost",
-			"claimLensWorkerClaimPost",
-			"progressLensWorkerLensIdJobIdProgressPost",
-			"modelLensWorkerLensIdJobIdModelPost",
-			"resultLensWorkerLensIdJobIdResultPost",
-			"heartbeatLensWorkerLensIdJobIdHeartbeatPost",
-		],
-		PUT: [
-			"submitFeedbackLensFeedbackPut",
-			"putSignalsLensSignalsPut",
-			"updateLensLensLensIdPut",
-			"setWorkerBillingLensWorkersWorkerIdBillingKeyPut",
-		],
-		DELETE: [
-			"deleteFeedbackLensFeedbackDelete",
-			"revokeIngestionKeyLensTracingKeysKeyIdDelete",
-			"revokeWorkerLensWorkersWorkerIdDelete",
-		],
-		PATCH: ["updateFindingLensLensIdFindingsFindingIdPatch"],
+		GET: ["serviceConnectionLensServiceGet", "lensRequestLensPathGet", "lensRequestLensGet"],
+		POST: ["lensRequestLensPathPost", "lensRequestLensPost"],
+		DELETE: ["lensRequestLensPathDelete", "lensRequestLensDelete"],
+		PUT: ["lensRequestLensPathPut", "lensRequestLensPut"],
+		PATCH: ["lensRequestLensPathPatch", "lensRequestLensPatch"],
 	},
 	plugins: {
 		GET: ["listPluginsApiPluginsGet", "pluginAuthTokenApiPluginsAuthTokenGet"],
@@ -41178,6 +40296,15 @@ export const tagDictionary = {
 			"getTagSummaryTagSummaryGet",
 			"getPerUserAnalyticsTagUserAgentPerUserAnalyticsGet",
 		],
+	},
+	telemetry: {
+		POST: ["recordUiEventTelemetryUiEventsPost"],
+		GET: [
+			"exportTelemetryReportsTelemetryReportsGet",
+			"getTelemetrySettingsTelemetrySettingsGet",
+			"uiEventsEnabledTelemetryUiEventsEnabledGet",
+		],
+		PUT: ["updateTelemetrySettingsTelemetrySettingsPut"],
 	},
 	emailManagement: {
 		GET: ["getEmailEventSettingsEmailEventSettingsGet"],
@@ -41242,6 +40369,9 @@ export const tagDictionary = {
 			"websocketRealtimeWebsocketEndpointGet",
 			"websocketRealtimeWebsocketEndpointGet2",
 			"websocketRealtimeWebsocketEndpointGet3",
+			"websocketLiveSessionsWebsocketEndpointGet",
+			"websocketLiveSessionsWebsocketEndpointGet2",
+			"websocketLiveSessionsWebsocketEndpointGet3",
 		],
 	},
 	guardrails: {
@@ -41477,8 +40607,10 @@ export const tagDictionary = {
 			"removeMcpToolsetV1McpToolsetToolsetIdDelete",
 		],
 	},
-	mcpByokOauth: {
+	mcpDiscoverable: {
 		GET: [
+			"jwksJsonWellKnownJwksJsonGet",
+			"nativeClientAuthDiscoveryWellKnownLitellmCliAuthGet",
 			"oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerGet",
 			"oauthAuthorizationServerAggregateWellKnownOauthAuthorizationServerMcpGet",
 			"oauthAuthorizationServerMcpStandardWellKnownOauthAuthorizationServerMcpMcpServerNameGet",
@@ -41488,12 +40620,6 @@ export const tagDictionary = {
 			"oauthProtectedResourceAggregateWellKnownOauthProtectedResourceMcpGet",
 			"oauthProtectedResourceMcpStandardWellKnownOauthProtectedResourceMcpMcpServerNameGet",
 			"oauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNameMcpGet",
-		],
-	},
-	mcpDiscoverable: {
-		GET: [
-			"jwksJsonWellKnownJwksJsonGet",
-			"nativeClientAuthDiscoveryWellKnownLitellmCliAuthGet",
 			"openidConfigurationWellKnownOpenidConfigurationGet",
 			"authorizeAuthorizeGet",
 			"authorizeFlowAuthorizeFlowGet",

@@ -191,70 +191,6 @@ export const activeUsersAnalyticsResponseSchema = z
 	})
 	.describe("Response for active users analytics");
 
-export const toolCountSchema = z.strictObject({
-	name: z.enum([
-		"model",
-		"read",
-		"search",
-		"python",
-		"catalog",
-		"review_catalog",
-		"read_reviews",
-		"search_reviews",
-		"history",
-		"checkpoint",
-	]),
-	calls: z.int().min(0),
-});
-
-export const activitySchema = z.strictObject({
-	id: z.string(),
-	phase: z.enum(["load", "review", "group", "reconcile", "investigate"]),
-	label: z.string(),
-	execution_ids: z.array(z.string()).optional().default([]),
-	started_at: z.iso.datetime({ offset: true }),
-	operations: z
-		.array(
-			z.enum([
-				"model",
-				"read",
-				"search",
-				"python",
-				"catalog",
-				"review_catalog",
-				"read_reviews",
-				"search_reviews",
-				"history",
-				"checkpoint",
-			]),
-		)
-		.optional()
-		.default([]),
-	tool_calls: z.array(toolCountSchema).optional().default([]),
-	finished: z.boolean().optional().default(false),
-});
-
-export const activityAvailabilitySchema = z.object({
-	traces: z.boolean().optional().default(false),
-	requests: z.boolean().optional().default(false),
-});
-
-export const metadataFilterSchema = z.strictObject({
-	key: z.string().min(1),
-	value: z.string().min(1),
-});
-
-export const activitySelectionSchema = z.strictObject({
-	source: z.enum(["traces", "requests", "both"]).optional().default("traces"),
-	service: z.string().optional().default(""),
-	agent_name: z.string().optional().default(""),
-	filters: z.array(metadataFilterSchema).optional().default([]),
-	sample_size: z.union([z.int().min(1), z.null()]).optional(),
-	sample_percent: z.number().max(100).gt(0).optional().default(100),
-	team_id: z.string().optional().default(""),
-	execution_ids: z.array(z.string()).optional().default([]),
-});
-
 export const adaptiveRouterWeightsSchema = z.object({
 	quality: z.number().min(0).max(1).optional().default(0.7),
 	cost: z.number().min(0).max(1).optional().default(0.3),
@@ -276,12 +212,13 @@ export const functionToolSchema = z
 		strict: z.union([z.boolean(), z.null()]).optional(),
 		type: z.enum(["function"]),
 		allowed_callers: z.union([z.array(z.enum(["direct", "programmatic"])), z.null()]).optional(),
+		async: z.union([z.boolean(), z.null()]).optional(),
 		defer_loading: z.union([z.boolean(), z.null()]).optional(),
 		description: z.union([z.string(), z.null()]).optional(),
 		output_schema: z.union([z.looseObject({}), z.null()]).optional(),
 	})
 	.describe(
-		"Defines a function in your own code the model can choose to call.\n\nLearn more about [function calling](https://platform.openai.com/docs/guides/function-calling).",
+		"Defines a function in your own code the model can choose to call.\n\nLearn more about [function calling](https://developers.openai.com/api/docs/guides/function-calling).",
 	);
 
 export const comparisonFilterSchema = z
@@ -332,7 +269,7 @@ export const fileSearchToolSchema = z
 		ranking_options: z.union([rankingOptionsSchema, z.null()]).optional(),
 	})
 	.describe(
-		"A tool that searches for relevant content from uploaded files.\n\nLearn more about the [file search tool](https://platform.openai.com/docs/guides/tools-file-search).",
+		"A tool that searches for relevant content from uploaded files.\n\nLearn more about the [file search tool](https://developers.openai.com/api/docs/guides/tools-file-search).",
 	);
 
 export const computerToolSchema = z
@@ -340,7 +277,7 @@ export const computerToolSchema = z
 		type: z.enum(["computer"]),
 	})
 	.describe(
-		"A tool that controls a virtual computer.\n\nLearn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).",
+		"A tool that controls a virtual computer.\n\nLearn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).",
 	);
 
 export const computerUsePreviewToolSchema = z
@@ -351,7 +288,7 @@ export const computerUsePreviewToolSchema = z
 		type: z.enum(["computer_use_preview"]),
 	})
 	.describe(
-		"A tool that controls a virtual computer.\n\nLearn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).",
+		"A tool that controls a virtual computer.\n\nLearn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).",
 	);
 
 export const filtersSchema = z
@@ -368,11 +305,14 @@ export const openaiTypesResponsesWebSearchToolUserLocationSchema = z
 		timezone: z.union([z.string(), z.null()]).optional(),
 		type: z.union([z.enum(["approximate"]), z.null()]).optional(),
 	})
-	.describe("The approximate location of the user.");
+	.describe(
+		'The approximate location of the user.\n\nIf omitted or null, defaults to the\nUnited States. To avoid this fallback, pass `{"type": "approximate"}` without\nlocation fields. To localize results, provide the relevant location fields.',
+	);
 
 export const webSearchToolSchema = z
 	.looseObject({
 		type: z.enum(["web_search", "web_search_2025_08_26"]),
+		external_web_access: z.union([z.boolean(), z.null()]).optional(),
 		filters: z.union([filtersSchema, z.null()]).optional(),
 		search_context_size: z.union([z.enum(["low", "medium", "high"]), z.null()]).optional(),
 		user_location: z
@@ -380,7 +320,7 @@ export const webSearchToolSchema = z
 			.optional(),
 	})
 	.describe(
-		"Search the Internet for sources related to the prompt.\n\nLearn more about the\n[web search tool](https://platform.openai.com/docs/guides/tools-web-search).",
+		"Search the Internet for sources related to the prompt.\n\nLearn more about the\n[web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).",
 	);
 
 export const mcpAllowedToolsMcpToolFilterSchema = z
@@ -447,7 +387,7 @@ export const mcpSchema = z
 		tunnel_id: z.union([z.string(), z.null()]).optional(),
 	})
 	.describe(
-		"Give the model access to additional tools via remote Model Context Protocol\n(MCP) servers. [Learn more about MCP](https://platform.openai.com/docs/guides/tools-remote-mcp).",
+		"Give the model access to additional tools via remote Model Context Protocol\n(MCP) servers. [Learn more about MCP](https://developers.openai.com/api/docs/guides/tools-connectors-mcp).",
 	);
 
 export const containerNetworkPolicyDisabledSchema = z.looseObject({
@@ -516,7 +456,9 @@ export const imageGenerationSchema = z
 		output_compression: z.union([z.int(), z.null()]).optional(),
 		output_format: z.union([z.enum(["png", "webp", "jpeg"]), z.null()]).optional(),
 		partial_images: z.union([z.int(), z.null()]).optional(),
-		quality: z.union([z.enum(["low", "medium", "high", "auto"]), z.null()]).optional(),
+		quality: z
+			.union([z.enum(["low", "medium", "high", "xhigh", "max", "auto"]), z.null()])
+			.optional(),
 		size: z.union([z.string(), z.null()]).optional(),
 	})
 	.describe("A tool that generates images using the GPT image models.");
@@ -589,7 +531,7 @@ export const functionShellToolSchema = z
 	})
 	.describe("A tool that allows the model to execute shell commands.");
 
-export const textSchema = z
+export const openaiTypesSharedCustomToolInputFormatTextSchema = z
 	.looseObject({
 		type: z.enum(["text"]),
 	})
@@ -608,18 +550,22 @@ export const customToolSchema = z
 		name: z.string(),
 		type: z.enum(["custom"]),
 		allowed_callers: z.union([z.array(z.enum(["direct", "programmatic"])), z.null()]).optional(),
+		async: z.union([z.boolean(), z.null()]).optional(),
 		defer_loading: z.union([z.boolean(), z.null()]).optional(),
 		description: z.union([z.string(), z.null()]).optional(),
-		format: z.union([textSchema, grammarSchema, z.null()]).optional(),
+		format: z
+			.union([openaiTypesSharedCustomToolInputFormatTextSchema, grammarSchema, z.null()])
+			.optional(),
 	})
 	.describe(
-		"A custom tool that processes input using a specified format.\n\nLearn more about   [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)",
+		"A custom tool that processes input using a specified format.\n\nLearn more about   [custom tools](https://developers.openai.com/api/docs/guides/function-calling#custom-tools)",
 	);
 
 export const toolFunctionSchema = z.looseObject({
 	name: z.string(),
 	type: z.enum(["function"]),
 	allowed_callers: z.union([z.array(z.enum(["direct", "programmatic"])), z.null()]).optional(),
+	async: z.union([z.boolean(), z.null()]).optional(),
 	defer_loading: z.union([z.boolean(), z.null()]).optional(),
 	description: z.union([z.string(), z.null()]).optional(),
 	output_schema: z.union([z.looseObject({}), z.null()]).optional(),
@@ -653,7 +599,9 @@ export const openaiTypesResponsesWebSearchPreviewToolUserLocationSchema = z
 		region: z.union([z.string(), z.null()]).optional(),
 		timezone: z.union([z.string(), z.null()]).optional(),
 	})
-	.describe("The user's location.");
+	.describe(
+		'The approximate location of the user.\n\nIf omitted or null, defaults to the United States. To avoid this fallback, pass `{"type": "approximate"}` without location fields. To localize results, provide the relevant location fields.',
+	);
 
 export const webSearchPreviewToolSchema = z
 	.looseObject({
@@ -665,7 +613,7 @@ export const webSearchPreviewToolSchema = z
 			.optional(),
 	})
 	.describe(
-		"This tool searches the web for relevant results to use in a response.\n\nLearn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).",
+		"This tool searches the web for relevant results to use in a response.\n\nLearn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).",
 	);
 
 export const applyPatchToolSchema = z
@@ -708,6 +656,18 @@ export const additionalToolsSchema = z.looseObject({
 		]),
 	),
 	type: z.enum(["additional_tools"]),
+});
+
+export const adminIgnoreSchema = z.object({
+	source: z.enum(["admin"]).optional().default("admin"),
+	ignored_by: z.string(),
+	ignored_at: z.iso.datetime({ offset: true }),
+	ignored_until: z
+		.union([z.iso.datetime({ offset: true }), z.null()])
+		.optional()
+		.describe(
+			"When the snooze ends. Null means the warning is ignored until an admin restores it.",
+		),
 });
 
 export const agentExtensionSchema = z
@@ -941,14 +901,14 @@ export const agentKillSwitchConfigSchema = z
 	);
 
 export const agentNodeSchema = z.object({
-	name: z.string(),
-	parent_agent: z.union([z.string(), z.null()]),
+	duration_ms: z.number(),
 	invocations: z.int().min(0).max(18446744073709552000),
 	llm_calls: z.int().min(0).max(18446744073709552000),
-	tool_calls: z.int().min(0).max(18446744073709552000),
-	duration_ms: z.number(),
-	spend: z.union([z.number(), z.null()]),
+	name: z.string(),
+	parent_agent: z.union([z.string(), z.null()]),
 	priced_calls: z.int().min(0).max(18446744073709552000),
+	spend: z.union([z.number(), z.null()]),
+	tool_calls: z.int().min(0).max(18446744073709552000),
 });
 
 export const agentResponseSchema = z.object({
@@ -993,11 +953,6 @@ export const agentSkillsIndexSchema = z.object({
 		.optional()
 		.default("https://schemas.agentskills.io/discovery/0.2.0/schema.json"),
 	skills: z.array(agentSkillsIndexEntrySchema),
-});
-
-export const agentTestCaseSchema = z.strictObject({
-	input: z.string().min(1),
-	expected: z.string().min(1),
 });
 
 export const allowedVectorStoreIndexItemSchema = z.object({
@@ -2553,6 +2508,7 @@ export const bodyVideoGenerationVideosPostSchema = z.object({
 export const spendMetricsSchema = z.object({
 	spend: z.number().optional().default(0),
 	flat_cost: z.number().optional().default(0),
+	ptu_hours: z.number().optional().default(0),
 	prompt_tokens: z.int().optional().default(0),
 	completion_tokens: z.int().optional().default(0),
 	cache_read_input_tokens: z.int().optional().default(0),
@@ -2685,92 +2641,6 @@ export const budgetNewRequestSchema = z.object({
 
 export const budgetRequestSchema = z.object({
 	budgets: z.array(z.string()),
-});
-
-export const budgetReservationSchema = z.strictObject({
-	id: z.string(),
-	job_id: z.string(),
-	amount: z.number().min(0),
-	month: z.string(),
-	expires_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
-});
-
-export const traceSourceSchema = z.strictObject({
-	kind: z.enum(["trace"]).optional().default("trace"),
-	trace_id: z.string().min(1),
-	trace_ref: z.string().optional().default(""),
-	span_id: z.string().optional().default(""),
-});
-
-export const findingSourceSchema = z.strictObject({
-	kind: z.enum(["finding"]).optional().default("finding"),
-	lens_id: z.string().min(1),
-	finding_ids: z.array(z.string()).min(1),
-});
-
-export const textSourceSchema = z.strictObject({
-	kind: z.enum(["text"]).optional().default("text"),
-	text: z.string().min(1),
-});
-
-export const buildRequestSchema = z.strictObject({
-	sources: z
-		.array(
-			z.discriminatedUnion("kind", [
-				traceSourceSchema.extend({
-					kind: z.enum(["trace"]),
-				}),
-				findingSourceSchema.extend({
-					kind: z.enum(["finding"]),
-				}),
-				textSourceSchema.extend({
-					kind: z.enum(["text"]),
-				}),
-			]),
-		)
-		.min(1),
-	dataset_id: z.string().optional().default(""),
-});
-
-export const datasetToolCallSchema = z.strictObject({
-	name: z.string(),
-	arguments: z.string(),
-});
-
-export const datasetMessageSchema = z.strictObject({
-	role: z.enum(["system", "user", "assistant", "tool"]),
-	content: z.string(),
-	name: z.string().optional().default(""),
-	tool_calls: z.array(datasetToolCallSchema).optional().default([]),
-});
-
-export const caseSourceSchema = z.strictObject({
-	trace_id: z.string().optional().default(""),
-	trace_ref: z.string().optional().default(""),
-	span_id: z.string().optional().default(""),
-	finding_id: z.string().optional().default(""),
-	lens_id: z.string().optional().default(""),
-});
-
-export const datasetCaseSchema = z.strictObject({
-	id: z.string(),
-	messages: z.array(datasetMessageSchema),
-	reply: z.string().optional().default(""),
-	tool_calls: z.array(datasetToolCallSchema).optional().default([]),
-	expected: z.string().optional().default(""),
-	included: z.boolean().optional().default(true),
-	source: caseSourceSchema,
-	agent_version: z.string().optional().default(""),
-});
-
-export const skippedCaseSchema = z.strictObject({
-	source: caseSourceSchema,
-	reason: z.enum(["duplicate", "no_content", "too_large", "over_limit", "invalid"]),
-});
-
-export const buildResultSchema = z.strictObject({
-	cases: z.array(datasetCaseSchema),
-	skipped: z.array(skippedCaseSchema),
 });
 
 export const bulkDeleteUserRequestSchema = z
@@ -3728,6 +3598,7 @@ export const chatCompletionRedactedThinkingBlockSchema = z.looseObject({
 	cache_control: z
 		.union([z.looseObject({}), chatCompletionCachedContentSchema, z.null()])
 		.optional(),
+	index: z.int().optional(),
 });
 
 export const chatCompletionThinkingBlockSchema = z.looseObject({
@@ -3737,6 +3608,7 @@ export const chatCompletionThinkingBlockSchema = z.looseObject({
 	cache_control: z
 		.union([z.looseObject({}), chatCompletionCachedContentSchema, z.null()])
 		.optional(),
+	index: z.int().optional(),
 });
 
 export const topLogprobSchema = z.looseObject({
@@ -3750,12 +3622,6 @@ export const chatCompletionTokenLogprobSchema = z.looseObject({
 	bytes: z.union([z.array(z.int()), z.null()]).optional(),
 	logprob: z.number(),
 	top_logprobs: z.array(topLogprobSchema),
-});
-
-export const checkSchema = z.strictObject({
-	id: z.string().min(1),
-	instruction: z.string().min(3),
-	enabled: z.boolean().optional().default(true),
 });
 
 export const choiceLogprobsSchema = z.looseObject({
@@ -3781,6 +3647,7 @@ export const imageURLListItemSchema = z.looseObject({
 export const messageSchema = z.looseObject({
 	content: z.union([z.string(), z.null()]),
 	role: z.enum(["assistant", "user", "system", "tool", "function"]),
+	refusal: z.union([z.string(), z.null()]).optional(),
 	tool_calls: z.union([
 		z.array(
 			z.union([chatCompletionMessageToolCallSchema, chatCompletionMessageCustomToolCallSchema]),
@@ -3823,230 +3690,6 @@ export const choicesSchema = z.looseObject({
 	message: messageSchema,
 	logprobs: z.union([choiceLogprobsSchema, z.unknown(), z.null()]).optional(),
 	provider_specific_fields: z.union([z.looseObject({}), z.null()]).optional(),
-});
-
-export const lensSettingsSchema = z.strictObject({
-	source: z.enum(["traces", "requests", "both"]).optional().default("traces"),
-	service: z.string().optional().default(""),
-	agent_name: z.string().optional().default(""),
-	filters: z.array(metadataFilterSchema).optional().default([]),
-	sample_size: z.union([z.int().min(1), z.null()]).optional(),
-	sample_percent: z.number().max(100).gt(0).optional().default(100),
-	team_id: z.string().optional().default(""),
-	execution_ids: z.array(z.string()).optional().default([]),
-	name: z.string().min(1),
-	context: z.string().optional().default(""),
-	lookback_hours: z.int().min(1).optional().default(24),
-	checks: z.array(checkSchema).optional().default([]),
-	model: z.string().min(1),
-	enabled: z.boolean().optional().default(true),
-	interval_minutes: z.int().min(1).optional().default(15),
-	concurrency: z.int().min(1).optional().default(8),
-	monthly_budget: z.number().gt(0).optional().default(100),
-});
-
-export const coverageSchema = z.strictObject({
-	eligible: z.int().optional().default(0),
-	selected: z.int().optional().default(0),
-	screened: z.int().optional().default(0),
-	investigated: z.int().optional().default(0),
-	inconclusive: z.int().optional().default(0),
-	grouping_batches: z.int().optional().default(0),
-	grouped_batches: z.int().optional().default(0),
-	candidates: z.int().optional().default(0),
-	partial: z.int().optional().default(0),
-	unassessable: z.int().optional().default(0),
-	failed_tasks: z.int().min(0).optional().default(0),
-	reused: z.int().min(0).optional().default(0),
-	reusable: z.int().min(0).optional().default(0),
-});
-
-export const executionSchema = z.strictObject({
-	id: z.string(),
-	source: z.enum(["traces", "requests"]),
-	trace_id: z.string(),
-	trace_ref: z.string().optional().default(""),
-	team_id: z.string(),
-	name: z.string(),
-	start_time: z.string(),
-	span_count: z.int(),
-	root_seen: z.boolean().optional().default(false),
-	service: z.string().optional().default(""),
-	metadata: z.array(metadataFilterSchema).optional().default([]),
-});
-
-export const sampleSchema = z.strictObject({
-	executions: z.array(executionSchema),
-	eligible: z.int(),
-	selected: z.int().optional().default(0),
-	next_offset: z.union([z.int(), z.null()]).optional(),
-	next_cursor: z.union([z.string(), z.null()]).optional(),
-});
-
-export const issueBriefSchema = z.strictObject({
-	problem: z.string().min(10),
-	user_goal: z.string().min(3),
-	what_happened: z.string().min(3),
-	test_cases: z.array(agentTestCaseSchema).min(1),
-});
-
-export const evidenceSchema = z.strictObject({
-	execution_id: z.string(),
-	span_id: z.string(),
-	quote: z.string().min(1),
-	role: z.enum(["support", "counterexample"]).optional().default("support"),
-});
-
-export const findingSchema = z.strictObject({
-	title: z.string().min(3),
-	description: z.string().min(10),
-	check_id: z.string(),
-	kind: z.enum(["issue", "pattern"]).optional().default("issue"),
-	priority: z.enum(["high", "medium", "low"]).optional().default("medium"),
-	suggestion: z.string().optional().default(""),
-	limitation: z.string().optional().default(""),
-	brief: z.union([issueBriefSchema, z.null()]).optional(),
-	evidence: z.array(evidenceSchema).min(1),
-	existing_finding_id: z.union([z.string(), z.null()]).optional(),
-	check_ids: z.array(z.string()).optional().default([]),
-	merged_finding_ids: z.array(z.string()).optional().default([]),
-	id: z.string(),
-	status: z.enum(["open", "resolved", "dismissed"]).optional().default("open"),
-	reason: z.string().optional().default(""),
-	first_seen: z.iso.datetime({ offset: true }),
-	last_seen: z.iso.datetime({ offset: true }),
-	occurrences: z.array(z.string()).optional().default([]),
-	revision: z.int(),
-	investigation_runs: z.array(z.string()).optional().default([]),
-});
-
-export const runAssessmentSchema = z.strictObject({
-	execution_id: z.string(),
-	issue_checks: z.array(z.string()).optional().default([]),
-	pattern_checks: z.array(z.string()).optional().default([]),
-	cannot_assess: z.boolean().optional().default(false),
-});
-
-export const stepSchema = z.strictObject({
-	at: z.iso.datetime({ offset: true }),
-	kind: z.enum(["stage", "model", "error"]),
-	label: z.string().max(200),
-	model: z.string().max(200).optional().default(""),
-	purpose: z.string().max(40).optional().default(""),
-	prompt_tokens: z.int().optional().default(0),
-	completion_tokens: z.int().optional().default(0),
-	cost: z.number().optional().default(0),
-});
-
-export const reviewSpanSchema = z.strictObject({
-	span_id: z.string(),
-	name: z.string().max(120),
-	kind: z.string().max(40),
-	preview: z.string().max(240),
-	cited: z.boolean().optional().default(false),
-});
-
-export const reviewVerdictSchema = z.strictObject({
-	check_id: z.string(),
-	kind: z.enum(["issue", "pattern"]),
-	summary: z.string().max(300),
-});
-
-export const observationSchema = z.strictObject({
-	check_id: z.string(),
-	kind: z.enum(["issue", "pattern"]).optional().default("issue"),
-	summary: z.string(),
-	evidence: z.array(evidenceSchema).optional().default([]),
-});
-
-export const extractionSchema = z.strictObject({
-	observations: z.array(observationSchema).optional().default([]),
-	cannot_assess: z.boolean().optional().default(false),
-	reasoning: z.string().max(800).optional().default(""),
-});
-
-export const reviewSchema = z.strictObject({
-	execution_id: z.string(),
-	trace_id: z.string(),
-	agent: z.string(),
-	name: z.string(),
-	spans: z.array(reviewSpanSchema).max(8).optional().default([]),
-	reasoning: z.string().max(800).optional().default(""),
-	verdicts: z.array(reviewVerdictSchema).optional().default([]),
-	cannot_assess: z.boolean().optional().default(false),
-	model: z.string(),
-	duration_ms: z.int().min(0),
-	at: z.iso.datetime({ offset: true }),
-	tool_calls: z.array(toolCountSchema).optional().default([]),
-	extraction: z.union([extractionSchema, z.null()]).optional(),
-	content_version: z.string().optional().default(""),
-	reused: z.boolean().optional().default(false),
-	consolidated: z.boolean().optional().default(false),
-	partial: z.boolean().optional().default(false),
-});
-
-export const inFlightSchema = z.strictObject({
-	execution_id: z.string(),
-	trace_id: z.string(),
-	agent: z.string(),
-	started_at: z.iso.datetime({ offset: true }),
-});
-
-export const reviewVersionSchema = z.strictObject({
-	execution_id: z.string(),
-	content_version: z.string(),
-});
-
-export const jobSchema = z.strictObject({
-	id: z.string(),
-	status: z
-		.enum(["queued", "running", "completed", "failed", "cancelled"])
-		.optional()
-		.default("queued"),
-	stage: z.string().optional().default("Queued"),
-	created_at: z.iso.datetime({ offset: true }),
-	start: z.iso.datetime({ offset: true }),
-	end: z.iso.datetime({ offset: true }),
-	settings: lensSettingsSchema,
-	revision: z.int(),
-	worker_id: z.union([z.string(), z.null()]).optional(),
-	lease_until: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
-	attempts: z.int().optional().default(0),
-	finished_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
-	coverage: coverageSchema.optional().default({
-		eligible: 0,
-		selected: 0,
-		screened: 0,
-		investigated: 0,
-		inconclusive: 0,
-		grouping_batches: 0,
-		grouped_batches: 0,
-		candidates: 0,
-		partial: 0,
-		unassessable: 0,
-		failed_tasks: 0,
-		reused: 0,
-		reusable: 0,
-	}),
-	error: z.string().optional().default(""),
-	sample: z.union([sampleSchema, z.null()]).optional(),
-	cost: z.number().optional().default(0),
-	findings: z.union([z.array(findingSchema), z.null()]).optional(),
-	assessments: z.array(runAssessmentSchema).optional().default([]),
-	steps: z.array(stepSchema).optional().default([]),
-	reviews: z.array(reviewSchema).optional().default([]),
-	reviewed: z.int().optional().default(0),
-	reading: z.array(inFlightSchema).optional().default([]),
-	activities: z.array(activitySchema).optional().default([]),
-	trigger: z.enum(["schedule", "manual"]).optional().default("schedule"),
-	review_versions: z.array(reviewVersionSchema).optional().default([]),
-});
-
-export const claimSchema = z.strictObject({
-	lens_id: z.string(),
-	job: jobSchema,
-	findings: z.array(findingSchema),
-	reviews: z.union([z.array(reviewSchema), z.null()]).optional(),
 });
 
 export const clickSchema = z
@@ -4365,6 +4008,26 @@ export const dailyActivityKeySearchResponseSchema = z.object({
 	api_keys: z.array(keyActivityRowSchema),
 });
 
+export const userActivityRowSchema = z.object({
+	user_id: z.union([z.string(), z.null()]).optional(),
+	user_email: z.union([z.string(), z.null()]).optional(),
+	user_alias: z.union([z.string(), z.null()]).optional(),
+	spend: z.number().optional().default(0),
+	prompt_tokens: z.int().optional().default(0),
+	completion_tokens: z.int().optional().default(0),
+	total_tokens: z.int().optional().default(0),
+	api_requests: z.int().optional().default(0),
+	successful_requests: z.int().optional().default(0),
+	failed_requests: z.int().optional().default(0),
+});
+
+export const dailyActivityUserPageResponseSchema = z.object({
+	users: z.array(userActivityRowSchema),
+	total_users: z.int(),
+	offset: z.int(),
+	limit: z.int(),
+});
+
 export const dailySpendDataSchema = z.object({
 	date: z.iso.date(),
 	metrics: spendMetricsSchema,
@@ -4376,6 +4039,7 @@ export const dailySpendDataSchema = z.object({
 export const dailySpendMetadataSchema = z.object({
 	total_spend: z.number().optional().default(0),
 	total_flat_cost: z.number().optional().default(0),
+	total_ptu_hours: z.number().optional().default(0),
 	total_prompt_tokens: z.int().optional().default(0),
 	total_completion_tokens: z.int().optional().default(0),
 	total_tokens: z.int().optional().default(0),
@@ -4412,31 +4076,6 @@ export const dailySpendMetadataSchema = z.object({
 		.describe(
 			"Distinct API keys per entity over the requested range, set when the entity breakdown is included. When an entity's count exceeds api_key_limit, its api_key_breakdown lists only its keys among the top api_key_limit keys overall.",
 		),
-});
-
-export const datasetSchema = z.strictObject({
-	id: z.string(),
-	name: z.string(),
-	agent_name: z.string(),
-	team_id: z.string(),
-	created_at: z.iso.datetime({ offset: true }),
-	revision: z.int(),
-	created_by: z.string(),
-	cases: z.array(datasetCaseSchema),
-});
-
-export const datasetCreateSchema = z.strictObject({
-	name: z.string().min(1).max(120),
-	agent_name: z.string().optional().default(""),
-});
-
-export const datasetSummarySchema = z.strictObject({
-	id: z.string(),
-	name: z.string(),
-	agent_name: z.string(),
-	revision: z.int(),
-	case_count: z.int(),
-	updated_at: z.iso.datetime({ offset: true }),
 });
 
 export const defaultInternalUserParamsSchema = z
@@ -4568,6 +4207,17 @@ export const deleteUserRequestSchema = z.object({
 	user_ids: z.array(z.string()),
 });
 
+export const timeoutSchema = z
+	.looseObject({
+		connect: z.union([z.number(), z.null()]),
+		read: z.union([z.number(), z.null()]),
+		write: z.union([z.number(), z.null()]),
+		pool: z.union([z.number(), z.null()]),
+	})
+	.describe(
+		"Timeout configuration.\n\n**Usage**:\n\nTimeout(None)               # No timeouts.\nTimeout(5.0)                # 5s timeout on all operations.\nTimeout(None, connect=5.0)  # 5s timeout on connect, no other timeouts.\nTimeout(5.0, connect=10.0)  # 10s timeout on connect. 5s timeout elsewhere.\nTimeout(5.0, pool=None)     # No timeout on acquiring connection from pool.\n                            # 5s timeout elsewhere.",
+	);
+
 export const modelResponseSchema = z.looseObject({
 	id: z.string(),
 	created: z.int(),
@@ -4588,6 +4238,7 @@ export const liteLLMParamsSchema = z
 		tiered_pricing: z.union([z.array(z.looseObject({})), z.null()]).optional(),
 		cost_per_second: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_second: z.union([z.number(), z.null()]).optional(),
+		input_cost_per_text_message: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_second: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_second_1080p: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_second_480p: z.union([z.number(), z.null()]).optional(),
@@ -4795,12 +4446,16 @@ export const liteLLMParamsSchema = z
 		openai_identity_provider_id: z.union([z.string(), z.null()]).optional(),
 		openai_service_account_id: z.union([z.string(), z.null()]).optional(),
 		openai_identity_token_file: z.union([z.string(), z.null()]).optional(),
+		token_exchange_endpoint: z.union([z.string(), z.null()]).optional(),
+		token_exchange_profile: z.union([z.string(), z.null()]).optional(),
+		token_exchange_scope: z.union([z.string(), z.null()]).optional(),
+		token_exchange_audience: z.union([z.string(), z.null()]).optional(),
 		custom_llm_provider: z.union([z.string(), z.null()]).optional(),
 		tpm: z.union([z.int(), z.null()]).optional(),
 		rpm: z.union([z.int(), z.null()]).optional(),
 		itpm: z.union([z.int(), z.null()]).optional(),
 		otpm: z.union([z.int(), z.null()]).optional(),
-		timeout: z.union([z.number(), z.string(), z.null()]).optional(),
+		timeout: z.union([z.number(), z.string(), timeoutSchema, z.null()]).optional(),
 		stream_timeout: z.union([z.number(), z.string(), z.null()]).optional(),
 		timeout_by_service_tier: z.union([z.record(z.string(), z.number()), z.null()]).optional(),
 		stream_timeout_by_service_tier: z
@@ -4904,6 +4559,7 @@ export const modelInfoSchema = z.looseObject({
 	cost_per_ptu_per_hour: z.union([z.number(), z.null()]).optional(),
 	ptu_effective_from: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	ptu_effective_to: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+	ptu_shares: z.union([z.record(z.string(), z.int()), z.null()]).optional(),
 	allow_fail_open: z.union([z.boolean(), z.null()]).optional(),
 	enable_tag_filtering: z.union([z.boolean(), z.null()]).optional(),
 	internal_router_model: z.union([z.boolean(), z.null()]).optional(),
@@ -4916,6 +4572,49 @@ export const deploymentSchema = z.looseObject({
 	),
 	model_info: modelInfoSchema,
 	blocked: z.union([z.boolean(), z.null()]).optional(),
+});
+
+export const envVarIgnoreSchema = z.object({
+	source: z.enum(["env_var"]).optional().default("env_var"),
+	env_var: z.string(),
+});
+
+export const deploymentWarningSchema = z.object({
+	id: z.string(),
+	severity: z.enum(["critical", "warning"]),
+	ignore: z
+		.union([
+			z.discriminatedUnion("source", [
+				adminIgnoreSchema.extend({
+					source: z.enum(["admin"]),
+				}),
+				envVarIgnoreSchema.extend({
+					source: z.enum(["env_var"]),
+				}),
+			]),
+			z.null(),
+		])
+		.optional(),
+});
+
+export const deploymentWarningIgnoreResponseSchema = z.object({
+	id: z.string(),
+	ignore: z.union([adminIgnoreSchema, z.null()]),
+});
+
+export const deploymentWarningIgnoreUpdateSchema = z.object({
+	ignored: z.boolean().describe("True ignores the warning for every admin, false restores it."),
+	snooze_seconds: z
+		.union([z.int().max(2592000).gt(0), z.null()])
+		.optional()
+		.describe("How long to ignore the warning, up to 30 days. Leave it out to ignore it forever."),
+});
+
+export const deploymentWarningsResponseSchema = z.object({
+	warnings: z.array(deploymentWarningSchema),
+	ignore_available: z
+		.boolean()
+		.describe("False when no database is connected, so warnings cannot be ignored."),
 });
 
 export const distinctTagResponseSchema = z
@@ -4993,31 +4692,6 @@ export const errorResponseSchema = z.object({
 			},
 		],
 	}),
-});
-
-export const evalCasesSchema = z.strictObject({
-	dataset_id: z.string(),
-	revision: z.int(),
-	cases: z.array(datasetCaseSchema),
-});
-
-export const tracePartSchema = z.strictObject({
-	execution_id: z.string(),
-	span_id: z.string(),
-	parent_span_id: z.string().optional().default(""),
-	name: z.string(),
-	kind: z.string(),
-	content: z.string(),
-	truncated: z.boolean().optional().default(false),
-	start_time: z.string().optional().default(""),
-	end_time: z.string().optional().default(""),
-});
-
-export const executionContentSchema = z.strictObject({
-	execution: executionSchema,
-	parts: z.array(tracePartSchema),
-	next_cursor: z.union([z.string(), z.null()]).optional(),
-	partial: z.boolean().optional().default(false),
 });
 
 export const exportTypeSchema = z.enum([
@@ -5101,45 +4775,6 @@ export const fallbackResponseSchema = z
 	})
 	.describe("Response model for fallback operations");
 
-export const feedbackSchema = z.strictObject({
-	trace_id: z.string().min(1).max(128),
-	trace_ref: z.string().max(512).optional().default(""),
-	score: z.int().min(0).max(10),
-	comment: z.string(),
-	author: z.string(),
-	created_at: z.iso.datetime({ offset: true }),
-	updated_at: z.iso.datetime({ offset: true }),
-});
-
-export const feedbackSubmissionSchema = z.strictObject({
-	score: z.int().min(0).max(10),
-	comment: z.string().max(10000).optional().default(""),
-	user: z.string().max(256).optional().default(""),
-	trace_id: z.union([z.string().min(1).max(128), z.null()]).optional(),
-	session_id: z.union([z.string().min(1).max(512), z.null()]).optional(),
-	trace_ref: z.string().max(512).optional().default(""),
-});
-
-export const findingDraftSchema = z.strictObject({
-	title: z.string().min(3),
-	description: z.string().min(10),
-	check_id: z.string(),
-	kind: z.enum(["issue", "pattern"]).optional().default("issue"),
-	priority: z.enum(["high", "medium", "low"]).optional().default("medium"),
-	suggestion: z.string().optional().default(""),
-	limitation: z.string().optional().default(""),
-	brief: z.union([issueBriefSchema, z.null()]).optional(),
-	evidence: z.array(evidenceSchema).min(1),
-	existing_finding_id: z.union([z.string(), z.null()]).optional(),
-	check_ids: z.array(z.string()).optional().default([]),
-	merged_finding_ids: z.array(z.string()).optional().default([]),
-});
-
-export const findingUpdateSchema = z.strictObject({
-	status: z.enum(["open", "resolved", "dismissed"]),
-	reason: z.string().optional().default(""),
-});
-
 export const fuseHarnessPresetSchema = z.strictObject({
 	id: z.string(),
 	label: z.string(),
@@ -5174,12 +4809,18 @@ export const gatewayRequestBreakdownEntrySchema = z.object({
 	failed_requests: z.int().optional().default(0),
 });
 
+export const gatewayRequestStatusCodeEntrySchema = z.object({
+	status_code: z.int(),
+	failed_requests: z.int().optional().default(0),
+});
+
 export const gatewayRequestActivityResponseSchema = z
 	.object({
 		total_successful_requests: z.int().optional().default(0),
 		total_failed_requests: z.int().optional().default(0),
 		by_date: z.array(gatewayRequestDailyEntrySchema).optional().default([]),
 		by_route: z.array(gatewayRequestBreakdownEntrySchema).optional().default([]),
+		by_status_code: z.array(gatewayRequestStatusCodeEntrySchema).optional().default([]),
 	})
 	.describe("Response for GET /gateway/daily/activity.");
 
@@ -5263,6 +4904,7 @@ export const updateRouterConfigSchema = z
 				z.null(),
 			])
 			.optional(),
+		fallback_on_unsupported_params: z.union([z.boolean(), z.null()]).optional(),
 	})
 	.describe("Set of params that you can modify via `router.update_settings()`.");
 
@@ -5506,6 +5148,12 @@ export const getTeamMemberPermissionsResponseSchema = z
 	})
 	.describe("Response to get the team member permissions for a team");
 
+export const HTTPErrorSchema = z.looseObject({
+	code: z.int(),
+	message: z.string(),
+	type: z.enum(["http_error"]),
+});
+
 export const validationErrorSchema = z.object({
 	loc: z.array(z.union([z.string(), z.int()])),
 	msg: z.string(),
@@ -5528,58 +5176,50 @@ export const IPAddressSchema = z.object({
 	ip: z.string(),
 });
 
+export const imageGenerationCallErrorModerationDetailsSchema = z
+	.looseObject({
+		categories: z.array(z.string()),
+		moderation_stage: z.enum(["input", "output", "unknown"]),
+	})
+	.describe("Public details for a `moderation_blocked` error, when available.");
+
+export const imageGenerationCallErrorSchema = z
+	.looseObject({
+		code: z.union([z.string(), z.null()]).optional(),
+		message: z.string(),
+		param: z.union([z.string(), z.null()]).optional(),
+		type: z.string(),
+		moderation_details: z
+			.union([imageGenerationCallErrorModerationDetailsSchema, z.null()])
+			.optional(),
+	})
+	.describe("Details of a moderation failure, when available.");
+
 export const imageGenerationCallSchema = z
 	.looseObject({
 		id: z.string(),
 		result: z.union([z.string(), z.null()]).optional(),
 		status: z.enum(["in_progress", "completed", "generating", "failed"]),
 		type: z.enum(["image_generation_call"]),
+		action: z.union([z.enum(["generate", "edit", "auto"]), z.null()]).optional(),
+		background: z.union([z.enum(["transparent", "opaque", "auto"]), z.null()]).optional(),
+		error: z.union([imageGenerationCallErrorSchema, z.null()]).optional(),
+		output_format: z.union([z.enum(["png", "webp", "jpeg"]), z.null()]).optional(),
+		quality: z
+			.union([z.enum(["low", "medium", "high", "xhigh", "max", "auto"]), z.null()])
+			.optional(),
+		revised_prompt: z.union([z.string(), z.null()]).optional(),
+		size: z.union([z.string(), z.null()]).optional(),
 	})
 	.describe("An image generation request made by the model.");
 
 export const incompleteDetailsSchema = z
 	.looseObject({
-		reason: z.union([z.enum(["max_output_tokens", "content_filter"]), z.null()]).optional(),
+		reason: z
+			.union([z.enum(["max_output_tokens", "max_messages", "content_filter", "steered"]), z.null()])
+			.optional(),
 	})
 	.describe("Details about why the response is incomplete.");
-
-export const ingestionTenantSchema = z.strictObject({
-	team_id: z.string().optional().default(""),
-	user_id: z.string(),
-	org_id: z.string().optional().default(""),
-	api_key_hash: z.string(),
-});
-
-export const ingestionCredentialSchema = z.strictObject({
-	token_hash: z.string(),
-	tenant: ingestionTenantSchema,
-	expires_at: z.union([z.int(), z.null()]),
-});
-
-export const ingestionKeySchema = z.strictObject({
-	id: z.string(),
-	name: z.string(),
-	tenant: ingestionTenantSchema,
-	created_at: z.iso.datetime({ offset: true }),
-	expires_at: z.union([z.int(), z.null()]),
-});
-
-export const ingestionKeyCreatedSchema = z.strictObject({
-	key: z.string(),
-	record: ingestionKeySchema,
-	active: z.boolean().optional().default(false),
-});
-
-export const ingestionKeyRequestSchema = z.strictObject({
-	name: z.string().min(1).max(128).optional().default("Agent tracing"),
-	team_id: z.string().max(256).optional().default(""),
-	expires_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
-});
-
-export const ingestionSnapshotSchema = z.strictObject({
-	issued_at: z.int(),
-	keys: z.array(ingestionCredentialSchema),
-});
 
 export const inputTokensDetailsSchema = z.looseObject({
 	audio_tokens: z.union([z.int(), z.null()]).optional(),
@@ -5828,44 +5468,6 @@ export const latestReleaseInfoSchema = z.object({
 	release_url: z.string(),
 });
 
-export const scopeSchema = z.strictObject({
-	team_id: z.string().optional().default(""),
-	api_key_hash: z.string().optional().default(""),
-	all_teams: z.boolean().optional().default(false),
-});
-
-export const lensSchema = z.strictObject({
-	id: z.string(),
-	scope: scopeSchema,
-	settings: lensSettingsSchema,
-	revision: z.int().optional().default(1),
-	version: z.int().optional().default(0),
-	created_at: z.iso.datetime({ offset: true }),
-	next_run_at: z.iso.datetime({ offset: true }),
-	last_scan_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
-	jobs: z.array(jobSchema).optional().default([]),
-	findings: z.array(findingSchema).optional().default([]),
-	budget_month: z.string(),
-	spent: z.number().optional().default(0),
-	reservations: z.array(budgetReservationSchema).optional().default([]),
-	criteria_updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
-});
-
-export const workerSchema = z.strictObject({
-	analysis_key_id: z.union([z.string().regex(/^[a-f0-9]{64}$/), z.null()]).optional(),
-	id: z.string(),
-	name: z.string(),
-	scope: scopeSchema,
-	last_seen: z.iso.datetime({ offset: true }),
-	revoked: z.boolean().optional().default(false),
-});
-
-export const lensListSchema = z.strictObject({
-	lenses: z.array(lensSchema),
-	workers: z.array(workerSchema),
-	tracing_enabled: z.boolean(),
-});
-
 export const listAccessGroupsResponseSchema = z.object({
 	access_groups: z.array(accessGroupInfoSchema),
 });
@@ -5934,6 +5536,7 @@ export const modelGroupInfoProxySchema = z.object({
 			z.null(),
 		])
 		.optional(),
+	description: z.union([z.string(), z.null()]).optional(),
 	is_public_model_group: z.boolean().optional().default(false),
 	health_status: z.union([z.string(), z.null()]).optional(),
 	health_response_time: z.union([z.number(), z.null()]).optional(),
@@ -6512,6 +6115,17 @@ export const mcpApprovalResponseSchema = z
 	})
 	.describe("A response to an MCP approval request.");
 
+export const mcpProtocolErrorSchema = z.looseObject({
+	code: z.int(),
+	message: z.string(),
+	type: z.enum(["mcp_protocol_error"]),
+});
+
+export const mcpToolExecutionErrorSchema = z.looseObject({
+	content: z.unknown(),
+	type: z.enum(["mcp_tool_execution_error"]),
+});
+
 export const mcpCallSchema = z
 	.looseObject({
 		id: z.string(),
@@ -6520,7 +6134,9 @@ export const mcpCallSchema = z
 		server_label: z.string(),
 		type: z.enum(["mcp_call"]),
 		approval_request_id: z.union([z.string(), z.null()]).optional(),
-		error: z.union([z.string(), z.null()]).optional(),
+		error: z
+			.union([mcpProtocolErrorSchema, mcpToolExecutionErrorSchema, HTTPErrorSchema, z.null()])
+			.optional(),
 		output: z.union([z.string(), z.null()]).optional(),
 		status: z
 			.union([z.enum(["in_progress", "completed", "incomplete", "calling", "failed"]), z.null()])
@@ -6602,6 +6218,10 @@ export const modelDeprecationInfoSchema = z.object({
 		.union([z.string(), z.null()])
 		.optional()
 		.describe("The provider this model belongs to."),
+	successor_model: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("The model to migrate to, as set in model_info.successor_model on the deployment."),
 });
 
 export const modelDeprecationResponseSchema = z.object({
@@ -6627,23 +6247,6 @@ export const modelDeprecationResponseSchema = z.object({
 
 export const modelInfoDeleteSchema = z.object({
 	id: z.string(),
-});
-
-export const modelMessageSchema = z.strictObject({
-	role: z.enum(["system", "user", "assistant"]),
-	content: z.string(),
-});
-
-export const modelRequestSchema = z.strictObject({
-	prompt: z.string().min(1),
-	purpose: z.enum(["extract", "cluster", "investigate"]),
-	messages: z.array(modelMessageSchema).optional().default([]),
-});
-
-export const modelResultSchema = z.strictObject({
-	content: z.string(),
-	cost: z.number(),
-	context_exceeded: z.boolean().optional().default(false),
 });
 
 export const modelTopKeysResponseSchema = z.object({
@@ -6881,6 +6484,7 @@ export const newTeamRequestSchema = z.object({
 	allowed_passthrough_routes: z.union([z.array(z.unknown()), z.null()]).optional(),
 	denied_passthrough_routes: z.union([z.array(z.string()), z.null()]).optional(),
 	disable_global_guardrails: z.union([z.boolean(), z.null()]).optional(),
+	require_trace_id: z.union([z.boolean(), z.null()]).optional(),
 	secret_manager_settings: z.union([z.looseObject({}), z.null()]).optional(),
 	model_rpm_limit: z.union([z.record(z.string(), z.int()), z.null()]).optional(),
 	rpm_limit_type: z
@@ -6900,6 +6504,9 @@ export const newTeamRequestSchema = z.object({
 	team_member_tpm_limit: z.union([z.int(), z.null()]).optional(),
 	team_member_key_duration: z.union([z.string(), z.null()]).optional(),
 	team_member_budget_duration: z.union([z.string(), z.null()]).optional(),
+	team_member_model_max_budget: z
+		.union([z.record(z.string(), budgetConfigSchema), z.null()])
+		.optional(),
 	allowed_vector_store_indexes: z
 		.union([z.array(allowedVectorStoreIndexItemSchema), z.null()])
 		.optional(),
@@ -7241,6 +6848,15 @@ export const outputTokensDetailsSchema = z.looseObject({
 	text_tokens: z.union([z.int(), z.null()]).optional(),
 });
 
+export const outputToolSearchCallSchema = z.looseObject({
+	id: z.string(),
+	arguments: z.unknown(),
+	call_id: z.union([z.string(), z.null()]).optional(),
+	execution: z.enum(["server", "client"]),
+	status: z.enum(["in_progress", "completed", "incomplete"]),
+	type: z.enum(["tool_search_call"]),
+});
+
 export const paginatedAuditLogResponseSchema = z
 	.object({
 		audit_logs: z.array(auditLogResponseSchema),
@@ -7368,8 +6984,12 @@ export const patchTeamRequestSchema = z
 		policies: z.union([z.array(z.string()), z.null()]).optional(),
 		object_permission: z.union([liteLLMObjectPermissionBaseSchema, z.null()]).optional(),
 		disable_global_guardrails: z.union([z.boolean(), z.null()]).optional(),
+		require_trace_id: z.union([z.boolean(), z.null()]).optional(),
 		team_member_budget: z.union([z.number(), z.null()]).optional(),
 		team_member_budget_duration: z.union([z.string(), z.null()]).optional(),
+		team_member_model_max_budget: z
+			.union([z.record(z.string(), budgetConfigSchema), z.null()])
+			.optional(),
 		team_member_rpm_limit: z.union([z.int(), z.null()]).optional(),
 		team_member_tpm_limit: z.union([z.int(), z.null()]).optional(),
 		team_member_key_duration: z.union([z.string(), z.null()]).optional(),
@@ -7435,13 +7055,6 @@ export const perUserAnalyticsResponseSchema = z
 	})
 	.describe("Response for per-user analytics");
 
-export const previewSchema = z.object({
-	as_of: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
-	offset: z.int().min(0).optional().default(0),
-	selection: activitySelectionSchema,
-	lookback_hours: z.int().min(1).optional().default(24),
-});
-
 export const programSchema = z.looseObject({
 	id: z.string(),
 	call_id: z.string(),
@@ -7458,20 +7071,13 @@ export const programOutputSchema = z.looseObject({
 	type: z.enum(["program_output"]),
 });
 
-export const progressSchema = z.strictObject({
-	stage: z.union([z.string(), z.null()]).optional(),
-	coverage: z.union([coverageSchema, z.null()]).optional(),
-	review: z.union([reviewSchema, z.null()]).optional(),
-	reading: z.union([z.array(inFlightSchema), z.null()]).optional(),
-	activity: z.union([activitySchema, z.null()]).optional(),
-});
-
 export const promptCacheBreakpointSchema = z
 	.looseObject({
 		mode: z.enum(["explicit"]),
+		ttl: z.union([z.enum(["30m", "12h"]), z.null()]).optional(),
 	})
 	.describe(
-		"Marks the exact end of a reusable prompt prefix.\n\nThe breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.",
+		"Marks the exact end of a reusable prompt prefix.\n\nWhen `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.",
 	);
 
 export const promptCachingRequestSchema = z.object({
@@ -7554,6 +7160,14 @@ export const rawRequestTypedDictSchema = z.object({
 	raw_request_headers: z.union([z.looseObject({}), z.null()]).optional(),
 	error: z.union([z.string(), z.null()]).optional(),
 });
+
+export const reasoningSchema = z
+	.looseObject({
+		effort: z
+			.union([z.enum(["none", "minimal", "low", "medium", "high", "xhigh", "max"]), z.null()])
+			.optional(),
+	})
+	.describe("The reasoning configuration applied by this update.");
 
 export const regenerateKeyRequestSchema = z.object({
 	key_alias: z.union([z.string(), z.null()]).optional(),
@@ -7656,6 +7270,42 @@ export const regenerateKeyRequestSchema = z.object({
 	grace_period: z.union([z.string(), z.null()]).optional(),
 });
 
+export const requestErrorStatusCodeEntrySchema = z.object({
+	status_code: z.int(),
+	failed_requests: z.int().optional().default(0),
+});
+
+export const requestErrorDailyEntrySchema = z.object({
+	date: z.string(),
+	successful_requests: z.int().optional().default(0),
+	failed_requests: z.int().optional().default(0),
+	client_errors: z.int().optional().default(0),
+	server_errors: z.int().optional().default(0),
+	by_status_code: z.array(requestErrorStatusCodeEntrySchema).optional().default([]),
+});
+
+export const requestErrorEntityEntrySchema = z.object({
+	id: z.string(),
+	label: z.union([z.string(), z.null()]).optional(),
+	api_requests: z.int().optional().default(0),
+	failed_requests: z.int().optional().default(0),
+	top_status_code: z.union([z.int(), z.null()]).optional(),
+	top_status_code_requests: z.int().optional().default(0),
+});
+
+export const requestErrorActivityResponseSchema = z
+	.object({
+		total_successful_requests: z.int().optional().default(0),
+		total_failed_requests: z.int().optional().default(0),
+		by_date: z.array(requestErrorDailyEntrySchema).optional().default([]),
+		by_status_code: z.array(requestErrorStatusCodeEntrySchema).optional().default([]),
+		by_key: z.array(requestErrorEntityEntrySchema).optional().default([]),
+		by_team: z.array(requestErrorEntityEntrySchema).optional().default([]),
+		by_user: z.array(requestErrorEntityEntrySchema).optional().default([]),
+		by_model: z.array(requestErrorEntityEntrySchema).optional().default([]),
+	})
+	.describe("Response for GET /gateway/errors/activity.");
+
 export const resetSpendRequestSchema = z.object({
 	reset_to: z.number(),
 });
@@ -7721,7 +7371,7 @@ export const responseCompactionItemSchema = z
 		created_by: z.union([z.string(), z.null()]).optional(),
 	})
 	.describe(
-		"A compaction item generated by the [`v1/responses/compact` API](https://platform.openai.com/docs/api-reference/responses/compact).",
+		"A compaction item generated by the [`v1/responses/compact` API](https://developers.openai.com/api/reference/resources/responses/methods/compact).",
 	);
 
 export const screenshotSchema = z
@@ -7795,7 +7445,7 @@ export const responseComputerToolCallSchema = z
 			.optional(),
 	})
 	.describe(
-		"A tool call to a computer use tool.\n\nSee the\n[computer use guide](https://platform.openai.com/docs/guides/tools-computer-use) for more information.",
+		"A tool call to a computer use tool.\n\nSee the\n[computer use guide](https://developers.openai.com/api/docs/guides/tools-computer-use) for more information.",
 	);
 
 export const responseComputerToolCallOutputScreenshotSchema = z
@@ -7820,6 +7470,46 @@ export const responseComputerToolCallOutputItemSchema = z.looseObject({
 	created_by: z.union([z.string(), z.null()]).optional(),
 });
 
+export const responseFormatTextSchema = z
+	.looseObject({
+		type: z.enum(["text"]),
+	})
+	.describe("Default response format. Used to generate text responses.");
+
+export const responseFormatTextJSONSchemaConfigSchema = z
+	.looseObject({
+		name: z.string(),
+		schema: z.looseObject({}),
+		type: z.enum(["json_schema"]),
+		description: z.union([z.string(), z.null()]).optional(),
+		strict: z.union([z.boolean(), z.null()]).optional(),
+	})
+	.describe(
+		"JSON Schema response format.\n\nUsed to generate structured JSON responses.\nLearn more about [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs).",
+	);
+
+export const openaiTypesResponsesResponseConfigurationUpdateItemTextSchema = z
+	.looseObject({
+		format: z.discriminatedUnion("type", [
+			responseFormatTextSchema,
+			responseFormatTextJSONSchemaConfigSchema,
+		]),
+	})
+	.describe("The text output configuration for subsequent responses.");
+
+export const responseConfigurationUpdateItemSchema = z
+	.looseObject({
+		id: z.string(),
+		type: z.enum(["configuration_update"]),
+		reasoning: z.union([reasoningSchema, z.null()]).optional(),
+		text: z
+			.union([openaiTypesResponsesResponseConfigurationUpdateItemTextSchema, z.null()])
+			.optional(),
+	})
+	.describe(
+		"A configuration update for subsequent responses.\n\nEach setting stays in effect\nuntil a later update replaces that setting.",
+	);
+
 export const responseContainerReferenceSchema = z
 	.looseObject({
 		container_id: z.string(),
@@ -7834,6 +7524,7 @@ export const responseCustomToolCallSchema = z
 		name: z.string(),
 		type: z.enum(["custom_tool_call"]),
 		id: z.union([z.string(), z.null()]).optional(),
+		async: z.union([z.boolean(), z.null()]).optional(),
 		caller: z.union([callerDirectSchema, callerProgramSchema, z.null()]).optional(),
 		namespace: z.union([z.string(), z.null()]).optional(),
 	})
@@ -7846,6 +7537,7 @@ export const responseCustomToolCallItemSchema = z
 		name: z.string(),
 		type: z.enum(["custom_tool_call"]),
 		id: z.string(),
+		async: z.union([z.boolean(), z.null()]).optional(),
 		caller: z.union([callerDirectSchema, callerProgramSchema, z.null()]).optional(),
 		namespace: z.union([z.string(), z.null()]).optional(),
 		status: z.enum(["in_progress", "completed", "incomplete"]),
@@ -7870,7 +7562,7 @@ export const responseInputImageSchema = z
 		prompt_cache_breakpoint: z.union([promptCacheBreakpointSchema, z.null()]).optional(),
 	})
 	.describe(
-		"An image input to the model.\n\nLearn about [image inputs](https://platform.openai.com/docs/guides/vision).",
+		"An image input to the model.\n\nLearn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision).",
 	);
 
 export const responseInputFileSchema = z
@@ -7906,7 +7598,7 @@ export const responseCustomToolCallOutputItemSchema = z
 	})
 	.describe("The output of a custom tool call from your code, being sent back to the model.");
 
-export const resultOutputSchema = z.looseObject({
+export const resultSchema = z.looseObject({
 	attributes: z
 		.union([z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])), z.null()])
 		.optional(),
@@ -7922,10 +7614,10 @@ export const responseFileSearchToolCallSchema = z
 		queries: z.array(z.string()),
 		status: z.enum(["in_progress", "searching", "completed", "incomplete", "failed"]),
 		type: z.enum(["file_search_call"]),
-		results: z.union([z.array(resultOutputSchema), z.null()]).optional(),
+		results: z.union([z.array(resultSchema), z.null()]).optional(),
 	})
 	.describe(
-		"The results of a file search tool call.\n\nSee the\n[file search guide](https://platform.openai.com/docs/guides/tools-file-search) for more information.",
+		"The results of a file search tool call.\n\nSee the\n[file search guide](https://developers.openai.com/api/docs/guides/tools-file-search) for more information.",
 	);
 
 export const responseFormatJSONObjectSchema = z
@@ -7936,12 +7628,6 @@ export const responseFormatJSONObjectSchema = z
 		"JSON object response format.\n\nAn older method of generating JSON responses.\nUsing `json_schema` is recommended for models that support it. Note that the\nmodel will not generate JSON without a system or user message instructing it\nto do so.",
 	);
 
-export const responseFormatTextSchema = z
-	.looseObject({
-		type: z.enum(["text"]),
-	})
-	.describe("Default response format. Used to generate text responses.");
-
 export const responseFormatTextJSONSchemaConfigParamSchema = z
 	.looseObject({
 		name: z.string(),
@@ -7951,7 +7637,7 @@ export const responseFormatTextJSONSchemaConfigParamSchema = z
 		strict: z.union([z.boolean(), z.null()]).optional(),
 	})
 	.describe(
-		"JSON Schema response format.\n\nUsed to generate structured JSON responses.\nLearn more about [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs).",
+		"JSON Schema response format.\n\nUsed to generate structured JSON responses.\nLearn more about [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs).",
 	);
 
 export const responseLocalEnvironmentSchema = z
@@ -7997,12 +7683,13 @@ export const responseFunctionToolCallSchema = z
 		name: z.string(),
 		type: z.enum(["function_call"]),
 		id: z.union([z.string(), z.null()]).optional(),
+		async: z.union([z.boolean(), z.null()]).optional(),
 		caller: z.union([callerDirectSchema, callerProgramSchema, z.null()]).optional(),
 		namespace: z.union([z.string(), z.null()]).optional(),
 		status: z.union([z.enum(["in_progress", "completed", "incomplete"]), z.null()]).optional(),
 	})
 	.describe(
-		"A tool call to run a function.\n\nSee the\n[function calling guide](https://platform.openai.com/docs/guides/function-calling) for more information.",
+		"A tool call to run a function.\n\nSee the\n[function calling guide](https://developers.openai.com/api/docs/guides/function-calling) for more information.",
 	);
 
 export const responseFunctionToolCallItemSchema = z
@@ -8012,18 +7699,18 @@ export const responseFunctionToolCallItemSchema = z
 		name: z.string(),
 		type: z.enum(["function_call"]),
 		id: z.string(),
+		async: z.union([z.boolean(), z.null()]).optional(),
 		caller: z.union([callerDirectSchema, callerProgramSchema, z.null()]).optional(),
 		namespace: z.union([z.string(), z.null()]).optional(),
 		status: z.enum(["in_progress", "completed", "incomplete"]),
 		created_by: z.union([z.string(), z.null()]).optional(),
 	})
 	.describe(
-		"A tool call to run a function.\n\nSee the\n[function calling guide](https://platform.openai.com/docs/guides/function-calling) for more information.",
+		"A tool call to run a function.\n\nSee the\n[function calling guide](https://developers.openai.com/api/docs/guides/function-calling) for more information.",
 	);
 
 export const responseFunctionToolCallOutputItemSchema = z.looseObject({
 	id: z.string(),
-	call_id: z.string(),
 	output: z.union([
 		z.string(),
 		z.array(
@@ -8036,6 +7723,7 @@ export const responseFunctionToolCallOutputItemSchema = z.looseObject({
 	]),
 	status: z.enum(["in_progress", "completed", "incomplete"]),
 	type: z.enum(["function_call_output"]),
+	call_id: z.union([z.string(), z.null()]).optional(),
 	caller: z.union([callerDirectSchema, callerProgramSchema, z.null()]).optional(),
 	created_by: z.union([z.string(), z.null()]).optional(),
 	name: z.union([z.string(), z.null()]).optional(),
@@ -8050,11 +7738,11 @@ export const responseFunctionWebSearchSchema = z
 			actionOpenPageSchema,
 			actionFindSchema,
 		]),
-		status: z.enum(["in_progress", "searching", "completed", "failed"]),
+		status: z.enum(["in_progress", "searching", "completed", "failed", "incomplete"]),
 		type: z.enum(["web_search_call"]),
 	})
 	.describe(
-		"The results of a web search tool call.\n\nSee the\n[web search guide](https://platform.openai.com/docs/guides/tools-web-search) for more information.",
+		"The results of a web search tool call.\n\nSee the\n[web search guide](https://developers.openai.com/api/docs/guides/tools-web-search) for more information.",
 	);
 
 export const responseInputMessageItemSchema = z.looseObject({
@@ -8163,7 +7851,7 @@ export const responseReasoningItemSchema = z
 		status: z.union([z.enum(["in_progress", "completed", "incomplete"]), z.null()]).optional(),
 	})
 	.describe(
-		"A description of the chain of thought used by a reasoning model while generating\na response. Be sure to include these items in your `input` to the Responses API\nfor subsequent turns of a conversation if you are manually\n[managing context](https://platform.openai.com/docs/guides/conversation-state).",
+		"A description of the chain of thought used by a reasoning model while generating\na response. Be sure to include these items in your `input` to the Responses API\nfor subsequent turns of a conversation if you are manually\n[managing context](https://developers.openai.com/api/docs/guides/conversation-state).",
 	);
 
 export const responseItemListSchema = z
@@ -8181,6 +7869,7 @@ export const responseItemListSchema = z
 				responseToolSearchCallSchema,
 				responseToolSearchOutputItemSchema,
 				additionalToolsSchema,
+				responseConfigurationUpdateItemSchema,
 				responseReasoningItemSchema,
 				programSchema,
 				programOutputSchema,
@@ -8220,7 +7909,7 @@ export const responseTextConfigParamSchema = z
 		verbosity: z.union([z.enum(["low", "medium", "high"]), z.null()]).optional(),
 	})
 	.describe(
-		"Configuration options for a text response from the model.\n\nCan be plain\ntext or structured JSON data. Learn more:\n- [Text inputs and outputs](https://platform.openai.com/docs/guides/text)\n- [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)",
+		"Configuration options for a text response from the model.\n\nCan be plain\ntext or structured JSON data. Learn more:\n- [Text inputs and outputs](https://developers.openai.com/api/docs/guides/text)\n- [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs)",
 	);
 
 export const toolChoiceAllowedParamSchema = z
@@ -8245,7 +7934,7 @@ export const toolChoiceTypesParamSchema = z
 		]),
 	})
 	.describe(
-		"Indicates that the model should use a built-in tool to generate a response.\n[Learn more about built-in tools](https://platform.openai.com/docs/guides/tools).",
+		"Indicates that the model should use a built-in tool to generate a response.\n[Learn more about built-in tools](https://developers.openai.com/api/docs/guides/tools).",
 	);
 
 export const toolChoiceFunctionParamSchema = z
@@ -8338,6 +8027,7 @@ export const responsesAPIResponseSchema = z.looseObject({
 				responseFunctionToolCallSchema,
 				responseFunctionWebSearchSchema,
 				customToolCallOutputItemSchema,
+				outputToolSearchCallSchema,
 			]),
 		),
 	]),
@@ -8394,24 +8084,6 @@ export const responsesAPIResponseSchema = z.looseObject({
 	usage: z.union([responseAPIUsageSchema, z.null()]).optional(),
 	user: z.union([z.string(), z.null()]).optional(),
 	store: z.union([z.boolean(), z.null()]).optional(),
-});
-
-export const resultInputSchema = z.strictObject({
-	assessments: z.array(runAssessmentSchema).optional().default([]),
-	findings: z.array(findingDraftSchema).optional().default([]),
-	coverage: coverageSchema,
-	error: z.string().optional().default(""),
-	review_versions: z.array(reviewVersionSchema).optional().default([]),
-});
-
-export const reviewPageSchema = z.strictObject({
-	reviews: z.array(reviewSchema),
-	reviewed: z.int(),
-});
-
-export const revisionSaveSchema = z.strictObject({
-	base_revision: z.int().min(0),
-	cases: z.array(datasetCaseSchema),
 });
 
 export const roleMappingsSchema = z
@@ -8478,18 +8150,10 @@ export const routerSettingsResponseSchema = z.object({
 		.describe("Source of each current router setting"),
 });
 
-export const runRequestSchema = z.strictObject({
-	settings: z.union([lensSettingsSchema, z.null()]).optional(),
-	lookback_hours: z.union([z.int().min(1), z.null()]).optional(),
-	start: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
-	end: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
-	agent_name: z.union([z.string().max(200), z.null()]).optional(),
-});
-
 export const runSourceSchema = z.object({
+	title: z.string(),
 	type: z.enum(["slack", "teams", "discord", "linear", "github", "jira", "custom"]),
 	url: z.string(),
-	title: z.string(),
 	user: z.string().optional(),
 });
 
@@ -8614,6 +8278,7 @@ export const serviceStatusSchema = z.strictObject({
 	credentials_ready: z.boolean().optional().default(false),
 	release: z.string().optional().default(""),
 	protocol_version: z.int().optional().default(0),
+	public_contract: z.int().optional().default(0),
 });
 
 export const serviceConnectionSchema = z.strictObject({
@@ -8849,50 +8514,28 @@ export const shadowEvalJobResponseSchema = z
 		"A shadow-eval job over one or more targets, each with its own budget and stop state;\nstatus is derived from stopped_by, the targets' stop and budget state, and ends_at,\nnever stored, so no writer anywhere can produce an inconsistent one. Aggregate\nfields are populated by the detail endpoint only and stay None on list responses.",
 	);
 
-export const signalSchema = z.strictObject({
-	id: z.string().regex(/^[a-z][a-z0-9_]{0,63}$/),
-	name: z.string().min(1).max(60),
-	question: z.string().min(3).max(500),
-});
-
-export const signalConfigSchema = z.strictObject({
-	model: z.string().optional().default(""),
-	threshold: z.number().min(0.05).max(0.95).optional().default(0.5),
-	signals: z
-		.array(signalSchema)
-		.optional()
-		.default([
-			{
-				id: "user_frustration",
-				name: "User frustration",
-				question:
-					"Does the user show frustration, annoyance or dissatisfaction with the agent in this run, for example complaints, irritated corrections, all caps, profanity, or giving up on the task?",
-			},
-			{
-				id: "missing_capability",
-				name: "Missing capability",
-				question:
-					"Does the user ask for something the agent cannot do in this run, so that the agent refuses, says it lacks a tool, permission, integration or data source, or fails because the capability does not exist?",
-			},
-			{
-				id: "repeated_request",
-				name: "Repeated request",
-				question:
-					"Does the user ask for the same thing more than once in this run, usually because the agent did not deliver it the first time?",
-			},
-		]),
-});
-
-export const signalFlagSchema = z.strictObject({
-	signal_id: z.string(),
-	name: z.string(),
-	score: z.number().min(0).max(1),
-});
-
 export const spanSchema = z.object({
-	span_id: z.string(),
-	parent_span_id: z.union([z.string(), z.null()]),
+	agent: z.string(),
+	duration_ms: z.number(),
+	error: z.union([z.string(), z.null()]),
+	error_truncated: z.boolean(),
+	framework: z.string(),
+	input_preview: z.string(),
+	input_tokens: z.int().min(0).max(4294967295),
+	litellm_request_id: z.union([z.string(), z.null()]),
+	model: z.union([z.string(), z.null()]),
 	name: z.string(),
+	output_tokens: z.int().min(0).max(4294967295),
+	parent_span_id: z.union([z.string(), z.null()]),
+	span_id: z.string(),
+	spend: z.union([z.number(), z.null()]),
+	spend_log_request_id: z.union([z.string(), z.null()]),
+	spend_match: z.union([
+		z.enum(["matched", "no_call_id", "no_spend_log", "ambiguous", "incomplete_evidence"]),
+		z.null(),
+	]),
+	start_offset_ms: z.number(),
+	status: z.enum(["ok", "error", "unset"]),
 	type: z.enum([
 		"agent",
 		"llm",
@@ -8907,41 +8550,23 @@ export const spanSchema = z.object({
 		"prompt",
 		"decision",
 	]),
-	agent: z.string(),
-	framework: z.string(),
-	start_offset_ms: z.number(),
-	duration_ms: z.number(),
-	status: z.enum(["ok", "error", "unset"]),
-	error: z.union([z.string(), z.null()]),
-	error_truncated: z.boolean(),
-	input_preview: z.string(),
-	model: z.union([z.string(), z.null()]),
-	input_tokens: z.int().min(0).max(4294967295),
-	output_tokens: z.int().min(0).max(4294967295),
-	litellm_request_id: z.union([z.string(), z.null()]),
-	spend: z.union([z.number(), z.null()]),
-	spend_log_request_id: z.union([z.string(), z.null()]),
-	spend_match: z.union([
-		z.enum(["matched", "no_call_id", "no_spend_log", "ambiguous", "incomplete_evidence"]),
-		z.null(),
-	]),
 });
 
 export const UIToolCallSchema = z.object({
-	name: z.string(),
 	arguments: z.string(),
+	name: z.string(),
 });
 
 export const UIMessageSchema = z.object({
-	role: z.enum(["system", "user", "assistant", "tool"]),
 	content: z.string(),
 	name: z.union([z.string(), z.null()]).optional(),
+	role: z.enum(["system", "user", "assistant", "tool"]),
 	tool_calls: z.array(UIToolCallSchema).optional(),
 });
 
 export const UIMessagesSchema = z.object({
-	messages: z.array(UIMessageSchema),
 	kind: z.enum(["messages"]),
+	messages: z.array(UIMessageSchema),
 });
 
 export const UIFieldSchema = z.object({
@@ -8955,24 +8580,24 @@ export const UIFieldsSchema = z.object({
 });
 
 export const UITextSchema = z.object({
-	text: z.string(),
 	kind: z.enum(["text"]),
+	text: z.string(),
 });
 
 export const spanDetailSchema = z.object({
-	span_id: z.string(),
-	input_ui: z.discriminatedUnion("kind", [UIMessagesSchema, UIFieldsSchema, UITextSchema]),
-	output_ui: z.discriminatedUnion("kind", [UIMessagesSchema, UIFieldsSchema, UITextSchema]),
-	input: z.string(),
-	output: z.string(),
 	attributes: z.record(z.string(), z.string()),
+	input: z.string(),
+	input_ui: z.discriminatedUnion("kind", [UIMessagesSchema, UIFieldsSchema, UITextSchema]),
+	output: z.string(),
+	output_ui: z.discriminatedUnion("kind", [UIMessagesSchema, UIFieldsSchema, UITextSchema]),
+	span_id: z.string(),
 });
 
 export const spanErrorPageSchema = z.object({
-	span_id: z.string(),
 	message: z.string(),
-	total_chars: z.int().min(0).max(18446744073709552000),
 	next_cursor: z.union([z.string(), z.null()]),
+	span_id: z.string(),
+	total_chars: z.int().min(0).max(18446744073709552000),
 });
 
 export const spendAnalyticsPaginatedResponseSchema = z.object({
@@ -9079,6 +8704,13 @@ export const startShadowEvalRequestSchema = z
 	.describe(
 		"Start duplicating one or more targets' traffic for blind comparison against an auto-router.\n\nA target is a virtual key, a team, or a user; each becomes its own leg with its own\nbudget and stop state. Team and user targets match on the identity every request\ncarries after auth (user_api_key_team_id / user_api_key_user_id), so they cover\nJWT-authenticated traffic, which presents no virtual key at all.",
 	);
+
+export const storedReportSchema = z.object({
+	id: z.string(),
+	window_start: z.number(),
+	window_end: z.number(),
+	report: jsonValueSchema,
+});
 
 export const supportedEndpointSchema = z.object({
 	key: z.string(),
@@ -9253,6 +8885,7 @@ export const teamListItemSchema = z
 		access_group_models: z.union([z.array(z.string()), z.null()]).optional(),
 		access_group_mcp_server_ids: z.union([z.array(z.string()), z.null()]).optional(),
 		access_group_agent_ids: z.union([z.array(z.string()), z.null()]).optional(),
+		access_group_skill_names: z.union([z.array(z.string()), z.null()]).optional(),
 	})
 	.describe("A team item in the paginated list response, enriched with computed fields.");
 
@@ -9367,6 +9000,12 @@ export const teamMemberUpdateRequestSchema = z.object({
 		.union([z.iso.datetime({ offset: true }), z.null()])
 		.optional()
 		.describe("UTC expiry for temp_budget_increase"),
+	model_max_budget: z
+		.union([z.record(z.string(), budgetConfigSchema), z.null()])
+		.optional()
+		.describe(
+			"Per-model spend caps for this team member, each with its own budget_duration. Overrides the team's default per-model member budget. Pass an empty dict to fall back to the team default.",
+		),
 });
 
 export const teamMemberUpdateResponseSchema = z.object({
@@ -9380,6 +9019,7 @@ export const teamMemberUpdateResponseSchema = z.object({
 	allowed_models: z.union([z.array(z.string()), z.null()]).optional(),
 	temp_budget_increase: z.union([z.number(), z.null()]).optional(),
 	temp_budget_expiry: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+	model_max_budget: z.union([z.record(z.string(), budgetConfigSchema), z.null()]).optional(),
 });
 
 export const teamMetadataFieldSchemaSchema = z
@@ -9434,6 +9074,58 @@ export const teamUserSpendResponseSchema = z.object({
 	results: z.array(teamUserSpendRowSchema),
 });
 
+export const telemetryDestinationSchema = z.enum(["local_table", "http"]);
+
+export const telemetryGroupSchema = z
+	.enum([
+		"heartbeat",
+		"request_success",
+		"token_info",
+		"request_taxonomy",
+		"event_details",
+		"instance_configuration",
+		"page_navigation",
+	])
+	.describe(
+		"A telemetry group describes a group of metrics that can be toggled on/off separately. One\ngroup may have dependencies on another.",
+	);
+
+export const telemetryGroupInfoSchema = z.object({
+	group: telemetryGroupSchema.describe(
+		"A telemetry group describes a group of metrics that can be toggled on/off separately. One\ngroup may have dependencies on another.",
+	),
+	requires: z.union([telemetryGroupSchema, z.null()]),
+	enabled: z.boolean(),
+});
+
+export const telemetryReportsResponseSchema = z.object({
+	reports: z.array(storedReportSchema),
+	next_after: z.union([z.number(), z.null()]),
+	next_after_id: z.union([z.string(), z.null()]),
+});
+
+export const telemetrySettingsResponseSchema = z.object({
+	groups: z.array(telemetryGroupInfoSchema),
+	stored_groups: z.union([z.array(telemetryGroupSchema), z.null()]),
+	vetoed: z.boolean(),
+	set_by_environment: z.boolean(),
+	environment_variables: z.array(z.string()),
+	editable: z.boolean(),
+	destination: z.union([telemetryDestinationSchema, z.null()]),
+	stored_destination: z.union([telemetryDestinationSchema, z.null()]),
+	destination_set_by_environment: z.boolean(),
+	available_destinations: z.array(telemetryDestinationSchema),
+	flush_interval_seconds: z.number(),
+	retention_days: z.int(),
+	report: z.union([z.record(z.string(), jsonValueSchema), z.null()]),
+	report_is_sample: z.boolean(),
+});
+
+export const telemetrySettingsUpdateSchema = z.strictObject({
+	groups: z.array(z.string()),
+	destination: z.union([telemetryDestinationSchema, z.null()]).optional(),
+});
+
 export const tokenCountDetailsResponseSchema = z
 	.object({
 		litellm_count_source: z.enum(["provider", "token_count_model", "local_estimate"]).optional(),
@@ -9469,36 +9161,36 @@ export const tokenCountResponseSchema = z.object({
 });
 
 export const traceSummarySchema = z.object({
-	resolution_limited: z.boolean().optional(),
-	trace_id: z.string(),
-	trace_ref: z.string().optional(),
-	name: z.string(),
-	service: z.string(),
-	agent_names: z.array(z.string()).optional(),
-	frameworks: z.array(z.string()).optional(),
-	input_preview: z.string(),
-	start_time: z.string(),
-	duration_ms: z.number(),
-	status: z.enum(["ok", "error", "unset"]),
-	span_count: z.int().min(0).max(18446744073709552000),
 	agent_count: z.int().min(0).max(18446744073709552000),
 	agent_invocations: z.int().min(0).max(18446744073709552000),
-	llm_calls: z.int().min(0).max(18446744073709552000),
-	tool_calls: z.int().min(0).max(18446744073709552000),
+	agent_names: z.array(z.string()).optional(),
+	duration_ms: z.number(),
 	error_count: z.int().min(0).max(18446744073709552000),
+	frameworks: z.array(z.string()).optional(),
+	input_preview: z.string(),
 	input_tokens: z.int().min(0).max(18446744073709552000),
-	output_tokens: z.int().min(0).max(18446744073709552000),
+	llm_calls: z.int().min(0).max(18446744073709552000),
 	models: z.array(z.string()),
-	spend: z.union([z.number(), z.null()]),
+	name: z.string(),
+	output_tokens: z.int().min(0).max(18446744073709552000),
 	priced_calls: z.int().min(0).max(18446744073709552000),
+	resolution_limited: z.boolean().optional(),
+	service: z.string(),
 	source: z.union([runSourceSchema, z.null()]).optional(),
+	span_count: z.int().min(0).max(18446744073709552000),
+	spend: z.union([z.number(), z.null()]),
+	start_time: z.string(),
+	status: z.enum(["ok", "error", "unset"]),
+	tool_calls: z.int().min(0).max(18446744073709552000),
+	trace_id: z.string(),
+	trace_ref: z.string().optional(),
 });
 
 export const traceSchema = z.object({
-	summary: traceSummarySchema,
 	agents: z.array(agentNodeSchema),
-	spans: z.array(spanSchema),
 	next_cursor: z.union([z.string(), z.null()]).optional(),
+	spans: z.array(spanSchema),
+	summary: traceSummarySchema,
 });
 
 export const traceAgentSchema = z
@@ -9515,58 +9207,25 @@ export const traceAgentListSchema = z.object({
 	agents: z.array(traceAgentSchema),
 });
 
-export const traceFeedbackSchema = z.strictObject({
-	trace_id: z.string().min(1).max(128),
-	trace_ref: z.string().max(512).optional().default(""),
-	feedback: z.array(feedbackSchema),
-});
-
-export const traceIdentitySchema = z.strictObject({
-	trace_id: z.string().min(1).max(128),
-	trace_ref: z.string().max(512).optional().default(""),
-});
-
-export const traceFeedbackRequestSchema = z.strictObject({
-	traces: z.array(traceIdentitySchema).min(1).max(500),
-});
-
-export const traceFeedbackSummarySchema = z.strictObject({
-	trace_id: z.string().min(1).max(128),
-	trace_ref: z.string().max(512).optional().default(""),
-	count: z.int().min(0),
-	average: z.union([z.number().min(0).max(10), z.null()]),
-	lowest: z.union([z.int().min(0).max(10), z.null()]),
-});
-
-export const traceFindingCountSchema = z.strictObject({
-	trace_id: z.string().min(1).max(128),
-	trace_ref: z.string().max(512).optional().default(""),
-	finding_count: z.union([z.int().min(0), z.null()]),
-});
-
-export const traceFindingsRequestSchema = z.strictObject({
-	traces: z.array(traceIdentitySchema).min(1).max(500),
-});
-
 export const tracePageSchema = z.object({
 	data: z.array(traceSummarySchema),
 	next_cursor: z.union([z.string(), z.null()]),
 });
 
 export const traceQueryAttributeFieldSchema = z.strictObject({
+	expression: z.string(),
 	key: z.string(),
 	type: z.enum(["String"]),
-	expression: z.string(),
 });
 
 export const traceQueryAttributesSchema = z.strictObject({
-	table: z.enum(["otel_traces", "agent_traces_by_key", "spend_logs"]),
 	column: z.string(),
-	fields: z.array(traceQueryAttributeFieldSchema),
-	truncated: z.boolean(),
-	error: z.union([z.string(), z.null()]).optional(),
 	discovery_sql: z.string(),
+	error: z.union([z.string(), z.null()]).optional(),
+	fields: z.array(traceQueryAttributeFieldSchema),
 	scope: z.string(),
+	table: z.enum(["otel_traces", "agent_traces_by_key", "spend_logs"]),
+	truncated: z.boolean(),
 });
 
 export const traceQueryColumnSchema = z.looseObject({
@@ -9579,56 +9238,56 @@ export const traceQueryExampleSchema = z.object({
 	sql: z.string(),
 });
 
-export const traceQueryTableSchema = z.strictObject({
-	name: z.enum(["otel_traces", "agent_traces_by_key", "spend_logs"]),
-	columns: z.array(traceQueryColumnSchema),
-});
-
-export const traceQueryNormalizedFieldSchema = z.strictObject({
-	table: z.enum(["otel_traces", "agent_traces_by_key", "spend_logs"]),
-	name: z.string(),
-	column: z.string(),
-	type: z.string(),
-	meaning: z.string(),
-});
-
 export const traceQueryMetadataFieldSchema = z.strictObject({
+	expression: z.string(),
 	path: z.array(z.union([z.string(), z.int().min(0).max(18446744073709552000)])),
 	types: z.array(z.enum(["array", "boolean", "integer", "null", "number", "object", "string"])),
-	expression: z.string(),
 });
 
 export const traceQueryMetadataSchema = z.strictObject({
-	table: z.enum(["otel_traces", "agent_traces_by_key", "spend_logs"]),
 	column: z.string(),
-	fields: z.array(traceQueryMetadataFieldSchema),
-	sampled_rows: z.int().min(0).max(18446744073709552000),
-	invalid_json_rows: z.int().min(0).max(18446744073709552000),
-	truncated: z.boolean(),
 	error: z.union([z.string(), z.null()]).optional(),
+	fields: z.array(traceQueryMetadataFieldSchema),
+	invalid_json_rows: z.int().min(0).max(18446744073709552000),
 	sample_sql: z.string(),
+	sampled_rows: z.int().min(0).max(18446744073709552000),
 	scope: z.string(),
+	table: z.enum(["otel_traces", "agent_traces_by_key", "spend_logs"]),
+	truncated: z.boolean(),
+});
+
+export const traceQueryNormalizedFieldSchema = z.strictObject({
+	column: z.string(),
+	meaning: z.string(),
+	name: z.string(),
+	table: z.enum(["otel_traces", "agent_traces_by_key", "spend_logs"]),
+	type: z.string(),
 });
 
 export const traceQueryRelationshipSchema = z.strictObject({
-	left: z.string(),
-	right: z.string(),
 	additional_predicates: z.string(),
+	left: z.string(),
 	meaning: z.string(),
+	right: z.string(),
+});
+
+export const traceQueryTableSchema = z.strictObject({
+	columns: z.array(traceQueryColumnSchema),
+	name: z.enum(["otel_traces", "agent_traces_by_key", "spend_logs"]),
 });
 
 export const traceQueryHelpSchema = z.strictObject({
-	dialect: z.string(),
 	access: z.string(),
-	response: z.string(),
-	tables: z.array(traceQueryTableSchema),
-	normalized_fields: z.array(traceQueryNormalizedFieldSchema),
-	metadata: traceQueryMetadataSchema,
 	attributes: z.array(traceQueryAttributesSchema),
-	relationships: z.array(traceQueryRelationshipSchema),
+	dialect: z.string(),
 	examples: z.array(traceQueryExampleSchema),
 	gotchas: z.array(z.string()),
 	guide: z.string(),
+	metadata: traceQueryMetadataSchema,
+	normalized_fields: z.array(traceQueryNormalizedFieldSchema),
+	relationships: z.array(traceQueryRelationshipSchema),
+	response: z.string(),
+	tables: z.array(traceQueryTableSchema),
 });
 
 export const traceQueryRequestSchema = z.strictObject({
@@ -9639,18 +9298,36 @@ export const traceSQLResponseSchema = z.strictObject({
 	data: z.array(z.record(z.string(), jsonValueSchema)),
 });
 
-export const traceSignalsSchema = z.strictObject({
-	trace_id: z.string().min(1).max(128),
-	trace_ref: z.string().max(512).optional().default(""),
-	status: z.enum(["unclassified", "pending", "classified", "failed"]),
-	flags: z.array(signalFlagSchema).optional().default([]),
-	model: z.string().optional().default(""),
-	classified_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
-});
-
 export const transformRequestBodySchema = z.object({
 	call_type: callTypesSchema,
 	request_body: z.looseObject({}),
+});
+
+export const UIActionSchema = z.enum(["view", "click", "submit"]);
+
+export const UIEventAcceptedSchema = z.object({
+	accepted: z.literal(true).optional().default(true),
+});
+
+export const UIEventBodySchema = z.strictObject({
+	page: z
+		.string()
+		.max(48)
+		.regex(/^[a-z]+(-[a-z]+)*$/),
+	action: UIActionSchema,
+	target: z
+		.union([
+			z
+				.string()
+				.max(48)
+				.regex(/^([a-z]+_)?tab=[a-z]+(-[a-z]+)*$/),
+			z.null(),
+		])
+		.optional(),
+});
+
+export const UIEventsEnabledResponseSchema = z.object({
+	enabled: z.boolean(),
 });
 
 export const UISettingsResponseSchema = z
@@ -9698,6 +9375,7 @@ export const workerRegistryEntrySchema = z.object({
 export const uiDiscoveryEndpointsSchema = z.object({
 	server_root_path: z.string(),
 	proxy_base_url: z.union([z.string(), z.null()]),
+	gateway_base_url: z.union([z.string(), z.null()]).optional(),
 	auto_redirect_to_sso: z.boolean(),
 	admin_ui_disabled: z.boolean(),
 	sso_configured: z.boolean(),
@@ -9898,8 +9576,12 @@ export const updateTeamRequestSchema = z
 		policies: z.union([z.array(z.string()), z.null()]).optional(),
 		object_permission: z.union([liteLLMObjectPermissionBaseSchema, z.null()]).optional(),
 		disable_global_guardrails: z.union([z.boolean(), z.null()]).optional(),
+		require_trace_id: z.union([z.boolean(), z.null()]).optional(),
 		team_member_budget: z.union([z.number(), z.null()]).optional(),
 		team_member_budget_duration: z.union([z.string(), z.null()]).optional(),
+		team_member_model_max_budget: z
+			.union([z.record(z.string(), budgetConfigSchema), z.null()])
+			.optional(),
 		team_member_rpm_limit: z.union([z.int(), z.null()]).optional(),
 		team_member_tpm_limit: z.union([z.int(), z.null()]).optional(),
 		team_member_key_duration: z.union([z.string(), z.null()]).optional(),
@@ -9988,6 +9670,28 @@ export const userBannerUpdateSchema = z.object({
 		.describe("Visual style of the banner."),
 });
 
+export const userConnectionDeleteResponseSchema = z.object({
+	status: z.string(),
+});
+
+export const userConnectionPollRequestSchema = z.object({
+	flow_handle: z.string(),
+});
+
+export const userConnectionPollResponseSchema = z.object({
+	status: z.enum(["pending", "slow_down", "expired", "denied", "connected", "no_copilot_seat"]),
+	interval: z.union([z.int(), z.null()]).optional(),
+	github_login: z.union([z.string(), z.null()]).optional(),
+});
+
+export const userConnectionStartResponseSchema = z.object({
+	user_code: z.string(),
+	verification_uri: z.string(),
+	expires_in: z.int(),
+	interval: z.int(),
+	flow_handle: z.string(),
+});
+
 export const userInfoResponseSchema = z.object({
 	user_id: z.union([z.string(), z.null()]),
 	user_info: z.union([z.looseObject({}), baseModelSchema, z.null()]),
@@ -10031,15 +9735,16 @@ export const userListResponseSchema = z
 	})
 	.describe("Response model for the user list endpoint");
 
-export const watchSkippedSchema = z.strictObject({
-	id: z.string(),
-	name: z.string(),
-	reason: z.string(),
+export const userProviderConnectionSchema = z.object({
+	credential_name: z.string(),
+	provider: z.string(),
+	connected: z.boolean(),
+	github_login: z.union([z.string(), z.null()]).optional(),
+	connected_at: z.union([z.string(), z.null()]).optional(),
 });
 
-export const watchAllResultSchema = z.strictObject({
-	watching: z.array(z.string()),
-	skipped: z.array(watchSkippedSchema).optional().default([]),
+export const userProviderConnectionsResponseSchema = z.object({
+	connections: z.array(userProviderConnectionSchema),
 });
 
 export const webSearchInterceptionSettingsSchema = z
@@ -10086,23 +9791,6 @@ export const webSearchInterceptionSettingsResponseSchema = z
 	})
 	.describe("Response model for web search interception settings");
 
-export const workerBillingSchema = z.object({
-	analysis_key_id: z.string().regex(/^[a-f0-9]{64}$/),
-});
-
-export const workerCreatedSchema = z.strictObject({
-	image: z.string(),
-	worker: workerSchema,
-	token: z.string(),
-	managed: z.boolean().optional().default(false),
-});
-
-export const workerNameSchema = z.object({
-	analysis_key_id: z.string().regex(/^[a-f0-9]{64}$/),
-	name: z.string().min(1).optional().default("Lens worker"),
-	managed: z.boolean().optional().default(false),
-});
-
 export const workflowEventCreateRequestSchema = z.object({
 	event_type: z.string(),
 	step_name: z.string(),
@@ -10139,6 +9827,7 @@ export const updateLiteLLMParamsSchema = z.looseObject({
 	tiered_pricing: z.union([z.array(z.looseObject({})), z.null()]).optional(),
 	cost_per_second: z.union([z.number(), z.null()]).optional(),
 	input_cost_per_second: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_text_message: z.union([z.number(), z.null()]).optional(),
 	output_cost_per_second: z.union([z.number(), z.null()]).optional(),
 	output_cost_per_second_1080p: z.union([z.number(), z.null()]).optional(),
 	output_cost_per_second_480p: z.union([z.number(), z.null()]).optional(),
@@ -10340,12 +10029,16 @@ export const updateLiteLLMParamsSchema = z.looseObject({
 	openai_identity_provider_id: z.union([z.string(), z.null()]).optional(),
 	openai_service_account_id: z.union([z.string(), z.null()]).optional(),
 	openai_identity_token_file: z.union([z.string(), z.null()]).optional(),
+	token_exchange_endpoint: z.union([z.string(), z.null()]).optional(),
+	token_exchange_profile: z.union([z.string(), z.null()]).optional(),
+	token_exchange_scope: z.union([z.string(), z.null()]).optional(),
+	token_exchange_audience: z.union([z.string(), z.null()]).optional(),
 	custom_llm_provider: z.union([z.string(), z.null()]).optional(),
 	tpm: z.union([z.int(), z.null()]).optional(),
 	rpm: z.union([z.int(), z.null()]).optional(),
 	itpm: z.union([z.int(), z.null()]).optional(),
 	otpm: z.union([z.int(), z.null()]).optional(),
-	timeout: z.union([z.number(), z.string(), z.null()]).optional(),
+	timeout: z.union([z.number(), z.string(), timeoutSchema, z.null()]).optional(),
 	stream_timeout: z.union([z.number(), z.string(), z.null()]).optional(),
 	timeout_by_service_tier: z.union([z.record(z.string(), z.number()), z.null()]).optional(),
 	stream_timeout_by_service_tier: z.union([z.record(z.string(), z.number()), z.null()]).optional(),
@@ -10495,7 +10188,7 @@ export const chatCompletionAudioObjectSchema = z.object({
 	prompt_cache_breakpoint: promptCacheBreakpointSchema
 		.optional()
 		.describe(
-			"Marks the exact end of a reusable prompt prefix.\n\nThe breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.",
+			"Marks the exact end of a reusable prompt prefix.\n\nWhen `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.",
 		),
 });
 
@@ -10676,6 +10369,7 @@ export const responsesAPIRequestParamsActionDoubleClickSchema = z
 
 export const functionToolParamSchema = z
 	.object({
+		async: z.boolean().optional(),
 		name: z.string(),
 		parameters: z.union([z.looseObject({}), z.null()]),
 		strict: z.union([z.boolean(), z.null()]),
@@ -10686,7 +10380,7 @@ export const functionToolParamSchema = z
 		output_schema: z.union([z.looseObject({}), z.null()]).optional(),
 	})
 	.describe(
-		"Defines a function in your own code the model can choose to call.\n\nLearn more about [function calling](https://platform.openai.com/docs/guides/function-calling).",
+		"Defines a function in your own code the model can choose to call.\n\nLearn more about [function calling](https://developers.openai.com/api/docs/guides/function-calling).",
 	);
 
 export const fileSearchToolParamSchema = z
@@ -10698,7 +10392,7 @@ export const fileSearchToolParamSchema = z
 		ranking_options: rankingOptionsSchema.optional().describe("Ranking options for search."),
 	})
 	.describe(
-		"A tool that searches for relevant content from uploaded files.\n\nLearn more about the [file search tool](https://platform.openai.com/docs/guides/tools-file-search).",
+		"A tool that searches for relevant content from uploaded files.\n\nLearn more about the [file search tool](https://developers.openai.com/api/docs/guides/tools-file-search).",
 	);
 
 export const openaiTypesResponsesComputerToolParamComputerToolParamSchema = z
@@ -10706,7 +10400,7 @@ export const openaiTypesResponsesComputerToolParamComputerToolParamSchema = z
 		type: z.enum(["computer"]),
 	})
 	.describe(
-		"A tool that controls a virtual computer.\n\nLearn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).",
+		"A tool that controls a virtual computer.\n\nLearn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).",
 	);
 
 export const computerUsePreviewToolParamSchema = z
@@ -10717,7 +10411,7 @@ export const computerUsePreviewToolParamSchema = z
 		type: z.enum(["computer_use_preview"]),
 	})
 	.describe(
-		"A tool that controls a virtual computer.\n\nLearn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).",
+		"A tool that controls a virtual computer.\n\nLearn more about the [computer tool](https://developers.openai.com/api/docs/guides/tools-computer-use).",
 	);
 
 export const openaiTypesResponsesWebSearchToolParamUserLocationSchema = z
@@ -10728,11 +10422,14 @@ export const openaiTypesResponsesWebSearchToolParamUserLocationSchema = z
 		timezone: z.union([z.string(), z.null()]).optional(),
 		type: z.enum(["approximate"]).optional(),
 	})
-	.describe("The approximate location of the user.");
+	.describe(
+		'The approximate location of the user.\n\nIf omitted or null, defaults to the\nUnited States. To avoid this fallback, pass `{"type": "approximate"}` without\nlocation fields. To localize results, provide the relevant location fields.',
+	);
 
 export const webSearchToolParamSchema = z
 	.object({
 		type: z.enum(["web_search", "web_search_2025_08_26"]),
+		external_web_access: z.boolean().optional(),
 		filters: z.union([filtersSchema, z.null()]).optional(),
 		search_context_size: z.enum(["low", "medium", "high"]).optional(),
 		user_location: z
@@ -10740,7 +10437,7 @@ export const webSearchToolParamSchema = z
 			.optional(),
 	})
 	.describe(
-		"Search the Internet for sources related to the prompt.\n\nLearn more about the\n[web search tool](https://platform.openai.com/docs/guides/tools-web-search).",
+		"Search the Internet for sources related to the prompt.\n\nLearn more about the\n[web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).",
 	);
 
 export const containerNetworkPolicyDisabledParamSchema = z.object({
@@ -10826,17 +10523,29 @@ export const functionShellToolParamSchema = z
 	})
 	.describe("A tool that allows the model to execute shell commands.");
 
+export const openaiTypesSharedParamsCustomToolInputFormatTextSchema = z
+	.object({
+		type: z.enum(["text"]),
+	})
+	.describe("Unconstrained free-form text.");
+
 export const customToolParamSchema = z
 	.object({
+		async: z.boolean().optional(),
 		name: z.string(),
 		type: z.enum(["custom"]),
 		allowed_callers: z.union([z.array(z.enum(["direct", "programmatic"])), z.null()]).optional(),
 		defer_loading: z.boolean().optional(),
 		description: z.string().optional(),
-		format: z.discriminatedUnion("type", [textSchema, grammarSchema]).optional(),
+		format: z
+			.discriminatedUnion("type", [
+				openaiTypesSharedParamsCustomToolInputFormatTextSchema,
+				grammarSchema,
+			])
+			.optional(),
 	})
 	.describe(
-		"A custom tool that processes input using a specified format.\n\nLearn more about   [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)",
+		"A custom tool that processes input using a specified format.\n\nLearn more about   [custom tools](https://developers.openai.com/api/docs/guides/function-calling#custom-tools)",
 	);
 
 export const namespaceToolParamSchema = z
@@ -10865,7 +10574,9 @@ export const openaiTypesResponsesWebSearchPreviewToolParamUserLocationSchema = z
 		region: z.union([z.string(), z.null()]).optional(),
 		timezone: z.union([z.string(), z.null()]).optional(),
 	})
-	.describe("The user's location.");
+	.describe(
+		'The approximate location of the user.\n\nIf omitted or null, defaults to the United States. To avoid this fallback, pass `{"type": "approximate"}` without location fields. To localize results, provide the relevant location fields.',
+	);
 
 export const webSearchPreviewToolParamSchema = z
 	.object({
@@ -10877,7 +10588,7 @@ export const webSearchPreviewToolParamSchema = z
 			.optional(),
 	})
 	.describe(
-		"This tool searches the web for relevant results to use in a response.\n\nLearn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).",
+		"This tool searches the web for relevant results to use in a response.\n\nLearn more about the [web search tool](https://developers.openai.com/api/docs/guides/tools-web-search).",
 	);
 
 export const applyPatchToolParamSchema = z
@@ -10993,6 +10704,7 @@ export const applyPatchCallOutputSchema = z
 export const compactionTriggerSchema = z
 	.object({
 		type: z.enum(["compaction_trigger"]),
+		id: z.union([z.string(), z.null()]).optional(),
 	})
 	.describe("Compacts the current context. Must be the final input item.");
 
@@ -11052,7 +10764,7 @@ export const responseInputTextParamSchema = z
 		prompt_cache_breakpoint: promptCacheBreakpointSchema
 			.optional()
 			.describe(
-				"Marks the exact end of a reusable prompt prefix.\n\nThe breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.",
+				"Marks the exact end of a reusable prompt prefix.\n\nWhen `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.",
 			),
 	})
 	.describe("A text input to the model.");
@@ -11066,11 +10778,11 @@ export const responseInputImageParamSchema = z
 		prompt_cache_breakpoint: promptCacheBreakpointSchema
 			.optional()
 			.describe(
-				"Marks the exact end of a reusable prompt prefix.\n\nThe breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.",
+				"Marks the exact end of a reusable prompt prefix.\n\nWhen `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.",
 			),
 	})
 	.describe(
-		"An image input to the model.\n\nLearn about [image inputs](https://platform.openai.com/docs/guides/vision).",
+		"An image input to the model.\n\nLearn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision).",
 	);
 
 export const responseInputFileParamSchema = z
@@ -11084,7 +10796,7 @@ export const responseInputFileParamSchema = z
 		prompt_cache_breakpoint: promptCacheBreakpointSchema
 			.optional()
 			.describe(
-				"Marks the exact end of a reusable prompt prefix.\n\nThe breakpoint inherits its TTL from the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.",
+				"Marks the exact end of a reusable prompt prefix.\n\nWhen `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.",
 			),
 	})
 	.describe("A file input to the model.");
@@ -11126,7 +10838,7 @@ export const responseInputImageContentParamSchema = z
 		prompt_cache_breakpoint: z.union([promptCacheBreakpointSchema, z.null()]).optional(),
 	})
 	.describe(
-		"An image input to the model.\n\nLearn about [image inputs](https://platform.openai.com/docs/guides/vision)",
+		"An image input to the model.\n\nLearn about [image inputs](https://developers.openai.com/api/docs/guides/images-vision)",
 	);
 
 export const responseInputFileContentParamSchema = z
@@ -11152,7 +10864,6 @@ export const functionCallOutputCallerProgramSchema = z.object({
 
 export const functionCallOutputSchema = z
 	.object({
-		call_id: z.string(),
 		output: z.union([
 			z.string(),
 			z.array(
@@ -11165,6 +10876,7 @@ export const functionCallOutputSchema = z
 		]),
 		type: z.enum(["function_call_output"]),
 		id: z.union([z.string(), z.null()]).optional(),
+		call_id: z.union([z.string(), z.null()]).optional(),
 		caller: z
 			.union([
 				functionCallOutputCallerDirectSchema,
@@ -11178,12 +10890,35 @@ export const functionCallOutputSchema = z
 	})
 	.describe("The output of a function tool call.");
 
+export const responsesAPIRequestParamsImageGenerationCallErrorSchema = z
+	.object({
+		code: z.union([z.string(), z.null()]),
+		message: z.string(),
+		param: z.union([z.string(), z.null()]),
+		type: z.string(),
+		moderation_details: imageGenerationCallErrorModerationDetailsSchema
+			.optional()
+			.describe("Public details for a `moderation_blocked` error, when available."),
+	})
+	.describe("Details of a moderation failure, when available.");
+
 export const responsesAPIRequestParamsImageGenerationCallSchema = z
 	.object({
 		id: z.string(),
 		result: z.union([z.string(), z.null()]),
 		status: z.enum(["in_progress", "completed", "generating", "failed"]),
 		type: z.enum(["image_generation_call"]),
+		action: z.union([z.enum(["generate", "edit", "auto"]), z.null()]).optional(),
+		background: z.union([z.enum(["transparent", "opaque", "auto"]), z.null()]).optional(),
+		error: responsesAPIRequestParamsImageGenerationCallErrorSchema
+			.optional()
+			.describe("Details of a moderation failure, when available."),
+		output_format: z.union([z.enum(["png", "webp", "jpeg"]), z.null()]).optional(),
+		quality: z
+			.union([z.enum(["low", "medium", "high", "xhigh", "max", "auto"]), z.null()])
+			.optional(),
+		revised_prompt: z.union([z.string(), z.null()]).optional(),
+		size: z.union([z.string(), z.null()]).optional(),
 	})
 	.describe("An image generation request made by the model.");
 
@@ -11221,6 +10956,11 @@ export const responsesAPIRequestParamsMessageSchema = z
 		"A message input to the model with a role indicating instruction following\nhierarchy. Instructions given with the `developer` or `system` role take\nprecedence over instructions given with the `user` role.",
 	);
 
+export const openAIToolSearchToolParamSchema = z.object({
+	type: z.enum(["tool_search"]),
+	execution: z.string().optional(),
+});
+
 export const outcomeExitSchema = z
 	.object({
 		exit_code: z.int(),
@@ -11247,20 +10987,6 @@ export const promptObjectSchema = z
 	})
 	.describe("Reference to a stored prompt template.");
 
-export const reasoningSchema = z
-	.object({
-		context: z.union([z.enum(["auto", "current_turn", "all_turns"]), z.null()]).optional(),
-		effort: z
-			.union([z.enum(["none", "minimal", "low", "medium", "high", "xhigh", "max"]), z.null()])
-			.optional(),
-		generate_summary: z.union([z.enum(["auto", "concise", "detailed"]), z.null()]).optional(),
-		mode: z.string().optional(),
-		summary: z.union([z.enum(["auto", "concise", "detailed"]), z.null()]).optional(),
-	})
-	.describe(
-		"**gpt-5 and o-series models only**\n\nConfiguration options for\n[reasoning models](https://platform.openai.com/docs/guides/reasoning).",
-	);
-
 export const responseCodeInterpreterToolCallParamSchema = z
 	.object({
 		id: z.string(),
@@ -11282,7 +11008,7 @@ export const responseCompactionItemParamParamSchema = z
 		id: z.union([z.string(), z.null()]).optional(),
 	})
 	.describe(
-		"A compaction item generated by the [`v1/responses/compact` API](https://platform.openai.com/docs/api-reference/responses/compact).",
+		"A compaction item generated by the [`v1/responses/compact` API](https://developers.openai.com/api/reference/resources/responses/methods/compact).",
 	);
 
 export const responseComputerToolCallParamSchema = z
@@ -11322,7 +11048,39 @@ export const responseComputerToolCallParamSchema = z
 			.optional(),
 	})
 	.describe(
-		"A tool call to a computer use tool.\n\nSee the\n[computer use guide](https://platform.openai.com/docs/guides/tools-computer-use) for more information.",
+		"A tool call to a computer use tool.\n\nSee the\n[computer use guide](https://developers.openai.com/api/docs/guides/tools-computer-use) for more information.",
+	);
+
+export const openaiTypesResponsesResponseConfigurationUpdateItemParamParamReasoningSchema = z
+	.object({
+		effort: z
+			.union([z.enum(["none", "minimal", "low", "medium", "high", "xhigh", "max"]), z.null()])
+			.optional(),
+	})
+	.describe("Updates to reasoning configuration. Only effort is supported.");
+
+export const openaiTypesResponsesResponseConfigurationUpdateItemParamParamTextSchema = z
+	.object({
+		format: z.discriminatedUnion("type", [
+			responseFormatTextSchema,
+			responseFormatTextJSONSchemaConfigParamSchema,
+		]),
+	})
+	.describe("The text output configuration for subsequent responses.");
+
+export const responseConfigurationUpdateItemParamParamSchema = z
+	.object({
+		type: z.enum(["configuration_update"]),
+		id: z.union([z.string(), z.null()]).optional(),
+		reasoning: openaiTypesResponsesResponseConfigurationUpdateItemParamParamReasoningSchema
+			.optional()
+			.describe("Updates to reasoning configuration. Only effort is supported."),
+		text: openaiTypesResponsesResponseConfigurationUpdateItemParamParamTextSchema
+			.optional()
+			.describe("The text output configuration for subsequent responses."),
+	})
+	.describe(
+		"An update to the conversation's response configuration.\n\nSupply reasoning,\ntext, or both. Each setting stays in effect until a later update replaces it.",
 	);
 
 export const responseCustomToolCallOutputParamSchema = z
@@ -11346,6 +11104,7 @@ export const responseCustomToolCallOutputParamSchema = z
 
 export const responseCustomToolCallParamSchema = z
 	.object({
+		async: z.boolean().optional(),
 		call_id: z.string(),
 		input: z.string(),
 		name: z.string(),
@@ -11356,16 +11115,6 @@ export const responseCustomToolCallParamSchema = z
 	})
 	.describe("A call to a custom tool created by the model.");
 
-export const resultSchema = z.object({
-	attributes: z
-		.union([z.record(z.string(), z.union([z.string(), z.number(), z.boolean()])), z.null()])
-		.optional(),
-	file_id: z.string().optional(),
-	filename: z.string().optional(),
-	score: z.number().optional(),
-	text: z.string().optional(),
-});
-
 export const responseFileSearchToolCallParamSchema = z
 	.object({
 		id: z.string(),
@@ -11375,7 +11124,7 @@ export const responseFileSearchToolCallParamSchema = z
 		results: z.union([z.array(resultSchema), z.null()]).optional(),
 	})
 	.describe(
-		"The results of a file search tool call.\n\nSee the\n[file search guide](https://platform.openai.com/docs/guides/tools-file-search) for more information.",
+		"The results of a file search tool call.\n\nSee the\n[file search guide](https://developers.openai.com/api/docs/guides/tools-file-search) for more information.",
 	);
 
 export const responseFunctionShellCallOutputContentParamSchema = z
@@ -11388,6 +11137,7 @@ export const responseFunctionShellCallOutputContentParamSchema = z
 
 export const responseFunctionToolCallParamSchema = z
 	.object({
+		async: z.boolean().optional(),
 		arguments: z.string(),
 		call_id: z.string(),
 		name: z.string(),
@@ -11398,7 +11148,7 @@ export const responseFunctionToolCallParamSchema = z
 		status: z.enum(["in_progress", "completed", "incomplete"]).optional(),
 	})
 	.describe(
-		"A tool call to run a function.\n\nSee the\n[function calling guide](https://platform.openai.com/docs/guides/function-calling) for more information.",
+		"A tool call to run a function.\n\nSee the\n[function calling guide](https://developers.openai.com/api/docs/guides/function-calling) for more information.",
 	);
 
 export const responseFunctionWebSearchParamSchema = z
@@ -11409,11 +11159,11 @@ export const responseFunctionWebSearchParamSchema = z
 			actionOpenPageSchema,
 			actionFindSchema,
 		]),
-		status: z.enum(["in_progress", "searching", "completed", "failed"]),
+		status: z.enum(["in_progress", "searching", "completed", "incomplete", "failed"]),
 		type: z.enum(["web_search_call"]),
 	})
 	.describe(
-		"The results of a web search tool call.\n\nSee the\n[web search guide](https://platform.openai.com/docs/guides/tools-web-search) for more information.",
+		"The results of a web search tool call.\n\nSee the\n[web search guide](https://developers.openai.com/api/docs/guides/tools-web-search) for more information.",
 	);
 
 export const responseOutputTextParamSchema = z
@@ -11465,8 +11215,153 @@ export const responseReasoningItemParamSchema = z
 		status: z.enum(["in_progress", "completed", "incomplete"]).optional(),
 	})
 	.describe(
-		"A description of the chain of thought used by a reasoning model while generating\na response. Be sure to include these items in your `input` to the Responses API\nfor subsequent turns of a conversation if you are manually\n[managing context](https://platform.openai.com/docs/guides/conversation-state).",
+		"A description of the chain of thought used by a reasoning model while generating\na response. Be sure to include these items in your `input` to the Responses API\nfor subsequent turns of a conversation if you are manually\n[managing context](https://developers.openai.com/api/docs/guides/conversation-state).",
 	);
+
+export const toolMcpAllowedToolsMcpToolFilterSchema = z
+	.object({
+		read_only: z.boolean().optional(),
+		tool_names: z.array(z.string()).optional(),
+	})
+	.describe("A filter object to specify which tools are allowed.");
+
+export const toolMcpRequireApprovalMcpToolApprovalFilterAlwaysSchema = z
+	.object({
+		read_only: z.boolean().optional(),
+		tool_names: z.array(z.string()).optional(),
+	})
+	.describe("A filter object to specify which tools are allowed.");
+
+export const toolMcpRequireApprovalMcpToolApprovalFilterNeverSchema = z
+	.object({
+		read_only: z.boolean().optional(),
+		tool_names: z.array(z.string()).optional(),
+	})
+	.describe("A filter object to specify which tools are allowed.");
+
+export const toolMcpRequireApprovalMcpToolApprovalFilterSchema = z
+	.object({
+		always: toolMcpRequireApprovalMcpToolApprovalFilterAlwaysSchema
+			.optional()
+			.describe("A filter object to specify which tools are allowed."),
+		never: toolMcpRequireApprovalMcpToolApprovalFilterNeverSchema
+			.optional()
+			.describe("A filter object to specify which tools are allowed."),
+	})
+	.describe(
+		"Specify which of the MCP server's tools require approval.\n\nCan be\n`always`, `never`, or a filter object associated with tools\nthat require approval.",
+	);
+
+export const toolMcpSchema = z
+	.object({
+		server_label: z.string(),
+		type: z.enum(["mcp"]),
+		allowed_callers: z.union([z.array(z.enum(["direct", "programmatic"])), z.null()]).optional(),
+		allowed_tools: z
+			.union([z.array(z.string()), toolMcpAllowedToolsMcpToolFilterSchema, z.null()])
+			.optional(),
+		authorization: z.string().optional(),
+		connector_id: z
+			.enum([
+				"connector_dropbox",
+				"connector_gmail",
+				"connector_googlecalendar",
+				"connector_googledrive",
+				"connector_microsoftteams",
+				"connector_outlookcalendar",
+				"connector_outlookemail",
+				"connector_sharepoint",
+			])
+			.optional(),
+		defer_loading: z.boolean().optional(),
+		headers: z.union([z.record(z.string(), z.string()), z.null()]).optional(),
+		require_approval: z
+			.union([
+				toolMcpRequireApprovalMcpToolApprovalFilterSchema,
+				z.enum(["always", "never"]),
+				z.null(),
+			])
+			.optional(),
+		server_description: z.string().optional(),
+		server_url: z.string().optional(),
+		tunnel_id: z.string().optional(),
+	})
+	.describe(
+		"Give the model access to additional tools via remote Model Context Protocol\n(MCP) servers. [Learn more about MCP](https://developers.openai.com/api/docs/guides/tools-connectors-mcp).",
+	);
+
+export const toolCodeInterpreterContainerCodeInterpreterToolAutoSchema = z
+	.object({
+		type: z.enum(["auto"]),
+		file_ids: z.array(z.string()).optional(),
+		memory_limit: z.union([z.enum(["1g", "4g", "16g", "64g"]), z.null()]).optional(),
+		network_policy: z
+			.discriminatedUnion("type", [
+				containerNetworkPolicyDisabledParamSchema,
+				containerNetworkPolicyAllowlistParamSchema,
+			])
+			.optional(),
+	})
+	.describe(
+		"Configuration for a code interpreter container.\n\nOptionally specify the IDs of the files to run the code on.",
+	);
+
+export const toolCodeInterpreterSchema = z
+	.object({
+		container: z.union([z.string(), toolCodeInterpreterContainerCodeInterpreterToolAutoSchema]),
+		type: z.enum(["code_interpreter"]),
+		allowed_callers: z.union([z.array(z.enum(["direct", "programmatic"])), z.null()]).optional(),
+	})
+	.describe("A tool that runs Python code to help generate a response to a prompt.");
+
+export const toolProgrammaticToolCallingSchema = z.object({
+	type: z.enum(["programmatic_tool_calling"]),
+});
+
+export const toolImageGenerationInputImageMaskSchema = z
+	.object({
+		file_id: z.string().optional(),
+		image_url: z.string().optional(),
+	})
+	.describe(
+		"Optional mask for inpainting.\n\nContains `image_url`\n(string, optional) and `file_id` (string, optional).",
+	);
+
+export const toolImageGenerationSchema = z
+	.object({
+		type: z.enum(["image_generation"]),
+		action: z.enum(["generate", "edit", "auto"]).optional(),
+		background: z.enum(["transparent", "opaque", "auto"]).optional(),
+		input_fidelity: z.union([z.enum(["high", "low"]), z.null()]).optional(),
+		input_image_mask: toolImageGenerationInputImageMaskSchema
+			.optional()
+			.describe(
+				"Optional mask for inpainting.\n\nContains `image_url`\n(string, optional) and `file_id` (string, optional).",
+			),
+		model: z.string().optional(),
+		moderation: z.enum(["auto", "low"]).optional(),
+		output_compression: z.int().optional(),
+		output_format: z.enum(["png", "webp", "jpeg"]).optional(),
+		partial_images: z.int().optional(),
+		quality: z.enum(["low", "medium", "high", "xhigh", "max", "auto"]).optional(),
+		size: z.string().optional(),
+	})
+	.describe("A tool that generates images using the GPT image models.");
+
+export const toolLocalShellSchema = z
+	.object({
+		type: z.enum(["local_shell"]),
+	})
+	.describe("A tool that allows the model to execute shell commands in a local environment.");
+
+export const toolSearchOutputNamespaceToolParamSchema = z
+	.object({
+		description: z.string(),
+		name: z.string(),
+		tools: z.array(z.discriminatedUnion("type", [toolFunctionSchema, customToolParamSchema])),
+		type: z.enum(["namespace"]),
+	})
+	.describe("Groups function/custom tools under a shared namespace.");
 
 export const responseToolSearchOutputItemParamParamSchema = z.object({
 	tools: z.array(
@@ -11476,14 +11371,14 @@ export const responseToolSearchOutputItemParamParamSchema = z.object({
 			openaiTypesResponsesComputerToolParamComputerToolParamSchema,
 			computerUsePreviewToolParamSchema,
 			webSearchToolParamSchema,
-			mcpSchema,
-			codeInterpreterSchema,
-			programmaticToolCallingSchema,
-			imageGenerationSchema,
-			localShellSchema,
+			toolMcpSchema,
+			toolCodeInterpreterSchema,
+			toolProgrammaticToolCallingSchema,
+			toolImageGenerationSchema,
+			toolLocalShellSchema,
 			functionShellToolParamSchema,
 			customToolParamSchema,
-			namespaceToolParamSchema,
+			toolSearchOutputNamespaceToolParamSchema,
 			toolSearchToolParamSchema,
 			webSearchPreviewToolParamSchema,
 			applyPatchToolParamSchema,
@@ -11583,6 +11478,20 @@ export const litellmTypesLlmsOpenaiComputerToolParamSchema = z.object({
 	type: z.union([z.enum(["computer_use_preview"]), z.string()]),
 });
 
+export const openaiTypesSharedParamsReasoningReasoningSchema = z
+	.object({
+		context: z.union([z.enum(["auto", "current_turn", "all_turns"]), z.null()]).optional(),
+		effort: z
+			.union([z.enum(["none", "minimal", "low", "medium", "high", "xhigh", "max"]), z.null()])
+			.optional(),
+		generate_summary: z.union([z.enum(["auto", "concise", "detailed"]), z.null()]).optional(),
+		mode: z.string().optional(),
+		summary: z.union([z.enum(["auto", "concise", "detailed"]), z.null()]).optional(),
+	})
+	.describe(
+		"Configuration options for\n[reasoning models](https://developers.openai.com/api/docs/guides/reasoning).",
+	);
+
 export const responsesAPIRequestParamsSchema = z
 	.object({
 		include: z
@@ -11607,7 +11516,7 @@ export const responsesAPIRequestParamsSchema = z
 		metadata: z.union([z.looseObject({}), z.null()]).optional(),
 		parallel_tool_calls: z.union([z.boolean(), z.null()]).optional(),
 		previous_response_id: z.union([z.string(), z.null()]).optional(),
-		reasoning: z.union([reasoningSchema, z.null()]).optional(),
+		reasoning: z.union([openaiTypesSharedParamsReasoningReasoningSchema, z.null()]).optional(),
 		store: z.union([z.boolean(), z.null()]).optional(),
 		background: z.union([z.boolean(), z.null()]).optional(),
 		stream: z.union([z.boolean(), z.null()]).optional(),
@@ -11649,6 +11558,7 @@ export const responsesAPIRequestParamsSchema = z
 						applyPatchToolParamSchema,
 						litellmTypesLlmsOpenaiComputerToolParamSchema,
 						shellToolParamSchema,
+						openAIToolSearchToolParamSchema,
 					]),
 				),
 				z.null(),
@@ -11684,6 +11594,7 @@ export const responsesAPIRequestParamsSchema = z
 					toolSearchCallSchema,
 					responseToolSearchOutputItemParamParamSchema,
 					responsesAPIRequestParamsAdditionalToolsSchema,
+					responseConfigurationUpdateItemParamParamSchema,
 					responseReasoningItemParamSchema,
 					responseCompactionItemParamParamSchema,
 					responsesAPIRequestParamsImageGenerationCallSchema,
@@ -12094,7 +12005,7 @@ export const baseLitellmParamsSchema = z.looseObject({
 		.optional()
 		.default(false)
 		.describe(
-			"Implemented by guardrail='model_armor'. When True, attachment references that carry no inline bytes (file_id, gs://, or http(s) URLs) pass through unscanned instead of blocking, while fail_on_error still governs real Model Armor API errors. Default False blocks them.",
+			"Implemented by guardrail='model_armor' and guardrail='bedrock'. When True, attachments the guardrail cannot scan pass through unscanned instead of blocking. For Model Armor these are references with no inline bytes (file_id, gs://, or http(s) URLs), and fail_on_error still governs real Model Armor API errors. For Bedrock these are documents, files, audio, video, and images that are not inline PNG or JPEG up to 4 MB. Default False blocks them.",
 		),
 	sticky_session_routing: z
 		.union([z.boolean(), z.null()])
@@ -13095,7 +13006,7 @@ export const litellmParamsSchema = z.looseObject({
 		.optional()
 		.default(false)
 		.describe(
-			"Implemented by guardrail='model_armor'. When True, attachment references that carry no inline bytes (file_id, gs://, or http(s) URLs) pass through unscanned instead of blocking, while fail_on_error still governs real Model Armor API errors. Default False blocks them.",
+			"Implemented by guardrail='model_armor' and guardrail='bedrock'. When True, attachments the guardrail cannot scan pass through unscanned instead of blocking. For Model Armor these are references with no inline bytes (file_id, gs://, or http(s) URLs), and fail_on_error still governs real Model Armor API errors. For Bedrock these are documents, files, audio, video, and images that are not inline PNG or JPEG up to 4 MB. Default False blocks them.",
 		),
 	sticky_session_routing: z
 		.union([z.boolean(), z.null()])
@@ -13171,6 +13082,12 @@ export const litellmParamsSchema = z.looseObject({
 		.optional()
 		.describe(
 			"Custom message when a guardrail blocks an action. Supports placeholders like {tool_name}, {rule_id}, and {default_message}.",
+		),
+	wingback_app_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Wingback external gateway integration name for request attribution (sent as additional_provider_specific_params.wingback_app_id).",
 		),
 	xecguard_model: z
 		.union([z.string(), z.null()])
@@ -13407,6 +13324,7 @@ export const chatCompletionToolParamFunctionChunkSchema = z.object({
 export const chatCompletionToolParamSchema = z.object({
 	allowed_callers: z.array(z.string()).optional(),
 	cache_control: chatCompletionCachedContentSchema.optional(),
+	defer_loading: z.boolean().optional(),
 	eager_input_streaming: z.boolean().optional(),
 	function: chatCompletionToolParamFunctionChunkSchema,
 	type: z.union([z.enum(["function"]), z.string()]),
@@ -14383,6 +14301,7 @@ export const searchToolLiteLLMParamsSchema = z
 	.object({
 		api_base: z.union([z.string(), z.null()]).optional(),
 		api_key: z.union([z.string(), z.null()]).optional(),
+		input_cost_per_query: z.union([z.number(), z.null()]).optional(),
 		max_retries: z.union([z.int(), z.null()]).optional(),
 		search_provider: z.string(),
 		timeout: z.union([z.number(), z.null()]).optional(),
@@ -14456,7 +14375,10 @@ export const MCPCredentialsSchema = z.object({
 	dcr_issuer: z.union([z.string(), z.null()]).optional(),
 	dcr_server_url: z.union([z.string(), z.null()]).optional(),
 	id_jag_resource: z.union([z.string(), z.null()]).optional(),
+	id_jag_resource_client_id: z.union([z.string(), z.null()]).optional(),
+	id_jag_resource_client_secret: z.union([z.string(), z.null()]).optional(),
 	id_jag_resource_token_endpoint: z.union([z.string(), z.null()]).optional(),
+	id_jag_subject_source: z.union([z.string(), z.null()]).optional(),
 	redirect_uris: z.union([z.array(z.string()), z.null()]).optional(),
 	scopes: z.union([z.array(z.string()), z.null()]).optional(),
 	subject_token_type: z.union([z.string(), z.null()]).optional(),
@@ -14947,7 +14869,8 @@ export const bodyRevokeEndpointRevokePostSchema = z.object({
 });
 
 export const bodyTokenEndpointMcpServerNameTokenPostSchema = z.object({
-	client_id: z.string(),
+	assertion: z.union([z.string(), z.null()]).optional(),
+	client_id: z.union([z.string(), z.null()]).optional(),
 	client_secret: z.union([z.string(), z.null()]).optional(),
 	code: z.string().optional(),
 	code_verifier: z.string().optional(),
@@ -14962,7 +14885,8 @@ export const bodyTokenEndpointMcpServerNameTokenPostSchema = z.object({
 });
 
 export const bodyTokenEndpointTokenPostSchema = z.object({
-	client_id: z.string(),
+	assertion: z.union([z.string(), z.null()]).optional(),
+	client_id: z.union([z.string(), z.null()]).optional(),
 	client_secret: z.union([z.string(), z.null()]).optional(),
 	code: z.string().optional(),
 	code_verifier: z.string().optional(),
@@ -15103,6 +15027,12 @@ export const realtimeTranscriptionSessionResponseSchema = z
 	.describe(
 		"Response from POST /v1/realtime/transcription_sessions.\n\n`client_secret.value` contains the encrypted token instead of the raw\nephemeral key. Unknown fields pass through unchanged.",
 	);
+
+export const textSchema = z
+	.looseObject({
+		type: z.enum(["text"]),
+	})
+	.describe("Unconstrained free-form text.");
 
 export const deleteSkillResponseSchema = z
 	.object({
@@ -15406,6 +15336,9 @@ export const pluginListItemSchema = z
 		enabled: z.boolean(),
 		homepage: z.union([z.string(), z.null()]).optional(),
 		id: z.string(),
+		installation_preference: z
+			.union([z.enum(["available", "auto_install", "required"]), z.null()])
+			.optional(),
 		keywords: z.union([z.array(z.string()), z.null()]).optional(),
 		name: z.string(),
 		namespace: z.union([z.string(), z.null()]).optional(),
@@ -15427,6 +15360,10 @@ export const pluginResponseSchema = z
 		description: z.union([z.string(), z.null()]).optional().describe("Plugin description"),
 		enabled: z.boolean().describe("Whether plugin is enabled"),
 		id: z.string().describe("Plugin unique ID"),
+		installation_preference: z
+			.union([z.enum(["available", "auto_install", "required"]), z.null()])
+			.optional()
+			.describe("Plugin installation preference"),
 		name: z.string().describe("Plugin name"),
 		source: z.record(z.string(), z.string()).describe("Plugin source reference"),
 		version: z.union([z.string(), z.null()]).optional().describe("Plugin version"),
@@ -15443,6 +15380,12 @@ export const registerPluginRequestSchema = z
 			.optional()
 			.describe("Skill domain (e.g., 'Productivity')"),
 		homepage: z.union([z.string(), z.null()]).optional().describe("Plugin homepage URL"),
+		installation_preference: z
+			.union([z.enum(["available", "auto_install", "required"]), z.null()])
+			.optional()
+			.describe(
+				"Emitted as installationPreference on this plugin's marketplace.json entry. Needs an archive source, the only plugins Claude Desktop lists from a marketplace.json URL, and 'auto_install' or 'required' also need its sha256. Claude Desktop honors the mark only when the archive and marketplace.json share its inference gateway origin",
+			),
 		keywords: z
 			.union([z.array(z.string()), z.null()])
 			.optional()
@@ -15488,6 +15431,12 @@ export const updatePluginRequestSchema = z
 			.optional()
 			.describe("Skill domain (e.g., 'Productivity')"),
 		homepage: z.union([z.string(), z.null()]).optional().describe("Plugin homepage URL"),
+		installation_preference: z
+			.union([z.enum(["available", "auto_install", "required"]), z.null()])
+			.optional()
+			.describe(
+				"Emitted as installationPreference on this plugin's marketplace.json entry. Needs an archive source, the only plugins Claude Desktop lists from a marketplace.json URL, and 'auto_install' or 'required' also need its sha256. Claude Desktop honors the mark only when the archive and marketplace.json share its inference gateway origin",
+			),
 		keywords: z
 			.union([z.array(z.string()), z.null()])
 			.optional()
@@ -15970,9 +15919,11 @@ export const accessGroupCreateRequestSchema = z.object({
 	access_group_name: z.string(),
 	access_mcp_server_ids: z.union([z.array(z.string()), z.null()]).optional(),
 	access_model_names: z.union([z.array(z.string()), z.null()]).optional(),
+	access_skill_names: z.union([z.array(z.string()), z.null()]).optional(),
 	assigned_key_ids: z.union([z.array(z.string()), z.null()]).optional(),
 	assigned_team_ids: z.union([z.array(z.string()), z.null()]).optional(),
 	description: z.union([z.string(), z.null()]).optional(),
+	mcp_tool_permissions: z.union([z.record(z.string(), z.array(z.string())), z.null()]).optional(),
 });
 
 export const accessGroupResourceSchema = z
@@ -15992,6 +15943,7 @@ export const accessGroupResponseSchema = z.object({
 	access_mcp_server_ids: z.array(z.string()),
 	access_mcp_servers: z.array(accessGroupResourceSchema),
 	access_model_names: z.array(z.string()),
+	access_skill_names: z.array(z.string()).optional().default([]),
 	assigned_key_ids: z.array(z.string()),
 	assigned_keys: z.array(accessGroupResourceSchema),
 	assigned_team_ids: z.array(z.string()),
@@ -15999,6 +15951,7 @@ export const accessGroupResponseSchema = z.object({
 	created_at: z.iso.datetime({ offset: true }),
 	created_by: z.union([z.string(), z.null()]).optional(),
 	description: z.union([z.string(), z.null()]).optional(),
+	mcp_tool_permissions: z.union([z.record(z.string(), z.array(z.string())), z.null()]).optional(),
 	updated_at: z.iso.datetime({ offset: true }),
 	updated_by: z.union([z.string(), z.null()]).optional(),
 });
@@ -16008,9 +15961,11 @@ export const accessGroupUpdateRequestSchema = z.object({
 	access_group_name: z.union([z.string(), z.null()]).optional(),
 	access_mcp_server_ids: z.union([z.array(z.string()), z.null()]).optional(),
 	access_model_names: z.union([z.array(z.string()), z.null()]).optional(),
+	access_skill_names: z.union([z.array(z.string()), z.null()]).optional(),
 	assigned_key_ids: z.union([z.array(z.string()), z.null()]).optional(),
 	assigned_team_ids: z.union([z.array(z.string()), z.null()]).optional(),
 	description: z.union([z.string(), z.null()]).optional(),
+	mcp_tool_permissions: z.union([z.record(z.string(), z.array(z.string())), z.null()]).optional(),
 });
 
 export const modelListModelsGetQueryReturnWildcardRoutesSchema = z
@@ -16996,6 +16951,13 @@ export const modelInfoV2V2ModelInfoGetQuerySortOrderSchema = z
 	.default("asc")
 	.describe("Sort order. Options: asc, desc");
 
+export const modelInfoV2V2ModelInfoGetQueryBlockedSchema = z
+	.union([z.boolean(), z.null()])
+	.optional()
+	.describe(
+		"Filter by routing status: false = active deployments, true = paused (blocked) deployments. Omit to return both.",
+	);
+
 export const modelInfoV2V2ModelInfoGetQueryExcludeAutoRoutersSchema = z
 	.union([z.boolean(), z.null()])
 	.optional()
@@ -17061,6 +17023,12 @@ export const modelInfoV2V2ModelInfoGetQuerySchema = z.object({
 		.optional()
 		.default("asc")
 		.describe("Sort order. Options: asc, desc"),
+	blocked: z
+		.union([z.boolean(), z.null()])
+		.optional()
+		.describe(
+			"Filter by routing status: false = active deployments, true = paused (blocked) deployments. Omit to return both.",
+		),
 	exclude_auto_routers: z
 		.union([z.boolean(), z.null()])
 		.optional()
@@ -17281,7 +17249,7 @@ export const responsesApiOpenaiV1ResponsesPostBodySchema = z.object({
 	metadata: z.union([z.looseObject({}), z.null()]).optional(),
 	parallel_tool_calls: z.union([z.boolean(), z.null()]).optional(),
 	previous_response_id: z.union([z.string(), z.null()]).optional(),
-	reasoning: z.union([reasoningSchema, z.null()]).optional(),
+	reasoning: z.union([openaiTypesSharedParamsReasoningReasoningSchema, z.null()]).optional(),
 	store: z.union([z.boolean(), z.null()]).optional(),
 	background: z.union([z.boolean(), z.null()]).optional(),
 	stream: z.union([z.boolean(), z.null()]).optional(),
@@ -17323,6 +17291,7 @@ export const responsesApiOpenaiV1ResponsesPostBodySchema = z.object({
 					applyPatchToolParamSchema,
 					litellmTypesLlmsOpenaiComputerToolParamSchema,
 					shellToolParamSchema,
+					openAIToolSearchToolParamSchema,
 				]),
 			),
 			z.null(),
@@ -17358,6 +17327,7 @@ export const responsesApiOpenaiV1ResponsesPostBodySchema = z.object({
 				toolSearchCallSchema,
 				responseToolSearchOutputItemParamParamSchema,
 				responsesAPIRequestParamsAdditionalToolsSchema,
+				responseConfigurationUpdateItemParamParamSchema,
 				responseReasoningItemParamSchema,
 				responseCompactionItemParamParamSchema,
 				responsesAPIRequestParamsImageGenerationCallSchema,
@@ -17411,7 +17381,7 @@ export const responsesApiResponsesPostBodySchema = z.object({
 	metadata: z.union([z.looseObject({}), z.null()]).optional(),
 	parallel_tool_calls: z.union([z.boolean(), z.null()]).optional(),
 	previous_response_id: z.union([z.string(), z.null()]).optional(),
-	reasoning: z.union([reasoningSchema, z.null()]).optional(),
+	reasoning: z.union([openaiTypesSharedParamsReasoningReasoningSchema, z.null()]).optional(),
 	store: z.union([z.boolean(), z.null()]).optional(),
 	background: z.union([z.boolean(), z.null()]).optional(),
 	stream: z.union([z.boolean(), z.null()]).optional(),
@@ -17453,6 +17423,7 @@ export const responsesApiResponsesPostBodySchema = z.object({
 					applyPatchToolParamSchema,
 					litellmTypesLlmsOpenaiComputerToolParamSchema,
 					shellToolParamSchema,
+					openAIToolSearchToolParamSchema,
 				]),
 			),
 			z.null(),
@@ -17488,6 +17459,7 @@ export const responsesApiResponsesPostBodySchema = z.object({
 				toolSearchCallSchema,
 				responseToolSearchOutputItemParamParamSchema,
 				responsesAPIRequestParamsAdditionalToolsSchema,
+				responseConfigurationUpdateItemParamParamSchema,
 				responseReasoningItemParamSchema,
 				responseCompactionItemParamParamSchema,
 				responsesAPIRequestParamsImageGenerationCallSchema,
@@ -17541,7 +17513,7 @@ export const responsesApiV1ResponsesPostBodySchema = z.object({
 	metadata: z.union([z.looseObject({}), z.null()]).optional(),
 	parallel_tool_calls: z.union([z.boolean(), z.null()]).optional(),
 	previous_response_id: z.union([z.string(), z.null()]).optional(),
-	reasoning: z.union([reasoningSchema, z.null()]).optional(),
+	reasoning: z.union([openaiTypesSharedParamsReasoningReasoningSchema, z.null()]).optional(),
 	store: z.union([z.boolean(), z.null()]).optional(),
 	background: z.union([z.boolean(), z.null()]).optional(),
 	stream: z.union([z.boolean(), z.null()]).optional(),
@@ -17583,6 +17555,7 @@ export const responsesApiV1ResponsesPostBodySchema = z.object({
 					applyPatchToolParamSchema,
 					litellmTypesLlmsOpenaiComputerToolParamSchema,
 					shellToolParamSchema,
+					openAIToolSearchToolParamSchema,
 				]),
 			),
 			z.null(),
@@ -17618,6 +17591,7 @@ export const responsesApiV1ResponsesPostBodySchema = z.object({
 				toolSearchCallSchema,
 				responseToolSearchOutputItemParamParamSchema,
 				responsesAPIRequestParamsAdditionalToolsSchema,
+				responseConfigurationUpdateItemParamParamSchema,
 				responseReasoningItemParamSchema,
 				responseCompactionItemParamParamSchema,
 				responsesAPIRequestParamsImageGenerationCallSchema,
@@ -18677,19 +18651,19 @@ export const listSearchToolsV1SearchToolsGetStatus200Schema = z.looseObject({});
 export const listSearchToolsV1SearchToolsGetResponseSchema =
 	listSearchToolsV1SearchToolsGetStatus200Schema;
 
-export const listAgentTracesV1TracesGetQueryStartMsSchema = z
-	.union([z.int(), z.null()])
-	.optional()
-	.describe("Window start, unix ms. Default: 24h ago");
+export const listAgentTracesV1TracesGetQueryCursorSchema = z
+	.union([z.string().max(512), z.null()])
+	.optional();
 
 export const listAgentTracesV1TracesGetQueryEndMsSchema = z
 	.union([z.int(), z.null()])
 	.optional()
 	.describe("Window end, unix ms. Default: now");
 
-export const listAgentTracesV1TracesGetQueryCursorSchema = z
-	.union([z.string().max(512), z.null()])
-	.optional();
+export const listAgentTracesV1TracesGetQueryStartMsSchema = z
+	.union([z.int(), z.null()])
+	.optional()
+	.describe("Window start, unix ms. Default: 24h ago");
 
 export const listAgentTracesV1TracesGetStatus200Schema = tracePageSchema;
 
@@ -18700,12 +18674,12 @@ export const listAgentTracesV1TracesGetResponseSchema = listAgentTracesV1TracesG
 export const listAgentTracesV1TracesGetErrorSchema = listAgentTracesV1TracesGetStatus422Schema;
 
 export const listAgentTracesV1TracesGetQuerySchema = z.object({
+	cursor: z.union([z.string().max(512), z.null()]).optional(),
+	end_ms: z.union([z.int(), z.null()]).optional().describe("Window end, unix ms. Default: now"),
 	start_ms: z
 		.union([z.int(), z.null()])
 		.optional()
 		.describe("Window start, unix ms. Default: 24h ago"),
-	end_ms: z.union([z.int(), z.null()]).optional().describe("Window end, unix ms. Default: now"),
-	cursor: z.union([z.string().max(512), z.null()]).optional(),
 });
 
 export const listTraceAgentsV1TracesAgentsGetQueryStartMsSchema = z
@@ -18750,8 +18724,6 @@ export const helpAgentTraceQueriesV1TracesQueryHelpGetResponseSchema =
 
 export const getAgentTraceV1TracesTraceIdGetPathTraceIdSchema = z.string();
 
-export const getAgentTraceV1TracesTraceIdGetQueryTraceRefSchema = z.string().optional().default("");
-
 export const getAgentTraceV1TracesTraceIdGetQueryCursorSchema = z
 	.union([z.string().max(512), z.null()])
 	.optional();
@@ -18759,6 +18731,8 @@ export const getAgentTraceV1TracesTraceIdGetQueryCursorSchema = z
 export const getAgentTraceV1TracesTraceIdGetQueryPageSizeSchema = z
 	.union([z.int().min(1).max(500), z.null()])
 	.optional();
+
+export const getAgentTraceV1TracesTraceIdGetQueryTraceRefSchema = z.string().optional().default("");
 
 export const getAgentTraceV1TracesTraceIdGetStatus200Schema = traceSchema;
 
@@ -18775,9 +18749,9 @@ export const getAgentTraceV1TracesTraceIdGetPathSchema = z.object({
 });
 
 export const getAgentTraceV1TracesTraceIdGetQuerySchema = z.object({
-	trace_ref: z.string().optional().default(""),
 	cursor: z.union([z.string().max(512), z.null()]).optional(),
 	page_size: z.union([z.int().min(1).max(500), z.null()]).optional(),
+	trace_ref: z.string().optional().default(""),
 });
 
 export const getAgentTraceSpanV1TracesTraceIdSpansSpanIdGetPathTraceIdSchema = z.string();
@@ -18813,14 +18787,14 @@ export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetPathTraceId
 
 export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetPathSpanIdSchema = z.string();
 
+export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetQueryCursorSchema = z
+	.union([z.string().max(512), z.null()])
+	.optional();
+
 export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetQueryTraceRefSchema = z
 	.string()
 	.optional()
 	.default("");
-
-export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetQueryCursorSchema = z
-	.union([z.string().max(512), z.null()])
-	.optional();
 
 export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetStatus200Schema =
 	spanErrorPageSchema;
@@ -18840,8 +18814,8 @@ export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetPathSchema 
 });
 
 export const getAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetQuerySchema = z.object({
-	trace_ref: z.string().optional().default(""),
 	cursor: z.union([z.string().max(512), z.null()]).optional(),
+	trace_ref: z.string().optional().default(""),
 });
 
 export const imageGenerationOpenaiDeploymentsModelImagesGenerationsPostPathModelSchema = z.union([
@@ -19230,6 +19204,77 @@ export const getCredentialByModelCredentialsByModelModelIdGetErrorSchema =
 export const getCredentialByModelCredentialsByModelModelIdGetPathSchema = z.object({
 	model_id: z.string().describe("The model ID to look up credentials for"),
 });
+
+export const listUserConnectionsCredentialsUserConnectionsGetStatus200Schema =
+	userProviderConnectionsResponseSchema;
+
+export const listUserConnectionsCredentialsUserConnectionsGetResponseSchema =
+	listUserConnectionsCredentialsUserConnectionsGetStatus200Schema;
+
+export const startUserConnectionCredentialsCredentialNameUserConnectionStartPostPathCredentialNameSchema =
+	z.string().describe("The credential name, percent-decoded");
+
+export const startUserConnectionCredentialsCredentialNameUserConnectionStartPostStatus200Schema =
+	userConnectionStartResponseSchema;
+
+export const startUserConnectionCredentialsCredentialNameUserConnectionStartPostStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const startUserConnectionCredentialsCredentialNameUserConnectionStartPostResponseSchema =
+	startUserConnectionCredentialsCredentialNameUserConnectionStartPostStatus200Schema;
+
+export const startUserConnectionCredentialsCredentialNameUserConnectionStartPostErrorSchema =
+	startUserConnectionCredentialsCredentialNameUserConnectionStartPostStatus422Schema;
+
+export const startUserConnectionCredentialsCredentialNameUserConnectionStartPostPathSchema =
+	z.object({
+		credential_name: z.string().describe("The credential name, percent-decoded"),
+	});
+
+export const pollUserConnectionCredentialsCredentialNameUserConnectionPollPostPathCredentialNameSchema =
+	z.string().describe("The credential name, percent-decoded");
+
+export const pollUserConnectionCredentialsCredentialNameUserConnectionPollPostStatus200Schema =
+	userConnectionPollResponseSchema;
+
+export const pollUserConnectionCredentialsCredentialNameUserConnectionPollPostStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const pollUserConnectionCredentialsCredentialNameUserConnectionPollPostResponseSchema =
+	pollUserConnectionCredentialsCredentialNameUserConnectionPollPostStatus200Schema;
+
+export const pollUserConnectionCredentialsCredentialNameUserConnectionPollPostErrorSchema =
+	pollUserConnectionCredentialsCredentialNameUserConnectionPollPostStatus422Schema;
+
+export const pollUserConnectionCredentialsCredentialNameUserConnectionPollPostBodySchema =
+	userConnectionPollRequestSchema;
+
+export const pollUserConnectionCredentialsCredentialNameUserConnectionPollPostPathSchema = z.object(
+	{
+		credential_name: z.string().describe("The credential name, percent-decoded"),
+	},
+);
+
+export const deleteUserConnectionCredentialsCredentialNameUserConnectionDeletePathCredentialNameSchema =
+	z.string().describe("The credential name, percent-decoded");
+
+export const deleteUserConnectionCredentialsCredentialNameUserConnectionDeleteStatus200Schema =
+	userConnectionDeleteResponseSchema;
+
+export const deleteUserConnectionCredentialsCredentialNameUserConnectionDeleteStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const deleteUserConnectionCredentialsCredentialNameUserConnectionDeleteResponseSchema =
+	deleteUserConnectionCredentialsCredentialNameUserConnectionDeleteStatus200Schema;
+
+export const deleteUserConnectionCredentialsCredentialNameUserConnectionDeleteErrorSchema =
+	deleteUserConnectionCredentialsCredentialNameUserConnectionDeleteStatus422Schema;
+
+export const deleteUserConnectionCredentialsCredentialNameUserConnectionDeletePathSchema = z.object(
+	{
+		credential_name: z.string().describe("The credential name, percent-decoded"),
+	},
+);
 
 export const deleteCredentialCredentialsCredentialNameDeletePathCredentialNameSchema = z
 	.string()
@@ -20174,6 +20219,35 @@ export const testModelConnectionHealthTestConnectionPostErrorSchema =
 
 export const testModelConnectionHealthTestConnectionPostBodySchema =
 	bodyTestModelConnectionHealthTestConnectionPostSchema.optional();
+
+export const getDeploymentWarningsHealthDeploymentWarningsGetStatus200Schema =
+	deploymentWarningsResponseSchema;
+
+export const getDeploymentWarningsHealthDeploymentWarningsGetResponseSchema =
+	getDeploymentWarningsHealthDeploymentWarningsGetStatus200Schema;
+
+export const updateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchPathWarningIdSchema =
+	z.string();
+
+export const updateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchStatus200Schema =
+	deploymentWarningIgnoreResponseSchema;
+
+export const updateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const updateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchResponseSchema =
+	updateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchStatus200Schema;
+
+export const updateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchErrorSchema =
+	updateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchStatus422Schema;
+
+export const updateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchBodySchema =
+	deploymentWarningIgnoreUpdateSchema;
+
+export const updateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchPathSchema =
+	z.object({
+		warning_id: z.string(),
+	});
 
 export const generateKeyFnKeyGeneratePostHeaderLitellmChangedBySchema = z
 	.union([z.string(), z.null()])
@@ -21595,6 +21669,93 @@ export const getUserDailyActivityExportUserDailyActivityExportGetQuerySchema = z
 			"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
 		),
 });
+
+export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryOffsetSchema =
+	z.int().min(0).optional().default(0);
+
+export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryLimitSchema =
+	z.int().min(1).max(100).optional().default(50);
+
+export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryStartDateSchema =
+	z.union([z.string(), z.null()]).optional().describe("Start date in YYYY-MM-DD format");
+
+export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryEndDateSchema =
+	z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format");
+
+export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryModelSchema =
+	z.union([z.string(), z.null()]).optional().describe("Filter by specific model");
+
+export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryApiKeySchema =
+	z.union([z.string(), z.null()]).optional().describe("Filter by specific API key");
+
+export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryUserIdSchema =
+	z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
+		);
+
+export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryTimezoneSchema =
+	z
+		.union([z.int(), z.null()])
+		.optional()
+		.describe(
+			"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
+		);
+
+export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryIncludeCurrentUtcDaySchema =
+	z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
+		);
+
+export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetStatus200Schema =
+	dailyActivityUserPageResponseSchema;
+
+export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetResponseSchema =
+	getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetStatus200Schema;
+
+export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetErrorSchema =
+	getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetStatus422Schema;
+
+export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQuerySchema =
+	z.object({
+		offset: z.int().min(0).optional().default(0),
+		limit: z.int().min(1).max(100).optional().default(50),
+		start_date: z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe("Start date in YYYY-MM-DD format"),
+		end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
+		model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model"),
+		api_key: z.union([z.string(), z.null()]).optional().describe("Filter by specific API key"),
+		user_id: z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe(
+				"Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.",
+			),
+		timezone: z
+			.union([z.int(), z.null()])
+			.optional()
+			.describe(
+				"Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.",
+			),
+		include_current_utc_day: z
+			.boolean()
+			.optional()
+			.default(false)
+			.describe(
+				"When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.",
+			),
+	});
 
 export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryLimitSchema =
 	z.int().min(1).max(100).optional().default(20);
@@ -26481,816 +26642,149 @@ export const deleteMemoryV1MemoryKeyDeletePathSchema = z.object({
 	key: z.string(),
 });
 
-export const listDatasetsLensDatasetsGetStatus200Schema = z.array(datasetSummarySchema);
-
-export const listDatasetsLensDatasetsGetResponseSchema = listDatasetsLensDatasetsGetStatus200Schema;
-
-export const createDatasetLensDatasetsPostStatus200Schema = datasetSchema;
-
-export const createDatasetLensDatasetsPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const createDatasetLensDatasetsPostResponseSchema =
-	createDatasetLensDatasetsPostStatus200Schema;
-
-export const createDatasetLensDatasetsPostErrorSchema =
-	createDatasetLensDatasetsPostStatus422Schema;
-
-export const createDatasetLensDatasetsPostBodySchema = datasetCreateSchema;
-
-export const buildDatasetCasesLensDatasetsBuildPostStatus200Schema = buildResultSchema;
-
-export const buildDatasetCasesLensDatasetsBuildPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const buildDatasetCasesLensDatasetsBuildPostResponseSchema =
-	buildDatasetCasesLensDatasetsBuildPostStatus200Schema;
-
-export const buildDatasetCasesLensDatasetsBuildPostErrorSchema =
-	buildDatasetCasesLensDatasetsBuildPostStatus422Schema;
-
-export const buildDatasetCasesLensDatasetsBuildPostBodySchema = buildRequestSchema;
-
-export const readDatasetLensDatasetsDatasetIdGetPathDatasetIdSchema = z.string();
-
-export const readDatasetLensDatasetsDatasetIdGetQueryRevisionSchema = z
-	.union([z.int().min(0), z.null()])
-	.optional();
-
-export const readDatasetLensDatasetsDatasetIdGetStatus200Schema = datasetSchema;
-
-export const readDatasetLensDatasetsDatasetIdGetStatus422Schema = HTTPValidationErrorSchema;
-
-export const readDatasetLensDatasetsDatasetIdGetResponseSchema =
-	readDatasetLensDatasetsDatasetIdGetStatus200Schema;
-
-export const readDatasetLensDatasetsDatasetIdGetErrorSchema =
-	readDatasetLensDatasetsDatasetIdGetStatus422Schema;
-
-export const readDatasetLensDatasetsDatasetIdGetPathSchema = z.object({
-	dataset_id: z.string(),
-});
-
-export const readDatasetLensDatasetsDatasetIdGetQuerySchema = z.object({
-	revision: z.union([z.int().min(0), z.null()]).optional(),
-});
-
-export const saveRevisionLensDatasetsDatasetIdRevisionsPostPathDatasetIdSchema = z.string();
-
-export const saveRevisionLensDatasetsDatasetIdRevisionsPostStatus200Schema = datasetSchema;
-
-export const saveRevisionLensDatasetsDatasetIdRevisionsPostStatus422Schema =
-	HTTPValidationErrorSchema;
-
-export const saveRevisionLensDatasetsDatasetIdRevisionsPostResponseSchema =
-	saveRevisionLensDatasetsDatasetIdRevisionsPostStatus200Schema;
-
-export const saveRevisionLensDatasetsDatasetIdRevisionsPostErrorSchema =
-	saveRevisionLensDatasetsDatasetIdRevisionsPostStatus422Schema;
-
-export const saveRevisionLensDatasetsDatasetIdRevisionsPostBodySchema = revisionSaveSchema;
-
-export const saveRevisionLensDatasetsDatasetIdRevisionsPostPathSchema = z.object({
-	dataset_id: z.string(),
-});
-
-export const exportDatasetLensDatasetsDatasetIdExportGetPathDatasetIdSchema = z.string();
-
-export const exportDatasetLensDatasetsDatasetIdExportGetQueryRevisionSchema = z
-	.union([z.int().min(0), z.null()])
-	.optional();
-
-export const exportDatasetLensDatasetsDatasetIdExportGetStatus200Schema = z.unknown();
-
-export const exportDatasetLensDatasetsDatasetIdExportGetStatus422Schema = HTTPValidationErrorSchema;
-
-export const exportDatasetLensDatasetsDatasetIdExportGetResponseSchema =
-	exportDatasetLensDatasetsDatasetIdExportGetStatus200Schema;
-
-export const exportDatasetLensDatasetsDatasetIdExportGetErrorSchema =
-	exportDatasetLensDatasetsDatasetIdExportGetStatus422Schema;
-
-export const exportDatasetLensDatasetsDatasetIdExportGetPathSchema = z.object({
-	dataset_id: z.string(),
-});
-
-export const exportDatasetLensDatasetsDatasetIdExportGetQuerySchema = z.object({
-	revision: z.union([z.int().min(0), z.null()]).optional(),
-});
-
-export const evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetPathDatasetIdSchema =
-	z.string();
-
-export const evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetPathRevisionSchema = z.int();
-
-export const evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetStatus200Schema =
-	evalCasesSchema;
-
-export const evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetStatus422Schema =
-	HTTPValidationErrorSchema;
-
-export const evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetResponseSchema =
-	evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetStatus200Schema;
-
-export const evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetErrorSchema =
-	evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetStatus422Schema;
-
-export const evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGetPathSchema = z.object({
-	dataset_id: z.string(),
-	revision: z.int(),
-});
-
-export const readFeedbackLensFeedbackGetQueryTraceIdSchema = z
-	.union([z.string().min(1).max(128), z.null()])
-	.optional();
-
-export const readFeedbackLensFeedbackGetQuerySessionIdSchema = z
-	.union([z.string().min(1).max(512), z.null()])
-	.optional();
-
-export const readFeedbackLensFeedbackGetQueryTraceRefSchema = z
-	.string()
-	.max(512)
-	.optional()
-	.default("");
-
-export const readFeedbackLensFeedbackGetStatus200Schema = traceFeedbackSchema;
-
-export const readFeedbackLensFeedbackGetStatus422Schema = HTTPValidationErrorSchema;
-
-export const readFeedbackLensFeedbackGetResponseSchema = readFeedbackLensFeedbackGetStatus200Schema;
-
-export const readFeedbackLensFeedbackGetErrorSchema = readFeedbackLensFeedbackGetStatus422Schema;
-
-export const readFeedbackLensFeedbackGetQuerySchema = z.object({
-	trace_id: z.union([z.string().min(1).max(128), z.null()]).optional(),
-	session_id: z.union([z.string().min(1).max(512), z.null()]).optional(),
-	trace_ref: z.string().max(512).optional().default(""),
-});
-
-export const submitFeedbackLensFeedbackPutStatus200Schema = feedbackSchema;
-
-export const submitFeedbackLensFeedbackPutStatus422Schema = HTTPValidationErrorSchema;
-
-export const submitFeedbackLensFeedbackPutResponseSchema =
-	submitFeedbackLensFeedbackPutStatus200Schema;
-
-export const submitFeedbackLensFeedbackPutErrorSchema =
-	submitFeedbackLensFeedbackPutStatus422Schema;
-
-export const submitFeedbackLensFeedbackPutBodySchema = feedbackSubmissionSchema;
-
-export const deleteFeedbackLensFeedbackDeleteQueryTraceIdSchema = z
-	.union([z.string().min(1).max(128), z.null()])
-	.optional();
-
-export const deleteFeedbackLensFeedbackDeleteQuerySessionIdSchema = z
-	.union([z.string().min(1).max(512), z.null()])
-	.optional();
-
-export const deleteFeedbackLensFeedbackDeleteQueryTraceRefSchema = z
-	.string()
-	.max(512)
-	.optional()
-	.default("");
-
-export const deleteFeedbackLensFeedbackDeleteQueryUserSchema = z
-	.string()
-	.max(256)
-	.optional()
-	.default("");
-
-export const deleteFeedbackLensFeedbackDeleteStatus204Schema = z.void();
-
-export const deleteFeedbackLensFeedbackDeleteStatus422Schema = HTTPValidationErrorSchema;
-
-export const deleteFeedbackLensFeedbackDeleteResponseSchema =
-	deleteFeedbackLensFeedbackDeleteStatus204Schema;
-
-export const deleteFeedbackLensFeedbackDeleteErrorSchema =
-	deleteFeedbackLensFeedbackDeleteStatus422Schema;
-
-export const deleteFeedbackLensFeedbackDeleteQuerySchema = z.object({
-	trace_id: z.union([z.string().min(1).max(128), z.null()]).optional(),
-	session_id: z.union([z.string().min(1).max(512), z.null()]).optional(),
-	trace_ref: z.string().max(512).optional().default(""),
-	user: z.string().max(256).optional().default(""),
-});
-
-export const feedbackSummaryLensFeedbackSummaryPostStatus200Schema = z.array(
-	traceFeedbackSummarySchema,
-);
-
-export const feedbackSummaryLensFeedbackSummaryPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const feedbackSummaryLensFeedbackSummaryPostResponseSchema =
-	feedbackSummaryLensFeedbackSummaryPostStatus200Schema;
-
-export const feedbackSummaryLensFeedbackSummaryPostErrorSchema =
-	feedbackSummaryLensFeedbackSummaryPostStatus422Schema;
-
-export const feedbackSummaryLensFeedbackSummaryPostBodySchema = traceFeedbackRequestSchema;
-
 export const serviceConnectionLensServiceGetStatus200Schema = serviceConnectionSchema;
 
 export const serviceConnectionLensServiceGetResponseSchema =
 	serviceConnectionLensServiceGetStatus200Schema;
 
-export const listIngestionKeysLensTracingKeysGetStatus200Schema = z.array(ingestionKeySchema);
+export const lensRequestLensPathPostPathPathSchema = z.string();
 
-export const listIngestionKeysLensTracingKeysGetResponseSchema =
-	listIngestionKeysLensTracingKeysGetStatus200Schema;
+export const lensRequestLensPathPostStatus200Schema = z.looseObject({});
 
-export const createIngestionKeyLensTracingKeysPostStatus200Schema = ingestionKeyCreatedSchema;
+export const lensRequestLensPathPostStatus422Schema = HTTPValidationErrorSchema;
 
-export const createIngestionKeyLensTracingKeysPostStatus422Schema = HTTPValidationErrorSchema;
+export const lensRequestLensPathPostResponseSchema = lensRequestLensPathPostStatus200Schema;
 
-export const createIngestionKeyLensTracingKeysPostResponseSchema =
-	createIngestionKeyLensTracingKeysPostStatus200Schema;
+export const lensRequestLensPathPostErrorSchema = lensRequestLensPathPostStatus422Schema;
 
-export const createIngestionKeyLensTracingKeysPostErrorSchema =
-	createIngestionKeyLensTracingKeysPostStatus422Schema;
-
-export const createIngestionKeyLensTracingKeysPostBodySchema = ingestionKeyRequestSchema;
-
-export const revokeIngestionKeyLensTracingKeysKeyIdDeletePathKeyIdSchema = z.string();
-
-export const revokeIngestionKeyLensTracingKeysKeyIdDeleteStatus200Schema = z.boolean();
-
-export const revokeIngestionKeyLensTracingKeysKeyIdDeleteStatus422Schema =
-	HTTPValidationErrorSchema;
-
-export const revokeIngestionKeyLensTracingKeysKeyIdDeleteResponseSchema =
-	revokeIngestionKeyLensTracingKeysKeyIdDeleteStatus200Schema;
-
-export const revokeIngestionKeyLensTracingKeysKeyIdDeleteErrorSchema =
-	revokeIngestionKeyLensTracingKeysKeyIdDeleteStatus422Schema;
-
-export const revokeIngestionKeyLensTracingKeysKeyIdDeletePathSchema = z.object({
-	key_id: z.string(),
+export const lensRequestLensPathPostPathSchema = z.object({
+	path: z.string(),
 });
 
-export const ingestionCredentialsLensInternalIngestionCredentialsGetStatus200Schema =
-	ingestionSnapshotSchema;
+export const lensRequestLensPathDeletePathPathSchema = z.string();
 
-export const ingestionCredentialsLensInternalIngestionCredentialsGetResponseSchema =
-	ingestionCredentialsLensInternalIngestionCredentialsGetStatus200Schema;
+export const lensRequestLensPathDeleteStatus200Schema = z.looseObject({});
 
-export const listLensesLensGetStatus200Schema = lensListSchema;
+export const lensRequestLensPathDeleteStatus422Schema = HTTPValidationErrorSchema;
 
-export const listLensesLensGetResponseSchema = listLensesLensGetStatus200Schema;
+export const lensRequestLensPathDeleteResponseSchema = lensRequestLensPathDeleteStatus200Schema;
 
-export const createLensLensPostStatus200Schema = lensSchema;
+export const lensRequestLensPathDeleteErrorSchema = lensRequestLensPathDeleteStatus422Schema;
 
-export const createLensLensPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const createLensLensPostResponseSchema = createLensLensPostStatus200Schema;
-
-export const createLensLensPostErrorSchema = createLensLensPostStatus422Schema;
-
-export const createLensLensPostBodySchema = lensSettingsSchema;
-
-export const activityAvailableLensActivityAvailableGetStatus200Schema = activityAvailabilitySchema;
-
-export const activityAvailableLensActivityAvailableGetResponseSchema =
-	activityAvailableLensActivityAvailableGetStatus200Schema;
-
-export const listAgentsLensAgentsGetStatus200Schema = z.array(z.string());
-
-export const listAgentsLensAgentsGetResponseSchema = listAgentsLensAgentsGetStatus200Schema;
-
-export const getSignalsLensSignalsGetStatus200Schema = signalConfigSchema;
-
-export const getSignalsLensSignalsGetResponseSchema = getSignalsLensSignalsGetStatus200Schema;
-
-export const putSignalsLensSignalsPutStatus200Schema = signalConfigSchema;
-
-export const putSignalsLensSignalsPutStatus422Schema = HTTPValidationErrorSchema;
-
-export const putSignalsLensSignalsPutResponseSchema = putSignalsLensSignalsPutStatus200Schema;
-
-export const putSignalsLensSignalsPutErrorSchema = putSignalsLensSignalsPutStatus422Schema;
-
-export const putSignalsLensSignalsPutBodySchema = signalConfigSchema;
-
-export const traceSignalStatusesLensTracesSignalsPostStatus200Schema = z.array(traceSignalsSchema);
-
-export const traceSignalStatusesLensTracesSignalsPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const traceSignalStatusesLensTracesSignalsPostResponseSchema =
-	traceSignalStatusesLensTracesSignalsPostStatus200Schema;
-
-export const traceSignalStatusesLensTracesSignalsPostErrorSchema =
-	traceSignalStatusesLensTracesSignalsPostStatus422Schema;
-
-export const traceSignalStatusesLensTracesSignalsPostBodySchema = traceFindingsRequestSchema;
-
-export const traceFindingsLensTracesFindingsPostStatus200Schema = z.array(traceFindingCountSchema);
-
-export const traceFindingsLensTracesFindingsPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const traceFindingsLensTracesFindingsPostResponseSchema =
-	traceFindingsLensTracesFindingsPostStatus200Schema;
-
-export const traceFindingsLensTracesFindingsPostErrorSchema =
-	traceFindingsLensTracesFindingsPostStatus422Schema;
-
-export const traceFindingsLensTracesFindingsPostBodySchema = traceFindingsRequestSchema;
-
-export const watchAllLensWatchAllPostStatus200Schema = watchAllResultSchema;
-
-export const watchAllLensWatchAllPostResponseSchema = watchAllLensWatchAllPostStatus200Schema;
-
-export const updateLensLensLensIdPutPathLensIdSchema = z.string();
-
-export const updateLensLensLensIdPutStatus200Schema = lensSchema;
-
-export const updateLensLensLensIdPutStatus422Schema = HTTPValidationErrorSchema;
-
-export const updateLensLensLensIdPutResponseSchema = updateLensLensLensIdPutStatus200Schema;
-
-export const updateLensLensLensIdPutErrorSchema = updateLensLensLensIdPutStatus422Schema;
-
-export const updateLensLensLensIdPutBodySchema = lensSettingsSchema;
-
-export const updateLensLensLensIdPutPathSchema = z.object({
-	lens_id: z.string(),
+export const lensRequestLensPathDeletePathSchema = z.object({
+	path: z.string(),
 });
 
-export const readLensLensLensIdGetPathLensIdSchema = z.string();
+export const lensRequestLensPathPutPathPathSchema = z.string();
 
-export const readLensLensLensIdGetStatus200Schema = lensSchema;
+export const lensRequestLensPathPutStatus200Schema = z.looseObject({});
 
-export const readLensLensLensIdGetStatus422Schema = HTTPValidationErrorSchema;
+export const lensRequestLensPathPutStatus422Schema = HTTPValidationErrorSchema;
 
-export const readLensLensLensIdGetResponseSchema = readLensLensLensIdGetStatus200Schema;
+export const lensRequestLensPathPutResponseSchema = lensRequestLensPathPutStatus200Schema;
 
-export const readLensLensLensIdGetErrorSchema = readLensLensLensIdGetStatus422Schema;
+export const lensRequestLensPathPutErrorSchema = lensRequestLensPathPutStatus422Schema;
 
-export const readLensLensLensIdGetPathSchema = z.object({
-	lens_id: z.string(),
+export const lensRequestLensPathPutPathSchema = z.object({
+	path: z.string(),
 });
 
-export const runLensLensLensIdRunsPostPathLensIdSchema = z.string();
+export const lensRequestLensPathPatchPathPathSchema = z.string();
 
-export const runLensLensLensIdRunsPostStatus200Schema = lensSchema;
+export const lensRequestLensPathPatchStatus200Schema = z.unknown();
 
-export const runLensLensLensIdRunsPostStatus422Schema = HTTPValidationErrorSchema;
+export const lensRequestLensPathPatchStatus422Schema = HTTPValidationErrorSchema;
 
-export const runLensLensLensIdRunsPostResponseSchema = runLensLensLensIdRunsPostStatus200Schema;
+export const lensRequestLensPathPatchResponseSchema = lensRequestLensPathPatchStatus200Schema;
 
-export const runLensLensLensIdRunsPostErrorSchema = runLensLensLensIdRunsPostStatus422Schema;
+export const lensRequestLensPathPatchErrorSchema = lensRequestLensPathPatchStatus422Schema;
 
-export const runLensLensLensIdRunsPostBodySchema = runRequestSchema;
-
-export const runLensLensLensIdRunsPostPathSchema = z.object({
-	lens_id: z.string(),
+export const lensRequestLensPathPatchPathSchema = z.object({
+	path: z.string(),
 });
 
-export const listRunsLensLensIdRunsGetPathLensIdSchema = z.string();
+export const lensRequestLensPathGetPathPathSchema = z.string();
 
-export const listRunsLensLensIdRunsGetQueryOffsetSchema = z.int().min(0).optional().default(0);
+export const lensRequestLensPathGetStatus200Schema = z.looseObject({});
 
-export const listRunsLensLensIdRunsGetStatus200Schema = z.array(jobSchema);
+export const lensRequestLensPathGetStatus422Schema = HTTPValidationErrorSchema;
 
-export const listRunsLensLensIdRunsGetStatus422Schema = HTTPValidationErrorSchema;
+export const lensRequestLensPathGetResponseSchema = lensRequestLensPathGetStatus200Schema;
 
-export const listRunsLensLensIdRunsGetResponseSchema = listRunsLensLensIdRunsGetStatus200Schema;
+export const lensRequestLensPathGetErrorSchema = lensRequestLensPathGetStatus422Schema;
 
-export const listRunsLensLensIdRunsGetErrorSchema = listRunsLensLensIdRunsGetStatus422Schema;
-
-export const listRunsLensLensIdRunsGetPathSchema = z.object({
-	lens_id: z.string(),
+export const lensRequestLensPathGetPathSchema = z.object({
+	path: z.string(),
 });
 
-export const listRunsLensLensIdRunsGetQuerySchema = z.object({
-	offset: z.int().min(0).optional().default(0),
+export const lensRequestLensPostQueryPathSchema = z.string().optional().default("");
+
+export const lensRequestLensPostStatus200Schema = z.looseObject({});
+
+export const lensRequestLensPostStatus422Schema = HTTPValidationErrorSchema;
+
+export const lensRequestLensPostResponseSchema = lensRequestLensPostStatus200Schema;
+
+export const lensRequestLensPostErrorSchema = lensRequestLensPostStatus422Schema;
+
+export const lensRequestLensPostQuerySchema = z.object({
+	path: z.string().optional().default(""),
 });
 
-export const readRunLensLensIdRunsJobIdGetPathLensIdSchema = z.string();
+export const lensRequestLensDeleteQueryPathSchema = z.string().optional().default("");
 
-export const readRunLensLensIdRunsJobIdGetPathJobIdSchema = z.string();
+export const lensRequestLensDeleteStatus200Schema = z.looseObject({});
 
-export const readRunLensLensIdRunsJobIdGetStatus200Schema = jobSchema;
+export const lensRequestLensDeleteStatus422Schema = HTTPValidationErrorSchema;
 
-export const readRunLensLensIdRunsJobIdGetStatus422Schema = HTTPValidationErrorSchema;
+export const lensRequestLensDeleteResponseSchema = lensRequestLensDeleteStatus200Schema;
 
-export const readRunLensLensIdRunsJobIdGetResponseSchema =
-	readRunLensLensIdRunsJobIdGetStatus200Schema;
+export const lensRequestLensDeleteErrorSchema = lensRequestLensDeleteStatus422Schema;
 
-export const readRunLensLensIdRunsJobIdGetErrorSchema =
-	readRunLensLensIdRunsJobIdGetStatus422Schema;
-
-export const readRunLensLensIdRunsJobIdGetPathSchema = z.object({
-	lens_id: z.string(),
-	job_id: z.string(),
+export const lensRequestLensDeleteQuerySchema = z.object({
+	path: z.string().optional().default(""),
 });
 
-export const readReviewsLensLensIdRunsJobIdReviewsGetPathLensIdSchema = z.string();
+export const lensRequestLensPutQueryPathSchema = z.string().optional().default("");
 
-export const readReviewsLensLensIdRunsJobIdReviewsGetPathJobIdSchema = z.string();
+export const lensRequestLensPutStatus200Schema = z.looseObject({});
 
-export const readReviewsLensLensIdRunsJobIdReviewsGetQueryAfterSchema = z
-	.int()
-	.min(0)
-	.optional()
-	.default(0);
+export const lensRequestLensPutStatus422Schema = HTTPValidationErrorSchema;
 
-export const readReviewsLensLensIdRunsJobIdReviewsGetStatus200Schema = reviewPageSchema;
+export const lensRequestLensPutResponseSchema = lensRequestLensPutStatus200Schema;
 
-export const readReviewsLensLensIdRunsJobIdReviewsGetStatus422Schema = HTTPValidationErrorSchema;
+export const lensRequestLensPutErrorSchema = lensRequestLensPutStatus422Schema;
 
-export const readReviewsLensLensIdRunsJobIdReviewsGetResponseSchema =
-	readReviewsLensLensIdRunsJobIdReviewsGetStatus200Schema;
-
-export const readReviewsLensLensIdRunsJobIdReviewsGetErrorSchema =
-	readReviewsLensLensIdRunsJobIdReviewsGetStatus422Schema;
-
-export const readReviewsLensLensIdRunsJobIdReviewsGetPathSchema = z.object({
-	lens_id: z.string(),
-	job_id: z.string(),
+export const lensRequestLensPutQuerySchema = z.object({
+	path: z.string().optional().default(""),
 });
 
-export const readReviewsLensLensIdRunsJobIdReviewsGetQuerySchema = z.object({
-	after: z.int().min(0).optional().default(0),
+export const lensRequestLensPatchQueryPathSchema = z.string().optional().default("");
+
+export const lensRequestLensPatchStatus200Schema = z.unknown();
+
+export const lensRequestLensPatchStatus422Schema = HTTPValidationErrorSchema;
+
+export const lensRequestLensPatchResponseSchema = lensRequestLensPatchStatus200Schema;
+
+export const lensRequestLensPatchErrorSchema = lensRequestLensPatchStatus422Schema;
+
+export const lensRequestLensPatchQuerySchema = z.object({
+	path: z.string().optional().default(""),
 });
 
-export const cancelLensLensLensIdCancelPostPathLensIdSchema = z.string();
+export const lensRequestLensGetQueryPathSchema = z.string().optional().default("");
 
-export const cancelLensLensLensIdCancelPostStatus200Schema = lensSchema;
+export const lensRequestLensGetStatus200Schema = z.looseObject({});
 
-export const cancelLensLensLensIdCancelPostStatus422Schema = HTTPValidationErrorSchema;
+export const lensRequestLensGetStatus422Schema = HTTPValidationErrorSchema;
 
-export const cancelLensLensLensIdCancelPostResponseSchema =
-	cancelLensLensLensIdCancelPostStatus200Schema;
+export const lensRequestLensGetResponseSchema = lensRequestLensGetStatus200Schema;
 
-export const cancelLensLensLensIdCancelPostErrorSchema =
-	cancelLensLensLensIdCancelPostStatus422Schema;
+export const lensRequestLensGetErrorSchema = lensRequestLensGetStatus422Schema;
 
-export const cancelLensLensLensIdCancelPostPathSchema = z.object({
-	lens_id: z.string(),
-});
-
-export const updateFindingLensLensIdFindingsFindingIdPatchPathLensIdSchema = z.string();
-
-export const updateFindingLensLensIdFindingsFindingIdPatchPathFindingIdSchema = z.string();
-
-export const updateFindingLensLensIdFindingsFindingIdPatchStatus200Schema = lensSchema;
-
-export const updateFindingLensLensIdFindingsFindingIdPatchStatus422Schema =
-	HTTPValidationErrorSchema;
-
-export const updateFindingLensLensIdFindingsFindingIdPatchResponseSchema =
-	updateFindingLensLensIdFindingsFindingIdPatchStatus200Schema;
-
-export const updateFindingLensLensIdFindingsFindingIdPatchErrorSchema =
-	updateFindingLensLensIdFindingsFindingIdPatchStatus422Schema;
-
-export const updateFindingLensLensIdFindingsFindingIdPatchBodySchema = findingUpdateSchema;
-
-export const updateFindingLensLensIdFindingsFindingIdPatchPathSchema = z.object({
-	lens_id: z.string(),
-	finding_id: z.string(),
-});
-
-export const previewSampleLensPreviewSamplePostStatus200Schema = sampleSchema;
-
-export const previewSampleLensPreviewSamplePostStatus422Schema = HTTPValidationErrorSchema;
-
-export const previewSampleLensPreviewSamplePostResponseSchema =
-	previewSampleLensPreviewSamplePostStatus200Schema;
-
-export const previewSampleLensPreviewSamplePostErrorSchema =
-	previewSampleLensPreviewSamplePostStatus422Schema;
-
-export const previewSampleLensPreviewSamplePostBodySchema = previewSchema;
-
-export const registerWorkerLensWorkersRegisterPostStatus200Schema = workerCreatedSchema;
-
-export const registerWorkerLensWorkersRegisterPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const registerWorkerLensWorkersRegisterPostResponseSchema =
-	registerWorkerLensWorkersRegisterPostStatus200Schema;
-
-export const registerWorkerLensWorkersRegisterPostErrorSchema =
-	registerWorkerLensWorkersRegisterPostStatus422Schema;
-
-export const registerWorkerLensWorkersRegisterPostBodySchema = workerNameSchema;
-
-export const setWorkerBillingLensWorkersWorkerIdBillingKeyPutPathWorkerIdSchema = z.string();
-
-export const setWorkerBillingLensWorkersWorkerIdBillingKeyPutStatus200Schema = workerSchema;
-
-export const setWorkerBillingLensWorkersWorkerIdBillingKeyPutStatus422Schema =
-	HTTPValidationErrorSchema;
-
-export const setWorkerBillingLensWorkersWorkerIdBillingKeyPutResponseSchema =
-	setWorkerBillingLensWorkersWorkerIdBillingKeyPutStatus200Schema;
-
-export const setWorkerBillingLensWorkersWorkerIdBillingKeyPutErrorSchema =
-	setWorkerBillingLensWorkersWorkerIdBillingKeyPutStatus422Schema;
-
-export const setWorkerBillingLensWorkersWorkerIdBillingKeyPutBodySchema = workerBillingSchema;
-
-export const setWorkerBillingLensWorkersWorkerIdBillingKeyPutPathSchema = z.object({
-	worker_id: z.string(),
-});
-
-export const revokeWorkerLensWorkersWorkerIdDeletePathWorkerIdSchema = z.string();
-
-export const revokeWorkerLensWorkersWorkerIdDeleteStatus200Schema = z.boolean();
-
-export const revokeWorkerLensWorkersWorkerIdDeleteStatus422Schema = HTTPValidationErrorSchema;
-
-export const revokeWorkerLensWorkersWorkerIdDeleteResponseSchema =
-	revokeWorkerLensWorkersWorkerIdDeleteStatus200Schema;
-
-export const revokeWorkerLensWorkersWorkerIdDeleteErrorSchema =
-	revokeWorkerLensWorkersWorkerIdDeleteStatus422Schema;
-
-export const revokeWorkerLensWorkersWorkerIdDeletePathSchema = z.object({
-	worker_id: z.string(),
-});
-
-export const claimLensWorkerClaimPostQueryProtocolVersionSchema = z.int().optional().default(1);
-
-export const claimLensWorkerClaimPostQueryWorkerReleaseSchema = z.string().optional().default("");
-
-export const claimLensWorkerClaimPostStatus200Schema = z.union([claimSchema, z.null()]);
-
-export const claimLensWorkerClaimPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const claimLensWorkerClaimPostResponseSchema = claimLensWorkerClaimPostStatus200Schema;
-
-export const claimLensWorkerClaimPostErrorSchema = claimLensWorkerClaimPostStatus422Schema;
-
-export const claimLensWorkerClaimPostQuerySchema = z.object({
-	protocol_version: z.int().optional().default(1),
-	worker_release: z.string().optional().default(""),
-});
-
-export const progressLensWorkerLensIdJobIdProgressPostPathLensIdSchema = z.string();
-
-export const progressLensWorkerLensIdJobIdProgressPostPathJobIdSchema = z.string();
-
-export const progressLensWorkerLensIdJobIdProgressPostHeaderXLiteLLMLensAttemptSchema = z
-	.int()
-	.min(1)
-	.optional()
-	.default(1);
-
-export const progressLensWorkerLensIdJobIdProgressPostStatus200Schema = z.boolean();
-
-export const progressLensWorkerLensIdJobIdProgressPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const progressLensWorkerLensIdJobIdProgressPostResponseSchema =
-	progressLensWorkerLensIdJobIdProgressPostStatus200Schema;
-
-export const progressLensWorkerLensIdJobIdProgressPostErrorSchema =
-	progressLensWorkerLensIdJobIdProgressPostStatus422Schema;
-
-export const progressLensWorkerLensIdJobIdProgressPostBodySchema = progressSchema;
-
-export const progressLensWorkerLensIdJobIdProgressPostPathSchema = z.object({
-	lens_id: z.string(),
-	job_id: z.string(),
-});
-
-export const progressLensWorkerLensIdJobIdProgressPostHeadersSchema = z.object({
-	"X-LiteLLM-Lens-Attempt": z.int().min(1).optional().default(1),
-});
-
-export const cachedReviewsLensWorkerLensIdJobIdReviewsGetPathLensIdSchema = z.string();
-
-export const cachedReviewsLensWorkerLensIdJobIdReviewsGetPathJobIdSchema = z.string();
-
-export const cachedReviewsLensWorkerLensIdJobIdReviewsGetHeaderXLiteLLMLensAttemptSchema = z
-	.int()
-	.min(1)
-	.optional()
-	.default(1);
-
-export const cachedReviewsLensWorkerLensIdJobIdReviewsGetStatus200Schema = z.array(reviewSchema);
-
-export const cachedReviewsLensWorkerLensIdJobIdReviewsGetStatus422Schema =
-	HTTPValidationErrorSchema;
-
-export const cachedReviewsLensWorkerLensIdJobIdReviewsGetResponseSchema =
-	cachedReviewsLensWorkerLensIdJobIdReviewsGetStatus200Schema;
-
-export const cachedReviewsLensWorkerLensIdJobIdReviewsGetErrorSchema =
-	cachedReviewsLensWorkerLensIdJobIdReviewsGetStatus422Schema;
-
-export const cachedReviewsLensWorkerLensIdJobIdReviewsGetPathSchema = z.object({
-	lens_id: z.string(),
-	job_id: z.string(),
-});
-
-export const cachedReviewsLensWorkerLensIdJobIdReviewsGetHeadersSchema = z.object({
-	"X-LiteLLM-Lens-Attempt": z.int().min(1).optional().default(1),
-});
-
-export const sampleLensWorkerLensIdJobIdSampleGetPathLensIdSchema = z.string();
-
-export const sampleLensWorkerLensIdJobIdSampleGetPathJobIdSchema = z.string();
-
-export const sampleLensWorkerLensIdJobIdSampleGetHeaderXLiteLLMLensAttemptSchema = z
-	.int()
-	.min(1)
-	.optional()
-	.default(1);
-
-export const sampleLensWorkerLensIdJobIdSampleGetStatus200Schema = sampleSchema;
-
-export const sampleLensWorkerLensIdJobIdSampleGetStatus422Schema = HTTPValidationErrorSchema;
-
-export const sampleLensWorkerLensIdJobIdSampleGetResponseSchema =
-	sampleLensWorkerLensIdJobIdSampleGetStatus200Schema;
-
-export const sampleLensWorkerLensIdJobIdSampleGetErrorSchema =
-	sampleLensWorkerLensIdJobIdSampleGetStatus422Schema;
-
-export const sampleLensWorkerLensIdJobIdSampleGetPathSchema = z.object({
-	lens_id: z.string(),
-	job_id: z.string(),
-});
-
-export const sampleLensWorkerLensIdJobIdSampleGetHeadersSchema = z.object({
-	"X-LiteLLM-Lens-Attempt": z.int().min(1).optional().default(1),
-});
-
-export const contentLensWorkerLensIdJobIdContentGetPathLensIdSchema = z.string();
-
-export const contentLensWorkerLensIdJobIdContentGetPathJobIdSchema = z.string();
-
-export const contentLensWorkerLensIdJobIdContentGetQueryExecutionIdSchema = z.string();
-
-export const contentLensWorkerLensIdJobIdContentGetQueryCursorSchema = z
-	.string()
-	.optional()
-	.default("");
-
-export const contentLensWorkerLensIdJobIdContentGetQueryOffsetSchema = z
-	.int()
-	.min(0)
-	.optional()
-	.default(0);
-
-export const contentLensWorkerLensIdJobIdContentGetHeaderXLiteLLMLensAttemptSchema = z
-	.int()
-	.min(1)
-	.optional()
-	.default(1);
-
-export const contentLensWorkerLensIdJobIdContentGetStatus200Schema = executionContentSchema;
-
-export const contentLensWorkerLensIdJobIdContentGetStatus422Schema = HTTPValidationErrorSchema;
-
-export const contentLensWorkerLensIdJobIdContentGetResponseSchema =
-	contentLensWorkerLensIdJobIdContentGetStatus200Schema;
-
-export const contentLensWorkerLensIdJobIdContentGetErrorSchema =
-	contentLensWorkerLensIdJobIdContentGetStatus422Schema;
-
-export const contentLensWorkerLensIdJobIdContentGetPathSchema = z.object({
-	lens_id: z.string(),
-	job_id: z.string(),
-});
-
-export const contentLensWorkerLensIdJobIdContentGetQuerySchema = z.object({
-	execution_id: z.string(),
-	cursor: z.string().optional().default(""),
-	offset: z.int().min(0).optional().default(0),
-});
-
-export const contentLensWorkerLensIdJobIdContentGetHeadersSchema = z.object({
-	"X-LiteLLM-Lens-Attempt": z.int().min(1).optional().default(1),
-});
-
-export const modelLensWorkerLensIdJobIdModelPostPathLensIdSchema = z.string();
-
-export const modelLensWorkerLensIdJobIdModelPostPathJobIdSchema = z.string();
-
-export const modelLensWorkerLensIdJobIdModelPostHeaderXLiteLLMLensAttemptSchema = z
-	.int()
-	.min(1)
-	.optional()
-	.default(1);
-
-export const modelLensWorkerLensIdJobIdModelPostStatus200Schema = modelResultSchema;
-
-export const modelLensWorkerLensIdJobIdModelPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const modelLensWorkerLensIdJobIdModelPostResponseSchema =
-	modelLensWorkerLensIdJobIdModelPostStatus200Schema;
-
-export const modelLensWorkerLensIdJobIdModelPostErrorSchema =
-	modelLensWorkerLensIdJobIdModelPostStatus422Schema;
-
-export const modelLensWorkerLensIdJobIdModelPostBodySchema = modelRequestSchema;
-
-export const modelLensWorkerLensIdJobIdModelPostPathSchema = z.object({
-	lens_id: z.string(),
-	job_id: z.string(),
-});
-
-export const modelLensWorkerLensIdJobIdModelPostHeadersSchema = z.object({
-	"X-LiteLLM-Lens-Attempt": z.int().min(1).optional().default(1),
-});
-
-export const resultLensWorkerLensIdJobIdResultPostPathLensIdSchema = z.string();
-
-export const resultLensWorkerLensIdJobIdResultPostPathJobIdSchema = z.string();
-
-export const resultLensWorkerLensIdJobIdResultPostHeaderXLiteLLMLensAttemptSchema = z
-	.int()
-	.min(1)
-	.optional()
-	.default(1);
-
-export const resultLensWorkerLensIdJobIdResultPostStatus200Schema = lensSchema;
-
-export const resultLensWorkerLensIdJobIdResultPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const resultLensWorkerLensIdJobIdResultPostResponseSchema =
-	resultLensWorkerLensIdJobIdResultPostStatus200Schema;
-
-export const resultLensWorkerLensIdJobIdResultPostErrorSchema =
-	resultLensWorkerLensIdJobIdResultPostStatus422Schema;
-
-export const resultLensWorkerLensIdJobIdResultPostBodySchema = resultInputSchema;
-
-export const resultLensWorkerLensIdJobIdResultPostPathSchema = z.object({
-	lens_id: z.string(),
-	job_id: z.string(),
-});
-
-export const resultLensWorkerLensIdJobIdResultPostHeadersSchema = z.object({
-	"X-LiteLLM-Lens-Attempt": z.int().min(1).optional().default(1),
-});
-
-export const heartbeatLensWorkerLensIdJobIdHeartbeatPostPathLensIdSchema = z.string();
-
-export const heartbeatLensWorkerLensIdJobIdHeartbeatPostPathJobIdSchema = z.string();
-
-export const heartbeatLensWorkerLensIdJobIdHeartbeatPostHeaderXLiteLLMLensAttemptSchema = z
-	.int()
-	.min(1)
-	.optional()
-	.default(1);
-
-export const heartbeatLensWorkerLensIdJobIdHeartbeatPostStatus200Schema = z.boolean();
-
-export const heartbeatLensWorkerLensIdJobIdHeartbeatPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const heartbeatLensWorkerLensIdJobIdHeartbeatPostResponseSchema =
-	heartbeatLensWorkerLensIdJobIdHeartbeatPostStatus200Schema;
-
-export const heartbeatLensWorkerLensIdJobIdHeartbeatPostErrorSchema =
-	heartbeatLensWorkerLensIdJobIdHeartbeatPostStatus422Schema;
-
-export const heartbeatLensWorkerLensIdJobIdHeartbeatPostPathSchema = z.object({
-	lens_id: z.string(),
-	job_id: z.string(),
-});
-
-export const heartbeatLensWorkerLensIdJobIdHeartbeatPostHeadersSchema = z.object({
-	"X-LiteLLM-Lens-Attempt": z.int().min(1).optional().default(1),
-});
-
-export const evidenceContentLensLensIdExecutionsExecutionIdGetPathLensIdSchema = z.string();
-
-export const evidenceContentLensLensIdExecutionsExecutionIdGetPathExecutionIdSchema = z.string();
-
-export const evidenceContentLensLensIdExecutionsExecutionIdGetQueryCursorSchema = z
-	.string()
-	.optional()
-	.default("");
-
-export const evidenceContentLensLensIdExecutionsExecutionIdGetQueryOffsetSchema = z
-	.int()
-	.min(0)
-	.optional()
-	.default(0);
-
-export const evidenceContentLensLensIdExecutionsExecutionIdGetStatus200Schema =
-	executionContentSchema;
-
-export const evidenceContentLensLensIdExecutionsExecutionIdGetStatus422Schema =
-	HTTPValidationErrorSchema;
-
-export const evidenceContentLensLensIdExecutionsExecutionIdGetResponseSchema =
-	evidenceContentLensLensIdExecutionsExecutionIdGetStatus200Schema;
-
-export const evidenceContentLensLensIdExecutionsExecutionIdGetErrorSchema =
-	evidenceContentLensLensIdExecutionsExecutionIdGetStatus422Schema;
-
-export const evidenceContentLensLensIdExecutionsExecutionIdGetPathSchema = z.object({
-	lens_id: z.string(),
-	execution_id: z.string(),
-});
-
-export const evidenceContentLensLensIdExecutionsExecutionIdGetQuerySchema = z.object({
-	cursor: z.string().optional().default(""),
-	offset: z.int().min(0).optional().default(0),
+export const lensRequestLensGetQuerySchema = z.object({
+	path: z.string().optional().default(""),
 });
 
 export const listPluginsApiPluginsGetStatus200Schema = z.array(z.record(z.string(), z.string()));
@@ -27853,6 +27347,113 @@ export const getGatewayDailyActivityGatewayDailyActivityGetQuerySchema = z.objec
 		.describe("Start date in YYYY-MM-DD format"),
 	end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
 });
+
+export const getRequestErrorActivityGatewayErrorsActivityGetQueryStartDateSchema = z
+	.union([z.string(), z.null()])
+	.optional()
+	.describe("Start date in YYYY-MM-DD format");
+
+export const getRequestErrorActivityGatewayErrorsActivityGetQueryEndDateSchema = z
+	.union([z.string(), z.null()])
+	.optional()
+	.describe("End date in YYYY-MM-DD format");
+
+export const getRequestErrorActivityGatewayErrorsActivityGetStatus200Schema =
+	requestErrorActivityResponseSchema.describe("Response for GET /gateway/errors/activity.");
+
+export const getRequestErrorActivityGatewayErrorsActivityGetStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const getRequestErrorActivityGatewayErrorsActivityGetResponseSchema =
+	getRequestErrorActivityGatewayErrorsActivityGetStatus200Schema;
+
+export const getRequestErrorActivityGatewayErrorsActivityGetErrorSchema =
+	getRequestErrorActivityGatewayErrorsActivityGetStatus422Schema;
+
+export const getRequestErrorActivityGatewayErrorsActivityGetQuerySchema = z.object({
+	start_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Start date in YYYY-MM-DD format"),
+	end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
+});
+
+export const recordUiEventTelemetryUiEventsPostStatus200Schema = UIEventAcceptedSchema;
+
+export const recordUiEventTelemetryUiEventsPostStatus422Schema = HTTPValidationErrorSchema;
+
+export const recordUiEventTelemetryUiEventsPostResponseSchema =
+	recordUiEventTelemetryUiEventsPostStatus200Schema;
+
+export const recordUiEventTelemetryUiEventsPostErrorSchema =
+	recordUiEventTelemetryUiEventsPostStatus422Schema;
+
+export const recordUiEventTelemetryUiEventsPostBodySchema = UIEventBodySchema;
+
+export const exportTelemetryReportsTelemetryReportsGetQueryAfterSchema = z
+	.number()
+	.optional()
+	.default(0)
+	.describe("window_end of the last report already exported");
+
+export const exportTelemetryReportsTelemetryReportsGetQueryAfterIdSchema = z
+	.string()
+	.optional()
+	.default("")
+	.describe("id of the last report already exported");
+
+export const exportTelemetryReportsTelemetryReportsGetQueryLimitSchema = z
+	.int()
+	.min(1)
+	.max(5000)
+	.optional()
+	.default(500);
+
+export const exportTelemetryReportsTelemetryReportsGetStatus200Schema =
+	telemetryReportsResponseSchema;
+
+export const exportTelemetryReportsTelemetryReportsGetStatus422Schema = HTTPValidationErrorSchema;
+
+export const exportTelemetryReportsTelemetryReportsGetResponseSchema =
+	exportTelemetryReportsTelemetryReportsGetStatus200Schema;
+
+export const exportTelemetryReportsTelemetryReportsGetErrorSchema =
+	exportTelemetryReportsTelemetryReportsGetStatus422Schema;
+
+export const exportTelemetryReportsTelemetryReportsGetQuerySchema = z.object({
+	after: z
+		.number()
+		.optional()
+		.default(0)
+		.describe("window_end of the last report already exported"),
+	after_id: z.string().optional().default("").describe("id of the last report already exported"),
+	limit: z.int().min(1).max(5000).optional().default(500),
+});
+
+export const getTelemetrySettingsTelemetrySettingsGetStatus200Schema =
+	telemetrySettingsResponseSchema;
+
+export const getTelemetrySettingsTelemetrySettingsGetResponseSchema =
+	getTelemetrySettingsTelemetrySettingsGetStatus200Schema;
+
+export const updateTelemetrySettingsTelemetrySettingsPutStatus200Schema =
+	telemetrySettingsResponseSchema;
+
+export const updateTelemetrySettingsTelemetrySettingsPutStatus422Schema = HTTPValidationErrorSchema;
+
+export const updateTelemetrySettingsTelemetrySettingsPutResponseSchema =
+	updateTelemetrySettingsTelemetrySettingsPutStatus200Schema;
+
+export const updateTelemetrySettingsTelemetrySettingsPutErrorSchema =
+	updateTelemetrySettingsTelemetrySettingsPutStatus422Schema;
+
+export const updateTelemetrySettingsTelemetrySettingsPutBodySchema = telemetrySettingsUpdateSchema;
+
+export const uiEventsEnabledTelemetryUiEventsEnabledGetStatus200Schema =
+	UIEventsEnabledResponseSchema;
+
+export const uiEventsEnabledTelemetryUiEventsEnabledGetResponseSchema =
+	uiEventsEnabledTelemetryUiEventsEnabledGetStatus200Schema;
 
 export const getEmailEventSettingsEmailEventSettingsGetStatus200Schema =
 	emailEventSettingsResponseSchema;
@@ -28433,35 +28034,19 @@ export const aggregateMcpRouteMcpPatchStatus200Schema = z.unknown();
 
 export const aggregateMcpRouteMcpPatchResponseSchema = aggregateMcpRouteMcpPatchStatus200Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpGetPathToolsetNameSchema = z.string();
+export const toolsetMcpRouteToolsetToolsetNameMcpPostPathToolsetNameSchema = z.string();
 
-export const toolsetMcpRouteToolsetToolsetNameMcpGetStatus200Schema = z.looseObject({});
+export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema = z.looseObject({});
 
-export const toolsetMcpRouteToolsetToolsetNameMcpGetStatus422Schema = HTTPValidationErrorSchema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpGetResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpGetStatus200Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPostResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpGetErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpGetStatus422Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPostErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpGetPathSchema = z.object({
-	toolset_name: z.string(),
-});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathToolsetNameSchema = z.string();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema = z.unknown();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathSchema = z.object({
+export const toolsetMcpRouteToolsetToolsetNameMcpPostPathSchema = z.object({
 	toolset_name: z.string(),
 });
 
@@ -28481,6 +28066,22 @@ export const toolsetMcpRouteToolsetToolsetNameMcpOptionsPathSchema = z.object({
 	toolset_name: z.string(),
 });
 
+export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathToolsetNameSchema = z.string();
+
+export const toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200Schema = z.looseObject({});
+
+export const toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema = HTTPValidationErrorSchema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpDeleteResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200Schema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpDeleteErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathSchema = z.object({
+	toolset_name: z.string(),
+});
+
 export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathToolsetNameSchema = z.string();
 
 export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema = z.void();
@@ -28494,22 +28095,6 @@ export const toolsetMcpRouteToolsetToolsetNameMcpHeadErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema;
 
 export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathSchema = z.object({
-	toolset_name: z.string(),
-});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostPathToolsetNameSchema = z.string();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema = z.looseObject({});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostPathSchema = z.object({
 	toolset_name: z.string(),
 });
 
@@ -28529,51 +28114,51 @@ export const toolsetMcpRouteToolsetToolsetNameMcpPutPathSchema = z.object({
 	toolset_name: z.string(),
 });
 
-export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathToolsetNameSchema = z.string();
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathToolsetNameSchema = z.string();
 
-export const toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200Schema = z.looseObject({});
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema = z.unknown();
 
-export const toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema = HTTPValidationErrorSchema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpDeleteResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpDeleteErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathSchema = z.object({
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathSchema = z.object({
 	toolset_name: z.string(),
 });
 
-export const dynamicMcpRouteMcpServerNameMcpGetPathMcpServerNameSchema = z.string();
+export const toolsetMcpRouteToolsetToolsetNameMcpGetPathToolsetNameSchema = z.string();
 
-export const dynamicMcpRouteMcpServerNameMcpGetStatus200Schema = z.looseObject({});
+export const toolsetMcpRouteToolsetToolsetNameMcpGetStatus200Schema = z.looseObject({});
 
-export const dynamicMcpRouteMcpServerNameMcpGetStatus422Schema = HTTPValidationErrorSchema;
+export const toolsetMcpRouteToolsetToolsetNameMcpGetStatus422Schema = HTTPValidationErrorSchema;
 
-export const dynamicMcpRouteMcpServerNameMcpGetResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpGetStatus200Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpGetResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpGetStatus200Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpGetErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpGetStatus422Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpGetErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpGetStatus422Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpGetPathSchema = z.object({
-	mcp_server_name: z.string(),
+export const toolsetMcpRouteToolsetToolsetNameMcpGetPathSchema = z.object({
+	toolset_name: z.string(),
 });
 
-export const dynamicMcpRouteMcpServerNameMcpPatchPathMcpServerNameSchema = z.string();
+export const dynamicMcpRouteMcpServerNameMcpPostPathMcpServerNameSchema = z.string();
 
-export const dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema = z.unknown();
+export const dynamicMcpRouteMcpServerNameMcpPostStatus200Schema = z.looseObject({});
 
-export const dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
+export const dynamicMcpRouteMcpServerNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
 
-export const dynamicMcpRouteMcpServerNameMcpPatchResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema;
+export const dynamicMcpRouteMcpServerNameMcpPostResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpPostStatus200Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpPatchErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema;
+export const dynamicMcpRouteMcpServerNameMcpPostErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpPostStatus422Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpPatchPathSchema = z.object({
+export const dynamicMcpRouteMcpServerNameMcpPostPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 
@@ -28593,6 +28178,22 @@ export const dynamicMcpRouteMcpServerNameMcpOptionsPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 
+export const dynamicMcpRouteMcpServerNameMcpDeletePathMcpServerNameSchema = z.string();
+
+export const dynamicMcpRouteMcpServerNameMcpDeleteStatus200Schema = z.looseObject({});
+
+export const dynamicMcpRouteMcpServerNameMcpDeleteStatus422Schema = HTTPValidationErrorSchema;
+
+export const dynamicMcpRouteMcpServerNameMcpDeleteResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpDeleteStatus200Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpDeleteErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpDeleteStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpDeletePathSchema = z.object({
+	mcp_server_name: z.string(),
+});
+
 export const dynamicMcpRouteMcpServerNameMcpHeadPathMcpServerNameSchema = z.string();
 
 export const dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema = z.void();
@@ -28606,22 +28207,6 @@ export const dynamicMcpRouteMcpServerNameMcpHeadErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema;
 
 export const dynamicMcpRouteMcpServerNameMcpHeadPathSchema = z.object({
-	mcp_server_name: z.string(),
-});
-
-export const dynamicMcpRouteMcpServerNameMcpPostPathMcpServerNameSchema = z.string();
-
-export const dynamicMcpRouteMcpServerNameMcpPostStatus200Schema = z.looseObject({});
-
-export const dynamicMcpRouteMcpServerNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const dynamicMcpRouteMcpServerNameMcpPostResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpPostStatus200Schema;
-
-export const dynamicMcpRouteMcpServerNameMcpPostErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpPostStatus422Schema;
-
-export const dynamicMcpRouteMcpServerNameMcpPostPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 
@@ -28641,19 +28226,35 @@ export const dynamicMcpRouteMcpServerNameMcpPutPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 
-export const dynamicMcpRouteMcpServerNameMcpDeletePathMcpServerNameSchema = z.string();
+export const dynamicMcpRouteMcpServerNameMcpPatchPathMcpServerNameSchema = z.string();
 
-export const dynamicMcpRouteMcpServerNameMcpDeleteStatus200Schema = z.looseObject({});
+export const dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema = z.unknown();
 
-export const dynamicMcpRouteMcpServerNameMcpDeleteStatus422Schema = HTTPValidationErrorSchema;
+export const dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
 
-export const dynamicMcpRouteMcpServerNameMcpDeleteResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpDeleteStatus200Schema;
+export const dynamicMcpRouteMcpServerNameMcpPatchResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpDeleteErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpDeleteStatus422Schema;
+export const dynamicMcpRouteMcpServerNameMcpPatchErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpDeletePathSchema = z.object({
+export const dynamicMcpRouteMcpServerNameMcpPatchPathSchema = z.object({
+	mcp_server_name: z.string(),
+});
+
+export const dynamicMcpRouteMcpServerNameMcpGetPathMcpServerNameSchema = z.string();
+
+export const dynamicMcpRouteMcpServerNameMcpGetStatus200Schema = z.looseObject({});
+
+export const dynamicMcpRouteMcpServerNameMcpGetStatus422Schema = HTTPValidationErrorSchema;
+
+export const dynamicMcpRouteMcpServerNameMcpGetResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpGetStatus200Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpGetErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpGetStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpGetPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 
@@ -28684,6 +28285,27 @@ export const websocketRealtimeWebsocketEndpointGet3ResponseSchema = z.unknown();
 
 export const websocketRealtimeWebsocketEndpointGet3ErrorSchema =
 	websocketRealtimeWebsocketEndpointGet3Status101Schema;
+
+export const websocketLiveSessionsWebsocketEndpointGetStatus101Schema = z.unknown();
+
+export const websocketLiveSessionsWebsocketEndpointGetResponseSchema = z.unknown();
+
+export const websocketLiveSessionsWebsocketEndpointGetErrorSchema =
+	websocketLiveSessionsWebsocketEndpointGetStatus101Schema;
+
+export const websocketLiveSessionsWebsocketEndpointGet2Status101Schema = z.unknown();
+
+export const websocketLiveSessionsWebsocketEndpointGet2ResponseSchema = z.unknown();
+
+export const websocketLiveSessionsWebsocketEndpointGet2ErrorSchema =
+	websocketLiveSessionsWebsocketEndpointGet2Status101Schema;
+
+export const websocketLiveSessionsWebsocketEndpointGet3Status101Schema = z.unknown();
+
+export const websocketLiveSessionsWebsocketEndpointGet3ResponseSchema = z.unknown();
+
+export const websocketLiveSessionsWebsocketEndpointGet3ErrorSchema =
+	websocketLiveSessionsWebsocketEndpointGet3Status101Schema;
 
 export const applyGuardrailApplyGuardrailPostStatus200Schema = applyGuardrailResponseSchema;
 
@@ -31021,6 +30643,13 @@ export const fetchAllMcpServersV1McpServerGetQueryTeamIdSchema = z
 		"Filter MCP servers by team scope. When provided, returns only servers the team has access to plus globally available (allow_all_keys) servers. Used by the Create Key UI to show team-scoped MCP servers.",
 	);
 
+export const fetchAllMcpServersV1McpServerGetQueryUserIdSchema = z
+	.union([z.string(), z.null()])
+	.optional()
+	.describe(
+		"Filter MCP servers by internal user scope. When provided (and team_id is not), returns the union of the servers each of the user's teams has access to plus globally available (allow_all_keys) servers. A user who belongs to no team gets the unscoped list. Used by the Internal User and Virtual Key edit UIs.",
+	);
+
 export const fetchAllMcpServersV1McpServerGetQueryConnectedAppViewSchema = z
 	.boolean()
 	.optional()
@@ -31045,6 +30674,12 @@ export const fetchAllMcpServersV1McpServerGetQuerySchema = z.object({
 		.optional()
 		.describe(
 			"Filter MCP servers by team scope. When provided, returns only servers the team has access to plus globally available (allow_all_keys) servers. Used by the Create Key UI to show team-scoped MCP servers.",
+		),
+	user_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter MCP servers by internal user scope. When provided (and team_id is not), returns the union of the servers each of the user's teams has access to plus globally available (allow_all_keys) servers. A user who belongs to no team gets the unscoped list. Used by the Internal User and Virtual Key edit UIs.",
 		),
 	connected_app_view: z
 		.boolean()
@@ -31697,6 +31332,16 @@ export const listMcpUserEnvVarStatusV1McpUserEnvVarsStatusGetStatus200Schema = z
 export const listMcpUserEnvVarStatusV1McpUserEnvVarsStatusGetResponseSchema =
 	listMcpUserEnvVarStatusV1McpUserEnvVarsStatusGetStatus200Schema;
 
+export const jwksJsonWellKnownJwksJsonGetStatus200Schema = z.looseObject({});
+
+export const jwksJsonWellKnownJwksJsonGetResponseSchema =
+	jwksJsonWellKnownJwksJsonGetStatus200Schema;
+
+export const nativeClientAuthDiscoveryWellKnownLitellmCliAuthGetStatus200Schema = z.looseObject({});
+
+export const nativeClientAuthDiscoveryWellKnownLitellmCliAuthGetResponseSchema =
+	nativeClientAuthDiscoveryWellKnownLitellmCliAuthGetStatus200Schema;
+
 export const oauthAuthorizationServerMcpWellKnownOauthAuthorizationServerGetQueryMcpServerNameSchema =
 	z.union([z.string(), z.null()]).optional();
 
@@ -31836,16 +31481,6 @@ export const oauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNa
 		mcp_server_name: z.union([z.string(), z.null()]),
 	});
 
-export const jwksJsonWellKnownJwksJsonGetStatus200Schema = z.looseObject({});
-
-export const jwksJsonWellKnownJwksJsonGetResponseSchema =
-	jwksJsonWellKnownJwksJsonGetStatus200Schema;
-
-export const nativeClientAuthDiscoveryWellKnownLitellmCliAuthGetStatus200Schema = z.looseObject({});
-
-export const nativeClientAuthDiscoveryWellKnownLitellmCliAuthGetResponseSchema =
-	nativeClientAuthDiscoveryWellKnownLitellmCliAuthGetStatus200Schema;
-
 export const openidConfigurationWellKnownOpenidConfigurationGetStatus200Schema = z.looseObject({});
 
 export const openidConfigurationWellKnownOpenidConfigurationGetResponseSchema =
@@ -31951,6 +31586,10 @@ export const authorizeMcpSessionAuthorizeMcpSessionGetQueryResourceSchema = z
 	.union([z.string(), z.null()])
 	.optional();
 
+export const authorizeMcpSessionAuthorizeMcpSessionGetQueryScopeSchema = z
+	.union([z.string(), z.null()])
+	.optional();
+
 export const authorizeMcpSessionAuthorizeMcpSessionGetStatus200Schema = z.looseObject({});
 
 export const authorizeMcpSessionAuthorizeMcpSessionGetStatus422Schema = HTTPValidationErrorSchema;
@@ -31969,6 +31608,7 @@ export const authorizeMcpSessionAuthorizeMcpSessionGetQuerySchema = z.object({
 	code_challenge_method: z.union([z.string(), z.null()]).optional(),
 	response_type: z.union([z.string(), z.null()]).optional(),
 	resource: z.union([z.string(), z.null()]).optional(),
+	scope: z.union([z.string(), z.null()]).optional(),
 });
 
 export const callbackCallbackGetQueryCodeSchema = z.union([z.string(), z.null()]).optional();
