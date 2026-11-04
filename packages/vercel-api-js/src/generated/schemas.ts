@@ -260,9 +260,39 @@ export const aiGatewayRuleSchema = z
 		"Public response shape for AI Gateway routing rules. Used so OpenAPI generation can avoid ElectroDB's recursive EntityItem types.",
 	);
 
+export const aiGatewayRuleListItemSchema = z.object({
+	action: z
+		.object({
+			reason: z.string().optional(),
+			rewriteModel: z.string().optional(),
+		})
+		.optional(),
+	createdAt: z.number(),
+	createdBy: z.string().optional(),
+	deleted: z.union([z.literal(false), z.literal(true)]).optional(),
+	description: z.string().optional(),
+	enabled: z.union([z.literal(false), z.literal(true)]),
+	match: z
+		.object({
+			model: z.string().optional(),
+		})
+		.optional(),
+	ownerId: z.string(),
+	ruleId: z.string(),
+	shadowedBy: z
+		.string()
+		.optional()
+		.describe(
+			"Rule that takes precedence over this enabled rule for the same model, so this one never applies",
+		),
+	type: z.enum(["deny", "rewrite"]),
+	updatedAt: z.number(),
+	updatedBy: z.string().optional(),
+});
+
 export const aiGatewayRuleListSchema = z.object({
 	nextCursor: z.string().nullable(),
-	rules: z.array(aiGatewayRuleSchema),
+	rules: z.array(aiGatewayRuleListItemSchema),
 });
 
 export const aiGatewayBudgetSchema = z.object({
@@ -29434,6 +29464,12 @@ export const getDeploymentStatus200Schema = z.union([
 									z.strictObject({
 										args: z.string(),
 										env: z.array(z.string()).optional(),
+										fallback: z
+											.union([z.literal(false), z.literal(true)])
+											.optional()
+											.describe(
+												"Keep an earlier request.path value. Builders use this for fallback routes.",
+											),
 										op: z.enum(["set"]),
 										type: z.enum(["request.path"]),
 									}),
@@ -30556,6 +30592,12 @@ export const getDeploymentStatus200Schema = z.union([
 											z.object({
 												args: z.string(),
 												env: z.array(z.string()).optional(),
+												fallback: z
+													.union([z.literal(false), z.literal(true)])
+													.optional()
+													.describe(
+														"Keep an earlier request.path value. Builders use this for fallback routes.",
+													),
 												op: z.enum(["set"]),
 												type: z.enum(["request.path"]),
 											}),
@@ -30760,6 +30802,12 @@ export const getDeploymentStatus200Schema = z.union([
 													z.strictObject({
 														args: z.string(),
 														env: z.array(z.string()).optional(),
+														fallback: z
+															.union([z.literal(false), z.literal(true)])
+															.optional()
+															.describe(
+																"Keep an earlier request.path value. Builders use this for fallback routes.",
+															),
 														op: z.enum(["set"]),
 														type: z.enum(["request.path"]),
 													}),
@@ -32967,6 +33015,12 @@ export const createDeploymentStatus200Schema = z.union([
 									z.strictObject({
 										args: z.string(),
 										env: z.array(z.string()).optional(),
+										fallback: z
+											.union([z.literal(false), z.literal(true)])
+											.optional()
+											.describe(
+												"Keep an earlier request.path value. Builders use this for fallback routes.",
+											),
 										op: z.enum(["set"]),
 										type: z.enum(["request.path"]),
 									}),
@@ -34089,6 +34143,12 @@ export const createDeploymentStatus200Schema = z.union([
 											z.object({
 												args: z.string(),
 												env: z.array(z.string()).optional(),
+												fallback: z
+													.union([z.literal(false), z.literal(true)])
+													.optional()
+													.describe(
+														"Keep an earlier request.path value. Builders use this for fallback routes.",
+													),
 												op: z.enum(["set"]),
 												type: z.enum(["request.path"]),
 											}),
@@ -34293,6 +34353,12 @@ export const createDeploymentStatus200Schema = z.union([
 													z.strictObject({
 														args: z.string(),
 														env: z.array(z.string()).optional(),
+														fallback: z
+															.union([z.literal(false), z.literal(true)])
+															.optional()
+															.describe(
+																"Keep an earlier request.path value. Builders use this for fallback routes.",
+															),
 														op: z.enum(["set"]),
 														type: z.enum(["request.path"]),
 													}),
@@ -36316,6 +36382,12 @@ export const cancelDeploymentStatus200Schema = z
 									z.strictObject({
 										args: z.string(),
 										env: z.array(z.string()).optional(),
+										fallback: z
+											.union([z.literal(false), z.literal(true)])
+											.optional()
+											.describe(
+												"Keep an earlier request.path value. Builders use this for fallback routes.",
+											),
 										op: z.enum(["set"]),
 										type: z.enum(["request.path"]),
 									}),
@@ -37438,6 +37510,12 @@ export const cancelDeploymentStatus200Schema = z
 											z.object({
 												args: z.string(),
 												env: z.array(z.string()).optional(),
+												fallback: z
+													.union([z.literal(false), z.literal(true)])
+													.optional()
+													.describe(
+														"Keep an earlier request.path value. Builders use this for fallback routes.",
+													),
 												op: z.enum(["set"]),
 												type: z.enum(["request.path"]),
 											}),
@@ -37642,6 +37720,12 @@ export const cancelDeploymentStatus200Schema = z
 													z.strictObject({
 														args: z.string(),
 														env: z.array(z.string()).optional(),
+														fallback: z
+															.union([z.literal(false), z.literal(true)])
+															.optional()
+															.describe(
+																"Keep an earlier request.path value. Builders use this for fallback routes.",
+															),
 														op: z.enum(["set"]),
 														type: z.enum(["request.path"]),
 													}),
@@ -63672,6 +63756,12 @@ export const getRoutesStatus200Schema = z.union([
 									z.strictObject({
 										args: z.string(),
 										env: z.array(z.string()).optional(),
+										fallback: z
+											.union([z.literal(false), z.literal(true)])
+											.optional()
+											.describe(
+												"Keep an earlier request.path value. Builders use this for fallback routes.",
+											),
 										op: z.enum(["set"]),
 										type: z.enum(["request.path"]),
 									}),
@@ -63928,6 +64018,12 @@ export const getRoutesStatus200Schema = z.union([
 									z.strictObject({
 										args: z.string(),
 										env: z.array(z.string()).optional(),
+										fallback: z
+											.union([z.literal(false), z.literal(true)])
+											.optional()
+											.describe(
+												"Keep an earlier request.path value. Builders use this for fallback routes.",
+											),
 										op: z.enum(["set"]),
 										type: z.enum(["request.path"]),
 									}),
@@ -64188,6 +64284,12 @@ export const getRoutesStatus200Schema = z.union([
 									z.strictObject({
 										args: z.string(),
 										env: z.array(z.string()).optional(),
+										fallback: z
+											.union([z.literal(false), z.literal(true)])
+											.optional()
+											.describe(
+												"Keep an earlier request.path value. Builders use this for fallback routes.",
+											),
 										op: z.enum(["set"]),
 										type: z.enum(["request.path"]),
 									}),
@@ -64630,6 +64732,12 @@ export const addRouteStatus200Schema = z.object({
 							z.strictObject({
 								args: z.string(),
 								env: z.array(z.string()).optional(),
+								fallback: z
+									.union([z.literal(false), z.literal(true)])
+									.optional()
+									.describe(
+										"Keep an earlier request.path value. Builders use this for fallback routes.",
+									),
 								op: z.enum(["set"]),
 								type: z.enum(["request.path"]),
 							}),
@@ -65087,6 +65195,12 @@ export const editRouteStatus200Schema = z.object({
 								z.strictObject({
 									args: z.string(),
 									env: z.array(z.string()).optional(),
+									fallback: z
+										.union([z.literal(false), z.literal(true)])
+										.optional()
+										.describe(
+											"Keep an earlier request.path value. Builders use this for fallback routes.",
+										),
 									op: z.enum(["set"]),
 									type: z.enum(["request.path"]),
 								}),
@@ -66015,6 +66129,23 @@ export const getProjectsStatus200Schema = z
 							vsmValue: z.string().optional(),
 						}),
 					)
+					.optional(),
+				expiration: z
+					.union([
+						z.strictObject({
+							expiresAt: z
+								.number()
+								.describe("Unix ms timestamp when the project is scheduled to expire."),
+						}),
+						z.strictObject({
+							lockedAt: z.number().describe("Unix ms timestamp when the project was locked."),
+							lockedBy: z
+								.string()
+								.describe(
+									"ID of the user, app, or integration that locked the project, or `system`.",
+								),
+						}),
+					])
 					.optional(),
 				framework: z
 					.enum([
@@ -67629,6 +67760,23 @@ export const getProjectsStatus200Schema = z
 								vsmValue: z.string().optional(),
 							}),
 						)
+						.optional(),
+					expiration: z
+						.union([
+							z.strictObject({
+								expiresAt: z
+									.number()
+									.describe("Unix ms timestamp when the project is scheduled to expire."),
+							}),
+							z.strictObject({
+								lockedAt: z.number().describe("Unix ms timestamp when the project was locked."),
+								lockedBy: z
+									.string()
+									.describe(
+										"ID of the user, app, or integration that locked the project, or `system`.",
+									),
+							}),
+						])
 						.optional(),
 					framework: z
 						.enum([
@@ -120663,6 +120811,7 @@ export const createIntegrationStoreDirectStatus200Schema = z.object({
 							checks: z.union([z.literal(false), z.literal(true)]).optional(),
 							connectedImportResource: z.union([z.literal(false), z.literal(true)]).optional(),
 							connectedProvisioning: z.union([z.literal(false), z.literal(true)]).optional(),
+							credentialTypesCreate: z.array(z.array(z.enum(["oidc", "static"]))).optional(),
 							flexCommitEligible: z.union([z.literal(false), z.literal(true)]).optional(),
 							importResource: z.union([z.literal(false), z.literal(true)]).optional(),
 							maxAllowedTeams: z.number().optional(),

@@ -422,9 +422,46 @@ export type AiGatewayRule = {
 	updatedBy?: string | undefined;
 };
 
+export const aiGatewayRuleListItemTypeEnum = {
+	deny: "deny",
+	rewrite: "rewrite",
+} as const;
+
+export type AiGatewayRuleListItemTypeEnumKey =
+	(typeof aiGatewayRuleListItemTypeEnum)[keyof typeof aiGatewayRuleListItemTypeEnum];
+
+export type AiGatewayRuleListItem = {
+	action?:
+		| {
+				reason?: string | undefined;
+				rewriteModel?: string | undefined;
+		  }
+		| undefined;
+	createdAt: number;
+	createdBy?: string | undefined;
+	deleted?: (false | true) | undefined;
+	description?: string | undefined;
+	enabled: false | true;
+	match?:
+		| {
+				model?: string | undefined;
+		  }
+		| undefined;
+	ownerId: string;
+	ruleId: string;
+	/**
+	 * @description Rule that takes precedence over this enabled rule for the same model, so this one never applies
+	 * @type string | undefined
+	 */
+	shadowedBy?: string | undefined;
+	type: AiGatewayRuleListItemTypeEnumKey;
+	updatedAt: number;
+	updatedBy?: string | undefined;
+};
+
 export type AiGatewayRuleList = {
 	nextCursor: string | null;
-	rules: AiGatewayRule[];
+	rules: AiGatewayRuleListItem[];
 };
 
 export const aiGatewayBudgetRefreshPeriodEnum = {
@@ -37612,6 +37649,11 @@ export type GetDeploymentStatus200 =
 											| {
 													args: string;
 													env?: string[] | undefined;
+													/**
+													 * @description Keep an earlier request.path value. Builders use this for fallback routes.
+													 * @type boolean | undefined
+													 */
+													fallback?: (false | true) | undefined;
 													op: "set";
 													type: "request.path";
 											  }
@@ -38769,6 +38811,11 @@ export type GetDeploymentStatus200 =
 												| {
 														args: string;
 														env?: string[] | undefined;
+														/**
+														 * @description Keep an earlier request.path value. Builders use this for fallback routes.
+														 * @type boolean | undefined
+														 */
+														fallback?: (false | true) | undefined;
 														op: "set";
 														type: "request.path";
 												  }[]
@@ -38968,6 +39015,11 @@ export type GetDeploymentStatus200 =
 																| {
 																		args: string;
 																		env?: string[] | undefined;
+																		/**
+																		 * @description Keep an earlier request.path value. Builders use this for fallback routes.
+																		 * @type boolean | undefined
+																		 */
+																		fallback?: (false | true) | undefined;
 																		op: "set";
 																		type: "request.path";
 																  }
@@ -42048,6 +42100,11 @@ export type CreateDeploymentStatus200 =
 											| {
 													args: string;
 													env?: string[] | undefined;
+													/**
+													 * @description Keep an earlier request.path value. Builders use this for fallback routes.
+													 * @type boolean | undefined
+													 */
+													fallback?: (false | true) | undefined;
 													op: "set";
 													type: "request.path";
 											  }
@@ -43205,6 +43262,11 @@ export type CreateDeploymentStatus200 =
 												| {
 														args: string;
 														env?: string[] | undefined;
+														/**
+														 * @description Keep an earlier request.path value. Builders use this for fallback routes.
+														 * @type boolean | undefined
+														 */
+														fallback?: (false | true) | undefined;
 														op: "set";
 														type: "request.path";
 												  }[]
@@ -43404,6 +43466,11 @@ export type CreateDeploymentStatus200 =
 																| {
 																		args: string;
 																		env?: string[] | undefined;
+																		/**
+																		 * @description Keep an earlier request.path value. Builders use this for fallback routes.
+																		 * @type boolean | undefined
+																		 */
+																		fallback?: (false | true) | undefined;
 																		op: "set";
 																		type: "request.path";
 																  }
@@ -46324,6 +46391,11 @@ export type CancelDeploymentStatus200 = {
 									| {
 											args: string;
 											env?: string[] | undefined;
+											/**
+											 * @description Keep an earlier request.path value. Builders use this for fallback routes.
+											 * @type boolean | undefined
+											 */
+											fallback?: (false | true) | undefined;
 											op: "set";
 											type: "request.path";
 									  }
@@ -47481,6 +47553,11 @@ export type CancelDeploymentStatus200 = {
 										| {
 												args: string;
 												env?: string[] | undefined;
+												/**
+												 * @description Keep an earlier request.path value. Builders use this for fallback routes.
+												 * @type boolean | undefined
+												 */
+												fallback?: (false | true) | undefined;
 												op: "set";
 												type: "request.path";
 										  }[]
@@ -47680,6 +47757,11 @@ export type CancelDeploymentStatus200 = {
 														| {
 																args: string;
 																env?: string[] | undefined;
+																/**
+																 * @description Keep an earlier request.path value. Builders use this for fallback routes.
+																 * @type boolean | undefined
+																 */
+																fallback?: (false | true) | undefined;
 																op: "set";
 																type: "request.path";
 														  }
@@ -78784,6 +78866,11 @@ export type GetRoutesStatus200 =
 								| {
 										args: string;
 										env?: string[] | undefined;
+										/**
+										 * @description Keep an earlier request.path value. Builders use this for fallback routes.
+										 * @type boolean | undefined
+										 */
+										fallback?: (false | true) | undefined;
 										op: "set";
 										type: "request.path";
 								  }
@@ -79075,6 +79162,11 @@ export type GetRoutesStatus200 =
 								| {
 										args: string;
 										env?: string[] | undefined;
+										/**
+										 * @description Keep an earlier request.path value. Builders use this for fallback routes.
+										 * @type boolean | undefined
+										 */
+										fallback?: (false | true) | undefined;
 										op: "set";
 										type: "request.path";
 								  }
@@ -79370,6 +79462,11 @@ export type GetRoutesStatus200 =
 								| {
 										args: string;
 										env?: string[] | undefined;
+										/**
+										 * @description Keep an earlier request.path value. Builders use this for fallback routes.
+										 * @type boolean | undefined
+										 */
+										fallback?: (false | true) | undefined;
 										op: "set";
 										type: "request.path";
 								  }
@@ -79979,6 +80076,11 @@ export type AddRouteStatus200 = {
 						| {
 								args: string;
 								env?: string[] | undefined;
+								/**
+								 * @description Keep an earlier request.path value. Builders use this for fallback routes.
+								 * @type boolean | undefined
+								 */
+								fallback?: (false | true) | undefined;
 								op: "set";
 								type: "request.path";
 						  }
@@ -80633,6 +80735,11 @@ export type EditRouteStatus200 = {
 								| {
 										args: string;
 										env?: string[] | undefined;
+										/**
+										 * @description Keep an earlier request.path value. Builders use this for fallback routes.
+										 * @type boolean | undefined
+										 */
+										fallback?: (false | true) | undefined;
 										op: "set";
 										type: "request.path";
 								  }
@@ -83921,6 +84028,29 @@ export type GetProjectsStatus200 =
 								vsmValue?: string | undefined;
 						  }[]
 						| undefined;
+					expiration?:
+						| (
+								| {
+										/**
+										 * @description Unix ms timestamp when the project is scheduled to expire.
+										 * @type number
+										 */
+										expiresAt: number;
+								  }
+								| {
+										/**
+										 * @description Unix ms timestamp when the project was locked.
+										 * @type number
+										 */
+										lockedAt: number;
+										/**
+										 * @description ID of the user, app, or integration that locked the project, or `system`.
+										 * @type string
+										 */
+										lockedBy: string;
+								  }
+						  )
+						| undefined;
 					framework?: (GetProjectsStatus200FrameworkEnumKey | null) | undefined;
 					gitComments?:
 						| {
@@ -85352,6 +85482,29 @@ export type GetProjectsStatus200 =
 									visibility?: GetProjectsStatus200ProjectsEnvVisibilityEnumKey | undefined;
 									vsmValue?: string | undefined;
 							  }[]
+							| undefined;
+						expiration?:
+							| (
+									| {
+											/**
+											 * @description Unix ms timestamp when the project is scheduled to expire.
+											 * @type number
+											 */
+											expiresAt: number;
+									  }
+									| {
+											/**
+											 * @description Unix ms timestamp when the project was locked.
+											 * @type number
+											 */
+											lockedAt: number;
+											/**
+											 * @description ID of the user, app, or integration that locked the project, or `system`.
+											 * @type string
+											 */
+											lockedBy: string;
+									  }
+							  )
 							| undefined;
 						framework?: (GetProjectsStatus200ProjectsFrameworkEnumKey | null) | undefined;
 						gitComments?:
@@ -142723,6 +142876,15 @@ export const createIntegrationStoreDirectStatus200StoreProductGuidesStepsActions
 export type CreateIntegrationStoreDirectStatus200StoreProductGuidesStepsActionsTypeEnumKey =
 	(typeof createIntegrationStoreDirectStatus200StoreProductGuidesStepsActionsTypeEnum)[keyof typeof createIntegrationStoreDirectStatus200StoreProductGuidesStepsActionsTypeEnum];
 
+export const createIntegrationStoreDirectStatus200StoreProductIntegrationCapabilitiesCredentialTypesCreateEnum =
+	{
+		oidc: "oidc",
+		static: "static",
+	} as const;
+
+export type CreateIntegrationStoreDirectStatus200StoreProductIntegrationCapabilitiesCredentialTypesCreateEnumKey =
+	(typeof createIntegrationStoreDirectStatus200StoreProductIntegrationCapabilitiesCredentialTypesCreateEnum)[keyof typeof createIntegrationStoreDirectStatus200StoreProductIntegrationCapabilitiesCredentialTypesCreateEnum];
+
 export const createIntegrationStoreDirectStatus200StoreProductLogDrainStatusEnum = {
 	disabled: "disabled",
 	enabled: "enabled",
@@ -143892,6 +144054,9 @@ export type CreateIntegrationStoreDirectStatus200 = {
 							checks?: (false | true) | undefined;
 							connectedImportResource?: (false | true) | undefined;
 							connectedProvisioning?: (false | true) | undefined;
+							credentialTypesCreate?:
+								| CreateIntegrationStoreDirectStatus200StoreProductIntegrationCapabilitiesCredentialTypesCreateEnumKey[][]
+								| undefined;
 							flexCommitEligible?: (false | true) | undefined;
 							importResource?: (false | true) | undefined;
 							maxAllowedTeams?: number | undefined;
