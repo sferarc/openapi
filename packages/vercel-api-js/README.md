@@ -42,6 +42,10 @@ const client = new VercelApi({
 });
 ```
 
+### Base URL
+
+Calls, `auth.accessToken` included, go to `https://api.vercel.com` unless the client takes a `baseUrl`, such as a proxy; a single call can pass its own as `config: { baseUrl }`.
+
 ### Line-delimited JSON
 
 An operation that answers with line-delimited JSON (`application/x-ndjson` and similar), such as `getRuntimeLogs`, resolves to an array with one parsed value per line once the body ends. To read each line as it arrives, for example from a stream the server keeps open, pass `jsonLines: "stream"` in `config` and iterate the result:

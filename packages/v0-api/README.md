@@ -42,6 +42,10 @@ const client = new V0Api({
 });
 ```
 
+### Base URL
+
+Calls go to `https://api.v0.dev/v1` unless the client takes a `baseUrl`, such as a proxy; a single call can pass its own as `config: { baseUrl }`.
+
 ### Server-Sent Events
 
 `chatsResume` answers with Server-Sent Events (`text/event-stream`), and so do `chatsCreate`, `chatsSendMessage` and `chatsResolveTask` when the body sets `responseMode: "experimental_stream"`. By default such a call resolves to the raw text of the stream once it ends. To read each event as it arrives, pass `eventStream: "stream"` in `config` and iterate the result:

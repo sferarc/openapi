@@ -42,6 +42,10 @@ const client = new NukiApi({
 });
 ```
 
+### Base URL
+
+Calls go to `https://api.nuki.io` unless the client takes a `baseUrl`, such as a proxy; a single call can pass its own as `config: { baseUrl }`.
+
 ### Response headers
 
 A call resolves to the parsed body only. To read a response header, pass `onResponse` in `config`; it gets the status and headers of the response before the body is read, an error response included:

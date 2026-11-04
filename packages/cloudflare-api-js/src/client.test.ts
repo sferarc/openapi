@@ -423,3 +423,39 @@ describe("R2 object uploads", () => {
 		expect(init?.body).toBe(body);
 	});
 });
+
+describe("CloudflareApi baseUrl", () => {
+	function setup(options: { baseUrl?: string } = {}) {
+		const urls: string[] = [];
+		const fetch: FetchImpl = async (url) => {
+			urls.push(url);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { urls, client: new CloudflareApi({ token: "token", fetch, ...options }) };
+	}
+
+	it("sends request() and api proxy calls to the constructor's baseUrl", async () => {
+		const { urls, client } = setup({ baseUrl: "https://proxy.test/cloudflare/" });
+		await client.request("GET /accounts");
+		await client.api.accounts.accountsListAccounts();
+		expect(urls).toEqual([
+			"https://proxy.test/cloudflare/accounts",
+			"https://proxy.test/cloudflare/accounts",
+		]);
+	});
+
+	it("lets a call's config.baseUrl replace the constructor's", async () => {
+		const { urls, client } = setup({ baseUrl: "https://ignored.test" });
+		await client.request("GET /accounts", { config: { baseUrl: "https://per-call.test" } });
+		expect(urls).toEqual(["https://per-call.test/accounts"]);
+	});
+
+	it("defaults to the API's own URL", async () => {
+		const { urls, client } = setup();
+		await client.request("GET /accounts");
+		expect(urls).toEqual(["https://api.cloudflare.com/client/v4/accounts"]);
+	});
+});
