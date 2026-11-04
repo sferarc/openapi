@@ -1,5 +1,31 @@
 # litellm-api
 
+## 2.11.0
+
+### Minor Changes
+
+- 7c0f626: [BREAKING] Remove operations no longer in the litellm-api OpenAPI spec: `activityAvailableLensActivityAvailableGet`, `buildDatasetCasesLensDatasetsBuildPost`, `cachedReviewsLensWorkerLensIdJobIdReviewsGet`, `cancelLensLensLensIdCancelPost`, `claimLensWorkerClaimPost`, `contentLensWorkerLensIdJobIdContentGet`, `createDatasetLensDatasetsPost`, `createIngestionKeyLensTracingKeysPost`, `createLensLensPost`, `deleteFeedbackLensFeedbackDelete`, `evalCasesLensDatasetsDatasetIdRevisionsRevisionCasesGet`, `evidenceContentLensLensIdExecutionsExecutionIdGet`, `exportDatasetLensDatasetsDatasetIdExportGet`, `feedbackSummaryLensFeedbackSummaryPost`, `getSignalsLensSignalsGet`, `heartbeatLensWorkerLensIdJobIdHeartbeatPost`, `ingestionCredentialsLensInternalIngestionCredentialsGet`, `listAgentsLensAgentsGet`, `listDatasetsLensDatasetsGet`, `listIngestionKeysLensTracingKeysGet`, `listLensesLensGet`, `listRunsLensLensIdRunsGet`, `modelLensWorkerLensIdJobIdModelPost`, `previewSampleLensPreviewSamplePost`, `progressLensWorkerLensIdJobIdProgressPost`, `putSignalsLensSignalsPut`, `readDatasetLensDatasetsDatasetIdGet`, `readFeedbackLensFeedbackGet`, `readLensLensLensIdGet`, `readReviewsLensLensIdRunsJobIdReviewsGet`, `readRunLensLensIdRunsJobIdGet`, `registerWorkerLensWorkersRegisterPost`, `resultLensWorkerLensIdJobIdResultPost`, `revokeIngestionKeyLensTracingKeysKeyIdDelete`, `revokeWorkerLensWorkersWorkerIdDelete`, `runLensLensLensIdRunsPost`, `sampleLensWorkerLensIdJobIdSampleGet`, `saveRevisionLensDatasetsDatasetIdRevisionsPost`, `setWorkerBillingLensWorkersWorkerIdBillingKeyPut`, `submitFeedbackLensFeedbackPut`, `traceFindingsLensTracesFindingsPost`, `traceSignalStatusesLensTracesSignalsPost`, `updateFindingLensLensIdFindingsFindingIdPatch`, `updateLensLensLensIdPut`, `watchAllLensWatchAllPost`.
+- 7c0f626: [BREAKING] All Lens API operations under /lens and /lens/worker have been consolidated and replaced with generic lensRequest operations using flexible paths and methods.
+- 7c0f626: Added operation to delete a user connection via DELETE /credentials/{credential_name}/user_connection.
+- 7c0f626: Added operation to get aggregated user daily activity via GET /user/daily/activity/aggregated/users.
+- 7c0f626: Added operation to record UI events via POST /telemetry/ui_events.
+- 7c0f626: Added operation to update deployment warning ignore status via PATCH /health/deployment_warnings/{warning_id}.
+- 7c0f626: Added operation to start a user connection device flow via POST /credentials/{credential_name}/user_connection/start.
+- 7c0f626: Added operation to get deployment warnings via GET /health/deployment_warnings.
+- 7c0f626: Added operation to list user connections via GET /credentials/user_connections.
+- 7c0f626: Added operation to poll user connection device flow via POST /credentials/{credential_name}/user_connection/poll.
+- 7c0f626: Added operation to get gateway request error activity via GET /gateway/errors/activity.
+- 7c0f626: [BREAKING] Removed all specific Lens Datasets, Feedback, Tracing Keys, Lens, Agents, and Worker API operations in favor of generic LensRequest methods.
+- 7c0f626: Added operation to export telemetry reports via GET /telemetry/reports.
+- 7c0f626: Added operation to get telemetry settings via GET /telemetry/settings.
+
+### Patch Changes
+
+- 7c0f626: Documented caching behavior for supported providers and endpoints retrieval operations.
+- 7c0f626: Documented details for key deletion and per-model budgets in API comments.
+- 7c0f626: The `blocked` field was added to filter by routing status in transformRequestUtils operations.
+- 7c0f626: Documented that `model_info.successor_model` may now be present for models in model info endpoints.
+
 ## 2.10.0
 
 ### Minor Changes

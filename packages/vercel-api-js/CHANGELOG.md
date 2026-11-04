@@ -1,5 +1,19 @@
 # vercel-api-js
 
+## 2.18.0
+
+### Minor Changes
+
+- 8c45511: Added the AiGatewayRuleListItemTypeEnum and AiGatewayRuleListItem type definitions for gateway rule management.
+- 8c45511: [BREAKING] Changed the rules property of AiGatewayRuleList to use AiGatewayRuleListItem[] instead of AiGatewayRule[].
+- 8c45511: Added createIntegrationStoreDirectStatus200StoreProductIntegrationCapabilitiesCredentialTypesCreateEnum and corresponding Key type to support new credential types.
+
+### Patch Changes
+
+- 8c45511: Added an optional fallback property to several response types for deployment, routes, and status endpoints to indicate fallback route preservation.
+- 8c45511: Added optional expiration field to GetProjectsStatus200 type to provide expiration or lock information about projects.
+- 8c45511: Added an optional credentialTypesCreate property to CreateIntegrationStoreDirectStatus200 for specifying supported credential types.
+
 ## 2.17.0
 
 ### Minor Changes
