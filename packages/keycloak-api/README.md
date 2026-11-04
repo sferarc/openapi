@@ -52,6 +52,19 @@ const account = new KeycloakAccountApi({
 const me = await account.request("GET /account/");
 ```
 
+### Refreshing the token
+
+Keycloak access tokens expire after a few minutes. Pass a function as `token`, sync or async, and both clients call it before every request, so each call sends the token it returns:
+
+```ts
+const admin = new KeycloakAdminApi({
+  baseUrl: "https://keycloak.example.com",
+  token: () => tokenStore.getAccessToken(),
+});
+```
+
+A call rejects with what the function threw, before any request is sent. A call's own `config.token` still wins.
+
 ### Custom fetch
 
 ```ts
