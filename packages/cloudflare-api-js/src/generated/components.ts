@@ -3171,6 +3171,8 @@ import type {
 	CreateResourceLibraryApplicationPath,
 	CreateResourceLibraryApplicationResponse,
 	CreateResourceLibraryApplicationStatus400,
+	CreateResourceLibraryApplicationStatus403,
+	CreateResourceLibraryApplicationStatus429,
 	CreateScanBody,
 	CreateScanPath,
 	CreateScanResponse,
@@ -4137,7 +4139,9 @@ import type {
 	DeleteResourceLibraryApplicationPath,
 	DeleteResourceLibraryApplicationResponse,
 	DeleteResourceLibraryApplicationStatus400,
+	DeleteResourceLibraryApplicationStatus403,
 	DeleteResourceLibraryApplicationStatus409,
+	DeleteResourceLibraryApplicationStatus429,
 	DeleteResourceLibraryApplicationStatus502,
 	DeleteScanPath,
 	DeleteScanResponse,
@@ -6762,6 +6766,7 @@ import type {
 	GetResourceLibraryApplicationByIdPath,
 	GetResourceLibraryApplicationByIdResponse,
 	GetResourceLibraryApplicationByIdStatus400,
+	GetResourceLibraryApplicationByIdStatus403,
 	GetResourceLibraryApplicationsPath,
 	GetResourceLibraryApplicationsQuery,
 	GetResourceLibraryApplicationsResponse,
@@ -6989,6 +6994,11 @@ import type {
 	GetUrlNormalizationPath,
 	GetUrlNormalizationResponse,
 	GetUrlNormalizationStatus400,
+	GetUsagePath,
+	GetUsageResponse,
+	GetUsageStatus401,
+	GetUsageStatus403,
+	GetUsageStatus500,
 	GetUserGetSelfPath,
 	GetUserGetSelfResponse,
 	GetUserGetSelfStatus404,
@@ -9134,15 +9144,19 @@ import type {
 	OriginCaCreateCertificateBody,
 	OriginCaCreateCertificateResponse,
 	OriginCaCreateCertificateStatus400,
+	OriginCaCreateCertificateStatus500,
 	OriginCaGetCertificatePath,
 	OriginCaGetCertificateResponse,
 	OriginCaGetCertificateStatus400,
+	OriginCaGetCertificateStatus500,
 	OriginCaListCertificatesQuery,
 	OriginCaListCertificatesResponse,
 	OriginCaListCertificatesStatus400,
+	OriginCaListCertificatesStatus500,
 	OriginCaRevokeCertificatePath,
 	OriginCaRevokeCertificateResponse,
 	OriginCaRevokeCertificateStatus400,
+	OriginCaRevokeCertificateStatus500,
 	OriginCloudRegionsBatchDeleteBody,
 	OriginCloudRegionsBatchDeletePath,
 	OriginCloudRegionsBatchDeleteResponse,
@@ -12190,6 +12204,7 @@ import type {
 	SecretsStoreListQuery,
 	SecretsStoreListResponse,
 	SecretsStoreListStatus400,
+	SecretsStoreListStatus503,
 	SecretsStorePatchByIdBody,
 	SecretsStorePatchByIdPath,
 	SecretsStorePatchByIdResponse,
@@ -13265,6 +13280,8 @@ import type {
 	UpdateResourceLibraryApplicationPath,
 	UpdateResourceLibraryApplicationResponse,
 	UpdateResourceLibraryApplicationStatus400,
+	UpdateResourceLibraryApplicationStatus403,
+	UpdateResourceLibraryApplicationStatus429,
 	UpdateSecurityCenterAccountStateBody,
 	UpdateSecurityCenterAccountStatePath,
 	UpdateSecurityCenterAccountStateResponse,
@@ -15674,7 +15691,7 @@ export async function billingValidateAddress(
 
 /**
  * @summary List Certificates
- * @description List all existing Origin CA certificates for a given zone. You can use an Origin CA Key as your User Service Key or an API token when calling this endpoint ([see above](#requests)).
+ * @description List all existing Origin CA certificates for a given zone. Revoked certificates are not included. You can use an Origin CA Key as your User Service Key or an API token when calling this endpoint ([see above](#requests)).
  * @link /certificates
  */
 export async function originCaListCertificates(
@@ -15690,7 +15707,7 @@ export async function originCaListCertificates(
 
 	const data = await request<
 		OriginCaListCertificatesResponse,
-		ErrorWrapper<OriginCaListCertificatesStatus400>,
+		ErrorWrapper<OriginCaListCertificatesStatus400 | OriginCaListCertificatesStatus500>,
 		null,
 		Record<string, string>,
 		OriginCaListCertificatesQuery,
@@ -15708,7 +15725,7 @@ export async function originCaListCertificates(
 
 /**
  * @summary Create Certificate
- * @description Create an Origin CA certificate. You can use an Origin CA Key as your User Service Key or an API token when calling this endpoint ([see above](#requests)).
+ * @description Create an Origin CA certificate. For `keyless-certificate` requests, `zone_id` is required and the response contains only `id`, `certificate`, and `expires_on`. You can use an Origin CA Key as your User Service Key or an API token when calling this endpoint ([see above](#requests)).
  * @link /certificates
  */
 export async function originCaCreateCertificate(
@@ -15724,7 +15741,7 @@ export async function originCaCreateCertificate(
 
 	const data = await request<
 		OriginCaCreateCertificateResponse,
-		ErrorWrapper<OriginCaCreateCertificateStatus400>,
+		ErrorWrapper<OriginCaCreateCertificateStatus400 | OriginCaCreateCertificateStatus500>,
 		OriginCaCreateCertificateBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -64796,8 +64813,8 @@ export async function updateCni(
 
 /**
  * @summary List existing interconnects
- * @description Lists all network interconnects configured for the account, including physical and virtual
- * connections.
+ * @description Lists network interconnects of a single type configured for the account. The `type` query
+ * parameter selects the type to list; when omitted, only `direct` interconnects are returned.
  * @link /accounts/{accountId}/cni/interconnects
  */
 export async function listInterconnects(
@@ -66137,6 +66154,42 @@ export async function generateImageRegistryCredentials(
 		method: "POST",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/containers/registries/${encodeURIComponent(String(pathParams.domain))}/credentials`,
 		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get live account usage
+ * @description Get current live resource usage and maximum account limits for the authenticated Cloudchamber account. Usage includes active and assigned instances.
+ * @link /accounts/{accountId}/containers/usage
+ */
+export async function getUsage(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetUsagePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		GetUsageResponse,
+		ErrorWrapper<GetUsageStatus401 | GetUsageStatus403 | GetUsageStatus500>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetUsagePath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/containers/usage`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -117746,7 +117799,11 @@ export async function createResourceLibraryApplication(
 	}
 	const data = await request<
 		CreateResourceLibraryApplicationResponse,
-		ErrorWrapper<CreateResourceLibraryApplicationStatus400>,
+		ErrorWrapper<
+			| CreateResourceLibraryApplicationStatus400
+			| CreateResourceLibraryApplicationStatus403
+			| CreateResourceLibraryApplicationStatus429
+		>,
 		CreateResourceLibraryApplicationBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -117847,7 +117904,9 @@ export async function deleteResourceLibraryApplication(
 		DeleteResourceLibraryApplicationResponse,
 		ErrorWrapper<
 			| DeleteResourceLibraryApplicationStatus400
+			| DeleteResourceLibraryApplicationStatus403
 			| DeleteResourceLibraryApplicationStatus409
+			| DeleteResourceLibraryApplicationStatus429
 			| DeleteResourceLibraryApplicationStatus502
 		>,
 		null,
@@ -117889,7 +117948,9 @@ export async function getResourceLibraryApplicationById(
 	}
 	const data = await request<
 		GetResourceLibraryApplicationByIdResponse,
-		ErrorWrapper<GetResourceLibraryApplicationByIdStatus400>,
+		ErrorWrapper<
+			GetResourceLibraryApplicationByIdStatus400 | GetResourceLibraryApplicationByIdStatus403
+		>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -117931,7 +117992,11 @@ export async function updateResourceLibraryApplication(
 	}
 	const data = await request<
 		UpdateResourceLibraryApplicationResponse,
-		ErrorWrapper<UpdateResourceLibraryApplicationStatus400>,
+		ErrorWrapper<
+			| UpdateResourceLibraryApplicationStatus400
+			| UpdateResourceLibraryApplicationStatus403
+			| UpdateResourceLibraryApplicationStatus429
+		>,
 		UpdateResourceLibraryApplicationBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -117949,7 +118014,7 @@ export async function updateResourceLibraryApplication(
 
 /**
  * @summary List application categories
- * @description List the categories available for classifying applications, ordered by name.
+ * @description List the categories available for classifying applications, ordered by name, ignoring the case of the letters A to Z.
  * Results are paginated by `offset` or `cursor`.
  * @link /accounts/{accountId}/resource-library/categories
  */
@@ -121160,7 +121225,7 @@ export async function secretsStoreQuota(
 
 /**
  * @summary List account stores
- * @description Lists all the stores in an account.
+ * @description Lists account stores from an eventually consistent projection. Returns retryable HTTP 503 until initial backfill completes; empty accounts are ready immediately.
  * @link /accounts/{accountId}/secrets_store/stores
  */
 export async function secretsStoreList(
@@ -121181,7 +121246,7 @@ export async function secretsStoreList(
 	}
 	const data = await request<
 		SecretsStoreListResponse,
-		ErrorWrapper<SecretsStoreListStatus400>,
+		ErrorWrapper<SecretsStoreListStatus400 | SecretsStoreListStatus503>,
 		null,
 		Record<string, string>,
 		Partial<SecretsStoreListQuery>,
@@ -140222,7 +140287,7 @@ export async function originCaRevokeCertificate(
 	}
 	const data = await request<
 		OriginCaRevokeCertificateResponse,
-		ErrorWrapper<OriginCaRevokeCertificateStatus400>,
+		ErrorWrapper<OriginCaRevokeCertificateStatus400 | OriginCaRevokeCertificateStatus500>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -140258,7 +140323,7 @@ export async function originCaGetCertificate(
 	}
 	const data = await request<
 		OriginCaGetCertificateResponse,
-		ErrorWrapper<OriginCaGetCertificateStatus400>,
+		ErrorWrapper<OriginCaGetCertificateStatus400 | OriginCaGetCertificateStatus500>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
@@ -173429,6 +173494,7 @@ export const operationsByPath = {
 	"DELETE /accounts/{accountId}/containers/registries/{domain}": deleteImageRegistry,
 	"POST /accounts/{accountId}/containers/registries/{domain}/credentials":
 		generateImageRegistryCredentials,
+	"GET /accounts/{accountId}/containers/usage": getUsage,
 	"GET /accounts/{accountId}/custom_csrs": customCsrsForAnAccountListCustomCsrs,
 	"POST /accounts/{accountId}/custom_csrs": customCsrsForAnAccountCreateCustomCsr,
 	"DELETE /accounts/{accountId}/custom_csrs/{customCsrId}": customCsrsForAnAccountDeleteCustomCsr,
@@ -177898,6 +177964,7 @@ export const operationsByTag = {
 		aigConfigGetLoggingState,
 		aigConfigPatchLoggingState,
 		getAccountLimits,
+		getUsage,
 	},
 	aiSearchInstances: {
 		aiSearchListInstances,
@@ -182966,7 +183033,7 @@ export const tagDictionary = {
 		PATCH: ["aigConfigUpdateGatewayDynamicRoute"],
 	},
 	account: {
-		GET: ["aigConfigGetLoggingState", "getAccountLimits"],
+		GET: ["aigConfigGetLoggingState", "getAccountLimits", "getUsage"],
 		PATCH: ["aigConfigPatchLoggingState"],
 	},
 	aiSearchInstances: {

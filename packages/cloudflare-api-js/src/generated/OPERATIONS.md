@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3767 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3768 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## health
 
@@ -1376,6 +1376,7 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3767 operatio
 | `client.api.account.aigConfigGetLoggingState` | `GET /accounts/{accountId}/ai-gateway/logging-state` | Get AI Gateway logging state |
 | `client.api.account.aigConfigPatchLoggingState` | `PATCH /accounts/{accountId}/ai-gateway/logging-state` | Migrate AI Gateway logging to Workers Observability |
 | `client.api.account.getAccountLimits` | `GET /accounts/{accountId}/builds/account/limits` | Get build-minute availability |
+| `client.api.account.getUsage` | `GET /accounts/{accountId}/containers/usage` | Get live account usage |
 
 ## aiSearchInstances
 

@@ -27204,6 +27204,96 @@ export type CallsTurnKeySingleWithSecret = CallsApiResponseSingle & {
 export type CcAccountID = string;
 
 /**
+ * @description Lists account limits for the resources reported in usage.
+ * @type object
+ */
+export type CcAccountUsageMaximum = {
+  /**
+   * @description Maximum disk in MB for the account.
+   * @type integer
+   */
+  disk_mb: number;
+  /**
+   * @description Maximum memory in MiB for the account.
+   * @type integer
+   */
+  memory_mib: number;
+  /**
+   * @description Maximum vCPU for the account.
+   *
+   * Format: `float`
+   * @type number
+   */
+  vcpus: number;
+};
+
+/**
+ * @description Lists current resource consumption for active and assigned instances.
+ * @type object
+ */
+export type CcAccountUsageResources = {
+  disk_mb: number;
+  instances: number;
+  memory_mib: number;
+  /**
+   * @description
+   * Format: `float`
+   * @type number
+   */
+  vcpus: number;
+};
+
+/**
+ * @description Live resource utilization percentages. A value of 100 represents full utilization. Values can exceed 100 when usage exceeds quota. The API omits fields whose corresponding maximum is zero.
+ * @type object
+ */
+export type CcAccountUsageUtilization = {
+  /**
+   * @description Live disk usage as a percentage of maximum disk.
+   *
+   * Format: `float`
+   * @type number | undefined
+   */
+  disk_mb?: number | undefined;
+  /**
+   * @description Live memory usage as a percentage of maximum memory.
+   *
+   * Format: `float`
+   * @type number | undefined
+   */
+  memory_mib?: number | undefined;
+  /**
+   * @description Live vCPU usage as a percentage of maximum vCPU.
+   *
+   * Format: `float`
+   * @type number | undefined
+   */
+  vcpus?: number | undefined;
+};
+
+/**
+ * @description Current live usage, maximum limits, and utilization percentages for a Cloudchamber account. Usage includes active and assigned instances and is a current snapshot, not a historical or billable metric.
+ * @type object
+ */
+export type CcAccountUsageResponse = {
+  /**
+   * @description Lists account limits for the resources reported in usage.
+   * @type object
+   */
+  maximum: CcAccountUsageMaximum;
+  /**
+   * @description Lists current resource consumption for active and assigned instances.
+   * @type object
+   */
+  usage: CcAccountUsageResources;
+  /**
+   * @description Live resource utilization percentages. A value of 100 represents full utilization. Values can exceed 100 when usage exceeds quota. The API omits fields whose corresponding maximum is zero.
+   * @type object
+   */
+  utilization: CcAccountUsageUtilization;
+};
+
+/**
  * @description An identifier for a specific rollout within an application.
  * @type string
  */
@@ -76320,9 +76410,7 @@ export type NscFacilityInfo = {
 };
 
 export type NscInterconnectPhysicalBody = {
-  account: string;
   name: string;
-  owner?: string | undefined;
   type: string;
 } & {
   ccr_device_name?: (string | null) | undefined;
@@ -76348,9 +76436,7 @@ export type NscInterconnectPhysicalBody = {
 };
 
 export type NscInterconnectGcpPartnerBody = {
-  account: string;
   name: string;
-  owner?: string | undefined;
   type: string;
 } & {
   region: string;
@@ -113102,7 +113188,7 @@ export const tlsCertificatesAndHostnamesRequestType = {
 
 export type TlsCertificatesAndHostnamesRequestTypeKey = (typeof tlsCertificatesAndHostnamesRequestType)[keyof typeof tlsCertificatesAndHostnamesRequestType];
 
-export const tlsCertificatesAndHostnamesRequestedValidity = {
+export const tlsCertificatesAndHostnamesRequestedValidityDays = {
   '7': 7,
   '30': 30,
   '90': 90,
@@ -113112,7 +113198,16 @@ export const tlsCertificatesAndHostnamesRequestedValidity = {
   '5475': 5475,
 } as const;
 
-export type TlsCertificatesAndHostnamesRequestedValidityKey = (typeof tlsCertificatesAndHostnamesRequestedValidity)[keyof typeof tlsCertificatesAndHostnamesRequestedValidity];
+export type TlsCertificatesAndHostnamesRequestedValidityDaysKey = (typeof tlsCertificatesAndHostnamesRequestedValidityDays)[keyof typeof tlsCertificatesAndHostnamesRequestedValidityDays];
+
+/**
+ * @description When the certificate was revoked.
+ *
+ * Format: `date-time`
+ * @example 2024-09-06T18:43:47.928893Z
+ * @type string
+ */
+export type TlsCertificatesAndHostnamesRevokedAt = string;
 
 export type TlsCertificatesAndHostnamesCertificates = {
   /**
@@ -113156,9 +113251,9 @@ export type TlsCertificatesAndHostnamesCertificates = {
    * hXykcUihvHyG4A1m2R6qpANBjnA0pHexfwM/SgfzvpbvUg0T1ubmer8BgTwCKIWs
    * dcWYTthM51JIqRBfNqy4QcBnX+GY05yltEEswQI55wdiS3CjTTA67sdbcQ==
    * -----END CERTIFICATE REQUEST-----
-   * @type string
+   * @type string | undefined
    */
-  csr: TlsCertificatesAndHostnamesCsr;
+  csr?: TlsCertificatesAndHostnamesCsr | undefined;
   /**
    * @description When the certificate will expire.
    * @example 2014-01-01 05:20:00 +0000 UTC
@@ -113169,9 +113264,9 @@ export type TlsCertificatesAndHostnamesCertificates = {
    * @description Array of hostnames or wildcard names bound to the certificate.
    * Hostnames must be fully qualified domain names (FQDNs) belonging to zones on your account (e.g., `example.com` or `sub.example.com`). Wildcards are supported only as a `*.` prefix for a single level (e.g., `*.example.com`). Double wildcards (`*.*.example.com`) and interior wildcards (`foo.*.example.com`) are not allowed. The wildcard suffix must be a multi-label domain (`*.example.com` is valid, but `*.com` is not). Unicode/IDN hostnames are accepted and automatically converted to punycode.
    * @example ["example.com","*.example.com","sub.example.com"]
-   * @type array
+   * @type array | undefined
    */
-  hostnames: TlsCertificatesAndHostnamesHostnames;
+  hostnames?: TlsCertificatesAndHostnamesHostnames | undefined;
   /**
    * @description The x509 serial number of the Origin CA certificate.
    * @example 328578533902268680212849205732770752308931942346
@@ -113181,16 +113276,23 @@ export type TlsCertificatesAndHostnamesCertificates = {
   /**
    * @description Signature type desired on certificate ("origin-rsa" (rsa), "origin-ecc" (ecdsa), or "keyless-certificate" (for Keyless SSL servers).
    * @example origin-rsa
-   * @type string
+   * @type string | undefined
    */
-  request_type: TlsCertificatesAndHostnamesRequestTypeKey;
+  request_type?: TlsCertificatesAndHostnamesRequestTypeKey | undefined;
   /**
-   * @description The number of days for which the certificate should be valid.
-   * @default 5475
+   * @description The number of days for which the certificate was requested to be valid. Only returned in the Create Certificate response, where it echoes the requested value. Not returned when getting or listing certificates.
    * @example 5475
-   * @type number
+   * @type number | undefined
    */
-  requested_validity: TlsCertificatesAndHostnamesRequestedValidityKey;
+  requested_validity?: TlsCertificatesAndHostnamesRequestedValidityDaysKey | undefined;
+  /**
+   * @description When the certificate was revoked.
+   *
+   * Format: `date-time`
+   * @example 2024-09-06T18:43:47.928893Z
+   * @type string | undefined
+   */
+  readonly revoked_at?: TlsCertificatesAndHostnamesRevokedAt | undefined;
 };
 
 export type TlsCertificatesAndHostnamesCertificateResponseCollection2 = TlsCertificatesAndHostnamesApiResponseCollection & {
@@ -113391,15 +113493,6 @@ export type TlsCertificatesAndHostnamesCertificateResponseSingle5 = TlsCertifica
 export type TlsCertificatesAndHostnamesCertificateResponseSinglePost = TlsCertificatesAndHostnamesApiResponseSingle & {
   result?: TlsCertificatesAndHostnamesCertificateObjectPost | undefined;
 };
-
-/**
- * @description When the certificate was revoked.
- *
- * Format: `date-time`
- * @example 2024-09-06T18:43:47.928893Z
- * @type string
- */
-export type TlsCertificatesAndHostnamesRevokedAt = string;
 
 export type TlsCertificatesAndHostnamesCertificateRevokeResponse = {
   result?: {
@@ -115753,6 +115846,14 @@ export type TlsCertificatesAndHostnamesPrivateKey = string;
  * @type string
  */
 export type TlsCertificatesAndHostnamesPrivateKey4 = string;
+
+/**
+ * @description The number of days for which the certificate should be valid.
+ * @default 5475
+ * @example 5475
+ * @type number
+ */
+export type TlsCertificatesAndHostnamesRequestedValidity = TlsCertificatesAndHostnamesRequestedValidityDaysKey;
 
 export const tlsCertificatesAndHostnamesSettingId = {
   ciphers: 'ciphers',
@@ -124679,6 +124780,10 @@ export type WorkersObservabilityTelemetryEvent = {
     } | undefined;
     eventType: WorkersObservabilityTelemetryEventworkersEventTypeEnumKey;
     executionModel?: WorkersObservabilityTelemetryEventworkersExecutionModelEnumKey | undefined;
+    gateway?: {
+      requestId: string;
+      [key: string]: unknown;
+    } | undefined;
     outcome?: string | undefined;
     preview?: {
       id?: string | undefined;
@@ -124710,6 +124815,10 @@ export type WorkersObservabilityTelemetryEvent = {
     } | undefined;
     eventType: WorkersObservabilityTelemetryEventworkersEventTypeEnum2Key;
     executionModel?: WorkersObservabilityTelemetryEventworkersExecutionModelEnum2Key | undefined;
+    gateway?: {
+      requestId: string;
+      [key: string]: unknown;
+    } | undefined;
     outcome: string;
     preview?: {
       id?: string | undefined;
@@ -126833,6 +126942,20 @@ export type WorkersBindingKindVpcNetwork = {
   type: 'vpc_network';
 };
 
+export type WorkersBindingKindWorkerLoader = {
+  /**
+   * @description A JavaScript variable name for the binding.
+   * @example myBinding
+   * @type string
+   */
+  name: WorkersBindingName;
+  /**
+   * @description The kind of resource that the binding provides.
+   * @type string
+   */
+  type: 'worker_loader';
+};
+
 /**
  * @description A binding to allow the Worker to communicate with resources.
  */
@@ -126912,6 +127035,8 @@ export type WorkersBindingItem = WorkersBindingKindAi & {
   type: 'vpc_service';
 } | WorkersBindingKindVpcNetwork & {
   type: 'vpc_network';
+} | WorkersBindingKindWorkerLoader & {
+  type: 'worker_loader';
 };
 
 /**
@@ -127664,6 +127789,11 @@ export type WorkersPreviewDeploymentConfig = {
 export type WorkersPreviewDeploymentRequest = WorkersPreviewDeploymentConfig & {
   /**
    * @description Code, sourcemaps, and other content used at runtime.
+   *
+   * Source maps use content type `application/source-map`. Responses include them only when requested with
+   * `include=modules,sourcemaps`. Workers stores the source map fields used to remap stack traces, so a
+   * returned source map is equivalent to the uploaded file but not byte-identical.
+   *
    * @type array | undefined
    */
   modules?: {
@@ -128312,7 +128442,10 @@ export type WorkersVersion = {
    */
   compatibility_date?: WorkersCompatibilityDate | undefined;
   /**
-   * @description Flags that enable or disable certain features in the Workers runtime. Used to enable upcoming features or opt in or out of specific changes not included in a `compatibility_date`.
+   * @description Enables or disables specific Workers runtime features, such as upcoming features or changes outside the `compatibility_date`.
+   *
+   * Responses list only the flags this version sets explicitly and exclude behavior that `compatibility_date` enables. Responses omit the field when the list is empty, so a missing field means the version sets zero flags.
+   *
    * @default []
    * @example ["nodejs_compat"]
    * @type array | undefined
@@ -128395,6 +128528,10 @@ export type WorkersVersion = {
   migrations?: (WorkersSingleStepMigrations | WorkersMultipleStepMigrations) | undefined;
   /**
    * @description Code, sourcemaps, and other content used at runtime.
+   *
+   * Source maps use content type `application/source-map`. Responses include them only when requested with
+   * `include=modules,sourcemaps`. Workers stores the source map fields used to remap stack traces, so a returned
+   * source map is equivalent to the uploaded file but not byte-identical.
    *
    * This includes [`_headers`](https://developers.cloudflare.com/workers/static-assets/headers/#custom-headers) and
    * [`_redirects`](https://developers.cloudflare.com/workers/static-assets/redirects/) files used to configure
@@ -130772,7 +130909,12 @@ export type WorkersVersionItemFull = WorkersVersionItemShort & {
        */
       readonly compatibility_date?: string | undefined;
       /**
-       * @description Flags that enable or disable certain features in the Workers runtime.
+       * @description Lists the flags this version sets explicitly to enable or disable
+       * Workers runtime features. Excludes behavior that `compatibility_date`
+       * enables. Responses omit the field when the list is empty, so a missing
+       * field means the version sets zero flags.
+       *
+       * @default []
        * @type array | undefined
        */
       readonly compatibility_flags?: string[] | undefined;
@@ -130902,7 +131044,12 @@ export type WorkersVersionItemUploaded = WorkersVersionItemFull & {
        */
       readonly compatibility_date?: string | undefined;
       /**
-       * @description Flags that enable or disable certain features in the Workers runtime.
+       * @description Lists the flags this version sets explicitly to enable or disable
+       * Workers runtime features. Excludes behavior that `compatibility_date`
+       * enables. Responses omit the field when the list is empty, so a missing
+       * field means the version sets zero flags.
+       *
+       * @default []
        * @type array | undefined
        */
       readonly compatibility_flags?: string[] | undefined;
@@ -140688,7 +140835,10 @@ export type WorkersVersionWritable = {
    */
   compatibility_date?: WorkersCompatibilityDate | undefined;
   /**
-   * @description Flags that enable or disable certain features in the Workers runtime. Used to enable upcoming features or opt in or out of specific changes not included in a `compatibility_date`.
+   * @description Enables or disables specific Workers runtime features, such as upcoming features or changes outside the `compatibility_date`.
+   *
+   * Responses list only the flags this version sets explicitly and exclude behavior that `compatibility_date` enables. Responses omit the field when the list is empty, so a missing field means the version sets zero flags.
+   *
    * @default []
    * @example ["nodejs_compat"]
    * @type array | undefined
@@ -140771,6 +140921,10 @@ export type WorkersVersionWritable = {
   migrations?: (WorkersSingleStepMigrations | WorkersMultipleStepMigrations) | undefined;
   /**
    * @description Code, sourcemaps, and other content used at runtime.
+   *
+   * Source maps use content type `application/source-map`. Responses include them only when requested with
+   * `include=modules,sourcemaps`. Workers stores the source map fields used to remap stack traces, so a returned
+   * source map is equivalent to the uploaded file but not byte-identical.
    *
    * This includes [`_headers`](https://developers.cloudflare.com/workers/static-assets/headers/#custom-headers) and
    * [`_redirects`](https://developers.cloudflare.com/workers/static-assets/redirects/) files used to configure
@@ -142621,23 +142775,13 @@ export type OriginCaListCertificatesQuery = {
    * @type number | undefined
    */
   per_page?: number | undefined;
-  /**
-   * @description Limit to the number of records returned.
-   * @example 10
-   * @type integer | undefined
-   */
-  limit?: number | undefined;
-  /**
-   * @description Offset the results.
-   * @example 10
-   * @type integer | undefined
-   */
-  offset?: number | undefined;
 };
 
 export type OriginCaListCertificatesStatus200 = TlsCertificatesAndHostnamesCertificateResponseCollection2;
 
 export type OriginCaListCertificatesStatus400 = TlsCertificatesAndHostnamesCertificateResponseCollection2 & TlsCertificatesAndHostnamesApiResponseCommonFailure;
+
+export type OriginCaListCertificatesStatus500 = TlsCertificatesAndHostnamesCertificateResponseCollection2 & TlsCertificatesAndHostnamesApiResponseCommonFailure;
 
 export type OriginCaListCertificatesOptions = {
   body?: never | undefined;
@@ -142649,6 +142793,7 @@ export type OriginCaListCertificatesOptions = {
 export type OriginCaListCertificatesResponses = {
   '200': OriginCaListCertificatesStatus200;
   '400': OriginCaListCertificatesStatus400;
+  '500': OriginCaListCertificatesStatus500;
 };
 
 /**
@@ -142659,6 +142804,8 @@ export type OriginCaListCertificatesResponse = OriginCaListCertificatesStatus200
 export type OriginCaCreateCertificateStatus200 = TlsCertificatesAndHostnamesCertificateResponseSingle2;
 
 export type OriginCaCreateCertificateStatus400 = TlsCertificatesAndHostnamesCertificateResponseSingle2 & TlsCertificatesAndHostnamesApiResponseCommonFailure;
+
+export type OriginCaCreateCertificateStatus500 = TlsCertificatesAndHostnamesCertificateResponseSingle2 & TlsCertificatesAndHostnamesApiResponseCommonFailure;
 
 export type OriginCaCreateCertificateBody = {
   /**
@@ -142699,10 +142846,15 @@ export type OriginCaCreateCertificateBody = {
   /**
    * @description The number of days for which the certificate should be valid.
    * @default 5475
-   * @example 5475
-   * @type number | undefined
    */
-  requested_validity?: TlsCertificatesAndHostnamesRequestedValidityKey | undefined;
+  requested_validity?: TlsCertificatesAndHostnamesRequestedValidity | undefined;
+  /**
+   * @description Identifier of the zone whose keyless servers the certificate is for. Required when `request_type` is `keyless-certificate`; ignored otherwise.
+   * @maxLength 32
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string | undefined
+   */
+  zone_id?: string | undefined;
 };
 
 export type OriginCaCreateCertificateOptions = {
@@ -142715,6 +142867,7 @@ export type OriginCaCreateCertificateOptions = {
 export type OriginCaCreateCertificateResponses = {
   '200': OriginCaCreateCertificateStatus200;
   '400': OriginCaCreateCertificateStatus400;
+  '500': OriginCaCreateCertificateStatus500;
 };
 
 /**
@@ -324439,7 +324592,7 @@ export type ListInterconnectsQuery = {
    */
   site?: (string | null) | undefined;
   /**
-   * @description If specified, only show interconnects of the given type
+   * @description Type of interconnect to list, such as `direct` or `gcp_partner`. Defaults to `direct`.
    * @type string | undefined
    */
   type?: (string | null) | undefined;
@@ -325979,6 +326132,48 @@ export type GenerateImageRegistryCredentialsResponses = {
  * @description Union of all possible responses
  */
 export type GenerateImageRegistryCredentialsResponse = GenerateImageRegistryCredentialsStatus201;
+
+export type GetUsagePath = {
+  /**
+   * @description Account identifier.
+   * @example account-123
+   * @type string
+   */
+  accountId: string;
+};
+
+export type GetUsageStatus200 = CcV4BaseResponse & {
+  /**
+   * @description Current live usage, maximum limits, and utilization percentages for a Cloudchamber account. Usage includes active and assigned instances and is a current snapshot, not a historical or billable metric.
+   * @type object
+   */
+  result: CcAccountUsageResponse;
+};
+
+export type GetUsageStatus401 = CcV4BaseErrorResponse;
+
+export type GetUsageStatus403 = CcV4BaseErrorResponse;
+
+export type GetUsageStatus500 = CcV4BaseErrorResponse;
+
+export type GetUsageOptions = {
+  body?: never | undefined;
+  path: GetUsagePath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type GetUsageResponses = {
+  '200': GetUsageStatus200;
+  '401': GetUsageStatus401;
+  '403': GetUsageStatus403;
+  '500': GetUsageStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetUsageResponse = GetUsageStatus200;
 
 export type CustomCsrsForAnAccountListCustomCsrsPath = {
   /**
@@ -391158,7 +391353,8 @@ export type GetResourceLibraryApplicationsQuery = {
   /**
    * @description Order results using field:direction format. Supported fields are name, id, human_id,
    * category_id, application_type, application_confidence_score, and gen_ai_score.
-   * Supported directions are asc and desc. Ignored when search is provided; results are
+   * Supported directions are asc and desc. name and application_type ignore the case of
+   * the letters A to Z, and ties sort by id. Ignored when search is provided; results are
    * ranked by relevance instead. Also ignored when lookup is provided.
    *
    * @type string | undefined
@@ -391249,6 +391445,10 @@ export type CreateResourceLibraryApplicationStatus201 = AlexandriaGetApplication
 
 export type CreateResourceLibraryApplicationStatus400 = AlexandriaApiResponseCommonFailure;
 
+export type CreateResourceLibraryApplicationStatus403 = AlexandriaApiResponseCommonFailure;
+
+export type CreateResourceLibraryApplicationStatus429 = AlexandriaApiResponseCommonFailure;
+
 /**
  * @description Defines a custom application. At least one hostname or IP subnet is required.
  * Support domains and port/protocol pairs do not satisfy this requirement.
@@ -391267,6 +391467,8 @@ export type CreateResourceLibraryApplicationOptions = {
 export type CreateResourceLibraryApplicationResponses = {
   '201': CreateResourceLibraryApplicationStatus201;
   '400': CreateResourceLibraryApplicationStatus400;
+  '403': CreateResourceLibraryApplicationStatus403;
+  '429': CreateResourceLibraryApplicationStatus429;
 };
 
 /**
@@ -391358,7 +391560,11 @@ export type DeleteResourceLibraryApplicationStatus200 = AlexandriaDeleteApplicat
 
 export type DeleteResourceLibraryApplicationStatus400 = AlexandriaApiResponseCommonFailure;
 
+export type DeleteResourceLibraryApplicationStatus403 = AlexandriaApiResponseCommonFailure;
+
 export type DeleteResourceLibraryApplicationStatus409 = AlexandriaDeleteApplicationConflictResponse;
+
+export type DeleteResourceLibraryApplicationStatus429 = AlexandriaApiResponseCommonFailure;
 
 export type DeleteResourceLibraryApplicationStatus502 = AlexandriaApiResponseCommonFailure;
 
@@ -391372,7 +391578,9 @@ export type DeleteResourceLibraryApplicationOptions = {
 export type DeleteResourceLibraryApplicationResponses = {
   '200': DeleteResourceLibraryApplicationStatus200;
   '400': DeleteResourceLibraryApplicationStatus400;
+  '403': DeleteResourceLibraryApplicationStatus403;
   '409': DeleteResourceLibraryApplicationStatus409;
+  '429': DeleteResourceLibraryApplicationStatus429;
   '502': DeleteResourceLibraryApplicationStatus502;
 };
 
@@ -391403,6 +391611,8 @@ export type GetResourceLibraryApplicationByIdStatus200 = AlexandriaGetApplicatio
 
 export type GetResourceLibraryApplicationByIdStatus400 = AlexandriaApiResponseCommonFailure;
 
+export type GetResourceLibraryApplicationByIdStatus403 = AlexandriaApiResponseCommonFailure;
+
 export type GetResourceLibraryApplicationByIdOptions = {
   body?: never | undefined;
   path: GetResourceLibraryApplicationByIdPath;
@@ -391413,6 +391623,7 @@ export type GetResourceLibraryApplicationByIdOptions = {
 export type GetResourceLibraryApplicationByIdResponses = {
   '200': GetResourceLibraryApplicationByIdStatus200;
   '400': GetResourceLibraryApplicationByIdStatus400;
+  '403': GetResourceLibraryApplicationByIdStatus403;
 };
 
 /**
@@ -391442,6 +391653,10 @@ export type UpdateResourceLibraryApplicationStatus200 = AlexandriaGetApplication
 
 export type UpdateResourceLibraryApplicationStatus400 = AlexandriaApiResponseCommonFailure;
 
+export type UpdateResourceLibraryApplicationStatus403 = AlexandriaApiResponseCommonFailure;
+
+export type UpdateResourceLibraryApplicationStatus429 = AlexandriaApiResponseCommonFailure;
+
 /**
  * @description Update the network matchers for the application. The service preserves omitted
  * matcher lists; send an empty array to clear a list. The resulting application must
@@ -391463,6 +391678,8 @@ export type UpdateResourceLibraryApplicationOptions = {
 export type UpdateResourceLibraryApplicationResponses = {
   '200': UpdateResourceLibraryApplicationStatus200;
   '400': UpdateResourceLibraryApplicationStatus400;
+  '403': UpdateResourceLibraryApplicationStatus403;
+  '429': UpdateResourceLibraryApplicationStatus429;
 };
 
 /**
@@ -395312,6 +395529,8 @@ export type SecretsStoreListStatus200 = SecretsStoreStoresResponseCollection;
 
 export type SecretsStoreListStatus400 = SecretsStoreApiResponseCommonFailure;
 
+export type SecretsStoreListStatus503 = SecretsStoreApiResponseCommonFailure;
+
 export type SecretsStoreListOptions = {
   body?: never | undefined;
   path: SecretsStoreListPath;
@@ -395322,6 +395541,7 @@ export type SecretsStoreListOptions = {
 export type SecretsStoreListResponses = {
   '200': SecretsStoreListStatus200;
   '400': SecretsStoreListStatus400;
+  '503': SecretsStoreListStatus503;
 };
 
 /**
@@ -423780,12 +424000,19 @@ export type WorkersPreviewsDeploymentsGetPath = {
   deploymentId: string;
 };
 
+export const workersPreviewsDeploymentsGetInclude = {
+  modules: 'modules',
+  'modules,sourcemaps': 'modules,sourcemaps',
+} as const;
+
+export type WorkersPreviewsDeploymentsGetIncludeKey = (typeof workersPreviewsDeploymentsGetInclude)[keyof typeof workersPreviewsDeploymentsGetInclude];
+
 export type WorkersPreviewsDeploymentsGetQuery = {
   /**
-   * @description Whether to include the `modules` property of the deployment in the response, which contains code and sourcemap content and may add several megabytes to the response size.
+   * @description Optional properties to include in the response. `modules` includes the `modules` property, which contains code and may add several megabytes to the response size. `modules,sourcemaps` also includes the deployment's source maps in `modules`.
    * @type string | undefined
    */
-  include?: 'modules' | undefined;
+  include?: WorkersPreviewsDeploymentsGetIncludeKey | undefined;
 };
 
 export type WorkersPreviewsDeploymentsGetStatus200 = WorkersApiResponseCommon & {
@@ -423934,12 +424161,19 @@ export type GetLatestWorkerVersionPath = {
   workerId: string;
 };
 
+export const getLatestWorkerVersionInclude = {
+  modules: 'modules',
+  'modules,sourcemaps': 'modules,sourcemaps',
+} as const;
+
+export type GetLatestWorkerVersionIncludeKey = (typeof getLatestWorkerVersionInclude)[keyof typeof getLatestWorkerVersionInclude];
+
 export type GetLatestWorkerVersionQuery = {
   /**
-   * @description Whether to include the `modules` property of the version in the response, which contains code and sourcemap content and may add several megabytes to the response size.
+   * @description Optional properties to include in the response. `modules` includes the `modules` property, which contains code and may add several megabytes to the response size. `modules,sourcemaps` also includes the version's source maps in `modules`.
    * @type string | undefined
    */
-  include?: 'modules' | undefined;
+  include?: GetLatestWorkerVersionIncludeKey | undefined;
 };
 
 export type GetLatestWorkerVersionStatus200 = WorkersApiResponseCommon & {
@@ -424077,12 +424311,19 @@ export type GetWorkerVersionPath = {
   versionId: string;
 };
 
+export const getWorkerVersionInclude = {
+  modules: 'modules',
+  'modules,sourcemaps': 'modules,sourcemaps',
+} as const;
+
+export type GetWorkerVersionIncludeKey = (typeof getWorkerVersionInclude)[keyof typeof getWorkerVersionInclude];
+
 export type GetWorkerVersionQuery = {
   /**
-   * @description Whether to include the `modules` property of the version in the response, which contains code and sourcemap content and may add several megabytes to the response size.
+   * @description Optional properties to include in the response. `modules` includes the `modules` property, which contains code and may add several megabytes to the response size. `modules,sourcemaps` also includes the version's source maps in `modules`.
    * @type string | undefined
    */
-  include?: 'modules' | undefined;
+  include?: GetWorkerVersionIncludeKey | undefined;
 };
 
 export type GetWorkerVersionStatus200 = WorkersApiResponseCommon & {
@@ -429125,6 +429366,8 @@ export type OriginCaRevokeCertificateStatus200 = TlsCertificatesAndHostnamesCert
 
 export type OriginCaRevokeCertificateStatus400 = TlsCertificatesAndHostnamesCertificateRevokeResponse & TlsCertificatesAndHostnamesApiResponseCommonFailure;
 
+export type OriginCaRevokeCertificateStatus500 = TlsCertificatesAndHostnamesCertificateRevokeResponse & TlsCertificatesAndHostnamesApiResponseCommonFailure;
+
 export type OriginCaRevokeCertificateOptions = {
   body?: never | undefined;
   path: OriginCaRevokeCertificatePath;
@@ -429135,6 +429378,7 @@ export type OriginCaRevokeCertificateOptions = {
 export type OriginCaRevokeCertificateResponses = {
   '200': OriginCaRevokeCertificateStatus200;
   '400': OriginCaRevokeCertificateStatus400;
+  '500': OriginCaRevokeCertificateStatus500;
 };
 
 /**
@@ -429155,6 +429399,8 @@ export type OriginCaGetCertificateStatus200 = TlsCertificatesAndHostnamesCertifi
 
 export type OriginCaGetCertificateStatus400 = TlsCertificatesAndHostnamesCertificateResponseSingle2 & TlsCertificatesAndHostnamesApiResponseCommonFailure;
 
+export type OriginCaGetCertificateStatus500 = TlsCertificatesAndHostnamesCertificateResponseSingle2 & TlsCertificatesAndHostnamesApiResponseCommonFailure;
+
 export type OriginCaGetCertificateOptions = {
   body?: never | undefined;
   path: OriginCaGetCertificatePath;
@@ -429165,6 +429411,7 @@ export type OriginCaGetCertificateOptions = {
 export type OriginCaGetCertificateResponses = {
   '200': OriginCaGetCertificateStatus200;
   '400': OriginCaGetCertificateStatus400;
+  '500': OriginCaGetCertificateStatus500;
 };
 
 /**
@@ -441229,7 +441476,7 @@ export type CustomOriginTrustStoreDeletePath = {
 
 export type CustomOriginTrustStoreDeleteStatus200 = TlsCertificatesAndHostnamesCustomTrustStoreResponseIdOnly;
 
-export type CustomOriginTrustStoreDeleteStatus400 = TlsCertificatesAndHostnamesCustomTrustStoreIdentifier & TlsCertificatesAndHostnamesApiResponseCommonFailure;
+export type CustomOriginTrustStoreDeleteStatus400 = TlsCertificatesAndHostnamesCustomTrustStoreResponseIdOnly & TlsCertificatesAndHostnamesApiResponseCommonFailure;
 
 export type CustomOriginTrustStoreDeleteOptions = {
   body?: never | undefined;
