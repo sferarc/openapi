@@ -14,6 +14,8 @@ Type-safe TypeScript clients generated from public OpenAPI specs, plus the site 
 | [`zoom-api-js`](packages/zoom-api-js) | Zoom |
 
 
+Coding agents can load [`skills/openapi-clients`](skills/openapi-clients/SKILL.md), an [Agent Skill](https://agentskills.io) on picking a client, auth, finding an operation, errors, streaming and Effect: `npx skills add sferarc/openapi`.
+
 `packages/openapi-utils` holds the shared kubb config, spec fetching and runtime helpers every client is generated with. `apps/openapi` is the website.
 
 ## Development
