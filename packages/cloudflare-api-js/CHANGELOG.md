@@ -1,5 +1,16 @@
 # cloudflare-api-js
 
+## 4.16.0
+
+### Minor Changes
+
+- 6587a2c: [BREAKING] Removed the deprecated DnsSettingsFoundationDns type.
+- 6587a2c: [BREAKING] Removed the deprecated foundation_dns field from DnsSettingsDnsSettingsBase and DnsSettingsDnsSettingsResponse types.
+
+### Patch Changes
+
+- 6587a2c: Improved the description field in DevicesCreateDeviceSettingsPolicyBody with a description, maxLength constraint, default value, and example.
+
 ## 4.15.1
 
 ### Patch Changes

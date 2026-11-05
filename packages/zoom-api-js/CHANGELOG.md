@@ -1,5 +1,11 @@
 # zoom-api-js
 
+## 3.7.1
+
+### Patch Changes
+
+- 6ca8c3f: Clarified in GetMeetingTranscriptPath type documentation that UUIDs containing any '/' characters must be double encoded, not just those starting with '/' or containing '//'.
+
 ## 3.7.0
 
 ### Minor Changes

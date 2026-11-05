@@ -1,5 +1,13 @@
 # nuki-api-js
 
+## 3.5.1
+
+### Patch Changes
+
+- 63da23f: Expanded the SmartlockState description to mention mounting state 4 for theft detection disabled by user.
+- 63da23f: Updated NotificationSetting type to include 'openSSR2' in the list of push notification triggers.
+- 63da23f: Reordered optional properties in Application type; no breaking changes detected for existing fields.
+
 ## 3.5.0
 
 ### Minor Changes
