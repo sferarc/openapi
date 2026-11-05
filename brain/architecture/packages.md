@@ -25,7 +25,7 @@ A typical client (`packages/vercel-api-js/`):
 | `src/effect.ts` | Effect bindings built with `createEffectApi` from [[shared-utils]]. |
 | `kubb.config.ts` | Spec URL and fixups. |
 
-Variations: `keycloak-api` has `src/admin/` and `src/account/`, each with its own `generated/`, `types.ts`, `schemas.ts` and `components.ts`, exported as `./admin/*` and `./account/*` in place of the root `types.ts`, `schemas.ts` and `components.ts` (`configs/knip.json`, `packages/keycloak-api/package.json`). `cloudflare-api-js` has no `schemas.ts`, and `cloudflare-api-js` and `keycloak-api` have no `effect.ts` or `./effect` entry; `litellm-api` gained one in #403, whose layer must carry the proxy's `baseUrl` as there is no default host (directory listings, `exports` in each `package.json`).
+Variations: `keycloak-api` has `src/admin/` and `src/account/`, each with its own `generated/`, `types.ts`, `schemas.ts` and `components.ts`, exported as `./admin/*` and `./account/*` in place of the root `types.ts`, `schemas.ts` and `components.ts` (`configs/knip.json`, `packages/keycloak-api/package.json`). `cloudflare-api-js` has no `schemas.ts`, and `cloudflare-api-js` has no `effect.ts` or `./effect` entry; `litellm-api` gained one in #403, whose layer must carry the proxy's `baseUrl` as there is no default host, and `keycloak-api` one for the Admin API only in #409, exported as `AdminApiService` and `adminEffectByPath` because the Account API's base URL carries the realm (directory listings, `exports` in each `package.json`).
 
 ### Fetcher behaviour
 

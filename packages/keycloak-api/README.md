@@ -12,6 +12,7 @@ Generated from the admin OpenAPI spec at <https://www.keycloak.org/docs-api/late
 - **Admin and Account APIs** - separate clients for the two Keycloak surfaces
 - **Tree-shakable** - only the operations you import end up in your bundle
 - **Runtime agnostic** - uses the global `fetch`, or bring your own implementation
+- **Effect support** - optional [Effect](https://effect.website) bindings for the Admin API via `keycloak-api/effect`
 
 ## Installation
 
@@ -100,6 +101,34 @@ An error thrown inside `onResponse` rejects the call with an `Error` whose messa
 
 A call that gets an HTTP error response rejects with an `ApiResponseError`, exported from the package, which extends `Error`: `status` is the HTTP status code, `payload` is the parsed JSON error body, or the raw body text, up to 1000 characters, when it is not JSON, and `method` and `path` name the request, without its query string. Its message reads `<METHOD> <path> returned <status>: <detail>`, where the detail is the API's own error message or else the first 200 characters of the body. A request that gets no response at all, for example because the network failed, rejects with an `Error` whose message names the method, the path and the reason, and whose `cause` is the original exception. A request cancelled through `signal` rejects with what the signal was aborted with, as is: the `AbortError`, or the `TimeoutError` of `AbortSignal.timeout()`.
 
+## Effect
+
+The `effect` entrypoint exposes every Admin API operation as an `Effect`, by tag in `AdminApiService` and by `"<METHOD> <path>"` in `adminEffectByPath`. It requires `effect` 4 as a peer dependency. As with the client class, the layer needs the `baseUrl` of your server, and `token` can be a function that returns a fresh token before every call.
+
+```ts
+import { Effect } from "effect";
+import { adminEffectByPath, makeApiLayer } from "keycloak-api/effect";
+
+const program = adminEffectByPath["GET /admin/realms/{realm}"]({ pathParams: { realm: "master" } });
+
+await Effect.runPromise(
+  program.pipe(
+    Effect.provide(
+      makeApiLayer({
+        baseUrl: "https://keycloak.example.com",
+        token: () => tokenStore.getAccessToken(),
+      })
+    )
+  )
+);
+```
+
+Errors are typed as `ApiError`, `NetworkError` and `ValidationError`. An HTTP error response fails with `ApiError`, which carries the HTTP `status`; a request that never gets a response, or a token function that throws, fails with `NetworkError`.
+
+A call can pass its own `config`, which layers over the layer's: its `headers` join the layer's, and its other fields, such as `onResponse`, replace them. An `onResponse` that throws makes the effect die with the `onResponse threw on` error as a defect rather than fail with `NetworkError`.
+
+The Account API has no Effect bindings yet; use `KeycloakAccountApi`.
+
 ## MCP server
 
 The package ships `keycloak-api-mcp`, a stdio [MCP](https://modelcontextprotocol.io) server with one tool per admin operation on a realm, so an agent can answer questions such as which users of a realm hold a role. It lists only the read (`GET`) tools; set `KEYCLOAK_MCP_ALLOW_WRITES=1` to add the others, which carry `destructiveHint` on `DELETE`. Every tool acts on `KEYCLOAK_REALM`, which is not a tool argument: the two operations that list and import realms are left out, and a call whose URL resolves outside that realm, such as a group path with `..` segments, is refused as a tool error. An HTTP error comes back as a tool error with the status and Keycloak's message.
@@ -168,6 +197,7 @@ VS Code, in `.vscode/mcp.json`:
 | `keycloak-api/account/components` | account operations grouped by tag and by path |
 | `keycloak-api/account/schemas` | Zod schemas for account operations |
 | `keycloak-api/account/types` | TypeScript types for account operations |
+| `keycloak-api/effect` | Effect bindings for admin operations |
 
 ## License
 

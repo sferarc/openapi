@@ -14,7 +14,7 @@ Each package is generated from the vendor's published OpenAPI spec and regenerat
 | Vercel | `vercel-api-js` | `VercelApi` | `token` | optional | `VERCEL_TOKEN` | yes |
 | Cloudflare | `cloudflare-api-js` | `CloudflareApi` | `token`, or `apiKey` plus `email` | optional | `CLOUDFLARE_TOKEN` | no |
 | Netlify | `netlify-api` | `NetlifyApi` | `token` | none | `NETLIFY_TOKEN` | yes |
-| Keycloak | `keycloak-api` | `KeycloakAdminApi`, `KeycloakAccountApi` | `token` (string or function), `baseUrl`, and `realm` for `KeycloakAccountApi` | required | `KEYCLOAK_TOKEN` | no |
+| Keycloak | `keycloak-api` | `KeycloakAdminApi`, `KeycloakAccountApi` | `token` (string or function), `baseUrl`, and `realm` for `KeycloakAccountApi` | required | `KEYCLOAK_TOKEN` | admin only |
 | Zoom | `zoom-api-js` | `ZoomApi` | `token` (string or function) | optional | `ZOOM_TOKEN` | yes |
 | Nuki | `nuki-api-js` | `NukiApi` | `token` | optional | `NUKI_TOKEN` | yes |
 | LiteLLM | `litellm-api` | `LiteLLMApi` | `token`, `baseUrl` | required | `LITELLM_MASTER_KEY` | yes |
@@ -131,6 +131,8 @@ await Effect.runPromise(
   program.pipe(Effect.provide(makeApiLayer({ token: process.env.VERCEL_TOKEN }))),
 );
 ```
+
+`keycloak-api/effect` covers the Admin API only and names its exports `AdminApiService` and `adminEffectByPath`; its layer needs the server `baseUrl`.
 
 Cancel through Effect (`Effect.timeout`, interruption) rather than a `signal`.
 
