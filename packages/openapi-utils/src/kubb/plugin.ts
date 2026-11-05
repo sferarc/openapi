@@ -1,6 +1,7 @@
 import { pluginTsName } from "@kubb/plugin-ts";
 import { defineExtension, type Output, type PluginType } from "kubb/kit";
 import { extraGenerator } from "./client/extra";
+import { mcpToolsGenerator } from "./client/mcp-tools";
 import { clientGenerator } from "./client/operations";
 import { operationsDocGenerator } from "./client/operations-doc";
 
@@ -16,12 +17,19 @@ export type OperationsDoc = {
 	requestTarget: string;
 };
 
+export type McpTools = {
+	/** A leading path, such as `/admin/realms/{realm}`, left out of every tool name. */
+	stripPathPrefix?: string;
+};
+
 type Options = {
 	output: Output;
 	/** Module the generated operations import `defaultClient`, `FetcherConfig` and `ErrorWrapper` from. */
 	importPath: string;
 	/** How `OPERATIONS.md` tells a caller to reach each operation. */
 	operationsDoc?: OperationsDoc;
+	/** Writes `mcp-tools.ts`, one MCP tool per operation over the plugin-zod schemas. */
+	mcpTools?: McpTools;
 };
 
 export const pluginClientName = "plugin-client";
@@ -41,7 +49,7 @@ export const pluginClient = defineExtension<PluginClient>({
 	meta: { name: pluginClientName },
 	dependencies: [pluginTsName],
 	setup(options, ctx) {
-		ctx.addGenerator(clientGenerator, extraGenerator, operationsDocGenerator);
+		ctx.addGenerator(clientGenerator, extraGenerator, operationsDocGenerator, mcpToolsGenerator);
 		return options;
 	},
 });

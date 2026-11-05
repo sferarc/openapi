@@ -2,13 +2,14 @@ import { pluginTs } from "@kubb/plugin-ts";
 import { pluginZod } from "@kubb/plugin-zod";
 import type { UserConfig } from "kubb";
 import { adapterOasWithRawBodies } from "./adapter";
-import { type OperationsDoc, pluginClient } from "./plugin";
+import { type McpTools, type OperationsDoc, pluginClient } from "./plugin";
 
 interface ConfigOptions {
 	outputPath?: string;
 	importPath?: string;
 	skipZod?: boolean;
 	operationsDoc?: OperationsDoc;
+	mcpTools?: McpTools;
 }
 
 function buildConfig({
@@ -16,6 +17,7 @@ function buildConfig({
 	importPath = "../utils/fetcher",
 	skipZod = false,
 	operationsDoc,
+	mcpTools,
 }: ConfigOptions = {}): Omit<UserConfig, "input"> {
 	return {
 		root: ".",
@@ -56,6 +58,7 @@ function buildConfig({
 				},
 				importPath,
 				operationsDoc,
+				mcpTools,
 			}),
 			...(skipZod
 				? []
