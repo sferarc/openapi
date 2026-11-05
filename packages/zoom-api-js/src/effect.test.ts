@@ -50,6 +50,20 @@ describe("effect bindings", () => {
 		expect(requested).not.toContain("proxy.test//");
 	});
 
+	it("send the token a layer's token function returns on every call", async () => {
+		const sent: (string | null)[] = [];
+		let count = 0;
+		const fetchImpl = async (_: string, init?: { headers?: Record<string, string> }) => {
+			sent.push(init?.headers?.Authorization ?? null);
+			return new Response("{}", { headers: { "content-type": "application/json" } });
+		};
+		const layer = makeApiLayer({ fetchImpl, token: async () => `token-${++count}` });
+
+		await Effect.runPromise(Effect.all([operation({}), operation({})]).pipe(Effect.provide(layer)));
+
+		expect(sent).toEqual(["Bearer token-1", "Bearer token-2"]);
+	});
+
 	it("pass a call's onResponse the headers of a rate limited response", async () => {
 		let received: [number, string | null] | undefined;
 		const program = ApiService.archiving.listArchivedFiles({

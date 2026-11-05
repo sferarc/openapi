@@ -127,6 +127,8 @@ await Effect.runPromise(
 );
 ```
 
+`token` can also be a function, sync or async, which each call asks for the current token before its request, so the layer does not need rebuilding when the hourly token is refreshed; what it throws fails the effect as a failed request would.
+
 `makeApiLayer` also takes a `baseUrl`, for example `https://api.zoomgov.com/v2` for a Zoom for Government account; a single call can pass it as `config: { baseUrl }`.
 
 Errors are typed as `ApiError`, `NetworkError` and `ValidationError`. An HTTP error response fails with `ApiError`, which carries the HTTP `status`; a request that never gets a response fails with `NetworkError`.

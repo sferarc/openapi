@@ -73,12 +73,15 @@ export class NetworkError extends Data.TaggedError("NetworkError")<{
 // ApiConfig: service key for proxy-based Effect APIs
 // ============================================================================
 
+/** A fixed token, or a function asked for the current one before every call. */
+export type ApiToken = string | (() => string | Promise<string>);
+
 /**
  * Effect service key for API configuration.
  * Used by the proxy-based Effect API to inject config into operations.
  */
 type ApiConfigShape = {
-	token?: string;
+	token?: ApiToken;
 	baseUrl?: string;
 	fetchImpl?: (url: string, init?: any) => Promise<any>;
 	headers?: Record<string, string>;
