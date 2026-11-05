@@ -1,5 +1,11 @@
 # @sferadev/openapi-utils
 
+## 0.2.0
+
+### Minor Changes
+
+- 99cc11f: Add an opt-in `mcpTools` option to `createConfig` that writes `mcp-tools.ts`, one MCP tool per operation with its name, request, description, annotations and zod parameter schemas.
+
 ## 0.1.0
 
 ### Minor Changes
