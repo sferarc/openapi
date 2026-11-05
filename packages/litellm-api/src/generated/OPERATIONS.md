@@ -148,20 +148,20 @@ Generated from the LiteLLM API 1.108.0 OpenAPI spec; do not edit. 855 operations
 | `client.api.default.aggregateMcpRouteMcpOptions` | `OPTIONS /mcp` | Aggregate Mcp Route |
 | `client.api.default.aggregateMcpRouteMcpHead` | `HEAD /mcp` | Aggregate Mcp Route |
 | `client.api.default.aggregateMcpRouteMcpPatch` | `PATCH /mcp` | Aggregate Mcp Route |
-| `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpPost` | `POST /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
-| `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpOptions` | `OPTIONS /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
-| `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpDelete` | `DELETE /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
 | `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpHead` | `HEAD /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
-| `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpPut` | `PUT /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
+| `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpOptions` | `OPTIONS /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
 | `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpPatch` | `PATCH /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
+| `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpPost` | `POST /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
+| `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpDelete` | `DELETE /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
 | `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpGet` | `GET /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
-| `client.api.default.dynamicMcpRouteMcpServerNameMcpPost` | `POST /{mcp_server_name}/mcp` | Dynamic Mcp Route |
-| `client.api.default.dynamicMcpRouteMcpServerNameMcpOptions` | `OPTIONS /{mcp_server_name}/mcp` | Dynamic Mcp Route |
-| `client.api.default.dynamicMcpRouteMcpServerNameMcpDelete` | `DELETE /{mcp_server_name}/mcp` | Dynamic Mcp Route |
+| `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpPut` | `PUT /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
 | `client.api.default.dynamicMcpRouteMcpServerNameMcpHead` | `HEAD /{mcp_server_name}/mcp` | Dynamic Mcp Route |
-| `client.api.default.dynamicMcpRouteMcpServerNameMcpPut` | `PUT /{mcp_server_name}/mcp` | Dynamic Mcp Route |
+| `client.api.default.dynamicMcpRouteMcpServerNameMcpOptions` | `OPTIONS /{mcp_server_name}/mcp` | Dynamic Mcp Route |
 | `client.api.default.dynamicMcpRouteMcpServerNameMcpPatch` | `PATCH /{mcp_server_name}/mcp` | Dynamic Mcp Route |
+| `client.api.default.dynamicMcpRouteMcpServerNameMcpPost` | `POST /{mcp_server_name}/mcp` | Dynamic Mcp Route |
+| `client.api.default.dynamicMcpRouteMcpServerNameMcpDelete` | `DELETE /{mcp_server_name}/mcp` | Dynamic Mcp Route |
 | `client.api.default.dynamicMcpRouteMcpServerNameMcpGet` | `GET /{mcp_server_name}/mcp` | Dynamic Mcp Route |
+| `client.api.default.dynamicMcpRouteMcpServerNameMcpPut` | `PUT /{mcp_server_name}/mcp` | Dynamic Mcp Route |
 
 ## adaptiveRouter
 
@@ -772,16 +772,16 @@ Generated from the LiteLLM API 1.108.0 OpenAPI spec; do not edit. 855 operations
 | Call | Request | Summary |
 | --- | --- | --- |
 | `client.api.lens.serviceConnectionLensServiceGet` | `GET /lens/service` | Service Connection |
+| `client.api.lens.lensRequestLensPathPatch` | `PATCH /lens/{path}` | Lens Request |
 | `client.api.lens.lensRequestLensPathPost` | `POST /lens/{path}` | Lens Request |
 | `client.api.lens.lensRequestLensPathDelete` | `DELETE /lens/{path}` | Lens Request |
-| `client.api.lens.lensRequestLensPathPut` | `PUT /lens/{path}` | Lens Request |
-| `client.api.lens.lensRequestLensPathPatch` | `PATCH /lens/{path}` | Lens Request |
 | `client.api.lens.lensRequestLensPathGet` | `GET /lens/{path}` | Lens Request |
+| `client.api.lens.lensRequestLensPathPut` | `PUT /lens/{path}` | Lens Request |
+| `client.api.lens.lensRequestLensPatch` | `PATCH /lens` | Lens Request |
 | `client.api.lens.lensRequestLensPost` | `POST /lens` | Lens Request |
 | `client.api.lens.lensRequestLensDelete` | `DELETE /lens` | Lens Request |
-| `client.api.lens.lensRequestLensPut` | `PUT /lens` | Lens Request |
-| `client.api.lens.lensRequestLensPatch` | `PATCH /lens` | Lens Request |
 | `client.api.lens.lensRequestLensGet` | `GET /lens` | Lens Request |
+| `client.api.lens.lensRequestLensPut` | `PUT /lens` | Lens Request |
 
 ## plugins
 
