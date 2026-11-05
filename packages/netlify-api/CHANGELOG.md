@@ -1,5 +1,11 @@
 # netlify-api
 
+## 3.3.3
+
+### Patch Changes
+
+- c2120d7: Add npm keywords, describe the package as an unofficial client generated from the vendor's OpenAPI spec, say it is unofficial under the README title, and point the homepage at the client's page on openapi.sferadev.com.
+
 ## 3.3.2
 
 ### Patch Changes
