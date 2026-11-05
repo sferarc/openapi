@@ -34,7 +34,13 @@ Nothing changed through 2026-10-30. Version PRs kept landing (#205 and #207 amon
 
 `release.yml` triggers on a push to `main` and on `workflow_dispatch`.
 
-The job runs only when `github.ref` is `refs/heads/main`, so a dispatch from any other branch skips it, and it runs in the `release` deployment environment (`if:` and `environment:` in `release.yml`, #371). The environment is meant to allow only `main` as a deployment branch, but the `sferarc-hq` App gets 403 creating that policy because it lacks Administration write; that waits on sferarc/hq#888, and until then the first release run creates the environment with no branch policy and the `github.ref` guard is the only check. Binding each npm trusted publisher to the `release` environment is an owner step tracked from sferarc/hq#912. The npm docs call the publisher's environment field optional but do not say whether a publisher with none set accepts a run inside an environment (docs.npmjs.com/trusted-publishers, read 2026-11-05); that is unknown until the first publish after #371, and a 404 there points at it.
+- The job runs only when `github.ref` is `refs/heads/main`, so a dispatch from any other branch skips it (`if:` in `release.yml`, #371).
+- The job runs in the `release` deployment environment (`environment:` in `release.yml`, #371).
+- The `release` environment has no deployment branch policy yet, so the `github.ref` guard is the only check that a run comes from `main`.
+- Allowing only `main` as the environment's deployment branch is #373, which waits on sferarc/hq#888 because the `sferarc-hq` App gets 403 creating the policy without Administration write.
+- Binding each npm trusted publisher to the `release` environment is an owner step tracked from sferarc/hq#912.
+- The npm docs call the publisher's environment field optional (docs.npmjs.com/trusted-publishers, read 2026-11-05).
+- Whether a publisher with no environment set accepts a run inside an environment is unknown until the first publish after #371; a 404 there points at it.
 
 1. A run with pending changesets: `changesets/action` runs `changeset version` and opens the "Version Packages" PR from `changeset-release/main` with a `sferarc-hq` App installation token minted at the start of the job. It bumps the versions, writes each `CHANGELOG.md` and deletes the changesets. The action commits through the GitHub API (`push-with-git-cli` defaults to `false` in v2), so the version commit and tags are attributed to `sferarc-hq[bot]`, the App that owns the token, never to the owner. The last step then runs `gh pr merge --squash --auto` on that PR. Nothing is published yet.
 2. The PR merges once `Check`, `Approved stack` and `No Claude attribution` pass. Auto-merge was enabled with the App token, so the squash commit's push triggers the workflow again, which a `github.token` merge would not.
