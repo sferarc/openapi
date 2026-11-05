@@ -114,7 +114,7 @@ The same file checks the "Pick the client" table against `packages/*/src/client.
 
 ## Context7 config
 
-`.github/workflows/scripts/context7.test.ts` checks that `context7.json` keeps the title and description within Context7's length limits, names every client package in the description, indexes every client's `README.md` and each of its `OPERATIONS.md` files, leaves out changelogs, `packages/openapi-utils`, `apps` and `brain`, and says the clients are unofficial (#354, [[architecture/context7]]). Its folder matching is a simplified copy of Context7's: a bare name matches any directory, a path matches from the root, and globs are not supported.
+`.github/workflows/scripts/context7.test.ts` checks that `context7.json` keeps the title and description within Context7's length limits, names every client package in the description, indexes every client's `README.md` and each of its `OPERATIONS.md` files, leaves out changelogs, `packages/openapi-utils`, `apps`, `brain` and every root-level markdown file but `README.md` (today `CLAUDE.md` and `AGENTS.md`), and says the clients are unofficial (#354, [[architecture/context7]]). Its folder matching is a simplified copy of Context7's: a bare name matches any directory, a path matches from the root, globs are not supported, and it treats a root-level markdown file as read unless `excludeFiles` names it.
 
 ## What is not tested
 

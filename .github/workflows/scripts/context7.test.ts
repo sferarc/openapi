@@ -30,8 +30,10 @@ function excludedFolder(file: string): boolean {
 	);
 }
 
+// Root-level markdown is read whatever `folders` says.
 function indexed(file: string): boolean {
 	if (config.excludeFiles.includes(path.basename(file)) || excludedFolder(file)) return false;
+	if (!file.includes("/") && /\.mdx?$/.test(file)) return true;
 	return config.folders.some((folder) => file.startsWith(`${folder}/`));
 }
 
@@ -60,6 +62,15 @@ describe("context7.json", () => {
 		expect(indexed("packages/openapi-utils/README.md")).toBe(false);
 		expect(indexed("apps/openapi/README.md")).toBe(false);
 		expect(indexed("brain/index.md")).toBe(false);
+	});
+
+	it("reads the root README and no other root-level markdown", () => {
+		expect(indexed("README.md")).toBe(true);
+		const rootMarkdown = readdirSync(root).filter(
+			(file) => /\.mdx?$/.test(file) && file !== "README.md",
+		);
+		expect(rootMarkdown).toEqual(expect.arrayContaining(["CLAUDE.md", "AGENTS.md"]));
+		for (const file of rootMarkdown) expect(config.excludeFiles).toContain(file);
 	});
 
 	it("says the clients are unofficial", () => {

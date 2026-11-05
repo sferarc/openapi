@@ -11,7 +11,7 @@
 		"apps",
 		"brain"
 	],
-	"excludeFiles": ["CHANGELOG.md", "LICENSE"],
+	"excludeFiles": ["CHANGELOG.md", "LICENSE", "CLAUDE.md", "AGENTS.md"],
 	"rules": [
 		"These clients are unofficial: they are generated from each vendor's OpenAPI spec and are not the vendor's own SDK.",
 		"Call an operation as client.api.<tag>.<operation>(params), or by method and path as client.request(\"<METHOD> <path>\", params); keycloak-api has only client.request().",
