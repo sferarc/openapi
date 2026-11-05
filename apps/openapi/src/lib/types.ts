@@ -5,6 +5,8 @@ export interface Provider {
 	name: string;
 	packageName: string;
 	version: string;
+	publishedAt?: string;
+	weeklyDownloads?: number;
 	usage: string;
 	specs: ClientLink[];
 }

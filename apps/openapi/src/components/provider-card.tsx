@@ -7,12 +7,38 @@ import { CodeBlock } from "@/components/code-block";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { formatDownloads, formatPublishDate } from "@/lib/format";
 import type { Provider } from "@/lib/types";
 
 const STORAGE_KEY = "activeProviderTab";
 
 interface UnifiedProviderInterfaceProps {
 	providers: Provider[];
+}
+
+function NpmStats({ provider }: { provider: Provider }) {
+	const publishDate = provider.publishedAt ? formatPublishDate(provider.publishedAt) : undefined;
+	if (!publishDate && provider.weeklyDownloads === undefined) return null;
+	return (
+		<dl className="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm text-muted-foreground">
+			{provider.publishedAt && publishDate && (
+				<div className="flex gap-1">
+					<dt>Published</dt>
+					<dd className="font-medium text-foreground">
+						<time dateTime={provider.publishedAt}>{publishDate}</time>
+					</dd>
+				</div>
+			)}
+			{provider.weeklyDownloads !== undefined && (
+				<div className="flex gap-1">
+					<dt>Downloads last week</dt>
+					<dd className="font-medium text-foreground">
+						{formatDownloads(provider.weeklyDownloads)}
+					</dd>
+				</div>
+			)}
+		</dl>
+	);
 }
 
 export function UnifiedProviderInterface({ providers }: UnifiedProviderInterfaceProps) {
@@ -69,6 +95,7 @@ export function UnifiedProviderInterface({ providers }: UnifiedProviderInterface
 								</Badge>
 							</CardHeader>
 							<CardContent className="flex-1 space-y-5">
+								<NpmStats provider={provider} />
 								<div>
 									<h3 className="text-base font-semibold mb-2">Installation</h3>
 									<Tabs defaultValue="pnpm" className="w-full">
