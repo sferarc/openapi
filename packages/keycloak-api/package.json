@@ -34,16 +34,18 @@
 		"zod": "catalog:"
 	},
 	"devDependencies": {
-		"kubb": "catalog:",
+		"@modelcontextprotocol/client": "catalog:",
+		"@modelcontextprotocol/server": "catalog:",
 		"@sferadev/openapi-utils": "workspace:*",
 		"@sferadev/tsconfig": "workspace:*",
 		"@types/node": "catalog:",
 		"bunchee": "catalog:",
+		"kubb": "catalog:",
 		"openapi3-ts": "catalog:",
 		"rimraf": "catalog:",
 		"typescript": "catalog:",
-		"yaml": "catalog:",
-		"vitest": "catalog:"
+		"vitest": "catalog:",
+		"yaml": "catalog:"
 	},
 	"files": [
 		"dist",
@@ -53,6 +55,9 @@
 	"main": "dist/index.cjs",
 	"module": "dist/index.mjs",
 	"types": "dist/index.d.ts",
+	"bin": {
+		"keycloak-api-mcp": "./dist/bin/keycloak-api-mcp.js"
+	},
 	"sideEffects": false,
 	"exports": {
 		"./package.json": "./package.json",

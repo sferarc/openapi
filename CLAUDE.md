@@ -24,6 +24,7 @@ Read `brain/` files relevant to your task before acting, and update them in the 
 | The website in `apps/openapi` | `brain/architecture/website.md` |
 | The Agent Skill in `skills/openapi-clients` | `brain/architecture/agent-skill.md` |
 | `context7.json`, what Context7 indexes | `brain/architecture/context7.md` |
+| `keycloak-api-mcp`, the Keycloak MCP server | `brain/architecture/keycloak-mcp.md` |
 | Node, pnpm, mise, commands | `brain/development/toolchain.md` |
 | Tests | `brain/development/testing.md` |
 | CI checks and branch rules | `brain/development/ci.md` |

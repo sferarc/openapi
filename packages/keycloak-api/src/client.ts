@@ -2,6 +2,7 @@ import { operationsByPath as accountOperationsByPath } from "./account/generated
 import { operationsByPath as adminOperationsByPath } from "./admin/generated/components";
 import type { FetchImpl } from "./utils/fetch";
 import type { FetcherConfig } from "./utils/fetcher";
+import { type CallParams, findOperation } from "./utils/operation";
 import type { RequiredKeys } from "./utils/types";
 
 /** A fixed access token, or a function the client calls before every request for the current one. */
@@ -48,15 +49,6 @@ type AccountRequestEndpointArgs<T extends keyof typeof accountOperationsByPath> 
 ] extends [never]
 	? [params?: AccountRequestEndpointParams<T>]
 	: [params: AccountRequestEndpointParams<T>];
-
-type CallParams = Record<string, unknown> & { config?: Partial<FetcherConfig> };
-
-type Operation = (params: CallParams) => Promise<unknown>;
-
-function findOperation(operations: Record<string, unknown>, endpoint: string): Operation {
-	if (!Object.hasOwn(operations, endpoint)) throw new Error(`Unknown endpoint: ${endpoint}`);
-	return operations[endpoint] as Operation;
-}
 
 // Keycloak access tokens expire after minutes, so a function is asked again on every call.
 async function resolveToken(token: KeycloakToken): Promise<string | null> {
