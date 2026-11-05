@@ -1,6 +1,6 @@
 {
 	"name": "cloudflare-api-js",
-	"version": "4.16.0",
+	"version": "4.17.0",
 	"description": "Unofficial typed TypeScript client for the Cloudflare API, generated from its OpenAPI spec",
 	"keywords": [
 		"cloudflare",
