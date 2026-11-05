@@ -7030,7 +7030,7 @@ export const meetingLiveStreamStatusUpdatePathSchema = z.object({
 export const getMeetingTranscriptPathMeetingIdSchema = z
 	.string()
 	.describe(
-		"To get a meeting's transcript, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance. \n\nTo get a webinar's transcript, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance. \n\nIf a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request. ",
+		"To get a meeting's transcript, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance.\n\nTo get a webinar's transcript, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance.\n\nIf a UUID contains any `/` characters, you must **double encode** the UUID before making an API request.",
 	)
 	.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] });
 
@@ -7119,7 +7119,7 @@ export const getMeetingTranscriptPathSchema = z.object({
 	meetingId: z
 		.string()
 		.describe(
-			"To get a meeting's transcript, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance. \n\nTo get a webinar's transcript, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance. \n\nIf a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request. ",
+			"To get a meeting's transcript, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance.\n\nTo get a webinar's transcript, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance.\n\nIf a UUID contains any `/` characters, you must **double encode** the UUID before making an API request.",
 		)
 		.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] }),
 });
