@@ -1,6 +1,15 @@
 import { Cause, Effect, Exit } from "effect";
 import { assert, describe, expect, it } from "vitest";
-import { AdminApiService, ApiError, adminEffectByPath, makeApiLayer, NetworkError } from "./effect";
+import {
+	AccountApiService,
+	AdminApiService,
+	ApiError,
+	accountEffectByPath,
+	adminEffectByPath,
+	makeAccountLayer,
+	makeApiLayer,
+	NetworkError,
+} from "./effect";
 
 type FetchImpl = (url: string, init?: any) => Promise<any>;
 
@@ -133,5 +142,65 @@ describe("effect bindings", () => {
 		const defect = Cause.squash(exit.cause);
 		assert(defect instanceof Error);
 		expect(defect.cause).toBe(thrown);
+	});
+});
+
+describe("account effect bindings", () => {
+	it("send an account request under the encoded realm with the layer's token", async () => {
+		const requests: [string, Record<string, string>][] = [];
+		const fetchImpl: FetchImpl = async (url, init) => {
+			requests.push([url, init.headers]);
+			return json('{"username":"ada"}');
+		};
+
+		const result = await Effect.runPromise(
+			AccountApiService.account
+				.getAccount()
+				.pipe(Effect.provide(makeAccountLayer("my realm")), Effect.provide(layer(fetchImpl))),
+		);
+
+		expect(result).toEqual({ username: "ada" });
+		expect(requests).toEqual([
+			[
+				"https://keycloak.example.com/realms/my%20realm/account/",
+				expect.objectContaining({ Authorization: "Bearer admin-token" }),
+			],
+		]);
+	});
+
+	it("run admin and account effects in one program under one server layer", async () => {
+		const urls: string[] = [];
+		const fetchImpl: FetchImpl = async (url) => {
+			urls.push(url);
+			return json("[]");
+		};
+		const sessions = accountEffectByPath["GET /account/sessions"]().pipe(
+			Effect.provide(makeAccountLayer("a%b")),
+		);
+
+		await Effect.runPromise(
+			Effect.andThen(AdminApiService.realmsAdmin.gETAdminRealms(), sessions).pipe(
+				Effect.provide(layer(fetchImpl)),
+			),
+		);
+
+		expect(urls).toEqual([
+			"https://keycloak.example.com/admin/realms",
+			"https://keycloak.example.com/realms/a%25b/account/sessions",
+		]);
+	});
+
+	it("fail with ApiError carrying the HTTP status", async () => {
+		const fetchImpl = async () => json('{"error":"HTTP 401 Unauthorized"}', { status: 401 });
+
+		const error = await Effect.runPromise(
+			Effect.flip(AccountApiService.account.getAccount()).pipe(
+				Effect.provide(makeAccountLayer("main")),
+				Effect.provide(layer(fetchImpl)),
+			),
+		);
+
+		assert(error instanceof ApiError);
+		expect(error.status).toBe(401);
 	});
 });

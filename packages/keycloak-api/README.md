@@ -103,7 +103,7 @@ A call that gets an HTTP error response rejects with an `ApiResponseError`, expo
 
 ## Effect
 
-The `effect` entrypoint exposes every Admin API operation as an `Effect`, by tag in `AdminApiService` and by `"<METHOD> <path>"` in `adminEffectByPath`. It requires `effect` 4 as a peer dependency. As with the client class, the layer needs the `baseUrl` of your server, and `token` can be a function that returns a fresh token before every call.
+The `effect` entrypoint exposes every Admin API operation as an `Effect`, by tag in `AdminApiService` and by `"<METHOD> <path>"` in `adminEffectByPath`, and every Account API operation in `AccountApiService` and `accountEffectByPath`. It requires `effect` 4 as a peer dependency. As with the client class, the layer needs the `baseUrl` of your server, and `token` can be a function that returns a fresh token before every call.
 
 ```ts
 import { Effect } from "effect";
@@ -127,7 +127,33 @@ Errors are typed as `ApiError`, `NetworkError` and `ValidationError`. An HTTP er
 
 A call can pass its own `config`, which layers over the layer's: its `headers` join the layer's, and its other fields, such as `onResponse`, replace them. An `onResponse` that throws makes the effect die with the `onResponse threw on` error as a defect rather than fail with `NetworkError`.
 
-The Account API has no Effect bindings yet; use `KeycloakAccountApi`.
+Account API paths sit under a realm, so an account effect also needs `makeAccountLayer(realm)`, which rebases the server layer's `baseUrl` onto `/realms/<realm>` and encodes the realm as `KeycloakAccountApi` does. One `makeApiLayer` then serves admin and account effects in the same program:
+
+```ts
+import { Effect } from "effect";
+import { AccountApiService, AdminApiService, makeAccountLayer, makeApiLayer } from "keycloak-api/effect";
+
+const program = Effect.gen(function* () {
+  const realms = yield* AdminApiService.realmsAdmin.gETAdminRealms();
+  const account = yield* AccountApiService.account
+    .getAccount()
+    .pipe(Effect.provide(makeAccountLayer("my realm")));
+  return { realms, account };
+});
+
+await Effect.runPromise(
+  program.pipe(
+    Effect.provide(
+      makeApiLayer({
+        baseUrl: "https://keycloak.example.com",
+        token: () => tokenStore.getAccessToken(),
+      })
+    )
+  )
+);
+```
+
+An account effect run without `makeAccountLayer` goes to `<baseUrl>/account/`, which is not a Keycloak endpoint.
 
 ## MCP server
 
