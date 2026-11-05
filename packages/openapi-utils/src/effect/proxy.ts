@@ -66,6 +66,10 @@ type CallParams = Record<string, unknown> & {
 	config?: Record<string, unknown> & { headers?: Record<string, string> };
 };
 
+async function resolveToken(token: unknown): Promise<unknown> {
+	return typeof token === "function" ? await token() : token;
+}
+
 function toEffect(op: (params: Record<string, unknown>) => Promise<unknown>) {
 	return (params?: CallParams) =>
 		Effect.gen(function* () {
@@ -73,9 +77,11 @@ function toEffect(op: (params: Record<string, unknown>) => Promise<unknown>) {
 			const { config: callConfig, ...rest } = params ?? {};
 			// The call's headers join the layer's rather than replacing them all.
 			const headers = callConfig?.headers && { ...layerConfig.headers, ...callConfig.headers };
-			const config = { ...layerConfig, ...callConfig, ...(headers && { headers }) };
+			const { token, ...config } = { ...layerConfig, ...callConfig, ...(headers && { headers }) };
 			return yield* Effect.tryPromise({
-				try: (signal) => op({ ...rest, config: { ...config, signal } }),
+				// Inside the promise so a token function that throws maps like a failed request.
+				try: async (signal) =>
+					op({ ...rest, config: { ...config, token: await resolveToken(token), signal } }),
 				catch: (error) => error,
 			}).pipe(
 				// A bug in the caller's own callback is a defect, not a failed request.

@@ -1,6 +1,13 @@
 import { Cause, Duration, Effect, Exit, Layer } from "effect";
 import { assert, describe, expect, it, vi } from "vitest";
-import { ApiConfig, ApiError, makeApiLayer, NetworkError, ValidationError } from "./errors";
+import {
+	ApiConfig,
+	ApiError,
+	type ApiToken,
+	makeApiLayer,
+	NetworkError,
+	ValidationError,
+} from "./errors";
 import { createEffectApi, createEffectByPath } from "./proxy";
 
 type Params = { limit?: number; config: unknown };
@@ -267,5 +274,112 @@ describe("makeApiLayer", () => {
 		);
 
 		expect(result).toBe(fetchImpl);
+	});
+});
+
+describe("token function", () => {
+	const tokenOp = () =>
+		vi.fn(async (params: { config: { token?: unknown } }) => params.config.token);
+	const withToken = (token: ApiToken) =>
+		makeApiLayer({ token, fetchImpl: async () => new Response() });
+
+	it("asks a function for the token before every call", async () => {
+		let count = 0;
+		const op = tokenOp();
+		const api = createEffectByPath({ "/projects": op });
+		const program = Effect.all([api["/projects"](), api["/projects"]()]);
+
+		const tokens = await Effect.runPromise(
+			program.pipe(Effect.provide(withToken(() => `token-${++count}`))),
+		);
+
+		expect(tokens).toEqual(["token-1", "token-2"]);
+	});
+
+	it("awaits a function that returns a promise", async () => {
+		const api = createEffectApi({ projects: { list: tokenOp() } });
+
+		const token = await Effect.runPromise(
+			api.projects.list().pipe(Effect.provide(withToken(async () => "fresh"))),
+		);
+
+		expect(token).toBe("fresh");
+	});
+
+	it("passes a fixed token as before", async () => {
+		const api = createEffectByPath({ "/projects": tokenOp() });
+
+		const token = await Effect.runPromise(
+			api["/projects"]().pipe(Effect.provide(withToken("fixed"))),
+		);
+
+		expect(token).toBe("fixed");
+	});
+
+	it("uses a call's own token without asking the layer's function", async () => {
+		const getToken = vi.fn(() => "layer");
+		const api = createEffectByPath({ "/projects": tokenOp() });
+
+		const token = await Effect.runPromise(
+			api["/projects"]({ config: { token: "call" } }).pipe(Effect.provide(withToken(getToken))),
+		);
+
+		expect(token).toBe("call");
+		expect(getToken).not.toHaveBeenCalled();
+	});
+
+	it("fails with NetworkError, not a defect, when the function throws", async () => {
+		const cause = new Error("refresh failed");
+		const op = tokenOp();
+		const api = createEffectByPath({ "/projects": op });
+		const getToken = () => {
+			throw cause;
+		};
+
+		const error = await Effect.runPromise(
+			Effect.flip(api["/projects"]()).pipe(Effect.provide(withToken(getToken))),
+		);
+
+		assert(error instanceof NetworkError);
+		expect(error.cause).toBe(cause);
+		expect(op).not.toHaveBeenCalled();
+	});
+
+	it("fails with ApiError when the function rejects with an HTTP status", async () => {
+		const rejection = { status: 401, payload: { error: "invalid_grant" } };
+		const api = createEffectByPath({ "/projects": tokenOp() });
+
+		const error = await Effect.runPromise(
+			Effect.flip(api["/projects"]()).pipe(
+				Effect.provide(withToken(() => Promise.reject(rejection))),
+			),
+		);
+
+		assert(error instanceof ApiError);
+		expect(error.status).toBe(401);
+	});
+
+	it("lets a timeout end a call whose token function never settles", async () => {
+		const op = tokenOp();
+		const api = createEffectByPath({ "/projects": op });
+		const program = api["/projects"]().pipe(Effect.timeout(Duration.millis(10)));
+
+		const error = await Effect.runPromise(
+			Effect.flip(program).pipe(Effect.provide(withToken(() => new Promise<string>(() => {})))),
+		);
+
+		expect(error._tag).toBe("TimeoutError");
+		expect(op).not.toHaveBeenCalled();
+	});
+
+	it("types the token function", () => {
+		// Never called: tsc fails if a @ts-expect-error below stops finding an error.
+		const typeChecks = () => [
+			makeApiLayer({ token: () => "sync" }),
+			makeApiLayer({ token: async () => "async" }),
+			// @ts-expect-error the function returns the token string
+			makeApiLayer({ token: () => 42 }),
+		];
+		expect(typeChecks).toBeTypeOf("function");
 	});
 });
