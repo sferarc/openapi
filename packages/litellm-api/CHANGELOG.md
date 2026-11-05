@@ -1,5 +1,19 @@
 # litellm-api
 
+## 2.13.0
+
+### Minor Changes
+
+- 652f740: [BREAKING] The path and query types LensRequestLensPathXXXPath/Query and related response types have been reorganized and renamed to match the switched operations.
+- 652f740: [BREAKING] The HTTP method and names for the lensRequestLensPathXXX, lensRequestLensXXX, toolsetMcpRouteToolsetToolsetNameMcpXXX, and dynamicMcpRouteMcpServerNameMcpXXX functions have been rotated/mapped to new methods and paths, and their signatures updated accordingly.
+
+### Patch Changes
+
+- 652f740: Added new types and enums for SVG reasoning and complexity in image generation (e.g., ImageGenerationSvgReasoning, ImageGenerationSvg, ToolImageGenerationSvgReasoning).
+- 652f740: Added svg_usage field to ImageGenerationCall and ResponsesAPIRequestParamsImageGenerationCall types to support SVG usage metrics.
+- 652f740: Added new fields to ImageGeneration and ToolImageGeneration types, such as svg, complexity, and frame metadata.
+- 652f740: Added gif and svg as options to image generation output formats.
+
 ## 2.12.1
 
 ### Patch Changes
