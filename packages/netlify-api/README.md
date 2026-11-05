@@ -1,5 +1,7 @@
 # netlify-api
 
+Unofficial. Not made or endorsed by Netlify.
+
 Auto-generated, fully typed client for the [Netlify API](https://docs.netlify.com/api/get-started/).
 
 ## Features

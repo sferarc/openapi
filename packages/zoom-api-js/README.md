@@ -1,5 +1,7 @@
 # zoom-api-js
 
+Unofficial. Not made or endorsed by Zoom.
+
 Auto-generated, fully typed client for the [Zoom API](https://developers.zoom.us/docs/api/).
 
 ## Features

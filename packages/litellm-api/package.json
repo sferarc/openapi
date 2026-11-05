@@ -1,7 +1,16 @@
 {
 	"name": "litellm-api",
 	"version": "2.11.1",
-	"description": "LiteLLM auto-generated type-safe API client",
+	"description": "Unofficial typed TypeScript client for the LiteLLM proxy API, generated from its OpenAPI spec",
+	"keywords": [
+		"litellm",
+		"litellm-api",
+		"api-client",
+		"sdk",
+		"typescript",
+		"openapi",
+		"rest"
+	],
 	"type": "module",
 	"author": "SferaDev",
 	"license": "ISC",
@@ -13,7 +22,7 @@
 	"bugs": {
 		"url": "https://github.com/sferarc/openapi/issues"
 	},
-	"homepage": "https://github.com/sferarc/openapi/tree/main/packages/litellm-api#readme",
+	"homepage": "https://openapi.sferadev.com/litellm-api",
 	"scripts": {
 		"tsc": "tsc --noEmit",
 		"build": "bunchee",

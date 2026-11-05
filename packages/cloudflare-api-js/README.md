@@ -1,5 +1,7 @@
 # cloudflare-api-js
 
+Unofficial. Not made or endorsed by Cloudflare.
+
 Auto-generated, fully typed client for the [Cloudflare API](https://developers.cloudflare.com/api/).
 
 ## Features

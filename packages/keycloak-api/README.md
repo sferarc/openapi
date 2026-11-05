@@ -1,5 +1,7 @@
 # keycloak-api
 
+Unofficial. Not made or endorsed by Keycloak.
+
 Auto-generated, fully typed client for the [Keycloak Admin and Account REST APIs](https://www.keycloak.org/docs-api/latest/rest-api/index.html).
 
 ## Features

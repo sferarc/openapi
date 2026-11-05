@@ -1,7 +1,16 @@
 {
 	"name": "keycloak-api",
 	"version": "3.3.1",
-	"description": "Keycloak auto-generated type-safe API client",
+	"description": "Unofficial typed TypeScript client for the Keycloak Admin and Account REST APIs, generated from their OpenAPI specs",
+	"keywords": [
+		"keycloak",
+		"keycloak-api",
+		"api-client",
+		"sdk",
+		"typescript",
+		"openapi",
+		"rest"
+	],
 	"type": "module",
 	"author": "SferaDev",
 	"license": "ISC",
@@ -13,7 +22,7 @@
 	"bugs": {
 		"url": "https://github.com/sferarc/openapi/issues"
 	},
-	"homepage": "https://github.com/sferarc/openapi/tree/main/packages/keycloak-api#readme",
+	"homepage": "https://openapi.sferadev.com/keycloak-api",
 	"scripts": {
 		"tsc": "tsc --noEmit",
 		"build": "bunchee",

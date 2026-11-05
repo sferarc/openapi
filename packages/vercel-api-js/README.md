@@ -1,5 +1,7 @@
 # vercel-api-js
 
+Unofficial. Not made or endorsed by Vercel.
+
 Auto-generated, fully typed client for the [Vercel REST API](https://vercel.com/docs/rest-api).
 
 ## Features

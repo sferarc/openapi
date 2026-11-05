@@ -1,7 +1,17 @@
 {
 	"name": "netlify-api",
 	"version": "3.3.2",
-	"description": "Netlify auto-generated type-safe API client",
+	"description": "Unofficial typed TypeScript client for the Netlify API, generated from its OpenAPI spec",
+	"keywords": [
+		"netlify",
+		"netlify-api",
+		"api-client",
+		"sdk",
+		"typescript",
+		"openapi",
+		"rest",
+		"effect"
+	],
 	"type": "module",
 	"author": "SferaDev",
 	"license": "ISC",
@@ -13,7 +23,7 @@
 	"bugs": {
 		"url": "https://github.com/sferarc/openapi/issues"
 	},
-	"homepage": "https://github.com/sferarc/openapi/tree/main/packages/netlify-api#readme",
+	"homepage": "https://openapi.sferadev.com/netlify-api",
 	"scripts": {
 		"tsc": "tsc --noEmit",
 		"build": "bunchee --dts-bundle",
