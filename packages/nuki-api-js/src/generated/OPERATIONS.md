@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the Nuki API 4.25.0 OpenAPI spec; do not edit. 104 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the Nuki API 4.26.0 OpenAPI spec; do not edit. 104 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## account
 
