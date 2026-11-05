@@ -444,22 +444,45 @@ export const imageGenerationInputImageMaskSchema = z
 		"Optional mask for inpainting.\n\nContains `image_url`\n(string, optional) and `file_id` (string, optional).",
 	);
 
+export const imageGenerationSvgReasoningSchema = z
+	.looseObject({
+		effort: z
+			.union([z.enum(["none", "minimal", "low", "medium", "high", "xhigh", "max"]), z.null()])
+			.optional(),
+	})
+	.describe(
+		"Reasoning effort for SVG authoring.\n\nWhen omitted, uses the author model's default in both Images and Responses.",
+	);
+
+export const imageGenerationSvgSchema = z
+	.looseObject({
+		model: z.union([z.string(), z.null()]).optional(),
+		reasoning: z.union([imageGenerationSvgReasoningSchema, z.null()]).optional(),
+	})
+	.describe(
+		"SVG author model settings.\n\nRequires `output_format` to be `svg`.\nWhen SVG model selection is enabled, omitting this object uses the\nouter response model. Otherwise, the default SVG author is used and\nexplicit model overrides are unavailable.",
+	);
+
 export const imageGenerationSchema = z
 	.looseObject({
 		type: z.enum(["image_generation"]),
 		action: z.union([z.enum(["generate", "edit", "auto"]), z.null()]).optional(),
 		background: z.union([z.enum(["transparent", "opaque", "auto"]), z.null()]).optional(),
+		complexity: z.union([z.enum(["low", "medium", "high"]), z.null()]).optional(),
+		frame_count: z.union([z.int(), z.null()]).optional(),
+		frame_duration_ms: z.union([z.int(), z.null()]).optional(),
 		input_fidelity: z.union([z.enum(["high", "low"]), z.null()]).optional(),
 		input_image_mask: z.union([imageGenerationInputImageMaskSchema, z.null()]).optional(),
 		model: z.union([z.string(), z.null()]).optional(),
 		moderation: z.union([z.enum(["auto", "low"]), z.null()]).optional(),
 		output_compression: z.union([z.int(), z.null()]).optional(),
-		output_format: z.union([z.enum(["png", "webp", "jpeg"]), z.null()]).optional(),
+		output_format: z.union([z.enum(["png", "webp", "jpeg", "gif", "svg"]), z.null()]).optional(),
 		partial_images: z.union([z.int(), z.null()]).optional(),
 		quality: z
 			.union([z.enum(["low", "medium", "high", "xhigh", "max", "auto"]), z.null()])
 			.optional(),
 		size: z.union([z.string(), z.null()]).optional(),
+		svg: z.union([imageGenerationSvgSchema, z.null()]).optional(),
 	})
 	.describe("A tool that generates images using the GPT image models.");
 
@@ -5195,6 +5218,14 @@ export const imageGenerationCallErrorSchema = z
 	})
 	.describe("Details of a moderation failure, when available.");
 
+export const imageGenerationCallSvgUsageSchema = z.looseObject({
+	input_tokens: z.int(),
+	model: z.string(),
+	output_tokens: z.int(),
+	reasoning_tokens: z.int(),
+	total_tokens: z.int(),
+});
+
 export const imageGenerationCallSchema = z
 	.looseObject({
 		id: z.string(),
@@ -5204,12 +5235,13 @@ export const imageGenerationCallSchema = z
 		action: z.union([z.enum(["generate", "edit", "auto"]), z.null()]).optional(),
 		background: z.union([z.enum(["transparent", "opaque", "auto"]), z.null()]).optional(),
 		error: z.union([imageGenerationCallErrorSchema, z.null()]).optional(),
-		output_format: z.union([z.enum(["png", "webp", "jpeg"]), z.null()]).optional(),
+		output_format: z.union([z.enum(["png", "webp", "jpeg", "gif", "svg"]), z.null()]).optional(),
 		quality: z
 			.union([z.enum(["low", "medium", "high", "xhigh", "max", "auto"]), z.null()])
 			.optional(),
 		revised_prompt: z.union([z.string(), z.null()]).optional(),
 		size: z.union([z.string(), z.null()]).optional(),
+		svg_usage: z.union([imageGenerationCallSvgUsageSchema, z.null()]).optional(),
 	})
 	.describe("An image generation request made by the model.");
 
@@ -10913,12 +10945,13 @@ export const responsesAPIRequestParamsImageGenerationCallSchema = z
 		error: responsesAPIRequestParamsImageGenerationCallErrorSchema
 			.optional()
 			.describe("Details of a moderation failure, when available."),
-		output_format: z.union([z.enum(["png", "webp", "jpeg"]), z.null()]).optional(),
+		output_format: z.union([z.enum(["png", "webp", "jpeg", "gif", "svg"]), z.null()]).optional(),
 		quality: z
 			.union([z.enum(["low", "medium", "high", "xhigh", "max", "auto"]), z.null()])
 			.optional(),
 		revised_prompt: z.union([z.string(), z.null()]).optional(),
 		size: z.union([z.string(), z.null()]).optional(),
+		svg_usage: imageGenerationCallSvgUsageSchema.optional(),
 	})
 	.describe("An image generation request made by the model.");
 
@@ -11327,11 +11360,31 @@ export const toolImageGenerationInputImageMaskSchema = z
 		"Optional mask for inpainting.\n\nContains `image_url`\n(string, optional) and `file_id` (string, optional).",
 	);
 
+export const toolImageGenerationSvgReasoningSchema = z
+	.object({
+		effort: z.enum(["none", "minimal", "low", "medium", "high", "xhigh", "max"]).optional(),
+	})
+	.describe(
+		"Reasoning effort for SVG authoring.\n\nWhen omitted, uses the author model's default in both Images and Responses.",
+	);
+
+export const toolImageGenerationSvgSchema = z
+	.object({
+		model: z.string().optional(),
+		reasoning: z.union([toolImageGenerationSvgReasoningSchema, z.null()]).optional(),
+	})
+	.describe(
+		"SVG author model settings.\n\nRequires `output_format` to be `svg`.\nWhen SVG model selection is enabled, omitting this object uses the\nouter response model. Otherwise, the default SVG author is used and\nexplicit model overrides are unavailable.",
+	);
+
 export const toolImageGenerationSchema = z
 	.object({
 		type: z.enum(["image_generation"]),
 		action: z.enum(["generate", "edit", "auto"]).optional(),
 		background: z.enum(["transparent", "opaque", "auto"]).optional(),
+		complexity: z.enum(["low", "medium", "high"]).optional(),
+		frame_count: z.int().optional(),
+		frame_duration_ms: z.int().optional(),
 		input_fidelity: z.union([z.enum(["high", "low"]), z.null()]).optional(),
 		input_image_mask: toolImageGenerationInputImageMaskSchema
 			.optional()
@@ -11341,10 +11394,15 @@ export const toolImageGenerationSchema = z
 		model: z.string().optional(),
 		moderation: z.enum(["auto", "low"]).optional(),
 		output_compression: z.int().optional(),
-		output_format: z.enum(["png", "webp", "jpeg"]).optional(),
+		output_format: z.enum(["png", "webp", "jpeg", "gif", "svg"]).optional(),
 		partial_images: z.int().optional(),
 		quality: z.enum(["low", "medium", "high", "xhigh", "max", "auto"]).optional(),
 		size: z.string().optional(),
+		svg: toolImageGenerationSvgSchema
+			.optional()
+			.describe(
+				"SVG author model settings.\n\nRequires `output_format` to be `svg`.\nWhen SVG model selection is enabled, omitting this object uses the\nouter response model. Otherwise, the default SVG author is used and\nexplicit model overrides are unavailable.",
+			),
 	})
 	.describe("A tool that generates images using the GPT image models.");
 
@@ -26647,6 +26705,20 @@ export const serviceConnectionLensServiceGetStatus200Schema = serviceConnectionS
 export const serviceConnectionLensServiceGetResponseSchema =
 	serviceConnectionLensServiceGetStatus200Schema;
 
+export const lensRequestLensPathPatchPathPathSchema = z.string();
+
+export const lensRequestLensPathPatchStatus200Schema = z.unknown();
+
+export const lensRequestLensPathPatchStatus422Schema = HTTPValidationErrorSchema;
+
+export const lensRequestLensPathPatchResponseSchema = lensRequestLensPathPatchStatus200Schema;
+
+export const lensRequestLensPathPatchErrorSchema = lensRequestLensPathPatchStatus422Schema;
+
+export const lensRequestLensPathPatchPathSchema = z.object({
+	path: z.string(),
+});
+
 export const lensRequestLensPathPostPathPathSchema = z.string();
 
 export const lensRequestLensPathPostStatus200Schema = z.looseObject({});
@@ -26675,6 +26747,20 @@ export const lensRequestLensPathDeletePathSchema = z.object({
 	path: z.string(),
 });
 
+export const lensRequestLensPathGetPathPathSchema = z.string();
+
+export const lensRequestLensPathGetStatus200Schema = z.looseObject({});
+
+export const lensRequestLensPathGetStatus422Schema = HTTPValidationErrorSchema;
+
+export const lensRequestLensPathGetResponseSchema = lensRequestLensPathGetStatus200Schema;
+
+export const lensRequestLensPathGetErrorSchema = lensRequestLensPathGetStatus422Schema;
+
+export const lensRequestLensPathGetPathSchema = z.object({
+	path: z.string(),
+});
+
 export const lensRequestLensPathPutPathPathSchema = z.string();
 
 export const lensRequestLensPathPutStatus200Schema = z.looseObject({});
@@ -26689,32 +26775,18 @@ export const lensRequestLensPathPutPathSchema = z.object({
 	path: z.string(),
 });
 
-export const lensRequestLensPathPatchPathPathSchema = z.string();
+export const lensRequestLensPatchQueryPathSchema = z.string().optional().default("");
 
-export const lensRequestLensPathPatchStatus200Schema = z.unknown();
+export const lensRequestLensPatchStatus200Schema = z.unknown();
 
-export const lensRequestLensPathPatchStatus422Schema = HTTPValidationErrorSchema;
+export const lensRequestLensPatchStatus422Schema = HTTPValidationErrorSchema;
 
-export const lensRequestLensPathPatchResponseSchema = lensRequestLensPathPatchStatus200Schema;
+export const lensRequestLensPatchResponseSchema = lensRequestLensPatchStatus200Schema;
 
-export const lensRequestLensPathPatchErrorSchema = lensRequestLensPathPatchStatus422Schema;
+export const lensRequestLensPatchErrorSchema = lensRequestLensPatchStatus422Schema;
 
-export const lensRequestLensPathPatchPathSchema = z.object({
-	path: z.string(),
-});
-
-export const lensRequestLensPathGetPathPathSchema = z.string();
-
-export const lensRequestLensPathGetStatus200Schema = z.looseObject({});
-
-export const lensRequestLensPathGetStatus422Schema = HTTPValidationErrorSchema;
-
-export const lensRequestLensPathGetResponseSchema = lensRequestLensPathGetStatus200Schema;
-
-export const lensRequestLensPathGetErrorSchema = lensRequestLensPathGetStatus422Schema;
-
-export const lensRequestLensPathGetPathSchema = z.object({
-	path: z.string(),
+export const lensRequestLensPatchQuerySchema = z.object({
+	path: z.string().optional().default(""),
 });
 
 export const lensRequestLensPostQueryPathSchema = z.string().optional().default("");
@@ -26745,34 +26817,6 @@ export const lensRequestLensDeleteQuerySchema = z.object({
 	path: z.string().optional().default(""),
 });
 
-export const lensRequestLensPutQueryPathSchema = z.string().optional().default("");
-
-export const lensRequestLensPutStatus200Schema = z.looseObject({});
-
-export const lensRequestLensPutStatus422Schema = HTTPValidationErrorSchema;
-
-export const lensRequestLensPutResponseSchema = lensRequestLensPutStatus200Schema;
-
-export const lensRequestLensPutErrorSchema = lensRequestLensPutStatus422Schema;
-
-export const lensRequestLensPutQuerySchema = z.object({
-	path: z.string().optional().default(""),
-});
-
-export const lensRequestLensPatchQueryPathSchema = z.string().optional().default("");
-
-export const lensRequestLensPatchStatus200Schema = z.unknown();
-
-export const lensRequestLensPatchStatus422Schema = HTTPValidationErrorSchema;
-
-export const lensRequestLensPatchResponseSchema = lensRequestLensPatchStatus200Schema;
-
-export const lensRequestLensPatchErrorSchema = lensRequestLensPatchStatus422Schema;
-
-export const lensRequestLensPatchQuerySchema = z.object({
-	path: z.string().optional().default(""),
-});
-
 export const lensRequestLensGetQueryPathSchema = z.string().optional().default("");
 
 export const lensRequestLensGetStatus200Schema = z.looseObject({});
@@ -26784,6 +26828,20 @@ export const lensRequestLensGetResponseSchema = lensRequestLensGetStatus200Schem
 export const lensRequestLensGetErrorSchema = lensRequestLensGetStatus422Schema;
 
 export const lensRequestLensGetQuerySchema = z.object({
+	path: z.string().optional().default(""),
+});
+
+export const lensRequestLensPutQueryPathSchema = z.string().optional().default("");
+
+export const lensRequestLensPutStatus200Schema = z.looseObject({});
+
+export const lensRequestLensPutStatus422Schema = HTTPValidationErrorSchema;
+
+export const lensRequestLensPutResponseSchema = lensRequestLensPutStatus200Schema;
+
+export const lensRequestLensPutErrorSchema = lensRequestLensPutStatus422Schema;
+
+export const lensRequestLensPutQuerySchema = z.object({
 	path: z.string().optional().default(""),
 });
 
@@ -28034,19 +28092,19 @@ export const aggregateMcpRouteMcpPatchStatus200Schema = z.unknown();
 
 export const aggregateMcpRouteMcpPatchResponseSchema = aggregateMcpRouteMcpPatchStatus200Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPostPathToolsetNameSchema = z.string();
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathToolsetNameSchema = z.string();
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema = z.looseObject({});
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema = z.void();
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema = z.void();
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPostResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPostErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPostPathSchema = z.object({
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathSchema = z.object({
 	toolset_name: z.string(),
 });
 
@@ -28066,54 +28124,6 @@ export const toolsetMcpRouteToolsetToolsetNameMcpOptionsPathSchema = z.object({
 	toolset_name: z.string(),
 });
 
-export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathToolsetNameSchema = z.string();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200Schema = z.looseObject({});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema = HTTPValidationErrorSchema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpDeleteResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpDeleteErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathSchema = z.object({
-	toolset_name: z.string(),
-});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathToolsetNameSchema = z.string();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema = z.void();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema = z.void();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathSchema = z.object({
-	toolset_name: z.string(),
-});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPutPathToolsetNameSchema = z.string();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPutStatus200Schema = z.looseObject({});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPutStatus422Schema = HTTPValidationErrorSchema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPutResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPutStatus200Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPutErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPutStatus422Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPutPathSchema = z.object({
-	toolset_name: z.string(),
-});
-
 export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathToolsetNameSchema = z.string();
 
 export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema = z.unknown();
@@ -28127,6 +28137,38 @@ export const toolsetMcpRouteToolsetToolsetNameMcpPatchErrorSchema =
 	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema;
 
 export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathSchema = z.object({
+	toolset_name: z.string(),
+});
+
+export const toolsetMcpRouteToolsetToolsetNameMcpPostPathToolsetNameSchema = z.string();
+
+export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema = z.looseObject({});
+
+export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpPostResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpPostErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpPostPathSchema = z.object({
+	toolset_name: z.string(),
+});
+
+export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathToolsetNameSchema = z.string();
+
+export const toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200Schema = z.looseObject({});
+
+export const toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema = HTTPValidationErrorSchema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpDeleteResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200Schema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpDeleteErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422Schema;
+
+export const toolsetMcpRouteToolsetToolsetNameMcpDeletePathSchema = z.object({
 	toolset_name: z.string(),
 });
 
@@ -28146,19 +28188,35 @@ export const toolsetMcpRouteToolsetToolsetNameMcpGetPathSchema = z.object({
 	toolset_name: z.string(),
 });
 
-export const dynamicMcpRouteMcpServerNameMcpPostPathMcpServerNameSchema = z.string();
+export const toolsetMcpRouteToolsetToolsetNameMcpPutPathToolsetNameSchema = z.string();
 
-export const dynamicMcpRouteMcpServerNameMcpPostStatus200Schema = z.looseObject({});
+export const toolsetMcpRouteToolsetToolsetNameMcpPutStatus200Schema = z.looseObject({});
 
-export const dynamicMcpRouteMcpServerNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPutStatus422Schema = HTTPValidationErrorSchema;
 
-export const dynamicMcpRouteMcpServerNameMcpPostResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpPostStatus200Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPutResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPutStatus200Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpPostErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpPostStatus422Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPutErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPutStatus422Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpPostPathSchema = z.object({
+export const toolsetMcpRouteToolsetToolsetNameMcpPutPathSchema = z.object({
+	toolset_name: z.string(),
+});
+
+export const dynamicMcpRouteMcpServerNameMcpHeadPathMcpServerNameSchema = z.string();
+
+export const dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema = z.void();
+
+export const dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema = z.void();
+
+export const dynamicMcpRouteMcpServerNameMcpHeadResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpHeadErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpHeadPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 
@@ -28178,54 +28236,6 @@ export const dynamicMcpRouteMcpServerNameMcpOptionsPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 
-export const dynamicMcpRouteMcpServerNameMcpDeletePathMcpServerNameSchema = z.string();
-
-export const dynamicMcpRouteMcpServerNameMcpDeleteStatus200Schema = z.looseObject({});
-
-export const dynamicMcpRouteMcpServerNameMcpDeleteStatus422Schema = HTTPValidationErrorSchema;
-
-export const dynamicMcpRouteMcpServerNameMcpDeleteResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpDeleteStatus200Schema;
-
-export const dynamicMcpRouteMcpServerNameMcpDeleteErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpDeleteStatus422Schema;
-
-export const dynamicMcpRouteMcpServerNameMcpDeletePathSchema = z.object({
-	mcp_server_name: z.string(),
-});
-
-export const dynamicMcpRouteMcpServerNameMcpHeadPathMcpServerNameSchema = z.string();
-
-export const dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema = z.void();
-
-export const dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema = z.void();
-
-export const dynamicMcpRouteMcpServerNameMcpHeadResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema;
-
-export const dynamicMcpRouteMcpServerNameMcpHeadErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema;
-
-export const dynamicMcpRouteMcpServerNameMcpHeadPathSchema = z.object({
-	mcp_server_name: z.string(),
-});
-
-export const dynamicMcpRouteMcpServerNameMcpPutPathMcpServerNameSchema = z.string();
-
-export const dynamicMcpRouteMcpServerNameMcpPutStatus200Schema = z.looseObject({});
-
-export const dynamicMcpRouteMcpServerNameMcpPutStatus422Schema = HTTPValidationErrorSchema;
-
-export const dynamicMcpRouteMcpServerNameMcpPutResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpPutStatus200Schema;
-
-export const dynamicMcpRouteMcpServerNameMcpPutErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpPutStatus422Schema;
-
-export const dynamicMcpRouteMcpServerNameMcpPutPathSchema = z.object({
-	mcp_server_name: z.string(),
-});
-
 export const dynamicMcpRouteMcpServerNameMcpPatchPathMcpServerNameSchema = z.string();
 
 export const dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema = z.unknown();
@@ -28242,6 +28252,38 @@ export const dynamicMcpRouteMcpServerNameMcpPatchPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 
+export const dynamicMcpRouteMcpServerNameMcpPostPathMcpServerNameSchema = z.string();
+
+export const dynamicMcpRouteMcpServerNameMcpPostStatus200Schema = z.looseObject({});
+
+export const dynamicMcpRouteMcpServerNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
+
+export const dynamicMcpRouteMcpServerNameMcpPostResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpPostStatus200Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpPostErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpPostStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpPostPathSchema = z.object({
+	mcp_server_name: z.string(),
+});
+
+export const dynamicMcpRouteMcpServerNameMcpDeletePathMcpServerNameSchema = z.string();
+
+export const dynamicMcpRouteMcpServerNameMcpDeleteStatus200Schema = z.looseObject({});
+
+export const dynamicMcpRouteMcpServerNameMcpDeleteStatus422Schema = HTTPValidationErrorSchema;
+
+export const dynamicMcpRouteMcpServerNameMcpDeleteResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpDeleteStatus200Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpDeleteErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpDeleteStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpDeletePathSchema = z.object({
+	mcp_server_name: z.string(),
+});
+
 export const dynamicMcpRouteMcpServerNameMcpGetPathMcpServerNameSchema = z.string();
 
 export const dynamicMcpRouteMcpServerNameMcpGetStatus200Schema = z.looseObject({});
@@ -28255,6 +28297,22 @@ export const dynamicMcpRouteMcpServerNameMcpGetErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpGetStatus422Schema;
 
 export const dynamicMcpRouteMcpServerNameMcpGetPathSchema = z.object({
+	mcp_server_name: z.string(),
+});
+
+export const dynamicMcpRouteMcpServerNameMcpPutPathMcpServerNameSchema = z.string();
+
+export const dynamicMcpRouteMcpServerNameMcpPutStatus200Schema = z.looseObject({});
+
+export const dynamicMcpRouteMcpServerNameMcpPutStatus422Schema = HTTPValidationErrorSchema;
+
+export const dynamicMcpRouteMcpServerNameMcpPutResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpPutStatus200Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpPutErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpPutStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpPutPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 

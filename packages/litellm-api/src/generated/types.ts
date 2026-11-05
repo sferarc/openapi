@@ -703,6 +703,45 @@ export type ImageGenerationInputImageMask = {
 	[key: string]: unknown;
 };
 
+export const imageGenerationSvgReasoningEffort = {
+	none: "none",
+	minimal: "minimal",
+	low: "low",
+	medium: "medium",
+	high: "high",
+	xhigh: "xhigh",
+	max: "max",
+} as const;
+
+export type ImageGenerationSvgReasoningEffortKey =
+	(typeof imageGenerationSvgReasoningEffort)[keyof typeof imageGenerationSvgReasoningEffort];
+
+/**
+ * @description Reasoning effort for SVG authoring.
+ *
+ * When omitted, uses the author model's default in both Images and Responses.
+ * @type object
+ */
+export type ImageGenerationSvgReasoning = {
+	effort?: (ImageGenerationSvgReasoningEffortKey | null) | undefined;
+	[key: string]: unknown;
+};
+
+/**
+ * @description SVG author model settings.
+ *
+ * Requires `output_format` to be `svg`.
+ * When SVG model selection is enabled, omitting this object uses the
+ * outer response model. Otherwise, the default SVG author is used and
+ * explicit model overrides are unavailable.
+ * @type object
+ */
+export type ImageGenerationSvg = {
+	model?: (string | null) | undefined;
+	reasoning?: (ImageGenerationSvgReasoning | null) | undefined;
+	[key: string]: unknown;
+};
+
 export const imageGenerationAction = {
 	generate: "generate",
 	edit: "edit",
@@ -720,6 +759,15 @@ export const imageGenerationBackground = {
 
 export type ImageGenerationBackgroundKey =
 	(typeof imageGenerationBackground)[keyof typeof imageGenerationBackground];
+
+export const imageGenerationComplexity = {
+	low: "low",
+	medium: "medium",
+	high: "high",
+} as const;
+
+export type ImageGenerationComplexityKey =
+	(typeof imageGenerationComplexity)[keyof typeof imageGenerationComplexity];
 
 export const imageGenerationInputFidelity = {
 	high: "high",
@@ -741,6 +789,8 @@ export const imageGenerationOutputFormat = {
 	png: "png",
 	webp: "webp",
 	jpeg: "jpeg",
+	gif: "gif",
+	svg: "svg",
 } as const;
 
 export type ImageGenerationOutputFormatKey =
@@ -766,6 +816,9 @@ export type ImageGeneration = {
 	type: "image_generation";
 	action?: (ImageGenerationActionKey | null) | undefined;
 	background?: (ImageGenerationBackgroundKey | null) | undefined;
+	complexity?: (ImageGenerationComplexityKey | null) | undefined;
+	frame_count?: (number | null) | undefined;
+	frame_duration_ms?: (number | null) | undefined;
 	input_fidelity?: (ImageGenerationInputFidelityKey | null) | undefined;
 	input_image_mask?: (ImageGenerationInputImageMask | null) | undefined;
 	model?: (string | null) | undefined;
@@ -775,6 +828,7 @@ export type ImageGeneration = {
 	partial_images?: (number | null) | undefined;
 	quality?: (ImageGenerationQualityKey | null) | undefined;
 	size?: (string | null) | undefined;
+	svg?: (ImageGenerationSvg | null) | undefined;
 	[key: string]: unknown;
 };
 
@@ -7791,6 +7845,15 @@ export type ImageGenerationCallError = {
 	[key: string]: unknown;
 };
 
+export type ImageGenerationCallSvgUsage = {
+	input_tokens: number;
+	model: string;
+	output_tokens: number;
+	reasoning_tokens: number;
+	total_tokens: number;
+	[key: string]: unknown;
+};
+
 export const imageGenerationCallStatusEnum = {
 	in_progress: "in_progress",
 	completed: "completed",
@@ -7823,6 +7886,8 @@ export const imageGenerationCallOutputFormat = {
 	png: "png",
 	webp: "webp",
 	jpeg: "jpeg",
+	gif: "gif",
+	svg: "svg",
 } as const;
 
 export type ImageGenerationCallOutputFormatKey =
@@ -7856,6 +7921,7 @@ export type ImageGenerationCall = {
 	quality?: (ImageGenerationCallQualityKey | null) | undefined;
 	revised_prompt?: (string | null) | undefined;
 	size?: (string | null) | undefined;
+	svg_usage?: (ImageGenerationCallSvgUsage | null) | undefined;
 	[key: string]: unknown;
 };
 
@@ -16795,6 +16861,8 @@ export const responsesAPIRequestParamsImageGenerationCallOutputFormat = {
 	png: "png",
 	webp: "webp",
 	jpeg: "jpeg",
+	gif: "gif",
+	svg: "svg",
 } as const;
 
 export type ResponsesAPIRequestParamsImageGenerationCallOutputFormatKey =
@@ -16832,6 +16900,7 @@ export type ResponsesAPIRequestParamsImageGenerationCall = {
 	quality?: (ResponsesAPIRequestParamsImageGenerationCallQualityKey | null) | undefined;
 	revised_prompt?: (string | null) | undefined;
 	size?: (string | null) | undefined;
+	svg_usage?: ImageGenerationCallSvgUsage | undefined;
 };
 
 /**
@@ -17433,6 +17502,43 @@ export type ToolImageGenerationInputImageMask = {
 	image_url?: string | undefined;
 };
 
+export const toolImageGenerationSvgReasoningEffortEnum = {
+	none: "none",
+	minimal: "minimal",
+	low: "low",
+	medium: "medium",
+	high: "high",
+	xhigh: "xhigh",
+	max: "max",
+} as const;
+
+export type ToolImageGenerationSvgReasoningEffortEnumKey =
+	(typeof toolImageGenerationSvgReasoningEffortEnum)[keyof typeof toolImageGenerationSvgReasoningEffortEnum];
+
+/**
+ * @description Reasoning effort for SVG authoring.
+ *
+ * When omitted, uses the author model's default in both Images and Responses.
+ * @type object
+ */
+export type ToolImageGenerationSvgReasoning = {
+	effort?: ToolImageGenerationSvgReasoningEffortEnumKey | undefined;
+};
+
+/**
+ * @description SVG author model settings.
+ *
+ * Requires `output_format` to be `svg`.
+ * When SVG model selection is enabled, omitting this object uses the
+ * outer response model. Otherwise, the default SVG author is used and
+ * explicit model overrides are unavailable.
+ * @type object
+ */
+export type ToolImageGenerationSvg = {
+	model?: string | undefined;
+	reasoning?: (ToolImageGenerationSvgReasoning | null) | undefined;
+};
+
 export const toolImageGenerationActionEnum = {
 	generate: "generate",
 	edit: "edit",
@@ -17450,6 +17556,15 @@ export const toolImageGenerationBackgroundEnum = {
 
 export type ToolImageGenerationBackgroundEnumKey =
 	(typeof toolImageGenerationBackgroundEnum)[keyof typeof toolImageGenerationBackgroundEnum];
+
+export const toolImageGenerationComplexityEnum = {
+	low: "low",
+	medium: "medium",
+	high: "high",
+} as const;
+
+export type ToolImageGenerationComplexityEnumKey =
+	(typeof toolImageGenerationComplexityEnum)[keyof typeof toolImageGenerationComplexityEnum];
 
 export const toolImageGenerationInputFidelity = {
 	high: "high",
@@ -17471,6 +17586,8 @@ export const toolImageGenerationOutputFormatEnum = {
 	png: "png",
 	webp: "webp",
 	jpeg: "jpeg",
+	gif: "gif",
+	svg: "svg",
 } as const;
 
 export type ToolImageGenerationOutputFormatEnumKey =
@@ -17496,6 +17613,9 @@ export type ToolImageGeneration = {
 	type: "image_generation";
 	action?: ToolImageGenerationActionEnumKey | undefined;
 	background?: ToolImageGenerationBackgroundEnumKey | undefined;
+	complexity?: ToolImageGenerationComplexityEnumKey | undefined;
+	frame_count?: number | undefined;
+	frame_duration_ms?: number | undefined;
 	input_fidelity?: (ToolImageGenerationInputFidelityKey | null) | undefined;
 	/**
 	 * @description Optional mask for inpainting.
@@ -17512,6 +17632,16 @@ export type ToolImageGeneration = {
 	partial_images?: number | undefined;
 	quality?: ToolImageGenerationQualityEnumKey | undefined;
 	size?: string | undefined;
+	/**
+	 * @description SVG author model settings.
+	 *
+	 * Requires `output_format` to be `svg`.
+	 * When SVG model selection is enabled, omitting this object uses the
+	 * outer response model. Otherwise, the default SVG author is used and
+	 * explicit model overrides are unavailable.
+	 * @type object | undefined
+	 */
+	svg?: ToolImageGenerationSvg | undefined;
 };
 
 /**
@@ -39147,6 +39277,31 @@ export type ServiceConnectionLensServiceGetResponses = {
  */
 export type ServiceConnectionLensServiceGetResponse = ServiceConnectionLensServiceGetStatus200;
 
+export type LensRequestLensPathPatchPath = {
+	path: string;
+};
+
+export type LensRequestLensPathPatchStatus200 = unknown;
+
+export type LensRequestLensPathPatchStatus422 = HTTPValidationError;
+
+export type LensRequestLensPathPatchOptions = {
+	body?: never | undefined;
+	path: LensRequestLensPathPatchPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type LensRequestLensPathPatchResponses = {
+	"200": LensRequestLensPathPatchStatus200;
+	"422": LensRequestLensPathPatchStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type LensRequestLensPathPatchResponse = LensRequestLensPathPatchStatus200;
+
 export type LensRequestLensPathPostPath = {
 	path: string;
 };
@@ -39201,6 +39356,33 @@ export type LensRequestLensPathDeleteResponses = {
  */
 export type LensRequestLensPathDeleteResponse = LensRequestLensPathDeleteStatus200;
 
+export type LensRequestLensPathGetPath = {
+	path: string;
+};
+
+export type LensRequestLensPathGetStatus200 = {
+	[key: string]: unknown;
+};
+
+export type LensRequestLensPathGetStatus422 = HTTPValidationError;
+
+export type LensRequestLensPathGetOptions = {
+	body?: never | undefined;
+	path: LensRequestLensPathGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type LensRequestLensPathGetResponses = {
+	"200": LensRequestLensPathGetStatus200;
+	"422": LensRequestLensPathGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type LensRequestLensPathGetResponse = LensRequestLensPathGetStatus200;
+
 export type LensRequestLensPathPutPath = {
 	path: string;
 };
@@ -39228,57 +39410,34 @@ export type LensRequestLensPathPutResponses = {
  */
 export type LensRequestLensPathPutResponse = LensRequestLensPathPutStatus200;
 
-export type LensRequestLensPathPatchPath = {
-	path: string;
+export type LensRequestLensPatchQuery = {
+	/**
+	 * @default ''
+	 * @type string | undefined
+	 */
+	path?: string | undefined;
 };
 
-export type LensRequestLensPathPatchStatus200 = unknown;
+export type LensRequestLensPatchStatus200 = unknown;
 
-export type LensRequestLensPathPatchStatus422 = HTTPValidationError;
+export type LensRequestLensPatchStatus422 = HTTPValidationError;
 
-export type LensRequestLensPathPatchOptions = {
+export type LensRequestLensPatchOptions = {
 	body?: never | undefined;
-	path: LensRequestLensPathPatchPath;
-	query?: never | undefined;
+	path?: never | undefined;
+	query?: LensRequestLensPatchQuery | undefined;
 	headers?: never | undefined;
 };
 
-export type LensRequestLensPathPatchResponses = {
-	"200": LensRequestLensPathPatchStatus200;
-	"422": LensRequestLensPathPatchStatus422;
+export type LensRequestLensPatchResponses = {
+	"200": LensRequestLensPatchStatus200;
+	"422": LensRequestLensPatchStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type LensRequestLensPathPatchResponse = LensRequestLensPathPatchStatus200;
-
-export type LensRequestLensPathGetPath = {
-	path: string;
-};
-
-export type LensRequestLensPathGetStatus200 = {
-	[key: string]: unknown;
-};
-
-export type LensRequestLensPathGetStatus422 = HTTPValidationError;
-
-export type LensRequestLensPathGetOptions = {
-	body?: never | undefined;
-	path: LensRequestLensPathGetPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type LensRequestLensPathGetResponses = {
-	"200": LensRequestLensPathGetStatus200;
-	"422": LensRequestLensPathGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type LensRequestLensPathGetResponse = LensRequestLensPathGetStatus200;
+export type LensRequestLensPatchResponse = LensRequestLensPatchStatus200;
 
 export type LensRequestLensPostQuery = {
 	/**
@@ -39342,66 +39501,6 @@ export type LensRequestLensDeleteResponses = {
  */
 export type LensRequestLensDeleteResponse = LensRequestLensDeleteStatus200;
 
-export type LensRequestLensPutQuery = {
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	path?: string | undefined;
-};
-
-export type LensRequestLensPutStatus200 = {
-	[key: string]: unknown;
-};
-
-export type LensRequestLensPutStatus422 = HTTPValidationError;
-
-export type LensRequestLensPutOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: LensRequestLensPutQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type LensRequestLensPutResponses = {
-	"200": LensRequestLensPutStatus200;
-	"422": LensRequestLensPutStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type LensRequestLensPutResponse = LensRequestLensPutStatus200;
-
-export type LensRequestLensPatchQuery = {
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	path?: string | undefined;
-};
-
-export type LensRequestLensPatchStatus200 = unknown;
-
-export type LensRequestLensPatchStatus422 = HTTPValidationError;
-
-export type LensRequestLensPatchOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: LensRequestLensPatchQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type LensRequestLensPatchResponses = {
-	"200": LensRequestLensPatchStatus200;
-	"422": LensRequestLensPatchStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type LensRequestLensPatchResponse = LensRequestLensPatchStatus200;
-
 export type LensRequestLensGetQuery = {
 	/**
 	 * @default ''
@@ -39432,6 +39531,37 @@ export type LensRequestLensGetResponses = {
  * @description Union of all possible responses
  */
 export type LensRequestLensGetResponse = LensRequestLensGetStatus200;
+
+export type LensRequestLensPutQuery = {
+	/**
+	 * @default ''
+	 * @type string | undefined
+	 */
+	path?: string | undefined;
+};
+
+export type LensRequestLensPutStatus200 = {
+	[key: string]: unknown;
+};
+
+export type LensRequestLensPutStatus422 = HTTPValidationError;
+
+export type LensRequestLensPutOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: LensRequestLensPutQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type LensRequestLensPutResponses = {
+	"200": LensRequestLensPutStatus200;
+	"422": LensRequestLensPutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type LensRequestLensPutResponse = LensRequestLensPutStatus200;
 
 export type ListPluginsApiPluginsGetStatus200 = {
 	[key: string]: string;
@@ -41614,6 +41744,84 @@ export type AggregateMcpRouteMcpPatchResponses = {
  */
 export type AggregateMcpRouteMcpPatchResponse = AggregateMcpRouteMcpPatchStatus200;
 
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadPath = {
+	toolset_name: string;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200 = void;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422 = void;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadOptions = {
+	body?: never | undefined;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpHeadPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath = {
+	toolset_name: string;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200 = unknown;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422 = HTTPValidationError;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsOptions = {
+	body?: never | undefined;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchPath = {
+	toolset_name: string;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200 = unknown;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422 = HTTPValidationError;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchOptions = {
+	body?: never | undefined;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpPatchPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
+
 export type ToolsetMcpRouteToolsetToolsetNameMcpPostPath = {
 	toolset_name: string;
 };
@@ -41641,32 +41849,6 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponses = {
  */
 export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponse =
 	ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath = {
-	toolset_name: string;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200 = unknown;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422 = HTTPValidationError;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsOptions = {
-	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200;
 
 export type ToolsetMcpRouteToolsetToolsetNameMcpDeletePath = {
 	toolset_name: string;
@@ -41696,31 +41878,33 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpDeleteResponses = {
 export type ToolsetMcpRouteToolsetToolsetNameMcpDeleteResponse =
 	ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadPath = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetPath = {
 	toolset_name: string;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200 = void;
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200 = {
+	[key: string]: unknown;
+};
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422 = void;
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetStatus422 = HTTPValidationError;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadOptions = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetOptions = {
 	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpHeadPath;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpGetPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422;
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
+export type ToolsetMcpRouteToolsetToolsetNameMcpGetResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200;
 
 export type ToolsetMcpRouteToolsetToolsetNameMcpPutPath = {
 	toolset_name: string;
@@ -41750,59 +41934,83 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpPutResponses = {
 export type ToolsetMcpRouteToolsetToolsetNameMcpPutResponse =
 	ToolsetMcpRouteToolsetToolsetNameMcpPutStatus200;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchPath = {
-	toolset_name: string;
+export type DynamicMcpRouteMcpServerNameMcpHeadPath = {
+	mcp_server_name: string;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200 = unknown;
+export type DynamicMcpRouteMcpServerNameMcpHeadStatus200 = void;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422 = HTTPValidationError;
+export type DynamicMcpRouteMcpServerNameMcpHeadStatus422 = void;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchOptions = {
+export type DynamicMcpRouteMcpServerNameMcpHeadOptions = {
 	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpPatchPath;
+	path: DynamicMcpRouteMcpServerNameMcpHeadPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422;
+export type DynamicMcpRouteMcpServerNameMcpHeadResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpHeadStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpHeadStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
+export type DynamicMcpRouteMcpServerNameMcpHeadResponse =
+	DynamicMcpRouteMcpServerNameMcpHeadStatus200;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetPath = {
-	toolset_name: string;
+export type DynamicMcpRouteMcpServerNameMcpOptionsPath = {
+	mcp_server_name: string;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200 = {
-	[key: string]: unknown;
-};
+export type DynamicMcpRouteMcpServerNameMcpOptionsStatus200 = unknown;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetStatus422 = HTTPValidationError;
+export type DynamicMcpRouteMcpServerNameMcpOptionsStatus422 = HTTPValidationError;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetOptions = {
+export type DynamicMcpRouteMcpServerNameMcpOptionsOptions = {
 	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpGetPath;
+	path: DynamicMcpRouteMcpServerNameMcpOptionsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpGetStatus422;
+export type DynamicMcpRouteMcpServerNameMcpOptionsResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpOptionsStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ToolsetMcpRouteToolsetToolsetNameMcpGetResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpGetStatus200;
+export type DynamicMcpRouteMcpServerNameMcpOptionsResponse =
+	DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
+
+export type DynamicMcpRouteMcpServerNameMcpPatchPath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPatchStatus200 = unknown;
+
+export type DynamicMcpRouteMcpServerNameMcpPatchStatus422 = HTTPValidationError;
+
+export type DynamicMcpRouteMcpServerNameMcpPatchOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpPatchPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPatchResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpPatchStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpPatchStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpPatchResponse =
+	DynamicMcpRouteMcpServerNameMcpPatchStatus200;
 
 export type DynamicMcpRouteMcpServerNameMcpPostPath = {
 	mcp_server_name: string;
@@ -41832,32 +42040,6 @@ export type DynamicMcpRouteMcpServerNameMcpPostResponses = {
 export type DynamicMcpRouteMcpServerNameMcpPostResponse =
 	DynamicMcpRouteMcpServerNameMcpPostStatus200;
 
-export type DynamicMcpRouteMcpServerNameMcpOptionsPath = {
-	mcp_server_name: string;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpOptionsStatus200 = unknown;
-
-export type DynamicMcpRouteMcpServerNameMcpOptionsStatus422 = HTTPValidationError;
-
-export type DynamicMcpRouteMcpServerNameMcpOptionsOptions = {
-	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpOptionsPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpOptionsResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpOptionsStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DynamicMcpRouteMcpServerNameMcpOptionsResponse =
-	DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
-
 export type DynamicMcpRouteMcpServerNameMcpDeletePath = {
 	mcp_server_name: string;
 };
@@ -41886,31 +42068,33 @@ export type DynamicMcpRouteMcpServerNameMcpDeleteResponses = {
 export type DynamicMcpRouteMcpServerNameMcpDeleteResponse =
 	DynamicMcpRouteMcpServerNameMcpDeleteStatus200;
 
-export type DynamicMcpRouteMcpServerNameMcpHeadPath = {
+export type DynamicMcpRouteMcpServerNameMcpGetPath = {
 	mcp_server_name: string;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpHeadStatus200 = void;
+export type DynamicMcpRouteMcpServerNameMcpGetStatus200 = {
+	[key: string]: unknown;
+};
 
-export type DynamicMcpRouteMcpServerNameMcpHeadStatus422 = void;
+export type DynamicMcpRouteMcpServerNameMcpGetStatus422 = HTTPValidationError;
 
-export type DynamicMcpRouteMcpServerNameMcpHeadOptions = {
+export type DynamicMcpRouteMcpServerNameMcpGetOptions = {
 	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpHeadPath;
+	path: DynamicMcpRouteMcpServerNameMcpGetPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpHeadResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpHeadStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpHeadStatus422;
+export type DynamicMcpRouteMcpServerNameMcpGetResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpGetStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type DynamicMcpRouteMcpServerNameMcpHeadResponse =
-	DynamicMcpRouteMcpServerNameMcpHeadStatus200;
+export type DynamicMcpRouteMcpServerNameMcpGetResponse =
+	DynamicMcpRouteMcpServerNameMcpGetStatus200;
 
 export type DynamicMcpRouteMcpServerNameMcpPutPath = {
 	mcp_server_name: string;
@@ -41939,60 +42123,6 @@ export type DynamicMcpRouteMcpServerNameMcpPutResponses = {
  */
 export type DynamicMcpRouteMcpServerNameMcpPutResponse =
 	DynamicMcpRouteMcpServerNameMcpPutStatus200;
-
-export type DynamicMcpRouteMcpServerNameMcpPatchPath = {
-	mcp_server_name: string;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpPatchStatus200 = unknown;
-
-export type DynamicMcpRouteMcpServerNameMcpPatchStatus422 = HTTPValidationError;
-
-export type DynamicMcpRouteMcpServerNameMcpPatchOptions = {
-	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpPatchPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpPatchResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpPatchStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpPatchStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DynamicMcpRouteMcpServerNameMcpPatchResponse =
-	DynamicMcpRouteMcpServerNameMcpPatchStatus200;
-
-export type DynamicMcpRouteMcpServerNameMcpGetPath = {
-	mcp_server_name: string;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpGetStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpGetStatus422 = HTTPValidationError;
-
-export type DynamicMcpRouteMcpServerNameMcpGetOptions = {
-	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpGetPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpGetResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpGetStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DynamicMcpRouteMcpServerNameMcpGetResponse =
-	DynamicMcpRouteMcpServerNameMcpGetStatus200;
 
 export type WebsocketVertexAiLivePassthroughEndpointStatus101 = unknown;
 
