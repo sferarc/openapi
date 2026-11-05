@@ -19537,7 +19537,7 @@ export const upsertAiGatewayBudgetBodySchema = z
 			.string()
 			.optional()
 			.describe(
-				"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains.",
+				"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains, and sent in the ai-gateway.budget.updated webhook.",
 			),
 	})
 	.optional();
@@ -19573,7 +19573,7 @@ export const archiveAiGatewayBudgetQueryJustificationSchema = z
 	.string()
 	.optional()
 	.describe(
-		"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains.",
+		"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains, and sent in the ai-gateway.budget.updated webhook.",
 	);
 
 export const archiveAiGatewayBudgetQueryTeamIdSchema = z
@@ -19621,7 +19621,7 @@ export const archiveAiGatewayBudgetQuerySchema = z.object({
 		.string()
 		.optional()
 		.describe(
-			"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains.",
+			"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains, and sent in the ai-gateway.budget.updated webhook.",
 		),
 	teamId: z
 		.string()
@@ -19733,7 +19733,7 @@ export const upsertAiGatewayBudgetDefaultBodySchema = z
 			.string()
 			.optional()
 			.describe(
-				"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains.",
+				"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains, and sent in the ai-gateway.budget.updated webhook.",
 			),
 	})
 	.optional();
@@ -19759,7 +19759,7 @@ export const archiveAiGatewayBudgetDefaultQueryJustificationSchema = z
 	.string()
 	.optional()
 	.describe(
-		"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains. Only recorded when scopeType is set.",
+		"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains, and sent in the ai-gateway.budget.updated webhook. Only recorded when scopeType is set.",
 	);
 
 export const archiveAiGatewayBudgetDefaultQueryTeamIdSchema = z
@@ -19808,7 +19808,7 @@ export const archiveAiGatewayBudgetDefaultQuerySchema = z.object({
 		.string()
 		.optional()
 		.describe(
-			"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains. Only recorded when scopeType is set.",
+			"Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains, and sent in the ai-gateway.budget.updated webhook. Only recorded when scopeType is set.",
 		),
 	teamId: z
 		.string()
@@ -20447,6 +20447,14 @@ export const listBillingChargesQueryToSchema = z
 	.describe("Exclusive end of the date range as an ISO 8601 date-time string in UTC.")
 	.meta({ examples: ["2025-01-31T00:00:00.000Z"] });
 
+export const listBillingChargesQueryOrgIdSchema = z
+	.string()
+	.optional()
+	.describe(
+		"The Organization identifier. Returns charges for every team in the organization, split by team, instead of a single team. Cannot be combined with `teamId` or `slug`. Requires the OrgAdmin or OrgViewer role.",
+	)
+	.meta({ examples: ["org_123"] });
+
 export const listBillingChargesQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -20496,6 +20504,13 @@ export const listBillingChargesQuerySchema = z.object({
 		.string()
 		.describe("Exclusive end of the date range as an ISO 8601 date-time string in UTC.")
 		.meta({ examples: ["2025-01-31T00:00:00.000Z"] }),
+	orgId: z
+		.string()
+		.optional()
+		.describe(
+			"The Organization identifier. Returns charges for every team in the organization, split by team, instead of a single team. Cannot be combined with `teamId` or `slug`. Requires the OrgAdmin or OrgViewer role.",
+		)
+		.meta({ examples: ["org_123"] }),
 	teamId: z
 		.string()
 		.optional()
@@ -63213,6 +63228,8 @@ export const removeOrganizationTeamStatus409Schema = z.unknown();
 
 export const removeOrganizationTeamStatus410Schema = z.unknown();
 
+export const removeOrganizationTeamStatus500Schema = z.unknown();
+
 export const removeOrganizationTeamResponseSchema = removeOrganizationTeamStatus200Schema;
 
 export const removeOrganizationTeamErrorSchema = z.union([
@@ -63222,6 +63239,7 @@ export const removeOrganizationTeamErrorSchema = z.union([
 	removeOrganizationTeamStatus404Schema,
 	removeOrganizationTeamStatus409Schema,
 	removeOrganizationTeamStatus410Schema,
+	removeOrganizationTeamStatus500Schema,
 ]);
 
 export const removeOrganizationTeamPathSchema = z.object({
@@ -67048,7 +67066,34 @@ export const getProjectsStatus200Schema = z
 										.array(
 											z.object({
 												key: z.string().optional(),
-												type: z.enum(["response_status"]),
+												type: z.enum(["response_header", "response_status"]),
+												value: z
+													.union([
+														z.string(),
+														z.strictObject({
+															eq: z.string().optional(),
+															gt: z.number().optional(),
+															gte: z.number().optional(),
+															inc: z.array(z.string()).optional(),
+															list: z.string().optional(),
+															lt: z.number().optional(),
+															lte: z.number().optional(),
+															neq: z.string().optional(),
+															ninc: z.array(z.string()).optional(),
+															pre: z.string().optional(),
+															re: z.string().optional(),
+															suf: z.string().optional(),
+														}),
+													])
+													.optional(),
+											}),
+										)
+										.optional(),
+									response_missing: z
+										.array(
+											z.object({
+												key: z.string().optional(),
+												type: z.enum(["response_header", "response_status"]),
 												value: z
 													.union([
 														z.string(),
@@ -68685,7 +68730,34 @@ export const getProjectsStatus200Schema = z
 											.array(
 												z.object({
 													key: z.string().optional(),
-													type: z.enum(["response_status"]),
+													type: z.enum(["response_header", "response_status"]),
+													value: z
+														.union([
+															z.string(),
+															z.strictObject({
+																eq: z.string().optional(),
+																gt: z.number().optional(),
+																gte: z.number().optional(),
+																inc: z.array(z.string()).optional(),
+																list: z.string().optional(),
+																lt: z.number().optional(),
+																lte: z.number().optional(),
+																neq: z.string().optional(),
+																ninc: z.array(z.string()).optional(),
+																pre: z.string().optional(),
+																re: z.string().optional(),
+																suf: z.string().optional(),
+															}),
+														])
+														.optional(),
+												}),
+											)
+											.optional(),
+										response_missing: z
+											.array(
+												z.object({
+													key: z.string().optional(),
+													type: z.enum(["response_header", "response_status"]),
 													value: z
 														.union([
 															z.string(),
@@ -113123,6 +113195,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 											"raw_path",
 											"region",
 											"response_code",
+											"response_header",
 											"route",
 											"ruleset",
 											"scheme",
@@ -113341,6 +113414,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 											"raw_path",
 											"region",
 											"response_code",
+											"response_header",
 											"route",
 											"ruleset",
 											"scheme",
@@ -113446,6 +113520,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 											"raw_path",
 											"region",
 											"response_code",
+											"response_header",
 											"route",
 											"ruleset",
 											"scheme",
@@ -113523,6 +113598,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 												"raw_path",
 												"region",
 												"response_code",
+												"response_header",
 												"route",
 												"ruleset",
 												"scheme",
@@ -113673,6 +113749,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 											"raw_path",
 											"region",
 											"response_code",
+											"response_header",
 											"route",
 											"ruleset",
 											"scheme",
@@ -113891,6 +113968,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 											"raw_path",
 											"region",
 											"response_code",
+											"response_header",
 											"route",
 											"ruleset",
 											"scheme",
@@ -113996,6 +114074,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 											"raw_path",
 											"region",
 											"response_code",
+											"response_header",
 											"route",
 											"ruleset",
 											"scheme",
@@ -114073,6 +114152,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 												"raw_path",
 												"region",
 												"response_code",
+												"response_header",
 												"route",
 												"ruleset",
 												"scheme",
@@ -114223,6 +114303,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 											"raw_path",
 											"region",
 											"response_code",
+											"response_header",
 											"route",
 											"ruleset",
 											"scheme",
@@ -114441,6 +114522,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 											"raw_path",
 											"region",
 											"response_code",
+											"response_header",
 											"route",
 											"ruleset",
 											"scheme",
@@ -114546,6 +114628,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 											"raw_path",
 											"region",
 											"response_code",
+											"response_header",
 											"route",
 											"ruleset",
 											"scheme",
@@ -114623,6 +114706,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 												"raw_path",
 												"region",
 												"response_code",
+												"response_header",
 												"route",
 												"ruleset",
 												"scheme",
@@ -114809,6 +114893,7 @@ export const putFirewallConfigStatus200Schema = z.object({
 										"raw_path",
 										"region",
 										"response_code",
+										"response_header",
 										"route",
 										"ruleset",
 										"scheme",
@@ -115070,6 +115155,7 @@ export const putFirewallConfigStatus200Schema = z.object({
 										"raw_path",
 										"region",
 										"response_code",
+										"response_header",
 										"route",
 										"ruleset",
 										"scheme",
@@ -115175,6 +115261,7 @@ export const putFirewallConfigStatus200Schema = z.object({
 										"raw_path",
 										"region",
 										"response_code",
+										"response_header",
 										"route",
 										"ruleset",
 										"scheme",
@@ -115252,6 +115339,7 @@ export const putFirewallConfigStatus200Schema = z.object({
 											"raw_path",
 											"region",
 											"response_code",
+											"response_header",
 											"route",
 											"ruleset",
 											"scheme",
@@ -115517,6 +115605,7 @@ export const putFirewallConfigBodySchema = z.strictObject({
 												"raw_path",
 												"region",
 												"response_code",
+												"response_header",
 												"route",
 												"ruleset",
 												"scheme",
@@ -115643,6 +115732,7 @@ export const putFirewallConfigBodySchema = z.strictObject({
 												"traffic_source",
 												"ruleset",
 												"response_code",
+												"response_header",
 											]),
 											op: z.enum([
 												"re",
@@ -115826,6 +115916,7 @@ export const updateFirewallConfigBodySchema = z.union([
 										"traffic_source",
 										"ruleset",
 										"response_code",
+										"response_header",
 									]),
 									op: z.enum([
 										"re",
@@ -115913,6 +116004,7 @@ export const updateFirewallConfigBodySchema = z.union([
 										"traffic_source",
 										"ruleset",
 										"response_code",
+										"response_header",
 									]),
 									op: z.enum([
 										"re",
@@ -116010,6 +116102,7 @@ export const updateFirewallConfigBodySchema = z.union([
 										"traffic_source",
 										"ruleset",
 										"response_code",
+										"response_header",
 									]),
 									op: z.enum([
 										"re",
@@ -116088,6 +116181,7 @@ export const updateFirewallConfigBodySchema = z.union([
 										"traffic_source",
 										"ruleset",
 										"response_code",
+										"response_header",
 									]),
 									op: z.enum([
 										"re",
@@ -116188,6 +116282,7 @@ export const updateFirewallConfigBodySchema = z.union([
 										"traffic_source",
 										"ruleset",
 										"response_code",
+										"response_header",
 									]),
 									op: z.enum([
 										"re",
@@ -116297,6 +116392,7 @@ export const updateFirewallConfigBodySchema = z.union([
 										"traffic_source",
 										"ruleset",
 										"response_code",
+										"response_header",
 									]),
 									op: z.enum([
 										"re",
@@ -116540,6 +116636,7 @@ export const getFirewallConfigStatus200Schema = z.object({
 									"raw_path",
 									"region",
 									"response_code",
+									"response_header",
 									"route",
 									"ruleset",
 									"scheme",
@@ -116801,6 +116898,7 @@ export const getFirewallConfigStatus200Schema = z.object({
 									"raw_path",
 									"region",
 									"response_code",
+									"response_header",
 									"route",
 									"ruleset",
 									"scheme",
@@ -116906,6 +117004,7 @@ export const getFirewallConfigStatus200Schema = z.object({
 									"raw_path",
 									"region",
 									"response_code",
+									"response_header",
 									"route",
 									"ruleset",
 									"scheme",
@@ -116983,6 +117082,7 @@ export const getFirewallConfigStatus200Schema = z.object({
 										"raw_path",
 										"region",
 										"response_code",
+										"response_header",
 										"route",
 										"ruleset",
 										"scheme",
@@ -117200,6 +117300,7 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200Schema 
 									"raw_path",
 									"region",
 									"response_code",
+									"response_header",
 									"route",
 									"ruleset",
 									"scheme",
@@ -117418,6 +117519,7 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200Schema 
 									"raw_path",
 									"region",
 									"response_code",
+									"response_header",
 									"route",
 									"ruleset",
 									"scheme",
@@ -117523,6 +117625,7 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200Schema 
 									"raw_path",
 									"region",
 									"response_code",
+									"response_header",
 									"route",
 									"ruleset",
 									"scheme",
@@ -117600,6 +117703,7 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200Schema 
 										"raw_path",
 										"region",
 										"response_code",
+										"response_header",
 										"route",
 										"ruleset",
 										"scheme",
@@ -118218,6 +118322,7 @@ export const getConditionalBypassStatus200Schema = z.union([
 							"raw_path",
 							"region",
 							"response_code",
+							"response_header",
 							"route",
 							"ruleset",
 							"scheme",
@@ -118293,6 +118398,7 @@ export const getConditionalBypassStatus200Schema = z.union([
 									"raw_path",
 									"region",
 									"response_code",
+									"response_header",
 									"route",
 									"ruleset",
 									"scheme",
@@ -118417,6 +118523,7 @@ export const createConditionalBypassStatus200Schema = z.object({
 						"raw_path",
 						"region",
 						"response_code",
+						"response_header",
 						"route",
 						"ruleset",
 						"scheme",
@@ -118589,6 +118696,7 @@ export const updateConditionalBypassStatus200Schema = z.object({
 						"raw_path",
 						"region",
 						"response_code",
+						"response_header",
 						"route",
 						"ruleset",
 						"scheme",
@@ -129670,6 +129778,7 @@ export const createWebhookStatus200Schema = z.object({
 			z.enum([
 				"ai-gateway.auto-reload.limit-reached",
 				"ai-gateway.balance-depleted",
+				"ai-gateway.budget.updated",
 				"alerts.triggered",
 				"botid.anomaly",
 				"budget.reached",
@@ -129835,6 +129944,7 @@ export const createWebhookBodySchema = z.strictObject({
 			z.enum([
 				"ai-gateway.auto-reload.limit-reached",
 				"ai-gateway.balance-depleted",
+				"ai-gateway.budget.updated",
 				"alerts.triggered",
 				"botid.anomaly",
 				"budget.reached",
@@ -129998,6 +130108,7 @@ export const getWebhooksStatus200Schema = z.union([
 					z.enum([
 						"ai-gateway.auto-reload.limit-reached",
 						"ai-gateway.balance-depleted",
+						"ai-gateway.budget.updated",
 						"alerts.triggered",
 						"botid.anomaly",
 						"budget.reached",
@@ -130234,6 +130345,7 @@ export const getWebhooksStatus200Schema = z.union([
 					z.enum([
 						"ai-gateway.auto-reload.limit-reached",
 						"ai-gateway.balance-depleted",
+						"ai-gateway.budget.updated",
 						"alerts.triggered",
 						"botid.anomaly",
 						"budget.reached",
@@ -130435,6 +130547,7 @@ export const getWebhookStatus200Schema = z.object({
 			z.enum([
 				"ai-gateway.auto-reload.limit-reached",
 				"ai-gateway.balance-depleted",
+				"ai-gateway.budget.updated",
 				"alerts.triggered",
 				"botid.anomaly",
 				"budget.reached",

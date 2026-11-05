@@ -24914,7 +24914,7 @@ export type UpsertAiGatewayBudgetBody =
 			includeByokInQuota?: boolean | undefined;
 			alertThresholds?: UpsertAiGatewayBudgetRequestAlertThresholdsEnumKey[] | undefined;
 			/**
-			 * @description Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains.
+			 * @description Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains, and sent in the ai-gateway.budget.updated webhook.
 			 * @type string | undefined
 			 */
 			justification?: string | undefined;
@@ -24969,7 +24969,7 @@ export type ArchiveAiGatewayBudgetQuery = {
 	 */
 	userId?: string | undefined;
 	/**
-	 * @description Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains.
+	 * @description Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains, and sent in the ai-gateway.budget.updated webhook.
 	 * @type string | undefined
 	 */
 	justification?: string | undefined;
@@ -25144,7 +25144,7 @@ export type UpsertAiGatewayBudgetDefaultBody =
 			refreshPeriod?: UpsertAiGatewayBudgetDefaultRequestRefreshPeriodEnumKey | undefined;
 			alertThresholds?: UpsertAiGatewayBudgetDefaultRequestAlertThresholdsEnumKey[] | undefined;
 			/**
-			 * @description Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains.
+			 * @description Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains, and sent in the ai-gateway.budget.updated webhook.
 			 * @type string | undefined
 			 */
 			justification?: string | undefined;
@@ -25190,7 +25190,7 @@ export type ArchiveAiGatewayBudgetDefaultQuery = {
 	 */
 	scopeType: ArchiveAiGatewayBudgetDefaultScopeTypeKey;
 	/**
-	 * @description Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains. Only recorded when scopeType is set.
+	 * @description Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains, and sent in the ai-gateway.budget.updated webhook. Only recorded when scopeType is set.
 	 * @type string | undefined
 	 */
 	justification?: string | undefined;
@@ -25835,6 +25835,12 @@ export type ListBillingChargesQuery = {
 	 * @type string
 	 */
 	to: string;
+	/**
+	 * @description The Organization identifier. Returns charges for every team in the organization, split by team, instead of a single team. Cannot be combined with `teamId` or `slug`. Requires the OrgAdmin or OrgViewer role.
+	 * @example org_123
+	 * @type string | undefined
+	 */
+	orgId?: string | undefined;
 	/**
 	 * @description The Team identifier to perform the request on behalf of.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
@@ -78081,6 +78087,8 @@ export type RemoveOrganizationTeamStatus409 = unknown;
 
 export type RemoveOrganizationTeamStatus410 = unknown;
 
+export type RemoveOrganizationTeamStatus500 = unknown;
+
 export type RemoveOrganizationTeamOptions = {
 	body?: never | undefined;
 	path: RemoveOrganizationTeamPath;
@@ -78096,6 +78104,7 @@ export type RemoveOrganizationTeamResponses = {
 	"404": RemoveOrganizationTeamStatus404;
 	"409": RemoveOrganizationTeamStatus409;
 	"410": RemoveOrganizationTeamStatus410;
+	"500": RemoveOrganizationTeamStatus500;
 };
 
 /**
@@ -82050,6 +82059,22 @@ export const getProjectsStatus200SecurityFirewallRoutesMitigateErlAlgoEnum = {
 export type GetProjectsStatus200SecurityFirewallRoutesMitigateErlAlgoEnumKey =
 	(typeof getProjectsStatus200SecurityFirewallRoutesMitigateErlAlgoEnum)[keyof typeof getProjectsStatus200SecurityFirewallRoutesMitigateErlAlgoEnum];
 
+export const getProjectsStatus200SecurityFirewallRoutesResponseHasTypeEnum = {
+	response_header: "response_header",
+	response_status: "response_status",
+} as const;
+
+export type GetProjectsStatus200SecurityFirewallRoutesResponseHasTypeEnumKey =
+	(typeof getProjectsStatus200SecurityFirewallRoutesResponseHasTypeEnum)[keyof typeof getProjectsStatus200SecurityFirewallRoutesResponseHasTypeEnum];
+
+export const getProjectsStatus200SecurityFirewallRoutesResponseMissingTypeEnum = {
+	response_header: "response_header",
+	response_status: "response_status",
+} as const;
+
+export type GetProjectsStatus200SecurityFirewallRoutesResponseMissingTypeEnumKey =
+	(typeof getProjectsStatus200SecurityFirewallRoutesResponseMissingTypeEnum)[keyof typeof getProjectsStatus200SecurityFirewallRoutesResponseMissingTypeEnum];
+
 export const getProjectsStatus200SecurityManagedRulesAiBotsActionEnum = {
 	challenge: "challenge",
 	deny: "deny",
@@ -82667,6 +82692,22 @@ export const getProjectsStatus200ProjectsSecurityFirewallRoutesMitigateErlAlgoEn
 
 export type GetProjectsStatus200ProjectsSecurityFirewallRoutesMitigateErlAlgoEnumKey =
 	(typeof getProjectsStatus200ProjectsSecurityFirewallRoutesMitigateErlAlgoEnum)[keyof typeof getProjectsStatus200ProjectsSecurityFirewallRoutesMitigateErlAlgoEnum];
+
+export const getProjectsStatus200ProjectsSecurityFirewallRoutesResponseHasTypeEnum = {
+	response_header: "response_header",
+	response_status: "response_status",
+} as const;
+
+export type GetProjectsStatus200ProjectsSecurityFirewallRoutesResponseHasTypeEnumKey =
+	(typeof getProjectsStatus200ProjectsSecurityFirewallRoutesResponseHasTypeEnum)[keyof typeof getProjectsStatus200ProjectsSecurityFirewallRoutesResponseHasTypeEnum];
+
+export const getProjectsStatus200ProjectsSecurityFirewallRoutesResponseMissingTypeEnum = {
+	response_header: "response_header",
+	response_status: "response_status",
+} as const;
+
+export type GetProjectsStatus200ProjectsSecurityFirewallRoutesResponseMissingTypeEnumKey =
+	(typeof getProjectsStatus200ProjectsSecurityFirewallRoutesResponseMissingTypeEnum)[keyof typeof getProjectsStatus200ProjectsSecurityFirewallRoutesResponseMissingTypeEnum];
 
 export const getProjectsStatus200ProjectsSecurityManagedRulesAiBotsActionEnum = {
 	challenge: "challenge",
@@ -84813,7 +84854,32 @@ export type GetProjectsStatus200 =
 											response_has?:
 												| {
 														key?: string | undefined;
-														type: "response_status";
+														type: GetProjectsStatus200SecurityFirewallRoutesResponseHasTypeEnumKey;
+														value?:
+															| (
+																	| string
+																	| {
+																			eq?: string | undefined;
+																			gt?: number | undefined;
+																			gte?: number | undefined;
+																			inc?: string[] | undefined;
+																			list?: string | undefined;
+																			lt?: number | undefined;
+																			lte?: number | undefined;
+																			neq?: string | undefined;
+																			ninc?: string[] | undefined;
+																			pre?: string | undefined;
+																			re?: string | undefined;
+																			suf?: string | undefined;
+																	  }
+															  )
+															| undefined;
+												  }[]
+												| undefined;
+											response_missing?:
+												| {
+														key?: string | undefined;
+														type: GetProjectsStatus200SecurityFirewallRoutesResponseMissingTypeEnumKey;
 														value?:
 															| (
 																	| string
@@ -86277,7 +86343,32 @@ export type GetProjectsStatus200 =
 												response_has?:
 													| {
 															key?: string | undefined;
-															type: "response_status";
+															type: GetProjectsStatus200ProjectsSecurityFirewallRoutesResponseHasTypeEnumKey;
+															value?:
+																| (
+																		| string
+																		| {
+																				eq?: string | undefined;
+																				gt?: number | undefined;
+																				gte?: number | undefined;
+																				inc?: string[] | undefined;
+																				list?: string | undefined;
+																				lt?: number | undefined;
+																				lte?: number | undefined;
+																				neq?: string | undefined;
+																				ninc?: string[] | undefined;
+																				pre?: string | undefined;
+																				re?: string | undefined;
+																				suf?: string | undefined;
+																		  }
+																  )
+																| undefined;
+													  }[]
+													| undefined;
+												response_missing?:
+													| {
+															key?: string | undefined;
+															type: GetProjectsStatus200ProjectsSecurityFirewallRoutesResponseMissingTypeEnumKey;
 															value?:
 																| (
 																		| string
@@ -134030,6 +134121,7 @@ export const getSecurityFirewallConfigStatus200ActiveConditionsConditionGroupCon
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -134265,6 +134357,7 @@ export const getSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditio
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -134357,6 +134450,7 @@ export const getSecurityFirewallConfigStatus200ActiveRulesConditionGroupConditio
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -134418,6 +134512,7 @@ export const getSecurityFirewallConfigStatus200ActiveRulesetsConditionGroupCondi
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -134538,6 +134633,7 @@ export const getSecurityFirewallConfigStatus200DraftConditionsConditionGroupCond
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -134773,6 +134869,7 @@ export const getSecurityFirewallConfigStatus200DraftRulesConditionGroupCondition
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -134865,6 +134962,7 @@ export const getSecurityFirewallConfigStatus200DraftRulesConditionGroupCondition
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -134926,6 +135024,7 @@ export const getSecurityFirewallConfigStatus200DraftRulesetsConditionGroupCondit
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -135047,6 +135146,7 @@ export const getSecurityFirewallConfigStatus200VersionsConditionsConditionGroupC
 		raw_path: "raw_path",
 		region: "region",
 		response_code: "response_code",
+		response_header: "response_header",
 		route: "route",
 		ruleset: "ruleset",
 		scheme: "scheme",
@@ -135282,6 +135382,7 @@ export const getSecurityFirewallConfigStatus200VersionsRulesConditionGroupCondit
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -135374,6 +135475,7 @@ export const getSecurityFirewallConfigStatus200VersionsRulesConditionGroupCondit
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -135435,6 +135537,7 @@ export const getSecurityFirewallConfigStatus200VersionsRulesetsConditionGroupCon
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -136514,6 +136617,7 @@ export const putFirewallConfigStatus200ActiveConditionsConditionGroupConditionsT
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -136749,6 +136853,7 @@ export const putFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEn
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -136841,6 +136946,7 @@ export const putFirewallConfigStatus200ActiveRulesConditionGroupConditionsTypeEn
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -136902,6 +137008,7 @@ export const putFirewallConfigStatus200ActiveRulesetsConditionGroupConditionsTyp
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -137455,6 +137562,7 @@ export const putFirewallConfigRequestRulesConditionGroupConditionsTypeEnum = {
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -137553,6 +137661,7 @@ export const putFirewallConfigRequestRulesetsConditionGroupConditionsTypeEnum = 
 	traffic_source: "traffic_source",
 	ruleset: "ruleset",
 	response_code: "response_code",
+	response_header: "response_header",
 } as const;
 
 export type PutFirewallConfigRequestRulesetsConditionGroupConditionsTypeEnumKey =
@@ -137949,6 +138058,7 @@ export const updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum = 
 	traffic_source: "traffic_source",
 	ruleset: "ruleset",
 	response_code: "response_code",
+	response_header: "response_header",
 } as const;
 
 export type UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnumKey =
@@ -138018,6 +138128,7 @@ export const updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum2 =
 	traffic_source: "traffic_source",
 	ruleset: "ruleset",
 	response_code: "response_code",
+	response_header: "response_header",
 } as const;
 
 export type UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnum2Key =
@@ -138087,6 +138198,7 @@ export const updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum3 =
 	traffic_source: "traffic_source",
 	ruleset: "ruleset",
 	response_code: "response_code",
+	response_header: "response_header",
 } as const;
 
 export type UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnum3Key =
@@ -138147,6 +138259,7 @@ export const updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum4 =
 	traffic_source: "traffic_source",
 	ruleset: "ruleset",
 	response_code: "response_code",
+	response_header: "response_header",
 } as const;
 
 export type UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnum4Key =
@@ -138217,6 +138330,7 @@ export const updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum5 =
 	traffic_source: "traffic_source",
 	ruleset: "ruleset",
 	response_code: "response_code",
+	response_header: "response_header",
 } as const;
 
 export type UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnum5Key =
@@ -138297,6 +138411,7 @@ export const updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum6 =
 	traffic_source: "traffic_source",
 	ruleset: "ruleset",
 	response_code: "response_code",
+	response_header: "response_header",
 } as const;
 
 export type UpdateFirewallConfigRequestValueConditionGroupConditionsTypeEnum6Key =
@@ -138889,6 +139004,7 @@ export const getFirewallConfigStatus200ConditionsConditionGroupConditionsTypeEnu
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -139124,6 +139240,7 @@ export const getFirewallConfigStatus200RulesConditionGroupConditionsTypeEnum = {
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -139216,6 +139333,7 @@ export const getFirewallConfigStatus200RulesConditionGroupConditionsTypeEnum2 = 
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -139277,6 +139395,7 @@ export const getFirewallConfigStatus200RulesetsConditionGroupConditionsTypeEnum 
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -139827,6 +139946,7 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200Conditi
 		raw_path: "raw_path",
 		region: "region",
 		response_code: "response_code",
+		response_header: "response_header",
 		route: "route",
 		ruleset: "ruleset",
 		scheme: "scheme",
@@ -140072,6 +140192,7 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200RulesCo
 		raw_path: "raw_path",
 		region: "region",
 		response_code: "response_code",
+		response_header: "response_header",
 		route: "route",
 		ruleset: "ruleset",
 		scheme: "scheme",
@@ -140169,6 +140290,7 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200RulesCo
 		raw_path: "raw_path",
 		region: "region",
 		response_code: "response_code",
+		response_header: "response_header",
 		route: "route",
 		ruleset: "ruleset",
 		scheme: "scheme",
@@ -140232,6 +140354,7 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200Ruleset
 		raw_path: "raw_path",
 		region: "region",
 		response_code: "response_code",
+		response_header: "response_header",
 		route: "route",
 		ruleset: "ruleset",
 		scheme: "scheme",
@@ -141146,6 +141269,7 @@ export const getConditionalBypassStatus200ConditionGroupConditionsTypeEnum = {
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -141207,6 +141331,7 @@ export const getConditionalBypassStatus200RulesConditionGroupConditionsTypeEnum 
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -141354,6 +141479,7 @@ export const createConditionalBypassStatus200ConditionGroupConditionsTypeEnum = 
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -141572,6 +141698,7 @@ export const updateConditionalBypassStatus200ConditionGroupConditionsTypeEnum = 
 	raw_path: "raw_path",
 	region: "region",
 	response_code: "response_code",
+	response_header: "response_header",
 	route: "route",
 	ruleset: "ruleset",
 	scheme: "scheme",
@@ -152874,6 +153001,7 @@ export type CreateWebhookQuery = {
 export const createWebhookStatus200EventsEnum = {
 	"ai-gateway.auto-reload.limit-reached": "ai-gateway.auto-reload.limit-reached",
 	"ai-gateway.balance-depleted": "ai-gateway.balance-depleted",
+	"ai-gateway.budget.updated": "ai-gateway.budget.updated",
 	"alerts.triggered": "alerts.triggered",
 	"botid.anomaly": "botid.anomaly",
 	"budget.reached": "budget.reached",
@@ -153055,6 +153183,7 @@ export type CreateWebhookStatus410 = unknown;
 export const createWebhookRequestEventsEnum = {
 	"ai-gateway.auto-reload.limit-reached": "ai-gateway.auto-reload.limit-reached",
 	"ai-gateway.balance-depleted": "ai-gateway.balance-depleted",
+	"ai-gateway.budget.updated": "ai-gateway.budget.updated",
 	"alerts.triggered": "alerts.triggered",
 	"botid.anomaly": "botid.anomaly",
 	"budget.reached": "budget.reached",
@@ -153227,6 +153356,7 @@ export type GetWebhooksQuery = {
 export const getWebhooksStatus200EventsEnum = {
 	"ai-gateway.auto-reload.limit-reached": "ai-gateway.auto-reload.limit-reached",
 	"ai-gateway.balance-depleted": "ai-gateway.balance-depleted",
+	"ai-gateway.budget.updated": "ai-gateway.budget.updated",
 	"alerts.triggered": "alerts.triggered",
 	"botid.anomaly": "botid.anomaly",
 	"budget.reached": "budget.reached",
@@ -153427,6 +153557,7 @@ export type GetWebhooksStatus200ProjectsMetadataFrameworkEnumKey =
 export const getWebhooksStatus200EventsEnum2 = {
 	"ai-gateway.auto-reload.limit-reached": "ai-gateway.auto-reload.limit-reached",
 	"ai-gateway.balance-depleted": "ai-gateway.balance-depleted",
+	"ai-gateway.budget.updated": "ai-gateway.budget.updated",
 	"alerts.triggered": "alerts.triggered",
 	"botid.anomaly": "botid.anomaly",
 	"budget.reached": "budget.reached",
@@ -153697,6 +153828,7 @@ export type GetWebhookQuery = {
 export const getWebhookStatus200EventsEnum = {
 	"ai-gateway.auto-reload.limit-reached": "ai-gateway.auto-reload.limit-reached",
 	"ai-gateway.balance-depleted": "ai-gateway.balance-depleted",
+	"ai-gateway.budget.updated": "ai-gateway.budget.updated",
 	"alerts.triggered": "alerts.triggered",
 	"botid.anomaly": "botid.anomaly",
 	"budget.reached": "budget.reached",
