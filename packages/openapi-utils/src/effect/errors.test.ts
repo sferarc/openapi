@@ -43,6 +43,13 @@ describe("ApiError.message", () => {
 			"API Error: 500",
 		);
 	});
+
+	it("uses an Error's own message when its payload has none", () => {
+		const cause = Object.assign(new Error("GET /x returned 429: {}"), { status: 429, payload: {} });
+		expect(new ApiError({ status: 429, error: cause }).message).toBe(
+			"API error 429: GET /x returned 429: {}",
+		);
+	});
 });
 
 describe("NetworkError.message", () => {

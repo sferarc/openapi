@@ -5,4 +5,4 @@ export {
 	tagDictionary,
 } from "./generated/components";
 export * from "./generated/types";
-export { isJsonLineStream, type ResponseInfo } from "./utils/fetcher";
+export { ApiResponseError, isJsonLineStream, type ResponseInfo } from "./utils/fetcher";

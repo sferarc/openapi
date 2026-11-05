@@ -177,6 +177,20 @@ describe("error mapping", () => {
 		expect(error.message).toBe("API Error: 403");
 	});
 
+	it("maps an Error with a status to ApiError even when the vendor text names a missing parameter", async () => {
+		const payload = "Missing required path parameter: id";
+		const rejection = Object.assign(new Error(`GET /projects/{id} returned 400: ${payload}`), {
+			status: 400,
+			payload,
+		});
+		const error = await failWith(rejection);
+
+		assert(error instanceof ApiError);
+		expect(error.status).toBe(400);
+		expect(error.error).toBe(rejection);
+		expect(error.message).toBe(`API error 400: ${payload}`);
+	});
+
 	it("maps a missing path parameter to ValidationError", async () => {
 		const error = await failWith(new Error("Missing required path parameter: projectId"));
 

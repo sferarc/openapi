@@ -1,6 +1,6 @@
-import { describe, expect, it } from "vitest";
+import { assert, describe, expect, it } from "vitest";
 import type { FetchImpl, RequestInit } from "./fetch";
-import client, { isJsonLineStream } from "./fetcher";
+import client, { ApiResponseError, isJsonLineStream } from "./fetcher";
 
 const respond =
 	(status: number, body: string, contentType = "application/json"): FetchImpl =>
@@ -30,6 +30,40 @@ const openNdjsonBody = () => {
 };
 
 describe("fetcher", () => {
+	it("rejects a 403 with an ApiResponseError that names the request and keeps status and payload", async () => {
+		const payload = { error: { code: "forbidden", message: "Not authorized for this team" } };
+		const error = await client({
+			url: "/v9/projects?token=secret",
+			method: "get",
+			fetchImpl: respond(403, JSON.stringify(payload)),
+		}).catch((e: unknown) => e);
+
+		assert(error instanceof ApiResponseError);
+		expect(error).toBeInstanceOf(Error);
+		expect(error.name).toBe("ApiResponseError");
+		expect(error.message).toBe("GET /v9/projects returned 403: Not authorized for this team");
+		const { status, payload: body, method, path } = error;
+		expect({ status, payload: body, method, path }).toEqual({
+			status: 403,
+			payload,
+			method: "GET",
+			path: "/v9/projects",
+		});
+	});
+
+	it("puts the first 200 characters of a body with no vendor message in the ApiResponseError message", async () => {
+		const text = `<html>${"x".repeat(300)}</html>`;
+		const error = await client({
+			url: "/thing",
+			method: "post",
+			fetchImpl: respond(502, text, "text/html"),
+		}).catch((e: unknown) => e);
+
+		assert(error instanceof ApiResponseError);
+		expect(error.message).toBe(`POST /thing returned 502: ${text.slice(0, 200)}`);
+		expect(error.payload).toBe(text);
+	});
+
 	it("rejects an HTTP error with its status and parsed body", async () => {
 		await expect(
 			client({
@@ -37,7 +71,7 @@ describe("fetcher", () => {
 				method: "get",
 				fetchImpl: respond(404, JSON.stringify({ message: "not found" })),
 			}),
-		).rejects.toEqual({ status: 404, payload: { message: "not found" } });
+		).rejects.toMatchObject({ status: 404, payload: { message: "not found" } });
 	});
 
 	it("passes the status and headers of an error response to onResponse before rejecting", async () => {
@@ -57,7 +91,7 @@ describe("fetcher", () => {
 					seen.push({ status, retryAfter: headers.get("Retry-After") });
 				},
 			}),
-		).rejects.toEqual({ status: 429, payload: {} });
+		).rejects.toMatchObject({ status: 429, payload: {} });
 		expect(seen).toEqual([{ status: 429, retryAfter: "30" }]);
 	});
 
@@ -106,7 +140,7 @@ describe("fetcher", () => {
 				method: "get",
 				fetchImpl: respond(502, "<html>Bad gateway</html>", "text/html"),
 			}),
-		).rejects.toEqual({ status: 502, payload: "<html>Bad gateway</html>" });
+		).rejects.toMatchObject({ status: 502, payload: "<html>Bad gateway</html>" });
 	});
 
 	it("truncates a long non-JSON error body", async () => {

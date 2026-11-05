@@ -6,4 +6,4 @@ export {
 } from "./generated/components";
 export * from "./generated/schemas";
 export * from "./generated/types";
-export { isJsonLineStream, type ResponseInfo } from "./utils/fetcher";
+export { ApiResponseError, isJsonLineStream, type ResponseInfo } from "./utils/fetcher";

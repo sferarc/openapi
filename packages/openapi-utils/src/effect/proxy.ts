@@ -38,12 +38,13 @@ export type EffectByPath<Paths extends Record<string, (...args: any[]) => any>> 
 // ============================================================================
 
 function convertError(error: unknown): ApiError | NetworkError | ValidationError {
+	// Checked first: an ApiResponseError is an Error whose message quotes the vendor's text.
+	if (typeof error === "object" && error !== null && "status" in error) {
+		return new ApiError({ status: (error as any).status, error });
+	}
 	if (error instanceof Error && error.message.includes("Missing required path parameter")) {
 		const field = error.message.replace("Missing required path parameter: ", "");
 		return new ValidationError({ field, reason: "Missing required path parameter" });
-	}
-	if (typeof error === "object" && error !== null && "status" in error) {
-		return new ApiError({ status: (error as any).status, error });
 	}
 	return new NetworkError({ cause: error });
 }

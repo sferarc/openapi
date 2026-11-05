@@ -6,4 +6,4 @@ export {
 } from "./generated/components";
 export * from "./generated/schemas";
 export * from "./generated/types";
-export type { ResponseInfo } from "./utils/fetcher";
+export { ApiResponseError, type ResponseInfo } from "./utils/fetcher";

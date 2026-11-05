@@ -128,7 +128,7 @@ describe("VercelApi.auth.accessToken", () => {
 		const { fetch } = recordFetch(400, { error: "invalid_grant" });
 		const client = new VercelApi({ token: null, fetch });
 
-		await expect(client.auth.accessToken(options)).rejects.toEqual({
+		await expect(client.auth.accessToken(options)).rejects.toMatchObject({
 			status: 400,
 			payload: { error: "invalid_grant" },
 		});
