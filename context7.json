@@ -18,6 +18,6 @@
 		"Find an operation's call, request and summary in the package's OPERATIONS.md, for example node_modules/vercel-api-js/src/generated/OPERATIONS.md, instead of reading the generated types.",
 		"Params are one object with pathParams, queryParams, body, headers and config as the operation declares them.",
 		"An HTTP error response rejects with ApiResponseError, exported from every package, with status, payload, method and path.",
-		"Read the API token from an environment variable and pass it as the token constructor option; Keycloak and LiteLLM constructors also need the server's baseUrl."
+		"Read the API token from an environment variable and pass it as the token constructor option; CloudflareApi takes apiKey plus email instead for the Global API Key. KeycloakAdminApi, KeycloakAccountApi and LiteLLMApi also need the server's baseUrl, and KeycloakAccountApi also needs the realm it is scoped to."
 	]
 }

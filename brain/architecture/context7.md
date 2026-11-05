@@ -10,4 +10,5 @@
 - The Library Owners page does not say whether `excludeFiles` overrides the root-level inclusion; that stays unknown until the first index run shows whether `CLAUDE.md` and `AGENTS.md` are left out.
 - `rules` reach agents as recommendations: the clients are unofficial, how to call an operation, where `OPERATIONS.md` sits, the params shape, `ApiResponseError` and tokens from the environment. Context7 reviews rules, title and description before applying them and drops the whole rule set if one is rejected.
 - `.github/workflows/scripts/context7.test.ts` checks that every client's README and `OPERATIONS.md` stay indexed ([[development/testing]]).
+- The token rule names each constructor's required options other than `token` by class: Cloudflare's `apiKey` plus `email` alternative, `baseUrl` for the Keycloak and LiteLLM classes, and `realm` for `KeycloakAccountApi` (#384). `context7.test.ts` checks it against `packages/*/src/client.ts`, so a client that gains a required option fails the test until the rule names it.
 - Whether the repository has been submitted at https://context7.com/add-library, and so whether Context7 serves it, is unknown as of this note.

@@ -4,6 +4,7 @@ import { createRequire } from "node:module";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterAll, describe, expect, it } from "vitest";
+import { constructorOptions } from "./client-options";
 
 // The root `pnpm test` runs this from the repository root.
 const root = process.cwd();
@@ -59,25 +60,6 @@ function clientRows(markdown: string): ClientRow[] {
 		});
 }
 
-// The properties of a class's constructor options type, with whether each is optional.
-function constructorOptions(pkg: string, className: string): Map<string, boolean> {
-	const source = readFileSync(path.join(root, "packages", pkg, "src/client.ts"), "utf8");
-	const classBody = source.split(`export class ${className} {`)[1] ?? "";
-	const typeName = classBody.match(/constructor\(options: (\w+)\)/)?.[1];
-	const declaration = source
-		.split(new RegExp(`export (?:interface|type) ${typeName}\\b`))[1]
-		?.split(/\n(?:\}|\);)\n/)[0];
-	if (!typeName || !declaration)
-		throw new Error(`No constructor options for ${className} in ${pkg}`);
-	const withoutComments = declaration.replace(/\/\*[\s\S]*?\*\//g, "");
-	return new Map(
-		[...withoutComments.matchAll(/(\w+)(\??):/g)].map(([, name, optional]) => [
-			name ?? "",
-			optional === "?",
-		]),
-	);
-}
-
 describe("openapi-clients skill", () => {
 	const skill = readFileSync(skillPath, "utf8");
 	const snippets = extractSnippets(skill);
@@ -105,7 +87,7 @@ describe("openapi-clients skill", () => {
 
 	it("names each constructor's required options and whether it takes a baseUrl", () => {
 		for (const { pkg, classes, required, baseUrl } of clientRows(skill)) {
-			const options = classes.map((className) => constructorOptions(pkg, className));
+			const options = classes.map((className) => constructorOptions(root, pkg, className));
 			const known = new Set(options.flatMap((props) => [...props.keys()]));
 			for (const props of options) {
 				const requiredProps = [...props].filter(([, optional]) => !optional).map(([name]) => name);
