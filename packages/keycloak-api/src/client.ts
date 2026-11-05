@@ -3,6 +3,7 @@ import { operationsByPath as adminOperationsByPath } from "./admin/generated/com
 import type { FetchImpl } from "./utils/fetch";
 import type { FetcherConfig } from "./utils/fetcher";
 import { type CallParams, findOperation } from "./utils/operation";
+import { realmBaseUrl } from "./utils/realm";
 import type { RequiredKeys } from "./utils/types";
 
 /** A fixed access token, or a function the client calls before every request for the current one. */
@@ -112,8 +113,7 @@ export class KeycloakAccountApi {
 		const operation = findOperation(accountOperationsByPath, endpoint);
 		const result = await operation(
 			withConfig(params, {
-				// Encoded like the admin API's `{realm}`: Keycloak allows `%` and spaces in a realm name.
-				baseUrl: `${this.#baseUrl.replace(/\/+$/, "")}/realms/${encodeURIComponent(this.#realm)}`,
+				baseUrl: realmBaseUrl(this.#baseUrl, this.#realm),
 				token: await resolveToken(this.#token),
 				fetchImpl: this.#fetch,
 			}),
