@@ -12,7 +12,11 @@ const optional = z.string().min(1).optional();
 const configSchema = z
 	.object({
 		KEYCLOAK_URL: z.url(),
-		KEYCLOAK_REALM: z.string().min(1),
+		// A dot segment would resolve the realm prefix away, so the URL guard below could not hold.
+		KEYCLOAK_REALM: z
+			.string()
+			.min(1)
+			.refine((realm) => realm !== "." && realm !== "..", "KEYCLOAK_REALM cannot be . or .."),
 		KEYCLOAK_TOKEN: optional,
 		KEYCLOAK_CLIENT_ID: optional,
 		KEYCLOAK_CLIENT_SECRET: optional,
@@ -45,7 +49,8 @@ type ToolEntry = {
 	};
 };
 
-const tools: readonly ToolEntry[] = mcpTools;
+// The instance-level operations (GET and POST /admin/realms) are not scoped to one realm.
+const tools: readonly ToolEntry[] = mcpTools.filter((tool) => tool.request.includes("{realm}"));
 
 const tokenResponse = z.object({ access_token: z.string(), expires_in: z.number() });
 
@@ -80,7 +85,25 @@ function tokenSource(config: KeycloakMcpConfig, fetchImpl: FetchImpl): () => Pro
 	};
 }
 
-// The realm comes from KEYCLOAK_REALM, so a tool cannot reach another realm.
+// Dot segments in a path parameter survive encoding and fetch resolves them, so check the resolved URL.
+function realmScopedFetch(config: KeycloakMcpConfig, fetchImpl: FetchImpl): FetchImpl {
+	const base = config.KEYCLOAK_URL.replace(/\/+$/, "");
+	const scope = new URL(`${base}/admin/realms/${encodeURIComponent(config.KEYCLOAK_REALM)}`);
+	return (url, init) => {
+		const target = new URL(url);
+		const inRealm =
+			target.origin === scope.origin &&
+			(target.pathname === scope.pathname || target.pathname.startsWith(`${scope.pathname}/`));
+		if (!inRealm) {
+			return Promise.reject(
+				new Error(`Refused ${target.pathname}: it is outside the realm ${config.KEYCLOAK_REALM}`),
+			);
+		}
+		return fetchImpl(url, init);
+	};
+}
+
+// The realm comes from KEYCLOAK_REALM and is not a tool argument.
 function inputSchema({ params }: ToolEntry): z.ZodObject {
 	const pathParams = params.pathParams?.omit({ realm: true });
 	return z.object({
@@ -121,7 +144,7 @@ export interface KeycloakMcpServerOptions {
 	fetch?: FetchImpl;
 }
 
-/** An MCP server with one tool per Keycloak admin operation, read-only unless KEYCLOAK_MCP_ALLOW_WRITES is 1. */
+/** An MCP server with one tool per Keycloak admin operation on KEYCLOAK_REALM, read-only unless KEYCLOAK_MCP_ALLOW_WRITES is 1. */
 export function createKeycloakMcpServer({
 	config,
 	fetch: fetchImpl = fetch as FetchImpl,
@@ -129,6 +152,7 @@ export function createKeycloakMcpServer({
 	const allowWrites = config.KEYCLOAK_MCP_ALLOW_WRITES === "1";
 	const realm = config.KEYCLOAK_REALM;
 	const token = tokenSource(config, fetchImpl);
+	const toolFetch = realmScopedFetch(config, fetchImpl);
 
 	const server = new McpServer(
 		{ name: "keycloak-api-mcp", version: packageJson.version },
@@ -154,13 +178,11 @@ export function createKeycloakMcpServer({
 				try {
 					const result = await operation({
 						...args,
-						...(tool.request.includes("{realm}")
-							? { pathParams: { ...objectOf(args.pathParams), realm } }
-							: {}),
+						pathParams: { ...objectOf(args.pathParams), realm },
 						config: {
 							baseUrl: config.KEYCLOAK_URL,
 							token: await token(),
-							fetchImpl,
+							fetchImpl: toolFetch,
 							onResponse: (info) => {
 								response = info;
 							},

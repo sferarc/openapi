@@ -102,7 +102,7 @@ A call that gets an HTTP error response rejects with an `ApiResponseError`, expo
 
 ## MCP server
 
-The package ships `keycloak-api-mcp`, a stdio [MCP](https://modelcontextprotocol.io) server with one tool per admin operation, so an agent can answer questions such as which users of a realm hold a role. It lists only the read (`GET`) tools; set `KEYCLOAK_MCP_ALLOW_WRITES=1` to add the others, which carry `destructiveHint` on `DELETE`. Every tool acts on `KEYCLOAK_REALM`, which is not a tool argument, and an HTTP error comes back as a tool error with the status and Keycloak's message.
+The package ships `keycloak-api-mcp`, a stdio [MCP](https://modelcontextprotocol.io) server with one tool per admin operation on a realm, so an agent can answer questions such as which users of a realm hold a role. It lists only the read (`GET`) tools; set `KEYCLOAK_MCP_ALLOW_WRITES=1` to add the others, which carry `destructiveHint` on `DELETE`. Every tool acts on `KEYCLOAK_REALM`, which is not a tool argument: the two operations that list and import realms are left out, and a call whose URL resolves outside that realm, such as a group path with `..` segments, is refused as a tool error. An HTTP error comes back as a tool error with the status and Keycloak's message.
 
 | Variable | |
 | --- | --- |

@@ -5,6 +5,8 @@ import { mcpTools } from "../admin/generated/mcp-tools";
 import type { FetchImpl, RequestInit } from "../utils/fetch";
 import { createKeycloakMcpServer, readKeycloakMcpConfig } from "./server";
 
+const realmTools = mcpTools.filter((tool) => tool.request.includes("{realm}"));
+
 const baseEnv = { KEYCLOAK_URL: "https://keycloak.example.com", KEYCLOAK_REALM: "acme" };
 
 type Call = { url: string; init?: RequestInit };
@@ -42,11 +44,22 @@ describe("readKeycloakMcpConfig", () => {
 			readKeycloakMcpConfig({ KEYCLOAK_URL: baseEnv.KEYCLOAK_URL, KEYCLOAK_TOKEN: "t" }),
 		).toThrow("KEYCLOAK_REALM");
 	});
+
+	it.each([".", ".."])(
+		"refuses the realm %s, which would resolve away its own URL segment",
+		(realm) => {
+			expect(() =>
+				readKeycloakMcpConfig({ ...baseEnv, KEYCLOAK_REALM: realm, KEYCLOAK_TOKEN: "t" }),
+			).toThrow("KEYCLOAK_REALM cannot be . or ..");
+		},
+	);
 });
 
 describe("keycloak-api-mcp", () => {
 	it("lists only read tools unless KEYCLOAK_MCP_ALLOW_WRITES is 1", async () => {
-		const reads = mcpTools.filter((tool) => tool.annotations.readOnlyHint).map((tool) => tool.name);
+		const reads = realmTools
+			.filter((tool) => tool.annotations.readOnlyHint)
+			.map((tool) => tool.name);
 
 		const readOnly = await connect({ ...baseEnv, KEYCLOAK_TOKEN: "t" }, () => json({}));
 		const { tools } = await readOnly.client.listTools();
@@ -58,7 +71,7 @@ describe("keycloak-api-mcp", () => {
 			() => json({}),
 		);
 		const all = await writable.client.listTools();
-		expect(all.tools).toHaveLength(mcpTools.length);
+		expect(all.tools).toHaveLength(realmTools.length);
 		const deleteUser = all.tools.find((tool) => tool.name === "delete_users_by_user_id");
 		expect(deleteUser?.annotations).toMatchObject({ readOnlyHint: false, destructiveHint: true });
 	});
@@ -82,6 +95,66 @@ describe("keycloak-api-mcp", () => {
 		expect(JSON.parse(textOf(result))).toEqual([{ id: "u1", username: "ada" }]);
 		expect(calls[0]?.url).toBe("https://keycloak.example.com/admin/realms/acme/users?search=ada");
 		expect(calls[0]?.init?.headers).toMatchObject({ Authorization: "Bearer t" });
+	});
+
+	it("lists no tool outside the realm, such as listing or importing realms", async () => {
+		const { client } = await connect(
+			{ ...baseEnv, KEYCLOAK_TOKEN: "t", KEYCLOAK_MCP_ALLOW_WRITES: "1" },
+			() => json({}),
+		);
+		const names = (await client.listTools()).tools.map((tool) => tool.name);
+		expect(mcpTools.map((tool) => tool.name)).toContain("get_admin_realms");
+		expect(names).not.toContain("get_admin_realms");
+		expect(names).not.toContain("post_admin_realms");
+	});
+
+	it.each([
+		["get_group_by_path_by_path", {}, "../../master/users"],
+		["get_group_by_path_by_path", {}, "%2e%2e/%2e%2e/master/users"],
+		[
+			"get_organizations_groups_group_by_path_by_path",
+			{ orgId: "o1" },
+			"../../../../../master/users",
+		],
+	])("refuses %s with a path that leaves the realm (%#)", async (name, pathParams, path) => {
+		const { client, calls } = await connect({ ...baseEnv, KEYCLOAK_TOKEN: "t" }, () => json({}));
+		const result = await client.callTool({
+			name,
+			arguments: { pathParams: { ...pathParams, path } },
+		});
+		expect(result.isError).toBe(true);
+		expect(textOf(result)).toContain("outside the realm acme");
+		expect(calls).toEqual([]);
+	});
+
+	it("still sends a group path inside the realm", async () => {
+		const { client, calls } = await connect({ ...baseEnv, KEYCLOAK_TOKEN: "t" }, () =>
+			json({ id: "g1" }),
+		);
+		const result = await client.callTool({
+			name: "get_group_by_path_by_path",
+			arguments: { pathParams: { path: "parent/child" } },
+		});
+		expect(result.isError).toBeFalsy();
+		expect(calls.map((call) => call.url)).toEqual([
+			"https://keycloak.example.com/admin/realms/acme/group-by-path/parent/child",
+		]);
+	});
+
+	it("scopes the realm under a base URL with a path", async () => {
+		const { client, calls } = await connect(
+			{ ...baseEnv, KEYCLOAK_URL: "https://keycloak.example.com/auth/", KEYCLOAK_TOKEN: "t" },
+			() => json([]),
+		);
+		expect((await client.callTool({ name: "get_groups", arguments: {} })).isError).toBeFalsy();
+		const traversal = await client.callTool({
+			name: "get_group_by_path_by_path",
+			arguments: { pathParams: { path: "../../master/users" } },
+		});
+		expect(traversal.isError).toBe(true);
+		expect(calls.map((call) => call.url)).toEqual([
+			"https://keycloak.example.com/auth/admin/realms/acme/groups",
+		]);
 	});
 
 	it("returns an HTTP error as a tool error with the status and Keycloak's message", async () => {
