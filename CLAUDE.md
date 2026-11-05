@@ -23,6 +23,7 @@ Read `brain/` files relevant to your task before acting, and update them in the 
 | `@sferadev/openapi-utils`: kubb config, transforms, Effect helpers | `brain/architecture/shared-utils.md` |
 | The website in `apps/openapi` | `brain/architecture/website.md` |
 | The Agent Skill in `skills/openapi-clients` | `brain/architecture/agent-skill.md` |
+| `context7.json`, what Context7 indexes | `brain/architecture/context7.md` |
 | Node, pnpm, mise, commands | `brain/development/toolchain.md` |
 | Tests | `brain/development/testing.md` |
 | CI checks and branch rules | `brain/development/ci.md` |
