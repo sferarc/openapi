@@ -110,11 +110,11 @@ Run alone with `pnpm turbo run test --filter=@sferadev/openapi-utils`.
 
 `.github/workflows/scripts/skill-snippets.test.ts` checks that `skills/openapi-clients/SKILL.md` starts with its `name` and a `description` that says when to use it, stays under 150 lines, and that every `ts` code block type checks (#355). It writes each block to a temporary directory and runs the root `tsc` over them with `paths` pointing every client and `@sferadev/openapi-utils` at their `src`, and `effect` at the declarations of the copy `packages/openapi-utils` resolves, so it needs no build ([[architecture/agent-skill]]). A sample that uses another bare import needs a `paths` entry there.
 
+The same file checks the "Pick the client" table against `packages/*/src/client.ts`: it lists every client package, its "Required options" column names every required constructor option of each class and none the class lacks, and its "Constructor `baseUrl`" column says `required`, `optional` or `none` as the options type declares it (#379).
+
 ## Context7 config
 
 `.github/workflows/scripts/context7.test.ts` checks that `context7.json` keeps the title and description within Context7's length limits, names every client package in the description, indexes every client's `README.md` and each of its `OPERATIONS.md` files, leaves out changelogs, `packages/openapi-utils`, `apps` and `brain`, and says the clients are unofficial (#354, [[architecture/context7]]). Its folder matching is a simplified copy of Context7's: a bare name matches any directory, a path matches from the root, and globs are not supported.
-
-The same file checks the "Pick the client" table against `packages/*/src/client.ts`: it lists every client package, its "Required options" column names every required constructor option of each class and none the class lacks, and its "Constructor `baseUrl`" column says `required`, `optional` or `none` as the options type declares it (#379).
 
 ## What is not tested
 
