@@ -1,5 +1,11 @@
 # nuki-api-js
 
+## 3.4.1
+
+### Patch Changes
+
+- 21566e4: Link the upstream OpenAPI spec the client is generated from in the README, with the fixups applied before generating.
+
 ## 3.4.0
 
 ### Minor Changes

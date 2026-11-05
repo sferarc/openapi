@@ -1,5 +1,11 @@
 # cloudflare-api-js
 
+## 4.15.1
+
+### Patch Changes
+
+- 21566e4: Link the upstream OpenAPI spec the client is generated from in the README, with the fixups applied before generating.
+
 ## 4.15.0
 
 ### Minor Changes
