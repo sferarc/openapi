@@ -100,6 +100,8 @@ Run alone with `pnpm turbo run test --filter=@sferadev/openapi-utils`.
 
 `apps/openapi/src/lib/package-listing.test.ts` checks that every client's `package.json` has the unofficial description for its API, the search keywords, `effect` among them only with an `./effect` entry, and its site page as `homepage`, and that its README says it is unofficial under the title (#344).
 
+`apps/openapi/src/lib/spec-sources.test.ts` reads the `fetchSpec("<url>")` and `readFileSync("./specs/<file>")` calls in every client's `kubb.config.ts` and checks that the client list names the same specs, that the README's `Generated from` line links each one, and that the client page links them (#349). A config that loads a spec any other way needs the test's patterns extended.
+
 ## Changeset script
 
 `.github/workflows/scripts/changeset.test.ts` tests `changeset.ts`, the pure parts that `changes.ts` imports when `update-openapi.yml` writes a changeset: the diff summary, entry resolution and its fallbacks, and changeset rendering (#27). The root `pnpm test` runs it after the turbo tests (`package.json`). `package-exports.test.ts` next to it checks that every package's `exports` entry types `import` with `.d.mts` and `require` with `.d.cts` declarations, and that every published package maps each subpath to those `.d.cts` declarations in `typesVersions` ([[architecture/packages]]).

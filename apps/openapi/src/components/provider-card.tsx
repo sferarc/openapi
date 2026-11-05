@@ -98,12 +98,25 @@ export function UnifiedProviderInterface({ providers }: UnifiedProviderInterface
 									<h3 className="text-base font-semibold mb-2">Usage Example</h3>
 									<CodeBlock language="typescript" code={provider.usage} />
 								</div>
-								<Link
-									href={`/${provider.packageName}`}
-									className="inline-block text-sm font-medium underline hover:text-muted-foreground"
-								>
-									{provider.packageName}: authentication, examples and links
-								</Link>
+								<div className="flex flex-wrap gap-4 text-sm font-medium">
+									<Link
+										href={`/${provider.packageName}`}
+										className="underline hover:text-muted-foreground"
+									>
+										{provider.packageName}: authentication, examples and links
+									</Link>
+									{provider.specs.map((spec) => (
+										<a
+											key={spec.href}
+											href={spec.href}
+											className="underline hover:text-muted-foreground"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											{spec.label}
+										</a>
+									))}
+								</div>
 							</CardContent>
 						</Card>
 					</div>

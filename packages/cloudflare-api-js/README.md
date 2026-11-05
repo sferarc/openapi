@@ -4,6 +4,8 @@ Unofficial. Not made or endorsed by Cloudflare.
 
 Auto-generated, fully typed client for the [Cloudflare API](https://developers.cloudflare.com/api/).
 
+Generated from the OpenAPI spec at <https://raw.githubusercontent.com/cloudflare/api-schemas/main/openapi.json>; before generating, [`kubb.config.ts`](https://github.com/sferarc/openapi/blob/main/packages/cloudflare-api-js/kubb.config.ts) renames operation IDs, camel-cases path parameters, moves per-path servers onto their operations, merges duplicated components, makes read-only fields optional in request bodies and maps `4XX`/`5XX` responses to `400`/`500`.
+
 ## Features
 
 - **Fully typed** - every operation, parameter and response is generated from the official OpenAPI spec

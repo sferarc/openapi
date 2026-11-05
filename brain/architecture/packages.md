@@ -79,7 +79,9 @@ Each client's `package.json` and README are hand-written; the generator writes n
 - `keywords` name the vendor and `<vendor>-api`, plus `api-client`, `sdk`, `typescript`, `openapi` and `rest`, and `effect` only where the package has an `./effect` entry (#344).
 - `homepage` is the client's page on the site, `https://openapi.sferadev.com/<package name>` ([[website]], #344); before it pointed at the package folder on GitHub.
 - The README's first line under the title says `Unofficial. Not made or endorsed by <vendor>.`, with Vercel as the vendor of `v0-api` (#344).
+- The README's `Generated from` line, after the intro, links each spec URL its `kubb.config.ts` reads and the config itself, and says in one sentence what the config changes before generating (#349). Keycloak's account spec is local, so it is linked raw on GitHub `main`.
 - `apps/openapi/src/lib/package-listing.test.ts` checks these against the site's client list ([[development/testing]]).
+- `apps/openapi/src/lib/spec-sources.test.ts` checks the `Generated from` line against the spec URLs in each `kubb.config.ts` ([[development/testing]]).
 
 ## Configs
 

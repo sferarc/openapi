@@ -4,6 +4,8 @@ Unofficial. Not made or endorsed by Nuki.
 
 Auto-generated, fully typed client for the [Nuki Web API](https://api.nuki.io/).
 
+Generated from the OpenAPI spec at <https://api.nuki.io/static/swagger/swagger.json>; before generating, [`kubb.config.ts`](https://github.com/sferarc/openapi/blob/main/packages/nuki-api-js/kubb.config.ts) renames operation IDs and replaces the invalid `int` type with `integer`.
+
 ## Features
 
 - **Fully typed** - every operation, parameter and response is generated from the official OpenAPI spec

@@ -1,11 +1,17 @@
 import Link from "next/link";
 import { HeroHeader } from "@/components/hero-header";
 import { UnifiedProviderInterface } from "@/components/provider-card";
+import { type ClientLink, findClient, specLinks } from "@/lib/client-page";
 import { fetchAllPackageVersions } from "@/lib/npm";
 import type { Provider } from "@/lib/types";
 
 // ISR: Revalidate every 6 hours
 export const revalidate = 21600;
+
+function specsOf(packageName: string): ClientLink[] {
+	const client = findClient(packageName);
+	return client ? specLinks(client) : [];
+}
 
 const getProviders = (versions: Record<string, string>) =>
 	[
@@ -13,6 +19,7 @@ const getProviders = (versions: Record<string, string>) =>
 			id: "vercel",
 			name: "Vercel",
 			packageName: "vercel-api-js",
+			specs: specsOf("vercel-api-js"),
 			version: versions["vercel-api-js"],
 			usage: `import { VercelApi } from 'vercel-api-js';
 
@@ -23,6 +30,7 @@ const projects = await vercel.api.projects.getProjects({});`,
 			id: "v0",
 			name: "v0",
 			packageName: "v0-api",
+			specs: specsOf("v0-api"),
 			version: versions["v0-api"],
 			usage: `import { V0Api } from 'v0-api';
 
@@ -33,6 +41,7 @@ const projects = await api.api.projects.projectsFind({});`,
 			id: "cloudflare",
 			name: "Cloudflare",
 			packageName: "cloudflare-api-js",
+			specs: specsOf("cloudflare-api-js"),
 			version: versions["cloudflare-api-js"],
 			usage: `import { CloudflareApi } from 'cloudflare-api-js';
 
@@ -43,6 +52,7 @@ const zones = await api.api.zone.zonesGet({});`,
 			id: "netlify",
 			name: "Netlify",
 			packageName: "netlify-api",
+			specs: specsOf("netlify-api"),
 			version: versions["netlify-api"],
 			usage: `import { NetlifyApi } from 'netlify-api';
 
@@ -53,6 +63,7 @@ const sites = await api.api.site.listSites({});`,
 			id: "keycloak",
 			name: "Keycloak",
 			packageName: "keycloak-api",
+			specs: specsOf("keycloak-api"),
 			version: versions["keycloak-api"],
 			usage: `import { KeycloakAdminApi } from 'keycloak-api';
 
@@ -63,6 +74,7 @@ const realms = await api.request('GET /admin/realms', {});`,
 			id: "zoom",
 			name: "Zoom",
 			packageName: "zoom-api-js",
+			specs: specsOf("zoom-api-js"),
 			version: versions["zoom-api-js"],
 			usage: `import { ZoomApi } from 'zoom-api-js';
 
@@ -73,6 +85,7 @@ const files = await api.api.archiving.listArchivedFiles({});`,
 			id: "nuki",
 			name: "Nuki",
 			packageName: "nuki-api-js",
+			specs: specsOf("nuki-api-js"),
 			version: versions["nuki-api-js"],
 			usage: `import { NukiApi } from 'nuki-api-js';
 
@@ -83,6 +96,7 @@ const smartLocks = await api.api.smartlock.getSmartlocksResource({});`,
 			id: "litellm",
 			name: "LiteLLM",
 			packageName: "litellm-api",
+			specs: specsOf("litellm-api"),
 			version: versions["litellm-api"],
 			usage: `import { LiteLLMApi } from 'litellm-api';
 

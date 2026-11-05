@@ -4,6 +4,8 @@ Unofficial. Not made or endorsed by Zoom.
 
 Auto-generated, fully typed client for the [Zoom API](https://developers.zoom.us/docs/api/).
 
+Generated from the OpenAPI spec at <https://developers.zoom.us/api/zoap/meetings/methods/>; before generating, [`kubb.config.ts`](https://github.com/sferarc/openapi/blob/main/packages/zoom-api-js/kubb.config.ts) renames operation IDs.
+
 ## Features
 
 - **Fully typed** - every operation, parameter and response is generated from the official OpenAPI spec
