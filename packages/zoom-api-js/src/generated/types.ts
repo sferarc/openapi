@@ -9032,7 +9032,7 @@ export type GetMeetingTranscriptPath = {
 	 *
 	 * To get a webinar's transcript, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance.
 	 *
-	 * If a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request.
+	 * If a UUID contains any `/` characters, you must **double encode** the UUID before making an API request.
 	 * @example atsXxhSEQWit9t+U02HXNQ==
 	 * @type string
 	 */
