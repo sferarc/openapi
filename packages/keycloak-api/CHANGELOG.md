@@ -1,5 +1,11 @@
 # keycloak-api
 
+## 3.7.0
+
+### Minor Changes
+
+- 5f4cc7a: Add Account API Effect bindings to `keycloak-api/effect`: `AccountApiService` by tag, `accountEffectByPath` by path, and `makeAccountLayer(realm)`, which rebases the server layer's `baseUrl` onto `/realms/<encoded realm>` so admin and account effects share one `makeApiLayer` in a program.
+
 ## 3.6.0
 
 ### Minor Changes
