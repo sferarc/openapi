@@ -12,7 +12,7 @@ import {
 	findClient,
 } from "@/lib/client-page";
 import { clients } from "@/lib/clients";
-import { fetchPackageVersion } from "@/lib/npm";
+import { fetchPackageInfo } from "@/lib/npm";
 import { quickStartExamples, readReadme } from "@/lib/readme";
 
 // ISR: Revalidate every 6 hours, like the home page
@@ -34,7 +34,7 @@ export default async function ClientPage({ params }: PageProps<"/[client]">) {
 	if (!client) notFound();
 
 	const [{ version }, readme] = await Promise.all([
-		fetchPackageVersion(client.packageName),
+		fetchPackageInfo(client.packageName),
 		readReadme(client),
 	]);
 	const examples = quickStartExamples(readme);

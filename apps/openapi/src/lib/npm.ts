@@ -1,15 +1,43 @@
+import { z } from "zod";
 import { clients } from "./clients";
+
+export interface PackageInfo {
+	name: string;
+	version: string;
+	description: string;
+	/** ISO date the latest version was published, absent when npm did not answer. */
+	publishedAt?: string;
+}
+
+export interface PackageStats extends PackageInfo {
+	/** Downloads in the last week, absent when the downloads API did not answer. */
+	weeklyDownloads?: number;
+}
 
 type RegistryFailure = { status: number } | { reason: string };
 
-function unavailable(packageName: string, failure: RegistryFailure): Record<string, string> {
+const packumentSchema = z.object({
+	"dist-tags": z.object({ latest: z.string() }).partial().optional(),
+	description: z.string().optional(),
+	time: z.record(z.string(), z.string()).optional(),
+});
+
+const downloadsSchema = z.object({ downloads: z.number() });
+
+function logFailure(message: string, packageName: string, failure: RegistryFailure) {
+	console.warn(JSON.stringify({ message, package: packageName, ...failure }));
+}
+
+function reasonOf(error: unknown): string {
+	return error instanceof Error ? error.message : String(error);
+}
+
+function unavailable(packageName: string, failure: RegistryFailure): PackageInfo {
 	const notPublished = "status" in failure && failure.status === 404;
-	console.warn(
-		JSON.stringify({
-			message: notPublished ? "npm package not published" : "npm registry unavailable",
-			package: packageName,
-			...failure,
-		}),
+	logFailure(
+		notPublished ? "npm package not published" : "npm registry unavailable",
+		packageName,
+		failure,
 	);
 	return {
 		name: packageName,
@@ -18,47 +46,71 @@ function unavailable(packageName: string, failure: RegistryFailure): Record<stri
 	};
 }
 
-export async function fetchPackageVersion(packageName: string): Promise<Record<string, string>> {
+async function fetchJson(
+	url: string,
+): Promise<{ ok: true; body: unknown } | { ok: false; failure: RegistryFailure }> {
 	let response: Response;
 	try {
-		response = await fetch(`https://registry.npmjs.org/${packageName}/latest`, {
+		response = await fetch(url, {
 			next: { revalidate: 3600 }, // Cache for 1 hour
 		});
 	} catch (error) {
-		return unavailable(packageName, {
-			reason: error instanceof Error ? error.message : String(error),
-		});
+		return { ok: false, failure: { reason: reasonOf(error) } };
 	}
-
-	if (!response.ok) {
-		return unavailable(packageName, { status: response.status });
-	}
-
-	let packageInfo: { version?: string; description?: string };
+	if (!response.ok) return { ok: false, failure: { status: response.status } };
 	try {
-		packageInfo = await response.json();
+		return { ok: true, body: await response.json() };
 	} catch (error) {
-		return unavailable(packageName, {
-			reason: `invalid JSON: ${error instanceof Error ? error.message : String(error)}`,
-		});
+		return { ok: false, failure: { reason: `invalid JSON: ${reasonOf(error)}` } };
+	}
+}
+
+export async function fetchPackageInfo(packageName: string): Promise<PackageInfo> {
+	// The full document, unlike /latest, carries the publish time of each version.
+	const result = await fetchJson(`https://registry.npmjs.org/${packageName}`);
+	if (!result.ok) return unavailable(packageName, result.failure);
+
+	const parsed = packumentSchema.safeParse(result.body);
+	if (!parsed.success) {
+		return unavailable(packageName, { reason: `unexpected document: ${parsed.error.message}` });
 	}
 
+	const { "dist-tags": distTags, description, time } = parsed.data;
+	const version = distTags?.latest;
 	return {
 		name: packageName,
-		version: packageInfo.version || "unknown",
-		description: packageInfo.description || "",
+		version: version || "unknown",
+		description: description || "",
+		publishedAt: version ? time?.[version] : undefined,
 	};
 }
 
-export async function fetchAllPackageVersions(): Promise<Record<string, string>> {
-	const packageInfos = await Promise.all(
-		clients.map((client) => fetchPackageVersion(client.packageName)),
-	);
+async function fetchWeeklyDownloads(packageName: string): Promise<number | undefined> {
+	const result = await fetchJson(`https://api.npmjs.org/downloads/point/last-week/${packageName}`);
+	if (!result.ok) {
+		logFailure("npm downloads unavailable", packageName, result.failure);
+		return undefined;
+	}
 
-	const versionMap: Record<string, string> = {};
-	packageInfos.forEach((info) => {
-		versionMap[info.name] = info.version;
-	});
+	const parsed = downloadsSchema.safeParse(result.body);
+	if (!parsed.success) {
+		logFailure("npm downloads unavailable", packageName, {
+			reason: `unexpected document: ${parsed.error.message}`,
+		});
+		return undefined;
+	}
+	return parsed.data.downloads;
+}
 
-	return versionMap;
+export async function fetchPackageStats(packageName: string): Promise<PackageStats> {
+	const [info, weeklyDownloads] = await Promise.all([
+		fetchPackageInfo(packageName),
+		fetchWeeklyDownloads(packageName),
+	]);
+	return { ...info, weeklyDownloads };
+}
+
+export async function fetchAllPackageStats(): Promise<Record<string, PackageStats>> {
+	const stats = await Promise.all(clients.map((client) => fetchPackageStats(client.packageName)));
+	return Object.fromEntries(stats.map((entry) => [entry.name, entry]));
 }

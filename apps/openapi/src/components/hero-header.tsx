@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
+const updateWorkflowUrl = "https://github.com/sferarc/openapi/actions/workflows/update-openapi.yml";
+
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
 	return (
 		<svg
@@ -42,7 +44,22 @@ export function HeroHeader() {
 							Unofficial Type-Safe OpenAPI Clients
 						</h1>
 						<p className="text-muted-foreground text-lg md:text-xl max-w-4xl mx-auto">
-							A collection of automatically generated and updated API clients for popular services
+							For TypeScript developers calling the Vercel, Cloudflare, Netlify, Keycloak, Zoom,
+							Nuki, LiteLLM and v0 APIs. Every endpoint is typed from the vendor&apos;s published
+							OpenAPI spec, the packages are tree-shakable, and they run anywhere{" "}
+							<code className="font-mono">fetch</code> does.
+						</p>
+						<p className="text-muted-foreground text-sm mt-4">
+							Regenerated from each spec by the{" "}
+							<Link
+								href={updateWorkflowUrl}
+								className="font-medium underline hover:text-foreground"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								Update OpenAPI workflow
+							</Link>
+							.
 						</p>
 					</div>
 				</div>

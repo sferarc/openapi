@@ -2,25 +2,34 @@ import Link from "next/link";
 import { HeroHeader } from "@/components/hero-header";
 import { UnifiedProviderInterface } from "@/components/provider-card";
 import { type ClientLink, findClient, specLinks } from "@/lib/client-page";
-import { fetchAllPackageVersions } from "@/lib/npm";
+import { fetchAllPackageStats, type PackageStats } from "@/lib/npm";
 import type { Provider } from "@/lib/types";
 
 // ISR: Revalidate every 6 hours
 export const revalidate = 21600;
+
+function npmData(stats: Record<string, PackageStats>, packageName: string) {
+	const entry = stats[packageName];
+	return {
+		version: entry?.version ?? "unknown",
+		publishedAt: entry?.publishedAt,
+		weeklyDownloads: entry?.weeklyDownloads,
+	};
+}
 
 function specsOf(packageName: string): ClientLink[] {
 	const client = findClient(packageName);
 	return client ? specLinks(client) : [];
 }
 
-const getProviders = (versions: Record<string, string>) =>
+const getProviders = (stats: Record<string, PackageStats>) =>
 	[
 		{
 			id: "vercel",
 			name: "Vercel",
 			packageName: "vercel-api-js",
 			specs: specsOf("vercel-api-js"),
-			version: versions["vercel-api-js"],
+			...npmData(stats, "vercel-api-js"),
 			usage: `import { VercelApi } from 'vercel-api-js';
 
 const vercel = new VercelApi({ token: "token" });
@@ -31,7 +40,7 @@ const projects = await vercel.api.projects.getProjects({});`,
 			name: "v0",
 			packageName: "v0-api",
 			specs: specsOf("v0-api"),
-			version: versions["v0-api"],
+			...npmData(stats, "v0-api"),
 			usage: `import { V0Api } from 'v0-api';
 
 const api = new V0Api({ token: '...' });
@@ -42,7 +51,7 @@ const projects = await api.api.projects.projectsFind({});`,
 			name: "Cloudflare",
 			packageName: "cloudflare-api-js",
 			specs: specsOf("cloudflare-api-js"),
-			version: versions["cloudflare-api-js"],
+			...npmData(stats, "cloudflare-api-js"),
 			usage: `import { CloudflareApi } from 'cloudflare-api-js';
 
 const api = new CloudflareApi({ token: '...' });
@@ -53,7 +62,7 @@ const zones = await api.api.zone.zonesGet({});`,
 			name: "Netlify",
 			packageName: "netlify-api",
 			specs: specsOf("netlify-api"),
-			version: versions["netlify-api"],
+			...npmData(stats, "netlify-api"),
 			usage: `import { NetlifyApi } from 'netlify-api';
 
 const api = new NetlifyApi({ token: '...' });
@@ -64,7 +73,7 @@ const sites = await api.api.site.listSites({});`,
 			name: "Keycloak",
 			packageName: "keycloak-api",
 			specs: specsOf("keycloak-api"),
-			version: versions["keycloak-api"],
+			...npmData(stats, "keycloak-api"),
 			usage: `import { KeycloakAdminApi } from 'keycloak-api';
 
 const api = new KeycloakAdminApi({ baseUrl: 'https://keycloak.example.com', token: '...' });
@@ -75,7 +84,7 @@ const realms = await api.request('GET /admin/realms', {});`,
 			name: "Zoom",
 			packageName: "zoom-api-js",
 			specs: specsOf("zoom-api-js"),
-			version: versions["zoom-api-js"],
+			...npmData(stats, "zoom-api-js"),
 			usage: `import { ZoomApi } from 'zoom-api-js';
 
 const api = new ZoomApi({ token: '...' });
@@ -86,7 +95,7 @@ const files = await api.api.archiving.listArchivedFiles({});`,
 			name: "Nuki",
 			packageName: "nuki-api-js",
 			specs: specsOf("nuki-api-js"),
-			version: versions["nuki-api-js"],
+			...npmData(stats, "nuki-api-js"),
 			usage: `import { NukiApi } from 'nuki-api-js';
 
 const api = new NukiApi({ token: '...' });
@@ -97,7 +106,7 @@ const smartLocks = await api.api.smartlock.getSmartlocksResource({});`,
 			name: "LiteLLM",
 			packageName: "litellm-api",
 			specs: specsOf("litellm-api"),
-			version: versions["litellm-api"],
+			...npmData(stats, "litellm-api"),
 			usage: `import { LiteLLMApi } from 'litellm-api';
 
 const api = new LiteLLMApi({ baseUrl: 'http://localhost:4000', token: '...' });
@@ -106,9 +115,9 @@ const routes = await api.request('GET /routes', {});`,
 	] satisfies Provider[];
 
 export default async function HomePage() {
-	// Fetch versions server-side with ISR
-	const versions = await fetchAllPackageVersions();
-	const providers = getProviders(versions);
+	// Fetch npm data server-side with ISR
+	const stats = await fetchAllPackageStats();
+	const providers = getProviders(stats);
 
 	return (
 		<div className="bg-gray-50/50 dark:bg-gray-900/50 text-foreground min-h-screen">
