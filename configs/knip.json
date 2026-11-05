@@ -39,7 +39,13 @@
 			"includeEntryExports": false
 		},
 		"packages/cloudflare-api-js": {
-			"entry": ["src/index.ts", "src/types.ts", "src/components.ts", "kubb.config.ts"],
+			"entry": [
+				"src/index.ts",
+				"src/types.ts",
+				"src/components.ts",
+				"src/effect.ts",
+				"kubb.config.ts"
+			],
 			"project": ["src/**/*.ts"],
 			"includeEntryExports": false
 		},
