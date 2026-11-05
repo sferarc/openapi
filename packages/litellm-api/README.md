@@ -1,5 +1,7 @@
 # litellm-api
 
+Unofficial. Not made or endorsed by LiteLLM.
+
 Auto-generated, fully typed client for the [LiteLLM proxy API](https://docs.litellm.ai/docs/proxy/quick_start).
 
 ## Features

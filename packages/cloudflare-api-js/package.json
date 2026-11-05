@@ -1,7 +1,16 @@
 {
 	"name": "cloudflare-api-js",
 	"version": "4.14.0",
-	"description": "Cloudflare auto-generated type-safe API client",
+	"description": "Unofficial typed TypeScript client for the Cloudflare API, generated from its OpenAPI spec",
+	"keywords": [
+		"cloudflare",
+		"cloudflare-api",
+		"api-client",
+		"sdk",
+		"typescript",
+		"openapi",
+		"rest"
+	],
 	"type": "module",
 	"author": "SferaDev",
 	"license": "ISC",
@@ -13,7 +22,7 @@
 	"bugs": {
 		"url": "https://github.com/sferarc/openapi/issues"
 	},
-	"homepage": "https://github.com/sferarc/openapi/tree/main/packages/cloudflare-api-js#readme",
+	"homepage": "https://openapi.sferadev.com/cloudflare-api-js",
 	"scripts": {
 		"tsc": "tsc --noEmit",
 		"build": "bunchee",

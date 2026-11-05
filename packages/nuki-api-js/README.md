@@ -1,5 +1,7 @@
 # nuki-api-js
 
+Unofficial. Not made or endorsed by Nuki.
+
 Auto-generated, fully typed client for the [Nuki Web API](https://api.nuki.io/).
 
 ## Features

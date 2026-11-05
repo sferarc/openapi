@@ -1,7 +1,17 @@
 {
 	"name": "vercel-api-js",
 	"version": "2.20.0",
-	"description": "Vercel auto-generated type-safe API client",
+	"description": "Unofficial typed TypeScript client for the Vercel REST API, generated from its OpenAPI spec",
+	"keywords": [
+		"vercel",
+		"vercel-api",
+		"api-client",
+		"sdk",
+		"typescript",
+		"openapi",
+		"rest",
+		"effect"
+	],
 	"type": "module",
 	"author": "SferaDev",
 	"license": "ISC",
@@ -13,7 +23,7 @@
 	"bugs": {
 		"url": "https://github.com/sferarc/openapi/issues"
 	},
-	"homepage": "https://github.com/sferarc/openapi/tree/main/packages/vercel-api-js#readme",
+	"homepage": "https://openapi.sferadev.com/vercel-api-js",
 	"scripts": {
 		"tsc": "tsc --noEmit",
 		"build": "bunchee --dts-bundle",

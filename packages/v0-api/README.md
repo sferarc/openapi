@@ -1,5 +1,7 @@
 # v0-api
 
+Unofficial. Not made or endorsed by Vercel.
+
 Auto-generated, fully typed client for the [Vercel v0 API](https://v0.dev/docs/api).
 
 ## Features

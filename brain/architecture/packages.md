@@ -70,6 +70,16 @@ One bullet per behaviour of the hand-written `src/client.ts`; add a new one as i
 
 `@sferadev/openapi-utils` is a devDependency of every client and is bundled into `dist/` rather than resolved at install time (#1, [[decisions/2026-10-08-bundle-openapi-utils]]).
 
+## npm listing
+
+Each client's `package.json` and README are hand-written; the generator writes neither (`packages/openapi-utils/src`, `.github/workflows/scripts/changes.ts`).
+
+- `description` reads `Unofficial typed TypeScript client for the <API>, generated from its OpenAPI spec` (#344).
+- `keywords` name the vendor and `<vendor>-api`, plus `api-client`, `sdk`, `typescript`, `openapi` and `rest`, and `effect` only where the package has an `./effect` entry (#344).
+- `homepage` is the client's page on the site, `https://openapi.sferadev.com/<package name>` ([[website]], #344); before it pointed at the package folder on GitHub.
+- The README's first line under the title says `Unofficial. Not made or endorsed by <vendor>.`, with Vercel as the vendor of `v0-api` (#344).
+- `apps/openapi/src/lib/package-listing.test.ts` checks these against the site's client list ([[development/testing]]).
+
 ## Configs
 
 `configs/tsconfig` is the shared `@sferadev/tsconfig` workspace package. `configs/knip.json` lists entry points per workspace and ignores `src/generated/**`.
