@@ -45259,14 +45259,6 @@ export type DnsSettingsEnforceDnsOnly = boolean;
 export type DnsSettingsFlattenAllCnames = boolean;
 
 /**
- * @description Deprecated. Use nameservers.type to configure Advanced Nameservers.
- * @deprecated
- * @example false
- * @type boolean
- */
-export type DnsSettingsFoundationDns = boolean;
-
-/**
  * @description Settings for this internal zone.
  * @type object
  */
@@ -45376,13 +45368,6 @@ export type DnsSettingsDnsSettingsBase = {
    * @type boolean | undefined
    */
   flatten_all_cnames?: DnsSettingsFlattenAllCnames | undefined;
-  /**
-   * @description Deprecated. Use nameservers.type to configure Advanced Nameservers.
-   * @deprecated
-   * @example false
-   * @type boolean | undefined
-   */
-  foundation_dns?: DnsSettingsFoundationDns | undefined;
   /**
    * @description Settings for this internal zone.
    * @type object | undefined
@@ -45494,13 +45479,6 @@ export type DnsSettingsDnsSettingsResponse = DnsSettingsDnsSettingsBase & {
    * @type boolean
    */
   flatten_all_cnames: DnsSettingsFlattenAllCnames;
-  /**
-   * @description Deprecated. Use nameservers.type to configure Advanced Nameservers.
-   * @deprecated
-   * @example false
-   * @type boolean
-   */
-  foundation_dns: DnsSettingsFoundationDns;
   /**
    * @description Whether to enable multi-provider DNS, which causes Cloudflare to activate the zone even when non-Cloudflare NS records exist, and to respect NS records at the zone apex during outbound zone transfers.
    * @example false
@@ -334873,7 +334851,14 @@ export type DevicesCreateDeviceSettingsPolicyBody = {
    * @type boolean | undefined
    */
   default?: TeamsDevicesDefault | undefined;
-  description?: TeamsDevicesSchemasDescription & string | undefined;
+  /**
+   * @description A description of the policy.
+   * @maxLength 500
+   * @default ''
+   * @example Policy for test teams.
+   * @type string | undefined
+   */
+  description?: string | undefined;
   /**
    * @description If the `dns_server` field of a fallback domain is not present, the client will fall back to a best guess of the default/system DNS resolvers unless this policy option is set to `true`.
    * @default false
