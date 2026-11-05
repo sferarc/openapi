@@ -1,5 +1,11 @@
 # litellm-api
 
+## 2.14.0
+
+### Minor Changes
+
+- 3a20a99: Add a `litellm-api/effect` entry that exposes every operation as an `Effect`, with the proxy's `baseUrl` and token in a `makeApiLayer` layer and HTTP errors typed as `ApiError` with their status.
+
 ## 2.13.0
 
 ### Minor Changes
