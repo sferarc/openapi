@@ -11,6 +11,7 @@ Generated from the OpenAPI spec at <https://docs.litellm.ai/openapi.json>; befor
 - **Fully typed** - every operation, parameter and response is generated from the official OpenAPI spec
 - **Tree-shakable** - only the operations you import end up in your bundle
 - **Runtime agnostic** - uses the global `fetch`, or bring your own implementation
+- **Effect support** - optional [Effect](https://effect.website) bindings via `litellm-api/effect`
 
 ## Installation
 
@@ -92,6 +93,29 @@ An error thrown inside `onResponse` rejects the call with an `Error` whose messa
 
 A call that gets an HTTP error response rejects with an `ApiResponseError`, exported from the package, which extends `Error`: `status` is the HTTP status code, `payload` is the parsed JSON error body, or the raw body text, up to 1000 characters, when it is not JSON, and `method` and `path` name the request, without its query string. Its message reads `<METHOD> <path> returned <status>: <detail>`, where the detail is the API's own error message or else the first 200 characters of the body. A request that gets no response at all, for example because the network failed, rejects with an `Error` whose message names the method, the path and the reason, and whose `cause` is the original exception. A request cancelled through `signal` rejects with what the signal was aborted with, as is: the `AbortError`, or the `TimeoutError` of `AbortSignal.timeout()`.
 
+## Effect
+
+The `effect` entrypoint exposes every operation as an `Effect`. It requires `effect` 4 as a peer dependency. As with the client class, the layer needs the `baseUrl` of your proxy.
+
+```ts
+import { Effect } from "effect";
+import { ApiService, makeApiLayer } from "litellm-api/effect";
+
+const program = ApiService.default.getRoutesRoutesGet();
+
+await Effect.runPromise(
+  program.pipe(
+    Effect.provide(
+      makeApiLayer({ baseUrl: "http://localhost:4000", token: process.env.LITELLM_MASTER_KEY })
+    )
+  )
+);
+```
+
+Errors are typed as `ApiError`, `NetworkError` and `ValidationError`. An HTTP error response fails with `ApiError`, which carries the HTTP `status`; a request that never gets a response fails with `NetworkError`.
+
+A call can pass its own `config`, which layers over the layer's: its `headers` join the layer's, and its other fields, such as `onResponse`, replace them. An `onResponse` that throws makes the effect die with the `onResponse threw on` error as a defect rather than fail with `NetworkError`.
+
 ## Entrypoints
 
 | Import | Contents |
@@ -100,6 +124,7 @@ A call that gets an HTTP error response rejects with an `ApiResponseError`, expo
 | `litellm-api/components` | operations grouped by tag and by path |
 | `litellm-api/schemas` | Zod schemas for every operation |
 | `litellm-api/types` | TypeScript types for every operation |
+| `litellm-api/effect` | Effect bindings |
 
 ## License
 
