@@ -1,5 +1,11 @@
 # vercel-api-js
 
+## 2.20.1
+
+### Patch Changes
+
+- c2120d7: Add npm keywords, describe the package as an unofficial client generated from the vendor's OpenAPI spec, say it is unofficial under the README title, and point the homepage at the client's page on openapi.sferadev.com.
+
 ## 2.20.0
 
 ### Minor Changes
