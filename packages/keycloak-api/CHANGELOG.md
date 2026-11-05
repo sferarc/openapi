@@ -1,5 +1,11 @@
 # keycloak-api
 
+## 3.6.0
+
+### Minor Changes
+
+- 1d32ef4: Add a `keycloak-api/effect` entry that exposes every Admin API operation as an `Effect`, by tag in `AdminApiService` and by path in `adminEffectByPath`, with the server's `baseUrl` and a fixed or refreshed token in a `makeApiLayer` layer and HTTP errors typed as `ApiError` with their status.
+
 ## 3.5.1
 
 ### Patch Changes
