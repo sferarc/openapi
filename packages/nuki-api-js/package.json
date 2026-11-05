@@ -1,6 +1,6 @@
 {
 	"name": "nuki-api-js",
-	"version": "3.4.1",
+	"version": "3.5.0",
 	"description": "Unofficial typed TypeScript client for the Nuki Web API, generated from its OpenAPI spec",
 	"keywords": [
 		"nuki",
