@@ -9,7 +9,8 @@
 		"sdk",
 		"typescript",
 		"openapi",
-		"rest"
+		"rest",
+		"effect"
 	],
 	"type": "module",
 	"author": "SferaDev",
@@ -25,7 +26,7 @@
 	"homepage": "https://openapi.sferadev.com/cloudflare-api-js",
 	"scripts": {
 		"tsc": "tsc --noEmit",
-		"build": "bunchee",
+		"build": "bunchee --dts-bundle",
 		"generate": "rimraf ./src/generated && kubb generate",
 		"is-tree-shakable": "is-tree-shakable",
 		"test": "vitest run"
@@ -33,6 +34,7 @@
 	"dependencies": {},
 	"devDependencies": {
 		"kubb": "catalog:",
+		"effect": "catalog:",
 		"@sferadev/openapi-utils": "workspace:*",
 		"@sferadev/tsconfig": "workspace:*",
 		"@types/node": "catalog:",
@@ -42,6 +44,14 @@
 		"rimraf": "catalog:",
 		"typescript": "catalog:",
 		"vitest": "catalog:"
+	},
+	"peerDependencies": {
+		"effect": "^4.0.0"
+	},
+	"peerDependenciesMeta": {
+		"effect": {
+			"optional": true
+		}
 	},
 	"files": [
 		"dist",
@@ -82,6 +92,16 @@
 				"types": "./dist/components.d.cts",
 				"default": "./dist/components.cjs"
 			}
+		},
+		"./effect": {
+			"import": {
+				"types": "./dist/effect.d.mts",
+				"default": "./dist/effect.mjs"
+			},
+			"require": {
+				"types": "./dist/effect.d.cts",
+				"default": "./dist/effect.cjs"
+			}
 		}
 	},
 	"typesVersions": {
@@ -91,6 +111,9 @@
 			],
 			"components": [
 				"./dist/components.d.cts"
+			],
+			"effect": [
+				"./dist/effect.d.cts"
 			]
 		}
 	},
