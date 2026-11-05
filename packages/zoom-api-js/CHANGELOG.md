@@ -1,5 +1,11 @@
 # zoom-api-js
 
+## 3.7.0
+
+### Minor Changes
+
+- 8870d15: The Effect `makeApiLayer` takes `token` as a function, sync or async, asked for the current token before every call, so a refreshed token needs no new layer. What the function throws fails the effect like a failed request.
+
 ## 3.6.1
 
 ### Patch Changes
