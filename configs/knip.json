@@ -100,6 +100,7 @@
 				"src/types.ts",
 				"src/schemas.ts",
 				"src/components.ts",
+				"src/effect.ts",
 				"kubb.config.ts"
 			],
 			"project": ["src/**/*.ts"],
