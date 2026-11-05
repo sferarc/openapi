@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
+import { clientClasses, constructorOptions } from "./client-options";
 
 // The root `pnpm test` runs this from the repository root.
 const root = process.cwd();
@@ -47,6 +48,27 @@ describe("context7.json", () => {
 	it("stays within the Context7 length limits", () => {
 		expect(config.projectTitle.length).toBeLessThanOrEqual(100);
 		expect(config.description.length).toBeLessThanOrEqual(500);
+		for (const rule of config.rules) expect(rule.length).toBeLessThanOrEqual(500);
+	});
+
+	// An agent following the token rule should build a client that type checks.
+	it.each(clients)("names every required constructor option of %s besides token", (pkg) => {
+		const tokenRule = config.rules.find((rule) => rule.includes("token constructor option"));
+		expect(tokenRule).toBeDefined();
+		const sentences = (tokenRule ?? "").split(/[.;]\s/);
+		for (const className of clientClasses(root, pkg)) {
+			const required = [...constructorOptions(root, pkg, className)]
+				.filter(([name, optional]) => !optional && name !== "token")
+				.map(([name]) => name);
+			for (const option of required) {
+				const named = sentences.some(
+					(sentence) =>
+						new RegExp(`\\b${className}\\b`).test(sentence) &&
+						new RegExp(`\\b${option}\\b`).test(sentence),
+				);
+				expect(named, `${className} ${option}`).toBe(true);
+			}
+		}
 	});
 
 	it.each(clients)("indexes the README and OPERATIONS.md of %s", (pkg) => {
