@@ -9,18 +9,18 @@ Each package is generated from the vendor's published OpenAPI spec and regenerat
 
 ## Pick the client
 
-| API | Package | Class | Auth option | Env var in the READMEs | Effect |
-| --- | --- | --- | --- | --- | --- |
-| Vercel | `vercel-api-js` | `VercelApi` | `token` | `VERCEL_TOKEN` | yes |
-| Cloudflare | `cloudflare-api-js` | `CloudflareApi` | `token`, or `apiKey` plus `email` | `CLOUDFLARE_TOKEN` | no |
-| Netlify | `netlify-api` | `NetlifyApi` | `token` | `NETLIFY_TOKEN` | yes |
-| Keycloak | `keycloak-api` | `KeycloakAdminApi`, `KeycloakAccountApi` | `token` (string or function), `baseUrl` required | `KEYCLOAK_TOKEN` | no |
-| Zoom | `zoom-api-js` | `ZoomApi` | `token` (string or function) | `ZOOM_TOKEN` | yes |
-| Nuki | `nuki-api-js` | `NukiApi` | `token` | `NUKI_TOKEN` | yes |
-| LiteLLM | `litellm-api` | `LiteLLMApi` | `token`, `baseUrl` required | `LITELLM_MASTER_KEY` | no |
-| v0 | `v0-api` | `V0Api` | `token` | `V0_API_KEY` | yes |
+| API | Package | Class | Required options | Constructor `baseUrl` | Env var in the READMEs | Effect |
+| --- | --- | --- | --- | --- | --- | --- |
+| Vercel | `vercel-api-js` | `VercelApi` | `token` | optional | `VERCEL_TOKEN` | yes |
+| Cloudflare | `cloudflare-api-js` | `CloudflareApi` | `token`, or `apiKey` plus `email` | optional | `CLOUDFLARE_TOKEN` | no |
+| Netlify | `netlify-api` | `NetlifyApi` | `token` | none | `NETLIFY_TOKEN` | yes |
+| Keycloak | `keycloak-api` | `KeycloakAdminApi`, `KeycloakAccountApi` | `token` (string or function), `baseUrl`, and `realm` for `KeycloakAccountApi` | required | `KEYCLOAK_TOKEN` | no |
+| Zoom | `zoom-api-js` | `ZoomApi` | `token` (string or function) | optional | `ZOOM_TOKEN` | yes |
+| Nuki | `nuki-api-js` | `NukiApi` | `token` | optional | `NUKI_TOKEN` | yes |
+| LiteLLM | `litellm-api` | `LiteLLMApi` | `token`, `baseUrl` | required | `LITELLM_MASTER_KEY` | no |
+| v0 | `v0-api` | `V0Api` | `token` | optional | `V0_API_KEY` | yes |
 
-Install only the one you need, for example `npm install vercel-api-js`. Read the token from the environment; never hard code it. Cloudflare's Global API Key goes in `apiKey` with the account's `email`, and only some operations need it. Keycloak and Zoom tokens expire, so pass `token` a function (sync or async) that returns a fresh one; it runs before every request. Keycloak and LiteLLM are self-hosted, so their constructors need the server's `baseUrl`; the others take one only for a proxy.
+Install only the one you need, for example `npm install vercel-api-js`. Read the token from the environment; never hard code it. Cloudflare's Global API Key goes in `apiKey` with the account's `email`, and only some operations need it. Keycloak and Zoom tokens expire, so pass `token` a function (sync or async) that returns a fresh one; it runs before every request. Keycloak and LiteLLM are self-hosted, so their constructors need the server's `baseUrl`. The other constructors default to the vendor's host and take a `baseUrl` only for a proxy, except Netlify's: its host is fixed, and its optional `basePath` (`/api/v1` by default) is only the path prefix. A Netlify host override goes in a call's `config: { baseUrl }` or in `makeApiLayer`. `KeycloakAccountApi` is scoped to the one `realm` it is built with.
 
 ## Find the operation
 
@@ -95,7 +95,7 @@ if (isJsonLineStream(logs)) {
 }
 ```
 
-Server-Sent Events in `v0-api` (`chatsResume`, and `chatsCreate` or `chatsSendMessage` with `responseMode: "experimental_stream"`) resolve to the raw text unless `config` sets `eventStream: "stream"`:
+Server-Sent Events in `v0-api` (`chatsResume`, and `chatsCreate`, `chatsSendMessage` or `chatsResolveTask` with `responseMode: "experimental_stream"`) resolve to the raw text unless `config` sets `eventStream: "stream"`:
 
 ```ts
 import { isEventStream, V0Api } from "v0-api";

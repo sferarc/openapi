@@ -36,6 +36,48 @@ function sourcePaths(): Record<string, string[]> {
 	return paths;
 }
 
+type ClientRow = { pkg: string; classes: string[]; required: string[]; baseUrl: string };
+
+function clientRows(markdown: string): ClientRow[] {
+	const table = markdown.split("## Pick the client")[1]?.split("\n\n")[1] ?? "";
+	return table
+		.split("\n")
+		.slice(2)
+		.map((line) => {
+			const [, pkg = "", classes = "", required = "", baseUrl = ""] = line
+				.split("|")
+				.slice(1)
+				.map((cell) => cell.trim());
+			const names = (cell: string) =>
+				[...cell.matchAll(/`([^`]+)`/g)].map(([, name]) => name ?? "");
+			return {
+				pkg: names(pkg)[0] ?? "",
+				classes: names(classes),
+				required: names(required),
+				baseUrl,
+			};
+		});
+}
+
+// The properties of a class's constructor options type, with whether each is optional.
+function constructorOptions(pkg: string, className: string): Map<string, boolean> {
+	const source = readFileSync(path.join(root, "packages", pkg, "src/client.ts"), "utf8");
+	const classBody = source.split(`export class ${className} {`)[1] ?? "";
+	const typeName = classBody.match(/constructor\(options: (\w+)\)/)?.[1];
+	const declaration = source
+		.split(new RegExp(`export (?:interface|type) ${typeName}\\b`))[1]
+		?.split(/\n(?:\}|\);)\n/)[0];
+	if (!typeName || !declaration)
+		throw new Error(`No constructor options for ${className} in ${pkg}`);
+	const withoutComments = declaration.replace(/\/\*[\s\S]*?\*\//g, "");
+	return new Map(
+		[...withoutComments.matchAll(/(\w+)(\??):/g)].map(([, name, optional]) => [
+			name ?? "",
+			optional === "?",
+		]),
+	);
+}
+
 describe("openapi-clients skill", () => {
 	const skill = readFileSync(skillPath, "utf8");
 	const snippets = extractSnippets(skill);
@@ -48,6 +90,36 @@ describe("openapi-clients skill", () => {
 			/^---\nname: openapi-clients\ndescription: Use when calling the .+\n---\n/,
 		);
 		expect(skill.split("\n").length).toBeLessThan(150);
+	});
+
+	it("lists every client package", () => {
+		const packages = readdirSync(path.join(root, "packages"), { withFileTypes: true })
+			.filter((entry) => entry.isDirectory() && entry.name !== "openapi-utils")
+			.map((entry) => entry.name);
+		expect(
+			clientRows(skill)
+				.map(({ pkg }) => pkg)
+				.sort(),
+		).toEqual(packages.sort());
+	});
+
+	it("names each constructor's required options and whether it takes a baseUrl", () => {
+		for (const { pkg, classes, required, baseUrl } of clientRows(skill)) {
+			const options = classes.map((className) => constructorOptions(pkg, className));
+			const known = new Set(options.flatMap((props) => [...props.keys()]));
+			for (const props of options) {
+				const requiredProps = [...props].filter(([, optional]) => !optional).map(([name]) => name);
+				expect(required, pkg).toEqual(expect.arrayContaining(requiredProps));
+			}
+			expect(
+				required.filter((name) => !classes.includes(name) && !known.has(name)),
+				pkg,
+			).toEqual([]);
+			const baseUrlKinds = options.map((props) =>
+				!props.has("baseUrl") ? "none" : props.get("baseUrl") ? "optional" : "required",
+			);
+			expect(new Set(baseUrlKinds), pkg).toEqual(new Set([baseUrl]));
+		}
 	});
 
 	it("type checks every TypeScript sample against the client sources", () => {

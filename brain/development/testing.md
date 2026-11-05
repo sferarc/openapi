@@ -110,6 +110,8 @@ Run alone with `pnpm turbo run test --filter=@sferadev/openapi-utils`.
 
 `.github/workflows/scripts/skill-snippets.test.ts` checks that `skills/openapi-clients/SKILL.md` starts with its `name` and a `description` that says when to use it, stays under 150 lines, and that every `ts` code block type checks (#355). It writes each block to a temporary directory and runs the root `tsc` over them with `paths` pointing every client and `@sferadev/openapi-utils` at their `src`, and `effect` at the declarations of the copy `packages/openapi-utils` resolves, so it needs no build ([[architecture/agent-skill]]). A sample that uses another bare import needs a `paths` entry there.
 
+The same file checks the "Pick the client" table against `packages/*/src/client.ts`: it lists every client package, its "Required options" column names every required constructor option of each class and none the class lacks, and its "Constructor `baseUrl`" column says `required`, `optional` or `none` as the options type declares it (#379).
+
 ## What is not tested
 
 Beyond those tests, the checks on the clients are type-level and structural: `pnpm tsc` over the generated code and the hand-written client, `knip` for unused exports and dependencies, and `is-tree-shakable` on each built package ([[toolchain]]).
