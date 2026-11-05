@@ -32,10 +32,18 @@ export function specLinks(client: Client): ClientLink[] {
 	return client.sources.map((source) => ({ label: source.specLabel, href: source.specUrl }));
 }
 
+export function npmUrl(client: Client): string {
+	return `https://www.npmjs.com/package/${client.packageName}`;
+}
+
+export function sourceUrl(client: Client): string {
+	return `${repoTree}/${client.packageName}`;
+}
+
 export function clientLinks(client: Client): ClientLink[] {
 	return [
-		{ label: "npm", href: `https://www.npmjs.com/package/${client.packageName}` },
-		{ label: "Source", href: `${repoTree}/${client.packageName}` },
+		{ label: "npm", href: npmUrl(client) },
+		{ label: "Source", href: sourceUrl(client) },
 		{ label: "Changelog", href: `${repoBlob}/${client.packageName}/CHANGELOG.md` },
 		...specLinks(client),
 	];

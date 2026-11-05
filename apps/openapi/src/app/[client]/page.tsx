@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CodeBlock } from "@/components/code-block";
+import { JsonLd } from "@/components/json-ld";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -14,6 +15,7 @@ import {
 import { clients } from "@/lib/clients";
 import { fetchPackageInfo } from "@/lib/npm";
 import { quickStartExamples, readReadme } from "@/lib/readme";
+import { softwareSourceCode } from "@/lib/structured-data";
 
 // ISR: Revalidate every 6 hours, like the home page
 export const revalidate = 21600;
@@ -41,6 +43,7 @@ export default async function ClientPage({ params }: PageProps<"/[client]">) {
 
 	return (
 		<div className="bg-gray-50/50 dark:bg-gray-900/50 text-foreground min-h-screen">
+			<JsonLd data={softwareSourceCode(client, version)} />
 			<div className="container mx-auto px-4 py-12 max-w-4xl">
 				<nav className="mb-8 text-sm">
 					<Link href="/" className="text-muted-foreground underline hover:text-foreground">
