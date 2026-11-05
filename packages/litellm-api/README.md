@@ -4,6 +4,8 @@ Unofficial. Not made or endorsed by LiteLLM.
 
 Auto-generated, fully typed client for the [LiteLLM proxy API](https://docs.litellm.ai/docs/proxy/quick_start).
 
+Generated from the OpenAPI spec at <https://docs.litellm.ai/openapi.json>; before generating, [`kubb.config.ts`](https://github.com/sferarc/openapi/blob/main/packages/litellm-api/kubb.config.ts) drops the pass-through provider routes, moves `$defs` into components, renames duplicated operation IDs and tags, types empty JSON responses as open objects and types the model info response.
+
 ## Features
 
 - **Fully typed** - every operation, parameter and response is generated from the official OpenAPI spec

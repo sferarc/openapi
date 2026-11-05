@@ -4,6 +4,8 @@ Unofficial. Not made or endorsed by Keycloak.
 
 Auto-generated, fully typed client for the [Keycloak Admin and Account REST APIs](https://www.keycloak.org/docs-api/latest/rest-api/index.html).
 
+Generated from the admin OpenAPI spec at <https://www.keycloak.org/docs-api/latest/rest-api/openapi.json> and the account spec kept in this repository at <https://raw.githubusercontent.com/sferarc/openapi/main/packages/keycloak-api/specs/account.yaml>; before generating, [`kubb.config.ts`](https://github.com/sferarc/openapi/blob/main/packages/keycloak-api/kubb.config.ts) renames operation IDs, camel-cases path parameters, sends raw string bodies unquoted and types the workflow resource path parameter as its enum.
+
 ## Features
 
 - **Fully typed** - every endpoint, parameter and response is generated from the official OpenAPI specs

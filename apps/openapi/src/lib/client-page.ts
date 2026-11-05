@@ -23,11 +23,21 @@ export function clientDescription(client: Client): string {
 	return `Unofficial, fully typed TypeScript client for the ${client.api}, generated from its OpenAPI spec and published to npm as ${client.packageName}.`;
 }
 
-export function clientLinks(client: Client): { label: string; href: string }[] {
+export interface ClientLink {
+	label: string;
+	href: string;
+}
+
+export function specLinks(client: Client): ClientLink[] {
+	return client.sources.map((source) => ({ label: source.specLabel, href: source.specUrl }));
+}
+
+export function clientLinks(client: Client): ClientLink[] {
 	return [
 		{ label: "npm", href: `https://www.npmjs.com/package/${client.packageName}` },
 		{ label: "Source", href: `${repoTree}/${client.packageName}` },
 		{ label: "Changelog", href: `${repoBlob}/${client.packageName}/CHANGELOG.md` },
+		...specLinks(client),
 	];
 }
 

@@ -10,10 +10,11 @@ export interface Client {
 export interface ClientSource {
 	operationsDoc: string;
 	specUrl: string;
+	specLabel: string;
 }
 
 function generatedFrom(specUrl: string): ClientSource[] {
-	return [{ operationsDoc: "src/generated/OPERATIONS.md", specUrl }];
+	return [{ operationsDoc: "src/generated/OPERATIONS.md", specUrl, specLabel: "OpenAPI spec" }];
 }
 
 export const clients: Client[] = [
@@ -49,11 +50,13 @@ export const clients: Client[] = [
 			{
 				operationsDoc: "src/admin/generated/OPERATIONS.md",
 				specUrl: "https://www.keycloak.org/docs-api/latest/rest-api/openapi.json",
+				specLabel: "Admin OpenAPI spec",
 			},
 			{
 				operationsDoc: "src/account/generated/OPERATIONS.md",
 				specUrl:
 					"https://raw.githubusercontent.com/sferarc/openapi/main/packages/keycloak-api/specs/account.yaml",
+				specLabel: "Account OpenAPI spec",
 			},
 		],
 	},

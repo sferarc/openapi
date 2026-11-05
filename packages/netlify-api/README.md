@@ -4,6 +4,8 @@ Unofficial. Not made or endorsed by Netlify.
 
 Auto-generated, fully typed client for the [Netlify API](https://docs.netlify.com/api/get-started/).
 
+Generated from the OpenAPI spec at <https://open-api.netlify.com/swagger.json>; before generating, [`kubb.config.ts`](https://github.com/sferarc/openapi/blob/main/packages/netlify-api/kubb.config.ts) renames identifiers that are reserved words and drops the `/api/v1` prefix a path repeats from the base path.
+
 ## Features
 
 - **Fully typed** - every operation, parameter and response is generated from the official OpenAPI spec

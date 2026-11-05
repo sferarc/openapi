@@ -4,6 +4,8 @@ Unofficial. Not made or endorsed by Vercel.
 
 Auto-generated, fully typed client for the [Vercel v0 API](https://v0.dev/docs/api).
 
+Generated from the OpenAPI spec at <https://api.v0.dev/v1/openapi.json>; before generating, [`kubb.config.ts`](https://github.com/sferarc/openapi/blob/main/packages/v0-api/kubb.config.ts) adds missing path parameters, renames operation IDs, drops HEAD operations, and fixes untyped arrays and union constraints.
+
 ## Features
 
 - **Fully typed** - every operation, parameter and response is generated from the official OpenAPI spec
