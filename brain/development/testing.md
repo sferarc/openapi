@@ -112,6 +112,10 @@ Run alone with `pnpm turbo run test --filter=@sferadev/openapi-utils`.
 
 The same file checks the "Pick the client" table against `packages/*/src/client.ts`: it lists every client package, its "Required options" column names every required constructor option of each class and none the class lacks, and its "Constructor `baseUrl`" column says `required`, `optional` or `none` as the options type declares it (#379).
 
+## Context7 config
+
+`.github/workflows/scripts/context7.test.ts` checks that `context7.json` keeps the title and description within Context7's length limits, names every client package in the description, indexes every client's `README.md` and each of its `OPERATIONS.md` files, leaves out changelogs, `packages/openapi-utils`, `apps`, `brain` and every root-level markdown file but `README.md` (today `CLAUDE.md` and `AGENTS.md`), and says the clients are unofficial (#354, [[architecture/context7]]). Its folder matching is a simplified copy of Context7's: a bare name matches any directory, a path matches from the root, globs are not supported, and it treats a root-level markdown file as read unless `excludeFiles` names it.
+
 ## What is not tested
 
 Beyond those tests, the checks on the clients are type-level and structural: `pnpm tsc` over the generated code and the hand-written client, `knip` for unused exports and dependencies, and `is-tree-shakable` on each built package ([[toolchain]]).
