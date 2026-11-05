@@ -1,5 +1,17 @@
 # cloudflare-api-js
 
+## 4.15.0
+
+### Minor Changes
+
+- 781c21b: An HTTP error response now rejects with an exported `ApiResponseError`, which extends `Error` and keeps `status` and `payload` as before, adds `method` and `path`, and has a message such as `GET /v9/projects returned 403: Not authorized`, so a logged failure names the call and its status. `instanceof Error` is now true for these rejections. The path has its parameters filled in, so the message carries their values. In the Effect bindings an error body with no `message`, `error` or `errors`, such as `{}`, now gives `ApiError.message` as `API error 429: GET /x returned 429: {}` instead of `API Error: 429`.
+
+### Patch Changes
+
+- 657d8cd: Improved documentation for the accessUserPopulationsListUserPopulations operation to specify permission requirements.
+- 657d8cd: Added details to the AccessOidc and AccessOidc2 types that updates changing the token_endpoint's origin require client_secret.
+- 657d8cd: Expanded the value property type in AccessScimPatchRequest type to support arrays of string, boolean, number, or object.
+
 ## 4.14.1
 
 ### Patch Changes
