@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { HeroHeader } from "@/components/hero-header";
+import { JsonLd } from "@/components/json-ld";
 import { UnifiedProviderInterface } from "@/components/provider-card";
 import { type ClientLink, findClient, specLinks } from "@/lib/client-page";
 import { fetchAllPackageStats, type PackageStats } from "@/lib/npm";
+import { allClientsSoftwareSourceCode } from "@/lib/structured-data";
 import type { Provider } from "@/lib/types";
 
 // ISR: Revalidate every 6 hours
@@ -121,6 +123,9 @@ export default async function HomePage() {
 
 	return (
 		<div className="bg-gray-50/50 dark:bg-gray-900/50 text-foreground min-h-screen">
+			{allClientsSoftwareSourceCode(stats).map((data) => (
+				<JsonLd key={data.name} data={data} />
+			))}
 			<HeroHeader />
 
 			<div className="container mx-auto px-4 py-8 max-w-7xl">
