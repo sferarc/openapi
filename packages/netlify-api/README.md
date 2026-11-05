@@ -85,14 +85,16 @@ An error thrown inside `onResponse` rejects the call with an `Error` whose messa
 
 ### Errors
 
-A request that gets an HTTP error response rejects with `{ status, payload }`: `status` is the HTTP status code and `payload` is the parsed error body, or the raw body text, up to 1000 characters, when it is not JSON. A request that never gets a response rejects with an `Error` whose message names the method, the path and the reason, and whose `cause` is the original exception. A request cancelled through `signal` rejects with what the signal was aborted with, as is: the `AbortError`, or the `TimeoutError` of `AbortSignal.timeout()`.
+A request that gets an HTTP error response rejects with an `ApiResponseError`, exported from the package, which extends `Error`: `status` is the HTTP status code, `payload` is the parsed error body, or the raw body text, up to 1000 characters, when it is not JSON, and `method` and `path` name the request, without its query string. Its message reads `<METHOD> <path> returned <status>: <detail>`, where the detail is the API's own error message or else the first 200 characters of the body. A request that never gets a response rejects with an `Error` whose message names the method, the path and the reason, and whose `cause` is the original exception. A request cancelled through `signal` rejects with what the signal was aborted with, as is: the `AbortError`, or the `TimeoutError` of `AbortSignal.timeout()`.
 
 ```ts
+import { ApiResponseError } from "netlify-api";
+
 try {
   await client.api.site.getSite({ pathParams: { site_id: "missing" } });
 } catch (error) {
-  if (typeof error === "object" && error !== null && "status" in error && "payload" in error) {
-    console.error(error.status, error.payload);
+  if (error instanceof ApiResponseError) {
+    console.error(error.message, error.status, error.payload);
   }
 }
 ```

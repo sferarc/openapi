@@ -22,7 +22,7 @@ export type ResponseInfo = { status: number; headers: { get(name: string): strin
 // A custom fetch may return a response without headers.
 const noHeaders: ResponseInfo["headers"] = { get: () => null };
 
-/** What a failed request rejects with: the HTTP status and the parsed error body, or the raw body text, truncated, when it is not JSON. */
+/** The HTTP status and error body of a failed request, which `ApiResponseError` carries. */
 export type ErrorWrapper<TError> = { status: number; payload: TError | string };
 
 export type FetcherOptions<TBody, THeaders, TQueryParams, TPathParams> = {
@@ -109,8 +109,50 @@ async function* readEvents(body: ReadableStream<Uint8Array>): AsyncGenerator<Ser
 	}
 }
 
-class ResponseError {
-	constructor(readonly error: ErrorWrapper<unknown>) {}
+const maxErrorMessageLength = 200;
+
+// Error bodies vary by API: `{ message }`, `{ error: { message } }`, `{ errors: [{ message }] }`, `{ error_description }`, `{ detail }` or text.
+const vendorMessage = (value: unknown): string | undefined => {
+	if (typeof value === "string") return value.trim() || undefined;
+	if (Array.isArray(value)) return vendorMessage(value[0]);
+	if (typeof value !== "object" || value === null) return undefined;
+	const fields = new Map(Object.entries(value));
+	for (const field of [
+		"message",
+		"error_description",
+		"errorMessage",
+		"detail",
+		"msg",
+		"error",
+		"errors",
+	]) {
+		const found = vendorMessage(fields.get(field));
+		if (found) return found;
+	}
+	return undefined;
+};
+
+const describeResponseError = (method: string, path: string, status: number, payload: unknown) => {
+	const detail =
+		vendorMessage(payload) ??
+		(typeof payload === "object" && payload !== null ? JSON.stringify(payload) : "");
+	const summary = detail.slice(0, maxErrorMessageLength);
+	return `${method} ${path} returned ${status}${summary ? `: ${summary}` : ""}`;
+};
+
+/** What a failed request rejects with: an `Error` naming the request that keeps the HTTP status and the parsed error body, or the raw body text, truncated, when it is not JSON. */
+export class ApiResponseError<TError = unknown> extends Error implements ErrorWrapper<TError> {
+	override readonly name = "ApiResponseError";
+
+	constructor(
+		readonly method: string,
+		/** The operation path without the query string, which can carry secrets. */
+		readonly path: string,
+		readonly status: number,
+		readonly payload: TError | string,
+	) {
+		super(describeResponseError(method, path, status, payload));
+	}
 }
 
 // What the caller's onResponse threw, kept apart from a failed request.
@@ -188,7 +230,12 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 			} catch {
 				payload = text.slice(0, maxErrorBodyLength);
 			}
-			throw new ResponseError({ status: response.status, payload });
+			throw new ApiResponseError<TError>(
+				method.toUpperCase(),
+				url.split("?")[0] ?? url,
+				response.status,
+				payload,
+			);
 		}
 
 		const contentType = response.headers?.get("content-type") ?? "";
@@ -210,7 +257,7 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 		return text as unknown as TData;
 	} catch (e) {
 		// Rethrown as is so the HTTP status survives; the Effect bindings map it to ApiError.
-		if (e instanceof ResponseError) throw e.error;
+		if (e instanceof ApiResponseError) throw e;
 		// Only the path: query values can carry secrets.
 		const request = `${method.toUpperCase()} ${url.split("?")[0]}`;
 		if (e instanceof ResponseHookError) {

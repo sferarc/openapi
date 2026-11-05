@@ -8,6 +8,7 @@ export * from "./generated/schemas";
 export * from "./generated/types";
 export type { FetchImpl } from "./utils/fetch";
 export {
+	ApiResponseError,
 	type FetcherConfig,
 	isEventStream,
 	type ResponseInfo,

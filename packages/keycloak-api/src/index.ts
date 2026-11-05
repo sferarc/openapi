@@ -13,4 +13,4 @@ export {
 export * as adminSchemas from "./admin/generated/schemas";
 export * as adminTypes from "./admin/generated/types";
 export * from "./client";
-export type { ResponseInfo } from "./utils/fetcher";
+export { ApiResponseError, type ResponseInfo } from "./utils/fetcher";

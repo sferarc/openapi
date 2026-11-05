@@ -132,7 +132,7 @@ describe("NetlifyApi.auth.refreshToken", () => {
 		const { fetch } = recordFetch(401, { error: "invalid_grant" });
 		const client = new NetlifyApi({ token: "client-token", fetch });
 
-		await expect(client.auth.refreshToken(options)).rejects.toEqual({
+		await expect(client.auth.refreshToken(options)).rejects.toMatchObject({
 			status: 401,
 			payload: { error: "invalid_grant" },
 		});
