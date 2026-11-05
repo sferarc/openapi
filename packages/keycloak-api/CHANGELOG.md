@@ -1,5 +1,11 @@
 # keycloak-api
 
+## 3.5.1
+
+### Patch Changes
+
+- 25631b0: keycloak-api-mcp shares one client credentials token request between parallel tool calls, and reuses a token whose `expires_in` is 30 seconds or less instead of minting one per call.
+
 ## 3.5.0
 
 ### Minor Changes
