@@ -1586,8 +1586,8 @@ export type Restlet = {
 	owner?: string | undefined;
 	started?: boolean | undefined;
 	logger?: Logger | undefined;
-	stopped?: boolean | undefined;
 	application?: Application | undefined;
+	stopped?: boolean | undefined;
 };
 
 export type Parameter = {
@@ -1648,59 +1648,6 @@ export type ConverterService = {
 	stopped?: boolean | undefined;
 };
 
-export type Protocol = {
-	confidential?: boolean | undefined;
-	/**
-	 * @description
-	 * Format: `int32`
-	 * @type integer | undefined
-	 */
-	defaultPort?: number | undefined;
-	description?: string | undefined;
-	name?: string | undefined;
-	schemeName?: string | undefined;
-	technicalName?: string | undefined;
-	version?: string | undefined;
-};
-
-export type Reference = {
-	baseRef?: Reference | undefined;
-	absolute?: boolean | undefined;
-	scheme?: string | undefined;
-	opaque?: boolean | undefined;
-	authority?: string | undefined;
-	relative?: boolean | undefined;
-	query?: string | undefined;
-	path?: string | undefined;
-	userInfo?: string | undefined;
-	schemeSpecificPart?: string | undefined;
-	fragment?: string | undefined;
-	extensions?: string | undefined;
-	identifier?: string | undefined;
-	matrix?: string | undefined;
-	matrixAsForm?: Parameter[] | undefined;
-	queryAsForm?: Parameter[] | undefined;
-	extensionsAsArray?: string[] | undefined;
-	hierarchicalPart?: string | undefined;
-	hostDomain?: string | undefined;
-	hostIdentifier?: string | undefined;
-	/**
-	 * @description
-	 * Format: `int32`
-	 * @type integer | undefined
-	 */
-	hostPort?: number | undefined;
-	lastSegment?: string | undefined;
-	parentRef?: Reference | undefined;
-	relativePart?: string | undefined;
-	relativeRef?: Reference | undefined;
-	remainingPart?: string | undefined;
-	schemeProtocol?: Protocol | undefined;
-	segments?: string[] | undefined;
-	targetRef?: Reference | undefined;
-	hierarchical?: boolean | undefined;
-};
-
 export type Metadata = {
 	description?: string | undefined;
 	name?: string | undefined;
@@ -1746,11 +1693,86 @@ export type MetadataService = {
 	defaultLanguage?: Language | undefined;
 	defaultMediaType?: MediaType | undefined;
 	allEncodingExtensionNames?: string[] | undefined;
+	allCharacterSetExtensionNames?: string[] | undefined;
 	allExtensionNames?: string[] | undefined;
 	allLanguageExtensionNames?: string[] | undefined;
 	allMediaTypeExtensionNames?: string[] | undefined;
-	allCharacterSetExtensionNames?: string[] | undefined;
 	stopped?: boolean | undefined;
+};
+
+export type EncoderService = {
+	context?: Context | undefined;
+	enabled?: boolean | undefined;
+	started?: boolean | undefined;
+	acceptedMediaTypes?: MediaType[] | undefined;
+	ignoredMediaTypes?: MediaType[] | undefined;
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	minimumSize?: number | undefined;
+	stopped?: boolean | undefined;
+};
+
+export type RangeService = {
+	context?: Context | undefined;
+	enabled?: boolean | undefined;
+	started?: boolean | undefined;
+	stopped?: boolean | undefined;
+};
+
+export type Protocol = {
+	confidential?: boolean | undefined;
+	/**
+	 * @description
+	 * Format: `int32`
+	 * @type integer | undefined
+	 */
+	defaultPort?: number | undefined;
+	description?: string | undefined;
+	name?: string | undefined;
+	schemeName?: string | undefined;
+	technicalName?: string | undefined;
+	version?: string | undefined;
+};
+
+export type Reference = {
+	baseRef?: Reference | undefined;
+	absolute?: boolean | undefined;
+	scheme?: string | undefined;
+	opaque?: boolean | undefined;
+	authority?: string | undefined;
+	relative?: boolean | undefined;
+	query?: string | undefined;
+	path?: string | undefined;
+	userInfo?: string | undefined;
+	schemeSpecificPart?: string | undefined;
+	fragment?: string | undefined;
+	extensions?: string | undefined;
+	extensionsAsArray?: string[] | undefined;
+	hierarchicalPart?: string | undefined;
+	hostDomain?: string | undefined;
+	hostIdentifier?: string | undefined;
+	/**
+	 * @description
+	 * Format: `int32`
+	 * @type integer | undefined
+	 */
+	hostPort?: number | undefined;
+	lastSegment?: string | undefined;
+	parentRef?: Reference | undefined;
+	relativePart?: string | undefined;
+	relativeRef?: Reference | undefined;
+	remainingPart?: string | undefined;
+	schemeProtocol?: Protocol | undefined;
+	segments?: string[] | undefined;
+	targetRef?: Reference | undefined;
+	hierarchical?: boolean | undefined;
+	identifier?: string | undefined;
+	matrix?: string | undefined;
+	matrixAsForm?: Parameter[] | undefined;
+	queryAsForm?: Parameter[] | undefined;
 };
 
 export type StatusService = {
@@ -1818,28 +1840,6 @@ export type DecoderService = {
 	stopped?: boolean | undefined;
 };
 
-export type EncoderService = {
-	context?: Context | undefined;
-	enabled?: boolean | undefined;
-	started?: boolean | undefined;
-	acceptedMediaTypes?: MediaType[] | undefined;
-	ignoredMediaTypes?: MediaType[] | undefined;
-	/**
-	 * @description
-	 * Format: `int64`
-	 * @type integer | undefined
-	 */
-	minimumSize?: number | undefined;
-	stopped?: boolean | undefined;
-};
-
-export type RangeService = {
-	context?: Context | undefined;
-	enabled?: boolean | undefined;
-	started?: boolean | undefined;
-	stopped?: boolean | undefined;
-};
-
 export type Application = {
 	author?: string | undefined;
 	context?: Context | undefined;
@@ -1852,19 +1852,19 @@ export type Application = {
 	outboundRoot?: Restlet | undefined;
 	roles?: Role[] | undefined;
 	services?: Service[] | undefined;
-	statusService?: StatusService | undefined;
 	connegService?: ConnegService | undefined;
-	metadataService?: MetadataService | undefined;
 	converterService?: ConverterService | undefined;
+	metadataService?: MetadataService | undefined;
+	encoderService?: EncoderService | undefined;
+	rangeService?: RangeService | undefined;
+	statusService?: StatusService | undefined;
 	taskService?: TaskService | undefined;
 	tunnelService?: TunnelService | undefined;
 	connectorService?: ConnectorService | undefined;
 	decoderService?: DecoderService | undefined;
-	encoderService?: EncoderService | undefined;
-	rangeService?: RangeService | undefined;
 	logger?: Logger | undefined;
-	stopped?: boolean | undefined;
 	application?: Application | undefined;
+	stopped?: boolean | undefined;
 };
 
 export type AuthenticationInfo = {
@@ -2072,10 +2072,10 @@ export type ClientInfo = {
 	principals?: Principal[] | undefined;
 	roles?: Role[] | undefined;
 	user?: User | undefined;
-	upstreamAddress?: string | undefined;
 	agentName?: string | undefined;
 	agentVersion?: string | undefined;
 	mainAgentProduct?: Product | undefined;
+	upstreamAddress?: string | undefined;
 };
 
 export type Company = {
@@ -2352,7 +2352,7 @@ export type NotificationSetting = {
 	 */
 	smartlockId?: number | undefined;
 	/**
-	 * @description A set on which push notifications should be triggered: lock, unlock, unlatch, lockngo, open, ring, doorsensor, warnings, smartlock
+	 * @description A set on which push notifications should be triggered: lock, unlock, unlatch, lockngo, open, openSSR2 (second output of a Smart Module), ring, doorsensor, warnings, smartlock
 	 * @type array
 	 */
 	triggerEvents: string[];
@@ -2773,13 +2773,13 @@ export type Status = {
 	uri?: string | undefined;
 	error?: boolean | undefined;
 	success?: boolean | undefined;
-	serverError?: boolean | undefined;
-	connectorError?: boolean | undefined;
-	clientError?: boolean | undefined;
 	globalError?: boolean | undefined;
 	informational?: boolean | undefined;
 	redirection?: boolean | undefined;
 	recoverableError?: boolean | undefined;
+	serverError?: boolean | undefined;
+	connectorError?: boolean | undefined;
+	clientError?: boolean | undefined;
 };
 
 export type Warning = {
@@ -2835,13 +2835,13 @@ export type Request = {
 	referrerRef?: Reference | undefined;
 	resourceRef?: Reference | undefined;
 	rootRef?: Reference | undefined;
-	confidential?: boolean | undefined;
 	asynchronous?: boolean | undefined;
 	entityAvailable?: boolean | undefined;
 	expectingResponse?: boolean | undefined;
 	synchronous?: boolean | undefined;
-	headers?: Header[] | undefined;
+	confidential?: boolean | undefined;
 	entityAsText?: string | undefined;
+	headers?: Header[] | undefined;
 };
 
 export type ReservationAccessTimesUpdate = {
@@ -2943,11 +2943,11 @@ export type Response = {
 	serverInfo?: ServerInfo | undefined;
 	status?: Status | undefined;
 	final?: boolean | undefined;
-	confidential?: boolean | undefined;
 	provisional?: boolean | undefined;
-	headers?: Header[] | undefined;
+	confidential?: boolean | undefined;
 	entityAvailable?: boolean | undefined;
 	entityAsText?: string | undefined;
+	headers?: Header[] | undefined;
 };
 
 export const shsSubscriptionTypeEnum = {
@@ -3619,7 +3619,7 @@ export type SmartlockState = {
 	 */
 	doorState: number;
 	/**
-	 * @description The keypad mounting state: 0 .. unknown/disabled/n.a., 1 .. mounted, 2 .. moved (dismounted), 255 .. error (theft detection) (only available for supported devices)
+	 * @description The keypad mounting state: 0 .. unknown/disabled/n.a., 1 .. mounted, 2 .. moved (dismounted), 4 .. theft detection disabled by user, 255 .. error (theft detection) (only available for supported devices)
 	 *
 	 * Format: `int32`
 	 * @minimum 0
