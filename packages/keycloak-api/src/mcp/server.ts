@@ -61,9 +61,9 @@ function tokenSource(config: KeycloakMcpConfig, fetchImpl: FetchImpl): () => Pro
 	const realm = config.KEYCLOAK_TOKEN_REALM ?? config.KEYCLOAK_REALM;
 	const url = `${config.KEYCLOAK_URL.replace(/\/+$/, "")}/realms/${encodeURIComponent(realm)}/protocol/openid-connect/token`;
 	let cached: { token: string; expiresAt: number } | undefined;
+	let pending: Promise<string> | undefined;
 
-	return async () => {
-		if (cached && Date.now() < cached.expiresAt) return cached.token;
+	async function mint(): Promise<string> {
 		const response = await fetchImpl(url, {
 			method: "POST",
 			headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -79,11 +79,25 @@ function tokenSource(config: KeycloakMcpConfig, fetchImpl: FetchImpl): () => Pro
 			);
 		}
 		const { access_token, expires_in } = tokenResponse.parse(await response.json());
-		// Renewed 30 seconds early so a token does not expire between the check and the call.
-		cached = { token: access_token, expiresAt: Date.now() + (expires_in - 30) * 1000 };
+		// Renewed early so a token does not expire between the check and the call, by at most half its lifetime.
+		const margin = Math.min(30, expires_in / 2);
+		cached = { token: access_token, expiresAt: Date.now() + (expires_in - margin) * 1000 };
 		return access_token;
+	}
+
+	// Parallel tool calls on a cold cache share one token request.
+	return () => {
+		if (cached && Date.now() < cached.expiresAt) return Promise.resolve(cached.token);
+		pending ??= mint().finally(() => {
+			pending = undefined;
+		});
+		return pending;
 	};
 }
+
+// fetch takes only ArrayBuffer-backed views, which FetchImpl's Uint8Array does not promise.
+const globalFetch: FetchImpl = (url, { body, ...init } = {}) =>
+	fetch(url, { ...init, body: body instanceof Uint8Array ? new Uint8Array(body) : body });
 
 // Dot segments in a path parameter survive encoding and fetch resolves them, so check the resolved URL.
 function realmScopedFetch(config: KeycloakMcpConfig, fetchImpl: FetchImpl): FetchImpl {
@@ -147,7 +161,7 @@ export interface KeycloakMcpServerOptions {
 /** An MCP server with one tool per Keycloak admin operation on KEYCLOAK_REALM, read-only unless KEYCLOAK_MCP_ALLOW_WRITES is 1. */
 export function createKeycloakMcpServer({
 	config,
-	fetch: fetchImpl = fetch as FetchImpl,
+	fetch: fetchImpl = globalFetch,
 }: KeycloakMcpServerOptions): McpServer {
 	const allowWrites = config.KEYCLOAK_MCP_ALLOW_WRITES === "1";
 	const realm = config.KEYCLOAK_REALM;

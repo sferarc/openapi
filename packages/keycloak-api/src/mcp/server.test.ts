@@ -11,11 +11,14 @@ const baseEnv = { KEYCLOAK_URL: "https://keycloak.example.com", KEYCLOAK_REALM: 
 
 type Call = { url: string; init?: RequestInit };
 
-async function connect(env: Record<string, string>, respond: (call: Call) => Response) {
+async function connect(
+	env: Record<string, string>,
+	respond: (call: Call) => Response | Promise<Response>,
+) {
 	const calls: Call[] = [];
 	const fetch: FetchImpl = async (url, init) => {
 		calls.push({ url, init });
-		return respond({ url, init }) as never;
+		return respond({ url, init });
 	};
 	const server = createKeycloakMcpServer({ config: readKeycloakMcpConfig(env), fetch });
 	const client = new Client({ name: "test", version: "1.0.0" });
@@ -194,6 +197,62 @@ describe("keycloak-api-mcp", () => {
 			expect.objectContaining({ Authorization: "Bearer minted" }),
 			expect.objectContaining({ Authorization: "Bearer minted" }),
 		]);
+	});
+
+	const clientCredentials = {
+		...baseEnv,
+		KEYCLOAK_CLIENT_ID: "mcp",
+		KEYCLOAK_CLIENT_SECRET: "s3cret",
+	};
+	const isTokenCall = (call: Call) => call.url.endsWith("/protocol/openid-connect/token");
+
+	it("shares one token request between parallel calls on a cold cache", async () => {
+		const { client, calls } = await connect(clientCredentials, (call) =>
+			isTokenCall(call)
+				? new Promise((resolve) =>
+						setTimeout(() => resolve(json({ access_token: "minted", expires_in: 300 })), 20),
+					)
+				: json([]),
+		);
+		const results = await Promise.all([
+			client.callTool({ name: "get_groups", arguments: {} }),
+			client.callTool({ name: "get_users", arguments: {} }),
+		]);
+
+		expect(results.map((result) => result.isError)).toEqual([undefined, undefined]);
+		expect(calls.filter(isTokenCall)).toHaveLength(1);
+		expect(calls.filter((call) => !isTokenCall(call)).map((call) => call.init?.headers)).toEqual([
+			expect.objectContaining({ Authorization: "Bearer minted" }),
+			expect.objectContaining({ Authorization: "Bearer minted" }),
+		]);
+	});
+
+	it("asks for a new token after a failed token request", async () => {
+		let attempt = 0;
+		const { client, calls } = await connect(clientCredentials, (call) => {
+			if (!isTokenCall(call)) return json([]);
+			attempt += 1;
+			return attempt === 1
+				? json({ error: "temporarily_unavailable" }, { status: 503 })
+				: json({ access_token: "minted", expires_in: 300 });
+		});
+		const failed = await client.callTool({ name: "get_groups", arguments: {} });
+		expect(failed.isError).toBe(true);
+		expect(textOf(failed)).toContain("Keycloak token request returned 503");
+
+		const retried = await client.callTool({ name: "get_groups", arguments: {} });
+		expect(retried.isError).toBeFalsy();
+		expect(calls.filter(isTokenCall)).toHaveLength(2);
+	});
+
+	it("reuses a token whose lifetime is shorter than the renewal margin", async () => {
+		const { client, calls } = await connect(clientCredentials, (call) =>
+			isTokenCall(call) ? json({ access_token: "short", expires_in: 20 }) : json([]),
+		);
+		await client.callTool({ name: "get_groups", arguments: {} });
+		await client.callTool({ name: "get_groups", arguments: {} });
+
+		expect(calls.filter(isTokenCall)).toHaveLength(1);
 	});
 
 	it("reports the Location of a created resource", async () => {
