@@ -1,5 +1,11 @@
 # cloudflare-api-js
 
+## 4.18.0
+
+### Minor Changes
+
+- 8238d31: Add a `cloudflare-api-js/effect` entry that exposes every operation as an `Effect`, with the token or the Global API Key headers in a `makeApiLayer` layer and HTTP errors typed as `ApiError` with their status.
+
 ## 4.17.0
 
 ### Minor Changes
