@@ -10303,7 +10303,7 @@ export type AccessOidc = AccessIdentityProvider & {
      */
     scopes?: string[] | undefined;
     /**
-     * @description The token_endpoint URL of your IdP
+     * @description The token_endpoint URL of your IdP. Updates that change its origin (scheme, host, or port) require client_secret in the request. Path-only changes do not require client_secret.
      * @example https://accounts.google.com/o/oauth2/token
      * @type string | undefined
      */
@@ -10496,7 +10496,7 @@ export type AccessOidc2 = AccessIdentityProvider2 & {
      */
     scopes?: string[] | undefined;
     /**
-     * @description The token_endpoint URL of your IdP
+     * @description The token_endpoint URL of your IdP. Updates that change its origin (scheme, host, or port) require client_secret in the request. Path-only changes do not require client_secret.
      * @example https://accounts.google.com/o/oauth2/token
      * @type string | undefined
      */
@@ -12223,7 +12223,7 @@ export type AccessScimPatchRequest = {
   Operations: {
     op: AccessScimPatchRequestOperationsOpEnumKey;
     path?: string | undefined;
-    value?: (string | number | boolean | unknown[] | {
+    value?: (string | number | boolean | (string | boolean | number | object)[] | {
       [key: string]: unknown;
     }) | undefined;
   }[];

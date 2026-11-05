@@ -32308,7 +32308,7 @@ export async function accessUserPopulationsListUserPopulations(
 
 /**
  * @summary Create a user population
- * @description Creates a user population in an account.
+ * @description Creates a user population in an account. Requires permission to update the account's Access organization.
  * @link /accounts/{accountId}/access/user_populations
  */
 export async function accessUserPopulationsCreateUserPopulation(
