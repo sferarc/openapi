@@ -9,7 +9,8 @@
 		"sdk",
 		"typescript",
 		"openapi",
-		"rest"
+		"rest",
+		"effect"
 	],
 	"type": "module",
 	"author": "SferaDev",
@@ -25,7 +26,7 @@
 	"homepage": "https://openapi.sferadev.com/keycloak-api",
 	"scripts": {
 		"tsc": "tsc --noEmit",
-		"build": "bunchee",
+		"build": "bunchee --dts-bundle",
 		"generate": "rimraf ./src/admin/generated ./src/account/generated && kubb generate && KUBB_TARGET=account kubb generate",
 		"is-tree-shakable": "is-tree-shakable",
 		"test": "vitest run"
@@ -40,12 +41,21 @@
 		"@sferadev/tsconfig": "workspace:*",
 		"@types/node": "catalog:",
 		"bunchee": "catalog:",
+		"effect": "catalog:",
 		"kubb": "catalog:",
 		"openapi3-ts": "catalog:",
 		"rimraf": "catalog:",
 		"typescript": "catalog:",
 		"vitest": "catalog:",
 		"yaml": "catalog:"
+	},
+	"peerDependencies": {
+		"effect": "^4.0.0"
+	},
+	"peerDependenciesMeta": {
+		"effect": {
+			"optional": true
+		}
 	},
 	"files": [
 		"dist",
@@ -130,6 +140,16 @@
 				"types": "./dist/account/components.d.cts",
 				"default": "./dist/account/components.cjs"
 			}
+		},
+		"./effect": {
+			"import": {
+				"types": "./dist/effect.d.mts",
+				"default": "./dist/effect.mjs"
+			},
+			"require": {
+				"types": "./dist/effect.d.cts",
+				"default": "./dist/effect.cjs"
+			}
 		}
 	},
 	"typesVersions": {
@@ -151,6 +171,9 @@
 			],
 			"account/components": [
 				"./dist/account/components.d.cts"
+			],
+			"effect": [
+				"./dist/effect.d.cts"
 			]
 		}
 	},
