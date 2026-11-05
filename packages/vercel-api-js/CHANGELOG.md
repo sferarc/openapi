@@ -1,5 +1,19 @@
 # vercel-api-js
 
+## 2.23.0
+
+### Minor Changes
+
+- d728db4: Added the orgId parameter to ListBillingChargesQuery for retrieving organization-wide charges.
+
+### Patch Changes
+
+- d728db4: Added the ai-gateway.budget.updated event to webhook event enums.
+- d728db4: Improved the description of the deleteAllArtifacts operation to clarify behavior when using orgId for organizations with Enterprise teams.
+- d728db4: Added 500 error response type for removeOrganizationTeam operation.
+- d728db4: Documented that the budget change reason is now sent in the ai-gateway.budget.updated webhook for upsert and archive budget types.
+- d728db4: Updated GetProjectsStatus200 response type fields to use enum keys and support richer value types.
+
 ## 2.22.0
 
 ### Minor Changes

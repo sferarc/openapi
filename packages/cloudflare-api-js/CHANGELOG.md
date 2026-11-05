@@ -1,5 +1,25 @@
 # cloudflare-api-js
 
+## 4.17.0
+
+### Minor Changes
+
+- 74508ff: Added the getUsage operation to retrieve live account usage and maximum limits for Cloudchamber accounts.
+
+### Patch Changes
+
+- 74508ff: Optional properties and improved type safety for include fields in Workers Previews and Versions APIs for source map/module content.
+- 74508ff: Added new error and response types for coverage of new error cases and documentation improvements in multiple API areas.
+- 74508ff: Application categories and retrieval now specify case-insensitive sorting for names and types.
+- 74508ff: Origin CA Create Certificate API response now describes different response objects for keyless-certificate requests, and enforces zone_id as required for such requests.
+- 74508ff: Origin CA List Certificates and related methods now support 500 Internal Server Error responses.
+- 74508ff: Resource Library Application API methods (create, delete, get, update) now support 403 and 429 error responses as applicable.
+- 74508ff: Secrets store listing API now states results are eventually consistent and may return HTTP 503 until ready, with 503 error responses now supported.
+- 74508ff: Changed the type name for certificate requested validity to tlsCertificatesAndHostnamesRequestedValidityDays and its associated key type.
+- 74508ff: Origin CA Get/Revoke Certificate methods now support 500 Internal Server Error responses.
+- 74508ff: Origin CA Create Certificate method now supports 500 Internal Server Error responses.
+- 74508ff: Origin CA List Certificates API now excludes revoked certificates in its description.
+
 ## 4.16.0
 
 ### Minor Changes
