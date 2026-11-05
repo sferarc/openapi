@@ -8,3 +8,4 @@ A pnpm and Turborepo workspace (`pnpm-workspace.yaml`, `turbo.json`) of TypeScri
 - [[website]]: `apps/openapi`, the site that lists the clients
 - [[agent-skill]]: `skills/openapi-clients`, the Agent Skill that teaches coding agents to call the clients
 - [[context7]]: `context7.json`, what Context7 indexes for coding agents
+- [[keycloak-mcp]]: `keycloak-api-mcp`, the stdio MCP server over the Keycloak admin API

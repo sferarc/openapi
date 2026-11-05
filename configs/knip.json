@@ -76,6 +76,7 @@
 				"src/account/types.ts",
 				"src/account/schemas.ts",
 				"src/account/components.ts",
+				"src/bin/keycloak-api-mcp.ts",
 				"kubb.config.ts"
 			],
 			"project": ["src/**/*.ts"],

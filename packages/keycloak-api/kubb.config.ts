@@ -44,6 +44,7 @@ export default defineConfig(async () => {
 			outputPath: "./src/admin/generated",
 			importPath: "../../utils/fetcher",
 			operationsDoc: { callPrefix: false, requestTarget: "admin" },
+			mcpTools: { stripPathPrefix: "/admin/realms/{realm}" },
 		}),
 		input: adminSpec,
 	};

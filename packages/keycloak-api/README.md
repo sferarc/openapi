@@ -100,6 +100,63 @@ An error thrown inside `onResponse` rejects the call with an `Error` whose messa
 
 A call that gets an HTTP error response rejects with an `ApiResponseError`, exported from the package, which extends `Error`: `status` is the HTTP status code, `payload` is the parsed JSON error body, or the raw body text, up to 1000 characters, when it is not JSON, and `method` and `path` name the request, without its query string. Its message reads `<METHOD> <path> returned <status>: <detail>`, where the detail is the API's own error message or else the first 200 characters of the body. A request that gets no response at all, for example because the network failed, rejects with an `Error` whose message names the method, the path and the reason, and whose `cause` is the original exception. A request cancelled through `signal` rejects with what the signal was aborted with, as is: the `AbortError`, or the `TimeoutError` of `AbortSignal.timeout()`.
 
+## MCP server
+
+The package ships `keycloak-api-mcp`, a stdio [MCP](https://modelcontextprotocol.io) server with one tool per admin operation on a realm, so an agent can answer questions such as which users of a realm hold a role. It lists only the read (`GET`) tools; set `KEYCLOAK_MCP_ALLOW_WRITES=1` to add the others, which carry `destructiveHint` on `DELETE`. Every tool acts on `KEYCLOAK_REALM`, which is not a tool argument: the two operations that list and import realms are left out, and a call whose URL resolves outside that realm, such as a group path with `..` segments, is refused as a tool error. An HTTP error comes back as a tool error with the status and Keycloak's message.
+
+| Variable | |
+| --- | --- |
+| `KEYCLOAK_URL` | Base URL of the server, such as `https://keycloak.example.com` |
+| `KEYCLOAK_REALM` | Realm the tools act on |
+| `KEYCLOAK_TOKEN` | A fixed access token, or else: |
+| `KEYCLOAK_CLIENT_ID`, `KEYCLOAK_CLIENT_SECRET` | A confidential client with a service account; the server gets a token with the client credentials grant and renews it before it expires |
+| `KEYCLOAK_TOKEN_REALM` | Realm of that client, if not `KEYCLOAK_REALM` (for example `master`) |
+| `KEYCLOAK_MCP_ALLOW_WRITES` | `1` to list the tools that change data |
+
+The service account needs the `realm-management` roles for what the tools should read, such as `view-users`.
+
+Claude Code, in `.mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "keycloak": {
+      "command": "npx",
+      "args": ["-y", "-p", "keycloak-api", "keycloak-api-mcp"],
+      "env": {
+        "KEYCLOAK_URL": "https://keycloak.example.com",
+        "KEYCLOAK_REALM": "acme",
+        "KEYCLOAK_CLIENT_ID": "mcp",
+        "KEYCLOAK_CLIENT_SECRET": "${KEYCLOAK_CLIENT_SECRET}"
+      }
+    }
+  }
+}
+```
+
+VS Code, in `.vscode/mcp.json`:
+
+```json
+{
+  "inputs": [
+    { "type": "promptString", "id": "keycloak-secret", "description": "Keycloak client secret", "password": true }
+  ],
+  "servers": {
+    "keycloak": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "-p", "keycloak-api", "keycloak-api-mcp"],
+      "env": {
+        "KEYCLOAK_URL": "https://keycloak.example.com",
+        "KEYCLOAK_REALM": "acme",
+        "KEYCLOAK_CLIENT_ID": "mcp",
+        "KEYCLOAK_CLIENT_SECRET": "${input:keycloak-secret}"
+      }
+    }
+  }
+}
+```
+
 ## Entrypoints
 
 | Import | Contents |
