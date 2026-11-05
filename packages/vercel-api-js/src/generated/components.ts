@@ -3427,6 +3427,7 @@ import type {
 	RemoveOrganizationTeamStatus404,
 	RemoveOrganizationTeamStatus409,
 	RemoveOrganizationTeamStatus410,
+	RemoveOrganizationTeamStatus500,
 	RemoveProjectDomainBody,
 	RemoveProjectDomainPath,
 	RemoveProjectDomainQuery,
@@ -6325,7 +6326,7 @@ export async function deleteAllArtifacts(
 
 /**
  * @summary List FOCUS billing charges
- * @description Returns the billing charge data in FOCUS v1.3 JSONL format for a specified Vercel team, within a date range specified by `from` and `to` query parameters. Supports 1-day granularity with a maximum date range of 1 year. The response is streamed as newline-delimited JSON (JSONL) and can be optionally compressed with gzip if the `Accept-Encoding: gzip` header is provided. `SkuId` is the stable product ID. For unmapped items, it is derived from the item identifier. This is only available for Owner, Member, Developer, Security, Billing, and Enterprise Viewer roles for the supplied team.
+ * @description Returns the billing charge data in FOCUS v1.3 JSONL format for a specified Vercel team, within a date range specified by `from` and `to` query parameters. Supports 1-day granularity with a maximum date range of 1 year. The response is streamed as newline-delimited JSON (JSONL) and can be optionally compressed with gzip if the `Accept-Encoding: gzip` header is provided. `SkuId` is the stable product ID. For unmapped items, it is derived from the item identifier. `SubAccountId` and `SubAccountName` are the team. With `orgId` instead of a team, returns a row per team and product in an organization with Enterprise teams, plus Organization (unallocated) rows for spend no single team used; this requires the OrgAdmin or OrgViewer role. A team in such an organization, including the one that holds its subscription, gets only its own rows. Those rows are not split by region or project, and `x_CostAttribution` marks how cost was split between teams. This is only available for Owner, Member, Developer, Security, Billing, and Enterprise Viewer roles for the supplied team.
  * @link /v1/billing/charges
  */
 export async function listBillingCharges(
@@ -17051,6 +17052,7 @@ export async function removeOrganizationTeam(
 			| RemoveOrganizationTeamStatus404
 			| RemoveOrganizationTeamStatus409
 			| RemoveOrganizationTeamStatus410
+			| RemoveOrganizationTeamStatus500
 		>,
 		null,
 		Record<string, string>,
