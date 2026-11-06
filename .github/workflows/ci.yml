@@ -42,3 +42,8 @@ jobs:
 
       - name: Run tests
         run: pnpm test
+
+      # Last, so a registry outage does not hide the other results. Accepted
+      # advisories go in auditConfig.ignoreGhsas in pnpm-workspace.yaml.
+      - name: Audit runtime dependencies
+        run: pnpm audit --prod --audit-level high
