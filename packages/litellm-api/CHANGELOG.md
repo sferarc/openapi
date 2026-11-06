@@ -1,5 +1,11 @@
 # litellm-api
 
+## 2.17.0
+
+### Minor Changes
+
+- af0df99: Take a function as `token` in `LiteLLMApi`, called before every request, so a rotated or regenerated virtual key reaches an existing client. A fixed key works as before.
+
 ## 2.16.0
 
 ### Minor Changes
