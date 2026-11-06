@@ -9,6 +9,8 @@ export type FetcherConfig = {
 	signal?: AbortSignal | undefined;
 	/** How a line-delimited JSON response resolves: `"array"` (the default) once the body ends, `"stream"` as an async iterable of each line as it arrives. */
 	jsonLines?: "array" | "stream";
+	/** How a `text/event-stream` response, such as a chat completion sent with `stream: true`, resolves: `"text"` (the default) as its raw text once the body ends, `"stream"` as an async iterable of each event as it arrives. */
+	eventStream?: "text" | "stream";
 	/** Called with the status and headers of the response before its body is read, for headers such as `x-litellm-model-id`. */
 	onResponse?: (response: ResponseInfo) => void;
 };
@@ -93,6 +95,63 @@ async function* readJsonLines(body: ReadableStream<Uint8Array>): AsyncGenerator<
 	}
 }
 
+/** One Server-Sent Event: its type (`message` unless the stream names one), its data lines joined by newlines, and the last event id seen. */
+export type ServerSentEvent = { event: string; data: string; id: string };
+
+const isEventStreamMediaType = (contentType: string) =>
+	contentType.split(";")[0]?.trim().toLowerCase() === "text/event-stream";
+
+/** Whether a call made with `eventStream: "stream"` resolved to a stream of events rather than a body read whole. */
+export const isEventStream = (value: unknown): value is AsyncIterable<ServerSentEvent> =>
+	typeof value === "object" && value !== null && Symbol.asyncIterator in value;
+
+// Parses the stream by the WHATWG rules, yielding each event once the blank line that ends it arrives.
+async function* readEvents(body: ReadableStream<Uint8Array>): AsyncGenerator<ServerSentEvent> {
+	const reader = body.getReader();
+	const decoder = new TextDecoder();
+	let pending = "";
+	let event = "";
+	let data: string[] = [];
+	let id = "";
+	const readLine = (line: string): ServerSentEvent | undefined => {
+		if (!line) {
+			const dispatched = data.length
+				? { event: event || "message", data: data.join("\n"), id }
+				: undefined;
+			event = "";
+			data = [];
+			return dispatched;
+		}
+		if (line.startsWith(":")) return undefined;
+		const colon = line.indexOf(":");
+		const field = colon === -1 ? line : line.slice(0, colon);
+		const value = colon === -1 ? "" : line.slice(colon + 1).replace(/^ /, "");
+		if (field === "event") event = value;
+		else if (field === "data") data.push(value);
+		else if (field === "id" && !value.includes("\0")) id = value;
+		return undefined;
+	};
+	try {
+		while (true) {
+			const { done, value } = await reader.read();
+			const text = pending + (done ? decoder.decode() : decoder.decode(value, { stream: true }));
+			// A CR that ends a chunk may be the first half of a CRLF, so it waits for the next one.
+			const complete = done || !text.endsWith("\r") ? text : text.slice(0, -1);
+			const lines = complete.split(/\r\n|\r|\n/);
+			pending = (lines.pop() ?? "") + text.slice(complete.length);
+			for (const line of lines) {
+				const dispatched = readLine(line);
+				if (dispatched) yield dispatched;
+			}
+			// What is left has no line ending, so its event is dropped, as the WHATWG rules say.
+			if (done) break;
+		}
+	} finally {
+		// Releases the connection when the caller stops early; on a failed read the read's own error is the one thrown.
+		await reader.cancel().catch(() => {});
+	}
+}
+
 const maxErrorMessageLength = 200;
 
 // Error bodies vary by API: `{ message }`, `{ error: { message } }`, `{ errors: [{ message }] }`, `{ error_description }`, `{ detail }` or text.
@@ -156,6 +215,7 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 	signal,
 	onResponse,
 	jsonLines = "array",
+	eventStream = "text",
 	baseUrl = "",
 	token = null,
 	fetchImpl = fetch as FetchImpl,
@@ -227,6 +287,10 @@ async function client<TData, TError, TBody, THeaders, TQueryParams, TPathParams>
 
 		if (jsonLines === "stream" && response.body && isLineDelimitedJson(contentType)) {
 			return readJsonLines(response.body) as unknown as TData;
+		}
+
+		if (eventStream === "stream" && response.body && isEventStreamMediaType(contentType)) {
+			return readEvents(response.body) as unknown as TData;
 		}
 
 		// A 204 or an empty body (common on DELETE) has nothing to parse.

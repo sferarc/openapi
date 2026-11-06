@@ -13,7 +13,7 @@ export type Response = {
 	text(): Promise<string>;
 	// Optional so a minimal mock still type-checks; without it a binary body is read as text.
 	blob?(): Promise<Blob>;
-	// Optional for the same reason; without it a line-delimited body is read whole even with `jsonLines: "stream"`.
+	// Optional for the same reason; without it a line-delimited body is read whole even with `jsonLines: "stream"` or `eventStream: "stream"`.
 	body?: ReadableStream<Uint8Array> | null;
 	headers?:
 		| {
