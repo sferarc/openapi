@@ -4,8 +4,7 @@ import { CodeXml } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-
-const updateWorkflowUrl = "https://github.com/sferarc/openapi/actions/workflows/update-openapi.yml";
+import { updateWorkflowUrl } from "@/lib/site";
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
 	return (
