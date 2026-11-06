@@ -1,5 +1,11 @@
 # v0-api
 
+## 1.6.1
+
+### Patch Changes
+
+- 14f5c7f: Export the `V0Api` constructor options as `V0ApiOptions`, so a project that also uses `vercel-api-js` no longer sees two unrelated `VercelApiOptions` types. `VercelApiOptions` stays as a deprecated alias.
+
 ## 1.6.0
 
 ### Minor Changes
