@@ -187,3 +187,61 @@ describe("NukiApi baseUrl", () => {
 		expect(urls).toEqual(["https://api.nuki.io/account"]);
 	});
 });
+
+describe("NukiApi token function", () => {
+	function setup() {
+		const authorizations: unknown[] = [];
+		const fetch: FetchImpl = async (_url, init) => {
+			authorizations.push(init?.headers?.Authorization);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { authorizations, fetch };
+	}
+
+	it("asks the token function again on every call from request() and the api proxy", async () => {
+		const { authorizations, fetch } = setup();
+		let current = 0;
+		const client = new NukiApi({ fetch, token: async () => `token-${++current}` });
+		await client.request("GET /account");
+		await client.api.account.getAccountsResource();
+		expect(authorizations).toEqual(["Bearer token-1", "Bearer token-2"]);
+	});
+
+	it("takes a synchronous token function", async () => {
+		const { authorizations, fetch } = setup();
+		const client = new NukiApi({ fetch, token: () => "fresh" });
+		await client.request("GET /account");
+		expect(authorizations).toEqual(["Bearer fresh"]);
+	});
+
+	it("sends no Authorization header when the function returns null", async () => {
+		const { authorizations, fetch } = setup();
+		const client = new NukiApi({ fetch, token: () => null });
+		await client.request("GET /account");
+		expect(authorizations).toEqual([undefined]);
+	});
+
+	it("lets a call's own config.token win over the function", async () => {
+		const { authorizations, fetch } = setup();
+		const client = new NukiApi({ fetch, token: () => "client" });
+		await client.api.account.getAccountsResource({ config: { token: "call" } });
+		expect(authorizations).toEqual(["Bearer call"]);
+	});
+
+	it("rejects with what the token function threw, before calling fetch", async () => {
+		const { authorizations, fetch } = setup();
+		const failure = new Error("token expired");
+		const client = new NukiApi({
+			fetch,
+			token: async () => {
+				throw failure;
+			},
+		});
+		await expect(client.request("GET /account")).rejects.toBe(failure);
+		await expect(client.api.account.getAccountsResource()).rejects.toBe(failure);
+		expect(authorizations).toEqual([]);
+	});
+});
