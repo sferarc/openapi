@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 import { LiteLLMApi } from "./client";
 import type { FetchImpl } from "./utils/fetch";
 import type { ResponseInfo } from "./utils/fetcher";
@@ -98,6 +98,32 @@ describe("LiteLLMApi.request", () => {
 		await client.request("OPTIONS /mcp");
 		await client.request("HEAD /mcp");
 		expect(methods).toEqual(["OPTIONS", "HEAD"]);
+	});
+
+	it("types an empty JSON response the same for every method but HEAD", async () => {
+		const fetch: FetchImpl = async () =>
+			new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		const client = new LiteLLMApi({ baseUrl: "https://api.example.com", token: null, fetch });
+
+		const get = await client.request("GET /mcp");
+		const patch = await client.request("PATCH /mcp");
+		const options = await client.request("OPTIONS /mcp");
+		const head = await client.request("HEAD /mcp");
+
+		expectTypeOf(get).toEqualTypeOf<{ [key: string]: unknown }>();
+		expectTypeOf(patch).toEqualTypeOf(get);
+		expectTypeOf(options).toEqualTypeOf(get);
+		expectTypeOf(head).toEqualTypeOf<void>();
+		expectTypeOf(
+			await client.request("PATCH /guardrails/{guardrail_id}", {
+				pathParams: { guardrail_id: "g1" },
+				body: {},
+			}),
+		).toEqualTypeOf(get);
+		expect(patch).toEqual({});
 	});
 });
 

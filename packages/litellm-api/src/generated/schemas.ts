@@ -19357,7 +19357,7 @@ export const updateCredentialCredentialsCredentialNamePatchPathCredentialNameSch
 	.string()
 	.describe("The credential name, percent-decoded; may contain slashes");
 
-export const updateCredentialCredentialsCredentialNamePatchStatus200Schema = z.unknown();
+export const updateCredentialCredentialsCredentialNamePatchStatus200Schema = z.looseObject({});
 
 export const updateCredentialCredentialsCredentialNamePatchStatus422Schema =
 	HTTPValidationErrorSchema;
@@ -20226,7 +20226,7 @@ export const healthReadinessHealthReadinessGetStatus200Schema = z.looseObject({}
 export const healthReadinessHealthReadinessGetResponseSchema =
 	healthReadinessHealthReadinessGetStatus200Schema;
 
-export const healthReadinessOptionsHealthReadinessOptionsStatus200Schema = z.unknown();
+export const healthReadinessOptionsHealthReadinessOptionsStatus200Schema = z.looseObject({});
 
 export const healthReadinessOptionsHealthReadinessOptionsResponseSchema =
 	healthReadinessOptionsHealthReadinessOptionsStatus200Schema;
@@ -20250,7 +20250,7 @@ export const healthLivelinessHealthLivenessGetStatus200Schema = z.looseObject({}
 export const healthLivelinessHealthLivenessGetResponseSchema =
 	healthLivelinessHealthLivenessGetStatus200Schema;
 
-export const healthLivelinessOptionsHealthLivenessOptionsStatus200Schema = z.unknown();
+export const healthLivelinessOptionsHealthLivenessOptionsStatus200Schema = z.looseObject({});
 
 export const healthLivelinessOptionsHealthLivenessOptionsResponseSchema =
 	healthLivelinessOptionsHealthLivenessOptionsStatus200Schema;
@@ -20260,7 +20260,7 @@ export const healthLivelinessHealthLivelinessGetStatus200Schema = z.looseObject(
 export const healthLivelinessHealthLivelinessGetResponseSchema =
 	healthLivelinessHealthLivelinessGetStatus200Schema;
 
-export const healthLivelinessOptionsHealthLivelinessOptionsStatus200Schema = z.unknown();
+export const healthLivelinessOptionsHealthLivelinessOptionsStatus200Schema = z.looseObject({});
 
 export const healthLivelinessOptionsHealthLivelinessOptionsResponseSchema =
 	healthLivelinessOptionsHealthLivelinessOptionsStatus200Schema;
@@ -25342,7 +25342,8 @@ export const getDefaultTeamSettingsGetDefaultTeamSettingsGetStatus200Schema =
 export const getDefaultTeamSettingsGetDefaultTeamSettingsGetResponseSchema =
 	getDefaultTeamSettingsGetDefaultTeamSettingsGetStatus200Schema;
 
-export const updateInternalUserSettingsUpdateInternalUserSettingsPatchStatus200Schema = z.unknown();
+export const updateInternalUserSettingsUpdateInternalUserSettingsPatchStatus200Schema =
+	z.looseObject({});
 
 export const updateInternalUserSettingsUpdateInternalUserSettingsPatchStatus422Schema =
 	HTTPValidationErrorSchema;
@@ -25358,7 +25359,9 @@ export const updateInternalUserSettingsUpdateInternalUserSettingsPatchBodySchema
 		"Default parameters to apply when a new user signs in via SSO or is created on the /user/new API endpoint",
 	);
 
-export const updateDefaultTeamSettingsUpdateDefaultTeamSettingsPatchStatus200Schema = z.unknown();
+export const updateDefaultTeamSettingsUpdateDefaultTeamSettingsPatchStatus200Schema = z.looseObject(
+	{},
+);
 
 export const updateDefaultTeamSettingsUpdateDefaultTeamSettingsPatchStatus422Schema =
 	HTTPValidationErrorSchema;
@@ -25381,7 +25384,7 @@ export const getSsoSettingsGetSsoSettingsGetStatus200Schema = SSOSettingsRespons
 export const getSsoSettingsGetSsoSettingsGetResponseSchema =
 	getSsoSettingsGetSsoSettingsGetStatus200Schema;
 
-export const updateSsoSettingsUpdateSsoSettingsPatchStatus200Schema = z.unknown();
+export const updateSsoSettingsUpdateSsoSettingsPatchStatus200Schema = z.looseObject({});
 
 export const updateSsoSettingsUpdateSsoSettingsPatchStatus422Schema = HTTPValidationErrorSchema;
 
@@ -25401,7 +25404,7 @@ export const getUiThemeSettingsGetUiThemeSettingsGetStatus200Schema =
 export const getUiThemeSettingsGetUiThemeSettingsGetResponseSchema =
 	getUiThemeSettingsGetUiThemeSettingsGetStatus200Schema;
 
-export const updateUiThemeSettingsUpdateUiThemeSettingsPatchStatus200Schema = z.unknown();
+export const updateUiThemeSettingsUpdateUiThemeSettingsPatchStatus200Schema = z.looseObject({});
 
 export const updateUiThemeSettingsUpdateUiThemeSettingsPatchStatus422Schema =
 	HTTPValidationErrorSchema;
@@ -25424,7 +25427,7 @@ export const getMcpSemanticFilterSettingsGetMcpSemanticFilterSettingsGetResponse
 	getMcpSemanticFilterSettingsGetMcpSemanticFilterSettingsGetStatus200Schema;
 
 export const updateMcpSemanticFilterSettingsUpdateMcpSemanticFilterSettingsPatchStatus200Schema =
-	z.unknown();
+	z.looseObject({});
 
 export const updateMcpSemanticFilterSettingsUpdateMcpSemanticFilterSettingsPatchStatus422Schema =
 	HTTPValidationErrorSchema;
@@ -25447,7 +25450,7 @@ export const getWebsearchInterceptionSettingsGetWebsearchInterceptionSettingsGet
 	getWebsearchInterceptionSettingsGetWebsearchInterceptionSettingsGetStatus200Schema;
 
 export const updateWebsearchInterceptionSettingsUpdateWebsearchInterceptionSettingsPatchStatus200Schema =
-	z.unknown();
+	z.looseObject({});
 
 export const updateWebsearchInterceptionSettingsUpdateWebsearchInterceptionSettingsPatchStatus422Schema =
 	HTTPValidationErrorSchema;
@@ -25495,7 +25498,7 @@ export const getUiSettingsGetUiSettingsGetStatus200Schema = UISettingsResponseSc
 export const getUiSettingsGetUiSettingsGetResponseSchema =
 	getUiSettingsGetUiSettingsGetStatus200Schema;
 
-export const updateUiSettingsUpdateUiSettingsPatchStatus200Schema = z.unknown();
+export const updateUiSettingsUpdateUiSettingsPatchStatus200Schema = z.looseObject({});
 
 export const updateUiSettingsUpdateUiSettingsPatchStatus422Schema = HTTPValidationErrorSchema;
 
@@ -25755,7 +25758,7 @@ export const deleteBudgetBudgetDeletePostBodySchema = budgetDeleteRequestSchema;
 
 export const patchModelModelModelIdUpdatePatchPathModelIdSchema = z.string();
 
-export const patchModelModelModelIdUpdatePatchStatus200Schema = z.unknown();
+export const patchModelModelModelIdUpdatePatchStatus200Schema = z.looseObject({});
 
 export const patchModelModelModelIdUpdatePatchStatus422Schema = HTTPValidationErrorSchema;
 
@@ -26476,7 +26479,7 @@ export const getWorkflowRunV1WorkflowsRunsRunIdGetPathSchema = z.object({
 
 export const updateWorkflowRunV1WorkflowsRunsRunIdPatchPathRunIdSchema = z.string();
 
-export const updateWorkflowRunV1WorkflowsRunsRunIdPatchStatus200Schema = z.unknown();
+export const updateWorkflowRunV1WorkflowsRunsRunIdPatchStatus200Schema = z.looseObject({});
 
 export const updateWorkflowRunV1WorkflowsRunsRunIdPatchStatus422Schema = HTTPValidationErrorSchema;
 
@@ -26707,7 +26710,7 @@ export const serviceConnectionLensServiceGetResponseSchema =
 
 export const lensRequestLensPathPatchPathPathSchema = z.string();
 
-export const lensRequestLensPathPatchStatus200Schema = z.unknown();
+export const lensRequestLensPathPatchStatus200Schema = z.looseObject({});
 
 export const lensRequestLensPathPatchStatus422Schema = HTTPValidationErrorSchema;
 
@@ -26777,7 +26780,7 @@ export const lensRequestLensPathPutPathSchema = z.object({
 
 export const lensRequestLensPatchQueryPathSchema = z.string().optional().default("");
 
-export const lensRequestLensPatchStatus200Schema = z.unknown();
+export const lensRequestLensPatchStatus200Schema = z.looseObject({});
 
 export const lensRequestLensPatchStatus422Schema = HTTPValidationErrorSchema;
 
@@ -26885,7 +26888,9 @@ export const getCostDiscountConfigConfigCostDiscountConfigGetStatus200Schema = z
 export const getCostDiscountConfigConfigCostDiscountConfigGetResponseSchema =
 	getCostDiscountConfigConfigCostDiscountConfigGetStatus200Schema;
 
-export const updateCostDiscountConfigConfigCostDiscountConfigPatchStatus200Schema = z.unknown();
+export const updateCostDiscountConfigConfigCostDiscountConfigPatchStatus200Schema = z.looseObject(
+	{},
+);
 
 export const updateCostDiscountConfigConfigCostDiscountConfigPatchStatus422Schema =
 	HTTPValidationErrorSchema;
@@ -26906,7 +26911,7 @@ export const getCostMarginConfigConfigCostMarginConfigGetStatus200Schema = z.loo
 export const getCostMarginConfigConfigCostMarginConfigGetResponseSchema =
 	getCostMarginConfigConfigCostMarginConfigGetStatus200Schema;
 
-export const updateCostMarginConfigConfigCostMarginConfigPatchStatus200Schema = z.unknown();
+export const updateCostMarginConfigConfigCostMarginConfigPatchStatus200Schema = z.looseObject({});
 
 export const updateCostMarginConfigConfigCostMarginConfigPatchStatus422Schema =
 	HTTPValidationErrorSchema;
@@ -27519,7 +27524,7 @@ export const getEmailEventSettingsEmailEventSettingsGetStatus200Schema =
 export const getEmailEventSettingsEmailEventSettingsGetResponseSchema =
 	getEmailEventSettingsEmailEventSettingsGetStatus200Schema;
 
-export const updateEventSettingsEmailEventSettingsPatchStatus200Schema = z.unknown();
+export const updateEventSettingsEmailEventSettingsPatchStatus200Schema = z.looseObject({});
 
 export const updateEventSettingsEmailEventSettingsPatchStatus422Schema = HTTPValidationErrorSchema;
 
@@ -28051,7 +28056,7 @@ export const proxyMcpRouteMcpProxyDeleteStatus200Schema = z.looseObject({});
 
 export const proxyMcpRouteMcpProxyDeleteResponseSchema = proxyMcpRouteMcpProxyDeleteStatus200Schema;
 
-export const proxyMcpRouteMcpProxyOptionsStatus200Schema = z.unknown();
+export const proxyMcpRouteMcpProxyOptionsStatus200Schema = z.looseObject({});
 
 export const proxyMcpRouteMcpProxyOptionsResponseSchema =
 	proxyMcpRouteMcpProxyOptionsStatus200Schema;
@@ -28060,7 +28065,7 @@ export const proxyMcpRouteMcpProxyHeadStatus200Schema = z.void();
 
 export const proxyMcpRouteMcpProxyHeadResponseSchema = proxyMcpRouteMcpProxyHeadStatus200Schema;
 
-export const proxyMcpRouteMcpProxyPatchStatus200Schema = z.unknown();
+export const proxyMcpRouteMcpProxyPatchStatus200Schema = z.looseObject({});
 
 export const proxyMcpRouteMcpProxyPatchResponseSchema = proxyMcpRouteMcpProxyPatchStatus200Schema;
 
@@ -28080,7 +28085,7 @@ export const aggregateMcpRouteMcpDeleteStatus200Schema = z.looseObject({});
 
 export const aggregateMcpRouteMcpDeleteResponseSchema = aggregateMcpRouteMcpDeleteStatus200Schema;
 
-export const aggregateMcpRouteMcpOptionsStatus200Schema = z.unknown();
+export const aggregateMcpRouteMcpOptionsStatus200Schema = z.looseObject({});
 
 export const aggregateMcpRouteMcpOptionsResponseSchema = aggregateMcpRouteMcpOptionsStatus200Schema;
 
@@ -28088,7 +28093,7 @@ export const aggregateMcpRouteMcpHeadStatus200Schema = z.void();
 
 export const aggregateMcpRouteMcpHeadResponseSchema = aggregateMcpRouteMcpHeadStatus200Schema;
 
-export const aggregateMcpRouteMcpPatchStatus200Schema = z.unknown();
+export const aggregateMcpRouteMcpPatchStatus200Schema = z.looseObject({});
 
 export const aggregateMcpRouteMcpPatchResponseSchema = aggregateMcpRouteMcpPatchStatus200Schema;
 
@@ -28110,7 +28115,7 @@ export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathSchema = z.object({
 
 export const toolsetMcpRouteToolsetToolsetNameMcpOptionsPathToolsetNameSchema = z.string();
 
-export const toolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200Schema = z.unknown();
+export const toolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200Schema = z.looseObject({});
 
 export const toolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422Schema = HTTPValidationErrorSchema;
 
@@ -28126,7 +28131,7 @@ export const toolsetMcpRouteToolsetToolsetNameMcpOptionsPathSchema = z.object({
 
 export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathToolsetNameSchema = z.string();
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema = z.unknown();
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema = z.looseObject({});
 
 export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
 
@@ -28222,7 +28227,7 @@ export const dynamicMcpRouteMcpServerNameMcpHeadPathSchema = z.object({
 
 export const dynamicMcpRouteMcpServerNameMcpOptionsPathMcpServerNameSchema = z.string();
 
-export const dynamicMcpRouteMcpServerNameMcpOptionsStatus200Schema = z.unknown();
+export const dynamicMcpRouteMcpServerNameMcpOptionsStatus200Schema = z.looseObject({});
 
 export const dynamicMcpRouteMcpServerNameMcpOptionsStatus422Schema = HTTPValidationErrorSchema;
 
@@ -28238,7 +28243,7 @@ export const dynamicMcpRouteMcpServerNameMcpOptionsPathSchema = z.object({
 
 export const dynamicMcpRouteMcpServerNameMcpPatchPathMcpServerNameSchema = z.string();
 
-export const dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema = z.unknown();
+export const dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema = z.looseObject({});
 
 export const dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
 
@@ -28731,7 +28736,7 @@ export const getGuardrailInfoGuardrailsGuardrailIdGetPathSchema = z.object({
 
 export const patchGuardrailGuardrailsGuardrailIdPatchPathGuardrailIdSchema = z.string();
 
-export const patchGuardrailGuardrailsGuardrailIdPatchStatus200Schema = z.unknown();
+export const patchGuardrailGuardrailsGuardrailIdPatchStatus200Schema = z.looseObject({});
 
 export const patchGuardrailGuardrailsGuardrailIdPatchStatus422Schema = HTTPValidationErrorSchema;
 
@@ -34163,7 +34168,7 @@ export const patchPromptPromptsPromptIdPatchQueryEnvironmentSchema = z
 	.union([z.string(), z.null()])
 	.optional();
 
-export const patchPromptPromptsPromptIdPatchStatus200Schema = z.unknown();
+export const patchPromptPromptsPromptIdPatchStatus200Schema = z.looseObject({});
 
 export const patchPromptPromptsPromptIdPatchStatus422Schema = HTTPValidationErrorSchema;
 
