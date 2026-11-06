@@ -227707,6 +227707,11 @@ export type RequestReviewStatus401 = AbuseReportsUnauthorizedErrorResponse;
  */
 export type RequestReviewStatus403 = AbuseReportsCloudflareAPIErrorResponse;
 
+export type RequestReviewStatus409 = {
+  errors?: AbuseReportsMessage[] | undefined;
+  success: boolean;
+};
+
 export type RequestReviewStatus500 = {
   errors?: AbuseReportsMessage[] | undefined;
   messages?: AbuseReportsMessage[] | undefined;
@@ -227730,6 +227735,7 @@ export type RequestReviewResponses = {
   '207': RequestReviewStatus207;
   '401': RequestReviewStatus401;
   '403': RequestReviewStatus403;
+  '409': RequestReviewStatus409;
   '500': RequestReviewStatus500;
 };
 
