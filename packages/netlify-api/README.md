@@ -62,11 +62,41 @@ const { tokenType, accessToken, refreshToken, scope, createdAt } = await client.
   refreshToken: storedRefreshToken,
   clientId: process.env.NETLIFY_CLIENT_ID ?? "",
   clientSecret: process.env.NETLIFY_CLIENT_SECRET ?? "",
-  authToken: currentAccessToken, // optional, defaults to the client's token
+  authToken: currentAccessToken, // optional, defaults to the client's token when it is a string
 });
 ```
 
 This posts to `https://api.netlify.com/oauth/token` and returns the new token pair, with `createdAt` as a Unix timestamp.
+
+### Refreshing the token on every call
+
+Pass a function as `token`, sync or async, and the client calls it before every request, so each call sends the token it returns:
+
+```ts
+const { auth } = new NetlifyApi({ token: process.env.NETLIFY_TOKEN ?? "" });
+let session = { accessToken: "", refreshToken: process.env.NETLIFY_REFRESH_TOKEN ?? "", expiresAt: 0 };
+const refreshEveryMs = 50 * 60 * 1000; // your choice: the token endpoint returns no expiry
+
+const client = new NetlifyApi({
+  token: async () => {
+    if (Date.now() >= session.expiresAt) {
+      const result = await auth.refreshToken({
+        refreshToken: session.refreshToken,
+        clientId: process.env.NETLIFY_CLIENT_ID ?? "",
+        clientSecret: process.env.NETLIFY_CLIENT_SECRET ?? "",
+      });
+      session = {
+        accessToken: result.accessToken,
+        refreshToken: result.refreshToken,
+        expiresAt: Date.now() + refreshEveryMs,
+      };
+    }
+    return session.accessToken;
+  },
+});
+```
+
+A call rejects with what the function threw, before any request is sent, and a call's own `config.token` still wins. `auth.refreshToken` never calls the function, so it sends `authToken` only when you pass one. The token endpoint returns no expiry, so pick a refresh interval that suits your OAuth application.
 
 ### Response headers
 
