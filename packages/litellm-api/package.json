@@ -1,6 +1,6 @@
 {
 	"name": "litellm-api",
-	"version": "2.14.0",
+	"version": "2.14.1",
 	"description": "Unofficial typed TypeScript client for the LiteLLM proxy API, generated from its OpenAPI spec",
 	"keywords": [
 		"litellm",
