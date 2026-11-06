@@ -1,5 +1,20 @@
 # cloudflare-api-js
 
+## 4.23.0
+
+### Minor Changes
+
+- 5155011: OrganizationsGetAccountsStatus200 and TenantsListAccountsStatus200 now use OrganizationsApiPageTokenResultInfo for result_info type instead of a union with legacy pagination types.
+- 5155011: [BREAKING] Removed AccessAssociatedHostnames2, AccessLogoUrl2, AccessId3, AccessName18, AccessName17, AccessName16, and related internal types, consolidating usages to unified types.
+- 5155011: Added PATCH /accounts/{accountId}/access/organizations operation to partially update Zero Trust organization fields.
+- 5155011: OrganizationsGetAccountsQuery and TenantsListAccountsQuery no longer include legacy page/per_page pagination parameters, supporting only cursor-based pagination.
+
+### Patch Changes
+
+- 5155011: Updated descriptions and internal structure for abuse report comments handling and other doc comments to clarify usage and processing rules.
+- 5155011: Added new enums and types for billing topup eligibility result details, including reasons, recommended actions, and status.
+- 5155011: Updated AigBillingTopupEligibilityBody with contract_version and payment_method_id fields for improved request compatibility.
+
 ## 4.22.0
 
 ### Minor Changes
