@@ -83,6 +83,11 @@ allowBuilds:
 # pnpm-lock.yaml byte-identical. `pnpm audit --fix` appends new entries every week; retire
 # the aged-out ones each review rather than letting the list become permanent.
 minimumReleaseAgeExclude: []
+# CI runs `pnpm audit --prod --audit-level high`, which reads this list (and `pnpm audit
+# --ignore` writes to it). One GHSA per entry, with a comment above it: why it is accepted
+# and what ends the exception.
+auditConfig:
+  ignoreGhsas: []
 overrides:
   '@hono/node-server@<1.19.10': ^1.19.10
   '@hono/node-server@<1.19.13': ^1.19.13

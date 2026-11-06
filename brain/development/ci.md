@@ -7,6 +7,7 @@
 3. `pnpm check`
 4. `pnpm exec lefthook validate`, since CI never runs the hooks themselves.
 5. `pnpm test`
+6. `pnpm audit --prod --audit-level high`: fails on a high or critical advisory in the dependencies the published packages and apps ship, across every workspace from the one lockfile; devDependencies are left out. Accepted advisories go in `auditConfig.ignoreGhsas` in `pnpm-workspace.yaml`, one GHSA per entry with a comment giving the reason and what ends the exception; `pnpm audit --ignore <GHSA>` writes to that same list, so a separate ignore file would drift from it. It is the last step so a registry outage does not hide the other results. Empty and passing on main on 2026-11-06 (#421).
 
 ## Branch rules
 
