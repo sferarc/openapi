@@ -1,0 +1,59 @@
+{
+	"$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+	"name": "io.github.sferarc/keycloak-api-mcp",
+	"title": "Keycloak Admin API",
+	"description": "Unofficial: one tool per Keycloak admin operation on a realm, read-only unless writes are enabled",
+	"version": "3.7.0",
+	"websiteUrl": "https://openapi.sferadev.com/keycloak-api",
+	"repository": {
+		"url": "https://github.com/sferarc/openapi",
+		"source": "github",
+		"subfolder": "packages/keycloak-api"
+	},
+	"packages": [
+		{
+			"registryType": "npm",
+			"registryBaseUrl": "https://registry.npmjs.org",
+			"identifier": "keycloak-api",
+			"version": "3.7.0",
+			"runtimeHint": "npx",
+			"transport": {
+				"type": "stdio"
+			},
+			"environmentVariables": [
+				{
+					"name": "KEYCLOAK_URL",
+					"description": "Base URL of the server, such as https://keycloak.example.com",
+					"isRequired": true
+				},
+				{
+					"name": "KEYCLOAK_REALM",
+					"description": "Realm the tools act on",
+					"isRequired": true
+				},
+				{
+					"name": "KEYCLOAK_TOKEN",
+					"description": "A fixed access token; otherwise set KEYCLOAK_CLIENT_ID and KEYCLOAK_CLIENT_SECRET",
+					"isSecret": true
+				},
+				{
+					"name": "KEYCLOAK_CLIENT_ID",
+					"description": "A confidential client with a service account, for the client credentials grant"
+				},
+				{
+					"name": "KEYCLOAK_CLIENT_SECRET",
+					"description": "Secret of that client",
+					"isSecret": true
+				},
+				{
+					"name": "KEYCLOAK_TOKEN_REALM",
+					"description": "Realm of that client, if not KEYCLOAK_REALM (for example master)"
+				},
+				{
+					"name": "KEYCLOAK_MCP_ALLOW_WRITES",
+					"description": "1 to list the tools that change data"
+				}
+			]
+		}
+	]
+}
