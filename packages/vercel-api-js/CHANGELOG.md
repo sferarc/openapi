@@ -1,5 +1,11 @@
 # vercel-api-js
 
+## 2.26.0
+
+### Minor Changes
+
+- 32da375: Take a function as `token` in `VercelApi`, called before every request, so a rotated access token reaches an existing client. A fixed token works as before. The public `token` field now has the `VercelToken` type, a string, `null` or such a function.
+
 ## 2.25.0
 
 ### Minor Changes
