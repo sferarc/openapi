@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { V0Api } from "./client";
+import { V0Api, type V0ApiOptions, type VercelApiOptions } from "./client";
 import type { FetchImpl } from "./utils/fetch";
 import type { ResponseInfo } from "./utils/fetcher";
 
@@ -188,5 +188,14 @@ describe("V0Api baseUrl", () => {
 		const { urls, client } = setup();
 		await client.request("GET /chats");
 		expect(urls).toEqual(["https://api.v0.dev/v1/chats"]);
+	});
+});
+
+describe("V0ApiOptions", () => {
+	it("keeps VercelApiOptions as an alias so existing imports compile", () => {
+		const options: V0ApiOptions = { token: "token", baseUrl: "https://proxy.test" };
+		const legacy: VercelApiOptions = options;
+		const client = new V0Api(legacy);
+		expect(client.token).toBe("token");
 	});
 });
