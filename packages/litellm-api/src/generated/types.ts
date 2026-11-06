@@ -6532,14 +6532,23 @@ export type LiteLLMParams = {
 	cache_read_input_token_cost_above_100k_tokens_batches?: (number | null) | undefined;
 	cache_read_input_token_cost_above_200k_tokens_batches?: (number | null) | undefined;
 	cache_read_input_token_cost_above_272k_tokens_batches?: (number | null) | undefined;
+	cache_read_input_audio_token_cost_batches?: (number | null) | undefined;
 	cache_creation_input_token_cost_batches?: (number | null) | undefined;
 	cache_creation_input_token_cost_above_100k_tokens_batches?: (number | null) | undefined;
 	cache_creation_input_token_cost_above_200k_tokens_batches?: (number | null) | undefined;
 	cache_creation_input_token_cost_above_272k_tokens_batches?: (number | null) | undefined;
 	cache_read_input_audio_token_cost?: (number | null) | undefined;
+	cache_read_input_audio_token_cost_flex?: (number | null) | undefined;
+	cache_read_input_audio_token_cost_priority?: (number | null) | undefined;
 	cache_read_input_image_token_cost?: (number | null) | undefined;
 	input_cost_per_character_above_128k_tokens?: (number | null) | undefined;
 	input_cost_per_audio_token?: (number | null) | undefined;
+	input_cost_per_audio_token_flex?: (number | null) | undefined;
+	input_cost_per_audio_token_above_200k_tokens?: (number | null) | undefined;
+	input_cost_per_audio_token_above_200k_tokens_flex?: (number | null) | undefined;
+	input_cost_per_audio_token_above_200k_tokens_priority?: (number | null) | undefined;
+	input_cost_per_audio_token_above_200k_tokens_batches?: (number | null) | undefined;
+	input_cost_per_audio_token_priority?: (number | null) | undefined;
 	input_cost_per_token_cache_hit?: (number | null) | undefined;
 	input_cost_per_token_above_128k_tokens?: (number | null) | undefined;
 	input_cost_per_token_above_100k_tokens?: (number | null) | undefined;
@@ -6549,6 +6558,7 @@ export type LiteLLMParams = {
 	input_cost_per_token_above_272k_tokens_flex?: (number | null) | undefined;
 	input_cost_per_token_above_272k_tokens_ultrafast?: (number | null) | undefined;
 	input_cost_per_token_above_200k_tokens_batches?: (number | null) | undefined;
+	input_cost_per_token_above_200k_tokens_flex?: (number | null) | undefined;
 	input_cost_per_token_above_100k_tokens_batches?: (number | null) | undefined;
 	input_cost_per_token_above_272k_tokens_batches?: (number | null) | undefined;
 	input_cost_per_query?: (number | null) | undefined;
@@ -6578,12 +6588,14 @@ export type LiteLLMParams = {
 	output_cost_per_token_above_272k_tokens_flex?: (number | null) | undefined;
 	output_cost_per_token_above_272k_tokens_ultrafast?: (number | null) | undefined;
 	output_cost_per_token_above_200k_tokens_batches?: (number | null) | undefined;
+	output_cost_per_token_above_200k_tokens_flex?: (number | null) | undefined;
 	output_cost_per_token_above_100k_tokens_batches?: (number | null) | undefined;
 	output_cost_per_token_above_272k_tokens_batches?: (number | null) | undefined;
 	output_cost_per_character_above_128k_tokens?: (number | null) | undefined;
 	output_cost_per_image?: (number | null) | undefined;
 	output_cost_per_image_token?: (number | null) | undefined;
 	output_cost_per_image_token_batches?: (number | null) | undefined;
+	output_cost_per_image_token_priority?: (number | null) | undefined;
 	output_cost_per_video_token?: (number | null) | undefined;
 	output_cost_per_reasoning_token?: (number | null) | undefined;
 	output_cost_per_reasoning_token_flex?: (number | null) | undefined;
@@ -15350,14 +15362,23 @@ export type UpdateLiteLLMParams = {
 	cache_read_input_token_cost_above_100k_tokens_batches?: (number | null) | undefined;
 	cache_read_input_token_cost_above_200k_tokens_batches?: (number | null) | undefined;
 	cache_read_input_token_cost_above_272k_tokens_batches?: (number | null) | undefined;
+	cache_read_input_audio_token_cost_batches?: (number | null) | undefined;
 	cache_creation_input_token_cost_batches?: (number | null) | undefined;
 	cache_creation_input_token_cost_above_100k_tokens_batches?: (number | null) | undefined;
 	cache_creation_input_token_cost_above_200k_tokens_batches?: (number | null) | undefined;
 	cache_creation_input_token_cost_above_272k_tokens_batches?: (number | null) | undefined;
 	cache_read_input_audio_token_cost?: (number | null) | undefined;
+	cache_read_input_audio_token_cost_flex?: (number | null) | undefined;
+	cache_read_input_audio_token_cost_priority?: (number | null) | undefined;
 	cache_read_input_image_token_cost?: (number | null) | undefined;
 	input_cost_per_character_above_128k_tokens?: (number | null) | undefined;
 	input_cost_per_audio_token?: (number | null) | undefined;
+	input_cost_per_audio_token_flex?: (number | null) | undefined;
+	input_cost_per_audio_token_above_200k_tokens?: (number | null) | undefined;
+	input_cost_per_audio_token_above_200k_tokens_flex?: (number | null) | undefined;
+	input_cost_per_audio_token_above_200k_tokens_priority?: (number | null) | undefined;
+	input_cost_per_audio_token_above_200k_tokens_batches?: (number | null) | undefined;
+	input_cost_per_audio_token_priority?: (number | null) | undefined;
 	input_cost_per_token_cache_hit?: (number | null) | undefined;
 	input_cost_per_token_above_128k_tokens?: (number | null) | undefined;
 	input_cost_per_token_above_100k_tokens?: (number | null) | undefined;
@@ -15367,6 +15388,7 @@ export type UpdateLiteLLMParams = {
 	input_cost_per_token_above_272k_tokens_flex?: (number | null) | undefined;
 	input_cost_per_token_above_272k_tokens_ultrafast?: (number | null) | undefined;
 	input_cost_per_token_above_200k_tokens_batches?: (number | null) | undefined;
+	input_cost_per_token_above_200k_tokens_flex?: (number | null) | undefined;
 	input_cost_per_token_above_100k_tokens_batches?: (number | null) | undefined;
 	input_cost_per_token_above_272k_tokens_batches?: (number | null) | undefined;
 	input_cost_per_query?: (number | null) | undefined;
@@ -15396,12 +15418,14 @@ export type UpdateLiteLLMParams = {
 	output_cost_per_token_above_272k_tokens_flex?: (number | null) | undefined;
 	output_cost_per_token_above_272k_tokens_ultrafast?: (number | null) | undefined;
 	output_cost_per_token_above_200k_tokens_batches?: (number | null) | undefined;
+	output_cost_per_token_above_200k_tokens_flex?: (number | null) | undefined;
 	output_cost_per_token_above_100k_tokens_batches?: (number | null) | undefined;
 	output_cost_per_token_above_272k_tokens_batches?: (number | null) | undefined;
 	output_cost_per_character_above_128k_tokens?: (number | null) | undefined;
 	output_cost_per_image?: (number | null) | undefined;
 	output_cost_per_image_token?: (number | null) | undefined;
 	output_cost_per_image_token_batches?: (number | null) | undefined;
+	output_cost_per_image_token_priority?: (number | null) | undefined;
 	output_cost_per_video_token?: (number | null) | undefined;
 	output_cost_per_reasoning_token?: (number | null) | undefined;
 	output_cost_per_reasoning_token_flex?: (number | null) | undefined;
@@ -39302,33 +39326,6 @@ export type ServiceConnectionLensServiceGetResponses = {
  */
 export type ServiceConnectionLensServiceGetResponse = ServiceConnectionLensServiceGetStatus200;
 
-export type LensRequestLensPathPatchPath = {
-	path: string;
-};
-
-export type LensRequestLensPathPatchStatus200 = {
-	[key: string]: unknown;
-};
-
-export type LensRequestLensPathPatchStatus422 = HTTPValidationError;
-
-export type LensRequestLensPathPatchOptions = {
-	body?: never | undefined;
-	path: LensRequestLensPathPatchPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type LensRequestLensPathPatchResponses = {
-	"200": LensRequestLensPathPatchStatus200;
-	"422": LensRequestLensPathPatchStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type LensRequestLensPathPatchResponse = LensRequestLensPathPatchStatus200;
-
 export type LensRequestLensPathPostPath = {
 	path: string;
 };
@@ -39437,36 +39434,32 @@ export type LensRequestLensPathPutResponses = {
  */
 export type LensRequestLensPathPutResponse = LensRequestLensPathPutStatus200;
 
-export type LensRequestLensPatchQuery = {
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	path?: string | undefined;
+export type LensRequestLensPathPatchPath = {
+	path: string;
 };
 
-export type LensRequestLensPatchStatus200 = {
+export type LensRequestLensPathPatchStatus200 = {
 	[key: string]: unknown;
 };
 
-export type LensRequestLensPatchStatus422 = HTTPValidationError;
+export type LensRequestLensPathPatchStatus422 = HTTPValidationError;
 
-export type LensRequestLensPatchOptions = {
+export type LensRequestLensPathPatchOptions = {
 	body?: never | undefined;
-	path?: never | undefined;
-	query?: LensRequestLensPatchQuery | undefined;
+	path: LensRequestLensPathPatchPath;
+	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type LensRequestLensPatchResponses = {
-	"200": LensRequestLensPatchStatus200;
-	"422": LensRequestLensPatchStatus422;
+export type LensRequestLensPathPatchResponses = {
+	"200": LensRequestLensPathPatchStatus200;
+	"422": LensRequestLensPathPatchStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type LensRequestLensPatchResponse = LensRequestLensPatchStatus200;
+export type LensRequestLensPathPatchResponse = LensRequestLensPathPatchStatus200;
 
 export type LensRequestLensPostQuery = {
 	/**
@@ -39591,6 +39584,37 @@ export type LensRequestLensPutResponses = {
  * @description Union of all possible responses
  */
 export type LensRequestLensPutResponse = LensRequestLensPutStatus200;
+
+export type LensRequestLensPatchQuery = {
+	/**
+	 * @default ''
+	 * @type string | undefined
+	 */
+	path?: string | undefined;
+};
+
+export type LensRequestLensPatchStatus200 = {
+	[key: string]: unknown;
+};
+
+export type LensRequestLensPatchStatus422 = HTTPValidationError;
+
+export type LensRequestLensPatchOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: LensRequestLensPatchQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type LensRequestLensPatchResponses = {
+	"200": LensRequestLensPatchStatus200;
+	"422": LensRequestLensPatchStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type LensRequestLensPatchResponse = LensRequestLensPatchStatus200;
 
 export type ListPluginsApiPluginsGetStatus200 = {
 	[key: string]: string;
@@ -41787,31 +41811,33 @@ export type AggregateMcpRouteMcpPatchResponses = {
  */
 export type AggregateMcpRouteMcpPatchResponse = AggregateMcpRouteMcpPatchStatus200;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadPath = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostPath = {
 	toolset_name: string;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200 = void;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200 = {
+	[key: string]: unknown;
+};
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422 = void;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422 = HTTPValidationError;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadOptions = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostOptions = {
 	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpHeadPath;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpPostPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
 
 export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath = {
 	toolset_name: string;
@@ -41841,61 +41867,31 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponses = {
 export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponse =
 	ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchPath = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadPath = {
 	toolset_name: string;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200 = {
-	[key: string]: unknown;
-};
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200 = void;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422 = HTTPValidationError;
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422 = void;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchOptions = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadOptions = {
 	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpPatchPath;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpHeadPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422;
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostPath = {
-	toolset_name: string;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200 = {
-	[key: string]: unknown;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422 = HTTPValidationError;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostOptions = {
-	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpPostPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
 
 export type ToolsetMcpRouteToolsetToolsetNameMcpDeletePath = {
 	toolset_name: string;
@@ -41981,31 +41977,61 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpPutResponses = {
 export type ToolsetMcpRouteToolsetToolsetNameMcpPutResponse =
 	ToolsetMcpRouteToolsetToolsetNameMcpPutStatus200;
 
-export type DynamicMcpRouteMcpServerNameMcpHeadPath = {
-	mcp_server_name: string;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchPath = {
+	toolset_name: string;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpHeadStatus200 = void;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200 = {
+	[key: string]: unknown;
+};
 
-export type DynamicMcpRouteMcpServerNameMcpHeadStatus422 = void;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422 = HTTPValidationError;
 
-export type DynamicMcpRouteMcpServerNameMcpHeadOptions = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchOptions = {
 	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpHeadPath;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpPatchPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpHeadResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpHeadStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpHeadStatus422;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type DynamicMcpRouteMcpServerNameMcpHeadResponse =
-	DynamicMcpRouteMcpServerNameMcpHeadStatus200;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
+
+export type DynamicMcpRouteMcpServerNameMcpPostPath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPostStatus200 = {
+	[key: string]: unknown;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPostStatus422 = HTTPValidationError;
+
+export type DynamicMcpRouteMcpServerNameMcpPostOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpPostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPostResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpPostStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpPostResponse =
+	DynamicMcpRouteMcpServerNameMcpPostStatus200;
 
 export type DynamicMcpRouteMcpServerNameMcpOptionsPath = {
 	mcp_server_name: string;
@@ -42035,61 +42061,31 @@ export type DynamicMcpRouteMcpServerNameMcpOptionsResponses = {
 export type DynamicMcpRouteMcpServerNameMcpOptionsResponse =
 	DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
 
-export type DynamicMcpRouteMcpServerNameMcpPatchPath = {
+export type DynamicMcpRouteMcpServerNameMcpHeadPath = {
 	mcp_server_name: string;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpPatchStatus200 = {
-	[key: string]: unknown;
-};
+export type DynamicMcpRouteMcpServerNameMcpHeadStatus200 = void;
 
-export type DynamicMcpRouteMcpServerNameMcpPatchStatus422 = HTTPValidationError;
+export type DynamicMcpRouteMcpServerNameMcpHeadStatus422 = void;
 
-export type DynamicMcpRouteMcpServerNameMcpPatchOptions = {
+export type DynamicMcpRouteMcpServerNameMcpHeadOptions = {
 	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpPatchPath;
+	path: DynamicMcpRouteMcpServerNameMcpHeadPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpPatchResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpPatchStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpPatchStatus422;
+export type DynamicMcpRouteMcpServerNameMcpHeadResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpHeadStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpHeadStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type DynamicMcpRouteMcpServerNameMcpPatchResponse =
-	DynamicMcpRouteMcpServerNameMcpPatchStatus200;
-
-export type DynamicMcpRouteMcpServerNameMcpPostPath = {
-	mcp_server_name: string;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpPostStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpPostStatus422 = HTTPValidationError;
-
-export type DynamicMcpRouteMcpServerNameMcpPostOptions = {
-	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpPostPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpPostResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpPostStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DynamicMcpRouteMcpServerNameMcpPostResponse =
-	DynamicMcpRouteMcpServerNameMcpPostStatus200;
+export type DynamicMcpRouteMcpServerNameMcpHeadResponse =
+	DynamicMcpRouteMcpServerNameMcpHeadStatus200;
 
 export type DynamicMcpRouteMcpServerNameMcpDeletePath = {
 	mcp_server_name: string;
@@ -42174,6 +42170,34 @@ export type DynamicMcpRouteMcpServerNameMcpPutResponses = {
  */
 export type DynamicMcpRouteMcpServerNameMcpPutResponse =
 	DynamicMcpRouteMcpServerNameMcpPutStatus200;
+
+export type DynamicMcpRouteMcpServerNameMcpPatchPath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPatchStatus200 = {
+	[key: string]: unknown;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPatchStatus422 = HTTPValidationError;
+
+export type DynamicMcpRouteMcpServerNameMcpPatchOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpPatchPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPatchResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpPatchStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpPatchStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpPatchResponse =
+	DynamicMcpRouteMcpServerNameMcpPatchStatus200;
 
 export type WebsocketVertexAiLivePassthroughEndpointStatus101 = unknown;
 
