@@ -11,7 +11,7 @@ Each package is generated from the vendor's published OpenAPI spec and regenerat
 
 | API | Package | Class | Required options | Constructor `baseUrl` | Env var in the READMEs | Effect |
 | --- | --- | --- | --- | --- | --- | --- |
-| Vercel | `vercel-api-js` | `VercelApi` | `token` | optional | `VERCEL_TOKEN` | yes |
+| Vercel | `vercel-api-js` | `VercelApi` | `token` (string or function) | optional | `VERCEL_TOKEN` | yes |
 | Cloudflare | `cloudflare-api-js` | `CloudflareApi` | `token`, or `apiKey` plus `email` | optional | `CLOUDFLARE_TOKEN` | yes |
 | Netlify | `netlify-api` | `NetlifyApi` | `token` | none | `NETLIFY_TOKEN` | yes |
 | Keycloak | `keycloak-api` | `KeycloakAdminApi`, `KeycloakAccountApi` | `token` (string or function), `baseUrl`, and `realm` for `KeycloakAccountApi` | required | `KEYCLOAK_TOKEN` | yes |
