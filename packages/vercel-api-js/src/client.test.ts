@@ -459,3 +459,69 @@ describe("VercelApi baseUrl", () => {
 		expect(urls).toEqual(["https://proxy.test/vercel/v2/oauth/access_token"]);
 	});
 });
+
+describe("VercelApi token function", () => {
+	function setup() {
+		const authorizations: unknown[] = [];
+		const fetch: FetchImpl = async (_url, init) => {
+			authorizations.push(init?.headers?.Authorization);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { authorizations, fetch };
+	}
+
+	it("asks the token function again on every call from request() and the api proxy", async () => {
+		const { authorizations, fetch } = setup();
+		let current = 0;
+		const client = new VercelApi({ fetch, token: async () => `token-${++current}` });
+		await client.request("GET /v1/access-groups");
+		await client.api.accessGroups.listAccessGroups();
+		expect(authorizations).toEqual(["Bearer token-1", "Bearer token-2"]);
+	});
+
+	it("takes a synchronous token function", async () => {
+		const { authorizations, fetch } = setup();
+		const client = new VercelApi({ fetch, token: () => "fresh" });
+		await client.request("GET /v1/access-groups");
+		expect(authorizations).toEqual(["Bearer fresh"]);
+	});
+
+	it("sends no Authorization header when the function returns null", async () => {
+		const { authorizations, fetch } = setup();
+		const client = new VercelApi({ fetch, token: () => null });
+		await client.request("GET /v1/access-groups");
+		expect(authorizations).toEqual([undefined]);
+	});
+
+	it("uses a function assigned to the token field after construction", async () => {
+		const { authorizations, fetch } = setup();
+		const client = new VercelApi({ fetch, token: "first" });
+		client.token = () => "second";
+		await client.request("GET /v1/access-groups");
+		expect(authorizations).toEqual(["Bearer second"]);
+	});
+
+	it("lets a call's own config.token win over the function", async () => {
+		const { authorizations, fetch } = setup();
+		const client = new VercelApi({ fetch, token: () => "client" });
+		await client.api.accessGroups.listAccessGroups({ config: { token: "call" } });
+		expect(authorizations).toEqual(["Bearer call"]);
+	});
+
+	it("rejects with what the token function threw, before calling fetch", async () => {
+		const { authorizations, fetch } = setup();
+		const failure = new Error("token expired");
+		const client = new VercelApi({
+			fetch,
+			token: async () => {
+				throw failure;
+			},
+		});
+		await expect(client.request("GET /v1/access-groups")).rejects.toBe(failure);
+		await expect(client.api.accessGroups.listAccessGroups()).rejects.toBe(failure);
+		expect(authorizations).toEqual([]);
+	});
+});
