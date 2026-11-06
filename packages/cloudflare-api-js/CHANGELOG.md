@@ -1,5 +1,21 @@
 # cloudflare-api-js
 
+## 4.22.0
+
+### Minor Changes
+
+- d851cad: Added operation deleteDatasetPreferencesDelete to allow removing default datasets for users or accounts.
+- d851cad: Added operation getBrandProtectionUrlInfo to retrieve URL scan information for brand protection.
+- d851cad: Added operation postBrandProtectionUrlSubmit to submit a URL for scanning with URL Scanner v2.
+- d851cad: Added operation getDatasetPreferencesRead to retrieve default datasets for users or accounts.
+- d851cad: Added operation putDatasetPreferencesUpdate to set default datasets for users or accounts.
+
+### Patch Changes
+
+- d851cad: Added recipient_mode to EmailSendingLimitsProperties with enumeration support for 'arbitrary' and 'verified_only'.
+- d851cad: Changed type CacheSettingsSettingValue from string to unknown.
+- d851cad: Updated examples in types EmailEmailDomainTombstone and EmailEmailDomainChange to reflect more representative values.
+
 ## 4.21.0
 
 ### Minor Changes
