@@ -2252,7 +2252,7 @@ export type AbuseReportsBaseReportFields = {
    */
   act: AbuseReportsSubmissionReportType;
   /**
-   * @description Any additional comments about the infringement not exceeding 2000 characters. Comments are kept internal to Cloudflare and not shared with the host or customer as part of regular processing. For delegated reports, comments may be shared in full.
+   * @description Any additional comments about the infringement not exceeding 2000 characters. With the exception of delegated reports, comments are kept internal to Cloudflare and not shared with the host or customer as part of regular processing. For the limited circumstances where we delegate reports to customers with established abuse-handling programs, comments may be shared in full.
    * @minLength 1
    * @maxLength 2000
    * @type string | undefined
@@ -7964,12 +7964,6 @@ export type AccessApps = AccessBasicAppResponseProps2 & AccessSelfHostedProps2 |
 export type AccessAssociatedHostnames = string[];
 
 /**
- * @description The hostnames of the applications that will use this certificate.
- * @type array
- */
-export type AccessAssociatedHostnames2 = string[];
-
-/**
  * @description The Application Audience (AUD) tag. Identifies the application associated with the CA.
  * @maxLength 64
  * @example 737646a56ab1df6ec9bddc7e5ca84eaf3b0768850f3ffb5d74f1534911fe3893
@@ -8469,13 +8463,6 @@ export type AccessAzureAD2 = AccessIdentityProvider2 & {
 export type AccessDomain2 = string;
 
 /**
- * @description The image URL for the logo shown in the App Launcher dashboard.
- * @example https://www.cloudflare.com/img/logo-web-badges/cf-logo-on-white-bg.svg
- * @type string
- */
-export type AccessLogoUrl2 = string;
-
-/**
  * @description The name of the Bookmark application.
  * @example My Website
  * @type string
@@ -8506,7 +8493,7 @@ export type AccessBookmarks = {
    * @example https://www.cloudflare.com/img/logo-web-badges/cf-logo-on-white-bg.svg
    * @type string | undefined
    */
-  logo_url?: AccessLogoUrl2 | undefined;
+  logo_url?: AccessLogoUrl | undefined;
   /**
    * @description The name of the Bookmark application.
    * @example My Website
@@ -8554,14 +8541,6 @@ export type AccessCa = {
   readonly public_key?: AccessPublicKey | undefined;
 };
 
-/**
- * @description The ID of the CA.
- * @maxLength 48
- * @example 7eddae4619b50ab1361ba8ae9bd72269a432fea041529ed9
- * @type string
- */
-export type AccessId3 = string;
-
 export type AccessCa2 = {
   /**
    * @description The Application Audience (AUD) tag. Identifies the application associated with the CA.
@@ -8576,7 +8555,7 @@ export type AccessCa2 = {
    * @example 7eddae4619b50ab1361ba8ae9bd72269a432fea041529ed9
    * @type string | undefined
    */
-  readonly id?: AccessId3 | undefined;
+  readonly id?: AccessId2 | undefined;
   /**
    * @description The public key to add to your SSH server configuration.
    * @example ecdsa-sha2-nistp256 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxx/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx= open-ssh-ca@cloudflareaccess.org
@@ -8756,19 +8735,12 @@ export type AccessCertificates2 = {
   public_key?: string | undefined;
 };
 
-/**
- * @description The name of the certificate.
- * @example Allow devs
- * @type string
- */
-export type AccessName18 = string;
-
 export type AccessCertificates3 = {
   /**
    * @description The hostnames of the applications that will use this certificate.
    * @type array | undefined
    */
-  associated_hostnames?: AccessAssociatedHostnames2 | undefined;
+  associated_hostnames?: AccessAssociatedHostnames | undefined;
   /**
    * @description
    * Format: `date-time`
@@ -8799,7 +8771,7 @@ export type AccessCertificates3 = {
    * @example Allow devs
    * @type string | undefined
    */
-  name?: AccessName18 | undefined;
+  name?: AccessName7 | undefined;
   /**
    * @description
    * Format: `date-time`
@@ -8972,21 +8944,6 @@ export type AccessCreateResponse = AccessApiResponseSingle & {
   } | undefined;
 };
 
-/**
- * @description The duration for how long the service token will be valid. Must be in the format `300ms` or `2h45m`, or the special value `forever` for non-expiring tokens. Valid time units are: ns, us (or µs), ms, s, m, h. The default is 1 year in hours (8760h).
- * @default '8760h'
- * @example 60m
- * @type string
- */
-export type AccessDuration2 = string;
-
-/**
- * @description The name of the service token.
- * @example CI/CD token
- * @type string
- */
-export type AccessName17 = string;
-
 export type AccessCreateResponse2 = AccessApiResponseSingle & {
   result?: {
     /**
@@ -9014,7 +8971,7 @@ export type AccessCreateResponse2 = AccessApiResponseSingle & {
      * @example 60m
      * @type string | undefined
      */
-    duration?: AccessDuration2 | undefined;
+    duration?: AccessDuration | undefined;
     /**
      * @description Whether the service token is enabled. A disabled service token cannot be used to authenticate; both its current and previous `client_secret` stop being accepted, but the token itself is preserved and can be re-enabled. A service token reported as leaked is disabled automatically and cannot be re-enabled until its secret is rotated; attempting to do so returns a 409. Defaults to enabled when omitted on create.
      * @type boolean | undefined
@@ -9030,7 +8987,7 @@ export type AccessCreateResponse2 = AccessApiResponseSingle & {
      * @example CI/CD token
      * @type string | undefined
      */
-    name?: AccessName17 | undefined;
+    name?: AccessName2 | undefined;
     /**
      * @description Tags associated with the service token, as key-value pairs. On update, replaces all existing tags.
      * @example {"environment":"production"}
@@ -10147,13 +10104,6 @@ export type AccessGroups2 = {
   updated_at?: AccessUpdatedAt | undefined;
 };
 
-/**
- * @description The name of the Access group.
- * @example Allow devs
- * @type string
- */
-export type AccessName16 = string;
-
 export type AccessGroups3 = {
   /**
    * @description
@@ -10184,7 +10134,7 @@ export type AccessGroups3 = {
    * @example Allow devs
    * @type string | undefined
    */
-  name?: AccessName16 | undefined;
+  name?: AccessName6 | undefined;
   /**
    * @description Rules evaluated with an AND logical operator. To match a policy, a user must meet all of the Require rules.
    * @type array | undefined
@@ -10244,18 +10194,6 @@ export type AccessIdResponse4 = AccessApiResponseSingle & {
      * @type string | undefined
      */
     id?: AccessUuid2 | undefined;
-  } | undefined;
-};
-
-export type AccessIdResponse5 = AccessApiResponseSingle & {
-  result?: {
-    /**
-     * @description The ID of the CA.
-     * @maxLength 48
-     * @example 7eddae4619b50ab1361ba8ae9bd72269a432fea041529ed9
-     * @type string | undefined
-     */
-    readonly id?: AccessId3 | undefined;
   } | undefined;
 };
 
@@ -11707,7 +11645,7 @@ export type AccessServiceTokens2 = {
    * @example 60m
    * @type string | undefined
    */
-  duration?: AccessDuration2 | undefined;
+  duration?: AccessDuration | undefined;
   /**
    * @description Whether the service token is enabled. A disabled service token cannot be used to authenticate; both its current and previous `client_secret` stop being accepted, but the token itself is preserved and can be re-enabled. A service token reported as leaked is disabled automatically and cannot be re-enabled until its secret is rotated; attempting to do so returns a 409. Defaults to enabled when omitted on create.
    * @type boolean | undefined
@@ -11755,7 +11693,7 @@ export type AccessServiceTokens2 = {
    * @example CI/CD token
    * @type string | undefined
    */
-  name?: AccessName17 | undefined;
+  name?: AccessName2 | undefined;
   /**
    * @description Tags associated with the service token, as key-value pairs. On update, replaces all existing tags.
    * @example {"environment":"production"}
@@ -14913,6 +14851,132 @@ export type AigBillingErrorResponse = {
   success: false;
 };
 
+export const aigBillingGetAuthoritativeTopupEligibilityResultAutoTopupReasonEnum = {
+  ELIGIBLE: 'ELIGIBLE',
+  NO_ACCOUNT_PAYMENT_METHOD: 'NO_ACCOUNT_PAYMENT_METHOD',
+  UNSUPPORTED_ACCOUNT_PAYMENT_METHOD: 'UNSUPPORTED_ACCOUNT_PAYMENT_METHOD',
+  ACCOUNT_PAYMENT_METHOD_NOT_DEFAULT: 'ACCOUNT_PAYMENT_METHOD_NOT_DEFAULT',
+  ACCOUNT_PAYMENT_METHOD_NOT_LINKED_TO_AIG: 'ACCOUNT_PAYMENT_METHOD_NOT_LINKED_TO_AIG',
+  CONTRACT_BILLING_NOT_SELF_SERVE: 'CONTRACT_BILLING_NOT_SELF_SERVE',
+  ELIGIBILITY_UNAVAILABLE: 'ELIGIBILITY_UNAVAILABLE',
+  INVALID_PAYMENT_METHOD_SELECTION: 'INVALID_PAYMENT_METHOD_SELECTION',
+  PAYMENT_METHOD_EXPIRED: 'PAYMENT_METHOD_EXPIRED',
+  FIRST_TOPUP_REQUIRED: 'FIRST_TOPUP_REQUIRED',
+  AUTO_TOPUP_SETUP_REQUIRED: 'AUTO_TOPUP_SETUP_REQUIRED',
+  AUTO_TOPUP_NOT_CONFIGURED: 'AUTO_TOPUP_NOT_CONFIGURED',
+  ACCOUNT_PAYMENT_METHOD_DEFAULT_MISSING: 'ACCOUNT_PAYMENT_METHOD_DEFAULT_MISSING',
+  ACCOUNT_POLICY_UNAVAILABLE: 'ACCOUNT_POLICY_UNAVAILABLE',
+} as const;
+
+export type AigBillingGetAuthoritativeTopupEligibilityResultAutoTopupReasonEnumKey = (typeof aigBillingGetAuthoritativeTopupEligibilityResultAutoTopupReasonEnum)[keyof typeof aigBillingGetAuthoritativeTopupEligibilityResultAutoTopupReasonEnum];
+
+export const aigBillingGetAuthoritativeTopupEligibilityResultAutoTopupRecommendedActionEnum = {
+  NONE: 'NONE',
+  ADD_SUPPORTED_PAYMENT_METHOD: 'ADD_SUPPORTED_PAYMENT_METHOD',
+  USE_EXISTING_CARD: 'USE_EXISTING_CARD',
+  SET_CARD_AS_DEFAULT: 'SET_CARD_AS_DEFAULT',
+  CONTACT_SUPPORT: 'CONTACT_SUPPORT',
+  RETRY: 'RETRY',
+  SELECT_SUPPORTED_PAYMENT_METHOD: 'SELECT_SUPPORTED_PAYMENT_METHOD',
+  COMPLETE_MANUAL_TOPUP: 'COMPLETE_MANUAL_TOPUP',
+  AUTHENTICATE_CARD: 'AUTHENTICATE_CARD',
+  CONFIGURE_AUTO_TOPUP: 'CONFIGURE_AUTO_TOPUP',
+} as const;
+
+export type AigBillingGetAuthoritativeTopupEligibilityResultAutoTopupRecommendedActionEnumKey = (typeof aigBillingGetAuthoritativeTopupEligibilityResultAutoTopupRecommendedActionEnum)[keyof typeof aigBillingGetAuthoritativeTopupEligibilityResultAutoTopupRecommendedActionEnum];
+
+export const aigBillingGetAuthoritativeTopupEligibilityResultAutoTopupStatusEnum = {
+  eligible: 'eligible',
+  ineligible: 'ineligible',
+  unavailable: 'unavailable',
+} as const;
+
+export type AigBillingGetAuthoritativeTopupEligibilityResultAutoTopupStatusEnumKey = (typeof aigBillingGetAuthoritativeTopupEligibilityResultAutoTopupStatusEnum)[keyof typeof aigBillingGetAuthoritativeTopupEligibilityResultAutoTopupStatusEnum];
+
+export const aigBillingGetAuthoritativeTopupEligibilityResultManualTopupReasonEnum = {
+  ELIGIBLE: 'ELIGIBLE',
+  NO_ACCOUNT_PAYMENT_METHOD: 'NO_ACCOUNT_PAYMENT_METHOD',
+  UNSUPPORTED_ACCOUNT_PAYMENT_METHOD: 'UNSUPPORTED_ACCOUNT_PAYMENT_METHOD',
+  ACCOUNT_PAYMENT_METHOD_NOT_DEFAULT: 'ACCOUNT_PAYMENT_METHOD_NOT_DEFAULT',
+  ACCOUNT_PAYMENT_METHOD_NOT_LINKED_TO_AIG: 'ACCOUNT_PAYMENT_METHOD_NOT_LINKED_TO_AIG',
+  CONTRACT_BILLING_NOT_SELF_SERVE: 'CONTRACT_BILLING_NOT_SELF_SERVE',
+  ELIGIBILITY_UNAVAILABLE: 'ELIGIBILITY_UNAVAILABLE',
+  INVALID_PAYMENT_METHOD_SELECTION: 'INVALID_PAYMENT_METHOD_SELECTION',
+  PAYMENT_METHOD_EXPIRED: 'PAYMENT_METHOD_EXPIRED',
+  FIRST_TOPUP_REQUIRED: 'FIRST_TOPUP_REQUIRED',
+  AUTO_TOPUP_SETUP_REQUIRED: 'AUTO_TOPUP_SETUP_REQUIRED',
+  AUTO_TOPUP_NOT_CONFIGURED: 'AUTO_TOPUP_NOT_CONFIGURED',
+  ACCOUNT_PAYMENT_METHOD_DEFAULT_MISSING: 'ACCOUNT_PAYMENT_METHOD_DEFAULT_MISSING',
+  ACCOUNT_POLICY_UNAVAILABLE: 'ACCOUNT_POLICY_UNAVAILABLE',
+} as const;
+
+export type AigBillingGetAuthoritativeTopupEligibilityResultManualTopupReasonEnumKey = (typeof aigBillingGetAuthoritativeTopupEligibilityResultManualTopupReasonEnum)[keyof typeof aigBillingGetAuthoritativeTopupEligibilityResultManualTopupReasonEnum];
+
+export const aigBillingGetAuthoritativeTopupEligibilityResultManualTopupRecommendedActionEnum = {
+  NONE: 'NONE',
+  ADD_SUPPORTED_PAYMENT_METHOD: 'ADD_SUPPORTED_PAYMENT_METHOD',
+  USE_EXISTING_CARD: 'USE_EXISTING_CARD',
+  SET_CARD_AS_DEFAULT: 'SET_CARD_AS_DEFAULT',
+  CONTACT_SUPPORT: 'CONTACT_SUPPORT',
+  RETRY: 'RETRY',
+  SELECT_SUPPORTED_PAYMENT_METHOD: 'SELECT_SUPPORTED_PAYMENT_METHOD',
+  COMPLETE_MANUAL_TOPUP: 'COMPLETE_MANUAL_TOPUP',
+  AUTHENTICATE_CARD: 'AUTHENTICATE_CARD',
+  CONFIGURE_AUTO_TOPUP: 'CONFIGURE_AUTO_TOPUP',
+} as const;
+
+export type AigBillingGetAuthoritativeTopupEligibilityResultManualTopupRecommendedActionEnumKey = (typeof aigBillingGetAuthoritativeTopupEligibilityResultManualTopupRecommendedActionEnum)[keyof typeof aigBillingGetAuthoritativeTopupEligibilityResultManualTopupRecommendedActionEnum];
+
+export const aigBillingGetAuthoritativeTopupEligibilityResultManualTopupStatusEnum = {
+  eligible: 'eligible',
+  ineligible: 'ineligible',
+  unavailable: 'unavailable',
+} as const;
+
+export type AigBillingGetAuthoritativeTopupEligibilityResultManualTopupStatusEnumKey = (typeof aigBillingGetAuthoritativeTopupEligibilityResultManualTopupStatusEnum)[keyof typeof aigBillingGetAuthoritativeTopupEligibilityResultManualTopupStatusEnum];
+
+export const aigBillingGetAuthoritativeTopupEligibilityResultPaymentMethodsKindEnum = {
+  card: 'card',
+  wallet: 'wallet',
+  unsupported: 'unsupported',
+} as const;
+
+export type AigBillingGetAuthoritativeTopupEligibilityResultPaymentMethodsKindEnumKey = (typeof aigBillingGetAuthoritativeTopupEligibilityResultPaymentMethodsKindEnum)[keyof typeof aigBillingGetAuthoritativeTopupEligibilityResultPaymentMethodsKindEnum];
+
+export type AigBillingGetAuthoritativeTopupEligibilityResult = {
+  advisory: true;
+  auto_topup: {
+    default_payment_method_id: string | null;
+    eligible_payment_method_ids: string[];
+    reason: AigBillingGetAuthoritativeTopupEligibilityResultAutoTopupReasonEnumKey;
+    recommended_action: AigBillingGetAuthoritativeTopupEligibilityResultAutoTopupRecommendedActionEnumKey;
+    status: AigBillingGetAuthoritativeTopupEligibilityResultAutoTopupStatusEnumKey;
+  };
+  contract_version: 2;
+  /**
+   * @description
+   * Format: `date-time`
+   * @type string
+   */
+  evaluated_at: string;
+  manual_topup: {
+    default_payment_method_id: string | null;
+    eligible_payment_method_ids: string[];
+    reason: AigBillingGetAuthoritativeTopupEligibilityResultManualTopupReasonEnumKey;
+    recommended_action: AigBillingGetAuthoritativeTopupEligibilityResultManualTopupRecommendedActionEnumKey;
+    status: AigBillingGetAuthoritativeTopupEligibilityResultManualTopupStatusEnumKey;
+  };
+  payment_methods: {
+    account_payment_method_id: string;
+    brand?: string | undefined;
+    is_default: boolean;
+    kind: AigBillingGetAuthoritativeTopupEligibilityResultPaymentMethodsKindEnumKey;
+    last4?: string | undefined;
+    stripe_payment_method_id: string | null;
+    wallet_type?: string | undefined;
+  }[];
+};
+
 export type AigBillingGetCreditBalanceResult = {
   balance: number;
   first_topup_success?: boolean | undefined;
@@ -15226,7 +15290,7 @@ export type AigBillingGetTopupEligibilityResponse = {
     code: number;
     message: string;
   }[];
-  result: AigBillingGetTopupEligibilityResult;
+  result: AigBillingGetTopupEligibilityResult | AigBillingGetAuthoritativeTopupEligibilityResult;
   result_info?: {
     has_more: boolean;
     page: number;
@@ -78662,7 +78726,7 @@ export type OrganizationsApiAccount = {
   type: OrganizationsApiAccountTypeEnumKey;
 };
 
-export type OrganizationsApiPageTokenResultInfo = {
+export type OrganizationsApiAccountListResultInfo = {
   /**
    * @description Use this opaque token in the next request to retrieve the
    * next page.
@@ -78678,15 +78742,6 @@ export type OrganizationsApiPageTokenResultInfo = {
    */
   total_size?: number | undefined;
 };
-
-export type OrganizationsApiLegacyPaginationResultInfo = {
-  count: number;
-  page: number;
-  per_page: number;
-  total_count: number;
-};
-
-export type OrganizationsApiAccountListResultInfo = OrganizationsApiPageTokenResultInfo | OrganizationsApiLegacyPaginationResultInfo;
 
 export type OrganizationsApiCreateSingleMember = {
   user: {
@@ -78976,7 +79031,7 @@ export type OrganizationsApiMember = {
 
 export type OrganizationsApiModifyOrganizationRequest = {
   /**
-   * @description The Organization's display name, limited to 65 UTF-8 bytes. An omitted, empty, or unchanged value is a no-op.
+   * @description The Organization name, limited to 65 UTF-8 bytes. An omitted, empty, or unchanged value is a no-op.
    * @type string | undefined
    */
   name?: string | undefined;
@@ -79125,6 +79180,23 @@ export type OrganizationsApiOrganizationInviteMember = {
    */
   update_time: string;
   user: OrganizationsApiMemberSubjectUser;
+};
+
+export type OrganizationsApiPageTokenResultInfo = {
+  /**
+   * @description Use this opaque token in the next request to retrieve the
+   * next page.
+   *
+   * Parameters used to filter the retrieved list must remain in subsequent
+   * requests with a page token.
+   * @type string | undefined
+   */
+  next_page_token?: string | undefined;
+  /**
+   * @description Counts the total amount of items in a list with the applied filters. The API omits next_page_token to indicate no more items in a particular list.
+   * @type integer | undefined
+   */
+  total_size?: number | undefined;
 };
 
 export type OrganizationsApiV4Message = {
@@ -114125,55 +114197,11 @@ export type TlsCertificatesAndHostnamesSsl = {
    */
   certificate_authority?: TlsCertificatesAndHostnamesCertificateAuthorityKey | undefined;
   /**
-   * @description If a custom uploaded certificate is used.
-   * @example -----BEGIN CERTIFICATE-----
-   * MIIFJDCCBAygAwIBAgIQD0ifmj/Yi5NP/2gdUySbfzANBgkqhkiG9w0BAQsFADBN
-   * MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMScwJQYDVQQDEx5E...SzSHfXp5lnu/3V08I72q1QNzOCgY1XeL4GKVcj4or6cT6tX6oJH7ePPmfrBfqI/O
-   * OeH8gMJ+FuwtXYEPa4hBf38M5eU5xWG7
-   * -----END CERTIFICATE-----
-   *
-   * @type string | undefined
-   */
-  custom_certificate?: string | undefined;
-  /**
    * @description The identifier for the Custom CSR that was used.
    * @example 7b163417-1d2b-4c84-a38a-2fb7a0cd7752
    * @type string | undefined
    */
   custom_csr_id?: string | undefined;
-  /**
-   * @description The key for a custom uploaded certificate.
-   * @example -----BEGIN RSA PRIVATE KEY-----
-   * MIIEowIBAAKCAQEAwQHoetcl9+5ikGzV6cMzWtWPJHqXT3wpbEkRU9Yz7lgvddmG
-   * dtcGbg/1CGZu0jJGkMoppoUo4c3dts3iwqRYmBikUP77wwY2QGmDZw2FvkJCJlKn
-   * abIRuGvBKwzESIXgKk2016aTP6/dAjEHyo6SeoK8lkIySUvK0fyOVlsiEsCmOpid
-   * tnKX/a+50GjB79CJH4ER2lLVZnhePFR/zUOyPxZQQ4naHf7yu/b5jhO0f8fwt+py
-   * FxIXjbEIdZliWRkRMtzrHOJIhrmJ2A1J7iOrirbbwillwjjNVUWPf3IJ3M12S9pE
-   * ewooaeO2izNTERcG9HzAacbVRn2Y2SWIyT/18QIDAQABAoIBACbhTYXBZYKmYPCb
-   * HBR1IBlCQA2nLGf0qRuJNJZg5iEzXows/6tc8YymZkQE7nolapWsQ+upk2y5Xdp/
-   * axiuprIs9JzkYK8Ox0r+dlwCG1kSW+UAbX0bQ/qUqlsTvU6muVuMP8vZYHxJ3wmb
-   * +ufRBKztPTQ/rYWaYQcgC0RWI20HTFBMxlTAyNxYNWzX7RKFkGVVyB9RsAtmcc8g
-   * +j4OdosbfNoJPS0HeIfNpAznDfHKdxDk2Yc1tV6RHBrC1ynyLE9+TaflIAdo2MVv
-   * KLMLq51GqYKtgJFIlBRPQqKoyXdz3fGvXrTkf/WY9QNq0J1Vk5ERePZ54mN8iZB7
-   * 9lwy/AkCgYEA6FXzosxswaJ2wQLeoYc7ceaweX/SwTvxHgXzRyJIIT0eJWgx13Wo
-   * /WA3Iziimsjf6qE+SI/8laxPp2A86VMaIt3Z3mJN/CqSVGw8LK2AQst+OwdPyDMu
-   * iacE8lj/IFGC8mwNUAb9CzGU3JpU4PxxGFjS/eMtGeRXCWkK4NE+G08CgYEA1Kp9
-   * N2JrVlqUz+gAX+LPmE9OEMAS9WQSQsfCHGogIFDGGcNf7+uwBM7GAaSJIP01zcoe
-   * VAgWdzXCv3FLhsaZoJ6RyLOLay5phbu1iaTr4UNYm5WtYTzMzqh8l1+MFFDl9xDB
-   * vULuCIIrglM5MeS/qnSg1uMoH2oVPj9TVst/ir8CgYEAxrI7Ws9Zc4Bt70N1As+U
-   * lySjaEVZCMkqvHJ6TCuVZFfQoE0r0whdLdRLU2PsLFP+q7qaeZQqgBaNSKeVcDYR
-   * 9B+nY/jOmQoPewPVsp/vQTCnE/R81spu0mp0YI6cIheT1Z9zAy322svcc43JaWB7
-   * mEbeqyLOP4Z4qSOcmghZBSECgYACvR9Xs0DGn+wCsW4vze/2ei77MD4OQvepPIFX
-   * dFZtlBy5ADcgE9z0cuVB6CiL8DbdK5kwY9pGNr8HUCI03iHkW6Zs+0L0YmihfEVe
-   * PG19PSzK9CaDdhD9KFZSbLyVFmWfxOt50H7YRTTiPMgjyFpfi5j2q348yVT0tEQS
-   * fhRqaQKBgAcWPokmJ7EbYQGeMbS7HC8eWO/RyamlnSffdCdSc7ue3zdVJxpAkQ8W
-   * qu80pEIF6raIQfAf8MXiiZ7auFOSnHQTXUbhCpvDLKi0Mwq3G8Pl07l+2s6dQG6T
-   * lv6XTQaMyf6n1yjzL+fzDrH3qXMxHMO/b13EePXpDMpY7HQpoLDi
-   * -----END RSA PRIVATE KEY-----
-   *
-   * @type string | undefined
-   */
-  custom_key?: string | undefined;
   /**
    * @description DCV Delegation records for domain validation.
    * @type array | undefined
@@ -235400,6 +235428,152 @@ export type ZeroTrustOrganizationGetYourZeroTrustOrganizationResponses = {
  */
 export type ZeroTrustOrganizationGetYourZeroTrustOrganizationResponse = ZeroTrustOrganizationGetYourZeroTrustOrganizationStatus200;
 
+export type ZeroTrustOrganizationPatchYourZeroTrustOrganizationPath = {
+  /**
+   * @description Identifier.
+   * @maxLength 32
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  accountId: AccessIdentifier;
+};
+
+export type ZeroTrustOrganizationPatchYourZeroTrustOrganizationStatus200 = AccessSingleResponse;
+
+export type ZeroTrustOrganizationPatchYourZeroTrustOrganizationStatus400 = AccessApiResponseCommonFailure;
+
+export type ZeroTrustOrganizationPatchYourZeroTrustOrganizationBody = {
+  /**
+   * @description When set to true, users can authenticate via WARP for any application in your organization. Application settings will take precedence over this value.
+   * @default false
+   * @example false
+   * @type boolean | undefined
+   */
+  allow_authenticate_via_warp?: AccessAllowAuthenticateViaWarp | undefined;
+  /**
+   * @description The unique subdomain assigned to your Zero Trust organization. If omitted on creation, a unique subdomain is auto-generated in the format `adjective-noun-hex4` (e.g. `frosty-moon-7a3b.cloudflareaccess.com`).
+   * @example test.cloudflareaccess.com
+   * @type string | undefined
+   */
+  auth_domain?: AccessAuthDomain | undefined;
+  /**
+   * @description When set to `true`, users skip the identity provider selection step during login.
+   * @default false
+   * @type boolean | undefined
+   */
+  auto_redirect_to_identity?: AccessAutoRedirectToIdentity | undefined;
+  custom_pages?: AccessCustomPages | undefined;
+  /**
+   * @description Determines whether to deny all requests to Cloudflare-protected resources that lack an associated Access application. If enabled, you must explicitly configure an Access application and policy to allow traffic to your Cloudflare-protected resources. For domains you want to be public across all subdomains, add the domain to the `deny_unmatched_requests_exempted_zone_names` array.
+   * @example true
+   * @type boolean | undefined
+   */
+  deny_unmatched_requests?: AccessDenyUnmatchedRequests | undefined;
+  /**
+   * @description Contains zone names to exempt from the `deny_unmatched_requests` feature. Requests to a subdomain in an exempted zone will block unauthenticated traffic by default if there is a configured Access application and policy that matches the request.
+   * @example ["example.com"]
+   * @type array | undefined
+   */
+  deny_unmatched_requests_exempted_zone_names?: AccessDenyUnmatchedRequestsExemptedZoneNames | undefined;
+  /**
+   * @description Whether creation of end user applications is disabled for this organization.
+   * @default false
+   * @example false
+   * @type boolean | undefined
+   */
+  disable_end_user_app_creation?: AccessDisableEndUserAppCreation | undefined;
+  /**
+   * @description Lock all settings as Read-Only in the Dashboard, regardless of user permission. Updates may only be made via the API or Terraform for this account when enabled.
+   * @default false
+   * @example false
+   * @type boolean | undefined
+   */
+  is_ui_read_only?: AccessIsUiReadOnly | undefined;
+  login_design?: AccessLoginDesign | undefined;
+  /**
+   * @description Configures multi-factor authentication (MFA) settings for an organization.
+   * @type object | undefined
+   */
+  mfa_config?: AccessOrgMfaConfig | undefined;
+  /**
+   * @description Configures PIV key requirements for MFA using hardware security keys.
+   * @type object | undefined
+   */
+  mfa_piv_key_requirements?: AccessMfaPivKeyRequirements | undefined;
+  /**
+   * @description Determines whether global MFA settings apply to applications by default. The organization must have MFA enabled with at least one authentication method and a session duration configured. Note: 'allowed_authenticators' cannot contain only the infrastructure SSH authenticators ('piv_key' and 'ssh_fido2_key') if the organization has any non-infrastructure applications.
+   * @default false
+   * @example false
+   * @type boolean | undefined
+   */
+  mfa_required_for_all_apps?: AccessMfaRequiredForAllApps | undefined;
+  /**
+   * @description The name of your Zero Trust organization. When omitted on creation, defaults to the provided auth_domain; when both are omitted, defaults to the auto-generated subdomain slug (e.g. frosty-moon-7a3b).
+   * @example Widget Corps Internal Applications
+   * @type string | undefined
+   */
+  name?: AccessName | undefined;
+  /**
+   * @description Configures automatic enforcement for inactive service tokens. A service token is inactive if no policy references it, and it has not successfully authenticated with an Access application during the selected inactivity period. This setting applies to every service token in your Zero Trust account.
+   * @type object | undefined
+   */
+  service_token_inactivity?: AccessServiceTokenInactivity | undefined;
+  /**
+   * @description The amount of time that tokens issued for applications will be valid. Must be in the format `300ms` or `2h45m`. Valid time units are: ns, us (or µs), ms, s, m, h.
+   * @example 24h
+   * @type string | undefined
+   */
+  session_duration?: AccessSessionDuration | undefined;
+  /**
+   * @description Enables new behaviors for requests made with Access service tokens. Unauthorized requests emit audit logs, and return a 401 or 403 status code in the response instead of redirecting to the login page. Successful requests no longer receive a CF_Authorization cookie in the response. Zero Trust organizations created on or after October 5, 2026 will have this setting enabled by default, and cannot disable it.
+   * @example true
+   * @type boolean | undefined
+   */
+  strict_service_token_auth?: AccessStrictServiceTokenAuth | undefined;
+  /**
+   * @description A description of the reason why the UI read only field is being toggled.
+   * @example Temporarily turn off the UI read only lock to make a change via the UI
+   * @type string | undefined
+   */
+  ui_read_only_toggle_reason?: AccessUiReadOnlyToggleReason | undefined;
+  /**
+   * @description The amount of time a user seat is inactive before it expires. When the user seat exceeds the set time of inactivity, the user is removed as an active seat and no longer counts against your Teams seat count.  Minimum value for this setting is 1 month (730h). Must be in the format `300ms` or `2h45m`. Valid time units are: `ns`, `us` (or `µs`), `ms`, `s`, `m`, `h`.
+   * @example 730h
+   * @type string | undefined
+   */
+  user_seat_expiration_inactive_time?: AccessUserSeatExpirationInactiveTime | undefined;
+  /**
+   * @description When enabled, unsuccessful WARP authentication requests with a non-HTML Accept header return a 401 response instead of redirecting to the login page.
+   * @default false
+   * @example false
+   * @type boolean | undefined
+   */
+  warp_auth_non_browser_401?: AccessWarpAuthNonBrowser401 | undefined;
+  /**
+   * @description The amount of time that tokens issued for applications will be valid. Must be in the format `30m` or `2h45m`. Valid time units are: m, h.
+   * @example 24h
+   * @type string | undefined
+   */
+  warp_auth_session_duration?: AccessWarpAuthSessionDuration | undefined;
+};
+
+export type ZeroTrustOrganizationPatchYourZeroTrustOrganizationOptions = {
+  body: ZeroTrustOrganizationPatchYourZeroTrustOrganizationBody;
+  path: ZeroTrustOrganizationPatchYourZeroTrustOrganizationPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type ZeroTrustOrganizationPatchYourZeroTrustOrganizationResponses = {
+  '200': ZeroTrustOrganizationPatchYourZeroTrustOrganizationStatus200;
+  '400': ZeroTrustOrganizationPatchYourZeroTrustOrganizationStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ZeroTrustOrganizationPatchYourZeroTrustOrganizationResponse = ZeroTrustOrganizationPatchYourZeroTrustOrganizationStatus200;
+
 export type ZeroTrustOrganizationCreateYourZeroTrustOrganizationPath = {
   /**
    * @description Identifier.
@@ -243760,9 +243934,17 @@ export type AigBillingTopupEligibilityStatus403 = AigBillingErrorResponse;
 
 export type AigBillingTopupEligibilityStatus404 = AigBillingErrorResponse;
 
+export type AigBillingTopupEligibilityStatus409 = AigBillingErrorResponse;
+
 export type AigBillingTopupEligibilityBody = {
+  contract_version?: 2 | undefined;
   /**
-   * @description Account-level payment methods, forwarded by the dashboard.
+   * @maxLength 255
+   * @type string | undefined
+   */
+  payment_method_id?: string | undefined;
+  /**
+   * @description Account-level payment methods, forwarded by the dashboard for legacy eligibility only.
    * @type array | undefined
    */
   payment_methods?: {
@@ -243799,6 +243981,7 @@ export type AigBillingTopupEligibilityResponses = {
   '400': AigBillingTopupEligibilityStatus400;
   '403': AigBillingTopupEligibilityStatus403;
   '404': AigBillingTopupEligibilityStatus404;
+  '409': AigBillingTopupEligibilityStatus409;
 };
 
 /**
@@ -253993,7 +254176,6 @@ export type AigConfigUpdateGatewayBody = {
   } | null) | undefined;
   /**
    * @description Controls how Workers AI inference calls routed through this gateway are billed. 'postpaid' bills the account directly through Workers AI; 'unified' deducts credits via AI Gateway using neuron-based pricing and delegates billing to AI Gateway.
-   * @default 'postpaid'
    * @type string | undefined
    */
   workers_ai_billing_mode?: AigConfigUpdateGatewayRequestWorkersAiBillingModeEnumKey | undefined;
@@ -350873,6 +351055,7 @@ export const emailSendingAccountSendBuilderStatus403ErrorsMessageEnum = {
   'email.sending.error.email.sending_disabled': 'email.sending.error.email.sending_disabled',
   'email.sending.error.email.sender_not_configured': 'email.sending.error.email.sender_not_configured',
   'email.sending.error.email.account_suspended': 'email.sending.error.email.account_suspended',
+  'email.sending.error.email.recipient_plan_restricted': 'email.sending.error.email.recipient_plan_restricted',
 } as const;
 
 export type EmailSendingAccountSendBuilderStatus403ErrorsMessageEnumKey = (typeof emailSendingAccountSendBuilderStatus403ErrorsMessageEnum)[keyof typeof emailSendingAccountSendBuilderStatus403ErrorsMessageEnum];
@@ -350999,6 +351182,7 @@ export const emailSendingAccountSendRawMessageStatus403ErrorsMessageEnum = {
   'email.sending.error.email.sending_disabled': 'email.sending.error.email.sending_disabled',
   'email.sending.error.email.sender_not_configured': 'email.sending.error.email.sender_not_configured',
   'email.sending.error.email.account_suspended': 'email.sending.error.email.account_suspended',
+  'email.sending.error.email.recipient_plan_restricted': 'email.sending.error.email.recipient_plan_restricted',
 } as const;
 
 export type EmailSendingAccountSendRawMessageStatus403ErrorsMessageEnumKey = (typeof emailSendingAccountSendRawMessageStatus403ErrorsMessageEnum)[keyof typeof emailSendingAccountSendRawMessageStatus403ErrorsMessageEnum];
@@ -430598,23 +430782,10 @@ export type OrganizationsGetAccountsQuery = {
    * pagination. Defaults to true. When false, total_size is omitted. page_size and
    * include_total may change between pages; next_page_token remains the authoritative
    * continuation signal.
-   * Legacy page/per_page requests always calculate total_count.
    * @default true
    * @type boolean | undefined
    */
   include_total?: boolean | undefined;
-  /**
-   * @description Legacy offset page number. Must be provided with `per_page`. Values below 1 are treated as
-   * 1. Cursor pagination takes precedence when requested.
-   * @type integer | undefined
-   */
-  page?: number | undefined;
-  /**
-   * @description Legacy offset page size. Must be provided with `page`. Values are clamped to the range
-   * 1-100. Cursor pagination takes precedence when requested.
-   * @type integer | undefined
-   */
-  per_page?: number | undefined;
   /**
    * @description An opaque token returned from the last list response that when
    * provided will retrieve the next page.
@@ -430645,7 +430816,7 @@ export type OrganizationsGetAccountsStatus200 = {
   errors: object[];
   messages: OrganizationsApiV4Message[];
   result: (OrganizationsApiAccount | OrganizationsApiLegacyAccount)[];
-  result_info: OrganizationsApiAccountListResultInfo;
+  result_info: OrganizationsApiPageTokenResultInfo;
   success: true;
 };
 
@@ -438686,24 +438857,11 @@ export type TenantsListAccountsQuery = {
   direction?: TenantsListAccountsDirectionKey | undefined;
   /**
    * @description Whether to calculate and return the exact `result_info.total_size` for cursor
-   * pagination. Defaults to true. When false, `total_size` is omitted. Legacy
-   * `page`/`per_page` requests always calculate `total_count`.
+   * pagination. Defaults to true. When false, `total_size` is omitted.
    * @default true
    * @type boolean | undefined
    */
   include_total?: boolean | undefined;
-  /**
-   * @description Legacy offset page number. Must be provided with `per_page`. Values below 1 are treated as
-   * 1. Cursor pagination takes precedence when requested.
-   * @type integer | undefined
-   */
-  page?: number | undefined;
-  /**
-   * @description Legacy offset page size. Must be provided with `page`. Values are clamped to the range
-   * 1-100. Cursor pagination takes precedence when requested.
-   * @type integer | undefined
-   */
-  per_page?: number | undefined;
   /**
    * @description An opaque token returned from the last list response that when
    * provided will retrieve the next page.
@@ -438726,7 +438884,7 @@ export type TenantsListAccountsStatus200 = {
   errors: object[];
   messages: OrganizationsApiV4Message[];
   result: OrganizationsApiLegacyAccount[];
-  result_info: OrganizationsApiAccountListResultInfo;
+  result_info: OrganizationsApiPageTokenResultInfo;
   success: true;
 };
 
@@ -440312,7 +440470,7 @@ export type ZoneLevelAccessShortLivedCertificateCAsDeleteAShortLivedCertificateC
   zoneId: AccessIdentifier;
 };
 
-export type ZoneLevelAccessShortLivedCertificateCAsDeleteAShortLivedCertificateCaStatus202 = AccessIdResponse5;
+export type ZoneLevelAccessShortLivedCertificateCAsDeleteAShortLivedCertificateCaStatus202 = AccessIdResponse2;
 
 export type ZoneLevelAccessShortLivedCertificateCAsDeleteAShortLivedCertificateCaStatus400 = AccessApiResponseCommonFailure;
 
@@ -440938,7 +441096,7 @@ export type ZoneLevelAccessMtlsAuthenticationAddAnMtlsCertificateBody = {
    * @description The hostnames of the applications that will use this certificate.
    * @type array | undefined
    */
-  associated_hostnames?: AccessAssociatedHostnames2 | undefined;
+  associated_hostnames?: AccessAssociatedHostnames | undefined;
   /**
    * @description The certificate content.
    * @example -----BEGIN CERTIFICATE-----
@@ -440953,7 +441111,7 @@ export type ZoneLevelAccessMtlsAuthenticationAddAnMtlsCertificateBody = {
    * @example Allow devs
    * @type string
    */
-  name: AccessName18;
+  name: AccessName7;
 };
 
 export type ZoneLevelAccessMtlsAuthenticationAddAnMtlsCertificateOptions = {
@@ -441141,13 +441299,13 @@ export type ZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateBody = {
    * @description The hostnames of the applications that will use this certificate.
    * @type array
    */
-  associated_hostnames: AccessAssociatedHostnames2;
+  associated_hostnames: AccessAssociatedHostnames;
   /**
    * @description The name of the certificate.
    * @example Allow devs
    * @type string | undefined
    */
-  name?: AccessName18 | undefined;
+  name?: AccessName7 | undefined;
 };
 
 export type ZoneLevelAccessMtlsAuthenticationUpdateAnMtlsCertificateOptions = {
@@ -441228,7 +441386,7 @@ export type ZoneLevelAccessGroupsCreateAnAccessGroupBody = {
    * @example Allow devs
    * @type string
    */
-  name: AccessName16;
+  name: AccessName6;
   /**
    * @description Rules evaluated with an AND logical operator. To match a policy, a user must meet all of the Require rules.
    * @type array | undefined
@@ -441366,7 +441524,7 @@ export type ZoneLevelAccessGroupsUpdateAnAccessGroupBody = {
    * @example Allow devs
    * @type string
    */
-  name: AccessName16;
+  name: AccessName6;
   /**
    * @description Rules evaluated with an AND logical operator. To match a policy, a user must meet all of the Require rules.
    * @type array | undefined
@@ -441834,7 +441992,7 @@ export type ZoneLevelAccessServiceTokensCreateAServiceTokenBody = {
    * @example 60m
    * @type string | undefined
    */
-  duration?: AccessDuration2 | undefined;
+  duration?: AccessDuration | undefined;
   /**
    * @description Whether the service token is enabled. A disabled service token cannot be used to authenticate; both its current and previous `client_secret` stop being accepted, but the token itself is preserved and can be re-enabled. A service token reported as leaked is disabled automatically and cannot be re-enabled until its secret is rotated; attempting to do so returns a 409. Defaults to enabled when omitted on create.
    * @type boolean | undefined
@@ -441845,7 +442003,7 @@ export type ZoneLevelAccessServiceTokensCreateAServiceTokenBody = {
    * @example CI/CD token
    * @type string
    */
-  name: AccessName17;
+  name: AccessName2;
   /**
    * @description The expiration of the previous `client_secret`. This can be modified at any point after a rotation. For example, you may extend it further into the future if you need more time to update services with the new secret; or move it into the past to immediately invalidate the previous token in case of compromise. Rotating a service token that was reported as leaked discards the previous secret entirely, so no grace period can be set.
    *
@@ -441989,7 +442147,7 @@ export type ZoneLevelAccessServiceTokensUpdateAServiceTokenBody = {
    * @example 60m
    * @type string | undefined
    */
-  duration?: AccessDuration2 | undefined;
+  duration?: AccessDuration | undefined;
   /**
    * @description Whether the service token is enabled. A disabled service token cannot be used to authenticate; both its current and previous `client_secret` stop being accepted, but the token itself is preserved and can be re-enabled. A service token reported as leaked is disabled automatically and cannot be re-enabled until its secret is rotated; attempting to do so returns a 409. Defaults to enabled when omitted on create.
    * @type boolean | undefined
@@ -442000,7 +442158,7 @@ export type ZoneLevelAccessServiceTokensUpdateAServiceTokenBody = {
    * @example CI/CD token
    * @type string | undefined
    */
-  name?: AccessName17 | undefined;
+  name?: AccessName2 | undefined;
   /**
    * @description The expiration of the previous `client_secret`. This can be modified at any point after a rotation. For example, you may extend it further into the future if you need more time to update services with the new secret; or move it into the past to immediately invalidate the previous token in case of compromise. Rotating a service token that was reported as leaked discards the previous secret entirely, so no grace period can be set.
    *
