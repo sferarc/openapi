@@ -6,4 +6,10 @@ export {
 } from "./generated/components";
 export * from "./generated/schemas";
 export * from "./generated/types";
-export { ApiResponseError, isJsonLineStream, type ResponseInfo } from "./utils/fetcher";
+export {
+	ApiResponseError,
+	isEventStream,
+	isJsonLineStream,
+	type ResponseInfo,
+	type ServerSentEvent,
+} from "./utils/fetcher";

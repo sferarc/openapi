@@ -72,6 +72,27 @@ if (isJsonLineStream(rows)) {
 
 Leaving the loop early cancels the response body. A response of another type resolves as usual, and so does any response when a custom `fetch` returns no `body`.
 
+### Streamed completions
+
+LiteLLM answers a chat completion, completion or responses call whose body sets `stream: true` with Server-Sent Events (`text/event-stream`), one `data:` event per chunk and a last `data: [DONE]`, which the spec does not declare. By default such a call resolves to the raw text of the stream once it ends. To read each chunk as it arrives, pass `eventStream: "stream"` in `config` and iterate the result:
+
+```ts
+import { isEventStream } from "litellm-api";
+
+const chunks = await client.api.chatCompletions.chatCompletionV1ChatCompletionsPost({
+  body: { model: "gpt-4o", messages: [{ role: "user", content: "Hi" }], stream: true },
+  config: { eventStream: "stream" },
+});
+if (isEventStream(chunks)) {
+  for await (const { data } of chunks) {
+    if (data === "[DONE]") break;
+    console.log(JSON.parse(data));
+  }
+}
+```
+
+Each event has its `event` type (`message` unless the stream names one), its `data` lines joined by newlines, and the last `id` the stream sent. Leaving the loop early cancels the response body. A response of another type resolves as usual, and so does any response when a custom `fetch` returns no `body`.
+
 ### Response headers
 
 A call resolves to the parsed body only. To read a response header, pass `onResponse` in `config`; it gets the status and headers of the response before the body is read, an error response included. LiteLLM names the deployment that answered in `x-litellm-model-id`, which `GET /model/info` takes as `litellm_model_id`, and the cache entry in `x-litellm-cache-key`, which `POST /cache/delete` takes:

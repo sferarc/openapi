@@ -95,7 +95,7 @@ if (isJsonLineStream(logs)) {
 }
 ```
 
-Server-Sent Events in `v0-api` (`chatsResume`, and `chatsCreate`, `chatsSendMessage` or `chatsResolveTask` with `responseMode: "experimental_stream"`) resolve to the raw text unless `config` sets `eventStream: "stream"`:
+Server-Sent Events in `v0-api` (`chatsResume`, and `chatsCreate`, `chatsSendMessage` or `chatsResolveTask` with `responseMode: "experimental_stream"`) and in `litellm-api` (a chat completion, completion or responses call with `stream: true` in the body, ending in `data: [DONE]`) resolve to the raw text unless `config` sets `eventStream: "stream"`:
 
 ```ts
 import { isEventStream, V0Api } from "v0-api";
