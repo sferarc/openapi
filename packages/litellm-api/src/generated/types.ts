@@ -26051,34 +26051,6 @@ export type GetThreadV1ThreadsThreadIdGetResponses = {
  */
 export type GetThreadV1ThreadsThreadIdGetResponse = GetThreadV1ThreadsThreadIdGetStatus200;
 
-export type AddMessagesThreadsThreadIdMessagesPostPath = {
-	thread_id: string;
-};
-
-export type AddMessagesThreadsThreadIdMessagesPostStatus200 = {
-	[key: string]: unknown;
-};
-
-export type AddMessagesThreadsThreadIdMessagesPostStatus422 = HTTPValidationError;
-
-export type AddMessagesThreadsThreadIdMessagesPostOptions = {
-	body?: never | undefined;
-	path: AddMessagesThreadsThreadIdMessagesPostPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type AddMessagesThreadsThreadIdMessagesPostResponses = {
-	"200": AddMessagesThreadsThreadIdMessagesPostStatus200;
-	"422": AddMessagesThreadsThreadIdMessagesPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type AddMessagesThreadsThreadIdMessagesPostResponse =
-	AddMessagesThreadsThreadIdMessagesPostStatus200;
-
 export type GetMessagesThreadsThreadIdMessagesGetPath = {
 	thread_id: string;
 };
@@ -26107,33 +26079,33 @@ export type GetMessagesThreadsThreadIdMessagesGetResponses = {
 export type GetMessagesThreadsThreadIdMessagesGetResponse =
 	GetMessagesThreadsThreadIdMessagesGetStatus200;
 
-export type AddMessagesV1ThreadsThreadIdMessagesPostPath = {
+export type AddMessagesThreadsThreadIdMessagesPostPath = {
 	thread_id: string;
 };
 
-export type AddMessagesV1ThreadsThreadIdMessagesPostStatus200 = {
+export type AddMessagesThreadsThreadIdMessagesPostStatus200 = {
 	[key: string]: unknown;
 };
 
-export type AddMessagesV1ThreadsThreadIdMessagesPostStatus422 = HTTPValidationError;
+export type AddMessagesThreadsThreadIdMessagesPostStatus422 = HTTPValidationError;
 
-export type AddMessagesV1ThreadsThreadIdMessagesPostOptions = {
+export type AddMessagesThreadsThreadIdMessagesPostOptions = {
 	body?: never | undefined;
-	path: AddMessagesV1ThreadsThreadIdMessagesPostPath;
+	path: AddMessagesThreadsThreadIdMessagesPostPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type AddMessagesV1ThreadsThreadIdMessagesPostResponses = {
-	"200": AddMessagesV1ThreadsThreadIdMessagesPostStatus200;
-	"422": AddMessagesV1ThreadsThreadIdMessagesPostStatus422;
+export type AddMessagesThreadsThreadIdMessagesPostResponses = {
+	"200": AddMessagesThreadsThreadIdMessagesPostStatus200;
+	"422": AddMessagesThreadsThreadIdMessagesPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type AddMessagesV1ThreadsThreadIdMessagesPostResponse =
-	AddMessagesV1ThreadsThreadIdMessagesPostStatus200;
+export type AddMessagesThreadsThreadIdMessagesPostResponse =
+	AddMessagesThreadsThreadIdMessagesPostStatus200;
 
 export type GetMessagesV1ThreadsThreadIdMessagesGetPath = {
 	thread_id: string;
@@ -26162,6 +26134,34 @@ export type GetMessagesV1ThreadsThreadIdMessagesGetResponses = {
  */
 export type GetMessagesV1ThreadsThreadIdMessagesGetResponse =
 	GetMessagesV1ThreadsThreadIdMessagesGetStatus200;
+
+export type AddMessagesV1ThreadsThreadIdMessagesPostPath = {
+	thread_id: string;
+};
+
+export type AddMessagesV1ThreadsThreadIdMessagesPostStatus200 = {
+	[key: string]: unknown;
+};
+
+export type AddMessagesV1ThreadsThreadIdMessagesPostStatus422 = HTTPValidationError;
+
+export type AddMessagesV1ThreadsThreadIdMessagesPostOptions = {
+	body?: never | undefined;
+	path: AddMessagesV1ThreadsThreadIdMessagesPostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type AddMessagesV1ThreadsThreadIdMessagesPostResponses = {
+	"200": AddMessagesV1ThreadsThreadIdMessagesPostStatus200;
+	"422": AddMessagesV1ThreadsThreadIdMessagesPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type AddMessagesV1ThreadsThreadIdMessagesPostResponse =
+	AddMessagesV1ThreadsThreadIdMessagesPostStatus200;
 
 export type RunThreadThreadsThreadIdRunsPostPath = {
 	thread_id: string;
@@ -28651,26 +28651,6 @@ export type VideoExtensionV1VideosExtensionsPostResponses = {
 export type VideoExtensionV1VideosExtensionsPostResponse =
 	VideoExtensionV1VideosExtensionsPostStatus200;
 
-export type CreateContainerContainersPostStatus200 = {
-	[key: string]: unknown;
-};
-
-export type CreateContainerContainersPostOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type CreateContainerContainersPostResponses = {
-	"200": CreateContainerContainersPostStatus200;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type CreateContainerContainersPostResponse = CreateContainerContainersPostStatus200;
-
 export type ListContainersContainersGetQuery = {
 	after?: (string | null) | undefined;
 	limit?: (number | null) | undefined;
@@ -28700,25 +28680,25 @@ export type ListContainersContainersGetResponses = {
  */
 export type ListContainersContainersGetResponse = ListContainersContainersGetStatus200;
 
-export type CreateContainerV1ContainersPostStatus200 = {
+export type CreateContainerContainersPostStatus200 = {
 	[key: string]: unknown;
 };
 
-export type CreateContainerV1ContainersPostOptions = {
+export type CreateContainerContainersPostOptions = {
 	body?: never | undefined;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type CreateContainerV1ContainersPostResponses = {
-	"200": CreateContainerV1ContainersPostStatus200;
+export type CreateContainerContainersPostResponses = {
+	"200": CreateContainerContainersPostStatus200;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type CreateContainerV1ContainersPostResponse = CreateContainerV1ContainersPostStatus200;
+export type CreateContainerContainersPostResponse = CreateContainerContainersPostStatus200;
 
 export type ListContainersV1ContainersGetQuery = {
 	after?: (string | null) | undefined;
@@ -28748,6 +28728,26 @@ export type ListContainersV1ContainersGetResponses = {
  * @description Union of all possible responses
  */
 export type ListContainersV1ContainersGetResponse = ListContainersV1ContainersGetStatus200;
+
+export type CreateContainerV1ContainersPostStatus200 = {
+	[key: string]: unknown;
+};
+
+export type CreateContainerV1ContainersPostOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateContainerV1ContainersPostResponses = {
+	"200": CreateContainerV1ContainersPostStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateContainerV1ContainersPostResponse = CreateContainerV1ContainersPostStatus200;
 
 export type RetrieveContainerContainersContainerIdGetPath = {
 	container_id: string;
@@ -29682,32 +29682,6 @@ export type ImageEditApiV1ImagesEditsPostResponses = {
  */
 export type ImageEditApiV1ImagesEditsPostResponse = ImageEditApiV1ImagesEditsPostStatus200;
 
-export type CreateFineTuningJobFineTuningJobsPostStatus200 = {
-	[key: string]: unknown;
-};
-
-export type CreateFineTuningJobFineTuningJobsPostStatus422 = HTTPValidationError;
-
-export type CreateFineTuningJobFineTuningJobsPostBody = LiteLLMFineTuningJobCreate;
-
-export type CreateFineTuningJobFineTuningJobsPostOptions = {
-	body: CreateFineTuningJobFineTuningJobsPostBody;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type CreateFineTuningJobFineTuningJobsPostResponses = {
-	"200": CreateFineTuningJobFineTuningJobsPostStatus200;
-	"422": CreateFineTuningJobFineTuningJobsPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type CreateFineTuningJobFineTuningJobsPostResponse =
-	CreateFineTuningJobFineTuningJobsPostStatus200;
-
 export const listFineTuningJobsFineTuningJobsGetCustomLlmProvider = {
 	openai: "openai",
 	azure: "azure",
@@ -29752,31 +29726,31 @@ export type ListFineTuningJobsFineTuningJobsGetResponses = {
 export type ListFineTuningJobsFineTuningJobsGetResponse =
 	ListFineTuningJobsFineTuningJobsGetStatus200;
 
-export type CreateFineTuningJobV1FineTuningJobsPostStatus200 = {
+export type CreateFineTuningJobFineTuningJobsPostStatus200 = {
 	[key: string]: unknown;
 };
 
-export type CreateFineTuningJobV1FineTuningJobsPostStatus422 = HTTPValidationError;
+export type CreateFineTuningJobFineTuningJobsPostStatus422 = HTTPValidationError;
 
-export type CreateFineTuningJobV1FineTuningJobsPostBody = LiteLLMFineTuningJobCreate;
+export type CreateFineTuningJobFineTuningJobsPostBody = LiteLLMFineTuningJobCreate;
 
-export type CreateFineTuningJobV1FineTuningJobsPostOptions = {
-	body: CreateFineTuningJobV1FineTuningJobsPostBody;
+export type CreateFineTuningJobFineTuningJobsPostOptions = {
+	body: CreateFineTuningJobFineTuningJobsPostBody;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type CreateFineTuningJobV1FineTuningJobsPostResponses = {
-	"200": CreateFineTuningJobV1FineTuningJobsPostStatus200;
-	"422": CreateFineTuningJobV1FineTuningJobsPostStatus422;
+export type CreateFineTuningJobFineTuningJobsPostResponses = {
+	"200": CreateFineTuningJobFineTuningJobsPostStatus200;
+	"422": CreateFineTuningJobFineTuningJobsPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type CreateFineTuningJobV1FineTuningJobsPostResponse =
-	CreateFineTuningJobV1FineTuningJobsPostStatus200;
+export type CreateFineTuningJobFineTuningJobsPostResponse =
+	CreateFineTuningJobFineTuningJobsPostStatus200;
 
 export const listFineTuningJobsV1FineTuningJobsGetCustomLlmProvider = {
 	openai: "openai",
@@ -29821,6 +29795,32 @@ export type ListFineTuningJobsV1FineTuningJobsGetResponses = {
  */
 export type ListFineTuningJobsV1FineTuningJobsGetResponse =
 	ListFineTuningJobsV1FineTuningJobsGetStatus200;
+
+export type CreateFineTuningJobV1FineTuningJobsPostStatus200 = {
+	[key: string]: unknown;
+};
+
+export type CreateFineTuningJobV1FineTuningJobsPostStatus422 = HTTPValidationError;
+
+export type CreateFineTuningJobV1FineTuningJobsPostBody = LiteLLMFineTuningJobCreate;
+
+export type CreateFineTuningJobV1FineTuningJobsPostOptions = {
+	body: CreateFineTuningJobV1FineTuningJobsPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateFineTuningJobV1FineTuningJobsPostResponses = {
+	"200": CreateFineTuningJobV1FineTuningJobsPostStatus200;
+	"422": CreateFineTuningJobV1FineTuningJobsPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateFineTuningJobV1FineTuningJobsPostResponse =
+	CreateFineTuningJobV1FineTuningJobsPostStatus200;
 
 export type RetrieveFineTuningJobFineTuningJobsFineTuningJobIdGetPath = {
 	fine_tuning_job_id: string;
@@ -30221,38 +30221,6 @@ export type DeleteUserConnectionCredentialsCredentialNameUserConnectionDeleteRes
 export type DeleteUserConnectionCredentialsCredentialNameUserConnectionDeleteResponse =
 	DeleteUserConnectionCredentialsCredentialNameUserConnectionDeleteStatus200;
 
-export type DeleteCredentialCredentialsCredentialNameDeletePath = {
-	/**
-	 * @description The credential name, percent-decoded; may contain slashes
-	 * @type string
-	 */
-	credential_name: string;
-};
-
-export type DeleteCredentialCredentialsCredentialNameDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DeleteCredentialCredentialsCredentialNameDeleteStatus422 = HTTPValidationError;
-
-export type DeleteCredentialCredentialsCredentialNameDeleteOptions = {
-	body?: never | undefined;
-	path: DeleteCredentialCredentialsCredentialNameDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DeleteCredentialCredentialsCredentialNameDeleteResponses = {
-	"200": DeleteCredentialCredentialsCredentialNameDeleteStatus200;
-	"422": DeleteCredentialCredentialsCredentialNameDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteCredentialCredentialsCredentialNameDeleteResponse =
-	DeleteCredentialCredentialsCredentialNameDeleteStatus200;
-
 export type UpdateCredentialCredentialsCredentialNamePatchPath = {
 	/**
 	 * @description The credential name, percent-decoded; may contain slashes
@@ -30287,32 +30255,37 @@ export type UpdateCredentialCredentialsCredentialNamePatchResponses = {
 export type UpdateCredentialCredentialsCredentialNamePatchResponse =
 	UpdateCredentialCredentialsCredentialNamePatchStatus200;
 
-export type CreateBatchBatchesPostQuery = {
-	provider?: (string | null) | undefined;
+export type DeleteCredentialCredentialsCredentialNameDeletePath = {
+	/**
+	 * @description The credential name, percent-decoded; may contain slashes
+	 * @type string
+	 */
+	credential_name: string;
 };
 
-export type CreateBatchBatchesPostStatus200 = {
+export type DeleteCredentialCredentialsCredentialNameDeleteStatus200 = {
 	[key: string]: unknown;
 };
 
-export type CreateBatchBatchesPostStatus422 = HTTPValidationError;
+export type DeleteCredentialCredentialsCredentialNameDeleteStatus422 = HTTPValidationError;
 
-export type CreateBatchBatchesPostOptions = {
+export type DeleteCredentialCredentialsCredentialNameDeleteOptions = {
 	body?: never | undefined;
-	path?: never | undefined;
-	query?: CreateBatchBatchesPostQuery | undefined;
+	path: DeleteCredentialCredentialsCredentialNameDeletePath;
+	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type CreateBatchBatchesPostResponses = {
-	"200": CreateBatchBatchesPostStatus200;
-	"422": CreateBatchBatchesPostStatus422;
+export type DeleteCredentialCredentialsCredentialNameDeleteResponses = {
+	"200": DeleteCredentialCredentialsCredentialNameDeleteStatus200;
+	"422": DeleteCredentialCredentialsCredentialNameDeleteStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type CreateBatchBatchesPostResponse = CreateBatchBatchesPostStatus200;
+export type DeleteCredentialCredentialsCredentialNameDeleteResponse =
+	DeleteCredentialCredentialsCredentialNameDeleteStatus200;
 
 export type ListBatchesBatchesGetQuery = {
 	provider?: (string | null) | undefined;
@@ -30344,32 +30317,32 @@ export type ListBatchesBatchesGetResponses = {
  */
 export type ListBatchesBatchesGetResponse = ListBatchesBatchesGetStatus200;
 
-export type CreateBatchV1BatchesPostQuery = {
+export type CreateBatchBatchesPostQuery = {
 	provider?: (string | null) | undefined;
 };
 
-export type CreateBatchV1BatchesPostStatus200 = {
+export type CreateBatchBatchesPostStatus200 = {
 	[key: string]: unknown;
 };
 
-export type CreateBatchV1BatchesPostStatus422 = HTTPValidationError;
+export type CreateBatchBatchesPostStatus422 = HTTPValidationError;
 
-export type CreateBatchV1BatchesPostOptions = {
+export type CreateBatchBatchesPostOptions = {
 	body?: never | undefined;
 	path?: never | undefined;
-	query?: CreateBatchV1BatchesPostQuery | undefined;
+	query?: CreateBatchBatchesPostQuery | undefined;
 	headers?: never | undefined;
 };
 
-export type CreateBatchV1BatchesPostResponses = {
-	"200": CreateBatchV1BatchesPostStatus200;
-	"422": CreateBatchV1BatchesPostStatus422;
+export type CreateBatchBatchesPostResponses = {
+	"200": CreateBatchBatchesPostStatus200;
+	"422": CreateBatchBatchesPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type CreateBatchV1BatchesPostResponse = CreateBatchV1BatchesPostStatus200;
+export type CreateBatchBatchesPostResponse = CreateBatchBatchesPostStatus200;
 
 export type ListBatchesV1BatchesGetQuery = {
 	provider?: (string | null) | undefined;
@@ -30401,32 +30374,32 @@ export type ListBatchesV1BatchesGetResponses = {
  */
 export type ListBatchesV1BatchesGetResponse = ListBatchesV1BatchesGetStatus200;
 
-export type CreateBatchProviderV1BatchesPostPath = {
-	provider: string | null;
+export type CreateBatchV1BatchesPostQuery = {
+	provider?: (string | null) | undefined;
 };
 
-export type CreateBatchProviderV1BatchesPostStatus200 = {
+export type CreateBatchV1BatchesPostStatus200 = {
 	[key: string]: unknown;
 };
 
-export type CreateBatchProviderV1BatchesPostStatus422 = HTTPValidationError;
+export type CreateBatchV1BatchesPostStatus422 = HTTPValidationError;
 
-export type CreateBatchProviderV1BatchesPostOptions = {
+export type CreateBatchV1BatchesPostOptions = {
 	body?: never | undefined;
-	path: CreateBatchProviderV1BatchesPostPath;
-	query?: never | undefined;
+	path?: never | undefined;
+	query?: CreateBatchV1BatchesPostQuery | undefined;
 	headers?: never | undefined;
 };
 
-export type CreateBatchProviderV1BatchesPostResponses = {
-	"200": CreateBatchProviderV1BatchesPostStatus200;
-	"422": CreateBatchProviderV1BatchesPostStatus422;
+export type CreateBatchV1BatchesPostResponses = {
+	"200": CreateBatchV1BatchesPostStatus200;
+	"422": CreateBatchV1BatchesPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type CreateBatchProviderV1BatchesPostResponse = CreateBatchProviderV1BatchesPostStatus200;
+export type CreateBatchV1BatchesPostResponse = CreateBatchV1BatchesPostStatus200;
 
 export type ListBatchesProviderV1BatchesGetPath = {
 	provider: string | null;
@@ -30460,6 +30433,33 @@ export type ListBatchesProviderV1BatchesGetResponses = {
  * @description Union of all possible responses
  */
 export type ListBatchesProviderV1BatchesGetResponse = ListBatchesProviderV1BatchesGetStatus200;
+
+export type CreateBatchProviderV1BatchesPostPath = {
+	provider: string | null;
+};
+
+export type CreateBatchProviderV1BatchesPostStatus200 = {
+	[key: string]: unknown;
+};
+
+export type CreateBatchProviderV1BatchesPostStatus422 = HTTPValidationError;
+
+export type CreateBatchProviderV1BatchesPostOptions = {
+	body?: never | undefined;
+	path: CreateBatchProviderV1BatchesPostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateBatchProviderV1BatchesPostResponses = {
+	"200": CreateBatchProviderV1BatchesPostStatus200;
+	"422": CreateBatchProviderV1BatchesPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateBatchProviderV1BatchesPostResponse = CreateBatchProviderV1BatchesPostStatus200;
 
 export type RetrieveBatchBatchesBatchIdGetPath = {
 	/**
@@ -30657,35 +30657,6 @@ export type CancelBatchProviderV1BatchesBatchIdCancelPostResponses = {
 export type CancelBatchProviderV1BatchesBatchIdCancelPostResponse =
 	CancelBatchProviderV1BatchesBatchIdCancelPostStatus200;
 
-export type CreateFileFilesPostQuery = {
-	provider?: (string | null) | undefined;
-};
-
-export type CreateFileFilesPostStatus200 = {
-	[key: string]: unknown;
-};
-
-export type CreateFileFilesPostStatus422 = HTTPValidationError;
-
-export type CreateFileFilesPostBody = BodyCreateFileFilesPost;
-
-export type CreateFileFilesPostOptions = {
-	body: CreateFileFilesPostBody;
-	path?: never | undefined;
-	query?: CreateFileFilesPostQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type CreateFileFilesPostResponses = {
-	"200": CreateFileFilesPostStatus200;
-	"422": CreateFileFilesPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type CreateFileFilesPostResponse = CreateFileFilesPostStatus200;
-
 export type ListFilesFilesGetQuery = {
 	provider?: (string | null) | undefined;
 	target_model_names?: (string | null) | undefined;
@@ -30717,34 +30688,34 @@ export type ListFilesFilesGetResponses = {
  */
 export type ListFilesFilesGetResponse = ListFilesFilesGetStatus200;
 
-export type CreateFileV1FilesPostQuery = {
+export type CreateFileFilesPostQuery = {
 	provider?: (string | null) | undefined;
 };
 
-export type CreateFileV1FilesPostStatus200 = {
+export type CreateFileFilesPostStatus200 = {
 	[key: string]: unknown;
 };
 
-export type CreateFileV1FilesPostStatus422 = HTTPValidationError;
+export type CreateFileFilesPostStatus422 = HTTPValidationError;
 
-export type CreateFileV1FilesPostBody = BodyCreateFileV1FilesPost;
+export type CreateFileFilesPostBody = BodyCreateFileFilesPost;
 
-export type CreateFileV1FilesPostOptions = {
-	body: CreateFileV1FilesPostBody;
+export type CreateFileFilesPostOptions = {
+	body: CreateFileFilesPostBody;
 	path?: never | undefined;
-	query?: CreateFileV1FilesPostQuery | undefined;
+	query?: CreateFileFilesPostQuery | undefined;
 	headers?: never | undefined;
 };
 
-export type CreateFileV1FilesPostResponses = {
-	"200": CreateFileV1FilesPostStatus200;
-	"422": CreateFileV1FilesPostStatus422;
+export type CreateFileFilesPostResponses = {
+	"200": CreateFileFilesPostStatus200;
+	"422": CreateFileFilesPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type CreateFileV1FilesPostResponse = CreateFileV1FilesPostStatus200;
+export type CreateFileFilesPostResponse = CreateFileFilesPostStatus200;
 
 export type ListFilesV1FilesGetQuery = {
 	provider?: (string | null) | undefined;
@@ -30777,34 +30748,34 @@ export type ListFilesV1FilesGetResponses = {
  */
 export type ListFilesV1FilesGetResponse = ListFilesV1FilesGetStatus200;
 
-export type CreateFileProviderV1FilesPostPath = {
-	provider: string | null;
+export type CreateFileV1FilesPostQuery = {
+	provider?: (string | null) | undefined;
 };
 
-export type CreateFileProviderV1FilesPostStatus200 = {
+export type CreateFileV1FilesPostStatus200 = {
 	[key: string]: unknown;
 };
 
-export type CreateFileProviderV1FilesPostStatus422 = HTTPValidationError;
+export type CreateFileV1FilesPostStatus422 = HTTPValidationError;
 
-export type CreateFileProviderV1FilesPostBody = BodyCreateFileProviderV1FilesPost;
+export type CreateFileV1FilesPostBody = BodyCreateFileV1FilesPost;
 
-export type CreateFileProviderV1FilesPostOptions = {
-	body: CreateFileProviderV1FilesPostBody;
-	path: CreateFileProviderV1FilesPostPath;
-	query?: never | undefined;
+export type CreateFileV1FilesPostOptions = {
+	body: CreateFileV1FilesPostBody;
+	path?: never | undefined;
+	query?: CreateFileV1FilesPostQuery | undefined;
 	headers?: never | undefined;
 };
 
-export type CreateFileProviderV1FilesPostResponses = {
-	"200": CreateFileProviderV1FilesPostStatus200;
-	"422": CreateFileProviderV1FilesPostStatus422;
+export type CreateFileV1FilesPostResponses = {
+	"200": CreateFileV1FilesPostStatus200;
+	"422": CreateFileV1FilesPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type CreateFileProviderV1FilesPostResponse = CreateFileProviderV1FilesPostStatus200;
+export type CreateFileV1FilesPostResponse = CreateFileV1FilesPostStatus200;
 
 export type ListFilesProviderV1FilesGetPath = {
 	provider: string | null;
@@ -30839,6 +30810,35 @@ export type ListFilesProviderV1FilesGetResponses = {
  * @description Union of all possible responses
  */
 export type ListFilesProviderV1FilesGetResponse = ListFilesProviderV1FilesGetStatus200;
+
+export type CreateFileProviderV1FilesPostPath = {
+	provider: string | null;
+};
+
+export type CreateFileProviderV1FilesPostStatus200 = {
+	[key: string]: unknown;
+};
+
+export type CreateFileProviderV1FilesPostStatus422 = HTTPValidationError;
+
+export type CreateFileProviderV1FilesPostBody = BodyCreateFileProviderV1FilesPost;
+
+export type CreateFileProviderV1FilesPostOptions = {
+	body: CreateFileProviderV1FilesPostBody;
+	path: CreateFileProviderV1FilesPostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateFileProviderV1FilesPostResponses = {
+	"200": CreateFileProviderV1FilesPostStatus200;
+	"422": CreateFileProviderV1FilesPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateFileProviderV1FilesPostResponse = CreateFileProviderV1FilesPostStatus200;
 
 export type GetFileContentFilesFileIdContentGetPath = {
 	file_id: string;
@@ -37608,6 +37608,34 @@ export type LatestReleaseInfoGetLatestReleaseInfoGetResponses = {
 export type LatestReleaseInfoGetLatestReleaseInfoGetResponse =
 	LatestReleaseInfoGetLatestReleaseInfoGetStatus200;
 
+export type GetTeamCallbacksTeamTeamIdCallbackGetPath = {
+	team_id: string;
+};
+
+export type GetTeamCallbacksTeamTeamIdCallbackGetStatus200 = {
+	[key: string]: unknown;
+};
+
+export type GetTeamCallbacksTeamTeamIdCallbackGetStatus422 = HTTPValidationError;
+
+export type GetTeamCallbacksTeamTeamIdCallbackGetOptions = {
+	body?: never | undefined;
+	path: GetTeamCallbacksTeamTeamIdCallbackGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetTeamCallbacksTeamTeamIdCallbackGetResponses = {
+	"200": GetTeamCallbacksTeamTeamIdCallbackGetStatus200;
+	"422": GetTeamCallbacksTeamTeamIdCallbackGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetTeamCallbacksTeamTeamIdCallbackGetResponse =
+	GetTeamCallbacksTeamTeamIdCallbackGetStatus200;
+
 export type AddTeamCallbacksTeamTeamIdCallbackPostPath = {
 	team_id: string;
 };
@@ -37644,34 +37672,6 @@ export type AddTeamCallbacksTeamTeamIdCallbackPostResponses = {
  */
 export type AddTeamCallbacksTeamTeamIdCallbackPostResponse =
 	AddTeamCallbacksTeamTeamIdCallbackPostStatus200;
-
-export type GetTeamCallbacksTeamTeamIdCallbackGetPath = {
-	team_id: string;
-};
-
-export type GetTeamCallbacksTeamTeamIdCallbackGetStatus200 = {
-	[key: string]: unknown;
-};
-
-export type GetTeamCallbacksTeamTeamIdCallbackGetStatus422 = HTTPValidationError;
-
-export type GetTeamCallbacksTeamTeamIdCallbackGetOptions = {
-	body?: never | undefined;
-	path: GetTeamCallbacksTeamTeamIdCallbackGetPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type GetTeamCallbacksTeamTeamIdCallbackGetResponses = {
-	"200": GetTeamCallbacksTeamTeamIdCallbackGetStatus200;
-	"422": GetTeamCallbacksTeamTeamIdCallbackGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type GetTeamCallbacksTeamTeamIdCallbackGetResponse =
-	GetTeamCallbacksTeamTeamIdCallbackGetStatus200;
 
 export type DeleteTeamCallbackTeamTeamIdCallbackCallbackNameDeletePath = {
 	team_id: string;
@@ -38110,45 +38110,6 @@ export type UpdateUsefulLinksModelHubUpdateUsefulLinksPostResponses = {
 export type UpdateUsefulLinksModelHubUpdateUsefulLinksPostResponse =
 	UpdateUsefulLinksModelHubUpdateUsefulLinksPostStatus200;
 
-/**
- * @description The built-in system prompt an auto-router's LLM classifier uses when none is configured.
- *
- * Served so the dashboard's prompt editor prefills the rubric the proxy actually sends, rather than
- * a copy in the frontend that drifts the moment the rubric is edited.
- * @type object
- */
-export type PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostStatus200 =
-	AutoRouterClassifierDefaultPromptResponse;
-
-export type PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostStatus422 =
-	HTTPValidationError;
-
-/**
- * @description A POST rather than query params: the classification sections are the operator's own text,
- * which must not reach access logs through a URL.
- * @type object
- */
-export type PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostBody =
-	AutoRouterClassifierPromptPreviewRequest;
-
-export type PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostOptions = {
-	body: PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostBody;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostResponses = {
-	"200": PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostStatus200;
-	"422": PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostResponse =
-	PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostStatus200;
-
 export type GetAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromptGetQuery = {
 	/**
 	 * @default 3
@@ -38189,6 +38150,45 @@ export type GetAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromp
  */
 export type GetAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromptGetResponse =
 	GetAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromptGetStatus200;
+
+/**
+ * @description The built-in system prompt an auto-router's LLM classifier uses when none is configured.
+ *
+ * Served so the dashboard's prompt editor prefills the rubric the proxy actually sends, rather than
+ * a copy in the frontend that drifts the moment the rubric is edited.
+ * @type object
+ */
+export type PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostStatus200 =
+	AutoRouterClassifierDefaultPromptResponse;
+
+export type PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostStatus422 =
+	HTTPValidationError;
+
+/**
+ * @description A POST rather than query params: the classification sections are the operator's own text,
+ * which must not reach access logs through a URL.
+ * @type object
+ */
+export type PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostBody =
+	AutoRouterClassifierPromptPreviewRequest;
+
+export type PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostOptions = {
+	body: PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostResponses = {
+	"200": PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostStatus200;
+	"422": PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostResponse =
+	PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostStatus200;
 
 export type CreateModelGroupAccessGroupNewPostStatus200 = NewModelGroupResponse;
 
@@ -38902,32 +38902,6 @@ export type GetTagDailyActivityTagDailyActivityGetResponses = {
 export type GetTagDailyActivityTagDailyActivityGetResponse =
 	GetTagDailyActivityTagDailyActivityGetStatus200;
 
-export type CreateWorkflowRunV1WorkflowsRunsPostStatus200 = {
-	[key: string]: unknown;
-};
-
-export type CreateWorkflowRunV1WorkflowsRunsPostStatus422 = HTTPValidationError;
-
-export type CreateWorkflowRunV1WorkflowsRunsPostBody = WorkflowRunCreateRequest;
-
-export type CreateWorkflowRunV1WorkflowsRunsPostOptions = {
-	body: CreateWorkflowRunV1WorkflowsRunsPostBody;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type CreateWorkflowRunV1WorkflowsRunsPostResponses = {
-	"200": CreateWorkflowRunV1WorkflowsRunsPostStatus200;
-	"422": CreateWorkflowRunV1WorkflowsRunsPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type CreateWorkflowRunV1WorkflowsRunsPostResponse =
-	CreateWorkflowRunV1WorkflowsRunsPostStatus200;
-
 export type ListWorkflowRunsV1WorkflowsRunsGetQuery = {
 	workflow_type?: (string | null) | undefined;
 	status?: (string | null) | undefined;
@@ -38963,6 +38937,32 @@ export type ListWorkflowRunsV1WorkflowsRunsGetResponses = {
  */
 export type ListWorkflowRunsV1WorkflowsRunsGetResponse =
 	ListWorkflowRunsV1WorkflowsRunsGetStatus200;
+
+export type CreateWorkflowRunV1WorkflowsRunsPostStatus200 = {
+	[key: string]: unknown;
+};
+
+export type CreateWorkflowRunV1WorkflowsRunsPostStatus422 = HTTPValidationError;
+
+export type CreateWorkflowRunV1WorkflowsRunsPostBody = WorkflowRunCreateRequest;
+
+export type CreateWorkflowRunV1WorkflowsRunsPostOptions = {
+	body: CreateWorkflowRunV1WorkflowsRunsPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateWorkflowRunV1WorkflowsRunsPostResponses = {
+	"200": CreateWorkflowRunV1WorkflowsRunsPostStatus200;
+	"422": CreateWorkflowRunV1WorkflowsRunsPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateWorkflowRunV1WorkflowsRunsPostResponse =
+	CreateWorkflowRunV1WorkflowsRunsPostStatus200;
 
 export type GetWorkflowRunV1WorkflowsRunsRunIdGetPath = {
 	run_id: string;
@@ -39022,36 +39022,6 @@ export type UpdateWorkflowRunV1WorkflowsRunsRunIdPatchResponses = {
 export type UpdateWorkflowRunV1WorkflowsRunsRunIdPatchResponse =
 	UpdateWorkflowRunV1WorkflowsRunsRunIdPatchStatus200;
 
-export type AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostPath = {
-	run_id: string;
-};
-
-export type AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostStatus200 = {
-	[key: string]: unknown;
-};
-
-export type AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostStatus422 = HTTPValidationError;
-
-export type AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostBody = WorkflowEventCreateRequest;
-
-export type AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostOptions = {
-	body: AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostBody;
-	path: AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostResponses = {
-	"200": AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostStatus200;
-	"422": AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostResponse =
-	AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostStatus200;
-
 export type ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetPath = {
 	run_id: string;
 };
@@ -39090,36 +39060,35 @@ export type ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetResponses = {
 export type ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetResponse =
 	ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetStatus200;
 
-export type AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostPath = {
+export type AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostPath = {
 	run_id: string;
 };
 
-export type AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostStatus200 = {
+export type AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostStatus200 = {
 	[key: string]: unknown;
 };
 
-export type AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostStatus422 = HTTPValidationError;
+export type AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostStatus422 = HTTPValidationError;
 
-export type AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostBody =
-	WorkflowMessageCreateRequest;
+export type AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostBody = WorkflowEventCreateRequest;
 
-export type AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostOptions = {
-	body: AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostBody;
-	path: AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostPath;
+export type AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostOptions = {
+	body: AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostBody;
+	path: AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostResponses = {
-	"200": AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostStatus200;
-	"422": AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostStatus422;
+export type AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostResponses = {
+	"200": AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostStatus200;
+	"422": AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostResponse =
-	AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostStatus200;
+export type AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostResponse =
+	AppendWorkflowEventV1WorkflowsRunsRunIdEventsPostStatus200;
 
 export type ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetPath = {
 	run_id: string;
@@ -39159,28 +39128,36 @@ export type ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetResponses = {
 export type ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetResponse =
 	ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetStatus200;
 
-export type CreateMemoryV1MemoryPostStatus200 = LiteLLMMemoryRow;
+export type AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostPath = {
+	run_id: string;
+};
 
-export type CreateMemoryV1MemoryPostStatus422 = HTTPValidationError;
+export type AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostStatus200 = {
+	[key: string]: unknown;
+};
 
-export type CreateMemoryV1MemoryPostBody = MemoryCreateRequest;
+export type AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostStatus422 = HTTPValidationError;
 
-export type CreateMemoryV1MemoryPostOptions = {
-	body: CreateMemoryV1MemoryPostBody;
-	path?: never | undefined;
+export type AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostBody =
+	WorkflowMessageCreateRequest;
+
+export type AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostOptions = {
+	body: AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostBody;
+	path: AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type CreateMemoryV1MemoryPostResponses = {
-	"200": CreateMemoryV1MemoryPostStatus200;
-	"422": CreateMemoryV1MemoryPostStatus422;
+export type AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostResponses = {
+	"200": AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostStatus200;
+	"422": AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type CreateMemoryV1MemoryPostResponse = CreateMemoryV1MemoryPostStatus200;
+export type AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostResponse =
+	AppendWorkflowMessageV1WorkflowsRunsRunIdMessagesPostStatus200;
 
 export type ListMemoryV1MemoryGetQuery = {
 	/**
@@ -39230,6 +39207,29 @@ export type ListMemoryV1MemoryGetResponses = {
  * @description Union of all possible responses
  */
 export type ListMemoryV1MemoryGetResponse = ListMemoryV1MemoryGetStatus200;
+
+export type CreateMemoryV1MemoryPostStatus200 = LiteLLMMemoryRow;
+
+export type CreateMemoryV1MemoryPostStatus422 = HTTPValidationError;
+
+export type CreateMemoryV1MemoryPostBody = MemoryCreateRequest;
+
+export type CreateMemoryV1MemoryPostOptions = {
+	body: CreateMemoryV1MemoryPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateMemoryV1MemoryPostResponses = {
+	"200": CreateMemoryV1MemoryPostStatus200;
+	"422": CreateMemoryV1MemoryPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateMemoryV1MemoryPostResponse = CreateMemoryV1MemoryPostStatus200;
 
 export type GetMemoryV1MemoryKeyGetPath = {
 	key: string;
@@ -39326,60 +39326,6 @@ export type ServiceConnectionLensServiceGetResponses = {
  */
 export type ServiceConnectionLensServiceGetResponse = ServiceConnectionLensServiceGetStatus200;
 
-export type LensRequestLensPathPostPath = {
-	path: string;
-};
-
-export type LensRequestLensPathPostStatus200 = {
-	[key: string]: unknown;
-};
-
-export type LensRequestLensPathPostStatus422 = HTTPValidationError;
-
-export type LensRequestLensPathPostOptions = {
-	body?: never | undefined;
-	path: LensRequestLensPathPostPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type LensRequestLensPathPostResponses = {
-	"200": LensRequestLensPathPostStatus200;
-	"422": LensRequestLensPathPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type LensRequestLensPathPostResponse = LensRequestLensPathPostStatus200;
-
-export type LensRequestLensPathDeletePath = {
-	path: string;
-};
-
-export type LensRequestLensPathDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type LensRequestLensPathDeleteStatus422 = HTTPValidationError;
-
-export type LensRequestLensPathDeleteOptions = {
-	body?: never | undefined;
-	path: LensRequestLensPathDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type LensRequestLensPathDeleteResponses = {
-	"200": LensRequestLensPathDeleteStatus200;
-	"422": LensRequestLensPathDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type LensRequestLensPathDeleteResponse = LensRequestLensPathDeleteStatus200;
-
 export type LensRequestLensPathGetPath = {
 	path: string;
 };
@@ -39434,6 +39380,33 @@ export type LensRequestLensPathPutResponses = {
  */
 export type LensRequestLensPathPutResponse = LensRequestLensPathPutStatus200;
 
+export type LensRequestLensPathPostPath = {
+	path: string;
+};
+
+export type LensRequestLensPathPostStatus200 = {
+	[key: string]: unknown;
+};
+
+export type LensRequestLensPathPostStatus422 = HTTPValidationError;
+
+export type LensRequestLensPathPostOptions = {
+	body?: never | undefined;
+	path: LensRequestLensPathPostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type LensRequestLensPathPostResponses = {
+	"200": LensRequestLensPathPostStatus200;
+	"422": LensRequestLensPathPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type LensRequestLensPathPostResponse = LensRequestLensPathPostStatus200;
+
 export type LensRequestLensPathPatchPath = {
 	path: string;
 };
@@ -39461,67 +39434,32 @@ export type LensRequestLensPathPatchResponses = {
  */
 export type LensRequestLensPathPatchResponse = LensRequestLensPathPatchStatus200;
 
-export type LensRequestLensPostQuery = {
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	path?: string | undefined;
+export type LensRequestLensPathDeletePath = {
+	path: string;
 };
 
-export type LensRequestLensPostStatus200 = {
+export type LensRequestLensPathDeleteStatus200 = {
 	[key: string]: unknown;
 };
 
-export type LensRequestLensPostStatus422 = HTTPValidationError;
+export type LensRequestLensPathDeleteStatus422 = HTTPValidationError;
 
-export type LensRequestLensPostOptions = {
+export type LensRequestLensPathDeleteOptions = {
 	body?: never | undefined;
-	path?: never | undefined;
-	query?: LensRequestLensPostQuery | undefined;
+	path: LensRequestLensPathDeletePath;
+	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type LensRequestLensPostResponses = {
-	"200": LensRequestLensPostStatus200;
-	"422": LensRequestLensPostStatus422;
+export type LensRequestLensPathDeleteResponses = {
+	"200": LensRequestLensPathDeleteStatus200;
+	"422": LensRequestLensPathDeleteStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type LensRequestLensPostResponse = LensRequestLensPostStatus200;
-
-export type LensRequestLensDeleteQuery = {
-	/**
-	 * @default ''
-	 * @type string | undefined
-	 */
-	path?: string | undefined;
-};
-
-export type LensRequestLensDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type LensRequestLensDeleteStatus422 = HTTPValidationError;
-
-export type LensRequestLensDeleteOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: LensRequestLensDeleteQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type LensRequestLensDeleteResponses = {
-	"200": LensRequestLensDeleteStatus200;
-	"422": LensRequestLensDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type LensRequestLensDeleteResponse = LensRequestLensDeleteStatus200;
+export type LensRequestLensPathDeleteResponse = LensRequestLensPathDeleteStatus200;
 
 export type LensRequestLensGetQuery = {
 	/**
@@ -39585,6 +39523,37 @@ export type LensRequestLensPutResponses = {
  */
 export type LensRequestLensPutResponse = LensRequestLensPutStatus200;
 
+export type LensRequestLensPostQuery = {
+	/**
+	 * @default ''
+	 * @type string | undefined
+	 */
+	path?: string | undefined;
+};
+
+export type LensRequestLensPostStatus200 = {
+	[key: string]: unknown;
+};
+
+export type LensRequestLensPostStatus422 = HTTPValidationError;
+
+export type LensRequestLensPostOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: LensRequestLensPostQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type LensRequestLensPostResponses = {
+	"200": LensRequestLensPostStatus200;
+	"422": LensRequestLensPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type LensRequestLensPostResponse = LensRequestLensPostStatus200;
+
 export type LensRequestLensPatchQuery = {
 	/**
 	 * @default ''
@@ -39615,6 +39584,37 @@ export type LensRequestLensPatchResponses = {
  * @description Union of all possible responses
  */
 export type LensRequestLensPatchResponse = LensRequestLensPatchStatus200;
+
+export type LensRequestLensDeleteQuery = {
+	/**
+	 * @default ''
+	 * @type string | undefined
+	 */
+	path?: string | undefined;
+};
+
+export type LensRequestLensDeleteStatus200 = {
+	[key: string]: unknown;
+};
+
+export type LensRequestLensDeleteStatus422 = HTTPValidationError;
+
+export type LensRequestLensDeleteOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: LensRequestLensDeleteQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type LensRequestLensDeleteResponses = {
+	"200": LensRequestLensDeleteStatus200;
+	"422": LensRequestLensDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type LensRequestLensDeleteResponse = LensRequestLensDeleteStatus200;
 
 export type ListPluginsApiPluginsGetStatus200 = {
 	[key: string]: string;
@@ -41595,6 +41595,26 @@ export type ProxyMcpRouteMcpProxyPostResponses = {
  */
 export type ProxyMcpRouteMcpProxyPostResponse = ProxyMcpRouteMcpProxyPostStatus200;
 
+export type ProxyMcpRouteMcpProxyPatchStatus200 = {
+	[key: string]: unknown;
+};
+
+export type ProxyMcpRouteMcpProxyPatchOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ProxyMcpRouteMcpProxyPatchResponses = {
+	"200": ProxyMcpRouteMcpProxyPatchStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ProxyMcpRouteMcpProxyPatchResponse = ProxyMcpRouteMcpProxyPatchStatus200;
+
 export type ProxyMcpRouteMcpProxyDeleteStatus200 = {
 	[key: string]: unknown;
 };
@@ -41615,6 +41635,24 @@ export type ProxyMcpRouteMcpProxyDeleteResponses = {
  */
 export type ProxyMcpRouteMcpProxyDeleteResponse = ProxyMcpRouteMcpProxyDeleteStatus200;
 
+export type ProxyMcpRouteMcpProxyHeadStatus200 = void;
+
+export type ProxyMcpRouteMcpProxyHeadOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ProxyMcpRouteMcpProxyHeadResponses = {
+	"200": ProxyMcpRouteMcpProxyHeadStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ProxyMcpRouteMcpProxyHeadResponse = ProxyMcpRouteMcpProxyHeadStatus200;
+
 export type ProxyMcpRouteMcpProxyOptionsStatus200 = {
 	[key: string]: unknown;
 };
@@ -41634,44 +41672,6 @@ export type ProxyMcpRouteMcpProxyOptionsResponses = {
  * @description Union of all possible responses
  */
 export type ProxyMcpRouteMcpProxyOptionsResponse = ProxyMcpRouteMcpProxyOptionsStatus200;
-
-export type ProxyMcpRouteMcpProxyHeadStatus200 = void;
-
-export type ProxyMcpRouteMcpProxyHeadOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ProxyMcpRouteMcpProxyHeadResponses = {
-	"200": ProxyMcpRouteMcpProxyHeadStatus200;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ProxyMcpRouteMcpProxyHeadResponse = ProxyMcpRouteMcpProxyHeadStatus200;
-
-export type ProxyMcpRouteMcpProxyPatchStatus200 = {
-	[key: string]: unknown;
-};
-
-export type ProxyMcpRouteMcpProxyPatchOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ProxyMcpRouteMcpProxyPatchResponses = {
-	"200": ProxyMcpRouteMcpProxyPatchStatus200;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ProxyMcpRouteMcpProxyPatchResponse = ProxyMcpRouteMcpProxyPatchStatus200;
 
 export type AggregateMcpRouteMcpGetStatus200 = {
 	[key: string]: unknown;
@@ -41733,64 +41733,6 @@ export type AggregateMcpRouteMcpPostResponses = {
  */
 export type AggregateMcpRouteMcpPostResponse = AggregateMcpRouteMcpPostStatus200;
 
-export type AggregateMcpRouteMcpDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type AggregateMcpRouteMcpDeleteOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type AggregateMcpRouteMcpDeleteResponses = {
-	"200": AggregateMcpRouteMcpDeleteStatus200;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type AggregateMcpRouteMcpDeleteResponse = AggregateMcpRouteMcpDeleteStatus200;
-
-export type AggregateMcpRouteMcpOptionsStatus200 = {
-	[key: string]: unknown;
-};
-
-export type AggregateMcpRouteMcpOptionsOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type AggregateMcpRouteMcpOptionsResponses = {
-	"200": AggregateMcpRouteMcpOptionsStatus200;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type AggregateMcpRouteMcpOptionsResponse = AggregateMcpRouteMcpOptionsStatus200;
-
-export type AggregateMcpRouteMcpHeadStatus200 = void;
-
-export type AggregateMcpRouteMcpHeadOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type AggregateMcpRouteMcpHeadResponses = {
-	"200": AggregateMcpRouteMcpHeadStatus200;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type AggregateMcpRouteMcpHeadResponse = AggregateMcpRouteMcpHeadStatus200;
-
 export type AggregateMcpRouteMcpPatchStatus200 = {
 	[key: string]: unknown;
 };
@@ -41811,115 +41753,63 @@ export type AggregateMcpRouteMcpPatchResponses = {
  */
 export type AggregateMcpRouteMcpPatchResponse = AggregateMcpRouteMcpPatchStatus200;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostPath = {
-	toolset_name: string;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200 = {
+export type AggregateMcpRouteMcpDeleteStatus200 = {
 	[key: string]: unknown;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422 = HTTPValidationError;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostOptions = {
+export type AggregateMcpRouteMcpDeleteOptions = {
 	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpPostPath;
+	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422;
+export type AggregateMcpRouteMcpDeleteResponses = {
+	"200": AggregateMcpRouteMcpDeleteStatus200;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
+export type AggregateMcpRouteMcpDeleteResponse = AggregateMcpRouteMcpDeleteStatus200;
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath = {
-	toolset_name: string;
+export type AggregateMcpRouteMcpHeadStatus200 = void;
+
+export type AggregateMcpRouteMcpHeadOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200 = {
+export type AggregateMcpRouteMcpHeadResponses = {
+	"200": AggregateMcpRouteMcpHeadStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type AggregateMcpRouteMcpHeadResponse = AggregateMcpRouteMcpHeadStatus200;
+
+export type AggregateMcpRouteMcpOptionsStatus200 = {
 	[key: string]: unknown;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422 = HTTPValidationError;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsOptions = {
+export type AggregateMcpRouteMcpOptionsOptions = {
 	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath;
+	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422;
+export type AggregateMcpRouteMcpOptionsResponses = {
+	"200": AggregateMcpRouteMcpOptionsStatus200;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadPath = {
-	toolset_name: string;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200 = void;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422 = void;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadOptions = {
-	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpHeadPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpDeletePath = {
-	toolset_name: string;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422 = HTTPValidationError;
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpDeleteOptions = {
-	body?: never | undefined;
-	path: ToolsetMcpRouteToolsetToolsetNameMcpDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ToolsetMcpRouteToolsetToolsetNameMcpDeleteResponses = {
-	"200": ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200;
-	"422": ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ToolsetMcpRouteToolsetToolsetNameMcpDeleteResponse =
-	ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200;
+export type AggregateMcpRouteMcpOptionsResponse = AggregateMcpRouteMcpOptionsStatus200;
 
 export type ToolsetMcpRouteToolsetToolsetNameMcpGetPath = {
 	toolset_name: string;
@@ -41977,6 +41867,34 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpPutResponses = {
 export type ToolsetMcpRouteToolsetToolsetNameMcpPutResponse =
 	ToolsetMcpRouteToolsetToolsetNameMcpPutStatus200;
 
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostPath = {
+	toolset_name: string;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200 = {
+	[key: string]: unknown;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422 = HTTPValidationError;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostOptions = {
+	body?: never | undefined;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpPostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ToolsetMcpRouteToolsetToolsetNameMcpPostResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpPostStatus200;
+
 export type ToolsetMcpRouteToolsetToolsetNameMcpPatchPath = {
 	toolset_name: string;
 };
@@ -42005,115 +41923,87 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponses = {
 export type ToolsetMcpRouteToolsetToolsetNameMcpPatchResponse =
 	ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200;
 
-export type DynamicMcpRouteMcpServerNameMcpPostPath = {
-	mcp_server_name: string;
+export type ToolsetMcpRouteToolsetToolsetNameMcpDeletePath = {
+	toolset_name: string;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpPostStatus200 = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200 = {
 	[key: string]: unknown;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpPostStatus422 = HTTPValidationError;
+export type ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422 = HTTPValidationError;
 
-export type DynamicMcpRouteMcpServerNameMcpPostOptions = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpDeleteOptions = {
 	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpPostPath;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpDeletePath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpPostResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpPostStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpPostStatus422;
+export type ToolsetMcpRouteToolsetToolsetNameMcpDeleteResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type DynamicMcpRouteMcpServerNameMcpPostResponse =
-	DynamicMcpRouteMcpServerNameMcpPostStatus200;
+export type ToolsetMcpRouteToolsetToolsetNameMcpDeleteResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus200;
 
-export type DynamicMcpRouteMcpServerNameMcpOptionsPath = {
-	mcp_server_name: string;
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadPath = {
+	toolset_name: string;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpOptionsStatus200 = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200 = void;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422 = void;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadOptions = {
+	body?: never | undefined;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpHeadPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ToolsetMcpRouteToolsetToolsetNameMcpHeadResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus200;
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath = {
+	toolset_name: string;
+};
+
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200 = {
 	[key: string]: unknown;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpOptionsStatus422 = HTTPValidationError;
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422 = HTTPValidationError;
 
-export type DynamicMcpRouteMcpServerNameMcpOptionsOptions = {
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsOptions = {
 	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpOptionsPath;
+	path: ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpOptionsResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpOptionsStatus422;
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponses = {
+	"200": ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200;
+	"422": ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type DynamicMcpRouteMcpServerNameMcpOptionsResponse =
-	DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
-
-export type DynamicMcpRouteMcpServerNameMcpHeadPath = {
-	mcp_server_name: string;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpHeadStatus200 = void;
-
-export type DynamicMcpRouteMcpServerNameMcpHeadStatus422 = void;
-
-export type DynamicMcpRouteMcpServerNameMcpHeadOptions = {
-	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpHeadPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpHeadResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpHeadStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpHeadStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DynamicMcpRouteMcpServerNameMcpHeadResponse =
-	DynamicMcpRouteMcpServerNameMcpHeadStatus200;
-
-export type DynamicMcpRouteMcpServerNameMcpDeletePath = {
-	mcp_server_name: string;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpDeleteStatus422 = HTTPValidationError;
-
-export type DynamicMcpRouteMcpServerNameMcpDeleteOptions = {
-	body?: never | undefined;
-	path: DynamicMcpRouteMcpServerNameMcpDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DynamicMcpRouteMcpServerNameMcpDeleteResponses = {
-	"200": DynamicMcpRouteMcpServerNameMcpDeleteStatus200;
-	"422": DynamicMcpRouteMcpServerNameMcpDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DynamicMcpRouteMcpServerNameMcpDeleteResponse =
-	DynamicMcpRouteMcpServerNameMcpDeleteStatus200;
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponse =
+	ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200;
 
 export type DynamicMcpRouteMcpServerNameMcpGetPath = {
 	mcp_server_name: string;
@@ -42171,6 +42061,34 @@ export type DynamicMcpRouteMcpServerNameMcpPutResponses = {
 export type DynamicMcpRouteMcpServerNameMcpPutResponse =
 	DynamicMcpRouteMcpServerNameMcpPutStatus200;
 
+export type DynamicMcpRouteMcpServerNameMcpPostPath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPostStatus200 = {
+	[key: string]: unknown;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPostStatus422 = HTTPValidationError;
+
+export type DynamicMcpRouteMcpServerNameMcpPostOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpPostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpPostResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpPostStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpPostResponse =
+	DynamicMcpRouteMcpServerNameMcpPostStatus200;
+
 export type DynamicMcpRouteMcpServerNameMcpPatchPath = {
 	mcp_server_name: string;
 };
@@ -42198,6 +42116,88 @@ export type DynamicMcpRouteMcpServerNameMcpPatchResponses = {
  */
 export type DynamicMcpRouteMcpServerNameMcpPatchResponse =
 	DynamicMcpRouteMcpServerNameMcpPatchStatus200;
+
+export type DynamicMcpRouteMcpServerNameMcpDeletePath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpDeleteStatus200 = {
+	[key: string]: unknown;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpDeleteStatus422 = HTTPValidationError;
+
+export type DynamicMcpRouteMcpServerNameMcpDeleteOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpDeleteResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpDeleteStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpDeleteResponse =
+	DynamicMcpRouteMcpServerNameMcpDeleteStatus200;
+
+export type DynamicMcpRouteMcpServerNameMcpHeadPath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpHeadStatus200 = void;
+
+export type DynamicMcpRouteMcpServerNameMcpHeadStatus422 = void;
+
+export type DynamicMcpRouteMcpServerNameMcpHeadOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpHeadPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpHeadResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpHeadStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpHeadStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpHeadResponse =
+	DynamicMcpRouteMcpServerNameMcpHeadStatus200;
+
+export type DynamicMcpRouteMcpServerNameMcpOptionsPath = {
+	mcp_server_name: string;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpOptionsStatus200 = {
+	[key: string]: unknown;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpOptionsStatus422 = HTTPValidationError;
+
+export type DynamicMcpRouteMcpServerNameMcpOptionsOptions = {
+	body?: never | undefined;
+	path: DynamicMcpRouteMcpServerNameMcpOptionsPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DynamicMcpRouteMcpServerNameMcpOptionsResponses = {
+	"200": DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
+	"422": DynamicMcpRouteMcpServerNameMcpOptionsStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DynamicMcpRouteMcpServerNameMcpOptionsResponse =
+	DynamicMcpRouteMcpServerNameMcpOptionsStatus200;
 
 export type WebsocketVertexAiLivePassthroughEndpointStatus101 = unknown;
 
@@ -42825,34 +42825,6 @@ export type ValidateBlockedWordsFileGuardrailsValidateBlockedWordsFilePostRespon
 export type ValidateBlockedWordsFileGuardrailsValidateBlockedWordsFilePostResponse =
 	ValidateBlockedWordsFileGuardrailsValidateBlockedWordsFilePostStatus200;
 
-export type DeleteGuardrailGuardrailsGuardrailIdDeletePath = {
-	guardrail_id: string;
-};
-
-export type DeleteGuardrailGuardrailsGuardrailIdDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DeleteGuardrailGuardrailsGuardrailIdDeleteStatus422 = HTTPValidationError;
-
-export type DeleteGuardrailGuardrailsGuardrailIdDeleteOptions = {
-	body?: never | undefined;
-	path: DeleteGuardrailGuardrailsGuardrailIdDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DeleteGuardrailGuardrailsGuardrailIdDeleteResponses = {
-	"200": DeleteGuardrailGuardrailsGuardrailIdDeleteStatus200;
-	"422": DeleteGuardrailGuardrailsGuardrailIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteGuardrailGuardrailsGuardrailIdDeleteResponse =
-	DeleteGuardrailGuardrailsGuardrailIdDeleteStatus200;
-
 export type GetGuardrailInfoGuardrailsGuardrailIdGetPath = {
 	guardrail_id: string;
 };
@@ -42880,6 +42852,36 @@ export type GetGuardrailInfoGuardrailsGuardrailIdGetResponses = {
  */
 export type GetGuardrailInfoGuardrailsGuardrailIdGetResponse =
 	GetGuardrailInfoGuardrailsGuardrailIdGetStatus200;
+
+export type UpdateGuardrailGuardrailsGuardrailIdPutPath = {
+	guardrail_id: string;
+};
+
+export type UpdateGuardrailGuardrailsGuardrailIdPutStatus200 = {
+	[key: string]: unknown;
+};
+
+export type UpdateGuardrailGuardrailsGuardrailIdPutStatus422 = HTTPValidationError;
+
+export type UpdateGuardrailGuardrailsGuardrailIdPutBody = UpdateGuardrailRequest;
+
+export type UpdateGuardrailGuardrailsGuardrailIdPutOptions = {
+	body: UpdateGuardrailGuardrailsGuardrailIdPutBody;
+	path: UpdateGuardrailGuardrailsGuardrailIdPutPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdateGuardrailGuardrailsGuardrailIdPutResponses = {
+	"200": UpdateGuardrailGuardrailsGuardrailIdPutStatus200;
+	"422": UpdateGuardrailGuardrailsGuardrailIdPutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateGuardrailGuardrailsGuardrailIdPutResponse =
+	UpdateGuardrailGuardrailsGuardrailIdPutStatus200;
 
 export type PatchGuardrailGuardrailsGuardrailIdPatchPath = {
 	guardrail_id: string;
@@ -42911,35 +42913,33 @@ export type PatchGuardrailGuardrailsGuardrailIdPatchResponses = {
 export type PatchGuardrailGuardrailsGuardrailIdPatchResponse =
 	PatchGuardrailGuardrailsGuardrailIdPatchStatus200;
 
-export type UpdateGuardrailGuardrailsGuardrailIdPutPath = {
+export type DeleteGuardrailGuardrailsGuardrailIdDeletePath = {
 	guardrail_id: string;
 };
 
-export type UpdateGuardrailGuardrailsGuardrailIdPutStatus200 = {
+export type DeleteGuardrailGuardrailsGuardrailIdDeleteStatus200 = {
 	[key: string]: unknown;
 };
 
-export type UpdateGuardrailGuardrailsGuardrailIdPutStatus422 = HTTPValidationError;
+export type DeleteGuardrailGuardrailsGuardrailIdDeleteStatus422 = HTTPValidationError;
 
-export type UpdateGuardrailGuardrailsGuardrailIdPutBody = UpdateGuardrailRequest;
-
-export type UpdateGuardrailGuardrailsGuardrailIdPutOptions = {
-	body: UpdateGuardrailGuardrailsGuardrailIdPutBody;
-	path: UpdateGuardrailGuardrailsGuardrailIdPutPath;
+export type DeleteGuardrailGuardrailsGuardrailIdDeleteOptions = {
+	body?: never | undefined;
+	path: DeleteGuardrailGuardrailsGuardrailIdDeletePath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type UpdateGuardrailGuardrailsGuardrailIdPutResponses = {
-	"200": UpdateGuardrailGuardrailsGuardrailIdPutStatus200;
-	"422": UpdateGuardrailGuardrailsGuardrailIdPutStatus422;
+export type DeleteGuardrailGuardrailsGuardrailIdDeleteResponses = {
+	"200": DeleteGuardrailGuardrailsGuardrailIdDeleteStatus200;
+	"422": DeleteGuardrailGuardrailsGuardrailIdDeleteStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type UpdateGuardrailGuardrailsGuardrailIdPutResponse =
-	UpdateGuardrailGuardrailsGuardrailIdPutStatus200;
+export type DeleteGuardrailGuardrailsGuardrailIdDeleteResponse =
+	DeleteGuardrailGuardrailsGuardrailIdDeleteStatus200;
 
 export type GetGuardrailInfoGuardrailsGuardrailIdInfoGetPath = {
 	guardrail_id: string;
@@ -43416,35 +43416,6 @@ export type ListPolicyAttachmentsPoliciesAttachmentsListGetResponses = {
 export type ListPolicyAttachmentsPoliciesAttachmentsListGetResponse =
 	ListPolicyAttachmentsPoliciesAttachmentsListGetStatus200;
 
-export type DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeletePath = {
-	attachment_id: string;
-};
-
-export type DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteStatus422 =
-	HTTPValidationError;
-
-export type DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteOptions = {
-	body?: never | undefined;
-	path: DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteResponses = {
-	"200": DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteStatus200;
-	"422": DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteResponse =
-	DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteStatus200;
-
 export type GetPolicyAttachmentPoliciesAttachmentsAttachmentIdGetPath = {
 	attachment_id: string;
 };
@@ -43475,6 +43446,35 @@ export type GetPolicyAttachmentPoliciesAttachmentsAttachmentIdGetResponses = {
  */
 export type GetPolicyAttachmentPoliciesAttachmentsAttachmentIdGetResponse =
 	GetPolicyAttachmentPoliciesAttachmentsAttachmentIdGetStatus200;
+
+export type DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeletePath = {
+	attachment_id: string;
+};
+
+export type DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteStatus200 = {
+	[key: string]: unknown;
+};
+
+export type DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteStatus422 =
+	HTTPValidationError;
+
+export type DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteOptions = {
+	body?: never | undefined;
+	path: DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteResponses = {
+	"200": DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteStatus200;
+	"422": DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteResponse =
+	DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeleteStatus200;
 
 export type ComparePolicyVersionsPoliciesCompareGetQuery = {
 	version_a: string;
@@ -43703,34 +43703,6 @@ export type TestPipelinePoliciesTestPipelinePostResponses = {
 export type TestPipelinePoliciesTestPipelinePostResponse =
 	TestPipelinePoliciesTestPipelinePostStatus200;
 
-export type DeletePolicyPoliciesPolicyIdDeletePath = {
-	policy_id: string;
-};
-
-export type DeletePolicyPoliciesPolicyIdDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DeletePolicyPoliciesPolicyIdDeleteStatus422 = HTTPValidationError;
-
-export type DeletePolicyPoliciesPolicyIdDeleteOptions = {
-	body?: never | undefined;
-	path: DeletePolicyPoliciesPolicyIdDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DeletePolicyPoliciesPolicyIdDeleteResponses = {
-	"200": DeletePolicyPoliciesPolicyIdDeleteStatus200;
-	"422": DeletePolicyPoliciesPolicyIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeletePolicyPoliciesPolicyIdDeleteResponse =
-	DeletePolicyPoliciesPolicyIdDeleteStatus200;
-
 export type GetPolicyPoliciesPolicyIdGetPath = {
 	policy_id: string;
 };
@@ -43794,6 +43766,34 @@ export type UpdatePolicyPoliciesPolicyIdPutResponses = {
  * @description Union of all possible responses
  */
 export type UpdatePolicyPoliciesPolicyIdPutResponse = UpdatePolicyPoliciesPolicyIdPutStatus200;
+
+export type DeletePolicyPoliciesPolicyIdDeletePath = {
+	policy_id: string;
+};
+
+export type DeletePolicyPoliciesPolicyIdDeleteStatus200 = {
+	[key: string]: unknown;
+};
+
+export type DeletePolicyPoliciesPolicyIdDeleteStatus422 = HTTPValidationError;
+
+export type DeletePolicyPoliciesPolicyIdDeleteOptions = {
+	body?: never | undefined;
+	path: DeletePolicyPoliciesPolicyIdDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DeletePolicyPoliciesPolicyIdDeleteResponses = {
+	"200": DeletePolicyPoliciesPolicyIdDeleteStatus200;
+	"422": DeletePolicyPoliciesPolicyIdDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeletePolicyPoliciesPolicyIdDeleteResponse =
+	DeletePolicyPoliciesPolicyIdDeleteStatus200;
 
 export type GetResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGetPath = {
 	policy_id: string;
@@ -44010,33 +44010,6 @@ export type MakeAgentsPublicV1AgentsMakePublicPostResponses = {
 export type MakeAgentsPublicV1AgentsMakePublicPostResponse =
 	MakeAgentsPublicV1AgentsMakePublicPostStatus200;
 
-export type DeleteAgentV1AgentsAgentIdDeletePath = {
-	agent_id: string;
-};
-
-export type DeleteAgentV1AgentsAgentIdDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DeleteAgentV1AgentsAgentIdDeleteStatus422 = HTTPValidationError;
-
-export type DeleteAgentV1AgentsAgentIdDeleteOptions = {
-	body?: never | undefined;
-	path: DeleteAgentV1AgentsAgentIdDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DeleteAgentV1AgentsAgentIdDeleteResponses = {
-	"200": DeleteAgentV1AgentsAgentIdDeleteStatus200;
-	"422": DeleteAgentV1AgentsAgentIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteAgentV1AgentsAgentIdDeleteResponse = DeleteAgentV1AgentsAgentIdDeleteStatus200;
-
 export type GetAgentByIdV1AgentsAgentIdGetPath = {
 	agent_id: string;
 };
@@ -44061,6 +44034,33 @@ export type GetAgentByIdV1AgentsAgentIdGetResponses = {
  * @description Union of all possible responses
  */
 export type GetAgentByIdV1AgentsAgentIdGetResponse = GetAgentByIdV1AgentsAgentIdGetStatus200;
+
+export type UpdateAgentV1AgentsAgentIdPutPath = {
+	agent_id: string;
+};
+
+export type UpdateAgentV1AgentsAgentIdPutStatus200 = AgentResponse;
+
+export type UpdateAgentV1AgentsAgentIdPutStatus422 = HTTPValidationError;
+
+export type UpdateAgentV1AgentsAgentIdPutBody = AgentConfig;
+
+export type UpdateAgentV1AgentsAgentIdPutOptions = {
+	body: UpdateAgentV1AgentsAgentIdPutBody;
+	path: UpdateAgentV1AgentsAgentIdPutPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdateAgentV1AgentsAgentIdPutResponses = {
+	"200": UpdateAgentV1AgentsAgentIdPutStatus200;
+	"422": UpdateAgentV1AgentsAgentIdPutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateAgentV1AgentsAgentIdPutResponse = UpdateAgentV1AgentsAgentIdPutStatus200;
 
 export type PatchAgentV1AgentsAgentIdPatchPath = {
 	agent_id: string;
@@ -44089,32 +44089,32 @@ export type PatchAgentV1AgentsAgentIdPatchResponses = {
  */
 export type PatchAgentV1AgentsAgentIdPatchResponse = PatchAgentV1AgentsAgentIdPatchStatus200;
 
-export type UpdateAgentV1AgentsAgentIdPutPath = {
+export type DeleteAgentV1AgentsAgentIdDeletePath = {
 	agent_id: string;
 };
 
-export type UpdateAgentV1AgentsAgentIdPutStatus200 = AgentResponse;
+export type DeleteAgentV1AgentsAgentIdDeleteStatus200 = {
+	[key: string]: unknown;
+};
 
-export type UpdateAgentV1AgentsAgentIdPutStatus422 = HTTPValidationError;
+export type DeleteAgentV1AgentsAgentIdDeleteStatus422 = HTTPValidationError;
 
-export type UpdateAgentV1AgentsAgentIdPutBody = AgentConfig;
-
-export type UpdateAgentV1AgentsAgentIdPutOptions = {
-	body: UpdateAgentV1AgentsAgentIdPutBody;
-	path: UpdateAgentV1AgentsAgentIdPutPath;
+export type DeleteAgentV1AgentsAgentIdDeleteOptions = {
+	body?: never | undefined;
+	path: DeleteAgentV1AgentsAgentIdDeletePath;
 	query?: never | undefined;
 	headers?: never | undefined;
 };
 
-export type UpdateAgentV1AgentsAgentIdPutResponses = {
-	"200": UpdateAgentV1AgentsAgentIdPutStatus200;
-	"422": UpdateAgentV1AgentsAgentIdPutStatus422;
+export type DeleteAgentV1AgentsAgentIdDeleteResponses = {
+	"200": DeleteAgentV1AgentsAgentIdDeleteStatus200;
+	"422": DeleteAgentV1AgentsAgentIdDeleteStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type UpdateAgentV1AgentsAgentIdPutResponse = UpdateAgentV1AgentsAgentIdPutStatus200;
+export type DeleteAgentV1AgentsAgentIdDeleteResponse = DeleteAgentV1AgentsAgentIdDeleteStatus200;
 
 export type GetAgentIdentityStatusV1AgentsAgentIdIdentityGetPath = {
 	agent_id: string;
@@ -44234,6 +44234,33 @@ export type CreateGeminiAgentV1BetaAgentsPostResponses = {
  */
 export type CreateGeminiAgentV1BetaAgentsPostResponse = CreateGeminiAgentV1BetaAgentsPostStatus200;
 
+export type GetGeminiAgentV1BetaAgentsNameGetPath = {
+	name: string;
+};
+
+export type GetGeminiAgentV1BetaAgentsNameGetStatus200 = {
+	[key: string]: unknown;
+};
+
+export type GetGeminiAgentV1BetaAgentsNameGetStatus422 = HTTPValidationError;
+
+export type GetGeminiAgentV1BetaAgentsNameGetOptions = {
+	body?: never | undefined;
+	path: GetGeminiAgentV1BetaAgentsNameGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetGeminiAgentV1BetaAgentsNameGetResponses = {
+	"200": GetGeminiAgentV1BetaAgentsNameGetStatus200;
+	"422": GetGeminiAgentV1BetaAgentsNameGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetGeminiAgentV1BetaAgentsNameGetResponse = GetGeminiAgentV1BetaAgentsNameGetStatus200;
+
 export type DeleteGeminiAgentV1BetaAgentsNameDeletePath = {
 	name: string;
 };
@@ -44261,33 +44288,6 @@ export type DeleteGeminiAgentV1BetaAgentsNameDeleteResponses = {
  */
 export type DeleteGeminiAgentV1BetaAgentsNameDeleteResponse =
 	DeleteGeminiAgentV1BetaAgentsNameDeleteStatus200;
-
-export type GetGeminiAgentV1BetaAgentsNameGetPath = {
-	name: string;
-};
-
-export type GetGeminiAgentV1BetaAgentsNameGetStatus200 = {
-	[key: string]: unknown;
-};
-
-export type GetGeminiAgentV1BetaAgentsNameGetStatus422 = HTTPValidationError;
-
-export type GetGeminiAgentV1BetaAgentsNameGetOptions = {
-	body?: never | undefined;
-	path: GetGeminiAgentV1BetaAgentsNameGetPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type GetGeminiAgentV1BetaAgentsNameGetResponses = {
-	"200": GetGeminiAgentV1BetaAgentsNameGetStatus200;
-	"422": GetGeminiAgentV1BetaAgentsNameGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type GetGeminiAgentV1BetaAgentsNameGetResponse = GetGeminiAgentV1BetaAgentsNameGetStatus200;
 
 export type ListGeminiAgentVersionsV1BetaAgentsNameVersionsGetPath = {
 	name: string;
@@ -44580,34 +44580,6 @@ export type VectorStoreCreateV1VectorStoresPostResponses = {
 export type VectorStoreCreateV1VectorStoresPostResponse =
 	VectorStoreCreateV1VectorStoresPostStatus200;
 
-export type VectorStoreDeleteV1VectorStoresVectorStoreIdDeletePath = {
-	vector_store_id: string;
-};
-
-export type VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteStatus422 = HTTPValidationError;
-
-export type VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteOptions = {
-	body?: never | undefined;
-	path: VectorStoreDeleteV1VectorStoresVectorStoreIdDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteResponses = {
-	"200": VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteStatus200;
-	"422": VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteResponse =
-	VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteStatus200;
-
 export type VectorStoreRetrieveV1VectorStoresVectorStoreIdGetPath = {
 	vector_store_id: string;
 };
@@ -44663,6 +44635,34 @@ export type VectorStoreUpdateV1VectorStoresVectorStoreIdPostResponses = {
  */
 export type VectorStoreUpdateV1VectorStoresVectorStoreIdPostResponse =
 	VectorStoreUpdateV1VectorStoresVectorStoreIdPostStatus200;
+
+export type VectorStoreDeleteV1VectorStoresVectorStoreIdDeletePath = {
+	vector_store_id: string;
+};
+
+export type VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteStatus200 = {
+	[key: string]: unknown;
+};
+
+export type VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteStatus422 = HTTPValidationError;
+
+export type VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteOptions = {
+	body?: never | undefined;
+	path: VectorStoreDeleteV1VectorStoresVectorStoreIdDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteResponses = {
+	"200": VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteStatus200;
+	"422": VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteResponse =
+	VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteStatus200;
 
 export type VectorStoreFileListV1VectorStoresVectorStoreIdFilesGetPath = {
 	vector_store_id: string;
@@ -44720,36 +44720,6 @@ export type VectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPostResponses =
  */
 export type VectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPostResponse =
 	VectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPostStatus200;
-
-export type VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeletePath = {
-	vector_store_id: string;
-	file_id: string;
-};
-
-export type VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteStatus422 =
-	HTTPValidationError;
-
-export type VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteOptions = {
-	body?: never | undefined;
-	path: VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteResponses = {
-	"200": VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteStatus200;
-	"422": VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteResponse =
-	VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteStatus200;
 
 export type VectorStoreFileRetrieveV1VectorStoresVectorStoreIdFilesFileIdGetPath = {
 	vector_store_id: string;
@@ -44810,6 +44780,36 @@ export type VectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPostRespo
  */
 export type VectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPostResponse =
 	VectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPostStatus200;
+
+export type VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeletePath = {
+	vector_store_id: string;
+	file_id: string;
+};
+
+export type VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteStatus200 = {
+	[key: string]: unknown;
+};
+
+export type VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteStatus422 =
+	HTTPValidationError;
+
+export type VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteOptions = {
+	body?: never | undefined;
+	path: VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteResponses = {
+	"200": VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteStatus200;
+	"422": VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteResponse =
+	VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteStatus200;
 
 export type VectorStoreFileContentV1VectorStoresVectorStoreIdFilesFileIdContentGetPath = {
 	vector_store_id: string;
@@ -44925,34 +44925,6 @@ export type VectorStoreCreateVectorStoresPostResponses = {
  */
 export type VectorStoreCreateVectorStoresPostResponse = VectorStoreCreateVectorStoresPostStatus200;
 
-export type VectorStoreDeleteVectorStoresVectorStoreIdDeletePath = {
-	vector_store_id: string;
-};
-
-export type VectorStoreDeleteVectorStoresVectorStoreIdDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type VectorStoreDeleteVectorStoresVectorStoreIdDeleteStatus422 = HTTPValidationError;
-
-export type VectorStoreDeleteVectorStoresVectorStoreIdDeleteOptions = {
-	body?: never | undefined;
-	path: VectorStoreDeleteVectorStoresVectorStoreIdDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type VectorStoreDeleteVectorStoresVectorStoreIdDeleteResponses = {
-	"200": VectorStoreDeleteVectorStoresVectorStoreIdDeleteStatus200;
-	"422": VectorStoreDeleteVectorStoresVectorStoreIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type VectorStoreDeleteVectorStoresVectorStoreIdDeleteResponse =
-	VectorStoreDeleteVectorStoresVectorStoreIdDeleteStatus200;
-
 export type VectorStoreRetrieveVectorStoresVectorStoreIdGetPath = {
 	vector_store_id: string;
 };
@@ -45009,6 +44981,34 @@ export type VectorStoreUpdateVectorStoresVectorStoreIdPostResponses = {
 export type VectorStoreUpdateVectorStoresVectorStoreIdPostResponse =
 	VectorStoreUpdateVectorStoresVectorStoreIdPostStatus200;
 
+export type VectorStoreDeleteVectorStoresVectorStoreIdDeletePath = {
+	vector_store_id: string;
+};
+
+export type VectorStoreDeleteVectorStoresVectorStoreIdDeleteStatus200 = {
+	[key: string]: unknown;
+};
+
+export type VectorStoreDeleteVectorStoresVectorStoreIdDeleteStatus422 = HTTPValidationError;
+
+export type VectorStoreDeleteVectorStoresVectorStoreIdDeleteOptions = {
+	body?: never | undefined;
+	path: VectorStoreDeleteVectorStoresVectorStoreIdDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type VectorStoreDeleteVectorStoresVectorStoreIdDeleteResponses = {
+	"200": VectorStoreDeleteVectorStoresVectorStoreIdDeleteStatus200;
+	"422": VectorStoreDeleteVectorStoresVectorStoreIdDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type VectorStoreDeleteVectorStoresVectorStoreIdDeleteResponse =
+	VectorStoreDeleteVectorStoresVectorStoreIdDeleteStatus200;
+
 export type VectorStoreFileListVectorStoresVectorStoreIdFilesGetPath = {
 	vector_store_id: string;
 };
@@ -45064,36 +45064,6 @@ export type VectorStoreFileCreateVectorStoresVectorStoreIdFilesPostResponses = {
  */
 export type VectorStoreFileCreateVectorStoresVectorStoreIdFilesPostResponse =
 	VectorStoreFileCreateVectorStoresVectorStoreIdFilesPostStatus200;
-
-export type VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeletePath = {
-	vector_store_id: string;
-	file_id: string;
-};
-
-export type VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteStatus422 =
-	HTTPValidationError;
-
-export type VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteOptions = {
-	body?: never | undefined;
-	path: VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteResponses = {
-	"200": VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteStatus200;
-	"422": VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteResponse =
-	VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteStatus200;
 
 export type VectorStoreFileRetrieveVectorStoresVectorStoreIdFilesFileIdGetPath = {
 	vector_store_id: string;
@@ -45154,6 +45124,36 @@ export type VectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPostRespons
  */
 export type VectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPostResponse =
 	VectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPostStatus200;
+
+export type VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeletePath = {
+	vector_store_id: string;
+	file_id: string;
+};
+
+export type VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteStatus200 = {
+	[key: string]: unknown;
+};
+
+export type VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteStatus422 =
+	HTTPValidationError;
+
+export type VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteOptions = {
+	body?: never | undefined;
+	path: VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteResponses = {
+	"200": VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteStatus200;
+	"422": VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteResponse =
+	VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteStatus200;
 
 export type VectorStoreFileContentVectorStoresVectorStoreIdFilesFileIdContentGetPath = {
 	vector_store_id: string;
@@ -45834,34 +45834,6 @@ export type GetAvailableSearchProvidersSearchToolsUiAvailableProvidersGetRespons
 export type GetAvailableSearchProvidersSearchToolsUiAvailableProvidersGetResponse =
 	GetAvailableSearchProvidersSearchToolsUiAvailableProvidersGetStatus200;
 
-export type DeleteSearchToolSearchToolsSearchToolIdDeletePath = {
-	search_tool_id: string;
-};
-
-export type DeleteSearchToolSearchToolsSearchToolIdDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DeleteSearchToolSearchToolsSearchToolIdDeleteStatus422 = HTTPValidationError;
-
-export type DeleteSearchToolSearchToolsSearchToolIdDeleteOptions = {
-	body?: never | undefined;
-	path: DeleteSearchToolSearchToolsSearchToolIdDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DeleteSearchToolSearchToolsSearchToolIdDeleteResponses = {
-	"200": DeleteSearchToolSearchToolsSearchToolIdDeleteStatus200;
-	"422": DeleteSearchToolSearchToolsSearchToolIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteSearchToolSearchToolsSearchToolIdDeleteResponse =
-	DeleteSearchToolSearchToolsSearchToolIdDeleteStatus200;
-
 export type GetSearchToolInfoSearchToolsSearchToolIdGetPath = {
 	search_tool_id: string;
 };
@@ -45919,6 +45891,34 @@ export type UpdateSearchToolSearchToolsSearchToolIdPutResponses = {
  */
 export type UpdateSearchToolSearchToolsSearchToolIdPutResponse =
 	UpdateSearchToolSearchToolsSearchToolIdPutStatus200;
+
+export type DeleteSearchToolSearchToolsSearchToolIdDeletePath = {
+	search_tool_id: string;
+};
+
+export type DeleteSearchToolSearchToolsSearchToolIdDeleteStatus200 = {
+	[key: string]: unknown;
+};
+
+export type DeleteSearchToolSearchToolsSearchToolIdDeleteStatus422 = HTTPValidationError;
+
+export type DeleteSearchToolSearchToolsSearchToolIdDeleteOptions = {
+	body?: never | undefined;
+	path: DeleteSearchToolSearchToolsSearchToolIdDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteSearchToolSearchToolsSearchToolIdDeleteResponses = {
+	"200": DeleteSearchToolSearchToolsSearchToolIdDeleteStatus200;
+	"422": DeleteSearchToolSearchToolsSearchToolIdDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteSearchToolSearchToolsSearchToolIdDeleteResponse =
+	DeleteSearchToolSearchToolsSearchToolIdDeleteStatus200;
 
 export type GetMcpAccessGroupsV1McpAccessGroupsGetStatus200 = {
 	[key: string]: unknown;
@@ -46103,40 +46103,6 @@ export type FetchAllMcpServersV1McpServerGetResponses = {
  */
 export type FetchAllMcpServersV1McpServerGetResponse = FetchAllMcpServersV1McpServerGetStatus200;
 
-export type AddMcpServerV1McpServerPostHeaders = {
-	/**
-	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
-	 */
-	"litellm-changed-by"?: (string | null) | undefined;
-};
-
-/**
- * @description Represents a LiteLLM_MCPServerTable record
- * @type object
- */
-export type AddMcpServerV1McpServerPostStatus201 = LiteLLMMCPServerTable;
-
-export type AddMcpServerV1McpServerPostStatus422 = HTTPValidationError;
-
-export type AddMcpServerV1McpServerPostBody = NewMCPServerRequest;
-
-export type AddMcpServerV1McpServerPostOptions = {
-	body: AddMcpServerV1McpServerPostBody;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: AddMcpServerV1McpServerPostHeaders | undefined;
-};
-
-export type AddMcpServerV1McpServerPostResponses = {
-	"201": AddMcpServerV1McpServerPostStatus201;
-	"422": AddMcpServerV1McpServerPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type AddMcpServerV1McpServerPostResponse = AddMcpServerV1McpServerPostStatus201;
-
 export type EditMcpServerV1McpServerPutHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
@@ -46170,6 +46136,40 @@ export type EditMcpServerV1McpServerPutResponses = {
  * @description Union of all possible responses
  */
 export type EditMcpServerV1McpServerPutResponse = EditMcpServerV1McpServerPutStatus202;
+
+export type AddMcpServerV1McpServerPostHeaders = {
+	/**
+	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+	 */
+	"litellm-changed-by"?: (string | null) | undefined;
+};
+
+/**
+ * @description Represents a LiteLLM_MCPServerTable record
+ * @type object
+ */
+export type AddMcpServerV1McpServerPostStatus201 = LiteLLMMCPServerTable;
+
+export type AddMcpServerV1McpServerPostStatus422 = HTTPValidationError;
+
+export type AddMcpServerV1McpServerPostBody = NewMCPServerRequest;
+
+export type AddMcpServerV1McpServerPostOptions = {
+	body: AddMcpServerV1McpServerPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: AddMcpServerV1McpServerPostHeaders | undefined;
+};
+
+export type AddMcpServerV1McpServerPostResponses = {
+	"201": AddMcpServerV1McpServerPostStatus201;
+	"422": AddMcpServerV1McpServerPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type AddMcpServerV1McpServerPostResponse = AddMcpServerV1McpServerPostStatus201;
 
 export type HealthCheckServersV1McpServerHealthGetQuery = {
 	/**
@@ -46312,41 +46312,6 @@ export type GetMcpServerSubmissionsV1McpServerSubmissionsGetResponses = {
 export type GetMcpServerSubmissionsV1McpServerSubmissionsGetResponse =
 	GetMcpServerSubmissionsV1McpServerSubmissionsGetStatus200;
 
-export type RemoveMcpServerV1McpServerServerIdDeletePath = {
-	server_id: string;
-};
-
-export type RemoveMcpServerV1McpServerServerIdDeleteHeaders = {
-	/**
-	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
-	 */
-	"litellm-changed-by"?: (string | null) | undefined;
-};
-
-export type RemoveMcpServerV1McpServerServerIdDeleteStatus202 = {
-	[key: string]: unknown;
-};
-
-export type RemoveMcpServerV1McpServerServerIdDeleteStatus422 = HTTPValidationError;
-
-export type RemoveMcpServerV1McpServerServerIdDeleteOptions = {
-	body?: never | undefined;
-	path: RemoveMcpServerV1McpServerServerIdDeletePath;
-	query?: never | undefined;
-	headers?: RemoveMcpServerV1McpServerServerIdDeleteHeaders | undefined;
-};
-
-export type RemoveMcpServerV1McpServerServerIdDeleteResponses = {
-	"202": RemoveMcpServerV1McpServerServerIdDeleteStatus202;
-	"422": RemoveMcpServerV1McpServerServerIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type RemoveMcpServerV1McpServerServerIdDeleteResponse =
-	RemoveMcpServerV1McpServerServerIdDeleteStatus202;
-
 export type FetchMcpServerV1McpServerServerIdGetPath = {
 	server_id: string;
 };
@@ -46386,6 +46351,41 @@ export type FetchMcpServerV1McpServerServerIdGetResponses = {
 export type FetchMcpServerV1McpServerServerIdGetResponse =
 	FetchMcpServerV1McpServerServerIdGetStatus200;
 
+export type RemoveMcpServerV1McpServerServerIdDeletePath = {
+	server_id: string;
+};
+
+export type RemoveMcpServerV1McpServerServerIdDeleteHeaders = {
+	/**
+	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+	 */
+	"litellm-changed-by"?: (string | null) | undefined;
+};
+
+export type RemoveMcpServerV1McpServerServerIdDeleteStatus202 = {
+	[key: string]: unknown;
+};
+
+export type RemoveMcpServerV1McpServerServerIdDeleteStatus422 = HTTPValidationError;
+
+export type RemoveMcpServerV1McpServerServerIdDeleteOptions = {
+	body?: never | undefined;
+	path: RemoveMcpServerV1McpServerServerIdDeletePath;
+	query?: never | undefined;
+	headers?: RemoveMcpServerV1McpServerServerIdDeleteHeaders | undefined;
+};
+
+export type RemoveMcpServerV1McpServerServerIdDeleteResponses = {
+	"202": RemoveMcpServerV1McpServerServerIdDeleteStatus202;
+	"422": RemoveMcpServerV1McpServerServerIdDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type RemoveMcpServerV1McpServerServerIdDeleteResponse =
+	RemoveMcpServerV1McpServerServerIdDeleteStatus202;
+
 export type ApproveMcpServerSubmissionV1McpServerServerIdApprovePutPath = {
 	server_id: string;
 };
@@ -46416,42 +46416,6 @@ export type ApproveMcpServerSubmissionV1McpServerServerIdApprovePutResponses = {
  */
 export type ApproveMcpServerSubmissionV1McpServerServerIdApprovePutResponse =
 	ApproveMcpServerSubmissionV1McpServerServerIdApprovePutStatus200;
-
-export type DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeletePath = {
-	server_id: string;
-};
-
-export type DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteQuery = {
-	user_id?: (string | null) | undefined;
-};
-
-/**
- * @description Describes whether the calling user has a stored OAuth credential.
- * @type object
- */
-export type DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteStatus200 =
-	MCPOAuthUserCredentialStatus;
-
-export type DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteStatus422 =
-	HTTPValidationError;
-
-export type DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteOptions = {
-	body?: never | undefined;
-	path: DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeletePath;
-	query?: DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteResponses = {
-	"200": DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteStatus200;
-	"422": DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteResponse =
-	DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteStatus200;
 
 export type StoreMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialPostPath = {
 	server_id: string;
@@ -46492,6 +46456,42 @@ export type StoreMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialPos
 export type StoreMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialPostResponse =
 	StoreMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialPostStatus200;
 
+export type DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeletePath = {
+	server_id: string;
+};
+
+export type DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteQuery = {
+	user_id?: (string | null) | undefined;
+};
+
+/**
+ * @description Describes whether the calling user has a stored OAuth credential.
+ * @type object
+ */
+export type DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteStatus200 =
+	MCPOAuthUserCredentialStatus;
+
+export type DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteStatus422 =
+	HTTPValidationError;
+
+export type DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteOptions = {
+	body?: never | undefined;
+	path: DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeletePath;
+	query?: DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteResponses = {
+	"200": DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteStatus200;
+	"422": DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteResponse =
+	DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteStatus200;
+
 export type GetMcpOauthUserCredentialStatusV1McpServerServerIdOauthUserCredentialStatusGetPath = {
 	server_id: string;
 };
@@ -46526,34 +46526,6 @@ export type GetMcpOauthUserCredentialStatusV1McpServerServerIdOauthUserCredentia
 export type GetMcpOauthUserCredentialStatusV1McpServerServerIdOauthUserCredentialStatusGetResponse =
 	GetMcpOauthUserCredentialStatusV1McpServerServerIdOauthUserCredentialStatusGetStatus200;
 
-export type UnpinMcpServerToolsV1McpServerServerIdPinDeletePath = {
-	server_id: string;
-};
-
-export type UnpinMcpServerToolsV1McpServerServerIdPinDeleteStatus200 = {
-	[key: string]: string;
-};
-
-export type UnpinMcpServerToolsV1McpServerServerIdPinDeleteStatus422 = HTTPValidationError;
-
-export type UnpinMcpServerToolsV1McpServerServerIdPinDeleteOptions = {
-	body?: never | undefined;
-	path: UnpinMcpServerToolsV1McpServerServerIdPinDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type UnpinMcpServerToolsV1McpServerServerIdPinDeleteResponses = {
-	"200": UnpinMcpServerToolsV1McpServerServerIdPinDeleteStatus200;
-	"422": UnpinMcpServerToolsV1McpServerServerIdPinDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type UnpinMcpServerToolsV1McpServerServerIdPinDeleteResponse =
-	UnpinMcpServerToolsV1McpServerServerIdPinDeleteStatus200;
-
 export type PinMcpServerToolsV1McpServerServerIdPinPostPath = {
 	server_id: string;
 };
@@ -46581,6 +46553,34 @@ export type PinMcpServerToolsV1McpServerServerIdPinPostResponses = {
  */
 export type PinMcpServerToolsV1McpServerServerIdPinPostResponse =
 	PinMcpServerToolsV1McpServerServerIdPinPostStatus200;
+
+export type UnpinMcpServerToolsV1McpServerServerIdPinDeletePath = {
+	server_id: string;
+};
+
+export type UnpinMcpServerToolsV1McpServerServerIdPinDeleteStatus200 = {
+	[key: string]: string;
+};
+
+export type UnpinMcpServerToolsV1McpServerServerIdPinDeleteStatus422 = HTTPValidationError;
+
+export type UnpinMcpServerToolsV1McpServerServerIdPinDeleteOptions = {
+	body?: never | undefined;
+	path: UnpinMcpServerToolsV1McpServerServerIdPinDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UnpinMcpServerToolsV1McpServerServerIdPinDeleteResponses = {
+	"200": UnpinMcpServerToolsV1McpServerServerIdPinDeleteStatus200;
+	"422": UnpinMcpServerToolsV1McpServerServerIdPinDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UnpinMcpServerToolsV1McpServerServerIdPinDeleteResponse =
+	UnpinMcpServerToolsV1McpServerServerIdPinDeleteStatus200;
 
 export type RejectMcpServerSubmissionV1McpServerServerIdRejectPutPath = {
 	server_id: string;
@@ -46614,6 +46614,37 @@ export type RejectMcpServerSubmissionV1McpServerServerIdRejectPutResponses = {
 export type RejectMcpServerSubmissionV1McpServerServerIdRejectPutResponse =
 	RejectMcpServerSubmissionV1McpServerServerIdRejectPutStatus200;
 
+export type StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostPath = {
+	server_id: string;
+};
+
+export type StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostStatus200 =
+	MCPUserCredentialResponse;
+
+export type StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostStatus422 =
+	HTTPValidationError;
+
+export type StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostBody =
+	MCPUserCredentialRequest;
+
+export type StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostOptions = {
+	body: StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostBody;
+	path: StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostResponses = {
+	"200": StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostStatus200;
+	"422": StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostResponse =
+	StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostStatus200;
+
 export type DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeletePath = {
 	server_id: string;
 };
@@ -46646,37 +46677,6 @@ export type DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteRespon
 export type DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteResponse =
 	DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteStatus200;
 
-export type StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostPath = {
-	server_id: string;
-};
-
-export type StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostStatus200 =
-	MCPUserCredentialResponse;
-
-export type StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostStatus422 =
-	HTTPValidationError;
-
-export type StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostBody =
-	MCPUserCredentialRequest;
-
-export type StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostOptions = {
-	body: StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostBody;
-	path: StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostResponses = {
-	"200": StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostStatus200;
-	"422": StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostResponse =
-	StoreMcpUserCredentialV1McpServerServerIdUserCredentialPostStatus200;
-
 export type ListMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGetPath = {
 	server_id: string;
 };
@@ -46704,36 +46704,6 @@ export type ListMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGetRes
  */
 export type ListMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGetResponse =
 	ListMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGetStatus200;
-
-export type ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeletePath = {
-	server_id: string;
-};
-
-/**
- * @description Per-user env var status for a single MCP server.
- * @type object
- */
-export type ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteStatus200 = MCPUserEnvVarsStatus;
-
-export type ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteStatus422 = HTTPValidationError;
-
-export type ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteOptions = {
-	body?: never | undefined;
-	path: ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteResponses = {
-	"200": ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteStatus200;
-	"422": ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteResponse =
-	ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteStatus200;
 
 export type GetMcpUserEnvVarsV1McpServerServerIdUserEnvVarsGetPath = {
 	server_id: string;
@@ -46801,6 +46771,55 @@ export type StoreMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPostResponses = {
 export type StoreMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPostResponse =
 	StoreMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPostStatus200;
 
+export type ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeletePath = {
+	server_id: string;
+};
+
+/**
+ * @description Per-user env var status for a single MCP server.
+ * @type object
+ */
+export type ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteStatus200 = MCPUserEnvVarsStatus;
+
+export type ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteStatus422 = HTTPValidationError;
+
+export type ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteOptions = {
+	body?: never | undefined;
+	path: ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteResponses = {
+	"200": ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteStatus200;
+	"422": ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteResponse =
+	ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteStatus200;
+
+export type GetMcpGatewaySessionsV1McpSessionsGetStatus200 = MCPGatewaySessionsResponse;
+
+export type GetMcpGatewaySessionsV1McpSessionsGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetMcpGatewaySessionsV1McpSessionsGetResponses = {
+	"200": GetMcpGatewaySessionsV1McpSessionsGetStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetMcpGatewaySessionsV1McpSessionsGetResponse =
+	GetMcpGatewaySessionsV1McpSessionsGetStatus200;
+
 export type DeleteMcpGatewaySessionsV1McpSessionsDeleteQuery = {
 	session_id_prefix?: (string | null) | undefined;
 	user_id?: (string | null) | undefined;
@@ -46832,25 +46851,6 @@ export type DeleteMcpGatewaySessionsV1McpSessionsDeleteResponses = {
  */
 export type DeleteMcpGatewaySessionsV1McpSessionsDeleteResponse =
 	DeleteMcpGatewaySessionsV1McpSessionsDeleteStatus200;
-
-export type GetMcpGatewaySessionsV1McpSessionsGetStatus200 = MCPGatewaySessionsResponse;
-
-export type GetMcpGatewaySessionsV1McpSessionsGetOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type GetMcpGatewaySessionsV1McpSessionsGetResponses = {
-	"200": GetMcpGatewaySessionsV1McpSessionsGetStatus200;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type GetMcpGatewaySessionsV1McpSessionsGetResponse =
-	GetMcpGatewaySessionsV1McpSessionsGetStatus200;
 
 export type GetMcpToolsV1McpToolsGetStatus200 = {
 	[key: string]: unknown;
@@ -46892,6 +46892,35 @@ export type FetchMcpToolsetsV1McpToolsetGetResponses = {
  */
 export type FetchMcpToolsetsV1McpToolsetGetResponse = FetchMcpToolsetsV1McpToolsetGetStatus200;
 
+export type EditMcpToolsetV1McpToolsetPutHeaders = {
+	"litellm-changed-by"?: (string | null) | undefined;
+};
+
+export type EditMcpToolsetV1McpToolsetPutStatus200 = {
+	[key: string]: unknown;
+};
+
+export type EditMcpToolsetV1McpToolsetPutStatus422 = HTTPValidationError;
+
+export type EditMcpToolsetV1McpToolsetPutBody = UpdateMCPToolsetRequest;
+
+export type EditMcpToolsetV1McpToolsetPutOptions = {
+	body: EditMcpToolsetV1McpToolsetPutBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: EditMcpToolsetV1McpToolsetPutHeaders | undefined;
+};
+
+export type EditMcpToolsetV1McpToolsetPutResponses = {
+	"200": EditMcpToolsetV1McpToolsetPutStatus200;
+	"422": EditMcpToolsetV1McpToolsetPutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type EditMcpToolsetV1McpToolsetPutResponse = EditMcpToolsetV1McpToolsetPutStatus200;
+
 export type AddMcpToolsetV1McpToolsetPostHeaders = {
 	"litellm-changed-by"?: (string | null) | undefined;
 };
@@ -46921,34 +46950,33 @@ export type AddMcpToolsetV1McpToolsetPostResponses = {
  */
 export type AddMcpToolsetV1McpToolsetPostResponse = AddMcpToolsetV1McpToolsetPostStatus201;
 
-export type EditMcpToolsetV1McpToolsetPutHeaders = {
-	"litellm-changed-by"?: (string | null) | undefined;
+export type FetchMcpToolsetV1McpToolsetToolsetIdGetPath = {
+	toolset_id: string;
 };
 
-export type EditMcpToolsetV1McpToolsetPutStatus200 = {
+export type FetchMcpToolsetV1McpToolsetToolsetIdGetStatus200 = {
 	[key: string]: unknown;
 };
 
-export type EditMcpToolsetV1McpToolsetPutStatus422 = HTTPValidationError;
+export type FetchMcpToolsetV1McpToolsetToolsetIdGetStatus422 = HTTPValidationError;
 
-export type EditMcpToolsetV1McpToolsetPutBody = UpdateMCPToolsetRequest;
-
-export type EditMcpToolsetV1McpToolsetPutOptions = {
-	body: EditMcpToolsetV1McpToolsetPutBody;
-	path?: never | undefined;
+export type FetchMcpToolsetV1McpToolsetToolsetIdGetOptions = {
+	body?: never | undefined;
+	path: FetchMcpToolsetV1McpToolsetToolsetIdGetPath;
 	query?: never | undefined;
-	headers?: EditMcpToolsetV1McpToolsetPutHeaders | undefined;
+	headers?: never | undefined;
 };
 
-export type EditMcpToolsetV1McpToolsetPutResponses = {
-	"200": EditMcpToolsetV1McpToolsetPutStatus200;
-	"422": EditMcpToolsetV1McpToolsetPutStatus422;
+export type FetchMcpToolsetV1McpToolsetToolsetIdGetResponses = {
+	"200": FetchMcpToolsetV1McpToolsetToolsetIdGetStatus200;
+	"422": FetchMcpToolsetV1McpToolsetToolsetIdGetStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type EditMcpToolsetV1McpToolsetPutResponse = EditMcpToolsetV1McpToolsetPutStatus200;
+export type FetchMcpToolsetV1McpToolsetToolsetIdGetResponse =
+	FetchMcpToolsetV1McpToolsetToolsetIdGetStatus200;
 
 export type RemoveMcpToolsetV1McpToolsetToolsetIdDeletePath = {
 	toolset_id: string;
@@ -46981,34 +47009,6 @@ export type RemoveMcpToolsetV1McpToolsetToolsetIdDeleteResponses = {
  */
 export type RemoveMcpToolsetV1McpToolsetToolsetIdDeleteResponse =
 	RemoveMcpToolsetV1McpToolsetToolsetIdDeleteStatus202;
-
-export type FetchMcpToolsetV1McpToolsetToolsetIdGetPath = {
-	toolset_id: string;
-};
-
-export type FetchMcpToolsetV1McpToolsetToolsetIdGetStatus200 = {
-	[key: string]: unknown;
-};
-
-export type FetchMcpToolsetV1McpToolsetToolsetIdGetStatus422 = HTTPValidationError;
-
-export type FetchMcpToolsetV1McpToolsetToolsetIdGetOptions = {
-	body?: never | undefined;
-	path: FetchMcpToolsetV1McpToolsetToolsetIdGetPath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type FetchMcpToolsetV1McpToolsetToolsetIdGetResponses = {
-	"200": FetchMcpToolsetV1McpToolsetToolsetIdGetStatus200;
-	"422": FetchMcpToolsetV1McpToolsetToolsetIdGetStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type FetchMcpToolsetV1McpToolsetToolsetIdGetResponse =
-	FetchMcpToolsetV1McpToolsetToolsetIdGetStatus200;
 
 export type ListMcpUserCredentialsV1McpUserCredentialsGetStatus200 = MCPUserCredentialListItem[];
 
@@ -47849,37 +47849,6 @@ export type ListToolRestApiMcpRestToolsListGetResponses = {
 export type ListToolRestApiMcpRestToolsListGetResponse =
 	ListToolRestApiMcpRestToolsListGetStatus200;
 
-export type DeleteCyberarkConfigConfigOverridesCyberarkDeleteHeaders = {
-	/**
-	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
-	 */
-	"litellm-changed-by"?: (string | null) | undefined;
-};
-
-export type DeleteCyberarkConfigConfigOverridesCyberarkDeleteStatus200 = {
-	[key: string]: string;
-};
-
-export type DeleteCyberarkConfigConfigOverridesCyberarkDeleteStatus422 = HTTPValidationError;
-
-export type DeleteCyberarkConfigConfigOverridesCyberarkDeleteOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: DeleteCyberarkConfigConfigOverridesCyberarkDeleteHeaders | undefined;
-};
-
-export type DeleteCyberarkConfigConfigOverridesCyberarkDeleteResponses = {
-	"200": DeleteCyberarkConfigConfigOverridesCyberarkDeleteStatus200;
-	"422": DeleteCyberarkConfigConfigOverridesCyberarkDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteCyberarkConfigConfigOverridesCyberarkDeleteResponse =
-	DeleteCyberarkConfigConfigOverridesCyberarkDeleteStatus200;
-
 /**
  * @description Response model for config override settings GET endpoints.
  * @type object
@@ -47940,6 +47909,37 @@ export type UpdateCyberarkConfigConfigOverridesCyberarkPostResponses = {
 export type UpdateCyberarkConfigConfigOverridesCyberarkPostResponse =
 	UpdateCyberarkConfigConfigOverridesCyberarkPostStatus200;
 
+export type DeleteCyberarkConfigConfigOverridesCyberarkDeleteHeaders = {
+	/**
+	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+	 */
+	"litellm-changed-by"?: (string | null) | undefined;
+};
+
+export type DeleteCyberarkConfigConfigOverridesCyberarkDeleteStatus200 = {
+	[key: string]: string;
+};
+
+export type DeleteCyberarkConfigConfigOverridesCyberarkDeleteStatus422 = HTTPValidationError;
+
+export type DeleteCyberarkConfigConfigOverridesCyberarkDeleteOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: DeleteCyberarkConfigConfigOverridesCyberarkDeleteHeaders | undefined;
+};
+
+export type DeleteCyberarkConfigConfigOverridesCyberarkDeleteResponses = {
+	"200": DeleteCyberarkConfigConfigOverridesCyberarkDeleteStatus200;
+	"422": DeleteCyberarkConfigConfigOverridesCyberarkDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteCyberarkConfigConfigOverridesCyberarkDeleteResponse =
+	DeleteCyberarkConfigConfigOverridesCyberarkDeleteStatus200;
+
 export type TestCyberarkConnectionConfigOverridesCyberarkTestConnectionPostStatus200 = {
 	[key: string]: string;
 };
@@ -47960,38 +47960,6 @@ export type TestCyberarkConnectionConfigOverridesCyberarkTestConnectionPostRespo
  */
 export type TestCyberarkConnectionConfigOverridesCyberarkTestConnectionPostResponse =
 	TestCyberarkConnectionConfigOverridesCyberarkTestConnectionPostStatus200;
-
-export type DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteHeaders = {
-	/**
-	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
-	 */
-	"litellm-changed-by"?: (string | null) | undefined;
-};
-
-export type DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteStatus422 =
-	HTTPValidationError;
-
-export type DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteHeaders | undefined;
-};
-
-export type DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteResponses = {
-	"200": DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteStatus200;
-	"422": DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteResponse =
-	DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteStatus200;
 
 /**
  * @description Response model for config override settings GET endpoints.
@@ -48054,6 +48022,38 @@ export type UpdateHashicorpVaultConfigConfigOverridesHashicorpVaultPostResponses
  */
 export type UpdateHashicorpVaultConfigConfigOverridesHashicorpVaultPostResponse =
 	UpdateHashicorpVaultConfigConfigOverridesHashicorpVaultPostStatus200;
+
+export type DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteHeaders = {
+	/**
+	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
+	 */
+	"litellm-changed-by"?: (string | null) | undefined;
+};
+
+export type DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteStatus200 = {
+	[key: string]: unknown;
+};
+
+export type DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteStatus422 =
+	HTTPValidationError;
+
+export type DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteHeaders | undefined;
+};
+
+export type DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteResponses = {
+	"200": DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteStatus200;
+	"422": DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteResponse =
+	DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteStatus200;
 
 export type TestHashicorpVaultConnectionConfigOverridesHashicorpVaultTestConnectionPostStatus200 = {
 	[key: string]: unknown;
@@ -48588,42 +48588,6 @@ export type CreateSkillV1SkillsPostResponses = {
  */
 export type CreateSkillV1SkillsPostResponse = CreateSkillV1SkillsPostStatus200;
 
-export type DeleteSkillV1SkillsSkillIdDeletePath = {
-	skill_id: string;
-};
-
-export type DeleteSkillV1SkillsSkillIdDeleteQuery = {
-	/**
-	 * @default anthropic
-	 */
-	custom_llm_provider?: (string | null) | undefined;
-};
-
-/**
- * @description Response from deleting a skill
- * @type object
- */
-export type DeleteSkillV1SkillsSkillIdDeleteStatus200 = DeleteSkillResponse;
-
-export type DeleteSkillV1SkillsSkillIdDeleteStatus422 = HTTPValidationError;
-
-export type DeleteSkillV1SkillsSkillIdDeleteOptions = {
-	body?: never | undefined;
-	path: DeleteSkillV1SkillsSkillIdDeletePath;
-	query?: DeleteSkillV1SkillsSkillIdDeleteQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type DeleteSkillV1SkillsSkillIdDeleteResponses = {
-	"200": DeleteSkillV1SkillsSkillIdDeleteStatus200;
-	"422": DeleteSkillV1SkillsSkillIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteSkillV1SkillsSkillIdDeleteResponse = DeleteSkillV1SkillsSkillIdDeleteStatus200;
-
 export type GetSkillV1SkillsSkillIdGetPath = {
 	skill_id: string;
 };
@@ -48659,6 +48623,42 @@ export type GetSkillV1SkillsSkillIdGetResponses = {
  * @description Union of all possible responses
  */
 export type GetSkillV1SkillsSkillIdGetResponse = GetSkillV1SkillsSkillIdGetStatus200;
+
+export type DeleteSkillV1SkillsSkillIdDeletePath = {
+	skill_id: string;
+};
+
+export type DeleteSkillV1SkillsSkillIdDeleteQuery = {
+	/**
+	 * @default anthropic
+	 */
+	custom_llm_provider?: (string | null) | undefined;
+};
+
+/**
+ * @description Response from deleting a skill
+ * @type object
+ */
+export type DeleteSkillV1SkillsSkillIdDeleteStatus200 = DeleteSkillResponse;
+
+export type DeleteSkillV1SkillsSkillIdDeleteStatus422 = HTTPValidationError;
+
+export type DeleteSkillV1SkillsSkillIdDeleteOptions = {
+	body?: never | undefined;
+	path: DeleteSkillV1SkillsSkillIdDeletePath;
+	query?: DeleteSkillV1SkillsSkillIdDeleteQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteSkillV1SkillsSkillIdDeleteResponses = {
+	"200": DeleteSkillV1SkillsSkillIdDeleteStatus200;
+	"422": DeleteSkillV1SkillsSkillIdDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteSkillV1SkillsSkillIdDeleteResponse = DeleteSkillV1SkillsSkillIdDeleteStatus200;
 
 export type ListEvalsV1EvalsGetQuery = {
 	/**
@@ -48732,42 +48732,6 @@ export type CreateEvalV1EvalsPostResponses = {
  */
 export type CreateEvalV1EvalsPostResponse = CreateEvalV1EvalsPostStatus200;
 
-export type DeleteEvalV1EvalsEvalIdDeletePath = {
-	eval_id: string;
-};
-
-export type DeleteEvalV1EvalsEvalIdDeleteQuery = {
-	/**
-	 * @default openai
-	 */
-	custom_llm_provider?: (string | null) | undefined;
-};
-
-/**
- * @description Response from deleting an evaluation
- * @type object
- */
-export type DeleteEvalV1EvalsEvalIdDeleteStatus200 = DeleteEvalResponse;
-
-export type DeleteEvalV1EvalsEvalIdDeleteStatus422 = HTTPValidationError;
-
-export type DeleteEvalV1EvalsEvalIdDeleteOptions = {
-	body?: never | undefined;
-	path: DeleteEvalV1EvalsEvalIdDeletePath;
-	query?: DeleteEvalV1EvalsEvalIdDeleteQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type DeleteEvalV1EvalsEvalIdDeleteResponses = {
-	"200": DeleteEvalV1EvalsEvalIdDeleteStatus200;
-	"422": DeleteEvalV1EvalsEvalIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteEvalV1EvalsEvalIdDeleteResponse = DeleteEvalV1EvalsEvalIdDeleteStatus200;
-
 export type GetEvalV1EvalsEvalIdGetPath = {
 	eval_id: string;
 };
@@ -48839,6 +48803,42 @@ export type UpdateEvalV1EvalsEvalIdPostResponses = {
  * @description Union of all possible responses
  */
 export type UpdateEvalV1EvalsEvalIdPostResponse = UpdateEvalV1EvalsEvalIdPostStatus200;
+
+export type DeleteEvalV1EvalsEvalIdDeletePath = {
+	eval_id: string;
+};
+
+export type DeleteEvalV1EvalsEvalIdDeleteQuery = {
+	/**
+	 * @default openai
+	 */
+	custom_llm_provider?: (string | null) | undefined;
+};
+
+/**
+ * @description Response from deleting an evaluation
+ * @type object
+ */
+export type DeleteEvalV1EvalsEvalIdDeleteStatus200 = DeleteEvalResponse;
+
+export type DeleteEvalV1EvalsEvalIdDeleteStatus422 = HTTPValidationError;
+
+export type DeleteEvalV1EvalsEvalIdDeleteOptions = {
+	body?: never | undefined;
+	path: DeleteEvalV1EvalsEvalIdDeletePath;
+	query?: DeleteEvalV1EvalsEvalIdDeleteQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteEvalV1EvalsEvalIdDeleteResponses = {
+	"200": DeleteEvalV1EvalsEvalIdDeleteStatus200;
+	"422": DeleteEvalV1EvalsEvalIdDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteEvalV1EvalsEvalIdDeleteResponse = DeleteEvalV1EvalsEvalIdDeleteStatus200;
 
 export type CancelEvalV1EvalsEvalIdCancelPostPath = {
 	eval_id: string;
@@ -48955,44 +48955,6 @@ export type CreateRunV1EvalsEvalIdRunsPostResponses = {
  */
 export type CreateRunV1EvalsEvalIdRunsPostResponse = CreateRunV1EvalsEvalIdRunsPostStatus200;
 
-export type DeleteRunV1EvalsEvalIdRunsRunIdDeletePath = {
-	eval_id: string;
-	run_id: string;
-};
-
-export type DeleteRunV1EvalsEvalIdRunsRunIdDeleteQuery = {
-	/**
-	 * @default openai
-	 */
-	custom_llm_provider?: (string | null) | undefined;
-};
-
-/**
- * @description Response from deleting a run
- * @type object
- */
-export type DeleteRunV1EvalsEvalIdRunsRunIdDeleteStatus200 = RunDeleteResponse;
-
-export type DeleteRunV1EvalsEvalIdRunsRunIdDeleteStatus422 = HTTPValidationError;
-
-export type DeleteRunV1EvalsEvalIdRunsRunIdDeleteOptions = {
-	body?: never | undefined;
-	path: DeleteRunV1EvalsEvalIdRunsRunIdDeletePath;
-	query?: DeleteRunV1EvalsEvalIdRunsRunIdDeleteQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type DeleteRunV1EvalsEvalIdRunsRunIdDeleteResponses = {
-	"200": DeleteRunV1EvalsEvalIdRunsRunIdDeleteStatus200;
-	"422": DeleteRunV1EvalsEvalIdRunsRunIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteRunV1EvalsEvalIdRunsRunIdDeleteResponse =
-	DeleteRunV1EvalsEvalIdRunsRunIdDeleteStatus200;
-
 export type GetRunV1EvalsEvalIdRunsRunIdGetPath = {
 	eval_id: string;
 	run_id: string;
@@ -49067,6 +49029,44 @@ export type CancelRunV1EvalsEvalIdRunsRunIdPostResponses = {
  */
 export type CancelRunV1EvalsEvalIdRunsRunIdPostResponse =
 	CancelRunV1EvalsEvalIdRunsRunIdPostStatus200;
+
+export type DeleteRunV1EvalsEvalIdRunsRunIdDeletePath = {
+	eval_id: string;
+	run_id: string;
+};
+
+export type DeleteRunV1EvalsEvalIdRunsRunIdDeleteQuery = {
+	/**
+	 * @default openai
+	 */
+	custom_llm_provider?: (string | null) | undefined;
+};
+
+/**
+ * @description Response from deleting a run
+ * @type object
+ */
+export type DeleteRunV1EvalsEvalIdRunsRunIdDeleteStatus200 = RunDeleteResponse;
+
+export type DeleteRunV1EvalsEvalIdRunsRunIdDeleteStatus422 = HTTPValidationError;
+
+export type DeleteRunV1EvalsEvalIdRunsRunIdDeleteOptions = {
+	body?: never | undefined;
+	path: DeleteRunV1EvalsEvalIdRunsRunIdDeletePath;
+	query?: DeleteRunV1EvalsEvalIdRunsRunIdDeleteQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteRunV1EvalsEvalIdRunsRunIdDeleteResponses = {
+	"200": DeleteRunV1EvalsEvalIdRunsRunIdDeleteStatus200;
+	"422": DeleteRunV1EvalsEvalIdRunsRunIdDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteRunV1EvalsEvalIdRunsRunIdDeleteResponse =
+	DeleteRunV1EvalsEvalIdRunsRunIdDeleteStatus200;
 
 export type DecisionsDecisionsPostStatus200 = OpenAIDecisionResponse;
 
@@ -50020,34 +50020,6 @@ export type RegisterPluginClaudeCodePluginsPostResponses = {
 export type RegisterPluginClaudeCodePluginsPostResponse =
 	RegisterPluginClaudeCodePluginsPostStatus200;
 
-export type DeletePluginClaudeCodePluginsPluginNameDeletePath = {
-	plugin_name: string;
-};
-
-export type DeletePluginClaudeCodePluginsPluginNameDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DeletePluginClaudeCodePluginsPluginNameDeleteStatus422 = HTTPValidationError;
-
-export type DeletePluginClaudeCodePluginsPluginNameDeleteOptions = {
-	body?: never | undefined;
-	path: DeletePluginClaudeCodePluginsPluginNameDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DeletePluginClaudeCodePluginsPluginNameDeleteResponses = {
-	"200": DeletePluginClaudeCodePluginsPluginNameDeleteStatus200;
-	"422": DeletePluginClaudeCodePluginsPluginNameDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeletePluginClaudeCodePluginsPluginNameDeleteResponse =
-	DeletePluginClaudeCodePluginsPluginNameDeleteStatus200;
-
 export type GetPluginClaudeCodePluginsPluginNameGetPath = {
 	plugin_name: string;
 };
@@ -50116,6 +50088,34 @@ export type UpdatePluginClaudeCodePluginsPluginNamePutResponses = {
  */
 export type UpdatePluginClaudeCodePluginsPluginNamePutResponse =
 	UpdatePluginClaudeCodePluginsPluginNamePutStatus200;
+
+export type DeletePluginClaudeCodePluginsPluginNameDeletePath = {
+	plugin_name: string;
+};
+
+export type DeletePluginClaudeCodePluginsPluginNameDeleteStatus200 = {
+	[key: string]: unknown;
+};
+
+export type DeletePluginClaudeCodePluginsPluginNameDeleteStatus422 = HTTPValidationError;
+
+export type DeletePluginClaudeCodePluginsPluginNameDeleteOptions = {
+	body?: never | undefined;
+	path: DeletePluginClaudeCodePluginsPluginNameDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DeletePluginClaudeCodePluginsPluginNameDeleteResponses = {
+	"200": DeletePluginClaudeCodePluginsPluginNameDeleteStatus200;
+	"422": DeletePluginClaudeCodePluginsPluginNameDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeletePluginClaudeCodePluginsPluginNameDeleteResponse =
+	DeletePluginClaudeCodePluginsPluginNameDeleteStatus200;
 
 export type DisablePluginClaudeCodePluginsPluginNameDisablePostPath = {
 	plugin_name: string;
@@ -50265,36 +50265,6 @@ export type CreateGroupScimV2GroupsPostResponses = {
  */
 export type CreateGroupScimV2GroupsPostResponse = CreateGroupScimV2GroupsPostStatus201;
 
-export type DeleteGroupScimV2GroupsGroupIdDeletePath = {
-	group_id: string;
-};
-
-export type DeleteGroupScimV2GroupsGroupIdDeleteQuery = {
-	feature?: (string | null) | undefined;
-};
-
-export type DeleteGroupScimV2GroupsGroupIdDeleteStatus204 = void;
-
-export type DeleteGroupScimV2GroupsGroupIdDeleteStatus422 = HTTPValidationError;
-
-export type DeleteGroupScimV2GroupsGroupIdDeleteOptions = {
-	body?: never | undefined;
-	path: DeleteGroupScimV2GroupsGroupIdDeletePath;
-	query?: DeleteGroupScimV2GroupsGroupIdDeleteQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type DeleteGroupScimV2GroupsGroupIdDeleteResponses = {
-	"204": DeleteGroupScimV2GroupsGroupIdDeleteStatus204;
-	"422": DeleteGroupScimV2GroupsGroupIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteGroupScimV2GroupsGroupIdDeleteResponse =
-	DeleteGroupScimV2GroupsGroupIdDeleteStatus204;
-
 export type GetGroupScimV2GroupsGroupIdGetPath = {
 	group_id: string;
 };
@@ -50323,6 +50293,37 @@ export type GetGroupScimV2GroupsGroupIdGetResponses = {
  * @description Union of all possible responses
  */
 export type GetGroupScimV2GroupsGroupIdGetResponse = GetGroupScimV2GroupsGroupIdGetStatus200;
+
+export type UpdateGroupScimV2GroupsGroupIdPutPath = {
+	group_id: string;
+};
+
+export type UpdateGroupScimV2GroupsGroupIdPutQuery = {
+	feature?: (string | null) | undefined;
+};
+
+export type UpdateGroupScimV2GroupsGroupIdPutStatus200 = SCIMGroup;
+
+export type UpdateGroupScimV2GroupsGroupIdPutStatus422 = HTTPValidationError;
+
+export type UpdateGroupScimV2GroupsGroupIdPutBody = SCIMGroup;
+
+export type UpdateGroupScimV2GroupsGroupIdPutOptions = {
+	body: UpdateGroupScimV2GroupsGroupIdPutBody;
+	path: UpdateGroupScimV2GroupsGroupIdPutPath;
+	query?: UpdateGroupScimV2GroupsGroupIdPutQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdateGroupScimV2GroupsGroupIdPutResponses = {
+	"200": UpdateGroupScimV2GroupsGroupIdPutStatus200;
+	"422": UpdateGroupScimV2GroupsGroupIdPutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateGroupScimV2GroupsGroupIdPutResponse = UpdateGroupScimV2GroupsGroupIdPutStatus200;
 
 export type PatchGroupScimV2GroupsGroupIdPatchPath = {
 	group_id: string;
@@ -50356,36 +50357,35 @@ export type PatchGroupScimV2GroupsGroupIdPatchResponses = {
 export type PatchGroupScimV2GroupsGroupIdPatchResponse =
 	PatchGroupScimV2GroupsGroupIdPatchStatus200;
 
-export type UpdateGroupScimV2GroupsGroupIdPutPath = {
+export type DeleteGroupScimV2GroupsGroupIdDeletePath = {
 	group_id: string;
 };
 
-export type UpdateGroupScimV2GroupsGroupIdPutQuery = {
+export type DeleteGroupScimV2GroupsGroupIdDeleteQuery = {
 	feature?: (string | null) | undefined;
 };
 
-export type UpdateGroupScimV2GroupsGroupIdPutStatus200 = SCIMGroup;
+export type DeleteGroupScimV2GroupsGroupIdDeleteStatus204 = void;
 
-export type UpdateGroupScimV2GroupsGroupIdPutStatus422 = HTTPValidationError;
+export type DeleteGroupScimV2GroupsGroupIdDeleteStatus422 = HTTPValidationError;
 
-export type UpdateGroupScimV2GroupsGroupIdPutBody = SCIMGroup;
-
-export type UpdateGroupScimV2GroupsGroupIdPutOptions = {
-	body: UpdateGroupScimV2GroupsGroupIdPutBody;
-	path: UpdateGroupScimV2GroupsGroupIdPutPath;
-	query?: UpdateGroupScimV2GroupsGroupIdPutQuery | undefined;
+export type DeleteGroupScimV2GroupsGroupIdDeleteOptions = {
+	body?: never | undefined;
+	path: DeleteGroupScimV2GroupsGroupIdDeletePath;
+	query?: DeleteGroupScimV2GroupsGroupIdDeleteQuery | undefined;
 	headers?: never | undefined;
 };
 
-export type UpdateGroupScimV2GroupsGroupIdPutResponses = {
-	"200": UpdateGroupScimV2GroupsGroupIdPutStatus200;
-	"422": UpdateGroupScimV2GroupsGroupIdPutStatus422;
+export type DeleteGroupScimV2GroupsGroupIdDeleteResponses = {
+	"204": DeleteGroupScimV2GroupsGroupIdDeleteStatus204;
+	"422": DeleteGroupScimV2GroupsGroupIdDeleteStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type UpdateGroupScimV2GroupsGroupIdPutResponse = UpdateGroupScimV2GroupsGroupIdPutStatus200;
+export type DeleteGroupScimV2GroupsGroupIdDeleteResponse =
+	DeleteGroupScimV2GroupsGroupIdDeleteStatus204;
 
 export type GetResourceTypesScimV2ResourceTypesGetQuery = {
 	feature?: (string | null) | undefined;
@@ -50597,35 +50597,6 @@ export type CreateUserScimV2UsersPostResponses = {
  */
 export type CreateUserScimV2UsersPostResponse = CreateUserScimV2UsersPostStatus201;
 
-export type DeleteUserScimV2UsersUserIdDeletePath = {
-	user_id: string;
-};
-
-export type DeleteUserScimV2UsersUserIdDeleteQuery = {
-	feature?: (string | null) | undefined;
-};
-
-export type DeleteUserScimV2UsersUserIdDeleteStatus204 = void;
-
-export type DeleteUserScimV2UsersUserIdDeleteStatus422 = HTTPValidationError;
-
-export type DeleteUserScimV2UsersUserIdDeleteOptions = {
-	body?: never | undefined;
-	path: DeleteUserScimV2UsersUserIdDeletePath;
-	query?: DeleteUserScimV2UsersUserIdDeleteQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type DeleteUserScimV2UsersUserIdDeleteResponses = {
-	"204": DeleteUserScimV2UsersUserIdDeleteStatus204;
-	"422": DeleteUserScimV2UsersUserIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteUserScimV2UsersUserIdDeleteResponse = DeleteUserScimV2UsersUserIdDeleteStatus204;
-
 export type GetUserScimV2UsersUserIdGetPath = {
 	user_id: string;
 };
@@ -50654,6 +50625,37 @@ export type GetUserScimV2UsersUserIdGetResponses = {
  * @description Union of all possible responses
  */
 export type GetUserScimV2UsersUserIdGetResponse = GetUserScimV2UsersUserIdGetStatus200;
+
+export type UpdateUserScimV2UsersUserIdPutPath = {
+	user_id: string;
+};
+
+export type UpdateUserScimV2UsersUserIdPutQuery = {
+	feature?: (string | null) | undefined;
+};
+
+export type UpdateUserScimV2UsersUserIdPutStatus200 = SCIMUserOutput;
+
+export type UpdateUserScimV2UsersUserIdPutStatus422 = HTTPValidationError;
+
+export type UpdateUserScimV2UsersUserIdPutBody = SCIMUserInput;
+
+export type UpdateUserScimV2UsersUserIdPutOptions = {
+	body: UpdateUserScimV2UsersUserIdPutBody;
+	path: UpdateUserScimV2UsersUserIdPutPath;
+	query?: UpdateUserScimV2UsersUserIdPutQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdateUserScimV2UsersUserIdPutResponses = {
+	"200": UpdateUserScimV2UsersUserIdPutStatus200;
+	"422": UpdateUserScimV2UsersUserIdPutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateUserScimV2UsersUserIdPutResponse = UpdateUserScimV2UsersUserIdPutStatus200;
 
 export type PatchUserScimV2UsersUserIdPatchPath = {
 	user_id: string;
@@ -50686,36 +50688,34 @@ export type PatchUserScimV2UsersUserIdPatchResponses = {
  */
 export type PatchUserScimV2UsersUserIdPatchResponse = PatchUserScimV2UsersUserIdPatchStatus200;
 
-export type UpdateUserScimV2UsersUserIdPutPath = {
+export type DeleteUserScimV2UsersUserIdDeletePath = {
 	user_id: string;
 };
 
-export type UpdateUserScimV2UsersUserIdPutQuery = {
+export type DeleteUserScimV2UsersUserIdDeleteQuery = {
 	feature?: (string | null) | undefined;
 };
 
-export type UpdateUserScimV2UsersUserIdPutStatus200 = SCIMUserOutput;
+export type DeleteUserScimV2UsersUserIdDeleteStatus204 = void;
 
-export type UpdateUserScimV2UsersUserIdPutStatus422 = HTTPValidationError;
+export type DeleteUserScimV2UsersUserIdDeleteStatus422 = HTTPValidationError;
 
-export type UpdateUserScimV2UsersUserIdPutBody = SCIMUserInput;
-
-export type UpdateUserScimV2UsersUserIdPutOptions = {
-	body: UpdateUserScimV2UsersUserIdPutBody;
-	path: UpdateUserScimV2UsersUserIdPutPath;
-	query?: UpdateUserScimV2UsersUserIdPutQuery | undefined;
+export type DeleteUserScimV2UsersUserIdDeleteOptions = {
+	body?: never | undefined;
+	path: DeleteUserScimV2UsersUserIdDeletePath;
+	query?: DeleteUserScimV2UsersUserIdDeleteQuery | undefined;
 	headers?: never | undefined;
 };
 
-export type UpdateUserScimV2UsersUserIdPutResponses = {
-	"200": UpdateUserScimV2UsersUserIdPutStatus200;
-	"422": UpdateUserScimV2UsersUserIdPutStatus422;
+export type DeleteUserScimV2UsersUserIdDeleteResponses = {
+	"204": DeleteUserScimV2UsersUserIdDeleteStatus204;
+	"422": DeleteUserScimV2UsersUserIdDeleteStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type UpdateUserScimV2UsersUserIdPutResponse = UpdateUserScimV2UsersUserIdPutStatus200;
+export type DeleteUserScimV2UsersUserIdDeleteResponse = DeleteUserScimV2UsersUserIdDeleteStatus204;
 
 export type ListPlaceholdersScimV2PlaceholdersGetQuery = {
 	feature?: (string | null) | undefined;
@@ -51220,37 +51220,6 @@ export type TestPromptPromptsTestPostResponses = {
  */
 export type TestPromptPromptsTestPostResponse = TestPromptPromptsTestPostStatus200;
 
-export type DeletePromptPromptsPromptIdDeletePath = {
-	prompt_id: string;
-};
-
-export type DeletePromptPromptsPromptIdDeleteQuery = {
-	environment?: (string | null) | undefined;
-};
-
-export type DeletePromptPromptsPromptIdDeleteStatus200 = {
-	[key: string]: unknown;
-};
-
-export type DeletePromptPromptsPromptIdDeleteStatus422 = HTTPValidationError;
-
-export type DeletePromptPromptsPromptIdDeleteOptions = {
-	body?: never | undefined;
-	path: DeletePromptPromptsPromptIdDeletePath;
-	query?: DeletePromptPromptsPromptIdDeleteQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type DeletePromptPromptsPromptIdDeleteResponses = {
-	"200": DeletePromptPromptsPromptIdDeleteStatus200;
-	"422": DeletePromptPromptsPromptIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeletePromptPromptsPromptIdDeleteResponse = DeletePromptPromptsPromptIdDeleteStatus200;
-
 export type GetPromptInfoPromptsPromptIdGetPath = {
 	prompt_id: string;
 };
@@ -51279,6 +51248,35 @@ export type GetPromptInfoPromptsPromptIdGetResponses = {
  * @description Union of all possible responses
  */
 export type GetPromptInfoPromptsPromptIdGetResponse = GetPromptInfoPromptsPromptIdGetStatus200;
+
+export type UpdatePromptPromptsPromptIdPutPath = {
+	prompt_id: string;
+};
+
+export type UpdatePromptPromptsPromptIdPutStatus200 = {
+	[key: string]: unknown;
+};
+
+export type UpdatePromptPromptsPromptIdPutStatus422 = HTTPValidationError;
+
+export type UpdatePromptPromptsPromptIdPutBody = Prompt;
+
+export type UpdatePromptPromptsPromptIdPutOptions = {
+	body: UpdatePromptPromptsPromptIdPutBody;
+	path: UpdatePromptPromptsPromptIdPutPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdatePromptPromptsPromptIdPutResponses = {
+	"200": UpdatePromptPromptsPromptIdPutStatus200;
+	"422": UpdatePromptPromptsPromptIdPutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdatePromptPromptsPromptIdPutResponse = UpdatePromptPromptsPromptIdPutStatus200;
 
 export type PatchPromptPromptsPromptIdPatchPath = {
 	prompt_id: string;
@@ -51313,34 +51311,36 @@ export type PatchPromptPromptsPromptIdPatchResponses = {
  */
 export type PatchPromptPromptsPromptIdPatchResponse = PatchPromptPromptsPromptIdPatchStatus200;
 
-export type UpdatePromptPromptsPromptIdPutPath = {
+export type DeletePromptPromptsPromptIdDeletePath = {
 	prompt_id: string;
 };
 
-export type UpdatePromptPromptsPromptIdPutStatus200 = {
+export type DeletePromptPromptsPromptIdDeleteQuery = {
+	environment?: (string | null) | undefined;
+};
+
+export type DeletePromptPromptsPromptIdDeleteStatus200 = {
 	[key: string]: unknown;
 };
 
-export type UpdatePromptPromptsPromptIdPutStatus422 = HTTPValidationError;
+export type DeletePromptPromptsPromptIdDeleteStatus422 = HTTPValidationError;
 
-export type UpdatePromptPromptsPromptIdPutBody = Prompt;
-
-export type UpdatePromptPromptsPromptIdPutOptions = {
-	body: UpdatePromptPromptsPromptIdPutBody;
-	path: UpdatePromptPromptsPromptIdPutPath;
-	query?: never | undefined;
+export type DeletePromptPromptsPromptIdDeleteOptions = {
+	body?: never | undefined;
+	path: DeletePromptPromptsPromptIdDeletePath;
+	query?: DeletePromptPromptsPromptIdDeleteQuery | undefined;
 	headers?: never | undefined;
 };
 
-export type UpdatePromptPromptsPromptIdPutResponses = {
-	"200": UpdatePromptPromptsPromptIdPutStatus200;
-	"422": UpdatePromptPromptsPromptIdPutStatus422;
+export type DeletePromptPromptsPromptIdDeleteResponses = {
+	"200": DeletePromptPromptsPromptIdDeleteStatus200;
+	"422": DeletePromptPromptsPromptIdDeleteStatus422;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type UpdatePromptPromptsPromptIdPutResponse = UpdatePromptPromptsPromptIdPutStatus200;
+export type DeletePromptPromptsPromptIdDeleteResponse = DeletePromptPromptsPromptIdDeleteStatus200;
 
 export type GetPromptInfoPromptsPromptIdInfoGetPath = {
 	prompt_id: string;
@@ -51681,32 +51681,6 @@ export type CreateAccessGroupV1AccessGroupPostResponses = {
 export type CreateAccessGroupV1AccessGroupPostResponse =
 	CreateAccessGroupV1AccessGroupPostStatus201;
 
-export type DeleteAccessGroupV1AccessGroupAccessGroupIdDeletePath = {
-	access_group_id: string;
-};
-
-export type DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus204 = void;
-
-export type DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus422 = HTTPValidationError;
-
-export type DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteOptions = {
-	body?: never | undefined;
-	path: DeleteAccessGroupV1AccessGroupAccessGroupIdDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteResponses = {
-	"204": DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus204;
-	"422": DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteResponse =
-	DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus204;
-
 export type GetAccessGroupV1AccessGroupAccessGroupIdGetPath = {
 	access_group_id: string;
 };
@@ -51761,6 +51735,32 @@ export type UpdateAccessGroupV1AccessGroupAccessGroupIdPutResponses = {
 export type UpdateAccessGroupV1AccessGroupAccessGroupIdPutResponse =
 	UpdateAccessGroupV1AccessGroupAccessGroupIdPutStatus200;
 
+export type DeleteAccessGroupV1AccessGroupAccessGroupIdDeletePath = {
+	access_group_id: string;
+};
+
+export type DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus204 = void;
+
+export type DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus422 = HTTPValidationError;
+
+export type DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteOptions = {
+	body?: never | undefined;
+	path: DeleteAccessGroupV1AccessGroupAccessGroupIdDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteResponses = {
+	"204": DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus204;
+	"422": DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteResponse =
+	DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus204;
+
 export type ListAccessGroupsV1UnifiedAccessGroupGetStatus200 = AccessGroupResponse[];
 
 export type ListAccessGroupsV1UnifiedAccessGroupGetOptions = {
@@ -51803,32 +51803,6 @@ export type CreateAccessGroupV1UnifiedAccessGroupPostResponses = {
  */
 export type CreateAccessGroupV1UnifiedAccessGroupPostResponse =
 	CreateAccessGroupV1UnifiedAccessGroupPostStatus201;
-
-export type DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeletePath = {
-	access_group_id: string;
-};
-
-export type DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus204 = void;
-
-export type DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus422 = HTTPValidationError;
-
-export type DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteOptions = {
-	body?: never | undefined;
-	path: DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeletePath;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteResponses = {
-	"204": DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus204;
-	"422": DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteResponse =
-	DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus204;
 
 export type GetAccessGroupV1UnifiedAccessGroupAccessGroupIdGetPath = {
 	access_group_id: string;
@@ -51883,3 +51857,29 @@ export type UpdateAccessGroupV1UnifiedAccessGroupAccessGroupIdPutResponses = {
  */
 export type UpdateAccessGroupV1UnifiedAccessGroupAccessGroupIdPutResponse =
 	UpdateAccessGroupV1UnifiedAccessGroupAccessGroupIdPutStatus200;
+
+export type DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeletePath = {
+	access_group_id: string;
+};
+
+export type DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus204 = void;
+
+export type DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus422 = HTTPValidationError;
+
+export type DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteOptions = {
+	body?: never | undefined;
+	path: DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteResponses = {
+	"204": DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus204;
+	"422": DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteResponse =
+	DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus204;
