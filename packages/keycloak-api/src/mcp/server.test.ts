@@ -48,6 +48,22 @@ describe("readKeycloakMcpConfig", () => {
 		).toThrow("KEYCLOAK_REALM");
 	});
 
+	it("refuses an unknown resource and names the known ones", () => {
+		expect(() =>
+			readKeycloakMcpConfig({
+				...baseEnv,
+				KEYCLOAK_TOKEN: "t",
+				KEYCLOAK_MCP_RESOURCES: "users,user",
+			}),
+		).toThrow(/Unknown resource user; use one of .*\busers\b/);
+	});
+
+	it("refuses a resource list that names nothing", () => {
+		expect(() =>
+			readKeycloakMcpConfig({ ...baseEnv, KEYCLOAK_TOKEN: "t", KEYCLOAK_MCP_RESOURCES: " , " }),
+		).toThrow("KEYCLOAK_MCP_RESOURCES names no resource");
+	});
+
 	it.each([".", ".."])(
 		"refuses the realm %s, which would resolve away its own URL segment",
 		(realm) => {
@@ -77,6 +93,36 @@ describe("keycloak-api-mcp", () => {
 		expect(all.tools).toHaveLength(realmTools.length);
 		const deleteUser = all.tools.find((tool) => tool.name === "delete_users_by_user_id");
 		expect(deleteUser?.annotations).toMatchObject({ readOnlyHint: false, destructiveHint: true });
+	});
+
+	it("lists only the tools of the resources in KEYCLOAK_MCP_RESOURCES", async () => {
+		const inResources = (request: string) =>
+			/^\w+ \/admin\/realms\/\{realm\}(\/(users|groups)(\/.*)?)?$/.test(request) &&
+			!/^\w+ \/admin\/realms\/\{realm\}$/.test(request);
+		const expected = (writes: boolean) =>
+			realmTools
+				.filter((tool) => inResources(tool.request) && (writes || tool.annotations.readOnlyHint))
+				.map((tool) => tool.name)
+				.sort();
+
+		const env = { ...baseEnv, KEYCLOAK_TOKEN: "t", KEYCLOAK_MCP_RESOURCES: "users, groups" };
+		const reads = await (await connect(env, () => json({}))).client.listTools();
+		expect(reads.tools.map((tool) => tool.name).sort()).toEqual(expected(false));
+		expect(reads.tools.map((tool) => tool.name)).not.toContain("get_users_management_permissions");
+
+		const writable = await connect({ ...env, KEYCLOAK_MCP_ALLOW_WRITES: "1" }, () => json({}));
+		const all = await writable.client.listTools();
+		expect(all.tools.map((tool) => tool.name).sort()).toEqual(expected(true));
+		expect(all.tools.length).toBeLessThan(128);
+	});
+
+	it("selects the operations on the realm itself as the realm resource", async () => {
+		const { client } = await connect(
+			{ ...baseEnv, KEYCLOAK_TOKEN: "t", KEYCLOAK_MCP_RESOURCES: "realm" },
+			() => json({}),
+		);
+		const { tools } = await client.listTools();
+		expect(tools.map((tool) => tool.name)).toEqual(["get_admin_realms_by_realm"]);
 	});
 
 	it("takes the realm from the environment, not from the tool arguments", async () => {

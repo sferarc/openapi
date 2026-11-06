@@ -9,33 +9,6 @@ import { findOperation } from "../utils/operation";
 
 const optional = z.string().min(1).optional();
 
-const configSchema = z
-	.object({
-		KEYCLOAK_URL: z.url(),
-		// A dot segment would resolve the realm prefix away, so the URL guard below could not hold.
-		KEYCLOAK_REALM: z
-			.string()
-			.min(1)
-			.refine((realm) => realm !== "." && realm !== "..", "KEYCLOAK_REALM cannot be . or .."),
-		KEYCLOAK_TOKEN: optional,
-		KEYCLOAK_CLIENT_ID: optional,
-		KEYCLOAK_CLIENT_SECRET: optional,
-		KEYCLOAK_TOKEN_REALM: optional,
-		KEYCLOAK_MCP_ALLOW_WRITES: optional,
-	})
-	.refine((env) => env.KEYCLOAK_TOKEN || (env.KEYCLOAK_CLIENT_ID && env.KEYCLOAK_CLIENT_SECRET), {
-		message: "Set KEYCLOAK_TOKEN, or KEYCLOAK_CLIENT_ID and KEYCLOAK_CLIENT_SECRET",
-	});
-
-export type KeycloakMcpConfig = z.infer<typeof configSchema>;
-
-/** Reads the server's settings from the environment; credentials are never tool arguments. */
-export function readKeycloakMcpConfig(env: Record<string, string | undefined>): KeycloakMcpConfig {
-	const result = configSchema.safeParse(env);
-	if (!result.success) throw new Error(`keycloak-api-mcp:\n${z.prettifyError(result.error)}`);
-	return result.data;
-}
-
 type ToolEntry = {
 	name: string;
 	request: string;
@@ -51,6 +24,61 @@ type ToolEntry = {
 
 // The instance-level operations (GET and POST /admin/realms) are not scoped to one realm.
 const tools: readonly ToolEntry[] = mcpTools.filter((tool) => tool.request.includes("{realm}"));
+
+// The first path segment after the realm, such as `users`, or `realm` for the realm itself.
+function toolResource(tool: Pick<ToolEntry, "request">): string {
+	return tool.request.split("/")[4] || "realm";
+}
+
+const knownResources = [...new Set(tools.map(toolResource))].sort();
+
+const resourceList = z
+	.string()
+	.transform((value) =>
+		value
+			.split(",")
+			.map((name) => name.trim())
+			.filter(Boolean),
+	)
+	.pipe(
+		z
+			.array(
+				z.string().refine((name) => knownResources.includes(name), {
+					error: (issue) =>
+						`Unknown resource ${String(issue.input)}; use one of ${knownResources.join(", ")}`,
+				}),
+			)
+			.min(1, "KEYCLOAK_MCP_RESOURCES names no resource"),
+	)
+	.optional();
+
+const configSchema = z
+	.object({
+		KEYCLOAK_URL: z.url(),
+		// A dot segment would resolve the realm prefix away, so the URL guard below could not hold.
+		KEYCLOAK_REALM: z
+			.string()
+			.min(1)
+			.refine((realm) => realm !== "." && realm !== "..", "KEYCLOAK_REALM cannot be . or .."),
+		KEYCLOAK_TOKEN: optional,
+		KEYCLOAK_CLIENT_ID: optional,
+		KEYCLOAK_CLIENT_SECRET: optional,
+		KEYCLOAK_TOKEN_REALM: optional,
+		KEYCLOAK_MCP_ALLOW_WRITES: optional,
+		KEYCLOAK_MCP_RESOURCES: resourceList,
+	})
+	.refine((env) => env.KEYCLOAK_TOKEN || (env.KEYCLOAK_CLIENT_ID && env.KEYCLOAK_CLIENT_SECRET), {
+		message: "Set KEYCLOAK_TOKEN, or KEYCLOAK_CLIENT_ID and KEYCLOAK_CLIENT_SECRET",
+	});
+
+export type KeycloakMcpConfig = z.infer<typeof configSchema>;
+
+/** Reads the server's settings from the environment; credentials are never tool arguments. */
+export function readKeycloakMcpConfig(env: Record<string, string | undefined>): KeycloakMcpConfig {
+	const result = configSchema.safeParse(env);
+	if (!result.success) throw new Error(`keycloak-api-mcp:\n${z.prettifyError(result.error)}`);
+	return result.data;
+}
 
 const tokenResponse = z.object({ access_token: z.string(), expires_in: z.number() });
 
@@ -158,7 +186,7 @@ export interface KeycloakMcpServerOptions {
 	fetch?: FetchImpl;
 }
 
-/** An MCP server with one tool per Keycloak admin operation on KEYCLOAK_REALM, read-only unless KEYCLOAK_MCP_ALLOW_WRITES is 1. */
+/** An MCP server with one tool per Keycloak admin operation on KEYCLOAK_REALM, read-only unless KEYCLOAK_MCP_ALLOW_WRITES is 1, limited to KEYCLOAK_MCP_RESOURCES when set. */
 export function createKeycloakMcpServer({
 	config,
 	fetch: fetchImpl = globalFetch,
@@ -176,8 +204,11 @@ export function createKeycloakMcpServer({
 		},
 	);
 
+	const resources = config.KEYCLOAK_MCP_RESOURCES;
+
 	for (const tool of tools) {
 		if (!allowWrites && !tool.annotations.readOnlyHint) continue;
+		if (resources && !resources.includes(toolResource(tool))) continue;
 		const operation = findOperation(operationsByPath, tool.request);
 
 		server.registerTool(
