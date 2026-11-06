@@ -50,6 +50,37 @@ const client = new CloudflareApi({
 });
 ```
 
+### Refreshing the token
+
+An OAuth access token expires. Pass a function as `token`, sync or async, and the client calls it before every request, so each call sends the token it returns; `auth.refreshToken` resolves to the raw response of Cloudflare's token endpoint:
+
+```ts
+const { auth } = new CloudflareApi({ token: process.env.CLOUDFLARE_TOKEN ?? "" });
+let session = { accessToken: "", refreshToken: process.env.CLOUDFLARE_REFRESH_TOKEN ?? "", expiresAt: 0 };
+
+const client = new CloudflareApi({
+  token: async () => {
+    if (Date.now() >= session.expiresAt) {
+      const response = await auth.refreshToken({
+        refreshToken: session.refreshToken,
+        clientId: process.env.CLOUDFLARE_CLIENT_ID ?? "",
+        clientSecret: process.env.CLOUDFLARE_CLIENT_SECRET ?? "",
+      });
+      if (!response.ok) throw new Error(`Token refresh failed: ${response.status}`);
+      const result = await response.json();
+      session = {
+        accessToken: result.access_token,
+        refreshToken: result.refresh_token,
+        expiresAt: Date.now() + (result.expires_in - 60) * 1000,
+      };
+    }
+    return session.accessToken;
+  },
+});
+```
+
+A call rejects with what the function threw, before any request is sent. A call's own `config.token` still wins.
+
 ### Custom fetch
 
 ```ts
