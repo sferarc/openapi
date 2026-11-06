@@ -1,5 +1,18 @@
 # vercel-api-js
 
+## 2.27.0
+
+### Minor Changes
+
+- bf1408f: [BREAKING] Renamed userEventPayloadScopeEnum11 to userEventPayloadScopeEnum12, userEventPayloadScopeEnum12 to userEventPayloadScopeEnum13, userEventPayloadScopeEnum13 to userEventPayloadScopeEnum14, and userEventPayloadScopeEnum14 to userEventPayloadScopeEnum15, along with their corresponding type keys.
+- bf1408f: [BREAKING] Updated the UserEvent type to use the new userEventPayloadScopeEnum*Key types for the 'scope' field.
+
+### Patch Changes
+
+- bf1408f: Added optional 'drive' field to various status response types to indicate authorized drive operations when checkPermissions is used.
+- bf1408f: Added 'read-write:drive' and 'read:drive' values to userEventPayloadPermissionsEnum and related enums.
+- bf1408f: Updated the description for the 'permissions' field in UpdateTeamMemberBody to clarify requirement for permissions to be available to the team and compatible with team roles.
+
 ## 2.26.0
 
 ### Minor Changes
