@@ -39,6 +39,18 @@ Every operation can also be called by method and path:
 const accounts = await client.request("GET /account");
 ```
 
+### Changing the token
+
+An OAuth access token for the Nuki Web API expires, and a fixed token stays on the client it was given to. Pass a function as `token`, sync or async, and the client calls it before every request, so each call sends the token it returns:
+
+```ts
+const client = new NukiApi({
+  token: async () => await tokenStore.currentAccessToken(),
+});
+```
+
+`tokenStore` stands for wherever your app keeps the current token. A call rejects with what the function threw, before any request is sent. A call's own `config.token` still wins, and a function that returns `null` sends no `Authorization` header.
+
 ### Custom fetch
 
 ```ts

@@ -16,7 +16,7 @@ Each package is generated from the vendor's published OpenAPI spec and regenerat
 | Netlify | `netlify-api` | `NetlifyApi` | `token` | none | `NETLIFY_TOKEN` | yes |
 | Keycloak | `keycloak-api` | `KeycloakAdminApi`, `KeycloakAccountApi` | `token` (string or function), `baseUrl`, and `realm` for `KeycloakAccountApi` | required | `KEYCLOAK_TOKEN` | yes |
 | Zoom | `zoom-api-js` | `ZoomApi` | `token` (string or function) | optional | `ZOOM_TOKEN` | yes |
-| Nuki | `nuki-api-js` | `NukiApi` | `token` | optional | `NUKI_TOKEN` | yes |
+| Nuki | `nuki-api-js` | `NukiApi` | `token` (string or function) | optional | `NUKI_TOKEN` | yes |
 | LiteLLM | `litellm-api` | `LiteLLMApi` | `token`, `baseUrl` | required | `LITELLM_MASTER_KEY` | yes |
 | v0 | `v0-api` | `V0Api` | `token` | optional | `V0_API_KEY` | yes |
 
