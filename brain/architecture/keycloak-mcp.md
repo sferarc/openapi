@@ -12,5 +12,6 @@
 - A tool's arguments are the client's own `pathParams`, `queryParams`, `headers` and `body`. `queryParams` and `headers` are optional; `body` is required where the operation has one.
 - A result is the JSON body as text. An empty body reads `<status> with no body.`, and a `Location` header, such as a created user's URL, is appended.
 - An `ApiResponseError` comes back as a tool result with `isError`, its message (method, path, status, Keycloak's error) and the JSON payload; a network or token error comes back the same way with its message.
+- `packages/keycloak-api/server.json` lists the server in the official MCP registry as `io.github.sferarc/keycloak-api-mcp`, the `mcpName` in `package.json` (#353). It names the `keycloak-api` npm package with `runtimeHint: npx`, which works because `keycloak-api-mcp` is the package's only bin. `.github/workflows/scripts/mcp-registry.test.ts` pins that, the variables against `configSchema` in `src/mcp/server.ts`, and the registry's 100 character limits. Publishing is in [[development/release]].
 - `src/mcp/server.test.ts` drives the server with the `@modelcontextprotocol/client` `Client` over `InMemoryTransport` against a mocked fetch.
 - Whether Claude Code accepts the longest tool names once it prefixes the server name is unknown ([[shared-utils]]).

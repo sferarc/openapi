@@ -24,6 +24,7 @@
 		"url": "https://github.com/sferarc/openapi/issues"
 	},
 	"homepage": "https://openapi.sferadev.com/keycloak-api",
+	"mcpName": "io.github.sferarc/keycloak-api-mcp",
 	"scripts": {
 		"tsc": "tsc --noEmit",
 		"build": "bunchee --dts-bundle",

@@ -48,6 +48,18 @@ Nothing changed through 2026-10-30. Version PRs kept landing (#205 and #207 amon
 
 If the OIDC publish of one client fails, `changeset publish` exits non-zero after the other clients have published, and the step then fails. `changesets/action` (pinned at `ae32849`) runs the publish script with `ignoreReturnCode: true` in `runPublish` (`src/run.ts`), reads the `CHANGESETS_OUTPUT` ndjson, pushes tags and creates GitHub releases for every package listed there, and only then throws on the non-zero exit in `src/index.ts`. `@changesets/cli` 3.0.3 (`dist/publish.mjs`) tags the successful publishes and writes them to that file before it exits 1, and `scripts/release.sh` calls `pnpm changeset publish`, which inherits the variable. So the clients that succeeded are published, tagged and released. Recovery is to fix the publisher and rerun the workflow, which publishes only versions npm lacks and then tags them.
 
+## MCP registry listing
+
+After the changesets step, `release.yml` lists `keycloak-api-mcp` in the official MCP registry (registry.modelcontextprotocol.io) from `packages/keycloak-api/server.json` ([[architecture/keycloak-mcp]], #353).
+
+- Every run checks the `keycloak-api` version in its `package.json` on `main`.
+- It lists that version only when npm serves it with `mcpName` equal to the server name, since the registry refuses an npm version without it, and only when the registry does not have it yet, since a listed version cannot change (`/v0.1/servers/<name>/versions/<version>` returns 200).
+- The copy it publishes has `version` and the package `version` stamped from `package.json`, so the values committed in `server.json` may trail.
+- `mcp-publisher` is pinned (`MCP_PUBLISHER_VERSION`) and checked with `cosign verify-blob` against the registry's release workflow, the steps from the registry's GitHub Actions guide (`docs/modelcontextprotocol-io/github-actions.mdx` in modelcontextprotocol/registry, read 2026-11-06).
+- `mcp-publisher login github-oidc` uses the job's existing `id-token: write`, so no secret is stored. The `io.github.sferarc` namespace follows from the repository owner in that token.
+- The first listing needs a `keycloak-api` release that carries `mcpName` (`.changeset/keycloak-mcp-registry.md`). Whether the registry accepts an OIDC token minted inside the `release` environment is unknown until that run.
+- A failed listing fails the job after npm has published; the next run on `main` retries it, because nothing is listed until it succeeds.
+
 ## Checklist
 
 Checked on 2026-10-28, and the trusted publisher item on 2026-11-01:

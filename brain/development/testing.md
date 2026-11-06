@@ -120,6 +120,8 @@ The same file checks the "Pick the client" table against `packages/*/src/client.
 
 The same file keeps every rule within Context7's 500 character limit and checks the token rule against `packages/*/src/client.ts`: for each class's required constructor option other than `token`, one sentence of the rule names both the class and the option (#384). It reads the options with the parser in `.github/workflows/scripts/client-options.ts`, which `skill-snippets.test.ts` shares.
 
+`.github/workflows/scripts/mcp-registry.test.ts` checks `packages/keycloak-api/server.json` against the package: the server name equals `mcpName`, the npm identifier is the package, `keycloak-api-mcp` is its only bin so `npx` runs it, the environment variables are exactly the keys of `configSchema` in `src/mcp/server.ts`, and the title and description stay within the registry's 100 characters (#353, [[architecture/keycloak-mcp]]).
+
 ## What is not tested
 
 Beyond those tests, the checks on the clients are type-level and structural: `pnpm tsc` over the generated code and the hand-written client, `knip` for unused exports and dependencies, and `is-tree-shakable` on each built package ([[toolchain]]).
