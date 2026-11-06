@@ -7360,6 +7360,31 @@ export const userEventPayloadActorTypeEnum10 = {
 export type UserEventPayloadActorTypeEnum10Key =
 	(typeof userEventPayloadActorTypeEnum10)[keyof typeof userEventPayloadActorTypeEnum10];
 
+export const userEventPayloadActionEnum14 = {
+	enable: "enable",
+	update: "update",
+} as const;
+
+export type UserEventPayloadActionEnum14Key =
+	(typeof userEventPayloadActionEnum14)[keyof typeof userEventPayloadActionEnum14];
+
+export const userEventPayloadActionEnum15 = {
+	disable: "disable",
+	enable: "enable",
+	update: "update",
+} as const;
+
+export type UserEventPayloadActionEnum15Key =
+	(typeof userEventPayloadActionEnum15)[keyof typeof userEventPayloadActionEnum15];
+
+export const userEventPayloadEndpointEnum2 = {
+	"/v1/vade/code-review/configure": "/v1/vade/code-review/configure",
+	"/v1/vade/configure": "/v1/vade/configure",
+} as const;
+
+export type UserEventPayloadEndpointEnum2Key =
+	(typeof userEventPayloadEndpointEnum2)[keyof typeof userEventPayloadEndpointEnum2];
+
 export const userEventPayloadNextScopeEnum = {
 	all: "all",
 	private: "private",
@@ -7491,13 +7516,13 @@ export const roleEnum3 = {
 
 export type RoleEnum3Key = (typeof roleEnum3)[keyof typeof roleEnum3];
 
-export const userEventPayloadActionEnum14 = {
+export const userEventPayloadActionEnum16 = {
 	reset: "reset",
 	updated: "updated",
 } as const;
 
-export type UserEventPayloadActionEnum14Key =
-	(typeof userEventPayloadActionEnum14)[keyof typeof userEventPayloadActionEnum14];
+export type UserEventPayloadActionEnum16Key =
+	(typeof userEventPayloadActionEnum16)[keyof typeof userEventPayloadActionEnum16];
 
 export const userEventPayloadEnvironmentEnum = {
 	preview: "preview",
@@ -7749,7 +7774,7 @@ export const userEventPayloadAllowedMethodsEnum = {
 export type UserEventPayloadAllowedMethodsEnumKey =
 	(typeof userEventPayloadAllowedMethodsEnum)[keyof typeof userEventPayloadAllowedMethodsEnum];
 
-export const userEventPayloadActionEnum15 = {
+export const userEventPayloadActionEnum17 = {
 	"add-passkey": "add-passkey",
 	"add-totp": "add-totp",
 	"admin-remove": "admin-remove",
@@ -7759,8 +7784,8 @@ export const userEventPayloadActionEnum15 = {
 	"remove-passkey": "remove-passkey",
 } as const;
 
-export type UserEventPayloadActionEnum15Key =
-	(typeof userEventPayloadActionEnum15)[keyof typeof userEventPayloadActionEnum15];
+export type UserEventPayloadActionEnum17Key =
+	(typeof userEventPayloadActionEnum17)[keyof typeof userEventPayloadActionEnum17];
 
 export const userEventPayloadMethodEnum2 = {
 	passkey: "passkey",
@@ -7985,6 +8010,7 @@ export const userEventTypeEnum = {
 	"agentic-provisioning-credentials-rotated": "agentic-provisioning-credentials-rotated",
 	"agentic-provisioning-plan-changed": "agentic-provisioning-plan-changed",
 	"agentic-provisioning-team-created": "agentic-provisioning-team-created",
+	"ai-agent-usage-billing": "ai-agent-usage-billing",
 	"ai-alert-investigation": "ai-alert-investigation",
 	"ai-code-review": "ai-code-review",
 	"ai-gateway-access-policy-created": "ai-gateway-access-policy-created",
@@ -14563,6 +14589,38 @@ export type UserEvent = {
 						slug: string;
 				  }
 				| {
+						action: UserEventPayloadActionEnum14Key;
+						codeReviewEnabled: false | true;
+						codeReviewSelection?:
+							| {
+									initial: false | true;
+									submitted: false | true;
+							  }
+							| undefined;
+						cumulativeBalance: string;
+						endpoint: "/v1/vade/usage-billing";
+						ledgerId: string;
+						next: {
+							enabled: false | true;
+							maximumOverdraft: string | null;
+						};
+						previous: {
+							enabled: false | true;
+							maximumOverdraft: string | null;
+						};
+						removedTopupIds: string[];
+						source: string;
+						topupCleanupCompleted: false | true;
+				  }
+				| {
+						action?: UserEventPayloadActionEnum15Key | undefined;
+						codeReviewSelection?:
+							| {
+									initial: false | true;
+									submitted: false | true;
+							  }
+							| undefined;
+						endpoint?: UserEventPayloadEndpointEnum2Key | undefined;
 						/**
 						 * @description Automatic code review settings
 						 * @type object
@@ -14617,6 +14675,11 @@ export type UserEvent = {
 									selectedRepos?: (string[] | null) | undefined;
 							  }
 							| undefined;
+						/**
+						 * @description Caller-reported surface, not proof of a browser interaction or consent.
+						 * @type string | undefined
+						 */
+						source?: string | undefined;
 				  }
 				| {
 						/**
@@ -14847,7 +14910,7 @@ export type UserEvent = {
 						} | null;
 				  }
 				| {
-						action: UserEventPayloadActionEnum14Key;
+						action: UserEventPayloadActionEnum16Key;
 						targetId: string;
 				  }
 				| {
@@ -15316,7 +15379,7 @@ export type UserEvent = {
 						loginSessionId?: string | undefined;
 				  }
 				| {
-						action: UserEventPayloadActionEnum15Key;
+						action: UserEventPayloadActionEnum17Key;
 						reason: string;
 				  }
 				| {
@@ -16248,6 +16311,7 @@ export const listEventTypeNameEnum = {
 	"agentic-provisioning-credentials-rotated": "agentic-provisioning-credentials-rotated",
 	"agentic-provisioning-plan-changed": "agentic-provisioning-plan-changed",
 	"agentic-provisioning-team-created": "agentic-provisioning-team-created",
+	"ai-agent-usage-billing": "ai-agent-usage-billing",
 	"ai-alert-investigation": "ai-alert-investigation",
 	"ai-code-review": "ai-code-review",
 	"ai-gateway-access-policy-created": "ai-gateway-access-policy-created",
@@ -17029,6 +17093,7 @@ export const listEventTypeReplacedByEnum = {
 	"agentic-provisioning-credentials-rotated": "agentic-provisioning-credentials-rotated",
 	"agentic-provisioning-plan-changed": "agentic-provisioning-plan-changed",
 	"agentic-provisioning-team-created": "agentic-provisioning-team-created",
+	"ai-agent-usage-billing": "ai-agent-usage-billing",
 	"ai-alert-investigation": "ai-alert-investigation",
 	"ai-code-review": "ai-code-review",
 	"ai-gateway-access-policy-created": "ai-gateway-access-policy-created",
