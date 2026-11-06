@@ -29,8 +29,8 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | `client.api.modelManagement.updateModelModelUpdatePost` | `POST /model/update` | Update Model |
 | `client.api.modelManagement.updatePublicModelGroupsModelGroupMakePublicPost` | `POST /model_group/make_public` | Update Public Model Groups |
 | `client.api.modelManagement.updateUsefulLinksModelHubUpdateUsefulLinksPost` | `POST /model_hub/update_useful_links` | Update Useful Links |
-| `client.api.modelManagement.previewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPost` | `POST /auto_router/classifier/default_prompt` | Preview Auto Router Classifier Prompt |
 | `client.api.modelManagement.getAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromptGet` | `GET /auto_router/classifier/default_prompt` | Get Auto Router Classifier Default Prompt |
+| `client.api.modelManagement.previewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPost` | `POST /auto_router/classifier/default_prompt` | Preview Auto Router Classifier Prompt |
 | `client.api.modelManagement.createModelGroupAccessGroupNewPost` | `POST /access_group/new` | Create Model Group |
 | `client.api.modelManagement.listAccessGroupsAccessGroupListGet` | `GET /access_group/list` | List Access Groups |
 | `client.api.modelManagement.getAccessGroupInfoAccessGroupAccessGroupInfoGet` | `GET /access_group/{access_group}/info` | Get Access Group Info |
@@ -100,10 +100,10 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | `client.api.assistants.createThreadsV1ThreadsPost` | `POST /v1/threads` | Create Threads |
 | `client.api.assistants.getThreadThreadsThreadIdGet` | `GET /threads/{thread_id}` | Get Thread |
 | `client.api.assistants.getThreadV1ThreadsThreadIdGet` | `GET /v1/threads/{thread_id}` | Get Thread |
-| `client.api.assistants.addMessagesThreadsThreadIdMessagesPost` | `POST /threads/{thread_id}/messages` | Add Messages |
 | `client.api.assistants.getMessagesThreadsThreadIdMessagesGet` | `GET /threads/{thread_id}/messages` | Get Messages |
-| `client.api.assistants.addMessagesV1ThreadsThreadIdMessagesPost` | `POST /v1/threads/{thread_id}/messages` | Add Messages |
+| `client.api.assistants.addMessagesThreadsThreadIdMessagesPost` | `POST /threads/{thread_id}/messages` | Add Messages |
 | `client.api.assistants.getMessagesV1ThreadsThreadIdMessagesGet` | `GET /v1/threads/{thread_id}/messages` | Get Messages |
+| `client.api.assistants.addMessagesV1ThreadsThreadIdMessagesPost` | `POST /v1/threads/{thread_id}/messages` | Add Messages |
 | `client.api.assistants.runThreadThreadsThreadIdRunsPost` | `POST /threads/{thread_id}/runs` | Run Thread |
 | `client.api.assistants.runThreadV1ThreadsThreadIdRunsPost` | `POST /v1/threads/{thread_id}/runs` | Run Thread |
 
@@ -137,31 +137,31 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | `client.api.default.proxyMcpRouteMcpProxyGet` | `GET /mcp/proxy` | Proxy Mcp Route |
 | `client.api.default.proxyMcpRouteMcpProxyPut` | `PUT /mcp/proxy` | Proxy Mcp Route |
 | `client.api.default.proxyMcpRouteMcpProxyPost` | `POST /mcp/proxy` | Proxy Mcp Route |
-| `client.api.default.proxyMcpRouteMcpProxyDelete` | `DELETE /mcp/proxy` | Proxy Mcp Route |
-| `client.api.default.proxyMcpRouteMcpProxyOptions` | `OPTIONS /mcp/proxy` | Proxy Mcp Route |
-| `client.api.default.proxyMcpRouteMcpProxyHead` | `HEAD /mcp/proxy` | Proxy Mcp Route |
 | `client.api.default.proxyMcpRouteMcpProxyPatch` | `PATCH /mcp/proxy` | Proxy Mcp Route |
+| `client.api.default.proxyMcpRouteMcpProxyDelete` | `DELETE /mcp/proxy` | Proxy Mcp Route |
+| `client.api.default.proxyMcpRouteMcpProxyHead` | `HEAD /mcp/proxy` | Proxy Mcp Route |
+| `client.api.default.proxyMcpRouteMcpProxyOptions` | `OPTIONS /mcp/proxy` | Proxy Mcp Route |
 | `client.api.default.aggregateMcpRouteMcpGet` | `GET /mcp` | Aggregate Mcp Route |
 | `client.api.default.aggregateMcpRouteMcpPut` | `PUT /mcp` | Aggregate Mcp Route |
 | `client.api.default.aggregateMcpRouteMcpPost` | `POST /mcp` | Aggregate Mcp Route |
-| `client.api.default.aggregateMcpRouteMcpDelete` | `DELETE /mcp` | Aggregate Mcp Route |
-| `client.api.default.aggregateMcpRouteMcpOptions` | `OPTIONS /mcp` | Aggregate Mcp Route |
-| `client.api.default.aggregateMcpRouteMcpHead` | `HEAD /mcp` | Aggregate Mcp Route |
 | `client.api.default.aggregateMcpRouteMcpPatch` | `PATCH /mcp` | Aggregate Mcp Route |
-| `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpPost` | `POST /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
-| `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpOptions` | `OPTIONS /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
-| `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpHead` | `HEAD /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
-| `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpDelete` | `DELETE /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
+| `client.api.default.aggregateMcpRouteMcpDelete` | `DELETE /mcp` | Aggregate Mcp Route |
+| `client.api.default.aggregateMcpRouteMcpHead` | `HEAD /mcp` | Aggregate Mcp Route |
+| `client.api.default.aggregateMcpRouteMcpOptions` | `OPTIONS /mcp` | Aggregate Mcp Route |
 | `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpGet` | `GET /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
 | `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpPut` | `PUT /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
+| `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpPost` | `POST /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
 | `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpPatch` | `PATCH /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
-| `client.api.default.dynamicMcpRouteMcpServerNameMcpPost` | `POST /{mcp_server_name}/mcp` | Dynamic Mcp Route |
-| `client.api.default.dynamicMcpRouteMcpServerNameMcpOptions` | `OPTIONS /{mcp_server_name}/mcp` | Dynamic Mcp Route |
-| `client.api.default.dynamicMcpRouteMcpServerNameMcpHead` | `HEAD /{mcp_server_name}/mcp` | Dynamic Mcp Route |
-| `client.api.default.dynamicMcpRouteMcpServerNameMcpDelete` | `DELETE /{mcp_server_name}/mcp` | Dynamic Mcp Route |
+| `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpDelete` | `DELETE /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
+| `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpHead` | `HEAD /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
+| `client.api.default.toolsetMcpRouteToolsetToolsetNameMcpOptions` | `OPTIONS /toolset/{toolset_name}/mcp` | Toolset Mcp Route |
 | `client.api.default.dynamicMcpRouteMcpServerNameMcpGet` | `GET /{mcp_server_name}/mcp` | Dynamic Mcp Route |
 | `client.api.default.dynamicMcpRouteMcpServerNameMcpPut` | `PUT /{mcp_server_name}/mcp` | Dynamic Mcp Route |
+| `client.api.default.dynamicMcpRouteMcpServerNameMcpPost` | `POST /{mcp_server_name}/mcp` | Dynamic Mcp Route |
 | `client.api.default.dynamicMcpRouteMcpServerNameMcpPatch` | `PATCH /{mcp_server_name}/mcp` | Dynamic Mcp Route |
+| `client.api.default.dynamicMcpRouteMcpServerNameMcpDelete` | `DELETE /{mcp_server_name}/mcp` | Dynamic Mcp Route |
+| `client.api.default.dynamicMcpRouteMcpServerNameMcpHead` | `HEAD /{mcp_server_name}/mcp` | Dynamic Mcp Route |
+| `client.api.default.dynamicMcpRouteMcpServerNameMcpOptions` | `OPTIONS /{mcp_server_name}/mcp` | Dynamic Mcp Route |
 
 ## adaptiveRouter
 
@@ -241,9 +241,9 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | `client.api.claudeCodeMarketplace.getMarketplaceClaudeCodeMarketplaceJsonGet` | `GET /claude-code/marketplace.json` | Get Marketplace |
 | `client.api.claudeCodeMarketplace.listPluginsClaudeCodePluginsGet` | `GET /claude-code/plugins` | List Plugins |
 | `client.api.claudeCodeMarketplace.registerPluginClaudeCodePluginsPost` | `POST /claude-code/plugins` | Register Plugin |
-| `client.api.claudeCodeMarketplace.deletePluginClaudeCodePluginsPluginNameDelete` | `DELETE /claude-code/plugins/{plugin_name}` | Delete Plugin |
 | `client.api.claudeCodeMarketplace.getPluginClaudeCodePluginsPluginNameGet` | `GET /claude-code/plugins/{plugin_name}` | Get Plugin |
 | `client.api.claudeCodeMarketplace.updatePluginClaudeCodePluginsPluginNamePut` | `PUT /claude-code/plugins/{plugin_name}` | Update Plugin |
+| `client.api.claudeCodeMarketplace.deletePluginClaudeCodePluginsPluginNameDelete` | `DELETE /claude-code/plugins/{plugin_name}` | Delete Plugin |
 | `client.api.claudeCodeMarketplace.disablePluginClaudeCodePluginsPluginNameDisablePost` | `POST /claude-code/plugins/{plugin_name}/disable` | Disable Plugin |
 | `client.api.claudeCodeMarketplace.enablePluginClaudeCodePluginsPluginNameEnablePost` | `POST /claude-code/plugins/{plugin_name}/enable` | Enable Plugin |
 
@@ -318,10 +318,10 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 
 | Call | Request | Summary |
 | --- | --- | --- |
-| `client.api.containers.createContainerContainersPost` | `POST /containers` | Create Container |
 | `client.api.containers.listContainersContainersGet` | `GET /containers` | List Containers |
-| `client.api.containers.createContainerV1ContainersPost` | `POST /v1/containers` | Create Container |
+| `client.api.containers.createContainerContainersPost` | `POST /containers` | Create Container |
 | `client.api.containers.listContainersV1ContainersGet` | `GET /v1/containers` | List Containers |
+| `client.api.containers.createContainerV1ContainersPost` | `POST /v1/containers` | Create Container |
 | `client.api.containers.retrieveContainerContainersContainerIdGet` | `GET /containers/{container_id}` | Retrieve Container |
 | `client.api.containers.deleteContainerContainersContainerIdDelete` | `DELETE /containers/{container_id}` | Delete Container |
 | `client.api.containers.retrieveContainerV1ContainersContainerIdGet` | `GET /v1/containers/{container_id}` | Retrieve Container |
@@ -375,10 +375,10 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 
 | Call | Request | Summary |
 | --- | --- | --- |
-| `client.api.fineTuning.createFineTuningJobFineTuningJobsPost` | `POST /fine_tuning/jobs` | ✨ (Enterprise) Create Fine-Tuning Job |
 | `client.api.fineTuning.listFineTuningJobsFineTuningJobsGet` | `GET /fine_tuning/jobs` | ✨ (Enterprise) List Fine-Tuning Jobs |
-| `client.api.fineTuning.createFineTuningJobV1FineTuningJobsPost` | `POST /v1/fine_tuning/jobs` | ✨ (Enterprise) Create Fine-Tuning Job |
+| `client.api.fineTuning.createFineTuningJobFineTuningJobsPost` | `POST /fine_tuning/jobs` | ✨ (Enterprise) Create Fine-Tuning Job |
 | `client.api.fineTuning.listFineTuningJobsV1FineTuningJobsGet` | `GET /v1/fine_tuning/jobs` | ✨ (Enterprise) List Fine-Tuning Jobs |
+| `client.api.fineTuning.createFineTuningJobV1FineTuningJobsPost` | `POST /v1/fine_tuning/jobs` | ✨ (Enterprise) Create Fine-Tuning Job |
 | `client.api.fineTuning.retrieveFineTuningJobFineTuningJobsFineTuningJobIdGet` | `GET /fine_tuning/jobs/{fine_tuning_job_id}` | ✨ (Enterprise) Retrieve Fine-Tuning Job |
 | `client.api.fineTuning.retrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGet` | `GET /v1/fine_tuning/jobs/{fine_tuning_job_id}` | ✨ (Enterprise) Retrieve Fine-Tuning Job |
 | `client.api.fineTuning.cancelFineTuningJobFineTuningJobsFineTuningJobIdCancelPost` | `POST /fine_tuning/jobs/{fine_tuning_job_id}/cancel` | ✨ (Enterprise) Cancel Fine-Tuning Jobs |
@@ -397,8 +397,8 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | `client.api.credentialManagement.startUserConnectionCredentialsCredentialNameUserConnectionStartPost` | `POST /credentials/{credential_name}/user_connection/start` | Start User Connection |
 | `client.api.credentialManagement.pollUserConnectionCredentialsCredentialNameUserConnectionPollPost` | `POST /credentials/{credential_name}/user_connection/poll` | Poll User Connection |
 | `client.api.credentialManagement.deleteUserConnectionCredentialsCredentialNameUserConnectionDelete` | `DELETE /credentials/{credential_name}/user_connection` | Delete User Connection |
-| `client.api.credentialManagement.deleteCredentialCredentialsCredentialNameDelete` | `DELETE /credentials/{credential_name}` | Delete Credential |
 | `client.api.credentialManagement.updateCredentialCredentialsCredentialNamePatch` | `PATCH /credentials/{credential_name}` | Update Credential |
+| `client.api.credentialManagement.deleteCredentialCredentialsCredentialNameDelete` | `DELETE /credentials/{credential_name}` | Delete Credential |
 | `client.api.credentialManagement.migrateEncryptionEndpointCredentialsMigrateEncryptionPost` | `POST /credentials/migrate-encryption` | Migrate Encryption Endpoint |
 | `client.api.credentialManagement.checkEncryptionEndpointCredentialsMigrateEncryptionCheckGet` | `GET /credentials/migrate-encryption/check` | Check Encryption Endpoint |
 
@@ -406,12 +406,12 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 
 | Call | Request | Summary |
 | --- | --- | --- |
-| `client.api.batch.createBatchBatchesPost` | `POST /batches` | Create Batch |
 | `client.api.batch.listBatchesBatchesGet` | `GET /batches` | List Batches |
-| `client.api.batch.createBatchV1BatchesPost` | `POST /v1/batches` | Create Batch |
+| `client.api.batch.createBatchBatchesPost` | `POST /batches` | Create Batch |
 | `client.api.batch.listBatchesV1BatchesGet` | `GET /v1/batches` | List Batches |
-| `client.api.batch.createBatchProviderV1BatchesPost` | `POST /{provider}/v1/batches` | Create Batch |
+| `client.api.batch.createBatchV1BatchesPost` | `POST /v1/batches` | Create Batch |
 | `client.api.batch.listBatchesProviderV1BatchesGet` | `GET /{provider}/v1/batches` | List Batches |
+| `client.api.batch.createBatchProviderV1BatchesPost` | `POST /{provider}/v1/batches` | Create Batch |
 | `client.api.batch.retrieveBatchBatchesBatchIdGet` | `GET /batches/{batch_id}` | Retrieve Batch |
 | `client.api.batch.retrieveBatchV1BatchesBatchIdGet` | `GET /v1/batches/{batch_id}` | Retrieve Batch |
 | `client.api.batch.retrieveBatchProviderV1BatchesBatchIdGet` | `GET /{provider}/v1/batches/{batch_id}` | Retrieve Batch |
@@ -423,12 +423,12 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 
 | Call | Request | Summary |
 | --- | --- | --- |
-| `client.api.files.createFileFilesPost` | `POST /files` | Create File |
 | `client.api.files.listFilesFilesGet` | `GET /files` | List Files |
-| `client.api.files.createFileV1FilesPost` | `POST /v1/files` | Create File |
+| `client.api.files.createFileFilesPost` | `POST /files` | Create File |
 | `client.api.files.listFilesV1FilesGet` | `GET /v1/files` | List Files |
-| `client.api.files.createFileProviderV1FilesPost` | `POST /{provider}/v1/files` | Create File |
+| `client.api.files.createFileV1FilesPost` | `POST /v1/files` | Create File |
 | `client.api.files.listFilesProviderV1FilesGet` | `GET /{provider}/v1/files` | List Files |
+| `client.api.files.createFileProviderV1FilesPost` | `POST /{provider}/v1/files` | Create File |
 | `client.api.files.getFileContentFilesFileIdContentGet` | `GET /files/{file_id}/content` | Get File Content |
 | `client.api.files.getFileContentV1FilesFileIdContentGet` | `GET /v1/files/{file_id}/content` | Get File Content |
 | `client.api.files.getFileContentProviderV1FilesFileIdContentGet` | `GET /{provider}/v1/files/{file_id}/content` | Get File Content |
@@ -575,8 +575,8 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | `client.api.teamManagement.getTeamSpendByUserTeamSpendByUserGet` | `GET /team/spend/by_user` | Get Team Spend By User |
 | `client.api.teamManagement.bulkDeleteTeamMembersActionManagementV1TeamsTeamIdMembersBulkDeletePost` | `POST /management/v1/teams/{team_id}/members/bulk_delete` | Bulk Delete Team Members Action |
 | `client.api.teamManagement.bulkUpdateTeamMemberBudgetsActionManagementV1TeamsTeamIdMembersBulkUpdatePost` | `POST /management/v1/teams/{team_id}/members/bulk_update` | Bulk Update Team Member Budgets Action |
-| `client.api.teamManagement.addTeamCallbacksTeamTeamIdCallbackPost` | `POST /team/{team_id}/callback` | Add Team Callbacks |
 | `client.api.teamManagement.getTeamCallbacksTeamTeamIdCallbackGet` | `GET /team/{team_id}/callback` | Get Team Callbacks |
+| `client.api.teamManagement.addTeamCallbacksTeamTeamIdCallbackPost` | `POST /team/{team_id}/callback` | Add Team Callbacks |
 | `client.api.teamManagement.deleteTeamCallbackTeamTeamIdCallbackCallbackNameDelete` | `DELETE /team/{team_id}/callback/{callback_name}` | Delete Team Callback |
 | `client.api.teamManagement.disableTeamLoggingTeamTeamIdDisableLoggingPost` | `POST /team/{team_id}/disable_logging` | Disable Team Logging |
 
@@ -748,21 +748,21 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 
 | Call | Request | Summary |
 | --- | --- | --- |
-| `client.api.workflowManagement.createWorkflowRunV1WorkflowsRunsPost` | `POST /v1/workflows/runs` | Create Workflow Run |
 | `client.api.workflowManagement.listWorkflowRunsV1WorkflowsRunsGet` | `GET /v1/workflows/runs` | List Workflow Runs |
+| `client.api.workflowManagement.createWorkflowRunV1WorkflowsRunsPost` | `POST /v1/workflows/runs` | Create Workflow Run |
 | `client.api.workflowManagement.getWorkflowRunV1WorkflowsRunsRunIdGet` | `GET /v1/workflows/runs/{run_id}` | Get Workflow Run |
 | `client.api.workflowManagement.updateWorkflowRunV1WorkflowsRunsRunIdPatch` | `PATCH /v1/workflows/runs/{run_id}` | Update Workflow Run |
-| `client.api.workflowManagement.appendWorkflowEventV1WorkflowsRunsRunIdEventsPost` | `POST /v1/workflows/runs/{run_id}/events` | Append Workflow Event |
 | `client.api.workflowManagement.listWorkflowEventsV1WorkflowsRunsRunIdEventsGet` | `GET /v1/workflows/runs/{run_id}/events` | List Workflow Events |
-| `client.api.workflowManagement.appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPost` | `POST /v1/workflows/runs/{run_id}/messages` | Append Workflow Message |
+| `client.api.workflowManagement.appendWorkflowEventV1WorkflowsRunsRunIdEventsPost` | `POST /v1/workflows/runs/{run_id}/events` | Append Workflow Event |
 | `client.api.workflowManagement.listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGet` | `GET /v1/workflows/runs/{run_id}/messages` | List Workflow Messages |
+| `client.api.workflowManagement.appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPost` | `POST /v1/workflows/runs/{run_id}/messages` | Append Workflow Message |
 
 ## memoryManagement
 
 | Call | Request | Summary |
 | --- | --- | --- |
-| `client.api.memoryManagement.createMemoryV1MemoryPost` | `POST /v1/memory` | Create Memory |
 | `client.api.memoryManagement.listMemoryV1MemoryGet` | `GET /v1/memory` | List Memory |
+| `client.api.memoryManagement.createMemoryV1MemoryPost` | `POST /v1/memory` | Create Memory |
 | `client.api.memoryManagement.getMemoryV1MemoryKeyGet` | `GET /v1/memory/{key}` | Get Memory |
 | `client.api.memoryManagement.upsertMemoryV1MemoryKeyPut` | `PUT /v1/memory/{key}` | Upsert Memory |
 | `client.api.memoryManagement.deleteMemoryV1MemoryKeyDelete` | `DELETE /v1/memory/{key}` | Delete Memory |
@@ -772,16 +772,16 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | Call | Request | Summary |
 | --- | --- | --- |
 | `client.api.lens.serviceConnectionLensServiceGet` | `GET /lens/service` | Service Connection |
-| `client.api.lens.lensRequestLensPathPost` | `POST /lens/{path}` | Lens Request |
-| `client.api.lens.lensRequestLensPathDelete` | `DELETE /lens/{path}` | Lens Request |
 | `client.api.lens.lensRequestLensPathGet` | `GET /lens/{path}` | Lens Request |
 | `client.api.lens.lensRequestLensPathPut` | `PUT /lens/{path}` | Lens Request |
+| `client.api.lens.lensRequestLensPathPost` | `POST /lens/{path}` | Lens Request |
 | `client.api.lens.lensRequestLensPathPatch` | `PATCH /lens/{path}` | Lens Request |
-| `client.api.lens.lensRequestLensPost` | `POST /lens` | Lens Request |
-| `client.api.lens.lensRequestLensDelete` | `DELETE /lens` | Lens Request |
+| `client.api.lens.lensRequestLensPathDelete` | `DELETE /lens/{path}` | Lens Request |
 | `client.api.lens.lensRequestLensGet` | `GET /lens` | Lens Request |
 | `client.api.lens.lensRequestLensPut` | `PUT /lens` | Lens Request |
+| `client.api.lens.lensRequestLensPost` | `POST /lens` | Lens Request |
 | `client.api.lens.lensRequestLensPatch` | `PATCH /lens` | Lens Request |
+| `client.api.lens.lensRequestLensDelete` | `DELETE /lens` | Lens Request |
 
 ## plugins
 
@@ -959,10 +959,10 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | `client.api.guardrails.guardrailsUsageLogsGuardrailsUsageLogsGet` | `GET /guardrails/usage/logs` | Guardrails Usage Logs |
 | `client.api.guardrails.guardrailsUsageOverviewGuardrailsUsageOverviewGet` | `GET /guardrails/usage/overview` | Guardrails Usage Overview |
 | `client.api.guardrails.validateBlockedWordsFileGuardrailsValidateBlockedWordsFilePost` | `POST /guardrails/validate_blocked_words_file` | Validate Blocked Words File |
-| `client.api.guardrails.deleteGuardrailGuardrailsGuardrailIdDelete` | `DELETE /guardrails/{guardrail_id}` | Delete Guardrail |
 | `client.api.guardrails.getGuardrailInfoGuardrailsGuardrailIdGet` | `GET /guardrails/{guardrail_id}` | Get Guardrail Info |
-| `client.api.guardrails.patchGuardrailGuardrailsGuardrailIdPatch` | `PATCH /guardrails/{guardrail_id}` | Patch Guardrail |
 | `client.api.guardrails.updateGuardrailGuardrailsGuardrailIdPut` | `PUT /guardrails/{guardrail_id}` | Update Guardrail |
+| `client.api.guardrails.patchGuardrailGuardrailsGuardrailIdPatch` | `PATCH /guardrails/{guardrail_id}` | Patch Guardrail |
+| `client.api.guardrails.deleteGuardrailGuardrailsGuardrailIdDelete` | `DELETE /guardrails/{guardrail_id}` | Delete Guardrail |
 | `client.api.guardrails.getGuardrailInfoGuardrailsGuardrailIdInfoGet` | `GET /guardrails/{guardrail_id}/info` | Get Guardrail Info |
 | `client.api.guardrails.policiesUsageOverviewPoliciesUsageOverviewGet` | `GET /policies/usage/overview` | Policies Usage Overview |
 | `client.api.guardrails.listGuardrailsV2V2GuardrailsListGet` | `GET /v2/guardrails/list` | List Guardrails V2 |
@@ -990,8 +990,8 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | `client.api.policyEngine.createPolicyAttachmentPoliciesAttachmentsPost` | `POST /policies/attachments` | Create Policy Attachment |
 | `client.api.policyEngine.estimateAttachmentImpactPoliciesAttachmentsEstimateImpactPost` | `POST /policies/attachments/estimate-impact` | Estimate Attachment Impact |
 | `client.api.policyEngine.listPolicyAttachmentsPoliciesAttachmentsListGet` | `GET /policies/attachments/list` | List Policy Attachments |
-| `client.api.policyEngine.deletePolicyAttachmentPoliciesAttachmentsAttachmentIdDelete` | `DELETE /policies/attachments/{attachment_id}` | Delete Policy Attachment |
 | `client.api.policyEngine.getPolicyAttachmentPoliciesAttachmentsAttachmentIdGet` | `GET /policies/attachments/{attachment_id}` | Get Policy Attachment |
+| `client.api.policyEngine.deletePolicyAttachmentPoliciesAttachmentsAttachmentIdDelete` | `DELETE /policies/attachments/{attachment_id}` | Delete Policy Attachment |
 | `client.api.policyEngine.comparePolicyVersionsPoliciesCompareGet` | `GET /policies/compare` | Compare Policy Versions |
 | `client.api.policyEngine.listPoliciesPoliciesListGet` | `GET /policies/list` | List Policies |
 | `client.api.policyEngine.deleteAllPolicyVersionsPoliciesNamePolicyNameAllVersionsDelete` | `DELETE /policies/name/{policy_name}/all-versions` | Delete All Policy Versions |
@@ -999,9 +999,9 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | `client.api.policyEngine.createPolicyVersionPoliciesNamePolicyNameVersionsPost` | `POST /policies/name/{policy_name}/versions` | Create Policy Version |
 | `client.api.policyEngine.resolvePoliciesForContextPoliciesResolvePost` | `POST /policies/resolve` | Resolve Policies For Context |
 | `client.api.policyEngine.testPipelinePoliciesTestPipelinePost` | `POST /policies/test-pipeline` | Test Pipeline |
-| `client.api.policyEngine.deletePolicyPoliciesPolicyIdDelete` | `DELETE /policies/{policy_id}` | Delete Policy |
 | `client.api.policyEngine.getPolicyPoliciesPolicyIdGet` | `GET /policies/{policy_id}` | Get Policy |
 | `client.api.policyEngine.updatePolicyPoliciesPolicyIdPut` | `PUT /policies/{policy_id}` | Update Policy |
+| `client.api.policyEngine.deletePolicyPoliciesPolicyIdDelete` | `DELETE /policies/{policy_id}` | Delete Policy |
 | `client.api.policyEngine.getResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGet` | `GET /policies/{policy_id}/resolved-guardrails` | Get Resolved Guardrails |
 | `client.api.policyEngine.updatePolicyVersionStatusPoliciesPolicyIdStatusPut` | `PUT /policies/{policy_id}/status` | Update Policy Version Status |
 
@@ -1014,10 +1014,10 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | `client.api.agents.createAgentV1AgentsPost` | `POST /v1/agents` | Create Agent |
 | `client.api.agents.getAgentIdentityProvidersV1AgentsIdentityProvidersGet` | `GET /v1/agents/identity/providers` | Get Agent Identity Providers |
 | `client.api.agents.makeAgentsPublicV1AgentsMakePublicPost` | `POST /v1/agents/make_public` | Make Agents Public |
-| `client.api.agents.deleteAgentV1AgentsAgentIdDelete` | `DELETE /v1/agents/{agent_id}` | Delete Agent |
 | `client.api.agents.getAgentByIdV1AgentsAgentIdGet` | `GET /v1/agents/{agent_id}` | Get Agent By Id |
-| `client.api.agents.patchAgentV1AgentsAgentIdPatch` | `PATCH /v1/agents/{agent_id}` | Patch Agent |
 | `client.api.agents.updateAgentV1AgentsAgentIdPut` | `PUT /v1/agents/{agent_id}` | Update Agent |
+| `client.api.agents.patchAgentV1AgentsAgentIdPatch` | `PATCH /v1/agents/{agent_id}` | Patch Agent |
+| `client.api.agents.deleteAgentV1AgentsAgentIdDelete` | `DELETE /v1/agents/{agent_id}` | Delete Agent |
 | `client.api.agents.getAgentIdentityStatusV1AgentsAgentIdIdentityGet` | `GET /v1/agents/{agent_id}/identity` | Get Agent Identity Status |
 | `client.api.agents.triggerAgentKillSwitchV1AgentsAgentIdKillSwitchPost` | `POST /v1/agents/{agent_id}/kill_switch` | Trigger Agent Kill Switch |
 | `client.api.agents.makeAgentPublicV1AgentsAgentIdMakePublicPost` | `POST /v1/agents/{agent_id}/make_public` | Make Agent Public |
@@ -1028,8 +1028,8 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | --- | --- | --- |
 | `client.api.geminiAgents.listGeminiAgentsV1BetaAgentsGet` | `GET /v1beta/agents` | List Gemini Agents |
 | `client.api.geminiAgents.createGeminiAgentV1BetaAgentsPost` | `POST /v1beta/agents` | Create Gemini Agent |
-| `client.api.geminiAgents.deleteGeminiAgentV1BetaAgentsNameDelete` | `DELETE /v1beta/agents/{name}` | Delete Gemini Agent |
 | `client.api.geminiAgents.getGeminiAgentV1BetaAgentsNameGet` | `GET /v1beta/agents/{name}` | Get Gemini Agent |
+| `client.api.geminiAgents.deleteGeminiAgentV1BetaAgentsNameDelete` | `DELETE /v1beta/agents/{name}` | Delete Gemini Agent |
 | `client.api.geminiAgents.listGeminiAgentVersionsV1BetaAgentsNameVersionsGet` | `GET /v1beta/agents/{name}/versions` | List Gemini Agent Versions |
 
 ## a2a
@@ -1056,26 +1056,26 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | `client.api.vectorStores.indexCreateV1IndexesPost` | `POST /v1/indexes` | Index Create |
 | `client.api.vectorStores.vectorStoreListV1VectorStoresGet` | `GET /v1/vector_stores` | Vector Store List |
 | `client.api.vectorStores.vectorStoreCreateV1VectorStoresPost` | `POST /v1/vector_stores` | Vector Store Create |
-| `client.api.vectorStores.vectorStoreDeleteV1VectorStoresVectorStoreIdDelete` | `DELETE /v1/vector_stores/{vector_store_id}` | Vector Store Delete |
 | `client.api.vectorStores.vectorStoreRetrieveV1VectorStoresVectorStoreIdGet` | `GET /v1/vector_stores/{vector_store_id}` | Vector Store Retrieve |
 | `client.api.vectorStores.vectorStoreUpdateV1VectorStoresVectorStoreIdPost` | `POST /v1/vector_stores/{vector_store_id}` | Vector Store Update |
+| `client.api.vectorStores.vectorStoreDeleteV1VectorStoresVectorStoreIdDelete` | `DELETE /v1/vector_stores/{vector_store_id}` | Vector Store Delete |
 | `client.api.vectorStores.vectorStoreFileListV1VectorStoresVectorStoreIdFilesGet` | `GET /v1/vector_stores/{vector_store_id}/files` | Vector Store File List |
 | `client.api.vectorStores.vectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPost` | `POST /v1/vector_stores/{vector_store_id}/files` | Vector Store File Create |
-| `client.api.vectorStores.vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDelete` | `DELETE /v1/vector_stores/{vector_store_id}/files/{file_id}` | Vector Store File Delete |
 | `client.api.vectorStores.vectorStoreFileRetrieveV1VectorStoresVectorStoreIdFilesFileIdGet` | `GET /v1/vector_stores/{vector_store_id}/files/{file_id}` | Vector Store File Retrieve |
 | `client.api.vectorStores.vectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPost` | `POST /v1/vector_stores/{vector_store_id}/files/{file_id}` | Vector Store File Update |
+| `client.api.vectorStores.vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDelete` | `DELETE /v1/vector_stores/{vector_store_id}/files/{file_id}` | Vector Store File Delete |
 | `client.api.vectorStores.vectorStoreFileContentV1VectorStoresVectorStoreIdFilesFileIdContentGet` | `GET /v1/vector_stores/{vector_store_id}/files/{file_id}/content` | Vector Store File Content |
 | `client.api.vectorStores.vectorStoreSearchV1VectorStoresVectorStoreIdSearchPost` | `POST /v1/vector_stores/{vector_store_id}/search` | Vector Store Search |
 | `client.api.vectorStores.vectorStoreListVectorStoresGet` | `GET /vector_stores` | Vector Store List |
 | `client.api.vectorStores.vectorStoreCreateVectorStoresPost` | `POST /vector_stores` | Vector Store Create |
-| `client.api.vectorStores.vectorStoreDeleteVectorStoresVectorStoreIdDelete` | `DELETE /vector_stores/{vector_store_id}` | Vector Store Delete |
 | `client.api.vectorStores.vectorStoreRetrieveVectorStoresVectorStoreIdGet` | `GET /vector_stores/{vector_store_id}` | Vector Store Retrieve |
 | `client.api.vectorStores.vectorStoreUpdateVectorStoresVectorStoreIdPost` | `POST /vector_stores/{vector_store_id}` | Vector Store Update |
+| `client.api.vectorStores.vectorStoreDeleteVectorStoresVectorStoreIdDelete` | `DELETE /vector_stores/{vector_store_id}` | Vector Store Delete |
 | `client.api.vectorStores.vectorStoreFileListVectorStoresVectorStoreIdFilesGet` | `GET /vector_stores/{vector_store_id}/files` | Vector Store File List |
 | `client.api.vectorStores.vectorStoreFileCreateVectorStoresVectorStoreIdFilesPost` | `POST /vector_stores/{vector_store_id}/files` | Vector Store File Create |
-| `client.api.vectorStores.vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDelete` | `DELETE /vector_stores/{vector_store_id}/files/{file_id}` | Vector Store File Delete |
 | `client.api.vectorStores.vectorStoreFileRetrieveVectorStoresVectorStoreIdFilesFileIdGet` | `GET /vector_stores/{vector_store_id}/files/{file_id}` | Vector Store File Retrieve |
 | `client.api.vectorStores.vectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPost` | `POST /vector_stores/{vector_store_id}/files/{file_id}` | Vector Store File Update |
+| `client.api.vectorStores.vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDelete` | `DELETE /vector_stores/{vector_store_id}/files/{file_id}` | Vector Store File Delete |
 | `client.api.vectorStores.vectorStoreFileContentVectorStoresVectorStoreIdFilesFileIdContentGet` | `GET /vector_stores/{vector_store_id}/files/{file_id}/content` | Vector Store File Content |
 | `client.api.vectorStores.vectorStoreSearchVectorStoresVectorStoreIdSearchPost` | `POST /vector_stores/{vector_store_id}/search` | Vector Store Search |
 
@@ -1118,9 +1118,9 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | `client.api.searchTools.listSearchToolsSearchToolsListGet` | `GET /search_tools/list` | List Search Tools |
 | `client.api.searchTools.testSearchToolConnectionSearchToolsTestConnectionPost` | `POST /search_tools/test_connection` | Test Search Tool Connection |
 | `client.api.searchTools.getAvailableSearchProvidersSearchToolsUiAvailableProvidersGet` | `GET /search_tools/ui/available_providers` | Get Available Search Providers |
-| `client.api.searchTools.deleteSearchToolSearchToolsSearchToolIdDelete` | `DELETE /search_tools/{search_tool_id}` | Delete Search Tool |
 | `client.api.searchTools.getSearchToolInfoSearchToolsSearchToolIdGet` | `GET /search_tools/{search_tool_id}` | Get Search Tool Info |
 | `client.api.searchTools.updateSearchToolSearchToolsSearchToolIdPut` | `PUT /search_tools/{search_tool_id}` | Update Search Tool |
+| `client.api.searchTools.deleteSearchToolSearchToolsSearchToolIdDelete` | `DELETE /search_tools/{search_tool_id}` | Delete Search Tool |
 
 ## mcpManagement
 
@@ -1133,36 +1133,36 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | `client.api.mcpManagement.getOpenapiRegistryV1McpOpenapiRegistryGet` | `GET /v1/mcp/openapi-registry` | Get Openapi Registry |
 | `client.api.mcpManagement.getMcpRegistryV1McpRegistryJsonGet` | `GET /v1/mcp/registry.json` | Get Mcp Registry |
 | `client.api.mcpManagement.fetchAllMcpServersV1McpServerGet` | `GET /v1/mcp/server` | Fetch All Mcp Servers |
-| `client.api.mcpManagement.addMcpServerV1McpServerPost` | `POST /v1/mcp/server` | Add Mcp Server |
 | `client.api.mcpManagement.editMcpServerV1McpServerPut` | `PUT /v1/mcp/server` | Edit Mcp Server |
+| `client.api.mcpManagement.addMcpServerV1McpServerPost` | `POST /v1/mcp/server` | Add Mcp Server |
 | `client.api.mcpManagement.healthCheckServersV1McpServerHealthGet` | `GET /v1/mcp/server/health` | Health Check Servers |
 | `client.api.mcpManagement.importMcpServersV1McpServerImportPost` | `POST /v1/mcp/server/import` | Import Mcp Servers |
 | `client.api.mcpManagement.addSessionMcpServerV1McpServerOauthSessionPost` | `POST /v1/mcp/server/oauth/session` | Add Session Mcp Server |
 | `client.api.mcpManagement.registerMcpServerV1McpServerRegisterPost` | `POST /v1/mcp/server/register` | Register Mcp Server |
 | `client.api.mcpManagement.getMcpServerSubmissionsV1McpServerSubmissionsGet` | `GET /v1/mcp/server/submissions` | Get Mcp Server Submissions |
-| `client.api.mcpManagement.removeMcpServerV1McpServerServerIdDelete` | `DELETE /v1/mcp/server/{server_id}` | Remove Mcp Server |
 | `client.api.mcpManagement.fetchMcpServerV1McpServerServerIdGet` | `GET /v1/mcp/server/{server_id}` | Fetch Mcp Server |
+| `client.api.mcpManagement.removeMcpServerV1McpServerServerIdDelete` | `DELETE /v1/mcp/server/{server_id}` | Remove Mcp Server |
 | `client.api.mcpManagement.approveMcpServerSubmissionV1McpServerServerIdApprovePut` | `PUT /v1/mcp/server/{server_id}/approve` | Approve Mcp Server Submission |
-| `client.api.mcpManagement.deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDelete` | `DELETE /v1/mcp/server/{server_id}/oauth-user-credential` | Delete Mcp Oauth User Credential |
 | `client.api.mcpManagement.storeMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialPost` | `POST /v1/mcp/server/{server_id}/oauth-user-credential` | Store Mcp Oauth User Credential |
+| `client.api.mcpManagement.deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDelete` | `DELETE /v1/mcp/server/{server_id}/oauth-user-credential` | Delete Mcp Oauth User Credential |
 | `client.api.mcpManagement.getMcpOauthUserCredentialStatusV1McpServerServerIdOauthUserCredentialStatusGet` | `GET /v1/mcp/server/{server_id}/oauth-user-credential/status` | Get Mcp Oauth User Credential Status |
-| `client.api.mcpManagement.unpinMcpServerToolsV1McpServerServerIdPinDelete` | `DELETE /v1/mcp/server/{server_id}/pin` | Unpin Mcp Server Tools |
 | `client.api.mcpManagement.pinMcpServerToolsV1McpServerServerIdPinPost` | `POST /v1/mcp/server/{server_id}/pin` | Pin Mcp Server Tools |
+| `client.api.mcpManagement.unpinMcpServerToolsV1McpServerServerIdPinDelete` | `DELETE /v1/mcp/server/{server_id}/pin` | Unpin Mcp Server Tools |
 | `client.api.mcpManagement.rejectMcpServerSubmissionV1McpServerServerIdRejectPut` | `PUT /v1/mcp/server/{server_id}/reject` | Reject Mcp Server Submission |
-| `client.api.mcpManagement.deleteMcpUserCredentialV1McpServerServerIdUserCredentialDelete` | `DELETE /v1/mcp/server/{server_id}/user-credential` | Delete Mcp User Credential |
 | `client.api.mcpManagement.storeMcpUserCredentialV1McpServerServerIdUserCredentialPost` | `POST /v1/mcp/server/{server_id}/user-credential` | Store Mcp User Credential |
+| `client.api.mcpManagement.deleteMcpUserCredentialV1McpServerServerIdUserCredentialDelete` | `DELETE /v1/mcp/server/{server_id}/user-credential` | Delete Mcp User Credential |
 | `client.api.mcpManagement.listMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGet` | `GET /v1/mcp/server/{server_id}/user-credentials` | List Mcp Server User Credentials |
-| `client.api.mcpManagement.clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDelete` | `DELETE /v1/mcp/server/{server_id}/user-env-vars` | Clear Mcp User Env Vars |
 | `client.api.mcpManagement.getMcpUserEnvVarsV1McpServerServerIdUserEnvVarsGet` | `GET /v1/mcp/server/{server_id}/user-env-vars` | Get Mcp User Env Vars |
 | `client.api.mcpManagement.storeMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPost` | `POST /v1/mcp/server/{server_id}/user-env-vars` | Store Mcp User Env Vars |
-| `client.api.mcpManagement.deleteMcpGatewaySessionsV1McpSessionsDelete` | `DELETE /v1/mcp/sessions` | Delete Mcp Gateway Sessions |
+| `client.api.mcpManagement.clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDelete` | `DELETE /v1/mcp/server/{server_id}/user-env-vars` | Clear Mcp User Env Vars |
 | `client.api.mcpManagement.getMcpGatewaySessionsV1McpSessionsGet` | `GET /v1/mcp/sessions` | Get Mcp Gateway Sessions |
+| `client.api.mcpManagement.deleteMcpGatewaySessionsV1McpSessionsDelete` | `DELETE /v1/mcp/sessions` | Delete Mcp Gateway Sessions |
 | `client.api.mcpManagement.getMcpToolsV1McpToolsGet` | `GET /v1/mcp/tools` | Get Mcp Tools |
 | `client.api.mcpManagement.fetchMcpToolsetsV1McpToolsetGet` | `GET /v1/mcp/toolset` | Fetch Mcp Toolsets |
-| `client.api.mcpManagement.addMcpToolsetV1McpToolsetPost` | `POST /v1/mcp/toolset` | Add Mcp Toolset |
 | `client.api.mcpManagement.editMcpToolsetV1McpToolsetPut` | `PUT /v1/mcp/toolset` | Edit Mcp Toolset |
-| `client.api.mcpManagement.removeMcpToolsetV1McpToolsetToolsetIdDelete` | `DELETE /v1/mcp/toolset/{toolset_id}` | Remove Mcp Toolset |
+| `client.api.mcpManagement.addMcpToolsetV1McpToolsetPost` | `POST /v1/mcp/toolset` | Add Mcp Toolset |
 | `client.api.mcpManagement.fetchMcpToolsetV1McpToolsetToolsetIdGet` | `GET /v1/mcp/toolset/{toolset_id}` | Fetch Mcp Toolset |
+| `client.api.mcpManagement.removeMcpToolsetV1McpToolsetToolsetIdDelete` | `DELETE /v1/mcp/toolset/{toolset_id}` | Remove Mcp Toolset |
 | `client.api.mcpManagement.listMcpUserCredentialsV1McpUserCredentialsGet` | `GET /v1/mcp/user-credentials` | List Mcp User Credentials |
 | `client.api.mcpManagement.listMcpUserEnvVarStatusV1McpUserEnvVarsStatusGet` | `GET /v1/mcp/user-env-vars/status` | List Mcp User Env Var Status |
 
@@ -1208,13 +1208,13 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 
 | Call | Request | Summary |
 | --- | --- | --- |
-| `client.api.configOverrides.deleteCyberarkConfigConfigOverridesCyberarkDelete` | `DELETE /config_overrides/cyberark` | Delete Cyberark Config |
 | `client.api.configOverrides.getCyberarkConfigConfigOverridesCyberarkGet` | `GET /config_overrides/cyberark` | Get Cyberark Config |
 | `client.api.configOverrides.updateCyberarkConfigConfigOverridesCyberarkPost` | `POST /config_overrides/cyberark` | Update Cyberark Config |
+| `client.api.configOverrides.deleteCyberarkConfigConfigOverridesCyberarkDelete` | `DELETE /config_overrides/cyberark` | Delete Cyberark Config |
 | `client.api.configOverrides.testCyberarkConnectionConfigOverridesCyberarkTestConnectionPost` | `POST /config_overrides/cyberark/test_connection` | Test Cyberark Connection |
-| `client.api.configOverrides.deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDelete` | `DELETE /config_overrides/hashicorp_vault` | Delete Hashicorp Vault Config |
 | `client.api.configOverrides.getHashicorpVaultConfigConfigOverridesHashicorpVaultGet` | `GET /config_overrides/hashicorp_vault` | Get Hashicorp Vault Config |
 | `client.api.configOverrides.updateHashicorpVaultConfigConfigOverridesHashicorpVaultPost` | `POST /config_overrides/hashicorp_vault` | Update Hashicorp Vault Config |
+| `client.api.configOverrides.deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDelete` | `DELETE /config_overrides/hashicorp_vault` | Delete Hashicorp Vault Config |
 | `client.api.configOverrides.testHashicorpVaultConnectionConfigOverridesHashicorpVaultTestConnectionPost` | `POST /config_overrides/hashicorp_vault/test_connection` | Test Hashicorp Vault Connection |
 
 ## llmPassthrough
@@ -1256,8 +1256,8 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | --- | --- | --- |
 | `client.api.anthropicSkills.listSkillsV1SkillsGet` | `GET /v1/skills` | List Skills |
 | `client.api.anthropicSkills.createSkillV1SkillsPost` | `POST /v1/skills` | Create Skill |
-| `client.api.anthropicSkills.deleteSkillV1SkillsSkillIdDelete` | `DELETE /v1/skills/{skill_id}` | Delete Skill |
 | `client.api.anthropicSkills.getSkillV1SkillsSkillIdGet` | `GET /v1/skills/{skill_id}` | Get Skill |
+| `client.api.anthropicSkills.deleteSkillV1SkillsSkillIdDelete` | `DELETE /v1/skills/{skill_id}` | Delete Skill |
 
 ## evals
 
@@ -1265,15 +1265,15 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | --- | --- | --- |
 | `client.api.evals.listEvalsV1EvalsGet` | `GET /v1/evals` | List Evals |
 | `client.api.evals.createEvalV1EvalsPost` | `POST /v1/evals` | Create Eval |
-| `client.api.evals.deleteEvalV1EvalsEvalIdDelete` | `DELETE /v1/evals/{eval_id}` | Delete Eval |
 | `client.api.evals.getEvalV1EvalsEvalIdGet` | `GET /v1/evals/{eval_id}` | Get Eval |
 | `client.api.evals.updateEvalV1EvalsEvalIdPost` | `POST /v1/evals/{eval_id}` | Update Eval |
+| `client.api.evals.deleteEvalV1EvalsEvalIdDelete` | `DELETE /v1/evals/{eval_id}` | Delete Eval |
 | `client.api.evals.cancelEvalV1EvalsEvalIdCancelPost` | `POST /v1/evals/{eval_id}/cancel` | Cancel Eval |
 | `client.api.evals.listRunsV1EvalsEvalIdRunsGet` | `GET /v1/evals/{eval_id}/runs` | List Runs |
 | `client.api.evals.createRunV1EvalsEvalIdRunsPost` | `POST /v1/evals/{eval_id}/runs` | Create Run |
-| `client.api.evals.deleteRunV1EvalsEvalIdRunsRunIdDelete` | `DELETE /v1/evals/{eval_id}/runs/{run_id}` | Delete Run |
 | `client.api.evals.getRunV1EvalsEvalIdRunsRunIdGet` | `GET /v1/evals/{eval_id}/runs/{run_id}` | Get Run |
 | `client.api.evals.cancelRunV1EvalsEvalIdRunsRunIdPost` | `POST /v1/evals/{eval_id}/runs/{run_id}` | Cancel Run |
+| `client.api.evals.deleteRunV1EvalsEvalIdRunsRunIdDelete` | `DELETE /v1/evals/{eval_id}/runs/{run_id}` | Delete Run |
 
 ## decisions
 
@@ -1291,10 +1291,10 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | `client.api.scim.getScimBaseScimV2Get` | `GET /scim/v2` | Get Scim Base |
 | `client.api.scim.getGroupsScimV2GroupsGet` | `GET /scim/v2/Groups` | Get Groups |
 | `client.api.scim.createGroupScimV2GroupsPost` | `POST /scim/v2/Groups` | Create Group |
-| `client.api.scim.deleteGroupScimV2GroupsGroupIdDelete` | `DELETE /scim/v2/Groups/{group_id}` | Delete Group |
 | `client.api.scim.getGroupScimV2GroupsGroupIdGet` | `GET /scim/v2/Groups/{group_id}` | Get Group |
-| `client.api.scim.patchGroupScimV2GroupsGroupIdPatch` | `PATCH /scim/v2/Groups/{group_id}` | Patch Group |
 | `client.api.scim.updateGroupScimV2GroupsGroupIdPut` | `PUT /scim/v2/Groups/{group_id}` | Update Group |
+| `client.api.scim.patchGroupScimV2GroupsGroupIdPatch` | `PATCH /scim/v2/Groups/{group_id}` | Patch Group |
+| `client.api.scim.deleteGroupScimV2GroupsGroupIdDelete` | `DELETE /scim/v2/Groups/{group_id}` | Delete Group |
 | `client.api.scim.getResourceTypesScimV2ResourceTypesGet` | `GET /scim/v2/ResourceTypes` | Get Resource Types |
 | `client.api.scim.getResourceTypeScimV2ResourceTypesResourceTypeIdGet` | `GET /scim/v2/ResourceTypes/{resource_type_id}` | Get Resource Type |
 | `client.api.scim.getSchemasScimV2SchemasGet` | `GET /scim/v2/Schemas` | Get Schemas |
@@ -1302,10 +1302,10 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | `client.api.scim.getServiceProviderConfigScimV2ServiceProviderConfigGet` | `GET /scim/v2/ServiceProviderConfig` | Get Service Provider Config |
 | `client.api.scim.getUsersScimV2UsersGet` | `GET /scim/v2/Users` | Get Users |
 | `client.api.scim.createUserScimV2UsersPost` | `POST /scim/v2/Users` | Create User |
-| `client.api.scim.deleteUserScimV2UsersUserIdDelete` | `DELETE /scim/v2/Users/{user_id}` | Delete User |
 | `client.api.scim.getUserScimV2UsersUserIdGet` | `GET /scim/v2/Users/{user_id}` | Get User |
-| `client.api.scim.patchUserScimV2UsersUserIdPatch` | `PATCH /scim/v2/Users/{user_id}` | Patch User |
 | `client.api.scim.updateUserScimV2UsersUserIdPut` | `PUT /scim/v2/Users/{user_id}` | Update User |
+| `client.api.scim.patchUserScimV2UsersUserIdPatch` | `PATCH /scim/v2/Users/{user_id}` | Patch User |
+| `client.api.scim.deleteUserScimV2UsersUserIdDelete` | `DELETE /scim/v2/Users/{user_id}` | Delete User |
 | `client.api.scim.listPlaceholdersScimV2PlaceholdersGet` | `GET /scim/v2/placeholders` | List Placeholders |
 | `client.api.scim.mergePlaceholderScimV2PlaceholdersUserIdMergePost` | `POST /scim/v2/placeholders/{user_id}/merge` | Merge Placeholder |
 
@@ -1344,10 +1344,10 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | `client.api.prompts.createPromptPromptsPost` | `POST /prompts` | Create Prompt |
 | `client.api.prompts.listPromptsPromptsListGet` | `GET /prompts/list` | List Prompts |
 | `client.api.prompts.testPromptPromptsTestPost` | `POST /prompts/test` | Test Prompt |
-| `client.api.prompts.deletePromptPromptsPromptIdDelete` | `DELETE /prompts/{prompt_id}` | Delete Prompt |
 | `client.api.prompts.getPromptInfoPromptsPromptIdGet` | `GET /prompts/{prompt_id}` | Get Prompt Info |
-| `client.api.prompts.patchPromptPromptsPromptIdPatch` | `PATCH /prompts/{prompt_id}` | Patch Prompt |
 | `client.api.prompts.updatePromptPromptsPromptIdPut` | `PUT /prompts/{prompt_id}` | Update Prompt |
+| `client.api.prompts.patchPromptPromptsPromptIdPatch` | `PATCH /prompts/{prompt_id}` | Patch Prompt |
+| `client.api.prompts.deletePromptPromptsPromptIdDelete` | `DELETE /prompts/{prompt_id}` | Delete Prompt |
 | `client.api.prompts.getPromptInfoPromptsPromptIdInfoGet` | `GET /prompts/{prompt_id}/info` | Get Prompt Info |
 | `client.api.prompts.getPromptVersionsPromptsPromptIdVersionsGet` | `GET /prompts/{prompt_id}/versions` | Get Prompt Versions |
 | `client.api.prompts.convertPromptFileToJsonUtilsDotpromptJsonConverterPost` | `POST /utils/dotprompt_json_converter` | Convert Prompt File To Json |
@@ -1375,11 +1375,11 @@ Generated from the LiteLLM API 1.108.1 OpenAPI spec; do not edit. 855 operations
 | --- | --- | --- |
 | `client.api.accessGroups.listAccessGroupsV1AccessGroupGet` | `GET /v1/access_group` | List Access Groups |
 | `client.api.accessGroups.createAccessGroupV1AccessGroupPost` | `POST /v1/access_group` | Create Access Group |
-| `client.api.accessGroups.deleteAccessGroupV1AccessGroupAccessGroupIdDelete` | `DELETE /v1/access_group/{access_group_id}` | Delete Access Group |
 | `client.api.accessGroups.getAccessGroupV1AccessGroupAccessGroupIdGet` | `GET /v1/access_group/{access_group_id}` | Get Access Group |
 | `client.api.accessGroups.updateAccessGroupV1AccessGroupAccessGroupIdPut` | `PUT /v1/access_group/{access_group_id}` | Update Access Group |
+| `client.api.accessGroups.deleteAccessGroupV1AccessGroupAccessGroupIdDelete` | `DELETE /v1/access_group/{access_group_id}` | Delete Access Group |
 | `client.api.accessGroups.listAccessGroupsV1UnifiedAccessGroupGet` | `GET /v1/unified_access_group` | List Access Groups |
 | `client.api.accessGroups.createAccessGroupV1UnifiedAccessGroupPost` | `POST /v1/unified_access_group` | Create Access Group |
-| `client.api.accessGroups.deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDelete` | `DELETE /v1/unified_access_group/{access_group_id}` | Delete Access Group |
 | `client.api.accessGroups.getAccessGroupV1UnifiedAccessGroupAccessGroupIdGet` | `GET /v1/unified_access_group/{access_group_id}` | Get Access Group |
 | `client.api.accessGroups.updateAccessGroupV1UnifiedAccessGroupAccessGroupIdPut` | `PUT /v1/unified_access_group/{access_group_id}` | Update Access Group |
+| `client.api.accessGroups.deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDelete` | `DELETE /v1/unified_access_group/{access_group_id}` | Delete Access Group |

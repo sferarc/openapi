@@ -3645,43 +3645,6 @@ export async function getThreadV1ThreadsThreadIdGet(
 }
 
 /**
- * @summary Add Messages
- * @description Create a message.
- * API Reference - https://platform.openai.com/docs/api-reference/messages/createMessage
- * @link /threads/{thread_id}/messages
- */
-export async function addMessagesThreadsThreadIdMessagesPost(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: AddMessagesThreadsThreadIdMessagesPostPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.thread_id == null || String(pathParams.thread_id) === "") {
-		throw new Error(`Missing required path parameter: thread_id`);
-	}
-	const data = await request<
-		AddMessagesThreadsThreadIdMessagesPostResponse,
-		ErrorWrapper<AddMessagesThreadsThreadIdMessagesPostStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		AddMessagesThreadsThreadIdMessagesPostPath
-	>({
-		method: "POST",
-		url: `/threads/${encodeURIComponent(String(pathParams.thread_id))}/messages`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Get Messages
  * @description Returns a list of messages for a given thread.
  * API Reference - https://platform.openai.com/docs/api-reference/messages/listMessages
@@ -3722,14 +3685,14 @@ export async function getMessagesThreadsThreadIdMessagesGet(
  * @summary Add Messages
  * @description Create a message.
  * API Reference - https://platform.openai.com/docs/api-reference/messages/createMessage
- * @link /v1/threads/{thread_id}/messages
+ * @link /threads/{thread_id}/messages
  */
-export async function addMessagesV1ThreadsThreadIdMessagesPost(
+export async function addMessagesThreadsThreadIdMessagesPost(
 	{
 		pathParams,
 		config,
 	}: {
-		pathParams: AddMessagesV1ThreadsThreadIdMessagesPostPath;
+		pathParams: AddMessagesThreadsThreadIdMessagesPostPath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3739,15 +3702,15 @@ export async function addMessagesV1ThreadsThreadIdMessagesPost(
 		throw new Error(`Missing required path parameter: thread_id`);
 	}
 	const data = await request<
-		AddMessagesV1ThreadsThreadIdMessagesPostResponse,
-		ErrorWrapper<AddMessagesV1ThreadsThreadIdMessagesPostStatus422>,
+		AddMessagesThreadsThreadIdMessagesPostResponse,
+		ErrorWrapper<AddMessagesThreadsThreadIdMessagesPostStatus422>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		AddMessagesV1ThreadsThreadIdMessagesPostPath
+		AddMessagesThreadsThreadIdMessagesPostPath
 	>({
 		method: "POST",
-		url: `/v1/threads/${encodeURIComponent(String(pathParams.thread_id))}/messages`,
+		url: `/threads/${encodeURIComponent(String(pathParams.thread_id))}/messages`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -3784,6 +3747,43 @@ export async function getMessagesV1ThreadsThreadIdMessagesGet(
 		GetMessagesV1ThreadsThreadIdMessagesGetPath
 	>({
 		method: "GET",
+		url: `/v1/threads/${encodeURIComponent(String(pathParams.thread_id))}/messages`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Add Messages
+ * @description Create a message.
+ * API Reference - https://platform.openai.com/docs/api-reference/messages/createMessage
+ * @link /v1/threads/{thread_id}/messages
+ */
+export async function addMessagesV1ThreadsThreadIdMessagesPost(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: AddMessagesV1ThreadsThreadIdMessagesPostPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.thread_id == null || String(pathParams.thread_id) === "") {
+		throw new Error(`Missing required path parameter: thread_id`);
+	}
+	const data = await request<
+		AddMessagesV1ThreadsThreadIdMessagesPostResponse,
+		ErrorWrapper<AddMessagesV1ThreadsThreadIdMessagesPostStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		AddMessagesV1ThreadsThreadIdMessagesPostPath
+	>({
+		method: "POST",
 		url: `/v1/threads/${encodeURIComponent(String(pathParams.thread_id))}/messages`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -7233,51 +7233,6 @@ export async function videoExtensionV1VideosExtensionsPost(
 }
 
 /**
- * @summary Create Container
- * @description Container creation endpoint for creating new containers.
- * Follows the OpenAI Containers API spec:
- * https://platform.openai.com/docs/api-reference/containers
- * Example:
- * ```bash
- * curl -X POST "http://localhost:4000/v1/containers"         -H "Authorization: Bearer $LITELLM_MASTER_KEY"         -H "Content-Type: application/json"         -d '{
- *         "name": "My Container",
- *         "expires_after": {
- *             "anchor": "last_active_at",
- *             "minutes": 20
- *         }
- *     }'
- * ```
- * Or specify provider via header:
- * ```bash
- * curl -X POST "http://localhost:4000/v1/containers"         -H "Authorization: Bearer $LITELLM_MASTER_KEY"         -H "custom-llm-provider: azure"         -H "Content-Type: application/json"         -d '{
- *         "name": "My Container"
- *     }'
- * ```
- * @link /containers
- */
-export async function createContainerContainersPost(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		CreateContainerContainersPostResponse,
-		ErrorWrapper<Error>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/containers`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary List Containers
  * @description Container list endpoint for retrieving a list of containers.
  * Follows the OpenAI Containers API spec:
@@ -7342,15 +7297,15 @@ export async function listContainersContainersGet(
  *         "name": "My Container"
  *     }'
  * ```
- * @link /v1/containers
+ * @link /containers
  */
-export async function createContainerV1ContainersPost(
+export async function createContainerContainersPost(
 	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	const data = await request<
-		CreateContainerV1ContainersPostResponse,
+		CreateContainerContainersPostResponse,
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
@@ -7358,7 +7313,7 @@ export async function createContainerV1ContainersPost(
 		Record<string, string>
 	>({
 		method: "POST",
-		url: `/v1/containers`,
+		url: `/containers`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -7403,6 +7358,51 @@ export async function listContainersV1ContainersGet(
 		method: "GET",
 		url: `/v1/containers`,
 		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Create Container
+ * @description Container creation endpoint for creating new containers.
+ * Follows the OpenAI Containers API spec:
+ * https://platform.openai.com/docs/api-reference/containers
+ * Example:
+ * ```bash
+ * curl -X POST "http://localhost:4000/v1/containers"         -H "Authorization: Bearer $LITELLM_MASTER_KEY"         -H "Content-Type: application/json"         -d '{
+ *         "name": "My Container",
+ *         "expires_after": {
+ *             "anchor": "last_active_at",
+ *             "minutes": 20
+ *         }
+ *     }'
+ * ```
+ * Or specify provider via header:
+ * ```bash
+ * curl -X POST "http://localhost:4000/v1/containers"         -H "Authorization: Bearer $LITELLM_MASTER_KEY"         -H "custom-llm-provider: azure"         -H "Content-Type: application/json"         -d '{
+ *         "name": "My Container"
+ *     }'
+ * ```
+ * @link /v1/containers
+ */
+export async function createContainerV1ContainersPost(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		CreateContainerV1ContainersPostResponse,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/v1/containers`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -8933,52 +8933,6 @@ export async function imageEditApiV1ImagesEditsPost(
 }
 
 /**
- * @summary ✨ (Enterprise) Create Fine-Tuning Job
- * @description Creates a fine-tuning job which begins the process of creating a new model from a given dataset.
- * This is the equivalent of POST https://api.openai.com/v1/fine_tuning/jobs
- * Supports Identical Params as: https://platform.openai.com/docs/api-reference/fine-tuning/create
- * Example Curl:
- * ```
- * curl http://localhost:4000/v1/fine_tuning/jobs       -H "Content-Type: application/json"       -H "Authorization: Bearer $LITELLM_MASTER_KEY"       -d '{
- *     "model": "gpt-3.5-turbo",
- *     "training_file": "file-abc123",
- *     "hyperparameters": {
- *       "n_epochs": 4
- *     }
- *   }'
- * ```
- * @link /fine_tuning/jobs
- */
-export async function createFineTuningJobFineTuningJobsPost(
-	{
-		body,
-		config,
-	}: {
-		body: CreateFineTuningJobFineTuningJobsPostBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		CreateFineTuningJobFineTuningJobsPostResponse,
-		ErrorWrapper<CreateFineTuningJobFineTuningJobsPostStatus422>,
-		CreateFineTuningJobFineTuningJobsPostBody,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/fine_tuning/jobs`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary ✨ (Enterprise) List Fine-Tuning Jobs
  * @description Lists fine-tuning jobs for the organization.
  * This is the equivalent of GET https://api.openai.com/v1/fine_tuning/jobs
@@ -9032,29 +8986,29 @@ export async function listFineTuningJobsFineTuningJobsGet(
  *     }
  *   }'
  * ```
- * @link /v1/fine_tuning/jobs
+ * @link /fine_tuning/jobs
  */
-export async function createFineTuningJobV1FineTuningJobsPost(
+export async function createFineTuningJobFineTuningJobsPost(
 	{
 		body,
 		config,
 	}: {
-		body: CreateFineTuningJobV1FineTuningJobsPostBody;
+		body: CreateFineTuningJobFineTuningJobsPostBody;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	const data = await request<
-		CreateFineTuningJobV1FineTuningJobsPostResponse,
-		ErrorWrapper<CreateFineTuningJobV1FineTuningJobsPostStatus422>,
-		CreateFineTuningJobV1FineTuningJobsPostBody,
+		CreateFineTuningJobFineTuningJobsPostResponse,
+		ErrorWrapper<CreateFineTuningJobFineTuningJobsPostStatus422>,
+		CreateFineTuningJobFineTuningJobsPostBody,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
 		method: "POST",
-		url: `/v1/fine_tuning/jobs`,
+		url: `/fine_tuning/jobs`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -9095,6 +9049,52 @@ export async function listFineTuningJobsV1FineTuningJobsGet(
 		method: "GET",
 		url: `/v1/fine_tuning/jobs`,
 		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary ✨ (Enterprise) Create Fine-Tuning Job
+ * @description Creates a fine-tuning job which begins the process of creating a new model from a given dataset.
+ * This is the equivalent of POST https://api.openai.com/v1/fine_tuning/jobs
+ * Supports Identical Params as: https://platform.openai.com/docs/api-reference/fine-tuning/create
+ * Example Curl:
+ * ```
+ * curl http://localhost:4000/v1/fine_tuning/jobs       -H "Content-Type: application/json"       -H "Authorization: Bearer $LITELLM_MASTER_KEY"       -d '{
+ *     "model": "gpt-3.5-turbo",
+ *     "training_file": "file-abc123",
+ *     "hyperparameters": {
+ *       "n_epochs": 4
+ *     }
+ *   }'
+ * ```
+ * @link /v1/fine_tuning/jobs
+ */
+export async function createFineTuningJobV1FineTuningJobsPost(
+	{
+		body,
+		config,
+	}: {
+		body: CreateFineTuningJobV1FineTuningJobsPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		CreateFineTuningJobV1FineTuningJobsPostResponse,
+		ErrorWrapper<CreateFineTuningJobV1FineTuningJobsPostStatus422>,
+		CreateFineTuningJobV1FineTuningJobsPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/v1/fine_tuning/jobs`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -9580,42 +9580,6 @@ export async function deleteUserConnectionCredentialsCredentialNameUserConnectio
 }
 
 /**
- * @summary Delete Credential
- * @description [BETA] endpoint. This might change unexpectedly.
- * @link /credentials/{credential_name}
- */
-export async function deleteCredentialCredentialsCredentialNameDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DeleteCredentialCredentialsCredentialNameDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.credential_name == null || String(pathParams.credential_name) === "") {
-		throw new Error(`Missing required path parameter: credential_name`);
-	}
-	const data = await request<
-		DeleteCredentialCredentialsCredentialNameDeleteResponse,
-		ErrorWrapper<DeleteCredentialCredentialsCredentialNameDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DeleteCredentialCredentialsCredentialNameDeletePath
-	>({
-		method: "DELETE",
-		url: `/credentials/${encodeURIComponent(String(pathParams.credential_name))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Update Credential
  * @description [BETA] endpoint. This might change unexpectedly.
  * @link /credentials/{credential_name}
@@ -9655,42 +9619,34 @@ export async function updateCredentialCredentialsCredentialNamePatch(
 }
 
 /**
- * @summary Create Batch
- * @description Create large batches of API requests for asynchronous processing.
- * This is the equivalent of POST https://api.openai.com/v1/batch
- * Supports Identical Params as: https://platform.openai.com/docs/api-reference/batch
- * Example Curl
- * ```
- * curl http://localhost:4000/v1/batches         -H "Authorization: Bearer $LITELLM_MASTER_KEY"         -H "Content-Type: application/json"         -d '{
- *         "input_file_id": "file-abc123",
- *         "endpoint": "/v1/chat/completions",
- *         "completion_window": "24h"
- * }'
- * ```
- * @link /batches
+ * @summary Delete Credential
+ * @description [BETA] endpoint. This might change unexpectedly.
+ * @link /credentials/{credential_name}
  */
-export async function createBatchBatchesPost(
+export async function deleteCredentialCredentialsCredentialNameDelete(
 	{
-		queryParams,
+		pathParams,
 		config,
 	}: {
-		queryParams?: Partial<CreateBatchBatchesPostQuery>;
+		pathParams: DeleteCredentialCredentialsCredentialNameDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
+	if (pathParams?.credential_name == null || String(pathParams.credential_name) === "") {
+		throw new Error(`Missing required path parameter: credential_name`);
+	}
 	const data = await request<
-		CreateBatchBatchesPostResponse,
-		ErrorWrapper<CreateBatchBatchesPostStatus422>,
+		DeleteCredentialCredentialsCredentialNameDeleteResponse,
+		ErrorWrapper<DeleteCredentialCredentialsCredentialNameDeleteStatus422>,
 		null,
 		Record<string, string>,
-		Partial<CreateBatchBatchesPostQuery>,
-		Record<string, string>
+		Record<string, string>,
+		DeleteCredentialCredentialsCredentialNameDeletePath
 	>({
-		method: "POST",
-		url: `/batches`,
-		queryParams,
+		method: "DELETE",
+		url: `/credentials/${encodeURIComponent(String(pathParams.credential_name))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -9751,29 +9707,29 @@ export async function listBatchesBatchesGet(
  *         "completion_window": "24h"
  * }'
  * ```
- * @link /v1/batches
+ * @link /batches
  */
-export async function createBatchV1BatchesPost(
+export async function createBatchBatchesPost(
 	{
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<CreateBatchV1BatchesPostQuery>;
+		queryParams?: Partial<CreateBatchBatchesPostQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	const data = await request<
-		CreateBatchV1BatchesPostResponse,
-		ErrorWrapper<CreateBatchV1BatchesPostStatus422>,
+		CreateBatchBatchesPostResponse,
+		ErrorWrapper<CreateBatchBatchesPostStatus422>,
 		null,
 		Record<string, string>,
-		Partial<CreateBatchV1BatchesPostQuery>,
+		Partial<CreateBatchBatchesPostQuery>,
 		Record<string, string>
 	>({
 		method: "POST",
-		url: `/v1/batches`,
+		url: `/batches`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -9835,32 +9791,30 @@ export async function listBatchesV1BatchesGet(
  *         "completion_window": "24h"
  * }'
  * ```
- * @link /{provider}/v1/batches
+ * @link /v1/batches
  */
-export async function createBatchProviderV1BatchesPost(
+export async function createBatchV1BatchesPost(
 	{
-		pathParams,
+		queryParams,
 		config,
 	}: {
-		pathParams: CreateBatchProviderV1BatchesPostPath;
+		queryParams?: Partial<CreateBatchV1BatchesPostQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams?.provider == null || String(pathParams.provider) === "") {
-		throw new Error(`Missing required path parameter: provider`);
-	}
 	const data = await request<
-		CreateBatchProviderV1BatchesPostResponse,
-		ErrorWrapper<CreateBatchProviderV1BatchesPostStatus422>,
+		CreateBatchV1BatchesPostResponse,
+		ErrorWrapper<CreateBatchV1BatchesPostStatus422>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
-		CreateBatchProviderV1BatchesPostPath
+		Partial<CreateBatchV1BatchesPostQuery>,
+		Record<string, string>
 	>({
 		method: "POST",
-		url: `/${encodeURIComponent(String(pathParams.provider))}/v1/batches`,
+		url: `/v1/batches`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -9906,6 +9860,52 @@ export async function listBatchesProviderV1BatchesGet(
 		method: "GET",
 		url: `/${encodeURIComponent(String(pathParams.provider))}/v1/batches`,
 		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Create Batch
+ * @description Create large batches of API requests for asynchronous processing.
+ * This is the equivalent of POST https://api.openai.com/v1/batch
+ * Supports Identical Params as: https://platform.openai.com/docs/api-reference/batch
+ * Example Curl
+ * ```
+ * curl http://localhost:4000/v1/batches         -H "Authorization: Bearer $LITELLM_MASTER_KEY"         -H "Content-Type: application/json"         -d '{
+ *         "input_file_id": "file-abc123",
+ *         "endpoint": "/v1/chat/completions",
+ *         "completion_window": "24h"
+ * }'
+ * ```
+ * @link /{provider}/v1/batches
+ */
+export async function createBatchProviderV1BatchesPost(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: CreateBatchProviderV1BatchesPostPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.provider == null || String(pathParams.provider) === "") {
+		throw new Error(`Missing required path parameter: provider`);
+	}
+	const data = await request<
+		CreateBatchProviderV1BatchesPostResponse,
+		ErrorWrapper<CreateBatchProviderV1BatchesPostStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		CreateBatchProviderV1BatchesPostPath
+	>({
+		method: "POST",
+		url: `/${encodeURIComponent(String(pathParams.provider))}/v1/batches`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -10186,6 +10186,46 @@ export async function cancelBatchProviderV1BatchesBatchIdCancelPost(
 }
 
 /**
+ * @summary List Files
+ * @description Returns information about a specific file. that can be used across - Assistants API, Batch API
+ * This is the equivalent of GET https://api.openai.com/v1/files/
+ * Supports Identical Params as: https://platform.openai.com/docs/api-reference/files/list
+ * Example Curl
+ * ```
+ * curl http://localhost:4000/v1/files        -H "Authorization: Bearer $LITELLM_MASTER_KEY"
+ * ```
+ * @link /files
+ */
+export async function listFilesFilesGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<ListFilesFilesGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ListFilesFilesGetResponse,
+		ErrorWrapper<ListFilesFilesGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<ListFilesFilesGetQuery>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/files`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Create File
  * @description Upload a file that can be used across - Assistants API, Batch API
  * This is the equivalent of POST https://api.openai.com/v1/files
@@ -10256,29 +10296,29 @@ export async function createFileFilesPost(
  * ```
  * curl http://localhost:4000/v1/files        -H "Authorization: Bearer $LITELLM_MASTER_KEY"
  * ```
- * @link /files
+ * @link /v1/files
  */
-export async function listFilesFilesGet(
+export async function listFilesV1FilesGet(
 	{
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ListFilesFilesGetQuery>;
+		queryParams?: Partial<ListFilesV1FilesGetQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	const data = await request<
-		ListFilesFilesGetResponse,
-		ErrorWrapper<ListFilesFilesGetStatus422>,
+		ListFilesV1FilesGetResponse,
+		ErrorWrapper<ListFilesV1FilesGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<ListFilesFilesGetQuery>,
+		Partial<ListFilesV1FilesGetQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
-		url: `/files`,
+		url: `/v1/files`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -10358,29 +10398,34 @@ export async function createFileV1FilesPost(
  * ```
  * curl http://localhost:4000/v1/files        -H "Authorization: Bearer $LITELLM_MASTER_KEY"
  * ```
- * @link /v1/files
+ * @link /{provider}/v1/files
  */
-export async function listFilesV1FilesGet(
+export async function listFilesProviderV1FilesGet(
 	{
+		pathParams,
 		queryParams,
 		config,
 	}: {
-		queryParams?: Partial<ListFilesV1FilesGetQuery>;
+		pathParams: ListFilesProviderV1FilesGetPath;
+		queryParams?: Partial<ListFilesProviderV1FilesGetQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
+	if (pathParams?.provider == null || String(pathParams.provider) === "") {
+		throw new Error(`Missing required path parameter: provider`);
+	}
 	const data = await request<
-		ListFilesV1FilesGetResponse,
-		ErrorWrapper<ListFilesV1FilesGetStatus422>,
+		ListFilesProviderV1FilesGetResponse,
+		ErrorWrapper<ListFilesProviderV1FilesGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<ListFilesV1FilesGetQuery>,
-		Record<string, string>
+		Partial<ListFilesProviderV1FilesGetQuery>,
+		ListFilesProviderV1FilesGetPath
 	>({
 		method: "GET",
-		url: `/v1/files`,
+		url: `/${encodeURIComponent(String(pathParams.provider))}/v1/files`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -10448,51 +10493,6 @@ export async function createFileProviderV1FilesPost(
 		body: formData,
 		...requestConfig,
 		headers: { "Content-Type": "multipart/form-data", ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List Files
- * @description Returns information about a specific file. that can be used across - Assistants API, Batch API
- * This is the equivalent of GET https://api.openai.com/v1/files/
- * Supports Identical Params as: https://platform.openai.com/docs/api-reference/files/list
- * Example Curl
- * ```
- * curl http://localhost:4000/v1/files        -H "Authorization: Bearer $LITELLM_MASTER_KEY"
- * ```
- * @link /{provider}/v1/files
- */
-export async function listFilesProviderV1FilesGet(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: ListFilesProviderV1FilesGetPath;
-		queryParams?: Partial<ListFilesProviderV1FilesGetQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.provider == null || String(pathParams.provider) === "") {
-		throw new Error(`Missing required path parameter: provider`);
-	}
-	const data = await request<
-		ListFilesProviderV1FilesGetResponse,
-		ErrorWrapper<ListFilesProviderV1FilesGetStatus422>,
-		null,
-		Record<string, string>,
-		Partial<ListFilesProviderV1FilesGetQuery>,
-		ListFilesProviderV1FilesGetPath
-	>({
-		method: "GET",
-		url: `/${encodeURIComponent(String(pathParams.provider))}/v1/files`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -18636,6 +18636,63 @@ export async function latestReleaseInfoGetLatestReleaseInfoGet(
 }
 
 /**
+ * @summary Get Team Callbacks
+ * @description Get the success/failure callbacks and variables for a team
+ * Parameters:
+ * - team_id (str, required): The unique identifier for the team
+ * Example curl:
+ * ```
+ * curl -X GET 'http://localhost:4000/team/dbe2f686-a686-4896-864a-4c3924458709/callback'         -H "Authorization: Bearer $LITELLM_MASTER_KEY"
+ * ```
+ * This will return the callback settings for the team with id dbe2f686-a686-4896-864a-4c3924458709
+ * Covers callbacks registered through POST /team/{team_id}/callback and the Admin UI as well as
+ * teams still on the deprecated callback_settings shape, resolved from the team's stored metadata
+ * with the same precedence used at request time. A key-level logging config overrides the team's
+ * at request time and is not reflected here. Credential-bearing callback_vars are returned masked
+ * as `***REDACTED***`
+ * Returns {
+ *         "status": "success",
+ *         "data": {
+ *             "team_id": team_id,
+ *             "success_callbacks": team_callback_settings_obj.success_callback,
+ *             "failure_callbacks": team_callback_settings_obj.failure_callback,
+ *             "callback_vars": team_callback_settings_obj.callback_vars,
+ *         },
+ *     }
+ * @link /team/{team_id}/callback
+ */
+export async function getTeamCallbacksTeamTeamIdCallbackGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetTeamCallbacksTeamTeamIdCallbackGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.team_id == null || String(pathParams.team_id) === "") {
+		throw new Error(`Missing required path parameter: team_id`);
+	}
+	const data = await request<
+		GetTeamCallbacksTeamTeamIdCallbackGetResponse,
+		ErrorWrapper<GetTeamCallbacksTeamTeamIdCallbackGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetTeamCallbacksTeamTeamIdCallbackGetPath
+	>({
+		method: "GET",
+		url: `/team/${encodeURIComponent(String(pathParams.team_id))}/callback`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Add Team Callbacks
  * @description Add a success/failure callback to a team
  * Use this if if you want different teams to have different success/failure callbacks
@@ -18710,63 +18767,6 @@ export async function addTeamCallbacksTeamTeamIdCallbackPost(
 				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
 			),
 		},
-	});
-
-	return data;
-}
-
-/**
- * @summary Get Team Callbacks
- * @description Get the success/failure callbacks and variables for a team
- * Parameters:
- * - team_id (str, required): The unique identifier for the team
- * Example curl:
- * ```
- * curl -X GET 'http://localhost:4000/team/dbe2f686-a686-4896-864a-4c3924458709/callback'         -H "Authorization: Bearer $LITELLM_MASTER_KEY"
- * ```
- * This will return the callback settings for the team with id dbe2f686-a686-4896-864a-4c3924458709
- * Covers callbacks registered through POST /team/{team_id}/callback and the Admin UI as well as
- * teams still on the deprecated callback_settings shape, resolved from the team's stored metadata
- * with the same precedence used at request time. A key-level logging config overrides the team's
- * at request time and is not reflected here. Credential-bearing callback_vars are returned masked
- * as `***REDACTED***`
- * Returns {
- *         "status": "success",
- *         "data": {
- *             "team_id": team_id,
- *             "success_callbacks": team_callback_settings_obj.success_callback,
- *             "failure_callbacks": team_callback_settings_obj.failure_callback,
- *             "callback_vars": team_callback_settings_obj.callback_vars,
- *         },
- *     }
- * @link /team/{team_id}/callback
- */
-export async function getTeamCallbacksTeamTeamIdCallbackGet(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: GetTeamCallbacksTeamTeamIdCallbackGetPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.team_id == null || String(pathParams.team_id) === "") {
-		throw new Error(`Missing required path parameter: team_id`);
-	}
-	const data = await request<
-		GetTeamCallbacksTeamTeamIdCallbackGetResponse,
-		ErrorWrapper<GetTeamCallbacksTeamTeamIdCallbackGetStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		GetTeamCallbacksTeamTeamIdCallbackGetPath
-	>({
-		method: "GET",
-		url: `/team/${encodeURIComponent(String(pathParams.team_id))}/callback`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
 	});
 
 	return data;
@@ -19418,40 +19418,6 @@ export async function updateUsefulLinksModelHubUpdateUsefulLinksPost(
 }
 
 /**
- * @summary Preview Auto Router Classifier Prompt
- * @description Get the system prompt an auto-router's LLM classifier sends for an edited tier set
- * @link /auto_router/classifier/default_prompt
- */
-export async function previewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPost(
-	{
-		body,
-		config,
-	}: {
-		body: PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostResponse,
-		ErrorWrapper<PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostStatus422>,
-		PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostBody,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/auto_router/classifier/default_prompt`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Get Auto Router Classifier Default Prompt
  * @description Get the built-in system prompt used by an auto-router's LLM classifier
  * @link /auto_router/classifier/default_prompt
@@ -19478,6 +19444,40 @@ export async function getAutoRouterClassifierDefaultPromptAutoRouterClassifierDe
 		method: "GET",
 		url: `/auto_router/classifier/default_prompt`,
 		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Preview Auto Router Classifier Prompt
+ * @description Get the system prompt an auto-router's LLM classifier sends for an edited tier set
+ * @link /auto_router/classifier/default_prompt
+ */
+export async function previewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPost(
+	{
+		body,
+		config,
+	}: {
+		body: PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostResponse,
+		ErrorWrapper<PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostStatus422>,
+		PreviewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/auto_router/classifier/default_prompt`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -20513,6 +20513,41 @@ export async function getTagDailyActivityTagDailyActivityGet(
 }
 
 /**
+ * @summary List Workflow Runs
+ * @description List workflow runs. Filter by workflow_type and/or status.
+ * Non-admin callers only see runs created by their own API key.
+ * @link /v1/workflows/runs
+ */
+export async function listWorkflowRunsV1WorkflowsRunsGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<ListWorkflowRunsV1WorkflowsRunsGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ListWorkflowRunsV1WorkflowsRunsGetResponse,
+		ErrorWrapper<ListWorkflowRunsV1WorkflowsRunsGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<ListWorkflowRunsV1WorkflowsRunsGetQuery>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/v1/workflows/runs`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Create Workflow Run
  * @description Create a new workflow run. Returns run_id and session_id.
  * The caller's API key token is stored as created_by so that non-admin keys
@@ -20541,41 +20576,6 @@ export async function createWorkflowRunV1WorkflowsRunsPost(
 		method: "POST",
 		url: `/v1/workflows/runs`,
 		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List Workflow Runs
- * @description List workflow runs. Filter by workflow_type and/or status.
- * Non-admin callers only see runs created by their own API key.
- * @link /v1/workflows/runs
- */
-export async function listWorkflowRunsV1WorkflowsRunsGet(
-	{
-		queryParams,
-		config,
-	}: {
-		queryParams?: Partial<ListWorkflowRunsV1WorkflowsRunsGetQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		ListWorkflowRunsV1WorkflowsRunsGetResponse,
-		ErrorWrapper<ListWorkflowRunsV1WorkflowsRunsGetStatus422>,
-		null,
-		Record<string, string>,
-		Partial<ListWorkflowRunsV1WorkflowsRunsGetQuery>,
-		Record<string, string>
-	>({
-		method: "GET",
-		url: `/v1/workflows/runs`,
-		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -20659,6 +20659,45 @@ export async function updateWorkflowRunV1WorkflowsRunsRunIdPatch(
 }
 
 /**
+ * @summary List Workflow Events
+ * @description Fetch event log for a run, ordered by sequence_number. Default limit 100, max 500.
+ * @link /v1/workflows/runs/{run_id}/events
+ */
+export async function listWorkflowEventsV1WorkflowsRunsRunIdEventsGet(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetPath;
+		queryParams?: Partial<ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.run_id == null || String(pathParams.run_id) === "") {
+		throw new Error(`Missing required path parameter: run_id`);
+	}
+	const data = await request<
+		ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetResponse,
+		ErrorWrapper<ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetQuery>,
+		ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetPath
+	>({
+		method: "GET",
+		url: `/v1/workflows/runs/${encodeURIComponent(String(pathParams.run_id))}/events`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Append Workflow Event
  * @description Append an event to the run's event log. Also updates run.status if event_type maps to a status.
  * Sequence numbers use optimistic concurrency: on a unique-constraint collision
@@ -20701,18 +20740,18 @@ export async function appendWorkflowEventV1WorkflowsRunsRunIdEventsPost(
 }
 
 /**
- * @summary List Workflow Events
- * @description Fetch event log for a run, ordered by sequence_number. Default limit 100, max 500.
- * @link /v1/workflows/runs/{run_id}/events
+ * @summary List Workflow Messages
+ * @description Fetch conversation history for a run, ordered by sequence_number. Default limit 100, max 500.
+ * @link /v1/workflows/runs/{run_id}/messages
  */
-export async function listWorkflowEventsV1WorkflowsRunsRunIdEventsGet(
+export async function listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGet(
 	{
 		pathParams,
 		queryParams,
 		config,
 	}: {
-		pathParams: ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetPath;
-		queryParams?: Partial<ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetQuery>;
+		pathParams: ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetPath;
+		queryParams?: Partial<ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -20722,15 +20761,15 @@ export async function listWorkflowEventsV1WorkflowsRunsRunIdEventsGet(
 		throw new Error(`Missing required path parameter: run_id`);
 	}
 	const data = await request<
-		ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetResponse,
-		ErrorWrapper<ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetStatus422>,
+		ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetResponse,
+		ErrorWrapper<ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetQuery>,
-		ListWorkflowEventsV1WorkflowsRunsRunIdEventsGetPath
+		Partial<ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetQuery>,
+		ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetPath
 	>({
 		method: "GET",
-		url: `/v1/workflows/runs/${encodeURIComponent(String(pathParams.run_id))}/events`,
+		url: `/v1/workflows/runs/${encodeURIComponent(String(pathParams.run_id))}/messages`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -20780,36 +20819,31 @@ export async function appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPost(
 }
 
 /**
- * @summary List Workflow Messages
- * @description Fetch conversation history for a run, ordered by sequence_number. Default limit 100, max 500.
- * @link /v1/workflows/runs/{run_id}/messages
+ * @summary List Memory
+ * @description List memory entries visible to the caller.
+ * @link /v1/memory
  */
-export async function listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGet(
+export async function listMemoryV1MemoryGet(
 	{
-		pathParams,
 		queryParams,
 		config,
 	}: {
-		pathParams: ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetPath;
-		queryParams?: Partial<ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetQuery>;
+		queryParams?: Partial<ListMemoryV1MemoryGetQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams?.run_id == null || String(pathParams.run_id) === "") {
-		throw new Error(`Missing required path parameter: run_id`);
-	}
 	const data = await request<
-		ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetResponse,
-		ErrorWrapper<ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetStatus422>,
+		ListMemoryV1MemoryGetResponse,
+		ErrorWrapper<ListMemoryV1MemoryGetStatus422>,
 		null,
 		Record<string, string>,
-		Partial<ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetQuery>,
-		ListWorkflowMessagesV1WorkflowsRunsRunIdMessagesGetPath
+		Partial<ListMemoryV1MemoryGetQuery>,
+		Record<string, string>
 	>({
 		method: "GET",
-		url: `/v1/workflows/runs/${encodeURIComponent(String(pathParams.run_id))}/messages`,
+		url: `/v1/memory`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -20845,40 +20879,6 @@ export async function createMemoryV1MemoryPost(
 		method: "POST",
 		url: `/v1/memory`,
 		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List Memory
- * @description List memory entries visible to the caller.
- * @link /v1/memory
- */
-export async function listMemoryV1MemoryGet(
-	{
-		queryParams,
-		config,
-	}: {
-		queryParams?: Partial<ListMemoryV1MemoryGetQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		ListMemoryV1MemoryGetResponse,
-		ErrorWrapper<ListMemoryV1MemoryGetStatus422>,
-		null,
-		Record<string, string>,
-		Partial<ListMemoryV1MemoryGetQuery>,
-		Record<string, string>
-	>({
-		method: "GET",
-		url: `/v1/memory`,
-		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -21029,76 +21029,6 @@ export async function serviceConnectionLensServiceGet(
  * @summary Lens Request
  * @link /lens/{path}
  */
-export async function lensRequestLensPathPost(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: LensRequestLensPathPostPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.path == null || String(pathParams.path) === "") {
-		throw new Error(`Missing required path parameter: path`);
-	}
-	const data = await request<
-		LensRequestLensPathPostResponse,
-		ErrorWrapper<LensRequestLensPathPostStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		LensRequestLensPathPostPath
-	>({
-		method: "POST",
-		url: `/lens/${String(pathParams.path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Lens Request
- * @link /lens/{path}
- */
-export async function lensRequestLensPathDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: LensRequestLensPathDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.path == null || String(pathParams.path) === "") {
-		throw new Error(`Missing required path parameter: path`);
-	}
-	const data = await request<
-		LensRequestLensPathDeleteResponse,
-		ErrorWrapper<LensRequestLensPathDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		LensRequestLensPathDeletePath
-	>({
-		method: "DELETE",
-		url: `/lens/${String(pathParams.path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Lens Request
- * @link /lens/{path}
- */
 export async function lensRequestLensPathGet(
 	{
 		pathParams,
@@ -21169,6 +21099,41 @@ export async function lensRequestLensPathPut(
  * @summary Lens Request
  * @link /lens/{path}
  */
+export async function lensRequestLensPathPost(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: LensRequestLensPathPostPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.path == null || String(pathParams.path) === "") {
+		throw new Error(`Missing required path parameter: path`);
+	}
+	const data = await request<
+		LensRequestLensPathPostResponse,
+		ErrorWrapper<LensRequestLensPathPostStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		LensRequestLensPathPostPath
+	>({
+		method: "POST",
+		url: `/lens/${String(pathParams.path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Lens Request
+ * @link /lens/{path}
+ */
 export async function lensRequestLensPathPatch(
 	{
 		pathParams,
@@ -21202,63 +21167,32 @@ export async function lensRequestLensPathPatch(
 
 /**
  * @summary Lens Request
- * @link /lens
+ * @link /lens/{path}
  */
-export async function lensRequestLensPost(
+export async function lensRequestLensPathDelete(
 	{
-		queryParams,
+		pathParams,
 		config,
 	}: {
-		queryParams?: Partial<LensRequestLensPostQuery>;
+		pathParams: LensRequestLensPathDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
+	if (pathParams?.path == null || String(pathParams.path) === "") {
+		throw new Error(`Missing required path parameter: path`);
+	}
 	const data = await request<
-		LensRequestLensPostResponse,
-		ErrorWrapper<LensRequestLensPostStatus422>,
+		LensRequestLensPathDeleteResponse,
+		ErrorWrapper<LensRequestLensPathDeleteStatus422>,
 		null,
 		Record<string, string>,
-		Partial<LensRequestLensPostQuery>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/lens`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Lens Request
- * @link /lens
- */
-export async function lensRequestLensDelete(
-	{
-		queryParams,
-		config,
-	}: {
-		queryParams?: Partial<LensRequestLensDeleteQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		LensRequestLensDeleteResponse,
-		ErrorWrapper<LensRequestLensDeleteStatus422>,
-		null,
 		Record<string, string>,
-		Partial<LensRequestLensDeleteQuery>,
-		Record<string, string>
+		LensRequestLensPathDeletePath
 	>({
 		method: "DELETE",
-		url: `/lens`,
-		queryParams,
+		url: `/lens/${String(pathParams.path).replace(/[^/%]+|%(?![0-9A-Fa-f]{2})/g, encodeURIComponent)}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -21336,6 +21270,39 @@ export async function lensRequestLensPut(
  * @summary Lens Request
  * @link /lens
  */
+export async function lensRequestLensPost(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<LensRequestLensPostQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		LensRequestLensPostResponse,
+		ErrorWrapper<LensRequestLensPostStatus422>,
+		null,
+		Record<string, string>,
+		Partial<LensRequestLensPostQuery>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/lens`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Lens Request
+ * @link /lens
+ */
 export async function lensRequestLensPatch(
 	{
 		queryParams,
@@ -21356,6 +21323,39 @@ export async function lensRequestLensPatch(
 		Record<string, string>
 	>({
 		method: "PATCH",
+		url: `/lens`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Lens Request
+ * @link /lens
+ */
+export async function lensRequestLensDelete(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<LensRequestLensDeleteQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		LensRequestLensDeleteResponse,
+		ErrorWrapper<LensRequestLensDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Partial<LensRequestLensDeleteQuery>,
+		Record<string, string>
+	>({
+		method: "DELETE",
 		url: `/lens`,
 		queryParams,
 		...requestConfig,
@@ -23932,6 +23932,33 @@ export async function proxyMcpRouteMcpProxyPost(
  * @description Serve the fixed three-tool MCP proxy surface.
  * @link /mcp/proxy
  */
+export async function proxyMcpRouteMcpProxyPatch(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ProxyMcpRouteMcpProxyPatchResponse,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "PATCH",
+		url: `/mcp/proxy`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Proxy Mcp Route
+ * @description Serve the fixed three-tool MCP proxy surface.
+ * @link /mcp/proxy
+ */
 export async function proxyMcpRouteMcpProxyDelete(
 	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
 ) {
@@ -23946,33 +23973,6 @@ export async function proxyMcpRouteMcpProxyDelete(
 		Record<string, string>
 	>({
 		method: "DELETE",
-		url: `/mcp/proxy`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Proxy Mcp Route
- * @description Serve the fixed three-tool MCP proxy surface.
- * @link /mcp/proxy
- */
-export async function proxyMcpRouteMcpProxyOptions(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		ProxyMcpRouteMcpProxyOptionsResponse,
-		ErrorWrapper<Error>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "OPTIONS",
 		url: `/mcp/proxy`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -24013,20 +24013,20 @@ export async function proxyMcpRouteMcpProxyHead(
  * @description Serve the fixed three-tool MCP proxy surface.
  * @link /mcp/proxy
  */
-export async function proxyMcpRouteMcpProxyPatch(
+export async function proxyMcpRouteMcpProxyOptions(
 	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	const data = await request<
-		ProxyMcpRouteMcpProxyPatchResponse,
+		ProxyMcpRouteMcpProxyOptionsResponse,
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
-		method: "PATCH",
+		method: "OPTIONS",
 		url: `/mcp/proxy`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -24129,20 +24129,20 @@ export async function aggregateMcpRouteMcpPost(
  * MCP clients behind TLS-terminating proxies.
  * @link /mcp
  */
-export async function aggregateMcpRouteMcpDelete(
+export async function aggregateMcpRouteMcpPatch(
 	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	const data = await request<
-		AggregateMcpRouteMcpDeleteResponse,
+		AggregateMcpRouteMcpPatchResponse,
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
-		method: "DELETE",
+		method: "PATCH",
 		url: `/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -24158,20 +24158,20 @@ export async function aggregateMcpRouteMcpDelete(
  * MCP clients behind TLS-terminating proxies.
  * @link /mcp
  */
-export async function aggregateMcpRouteMcpOptions(
+export async function aggregateMcpRouteMcpDelete(
 	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	const data = await request<
-		AggregateMcpRouteMcpOptionsResponse,
+		AggregateMcpRouteMcpDeleteResponse,
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
-		method: "OPTIONS",
+		method: "DELETE",
 		url: `/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -24216,181 +24216,21 @@ export async function aggregateMcpRouteMcpHead(
  * MCP clients behind TLS-terminating proxies.
  * @link /mcp
  */
-export async function aggregateMcpRouteMcpPatch(
+export async function aggregateMcpRouteMcpOptions(
 	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	const data = await request<
-		AggregateMcpRouteMcpPatchResponse,
+		AggregateMcpRouteMcpOptionsResponse,
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
 		Record<string, string>
 	>({
-		method: "PATCH",
-		url: `/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Toolset Mcp Route
- * @description Namespace a toolset as its own MCP endpoint.
- * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
- * @link /toolset/{toolset_name}/mcp
- */
-export async function toolsetMcpRouteToolsetToolsetNameMcpPost(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpPostPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
-		throw new Error(`Missing required path parameter: toolset_name`);
-	}
-	const data = await request<
-		ToolsetMcpRouteToolsetToolsetNameMcpPostResponse,
-		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ToolsetMcpRouteToolsetToolsetNameMcpPostPath
-	>({
-		method: "POST",
-		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Toolset Mcp Route
- * @description Namespace a toolset as its own MCP endpoint.
- * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
- * @link /toolset/{toolset_name}/mcp
- */
-export async function toolsetMcpRouteToolsetToolsetNameMcpOptions(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
-		throw new Error(`Missing required path parameter: toolset_name`);
-	}
-	const data = await request<
-		ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponse,
-		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath
-	>({
 		method: "OPTIONS",
-		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Toolset Mcp Route
- * @description Namespace a toolset as its own MCP endpoint.
- * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
- * @link /toolset/{toolset_name}/mcp
- */
-export async function toolsetMcpRouteToolsetToolsetNameMcpHead(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpHeadPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
-		throw new Error(`Missing required path parameter: toolset_name`);
-	}
-	const data = await request<
-		ToolsetMcpRouteToolsetToolsetNameMcpHeadResponse,
-		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ToolsetMcpRouteToolsetToolsetNameMcpHeadPath
-	>({
-		method: "HEAD",
-		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Toolset Mcp Route
- * @description Namespace a toolset as its own MCP endpoint.
- * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
- * @link /toolset/{toolset_name}/mcp
- */
-export async function toolsetMcpRouteToolsetToolsetNameMcpDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
-		throw new Error(`Missing required path parameter: toolset_name`);
-	}
-	const data = await request<
-		ToolsetMcpRouteToolsetToolsetNameMcpDeleteResponse,
-		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ToolsetMcpRouteToolsetToolsetNameMcpDeletePath
-	>({
-		method: "DELETE",
-		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
+		url: `/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -24487,6 +24327,46 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpPut(
  * will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
+export async function toolsetMcpRouteToolsetToolsetNameMcpPost(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpPostPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
+		throw new Error(`Missing required path parameter: toolset_name`);
+	}
+	const data = await request<
+		ToolsetMcpRouteToolsetToolsetNameMcpPostResponse,
+		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpPostStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		ToolsetMcpRouteToolsetToolsetNameMcpPostPath
+	>({
+		method: "POST",
+		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Toolset Mcp Route
+ * @description Namespace a toolset as its own MCP endpoint.
+ * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
+ * the toolset. Access is enforced: non-admin API keys must have the toolset
+ * listed in their object_permission.mcp_toolsets grant list, or the request
+ * will be rejected with a 403.
+ * @link /toolset/{toolset_name}/mcp
+ */
 export async function toolsetMcpRouteToolsetToolsetNameMcpPatch(
 	{
 		pathParams,
@@ -24519,162 +24399,118 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpPatch(
 }
 
 /**
- * @summary Dynamic Mcp Route
- * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
- * Resolution order:
- * 1. Registered MCP server alias / name
- * 2. Comma-separated list
- * 3. Toolset name (DB lookup, cached)
- * 4. MCP access group tag (DB lookup, cached)
- * @link /{mcp_server_name}/mcp
+ * @summary Toolset Mcp Route
+ * @description Namespace a toolset as its own MCP endpoint.
+ * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
+ * the toolset. Access is enforced: non-admin API keys must have the toolset
+ * listed in their object_permission.mcp_toolsets grant list, or the request
+ * will be rejected with a 403.
+ * @link /toolset/{toolset_name}/mcp
  */
-export async function dynamicMcpRouteMcpServerNameMcpPost(
+export async function toolsetMcpRouteToolsetToolsetNameMcpDelete(
 	{
 		pathParams,
 		config,
 	}: {
-		pathParams: DynamicMcpRouteMcpServerNameMcpPostPath;
+		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
-		throw new Error(`Missing required path parameter: mcp_server_name`);
+	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
+		throw new Error(`Missing required path parameter: toolset_name`);
 	}
 	const data = await request<
-		DynamicMcpRouteMcpServerNameMcpPostResponse,
-		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpPostStatus422>,
+		ToolsetMcpRouteToolsetToolsetNameMcpDeleteResponse,
+		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpDeleteStatus422>,
 		null,
 		Record<string, string>,
 		Record<string, string>,
-		DynamicMcpRouteMcpServerNameMcpPostPath
-	>({
-		method: "POST",
-		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Dynamic Mcp Route
- * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
- * Resolution order:
- * 1. Registered MCP server alias / name
- * 2. Comma-separated list
- * 3. Toolset name (DB lookup, cached)
- * 4. MCP access group tag (DB lookup, cached)
- * @link /{mcp_server_name}/mcp
- */
-export async function dynamicMcpRouteMcpServerNameMcpOptions(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DynamicMcpRouteMcpServerNameMcpOptionsPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
-		throw new Error(`Missing required path parameter: mcp_server_name`);
-	}
-	const data = await request<
-		DynamicMcpRouteMcpServerNameMcpOptionsResponse,
-		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpOptionsStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DynamicMcpRouteMcpServerNameMcpOptionsPath
-	>({
-		method: "OPTIONS",
-		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Dynamic Mcp Route
- * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
- * Resolution order:
- * 1. Registered MCP server alias / name
- * 2. Comma-separated list
- * 3. Toolset name (DB lookup, cached)
- * 4. MCP access group tag (DB lookup, cached)
- * @link /{mcp_server_name}/mcp
- */
-export async function dynamicMcpRouteMcpServerNameMcpHead(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DynamicMcpRouteMcpServerNameMcpHeadPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
-		throw new Error(`Missing required path parameter: mcp_server_name`);
-	}
-	const data = await request<
-		DynamicMcpRouteMcpServerNameMcpHeadResponse,
-		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpHeadStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DynamicMcpRouteMcpServerNameMcpHeadPath
-	>({
-		method: "HEAD",
-		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Dynamic Mcp Route
- * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
- * Resolution order:
- * 1. Registered MCP server alias / name
- * 2. Comma-separated list
- * 3. Toolset name (DB lookup, cached)
- * 4. MCP access group tag (DB lookup, cached)
- * @link /{mcp_server_name}/mcp
- */
-export async function dynamicMcpRouteMcpServerNameMcpDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DynamicMcpRouteMcpServerNameMcpDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
-		throw new Error(`Missing required path parameter: mcp_server_name`);
-	}
-	const data = await request<
-		DynamicMcpRouteMcpServerNameMcpDeleteResponse,
-		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DynamicMcpRouteMcpServerNameMcpDeletePath
+		ToolsetMcpRouteToolsetToolsetNameMcpDeletePath
 	>({
 		method: "DELETE",
-		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
+		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Toolset Mcp Route
+ * @description Namespace a toolset as its own MCP endpoint.
+ * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
+ * the toolset. Access is enforced: non-admin API keys must have the toolset
+ * listed in their object_permission.mcp_toolsets grant list, or the request
+ * will be rejected with a 403.
+ * @link /toolset/{toolset_name}/mcp
+ */
+export async function toolsetMcpRouteToolsetToolsetNameMcpHead(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpHeadPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
+		throw new Error(`Missing required path parameter: toolset_name`);
+	}
+	const data = await request<
+		ToolsetMcpRouteToolsetToolsetNameMcpHeadResponse,
+		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpHeadStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		ToolsetMcpRouteToolsetToolsetNameMcpHeadPath
+	>({
+		method: "HEAD",
+		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Toolset Mcp Route
+ * @description Namespace a toolset as its own MCP endpoint.
+ * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
+ * the toolset. Access is enforced: non-admin API keys must have the toolset
+ * listed in their object_permission.mcp_toolsets grant list, or the request
+ * will be rejected with a 403.
+ * @link /toolset/{toolset_name}/mcp
+ */
+export async function toolsetMcpRouteToolsetToolsetNameMcpOptions(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.toolset_name == null || String(pathParams.toolset_name) === "") {
+		throw new Error(`Missing required path parameter: toolset_name`);
+	}
+	const data = await request<
+		ToolsetMcpRouteToolsetToolsetNameMcpOptionsResponse,
+		ErrorWrapper<ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath
+	>({
+		method: "OPTIONS",
+		url: `/toolset/${encodeURIComponent(String(pathParams.toolset_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -24774,6 +24610,47 @@ export async function dynamicMcpRouteMcpServerNameMcpPut(
  * 4. MCP access group tag (DB lookup, cached)
  * @link /{mcp_server_name}/mcp
  */
+export async function dynamicMcpRouteMcpServerNameMcpPost(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DynamicMcpRouteMcpServerNameMcpPostPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
+		throw new Error(`Missing required path parameter: mcp_server_name`);
+	}
+	const data = await request<
+		DynamicMcpRouteMcpServerNameMcpPostResponse,
+		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpPostStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DynamicMcpRouteMcpServerNameMcpPostPath
+	>({
+		method: "POST",
+		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Dynamic Mcp Route
+ * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
+ * Resolution order:
+ * 1. Registered MCP server alias / name
+ * 2. Comma-separated list
+ * 3. Toolset name (DB lookup, cached)
+ * 4. MCP access group tag (DB lookup, cached)
+ * @link /{mcp_server_name}/mcp
+ */
 export async function dynamicMcpRouteMcpServerNameMcpPatch(
 	{
 		pathParams,
@@ -24797,6 +24674,129 @@ export async function dynamicMcpRouteMcpServerNameMcpPatch(
 		DynamicMcpRouteMcpServerNameMcpPatchPath
 	>({
 		method: "PATCH",
+		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Dynamic Mcp Route
+ * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
+ * Resolution order:
+ * 1. Registered MCP server alias / name
+ * 2. Comma-separated list
+ * 3. Toolset name (DB lookup, cached)
+ * 4. MCP access group tag (DB lookup, cached)
+ * @link /{mcp_server_name}/mcp
+ */
+export async function dynamicMcpRouteMcpServerNameMcpDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DynamicMcpRouteMcpServerNameMcpDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
+		throw new Error(`Missing required path parameter: mcp_server_name`);
+	}
+	const data = await request<
+		DynamicMcpRouteMcpServerNameMcpDeleteResponse,
+		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DynamicMcpRouteMcpServerNameMcpDeletePath
+	>({
+		method: "DELETE",
+		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Dynamic Mcp Route
+ * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
+ * Resolution order:
+ * 1. Registered MCP server alias / name
+ * 2. Comma-separated list
+ * 3. Toolset name (DB lookup, cached)
+ * 4. MCP access group tag (DB lookup, cached)
+ * @link /{mcp_server_name}/mcp
+ */
+export async function dynamicMcpRouteMcpServerNameMcpHead(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DynamicMcpRouteMcpServerNameMcpHeadPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
+		throw new Error(`Missing required path parameter: mcp_server_name`);
+	}
+	const data = await request<
+		DynamicMcpRouteMcpServerNameMcpHeadResponse,
+		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpHeadStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DynamicMcpRouteMcpServerNameMcpHeadPath
+	>({
+		method: "HEAD",
+		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Dynamic Mcp Route
+ * @description Handle /{name}/mcp for MCP server aliases, toolsets, MCP access group tags, and comma-separated lists.
+ * Resolution order:
+ * 1. Registered MCP server alias / name
+ * 2. Comma-separated list
+ * 3. Toolset name (DB lookup, cached)
+ * 4. MCP access group tag (DB lookup, cached)
+ * @link /{mcp_server_name}/mcp
+ */
+export async function dynamicMcpRouteMcpServerNameMcpOptions(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DynamicMcpRouteMcpServerNameMcpOptionsPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.mcp_server_name == null || String(pathParams.mcp_server_name) === "") {
+		throw new Error(`Missing required path parameter: mcp_server_name`);
+	}
+	const data = await request<
+		DynamicMcpRouteMcpServerNameMcpOptionsResponse,
+		ErrorWrapper<DynamicMcpRouteMcpServerNameMcpOptionsStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DynamicMcpRouteMcpServerNameMcpOptionsPath
+	>({
+		method: "OPTIONS",
 		url: `/${encodeURIComponent(String(pathParams.mcp_server_name))}/mcp`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -25814,54 +25814,6 @@ export async function validateBlockedWordsFileGuardrailsValidateBlockedWordsFile
 }
 
 /**
- * @summary Delete Guardrail
- * @description Delete a guardrail
- * 👉 [Guardrail docs](https://docs.litellm.ai/docs/proxy/guardrails/quick_start)
- * Example Request:
- * ```bash
- * curl -X DELETE "http://localhost:4000/guardrails/123e4567-e89b-12d3-a456-426614174000" \
- *     -H "Authorization: Bearer <your_api_key>"
- * ```
- * Example Response:
- * ```json
- * {
- *     "message": "Guardrail 123e4567-e89b-12d3-a456-426614174000 deleted successfully"
- * }
- * ```
- * @link /guardrails/{guardrail_id}
- */
-export async function deleteGuardrailGuardrailsGuardrailIdDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DeleteGuardrailGuardrailsGuardrailIdDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.guardrail_id == null || String(pathParams.guardrail_id) === "") {
-		throw new Error(`Missing required path parameter: guardrail_id`);
-	}
-	const data = await request<
-		DeleteGuardrailGuardrailsGuardrailIdDeleteResponse,
-		ErrorWrapper<DeleteGuardrailGuardrailsGuardrailIdDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DeleteGuardrailGuardrailsGuardrailIdDeletePath
-	>({
-		method: "DELETE",
-		url: `/guardrails/${encodeURIComponent(String(pathParams.guardrail_id))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Get Guardrail Info
  * @description Get detailed information about a specific guardrail by ID
  * 👉 [Guardrail docs](https://docs.litellm.ai/docs/proxy/guardrails/quick_start)
@@ -25915,6 +25867,86 @@ export async function getGuardrailInfoGuardrailsGuardrailIdGet(
 	>({
 		method: "GET",
 		url: `/guardrails/${encodeURIComponent(String(pathParams.guardrail_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Guardrail
+ * @description Update an existing guardrail
+ * 👉 [Guardrail docs](https://docs.litellm.ai/docs/proxy/guardrails/quick_start)
+ * Example Request:
+ * ```bash
+ * curl -X PUT "http://localhost:4000/guardrails/123e4567-e89b-12d3-a456-426614174000" \
+ *     -H "Authorization: Bearer <your_api_key>" \
+ *     -H "Content-Type: application/json" \
+ *     -d '{
+ *         "guardrail": {
+ *             "guardrail_name": "updated-bedrock-guard",
+ *             "litellm_params": {
+ *                 "guardrail": "bedrock",
+ *                 "mode": "pre_call",
+ *                 "guardrailIdentifier": "ff6ujrregl1q",
+ *                 "guardrailVersion": "1.0",
+ *                 "default_on": true
+ *             },
+ *             "guardrail_info": {
+ *                 "description": "Updated Bedrock content moderation guardrail"
+ *             }
+ *         }
+ *     }'
+ * ```
+ * Example Response:
+ * ```json
+ * {
+ *     "guardrail_id": "123e4567-e89b-12d3-a456-426614174000",
+ *     "guardrail_name": "updated-bedrock-guard",
+ *     "litellm_params": {
+ *         "guardrail": "bedrock",
+ *         "mode": "pre_call",
+ *         "guardrailIdentifier": "ff6ujrregl1q",
+ *         "guardrailVersion": "1.0",
+ *         "default_on": true
+ *     },
+ *     "guardrail_info": {
+ *         "description": "Updated Bedrock content moderation guardrail"
+ *     },
+ *     "created_at": "2023-11-09T12:34:56.789Z",
+ *     "updated_at": "2023-11-09T13:45:12.345Z"
+ * }
+ * ```
+ * @link /guardrails/{guardrail_id}
+ */
+export async function updateGuardrailGuardrailsGuardrailIdPut(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: UpdateGuardrailGuardrailsGuardrailIdPutPath;
+		body: UpdateGuardrailGuardrailsGuardrailIdPutBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.guardrail_id == null || String(pathParams.guardrail_id) === "") {
+		throw new Error(`Missing required path parameter: guardrail_id`);
+	}
+	const data = await request<
+		UpdateGuardrailGuardrailsGuardrailIdPutResponse,
+		ErrorWrapper<UpdateGuardrailGuardrailsGuardrailIdPutStatus422>,
+		UpdateGuardrailGuardrailsGuardrailIdPutBody,
+		Record<string, string>,
+		Record<string, string>,
+		UpdateGuardrailGuardrailsGuardrailIdPutPath
+	>({
+		method: "PUT",
+		url: `/guardrails/${encodeURIComponent(String(pathParams.guardrail_id))}`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -26000,59 +26032,28 @@ export async function patchGuardrailGuardrailsGuardrailIdPatch(
 }
 
 /**
- * @summary Update Guardrail
- * @description Update an existing guardrail
+ * @summary Delete Guardrail
+ * @description Delete a guardrail
  * 👉 [Guardrail docs](https://docs.litellm.ai/docs/proxy/guardrails/quick_start)
  * Example Request:
  * ```bash
- * curl -X PUT "http://localhost:4000/guardrails/123e4567-e89b-12d3-a456-426614174000" \
- *     -H "Authorization: Bearer <your_api_key>" \
- *     -H "Content-Type: application/json" \
- *     -d '{
- *         "guardrail": {
- *             "guardrail_name": "updated-bedrock-guard",
- *             "litellm_params": {
- *                 "guardrail": "bedrock",
- *                 "mode": "pre_call",
- *                 "guardrailIdentifier": "ff6ujrregl1q",
- *                 "guardrailVersion": "1.0",
- *                 "default_on": true
- *             },
- *             "guardrail_info": {
- *                 "description": "Updated Bedrock content moderation guardrail"
- *             }
- *         }
- *     }'
+ * curl -X DELETE "http://localhost:4000/guardrails/123e4567-e89b-12d3-a456-426614174000" \
+ *     -H "Authorization: Bearer <your_api_key>"
  * ```
  * Example Response:
  * ```json
  * {
- *     "guardrail_id": "123e4567-e89b-12d3-a456-426614174000",
- *     "guardrail_name": "updated-bedrock-guard",
- *     "litellm_params": {
- *         "guardrail": "bedrock",
- *         "mode": "pre_call",
- *         "guardrailIdentifier": "ff6ujrregl1q",
- *         "guardrailVersion": "1.0",
- *         "default_on": true
- *     },
- *     "guardrail_info": {
- *         "description": "Updated Bedrock content moderation guardrail"
- *     },
- *     "created_at": "2023-11-09T12:34:56.789Z",
- *     "updated_at": "2023-11-09T13:45:12.345Z"
+ *     "message": "Guardrail 123e4567-e89b-12d3-a456-426614174000 deleted successfully"
  * }
  * ```
  * @link /guardrails/{guardrail_id}
  */
-export async function updateGuardrailGuardrailsGuardrailIdPut(
+export async function deleteGuardrailGuardrailsGuardrailIdDelete(
 	{
 		pathParams,
-		body,
 		config,
 	}: {
-		pathParams: UpdateGuardrailGuardrailsGuardrailIdPutPath;
-		body: UpdateGuardrailGuardrailsGuardrailIdPutBody;
+		pathParams: DeleteGuardrailGuardrailsGuardrailIdDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -26062,16 +26063,15 @@ export async function updateGuardrailGuardrailsGuardrailIdPut(
 		throw new Error(`Missing required path parameter: guardrail_id`);
 	}
 	const data = await request<
-		UpdateGuardrailGuardrailsGuardrailIdPutResponse,
-		ErrorWrapper<UpdateGuardrailGuardrailsGuardrailIdPutStatus422>,
-		UpdateGuardrailGuardrailsGuardrailIdPutBody,
+		DeleteGuardrailGuardrailsGuardrailIdDeleteResponse,
+		ErrorWrapper<DeleteGuardrailGuardrailsGuardrailIdDeleteStatus422>,
+		null,
 		Record<string, string>,
 		Record<string, string>,
-		UpdateGuardrailGuardrailsGuardrailIdPutPath
+		DeleteGuardrailGuardrailsGuardrailIdDeletePath
 	>({
-		method: "PUT",
+		method: "DELETE",
 		url: `/guardrails/${encodeURIComponent(String(pathParams.guardrail_id))}`,
-		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -26852,6 +26852,47 @@ export async function listPolicyAttachmentsPoliciesAttachmentsListGet(
 }
 
 /**
+ * @summary Get Policy Attachment
+ * @description Get a policy attachment by ID.
+ * Example Request:
+ * ```bash
+ * curl -X GET "http://localhost:4000/policies/attachments/123e4567-e89b-12d3-a456-426614174000" \
+ *     -H "Authorization: Bearer <your_api_key>"
+ * ```
+ * @link /policies/attachments/{attachment_id}
+ */
+export async function getPolicyAttachmentPoliciesAttachmentsAttachmentIdGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetPolicyAttachmentPoliciesAttachmentsAttachmentIdGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.attachment_id == null || String(pathParams.attachment_id) === "") {
+		throw new Error(`Missing required path parameter: attachment_id`);
+	}
+	const data = await request<
+		GetPolicyAttachmentPoliciesAttachmentsAttachmentIdGetResponse,
+		ErrorWrapper<GetPolicyAttachmentPoliciesAttachmentsAttachmentIdGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetPolicyAttachmentPoliciesAttachmentsAttachmentIdGetPath
+	>({
+		method: "GET",
+		url: `/policies/attachments/${encodeURIComponent(String(pathParams.attachment_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Delete Policy Attachment
  * @description Delete a policy attachment.
  * Example Request:
@@ -26890,47 +26931,6 @@ export async function deletePolicyAttachmentPoliciesAttachmentsAttachmentIdDelet
 		DeletePolicyAttachmentPoliciesAttachmentsAttachmentIdDeletePath
 	>({
 		method: "DELETE",
-		url: `/policies/attachments/${encodeURIComponent(String(pathParams.attachment_id))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Get Policy Attachment
- * @description Get a policy attachment by ID.
- * Example Request:
- * ```bash
- * curl -X GET "http://localhost:4000/policies/attachments/123e4567-e89b-12d3-a456-426614174000" \
- *     -H "Authorization: Bearer <your_api_key>"
- * ```
- * @link /policies/attachments/{attachment_id}
- */
-export async function getPolicyAttachmentPoliciesAttachmentsAttachmentIdGet(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: GetPolicyAttachmentPoliciesAttachmentsAttachmentIdGetPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.attachment_id == null || String(pathParams.attachment_id) === "") {
-		throw new Error(`Missing required path parameter: attachment_id`);
-	}
-	const data = await request<
-		GetPolicyAttachmentPoliciesAttachmentsAttachmentIdGetResponse,
-		ErrorWrapper<GetPolicyAttachmentPoliciesAttachmentsAttachmentIdGetStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		GetPolicyAttachmentPoliciesAttachmentsAttachmentIdGetPath
-	>({
-		method: "GET",
 		url: `/policies/attachments/${encodeURIComponent(String(pathParams.attachment_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -27257,53 +27257,6 @@ export async function testPipelinePoliciesTestPipelinePost(
 }
 
 /**
- * @summary Delete Policy
- * @description Delete a policy.
- * Example Request:
- * ```bash
- * curl -X DELETE "http://localhost:4000/policies/123e4567-e89b-12d3-a456-426614174000" \
- *     -H "Authorization: Bearer <your_api_key>"
- * ```
- * Example Response:
- * ```json
- * {
- *     "message": "Policy 123e4567-e89b-12d3-a456-426614174000 deleted successfully"
- * }
- * ```
- * @link /policies/{policy_id}
- */
-export async function deletePolicyPoliciesPolicyIdDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DeletePolicyPoliciesPolicyIdDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.policy_id == null || String(pathParams.policy_id) === "") {
-		throw new Error(`Missing required path parameter: policy_id`);
-	}
-	const data = await request<
-		DeletePolicyPoliciesPolicyIdDeleteResponse,
-		ErrorWrapper<DeletePolicyPoliciesPolicyIdDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DeletePolicyPoliciesPolicyIdDeletePath
-	>({
-		method: "DELETE",
-		url: `/policies/${encodeURIComponent(String(pathParams.policy_id))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Get Policy
  * @description Get a policy by ID.
  * Example Request:
@@ -27386,6 +27339,53 @@ export async function updatePolicyPoliciesPolicyIdPut(
 		method: "PUT",
 		url: `/policies/${encodeURIComponent(String(pathParams.policy_id))}`,
 		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Policy
+ * @description Delete a policy.
+ * Example Request:
+ * ```bash
+ * curl -X DELETE "http://localhost:4000/policies/123e4567-e89b-12d3-a456-426614174000" \
+ *     -H "Authorization: Bearer <your_api_key>"
+ * ```
+ * Example Response:
+ * ```json
+ * {
+ *     "message": "Policy 123e4567-e89b-12d3-a456-426614174000 deleted successfully"
+ * }
+ * ```
+ * @link /policies/{policy_id}
+ */
+export async function deletePolicyPoliciesPolicyIdDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DeletePolicyPoliciesPolicyIdDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.policy_id == null || String(pathParams.policy_id) === "") {
+		throw new Error(`Missing required path parameter: policy_id`);
+	}
+	const data = await request<
+		DeletePolicyPoliciesPolicyIdDeleteResponse,
+		ErrorWrapper<DeletePolicyPoliciesPolicyIdDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DeletePolicyPoliciesPolicyIdDeletePath
+	>({
+		method: "DELETE",
+		url: `/policies/${encodeURIComponent(String(pathParams.policy_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -27715,53 +27715,6 @@ export async function makeAgentsPublicV1AgentsMakePublicPost(
 }
 
 /**
- * @summary Delete Agent
- * @description Delete an agent
- * Example Request:
- * ```bash
- * curl -X DELETE "http://localhost:4000/v1/agents/123e4567-e89b-12d3-a456-426614174000" \
- *     -H "Authorization: Bearer <your_api_key>"
- * ```
- * Example Response:
- * ```json
- * {
- *     "message": "Agent 123e4567-e89b-12d3-a456-426614174000 deleted successfully"
- * }
- * ```
- * @link /v1/agents/{agent_id}
- */
-export async function deleteAgentV1AgentsAgentIdDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DeleteAgentV1AgentsAgentIdDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.agent_id == null || String(pathParams.agent_id) === "") {
-		throw new Error(`Missing required path parameter: agent_id`);
-	}
-	const data = await request<
-		DeleteAgentV1AgentsAgentIdDeleteResponse,
-		ErrorWrapper<DeleteAgentV1AgentsAgentIdDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DeleteAgentV1AgentsAgentIdDeletePath
-	>({
-		method: "DELETE",
-		url: `/v1/agents/${encodeURIComponent(String(pathParams.agent_id))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Get Agent By Id
  * @description Get a specific agent by ID
  * Example Request:
@@ -27795,6 +27748,70 @@ export async function getAgentByIdV1AgentsAgentIdGet(
 	>({
 		method: "GET",
 		url: `/v1/agents/${encodeURIComponent(String(pathParams.agent_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Agent
+ * @description Update an existing agent
+ * Example Request:
+ * ```bash
+ * curl -X PUT "http://localhost:4000/v1/agents/123e4567-e89b-12d3-a456-426614174000" \
+ *     -H "Authorization: Bearer <your_api_key>" \
+ *     -H "Content-Type: application/json" \
+ *     -d '{
+ *         "agent_name": "updated-agent",
+ *         "agent_card_params": {
+ *             "protocolVersion": "1.0",
+ *             "name": "Updated Agent",
+ *             "description": "Updated description",
+ *             "url": "http://localhost:9999/",
+ *             "version": "1.1.0",
+ *             "defaultInputModes": ["text"],
+ *             "defaultOutputModes": ["text"],
+ *             "capabilities": {
+ *                 "streaming": true
+ *             },
+ *             "skills": []
+ *         },
+ *         "litellm_params": {
+ *             "make_public": false
+ *         }
+ *     }'
+ * ```
+ * @link /v1/agents/{agent_id}
+ */
+export async function updateAgentV1AgentsAgentIdPut(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: UpdateAgentV1AgentsAgentIdPutPath;
+		body: UpdateAgentV1AgentsAgentIdPutBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.agent_id == null || String(pathParams.agent_id) === "") {
+		throw new Error(`Missing required path parameter: agent_id`);
+	}
+	const data = await request<
+		UpdateAgentV1AgentsAgentIdPutResponse,
+		ErrorWrapper<UpdateAgentV1AgentsAgentIdPutStatus422>,
+		UpdateAgentV1AgentsAgentIdPutBody,
+		Record<string, string>,
+		Record<string, string>,
+		UpdateAgentV1AgentsAgentIdPutPath
+	>({
+		method: "PUT",
+		url: `/v1/agents/${encodeURIComponent(String(pathParams.agent_id))}`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -27867,43 +27884,27 @@ export async function patchAgentV1AgentsAgentIdPatch(
 }
 
 /**
- * @summary Update Agent
- * @description Update an existing agent
+ * @summary Delete Agent
+ * @description Delete an agent
  * Example Request:
  * ```bash
- * curl -X PUT "http://localhost:4000/v1/agents/123e4567-e89b-12d3-a456-426614174000" \
- *     -H "Authorization: Bearer <your_api_key>" \
- *     -H "Content-Type: application/json" \
- *     -d '{
- *         "agent_name": "updated-agent",
- *         "agent_card_params": {
- *             "protocolVersion": "1.0",
- *             "name": "Updated Agent",
- *             "description": "Updated description",
- *             "url": "http://localhost:9999/",
- *             "version": "1.1.0",
- *             "defaultInputModes": ["text"],
- *             "defaultOutputModes": ["text"],
- *             "capabilities": {
- *                 "streaming": true
- *             },
- *             "skills": []
- *         },
- *         "litellm_params": {
- *             "make_public": false
- *         }
- *     }'
+ * curl -X DELETE "http://localhost:4000/v1/agents/123e4567-e89b-12d3-a456-426614174000" \
+ *     -H "Authorization: Bearer <your_api_key>"
+ * ```
+ * Example Response:
+ * ```json
+ * {
+ *     "message": "Agent 123e4567-e89b-12d3-a456-426614174000 deleted successfully"
+ * }
  * ```
  * @link /v1/agents/{agent_id}
  */
-export async function updateAgentV1AgentsAgentIdPut(
+export async function deleteAgentV1AgentsAgentIdDelete(
 	{
 		pathParams,
-		body,
 		config,
 	}: {
-		pathParams: UpdateAgentV1AgentsAgentIdPutPath;
-		body: UpdateAgentV1AgentsAgentIdPutBody;
+		pathParams: DeleteAgentV1AgentsAgentIdDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -27913,16 +27914,15 @@ export async function updateAgentV1AgentsAgentIdPut(
 		throw new Error(`Missing required path parameter: agent_id`);
 	}
 	const data = await request<
-		UpdateAgentV1AgentsAgentIdPutResponse,
-		ErrorWrapper<UpdateAgentV1AgentsAgentIdPutStatus422>,
-		UpdateAgentV1AgentsAgentIdPutBody,
+		DeleteAgentV1AgentsAgentIdDeleteResponse,
+		ErrorWrapper<DeleteAgentV1AgentsAgentIdDeleteStatus422>,
+		null,
 		Record<string, string>,
 		Record<string, string>,
-		UpdateAgentV1AgentsAgentIdPutPath
+		DeleteAgentV1AgentsAgentIdDeletePath
 	>({
-		method: "PUT",
+		method: "DELETE",
 		url: `/v1/agents/${encodeURIComponent(String(pathParams.agent_id))}`,
-		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -28148,50 +28148,6 @@ export async function createGeminiAgentV1BetaAgentsPost(
 }
 
 /**
- * @summary Delete Gemini Agent
- * @description Delete a custom agent by name.
- * Pass per-request Gemini credentials via the JSON-encoded
- * ``litellm_params_template`` query parameter. Flat query parameters
- * (e.g. ``?api_key=AIza...``) are intentionally ignored — see
- * ``_merge_query_params_into_data`` for the rationale.
- * ```bash
- * curl -X DELETE "http://localhost:4000/v1beta/agents/my-custom-slides-agent?litellm_params_template=%7B%22api_key%22%3A%22AIza...%22%7D" \
- *     -H "Authorization: Bearer sk-..."
- * ```
- * @link /v1beta/agents/{name}
- */
-export async function deleteGeminiAgentV1BetaAgentsNameDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DeleteGeminiAgentV1BetaAgentsNameDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.name == null || String(pathParams.name) === "") {
-		throw new Error(`Missing required path parameter: name`);
-	}
-	const data = await request<
-		DeleteGeminiAgentV1BetaAgentsNameDeleteResponse,
-		ErrorWrapper<DeleteGeminiAgentV1BetaAgentsNameDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DeleteGeminiAgentV1BetaAgentsNameDeletePath
-	>({
-		method: "DELETE",
-		url: `/v1beta/agents/${encodeURIComponent(String(pathParams.name))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Get Gemini Agent
  * @description Get a specific custom agent by name.
  * Pass per-request Gemini credentials via the JSON-encoded
@@ -28227,6 +28183,50 @@ export async function getGeminiAgentV1BetaAgentsNameGet(
 		GetGeminiAgentV1BetaAgentsNameGetPath
 	>({
 		method: "GET",
+		url: `/v1beta/agents/${encodeURIComponent(String(pathParams.name))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Gemini Agent
+ * @description Delete a custom agent by name.
+ * Pass per-request Gemini credentials via the JSON-encoded
+ * ``litellm_params_template`` query parameter. Flat query parameters
+ * (e.g. ``?api_key=AIza...``) are intentionally ignored — see
+ * ``_merge_query_params_into_data`` for the rationale.
+ * ```bash
+ * curl -X DELETE "http://localhost:4000/v1beta/agents/my-custom-slides-agent?litellm_params_template=%7B%22api_key%22%3A%22AIza...%22%7D" \
+ *     -H "Authorization: Bearer sk-..."
+ * ```
+ * @link /v1beta/agents/{name}
+ */
+export async function deleteGeminiAgentV1BetaAgentsNameDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DeleteGeminiAgentV1BetaAgentsNameDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.name == null || String(pathParams.name) === "") {
+		throw new Error(`Missing required path parameter: name`);
+	}
+	const data = await request<
+		DeleteGeminiAgentV1BetaAgentsNameDeleteResponse,
+		ErrorWrapper<DeleteGeminiAgentV1BetaAgentsNameDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DeleteGeminiAgentV1BetaAgentsNameDeletePath
+	>({
+		method: "DELETE",
 		url: `/v1beta/agents/${encodeURIComponent(String(pathParams.name))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -28668,44 +28668,6 @@ export async function vectorStoreCreateV1VectorStoresPost(
 }
 
 /**
- * @summary Vector Store Delete
- * @description Delete a vector store.
- * API Reference:
- * https://platform.openai.com/docs/api-reference/vector-stores/delete
- * @link /v1/vector_stores/{vector_store_id}
- */
-export async function vectorStoreDeleteV1VectorStoresVectorStoreIdDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: VectorStoreDeleteV1VectorStoresVectorStoreIdDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.vector_store_id == null || String(pathParams.vector_store_id) === "") {
-		throw new Error(`Missing required path parameter: vector_store_id`);
-	}
-	const data = await request<
-		VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteResponse,
-		ErrorWrapper<VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		VectorStoreDeleteV1VectorStoresVectorStoreIdDeletePath
-	>({
-		method: "DELETE",
-		url: `/v1/vector_stores/${encodeURIComponent(String(pathParams.vector_store_id))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Vector Store Retrieve
  * @description Retrieve a vector store.
  * API Reference:
@@ -28773,6 +28735,44 @@ export async function vectorStoreUpdateV1VectorStoresVectorStoreIdPost(
 		VectorStoreUpdateV1VectorStoresVectorStoreIdPostPath
 	>({
 		method: "POST",
+		url: `/v1/vector_stores/${encodeURIComponent(String(pathParams.vector_store_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Vector Store Delete
+ * @description Delete a vector store.
+ * API Reference:
+ * https://platform.openai.com/docs/api-reference/vector-stores/delete
+ * @link /v1/vector_stores/{vector_store_id}
+ */
+export async function vectorStoreDeleteV1VectorStoresVectorStoreIdDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: VectorStoreDeleteV1VectorStoresVectorStoreIdDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.vector_store_id == null || String(pathParams.vector_store_id) === "") {
+		throw new Error(`Missing required path parameter: vector_store_id`);
+	}
+	const data = await request<
+		VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteResponse,
+		ErrorWrapper<VectorStoreDeleteV1VectorStoresVectorStoreIdDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		VectorStoreDeleteV1VectorStoresVectorStoreIdDeletePath
+	>({
+		method: "DELETE",
 		url: `/v1/vector_stores/${encodeURIComponent(String(pathParams.vector_store_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -28852,45 +28852,6 @@ export async function vectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPost(
 }
 
 /**
- * @summary Vector Store File Delete
- * @link /v1/vector_stores/{vector_store_id}/files/{file_id}
- */
-export async function vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.vector_store_id == null || String(pathParams.vector_store_id) === "") {
-		throw new Error(`Missing required path parameter: vector_store_id`);
-	}
-
-	if (pathParams?.file_id == null || String(pathParams.file_id) === "") {
-		throw new Error(`Missing required path parameter: file_id`);
-	}
-	const data = await request<
-		VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteResponse,
-		ErrorWrapper<VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeletePath
-	>({
-		method: "DELETE",
-		url: `/v1/vector_stores/${encodeURIComponent(String(pathParams.vector_store_id))}/files/${encodeURIComponent(String(pathParams.file_id))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Vector Store File Retrieve
  * @link /v1/vector_stores/{vector_store_id}/files/{file_id}
  */
@@ -28960,6 +28921,45 @@ export async function vectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileI
 		VectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPostPath
 	>({
 		method: "POST",
+		url: `/v1/vector_stores/${encodeURIComponent(String(pathParams.vector_store_id))}/files/${encodeURIComponent(String(pathParams.file_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Vector Store File Delete
+ * @link /v1/vector_stores/{vector_store_id}/files/{file_id}
+ */
+export async function vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.vector_store_id == null || String(pathParams.vector_store_id) === "") {
+		throw new Error(`Missing required path parameter: vector_store_id`);
+	}
+
+	if (pathParams?.file_id == null || String(pathParams.file_id) === "") {
+		throw new Error(`Missing required path parameter: file_id`);
+	}
+	const data = await request<
+		VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteResponse,
+		ErrorWrapper<VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		VectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDeletePath
+	>({
+		method: "DELETE",
 		url: `/v1/vector_stores/${encodeURIComponent(String(pathParams.vector_store_id))}/files/${encodeURIComponent(String(pathParams.file_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -29118,44 +29118,6 @@ export async function vectorStoreCreateVectorStoresPost(
 }
 
 /**
- * @summary Vector Store Delete
- * @description Delete a vector store.
- * API Reference:
- * https://platform.openai.com/docs/api-reference/vector-stores/delete
- * @link /vector_stores/{vector_store_id}
- */
-export async function vectorStoreDeleteVectorStoresVectorStoreIdDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: VectorStoreDeleteVectorStoresVectorStoreIdDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.vector_store_id == null || String(pathParams.vector_store_id) === "") {
-		throw new Error(`Missing required path parameter: vector_store_id`);
-	}
-	const data = await request<
-		VectorStoreDeleteVectorStoresVectorStoreIdDeleteResponse,
-		ErrorWrapper<VectorStoreDeleteVectorStoresVectorStoreIdDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		VectorStoreDeleteVectorStoresVectorStoreIdDeletePath
-	>({
-		method: "DELETE",
-		url: `/vector_stores/${encodeURIComponent(String(pathParams.vector_store_id))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Vector Store Retrieve
  * @description Retrieve a vector store.
  * API Reference:
@@ -29223,6 +29185,44 @@ export async function vectorStoreUpdateVectorStoresVectorStoreIdPost(
 		VectorStoreUpdateVectorStoresVectorStoreIdPostPath
 	>({
 		method: "POST",
+		url: `/vector_stores/${encodeURIComponent(String(pathParams.vector_store_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Vector Store Delete
+ * @description Delete a vector store.
+ * API Reference:
+ * https://platform.openai.com/docs/api-reference/vector-stores/delete
+ * @link /vector_stores/{vector_store_id}
+ */
+export async function vectorStoreDeleteVectorStoresVectorStoreIdDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: VectorStoreDeleteVectorStoresVectorStoreIdDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.vector_store_id == null || String(pathParams.vector_store_id) === "") {
+		throw new Error(`Missing required path parameter: vector_store_id`);
+	}
+	const data = await request<
+		VectorStoreDeleteVectorStoresVectorStoreIdDeleteResponse,
+		ErrorWrapper<VectorStoreDeleteVectorStoresVectorStoreIdDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		VectorStoreDeleteVectorStoresVectorStoreIdDeletePath
+	>({
+		method: "DELETE",
 		url: `/vector_stores/${encodeURIComponent(String(pathParams.vector_store_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -29302,45 +29302,6 @@ export async function vectorStoreFileCreateVectorStoresVectorStoreIdFilesPost(
 }
 
 /**
- * @summary Vector Store File Delete
- * @link /vector_stores/{vector_store_id}/files/{file_id}
- */
-export async function vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.vector_store_id == null || String(pathParams.vector_store_id) === "") {
-		throw new Error(`Missing required path parameter: vector_store_id`);
-	}
-
-	if (pathParams?.file_id == null || String(pathParams.file_id) === "") {
-		throw new Error(`Missing required path parameter: file_id`);
-	}
-	const data = await request<
-		VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteResponse,
-		ErrorWrapper<VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeletePath
-	>({
-		method: "DELETE",
-		url: `/vector_stores/${encodeURIComponent(String(pathParams.vector_store_id))}/files/${encodeURIComponent(String(pathParams.file_id))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Vector Store File Retrieve
  * @link /vector_stores/{vector_store_id}/files/{file_id}
  */
@@ -29410,6 +29371,45 @@ export async function vectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdP
 		VectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPostPath
 	>({
 		method: "POST",
+		url: `/vector_stores/${encodeURIComponent(String(pathParams.vector_store_id))}/files/${encodeURIComponent(String(pathParams.file_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Vector Store File Delete
+ * @link /vector_stores/{vector_store_id}/files/{file_id}
+ */
+export async function vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.vector_store_id == null || String(pathParams.vector_store_id) === "") {
+		throw new Error(`Missing required path parameter: vector_store_id`);
+	}
+
+	if (pathParams?.file_id == null || String(pathParams.file_id) === "") {
+		throw new Error(`Missing required path parameter: file_id`);
+	}
+	const data = await request<
+		VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteResponse,
+		ErrorWrapper<VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		VectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDeletePath
+	>({
+		method: "DELETE",
 		url: `/vector_stores/${encodeURIComponent(String(pathParams.vector_store_id))}/files/${encodeURIComponent(String(pathParams.file_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -30329,54 +30329,6 @@ export async function getAvailableSearchProvidersSearchToolsUiAvailableProviders
 }
 
 /**
- * @summary Delete Search Tool
- * @description Delete a search tool.
- * Example Request:
- * ```bash
- * curl -X DELETE "http://localhost:4000/search_tools/123e4567-e89b-12d3-a456-426614174000" \
- *     -H "Authorization: Bearer <your_api_key>"
- * ```
- * Example Response:
- * ```json
- * {
- *     "message": "Search tool 123e4567-e89b-12d3-a456-426614174000 deleted successfully",
- *     "search_tool_name": "litellm-search"
- * }
- * ```
- * @link /search_tools/{search_tool_id}
- */
-export async function deleteSearchToolSearchToolsSearchToolIdDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DeleteSearchToolSearchToolsSearchToolIdDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.search_tool_id == null || String(pathParams.search_tool_id) === "") {
-		throw new Error(`Missing required path parameter: search_tool_id`);
-	}
-	const data = await request<
-		DeleteSearchToolSearchToolsSearchToolIdDeleteResponse,
-		ErrorWrapper<DeleteSearchToolSearchToolsSearchToolIdDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DeleteSearchToolSearchToolsSearchToolIdDeletePath
-	>({
-		method: "DELETE",
-		url: `/search_tools/${encodeURIComponent(String(pathParams.search_tool_id))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Get Search Tool Info
  * @description Get detailed information about a specific search tool by ID.
  * Example Request:
@@ -30499,6 +30451,54 @@ export async function updateSearchToolSearchToolsSearchToolIdPut(
 		method: "PUT",
 		url: `/search_tools/${encodeURIComponent(String(pathParams.search_tool_id))}`,
 		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Search Tool
+ * @description Delete a search tool.
+ * Example Request:
+ * ```bash
+ * curl -X DELETE "http://localhost:4000/search_tools/123e4567-e89b-12d3-a456-426614174000" \
+ *     -H "Authorization: Bearer <your_api_key>"
+ * ```
+ * Example Response:
+ * ```json
+ * {
+ *     "message": "Search tool 123e4567-e89b-12d3-a456-426614174000 deleted successfully",
+ *     "search_tool_name": "litellm-search"
+ * }
+ * ```
+ * @link /search_tools/{search_tool_id}
+ */
+export async function deleteSearchToolSearchToolsSearchToolIdDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DeleteSearchToolSearchToolsSearchToolIdDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.search_tool_id == null || String(pathParams.search_tool_id) === "") {
+		throw new Error(`Missing required path parameter: search_tool_id`);
+	}
+	const data = await request<
+		DeleteSearchToolSearchToolsSearchToolIdDeleteResponse,
+		ErrorWrapper<DeleteSearchToolSearchToolsSearchToolIdDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DeleteSearchToolSearchToolsSearchToolIdDeletePath
+	>({
+		method: "DELETE",
+		url: `/search_tools/${encodeURIComponent(String(pathParams.search_tool_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -30717,47 +30717,6 @@ export async function fetchAllMcpServersV1McpServerGet(
 }
 
 /**
- * @summary Add Mcp Server
- * @description Allows creation of mcp servers
- * @link /v1/mcp/server
- */
-export async function addMcpServerV1McpServerPost(
-	{
-		body,
-		headers,
-		config,
-	}: {
-		body: AddMcpServerV1McpServerPostBody;
-		headers?: Partial<AddMcpServerV1McpServerPostHeaders>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		AddMcpServerV1McpServerPostResponse,
-		ErrorWrapper<AddMcpServerV1McpServerPostStatus422>,
-		AddMcpServerV1McpServerPostBody,
-		Partial<AddMcpServerV1McpServerPostHeaders>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/v1/mcp/server`,
-		body: body,
-		...requestConfig,
-		headers: {
-			...requestConfig.headers,
-			...Object.fromEntries(
-				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
-			),
-		},
-	});
-
-	return data;
-}
-
-/**
  * @summary Edit Mcp Server
  * @description Allows deleting mcp serves in the db
  * @link /v1/mcp/server
@@ -30784,6 +30743,47 @@ export async function editMcpServerV1McpServerPut(
 		Record<string, string>
 	>({
 		method: "PUT",
+		url: `/v1/mcp/server`,
+		body: body,
+		...requestConfig,
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
+	});
+
+	return data;
+}
+
+/**
+ * @summary Add Mcp Server
+ * @description Allows creation of mcp servers
+ * @link /v1/mcp/server
+ */
+export async function addMcpServerV1McpServerPost(
+	{
+		body,
+		headers,
+		config,
+	}: {
+		body: AddMcpServerV1McpServerPostBody;
+		headers?: Partial<AddMcpServerV1McpServerPostHeaders>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		AddMcpServerV1McpServerPostResponse,
+		ErrorWrapper<AddMcpServerV1McpServerPostStatus422>,
+		AddMcpServerV1McpServerPostBody,
+		Partial<AddMcpServerV1McpServerPostHeaders>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
 		url: `/v1/mcp/server`,
 		body: body,
 		...requestConfig,
@@ -30969,6 +30969,45 @@ export async function getMcpServerSubmissionsV1McpServerSubmissionsGet(
 }
 
 /**
+ * @summary Fetch Mcp Server
+ * @description Returns the mcp server info
+ * @link /v1/mcp/server/{server_id}
+ */
+export async function fetchMcpServerV1McpServerServerIdGet(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: FetchMcpServerV1McpServerServerIdGetPath;
+		queryParams?: Partial<FetchMcpServerV1McpServerServerIdGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.server_id == null || String(pathParams.server_id) === "") {
+		throw new Error(`Missing required path parameter: server_id`);
+	}
+	const data = await request<
+		FetchMcpServerV1McpServerServerIdGetResponse,
+		ErrorWrapper<FetchMcpServerV1McpServerServerIdGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<FetchMcpServerV1McpServerServerIdGetQuery>,
+		FetchMcpServerV1McpServerServerIdGetPath
+	>({
+		method: "GET",
+		url: `/v1/mcp/server/${encodeURIComponent(String(pathParams.server_id))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Remove Mcp Server
  * @description Allows deleting mcp serves in the db
  * @link /v1/mcp/server/{server_id}
@@ -31012,45 +31051,6 @@ export async function removeMcpServerV1McpServerServerIdDelete(
 }
 
 /**
- * @summary Fetch Mcp Server
- * @description Returns the mcp server info
- * @link /v1/mcp/server/{server_id}
- */
-export async function fetchMcpServerV1McpServerServerIdGet(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: FetchMcpServerV1McpServerServerIdGetPath;
-		queryParams?: Partial<FetchMcpServerV1McpServerServerIdGetQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.server_id == null || String(pathParams.server_id) === "") {
-		throw new Error(`Missing required path parameter: server_id`);
-	}
-	const data = await request<
-		FetchMcpServerV1McpServerServerIdGetResponse,
-		ErrorWrapper<FetchMcpServerV1McpServerServerIdGetStatus422>,
-		null,
-		Record<string, string>,
-		Partial<FetchMcpServerV1McpServerServerIdGetQuery>,
-		FetchMcpServerV1McpServerServerIdGetPath
-	>({
-		method: "GET",
-		url: `/v1/mcp/server/${encodeURIComponent(String(pathParams.server_id))}`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Approve Mcp Server Submission
  * @description Approve a pending MCP server submission (admin only). Mirrors PUT /guardrails/{id}/approve.
  * @link /v1/mcp/server/{server_id}/approve
@@ -31079,45 +31079,6 @@ export async function approveMcpServerSubmissionV1McpServerServerIdApprovePut(
 	>({
 		method: "PUT",
 		url: `/v1/mcp/server/${encodeURIComponent(String(pathParams.server_id))}/approve`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Delete Mcp Oauth User Credential
- * @description Revoke the calling user's stored OAuth2 token for an MCP server. A proxy admin may pass user_id to revoke another user's stored token.
- * @link /v1/mcp/server/{server_id}/oauth-user-credential
- */
-export async function deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDelete(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeletePath;
-		queryParams?: Partial<DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.server_id == null || String(pathParams.server_id) === "") {
-		throw new Error(`Missing required path parameter: server_id`);
-	}
-	const data = await request<
-		DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteResponse,
-		ErrorWrapper<DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Partial<DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteQuery>,
-		DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeletePath
-	>({
-		method: "DELETE",
-		url: `/v1/mcp/server/${encodeURIComponent(String(pathParams.server_id))}/oauth-user-credential`,
-		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -31165,6 +31126,45 @@ export async function storeMcpOauthUserCredentialV1McpServerServerIdOauthUserCre
 }
 
 /**
+ * @summary Delete Mcp Oauth User Credential
+ * @description Revoke the calling user's stored OAuth2 token for an MCP server. A proxy admin may pass user_id to revoke another user's stored token.
+ * @link /v1/mcp/server/{server_id}/oauth-user-credential
+ */
+export async function deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDelete(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeletePath;
+		queryParams?: Partial<DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.server_id == null || String(pathParams.server_id) === "") {
+		throw new Error(`Missing required path parameter: server_id`);
+	}
+	const data = await request<
+		DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteResponse,
+		ErrorWrapper<DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Partial<DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteQuery>,
+		DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeletePath
+	>({
+		method: "DELETE",
+		url: `/v1/mcp/server/${encodeURIComponent(String(pathParams.server_id))}/oauth-user-credential`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Get Mcp Oauth User Credential Status
  * @description Check whether the calling user has a stored OAuth2 credential for this MCP server
  * @link /v1/mcp/server/{server_id}/oauth-user-credential/status
@@ -31201,42 +31201,6 @@ export async function getMcpOauthUserCredentialStatusV1McpServerServerIdOauthUse
 }
 
 /**
- * @summary Unpin Mcp Server Tools
- * @description Unpin the server's tool list (admin only); tools/list serves the live upstream catalog again.
- * @link /v1/mcp/server/{server_id}/pin
- */
-export async function unpinMcpServerToolsV1McpServerServerIdPinDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: UnpinMcpServerToolsV1McpServerServerIdPinDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.server_id == null || String(pathParams.server_id) === "") {
-		throw new Error(`Missing required path parameter: server_id`);
-	}
-	const data = await request<
-		UnpinMcpServerToolsV1McpServerServerIdPinDeleteResponse,
-		ErrorWrapper<UnpinMcpServerToolsV1McpServerServerIdPinDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		UnpinMcpServerToolsV1McpServerServerIdPinDeletePath
-	>({
-		method: "DELETE",
-		url: `/v1/mcp/server/${encodeURIComponent(String(pathParams.server_id))}/pin`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Pin Mcp Server Tools
  * @description Pin the server's current upstream tool list, descriptions and input schemas (admin only). tools/list serves the pinned catalog from now on and an upstream change raises an mcp_pinned_tools_changed alert.
  * @link /v1/mcp/server/{server_id}/pin
@@ -31264,6 +31228,42 @@ export async function pinMcpServerToolsV1McpServerServerIdPinPost(
 		PinMcpServerToolsV1McpServerServerIdPinPostPath
 	>({
 		method: "POST",
+		url: `/v1/mcp/server/${encodeURIComponent(String(pathParams.server_id))}/pin`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Unpin Mcp Server Tools
+ * @description Unpin the server's tool list (admin only); tools/list serves the live upstream catalog again.
+ * @link /v1/mcp/server/{server_id}/pin
+ */
+export async function unpinMcpServerToolsV1McpServerServerIdPinDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: UnpinMcpServerToolsV1McpServerServerIdPinDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.server_id == null || String(pathParams.server_id) === "") {
+		throw new Error(`Missing required path parameter: server_id`);
+	}
+	const data = await request<
+		UnpinMcpServerToolsV1McpServerServerIdPinDeleteResponse,
+		ErrorWrapper<UnpinMcpServerToolsV1McpServerServerIdPinDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		UnpinMcpServerToolsV1McpServerServerIdPinDeletePath
+	>({
+		method: "DELETE",
 		url: `/v1/mcp/server/${encodeURIComponent(String(pathParams.server_id))}/pin`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -31312,45 +31312,6 @@ export async function rejectMcpServerSubmissionV1McpServerServerIdRejectPut(
 }
 
 /**
- * @summary Delete Mcp User Credential
- * @description Delete the calling user's stored API key for a BYOK MCP server. A proxy admin may pass user_id to revoke another user's stored key.
- * @link /v1/mcp/server/{server_id}/user-credential
- */
-export async function deleteMcpUserCredentialV1McpServerServerIdUserCredentialDelete(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeletePath;
-		queryParams?: Partial<DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.server_id == null || String(pathParams.server_id) === "") {
-		throw new Error(`Missing required path parameter: server_id`);
-	}
-	const data = await request<
-		DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteResponse,
-		ErrorWrapper<DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Partial<DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteQuery>,
-		DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeletePath
-	>({
-		method: "DELETE",
-		url: `/v1/mcp/server/${encodeURIComponent(String(pathParams.server_id))}/user-credential`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Store Mcp User Credential
  * @description Store or update the calling user's API key for a BYOK MCP server
  * @link /v1/mcp/server/{server_id}/user-credential
@@ -31390,6 +31351,45 @@ export async function storeMcpUserCredentialV1McpServerServerIdUserCredentialPos
 }
 
 /**
+ * @summary Delete Mcp User Credential
+ * @description Delete the calling user's stored API key for a BYOK MCP server. A proxy admin may pass user_id to revoke another user's stored key.
+ * @link /v1/mcp/server/{server_id}/user-credential
+ */
+export async function deleteMcpUserCredentialV1McpServerServerIdUserCredentialDelete(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeletePath;
+		queryParams?: Partial<DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.server_id == null || String(pathParams.server_id) === "") {
+		throw new Error(`Missing required path parameter: server_id`);
+	}
+	const data = await request<
+		DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteResponse,
+		ErrorWrapper<DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Partial<DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteQuery>,
+		DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeletePath
+	>({
+		method: "DELETE",
+		url: `/v1/mcp/server/${encodeURIComponent(String(pathParams.server_id))}/user-credential`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary List Mcp Server User Credentials
  * @description List every user's stored BYOK or OAuth2 credential for an MCP server (admin only, no secrets)
  * @link /v1/mcp/server/{server_id}/user-credentials
@@ -31418,42 +31418,6 @@ export async function listMcpServerUserCredentialsV1McpServerServerIdUserCredent
 	>({
 		method: "GET",
 		url: `/v1/mcp/server/${encodeURIComponent(String(pathParams.server_id))}/user-credentials`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Clear Mcp User Env Vars
- * @description Clear the calling user's per-user MCP env var values for this server.
- * @link /v1/mcp/server/{server_id}/user-env-vars
- */
-export async function clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.server_id == null || String(pathParams.server_id) === "") {
-		throw new Error(`Missing required path parameter: server_id`);
-	}
-	const data = await request<
-		ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteResponse,
-		ErrorWrapper<ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeletePath
-	>({
-		method: "DELETE",
-		url: `/v1/mcp/server/${encodeURIComponent(String(pathParams.server_id))}/user-env-vars`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -31537,32 +31501,34 @@ export async function storeMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPost(
 }
 
 /**
- * @summary Delete Mcp Gateway Sessions
- * @description Force-close live stateful MCP gateway sessions on this proxy worker, selected by session id prefix and/or by the LiteLLM user that opened them (proxy admin only).
- * @link /v1/mcp/sessions
+ * @summary Clear Mcp User Env Vars
+ * @description Clear the calling user's per-user MCP env var values for this server.
+ * @link /v1/mcp/server/{server_id}/user-env-vars
  */
-export async function deleteMcpGatewaySessionsV1McpSessionsDelete(
+export async function clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDelete(
 	{
-		queryParams,
+		pathParams,
 		config,
 	}: {
-		queryParams?: Partial<DeleteMcpGatewaySessionsV1McpSessionsDeleteQuery>;
+		pathParams: ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeletePath;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
+	if (pathParams?.server_id == null || String(pathParams.server_id) === "") {
+		throw new Error(`Missing required path parameter: server_id`);
+	}
 	const data = await request<
-		DeleteMcpGatewaySessionsV1McpSessionsDeleteResponse,
-		ErrorWrapper<DeleteMcpGatewaySessionsV1McpSessionsDeleteStatus422>,
+		ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteResponse,
+		ErrorWrapper<ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeleteStatus422>,
 		null,
 		Record<string, string>,
-		Partial<DeleteMcpGatewaySessionsV1McpSessionsDeleteQuery>,
-		Record<string, string>
+		Record<string, string>,
+		ClearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDeletePath
 	>({
 		method: "DELETE",
-		url: `/v1/mcp/sessions`,
-		queryParams,
+		url: `/v1/mcp/server/${encodeURIComponent(String(pathParams.server_id))}/user-env-vars`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -31590,6 +31556,40 @@ export async function getMcpGatewaySessionsV1McpSessionsGet(
 	>({
 		method: "GET",
 		url: `/v1/mcp/sessions`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Mcp Gateway Sessions
+ * @description Force-close live stateful MCP gateway sessions on this proxy worker, selected by session id prefix and/or by the LiteLLM user that opened them (proxy admin only).
+ * @link /v1/mcp/sessions
+ */
+export async function deleteMcpGatewaySessionsV1McpSessionsDelete(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<DeleteMcpGatewaySessionsV1McpSessionsDeleteQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		DeleteMcpGatewaySessionsV1McpSessionsDeleteResponse,
+		ErrorWrapper<DeleteMcpGatewaySessionsV1McpSessionsDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Partial<DeleteMcpGatewaySessionsV1McpSessionsDeleteQuery>,
+		Record<string, string>
+	>({
+		method: "DELETE",
+		url: `/v1/mcp/sessions`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -31652,47 +31652,6 @@ export async function fetchMcpToolsetsV1McpToolsetGet(
 }
 
 /**
- * @summary Add Mcp Toolset
- * @description Create a new MCP toolset (admin only)
- * @link /v1/mcp/toolset
- */
-export async function addMcpToolsetV1McpToolsetPost(
-	{
-		body,
-		headers,
-		config,
-	}: {
-		body: AddMcpToolsetV1McpToolsetPostBody;
-		headers?: Partial<AddMcpToolsetV1McpToolsetPostHeaders>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		AddMcpToolsetV1McpToolsetPostResponse,
-		ErrorWrapper<AddMcpToolsetV1McpToolsetPostStatus422>,
-		AddMcpToolsetV1McpToolsetPostBody,
-		Partial<AddMcpToolsetV1McpToolsetPostHeaders>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/v1/mcp/toolset`,
-		body: body,
-		...requestConfig,
-		headers: {
-			...requestConfig.headers,
-			...Object.fromEntries(
-				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
-			),
-		},
-	});
-
-	return data;
-}
-
-/**
  * @summary Edit Mcp Toolset
  * @description Update an existing MCP toolset (admin only)
  * @link /v1/mcp/toolset
@@ -31734,36 +31693,34 @@ export async function editMcpToolsetV1McpToolsetPut(
 }
 
 /**
- * @summary Remove Mcp Toolset
- * @description Delete an MCP toolset (admin only)
- * @link /v1/mcp/toolset/{toolset_id}
+ * @summary Add Mcp Toolset
+ * @description Create a new MCP toolset (admin only)
+ * @link /v1/mcp/toolset
  */
-export async function removeMcpToolsetV1McpToolsetToolsetIdDelete(
+export async function addMcpToolsetV1McpToolsetPost(
 	{
-		pathParams,
+		body,
 		headers,
 		config,
 	}: {
-		pathParams: RemoveMcpToolsetV1McpToolsetToolsetIdDeletePath;
-		headers?: Partial<RemoveMcpToolsetV1McpToolsetToolsetIdDeleteHeaders>;
+		body: AddMcpToolsetV1McpToolsetPostBody;
+		headers?: Partial<AddMcpToolsetV1McpToolsetPostHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
-	if (pathParams?.toolset_id == null || String(pathParams.toolset_id) === "") {
-		throw new Error(`Missing required path parameter: toolset_id`);
-	}
 	const data = await request<
-		RemoveMcpToolsetV1McpToolsetToolsetIdDeleteResponse,
-		ErrorWrapper<RemoveMcpToolsetV1McpToolsetToolsetIdDeleteStatus422>,
-		null,
-		Partial<RemoveMcpToolsetV1McpToolsetToolsetIdDeleteHeaders>,
+		AddMcpToolsetV1McpToolsetPostResponse,
+		ErrorWrapper<AddMcpToolsetV1McpToolsetPostStatus422>,
+		AddMcpToolsetV1McpToolsetPostBody,
+		Partial<AddMcpToolsetV1McpToolsetPostHeaders>,
 		Record<string, string>,
-		RemoveMcpToolsetV1McpToolsetToolsetIdDeletePath
+		Record<string, string>
 	>({
-		method: "DELETE",
-		url: `/v1/mcp/toolset/${encodeURIComponent(String(pathParams.toolset_id))}`,
+		method: "POST",
+		url: `/v1/mcp/toolset`,
+		body: body,
 		...requestConfig,
 		headers: {
 			...requestConfig.headers,
@@ -31807,6 +31764,49 @@ export async function fetchMcpToolsetV1McpToolsetToolsetIdGet(
 		url: `/v1/mcp/toolset/${encodeURIComponent(String(pathParams.toolset_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Remove Mcp Toolset
+ * @description Delete an MCP toolset (admin only)
+ * @link /v1/mcp/toolset/{toolset_id}
+ */
+export async function removeMcpToolsetV1McpToolsetToolsetIdDelete(
+	{
+		pathParams,
+		headers,
+		config,
+	}: {
+		pathParams: RemoveMcpToolsetV1McpToolsetToolsetIdDeletePath;
+		headers?: Partial<RemoveMcpToolsetV1McpToolsetToolsetIdDeleteHeaders>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.toolset_id == null || String(pathParams.toolset_id) === "") {
+		throw new Error(`Missing required path parameter: toolset_id`);
+	}
+	const data = await request<
+		RemoveMcpToolsetV1McpToolsetToolsetIdDeleteResponse,
+		ErrorWrapper<RemoveMcpToolsetV1McpToolsetToolsetIdDeleteStatus422>,
+		null,
+		Partial<RemoveMcpToolsetV1McpToolsetToolsetIdDeleteHeaders>,
+		Record<string, string>,
+		RemoveMcpToolsetV1McpToolsetToolsetIdDeletePath
+	>({
+		method: "DELETE",
+		url: `/v1/mcp/toolset/${encodeURIComponent(String(pathParams.toolset_id))}`,
+		...requestConfig,
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -32929,44 +32929,6 @@ export async function listToolRestApiMcpRestToolsListGet(
 }
 
 /**
- * @summary Delete Cyberark Config
- * @description Delete CyberArk Conjur configuration. Idempotent.
- * @link /config_overrides/cyberark
- */
-export async function deleteCyberarkConfigConfigOverridesCyberarkDelete(
-	{
-		headers,
-		config,
-	}: {
-		headers?: Partial<DeleteCyberarkConfigConfigOverridesCyberarkDeleteHeaders>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		DeleteCyberarkConfigConfigOverridesCyberarkDeleteResponse,
-		ErrorWrapper<DeleteCyberarkConfigConfigOverridesCyberarkDeleteStatus422>,
-		null,
-		Partial<DeleteCyberarkConfigConfigOverridesCyberarkDeleteHeaders>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "DELETE",
-		url: `/config_overrides/cyberark`,
-		...requestConfig,
-		headers: {
-			...requestConfig.headers,
-			...Object.fromEntries(
-				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
-			),
-		},
-	});
-
-	return data;
-}
-
-/**
  * @summary Get Cyberark Config
  * @description Get current CyberArk Conjur configuration.
  * Returns decrypted values from DB, or falls back to current env vars.
@@ -33039,6 +33001,44 @@ export async function updateCyberarkConfigConfigOverridesCyberarkPost(
 }
 
 /**
+ * @summary Delete Cyberark Config
+ * @description Delete CyberArk Conjur configuration. Idempotent.
+ * @link /config_overrides/cyberark
+ */
+export async function deleteCyberarkConfigConfigOverridesCyberarkDelete(
+	{
+		headers,
+		config,
+	}: {
+		headers?: Partial<DeleteCyberarkConfigConfigOverridesCyberarkDeleteHeaders>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		DeleteCyberarkConfigConfigOverridesCyberarkDeleteResponse,
+		ErrorWrapper<DeleteCyberarkConfigConfigOverridesCyberarkDeleteStatus422>,
+		null,
+		Partial<DeleteCyberarkConfigConfigOverridesCyberarkDeleteHeaders>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "DELETE",
+		url: `/config_overrides/cyberark`,
+		...requestConfig,
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
+	});
+
+	return data;
+}
+
+/**
  * @summary Test Cyberark Connection
  * @description Test the connection to the currently configured CyberArk Conjur server.
  * Uses the already-initialized secret manager client. Does not modify any state.
@@ -33061,44 +33061,6 @@ export async function testCyberarkConnectionConfigOverridesCyberarkTestConnectio
 		url: `/config_overrides/cyberark/test_connection`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Delete Hashicorp Vault Config
- * @description Delete Hashicorp Vault configuration. Idempotent.
- * @link /config_overrides/hashicorp_vault
- */
-export async function deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDelete(
-	{
-		headers,
-		config,
-	}: {
-		headers?: Partial<DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteHeaders>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteResponse,
-		ErrorWrapper<DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteStatus422>,
-		null,
-		Partial<DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteHeaders>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "DELETE",
-		url: `/config_overrides/hashicorp_vault`,
-		...requestConfig,
-		headers: {
-			...requestConfig.headers,
-			...Object.fromEntries(
-				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
-			),
-		},
 	});
 
 	return data;
@@ -33163,6 +33125,44 @@ export async function updateHashicorpVaultConfigConfigOverridesHashicorpVaultPos
 		method: "POST",
 		url: `/config_overrides/hashicorp_vault`,
 		body: body,
+		...requestConfig,
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Hashicorp Vault Config
+ * @description Delete Hashicorp Vault configuration. Idempotent.
+ * @link /config_overrides/hashicorp_vault
+ */
+export async function deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDelete(
+	{
+		headers,
+		config,
+	}: {
+		headers?: Partial<DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteHeaders>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteResponse,
+		ErrorWrapper<DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteStatus422>,
+		null,
+		Partial<DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteHeaders>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "DELETE",
+		url: `/config_overrides/hashicorp_vault`,
 		...requestConfig,
 		headers: {
 			...requestConfig.headers,
@@ -33840,6 +33840,58 @@ export async function createSkillV1SkillsPost(
 }
 
 /**
+ * @summary Get Skill
+ * @description Get a specific skill by ID from Anthropic.
+ * Requires `?beta=true` query parameter.
+ * Model-based routing (for multi-account support):
+ * - Pass model via header: `x-litellm-model: claude-account-1`
+ * - Pass model via query: `?model=claude-account-1`
+ * - Pass model via body: `{"model": "claude-account-1"}`
+ * Example usage:
+ * ```bash
+ * # Basic usage
+ * curl "http://localhost:4000/v1/skills/skill_123?beta=true"       -H "Authorization: Bearer your-key"
+ * # With model-based routing
+ * curl "http://localhost:4000/v1/skills/skill_123?beta=true"       -H "Authorization: Bearer your-key"       -H "x-litellm-model: claude-account-1"
+ * ```
+ * Returns: Skill object
+ * @link /v1/skills/{skill_id}
+ */
+export async function getSkillV1SkillsSkillIdGet(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: GetSkillV1SkillsSkillIdGetPath;
+		queryParams?: Partial<GetSkillV1SkillsSkillIdGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.skill_id == null || String(pathParams.skill_id) === "") {
+		throw new Error(`Missing required path parameter: skill_id`);
+	}
+	const data = await request<
+		GetSkillV1SkillsSkillIdGetResponse,
+		ErrorWrapper<GetSkillV1SkillsSkillIdGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<GetSkillV1SkillsSkillIdGetQuery>,
+		GetSkillV1SkillsSkillIdGetPath
+	>({
+		method: "GET",
+		url: `/v1/skills/${encodeURIComponent(String(pathParams.skill_id))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Delete Skill
  * @description Delete a skill by ID from Anthropic.
  * Requires `?beta=true` query parameter.
@@ -33883,58 +33935,6 @@ export async function deleteSkillV1SkillsSkillIdDelete(
 		DeleteSkillV1SkillsSkillIdDeletePath
 	>({
 		method: "DELETE",
-		url: `/v1/skills/${encodeURIComponent(String(pathParams.skill_id))}`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Get Skill
- * @description Get a specific skill by ID from Anthropic.
- * Requires `?beta=true` query parameter.
- * Model-based routing (for multi-account support):
- * - Pass model via header: `x-litellm-model: claude-account-1`
- * - Pass model via query: `?model=claude-account-1`
- * - Pass model via body: `{"model": "claude-account-1"}`
- * Example usage:
- * ```bash
- * # Basic usage
- * curl "http://localhost:4000/v1/skills/skill_123?beta=true"       -H "Authorization: Bearer your-key"
- * # With model-based routing
- * curl "http://localhost:4000/v1/skills/skill_123?beta=true"       -H "Authorization: Bearer your-key"       -H "x-litellm-model: claude-account-1"
- * ```
- * Returns: Skill object
- * @link /v1/skills/{skill_id}
- */
-export async function getSkillV1SkillsSkillIdGet(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: GetSkillV1SkillsSkillIdGetPath;
-		queryParams?: Partial<GetSkillV1SkillsSkillIdGetQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.skill_id == null || String(pathParams.skill_id) === "") {
-		throw new Error(`Missing required path parameter: skill_id`);
-	}
-	const data = await request<
-		GetSkillV1SkillsSkillIdGetResponse,
-		ErrorWrapper<GetSkillV1SkillsSkillIdGetStatus422>,
-		null,
-		Record<string, string>,
-		Partial<GetSkillV1SkillsSkillIdGetQuery>,
-		GetSkillV1SkillsSkillIdGetPath
-	>({
-		method: "GET",
 		url: `/v1/skills/${encodeURIComponent(String(pathParams.skill_id))}`,
 		queryParams,
 		...requestConfig,
@@ -34035,54 +34035,6 @@ export async function createEvalV1EvalsPost(
 }
 
 /**
- * @summary Delete Eval
- * @description Delete an evaluation.
- * Model-based routing (for multi-account support):
- * - Pass model via header: `x-litellm-model: gpt-4-account-1`
- * - Pass model via query: `?model=gpt-4-account-1`
- * - Pass model via body: `{"model": "gpt-4-account-1"}`
- * Example usage:
- * ```bash
- * curl -X DELETE "http://localhost:4000/v1/evals/eval_123"       -H "Authorization: Bearer your-key"
- * ```
- * Returns: DeleteEvalResponse with deletion confirmation
- * @link /v1/evals/{eval_id}
- */
-export async function deleteEvalV1EvalsEvalIdDelete(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: DeleteEvalV1EvalsEvalIdDeletePath;
-		queryParams?: Partial<DeleteEvalV1EvalsEvalIdDeleteQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.eval_id == null || String(pathParams.eval_id) === "") {
-		throw new Error(`Missing required path parameter: eval_id`);
-	}
-	const data = await request<
-		DeleteEvalV1EvalsEvalIdDeleteResponse,
-		ErrorWrapper<DeleteEvalV1EvalsEvalIdDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Partial<DeleteEvalV1EvalsEvalIdDeleteQuery>,
-		DeleteEvalV1EvalsEvalIdDeletePath
-	>({
-		method: "DELETE",
-		url: `/v1/evals/${encodeURIComponent(String(pathParams.eval_id))}`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Get Eval
  * @description Get a specific evaluation by ID.
  * Model-based routing (for multi-account support):
@@ -34169,6 +34121,54 @@ export async function updateEvalV1EvalsEvalIdPost(
 		UpdateEvalV1EvalsEvalIdPostPath
 	>({
 		method: "POST",
+		url: `/v1/evals/${encodeURIComponent(String(pathParams.eval_id))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Eval
+ * @description Delete an evaluation.
+ * Model-based routing (for multi-account support):
+ * - Pass model via header: `x-litellm-model: gpt-4-account-1`
+ * - Pass model via query: `?model=gpt-4-account-1`
+ * - Pass model via body: `{"model": "gpt-4-account-1"}`
+ * Example usage:
+ * ```bash
+ * curl -X DELETE "http://localhost:4000/v1/evals/eval_123"       -H "Authorization: Bearer your-key"
+ * ```
+ * Returns: DeleteEvalResponse with deletion confirmation
+ * @link /v1/evals/{eval_id}
+ */
+export async function deleteEvalV1EvalsEvalIdDelete(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: DeleteEvalV1EvalsEvalIdDeletePath;
+		queryParams?: Partial<DeleteEvalV1EvalsEvalIdDeleteQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.eval_id == null || String(pathParams.eval_id) === "") {
+		throw new Error(`Missing required path parameter: eval_id`);
+	}
+	const data = await request<
+		DeleteEvalV1EvalsEvalIdDeleteResponse,
+		ErrorWrapper<DeleteEvalV1EvalsEvalIdDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Partial<DeleteEvalV1EvalsEvalIdDeleteQuery>,
+		DeleteEvalV1EvalsEvalIdDeletePath
+	>({
+		method: "DELETE",
 		url: `/v1/evals/${encodeURIComponent(String(pathParams.eval_id))}`,
 		queryParams,
 		...requestConfig,
@@ -34326,57 +34326,6 @@ export async function createRunV1EvalsEvalIdRunsPost(
 }
 
 /**
- * @summary Delete Run
- * @description Delete a run.
- * Model-based routing (for multi-account support):
- * - Pass model via header: `x-litellm-model: gpt-4-account-1`
- * - Pass model via query: `?model=gpt-4-account-1`
- * Example usage:
- * ```bash
- * curl -X DELETE "http://localhost:4000/v1/evals/eval_123/runs/run_456"       -H "Authorization: Bearer your-key"
- * ```
- * Returns: RunDeleteResponse with deletion confirmation
- * @link /v1/evals/{eval_id}/runs/{run_id}
- */
-export async function deleteRunV1EvalsEvalIdRunsRunIdDelete(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: DeleteRunV1EvalsEvalIdRunsRunIdDeletePath;
-		queryParams?: Partial<DeleteRunV1EvalsEvalIdRunsRunIdDeleteQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.eval_id == null || String(pathParams.eval_id) === "") {
-		throw new Error(`Missing required path parameter: eval_id`);
-	}
-
-	if (pathParams?.run_id == null || String(pathParams.run_id) === "") {
-		throw new Error(`Missing required path parameter: run_id`);
-	}
-	const data = await request<
-		DeleteRunV1EvalsEvalIdRunsRunIdDeleteResponse,
-		ErrorWrapper<DeleteRunV1EvalsEvalIdRunsRunIdDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Partial<DeleteRunV1EvalsEvalIdRunsRunIdDeleteQuery>,
-		DeleteRunV1EvalsEvalIdRunsRunIdDeletePath
-	>({
-		method: "DELETE",
-		url: `/v1/evals/${encodeURIComponent(String(pathParams.eval_id))}/runs/${encodeURIComponent(String(pathParams.run_id))}`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Get Run
  * @description Get a specific run by ID.
  * Model-based routing (for multi-account support):
@@ -34469,6 +34418,57 @@ export async function cancelRunV1EvalsEvalIdRunsRunIdPost(
 		CancelRunV1EvalsEvalIdRunsRunIdPostPath
 	>({
 		method: "POST",
+		url: `/v1/evals/${encodeURIComponent(String(pathParams.eval_id))}/runs/${encodeURIComponent(String(pathParams.run_id))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Run
+ * @description Delete a run.
+ * Model-based routing (for multi-account support):
+ * - Pass model via header: `x-litellm-model: gpt-4-account-1`
+ * - Pass model via query: `?model=gpt-4-account-1`
+ * Example usage:
+ * ```bash
+ * curl -X DELETE "http://localhost:4000/v1/evals/eval_123/runs/run_456"       -H "Authorization: Bearer your-key"
+ * ```
+ * Returns: RunDeleteResponse with deletion confirmation
+ * @link /v1/evals/{eval_id}/runs/{run_id}
+ */
+export async function deleteRunV1EvalsEvalIdRunsRunIdDelete(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: DeleteRunV1EvalsEvalIdRunsRunIdDeletePath;
+		queryParams?: Partial<DeleteRunV1EvalsEvalIdRunsRunIdDeleteQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.eval_id == null || String(pathParams.eval_id) === "") {
+		throw new Error(`Missing required path parameter: eval_id`);
+	}
+
+	if (pathParams?.run_id == null || String(pathParams.run_id) === "") {
+		throw new Error(`Missing required path parameter: run_id`);
+	}
+	const data = await request<
+		DeleteRunV1EvalsEvalIdRunsRunIdDeleteResponse,
+		ErrorWrapper<DeleteRunV1EvalsEvalIdRunsRunIdDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Partial<DeleteRunV1EvalsEvalIdRunsRunIdDeleteQuery>,
+		DeleteRunV1EvalsEvalIdRunsRunIdDeletePath
+	>({
+		method: "DELETE",
 		url: `/v1/evals/${encodeURIComponent(String(pathParams.eval_id))}/runs/${encodeURIComponent(String(pathParams.run_id))}`,
 		queryParams,
 		...requestConfig,
@@ -34794,45 +34794,6 @@ export async function registerPluginClaudeCodePluginsPost(
 }
 
 /**
- * @summary Delete Plugin
- * @description Delete a plugin from the marketplace.
- * Requires a proxy admin API key.
- * Parameters:
- *     - plugin_name: The name of the plugin to delete
- * @link /claude-code/plugins/{plugin_name}
- */
-export async function deletePluginClaudeCodePluginsPluginNameDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DeletePluginClaudeCodePluginsPluginNameDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.plugin_name == null || String(pathParams.plugin_name) === "") {
-		throw new Error(`Missing required path parameter: plugin_name`);
-	}
-	const data = await request<
-		DeletePluginClaudeCodePluginsPluginNameDeleteResponse,
-		ErrorWrapper<DeletePluginClaudeCodePluginsPluginNameDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DeletePluginClaudeCodePluginsPluginNameDeletePath
-	>({
-		method: "DELETE",
-		url: `/claude-code/plugins/${encodeURIComponent(String(pathParams.plugin_name))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Get Plugin
  * @description Get details of a specific plugin.
  * Parameters:
@@ -34935,6 +34896,45 @@ export async function updatePluginClaudeCodePluginsPluginNamePut(
 		method: "PUT",
 		url: `/claude-code/plugins/${encodeURIComponent(String(pathParams.plugin_name))}`,
 		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Plugin
+ * @description Delete a plugin from the marketplace.
+ * Requires a proxy admin API key.
+ * Parameters:
+ *     - plugin_name: The name of the plugin to delete
+ * @link /claude-code/plugins/{plugin_name}
+ */
+export async function deletePluginClaudeCodePluginsPluginNameDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DeletePluginClaudeCodePluginsPluginNameDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.plugin_name == null || String(pathParams.plugin_name) === "") {
+		throw new Error(`Missing required path parameter: plugin_name`);
+	}
+	const data = await request<
+		DeletePluginClaudeCodePluginsPluginNameDeleteResponse,
+		ErrorWrapper<DeletePluginClaudeCodePluginsPluginNameDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DeletePluginClaudeCodePluginsPluginNameDeletePath
+	>({
+		method: "DELETE",
+		url: `/claude-code/plugins/${encodeURIComponent(String(pathParams.plugin_name))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -35128,45 +35128,6 @@ export async function createGroupScimV2GroupsPost(
 }
 
 /**
- * @summary Delete Group
- * @description Delete a group according to SCIM v2 protocol
- * @link /scim/v2/Groups/{group_id}
- */
-export async function deleteGroupScimV2GroupsGroupIdDelete(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: DeleteGroupScimV2GroupsGroupIdDeletePath;
-		queryParams?: Partial<DeleteGroupScimV2GroupsGroupIdDeleteQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.group_id == null || String(pathParams.group_id) === "") {
-		throw new Error(`Missing required path parameter: group_id`);
-	}
-	const data = await request<
-		DeleteGroupScimV2GroupsGroupIdDeleteResponse,
-		ErrorWrapper<DeleteGroupScimV2GroupsGroupIdDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Partial<DeleteGroupScimV2GroupsGroupIdDeleteQuery>,
-		DeleteGroupScimV2GroupsGroupIdDeletePath
-	>({
-		method: "DELETE",
-		url: `/scim/v2/Groups/${encodeURIComponent(String(pathParams.group_id))}`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Get Group
  * @description Get a single group by ID according to SCIM v2 protocol
  * @link /scim/v2/Groups/{group_id}
@@ -35198,6 +35159,48 @@ export async function getGroupScimV2GroupsGroupIdGet(
 		method: "GET",
 		url: `/scim/v2/Groups/${encodeURIComponent(String(pathParams.group_id))}`,
 		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Group
+ * @description Update a group according to SCIM v2 protocol
+ * @link /scim/v2/Groups/{group_id}
+ */
+export async function updateGroupScimV2GroupsGroupIdPut(
+	{
+		pathParams,
+		body,
+		queryParams,
+		config,
+	}: {
+		pathParams: UpdateGroupScimV2GroupsGroupIdPutPath;
+		body: UpdateGroupScimV2GroupsGroupIdPutBody;
+		queryParams?: Partial<UpdateGroupScimV2GroupsGroupIdPutQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.group_id == null || String(pathParams.group_id) === "") {
+		throw new Error(`Missing required path parameter: group_id`);
+	}
+	const data = await request<
+		UpdateGroupScimV2GroupsGroupIdPutResponse,
+		ErrorWrapper<UpdateGroupScimV2GroupsGroupIdPutStatus422>,
+		UpdateGroupScimV2GroupsGroupIdPutBody,
+		Record<string, string>,
+		Partial<UpdateGroupScimV2GroupsGroupIdPutQuery>,
+		UpdateGroupScimV2GroupsGroupIdPutPath
+	>({
+		method: "PUT",
+		url: `/scim/v2/Groups/${encodeURIComponent(String(pathParams.group_id))}`,
+		queryParams,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -35248,20 +35251,18 @@ export async function patchGroupScimV2GroupsGroupIdPatch(
 }
 
 /**
- * @summary Update Group
- * @description Update a group according to SCIM v2 protocol
+ * @summary Delete Group
+ * @description Delete a group according to SCIM v2 protocol
  * @link /scim/v2/Groups/{group_id}
  */
-export async function updateGroupScimV2GroupsGroupIdPut(
+export async function deleteGroupScimV2GroupsGroupIdDelete(
 	{
 		pathParams,
-		body,
 		queryParams,
 		config,
 	}: {
-		pathParams: UpdateGroupScimV2GroupsGroupIdPutPath;
-		body: UpdateGroupScimV2GroupsGroupIdPutBody;
-		queryParams?: Partial<UpdateGroupScimV2GroupsGroupIdPutQuery>;
+		pathParams: DeleteGroupScimV2GroupsGroupIdDeletePath;
+		queryParams?: Partial<DeleteGroupScimV2GroupsGroupIdDeleteQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -35271,17 +35272,16 @@ export async function updateGroupScimV2GroupsGroupIdPut(
 		throw new Error(`Missing required path parameter: group_id`);
 	}
 	const data = await request<
-		UpdateGroupScimV2GroupsGroupIdPutResponse,
-		ErrorWrapper<UpdateGroupScimV2GroupsGroupIdPutStatus422>,
-		UpdateGroupScimV2GroupsGroupIdPutBody,
+		DeleteGroupScimV2GroupsGroupIdDeleteResponse,
+		ErrorWrapper<DeleteGroupScimV2GroupsGroupIdDeleteStatus422>,
+		null,
 		Record<string, string>,
-		Partial<UpdateGroupScimV2GroupsGroupIdPutQuery>,
-		UpdateGroupScimV2GroupsGroupIdPutPath
+		Partial<DeleteGroupScimV2GroupsGroupIdDeleteQuery>,
+		DeleteGroupScimV2GroupsGroupIdDeletePath
 	>({
-		method: "PUT",
+		method: "DELETE",
 		url: `/scim/v2/Groups/${encodeURIComponent(String(pathParams.group_id))}`,
 		queryParams,
-		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -35543,45 +35543,6 @@ export async function createUserScimV2UsersPost(
 }
 
 /**
- * @summary Delete User
- * @description Delete a user according to SCIM v2 protocol
- * @link /scim/v2/Users/{user_id}
- */
-export async function deleteUserScimV2UsersUserIdDelete(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: DeleteUserScimV2UsersUserIdDeletePath;
-		queryParams?: Partial<DeleteUserScimV2UsersUserIdDeleteQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.user_id == null || String(pathParams.user_id) === "") {
-		throw new Error(`Missing required path parameter: user_id`);
-	}
-	const data = await request<
-		DeleteUserScimV2UsersUserIdDeleteResponse,
-		ErrorWrapper<DeleteUserScimV2UsersUserIdDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Partial<DeleteUserScimV2UsersUserIdDeleteQuery>,
-		DeleteUserScimV2UsersUserIdDeletePath
-	>({
-		method: "DELETE",
-		url: `/scim/v2/Users/${encodeURIComponent(String(pathParams.user_id))}`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Get User
  * @description Get a single user by ID according to SCIM v2 protocol
  * @link /scim/v2/Users/{user_id}
@@ -35613,6 +35574,48 @@ export async function getUserScimV2UsersUserIdGet(
 		method: "GET",
 		url: `/scim/v2/Users/${encodeURIComponent(String(pathParams.user_id))}`,
 		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update User
+ * @description Update a user according to SCIM v2 protocol (full replacement)
+ * @link /scim/v2/Users/{user_id}
+ */
+export async function updateUserScimV2UsersUserIdPut(
+	{
+		pathParams,
+		body,
+		queryParams,
+		config,
+	}: {
+		pathParams: UpdateUserScimV2UsersUserIdPutPath;
+		body: UpdateUserScimV2UsersUserIdPutBody;
+		queryParams?: Partial<UpdateUserScimV2UsersUserIdPutQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.user_id == null || String(pathParams.user_id) === "") {
+		throw new Error(`Missing required path parameter: user_id`);
+	}
+	const data = await request<
+		UpdateUserScimV2UsersUserIdPutResponse,
+		ErrorWrapper<UpdateUserScimV2UsersUserIdPutStatus422>,
+		UpdateUserScimV2UsersUserIdPutBody,
+		Record<string, string>,
+		Partial<UpdateUserScimV2UsersUserIdPutQuery>,
+		UpdateUserScimV2UsersUserIdPutPath
+	>({
+		method: "PUT",
+		url: `/scim/v2/Users/${encodeURIComponent(String(pathParams.user_id))}`,
+		queryParams,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -35663,20 +35666,18 @@ export async function patchUserScimV2UsersUserIdPatch(
 }
 
 /**
- * @summary Update User
- * @description Update a user according to SCIM v2 protocol (full replacement)
+ * @summary Delete User
+ * @description Delete a user according to SCIM v2 protocol
  * @link /scim/v2/Users/{user_id}
  */
-export async function updateUserScimV2UsersUserIdPut(
+export async function deleteUserScimV2UsersUserIdDelete(
 	{
 		pathParams,
-		body,
 		queryParams,
 		config,
 	}: {
-		pathParams: UpdateUserScimV2UsersUserIdPutPath;
-		body: UpdateUserScimV2UsersUserIdPutBody;
-		queryParams?: Partial<UpdateUserScimV2UsersUserIdPutQuery>;
+		pathParams: DeleteUserScimV2UsersUserIdDeletePath;
+		queryParams?: Partial<DeleteUserScimV2UsersUserIdDeleteQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -35686,17 +35687,16 @@ export async function updateUserScimV2UsersUserIdPut(
 		throw new Error(`Missing required path parameter: user_id`);
 	}
 	const data = await request<
-		UpdateUserScimV2UsersUserIdPutResponse,
-		ErrorWrapper<UpdateUserScimV2UsersUserIdPutStatus422>,
-		UpdateUserScimV2UsersUserIdPutBody,
+		DeleteUserScimV2UsersUserIdDeleteResponse,
+		ErrorWrapper<DeleteUserScimV2UsersUserIdDeleteStatus422>,
+		null,
 		Record<string, string>,
-		Partial<UpdateUserScimV2UsersUserIdPutQuery>,
-		UpdateUserScimV2UsersUserIdPutPath
+		Partial<DeleteUserScimV2UsersUserIdDeleteQuery>,
+		DeleteUserScimV2UsersUserIdDeletePath
 	>({
-		method: "PUT",
+		method: "DELETE",
 		url: `/scim/v2/Users/${encodeURIComponent(String(pathParams.user_id))}`,
 		queryParams,
-		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -36419,57 +36419,6 @@ export async function testPromptPromptsTestPost(
 }
 
 /**
- * @summary Delete Prompt
- * @description Delete a prompt
- * 👉 [Prompt docs](https://docs.litellm.ai/docs/proxy/prompt_management)
- * Example Request:
- * ```bash
- * curl -X DELETE "http://localhost:4000/prompts/my_prompt_id" \
- *     -H "Authorization: Bearer <your_api_key>"
- * ```
- * Example Response:
- * ```json
- * {
- *     "message": "Prompt my_prompt_id deleted successfully"
- * }
- * ```
- * @link /prompts/{prompt_id}
- */
-export async function deletePromptPromptsPromptIdDelete(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: DeletePromptPromptsPromptIdDeletePath;
-		queryParams?: Partial<DeletePromptPromptsPromptIdDeleteQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.prompt_id == null || String(pathParams.prompt_id) === "") {
-		throw new Error(`Missing required path parameter: prompt_id`);
-	}
-	const data = await request<
-		DeletePromptPromptsPromptIdDeleteResponse,
-		ErrorWrapper<DeletePromptPromptsPromptIdDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Partial<DeletePromptPromptsPromptIdDeleteQuery>,
-		DeletePromptPromptsPromptIdDeletePath
-	>({
-		method: "DELETE",
-		url: `/prompts/${encodeURIComponent(String(pathParams.prompt_id))}`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Get Prompt Info
  * @description Get detailed information about a specific prompt by ID, including prompt content
  *     👉 [Prompt docs](https://docs.litellm.ai/docs/proxy/prompt_management)
@@ -36525,6 +36474,64 @@ export async function getPromptInfoPromptsPromptIdGet(
 		method: "GET",
 		url: `/prompts/${encodeURIComponent(String(pathParams.prompt_id))}`,
 		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Prompt
+ * @description Update an existing prompt
+ * 👉 [Prompt docs](https://docs.litellm.ai/docs/proxy/prompt_management)
+ * Example Request:
+ * ```bash
+ * curl -X PUT "http://localhost:4000/prompts/my_prompt_id" \
+ *     -H "Authorization: Bearer <your_api_key>" \
+ *     -H "Content-Type: application/json" \
+ *     -d '{
+ *         "prompt_id": "my_prompt",
+ *         "litellm_params": {
+ *             "prompt_id": "my_prompt",
+ *                 "prompt_integration": "dotprompt",
+ *                 "prompt_directory": "/path/to/prompts"
+ *             },
+ *             "prompt_info": {
+ *                 "prompt_type": "config"
+ *             }
+ *         }
+ *     }'
+ * ```
+ * @link /prompts/{prompt_id}
+ */
+export async function updatePromptPromptsPromptIdPut(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: UpdatePromptPromptsPromptIdPutPath;
+		body: UpdatePromptPromptsPromptIdPutBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.prompt_id == null || String(pathParams.prompt_id) === "") {
+		throw new Error(`Missing required path parameter: prompt_id`);
+	}
+	const data = await request<
+		UpdatePromptPromptsPromptIdPutResponse,
+		ErrorWrapper<UpdatePromptPromptsPromptIdPutStatus422>,
+		UpdatePromptPromptsPromptIdPutBody,
+		Record<string, string>,
+		Record<string, string>,
+		UpdatePromptPromptsPromptIdPutPath
+	>({
+		method: "PUT",
+		url: `/prompts/${encodeURIComponent(String(pathParams.prompt_id))}`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -36591,37 +36598,30 @@ export async function patchPromptPromptsPromptIdPatch(
 }
 
 /**
- * @summary Update Prompt
- * @description Update an existing prompt
+ * @summary Delete Prompt
+ * @description Delete a prompt
  * 👉 [Prompt docs](https://docs.litellm.ai/docs/proxy/prompt_management)
  * Example Request:
  * ```bash
- * curl -X PUT "http://localhost:4000/prompts/my_prompt_id" \
- *     -H "Authorization: Bearer <your_api_key>" \
- *     -H "Content-Type: application/json" \
- *     -d '{
- *         "prompt_id": "my_prompt",
- *         "litellm_params": {
- *             "prompt_id": "my_prompt",
- *                 "prompt_integration": "dotprompt",
- *                 "prompt_directory": "/path/to/prompts"
- *             },
- *             "prompt_info": {
- *                 "prompt_type": "config"
- *             }
- *         }
- *     }'
+ * curl -X DELETE "http://localhost:4000/prompts/my_prompt_id" \
+ *     -H "Authorization: Bearer <your_api_key>"
+ * ```
+ * Example Response:
+ * ```json
+ * {
+ *     "message": "Prompt my_prompt_id deleted successfully"
+ * }
  * ```
  * @link /prompts/{prompt_id}
  */
-export async function updatePromptPromptsPromptIdPut(
+export async function deletePromptPromptsPromptIdDelete(
 	{
 		pathParams,
-		body,
+		queryParams,
 		config,
 	}: {
-		pathParams: UpdatePromptPromptsPromptIdPutPath;
-		body: UpdatePromptPromptsPromptIdPutBody;
+		pathParams: DeletePromptPromptsPromptIdDeletePath;
+		queryParams?: Partial<DeletePromptPromptsPromptIdDeleteQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -36631,16 +36631,16 @@ export async function updatePromptPromptsPromptIdPut(
 		throw new Error(`Missing required path parameter: prompt_id`);
 	}
 	const data = await request<
-		UpdatePromptPromptsPromptIdPutResponse,
-		ErrorWrapper<UpdatePromptPromptsPromptIdPutStatus422>,
-		UpdatePromptPromptsPromptIdPutBody,
+		DeletePromptPromptsPromptIdDeleteResponse,
+		ErrorWrapper<DeletePromptPromptsPromptIdDeleteStatus422>,
+		null,
 		Record<string, string>,
-		Record<string, string>,
-		UpdatePromptPromptsPromptIdPutPath
+		Partial<DeletePromptPromptsPromptIdDeleteQuery>,
+		DeletePromptPromptsPromptIdDeletePath
 	>({
-		method: "PUT",
+		method: "DELETE",
 		url: `/prompts/${encodeURIComponent(String(pathParams.prompt_id))}`,
-		body: body,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -37133,41 +37133,6 @@ export async function createAccessGroupV1AccessGroupPost(
 }
 
 /**
- * @summary Delete Access Group
- * @link /v1/access_group/{access_group_id}
- */
-export async function deleteAccessGroupV1AccessGroupAccessGroupIdDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DeleteAccessGroupV1AccessGroupAccessGroupIdDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.access_group_id == null || String(pathParams.access_group_id) === "") {
-		throw new Error(`Missing required path parameter: access_group_id`);
-	}
-	const data = await request<
-		DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteResponse,
-		ErrorWrapper<DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DeleteAccessGroupV1AccessGroupAccessGroupIdDeletePath
-	>({
-		method: "DELETE",
-		url: `/v1/access_group/${encodeURIComponent(String(pathParams.access_group_id))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Get Access Group
  * @link /v1/access_group/{access_group_id}
  */
@@ -37241,6 +37206,41 @@ export async function updateAccessGroupV1AccessGroupAccessGroupIdPut(
 }
 
 /**
+ * @summary Delete Access Group
+ * @link /v1/access_group/{access_group_id}
+ */
+export async function deleteAccessGroupV1AccessGroupAccessGroupIdDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DeleteAccessGroupV1AccessGroupAccessGroupIdDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.access_group_id == null || String(pathParams.access_group_id) === "") {
+		throw new Error(`Missing required path parameter: access_group_id`);
+	}
+	const data = await request<
+		DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteResponse,
+		ErrorWrapper<DeleteAccessGroupV1AccessGroupAccessGroupIdDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DeleteAccessGroupV1AccessGroupAccessGroupIdDeletePath
+	>({
+		method: "DELETE",
+		url: `/v1/access_group/${encodeURIComponent(String(pathParams.access_group_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary List Access Groups
  * @link /v1/unified_access_group
  */
@@ -37292,41 +37292,6 @@ export async function createAccessGroupV1UnifiedAccessGroupPost(
 		method: "POST",
 		url: `/v1/unified_access_group`,
 		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Delete Access Group
- * @link /v1/unified_access_group/{access_group_id}
- */
-export async function deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDelete(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeletePath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.access_group_id == null || String(pathParams.access_group_id) === "") {
-		throw new Error(`Missing required path parameter: access_group_id`);
-	}
-	const data = await request<
-		DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteResponse,
-		ErrorWrapper<DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus422>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeletePath
-	>({
-		method: "DELETE",
-		url: `/v1/unified_access_group/${encodeURIComponent(String(pathParams.access_group_id))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -37407,6 +37372,41 @@ export async function updateAccessGroupV1UnifiedAccessGroupAccessGroupIdPut(
 	return data;
 }
 
+/**
+ * @summary Delete Access Group
+ * @link /v1/unified_access_group/{access_group_id}
+ */
+export async function deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.access_group_id == null || String(pathParams.access_group_id) === "") {
+		throw new Error(`Missing required path parameter: access_group_id`);
+	}
+	const data = await request<
+		DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteResponse,
+		ErrorWrapper<DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DeleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDeletePath
+	>({
+		method: "DELETE",
+		url: `/v1/unified_access_group/${encodeURIComponent(String(pathParams.access_group_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
 export const operationsByPath = {
 	"GET /models": modelListModelsGet,
 	"GET /v1/models": modelListV1ModelsGet,
@@ -37441,10 +37441,10 @@ export const operationsByPath = {
 	"POST /v1/threads": createThreadsV1ThreadsPost,
 	"GET /threads/{thread_id}": getThreadThreadsThreadIdGet,
 	"GET /v1/threads/{thread_id}": getThreadV1ThreadsThreadIdGet,
-	"POST /threads/{thread_id}/messages": addMessagesThreadsThreadIdMessagesPost,
 	"GET /threads/{thread_id}/messages": getMessagesThreadsThreadIdMessagesGet,
-	"POST /v1/threads/{thread_id}/messages": addMessagesV1ThreadsThreadIdMessagesPost,
+	"POST /threads/{thread_id}/messages": addMessagesThreadsThreadIdMessagesPost,
 	"GET /v1/threads/{thread_id}/messages": getMessagesV1ThreadsThreadIdMessagesGet,
+	"POST /v1/threads/{thread_id}/messages": addMessagesV1ThreadsThreadIdMessagesPost,
 	"POST /threads/{thread_id}/runs": runThreadThreadsThreadIdRunsPost,
 	"POST /v1/threads/{thread_id}/runs": runThreadV1ThreadsThreadIdRunsPost,
 	"POST /utils/token_counter": tokenCounterUtilsTokenCounterPost,
@@ -37532,10 +37532,10 @@ export const operationsByPath = {
 	"POST /v1/videos/edits": videoEditV1VideosEditsPost,
 	"POST /videos/extensions": videoExtensionVideosExtensionsPost,
 	"POST /v1/videos/extensions": videoExtensionV1VideosExtensionsPost,
-	"POST /containers": createContainerContainersPost,
 	"GET /containers": listContainersContainersGet,
-	"POST /v1/containers": createContainerV1ContainersPost,
+	"POST /containers": createContainerContainersPost,
 	"GET /v1/containers": listContainersV1ContainersGet,
+	"POST /v1/containers": createContainerV1ContainersPost,
 	"GET /containers/{container_id}": retrieveContainerContainersContainerIdGet,
 	"DELETE /containers/{container_id}": deleteContainerContainersContainerIdDelete,
 	"GET /v1/containers/{container_id}": retrieveContainerV1ContainersContainerIdGet,
@@ -37579,10 +37579,10 @@ export const operationsByPath = {
 		imageEditApiOpenaiDeploymentsModelImagesEditsPost,
 	"POST /images/edits": imageEditApiImagesEditsPost,
 	"POST /v1/images/edits": imageEditApiV1ImagesEditsPost,
-	"POST /fine_tuning/jobs": createFineTuningJobFineTuningJobsPost,
 	"GET /fine_tuning/jobs": listFineTuningJobsFineTuningJobsGet,
-	"POST /v1/fine_tuning/jobs": createFineTuningJobV1FineTuningJobsPost,
+	"POST /fine_tuning/jobs": createFineTuningJobFineTuningJobsPost,
 	"GET /v1/fine_tuning/jobs": listFineTuningJobsV1FineTuningJobsGet,
+	"POST /v1/fine_tuning/jobs": createFineTuningJobV1FineTuningJobsPost,
 	"GET /fine_tuning/jobs/{fine_tuning_job_id}":
 		retrieveFineTuningJobFineTuningJobsFineTuningJobIdGet,
 	"GET /v1/fine_tuning/jobs/{fine_tuning_job_id}":
@@ -37605,26 +37605,26 @@ export const operationsByPath = {
 		pollUserConnectionCredentialsCredentialNameUserConnectionPollPost,
 	"DELETE /credentials/{credential_name}/user_connection":
 		deleteUserConnectionCredentialsCredentialNameUserConnectionDelete,
-	"DELETE /credentials/{credential_name}": deleteCredentialCredentialsCredentialNameDelete,
 	"PATCH /credentials/{credential_name}": updateCredentialCredentialsCredentialNamePatch,
-	"POST /batches": createBatchBatchesPost,
+	"DELETE /credentials/{credential_name}": deleteCredentialCredentialsCredentialNameDelete,
 	"GET /batches": listBatchesBatchesGet,
-	"POST /v1/batches": createBatchV1BatchesPost,
+	"POST /batches": createBatchBatchesPost,
 	"GET /v1/batches": listBatchesV1BatchesGet,
-	"POST /{provider}/v1/batches": createBatchProviderV1BatchesPost,
+	"POST /v1/batches": createBatchV1BatchesPost,
 	"GET /{provider}/v1/batches": listBatchesProviderV1BatchesGet,
+	"POST /{provider}/v1/batches": createBatchProviderV1BatchesPost,
 	"GET /batches/{batch_id}": retrieveBatchBatchesBatchIdGet,
 	"GET /v1/batches/{batch_id}": retrieveBatchV1BatchesBatchIdGet,
 	"GET /{provider}/v1/batches/{batch_id}": retrieveBatchProviderV1BatchesBatchIdGet,
 	"POST /batches/{batch_id}/cancel": cancelBatchBatchesBatchIdCancelPost,
 	"POST /v1/batches/{batch_id}/cancel": cancelBatchV1BatchesBatchIdCancelPost,
 	"POST /{provider}/v1/batches/{batch_id}/cancel": cancelBatchProviderV1BatchesBatchIdCancelPost,
-	"POST /files": createFileFilesPost,
 	"GET /files": listFilesFilesGet,
-	"POST /v1/files": createFileV1FilesPost,
+	"POST /files": createFileFilesPost,
 	"GET /v1/files": listFilesV1FilesGet,
-	"POST /{provider}/v1/files": createFileProviderV1FilesPost,
+	"POST /v1/files": createFileV1FilesPost,
 	"GET /{provider}/v1/files": listFilesProviderV1FilesGet,
+	"POST /{provider}/v1/files": createFileProviderV1FilesPost,
 	"GET /files/{file_id}/content": getFileContentFilesFileIdContentGet,
 	"GET /v1/files/{file_id}/content": getFileContentV1FilesFileIdContentGet,
 	"GET /{provider}/v1/files/{file_id}/content": getFileContentProviderV1FilesFileIdContentGet,
@@ -37857,8 +37857,8 @@ export const operationsByPath = {
 	"GET /get/user_banner": getUserBannerGetUserBannerGet,
 	"PATCH /update/user_banner": updateUserBannerUpdateUserBannerPatch,
 	"GET /get/latest_release_info": latestReleaseInfoGetLatestReleaseInfoGet,
-	"POST /team/{team_id}/callback": addTeamCallbacksTeamTeamIdCallbackPost,
 	"GET /team/{team_id}/callback": getTeamCallbacksTeamTeamIdCallbackGet,
+	"POST /team/{team_id}/callback": addTeamCallbacksTeamTeamIdCallbackPost,
 	"DELETE /team/{team_id}/callback/{callback_name}":
 		deleteTeamCallbackTeamTeamIdCallbackCallbackNameDelete,
 	"POST /team/{team_id}/disable_logging": disableTeamLoggingTeamTeamIdDisableLoggingPost,
@@ -37876,10 +37876,10 @@ export const operationsByPath = {
 	"POST /model/update": updateModelModelUpdatePost,
 	"POST /model_group/make_public": updatePublicModelGroupsModelGroupMakePublicPost,
 	"POST /model_hub/update_useful_links": updateUsefulLinksModelHubUpdateUsefulLinksPost,
-	"POST /auto_router/classifier/default_prompt":
-		previewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPost,
 	"GET /auto_router/classifier/default_prompt":
 		getAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromptGet,
+	"POST /auto_router/classifier/default_prompt":
+		previewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPost,
 	"POST /access_group/new": createModelGroupAccessGroupNewPost,
 	"GET /access_group/list": listAccessGroupsAccessGroupListGet,
 	"GET /access_group/{access_group}/info": getAccessGroupInfoAccessGroupAccessGroupInfoGet,
@@ -37905,31 +37905,31 @@ export const operationsByPath = {
 	"GET /tag/list": listTagsTagListGet,
 	"POST /tag/delete": deleteTagTagDeletePost,
 	"GET /tag/daily/activity": getTagDailyActivityTagDailyActivityGet,
-	"POST /v1/workflows/runs": createWorkflowRunV1WorkflowsRunsPost,
 	"GET /v1/workflows/runs": listWorkflowRunsV1WorkflowsRunsGet,
+	"POST /v1/workflows/runs": createWorkflowRunV1WorkflowsRunsPost,
 	"GET /v1/workflows/runs/{run_id}": getWorkflowRunV1WorkflowsRunsRunIdGet,
 	"PATCH /v1/workflows/runs/{run_id}": updateWorkflowRunV1WorkflowsRunsRunIdPatch,
-	"POST /v1/workflows/runs/{run_id}/events": appendWorkflowEventV1WorkflowsRunsRunIdEventsPost,
 	"GET /v1/workflows/runs/{run_id}/events": listWorkflowEventsV1WorkflowsRunsRunIdEventsGet,
+	"POST /v1/workflows/runs/{run_id}/events": appendWorkflowEventV1WorkflowsRunsRunIdEventsPost,
+	"GET /v1/workflows/runs/{run_id}/messages": listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGet,
 	"POST /v1/workflows/runs/{run_id}/messages":
 		appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPost,
-	"GET /v1/workflows/runs/{run_id}/messages": listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGet,
-	"POST /v1/memory": createMemoryV1MemoryPost,
 	"GET /v1/memory": listMemoryV1MemoryGet,
+	"POST /v1/memory": createMemoryV1MemoryPost,
 	"GET /v1/memory/{key}": getMemoryV1MemoryKeyGet,
 	"PUT /v1/memory/{key}": upsertMemoryV1MemoryKeyPut,
 	"DELETE /v1/memory/{key}": deleteMemoryV1MemoryKeyDelete,
 	"GET /lens/service": serviceConnectionLensServiceGet,
-	"POST /lens/{path}": lensRequestLensPathPost,
-	"DELETE /lens/{path}": lensRequestLensPathDelete,
 	"GET /lens/{path}": lensRequestLensPathGet,
 	"PUT /lens/{path}": lensRequestLensPathPut,
+	"POST /lens/{path}": lensRequestLensPathPost,
 	"PATCH /lens/{path}": lensRequestLensPathPatch,
-	"POST /lens": lensRequestLensPost,
-	"DELETE /lens": lensRequestLensDelete,
+	"DELETE /lens/{path}": lensRequestLensPathDelete,
 	"GET /lens": lensRequestLensGet,
 	"PUT /lens": lensRequestLensPut,
+	"POST /lens": lensRequestLensPost,
 	"PATCH /lens": lensRequestLensPatch,
+	"DELETE /lens": lensRequestLensDelete,
 	"GET /api/plugins": listPluginsApiPluginsGet,
 	"GET /api/plugins/auth-token": pluginAuthTokenApiPluginsAuthTokenGet,
 	"POST /cost/predict-cache": predictCacheCostCostPredictCachePost,
@@ -38010,31 +38010,31 @@ export const operationsByPath = {
 	"GET /mcp/proxy": proxyMcpRouteMcpProxyGet,
 	"PUT /mcp/proxy": proxyMcpRouteMcpProxyPut,
 	"POST /mcp/proxy": proxyMcpRouteMcpProxyPost,
-	"DELETE /mcp/proxy": proxyMcpRouteMcpProxyDelete,
-	"OPTIONS /mcp/proxy": proxyMcpRouteMcpProxyOptions,
-	"HEAD /mcp/proxy": proxyMcpRouteMcpProxyHead,
 	"PATCH /mcp/proxy": proxyMcpRouteMcpProxyPatch,
+	"DELETE /mcp/proxy": proxyMcpRouteMcpProxyDelete,
+	"HEAD /mcp/proxy": proxyMcpRouteMcpProxyHead,
+	"OPTIONS /mcp/proxy": proxyMcpRouteMcpProxyOptions,
 	"GET /mcp": aggregateMcpRouteMcpGet,
 	"PUT /mcp": aggregateMcpRouteMcpPut,
 	"POST /mcp": aggregateMcpRouteMcpPost,
-	"DELETE /mcp": aggregateMcpRouteMcpDelete,
-	"OPTIONS /mcp": aggregateMcpRouteMcpOptions,
-	"HEAD /mcp": aggregateMcpRouteMcpHead,
 	"PATCH /mcp": aggregateMcpRouteMcpPatch,
-	"POST /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPost,
-	"OPTIONS /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpOptions,
-	"HEAD /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpHead,
-	"DELETE /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpDelete,
+	"DELETE /mcp": aggregateMcpRouteMcpDelete,
+	"HEAD /mcp": aggregateMcpRouteMcpHead,
+	"OPTIONS /mcp": aggregateMcpRouteMcpOptions,
 	"GET /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpGet,
 	"PUT /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPut,
+	"POST /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPost,
 	"PATCH /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpPatch,
-	"POST /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPost,
-	"OPTIONS /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpOptions,
-	"HEAD /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpHead,
-	"DELETE /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpDelete,
+	"DELETE /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpDelete,
+	"HEAD /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpHead,
+	"OPTIONS /toolset/{toolset_name}/mcp": toolsetMcpRouteToolsetToolsetNameMcpOptions,
 	"GET /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpGet,
 	"PUT /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPut,
+	"POST /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPost,
 	"PATCH /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpPatch,
+	"DELETE /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpDelete,
+	"HEAD /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpHead,
+	"OPTIONS /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpOptions,
 	"GET /vertex_ai/live": websocketVertexAiLivePassthroughEndpoint,
 	"GET /realtime": websocketRealtimeWebsocketEndpointGet,
 	"GET /v1/realtime": websocketRealtimeWebsocketEndpointGet2,
@@ -38068,10 +38068,10 @@ export const operationsByPath = {
 	"GET /guardrails/usage/overview": guardrailsUsageOverviewGuardrailsUsageOverviewGet,
 	"POST /guardrails/validate_blocked_words_file":
 		validateBlockedWordsFileGuardrailsValidateBlockedWordsFilePost,
-	"DELETE /guardrails/{guardrail_id}": deleteGuardrailGuardrailsGuardrailIdDelete,
 	"GET /guardrails/{guardrail_id}": getGuardrailInfoGuardrailsGuardrailIdGet,
-	"PATCH /guardrails/{guardrail_id}": patchGuardrailGuardrailsGuardrailIdPatch,
 	"PUT /guardrails/{guardrail_id}": updateGuardrailGuardrailsGuardrailIdPut,
+	"PATCH /guardrails/{guardrail_id}": patchGuardrailGuardrailsGuardrailIdPatch,
+	"DELETE /guardrails/{guardrail_id}": deleteGuardrailGuardrailsGuardrailIdDelete,
 	"GET /guardrails/{guardrail_id}/info": getGuardrailInfoGuardrailsGuardrailIdInfoGet,
 	"GET /policies/usage/overview": policiesUsageOverviewPoliciesUsageOverviewGet,
 	"GET /v2/guardrails/list": listGuardrailsV2V2GuardrailsListGet,
@@ -38091,10 +38091,10 @@ export const operationsByPath = {
 	"POST /policies/attachments/estimate-impact":
 		estimateAttachmentImpactPoliciesAttachmentsEstimateImpactPost,
 	"GET /policies/attachments/list": listPolicyAttachmentsPoliciesAttachmentsListGet,
-	"DELETE /policies/attachments/{attachment_id}":
-		deletePolicyAttachmentPoliciesAttachmentsAttachmentIdDelete,
 	"GET /policies/attachments/{attachment_id}":
 		getPolicyAttachmentPoliciesAttachmentsAttachmentIdGet,
+	"DELETE /policies/attachments/{attachment_id}":
+		deletePolicyAttachmentPoliciesAttachmentsAttachmentIdDelete,
 	"GET /policies/compare": comparePolicyVersionsPoliciesCompareGet,
 	"GET /policies/list": listPoliciesPoliciesListGet,
 	"DELETE /policies/name/{policy_name}/all-versions":
@@ -38104,9 +38104,9 @@ export const operationsByPath = {
 		createPolicyVersionPoliciesNamePolicyNameVersionsPost,
 	"POST /policies/resolve": resolvePoliciesForContextPoliciesResolvePost,
 	"POST /policies/test-pipeline": testPipelinePoliciesTestPipelinePost,
-	"DELETE /policies/{policy_id}": deletePolicyPoliciesPolicyIdDelete,
 	"GET /policies/{policy_id}": getPolicyPoliciesPolicyIdGet,
 	"PUT /policies/{policy_id}": updatePolicyPoliciesPolicyIdPut,
+	"DELETE /policies/{policy_id}": deletePolicyPoliciesPolicyIdDelete,
 	"GET /policies/{policy_id}/resolved-guardrails":
 		getResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGet,
 	"PUT /policies/{policy_id}/status": updatePolicyVersionStatusPoliciesPolicyIdStatusPut,
@@ -38115,17 +38115,17 @@ export const operationsByPath = {
 	"POST /v1/agents": createAgentV1AgentsPost,
 	"GET /v1/agents/identity/providers": getAgentIdentityProvidersV1AgentsIdentityProvidersGet,
 	"POST /v1/agents/make_public": makeAgentsPublicV1AgentsMakePublicPost,
-	"DELETE /v1/agents/{agent_id}": deleteAgentV1AgentsAgentIdDelete,
 	"GET /v1/agents/{agent_id}": getAgentByIdV1AgentsAgentIdGet,
-	"PATCH /v1/agents/{agent_id}": patchAgentV1AgentsAgentIdPatch,
 	"PUT /v1/agents/{agent_id}": updateAgentV1AgentsAgentIdPut,
+	"PATCH /v1/agents/{agent_id}": patchAgentV1AgentsAgentIdPatch,
+	"DELETE /v1/agents/{agent_id}": deleteAgentV1AgentsAgentIdDelete,
 	"GET /v1/agents/{agent_id}/identity": getAgentIdentityStatusV1AgentsAgentIdIdentityGet,
 	"POST /v1/agents/{agent_id}/kill_switch": triggerAgentKillSwitchV1AgentsAgentIdKillSwitchPost,
 	"POST /v1/agents/{agent_id}/make_public": makeAgentPublicV1AgentsAgentIdMakePublicPost,
 	"GET /v1beta/agents": listGeminiAgentsV1BetaAgentsGet,
 	"POST /v1beta/agents": createGeminiAgentV1BetaAgentsPost,
-	"DELETE /v1beta/agents/{name}": deleteGeminiAgentV1BetaAgentsNameDelete,
 	"GET /v1beta/agents/{name}": getGeminiAgentV1BetaAgentsNameGet,
+	"DELETE /v1beta/agents/{name}": deleteGeminiAgentV1BetaAgentsNameDelete,
 	"GET /v1beta/agents/{name}/versions": listGeminiAgentVersionsV1BetaAgentsNameVersionsGet,
 	"POST /a2a/{agent_id}": invokeAgentA2AA2AAgentIdPost,
 	"GET /a2a/{agent_id}/.well-known/agent-card.json":
@@ -38138,38 +38138,38 @@ export const operationsByPath = {
 	"POST /v1/indexes": indexCreateV1IndexesPost,
 	"GET /v1/vector_stores": vectorStoreListV1VectorStoresGet,
 	"POST /v1/vector_stores": vectorStoreCreateV1VectorStoresPost,
-	"DELETE /v1/vector_stores/{vector_store_id}": vectorStoreDeleteV1VectorStoresVectorStoreIdDelete,
 	"GET /v1/vector_stores/{vector_store_id}": vectorStoreRetrieveV1VectorStoresVectorStoreIdGet,
 	"POST /v1/vector_stores/{vector_store_id}": vectorStoreUpdateV1VectorStoresVectorStoreIdPost,
+	"DELETE /v1/vector_stores/{vector_store_id}": vectorStoreDeleteV1VectorStoresVectorStoreIdDelete,
 	"GET /v1/vector_stores/{vector_store_id}/files":
 		vectorStoreFileListV1VectorStoresVectorStoreIdFilesGet,
 	"POST /v1/vector_stores/{vector_store_id}/files":
 		vectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPost,
-	"DELETE /v1/vector_stores/{vector_store_id}/files/{file_id}":
-		vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDelete,
 	"GET /v1/vector_stores/{vector_store_id}/files/{file_id}":
 		vectorStoreFileRetrieveV1VectorStoresVectorStoreIdFilesFileIdGet,
 	"POST /v1/vector_stores/{vector_store_id}/files/{file_id}":
 		vectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPost,
+	"DELETE /v1/vector_stores/{vector_store_id}/files/{file_id}":
+		vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDelete,
 	"GET /v1/vector_stores/{vector_store_id}/files/{file_id}/content":
 		vectorStoreFileContentV1VectorStoresVectorStoreIdFilesFileIdContentGet,
 	"POST /v1/vector_stores/{vector_store_id}/search":
 		vectorStoreSearchV1VectorStoresVectorStoreIdSearchPost,
 	"GET /vector_stores": vectorStoreListVectorStoresGet,
 	"POST /vector_stores": vectorStoreCreateVectorStoresPost,
-	"DELETE /vector_stores/{vector_store_id}": vectorStoreDeleteVectorStoresVectorStoreIdDelete,
 	"GET /vector_stores/{vector_store_id}": vectorStoreRetrieveVectorStoresVectorStoreIdGet,
 	"POST /vector_stores/{vector_store_id}": vectorStoreUpdateVectorStoresVectorStoreIdPost,
+	"DELETE /vector_stores/{vector_store_id}": vectorStoreDeleteVectorStoresVectorStoreIdDelete,
 	"GET /vector_stores/{vector_store_id}/files":
 		vectorStoreFileListVectorStoresVectorStoreIdFilesGet,
 	"POST /vector_stores/{vector_store_id}/files":
 		vectorStoreFileCreateVectorStoresVectorStoreIdFilesPost,
-	"DELETE /vector_stores/{vector_store_id}/files/{file_id}":
-		vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDelete,
 	"GET /vector_stores/{vector_store_id}/files/{file_id}":
 		vectorStoreFileRetrieveVectorStoresVectorStoreIdFilesFileIdGet,
 	"POST /vector_stores/{vector_store_id}/files/{file_id}":
 		vectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPost,
+	"DELETE /vector_stores/{vector_store_id}/files/{file_id}":
+		vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDelete,
 	"GET /vector_stores/{vector_store_id}/files/{file_id}/content":
 		vectorStoreFileContentVectorStoresVectorStoreIdFilesFileIdContentGet,
 	"POST /vector_stores/{vector_store_id}/search":
@@ -38195,9 +38195,9 @@ export const operationsByPath = {
 	"POST /search_tools/test_connection": testSearchToolConnectionSearchToolsTestConnectionPost,
 	"GET /search_tools/ui/available_providers":
 		getAvailableSearchProvidersSearchToolsUiAvailableProvidersGet,
-	"DELETE /search_tools/{search_tool_id}": deleteSearchToolSearchToolsSearchToolIdDelete,
 	"GET /search_tools/{search_tool_id}": getSearchToolInfoSearchToolsSearchToolIdGet,
 	"PUT /search_tools/{search_tool_id}": updateSearchToolSearchToolsSearchToolIdPut,
+	"DELETE /search_tools/{search_tool_id}": deleteSearchToolSearchToolsSearchToolIdDelete,
 	"GET /v1/mcp/access_groups": getMcpAccessGroupsV1McpAccessGroupsGet,
 	"GET /v1/mcp/discover": discoverMcpServersV1McpDiscoverGet,
 	"POST /v1/mcp/make_public": makeMcpServersPublicV1McpMakePublicPost,
@@ -38205,45 +38205,45 @@ export const operationsByPath = {
 	"GET /v1/mcp/openapi-registry": getOpenapiRegistryV1McpOpenapiRegistryGet,
 	"GET /v1/mcp/registry.json": getMcpRegistryV1McpRegistryJsonGet,
 	"GET /v1/mcp/server": fetchAllMcpServersV1McpServerGet,
-	"POST /v1/mcp/server": addMcpServerV1McpServerPost,
 	"PUT /v1/mcp/server": editMcpServerV1McpServerPut,
+	"POST /v1/mcp/server": addMcpServerV1McpServerPost,
 	"GET /v1/mcp/server/health": healthCheckServersV1McpServerHealthGet,
 	"POST /v1/mcp/server/import": importMcpServersV1McpServerImportPost,
 	"POST /v1/mcp/server/oauth/session": addSessionMcpServerV1McpServerOauthSessionPost,
 	"POST /v1/mcp/server/register": registerMcpServerV1McpServerRegisterPost,
 	"GET /v1/mcp/server/submissions": getMcpServerSubmissionsV1McpServerSubmissionsGet,
-	"DELETE /v1/mcp/server/{server_id}": removeMcpServerV1McpServerServerIdDelete,
 	"GET /v1/mcp/server/{server_id}": fetchMcpServerV1McpServerServerIdGet,
+	"DELETE /v1/mcp/server/{server_id}": removeMcpServerV1McpServerServerIdDelete,
 	"PUT /v1/mcp/server/{server_id}/approve": approveMcpServerSubmissionV1McpServerServerIdApprovePut,
-	"DELETE /v1/mcp/server/{server_id}/oauth-user-credential":
-		deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDelete,
 	"POST /v1/mcp/server/{server_id}/oauth-user-credential":
 		storeMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialPost,
+	"DELETE /v1/mcp/server/{server_id}/oauth-user-credential":
+		deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDelete,
 	"GET /v1/mcp/server/{server_id}/oauth-user-credential/status":
 		getMcpOauthUserCredentialStatusV1McpServerServerIdOauthUserCredentialStatusGet,
-	"DELETE /v1/mcp/server/{server_id}/pin": unpinMcpServerToolsV1McpServerServerIdPinDelete,
 	"POST /v1/mcp/server/{server_id}/pin": pinMcpServerToolsV1McpServerServerIdPinPost,
+	"DELETE /v1/mcp/server/{server_id}/pin": unpinMcpServerToolsV1McpServerServerIdPinDelete,
 	"PUT /v1/mcp/server/{server_id}/reject": rejectMcpServerSubmissionV1McpServerServerIdRejectPut,
-	"DELETE /v1/mcp/server/{server_id}/user-credential":
-		deleteMcpUserCredentialV1McpServerServerIdUserCredentialDelete,
 	"POST /v1/mcp/server/{server_id}/user-credential":
 		storeMcpUserCredentialV1McpServerServerIdUserCredentialPost,
+	"DELETE /v1/mcp/server/{server_id}/user-credential":
+		deleteMcpUserCredentialV1McpServerServerIdUserCredentialDelete,
 	"GET /v1/mcp/server/{server_id}/user-credentials":
 		listMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGet,
-	"DELETE /v1/mcp/server/{server_id}/user-env-vars":
-		clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDelete,
 	"GET /v1/mcp/server/{server_id}/user-env-vars":
 		getMcpUserEnvVarsV1McpServerServerIdUserEnvVarsGet,
 	"POST /v1/mcp/server/{server_id}/user-env-vars":
 		storeMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPost,
-	"DELETE /v1/mcp/sessions": deleteMcpGatewaySessionsV1McpSessionsDelete,
+	"DELETE /v1/mcp/server/{server_id}/user-env-vars":
+		clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDelete,
 	"GET /v1/mcp/sessions": getMcpGatewaySessionsV1McpSessionsGet,
+	"DELETE /v1/mcp/sessions": deleteMcpGatewaySessionsV1McpSessionsDelete,
 	"GET /v1/mcp/tools": getMcpToolsV1McpToolsGet,
 	"GET /v1/mcp/toolset": fetchMcpToolsetsV1McpToolsetGet,
-	"POST /v1/mcp/toolset": addMcpToolsetV1McpToolsetPost,
 	"PUT /v1/mcp/toolset": editMcpToolsetV1McpToolsetPut,
-	"DELETE /v1/mcp/toolset/{toolset_id}": removeMcpToolsetV1McpToolsetToolsetIdDelete,
+	"POST /v1/mcp/toolset": addMcpToolsetV1McpToolsetPost,
 	"GET /v1/mcp/toolset/{toolset_id}": fetchMcpToolsetV1McpToolsetToolsetIdGet,
+	"DELETE /v1/mcp/toolset/{toolset_id}": removeMcpToolsetV1McpToolsetToolsetIdDelete,
 	"GET /v1/mcp/user-credentials": listMcpUserCredentialsV1McpUserCredentialsGet,
 	"GET /v1/mcp/user-env-vars/status": listMcpUserEnvVarStatusV1McpUserEnvVarsStatusGet,
 	"GET /.well-known/jwks.json": jwksJsonWellKnownJwksJsonGet,
@@ -38283,16 +38283,16 @@ export const operationsByPath = {
 	"POST /mcp-rest/test/tools/list": testToolsListMcpRestTestToolsListPost,
 	"POST /mcp-rest/tools/call": callToolRestApiMcpRestToolsCallPost,
 	"GET /mcp-rest/tools/list": listToolRestApiMcpRestToolsListGet,
-	"DELETE /config_overrides/cyberark": deleteCyberarkConfigConfigOverridesCyberarkDelete,
 	"GET /config_overrides/cyberark": getCyberarkConfigConfigOverridesCyberarkGet,
 	"POST /config_overrides/cyberark": updateCyberarkConfigConfigOverridesCyberarkPost,
+	"DELETE /config_overrides/cyberark": deleteCyberarkConfigConfigOverridesCyberarkDelete,
 	"POST /config_overrides/cyberark/test_connection":
 		testCyberarkConnectionConfigOverridesCyberarkTestConnectionPost,
-	"DELETE /config_overrides/hashicorp_vault":
-		deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDelete,
 	"GET /config_overrides/hashicorp_vault": getHashicorpVaultConfigConfigOverridesHashicorpVaultGet,
 	"POST /config_overrides/hashicorp_vault":
 		updateHashicorpVaultConfigConfigOverridesHashicorpVaultPost,
+	"DELETE /config_overrides/hashicorp_vault":
+		deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDelete,
 	"POST /config_overrides/hashicorp_vault/test_connection":
 		testHashicorpVaultConnectionConfigOverridesHashicorpVaultTestConnectionPost,
 	"POST /bespoke/v1/systemone": bespokeProxyRouteBespokeV1SystemonePost,
@@ -38319,19 +38319,19 @@ export const operationsByPath = {
 	"POST /v1/messages/count_tokens": countTokensV1MessagesCountTokensPost,
 	"GET /v1/skills": listSkillsV1SkillsGet,
 	"POST /v1/skills": createSkillV1SkillsPost,
-	"DELETE /v1/skills/{skill_id}": deleteSkillV1SkillsSkillIdDelete,
 	"GET /v1/skills/{skill_id}": getSkillV1SkillsSkillIdGet,
+	"DELETE /v1/skills/{skill_id}": deleteSkillV1SkillsSkillIdDelete,
 	"GET /v1/evals": listEvalsV1EvalsGet,
 	"POST /v1/evals": createEvalV1EvalsPost,
-	"DELETE /v1/evals/{eval_id}": deleteEvalV1EvalsEvalIdDelete,
 	"GET /v1/evals/{eval_id}": getEvalV1EvalsEvalIdGet,
 	"POST /v1/evals/{eval_id}": updateEvalV1EvalsEvalIdPost,
+	"DELETE /v1/evals/{eval_id}": deleteEvalV1EvalsEvalIdDelete,
 	"POST /v1/evals/{eval_id}/cancel": cancelEvalV1EvalsEvalIdCancelPost,
 	"GET /v1/evals/{eval_id}/runs": listRunsV1EvalsEvalIdRunsGet,
 	"POST /v1/evals/{eval_id}/runs": createRunV1EvalsEvalIdRunsPost,
-	"DELETE /v1/evals/{eval_id}/runs/{run_id}": deleteRunV1EvalsEvalIdRunsRunIdDelete,
 	"GET /v1/evals/{eval_id}/runs/{run_id}": getRunV1EvalsEvalIdRunsRunIdGet,
 	"POST /v1/evals/{eval_id}/runs/{run_id}": cancelRunV1EvalsEvalIdRunsRunIdPost,
+	"DELETE /v1/evals/{eval_id}/runs/{run_id}": deleteRunV1EvalsEvalIdRunsRunIdDelete,
 	"POST /decisions": decisionsDecisionsPost,
 	"POST /systemone": systemoneSystemonePost,
 	"POST /v1/decisions": decisionsV1DecisionsPost,
@@ -38339,9 +38339,9 @@ export const operationsByPath = {
 	"GET /claude-code/marketplace.json": getMarketplaceClaudeCodeMarketplaceJsonGet,
 	"GET /claude-code/plugins": listPluginsClaudeCodePluginsGet,
 	"POST /claude-code/plugins": registerPluginClaudeCodePluginsPost,
-	"DELETE /claude-code/plugins/{plugin_name}": deletePluginClaudeCodePluginsPluginNameDelete,
 	"GET /claude-code/plugins/{plugin_name}": getPluginClaudeCodePluginsPluginNameGet,
 	"PUT /claude-code/plugins/{plugin_name}": updatePluginClaudeCodePluginsPluginNamePut,
+	"DELETE /claude-code/plugins/{plugin_name}": deletePluginClaudeCodePluginsPluginNameDelete,
 	"POST /claude-code/plugins/{plugin_name}/disable":
 		disablePluginClaudeCodePluginsPluginNameDisablePost,
 	"POST /claude-code/plugins/{plugin_name}/enable":
@@ -38349,10 +38349,10 @@ export const operationsByPath = {
 	"GET /scim/v2": getScimBaseScimV2Get,
 	"GET /scim/v2/Groups": getGroupsScimV2GroupsGet,
 	"POST /scim/v2/Groups": createGroupScimV2GroupsPost,
-	"DELETE /scim/v2/Groups/{group_id}": deleteGroupScimV2GroupsGroupIdDelete,
 	"GET /scim/v2/Groups/{group_id}": getGroupScimV2GroupsGroupIdGet,
-	"PATCH /scim/v2/Groups/{group_id}": patchGroupScimV2GroupsGroupIdPatch,
 	"PUT /scim/v2/Groups/{group_id}": updateGroupScimV2GroupsGroupIdPut,
+	"PATCH /scim/v2/Groups/{group_id}": patchGroupScimV2GroupsGroupIdPatch,
+	"DELETE /scim/v2/Groups/{group_id}": deleteGroupScimV2GroupsGroupIdDelete,
 	"GET /scim/v2/ResourceTypes": getResourceTypesScimV2ResourceTypesGet,
 	"GET /scim/v2/ResourceTypes/{resource_type_id}":
 		getResourceTypeScimV2ResourceTypesResourceTypeIdGet,
@@ -38361,10 +38361,10 @@ export const operationsByPath = {
 	"GET /scim/v2/ServiceProviderConfig": getServiceProviderConfigScimV2ServiceProviderConfigGet,
 	"GET /scim/v2/Users": getUsersScimV2UsersGet,
 	"POST /scim/v2/Users": createUserScimV2UsersPost,
-	"DELETE /scim/v2/Users/{user_id}": deleteUserScimV2UsersUserIdDelete,
 	"GET /scim/v2/Users/{user_id}": getUserScimV2UsersUserIdGet,
-	"PATCH /scim/v2/Users/{user_id}": patchUserScimV2UsersUserIdPatch,
 	"PUT /scim/v2/Users/{user_id}": updateUserScimV2UsersUserIdPut,
+	"PATCH /scim/v2/Users/{user_id}": patchUserScimV2UsersUserIdPatch,
+	"DELETE /scim/v2/Users/{user_id}": deleteUserScimV2UsersUserIdDelete,
 	"GET /scim/v2/placeholders": listPlaceholdersScimV2PlaceholdersGet,
 	"POST /scim/v2/placeholders/{user_id}/merge": mergePlaceholderScimV2PlaceholdersUserIdMergePost,
 	"DELETE /cloudzero/delete": deleteCloudzeroSettingsCloudzeroDeleteDelete,
@@ -38383,10 +38383,10 @@ export const operationsByPath = {
 	"POST /prompts": createPromptPromptsPost,
 	"GET /prompts/list": listPromptsPromptsListGet,
 	"POST /prompts/test": testPromptPromptsTestPost,
-	"DELETE /prompts/{prompt_id}": deletePromptPromptsPromptIdDelete,
 	"GET /prompts/{prompt_id}": getPromptInfoPromptsPromptIdGet,
-	"PATCH /prompts/{prompt_id}": patchPromptPromptsPromptIdPatch,
 	"PUT /prompts/{prompt_id}": updatePromptPromptsPromptIdPut,
+	"PATCH /prompts/{prompt_id}": patchPromptPromptsPromptIdPatch,
+	"DELETE /prompts/{prompt_id}": deletePromptPromptsPromptIdDelete,
 	"GET /prompts/{prompt_id}/info": getPromptInfoPromptsPromptIdInfoGet,
 	"GET /prompts/{prompt_id}/versions": getPromptVersionsPromptsPromptIdVersionsGet,
 	"POST /utils/dotprompt_json_converter": convertPromptFileToJsonUtilsDotpromptJsonConverterPost,
@@ -38399,17 +38399,17 @@ export const operationsByPath = {
 	"POST /compliance/gdpr": checkGdprComplianceComplianceGdprPost,
 	"GET /v1/access_group": listAccessGroupsV1AccessGroupGet,
 	"POST /v1/access_group": createAccessGroupV1AccessGroupPost,
-	"DELETE /v1/access_group/{access_group_id}": deleteAccessGroupV1AccessGroupAccessGroupIdDelete,
 	"GET /v1/access_group/{access_group_id}": getAccessGroupV1AccessGroupAccessGroupIdGet,
 	"PUT /v1/access_group/{access_group_id}": updateAccessGroupV1AccessGroupAccessGroupIdPut,
+	"DELETE /v1/access_group/{access_group_id}": deleteAccessGroupV1AccessGroupAccessGroupIdDelete,
 	"GET /v1/unified_access_group": listAccessGroupsV1UnifiedAccessGroupGet,
 	"POST /v1/unified_access_group": createAccessGroupV1UnifiedAccessGroupPost,
-	"DELETE /v1/unified_access_group/{access_group_id}":
-		deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDelete,
 	"GET /v1/unified_access_group/{access_group_id}":
 		getAccessGroupV1UnifiedAccessGroupAccessGroupIdGet,
 	"PUT /v1/unified_access_group/{access_group_id}":
 		updateAccessGroupV1UnifiedAccessGroupAccessGroupIdPut,
+	"DELETE /v1/unified_access_group/{access_group_id}":
+		deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDelete,
 };
 
 export const operationsByTag = {
@@ -38437,8 +38437,8 @@ export const operationsByTag = {
 		updateModelModelUpdatePost,
 		updatePublicModelGroupsModelGroupMakePublicPost,
 		updateUsefulLinksModelHubUpdateUsefulLinksPost,
-		previewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPost,
 		getAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromptGet,
+		previewAutoRouterClassifierPromptAutoRouterClassifierDefaultPromptPost,
 		createModelGroupAccessGroupNewPost,
 		listAccessGroupsAccessGroupListGet,
 		getAccessGroupInfoAccessGroupAccessGroupInfoGet,
@@ -38490,10 +38490,10 @@ export const operationsByTag = {
 		createThreadsV1ThreadsPost,
 		getThreadThreadsThreadIdGet,
 		getThreadV1ThreadsThreadIdGet,
-		addMessagesThreadsThreadIdMessagesPost,
 		getMessagesThreadsThreadIdMessagesGet,
-		addMessagesV1ThreadsThreadIdMessagesPost,
+		addMessagesThreadsThreadIdMessagesPost,
 		getMessagesV1ThreadsThreadIdMessagesGet,
+		addMessagesV1ThreadsThreadIdMessagesPost,
 		runThreadThreadsThreadIdRunsPost,
 		runThreadV1ThreadsThreadIdRunsPost,
 	},
@@ -38521,31 +38521,31 @@ export const operationsByTag = {
 		proxyMcpRouteMcpProxyGet,
 		proxyMcpRouteMcpProxyPut,
 		proxyMcpRouteMcpProxyPost,
-		proxyMcpRouteMcpProxyDelete,
-		proxyMcpRouteMcpProxyOptions,
-		proxyMcpRouteMcpProxyHead,
 		proxyMcpRouteMcpProxyPatch,
+		proxyMcpRouteMcpProxyDelete,
+		proxyMcpRouteMcpProxyHead,
+		proxyMcpRouteMcpProxyOptions,
 		aggregateMcpRouteMcpGet,
 		aggregateMcpRouteMcpPut,
 		aggregateMcpRouteMcpPost,
-		aggregateMcpRouteMcpDelete,
-		aggregateMcpRouteMcpOptions,
-		aggregateMcpRouteMcpHead,
 		aggregateMcpRouteMcpPatch,
-		toolsetMcpRouteToolsetToolsetNameMcpPost,
-		toolsetMcpRouteToolsetToolsetNameMcpOptions,
-		toolsetMcpRouteToolsetToolsetNameMcpHead,
-		toolsetMcpRouteToolsetToolsetNameMcpDelete,
+		aggregateMcpRouteMcpDelete,
+		aggregateMcpRouteMcpHead,
+		aggregateMcpRouteMcpOptions,
 		toolsetMcpRouteToolsetToolsetNameMcpGet,
 		toolsetMcpRouteToolsetToolsetNameMcpPut,
+		toolsetMcpRouteToolsetToolsetNameMcpPost,
 		toolsetMcpRouteToolsetToolsetNameMcpPatch,
-		dynamicMcpRouteMcpServerNameMcpPost,
-		dynamicMcpRouteMcpServerNameMcpOptions,
-		dynamicMcpRouteMcpServerNameMcpHead,
-		dynamicMcpRouteMcpServerNameMcpDelete,
+		toolsetMcpRouteToolsetToolsetNameMcpDelete,
+		toolsetMcpRouteToolsetToolsetNameMcpHead,
+		toolsetMcpRouteToolsetToolsetNameMcpOptions,
 		dynamicMcpRouteMcpServerNameMcpGet,
 		dynamicMcpRouteMcpServerNameMcpPut,
+		dynamicMcpRouteMcpServerNameMcpPost,
 		dynamicMcpRouteMcpServerNameMcpPatch,
+		dynamicMcpRouteMcpServerNameMcpDelete,
+		dynamicMcpRouteMcpServerNameMcpHead,
+		dynamicMcpRouteMcpServerNameMcpOptions,
 	},
 	adaptiveRouter: {
 		getAdaptiveRouterStateAdaptiveRouterStateGet,
@@ -38607,9 +38607,9 @@ export const operationsByTag = {
 		getMarketplaceClaudeCodeMarketplaceJsonGet,
 		listPluginsClaudeCodePluginsGet,
 		registerPluginClaudeCodePluginsPost,
-		deletePluginClaudeCodePluginsPluginNameDelete,
 		getPluginClaudeCodePluginsPluginNameGet,
 		updatePluginClaudeCodePluginsPluginNamePut,
+		deletePluginClaudeCodePluginsPluginNameDelete,
 		disablePluginClaudeCodePluginsPluginNameDisablePost,
 		enablePluginClaudeCodePluginsPluginNameEnablePost,
 	},
@@ -38663,10 +38663,10 @@ export const operationsByTag = {
 		videoExtensionV1VideosExtensionsPost,
 	},
 	containers: {
-		createContainerContainersPost,
 		listContainersContainersGet,
-		createContainerV1ContainersPost,
+		createContainerContainersPost,
 		listContainersV1ContainersGet,
+		createContainerV1ContainersPost,
 		retrieveContainerContainersContainerIdGet,
 		deleteContainerContainersContainerIdDelete,
 		retrieveContainerV1ContainersContainerIdGet,
@@ -38708,10 +38708,10 @@ export const operationsByTag = {
 		imageEditApiV1ImagesEditsPost,
 	},
 	fineTuning: {
-		createFineTuningJobFineTuningJobsPost,
 		listFineTuningJobsFineTuningJobsGet,
-		createFineTuningJobV1FineTuningJobsPost,
+		createFineTuningJobFineTuningJobsPost,
 		listFineTuningJobsV1FineTuningJobsGet,
+		createFineTuningJobV1FineTuningJobsPost,
 		retrieveFineTuningJobFineTuningJobsFineTuningJobIdGet,
 		retrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGet,
 		cancelFineTuningJobFineTuningJobsFineTuningJobIdCancelPost,
@@ -38727,18 +38727,18 @@ export const operationsByTag = {
 		startUserConnectionCredentialsCredentialNameUserConnectionStartPost,
 		pollUserConnectionCredentialsCredentialNameUserConnectionPollPost,
 		deleteUserConnectionCredentialsCredentialNameUserConnectionDelete,
-		deleteCredentialCredentialsCredentialNameDelete,
 		updateCredentialCredentialsCredentialNamePatch,
+		deleteCredentialCredentialsCredentialNameDelete,
 		migrateEncryptionEndpointCredentialsMigrateEncryptionPost,
 		checkEncryptionEndpointCredentialsMigrateEncryptionCheckGet,
 	},
 	batch: {
-		createBatchBatchesPost,
 		listBatchesBatchesGet,
-		createBatchV1BatchesPost,
+		createBatchBatchesPost,
 		listBatchesV1BatchesGet,
-		createBatchProviderV1BatchesPost,
+		createBatchV1BatchesPost,
 		listBatchesProviderV1BatchesGet,
+		createBatchProviderV1BatchesPost,
 		retrieveBatchBatchesBatchIdGet,
 		retrieveBatchV1BatchesBatchIdGet,
 		retrieveBatchProviderV1BatchesBatchIdGet,
@@ -38747,12 +38747,12 @@ export const operationsByTag = {
 		cancelBatchProviderV1BatchesBatchIdCancelPost,
 	},
 	files: {
-		createFileFilesPost,
 		listFilesFilesGet,
-		createFileV1FilesPost,
+		createFileFilesPost,
 		listFilesV1FilesGet,
-		createFileProviderV1FilesPost,
+		createFileV1FilesPost,
 		listFilesProviderV1FilesGet,
+		createFileProviderV1FilesPost,
 		getFileContentFilesFileIdContentGet,
 		getFileContentV1FilesFileIdContentGet,
 		getFileContentProviderV1FilesFileIdContentGet,
@@ -38884,8 +38884,8 @@ export const operationsByTag = {
 		getTeamSpendByUserTeamSpendByUserGet,
 		bulkDeleteTeamMembersActionManagementV1TeamsTeamIdMembersBulkDeletePost,
 		bulkUpdateTeamMemberBudgetsActionManagementV1TeamsTeamIdMembersBulkUpdatePost,
-		addTeamCallbacksTeamTeamIdCallbackPost,
 		getTeamCallbacksTeamTeamIdCallbackGet,
+		addTeamCallbacksTeamTeamIdCallbackPost,
 		deleteTeamCallbackTeamTeamIdCallbackCallbackNameDelete,
 		disableTeamLoggingTeamTeamIdDisableLoggingPost,
 	},
@@ -39009,34 +39009,34 @@ export const operationsByTag = {
 		moyaiConnectExchangeMoyaiConnectExchangePost,
 	},
 	workflowManagement: {
-		createWorkflowRunV1WorkflowsRunsPost,
 		listWorkflowRunsV1WorkflowsRunsGet,
+		createWorkflowRunV1WorkflowsRunsPost,
 		getWorkflowRunV1WorkflowsRunsRunIdGet,
 		updateWorkflowRunV1WorkflowsRunsRunIdPatch,
-		appendWorkflowEventV1WorkflowsRunsRunIdEventsPost,
 		listWorkflowEventsV1WorkflowsRunsRunIdEventsGet,
-		appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPost,
+		appendWorkflowEventV1WorkflowsRunsRunIdEventsPost,
 		listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGet,
+		appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPost,
 	},
 	memoryManagement: {
-		createMemoryV1MemoryPost,
 		listMemoryV1MemoryGet,
+		createMemoryV1MemoryPost,
 		getMemoryV1MemoryKeyGet,
 		upsertMemoryV1MemoryKeyPut,
 		deleteMemoryV1MemoryKeyDelete,
 	},
 	lens: {
 		serviceConnectionLensServiceGet,
-		lensRequestLensPathPost,
-		lensRequestLensPathDelete,
 		lensRequestLensPathGet,
 		lensRequestLensPathPut,
+		lensRequestLensPathPost,
 		lensRequestLensPathPatch,
-		lensRequestLensPost,
-		lensRequestLensDelete,
+		lensRequestLensPathDelete,
 		lensRequestLensGet,
 		lensRequestLensPut,
+		lensRequestLensPost,
 		lensRequestLensPatch,
+		lensRequestLensDelete,
 	},
 	plugins: {
 		listPluginsApiPluginsGet,
@@ -39163,10 +39163,10 @@ export const operationsByTag = {
 		guardrailsUsageLogsGuardrailsUsageLogsGet,
 		guardrailsUsageOverviewGuardrailsUsageOverviewGet,
 		validateBlockedWordsFileGuardrailsValidateBlockedWordsFilePost,
-		deleteGuardrailGuardrailsGuardrailIdDelete,
 		getGuardrailInfoGuardrailsGuardrailIdGet,
-		patchGuardrailGuardrailsGuardrailIdPatch,
 		updateGuardrailGuardrailsGuardrailIdPut,
+		patchGuardrailGuardrailsGuardrailIdPatch,
+		deleteGuardrailGuardrailsGuardrailIdDelete,
 		getGuardrailInfoGuardrailsGuardrailIdInfoGet,
 		policiesUsageOverviewPoliciesUsageOverviewGet,
 		listGuardrailsV2V2GuardrailsListGet,
@@ -39188,8 +39188,8 @@ export const operationsByTag = {
 		createPolicyAttachmentPoliciesAttachmentsPost,
 		estimateAttachmentImpactPoliciesAttachmentsEstimateImpactPost,
 		listPolicyAttachmentsPoliciesAttachmentsListGet,
-		deletePolicyAttachmentPoliciesAttachmentsAttachmentIdDelete,
 		getPolicyAttachmentPoliciesAttachmentsAttachmentIdGet,
+		deletePolicyAttachmentPoliciesAttachmentsAttachmentIdDelete,
 		comparePolicyVersionsPoliciesCompareGet,
 		listPoliciesPoliciesListGet,
 		deleteAllPolicyVersionsPoliciesNamePolicyNameAllVersionsDelete,
@@ -39197,9 +39197,9 @@ export const operationsByTag = {
 		createPolicyVersionPoliciesNamePolicyNameVersionsPost,
 		resolvePoliciesForContextPoliciesResolvePost,
 		testPipelinePoliciesTestPipelinePost,
-		deletePolicyPoliciesPolicyIdDelete,
 		getPolicyPoliciesPolicyIdGet,
 		updatePolicyPoliciesPolicyIdPut,
+		deletePolicyPoliciesPolicyIdDelete,
 		getResolvedGuardrailsPoliciesPolicyIdResolvedGuardrailsGet,
 		updatePolicyVersionStatusPoliciesPolicyIdStatusPut,
 	},
@@ -39209,10 +39209,10 @@ export const operationsByTag = {
 		createAgentV1AgentsPost,
 		getAgentIdentityProvidersV1AgentsIdentityProvidersGet,
 		makeAgentsPublicV1AgentsMakePublicPost,
-		deleteAgentV1AgentsAgentIdDelete,
 		getAgentByIdV1AgentsAgentIdGet,
-		patchAgentV1AgentsAgentIdPatch,
 		updateAgentV1AgentsAgentIdPut,
+		patchAgentV1AgentsAgentIdPatch,
+		deleteAgentV1AgentsAgentIdDelete,
 		getAgentIdentityStatusV1AgentsAgentIdIdentityGet,
 		triggerAgentKillSwitchV1AgentsAgentIdKillSwitchPost,
 		makeAgentPublicV1AgentsAgentIdMakePublicPost,
@@ -39220,8 +39220,8 @@ export const operationsByTag = {
 	geminiAgents: {
 		listGeminiAgentsV1BetaAgentsGet,
 		createGeminiAgentV1BetaAgentsPost,
-		deleteGeminiAgentV1BetaAgentsNameDelete,
 		getGeminiAgentV1BetaAgentsNameGet,
+		deleteGeminiAgentV1BetaAgentsNameDelete,
 		listGeminiAgentVersionsV1BetaAgentsNameVersionsGet,
 	},
 	a2a: {
@@ -39239,26 +39239,26 @@ export const operationsByTag = {
 		indexCreateV1IndexesPost,
 		vectorStoreListV1VectorStoresGet,
 		vectorStoreCreateV1VectorStoresPost,
-		vectorStoreDeleteV1VectorStoresVectorStoreIdDelete,
 		vectorStoreRetrieveV1VectorStoresVectorStoreIdGet,
 		vectorStoreUpdateV1VectorStoresVectorStoreIdPost,
+		vectorStoreDeleteV1VectorStoresVectorStoreIdDelete,
 		vectorStoreFileListV1VectorStoresVectorStoreIdFilesGet,
 		vectorStoreFileCreateV1VectorStoresVectorStoreIdFilesPost,
-		vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDelete,
 		vectorStoreFileRetrieveV1VectorStoresVectorStoreIdFilesFileIdGet,
 		vectorStoreFileUpdateV1VectorStoresVectorStoreIdFilesFileIdPost,
+		vectorStoreFileDeleteV1VectorStoresVectorStoreIdFilesFileIdDelete,
 		vectorStoreFileContentV1VectorStoresVectorStoreIdFilesFileIdContentGet,
 		vectorStoreSearchV1VectorStoresVectorStoreIdSearchPost,
 		vectorStoreListVectorStoresGet,
 		vectorStoreCreateVectorStoresPost,
-		vectorStoreDeleteVectorStoresVectorStoreIdDelete,
 		vectorStoreRetrieveVectorStoresVectorStoreIdGet,
 		vectorStoreUpdateVectorStoresVectorStoreIdPost,
+		vectorStoreDeleteVectorStoresVectorStoreIdDelete,
 		vectorStoreFileListVectorStoresVectorStoreIdFilesGet,
 		vectorStoreFileCreateVectorStoresVectorStoreIdFilesPost,
-		vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDelete,
 		vectorStoreFileRetrieveVectorStoresVectorStoreIdFilesFileIdGet,
 		vectorStoreFileUpdateVectorStoresVectorStoreIdFilesFileIdPost,
+		vectorStoreFileDeleteVectorStoresVectorStoreIdFilesFileIdDelete,
 		vectorStoreFileContentVectorStoresVectorStoreIdFilesFileIdContentGet,
 		vectorStoreSearchVectorStoresVectorStoreIdSearchPost,
 	},
@@ -39289,9 +39289,9 @@ export const operationsByTag = {
 		listSearchToolsSearchToolsListGet,
 		testSearchToolConnectionSearchToolsTestConnectionPost,
 		getAvailableSearchProvidersSearchToolsUiAvailableProvidersGet,
-		deleteSearchToolSearchToolsSearchToolIdDelete,
 		getSearchToolInfoSearchToolsSearchToolIdGet,
 		updateSearchToolSearchToolsSearchToolIdPut,
+		deleteSearchToolSearchToolsSearchToolIdDelete,
 	},
 	mcpManagement: {
 		getMcpAccessGroupsV1McpAccessGroupsGet,
@@ -39301,36 +39301,36 @@ export const operationsByTag = {
 		getOpenapiRegistryV1McpOpenapiRegistryGet,
 		getMcpRegistryV1McpRegistryJsonGet,
 		fetchAllMcpServersV1McpServerGet,
-		addMcpServerV1McpServerPost,
 		editMcpServerV1McpServerPut,
+		addMcpServerV1McpServerPost,
 		healthCheckServersV1McpServerHealthGet,
 		importMcpServersV1McpServerImportPost,
 		addSessionMcpServerV1McpServerOauthSessionPost,
 		registerMcpServerV1McpServerRegisterPost,
 		getMcpServerSubmissionsV1McpServerSubmissionsGet,
-		removeMcpServerV1McpServerServerIdDelete,
 		fetchMcpServerV1McpServerServerIdGet,
+		removeMcpServerV1McpServerServerIdDelete,
 		approveMcpServerSubmissionV1McpServerServerIdApprovePut,
-		deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDelete,
 		storeMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialPost,
+		deleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDelete,
 		getMcpOauthUserCredentialStatusV1McpServerServerIdOauthUserCredentialStatusGet,
-		unpinMcpServerToolsV1McpServerServerIdPinDelete,
 		pinMcpServerToolsV1McpServerServerIdPinPost,
+		unpinMcpServerToolsV1McpServerServerIdPinDelete,
 		rejectMcpServerSubmissionV1McpServerServerIdRejectPut,
-		deleteMcpUserCredentialV1McpServerServerIdUserCredentialDelete,
 		storeMcpUserCredentialV1McpServerServerIdUserCredentialPost,
+		deleteMcpUserCredentialV1McpServerServerIdUserCredentialDelete,
 		listMcpServerUserCredentialsV1McpServerServerIdUserCredentialsGet,
-		clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDelete,
 		getMcpUserEnvVarsV1McpServerServerIdUserEnvVarsGet,
 		storeMcpUserEnvVarsV1McpServerServerIdUserEnvVarsPost,
-		deleteMcpGatewaySessionsV1McpSessionsDelete,
+		clearMcpUserEnvVarsV1McpServerServerIdUserEnvVarsDelete,
 		getMcpGatewaySessionsV1McpSessionsGet,
+		deleteMcpGatewaySessionsV1McpSessionsDelete,
 		getMcpToolsV1McpToolsGet,
 		fetchMcpToolsetsV1McpToolsetGet,
-		addMcpToolsetV1McpToolsetPost,
 		editMcpToolsetV1McpToolsetPut,
-		removeMcpToolsetV1McpToolsetToolsetIdDelete,
+		addMcpToolsetV1McpToolsetPost,
 		fetchMcpToolsetV1McpToolsetToolsetIdGet,
+		removeMcpToolsetV1McpToolsetToolsetIdDelete,
 		listMcpUserCredentialsV1McpUserCredentialsGet,
 		listMcpUserEnvVarStatusV1McpUserEnvVarsStatusGet,
 	},
@@ -39367,13 +39367,13 @@ export const operationsByTag = {
 		listToolRestApiMcpRestToolsListGet,
 	},
 	configOverrides: {
-		deleteCyberarkConfigConfigOverridesCyberarkDelete,
 		getCyberarkConfigConfigOverridesCyberarkGet,
 		updateCyberarkConfigConfigOverridesCyberarkPost,
+		deleteCyberarkConfigConfigOverridesCyberarkDelete,
 		testCyberarkConnectionConfigOverridesCyberarkTestConnectionPost,
-		deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDelete,
 		getHashicorpVaultConfigConfigOverridesHashicorpVaultGet,
 		updateHashicorpVaultConfigConfigOverridesHashicorpVaultPost,
+		deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDelete,
 		testHashicorpVaultConnectionConfigOverridesHashicorpVaultTestConnectionPost,
 	},
 	llmPassthrough: {
@@ -39403,21 +39403,21 @@ export const operationsByTag = {
 	anthropicSkills: {
 		listSkillsV1SkillsGet,
 		createSkillV1SkillsPost,
-		deleteSkillV1SkillsSkillIdDelete,
 		getSkillV1SkillsSkillIdGet,
+		deleteSkillV1SkillsSkillIdDelete,
 	},
 	evals: {
 		listEvalsV1EvalsGet,
 		createEvalV1EvalsPost,
-		deleteEvalV1EvalsEvalIdDelete,
 		getEvalV1EvalsEvalIdGet,
 		updateEvalV1EvalsEvalIdPost,
+		deleteEvalV1EvalsEvalIdDelete,
 		cancelEvalV1EvalsEvalIdCancelPost,
 		listRunsV1EvalsEvalIdRunsGet,
 		createRunV1EvalsEvalIdRunsPost,
-		deleteRunV1EvalsEvalIdRunsRunIdDelete,
 		getRunV1EvalsEvalIdRunsRunIdGet,
 		cancelRunV1EvalsEvalIdRunsRunIdPost,
+		deleteRunV1EvalsEvalIdRunsRunIdDelete,
 	},
 	decisions: {
 		decisionsDecisionsPost,
@@ -39429,10 +39429,10 @@ export const operationsByTag = {
 		getScimBaseScimV2Get,
 		getGroupsScimV2GroupsGet,
 		createGroupScimV2GroupsPost,
-		deleteGroupScimV2GroupsGroupIdDelete,
 		getGroupScimV2GroupsGroupIdGet,
-		patchGroupScimV2GroupsGroupIdPatch,
 		updateGroupScimV2GroupsGroupIdPut,
+		patchGroupScimV2GroupsGroupIdPatch,
+		deleteGroupScimV2GroupsGroupIdDelete,
 		getResourceTypesScimV2ResourceTypesGet,
 		getResourceTypeScimV2ResourceTypesResourceTypeIdGet,
 		getSchemasScimV2SchemasGet,
@@ -39440,10 +39440,10 @@ export const operationsByTag = {
 		getServiceProviderConfigScimV2ServiceProviderConfigGet,
 		getUsersScimV2UsersGet,
 		createUserScimV2UsersPost,
-		deleteUserScimV2UsersUserIdDelete,
 		getUserScimV2UsersUserIdGet,
-		patchUserScimV2UsersUserIdPatch,
 		updateUserScimV2UsersUserIdPut,
+		patchUserScimV2UsersUserIdPatch,
+		deleteUserScimV2UsersUserIdDelete,
 		listPlaceholdersScimV2PlaceholdersGet,
 		mergePlaceholderScimV2PlaceholdersUserIdMergePost,
 	},
@@ -39470,10 +39470,10 @@ export const operationsByTag = {
 		createPromptPromptsPost,
 		listPromptsPromptsListGet,
 		testPromptPromptsTestPost,
-		deletePromptPromptsPromptIdDelete,
 		getPromptInfoPromptsPromptIdGet,
-		patchPromptPromptsPromptIdPatch,
 		updatePromptPromptsPromptIdPut,
+		patchPromptPromptsPromptIdPatch,
+		deletePromptPromptsPromptIdDelete,
 		getPromptInfoPromptsPromptIdInfoGet,
 		getPromptVersionsPromptsPromptIdVersionsGet,
 		convertPromptFileToJsonUtilsDotpromptJsonConverterPost,
@@ -39492,14 +39492,14 @@ export const operationsByTag = {
 	accessGroups: {
 		listAccessGroupsV1AccessGroupGet,
 		createAccessGroupV1AccessGroupPost,
-		deleteAccessGroupV1AccessGroupAccessGroupIdDelete,
 		getAccessGroupV1AccessGroupAccessGroupIdGet,
 		updateAccessGroupV1AccessGroupAccessGroupIdPut,
+		deleteAccessGroupV1AccessGroupAccessGroupIdDelete,
 		listAccessGroupsV1UnifiedAccessGroupGet,
 		createAccessGroupV1UnifiedAccessGroupPost,
-		deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDelete,
 		getAccessGroupV1UnifiedAccessGroupAccessGroupIdGet,
 		updateAccessGroupV1UnifiedAccessGroupAccessGroupIdPut,
+		deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDelete,
 	},
 };
 
@@ -39652,11 +39652,11 @@ export const tagDictionary = {
 			"toolsetMcpRouteToolsetToolsetNameMcpPut",
 			"dynamicMcpRouteMcpServerNameMcpPut",
 		],
-		OPTIONS: [
-			"proxyMcpRouteMcpProxyOptions",
-			"aggregateMcpRouteMcpOptions",
-			"toolsetMcpRouteToolsetToolsetNameMcpOptions",
-			"dynamicMcpRouteMcpServerNameMcpOptions",
+		PATCH: [
+			"proxyMcpRouteMcpProxyPatch",
+			"aggregateMcpRouteMcpPatch",
+			"toolsetMcpRouteToolsetToolsetNameMcpPatch",
+			"dynamicMcpRouteMcpServerNameMcpPatch",
 		],
 		HEAD: [
 			"proxyMcpRouteMcpProxyHead",
@@ -39664,11 +39664,11 @@ export const tagDictionary = {
 			"toolsetMcpRouteToolsetToolsetNameMcpHead",
 			"dynamicMcpRouteMcpServerNameMcpHead",
 		],
-		PATCH: [
-			"proxyMcpRouteMcpProxyPatch",
-			"aggregateMcpRouteMcpPatch",
-			"toolsetMcpRouteToolsetToolsetNameMcpPatch",
-			"dynamicMcpRouteMcpServerNameMcpPatch",
+		OPTIONS: [
+			"proxyMcpRouteMcpProxyOptions",
+			"aggregateMcpRouteMcpOptions",
+			"toolsetMcpRouteToolsetToolsetNameMcpOptions",
+			"dynamicMcpRouteMcpServerNameMcpOptions",
 		],
 	},
 	adaptiveRouter: {
@@ -39745,8 +39745,8 @@ export const tagDictionary = {
 			"disablePluginClaudeCodePluginsPluginNameDisablePost",
 			"enablePluginClaudeCodePluginsPluginNameEnablePost",
 		],
-		DELETE: ["deletePluginClaudeCodePluginsPluginNameDelete"],
 		PUT: ["updatePluginClaudeCodePluginsPluginNamePut"],
+		DELETE: ["deletePluginClaudeCodePluginsPluginNameDelete"],
 	},
 	providers: {
 		GET: ["getSupportedProvidersPublicProvidersGet", "getProviderFieldsPublicProvidersFieldsGet"],
@@ -39804,12 +39804,6 @@ export const tagDictionary = {
 		],
 	},
 	containers: {
-		POST: [
-			"createContainerContainersPost",
-			"createContainerV1ContainersPost",
-			"handlerMultipartUploadV1ContainersContainerIdFilesPost",
-			"handlerMultipartUploadContainersContainerIdFilesPost",
-		],
 		GET: [
 			"listContainersContainersGet",
 			"listContainersV1ContainersGet",
@@ -39821,6 +39815,12 @@ export const tagDictionary = {
 			"handlerContainerFileContainersContainerIdFilesFileIdGet",
 			"handlerBinaryContentV1ContainersContainerIdFilesFileIdContentGet",
 			"handlerBinaryContentContainersContainerIdFilesFileIdContentGet",
+		],
+		POST: [
+			"createContainerContainersPost",
+			"createContainerV1ContainersPost",
+			"handlerMultipartUploadV1ContainersContainerIdFilesPost",
+			"handlerMultipartUploadContainersContainerIdFilesPost",
 		],
 		DELETE: [
 			"deleteContainerContainersContainerIdDelete",
@@ -39860,17 +39860,17 @@ export const tagDictionary = {
 		],
 	},
 	fineTuning: {
-		POST: [
-			"createFineTuningJobFineTuningJobsPost",
-			"createFineTuningJobV1FineTuningJobsPost",
-			"cancelFineTuningJobFineTuningJobsFineTuningJobIdCancelPost",
-			"cancelFineTuningJobV1FineTuningJobsFineTuningJobIdCancelPost",
-		],
 		GET: [
 			"listFineTuningJobsFineTuningJobsGet",
 			"listFineTuningJobsV1FineTuningJobsGet",
 			"retrieveFineTuningJobFineTuningJobsFineTuningJobIdGet",
 			"retrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGet",
+		],
+		POST: [
+			"createFineTuningJobFineTuningJobsPost",
+			"createFineTuningJobV1FineTuningJobsPost",
+			"cancelFineTuningJobFineTuningJobsFineTuningJobIdCancelPost",
+			"cancelFineTuningJobV1FineTuningJobsFineTuningJobIdCancelPost",
 		],
 	},
 	credentialManagement: {
@@ -39895,14 +39895,6 @@ export const tagDictionary = {
 		PATCH: ["updateCredentialCredentialsCredentialNamePatch"],
 	},
 	batch: {
-		POST: [
-			"createBatchBatchesPost",
-			"createBatchV1BatchesPost",
-			"createBatchProviderV1BatchesPost",
-			"cancelBatchBatchesBatchIdCancelPost",
-			"cancelBatchV1BatchesBatchIdCancelPost",
-			"cancelBatchProviderV1BatchesBatchIdCancelPost",
-		],
 		GET: [
 			"listBatchesBatchesGet",
 			"listBatchesV1BatchesGet",
@@ -39911,9 +39903,16 @@ export const tagDictionary = {
 			"retrieveBatchV1BatchesBatchIdGet",
 			"retrieveBatchProviderV1BatchesBatchIdGet",
 		],
+		POST: [
+			"createBatchBatchesPost",
+			"createBatchV1BatchesPost",
+			"createBatchProviderV1BatchesPost",
+			"cancelBatchBatchesBatchIdCancelPost",
+			"cancelBatchV1BatchesBatchIdCancelPost",
+			"cancelBatchProviderV1BatchesBatchIdCancelPost",
+		],
 	},
 	files: {
-		POST: ["createFileFilesPost", "createFileV1FilesPost", "createFileProviderV1FilesPost"],
 		GET: [
 			"listFilesFilesGet",
 			"listFilesV1FilesGet",
@@ -39925,6 +39924,7 @@ export const tagDictionary = {
 			"getFileV1FilesFileIdGet",
 			"getFileProviderV1FilesFileIdGet",
 		],
+		POST: ["createFileFilesPost", "createFileV1FilesPost", "createFileProviderV1FilesPost"],
 		DELETE: [
 			"deleteFileFilesFileIdDelete",
 			"deleteFileV1FilesFileIdDelete",
@@ -40223,31 +40223,31 @@ export const tagDictionary = {
 		],
 	},
 	workflowManagement: {
-		POST: [
-			"createWorkflowRunV1WorkflowsRunsPost",
-			"appendWorkflowEventV1WorkflowsRunsRunIdEventsPost",
-			"appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPost",
-		],
 		GET: [
 			"listWorkflowRunsV1WorkflowsRunsGet",
 			"getWorkflowRunV1WorkflowsRunsRunIdGet",
 			"listWorkflowEventsV1WorkflowsRunsRunIdEventsGet",
 			"listWorkflowMessagesV1WorkflowsRunsRunIdMessagesGet",
 		],
+		POST: [
+			"createWorkflowRunV1WorkflowsRunsPost",
+			"appendWorkflowEventV1WorkflowsRunsRunIdEventsPost",
+			"appendWorkflowMessageV1WorkflowsRunsRunIdMessagesPost",
+		],
 		PATCH: ["updateWorkflowRunV1WorkflowsRunsRunIdPatch"],
 	},
 	memoryManagement: {
-		POST: ["createMemoryV1MemoryPost"],
 		GET: ["listMemoryV1MemoryGet", "getMemoryV1MemoryKeyGet"],
+		POST: ["createMemoryV1MemoryPost"],
 		PUT: ["upsertMemoryV1MemoryKeyPut"],
 		DELETE: ["deleteMemoryV1MemoryKeyDelete"],
 	},
 	lens: {
 		GET: ["serviceConnectionLensServiceGet", "lensRequestLensPathGet", "lensRequestLensGet"],
-		POST: ["lensRequestLensPathPost", "lensRequestLensPost"],
-		DELETE: ["lensRequestLensPathDelete", "lensRequestLensDelete"],
 		PUT: ["lensRequestLensPathPut", "lensRequestLensPut"],
+		POST: ["lensRequestLensPathPost", "lensRequestLensPost"],
 		PATCH: ["lensRequestLensPathPatch", "lensRequestLensPatch"],
+		DELETE: ["lensRequestLensPathDelete", "lensRequestLensDelete"],
 	},
 	plugins: {
 		GET: ["listPluginsApiPluginsGet", "pluginAuthTokenApiPluginsAuthTokenGet"],
@@ -40401,9 +40401,9 @@ export const tagDictionary = {
 			"policiesUsageOverviewPoliciesUsageOverviewGet",
 			"listGuardrailsV2V2GuardrailsListGet",
 		],
-		DELETE: ["deleteGuardrailGuardrailsGuardrailIdDelete"],
-		PATCH: ["patchGuardrailGuardrailsGuardrailIdPatch"],
 		PUT: ["updateGuardrailGuardrailsGuardrailIdPut"],
+		PATCH: ["patchGuardrailGuardrailsGuardrailIdPatch"],
+		DELETE: ["deleteGuardrailGuardrailsGuardrailIdDelete"],
 	},
 	policies: {
 		GET: [
@@ -40460,9 +40460,9 @@ export const tagDictionary = {
 			"triggerAgentKillSwitchV1AgentsAgentIdKillSwitchPost",
 			"makeAgentPublicV1AgentsAgentIdMakePublicPost",
 		],
-		DELETE: ["deleteAgentV1AgentsAgentIdDelete"],
-		PATCH: ["patchAgentV1AgentsAgentIdPatch"],
 		PUT: ["updateAgentV1AgentsAgentIdPut"],
+		PATCH: ["patchAgentV1AgentsAgentIdPatch"],
+		DELETE: ["deleteAgentV1AgentsAgentIdDelete"],
 	},
 	geminiAgents: {
 		GET: [
@@ -40555,8 +40555,8 @@ export const tagDictionary = {
 			"getAvailableSearchProvidersSearchToolsUiAvailableProvidersGet",
 			"getSearchToolInfoSearchToolsSearchToolIdGet",
 		],
-		DELETE: ["deleteSearchToolSearchToolsSearchToolIdDelete"],
 		PUT: ["updateSearchToolSearchToolsSearchToolIdPut"],
+		DELETE: ["deleteSearchToolSearchToolsSearchToolIdDelete"],
 	},
 	mcpManagement: {
 		GET: [
@@ -40646,10 +40646,6 @@ export const tagDictionary = {
 		GET: ["listToolRestApiMcpRestToolsListGet"],
 	},
 	configOverrides: {
-		DELETE: [
-			"deleteCyberarkConfigConfigOverridesCyberarkDelete",
-			"deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDelete",
-		],
 		GET: [
 			"getCyberarkConfigConfigOverridesCyberarkGet",
 			"getHashicorpVaultConfigConfigOverridesHashicorpVaultGet",
@@ -40659,6 +40655,10 @@ export const tagDictionary = {
 			"testCyberarkConnectionConfigOverridesCyberarkTestConnectionPost",
 			"updateHashicorpVaultConfigConfigOverridesHashicorpVaultPost",
 			"testHashicorpVaultConnectionConfigOverridesHashicorpVaultTestConnectionPost",
+		],
+		DELETE: [
+			"deleteCyberarkConfigConfigOverridesCyberarkDelete",
+			"deleteHashicorpVaultConfigConfigOverridesHashicorpVaultDelete",
 		],
 	},
 	llmPassthrough: {
@@ -40739,9 +40739,9 @@ export const tagDictionary = {
 			"createUserScimV2UsersPost",
 			"mergePlaceholderScimV2PlaceholdersUserIdMergePost",
 		],
-		DELETE: ["deleteGroupScimV2GroupsGroupIdDelete", "deleteUserScimV2UsersUserIdDelete"],
-		PATCH: ["patchGroupScimV2GroupsGroupIdPatch", "patchUserScimV2UsersUserIdPatch"],
 		PUT: ["updateGroupScimV2GroupsGroupIdPut", "updateUserScimV2UsersUserIdPut"],
+		PATCH: ["patchGroupScimV2GroupsGroupIdPatch", "patchUserScimV2UsersUserIdPatch"],
+		DELETE: ["deleteGroupScimV2GroupsGroupIdDelete", "deleteUserScimV2UsersUserIdDelete"],
 	},
 	cloudzero: {
 		DELETE: ["deleteCloudzeroSettingsCloudzeroDeleteDelete"],
@@ -40778,9 +40778,9 @@ export const tagDictionary = {
 			"getPromptInfoPromptsPromptIdInfoGet",
 			"getPromptVersionsPromptsPromptIdVersionsGet",
 		],
-		DELETE: ["deletePromptPromptsPromptIdDelete"],
-		PATCH: ["patchPromptPromptsPromptIdPatch"],
 		PUT: ["updatePromptPromptsPromptIdPut"],
+		PATCH: ["patchPromptPromptsPromptIdPatch"],
+		DELETE: ["deletePromptPromptsPromptIdDelete"],
 	},
 	jwtMappings: {
 		POST: [
@@ -40801,13 +40801,13 @@ export const tagDictionary = {
 			"getAccessGroupV1UnifiedAccessGroupAccessGroupIdGet",
 		],
 		POST: ["createAccessGroupV1AccessGroupPost", "createAccessGroupV1UnifiedAccessGroupPost"],
-		DELETE: [
-			"deleteAccessGroupV1AccessGroupAccessGroupIdDelete",
-			"deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDelete",
-		],
 		PUT: [
 			"updateAccessGroupV1AccessGroupAccessGroupIdPut",
 			"updateAccessGroupV1UnifiedAccessGroupAccessGroupIdPut",
+		],
+		DELETE: [
+			"deleteAccessGroupV1AccessGroupAccessGroupIdDelete",
+			"deleteAccessGroupV1UnifiedAccessGroupAccessGroupIdDelete",
 		],
 	},
 } as const;

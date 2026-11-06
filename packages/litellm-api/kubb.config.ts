@@ -1,10 +1,12 @@
-import { baseConfig, cleanOperationIds, fetchSpec } from "@sferadev/openapi-utils";
+import { baseConfig, cleanOperationIds, fetchSpec, sortPathMethods } from "@sferadev/openapi-utils";
 import { defineConfig } from "kubb";
 import type { OpenAPIObject } from "openapi3-ts/oas30";
 
 export default defineConfig(async () => {
 	let openAPIDocument = await fetchSpec("https://docs.litellm.ai/openapi.json");
 
+	// FastAPI lists a multi-method route's methods in set order, which changes between releases.
+	openAPIDocument = sortPathMethods(openAPIDocument);
 	openAPIDocument = ignorePassThroughPaths(openAPIDocument);
 	openAPIDocument = moveDefsToComponents(openAPIDocument);
 	openAPIDocument = deduplicateOperationIds(openAPIDocument);

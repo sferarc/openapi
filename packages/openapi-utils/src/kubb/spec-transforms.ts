@@ -186,6 +186,21 @@ function getDefaultOperationId(
 	return operationId.replace(/[^a-zA-Z0-9/]/g, " ");
 }
 
+/** Orders each path item's methods by `HTTP_METHODS` so a spec's varying method order generates the same client. */
+export function sortPathMethods(openAPIDocument: OpenAPIObject): OpenAPIObject {
+	const methods: readonly string[] = HTTP_METHODS;
+	const rank = (key: string) => methods.indexOf(key);
+	const paths = Object.fromEntries(
+		Object.entries(openAPIDocument.paths ?? {}).map(
+			([path, pathItem]: [string, PathItemObject]) => [
+				path,
+				Object.fromEntries(Object.entries(pathItem).sort(([a], [b]) => rank(a) - rank(b))),
+			],
+		),
+	);
+	return { ...openAPIDocument, paths };
+}
+
 export function sortArrays(openAPIDocument: OpenAPIObject): OpenAPIObject {
 	function sortRecursively<T>(obj: T): T {
 		if (Array.isArray(obj)) {

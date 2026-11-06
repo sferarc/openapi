@@ -11,6 +11,7 @@ import {
 	inlinePathServers,
 	optionalReadOnlyInRequestBodies,
 	renameReservedWords,
+	sortPathMethods,
 	stripBasePathPrefix,
 } from "./spec-transforms";
 
@@ -226,6 +227,51 @@ describe("cleanOperationIds", () => {
 		expect(result.paths["/mcp/{server_id}"]?.get?.operationId).toBe("getMcpServer");
 		expect(result.paths["/mcp/{server_id}"]?.options?.operationId).toBe("optionsMcpServerId");
 		warn.mockRestore();
+	});
+});
+
+describe("sortPathMethods", () => {
+	const operation = (operationId: string) => ({ operationId });
+
+	it("writes the same order for specs that differ only in method order", () => {
+		const first = sortPathMethods(
+			spec({
+				"/mcp": {
+					head: operation("mcpHead"),
+					summary: "MCP",
+					patch: operation("mcpPatch"),
+					get: operation("mcpGet"),
+					options: operation("mcpOptions"),
+				},
+			}),
+		);
+		const second = sortPathMethods(
+			spec({
+				"/mcp": {
+					summary: "MCP",
+					options: operation("mcpOptions"),
+					get: operation("mcpGet"),
+					head: operation("mcpHead"),
+					patch: operation("mcpPatch"),
+				},
+			}),
+		);
+
+		expect(Object.keys(first.paths["/mcp"])).toEqual([
+			"summary",
+			"get",
+			"patch",
+			"head",
+			"options",
+		]);
+		expect(JSON.stringify(second)).toBe(JSON.stringify(first));
+	});
+
+	it("keeps the order of the paths", () => {
+		const result = sortPathMethods(
+			spec({ "/b": { post: operation("b") }, "/a": { get: operation("a") } }),
+		);
+		expect(Object.keys(result.paths)).toEqual(["/b", "/a"]);
 	});
 });
 
