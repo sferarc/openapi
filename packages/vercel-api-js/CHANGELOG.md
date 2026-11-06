@@ -1,5 +1,20 @@
 # vercel-api-js
 
+## 2.28.0
+
+### Minor Changes
+
+- 57e1442: [BREAKING] Changed the type of action fields in various status types to new ActionEnumNKey types, and made them nullable or optional in several types.
+- 57e1442: Added userEventPayloadUpdatedFieldsEnum and its type, UserEventPayloadUpdatedFieldsEnumKey.
+- 57e1442: [BREAKING] Renamed and versioned all ActionEnumNKey types and actionEnumN constants, affecting types using these enums.
+
+### Patch Changes
+
+- 57e1442: Expanded userEventTypeEnum and listEventTypeNameEnum with new schedule event types.
+- 57e1442: Added listEventTypeReplacedByEnum with new schedule event types.
+- 57e1442: Extended UserEvent type with new union variants including updatedFields property.
+- 57e1442: Added documentation and updated allowed values on CreateProjectCheckBody and UpdateProjectCheckBody types.
+
 ## 2.27.0
 
 ### Minor Changes
