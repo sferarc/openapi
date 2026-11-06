@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3768 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3773 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## health
 
@@ -133,6 +133,8 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3768 operatio
 | `client.api.brandProtection.getTakedownLetterGet` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/takedown-notices/{noticeId}/letters/{letterId}` | Get takedown letter |
 | `client.api.brandProtection.getTakedownLetterPdfGet` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/takedown-notices/{noticeId}/letters/{letterId}/pdf` | Download takedown letter PDF |
 | `client.api.brandProtection.getTotalQueries` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/total-queries` | Get total query count |
+| `client.api.brandProtection.getBrandProtectionUrlInfo` | `GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/url/info` | Get URL scan information |
+| `client.api.brandProtection.postBrandProtectionUrlSubmit` | `POST /accounts/{accountId}/cloudforce-one/v2/brand-protection/url/submit` | Submit a URL for scanning |
 
 ## cloudflareIps
 
@@ -2066,6 +2068,9 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3768 operatio
 | `client.api.dataset.getDatasetRead` | `GET /accounts/{accountId}/cloudforce-one/events/dataset/{datasetId}` | Get a dataset |
 | `client.api.dataset.patchDatasetUpdate` | `PATCH /accounts/{accountId}/cloudforce-one/events/dataset/{datasetId}` | Update a dataset |
 | `client.api.dataset.postDatasetUpdate` | `POST /accounts/{accountId}/cloudforce-one/events/dataset/{datasetId}` | Update a dataset |
+| `client.api.dataset.deleteDatasetPreferencesDelete` | `DELETE /accounts/{accountId}/cloudforce-one/events/datasets/preferences` | Remove default datasets |
+| `client.api.dataset.getDatasetPreferencesRead` | `GET /accounts/{accountId}/cloudforce-one/events/datasets/preferences` | Get default datasets |
+| `client.api.dataset.putDatasetPreferencesUpdate` | `PUT /accounts/{accountId}/cloudforce-one/events/datasets/preferences` | Set default datasets |
 
 ## groups
 

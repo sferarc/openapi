@@ -26406,9 +26406,9 @@ export type CacheSettingsSettingId = string;
 
 /**
  * @description The value of the setting.
- * @type string
+ * @type unknown
  */
-export type CacheSettingsSettingValue = string;
+export type CacheSettingsSettingValue = unknown;
 
 export type CacheSettingsResultObject = {
   /**
@@ -26430,7 +26430,7 @@ export type CacheSettingsResultObject = {
   modified_on?: CacheSettingsModifiedOn | undefined;
   /**
    * @description The value of the setting.
-   * @type string
+   * @type unknown
    */
   value: CacheSettingsSettingValue;
 };
@@ -51559,7 +51559,7 @@ export type EmailEmailDomainTombstone = {
   /**
    * @description Canonical hostname released by the removal.
    * @maxLength 253
-   * @example agents.customer.com
+   * @example removed.customer.com
    * @type string
    */
   hostname: string;
@@ -51567,7 +51567,7 @@ export type EmailEmailDomainTombstone = {
    * @description Identifier of the removed EmailDomain.
    *
    * Format: `uuid`
-   * @example 918f3a1a-04ed-4383-9cbe-df5e561d28f8
+   * @example c0a527d8-2fe5-4d73-8df4-86b1eaa5cce6
    * @type string
    */
   id: string;
@@ -51609,7 +51609,7 @@ export type EmailEmailDomainChange = {
   kind: EmailEmailDomainChangeKindEnumKey;
   /**
    * @description Bounded reconciliation record for a completed removal. Present only when kind is tombstone.
-   * @example {"hostname":"agents.customer.com","id":"918f3a1a-04ed-4383-9cbe-df5e561d28f8","modified_at":"2099-01-01T12:00:00Z","reason":"deleted"}
+   * @example {"hostname":"removed.customer.com","id":"c0a527d8-2fe5-4d73-8df4-86b1eaa5cce6","modified_at":"2099-01-01T12:00:00Z","reason":"deleted"}
    * @type object | undefined
    */
   tombstone?: EmailEmailDomainTombstone | undefined;
@@ -51964,6 +51964,13 @@ export const emailSendingLimitsPropertiesQuotaUnitEnum = {
 
 export type EmailSendingLimitsPropertiesQuotaUnitEnumKey = (typeof emailSendingLimitsPropertiesQuotaUnitEnum)[keyof typeof emailSendingLimitsPropertiesQuotaUnitEnum];
 
+export const emailSendingLimitsPropertiesRecipientModeEnum = {
+  arbitrary: 'arbitrary',
+  verified_only: 'verified_only',
+} as const;
+
+export type EmailSendingLimitsPropertiesRecipientModeEnumKey = (typeof emailSendingLimitsPropertiesRecipientModeEnum)[keyof typeof emailSendingLimitsPropertiesRecipientModeEnum];
+
 export type EmailSendingLimitsProperties = {
   /**
    * @description The resolved daily sending quota for the account. Null when the quota is not yet available.
@@ -51983,6 +51990,12 @@ export type EmailSendingLimitsProperties = {
      */
     value?: number | undefined;
   } | null) | undefined;
+  /**
+   * @description Which recipients the account can send to, derived from the account's Email Sending entitlement. arbitrary: any recipient. verified_only: only the account's verified destination addresses.
+   * @example verified_only
+   * @type string | undefined
+   */
+  readonly recipient_mode?: EmailSendingLimitsPropertiesRecipientModeEnumKey | undefined;
   /**
    * @description The account's current daily sending usage. Null when there is no resolved quota or usage is temporarily unavailable.
    * @type object | undefined
@@ -300276,6 +300289,467 @@ export type PostDatasetPopulateResponses = {
  */
 export type PostDatasetPopulateResponse = PostDatasetPopulateStatus200;
 
+export type DeleteDatasetPreferencesDeletePath = {
+  /**
+   * @description Account ID.
+   * @type string
+   */
+  accountId: string;
+};
+
+export const deleteDatasetPreferencesDeleteScope = {
+  user: 'user',
+  account: 'account',
+} as const;
+
+export type DeleteDatasetPreferencesDeleteScopeKey = (typeof deleteDatasetPreferencesDeleteScope)[keyof typeof deleteDatasetPreferencesDeleteScope];
+
+export type DeleteDatasetPreferencesDeleteQuery = {
+  /**
+   * @description `user` removes your own default datasets. `account` removes the account's, and requires permission to edit the account's Cloudforce One settings.
+   * @type string
+   */
+  scope: DeleteDatasetPreferencesDeleteScopeKey;
+};
+
+export const deleteDatasetPreferencesDeleteStatus200EffectiveSourceEnum = {
+  user_preference: 'user_preference',
+  account_preference: 'account_preference',
+  environment: 'environment',
+} as const;
+
+export type DeleteDatasetPreferencesDeleteStatus200EffectiveSourceEnumKey = (typeof deleteDatasetPreferencesDeleteStatus200EffectiveSourceEnum)[keyof typeof deleteDatasetPreferencesDeleteStatus200EffectiveSourceEnum];
+
+export type DeleteDatasetPreferencesDeleteStatus200 = {
+  /**
+   * @description The account's default datasets, or null if they are not set.
+   * @type object
+   */
+  account: {
+    /**
+     * @description The saved dataset UUIDs.
+     * @type array
+     */
+    datasetIds: string[];
+    /**
+     * @description Saved datasets that you can no longer read or that were deleted. While this list is not empty, the preference is skipped.
+     * @type array
+     */
+    unresolvableDatasetIds: string[];
+    /**
+     * @description When the preference was last set.
+     *
+     * Format: `date-time`
+     * @type string
+     */
+    updatedAt: string;
+    /**
+     * @description The email address of the user who last set the preference.
+     * @type string
+     */
+    updatedBy: string | null;
+  } | null;
+  /**
+   * @description The datasets that event searches use when `datasetId` is omitted.
+   * @type object
+   */
+  effective: {
+    datasetIds: string[];
+    /**
+     * @description `user_preference`: your default datasets. `account_preference`: the account's default datasets. `environment`: no usable preference is set, so event searches use the Cloudforce One Threat Events dataset, and indicator and tag lists use every dataset you can read.
+     * @type string
+     */
+    source: DeleteDatasetPreferencesDeleteStatus200EffectiveSourceEnumKey;
+  };
+  /**
+   * @description Your default datasets, or null if you have not set them.
+   * @type object
+   */
+  user: {
+    /**
+     * @description The saved dataset UUIDs.
+     * @type array
+     */
+    datasetIds: string[];
+    /**
+     * @description Saved datasets that you can no longer read or that were deleted. While this list is not empty, the preference is skipped.
+     * @type array
+     */
+    unresolvableDatasetIds: string[];
+    /**
+     * @description When the preference was last set.
+     *
+     * Format: `date-time`
+     * @type string
+     */
+    updatedAt: string;
+    /**
+     * @description The email address of the user who last set the preference.
+     * @type string
+     */
+    updatedBy: string | null;
+  } | null;
+};
+
+export type DeleteDatasetPreferencesDeleteStatus400 = {
+  errors: {
+    /**
+     * @example An error occurred.
+     * @type string
+     */
+    message: string;
+  }[];
+  result: object;
+  success: boolean;
+};
+
+export type DeleteDatasetPreferencesDeleteStatus401 = {
+  errors: {
+    /**
+     * @example An error occurred.
+     * @type string
+     */
+    message: string;
+  }[];
+  result: object;
+  success: boolean;
+};
+
+export type DeleteDatasetPreferencesDeleteStatus404 = {
+  errors: {
+    /**
+     * @example An error occurred.
+     * @type string
+     */
+    message: string;
+  }[];
+  result: object;
+  success: boolean;
+};
+
+export type DeleteDatasetPreferencesDeleteOptions = {
+  body?: never | undefined;
+  path: DeleteDatasetPreferencesDeletePath;
+  query: DeleteDatasetPreferencesDeleteQuery;
+  headers?: never | undefined;
+};
+
+export type DeleteDatasetPreferencesDeleteResponses = {
+  '200': DeleteDatasetPreferencesDeleteStatus200;
+  '400': DeleteDatasetPreferencesDeleteStatus400;
+  '401': DeleteDatasetPreferencesDeleteStatus401;
+  '404': DeleteDatasetPreferencesDeleteStatus404;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteDatasetPreferencesDeleteResponse = DeleteDatasetPreferencesDeleteStatus200;
+
+export type GetDatasetPreferencesReadPath = {
+  /**
+   * @description Account ID.
+   * @type string
+   */
+  accountId: string;
+};
+
+export const getDatasetPreferencesReadStatus200EffectiveSourceEnum = {
+  user_preference: 'user_preference',
+  account_preference: 'account_preference',
+  environment: 'environment',
+} as const;
+
+export type GetDatasetPreferencesReadStatus200EffectiveSourceEnumKey = (typeof getDatasetPreferencesReadStatus200EffectiveSourceEnum)[keyof typeof getDatasetPreferencesReadStatus200EffectiveSourceEnum];
+
+export type GetDatasetPreferencesReadStatus200 = {
+  /**
+   * @description The account's default datasets, or null if they are not set.
+   * @type object
+   */
+  account: {
+    /**
+     * @description The saved dataset UUIDs.
+     * @type array
+     */
+    datasetIds: string[];
+    /**
+     * @description Saved datasets that you can no longer read or that were deleted. While this list is not empty, the preference is skipped.
+     * @type array
+     */
+    unresolvableDatasetIds: string[];
+    /**
+     * @description When the preference was last set.
+     *
+     * Format: `date-time`
+     * @type string
+     */
+    updatedAt: string;
+    /**
+     * @description The email address of the user who last set the preference.
+     * @type string
+     */
+    updatedBy: string | null;
+  } | null;
+  /**
+   * @description The datasets that event searches use when `datasetId` is omitted.
+   * @type object
+   */
+  effective: {
+    datasetIds: string[];
+    /**
+     * @description `user_preference`: your default datasets. `account_preference`: the account's default datasets. `environment`: no usable preference is set, so event searches use the Cloudforce One Threat Events dataset, and indicator and tag lists use every dataset you can read.
+     * @type string
+     */
+    source: GetDatasetPreferencesReadStatus200EffectiveSourceEnumKey;
+  };
+  /**
+   * @description Your default datasets, or null if you have not set them.
+   * @type object
+   */
+  user: {
+    /**
+     * @description The saved dataset UUIDs.
+     * @type array
+     */
+    datasetIds: string[];
+    /**
+     * @description Saved datasets that you can no longer read or that were deleted. While this list is not empty, the preference is skipped.
+     * @type array
+     */
+    unresolvableDatasetIds: string[];
+    /**
+     * @description When the preference was last set.
+     *
+     * Format: `date-time`
+     * @type string
+     */
+    updatedAt: string;
+    /**
+     * @description The email address of the user who last set the preference.
+     * @type string
+     */
+    updatedBy: string | null;
+  } | null;
+};
+
+export type GetDatasetPreferencesReadStatus400 = {
+  errors: {
+    /**
+     * @example An error occurred.
+     * @type string
+     */
+    message: string;
+  }[];
+  result: object;
+  success: boolean;
+};
+
+export type GetDatasetPreferencesReadStatus401 = {
+  errors: {
+    /**
+     * @example An error occurred.
+     * @type string
+     */
+    message: string;
+  }[];
+  result: object;
+  success: boolean;
+};
+
+export type GetDatasetPreferencesReadStatus404 = {
+  errors: {
+    /**
+     * @example An error occurred.
+     * @type string
+     */
+    message: string;
+  }[];
+  result: object;
+  success: boolean;
+};
+
+export type GetDatasetPreferencesReadOptions = {
+  body?: never | undefined;
+  path: GetDatasetPreferencesReadPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type GetDatasetPreferencesReadResponses = {
+  '200': GetDatasetPreferencesReadStatus200;
+  '400': GetDatasetPreferencesReadStatus400;
+  '401': GetDatasetPreferencesReadStatus401;
+  '404': GetDatasetPreferencesReadStatus404;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetDatasetPreferencesReadResponse = GetDatasetPreferencesReadStatus200;
+
+export type PutDatasetPreferencesUpdatePath = {
+  /**
+   * @description Account ID.
+   * @type string
+   */
+  accountId: string;
+};
+
+export const putDatasetPreferencesUpdateStatus200EffectiveSourceEnum = {
+  user_preference: 'user_preference',
+  account_preference: 'account_preference',
+  environment: 'environment',
+} as const;
+
+export type PutDatasetPreferencesUpdateStatus200EffectiveSourceEnumKey = (typeof putDatasetPreferencesUpdateStatus200EffectiveSourceEnum)[keyof typeof putDatasetPreferencesUpdateStatus200EffectiveSourceEnum];
+
+export type PutDatasetPreferencesUpdateStatus200 = {
+  /**
+   * @description The account's default datasets, or null if they are not set.
+   * @type object
+   */
+  account: {
+    /**
+     * @description The saved dataset UUIDs.
+     * @type array
+     */
+    datasetIds: string[];
+    /**
+     * @description Saved datasets that you can no longer read or that were deleted. While this list is not empty, the preference is skipped.
+     * @type array
+     */
+    unresolvableDatasetIds: string[];
+    /**
+     * @description When the preference was last set.
+     *
+     * Format: `date-time`
+     * @type string
+     */
+    updatedAt: string;
+    /**
+     * @description The email address of the user who last set the preference.
+     * @type string
+     */
+    updatedBy: string | null;
+  } | null;
+  /**
+   * @description The datasets that event searches use when `datasetId` is omitted.
+   * @type object
+   */
+  effective: {
+    datasetIds: string[];
+    /**
+     * @description `user_preference`: your default datasets. `account_preference`: the account's default datasets. `environment`: no usable preference is set, so event searches use the Cloudforce One Threat Events dataset, and indicator and tag lists use every dataset you can read.
+     * @type string
+     */
+    source: PutDatasetPreferencesUpdateStatus200EffectiveSourceEnumKey;
+  };
+  /**
+   * @description Your default datasets, or null if you have not set them.
+   * @type object
+   */
+  user: {
+    /**
+     * @description The saved dataset UUIDs.
+     * @type array
+     */
+    datasetIds: string[];
+    /**
+     * @description Saved datasets that you can no longer read or that were deleted. While this list is not empty, the preference is skipped.
+     * @type array
+     */
+    unresolvableDatasetIds: string[];
+    /**
+     * @description When the preference was last set.
+     *
+     * Format: `date-time`
+     * @type string
+     */
+    updatedAt: string;
+    /**
+     * @description The email address of the user who last set the preference.
+     * @type string
+     */
+    updatedBy: string | null;
+  } | null;
+};
+
+export type PutDatasetPreferencesUpdateStatus400 = {
+  errors: {
+    /**
+     * @example An error occurred.
+     * @type string
+     */
+    message: string;
+  }[];
+  result: object;
+  success: boolean;
+};
+
+export type PutDatasetPreferencesUpdateStatus401 = {
+  errors: {
+    /**
+     * @example An error occurred.
+     * @type string
+     */
+    message: string;
+  }[];
+  result: object;
+  success: boolean;
+};
+
+export type PutDatasetPreferencesUpdateStatus404 = {
+  errors: {
+    /**
+     * @example An error occurred.
+     * @type string
+     */
+    message: string;
+  }[];
+  result: object;
+  success: boolean;
+};
+
+export const putDatasetPreferencesUpdateRequestScopeEnum = {
+  user: 'user',
+  account: 'account',
+} as const;
+
+export type PutDatasetPreferencesUpdateRequestScopeEnumKey = (typeof putDatasetPreferencesUpdateRequestScopeEnum)[keyof typeof putDatasetPreferencesUpdateRequestScopeEnum];
+
+export type PutDatasetPreferencesUpdateBody = {
+  /**
+   * @description The dataset UUIDs to use when a request omits `datasetId`: 1 to 50 datasets you can read. Duplicates are ignored.
+   * @type array
+   */
+  datasetIds: string[];
+  /**
+   * @description `user` sets your own default datasets. `account` sets the default datasets for everyone in the account who has not set their own, and requires permission to edit the account's Cloudforce One settings.
+   * @type string
+   */
+  scope: PutDatasetPreferencesUpdateRequestScopeEnumKey;
+} | undefined;
+
+export type PutDatasetPreferencesUpdateOptions = {
+  body: PutDatasetPreferencesUpdateBody;
+  path: PutDatasetPreferencesUpdatePath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type PutDatasetPreferencesUpdateResponses = {
+  '200': PutDatasetPreferencesUpdateStatus200;
+  '400': PutDatasetPreferencesUpdateStatus400;
+  '401': PutDatasetPreferencesUpdateStatus401;
+  '404': PutDatasetPreferencesUpdateStatus404;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type PutDatasetPreferencesUpdateResponse = PutDatasetPreferencesUpdateStatus200;
+
 export type DeleteEventDeletePath = {
   /**
    * @description Account ID.
@@ -313557,6 +314031,144 @@ export type GetTotalQueriesResponses = {
  * @description Union of all possible responses
  */
 export type GetTotalQueriesResponse = GetTotalQueriesStatus200;
+
+export type GetBrandProtectionUrlInfoPath = {
+  /**
+   * @minLength 1
+   * @type string
+   */
+  accountId: string;
+};
+
+export type GetBrandProtectionUrlInfoQuery = {
+  /**
+   * @description An HTTP or HTTPS URL.
+   *
+   * Format: `uri`
+   * @type string | undefined
+   */
+  url?: string | undefined;
+  /**
+   * @description
+   * Format: `uuid`
+   * @type string | undefined
+   */
+  url_id?: string | undefined;
+};
+
+export type GetBrandProtectionUrlInfoStatus200 = {
+  errors: {
+    message: string;
+  }[];
+  messages: {
+    message: string;
+  }[];
+  result: {
+    country?: string | undefined;
+    malicious?: boolean | undefined;
+    scan_success?: boolean | undefined;
+    scanned_url?: string | undefined;
+    submitted_at: string;
+    url: string;
+    /**
+     * @description
+     * Format: `uuid`
+     * @type string
+     */
+    url_id: string;
+    visibility?: string | undefined;
+  }[];
+  success: boolean;
+};
+
+export type GetBrandProtectionUrlInfoStatus429 = unknown;
+
+export type GetBrandProtectionUrlInfoOptions = {
+  body?: never | undefined;
+  path: GetBrandProtectionUrlInfoPath;
+  query?: GetBrandProtectionUrlInfoQuery | undefined;
+  headers?: never | undefined;
+};
+
+export type GetBrandProtectionUrlInfoResponses = {
+  '200': GetBrandProtectionUrlInfoStatus200;
+  '429': GetBrandProtectionUrlInfoStatus429;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetBrandProtectionUrlInfoResponse = GetBrandProtectionUrlInfoStatus200;
+
+export type PostBrandProtectionUrlSubmitPath = {
+  /**
+   * @minLength 1
+   * @type string
+   */
+  accountId: string;
+};
+
+export type PostBrandProtectionUrlSubmitQuery = {
+  /**
+   * @description An HTTP or HTTPS URL.
+   *
+   * Format: `uri`
+   * @type string
+   */
+  url: string;
+};
+
+export type PostBrandProtectionUrlSubmitStatus201 = {
+  errors: {
+    message: string;
+  }[];
+  messages: {
+    message: string;
+  }[];
+  result: {
+    skipped_urls: {
+      url: string;
+      /**
+       * @description
+       * Format: `uuid`
+       * @type string
+       */
+      url_id: string;
+    }[];
+    submitted_urls: {
+      url: string;
+      /**
+       * @description
+       * Format: `uuid`
+       * @type string
+       */
+      url_id: string;
+    }[];
+  }[];
+  success: boolean;
+};
+
+export type PostBrandProtectionUrlSubmitStatus409 = unknown;
+
+export type PostBrandProtectionUrlSubmitStatus429 = unknown;
+
+export type PostBrandProtectionUrlSubmitOptions = {
+  body?: never | undefined;
+  path: PostBrandProtectionUrlSubmitPath;
+  query: PostBrandProtectionUrlSubmitQuery;
+  headers?: never | undefined;
+};
+
+export type PostBrandProtectionUrlSubmitResponses = {
+  '201': PostBrandProtectionUrlSubmitStatus201;
+  '409': PostBrandProtectionUrlSubmitStatus409;
+  '429': PostBrandProtectionUrlSubmitStatus429;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type PostBrandProtectionUrlSubmitResponse = PostBrandProtectionUrlSubmitStatus201;
 
 export type GetCollectionListPath = {
   /**
