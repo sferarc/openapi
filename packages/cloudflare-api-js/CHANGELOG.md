@@ -1,5 +1,11 @@
 # cloudflare-api-js
 
+## 4.21.0
+
+### Minor Changes
+
+- 3ab2634: Added support for 409 Conflict error response to the requestReview operation.
+
 ## 4.20.0
 
 ### Minor Changes
