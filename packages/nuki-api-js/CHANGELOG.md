@@ -1,5 +1,11 @@
 # nuki-api-js
 
+## 3.6.0
+
+### Minor Changes
+
+- 2f7cab5: Take a function as `token` in `NukiApi`, called before every request, so a new OAuth access token reaches an existing client. A fixed token works as before.
+
 ## 3.5.1
 
 ### Patch Changes
