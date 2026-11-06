@@ -98,6 +98,8 @@ Run alone with `pnpm turbo run test --filter=@sferadev/openapi-utils`.
 
 `apps/openapi/src/app/llms-routes.test.ts` checks that the client list names every directory in `packages/` but `openapi-utils`, that both llms routes send plain text, that `llms.txt` links every client's README, npm page, `OPERATIONS.md` and spec, that each linked `OPERATIONS.md` exists, and that `llms-full.txt` holds every README (#347).
 
+`apps/openapi/src/app/markdown-routes.test.ts` checks that every sitemap page has a `.md` twin, that each twin and each page asked for `text/markdown` rewrites to its handler while a browser `Accept` does not, that both handlers send `text/markdown` with `Vary: Accept` and the install, usage, authentication and examples against a stubbed npm, that an unknown client is a 404, and that `llms.txt` links every twin (#350).
+
 `apps/openapi/src/lib/package-listing.test.ts` checks that every client's `package.json` has the unofficial description for its API, the search keywords, `effect` among them only with an `./effect` entry, and its site page as `homepage`, and that its README says it is unofficial under the title (#344).
 
 `apps/openapi/src/lib/spec-sources.test.ts` reads the `fetchSpec("<url>")` and `readFileSync("./specs/<file>")` calls in every client's `kubb.config.ts` and checks that the client list names the same specs, that the README's `Generated from` line links each one, and that the client page links them (#349). A config that loads a spec any other way needs the test's patterns extended.

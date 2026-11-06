@@ -7,3 +7,6 @@ export const siteTitle =
 
 export const siteDescription =
 	"Unofficial, generated TypeScript clients for the Vercel, Cloudflare, Netlify, Keycloak, Zoom, Nuki, LiteLLM and v0 APIs, published to npm and regenerated from each upstream OpenAPI spec.";
+
+export const updateWorkflowUrl =
+	"https://github.com/sferarc/openapi/actions/workflows/update-openapi.yml";

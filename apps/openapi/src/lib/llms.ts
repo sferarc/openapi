@@ -1,4 +1,5 @@
 import { type Client, clients } from "./clients";
+import { clientMarkdownPath, homeMarkdownPath } from "./markdown-routes";
 import { readReadme } from "./readme";
 import { siteDescription, siteName, siteUrl } from "./site";
 
@@ -12,6 +13,10 @@ function rawUrl(client: Client, path: string): string {
 
 function clientLine(client: Client): string {
 	return `- [${client.packageName} README](${rawUrl(client, "README.md")}): typed client for the ${client.api}, published at https://www.npmjs.com/package/${client.packageName}`;
+}
+
+function pageLine(client: Client): string {
+	return `- [${client.packageName}](${siteUrl}${clientMarkdownPath(client.packageName)}): install, authentication and examples, as Markdown`;
 }
 
 function operationsLines(client: Client): string[] {
@@ -28,6 +33,11 @@ export function buildLlmsTxt(): string {
 		`> ${siteDescription} They are not affiliated with or endorsed by the API vendors.`,
 		"",
 		`Each README covers install, authentication and usage. Each OPERATIONS.md ships in its npm package and lists every operation the client exposes. Site: ${siteUrl}`,
+		"",
+		"## Site pages",
+		"",
+		`- [All clients](${siteUrl}${homeMarkdownPath}): every client with its version, install command and usage, as Markdown`,
+		...clients.map(pageLine),
 		"",
 		"## Clients",
 		"",
