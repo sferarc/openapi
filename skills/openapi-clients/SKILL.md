@@ -12,15 +12,15 @@ Each package is generated from the vendor's published OpenAPI spec and regenerat
 | API | Package | Class | Required options | Constructor `baseUrl` | Env var in the READMEs | Effect |
 | --- | --- | --- | --- | --- | --- | --- |
 | Vercel | `vercel-api-js` | `VercelApi` | `token` (string or function) | optional | `VERCEL_TOKEN` | yes |
-| Cloudflare | `cloudflare-api-js` | `CloudflareApi` | `token`, or `apiKey` plus `email` | optional | `CLOUDFLARE_TOKEN` | yes |
-| Netlify | `netlify-api` | `NetlifyApi` | `token` | none | `NETLIFY_TOKEN` | yes |
+| Cloudflare | `cloudflare-api-js` | `CloudflareApi` | `token` (string or function), or `apiKey` plus `email` | optional | `CLOUDFLARE_TOKEN` | yes |
+| Netlify | `netlify-api` | `NetlifyApi` | `token` (string or function) | none | `NETLIFY_TOKEN` | yes |
 | Keycloak | `keycloak-api` | `KeycloakAdminApi`, `KeycloakAccountApi` | `token` (string or function), `baseUrl`, and `realm` for `KeycloakAccountApi` | required | `KEYCLOAK_TOKEN` | yes |
 | Zoom | `zoom-api-js` | `ZoomApi` | `token` (string or function) | optional | `ZOOM_TOKEN` | yes |
 | Nuki | `nuki-api-js` | `NukiApi` | `token` (string or function) | optional | `NUKI_TOKEN` | yes |
 | LiteLLM | `litellm-api` | `LiteLLMApi` | `token`, `baseUrl` | required | `LITELLM_MASTER_KEY` | yes |
 | v0 | `v0-api` | `V0Api` | `token` | optional | `V0_API_KEY` | yes |
 
-Install only the one you need, for example `npm install vercel-api-js`. Read the token from the environment; never hard code it. Cloudflare's Global API Key goes in `apiKey` with the account's `email`, and only some operations need it. Keycloak and Zoom tokens expire, so pass `token` a function (sync or async) that returns a fresh one; it runs before every request. Keycloak and LiteLLM are self-hosted, so their constructors need the server's `baseUrl`. The other constructors default to the vendor's host and take a `baseUrl` only for a proxy, except Netlify's: its host is fixed, and its optional `basePath` (`/api/v1` by default) is only the path prefix. A Netlify host override goes in a call's `config: { baseUrl }` or in `makeApiLayer`. `KeycloakAccountApi` is scoped to the one `realm` it is built with.
+Install only the one you need, for example `npm install vercel-api-js`. Read the token from the environment; never hard code it. Cloudflare's Global API Key goes in `apiKey` with the account's `email`, and only some operations need it. OAuth and other short-lived tokens expire, so in the Vercel, Cloudflare, Netlify, Keycloak, Zoom and Nuki constructors pass `token` a function (sync or async) that returns a fresh one; it runs before every request, so a refreshed token (such as one from Cloudflare's or Netlify's `auth.refreshToken`) reaches the same client without rebuilding it. LiteLLM and v0 take a string only. Keycloak and LiteLLM are self-hosted, so their constructors need the server's `baseUrl`. The other constructors default to the vendor's host and take a `baseUrl` only for a proxy, except Netlify's: its host is fixed, and its optional `basePath` (`/api/v1` by default) is only the path prefix. A Netlify host override goes in a call's `config: { baseUrl }` or in `makeApiLayer`. `KeycloakAccountApi` is scoped to the one `realm` it is built with.
 
 ## Find the operation
 

@@ -6,4 +6,5 @@
 - Its samples use `vercel-api-js` and `v0-api`; everything it states comes from the client READMEs and `src/utils/fetcher.ts`, so a change there that alters a documented behaviour should update the skill too.
 - `.github/workflows/scripts/skill-snippets.test.ts` type checks every `ts` sample against the client sources ([[development/testing]]).
 - The same test checks the "Pick the client" table's required options and constructor `baseUrl` against each class's options type in `src/client.ts`, so a renamed, removed or newly required constructor option fails it.
+- The test does not check the "(string or function)" notes or the paragraph under the table that names every constructor taking a token function (#453), so a client that gains one updates both by hand.
 - It is not part of any npm package and needs no changeset.
