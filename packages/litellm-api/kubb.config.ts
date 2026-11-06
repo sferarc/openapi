@@ -123,7 +123,8 @@ function moveDefsToComponents(openAPIObject: OpenAPIObject) {
 
 function pathReturnFixCatchAll(openAPIObject: OpenAPIObject) {
 	const catchAll = { type: "object", properties: {}, additionalProperties: true };
-	const methods = ["get", "post", "put", "delete"];
+	// HEAD is left out: its response has no body, so it stays void.
+	const methods = ["get", "post", "put", "patch", "delete", "options"];
 
 	for (const pathItem of Object.values(openAPIObject.paths ?? {})) {
 		for (const method of methods) {

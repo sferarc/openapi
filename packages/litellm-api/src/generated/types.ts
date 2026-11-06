@@ -30237,7 +30237,9 @@ export type UpdateCredentialCredentialsCredentialNamePatchPath = {
 	credential_name: string;
 };
 
-export type UpdateCredentialCredentialsCredentialNamePatchStatus200 = unknown;
+export type UpdateCredentialCredentialsCredentialNamePatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type UpdateCredentialCredentialsCredentialNamePatchStatus422 = HTTPValidationError;
 
@@ -31493,7 +31495,9 @@ export type HealthReadinessHealthReadinessGetResponses = {
  */
 export type HealthReadinessHealthReadinessGetResponse = HealthReadinessHealthReadinessGetStatus200;
 
-export type HealthReadinessOptionsHealthReadinessOptionsStatus200 = unknown;
+export type HealthReadinessOptionsHealthReadinessOptionsStatus200 = {
+	[key: string]: unknown;
+};
 
 export type HealthReadinessOptionsHealthReadinessOptionsOptions = {
 	body?: never | undefined;
@@ -31593,7 +31597,9 @@ export type HealthLivelinessHealthLivenessGetResponses = {
  */
 export type HealthLivelinessHealthLivenessGetResponse = HealthLivelinessHealthLivenessGetStatus200;
 
-export type HealthLivelinessOptionsHealthLivenessOptionsStatus200 = unknown;
+export type HealthLivelinessOptionsHealthLivenessOptionsStatus200 = {
+	[key: string]: unknown;
+};
 
 export type HealthLivelinessOptionsHealthLivenessOptionsOptions = {
 	body?: never | undefined;
@@ -31633,7 +31639,9 @@ export type HealthLivelinessHealthLivelinessGetResponses = {
 export type HealthLivelinessHealthLivelinessGetResponse =
 	HealthLivelinessHealthLivelinessGetStatus200;
 
-export type HealthLivelinessOptionsHealthLivelinessOptionsStatus200 = unknown;
+export type HealthLivelinessOptionsHealthLivelinessOptionsStatus200 = {
+	[key: string]: unknown;
+};
 
 export type HealthLivelinessOptionsHealthLivelinessOptionsOptions = {
 	body?: never | undefined;
@@ -37057,7 +37065,9 @@ export type GetDefaultTeamSettingsGetDefaultTeamSettingsGetResponses = {
 export type GetDefaultTeamSettingsGetDefaultTeamSettingsGetResponse =
 	GetDefaultTeamSettingsGetDefaultTeamSettingsGetStatus200;
 
-export type UpdateInternalUserSettingsUpdateInternalUserSettingsPatchStatus200 = unknown;
+export type UpdateInternalUserSettingsUpdateInternalUserSettingsPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type UpdateInternalUserSettingsUpdateInternalUserSettingsPatchStatus422 =
 	HTTPValidationError;
@@ -37087,7 +37097,9 @@ export type UpdateInternalUserSettingsUpdateInternalUserSettingsPatchResponses =
 export type UpdateInternalUserSettingsUpdateInternalUserSettingsPatchResponse =
 	UpdateInternalUserSettingsUpdateInternalUserSettingsPatchStatus200;
 
-export type UpdateDefaultTeamSettingsUpdateDefaultTeamSettingsPatchStatus200 = unknown;
+export type UpdateDefaultTeamSettingsUpdateDefaultTeamSettingsPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type UpdateDefaultTeamSettingsUpdateDefaultTeamSettingsPatchStatus422 = HTTPValidationError;
 
@@ -37138,7 +37150,9 @@ export type GetSsoSettingsGetSsoSettingsGetResponses = {
  */
 export type GetSsoSettingsGetSsoSettingsGetResponse = GetSsoSettingsGetSsoSettingsGetStatus200;
 
-export type UpdateSsoSettingsUpdateSsoSettingsPatchStatus200 = unknown;
+export type UpdateSsoSettingsUpdateSsoSettingsPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type UpdateSsoSettingsUpdateSsoSettingsPatchStatus422 = HTTPValidationError;
 
@@ -37189,7 +37203,9 @@ export type GetUiThemeSettingsGetUiThemeSettingsGetResponses = {
 export type GetUiThemeSettingsGetUiThemeSettingsGetResponse =
 	GetUiThemeSettingsGetUiThemeSettingsGetStatus200;
 
-export type UpdateUiThemeSettingsUpdateUiThemeSettingsPatchStatus200 = unknown;
+export type UpdateUiThemeSettingsUpdateUiThemeSettingsPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type UpdateUiThemeSettingsUpdateUiThemeSettingsPatchStatus422 = HTTPValidationError;
 
@@ -37241,7 +37257,9 @@ export type GetMcpSemanticFilterSettingsGetMcpSemanticFilterSettingsGetResponses
 export type GetMcpSemanticFilterSettingsGetMcpSemanticFilterSettingsGetResponse =
 	GetMcpSemanticFilterSettingsGetMcpSemanticFilterSettingsGetStatus200;
 
-export type UpdateMcpSemanticFilterSettingsUpdateMcpSemanticFilterSettingsPatchStatus200 = unknown;
+export type UpdateMcpSemanticFilterSettingsUpdateMcpSemanticFilterSettingsPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type UpdateMcpSemanticFilterSettingsUpdateMcpSemanticFilterSettingsPatchStatus422 =
 	HTTPValidationError;
@@ -37295,8 +37313,9 @@ export type GetWebsearchInterceptionSettingsGetWebsearchInterceptionSettingsGetR
 export type GetWebsearchInterceptionSettingsGetWebsearchInterceptionSettingsGetResponse =
 	GetWebsearchInterceptionSettingsGetWebsearchInterceptionSettingsGetStatus200;
 
-export type UpdateWebsearchInterceptionSettingsUpdateWebsearchInterceptionSettingsPatchStatus200 =
-	unknown;
+export type UpdateWebsearchInterceptionSettingsUpdateWebsearchInterceptionSettingsPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type UpdateWebsearchInterceptionSettingsUpdateWebsearchInterceptionSettingsPatchStatus422 =
 	HTTPValidationError;
@@ -37403,7 +37422,9 @@ export type GetUiSettingsGetUiSettingsGetResponses = {
  */
 export type GetUiSettingsGetUiSettingsGetResponse = GetUiSettingsGetUiSettingsGetStatus200;
 
-export type UpdateUiSettingsUpdateUiSettingsPatchStatus200 = unknown;
+export type UpdateUiSettingsUpdateUiSettingsPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type UpdateUiSettingsUpdateUiSettingsPatchStatus422 = HTTPValidationError;
 
@@ -37849,7 +37870,9 @@ export type PatchModelModelModelIdUpdatePatchPath = {
 	model_id: string;
 };
 
-export type PatchModelModelModelIdUpdatePatchStatus200 = unknown;
+export type PatchModelModelModelIdUpdatePatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type PatchModelModelModelIdUpdatePatchStatus422 = HTTPValidationError;
 
@@ -38949,7 +38972,9 @@ export type UpdateWorkflowRunV1WorkflowsRunsRunIdPatchPath = {
 	run_id: string;
 };
 
-export type UpdateWorkflowRunV1WorkflowsRunsRunIdPatchStatus200 = unknown;
+export type UpdateWorkflowRunV1WorkflowsRunsRunIdPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type UpdateWorkflowRunV1WorkflowsRunsRunIdPatchStatus422 = HTTPValidationError;
 
@@ -39281,7 +39306,9 @@ export type LensRequestLensPathPatchPath = {
 	path: string;
 };
 
-export type LensRequestLensPathPatchStatus200 = unknown;
+export type LensRequestLensPathPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type LensRequestLensPathPatchStatus422 = HTTPValidationError;
 
@@ -39418,7 +39445,9 @@ export type LensRequestLensPatchQuery = {
 	path?: string | undefined;
 };
 
-export type LensRequestLensPatchStatus200 = unknown;
+export type LensRequestLensPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type LensRequestLensPatchStatus422 = HTTPValidationError;
 
@@ -39660,7 +39689,9 @@ export type GetCostDiscountConfigConfigCostDiscountConfigGetResponses = {
 export type GetCostDiscountConfigConfigCostDiscountConfigGetResponse =
 	GetCostDiscountConfigConfigCostDiscountConfigGetStatus200;
 
-export type UpdateCostDiscountConfigConfigCostDiscountConfigPatchStatus200 = unknown;
+export type UpdateCostDiscountConfigConfigCostDiscountConfigPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type UpdateCostDiscountConfigConfigCostDiscountConfigPatchStatus422 = HTTPValidationError;
 
@@ -39707,7 +39738,9 @@ export type GetCostMarginConfigConfigCostMarginConfigGetResponses = {
 export type GetCostMarginConfigConfigCostMarginConfigGetResponse =
 	GetCostMarginConfigConfigCostMarginConfigGetStatus200;
 
-export type UpdateCostMarginConfigConfigCostMarginConfigPatchStatus200 = unknown;
+export type UpdateCostMarginConfigConfigCostMarginConfigPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type UpdateCostMarginConfigConfigCostMarginConfigPatchStatus422 = HTTPValidationError;
 
@@ -40651,7 +40684,9 @@ export type GetEmailEventSettingsEmailEventSettingsGetResponses = {
 export type GetEmailEventSettingsEmailEventSettingsGetResponse =
 	GetEmailEventSettingsEmailEventSettingsGetStatus200;
 
-export type UpdateEventSettingsEmailEventSettingsPatchStatus200 = unknown;
+export type UpdateEventSettingsEmailEventSettingsPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type UpdateEventSettingsEmailEventSettingsPatchStatus422 = HTTPValidationError;
 
@@ -41556,7 +41591,9 @@ export type ProxyMcpRouteMcpProxyDeleteResponses = {
  */
 export type ProxyMcpRouteMcpProxyDeleteResponse = ProxyMcpRouteMcpProxyDeleteStatus200;
 
-export type ProxyMcpRouteMcpProxyOptionsStatus200 = unknown;
+export type ProxyMcpRouteMcpProxyOptionsStatus200 = {
+	[key: string]: unknown;
+};
 
 export type ProxyMcpRouteMcpProxyOptionsOptions = {
 	body?: never | undefined;
@@ -41592,7 +41629,9 @@ export type ProxyMcpRouteMcpProxyHeadResponses = {
  */
 export type ProxyMcpRouteMcpProxyHeadResponse = ProxyMcpRouteMcpProxyHeadStatus200;
 
-export type ProxyMcpRouteMcpProxyPatchStatus200 = unknown;
+export type ProxyMcpRouteMcpProxyPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type ProxyMcpRouteMcpProxyPatchOptions = {
 	body?: never | undefined;
@@ -41690,7 +41729,9 @@ export type AggregateMcpRouteMcpDeleteResponses = {
  */
 export type AggregateMcpRouteMcpDeleteResponse = AggregateMcpRouteMcpDeleteStatus200;
 
-export type AggregateMcpRouteMcpOptionsStatus200 = unknown;
+export type AggregateMcpRouteMcpOptionsStatus200 = {
+	[key: string]: unknown;
+};
 
 export type AggregateMcpRouteMcpOptionsOptions = {
 	body?: never | undefined;
@@ -41726,7 +41767,9 @@ export type AggregateMcpRouteMcpHeadResponses = {
  */
 export type AggregateMcpRouteMcpHeadResponse = AggregateMcpRouteMcpHeadStatus200;
 
-export type AggregateMcpRouteMcpPatchStatus200 = unknown;
+export type AggregateMcpRouteMcpPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type AggregateMcpRouteMcpPatchOptions = {
 	body?: never | undefined;
@@ -41774,7 +41817,9 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsPath = {
 	toolset_name: string;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200 = unknown;
+export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus200 = {
+	[key: string]: unknown;
+};
 
 export type ToolsetMcpRouteToolsetToolsetNameMcpOptionsStatus422 = HTTPValidationError;
 
@@ -41800,7 +41845,9 @@ export type ToolsetMcpRouteToolsetToolsetNameMcpPatchPath = {
 	toolset_name: string;
 };
 
-export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200 = unknown;
+export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type ToolsetMcpRouteToolsetToolsetNameMcpPatchStatus422 = HTTPValidationError;
 
@@ -41964,7 +42011,9 @@ export type DynamicMcpRouteMcpServerNameMcpOptionsPath = {
 	mcp_server_name: string;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpOptionsStatus200 = unknown;
+export type DynamicMcpRouteMcpServerNameMcpOptionsStatus200 = {
+	[key: string]: unknown;
+};
 
 export type DynamicMcpRouteMcpServerNameMcpOptionsStatus422 = HTTPValidationError;
 
@@ -41990,7 +42039,9 @@ export type DynamicMcpRouteMcpServerNameMcpPatchPath = {
 	mcp_server_name: string;
 };
 
-export type DynamicMcpRouteMcpServerNameMcpPatchStatus200 = unknown;
+export type DynamicMcpRouteMcpServerNameMcpPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type DynamicMcpRouteMcpServerNameMcpPatchStatus422 = HTTPValidationError;
 
@@ -42810,7 +42861,9 @@ export type PatchGuardrailGuardrailsGuardrailIdPatchPath = {
 	guardrail_id: string;
 };
 
-export type PatchGuardrailGuardrailsGuardrailIdPatchStatus200 = unknown;
+export type PatchGuardrailGuardrailsGuardrailIdPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type PatchGuardrailGuardrailsGuardrailIdPatchStatus422 = HTTPValidationError;
 
@@ -51211,7 +51264,9 @@ export type PatchPromptPromptsPromptIdPatchQuery = {
 	environment?: (string | null) | undefined;
 };
 
-export type PatchPromptPromptsPromptIdPatchStatus200 = unknown;
+export type PatchPromptPromptsPromptIdPatchStatus200 = {
+	[key: string]: unknown;
+};
 
 export type PatchPromptPromptsPromptIdPatchStatus422 = HTTPValidationError;
 
