@@ -1,5 +1,11 @@
 # keycloak-api
 
+## 3.7.1
+
+### Patch Changes
+
+- 8b59d74: Declare `mcpName` so the official MCP registry can list `keycloak-api-mcp` as `io.github.sferarc/keycloak-api-mcp`.
+
 ## 3.7.0
 
 ### Minor Changes
