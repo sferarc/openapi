@@ -167,8 +167,11 @@ The package ships `keycloak-api-mcp`, a stdio [MCP](https://modelcontextprotocol
 | `KEYCLOAK_CLIENT_ID`, `KEYCLOAK_CLIENT_SECRET` | A confidential client with a service account; the server gets a token with the client credentials grant and renews it before it expires |
 | `KEYCLOAK_TOKEN_REALM` | Realm of that client, if not `KEYCLOAK_REALM` (for example `master`) |
 | `KEYCLOAK_MCP_ALLOW_WRITES` | `1` to list the tools that change data |
+| `KEYCLOAK_MCP_RESOURCES` | Comma separated resources to list tools for, such as `users,groups,roles`: the first path segment after the realm, or `realm` for the realm itself. Unset lists every resource |
 
 The service account needs the `realm-management` roles for what the tools should read, such as `view-users`.
+
+Without `KEYCLOAK_MCP_RESOURCES` the server lists about 200 read tools, over the 128 a VS Code chat request can enable, so pick the resources there. An unknown name stops the server with the list of valid ones.
 
 Claude Code, in `.mcp.json`:
 
@@ -205,7 +208,8 @@ VS Code, in `.vscode/mcp.json`:
         "KEYCLOAK_URL": "https://keycloak.example.com",
         "KEYCLOAK_REALM": "acme",
         "KEYCLOAK_CLIENT_ID": "mcp",
-        "KEYCLOAK_CLIENT_SECRET": "${input:keycloak-secret}"
+        "KEYCLOAK_CLIENT_SECRET": "${input:keycloak-secret}",
+        "KEYCLOAK_MCP_RESOURCES": "users,groups,roles"
       }
     }
   }
