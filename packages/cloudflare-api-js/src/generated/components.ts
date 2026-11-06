@@ -3954,6 +3954,12 @@ import type {
 	DeleteDatasetDeleteResponse,
 	DeleteDatasetDeleteStatus400,
 	DeleteDatasetDeleteStatus404,
+	DeleteDatasetPreferencesDeletePath,
+	DeleteDatasetPreferencesDeleteQuery,
+	DeleteDatasetPreferencesDeleteResponse,
+	DeleteDatasetPreferencesDeleteStatus400,
+	DeleteDatasetPreferencesDeleteStatus401,
+	DeleteDatasetPreferencesDeleteStatus404,
 	DeleteDeleteDomainQueryPath,
 	DeleteDeleteDomainQueryResponse,
 	DeleteDeleteDomainQueryStatus400,
@@ -6203,6 +6209,10 @@ import type {
 	GetBinDBGetBinaryPath,
 	GetBinDBGetBinaryResponse,
 	GetBinDBGetBinaryStatus400,
+	GetBrandProtectionUrlInfoPath,
+	GetBrandProtectionUrlInfoQuery,
+	GetBrandProtectionUrlInfoResponse,
+	GetBrandProtectionUrlInfoStatus429,
 	GetBuildByUuidPath,
 	GetBuildByUuidResponse,
 	GetBuildByUuidStatus401,
@@ -6308,6 +6318,11 @@ import type {
 	GetDatasetListQuery,
 	GetDatasetListResponse,
 	GetDatasetListStatus400,
+	GetDatasetPreferencesReadPath,
+	GetDatasetPreferencesReadResponse,
+	GetDatasetPreferencesReadStatus400,
+	GetDatasetPreferencesReadStatus401,
+	GetDatasetPreferencesReadStatus404,
 	GetDatasetReadPath,
 	GetDatasetReadResponse,
 	GetDatasetReadStatus400,
@@ -9891,6 +9906,11 @@ import type {
 	PostBinDBPostPath,
 	PostBinDBPostResponse,
 	PostBinDBPostStatus400,
+	PostBrandProtectionUrlSubmitPath,
+	PostBrandProtectionUrlSubmitQuery,
+	PostBrandProtectionUrlSubmitResponse,
+	PostBrandProtectionUrlSubmitStatus409,
+	PostBrandProtectionUrlSubmitStatus429,
 	PostBulkDismissMatchesBody,
 	PostBulkDismissMatchesPath,
 	PostBulkDismissMatchesResponse,
@@ -10378,6 +10398,12 @@ import type {
 	PutAccountsAccountIdLogpushTransformersTransformerIdPath,
 	PutAccountsAccountIdLogpushTransformersTransformerIdResponse,
 	PutAccountsAccountIdLogpushTransformersTransformerIdStatus400,
+	PutDatasetPreferencesUpdateBody,
+	PutDatasetPreferencesUpdatePath,
+	PutDatasetPreferencesUpdateResponse,
+	PutDatasetPreferencesUpdateStatus400,
+	PutDatasetPreferencesUpdateStatus401,
+	PutDatasetPreferencesUpdateStatus404,
 	PutFlowsUpdateBody,
 	PutFlowsUpdatePath,
 	PutFlowsUpdateResponse,
@@ -54711,6 +54737,132 @@ export async function postDatasetPopulate(
 }
 
 /**
+ * @summary Remove default datasets
+ * @description Removes your default datasets (`scope` `user`) or the account's (`scope` `account`). After you remove your own, requests that omit `datasetId` use the account's default datasets, if set.
+ * @link /accounts/{accountId}/cloudforce-one/events/datasets/preferences
+ */
+export async function deleteDatasetPreferencesDelete(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: DeleteDatasetPreferencesDeletePath;
+		queryParams: DeleteDatasetPreferencesDeleteQuery;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		DeleteDatasetPreferencesDeleteResponse,
+		ErrorWrapper<
+			| DeleteDatasetPreferencesDeleteStatus400
+			| DeleteDatasetPreferencesDeleteStatus401
+			| DeleteDatasetPreferencesDeleteStatus404
+		>,
+		null,
+		Record<string, string>,
+		DeleteDatasetPreferencesDeleteQuery,
+		DeleteDatasetPreferencesDeletePath
+	>({
+		method: "DELETE",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/cloudforce-one/events/datasets/preferences`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get default datasets
+ * @description Returns your default datasets, the account's default datasets, and the datasets that event searches currently use when `datasetId` is omitted. `unresolvableDatasetIds` lists saved datasets you can no longer read.
+ * @link /accounts/{accountId}/cloudforce-one/events/datasets/preferences
+ */
+export async function getDatasetPreferencesRead(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetDatasetPreferencesReadPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		GetDatasetPreferencesReadResponse,
+		ErrorWrapper<
+			| GetDatasetPreferencesReadStatus400
+			| GetDatasetPreferencesReadStatus401
+			| GetDatasetPreferencesReadStatus404
+		>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetDatasetPreferencesReadPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/cloudforce-one/events/datasets/preferences`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Set default datasets
+ * @description Sets the datasets to use when a request omits `datasetId`, for you (`scope` `user`) or for the account (`scope` `account`). Your own default datasets take precedence over the account's. Every dataset must exist and be readable by the account.
+ * @link /accounts/{accountId}/cloudforce-one/events/datasets/preferences
+ */
+export async function putDatasetPreferencesUpdate(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: PutDatasetPreferencesUpdatePath;
+		body?: PutDatasetPreferencesUpdateBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		PutDatasetPreferencesUpdateResponse,
+		ErrorWrapper<
+			| PutDatasetPreferencesUpdateStatus400
+			| PutDatasetPreferencesUpdateStatus401
+			| PutDatasetPreferencesUpdateStatus404
+		>,
+		PutDatasetPreferencesUpdateBody,
+		Record<string, string>,
+		Record<string, string>,
+		PutDatasetPreferencesUpdatePath
+	>({
+		method: "PUT",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/cloudforce-one/events/datasets/preferences`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Delete events
  * @description Deletes one or more events from a dataset. Pass the event UUIDs in `eventIds`.
  * @link /accounts/{accountId}/cloudforce-one/events/datasets/{datasetId}/events
@@ -60655,6 +60807,84 @@ export async function getTotalQueries(
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/cloudforce-one/v2/brand-protection/total-queries`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get URL scan information
+ * @description Get account-scoped URL Scanner summaries by submitted URL or scan UUID. Lookups cover scans submitted within about the last 30 days; a daily cleanup at 00:00 UTC removes older ownership records. Completed results may be served from a cache that is cleared daily, so a cached copy is kept for at most about 48 hours. The response is a v2 migration contract, not the v1 enrichment shape.
+ * @link /accounts/{accountId}/cloudforce-one/v2/brand-protection/url/info
+ */
+export async function getBrandProtectionUrlInfo(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: GetBrandProtectionUrlInfoPath;
+		queryParams?: Partial<GetBrandProtectionUrlInfoQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		GetBrandProtectionUrlInfoResponse,
+		ErrorWrapper<GetBrandProtectionUrlInfoStatus429>,
+		null,
+		Record<string, string>,
+		Partial<GetBrandProtectionUrlInfoQuery>,
+		GetBrandProtectionUrlInfoPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/cloudforce-one/v2/brand-protection/url/info`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Submit a URL for scanning
+ * @description Submit one unlisted URL Scanner scan. The returned URL Scanner UUID replaces the numeric v1 URL ID.
+ * @link /accounts/{accountId}/cloudforce-one/v2/brand-protection/url/submit
+ */
+export async function postBrandProtectionUrlSubmit(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: PostBrandProtectionUrlSubmitPath;
+		queryParams: PostBrandProtectionUrlSubmitQuery;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		PostBrandProtectionUrlSubmitResponse,
+		ErrorWrapper<PostBrandProtectionUrlSubmitStatus409 | PostBrandProtectionUrlSubmitStatus429>,
+		null,
+		Record<string, string>,
+		PostBrandProtectionUrlSubmitQuery,
+		PostBrandProtectionUrlSubmitPath
+	>({
+		method: "POST",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/cloudforce-one/v2/brand-protection/url/submit`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -154968,7 +155198,7 @@ export async function payloadLoggingKeysForAZoneDeleteThePayloadLoggingKey(
 
 /**
  * @summary Get the payload logging key
- * @description Fetches the public key that payload logging uses to encrypt matched payloads for the zone.
+ * @description Fetches the public key that payload logging uses to encrypt matched payloads for the zone
  * @link /zones/{zoneId}/firewall/payload_logging/key
  */
 export async function payloadLoggingKeysForAZoneGetThePayloadLoggingKey(
@@ -173097,6 +173327,11 @@ export const operationsByPath = {
 	"GET /accounts/{accountId}/cloudforce-one/events/dataset/{datasetId}/targetIndustries":
 		getTargetIndustryListByDataset,
 	"POST /accounts/{accountId}/cloudforce-one/events/datasets/populate": postDatasetPopulate,
+	"DELETE /accounts/{accountId}/cloudforce-one/events/datasets/preferences":
+		deleteDatasetPreferencesDelete,
+	"GET /accounts/{accountId}/cloudforce-one/events/datasets/preferences": getDatasetPreferencesRead,
+	"PUT /accounts/{accountId}/cloudforce-one/events/datasets/preferences":
+		putDatasetPreferencesUpdate,
 	"DELETE /accounts/{accountId}/cloudforce-one/events/datasets/{datasetId}/events":
 		deleteEventDelete,
 	"GET /accounts/{accountId}/cloudforce-one/events/datasets/{datasetId}/events/{eventId}/raw":
@@ -173309,6 +173544,10 @@ export const operationsByPath = {
 	"GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/takedown-notices/{noticeId}/letters/{letterId}/pdf":
 		getTakedownLetterPdfGet,
 	"GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/total-queries": getTotalQueries,
+	"GET /accounts/{accountId}/cloudforce-one/v2/brand-protection/url/info":
+		getBrandProtectionUrlInfo,
+	"POST /accounts/{accountId}/cloudforce-one/v2/brand-protection/url/submit":
+		postBrandProtectionUrlSubmit,
 	"GET /accounts/{accountId}/cloudforce-one/v2/collections": getCollectionList,
 	"POST /accounts/{accountId}/cloudforce-one/v2/collections": postCollectionCreate,
 	"DELETE /accounts/{accountId}/cloudforce-one/v2/collections/{collectionId}":
@@ -177053,6 +177292,8 @@ export const operationsByTag = {
 		getTakedownLetterGet,
 		getTakedownLetterPdfGet,
 		getTotalQueries,
+		getBrandProtectionUrlInfo,
+		postBrandProtectionUrlSubmit,
 	},
 	cloudflareIps: {
 		cloudflareIpsCloudflareIpDetails,
@@ -178473,6 +178714,9 @@ export const operationsByTag = {
 		getDatasetRead,
 		patchDatasetUpdate,
 		postDatasetUpdate,
+		deleteDatasetPreferencesDelete,
+		getDatasetPreferencesRead,
+		putDatasetPreferencesUpdate,
 	},
 	groups: {
 		getGroupList,
@@ -181989,6 +182233,7 @@ export const tagDictionary = {
 			"postTakedownNoticeCreate",
 			"postTakedownNoticeLookup",
 			"postTakedownLetterCreate",
+			"postBrandProtectionUrlSubmit",
 		],
 		GET: [
 			"getLive",
@@ -182014,6 +182259,7 @@ export const tagDictionary = {
 			"getTakedownLetterGet",
 			"getTakedownLetterPdfGet",
 			"getTotalQueries",
+			"getBrandProtectionUrlInfo",
 		],
 		PATCH: [
 			"patchAccountsAccountIdBrandProtectionAlerts",
@@ -183548,10 +183794,11 @@ export const tagDictionary = {
 		GET: ["getCountryRead"],
 	},
 	dataset: {
-		GET: ["getDatasetList", "getDatasetRead"],
+		GET: ["getDatasetList", "getDatasetRead", "getDatasetPreferencesRead"],
 		POST: ["postDatasetCreate", "postDatasetUpdate"],
-		DELETE: ["deleteDatasetDelete"],
+		DELETE: ["deleteDatasetDelete", "deleteDatasetPreferencesDelete"],
 		PATCH: ["patchDatasetUpdate"],
+		PUT: ["putDatasetPreferencesUpdate"],
 	},
 	groups: {
 		GET: ["getGroupList", "getGroupRead", "getGroupMemberList"],
