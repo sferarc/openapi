@@ -1054,6 +1054,7 @@ import type {
 	AigBillingCreateTopupStatus402,
 	AigBillingCreateTopupStatus403,
 	AigBillingCreateTopupStatus404,
+	AigBillingCreateTopupStatus503,
 	AigBillingDeleteSpendingLimitPath,
 	AigBillingDeleteSpendingLimitResponse2,
 	AigBillingDeleteSpendingLimitStatus400,
@@ -1115,6 +1116,7 @@ import type {
 	AigBillingSetTopupConfigStatus403,
 	AigBillingSetTopupConfigStatus404,
 	AigBillingSetTopupConfigStatus409,
+	AigBillingSetTopupConfigStatus503,
 	AigBillingTopupEligibilityBody,
 	AigBillingTopupEligibilityPath,
 	AigBillingTopupEligibilityResponse,
@@ -14428,7 +14430,6 @@ import type {
 	WorkersPreviewsDeleteStatus400,
 	WorkersPreviewsDeploymentsCreateBody,
 	WorkersPreviewsDeploymentsCreatePath,
-	WorkersPreviewsDeploymentsCreateQuery,
 	WorkersPreviewsDeploymentsCreateResponse,
 	WorkersPreviewsDeploymentsCreateStatus400,
 	WorkersPreviewsDeploymentsDeletePath,
@@ -14444,7 +14445,6 @@ import type {
 	WorkersPreviewsDeploymentsListStatus400,
 	WorkersPreviewsDeploymentsPatchLatestBody,
 	WorkersPreviewsDeploymentsPatchLatestPath,
-	WorkersPreviewsDeploymentsPatchLatestQuery,
 	WorkersPreviewsDeploymentsPatchLatestResponse,
 	WorkersPreviewsDeploymentsPatchLatestStatus400,
 	WorkersPreviewsEditBody,
@@ -35828,6 +35828,7 @@ export async function aigBillingCreateTopup(
 			| AigBillingCreateTopupStatus402
 			| AigBillingCreateTopupStatus403
 			| AigBillingCreateTopupStatus404
+			| AigBillingCreateTopupStatus503
 		>,
 		AigBillingCreateTopupBody,
 		Record<string, string>,
@@ -35953,6 +35954,7 @@ export async function aigBillingSetTopupConfig(
 			| AigBillingSetTopupConfigStatus403
 			| AigBillingSetTopupConfigStatus404
 			| AigBillingSetTopupConfigStatus409
+			| AigBillingSetTopupConfigStatus503
 		>,
 		AigBillingSetTopupConfigBody,
 		Record<string, string>,
@@ -137447,12 +137449,10 @@ export async function workersPreviewsDeploymentsCreate(
 	{
 		pathParams,
 		body,
-		queryParams,
 		config,
 	}: {
 		pathParams: WorkersPreviewsDeploymentsCreatePath;
 		body: WorkersPreviewsDeploymentsCreateBody;
-		queryParams?: Partial<WorkersPreviewsDeploymentsCreateQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -137474,12 +137474,11 @@ export async function workersPreviewsDeploymentsCreate(
 		ErrorWrapper<WorkersPreviewsDeploymentsCreateStatus400>,
 		WorkersPreviewsDeploymentsCreateBody,
 		Record<string, string>,
-		Partial<WorkersPreviewsDeploymentsCreateQuery>,
+		Record<string, string>,
 		WorkersPreviewsDeploymentsCreatePath
 	>({
 		method: "POST",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/workers/workers/${encodeURIComponent(String(pathParams.workerId))}/previews/${encodeURIComponent(String(pathParams.previewId))}/deployments`,
-		queryParams,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -137497,12 +137496,10 @@ export async function workersPreviewsDeploymentsPatchLatest(
 	{
 		pathParams,
 		body,
-		queryParams,
 		config,
 	}: {
 		pathParams: WorkersPreviewsDeploymentsPatchLatestPath;
 		body?: WorkersPreviewsDeploymentsPatchLatestBody;
-		queryParams?: Partial<WorkersPreviewsDeploymentsPatchLatestQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -137524,12 +137521,11 @@ export async function workersPreviewsDeploymentsPatchLatest(
 		ErrorWrapper<WorkersPreviewsDeploymentsPatchLatestStatus400>,
 		WorkersPreviewsDeploymentsPatchLatestBody,
 		Record<string, string>,
-		Partial<WorkersPreviewsDeploymentsPatchLatestQuery>,
+		Record<string, string>,
 		WorkersPreviewsDeploymentsPatchLatestPath
 	>({
 		method: "PATCH",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/workers/workers/${encodeURIComponent(String(pathParams.workerId))}/previews/${encodeURIComponent(String(pathParams.previewId))}/deployments/latest`,
-		queryParams,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },

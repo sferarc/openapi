@@ -112905,6 +112905,62 @@ export type TlsCertificatesAndHostnamesCertificateAuthority4 = {
   name?: string | undefined;
 };
 
+/**
+ * @description A newly ordered certificate pack. Certificates are not included until they are issued; get the certificate pack to retrieve them.
+ * @type object
+ */
+export type TlsCertificatesAndHostnamesCertificatePackOrder = {
+  /**
+   * @description Certificate Authority selected for the order.  For information on any certificate authority specific details or restrictions [see this page for more details](https://developers.cloudflare.com/ssl/reference/certificate-authorities).
+   * @example lets_encrypt
+   * @type string | undefined
+   */
+  certificate_authority?: TlsCertificatesAndHostnamesCertificateAuthority2Key | undefined;
+  /**
+   * @description Comma separated list of valid host names for the certificate packs. Must contain the zone apex, may not contain more than 50 hosts, and may not be empty.
+   * @example ["example.com","*.example.com","www.example.com"]
+   * @type array
+   */
+  hosts: TlsCertificatesAndHostnamesHosts2;
+  /**
+   * @description The unique identifier for a certificate_pack.
+   * @example 3822ff90-ea29-44df-9e55-21300bb9419b
+   * @type string
+   */
+  readonly id: TlsCertificatesAndHostnamesCertificatePackIdentifier;
+  /**
+   * @description Status of certificate pack.
+   * @example initializing
+   * @type string
+   */
+  status: TlsCertificatesAndHostnamesStatus5Key;
+  /**
+   * @description Type of certificate pack.
+   * @example universal
+   * @type string
+   */
+  type: TlsCertificatesAndHostnamesType2Key;
+  /**
+   * @description Validation Method selected for the order.
+   * @example txt
+   * @type string | undefined
+   */
+  validation_method?: TlsCertificatesAndHostnamesValidationMethodKey | undefined;
+  /**
+   * @description Validity Days selected for the order.
+   * @type number | undefined
+   */
+  validity_days?: TlsCertificatesAndHostnamesValidityDaysKey | undefined;
+};
+
+export type TlsCertificatesAndHostnamesCertificatePackOrderResponseSingle = TlsCertificatesAndHostnamesApiResponseSingle & {
+  /**
+   * @description A newly ordered certificate pack. Certificates are not included until they are issued; get the certificate pack to retrieve them.
+   * @type object | undefined
+   */
+  result?: TlsCertificatesAndHostnamesCertificatePackOrder | undefined;
+};
+
 export type TlsCertificatesAndHostnamesQuota = {
   /**
    * @description Quantity Allocated.
@@ -113759,6 +113815,12 @@ export type TlsCertificatesAndHostnamesClientCertificate = {
   validity_days?: TlsCertificatesAndHostnamesValidityDays2 | undefined;
 };
 
+/**
+ * @example api.example.com
+ * @type string
+ */
+export type TlsCertificatesAndHostnamesClientCertificateHostname = string;
+
 export type TlsCertificatesAndHostnamesClientCertificateResponseCollection = TlsCertificatesAndHostnamesApiResponseCollection & {
   result?: TlsCertificatesAndHostnamesClientCertificate[] | undefined;
 };
@@ -113844,7 +113906,7 @@ export type TlsCertificatesAndHostnamesCreatedAt3 = string;
 export type TlsCertificatesAndHostnamesCreatedAt4 = string;
 
 /**
- * @description Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma.
+ * @description Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma. Omitted from responses when no addresses are configured.
  *
  * @example ["security@example.com","admin@example.com"]
  * @type array
@@ -113864,7 +113926,7 @@ export type TlsCertificatesAndHostnamesCtAlertingEnabled = boolean;
  */
 export type TlsCertificatesAndHostnamesCtAlertingSubscription = {
   /**
-   * @description Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma.
+   * @description Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma. Omitted from responses when no addresses are configured.
    *
    * @example ["security@example.com","admin@example.com"]
    * @type array | undefined
@@ -113892,7 +113954,7 @@ export type TlsCertificatesAndHostnamesCtAlertingSubscriptionResponseSingle = Tl
  */
 export type TlsCertificatesAndHostnamesCtAlertingSubscriptionUpdate = {
   /**
-   * @description Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma.
+   * @description Email addresses that receive CT alert notifications for the zone. A maximum of 100 addresses may be configured. Each address must be a valid RFC 5322 email address and must not contain a comma. Omitted from responses when no addresses are configured.
    *
    * @example ["security@example.com","admin@example.com"]
    * @type array | undefined
@@ -114397,7 +114459,7 @@ export const tlsCertificatesAndHostnamesStatus7 = {
 export type TlsCertificatesAndHostnamesStatus7Key = (typeof tlsCertificatesAndHostnamesStatus7)[keyof typeof tlsCertificatesAndHostnamesStatus7];
 
 /**
- * @description When the certificate was last modified.
+ * @description When the certificate was last modified. Only returned when uploading a certificate.
  *
  * Format: `date-time`
  * @example 2014-01-01T05:20:00Z
@@ -114449,13 +114511,13 @@ export type TlsCertificatesAndHostnamesCustomTrustStore = {
    */
   readonly status: TlsCertificatesAndHostnamesStatus7Key;
   /**
-   * @description When the certificate was last modified.
+   * @description When the certificate was last modified. Only returned when uploading a certificate.
    *
    * Format: `date-time`
    * @example 2014-01-01T05:20:00Z
-   * @type string
+   * @type string | undefined
    */
-  readonly updated_at: TlsCertificatesAndHostnamesUpdatedAt2;
+  readonly updated_at?: TlsCertificatesAndHostnamesUpdatedAt2 | undefined;
   /**
    * @description When the certificate was uploaded to Cloudflare.
    *
@@ -115519,9 +115581,17 @@ export type TlsCertificatesAndHostnamesHostnameAssocResponseCollection = TlsCert
   } | undefined;
 };
 
-export type TlsCertificatesAndHostnamesHostnames2 = string[];
+/**
+ * @description Unordered set of hostnames. Hostnames are stored as lowercase punycode.
+ * @type array
+ */
+export type TlsCertificatesAndHostnamesHostnames2 = TlsCertificatesAndHostnamesClientCertificateHostname[];
 
 export type TlsCertificatesAndHostnamesHostnameAssociation = {
+  /**
+   * @description Unordered set of hostnames. Hostnames are stored as lowercase punycode.
+   * @type array | undefined
+   */
   hostnames?: TlsCertificatesAndHostnamesHostnames2 | undefined;
   /**
    * @description The UUID for a certificate that was uploaded to the mTLS Certificate Management endpoint. If no mtls_certificate_id is given, the hostnames will be associated to your active Cloudflare Managed CA.
@@ -115534,7 +115604,11 @@ export type TlsCertificatesAndHostnamesHostnameAssociation = {
 
 export type TlsCertificatesAndHostnamesHostnameAssociationsResponse = TlsCertificatesAndHostnamesApiResponseSingle & {
   result?: {
-    hostnames?: TlsCertificatesAndHostnamesHostnames2 | undefined;
+    /**
+     * @description Hostnames are returned in lowercase punycode, in no particular order. Null when there are no associations.
+     * @type array | undefined
+     */
+    hostnames?: (TlsCertificatesAndHostnamesClientCertificateHostname[] | null) | undefined;
   } | undefined;
 };
 
@@ -116155,7 +116229,7 @@ export type TlsCertificatesAndHostnamesValidityPeriodKey = (typeof tlsCertificat
 export type TlsCertificatesAndHostnamesTotalTlsSettingsResponse = TlsCertificatesAndHostnamesApiResponseSingle & {
   result?: {
     /**
-     * @description The Certificate Authority that Total TLS certificates will be issued through.
+     * @description The Certificate Authority that Total TLS certificates will be issued through. Not returned in responses when Total TLS is disabled.
      * @example google
      * @type string | undefined
      */
@@ -116167,7 +116241,7 @@ export type TlsCertificatesAndHostnamesTotalTlsSettingsResponse = TlsCertificate
      */
     enabled?: TlsCertificatesAndHostnamesEnabled3 | undefined;
     /**
-     * @description The validity period in days for the certificates ordered via Total TLS.
+     * @description The validity period in days for the certificates ordered via Total TLS. Not returned when Total TLS is disabled.
      * @type number | undefined
      */
     validity_period?: TlsCertificatesAndHostnamesValidityPeriodKey | undefined;
@@ -243438,6 +243512,8 @@ export type AigBillingCreateTopupStatus403 = AigBillingErrorResponse;
 
 export type AigBillingCreateTopupStatus404 = AigBillingErrorResponse;
 
+export type AigBillingCreateTopupStatus503 = AigBillingErrorResponse;
+
 export type AigBillingCreateTopupBody = {
   /**
    * @description Top-up amount in cents (min 1000).
@@ -243467,6 +243543,7 @@ export type AigBillingCreateTopupResponses = {
   '402': AigBillingCreateTopupStatus402;
   '403': AigBillingCreateTopupStatus403;
   '404': AigBillingCreateTopupStatus404;
+  '503': AigBillingCreateTopupStatus503;
 };
 
 /**
@@ -243564,6 +243641,8 @@ export type AigBillingSetTopupConfigStatus404 = AigBillingErrorResponse;
 
 export type AigBillingSetTopupConfigStatus409 = AigBillingErrorResponse;
 
+export type AigBillingSetTopupConfigStatus503 = AigBillingErrorResponse;
+
 export type AigBillingSetTopupConfigBody = {
   /**
    * @description Auto top-up amount in cents (min 1000).
@@ -243638,6 +243717,7 @@ export type AigBillingSetTopupConfigResponses = {
   '403': AigBillingSetTopupConfigStatus403;
   '404': AigBillingSetTopupConfigStatus404;
   '409': AigBillingSetTopupConfigStatus409;
+  '503': AigBillingSetTopupConfigStatus503;
 };
 
 /**
@@ -243860,6 +243940,7 @@ export type AigConfigListAccountProviderPath = {
 export type AigConfigListAccountProviderQuery = {
   /**
    * @minimum 1
+   * @maximum 9007199254740991
    * @default 1
    * @type integer | undefined
    */
@@ -244098,6 +244179,7 @@ export type AigConfigListAccountProviderCostModelRuleKey = (typeof aigConfigList
 export type AigConfigListAccountProviderCostQuery = {
   /**
    * @minimum 1
+   * @maximum 9007199254740991
    * @default 1
    * @type integer | undefined
    */
@@ -245100,6 +245182,7 @@ export type AigConfigListEvaluatorsOrderByDirectionKey = (typeof aigConfigListEv
 export type AigConfigListEvaluatorsQuery = {
   /**
    * @minimum 1
+   * @maximum 9007199254740991
    * @default 1
    * @type integer | undefined
    */
@@ -245193,6 +245276,7 @@ export type AigConfigListGatewayPath = {
 export type AigConfigListGatewayQuery = {
   /**
    * @minimum 1
+   * @maximum 9007199254740991
    * @default 1
    * @type integer | undefined
    */
@@ -246858,6 +246942,7 @@ export type AigConfigListCustomDomainStatusKey = (typeof aigConfigListCustomDoma
 export type AigConfigListCustomDomainQuery = {
   /**
    * @minimum 1
+   * @maximum 9007199254740991
    * @default 1
    * @type integer | undefined
    */
@@ -247295,6 +247380,7 @@ export type AigConfigListDatasetPath = {
 export type AigConfigListDatasetQuery = {
   /**
    * @minimum 1
+   * @maximum 9007199254740991
    * @default 1
    * @type integer | undefined
    */
@@ -247970,6 +248056,7 @@ export type AigConfigListEvaluationsPath = {
 export type AigConfigListEvaluationsQuery = {
   /**
    * @minimum 1
+   * @maximum 9007199254740991
    * @default 1
    * @type integer | undefined
    */
@@ -248856,6 +248943,7 @@ export type AigConfigListGatewayLogsQuery = {
   search?: string | undefined;
   /**
    * @minimum 1
+   * @maximum 9007199254740991
    * @default 1
    * @type integer | undefined
    */
@@ -249370,6 +249458,7 @@ export type AigConfigListProvidersPath = {
 export type AigConfigListProvidersQuery = {
   /**
    * @minimum 1
+   * @maximum 9007199254740991
    * @default 1
    * @type integer | undefined
    */
@@ -423498,11 +423587,6 @@ export type WorkersPreviewsCreatePath = {
 
 export type WorkersPreviewsCreateQuery = {
   /**
-   * @description If true, preview defaults/base config from the parent Worker is ignored.
-   * @type boolean | undefined
-   */
-  ignore_defaults?: boolean | undefined;
-  /**
    * @description If true, preview base config from the parent Worker is ignored.
    * @type boolean | undefined
    */
@@ -423708,11 +423792,6 @@ export type WorkersPreviewsUpdatePath = {
 
 export type WorkersPreviewsUpdateQuery = {
   /**
-   * @description If true, preview defaults/base config from the parent Worker is ignored.
-   * @type boolean | undefined
-   */
-  ignore_defaults?: boolean | undefined;
-  /**
    * @description If true, preview base config from the parent Worker is ignored.
    * @type boolean | undefined
    */
@@ -423837,14 +423916,6 @@ export type WorkersPreviewsDeploymentsCreatePath = {
   previewId: string;
 };
 
-export type WorkersPreviewsDeploymentsCreateQuery = {
-  /**
-   * @description If true, preview defaults from the parent Worker are ignored.
-   * @type boolean | undefined
-   */
-  ignore_defaults?: boolean | undefined;
-};
-
 export type WorkersPreviewsDeploymentsCreateStatus200 = WorkersApiResponseCommon & {
   result: WorkersPreviewDeployment;
 };
@@ -423859,7 +423930,7 @@ export type WorkersPreviewsDeploymentsCreateBody = WorkersPreviewDeploymentReque
 export type WorkersPreviewsDeploymentsCreateOptions = {
   body: WorkersPreviewsDeploymentsCreateBody;
   path: WorkersPreviewsDeploymentsCreatePath;
-  query?: WorkersPreviewsDeploymentsCreateQuery | undefined;
+  query?: never | undefined;
   headers?: never | undefined;
 };
 
@@ -423893,14 +423964,6 @@ export type WorkersPreviewsDeploymentsPatchLatestPath = {
   previewId: string;
 };
 
-export type WorkersPreviewsDeploymentsPatchLatestQuery = {
-  /**
-   * @description If true, preview defaults from the parent Worker are ignored.
-   * @type boolean | undefined
-   */
-  ignore_defaults?: boolean | undefined;
-};
-
 export type WorkersPreviewsDeploymentsPatchLatestStatus200 = WorkersApiResponseCommon & {
   result: WorkersPreviewDeployment;
 };
@@ -423915,7 +423978,7 @@ export type WorkersPreviewsDeploymentsPatchLatestBody = WorkersPreviewDeployment
 export type WorkersPreviewsDeploymentsPatchLatestOptions = {
   body: WorkersPreviewsDeploymentsPatchLatestBody;
   path: WorkersPreviewsDeploymentsPatchLatestPath;
-  query?: WorkersPreviewsDeploymentsPatchLatestQuery | undefined;
+  query?: never | undefined;
   headers?: never | undefined;
 };
 
@@ -441580,7 +441643,7 @@ export type TotalTlsEnableOrDisableTotalTlsStatus400 = TlsCertificatesAndHostnam
 
 export type TotalTlsEnableOrDisableTotalTlsBody = {
   /**
-   * @description The Certificate Authority that Total TLS certificates will be issued through.
+   * @description The Certificate Authority that Total TLS certificates will be issued through. Not returned in responses when Total TLS is disabled.
    * @example google
    * @type string | undefined
    */
@@ -469853,9 +469916,9 @@ export type CertificatePacksOrderAdvancedCertificateManagerCertificatePackPath =
   zoneId: TlsCertificatesAndHostnamesIdentifier;
 };
 
-export type CertificatePacksOrderAdvancedCertificateManagerCertificatePackStatus200 = TlsCertificatesAndHostnamesAdvancedCertificatePackResponseSingle;
+export type CertificatePacksOrderAdvancedCertificateManagerCertificatePackStatus200 = TlsCertificatesAndHostnamesCertificatePackOrderResponseSingle;
 
-export type CertificatePacksOrderAdvancedCertificateManagerCertificatePackStatus400 = TlsCertificatesAndHostnamesAdvancedCertificatePackResponseSingle & TlsCertificatesAndHostnamesApiResponseCommonFailure;
+export type CertificatePacksOrderAdvancedCertificateManagerCertificatePackStatus400 = TlsCertificatesAndHostnamesCertificatePackOrderResponseSingle & TlsCertificatesAndHostnamesApiResponseCommonFailure;
 
 export type CertificatePacksOrderAdvancedCertificateManagerCertificatePackBody = {
   /**
