@@ -5340,6 +5340,7 @@ export const userEventPayloadPermissionsEnum = {
 	"read-write:domain": "read-write:domain",
 	"read-write:domain-registrar": "read-write:domain-registrar",
 	"read-write:drains": "read-write:drains",
+	"read-write:drive": "read-write:drive",
 	"read-write:edge-cache": "read-write:edge-cache",
 	"read-write:edge-config": "read-write:edge-config",
 	"read-write:firewall": "read-write:firewall",
@@ -5376,6 +5377,7 @@ export const userEventPayloadPermissionsEnum = {
 	"read:connect": "read:connect",
 	"read:deployment": "read:deployment",
 	"read:domain": "read:domain",
+	"read:drive": "read:drive",
 	"read:event": "read:event",
 	"read:firewall": "read:firewall",
 	"read:integration-configuration": "read:integration-configuration",
@@ -5437,6 +5439,7 @@ export const userEventPayloadNextPermissionsEnum = {
 	"read-write:domain": "read-write:domain",
 	"read-write:domain-registrar": "read-write:domain-registrar",
 	"read-write:drains": "read-write:drains",
+	"read-write:drive": "read-write:drive",
 	"read-write:edge-cache": "read-write:edge-cache",
 	"read-write:edge-config": "read-write:edge-config",
 	"read-write:firewall": "read-write:firewall",
@@ -5473,6 +5476,7 @@ export const userEventPayloadNextPermissionsEnum = {
 	"read:connect": "read:connect",
 	"read:deployment": "read:deployment",
 	"read:domain": "read:domain",
+	"read:drive": "read:drive",
 	"read:event": "read:event",
 	"read:firewall": "read:firewall",
 	"read:integration-configuration": "read:integration-configuration",
@@ -5533,6 +5537,7 @@ export const userEventPayloadAfterPermissionsEnum = {
 	"read-write:domain": "read-write:domain",
 	"read-write:domain-registrar": "read-write:domain-registrar",
 	"read-write:drains": "read-write:drains",
+	"read-write:drive": "read-write:drive",
 	"read-write:edge-cache": "read-write:edge-cache",
 	"read-write:edge-config": "read-write:edge-config",
 	"read-write:firewall": "read-write:firewall",
@@ -5569,6 +5574,7 @@ export const userEventPayloadAfterPermissionsEnum = {
 	"read:connect": "read:connect",
 	"read:deployment": "read:deployment",
 	"read:domain": "read:domain",
+	"read:drive": "read:drive",
 	"read:event": "read:event",
 	"read:firewall": "read:firewall",
 	"read:integration-configuration": "read:integration-configuration",
@@ -5617,6 +5623,7 @@ export const userEventPayloadBeforePermissionsEnum = {
 	"read-write:domain": "read-write:domain",
 	"read-write:domain-registrar": "read-write:domain-registrar",
 	"read-write:drains": "read-write:drains",
+	"read-write:drive": "read-write:drive",
 	"read-write:edge-cache": "read-write:edge-cache",
 	"read-write:edge-config": "read-write:edge-config",
 	"read-write:firewall": "read-write:firewall",
@@ -5653,6 +5660,7 @@ export const userEventPayloadBeforePermissionsEnum = {
 	"read:connect": "read:connect",
 	"read:deployment": "read:deployment",
 	"read:domain": "read:domain",
+	"read:drive": "read:drive",
 	"read:event": "read:event",
 	"read:firewall": "read:firewall",
 	"read:integration-configuration": "read:integration-configuration",
@@ -5701,6 +5709,7 @@ export const userEventPayloadPermissionsEnum2 = {
 	"read-write:domain": "read-write:domain",
 	"read-write:domain-registrar": "read-write:domain-registrar",
 	"read-write:drains": "read-write:drains",
+	"read-write:drive": "read-write:drive",
 	"read-write:edge-cache": "read-write:edge-cache",
 	"read-write:edge-config": "read-write:edge-config",
 	"read-write:firewall": "read-write:firewall",
@@ -5737,6 +5746,7 @@ export const userEventPayloadPermissionsEnum2 = {
 	"read:connect": "read:connect",
 	"read:deployment": "read:deployment",
 	"read:domain": "read:domain",
+	"read:drive": "read:drive",
 	"read:event": "read:event",
 	"read:firewall": "read:firewall",
 	"read:integration-configuration": "read:integration-configuration",
@@ -7731,13 +7741,13 @@ export const userEventPayloadEnabledEnum2 = {
 export type UserEventPayloadEnabledEnum2Key =
 	(typeof userEventPayloadEnabledEnum2)[keyof typeof userEventPayloadEnabledEnum2];
 
-export const userEventPayloadScopeEnum11 = {
+export const userEventPayloadScopeEnum12 = {
 	dashboard: "dashboard",
 	"log-drains": "log-drains",
 } as const;
 
-export type UserEventPayloadScopeEnum11Key =
-	(typeof userEventPayloadScopeEnum11)[keyof typeof userEventPayloadScopeEnum11];
+export type UserEventPayloadScopeEnum12Key =
+	(typeof userEventPayloadScopeEnum12)[keyof typeof userEventPayloadScopeEnum12];
 
 export const userEventPayloadSamplingEnvEnum = {
 	preview: "preview",
@@ -7848,13 +7858,13 @@ export const userEventPayloadTierEnum = {
 export type UserEventPayloadTierEnumKey =
 	(typeof userEventPayloadTierEnum)[keyof typeof userEventPayloadTierEnum];
 
-export const userEventPayloadScopeEnum12 = {
+export const userEventPayloadScopeEnum13 = {
 	organization: "organization",
 	team: "team",
 } as const;
 
-export type UserEventPayloadScopeEnum12Key =
-	(typeof userEventPayloadScopeEnum12)[keyof typeof userEventPayloadScopeEnum12];
+export type UserEventPayloadScopeEnum13Key =
+	(typeof userEventPayloadScopeEnum13)[keyof typeof userEventPayloadScopeEnum13];
 
 export const userEventPayloadAppClientAuthenticationUsedMethodEnum = {
 	client_secret_basic: "client_secret_basic",
@@ -7932,14 +7942,14 @@ export const userEventPayloadProjectScopeEnum = {
 export type UserEventPayloadProjectScopeEnumKey =
 	(typeof userEventPayloadProjectScopeEnum)[keyof typeof userEventPayloadProjectScopeEnum];
 
-export const userEventPayloadScopeEnum13 = {
+export const userEventPayloadScopeEnum14 = {
 	project: "project",
 	team: "team",
 	user: "user",
 } as const;
 
-export type UserEventPayloadScopeEnum13Key =
-	(typeof userEventPayloadScopeEnum13)[keyof typeof userEventPayloadScopeEnum13];
+export type UserEventPayloadScopeEnum14Key =
+	(typeof userEventPayloadScopeEnum14)[keyof typeof userEventPayloadScopeEnum14];
 
 export const userEventPayloadLogoutSourceEnum = {
 	v0: "v0",
@@ -7972,14 +7982,14 @@ export const userEventPayloadOriginEnum2 = {
 export type UserEventPayloadOriginEnum2Key =
 	(typeof userEventPayloadOriginEnum2)[keyof typeof userEventPayloadOriginEnum2];
 
-export const userEventPayloadScopeEnum14 = {
+export const userEventPayloadScopeEnum15 = {
 	project: "project",
 	team: "team",
 	user: "user",
 } as const;
 
-export type UserEventPayloadScopeEnum14Key =
-	(typeof userEventPayloadScopeEnum14)[keyof typeof userEventPayloadScopeEnum14];
+export type UserEventPayloadScopeEnum15Key =
+	(typeof userEventPayloadScopeEnum15)[keyof typeof userEventPayloadScopeEnum15];
 
 export const userEventTypeEnum = {
 	"access-group-created": "access-group-created",
@@ -12689,6 +12699,7 @@ export type UserEvent = {
 								  } | null)
 								| undefined;
 						};
+						scope?: "organization" | undefined;
 				  }
 				| {
 						next: {
@@ -15144,7 +15155,7 @@ export type UserEvent = {
 				  }
 				| {
 						enabled: false | true;
-						scope: UserEventPayloadScopeEnum11Key;
+						scope: UserEventPayloadScopeEnum12Key;
 				  }
 				| {
 						next?:
@@ -15628,7 +15639,7 @@ export type UserEvent = {
 							enabled: false | true;
 							issuerUrls: string[];
 						};
-						scope: UserEventPayloadScopeEnum12Key;
+						scope: UserEventPayloadScopeEnum13Key;
 				  }
 				| {
 						/**
@@ -15978,7 +15989,7 @@ export type UserEvent = {
 						 * @description Scope of the token: - `'user'`: full-account token (not tied to any team). - `'team'`: scoped to a single team. - `'project'`: scoped to a single project within a team.
 						 * @type string
 						 */
-						scope: UserEventPayloadScopeEnum13Key;
+						scope: UserEventPayloadScopeEnum14Key;
 						source?: "v0" | undefined;
 						/**
 						 * @description Present when `scope` is `'team'` or `'project'`.
@@ -16052,7 +16063,7 @@ export type UserEvent = {
 						reqId?: string | undefined;
 						reqUrl?: string | undefined;
 						revoked?: (false | true) | undefined;
-						scope?: UserEventPayloadScopeEnum14Key | undefined;
+						scope?: UserEventPayloadScopeEnum15Key | undefined;
 						source?: "v0" | undefined;
 						teamId?: string | undefined;
 						tokenId: string;
@@ -75148,6 +75159,11 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 					 * @type array | undefined
 					 */
+					drive?: ACLActionKey[] | undefined;
+					/**
+					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+					 * @type array | undefined
+					 */
 					edgeCacheNamespace?: ACLActionKey[] | undefined;
 					/**
 					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -88611,6 +88627,11 @@ export type GetProjectsStatus200 =
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 									 * @type array | undefined
 									 */
+									drive?: ACLActionKey[] | undefined;
+									/**
+									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+									 * @type array | undefined
+									 */
 									edgeCacheNamespace?: ACLActionKey[] | undefined;
 									/**
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -93210,6 +93231,11 @@ export type CreateProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				drain?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				drive?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -98403,6 +98429,11 @@ export type GetProjectStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				drive?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				edgeCacheNamespace?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -102875,6 +102906,11 @@ export type UpdateProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				drain?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				drive?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -108429,6 +108465,11 @@ export type UploadProjectAvatarStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				drive?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				edgeCacheNamespace?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -112939,6 +112980,11 @@ export type DeleteProjectAvatarStatus200 = {
 				 * @type array | undefined
 				 */
 				drain?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				drive?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -124832,6 +124878,11 @@ export type UpdateMicrofrontendsStatus200 = {
 				 * @type array | undefined
 				 */
 				drain?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				drive?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -145568,7 +145619,7 @@ export type UpdateTeamMemberBody = {
 	 */
 	role?: string | undefined;
 	/**
-	 * @description The team permissions to set for the member. Permissions must be compatible with the team roles assigned to the member.
+	 * @description The team permissions to set for the member. Permissions must be available to the team and compatible with the team roles assigned to the member.
 	 * @example ["CreateProject","FullProductionDeployment"]
 	 * @type array | undefined
 	 */

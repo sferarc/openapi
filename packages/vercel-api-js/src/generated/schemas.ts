@@ -4013,6 +4013,7 @@ export const userEventSchema = z
 								"read-write:domain",
 								"read-write:domain-registrar",
 								"read-write:drains",
+								"read-write:drive",
 								"read-write:edge-cache",
 								"read-write:edge-config",
 								"read-write:firewall",
@@ -4049,6 +4050,7 @@ export const userEventSchema = z
 								"read:connect",
 								"read:deployment",
 								"read:domain",
+								"read:drive",
 								"read:event",
 								"read:firewall",
 								"read:integration-configuration",
@@ -4109,6 +4111,7 @@ export const userEventSchema = z
 								"read-write:domain",
 								"read-write:domain-registrar",
 								"read-write:drains",
+								"read-write:drive",
 								"read-write:edge-cache",
 								"read-write:edge-config",
 								"read-write:firewall",
@@ -4145,6 +4148,7 @@ export const userEventSchema = z
 								"read:connect",
 								"read:deployment",
 								"read:domain",
+								"read:drive",
 								"read:event",
 								"read:firewall",
 								"read:integration-configuration",
@@ -4200,6 +4204,7 @@ export const userEventSchema = z
 										"read-write:domain",
 										"read-write:domain-registrar",
 										"read-write:drains",
+										"read-write:drive",
 										"read-write:edge-cache",
 										"read-write:edge-config",
 										"read-write:firewall",
@@ -4236,6 +4241,7 @@ export const userEventSchema = z
 										"read:connect",
 										"read:deployment",
 										"read:domain",
+										"read:drive",
 										"read:event",
 										"read:firewall",
 										"read:integration-configuration",
@@ -4303,6 +4309,7 @@ export const userEventSchema = z
 										"read-write:domain",
 										"read-write:domain-registrar",
 										"read-write:drains",
+										"read-write:drive",
 										"read-write:edge-cache",
 										"read-write:edge-config",
 										"read-write:firewall",
@@ -4339,6 +4346,7 @@ export const userEventSchema = z
 										"read:connect",
 										"read:deployment",
 										"read:domain",
+										"read:drive",
 										"read:event",
 										"read:firewall",
 										"read:integration-configuration",
@@ -4409,6 +4417,7 @@ export const userEventSchema = z
 								"read-write:domain",
 								"read-write:domain-registrar",
 								"read-write:drains",
+								"read-write:drive",
 								"read-write:edge-cache",
 								"read-write:edge-config",
 								"read-write:firewall",
@@ -4445,6 +4454,7 @@ export const userEventSchema = z
 								"read:connect",
 								"read:deployment",
 								"read:domain",
+								"read:drive",
 								"read:event",
 								"read:firewall",
 								"read:integration-configuration",
@@ -7733,6 +7743,7 @@ export const userEventSchema = z
 							})
 							.nullish(),
 					}),
+					scope: z.enum(["organization"]).optional(),
 				}),
 				z.strictObject({
 					next: z.array(
@@ -60022,6 +60033,12 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						.describe(
 							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 						),
+					drive: z
+						.array(ACLActionSchema)
+						.optional()
+						.describe(
+							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+						),
 					edgeCacheNamespace: z
 						.array(ACLActionSchema)
 						.optional()
@@ -71166,6 +71183,12 @@ export const getProjectsStatus200Schema = z
 								.describe(
 									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 								),
+							drive: z
+								.array(ACLActionSchema)
+								.optional()
+								.describe(
+									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+								),
 							edgeCacheNamespace: z
 								.array(ACLActionSchema)
 								.optional()
@@ -75459,6 +75482,12 @@ export const createProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			drain: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			drive: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -80089,6 +80118,12 @@ export const getProjectStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			drive: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			edgeCacheNamespace: z
 				.array(ACLActionSchema)
 				.optional()
@@ -84180,6 +84215,12 @@ export const updateProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			drain: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			drive: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -89200,6 +89241,12 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			drive: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			edgeCacheNamespace: z
 				.array(ACLActionSchema)
 				.optional()
@@ -93298,6 +93345,12 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			drain: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			drive: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -103650,6 +103703,12 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			drain: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			drive: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -122161,7 +122220,7 @@ export const updateTeamMemberBodySchema = z.object({
 		)
 		.optional()
 		.describe(
-			"The team permissions to set for the member. Permissions must be compatible with the team roles assigned to the member.",
+			"The team permissions to set for the member. Permissions must be available to the team and compatible with the team roles assigned to the member.",
 		)
 		.meta({ examples: [["CreateProject", "FullProductionDeployment"]] }),
 	projects: z
