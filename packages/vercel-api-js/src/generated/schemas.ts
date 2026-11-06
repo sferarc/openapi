@@ -9659,6 +9659,38 @@ export const userEventSchema = z
 					slug: z.string(),
 				}),
 				z.strictObject({
+					action: z.enum(["enable", "update"]),
+					codeReviewEnabled: z.union([z.literal(false), z.literal(true)]),
+					codeReviewSelection: z
+						.object({
+							initial: z.union([z.literal(false), z.literal(true)]),
+							submitted: z.union([z.literal(false), z.literal(true)]),
+						})
+						.optional(),
+					cumulativeBalance: z.string(),
+					endpoint: z.enum(["/v1/vade/usage-billing"]),
+					ledgerId: z.string(),
+					next: z.object({
+						enabled: z.union([z.literal(false), z.literal(true)]),
+						maximumOverdraft: z.string().nullable(),
+					}),
+					previous: z.object({
+						enabled: z.union([z.literal(false), z.literal(true)]),
+						maximumOverdraft: z.string().nullable(),
+					}),
+					removedTopupIds: z.array(z.string()),
+					source: z.string(),
+					topupCleanupCompleted: z.union([z.literal(false), z.literal(true)]),
+				}),
+				z.strictObject({
+					action: z.enum(["disable", "enable", "update"]).optional(),
+					codeReviewSelection: z
+						.object({
+							initial: z.union([z.literal(false), z.literal(true)]),
+							submitted: z.union([z.literal(false), z.literal(true)]),
+						})
+						.optional(),
+					endpoint: z.enum(["/v1/vade/code-review/configure", "/v1/vade/configure"]).optional(),
 					next: z
 						.object({
 							enabled: z
@@ -9698,6 +9730,10 @@ export const userEventSchema = z
 						})
 						.optional()
 						.describe("Automatic code review settings"),
+					source: z
+						.string()
+						.optional()
+						.describe("Caller-reported surface, not proof of a browser interaction or consent."),
 				}),
 				z.strictObject({
 					next: z
@@ -11289,6 +11325,7 @@ export const userEventSchema = z
 				"agentic-provisioning-credentials-rotated",
 				"agentic-provisioning-plan-changed",
 				"agentic-provisioning-team-created",
+				"ai-agent-usage-billing",
 				"ai-alert-investigation",
 				"ai-code-review",
 				"ai-gateway-access-policy-created",
@@ -12159,6 +12196,7 @@ export const listEventTypeSchema = z
 				"agentic-provisioning-credentials-rotated",
 				"agentic-provisioning-plan-changed",
 				"agentic-provisioning-team-created",
+				"ai-agent-usage-billing",
 				"ai-alert-investigation",
 				"ai-code-review",
 				"ai-gateway-access-policy-created",
@@ -12924,6 +12962,7 @@ export const listEventTypeSchema = z
 					"agentic-provisioning-credentials-rotated",
 					"agentic-provisioning-plan-changed",
 					"agentic-provisioning-team-created",
+					"ai-agent-usage-billing",
 					"ai-alert-investigation",
 					"ai-code-review",
 					"ai-gateway-access-policy-created",
