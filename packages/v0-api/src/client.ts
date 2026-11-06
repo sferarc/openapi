@@ -3,12 +3,15 @@ import type { FetchImpl } from "./utils/fetch";
 import type { FetcherConfig } from "./utils/fetcher";
 import type { RequiredKeys } from "./utils/types";
 
-export interface VercelApiOptions {
+export interface V0ApiOptions {
 	token: string | null;
 	fetch?: FetchImpl;
 	/** Where calls go instead of `https://api.v0.dev/v1`, such as a proxy. */
 	baseUrl?: string;
 }
+
+/** @deprecated Use `V0ApiOptions`; this name collides with the `vercel-api-js` type. */
+export type VercelApiOptions = V0ApiOptions;
 
 export type ApiClient = {
 	[Tag in keyof typeof operationsByTag]: {
@@ -85,7 +88,7 @@ export class V0Api {
 	fetch: FetchImpl;
 	#baseUrl: string | undefined;
 
-	constructor(options: VercelApiOptions) {
+	constructor(options: V0ApiOptions) {
 		this.token = options.token;
 		this.#baseUrl = options.baseUrl;
 
