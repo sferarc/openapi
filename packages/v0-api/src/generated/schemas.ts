@@ -4976,6 +4976,7 @@ export const reportsGetUsageStatus200Schema = z.strictObject({
 					"message",
 					"refund_template_purchase",
 					"reverse_template_sale",
+					"security_review",
 				])
 				.optional(),
 			promptCost: z.string().optional(),
