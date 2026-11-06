@@ -199,3 +199,61 @@ describe("V0ApiOptions", () => {
 		expect(client.token).toBe("token");
 	});
 });
+
+describe("V0Api token function", () => {
+	function setup() {
+		const authorizations: unknown[] = [];
+		const fetch: FetchImpl = async (_url, init) => {
+			authorizations.push(init?.headers?.Authorization);
+			return new Response("{}", {
+				status: 200,
+				headers: { "content-type": "application/json" },
+			}) as never;
+		};
+		return { authorizations, fetch };
+	}
+
+	it("asks the token function again on every call from request() and the api proxy", async () => {
+		const { authorizations, fetch } = setup();
+		let current = 0;
+		const client = new V0Api({ fetch, token: async () => `v0-${++current}` });
+		await client.request("GET /chats");
+		await client.api.chats.chatsFind();
+		expect(authorizations).toEqual(["Bearer v0-1", "Bearer v0-2"]);
+	});
+
+	it("takes a synchronous token function", async () => {
+		const { authorizations, fetch } = setup();
+		const client = new V0Api({ fetch, token: () => "v0-fresh" });
+		await client.request("GET /chats");
+		expect(authorizations).toEqual(["Bearer v0-fresh"]);
+	});
+
+	it("sends no Authorization header when the function returns null", async () => {
+		const { authorizations, fetch } = setup();
+		const client = new V0Api({ fetch, token: () => null });
+		await client.request("GET /chats");
+		expect(authorizations).toEqual([undefined]);
+	});
+
+	it("lets a call's own config.token win over the function", async () => {
+		const { authorizations, fetch } = setup();
+		const client = new V0Api({ fetch, token: () => "v0-client" });
+		await client.api.chats.chatsFind({ config: { token: "v0-call" } });
+		expect(authorizations).toEqual(["Bearer v0-call"]);
+	});
+
+	it("rejects with what the token function threw, before calling fetch", async () => {
+		const { authorizations, fetch } = setup();
+		const failure = new Error("key revoked");
+		const client = new V0Api({
+			fetch,
+			token: async () => {
+				throw failure;
+			},
+		});
+		await expect(client.request("GET /chats")).rejects.toBe(failure);
+		await expect(client.api.chats.chatsFind()).rejects.toBe(failure);
+		expect(authorizations).toEqual([]);
+	});
+});
