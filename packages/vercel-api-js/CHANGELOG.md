@@ -1,5 +1,17 @@
 # vercel-api-js
 
+## 2.25.0
+
+### Minor Changes
+
+- 75492af: [BREAKING] Renamed userEventPayloadActionEnum14 to userEventPayloadActionEnum16 and userEventPayloadActionEnum15 to userEventPayloadActionEnum17, along with their related key types.
+
+### Patch Changes
+
+- 75492af: Added new enum values and types: userEventPayloadActionEnum14, userEventPayloadActionEnum15, and userEventPayloadEndpointEnum2, along with their respective key types.
+- 75492af: Added new type variants and fields to UserEvent for supporting AI agent usage billing events.
+- 75492af: Added 'ai-agent-usage-billing' to userEventTypeEnum, listEventTypeNameEnum, and listEventTypeReplacedByEnum.
+
 ## 2.24.0
 
 ### Minor Changes

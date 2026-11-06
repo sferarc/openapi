@@ -1,5 +1,24 @@
 # litellm-api
 
+## 2.15.0
+
+### Minor Changes
+
+- 21fc70e: [BREAKING] The operation dynamicMcpRouteMcpServerNameMcpPatch is now a HEAD operation, with changes to parameter and response types.
+- 21fc70e: [BREAKING] The operation toolsetMcpRouteToolsetToolsetNameMcpDelete is now a GET, and toolsetMcpRouteToolsetToolsetNameMcpGet is now a PUT, with corresponding type changes.
+- 21fc70e: [BREAKING] The operation dynamicMcpRouteMcpServerNameMcpGet is now a PUT and dynamicMcpRouteMcpServerNameMcpPut is now a PATCH, with corresponding parameter and response changes.
+- 21fc70e: [BREAKING] The operation dynamicMcpRouteMcpServerNameMcpHead is now a POST, and its types have changed accordingly.
+- 21fc70e: [BREAKING] The signature for lensRequestLensPathPatch changed: it now requires path parameters instead of query parameters.
+- 21fc70e: [BREAKING] The operation toolsetMcpRouteToolsetToolsetNameMcpPatch swapped positions with toolsetMcpRouteToolsetToolsetNameMcpPut, changing method and parameter structure.
+- 21fc70e: Added new lensRequestLensPatch PATCH operation for the /lens endpoint, which uses query parameters instead of path parameters.
+- 21fc70e: [BREAKING] The operation dynamicMcpRouteMcpServerNameMcpPost is now a DELETE, and dynamicMcpRouteMcpServerNameMcpDelete is now a GET, with updated type structures.
+- 21fc70e: [BREAKING] The operation toolsetMcpRouteToolsetToolsetNameMcpHead is now a POST operation, and its input and output types have changed.
+- 21fc70e: [BREAKING] The operation toolsetMcpRouteToolsetToolsetNameMcpPost is now a DELETE operation, and has a different parameter and response type signature.
+
+### Patch Changes
+
+- 21fc70e: Added several new optional fields related to audio and image token cost settings to LiteLLMParams and UpdateLiteLLMParams types.
+
 ## 2.14.1
 
 ### Patch Changes
