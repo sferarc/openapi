@@ -4324,6 +4324,7 @@ export const liteLLMParamsSchema = z
 		cache_read_input_token_cost_above_272k_tokens_batches: z
 			.union([z.number(), z.null()])
 			.optional(),
+		cache_read_input_audio_token_cost_batches: z.union([z.number(), z.null()]).optional(),
 		cache_creation_input_token_cost_batches: z.union([z.number(), z.null()]).optional(),
 		cache_creation_input_token_cost_above_100k_tokens_batches: z
 			.union([z.number(), z.null()])
@@ -4335,9 +4336,21 @@ export const liteLLMParamsSchema = z
 			.union([z.number(), z.null()])
 			.optional(),
 		cache_read_input_audio_token_cost: z.union([z.number(), z.null()]).optional(),
+		cache_read_input_audio_token_cost_flex: z.union([z.number(), z.null()]).optional(),
+		cache_read_input_audio_token_cost_priority: z.union([z.number(), z.null()]).optional(),
 		cache_read_input_image_token_cost: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_character_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_audio_token: z.union([z.number(), z.null()]).optional(),
+		input_cost_per_audio_token_flex: z.union([z.number(), z.null()]).optional(),
+		input_cost_per_audio_token_above_200k_tokens: z.union([z.number(), z.null()]).optional(),
+		input_cost_per_audio_token_above_200k_tokens_flex: z.union([z.number(), z.null()]).optional(),
+		input_cost_per_audio_token_above_200k_tokens_priority: z
+			.union([z.number(), z.null()])
+			.optional(),
+		input_cost_per_audio_token_above_200k_tokens_batches: z
+			.union([z.number(), z.null()])
+			.optional(),
+		input_cost_per_audio_token_priority: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_token_cache_hit: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_token_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_token_above_100k_tokens: z.union([z.number(), z.null()]).optional(),
@@ -4347,6 +4360,7 @@ export const liteLLMParamsSchema = z
 		input_cost_per_token_above_272k_tokens_flex: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_token_above_272k_tokens_ultrafast: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_token_above_200k_tokens_batches: z.union([z.number(), z.null()]).optional(),
+		input_cost_per_token_above_200k_tokens_flex: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_token_above_100k_tokens_batches: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_token_above_272k_tokens_batches: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_query: z.union([z.number(), z.null()]).optional(),
@@ -4376,12 +4390,14 @@ export const liteLLMParamsSchema = z
 		output_cost_per_token_above_272k_tokens_flex: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_token_above_272k_tokens_ultrafast: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_token_above_200k_tokens_batches: z.union([z.number(), z.null()]).optional(),
+		output_cost_per_token_above_200k_tokens_flex: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_token_above_100k_tokens_batches: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_token_above_272k_tokens_batches: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_character_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_image: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_image_token: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_image_token_batches: z.union([z.number(), z.null()]).optional(),
+		output_cost_per_image_token_priority: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_video_token: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_reasoning_token: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_reasoning_token_flex: z.union([z.number(), z.null()]).optional(),
@@ -9916,6 +9932,7 @@ export const updateLiteLLMParamsSchema = z.looseObject({
 	cache_read_input_token_cost_above_100k_tokens_batches: z.union([z.number(), z.null()]).optional(),
 	cache_read_input_token_cost_above_200k_tokens_batches: z.union([z.number(), z.null()]).optional(),
 	cache_read_input_token_cost_above_272k_tokens_batches: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_audio_token_cost_batches: z.union([z.number(), z.null()]).optional(),
 	cache_creation_input_token_cost_batches: z.union([z.number(), z.null()]).optional(),
 	cache_creation_input_token_cost_above_100k_tokens_batches: z
 		.union([z.number(), z.null()])
@@ -9927,9 +9944,17 @@ export const updateLiteLLMParamsSchema = z.looseObject({
 		.union([z.number(), z.null()])
 		.optional(),
 	cache_read_input_audio_token_cost: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_audio_token_cost_flex: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_audio_token_cost_priority: z.union([z.number(), z.null()]).optional(),
 	cache_read_input_image_token_cost: z.union([z.number(), z.null()]).optional(),
 	input_cost_per_character_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
 	input_cost_per_audio_token: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_audio_token_flex: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_audio_token_above_200k_tokens: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_audio_token_above_200k_tokens_flex: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_audio_token_above_200k_tokens_priority: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_audio_token_above_200k_tokens_batches: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_audio_token_priority: z.union([z.number(), z.null()]).optional(),
 	input_cost_per_token_cache_hit: z.union([z.number(), z.null()]).optional(),
 	input_cost_per_token_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
 	input_cost_per_token_above_100k_tokens: z.union([z.number(), z.null()]).optional(),
@@ -9939,6 +9964,7 @@ export const updateLiteLLMParamsSchema = z.looseObject({
 	input_cost_per_token_above_272k_tokens_flex: z.union([z.number(), z.null()]).optional(),
 	input_cost_per_token_above_272k_tokens_ultrafast: z.union([z.number(), z.null()]).optional(),
 	input_cost_per_token_above_200k_tokens_batches: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_above_200k_tokens_flex: z.union([z.number(), z.null()]).optional(),
 	input_cost_per_token_above_100k_tokens_batches: z.union([z.number(), z.null()]).optional(),
 	input_cost_per_token_above_272k_tokens_batches: z.union([z.number(), z.null()]).optional(),
 	input_cost_per_query: z.union([z.number(), z.null()]).optional(),
@@ -9968,12 +9994,14 @@ export const updateLiteLLMParamsSchema = z.looseObject({
 	output_cost_per_token_above_272k_tokens_flex: z.union([z.number(), z.null()]).optional(),
 	output_cost_per_token_above_272k_tokens_ultrafast: z.union([z.number(), z.null()]).optional(),
 	output_cost_per_token_above_200k_tokens_batches: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_above_200k_tokens_flex: z.union([z.number(), z.null()]).optional(),
 	output_cost_per_token_above_100k_tokens_batches: z.union([z.number(), z.null()]).optional(),
 	output_cost_per_token_above_272k_tokens_batches: z.union([z.number(), z.null()]).optional(),
 	output_cost_per_character_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
 	output_cost_per_image: z.union([z.number(), z.null()]).optional(),
 	output_cost_per_image_token: z.union([z.number(), z.null()]).optional(),
 	output_cost_per_image_token_batches: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_image_token_priority: z.union([z.number(), z.null()]).optional(),
 	output_cost_per_video_token: z.union([z.number(), z.null()]).optional(),
 	output_cost_per_reasoning_token: z.union([z.number(), z.null()]).optional(),
 	output_cost_per_reasoning_token_flex: z.union([z.number(), z.null()]).optional(),
@@ -26708,20 +26736,6 @@ export const serviceConnectionLensServiceGetStatus200Schema = serviceConnectionS
 export const serviceConnectionLensServiceGetResponseSchema =
 	serviceConnectionLensServiceGetStatus200Schema;
 
-export const lensRequestLensPathPatchPathPathSchema = z.string();
-
-export const lensRequestLensPathPatchStatus200Schema = z.looseObject({});
-
-export const lensRequestLensPathPatchStatus422Schema = HTTPValidationErrorSchema;
-
-export const lensRequestLensPathPatchResponseSchema = lensRequestLensPathPatchStatus200Schema;
-
-export const lensRequestLensPathPatchErrorSchema = lensRequestLensPathPatchStatus422Schema;
-
-export const lensRequestLensPathPatchPathSchema = z.object({
-	path: z.string(),
-});
-
 export const lensRequestLensPathPostPathPathSchema = z.string();
 
 export const lensRequestLensPathPostStatus200Schema = z.looseObject({});
@@ -26778,18 +26792,18 @@ export const lensRequestLensPathPutPathSchema = z.object({
 	path: z.string(),
 });
 
-export const lensRequestLensPatchQueryPathSchema = z.string().optional().default("");
+export const lensRequestLensPathPatchPathPathSchema = z.string();
 
-export const lensRequestLensPatchStatus200Schema = z.looseObject({});
+export const lensRequestLensPathPatchStatus200Schema = z.looseObject({});
 
-export const lensRequestLensPatchStatus422Schema = HTTPValidationErrorSchema;
+export const lensRequestLensPathPatchStatus422Schema = HTTPValidationErrorSchema;
 
-export const lensRequestLensPatchResponseSchema = lensRequestLensPatchStatus200Schema;
+export const lensRequestLensPathPatchResponseSchema = lensRequestLensPathPatchStatus200Schema;
 
-export const lensRequestLensPatchErrorSchema = lensRequestLensPatchStatus422Schema;
+export const lensRequestLensPathPatchErrorSchema = lensRequestLensPathPatchStatus422Schema;
 
-export const lensRequestLensPatchQuerySchema = z.object({
-	path: z.string().optional().default(""),
+export const lensRequestLensPathPatchPathSchema = z.object({
+	path: z.string(),
 });
 
 export const lensRequestLensPostQueryPathSchema = z.string().optional().default("");
@@ -26845,6 +26859,20 @@ export const lensRequestLensPutResponseSchema = lensRequestLensPutStatus200Schem
 export const lensRequestLensPutErrorSchema = lensRequestLensPutStatus422Schema;
 
 export const lensRequestLensPutQuerySchema = z.object({
+	path: z.string().optional().default(""),
+});
+
+export const lensRequestLensPatchQueryPathSchema = z.string().optional().default("");
+
+export const lensRequestLensPatchStatus200Schema = z.looseObject({});
+
+export const lensRequestLensPatchStatus422Schema = HTTPValidationErrorSchema;
+
+export const lensRequestLensPatchResponseSchema = lensRequestLensPatchStatus200Schema;
+
+export const lensRequestLensPatchErrorSchema = lensRequestLensPatchStatus422Schema;
+
+export const lensRequestLensPatchQuerySchema = z.object({
 	path: z.string().optional().default(""),
 });
 
@@ -28097,19 +28125,19 @@ export const aggregateMcpRouteMcpPatchStatus200Schema = z.looseObject({});
 
 export const aggregateMcpRouteMcpPatchResponseSchema = aggregateMcpRouteMcpPatchStatus200Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathToolsetNameSchema = z.string();
+export const toolsetMcpRouteToolsetToolsetNameMcpPostPathToolsetNameSchema = z.string();
 
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema = z.void();
+export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema = z.looseObject({});
 
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema = z.void();
+export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPostResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPostErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathSchema = z.object({
+export const toolsetMcpRouteToolsetToolsetNameMcpPostPathSchema = z.object({
 	toolset_name: z.string(),
 });
 
@@ -28129,35 +28157,19 @@ export const toolsetMcpRouteToolsetToolsetNameMcpOptionsPathSchema = z.object({
 	toolset_name: z.string(),
 });
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathToolsetNameSchema = z.string();
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathToolsetNameSchema = z.string();
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema = z.looseObject({});
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema = z.void();
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema = z.void();
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus200Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpHeadStatus422Schema;
 
-export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathSchema = z.object({
-	toolset_name: z.string(),
-});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostPathToolsetNameSchema = z.string();
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema = z.looseObject({});
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostResponseSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPostStatus200Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostErrorSchema =
-	toolsetMcpRouteToolsetToolsetNameMcpPostStatus422Schema;
-
-export const toolsetMcpRouteToolsetToolsetNameMcpPostPathSchema = z.object({
+export const toolsetMcpRouteToolsetToolsetNameMcpHeadPathSchema = z.object({
 	toolset_name: z.string(),
 });
 
@@ -28209,19 +28221,35 @@ export const toolsetMcpRouteToolsetToolsetNameMcpPutPathSchema = z.object({
 	toolset_name: z.string(),
 });
 
-export const dynamicMcpRouteMcpServerNameMcpHeadPathMcpServerNameSchema = z.string();
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathToolsetNameSchema = z.string();
 
-export const dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema = z.void();
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema = z.looseObject({});
 
-export const dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema = z.void();
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
 
-export const dynamicMcpRouteMcpServerNameMcpHeadResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchResponseSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus200Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpHeadErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema;
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchErrorSchema =
+	toolsetMcpRouteToolsetToolsetNameMcpPatchStatus422Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpHeadPathSchema = z.object({
+export const toolsetMcpRouteToolsetToolsetNameMcpPatchPathSchema = z.object({
+	toolset_name: z.string(),
+});
+
+export const dynamicMcpRouteMcpServerNameMcpPostPathMcpServerNameSchema = z.string();
+
+export const dynamicMcpRouteMcpServerNameMcpPostStatus200Schema = z.looseObject({});
+
+export const dynamicMcpRouteMcpServerNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
+
+export const dynamicMcpRouteMcpServerNameMcpPostResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpPostStatus200Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpPostErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpPostStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpPostPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 
@@ -28241,35 +28269,19 @@ export const dynamicMcpRouteMcpServerNameMcpOptionsPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 
-export const dynamicMcpRouteMcpServerNameMcpPatchPathMcpServerNameSchema = z.string();
+export const dynamicMcpRouteMcpServerNameMcpHeadPathMcpServerNameSchema = z.string();
 
-export const dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema = z.looseObject({});
+export const dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema = z.void();
 
-export const dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
+export const dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema = z.void();
 
-export const dynamicMcpRouteMcpServerNameMcpPatchResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema;
+export const dynamicMcpRouteMcpServerNameMcpHeadResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpHeadStatus200Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpPatchErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema;
+export const dynamicMcpRouteMcpServerNameMcpHeadErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpHeadStatus422Schema;
 
-export const dynamicMcpRouteMcpServerNameMcpPatchPathSchema = z.object({
-	mcp_server_name: z.string(),
-});
-
-export const dynamicMcpRouteMcpServerNameMcpPostPathMcpServerNameSchema = z.string();
-
-export const dynamicMcpRouteMcpServerNameMcpPostStatus200Schema = z.looseObject({});
-
-export const dynamicMcpRouteMcpServerNameMcpPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const dynamicMcpRouteMcpServerNameMcpPostResponseSchema =
-	dynamicMcpRouteMcpServerNameMcpPostStatus200Schema;
-
-export const dynamicMcpRouteMcpServerNameMcpPostErrorSchema =
-	dynamicMcpRouteMcpServerNameMcpPostStatus422Schema;
-
-export const dynamicMcpRouteMcpServerNameMcpPostPathSchema = z.object({
+export const dynamicMcpRouteMcpServerNameMcpHeadPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 
@@ -28318,6 +28330,22 @@ export const dynamicMcpRouteMcpServerNameMcpPutErrorSchema =
 	dynamicMcpRouteMcpServerNameMcpPutStatus422Schema;
 
 export const dynamicMcpRouteMcpServerNameMcpPutPathSchema = z.object({
+	mcp_server_name: z.string(),
+});
+
+export const dynamicMcpRouteMcpServerNameMcpPatchPathMcpServerNameSchema = z.string();
+
+export const dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema = z.looseObject({});
+
+export const dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema = HTTPValidationErrorSchema;
+
+export const dynamicMcpRouteMcpServerNameMcpPatchResponseSchema =
+	dynamicMcpRouteMcpServerNameMcpPatchStatus200Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpPatchErrorSchema =
+	dynamicMcpRouteMcpServerNameMcpPatchStatus422Schema;
+
+export const dynamicMcpRouteMcpServerNameMcpPatchPathSchema = z.object({
 	mcp_server_name: z.string(),
 });
 
