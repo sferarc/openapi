@@ -11779,6 +11779,7 @@ import type {
 	RequestReviewResponse,
 	RequestReviewStatus401,
 	RequestReviewStatus403,
+	RequestReviewStatus409,
 	RequestReviewStatus500,
 	ResetFindingSeverityPath,
 	ResetFindingSeverityResponse,
@@ -27344,7 +27345,12 @@ export async function requestReview(
 	}
 	const data = await request<
 		RequestReviewResponse,
-		ErrorWrapper<RequestReviewStatus401 | RequestReviewStatus403 | RequestReviewStatus500>,
+		ErrorWrapper<
+			| RequestReviewStatus401
+			| RequestReviewStatus403
+			| RequestReviewStatus409
+			| RequestReviewStatus500
+		>,
 		RequestReviewBody,
 		Record<string, string>,
 		Record<string, string>,
