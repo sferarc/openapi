@@ -8453,6 +8453,7 @@ export const userEventTypeEnum = {
 	"project-git-credential-grant-created": "project-git-credential-grant-created",
 	"project-git-credential-grant-deleted": "project-git-credential-grant-deleted",
 	"project-git-credential-grant-updated": "project-git-credential-grant-updated",
+	"project-git-credential-token-minted": "project-git-credential-token-minted",
 	"project-git-fork-protection-updated": "project-git-fork-protection-updated",
 	"project-git-lfs-toggled": "project-git-lfs-toggled",
 	"project-git-pr-comments-toggled": "project-git-pr-comments-toggled",
@@ -8837,6 +8838,15 @@ export type UserEvent = {
 						policyId: string;
 						projectId: string;
 						projectName: string;
+				  }
+				| {
+						expiresAt: string | null;
+						grantId: string | null;
+						namedSandboxId: string;
+						permission: string | null;
+						projectId: string;
+						repositoryId: string;
+						sandboxId: string;
 				  }
 				| {
 						boardId: string;
@@ -16050,6 +16060,17 @@ export type UserEvent = {
 						type: "app";
 				  }
 				| {
+						avatar?: string | undefined;
+						/**
+						 * @description The OAuth2 integration ID.
+						 * @type string
+						 */
+						id: string;
+						name: string;
+						slug?: string | undefined;
+						type: "integration";
+				  }
+				| {
 						email?: string | undefined;
 						id: string;
 						name: string;
@@ -16139,6 +16160,17 @@ export type UserEvent = {
 						id?: string | undefined;
 						name: string;
 						type: "app";
+				  }
+				| {
+						avatar?: string | undefined;
+						/**
+						 * @description The OAuth2 integration ID.
+						 * @type string
+						 */
+						id: string;
+						name: string;
+						slug?: string | undefined;
+						type: "integration";
 				  }
 				| {
 						email?: string | undefined;
@@ -16684,6 +16716,7 @@ export const listEventTypeNameEnum = {
 	"project-git-credential-grant-created": "project-git-credential-grant-created",
 	"project-git-credential-grant-deleted": "project-git-credential-grant-deleted",
 	"project-git-credential-grant-updated": "project-git-credential-grant-updated",
+	"project-git-credential-token-minted": "project-git-credential-token-minted",
 	"project-git-fork-protection-updated": "project-git-fork-protection-updated",
 	"project-git-lfs-toggled": "project-git-lfs-toggled",
 	"project-git-pr-comments-toggled": "project-git-pr-comments-toggled",
@@ -17464,6 +17497,7 @@ export const listEventTypeReplacedByEnum = {
 	"project-git-credential-grant-created": "project-git-credential-grant-created",
 	"project-git-credential-grant-deleted": "project-git-credential-grant-deleted",
 	"project-git-credential-grant-updated": "project-git-credential-grant-updated",
+	"project-git-credential-token-minted": "project-git-credential-token-minted",
 	"project-git-fork-protection-updated": "project-git-fork-protection-updated",
 	"project-git-lfs-toggled": "project-git-lfs-toggled",
 	"project-git-pr-comments-toggled": "project-git-pr-comments-toggled",
@@ -34112,6 +34146,7 @@ export type GetProjectBoxesStatus200DaemonsScopeValueEnumKey =
 	(typeof getProjectBoxesStatus200DaemonsScopeValueEnum)[keyof typeof getProjectBoxesStatus200DaemonsScopeValueEnum];
 
 export const getProjectBoxesStatus200DaemonsStatusEnum = {
+	crash_looping: "crash_looping",
 	ready: "ready",
 	reconciling: "reconciling",
 	stopped: "stopped",
@@ -34183,6 +34218,17 @@ export type GetProjectBoxesStatus200 = {
 				image?: string | undefined;
 				lastCheckedAt?: string | undefined;
 				memoryMiB?: number | undefined;
+				/**
+				 * @description Quick restarts of the user container in a row. Absent when there are none.
+				 * @type object | undefined
+				 */
+				process?:
+					| {
+							lastExitCode?: number | undefined;
+							restarts: number;
+							crashLooping: false | true;
+					  }
+					| undefined;
 				region: string;
 				startedAt: string;
 				stoppedAt?: string | undefined;
@@ -145842,7 +145888,7 @@ export type PatchTeamBody = {
 	 */
 	avatar?: (string | null) | undefined;
 	/**
-	 * @description A short text that describes the team.
+	 * @description A short text that describes the team. Set to an empty string to clear the description. Omit to keep the current description.
 	 * @maxLength 140
 	 * @example Our mission is to make cloud computing accessible to everyone
 	 * @type string | undefined
