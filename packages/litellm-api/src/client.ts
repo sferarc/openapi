@@ -3,9 +3,12 @@ import type { FetchImpl } from "./utils/fetch";
 import type { FetcherConfig } from "./utils/fetcher";
 import type { RequiredKeys } from "./utils/types";
 
+/** A fixed key, or a function the client calls before every request for the current one. */
+export type LiteLLMToken = string | null | (() => string | null | Promise<string | null>);
+
 export interface LiteLLMApiOptions {
 	baseUrl: string;
-	token: string | null;
+	token: LiteLLMToken;
 	fetch?: FetchImpl;
 }
 
@@ -79,9 +82,14 @@ type RequestEndpointResult<T extends keyof typeof operationsByPath> = ReturnType
 
 type CallParams = Record<string, unknown> & { config?: Partial<FetcherConfig> };
 
+// A virtual key can rotate (auto_rotate) or be regenerated, so a function is asked again on every call.
+async function resolveToken(token: LiteLLMToken): Promise<string | null> {
+	return typeof token === "function" ? await token() : token;
+}
+
 export class LiteLLMApi {
 	#baseUrl: string;
-	#token: string | null;
+	#token: LiteLLMToken;
 	#fetch: FetchImpl;
 
 	constructor(options: LiteLLMApiOptions) {
@@ -92,18 +100,18 @@ export class LiteLLMApi {
 		if (!this.#fetch) throw new Error("Fetch is required");
 	}
 
-	#config(): FetcherConfig {
+	async #config(): Promise<FetcherConfig> {
 		return {
 			baseUrl: this.#baseUrl,
-			token: this.#token,
+			token: await resolveToken(this.#token),
 			fetchImpl: this.#fetch,
 		};
 	}
 
 	// The caller's per-call config, such as extra headers, layers over the client's own.
-	#withConfig(params: CallParams | undefined): CallParams {
+	async #withConfig(params: CallParams | undefined): Promise<CallParams> {
 		const { config, ...rest } = params ?? {};
-		return { ...rest, config: { ...this.#config(), ...config } };
+		return { ...rest, config: { ...(await this.#config()), ...config } };
 	}
 
 	get api() {
@@ -130,7 +138,7 @@ export class LiteLLMApi {
 								const method = operationsByTag[namespace][operation] as any;
 
 								return async (params?: CallParams) => {
-									return await method(this.#withConfig(params));
+									return await method(await this.#withConfig(params));
 								};
 							},
 						},
@@ -149,7 +157,7 @@ export class LiteLLMApi {
 			: undefined;
 		if (!operation) throw new Error(`Unknown endpoint: ${endpoint}`);
 
-		const result = await operation(this.#withConfig(params as CallParams | undefined));
+		const result = await operation(await this.#withConfig(params as CallParams | undefined));
 		return result as RequestEndpointResult<Endpoint>;
 	}
 }

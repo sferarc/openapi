@@ -44,6 +44,19 @@ Every operation can also be called by method and path:
 const routes = await client.request("GET /routes");
 ```
 
+### Changing the token
+
+A virtual key can rotate on its own (`auto_rotate` on `/key/generate`) or be regenerated, which revokes the old one, and a fixed key stays on the client it was given to. Pass a function as `token`, sync or async, and the client calls it before every request, so each call sends the key it returns:
+
+```ts
+const client = new LiteLLMApi({
+  baseUrl: "http://localhost:4000",
+  token: async () => await keyStore.currentKey(),
+});
+```
+
+`keyStore` stands for wherever your app keeps the current key. A call rejects with what the function threw, before any request is sent. A call's own `config.token` still wins, and a function that returns `null` sends no `Authorization` header.
+
 ### Custom fetch
 
 ```ts
