@@ -4993,6 +4993,17 @@ export const userEventPayloadActionEnum3 = {
 export type UserEventPayloadActionEnum3Key =
 	(typeof userEventPayloadActionEnum3)[keyof typeof userEventPayloadActionEnum3];
 
+export const userEventPayloadUpdatedFieldsEnum = {
+	expression: "expression",
+	jitter: "jitter",
+	payload: "payload",
+	target: "target",
+	timezone: "timezone",
+} as const;
+
+export type UserEventPayloadUpdatedFieldsEnumKey =
+	(typeof userEventPayloadUpdatedFieldsEnum)[keyof typeof userEventPayloadUpdatedFieldsEnum];
+
 export const userEventPayloadVisibilityEnum = {
 	private: "private",
 	team: "team",
@@ -8577,6 +8588,12 @@ export const userEventTypeEnum = {
 	"sandbox-snapshot-regions-updated": "sandbox-snapshot-regions-updated",
 	scale: "scale",
 	"scale-auto": "scale-auto",
+	"schedule-created": "schedule-created",
+	"schedule-deleted": "schedule-deleted",
+	"schedule-disabled": "schedule-disabled",
+	"schedule-enabled": "schedule-enabled",
+	"schedule-invoked": "schedule-invoked",
+	"schedule-updated": "schedule-updated",
 	"secondary-email-added": "secondary-email-added",
 	"secondary-email-removed": "secondary-email-removed",
 	"secondary-email-verified": "secondary-email-verified",
@@ -8883,6 +8900,21 @@ export type UserEvent = {
 						projectId: string;
 						repositoryId: string;
 						sandboxId: string;
+				  }
+				| {
+						namespace: string;
+						projectId: string;
+						projectName: string;
+						scheduleId: string;
+						scheduleName: string;
+				  }
+				| {
+						namespace: string;
+						projectId: string;
+						projectName: string;
+						scheduleId: string;
+						scheduleName: string;
+						updatedFields: UserEventPayloadUpdatedFieldsEnumKey[];
 				  }
 				| {
 						boardId: string;
@@ -16879,6 +16911,12 @@ export const listEventTypeNameEnum = {
 	"sandbox-snapshot-regions-updated": "sandbox-snapshot-regions-updated",
 	scale: "scale",
 	"scale-auto": "scale-auto",
+	"schedule-created": "schedule-created",
+	"schedule-deleted": "schedule-deleted",
+	"schedule-disabled": "schedule-disabled",
+	"schedule-enabled": "schedule-enabled",
+	"schedule-invoked": "schedule-invoked",
+	"schedule-updated": "schedule-updated",
 	"secondary-email-added": "secondary-email-added",
 	"secondary-email-removed": "secondary-email-removed",
 	"secondary-email-verified": "secondary-email-verified",
@@ -17661,6 +17699,12 @@ export const listEventTypeReplacedByEnum = {
 	"sandbox-snapshot-regions-updated": "sandbox-snapshot-regions-updated",
 	scale: "scale",
 	"scale-auto": "scale-auto",
+	"schedule-created": "schedule-created",
+	"schedule-deleted": "schedule-deleted",
+	"schedule-disabled": "schedule-disabled",
+	"schedule-enabled": "schedule-enabled",
+	"schedule-invoked": "schedule-invoked",
+	"schedule-updated": "schedule-updated",
 	"secondary-email-added": "secondary-email-added",
 	"secondary-email-removed": "secondary-email-removed",
 	"secondary-email-verified": "secondary-email-verified",
@@ -28922,12 +28966,20 @@ export type CreateProjectCheckRequestBlocksEnumKey =
 export type CreateProjectCheckBody =
 	| {
 			name: string;
+			/**
+			 * @description Whether check runs can be manually re-requested. Git provider checks cannot be re-requested.
+			 * @type boolean | undefined
+			 */
 			isRerequestable?: boolean | undefined;
 			/**
 			 * @default 'deployment-url'
 			 * @type string
 			 */
 			requires: CreateProjectCheckRequestRequiresEnumKey;
+			/**
+			 * @description Deployment targets where this check applies. Valid values are "production", "preview", "all", or a Custom Environment ID such as "env_...". If omitted, defaults to ["production"]. "all" cannot be combined with other targets.
+			 * @type array | undefined
+			 */
 			targets?: string[] | undefined;
 			/**
 			 * @default 'deployment-alias'
@@ -28952,7 +29004,15 @@ export type CreateProjectCheckBody =
 								webhookId?: string | undefined;
 						  }
 						| {
+								/**
+								 * @description Imports Git provider check results, such as GitHub check runs or commit statuses, as Deployment Checks.
+								 * @type string
+								 */
 								kind: string;
+								/**
+								 * @description The Git provider check name or context to match, for example a GitHub Actions job name.
+								 * @type string
+								 */
 								externalCheckName: string;
 								provider: "github";
 						  }
@@ -29248,12 +29308,20 @@ export type UpdateProjectCheckRequestBlocksEnumKey =
 export type UpdateProjectCheckBody =
 	| {
 			name?: string | undefined;
+			/**
+			 * @description Whether check runs can be manually re-requested. Git provider checks cannot be re-requested.
+			 * @type boolean | undefined
+			 */
 			isRerequestable?: boolean | undefined;
 			/**
 			 * @default 'deployment-url'
 			 * @type string | undefined
 			 */
 			requires?: UpdateProjectCheckRequestRequiresEnumKey | undefined;
+			/**
+			 * @description Deployment targets where this check applies. Valid values are "production", "preview", "all", or a Custom Environment ID such as "env_...". "all" cannot be combined with other targets.
+			 * @type array | undefined
+			 */
 			targets?: string[] | undefined;
 			/**
 			 * @default 'deployment-alias'
@@ -82259,6 +82327,15 @@ export const actionEnum4 = {
 
 export type ActionEnum4Key = (typeof actionEnum4)[keyof typeof actionEnum4];
 
+export const actionEnum5 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type ActionEnum5Key = (typeof actionEnum5)[keyof typeof actionEnum5];
+
 export const algoEnum2 = {
 	fixed_window: "fixed_window",
 	token_bucket: "token_bucket",
@@ -82881,7 +82958,7 @@ export const getProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetAction
 export type GetProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnumKey =
 	(typeof getProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnum)[keyof typeof getProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnum];
 
-export const actionEnum5 = {
+export const actionEnum6 = {
 	allow: "allow",
 	bypass: "bypass",
 	challenge: "challenge",
@@ -82891,7 +82968,16 @@ export const actionEnum5 = {
 	redirect: "redirect",
 } as const;
 
-export type ActionEnum5Key = (typeof actionEnum5)[keyof typeof actionEnum5];
+export type ActionEnum6Key = (typeof actionEnum6)[keyof typeof actionEnum6];
+
+export const actionEnum7 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type ActionEnum7Key = (typeof actionEnum7)[keyof typeof actionEnum7];
 
 export const algoEnum3 = {
 	fixed_window: "fixed_window",
@@ -83668,7 +83754,7 @@ export const getProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetAction
 export type GetProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnum2Key =
 	(typeof getProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnum2)[keyof typeof getProjectsStatus200ProjectsSecurityManagedRulesVercelRulesetActionEnum2];
 
-export const actionEnum6 = {
+export const actionEnum8 = {
 	allow: "allow",
 	bypass: "bypass",
 	challenge: "challenge",
@@ -83678,7 +83764,16 @@ export const actionEnum6 = {
 	redirect: "redirect",
 } as const;
 
-export type ActionEnum6Key = (typeof actionEnum6)[keyof typeof actionEnum6];
+export type ActionEnum8Key = (typeof actionEnum8)[keyof typeof actionEnum8];
+
+export const actionEnum9 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type ActionEnum9Key = (typeof actionEnum9)[keyof typeof actionEnum9];
 
 export const algoEnum4 = {
 	fixed_window: "fixed_window",
@@ -85115,6 +85210,7 @@ export type GetProjectsStatus200 =
 												logHeaders?: (string[] | "*") | undefined;
 												rateLimit?:
 													| ({
+															action?: (ActionEnum5Key | null) | undefined;
 															algo: AlgoEnum2Key;
 															keys: string[];
 															limit: number;
@@ -86598,12 +86694,13 @@ export type GetProjectsStatus200 =
 									rulesets?:
 										| {
 												[key: string]: {
-													action: ActionEnum5Key;
+													action: ActionEnum6Key;
 													actionDuration?: (string | null) | undefined;
 													bypassSystem?: ((false | true) | null) | undefined;
 													logHeaders?: (string[] | "*") | undefined;
 													rateLimit?:
 														| ({
+																action?: (ActionEnum7Key | null) | undefined;
 																algo: AlgoEnum3Key;
 																keys: string[];
 																limit: number;
@@ -90053,12 +90150,13 @@ export type GetProjectsStatus200 =
 									rulesets?:
 										| {
 												[key: string]: {
-													action: ActionEnum6Key;
+													action: ActionEnum8Key;
 													actionDuration?: (string | null) | undefined;
 													bypassSystem?: ((false | true) | null) | undefined;
 													logHeaders?: (string[] | "*") | undefined;
 													rateLimit?:
 														| ({
+																action?: (ActionEnum9Key | null) | undefined;
 																algo: AlgoEnum4Key;
 																keys: string[];
 																limit: number;
@@ -91261,7 +91359,7 @@ export const createProjectStatus200SecurityManagedRulesVercelRulesetActionEnum =
 export type CreateProjectStatus200SecurityManagedRulesVercelRulesetActionEnumKey =
 	(typeof createProjectStatus200SecurityManagedRulesVercelRulesetActionEnum)[keyof typeof createProjectStatus200SecurityManagedRulesVercelRulesetActionEnum];
 
-export const actionEnum7 = {
+export const actionEnum10 = {
 	allow: "allow",
 	bypass: "bypass",
 	challenge: "challenge",
@@ -91271,7 +91369,16 @@ export const actionEnum7 = {
 	redirect: "redirect",
 } as const;
 
-export type ActionEnum7Key = (typeof actionEnum7)[keyof typeof actionEnum7];
+export type ActionEnum10Key = (typeof actionEnum10)[keyof typeof actionEnum10];
+
+export const actionEnum11 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type ActionEnum11Key = (typeof actionEnum11)[keyof typeof actionEnum11];
 
 export const algoEnum5 = {
 	fixed_window: "fixed_window",
@@ -94653,12 +94760,13 @@ export type CreateProjectStatus200 = {
 				rulesets?:
 					| {
 							[key: string]: {
-								action: ActionEnum7Key;
+								action: ActionEnum10Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
+											action?: (ActionEnum11Key | null) | undefined;
 											algo: AlgoEnum5Key;
 											keys: string[];
 											limit: number;
@@ -96441,7 +96549,7 @@ export const getProjectStatus200SecurityManagedRulesVercelRulesetActionEnum = {
 export type GetProjectStatus200SecurityManagedRulesVercelRulesetActionEnumKey =
 	(typeof getProjectStatus200SecurityManagedRulesVercelRulesetActionEnum)[keyof typeof getProjectStatus200SecurityManagedRulesVercelRulesetActionEnum];
 
-export const actionEnum8 = {
+export const actionEnum12 = {
 	allow: "allow",
 	bypass: "bypass",
 	challenge: "challenge",
@@ -96451,7 +96559,16 @@ export const actionEnum8 = {
 	redirect: "redirect",
 } as const;
 
-export type ActionEnum8Key = (typeof actionEnum8)[keyof typeof actionEnum8];
+export type ActionEnum12Key = (typeof actionEnum12)[keyof typeof actionEnum12];
+
+export const actionEnum13 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type ActionEnum13Key = (typeof actionEnum13)[keyof typeof actionEnum13];
 
 export const algoEnum6 = {
 	fixed_window: "fixed_window",
@@ -99845,12 +99962,13 @@ export type GetProjectStatus200 = {
 				rulesets?:
 					| {
 							[key: string]: {
-								action: ActionEnum8Key;
+								action: ActionEnum12Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
+											action?: (ActionEnum13Key | null) | undefined;
 											algo: AlgoEnum6Key;
 											keys: string[];
 											limit: number;
@@ -100938,7 +101056,7 @@ export const updateProjectStatus200SecurityManagedRulesVercelRulesetActionEnum =
 export type UpdateProjectStatus200SecurityManagedRulesVercelRulesetActionEnumKey =
 	(typeof updateProjectStatus200SecurityManagedRulesVercelRulesetActionEnum)[keyof typeof updateProjectStatus200SecurityManagedRulesVercelRulesetActionEnum];
 
-export const actionEnum9 = {
+export const actionEnum14 = {
 	allow: "allow",
 	bypass: "bypass",
 	challenge: "challenge",
@@ -100948,7 +101066,16 @@ export const actionEnum9 = {
 	redirect: "redirect",
 } as const;
 
-export type ActionEnum9Key = (typeof actionEnum9)[keyof typeof actionEnum9];
+export type ActionEnum14Key = (typeof actionEnum14)[keyof typeof actionEnum14];
+
+export const actionEnum15 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type ActionEnum15Key = (typeof actionEnum15)[keyof typeof actionEnum15];
 
 export const algoEnum7 = {
 	fixed_window: "fixed_window",
@@ -104328,12 +104455,13 @@ export type UpdateProjectStatus200 = {
 				rulesets?:
 					| {
 							[key: string]: {
-								action: ActionEnum9Key;
+								action: ActionEnum14Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
+											action?: (ActionEnum15Key | null) | undefined;
 											algo: AlgoEnum7Key;
 											keys: string[];
 											limit: number;
@@ -106482,7 +106610,7 @@ export const uploadProjectAvatarStatus200SecurityManagedRulesVercelRulesetAction
 export type UploadProjectAvatarStatus200SecurityManagedRulesVercelRulesetActionEnumKey =
 	(typeof uploadProjectAvatarStatus200SecurityManagedRulesVercelRulesetActionEnum)[keyof typeof uploadProjectAvatarStatus200SecurityManagedRulesVercelRulesetActionEnum];
 
-export const actionEnum10 = {
+export const actionEnum16 = {
 	allow: "allow",
 	bypass: "bypass",
 	challenge: "challenge",
@@ -106492,7 +106620,16 @@ export const actionEnum10 = {
 	redirect: "redirect",
 } as const;
 
-export type ActionEnum10Key = (typeof actionEnum10)[keyof typeof actionEnum10];
+export type ActionEnum16Key = (typeof actionEnum16)[keyof typeof actionEnum16];
+
+export const actionEnum17 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type ActionEnum17Key = (typeof actionEnum17)[keyof typeof actionEnum17];
 
 export const algoEnum8 = {
 	fixed_window: "fixed_window",
@@ -109889,12 +110026,13 @@ export type UploadProjectAvatarStatus200 = {
 				rulesets?:
 					| {
 							[key: string]: {
-								action: ActionEnum10Key;
+								action: ActionEnum16Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
+											action?: (ActionEnum17Key | null) | undefined;
 											algo: AlgoEnum8Key;
 											keys: string[];
 											limit: number;
@@ -111001,7 +111139,7 @@ export const deleteProjectAvatarStatus200SecurityManagedRulesVercelRulesetAction
 export type DeleteProjectAvatarStatus200SecurityManagedRulesVercelRulesetActionEnumKey =
 	(typeof deleteProjectAvatarStatus200SecurityManagedRulesVercelRulesetActionEnum)[keyof typeof deleteProjectAvatarStatus200SecurityManagedRulesVercelRulesetActionEnum];
 
-export const actionEnum11 = {
+export const actionEnum18 = {
 	allow: "allow",
 	bypass: "bypass",
 	challenge: "challenge",
@@ -111011,7 +111149,16 @@ export const actionEnum11 = {
 	redirect: "redirect",
 } as const;
 
-export type ActionEnum11Key = (typeof actionEnum11)[keyof typeof actionEnum11];
+export type ActionEnum18Key = (typeof actionEnum18)[keyof typeof actionEnum18];
+
+export const actionEnum19 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type ActionEnum19Key = (typeof actionEnum19)[keyof typeof actionEnum19];
 
 export const algoEnum9 = {
 	fixed_window: "fixed_window",
@@ -114408,12 +114555,13 @@ export type DeleteProjectAvatarStatus200 = {
 				rulesets?:
 					| {
 							[key: string]: {
-								action: ActionEnum11Key;
+								action: ActionEnum18Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
+											action?: (ActionEnum19Key | null) | undefined;
 											algo: AlgoEnum9Key;
 											keys: string[];
 											limit: number;
@@ -122899,7 +123047,7 @@ export const updateMicrofrontendsStatus200SecurityManagedRulesVercelRulesetActio
 export type UpdateMicrofrontendsStatus200SecurityManagedRulesVercelRulesetActionEnumKey =
 	(typeof updateMicrofrontendsStatus200SecurityManagedRulesVercelRulesetActionEnum)[keyof typeof updateMicrofrontendsStatus200SecurityManagedRulesVercelRulesetActionEnum];
 
-export const actionEnum12 = {
+export const actionEnum20 = {
 	allow: "allow",
 	bypass: "bypass",
 	challenge: "challenge",
@@ -122909,7 +123057,16 @@ export const actionEnum12 = {
 	redirect: "redirect",
 } as const;
 
-export type ActionEnum12Key = (typeof actionEnum12)[keyof typeof actionEnum12];
+export type ActionEnum20Key = (typeof actionEnum20)[keyof typeof actionEnum20];
+
+export const actionEnum21 = {
+	challenge: "challenge",
+	deny: "deny",
+	log: "log",
+	rate_limit: "rate_limit",
+} as const;
+
+export type ActionEnum21Key = (typeof actionEnum21)[keyof typeof actionEnum21];
 
 export const algoEnum10 = {
 	fixed_window: "fixed_window",
@@ -126306,12 +126463,13 @@ export type UpdateMicrofrontendsStatus200 = {
 				rulesets?:
 					| {
 							[key: string]: {
-								action: ActionEnum12Key;
+								action: ActionEnum20Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
+											action?: (ActionEnum21Key | null) | undefined;
 											algo: AlgoEnum10Key;
 											keys: string[];
 											limit: number;
@@ -134720,7 +134878,7 @@ export const getSecurityFirewallConfigStatus200ActiveRulesetsActionMitigateRateL
 export type GetSecurityFirewallConfigStatus200ActiveRulesetsActionMitigateRateLimitAlgoEnumKey =
 	(typeof getSecurityFirewallConfigStatus200ActiveRulesetsActionMitigateRateLimitAlgoEnum)[keyof typeof getSecurityFirewallConfigStatus200ActiveRulesetsActionMitigateRateLimitAlgoEnum];
 
-export const actionEnum13 = {
+export const actionEnum22 = {
 	allow: "allow",
 	bypass: "bypass",
 	challenge: "challenge",
@@ -134730,16 +134888,16 @@ export const actionEnum13 = {
 	redirect: "redirect",
 } as const;
 
-export type ActionEnum13Key = (typeof actionEnum13)[keyof typeof actionEnum13];
+export type ActionEnum22Key = (typeof actionEnum22)[keyof typeof actionEnum22];
 
-export const actionEnum14 = {
+export const actionEnum23 = {
 	challenge: "challenge",
 	deny: "deny",
 	log: "log",
 	rate_limit: "rate_limit",
 } as const;
 
-export type ActionEnum14Key = (typeof actionEnum14)[keyof typeof actionEnum14];
+export type ActionEnum23Key = (typeof actionEnum23)[keyof typeof actionEnum23];
 
 export const algoEnum11 = {
 	fixed_window: "fixed_window",
@@ -135232,7 +135390,7 @@ export const getSecurityFirewallConfigStatus200DraftRulesetsActionMitigateRateLi
 export type GetSecurityFirewallConfigStatus200DraftRulesetsActionMitigateRateLimitAlgoEnumKey =
 	(typeof getSecurityFirewallConfigStatus200DraftRulesetsActionMitigateRateLimitAlgoEnum)[keyof typeof getSecurityFirewallConfigStatus200DraftRulesetsActionMitigateRateLimitAlgoEnum];
 
-export const actionEnum15 = {
+export const actionEnum24 = {
 	allow: "allow",
 	bypass: "bypass",
 	challenge: "challenge",
@@ -135242,16 +135400,16 @@ export const actionEnum15 = {
 	redirect: "redirect",
 } as const;
 
-export type ActionEnum15Key = (typeof actionEnum15)[keyof typeof actionEnum15];
+export type ActionEnum24Key = (typeof actionEnum24)[keyof typeof actionEnum24];
 
-export const actionEnum16 = {
+export const actionEnum25 = {
 	challenge: "challenge",
 	deny: "deny",
 	log: "log",
 	rate_limit: "rate_limit",
 } as const;
 
-export type ActionEnum16Key = (typeof actionEnum16)[keyof typeof actionEnum16];
+export type ActionEnum25Key = (typeof actionEnum25)[keyof typeof actionEnum25];
 
 export const algoEnum12 = {
 	fixed_window: "fixed_window",
@@ -135745,7 +135903,7 @@ export const getSecurityFirewallConfigStatus200VersionsRulesetsActionMitigateRat
 export type GetSecurityFirewallConfigStatus200VersionsRulesetsActionMitigateRateLimitAlgoEnumKey =
 	(typeof getSecurityFirewallConfigStatus200VersionsRulesetsActionMitigateRateLimitAlgoEnum)[keyof typeof getSecurityFirewallConfigStatus200VersionsRulesetsActionMitigateRateLimitAlgoEnum];
 
-export const actionEnum17 = {
+export const actionEnum26 = {
 	allow: "allow",
 	bypass: "bypass",
 	challenge: "challenge",
@@ -135755,16 +135913,16 @@ export const actionEnum17 = {
 	redirect: "redirect",
 } as const;
 
-export type ActionEnum17Key = (typeof actionEnum17)[keyof typeof actionEnum17];
+export type ActionEnum26Key = (typeof actionEnum26)[keyof typeof actionEnum26];
 
-export const actionEnum18 = {
+export const actionEnum27 = {
 	challenge: "challenge",
 	deny: "deny",
 	log: "log",
 	rate_limit: "rate_limit",
 } as const;
 
-export type ActionEnum18Key = (typeof actionEnum18)[keyof typeof actionEnum18];
+export type ActionEnum27Key = (typeof actionEnum27)[keyof typeof actionEnum27];
 
 export const algoEnum13 = {
 	fixed_window: "fixed_window",
@@ -136051,13 +136209,13 @@ export type GetSecurityFirewallConfigStatus200 = {
 					  }[]
 					| {
 							[key: string]: {
-								action: ActionEnum13Key;
+								action: ActionEnum22Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
-											action?: (ActionEnum14Key | null) | undefined;
+											action?: (ActionEnum23Key | null) | undefined;
 											algo: AlgoEnum11Key;
 											keys: string[];
 											limit: number;
@@ -136354,13 +136512,13 @@ export type GetSecurityFirewallConfigStatus200 = {
 					  }[]
 					| {
 							[key: string]: {
-								action: ActionEnum15Key;
+								action: ActionEnum24Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
-											action?: (ActionEnum16Key | null) | undefined;
+											action?: (ActionEnum25Key | null) | undefined;
 											algo: AlgoEnum12Key;
 											keys: string[];
 											limit: number;
@@ -136657,13 +136815,13 @@ export type GetSecurityFirewallConfigStatus200 = {
 					  }[]
 					| {
 							[key: string]: {
-								action: ActionEnum17Key;
+								action: ActionEnum26Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
-											action?: (ActionEnum18Key | null) | undefined;
+											action?: (ActionEnum27Key | null) | undefined;
 											algo: AlgoEnum13Key;
 											keys: string[];
 											limit: number;
@@ -137216,7 +137374,7 @@ export const putFirewallConfigStatus200ActiveRulesetsActionMitigateRateLimitAlgo
 export type PutFirewallConfigStatus200ActiveRulesetsActionMitigateRateLimitAlgoEnumKey =
 	(typeof putFirewallConfigStatus200ActiveRulesetsActionMitigateRateLimitAlgoEnum)[keyof typeof putFirewallConfigStatus200ActiveRulesetsActionMitigateRateLimitAlgoEnum];
 
-export const actionEnum20 = {
+export const actionEnum29 = {
 	allow: "allow",
 	bypass: "bypass",
 	challenge: "challenge",
@@ -137226,16 +137384,16 @@ export const actionEnum20 = {
 	redirect: "redirect",
 } as const;
 
-export type ActionEnum20Key = (typeof actionEnum20)[keyof typeof actionEnum20];
+export type ActionEnum29Key = (typeof actionEnum29)[keyof typeof actionEnum29];
 
-export const actionEnum21 = {
+export const actionEnum30 = {
 	challenge: "challenge",
 	deny: "deny",
 	log: "log",
 	rate_limit: "rate_limit",
 } as const;
 
-export type ActionEnum21Key = (typeof actionEnum21)[keyof typeof actionEnum21];
+export type ActionEnum30Key = (typeof actionEnum30)[keyof typeof actionEnum30];
 
 export const algoEnum14 = {
 	fixed_window: "fixed_window",
@@ -137568,13 +137726,13 @@ export type PutFirewallConfigStatus200 = {
 					  }[]
 					| {
 							[key: string]: {
-								action: ActionEnum20Key;
+								action: ActionEnum29Key;
 								actionDuration?: (string | null) | undefined;
 								bypassSystem?: ((false | true) | null) | undefined;
 								logHeaders?: (string[] | "*") | undefined;
 								rateLimit?:
 									| ({
-											action?: (ActionEnum21Key | null) | undefined;
+											action?: (ActionEnum30Key | null) | undefined;
 											algo: AlgoEnum14Key;
 											keys: string[];
 											limit: number;
@@ -137859,14 +138017,14 @@ export const putFirewallConfigRequestRulesetsActionMitigateActionEnum = {
 export type PutFirewallConfigRequestRulesetsActionMitigateActionEnumKey =
 	(typeof putFirewallConfigRequestRulesetsActionMitigateActionEnum)[keyof typeof putFirewallConfigRequestRulesetsActionMitigateActionEnum];
 
-export const actionEnum19 = {
+export const actionEnum28 = {
 	deny: "deny",
 	challenge: "challenge",
 	log: "log",
 	allow: "allow",
 } as const;
 
-export type ActionEnum19Key = (typeof actionEnum19)[keyof typeof actionEnum19];
+export type ActionEnum28Key = (typeof actionEnum28)[keyof typeof actionEnum28];
 
 export const putFirewallConfigRequestIpsActionEnum = {
 	bypass: "bypass",
@@ -138113,7 +138271,7 @@ export type PutFirewallConfigBody = {
 				  }[]
 				| {
 						[key: string]: {
-							action: ActionEnum19Key;
+							action: ActionEnum28Key;
 						};
 				  }
 		  )
@@ -138698,13 +138856,13 @@ export const updateFirewallConfigRequestIdEnum3 = {
 export type UpdateFirewallConfigRequestIdEnum3Key =
 	(typeof updateFirewallConfigRequestIdEnum3)[keyof typeof updateFirewallConfigRequestIdEnum3];
 
-export const actionEnum22 = {
+export const actionEnum31 = {
 	log: "log",
 	challenge: "challenge",
 	deny: "deny",
 } as const;
 
-export type ActionEnum22Key = (typeof actionEnum22)[keyof typeof actionEnum22];
+export type ActionEnum31Key = (typeof actionEnum31)[keyof typeof actionEnum31];
 
 export type UpdateFirewallConfigBody =
 	| {
@@ -139057,7 +139215,7 @@ export type UpdateFirewallConfigBody =
 			value: {
 				[key: string]: {
 					active: boolean;
-					action?: ActionEnum22Key | undefined;
+					action?: ActionEnum31Key | undefined;
 				};
 			};
 	  }
@@ -139603,7 +139761,7 @@ export const getFirewallConfigStatus200RulesetsActionMitigateRateLimitAlgoEnum =
 export type GetFirewallConfigStatus200RulesetsActionMitigateRateLimitAlgoEnumKey =
 	(typeof getFirewallConfigStatus200RulesetsActionMitigateRateLimitAlgoEnum)[keyof typeof getFirewallConfigStatus200RulesetsActionMitigateRateLimitAlgoEnum];
 
-export const actionEnum23 = {
+export const actionEnum32 = {
 	allow: "allow",
 	bypass: "bypass",
 	challenge: "challenge",
@@ -139613,16 +139771,16 @@ export const actionEnum23 = {
 	redirect: "redirect",
 } as const;
 
-export type ActionEnum23Key = (typeof actionEnum23)[keyof typeof actionEnum23];
+export type ActionEnum32Key = (typeof actionEnum32)[keyof typeof actionEnum32];
 
-export const actionEnum24 = {
+export const actionEnum33 = {
 	challenge: "challenge",
 	deny: "deny",
 	log: "log",
 	rate_limit: "rate_limit",
 } as const;
 
-export type ActionEnum24Key = (typeof actionEnum24)[keyof typeof actionEnum24];
+export type ActionEnum33Key = (typeof actionEnum33)[keyof typeof actionEnum33];
 
 export const algoEnum15 = {
 	fixed_window: "fixed_window",
@@ -139948,13 +140106,13 @@ export type GetFirewallConfigStatus200 = {
 				  }[]
 				| {
 						[key: string]: {
-							action: ActionEnum23Key;
+							action: ActionEnum32Key;
 							actionDuration?: (string | null) | undefined;
 							bypassSystem?: ((false | true) | null) | undefined;
 							logHeaders?: (string[] | "*") | undefined;
 							rateLimit?:
 								| ({
-										action?: (ActionEnum24Key | null) | undefined;
+										action?: (ActionEnum33Key | null) | undefined;
 										algo: AlgoEnum15Key;
 										keys: string[];
 										limit: number;
@@ -140565,7 +140723,7 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200Ruleset
 export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200RulesetsActionMitigateRateLimitAlgoEnumKey =
 	(typeof createSecurityFirewallConfigByConfigVersionActivateStatus200RulesetsActionMitigateRateLimitAlgoEnum)[keyof typeof createSecurityFirewallConfigByConfigVersionActivateStatus200RulesetsActionMitigateRateLimitAlgoEnum];
 
-export const actionEnum25 = {
+export const actionEnum34 = {
 	allow: "allow",
 	bypass: "bypass",
 	challenge: "challenge",
@@ -140575,16 +140733,16 @@ export const actionEnum25 = {
 	redirect: "redirect",
 } as const;
 
-export type ActionEnum25Key = (typeof actionEnum25)[keyof typeof actionEnum25];
+export type ActionEnum34Key = (typeof actionEnum34)[keyof typeof actionEnum34];
 
-export const actionEnum26 = {
+export const actionEnum35 = {
 	challenge: "challenge",
 	deny: "deny",
 	log: "log",
 	rate_limit: "rate_limit",
 } as const;
 
-export type ActionEnum26Key = (typeof actionEnum26)[keyof typeof actionEnum26];
+export type ActionEnum35Key = (typeof actionEnum35)[keyof typeof actionEnum35];
 
 export const algoEnum16 = {
 	fixed_window: "fixed_window",
@@ -140870,13 +141028,13 @@ export type CreateSecurityFirewallConfigByConfigVersionActivateStatus200 = {
 				  }[]
 				| {
 						[key: string]: {
-							action: ActionEnum25Key;
+							action: ActionEnum34Key;
 							actionDuration?: (string | null) | undefined;
 							bypassSystem?: ((false | true) | null) | undefined;
 							logHeaders?: (string[] | "*") | undefined;
 							rateLimit?:
 								| ({
-										action?: (ActionEnum26Key | null) | undefined;
+										action?: (ActionEnum35Key | null) | undefined;
 										algo: AlgoEnum16Key;
 										keys: string[];
 										limit: number;
