@@ -1,6 +1,6 @@
 {
 	"name": "keycloak-api",
-	"version": "3.7.1",
+	"version": "3.8.0",
 	"description": "Unofficial typed TypeScript client for the Keycloak Admin and Account REST APIs, generated from their OpenAPI specs",
 	"keywords": [
 		"keycloak",
