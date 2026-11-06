@@ -3307,6 +3307,21 @@ export const userEventSchema = z
 					sandboxId: z.string(),
 				}),
 				z.strictObject({
+					namespace: z.string(),
+					projectId: z.string(),
+					projectName: z.string(),
+					scheduleId: z.string(),
+					scheduleName: z.string(),
+				}),
+				z.strictObject({
+					namespace: z.string(),
+					projectId: z.string(),
+					projectName: z.string(),
+					scheduleId: z.string(),
+					scheduleName: z.string(),
+					updatedFields: z.array(z.enum(["expression", "jitter", "payload", "target", "timezone"])),
+				}),
+				z.strictObject({
 					boardId: z.string(),
 					operationId: z.string(),
 				}),
@@ -11877,6 +11892,12 @@ export const userEventSchema = z
 				"sandbox-snapshot-regions-updated",
 				"scale",
 				"scale-auto",
+				"schedule-created",
+				"schedule-deleted",
+				"schedule-disabled",
+				"schedule-enabled",
+				"schedule-invoked",
+				"schedule-updated",
 				"secondary-email-added",
 				"secondary-email-removed",
 				"secondary-email-verified",
@@ -12748,6 +12769,12 @@ export const listEventTypeSchema = z
 				"sandbox-snapshot-regions-updated",
 				"scale",
 				"scale-auto",
+				"schedule-created",
+				"schedule-deleted",
+				"schedule-disabled",
+				"schedule-enabled",
+				"schedule-invoked",
+				"schedule-updated",
 				"secondary-email-added",
 				"secondary-email-removed",
 				"secondary-email-verified",
@@ -13514,6 +13541,12 @@ export const listEventTypeSchema = z
 					"sandbox-snapshot-regions-updated",
 					"scale",
 					"scale-auto",
+					"schedule-created",
+					"schedule-deleted",
+					"schedule-disabled",
+					"schedule-enabled",
+					"schedule-invoked",
+					"schedule-updated",
 					"secondary-email-added",
 					"secondary-email-removed",
 					"secondary-email-verified",
@@ -22667,14 +22700,22 @@ export const createProjectCheckErrorSchema = z.union([
 export const createProjectCheckBodySchema = z
 	.object({
 		name: z.string(),
-		isRerequestable: z.boolean().optional(),
+		isRerequestable: z
+			.boolean()
+			.optional()
+			.describe(
+				"Whether check runs can be manually re-requested. Git provider checks cannot be re-requested.",
+			),
 		requires: z.enum(["build-ready", "deployment-url", "none"]).default("deployment-url"),
 		targets: z
 			.array(z.string())
 			.refine((items) => new Set(items).size === items.length, {
 				message: "Array entries must be unique",
 			})
-			.optional(),
+			.optional()
+			.describe(
+				'Deployment targets where this check applies. Valid values are "production", "preview", "all", or a Custom Environment ID such as "env_...". If omitted, defaults to ["production"]. "all" cannot be combined with other targets.',
+			),
 		blocks: z
 			.enum(["build-start", "deployment-alias", "deployment-promotion", "deployment-start", "none"])
 			.optional()
@@ -22693,8 +22734,16 @@ export const createProjectCheckBodySchema = z
 					webhookId: z.string().optional(),
 				}),
 				z.strictObject({
-					kind: z.string(),
-					externalCheckName: z.string(),
+					kind: z
+						.string()
+						.describe(
+							"Imports Git provider check results, such as GitHub check runs or commit statuses, as Deployment Checks.",
+						),
+					externalCheckName: z
+						.string()
+						.describe(
+							"The Git provider check name or context to match, for example a GitHub Actions job name.",
+						),
 					provider: z.enum(["github"]),
 				}),
 			])
@@ -22907,12 +22956,22 @@ export const updateProjectCheckErrorSchema = z.union([
 export const updateProjectCheckBodySchema = z
 	.strictObject({
 		name: z.string().optional(),
-		isRerequestable: z.boolean().optional(),
+		isRerequestable: z
+			.boolean()
+			.optional()
+			.describe(
+				"Whether check runs can be manually re-requested. Git provider checks cannot be re-requested.",
+			),
 		requires: z
 			.enum(["build-ready", "deployment-url", "none"])
 			.optional()
 			.default("deployment-url"),
-		targets: z.array(z.string()).optional(),
+		targets: z
+			.array(z.string())
+			.optional()
+			.describe(
+				'Deployment targets where this check applies. Valid values are "production", "preview", "all", or a Custom Environment ID such as "env_...". "all" cannot be combined with other targets.',
+			),
 		blocks: z
 			.enum(["build-start", "deployment-alias", "deployment-promotion", "deployment-start", "none"])
 			.optional()
@@ -67298,6 +67357,7 @@ export const getProjectsStatus200Schema = z
 									logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 									rateLimit: z
 										.object({
+											action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
 											algo: z.enum(["fixed_window", "token_bucket"]),
 											keys: z.array(z.string()),
 											limit: z.number(),
@@ -68962,6 +69022,7 @@ export const getProjectsStatus200Schema = z
 										logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 										rateLimit: z
 											.object({
+												action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
 												algo: z.enum(["fixed_window", "token_bucket"]),
 												keys: z.array(z.string()),
 												limit: z.number(),
@@ -72881,6 +72942,7 @@ export const getProjectsStatus200Schema = z
 										logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 										rateLimit: z
 											.object({
+												action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
 												algo: z.enum(["fixed_window", "token_bucket"]),
 												keys: z.array(z.string()),
 												limit: z.number(),
@@ -77165,6 +77227,7 @@ export const createProjectStatus200Schema = z.object({
 						logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 						rateLimit: z
 							.object({
+								action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
 								algo: z.enum(["fixed_window", "token_bucket"]),
 								keys: z.array(z.string()),
 								limit: z.number(),
@@ -81796,6 +81859,7 @@ export const getProjectStatus200Schema = z.object({
 						logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 						rateLimit: z
 							.object({
+								action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
 								algo: z.enum(["fixed_window", "token_bucket"]),
 								keys: z.array(z.string()),
 								limit: z.number(),
@@ -85898,6 +85962,7 @@ export const updateProjectStatus200Schema = z.object({
 						logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 						rateLimit: z
 							.object({
+								action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
 								algo: z.enum(["fixed_window", "token_bucket"]),
 								keys: z.array(z.string()),
 								limit: z.number(),
@@ -90919,6 +90984,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 						logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 						rateLimit: z
 							.object({
+								action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
 								algo: z.enum(["fixed_window", "token_bucket"]),
 								keys: z.array(z.string()),
 								limit: z.number(),
@@ -95028,6 +95094,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 						logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 						rateLimit: z
 							.object({
+								action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
 								algo: z.enum(["fixed_window", "token_bucket"]),
 								keys: z.array(z.string()),
 								limit: z.number(),
@@ -105386,6 +105453,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 						logHeaders: z.union([z.array(z.string()), z.enum(["*"])]).optional(),
 						rateLimit: z
 							.object({
+								action: z.enum(["challenge", "deny", "log", "rate_limit"]).nullish(),
 								algo: z.enum(["fixed_window", "token_bucket"]),
 								keys: z.array(z.string()),
 								limit: z.number(),
