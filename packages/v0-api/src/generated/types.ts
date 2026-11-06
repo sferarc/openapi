@@ -7391,6 +7391,7 @@ export const reportsGetUsageStatus200DataTypeEnum = {
 	message: "message",
 	refund_template_purchase: "refund_template_purchase",
 	reverse_template_sale: "reverse_template_sale",
+	security_review: "security_review",
 } as const;
 
 export type ReportsGetUsageStatus200DataTypeEnumKey =
