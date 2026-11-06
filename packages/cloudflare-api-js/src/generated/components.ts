@@ -1123,6 +1123,7 @@ import type {
 	AigBillingTopupEligibilityStatus400,
 	AigBillingTopupEligibilityStatus403,
 	AigBillingTopupEligibilityStatus404,
+	AigBillingTopupEligibilityStatus409,
 	AigConfigCreateAccountProviderBody,
 	AigConfigCreateAccountProviderCostBody,
 	AigConfigCreateAccountProviderCostPath,
@@ -14830,6 +14831,10 @@ import type {
 	ZeroTrustOrganizationGetYourZeroTrustOrganizationPath,
 	ZeroTrustOrganizationGetYourZeroTrustOrganizationResponse,
 	ZeroTrustOrganizationGetYourZeroTrustOrganizationStatus400,
+	ZeroTrustOrganizationPatchYourZeroTrustOrganizationBody,
+	ZeroTrustOrganizationPatchYourZeroTrustOrganizationPath,
+	ZeroTrustOrganizationPatchYourZeroTrustOrganizationResponse,
+	ZeroTrustOrganizationPatchYourZeroTrustOrganizationStatus400,
 	ZeroTrustOrganizationReplaceTrustSettingsBody,
 	ZeroTrustOrganizationReplaceTrustSettingsPath,
 	ZeroTrustOrganizationReplaceTrustSettingsResponse,
@@ -27445,8 +27450,9 @@ export async function getAbuseReport(
  * API token with the `Trust and Safety Write` permission. If the account
  * is not entitled, the request is rejected with an HTTP `401` response
  * (see below).
- * Delegated reports: In limited circumstances, Cloudflare works with
- * select customers who have established abuse-handling programs. For
+ * Delegated reports: In limited circumstances, Cloudflare delegates
+ * processing of abuse reports to select customers who have established
+ * abuse-handling programs. For
  * these customers, Cloudflare may forward abuse reports directly and in
  * full—including reporter contact information, comments, and supporting
  * evidence—without redaction or preprocessing by Cloudflare. This allows
@@ -30946,6 +30952,45 @@ export async function zeroTrustOrganizationGetYourZeroTrustOrganization(
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/access/organizations`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Partially update your Zero Trust organization
+ * @description Updates only the fields included in the request body. Omitted fields keep their current values. To clear `mfa_config` or `mfa_piv_key_requirements`, send the field as `{}`.
+ * @link /accounts/{accountId}/access/organizations
+ */
+export async function zeroTrustOrganizationPatchYourZeroTrustOrganization(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: ZeroTrustOrganizationPatchYourZeroTrustOrganizationPath;
+		body: ZeroTrustOrganizationPatchYourZeroTrustOrganizationBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		ZeroTrustOrganizationPatchYourZeroTrustOrganizationResponse,
+		ErrorWrapper<ZeroTrustOrganizationPatchYourZeroTrustOrganizationStatus400>,
+		ZeroTrustOrganizationPatchYourZeroTrustOrganizationBody,
+		Record<string, string>,
+		Record<string, string>,
+		ZeroTrustOrganizationPatchYourZeroTrustOrganizationPath
+	>({
+		method: "PATCH",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/access/organizations`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -36005,7 +36050,7 @@ export async function aigBillingSetTopupConfig(
 
 /**
  * @summary Get top-up eligibility
- * @description Determine whether an account can self-serve a credit top-up, and if not, why. The dashboard forwards the account's payment-method list in the body; the reason logic is owned here.
+ * @description Determine top-up eligibility. Requests without contract_version retain the legacy forwarded-method contract. Explicit contract_version: 2 opts into the gated, read-only authoritative advisory API; forwarded method metadata is not authoritative. No response authorizes a charge.
  * @link /accounts/{accountId}/ai-gateway/billing/topup/eligibility
  */
 export async function aigBillingTopupEligibility(
@@ -36030,6 +36075,7 @@ export async function aigBillingTopupEligibility(
 			| AigBillingTopupEligibilityStatus400
 			| AigBillingTopupEligibilityStatus403
 			| AigBillingTopupEligibilityStatus404
+			| AigBillingTopupEligibilityStatus409
 		>,
 		AigBillingTopupEligibilityBody,
 		Record<string, string>,
@@ -140932,8 +140978,7 @@ export async function organizationsModify(
  * @summary List organization accounts
  * @description Retrieve the accounts immediately attached to a specific organization. Accounts
  * attached to sub-organizations are not included. Use `page_token` and `page_size` for cursor
- * pagination, or provide `page` and `per_page` together for legacy offset pagination. Cursor
- * pagination takes precedence when requested. The default response uses Account fields;
+ * pagination. The default response uses Account fields;
  * `Accept: application/json; legacy=true` requests the LegacyAccount representation.
  * @link /organizations/{organizationId}/accounts
  */
@@ -142521,8 +142566,7 @@ export async function postK2SubscriptionsBySubscriptionIdConsume(
  * @description Lists all Cloudflare accounts across this tenant's hierarchy using the legacy Account
  * response shape. Use `GET /organizations/{organization_id}/accounts` to list only accounts
  * immediately attached to a specific Organization using the modern Account response shape.
- * Use `page_token` and `page_size` for cursor pagination, or provide `page` and `per_page`
- * together for legacy offset pagination. Cursor pagination takes precedence when requested.
+ * Use `page_token` and `page_size` for cursor pagination.
  * @link /tenants/{tenantId}/accounts
  */
 export async function tenantsListAccounts(
@@ -172504,6 +172548,8 @@ export const operationsByPath = {
 		accessScimUpdateLogsListAccessScimUpdateLogs,
 	"GET /accounts/{accountId}/access/organizations":
 		zeroTrustOrganizationGetYourZeroTrustOrganization,
+	"PATCH /accounts/{accountId}/access/organizations":
+		zeroTrustOrganizationPatchYourZeroTrustOrganization,
 	"POST /accounts/{accountId}/access/organizations":
 		zeroTrustOrganizationCreateYourZeroTrustOrganization,
 	"PUT /accounts/{accountId}/access/organizations":
@@ -177962,6 +178008,7 @@ export const operationsByTag = {
 	},
 	zeroTrustOrganization: {
 		zeroTrustOrganizationGetYourZeroTrustOrganization,
+		zeroTrustOrganizationPatchYourZeroTrustOrganization,
 		zeroTrustOrganizationCreateYourZeroTrustOrganization,
 		zeroTrustOrganizationUpdateYourZeroTrustOrganization,
 		zeroTrustOrganizationGetYourZeroTrustOrganizationDohSettings,
@@ -183025,6 +183072,10 @@ export const tagDictionary = {
 			"zeroTrustOrganizationGetYourZeroTrustOrganizationDohSettings",
 			"zeroTrustOrganizationGetTrustSettings",
 		],
+		PATCH: [
+			"zeroTrustOrganizationPatchYourZeroTrustOrganization",
+			"zeroTrustOrganizationUpdateTrustSettings",
+		],
 		POST: [
 			"zeroTrustOrganizationCreateYourZeroTrustOrganization",
 			"zeroTrustOrganizationRevokeAllAccessTokensForAUser",
@@ -183035,7 +183086,6 @@ export const tagDictionary = {
 			"zeroTrustOrganizationReplaceTrustSettings",
 		],
 		DELETE: ["zeroTrustOrganizationDeleteTrustSettings"],
-		PATCH: ["zeroTrustOrganizationUpdateTrustSettings"],
 	},
 	accessReusablePolicies: {
 		GET: ["accessPoliciesListAccessReusablePolicies", "accessPoliciesGetAnAccessReusablePolicy"],

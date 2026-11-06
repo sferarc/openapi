@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3773 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3774 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## health
 
@@ -1043,6 +1043,7 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3773 operatio
 | Call | Request | Summary |
 | --- | --- | --- |
 | `client.api.zeroTrustOrganization.zeroTrustOrganizationGetYourZeroTrustOrganization` | `GET /accounts/{accountId}/access/organizations` | Get your Zero Trust organization |
+| `client.api.zeroTrustOrganization.zeroTrustOrganizationPatchYourZeroTrustOrganization` | `PATCH /accounts/{accountId}/access/organizations` | Partially update your Zero Trust organization |
 | `client.api.zeroTrustOrganization.zeroTrustOrganizationCreateYourZeroTrustOrganization` | `POST /accounts/{accountId}/access/organizations` | Create your Zero Trust organization |
 | `client.api.zeroTrustOrganization.zeroTrustOrganizationUpdateYourZeroTrustOrganization` | `PUT /accounts/{accountId}/access/organizations` | Update your Zero Trust organization |
 | `client.api.zeroTrustOrganization.zeroTrustOrganizationGetYourZeroTrustOrganizationDohSettings` | `GET /accounts/{accountId}/access/organizations/doh` | Get your Zero Trust organization DoH settings |
