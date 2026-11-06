@@ -1,5 +1,20 @@
 # cloudflare-api-js
 
+## 4.19.0
+
+### Minor Changes
+
+- 5e5a464: [BREAKING] The workersPreviewsDeploymentsCreate and workersPreviewsDeploymentsPatchLatest operations now take Record<string, string> for queryParams instead of Partial<WorkersPreviewsDeploymentsCreateQuery/WorkersPreviewsDeploymentsPatchLatestQuery>.
+- 5e5a464: Added 503 Service Unavailable error responses to aigBillingCreateTopup and aigBillingSetTopupConfig operations.
+- 5e5a464: [BREAKING] Removed the ignore_defaults query parameter from WorkersPreviewsCreateQuery, WorkersPreviewsUpdateQuery, WorkersPreviewsDeploymentsCreateQuery, and WorkersPreviewsDeploymentsPatchLatestQuery types.
+- 5e5a464: Added new types for certificate pack ordering, including TlsCertificatesAndHostnamesCertificatePackOrder and TlsCertificatesAndHostnamesCertificatePackOrderResponseSingle.
+
+### Patch Changes
+
+- 5e5a464: Descriptions for certain fields updated to clarify omission from responses when not present, particularly for email alert fields and certificate authority or validity fields when settings are disabled.
+- 5e5a464: The updated_at field in TlsCertificatesAndHostnamesCustomTrustStore type is now optional and only returned when uploading a certificate.
+- 5e5a464: Updated descriptions for hostnames-related types to clarify returned data format and handling of null values.
+
 ## 4.18.0
 
 ### Minor Changes

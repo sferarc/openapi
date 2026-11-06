@@ -1,5 +1,18 @@
 # vercel-api-js
 
+## 2.24.0
+
+### Minor Changes
+
+- e6e67c6: Added optional 'process' field to GetProjectBoxesStatus200 with crash loop status information.
+- e6e67c6: Added 'crash_looping' to getProjectBoxesStatus200DaemonsStatusEnum.
+- e6e67c6: Extended the UserEvent type with new integration and git credential token event shapes.
+- e6e67c6: Added 'project-git-credential-token-minted' to userEventTypeEnum, listEventTypeNameEnum, and listEventTypeReplacedByEnum.
+
+### Patch Changes
+
+- e6e67c6: Clarified that the PatchTeamBody description can be set to an empty string to clear the current description, or omitted to keep the current value.
+
 ## 2.23.0
 
 ### Minor Changes
