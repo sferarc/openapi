@@ -1,5 +1,11 @@
 # netlify-api
 
+## 3.6.0
+
+### Minor Changes
+
+- 66fad27: Take a function as `token` in `NetlifyApi`, called before every request, so an OAuth access token refreshed through `auth.refreshToken` reaches an existing client. A fixed token works as before; `auth.refreshToken` never calls the function and sends `authToken` only when given.
+
 ## 3.5.0
 
 ### Minor Changes
