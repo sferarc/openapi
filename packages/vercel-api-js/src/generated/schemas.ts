@@ -3298,6 +3298,15 @@ export const userEventSchema = z
 					projectName: z.string(),
 				}),
 				z.strictObject({
+					expiresAt: z.string().nullable(),
+					grantId: z.string().nullable(),
+					namedSandboxId: z.string(),
+					permission: z.string().nullable(),
+					projectId: z.string(),
+					repositoryId: z.string(),
+					sandboxId: z.string(),
+				}),
+				z.strictObject({
 					boardId: z.string(),
 					operationId: z.string(),
 				}),
@@ -11207,6 +11216,13 @@ export const userEventSchema = z
 					type: z.enum(["app"]),
 				}),
 				z.strictObject({
+					avatar: z.string().optional(),
+					id: z.string().describe("The OAuth2 integration ID."),
+					name: z.string(),
+					slug: z.string().optional(),
+					type: z.enum(["integration"]),
+				}),
+				z.strictObject({
 					email: z.string().optional(),
 					id: z.string(),
 					name: z.string(),
@@ -11730,6 +11746,7 @@ export const userEventSchema = z
 				"project-git-credential-grant-created",
 				"project-git-credential-grant-deleted",
 				"project-git-credential-grant-updated",
+				"project-git-credential-token-minted",
 				"project-git-fork-protection-updated",
 				"project-git-lfs-toggled",
 				"project-git-pr-comments-toggled",
@@ -12043,6 +12060,13 @@ export const userEventSchema = z
 							.describe("The backing Vercel App ID. When absent, defaults to `clientId`."),
 						name: z.string(),
 						type: z.enum(["app"]),
+					}),
+					z.strictObject({
+						avatar: z.string().optional(),
+						id: z.string().describe("The OAuth2 integration ID."),
+						name: z.string(),
+						slug: z.string().optional(),
+						type: z.enum(["integration"]),
 					}),
 					z.strictObject({
 						email: z.string().optional(),
@@ -12592,6 +12616,7 @@ export const listEventTypeSchema = z
 				"project-git-credential-grant-created",
 				"project-git-credential-grant-deleted",
 				"project-git-credential-grant-updated",
+				"project-git-credential-token-minted",
 				"project-git-fork-protection-updated",
 				"project-git-lfs-toggled",
 				"project-git-pr-comments-toggled",
@@ -13356,6 +13381,7 @@ export const listEventTypeSchema = z
 					"project-git-credential-grant-created",
 					"project-git-credential-grant-deleted",
 					"project-git-credential-grant-updated",
+					"project-git-credential-token-minted",
 					"project-git-fork-protection-updated",
 					"project-git-lfs-toggled",
 					"project-git-pr-comments-toggled",
@@ -27114,6 +27140,16 @@ export const getProjectBoxesStatus200Schema = z.object({
 						image: z.string().optional(),
 						lastCheckedAt: z.string().optional(),
 						memoryMiB: z.number().optional(),
+						process: z
+							.object({
+								lastExitCode: z.number().optional(),
+								restarts: z.number(),
+								crashLooping: z.union([z.literal(false), z.literal(true)]),
+							})
+							.optional()
+							.describe(
+								"Quick restarts of the user container in a row. Absent when there are none.",
+							),
 						region: z.string(),
 						startedAt: z.string(),
 						stoppedAt: z.string().optional(),
@@ -27137,7 +27173,7 @@ export const getProjectBoxesStatus200Schema = z.object({
 					value: z.string(),
 				}),
 			]),
-			status: z.enum(["ready", "reconciling", "stopped"]),
+			status: z.enum(["crash_looping", "ready", "reconciling", "stopped"]),
 			updatedAt: z.string(),
 		}),
 	),
@@ -122292,7 +122328,9 @@ export const patchTeamBodySchema = z.strictObject({
 		.string()
 		.max(140)
 		.optional()
-		.describe("A short text that describes the team.")
+		.describe(
+			"A short text that describes the team. Set to an empty string to clear the description. Omit to keep the current description.",
+		)
 		.meta({ examples: ["Our mission is to make cloud computing accessible to everyone"] }),
 	emailDomain: z
 		.string()
