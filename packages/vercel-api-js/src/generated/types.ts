@@ -8050,6 +8050,7 @@ export const userEventTypeEnum = {
 	"ai-gateway-byok-model-mappings-updated": "ai-gateway-byok-model-mappings-updated",
 	"ai-gateway-credits-purchased": "ai-gateway-credits-purchased",
 	"ai-gateway-guardrails-updated": "ai-gateway-guardrails-updated",
+	"ai-gateway-headquarters-updated": "ai-gateway-headquarters-updated",
 	"ai-gateway-hipaa-compliance-toggled": "ai-gateway-hipaa-compliance-toggled",
 	"ai-gateway-inference-regions-updated": "ai-gateway-inference-regions-updated",
 	"ai-gateway-model-allowlist-models-updated": "ai-gateway-model-allowlist-models-updated",
@@ -8298,6 +8299,7 @@ export const userEventTypeEnum = {
 	"global-config-transfer-out": "global-config-transfer-out",
 	"global-config-updated": "global-config-updated",
 	"instant-rollback-created": "instant-rollback-created",
+	"integration-access-token-settings-updated": "integration-access-token-settings-updated",
 	"integration-configuration-credential-revoked": "integration-configuration-credential-revoked",
 	"integration-configuration-credential-rotated": "integration-configuration-credential-rotated",
 	"integration-configuration-owner-changed": "integration-configuration-owner-changed",
@@ -9405,6 +9407,9 @@ export type UserEvent = {
 				  }
 				| {
 						regions: string[];
+				  }
+				| {
+						countries: string[];
 				  }
 				| {
 						retention: {
@@ -12093,6 +12098,13 @@ export type UserEvent = {
 						integrationName: string;
 						integrationSlug: string;
 						previousSecretExpiresAt: number | null;
+				  }
+				| {
+						accessTokenRotation: false | true;
+						integrationId: string;
+						integrationName: string;
+						integrationSlug: string;
+						permanentTokensExpireAt?: number | undefined;
 				  }
 				| {
 						algorithm: string;
@@ -16373,6 +16385,7 @@ export const listEventTypeNameEnum = {
 	"ai-gateway-byok-model-mappings-updated": "ai-gateway-byok-model-mappings-updated",
 	"ai-gateway-credits-purchased": "ai-gateway-credits-purchased",
 	"ai-gateway-guardrails-updated": "ai-gateway-guardrails-updated",
+	"ai-gateway-headquarters-updated": "ai-gateway-headquarters-updated",
 	"ai-gateway-hipaa-compliance-toggled": "ai-gateway-hipaa-compliance-toggled",
 	"ai-gateway-inference-regions-updated": "ai-gateway-inference-regions-updated",
 	"ai-gateway-model-allowlist-models-updated": "ai-gateway-model-allowlist-models-updated",
@@ -16621,6 +16634,7 @@ export const listEventTypeNameEnum = {
 	"global-config-transfer-out": "global-config-transfer-out",
 	"global-config-updated": "global-config-updated",
 	"instant-rollback-created": "instant-rollback-created",
+	"integration-access-token-settings-updated": "integration-access-token-settings-updated",
 	"integration-configuration-credential-revoked": "integration-configuration-credential-revoked",
 	"integration-configuration-credential-rotated": "integration-configuration-credential-rotated",
 	"integration-configuration-owner-changed": "integration-configuration-owner-changed",
@@ -17161,6 +17175,7 @@ export const listEventTypeReplacedByEnum = {
 	"ai-gateway-byok-model-mappings-updated": "ai-gateway-byok-model-mappings-updated",
 	"ai-gateway-credits-purchased": "ai-gateway-credits-purchased",
 	"ai-gateway-guardrails-updated": "ai-gateway-guardrails-updated",
+	"ai-gateway-headquarters-updated": "ai-gateway-headquarters-updated",
 	"ai-gateway-hipaa-compliance-toggled": "ai-gateway-hipaa-compliance-toggled",
 	"ai-gateway-inference-regions-updated": "ai-gateway-inference-regions-updated",
 	"ai-gateway-model-allowlist-models-updated": "ai-gateway-model-allowlist-models-updated",
@@ -17409,6 +17424,7 @@ export const listEventTypeReplacedByEnum = {
 	"global-config-transfer-out": "global-config-transfer-out",
 	"global-config-updated": "global-config-updated",
 	"instant-rollback-created": "instant-rollback-created",
+	"integration-access-token-settings-updated": "integration-access-token-settings-updated",
 	"integration-configuration-credential-revoked": "integration-configuration-credential-revoked",
 	"integration-configuration-credential-rotated": "integration-configuration-credential-rotated",
 	"integration-configuration-owner-changed": "integration-configuration-owner-changed",
@@ -116523,6 +116539,8 @@ export type UpdateProjectDomainStatus409 = unknown;
 
 export type UpdateProjectDomainStatus410 = unknown;
 
+export type UpdateProjectDomainStatus429 = unknown;
+
 export const updateProjectDomainRequestRedirectStatusCodeEnum = {
 	"301": 301,
 	"302": 302,
@@ -116570,6 +116588,7 @@ export type UpdateProjectDomainResponses = {
 	"404": UpdateProjectDomainStatus404;
 	"409": UpdateProjectDomainStatus409;
 	"410": UpdateProjectDomainStatus410;
+	"429": UpdateProjectDomainStatus429;
 };
 
 /**
@@ -116728,6 +116747,8 @@ export type AddProjectDomainStatus409 = unknown;
 
 export type AddProjectDomainStatus410 = unknown;
 
+export type AddProjectDomainStatus429 = unknown;
+
 export const addProjectDomainRequestRedirectStatusCodeEnum = {
 	"301": 301,
 	"302": 302,
@@ -116787,6 +116808,7 @@ export type AddProjectDomainResponses = {
 	"404": AddProjectDomainStatus404;
 	"409": AddProjectDomainStatus409;
 	"410": AddProjectDomainStatus410;
+	"429": AddProjectDomainStatus429;
 };
 
 /**
@@ -116874,6 +116896,8 @@ export type MoveProjectDomainStatus409 = unknown;
 
 export type MoveProjectDomainStatus410 = unknown;
 
+export type MoveProjectDomainStatus429 = unknown;
+
 export const moveProjectDomainRequestRedirectStatusCodeEnum = {
 	"301": 301,
 	"302": 302,
@@ -116928,6 +116952,7 @@ export type MoveProjectDomainResponses = {
 	"404": MoveProjectDomainStatus404;
 	"409": MoveProjectDomainStatus409;
 	"410": MoveProjectDomainStatus410;
+	"429": MoveProjectDomainStatus429;
 };
 
 /**
