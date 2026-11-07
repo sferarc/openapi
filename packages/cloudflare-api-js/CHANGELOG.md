@@ -1,5 +1,17 @@
 # cloudflare-api-js
 
+## 4.24.0
+
+### Minor Changes
+
+- d9e704f: Added createDexNotification operation to create an account-wide or device-specific notification.
+- d9e704f: Added listDexNotifications operation to list notification history for an account.
+- d9e704f: Added listDexNotificationOutcomes operation to list observed device outcomes for a notification.
+
+### Patch Changes
+
+- d9e704f: Added types and response objects for DigitalExperienceMonitoring notifications and outcomes, including request/response types, enums, and query parameters.
+
 ## 4.23.0
 
 ### Minor Changes

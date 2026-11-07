@@ -1,5 +1,11 @@
 # litellm-api
 
+## 2.18.0
+
+### Minor Changes
+
+- f76ae81: Added new callTypes: get_responses, aget_responses, delete_responses, adelete_responses, cancel_responses, acancel_responses, compact_responses, acompact_responses.
+
 ## 2.17.0
 
 ### Minor Changes
