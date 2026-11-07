@@ -37839,6 +37839,125 @@ export type DigitalExperienceMonitoringApiResponseCommonFailure = {
 export type DigitalExperienceMonitoringApiResponseSingle = DigitalExperienceMonitoringApiResponseCommon;
 
 /**
+ * @description Timestamp in ISO 8601 datetime format.
+ *
+ * Format: `date-time`
+ * @example 2023-10-11T00:00:00Z
+ * @type string
+ */
+export type DigitalExperienceMonitoringTimestampDatetime = string;
+
+/**
+ * @description API Resource UUID tag.
+ * @maxLength 36
+ * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
+ * @type string
+ */
+export type DigitalExperienceMonitoringUuid = string;
+
+export type DigitalExperienceMonitoringNotificationOutcomeCounts = {
+  /**
+   * @description Number of delivered outcomes.
+   *
+   * Format: `int64`
+   * @minimum 0
+   * @type integer
+   */
+  delivered: number;
+  /**
+   * @description Whether these weighted counts may be affected by equitable sampling before full-resolution storage.
+   * @type boolean
+   */
+  estimated: boolean;
+  /**
+   * @description Number of expired outcomes.
+   *
+   * Format: `int64`
+   * @minimum 0
+   * @type integer
+   */
+  expired: number;
+  /**
+   * @description Number of failed outcomes.
+   *
+   * Format: `int64`
+   * @minimum 0
+   * @type integer
+   */
+  failed: number;
+};
+
+export const digitalExperienceMonitoringClientNotificationScopeEnum = {
+  account: 'account',
+  device: 'device',
+} as const;
+
+export type DigitalExperienceMonitoringClientNotificationScopeEnumKey = (typeof digitalExperienceMonitoringClientNotificationScopeEnum)[keyof typeof digitalExperienceMonitoringClientNotificationScopeEnum];
+
+export const digitalExperienceMonitoringClientNotificationStatusEnum = {
+  pending: 'pending',
+  sent: 'sent',
+  failed: 'failed',
+} as const;
+
+export type DigitalExperienceMonitoringClientNotificationStatusEnumKey = (typeof digitalExperienceMonitoringClientNotificationStatusEnum)[keyof typeof digitalExperienceMonitoringClientNotificationStatusEnum];
+
+export type DigitalExperienceMonitoringClientNotification = {
+  /**
+   * @description Time at which the notification sendout was created.
+   *
+   * Format: `date-time`
+   * @example 2023-10-11T00:00:00Z
+   * @type string
+   */
+  created_at: DigitalExperienceMonitoringTimestampDatetime;
+  /**
+   * @description Unique identifier for the notification sendout.
+   * @maxLength 36
+   * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
+   * @type string
+   */
+  id: DigitalExperienceMonitoringUuid;
+  /**
+   * @description Plain-text notification message.
+   * @type string
+   */
+  message: string;
+  /**
+   * @description Weighted delivery outcome counts derived from sampled delivery events.
+   * @type object | undefined
+   */
+  outcome_counts?: DigitalExperienceMonitoringNotificationOutcomeCounts | undefined;
+  /**
+   * @description Number of targeted device registrations. Omitted for account-wide notifications.
+   * @minimum 1
+   * @maximum 100
+   * @type integer | undefined
+   */
+  recipient_count?: number | undefined;
+  /**
+   * @description Whether the notification was sent account-wide or to selected device registrations.
+   * @type string
+   */
+  scope: DigitalExperienceMonitoringClientNotificationScopeEnumKey;
+  /**
+   * @description Dispatch status indicating whether the notification was accepted for delivery, not a device delivery outcome.
+   * @type string
+   */
+  status: DigitalExperienceMonitoringClientNotificationStatusEnumKey;
+  /**
+   * @description URL supplied to recipients for additional information.
+   * @type string | undefined
+   */
+  support_url?: string | undefined;
+  /**
+   * @description Plain-text notification title.
+   * @type string
+   */
+  title: string;
+};
+
+/**
  * @description Cloudflare colo airport code.
  * @example SJC
  * @type string
@@ -37981,6 +38100,33 @@ export type DigitalExperienceMonitoringCpuPctByApp = {
    * @type string | undefined
    */
   name?: (string | null) | undefined;
+};
+
+export type DigitalExperienceMonitoringCreateNotificationRequest = {
+  /**
+   * @description Plain-text notification message.
+   * @minLength 1
+   * @maxLength 500
+   * @type string
+   */
+  message: string;
+  /**
+   * @description Device registration IDs to notify. Omit to send an account-wide notification.
+   * @type array | undefined
+   */
+  registration_ids?: DigitalExperienceMonitoringUuid[] | undefined;
+  /**
+   * @description URL supplied to recipients for additional information. Required when registration_ids is set.
+   * @type string | undefined
+   */
+  support_url?: string | undefined;
+  /**
+   * @description Plain-text notification title.
+   * @minLength 1
+   * @maxLength 100
+   * @type string
+   */
+  title: string;
 };
 
 export type DigitalExperienceMonitoringCreateRuleBody = {
@@ -38355,14 +38501,6 @@ export type DigitalExperienceMonitoringDeviceDexTestSchemasInterval = string;
  * @type string
  */
 export type DigitalExperienceMonitoringDeviceDexTestSchemasName = string;
-
-/**
- * @description API Resource UUID tag.
- * @maxLength 36
- * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
- * @type string
- */
-export type DigitalExperienceMonitoringUuid = string;
 
 export type DigitalExperienceMonitoringDexTargetPolicy = {
   /**
@@ -38990,6 +39128,67 @@ export type DigitalExperienceMonitoringGetCommandsResponse = {
   }[] | undefined;
 };
 
+export const digitalExperienceMonitoringNotificationOutcomeStatusEnum = {
+  delivered: 'delivered',
+  failed: 'failed',
+  expired: 'expired',
+} as const;
+
+export type DigitalExperienceMonitoringNotificationOutcomeStatusEnumKey = (typeof digitalExperienceMonitoringNotificationOutcomeStatusEnum)[keyof typeof digitalExperienceMonitoringNotificationOutcomeStatusEnum];
+
+export type DigitalExperienceMonitoringNotificationOutcome = {
+  /**
+   * @description Active notification duration in milliseconds. Expired outcomes report zero.
+   *
+   * Format: `int64`
+   * @minimum 0
+   * @type integer
+   */
+  duration_ms: number;
+  /**
+   * @description Registration ID of the device that produced the outcome.
+   * @type string
+   */
+  registration_id: string;
+  /**
+   * @description Sampling interval for this event. Values above one indicate a sampled result.
+   *
+   * Format: `int64`
+   * @minimum 1
+   * @type integer
+   */
+  sample_interval: number;
+  /**
+   * @description Observed notification delivery status.
+   * @type string
+   */
+  status: DigitalExperienceMonitoringNotificationOutcomeStatusEnumKey;
+  /**
+   * @description Time when the outcome was observed.
+   *
+   * Format: `date-time`
+   * @example 2023-10-11T00:00:00Z
+   * @type string
+   */
+  timestamp: DigitalExperienceMonitoringTimestampDatetime;
+};
+
+export type DigitalExperienceMonitoringGetNotificationOutcomesResponse = {
+  /**
+   * @description Observed notification outcomes ordered from newest to oldest.
+   * @type array
+   */
+  outcomes: DigitalExperienceMonitoringNotificationOutcome[];
+};
+
+export type DigitalExperienceMonitoringGetNotificationsResponse = {
+  /**
+   * @description Notification sendouts ordered from newest to oldest.
+   * @type array
+   */
+  notifications: DigitalExperienceMonitoringClientNotification[];
+};
+
 export type DigitalExperienceMonitoringPercentiles = {
   /**
    * @description p50 observed in the time period.
@@ -39429,15 +39628,6 @@ export type DigitalExperienceMonitoringTestsResponse = {
  * @type string
  */
 export type DigitalExperienceMonitoringTimeNow = string;
-
-/**
- * @description Timestamp in ISO 8601 datetime format.
- *
- * Format: `date-time`
- * @example 2023-10-11T00:00:00Z
- * @type string
- */
-export type DigitalExperienceMonitoringTimestampDatetime = string;
 
 export type DigitalExperienceMonitoringTracerouteDetailsPercentilesResponse = {
   hopsCount?: DigitalExperienceMonitoringPercentiles | undefined;
@@ -339398,6 +339588,207 @@ export type DexEndpointsHttpTestPercentilesResponses = {
  * @description Union of all possible responses
  */
 export type DexEndpointsHttpTestPercentilesResponse = DexEndpointsHttpTestPercentilesStatus200;
+
+export type ListDexNotificationsPath = {
+  /**
+   * @description Unique Cloudflare account ID.
+   * @maxLength 32
+   * @example 01a7362d577a6c3019a474fd6f485823
+   * @type string
+   */
+  readonly accountId: DigitalExperienceMonitoringAccountIdentifier;
+};
+
+export const listDexNotificationsScope = {
+  account: 'account',
+  device: 'device',
+} as const;
+
+export type ListDexNotificationsScopeKey = (typeof listDexNotificationsScope)[keyof typeof listDexNotificationsScope];
+
+export const listDexNotificationsStatus = {
+  pending: 'pending',
+  sent: 'sent',
+  failed: 'failed',
+} as const;
+
+export type ListDexNotificationsStatusKey = (typeof listDexNotificationsStatus)[keyof typeof listDexNotificationsStatus];
+
+export type ListDexNotificationsQuery = {
+  /**
+   * @description Page number of paginated results.
+   * @minimum 1
+   * @default 1
+   * @type integer | undefined
+   */
+  page?: number | undefined;
+  /**
+   * @description Number of results per page.
+   * @minimum 1
+   * @maximum 50
+   * @default 10
+   * @type integer | undefined
+   */
+  per_page?: number | undefined;
+  /**
+   * @description Filters notifications by title or message.
+   * @type string | undefined
+   */
+  search?: string | undefined;
+  /**
+   * @description Earliest notification creation time to include.
+   *
+   * Format: `date-time`
+   * @example 2023-10-11T00:00:00Z
+   * @type string | undefined
+   */
+  from?: DigitalExperienceMonitoringTimestampDatetime | undefined;
+  /**
+   * @description Latest notification creation time to include.
+   *
+   * Format: `date-time`
+   * @example 2023-10-11T00:00:00Z
+   * @type string | undefined
+   */
+  to?: DigitalExperienceMonitoringTimestampDatetime | undefined;
+  /**
+   * @description Filters notifications by recipient scope.
+   * @type string | undefined
+   */
+  scope?: ListDexNotificationsScopeKey | undefined;
+  /**
+   * @description Filters notifications by dispatch status, not device delivery outcome.
+   * @type string | undefined
+   */
+  status?: ListDexNotificationsStatusKey | undefined;
+};
+
+export type ListDexNotificationsStatus200 = DigitalExperienceMonitoringApiResponseCollection & {
+  result?: DigitalExperienceMonitoringGetNotificationsResponse | undefined;
+};
+
+export type ListDexNotificationsStatus400 = DigitalExperienceMonitoringApiResponseCommonFailure;
+
+export type ListDexNotificationsOptions = {
+  body?: never | undefined;
+  path: ListDexNotificationsPath;
+  query?: ListDexNotificationsQuery | undefined;
+  headers?: never | undefined;
+};
+
+export type ListDexNotificationsResponses = {
+  '200': ListDexNotificationsStatus200;
+  '400': ListDexNotificationsStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListDexNotificationsResponse = ListDexNotificationsStatus200;
+
+export type CreateDexNotificationPath = {
+  /**
+   * @description Unique Cloudflare account ID.
+   * @maxLength 32
+   * @example 01a7362d577a6c3019a474fd6f485823
+   * @type string
+   */
+  readonly accountId: DigitalExperienceMonitoringAccountIdentifier;
+};
+
+export type CreateDexNotificationStatus201 = DigitalExperienceMonitoringApiResponseSingle & {
+  result?: DigitalExperienceMonitoringClientNotification | undefined;
+};
+
+export type CreateDexNotificationStatus400 = DigitalExperienceMonitoringApiResponseCommonFailure;
+
+export type CreateDexNotificationBody = DigitalExperienceMonitoringCreateNotificationRequest;
+
+export type CreateDexNotificationOptions = {
+  body: CreateDexNotificationBody;
+  path: CreateDexNotificationPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type CreateDexNotificationResponses = {
+  '201': CreateDexNotificationStatus201;
+  '400': CreateDexNotificationStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateDexNotificationResponse = CreateDexNotificationStatus201;
+
+export type ListDexNotificationOutcomesPath = {
+  /**
+   * @description Unique Cloudflare account ID.
+   * @maxLength 32
+   * @example 01a7362d577a6c3019a474fd6f485823
+   * @type string
+   */
+  readonly accountId: DigitalExperienceMonitoringAccountIdentifier;
+  /**
+   * @description Unique identifier for the notification sendout.
+   * @maxLength 36
+   * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
+   * @type string
+   */
+  notificationId: DigitalExperienceMonitoringUuid;
+};
+
+export const listDexNotificationOutcomesOutcome = {
+  delivered: 'delivered',
+  failed: 'failed',
+  expired: 'expired',
+} as const;
+
+export type ListDexNotificationOutcomesOutcomeKey = (typeof listDexNotificationOutcomesOutcome)[keyof typeof listDexNotificationOutcomesOutcome];
+
+export type ListDexNotificationOutcomesQuery = {
+  /**
+   * @description Number of results per page.
+   * @minimum 1
+   * @maximum 50
+   * @default 50
+   * @type integer | undefined
+   */
+  per_page?: number | undefined;
+  /**
+   * @description Cursor for the next page of results.
+   * @type string | undefined
+   */
+  cursor?: string | undefined;
+  /**
+   * @description Filters results by outcome.
+   * @type string | undefined
+   */
+  outcome?: ListDexNotificationOutcomesOutcomeKey | undefined;
+};
+
+export type ListDexNotificationOutcomesStatus200 = DigitalExperienceMonitoringApiResponseCollection & {
+  result?: DigitalExperienceMonitoringGetNotificationOutcomesResponse | undefined;
+};
+
+export type ListDexNotificationOutcomesStatus400 = DigitalExperienceMonitoringApiResponseCommonFailure;
+
+export type ListDexNotificationOutcomesOptions = {
+  body?: never | undefined;
+  path: ListDexNotificationOutcomesPath;
+  query?: ListDexNotificationOutcomesQuery | undefined;
+  headers?: never | undefined;
+};
+
+export type ListDexNotificationOutcomesResponses = {
+  '200': ListDexNotificationOutcomesStatus200;
+  '400': ListDexNotificationOutcomesStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListDexNotificationOutcomesResponse = ListDexNotificationOutcomesStatus200;
 
 export type ListDexRulesPath = {
   /**

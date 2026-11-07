@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3774 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3777 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## health
 
@@ -2925,6 +2925,14 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3774 operatio
 | `client.api.dexRemoteCommands.getCommandsEligibleDevices` | `GET /accounts/{accountId}/dex/commands/devices` | List devices eligible for remote captures |
 | `client.api.dexRemoteCommands.getCommandsQuota` | `GET /accounts/{accountId}/dex/commands/quota` | Returns account commands usage, quota, and reset time |
 | `client.api.dexRemoteCommands.getCommandsCommandIdDownloadsFilename` | `GET /accounts/{accountId}/dex/commands/{commandId}/downloads/{filename}` | Download command output file |
+
+## dexNotifications
+
+| Call | Request | Summary |
+| --- | --- | --- |
+| `client.api.dexNotifications.listDexNotifications` | `GET /accounts/{accountId}/dex/notifications` | List notification history |
+| `client.api.dexNotifications.createDexNotification` | `POST /accounts/{accountId}/dex/notifications` | Create a notification |
+| `client.api.dexNotifications.listDexNotificationOutcomes` | `GET /accounts/{accountId}/dex/notifications/{notificationId}/outcomes` | List notification outcomes |
 
 ## dexRules
 
