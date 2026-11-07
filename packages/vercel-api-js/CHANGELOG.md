@@ -1,5 +1,13 @@
 # vercel-api-js
 
+## 2.28.1
+
+### Patch Changes
+
+- 7abdcb1: Added 'ai-gateway-headquarters-updated' and 'integration-access-token-settings-updated' to userEventTypeEnum and listEventTypeNameEnum.
+- 7abdcb1: Expanded UserEvent type with new event variants for AI gateway headquarters updates and integration access token settings.
+- 7abdcb1: Added support for HTTP 429 responses in updateProjectDomain, addProjectDomain, and moveProjectDomain operations.
+
 ## 2.28.0
 
 ### Minor Changes
