@@ -121341,6 +121341,12 @@ export const createIntegrationStoreDirectStatus200Schema = z.object({
 					length: z.number(),
 					name: z.string(),
 					nonSensitive: z.union([z.literal(false), z.literal(true)]).optional(),
+					tokenSetKey: z
+						.string()
+						.optional()
+						.describe(
+							"The token set key `name` is built from; absent for env vars that are not in the token set.",
+						),
 				}),
 			),
 			secretsAppliedAt: z.number().optional(),
