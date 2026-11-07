@@ -3750,6 +3750,9 @@ export const userEventSchema = z
 					regions: z.array(z.string()),
 				}),
 				z.strictObject({
+					countries: z.array(z.string()),
+				}),
+				z.strictObject({
 					retention: z.object({
 						ceilingDays: z.number().optional(),
 						ceilingMode: z.enum(["days", "until-requested"]),
@@ -7010,6 +7013,13 @@ export const userEventSchema = z
 					integrationName: z.string(),
 					integrationSlug: z.string(),
 					previousSecretExpiresAt: z.number().nullable(),
+				}),
+				z.strictObject({
+					accessTokenRotation: z.union([z.literal(false), z.literal(true)]),
+					integrationId: z.string(),
+					integrationName: z.string(),
+					integrationSlug: z.string(),
+					permanentTokensExpireAt: z.number().optional(),
 				}),
 				z.strictObject({
 					algorithm: z.string(),
@@ -11370,6 +11380,7 @@ export const userEventSchema = z
 				"ai-gateway-byok-model-mappings-updated",
 				"ai-gateway-credits-purchased",
 				"ai-gateway-guardrails-updated",
+				"ai-gateway-headquarters-updated",
 				"ai-gateway-hipaa-compliance-toggled",
 				"ai-gateway-inference-regions-updated",
 				"ai-gateway-model-allowlist-models-updated",
@@ -11615,6 +11626,7 @@ export const userEventSchema = z
 				"global-config-transfer-out",
 				"global-config-updated",
 				"instant-rollback-created",
+				"integration-access-token-settings-updated",
 				"integration-configuration-credential-revoked",
 				"integration-configuration-credential-rotated",
 				"integration-configuration-owner-changed",
@@ -12247,6 +12259,7 @@ export const listEventTypeSchema = z
 				"ai-gateway-byok-model-mappings-updated",
 				"ai-gateway-credits-purchased",
 				"ai-gateway-guardrails-updated",
+				"ai-gateway-headquarters-updated",
 				"ai-gateway-hipaa-compliance-toggled",
 				"ai-gateway-inference-regions-updated",
 				"ai-gateway-model-allowlist-models-updated",
@@ -12492,6 +12505,7 @@ export const listEventTypeSchema = z
 				"global-config-transfer-out",
 				"global-config-updated",
 				"instant-rollback-created",
+				"integration-access-token-settings-updated",
 				"integration-configuration-credential-revoked",
 				"integration-configuration-credential-rotated",
 				"integration-configuration-owner-changed",
@@ -13019,6 +13033,7 @@ export const listEventTypeSchema = z
 					"ai-gateway-byok-model-mappings-updated",
 					"ai-gateway-credits-purchased",
 					"ai-gateway-guardrails-updated",
+					"ai-gateway-headquarters-updated",
 					"ai-gateway-hipaa-compliance-toggled",
 					"ai-gateway-inference-regions-updated",
 					"ai-gateway-model-allowlist-models-updated",
@@ -13264,6 +13279,7 @@ export const listEventTypeSchema = z
 					"global-config-transfer-out",
 					"global-config-updated",
 					"instant-rollback-created",
+					"integration-access-token-settings-updated",
 					"integration-configuration-credential-revoked",
 					"integration-configuration-credential-rotated",
 					"integration-configuration-owner-changed",
@@ -96819,6 +96835,8 @@ export const updateProjectDomainStatus409Schema = z.unknown();
 
 export const updateProjectDomainStatus410Schema = z.unknown();
 
+export const updateProjectDomainStatus429Schema = z.unknown();
+
 export const updateProjectDomainResponseSchema = updateProjectDomainStatus200Schema;
 
 export const updateProjectDomainErrorSchema = z.union([
@@ -96828,6 +96846,7 @@ export const updateProjectDomainErrorSchema = z.union([
 	updateProjectDomainStatus404Schema,
 	updateProjectDomainStatus409Schema,
 	updateProjectDomainStatus410Schema,
+	updateProjectDomainStatus429Schema,
 ]);
 
 export const updateProjectDomainBodySchema = z.object({
@@ -97010,6 +97029,8 @@ export const addProjectDomainStatus409Schema = z.unknown();
 
 export const addProjectDomainStatus410Schema = z.unknown();
 
+export const addProjectDomainStatus429Schema = z.unknown();
+
 export const addProjectDomainResponseSchema = addProjectDomainStatus200Schema;
 
 export const addProjectDomainErrorSchema = z.union([
@@ -97020,6 +97041,7 @@ export const addProjectDomainErrorSchema = z.union([
 	addProjectDomainStatus404Schema,
 	addProjectDomainStatus409Schema,
 	addProjectDomainStatus410Schema,
+	addProjectDomainStatus429Schema,
 ]);
 
 export const addProjectDomainBodySchema = z.object({
@@ -97131,6 +97153,8 @@ export const moveProjectDomainStatus409Schema = z.unknown();
 
 export const moveProjectDomainStatus410Schema = z.unknown();
 
+export const moveProjectDomainStatus429Schema = z.unknown();
+
 export const moveProjectDomainResponseSchema = moveProjectDomainStatus200Schema;
 
 export const moveProjectDomainErrorSchema = z.union([
@@ -97140,6 +97164,7 @@ export const moveProjectDomainErrorSchema = z.union([
 	moveProjectDomainStatus404Schema,
 	moveProjectDomainStatus409Schema,
 	moveProjectDomainStatus410Schema,
+	moveProjectDomainStatus429Schema,
 ]);
 
 export const moveProjectDomainBodySchema = z

@@ -57,6 +57,7 @@ import type {
 	AddProjectDomainStatus404,
 	AddProjectDomainStatus409,
 	AddProjectDomainStatus410,
+	AddProjectDomainStatus429,
 	AddProjectMemberBody,
 	AddProjectMemberPath,
 	AddProjectMemberQuery,
@@ -3243,6 +3244,7 @@ import type {
 	MoveProjectDomainStatus404,
 	MoveProjectDomainStatus409,
 	MoveProjectDomainStatus410,
+	MoveProjectDomainStatus429,
 	PatchDomainBody,
 	PatchDomainPath,
 	PatchDomainQuery,
@@ -4178,6 +4180,7 @@ import type {
 	UpdateProjectDomainStatus404,
 	UpdateProjectDomainStatus409,
 	UpdateProjectDomainStatus410,
+	UpdateProjectDomainStatus429,
 	UpdateProjectPath,
 	UpdateProjectProtectionBypassBody,
 	UpdateProjectProtectionBypassPath,
@@ -18496,6 +18499,7 @@ export async function updateProjectDomain(
 			| UpdateProjectDomainStatus404
 			| UpdateProjectDomainStatus409
 			| UpdateProjectDomainStatus410
+			| UpdateProjectDomainStatus429
 		>,
 		UpdateProjectDomainBody,
 		Record<string, string>,
@@ -18599,6 +18603,7 @@ export async function addProjectDomain(
 			| AddProjectDomainStatus404
 			| AddProjectDomainStatus409
 			| AddProjectDomainStatus410
+			| AddProjectDomainStatus429
 		>,
 		AddProjectDomainBody,
 		Record<string, string>,
@@ -18652,6 +18657,7 @@ export async function moveProjectDomain(
 			| MoveProjectDomainStatus404
 			| MoveProjectDomainStatus409
 			| MoveProjectDomainStatus410
+			| MoveProjectDomainStatus429
 		>,
 		MoveProjectDomainBody,
 		Record<string, string>,
