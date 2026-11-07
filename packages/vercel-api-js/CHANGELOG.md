@@ -1,5 +1,11 @@
 # vercel-api-js
 
+## 2.28.2
+
+### Patch Changes
+
+- f5be088: Added optional tokenSetKey field to CreateIntegrationStoreDirectStatus200 response type.
+
 ## 2.28.1
 
 ### Patch Changes
