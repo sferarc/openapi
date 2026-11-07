@@ -144706,6 +144706,11 @@ export type CreateIntegrationStoreDirectStatus200 = {
 			length: number;
 			name: string;
 			nonSensitive?: (false | true) | undefined;
+			/**
+			 * @description The token set key `name` is built from; absent for env vars that are not in the token set.
+			 * @type string | undefined
+			 */
+			tokenSetKey?: string | undefined;
 		}[];
 		secretsAppliedAt?: number | undefined;
 		/**
