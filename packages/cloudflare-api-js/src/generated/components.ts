@@ -3069,6 +3069,10 @@ import type {
 	CreateDeploymentGroupPath,
 	CreateDeploymentGroupResponse,
 	CreateDeploymentGroupStatus400,
+	CreateDexNotificationBody,
+	CreateDexNotificationPath,
+	CreateDexNotificationResponse,
+	CreateDexNotificationStatus400,
 	CreateDexRuleBody,
 	CreateDexRulePath,
 	CreateDexRuleResponse,
@@ -7747,6 +7751,14 @@ import type {
 	ListDevicesQuery,
 	ListDevicesResponse,
 	ListDevicesStatus400,
+	ListDexNotificationOutcomesPath,
+	ListDexNotificationOutcomesQuery,
+	ListDexNotificationOutcomesResponse,
+	ListDexNotificationOutcomesStatus400,
+	ListDexNotificationsPath,
+	ListDexNotificationsQuery,
+	ListDexNotificationsResponse,
+	ListDexNotificationsStatus400,
 	ListDexRulesPath,
 	ListDexRulesQuery,
 	ListDexRulesResponse,
@@ -75500,6 +75512,127 @@ export async function dexEndpointsHttpTestPercentiles(
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/dex/http-tests/${encodeURIComponent(String(pathParams.testId))}/percentiles`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List notification history
+ * @description Lists notification sendouts created for an account within the 31-day history retention period.
+ * @link /accounts/{accountId}/dex/notifications
+ */
+export async function listDexNotifications(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: ListDexNotificationsPath;
+		queryParams?: Partial<ListDexNotificationsQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		ListDexNotificationsResponse,
+		ErrorWrapper<ListDexNotificationsStatus400>,
+		null,
+		Record<string, string>,
+		Partial<ListDexNotificationsQuery>,
+		ListDexNotificationsPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/dex/notifications`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Create a notification
+ * @description Creates an account-wide notification or a notification for selected device registrations.
+ * @link /accounts/{accountId}/dex/notifications
+ */
+export async function createDexNotification(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: CreateDexNotificationPath;
+		body: CreateDexNotificationBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		CreateDexNotificationResponse,
+		ErrorWrapper<CreateDexNotificationStatus400>,
+		CreateDexNotificationBody,
+		Record<string, string>,
+		Record<string, string>,
+		CreateDexNotificationPath
+	>({
+		method: "POST",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/dex/notifications`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List notification outcomes
+ * @description Lists observed device outcomes for a notification sendout. Sampling may omit outcomes; each result includes its sampling interval.
+ * @link /accounts/{accountId}/dex/notifications/{notificationId}/outcomes
+ */
+export async function listDexNotificationOutcomes(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: ListDexNotificationOutcomesPath;
+		queryParams?: Partial<ListDexNotificationOutcomesQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.notificationId == null || String(pathParams.notificationId) === "") {
+		throw new Error(`Missing required path parameter: notificationId`);
+	}
+	const data = await request<
+		ListDexNotificationOutcomesResponse,
+		ErrorWrapper<ListDexNotificationOutcomesStatus400>,
+		null,
+		Record<string, string>,
+		Partial<ListDexNotificationOutcomesQuery>,
+		ListDexNotificationOutcomesPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/dex/notifications/${encodeURIComponent(String(pathParams.notificationId))}/outcomes`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -174055,6 +174188,10 @@ export const operationsByPath = {
 	"GET /accounts/{accountId}/dex/fleet-status/over-time": dexFleetStatusOverTime,
 	"GET /accounts/{accountId}/dex/http-tests/{testId}": dexEndpointsHttpTestDetails,
 	"GET /accounts/{accountId}/dex/http-tests/{testId}/percentiles": dexEndpointsHttpTestPercentiles,
+	"GET /accounts/{accountId}/dex/notifications": listDexNotifications,
+	"POST /accounts/{accountId}/dex/notifications": createDexNotification,
+	"GET /accounts/{accountId}/dex/notifications/{notificationId}/outcomes":
+		listDexNotificationOutcomes,
 	"GET /accounts/{accountId}/dex/rules": listDexRules,
 	"POST /accounts/{accountId}/dex/rules": createDexRule,
 	"DELETE /accounts/{accountId}/dex/rules/{ruleId}": deleteDexRule,
@@ -179399,6 +179536,11 @@ export const operationsByTag = {
 		getCommandsQuota,
 		getCommandsCommandIdDownloadsFilename,
 	},
+	dexNotifications: {
+		listDexNotifications,
+		createDexNotification,
+		listDexNotificationOutcomes,
+	},
 	dexRules: {
 		listDexRules,
 		createDexRule,
@@ -184477,6 +184619,10 @@ export const tagDictionary = {
 			"getCommandsCommandIdDownloadsFilename",
 		],
 		POST: ["postCommands"],
+	},
+	dexNotifications: {
+		GET: ["listDexNotifications", "listDexNotificationOutcomes"],
+		POST: ["createDexNotification"],
 	},
 	dexRules: {
 		GET: ["listDexRules", "getDexRule"],
