@@ -6183,6 +6183,20 @@ export const userEventSchema = z
 					integrationName: z.string().optional(),
 				}),
 				z.strictObject({
+					driveName: z.string(),
+					projectId: z.string(),
+					projectName: z.string(),
+					region: z.string(),
+				}),
+				z.strictObject({
+					driveName: z.string(),
+					projectId: z.string(),
+					projectName: z.string(),
+					region: z.string(),
+					snapshotId: z.string(),
+					snapshotName: z.string(),
+				}),
+				z.strictObject({
 					projectId: z.string(),
 					projectName: z.string(),
 					srcImages: z.array(z.string()),
@@ -9165,20 +9179,6 @@ export const userEventSchema = z
 					sandboxName: z.string(),
 				}),
 				z.strictObject({
-					driveName: z.string(),
-					projectId: z.string(),
-					projectName: z.string(),
-					region: z.string(),
-				}),
-				z.strictObject({
-					driveName: z.string(),
-					projectId: z.string(),
-					projectName: z.string(),
-					region: z.string(),
-					snapshotId: z.string(),
-					snapshotName: z.string(),
-				}),
-				z.strictObject({
 					projectId: z.string(),
 					projectName: z.string(),
 					snapshotId: z.string(),
@@ -11543,6 +11543,10 @@ export const userEventSchema = z
 				"drain-disabled",
 				"drain-enabled",
 				"drain-updated",
+				"drive-created",
+				"drive-deleted",
+				"drive-snapshot-created",
+				"drive-snapshot-deleted",
 				"edge-cache-dangerously-delete-by-src-images",
 				"edge-cache-dangerously-delete-by-tags",
 				"edge-cache-dangerously-delete-immutable-static",
@@ -12422,6 +12426,10 @@ export const listEventTypeSchema = z
 				"drain-disabled",
 				"drain-enabled",
 				"drain-updated",
+				"drive-created",
+				"drive-deleted",
+				"drive-snapshot-created",
+				"drive-snapshot-deleted",
 				"edge-cache-dangerously-delete-by-src-images",
 				"edge-cache-dangerously-delete-by-tags",
 				"edge-cache-dangerously-delete-immutable-static",
@@ -13196,6 +13204,10 @@ export const listEventTypeSchema = z
 					"drain-disabled",
 					"drain-enabled",
 					"drain-updated",
+					"drive-created",
+					"drive-deleted",
+					"drive-snapshot-created",
+					"drive-snapshot-deleted",
 					"edge-cache-dangerously-delete-by-src-images",
 					"edge-cache-dangerously-delete-by-tags",
 					"edge-cache-dangerously-delete-immutable-static",
@@ -14970,7 +14982,9 @@ export const sessionCommandSchema = z
 		exitCode: z
 			.number()
 			.nullable()
-			.describe("If the command did finish, the exit code.")
+			.describe(
+				"The exit code of the command, or `null` if no exit code has been recorded. The exit code is recorded only when a request waits for the command to finish (`wait=true` when running or getting the command). Polling without `wait=true` returns `null` until such a request records it, even if the command has already finished.",
+			)
 			.meta({ examples: [0] }),
 		id: z
 			.string()
@@ -109318,7 +109332,7 @@ export const getSessionCommandQueryWaitSchema = z
 	.optional()
 	.default("false")
 	.describe(
-		'If set to "true", the request will block until the command finishes execution. Useful for synchronously waiting for command completion.',
+		'If set to "true", the request will block until the command finishes execution and the response will include its exit code. Otherwise, `exitCode` is `null` unless a previous request waited for the command to finish.',
 	);
 
 export const getSessionCommandQueryTeamIdSchema = z
@@ -109382,7 +109396,7 @@ export const getSessionCommandQuerySchema = z.object({
 		.optional()
 		.default("false")
 		.describe(
-			'If set to "true", the request will block until the command finishes execution. Useful for synchronously waiting for command completion.',
+			'If set to "true", the request will block until the command finishes execution and the response will include its exit code. Otherwise, `exitCode` is `null` unless a previous request waited for the command to finish.',
 		),
 	teamId: z
 		.string()
