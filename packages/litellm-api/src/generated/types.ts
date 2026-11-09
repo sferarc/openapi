@@ -777,6 +777,24 @@ export const imageGenerationInputFidelity = {
 export type ImageGenerationInputFidelityKey =
 	(typeof imageGenerationInputFidelity)[keyof typeof imageGenerationInputFidelity];
 
+export const imageGenerationModel = {
+	"gpt-image-1": "gpt-image-1",
+	"gpt-image-1-mini": "gpt-image-1-mini",
+	"gpt-image-2": "gpt-image-2",
+	"gpt-image-2-2026-04-21": "gpt-image-2-2026-04-21",
+	"gpt-image-2.5-sunburst": "gpt-image-2.5-sunburst",
+	"gpt-image-2.5-sunburst-2026-09-08": "gpt-image-2.5-sunburst-2026-09-08",
+	"gpt-image-2.5-flare": "gpt-image-2.5-flare",
+	"gpt-image-2.5-flare-2026-09-08": "gpt-image-2.5-flare-2026-09-08",
+	"gpt-image-2.6-sunburst": "gpt-image-2.6-sunburst",
+	"gpt-image-2.6-flare": "gpt-image-2.6-flare",
+	"gpt-image-1.5": "gpt-image-1.5",
+	"chatgpt-image-latest": "chatgpt-image-latest",
+} as const;
+
+export type ImageGenerationModelKey =
+	(typeof imageGenerationModel)[keyof typeof imageGenerationModel];
+
 export const imageGenerationModeration = {
 	auto: "auto",
 	low: "low",
@@ -808,6 +826,15 @@ export const imageGenerationQuality = {
 export type ImageGenerationQualityKey =
 	(typeof imageGenerationQuality)[keyof typeof imageGenerationQuality];
 
+export const imageGenerationSize = {
+	"1024x1024": "1024x1024",
+	"1024x1536": "1024x1536",
+	"1536x1024": "1536x1024",
+	auto: "auto",
+} as const;
+
+export type ImageGenerationSizeKey = (typeof imageGenerationSize)[keyof typeof imageGenerationSize];
+
 /**
  * @description A tool that generates images using the GPT image models.
  * @type object
@@ -821,13 +848,13 @@ export type ImageGeneration = {
 	frame_duration_ms?: (number | null) | undefined;
 	input_fidelity?: (ImageGenerationInputFidelityKey | null) | undefined;
 	input_image_mask?: (ImageGenerationInputImageMask | null) | undefined;
-	model?: (string | null) | undefined;
+	model?: ((string & {}) | ImageGenerationModelKey | null) | undefined;
 	moderation?: (ImageGenerationModerationKey | null) | undefined;
 	output_compression?: (number | null) | undefined;
 	output_format?: (ImageGenerationOutputFormatKey | null) | undefined;
 	partial_images?: (number | null) | undefined;
 	quality?: (ImageGenerationQualityKey | null) | undefined;
-	size?: (string | null) | undefined;
+	size?: ((string & {}) | ImageGenerationSizeKey | null) | undefined;
 	svg?: (ImageGenerationSvg | null) | undefined;
 	[key: string]: unknown;
 };
@@ -7925,6 +7952,15 @@ export const imageGenerationCallQuality = {
 export type ImageGenerationCallQualityKey =
 	(typeof imageGenerationCallQuality)[keyof typeof imageGenerationCallQuality];
 
+export const imageGenerationCallSize = {
+	"1024x1024": "1024x1024",
+	"1024x1536": "1024x1536",
+	"1536x1024": "1536x1024",
+} as const;
+
+export type ImageGenerationCallSizeKey =
+	(typeof imageGenerationCallSize)[keyof typeof imageGenerationCallSize];
+
 /**
  * @description An image generation request made by the model.
  * @type object
@@ -7940,7 +7976,7 @@ export type ImageGenerationCall = {
 	output_format?: (ImageGenerationCallOutputFormatKey | null) | undefined;
 	quality?: (ImageGenerationCallQualityKey | null) | undefined;
 	revised_prompt?: (string | null) | undefined;
-	size?: (string | null) | undefined;
+	size?: ((string & {}) | ImageGenerationCallSizeKey | null) | undefined;
 	svg_usage?: (ImageGenerationCallSvgUsage | null) | undefined;
 	[key: string]: unknown;
 };
@@ -8528,6 +8564,19 @@ export type ListResponseBudgetListItem = {
 	links: ListLinks;
 };
 
+export const modelGroupInfoProxyMode = {
+	chat: "chat",
+	embedding: "embedding",
+	completion: "completion",
+	image_generation: "image_generation",
+	audio_transcription: "audio_transcription",
+	rerank: "rerank",
+	moderations: "moderations",
+} as const;
+
+export type ModelGroupInfoProxyModeKey =
+	(typeof modelGroupInfoProxyMode)[keyof typeof modelGroupInfoProxyMode];
+
 export type ModelGroupInfoProxy = {
 	model_group: string;
 	providers: string[];
@@ -8539,7 +8588,7 @@ export type ModelGroupInfoProxy = {
 	/**
 	 * @default chat
 	 */
-	mode?: (string | null) | undefined;
+	mode?: ((string & {}) | ModelGroupInfoProxyModeKey | null) | undefined;
 	tpm?: (number | null) | undefined;
 	rpm?: (number | null) | undefined;
 	itpm?: (number | null) | undefined;
@@ -16912,6 +16961,15 @@ export const responsesAPIRequestParamsImageGenerationCallQuality = {
 export type ResponsesAPIRequestParamsImageGenerationCallQualityKey =
 	(typeof responsesAPIRequestParamsImageGenerationCallQuality)[keyof typeof responsesAPIRequestParamsImageGenerationCallQuality];
 
+export const responsesAPIRequestParamsImageGenerationCallSize = {
+	"1024x1024": "1024x1024",
+	"1024x1536": "1024x1536",
+	"1536x1024": "1536x1024",
+} as const;
+
+export type ResponsesAPIRequestParamsImageGenerationCallSizeKey =
+	(typeof responsesAPIRequestParamsImageGenerationCallSize)[keyof typeof responsesAPIRequestParamsImageGenerationCallSize];
+
 /**
  * @description An image generation request made by the model.
  * @type object
@@ -16931,7 +16989,7 @@ export type ResponsesAPIRequestParamsImageGenerationCall = {
 	output_format?: (ResponsesAPIRequestParamsImageGenerationCallOutputFormatKey | null) | undefined;
 	quality?: (ResponsesAPIRequestParamsImageGenerationCallQualityKey | null) | undefined;
 	revised_prompt?: (string | null) | undefined;
-	size?: (string | null) | undefined;
+	size?: ((string & {}) | ResponsesAPIRequestParamsImageGenerationCallSizeKey | null) | undefined;
 	svg_usage?: ImageGenerationCallSvgUsage | undefined;
 };
 
@@ -17606,6 +17664,24 @@ export const toolImageGenerationInputFidelity = {
 export type ToolImageGenerationInputFidelityKey =
 	(typeof toolImageGenerationInputFidelity)[keyof typeof toolImageGenerationInputFidelity];
 
+export const toolImageGenerationModel = {
+	"gpt-image-1": "gpt-image-1",
+	"gpt-image-1-mini": "gpt-image-1-mini",
+	"gpt-image-2": "gpt-image-2",
+	"gpt-image-2-2026-04-21": "gpt-image-2-2026-04-21",
+	"gpt-image-2.5-sunburst": "gpt-image-2.5-sunburst",
+	"gpt-image-2.5-sunburst-2026-09-08": "gpt-image-2.5-sunburst-2026-09-08",
+	"gpt-image-2.5-flare": "gpt-image-2.5-flare",
+	"gpt-image-2.5-flare-2026-09-08": "gpt-image-2.5-flare-2026-09-08",
+	"gpt-image-2.6-sunburst": "gpt-image-2.6-sunburst",
+	"gpt-image-2.6-flare": "gpt-image-2.6-flare",
+	"gpt-image-1.5": "gpt-image-1.5",
+	"chatgpt-image-latest": "chatgpt-image-latest",
+} as const;
+
+export type ToolImageGenerationModelKey =
+	(typeof toolImageGenerationModel)[keyof typeof toolImageGenerationModel];
+
 export const toolImageGenerationModerationEnum = {
 	auto: "auto",
 	low: "low",
@@ -17637,6 +17713,16 @@ export const toolImageGenerationQualityEnum = {
 export type ToolImageGenerationQualityEnumKey =
 	(typeof toolImageGenerationQualityEnum)[keyof typeof toolImageGenerationQualityEnum];
 
+export const toolImageGenerationSize = {
+	"1024x1024": "1024x1024",
+	"1024x1536": "1024x1536",
+	"1536x1024": "1536x1024",
+	auto: "auto",
+} as const;
+
+export type ToolImageGenerationSizeKey =
+	(typeof toolImageGenerationSize)[keyof typeof toolImageGenerationSize];
+
 /**
  * @description A tool that generates images using the GPT image models.
  * @type object
@@ -17657,13 +17743,13 @@ export type ToolImageGeneration = {
 	 * @type object | undefined
 	 */
 	input_image_mask?: ToolImageGenerationInputImageMask | undefined;
-	model?: string | undefined;
+	model?: ((string & {}) | ToolImageGenerationModelKey) | undefined;
 	moderation?: ToolImageGenerationModerationEnumKey | undefined;
 	output_compression?: number | undefined;
 	output_format?: ToolImageGenerationOutputFormatEnumKey | undefined;
 	partial_images?: number | undefined;
 	quality?: ToolImageGenerationQualityEnumKey | undefined;
-	size?: string | undefined;
+	size?: ((string & {}) | ToolImageGenerationSizeKey) | undefined;
 	/**
 	 * @description SVG author model settings.
 	 *
@@ -17857,10 +17943,20 @@ export type ToolSearchCall = {
 	status?: (ToolSearchCallStatusKey | null) | undefined;
 };
 
+export const litellmTypesLlmsOpenaiComputerToolParamEnvironment = {
+	mac: "mac",
+	windows: "windows",
+	ubuntu: "ubuntu",
+	browser: "browser",
+} as const;
+
+export type LitellmTypesLlmsOpenaiComputerToolParamEnvironmentKey =
+	(typeof litellmTypesLlmsOpenaiComputerToolParamEnvironment)[keyof typeof litellmTypesLlmsOpenaiComputerToolParamEnvironment];
+
 export type LitellmTypesLlmsOpenaiComputerToolParam = {
 	display_height: number;
 	display_width: number;
-	environment: string;
+	environment: LitellmTypesLlmsOpenaiComputerToolParamEnvironmentKey | (string & {});
 	type: "computer_use_preview" | (string & {});
 };
 
@@ -17895,6 +17991,14 @@ export const openaiTypesSharedParamsReasoningReasoningGenerateSummary = {
 export type OpenaiTypesSharedParamsReasoningReasoningGenerateSummaryKey =
 	(typeof openaiTypesSharedParamsReasoningReasoningGenerateSummary)[keyof typeof openaiTypesSharedParamsReasoningReasoningGenerateSummary];
 
+export const openaiTypesSharedParamsReasoningReasoningMode = {
+	standard: "standard",
+	pro: "pro",
+} as const;
+
+export type OpenaiTypesSharedParamsReasoningReasoningModeKey =
+	(typeof openaiTypesSharedParamsReasoningReasoningMode)[keyof typeof openaiTypesSharedParamsReasoningReasoningMode];
+
 export const openaiTypesSharedParamsReasoningReasoningSummary = {
 	auto: "auto",
 	concise: "concise",
@@ -17915,7 +18019,7 @@ export type OpenaiTypesSharedParamsReasoningReasoning = {
 	generate_summary?:
 		| (OpenaiTypesSharedParamsReasoningReasoningGenerateSummaryKey | null)
 		| undefined;
-	mode?: string | undefined;
+	mode?: ((string & {}) | OpenaiTypesSharedParamsReasoningReasoningModeKey) | undefined;
 	summary?: (OpenaiTypesSharedParamsReasoningReasoningSummaryKey | null) | undefined;
 };
 
@@ -31289,11 +31393,35 @@ export type TestEndpointTestGetResponses = {
  */
 export type TestEndpointTestGetResponse = TestEndpointTestGetStatus200;
 
+export const healthServicesEndpointHealthServicesGetService = {
+	slack_budget_alerts: "slack_budget_alerts",
+	langfuse: "langfuse",
+	langfuse_otel: "langfuse_otel",
+	slack: "slack",
+	ms_teams: "ms_teams",
+	openmeter: "openmeter",
+	webhook: "webhook",
+	email: "email",
+	braintrust: "braintrust",
+	datadog: "datadog",
+	datadog_llm_observability: "datadog_llm_observability",
+	generic_api: "generic_api",
+	arize: "arize",
+	galileo: "galileo",
+	newrelic: "newrelic",
+	pointfive: "pointfive",
+	signoz: "signoz",
+	sqs: "sqs",
+} as const;
+
+export type HealthServicesEndpointHealthServicesGetServiceKey =
+	(typeof healthServicesEndpointHealthServicesGetService)[keyof typeof healthServicesEndpointHealthServicesGetService];
+
 export type HealthServicesEndpointHealthServicesGetQuery = {
 	/**
 	 * @description Specify the service being hit.
 	 */
-	service: string;
+	service: HealthServicesEndpointHealthServicesGetServiceKey | (string & {});
 };
 
 export type HealthServicesEndpointHealthServicesGetStatus200 = {

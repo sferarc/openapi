@@ -473,7 +473,26 @@ export const imageGenerationSchema = z
 		frame_duration_ms: z.union([z.int(), z.null()]).optional(),
 		input_fidelity: z.union([z.enum(["high", "low"]), z.null()]).optional(),
 		input_image_mask: z.union([imageGenerationInputImageMaskSchema, z.null()]).optional(),
-		model: z.union([z.string(), z.null()]).optional(),
+		model: z
+			.union([
+				z.string(),
+				z.enum([
+					"gpt-image-1",
+					"gpt-image-1-mini",
+					"gpt-image-2",
+					"gpt-image-2-2026-04-21",
+					"gpt-image-2.5-sunburst",
+					"gpt-image-2.5-sunburst-2026-09-08",
+					"gpt-image-2.5-flare",
+					"gpt-image-2.5-flare-2026-09-08",
+					"gpt-image-2.6-sunburst",
+					"gpt-image-2.6-flare",
+					"gpt-image-1.5",
+					"chatgpt-image-latest",
+				]),
+				z.null(),
+			])
+			.optional(),
 		moderation: z.union([z.enum(["auto", "low"]), z.null()]).optional(),
 		output_compression: z.union([z.int(), z.null()]).optional(),
 		output_format: z.union([z.enum(["png", "webp", "jpeg", "gif", "svg"]), z.null()]).optional(),
@@ -481,7 +500,9 @@ export const imageGenerationSchema = z
 		quality: z
 			.union([z.enum(["low", "medium", "high", "xhigh", "max", "auto"]), z.null()])
 			.optional(),
-		size: z.union([z.string(), z.null()]).optional(),
+		size: z
+			.union([z.string(), z.enum(["1024x1024", "1024x1536", "1536x1024", "auto"]), z.null()])
+			.optional(),
 		svg: z.union([imageGenerationSvgSchema, z.null()]).optional(),
 	})
 	.describe("A tool that generates images using the GPT image models.");
@@ -5264,7 +5285,9 @@ export const imageGenerationCallSchema = z
 			.union([z.enum(["low", "medium", "high", "xhigh", "max", "auto"]), z.null()])
 			.optional(),
 		revised_prompt: z.union([z.string(), z.null()]).optional(),
-		size: z.union([z.string(), z.null()]).optional(),
+		size: z
+			.union([z.string(), z.enum(["1024x1024", "1024x1536", "1536x1024"]), z.null()])
+			.optional(),
 		svg_usage: z.union([imageGenerationCallSvgUsageSchema, z.null()]).optional(),
 	})
 	.describe("An image generation request made by the model.");
@@ -5569,7 +5592,22 @@ export const modelGroupInfoProxySchema = z.object({
 	input_cost_per_token: z.union([z.number(), z.null()]).optional(),
 	output_cost_per_token: z.union([z.number(), z.null()]).optional(),
 	input_cost_per_pixel: z.union([z.number(), z.null()]).optional(),
-	mode: z.union([z.string(), z.null()]).optional().default("chat"),
+	mode: z
+		.union([
+			z.string(),
+			z.enum([
+				"chat",
+				"embedding",
+				"completion",
+				"image_generation",
+				"audio_transcription",
+				"rerank",
+				"moderations",
+			]),
+			z.null(),
+		])
+		.optional()
+		.default("chat"),
 	tpm: z.union([z.int(), z.null()]).optional(),
 	rpm: z.union([z.int(), z.null()]).optional(),
 	itpm: z.union([z.int(), z.null()]).optional(),
@@ -10986,7 +11024,9 @@ export const responsesAPIRequestParamsImageGenerationCallSchema = z
 			.union([z.enum(["low", "medium", "high", "xhigh", "max", "auto"]), z.null()])
 			.optional(),
 		revised_prompt: z.union([z.string(), z.null()]).optional(),
-		size: z.union([z.string(), z.null()]).optional(),
+		size: z
+			.union([z.string(), z.enum(["1024x1024", "1024x1536", "1536x1024"]), z.null()])
+			.optional(),
 		svg_usage: imageGenerationCallSvgUsageSchema.optional(),
 	})
 	.describe("An image generation request made by the model.");
@@ -11427,13 +11467,31 @@ export const toolImageGenerationSchema = z
 			.describe(
 				"Optional mask for inpainting.\n\nContains `image_url`\n(string, optional) and `file_id` (string, optional).",
 			),
-		model: z.string().optional(),
+		model: z
+			.union([
+				z.string(),
+				z.enum([
+					"gpt-image-1",
+					"gpt-image-1-mini",
+					"gpt-image-2",
+					"gpt-image-2-2026-04-21",
+					"gpt-image-2.5-sunburst",
+					"gpt-image-2.5-sunburst-2026-09-08",
+					"gpt-image-2.5-flare",
+					"gpt-image-2.5-flare-2026-09-08",
+					"gpt-image-2.6-sunburst",
+					"gpt-image-2.6-flare",
+					"gpt-image-1.5",
+					"chatgpt-image-latest",
+				]),
+			])
+			.optional(),
 		moderation: z.enum(["auto", "low"]).optional(),
 		output_compression: z.int().optional(),
 		output_format: z.enum(["png", "webp", "jpeg", "gif", "svg"]).optional(),
 		partial_images: z.int().optional(),
 		quality: z.enum(["low", "medium", "high", "xhigh", "max", "auto"]).optional(),
-		size: z.string().optional(),
+		size: z.union([z.string(), z.enum(["1024x1024", "1024x1536", "1536x1024", "auto"])]).optional(),
 		svg: toolImageGenerationSvgSchema
 			.optional()
 			.describe(
@@ -11568,7 +11626,7 @@ export const toolSearchCallSchema = z.object({
 export const litellmTypesLlmsOpenaiComputerToolParamSchema = z.object({
 	display_height: z.number(),
 	display_width: z.number(),
-	environment: z.string(),
+	environment: z.union([z.enum(["mac", "windows", "ubuntu", "browser"]), z.string()]),
 	type: z.union([z.enum(["computer_use_preview"]), z.string()]),
 });
 
@@ -11579,7 +11637,7 @@ export const openaiTypesSharedParamsReasoningReasoningSchema = z
 			.union([z.enum(["none", "minimal", "low", "medium", "high", "xhigh", "max"]), z.null()])
 			.optional(),
 		generate_summary: z.union([z.enum(["auto", "concise", "detailed"]), z.null()]).optional(),
-		mode: z.string().optional(),
+		mode: z.union([z.string(), z.enum(["standard", "pro"])]).optional(),
 		summary: z.union([z.enum(["auto", "concise", "detailed"]), z.null()]).optional(),
 	})
 	.describe(
@@ -20146,7 +20204,29 @@ export const testEndpointTestGetStatus200Schema = z.looseObject({});
 export const testEndpointTestGetResponseSchema = testEndpointTestGetStatus200Schema;
 
 export const healthServicesEndpointHealthServicesGetQueryServiceSchema = z
-	.string()
+	.union([
+		z.enum([
+			"slack_budget_alerts",
+			"langfuse",
+			"langfuse_otel",
+			"slack",
+			"ms_teams",
+			"openmeter",
+			"webhook",
+			"email",
+			"braintrust",
+			"datadog",
+			"datadog_llm_observability",
+			"generic_api",
+			"arize",
+			"galileo",
+			"newrelic",
+			"pointfive",
+			"signoz",
+			"sqs",
+		]),
+		z.string(),
+	])
 	.describe("Specify the service being hit.");
 
 export const healthServicesEndpointHealthServicesGetStatus200Schema = z.looseObject({});
@@ -20160,7 +20240,31 @@ export const healthServicesEndpointHealthServicesGetErrorSchema =
 	healthServicesEndpointHealthServicesGetStatus422Schema;
 
 export const healthServicesEndpointHealthServicesGetQuerySchema = z.object({
-	service: z.string().describe("Specify the service being hit."),
+	service: z
+		.union([
+			z.enum([
+				"slack_budget_alerts",
+				"langfuse",
+				"langfuse_otel",
+				"slack",
+				"ms_teams",
+				"openmeter",
+				"webhook",
+				"email",
+				"braintrust",
+				"datadog",
+				"datadog_llm_observability",
+				"generic_api",
+				"arize",
+				"galileo",
+				"newrelic",
+				"pointfive",
+				"signoz",
+				"sqs",
+			]),
+			z.string(),
+		])
+		.describe("Specify the service being hit."),
 });
 
 export const healthEndpointHealthGetQueryModelSchema = z
