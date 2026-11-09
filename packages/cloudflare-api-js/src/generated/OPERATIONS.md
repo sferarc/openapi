@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3777 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3781 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## health
 
@@ -1356,6 +1356,7 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3777 operatio
 | `client.api.aiGatewayProviderConfigs.aigConfigDeleteProviders` | `DELETE /accounts/{accountId}/ai-gateway/gateways/{gatewayId}/provider_configs/{id}` | Delete a provider key |
 | `client.api.aiGatewayProviderConfigs.aigConfigFetchProviders` | `GET /accounts/{accountId}/ai-gateway/gateways/{gatewayId}/provider_configs/{id}` | Get a provider key |
 | `client.api.aiGatewayProviderConfigs.aigConfigUpdateProviders` | `PUT /accounts/{accountId}/ai-gateway/gateways/{gatewayId}/provider_configs/{id}` | Rotate a provider key |
+| `client.api.aiGatewayProviderConfigs.aigConfigTestProviders` | `POST /accounts/{accountId}/ai-gateway/gateways/{gatewayId}/provider_configs/{id}/test` | Check stored provider credentials |
 
 ## aiGatewayDynamicRoutes
 
@@ -1859,16 +1860,19 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3777 operatio
 | --- | --- | --- |
 | `client.api.workers.createWorkerBuild` | `POST /accounts/{accountId}/builds/workers` | Create Worker build configuration |
 | `client.api.workers.listBuildsByScript` | `GET /accounts/{accountId}/builds/workers/{externalScriptId}/builds` | List builds for a Worker |
+| `client.api.workers.createBuildByScript` | `POST /accounts/{accountId}/builds/workers/{externalScriptId}/builds` | Start a Worker build |
 | `client.api.workers.listTriggersByScript` | `GET /accounts/{accountId}/builds/workers/{externalScriptId}/triggers` | List triggers for a Worker |
 | `client.api.workers.deleteWorkerBuild` | `DELETE /accounts/{accountId}/builds/workers/{scriptTag}` | Delete Worker build configuration |
 | `client.api.workers.getWorkerBuild` | `GET /accounts/{accountId}/builds/workers/{scriptTag}` | Get Worker build configuration |
 | `client.api.workers.updateWorkerBuild` | `PATCH /accounts/{accountId}/builds/workers/{scriptTag}` | Update Worker build configuration |
+| `client.api.workers.retryWorkerBuild` | `POST /accounts/{accountId}/builds/workers/{scriptTag}/builds/{buildUuid}/retry` | Retry a Worker build |
 | `client.api.workers.migrateWorkerToPreviews` | `POST /accounts/{accountId}/builds/workers/{scriptTag}/migrate_to_previews` | Migrate worker to previews |
 | `client.api.workers.listWorkerPreviews` | `GET /accounts/{accountId}/builds/workers/{scriptTag}/previews` | List previews |
 | `client.api.workers.getWorkerPreview` | `GET /accounts/{accountId}/builds/workers/{scriptTag}/previews/{previewId}` | Get preview |
 | `client.api.workers.updateWorkerPreview` | `PATCH /accounts/{accountId}/builds/workers/{scriptTag}/previews/{previewId}` | Update preview |
 | `client.api.workers.listBuildsByPreview` | `GET /accounts/{accountId}/builds/workers/{scriptTag}/previews/{previewId}/builds` | List builds by preview |
 | `client.api.workers.createPreviewBuild` | `POST /accounts/{accountId}/builds/workers/{scriptTag}/previews/{previewId}/builds` | Create preview build |
+| `client.api.workers.purgeWorkerBuildCache` | `POST /accounts/{accountId}/builds/workers/{scriptTag}/purge_build_cache` | Purge a Worker's build cache |
 | `client.api.workers.listWorkers` | `GET /accounts/{accountId}/workers/workers` | List Workers |
 | `client.api.workers.createWorker` | `POST /accounts/{accountId}/workers/workers` | Create Worker |
 | `client.api.workers.deleteWorker` | `DELETE /accounts/{accountId}/workers/workers/{workerId}` | Delete Worker |
