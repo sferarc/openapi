@@ -1291,6 +1291,12 @@ import type {
 	AigConfigPostGatewayDynamicRouteVersionPath,
 	AigConfigPostGatewayDynamicRouteVersionResponse,
 	AigConfigPostGatewayDynamicRouteVersionStatus400,
+	AigConfigTestProvidersBody,
+	AigConfigTestProvidersPath,
+	AigConfigTestProvidersResponse,
+	AigConfigTestProvidersStatus400,
+	AigConfigTestProvidersStatus404,
+	AigConfigTestProvidersStatus501,
 	AigConfigUpdateAccountProviderBody,
 	AigConfigUpdateAccountProviderCostBody,
 	AigConfigUpdateAccountProviderCostPath,
@@ -3035,6 +3041,12 @@ import type {
 	CreateAppPath,
 	CreateAppResponse,
 	CreateAppStatus400,
+	CreateBuildByScriptBody,
+	CreateBuildByScriptPath,
+	CreateBuildByScriptResponse,
+	CreateBuildByScriptStatus400,
+	CreateBuildByScriptStatus401,
+	CreateBuildByScriptStatus404,
 	CreateBuildTokenBody,
 	CreateBuildTokenPath,
 	CreateBuildTokenResponse,
@@ -6181,18 +6193,22 @@ import type {
 	GetApplicationAuthMethodsV2Path,
 	GetApplicationAuthMethodsV2Query,
 	GetApplicationAuthMethodsV2Response,
+	GetApplicationAuthMethodsV2Status400,
 	GetApplicationAuthMethodsV2Status404,
 	GetApplicationPath,
 	GetApplicationResponse,
 	GetApplicationSetupFlowsV2Path,
 	GetApplicationSetupFlowsV2Query,
 	GetApplicationSetupFlowsV2Response,
+	GetApplicationSetupFlowsV2Status400,
 	GetApplicationSetupFlowsV2Status404,
 	GetApplicationStatus401,
 	GetApplicationStatus404,
 	GetApplicationStatus500,
 	GetApplicationV2Path,
+	GetApplicationV2Query,
 	GetApplicationV2Response,
+	GetApplicationV2Status400,
 	GetApplicationV2Status404,
 	GetAppPath,
 	GetAppResponse,
@@ -10403,6 +10419,10 @@ import type {
 	PurgeBuildCacheResponse,
 	PurgeBuildCacheStatus401,
 	PurgeBuildCacheStatus404,
+	PurgeWorkerBuildCachePath,
+	PurgeWorkerBuildCacheResponse,
+	PurgeWorkerBuildCacheStatus401,
+	PurgeWorkerBuildCacheStatus404,
 	PutAccountsAccountIdLogpushJobsJobIdBody,
 	PutAccountsAccountIdLogpushJobsJobIdPath,
 	PutAccountsAccountIdLogpushJobsJobIdResponse,
@@ -11832,6 +11852,11 @@ import type {
 	ResumeIntegrationV2Path,
 	ResumeIntegrationV2Response,
 	ResumeIntegrationV2Status400,
+	RetryWorkerBuildPath,
+	RetryWorkerBuildResponse,
+	RetryWorkerBuildStatus400,
+	RetryWorkerBuildStatus401,
+	RetryWorkerBuildStatus404,
 	RevokeDevicePath,
 	RevokeDeviceResponse,
 	RevokeDeviceStatus400,
@@ -37807,6 +37832,57 @@ export async function aigConfigUpdateProviders(
 }
 
 /**
+ * @summary Check stored provider credentials
+ * @description Checks whether stored credentials can list models through the provider implementation in AI Gateway. Requires AI Gateway content update permission. Does not run inference, check credits or inference permissions, or return provider response bodies. HTTP 401 from the model-list request is classified as invalid, as is AWS Bedrock HTTP 403 with an UnrecognizedClientException error type. Other failures are inconclusive, including other HTTP 400 or 403 responses; a 403 alone does not distinguish rejected credentials from insufficient permissions. Unsupported providers or credential formats also return an inconclusive result.
+ * @link /accounts/{accountId}/ai-gateway/gateways/{gatewayId}/provider_configs/{id}/test
+ */
+export async function aigConfigTestProviders(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: AigConfigTestProvidersPath;
+		body?: AigConfigTestProvidersBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.gatewayId == null || String(pathParams.gatewayId) === "") {
+		throw new Error(`Missing required path parameter: gatewayId`);
+	}
+
+	if (pathParams?.id == null || String(pathParams.id) === "") {
+		throw new Error(`Missing required path parameter: id`);
+	}
+	const data = await request<
+		AigConfigTestProvidersResponse,
+		ErrorWrapper<
+			| AigConfigTestProvidersStatus400
+			| AigConfigTestProvidersStatus404
+			| AigConfigTestProvidersStatus501
+		>,
+		AigConfigTestProvidersBody,
+		Record<string, string>,
+		Record<string, string>,
+		AigConfigTestProvidersPath
+	>({
+		method: "POST",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/ai-gateway/gateways/${encodeURIComponent(String(pathParams.gatewayId))}/provider_configs/${encodeURIComponent(String(pathParams.id))}/test`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary List dynamic routes
  * @description Lists the dynamic routes configured on an AI Gateway.
  * @link /accounts/{accountId}/ai-gateway/gateways/{gatewayId}/routes
@@ -50482,7 +50558,7 @@ export async function createWorkerBuild(
 
 /**
  * @summary List builds for a Worker
- * @description List paginated build records associated with a Worker tag.
+ * @description List paginated build records associated with a Worker.
  * @link /accounts/{accountId}/builds/workers/{externalScriptId}/builds
  */
 export async function listBuildsByScript(
@@ -50516,6 +50592,51 @@ export async function listBuildsByScript(
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/builds/workers/${encodeURIComponent(String(pathParams.externalScriptId))}/builds`,
 		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Start a Worker build
+ * @description Start a production build for a branch or commit.
+ * @link /accounts/{accountId}/builds/workers/{externalScriptId}/builds
+ */
+export async function createBuildByScript(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: CreateBuildByScriptPath;
+		body: CreateBuildByScriptBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.externalScriptId == null || String(pathParams.externalScriptId) === "") {
+		throw new Error(`Missing required path parameter: externalScriptId`);
+	}
+	const data = await request<
+		CreateBuildByScriptResponse,
+		ErrorWrapper<
+			CreateBuildByScriptStatus400 | CreateBuildByScriptStatus401 | CreateBuildByScriptStatus404
+		>,
+		CreateBuildByScriptBody,
+		Record<string, string>,
+		Record<string, string>,
+		CreateBuildByScriptPath
+	>({
+		method: "POST",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/builds/workers/${encodeURIComponent(String(pathParams.externalScriptId))}/builds`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -50920,6 +51041,50 @@ export async function updateWorkerBuild(
 }
 
 /**
+ * @summary Retry a Worker build
+ * @description Start a new build from the branch and commit of a stopped build.
+ * @link /accounts/{accountId}/builds/workers/{scriptTag}/builds/{buildUuid}/retry
+ */
+export async function retryWorkerBuild(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: RetryWorkerBuildPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.scriptTag == null || String(pathParams.scriptTag) === "") {
+		throw new Error(`Missing required path parameter: scriptTag`);
+	}
+
+	if (pathParams?.buildUuid == null || String(pathParams.buildUuid) === "") {
+		throw new Error(`Missing required path parameter: buildUuid`);
+	}
+	const data = await request<
+		RetryWorkerBuildResponse,
+		ErrorWrapper<RetryWorkerBuildStatus400 | RetryWorkerBuildStatus401 | RetryWorkerBuildStatus404>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		RetryWorkerBuildPath
+	>({
+		method: "POST",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/builds/workers/${encodeURIComponent(String(pathParams.scriptTag))}/builds/${encodeURIComponent(String(pathParams.buildUuid))}/retry`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Migrate worker to previews
  * @description Migrate a Worker's legacy non-production trigger to Previews. The legacy build settings become the Previews base config and the legacy trigger is removed.
  * @link /accounts/{accountId}/builds/workers/{scriptTag}/migrate_to_previews
@@ -51194,6 +51359,46 @@ export async function createPreviewBuild(
 		method: "POST",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/builds/workers/${encodeURIComponent(String(pathParams.scriptTag))}/previews/${encodeURIComponent(String(pathParams.previewId))}/builds`,
 		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Purge a Worker's build cache
+ * @description Delete cached dependencies and build artifacts for a Worker's production and Preview builds.
+ * @link /accounts/{accountId}/builds/workers/{scriptTag}/purge_build_cache
+ */
+export async function purgeWorkerBuildCache(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: PurgeWorkerBuildCachePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.scriptTag == null || String(pathParams.scriptTag) === "") {
+		throw new Error(`Missing required path parameter: scriptTag`);
+	}
+	const data = await request<
+		PurgeWorkerBuildCacheResponse,
+		ErrorWrapper<PurgeWorkerBuildCacheStatus401 | PurgeWorkerBuildCacheStatus404>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		PurgeWorkerBuildCachePath
+	>({
+		method: "POST",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/builds/workers/${encodeURIComponent(String(pathParams.scriptTag))}/purge_build_cache`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -66459,7 +66664,7 @@ export async function generateImageRegistryCredentials(
 
 /**
  * @summary Get live account usage
- * @description Get current live resource usage and maximum account limits for the authenticated Cloudchamber account. Usage includes active and assigned instances.
+ * @description Get current live resource usage and maximum limits for your account. Usage includes active and assigned instances.
  * @link /accounts/{accountId}/containers/usage
  */
 export async function getUsage(
@@ -106212,9 +106417,11 @@ export async function listApplicationsV2(
 export async function getApplicationV2(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: GetApplicationV2Path;
+		queryParams?: Partial<GetApplicationV2Query>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -106229,14 +106436,15 @@ export async function getApplicationV2(
 	}
 	const data = await request<
 		GetApplicationV2Response,
-		ErrorWrapper<GetApplicationV2Status404>,
+		ErrorWrapper<GetApplicationV2Status400 | GetApplicationV2Status404>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<GetApplicationV2Query>,
 		GetApplicationV2Path
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/one/applications/${encodeURIComponent(String(pathParams.applicationId))}`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -106271,7 +106479,7 @@ export async function getApplicationAuthMethodsV2(
 	}
 	const data = await request<
 		GetApplicationAuthMethodsV2Response,
-		ErrorWrapper<GetApplicationAuthMethodsV2Status404>,
+		ErrorWrapper<GetApplicationAuthMethodsV2Status400 | GetApplicationAuthMethodsV2Status404>,
 		null,
 		Record<string, string>,
 		Partial<GetApplicationAuthMethodsV2Query>,
@@ -106314,7 +106522,7 @@ export async function getApplicationSetupFlowsV2(
 	}
 	const data = await request<
 		GetApplicationSetupFlowsV2Response,
-		ErrorWrapper<GetApplicationSetupFlowsV2Status404>,
+		ErrorWrapper<GetApplicationSetupFlowsV2Status400 | GetApplicationSetupFlowsV2Status404>,
 		null,
 		Record<string, string>,
 		Partial<GetApplicationSetupFlowsV2Query>,
@@ -172946,6 +173154,8 @@ export const operationsByPath = {
 		aigConfigFetchProviders,
 	"PUT /accounts/{accountId}/ai-gateway/gateways/{gatewayId}/provider_configs/{id}":
 		aigConfigUpdateProviders,
+	"POST /accounts/{accountId}/ai-gateway/gateways/{gatewayId}/provider_configs/{id}/test":
+		aigConfigTestProviders,
 	"GET /accounts/{accountId}/ai-gateway/gateways/{gatewayId}/routes":
 		aigConfigListGatewayDynamicRoutes,
 	"POST /accounts/{accountId}/ai-gateway/gateways/{gatewayId}/routes":
@@ -173361,6 +173571,7 @@ export const operationsByPath = {
 	"POST /accounts/{accountId}/builds/triggers/{triggerUuid}/purge_build_cache": purgeBuildCache,
 	"POST /accounts/{accountId}/builds/workers": createWorkerBuild,
 	"GET /accounts/{accountId}/builds/workers/{externalScriptId}/builds": listBuildsByScript,
+	"POST /accounts/{accountId}/builds/workers/{externalScriptId}/builds": createBuildByScript,
 	"GET /accounts/{accountId}/builds/workers/{externalScriptId}/triggers": listTriggersByScript,
 	"GET /accounts/{accountId}/builds/workers/{scriptName}/deploy_hooks": listDeployHooks,
 	"POST /accounts/{accountId}/builds/workers/{scriptName}/deploy_hooks": createDeployHook,
@@ -173373,6 +173584,8 @@ export const operationsByPath = {
 	"DELETE /accounts/{accountId}/builds/workers/{scriptTag}": deleteWorkerBuild,
 	"GET /accounts/{accountId}/builds/workers/{scriptTag}": getWorkerBuild,
 	"PATCH /accounts/{accountId}/builds/workers/{scriptTag}": updateWorkerBuild,
+	"POST /accounts/{accountId}/builds/workers/{scriptTag}/builds/{buildUuid}/retry":
+		retryWorkerBuild,
 	"POST /accounts/{accountId}/builds/workers/{scriptTag}/migrate_to_previews":
 		migrateWorkerToPreviews,
 	"GET /accounts/{accountId}/builds/workers/{scriptTag}/previews": listWorkerPreviews,
@@ -173383,6 +173596,7 @@ export const operationsByPath = {
 		listBuildsByPreview,
 	"POST /accounts/{accountId}/builds/workers/{scriptTag}/previews/{previewId}/builds":
 		createPreviewBuild,
+	"POST /accounts/{accountId}/builds/workers/{scriptTag}/purge_build_cache": purgeWorkerBuildCache,
 	"POST /accounts/{accountId}/bulk/subscriptions": accountSubscriptionsBulkCreateSubscription,
 	"GET /accounts/{accountId}/calls/apps": callsAppsList,
 	"POST /accounts/{accountId}/calls/apps": callsAppsCreateANewApp,
@@ -178374,6 +178588,7 @@ export const operationsByTag = {
 		aigConfigDeleteProviders,
 		aigConfigFetchProviders,
 		aigConfigUpdateProviders,
+		aigConfigTestProviders,
 	},
 	aiGatewayDynamicRoutes: {
 		aigConfigListGatewayDynamicRoutes,
@@ -178730,16 +178945,19 @@ export const operationsByTag = {
 	workers: {
 		createWorkerBuild,
 		listBuildsByScript,
+		createBuildByScript,
 		listTriggersByScript,
 		deleteWorkerBuild,
 		getWorkerBuild,
 		updateWorkerBuild,
+		retryWorkerBuild,
 		migrateWorkerToPreviews,
 		listWorkerPreviews,
 		getWorkerPreview,
 		updateWorkerPreview,
 		listBuildsByPreview,
 		createPreviewBuild,
+		purgeWorkerBuildCache,
 		listWorkers,
 		createWorker,
 		deleteWorker,
@@ -183452,7 +183670,7 @@ export const tagDictionary = {
 	},
 	aiGatewayProviderConfigs: {
 		GET: ["aigConfigListProviders", "aigConfigFetchProviders"],
-		POST: ["aigConfigCreateProviders"],
+		POST: ["aigConfigCreateProviders", "aigConfigTestProviders"],
 		DELETE: ["aigConfigDeleteProviders"],
 		PUT: ["aigConfigUpdateProviders"],
 	},
@@ -183816,7 +184034,15 @@ export const tagDictionary = {
 		DELETE: ["deleteEnvironmentVariable"],
 	},
 	workers: {
-		POST: ["createWorkerBuild", "migrateWorkerToPreviews", "createPreviewBuild", "createWorker"],
+		POST: [
+			"createWorkerBuild",
+			"createBuildByScript",
+			"retryWorkerBuild",
+			"migrateWorkerToPreviews",
+			"createPreviewBuild",
+			"purgeWorkerBuildCache",
+			"createWorker",
+		],
 		GET: [
 			"listBuildsByScript",
 			"listTriggersByScript",

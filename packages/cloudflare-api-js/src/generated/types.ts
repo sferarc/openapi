@@ -2209,7 +2209,7 @@ export type AbuseReportsBadEmailError = string;
 export type AbuseReportsBadIPError = string;
 
 /**
- * @description Please provide a more detailed description of the infringement between 1 and 5000 characters
+ * @description Justification must be at least 20 characters for phishing reports and cannot exceed 5000 characters
  * @type string
  */
 export type AbuseReportsBadJustError = string;
@@ -2720,6 +2720,7 @@ export const abuseReportsMitigatedEntityType = {
   url_pattern: 'url_pattern',
   account: 'account',
   zone: 'zone',
+  domain: 'domain',
   custom_expression: 'custom_expression',
 } as const;
 
@@ -23859,7 +23860,7 @@ export type BuildsDeletedOn = string | null;
 
 /**
  * @description System-generated tag of the Worker. This is not the Worker name.
- * @example dd7160bb9cef458093557736f4b9e75b
+ * @example 0123456789abcdef0123456789abcdef
  * @type string
  */
 export type BuildsExternalScriptId = string;
@@ -24112,7 +24113,7 @@ export type BuildsBuildResponse = {
     deploy_command?: BuildsDeployCommand | undefined;
     /**
      * @description System-generated tag of the Worker. This is not the Worker name.
-     * @example dd7160bb9cef458093557736f4b9e75b
+     * @example 0123456789abcdef0123456789abcdef
      * @type string | undefined
      */
     external_script_id?: BuildsExternalScriptId | undefined;
@@ -24265,6 +24266,13 @@ export const buildsPackageManager = {
 
 export type BuildsPackageManagerKey = (typeof buildsPackageManager)[keyof typeof buildsPackageManager];
 
+export const buildsConfigAutofillResponseDeployToolEnum = {
+  cf: 'cf',
+  wrangler: 'wrangler',
+} as const;
+
+export type BuildsConfigAutofillResponseDeployToolEnumKey = (typeof buildsConfigAutofillResponseDeployToolEnum)[keyof typeof buildsConfigAutofillResponseDeployToolEnum];
+
 export type BuildsConfigAutofillResponse = {
   /**
    * @example wrangler.toml
@@ -24276,6 +24284,12 @@ export type BuildsConfigAutofillResponse = {
    * @type string | undefined
    */
   default_worker_name?: (string | null) | undefined;
+  /**
+   * @description Deployment CLI detected in the selected root directory. A Wrangler config takes precedence. `cf` requires `cloudflare.config.ts` and a `cf` dependency or dev dependency in `package.json`.
+   * @example cf
+   * @type string | undefined
+   */
+  deploy_tool?: (BuildsConfigAutofillResponseDeployToolEnumKey | null) | undefined;
   /**
    * @example {"production":"my-worker-prod","staging":"my-worker-staging"}
    * @type object | undefined
@@ -24445,7 +24459,7 @@ export type BuildsCreateTriggerRequest = {
   deploy_command: BuildsDeployCommand;
   /**
    * @description System-generated tag of the Worker. This is not the Worker name.
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
   external_script_id: BuildsExternalScriptId;
@@ -24711,7 +24725,7 @@ export type BuildsCreateWorkerRequest = {
   production_settings: BuildsCreateWorkerBuildSettingsInput;
   /**
    * @description System-generated tag of the Worker. This is not the Worker name.
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
   script_tag: BuildsExternalScriptId;
@@ -24755,7 +24769,7 @@ export type BuildsDeployHookResponse = {
   deploy_hook_uuid?: BuildsDeployHookUuid | undefined;
   /**
    * @description System-generated tag of the Worker. This is not the Worker name.
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @example 0123456789abcdef0123456789abcdef
    * @type string | undefined
    */
   external_script_id?: BuildsExternalScriptId | undefined;
@@ -24797,7 +24811,7 @@ export type BuildsDetailedDeployHookResponse = {
   deploy_hook_uuid?: BuildsDeployHookUuid | undefined;
   /**
    * @description System-generated tag of the Worker. This is not the Worker name.
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @example 0123456789abcdef0123456789abcdef
    * @type string | undefined
    */
   external_script_id?: BuildsExternalScriptId | undefined;
@@ -25019,7 +25033,7 @@ export type BuildsPreviewResponse = {
   branch?: BuildsBranch | undefined;
   /**
    * @description System-generated tag of the Worker. This is not the Worker name.
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @example 0123456789abcdef0123456789abcdef
    * @type string | undefined
    */
   preview_id?: BuildsExternalScriptId | undefined;
@@ -25055,7 +25069,7 @@ export type BuildsPreviewSummary = {
   branch?: BuildsBranch | undefined;
   /**
    * @description System-generated tag of the Worker. This is not the Worker name.
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @example 0123456789abcdef0123456789abcdef
    * @type string | undefined
    */
   preview_id?: BuildsExternalScriptId | undefined;
@@ -25146,7 +25160,7 @@ export type BuildsTriggerResponse = {
   deploy_command?: BuildsDeployCommand | undefined;
   /**
    * @description System-generated tag of the Worker. This is not the Worker name.
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @example 0123456789abcdef0123456789abcdef
    * @type string | undefined
    */
   external_script_id?: BuildsExternalScriptId | undefined;
@@ -25509,7 +25523,7 @@ export type BuildsWorkerResponse = {
   production_settings?: BuildsWorkerBuildSettings | undefined;
   /**
    * @description System-generated tag of the Worker. This is not the Worker name.
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @example 0123456789abcdef0123456789abcdef
    * @type string | undefined
    */
   script_tag?: BuildsExternalScriptId | undefined;
@@ -25531,17 +25545,10 @@ export type BuildsEnvironmentVariableKey = string;
 
 /**
  * @description Comma-separated list of system-generated worker script tags (max 20).
- * @example dd7160bb9cef458093557736f4b9e75b,42fb14fe81df47139d3be684e4c637a6,ff7cf9a7582f4c0d90a4b95cb17d659e
+ * @example 0123456789abcdef0123456789abcdef
  * @type string
  */
 export type BuildsExternalScriptIds = string;
-
-/**
- * @description Human-readable name of the Worker.
- * @example my-worker
- * @type string
- */
-export type BuildsScriptName = string;
 
 /**
  * @description Comma-separated list of version UUIDs (max 20).
@@ -27225,14 +27232,6 @@ export type CallsTurnKeyWithKey = {
    */
   created: CallsCreated;
   /**
-   * @description Bearer token
-   * @minLength 64
-   * @maxLength 64
-   * @example 66bcf64aa8907b9f9d90ac17746a77ce394c393b92b3916633dc02846e608ad4
-   * @type string
-   */
-  key: CallsTurnKey;
-  /**
    * @description The date and time the item was last modified.
    *
    * Format: `date-time`
@@ -27247,6 +27246,14 @@ export type CallsTurnKeyWithKey = {
    * @type string
    */
   name: CallsTurnKeyName;
+  /**
+   * @description Bearer token
+   * @minLength 64
+   * @maxLength 64
+   * @example 66bcf64aa8907b9f9d90ac17746a77ce394c393b92b3916633dc02846e608ad4
+   * @type string
+   */
+  secret: CallsTurnKey;
   /**
    * @description A Cloudflare-generated unique identifier for a item.
    * @minLength 32
@@ -27336,7 +27343,7 @@ export type CcAccountUsageUtilization = {
 };
 
 /**
- * @description Current live usage, maximum limits, and utilization percentages for a Cloudchamber account. Usage includes active and assigned instances and is a current snapshot, not a historical or billable metric.
+ * @description Current live usage, maximum limits, and utilization percentages for your account. Usage includes active and assigned instances and is a current snapshot, not a historical or billable metric.
  * @type object
  */
 export type CcAccountUsageResponse = {
@@ -85958,6 +85965,14 @@ export type R2DataCatalogCatalog = {
    */
   bucket: string;
   /**
+   * @description Specifies the Iceberg REST catalog URI that clients use to connect to the catalog.
+   *
+   * Format: `uri`
+   * @example https://catalog.cloudflarestorage.com/account123/my-data-bucket
+   * @type string | undefined
+   */
+  catalog_uri?: string | undefined;
+  /**
    * @description Shows the credential configuration status.
    * @example present
    * @type string | undefined
@@ -86030,6 +86045,14 @@ export type R2DataCatalogCatalogActivationRequest = {
  * @type object
  */
 export type R2DataCatalogCatalogActivationResponse = {
+  /**
+   * @description Specifies the Iceberg REST catalog URI that clients use to connect to the catalog.
+   *
+   * Format: `uri`
+   * @example https://catalog.cloudflarestorage.com/account123/my-bucket
+   * @type string | undefined
+   */
+  catalog_uri?: string | undefined;
   /**
    * @description Use this to uniquely identify the activated catalog.
    *
@@ -89501,6 +89524,28 @@ export type RealtimekitRecordingConfig = {
   video_config?: RealtimekitVideoConfig | undefined;
 };
 
+/**
+ * @description SIP dial-in details. `null` if SIP is not enabled for the meeting.
+ * @type object
+ */
+export type RealtimekitMeetingSip = {
+  /**
+   * @description Password for SIP digest authentication. Keep it secret.
+   * @type string
+   */
+  readonly password: string;
+  /**
+   * @description SIP URI to dial. Configure it in your SIP provider or PBX.
+   * @type string
+   */
+  readonly sip_uri: string;
+  /**
+   * @description Username for SIP digest authentication.
+   * @type string
+   */
+  readonly username: string;
+} | null;
+
 export const realtimekitMeetingStatusEnum = {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE',
@@ -89552,6 +89597,11 @@ export type RealtimekitMeeting = {
    * @type number | undefined
    */
   session_keep_alive_time_in_secs?: number | undefined;
+  /**
+   * @description SIP dial-in details. `null` if SIP is not enabled for the meeting.
+   * @type object | undefined
+   */
+  sip?: (RealtimekitMeetingSip | null) | undefined;
   /**
    * @description Whether the meeting is `ACTIVE` or `INACTIVE`. Users will not be able to join an `INACTIVE` meeting.
    * @type string | undefined
@@ -90546,6 +90596,11 @@ export type RealtimekitPreset = {
     can_accept_production_requests: boolean;
     can_change_participant_permissions: boolean;
     can_edit_display_name: boolean;
+    /**
+     * @description Allows renaming the meeting for the current session
+     * @type boolean | undefined
+     */
+    can_edit_meeting_title?: boolean | undefined;
     can_livestream: boolean;
     can_record: boolean;
     can_spotlight: boolean;
@@ -91138,6 +91193,11 @@ export type RealtimekitUpdatePreset = {
     can_accept_production_requests?: boolean | undefined;
     can_change_participant_permissions?: boolean | undefined;
     can_edit_display_name?: boolean | undefined;
+    /**
+     * @description Allows renaming the meeting for the current session
+     * @type boolean | undefined
+     */
+    can_edit_meeting_title?: boolean | undefined;
     can_livestream?: boolean | undefined;
     can_record?: boolean | undefined;
     can_spotlight?: boolean | undefined;
@@ -106564,7 +106624,7 @@ export type StreamDeletedResponse = StreamApiResponseSingle & {
   result?: string | undefined;
 };
 
-export type StreamWatermarkAtUpload2 = {
+export type StreamWatermarkAtUpload = {
   /**
    * @description The unique identifier for the watermark profile.
    * @maxLength 32
@@ -106634,7 +106694,7 @@ export type StreamDirectUploadRequest = {
    * @type number | undefined
    */
   thumbnailTimestampPct?: StreamThumbnailTimestampPct | undefined;
-  watermark?: StreamWatermarkAtUpload2 | undefined;
+  watermark?: StreamWatermarkAtUpload | undefined;
 };
 
 export type StreamDirectUploadResponse = StreamApiResponseSingle & {
@@ -107599,16 +107659,6 @@ export type StreamUploadLength = number;
  */
 export type StreamUploadMetadata = string;
 
-export type StreamWatermarkAtUpload = {
-  /**
-   * @description The unique identifier for the watermark profile.
-   * @maxLength 32
-   * @example ea95132c15732412d22c1476fa83f27a
-   * @type string | undefined
-   */
-  uid?: string | undefined;
-};
-
 export type StreamVideoClipStandard = {
   /**
    * @description Lists the origins allowed to display the video. Enter allowed origin domains in an array and use `*` for wildcard subdomains. Empty arrays allow the video to be viewed on any origin.
@@ -107782,7 +107832,7 @@ export type StreamVideoCopyRequest = ({
    * @type string | undefined
    */
   url?: string | undefined;
-  watermark?: StreamWatermarkAtUpload2 | undefined;
+  watermark?: StreamWatermarkAtUpload | undefined;
 };
 
 /**
@@ -112899,7 +112949,7 @@ export type TlsCertificatesAndHostnamesCertificateObject2 = {
 };
 
 /**
- * @description The uploaded root CA certificate.
+ * @description The uploaded root CA certificate. Responses return the certificates as Cloudflare stores them, re-encoded as PEM, not byte for byte as uploaded. Each certificate block ends with a newline, base64 lines are wrapped at 64 characters, text between blocks is dropped, and a chain may be reordered. Compare certificates by their decoded content rather than as strings.
  * @example -----BEGIN CERTIFICATE-----
  * MIIDmDCCAoCgAwIBAgIUKTOAZNjcXVZRj4oQt0SHsl1c1vMwDQYJKoZIhvcNAQEL
  * BQAwUTELMAkGA1UEBhMCVVMxFjAUBgNVBAgMDVNhbiBGcmFuY2lzY28xEzARBgNV
@@ -112989,7 +113039,7 @@ export type TlsCertificatesAndHostnamesCertificateObject3 = {
    */
   ca?: TlsCertificatesAndHostnamesCa | undefined;
   /**
-   * @description The uploaded root CA certificate.
+   * @description The uploaded root CA certificate. Responses return the certificates as Cloudflare stores them, re-encoded as PEM, not byte for byte as uploaded. Each certificate block ends with a newline, base64 lines are wrapped at 64 characters, text between blocks is dropped, and a chain may be reordered. Compare certificates by their decoded content rather than as strings.
    * @example -----BEGIN CERTIFICATE-----
    * MIIDmDCCAoCgAwIBAgIUKTOAZNjcXVZRj4oQt0SHsl1c1vMwDQYJKoZIhvcNAQEL
    * BQAwUTELMAkGA1UEBhMCVVMxFjAUBgNVBAgMDVNhbiBGcmFuY2lzY28xEzARBgNV
@@ -113087,7 +113137,7 @@ export type TlsCertificatesAndHostnamesCertificateObjectPost = {
    */
   ca?: TlsCertificatesAndHostnamesCa | undefined;
   /**
-   * @description The uploaded root CA certificate.
+   * @description The uploaded root CA certificate. Responses return the certificates as Cloudflare stores them, re-encoded as PEM, not byte for byte as uploaded. Each certificate block ends with a newline, base64 lines are wrapped at 64 characters, text between blocks is dropped, and a chain may be reordered. Compare certificates by their decoded content rather than as strings.
    * @example -----BEGIN CERTIFICATE-----
    * MIIDmDCCAoCgAwIBAgIUKTOAZNjcXVZRj4oQt0SHsl1c1vMwDQYJKoZIhvcNAQEL
    * BQAwUTELMAkGA1UEBhMCVVMxFjAUBgNVBAgMDVNhbiBGcmFuY2lzY28xEzARBgNV
@@ -116286,17 +116336,15 @@ export type TlsCertificatesAndHostnamesVerificationInfo = {
    *
    * Format: `hostname`
    * @example b3b90cfedd89a3e487d3e383c56c4267.example.com
-   * @type string | undefined
    */
-  record_name?: string | undefined;
+  record_name?: ('record_name' | 'http_url' | 'cname' | 'txt_name') | undefined;
   /**
    * @description Target of CNAME record.
    *
    * Format: `hostname`
    * @example 6979be7e4cfc9e5c603e31df7efac9cc60fee82d.comodoca.com
-   * @type string | undefined
    */
-  record_target?: string | undefined;
+  record_target?: ('record_value' | 'http_body' | 'cname_target' | 'txt_value') | undefined;
 };
 
 /**
@@ -133034,6 +133082,7 @@ export type ZeroTrustGatewayDeletedAt = string | null;
 
 /**
  * @description Specify the rule description.
+ * @default ''
  * @example Block bad websites based on their host name.
  * @type string
  */
@@ -134215,6 +134264,13 @@ export type ZeroTrustGatewayPacfile = {
 };
 
 /**
+ * @description Update the rule description. If omitted, the description is unchanged. Set to an empty string to clear the description.
+ * @example Block bad websites based on their host name.
+ * @type string
+ */
+export type ZeroTrustGatewayPatchDescription = string;
+
+/**
  * @description Set the order of your rules. Lower values indicate higher precedence. At each processing phase, evaluate applicable rules in ascending order of this value. Refer to [Order of enforcement](http://developers.cloudflare.com/learning-paths/secure-internet-traffic/understand-policies/order-of-enforcement/#manage-precedence-with-terraform) to manage precedence via Terraform.
  * @type integer
  */
@@ -134959,6 +135015,7 @@ export type ZeroTrustGatewaySchedule = {
   thu?: string | undefined;
   /**
    * @description Specify the time zone for rule evaluation. When a [valid time zone city name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List) is provided, Gateway always uses the current time for that time zone. When this parameter is omitted, Gateway uses the time zone determined from the user's IP address. Colo time zone is used when the user's IP address does not resolve to a location.
+   * @default ''
    * @example America/New York
    * @type string | undefined
    */
@@ -135033,6 +135090,7 @@ export type ZeroTrustGatewayRules = {
   readonly deleted_at?: (ZeroTrustGatewayDeletedAt | null) | undefined;
   /**
    * @description Specify the rule description.
+   * @default ''
    * @example Block bad websites based on their host name.
    * @type string | undefined
    */
@@ -136123,6 +136181,7 @@ export type Zones0RttValueKey = (typeof zones0RttValue)[keyof typeof zones0RttVa
 
 /**
  * @description 0-RTT session resumption enabled for this zone.
+ * Changing this setting does not enable or disable TLS 1.3. Writing the `tls_1_3` setting also changes 0-RTT: `zrt` enables it, and `on` or `off` disables it.
  */
 export type Zones0Rtt = ZonesBase & {
   /**
@@ -138423,7 +138482,7 @@ export type ZonesPrivacyPass = ZonesBase & {
 };
 
 /**
- * @description Value of the zone setting.
+ * @description Value of the zone setting, in seconds.
  * Notes: Value must be between 1 and 6000
  * @default 125
  * @type number
@@ -138431,7 +138490,7 @@ export type ZonesPrivacyPass = ZonesBase & {
 export type ZonesProxyReadTimeoutValue = number;
 
 /**
- * @description Maximum time between two read operations from origin.
+ * @description Maximum time in seconds between two read operations from origin.
  */
 export type ZonesProxyReadTimeout = ZonesBase & {
   /**
@@ -138441,7 +138500,7 @@ export type ZonesProxyReadTimeout = ZonesBase & {
    */
   id?: 'proxy_read_timeout' | undefined;
   /**
-   * @description Value of the zone setting.
+   * @description Value of the zone setting, in seconds.
    * Notes: Value must be between 1 and 6000
    * @default 125
    * @type number | undefined
@@ -138872,6 +138931,8 @@ export type ZonesTls13ValueKey = (typeof zonesTls13Value)[keyof typeof zonesTls1
 
 /**
  * @description Enables Crypto TLS 1.3 feature for a zone.
+ * This setting also controls 0-RTT. `zrt` enables TLS 1.3 and 0-RTT, `on` enables TLS 1.3 and disables 0-RTT, and `off` disables both.
+ * Reads return `zrt` when TLS 1.3 and 0-RTT are both enabled, so setting `on` while 0-RTT is enabled turns 0-RTT off.
  */
 export type ZonesTls13 = ZonesBase & {
   /**
@@ -142353,6 +142414,12 @@ export type RealtimekitCreateMeetingBody = {
    */
   ai_config?: RealtimekitAIConfig | undefined;
   /**
+   * @description Lets phones and SIP systems dial in to the meeting. The response includes the SIP URI and credentials in `sip`. Ignored when replacing a meeting with `PUT`.
+   * @default false
+   * @type boolean | undefined
+   */
+  enable_sip?: boolean | undefined;
+  /**
    * @description Specifies if the meeting should start getting livestreamed on start.
    * @default false
    * @type boolean | undefined
@@ -142591,6 +142658,11 @@ export type RealtimekitUpdateMeetingBody = {
    * @type object | undefined
    */
   ai_config?: RealtimekitAIConfig | undefined;
+  /**
+   * @description Turns SIP dial-in on or off. Turning it off deletes the SIP URI and credentials; calls already in progress continue. Turning it on again creates a new SIP URI and credentials.
+   * @type boolean | undefined
+   */
+  enable_sip?: boolean | undefined;
   /**
    * @description Specifies if the meeting should start getting livestreamed on start.
    * @type boolean | undefined
@@ -228821,7 +228893,6 @@ export type McpPortalsApiListPortalsStatus200 = {
       server_id: string;
       /**
        * @description Current sync state of the server
-       * @default 'waiting'
        * @example ready
        * @type string | undefined
        */
@@ -229187,7 +229258,6 @@ export type McpPortalsApiCreatePortalsStatus201 = {
       server_id: string;
       /**
        * @description Current sync state of the server
-       * @default 'waiting'
        * @example ready
        * @type string | undefined
        */
@@ -229841,7 +229911,6 @@ export type McpPortalsApiFetchGatewaysStatus200 = {
       server_id: string;
       /**
        * @description Current sync state of the server
-       * @default 'waiting'
        * @example ready
        * @type string | undefined
        */
@@ -230220,7 +230289,6 @@ export type McpPortalsApiUpdatePortalsStatus200 = {
       server_id: string;
       /**
        * @description Current sync state of the server
-       * @default 'waiting'
        * @example ready
        * @type string | undefined
        */
@@ -230755,7 +230823,6 @@ export type McpPortalsApiListServersStatus200 = {
     secure_web_gateway?: boolean | undefined;
     /**
      * @description Current sync state of the server
-     * @default 'waiting'
      * @example ready
      * @type string | undefined
      */
@@ -231041,7 +231108,6 @@ export type McpPortalsApiCreateServersStatus201 = {
     secure_web_gateway?: boolean | undefined;
     /**
      * @description Current sync state of the server
-     * @default 'waiting'
      * @example ready
      * @type string | undefined
      */
@@ -231471,7 +231537,6 @@ export type McpPortalsApiDeleteServersStatus200 = {
     secure_web_gateway?: boolean | undefined;
     /**
      * @description Current sync state of the server
-     * @default 'waiting'
      * @example ready
      * @type string | undefined
      */
@@ -231770,7 +231835,6 @@ export type McpPortalsApiFetchServersStatus200 = {
     secure_web_gateway?: boolean | undefined;
     /**
      * @description Current sync state of the server
-     * @default 'waiting'
      * @example ready
      * @type string | undefined
      */
@@ -232069,7 +232133,6 @@ export type McpPortalsApiUpdateServersStatus200 = {
     secure_web_gateway?: boolean | undefined;
     /**
      * @description Current sync state of the server
-     * @default 'waiting'
      * @example ready
      * @type string | undefined
      */
@@ -250374,6 +250437,122 @@ export type AigConfigUpdateProvidersResponses = {
  * @description Union of all possible responses
  */
 export type AigConfigUpdateProvidersResponse = AigConfigUpdateProvidersStatus200;
+
+export type AigConfigTestProvidersPath = {
+  /**
+   * @example 3ebbcb006d4d46d7bb6a8c7f14676cb0
+   * @type string
+   */
+  accountId: string;
+  /**
+   * @description Unique identifier of the AI Gateway within the account.
+   * @minLength 1
+   * @maxLength 64
+   * @pattern ^[a-z0-9_]+(?:-[a-z0-9_]+)*$
+   * @example my-gateway
+   * @type string
+   */
+  gatewayId: string;
+  id: string;
+};
+
+export const aigConfigTestProvidersStatus200ResultReasonEnum = {
+  unsupported_provider: 'unsupported_provider',
+  missing_secret: 'missing_secret',
+  provider_error: 'provider_error',
+  permission_denied: 'permission_denied',
+  request_failed: 'request_failed',
+} as const;
+
+export type AigConfigTestProvidersStatus200ResultReasonEnumKey = (typeof aigConfigTestProvidersStatus200ResultReasonEnum)[keyof typeof aigConfigTestProvidersStatus200ResultReasonEnum];
+
+export const aigConfigTestProvidersStatus200ResultStatusEnum = {
+  valid: 'valid',
+  invalid: 'invalid',
+  error: 'error',
+} as const;
+
+export type AigConfigTestProvidersStatus200ResultStatusEnumKey = (typeof aigConfigTestProvidersStatus200ResultStatusEnum)[keyof typeof aigConfigTestProvidersStatus200ResultStatusEnum];
+
+export type AigConfigTestProvidersStatus200 = {
+  result: {
+    httpStatus: number | null;
+    providerSlug: string;
+    reason?: AigConfigTestProvidersStatus200ResultReasonEnumKey | undefined;
+    status: AigConfigTestProvidersStatus200ResultStatusEnumKey;
+  };
+  success: boolean;
+};
+
+export type AigConfigTestProvidersStatus400 = {
+  errors: {
+    /**
+     * @example 7001
+     * @type number
+     */
+    code: number;
+    /**
+     * @example Input Validation Error
+     * @type string
+     */
+    message: string;
+    path: string[];
+  }[];
+  success: boolean;
+};
+
+export type AigConfigTestProvidersStatus404 = {
+  errors: {
+    /**
+     * @example 7002
+     * @type number
+     */
+    code: number;
+    /**
+     * @example Not Found
+     * @type string
+     */
+    message: string;
+  }[];
+  success: boolean;
+};
+
+export type AigConfigTestProvidersStatus501 = {
+  errors: {
+    /**
+     * @example 7022
+     * @type number
+     */
+    code: number;
+    /**
+     * @example Provider key testing is not available in this environment.
+     * @type string
+     */
+    message: string;
+  }[];
+  success: boolean;
+};
+
+export type AigConfigTestProvidersBody = object | undefined;
+
+export type AigConfigTestProvidersOptions = {
+  body: AigConfigTestProvidersBody;
+  path: AigConfigTestProvidersPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type AigConfigTestProvidersResponses = {
+  '200': AigConfigTestProvidersStatus200;
+  '400': AigConfigTestProvidersStatus400;
+  '404': AigConfigTestProvidersStatus404;
+  '501': AigConfigTestProvidersStatus501;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type AigConfigTestProvidersResponse = AigConfigTestProvidersStatus200;
 
 export type AigConfigListGatewayDynamicRoutesPath = {
   /**
@@ -290635,7 +290814,7 @@ export type GetLatestBuildsByScriptsPath = {
 export type GetLatestBuildsByScriptsQuery = {
   /**
    * @description Comma-separated list of system-generated worker script tags (max 20).
-   * @example dd7160bb9cef458093557736f4b9e75b,42fb14fe81df47139d3be684e4c637a6,ff7cf9a7582f4c0d90a4b95cb17d659e
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
   external_script_ids: BuildsExternalScriptIds;
@@ -290676,7 +290855,7 @@ export type GetBuildByUuidPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description Build UUID.
+   * @description UUID of the build, as returned by builds list.
    *
    * Format: `uuid`
    * @type string
@@ -290726,7 +290905,7 @@ export type CancelBuildByUuidPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description Build UUID.
+   * @description UUID of the build, as returned by builds list.
    *
    * Format: `uuid`
    * @type string
@@ -290776,7 +290955,7 @@ export type GetBuildLogsPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description Build UUID.
+   * @description UUID of the build, as returned by builds list.
    *
    * Format: `uuid`
    * @type string
@@ -291591,11 +291770,11 @@ export type ListBuildsByScriptPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description System-generated tag of the Worker. This is not the Worker name.
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @description Script tag of the Worker.
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
-  externalScriptId: BuildsExternalScriptId;
+  externalScriptId: string;
 };
 
 export type ListBuildsByScriptQuery = {
@@ -291644,6 +291823,64 @@ export type ListBuildsByScriptResponses = {
  */
 export type ListBuildsByScriptResponse = ListBuildsByScriptStatus200;
 
+export type CreateBuildByScriptPath = {
+  /**
+   * @description Account identifier.
+   * @example account-123
+   * @type string
+   */
+  accountId: BuildsAccountId;
+  /**
+   * @description Script tag of the Worker.
+   * @example 0123456789abcdef0123456789abcdef
+   * @type string
+   */
+  externalScriptId: string;
+};
+
+export type CreateBuildByScriptStatus200 = BuildsAPIResponse & {
+  result?: BuildsBuildResponse | undefined;
+};
+
+/**
+ * @example {"errors":[{"code":12002,"message":"Invalid request body"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
+export type CreateBuildByScriptStatus400 = BuildsErrorResponse;
+
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
+export type CreateBuildByScriptStatus401 = BuildsErrorResponse;
+
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
+export type CreateBuildByScriptStatus404 = BuildsErrorResponse;
+
+export type CreateBuildByScriptBody = BuildsCreateBuildRequest;
+
+export type CreateBuildByScriptOptions = {
+  body: CreateBuildByScriptBody;
+  path: CreateBuildByScriptPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type CreateBuildByScriptResponses = {
+  '200': CreateBuildByScriptStatus200;
+  '400': CreateBuildByScriptStatus400;
+  '401': CreateBuildByScriptStatus401;
+  '404': CreateBuildByScriptStatus404;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateBuildByScriptResponse = CreateBuildByScriptStatus200;
+
 export type ListTriggersByScriptPath = {
   /**
    * @description Account identifier.
@@ -291653,7 +291890,7 @@ export type ListTriggersByScriptPath = {
   accountId: BuildsAccountId;
   /**
    * @description System-generated tag of the Worker. This is not the Worker name.
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
   externalScriptId: BuildsExternalScriptId;
@@ -291694,11 +291931,11 @@ export type ListDeployHooksPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description Human-readable name of the worker.
+   * @description Name or script tag of the Worker.
    * @example my-worker
    * @type string
    */
-  scriptName: BuildsScriptName;
+  scriptName: string;
 };
 
 export type ListDeployHooksStatus200 = BuildsAPIResponse & {
@@ -291736,11 +291973,11 @@ export type CreateDeployHookPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description Human-readable name of the worker.
+   * @description Name or script tag of the Worker.
    * @example my-worker
    * @type string
    */
-  scriptName: BuildsScriptName;
+  scriptName: string;
 };
 
 export type CreateDeployHookStatus200 = BuildsAPIResponse & {
@@ -291801,13 +292038,13 @@ export type DeleteDeployHookPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description Human-readable name of the worker.
+   * @description Name or script tag of the Worker.
    * @example my-worker
    * @type string
    */
-  scriptName: BuildsScriptName;
+  scriptName: string;
   /**
-   * @description Deploy hook UUID
+   * @description UUID of the deploy hook, as returned by deploy-hooks list.
    *
    * Format: `uuid`
    * @type string
@@ -291857,13 +292094,13 @@ export type GetDeployHookPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description Human-readable name of the worker.
+   * @description Name or script tag of the Worker.
    * @example my-worker
    * @type string
    */
-  scriptName: BuildsScriptName;
+  scriptName: string;
   /**
-   * @description Deploy hook UUID
+   * @description UUID of the deploy hook, as returned by deploy-hooks list.
    *
    * Format: `uuid`
    * @type string
@@ -291913,13 +292150,13 @@ export type UpdateDeployHookPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description Human-readable name of the worker.
+   * @description Name or script tag of the Worker.
    * @example my-worker
    * @type string
    */
-  scriptName: BuildsScriptName;
+  scriptName: string;
   /**
-   * @description Deploy hook UUID
+   * @description UUID of the deploy hook, as returned by deploy-hooks list.
    *
    * Format: `uuid`
    * @type string
@@ -291985,11 +292222,11 @@ export type DeleteWorkerBuildPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description The Worker script tag (external script ID)
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @description Script tag of the Worker.
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
-  scriptTag: BuildsExternalScriptId;
+  scriptTag: string;
 };
 
 export type DeleteWorkerBuildStatus200 = BuildsAPIResponse & {
@@ -292038,11 +292275,11 @@ export type GetWorkerBuildPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description The Worker script tag (external script ID)
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @description Script tag of the Worker.
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
-  scriptTag: BuildsExternalScriptId;
+  scriptTag: string;
 };
 
 export type GetWorkerBuildStatus200 = BuildsAPIResponse & {
@@ -292091,11 +292328,11 @@ export type UpdateWorkerBuildPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description The Worker script tag (external script ID)
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @description Script tag of the Worker.
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
-  scriptTag: BuildsExternalScriptId;
+  scriptTag: string;
 };
 
 export const updateWorkerBuildPatchExistingPreviews = {
@@ -292165,6 +292402,69 @@ export type UpdateWorkerBuildResponses = {
  */
 export type UpdateWorkerBuildResponse = UpdateWorkerBuildStatus200;
 
+export type RetryWorkerBuildPath = {
+  /**
+   * @description Account identifier.
+   * @example account-123
+   * @type string
+   */
+  accountId: BuildsAccountId;
+  /**
+   * @description Script tag of the Worker.
+   * @example 0123456789abcdef0123456789abcdef
+   * @type string
+   */
+  scriptTag: string;
+  /**
+   * @description UUID of the build, as returned by builds list.
+   *
+   * Format: `uuid`
+   * @type string
+   */
+  buildUuid: BuildsBuildUuid;
+};
+
+export type RetryWorkerBuildStatus200 = BuildsAPIResponse & {
+  result?: BuildsBuildResponse | undefined;
+};
+
+/**
+ * @example {"errors":[{"code":12002,"message":"Invalid request body"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
+export type RetryWorkerBuildStatus400 = BuildsErrorResponse;
+
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
+export type RetryWorkerBuildStatus401 = BuildsErrorResponse;
+
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
+export type RetryWorkerBuildStatus404 = BuildsErrorResponse;
+
+export type RetryWorkerBuildOptions = {
+  body?: never | undefined;
+  path: RetryWorkerBuildPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type RetryWorkerBuildResponses = {
+  '200': RetryWorkerBuildStatus200;
+  '400': RetryWorkerBuildStatus400;
+  '401': RetryWorkerBuildStatus401;
+  '404': RetryWorkerBuildStatus404;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type RetryWorkerBuildResponse = RetryWorkerBuildStatus200;
+
 export type MigrateWorkerToPreviewsPath = {
   /**
    * @description Account identifier.
@@ -292173,11 +292473,11 @@ export type MigrateWorkerToPreviewsPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description The Worker script tag (external script ID)
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @description Script tag of the Worker.
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
-  scriptTag: BuildsExternalScriptId;
+  scriptTag: string;
 };
 
 export type MigrateWorkerToPreviewsStatus200 = BuildsAPIResponse & {
@@ -292239,11 +292539,11 @@ export type ListWorkerPreviewsPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description The Worker script tag (external script ID)
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @description Script tag of the Worker.
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
-  scriptTag: BuildsExternalScriptId;
+  scriptTag: string;
 };
 
 export type ListWorkerPreviewsQuery = {
@@ -292300,17 +292600,17 @@ export type GetWorkerPreviewPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description The Worker script tag (external script ID)
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @description Script tag of the Worker.
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
-  scriptTag: BuildsExternalScriptId;
+  scriptTag: string;
   /**
-   * @description The script tag of the Preview, which is a Worker in its own right
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @description ID of the Preview.
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
-  previewId: BuildsExternalScriptId;
+  previewId: string;
 };
 
 export type GetWorkerPreviewStatus200 = BuildsAPIResponse & {
@@ -292359,17 +292659,17 @@ export type UpdateWorkerPreviewPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description The Worker script tag (external script ID)
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @description Script tag of the Worker.
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
-  scriptTag: BuildsExternalScriptId;
+  scriptTag: string;
   /**
-   * @description The script tag of the Preview, which is a Worker in its own right
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @description ID of the Preview.
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
-  previewId: BuildsExternalScriptId;
+  previewId: string;
 };
 
 export type UpdateWorkerPreviewStatus200 = BuildsAPIResponse & {
@@ -292438,17 +292738,17 @@ export type ListBuildsByPreviewPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description The Worker script tag (external script ID)
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @description Script tag of the Worker.
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
-  scriptTag: BuildsExternalScriptId;
+  scriptTag: string;
   /**
-   * @description The script tag of the Preview, which is a Worker in its own right
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @description ID of the Preview.
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
-  previewId: BuildsExternalScriptId;
+  previewId: string;
 };
 
 export type ListBuildsByPreviewQuery = {
@@ -292512,17 +292812,17 @@ export type CreatePreviewBuildPath = {
    */
   accountId: BuildsAccountId;
   /**
-   * @description The Worker script tag (external script ID)
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @description Script tag of the Worker.
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
-  scriptTag: BuildsExternalScriptId;
+  scriptTag: string;
   /**
-   * @description The script tag of the Preview, which is a Worker in its own right
-   * @example dd7160bb9cef458093557736f4b9e75b
+   * @description ID of the Preview.
+   * @example 0123456789abcdef0123456789abcdef
    * @type string
    */
-  previewId: BuildsExternalScriptId;
+  previewId: string;
 };
 
 export type CreatePreviewBuildStatus200 = BuildsAPIResponse & {
@@ -292567,6 +292867,53 @@ export type CreatePreviewBuildResponses = {
  * @description Union of all possible responses
  */
 export type CreatePreviewBuildResponse = CreatePreviewBuildStatus200;
+
+export type PurgeWorkerBuildCachePath = {
+  /**
+   * @description Account identifier.
+   * @example account-123
+   * @type string
+   */
+  accountId: BuildsAccountId;
+  /**
+   * @description Script tag of the Worker.
+   * @example 0123456789abcdef0123456789abcdef
+   * @type string
+   */
+  scriptTag: string;
+};
+
+export type PurgeWorkerBuildCacheStatus200 = BuildsAPIResponse;
+
+/**
+ * @example {"errors":[{"code":12005,"message":"Missing token from authorization header"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
+export type PurgeWorkerBuildCacheStatus401 = BuildsErrorResponse;
+
+/**
+ * @example {"errors":[{"code":12000,"message":"Not found"}],"messages":[],"result":null,"success":false}
+ * @type object
+ */
+export type PurgeWorkerBuildCacheStatus404 = BuildsErrorResponse;
+
+export type PurgeWorkerBuildCacheOptions = {
+  body?: never | undefined;
+  path: PurgeWorkerBuildCachePath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type PurgeWorkerBuildCacheResponses = {
+  '200': PurgeWorkerBuildCacheStatus200;
+  '401': PurgeWorkerBuildCacheStatus401;
+  '404': PurgeWorkerBuildCacheStatus404;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type PurgeWorkerBuildCacheResponse = PurgeWorkerBuildCacheStatus200;
 
 export type AccountSubscriptionsBulkCreateSubscriptionPath = {
   /**
@@ -327257,7 +327604,7 @@ export type GetUsagePath = {
 
 export type GetUsageStatus200 = CcV4BaseResponse & {
   /**
-   * @description Current live usage, maximum limits, and utilization percentages for a Cloudchamber account. Usage includes active and assigned instances and is a current snapshot, not a historical or billable metric.
+   * @description Current live usage, maximum limits, and utilization percentages for your account. Usage includes active and assigned instances and is a current snapshot, not a historical or billable metric.
    * @type object
    */
   result: CcAccountUsageResponse;
@@ -357886,11 +358233,11 @@ export type ZeroTrustGatewayRulesPatchMultipleZeroTrustGatewayRulesStatus400 = Z
 
 export type ZeroTrustGatewayRulesPatchMultipleZeroTrustGatewayRulesBody = {
   /**
-   * @description Specify the rule description.
+   * @description Update the rule description. If omitted, the description is unchanged. Set to an empty string to clear the description.
    * @example Block bad websites based on their host name.
    * @type string | undefined
    */
-  description?: ZeroTrustGatewayDescription2 | undefined;
+  description?: ZeroTrustGatewayPatchDescription | undefined;
   /**
    * @description Specify whether the rule is enabled.
    * @default false
@@ -357959,6 +358306,7 @@ export type ZeroTrustGatewayRulesCreateZeroTrustGatewayRuleBody = {
   action: ZeroTrustGatewayActionKey;
   /**
    * @description Specify the rule description.
+   * @default ''
    * @example Block bad websites based on their host name.
    * @type string | undefined
    */
@@ -358174,11 +358522,11 @@ export type ZeroTrustGatewayRulesPatchZeroTrustGatewayRuleStatus400 = ZeroTrustG
 
 export type ZeroTrustGatewayRulesPatchZeroTrustGatewayRuleBody = {
   /**
-   * @description Specify the rule description.
+   * @description Update the rule description. If omitted, the description is unchanged. Set to an empty string to clear the description.
    * @example Block bad websites based on their host name.
    * @type string | undefined
    */
-  description?: ZeroTrustGatewayDescription2 | undefined;
+  description?: ZeroTrustGatewayPatchDescription | undefined;
   /**
    * @description Specify whether the rule is enabled.
    * @default false
@@ -358247,6 +358595,7 @@ export type ZeroTrustGatewayRulesUpdateZeroTrustGatewayRuleBody = {
   action: ZeroTrustGatewayActionKey;
   /**
    * @description Specify the rule description.
+   * @default ''
    * @example Block bad websites based on their host name.
    * @type string | undefined
    */
@@ -375287,7 +375636,7 @@ export type MTlsCertificateManagementUploadMTlsCertificateBody = {
    */
   ca: TlsCertificatesAndHostnamesCa;
   /**
-   * @description The uploaded root CA certificate.
+   * @description The uploaded root CA certificate. Responses return the certificates as Cloudflare stores them, re-encoded as PEM, not byte for byte as uploaded. Each certificate block ends with a newline, base64 lines are wrapped at 64 characters, text between blocks is dropped, and a chain may be reordered. Compare certificates by their decoded content rather than as strings.
    * @example -----BEGIN CERTIFICATE-----
    * MIIDmDCCAoCgAwIBAgIUKTOAZNjcXVZRj4oQt0SHsl1c1vMwDQYJKoZIhvcNAQEL
    * BQAwUTELMAkGA1UEBhMCVVMxFjAUBgNVBAgMDVNhbiBGcmFuY2lzY28xEzARBgNV
@@ -375810,12 +376159,19 @@ export type ListApplicationsV2Path = {
   accountId: string;
 };
 
+export const listApplicationsV2Environment = {
+  fedramp: 'fedramp',
+  standard: 'standard',
+} as const;
+
+export type ListApplicationsV2EnvironmentKey = (typeof listApplicationsV2Environment)[keyof typeof listApplicationsV2Environment];
+
 export type ListApplicationsV2Query = {
   /**
-   * @description Filter by supported environment (standard, fedramp).
+   * @description Environment to request (standard, fedramp). The result follows the account's FedRAMP entitlement: FedRAMP-enabled accounts always receive FedRAMP applications and other accounts receive standard applications. Any other non-empty value returns 400.
    * @type string | undefined
    */
-  environment?: string | undefined;
+  environment?: ListApplicationsV2EnvironmentKey | undefined;
   /**
    * @description A page number within the paginated result set.
    * @type integer | undefined
@@ -375884,19 +376240,37 @@ export type GetApplicationV2Path = {
   applicationId: GetApplicationV2ApplicationIdKey;
 };
 
+export const getApplicationV2Environment = {
+  fedramp: 'fedramp',
+  standard: 'standard',
+} as const;
+
+export type GetApplicationV2EnvironmentKey = (typeof getApplicationV2Environment)[keyof typeof getApplicationV2Environment];
+
+export type GetApplicationV2Query = {
+  /**
+   * @description Environment to request (standard, fedramp). The result follows the account's FedRAMP entitlement: FedRAMP-enabled accounts always receive FedRAMP applications and other accounts receive standard applications. Any other non-empty value returns 400.
+   * @type string | undefined
+   */
+  environment?: GetApplicationV2EnvironmentKey | undefined;
+};
+
 export type GetApplicationV2Status200 = OneApplicationDetailResponse;
+
+export type GetApplicationV2Status400 = unknown;
 
 export type GetApplicationV2Status404 = unknown;
 
 export type GetApplicationV2Options = {
   body?: never | undefined;
   path: GetApplicationV2Path;
-  query?: never | undefined;
+  query?: GetApplicationV2Query | undefined;
   headers?: never | undefined;
 };
 
 export type GetApplicationV2Responses = {
   '200': GetApplicationV2Status200;
+  '400': GetApplicationV2Status400;
   '404': GetApplicationV2Status404;
 };
 
@@ -375940,7 +376314,19 @@ export type GetApplicationAuthMethodsV2Path = {
   applicationId: GetApplicationAuthMethodsV2ApplicationIdKey;
 };
 
+export const getApplicationAuthMethodsV2Environment = {
+  fedramp: 'fedramp',
+  standard: 'standard',
+} as const;
+
+export type GetApplicationAuthMethodsV2EnvironmentKey = (typeof getApplicationAuthMethodsV2Environment)[keyof typeof getApplicationAuthMethodsV2Environment];
+
 export type GetApplicationAuthMethodsV2Query = {
+  /**
+   * @description Environment to request (standard, fedramp). The result follows the account's FedRAMP entitlement: FedRAMP-enabled accounts always receive FedRAMP applications and other accounts receive standard applications. Any other non-empty value returns 400.
+   * @type string | undefined
+   */
+  environment?: GetApplicationAuthMethodsV2EnvironmentKey | undefined;
   /**
    * @description A page number within the paginated result set.
    * @type integer | undefined
@@ -375955,6 +376341,8 @@ export type GetApplicationAuthMethodsV2Query = {
 
 export type GetApplicationAuthMethodsV2Status200 = OnePaginatedAuthMethodDetailList;
 
+export type GetApplicationAuthMethodsV2Status400 = unknown;
+
 export type GetApplicationAuthMethodsV2Status404 = unknown;
 
 export type GetApplicationAuthMethodsV2Options = {
@@ -375966,6 +376354,7 @@ export type GetApplicationAuthMethodsV2Options = {
 
 export type GetApplicationAuthMethodsV2Responses = {
   '200': GetApplicationAuthMethodsV2Status200;
+  '400': GetApplicationAuthMethodsV2Status400;
   '404': GetApplicationAuthMethodsV2Status404;
 };
 
@@ -376023,7 +376412,7 @@ export type GetApplicationSetupFlowsV2Query = {
    */
   auth_method?: string | undefined;
   /**
-   * @description Filter by environment.
+   * @description Environment to request (standard, fedramp). The result follows the account's FedRAMP entitlement: FedRAMP-enabled accounts always receive FedRAMP applications and other accounts receive standard applications. Any other non-empty value returns 400.
    * @type string | undefined
    */
   environment?: GetApplicationSetupFlowsV2EnvironmentKey | undefined;
@@ -376041,6 +376430,8 @@ export type GetApplicationSetupFlowsV2Query = {
 
 export type GetApplicationSetupFlowsV2Status200 = OnePaginatedSetupFlowList;
 
+export type GetApplicationSetupFlowsV2Status400 = unknown;
+
 export type GetApplicationSetupFlowsV2Status404 = unknown;
 
 export type GetApplicationSetupFlowsV2Options = {
@@ -376052,6 +376443,7 @@ export type GetApplicationSetupFlowsV2Options = {
 
 export type GetApplicationSetupFlowsV2Responses = {
   '200': GetApplicationSetupFlowsV2Status200;
+  '400': GetApplicationSetupFlowsV2Status400;
   '404': GetApplicationSetupFlowsV2Status404;
 };
 
@@ -386779,7 +387171,6 @@ export type UpdateAppPath = {
 
 export type UpdateAppStatus200 = {
   data: {
-    cf_account_tag?: (string | null) | undefined;
     /**
      * @description
      * Format: `date-time`
@@ -386792,7 +387183,6 @@ export type UpdateAppStatus200 = {
      * @type string | undefined
      */
     id?: string | undefined;
-    is_org_on_kv?: boolean | undefined;
     name?: (string | null) | undefined;
   };
   success: true;
@@ -387494,6 +387884,12 @@ export type CreateMeetingBody = {
    */
   ai_config?: RealtimekitAIConfig | undefined;
   /**
+   * @description Lets phones and SIP systems dial in to the meeting. The response includes the SIP URI and credentials in `sip`. Ignored when replacing a meeting with `PUT`.
+   * @default false
+   * @type boolean | undefined
+   */
+  enable_sip?: boolean | undefined;
+  /**
    * @description Specifies if the meeting should start getting livestreamed on start.
    * @default false
    * @type boolean | undefined
@@ -387697,6 +388093,11 @@ export type UpdateMeetingBody = {
    */
   ai_config?: RealtimekitAIConfig | undefined;
   /**
+   * @description Turns SIP dial-in on or off. Turning it off deletes the SIP URI and credentials; calls already in progress continue. Turning it on again creates a new SIP URI and credentials.
+   * @type boolean | undefined
+   */
+  enable_sip?: boolean | undefined;
+  /**
    * @description Specifies if the meeting should start getting livestreamed on start.
    * @type boolean | undefined
    */
@@ -387821,6 +388222,12 @@ export type ReplaceMeetingBody = {
    * @type object | undefined
    */
   ai_config?: RealtimekitAIConfig | undefined;
+  /**
+   * @description Lets phones and SIP systems dial in to the meeting. The response includes the SIP URI and credentials in `sip`. Ignored when replacing a meeting with `PUT`.
+   * @default false
+   * @type boolean | undefined
+   */
+  enable_sip?: boolean | undefined;
   /**
    * @description Specifies if the meeting should start getting livestreamed on start.
    * @default false
@@ -440503,7 +440910,7 @@ export type UserApiTokensRollTokenResponse = UserApiTokensRollTokenStatus200;
 
 export type TriggerDeployHookPath = {
   /**
-   * @description Deploy hook UUID
+   * @description UUID of the deploy hook, as returned by deploy-hooks list.
    *
    * Format: `uuid`
    * @type string
@@ -455926,9 +456333,9 @@ export type Zones0HoldDeleteStatus200 = ZonesApiResponseSingle2 & {
     hold_after?: string | undefined;
     /**
      * @example false
-     * @type string | undefined
+     * @type boolean | undefined
      */
-    include_subdomains?: string | undefined;
+    include_subdomains?: boolean | undefined;
   } | undefined;
 };
 
@@ -455975,9 +456382,9 @@ export type Zones0HoldGetStatus200 = ZonesApiResponseSingle2 & {
     hold_after?: string | undefined;
     /**
      * @example false
-     * @type string | undefined
+     * @type boolean | undefined
      */
-    include_subdomains?: string | undefined;
+    include_subdomains?: boolean | undefined;
   } | undefined;
 };
 
@@ -456020,9 +456427,9 @@ export type Zones0HoldPatchStatus200 = ZonesApiResponseSingle2 & {
     hold_after?: string | undefined;
     /**
      * @example false
-     * @type string | undefined
+     * @type boolean | undefined
      */
-    include_subdomains?: string | undefined;
+    include_subdomains?: boolean | undefined;
   } | undefined;
 };
 
@@ -456104,9 +456511,9 @@ export type Zones0HoldPostStatus200 = ZonesApiResponseSingle2 & {
     hold_after?: string | undefined;
     /**
      * @example true
-     * @type string | undefined
+     * @type boolean | undefined
      */
-    include_subdomains?: string | undefined;
+    include_subdomains?: boolean | undefined;
   } | undefined;
 };
 
