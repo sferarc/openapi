@@ -938,9 +938,8 @@ export type MeetingLocalArchivingArchiveTokenStatus200 = {
 	 *
 	 * Format: `int64`
 	 * @example 120
-	 * @type integer | undefined
 	 */
-	expire_in?: number | undefined;
+	expire_in?: 120 | undefined;
 	/**
 	 * @description The archive token.
 	 * @example 2njt50mj
@@ -6837,9 +6836,8 @@ export type MeetingLocalRecordingJoinTokenStatus200 = {
 	 *
 	 * Format: `int64`
 	 * @example 120
-	 * @type integer | undefined
 	 */
-	expire_in?: number | undefined;
+	expire_in?: 120 | undefined;
 	/**
 	 * @description The join token.
 	 * @example 2njt50mj
@@ -8722,9 +8720,8 @@ export type MeetingLiveStreamingJoinTokenStatus200 = {
 	 *
 	 * Format: `int64`
 	 * @example 120
-	 * @type integer | undefined
 	 */
-	expire_in?: number | undefined;
+	expire_in?: 120 | undefined;
 	/**
 	 * @description The join token.
 	 * @example 2njt50mj
@@ -34099,9 +34096,8 @@ export type WebinarLiveStreamingJoinTokenStatus200 = {
 	 *
 	 * Format: `int64`
 	 * @example 120
-	 * @type integer | undefined
 	 */
-	expire_in?: number | undefined;
+	expire_in?: 120 | undefined;
 	/**
 	 * @description The join token.
 	 * @example 2njt50mj
@@ -34156,9 +34152,8 @@ export type WebinarLocalArchivingArchiveTokenStatus200 = {
 	 *
 	 * Format: `int64`
 	 * @example 120
-	 * @type integer | undefined
 	 */
-	expire_in?: number | undefined;
+	expire_in?: 120 | undefined;
 	/**
 	 * @description The archive token.
 	 * @example 2njt50mj
@@ -34213,9 +34208,8 @@ export type WebinarLocalRecordingJoinTokenStatus200 = {
 	 *
 	 * Format: `int64`
 	 * @example 120
-	 * @type integer | undefined
 	 */
-	expire_in?: number | undefined;
+	expire_in?: 120 | undefined;
 	/**
 	 * @description The join token.
 	 * @example 2njt50mj

@@ -766,7 +766,7 @@ export const meetingLocalArchivingArchiveTokenPathMeetingIdSchema = z
 export const meetingLocalArchivingArchiveTokenStatus200Schema = z
 	.object({
 		expire_in: z
-			.int()
+			.literal(120)
 			.optional()
 			.describe(
 				"The number of seconds the archive token is valid for before it expires. This value always returns `120`.",
@@ -5288,7 +5288,7 @@ export const meetingLocalRecordingJoinTokenQueryBypassWaitingRoomSchema = z
 export const meetingLocalRecordingJoinTokenStatus200Schema = z
 	.object({
 		expire_in: z
-			.int()
+			.literal(120)
 			.optional()
 			.describe(
 				"The number of seconds the join token is valid for before it expires. This value always returns `120`.",
@@ -6795,7 +6795,7 @@ export const meetingLiveStreamingJoinTokenPathMeetingIdSchema = z
 export const meetingLiveStreamingJoinTokenStatus200Schema = z
 	.object({
 		expire_in: z
-			.int()
+			.literal(120)
 			.optional()
 			.describe(
 				"The number of seconds the join token is valid for before it expires. This value always returns `120`.",
@@ -26098,7 +26098,7 @@ export const webinarLiveStreamingJoinTokenPathWebinarIdSchema = z
 export const webinarLiveStreamingJoinTokenStatus200Schema = z
 	.object({
 		expire_in: z
-			.int()
+			.literal(120)
 			.optional()
 			.describe(
 				"The number of seconds the join token is valid for before it expires. This value always returns `120`.",
@@ -26142,7 +26142,7 @@ export const webinarLocalArchivingArchiveTokenPathWebinarIdSchema = z
 export const webinarLocalArchivingArchiveTokenStatus200Schema = z
 	.object({
 		expire_in: z
-			.int()
+			.literal(120)
 			.optional()
 			.describe(
 				"The number of seconds the archive token is valid for before it expires. This value always returns `120`.",
@@ -26186,7 +26186,7 @@ export const webinarLocalRecordingJoinTokenPathWebinarIdSchema = z
 export const webinarLocalRecordingJoinTokenStatus200Schema = z
 	.object({
 		expire_in: z
-			.int()
+			.literal(120)
 			.optional()
 			.describe(
 				"The number of seconds the join token is valid for before it expires. This value always returns `120`.",
