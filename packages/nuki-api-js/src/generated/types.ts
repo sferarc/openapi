@@ -3212,9 +3212,8 @@ export type SmartlockAdvancedConfig = {
 	 * @description Timeout in seconds for lock ‘n’ go
 	 *
 	 * Format: `int32`
-	 * @type integer | undefined
 	 */
-	lngTimeout?: number | undefined;
+	lngTimeout?: (5 | 10 | 15 | 20 | 30 | 45 | 60) | undefined;
 	/**
 	 * @description The desired action, if the button is pressed once: 0 .. no action, 1 .. intelligent, 2 .. unlock, 3 .. lock, 4 .. unlatch, 5 .. lock 'n' go, 6 .. show status
 	 *
@@ -3238,9 +3237,8 @@ export type SmartlockAdvancedConfig = {
 	 * @description Duration in seconds for holding the latch in unlatched position
 	 *
 	 * Format: `int32`
-	 * @type integer | undefined
 	 */
-	unlatchDuration?: number | undefined;
+	unlatchDuration?: (1 | 3 | 5 | 7 | 10 | 15 | 20 | 30) | undefined;
 	/**
 	 * @description The operation id - if set it's locked for another operation
 	 * @type string | undefined
@@ -3336,9 +3334,8 @@ export type SmartlockOpenerAdvancedConfig = {
 	 * @description Method to switch between data and analogue mode
 	 *
 	 * Format: `int32`
-	 * @type integer
 	 */
-	readonly busModeSwitch: number;
+	readonly busModeSwitch: 0 | 1;
 	/**
 	 * @description Duration of the short circuit for BUS mode switching in ms
 	 *
@@ -3395,37 +3392,32 @@ export type SmartlockOpenerAdvancedConfig = {
 	 * @description The sound for ring: 0 .. no sound, 1 .. Sound1, 2 .. Sound2, 3 .. Sound3
 	 *
 	 * Format: `int32`
-	 * @type integer
 	 */
-	soundRing: number;
+	soundRing: 0 | 1 | 2 | 3;
 	/**
 	 * @description The sound for open: 0 .. no sound, 1 .. Sound1, 2 .. Sound2, 3 .. Sound3
 	 *
 	 * Format: `int32`
-	 * @type integer
 	 */
-	soundOpen: number;
+	soundOpen: 0 | 1 | 2 | 3;
 	/**
 	 * @description The sound for RTO: 0 .. no sound, 1 .. Sound1, 2 .. Sound2, 3 .. Sound3
 	 *
 	 * Format: `int32`
-	 * @type integer
 	 */
-	soundRto: number;
+	soundRto: 0 | 1 | 2 | 3;
 	/**
 	 * @description The sound for CM: 0 .. no sound, 1 .. Sound1, 2 .. Sound2, 3 .. Sound3
 	 *
 	 * Format: `int32`
-	 * @type integer
 	 */
-	soundCm: number;
+	soundCm: 0 | 1 | 2 | 3;
 	/**
 	 * @description The sound confirmation: 0 .. no sound, 1 .. sound
 	 *
 	 * Format: `int32`
-	 * @type integer
 	 */
-	soundConfirmation: number;
+	soundConfirmation: 0 | 1;
 	/**
 	 * @description The sound level
 	 *
@@ -3476,9 +3468,8 @@ export type SmartlockSmartdoorAdvancedConfig = {
 	 * @description Timeout in seconds for lock ‘n’ go
 	 *
 	 * Format: `int32`
-	 * @type integer | undefined
 	 */
-	lngTimeout?: number | undefined;
+	lngTimeout?: (5 | 10 | 15 | 20 | 30 | 45 | 60) | undefined;
 	/**
 	 * @description The desired action, if the button is pressed once: 0 .. no action, 1 .. intelligent, 2 .. unlock, 3 .. lock, 4 .. unlatch, 5 .. lock 'n' go, 6 .. show status
 	 *
@@ -3502,9 +3493,8 @@ export type SmartlockSmartdoorAdvancedConfig = {
 	 * @description Duration in seconds for holding the latch in unlatched position
 	 *
 	 * Format: `int32`
-	 * @type integer | undefined
 	 */
-	unlatchDuration?: number | undefined;
+	unlatchDuration?: (1 | 3 | 5 | 7 | 10 | 15 | 20 | 30) | undefined;
 	/**
 	 * @description The operation id - if set it's locked for another operation
 	 * @type string | undefined
@@ -3514,9 +3504,8 @@ export type SmartlockSmartdoorAdvancedConfig = {
 	 * @description The volume of the buzzer: 0 .. off, 1 .. low, 2 .. normal
 	 *
 	 * Format: `int32`
-	 * @type integer | undefined
 	 */
-	buzzerVolume?: number | undefined;
+	buzzerVolume?: (0 | 1 | 2) | undefined;
 	/**
 	 * @description Set of supported battery types: 0 .. alkali, 1 .. accumulator, 2 .. lithium, 3 .. fixed, 254 .. automatic, 255 .. unknown
 	 * @type array | undefined
@@ -4328,9 +4317,8 @@ export type SmartlockLog = {
 	 * @description The device type: 0 .. Smartlock 1/2 + Box, 2 .. Opener, 3 .. Smartdoor, 4 .. Smartlock 3/4, 5 .. Smartlock 5
 	 *
 	 * Format: `int32`
-	 * @type integer
 	 */
-	deviceType: number;
+	deviceType: 0 | 2 | 3 | 4 | 5;
 	/**
 	 * @description The id of the linked account user
 	 *

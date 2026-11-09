@@ -1882,7 +1882,18 @@ export const smartlockConfigSchema = z.object({
 });
 
 export const smartlockAdvancedConfigSchema = z.object({
-	lngTimeout: z.int32().optional().describe("Timeout in seconds for lock ‘n’ go"),
+	lngTimeout: z
+		.union([
+			z.literal(5),
+			z.literal(10),
+			z.literal(15),
+			z.literal(20),
+			z.literal(30),
+			z.literal(45),
+			z.literal(60),
+		])
+		.optional()
+		.describe("Timeout in seconds for lock ‘n’ go"),
 	singleButtonPressAction: z
 		.int32()
 		.optional()
@@ -1900,7 +1911,16 @@ export const smartlockAdvancedConfigSchema = z.object({
 		.optional()
 		.describe("Flag that indicates if the automatic detection of the battery type is enabled"),
 	unlatchDuration: z
-		.int32()
+		.union([
+			z.literal(1),
+			z.literal(3),
+			z.literal(5),
+			z.literal(7),
+			z.literal(10),
+			z.literal(15),
+			z.literal(20),
+			z.literal(30),
+		])
 		.optional()
 		.describe("Duration in seconds for holding the latch in unlatched position"),
 	operationId: z
@@ -1962,7 +1982,9 @@ export const smartlockAdvancedConfigSchema = z.object({
 
 export const smartlockOpenerAdvancedConfigSchema = z.object({
 	intercomId: z.int32().describe("The database ID of the connected intercom"),
-	busModeSwitch: z.int32().describe("Method to switch between data and analogue mode"),
+	busModeSwitch: z
+		.union([z.literal(0), z.literal(1)])
+		.describe("Method to switch between data and analogue mode"),
 	shortCircuitDuration: z
 		.int32()
 		.describe("Duration of the short circuit for BUS mode switching in ms"),
@@ -1996,18 +2018,20 @@ export const smartlockOpenerAdvancedConfigSchema = z.object({
 			"Duration in ms of doorbell suppression (only in Operating mode 2 'digital Intercom')",
 		),
 	soundRing: z
-		.int32()
+		.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3)])
 		.describe("The sound for ring: 0 .. no sound, 1 .. Sound1, 2 .. Sound2, 3 .. Sound3"),
 	soundOpen: z
-		.int32()
+		.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3)])
 		.describe("The sound for open: 0 .. no sound, 1 .. Sound1, 2 .. Sound2, 3 .. Sound3"),
 	soundRto: z
-		.int32()
+		.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3)])
 		.describe("The sound for RTO: 0 .. no sound, 1 .. Sound1, 2 .. Sound2, 3 .. Sound3"),
 	soundCm: z
-		.int32()
+		.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3)])
 		.describe("The sound for CM: 0 .. no sound, 1 .. Sound1, 2 .. Sound2, 3 .. Sound3"),
-	soundConfirmation: z.int32().describe("The sound confirmation: 0 .. no sound, 1 .. sound"),
+	soundConfirmation: z
+		.union([z.literal(0), z.literal(1)])
+		.describe("The sound confirmation: 0 .. no sound, 1 .. sound"),
 	soundLevel: z.int32().describe("The sound level"),
 	singleButtonPressAction: z
 		.int32()
@@ -2041,7 +2065,18 @@ export const smartlockOpenerAdvancedConfigSchema = z.object({
 });
 
 export const smartlockSmartdoorAdvancedConfigSchema = z.object({
-	lngTimeout: z.int32().optional().describe("Timeout in seconds for lock ‘n’ go"),
+	lngTimeout: z
+		.union([
+			z.literal(5),
+			z.literal(10),
+			z.literal(15),
+			z.literal(20),
+			z.literal(30),
+			z.literal(45),
+			z.literal(60),
+		])
+		.optional()
+		.describe("Timeout in seconds for lock ‘n’ go"),
 	singleButtonPressAction: z
 		.int32()
 		.optional()
@@ -2059,7 +2094,16 @@ export const smartlockSmartdoorAdvancedConfigSchema = z.object({
 		.optional()
 		.describe("Flag that indicates if the automatic detection of the battery type is enabled"),
 	unlatchDuration: z
-		.int32()
+		.union([
+			z.literal(1),
+			z.literal(3),
+			z.literal(5),
+			z.literal(7),
+			z.literal(10),
+			z.literal(15),
+			z.literal(20),
+			z.literal(30),
+		])
 		.optional()
 		.describe("Duration in seconds for holding the latch in unlatched position"),
 	operationId: z
@@ -2067,7 +2111,7 @@ export const smartlockSmartdoorAdvancedConfigSchema = z.object({
 		.optional()
 		.describe("The operation id - if set it's locked for another operation"),
 	buzzerVolume: z
-		.int32()
+		.union([z.literal(0), z.literal(1), z.literal(2)])
 		.optional()
 		.describe("The volume of the buzzer: 0 .. off, 1 .. low, 2 .. normal"),
 	supportedBatteryTypes: z
@@ -2441,7 +2485,7 @@ export const smartlockLogSchema = z.object({
 	id: z.string().describe("The unique id for the smartlock log"),
 	smartlockId: z.int().describe("The smartlock id"),
 	deviceType: z
-		.int32()
+		.union([z.literal(0), z.literal(2), z.literal(3), z.literal(4), z.literal(5)])
 		.describe(
 			"The device type: 0 .. Smartlock 1/2 + Box, 2 .. Opener, 3 .. Smartdoor, 4 .. Smartlock 3/4, 5 .. Smartlock 5",
 		),
