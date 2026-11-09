@@ -108941,6 +108941,14 @@ export type TeamsDevicesDnsSearchSuffixes = TeamsDevicesDnsSearchSuffix[];
 export type TeamsDevicesEnableDeviceCredentialAuthentication = boolean;
 
 /**
+ * @description Determines whether NetBIOS over TCP/IP (NetBT) is enabled on the WARP tunnel interface. (Windows only). NetBT is disabled by default for security reasons.
+ * @default false
+ * @example false
+ * @type boolean
+ */
+export type TeamsDevicesEnableNetbt = boolean;
+
+/**
  * @description The address in CIDR format to exclude from the tunnel. If `address` is present, `host` must not be present.
  * @example 192.0.2.0/24
  * @type string
@@ -109159,6 +109167,20 @@ export type TeamsDevicesSplitTunnelInclude = TeamsDevicesIncludeSplitTunnelWithA
 export type TeamsDevicesInclude = TeamsDevicesSplitTunnelInclude[];
 
 /**
+ * @description The amount of time in minutes a user is allowed access to their LAN. A value of 0 will allow LAN access until the next WARP reconnection, such as a reboot or a laptop waking from sleep. Note that this field is omitted from the response if null or unset.
+ * @example 30
+ * @type number
+ */
+export type TeamsDevicesLanAllowMinutes = number;
+
+/**
+ * @description The size of the subnet for the local access network. Note that this field is omitted from the response if null or unset.
+ * @example 24
+ * @type number
+ */
+export type TeamsDevicesLanAllowSubnetSize = number;
+
+/**
  * @maxLength 36
  * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
  * @type string
@@ -109319,6 +109341,13 @@ export type TeamsDevicesDefaultDeviceSettingsPolicy = {
    */
   enable_device_credential_authentication?: TeamsDevicesEnableDeviceCredentialAuthentication | undefined;
   /**
+   * @description Determines whether NetBIOS over TCP/IP (NetBT) is enabled on the WARP tunnel interface. (Windows only). NetBT is disabled by default for security reasons.
+   * @default false
+   * @example false
+   * @type boolean | undefined
+   */
+  enable_netbt?: TeamsDevicesEnableNetbt | undefined;
+  /**
    * @description Whether the policy will be applied to matching devices.
    * @default true
    * @example true
@@ -109358,6 +109387,18 @@ export type TeamsDevicesDefaultDeviceSettingsPolicy = {
    * @type array | undefined
    */
   include?: TeamsDevicesInclude | undefined;
+  /**
+   * @description The amount of time in minutes a user is allowed access to their LAN. A value of 0 will allow LAN access until the next WARP reconnection, such as a reboot or a laptop waking from sleep. Note that this field is omitted from the response if null or unset.
+   * @example 30
+   * @type number | undefined
+   */
+  lan_allow_minutes?: TeamsDevicesLanAllowMinutes | undefined;
+  /**
+   * @description The size of the subnet for the local access network. Note that this field is omitted from the response if null or unset.
+   * @example 24
+   * @type number | undefined
+   */
+  lan_allow_subnet_size?: TeamsDevicesLanAllowSubnetSize | undefined;
   /**
    * @maxLength 36
    * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
@@ -110466,20 +110507,6 @@ export type TeamsDevicesDeviceResponse = TeamsDevicesApiResponseSingle & {
 export type TeamsDevicesSchemasDescription = string;
 
 /**
- * @description The amount of time in minutes a user is allowed access to their LAN. A value of 0 will allow LAN access until the next WARP reconnection, such as a reboot or a laptop waking from sleep. Note that this field is omitted from the response if null or unset.
- * @example 30
- * @type number
- */
-export type TeamsDevicesLanAllowMinutes = number;
-
-/**
- * @description The size of the subnet for the local access network. Note that this field is omitted from the response if null or unset.
- * @example 24
- * @type number
- */
-export type TeamsDevicesLanAllowSubnetSize = number;
-
-/**
  * @description The wirefilter expression to match devices. Available values: "identity.email", "identity.groups.id", "identity.groups.name", "identity.groups.email", "identity.service_token_uuid", "identity.saml_attributes", "network", "os.name", "os.version", "device.tags".
  * @maxLength 500
  * @example identity.email == "test@cloudflare.com"
@@ -110582,6 +110609,13 @@ export type TeamsDevicesDeviceSettingsPolicy = {
    * @type boolean | undefined
    */
   enable_device_credential_authentication?: TeamsDevicesEnableDeviceCredentialAuthentication | undefined;
+  /**
+   * @description Determines whether NetBIOS over TCP/IP (NetBT) is enabled on the WARP tunnel interface. (Windows only). NetBT is disabled by default for security reasons.
+   * @default false
+   * @example false
+   * @type boolean | undefined
+   */
+  enable_netbt?: TeamsDevicesEnableNetbt | undefined;
   /**
    * @description Whether the policy will be applied to matching devices.
    * @default true
@@ -258291,9 +258325,9 @@ export type AiSearchInstanceChatCompletionBody = {
     reranking?: {
       enabled?: boolean | undefined;
       /**
+       * @description Minimum reranker relevance score a chunk must reach to be returned. When omitted, falls back to the instance-level score_threshold, then to 0.4.
        * @minimum 0
        * @maximum 1
-       * @default 0.4
        * @type number | undefined
        */
       match_threshold?: number | undefined;
@@ -259124,9 +259158,9 @@ export type AiSearchInstanceSearchBody = {
     reranking?: {
       enabled?: boolean | undefined;
       /**
+       * @description Minimum reranker relevance score a chunk must reach to be returned. When omitted, falls back to the instance-level score_threshold, then to 0.4.
        * @minimum 0
        * @maximum 1
-       * @default 0.4
        * @type number | undefined
        */
       match_threshold?: number | undefined;
@@ -263646,9 +263680,9 @@ export type AiSearchNamespaceInstanceChatCompletionBody = {
     reranking?: {
       enabled?: boolean | undefined;
       /**
+       * @description Minimum reranker relevance score a chunk must reach to be returned. When omitted, falls back to the instance-level score_threshold, then to 0.4.
        * @minimum 0
        * @maximum 1
-       * @default 0.4
        * @type number | undefined
        */
       match_threshold?: number | undefined;
@@ -265818,9 +265852,9 @@ export type AiSearchNamespaceInstanceSearchBody = {
     reranking?: {
       enabled?: boolean | undefined;
       /**
+       * @description Minimum reranker relevance score a chunk must reach to be returned. When omitted, falls back to the instance-level score_threshold, then to 0.4.
        * @minimum 0
        * @maximum 1
-       * @default 0.4
        * @type number | undefined
        */
       match_threshold?: number | undefined;
@@ -266772,9 +266806,9 @@ export type AiSearchNamespaceMultiInstanceChatCompletionBody = {
     reranking?: {
       enabled?: boolean | undefined;
       /**
+       * @description Minimum reranker relevance score a chunk must reach to be returned. When omitted, falls back to the instance-level score_threshold, then to 0.4.
        * @minimum 0
        * @maximum 1
-       * @default 0.4
        * @type number | undefined
        */
       match_threshold?: number | undefined;
@@ -267128,9 +267162,9 @@ export type AiSearchNamespaceMultiInstanceSearchBody = {
     reranking?: {
       enabled?: boolean | undefined;
       /**
+       * @description Minimum reranker relevance score a chunk must reach to be returned. When omitted, falls back to the instance-level score_threshold, then to 0.4.
        * @minimum 0
        * @maximum 1
-       * @default 0.4
        * @type number | undefined
        */
       match_threshold?: number | undefined;
@@ -335965,6 +335999,13 @@ export type DevicesUpdateDefaultDeviceSettingsPolicyBody = {
    */
   enable_device_credential_authentication?: TeamsDevicesEnableDeviceCredentialAuthentication | undefined;
   /**
+   * @description Determines whether NetBIOS over TCP/IP (NetBT) is enabled on the WARP tunnel interface. (Windows only). NetBT is disabled by default for security reasons.
+   * @default false
+   * @example false
+   * @type boolean | undefined
+   */
+  enable_netbt?: TeamsDevicesEnableNetbt | undefined;
+  /**
    * @description List of routes excluded in the WARP client's tunnel. Both 'exclude' and 'include' cannot be set in the same request.
    * @type array | undefined
    */
@@ -336153,6 +336194,13 @@ export type DevicesCreateDeviceSettingsPolicyBody = {
    * @type boolean | undefined
    */
   enable_device_credential_authentication?: TeamsDevicesEnableDeviceCredentialAuthentication | undefined;
+  /**
+   * @description Determines whether NetBIOS over TCP/IP (NetBT) is enabled on the WARP tunnel interface. (Windows only). NetBT is disabled by default for security reasons.
+   * @default false
+   * @example false
+   * @type boolean | undefined
+   */
+  enable_netbt?: TeamsDevicesEnableNetbt | undefined;
   /**
    * @description Whether the policy will be applied to matching devices.
    * @default true
@@ -336707,6 +336755,13 @@ export type DevicesUpdateDeviceSettingsPolicyBody = {
    * @type boolean | undefined
    */
   enable_device_credential_authentication?: TeamsDevicesEnableDeviceCredentialAuthentication | undefined;
+  /**
+   * @description Determines whether NetBIOS over TCP/IP (NetBT) is enabled on the WARP tunnel interface. (Windows only). NetBT is disabled by default for security reasons.
+   * @default false
+   * @example false
+   * @type boolean | undefined
+   */
+  enable_netbt?: TeamsDevicesEnableNetbt | undefined;
   /**
    * @description Whether the policy will be applied to matching devices.
    * @example true
