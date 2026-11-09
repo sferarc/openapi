@@ -1,5 +1,11 @@
 # zoom-api-js
 
+## 3.7.2
+
+### Patch Changes
+
+- 8b0246b: The expire_in field in various join token status response types is now always 120 instead of any integer.
+
 ## 3.7.1
 
 ### Patch Changes

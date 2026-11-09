@@ -1,5 +1,18 @@
 # vercel-api-js
 
+## 2.30.0
+
+### Minor Changes
+
+- 2d1ef73: Added the RemoveTeamMemberStatus409 error response for the removeTeamMember operation.
+
+### Patch Changes
+
+- 2d1ef73: The joinTeam operation now refuses updates that would leave the organization without an admin, as documented in its description.
+- 2d1ef73: Added awaiting_approval as a new status for several Vercel CI invocation status types and enums.
+- 2d1ef73: Added new allowed enum values for several environment, compression, and aggregation-related fields to use specific union types instead of plain strings.
+- 2d1ef73: The updateTeamMember operation now refuses removals or leaves that would leave the organization without an admin, as documented in its description.
+
 ## 2.29.0
 
 ### Minor Changes

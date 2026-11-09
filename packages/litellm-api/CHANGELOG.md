@@ -1,5 +1,19 @@
 # litellm-api
 
+## 2.19.0
+
+### Minor Changes
+
+- 13e7916: Added strongly-typed enum and type for openaiTypesSharedParamsReasoningReasoningMode and updated related types to accept OpenaiTypesSharedParamsReasoningReasoningModeKey.
+- 13e7916: Added strongly-typed enum and type for toolImageGenerationModel and updated related types to accept ToolImageGenerationModelKey.
+- 13e7916: Added strongly-typed enum and type for modelGroupInfoProxyMode and updated related types to accept ModelGroupInfoProxyModeKey.
+- 13e7916: Added strongly-typed enum and type for imageGenerationSize and updated related types to accept ImageGenerationSizeKey.
+- 13e7916: Added strongly-typed enum and type for imageGenerationCallSize and updated related types to accept ImageGenerationCallSizeKey.
+- 13e7916: Added strongly-typed enum and type for toolImageGenerationSize and updated related types to accept ToolImageGenerationSizeKey.
+- 13e7916: Added strongly-typed enum and type for healthServicesEndpointHealthServicesGetService and updated related types to accept HealthServicesEndpointHealthServicesGetServiceKey.
+- 13e7916: Added strongly-typed enum and type for litellmTypesLlmsOpenaiComputerToolParamEnvironment and updated related types to accept LitellmTypesLlmsOpenaiComputerToolParamEnvironmentKey.
+- 13e7916: Added strongly-typed enum and type for imageGenerationModel and updated related types to accept ImageGenerationModelKey.
+
 ## 2.18.1
 
 ### Patch Changes

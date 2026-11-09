@@ -1,5 +1,29 @@
 # cloudflare-api-js
 
+## 4.26.0
+
+### Minor Changes
+
+- b6cad23: Environment filtering for application-related queries standardized as enums (fedramp, standard) in ListApplicationsV2 and GetApplicationV2 (and related types), and 400 on invalid values enforced.
+- b6cad23: [BREAKING] Worker build-related types and path parameters have been renamed: script tags and external script IDs are now consistently typed as plain strings and named accordingly.
+- b6cad23: Fields named include_subdomains in Zones0Hold*Status200 types changed from string to boolean type.
+- b6cad23: Added the new purgeWorkerBuildCache operation to purge a Worker's build cache.
+- b6cad23: Added the new aigConfigTestProviders operation to test AI Gateway provider credentials.
+- b6cad23: Added the new createBuildByScript operation to start a Worker build for a branch or commit.
+- b6cad23: Added the new retryWorkerBuild operation to retry a Worker build by UUID.
+- b6cad23: [BREAKING] The BuildsScriptName type was removed, and references to a worker name or script tag now consistently expect a string type.
+
+### Patch Changes
+
+- b6cad23: TLS root CA certificate fields now clarify returned certificates are normalized PEM encoding and may differ byte-for-byte from upload, affecting all certificate-related types.
+- b6cad23: Stream watermark request and response types consolidated under StreamWatermarkAtUpload.
+- b6cad23: Descriptions updated for several worker build and deploy hook path parameters for clarity and accurate guidance.
+- b6cad23: Error responses for GetApplicationV2, GetApplicationAuthMethodsV2, and GetApplicationSetupFlowsV2 now include HTTP 400 for invalid environment parameters.
+- b6cad23: Added the deploy_tool field with possible values 'cf' and 'wrangler' to BuildsConfigAutofillResponse.
+- b6cad23: Realtimekit meeting SIP dial-in types and enable_sip fields were added for meeting create/update bodies and responses.
+- b6cad23: ZeroTrustGateway rule descriptions now clarify empty string clears the description and provide defaults where applicable.
+- b6cad23: Abuse report justification description updated to reference phishing reports and character limits of 20-5000 characters.
+
 ## 4.25.0
 
 ### Minor Changes
