@@ -1,5 +1,17 @@
 # cloudflare-api-js
 
+## 4.25.0
+
+### Minor Changes
+
+- c2235a9: Added the enable_netbt optional property for NetBIOS over TCP/IP in TeamsDevicesDefaultDeviceSettingsPolicy, TeamsDevicesDeviceSettingsPolicy, DevicesUpdateDefaultDeviceSettingsPolicyBody, DevicesCreateDeviceSettingsPolicyBody, and DevicesUpdateDeviceSettingsPolicyBody types.
+- c2235a9: Added the TeamsDevicesLanAllowMinutes and TeamsDevicesLanAllowSubnetSize types for LAN access configuration, and moved them as optional properties into TeamsDevicesDefaultDeviceSettingsPolicy.
+- c2235a9: Added the TeamsDevicesEnableNetbt type for controlling NetBIOS over TCP/IP on WARP tunnel interfaces (Windows only).
+
+### Patch Changes
+
+- c2235a9: Improved descriptions for score_threshold fields in AiSearch*Body types to clarify fallback behavior, without changing the default value behavior.
+
 ## 4.24.0
 
 ### Minor Changes

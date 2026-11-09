@@ -1,5 +1,16 @@
 # vercel-api-js
 
+## 2.29.0
+
+### Minor Changes
+
+- 86dedd9: Added 'drive-created', 'drive-deleted', 'drive-snapshot-created', and 'drive-snapshot-deleted' to userEventTypeEnum, listEventTypeNameEnum, and listEventTypeReplacedByEnum.
+- 86dedd9: [BREAKING] The UserEvent type was refactored, changing its discriminated union structure for drive and drive snapshot events.
+
+### Patch Changes
+
+- 86dedd9: Clarified description for runSessionCommand and related types to specify how the 'wait' parameter affects command exitCode retrieval.
+
 ## 2.28.2
 
 ### Patch Changes
