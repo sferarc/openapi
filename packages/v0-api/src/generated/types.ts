@@ -80,6 +80,19 @@ export const chatDetailMessagesAttachmentsTypeEnum = {
 export type ChatDetailMessagesAttachmentsTypeEnumKey =
 	(typeof chatDetailMessagesAttachmentsTypeEnum)[keyof typeof chatDetailMessagesAttachmentsTypeEnum];
 
+export const chatDetailModelConfigurationModelId = {
+	"v0-auto": "v0-auto",
+	"v0-opus-4.7": "v0-opus-4.7",
+	"v0-opus-4.7-fast": "v0-opus-4.7-fast",
+	"v0-mini": "v0-mini",
+	"v0-pro": "v0-pro",
+	"v0-max": "v0-max",
+	"v0-max-fast": "v0-max-fast",
+} as const;
+
+export type ChatDetailModelConfigurationModelIdKey =
+	(typeof chatDetailModelConfigurationModelId)[keyof typeof chatDetailModelConfigurationModelId];
+
 export const chatDetailModelConfigurationThinkingEffort = {
 	none: "none",
 	minimal: "minimal",
@@ -471,7 +484,7 @@ export type ChatDetail = {
 				 * @description Model to use for the generation. `v0-auto` is deprecated and falls back to `v0-pro`.
 				 * @default v0-pro
 				 */
-				modelId?: string | undefined;
+				modelId?: (ChatDetailModelConfigurationModelIdKey | (string & {})) | undefined;
 				/**
 				 * @description Enables image generations to generate up to 5 images per version.
 				 * @default false
@@ -3133,6 +3146,17 @@ export const chatsCreateRequestChatPrivacyEnum = {
 export type ChatsCreateRequestChatPrivacyEnumKey =
 	(typeof chatsCreateRequestChatPrivacyEnum)[keyof typeof chatsCreateRequestChatPrivacyEnum];
 
+export const chatsCreateRequestModelConfigurationModelId = {
+	"v0-auto": "v0-auto",
+	"v0-mini": "v0-mini",
+	"v0-pro": "v0-pro",
+	"v0-max": "v0-max",
+	"v0-max-fast": "v0-max-fast",
+} as const;
+
+export type ChatsCreateRequestModelConfigurationModelIdKey =
+	(typeof chatsCreateRequestModelConfigurationModelId)[keyof typeof chatsCreateRequestModelConfigurationModelId];
+
 export const chatsCreateRequestModelConfigurationThinkingEffort = {
 	none: "none",
 	minimal: "minimal",
@@ -3208,7 +3232,7 @@ export type ChatsCreateBody = {
 				 * @description Model to use for the generation. Use a v0 model ID, or an [AI Gateway](https://vercel.com/ai-gateway/models) model ID in `creator/model` format. Gateway models must support tool calling and Zero Data Retention, and are subject to team model policy; unsupported IDs are rejected. `v0-auto` is deprecated and falls back to `v0-pro`.
 				 * @default v0-pro
 				 */
-				modelId?: string | undefined;
+				modelId?: (ChatsCreateRequestModelConfigurationModelIdKey | (string & {})) | undefined;
 				/**
 				 * @description Enables image generations to generate up to 5 images per version.
 				 * @default false
@@ -4277,6 +4301,17 @@ export type ChatsSendMessageStatus429 = TooManyRequestsError;
 
 export type ChatsSendMessageStatus500 = InternalServerError;
 
+export const chatsSendMessageRequestModelConfigurationModelId = {
+	"v0-auto": "v0-auto",
+	"v0-mini": "v0-mini",
+	"v0-pro": "v0-pro",
+	"v0-max": "v0-max",
+	"v0-max-fast": "v0-max-fast",
+} as const;
+
+export type ChatsSendMessageRequestModelConfigurationModelIdKey =
+	(typeof chatsSendMessageRequestModelConfigurationModelId)[keyof typeof chatsSendMessageRequestModelConfigurationModelId];
+
 export const chatsSendMessageRequestModelConfigurationThinkingEffort = {
 	none: "none",
 	minimal: "minimal",
@@ -4342,7 +4377,7 @@ export type ChatsSendMessageBody = {
 				 * @description Model to use for the generation. Use a v0 model ID, or an [AI Gateway](https://vercel.com/ai-gateway/models) model ID in `creator/model` format. Gateway models must support tool calling and Zero Data Retention, and are subject to team model policy; unsupported IDs are rejected. `v0-auto` is deprecated and falls back to `v0-pro`.
 				 * @default v0-pro
 				 */
-				modelId?: string | undefined;
+				modelId?: (ChatsSendMessageRequestModelConfigurationModelIdKey | (string & {})) | undefined;
 				/**
 				 * @description Enables image generations to generate up to 5 images per version.
 				 * @default false
@@ -5099,6 +5134,17 @@ export const chatsResolveTaskRequestResponseModeEnum = {
 export type ChatsResolveTaskRequestResponseModeEnumKey =
 	(typeof chatsResolveTaskRequestResponseModeEnum)[keyof typeof chatsResolveTaskRequestResponseModeEnum];
 
+export const chatsResolveTaskRequestModelConfigurationModelId = {
+	"v0-auto": "v0-auto",
+	"v0-mini": "v0-mini",
+	"v0-pro": "v0-pro",
+	"v0-max": "v0-max",
+	"v0-max-fast": "v0-max-fast",
+} as const;
+
+export type ChatsResolveTaskRequestModelConfigurationModelIdKey =
+	(typeof chatsResolveTaskRequestModelConfigurationModelId)[keyof typeof chatsResolveTaskRequestModelConfigurationModelId];
+
 export const chatsResolveTaskRequestModelConfigurationThinkingEffort = {
 	none: "none",
 	minimal: "minimal",
@@ -5269,7 +5315,7 @@ export type ChatsResolveTaskBody = {
 				 * @description Model to use for the generation. Use a v0 model ID, or an [AI Gateway](https://vercel.com/ai-gateway/models) model ID in `creator/model` format. Gateway models must support tool calling and Zero Data Retention, and are subject to team model policy; unsupported IDs are rejected. `v0-auto` is deprecated and falls back to `v0-pro`.
 				 * @default v0-pro
 				 */
-				modelId?: string | undefined;
+				modelId?: (ChatsResolveTaskRequestModelConfigurationModelIdKey | (string & {})) | undefined;
 				/**
 				 * @description Enables image generations to generate up to 5 images per version.
 				 * @default false

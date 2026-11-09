@@ -246,10 +246,22 @@ export const chatDetailSchema = z
 		modelConfiguration: z
 			.strictObject({
 				modelId: z
-					.string()
-					.min(3)
-					.max(200)
-					.regex(/^[a-z0-9][a-z0-9._-]*\/[a-z0-9][a-z0-9._/-]*$/)
+					.union([
+						z.enum([
+							"v0-auto",
+							"v0-opus-4.7",
+							"v0-opus-4.7-fast",
+							"v0-mini",
+							"v0-pro",
+							"v0-max",
+							"v0-max-fast",
+						]),
+						z
+							.string()
+							.min(3)
+							.max(200)
+							.regex(/^[a-z0-9][a-z0-9._-]*\/[a-z0-9][a-z0-9._/-]*$/),
+					])
 					.optional()
 					.default("v0-pro")
 					.describe(
@@ -1616,10 +1628,14 @@ export const chatsCreateBodySchema = z.strictObject({
 	modelConfiguration: z
 		.strictObject({
 			modelId: z
-				.string()
-				.min(3)
-				.max(200)
-				.regex(/^[a-z0-9][a-z0-9._-]*\/[a-z0-9][a-z0-9._/-]*$/)
+				.union([
+					z.enum(["v0-auto", "v0-mini", "v0-pro", "v0-max", "v0-max-fast"]),
+					z
+						.string()
+						.min(3)
+						.max(200)
+						.regex(/^[a-z0-9][a-z0-9._-]*\/[a-z0-9][a-z0-9._/-]*$/),
+				])
 				.optional()
 				.default("v0-pro")
 				.describe(
@@ -2512,10 +2528,14 @@ export const chatsSendMessageBodySchema = z.strictObject({
 	modelConfiguration: z
 		.strictObject({
 			modelId: z
-				.string()
-				.min(3)
-				.max(200)
-				.regex(/^[a-z0-9][a-z0-9._-]*\/[a-z0-9][a-z0-9._/-]*$/)
+				.union([
+					z.enum(["v0-auto", "v0-mini", "v0-pro", "v0-max", "v0-max-fast"]),
+					z
+						.string()
+						.min(3)
+						.max(200)
+						.regex(/^[a-z0-9][a-z0-9._-]*\/[a-z0-9][a-z0-9._/-]*$/),
+				])
 				.optional()
 				.default("v0-pro")
 				.describe(
@@ -3319,10 +3339,14 @@ export const chatsResolveTaskBodySchema = z.strictObject({
 	modelConfiguration: z
 		.strictObject({
 			modelId: z
-				.string()
-				.min(3)
-				.max(200)
-				.regex(/^[a-z0-9][a-z0-9._-]*\/[a-z0-9][a-z0-9._/-]*$/)
+				.union([
+					z.enum(["v0-auto", "v0-mini", "v0-pro", "v0-max", "v0-max-fast"]),
+					z
+						.string()
+						.min(3)
+						.max(200)
+						.regex(/^[a-z0-9][a-z0-9._-]*\/[a-z0-9][a-z0-9._/-]*$/),
+				])
 				.optional()
 				.default("v0-pro")
 				.describe(
