@@ -1,6 +1,6 @@
 {
 	"name": "zoom-api-js",
-	"version": "3.7.1",
+	"version": "3.7.2",
 	"description": "Unofficial typed TypeScript client for the Zoom API, generated from its OpenAPI spec",
 	"keywords": [
 		"zoom",

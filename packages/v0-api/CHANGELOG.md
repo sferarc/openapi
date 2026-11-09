@@ -1,5 +1,15 @@
 # v0-api
 
+## 1.8.0
+
+### Minor Changes
+
+- ed00ee1: Added exported constants and types representing allowed modelId values for various chat-related requests.
+
+### Patch Changes
+
+- ed00ee1: Added strong typing for modelId fields in ChatDetail, ChatsCreateBody, ChatsSendMessageBody, and ChatsResolveTaskBody types, now accepting predefined model ID keys or strings.
+
 ## 1.7.0
 
 ### Minor Changes

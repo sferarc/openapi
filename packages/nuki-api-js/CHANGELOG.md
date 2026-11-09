@@ -1,5 +1,19 @@
 # nuki-api-js
 
+## 3.7.0
+
+### Minor Changes
+
+- 015cae5: [BREAKING] Restricted SmartlockAdvancedConfig.lngTimeout to specified values (5, 10, 15, 20, 30, 45, 60).
+- 015cae5: [BREAKING] Restricted SmartlockOpenerAdvancedConfig.busModeSwitch type to 0 or 1.
+- 015cae5: [BREAKING] Restricted SmartlockLog.deviceType to 0, 2, 3, 4, or 5.
+- 015cae5: [BREAKING] Restricted SmartlockOpenerAdvancedConfig.soundRing, soundOpen, soundRto, and soundCm to 0, 1, 2, or 3.
+- 015cae5: [BREAKING] Restricted SmartlockSmartdoorAdvancedConfig.lngTimeout to specified values (5, 10, 15, 20, 30, 45, 60).
+- 015cae5: [BREAKING] Restricted SmartlockOpenerAdvancedConfig.soundConfirmation to 0 or 1.
+- 015cae5: [BREAKING] Restricted SmartlockSmartdoorAdvancedConfig.buzzerVolume to 0, 1, or 2.
+- 015cae5: [BREAKING] Restricted SmartlockAdvancedConfig.unlatchDuration to specified values (1, 3, 5, 7, 10, 15, 20, 30).
+- 015cae5: [BREAKING] Restricted SmartlockSmartdoorAdvancedConfig.unlatchDuration to specified values (1, 3, 5, 7, 10, 15, 20, 30).
+
 ## 3.6.0
 
 ### Minor Changes
