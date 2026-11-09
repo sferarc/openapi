@@ -806,6 +806,15 @@ export type ConnectTriggerConfiguration = {
 	enabled: false | true;
 };
 
+export const connectConnectorCreatedByEnvironment = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type ConnectConnectorCreatedByEnvironmentKey =
+	(typeof connectConnectorCreatedByEnvironment)[keyof typeof connectConnectorCreatedByEnvironment];
+
 export const connectConnectorCreationModeEnum = {
 	managed: "managed",
 	manual: "manual",
@@ -854,6 +863,15 @@ export const connectConnectorTypeEnum = {
 
 export type ConnectConnectorTypeEnumKey =
 	(typeof connectConnectorTypeEnum)[keyof typeof connectConnectorTypeEnum];
+
+export const connectConnectorUpdatedByEnvironment = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type ConnectConnectorUpdatedByEnvironmentKey =
+	(typeof connectConnectorUpdatedByEnvironment)[keyof typeof connectConnectorUpdatedByEnvironment];
 
 /**
  * @description A connector that defines how Vercel accesses an external service.
@@ -950,7 +968,7 @@ export type ConnectConnector = {
 						/**
 						 * @description Deployment environment of the project principal.
 						 */
-						environment: string;
+						environment: (string & {}) | ConnectConnectorCreatedByEnvironmentKey;
 						/**
 						 * @description Vercel project ID.
 						 * @type string
@@ -1148,7 +1166,7 @@ export type ConnectConnector = {
 						/**
 						 * @description Deployment environment of the project principal.
 						 */
-						environment: string;
+						environment: (string & {}) | ConnectConnectorUpdatedByEnvironmentKey;
 						/**
 						 * @description Vercel project ID.
 						 * @type string
@@ -1237,6 +1255,15 @@ export type ConnectConnectorList = {
 	pagination: ConnectPagination;
 };
 
+export const connectConnectorCreateResultCreatedByEnvironment = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type ConnectConnectorCreateResultCreatedByEnvironmentKey =
+	(typeof connectConnectorCreateResultCreatedByEnvironment)[keyof typeof connectConnectorCreateResultCreatedByEnvironment];
+
 export const connectConnectorCreateResultCreationModeEnum = {
 	managed: "managed",
 	manual: "manual",
@@ -1285,6 +1312,15 @@ export const connectConnectorCreateResultTypeEnum = {
 
 export type ConnectConnectorCreateResultTypeEnumKey =
 	(typeof connectConnectorCreateResultTypeEnum)[keyof typeof connectConnectorCreateResultTypeEnum];
+
+export const connectConnectorCreateResultUpdatedByEnvironment = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type ConnectConnectorCreateResultUpdatedByEnvironmentKey =
+	(typeof connectConnectorCreateResultUpdatedByEnvironment)[keyof typeof connectConnectorCreateResultUpdatedByEnvironment];
 
 /**
  * @description Connector created by the request.
@@ -1381,7 +1417,7 @@ export type ConnectConnectorCreateResult = {
 						/**
 						 * @description Deployment environment of the project principal.
 						 */
-						environment: string;
+						environment: (string & {}) | ConnectConnectorCreateResultCreatedByEnvironmentKey;
 						/**
 						 * @description Vercel project ID.
 						 * @type string
@@ -1579,7 +1615,7 @@ export type ConnectConnectorCreateResult = {
 						/**
 						 * @description Deployment environment of the project principal.
 						 */
-						environment: string;
+						environment: (string & {}) | ConnectConnectorCreateResultUpdatedByEnvironmentKey;
 						/**
 						 * @description Vercel project ID.
 						 * @type string
@@ -2683,6 +2719,15 @@ export type ConnectConnectorCreateData =
 			[key: string]: unknown;
 	  };
 
+export const connectCreateConnectorRequestEnvironments = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type ConnectCreateConnectorRequestEnvironmentsKey =
+	(typeof connectCreateConnectorRequestEnvironments)[keyof typeof connectCreateConnectorRequestEnvironments];
+
 /**
  * @description Create a connector with full provider configuration or with a known service connection method.
  */
@@ -2813,7 +2858,7 @@ export type ConnectCreateConnectorRequest = (
 	 * @description Environments for the project connection. Requires projectId. Use one or more built-in environment names or stable custom environment IDs that belong to the project. Duplicate values are accepted and removed.
 	 * @type array | undefined
 	 */
-	environments?: string[] | undefined;
+	environments?: (ConnectCreateConnectorRequestEnvironmentsKey | (string & {}))[] | undefined;
 	/**
 	 * @description Whether the triggers are enabled for this connector.
 	 * @type boolean | undefined
@@ -4209,6 +4254,15 @@ export type ConnectReplaceTriggerDestinationsRequest = {
 	destinations: ConnectTriggerDestinationInput[];
 };
 
+export const connectProjectConnectionEnabledEnvironments = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type ConnectProjectConnectionEnabledEnvironmentsKey =
+	(typeof connectProjectConnectionEnabledEnvironments)[keyof typeof connectProjectConnectionEnabledEnvironments];
+
 /**
  * @description A connection between a connector and a Vercel project, including the environments where the connector is enabled.
  * @type object
@@ -4228,7 +4282,7 @@ export type ConnectProjectConnection = {
 	 * @description Environments where the connector is enabled for the project.
 	 * @type array
 	 */
-	enabledEnvironments: string[];
+	enabledEnvironments: ((string & {}) | ConnectProjectConnectionEnabledEnvironmentsKey)[];
 	/**
 	 * @description Vercel project connected to the connector.
 	 * @type object
@@ -4287,6 +4341,15 @@ export type ConnectConnectorProjectConnectionList = {
 	projects: ConnectProjectConnection[];
 };
 
+export const connectUpsertProjectConnectionRequestEnvironments = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type ConnectUpsertProjectConnectionRequestEnvironmentsKey =
+	(typeof connectUpsertProjectConnectionRequestEnvironments)[keyof typeof connectUpsertProjectConnectionRequestEnvironments];
+
 /**
  * @description Environments enabled for a connector project connection.
  * @type object
@@ -4296,7 +4359,7 @@ export type ConnectUpsertProjectConnectionRequest = {
 	 * @description One or more built-in environment names or stable custom environment IDs that belong to the project. Duplicate values are accepted and removed.
 	 * @type array
 	 */
-	environments: string[];
+	environments: (ConnectUpsertProjectConnectionRequestEnvironmentsKey | (string & {}))[];
 };
 
 /**
@@ -4340,10 +4403,18 @@ export type ConnectError = {
 	};
 };
 
+export const connectEnvironment = {
+	development: "development",
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type ConnectEnvironmentKey = (typeof connectEnvironment)[keyof typeof connectEnvironment];
+
 /**
  * @description A built-in Vercel environment or a stable custom environment ID.
  */
-export type ConnectEnvironment = string;
+export type ConnectEnvironment = ConnectEnvironmentKey | (string & {});
 
 export const flagJSONValue = {
 	false: false,
@@ -6731,6 +6802,22 @@ export const userEventPayloadPreviousPassportDeploymentTypeEnum2 = {
 export type UserEventPayloadPreviousPassportDeploymentTypeEnum2Key =
 	(typeof userEventPayloadPreviousPassportDeploymentTypeEnum2)[keyof typeof userEventPayloadPreviousPassportDeploymentTypeEnum2];
 
+export const userEventPayloadNextEnvId = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type UserEventPayloadNextEnvIdKey =
+	(typeof userEventPayloadNextEnvId)[keyof typeof userEventPayloadNextEnvId];
+
+export const userEventPayloadPreviousEnvId = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type UserEventPayloadPreviousEnvIdKey =
+	(typeof userEventPayloadPreviousEnvId)[keyof typeof userEventPayloadPreviousEnvId];
+
 export const originEnum = {
 	"account-update": "account-update",
 	bitbucket: "bitbucket",
@@ -6838,6 +6925,22 @@ export const userEventPayloadWidgetEnum = {
 
 export type UserEventPayloadWidgetEnumKey =
 	(typeof userEventPayloadWidgetEnum)[keyof typeof userEventPayloadWidgetEnum];
+
+export const userEventPayloadProjectNewConnectConfigurationsEnvId = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type UserEventPayloadProjectNewConnectConfigurationsEnvIdKey =
+	(typeof userEventPayloadProjectNewConnectConfigurationsEnvId)[keyof typeof userEventPayloadProjectNewConnectConfigurationsEnvId];
+
+export const userEventPayloadProjectOldConnectConfigurationsEnvId = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type UserEventPayloadProjectOldConnectConfigurationsEnvIdKey =
+	(typeof userEventPayloadProjectOldConnectConfigurationsEnvId)[keyof typeof userEventPayloadProjectOldConnectConfigurationsEnvId];
 
 export const userEventPayloadActionEnum13 = {
 	disabled: "disabled",
@@ -12775,7 +12878,7 @@ export type UserEvent = {
 							 * @type boolean | undefined
 							 */
 							enableFunctions?: (false | true) | undefined;
-							envId: string;
+							envId: (string & {}) | UserEventPayloadNextEnvIdKey;
 							perimeterId: string;
 						}[];
 						previous: {
@@ -12789,7 +12892,7 @@ export type UserEvent = {
 							 * @type boolean | undefined
 							 */
 							enableFunctions?: (false | true) | undefined;
-							envId: string;
+							envId: (string & {}) | UserEventPayloadPreviousEnvIdKey;
 							perimeterId: string;
 						}[];
 						projectId: string;
@@ -13143,7 +13246,7 @@ export type UserEvent = {
 										connectConfigurationId: string;
 										createdAt: number;
 										dc?: string | undefined;
-										envId: string;
+										envId: (string & {}) | UserEventPayloadProjectNewConnectConfigurationsEnvIdKey;
 										passive: false | true;
 										updatedAt: number;
 								  }[]
@@ -13160,7 +13263,7 @@ export type UserEvent = {
 										connectConfigurationId: string;
 										createdAt: number;
 										dc?: string | undefined;
-										envId: string;
+										envId: (string & {}) | UserEventPayloadProjectOldConnectConfigurationsEnvIdKey;
 										passive: false | true;
 										updatedAt: number;
 								  }[]
@@ -52815,6 +52918,14 @@ export const getAllLogDrainsStatus200DrainsDeliveryEncodingEnum2 = {
 export type GetAllLogDrainsStatus200DrainsDeliveryEncodingEnum2Key =
 	(typeof getAllLogDrainsStatus200DrainsDeliveryEncodingEnum2)[keyof typeof getAllLogDrainsStatus200DrainsDeliveryEncodingEnum2];
 
+export const getAllLogDrainsStatus200DrainsDeliveryCompressionEnum2 = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsDeliveryCompressionEnum2Key =
+	(typeof getAllLogDrainsStatus200DrainsDeliveryCompressionEnum2)[keyof typeof getAllLogDrainsStatus200DrainsDeliveryCompressionEnum2];
+
 export const getAllLogDrainsStatus200DrainsDeliveryEncodingEnum3 = {
 	json: "json",
 	ndjson: "ndjson",
@@ -52934,6 +53045,14 @@ export const getAllLogDrainsStatus200DrainsDeliveryEncodingEnum5 = {
 
 export type GetAllLogDrainsStatus200DrainsDeliveryEncodingEnum5Key =
 	(typeof getAllLogDrainsStatus200DrainsDeliveryEncodingEnum5)[keyof typeof getAllLogDrainsStatus200DrainsDeliveryEncodingEnum5];
+
+export const getAllLogDrainsStatus200DrainsDeliveryCompressionEnum4 = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type GetAllLogDrainsStatus200DrainsDeliveryCompressionEnum4Key =
+	(typeof getAllLogDrainsStatus200DrainsDeliveryCompressionEnum4)[keyof typeof getAllLogDrainsStatus200DrainsDeliveryCompressionEnum4];
 
 export const getAllLogDrainsStatus200DrainsDeliveryEncodingEnum6 = {
 	json: "json",
@@ -53117,7 +53236,7 @@ export type GetAllLogDrainsStatus200 =
 									type: "clickhouse";
 							  }
 							| {
-									compression: "none";
+									compression: GetAllLogDrainsStatus200DrainsDeliveryCompressionEnum2Key;
 									encoding: GetAllLogDrainsStatus200DrainsDeliveryEncodingEnum3Key;
 									endpoint: string;
 									fileStructure: "hive";
@@ -53277,7 +53396,7 @@ export type GetAllLogDrainsStatus200 =
 									type: "clickhouse";
 							  }
 							| {
-									compression: "none";
+									compression: GetAllLogDrainsStatus200DrainsDeliveryCompressionEnum4Key;
 									encoding: GetAllLogDrainsStatus200DrainsDeliveryEncodingEnum6Key;
 									endpoint: string;
 									fileStructure: "hive";
@@ -53600,6 +53719,14 @@ export const createDrainStatus200DeliveryEncodingEnum2 = {
 export type CreateDrainStatus200DeliveryEncodingEnum2Key =
 	(typeof createDrainStatus200DeliveryEncodingEnum2)[keyof typeof createDrainStatus200DeliveryEncodingEnum2];
 
+export const createDrainStatus200DeliveryCompressionEnum2 = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type CreateDrainStatus200DeliveryCompressionEnum2Key =
+	(typeof createDrainStatus200DeliveryCompressionEnum2)[keyof typeof createDrainStatus200DeliveryCompressionEnum2];
+
 export const createDrainStatus200DeliveryEncodingEnum3 = {
 	json: "json",
 	ndjson: "ndjson",
@@ -53719,6 +53846,14 @@ export const createDrainStatus200DeliveryEncodingEnum5 = {
 
 export type CreateDrainStatus200DeliveryEncodingEnum5Key =
 	(typeof createDrainStatus200DeliveryEncodingEnum5)[keyof typeof createDrainStatus200DeliveryEncodingEnum5];
+
+export const createDrainStatus200DeliveryCompressionEnum4 = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type CreateDrainStatus200DeliveryCompressionEnum4Key =
+	(typeof createDrainStatus200DeliveryCompressionEnum4)[keyof typeof createDrainStatus200DeliveryCompressionEnum4];
 
 export const createDrainStatus200DeliveryEncodingEnum6 = {
 	json: "json",
@@ -53877,7 +54012,7 @@ export type CreateDrainStatus200 =
 						type: "clickhouse";
 				  }
 				| {
-						compression: "none";
+						compression: CreateDrainStatus200DeliveryCompressionEnum2Key;
 						encoding: CreateDrainStatus200DeliveryEncodingEnum3Key;
 						endpoint: string;
 						fileStructure: "hive";
@@ -54033,7 +54168,7 @@ export type CreateDrainStatus200 =
 						type: "clickhouse";
 				  }
 				| {
-						compression: "none";
+						compression: CreateDrainStatus200DeliveryCompressionEnum4Key;
 						encoding: CreateDrainStatus200DeliveryEncodingEnum6Key;
 						endpoint: string;
 						fileStructure: "hive";
@@ -54237,6 +54372,14 @@ export const createDrainRequestDeliveryEncodingEnum3 = {
 export type CreateDrainRequestDeliveryEncodingEnum3Key =
 	(typeof createDrainRequestDeliveryEncodingEnum3)[keyof typeof createDrainRequestDeliveryEncodingEnum3];
 
+export const createDrainRequestDeliveryCompressionEnum2 = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type CreateDrainRequestDeliveryCompressionEnum2Key =
+	(typeof createDrainRequestDeliveryCompressionEnum2)[keyof typeof createDrainRequestDeliveryCompressionEnum2];
+
 export const createDrainRequestDeliveryServerSideEncryptionEnum = {
 	AES256: "AES256",
 	"aws:kms": "aws:kms",
@@ -54330,7 +54473,7 @@ export type CreateDrainBody =
 								type: string;
 								endpoint: string;
 								encoding: CreateDrainRequestDeliveryEncodingEnum3Key;
-								compression: "none";
+								compression: CreateDrainRequestDeliveryCompressionEnum2Key;
 								fileStructure: "hive";
 								roleArn: string;
 								region: string;
@@ -54484,6 +54627,14 @@ export const getDrainsStatus200DrainsDeliveryEncodingEnum2 = {
 export type GetDrainsStatus200DrainsDeliveryEncodingEnum2Key =
 	(typeof getDrainsStatus200DrainsDeliveryEncodingEnum2)[keyof typeof getDrainsStatus200DrainsDeliveryEncodingEnum2];
 
+export const getDrainsStatus200DrainsDeliveryCompressionEnum2 = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type GetDrainsStatus200DrainsDeliveryCompressionEnum2Key =
+	(typeof getDrainsStatus200DrainsDeliveryCompressionEnum2)[keyof typeof getDrainsStatus200DrainsDeliveryCompressionEnum2];
+
 export const getDrainsStatus200DrainsDeliveryEncodingEnum3 = {
 	json: "json",
 	ndjson: "ndjson",
@@ -54603,6 +54754,14 @@ export const getDrainsStatus200DrainsDeliveryEncodingEnum5 = {
 
 export type GetDrainsStatus200DrainsDeliveryEncodingEnum5Key =
 	(typeof getDrainsStatus200DrainsDeliveryEncodingEnum5)[keyof typeof getDrainsStatus200DrainsDeliveryEncodingEnum5];
+
+export const getDrainsStatus200DrainsDeliveryCompressionEnum4 = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type GetDrainsStatus200DrainsDeliveryCompressionEnum4Key =
+	(typeof getDrainsStatus200DrainsDeliveryCompressionEnum4)[keyof typeof getDrainsStatus200DrainsDeliveryCompressionEnum4];
 
 export const getDrainsStatus200DrainsDeliveryEncodingEnum6 = {
 	json: "json",
@@ -54762,7 +54921,7 @@ export type GetDrainsStatus200 = {
 							type: "clickhouse";
 					  }
 					| {
-							compression: "none";
+							compression: GetDrainsStatus200DrainsDeliveryCompressionEnum2Key;
 							encoding: GetDrainsStatus200DrainsDeliveryEncodingEnum3Key;
 							endpoint: string;
 							fileStructure: "hive";
@@ -54920,7 +55079,7 @@ export type GetDrainsStatus200 = {
 							type: "clickhouse";
 					  }
 					| {
-							compression: "none";
+							compression: GetDrainsStatus200DrainsDeliveryCompressionEnum4Key;
 							encoding: GetDrainsStatus200DrainsDeliveryEncodingEnum6Key;
 							endpoint: string;
 							fileStructure: "hive";
@@ -55187,6 +55346,14 @@ export const getDrainStatus200DeliveryEncodingEnum2 = {
 export type GetDrainStatus200DeliveryEncodingEnum2Key =
 	(typeof getDrainStatus200DeliveryEncodingEnum2)[keyof typeof getDrainStatus200DeliveryEncodingEnum2];
 
+export const getDrainStatus200DeliveryCompressionEnum2 = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type GetDrainStatus200DeliveryCompressionEnum2Key =
+	(typeof getDrainStatus200DeliveryCompressionEnum2)[keyof typeof getDrainStatus200DeliveryCompressionEnum2];
+
 export const getDrainStatus200DeliveryEncodingEnum3 = {
 	json: "json",
 	ndjson: "ndjson",
@@ -55327,7 +55494,7 @@ export type GetDrainStatus200 = {
 				type: "clickhouse";
 		  }
 		| {
-				compression: "none";
+				compression: GetDrainStatus200DeliveryCompressionEnum2Key;
 				encoding: GetDrainStatus200DeliveryEncodingEnum3Key;
 				endpoint: string;
 				fileStructure: "hive";
@@ -55515,6 +55682,14 @@ export const updateDrainStatus200DeliveryEncodingEnum2 = {
 export type UpdateDrainStatus200DeliveryEncodingEnum2Key =
 	(typeof updateDrainStatus200DeliveryEncodingEnum2)[keyof typeof updateDrainStatus200DeliveryEncodingEnum2];
 
+export const updateDrainStatus200DeliveryCompressionEnum2 = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type UpdateDrainStatus200DeliveryCompressionEnum2Key =
+	(typeof updateDrainStatus200DeliveryCompressionEnum2)[keyof typeof updateDrainStatus200DeliveryCompressionEnum2];
+
 export const updateDrainStatus200DeliveryEncodingEnum3 = {
 	json: "json",
 	ndjson: "ndjson",
@@ -55634,6 +55809,14 @@ export const updateDrainStatus200DeliveryEncodingEnum5 = {
 
 export type UpdateDrainStatus200DeliveryEncodingEnum5Key =
 	(typeof updateDrainStatus200DeliveryEncodingEnum5)[keyof typeof updateDrainStatus200DeliveryEncodingEnum5];
+
+export const updateDrainStatus200DeliveryCompressionEnum4 = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type UpdateDrainStatus200DeliveryCompressionEnum4Key =
+	(typeof updateDrainStatus200DeliveryCompressionEnum4)[keyof typeof updateDrainStatus200DeliveryCompressionEnum4];
 
 export const updateDrainStatus200DeliveryEncodingEnum6 = {
 	json: "json",
@@ -55792,7 +55975,7 @@ export type UpdateDrainStatus200 =
 						type: "clickhouse";
 				  }
 				| {
-						compression: "none";
+						compression: UpdateDrainStatus200DeliveryCompressionEnum2Key;
 						encoding: UpdateDrainStatus200DeliveryEncodingEnum3Key;
 						endpoint: string;
 						fileStructure: "hive";
@@ -55948,7 +56131,7 @@ export type UpdateDrainStatus200 =
 						type: "clickhouse";
 				  }
 				| {
-						compression: "none";
+						compression: UpdateDrainStatus200DeliveryCompressionEnum4Key;
 						encoding: UpdateDrainStatus200DeliveryEncodingEnum6Key;
 						endpoint: string;
 						fileStructure: "hive";
@@ -56152,6 +56335,14 @@ export const updateDrainRequestDeliveryEncodingEnum3 = {
 export type UpdateDrainRequestDeliveryEncodingEnum3Key =
 	(typeof updateDrainRequestDeliveryEncodingEnum3)[keyof typeof updateDrainRequestDeliveryEncodingEnum3];
 
+export const updateDrainRequestDeliveryCompressionEnum2 = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type UpdateDrainRequestDeliveryCompressionEnum2Key =
+	(typeof updateDrainRequestDeliveryCompressionEnum2)[keyof typeof updateDrainRequestDeliveryCompressionEnum2];
+
 export const updateDrainRequestDeliveryServerSideEncryptionEnum = {
 	AES256: "AES256",
 	"aws:kms": "aws:kms",
@@ -56258,7 +56449,7 @@ export type UpdateDrainBody =
 								type: string;
 								endpoint: string;
 								encoding: UpdateDrainRequestDeliveryEncodingEnum3Key;
-								compression: "none";
+								compression: UpdateDrainRequestDeliveryCompressionEnum2Key;
 								fileStructure: "hive";
 								roleArn: string;
 								region: string;
@@ -56435,6 +56626,14 @@ export const testDrainRequestDeliveryEncodingEnum3 = {
 export type TestDrainRequestDeliveryEncodingEnum3Key =
 	(typeof testDrainRequestDeliveryEncodingEnum3)[keyof typeof testDrainRequestDeliveryEncodingEnum3];
 
+export const testDrainRequestDeliveryCompressionEnum2 = {
+	gzip: "gzip",
+	none: "none",
+} as const;
+
+export type TestDrainRequestDeliveryCompressionEnum2Key =
+	(typeof testDrainRequestDeliveryCompressionEnum2)[keyof typeof testDrainRequestDeliveryCompressionEnum2];
+
 export const testDrainRequestDeliveryServerSideEncryptionEnum = {
 	AES256: "AES256",
 	"aws:kms": "aws:kms",
@@ -56486,7 +56685,7 @@ export type TestDrainBody =
 						type: string;
 						endpoint: string;
 						encoding: TestDrainRequestDeliveryEncodingEnum3Key;
-						compression: "none";
+						compression: TestDrainRequestDeliveryCompressionEnum2Key;
 						fileStructure: "hive";
 						roleArn: string;
 						region: string;
@@ -64419,10 +64618,21 @@ export type ConnectIntegrationResourceToProjectStatus404 = unknown;
 
 export type ConnectIntegrationResourceToProjectStatus410 = unknown;
 
+export const connectIntegrationResourceToProjectRequestEnvVarEnvironments = {
+	production: "production",
+	preview: "preview",
+	development: "development",
+} as const;
+
+export type ConnectIntegrationResourceToProjectRequestEnvVarEnvironmentsKey =
+	(typeof connectIntegrationResourceToProjectRequestEnvVarEnvironments)[keyof typeof connectIntegrationResourceToProjectRequestEnvVarEnvironments];
+
 export type ConnectIntegrationResourceToProjectBody =
 	| {
 			projectId: string;
-			envVarEnvironments?: string[] | undefined;
+			envVarEnvironments?:
+				| (ConnectIntegrationResourceToProjectRequestEnvVarEnvironmentsKey | (string & {}))[]
+				| undefined;
 			makeEnvVarsSensitive?: boolean | undefined;
 	  }
 	| undefined;
@@ -72650,6 +72860,14 @@ export const getMicrofrontendsInGroupStatus200ProjectsAliasTargetEnum = {
 export type GetMicrofrontendsInGroupStatus200ProjectsAliasTargetEnumKey =
 	(typeof getMicrofrontendsInGroupStatus200ProjectsAliasTargetEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsAliasTargetEnum];
 
+export const getMicrofrontendsInGroupStatus200ProjectsConnectConfigurationsEnvId = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type GetMicrofrontendsInGroupStatus200ProjectsConnectConfigurationsEnvIdKey =
+	(typeof getMicrofrontendsInGroupStatus200ProjectsConnectConfigurationsEnvId)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsConnectConfigurationsEnvId];
+
 export const getMicrofrontendsInGroupStatus200ProjectsCustomEnvironmentsBranchMatcherTypeEnum = {
 	endsWith: "endsWith",
 	equals: "equals",
@@ -73662,7 +73880,9 @@ export type GetMicrofrontendsInGroupStatus200 = {
 							connectConfigurationId: string;
 							createdAt: number;
 							dc?: string | undefined;
-							envId: string;
+							envId:
+								| (string & {})
+								| GetMicrofrontendsInGroupStatus200ProjectsConnectConfigurationsEnvIdKey;
 							passive: false | true;
 							updatedAt: number;
 					  }[]
@@ -83203,6 +83423,14 @@ export const getProjectsStatus200ProjectsAliasTargetEnum2 = {
 export type GetProjectsStatus200ProjectsAliasTargetEnum2Key =
 	(typeof getProjectsStatus200ProjectsAliasTargetEnum2)[keyof typeof getProjectsStatus200ProjectsAliasTargetEnum2];
 
+export const getProjectsStatus200ProjectsConnectConfigurationsEnvId = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type GetProjectsStatus200ProjectsConnectConfigurationsEnvIdKey =
+	(typeof getProjectsStatus200ProjectsConnectConfigurationsEnvId)[keyof typeof getProjectsStatus200ProjectsConnectConfigurationsEnvId];
+
 export const getProjectsStatus200ProjectsCustomEnvironmentsBranchMatcherTypeEnum = {
 	endsWith: "endsWith",
 	equals: "equals",
@@ -87162,7 +87390,9 @@ export type GetProjectsStatus200 =
 											connectConfigurationId: string;
 											createdAt: number;
 											dc?: string | undefined;
-											envId: string;
+											envId:
+												| (string & {})
+												| GetProjectsStatus200ProjectsConnectConfigurationsEnvIdKey;
 											passive: false | true;
 											updatedAt: number;
 									  }[]
@@ -90809,6 +91039,14 @@ export const createProjectStatus200AliasTargetEnum = {
 export type CreateProjectStatus200AliasTargetEnumKey =
 	(typeof createProjectStatus200AliasTargetEnum)[keyof typeof createProjectStatus200AliasTargetEnum];
 
+export const createProjectStatus200ConnectConfigurationsEnvId = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type CreateProjectStatus200ConnectConfigurationsEnvIdKey =
+	(typeof createProjectStatus200ConnectConfigurationsEnvId)[keyof typeof createProjectStatus200ConnectConfigurationsEnvId];
+
 export const createProjectStatus200CustomEnvironmentsBranchMatcherTypeEnum = {
 	endsWith: "endsWith",
 	equals: "equals",
@@ -91792,7 +92030,7 @@ export type CreateProjectStatus200 = {
 						connectConfigurationId: string;
 						createdAt: number;
 						dc?: string | undefined;
-						envId: string;
+						envId: (string & {}) | CreateProjectStatus200ConnectConfigurationsEnvIdKey;
 						passive: false | true;
 						updatedAt: number;
 				  }[]
@@ -96000,6 +96238,14 @@ export const getProjectStatus200AliasTargetEnum = {
 export type GetProjectStatus200AliasTargetEnumKey =
 	(typeof getProjectStatus200AliasTargetEnum)[keyof typeof getProjectStatus200AliasTargetEnum];
 
+export const getProjectStatus200ConnectConfigurationsEnvId = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type GetProjectStatus200ConnectConfigurationsEnvIdKey =
+	(typeof getProjectStatus200ConnectConfigurationsEnvId)[keyof typeof getProjectStatus200ConnectConfigurationsEnvId];
+
 export const getProjectStatus200CustomEnvironmentsBranchMatcherTypeEnum = {
 	endsWith: "endsWith",
 	equals: "equals",
@@ -96981,7 +97227,7 @@ export type GetProjectStatus200 = {
 						connectConfigurationId: string;
 						createdAt: number;
 						dc?: string | undefined;
-						envId: string;
+						envId: (string & {}) | GetProjectStatus200ConnectConfigurationsEnvIdKey;
 						passive: false | true;
 						updatedAt: number;
 				  }[]
@@ -100515,6 +100761,14 @@ export const updateProjectStatus200AliasTargetEnum = {
 export type UpdateProjectStatus200AliasTargetEnumKey =
 	(typeof updateProjectStatus200AliasTargetEnum)[keyof typeof updateProjectStatus200AliasTargetEnum];
 
+export const updateProjectStatus200ConnectConfigurationsEnvId = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type UpdateProjectStatus200ConnectConfigurationsEnvIdKey =
+	(typeof updateProjectStatus200ConnectConfigurationsEnvId)[keyof typeof updateProjectStatus200ConnectConfigurationsEnvId];
+
 export const updateProjectStatus200CustomEnvironmentsBranchMatcherTypeEnum = {
 	endsWith: "endsWith",
 	equals: "equals",
@@ -101489,7 +101743,7 @@ export type UpdateProjectStatus200 = {
 						connectConfigurationId: string;
 						createdAt: number;
 						dc?: string | undefined;
-						envId: string;
+						envId: (string & {}) | UpdateProjectStatus200ConnectConfigurationsEnvIdKey;
 						passive: false | true;
 						updatedAt: number;
 				  }[]
@@ -106059,6 +106313,14 @@ export const uploadProjectAvatarStatus200AliasTargetEnum = {
 export type UploadProjectAvatarStatus200AliasTargetEnumKey =
 	(typeof uploadProjectAvatarStatus200AliasTargetEnum)[keyof typeof uploadProjectAvatarStatus200AliasTargetEnum];
 
+export const uploadProjectAvatarStatus200ConnectConfigurationsEnvId = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type UploadProjectAvatarStatus200ConnectConfigurationsEnvIdKey =
+	(typeof uploadProjectAvatarStatus200ConnectConfigurationsEnvId)[keyof typeof uploadProjectAvatarStatus200ConnectConfigurationsEnvId];
+
 export const uploadProjectAvatarStatus200CustomEnvironmentsBranchMatcherTypeEnum = {
 	endsWith: "endsWith",
 	equals: "equals",
@@ -107047,7 +107309,7 @@ export type UploadProjectAvatarStatus200 = {
 						connectConfigurationId: string;
 						createdAt: number;
 						dc?: string | undefined;
-						envId: string;
+						envId: (string & {}) | UploadProjectAvatarStatus200ConnectConfigurationsEnvIdKey;
 						passive: false | true;
 						updatedAt: number;
 				  }[]
@@ -110588,6 +110850,14 @@ export const deleteProjectAvatarStatus200AliasTargetEnum = {
 export type DeleteProjectAvatarStatus200AliasTargetEnumKey =
 	(typeof deleteProjectAvatarStatus200AliasTargetEnum)[keyof typeof deleteProjectAvatarStatus200AliasTargetEnum];
 
+export const deleteProjectAvatarStatus200ConnectConfigurationsEnvId = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type DeleteProjectAvatarStatus200ConnectConfigurationsEnvIdKey =
+	(typeof deleteProjectAvatarStatus200ConnectConfigurationsEnvId)[keyof typeof deleteProjectAvatarStatus200ConnectConfigurationsEnvId];
+
 export const deleteProjectAvatarStatus200CustomEnvironmentsBranchMatcherTypeEnum = {
 	endsWith: "endsWith",
 	equals: "equals",
@@ -111576,7 +111846,7 @@ export type DeleteProjectAvatarStatus200 = {
 						connectConfigurationId: string;
 						createdAt: number;
 						dc?: string | undefined;
-						envId: string;
+						envId: (string & {}) | DeleteProjectAvatarStatus200ConnectConfigurationsEnvIdKey;
 						passive: false | true;
 						updatedAt: number;
 				  }[]
@@ -115005,6 +115275,14 @@ export type UpdateStaticIpsQuery = {
 	slug?: string | undefined;
 };
 
+export const updateStaticIpsStatus200EnvId = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type UpdateStaticIpsStatus200EnvIdKey =
+	(typeof updateStaticIpsStatus200EnvId)[keyof typeof updateStaticIpsStatus200EnvId];
+
 export type UpdateStaticIpsStatus200 = {
 	aws?:
 		| {
@@ -115016,7 +115294,7 @@ export type UpdateStaticIpsStatus200 = {
 	connectConfigurationId: string;
 	createdAt: number;
 	dc?: string | undefined;
-	envId: string;
+	envId: (string & {}) | UpdateStaticIpsStatus200EnvIdKey;
 	passive: false | true;
 	updatedAt: number;
 }[];
@@ -122504,6 +122782,14 @@ export const updateMicrofrontendsStatus200AliasTargetEnum = {
 export type UpdateMicrofrontendsStatus200AliasTargetEnumKey =
 	(typeof updateMicrofrontendsStatus200AliasTargetEnum)[keyof typeof updateMicrofrontendsStatus200AliasTargetEnum];
 
+export const updateMicrofrontendsStatus200ConnectConfigurationsEnvId = {
+	preview: "preview",
+	production: "production",
+} as const;
+
+export type UpdateMicrofrontendsStatus200ConnectConfigurationsEnvIdKey =
+	(typeof updateMicrofrontendsStatus200ConnectConfigurationsEnvId)[keyof typeof updateMicrofrontendsStatus200ConnectConfigurationsEnvId];
+
 export const updateMicrofrontendsStatus200CustomEnvironmentsBranchMatcherTypeEnum = {
 	endsWith: "endsWith",
 	equals: "equals",
@@ -123493,7 +123779,7 @@ export type UpdateMicrofrontendsStatus200 = {
 						connectConfigurationId: string;
 						createdAt: number;
 						dc?: string | undefined;
-						envId: string;
+						envId: (string & {}) | UpdateMicrofrontendsStatus200ConnectConfigurationsEnvIdKey;
 						passive: false | true;
 						updatedAt: number;
 				  }[]
@@ -138734,6 +139020,16 @@ export const updateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum = {
 export type UpdateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnumKey =
 	(typeof updateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum)[keyof typeof updateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum];
 
+export const updateFirewallConfigRequestValueActionMitigateRateLimitAction = {
+	log: "log",
+	challenge: "challenge",
+	deny: "deny",
+	rate_limit: "rate_limit",
+} as const;
+
+export type UpdateFirewallConfigRequestValueActionMitigateRateLimitActionKey =
+	(typeof updateFirewallConfigRequestValueActionMitigateRateLimitAction)[keyof typeof updateFirewallConfigRequestValueActionMitigateRateLimitAction];
+
 export const updateFirewallConfigRequestValueConditionGroupConditionsTypeEnum6 = {
 	host: "host",
 	path: "path",
@@ -138814,6 +139110,16 @@ export const updateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum2 = 
 
 export type UpdateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum2Key =
 	(typeof updateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum2)[keyof typeof updateFirewallConfigRequestValueActionMitigateRateLimitAlgoEnum2];
+
+export const updateFirewallConfigRequestValueActionMitigateRateLimitAction2 = {
+	log: "log",
+	challenge: "challenge",
+	deny: "deny",
+	rate_limit: "rate_limit",
+} as const;
+
+export type UpdateFirewallConfigRequestValueActionMitigateRateLimitAction2Key =
+	(typeof updateFirewallConfigRequestValueActionMitigateRateLimitAction2)[keyof typeof updateFirewallConfigRequestValueActionMitigateRateLimitAction2];
 
 export const updateFirewallConfigRequestIdEnum = {
 	sd: "sd",
@@ -139107,7 +139413,12 @@ export type UpdateFirewallConfigBody =
 													window: number;
 													limit: number;
 													keys: string[];
-													action?: string | undefined;
+													action?:
+														| (
+																| UpdateFirewallConfigRequestValueActionMitigateRateLimitActionKey
+																| (string & {})
+														  )
+														| undefined;
 											  }
 											| string
 									  )
@@ -139166,7 +139477,12 @@ export type UpdateFirewallConfigBody =
 													window: number;
 													limit: number;
 													keys: string[];
-													action?: string | undefined;
+													action?:
+														| (
+																| UpdateFirewallConfigRequestValueActionMitigateRateLimitAction2Key
+																| (string & {})
+														  )
+														| undefined;
 											  }
 											| string
 									  )
@@ -145912,6 +146228,8 @@ export type RemoveTeamMemberStatus403 = unknown;
 
 export type RemoveTeamMemberStatus404 = unknown;
 
+export type RemoveTeamMemberStatus409 = unknown;
+
 export type RemoveTeamMemberStatus410 = unknown;
 
 export type RemoveTeamMemberStatus503 = unknown;
@@ -145929,6 +146247,7 @@ export type RemoveTeamMemberResponses = {
 	"401": RemoveTeamMemberStatus401;
 	"403": RemoveTeamMemberStatus403;
 	"404": RemoveTeamMemberStatus404;
+	"409": RemoveTeamMemberStatus409;
 	"410": RemoveTeamMemberStatus410;
 	"503": RemoveTeamMemberStatus503;
 };
@@ -149908,6 +150227,7 @@ export type ListVercelCiInvocationsProviderKey =
 
 export const listVercelCiInvocationsStatusEnum = {
 	new: "new",
+	awaiting_approval: "awaiting_approval",
 	skipped: "skipped",
 	bootstrapping: "bootstrapping",
 	bootstrapping_failed: "bootstrapping_failed",
@@ -150078,6 +150398,7 @@ export type ListVercelCiInvocationsStatus200 = {
 			| undefined;
 		status:
 			| "new"
+			| "awaiting_approval"
 			| "skipped"
 			| "bootstrapping"
 			| "bootstrapping_failed"
@@ -150740,6 +151061,7 @@ export type ListVercelCiInvocationAttemptsStatus200 = {
 			| undefined;
 		status:
 			| "new"
+			| "awaiting_approval"
 			| "skipped"
 			| "bootstrapping"
 			| "bootstrapping_failed"
@@ -150938,6 +151260,7 @@ export type GetVercelCiInvocationTreeStatus200 = {
 			| undefined;
 		status:
 			| "new"
+			| "awaiting_approval"
 			| "skipped"
 			| "bootstrapping"
 			| "bootstrapping_failed"
@@ -151227,6 +151550,7 @@ export type GetVercelCiInvocationStatus200 = {
 			| undefined;
 		status:
 			| "new"
+			| "awaiting_approval"
 			| "skipped"
 			| "bootstrapping"
 			| "bootstrapping_failed"
@@ -152741,6 +153065,31 @@ export type CreateWebInsightsToggleResponses = {
  */
 export type CreateWebInsightsToggleResponse = CreateWebInsightsToggleStatus200;
 
+export const aggregatePageviewsBy = {
+	hour: "hour",
+	day: "day",
+	week: "week",
+	month: "month",
+	year: "year",
+	country: "country",
+	deviceType: "deviceType",
+	environment: "environment",
+	requestPath: "requestPath",
+	referrerHostname: "referrerHostname",
+	osName: "osName",
+	browserName: "browserName",
+	route: "route",
+	utmSource: "utmSource",
+	utmMedium: "utmMedium",
+	utmCampaign: "utmCampaign",
+	utmContent: "utmContent",
+	utmTerm: "utmTerm",
+	flags: "flags",
+} as const;
+
+export type AggregatePageviewsByKey =
+	(typeof aggregatePageviewsBy)[keyof typeof aggregatePageviewsBy];
+
 export type AggregatePageviewsQuery = {
 	/**
 	 * @description The project identifier or the project name
@@ -152759,7 +153108,7 @@ export type AggregatePageviewsQuery = {
 	 * @example ["day","country"]
 	 * @type array
 	 */
-	by: string[];
+	by: (AggregatePageviewsByKey | (string & {}))[];
 	/**
 	 * @description Timestamp in milliseconds, or a valid Date string.
 	 *
@@ -152813,6 +153162,26 @@ export type AggregatePageviewsQuery = {
 	 */
 	slug?: string | undefined;
 };
+
+export const aggregatePageviewsStatus200QueryGroupBy = {
+	browserName: "browserName",
+	country: "country",
+	deviceType: "deviceType",
+	environment: "environment",
+	flags: "flags",
+	osName: "osName",
+	referrerHostname: "referrerHostname",
+	requestPath: "requestPath",
+	route: "route",
+	utmCampaign: "utmCampaign",
+	utmContent: "utmContent",
+	utmMedium: "utmMedium",
+	utmSource: "utmSource",
+	utmTerm: "utmTerm",
+} as const;
+
+export type AggregatePageviewsStatus200QueryGroupByKey =
+	(typeof aggregatePageviewsStatus200QueryGroupBy)[keyof typeof aggregatePageviewsStatus200QueryGroupBy];
 
 export type AggregatePageviewsStatus200 = {
 	data:
@@ -152869,7 +153238,7 @@ export type AggregatePageviewsStatus200 = {
 		  }[];
 	query: {
 		filter?: string | undefined;
-		groupBy?: string[] | undefined;
+		groupBy?: ((string & {}) | AggregatePageviewsStatus200QueryGroupByKey)[] | undefined;
 		limit: number;
 		since: string;
 		until: string;
@@ -152914,6 +153283,32 @@ export type AggregatePageviewsResponses = {
  */
 export type AggregatePageviewsResponse = AggregatePageviewsStatus200;
 
+export const aggregateEventsBy = {
+	hour: "hour",
+	day: "day",
+	week: "week",
+	month: "month",
+	year: "year",
+	country: "country",
+	deviceType: "deviceType",
+	environment: "environment",
+	requestPath: "requestPath",
+	referrerHostname: "referrerHostname",
+	osName: "osName",
+	browserName: "browserName",
+	route: "route",
+	utmSource: "utmSource",
+	utmMedium: "utmMedium",
+	utmCampaign: "utmCampaign",
+	utmContent: "utmContent",
+	utmTerm: "utmTerm",
+	eventName: "eventName",
+	flags: "flags",
+	eventData: "eventData",
+} as const;
+
+export type AggregateEventsByKey = (typeof aggregateEventsBy)[keyof typeof aggregateEventsBy];
+
 export type AggregateEventsQuery = {
 	/**
 	 * @description The project identifier or the project name
@@ -152932,7 +153327,7 @@ export type AggregateEventsQuery = {
 	 * @example ["day","eventName"]
 	 * @type array
 	 */
-	by: string[];
+	by: (AggregateEventsByKey | (string & {}))[];
 	/**
 	 * @description Timestamp in milliseconds, or a valid Date string.
 	 *
@@ -152986,6 +153381,28 @@ export type AggregateEventsQuery = {
 	 */
 	slug?: string | undefined;
 };
+
+export const aggregateEventsStatus200QueryGroupBy = {
+	browserName: "browserName",
+	country: "country",
+	deviceType: "deviceType",
+	environment: "environment",
+	eventData: "eventData",
+	eventName: "eventName",
+	flags: "flags",
+	osName: "osName",
+	referrerHostname: "referrerHostname",
+	requestPath: "requestPath",
+	route: "route",
+	utmCampaign: "utmCampaign",
+	utmContent: "utmContent",
+	utmMedium: "utmMedium",
+	utmSource: "utmSource",
+	utmTerm: "utmTerm",
+} as const;
+
+export type AggregateEventsStatus200QueryGroupByKey =
+	(typeof aggregateEventsStatus200QueryGroupBy)[keyof typeof aggregateEventsStatus200QueryGroupBy];
 
 export type AggregateEventsStatus200 = {
 	data:
@@ -153046,7 +153463,7 @@ export type AggregateEventsStatus200 = {
 		  }[];
 	query: {
 		filter?: string | undefined;
-		groupBy?: string[] | undefined;
+		groupBy?: ((string & {}) | AggregateEventsStatus200QueryGroupByKey)[] | undefined;
 		limit: number;
 		since: string;
 		until: string;

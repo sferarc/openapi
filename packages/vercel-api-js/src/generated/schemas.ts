@@ -584,7 +584,9 @@ export const connectConnectorSchema = z
 					type: z.enum(["user"]).describe("Principal kind."),
 				}),
 				z.strictObject({
-					environment: z.string().describe("Deployment environment of the project principal."),
+					environment: z
+						.union([z.string(), z.enum(["development", "preview", "production"])])
+						.describe("Deployment environment of the project principal."),
 					id: z.string().describe("Vercel project ID."),
 					type: z.enum(["project"]).describe("Principal kind."),
 				}),
@@ -738,7 +740,9 @@ export const connectConnectorSchema = z
 					type: z.enum(["user"]).describe("Principal kind."),
 				}),
 				z.strictObject({
-					environment: z.string().describe("Deployment environment of the project principal."),
+					environment: z
+						.union([z.string(), z.enum(["development", "preview", "production"])])
+						.describe("Deployment environment of the project principal."),
 					id: z.string().describe("Vercel project ID."),
 					type: z.enum(["project"]).describe("Principal kind."),
 				}),
@@ -859,7 +863,9 @@ export const connectConnectorCreateResultSchema = z
 					type: z.enum(["user"]).describe("Principal kind."),
 				}),
 				z.strictObject({
-					environment: z.string().describe("Deployment environment of the project principal."),
+					environment: z
+						.union([z.string(), z.enum(["development", "preview", "production"])])
+						.describe("Deployment environment of the project principal."),
 					id: z.string().describe("Vercel project ID."),
 					type: z.enum(["project"]).describe("Principal kind."),
 				}),
@@ -1013,7 +1019,9 @@ export const connectConnectorCreateResultSchema = z
 					type: z.enum(["user"]).describe("Principal kind."),
 				}),
 				z.strictObject({
-					environment: z.string().describe("Deployment environment of the project principal."),
+					environment: z
+						.union([z.string(), z.enum(["development", "preview", "production"])])
+						.describe("Deployment environment of the project principal."),
 					id: z.string().describe("Vercel project ID."),
 					type: z.enum(["project"]).describe("Principal kind."),
 				}),
@@ -1744,7 +1752,9 @@ export const connectCreateConnectorRequestSchema = z
 					"Project to connect during creation. If environments is omitted, the connection uses development, preview, and production.",
 				),
 			environments: z
-				.array(z.string().regex(/^env_/))
+				.array(
+					z.union([z.enum(["development", "preview", "production"]), z.string().regex(/^env_/)]),
+				)
 				.min(1)
 				.optional()
 				.describe(
@@ -2630,7 +2640,7 @@ export const connectProjectConnectionSchema = z
 			.number()
 			.describe("Time when the project connection was created, in epoch milliseconds."),
 		enabledEnvironments: z
-			.array(z.string())
+			.array(z.union([z.string(), z.enum(["development", "preview", "production"])]))
 			.describe("Environments where the connector is enabled for the project."),
 		project: z
 			.object({
@@ -2669,7 +2679,7 @@ export const connectConnectorProjectConnectionListSchema = z
 export const connectUpsertProjectConnectionRequestSchema = z
 	.object({
 		environments: z
-			.array(z.string().regex(/^env_/))
+			.array(z.union([z.enum(["development", "preview", "production"]), z.string().regex(/^env_/)]))
 			.min(1)
 			.describe(
 				"One or more built-in environment names or stable custom environment IDs that belong to the project. Duplicate values are accepted and removed.",
@@ -2698,8 +2708,7 @@ export const connectErrorSchema = z
 	.describe("Error response returned by a Connect API operation.");
 
 export const connectEnvironmentSchema = z
-	.string()
-	.regex(/^env_/)
+	.union([z.enum(["development", "preview", "production"]), z.string().regex(/^env_/)])
 	.describe("A built-in Vercel environment or a stable custom environment ID.");
 
 export const flagJSONValueSchema: z.ZodType = z
@@ -7797,7 +7806,7 @@ export const userEventSchema = z
 								.describe(
 									"Explicit opt-in; missing values are false. Authorization does not enable a workload.",
 								),
-							envId: z.string(),
+							envId: z.union([z.string(), z.enum(["preview", "production"])]),
 							perimeterId: z.string(),
 						}),
 					),
@@ -7813,7 +7822,7 @@ export const userEventSchema = z
 								.describe(
 									"Explicit opt-in; missing values are false. Authorization does not enable a workload.",
 								),
-							envId: z.string(),
+							envId: z.union([z.string(), z.enum(["preview", "production"])]),
 							perimeterId: z.string(),
 						}),
 					),
@@ -8238,7 +8247,7 @@ export const userEventSchema = z
 									connectConfigurationId: z.string(),
 									createdAt: z.number(),
 									dc: z.string().optional(),
-									envId: z.string(),
+									envId: z.union([z.string(), z.enum(["preview", "production"])]),
 									passive: z.union([z.literal(false), z.literal(true)]),
 									updatedAt: z.number(),
 								}),
@@ -8257,7 +8266,7 @@ export const userEventSchema = z
 									connectConfigurationId: z.string(),
 									createdAt: z.number(),
 									dc: z.string().optional(),
-									envId: z.string(),
+									envId: z.union([z.string(), z.enum(["preview", "production"])]),
 									passive: z.union([z.literal(false), z.literal(true)]),
 									updatedAt: z.number(),
 								}),
@@ -41879,7 +41888,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 							type: z.enum(["clickhouse"]),
 						}),
 						z.strictObject({
-							compression: z.enum(["none"]),
+							compression: z.enum(["gzip", "none"]),
 							encoding: z.enum(["json", "ndjson"]),
 							endpoint: z.string(),
 							fileStructure: z.enum(["hive"]),
@@ -42058,7 +42067,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 							type: z.enum(["clickhouse"]),
 						}),
 						z.strictObject({
-							compression: z.enum(["none"]),
+							compression: z.enum(["gzip", "none"]),
 							encoding: z.enum(["json", "ndjson"]),
 							endpoint: z.string(),
 							fileStructure: z.enum(["hive"]),
@@ -42403,7 +42412,7 @@ export const createDrainStatus200Schema = z.union([
 				type: z.enum(["clickhouse"]),
 			}),
 			z.strictObject({
-				compression: z.enum(["none"]),
+				compression: z.enum(["gzip", "none"]),
 				encoding: z.enum(["json", "ndjson"]),
 				endpoint: z.string(),
 				fileStructure: z.enum(["hive"]),
@@ -42578,7 +42587,7 @@ export const createDrainStatus200Schema = z.union([
 				type: z.enum(["clickhouse"]),
 			}),
 			z.strictObject({
-				compression: z.enum(["none"]),
+				compression: z.enum(["gzip", "none"]),
 				encoding: z.enum(["json", "ndjson"]),
 				endpoint: z.string(),
 				fileStructure: z.enum(["hive"]),
@@ -42829,7 +42838,7 @@ export const createDrainBodySchema = z
 					type: z.string(),
 					endpoint: z.string(),
 					encoding: z.enum(["json", "ndjson"]),
-					compression: z.enum(["none"]),
+					compression: z.enum(["gzip", "none"]),
 					fileStructure: z.enum(["hive"]),
 					roleArn: z.string(),
 					region: z.string(),
@@ -42970,7 +42979,7 @@ export const getDrainsStatus200Schema = z.object({
 						type: z.enum(["clickhouse"]),
 					}),
 					z.strictObject({
-						compression: z.enum(["none"]),
+						compression: z.enum(["gzip", "none"]),
 						encoding: z.enum(["json", "ndjson"]),
 						endpoint: z.string(),
 						fileStructure: z.enum(["hive"]),
@@ -43147,7 +43156,7 @@ export const getDrainsStatus200Schema = z.object({
 						type: z.enum(["clickhouse"]),
 					}),
 					z.strictObject({
-						compression: z.enum(["none"]),
+						compression: z.enum(["gzip", "none"]),
 						encoding: z.enum(["json", "ndjson"]),
 						endpoint: z.string(),
 						fileStructure: z.enum(["hive"]),
@@ -43462,7 +43471,7 @@ export const getDrainStatus200Schema = z.object({
 			type: z.enum(["clickhouse"]),
 		}),
 		z.strictObject({
-			compression: z.enum(["none"]),
+			compression: z.enum(["gzip", "none"]),
 			encoding: z.enum(["json", "ndjson"]),
 			endpoint: z.string(),
 			fileStructure: z.enum(["hive"]),
@@ -43692,7 +43701,7 @@ export const updateDrainStatus200Schema = z.union([
 				type: z.enum(["clickhouse"]),
 			}),
 			z.strictObject({
-				compression: z.enum(["none"]),
+				compression: z.enum(["gzip", "none"]),
 				encoding: z.enum(["json", "ndjson"]),
 				endpoint: z.string(),
 				fileStructure: z.enum(["hive"]),
@@ -43867,7 +43876,7 @@ export const updateDrainStatus200Schema = z.union([
 				type: z.enum(["clickhouse"]),
 			}),
 			z.strictObject({
-				compression: z.enum(["none"]),
+				compression: z.enum(["gzip", "none"]),
 				encoding: z.enum(["json", "ndjson"]),
 				endpoint: z.string(),
 				fileStructure: z.enum(["hive"]),
@@ -44123,7 +44132,7 @@ export const updateDrainBodySchema = z
 					type: z.string(),
 					endpoint: z.string(),
 					encoding: z.enum(["json", "ndjson"]),
-					compression: z.enum(["none"]),
+					compression: z.enum(["gzip", "none"]),
 					fileStructure: z.enum(["hive"]),
 					roleArn: z.string(),
 					region: z.string(),
@@ -44276,7 +44285,7 @@ export const testDrainBodySchema = z
 				type: z.string(),
 				endpoint: z.string(),
 				encoding: z.enum(["json", "ndjson"]),
-				compression: z.enum(["none"]),
+				compression: z.enum(["gzip", "none"]),
 				fileStructure: z.enum(["hive"]),
 				roleArn: z.string(),
 				region: z.string(),
@@ -51826,7 +51835,9 @@ export const connectIntegrationResourceToProjectErrorSchema = z.union([
 export const connectIntegrationResourceToProjectBodySchema = z
 	.object({
 		projectId: z.string(),
-		envVarEnvironments: z.array(z.string()).optional(),
+		envVarEnvironments: z
+			.array(z.union([z.enum(["production", "preview", "development"]), z.string()]))
+			.optional(),
 		makeEnvVarsSensitive: z.boolean().optional(),
 	})
 	.optional();
@@ -58380,7 +58391,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						connectConfigurationId: z.string(),
 						createdAt: z.number(),
 						dc: z.string().optional(),
-						envId: z.string(),
+						envId: z.union([z.string(), z.enum(["preview", "production"])]),
 						passive: z.union([z.literal(false), z.literal(true)]),
 						updatedAt: z.number(),
 					}),
@@ -69522,7 +69533,7 @@ export const getProjectsStatus200Schema = z
 								connectConfigurationId: z.string(),
 								createdAt: z.number(),
 								dc: z.string().optional(),
-								envId: z.string(),
+								envId: z.union([z.string(), z.enum(["preview", "production"])]),
 								passive: z.union([z.literal(false), z.literal(true)]),
 								updatedAt: z.number(),
 							}),
@@ -73845,7 +73856,7 @@ export const createProjectStatus200Schema = z.object({
 				connectConfigurationId: z.string(),
 				createdAt: z.number(),
 				dc: z.string().optional(),
-				envId: z.string(),
+				envId: z.union([z.string(), z.enum(["preview", "production"])]),
 				passive: z.union([z.literal(false), z.literal(true)]),
 				updatedAt: z.number(),
 			}),
@@ -78459,7 +78470,7 @@ export const getProjectStatus200Schema = z.object({
 				connectConfigurationId: z.string(),
 				createdAt: z.number(),
 				dc: z.string().optional(),
-				envId: z.string(),
+				envId: z.union([z.string(), z.enum(["preview", "production"])]),
 				passive: z.union([z.literal(false), z.literal(true)]),
 				updatedAt: z.number(),
 			}),
@@ -82583,7 +82594,7 @@ export const updateProjectStatus200Schema = z.object({
 				connectConfigurationId: z.string(),
 				createdAt: z.number(),
 				dc: z.string().optional(),
-				envId: z.string(),
+				envId: z.union([z.string(), z.enum(["preview", "production"])]),
 				passive: z.union([z.literal(false), z.literal(true)]),
 				updatedAt: z.number(),
 			}),
@@ -87602,7 +87613,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				connectConfigurationId: z.string(),
 				createdAt: z.number(),
 				dc: z.string().optional(),
-				envId: z.string(),
+				envId: z.union([z.string(), z.enum(["preview", "production"])]),
 				passive: z.union([z.literal(false), z.literal(true)]),
 				updatedAt: z.number(),
 			}),
@@ -91712,7 +91723,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				connectConfigurationId: z.string(),
 				createdAt: z.number(),
 				dc: z.string().optional(),
-				envId: z.string(),
+				envId: z.union([z.string(), z.enum(["preview", "production"])]),
 				passive: z.union([z.literal(false), z.literal(true)]),
 				updatedAt: z.number(),
 			}),
@@ -95663,7 +95674,7 @@ export const updateStaticIpsStatus200Schema = z.array(
 		connectConfigurationId: z.string(),
 		createdAt: z.number(),
 		dc: z.string().optional(),
-		envId: z.string(),
+		envId: z.union([z.string(), z.enum(["preview", "production"])]),
 		passive: z.union([z.literal(false), z.literal(true)]),
 		updatedAt: z.number(),
 	}),
@@ -102080,7 +102091,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				connectConfigurationId: z.string(),
 				createdAt: z.number(),
 				dc: z.string().optional(),
-				envId: z.string(),
+				envId: z.union([z.string(), z.enum(["preview", "production"])]),
 				passive: z.union([z.literal(false), z.literal(true)]),
 				updatedAt: z.number(),
 			}),
@@ -116562,7 +116573,9 @@ export const updateFirewallConfigBodySchema = z.union([
 									window: z.number(),
 									limit: z.number(),
 									keys: z.array(z.string()),
-									action: z.string().optional(),
+									action: z
+										.union([z.enum(["log", "challenge", "deny", "rate_limit"]), z.string()])
+										.optional(),
 								}),
 								z.string(),
 							])
@@ -116672,7 +116685,9 @@ export const updateFirewallConfigBodySchema = z.union([
 									window: z.number(),
 									limit: z.number(),
 									keys: z.array(z.string()),
-									action: z.string().optional(),
+									action: z
+										.union([z.enum(["log", "challenge", "deny", "rate_limit"]), z.string()])
+										.optional(),
 								}),
 								z.string(),
 							])
@@ -122400,6 +122415,8 @@ export const removeTeamMemberStatus403Schema = z.unknown();
 
 export const removeTeamMemberStatus404Schema = z.unknown();
 
+export const removeTeamMemberStatus409Schema = z.unknown();
+
 export const removeTeamMemberStatus410Schema = z.unknown();
 
 export const removeTeamMemberStatus503Schema = z.unknown();
@@ -122411,6 +122428,7 @@ export const removeTeamMemberErrorSchema = z.union([
 	removeTeamMemberStatus401Schema,
 	removeTeamMemberStatus403Schema,
 	removeTeamMemberStatus404Schema,
+	removeTeamMemberStatus409Schema,
 	removeTeamMemberStatus410Schema,
 	removeTeamMemberStatus503Schema,
 ]);
@@ -126292,6 +126310,7 @@ export const listVercelCiInvocationsQueryStatusSchema = z
 	.array(
 		z.enum([
 			"new",
+			"awaiting_approval",
 			"skipped",
 			"bootstrapping",
 			"bootstrapping_failed",
@@ -126438,6 +126457,7 @@ export const listVercelCiInvocationsStatus200Schema = z.object({
 				),
 			status: z.union([
 				z.enum(["new"]),
+				z.enum(["awaiting_approval"]),
 				z.enum(["skipped"]),
 				z.enum(["bootstrapping"]),
 				z.enum(["bootstrapping_failed"]),
@@ -126527,6 +126547,7 @@ export const listVercelCiInvocationsQuerySchema = z.object({
 		.array(
 			z.enum([
 				"new",
+				"awaiting_approval",
 				"skipped",
 				"bootstrapping",
 				"bootstrapping_failed",
@@ -127140,6 +127161,7 @@ export const listVercelCiInvocationAttemptsStatus200Schema = z.object({
 				),
 			status: z.union([
 				z.enum(["new"]),
+				z.enum(["awaiting_approval"]),
 				z.enum(["skipped"]),
 				z.enum(["bootstrapping"]),
 				z.enum(["bootstrapping_failed"]),
@@ -127340,6 +127362,7 @@ export const getVercelCiInvocationTreeStatus200Schema = z.object({
 			),
 		status: z.union([
 			z.enum(["new"]),
+			z.enum(["awaiting_approval"]),
 			z.enum(["skipped"]),
 			z.enum(["bootstrapping"]),
 			z.enum(["bootstrapping_failed"]),
@@ -127654,6 +127677,7 @@ export const getVercelCiInvocationStatus200Schema = z.object({
 			),
 		status: z.union([
 			z.enum(["new"]),
+			z.enum(["awaiting_approval"]),
 			z.enum(["skipped"]),
 			z.enum(["bootstrapping"]),
 			z.enum(["bootstrapping_failed"]),
@@ -129290,7 +129314,32 @@ export const aggregatePageviewsQueryProjectIdSchema = z
 	.meta({ examples: ["prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA"] });
 
 export const aggregatePageviewsQueryBySchema = z
-	.array(z.string().regex(/^(flags)(\/([0-9A-Za-z_]+|'([^']|'')*'))+$/))
+	.array(
+		z.union([
+			z.enum([
+				"hour",
+				"day",
+				"week",
+				"month",
+				"year",
+				"country",
+				"deviceType",
+				"environment",
+				"requestPath",
+				"referrerHostname",
+				"osName",
+				"browserName",
+				"route",
+				"utmSource",
+				"utmMedium",
+				"utmCampaign",
+				"utmContent",
+				"utmTerm",
+				"flags",
+			]),
+			z.string().regex(/^(flags)(\/([0-9A-Za-z_]+|'([^']|'')*'))+$/),
+		]),
+	)
 	.min(1)
 	.max(2)
 	.refine((items) => new Set(items).size === items.length, {
@@ -129403,7 +129452,29 @@ export const aggregatePageviewsStatus200Schema = z.object({
 	]),
 	query: z.object({
 		filter: z.string().optional(),
-		groupBy: z.array(z.string()).optional(),
+		groupBy: z
+			.array(
+				z.union([
+					z.string(),
+					z.enum([
+						"browserName",
+						"country",
+						"deviceType",
+						"environment",
+						"flags",
+						"osName",
+						"referrerHostname",
+						"requestPath",
+						"route",
+						"utmCampaign",
+						"utmContent",
+						"utmMedium",
+						"utmSource",
+						"utmTerm",
+					]),
+				]),
+			)
+			.optional(),
 		limit: z.number(),
 		since: z.string(),
 		until: z.string(),
@@ -129443,7 +129514,32 @@ export const aggregatePageviewsQuerySchema = z.object({
 		.describe("The project identifier or the project name")
 		.meta({ examples: ["prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA"] }),
 	by: z
-		.array(z.string().regex(/^(flags)(\/([0-9A-Za-z_]+|'([^']|'')*'))+$/))
+		.array(
+			z.union([
+				z.enum([
+					"hour",
+					"day",
+					"week",
+					"month",
+					"year",
+					"country",
+					"deviceType",
+					"environment",
+					"requestPath",
+					"referrerHostname",
+					"osName",
+					"browserName",
+					"route",
+					"utmSource",
+					"utmMedium",
+					"utmCampaign",
+					"utmContent",
+					"utmTerm",
+					"flags",
+				]),
+				z.string().regex(/^(flags)(\/([0-9A-Za-z_]+|'([^']|'')*'))+$/),
+			]),
+		)
 		.min(1)
 		.max(2)
 		.refine((items) => new Set(items).size === items.length, {
@@ -129501,7 +129597,34 @@ export const aggregateEventsQueryProjectIdSchema = z
 	.meta({ examples: ["prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA"] });
 
 export const aggregateEventsQueryBySchema = z
-	.array(z.string().regex(/^(flags|eventData)(\/([0-9A-Za-z_]+|'([^']|'')*'))+$/))
+	.array(
+		z.union([
+			z.enum([
+				"hour",
+				"day",
+				"week",
+				"month",
+				"year",
+				"country",
+				"deviceType",
+				"environment",
+				"requestPath",
+				"referrerHostname",
+				"osName",
+				"browserName",
+				"route",
+				"utmSource",
+				"utmMedium",
+				"utmCampaign",
+				"utmContent",
+				"utmTerm",
+				"eventName",
+				"flags",
+				"eventData",
+			]),
+			z.string().regex(/^(flags|eventData)(\/([0-9A-Za-z_]+|'([^']|'')*'))+$/),
+		]),
+	)
 	.min(1)
 	.max(2)
 	.refine((items) => new Set(items).size === items.length, {
@@ -129618,7 +129741,31 @@ export const aggregateEventsStatus200Schema = z.object({
 	]),
 	query: z.object({
 		filter: z.string().optional(),
-		groupBy: z.array(z.string()).optional(),
+		groupBy: z
+			.array(
+				z.union([
+					z.string(),
+					z.enum([
+						"browserName",
+						"country",
+						"deviceType",
+						"environment",
+						"eventData",
+						"eventName",
+						"flags",
+						"osName",
+						"referrerHostname",
+						"requestPath",
+						"route",
+						"utmCampaign",
+						"utmContent",
+						"utmMedium",
+						"utmSource",
+						"utmTerm",
+					]),
+				]),
+			)
+			.optional(),
 		limit: z.number(),
 		since: z.string(),
 		until: z.string(),
@@ -129658,7 +129805,34 @@ export const aggregateEventsQuerySchema = z.object({
 		.describe("The project identifier or the project name")
 		.meta({ examples: ["prj_XLKmu1DyR1eY7zq8UgeRKbA7yVLA"] }),
 	by: z
-		.array(z.string().regex(/^(flags|eventData)(\/([0-9A-Za-z_]+|'([^']|'')*'))+$/))
+		.array(
+			z.union([
+				z.enum([
+					"hour",
+					"day",
+					"week",
+					"month",
+					"year",
+					"country",
+					"deviceType",
+					"environment",
+					"requestPath",
+					"referrerHostname",
+					"osName",
+					"browserName",
+					"route",
+					"utmSource",
+					"utmMedium",
+					"utmCampaign",
+					"utmContent",
+					"utmTerm",
+					"eventName",
+					"flags",
+					"eventData",
+				]),
+				z.string().regex(/^(flags|eventData)(\/([0-9A-Za-z_]+|'([^']|'')*'))+$/),
+			]),
+		)
 		.min(1)
 		.max(2)
 		.refine((items) => new Set(items).size === items.length, {
