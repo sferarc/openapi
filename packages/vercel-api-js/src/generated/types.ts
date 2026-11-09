@@ -8215,6 +8215,10 @@ export const userEventTypeEnum = {
 	"drain-disabled": "drain-disabled",
 	"drain-enabled": "drain-enabled",
 	"drain-updated": "drain-updated",
+	"drive-created": "drive-created",
+	"drive-deleted": "drive-deleted",
+	"drive-snapshot-created": "drive-snapshot-created",
+	"drive-snapshot-deleted": "drive-snapshot-deleted",
 	"edge-cache-dangerously-delete-by-src-images": "edge-cache-dangerously-delete-by-src-images",
 	"edge-cache-dangerously-delete-by-tags": "edge-cache-dangerously-delete-by-tags",
 	"edge-cache-dangerously-delete-immutable-static":
@@ -11210,6 +11214,20 @@ export type UserEvent = {
 						integrationName?: string | undefined;
 				  }
 				| {
+						driveName: string;
+						projectId: string;
+						projectName: string;
+						region: string;
+				  }
+				| {
+						driveName: string;
+						projectId: string;
+						projectName: string;
+						region: string;
+						snapshotId: string;
+						snapshotName: string;
+				  }
+				| {
 						projectId: string;
 						projectName: string;
 						srcImages: string[];
@@ -13949,20 +13967,6 @@ export type UserEvent = {
 						sandboxName: string;
 				  }
 				| {
-						driveName: string;
-						projectId: string;
-						projectName: string;
-						region: string;
-				  }
-				| {
-						driveName: string;
-						projectId: string;
-						projectName: string;
-						region: string;
-						snapshotId: string;
-						snapshotName: string;
-				  }
-				| {
 						projectId: string;
 						projectName: string;
 						snapshotId: string;
@@ -16550,6 +16554,10 @@ export const listEventTypeNameEnum = {
 	"drain-disabled": "drain-disabled",
 	"drain-enabled": "drain-enabled",
 	"drain-updated": "drain-updated",
+	"drive-created": "drive-created",
+	"drive-deleted": "drive-deleted",
+	"drive-snapshot-created": "drive-snapshot-created",
+	"drive-snapshot-deleted": "drive-snapshot-deleted",
 	"edge-cache-dangerously-delete-by-src-images": "edge-cache-dangerously-delete-by-src-images",
 	"edge-cache-dangerously-delete-by-tags": "edge-cache-dangerously-delete-by-tags",
 	"edge-cache-dangerously-delete-immutable-static":
@@ -17340,6 +17348,10 @@ export const listEventTypeReplacedByEnum = {
 	"drain-disabled": "drain-disabled",
 	"drain-enabled": "drain-enabled",
 	"drain-updated": "drain-updated",
+	"drive-created": "drive-created",
+	"drive-deleted": "drive-deleted",
+	"drive-snapshot-created": "drive-snapshot-created",
+	"drive-snapshot-deleted": "drive-snapshot-deleted",
 	"edge-cache-dangerously-delete-by-src-images": "edge-cache-dangerously-delete-by-src-images",
 	"edge-cache-dangerously-delete-by-tags": "edge-cache-dangerously-delete-by-tags",
 	"edge-cache-dangerously-delete-immutable-static":
@@ -19642,7 +19654,7 @@ export type SessionCommand = {
 	 */
 	durationMs?: number | undefined;
 	/**
-	 * @description If the command did finish, the exit code.
+	 * @description The exit code of the command, or `null` if no exit code has been recorded. The exit code is recorded only when a request waits for the command to finish (`wait=true` when running or getting the command). Polling without `wait=true` returns `null` until such a request records it, even if the command has already finished.
 	 * @example 0
 	 * @type number
 	 */
@@ -130155,7 +130167,7 @@ export type GetSessionCommandWaitKey =
 
 export type GetSessionCommandQuery = {
 	/**
-	 * @description If set to "true", the request will block until the command finishes execution. Useful for synchronously waiting for command completion.
+	 * @description If set to "true", the request will block until the command finishes execution and the response will include its exit code. Otherwise, `exitCode` is `null` unless a previous request waited for the command to finish.
 	 * @default 'false'
 	 * @type string | undefined
 	 */
