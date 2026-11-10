@@ -602,13 +602,13 @@ export type Network = {
 	createdAt: number;
 	egressIpAddresses?: string[] | undefined;
 	/**
-	 * @description Metadata about any AWS Route53 Hosted Zones associated with the Network.
+	 * @description Metadata about customer-managed AWS Route53 Hosted Zones associated with the Network.
 	 * @type object | undefined
 	 */
 	hostedZones?:
 		| {
 				/**
-				 * @description The number of AWS Route53 Hosted Zones associated with the Network.
+				 * @description The number of customer-managed AWS Route53 Hosted Zones associated with the Network.
 				 * @type number
 				 */
 				count: number;
@@ -631,7 +631,7 @@ export type Network = {
 	peeringConnections?:
 		| {
 				/**
-				 * @description The number of AWS Route53 Hosted Zones associated with the Network.
+				 * @description The number of AWS VPC Peering Connections associated with the Network.
 				 * @type number
 				 */
 				count: number;
@@ -8693,6 +8693,7 @@ export const userEventTypeEnum = {
 	"sandbox-drive-deleted": "sandbox-drive-deleted",
 	"sandbox-drive-snapshot-created": "sandbox-drive-snapshot-created",
 	"sandbox-drive-snapshot-deleted": "sandbox-drive-snapshot-deleted",
+	"sandbox-npm-credentials-configured": "sandbox-npm-credentials-configured",
 	"sandbox-signed-commit-identity-configured": "sandbox-signed-commit-identity-configured",
 	"sandbox-snapshot-regions-updated": "sandbox-snapshot-regions-updated",
 	scale: "scale",
@@ -14071,6 +14072,10 @@ export type UserEvent = {
 				  }
 				| {
 						projectId: string;
+						sandboxId: string;
+				  }
+				| {
+						projectId: string;
 						projectName: string;
 						snapshotId: string;
 						targetRegions: string[];
@@ -17032,6 +17037,7 @@ export const listEventTypeNameEnum = {
 	"sandbox-drive-deleted": "sandbox-drive-deleted",
 	"sandbox-drive-snapshot-created": "sandbox-drive-snapshot-created",
 	"sandbox-drive-snapshot-deleted": "sandbox-drive-snapshot-deleted",
+	"sandbox-npm-credentials-configured": "sandbox-npm-credentials-configured",
 	"sandbox-signed-commit-identity-configured": "sandbox-signed-commit-identity-configured",
 	"sandbox-snapshot-regions-updated": "sandbox-snapshot-regions-updated",
 	scale: "scale",
@@ -17826,6 +17832,7 @@ export const listEventTypeReplacedByEnum = {
 	"sandbox-drive-deleted": "sandbox-drive-deleted",
 	"sandbox-drive-snapshot-created": "sandbox-drive-snapshot-created",
 	"sandbox-drive-snapshot-deleted": "sandbox-drive-snapshot-deleted",
+	"sandbox-npm-credentials-configured": "sandbox-npm-credentials-configured",
 	"sandbox-signed-commit-identity-configured": "sandbox-signed-commit-identity-configured",
 	"sandbox-snapshot-regions-updated": "sandbox-snapshot-regions-updated",
 	scale: "scale",
@@ -53261,6 +53268,7 @@ export type GetAllLogDrainsStatus200 =
 									encoding: GetAllLogDrainsStatus200DrainsDeliveryEncodingEnum3Key;
 									endpoint: string;
 									fileStructure: "hive";
+									kmsKeyId?: string | undefined;
 									objectAcl?: GetAllLogDrainsStatus200DrainsDeliveryObjectAclEnumKey | undefined;
 									region: string;
 									roleArn: string;
@@ -53421,6 +53429,7 @@ export type GetAllLogDrainsStatus200 =
 									encoding: GetAllLogDrainsStatus200DrainsDeliveryEncodingEnum6Key;
 									endpoint: string;
 									fileStructure: "hive";
+									kmsKeyId?: string | undefined;
 									objectAcl?: GetAllLogDrainsStatus200DrainsDeliveryObjectAclEnum2Key | undefined;
 									region: string;
 									roleArn: string;
@@ -54037,6 +54046,7 @@ export type CreateDrainStatus200 =
 						encoding: CreateDrainStatus200DeliveryEncodingEnum3Key;
 						endpoint: string;
 						fileStructure: "hive";
+						kmsKeyId?: string | undefined;
 						objectAcl?: CreateDrainStatus200DeliveryObjectAclEnumKey | undefined;
 						region: string;
 						roleArn: string;
@@ -54193,6 +54203,7 @@ export type CreateDrainStatus200 =
 						encoding: CreateDrainStatus200DeliveryEncodingEnum6Key;
 						endpoint: string;
 						fileStructure: "hive";
+						kmsKeyId?: string | undefined;
 						objectAcl?: CreateDrainStatus200DeliveryObjectAclEnum2Key | undefined;
 						region: string;
 						roleArn: string;
@@ -54505,6 +54516,7 @@ export type CreateDrainBody =
 								serverSideEncryption?:
 									| CreateDrainRequestDeliveryServerSideEncryptionEnumKey
 									| undefined;
+								kmsKeyId?: string | undefined;
 								objectAcl?: CreateDrainRequestDeliveryObjectAclEnumKey | undefined;
 						  }
 				  )
@@ -54946,6 +54958,7 @@ export type GetDrainsStatus200 = {
 							encoding: GetDrainsStatus200DrainsDeliveryEncodingEnum3Key;
 							endpoint: string;
 							fileStructure: "hive";
+							kmsKeyId?: string | undefined;
 							objectAcl?: GetDrainsStatus200DrainsDeliveryObjectAclEnumKey | undefined;
 							region: string;
 							roleArn: string;
@@ -55104,6 +55117,7 @@ export type GetDrainsStatus200 = {
 							encoding: GetDrainsStatus200DrainsDeliveryEncodingEnum6Key;
 							endpoint: string;
 							fileStructure: "hive";
+							kmsKeyId?: string | undefined;
 							objectAcl?: GetDrainsStatus200DrainsDeliveryObjectAclEnum2Key | undefined;
 							region: string;
 							roleArn: string;
@@ -55519,6 +55533,7 @@ export type GetDrainStatus200 = {
 				encoding: GetDrainStatus200DeliveryEncodingEnum3Key;
 				endpoint: string;
 				fileStructure: "hive";
+				kmsKeyId?: string | undefined;
 				objectAcl?: GetDrainStatus200DeliveryObjectAclEnumKey | undefined;
 				region: string;
 				roleArn: string;
@@ -56000,6 +56015,7 @@ export type UpdateDrainStatus200 =
 						encoding: UpdateDrainStatus200DeliveryEncodingEnum3Key;
 						endpoint: string;
 						fileStructure: "hive";
+						kmsKeyId?: string | undefined;
 						objectAcl?: UpdateDrainStatus200DeliveryObjectAclEnumKey | undefined;
 						region: string;
 						roleArn: string;
@@ -56156,6 +56172,7 @@ export type UpdateDrainStatus200 =
 						encoding: UpdateDrainStatus200DeliveryEncodingEnum6Key;
 						endpoint: string;
 						fileStructure: "hive";
+						kmsKeyId?: string | undefined;
 						objectAcl?: UpdateDrainStatus200DeliveryObjectAclEnum2Key | undefined;
 						region: string;
 						roleArn: string;
@@ -56481,6 +56498,7 @@ export type UpdateDrainBody =
 								serverSideEncryption?:
 									| UpdateDrainRequestDeliveryServerSideEncryptionEnumKey
 									| undefined;
+								kmsKeyId?: string | undefined;
 								objectAcl?: UpdateDrainRequestDeliveryObjectAclEnumKey | undefined;
 						  }
 				  )
@@ -56715,6 +56733,7 @@ export type TestDrainBody =
 						 * @type string | undefined
 						 */
 						serverSideEncryption?: TestDrainRequestDeliveryServerSideEncryptionEnumKey | undefined;
+						kmsKeyId?: string | undefined;
 						objectAcl?: TestDrainRequestDeliveryObjectAclEnumKey | undefined;
 				  };
 	  }
