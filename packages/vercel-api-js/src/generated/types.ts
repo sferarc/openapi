@@ -596,6 +596,15 @@ export type Network = {
 	 */
 	cidr: string;
 	/**
+	 * @description Whether both dedicated connection test sources are provisioned and ready. Feature flag access and management permission are checked on submission.
+	 * @type object | undefined
+	 */
+	connectionTesting?:
+		| {
+				available: false | true;
+		  }
+		| undefined;
+	/**
 	 * @description The date at which the Network was created, represented as a UNIX timestamp since EPOCH.
 	 * @type number
 	 */
@@ -4897,6 +4906,90 @@ export type BoughtTooRecently = {
 	message: string;
 };
 
+export const driveWorkloadTypeEnum = {
+	sandbox: "sandbox",
+	v0: "v0",
+} as const;
+
+export type DriveWorkloadTypeEnumKey =
+	(typeof driveWorkloadTypeEnum)[keyof typeof driveWorkloadTypeEnum];
+
+/**
+ * @description This object contains information related to a Vercel Sandbox Drive.
+ * @type object
+ */
+export type Drive = {
+	/**
+	 * @description The time when the drive was created, in milliseconds since the epoch.
+	 * @example 1750344501629
+	 * @type number
+	 */
+	createdAt: number;
+	/**
+	 * @description Current sandbox name the drive is attached to, if any.
+	 * @example my-sandbox
+	 * @type string | undefined
+	 */
+	currentSandboxName?: string | undefined;
+	/**
+	 * @description Current session ID the drive is attached to, if any.
+	 * @example sbx_123
+	 * @type string | undefined
+	 */
+	currentSessionId?: string | undefined;
+	/**
+	 * @description The unique drive ID.
+	 * @example drive_abc123
+	 * @type string
+	 */
+	id: string;
+	/**
+	 * @description The maximum drive size in bytes.
+	 * @example 1099511627776
+	 * @type number
+	 */
+	maxSizeBytes: number;
+	/**
+	 * @description The unique drive name within the project.
+	 * @example workspace
+	 * @type string
+	 */
+	name: string;
+	/**
+	 * @description The ID of the source drive when this drive is a fork.
+	 * @type string | undefined
+	 */
+	parentDriveId?: string | undefined;
+	/**
+	 * @description The project that owns the drive.
+	 * @example prj_abc123
+	 * @type string
+	 */
+	projectId: string;
+	/**
+	 * @description The region where the drive is stored.
+	 * @example iad1
+	 * @type string
+	 */
+	region: string;
+	/**
+	 * @description The ID of the original drive at the root of this fork.
+	 * @type string | undefined
+	 */
+	rootDriveId?: string | undefined;
+	/**
+	 * @description The last time the drive was updated, in milliseconds since the epoch.
+	 * @example 1750344501629
+	 * @type number
+	 */
+	updatedAt: number;
+	/**
+	 * @description The workload type of this drive.
+	 * @type string | undefined
+	 */
+	workloadType?: DriveWorkloadTypeEnumKey | undefined;
+};
+
 export const globalConfigItemValue = {
 	false: false,
 	true: true,
@@ -7537,6 +7630,14 @@ export const userEventPayloadNextProjectScopeEnum = {
 export type UserEventPayloadNextProjectScopeEnumKey =
 	(typeof userEventPayloadNextProjectScopeEnum)[keyof typeof userEventPayloadNextProjectScopeEnum];
 
+export const userEventPayloadNextRepositoryScopeEnum = {
+	all: "all",
+	selected: "selected",
+} as const;
+
+export type UserEventPayloadNextRepositoryScopeEnumKey =
+	(typeof userEventPayloadNextRepositoryScopeEnum)[keyof typeof userEventPayloadNextRepositoryScopeEnum];
+
 export const userEventPayloadPreviousProjectScopeEnum = {
 	all: "all",
 	selected: "selected",
@@ -7544,6 +7645,14 @@ export const userEventPayloadPreviousProjectScopeEnum = {
 
 export type UserEventPayloadPreviousProjectScopeEnumKey =
 	(typeof userEventPayloadPreviousProjectScopeEnum)[keyof typeof userEventPayloadPreviousProjectScopeEnum];
+
+export const userEventPayloadPreviousRepositoryScopeEnum = {
+	all: "all",
+	selected: "selected",
+} as const;
+
+export type UserEventPayloadPreviousRepositoryScopeEnumKey =
+	(typeof userEventPayloadPreviousRepositoryScopeEnum)[keyof typeof userEventPayloadPreviousRepositoryScopeEnum];
 
 export const userEventPayloadTargetKindEnum = {
 	project: "project",
@@ -14857,6 +14966,7 @@ export type UserEvent = {
 							enabled: false | true;
 							projectIds?: string[] | undefined;
 							projectScope: UserEventPayloadNextProjectScopeEnumKey;
+							repositoryScope?: UserEventPayloadNextRepositoryScopeEnumKey | undefined;
 						};
 						/**
 						 * @description Mirrors the `security-review` setting value in `@api/api-settings`.
@@ -14866,6 +14976,7 @@ export type UserEvent = {
 							enabled: false | true;
 							projectIds?: string[] | undefined;
 							projectScope: UserEventPayloadPreviousProjectScopeEnumKey;
+							repositoryScope?: UserEventPayloadPreviousRepositoryScopeEnumKey | undefined;
 						};
 				  }
 				| {
@@ -19533,90 +19644,6 @@ export type Session = {
 	 * @type string | undefined
 	 */
 	workloadType?: SessionWorkloadTypeEnumKey | undefined;
-};
-
-export const driveWorkloadTypeEnum = {
-	sandbox: "sandbox",
-	v0: "v0",
-} as const;
-
-export type DriveWorkloadTypeEnumKey =
-	(typeof driveWorkloadTypeEnum)[keyof typeof driveWorkloadTypeEnum];
-
-/**
- * @description This object contains information related to a Vercel Sandbox Drive.
- * @type object
- */
-export type Drive = {
-	/**
-	 * @description The time when the drive was created, in milliseconds since the epoch.
-	 * @example 1750344501629
-	 * @type number
-	 */
-	createdAt: number;
-	/**
-	 * @description Current sandbox name the drive is attached to, if any.
-	 * @example my-sandbox
-	 * @type string | undefined
-	 */
-	currentSandboxName?: string | undefined;
-	/**
-	 * @description Current session ID the drive is attached to, if any.
-	 * @example sbx_123
-	 * @type string | undefined
-	 */
-	currentSessionId?: string | undefined;
-	/**
-	 * @description The unique drive ID.
-	 * @example drive_abc123
-	 * @type string
-	 */
-	id: string;
-	/**
-	 * @description The maximum drive size in bytes.
-	 * @example 1099511627776
-	 * @type number
-	 */
-	maxSizeBytes: number;
-	/**
-	 * @description The unique drive name within the project.
-	 * @example workspace
-	 * @type string
-	 */
-	name: string;
-	/**
-	 * @description The ID of the source drive when this drive is a fork.
-	 * @type string | undefined
-	 */
-	parentDriveId?: string | undefined;
-	/**
-	 * @description The project that owns the drive.
-	 * @example prj_abc123
-	 * @type string
-	 */
-	projectId: string;
-	/**
-	 * @description The region where the drive is stored.
-	 * @example iad1
-	 * @type string
-	 */
-	region: string;
-	/**
-	 * @description The ID of the original drive at the root of this fork.
-	 * @type string | undefined
-	 */
-	rootDriveId?: string | undefined;
-	/**
-	 * @description The last time the drive was updated, in milliseconds since the epoch.
-	 * @example 1750344501629
-	 * @type number
-	 */
-	updatedAt: number;
-	/**
-	 * @description The workload type of this drive.
-	 * @type string | undefined
-	 */
-	workloadType?: DriveWorkloadTypeEnumKey | undefined;
 };
 
 export const snapshotArchitectureEnum = {
@@ -51488,6 +51515,7 @@ export type GetDomainVerificationRecordQuery = {
 };
 
 export type GetDomainVerificationRecordStatus200 = {
+	expiresAt: number;
 	txtRecord: string;
 	verificationDomain: string;
 };
@@ -51499,6 +51527,8 @@ export type GetDomainVerificationRecordStatus401 = unknown;
 export type GetDomainVerificationRecordStatus403 = unknown;
 
 export type GetDomainVerificationRecordStatus404 = unknown;
+
+export type GetDomainVerificationRecordStatus409 = unknown;
 
 export type GetDomainVerificationRecordStatus410 = unknown;
 
@@ -51515,6 +51545,7 @@ export type GetDomainVerificationRecordResponses = {
 	"401": GetDomainVerificationRecordStatus401;
 	"403": GetDomainVerificationRecordStatus403;
 	"404": GetDomainVerificationRecordStatus404;
+	"409": GetDomainVerificationRecordStatus409;
 	"410": GetDomainVerificationRecordStatus410;
 };
 
@@ -51675,6 +51706,8 @@ export type ClaimDomainOwnershipStatus403 = unknown;
 
 export type ClaimDomainOwnershipStatus404 = unknown;
 
+export type ClaimDomainOwnershipStatus409 = unknown;
+
 export type ClaimDomainOwnershipStatus410 = unknown;
 
 export type ClaimDomainOwnershipOptions = {
@@ -51690,6 +51723,7 @@ export type ClaimDomainOwnershipResponses = {
 	"401": ClaimDomainOwnershipStatus401;
 	"403": ClaimDomainOwnershipStatus403;
 	"404": ClaimDomainOwnershipStatus404;
+	"409": ClaimDomainOwnershipStatus409;
 	"410": ClaimDomainOwnershipStatus410;
 };
 
@@ -56760,6 +56794,497 @@ export type TestDrainResponses = {
  * @description Union of all possible responses
  */
 export type TestDrainResponse = TestDrainStatus200;
+
+export const listDrivesV1SortBy = {
+	createdAt: "createdAt",
+	updatedAt: "updatedAt",
+	name: "name",
+} as const;
+
+export type ListDrivesV1SortByKey = (typeof listDrivesV1SortBy)[keyof typeof listDrivesV1SortBy];
+
+export const listDrivesV1SortOrder = {
+	asc: "asc",
+	desc: "desc",
+} as const;
+
+export type ListDrivesV1SortOrderKey =
+	(typeof listDrivesV1SortOrder)[keyof typeof listDrivesV1SortOrder];
+
+export type ListDrivesV1Query = {
+	/**
+	 * @description The project ID or name associated with the drives. Required unless using a Vercel OIDC token scoped to a project.
+	 * @example prj_abc123
+	 * @type string | undefined
+	 */
+	projectId?: string | undefined;
+	/**
+	 * @description Maximum number of drives to return in the response. Used for pagination.
+	 * @minimum 1
+	 * @maximum 50
+	 * @default 20
+	 * @example 20
+	 * @type number | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @description Opaque pagination cursor from a previous response.
+	 * @type string | undefined
+	 */
+	cursor?: string | undefined;
+	/**
+	 * @description Field to sort drives by.
+	 * @default 'createdAt'
+	 * @type string | undefined
+	 */
+	sortBy?: ListDrivesV1SortByKey | undefined;
+	/**
+	 * @description Filter drives whose name starts with this prefix. Only valid when sortBy=name.
+	 * @type string | undefined
+	 */
+	namePrefix?: string | undefined;
+	/**
+	 * @description Sort direction for results.
+	 * @default 'desc'
+	 * @type string | undefined
+	 */
+	sortOrder?: ListDrivesV1SortOrderKey | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type ListDrivesV1Status200 = {
+	drives: Drive[];
+	pagination: {
+		count: number;
+		next: string | null;
+	};
+};
+
+export type ListDrivesV1Status400 = unknown;
+
+export type ListDrivesV1Status401 = unknown;
+
+export type ListDrivesV1Status403 = unknown;
+
+export type ListDrivesV1Status404 = unknown;
+
+export type ListDrivesV1Status410 = unknown;
+
+export type ListDrivesV1Status429 = unknown;
+
+export type ListDrivesV1Options = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: ListDrivesV1Query | undefined;
+	headers?: never | undefined;
+};
+
+export type ListDrivesV1Responses = {
+	"200": ListDrivesV1Status200;
+	"400": ListDrivesV1Status400;
+	"401": ListDrivesV1Status401;
+	"403": ListDrivesV1Status403;
+	"404": ListDrivesV1Status404;
+	"410": ListDrivesV1Status410;
+	"429": ListDrivesV1Status429;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListDrivesV1Response = ListDrivesV1Status200;
+
+export type GetDriveV1Path = {
+	/**
+	 * @description The drive name or ID.
+	 * @maxLength 64
+	 * @pattern ^[a-zA-Z0-9_-]+$
+	 * @example workspace
+	 * @type string
+	 */
+	nameOrId: string;
+};
+
+export type GetDriveV1Query = {
+	/**
+	 * @description The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.
+	 * @example prj_abc123
+	 * @type string | undefined
+	 */
+	projectId?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type GetDriveV1Status200 = {
+	/**
+	 * @description This object contains information related to a Vercel Sandbox Drive.
+	 * @type object
+	 */
+	drive: Drive;
+};
+
+export type GetDriveV1Status400 = unknown;
+
+export type GetDriveV1Status401 = unknown;
+
+export type GetDriveV1Status403 = unknown;
+
+export type GetDriveV1Status404 = unknown;
+
+export type GetDriveV1Status410 = unknown;
+
+export type GetDriveV1Status429 = unknown;
+
+export type GetDriveV1Options = {
+	body?: never | undefined;
+	path: GetDriveV1Path;
+	query?: GetDriveV1Query | undefined;
+	headers?: never | undefined;
+};
+
+export type GetDriveV1Responses = {
+	"200": GetDriveV1Status200;
+	"400": GetDriveV1Status400;
+	"401": GetDriveV1Status401;
+	"403": GetDriveV1Status403;
+	"404": GetDriveV1Status404;
+	"410": GetDriveV1Status410;
+	"429": GetDriveV1Status429;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetDriveV1Response = GetDriveV1Status200;
+
+export type GetOrCreateDriveV1Path = {
+	/**
+	 * @description Name for the drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).
+	 * @maxLength 64
+	 * @pattern ^[a-zA-Z0-9_-]+$
+	 * @example workspace
+	 * @type string
+	 */
+	name: string;
+};
+
+export type GetOrCreateDriveV1Query = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type GetOrCreateDriveV1Status200 = {
+	/**
+	 * @description This object contains information related to a Vercel Sandbox Drive.
+	 * @type object
+	 */
+	drive: Drive;
+};
+
+export type GetOrCreateDriveV1Status201 = {
+	/**
+	 * @description This object contains information related to a Vercel Sandbox Drive.
+	 * @type object
+	 */
+	drive: Drive;
+};
+
+export type GetOrCreateDriveV1Status400 = unknown;
+
+export type GetOrCreateDriveV1Status401 = unknown;
+
+export type GetOrCreateDriveV1Status402 = unknown;
+
+export type GetOrCreateDriveV1Status403 = unknown;
+
+export type GetOrCreateDriveV1Status404 = unknown;
+
+export type GetOrCreateDriveV1Status409 = unknown;
+
+export type GetOrCreateDriveV1Status410 = unknown;
+
+export type GetOrCreateDriveV1Status429 = unknown;
+
+export type GetOrCreateDriveV1Status503 = unknown;
+
+export const getOrCreateDriveV1RequestRegionEnum = {
+	arn1: "arn1",
+	bom1: "bom1",
+	cdg1: "cdg1",
+	cle1: "cle1",
+	cpt1: "cpt1",
+	dub1: "dub1",
+	fra1: "fra1",
+	gru1: "gru1",
+	hkg1: "hkg1",
+	hnd1: "hnd1",
+	iad1: "iad1",
+	icn1: "icn1",
+	kix1: "kix1",
+	lhr1: "lhr1",
+	pdx1: "pdx1",
+	sfo1: "sfo1",
+	sin1: "sin1",
+	syd1: "syd1",
+	yul1: "yul1",
+} as const;
+
+export type GetOrCreateDriveV1RequestRegionEnumKey =
+	(typeof getOrCreateDriveV1RequestRegionEnum)[keyof typeof getOrCreateDriveV1RequestRegionEnum];
+
+export type GetOrCreateDriveV1Body =
+	| {
+			/**
+			 * @description The project ID or name to associate the drive with. Required unless using a Vercel OIDC token scoped to a project.
+			 * @example prj_abc123
+			 * @type string | undefined
+			 */
+			projectId?: string | undefined;
+			/**
+			 * @description Maximum drive size in bytes. Must be a multiple of 4096 bytes. Defaults to 1 TiB when omitted (1 GiB for Hobby). The maximum quota is 16 TiB. Request a quota above 16 TiB at https://vercel.com/help.
+			 * @type integer | undefined
+			 */
+			maxSizeBytes?: number | undefined;
+			/**
+			 * @description Region where the drive is stored. Defaults to iad1.
+			 * @default 'iad1'
+			 * @example iad1
+			 * @type string | undefined
+			 */
+			region?: GetOrCreateDriveV1RequestRegionEnumKey | undefined;
+	  }
+	| undefined;
+
+export type GetOrCreateDriveV1Options = {
+	body: GetOrCreateDriveV1Body;
+	path: GetOrCreateDriveV1Path;
+	query?: GetOrCreateDriveV1Query | undefined;
+	headers?: never | undefined;
+};
+
+export type GetOrCreateDriveV1Responses = {
+	"200": GetOrCreateDriveV1Status200;
+	"201": GetOrCreateDriveV1Status201;
+	"400": GetOrCreateDriveV1Status400;
+	"401": GetOrCreateDriveV1Status401;
+	"402": GetOrCreateDriveV1Status402;
+	"403": GetOrCreateDriveV1Status403;
+	"404": GetOrCreateDriveV1Status404;
+	"409": GetOrCreateDriveV1Status409;
+	"410": GetOrCreateDriveV1Status410;
+	"429": GetOrCreateDriveV1Status429;
+	"503": GetOrCreateDriveV1Status503;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetOrCreateDriveV1Response = GetOrCreateDriveV1Status200 | GetOrCreateDriveV1Status201;
+
+export type DeleteDriveV1Path = {
+	/**
+	 * @description Name for the drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).
+	 * @maxLength 64
+	 * @pattern ^[a-zA-Z0-9_-]+$
+	 * @example workspace
+	 * @type string
+	 */
+	name: string;
+};
+
+export type DeleteDriveV1Query = {
+	/**
+	 * @description The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.
+	 * @example prj_abc123
+	 * @type string | undefined
+	 */
+	projectId?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type DeleteDriveV1Status200 = {
+	/**
+	 * @description This object contains information related to a Vercel Sandbox Drive.
+	 * @type object
+	 */
+	drive: Drive;
+};
+
+export type DeleteDriveV1Status400 = unknown;
+
+export type DeleteDriveV1Status401 = unknown;
+
+export type DeleteDriveV1Status403 = unknown;
+
+export type DeleteDriveV1Status404 = unknown;
+
+export type DeleteDriveV1Status409 = unknown;
+
+export type DeleteDriveV1Status410 = unknown;
+
+export type DeleteDriveV1Status429 = unknown;
+
+export type DeleteDriveV1Options = {
+	body?: never | undefined;
+	path: DeleteDriveV1Path;
+	query?: DeleteDriveV1Query | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteDriveV1Responses = {
+	"200": DeleteDriveV1Status200;
+	"400": DeleteDriveV1Status400;
+	"401": DeleteDriveV1Status401;
+	"403": DeleteDriveV1Status403;
+	"404": DeleteDriveV1Status404;
+	"409": DeleteDriveV1Status409;
+	"410": DeleteDriveV1Status410;
+	"429": DeleteDriveV1Status429;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteDriveV1Response = DeleteDriveV1Status200;
+
+export type ForkDriveV1Path = {
+	/**
+	 * @description Name of the source drive to fork.
+	 * @maxLength 64
+	 * @pattern ^[a-zA-Z0-9_-]+$
+	 * @example workspace
+	 * @type string
+	 */
+	name: string;
+};
+
+export type ForkDriveV1Query = {
+	/**
+	 * @description The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.
+	 * @example prj_abc123
+	 * @type string | undefined
+	 */
+	projectId?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type ForkDriveV1Status201 = {
+	/**
+	 * @description This object contains information related to a Vercel Sandbox Drive.
+	 * @type object
+	 */
+	drive: Drive;
+};
+
+export type ForkDriveV1Status400 = unknown;
+
+export type ForkDriveV1Status401 = unknown;
+
+export type ForkDriveV1Status402 = unknown;
+
+export type ForkDriveV1Status403 = unknown;
+
+export type ForkDriveV1Status404 = unknown;
+
+export type ForkDriveV1Status409 = unknown;
+
+export type ForkDriveV1Status410 = unknown;
+
+export type ForkDriveV1Status429 = unknown;
+
+export type ForkDriveV1Status503 = unknown;
+
+export type ForkDriveV1Body =
+	| {
+			/**
+			 * @description Name for the forked drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).
+			 * @maxLength 64
+			 * @pattern ^[a-zA-Z0-9_-]+$
+			 * @example workspace-fork
+			 * @type string
+			 */
+			name: string;
+	  }
+	| undefined;
+
+export type ForkDriveV1Options = {
+	body: ForkDriveV1Body;
+	path: ForkDriveV1Path;
+	query?: ForkDriveV1Query | undefined;
+	headers?: never | undefined;
+};
+
+export type ForkDriveV1Responses = {
+	"201": ForkDriveV1Status201;
+	"400": ForkDriveV1Status400;
+	"401": ForkDriveV1Status401;
+	"402": ForkDriveV1Status402;
+	"403": ForkDriveV1Status403;
+	"404": ForkDriveV1Status404;
+	"409": ForkDriveV1Status409;
+	"410": ForkDriveV1Status410;
+	"429": ForkDriveV1Status429;
+	"503": ForkDriveV1Status503;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ForkDriveV1Response = ForkDriveV1Status201;
 
 export type InvalidateByTagsQuery = {
 	projectIdOrName: string;
@@ -122352,6 +122877,8 @@ export type AcceptProjectTransferRequestStatus403 = unknown;
 
 export type AcceptProjectTransferRequestStatus404 = unknown;
 
+export type AcceptProjectTransferRequestStatus409 = unknown;
+
 export type AcceptProjectTransferRequestStatus410 = unknown;
 
 export type AcceptProjectTransferRequestStatus422 = unknown;
@@ -122407,6 +122934,7 @@ export type AcceptProjectTransferRequestResponses = {
 	"401": AcceptProjectTransferRequestStatus401;
 	"403": AcceptProjectTransferRequestStatus403;
 	"404": AcceptProjectTransferRequestStatus404;
+	"409": AcceptProjectTransferRequestStatus409;
 	"410": AcceptProjectTransferRequestStatus410;
 	"422": AcceptProjectTransferRequestStatus422;
 };
@@ -128525,6 +129053,10 @@ export type ListDrivesStatus422 = unknown;
 
 export type ListDrivesStatus429 = unknown;
 
+/**
+ * @deprecated
+ * @type object
+ */
 export type ListDrivesOptions = {
 	body?: never | undefined;
 	path?: never | undefined;
@@ -128602,6 +129134,10 @@ export type GetDriveStatus422 = unknown;
 
 export type GetDriveStatus429 = unknown;
 
+/**
+ * @deprecated
+ * @type object
+ */
 export type GetDriveOptions = {
 	body?: never | undefined;
 	path: GetDrivePath;
@@ -128735,6 +129271,10 @@ export type GetOrCreateDriveBody =
 	  }
 	| undefined;
 
+/**
+ * @deprecated
+ * @type object
+ */
 export type GetOrCreateDriveOptions = {
 	body: GetOrCreateDriveBody;
 	path: GetOrCreateDrivePath;
@@ -128818,6 +129358,10 @@ export type DeleteDriveStatus422 = unknown;
 
 export type DeleteDriveStatus429 = unknown;
 
+/**
+ * @deprecated
+ * @type object
+ */
 export type DeleteDriveOptions = {
 	body?: never | undefined;
 	path: DeleteDrivePath;
@@ -128915,6 +129459,10 @@ export type ForkDriveBody =
 	  }
 	| undefined;
 
+/**
+ * @deprecated
+ * @type object
+ */
 export type ForkDriveOptions = {
 	body: ForkDriveBody;
 	path: ForkDrivePath;
