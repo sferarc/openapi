@@ -2413,6 +2413,29 @@ import type {
 	BrapiPostScreenshotStatus422,
 	BrapiPostScreenshotStatus429,
 	BrapiPostScreenshotStatus500,
+	BrapiPostScriptBody,
+	BrapiPostScriptPath,
+	BrapiPostScriptQuery,
+	BrapiPostScriptResponse,
+	BrapiPostScriptSessionExecuteBody,
+	BrapiPostScriptSessionExecutePath,
+	BrapiPostScriptSessionExecuteResponse,
+	BrapiPostScriptSessionExecuteStatus400,
+	BrapiPostScriptSessionExecuteStatus404,
+	BrapiPostScriptSessionExecuteStatus408,
+	BrapiPostScriptSessionExecuteStatus410,
+	BrapiPostScriptSessionExecuteStatus413,
+	BrapiPostScriptSessionExecuteStatus422,
+	BrapiPostScriptSessionExecuteStatus500,
+	BrapiPostScriptStatus400,
+	BrapiPostScriptStatus404,
+	BrapiPostScriptStatus408,
+	BrapiPostScriptStatus413,
+	BrapiPostScriptStatus422,
+	BrapiPostScriptStatus429,
+	BrapiPostScriptStatus500,
+	BrapiPostScriptStatus502,
+	BrapiPostScriptStatus503,
 	BrapiPostSnapshotBody,
 	BrapiPostSnapshotPath,
 	BrapiPostSnapshotQuery,
@@ -5192,6 +5215,11 @@ import type {
 	DomainIntelligenceGetMultipleDomainDetailsQuery,
 	DomainIntelligenceGetMultipleDomainDetailsResponse,
 	DomainIntelligenceGetMultipleDomainDetailsStatus400,
+	DurableObjectsNamespaceExportPath,
+	DurableObjectsNamespaceExportQuery,
+	DurableObjectsNamespaceExportResponse,
+	DurableObjectsNamespaceExportStatus400,
+	DurableObjectsNamespaceExportStatus503,
 	DurableObjectsNamespaceListNamespacesPath,
 	DurableObjectsNamespaceListNamespacesQuery,
 	DurableObjectsNamespaceListNamespacesResponse,
@@ -6484,8 +6512,6 @@ import type {
 	GetGroupReadPath,
 	GetGroupReadResponse,
 	GetGroupReadStatus400,
-	GetHeartbeatResponse,
-	GetHeartbeatStatus503,
 	GetHyperdrivePath,
 	GetHyperdriveResponse,
 	GetHyperdriveStatus400,
@@ -9602,6 +9628,10 @@ import type {
 	PatchV4AccountsByAccountIdK2StreamsByStreamIdResponse,
 	PatchV4AccountsByAccountIdK2StreamsByStreamIdStatus400,
 	PatchV4AccountsByAccountIdK2StreamsByStreamIdStatus500,
+	PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdBody,
+	PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdPath,
+	PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdResponse,
+	PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdStatus400,
 	PatchV4AccountsByAccountIdPipelinesV1StreamsByStreamIdBody,
 	PatchV4AccountsByAccountIdPipelinesV1StreamsByStreamIdPath,
 	PatchV4AccountsByAccountIdPipelinesV1StreamsByStreamIdResponse,
@@ -10290,6 +10320,9 @@ import type {
 	PostV4AccountsByAccountIdPipelinesDeprecatedResponse,
 	PostV4AccountsByAccountIdPipelinesDeprecatedStatus400,
 	PostV4AccountsByAccountIdPipelinesV1PipelinesBody,
+	PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesPath,
+	PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesResponse,
+	PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesStatus400,
 	PostV4AccountsByAccountIdPipelinesV1PipelinesPath,
 	PostV4AccountsByAccountIdPipelinesV1PipelinesResponse,
 	PostV4AccountsByAccountIdPipelinesV1PipelinesStatus400,
@@ -15500,33 +15533,6 @@ import type {
 	ZonesPostResponse,
 	ZonesPostStatus400,
 } from "./types";
-
-/**
- * @summary Heartbeat response
- * @description Used by Kubernetes readiness and liveness probes, and CI builder by executing test/staging.sh.
- * @link /_heartbeat
- */
-export async function getHeartbeat(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		GetHeartbeatResponse,
-		ErrorWrapper<GetHeartbeatStatus503>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "GET",
-		url: `/_heartbeat`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
 
 /**
  * @summary List Accounts
@@ -38467,7 +38473,7 @@ export async function aigConfigFetchGateway(
 
 /**
  * @summary Update a gateway
- * @description Updates the configuration of an AI Gateway, such as its caching, rate limiting, logging, and authentication settings.
+ * @description Updates the configuration of an AI Gateway, such as its caching, rate limiting, spend limits, logging, and authentication settings.
  * @link /accounts/{accountId}/ai-gateway/gateways/{id}
  */
 export async function aigConfigUpdateGateway(
@@ -49645,6 +49651,109 @@ export async function brapiPostScreenshot(
 		method: "POST",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/browser-rendering/screenshot`,
 		queryParams,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Dynamic Script - execute code and return browser session details.
+ * @description Acquires a browser session and runs the provided code in it. The session stays open for reuse; close it with `DELETE /devtools/browser/:sessionId` or `browser.close()`, otherwise it ends at the idle timeout.
+ * @link /accounts/{accountId}/browser-rendering/script
+ */
+export async function brapiPostScript(
+	{
+		pathParams,
+		body,
+		queryParams,
+		config,
+	}: {
+		pathParams: BrapiPostScriptPath;
+		body: BrapiPostScriptBody;
+		queryParams?: Partial<BrapiPostScriptQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		BrapiPostScriptResponse,
+		ErrorWrapper<
+			| BrapiPostScriptStatus400
+			| BrapiPostScriptStatus404
+			| BrapiPostScriptStatus408
+			| BrapiPostScriptStatus413
+			| BrapiPostScriptStatus422
+			| BrapiPostScriptStatus429
+			| BrapiPostScriptStatus500
+			| BrapiPostScriptStatus502
+			| BrapiPostScriptStatus503
+		>,
+		BrapiPostScriptBody,
+		Record<string, string>,
+		Partial<BrapiPostScriptQuery>,
+		BrapiPostScriptPath
+	>({
+		method: "POST",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/browser-rendering/script`,
+		queryParams,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Dynamic Script - execute code in an existing browser session.
+ * @description Runs the provided code in an existing browser session. The session stays open; close it with `DELETE /devtools/browser/:sessionId` or `browser.close()`, otherwise it ends at the idle timeout.
+ * @link /accounts/{accountId}/browser-rendering/script/{sessionId}
+ */
+export async function brapiPostScriptSessionExecute(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: BrapiPostScriptSessionExecutePath;
+		body: BrapiPostScriptSessionExecuteBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.sessionId == null || String(pathParams.sessionId) === "") {
+		throw new Error(`Missing required path parameter: sessionId`);
+	}
+	const data = await request<
+		BrapiPostScriptSessionExecuteResponse,
+		ErrorWrapper<
+			| BrapiPostScriptSessionExecuteStatus400
+			| BrapiPostScriptSessionExecuteStatus404
+			| BrapiPostScriptSessionExecuteStatus408
+			| BrapiPostScriptSessionExecuteStatus410
+			| BrapiPostScriptSessionExecuteStatus413
+			| BrapiPostScriptSessionExecuteStatus422
+			| BrapiPostScriptSessionExecuteStatus500
+		>,
+		BrapiPostScriptSessionExecuteBody,
+		Record<string, string>,
+		Record<string, string>,
+		BrapiPostScriptSessionExecutePath
+	>({
+		method: "POST",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/browser-rendering/script/${encodeURIComponent(String(pathParams.sessionId))}`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -109727,6 +109836,46 @@ export async function getV4AccountsByAccountIdPipelinesV1PipelinesByPipelineId(
 }
 
 /**
+ * @summary Update Pipeline Tables
+ * @description Move a Pipeline to the latest version of every stream and sink it uses, such as after updating a Sink. A running Pipeline restarts on the latest versions from a final checkpoint; a paused or stopped Pipeline uses them once it starts.
+ * @link /accounts/{accountId}/pipelines/v1/pipelines/{pipelineId}/update_tables
+ */
+export async function postV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTables(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.pipelineId == null || String(pathParams.pipelineId) === "") {
+		throw new Error(`Missing required path parameter: pipelineId`);
+	}
+	const data = await request<
+		PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesResponse,
+		ErrorWrapper<PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesStatus400>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesPath
+	>({
+		method: "POST",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/pipelines/v1/pipelines/${encodeURIComponent(String(pathParams.pipelineId))}/update_tables`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary List Sinks
  * @description List/Filter Sinks in Account.
  * @link /accounts/{accountId}/pipelines/v1/sinks
@@ -109877,6 +110026,49 @@ export async function getV4AccountsByAccountIdPipelinesV1SinksBySinkId(
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/pipelines/v1/sinks/${encodeURIComponent(String(pathParams.sinkId))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Sink
+ * @description Update a Sink's credentials or rolling policy, creating a new version of the Sink. Only `credentials` and `rolling_policy` (R2) or `token` and `rolling_policy` (Basin Catalog, including Sinks created with the legacy `r2_data_catalog` type) can be changed; omitted fields keep their current values. Secrets are never returned in responses. Pipelines that use the Sink keep their current version until they are moved to the latest one with Update Pipeline Tables.
+ * @link /accounts/{accountId}/pipelines/v1/sinks/{sinkId}
+ */
+export async function patchV4AccountsByAccountIdPipelinesV1SinksBySinkId(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdPath;
+		body: PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.sinkId == null || String(pathParams.sinkId) === "") {
+		throw new Error(`Missing required path parameter: sinkId`);
+	}
+	const data = await request<
+		PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdResponse,
+		ErrorWrapper<PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdStatus400>,
+		PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdBody,
+		Record<string, string>,
+		Record<string, string>,
+		PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdPath
+	>({
+		method: "PATCH",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/pipelines/v1/sinks/${encodeURIComponent(String(pathParams.sinkId))}`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -133929,6 +134121,49 @@ export async function durableObjectsNamespaceListNamespaces(
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/workers/durable_objects/namespaces`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Export a Durable Object's SQLite database
+ * @description Downloads a SQLite-backed Durable Object's database as a zip of main.sqlite and main.sqlite-wal, as of its last write to durable storage. If the export could not read all of the object's history, it holds the last state it could read and an INCOMPLETE.txt. Select the object by ID, or by name and jurisdiction.
+ * @link /accounts/{accountId}/workers/durable_objects/namespaces/{id}/export
+ */
+export async function durableObjectsNamespaceExport(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: DurableObjectsNamespaceExportPath;
+		queryParams?: Partial<DurableObjectsNamespaceExportQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.id == null || String(pathParams.id) === "") {
+		throw new Error(`Missing required path parameter: id`);
+	}
+	const data = await request<
+		DurableObjectsNamespaceExportResponse,
+		ErrorWrapper<DurableObjectsNamespaceExportStatus400 | DurableObjectsNamespaceExportStatus503>,
+		null,
+		Record<string, string>,
+		Partial<DurableObjectsNamespaceExportQuery>,
+		DurableObjectsNamespaceExportPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/workers/durable_objects/namespaces/${encodeURIComponent(String(pathParams.id))}/export`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -172493,7 +172728,6 @@ export async function workerRoutesUpdateRoute(
 }
 
 export const operationsByPath = {
-	"GET /_heartbeat": getHeartbeat,
 	"GET /accounts": accountsListAccounts,
 	"POST /accounts": accountCreation,
 	"GET /analytics/sql": sqlApiQueryGet,
@@ -173647,6 +173881,8 @@ export const operationsByPath = {
 		brapiGetRecordingNetwork,
 	"POST /accounts/{accountId}/browser-rendering/scrape": brapiPostScrape,
 	"POST /accounts/{accountId}/browser-rendering/screenshot": brapiPostScreenshot,
+	"POST /accounts/{accountId}/browser-rendering/script": brapiPostScript,
+	"POST /accounts/{accountId}/browser-rendering/script/{sessionId}": brapiPostScriptSessionExecute,
 	"POST /accounts/{accountId}/browser-rendering/snapshot": brapiPostSnapshot,
 	"GET /accounts/{accountId}/builds/account/limits": getAccountLimits,
 	"GET /accounts/{accountId}/builds/builds": getBuildsByVersionIds,
@@ -175708,12 +175944,16 @@ export const operationsByPath = {
 		deleteV4AccountsByAccountIdPipelinesV1PipelinesByPipelineId,
 	"GET /accounts/{accountId}/pipelines/v1/pipelines/{pipelineId}":
 		getV4AccountsByAccountIdPipelinesV1PipelinesByPipelineId,
+	"POST /accounts/{accountId}/pipelines/v1/pipelines/{pipelineId}/update_tables":
+		postV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTables,
 	"GET /accounts/{accountId}/pipelines/v1/sinks": getV4AccountsByAccountIdPipelinesV1Sinks,
 	"POST /accounts/{accountId}/pipelines/v1/sinks": postV4AccountsByAccountIdPipelinesV1Sinks,
 	"DELETE /accounts/{accountId}/pipelines/v1/sinks/{sinkId}":
 		deleteV4AccountsByAccountIdPipelinesV1SinksBySinkId,
 	"GET /accounts/{accountId}/pipelines/v1/sinks/{sinkId}":
 		getV4AccountsByAccountIdPipelinesV1SinksBySinkId,
+	"PATCH /accounts/{accountId}/pipelines/v1/sinks/{sinkId}":
+		patchV4AccountsByAccountIdPipelinesV1SinksBySinkId,
 	"GET /accounts/{accountId}/pipelines/v1/streams": getV4AccountsByAccountIdPipelinesV1Streams,
 	"POST /accounts/{accountId}/pipelines/v1/streams": postV4AccountsByAccountIdPipelinesV1Streams,
 	"DELETE /accounts/{accountId}/pipelines/v1/streams/{streamId}":
@@ -176454,6 +176694,8 @@ export const operationsByPath = {
 	"GET /accounts/{accountId}/workers/domains/{domainId}": workersDomainsGet,
 	"GET /accounts/{accountId}/workers/durable_objects/namespaces":
 		durableObjectsNamespaceListNamespaces,
+	"GET /accounts/{accountId}/workers/durable_objects/namespaces/{id}/export":
+		durableObjectsNamespaceExport,
 	"GET /accounts/{accountId}/workers/durable_objects/namespaces/{id}/objects":
 		durableObjectsNamespaceListObjects,
 	"POST /accounts/{accountId}/workers/durable_objects/namespaces/{id}/query/v2":
@@ -177688,9 +177930,6 @@ export const operationsByPath = {
 };
 
 export const operationsByTag = {
-	health: {
-		getHeartbeat,
-	},
 	accounts: {
 		accountsListAccounts,
 		accountCreation,
@@ -179015,6 +179254,8 @@ export const operationsByTag = {
 		brapiGetRecordingNetwork,
 		brapiPostScrape,
 		brapiPostScreenshot,
+		brapiPostScript,
+		brapiPostScriptSessionExecute,
 		brapiPostSnapshot,
 	},
 	builds: {
@@ -181042,10 +181283,12 @@ export const operationsByTag = {
 		postV4AccountsByAccountIdPipelinesV1Pipelines,
 		deleteV4AccountsByAccountIdPipelinesV1PipelinesByPipelineId,
 		getV4AccountsByAccountIdPipelinesV1PipelinesByPipelineId,
+		postV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTables,
 		getV4AccountsByAccountIdPipelinesV1Sinks,
 		postV4AccountsByAccountIdPipelinesV1Sinks,
 		deleteV4AccountsByAccountIdPipelinesV1SinksBySinkId,
 		getV4AccountsByAccountIdPipelinesV1SinksBySinkId,
+		patchV4AccountsByAccountIdPipelinesV1SinksBySinkId,
 		getV4AccountsByAccountIdPipelinesV1Streams,
 		postV4AccountsByAccountIdPipelinesV1Streams,
 		deleteV4AccountsByAccountIdPipelinesV1StreamsByStreamId,
@@ -181681,6 +181924,7 @@ export const operationsByTag = {
 	},
 	durableObjectsNamespace: {
 		durableObjectsNamespaceListNamespaces,
+		durableObjectsNamespaceExport,
 		durableObjectsNamespaceListObjects,
 		durableObjectsNamespaceQuery,
 	},
@@ -182674,9 +182918,6 @@ export const operationsByTag = {
 };
 
 export const tagDictionary = {
-	health: {
-		GET: ["getHeartbeat"],
-	},
 	accounts: {
 		GET: [
 			"accountsListAccounts",
@@ -184096,6 +184337,8 @@ export const tagDictionary = {
 			"brapiPostPdf",
 			"brapiPostScrape",
 			"brapiPostScreenshot",
+			"brapiPostScript",
+			"brapiPostScriptSessionExecute",
 			"brapiPostSnapshot",
 		],
 		DELETE: ["brapiDeleteCancelCrawl", "brapiDeleteDevtoolsBrowserDelete"],
@@ -186200,6 +186443,7 @@ export const tagDictionary = {
 		POST: [
 			"postV4AccountsByAccountIdPipelinesDeprecated",
 			"postV4AccountsByAccountIdPipelinesV1Pipelines",
+			"postV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTables",
 			"postV4AccountsByAccountIdPipelinesV1Sinks",
 			"postV4AccountsByAccountIdPipelinesV1Streams",
 			"postV4AccountsByAccountIdPipelinesV1ValidateSql",
@@ -186210,7 +186454,10 @@ export const tagDictionary = {
 			"deleteV4AccountsByAccountIdPipelinesV1StreamsByStreamId",
 			"deleteV4AccountsByAccountIdPipelinesByPipelineNameDeprecated",
 		],
-		PATCH: ["patchV4AccountsByAccountIdPipelinesV1StreamsByStreamId"],
+		PATCH: [
+			"patchV4AccountsByAccountIdPipelinesV1SinksBySinkId",
+			"patchV4AccountsByAccountIdPipelinesV1StreamsByStreamId",
+		],
 		PUT: ["putV4AccountsByAccountIdPipelinesByPipelineNameDeprecated"],
 	},
 	r2CatalogManagement: {
@@ -186873,7 +187120,11 @@ export const tagDictionary = {
 		DELETE: ["workersDomainsDelete"],
 	},
 	durableObjectsNamespace: {
-		GET: ["durableObjectsNamespaceListNamespaces", "durableObjectsNamespaceListObjects"],
+		GET: [
+			"durableObjectsNamespaceListNamespaces",
+			"durableObjectsNamespaceExport",
+			"durableObjectsNamespaceListObjects",
+		],
 		POST: ["durableObjectsNamespaceQuery"],
 	},
 	agents: {

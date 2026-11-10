@@ -30226,6 +30226,10 @@ export type CloudflareK2K2StreamHttpInput = {
   enabled: boolean;
 };
 
+/**
+ * @description Configures whether Workers bindings can produce records to the stream.
+ * @type object
+ */
 export type CloudflareK2K2StreamWorkerBindingInput = {
   /**
    * @description Indicates whether Workers bindings can produce records to the stream.
@@ -30259,6 +30263,7 @@ export type CloudflareK2CreateK2StreamRequest = {
    */
   retention_seconds?: number | undefined;
   /**
+   * @description Configures whether Workers bindings can produce records to the stream.
    * @default {"enabled":true}
    * @type object | undefined
    */
@@ -30593,6 +30598,10 @@ export type CloudflareK2K2Stream = {
    * @type integer
    */
   retention_seconds: number;
+  /**
+   * @description Configures whether Workers bindings can produce records to the stream.
+   * @type object
+   */
   worker_binding: CloudflareK2K2StreamWorkerBindingInput;
 };
 
@@ -30731,6 +30740,10 @@ export type CloudflareK2UpdateK2StreamRequest = {
    * @type integer | undefined
    */
   retention_seconds?: number | undefined;
+  /**
+   * @description Configures whether Workers bindings can produce records to the stream.
+   * @type object | undefined
+   */
   worker_binding?: CloudflareK2K2StreamWorkerBindingInput | undefined;
 };
 
@@ -30892,6 +30905,92 @@ export type CloudflarePipelinesPipelineEdge = {
   value_type: string;
 };
 
+export const cloudflarePipelinesPipelineExtendedTablesTypeEnum = {
+  stream: 'stream',
+  sink: 'sink',
+} as const;
+
+export type CloudflarePipelinesPipelineExtendedTablesTypeEnumKey = (typeof cloudflarePipelinesPipelineExtendedTablesTypeEnum)[keyof typeof cloudflarePipelinesPipelineExtendedTablesTypeEnum];
+
+export type CloudflarePipelinesPipelineExtended = {
+  created_at: string;
+  /**
+   * @description Indicates the reason for the failure of the Pipeline.
+   * @type string | undefined
+   */
+  failure_reason?: string | undefined;
+  /**
+   * @description Indicates a unique identifier for this pipeline.
+   * @example 01234567890123457689012345678901
+   * @type string
+   */
+  id: string;
+  modified_at: string;
+  /**
+   * @description Indicates the name of the Pipeline.
+   * @minLength 1
+   * @maxLength 128
+   * @example my_pipeline
+   * @type string
+   */
+  name: string;
+  /**
+   * @description Indicates that a stream or sink has a newer version than the one this pipeline uses. Update Pipeline Tables moves the pipeline to the latest versions.
+   * @example false
+   * @type boolean
+   */
+  outdated: boolean;
+  /**
+   * @description Specifies SQL for the Pipeline processing flow.
+   * @example insert into sink select * from source;
+   * @type string
+   */
+  sql: string;
+  /**
+   * @description Indicates the current status of the Pipeline.
+   * @type string
+   */
+  status: string;
+  /**
+   * @description List of streams and sinks used by this pipeline.
+   * @type array
+   */
+  tables: {
+    /**
+     * @description Unique identifier for the connection (stream or sink).
+     * @example 1c9200d5872c018bb34e93e2cd8a438e
+     * @type string
+     */
+    id: string;
+    /**
+     * @description Latest available version of the connection.
+     * @example 5
+     * @type integer
+     */
+    latest: number;
+    /**
+     * @description Name of the connection.
+     * @minLength 1
+     * @maxLength 128
+     * @example my_table
+     * @type string
+     */
+    name: string;
+    /**
+     * @description Type of the connection.
+     * @example stream
+     * @type string
+     */
+    type: CloudflarePipelinesPipelineExtendedTablesTypeEnumKey;
+    /**
+     * @description Current version of the connection used by this pipeline.
+     * @example 4
+     * @type integer
+     */
+    version: number;
+  }[];
+};
+
 export type CloudflarePipelinesPipelineNode = {
   description: string;
   /**
@@ -30920,6 +31019,147 @@ export type CloudflarePipelinesPipelineGraph = {
   nodes: CloudflarePipelinesPipelineNode[];
 };
 
+/**
+ * @description Rolling policy for file sinks (when & why to close a file and open a new one).
+ * @type object
+ */
+export type CloudflarePipelinesSinkRollingPolicy = {
+  /**
+   * @description Files will be rolled after reaching this number of bytes
+   *
+   * Format: `uint64`
+   * @minimum 0
+   * @type integer | undefined
+   */
+  file_size_bytes?: number | undefined;
+  /**
+   * @description Number of seconds of inactivity to wait before rolling over to a new file
+   *
+   * Format: `uint64`
+   * @minimum 1
+   * @type integer | undefined
+   */
+  inactivity_seconds?: number | undefined;
+  /**
+   * @description Number of seconds to wait before rolling over to a new file
+   *
+   * Format: `uint64`
+   * @minimum 1
+   * @type integer | undefined
+   */
+  interval_seconds?: number | undefined;
+};
+
+export const cloudflarePipelinesR2TablePublicFileNamingStrategyEnum = {
+  serial: 'serial',
+  uuid: 'uuid',
+  uuid_v7: 'uuid_v7',
+  ulid: 'ulid',
+} as const;
+
+export type CloudflarePipelinesR2TablePublicFileNamingStrategyEnumKey = (typeof cloudflarePipelinesR2TablePublicFileNamingStrategyEnum)[keyof typeof cloudflarePipelinesR2TablePublicFileNamingStrategyEnum];
+
+/**
+ * @description R2 Sink public configuration.
+ * @type object
+ */
+export type CloudflarePipelinesR2TablePublic = {
+  /**
+   * @description Cloudflare Account ID for the bucket
+   * @type string
+   */
+  account_id: string;
+  /**
+   * @description R2 Bucket to write to
+   * @type string
+   */
+  bucket: string;
+  /**
+   * @description Controls filename prefix/suffix and strategy.
+   * @type object | undefined
+   */
+  file_naming?: {
+    /**
+     * @description The prefix to use in file name. i.e prefix-<uuid>.parquet
+     * @type string | undefined
+     */
+    prefix?: string | undefined;
+    /**
+     * @description Filename generation strategy.
+     * @type string | undefined
+     */
+    strategy?: CloudflarePipelinesR2TablePublicFileNamingStrategyEnumKey | undefined;
+    /**
+     * @description This will overwrite the default file suffix. i.e .parquet, use with caution
+     * @type string | undefined
+     */
+    suffix?: string | undefined;
+  } | undefined;
+  /**
+   * @description Jurisdiction this bucket is hosted in
+   * @type string | undefined
+   */
+  jurisdiction?: string | undefined;
+  /**
+   * @description Data-layout partitioning for sinks.
+   * @type object | undefined
+   */
+  partitioning?: {
+    /**
+     * @description The pattern of the date string
+     * @example year=%Y/month=%m/day=%d/hour=%H
+     * @type string | undefined
+     */
+    time_pattern?: string | undefined;
+  } | undefined;
+  /**
+   * @description Subpath within the bucket to write to
+   * @type string | undefined
+   */
+  path?: string | undefined;
+  /**
+   * @description Rolling policy for file sinks (when & why to close a file and open a new one).
+   * @type object | undefined
+   */
+  rolling_policy?: CloudflarePipelinesSinkRollingPolicy | undefined;
+};
+
+/**
+ * @description R2 Data Catalog Sink public configuration.
+ * @type object
+ */
+export type CloudflarePipelinesR2DataCatalogTablePublic = {
+  /**
+   * @description Cloudflare Account ID
+   *
+   * Format: `uri`
+   * @example 6791973bbe876d621f9e557f891e90b3
+   * @type string
+   */
+  account_id: string;
+  /**
+   * @description The R2 Bucket that hosts this catalog
+   * @example my-bucket
+   * @type string
+   */
+  bucket: string;
+  /**
+   * @description Table namespace
+   * @type string | undefined
+   */
+  namespace?: string | undefined;
+  /**
+   * @description Rolling policy for file sinks (when & why to close a file and open a new one).
+   * @type object | undefined
+   */
+  rolling_policy?: CloudflarePipelinesSinkRollingPolicy | undefined;
+  /**
+   * @description Table name
+   * @type string
+   */
+  table_name: string;
+};
+
 export type CloudflarePipelinesSinkJsonFormat = CloudflarePipelinesJsonFormat & {
   /**
    * @description Specifies the compression applied to JSON sink output.
@@ -30941,6 +31181,119 @@ export type CloudflarePipelinesSinkFormat = CloudflarePipelinesSinkJsonFormat & 
   type: 'json';
 } | CloudflarePipelinesSinkParquetFormat & {
   type: 'parquet';
+};
+
+export const cloudflarePipelinesSinkTypeEnum = {
+  r2: 'r2',
+  r2_data_catalog: 'r2_data_catalog',
+  basin_catalog: 'basin_catalog',
+} as const;
+
+export type CloudflarePipelinesSinkTypeEnumKey = (typeof cloudflarePipelinesSinkTypeEnum)[keyof typeof cloudflarePipelinesSinkTypeEnum];
+
+export type CloudflarePipelinesSink = {
+  /**
+   * @description Defines the configuration of the R2 Sink.
+   */
+  config?: (CloudflarePipelinesR2TablePublic | CloudflarePipelinesR2DataCatalogTablePublic) | undefined;
+  /**
+   * @description
+   * Format: `date-time`
+   * @type string
+   */
+  created_at: string;
+  /**
+   * @description Defines the output data format of a sink.
+   */
+  format?: CloudflarePipelinesSinkFormat | undefined;
+  /**
+   * @description Indicates a unique identifier for this sink.
+   * @example 01234567890123457689012345678901
+   * @type string
+   */
+  id: string;
+  /**
+   * @description Indicates the latest version of this sink.
+   * @example 2
+   * @type integer
+   */
+  latest: number;
+  /**
+   * @description
+   * Format: `date-time`
+   * @type string
+   */
+  modified_at: string;
+  /**
+   * @description Defines the name of the Sink.
+   * @minLength 1
+   * @maxLength 128
+   * @example my_sink
+   * @type string
+   */
+  name: string;
+  /**
+   * @description Defines the schema of the events in the data stream.
+   * @type object | undefined
+   */
+  schema?: CloudflarePipelinesConnectionSchema | undefined;
+  /**
+   * @description Specifies the type of sink.
+   * @example r2
+   * @type string
+   */
+  type: CloudflarePipelinesSinkTypeEnumKey;
+  /**
+   * @description Lists the pipelines that use this sink. Omitted when no pipeline uses it.
+   * @type array | undefined
+   */
+  used_by?: {
+    /**
+     * @description Indicates the API URL of the pipeline.
+     *
+     * Format: `uri`
+     * @type string
+     */
+    href: string;
+    /**
+     * @description Indicates the unique identifier of the pipeline.
+     * @example 01234567890123457689012345678901
+     * @type string
+     */
+    id: string;
+    /**
+     * @description Indicates the type of resource using this sink.
+     * @example pipeline
+     * @type string
+     */
+    type: 'pipeline';
+  }[] | undefined;
+  /**
+   * @description Indicates the version of this sink.
+   * @example 2
+   * @type integer
+   */
+  version: number;
+};
+
+/**
+ * @description Mutable configuration of a Basin Catalog Sink, including Sinks created with the legacy `r2_data_catalog` type. Omitted fields keep their current values.
+ * @type object
+ */
+export type CloudflarePipelinesBasinCatalogTableUpdate = {
+  /**
+   * @description Rolling policy for file sinks (when & why to close a file and open a new one).
+   * @type object | undefined
+   */
+  rolling_policy?: CloudflarePipelinesSinkRollingPolicy | undefined;
+  /**
+   * @description Authentication token
+   *
+   * Format: `var-str`
+   * @example "asdfkj2h34kjhkj"
+   * @type string | undefined
+   */
+  token?: string | undefined;
 };
 
 export const cloudflarePipelinesR2TableFileNamingStrategyEnum = {
@@ -31026,131 +31379,39 @@ export type CloudflarePipelinesR2Table = {
    * @description Rolling policy for file sinks (when & why to close a file and open a new one).
    * @type object | undefined
    */
-  rolling_policy?: {
-    /**
-     * @description Files will be rolled after reaching this number of bytes
-     *
-     * Format: `uint64`
-     * @minimum 0
-     * @type integer | undefined
-     */
-    file_size_bytes?: number | undefined;
-    /**
-     * @description Number of seconds of inactivity to wait before rolling over to a new file
-     *
-     * Format: `uint64`
-     * @minimum 1
-     * @type integer | undefined
-     */
-    inactivity_seconds?: number | undefined;
-    /**
-     * @description Number of seconds to wait before rolling over to a new file
-     *
-     * Format: `uint64`
-     * @minimum 1
-     * @type integer | undefined
-     */
-    interval_seconds?: number | undefined;
-  } | undefined;
+  rolling_policy?: CloudflarePipelinesSinkRollingPolicy | undefined;
 };
 
-export const cloudflarePipelinesR2TablePublicFileNamingStrategyEnum = {
-  serial: 'serial',
-  uuid: 'uuid',
-  uuid_v7: 'uuid_v7',
-  ulid: 'ulid',
-} as const;
-
-export type CloudflarePipelinesR2TablePublicFileNamingStrategyEnumKey = (typeof cloudflarePipelinesR2TablePublicFileNamingStrategyEnum)[keyof typeof cloudflarePipelinesR2TablePublicFileNamingStrategyEnum];
-
 /**
- * @description R2 Sink public configuration.
+ * @description Mutable configuration of an R2 Sink. Omitted fields keep their current values.
  * @type object
  */
-export type CloudflarePipelinesR2TablePublic = {
+export type CloudflarePipelinesR2TableUpdate = {
   /**
-   * @description Cloudflare Account ID for the bucket
-   * @type string
-   */
-  account_id: string;
-  /**
-   * @description R2 Bucket to write to
-   * @type string
-   */
-  bucket: string;
-  /**
-   * @description Controls filename prefix/suffix and strategy.
+   * @description R2 credentials to change. Omitted fields keep their current values.
    * @type object | undefined
    */
-  file_naming?: {
+  credentials?: {
     /**
-     * @description The prefix to use in file name. i.e prefix-<uuid>.parquet
+     * @description R2 Access Key ID
+     *
+     * Format: `var-str`
      * @type string | undefined
      */
-    prefix?: string | undefined;
+    access_key_id?: string | undefined;
     /**
-     * @description Filename generation strategy.
+     * @description R2 Secret Access Key
+     *
+     * Format: `var-str`
      * @type string | undefined
      */
-    strategy?: CloudflarePipelinesR2TablePublicFileNamingStrategyEnumKey | undefined;
-    /**
-     * @description This will overwrite the default file suffix. i.e .parquet, use with caution
-     * @type string | undefined
-     */
-    suffix?: string | undefined;
+    secret_access_key?: string | undefined;
   } | undefined;
-  /**
-   * @description Jurisdiction this bucket is hosted in
-   * @type string | undefined
-   */
-  jurisdiction?: string | undefined;
-  /**
-   * @description Data-layout partitioning for sinks.
-   * @type object | undefined
-   */
-  partitioning?: {
-    /**
-     * @description The pattern of the date string
-     * @example year=%Y/month=%m/day=%d/hour=%H
-     * @type string | undefined
-     */
-    time_pattern?: string | undefined;
-  } | undefined;
-  /**
-   * @description Subpath within the bucket to write to
-   * @type string | undefined
-   */
-  path?: string | undefined;
   /**
    * @description Rolling policy for file sinks (when & why to close a file and open a new one).
    * @type object | undefined
    */
-  rolling_policy?: {
-    /**
-     * @description Files will be rolled after reaching this number of bytes
-     *
-     * Format: `uint64`
-     * @minimum 0
-     * @type integer | undefined
-     */
-    file_size_bytes?: number | undefined;
-    /**
-     * @description Number of seconds of inactivity to wait before rolling over to a new file
-     *
-     * Format: `uint64`
-     * @minimum 1
-     * @type integer | undefined
-     */
-    inactivity_seconds?: number | undefined;
-    /**
-     * @description Number of seconds to wait before rolling over to a new file
-     *
-     * Format: `uint64`
-     * @minimum 1
-     * @type integer | undefined
-     */
-    interval_seconds?: number | undefined;
-  } | undefined;
+  rolling_policy?: CloudflarePipelinesSinkRollingPolicy | undefined;
 };
 
 /**
@@ -31181,32 +31442,7 @@ export type CloudflarePipelinesR2DataCatalogTable = {
    * @description Rolling policy for file sinks (when & why to close a file and open a new one).
    * @type object | undefined
    */
-  rolling_policy?: {
-    /**
-     * @description Files will be rolled after reaching this number of bytes
-     *
-     * Format: `uint64`
-     * @minimum 0
-     * @type integer | undefined
-     */
-    file_size_bytes?: number | undefined;
-    /**
-     * @description Number of seconds of inactivity to wait before rolling over to a new file
-     *
-     * Format: `uint64`
-     * @minimum 1
-     * @type integer | undefined
-     */
-    inactivity_seconds?: number | undefined;
-    /**
-     * @description Number of seconds to wait before rolling over to a new file
-     *
-     * Format: `uint64`
-     * @minimum 1
-     * @type integer | undefined
-     */
-    interval_seconds?: number | undefined;
-  } | undefined;
+  rolling_policy?: CloudflarePipelinesSinkRollingPolicy | undefined;
   /**
    * @description Table name
    * @type string
@@ -31220,67 +31456,6 @@ export type CloudflarePipelinesR2DataCatalogTable = {
    * @type string
    */
   token: string;
-};
-
-/**
- * @description R2 Data Catalog Sink public configuration.
- * @type object
- */
-export type CloudflarePipelinesR2DataCatalogTablePublic = {
-  /**
-   * @description Cloudflare Account ID
-   *
-   * Format: `uri`
-   * @example 6791973bbe876d621f9e557f891e90b3
-   * @type string
-   */
-  account_id: string;
-  /**
-   * @description The R2 Bucket that hosts this catalog
-   * @example my-bucket
-   * @type string
-   */
-  bucket: string;
-  /**
-   * @description Table namespace
-   * @type string | undefined
-   */
-  namespace?: string | undefined;
-  /**
-   * @description Rolling policy for file sinks (when & why to close a file and open a new one).
-   * @type object | undefined
-   */
-  rolling_policy?: {
-    /**
-     * @description Files will be rolled after reaching this number of bytes
-     *
-     * Format: `uint64`
-     * @minimum 0
-     * @type integer | undefined
-     */
-    file_size_bytes?: number | undefined;
-    /**
-     * @description Number of seconds of inactivity to wait before rolling over to a new file
-     *
-     * Format: `uint64`
-     * @minimum 1
-     * @type integer | undefined
-     */
-    inactivity_seconds?: number | undefined;
-    /**
-     * @description Number of seconds to wait before rolling over to a new file
-     *
-     * Format: `uint64`
-     * @minimum 1
-     * @type integer | undefined
-     */
-    interval_seconds?: number | undefined;
-  } | undefined;
-  /**
-   * @description Table name
-   * @type string
-   */
-  table_name: string;
 };
 
 /**
@@ -47181,7 +47356,7 @@ export type DomainConnectHttpError = {
 
 export type DomainConnectHttpStatus = {
   /**
-   * @example Success
+   * @example verified
    * @type string | undefined
    */
   status?: string | undefined;
@@ -117532,6 +117707,7 @@ export type TunnelHostname = string;
 
 /**
  * @description An optional description of the hostname route.
+ * @default ''
  * @example example comment
  * @type string
  */
@@ -117580,6 +117756,7 @@ export type TunnelHostnameRouteTunTypeKey = (typeof tunnelHostnameRouteTunType)[
 export type TunnelHostnameRoute = {
   /**
    * @description An optional description of the hostname route.
+   * @default ''
    * @example example comment
    * @type string | undefined
    */
@@ -142944,27 +143121,6 @@ export type WorkersWorkerProfileRequest = {
    */
   profile_type?: WorkersWorkerProfileRequestProfileTypeEnumKey | undefined;
 };
-
-export type GetHeartbeatStatus200 = string;
-
-export type GetHeartbeatStatus503 = unknown;
-
-export type GetHeartbeatOptions = {
-  body?: never | undefined;
-  path?: never | undefined;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type GetHeartbeatResponses = {
-  '200': GetHeartbeatStatus200;
-  '503': GetHeartbeatStatus503;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type GetHeartbeatResponse = GetHeartbeatStatus200;
 
 export const accountsListAccountsDirection = {
   asc: 'asc',
@@ -227056,7 +227212,7 @@ export type UserApiTokensVerifyTokenResponses = {
  */
 export type UserApiTokensVerifyTokenResponse = UserApiTokensVerifyTokenStatus200;
 
-export type PostVerifyStatus200 = unknown;
+export type PostVerifyStatus200 = DomainConnectHttpStatus;
 
 export type PostVerifyStatus400 = unknown;
 
@@ -290416,6 +290572,521 @@ export type BrapiPostScreenshotResponses = {
  * @description Union of all possible responses
  */
 export type BrapiPostScreenshotResponse = BrapiPostScreenshotStatus200;
+
+export type BrapiPostScriptPath = {
+  /**
+   * @description Account ID.
+   * @type string
+   */
+  accountId: string;
+};
+
+export type BrapiPostScriptQuery = {
+  /**
+   * @description Keep-alive time in milliseconds
+   * @minimum 10000
+   * @maximum 1200000
+   * @default 60000
+   * @type number | undefined
+   */
+  keep_alive?: number | undefined;
+  /**
+   * @description Use experimental browser.
+   * @default false
+   * @type boolean | undefined
+   */
+  lab?: boolean | undefined;
+  /**
+   * @description Record the browser session. Retrieve it with `GET /recording/:session_id`.
+   * @default false
+   * @type boolean | undefined
+   */
+  recording?: boolean | undefined;
+  /**
+   * @description Rendering backend for this script. Set to `kitesurf` to run it on Kitesurf (beta), which supports CDP only and rejects `keep_alive`, `lab` and `recording`.
+   * @type string | undefined
+   */
+  browser?: 'kitesurf' | undefined;
+};
+
+export type BrapiPostScriptStatus200 = {
+  /**
+   * @description The script's return value, or null when it returned nothing. Arrays nested inside arrays are also returned, but this schema does not describe them.
+   */
+  result: string | number | boolean | {
+    [key: string]: unknown;
+  } | (string | number | boolean | {
+    [key: string]: unknown;
+  })[];
+  success: true;
+};
+
+export type BrapiPostScriptStatus400 = {
+  errors?: {
+    /**
+     * @description Error code.
+     * @type number
+     */
+    code: number;
+    /**
+     * @description Error message.
+     * @type string
+     */
+    message: string;
+  }[] | undefined;
+  /**
+   * @description Response status.
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export type BrapiPostScriptStatus404 = {
+  errors?: {
+    /**
+     * @description Error code.
+     * @type number
+     */
+    code: number;
+    /**
+     * @description Error message.
+     * @type string
+     */
+    message: string;
+  }[] | undefined;
+  /**
+   * @description Response status.
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export type BrapiPostScriptStatus408 = {
+  errors?: {
+    /**
+     * @description Error code.
+     * @type number
+     */
+    code: number;
+    /**
+     * @description Error message.
+     * @type string
+     */
+    message: string;
+  }[] | undefined;
+  /**
+   * @description Response status.
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export type BrapiPostScriptStatus413 = {
+  errors?: {
+    /**
+     * @description Error code.
+     * @type number
+     */
+    code: number;
+    /**
+     * @description Error message.
+     * @type string
+     */
+    message: string;
+  }[] | undefined;
+  /**
+   * @description Response status.
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export type BrapiPostScriptStatus422 = {
+  errors?: {
+    /**
+     * @description Error code.
+     * @type number
+     */
+    code: number;
+    /**
+     * @description Where the script failed, such as `Script location: line 2, column 4`.
+     * @type string | undefined
+     */
+    detail?: string | undefined;
+    /**
+     * @description Error message.
+     * @type string
+     */
+    message: string;
+  }[] | undefined;
+  /**
+   * @description Response status.
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export type BrapiPostScriptStatus429 = {
+  errors?: {
+    /**
+     * @description Error code.
+     * @type number
+     */
+    code: number;
+    /**
+     * @description Error message.
+     * @type string
+     */
+    message: string;
+  }[] | undefined;
+  /**
+   * @description Response status.
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export type BrapiPostScriptStatus500 = {
+  errors?: {
+    /**
+     * @description Error code.
+     * @type number
+     */
+    code: number;
+    /**
+     * @description Error message.
+     * @type string
+     */
+    message: string;
+  }[] | undefined;
+  /**
+   * @description Response status.
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export type BrapiPostScriptStatus502 = {
+  errors?: {
+    /**
+     * @description Error code.
+     * @type number
+     */
+    code: number;
+    /**
+     * @description Error message.
+     * @type string
+     */
+    message: string;
+  }[] | undefined;
+  /**
+   * @description Response status.
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export type BrapiPostScriptStatus503 = {
+  errors?: {
+    /**
+     * @description Error code.
+     * @type number
+     */
+    code: number;
+    /**
+     * @description Error message.
+     * @type string
+     */
+    message: string;
+  }[] | undefined;
+  /**
+   * @description Response status.
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export const brapiPostScriptRequestLibraryEnum = {
+  playwright: 'playwright',
+  puppeteer: 'puppeteer',
+} as const;
+
+export type BrapiPostScriptRequestLibraryEnumKey = (typeof brapiPostScriptRequestLibraryEnum)[keyof typeof brapiPostScriptRequestLibraryEnum];
+
+export type BrapiPostScriptBody = {
+  /**
+   * @description Function body executed against the selected library's runner.
+   * @type string
+   */
+  code: string;
+  /**
+   * @description Library the script runs with. Defaults to raw CDP when omitted.
+   * @type string | undefined
+   */
+  library?: BrapiPostScriptRequestLibraryEnumKey | undefined;
+  /**
+   * @description Maximum script run time in milliseconds.
+   * @minimum 1
+   * @maximum 120000
+   * @default 60000
+   * @type integer | undefined
+   */
+  timeout?: number | undefined;
+};
+
+export type BrapiPostScriptOptions = {
+  body: BrapiPostScriptBody;
+  path: BrapiPostScriptPath;
+  query?: BrapiPostScriptQuery | undefined;
+  headers?: never | undefined;
+};
+
+export type BrapiPostScriptResponses = {
+  '200': BrapiPostScriptStatus200;
+  '400': BrapiPostScriptStatus400;
+  '404': BrapiPostScriptStatus404;
+  '408': BrapiPostScriptStatus408;
+  '413': BrapiPostScriptStatus413;
+  '422': BrapiPostScriptStatus422;
+  '429': BrapiPostScriptStatus429;
+  '500': BrapiPostScriptStatus500;
+  '502': BrapiPostScriptStatus502;
+  '503': BrapiPostScriptStatus503;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type BrapiPostScriptResponse = BrapiPostScriptStatus200;
+
+export type BrapiPostScriptSessionExecutePath = {
+  /**
+   * @description Account ID.
+   * @type string
+   */
+  accountId: string;
+  /**
+   * @description Browser session ID
+   *
+   * Format: `uuid`
+   * @type string
+   */
+  sessionId: string;
+};
+
+export type BrapiPostScriptSessionExecuteStatus200 = {
+  /**
+   * @description The script's return value, or null when it returned nothing. Arrays nested inside arrays are also returned, but this schema does not describe them.
+   */
+  result: string | number | boolean | {
+    [key: string]: unknown;
+  } | (string | number | boolean | {
+    [key: string]: unknown;
+  })[];
+  success: true;
+};
+
+export type BrapiPostScriptSessionExecuteStatus400 = {
+  errors?: {
+    /**
+     * @description Error code.
+     * @type number
+     */
+    code: number;
+    /**
+     * @description Error message.
+     * @type string
+     */
+    message: string;
+  }[] | undefined;
+  /**
+   * @description Response status.
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export type BrapiPostScriptSessionExecuteStatus404 = {
+  errors?: {
+    /**
+     * @description Error code.
+     * @type number
+     */
+    code: number;
+    /**
+     * @description Error message.
+     * @type string
+     */
+    message: string;
+  }[] | undefined;
+  /**
+   * @description Response status.
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export type BrapiPostScriptSessionExecuteStatus408 = {
+  errors?: {
+    /**
+     * @description Error code.
+     * @type number
+     */
+    code: number;
+    /**
+     * @description Error message.
+     * @type string
+     */
+    message: string;
+  }[] | undefined;
+  /**
+   * @description Response status.
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export type BrapiPostScriptSessionExecuteStatus410 = {
+  errors?: {
+    /**
+     * @description Error code.
+     * @type number
+     */
+    code: number;
+    /**
+     * @description Error message.
+     * @type string
+     */
+    message: string;
+  }[] | undefined;
+  /**
+   * @description Response status.
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export type BrapiPostScriptSessionExecuteStatus413 = {
+  errors?: {
+    /**
+     * @description Error code.
+     * @type number
+     */
+    code: number;
+    /**
+     * @description Error message.
+     * @type string
+     */
+    message: string;
+  }[] | undefined;
+  /**
+   * @description Response status.
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export type BrapiPostScriptSessionExecuteStatus422 = {
+  errors?: {
+    /**
+     * @description Error code.
+     * @type number
+     */
+    code: number;
+    /**
+     * @description Where the script failed, such as `Script location: line 2, column 4`.
+     * @type string | undefined
+     */
+    detail?: string | undefined;
+    /**
+     * @description Error message.
+     * @type string
+     */
+    message: string;
+  }[] | undefined;
+  /**
+   * @description Response status.
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export type BrapiPostScriptSessionExecuteStatus500 = {
+  errors?: {
+    /**
+     * @description Error code.
+     * @type number
+     */
+    code: number;
+    /**
+     * @description Error message.
+     * @type string
+     */
+    message: string;
+  }[] | undefined;
+  /**
+   * @description Response status.
+   * @type boolean
+   */
+  success: boolean;
+};
+
+export const brapiPostScriptSessionExecuteRequestLibraryEnum = {
+  playwright: 'playwright',
+  puppeteer: 'puppeteer',
+} as const;
+
+export type BrapiPostScriptSessionExecuteRequestLibraryEnumKey = (typeof brapiPostScriptSessionExecuteRequestLibraryEnum)[keyof typeof brapiPostScriptSessionExecuteRequestLibraryEnum];
+
+export type BrapiPostScriptSessionExecuteBody = {
+  /**
+   * @description Function body executed against the selected library's runner.
+   * @type string
+   */
+  code: string;
+  /**
+   * @description Library the script runs with. Defaults to raw CDP when omitted.
+   * @type string | undefined
+   */
+  library?: BrapiPostScriptSessionExecuteRequestLibraryEnumKey | undefined;
+  /**
+   * @description Page target the script attaches to. Defaults to the session's first page.
+   * @pattern ^[a-zA-Z0-9]+$
+   * @type string | undefined
+   */
+  targetId?: string | undefined;
+  /**
+   * @description Maximum script run time in milliseconds.
+   * @minimum 1
+   * @maximum 120000
+   * @default 60000
+   * @type integer | undefined
+   */
+  timeout?: number | undefined;
+};
+
+export type BrapiPostScriptSessionExecuteOptions = {
+  body: BrapiPostScriptSessionExecuteBody;
+  path: BrapiPostScriptSessionExecutePath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type BrapiPostScriptSessionExecuteResponses = {
+  '200': BrapiPostScriptSessionExecuteStatus200;
+  '400': BrapiPostScriptSessionExecuteStatus400;
+  '404': BrapiPostScriptSessionExecuteStatus404;
+  '408': BrapiPostScriptSessionExecuteStatus408;
+  '410': BrapiPostScriptSessionExecuteStatus410;
+  '413': BrapiPostScriptSessionExecuteStatus413;
+  '422': BrapiPostScriptSessionExecuteStatus422;
+  '500': BrapiPostScriptSessionExecuteStatus500;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type BrapiPostScriptSessionExecuteResponse = BrapiPostScriptSessionExecuteStatus200;
 
 export type BrapiPostSnapshotPath = {
   /**
@@ -380727,86 +381398,8 @@ export type GetV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdPath = {
   pipelineId: CloudflarePipelinesWorkersPipelinesPipelineId;
 };
 
-export const getV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdStatus200ResultTablesTypeEnum = {
-  stream: 'stream',
-  sink: 'sink',
-} as const;
-
-export type GetV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdStatus200ResultTablesTypeEnumKey = (typeof getV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdStatus200ResultTablesTypeEnum)[keyof typeof getV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdStatus200ResultTablesTypeEnum];
-
 export type GetV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdStatus200 = {
-  result: {
-    created_at: string;
-    /**
-     * @description Indicates the reason for the failure of the Pipeline.
-     * @type string | undefined
-     */
-    failure_reason?: string | undefined;
-    /**
-     * @description Indicates a unique identifier for this pipeline.
-     * @example 01234567890123457689012345678901
-     * @type string
-     */
-    id: string;
-    modified_at: string;
-    /**
-     * @description Indicates the name of the Pipeline.
-     * @minLength 1
-     * @maxLength 128
-     * @example my_pipeline
-     * @type string
-     */
-    name: string;
-    /**
-     * @description Specifies SQL for the Pipeline processing flow.
-     * @example insert into sink select * from source;
-     * @type string
-     */
-    sql: string;
-    /**
-     * @description Indicates the current status of the Pipeline.
-     * @type string
-     */
-    status: string;
-    /**
-     * @description List of streams and sinks used by this pipeline.
-     * @type array
-     */
-    tables: {
-      /**
-       * @description Unique identifier for the connection (stream or sink).
-       * @example 1c9200d5872c018bb34e93e2cd8a438e
-       * @type string
-       */
-      id: string;
-      /**
-       * @description Latest available version of the connection.
-       * @example 5
-       * @type integer
-       */
-      latest: number;
-      /**
-       * @description Name of the connection.
-       * @minLength 1
-       * @maxLength 128
-       * @example my_table
-       * @type string
-       */
-      name: string;
-      /**
-       * @description Type of the connection.
-       * @example stream
-       * @type string
-       */
-      type: GetV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdStatus200ResultTablesTypeEnumKey;
-      /**
-       * @description Current version of the connection used by this pipeline.
-       * @example 4
-       * @type integer
-       */
-      version: number;
-    }[];
-  };
+  result: CloudflarePipelinesPipelineExtended;
   /**
    * @description Indicates whether the API call was successful.
    * @example true
@@ -380833,6 +381426,52 @@ export type GetV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdResponses = 
  * @description Union of all possible responses
  */
 export type GetV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdResponse = GetV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdStatus200;
+
+export type PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesPath = {
+  /**
+   * @description Specifies the public ID of the account.
+   * @example 0123105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  accountId: CloudflarePipelinesWorkersPipelinesAccountId;
+  /**
+   * @description Specifies the public ID of the pipeline.
+   * @minLength 32
+   * @maxLength 32
+   * @example 043e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  pipelineId: CloudflarePipelinesWorkersPipelinesPipelineId;
+};
+
+export type PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesStatus200 = {
+  result: CloudflarePipelinesPipelineExtended;
+  /**
+   * @description Indicates whether the API call was successful.
+   * @example true
+   * @type boolean
+   */
+  success: CloudflarePipelinesWorkerPipelinesCommonSuccess;
+};
+
+export type PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesStatus400 = unknown;
+
+export type PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesOptions = {
+  body?: never | undefined;
+  path: PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesResponses = {
+  '200': PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesStatus200;
+  '400': PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesResponse = PostV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTablesStatus200;
 
 export type GetV4AccountsByAccountIdPipelinesV1SinksPath = {
   /**
@@ -381184,62 +381823,8 @@ export type GetV4AccountsByAccountIdPipelinesV1SinksBySinkIdPath = {
   sinkId: CloudflarePipelinesWorkersPipelinesSinkId;
 };
 
-export const getV4AccountsByAccountIdPipelinesV1SinksBySinkIdStatus200ResultTypeEnum = {
-  r2: 'r2',
-  r2_data_catalog: 'r2_data_catalog',
-  basin_catalog: 'basin_catalog',
-} as const;
-
-export type GetV4AccountsByAccountIdPipelinesV1SinksBySinkIdStatus200ResultTypeEnumKey = (typeof getV4AccountsByAccountIdPipelinesV1SinksBySinkIdStatus200ResultTypeEnum)[keyof typeof getV4AccountsByAccountIdPipelinesV1SinksBySinkIdStatus200ResultTypeEnum];
-
 export type GetV4AccountsByAccountIdPipelinesV1SinksBySinkIdStatus200 = {
-  result: {
-    /**
-     * @description Defines the configuration of the R2 Sink.
-     */
-    config?: (CloudflarePipelinesR2TablePublic | CloudflarePipelinesR2DataCatalogTablePublic) | undefined;
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    created_at: string;
-    /**
-     * @description Defines the output data format of a sink.
-     */
-    format?: CloudflarePipelinesSinkFormat | undefined;
-    /**
-     * @description Indicates a unique identifier for this sink.
-     * @example 01234567890123457689012345678901
-     * @type string
-     */
-    id: string;
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    modified_at: string;
-    /**
-     * @description Defines the name of the Sink.
-     * @minLength 1
-     * @maxLength 128
-     * @example my_sink
-     * @type string
-     */
-    name: string;
-    /**
-     * @description Defines the schema of the events in the data stream.
-     * @type object | undefined
-     */
-    schema?: CloudflarePipelinesConnectionSchema | undefined;
-    /**
-     * @description Specifies the type of sink.
-     * @example r2
-     * @type string
-     */
-    type: GetV4AccountsByAccountIdPipelinesV1SinksBySinkIdStatus200ResultTypeEnumKey;
-  };
+  result: CloudflarePipelinesSink;
   /**
    * @description Indicates whether the API call was successful.
    * @example true
@@ -381266,6 +381851,59 @@ export type GetV4AccountsByAccountIdPipelinesV1SinksBySinkIdResponses = {
  * @description Union of all possible responses
  */
 export type GetV4AccountsByAccountIdPipelinesV1SinksBySinkIdResponse = GetV4AccountsByAccountIdPipelinesV1SinksBySinkIdStatus200;
+
+export type PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdPath = {
+  /**
+   * @description Specifies the public ID of the account.
+   * @example 0123105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  accountId: CloudflarePipelinesWorkersPipelinesAccountId;
+  /**
+   * @description Specifies the publid ID of the sink.
+   * @minLength 32
+   * @maxLength 32
+   * @example 0223105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  sinkId: CloudflarePipelinesWorkersPipelinesSinkId;
+};
+
+export type PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdStatus200 = {
+  result: CloudflarePipelinesSink;
+  /**
+   * @description Indicates whether the API call was successful.
+   * @example true
+   * @type boolean
+   */
+  success: CloudflarePipelinesWorkerPipelinesCommonSuccess;
+};
+
+export type PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdStatus400 = unknown;
+
+export type PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdBody = {
+  /**
+   * @description Defines the Sink configuration fields to change. At least one field is required; omitted fields keep their current values.
+   */
+  config: CloudflarePipelinesR2TableUpdate | CloudflarePipelinesBasinCatalogTableUpdate;
+};
+
+export type PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdOptions = {
+  body: PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdBody;
+  path: PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdResponses = {
+  '200': PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdStatus200;
+  '400': PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdResponse = PatchV4AccountsByAccountIdPipelinesV1SinksBySinkIdStatus200;
 
 export type GetV4AccountsByAccountIdPipelinesV1StreamsPath = {
   /**
@@ -414472,7 +415110,6 @@ export type CloudflareTunnelCreateAWarpConnectorTunnelStatus400 = TunnelWarpConn
 export type CloudflareTunnelCreateAWarpConnectorTunnelBody = {
   /**
    * @description Indicates that the tunnel will be created to be highly available. If omitted, defaults to false.
-   * @default false
    * @type boolean | undefined
    */
   ha?: boolean | undefined;
@@ -415065,6 +415702,13 @@ export type NamespaceWorkerCreateBody = {
    * @type string | undefined
    */
   name?: string | undefined;
+  /**
+   * @description Whether the Workers in the namespace are executed in a "trusted" manner. When a Worker is trusted, it has access to the shared caches for the zone in the Cache API, and has access to the `request.cf` object on incoming Requests. When a Worker is untrusted, caches are not shared across the zone, and `request.cf` is undefined. By default, Workers in a namespace are "untrusted".
+   * @default false
+   * @example false
+   * @type boolean | undefined
+   */
+  trusted_workers?: WorkersTrustedWorkers | undefined;
 };
 
 export type NamespaceWorkerCreateOptions = {
@@ -416718,6 +417362,74 @@ export type DurableObjectsNamespaceListNamespacesResponses = {
  * @description Union of all possible responses
  */
 export type DurableObjectsNamespaceListNamespacesResponse = DurableObjectsNamespaceListNamespacesStatus200;
+
+export type DurableObjectsNamespaceExportPath = {
+  /**
+   * @description Identifier.
+   * @maxLength 32
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  accountId: WorkersIdentifier;
+  /**
+   * @description ID of the namespace.
+   * @example 5fd1cafff895419c8bcc647fc64ab8f0
+   * @type string
+   */
+  id: WorkersSchemasId;
+};
+
+export const durableObjectsNamespaceExportJurisdiction = {
+  fedramp: 'fedramp',
+  eu: 'eu',
+  none: 'none',
+} as const;
+
+export type DurableObjectsNamespaceExportJurisdictionKey = (typeof durableObjectsNamespaceExportJurisdiction)[keyof typeof durableObjectsNamespaceExportJurisdiction];
+
+export type DurableObjectsNamespaceExportQuery = {
+  /**
+   * @description The Durable Object's ID. Required unless durable_object_name is given.
+   * @minLength 1
+   * @type string | undefined
+   */
+  durable_object_id?: string | undefined;
+  /**
+   * @description The name the Durable Object's ID was derived from.
+   * @minLength 1
+   * @type string | undefined
+   */
+  durable_object_name?: string | undefined;
+  /**
+   * @description The jurisdiction of a Durable Object selected by name.
+   * @type string | undefined
+   */
+  jurisdiction?: DurableObjectsNamespaceExportJurisdictionKey | undefined;
+};
+
+export type DurableObjectsNamespaceExportStatus200 = Blob;
+
+export type DurableObjectsNamespaceExportStatus400 = WorkersApiResponseCommonFailure;
+
+export type DurableObjectsNamespaceExportStatus503 = WorkersApiResponseCommonFailure;
+
+export type DurableObjectsNamespaceExportOptions = {
+  body?: never | undefined;
+  path: DurableObjectsNamespaceExportPath;
+  query?: DurableObjectsNamespaceExportQuery | undefined;
+  headers?: never | undefined;
+};
+
+export type DurableObjectsNamespaceExportResponses = {
+  '200': DurableObjectsNamespaceExportStatus200;
+  '400': DurableObjectsNamespaceExportStatus400;
+  '503': DurableObjectsNamespaceExportStatus503;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DurableObjectsNamespaceExportResponse = DurableObjectsNamespaceExportStatus200;
 
 export type DurableObjectsNamespaceListObjectsPath = {
   /**
@@ -430387,6 +431099,7 @@ export type ZeroTrustNetworksRouteHostnameCreateStatus400 = TunnelHostnameRouteR
 export type ZeroTrustNetworksRouteHostnameCreateBody = {
   /**
    * @description An optional description of the hostname route.
+   * @default ''
    * @example example comment
    * @type string | undefined
    */
@@ -430528,6 +431241,7 @@ export type ZeroTrustNetworksRouteHostnameUpdateStatus400 = TunnelHostnameRouteR
 export type ZeroTrustNetworksRouteHostnameUpdateBody = {
   /**
    * @description An optional description of the hostname route.
+   * @default ''
    * @example example comment
    * @type string | undefined
    */
@@ -431053,12 +431767,6 @@ export type ZeroTrustNetworksSubnetUpdateWarpBody = {
    * @type string | undefined
    */
   name?: TunnelSubnetName | undefined;
-  /**
-   * @description The private IPv4 or IPv6 range defining the subnet, in CIDR notation.
-   * @example 100.64.0.0/12
-   * @type string | undefined
-   */
-  network?: TunnelSubnetIpNetwork | undefined;
 };
 
 export type ZeroTrustNetworksSubnetUpdateWarpOptions = {
