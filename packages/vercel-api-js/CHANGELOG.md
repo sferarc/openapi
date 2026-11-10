@@ -1,5 +1,18 @@
 # vercel-api-js
 
+## 2.31.0
+
+### Minor Changes
+
+- 33dafb4: [BREAKING] Removed the exported constant 'teamDisableHardAutoBlocks' and the type 'TeamDisableHardAutoBlocksKey'.
+- 33dafb4: [BREAKING] The 'disableHardAutoBlocks' property in the 'Team' type can no longer use the 'TeamDisableHardAutoBlocksKey' type, and is now limited to number only (or is possibly removed).
+
+### Patch Changes
+
+- 33dafb4: Changed the type of certain query parameters in 'GetSecurityFirewallEventsQuery' from 'number' to 'integer' and added '@minimum 0' validation.
+- 33dafb4: Added '@minimum 0' validation to parameters in 'GetSecurityFirewallEventsSummaryQuery'.
+- 33dafb4: Added the 'buildTarget' field to the types 'GetDeploymentStatus200', 'CreateDeploymentStatus200', and 'CancelDeploymentStatus200'.
+
 ## 2.30.0
 
 ### Minor Changes
