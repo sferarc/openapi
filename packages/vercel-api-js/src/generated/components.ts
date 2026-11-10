@@ -14,6 +14,7 @@ import type {
 	AcceptProjectTransferRequestStatus401,
 	AcceptProjectTransferRequestStatus403,
 	AcceptProjectTransferRequestStatus404,
+	AcceptProjectTransferRequestStatus409,
 	AcceptProjectTransferRequestStatus410,
 	AcceptProjectTransferRequestStatus422,
 	ActivateKmsSigningKeyBody,
@@ -214,6 +215,7 @@ import type {
 	ClaimDomainOwnershipStatus401,
 	ClaimDomainOwnershipStatus403,
 	ClaimDomainOwnershipStatus404,
+	ClaimDomainOwnershipStatus409,
 	ClaimDomainOwnershipStatus410,
 	ClearRepositoryPermissionsPath,
 	ClearRepositoryPermissionsQuery,
@@ -1099,6 +1101,16 @@ import type {
 	DeleteDriveStatus410,
 	DeleteDriveStatus422,
 	DeleteDriveStatus429,
+	DeleteDriveV1Path,
+	DeleteDriveV1Query,
+	DeleteDriveV1Response,
+	DeleteDriveV1Status400,
+	DeleteDriveV1Status401,
+	DeleteDriveV1Status403,
+	DeleteDriveV1Status404,
+	DeleteDriveV1Status409,
+	DeleteDriveV1Status410,
+	DeleteDriveV1Status429,
 	DeleteEdgeConfigPath,
 	DeleteEdgeConfigQuery,
 	DeleteEdgeConfigResponse,
@@ -1494,6 +1506,19 @@ import type {
 	ForkDriveStatus422,
 	ForkDriveStatus429,
 	ForkDriveStatus503,
+	ForkDriveV1Body,
+	ForkDriveV1Path,
+	ForkDriveV1Query,
+	ForkDriveV1Response,
+	ForkDriveV1Status400,
+	ForkDriveV1Status401,
+	ForkDriveV1Status402,
+	ForkDriveV1Status403,
+	ForkDriveV1Status404,
+	ForkDriveV1Status409,
+	ForkDriveV1Status410,
+	ForkDriveV1Status429,
+	ForkDriveV1Status503,
 	GenerateFirewallRuleQuery,
 	GenerateFirewallRuleResponse,
 	GenerateFirewallRuleStatus400,
@@ -1909,6 +1934,7 @@ import type {
 	GetDomainVerificationRecordStatus401,
 	GetDomainVerificationRecordStatus403,
 	GetDomainVerificationRecordStatus404,
+	GetDomainVerificationRecordStatus409,
 	GetDomainVerificationRecordStatus410,
 	GetDrainPath,
 	GetDrainQuery,
@@ -1937,6 +1963,15 @@ import type {
 	GetDriveStatus410,
 	GetDriveStatus422,
 	GetDriveStatus429,
+	GetDriveV1Path,
+	GetDriveV1Query,
+	GetDriveV1Response,
+	GetDriveV1Status400,
+	GetDriveV1Status401,
+	GetDriveV1Status403,
+	GetDriveV1Status404,
+	GetDriveV1Status410,
+	GetDriveV1Status429,
 	GetEdgeConfigBackupPath,
 	GetEdgeConfigBackupQuery,
 	GetEdgeConfigBackupResponse,
@@ -2186,6 +2221,19 @@ import type {
 	GetOrCreateDriveStatus422,
 	GetOrCreateDriveStatus429,
 	GetOrCreateDriveStatus503,
+	GetOrCreateDriveV1Body,
+	GetOrCreateDriveV1Path,
+	GetOrCreateDriveV1Query,
+	GetOrCreateDriveV1Response,
+	GetOrCreateDriveV1Status400,
+	GetOrCreateDriveV1Status401,
+	GetOrCreateDriveV1Status402,
+	GetOrCreateDriveV1Status403,
+	GetOrCreateDriveV1Status404,
+	GetOrCreateDriveV1Status409,
+	GetOrCreateDriveV1Status410,
+	GetOrCreateDriveV1Status429,
+	GetOrCreateDriveV1Status503,
 	GetOrderPath,
 	GetOrderQuery,
 	GetOrderResponse,
@@ -2915,6 +2963,14 @@ import type {
 	ListDrivesStatus410,
 	ListDrivesStatus422,
 	ListDrivesStatus429,
+	ListDrivesV1Query,
+	ListDrivesV1Response,
+	ListDrivesV1Status400,
+	ListDrivesV1Status401,
+	ListDrivesV1Status403,
+	ListDrivesV1Status404,
+	ListDrivesV1Status410,
+	ListDrivesV1Status429,
 	ListEventTypesQuery,
 	ListEventTypesResponse2,
 	ListEventTypesStatus400,
@@ -10305,7 +10361,7 @@ export async function getDomainConfig(
 
 /**
  * @summary Get Domain Verification Record
- * @description Get the TXT verification record needed to claim ownership of a domain for the authenticated team. The caller must add this TXT record to `_vercel.{domain}` in their DNS configuration, then call POST /domains/:domain/claim to complete the ownership transfer.
+ * @description Get the TXT verification record needed to claim ownership of a domain for the authenticated team. The caller must add this TXT record to `_vercel.{domain}` in their DNS configuration, then call POST /domains/:domain/claim to complete the ownership transfer. Records expire at the returned expiresAt (at most 24 hours) or when ownership changes.
  * @link /v9/domains/{domain}/verification
  */
 export async function getDomainVerificationRecord(
@@ -10331,6 +10387,7 @@ export async function getDomainVerificationRecord(
 			| GetDomainVerificationRecordStatus401
 			| GetDomainVerificationRecordStatus403
 			| GetDomainVerificationRecordStatus404
+			| GetDomainVerificationRecordStatus409
 			| GetDomainVerificationRecordStatus410
 		>,
 		null,
@@ -10350,7 +10407,7 @@ export async function getDomainVerificationRecord(
 
 /**
  * @summary Claim Domain Ownership
- * @description Claim ownership of a domain for the authenticated team by verifying a TXT record. The caller must first add a TXT record to `_vercel.{domain}` (obtained from GET /domains/:domain/verification), then call this endpoint to complete the ownership transfer. If the TXT record is verified, the domain ownership will be transferred to the caller's team, even if the domain is currently owned by another user or team.
+ * @description Claim ownership of a domain for the authenticated team by verifying a TXT record. The caller must first add a TXT record to `_vercel.{domain}` (obtained from GET /domains/:domain/verification), then call this endpoint to complete the ownership transfer. Proof must be unexpired and issued for the domain's current ownership. If the TXT record is verified, the domain ownership will be transferred to the caller's team, even if the domain is currently owned by another user or team.
  * @link /v9/domains/{domain}/claim
  */
 export async function claimDomainOwnership(
@@ -10376,6 +10433,7 @@ export async function claimDomainOwnership(
 			| ClaimDomainOwnershipStatus401
 			| ClaimDomainOwnershipStatus403
 			| ClaimDomainOwnershipStatus404
+			| ClaimDomainOwnershipStatus409
 			| ClaimDomainOwnershipStatus410
 		>,
 		null,
@@ -11097,6 +11155,244 @@ export async function testDrain(
 	>({
 		method: "POST",
 		url: `/v1/drains/test`,
+		queryParams,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List drives
+ * @description Retrieves a paginated list of drives belonging to a specific project.
+ * @link /v1/drives
+ */
+export async function listDrivesV1(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<ListDrivesV1Query>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ListDrivesV1Response,
+		ErrorWrapper<
+			| ListDrivesV1Status400
+			| ListDrivesV1Status401
+			| ListDrivesV1Status403
+			| ListDrivesV1Status404
+			| ListDrivesV1Status410
+			| ListDrivesV1Status429
+		>,
+		null,
+		Record<string, string>,
+		Partial<ListDrivesV1Query>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/v1/drives`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get a drive
+ * @description Gets an existing drive by project and name or drive ID. Returns 404 if doesn't exist.
+ * @link /v1/drives/{nameOrId}
+ */
+export async function getDriveV1(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: GetDriveV1Path;
+		queryParams?: Partial<GetDriveV1Query>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.nameOrId == null || String(pathParams.nameOrId) === "") {
+		throw new Error(`Missing required path parameter: nameOrId`);
+	}
+	const data = await request<
+		GetDriveV1Response,
+		ErrorWrapper<
+			| GetDriveV1Status400
+			| GetDriveV1Status401
+			| GetDriveV1Status403
+			| GetDriveV1Status404
+			| GetDriveV1Status410
+			| GetDriveV1Status429
+		>,
+		null,
+		Record<string, string>,
+		Partial<GetDriveV1Query>,
+		GetDriveV1Path
+	>({
+		method: "GET",
+		url: `/v1/drives/${encodeURIComponent(String(pathParams.nameOrId))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get or create a drive
+ * @description Gets an existing drive by project and name, or creates it when it does not exist.
+ * @link /v1/drives/{name}
+ */
+export async function getOrCreateDriveV1(
+	{
+		pathParams,
+		body,
+		queryParams,
+		config,
+	}: {
+		pathParams: GetOrCreateDriveV1Path;
+		body?: GetOrCreateDriveV1Body;
+		queryParams?: Partial<GetOrCreateDriveV1Query>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.name == null || String(pathParams.name) === "") {
+		throw new Error(`Missing required path parameter: name`);
+	}
+	const data = await request<
+		GetOrCreateDriveV1Response,
+		ErrorWrapper<
+			| GetOrCreateDriveV1Status400
+			| GetOrCreateDriveV1Status401
+			| GetOrCreateDriveV1Status402
+			| GetOrCreateDriveV1Status403
+			| GetOrCreateDriveV1Status404
+			| GetOrCreateDriveV1Status409
+			| GetOrCreateDriveV1Status410
+			| GetOrCreateDriveV1Status429
+			| GetOrCreateDriveV1Status503
+		>,
+		GetOrCreateDriveV1Body,
+		Record<string, string>,
+		Partial<GetOrCreateDriveV1Query>,
+		GetOrCreateDriveV1Path
+	>({
+		method: "POST",
+		url: `/v1/drives/${encodeURIComponent(String(pathParams.name))}`,
+		queryParams,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete a drive
+ * @description Deletes a drive by project and name. Attached drives cannot be deleted. Stop or replace the session currently using the drive before retrying deletion.
+ * @link /v1/drives/{name}
+ */
+export async function deleteDriveV1(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: DeleteDriveV1Path;
+		queryParams?: Partial<DeleteDriveV1Query>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.name == null || String(pathParams.name) === "") {
+		throw new Error(`Missing required path parameter: name`);
+	}
+	const data = await request<
+		DeleteDriveV1Response,
+		ErrorWrapper<
+			| DeleteDriveV1Status400
+			| DeleteDriveV1Status401
+			| DeleteDriveV1Status403
+			| DeleteDriveV1Status404
+			| DeleteDriveV1Status409
+			| DeleteDriveV1Status410
+			| DeleteDriveV1Status429
+		>,
+		null,
+		Record<string, string>,
+		Partial<DeleteDriveV1Query>,
+		DeleteDriveV1Path
+	>({
+		method: "DELETE",
+		url: `/v1/drives/${encodeURIComponent(String(pathParams.name))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Fork a drive
+ * @description Fork the provided drive into a new one with the provided name, inheriting the region and max size.
+ * @link /v1/drives/{name}/fork
+ */
+export async function forkDriveV1(
+	{
+		pathParams,
+		body,
+		queryParams,
+		config,
+	}: {
+		pathParams: ForkDriveV1Path;
+		body?: ForkDriveV1Body;
+		queryParams?: Partial<ForkDriveV1Query>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.name == null || String(pathParams.name) === "") {
+		throw new Error(`Missing required path parameter: name`);
+	}
+	const data = await request<
+		ForkDriveV1Response,
+		ErrorWrapper<
+			| ForkDriveV1Status400
+			| ForkDriveV1Status401
+			| ForkDriveV1Status402
+			| ForkDriveV1Status403
+			| ForkDriveV1Status404
+			| ForkDriveV1Status409
+			| ForkDriveV1Status410
+			| ForkDriveV1Status429
+			| ForkDriveV1Status503
+		>,
+		ForkDriveV1Body,
+		Record<string, string>,
+		Partial<ForkDriveV1Query>,
+		ForkDriveV1Path
+	>({
+		method: "POST",
+		url: `/v1/drives/${encodeURIComponent(String(pathParams.name))}/fork`,
 		queryParams,
 		body: body,
 		...requestConfig,
@@ -19476,6 +19772,7 @@ export async function acceptProjectTransferRequest(
 			| AcceptProjectTransferRequestStatus401
 			| AcceptProjectTransferRequestStatus403
 			| AcceptProjectTransferRequestStatus404
+			| AcceptProjectTransferRequestStatus409
 			| AcceptProjectTransferRequestStatus410
 			| AcceptProjectTransferRequestStatus422
 		>,
@@ -19978,8 +20275,9 @@ export async function createSandboxesV2(
 }
 
 /**
- * @summary List drives
+ * @summary Deprecated: Use GET /v1/drives. Requires the read:drive app scope instead of read:sandbox, and drive:list instead of vercelRun:read. List drives
  * @description Retrieves a paginated list of drives belonging to a specific project.
+ * @deprecated
  * @link /v2/sandboxes/drives
  */
 export async function listDrives(
@@ -20020,8 +20318,9 @@ export async function listDrives(
 }
 
 /**
- * @summary Get a drive
+ * @summary Deprecated: Use GET /v1/drives/:nameOrId. Requires the read:drive app scope instead of read:sandbox, and drive:read instead of vercelRun:read. Get a drive
  * @description Gets an existing drive by project and name or drive ID. Returns 404 if doesn't exist.
+ * @deprecated
  * @link /v2/sandboxes/drives/{nameOrId}
  */
 export async function getDrive(
@@ -20067,8 +20366,10 @@ export async function getDrive(
 }
 
 /**
- * @summary Get or create a drive
+ * @summary Deprecated: Use POST /v1/drives/:name. Requires the read-write:drive app scope instead of read-write:sandbox, and drive:create instead of vercelRun:create.
+ * Emits drive-created activity events instead of sandbox-drive-created. Get or create a drive
  * @description Gets an existing drive by project and name, or creates it when it does not exist.
+ * @deprecated
  * @link /v2/sandboxes/drives/{name}
  */
 export async function getOrCreateDrive(
@@ -20120,8 +20421,10 @@ export async function getOrCreateDrive(
 }
 
 /**
- * @summary Delete a drive
+ * @summary Deprecated: Use DELETE /v1/drives/:name. Requires the read-write:drive app scope instead of read-write:sandbox, and drive:delete instead of vercelRun:delete.
+ * Emits drive-deleted activity events instead of sandbox-drive-deleted. Delete a drive
  * @description Deletes a drive by project and name. Attached drives cannot be deleted. Stop or replace the session currently using the drive before retrying deletion.
+ * @deprecated
  * @link /v2/sandboxes/drives/{name}
  */
 export async function deleteDrive(
@@ -20168,8 +20471,10 @@ export async function deleteDrive(
 }
 
 /**
- * @summary Fork a drive
+ * @summary Deprecated: Use POST /v1/drives/:name/fork. Requires the read-write:drive app scope instead of read-write:sandbox, and drive:read and drive:create instead of vercelRun:read and vercelRun:create.
+ * Emits drive-created activity events instead of sandbox-drive-created. Fork a drive
  * @description Fork the provided drive into a new one with the provided name, inheriting the region and max size.
+ * @deprecated
  * @link /v2/sandboxes/drives/{name}/fork
  */
 export async function forkDrive(
@@ -22607,7 +22912,7 @@ export async function inviteUserToTeam(
 
 /**
  * @summary Request access to a team
- * @description Request access to a team as a member. An owner has to approve the request. Only 100 users can request access to a team at the same time.
+ * @description Request access to a team as a member. An owner has to approve the request. Only 100 users can request access to a team at the same time. Organization-directory access must be granted through the directory administrator.
  * @link /v1/teams/{teamId}/request
  */
 export async function requestAccessToTeam(
@@ -22654,7 +22959,7 @@ export async function requestAccessToTeam(
 
 /**
  * @summary Get access request status
- * @description Check the status of a join request. It'll respond with a 404 if the request has been declined. If no `userId` path segment was provided, this endpoint will instead return the status of the authenticated user.
+ * @description Check the status of a join request. It'll respond with a 404 if the request has been declined or enabled directory reads suppress access. If no `userId` path segment was provided, this endpoint will instead return the status of the authenticated user.
  * @link /v1/teams/{teamId}/request/{userId}
  */
 export async function getTeamAccessRequest(
@@ -27312,6 +27617,11 @@ export const operationsByPath = {
 	"GET /v1/drains/{id}": getDrain,
 	"PATCH /v1/drains/{id}": updateDrain,
 	"POST /v1/drains/test": testDrain,
+	"GET /v1/drives": listDrivesV1,
+	"GET /v1/drives/{nameOrId}": getDriveV1,
+	"POST /v1/drives/{name}": getOrCreateDriveV1,
+	"DELETE /v1/drives/{name}": deleteDriveV1,
+	"POST /v1/drives/{name}/fork": forkDriveV1,
 	"POST /v1/edge-cache/invalidate-by-tags": invalidateByTags,
 	"POST /v1/edge-cache/dangerously-delete-by-tags": dangerouslyDeleteByTags,
 	"POST /v1/edge-cache/invalidate-by-src-images": invalidateBySrcImages,
@@ -27908,6 +28218,13 @@ export const operationsByTag = {
 		updateDrain,
 		testDrain,
 	},
+	drives: {
+		listDrivesV1,
+		getDriveV1,
+		getOrCreateDriveV1,
+		deleteDriveV1,
+		forkDriveV1,
+	},
 	edgeCache: {
 		invalidateByTags,
 		dangerouslyDeleteByTags,
@@ -28485,6 +28802,11 @@ export const tagDictionary = {
 		GET: ["getDrains", "getDrain"],
 		DELETE: ["deleteDrain"],
 		PATCH: ["updateDrain"],
+	},
+	drives: {
+		GET: ["listDrivesV1", "getDriveV1"],
+		POST: ["getOrCreateDriveV1", "forkDriveV1"],
+		DELETE: ["deleteDriveV1"],
 	},
 	edgeCache: {
 		POST: [

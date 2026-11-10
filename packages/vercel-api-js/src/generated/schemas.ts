@@ -363,6 +363,14 @@ export const networkSchema = z.object({
 		.describe("The IDs of the AWS Availability Zones in which the network exists."),
 	awsRegion: z.string().describe("The AWS Region in which the network exists."),
 	cidr: z.string().describe("The CIDR range of the Network."),
+	connectionTesting: z
+		.object({
+			available: z.union([z.literal(false), z.literal(true)]),
+		})
+		.optional()
+		.describe(
+			"Whether both dedicated connection test sources are provisioned and ready. Feature flag access and management permission are checked on submission.",
+		),
 	createdAt: z
 		.number()
 		.describe(
@@ -3101,6 +3109,58 @@ export const boughtTooRecentlySchema = z
 		message: z.string(),
 	})
 	.describe("The domain was bought too recently to determine verification status.");
+
+export const driveSchema = z
+	.object({
+		createdAt: z
+			.number()
+			.describe("The time when the drive was created, in milliseconds since the epoch.")
+			.meta({ examples: [1750344501629] }),
+		currentSandboxName: z
+			.string()
+			.optional()
+			.describe("Current sandbox name the drive is attached to, if any.")
+			.meta({ examples: ["my-sandbox"] }),
+		currentSessionId: z
+			.string()
+			.optional()
+			.describe("Current session ID the drive is attached to, if any.")
+			.meta({ examples: ["sbx_123"] }),
+		id: z
+			.string()
+			.describe("The unique drive ID.")
+			.meta({ examples: ["drive_abc123"] }),
+		maxSizeBytes: z
+			.number()
+			.describe("The maximum drive size in bytes.")
+			.meta({ examples: [1099511627776] }),
+		name: z
+			.string()
+			.describe("The unique drive name within the project.")
+			.meta({ examples: ["workspace"] }),
+		parentDriveId: z
+			.string()
+			.optional()
+			.describe("The ID of the source drive when this drive is a fork."),
+		projectId: z
+			.string()
+			.describe("The project that owns the drive.")
+			.meta({ examples: ["prj_abc123"] }),
+		region: z
+			.string()
+			.describe("The region where the drive is stored.")
+			.meta({ examples: ["iad1"] }),
+		rootDriveId: z
+			.string()
+			.optional()
+			.describe("The ID of the original drive at the root of this fork."),
+		updatedAt: z
+			.number()
+			.describe("The last time the drive was updated, in milliseconds since the epoch.")
+			.meta({ examples: [1750344501629] }),
+		workloadType: z.enum(["sandbox", "v0"]).optional().describe("The workload type of this drive."),
+	})
+	.describe("This object contains information related to a Vercel Sandbox Drive.");
 
 export const globalConfigItemValueSchema: z.ZodType = z
 	.union([
@@ -9794,6 +9854,7 @@ export const userEventSchema = z
 							enabled: z.union([z.literal(false), z.literal(true)]),
 							projectIds: z.array(z.string()).optional(),
 							projectScope: z.enum(["all", "selected"]),
+							repositoryScope: z.enum(["all", "selected"]).optional(),
 						})
 						.describe("Mirrors the `security-review` setting value in `@api/api-settings`."),
 					previous: z
@@ -9801,6 +9862,7 @@ export const userEventSchema = z
 							enabled: z.union([z.literal(false), z.literal(true)]),
 							projectIds: z.array(z.string()).optional(),
 							projectScope: z.enum(["all", "selected"]),
+							repositoryScope: z.enum(["all", "selected"]).optional(),
 						})
 						.describe("Mirrors the `security-review` setting value in `@api/api-settings`."),
 				}),
@@ -14857,58 +14919,6 @@ export const sessionSchema = z
 	.describe(
 		'This object contains information related to a Vercel Sandbox Session. v2 endpoints return "session" instead of "sandbox" as the response wrapper key.',
 	);
-
-export const driveSchema = z
-	.object({
-		createdAt: z
-			.number()
-			.describe("The time when the drive was created, in milliseconds since the epoch.")
-			.meta({ examples: [1750344501629] }),
-		currentSandboxName: z
-			.string()
-			.optional()
-			.describe("Current sandbox name the drive is attached to, if any.")
-			.meta({ examples: ["my-sandbox"] }),
-		currentSessionId: z
-			.string()
-			.optional()
-			.describe("Current session ID the drive is attached to, if any.")
-			.meta({ examples: ["sbx_123"] }),
-		id: z
-			.string()
-			.describe("The unique drive ID.")
-			.meta({ examples: ["drive_abc123"] }),
-		maxSizeBytes: z
-			.number()
-			.describe("The maximum drive size in bytes.")
-			.meta({ examples: [1099511627776] }),
-		name: z
-			.string()
-			.describe("The unique drive name within the project.")
-			.meta({ examples: ["workspace"] }),
-		parentDriveId: z
-			.string()
-			.optional()
-			.describe("The ID of the source drive when this drive is a fork."),
-		projectId: z
-			.string()
-			.describe("The project that owns the drive.")
-			.meta({ examples: ["prj_abc123"] }),
-		region: z
-			.string()
-			.describe("The region where the drive is stored.")
-			.meta({ examples: ["iad1"] }),
-		rootDriveId: z
-			.string()
-			.optional()
-			.describe("The ID of the original drive at the root of this fork."),
-		updatedAt: z
-			.number()
-			.describe("The last time the drive was updated, in milliseconds since the epoch.")
-			.meta({ examples: [1750344501629] }),
-		workloadType: z.enum(["sandbox", "v0"]).optional().describe("The workload type of this drive."),
-	})
-	.describe("This object contains information related to a Vercel Sandbox Drive.");
 
 export const snapshotSchema = z
 	.object({
@@ -40517,6 +40527,7 @@ export const getDomainVerificationRecordQuerySlugSchema = z
 	.meta({ examples: ["my-team-url-slug"] });
 
 export const getDomainVerificationRecordStatus200Schema = z.object({
+	expiresAt: z.number(),
 	txtRecord: z.string(),
 	verificationDomain: z.string(),
 });
@@ -40529,6 +40540,8 @@ export const getDomainVerificationRecordStatus403Schema = z.unknown();
 
 export const getDomainVerificationRecordStatus404Schema = z.unknown();
 
+export const getDomainVerificationRecordStatus409Schema = z.unknown();
+
 export const getDomainVerificationRecordStatus410Schema = z.unknown();
 
 export const getDomainVerificationRecordResponseSchema = getDomainVerificationRecordStatus200Schema;
@@ -40538,6 +40551,7 @@ export const getDomainVerificationRecordErrorSchema = z.union([
 	getDomainVerificationRecordStatus401Schema,
 	getDomainVerificationRecordStatus403Schema,
 	getDomainVerificationRecordStatus404Schema,
+	getDomainVerificationRecordStatus409Schema,
 	getDomainVerificationRecordStatus410Schema,
 ]);
 
@@ -40684,6 +40698,8 @@ export const claimDomainOwnershipStatus403Schema = z.unknown();
 
 export const claimDomainOwnershipStatus404Schema = z.unknown();
 
+export const claimDomainOwnershipStatus409Schema = z.unknown();
+
 export const claimDomainOwnershipStatus410Schema = z.unknown();
 
 export const claimDomainOwnershipResponseSchema = claimDomainOwnershipStatus200Schema;
@@ -40693,6 +40709,7 @@ export const claimDomainOwnershipErrorSchema = z.union([
 	claimDomainOwnershipStatus401Schema,
 	claimDomainOwnershipStatus403Schema,
 	claimDomainOwnershipStatus404Schema,
+	claimDomainOwnershipStatus409Schema,
 	claimDomainOwnershipStatus410Schema,
 ]);
 
@@ -44356,6 +44373,551 @@ export const testDrainBodySchema = z
 	.optional();
 
 export const testDrainQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const listDrivesV1QueryProjectIdSchema = z
+	.string()
+	.optional()
+	.describe(
+		"The project ID or name associated with the drives. Required unless using a Vercel OIDC token scoped to a project.",
+	)
+	.meta({ examples: ["prj_abc123"] });
+
+export const listDrivesV1QueryLimitSchema = z
+	.number()
+	.min(1)
+	.max(50)
+	.optional()
+	.default(20)
+	.describe("Maximum number of drives to return in the response. Used for pagination.")
+	.meta({ examples: [20] });
+
+export const listDrivesV1QueryCursorSchema = z
+	.string()
+	.optional()
+	.describe("Opaque pagination cursor from a previous response.");
+
+export const listDrivesV1QuerySortBySchema = z
+	.enum(["createdAt", "updatedAt", "name"])
+	.optional()
+	.default("createdAt")
+	.describe("Field to sort drives by.");
+
+export const listDrivesV1QueryNamePrefixSchema = z
+	.string()
+	.optional()
+	.describe("Filter drives whose name starts with this prefix. Only valid when sortBy=name.");
+
+export const listDrivesV1QuerySortOrderSchema = z
+	.enum(["asc", "desc"])
+	.optional()
+	.default("desc")
+	.describe("Sort direction for results.");
+
+export const listDrivesV1QueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const listDrivesV1QuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const listDrivesV1Status200Schema = z.object({
+	drives: z.array(driveSchema),
+	pagination: z.object({
+		count: z.number(),
+		next: z.string().nullable(),
+	}),
+});
+
+export const listDrivesV1Status400Schema = z.unknown();
+
+export const listDrivesV1Status401Schema = z.unknown();
+
+export const listDrivesV1Status403Schema = z.unknown();
+
+export const listDrivesV1Status404Schema = z.unknown();
+
+export const listDrivesV1Status410Schema = z.unknown();
+
+export const listDrivesV1Status429Schema = z.unknown();
+
+export const listDrivesV1ResponseSchema = listDrivesV1Status200Schema;
+
+export const listDrivesV1ErrorSchema = z.union([
+	listDrivesV1Status400Schema,
+	listDrivesV1Status401Schema,
+	listDrivesV1Status403Schema,
+	listDrivesV1Status404Schema,
+	listDrivesV1Status410Schema,
+	listDrivesV1Status429Schema,
+]);
+
+export const listDrivesV1QuerySchema = z.object({
+	projectId: z
+		.string()
+		.optional()
+		.describe(
+			"The project ID or name associated with the drives. Required unless using a Vercel OIDC token scoped to a project.",
+		)
+		.meta({ examples: ["prj_abc123"] }),
+	limit: z
+		.number()
+		.min(1)
+		.max(50)
+		.optional()
+		.default(20)
+		.describe("Maximum number of drives to return in the response. Used for pagination.")
+		.meta({ examples: [20] }),
+	cursor: z.string().optional().describe("Opaque pagination cursor from a previous response."),
+	sortBy: z
+		.enum(["createdAt", "updatedAt", "name"])
+		.optional()
+		.default("createdAt")
+		.describe("Field to sort drives by."),
+	namePrefix: z
+		.string()
+		.optional()
+		.describe("Filter drives whose name starts with this prefix. Only valid when sortBy=name."),
+	sortOrder: z
+		.enum(["asc", "desc"])
+		.optional()
+		.default("desc")
+		.describe("Sort direction for results."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const getDriveV1PathNameOrIdSchema = z
+	.string()
+	.max(64)
+	.regex(/^[a-zA-Z0-9_-]+$/)
+	.describe("The drive name or ID.")
+	.meta({ examples: ["workspace"] });
+
+export const getDriveV1QueryProjectIdSchema = z
+	.string()
+	.optional()
+	.describe(
+		"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
+	)
+	.meta({ examples: ["prj_abc123"] });
+
+export const getDriveV1QueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const getDriveV1QuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const getDriveV1Status200Schema = z.object({
+	drive: driveSchema.describe(
+		"This object contains information related to a Vercel Sandbox Drive.",
+	),
+});
+
+export const getDriveV1Status400Schema = z.unknown();
+
+export const getDriveV1Status401Schema = z.unknown();
+
+export const getDriveV1Status403Schema = z.unknown();
+
+export const getDriveV1Status404Schema = z.unknown();
+
+export const getDriveV1Status410Schema = z.unknown();
+
+export const getDriveV1Status429Schema = z.unknown();
+
+export const getDriveV1ResponseSchema = getDriveV1Status200Schema;
+
+export const getDriveV1ErrorSchema = z.union([
+	getDriveV1Status400Schema,
+	getDriveV1Status401Schema,
+	getDriveV1Status403Schema,
+	getDriveV1Status404Schema,
+	getDriveV1Status410Schema,
+	getDriveV1Status429Schema,
+]);
+
+export const getDriveV1PathSchema = z.object({
+	nameOrId: z
+		.string()
+		.max(64)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe("The drive name or ID.")
+		.meta({ examples: ["workspace"] }),
+});
+
+export const getDriveV1QuerySchema = z.object({
+	projectId: z
+		.string()
+		.optional()
+		.describe(
+			"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
+		)
+		.meta({ examples: ["prj_abc123"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const getOrCreateDriveV1PathNameSchema = z
+	.string()
+	.max(64)
+	.regex(/^[a-zA-Z0-9_-]+$/)
+	.describe(
+		"Name for the drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
+	)
+	.meta({ examples: ["workspace"] });
+
+export const getOrCreateDriveV1QueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const getOrCreateDriveV1QuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const getOrCreateDriveV1Status200Schema = z.object({
+	drive: driveSchema.describe(
+		"This object contains information related to a Vercel Sandbox Drive.",
+	),
+});
+
+export const getOrCreateDriveV1Status201Schema = z.object({
+	drive: driveSchema.describe(
+		"This object contains information related to a Vercel Sandbox Drive.",
+	),
+});
+
+export const getOrCreateDriveV1Status400Schema = z.unknown();
+
+export const getOrCreateDriveV1Status401Schema = z.unknown();
+
+export const getOrCreateDriveV1Status402Schema = z.unknown();
+
+export const getOrCreateDriveV1Status403Schema = z.unknown();
+
+export const getOrCreateDriveV1Status404Schema = z.unknown();
+
+export const getOrCreateDriveV1Status409Schema = z.unknown();
+
+export const getOrCreateDriveV1Status410Schema = z.unknown();
+
+export const getOrCreateDriveV1Status429Schema = z.unknown();
+
+export const getOrCreateDriveV1Status503Schema = z.unknown();
+
+export const getOrCreateDriveV1ResponseSchema = z.union([
+	getOrCreateDriveV1Status200Schema,
+	getOrCreateDriveV1Status201Schema,
+]);
+
+export const getOrCreateDriveV1ErrorSchema = z.union([
+	getOrCreateDriveV1Status400Schema,
+	getOrCreateDriveV1Status401Schema,
+	getOrCreateDriveV1Status402Schema,
+	getOrCreateDriveV1Status403Schema,
+	getOrCreateDriveV1Status404Schema,
+	getOrCreateDriveV1Status409Schema,
+	getOrCreateDriveV1Status410Schema,
+	getOrCreateDriveV1Status429Schema,
+	getOrCreateDriveV1Status503Schema,
+]);
+
+export const getOrCreateDriveV1BodySchema = z
+	.strictObject({
+		projectId: z
+			.string()
+			.optional()
+			.describe(
+				"The project ID or name to associate the drive with. Required unless using a Vercel OIDC token scoped to a project.",
+			)
+			.meta({ examples: ["prj_abc123"] }),
+		maxSizeBytes: z
+			.int()
+			.optional()
+			.describe(
+				"Maximum drive size in bytes. Must be a multiple of 4096 bytes. Defaults to 1 TiB when omitted (1 GiB for Hobby). The maximum quota is 16 TiB. Request a quota above 16 TiB at https://vercel.com/help.",
+			),
+		region: z
+			.enum([
+				"arn1",
+				"bom1",
+				"cdg1",
+				"cle1",
+				"cpt1",
+				"dub1",
+				"fra1",
+				"gru1",
+				"hkg1",
+				"hnd1",
+				"iad1",
+				"icn1",
+				"kix1",
+				"lhr1",
+				"pdx1",
+				"sfo1",
+				"sin1",
+				"syd1",
+				"yul1",
+			])
+			.optional()
+			.default("iad1")
+			.describe("Region where the drive is stored. Defaults to iad1.")
+			.meta({ examples: ["iad1"] }),
+	})
+	.optional();
+
+export const getOrCreateDriveV1PathSchema = z.object({
+	name: z
+		.string()
+		.max(64)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe(
+			"Name for the drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
+		)
+		.meta({ examples: ["workspace"] }),
+});
+
+export const getOrCreateDriveV1QuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const deleteDriveV1PathNameSchema = z
+	.string()
+	.max(64)
+	.regex(/^[a-zA-Z0-9_-]+$/)
+	.describe(
+		"Name for the drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
+	)
+	.meta({ examples: ["workspace"] });
+
+export const deleteDriveV1QueryProjectIdSchema = z
+	.string()
+	.optional()
+	.describe(
+		"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
+	)
+	.meta({ examples: ["prj_abc123"] });
+
+export const deleteDriveV1QueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const deleteDriveV1QuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const deleteDriveV1Status200Schema = z.object({
+	drive: driveSchema.describe(
+		"This object contains information related to a Vercel Sandbox Drive.",
+	),
+});
+
+export const deleteDriveV1Status400Schema = z.unknown();
+
+export const deleteDriveV1Status401Schema = z.unknown();
+
+export const deleteDriveV1Status403Schema = z.unknown();
+
+export const deleteDriveV1Status404Schema = z.unknown();
+
+export const deleteDriveV1Status409Schema = z.unknown();
+
+export const deleteDriveV1Status410Schema = z.unknown();
+
+export const deleteDriveV1Status429Schema = z.unknown();
+
+export const deleteDriveV1ResponseSchema = deleteDriveV1Status200Schema;
+
+export const deleteDriveV1ErrorSchema = z.union([
+	deleteDriveV1Status400Schema,
+	deleteDriveV1Status401Schema,
+	deleteDriveV1Status403Schema,
+	deleteDriveV1Status404Schema,
+	deleteDriveV1Status409Schema,
+	deleteDriveV1Status410Schema,
+	deleteDriveV1Status429Schema,
+]);
+
+export const deleteDriveV1PathSchema = z.object({
+	name: z
+		.string()
+		.max(64)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe(
+			"Name for the drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
+		)
+		.meta({ examples: ["workspace"] }),
+});
+
+export const deleteDriveV1QuerySchema = z.object({
+	projectId: z
+		.string()
+		.optional()
+		.describe(
+			"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
+		)
+		.meta({ examples: ["prj_abc123"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const forkDriveV1PathNameSchema = z
+	.string()
+	.max(64)
+	.regex(/^[a-zA-Z0-9_-]+$/)
+	.describe("Name of the source drive to fork.")
+	.meta({ examples: ["workspace"] });
+
+export const forkDriveV1QueryProjectIdSchema = z
+	.string()
+	.optional()
+	.describe(
+		"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
+	)
+	.meta({ examples: ["prj_abc123"] });
+
+export const forkDriveV1QueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const forkDriveV1QuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const forkDriveV1Status201Schema = z.object({
+	drive: driveSchema.describe(
+		"This object contains information related to a Vercel Sandbox Drive.",
+	),
+});
+
+export const forkDriveV1Status400Schema = z.unknown();
+
+export const forkDriveV1Status401Schema = z.unknown();
+
+export const forkDriveV1Status402Schema = z.unknown();
+
+export const forkDriveV1Status403Schema = z.unknown();
+
+export const forkDriveV1Status404Schema = z.unknown();
+
+export const forkDriveV1Status409Schema = z.unknown();
+
+export const forkDriveV1Status410Schema = z.unknown();
+
+export const forkDriveV1Status429Schema = z.unknown();
+
+export const forkDriveV1Status503Schema = z.unknown();
+
+export const forkDriveV1ResponseSchema = forkDriveV1Status201Schema;
+
+export const forkDriveV1ErrorSchema = z.union([
+	forkDriveV1Status400Schema,
+	forkDriveV1Status401Schema,
+	forkDriveV1Status402Schema,
+	forkDriveV1Status403Schema,
+	forkDriveV1Status404Schema,
+	forkDriveV1Status409Schema,
+	forkDriveV1Status410Schema,
+	forkDriveV1Status429Schema,
+	forkDriveV1Status503Schema,
+]);
+
+export const forkDriveV1BodySchema = z
+	.strictObject({
+		name: z
+			.string()
+			.max(64)
+			.regex(/^[a-zA-Z0-9_-]+$/)
+			.describe(
+				"Name for the forked drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
+			)
+			.meta({ examples: ["workspace-fork"] }),
+	})
+	.optional();
+
+export const forkDriveV1PathSchema = z.object({
+	name: z
+		.string()
+		.max(64)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe("Name of the source drive to fork.")
+		.meta({ examples: ["workspace"] }),
+});
+
+export const forkDriveV1QuerySchema = z.object({
+	projectId: z
+		.string()
+		.optional()
+		.describe(
+			"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
+		)
+		.meta({ examples: ["prj_abc123"] }),
 	teamId: z
 		.string()
 		.optional()
@@ -101641,6 +102203,8 @@ export const acceptProjectTransferRequestStatus403Schema = z.unknown();
 
 export const acceptProjectTransferRequestStatus404Schema = z.unknown();
 
+export const acceptProjectTransferRequestStatus409Schema = z.unknown();
+
 export const acceptProjectTransferRequestStatus410Schema = z.unknown();
 
 export const acceptProjectTransferRequestStatus422Schema = z.unknown();
@@ -101653,6 +102217,7 @@ export const acceptProjectTransferRequestErrorSchema = z.union([
 	acceptProjectTransferRequestStatus401Schema,
 	acceptProjectTransferRequestStatus403Schema,
 	acceptProjectTransferRequestStatus404Schema,
+	acceptProjectTransferRequestStatus409Schema,
 	acceptProjectTransferRequestStatus410Schema,
 	acceptProjectTransferRequestStatus422Schema,
 ]);
