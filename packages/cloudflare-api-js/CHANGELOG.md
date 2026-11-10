@@ -1,5 +1,18 @@
 # cloudflare-api-js
 
+## 4.27.0
+
+### Minor Changes
+
+- 172e6ca: Added new operation d1ListInsightsDatabases to list D1 databases by usage insights.
+- 172e6ca: Added types and enums for D1 Insights database and query usage metrics (D1InsightsDatabaseUsage, D1InsightsQueryUsage, D1ListInsightsDatabasesQuery, D1ListInsightsQueriesQuery, etc.).
+- 172e6ca: Added new operation d1ListInsightsQueries to list top D1 queries by usage insights.
+
+### Patch Changes
+
+- 172e6ca: Added new alert types to the aaaAlertType enum.
+- 172e6ca: Added new optional fields check_id, query_id, and total_spend_dollars to AaaFilters.
+
 ## 4.26.0
 
 ### Minor Changes

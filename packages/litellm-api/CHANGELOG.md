@@ -1,5 +1,11 @@
 # litellm-api
 
+## 2.19.1
+
+### Patch Changes
+
+- 68ad13f: Regenerate from the latest litellm-api OpenAPI spec.
+
 ## 2.19.0
 
 ### Minor Changes
