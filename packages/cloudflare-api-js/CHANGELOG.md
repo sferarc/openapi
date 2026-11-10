@@ -1,5 +1,24 @@
 # cloudflare-api-js
 
+## 4.28.0
+
+### Minor Changes
+
+- 8668dcf: Added the brapiPostScript operation to execute dynamic browser scripts and return session details.
+- 8668dcf: Added the postV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTables operation to update pipeline tables to the latest stream and sink versions.
+- 8668dcf: Added the patchV4AccountsByAccountIdPipelinesV1SinksBySinkId operation for updating a sink's credentials or rolling policy and creating a new version of the sink.
+- 8668dcf: Added the brapiPostScriptSessionExecute operation to execute code in an existing browser session.
+- 8668dcf: [BREAKING] Remove operations no longer in the cloudflare-api-js OpenAPI spec: `getHeartbeat`.
+- 8668dcf: Added the durableObjectsNamespaceExport operation to download a Durable Object's SQLite database as a zip file.
+- 8668dcf: [BREAKING] Removed the getHeartbeat operation and associated types.
+
+### Patch Changes
+
+- 8668dcf: Added descriptions and improved documentation for several types to clarify their usage and expected values.
+- 8668dcf: Added support for new configuration fields such as spend limits to AI Gateway config update operation.
+- 8668dcf: Updated the types for Pipeline and Sink resource responses to use new, extended types with additional metadata and consistent field naming.
+- 8668dcf: Changed the field on pipeline and sink result tables: now includes 'outdated', and refined types for stream or sink representation.
+
 ## 4.27.0
 
 ### Minor Changes
