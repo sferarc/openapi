@@ -1,5 +1,17 @@
 # vercel-api-js
 
+## 2.32.0
+
+### Minor Changes
+
+- 452d9d5: Added 'sandbox-npm-credentials-configured' to userEventTypeEnum, listEventTypeNameEnum, and listEventTypeReplacedByEnum.
+- 452d9d5: Added a new event shape with 'projectId' and 'sandboxId' fields to the UserEvent type.
+
+### Patch Changes
+
+- 452d9d5: Updated descriptions in the Network type to clarify that Hosted Zones are now customer-managed and added a new description for customer-managed AWS VPC Peering Connections.
+- 452d9d5: Added optional 'kmsKeyId' field to multiple drain-related types and request bodies (GetAllLogDrainsStatus200, CreateDrainStatus200, CreateDrainBody, GetDrainsStatus200, GetDrainStatus200, UpdateDrainStatus200, UpdateDrainBody, and TestDrainBody).
+
 ## 2.31.0
 
 ### Minor Changes
