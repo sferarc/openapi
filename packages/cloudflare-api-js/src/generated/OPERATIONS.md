@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3781 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3783 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## health
 
@@ -2655,6 +2655,8 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3781 operatio
 | `client.api.d1.d1TimeTravelGetBookmark` | `GET /accounts/{accountId}/d1/database/{databaseId}/time_travel/bookmark` | Get D1 database bookmark |
 | `client.api.d1.d1TimeTravelRestore` | `POST /accounts/{accountId}/d1/database/{databaseId}/time_travel/restore` | Restore D1 Database to a bookmark or point in time |
 | `client.api.d1.d1UndeleteDatabase` | `POST /accounts/{accountId}/d1/database/{databaseId}/undelete` | Undelete D1 Database |
+| `client.api.d1.d1ListInsightsDatabases` | `GET /accounts/{accountId}/d1/insights/databases` | List D1 Databases by Usage |
+| `client.api.d1.d1ListInsightsQueries` | `GET /accounts/{accountId}/d1/insights/queries` | List Top D1 Queries |
 
 ## assetSchemas
 

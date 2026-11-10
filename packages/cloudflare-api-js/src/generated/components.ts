@@ -3806,6 +3806,14 @@ import type {
 	D1ListDatabasesQuery,
 	D1ListDatabasesResponse,
 	D1ListDatabasesStatus400,
+	D1ListInsightsDatabasesPath,
+	D1ListInsightsDatabasesQuery,
+	D1ListInsightsDatabasesResponse,
+	D1ListInsightsDatabasesStatus400,
+	D1ListInsightsQueriesPath,
+	D1ListInsightsQueriesQuery,
+	D1ListInsightsQueriesResponse,
+	D1ListInsightsQueriesStatus400,
 	D1QueryDatabaseBody,
 	D1QueryDatabasePath,
 	D1QueryDatabaseResponse,
@@ -70098,6 +70106,102 @@ export async function d1UndeleteDatabase(
 		method: "POST",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/d1/database/${encodeURIComponent(String(pathParams.databaseId))}/undelete`,
 		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List D1 Databases by Usage
+ * @description List the databases in your account with the highest usage in a time window, sorted by `order_by`
+ * from highest to lowest.
+ * Totals are computed from the same data as D1 billing and the GraphQL Analytics API. They include
+ * every batch in the window: queries, imports and exports, successful and failed. Totals from other
+ * insights endpoints that read per-statement data can be lower than these numbers.
+ * Deleted databases are included if they had usage in the window. Databases with no usage in the
+ * window are not included.
+ * Usage is available a few minutes after a batch completes.
+ * For more complex filtering, or other metrics, groupings or time windows, run your own SQL on the
+ * `events.d1Queries` dataset with `cf sql query`. For examples, see https://developers.cloudflare.com/d1/observability/find-expensive-queries/
+ * @link /accounts/{accountId}/d1/insights/databases
+ */
+export async function d1ListInsightsDatabases(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: D1ListInsightsDatabasesPath;
+		queryParams?: Partial<D1ListInsightsDatabasesQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		D1ListInsightsDatabasesResponse,
+		ErrorWrapper<D1ListInsightsDatabasesStatus400>,
+		null,
+		Record<string, string>,
+		Partial<D1ListInsightsDatabasesQuery>,
+		D1ListInsightsDatabasesPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/d1/insights/databases`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List Top D1 Queries
+ * @description List the SQL statements with the highest usage in a time window, across all databases in your
+ * account or for one database, sorted by `order_by` from highest to lowest.
+ * Each item is one query text in one database. The same text run in two databases is two items.
+ * Values are estimates computed from sampled per-statement data. They include statements that
+ * failed with a SQL error, and deleted databases. They do not include imports and exports, so they
+ * can be lower than the totals from `GET /accounts/{account_id}/d1/insights/databases`, billing, and
+ * the GraphQL Analytics API.
+ * Usage is available a few minutes after a query completes.
+ * For more complex filtering, or other metrics, groupings or time windows, run your own SQL on the
+ * `events.d1Queries` dataset with `cf sql query`. For examples, see https://developers.cloudflare.com/d1/observability/find-expensive-queries/
+ * @link /accounts/{accountId}/d1/insights/queries
+ */
+export async function d1ListInsightsQueries(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: D1ListInsightsQueriesPath;
+		queryParams?: Partial<D1ListInsightsQueriesQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		D1ListInsightsQueriesResponse,
+		ErrorWrapper<D1ListInsightsQueriesStatus400>,
+		null,
+		Record<string, string>,
+		Partial<D1ListInsightsQueriesQuery>,
+		D1ListInsightsQueriesPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/d1/insights/queries`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -174225,6 +174329,8 @@ export const operationsByPath = {
 		d1TimeTravelGetBookmark,
 	"POST /accounts/{accountId}/d1/database/{databaseId}/time_travel/restore": d1TimeTravelRestore,
 	"POST /accounts/{accountId}/d1/database/{databaseId}/undelete": d1UndeleteDatabase,
+	"GET /accounts/{accountId}/d1/insights/databases": d1ListInsightsDatabases,
+	"GET /accounts/{accountId}/d1/insights/queries": d1ListInsightsQueries,
 	"GET /accounts/{accountId}/data-security/posture/asset_schemas": listAssetSchemas,
 	"GET /accounts/{accountId}/data-security/posture/asset_schemas/{assetClass}": getAssetSchema,
 	"GET /accounts/{accountId}/data-security/posture/content": listContentAssets,
@@ -179548,6 +179654,8 @@ export const operationsByTag = {
 		d1TimeTravelGetBookmark,
 		d1TimeTravelRestore,
 		d1UndeleteDatabase,
+		d1ListInsightsDatabases,
+		d1ListInsightsQueries,
 	},
 	assetSchemas: {
 		listAssetSchemas,
@@ -184616,7 +184724,13 @@ export const tagDictionary = {
 		PUT: ["cwsUpdateWorkload"],
 	},
 	d1: {
-		GET: ["d1ListDatabases", "d1GetDatabase", "d1TimeTravelGetBookmark"],
+		GET: [
+			"d1ListDatabases",
+			"d1GetDatabase",
+			"d1TimeTravelGetBookmark",
+			"d1ListInsightsDatabases",
+			"d1ListInsightsQueries",
+		],
 		POST: [
 			"d1CreateDatabase",
 			"d1ExportDatabase",

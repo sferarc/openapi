@@ -86,7 +86,10 @@ export const aaaAlertType = {
   advanced_ddos_attack_l4_alert: 'advanced_ddos_attack_l4_alert',
   advanced_ddos_attack_l7_alert: 'advanced_ddos_attack_l7_alert',
   advanced_http_alert_error: 'advanced_http_alert_error',
+  attack_lifecycle: 'attack_lifecycle',
+  bgp_advertisement_change: 'bgp_advertisement_change',
   bgp_hijack_notification: 'bgp_hijack_notification',
+  billing_budget_alert: 'billing_budget_alert',
   billing_usage_alert: 'billing_usage_alert',
   block_notification_block_removed: 'block_notification_block_removed',
   block_notification_new_block: 'block_notification_new_block',
@@ -94,17 +97,25 @@ export const aaaAlertType = {
   bot_traffic_basic_alert: 'bot_traffic_basic_alert',
   brand_protection_alert: 'brand_protection_alert',
   brand_protection_digest: 'brand_protection_digest',
+  casb_weekly_digest: 'casb_weekly_digest',
   clickhouse_alert_fw_anomaly: 'clickhouse_alert_fw_anomaly',
   clickhouse_alert_fw_ent_anomaly: 'clickhouse_alert_fw_ent_anomaly',
+  closed_port_scan_alert: 'closed_port_scan_alert',
   cloudforce_one_request_notification: 'cloudforce_one_request_notification',
+  cmd_managed_defense_notification: 'cmd_managed_defense_notification',
   cni_maintenance_notification: 'cni_maintenance_notification',
+  containers_security_alert: 'containers_security_alert',
   custom_analytics: 'custom_analytics',
   custom_bot_detection_alert: 'custom_bot_detection_alert',
   custom_ssl_certificate_event_type: 'custom_ssl_certificate_event_type',
   dedicated_ssl_certificate_event_type: 'dedicated_ssl_certificate_event_type',
   device_connectivity_anomaly_alert: 'device_connectivity_anomaly_alert',
+  dex_device_connectivity_alert: 'dex_device_connectivity_alert',
+  dex_synthetic_test_availability_alert: 'dex_synthetic_test_availability_alert',
+  dex_synthetic_test_latency_alert: 'dex_synthetic_test_latency_alert',
   dos_attack_l4: 'dos_attack_l4',
   dos_attack_l7: 'dos_attack_l7',
+  executive_communications: 'executive_communications',
   expiring_service_token_alert: 'expiring_service_token_alert',
   failing_logpush_job_disabled_alert: 'failing_logpush_job_disabled_alert',
   fbm_auto_advertisement: 'fbm_auto_advertisement',
@@ -117,13 +128,18 @@ export const aaaAlertType = {
   image_notification: 'image_notification',
   image_resizing_notification: 'image_resizing_notification',
   incident_alert: 'incident_alert',
+  leaked_service_token_alert: 'leaked_service_token_alert',
   load_balancing_health_alert: 'load_balancing_health_alert',
   load_balancing_pool_enablement_alert: 'load_balancing_pool_enablement_alert',
+  log_explorer_ingest_rate_limit: 'log_explorer_ingest_rate_limit',
+  log_explorer_scheduled_query_results_alert: 'log_explorer_scheduled_query_results_alert',
   logo_match_alert: 'logo_match_alert',
+  magic_endpoint_healthcheck_alert: 'magic_endpoint_healthcheck_alert',
   magic_tunnel_health_check_event: 'magic_tunnel_health_check_event',
   magic_wan_tunnel_health: 'magic_wan_tunnel_health',
   maintenance_event_notification: 'maintenance_event_notification',
   mtls_certificate_store_certificate_expiration_type: 'mtls_certificate_store_certificate_expiration_type',
+  open_port_scan_alert: 'open_port_scan_alert',
   pages_event_alert: 'pages_event_alert',
   radar_notification: 'radar_notification',
   real_origin_monitoring: 'real_origin_monitoring',
@@ -141,6 +157,9 @@ export const aaaAlertType = {
   secondary_dns_zone_validation_warning: 'secondary_dns_zone_validation_warning',
   security_insights_alert: 'security_insights_alert',
   sentinel_alert: 'sentinel_alert',
+  stakeout_credential_leak_alert: 'stakeout_credential_leak_alert',
+  stakeout_saved_query_daily_digest_alert: 'stakeout_saved_query_daily_digest_alert',
+  stakeout_saved_query_immediate_alert: 'stakeout_saved_query_immediate_alert',
   stream_live_notifications: 'stream_live_notifications',
   synthetic_test_latency_alert: 'synthetic_test_latency_alert',
   synthetic_test_low_availability_alert: 'synthetic_test_low_availability_alert',
@@ -149,6 +168,9 @@ export const aaaAlertType = {
   tunnel_update_event: 'tunnel_update_event',
   universal_ssl_event_type: 'universal_ssl_event_type',
   web_analytics_metrics_update: 'web_analytics_metrics_update',
+  workers_for_platforms_security_alert: 'workers_for_platforms_security_alert',
+  workers_observability_alert: 'workers_observability_alert',
+  workers_observability_real_time_issue: 'workers_observability_real_time_issue',
   zone_aop_custom_certificate_expiration_type: 'zone_aop_custom_certificate_expiration_type',
 } as const;
 
@@ -1184,6 +1206,12 @@ export type AaaFilters = {
    */
   alert_trigger_preferences_value?: string[] | undefined;
   /**
+   * @description Used for configuring magic_endpoint_healthcheck_alert. Takes one or more health check IDs, each a UUID. That alert type requires check_id together with alert_trigger_preferences set to slo, a numeric alert_trigger_preferences_value, and selectors set to failures.
+   * @example ["699d9864-2c56-4d2e-855e-9661899b7252"]
+   * @type array | undefined
+   */
+  check_id?: string[] | undefined;
+  /**
    * @description Used for configuring load_balancing_pool_enablement_alert
    * @type array | undefined
    */
@@ -1289,6 +1317,11 @@ export type AaaFilters = {
    */
   protocol?: string[] | undefined;
   /**
+   * @description Used for configuring stakeout_saved_query_daily_digest_alert and stakeout_saved_query_immediate_alert, which require it. Takes exactly one value, the saved query ID.
+   * @type array | undefined
+   */
+  query_id?: string[] | undefined;
+  /**
    * @description Usage depends on specific alert type
    * @type array | undefined
    */
@@ -1338,6 +1371,12 @@ export type AaaFilters = {
    * @type array | undefined
    */
   token_id?: string[] | undefined;
+  /**
+   * @description Used for configuring billing_budget_alert. Takes exactly one value, the budget threshold in US dollars, as a string greater than zero.
+   * @example ["100"]
+   * @type array | undefined
+   */
+  total_spend_dollars?: string[] | undefined;
   /**
    * @description Used for configuring traffic_anomalies_alert
    * @type array | undefined
@@ -1593,7 +1632,7 @@ export type AaaPolicies = {
    */
   alert_interval?: AaaAlertInterval | undefined;
   /**
-   * @description Refers to which event will trigger a Notification dispatch. You can use the endpoint to get available alert types which then will give you a list of possible values.
+   * @description Refers to which event will trigger a Notification dispatch. You can use the endpoint to get available alert types which then will give you a list of possible values. This enum lists every alert type, not the ones a given account can create, since some types depend on entitlements or account type. To get the alert types an account can create, call `GET /accounts/{account_id}/alerting/v3/available_alerts`.
    * @example universal_ssl_event_type
    * @type string | undefined
    */
@@ -37560,6 +37599,90 @@ export type D1DatabaseUpdateRequestBody = {
    * @type object
    */
   read_replication: D1ReadReplicationDetailsForRequest;
+};
+
+export type D1InsightsDatabaseUsage = {
+  /**
+   * @description D1 database identifier (UUID).
+   * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+   * @type string | undefined
+   */
+  readonly database_id?: D1DatabaseIdentifier | undefined;
+  /**
+   * @description The database name recorded with its usage in the window. Null when no usage in the window recorded a name, for example usage before 2026-10-30.
+   * @example my-database
+   * @type string | undefined
+   */
+  database_name?: (string | null) | undefined;
+  /**
+   * @description Number of queries (read and write) in the window.
+   * @example 3000
+   * @type integer | undefined
+   */
+  queries?: number | undefined;
+  /**
+   * @description Number of rows read in the window.
+   * @example 1500000
+   * @type integer | undefined
+   */
+  rows_read?: number | undefined;
+  /**
+   * @description Number of rows written in the window.
+   * @example 20000
+   * @type integer | undefined
+   */
+  rows_written?: number | undefined;
+};
+
+export type D1InsightsQueryUsage = {
+  /**
+   * @description Average execution time, in milliseconds: `total_duration_ms` / `executions`.
+   * @example 1.5
+   * @type number | undefined
+   */
+  avg_duration_ms?: number | undefined;
+  /**
+   * @description D1 database identifier (UUID).
+   * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+   * @type string | undefined
+   */
+  readonly database_id?: D1DatabaseIdentifier | undefined;
+  /**
+   * @description Estimated number of times the statement ran in the window.
+   * @example 3000
+   * @type integer | undefined
+   */
+  executions?: number | undefined;
+  /**
+   * @description The SQL statement text, as sent to the database (at most 4096 characters).
+   * @example SELECT * FROM users WHERE email = ?
+   * @type string | undefined
+   */
+  query?: string | undefined;
+  /**
+   * @description Estimated number of rows read in the window.
+   * @example 1500000
+   * @type integer | undefined
+   */
+  rows_read?: number | undefined;
+  /**
+   * @description Estimated number of rows returned in the window.
+   * @example 3000
+   * @type integer | undefined
+   */
+  rows_returned?: number | undefined;
+  /**
+   * @description Estimated number of rows written in the window.
+   * @example 0
+   * @type integer | undefined
+   */
+  rows_written?: number | undefined;
+  /**
+   * @description Estimated total execution time in the window, in milliseconds.
+   * @example 4500.5
+   * @type number | undefined
+   */
+  total_duration_ms?: number | undefined;
 };
 
 export const d1Jurisdiction = {
@@ -254745,6 +254868,7 @@ export type AiSearchListInstancesQuery = {
   /**
    * @description Page number (1-indexed).
    * @minimum 1
+   * @maximum 10000
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -258664,6 +258788,7 @@ export type AiSearchInstanceListJobsPath = {
 export type AiSearchInstanceListJobsQuery = {
   /**
    * @minimum 1
+   * @maximum 10000
    * @default 1
    * @type integer | undefined
    */
@@ -259042,6 +259167,7 @@ export type AiSearchInstanceListJobLogsPath = {
 export type AiSearchInstanceListJobLogsQuery = {
   /**
    * @minimum 1
+   * @maximum 10000
    * @default 1
    * @type integer | undefined
    */
@@ -259589,6 +259715,7 @@ export type AiSearchListNamespacesQuery = {
   /**
    * @description Page number (1-indexed).
    * @minimum 1
+   * @maximum 10000
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -260015,6 +260142,7 @@ export type AiSearchNamespaceListInstancesQuery = {
   /**
    * @description Page number (1-indexed).
    * @minimum 1
+   * @maximum 10000
    * @default 1
    * @example 1
    * @type integer | undefined
@@ -264039,6 +264167,7 @@ export type AiSearchNamespaceInstanceListItemsStatusKey = (typeof aiSearchNamesp
 export type AiSearchNamespaceInstanceListItemsQuery = {
   /**
    * @minimum 1
+   * @maximum 10000
    * @default 1
    * @type integer | undefined
    */
@@ -265291,6 +265420,7 @@ export type AiSearchNamespaceInstanceListJobsPath = {
 export type AiSearchNamespaceInstanceListJobsQuery = {
   /**
    * @minimum 1
+   * @maximum 10000
    * @default 1
    * @type integer | undefined
    */
@@ -265677,6 +265807,7 @@ export type AiSearchNamespaceInstanceListJobLogsPath = {
 export type AiSearchNamespaceInstanceListJobLogsQuery = {
   /**
    * @minimum 1
+   * @maximum 10000
    * @default 1
    * @type integer | undefined
    */
@@ -270319,7 +270450,7 @@ export type NotificationPoliciesCreateANotificationPolicyBody = {
    */
   alert_interval?: AaaAlertInterval | undefined;
   /**
-   * @description Refers to which event will trigger a Notification dispatch. You can use the endpoint to get available alert types which then will give you a list of possible values.
+   * @description Refers to which event will trigger a Notification dispatch. You can use the endpoint to get available alert types which then will give you a list of possible values. This enum lists every alert type, not the ones a given account can create, since some types depend on entitlements or account type. To get the alert types an account can create, call `GET /accounts/{account_id}/alerting/v3/available_alerts`.
    * @example universal_ssl_event_type
    * @type string
    */
@@ -270479,7 +270610,7 @@ export type NotificationPoliciesUpdateANotificationPolicyBody = {
    */
   alert_interval?: AaaAlertInterval | undefined;
   /**
-   * @description Refers to which event will trigger a Notification dispatch. You can use the endpoint to get available alert types which then will give you a list of possible values.
+   * @description Refers to which event will trigger a Notification dispatch. You can use the endpoint to get available alert types which then will give you a list of possible values. This enum lists every alert type, not the ones a given account can create, since some types depend on entitlements or account type. To get the alert types an account can create, call `GET /accounts/{account_id}/alerting/v3/available_alerts`.
    * @example universal_ssl_event_type
    * @type string | undefined
    */
@@ -332054,6 +332185,254 @@ export type D1UndeleteDatabaseResponses = {
  * @description Union of all possible responses
  */
 export type D1UndeleteDatabaseResponse = D1UndeleteDatabaseStatus200;
+
+export type D1ListInsightsDatabasesPath = {
+  /**
+   * @description Account identifier tag.
+   * @maxLength 32
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  readonly accountId: D1AccountIdentifier;
+};
+
+export const D1ListInsightsDatabasesOrderBy = {
+  rows_read: 'rows_read',
+  rows_written: 'rows_written',
+  queries: 'queries',
+} as const;
+
+export type D1ListInsightsDatabasesOrderByKey = (typeof D1ListInsightsDatabasesOrderBy)[keyof typeof D1ListInsightsDatabasesOrderBy];
+
+export type D1ListInsightsDatabasesQuery = {
+  /**
+   * @description The usage metric to sort by, from highest to lowest.
+   * @default 'rows_read'
+   * @type string | undefined
+   */
+  order_by?: D1ListInsightsDatabasesOrderByKey | undefined;
+  /**
+   * @description Only count usage from databases whose name contains this value, case-insensitive. Usage recorded before 2026-10-30 has no database name and is not matched.
+   * @maxLength 255
+   * @type string | undefined
+   */
+  database_name?: string | undefined;
+  /**
+   * @description If true, `database_name` must match the full database name, case-sensitive.
+   * @default false
+   * @type boolean | undefined
+   */
+  exact?: boolean | undefined;
+  /**
+   * @description Start of the window (inclusive), in RFC 3339 format. Defaults to 24 hours before `until`. Must be before `until`, and at most 90 days ago. The window from `since` to `until` must be at most 31 days.
+   *
+   * Format: `date-time`
+   * @example 2026-10-01T00:00:00Z
+   * @type string | undefined
+   */
+  since?: string | undefined;
+  /**
+   * @description End of the window (exclusive), in RFC 3339 format. Defaults to the current time.
+   *
+   * Format: `date-time`
+   * @example 2026-10-02T00:00:00Z
+   * @type string | undefined
+   */
+  until?: string | undefined;
+  /**
+   * @description Maximum number of databases to return. Results are not paginated, so only the top `limit` databases are returned.
+   * @minimum 1
+   * @maximum 1000
+   * @default 20
+   * @type integer | undefined
+   */
+  limit?: number | undefined;
+};
+
+export const D1ListInsightsDatabasesStatus200ResultInfoOrderByEnum = {
+  rows_read: 'rows_read',
+  rows_written: 'rows_written',
+  queries: 'queries',
+} as const;
+
+export type D1ListInsightsDatabasesStatus200ResultInfoOrderByEnumKey = (typeof D1ListInsightsDatabasesStatus200ResultInfoOrderByEnum)[keyof typeof D1ListInsightsDatabasesStatus200ResultInfoOrderByEnum];
+
+export type D1ListInsightsDatabasesStatus200 = D1ApiResponseCommon & {
+  result?: D1InsightsDatabaseUsage[] | undefined;
+  result_info?: {
+    /**
+     * @description Number of databases in `result`.
+     * @example 1
+     * @type integer | undefined
+     */
+    count?: number | undefined;
+    /**
+     * @description The usage metric the results are sorted by.
+     * @type string | undefined
+     */
+    order_by?: D1ListInsightsDatabasesStatus200ResultInfoOrderByEnumKey | undefined;
+    /**
+     * @description The resolved window, in UTC. `from` is inclusive, `to` is exclusive.
+     * @type object | undefined
+     */
+    query_window?: {
+      /**
+       * @description
+       * Format: `date-time`
+       * @example 2026-10-01T00:00:00Z
+       * @type string | undefined
+       */
+      from?: string | undefined;
+      /**
+       * @description
+       * Format: `date-time`
+       * @example 2026-10-02T00:00:00Z
+       * @type string | undefined
+       */
+      to?: string | undefined;
+    } | undefined;
+  } | undefined;
+};
+
+export type D1ListInsightsDatabasesStatus400 = D1ApiResponseCommonFailure;
+
+export type D1ListInsightsDatabasesOptions = {
+  body?: never | undefined;
+  path: D1ListInsightsDatabasesPath;
+  query?: D1ListInsightsDatabasesQuery | undefined;
+  headers?: never | undefined;
+};
+
+export type D1ListInsightsDatabasesResponses = {
+  '200': D1ListInsightsDatabasesStatus200;
+  '400': D1ListInsightsDatabasesStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type D1ListInsightsDatabasesResponse = D1ListInsightsDatabasesStatus200;
+
+export type D1ListInsightsQueriesPath = {
+  /**
+   * @description Account identifier tag.
+   * @maxLength 32
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  readonly accountId: D1AccountIdentifier;
+};
+
+export const D1ListInsightsQueriesOrderBy = {
+  rows_read: 'rows_read',
+  duration: 'duration',
+  executions: 'executions',
+} as const;
+
+export type D1ListInsightsQueriesOrderByKey = (typeof D1ListInsightsQueriesOrderBy)[keyof typeof D1ListInsightsQueriesOrderBy];
+
+export type D1ListInsightsQueriesQuery = {
+  /**
+   * @description The usage metric to sort by, from highest to lowest. `duration` sorts by `total_duration_ms`.
+   * @default 'rows_read'
+   * @type string | undefined
+   */
+  order_by?: D1ListInsightsQueriesOrderByKey | undefined;
+  /**
+   * @description Only return queries for this database. Defaults to all databases in the account. A database with no usage in the window, or that is not in the account, returns an empty list.
+   * @example xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+   * @type string | undefined
+   */
+  readonly database_id?: D1DatabaseIdentifier | undefined;
+  /**
+   * @description Start of the window (inclusive), in RFC 3339 format. Defaults to 24 hours before `until`. Must be before `until`, and at most 90 days ago. The window from `since` to `until` must be at most 7 days.
+   *
+   * Format: `date-time`
+   * @example 2026-10-01T00:00:00Z
+   * @type string | undefined
+   */
+  since?: string | undefined;
+  /**
+   * @description End of the window (exclusive), in RFC 3339 format. Defaults to the current time.
+   *
+   * Format: `date-time`
+   * @example 2026-10-02T00:00:00Z
+   * @type string | undefined
+   */
+  until?: string | undefined;
+  /**
+   * @description Maximum number of queries to return. Results are not paginated, so only the top `limit` queries are returned.
+   * @minimum 1
+   * @maximum 1000
+   * @default 20
+   * @type integer | undefined
+   */
+  limit?: number | undefined;
+};
+
+export const D1ListInsightsQueriesStatus200ResultInfoOrderByEnum = {
+  rows_read: 'rows_read',
+  duration: 'duration',
+  executions: 'executions',
+} as const;
+
+export type D1ListInsightsQueriesStatus200ResultInfoOrderByEnumKey = (typeof D1ListInsightsQueriesStatus200ResultInfoOrderByEnum)[keyof typeof D1ListInsightsQueriesStatus200ResultInfoOrderByEnum];
+
+export type D1ListInsightsQueriesStatus200 = D1ApiResponseCommon & {
+  result?: D1InsightsQueryUsage[] | undefined;
+  result_info?: {
+    /**
+     * @description Number of queries in `result`.
+     * @example 1
+     * @type integer | undefined
+     */
+    count?: number | undefined;
+    /**
+     * @description The usage metric the results are sorted by.
+     * @type string | undefined
+     */
+    order_by?: D1ListInsightsQueriesStatus200ResultInfoOrderByEnumKey | undefined;
+    /**
+     * @description The resolved window, in UTC. `from` is inclusive, `to` is exclusive.
+     * @type object | undefined
+     */
+    query_window?: {
+      /**
+       * @description
+       * Format: `date-time`
+       * @example 2026-10-01T00:00:00Z
+       * @type string | undefined
+       */
+      from?: string | undefined;
+      /**
+       * @description
+       * Format: `date-time`
+       * @example 2026-10-02T00:00:00Z
+       * @type string | undefined
+       */
+      to?: string | undefined;
+    } | undefined;
+  } | undefined;
+};
+
+export type D1ListInsightsQueriesStatus400 = D1ApiResponseCommonFailure;
+
+export type D1ListInsightsQueriesOptions = {
+  body?: never | undefined;
+  path: D1ListInsightsQueriesPath;
+  query?: D1ListInsightsQueriesQuery | undefined;
+  headers?: never | undefined;
+};
+
+export type D1ListInsightsQueriesResponses = {
+  '200': D1ListInsightsQueriesStatus200;
+  '400': D1ListInsightsQueriesStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type D1ListInsightsQueriesResponse = D1ListInsightsQueriesStatus200;
 
 export type ListAssetSchemasPath = {
   /**
