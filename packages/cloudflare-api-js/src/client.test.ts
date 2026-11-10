@@ -264,9 +264,9 @@ describe("CloudflareApi.api", () => {
 
 	it("ignores Object.prototype names as tags and operations", () => {
 		expect(client.api.constructor).toBeUndefined();
-		expect(client.api.health.toString).toBeUndefined();
-		expect(client.api.health.hasOwnProperty).toBeUndefined();
-		expect(client.api.health.getHeartbeat).toBeTypeOf("function");
+		expect(client.api.cloudflareIps.toString).toBeUndefined();
+		expect(client.api.cloudflareIps.hasOwnProperty).toBeUndefined();
+		expect(client.api.cloudflareIps.cloudflareIpsCloudflareIpDetails).toBeTypeOf("function");
 	});
 });
 
