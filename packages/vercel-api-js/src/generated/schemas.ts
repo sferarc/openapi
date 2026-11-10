@@ -373,17 +373,21 @@ export const networkSchema = z.object({
 		.object({
 			count: z
 				.number()
-				.describe("The number of AWS Route53 Hosted Zones associated with the Network."),
+				.describe(
+					"The number of customer-managed AWS Route53 Hosted Zones associated with the Network.",
+				),
 		})
 		.optional()
-		.describe("Metadata about any AWS Route53 Hosted Zones associated with the Network."),
+		.describe(
+			"Metadata about customer-managed AWS Route53 Hosted Zones associated with the Network.",
+		),
 	id: z.string().describe("The unique identifier of the Network."),
 	name: z.string().describe("The name of the network."),
 	peeringConnections: z
 		.object({
 			count: z
 				.number()
-				.describe("The number of AWS Route53 Hosted Zones associated with the Network."),
+				.describe("The number of AWS VPC Peering Connections associated with the Network."),
 		})
 		.optional()
 		.describe("Metadata about any AWS Route53 Hosted Zones associated with the Network."),
@@ -9189,6 +9193,10 @@ export const userEventSchema = z
 				}),
 				z.strictObject({
 					projectId: z.string(),
+					sandboxId: z.string(),
+				}),
+				z.strictObject({
+					projectId: z.string(),
 					projectName: z.string(),
 					snapshotId: z.string(),
 					targetRegions: z.array(z.string()),
@@ -11913,6 +11921,7 @@ export const userEventSchema = z
 				"sandbox-drive-deleted",
 				"sandbox-drive-snapshot-created",
 				"sandbox-drive-snapshot-deleted",
+				"sandbox-npm-credentials-configured",
 				"sandbox-signed-commit-identity-configured",
 				"sandbox-snapshot-regions-updated",
 				"scale",
@@ -12796,6 +12805,7 @@ export const listEventTypeSchema = z
 				"sandbox-drive-deleted",
 				"sandbox-drive-snapshot-created",
 				"sandbox-drive-snapshot-deleted",
+				"sandbox-npm-credentials-configured",
 				"sandbox-signed-commit-identity-configured",
 				"sandbox-snapshot-regions-updated",
 				"scale",
@@ -13574,6 +13584,7 @@ export const listEventTypeSchema = z
 					"sandbox-drive-deleted",
 					"sandbox-drive-snapshot-created",
 					"sandbox-drive-snapshot-deleted",
+					"sandbox-npm-credentials-configured",
 					"sandbox-signed-commit-identity-configured",
 					"sandbox-snapshot-regions-updated",
 					"scale",
@@ -41925,6 +41936,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 							encoding: z.enum(["json", "ndjson"]),
 							endpoint: z.string(),
 							fileStructure: z.enum(["hive"]),
+							kmsKeyId: z.string().optional(),
 							objectAcl: z
 								.enum([
 									"authenticated-read",
@@ -42104,6 +42116,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 							encoding: z.enum(["json", "ndjson"]),
 							endpoint: z.string(),
 							fileStructure: z.enum(["hive"]),
+							kmsKeyId: z.string().optional(),
 							objectAcl: z
 								.enum([
 									"authenticated-read",
@@ -42449,6 +42462,7 @@ export const createDrainStatus200Schema = z.union([
 				encoding: z.enum(["json", "ndjson"]),
 				endpoint: z.string(),
 				fileStructure: z.enum(["hive"]),
+				kmsKeyId: z.string().optional(),
 				objectAcl: z
 					.enum([
 						"authenticated-read",
@@ -42624,6 +42638,7 @@ export const createDrainStatus200Schema = z.union([
 				encoding: z.enum(["json", "ndjson"]),
 				endpoint: z.string(),
 				fileStructure: z.enum(["hive"]),
+				kmsKeyId: z.string().optional(),
 				objectAcl: z
 					.enum([
 						"authenticated-read",
@@ -42879,6 +42894,7 @@ export const createDrainBodySchema = z
 						.enum(["AES256", "aws:kms", "aws:kms:dsse"])
 						.optional()
 						.default("AES256"),
+					kmsKeyId: z.string().optional(),
 					objectAcl: z
 						.enum(["private", "bucket-owner-read", "bucket-owner-full-control"])
 						.optional(),
@@ -43016,6 +43032,7 @@ export const getDrainsStatus200Schema = z.object({
 						encoding: z.enum(["json", "ndjson"]),
 						endpoint: z.string(),
 						fileStructure: z.enum(["hive"]),
+						kmsKeyId: z.string().optional(),
 						objectAcl: z
 							.enum([
 								"authenticated-read",
@@ -43193,6 +43210,7 @@ export const getDrainsStatus200Schema = z.object({
 						encoding: z.enum(["json", "ndjson"]),
 						endpoint: z.string(),
 						fileStructure: z.enum(["hive"]),
+						kmsKeyId: z.string().optional(),
 						objectAcl: z
 							.enum([
 								"authenticated-read",
@@ -43508,6 +43526,7 @@ export const getDrainStatus200Schema = z.object({
 			encoding: z.enum(["json", "ndjson"]),
 			endpoint: z.string(),
 			fileStructure: z.enum(["hive"]),
+			kmsKeyId: z.string().optional(),
 			objectAcl: z
 				.enum([
 					"authenticated-read",
@@ -43738,6 +43757,7 @@ export const updateDrainStatus200Schema = z.union([
 				encoding: z.enum(["json", "ndjson"]),
 				endpoint: z.string(),
 				fileStructure: z.enum(["hive"]),
+				kmsKeyId: z.string().optional(),
 				objectAcl: z
 					.enum([
 						"authenticated-read",
@@ -43913,6 +43933,7 @@ export const updateDrainStatus200Schema = z.union([
 				encoding: z.enum(["json", "ndjson"]),
 				endpoint: z.string(),
 				fileStructure: z.enum(["hive"]),
+				kmsKeyId: z.string().optional(),
 				objectAcl: z
 					.enum([
 						"authenticated-read",
@@ -44173,6 +44194,7 @@ export const updateDrainBodySchema = z
 						.enum(["AES256", "aws:kms", "aws:kms:dsse"])
 						.optional()
 						.default("AES256"),
+					kmsKeyId: z.string().optional(),
 					objectAcl: z
 						.enum(["private", "bucket-owner-read", "bucket-owner-full-control"])
 						.optional(),
@@ -44326,6 +44348,7 @@ export const testDrainBodySchema = z
 					.enum(["AES256", "aws:kms", "aws:kms:dsse"])
 					.optional()
 					.default("AES256"),
+				kmsKeyId: z.string().optional(),
 				objectAcl: z.enum(["private", "bucket-owner-read", "bucket-owner-full-control"]).optional(),
 			}),
 		]),
