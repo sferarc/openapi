@@ -1,5 +1,19 @@
 # vercel-api-js
 
+## 2.33.0
+
+### Minor Changes
+
+- a13add1: Added new endpoints for drive management: list, get, create or get, delete, and fork drives via /v1/drives API.
+- a13add1: Deprecated previous sandbox drive endpoints in favor of new /v1/drives endpoints.
+- a13add1: Added new Drive type and related query, response and request types for the new drives endpoints.
+
+### Patch Changes
+
+- a13add1: Added 409 response status to getDomainVerificationRecord, claimDomainOwnership, and acceptProjectTransferRequest endpoints.
+- a13add1: Added expiresAt field to the response for getDomainVerificationRecord providing domain TXT record expiration.
+- a13add1: Enhanced descriptions for some team and domain endpoints to clarify ownership and directory access behaviors.
+
 ## 2.32.0
 
 ### Minor Changes
