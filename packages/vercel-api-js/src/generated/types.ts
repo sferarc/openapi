@@ -20007,14 +20007,6 @@ export const teamDeploymentStorageRolloutMeterReasonEnum = {
 export type TeamDeploymentStorageRolloutMeterReasonEnumKey =
 	(typeof teamDeploymentStorageRolloutMeterReasonEnum)[keyof typeof teamDeploymentStorageRolloutMeterReasonEnum];
 
-export const teamDisableHardAutoBlocks = {
-	false: false,
-	true: true,
-} as const;
-
-export type TeamDisableHardAutoBlocksKey =
-	(typeof teamDisableHardAutoBlocks)[keyof typeof teamDisableHardAutoBlocks];
-
 export const teamDisjunctiveProductionSecretPolicyEnum = {
 	default: "default",
 	off: "off",
@@ -20472,7 +20464,6 @@ export type Team = {
 	 * @type string
 	 */
 	description: string | null;
-	disableHardAutoBlocks?: (number | TeamDisableHardAutoBlocksKey) | undefined;
 	/**
 	 * @description Default for projects in the team. When `true`, projects in this team will not emit GitHub repository-dispatch events on deployment events unless the project explicitly overrides this setting via `project.gitProviderOptions.disableRepositoryDispatchEvents`.
 	 * @type boolean | undefined
@@ -38217,6 +38208,11 @@ export type GetDeploymentStatus200 =
 																| undefined;
 															root: string;
 															terminationGracePeriodSeconds?: number | undefined;
+															/**
+															 * @description Dockerfile stage from an `entrypoint` like `Dockerfile#worker`.
+															 * @type string | undefined
+															 */
+															buildTarget?: string | undefined;
 															name: string;
 													  }
 													| undefined;
@@ -38586,6 +38582,11 @@ export type GetDeploymentStatus200 =
 																| undefined;
 															root: string;
 															terminationGracePeriodSeconds?: number | undefined;
+															/**
+															 * @description Dockerfile stage from an `entrypoint` like `Dockerfile#worker`.
+															 * @type string | undefined
+															 */
+															buildTarget?: string | undefined;
 															name: string;
 													  }
 													| undefined;
@@ -42668,6 +42669,11 @@ export type CreateDeploymentStatus200 =
 																| undefined;
 															root: string;
 															terminationGracePeriodSeconds?: number | undefined;
+															/**
+															 * @description Dockerfile stage from an `entrypoint` like `Dockerfile#worker`.
+															 * @type string | undefined
+															 */
+															buildTarget?: string | undefined;
 															name: string;
 													  }
 													| undefined;
@@ -43037,6 +43043,11 @@ export type CreateDeploymentStatus200 =
 																| undefined;
 															root: string;
 															terminationGracePeriodSeconds?: number | undefined;
+															/**
+															 * @description Dockerfile stage from an `entrypoint` like `Dockerfile#worker`.
+															 * @type string | undefined
+															 */
+															buildTarget?: string | undefined;
 															name: string;
 													  }
 													| undefined;
@@ -46959,6 +46970,11 @@ export type CancelDeploymentStatus200 = {
 														| undefined;
 													root: string;
 													terminationGracePeriodSeconds?: number | undefined;
+													/**
+													 * @description Dockerfile stage from an `entrypoint` like `Dockerfile#worker`.
+													 * @type string | undefined
+													 */
+													buildTarget?: string | undefined;
 													name: string;
 											  }
 											| undefined;
@@ -47328,6 +47344,11 @@ export type CancelDeploymentStatus200 = {
 														| undefined;
 													root: string;
 													terminationGracePeriodSeconds?: number | undefined;
+													/**
+													 * @description Dockerfile stage from an `entrypoint` like `Dockerfile#worker`.
+													 * @type string | undefined
+													 */
+													buildTarget?: string | undefined;
 													name: string;
 											  }
 											| undefined;
@@ -142614,12 +142635,20 @@ export type GetSecurityFirewallEventsQuery = {
 	/**
 	 * @minimum 1
 	 * @maximum 5000
-	 * @type number | undefined
+	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
 	cursor?: string | undefined;
 	projectId: string;
+	/**
+	 * @minimum 0
+	 * @type integer | undefined
+	 */
 	startTimestamp?: number | undefined;
+	/**
+	 * @minimum 0
+	 * @type integer | undefined
+	 */
 	endTimestamp?: number | undefined;
 	/**
 	 * @maxLength 10000
@@ -142735,7 +142764,15 @@ export type GetSecurityFirewallEventsSummaryRuleKindKey =
 
 export type GetSecurityFirewallEventsSummaryQuery = {
 	projectId: string;
+	/**
+	 * @minimum 0
+	 * @type integer | undefined
+	 */
 	startTimestamp?: number | undefined;
+	/**
+	 * @minimum 0
+	 * @type integer | undefined
+	 */
 	endTimestamp?: number | undefined;
 	/**
 	 * @maxLength 10000

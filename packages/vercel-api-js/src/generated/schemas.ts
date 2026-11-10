@@ -15377,9 +15377,6 @@ export const teamSchema = z
 			.nullable()
 			.describe("A short description of the Team.")
 			.meta({ examples: ["Our mission is to make cloud computing accessible to everyone."] }),
-		disableHardAutoBlocks: z
-			.union([z.number(), z.union([z.literal(false), z.literal(true)])])
-			.optional(),
 		disableRepositoryDispatchEvents: z
 			.union([z.literal(false), z.literal(true)])
 			.optional()
@@ -29865,6 +29862,12 @@ export const getDeploymentStatus200Schema = z.union([
 												.optional(),
 											root: z.string(),
 											terminationGracePeriodSeconds: z.number().optional(),
+											buildTarget: z
+												.string()
+												.optional()
+												.describe(
+													"Dockerfile stage from an `entrypoint` like `Dockerfile#worker`.",
+												),
 											name: z.string(),
 										})
 										.optional()
@@ -30198,6 +30201,12 @@ export const getDeploymentStatus200Schema = z.union([
 													.optional(),
 												root: z.string(),
 												terminationGracePeriodSeconds: z.number().optional(),
+												buildTarget: z
+													.string()
+													.optional()
+													.describe(
+														"Dockerfile stage from an `entrypoint` like `Dockerfile#worker`.",
+													),
 												name: z.string(),
 											})
 											.optional()
@@ -33416,6 +33425,12 @@ export const createDeploymentStatus200Schema = z.union([
 												.optional(),
 											root: z.string(),
 											terminationGracePeriodSeconds: z.number().optional(),
+											buildTarget: z
+												.string()
+												.optional()
+												.describe(
+													"Dockerfile stage from an `entrypoint` like `Dockerfile#worker`.",
+												),
 											name: z.string(),
 										})
 										.optional()
@@ -33749,6 +33764,12 @@ export const createDeploymentStatus200Schema = z.union([
 													.optional(),
 												root: z.string(),
 												terminationGracePeriodSeconds: z.number().optional(),
+												buildTarget: z
+													.string()
+													.optional()
+													.describe(
+														"Dockerfile stage from an `entrypoint` like `Dockerfile#worker`.",
+													),
 												name: z.string(),
 											})
 											.optional()
@@ -36783,6 +36804,12 @@ export const cancelDeploymentStatus200Schema = z
 												.optional(),
 											root: z.string(),
 											terminationGracePeriodSeconds: z.number().optional(),
+											buildTarget: z
+												.string()
+												.optional()
+												.describe(
+													"Dockerfile stage from an `entrypoint` like `Dockerfile#worker`.",
+												),
 											name: z.string(),
 										})
 										.optional()
@@ -37116,6 +37143,12 @@ export const cancelDeploymentStatus200Schema = z
 													.optional(),
 												root: z.string(),
 												terminationGracePeriodSeconds: z.number().optional(),
+												buildTarget: z
+													.string()
+													.optional()
+													.describe(
+														"Dockerfile stage from an `entrypoint` like `Dockerfile#worker`.",
+													),
 												name: z.string(),
 											})
 											.optional()
@@ -119113,15 +119146,15 @@ export const getSecurityFirewallEventsQuerySortSchema = z
 	.enum(["startTime:desc", "startTime:asc"])
 	.optional();
 
-export const getSecurityFirewallEventsQueryLimitSchema = z.number().min(1).max(5000).optional();
+export const getSecurityFirewallEventsQueryLimitSchema = z.int().min(1).max(5000).optional();
 
 export const getSecurityFirewallEventsQueryCursorSchema = z.string().optional();
 
 export const getSecurityFirewallEventsQueryProjectIdSchema = z.string();
 
-export const getSecurityFirewallEventsQueryStartTimestampSchema = z.number().optional();
+export const getSecurityFirewallEventsQueryStartTimestampSchema = z.int().min(0).optional();
 
-export const getSecurityFirewallEventsQueryEndTimestampSchema = z.number().optional();
+export const getSecurityFirewallEventsQueryEndTimestampSchema = z.int().min(0).optional();
 
 export const getSecurityFirewallEventsQueryHostsSchema = z.string().max(10000).optional();
 
@@ -119213,11 +119246,11 @@ export const getSecurityFirewallEventsErrorSchema = z.union([
 
 export const getSecurityFirewallEventsQuerySchema = z.object({
 	sort: z.enum(["startTime:desc", "startTime:asc"]).optional(),
-	limit: z.number().min(1).max(5000).optional(),
+	limit: z.int().min(1).max(5000).optional(),
 	cursor: z.string().optional(),
 	projectId: z.string(),
-	startTimestamp: z.number().optional(),
-	endTimestamp: z.number().optional(),
+	startTimestamp: z.int().min(0).optional(),
+	endTimestamp: z.int().min(0).optional(),
 	hosts: z.string().max(10000).optional(),
 	ip: z.array(z.string().max(45)).max(100).optional(),
 	isActive: z.boolean().optional(),
@@ -119245,9 +119278,9 @@ export const getSecurityFirewallEventsQuerySchema = z.object({
 
 export const getSecurityFirewallEventsSummaryQueryProjectIdSchema = z.string();
 
-export const getSecurityFirewallEventsSummaryQueryStartTimestampSchema = z.number().optional();
+export const getSecurityFirewallEventsSummaryQueryStartTimestampSchema = z.int().min(0).optional();
 
-export const getSecurityFirewallEventsSummaryQueryEndTimestampSchema = z.number().optional();
+export const getSecurityFirewallEventsSummaryQueryEndTimestampSchema = z.int().min(0).optional();
 
 export const getSecurityFirewallEventsSummaryQueryHostsSchema = z.string().max(10000).optional();
 
@@ -119327,8 +119360,8 @@ export const getSecurityFirewallEventsSummaryErrorSchema = z.union([
 
 export const getSecurityFirewallEventsSummaryQuerySchema = z.object({
 	projectId: z.string(),
-	startTimestamp: z.number().optional(),
-	endTimestamp: z.number().optional(),
+	startTimestamp: z.int().min(0).optional(),
+	endTimestamp: z.int().min(0).optional(),
 	hosts: z.string().max(10000).optional(),
 	ip: z.array(z.string().max(45)).max(100).optional(),
 	isActive: z.boolean().optional(),
