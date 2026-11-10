@@ -1,12 +1,6 @@
 # Operations
 
-Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3783 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
-
-## health
-
-| Call | Request | Summary |
-| --- | --- | --- |
-| `client.api.health.getHeartbeat` | `GET /_heartbeat` | Heartbeat response |
+Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3787 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## accounts
 
@@ -1803,6 +1797,8 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3783 operatio
 | `client.api.brapi.brapiGetRecordingNetwork` | `GET /accounts/{accountId}/browser-rendering/recording/{sessionId}/network` | Get network recording data. |
 | `client.api.brapi.brapiPostScrape` | `POST /accounts/{accountId}/browser-rendering/scrape` | Scrape elements. |
 | `client.api.brapi.brapiPostScreenshot` | `POST /accounts/{accountId}/browser-rendering/screenshot` | Get screenshot. |
+| `client.api.brapi.brapiPostScript` | `POST /accounts/{accountId}/browser-rendering/script` | Dynamic Script - execute code and return browser session details. |
+| `client.api.brapi.brapiPostScriptSessionExecute` | `POST /accounts/{accountId}/browser-rendering/script/{sessionId}` | Dynamic Script - execute code in an existing browser session. |
 | `client.api.brapi.brapiPostSnapshot` | `POST /accounts/{accountId}/browser-rendering/snapshot` | Get HTML content and screenshot. |
 
 ## builds
@@ -4529,10 +4525,12 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3783 operatio
 | `client.api.workersPipelinesOther.postV4AccountsByAccountIdPipelinesV1Pipelines` | `POST /accounts/{accountId}/pipelines/v1/pipelines` | Create Pipeline |
 | `client.api.workersPipelinesOther.deleteV4AccountsByAccountIdPipelinesV1PipelinesByPipelineId` | `DELETE /accounts/{accountId}/pipelines/v1/pipelines/{pipelineId}` | Delete Pipeline |
 | `client.api.workersPipelinesOther.getV4AccountsByAccountIdPipelinesV1PipelinesByPipelineId` | `GET /accounts/{accountId}/pipelines/v1/pipelines/{pipelineId}` | Get Pipeline Details |
+| `client.api.workersPipelinesOther.postV4AccountsByAccountIdPipelinesV1PipelinesByPipelineIdUpdateTables` | `POST /accounts/{accountId}/pipelines/v1/pipelines/{pipelineId}/update_tables` | Update Pipeline Tables |
 | `client.api.workersPipelinesOther.getV4AccountsByAccountIdPipelinesV1Sinks` | `GET /accounts/{accountId}/pipelines/v1/sinks` | List Sinks |
 | `client.api.workersPipelinesOther.postV4AccountsByAccountIdPipelinesV1Sinks` | `POST /accounts/{accountId}/pipelines/v1/sinks` | Create Sink |
 | `client.api.workersPipelinesOther.deleteV4AccountsByAccountIdPipelinesV1SinksBySinkId` | `DELETE /accounts/{accountId}/pipelines/v1/sinks/{sinkId}` | Delete Sink |
 | `client.api.workersPipelinesOther.getV4AccountsByAccountIdPipelinesV1SinksBySinkId` | `GET /accounts/{accountId}/pipelines/v1/sinks/{sinkId}` | Get Sink Details |
+| `client.api.workersPipelinesOther.patchV4AccountsByAccountIdPipelinesV1SinksBySinkId` | `PATCH /accounts/{accountId}/pipelines/v1/sinks/{sinkId}` | Update Sink |
 | `client.api.workersPipelinesOther.getV4AccountsByAccountIdPipelinesV1Streams` | `GET /accounts/{accountId}/pipelines/v1/streams` | List Streams |
 | `client.api.workersPipelinesOther.postV4AccountsByAccountIdPipelinesV1Streams` | `POST /accounts/{accountId}/pipelines/v1/streams` | Create Stream |
 | `client.api.workersPipelinesOther.deleteV4AccountsByAccountIdPipelinesV1StreamsByStreamId` | `DELETE /accounts/{accountId}/pipelines/v1/streams/{streamId}` | Delete Stream |
@@ -5357,6 +5355,7 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3783 operatio
 | Call | Request | Summary |
 | --- | --- | --- |
 | `client.api.durableObjectsNamespace.durableObjectsNamespaceListNamespaces` | `GET /accounts/{accountId}/workers/durable_objects/namespaces` | List Durable Object Namespaces |
+| `client.api.durableObjectsNamespace.durableObjectsNamespaceExport` | `GET /accounts/{accountId}/workers/durable_objects/namespaces/{id}/export` | Export a Durable Object's SQLite database |
 | `client.api.durableObjectsNamespace.durableObjectsNamespaceListObjects` | `GET /accounts/{accountId}/workers/durable_objects/namespaces/{id}/objects` | List Objects in a Durable Object namespace |
 | `client.api.durableObjectsNamespace.durableObjectsNamespaceQuery` | `POST /accounts/{accountId}/workers/durable_objects/namespaces/{id}/query/v2` | Query a Durable Object |
 
