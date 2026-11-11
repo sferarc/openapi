@@ -86773,6 +86773,16 @@ export type R2DataCatalogNamespaceListResponse = {
   next_page_token?: (string | null) | undefined;
 };
 
+export const r2DataCatalogNextEligibleReason = {
+  disabled: 'disabled',
+  held_after_user_error: 'held_after_user_error',
+  running: 'running',
+  no_credential: 'no_credential',
+  scheduled: 'scheduled',
+} as const;
+
+export type R2DataCatalogNextEligibleReasonKey = (typeof r2DataCatalogNextEligibleReason)[keyof typeof r2DataCatalogNextEligibleReason];
+
 export type R2DataCatalogQueueMaintenanceRequest = {
   /**
    * @description
@@ -86805,6 +86815,11 @@ export type R2DataCatalogTableCompactionConfig = {
    * @type string | undefined
    */
   readonly next_eligible_at?: (string | null) | undefined;
+  /**
+   * @description Why the operation is not eligible to run before next_eligible_at. Returned by the per-table GET only, and absent from the update response. `held_after_user_error` means a customer-caused failure holds the lease until it expires.
+   * @type string | undefined
+   */
+  readonly next_eligible_reason?: R2DataCatalogNextEligibleReasonKey | undefined;
   /**
    * @description Specifies the state of maintenance operations.
    * @example enabled
@@ -86940,6 +86955,11 @@ export type R2DataCatalogTableSnapshotExpirationConfig = {
    * @type string | undefined
    */
   readonly next_eligible_at?: (string | null) | undefined;
+  /**
+   * @description Why the operation is not eligible to run before next_eligible_at. Returned by the per-table GET only, and absent from the update response. `held_after_user_error` means a customer-caused failure holds the lease until it expires.
+   * @type string | undefined
+   */
+  readonly next_eligible_reason?: R2DataCatalogNextEligibleReasonKey | undefined;
   /**
    * @description Specifies the state of maintenance operations.
    * @example enabled
@@ -124705,11 +124725,57 @@ export type WorkersObservabilityAgentTraceSummary = WorkersObservabilityTraceSum
    */
   conversationIds: string[];
   /**
+   * @description Agent spans that recorded an error.
+   * @minimum 0
+   * @type integer | undefined
+   */
+  errorCount?: number | undefined;
+  /**
+   * @description Distinct error messages from the Trace's Agent spans.
+   * @type array | undefined
+   */
+  errors?: string[] | undefined;
+  /**
    * @description Latest start of an authorized Agent invocation in the Trace within the effective window, as Unix epoch milliseconds. The Trace list is ordered by this value, newest first.
    * @minimum 0
    * @type integer
    */
   lastActivityMs: number;
+  /**
+   * @description Name of the first Agent span in the Trace.
+   * @type string | undefined
+   */
+  rootSpanName?: string | undefined;
+  /**
+   * @description Transaction name of the first Agent span in the Trace.
+   * @type string | undefined
+   */
+  rootTransactionName?: string | undefined;
+  /**
+   * @description Worker services with Agent activity in the Trace.
+   * @type array | undefined
+   */
+  services?: string[] | undefined;
+  /**
+   * @description Agent spans in the Trace.
+   * @type number | undefined
+   */
+  spans?: number | undefined;
+  /**
+   * @description Duration of the Trace's Agent activity, in milliseconds.
+   * @type number | undefined
+   */
+  traceDurationMs?: number | undefined;
+  /**
+   * @description End of the Trace's Agent activity, as Unix epoch milliseconds.
+   * @type number | undefined
+   */
+  traceEndMs?: number | undefined;
+  /**
+   * @description Start of the Trace's Agent activity, as Unix epoch milliseconds.
+   * @type number | undefined
+   */
+  traceStartMs?: number | undefined;
 };
 
 export type WorkersObservabilityAgentWindowInfo = {
@@ -229372,6 +229438,10 @@ export type McpPortalsApiListPortalsStatus200 = {
         [key: string]: unknown;
       }[];
       updated_prompts?: {
+        /**
+         * @description Effective availability of the capability: the portal-level value when set, otherwise the server-level value.
+         * @type boolean | undefined
+         */
         enabled?: boolean | undefined;
         name: string;
         /**
@@ -229385,6 +229455,11 @@ export type McpPortalsApiListPortalsStatus200 = {
          */
         portal_description?: string | undefined;
         /**
+         * @description Availability set on this portal. Absent when the portal does not set it.
+         * @type boolean | undefined
+         */
+        portal_enabled?: boolean | undefined;
+        /**
          * @example server-tool-alias
          * @type string | undefined
          */
@@ -229394,8 +229469,17 @@ export type McpPortalsApiListPortalsStatus200 = {
          * @type string | undefined
          */
         server_description?: string | undefined;
+        /**
+         * @description Availability set on the MCP server. Absent when the server does not set it.
+         * @type boolean | undefined
+         */
+        server_enabled?: boolean | undefined;
       }[] | undefined;
       updated_tools?: {
+        /**
+         * @description Effective availability of the capability: the portal-level value when set, otherwise the server-level value.
+         * @type boolean | undefined
+         */
         enabled?: boolean | undefined;
         name: string;
         /**
@@ -229409,6 +229493,11 @@ export type McpPortalsApiListPortalsStatus200 = {
          */
         portal_description?: string | undefined;
         /**
+         * @description Availability set on this portal. Absent when the portal does not set it.
+         * @type boolean | undefined
+         */
+        portal_enabled?: boolean | undefined;
+        /**
          * @example server-tool-alias
          * @type string | undefined
          */
@@ -229418,6 +229507,11 @@ export type McpPortalsApiListPortalsStatus200 = {
          * @type string | undefined
          */
         server_description?: string | undefined;
+        /**
+         * @description Availability set on the MCP server. Absent when the server does not set it.
+         * @type boolean | undefined
+         */
+        server_enabled?: boolean | undefined;
       }[] | undefined;
     }[];
   }[];
@@ -229737,6 +229831,10 @@ export type McpPortalsApiCreatePortalsStatus201 = {
         [key: string]: unknown;
       }[];
       updated_prompts?: {
+        /**
+         * @description Effective availability of the capability: the portal-level value when set, otherwise the server-level value.
+         * @type boolean | undefined
+         */
         enabled?: boolean | undefined;
         name: string;
         /**
@@ -229750,6 +229848,11 @@ export type McpPortalsApiCreatePortalsStatus201 = {
          */
         portal_description?: string | undefined;
         /**
+         * @description Availability set on this portal. Absent when the portal does not set it.
+         * @type boolean | undefined
+         */
+        portal_enabled?: boolean | undefined;
+        /**
          * @example server-tool-alias
          * @type string | undefined
          */
@@ -229759,8 +229862,17 @@ export type McpPortalsApiCreatePortalsStatus201 = {
          * @type string | undefined
          */
         server_description?: string | undefined;
+        /**
+         * @description Availability set on the MCP server. Absent when the server does not set it.
+         * @type boolean | undefined
+         */
+        server_enabled?: boolean | undefined;
       }[] | undefined;
       updated_tools?: {
+        /**
+         * @description Effective availability of the capability: the portal-level value when set, otherwise the server-level value.
+         * @type boolean | undefined
+         */
         enabled?: boolean | undefined;
         name: string;
         /**
@@ -229774,6 +229886,11 @@ export type McpPortalsApiCreatePortalsStatus201 = {
          */
         portal_description?: string | undefined;
         /**
+         * @description Availability set on this portal. Absent when the portal does not set it.
+         * @type boolean | undefined
+         */
+        portal_enabled?: boolean | undefined;
+        /**
          * @example server-tool-alias
          * @type string | undefined
          */
@@ -229783,6 +229900,11 @@ export type McpPortalsApiCreatePortalsStatus201 = {
          * @type string | undefined
          */
         server_description?: string | undefined;
+        /**
+         * @description Availability set on the MCP server. Absent when the server does not set it.
+         * @type boolean | undefined
+         */
+        server_enabled?: boolean | undefined;
       }[] | undefined;
     }[];
   };
@@ -230390,6 +230512,10 @@ export type McpPortalsApiFetchGatewaysStatus200 = {
         [key: string]: unknown;
       }[];
       updated_prompts?: {
+        /**
+         * @description Effective availability of the capability: the portal-level value when set, otherwise the server-level value.
+         * @type boolean | undefined
+         */
         enabled?: boolean | undefined;
         name: string;
         /**
@@ -230403,6 +230529,11 @@ export type McpPortalsApiFetchGatewaysStatus200 = {
          */
         portal_description?: string | undefined;
         /**
+         * @description Availability set on this portal. Absent when the portal does not set it.
+         * @type boolean | undefined
+         */
+        portal_enabled?: boolean | undefined;
+        /**
          * @example server-tool-alias
          * @type string | undefined
          */
@@ -230412,8 +230543,17 @@ export type McpPortalsApiFetchGatewaysStatus200 = {
          * @type string | undefined
          */
         server_description?: string | undefined;
+        /**
+         * @description Availability set on the MCP server. Absent when the server does not set it.
+         * @type boolean | undefined
+         */
+        server_enabled?: boolean | undefined;
       }[] | undefined;
       updated_tools?: {
+        /**
+         * @description Effective availability of the capability: the portal-level value when set, otherwise the server-level value.
+         * @type boolean | undefined
+         */
         enabled?: boolean | undefined;
         name: string;
         /**
@@ -230427,6 +230567,11 @@ export type McpPortalsApiFetchGatewaysStatus200 = {
          */
         portal_description?: string | undefined;
         /**
+         * @description Availability set on this portal. Absent when the portal does not set it.
+         * @type boolean | undefined
+         */
+        portal_enabled?: boolean | undefined;
+        /**
          * @example server-tool-alias
          * @type string | undefined
          */
@@ -230436,6 +230581,11 @@ export type McpPortalsApiFetchGatewaysStatus200 = {
          * @type string | undefined
          */
         server_description?: string | undefined;
+        /**
+         * @description Availability set on the MCP server. Absent when the server does not set it.
+         * @type boolean | undefined
+         */
+        server_enabled?: boolean | undefined;
       }[] | undefined;
     }[];
   };
@@ -230768,6 +230918,10 @@ export type McpPortalsApiUpdatePortalsStatus200 = {
         [key: string]: unknown;
       }[];
       updated_prompts?: {
+        /**
+         * @description Effective availability of the capability: the portal-level value when set, otherwise the server-level value.
+         * @type boolean | undefined
+         */
         enabled?: boolean | undefined;
         name: string;
         /**
@@ -230781,6 +230935,11 @@ export type McpPortalsApiUpdatePortalsStatus200 = {
          */
         portal_description?: string | undefined;
         /**
+         * @description Availability set on this portal. Absent when the portal does not set it.
+         * @type boolean | undefined
+         */
+        portal_enabled?: boolean | undefined;
+        /**
          * @example server-tool-alias
          * @type string | undefined
          */
@@ -230790,8 +230949,17 @@ export type McpPortalsApiUpdatePortalsStatus200 = {
          * @type string | undefined
          */
         server_description?: string | undefined;
+        /**
+         * @description Availability set on the MCP server. Absent when the server does not set it.
+         * @type boolean | undefined
+         */
+        server_enabled?: boolean | undefined;
       }[] | undefined;
       updated_tools?: {
+        /**
+         * @description Effective availability of the capability: the portal-level value when set, otherwise the server-level value.
+         * @type boolean | undefined
+         */
         enabled?: boolean | undefined;
         name: string;
         /**
@@ -230805,6 +230973,11 @@ export type McpPortalsApiUpdatePortalsStatus200 = {
          */
         portal_description?: string | undefined;
         /**
+         * @description Availability set on this portal. Absent when the portal does not set it.
+         * @type boolean | undefined
+         */
+        portal_enabled?: boolean | undefined;
+        /**
          * @example server-tool-alias
          * @type string | undefined
          */
@@ -230814,6 +230987,11 @@ export type McpPortalsApiUpdatePortalsStatus200 = {
          * @type string | undefined
          */
         server_description?: string | undefined;
+        /**
+         * @description Availability set on the MCP server. Absent when the server does not set it.
+         * @type boolean | undefined
+         */
+        server_enabled?: boolean | undefined;
       }[] | undefined;
     }[];
   };
@@ -430847,6 +431025,14 @@ export const worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesCo
 
 export type WorDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesConfigRetriesBackoffEnumKey = (typeof worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesConfigRetriesBackoffEnum)[keyof typeof worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesConfigRetriesBackoffEnum];
 
+export const worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesConfigRetriesBackoffEnum2 = {
+  constant: 'constant',
+  linear: 'linear',
+  exponential: 'exponential',
+} as const;
+
+export type WorDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesConfigRetriesBackoffEnum2Key = (typeof worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesConfigRetriesBackoffEnum2)[keyof typeof worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesConfigRetriesBackoffEnum2];
+
 export const worDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesKindEnum = {
   all: 'all',
   any: 'any',
@@ -430985,6 +431171,60 @@ export type WorDescribeWorkflowVersionsGraphStatus200 = {
           starts?: number | undefined;
           timestamp: string;
           type: 'step_sleep_until';
+        } | {
+          /**
+           * @description Configuration for a step (retries and timeout).
+           * @type object
+           */
+          config: {
+            /**
+             * @description Retry policy for a step.
+             * @type object
+             */
+            retries: {
+              /**
+               * @description Backoff strategy for step retries.
+               * @type string
+               */
+              backoff: WorDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesConfigRetriesBackoffEnum2Key;
+              /**
+               * @description Duration as milliseconds (number) or human-readable string.
+               */
+              delay: number | string;
+              limit: number;
+            };
+            /**
+             * @description Duration as milliseconds (number) or human-readable string.
+             */
+            timeout: number | string;
+          };
+          name: string;
+          /**
+           * @description Statically known step.runner() options. A null field is not statically known (a non-literal value, an options object passed as a variable, or a field a spread may set).
+           * @type object
+           */
+          options: {
+            allow_failure: boolean | null;
+            command: string | null;
+            image: string | null;
+            instance_size: string | null;
+            outputs: string[];
+          };
+          resolves?: number | undefined;
+          starts?: number | undefined;
+          type: 'step_runner';
+        } | {
+          entrypoint: string | null;
+          isolation_key: string | null;
+          name: string;
+          /**
+           * @description Child nodes (recursive).
+           * @type array
+           */
+          nodes: object[];
+          resolves?: number | undefined;
+          starts?: number | undefined;
+          type: 'step_dynamic';
         } | {
           /**
            * @description Child nodes (recursive).
