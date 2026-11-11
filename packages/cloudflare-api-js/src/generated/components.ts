@@ -2678,6 +2678,9 @@ import type {
 	CloudflareTunnelCleanUpCloudflareTunnelConnectionsQuery,
 	CloudflareTunnelCleanUpCloudflareTunnelConnectionsResponse,
 	CloudflareTunnelCleanUpCloudflareTunnelConnectionsStatus400,
+	CloudflareTunnelConfigurationDeleteConfigurationPath,
+	CloudflareTunnelConfigurationDeleteConfigurationResponse,
+	CloudflareTunnelConfigurationDeleteConfigurationStatus400,
 	CloudflareTunnelConfigurationGetConfigurationPath,
 	CloudflareTunnelConfigurationGetConfigurationResponse,
 	CloudflareTunnelConfigurationGetConfigurationStatus400,
@@ -6737,6 +6740,9 @@ import type {
 	GetPirProfileGetPath,
 	GetPirProfileGetResponse,
 	GetPirProfileGetStatus400,
+	GetPirTopicListPath,
+	GetPirTopicListResponse,
+	GetPirTopicListStatus400,
 	GetPolicyByIDPath,
 	GetPolicyByIDResponse,
 	GetPolicyByIDStatus400,
@@ -10237,6 +10243,10 @@ import type {
 	PostPirQuotaPath,
 	PostPirQuotaResponse,
 	PostPirQuotaStatus400,
+	PostPirResolveBody,
+	PostPirResolvePath,
+	PostPirResolveResponse,
+	PostPirResolveStatus400,
 	PostPresetsBody,
 	PostPresetsPath,
 	PostPresetsResponse,
@@ -10507,6 +10517,7 @@ import type {
 	PutPirProfilePutPath,
 	PutPirProfilePutResponse,
 	PutPirProfilePutStatus400,
+	PutPirProfilePutStatus409,
 	PutPirUpdateBody,
 	PutPirUpdatePath,
 	PutPirUpdateResponse,
@@ -14638,6 +14649,9 @@ import type {
 	ZeroTrustAccountsDeleteDeviceSettingsForZeroTrustAccountPath,
 	ZeroTrustAccountsDeleteDeviceSettingsForZeroTrustAccountResponse,
 	ZeroTrustAccountsDeleteDeviceSettingsForZeroTrustAccountStatus400,
+	ZeroTrustAccountsDeleteRegionPath,
+	ZeroTrustAccountsDeleteRegionResponse,
+	ZeroTrustAccountsDeleteRegionStatus400,
 	ZeroTrustAccountsGetConnectivitySettingsPath,
 	ZeroTrustAccountsGetConnectivitySettingsResponse,
 	ZeroTrustAccountsGetConnectivitySettingsStatus400,
@@ -14650,6 +14664,9 @@ import type {
 	ZeroTrustAccountsGetLoggingSettingsForTheZeroTrustAccountPath,
 	ZeroTrustAccountsGetLoggingSettingsForTheZeroTrustAccountResponse,
 	ZeroTrustAccountsGetLoggingSettingsForTheZeroTrustAccountStatus400,
+	ZeroTrustAccountsGetRegionPath,
+	ZeroTrustAccountsGetRegionResponse,
+	ZeroTrustAccountsGetRegionStatus400,
 	ZeroTrustAccountsGetZeroTrustAccountConfigurationPath,
 	ZeroTrustAccountsGetZeroTrustAccountConfigurationResponse,
 	ZeroTrustAccountsGetZeroTrustAccountConfigurationStatus400,
@@ -14659,6 +14676,9 @@ import type {
 	ZeroTrustAccountsGetZeroTrustCertificateConfigurationPath,
 	ZeroTrustAccountsGetZeroTrustCertificateConfigurationResponse,
 	ZeroTrustAccountsGetZeroTrustCertificateConfigurationStatus400,
+	ZeroTrustAccountsListRegionsPath,
+	ZeroTrustAccountsListRegionsResponse,
+	ZeroTrustAccountsListRegionsStatus400,
 	ZeroTrustAccountsPatchConnectivitySettingsBody,
 	ZeroTrustAccountsPatchConnectivitySettingsPath,
 	ZeroTrustAccountsPatchConnectivitySettingsResponse,
@@ -14679,6 +14699,10 @@ import type {
 	ZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountPath,
 	ZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountResponse,
 	ZeroTrustAccountsUpdateLoggingSettingsForTheZeroTrustAccountStatus400,
+	ZeroTrustAccountsUpdateRegionBody,
+	ZeroTrustAccountsUpdateRegionPath,
+	ZeroTrustAccountsUpdateRegionResponse,
+	ZeroTrustAccountsUpdateRegionStatus400,
 	ZeroTrustAccountsUpdateZeroTrustAccountConfigurationBody,
 	ZeroTrustAccountsUpdateZeroTrustAccountConfigurationPath,
 	ZeroTrustAccountsUpdateZeroTrustAccountConfigurationResponse,
@@ -52163,6 +52187,46 @@ export async function cloudflareTunnelUpdateACloudflareTunnel(
 }
 
 /**
+ * @summary Reset Tunnel configuration
+ * @description Resets a remotely managed Cloudflare Tunnel to an empty configuration, removing ingress rules and origin request settings. The tunnel remains remotely managed, and private network routes continue to determine WARP routing. Publishes a new configuration version when the configuration changes. Repeated requests succeed without creating additional versions. If the tunnel or configuration is absent, returns a null result. Locally managed tunnels cannot be reset with this endpoint.
+ * @link /accounts/{accountId}/cfd_tunnel/{tunnelId}/configurations
+ */
+export async function cloudflareTunnelConfigurationDeleteConfiguration(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: CloudflareTunnelConfigurationDeleteConfigurationPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+
+	if (pathParams?.tunnelId == null || String(pathParams.tunnelId) === "") {
+		throw new Error(`Missing required path parameter: tunnelId`);
+	}
+	const data = await request<
+		CloudflareTunnelConfigurationDeleteConfigurationResponse,
+		ErrorWrapper<CloudflareTunnelConfigurationDeleteConfigurationStatus400>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		CloudflareTunnelConfigurationDeleteConfigurationPath
+	>({
+		method: "DELETE",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/cfd_tunnel/${encodeURIComponent(String(pathParams.tunnelId))}/configurations`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Get Tunnel configuration
  * @description Retrieves the configuration for a remotely managed Cloudflare Tunnel.
  * @link /accounts/{accountId}/cfd_tunnel/{tunnelId}/configurations
@@ -62159,7 +62223,7 @@ export async function getPirList(
 
 /**
  * @summary Create a priority intelligence requirement
- * @description Creates a new PIR for the account. The cfone.priority_intelligence_requirement_limit entitlement sets how many PIRs can be active; drafts do not count, but the account can hold at most five times that many PIRs in total. An active PIR requires a query.
+ * @description Creates a new PIR for the account. The cfone.priority_intelligence_requirement_limit entitlement sets how many PIRs can be active; drafts do not count, but the account can hold at most five times that many PIRs in total. A free-form PIR has a `requirement`, and an active one requires a query. A structured PIR has a `definition` instead; its requirement and event query are generated, and the response includes them in `resolved`.
  * @link /accounts/{accountId}/cloudforce-one/v2/priority-intelligence
  */
 export async function postPirCreate(
@@ -62708,7 +62772,7 @@ export async function getPirProfileGet(
 
 /**
  * @summary Create or replace the organization profile
- * @description Creates or replaces the account's organization profile: who the organization is, such as its name, brands, domains, sector, regions, key systems and suppliers. All of the account's Priority Intelligence Requirements share it. An account has at most one profile, and it does not count against the PIR quota.
+ * @description Creates or replaces the account's organization profile: who the organization is, such as its name, brands, domains, sector, regions, key systems and suppliers. All of the account's Priority Intelligence Requirements share it. An account has at most one profile, and it does not count against the PIR quota. Send structured `organization` facts, which structured PIRs inherit and from which the profile text is generated, or free `profile` text. `revision` must match the stored profile's, or 0 when there is none; it is required with `organization`. Free `profile` text cannot replace structured facts; delete the profile first to switch back.
  * @link /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/profile
  */
 export async function putPirProfilePut(
@@ -62729,7 +62793,7 @@ export async function putPirProfilePut(
 	}
 	const data = await request<
 		PutPirProfilePutResponse,
-		ErrorWrapper<PutPirProfilePutStatus400>,
+		ErrorWrapper<PutPirProfilePutStatus400 | PutPirProfilePutStatus409>,
 		PutPirProfilePutBody,
 		Record<string, string>,
 		Record<string, string>,
@@ -62782,6 +62846,81 @@ export async function postPirQuota(
 }
 
 /**
+ * @summary Resolve structured PIR answers without saving
+ * @description Returns the requirement and event query that saving `definition` would generate, using the account's current organization profile and topic. `resolved.issues` lists problems that would block saving, and `resolved.notices` inputs that would be ignored. Search events with `resolved.event_plan.branches`. Send `resolved.based_on` with the save so it fails with 409 if the profile or topic changes in between. Nothing is saved, and no model is called.
+ * @link /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/resolve
+ */
+export async function postPirResolve(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: PostPirResolvePath;
+		body?: PostPirResolveBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		PostPirResolveResponse,
+		ErrorWrapper<PostPirResolveStatus400>,
+		PostPirResolveBody,
+		Record<string, string>,
+		Record<string, string>,
+		PostPirResolvePath
+	>({
+		method: "POST",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/cloudforce-one/v2/priority-intelligence/resolve`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List managed PIR topics
+ * @description Returns the managed topics a structured PIR can follow, with their default question, relevance criteria, suggested actors and event rules. Suggested actors the account cannot see are left out. Topics change centrally; PIRs follow a topic's defaults wherever the customer has not changed them.
+ * @link /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/topics
+ */
+export async function getPirTopicList(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetPirTopicListPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		GetPirTopicListResponse,
+		ErrorWrapper<GetPirTopicListStatus400>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetPirTopicListPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/cloudforce-one/v2/priority-intelligence/topics`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Delete a priority intelligence requirement
  * @description Soft-deletes a PIR. The PIR will no longer count against quota.
  * @link /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/{priorityId}
@@ -62823,7 +62962,7 @@ export async function deletePirDelete(
 
 /**
  * @summary Get a priority intelligence requirement by ID
- * @description Returns a single free-form Priority Intelligence Requirement for the authenticated account.
+ * @description Returns a single Priority Intelligence Requirement for the authenticated account. For a structured PIR, `resolved` has its current generated requirement and event query, which follow later topic and profile changes.
  * @link /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/{priorityId}
  */
 export async function getPirGet(
@@ -62863,7 +63002,7 @@ export async function getPirGet(
 
 /**
  * @summary Update a priority intelligence requirement
- * @description Updates a Priority Intelligence Requirement for the authenticated account. Changing the query increments its version; editing the requirement without saving a query marks the query stale. Activating a draft needs a free slot in the active PIR quota; setting `active` on a PIR the matcher paused resumes it without one.
+ * @description Updates a Priority Intelligence Requirement for the authenticated account. Changing the query increments its version; editing the requirement without saving a query marks the query stale. Activating a draft needs a free slot in the active PIR quota; setting `active` on a PIR the matcher paused resumes it without one. Updates to a structured PIR must send its `revision` and change its answers through `definition`; its requirement, title and query are generated.
  * @link /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/{priorityId}
  */
 export async function putPirUpdate(
@@ -140181,6 +140320,157 @@ export async function zeroTrustAccountsPatchConnectivitySettings(
 }
 
 /**
+ * @summary Clear active region
+ * @description Clears the account's active region. This operation is idempotent. Clearing an account without an active region returns success with a `null` `region_key`.
+ * @link /accounts/{accountId}/zerotrust/region
+ */
+export async function zeroTrustAccountsDeleteRegion(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: ZeroTrustAccountsDeleteRegionPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		ZeroTrustAccountsDeleteRegionResponse,
+		ErrorWrapper<ZeroTrustAccountsDeleteRegionStatus400>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		ZeroTrustAccountsDeleteRegionPath
+	>({
+		method: "DELETE",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/zerotrust/region`,
+		...requestConfig,
+		baseUrl: `https://api.cloudflare.com/client/v4`,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get active region
+ * @description Gets the region that the account is using for Cloudflare One. `region_key` is `null` if the account has not selected a region.
+ * @link /accounts/{accountId}/zerotrust/region
+ */
+export async function zeroTrustAccountsGetRegion(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: ZeroTrustAccountsGetRegionPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		ZeroTrustAccountsGetRegionResponse,
+		ErrorWrapper<ZeroTrustAccountsGetRegionStatus400>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		ZeroTrustAccountsGetRegionPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/zerotrust/region`,
+		...requestConfig,
+		baseUrl: `https://api.cloudflare.com/client/v4`,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Select region
+ * @description Selects the region that the account uses for Cloudflare One. The region must be one of the account's available regions. Selecting the active region again has no effect.
+ * @link /accounts/{accountId}/zerotrust/region
+ */
+export async function zeroTrustAccountsUpdateRegion(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: ZeroTrustAccountsUpdateRegionPath;
+		body: ZeroTrustAccountsUpdateRegionBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		ZeroTrustAccountsUpdateRegionResponse,
+		ErrorWrapper<ZeroTrustAccountsUpdateRegionStatus400>,
+		ZeroTrustAccountsUpdateRegionBody,
+		Record<string, string>,
+		Record<string, string>,
+		ZeroTrustAccountsUpdateRegionPath
+	>({
+		method: "PUT",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/zerotrust/region`,
+		body: body,
+		...requestConfig,
+		baseUrl: `https://api.cloudflare.com/client/v4`,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List available regions
+ * @description Lists the regions that the account can select for Cloudflare One. Returns an empty list if no regions are available to the account.
+ * @link /accounts/{accountId}/zerotrust/regions
+ */
+export async function zeroTrustAccountsListRegions(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: ZeroTrustAccountsListRegionsPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
+		throw new Error(`Missing required path parameter: accountId`);
+	}
+	const data = await request<
+		ZeroTrustAccountsListRegionsResponse,
+		ErrorWrapper<ZeroTrustAccountsListRegionsStatus400>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		ZeroTrustAccountsListRegionsPath
+	>({
+		method: "GET",
+		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/zerotrust/regions`,
+		...requestConfig,
+		baseUrl: `https://api.cloudflare.com/client/v4`,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary List hostname routes
  * @description Lists and filters hostname routes in an account.
  * @link /accounts/{accountId}/zerotrust/routes/hostname
@@ -173953,6 +174243,8 @@ export const operationsByPath = {
 	"DELETE /accounts/{accountId}/cfd_tunnel/{tunnelId}": cloudflareTunnelDeleteACloudflareTunnel,
 	"GET /accounts/{accountId}/cfd_tunnel/{tunnelId}": cloudflareTunnelGetACloudflareTunnel,
 	"PATCH /accounts/{accountId}/cfd_tunnel/{tunnelId}": cloudflareTunnelUpdateACloudflareTunnel,
+	"DELETE /accounts/{accountId}/cfd_tunnel/{tunnelId}/configurations":
+		cloudflareTunnelConfigurationDeleteConfiguration,
 	"GET /accounts/{accountId}/cfd_tunnel/{tunnelId}/configurations":
 		cloudflareTunnelConfigurationGetConfiguration,
 	"PUT /accounts/{accountId}/cfd_tunnel/{tunnelId}/configurations":
@@ -174336,6 +174628,8 @@ export const operationsByPath = {
 	"GET /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/profile": getPirProfileGet,
 	"PUT /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/profile": putPirProfilePut,
 	"POST /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/quota": postPirQuota,
+	"POST /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/resolve": postPirResolve,
+	"GET /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/topics": getPirTopicList,
 	"DELETE /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/{priorityId}":
 		deletePirDelete,
 	"GET /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/{priorityId}": getPirGet,
@@ -176886,6 +177180,10 @@ export const operationsByPath = {
 		zeroTrustAccountsGetConnectivitySettings,
 	"PATCH /accounts/{accountId}/zerotrust/connectivity_settings":
 		zeroTrustAccountsPatchConnectivitySettings,
+	"DELETE /accounts/{accountId}/zerotrust/region": zeroTrustAccountsDeleteRegion,
+	"GET /accounts/{accountId}/zerotrust/region": zeroTrustAccountsGetRegion,
+	"PUT /accounts/{accountId}/zerotrust/region": zeroTrustAccountsUpdateRegion,
+	"GET /accounts/{accountId}/zerotrust/regions": zeroTrustAccountsListRegions,
 	"GET /accounts/{accountId}/zerotrust/routes/hostname": zeroTrustNetworksRouteHostnameList,
 	"POST /accounts/{accountId}/zerotrust/routes/hostname": zeroTrustNetworksRouteHostnameCreate,
 	"DELETE /accounts/{accountId}/zerotrust/routes/hostname/{hostnameRouteId}":
@@ -179369,6 +179667,7 @@ export const operationsByTag = {
 		cloudflareTunnelGetAWarpConnectorTunnelToken,
 	},
 	cloudflareTunnelConfiguration: {
+		cloudflareTunnelConfigurationDeleteConfiguration,
 		cloudflareTunnelConfigurationGetConfiguration,
 		cloudflareTunnelConfigurationPutConfiguration,
 		cloudflareTunnelConfigurationGetWarpConnectorConfiguration,
@@ -179647,6 +179946,8 @@ export const operationsByTag = {
 		getPirProfileGet,
 		putPirProfilePut,
 		postPirQuota,
+		postPirResolve,
+		getPirTopicList,
 		deletePirDelete,
 		getPirGet,
 		putPirUpdate,
@@ -182054,6 +182355,12 @@ export const operationsByTag = {
 	zeroTrustConnectivitySettings: {
 		zeroTrustAccountsGetConnectivitySettings,
 		zeroTrustAccountsPatchConnectivitySettings,
+	},
+	zeroTrustAccountRegion: {
+		zeroTrustAccountsDeleteRegion,
+		zeroTrustAccountsGetRegion,
+		zeroTrustAccountsUpdateRegion,
+		zeroTrustAccountsListRegions,
 	},
 	zeroTrustHostnameRoute: {
 		zeroTrustNetworksRouteHostnameList,
@@ -184473,6 +184780,7 @@ export const tagDictionary = {
 		PUT: ["cloudflareTunnelManualFailoverWarpConnectorTunnel"],
 	},
 	cloudflareTunnelConfiguration: {
+		DELETE: ["cloudflareTunnelConfigurationDeleteConfiguration"],
 		GET: [
 			"cloudflareTunnelConfigurationGetConfiguration",
 			"cloudflareTunnelConfigurationGetWarpConnectorConfiguration",
@@ -184740,6 +185048,7 @@ export const tagDictionary = {
 			"getPirInterestEvaluationGet",
 			"getPirAllMatchAggregates",
 			"getPirProfileGet",
+			"getPirTopicList",
 			"getPirGet",
 			"getPirMatchesList",
 			"getPirMatchAggregates",
@@ -184752,6 +185061,7 @@ export const tagDictionary = {
 			"postPirInterestBacktestCreate",
 			"postPirInterestEvaluationCreate",
 			"postPirQuota",
+			"postPirResolve",
 		],
 		DELETE: ["deletePirInterestDelete", "deletePirProfileDelete", "deletePirDelete"],
 		PATCH: ["patchPirInterestUpdate", "patchPirMatchesTriage"],
@@ -187244,6 +187554,11 @@ export const tagDictionary = {
 	zeroTrustConnectivitySettings: {
 		GET: ["zeroTrustAccountsGetConnectivitySettings"],
 		PATCH: ["zeroTrustAccountsPatchConnectivitySettings"],
+	},
+	zeroTrustAccountRegion: {
+		DELETE: ["zeroTrustAccountsDeleteRegion"],
+		GET: ["zeroTrustAccountsGetRegion", "zeroTrustAccountsListRegions"],
+		PUT: ["zeroTrustAccountsUpdateRegion"],
 	},
 	zeroTrustHostnameRoute: {
 		GET: ["zeroTrustNetworksRouteHostnameList", "zeroTrustNetworksRouteHostnameGet"],
