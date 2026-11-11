@@ -1,5 +1,30 @@
 # litellm-api
 
+## 2.20.0
+
+### Minor Changes
+
+- 71f03a9: Added new endpoint to get Kubernetes pods for a specific model.
+- 71f03a9: Added new background chat settings API: get and update background chat settings endpoints.
+- 71f03a9: Added subscription account management endpoints: get usage, create, update, and delete subscription accounts.
+- 71f03a9: [BREAKING] Removed the /usage/ai/chat endpoint.
+- 71f03a9: Added extraction endpoints for extracting typed fields from state, supporting POST to /extraction and /v1/extraction.
+- 71f03a9: [BREAKING] Remove operations no longer in the litellm-api OpenAPI spec: `usageAiChatUsageAiChatPost`.
+- 71f03a9: Added new proxy route for forwarding requests to eu/jev (EU-hosted decision API).
+- 71f03a9: Added new streaming endpoints for invoking agents via the A2A JSON-RPC protocol.
+
+### Patch Changes
+
+- 71f03a9: Descriptions and usage logic for router configuration max_tokens_from_tier_model now support a "clamp" option.
+- 71f03a9: Expanded LiteLLMParams and ModelInfo types to add support for more cache cost and search query costing options.
+- 71f03a9: Added support for reporting cache write tokens and their details in InputTokensDetails type.
+- 71f03a9: Improved description and logic for enforced_params and key_type fields in key and service account generation/update APIs.
+- 71f03a9: Added and refined guardrail spend and metric types to track guardrail usage and breakdowns.
+- 71f03a9: Descriptions for AI agent-related types and endpoints updated for accuracy and clarity.
+- 71f03a9: Description changes for how public Claude Code skills and plugin catalog are returned based on marketplace requirements.
+- 71f03a9: Model-specific budgets (model_max_budget) parameters now allow wildcards and model access groups.
+- 71f03a9: Updated documentation and query parameter support for several endpoints (e.g., modelListModelsGet, listEndUserCustomerListGet, getResponse* functions).
+
 ## 2.19.1
 
 ### Patch Changes
