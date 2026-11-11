@@ -1906,6 +1906,7 @@ import type {
 	GetDomainStatus410,
 	GetDomainsQuery,
 	GetDomainsRecordsByRecordIdPath,
+	GetDomainsRecordsByRecordIdQuery,
 	GetDomainsRecordsByRecordIdResponse,
 	GetDomainsRecordsByRecordIdStatus400,
 	GetDomainsRecordsByRecordIdStatus401,
@@ -3587,6 +3588,7 @@ import type {
 	ReplaceConnectorTriggerDestinationsStatus503,
 	ReplaceConnectorTriggerDestinationsStatus504,
 	ReplaceDomainsByDomainRecordsPath,
+	ReplaceDomainsByDomainRecordsQuery,
 	ReplaceDomainsByDomainRecordsResponse,
 	ReplaceDomainsByDomainRecordsStatus400,
 	ReplaceDomainsByDomainRecordsStatus401,
@@ -9328,9 +9330,11 @@ export async function updateRecord(
 export async function replaceDomainsByDomainRecords(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: ReplaceDomainsByDomainRecordsPath;
+		queryParams?: Partial<ReplaceDomainsByDomainRecordsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9352,11 +9356,12 @@ export async function replaceDomainsByDomainRecords(
 		>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<ReplaceDomainsByDomainRecordsQuery>,
 		ReplaceDomainsByDomainRecordsPath
 	>({
 		method: "PUT",
 		url: `/domains/${encodeURIComponent(String(pathParams.domain))}/records`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -9370,9 +9375,11 @@ export async function replaceDomainsByDomainRecords(
 export async function getDomainsRecordsByRecordId(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: GetDomainsRecordsByRecordIdPath;
+		queryParams?: Partial<GetDomainsRecordsByRecordIdQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -9392,11 +9399,12 @@ export async function getDomainsRecordsByRecordId(
 		>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<GetDomainsRecordsByRecordIdQuery>,
 		GetDomainsRecordsByRecordIdPath
 	>({
 		method: "GET",
 		url: `/domains/records/${encodeURIComponent(String(pathParams.recordId))}`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
