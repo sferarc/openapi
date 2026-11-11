@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the LiteLLM API 1.108.4 OpenAPI spec; do not edit. 855 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the LiteLLM API 1.109.0 OpenAPI spec; do not edit. 866 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## modelManagement
 
@@ -21,6 +21,7 @@ Generated from the LiteLLM API 1.108.4 OpenAPI spec; do not edit. 855 operations
 | `client.api.modelManagement.getLitellmModelCostMapPublicLitellmModelCostMapGet` | `GET /public/litellm_model_cost_map` | Get Litellm Model Cost Map |
 | `client.api.modelManagement.publicModelHubListPublicV1ModelHubGet` | `GET /public/v1/model_hub` | Public Model Hub List |
 | `client.api.modelManagement.publicModelHubFacetPublicV1ModelHubFacetGet` | `GET /public/v1/model_hub/{facet}` | Public Model Hub Facet |
+| `client.api.modelManagement.getKubernetesPodsModelModelIdKubernetesPodsGet` | `GET /model/{model_id}/kubernetes_pods` | Get Kubernetes Pods |
 | `client.api.modelManagement.patchModelModelModelIdUpdatePatch` | `PATCH /model/{model_id}/update` | Patch Model |
 | `client.api.modelManagement.blockModelModelBlockPost` | `POST /model/block` | Block Model |
 | `client.api.modelManagement.unblockModelModelUnblockPost` | `POST /model/unblock` | Unblock Model |
@@ -726,6 +727,8 @@ Generated from the LiteLLM API 1.108.4 OpenAPI spec; do not edit. 855 operations
 | `client.api.settings.updateWebsearchInterceptionSettingsUpdateWebsearchInterceptionSettingsPatch` | `PATCH /update/websearch_interception_settings` | Update Websearch Interception Settings |
 | `client.api.settings.getMcpToolSearchSettingsGetMcpToolSearchSettingsGet` | `GET /get/mcp_tool_search_settings` | Get Mcp Tool Search Settings |
 | `client.api.settings.updateMcpToolSearchSettingsUpdateMcpToolSearchSettingsPatch` | `PATCH /update/mcp_tool_search_settings` | Update Mcp Tool Search Settings |
+| `client.api.settings.getBackgroundChatSettingsGetBackgroundChatSettingsGet` | `GET /get/background_chat_settings` | Get Background Chat Settings |
+| `client.api.settings.updateBackgroundChatSettingsUpdateBackgroundChatSettingsPatch` | `PATCH /update/background_chat_settings` | Update Background Chat Settings |
 
 ## uiSettings
 
@@ -802,6 +805,15 @@ Generated from the LiteLLM API 1.108.4 OpenAPI spec; do not edit. 855 operations
 | `client.api.costTracking.getBlockRequestsForModelsWithoutPricingConfigBlockRequestsForModelsWithoutPricingGet` | `GET /config/block_requests_for_models_without_pricing` | Get Block Requests For Models Without Pricing |
 | `client.api.costTracking.updateBlockRequestsForModelsWithoutPricingConfigBlockRequestsForModelsWithoutPricingPatch` | `PATCH /config/block_requests_for_models_without_pricing` | Update Block Requests For Models Without Pricing |
 | `client.api.costTracking.estimateCostCostEstimatePost` | `POST /cost/estimate` | Estimate Cost |
+
+## subscriptionAccounts
+
+| Call | Request | Summary |
+| --- | --- | --- |
+| `client.api.subscriptionAccounts.getSubscriptionUsageSubscriptionAccountsUsageGet` | `GET /subscription_accounts/usage` | Get Subscription Usage |
+| `client.api.subscriptionAccounts.newSubscriptionAccountSubscriptionAccountsNewPost` | `POST /subscription_accounts/new` | New Subscription Account |
+| `client.api.subscriptionAccounts.updateSubscriptionAccountSubscriptionAccountsUpdatePost` | `POST /subscription_accounts/update` | Update Subscription Account |
+| `client.api.subscriptionAccounts.deleteSubscriptionAccountSubscriptionAccountsDeletePost` | `POST /subscription_accounts/delete` | Delete Subscription Account |
 
 ## costOptimization
 
@@ -1040,7 +1052,9 @@ Generated from the LiteLLM API 1.108.4 OpenAPI spec; do not edit. 855 operations
 | `client.api.a2a.getAgentCardA2AAgentIdWellKnownAgentCardJsonGet` | `GET /a2a/{agent_id}/.well-known/agent-card.json` | Get Agent Card |
 | `client.api.a2a.getAgentCardA2AAgentIdWellKnownAgentJsonGet` | `GET /a2a/{agent_id}/.well-known/agent.json` | Get Agent Card |
 | `client.api.a2a.invokeAgentA2AA2AAgentIdMessageSendPost` | `POST /a2a/{agent_id}/message/send` | Invoke Agent A2A |
+| `client.api.a2a.invokeAgentA2AA2AAgentIdMessageStreamPost` | `POST /a2a/{agent_id}/message/stream` | Invoke Agent A2A |
 | `client.api.a2a.invokeAgentA2AV1A2AAgentIdMessageSendPost` | `POST /v1/a2a/{agent_id}/message/send` | Invoke Agent A2A |
+| `client.api.a2a.invokeAgentA2AV1A2AAgentIdMessageStreamPost` | `POST /v1/a2a/{agent_id}/message/stream` | Invoke Agent A2A |
 
 ## a2aRegistration
 
@@ -1224,6 +1238,7 @@ Generated from the LiteLLM API 1.108.4 OpenAPI spec; do not edit. 855 operations
 | `client.api.llmPassthrough.bespokeProxyRouteBespokeV1SystemonePost` | `POST /bespoke/v1/systemone` | Bespoke Proxy Route |
 | `client.api.llmPassthrough.comprehendMedicalSdkProxyRouteComprehendmedicalPost` | `POST /comprehendmedical` | Comprehend Medical Sdk Proxy Route |
 | `client.api.llmPassthrough.comprehendMedicalProxyRouteComprehendmedicalOperationPost` | `POST /comprehendmedical/{operation}` | Comprehend Medical Proxy Route |
+| `client.api.llmPassthrough.euJevProxyRouteEuJevV1SystemonePost` | `POST /eu_jev/v1/systemone` | Eu Jev Proxy Route |
 | `client.api.llmPassthrough.layaProxyRouteLayaV1SystemonePost` | `POST /laya/v1/systemone` | Laya Proxy Route |
 | `client.api.llmPassthrough.proxyRealtimeCallsOpenaiV1RealtimeCallsPost` | `POST /openai/v1/realtime/calls` | Proxy Realtime Calls |
 | `client.api.llmPassthrough.createRealtimeClientSecretOpenaiV1RealtimeClientSecretsPost` | `POST /openai/v1/realtime/client_secrets` | Create Realtime Client Secret |
@@ -1280,8 +1295,10 @@ Generated from the LiteLLM API 1.108.4 OpenAPI spec; do not edit. 855 operations
 | Call | Request | Summary |
 | --- | --- | --- |
 | `client.api.decisions.decisionsDecisionsPost` | `POST /decisions` | Ask questions about an input (OpenAI Decisions format) |
+| `client.api.decisions.extractionExtractionPost` | `POST /extraction` | Extract typed fields from a state |
 | `client.api.decisions.systemoneSystemonePost` | `POST /systemone` | Ask named questions about a state (System One format) |
 | `client.api.decisions.decisionsV1DecisionsPost` | `POST /v1/decisions` | Ask questions about an input (OpenAI Decisions format) |
+| `client.api.decisions.extractionV1ExtractionPost` | `POST /v1/extraction` | Extract typed fields from a state |
 | `client.api.decisions.systemoneV1SystemonePost` | `POST /v1/systemone` | Ask named questions about a state (System One format) |
 
 ## scim
@@ -1330,12 +1347,6 @@ Generated from the LiteLLM API 1.108.4 OpenAPI spec; do not edit. 855 operations
 | `client.api.vantage.initVantageSettingsVantageInitPost` | `POST /vantage/init` | Init Vantage Settings |
 | `client.api.vantage.getVantageSettingsVantageSettingsGet` | `GET /vantage/settings` | Get Vantage Settings |
 | `client.api.vantage.updateVantageSettingsVantageSettingsPut` | `PUT /vantage/settings` | Update Vantage Settings |
-
-## usageAi
-
-| Call | Request | Summary |
-| --- | --- | --- |
-| `client.api.usageAi.usageAiChatUsageAiChatPost` | `POST /usage/ai/chat` | Usage Ai Chat |
 
 ## prompts
 

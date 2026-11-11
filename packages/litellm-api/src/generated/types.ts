@@ -1196,6 +1196,11 @@ export type AdminIgnore = {
 	ignored_until?: (string | null) | undefined;
 };
 
+export type AdminMCPPermissions = {
+	tools: string[];
+	action_allowed?: (boolean | null) | undefined;
+};
+
 /**
  * @description A declaration of a protocol extension supported by an Agent.
  * @type object
@@ -3043,11 +3048,10 @@ export type RequestComplexityRouterConfig = {
 	 */
 	plan_mode_patterns?: (string[] | null) | undefined;
 	/**
-	 * @description Set max_tokens on every routed request to the output ceiling of the tier model it lands on, replacing whatever the caller sent. A caller behind an auto-router cannot pick one value that fits every tier: the smallest tier's ceiling starves a bigger tier's thinking budget, and a bigger tier's ceiling is rejected by the smallest. The ceiling is the smallest max_output_tokens across the tier model's deployments, read from each deployment's model_info and then the model cost map; a tier model with a deployment whose ceiling is unknown keeps the caller's value. A max_tokens, max_completion_tokens or max_output_tokens in the tier's own litellm_params still wins. Set false to forward the caller's value unchanged.
+	 * @description Set max_tokens on every routed request to the output ceiling of the tier model it lands on, replacing whatever the caller sent. A caller behind an auto-router cannot pick one value that fits every tier: the smallest tier's ceiling starves a bigger tier's thinking budget, and a bigger tier's ceiling is rejected by the smallest. The ceiling is the smallest max_output_tokens across the tier model's deployments, read from each deployment's model_info and then the model cost map; a tier model with a deployment whose ceiling is unknown keeps the caller's value. A max_tokens, max_completion_tokens or max_output_tokens in the tier's own litellm_params still wins. Set "clamp" to keep a smaller positive caller value and cap a larger one at the ceiling. Set false to forward the caller's value unchanged.
 	 * @default true
-	 * @type boolean | undefined
 	 */
-	max_tokens_from_tier_model?: boolean | undefined;
+	max_tokens_from_tier_model?: (boolean | "clamp") | undefined;
 	/**
 	 * @description Route a coding agent's own housekeeping calls to the cheapest configured tier without classifying them. A client names the conversation by quoting the whole session and asking for a title, so the ask reads as the session's engineering work and lands on the most expensive tier, which is the reverse of what the call is worth. Detection is a literal match against client-owned sentinels on the newest ask only, so it cannot fire on an earlier turn, and it never lowers what anyone else asked for: a keyword_tier_rule or a session pin still decides instead, and an escalation keyword or the plan-mode floor still raises the tier from here. Only the classifier is displaced, and its call is skipped, so a matched request costs nothing to route. Set false to classify these calls like any other.
 	 * @default true
@@ -3340,6 +3344,11 @@ export type StandardLoggingRoutingDecision = {
 		| StandardLoggingRoutingDecisionClassifierFailureReasonEnumKey
 		| undefined;
 	classifier_error_type?: string | undefined;
+	classifier_input_budget_tokens?: number | undefined;
+	classifier_input_tokens?: number | undefined;
+	classifier_input_count_method?: string | undefined;
+	classifier_input_truncated?: boolean | undefined;
+	classifier_input_budget_status?: string | undefined;
 	classifier_probabilities?:
 		| {
 				[key: string]: number;
@@ -3475,7 +3484,53 @@ export type AwsSessionTag = {
 	[key: string]: unknown;
 };
 
+export type BackgroundChatSettings = {
+	/**
+	 * @description Enable cache-backed background Responses for Chat and API requests.
+	 * @type boolean
+	 */
+	enabled: boolean;
+};
+
+export type BackgroundChatSettingsResponse = {
+	/**
+	 * @description Enable cache-backed background Responses for Chat and API requests.
+	 * @type boolean
+	 */
+	enabled: boolean;
+	/**
+	 * @description Whether this proxy has coordination Redis configured.
+	 * @type boolean
+	 */
+	redis_configured: boolean;
+	/**
+	 * @description Whether the responses configuration is owned by the config file.
+	 * @type boolean
+	 */
+	managed_by_config: boolean;
+	/**
+	 * @description Whether database-backed configuration updates are available.
+	 * @type boolean
+	 */
+	can_save: boolean;
+};
+
 export type BaseModel = object;
+
+export type BillingPeriod = {
+	/**
+	 * @description
+	 * Format: `date`
+	 * @type string
+	 */
+	start: string;
+	/**
+	 * @description
+	 * Format: `date`
+	 * @type string
+	 */
+	end: string;
+};
 
 export type BlockKeyRequest = {
 	key: string;
@@ -3746,6 +3801,7 @@ export const bodyTestModelConnectionHealthTestConnectionPostMode = {
 	ocr: "ocr",
 	evaluation: "evaluation",
 	decisions: "decisions",
+	extraction: "extraction",
 } as const;
 
 export type BodyTestModelConnectionHealthTestConnectionPostModeKey =
@@ -3930,6 +3986,64 @@ export type MetricWithMetadata = {
 		| undefined;
 };
 
+export type GuardrailSpendMetrics = {
+	/**
+	 * @description Guardrail spend in USD, already included in key and model spend
+	 * @default 0
+	 * @type number | undefined
+	 */
+	spend?: number | undefined;
+	/**
+	 * @description Guardrail units with no known price, excluded from spend
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	untracked_units?: number | undefined;
+};
+
+export type GuardrailMetadata = {
+	/**
+	 * @description Guardrail display name, falling back to the guardrail ID
+	 * @type string
+	 */
+	guardrail_name: string;
+};
+
+export type GuardrailKeyMetric = {
+	/**
+	 * @description Guardrail spend and unpriced units for this API key
+	 * @type object
+	 */
+	metrics: GuardrailSpendMetrics;
+	/**
+	 * @description API key alias and existence information
+	 * @type object
+	 */
+	metadata: KeyMetadata;
+};
+
+export type GuardrailMetric = {
+	/**
+	 * @description Guardrail spend and unpriced units across all matching API keys
+	 * @type object
+	 */
+	metrics: GuardrailSpendMetrics;
+	/**
+	 * @description Guardrail name information
+	 * @type object
+	 */
+	metadata: GuardrailMetadata;
+	/**
+	 * @description Per-key guardrail spend and unpriced units, limited to keys in the day's API key breakdown
+	 * @type object | undefined
+	 */
+	api_key_breakdown?:
+		| {
+				[key: string]: GuardrailKeyMetric;
+		  }
+		| undefined;
+};
+
 /**
  * @description Breakdown of spend by different dimensions
  * @type object
@@ -3968,6 +4082,15 @@ export type BreakdownMetrics = {
 	entities?:
 		| {
 				[key: string]: MetricWithMetadata;
+		  }
+		| undefined;
+	/**
+	 * @description Spend by guardrail ID, already included in key and model spend. Populated on user, team and organization aggregated activity only, without a model filter
+	 * @type object | undefined
+	 */
+	guardrails?:
+		| {
+				[key: string]: GuardrailMetric;
 		  }
 		| undefined;
 };
@@ -5158,6 +5281,12 @@ export type CacheTestResponse = {
 	error?: (string | null) | undefined;
 };
 
+export type CacheWriteTokensDetails = {
+	ttl_30m_tokens: number;
+	ttl_12h_tokens: number;
+	[key: string]: unknown;
+};
+
 export type CachedTokensDetails = {
 	text_tokens?: (number | null) | undefined;
 	audio_tokens?: (number | null) | undefined;
@@ -5189,6 +5318,8 @@ export const callTypes = {
 	adecisions: "adecisions",
 	systemone: "systemone",
 	asystemone: "asystemone",
+	extraction: "extraction",
+	aextraction: "aextraction",
 	_arealtime: "_arealtime",
 	_aresponses_websocket: "_aresponses_websocket",
 	create_batch: "create_batch",
@@ -5310,8 +5441,6 @@ export const callTypes = {
 	adelete_responses: "adelete_responses",
 	cancel_responses: "cancel_responses",
 	acancel_responses: "acancel_responses",
-	compact_responses: "compact_responses",
-	acompact_responses: "acompact_responses",
 	alist_input_items: "alist_input_items",
 	llm_passthrough_route: "llm_passthrough_route",
 	allm_passthrough_route: "allm_passthrough_route",
@@ -5543,12 +5672,13 @@ export type ChatCompletionTokenLogprob = {
 	token: string;
 	bytes?: (number[] | null) | undefined;
 	logprob: number;
-	top_logprobs: TopLogprob[];
+	top_logprobs?: TopLogprob[] | undefined;
 	[key: string]: unknown;
 };
 
 export type ChoiceLogprobs = {
 	content?: (ChatCompletionTokenLogprob[] | null) | undefined;
+	refusal?: (ChatCompletionTokenLogprob[] | null) | undefined;
 	[key: string]: unknown;
 };
 
@@ -6464,12 +6594,23 @@ export type DeleteResponseResult = {
 	[key: string]: unknown;
 };
 
+export type DeleteSubscriptionAccountRequest = {
+	subscription_account_id: string;
+};
+
 export type DeleteTeamRequest = {
 	team_ids: string[];
 };
 
 export type DeleteUserRequest = {
 	user_ids: string[];
+};
+
+export type SearchContextCostPerQuery = {
+	search_context_size_low?: number | undefined;
+	search_context_size_medium?: number | undefined;
+	search_context_size_high?: number | undefined;
+	[key: string]: unknown;
 };
 
 /**
@@ -6513,7 +6654,25 @@ export type LiteLLMParams = {
 	input_cost_per_character?: (number | null) | undefined;
 	output_cost_per_character?: (number | null) | undefined;
 	cache_read_input_token_cost?: (number | null) | undefined;
+	explicit_cache_read_input_token_cost?: (number | null) | undefined;
 	cache_creation_input_token_cost?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_1hr?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_flex?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_priority?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_flex?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_priority?:
+		| (number | null)
+		| undefined;
+	cache_creation_input_token_cost_above_12hr_batches?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_ultrafast?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_batches?:
+		| (number | null)
+		| undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_ultrafast?:
+		| (number | null)
+		| undefined;
 	tiered_pricing?:
 		| (
 				| {
@@ -6541,7 +6700,6 @@ export type LiteLLMParams = {
 	input_cost_per_token_priority?: (number | null) | undefined;
 	input_cost_per_token_balanced?: (number | null) | undefined;
 	input_cost_per_token_ultrafast?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_1hr?: (number | null) | undefined;
 	cache_creation_input_token_cost_above_100k_tokens?: (number | null) | undefined;
 	cache_creation_input_token_cost_above_1hr_above_100k_tokens?: (number | null) | undefined;
 	cache_creation_input_token_cost_above_200k_tokens?: (number | null) | undefined;
@@ -6579,10 +6737,6 @@ export type LiteLLMParams = {
 	input_cost_per_character_above_128k_tokens?: (number | null) | undefined;
 	input_cost_per_audio_token?: (number | null) | undefined;
 	input_cost_per_audio_token_flex?: (number | null) | undefined;
-	input_cost_per_audio_token_above_200k_tokens?: (number | null) | undefined;
-	input_cost_per_audio_token_above_200k_tokens_flex?: (number | null) | undefined;
-	input_cost_per_audio_token_above_200k_tokens_priority?: (number | null) | undefined;
-	input_cost_per_audio_token_above_200k_tokens_batches?: (number | null) | undefined;
 	input_cost_per_audio_token_priority?: (number | null) | undefined;
 	input_cost_per_token_cache_hit?: (number | null) | undefined;
 	input_cost_per_token_above_128k_tokens?: (number | null) | undefined;
@@ -6593,7 +6747,6 @@ export type LiteLLMParams = {
 	input_cost_per_token_above_272k_tokens_flex?: (number | null) | undefined;
 	input_cost_per_token_above_272k_tokens_ultrafast?: (number | null) | undefined;
 	input_cost_per_token_above_200k_tokens_batches?: (number | null) | undefined;
-	input_cost_per_token_above_200k_tokens_flex?: (number | null) | undefined;
 	input_cost_per_token_above_100k_tokens_batches?: (number | null) | undefined;
 	input_cost_per_token_above_272k_tokens_batches?: (number | null) | undefined;
 	input_cost_per_query?: (number | null) | undefined;
@@ -6623,14 +6776,12 @@ export type LiteLLMParams = {
 	output_cost_per_token_above_272k_tokens_flex?: (number | null) | undefined;
 	output_cost_per_token_above_272k_tokens_ultrafast?: (number | null) | undefined;
 	output_cost_per_token_above_200k_tokens_batches?: (number | null) | undefined;
-	output_cost_per_token_above_200k_tokens_flex?: (number | null) | undefined;
 	output_cost_per_token_above_100k_tokens_batches?: (number | null) | undefined;
 	output_cost_per_token_above_272k_tokens_batches?: (number | null) | undefined;
 	output_cost_per_character_above_128k_tokens?: (number | null) | undefined;
 	output_cost_per_image?: (number | null) | undefined;
 	output_cost_per_image_token?: (number | null) | undefined;
 	output_cost_per_image_token_batches?: (number | null) | undefined;
-	output_cost_per_image_token_priority?: (number | null) | undefined;
 	output_cost_per_video_token?: (number | null) | undefined;
 	output_cost_per_reasoning_token?: (number | null) | undefined;
 	output_cost_per_reasoning_token_flex?: (number | null) | undefined;
@@ -6642,6 +6793,7 @@ export type LiteLLMParams = {
 				[key: string]: unknown;
 		  } | null)
 		| undefined;
+	search_queries_cost_per_query?: (number | SearchContextCostPerQuery | null) | undefined;
 	google_maps_grounding_cost_per_query?: (number | null) | undefined;
 	citation_cost_per_token?: (number | null) | undefined;
 	cache_read_input_token_cost_above_272k_tokens?: (number | null) | undefined;
@@ -6697,6 +6849,7 @@ export type LiteLLMParams = {
 	aws_external_id?: (string | null) | undefined;
 	aws_session_tags?: (AwsSessionTag[] | null) | undefined;
 	aws_bedrock_runtime_endpoint?: (string | null) | undefined;
+	aws_bedrock_control_plane_endpoint?: (string | null) | undefined;
 	aws_bedrock_project_id?: (string | null) | undefined;
 	s3_bucket_name?: (string | null) | undefined;
 	s3_endpoint_url?: (string | null) | undefined;
@@ -6735,10 +6888,14 @@ export type LiteLLMParams = {
 	token_exchange_scope?: (string | null) | undefined;
 	token_exchange_audience?: (string | null) | undefined;
 	custom_llm_provider?: (string | null) | undefined;
+	responses_api_version?: (string | null) | undefined;
 	tpm?: (number | null) | undefined;
 	rpm?: (number | null) | undefined;
 	itpm?: (number | null) | undefined;
 	otpm?: (number | null) | undefined;
+	tpd?: (number | null) | undefined;
+	rpd?: (number | null) | undefined;
+	daily_reset_time?: (string | null) | undefined;
 	timeout?: (number | string | Timeout | null) | undefined;
 	stream_timeout?: (number | string | null) | undefined;
 	timeout_by_service_tier?:
@@ -6785,6 +6942,10 @@ export type LiteLLMParams = {
 	 */
 	use_xai_oauth?: (boolean | null) | undefined;
 	/**
+	 * @description Path to a ChatGPT OAuth auth.json for this deployment.
+	 */
+	chatgpt_auth_file?: (string | null) | undefined;
+	/**
 	 * @description Send the LiteLLM user id of the calling key as the `user` field on Fireworks AI chat, responses and messages requests.
 	 */
 	fireworks_forward_user_id?: (boolean | null) | undefined;
@@ -6792,6 +6953,7 @@ export type LiteLLMParams = {
 	 * @default false
 	 */
 	merge_reasoning_content_in_choices?: (boolean | null) | undefined;
+	thought_signature_in_tool_call_id?: (boolean | null) | undefined;
 	model_info?:
 		| ({
 				[key: string]: unknown;
@@ -6869,7 +7031,25 @@ export type ModelInfo = {
 	input_cost_per_character?: (number | null) | undefined;
 	output_cost_per_character?: (number | null) | undefined;
 	cache_read_input_token_cost?: (number | null) | undefined;
+	explicit_cache_read_input_token_cost?: (number | null) | undefined;
 	cache_creation_input_token_cost?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_1hr?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_flex?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_priority?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_flex?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_priority?:
+		| (number | null)
+		| undefined;
+	cache_creation_input_token_cost_above_12hr_batches?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_ultrafast?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_batches?:
+		| (number | null)
+		| undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_ultrafast?:
+		| (number | null)
+		| undefined;
 	tiered_pricing?:
 		| (
 				| {
@@ -6878,6 +7058,7 @@ export type ModelInfo = {
 				| null
 		  )
 		| undefined;
+	enforce_supported_endpoints?: (boolean | null) | undefined;
 	id: string | null;
 	/**
 	 * @default false
@@ -6889,6 +7070,7 @@ export type ModelInfo = {
 	created_at?: (string | null) | undefined;
 	created_by?: (string | null) | undefined;
 	base_model?: (string | null) | undefined;
+	pricing_provider?: (string | null) | undefined;
 	tier?: (ModelInfoTierKey | null) | undefined;
 	team_id?: (string | null) | undefined;
 	team_public_model_name?: (string | null) | undefined;
@@ -6912,6 +7094,7 @@ export type ModelInfo = {
 	allow_fail_open?: (boolean | null) | undefined;
 	enable_tag_filtering?: (boolean | null) | undefined;
 	internal_router_model?: (boolean | null) | undefined;
+	max_embedding_batch_size?: (number | null) | undefined;
 	[key: string]: unknown;
 };
 
@@ -7427,6 +7610,19 @@ export type UpdateRouterConfig = {
 				| null
 		  )
 		| undefined;
+	content_policy_fallbacks?:
+		| (
+				| {
+						[key: string]: (
+							| string
+							| {
+									[key: string]: JsonValue;
+							  }
+						)[];
+				  }[]
+				| null
+		  )
+		| undefined;
 	/**
 	 * @default {}
 	 */
@@ -7795,6 +7991,16 @@ export type OutputText = {
 	[key: string]: unknown;
 };
 
+/**
+ * @description A refusal from the model.
+ * @type object
+ */
+export type ResponseOutputRefusal = {
+	refusal: string;
+	type: "refusal";
+	[key: string]: unknown;
+};
+
 export const genericResponseOutputItemPhase = {
 	commentary: "commentary",
 	final_answer: "final_answer",
@@ -7812,7 +8018,7 @@ export type GenericResponseOutputItem = {
 	id: string;
 	status: string;
 	role: string;
-	content: OutputText[];
+	content: (OutputText | ResponseOutputRefusal)[];
 	phase?: (GenericResponseOutputItemPhaseKey | null) | undefined;
 	[key: string]: unknown;
 };
@@ -8008,6 +8214,8 @@ export type InputTokensDetails = {
 	 */
 	cached_tokens?: number | undefined;
 	cached_tokens_details?: (CachedTokensDetails | null) | undefined;
+	cache_write_tokens?: (number | null) | undefined;
+	cache_write_tokens_details?: (CacheWriteTokensDetails | null) | undefined;
 	image_tokens?: (number | null) | undefined;
 	text_tokens?: (number | null) | undefined;
 	video_tokens?: (number | null) | undefined;
@@ -8515,6 +8723,15 @@ export type Keypress = {
 	[key: string]: unknown;
 };
 
+export type KubernetesPodsResponse = {
+	model_id: string;
+	service_host: string;
+	port: number | null;
+	pod_ips: string[];
+	pod_count: number;
+	error: string | null;
+};
+
 export type LatestReleaseInfo = {
 	version: string;
 	new_features: number;
@@ -8637,6 +8854,13 @@ export type ModelGroupInfoProxy = {
 		| ((string | ConfigurableClientsideParamsCustomAuthOutput)[] | null)
 		| undefined;
 	description?: (string | null) | undefined;
+	supported_endpoints?: (string[] | null) | undefined;
+	/**
+	 * @description Whether cache-backed background Responses runs are enabled for this model group
+	 * @default false
+	 * @type boolean | undefined
+	 */
+	supports_background_chat?: boolean | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -8645,6 +8869,12 @@ export type ModelGroupInfoProxy = {
 	health_status?: (string | null) | undefined;
 	health_response_time?: (number | null) | undefined;
 	health_checked_at?: (string | null) | undefined;
+	custom_tags?: (string[] | null) | undefined;
+	custom_metadata?:
+		| ({
+				[key: string]: string | number | number | boolean;
+		  } | null)
+		| undefined;
 };
 
 export type ListResponseModelGroupInfoProxy = {
@@ -9016,7 +9246,7 @@ export type LiteLLMOrganizationTableWithMembers = {
 	created_by: string;
 	updated_by: string;
 	users?: (LiteLLMUserTable[] | null) | undefined;
-	litellm_budget_table?: (LiteLLMBudgetTable | null) | undefined;
+	litellm_budget_table?: (LiteLLMBudgetTableFull | null) | undefined;
 	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
 	object_permission_id?: (string | null) | undefined;
 	/**
@@ -9180,6 +9410,30 @@ export type LiteLLMSpendLogs = {
 		| null;
 	created_at?: (string | null) | undefined;
 	updated_at?: (string | null) | undefined;
+};
+
+export type LiteLLMSubscriptionAccountTable = {
+	subscription_account_id: string;
+	custom_llm_provider: string;
+	account_id: string;
+	label?: (string | null) | undefined;
+	monthly_fee: number;
+	currency: string;
+	billing_period_start: string;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	created_at: string;
+	created_by: string;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	updated_at: string;
+	updated_by: string;
 };
 
 export type LiteLLMTeamMembership = {
@@ -11026,6 +11280,372 @@ export type PassThroughEndpointResponse = {
 	endpoints: PassThroughGenericEndpoint[];
 };
 
+export type UpdateLiteLLMParams = {
+	input_cost_per_token?: (number | null) | undefined;
+	output_cost_per_token?: (number | null) | undefined;
+	input_cost_per_character?: (number | null) | undefined;
+	output_cost_per_character?: (number | null) | undefined;
+	cache_read_input_token_cost?: (number | null) | undefined;
+	explicit_cache_read_input_token_cost?: (number | null) | undefined;
+	cache_creation_input_token_cost?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_1hr?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_flex?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_priority?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_flex?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_priority?:
+		| (number | null)
+		| undefined;
+	cache_creation_input_token_cost_above_12hr_batches?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_ultrafast?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_batches?:
+		| (number | null)
+		| undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_ultrafast?:
+		| (number | null)
+		| undefined;
+	tiered_pricing?:
+		| (
+				| {
+						[key: string]: unknown;
+				  }[]
+				| null
+		  )
+		| undefined;
+	cost_per_second?: (number | null) | undefined;
+	input_cost_per_second?: (number | null) | undefined;
+	input_cost_per_text_message?: (number | null) | undefined;
+	output_cost_per_second?: (number | null) | undefined;
+	output_cost_per_second_1080p?: (number | null) | undefined;
+	output_cost_per_second_480p?: (number | null) | undefined;
+	output_cost_per_second_720p?: (number | null) | undefined;
+	output_cost_per_second_768p?: (number | null) | undefined;
+	output_cost_per_second_2k?: (number | null) | undefined;
+	output_cost_per_second_4k?: (number | null) | undefined;
+	output_cost_per_image_512?: (number | null) | undefined;
+	output_cost_per_image_1024?: (number | null) | undefined;
+	output_cost_per_image_1536?: (number | null) | undefined;
+	input_cost_per_pixel?: (number | null) | undefined;
+	output_cost_per_pixel?: (number | null) | undefined;
+	input_cost_per_token_flex?: (number | null) | undefined;
+	input_cost_per_token_priority?: (number | null) | undefined;
+	input_cost_per_token_balanced?: (number | null) | undefined;
+	input_cost_per_token_ultrafast?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_100k_tokens?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_1hr_above_100k_tokens?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_200k_tokens?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_272k_tokens?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_272k_tokens_priority?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_272k_tokens_flex?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_272k_tokens_ultrafast?: (number | null) | undefined;
+	cache_creation_input_token_cost_flex?: (number | null) | undefined;
+	cache_creation_input_token_cost_priority?: (number | null) | undefined;
+	cache_creation_input_token_cost_ultrafast?: (number | null) | undefined;
+	cache_creation_input_audio_token_cost?: (number | null) | undefined;
+	cache_read_input_token_cost_flex?: (number | null) | undefined;
+	cache_read_input_token_cost_priority?: (number | null) | undefined;
+	cache_read_input_token_cost_balanced?: (number | null) | undefined;
+	cache_read_input_token_cost_ultrafast?: (number | null) | undefined;
+	cache_read_input_token_cost_above_100k_tokens?: (number | null) | undefined;
+	cache_read_input_token_cost_above_200k_tokens?: (number | null) | undefined;
+	cache_read_input_token_cost_above_200k_tokens_priority?: (number | null) | undefined;
+	cache_read_input_token_cost_above_272k_tokens_priority?: (number | null) | undefined;
+	cache_read_input_token_cost_above_272k_tokens_flex?: (number | null) | undefined;
+	cache_read_input_token_cost_above_272k_tokens_ultrafast?: (number | null) | undefined;
+	cache_read_input_token_cost_batches?: (number | null) | undefined;
+	cache_read_input_token_cost_above_100k_tokens_batches?: (number | null) | undefined;
+	cache_read_input_token_cost_above_200k_tokens_batches?: (number | null) | undefined;
+	cache_read_input_token_cost_above_272k_tokens_batches?: (number | null) | undefined;
+	cache_read_input_audio_token_cost_batches?: (number | null) | undefined;
+	cache_creation_input_token_cost_batches?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_100k_tokens_batches?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_200k_tokens_batches?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_272k_tokens_batches?: (number | null) | undefined;
+	cache_read_input_audio_token_cost?: (number | null) | undefined;
+	cache_read_input_audio_token_cost_flex?: (number | null) | undefined;
+	cache_read_input_audio_token_cost_priority?: (number | null) | undefined;
+	cache_read_input_image_token_cost?: (number | null) | undefined;
+	input_cost_per_character_above_128k_tokens?: (number | null) | undefined;
+	input_cost_per_audio_token?: (number | null) | undefined;
+	input_cost_per_audio_token_flex?: (number | null) | undefined;
+	input_cost_per_audio_token_priority?: (number | null) | undefined;
+	input_cost_per_token_cache_hit?: (number | null) | undefined;
+	input_cost_per_token_above_128k_tokens?: (number | null) | undefined;
+	input_cost_per_token_above_100k_tokens?: (number | null) | undefined;
+	input_cost_per_token_above_200k_tokens?: (number | null) | undefined;
+	input_cost_per_token_above_200k_tokens_priority?: (number | null) | undefined;
+	input_cost_per_token_above_272k_tokens_priority?: (number | null) | undefined;
+	input_cost_per_token_above_272k_tokens_flex?: (number | null) | undefined;
+	input_cost_per_token_above_272k_tokens_ultrafast?: (number | null) | undefined;
+	input_cost_per_token_above_200k_tokens_batches?: (number | null) | undefined;
+	input_cost_per_token_above_100k_tokens_batches?: (number | null) | undefined;
+	input_cost_per_token_above_272k_tokens_batches?: (number | null) | undefined;
+	input_cost_per_query?: (number | null) | undefined;
+	input_cost_per_image?: (number | null) | undefined;
+	input_cost_per_image_above_128k_tokens?: (number | null) | undefined;
+	input_cost_per_audio_per_second?: (number | null) | undefined;
+	input_cost_per_audio_per_second_above_128k_tokens?: (number | null) | undefined;
+	input_cost_per_video_per_second?: (number | null) | undefined;
+	input_cost_per_video_per_second_above_128k_tokens?: (number | null) | undefined;
+	input_cost_per_video_per_second_above_15s_interval?: (number | null) | undefined;
+	input_cost_per_video_per_second_above_8s_interval?: (number | null) | undefined;
+	input_cost_per_audio_token_batches?: (number | null) | undefined;
+	input_cost_per_image_token_batches?: (number | null) | undefined;
+	input_cost_per_token_batches?: (number | null) | undefined;
+	input_cost_per_video_token_batches?: (number | null) | undefined;
+	output_cost_per_token_batches?: (number | null) | undefined;
+	output_cost_per_token_flex?: (number | null) | undefined;
+	output_cost_per_token_priority?: (number | null) | undefined;
+	output_cost_per_token_balanced?: (number | null) | undefined;
+	output_cost_per_token_ultrafast?: (number | null) | undefined;
+	output_cost_per_audio_token?: (number | null) | undefined;
+	output_cost_per_token_above_128k_tokens?: (number | null) | undefined;
+	output_cost_per_token_above_100k_tokens?: (number | null) | undefined;
+	output_cost_per_token_above_200k_tokens?: (number | null) | undefined;
+	output_cost_per_token_above_200k_tokens_priority?: (number | null) | undefined;
+	output_cost_per_token_above_272k_tokens_priority?: (number | null) | undefined;
+	output_cost_per_token_above_272k_tokens_flex?: (number | null) | undefined;
+	output_cost_per_token_above_272k_tokens_ultrafast?: (number | null) | undefined;
+	output_cost_per_token_above_200k_tokens_batches?: (number | null) | undefined;
+	output_cost_per_token_above_100k_tokens_batches?: (number | null) | undefined;
+	output_cost_per_token_above_272k_tokens_batches?: (number | null) | undefined;
+	output_cost_per_character_above_128k_tokens?: (number | null) | undefined;
+	output_cost_per_image?: (number | null) | undefined;
+	output_cost_per_image_token?: (number | null) | undefined;
+	output_cost_per_image_token_batches?: (number | null) | undefined;
+	output_cost_per_video_token?: (number | null) | undefined;
+	output_cost_per_reasoning_token?: (number | null) | undefined;
+	output_cost_per_reasoning_token_flex?: (number | null) | undefined;
+	output_cost_per_reasoning_token_priority?: (number | null) | undefined;
+	output_cost_per_video_per_second?: (number | null) | undefined;
+	output_cost_per_audio_per_second?: (number | null) | undefined;
+	search_context_cost_per_query?:
+		| ({
+				[key: string]: unknown;
+		  } | null)
+		| undefined;
+	search_queries_cost_per_query?: (number | SearchContextCostPerQuery | null) | undefined;
+	google_maps_grounding_cost_per_query?: (number | null) | undefined;
+	citation_cost_per_token?: (number | null) | undefined;
+	cache_read_input_token_cost_above_272k_tokens?: (number | null) | undefined;
+	cache_read_input_token_cost_above_512k_tokens?: (number | null) | undefined;
+	input_cost_per_image_token?: (number | null) | undefined;
+	input_cost_per_video_token?: (number | null) | undefined;
+	input_cost_per_token_above_272k_tokens?: (number | null) | undefined;
+	input_cost_per_token_above_512k_tokens?: (number | null) | undefined;
+	output_cost_per_token_above_272k_tokens?: (number | null) | undefined;
+	output_cost_per_token_above_512k_tokens?: (number | null) | undefined;
+	output_vector_size?: (number | null) | undefined;
+	ocr_cost_per_page?: (number | null) | undefined;
+	ocr_cost_per_page_batches?: (number | null) | undefined;
+	ocr_cost_per_credit?: (number | null) | undefined;
+	annotation_cost_per_page?: (number | null) | undefined;
+	annotation_cost_per_page_batches?: (number | null) | undefined;
+	regional_processing_uplift_multiplier_eu?: (number | null) | undefined;
+	regional_processing_uplift_multiplier_us?: (number | null) | undefined;
+	regional_endpoint_uplift_multiplier?: (number | null) | undefined;
+	api_key?: (string | null) | undefined;
+	api_base?: (string | null) | undefined;
+	api_version?: (string | null) | undefined;
+	azure_ad_token?: (string | null) | undefined;
+	tenant_id?: (string | null) | undefined;
+	client_id?: (string | null) | undefined;
+	client_secret?: (string | null) | undefined;
+	azure_scope?: (string | null) | undefined;
+	azure_username?: (string | null) | undefined;
+	azure_password?: (string | null) | undefined;
+	vertex_project?: (string | null) | undefined;
+	vertex_location?: (string | null) | undefined;
+	vertex_credentials?:
+		| (
+				| string
+				| {
+						[key: string]: unknown;
+				  }
+				| null
+		  )
+		| undefined;
+	region_name?: (string | null) | undefined;
+	gcs_bucket_name?: (string | null) | undefined;
+	bucket_name?: (string | null) | undefined;
+	aws_access_key_id?: (string | null) | undefined;
+	aws_secret_access_key?: (string | null) | undefined;
+	aws_session_token?: (string | null) | undefined;
+	aws_region_name?: (string | null) | undefined;
+	aws_session_name?: (string | null) | undefined;
+	aws_profile_name?: (string | null) | undefined;
+	aws_role_name?: (string | null) | undefined;
+	aws_web_identity_token?: (string | null) | undefined;
+	aws_sts_endpoint?: (string | null) | undefined;
+	aws_external_id?: (string | null) | undefined;
+	aws_session_tags?: (AwsSessionTag[] | null) | undefined;
+	aws_bedrock_runtime_endpoint?: (string | null) | undefined;
+	aws_bedrock_control_plane_endpoint?: (string | null) | undefined;
+	aws_bedrock_project_id?: (string | null) | undefined;
+	s3_bucket_name?: (string | null) | undefined;
+	s3_endpoint_url?: (string | null) | undefined;
+	s3_region_name?: (string | null) | undefined;
+	s3_access_key_id?: (string | null) | undefined;
+	s3_secret_access_key?: (string | null) | undefined;
+	s3_encryption_key_id?: (string | null) | undefined;
+	s3_bucket_owner?: (string | null) | undefined;
+	aws_batch_role_arn?: (string | null) | undefined;
+	s3_output_bucket_name?: (string | null) | undefined;
+	bedrock_tags?: (unknown[] | null) | undefined;
+	watsonx_region_name?: (string | null) | undefined;
+	anthropic_federation_rule_id?: (string | null) | undefined;
+	anthropic_organization_id?: (string | null) | undefined;
+	anthropic_service_account_id?: (string | null) | undefined;
+	anthropic_federation_workspace_id?: (string | null) | undefined;
+	anthropic_identity_token_file?: (string | null) | undefined;
+	anthropic_identity_token?: (string | null) | undefined;
+	anthropic_identity_source?: (string | null) | undefined;
+	anthropic_issuer_url?: (string | null) | undefined;
+	anthropic_issuer_subject?: (string | null) | undefined;
+	anthropic_issuer_audience?: (string | null) | undefined;
+	anthropic_issuer_ttl_seconds?: (number | null) | undefined;
+	anthropic_issuer_signing_key_ref?: (string | null) | undefined;
+	anthropic_keycloak_token_url?: (string | null) | undefined;
+	anthropic_keycloak_client_id?: (string | null) | undefined;
+	anthropic_keycloak_auth_method?: (string | null) | undefined;
+	anthropic_keycloak_client_secret_ref?: (string | null) | undefined;
+	anthropic_keycloak_scope?: (string | null) | undefined;
+	anthropic_disable_workload_identity_federation?: (boolean | null) | undefined;
+	openai_identity_provider_id?: (string | null) | undefined;
+	openai_service_account_id?: (string | null) | undefined;
+	openai_identity_token_file?: (string | null) | undefined;
+	token_exchange_endpoint?: (string | null) | undefined;
+	token_exchange_profile?: (string | null) | undefined;
+	token_exchange_scope?: (string | null) | undefined;
+	token_exchange_audience?: (string | null) | undefined;
+	custom_llm_provider?: (string | null) | undefined;
+	responses_api_version?: (string | null) | undefined;
+	tpm?: (number | null) | undefined;
+	rpm?: (number | null) | undefined;
+	itpm?: (number | null) | undefined;
+	otpm?: (number | null) | undefined;
+	tpd?: (number | null) | undefined;
+	rpd?: (number | null) | undefined;
+	daily_reset_time?: (string | null) | undefined;
+	timeout?: (number | string | Timeout | null) | undefined;
+	stream_timeout?: (number | string | null) | undefined;
+	timeout_by_service_tier?:
+		| ({
+				[key: string]: number;
+		  } | null)
+		| undefined;
+	stream_timeout_by_service_tier?:
+		| ({
+				[key: string]: number;
+		  } | null)
+		| undefined;
+	max_retries?: (number | null) | undefined;
+	drop_params?: (boolean | string | null) | undefined;
+	organization?: (string | null) | undefined;
+	configurable_clientside_auth_params?:
+		| ((string | ConfigurableClientsideParamsCustomAuthInput)[] | null)
+		| undefined;
+	litellm_credential_name?: (string | null) | undefined;
+	provider_affinity_header?: (string | null) | undefined;
+	litellm_trace_id?: (string | null) | undefined;
+	max_file_size_mb?: (number | null) | undefined;
+	default_api_key_tpm_limit?: (number | null) | undefined;
+	default_api_key_rpm_limit?: (number | null) | undefined;
+	max_budget?: (number | null) | undefined;
+	budget_duration?: (string | null) | undefined;
+	keepalive_seconds?: (number | null) | undefined;
+	/**
+	 * @default false
+	 */
+	allow_client_keepalive_override?: (boolean | null) | undefined;
+	/**
+	 * @default false
+	 */
+	use_in_pass_through?: (boolean | null) | undefined;
+	/**
+	 * @default false
+	 */
+	use_litellm_proxy?: (boolean | null) | undefined;
+	use_chat_completions_api?: (boolean | null) | undefined;
+	/**
+	 * @description Use stored xAI OAuth credentials when no xAI API key is configured.
+	 * @default false
+	 */
+	use_xai_oauth?: (boolean | null) | undefined;
+	/**
+	 * @description Path to a ChatGPT OAuth auth.json for this deployment.
+	 */
+	chatgpt_auth_file?: (string | null) | undefined;
+	/**
+	 * @description Send the LiteLLM user id of the calling key as the `user` field on Fireworks AI chat, responses and messages requests.
+	 */
+	fireworks_forward_user_id?: (boolean | null) | undefined;
+	/**
+	 * @default false
+	 */
+	merge_reasoning_content_in_choices?: (boolean | null) | undefined;
+	thought_signature_in_tool_call_id?: (boolean | null) | undefined;
+	model_info?:
+		| ({
+				[key: string]: unknown;
+		  } | null)
+		| undefined;
+	mock_response?: (string | ModelResponse | unknown | null) | undefined;
+	tags?: (string[] | null) | undefined;
+	tag_regex?: (string[] | null) | undefined;
+	auto_router_config_path?: (string | null) | undefined;
+	auto_router_config?: (string | null) | undefined;
+	auto_router_default_model?: (string | null) | undefined;
+	auto_router_embedding_model?: (string | null) | undefined;
+	auto_router_max_input_chars?: (number | null) | undefined;
+	auto_router_routing_compression?: (string | null) | undefined;
+	auto_router_model_compression?: (string | null) | undefined;
+	complexity_router_config?:
+		| ({
+				[key: string]: unknown;
+		  } | null)
+		| undefined;
+	complexity_router_default_model?: (string | null) | undefined;
+	adaptive_router_default_model?: (string | null) | undefined;
+	adaptive_router_config?:
+		| ({
+				[key: string]: unknown;
+		  } | null)
+		| undefined;
+	quality_router_config?:
+		| ({
+				[key: string]: unknown;
+		  } | null)
+		| undefined;
+	quality_router_default_model?: (string | null) | undefined;
+	vector_store_id?: (string | null) | undefined;
+	milvus_text_field?: (string | null) | undefined;
+	milvus_db_name?: (string | null) | undefined;
+	milvus_partition_names?: (string[] | null) | undefined;
+	valkey_host?: (string | null) | undefined;
+	valkey_port?: (number | null) | undefined;
+	valkey_password?: (string | null) | undefined;
+	valkey_ssl?: (boolean | null) | undefined;
+	valkey_text_field?: (string | null) | undefined;
+	valkey_embedding_field?: (string | null) | undefined;
+	model?: (string | null) | undefined;
+	[key: string]: unknown;
+};
+
+export type PatchModelRequest = {
+	model_name?: (string | null) | undefined;
+	litellm_params?: (UpdateLiteLLMParams | null) | undefined;
+	model_info?: (ModelInfo | null) | undefined;
+	blocked?: (boolean | null) | undefined;
+	/**
+	 * @description Top-level litellm_params keys to delete. Omitted parameters remain unchanged. The required model key and keys also supplied in litellm_params cannot be removed. Removing an absent key or repeating a key is a no-op.
+	 * @default []
+	 * @type array | undefined
+	 */
+	litellm_params_to_remove?: string[] | undefined;
+};
+
 /**
  * @description Body of PATCH /team/{team_id}.
  *
@@ -12347,16 +12967,6 @@ export type ResponseOutputText = {
 	[key: string]: unknown;
 };
 
-/**
- * @description A refusal from the model.
- * @type object
- */
-export type ResponseOutputRefusal = {
-	refusal: string;
-	type: "refusal";
-	[key: string]: unknown;
-};
-
 export const responseOutputMessageStatusEnum = {
 	in_progress: "in_progress",
 	completed: "completed",
@@ -12743,6 +13353,7 @@ export type ResponsesAPIResponse = {
 				| ResponseFunctionWebSearch
 				| CustomToolCallOutputItem
 				| OutputToolSearchCall
+				| ResponseCompactionItem
 		  )[];
 	parallel_tool_calls?: (boolean | null) | undefined;
 	temperature?: (number | null) | undefined;
@@ -13590,6 +14201,58 @@ export type StoredReport = {
 	report: JsonValue;
 };
 
+export type SubscriptionAccountFeeRequest = {
+	/**
+	 * @minLength 1
+	 * @type string
+	 */
+	custom_llm_provider: string;
+	/**
+	 * @minLength 1
+	 * @type string
+	 */
+	account_id: string;
+	monthly_fee: number;
+	/**
+	 * @pattern ^[A-Z]{3}$
+	 * @type string
+	 */
+	currency: string;
+	/**
+	 * @description
+	 * Format: `date`
+	 * @type string
+	 */
+	billing_period_start: string;
+	label?: (string | null) | undefined;
+};
+
+export type SubscriptionAccountUsage = {
+	custom_llm_provider: string;
+	account_id: string | null;
+	deployments: string[];
+	fee: LiteLLMSubscriptionAccountTable | null;
+	billing_periods: BillingPeriod[];
+	fixed_cost: number | null;
+};
+
+export type SubscriptionUsageResponse = {
+	/**
+	 * @description
+	 * Format: `date`
+	 * @type string
+	 */
+	start_date: string;
+	/**
+	 * @description
+	 * Format: `date`
+	 * @type string
+	 */
+	end_date: string;
+	subscription_providers: string[];
+	accounts: SubscriptionAccountUsage[];
+};
+
 export type SupportedEndpoint = {
 	key: string;
 	label: string;
@@ -13773,6 +14436,20 @@ export type TeamCallbackDeleteResponse = {
 };
 
 /**
+ * @description The calling user's own spend and effective member budget in a team.
+ * @type object
+ */
+export type TeamListCallerMembership = {
+	/**
+	 * @default 0
+	 * @type number | undefined
+	 */
+	spend?: number | undefined;
+	max_budget?: (number | null) | undefined;
+	budget_reset_at?: (string | null) | undefined;
+};
+
+/**
  * @description A team item in the paginated list response, enriched with computed fields.
  * @type object
  */
@@ -13865,6 +14542,7 @@ export type TeamListItem = {
 	 * @type integer | undefined
 	 */
 	keys_count?: number | undefined;
+	caller_membership?: (TeamListCallerMembership | null) | undefined;
 	access_group_models?: (string[] | null) | undefined;
 	access_group_mcp_server_ids?: (string[] | null) | undefined;
 	access_group_agent_ids?: (string[] | null) | undefined;
@@ -14626,6 +15304,16 @@ export type UIThemeSettingsResponse = {
 	field_schema: {
 		[key: string]: unknown;
 	};
+	/**
+	 * @default false
+	 * @type boolean | undefined
+	 */
+	logo_url_via_proxy?: boolean | undefined;
+	/**
+	 * @default false
+	 * @type boolean | undefined
+	 */
+	logo_url_dark_via_proxy?: boolean | undefined;
 };
 
 export type WorkerRegistryEntry = {
@@ -14656,6 +15344,16 @@ export type UiDiscoveryEndpoints = {
 	 * @type boolean | undefined
 	 */
 	mcp_stdio_enabled?: boolean | undefined;
+	/**
+	 * @default false
+	 * @type boolean | undefined
+	 */
+	use_si_terminology?: boolean | undefined;
+	/**
+	 * @default false
+	 * @type boolean | undefined
+	 */
+	claude_code_marketplace_auth_required?: boolean | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -14853,7 +15551,7 @@ export type UpdateKeyRequest = {
 	rotation_interval?: (string | null) | undefined;
 	organization_id?: (string | null) | undefined;
 	/**
-	 * @description Omit to retain the project, or send null to detach. Assigning a different project is not supported.
+	 * @description Omit to retain the project, send null to detach, or send a project id to assign an unassigned key to a project on the key's team. Moving a key between projects is not supported.
 	 */
 	project_id?: (string | null) | undefined;
 };
@@ -14931,6 +15629,14 @@ export type UpdatePublicModelGroupsRequest = {
 	 * @type array
 	 */
 	model_groups: string[];
+};
+
+export type UpdateSubscriptionAccountFeeRequest = {
+	subscription_account_id: string;
+	monthly_fee?: (number | null) | undefined;
+	currency?: (string | null) | undefined;
+	billing_period_start?: (string | null) | undefined;
+	label?: (string | null) | undefined;
 };
 
 /**
@@ -15178,6 +15884,7 @@ export type UserInfoResponse = {
 		| null;
 	keys: unknown[];
 	teams: unknown[];
+	admin_mcp_permissions?: (AdminMCPPermissions | null) | undefined;
 };
 
 /**
@@ -15359,338 +16066,6 @@ export type WorkflowRunUpdateRequest = {
 		| undefined;
 };
 
-export type UpdateLiteLLMParams = {
-	input_cost_per_token?: (number | null) | undefined;
-	output_cost_per_token?: (number | null) | undefined;
-	input_cost_per_character?: (number | null) | undefined;
-	output_cost_per_character?: (number | null) | undefined;
-	cache_read_input_token_cost?: (number | null) | undefined;
-	cache_creation_input_token_cost?: (number | null) | undefined;
-	tiered_pricing?:
-		| (
-				| {
-						[key: string]: unknown;
-				  }[]
-				| null
-		  )
-		| undefined;
-	cost_per_second?: (number | null) | undefined;
-	input_cost_per_second?: (number | null) | undefined;
-	input_cost_per_text_message?: (number | null) | undefined;
-	output_cost_per_second?: (number | null) | undefined;
-	output_cost_per_second_1080p?: (number | null) | undefined;
-	output_cost_per_second_480p?: (number | null) | undefined;
-	output_cost_per_second_720p?: (number | null) | undefined;
-	output_cost_per_second_768p?: (number | null) | undefined;
-	output_cost_per_second_2k?: (number | null) | undefined;
-	output_cost_per_second_4k?: (number | null) | undefined;
-	output_cost_per_image_512?: (number | null) | undefined;
-	output_cost_per_image_1024?: (number | null) | undefined;
-	output_cost_per_image_1536?: (number | null) | undefined;
-	input_cost_per_pixel?: (number | null) | undefined;
-	output_cost_per_pixel?: (number | null) | undefined;
-	input_cost_per_token_flex?: (number | null) | undefined;
-	input_cost_per_token_priority?: (number | null) | undefined;
-	input_cost_per_token_balanced?: (number | null) | undefined;
-	input_cost_per_token_ultrafast?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_1hr?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_100k_tokens?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_1hr_above_100k_tokens?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_200k_tokens?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_272k_tokens?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_272k_tokens_priority?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_272k_tokens_flex?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_272k_tokens_ultrafast?: (number | null) | undefined;
-	cache_creation_input_token_cost_flex?: (number | null) | undefined;
-	cache_creation_input_token_cost_priority?: (number | null) | undefined;
-	cache_creation_input_token_cost_ultrafast?: (number | null) | undefined;
-	cache_creation_input_audio_token_cost?: (number | null) | undefined;
-	cache_read_input_token_cost_flex?: (number | null) | undefined;
-	cache_read_input_token_cost_priority?: (number | null) | undefined;
-	cache_read_input_token_cost_balanced?: (number | null) | undefined;
-	cache_read_input_token_cost_ultrafast?: (number | null) | undefined;
-	cache_read_input_token_cost_above_100k_tokens?: (number | null) | undefined;
-	cache_read_input_token_cost_above_200k_tokens?: (number | null) | undefined;
-	cache_read_input_token_cost_above_200k_tokens_priority?: (number | null) | undefined;
-	cache_read_input_token_cost_above_272k_tokens_priority?: (number | null) | undefined;
-	cache_read_input_token_cost_above_272k_tokens_flex?: (number | null) | undefined;
-	cache_read_input_token_cost_above_272k_tokens_ultrafast?: (number | null) | undefined;
-	cache_read_input_token_cost_batches?: (number | null) | undefined;
-	cache_read_input_token_cost_above_100k_tokens_batches?: (number | null) | undefined;
-	cache_read_input_token_cost_above_200k_tokens_batches?: (number | null) | undefined;
-	cache_read_input_token_cost_above_272k_tokens_batches?: (number | null) | undefined;
-	cache_read_input_audio_token_cost_batches?: (number | null) | undefined;
-	cache_creation_input_token_cost_batches?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_100k_tokens_batches?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_200k_tokens_batches?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_272k_tokens_batches?: (number | null) | undefined;
-	cache_read_input_audio_token_cost?: (number | null) | undefined;
-	cache_read_input_audio_token_cost_flex?: (number | null) | undefined;
-	cache_read_input_audio_token_cost_priority?: (number | null) | undefined;
-	cache_read_input_image_token_cost?: (number | null) | undefined;
-	input_cost_per_character_above_128k_tokens?: (number | null) | undefined;
-	input_cost_per_audio_token?: (number | null) | undefined;
-	input_cost_per_audio_token_flex?: (number | null) | undefined;
-	input_cost_per_audio_token_above_200k_tokens?: (number | null) | undefined;
-	input_cost_per_audio_token_above_200k_tokens_flex?: (number | null) | undefined;
-	input_cost_per_audio_token_above_200k_tokens_priority?: (number | null) | undefined;
-	input_cost_per_audio_token_above_200k_tokens_batches?: (number | null) | undefined;
-	input_cost_per_audio_token_priority?: (number | null) | undefined;
-	input_cost_per_token_cache_hit?: (number | null) | undefined;
-	input_cost_per_token_above_128k_tokens?: (number | null) | undefined;
-	input_cost_per_token_above_100k_tokens?: (number | null) | undefined;
-	input_cost_per_token_above_200k_tokens?: (number | null) | undefined;
-	input_cost_per_token_above_200k_tokens_priority?: (number | null) | undefined;
-	input_cost_per_token_above_272k_tokens_priority?: (number | null) | undefined;
-	input_cost_per_token_above_272k_tokens_flex?: (number | null) | undefined;
-	input_cost_per_token_above_272k_tokens_ultrafast?: (number | null) | undefined;
-	input_cost_per_token_above_200k_tokens_batches?: (number | null) | undefined;
-	input_cost_per_token_above_200k_tokens_flex?: (number | null) | undefined;
-	input_cost_per_token_above_100k_tokens_batches?: (number | null) | undefined;
-	input_cost_per_token_above_272k_tokens_batches?: (number | null) | undefined;
-	input_cost_per_query?: (number | null) | undefined;
-	input_cost_per_image?: (number | null) | undefined;
-	input_cost_per_image_above_128k_tokens?: (number | null) | undefined;
-	input_cost_per_audio_per_second?: (number | null) | undefined;
-	input_cost_per_audio_per_second_above_128k_tokens?: (number | null) | undefined;
-	input_cost_per_video_per_second?: (number | null) | undefined;
-	input_cost_per_video_per_second_above_128k_tokens?: (number | null) | undefined;
-	input_cost_per_video_per_second_above_15s_interval?: (number | null) | undefined;
-	input_cost_per_video_per_second_above_8s_interval?: (number | null) | undefined;
-	input_cost_per_audio_token_batches?: (number | null) | undefined;
-	input_cost_per_image_token_batches?: (number | null) | undefined;
-	input_cost_per_token_batches?: (number | null) | undefined;
-	input_cost_per_video_token_batches?: (number | null) | undefined;
-	output_cost_per_token_batches?: (number | null) | undefined;
-	output_cost_per_token_flex?: (number | null) | undefined;
-	output_cost_per_token_priority?: (number | null) | undefined;
-	output_cost_per_token_balanced?: (number | null) | undefined;
-	output_cost_per_token_ultrafast?: (number | null) | undefined;
-	output_cost_per_audio_token?: (number | null) | undefined;
-	output_cost_per_token_above_128k_tokens?: (number | null) | undefined;
-	output_cost_per_token_above_100k_tokens?: (number | null) | undefined;
-	output_cost_per_token_above_200k_tokens?: (number | null) | undefined;
-	output_cost_per_token_above_200k_tokens_priority?: (number | null) | undefined;
-	output_cost_per_token_above_272k_tokens_priority?: (number | null) | undefined;
-	output_cost_per_token_above_272k_tokens_flex?: (number | null) | undefined;
-	output_cost_per_token_above_272k_tokens_ultrafast?: (number | null) | undefined;
-	output_cost_per_token_above_200k_tokens_batches?: (number | null) | undefined;
-	output_cost_per_token_above_200k_tokens_flex?: (number | null) | undefined;
-	output_cost_per_token_above_100k_tokens_batches?: (number | null) | undefined;
-	output_cost_per_token_above_272k_tokens_batches?: (number | null) | undefined;
-	output_cost_per_character_above_128k_tokens?: (number | null) | undefined;
-	output_cost_per_image?: (number | null) | undefined;
-	output_cost_per_image_token?: (number | null) | undefined;
-	output_cost_per_image_token_batches?: (number | null) | undefined;
-	output_cost_per_image_token_priority?: (number | null) | undefined;
-	output_cost_per_video_token?: (number | null) | undefined;
-	output_cost_per_reasoning_token?: (number | null) | undefined;
-	output_cost_per_reasoning_token_flex?: (number | null) | undefined;
-	output_cost_per_reasoning_token_priority?: (number | null) | undefined;
-	output_cost_per_video_per_second?: (number | null) | undefined;
-	output_cost_per_audio_per_second?: (number | null) | undefined;
-	search_context_cost_per_query?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
-		| undefined;
-	google_maps_grounding_cost_per_query?: (number | null) | undefined;
-	citation_cost_per_token?: (number | null) | undefined;
-	cache_read_input_token_cost_above_272k_tokens?: (number | null) | undefined;
-	cache_read_input_token_cost_above_512k_tokens?: (number | null) | undefined;
-	input_cost_per_image_token?: (number | null) | undefined;
-	input_cost_per_video_token?: (number | null) | undefined;
-	input_cost_per_token_above_272k_tokens?: (number | null) | undefined;
-	input_cost_per_token_above_512k_tokens?: (number | null) | undefined;
-	output_cost_per_token_above_272k_tokens?: (number | null) | undefined;
-	output_cost_per_token_above_512k_tokens?: (number | null) | undefined;
-	output_vector_size?: (number | null) | undefined;
-	ocr_cost_per_page?: (number | null) | undefined;
-	ocr_cost_per_page_batches?: (number | null) | undefined;
-	ocr_cost_per_credit?: (number | null) | undefined;
-	annotation_cost_per_page?: (number | null) | undefined;
-	annotation_cost_per_page_batches?: (number | null) | undefined;
-	regional_processing_uplift_multiplier_eu?: (number | null) | undefined;
-	regional_processing_uplift_multiplier_us?: (number | null) | undefined;
-	regional_endpoint_uplift_multiplier?: (number | null) | undefined;
-	api_key?: (string | null) | undefined;
-	api_base?: (string | null) | undefined;
-	api_version?: (string | null) | undefined;
-	azure_ad_token?: (string | null) | undefined;
-	tenant_id?: (string | null) | undefined;
-	client_id?: (string | null) | undefined;
-	client_secret?: (string | null) | undefined;
-	azure_scope?: (string | null) | undefined;
-	azure_username?: (string | null) | undefined;
-	azure_password?: (string | null) | undefined;
-	vertex_project?: (string | null) | undefined;
-	vertex_location?: (string | null) | undefined;
-	vertex_credentials?:
-		| (
-				| string
-				| {
-						[key: string]: unknown;
-				  }
-				| null
-		  )
-		| undefined;
-	region_name?: (string | null) | undefined;
-	gcs_bucket_name?: (string | null) | undefined;
-	bucket_name?: (string | null) | undefined;
-	aws_access_key_id?: (string | null) | undefined;
-	aws_secret_access_key?: (string | null) | undefined;
-	aws_session_token?: (string | null) | undefined;
-	aws_region_name?: (string | null) | undefined;
-	aws_session_name?: (string | null) | undefined;
-	aws_profile_name?: (string | null) | undefined;
-	aws_role_name?: (string | null) | undefined;
-	aws_web_identity_token?: (string | null) | undefined;
-	aws_sts_endpoint?: (string | null) | undefined;
-	aws_external_id?: (string | null) | undefined;
-	aws_session_tags?: (AwsSessionTag[] | null) | undefined;
-	aws_bedrock_runtime_endpoint?: (string | null) | undefined;
-	aws_bedrock_project_id?: (string | null) | undefined;
-	s3_bucket_name?: (string | null) | undefined;
-	s3_endpoint_url?: (string | null) | undefined;
-	s3_region_name?: (string | null) | undefined;
-	s3_access_key_id?: (string | null) | undefined;
-	s3_secret_access_key?: (string | null) | undefined;
-	s3_encryption_key_id?: (string | null) | undefined;
-	s3_bucket_owner?: (string | null) | undefined;
-	aws_batch_role_arn?: (string | null) | undefined;
-	s3_output_bucket_name?: (string | null) | undefined;
-	bedrock_tags?: (unknown[] | null) | undefined;
-	watsonx_region_name?: (string | null) | undefined;
-	anthropic_federation_rule_id?: (string | null) | undefined;
-	anthropic_organization_id?: (string | null) | undefined;
-	anthropic_service_account_id?: (string | null) | undefined;
-	anthropic_federation_workspace_id?: (string | null) | undefined;
-	anthropic_identity_token_file?: (string | null) | undefined;
-	anthropic_identity_token?: (string | null) | undefined;
-	anthropic_identity_source?: (string | null) | undefined;
-	anthropic_issuer_url?: (string | null) | undefined;
-	anthropic_issuer_subject?: (string | null) | undefined;
-	anthropic_issuer_audience?: (string | null) | undefined;
-	anthropic_issuer_ttl_seconds?: (number | null) | undefined;
-	anthropic_issuer_signing_key_ref?: (string | null) | undefined;
-	anthropic_keycloak_token_url?: (string | null) | undefined;
-	anthropic_keycloak_client_id?: (string | null) | undefined;
-	anthropic_keycloak_auth_method?: (string | null) | undefined;
-	anthropic_keycloak_client_secret_ref?: (string | null) | undefined;
-	anthropic_keycloak_scope?: (string | null) | undefined;
-	anthropic_disable_workload_identity_federation?: (boolean | null) | undefined;
-	openai_identity_provider_id?: (string | null) | undefined;
-	openai_service_account_id?: (string | null) | undefined;
-	openai_identity_token_file?: (string | null) | undefined;
-	token_exchange_endpoint?: (string | null) | undefined;
-	token_exchange_profile?: (string | null) | undefined;
-	token_exchange_scope?: (string | null) | undefined;
-	token_exchange_audience?: (string | null) | undefined;
-	custom_llm_provider?: (string | null) | undefined;
-	tpm?: (number | null) | undefined;
-	rpm?: (number | null) | undefined;
-	itpm?: (number | null) | undefined;
-	otpm?: (number | null) | undefined;
-	timeout?: (number | string | Timeout | null) | undefined;
-	stream_timeout?: (number | string | null) | undefined;
-	timeout_by_service_tier?:
-		| ({
-				[key: string]: number;
-		  } | null)
-		| undefined;
-	stream_timeout_by_service_tier?:
-		| ({
-				[key: string]: number;
-		  } | null)
-		| undefined;
-	max_retries?: (number | null) | undefined;
-	drop_params?: (boolean | string | null) | undefined;
-	organization?: (string | null) | undefined;
-	configurable_clientside_auth_params?:
-		| ((string | ConfigurableClientsideParamsCustomAuthInput)[] | null)
-		| undefined;
-	litellm_credential_name?: (string | null) | undefined;
-	provider_affinity_header?: (string | null) | undefined;
-	litellm_trace_id?: (string | null) | undefined;
-	max_file_size_mb?: (number | null) | undefined;
-	default_api_key_tpm_limit?: (number | null) | undefined;
-	default_api_key_rpm_limit?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	keepalive_seconds?: (number | null) | undefined;
-	/**
-	 * @default false
-	 */
-	allow_client_keepalive_override?: (boolean | null) | undefined;
-	/**
-	 * @default false
-	 */
-	use_in_pass_through?: (boolean | null) | undefined;
-	/**
-	 * @default false
-	 */
-	use_litellm_proxy?: (boolean | null) | undefined;
-	use_chat_completions_api?: (boolean | null) | undefined;
-	/**
-	 * @description Use stored xAI OAuth credentials when no xAI API key is configured.
-	 * @default false
-	 */
-	use_xai_oauth?: (boolean | null) | undefined;
-	/**
-	 * @description Send the LiteLLM user id of the calling key as the `user` field on Fireworks AI chat, responses and messages requests.
-	 */
-	fireworks_forward_user_id?: (boolean | null) | undefined;
-	/**
-	 * @default false
-	 */
-	merge_reasoning_content_in_choices?: (boolean | null) | undefined;
-	model_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
-		| undefined;
-	mock_response?: (string | ModelResponse | unknown | null) | undefined;
-	tags?: (string[] | null) | undefined;
-	tag_regex?: (string[] | null) | undefined;
-	auto_router_config_path?: (string | null) | undefined;
-	auto_router_config?: (string | null) | undefined;
-	auto_router_default_model?: (string | null) | undefined;
-	auto_router_embedding_model?: (string | null) | undefined;
-	auto_router_max_input_chars?: (number | null) | undefined;
-	auto_router_routing_compression?: (string | null) | undefined;
-	auto_router_model_compression?: (string | null) | undefined;
-	complexity_router_config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
-		| undefined;
-	complexity_router_default_model?: (string | null) | undefined;
-	adaptive_router_default_model?: (string | null) | undefined;
-	adaptive_router_config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
-		| undefined;
-	quality_router_config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
-		| undefined;
-	quality_router_default_model?: (string | null) | undefined;
-	vector_store_id?: (string | null) | undefined;
-	milvus_text_field?: (string | null) | undefined;
-	milvus_db_name?: (string | null) | undefined;
-	milvus_partition_names?: (string[] | null) | undefined;
-	valkey_host?: (string | null) | undefined;
-	valkey_port?: (number | null) | undefined;
-	valkey_password?: (string | null) | undefined;
-	valkey_ssl?: (boolean | null) | undefined;
-	valkey_text_field?: (string | null) | undefined;
-	valkey_embedding_field?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	[key: string]: unknown;
-};
-
 export type UpdateDeployment = {
 	model_name?: (string | null) | undefined;
 	litellm_params?: (UpdateLiteLLMParams | null) | undefined;
@@ -15708,11 +16083,45 @@ export type ChatCompletionImageUrlObject = {
 	url: string;
 	detail?: string | undefined;
 	format?: string | undefined;
+	video_metadata?:
+		| {
+				[key: string]: unknown;
+		  }
+		| undefined;
 };
 
 export type ChatCompletionImageObject = {
 	type: "image_url";
 	image_url: string | ChatCompletionImageUrlObject;
+};
+
+export type ChatCompletionInputAudio = {
+	data: string;
+	format: string;
+};
+
+export type ChatCompletionAudioObject = {
+	type: "input_audio";
+	input_audio: ChatCompletionInputAudio;
+	cache_control?: ChatCompletionCachedContent | undefined;
+};
+
+export type ChatCompletionFileObjectFile = {
+	file_data?: string | undefined;
+	file_id?: string | undefined;
+	filename?: string | undefined;
+	format?: string | undefined;
+	detail?: string | undefined;
+	video_metadata?:
+		| {
+				[key: string]: unknown;
+		  }
+		| undefined;
+};
+
+export type ChatCompletionFileObject = {
+	type: "file";
+	file: ChatCompletionFileObjectFile;
 };
 
 export type ChatCompletionToolCallFunctionChunk = {
@@ -15741,6 +16150,8 @@ export type ChatCompletionAssistantMessage = {
 						| ChatCompletionThinkingBlock
 						| ChatCompletionRedactedThinkingBlock
 						| ChatCompletionImageObject
+						| ChatCompletionAudioObject
+						| ChatCompletionFileObject
 				  )[]
 				| null
 		  )
@@ -15754,31 +16165,6 @@ export type ChatCompletionAssistantMessage = {
 		| ((ChatCompletionThinkingBlock | ChatCompletionRedactedThinkingBlock)[] | null)
 		| undefined;
 	reasoning_items?: (ChatCompletionReasoningItem[] | null) | undefined;
-};
-
-export const inputAudioFormatEnum = {
-	wav: "wav",
-	mp3: "mp3",
-} as const;
-
-export type InputAudioFormatEnumKey =
-	(typeof inputAudioFormatEnum)[keyof typeof inputAudioFormatEnum];
-
-export type InputAudio = {
-	data: string;
-	format: InputAudioFormatEnumKey;
-};
-
-export type ChatCompletionAudioObject = {
-	input_audio: InputAudio;
-	type: "input_audio";
-	/**
-	 * @description Marks the exact end of a reusable prompt prefix.
-	 *
-	 * When `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.
-	 * @type object | undefined
-	 */
-	prompt_cache_breakpoint?: PromptCacheBreakpoint | undefined;
 };
 
 export type ChatCompletionDeveloperMessage = {
@@ -15804,24 +16190,6 @@ export type ChatCompletionDocumentObject = {
 	title: string;
 	context: string;
 	citations: CitationsObject | null;
-};
-
-export type ChatCompletionFileObjectFile = {
-	file_data?: string | undefined;
-	file_id?: string | undefined;
-	filename?: string | undefined;
-	format?: string | undefined;
-	detail?: string | undefined;
-	video_metadata?:
-		| {
-				[key: string]: unknown;
-		  }
-		| undefined;
-};
-
-export type ChatCompletionFileObject = {
-	type: "file";
-	file: ChatCompletionFileObjectFile;
 };
 
 export type ChatCompletionFunctionMessage = {
@@ -15851,7 +16219,13 @@ export type ChatCompletionToolMessage = {
 	role: "tool";
 	content:
 		| string
-		| (ChatCompletionTextObject | ChatCompletionImageObject | ChatCompletionToolReferenceObject)[];
+		| (
+				| ChatCompletionTextObject
+				| ChatCompletionImageObject
+				| ChatCompletionAudioObject
+				| ChatCompletionFileObject
+				| ChatCompletionToolReferenceObject
+		  )[];
 	tool_call_id: string;
 };
 
@@ -17075,9 +17449,17 @@ export const promptCacheOptionsModeEnum = {
 export type PromptCacheOptionsModeEnumKey =
 	(typeof promptCacheOptionsModeEnum)[keyof typeof promptCacheOptionsModeEnum];
 
+export const promptCacheOptionsTtlEnum = {
+	"30m": "30m",
+	"12h": "12h",
+} as const;
+
+export type PromptCacheOptionsTtlEnumKey =
+	(typeof promptCacheOptionsTtlEnum)[keyof typeof promptCacheOptionsTtlEnum];
+
 export type PromptCacheOptions = {
 	mode?: PromptCacheOptionsModeEnumKey | undefined;
-	ttl?: "30m" | undefined;
+	ttl?: PromptCacheOptionsTtlEnumKey | undefined;
 };
 
 /**
@@ -17824,6 +18206,10 @@ export type ResponseToolSearchOutputItemParamParam = {
 	status?: (ResponseToolSearchOutputItemParamParamStatusKey | null) | undefined;
 };
 
+export type ResponsesAPIModeration = {
+	model: string;
+};
+
 export type ResponsesAPIStreamOptions = {
 	include_obfuscation?: boolean | undefined;
 };
@@ -18125,6 +18511,7 @@ export type ResponsesAPIRequestParams = {
 	prompt_cache_key?: (string | null) | undefined;
 	prompt_cache_retention?: (string | null) | undefined;
 	prompt_cache_options?: (PromptCacheOptions | null) | undefined;
+	moderation?: (ResponsesAPIModeration | null) | undefined;
 	stream_options?: (ResponsesAPIStreamOptions | null) | undefined;
 	top_logprobs?: (number | null) | undefined;
 	partial_images?: (number | null) | undefined;
@@ -18253,6 +18640,14 @@ export const piiEntityType = {
 
 export type PiiEntityTypeKey = (typeof piiEntityType)[keyof typeof piiEntityType];
 
+export const guardrailResponseFormat = {
+	standard: "standard",
+	native: "native",
+} as const;
+
+export type GuardrailResponseFormatKey =
+	(typeof guardrailResponseFormat)[keyof typeof guardrailResponseFormat];
+
 export type ApplyGuardrailRequest = {
 	entities?: (PiiEntityTypeKey[] | null) | undefined;
 	guardrail_name: string;
@@ -18275,6 +18670,11 @@ export type ApplyGuardrailRequest = {
 				[key: string]: unknown;
 		  } | null)
 		| undefined;
+	/**
+	 * @default 'standard'
+	 * @type string | undefined
+	 */
+	response_format?: GuardrailResponseFormatKey | undefined;
 	text: string;
 };
 
@@ -18527,6 +18927,11 @@ export type BaseLitellmParams = {
 	 */
 	fail_on_error?: (boolean | null) | undefined;
 	/**
+	 * @description Only honored by guardrail='generic_guardrail_api'. When True, structured_messages reaches the guardrail exactly as the client sent it, so rows can carry provider-native content blocks and keys the OpenAI chat types do not declare. Default False sends OpenAI-format chat rows with undeclared keys removed.
+	 * @default false
+	 */
+	forward_messages_as_sent?: (boolean | null) | undefined;
+	/**
 	 * @description Name of the guardrail in guardrails.ai
 	 */
 	guard_name?: (string | null) | undefined;
@@ -18570,6 +18975,10 @@ export type BaseLitellmParams = {
 	 * @description Optional field if guardrail requires a 'model' parameter
 	 */
 	model?: (string | null) | undefined;
+	/**
+	 * @description How many more times to send a guardrail check whose connection timed out waiting for the answer or was dropped after the request went out. Each retry opens a fresh connection and gets the full timeout. Connect failures, HTTP error statuses and BLOCKED verdicts are not retried. Unset or 0 sends each check once, and the most allowed is 5. Implemented by guardrail='generic_guardrail_api', other guardrails ignore it.
+	 */
+	num_retries?: (number | null) | undefined;
 	/**
 	 * @description Action to take when sensitive data is detected. 'block' raises an exception (default behavior). 'route' reroutes the request to the model specified in sensitive_data_route_to_model.
 	 */
@@ -18771,6 +19180,14 @@ export type BedrockChecksConfigModel = {
 	promptAttack?: (BedrockChecksPromptAttackModel | null) | undefined;
 	sensitiveInformation?: (BedrockChecksSensitiveInformationModel | null) | undefined;
 };
+
+export const bedrockGuardrailOutputScope = {
+	INTERVENTIONS: "INTERVENTIONS",
+	FULL: "FULL",
+} as const;
+
+export type BedrockGuardrailOutputScopeKey =
+	(typeof bedrockGuardrailOutputScope)[keyof typeof bedrockGuardrailOutputScope];
 
 export const ciscoAIDefenseRuleRuleNameEnum = {
 	"Code Detection": "Code Detection",
@@ -19027,6 +19444,7 @@ export type LitellmParamsOnDisallowedActionEnumKey =
 
 export const litellmParamsOnFlagged = {
 	block: "block",
+	mask: "mask",
 	monitor: "monitor",
 	inject_system_message: "inject_system_message",
 } as const;
@@ -19414,9 +19832,18 @@ export type LitellmParams = {
 	 */
 	fail_on_error?: (boolean | null) | undefined;
 	/**
+	 * @description File-checkpoint ID for the Ovalix Tracker service (falls back to pre/post).
+	 */
+	file_checkpoint_id?: (string | null) | undefined;
+	/**
 	 * @description HTTP timeout in seconds for checking attached files. Default: 10.
 	 */
 	file_guardrail_timeout?: (number | null) | undefined;
+	/**
+	 * @description Only honored by guardrail='generic_guardrail_api'. When True, structured_messages reaches the guardrail exactly as the client sent it, so rows can carry provider-native content blocks and keys the OpenAI chat types do not declare. Default False sends OpenAI-format chat rows with undeclared keys removed.
+	 * @default false
+	 */
+	forward_messages_as_sent?: (boolean | null) | undefined;
 	/**
 	 * @description noma_v2 only: name of this gateway, used as the gateway_host label on Noma scans
 	 */
@@ -19547,13 +19974,17 @@ export type LitellmParams = {
 	 */
 	monitor_mode?: (boolean | null) | undefined;
 	/**
+	 * @description How many more times to send a guardrail check whose connection timed out waiting for the answer or was dropped after the request went out. Each retry opens a fresh connection and gets the full timeout. Connect failures, HTTP error statuses and BLOCKED verdicts are not retried. Unset or 0 sends each check once, and the most allowed is 5. Implemented by guardrail='generic_guardrail_api', other guardrails ignore it.
+	 */
+	num_retries?: (number | null) | undefined;
+	/**
 	 * @description Choose whether disallowed tools block the request or get rewritten out of the payload
 	 * @default 'block'
 	 * @type string | undefined
 	 */
 	on_disallowed_action?: LitellmParamsOnDisallowedActionEnumKey | undefined;
 	/**
-	 * @description Action to take when content is flagged: 'block' (raise exception), 'monitor' (log only), or 'inject_system_message' (append an advisory system message and let the LLM decide)
+	 * @description Action to take when content is flagged: 'block' (raise exception), 'mask' (mask PII-only detections and allow, block anything else), 'monitor' (log only), or 'inject_system_message' (append an advisory system message and let the LLM decide)
 	 * @default block
 	 */
 	on_flagged?: (LitellmParamsOnFlaggedKey | null) | undefined;
@@ -19579,6 +20010,10 @@ export type LitellmParams = {
 	 * @description Optional parameters for the guardrail
 	 */
 	optional_params?: (CiscoAIDefenseGuardrailConfigModelOptionalParams | null) | undefined;
+	/**
+	 * @description ApplyGuardrail response scope. FULL includes detected and non-detected findings. Omit to retain Bedrock's default of returning detected findings only.
+	 */
+	outputScope?: (BedrockGuardrailOutputScopeKey | null) | undefined;
 	/**
 	 * @description When True, LiteLLM will replace the masked text with the original text in the response
 	 */
@@ -21241,6 +21676,18 @@ export type PatchAgentRequest = {
 	tpm_limit?: (number | null) | undefined;
 };
 
+export type A2AJsonRpcResponse = {
+	error?:
+		| ({
+				[key: string]: unknown;
+		  } | null)
+		| undefined;
+	id: string | number | null;
+	jsonrpc: "2.0";
+	result?: (unknown | null) | undefined;
+	[key: string]: unknown;
+};
+
 export const discoveryMode = {
 	well_known_fallback: "well_known_fallback",
 	langgraph_platform: "langgraph_platform",
@@ -22783,6 +23230,93 @@ export type HashicorpVaultConfig = {
 	vault_token?: (string | null) | undefined;
 };
 
+export type ChoiceAnswer = {
+	choice: string;
+	confidence: number;
+	probabilities: {
+		[key: string]: number;
+	};
+	type: "choice";
+	[key: string]: unknown;
+};
+
+export type NoulAnswer = {
+	noul: number;
+	type: "noul";
+	[key: string]: unknown;
+};
+
+export type ScoreAnswer = {
+	confidence: number;
+	legend: {
+		[key: string]:
+			| string
+			| {
+					[key: string]: unknown;
+			  }
+			| unknown[];
+	};
+	probabilities: {
+		[key: string]: number;
+	};
+	score: number;
+	type: "score";
+	[key: string]: unknown;
+};
+
+export type EuJevMeta = {
+	/**
+	 * @description The exact charge in euros, on authenticated requests
+	 */
+	cost_eur?: (string | null) | undefined;
+	/**
+	 * @description Server-side time for token quoting, credit reservation and inference
+	 * @type integer
+	 */
+	latency_ms: number;
+	mode: "live";
+	request_id: string;
+};
+
+export type EuJevUsage = {
+	/**
+	 * @minimum 0
+	 * @type integer
+	 */
+	input_tokens: number;
+	/**
+	 * @minimum 0
+	 * @type integer
+	 */
+	output_tokens: number;
+};
+
+export type EuJevDecisionResponse = {
+	/**
+	 * @description One answer per question, under the same names
+	 * @type object
+	 */
+	answers: {
+		[key: string]:
+			| (ChoiceAnswer & {
+					type: "choice";
+			  })
+			| (NoulAnswer & {
+					type: "noul";
+			  })
+			| (ScoreAnswer & {
+					type: "score";
+			  });
+	};
+	meta: EuJevMeta;
+	/**
+	 * @description The release that answered, such as eu-jeff-1.0.0
+	 * @type string
+	 */
+	model: string;
+	usage: EuJevUsage;
+};
+
 /**
  * @description Response from POST /v1/realtime/client_secrets.
  *
@@ -23102,40 +23636,6 @@ export type BoxAnswer = {
 	[key: string]: unknown;
 };
 
-export type ChoiceAnswer = {
-	choice: string;
-	confidence: number;
-	probabilities: {
-		[key: string]: number;
-	};
-	type: "choice";
-	[key: string]: unknown;
-};
-
-export type NoulAnswer = {
-	noul: number;
-	type: "noul";
-	[key: string]: unknown;
-};
-
-export type ScoreAnswer = {
-	confidence: number;
-	legend: {
-		[key: string]:
-			| string
-			| {
-					[key: string]: unknown;
-			  }
-			| unknown[];
-	};
-	probabilities: {
-		[key: string]: number;
-	};
-	score: number;
-	type: "score";
-	[key: string]: unknown;
-};
-
 export type DecisionsUsage = {
 	/**
 	 * @default 0
@@ -23168,6 +23668,50 @@ export type DecisionsResponse = {
 	};
 	model?: (string | null) | undefined;
 	usage?: (DecisionsUsage | null) | undefined;
+	[key: string]: unknown;
+};
+
+export type ExtractionAnswer = {
+	confidence?: (number | null) | undefined;
+	guess?: JsonValue | undefined;
+	mean?: JsonValue | undefined;
+	median?: JsonValue | undefined;
+	p10?: JsonValue | undefined;
+	p90?: JsonValue | undefined;
+	p_above?: (number | null) | undefined;
+	p_below?: (number | null) | undefined;
+	p_null?: (number | null) | undefined;
+	quantiles?: (JsonValue[] | null) | undefined;
+	span?: (number[] | null) | undefined;
+	spans?: (number[][] | null) | undefined;
+	steps?: (JsonValue[] | null) | undefined;
+	type: string;
+	/**
+	 * @description The answer, null when the input does not determine it
+	 * @type unknown
+	 */
+	value: JsonValue;
+	[key: string]: unknown;
+};
+
+export type ExtractionUsage = {
+	image_tokens?: (number | null) | undefined;
+	input_tokens: number;
+	output_tokens: number;
+	passes?: (number | null) | undefined;
+	schema_tokens?: (number | null) | undefined;
+	state_tokens?: (number | null) | undefined;
+	[key: string]: unknown;
+};
+
+export type ExtractionResponse = {
+	answers: {
+		[key: string]: ExtractionAnswer;
+	};
+	model: string;
+	state_text?: (string | null) | undefined;
+	truncated: boolean;
+	usage: ExtractionUsage;
 	[key: string]: unknown;
 };
 
@@ -24030,30 +24574,6 @@ export type VantageSettingsView = {
 	status?: (string | null) | undefined;
 };
 
-export const chatMessageRoleEnum = {
-	user: "user",
-	assistant: "assistant",
-} as const;
-
-export type ChatMessageRoleEnumKey = (typeof chatMessageRoleEnum)[keyof typeof chatMessageRoleEnum];
-
-export type ChatMessage = {
-	content: string;
-	role: ChatMessageRoleEnumKey;
-};
-
-export type UsageAIChatRequest = {
-	/**
-	 * @description Chat messages (user/assistant history)
-	 * @type array
-	 */
-	messages: ChatMessage[];
-	/**
-	 * @description Model to use for AI chat
-	 */
-	model?: (string | null) | undefined;
-};
-
 export type BodyConvertPromptFileToJsonUtilsDotpromptJsonConverterPost = {
 	file: Blob;
 };
@@ -24327,9 +24847,6 @@ export type AccessGroupUpdateRequest = {
 };
 
 export type ModelListModelsGetQuery = {
-	/**
-	 * @default false
-	 */
 	return_wildcard_routes?: (boolean | null) | undefined;
 	team_id?: (string | null) | undefined;
 	/**
@@ -24377,9 +24894,6 @@ export type ModelListModelsGetResponses = {
 export type ModelListModelsGetResponse = ModelListModelsGetStatus200;
 
 export type ModelListV1ModelsGetQuery = {
-	/**
-	 * @default false
-	 */
 	return_wildcard_routes?: (boolean | null) | undefined;
 	team_id?: (string | null) | undefined;
 	/**
@@ -26338,6 +26852,10 @@ export type TokenCounterUtilsTokenCounterPostQuery = {
 	call_endpoint?: boolean | undefined;
 };
 
+export type TokenCounterUtilsTokenCounterPostHeaders = {
+	"x-litellm-call-id"?: (string | null) | undefined;
+};
+
 export type TokenCounterUtilsTokenCounterPostStatus200 = TokenCountResponse;
 
 export type TokenCounterUtilsTokenCounterPostStatus422 = HTTPValidationError;
@@ -26348,7 +26866,7 @@ export type TokenCounterUtilsTokenCounterPostOptions = {
 	body: TokenCounterUtilsTokenCounterPostBody;
 	path?: never | undefined;
 	query?: TokenCounterUtilsTokenCounterPostQuery | undefined;
-	headers?: never | undefined;
+	headers?: TokenCounterUtilsTokenCounterPostHeaders | undefined;
 };
 
 export type TokenCounterUtilsTokenCounterPostResponses = {
@@ -26482,6 +27000,12 @@ export type ModelInfoV2V2ModelInfoGetQuery = {
 	 * @description Search for a specific model by its unique ID
 	 */
 	modelId?: (string | null) | undefined;
+	/**
+	 * @description With modelId, omit runtime-only litellm_params defaults from a DB-stored model's editor view.
+	 * @default false
+	 * @type boolean | undefined
+	 */
+	use_stored_params?: boolean | undefined;
 	/**
 	 * @description Filter models by team ID. Returns models with direct_access=True or teamId in access_via_team_ids
 	 */
@@ -26867,6 +27391,7 @@ export type ResponsesApiOpenaiV1ResponsesPostBody = {
 	prompt_cache_key?: (string | null) | undefined;
 	prompt_cache_retention?: (string | null) | undefined;
 	prompt_cache_options?: (PromptCacheOptions | null) | undefined;
+	moderation?: (ResponsesAPIModeration | null) | undefined;
 	stream_options?: (ResponsesAPIStreamOptions | null) | undefined;
 	top_logprobs?: (number | null) | undefined;
 	partial_images?: (number | null) | undefined;
@@ -27027,6 +27552,7 @@ export type ResponsesApiResponsesPostBody = {
 	prompt_cache_key?: (string | null) | undefined;
 	prompt_cache_retention?: (string | null) | undefined;
 	prompt_cache_options?: (PromptCacheOptions | null) | undefined;
+	moderation?: (ResponsesAPIModeration | null) | undefined;
 	stream_options?: (ResponsesAPIStreamOptions | null) | undefined;
 	top_logprobs?: (number | null) | undefined;
 	partial_images?: (number | null) | undefined;
@@ -27187,6 +27713,7 @@ export type ResponsesApiV1ResponsesPostBody = {
 	prompt_cache_key?: (string | null) | undefined;
 	prompt_cache_retention?: (string | null) | undefined;
 	prompt_cache_options?: (PromptCacheOptions | null) | undefined;
+	moderation?: (ResponsesAPIModeration | null) | undefined;
 	stream_options?: (ResponsesAPIStreamOptions | null) | undefined;
 	top_logprobs?: (number | null) | undefined;
 	partial_images?: (number | null) | undefined;
@@ -27312,6 +27839,30 @@ export type GetResponseOpenaiV1ResponsesResponseIdGetPath = {
 	response_id: string;
 };
 
+export type GetResponseOpenaiV1ResponsesResponseIdGetQuery = {
+	/**
+	 * @description Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)
+	 * @type boolean | undefined
+	 */
+	stream?: boolean | undefined;
+	/**
+	 * @description With stream=true, replay only the events after this sequence number
+	 * @minimum 0
+	 * @type integer | undefined
+	 */
+	starting_after?: number | undefined;
+	/**
+	 * @description Additional output data to include, forwarded to the provider
+	 * @type array | undefined
+	 */
+	include?: string[] | undefined;
+	/**
+	 * @description With stream=true, whether delta events carry obfuscation padding
+	 * @type boolean | undefined
+	 */
+	include_obfuscation?: boolean | undefined;
+};
+
 export type GetResponseOpenaiV1ResponsesResponseIdGetStatus200 = ResponsesAPIResponse;
 
 export type GetResponseOpenaiV1ResponsesResponseIdGetStatus422 = HTTPValidationError;
@@ -27319,7 +27870,7 @@ export type GetResponseOpenaiV1ResponsesResponseIdGetStatus422 = HTTPValidationE
 export type GetResponseOpenaiV1ResponsesResponseIdGetOptions = {
 	body?: never | undefined;
 	path: GetResponseOpenaiV1ResponsesResponseIdGetPath;
-	query?: never | undefined;
+	query?: GetResponseOpenaiV1ResponsesResponseIdGetQuery | undefined;
 	headers?: never | undefined;
 };
 
@@ -27374,6 +27925,30 @@ export type GetResponseResponsesResponseIdGetPath = {
 	response_id: string;
 };
 
+export type GetResponseResponsesResponseIdGetQuery = {
+	/**
+	 * @description Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)
+	 * @type boolean | undefined
+	 */
+	stream?: boolean | undefined;
+	/**
+	 * @description With stream=true, replay only the events after this sequence number
+	 * @minimum 0
+	 * @type integer | undefined
+	 */
+	starting_after?: number | undefined;
+	/**
+	 * @description Additional output data to include, forwarded to the provider
+	 * @type array | undefined
+	 */
+	include?: string[] | undefined;
+	/**
+	 * @description With stream=true, whether delta events carry obfuscation padding
+	 * @type boolean | undefined
+	 */
+	include_obfuscation?: boolean | undefined;
+};
+
 export type GetResponseResponsesResponseIdGetStatus200 = ResponsesAPIResponse;
 
 export type GetResponseResponsesResponseIdGetStatus422 = HTTPValidationError;
@@ -27381,7 +27956,7 @@ export type GetResponseResponsesResponseIdGetStatus422 = HTTPValidationError;
 export type GetResponseResponsesResponseIdGetOptions = {
 	body?: never | undefined;
 	path: GetResponseResponsesResponseIdGetPath;
-	query?: never | undefined;
+	query?: GetResponseResponsesResponseIdGetQuery | undefined;
 	headers?: never | undefined;
 };
 
@@ -27435,6 +28010,30 @@ export type GetResponseV1ResponsesResponseIdGetPath = {
 	response_id: string;
 };
 
+export type GetResponseV1ResponsesResponseIdGetQuery = {
+	/**
+	 * @description Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)
+	 * @type boolean | undefined
+	 */
+	stream?: boolean | undefined;
+	/**
+	 * @description With stream=true, replay only the events after this sequence number
+	 * @minimum 0
+	 * @type integer | undefined
+	 */
+	starting_after?: number | undefined;
+	/**
+	 * @description Additional output data to include, forwarded to the provider
+	 * @type array | undefined
+	 */
+	include?: string[] | undefined;
+	/**
+	 * @description With stream=true, whether delta events carry obfuscation padding
+	 * @type boolean | undefined
+	 */
+	include_obfuscation?: boolean | undefined;
+};
+
 export type GetResponseV1ResponsesResponseIdGetStatus200 = ResponsesAPIResponse;
 
 export type GetResponseV1ResponsesResponseIdGetStatus422 = HTTPValidationError;
@@ -27442,7 +28041,7 @@ export type GetResponseV1ResponsesResponseIdGetStatus422 = HTTPValidationError;
 export type GetResponseV1ResponsesResponseIdGetOptions = {
 	body?: never | undefined;
 	path: GetResponseV1ResponsesResponseIdGetPath;
-	query?: never | undefined;
+	query?: GetResponseV1ResponsesResponseIdGetQuery | undefined;
 	headers?: never | undefined;
 };
 
@@ -30775,6 +31374,8 @@ export type ListFilesFilesGetQuery = {
 	purpose?: (string | null) | undefined;
 	limit?: (number | null) | undefined;
 	after?: (string | null) | undefined;
+	after_id?: (string | null) | undefined;
+	before_id?: (string | null) | undefined;
 };
 
 export type ListFilesFilesGetStatus200 = {
@@ -30835,6 +31436,8 @@ export type ListFilesV1FilesGetQuery = {
 	purpose?: (string | null) | undefined;
 	limit?: (number | null) | undefined;
 	after?: (string | null) | undefined;
+	after_id?: (string | null) | undefined;
+	before_id?: (string | null) | undefined;
 };
 
 export type ListFilesV1FilesGetStatus200 = {
@@ -30898,6 +31501,8 @@ export type ListFilesProviderV1FilesGetQuery = {
 	purpose?: (string | null) | undefined;
 	limit?: (number | null) | undefined;
 	after?: (string | null) | undefined;
+	after_id?: (string | null) | undefined;
+	before_id?: (string | null) | undefined;
 };
 
 export type ListFilesProviderV1FilesGetStatus200 = {
@@ -32571,6 +33176,20 @@ export type UserInfoUserInfoGetQuery = {
 	 * @description User ID in the request parameters
 	 */
 	user_id?: (string | null) | undefined;
+	/**
+	 * @description Include the caller's current admin MCP route permissions
+	 * @default false
+	 * @type boolean | undefined
+	 */
+	admin_mcp?: boolean | undefined;
+	/**
+	 * @description Admin MCP tool to authorize for this caller
+	 */
+	mcp_tool?: (string | null) | undefined;
+	/**
+	 * @description URL-encoded concrete management path used by the MCP tool, before query-string encoding
+	 */
+	mcp_path?: (string | null) | undefined;
 };
 
 export type UserInfoUserInfoGetStatus200 = UserInfoResponse;
@@ -32819,7 +33438,7 @@ export type GetUserDailyActivityUserDailyActivityGetQuery = {
 	 */
 	model?: (string | null) | undefined;
 	/**
-	 * @description Filter by specific API key
+	 * @description Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
 	 */
 	api_key?: (string | null) | undefined;
 	/**
@@ -32896,7 +33515,7 @@ export type GetUserDailyActivityAggregatedUserDailyActivityAggregatedGetQuery = 
 	 */
 	model?: (string | null) | undefined;
 	/**
-	 * @description Filter by specific API key
+	 * @description Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
 	 */
 	api_key?: (string | null) | undefined;
 	/**
@@ -32966,7 +33585,7 @@ export type GetUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGet
 	 */
 	model?: (string | null) | undefined;
 	/**
-	 * @description Filter by specific API key
+	 * @description Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
 	 */
 	api_key?: (string | null) | undefined;
 	/**
@@ -33035,7 +33654,7 @@ export type GetUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearc
 	 */
 	model?: (string | null) | undefined;
 	/**
-	 * @description Filter by specific API key
+	 * @description Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
 	 */
 	api_key?: (string | null) | undefined;
 	/**
@@ -33109,7 +33728,7 @@ export type GetUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopK
 	 */
 	model?: (string | null) | undefined;
 	/**
-	 * @description Filter by specific API key
+	 * @description Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
 	 */
 	api_key?: (string | null) | undefined;
 	/**
@@ -33184,7 +33803,7 @@ export type GetUserDailyActivityExportUserDailyActivityExportGetQuery = {
 	 */
 	model?: (string | null) | undefined;
 	/**
-	 * @description Filter by specific API key
+	 * @description Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
 	 */
 	api_key?: (string | null) | undefined;
 	/**
@@ -33252,7 +33871,7 @@ export type GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersG
 	 */
 	model?: (string | null) | undefined;
 	/**
-	 * @description Filter by specific API key
+	 * @description Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
 	 */
 	api_key?: (string | null) | undefined;
 	/**
@@ -33317,7 +33936,7 @@ export type GetUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCache
 		 */
 		model?: (string | null) | undefined;
 		/**
-		 * @description Filter by specific API key
+		 * @description Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
 		 */
 		api_key?: (string | null) | undefined;
 		/**
@@ -35979,17 +36598,42 @@ export type DeleteEndUserCustomerDeletePostResponses = {
  */
 export type DeleteEndUserCustomerDeletePostResponse = DeleteEndUserCustomerDeletePostStatus200;
 
+export type ListEndUserCustomerListGetQuery = {
+	/**
+	 * @description Page number
+	 * @minimum 1
+	 * @default 1
+	 * @type integer | undefined
+	 */
+	page?: number | undefined;
+	/**
+	 * @description Number of customers per page
+	 * @minimum 1
+	 * @maximum 100
+	 * @default 50
+	 * @type integer | undefined
+	 */
+	page_size?: number | undefined;
+	/**
+	 * @description Case-insensitive search by customer ID or alias
+	 */
+	search?: (string | null) | undefined;
+};
+
 export type ListEndUserCustomerListGetStatus200 = CustomerResponse[];
+
+export type ListEndUserCustomerListGetStatus422 = HTTPValidationError;
 
 export type ListEndUserCustomerListGetOptions = {
 	body?: never | undefined;
 	path?: never | undefined;
-	query?: never | undefined;
+	query?: ListEndUserCustomerListGetQuery | undefined;
 	headers?: never | undefined;
 };
 
 export type ListEndUserCustomerListGetResponses = {
 	"200": ListEndUserCustomerListGetStatus200;
+	"422": ListEndUserCustomerListGetStatus422;
 };
 
 /**
@@ -37560,6 +38204,53 @@ export type UpdateMcpToolSearchSettingsUpdateMcpToolSearchSettingsPatchResponses
 export type UpdateMcpToolSearchSettingsUpdateMcpToolSearchSettingsPatchResponse =
 	UpdateMcpToolSearchSettingsUpdateMcpToolSearchSettingsPatchStatus200;
 
+export type GetBackgroundChatSettingsGetBackgroundChatSettingsGetStatus200 =
+	BackgroundChatSettingsResponse;
+
+export type GetBackgroundChatSettingsGetBackgroundChatSettingsGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetBackgroundChatSettingsGetBackgroundChatSettingsGetResponses = {
+	"200": GetBackgroundChatSettingsGetBackgroundChatSettingsGetStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetBackgroundChatSettingsGetBackgroundChatSettingsGetResponse =
+	GetBackgroundChatSettingsGetBackgroundChatSettingsGetStatus200;
+
+export type UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchStatus200 =
+	BackgroundChatSettingsResponse;
+
+export type UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchStatus422 =
+	HTTPValidationError;
+
+export type UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchBody =
+	BackgroundChatSettings;
+
+export type UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchOptions = {
+	body: UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchResponses = {
+	"200": UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchStatus200;
+	"422": UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchResponse =
+	UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchStatus200;
+
 /**
  * @description Response model for UI settings
  * @type object
@@ -38026,6 +38717,32 @@ export type DeleteBudgetBudgetDeletePostResponses = {
  */
 export type DeleteBudgetBudgetDeletePostResponse = DeleteBudgetBudgetDeletePostStatus200;
 
+export type GetKubernetesPodsModelModelIdKubernetesPodsGetPath = {
+	model_id: string;
+};
+
+export type GetKubernetesPodsModelModelIdKubernetesPodsGetStatus200 = KubernetesPodsResponse;
+
+export type GetKubernetesPodsModelModelIdKubernetesPodsGetStatus422 = HTTPValidationError;
+
+export type GetKubernetesPodsModelModelIdKubernetesPodsGetOptions = {
+	body?: never | undefined;
+	path: GetKubernetesPodsModelModelIdKubernetesPodsGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetKubernetesPodsModelModelIdKubernetesPodsGetResponses = {
+	"200": GetKubernetesPodsModelModelIdKubernetesPodsGetStatus200;
+	"422": GetKubernetesPodsModelModelIdKubernetesPodsGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetKubernetesPodsModelModelIdKubernetesPodsGetResponse =
+	GetKubernetesPodsModelModelIdKubernetesPodsGetStatus200;
+
 export type PatchModelModelModelIdUpdatePatchPath = {
 	model_id: string;
 };
@@ -38036,7 +38753,7 @@ export type PatchModelModelModelIdUpdatePatchStatus200 = {
 
 export type PatchModelModelModelIdUpdatePatchStatus422 = HTTPValidationError;
 
-export type PatchModelModelModelIdUpdatePatchBody = UpdateDeployment;
+export type PatchModelModelModelIdUpdatePatchBody = PatchModelRequest;
 
 export type PatchModelModelModelIdUpdatePatchOptions = {
 	body: PatchModelModelModelIdUpdatePatchBody;
@@ -40011,6 +40728,118 @@ export type EstimateCostCostEstimatePostResponses = {
  * @description Union of all possible responses
  */
 export type EstimateCostCostEstimatePostResponse = EstimateCostCostEstimatePostStatus200;
+
+export type GetSubscriptionUsageSubscriptionAccountsUsageGetQuery = {
+	/**
+	 * @description First day of the Usage page filter, YYYY-MM-DD
+	 * @type string
+	 */
+	start_date: string;
+	/**
+	 * @description Last day of the Usage page filter, YYYY-MM-DD
+	 * @type string
+	 */
+	end_date: string;
+};
+
+export type GetSubscriptionUsageSubscriptionAccountsUsageGetStatus200 = SubscriptionUsageResponse;
+
+export type GetSubscriptionUsageSubscriptionAccountsUsageGetStatus422 = HTTPValidationError;
+
+export type GetSubscriptionUsageSubscriptionAccountsUsageGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query: GetSubscriptionUsageSubscriptionAccountsUsageGetQuery;
+	headers?: never | undefined;
+};
+
+export type GetSubscriptionUsageSubscriptionAccountsUsageGetResponses = {
+	"200": GetSubscriptionUsageSubscriptionAccountsUsageGetStatus200;
+	"422": GetSubscriptionUsageSubscriptionAccountsUsageGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetSubscriptionUsageSubscriptionAccountsUsageGetResponse =
+	GetSubscriptionUsageSubscriptionAccountsUsageGetStatus200;
+
+export type NewSubscriptionAccountSubscriptionAccountsNewPostStatus200 =
+	LiteLLMSubscriptionAccountTable;
+
+export type NewSubscriptionAccountSubscriptionAccountsNewPostStatus422 = HTTPValidationError;
+
+export type NewSubscriptionAccountSubscriptionAccountsNewPostBody = SubscriptionAccountFeeRequest;
+
+export type NewSubscriptionAccountSubscriptionAccountsNewPostOptions = {
+	body: NewSubscriptionAccountSubscriptionAccountsNewPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type NewSubscriptionAccountSubscriptionAccountsNewPostResponses = {
+	"200": NewSubscriptionAccountSubscriptionAccountsNewPostStatus200;
+	"422": NewSubscriptionAccountSubscriptionAccountsNewPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type NewSubscriptionAccountSubscriptionAccountsNewPostResponse =
+	NewSubscriptionAccountSubscriptionAccountsNewPostStatus200;
+
+export type UpdateSubscriptionAccountSubscriptionAccountsUpdatePostStatus200 =
+	LiteLLMSubscriptionAccountTable;
+
+export type UpdateSubscriptionAccountSubscriptionAccountsUpdatePostStatus422 = HTTPValidationError;
+
+export type UpdateSubscriptionAccountSubscriptionAccountsUpdatePostBody =
+	UpdateSubscriptionAccountFeeRequest;
+
+export type UpdateSubscriptionAccountSubscriptionAccountsUpdatePostOptions = {
+	body: UpdateSubscriptionAccountSubscriptionAccountsUpdatePostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdateSubscriptionAccountSubscriptionAccountsUpdatePostResponses = {
+	"200": UpdateSubscriptionAccountSubscriptionAccountsUpdatePostStatus200;
+	"422": UpdateSubscriptionAccountSubscriptionAccountsUpdatePostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateSubscriptionAccountSubscriptionAccountsUpdatePostResponse =
+	UpdateSubscriptionAccountSubscriptionAccountsUpdatePostStatus200;
+
+export type DeleteSubscriptionAccountSubscriptionAccountsDeletePostStatus200 =
+	LiteLLMSubscriptionAccountTable;
+
+export type DeleteSubscriptionAccountSubscriptionAccountsDeletePostStatus422 = HTTPValidationError;
+
+export type DeleteSubscriptionAccountSubscriptionAccountsDeletePostBody =
+	DeleteSubscriptionAccountRequest;
+
+export type DeleteSubscriptionAccountSubscriptionAccountsDeletePostOptions = {
+	body: DeleteSubscriptionAccountSubscriptionAccountsDeletePostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteSubscriptionAccountSubscriptionAccountsDeletePostResponses = {
+	"200": DeleteSubscriptionAccountSubscriptionAccountsDeletePostStatus200;
+	"422": DeleteSubscriptionAccountSubscriptionAccountsDeletePostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteSubscriptionAccountSubscriptionAccountsDeletePostResponse =
+	DeleteSubscriptionAccountSubscriptionAccountsDeletePostStatus200;
 
 export const getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetFilter = {
 	all: "all",
@@ -42468,7 +43297,12 @@ export type WebsocketLiveSessionsWebsocketEndpointGet3Responses = {
 export type WebsocketLiveSessionsWebsocketEndpointGet3Response =
 	WebsocketLiveSessionsWebsocketEndpointGet3Status101;
 
-export type ApplyGuardrailApplyGuardrailPostStatus200 = ApplyGuardrailResponse;
+export type ApplyGuardrailApplyGuardrailPostStatus200 =
+	| ApplyGuardrailResponse
+	| {
+			[key: string]: JsonValue;
+	  }
+	| JsonValue[];
 
 export type ApplyGuardrailApplyGuardrailPostStatus422 = HTTPValidationError;
 
@@ -42516,7 +43350,12 @@ export type CreateGuardrailGuardrailsPostResponses = {
  */
 export type CreateGuardrailGuardrailsPostResponse = CreateGuardrailGuardrailsPostStatus200;
 
-export type ApplyGuardrailGuardrailsApplyGuardrailPostStatus200 = ApplyGuardrailResponse;
+export type ApplyGuardrailGuardrailsApplyGuardrailPostStatus200 =
+	| ApplyGuardrailResponse
+	| {
+			[key: string]: JsonValue;
+	  }
+	| JsonValue[];
 
 export type ApplyGuardrailGuardrailsApplyGuardrailPostStatus422 = HTTPValidationError;
 
@@ -44564,6 +45403,42 @@ export type InvokeAgentA2AA2AAgentIdMessageSendPostResponses = {
 export type InvokeAgentA2AA2AAgentIdMessageSendPostResponse =
 	InvokeAgentA2AA2AAgentIdMessageSendPostStatus200;
 
+export type InvokeAgentA2AA2AAgentIdMessageStreamPostPath = {
+	agent_id: string;
+};
+
+export type InvokeAgentA2AA2AAgentIdMessageStreamPostStatus200 = A2AJsonRpcResponse;
+
+export type InvokeAgentA2AA2AAgentIdMessageStreamPostStatus422 = HTTPValidationError;
+
+export type InvokeAgentA2AA2AAgentIdMessageStreamPostBody = {
+	id?: (string | number | null) | undefined;
+	jsonrpc: "2.0";
+	method: string;
+	params: {
+		[key: string]: unknown;
+	};
+	[key: string]: unknown;
+};
+
+export type InvokeAgentA2AA2AAgentIdMessageStreamPostOptions = {
+	body: InvokeAgentA2AA2AAgentIdMessageStreamPostBody;
+	path: InvokeAgentA2AA2AAgentIdMessageStreamPostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type InvokeAgentA2AA2AAgentIdMessageStreamPostResponses = {
+	"200": InvokeAgentA2AA2AAgentIdMessageStreamPostStatus200;
+	"422": InvokeAgentA2AA2AAgentIdMessageStreamPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type InvokeAgentA2AA2AAgentIdMessageStreamPostResponse =
+	InvokeAgentA2AA2AAgentIdMessageStreamPostStatus200;
+
 export type InvokeAgentA2AV1A2AAgentIdMessageSendPostPath = {
 	agent_id: string;
 };
@@ -44591,6 +45466,42 @@ export type InvokeAgentA2AV1A2AAgentIdMessageSendPostResponses = {
  */
 export type InvokeAgentA2AV1A2AAgentIdMessageSendPostResponse =
 	InvokeAgentA2AV1A2AAgentIdMessageSendPostStatus200;
+
+export type InvokeAgentA2AV1A2AAgentIdMessageStreamPostPath = {
+	agent_id: string;
+};
+
+export type InvokeAgentA2AV1A2AAgentIdMessageStreamPostStatus200 = A2AJsonRpcResponse;
+
+export type InvokeAgentA2AV1A2AAgentIdMessageStreamPostStatus422 = HTTPValidationError;
+
+export type InvokeAgentA2AV1A2AAgentIdMessageStreamPostBody = {
+	id?: (string | number | null) | undefined;
+	jsonrpc: "2.0";
+	method: string;
+	params: {
+		[key: string]: unknown;
+	};
+	[key: string]: unknown;
+};
+
+export type InvokeAgentA2AV1A2AAgentIdMessageStreamPostOptions = {
+	body: InvokeAgentA2AV1A2AAgentIdMessageStreamPostBody;
+	path: InvokeAgentA2AV1A2AAgentIdMessageStreamPostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type InvokeAgentA2AV1A2AAgentIdMessageStreamPostResponses = {
+	"200": InvokeAgentA2AV1A2AAgentIdMessageStreamPostStatus200;
+	"422": InvokeAgentA2AV1A2AAgentIdMessageStreamPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type InvokeAgentA2AV1A2AAgentIdMessageStreamPostResponse =
+	InvokeAgentA2AV1A2AAgentIdMessageStreamPostStatus200;
 
 export type DiscoverAgentCardV1A2ADiscoverPostStatus200 = DiscoverAgentResponse;
 
@@ -48283,6 +49194,130 @@ export type ComprehendMedicalProxyRouteComprehendmedicalOperationPostResponses =
 export type ComprehendMedicalProxyRouteComprehendmedicalOperationPostResponse =
 	ComprehendMedicalProxyRouteComprehendmedicalOperationPostStatus200;
 
+export type EuJevProxyRouteEuJevV1SystemonePostStatus200 = EuJevDecisionResponse;
+
+export type EuJevProxyRouteEuJevV1SystemonePostBody = {
+	/**
+	 * @description eu-jeff-latest follows the current release, eu-jeff-1.0.0 pins it
+	 * @default 'eu-jeff-latest'
+	 * @type string | undefined
+	 */
+	model?: string | undefined;
+	/**
+	 * @description One to eight questions, keyed by names of up to 80 characters
+	 * @type object
+	 */
+	questions: {
+		[key: string]:
+			| {
+					/**
+					 * @description Two to 64 options, option name to description. A null description uses the option name
+					 * @type object
+					 */
+					criteria: {
+						[key: string]:
+							| string
+							| {
+									[key: string]: unknown;
+							  }
+							| unknown[]
+							| null;
+					};
+					/**
+					 * @description Free text, or a JSON object, array or null that eu/jev serializes to text before inference
+					 */
+					instructions:
+						| string
+						| {
+								[key: string]: unknown;
+						  }
+						| unknown[]
+						| null;
+					type: "choice";
+			  }
+			| {
+					/**
+					 * @description Optional descriptions of what true and false mean
+					 */
+					criteria?:
+						| (Partial<
+								Record<
+									"true" | "false",
+									| string
+									| {
+											[key: string]: unknown;
+									  }
+									| unknown[]
+									| null
+								>
+						  > | null)
+						| undefined;
+					/**
+					 * @description Free text, or a JSON object, array or null that eu/jev serializes to text before inference
+					 */
+					instructions:
+						| string
+						| {
+								[key: string]: unknown;
+						  }
+						| unknown[]
+						| null;
+					type: "noul";
+			  }
+			| {
+					/**
+					 * @description Two to 10 level descriptions, ordered from low to high
+					 * @type array
+					 */
+					criteria: (
+						| string
+						| {
+								[key: string]: unknown;
+						  }
+						| unknown[]
+						| null
+					)[];
+					/**
+					 * @description Free text, or a JSON object, array or null that eu/jev serializes to text before inference
+					 */
+					instructions:
+						| string
+						| {
+								[key: string]: unknown;
+						  }
+						| unknown[]
+						| null;
+					type: "score";
+			  };
+	};
+	/**
+	 * @description The content to evaluate, a string of up to 100,000 characters or a JSON object or array
+	 */
+	state:
+		| string
+		| {
+				[key: string]: unknown;
+		  }
+		| unknown[];
+};
+
+export type EuJevProxyRouteEuJevV1SystemonePostOptions = {
+	body: EuJevProxyRouteEuJevV1SystemonePostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type EuJevProxyRouteEuJevV1SystemonePostResponses = {
+	"200": EuJevProxyRouteEuJevV1SystemonePostStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type EuJevProxyRouteEuJevV1SystemonePostResponse =
+	EuJevProxyRouteEuJevV1SystemonePostStatus200;
+
 export type LayaProxyRouteLayaV1SystemonePostStatus200 = {
 	[key: string]: unknown;
 };
@@ -49383,6 +50418,152 @@ export type DecisionsDecisionsPostResponses = {
  */
 export type DecisionsDecisionsPostResponse = DecisionsDecisionsPostStatus200;
 
+export type ExtractionExtractionPostStatus200 = ExtractionResponse;
+
+export const typeEnum4 = {
+	text: "text",
+	number: "number",
+	date: "date",
+	time: "time",
+	datetime: "datetime",
+	duration: "duration",
+	list: "list",
+	estimate: "estimate",
+	forecast: "forecast",
+} as const;
+
+export type TypeEnum4Key = (typeof typeEnum4)[keyof typeof typeEnum4];
+
+export type ExtractionExtractionPostBody = {
+	/**
+	 * @description Field name to typed field spec. Each name becomes a key in the answers
+	 * @type object
+	 */
+	fields: {
+		[key: string]: {
+			/**
+			 * @description Numbers, durations and number lists only, 0 to 6
+			 */
+			decimals?: (number | number | null) | undefined;
+			/**
+			 * @description Forecast only, number of steps
+			 */
+			horizon?: (number | number | null) | undefined;
+			/**
+			 * @description What the field should contain
+			 */
+			instructions?: (string | null) | undefined;
+			/**
+			 * @description Numbers and durations only
+			 */
+			integer?: (boolean | null) | undefined;
+			interval?:
+				| (("step" | "minute" | "hour" | "day" | "week" | "month" | "quarter" | "year") | null)
+				| undefined;
+			/**
+			 * @description Item type, required for list fields
+			 */
+			items?: (("text" | "number" | "date") | null) | undefined;
+			/**
+			 * @description Estimate and forecast upper bound
+			 */
+			max?: (number | number | string | null) | undefined;
+			/**
+			 * @description Estimate and forecast lower bound
+			 */
+			min?: (number | number | string | null) | undefined;
+			/**
+			 * @description Probability of null above which the value is null
+			 */
+			null_threshold?: (number | number | null) | undefined;
+			scale?: (("linear" | "log") | null) | undefined;
+			/**
+			 * @description Estimate grid step, or month or year
+			 */
+			step?: (number | number | string | null) | undefined;
+			/**
+			 * @description The answer type for this field
+			 * @type string
+			 */
+			type: TypeEnum4Key;
+			/**
+			 * @description Unit label. For durations, seconds through years
+			 */
+			unit?: (string | null) | undefined;
+			[key: string]: unknown;
+		};
+	};
+	/**
+	 * @description Up to 4 images as data URLs or content_type plus base64, no remote URLs
+	 */
+	images?:
+		| (
+				| (
+						| string
+						| {
+								/**
+								 * @description Base64-encoded image bytes
+								 * @type string
+								 */
+								base64: string;
+								/**
+								 * @description The image media type, such as image/png
+								 * @type string
+								 */
+								content_type: string;
+								[key: string]: unknown;
+						  }
+				  )[]
+				| null
+		  )
+		| undefined;
+	/**
+	 * @description An extraction model from the proxy model_list
+	 * @type string
+	 */
+	model: string;
+	options?:
+		| ({
+				/**
+				 * @description Add 99 percentiles to estimates
+				 */
+				include_quantiles?: (boolean | null) | undefined;
+				/**
+				 * @description Return the text that spans index into
+				 */
+				return_state_text?: (boolean | null) | undefined;
+				[key: string]: unknown;
+		  } | null)
+		| undefined;
+	/**
+	 * @description ISO date that anchors dates written without a year
+	 */
+	reference_date?: (string | null) | undefined;
+	/**
+	 * @description The text to read. Must be non-empty unless images are sent. Text answers are spans of it
+	 * @default ''
+	 * @type string | undefined
+	 */
+	state?: string | undefined;
+	[key: string]: unknown;
+};
+
+export type ExtractionExtractionPostOptions = {
+	body: ExtractionExtractionPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ExtractionExtractionPostResponses = {
+	"200": ExtractionExtractionPostStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ExtractionExtractionPostResponse = ExtractionExtractionPostStatus200;
+
 export type SystemoneSystemonePostStatus200 = DecisionsResponse;
 
 export const formatEnum = {
@@ -49810,6 +50991,152 @@ export type DecisionsV1DecisionsPostResponses = {
  * @description Union of all possible responses
  */
 export type DecisionsV1DecisionsPostResponse = DecisionsV1DecisionsPostStatus200;
+
+export type ExtractionV1ExtractionPostStatus200 = ExtractionResponse;
+
+export const typeEnum9 = {
+	text: "text",
+	number: "number",
+	date: "date",
+	time: "time",
+	datetime: "datetime",
+	duration: "duration",
+	list: "list",
+	estimate: "estimate",
+	forecast: "forecast",
+} as const;
+
+export type TypeEnum9Key = (typeof typeEnum9)[keyof typeof typeEnum9];
+
+export type ExtractionV1ExtractionPostBody = {
+	/**
+	 * @description Field name to typed field spec. Each name becomes a key in the answers
+	 * @type object
+	 */
+	fields: {
+		[key: string]: {
+			/**
+			 * @description Numbers, durations and number lists only, 0 to 6
+			 */
+			decimals?: (number | number | null) | undefined;
+			/**
+			 * @description Forecast only, number of steps
+			 */
+			horizon?: (number | number | null) | undefined;
+			/**
+			 * @description What the field should contain
+			 */
+			instructions?: (string | null) | undefined;
+			/**
+			 * @description Numbers and durations only
+			 */
+			integer?: (boolean | null) | undefined;
+			interval?:
+				| (("step" | "minute" | "hour" | "day" | "week" | "month" | "quarter" | "year") | null)
+				| undefined;
+			/**
+			 * @description Item type, required for list fields
+			 */
+			items?: (("text" | "number" | "date") | null) | undefined;
+			/**
+			 * @description Estimate and forecast upper bound
+			 */
+			max?: (number | number | string | null) | undefined;
+			/**
+			 * @description Estimate and forecast lower bound
+			 */
+			min?: (number | number | string | null) | undefined;
+			/**
+			 * @description Probability of null above which the value is null
+			 */
+			null_threshold?: (number | number | null) | undefined;
+			scale?: (("linear" | "log") | null) | undefined;
+			/**
+			 * @description Estimate grid step, or month or year
+			 */
+			step?: (number | number | string | null) | undefined;
+			/**
+			 * @description The answer type for this field
+			 * @type string
+			 */
+			type: TypeEnum9Key;
+			/**
+			 * @description Unit label. For durations, seconds through years
+			 */
+			unit?: (string | null) | undefined;
+			[key: string]: unknown;
+		};
+	};
+	/**
+	 * @description Up to 4 images as data URLs or content_type plus base64, no remote URLs
+	 */
+	images?:
+		| (
+				| (
+						| string
+						| {
+								/**
+								 * @description Base64-encoded image bytes
+								 * @type string
+								 */
+								base64: string;
+								/**
+								 * @description The image media type, such as image/png
+								 * @type string
+								 */
+								content_type: string;
+								[key: string]: unknown;
+						  }
+				  )[]
+				| null
+		  )
+		| undefined;
+	/**
+	 * @description An extraction model from the proxy model_list
+	 * @type string
+	 */
+	model: string;
+	options?:
+		| ({
+				/**
+				 * @description Add 99 percentiles to estimates
+				 */
+				include_quantiles?: (boolean | null) | undefined;
+				/**
+				 * @description Return the text that spans index into
+				 */
+				return_state_text?: (boolean | null) | undefined;
+				[key: string]: unknown;
+		  } | null)
+		| undefined;
+	/**
+	 * @description ISO date that anchors dates written without a year
+	 */
+	reference_date?: (string | null) | undefined;
+	/**
+	 * @description The text to read. Must be non-empty unless images are sent. Text answers are spans of it
+	 * @default ''
+	 * @type string | undefined
+	 */
+	state?: string | undefined;
+	[key: string]: unknown;
+};
+
+export type ExtractionV1ExtractionPostOptions = {
+	body: ExtractionV1ExtractionPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ExtractionV1ExtractionPostResponses = {
+	"200": ExtractionV1ExtractionPostStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ExtractionV1ExtractionPostResponse = ExtractionV1ExtractionPostStatus200;
 
 export type SystemoneV1SystemonePostStatus200 = DecisionsResponse;
 
@@ -51255,31 +52582,6 @@ export type UpdateVantageSettingsVantageSettingsPutResponses = {
  */
 export type UpdateVantageSettingsVantageSettingsPutResponse =
 	UpdateVantageSettingsVantageSettingsPutStatus200;
-
-export type UsageAiChatUsageAiChatPostStatus200 = {
-	[key: string]: unknown;
-};
-
-export type UsageAiChatUsageAiChatPostStatus422 = HTTPValidationError;
-
-export type UsageAiChatUsageAiChatPostBody = UsageAIChatRequest;
-
-export type UsageAiChatUsageAiChatPostOptions = {
-	body: UsageAiChatUsageAiChatPostBody;
-	path?: never | undefined;
-	query?: never | undefined;
-	headers?: never | undefined;
-};
-
-export type UsageAiChatUsageAiChatPostResponses = {
-	"200": UsageAiChatUsageAiChatPostStatus200;
-	"422": UsageAiChatUsageAiChatPostStatus422;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type UsageAiChatUsageAiChatPostResponse = UsageAiChatUsageAiChatPostStatus200;
 
 export type CreatePromptPromptsPostStatus200 = {
 	[key: string]: unknown;

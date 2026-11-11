@@ -533,6 +533,9 @@ import type {
 	DeleteSkillV1SkillsSkillIdDeleteQuery,
 	DeleteSkillV1SkillsSkillIdDeleteResponse,
 	DeleteSkillV1SkillsSkillIdDeleteStatus422,
+	DeleteSubscriptionAccountSubscriptionAccountsDeletePostBody,
+	DeleteSubscriptionAccountSubscriptionAccountsDeletePostResponse,
+	DeleteSubscriptionAccountSubscriptionAccountsDeletePostStatus422,
 	DeleteTagTagDeletePostBody,
 	DeleteTagTagDeletePostResponse,
 	DeleteTagTagDeletePostStatus422,
@@ -640,10 +643,16 @@ import type {
 	EstimateCostCostEstimatePostBody,
 	EstimateCostCostEstimatePostResponse,
 	EstimateCostCostEstimatePostStatus422,
+	EuJevProxyRouteEuJevV1SystemonePostBody,
+	EuJevProxyRouteEuJevV1SystemonePostResponse,
 	EventLoggingBatchApiEventLoggingBatchPostResponse,
 	ExportTelemetryReportsTelemetryReportsGetQuery,
 	ExportTelemetryReportsTelemetryReportsGetResponse,
 	ExportTelemetryReportsTelemetryReportsGetStatus422,
+	ExtractionExtractionPostBody,
+	ExtractionExtractionPostResponse,
+	ExtractionV1ExtractionPostBody,
+	ExtractionV1ExtractionPostResponse,
 	FetchAllMcpServersV1McpServerGetQuery,
 	FetchAllMcpServersV1McpServerGetResponse,
 	FetchAllMcpServersV1McpServerGetStatus422,
@@ -748,6 +757,7 @@ import type {
 	GetAutoRouterSessionAutoRouterSessionGetResponse,
 	GetAutoRouterSessionAutoRouterSessionGetStatus422,
 	GetAvailableSearchProvidersSearchToolsUiAvailableProvidersGetResponse,
+	GetBackgroundChatSettingsGetBackgroundChatSettingsGetResponse,
 	GetBlockRequestsForModelsWithoutPricingConfigBlockRequestsForModelsWithoutPricingGetResponse,
 	GetCacheSettingsCacheSettingsGetResponse,
 	GetCallbackConfigsCallbacksConfigsGetResponse,
@@ -863,6 +873,9 @@ import type {
 	GetKeySpendReportKeySpendReportGetQuery,
 	GetKeySpendReportKeySpendReportGetResponse,
 	GetKeySpendReportKeySpendReportGetStatus422,
+	GetKubernetesPodsModelModelIdKubernetesPodsGetPath,
+	GetKubernetesPodsModelModelIdKubernetesPodsGetResponse,
+	GetKubernetesPodsModelModelIdKubernetesPodsGetStatus422,
 	GetLitellmBlogPostsPublicLitellmBlogPostsGetResponse,
 	GetLitellmModelCostMapPublicLitellmModelCostMapGetQuery,
 	GetLitellmModelCostMapPublicLitellmModelCostMapGetResponse,
@@ -990,12 +1003,15 @@ import type {
 	GetResponseInputItemsV1ResponsesResponseIdInputItemsGetResponse,
 	GetResponseInputItemsV1ResponsesResponseIdInputItemsGetStatus422,
 	GetResponseOpenaiV1ResponsesResponseIdGetPath,
+	GetResponseOpenaiV1ResponsesResponseIdGetQuery,
 	GetResponseOpenaiV1ResponsesResponseIdGetResponse,
 	GetResponseOpenaiV1ResponsesResponseIdGetStatus422,
 	GetResponseResponsesResponseIdGetPath,
+	GetResponseResponsesResponseIdGetQuery,
 	GetResponseResponsesResponseIdGetResponse,
 	GetResponseResponsesResponseIdGetStatus422,
 	GetResponseV1ResponsesResponseIdGetPath,
+	GetResponseV1ResponsesResponseIdGetQuery,
 	GetResponseV1ResponsesResponseIdGetResponse,
 	GetResponseV1ResponsesResponseIdGetStatus422,
 	GetRobotsRobotsTxtGetResponse,
@@ -1033,6 +1049,9 @@ import type {
 	GetSpendCaptureRateSpendCaptureRateGetResponse,
 	GetSpendCaptureRateSpendCaptureRateGetStatus422,
 	GetSsoSettingsGetSsoSettingsGetResponse,
+	GetSubscriptionUsageSubscriptionAccountsUsageGetQuery,
+	GetSubscriptionUsageSubscriptionAccountsUsageGetResponse,
+	GetSubscriptionUsageSubscriptionAccountsUsageGetStatus422,
 	GetSupportedEndpointsPublicEndpointsGetResponse,
 	GetSupportedProvidersPublicProvidersGetResponse,
 	GetTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetQuery,
@@ -1302,12 +1321,20 @@ import type {
 	InvokeAgentA2AA2AAgentIdMessageSendPostPath,
 	InvokeAgentA2AA2AAgentIdMessageSendPostResponse,
 	InvokeAgentA2AA2AAgentIdMessageSendPostStatus422,
+	InvokeAgentA2AA2AAgentIdMessageStreamPostBody,
+	InvokeAgentA2AA2AAgentIdMessageStreamPostPath,
+	InvokeAgentA2AA2AAgentIdMessageStreamPostResponse,
+	InvokeAgentA2AA2AAgentIdMessageStreamPostStatus422,
 	InvokeAgentA2AA2AAgentIdPostPath,
 	InvokeAgentA2AA2AAgentIdPostResponse,
 	InvokeAgentA2AA2AAgentIdPostStatus422,
 	InvokeAgentA2AV1A2AAgentIdMessageSendPostPath,
 	InvokeAgentA2AV1A2AAgentIdMessageSendPostResponse,
 	InvokeAgentA2AV1A2AAgentIdMessageSendPostStatus422,
+	InvokeAgentA2AV1A2AAgentIdMessageStreamPostBody,
+	InvokeAgentA2AV1A2AAgentIdMessageStreamPostPath,
+	InvokeAgentA2AV1A2AAgentIdMessageStreamPostResponse,
+	InvokeAgentA2AV1A2AAgentIdMessageStreamPostStatus422,
 	JwksJsonWellKnownJwksJsonGetResponse,
 	KeyAliasesKeyAliasesGetQuery,
 	KeyAliasesKeyAliasesGetResponse,
@@ -1374,7 +1401,9 @@ import type {
 	ListContainersV1ContainersGetQuery,
 	ListContainersV1ContainersGetResponse,
 	ListContainersV1ContainersGetStatus422,
+	ListEndUserCustomerListGetQuery,
 	ListEndUserCustomerListGetResponse,
+	ListEndUserCustomerListGetStatus422,
 	ListEvalsV1EvalsGetQuery,
 	ListEvalsV1EvalsGetResponse,
 	ListEvalsV1EvalsGetStatus422,
@@ -1566,6 +1595,9 @@ import type {
 	NewProjectProjectNewPostBody,
 	NewProjectProjectNewPostResponse,
 	NewProjectProjectNewPostStatus422,
+	NewSubscriptionAccountSubscriptionAccountsNewPostBody,
+	NewSubscriptionAccountSubscriptionAccountsNewPostResponse,
+	NewSubscriptionAccountSubscriptionAccountsNewPostStatus422,
 	NewTagTagNewPostBody,
 	NewTagTagNewPostResponse,
 	NewTagTagNewPostStatus422,
@@ -1912,6 +1944,7 @@ import type {
 	TestToolsListMcpRestTestToolsListPostResponse,
 	TestToolsListMcpRestTestToolsListPostStatus422,
 	TokenCounterUtilsTokenCounterPostBody,
+	TokenCounterUtilsTokenCounterPostHeaders,
 	TokenCounterUtilsTokenCounterPostQuery,
 	TokenCounterUtilsTokenCounterPostResponse,
 	TokenCounterUtilsTokenCounterPostStatus422,
@@ -1991,6 +2024,9 @@ import type {
 	UpdateAgentV1AgentsAgentIdPutPath,
 	UpdateAgentV1AgentsAgentIdPutResponse,
 	UpdateAgentV1AgentsAgentIdPutStatus422,
+	UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchBody,
+	UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchResponse,
+	UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchStatus422,
 	UpdateBlockRequestsForModelsWithoutPricingConfigBlockRequestsForModelsWithoutPricingPatchBody,
 	UpdateBlockRequestsForModelsWithoutPricingConfigBlockRequestsForModelsWithoutPricingPatchResponse,
 	UpdateBlockRequestsForModelsWithoutPricingConfigBlockRequestsForModelsWithoutPricingPatchStatus422,
@@ -2109,6 +2145,9 @@ import type {
 	UpdateSsoSettingsUpdateSsoSettingsPatchBody,
 	UpdateSsoSettingsUpdateSsoSettingsPatchResponse,
 	UpdateSsoSettingsUpdateSsoSettingsPatchStatus422,
+	UpdateSubscriptionAccountSubscriptionAccountsUpdatePostBody,
+	UpdateSubscriptionAccountSubscriptionAccountsUpdatePostResponse,
+	UpdateSubscriptionAccountSubscriptionAccountsUpdatePostStatus422,
 	UpdateTagTagUpdatePostBody,
 	UpdateTagTagUpdatePostResponse,
 	UpdateTagTagUpdatePostStatus422,
@@ -2162,9 +2201,6 @@ import type {
 	UpsertMemoryV1MemoryKeyPutPath,
 	UpsertMemoryV1MemoryKeyPutResponse,
 	UpsertMemoryV1MemoryKeyPutStatus422,
-	UsageAiChatUsageAiChatPostBody,
-	UsageAiChatUsageAiChatPostResponse,
-	UsageAiChatUsageAiChatPostStatus422,
 	UserInfoUserInfoGetQuery,
 	UserInfoUserInfoGetResponse,
 	UserInfoUserInfoGetStatus422,
@@ -2319,11 +2355,16 @@ import type {
  * @description Use `/model/info` - to get detailed model information, example - pricing, mode, etc.
  * This is just for compatibility with openai projects like aider.
  * Query Parameters:
+ * - return_wildcard_routes: When true, also list wildcard routes such as `openai/*`.
+ *                 Defaults to `general_settings.return_wildcard_routes`, and an explicit
+ *                 value on the request wins over it
  * - client_version: Sent by Codex CLI (`?client_version=0.159.3`) when it fetches a
  *                 provider's model catalog. When present, the response is Codex's own
  *                 catalog shape (`{"models": [...]}`) built from the same listing, with
- *                 each model's `model_info.service_tiers` as its service tiers; absent,
- *                 the OpenAI shape below is returned
+ *                 each model's `model_info.service_tiers` as its service tiers and, for a
+ *                 model that Codex release does not know, the reasoning efforts
+ *                 `/model_group/info` reports that it can parse; absent, the OpenAI shape
+ *                 below is returned
  * - include_metadata: Include additional metadata in the response with fallback information
  * - fallback_type: Type of fallbacks to include ("general", "context_window", "content_policy")
  *                 Defaults to "general" when include_metadata=true
@@ -2379,11 +2420,16 @@ export async function modelListModelsGet(
  * @description Use `/model/info` - to get detailed model information, example - pricing, mode, etc.
  * This is just for compatibility with openai projects like aider.
  * Query Parameters:
+ * - return_wildcard_routes: When true, also list wildcard routes such as `openai/*`.
+ *                 Defaults to `general_settings.return_wildcard_routes`, and an explicit
+ *                 value on the request wins over it
  * - client_version: Sent by Codex CLI (`?client_version=0.159.3`) when it fetches a
  *                 provider's model catalog. When present, the response is Codex's own
  *                 catalog shape (`{"models": [...]}`) built from the same listing, with
- *                 each model's `model_info.service_tiers` as its service tiers; absent,
- *                 the OpenAI shape below is returned
+ *                 each model's `model_info.service_tiers` as its service tiers and, for a
+ *                 model that Codex release does not know, the reasoning efforts
+ *                 `/model_group/info` reports that it can parse; absent, the OpenAI shape
+ *                 below is returned
  * - include_metadata: Include additional metadata in the response with fallback information
  * - fallback_type: Type of fallbacks to include ("general", "context_window", "content_policy")
  *                 Defaults to "general" when include_metadata=true
@@ -3871,6 +3917,7 @@ export async function runThreadV1ThreadsThreadIdRunsPost(
  * @description Args:
  *     request: TokenCountRequest
  *     call_endpoint: bool - When set to "True" it will call the token counting endpoint - e.g Anthropic or Google AI Studio Token Counting APIs.
+ *     litellm_call_id: the x-litellm-call-id header, logged with the count so it joins the inference call's logs
  * Returns:
  *     TokenCountResponse
  * @link /utils/token_counter
@@ -3879,10 +3926,12 @@ export async function tokenCounterUtilsTokenCounterPost(
 	{
 		body,
 		queryParams,
+		headers,
 		config,
 	}: {
 		body: TokenCounterUtilsTokenCounterPostBody;
 		queryParams?: Partial<TokenCounterUtilsTokenCounterPostQuery>;
+		headers?: Partial<TokenCounterUtilsTokenCounterPostHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -3892,7 +3941,7 @@ export async function tokenCounterUtilsTokenCounterPost(
 		TokenCounterUtilsTokenCounterPostResponse,
 		ErrorWrapper<TokenCounterUtilsTokenCounterPostStatus422>,
 		TokenCounterUtilsTokenCounterPostBody,
-		Record<string, string>,
+		Partial<TokenCounterUtilsTokenCounterPostHeaders>,
 		Partial<TokenCounterUtilsTokenCounterPostQuery>,
 		Record<string, string>
 	>({
@@ -3901,7 +3950,12 @@ export async function tokenCounterUtilsTokenCounterPost(
 		queryParams,
 		body: body,
 		...requestConfig,
-		headers: { ...requestConfig.headers },
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -4033,6 +4087,7 @@ export async function transformRequestUtilsTransformRequestPost(
  *     page / size: Pagination controls (defaults: page=1, size=50).
  *     search: Case-insensitive partial match on model name or team public name.
  *     modelId: Return a single deployment by LiteLLM model id.
+ *     use_stored_params: With modelId, return only persisted litellm_params keys, retaining normal redaction.
  *     teamId: Filter to models with direct access or team membership for this team id.
  *     sortBy / sortOrder: Sort by model_name, created_at, updated_at, costs, or status.
  *     blocked: Filter by routing status (false = active, true = paused).
@@ -4862,15 +4917,19 @@ export async function cursorChatCompletionsCursorChatCompletionsPost(
  * curl -X GET http://localhost:4000/v1/responses/litellm_poll_abc123     -H "Authorization: Bearer $LITELLM_MASTER_KEY"
  * # Get provider response
  * curl -X GET http://localhost:4000/v1/responses/resp_abc123     -H "Authorization: Bearer $LITELLM_MASTER_KEY"
+ * # Resume a background response's event stream after sequence number 7
+ * curl -N "http://localhost:4000/v1/responses/resp_abc123?stream=true&starting_after=7"     -H "Authorization: Bearer $LITELLM_MASTER_KEY"
  * ```
  * @link /openai/v1/responses/{response_id}
  */
 export async function getResponseOpenaiV1ResponsesResponseIdGet(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: GetResponseOpenaiV1ResponsesResponseIdGetPath;
+		queryParams?: Partial<GetResponseOpenaiV1ResponsesResponseIdGetQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4884,11 +4943,12 @@ export async function getResponseOpenaiV1ResponsesResponseIdGet(
 		ErrorWrapper<GetResponseOpenaiV1ResponsesResponseIdGetStatus422>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<GetResponseOpenaiV1ResponsesResponseIdGetQuery>,
 		GetResponseOpenaiV1ResponsesResponseIdGetPath
 	>({
 		method: "GET",
 		url: `/openai/v1/responses/${encodeURIComponent(String(pathParams.response_id))}`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -4951,15 +5011,19 @@ export async function deleteResponseOpenaiV1ResponsesResponseIdDelete(
  * curl -X GET http://localhost:4000/v1/responses/litellm_poll_abc123     -H "Authorization: Bearer $LITELLM_MASTER_KEY"
  * # Get provider response
  * curl -X GET http://localhost:4000/v1/responses/resp_abc123     -H "Authorization: Bearer $LITELLM_MASTER_KEY"
+ * # Resume a background response's event stream after sequence number 7
+ * curl -N "http://localhost:4000/v1/responses/resp_abc123?stream=true&starting_after=7"     -H "Authorization: Bearer $LITELLM_MASTER_KEY"
  * ```
  * @link /responses/{response_id}
  */
 export async function getResponseResponsesResponseIdGet(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: GetResponseResponsesResponseIdGetPath;
+		queryParams?: Partial<GetResponseResponsesResponseIdGetQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -4973,11 +5037,12 @@ export async function getResponseResponsesResponseIdGet(
 		ErrorWrapper<GetResponseResponsesResponseIdGetStatus422>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<GetResponseResponsesResponseIdGetQuery>,
 		GetResponseResponsesResponseIdGetPath
 	>({
 		method: "GET",
 		url: `/responses/${encodeURIComponent(String(pathParams.response_id))}`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5040,15 +5105,19 @@ export async function deleteResponseResponsesResponseIdDelete(
  * curl -X GET http://localhost:4000/v1/responses/litellm_poll_abc123     -H "Authorization: Bearer $LITELLM_MASTER_KEY"
  * # Get provider response
  * curl -X GET http://localhost:4000/v1/responses/resp_abc123     -H "Authorization: Bearer $LITELLM_MASTER_KEY"
+ * # Resume a background response's event stream after sequence number 7
+ * curl -N "http://localhost:4000/v1/responses/resp_abc123?stream=true&starting_after=7"     -H "Authorization: Bearer $LITELLM_MASTER_KEY"
  * ```
  * @link /v1/responses/{response_id}
  */
 export async function getResponseV1ResponsesResponseIdGet(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: GetResponseV1ResponsesResponseIdGetPath;
+		queryParams?: Partial<GetResponseV1ResponsesResponseIdGetQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -5062,11 +5131,12 @@ export async function getResponseV1ResponsesResponseIdGet(
 		ErrorWrapper<GetResponseV1ResponsesResponseIdGetStatus422>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<GetResponseV1ResponsesResponseIdGetQuery>,
 		GetResponseV1ResponsesResponseIdGetPath
 	>({
 		method: "GET",
 		url: `/v1/responses/${encodeURIComponent(String(pathParams.response_id))}`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5653,7 +5723,7 @@ export async function getMcpServersPublicMcpHubGet(
 
 /**
  * @summary Public Skill Hub
- * @description Return enabled (public) Claude Code skills — no auth required.
+ * @description Return enabled (public) Claude Code skills, or none when the marketplace requires a key.
  * @link /public/skill_hub
  */
 export async function publicSkillHubPublicSkillHubGet(
@@ -11867,7 +11937,7 @@ export async function updateDeploymentWarningIgnoreHealthDeploymentWarningsWarni
  * - throttle_on_budget_exceeded: Optional[bool] - When the key exceeds its max_budget, throttle its tpm/rpm to the global budget_exceeded_throttle_percentage instead of blocking the key entirely.
  * - enable_prompt_caching: Optional[bool] - Auto-inject prompt caching breakpoints (Anthropic cache_control markers) on requests made with this key. Supported Claude models on Anthropic, Bedrock, Vertex AI, and Azure AI only.
  * - permissions: Optional[dict] - key-specific permissions. Currently just used for turning off pii masking (if connected). Example - {"pii": false}
- * - model_max_budget: Optional[Dict[str, BudgetConfig]] - Model-specific budgets {"gpt-4": {"budget_limit": 0.0005, "time_period": "30d"}}}. IF null or {} then no model specific budget.
+ * - model_max_budget: Optional[Dict[str, BudgetConfig]] - Model-specific budgets keyed by model name, `*` pattern like "claude-opus*", or model access group, e.g. {"gpt-4": {"budget_limit": 0.0005, "time_period": "30d"}}}. IF null or {} then no model specific budget.
  * - budget_fallbacks: Optional[Dict[str, List[str]]] - Per-model fallback chain tried in order when that model's own `model_max_budget` is exceeded, e.g. {"gpt-4o": ["gpt-4o-mini"]}.
  * - model_rpm_limit: Optional[dict] - key-specific model rpm limit. Example - {"text-davinci-002": 1000, "gpt-3.5-turbo": 1000}. IF null or {} then no model specific rpm limit.
  * - model_tpm_limit: Optional[dict] - key-specific model tpm limit. Example - {"text-davinci-002": 1000, "gpt-3.5-turbo": 1000}. IF null or {} then no model specific tpm limit.
@@ -11885,13 +11955,13 @@ export async function updateDeploymentWarningIgnoreHealthDeploymentWarningsWarni
  * - soft_budget: Optional[float] - Specify soft budget for a given key. Will trigger a slack alert when this soft budget is reached.
  * - tags: Optional[List[str]] - Tags for [tracking spend](https://litellm.vercel.app/docs/proxy/enterprise#tracking-spend-for-custom-tags) and/or doing [tag-based routing](https://litellm.vercel.app/docs/proxy/tag_routing).
  * - prompts: Optional[List[str]] - List of prompts that the key is allowed to use.
- * - enforced_params: Optional[List[str]] - List of enforced params for the key (Enterprise only). [Docs](https://docs.litellm.ai/docs/proxy/enterprise#enforce-required-params-for-llm-requests)
+ * - enforced_params: Optional[List[str]] - List of enforced params for the key (Enterprise only). [Docs](https://docs.litellm.ai/docs/enterprise#governance-and-cost)
  * - prompts: Optional[List[str]] - List of prompts that the key is allowed to use.
  * - allowed_routes: Optional[list] - List of allowed routes for the key. Store the actual route or store a wildcard pattern for a set of routes. Example - ["/chat/completions", "/embeddings", "/keys/*"]
  * - allowed_passthrough_routes: Optional[list] - List of allowed pass through endpoints for the key. Store the actual endpoint or store a wildcard pattern for a set of endpoints. Example - ["/my-custom-endpoint"]. Use this instead of allowed_routes, if you just want to specify which pass through endpoints the key can access, without specifying the routes. If allowed_routes is specified, allowed_pass_through_endpoints is ignored.
  * - denied_passthrough_routes: Optional[list] - List of pass through routes the key may not call, even if allowed by `allowed_passthrough_routes` or `allowed_routes`. Matches exact paths, path prefixes, and trailing `*` wildcards. Applies together with the team's `denied_passthrough_routes`. Example - ["/my-custom-endpoint/admin"].
  * - object_permission: Optional[LiteLLM_ObjectPermissionBase] - key-specific object permission. Example - {"vector_stores": ["vector_store_1", "vector_store_2"], "agents": ["agent_1", "agent_2"], "agent_access_groups": ["dev_group"]}. IF null or {} then no object permission.
- * - key_type: Optional[str] - Type of key that determines default allowed routes. Options: "llm_api" (can call LLM API routes), "management" (can call management routes), "read_only" (can only call info/read routes), "default" (uses default allowed routes). Defaults to "default".
+ * - key_type: Optional[str] - Type of key that determines default allowed routes. Options: "llm_api" (can call LLM API routes), "management" (can call management routes), "read_only" (can only call info/read routes), "default" (Full Access in the Admin UI, skips `default_key_generate_params.allowed_routes`). When omitted, the key gets `default_key_generate_params.allowed_routes` if that is set and the request has no `allowed_routes`, else it works like "default".
  * - prompts: Optional[List[str]] - List of allowed prompts for the key. If specified, the key will only be able to use these specific prompts.
  * - auto_rotate: Optional[bool] - Whether this key should be automatically rotated (regenerated)
  * - rotation_interval: Optional[str] - How often to auto-rotate this key (e.g., '30s', '30m', '30h', '30d'). Required if auto_rotate=True.
@@ -11974,7 +12044,7 @@ export async function generateKeyFnKeyGeneratePost(
  * - metadata: Optional[dict] - Metadata for key, store information for key. Example metadata = {"team": "core-infra", "app": "app2", "email": "ishaan@berri.ai" }
  * - guardrails: Optional[List[str]] - List of active guardrails for the key
  * - permissions: Optional[dict] - key-specific permissions. Currently just used for turning off pii masking (if connected). Example - {"pii": false}
- * - model_max_budget: Optional[Dict[str, BudgetConfig]] - Model-specific budgets {"gpt-4": {"budget_limit": 0.0005, "time_period": "30d"}}}. IF null or {} then no model specific budget.
+ * - model_max_budget: Optional[Dict[str, BudgetConfig]] - Model-specific budgets keyed by model name, `*` pattern like "claude-opus*", or model access group, e.g. {"gpt-4": {"budget_limit": 0.0005, "time_period": "30d"}}}. IF null or {} then no model specific budget.
  * - budget_fallbacks: Optional[Dict[str, List[str]]] - Per-model fallback chain tried in order when that model's own `model_max_budget` is exceeded, e.g. {"gpt-4o": ["gpt-4o-mini"]}.
  * - model_rpm_limit: Optional[dict] - key-specific model rpm limit. Example - {"text-davinci-002": 1000, "gpt-3.5-turbo": 1000}. IF null or {} then no model specific rpm limit.
  * - model_tpm_limit: Optional[dict] - key-specific model tpm limit. Example - {"text-davinci-002": 1000, "gpt-3.5-turbo": 1000}. IF null or {} then no model specific tpm limit.
@@ -11990,7 +12060,7 @@ export async function generateKeyFnKeyGeneratePost(
  * - tpd_limit: Optional[int] - Specify tpd limit for a given key (Tokens per day). Charged by batch submissions instead of tpm_limit/rpm_limit.
  * - soft_budget: Optional[float] - Specify soft budget for a given key. Will trigger a slack alert when this soft budget is reached.
  * - tags: Optional[List[str]] - Tags for [tracking spend](https://litellm.vercel.app/docs/proxy/enterprise#tracking-spend-for-custom-tags) and/or doing [tag-based routing](https://litellm.vercel.app/docs/proxy/tag_routing).
- * - enforced_params: Optional[List[str]] - List of enforced params for the key (Enterprise only). [Docs](https://docs.litellm.ai/docs/proxy/enterprise#enforce-required-params-for-llm-requests)
+ * - enforced_params: Optional[List[str]] - List of enforced params for the key (Enterprise only). [Docs](https://docs.litellm.ai/docs/enterprise#governance-and-cost)
  * - allowed_routes: Optional[list] - List of allowed routes for the key. Store the actual route or store a wildcard pattern for a set of routes. Example - ["/chat/completions", "/embeddings", "/keys/*"]
  * - object_permission: Optional[LiteLLM_ObjectPermissionBase] - key-specific object permission. Example - {"vector_stores": ["vector_store_1", "vector_store_2"], "agents": ["agent_1", "agent_2"], "agent_access_groups": ["dev_group"]}. IF null or {} then no object permission.
  * Examples:
@@ -12056,17 +12126,17 @@ export async function generateServiceAccountKeyFnKeyServiceAccountGeneratePost(
  * - user_id: Optional[str] - User ID associated with key
  * - team_id: Optional[str] - Team ID associated with key
  * - agent_id: Optional[str] - The agent id associated with the key.
- * - project_id: Optional[str] - Omit to retain the project, or send null to detach. A different project ID is rejected.
+ * - project_id: Optional[str] - Omit to retain the project, send null to detach, or send a project id to assign an unassigned key to a project on the key's team. Moving a key between projects is rejected.
  * - organization_id: Optional[str] - The organization id of the key.
  * - budget_id: Optional[str] - The budget id associated with the key. Created by calling `/budget/new`.
  * - end_user_budget_id: Optional[str] - Proxy admin only. Budget id applied to end users first seen through this key that carry no budget of their own. Omit to keep the current value, pass an empty string to clear it.
  * - models: Optional[list] - Model_name's a user is allowed to call
  * - tags: Optional[List[str]] - Tags for organizing keys (Enterprise only)
  * - prompts: Optional[List[str]] - List of prompts that the key is allowed to use.
- * - enforced_params: Optional[List[str]] - List of enforced params for the key (Enterprise only). [Docs](https://docs.litellm.ai/docs/proxy/enterprise#enforce-required-params-for-llm-requests)
+ * - enforced_params: Optional[List[str]] - List of enforced params for the key (Enterprise only). [Docs](https://docs.litellm.ai/docs/enterprise#governance-and-cost)
  * - spend: Optional[float] - Amount spent by key
  * - max_budget: Optional[float] - Max budget for key
- * - model_max_budget: Optional[Dict[str, BudgetConfig]] - Model-specific budgets {"gpt-4": {"budget_limit": 0.0005, "time_period": "30d"}}
+ * - model_max_budget: Optional[Dict[str, BudgetConfig]] - Model-specific budgets keyed by model name, `*` pattern like "claude-opus*", or model access group, e.g. {"gpt-4": {"budget_limit": 0.0005, "time_period": "30d"}}
  * - budget_fallbacks: Optional[Dict[str, List[str]]] - Per-model fallback chain tried in order when that model's own `model_max_budget` is exceeded, e.g. {"gpt-4o": ["gpt-4o-mini"]}.
  * - budget_duration: Optional[str] - Budget reset period ("30d", "1h", etc.)
  * - soft_budget: Optional[float] - Soft budget limit (warning vs. hard stop). Will trigger a slack alert when this soft budget is reached. Set to null to remove the soft budget.
@@ -12491,7 +12561,7 @@ export async function checkEncryptionEndpointCredentialsMigrateEncryptionCheckGe
  *     - tags: Optional[List[str]] - Tags for organizing keys (Enterprise only)
  *     - spend: Optional[float] - Amount spent by key
  *     - max_budget: Optional[float] - Max budget for key
- *     - model_max_budget: Optional[Dict[str, BudgetConfig]] - Model-specific budgets {"gpt-4": {"budget_limit": 0.0005, "time_period": "30d"}}
+ *     - model_max_budget: Optional[Dict[str, BudgetConfig]] - Model-specific budgets keyed by model name, `*` pattern like "claude-opus*", or model access group, e.g. {"gpt-4": {"budget_limit": 0.0005, "time_period": "30d"}}
  *     - budget_fallbacks: Optional[Dict[str, List[str]]] - Per-model fallback chain tried in order when that model's own `model_max_budget` is exceeded, e.g. {"gpt-4o": ["gpt-4o-mini"]}.
  *     - budget_duration: Optional[str] - Budget reset period ("30d", "1h", etc.)
  *     - soft_budget: Optional[float] - Soft budget limit (warning vs. hard stop). Will trigger a slack alert when this soft budget is reached.
@@ -12575,7 +12645,7 @@ export async function regenerateKeyFnKeyRegeneratePost(
  *     - tags: Optional[List[str]] - Tags for organizing keys (Enterprise only)
  *     - spend: Optional[float] - Amount spent by key
  *     - max_budget: Optional[float] - Max budget for key
- *     - model_max_budget: Optional[Dict[str, BudgetConfig]] - Model-specific budgets {"gpt-4": {"budget_limit": 0.0005, "time_period": "30d"}}
+ *     - model_max_budget: Optional[Dict[str, BudgetConfig]] - Model-specific budgets keyed by model name, `*` pattern like "claude-opus*", or model access group, e.g. {"gpt-4": {"budget_limit": 0.0005, "time_period": "30d"}}
  *     - budget_fallbacks: Optional[Dict[str, List[str]]] - Per-model fallback chain tried in order when that model's own `model_max_budget` is exceeded, e.g. {"gpt-4o": ["gpt-4o-mini"]}.
  *     - budget_duration: Optional[str] - Budget reset period ("30d", "1h", etc.)
  *     - soft_budget: Optional[float] - Soft budget limit (warning vs. hard stop). Will trigger a slack alert when this soft budget is reached.
@@ -12970,7 +13040,7 @@ export async function keyHealthKeyHealthPost(
  * - permissions: Optional[dict] - [Not Implemented Yet] User-specific permissions, eg. turning off pii masking.
  * - metadata: Optional[dict] - Metadata for user, store information for user. Example metadata = {"team": "core-infra", "app": "app2", "email": "ishaan@berri.ai" }
  * - max_parallel_requests: Optional[int] - Rate limit a user based on the number of parallel requests. Raises 429 error, if user's parallel requests > x.
- * - model_max_budget: Optional[dict] - Model-specific max budget for user. [Docs](https://docs.litellm.ai/docs/proxy/users#add-model-specific-budgets-to-keys)
+ * - model_max_budget: Optional[dict] - Model-specific max budget for user, keyed by model name, `*` pattern, or model access group. [Docs](https://docs.litellm.ai/docs/proxy/users#add-model-specific-budgets-to-keys)
  * - budget_fallbacks: Optional[Dict[str, List[str]]] - Per-model fallback chain tried in order when that model's own `model_max_budget` is exceeded, e.g. {"gpt-4o": ["gpt-4o-mini"]}.
  * - model_rpm_limit: Optional[float] - Model-specific rpm limit for user. [Docs](https://docs.litellm.ai/docs/proxy/users#add-model-specific-limits-to-keys)
  * - mcp_rpm_limit: Optional[dict] - Per-MCP-server rpm limit, keyed by MCP server name {"github": 100, "slack": 200}. Enforced for keys and teams only; values set on a user are stored but not enforced per user.
@@ -13155,7 +13225,7 @@ export async function userInfoV2V2UserInfoGet(
  *     - permissions: Optional[dict] - [Not Implemented Yet] User-specific permissions, eg. turning off pii masking.
  *     - metadata: Optional[dict] - Metadata for user, store information for user. Example metadata = {"team": "core-infra", "app": "app2", "email": "ishaan@berri.ai" }
  *     - max_parallel_requests: Optional[int] - Rate limit a user based on the number of parallel requests. Raises 429 error, if user's parallel requests > x.
- *     - model_max_budget: Optional[dict] - Model-specific max budget for user. [Docs](https://docs.litellm.ai/docs/proxy/users#add-model-specific-budgets-to-keys)
+ *     - model_max_budget: Optional[dict] - Model-specific max budget for user, keyed by model name, `*` pattern, or model access group. [Docs](https://docs.litellm.ai/docs/proxy/users#add-model-specific-budgets-to-keys)
  *     - budget_fallbacks: Optional[Dict[str, List[str]]] - Per-model fallback chain tried in order when that model's own `model_max_budget` is exceeded, e.g. {"gpt-4o": ["gpt-4o-mini"]}.
  *     - model_rpm_limit: Optional[float] - Model-specific rpm limit for user. [Docs](https://docs.litellm.ai/docs/proxy/users#add-model-specific-limits-to-keys)
  *     - mcp_rpm_limit: Optional[dict] - Per-MCP-server rpm limit, keyed by MCP server name {"github": 100, "slack": 200}. Enforced for keys and teams only; values set on a user are stored but not enforced per user.
@@ -14620,7 +14690,7 @@ export async function sessionLogoutSessionLogoutPost(
  * - prompts: Optional[List[str]] - List of prompts that the team is allowed to use.
  * - organization_id: Optional[str] - The organization id of the team. Default is None. Create via `/organization/new`.
  * - model_aliases: Optional[dict] - Model aliases for the team. [Docs](https://docs.litellm.ai/docs/proxy/team_based_routing#create-team-with-model-alias)
- * - model_max_budget: Optional[dict] - Per-model max budget every key on the team inherits unless the key sets its own for that model. Example: {"gpt-4o": {"max_budget": 10, "budget_duration": "1d"}}
+ * - model_max_budget: Optional[dict] - Per-model max budget every key on the team inherits unless the key sets its own for that model, keyed by model name, `*` pattern, or model access group. Example: {"gpt-4o": {"max_budget": 10, "budget_duration": "1d"}}
  * - guardrails: Optional[List[str]] - Guardrails for the team. [Docs](https://docs.litellm.ai/docs/proxy/guardrails)
  * - policies: Optional[List[str]] - Policies for the team. [Docs](https://docs.litellm.ai/docs/proxy/guardrails/guardrail_policies)
  * - disable_global_guardrails: Optional[bool] - Whether to disable global guardrails for the team. Proxy admin only.
@@ -14721,7 +14791,7 @@ export async function newTeamTeamNewPost(
  * - tags: Optional[List[str]] - Tags for [tracking spend](https://litellm.vercel.app/docs/proxy/enterprise#tracking-spend-for-custom-tags) and/or doing [tag-based routing](https://litellm.vercel.app/docs/proxy/tag_routing).
  * - organization_id: Optional[str] - The organization id of the team. Default is None. Create via `/organization/new`.
  * - model_aliases: Optional[dict] - Model aliases for the team. [Docs](https://docs.litellm.ai/docs/proxy/team_based_routing#create-team-with-model-alias)
- * - model_max_budget: Optional[dict] - Per-model max budget every key on the team inherits unless the key sets its own for that model. Example: {"gpt-4o": {"max_budget": 10, "budget_duration": "1d"}}
+ * - model_max_budget: Optional[dict] - Per-model max budget every key on the team inherits unless the key sets its own for that model, keyed by model name, `*` pattern, or model access group. Example: {"gpt-4o": {"max_budget": 10, "budget_duration": "1d"}}
  * - guardrails: Optional[List[str]] - Guardrails for the team. [Docs](https://docs.litellm.ai/docs/proxy/guardrails)
  * - policies: Optional[List[str]] - Policies for the team. [Docs](https://docs.litellm.ai/docs/proxy/guardrails/guardrail_policies)
  * - disable_global_guardrails: Optional[bool] - Whether to disable global guardrails for the team. Proxy admin only.
@@ -16604,7 +16674,7 @@ export async function deleteEndUserCustomerDeletePost(
 
 /**
  * @summary List End User
- * @description [Admin-only] List all available customers
+ * @description [Admin-only] List customers in pages of up to 100, ordered by user ID. Defaults to 50 customers per page.
  * Example curl:
  * ```
  * curl --location --request GET 'http://0.0.0.0:4000/customer/list'         --header "Authorization: Bearer $LITELLM_MASTER_KEY"
@@ -16612,20 +16682,27 @@ export async function deleteEndUserCustomerDeletePost(
  * @link /customer/list
  */
 export async function listEndUserCustomerListGet(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<ListEndUserCustomerListGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	const data = await request<
 		ListEndUserCustomerListGetResponse,
-		ErrorWrapper<Error>,
+		ErrorWrapper<ListEndUserCustomerListGetStatus422>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<ListEndUserCustomerListGetQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
 		url: `/customer/list`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -16675,8 +16752,9 @@ export async function getCustomerDailyActivityCustomerDailyActivityGet(
  * older `/budget/list` answers with the whole table as a bare array and has no
  * way to page, sort or filter it.
  * `sort` takes a comma-separated list of `budget_id`, `max_budget`, `tpm_limit`,
- * `rpm_limit`, `tpd_limit` or `created_at`, each optionally prefixed with `-` for descending,
- * and defaults to `-created_at`. `budget_id` is appended to every sort as the
+ * `rpm_limit`, `tpd_limit`, `created_at` or `budget_duration`, each optionally prefixed with `-` for descending,
+ * and defaults to `-created_at`. Reset periods sort by elapsed time, with calendar months
+ * measured from the current UTC date and unset periods last. `budget_id` is appended to every sort as the
  * tiebreaker. `q` is a case-insensitive substring match on `budget_id`.
  * `page_size` defaults to 50 and is capped at 100. Filters are
  * `filter[budget_duration][in|is_null]`, `filter[max_budget][gte|lte|is_null]`
@@ -18363,6 +18441,67 @@ export async function updateMcpToolSearchSettingsUpdateMcpToolSearchSettingsPatc
 }
 
 /**
+ * @summary Get Background Chat Settings
+ * @description Get saved background-response settings and the prerequisites for changing them.
+ * @link /get/background_chat_settings
+ */
+export async function getBackgroundChatSettingsGetBackgroundChatSettingsGet(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		GetBackgroundChatSettingsGetBackgroundChatSettingsGetResponse,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/get/background_chat_settings`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Background Chat Settings
+ * @description Save background-response polling settings for the proxy configuration refresh.
+ * @link /update/background_chat_settings
+ */
+export async function updateBackgroundChatSettingsUpdateBackgroundChatSettingsPatch(
+	{
+		body,
+		config,
+	}: {
+		body: UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchResponse,
+		ErrorWrapper<UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchStatus422>,
+		UpdateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "PATCH",
+		url: `/update/background_chat_settings`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Get Ui Settings
  * @description Get UI-specific configuration flags.
  * All authenticated users can fetch these settings for client-side behavior.
@@ -18609,8 +18748,10 @@ export async function updateUserBannerUpdateUserBannerPatch(
 
 /**
  * @summary Latest Release Info
- * @description Latest stable LiteLLM GitHub release with its PR count split into new features, bug fixes and other updates.
- * Returns null when GitHub can't be reached so the dashboard upgrade banner simply doesn't render.
+ * @description Newest stable release on the LiteLLM changelog, linked to its changelog page, with the PR count of its whole
+ * minor line (e.g. v1.105.0 + v1.105.1) from GitHub split into new features, bug fixes and other updates.
+ * Returns null when the changelog or GitHub can't be reached so the dashboard upgrade banner simply doesn't render.
+ * Set LITELLM_DISABLE_LATEST_RELEASE_CHECK=true to return null without making any outbound request.
  * @link /get/latest_release_info
  */
 export async function latestReleaseInfoGetLatestReleaseInfoGet(
@@ -19105,6 +19246,41 @@ export async function deleteBudgetBudgetDeletePost(
 		method: "POST",
 		url: `/budget/delete`,
 		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Kubernetes Pods
+ * @link /model/{model_id}/kubernetes_pods
+ */
+export async function getKubernetesPodsModelModelIdKubernetesPodsGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetKubernetesPodsModelModelIdKubernetesPodsGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.model_id == null || String(pathParams.model_id) === "") {
+		throw new Error(`Missing required path parameter: model_id`);
+	}
+	const data = await request<
+		GetKubernetesPodsModelModelIdKubernetesPodsGetResponse,
+		ErrorWrapper<GetKubernetesPodsModelModelIdKubernetesPodsGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetKubernetesPodsModelModelIdKubernetesPodsGetPath
+	>({
+		method: "GET",
+		url: `/model/${encodeURIComponent(String(pathParams.model_id))}/kubernetes_pods`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -19626,8 +19802,8 @@ export async function getAccessGroupInfoAccessGroupAccessGroupInfoGet(
  * @summary Update Access Group
  * @description Update an access group's model names.
  * This will:
- * 1. Remove the access group from all current deployments
- * 2. Add the access group to all deployments for the new model_names list
+ * 1. Add the access group to all deployments for the new model_names list
+ * 2. Remove the access group from every other deployment
  * Example:
  * ```bash
  * curl -X PUT 'http://localhost:4000/access_group/production-models/update' \
@@ -19645,6 +19821,7 @@ export async function getAccessGroupInfoAccessGroupAccessGroupInfoGet(
  * Raises:
  * - HTTPException 400: If any model names don't exist
  * - HTTPException 404: If access group not found
+ * - HTTPException 409: If another edit holds the group or one of its models for 30 s
  * @link /access_group/{access_group}/update
  */
 export async function updateAccessGroupAccessGroupAccessGroupUpdatePut(
@@ -21742,6 +21919,146 @@ export async function estimateCostCostEstimatePost(
 	>({
 		method: "POST",
 		url: `/cost/estimate`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Subscription Usage
+ * @description Subscription-backed accounts behind the proxy's deployments or carrying a stored fee, each with
+ * its configured monthly fee and the fixed cost attributed to the date range: the fee once per billing
+ * period whose start date falls inside the range, however many deployments share the account.
+ * @link /subscription_accounts/usage
+ */
+export async function getSubscriptionUsageSubscriptionAccountsUsageGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams: GetSubscriptionUsageSubscriptionAccountsUsageGetQuery;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		GetSubscriptionUsageSubscriptionAccountsUsageGetResponse,
+		ErrorWrapper<GetSubscriptionUsageSubscriptionAccountsUsageGetStatus422>,
+		null,
+		Record<string, string>,
+		GetSubscriptionUsageSubscriptionAccountsUsageGetQuery,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/subscription_accounts/usage`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary New Subscription Account
+ * @description Record the monthly fee of one subscription-backed provider account.
+ * @link /subscription_accounts/new
+ */
+export async function newSubscriptionAccountSubscriptionAccountsNewPost(
+	{
+		body,
+		config,
+	}: {
+		body: NewSubscriptionAccountSubscriptionAccountsNewPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		NewSubscriptionAccountSubscriptionAccountsNewPostResponse,
+		ErrorWrapper<NewSubscriptionAccountSubscriptionAccountsNewPostStatus422>,
+		NewSubscriptionAccountSubscriptionAccountsNewPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/subscription_accounts/new`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Subscription Account
+ * @description Change the fee, currency, billing period start, or label of a subscription account.
+ * Only the fields named in the request are written, so two admins changing different
+ * fields at the same time both land.
+ * @link /subscription_accounts/update
+ */
+export async function updateSubscriptionAccountSubscriptionAccountsUpdatePost(
+	{
+		body,
+		config,
+	}: {
+		body: UpdateSubscriptionAccountSubscriptionAccountsUpdatePostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		UpdateSubscriptionAccountSubscriptionAccountsUpdatePostResponse,
+		ErrorWrapper<UpdateSubscriptionAccountSubscriptionAccountsUpdatePostStatus422>,
+		UpdateSubscriptionAccountSubscriptionAccountsUpdatePostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/subscription_accounts/update`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Subscription Account
+ * @description Stop tracking a subscription account's fee; its requests stay marked as subscription-covered.
+ * @link /subscription_accounts/delete
+ */
+export async function deleteSubscriptionAccountSubscriptionAccountsDeletePost(
+	{
+		body,
+		config,
+	}: {
+		body: DeleteSubscriptionAccountSubscriptionAccountsDeletePostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		DeleteSubscriptionAccountSubscriptionAccountsDeletePostResponse,
+		ErrorWrapper<DeleteSubscriptionAccountSubscriptionAccountsDeletePostStatus422>,
+		DeleteSubscriptionAccountSubscriptionAccountsDeletePostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/subscription_accounts/delete`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -24242,9 +24559,9 @@ export async function aggregateMcpRouteMcpOptions(
  * @summary Toolset Mcp Route
  * @description Namespace a toolset as its own MCP endpoint.
  * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
+ * the toolset. Access is enforced: API keys other than an admin's key with no
+ * team must hold the toolset through one of their grant sources, or the
+ * request will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
 export async function toolsetMcpRouteToolsetToolsetNameMcpGet(
@@ -24282,9 +24599,9 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpGet(
  * @summary Toolset Mcp Route
  * @description Namespace a toolset as its own MCP endpoint.
  * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
+ * the toolset. Access is enforced: API keys other than an admin's key with no
+ * team must hold the toolset through one of their grant sources, or the
+ * request will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
 export async function toolsetMcpRouteToolsetToolsetNameMcpPut(
@@ -24322,9 +24639,9 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpPut(
  * @summary Toolset Mcp Route
  * @description Namespace a toolset as its own MCP endpoint.
  * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
+ * the toolset. Access is enforced: API keys other than an admin's key with no
+ * team must hold the toolset through one of their grant sources, or the
+ * request will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
 export async function toolsetMcpRouteToolsetToolsetNameMcpPost(
@@ -24362,9 +24679,9 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpPost(
  * @summary Toolset Mcp Route
  * @description Namespace a toolset as its own MCP endpoint.
  * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
+ * the toolset. Access is enforced: API keys other than an admin's key with no
+ * team must hold the toolset through one of their grant sources, or the
+ * request will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
 export async function toolsetMcpRouteToolsetToolsetNameMcpPatch(
@@ -24402,9 +24719,9 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpPatch(
  * @summary Toolset Mcp Route
  * @description Namespace a toolset as its own MCP endpoint.
  * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
+ * the toolset. Access is enforced: API keys other than an admin's key with no
+ * team must hold the toolset through one of their grant sources, or the
+ * request will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
 export async function toolsetMcpRouteToolsetToolsetNameMcpDelete(
@@ -24442,9 +24759,9 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpDelete(
  * @summary Toolset Mcp Route
  * @description Namespace a toolset as its own MCP endpoint.
  * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
+ * the toolset. Access is enforced: API keys other than an admin's key with no
+ * team must hold the toolset through one of their grant sources, or the
+ * request will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
 export async function toolsetMcpRouteToolsetToolsetNameMcpHead(
@@ -24482,9 +24799,9 @@ export async function toolsetMcpRouteToolsetToolsetNameMcpHead(
  * @summary Toolset Mcp Route
  * @description Namespace a toolset as its own MCP endpoint.
  * Connecting to /toolset/<name>/mcp exposes exactly the tools defined in
- * the toolset. Access is enforced: non-admin API keys must have the toolset
- * listed in their object_permission.mcp_toolsets grant list, or the request
- * will be rejected with a 403.
+ * the toolset. Access is enforced: API keys other than an admin's key with no
+ * team must hold the toolset through one of their grant sources, or the
+ * request will be rejected with a 403.
  * @link /toolset/{toolset_name}/mcp
  */
 export async function toolsetMcpRouteToolsetToolsetNameMcpOptions(
@@ -28111,9 +28428,10 @@ export async function listGeminiAgentsV1BetaAgentsGet(
  *     -H "Authorization: Bearer sk-..." \
  *     -H "Content-Type: application/json" \
  *     -d '{
- *         "name": "my-custom-slides-agent",
- *         "base_agent": "waverunner",
- *         "instructions": "You are a helpful assistant that creates slides.",
+ *         "id": "my-custom-slides-agent",
+ *         "base_agent": "antigravity-preview-09-2026",
+ *         "system_instruction": "You are a helpful assistant that creates slides.",
+ *         "agent_config": {"type": "antigravity", "model": "gemini-3.8-flash"},
  *         "base_environment": {
  *             "type": "remote",
  *             "sources": [
@@ -28445,6 +28763,48 @@ export async function invokeAgentA2AA2AAgentIdMessageSendPost(
  * Supported methods:
  * - message/send: Send a message and get a response
  * - message/stream: Send a message and stream the response
+ * @link /a2a/{agent_id}/message/stream
+ */
+export async function invokeAgentA2AA2AAgentIdMessageStreamPost(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: InvokeAgentA2AA2AAgentIdMessageStreamPostPath;
+		body: InvokeAgentA2AA2AAgentIdMessageStreamPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.agent_id == null || String(pathParams.agent_id) === "") {
+		throw new Error(`Missing required path parameter: agent_id`);
+	}
+	const data = await request<
+		InvokeAgentA2AA2AAgentIdMessageStreamPostResponse,
+		ErrorWrapper<InvokeAgentA2AA2AAgentIdMessageStreamPostStatus422>,
+		InvokeAgentA2AA2AAgentIdMessageStreamPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		InvokeAgentA2AA2AAgentIdMessageStreamPostPath
+	>({
+		method: "POST",
+		url: `/a2a/${encodeURIComponent(String(pathParams.agent_id))}/message/stream`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Invoke Agent A2A
+ * @description Invoke an agent using the A2A protocol (JSON-RPC 2.0).
+ * Supported methods:
+ * - message/send: Send a message and get a response
+ * - message/stream: Send a message and stream the response
  * @link /v1/a2a/{agent_id}/message/send
  */
 export async function invokeAgentA2AV1A2AAgentIdMessageSendPost(
@@ -28471,6 +28831,48 @@ export async function invokeAgentA2AV1A2AAgentIdMessageSendPost(
 	>({
 		method: "POST",
 		url: `/v1/a2a/${encodeURIComponent(String(pathParams.agent_id))}/message/send`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Invoke Agent A2A
+ * @description Invoke an agent using the A2A protocol (JSON-RPC 2.0).
+ * Supported methods:
+ * - message/send: Send a message and get a response
+ * - message/stream: Send a message and stream the response
+ * @link /v1/a2a/{agent_id}/message/stream
+ */
+export async function invokeAgentA2AV1A2AAgentIdMessageStreamPost(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: InvokeAgentA2AV1A2AAgentIdMessageStreamPostPath;
+		body: InvokeAgentA2AV1A2AAgentIdMessageStreamPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.agent_id == null || String(pathParams.agent_id) === "") {
+		throw new Error(`Missing required path parameter: agent_id`);
+	}
+	const data = await request<
+		InvokeAgentA2AV1A2AAgentIdMessageStreamPostResponse,
+		ErrorWrapper<InvokeAgentA2AV1A2AAgentIdMessageStreamPostStatus422>,
+		InvokeAgentA2AV1A2AAgentIdMessageStreamPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		InvokeAgentA2AV1A2AAgentIdMessageStreamPostPath
+	>({
+		method: "POST",
+		url: `/v1/a2a/${encodeURIComponent(String(pathParams.agent_id))}/message/stream`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -33299,6 +33701,44 @@ export async function comprehendMedicalProxyRouteComprehendmedicalOperationPost(
 }
 
 /**
+ * @summary Eu Jev Proxy Route
+ * @description Forward a request to eu/jev, an EU-hosted decision API, with `EU_JEV_API_KEY`.
+ * `POST /eu_jev/v1/systemone` sends a `state` and one to eight named `questions` (`choice`, `noul` or `score`)
+ * and returns one answer per question name, with spend booked from the reported `usage`. `custom_body` and
+ * `stream` are rejected with a 400. A pass-through endpoint configured at this path keeps serving it.
+ * [Docs](https://docs.litellm.ai/docs/pass_through/eu_jev)
+ * @link /eu_jev/v1/systemone
+ */
+export async function euJevProxyRouteEuJevV1SystemonePost(
+	{
+		body,
+		config,
+	}: {
+		body: EuJevProxyRouteEuJevV1SystemonePostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		EuJevProxyRouteEuJevV1SystemonePostResponse,
+		ErrorWrapper<Error>,
+		EuJevProxyRouteEuJevV1SystemonePostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/eu_jev/v1/systemone`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Laya Proxy Route
  * @link /laya/v1/systemone
  */
@@ -34520,8 +34960,54 @@ export async function decisionsDecisionsPost(
 }
 
 /**
+ * @summary Extract typed fields from a state
+ * @description Read a `state` text and up to 4 images and get one typed answer per named field in `fields`.
+ * Field types are `text`, `number`, `date`, `time`, `datetime`, `duration`, `list` (set `items`), `estimate`
+ * (set `min` and `max`) and `forecast` (set `min`, `max` and `horizon`). Each answer carries its `value`, which is
+ * null when the input does not determine it, plus `confidence`, `p_null`, text `span`s into the state and, for
+ * estimates, `mean`, `median`, `p10` and `p90`. Images are data URLs or `{content_type, base64}` objects, remote
+ * URLs are not accepted. An unknown field type, a field name that is not 1 to 64 letters, digits, `_`, `.` or `-`
+ * starting with a letter or `_`, a remote image URL or more than 4 images is rejected with a 400 before any
+ * provider is called. Any other top-level key, `stream: true` and OpenAI generation settings such as `temperature`
+ * included, is rejected with a 400 naming it unless `drop_params` or the deployment's `additional_drop_params`
+ * drops it. Settings inside `fields` and `options` go to the provider as sent, so a field missing a setting its
+ * type needs or an empty `state` with no images comes back with the provider's own error. `model` is any
+ * extraction model in the proxy model list, such as Cloudflare Clairic. The request and the answers keep the
+ * provider's format.
+ * @link /extraction
+ */
+export async function extractionExtractionPost(
+	{
+		body,
+		config,
+	}: {
+		body: ExtractionExtractionPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ExtractionExtractionPostResponse,
+		ErrorWrapper<Error>,
+		ExtractionExtractionPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/extraction`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Ask named questions about a state (System One format)
- * @description Judge a `state` against 1 to 128 named `questions` and get one calibrated answer per question name.
+ * @description Judge a `state` against one or more named `questions` and get one calibrated answer per question name.
  * Question types are `noul` (probability the answer is yes), `choice` (one label out of `criteria`, with
  * `confidence` and `probabilities`), `score` (an index into the `criteria` levels, with `confidence`,
  * `legend` and `probabilities`) and `box` (the image region the `instructions` describe, with `confidence`).
@@ -34602,8 +35088,54 @@ export async function decisionsV1DecisionsPost(
 }
 
 /**
+ * @summary Extract typed fields from a state
+ * @description Read a `state` text and up to 4 images and get one typed answer per named field in `fields`.
+ * Field types are `text`, `number`, `date`, `time`, `datetime`, `duration`, `list` (set `items`), `estimate`
+ * (set `min` and `max`) and `forecast` (set `min`, `max` and `horizon`). Each answer carries its `value`, which is
+ * null when the input does not determine it, plus `confidence`, `p_null`, text `span`s into the state and, for
+ * estimates, `mean`, `median`, `p10` and `p90`. Images are data URLs or `{content_type, base64}` objects, remote
+ * URLs are not accepted. An unknown field type, a field name that is not 1 to 64 letters, digits, `_`, `.` or `-`
+ * starting with a letter or `_`, a remote image URL or more than 4 images is rejected with a 400 before any
+ * provider is called. Any other top-level key, `stream: true` and OpenAI generation settings such as `temperature`
+ * included, is rejected with a 400 naming it unless `drop_params` or the deployment's `additional_drop_params`
+ * drops it. Settings inside `fields` and `options` go to the provider as sent, so a field missing a setting its
+ * type needs or an empty `state` with no images comes back with the provider's own error. `model` is any
+ * extraction model in the proxy model list, such as Cloudflare Clairic. The request and the answers keep the
+ * provider's format.
+ * @link /v1/extraction
+ */
+export async function extractionV1ExtractionPost(
+	{
+		body,
+		config,
+	}: {
+		body: ExtractionV1ExtractionPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ExtractionV1ExtractionPostResponse,
+		ErrorWrapper<Error>,
+		ExtractionV1ExtractionPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/v1/extraction`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Ask named questions about a state (System One format)
- * @description Judge a `state` against 1 to 128 named `questions` and get one calibrated answer per question name.
+ * @description Judge a `state` against one or more named `questions` and get one calibrated answer per question name.
  * Question types are `noul` (probability the answer is yes), `choice` (one label out of `criteria`, with
  * `confidence` and `probabilities`), `score` (an index into the `criteria` levels, with `confidence`,
  * `legend` and `probabilities`) and `box` (the image region the `instructions` describe, with `confidence`).
@@ -34648,9 +35180,13 @@ export async function systemoneV1SystemonePost(
  * This endpoint is accessed by Claude Code CLI when users run:
  * - claude plugin marketplace add <url>
  * - claude plugin install <name>@<marketplace>
- * Without `key` the catalog holds the enabled (public) plugins. With `?key=sk-...`
+ * Without a key the catalog holds the enabled (public) plugins. With `?key=sk-...`
  * the key is authenticated and the catalog also holds the disabled plugins granted
  * to it through `object_permission.skills` or an access group on the key or its team.
+ * With `general_settings.claude_code_marketplace_auth_required: true` the key must come
+ * in the `Authorization` or `x-litellm-api-key` header (Claude Code sends them from the
+ * marketplace source's `headers`), `?key=` is ignored, and a caller with no valid key
+ * gets a 401 with `WWW-Authenticate: Bearer`.
  * Returns:
  *     Marketplace catalog with list of available plugins and their git sources.
  * Example:
@@ -36215,41 +36751,6 @@ export async function updateVantageSettingsVantageSettingsPut(
 	>({
 		method: "PUT",
 		url: `/vantage/settings`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Usage Ai Chat
- * @description AI chat about usage data. Streams SSE events with the AI response.
- * The AI agent has access to tools that query aggregated daily activity data.
- * @link /usage/ai/chat
- */
-export async function usageAiChatUsageAiChatPost(
-	{
-		body,
-		config,
-	}: {
-		body: UsageAiChatUsageAiChatPostBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		UsageAiChatUsageAiChatPostResponse,
-		ErrorWrapper<UsageAiChatUsageAiChatPostStatus422>,
-		UsageAiChatUsageAiChatPostBody,
-		Record<string, string>,
-		Record<string, string>,
-		Record<string, string>
-	>({
-		method: "POST",
-		url: `/usage/ai/chat`,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -37849,6 +38350,9 @@ export const operationsByPath = {
 	"GET /get/mcp_tool_search_settings": getMcpToolSearchSettingsGetMcpToolSearchSettingsGet,
 	"PATCH /update/mcp_tool_search_settings":
 		updateMcpToolSearchSettingsUpdateMcpToolSearchSettingsPatch,
+	"GET /get/background_chat_settings": getBackgroundChatSettingsGetBackgroundChatSettingsGet,
+	"PATCH /update/background_chat_settings":
+		updateBackgroundChatSettingsUpdateBackgroundChatSettingsPatch,
 	"GET /get/ui_settings": getUiSettingsGetUiSettingsGet,
 	"PATCH /update/ui_settings": updateUiSettingsUpdateUiSettingsPatch,
 	"POST /upload/logo": uploadLogoUploadLogoPost,
@@ -37868,6 +38372,7 @@ export const operationsByPath = {
 	"GET /budget/settings": budgetSettingsBudgetSettingsGet,
 	"GET /budget/list": listBudgetBudgetListGet,
 	"POST /budget/delete": deleteBudgetBudgetDeletePost,
+	"GET /model/{model_id}/kubernetes_pods": getKubernetesPodsModelModelIdKubernetesPodsGet,
 	"PATCH /model/{model_id}/update": patchModelModelModelIdUpdatePatch,
 	"POST /model/block": blockModelModelBlockPost,
 	"POST /model/unblock": unblockModelModelUnblockPost,
@@ -37942,6 +38447,10 @@ export const operationsByPath = {
 	"PATCH /config/block_requests_for_models_without_pricing":
 		updateBlockRequestsForModelsWithoutPricingConfigBlockRequestsForModelsWithoutPricingPatch,
 	"POST /cost/estimate": estimateCostCostEstimatePost,
+	"GET /subscription_accounts/usage": getSubscriptionUsageSubscriptionAccountsUsageGet,
+	"POST /subscription_accounts/new": newSubscriptionAccountSubscriptionAccountsNewPost,
+	"POST /subscription_accounts/update": updateSubscriptionAccountSubscriptionAccountsUpdatePost,
+	"POST /subscription_accounts/delete": deleteSubscriptionAccountSubscriptionAccountsDeletePost,
 	"GET /cost_optimization/prompt_caching/requests":
 		getPromptCachingRequestsCostOptimizationPromptCachingRequestsGet,
 	"GET /router/settings": getRouterSettingsRouterSettingsGet,
@@ -38132,7 +38641,9 @@ export const operationsByPath = {
 		getAgentCardA2AAgentIdWellKnownAgentCardJsonGet,
 	"GET /a2a/{agent_id}/.well-known/agent.json": getAgentCardA2AAgentIdWellKnownAgentJsonGet,
 	"POST /a2a/{agent_id}/message/send": invokeAgentA2AA2AAgentIdMessageSendPost,
+	"POST /a2a/{agent_id}/message/stream": invokeAgentA2AA2AAgentIdMessageStreamPost,
 	"POST /v1/a2a/{agent_id}/message/send": invokeAgentA2AV1A2AAgentIdMessageSendPost,
+	"POST /v1/a2a/{agent_id}/message/stream": invokeAgentA2AV1A2AAgentIdMessageStreamPost,
 	"POST /v1/a2a/discover": discoverAgentCardV1A2ADiscoverPost,
 	"GET /v1/indexes": indexListV1IndexesGet,
 	"POST /v1/indexes": indexCreateV1IndexesPost,
@@ -38298,6 +38809,7 @@ export const operationsByPath = {
 	"POST /bespoke/v1/systemone": bespokeProxyRouteBespokeV1SystemonePost,
 	"POST /comprehendmedical": comprehendMedicalSdkProxyRouteComprehendmedicalPost,
 	"POST /comprehendmedical/{operation}": comprehendMedicalProxyRouteComprehendmedicalOperationPost,
+	"POST /eu_jev/v1/systemone": euJevProxyRouteEuJevV1SystemonePost,
 	"POST /laya/v1/systemone": layaProxyRouteLayaV1SystemonePost,
 	"POST /openai/v1/realtime/calls": proxyRealtimeCallsOpenaiV1RealtimeCallsPost,
 	"POST /openai/v1/realtime/client_secrets":
@@ -38333,8 +38845,10 @@ export const operationsByPath = {
 	"POST /v1/evals/{eval_id}/runs/{run_id}": cancelRunV1EvalsEvalIdRunsRunIdPost,
 	"DELETE /v1/evals/{eval_id}/runs/{run_id}": deleteRunV1EvalsEvalIdRunsRunIdDelete,
 	"POST /decisions": decisionsDecisionsPost,
+	"POST /extraction": extractionExtractionPost,
 	"POST /systemone": systemoneSystemonePost,
 	"POST /v1/decisions": decisionsV1DecisionsPost,
+	"POST /v1/extraction": extractionV1ExtractionPost,
 	"POST /v1/systemone": systemoneV1SystemonePost,
 	"GET /claude-code/marketplace.json": getMarketplaceClaudeCodeMarketplaceJsonGet,
 	"GET /claude-code/plugins": listPluginsClaudeCodePluginsGet,
@@ -38379,7 +38893,6 @@ export const operationsByPath = {
 	"POST /vantage/init": initVantageSettingsVantageInitPost,
 	"GET /vantage/settings": getVantageSettingsVantageSettingsGet,
 	"PUT /vantage/settings": updateVantageSettingsVantageSettingsPut,
-	"POST /usage/ai/chat": usageAiChatUsageAiChatPost,
 	"POST /prompts": createPromptPromptsPost,
 	"GET /prompts/list": listPromptsPromptsListGet,
 	"POST /prompts/test": testPromptPromptsTestPost,
@@ -38429,6 +38942,7 @@ export const operationsByTag = {
 		getLitellmModelCostMapPublicLitellmModelCostMapGet,
 		publicModelHubListPublicV1ModelHubGet,
 		publicModelHubFacetPublicV1ModelHubFacetGet,
+		getKubernetesPodsModelModelIdKubernetesPodsGet,
 		patchModelModelModelIdUpdatePatch,
 		blockModelModelBlockPost,
 		unblockModelModelUnblockPost,
@@ -38996,6 +39510,8 @@ export const operationsByTag = {
 		updateWebsearchInterceptionSettingsUpdateWebsearchInterceptionSettingsPatch,
 		getMcpToolSearchSettingsGetMcpToolSearchSettingsGet,
 		updateMcpToolSearchSettingsUpdateMcpToolSearchSettingsPatch,
+		getBackgroundChatSettingsGetBackgroundChatSettingsGet,
+		updateBackgroundChatSettingsUpdateBackgroundChatSettingsPatch,
 	},
 	uiSettings: {
 		getUiSettingsGetUiSettingsGet,
@@ -39051,6 +39567,12 @@ export const operationsByTag = {
 		getBlockRequestsForModelsWithoutPricingConfigBlockRequestsForModelsWithoutPricingGet,
 		updateBlockRequestsForModelsWithoutPricingConfigBlockRequestsForModelsWithoutPricingPatch,
 		estimateCostCostEstimatePost,
+	},
+	subscriptionAccounts: {
+		getSubscriptionUsageSubscriptionAccountsUsageGet,
+		newSubscriptionAccountSubscriptionAccountsNewPost,
+		updateSubscriptionAccountSubscriptionAccountsUpdatePost,
+		deleteSubscriptionAccountSubscriptionAccountsDeletePost,
 	},
 	costOptimization: {
 		getPromptCachingRequestsCostOptimizationPromptCachingRequestsGet,
@@ -39229,7 +39751,9 @@ export const operationsByTag = {
 		getAgentCardA2AAgentIdWellKnownAgentCardJsonGet,
 		getAgentCardA2AAgentIdWellKnownAgentJsonGet,
 		invokeAgentA2AA2AAgentIdMessageSendPost,
+		invokeAgentA2AA2AAgentIdMessageStreamPost,
 		invokeAgentA2AV1A2AAgentIdMessageSendPost,
+		invokeAgentA2AV1A2AAgentIdMessageStreamPost,
 	},
 	a2aRegistration: {
 		discoverAgentCardV1A2ADiscoverPost,
@@ -39380,6 +39904,7 @@ export const operationsByTag = {
 		bespokeProxyRouteBespokeV1SystemonePost,
 		comprehendMedicalSdkProxyRouteComprehendmedicalPost,
 		comprehendMedicalProxyRouteComprehendmedicalOperationPost,
+		euJevProxyRouteEuJevV1SystemonePost,
 		layaProxyRouteLayaV1SystemonePost,
 		proxyRealtimeCallsOpenaiV1RealtimeCallsPost,
 		createRealtimeClientSecretOpenaiV1RealtimeClientSecretsPost,
@@ -39421,8 +39946,10 @@ export const operationsByTag = {
 	},
 	decisions: {
 		decisionsDecisionsPost,
+		extractionExtractionPost,
 		systemoneSystemonePost,
 		decisionsV1DecisionsPost,
+		extractionV1ExtractionPost,
 		systemoneV1SystemonePost,
 	},
 	scim: {
@@ -39462,9 +39989,6 @@ export const operationsByTag = {
 		initVantageSettingsVantageInitPost,
 		getVantageSettingsVantageSettingsGet,
 		updateVantageSettingsVantageSettingsPut,
-	},
-	usageAi: {
-		usageAiChatUsageAiChatPost,
 	},
 	prompts: {
 		createPromptPromptsPost,
@@ -39521,6 +40045,7 @@ export const tagDictionary = {
 			"getLitellmModelCostMapPublicLitellmModelCostMapGet",
 			"publicModelHubListPublicV1ModelHubGet",
 			"publicModelHubFacetPublicV1ModelHubFacetGet",
+			"getKubernetesPodsModelModelIdKubernetesPodsGet",
 			"getAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromptGet",
 			"listAccessGroupsAccessGroupListGet",
 			"getAccessGroupInfoAccessGroupAccessGroupInfoGet",
@@ -40201,11 +40726,13 @@ export const tagDictionary = {
 			"getMcpSemanticFilterSettingsGetMcpSemanticFilterSettingsGet",
 			"getWebsearchInterceptionSettingsGetWebsearchInterceptionSettingsGet",
 			"getMcpToolSearchSettingsGetMcpToolSearchSettingsGet",
+			"getBackgroundChatSettingsGetBackgroundChatSettingsGet",
 		],
 		PATCH: [
 			"updateMcpSemanticFilterSettingsUpdateMcpSemanticFilterSettingsPatch",
 			"updateWebsearchInterceptionSettingsUpdateWebsearchInterceptionSettingsPatch",
 			"updateMcpToolSearchSettingsUpdateMcpToolSearchSettingsPatch",
+			"updateBackgroundChatSettingsUpdateBackgroundChatSettingsPatch",
 		],
 	},
 	uiSettings: {
@@ -40263,6 +40790,14 @@ export const tagDictionary = {
 			"updateCostDiscountConfigConfigCostDiscountConfigPatch",
 			"updateCostMarginConfigConfigCostMarginConfigPatch",
 			"updateBlockRequestsForModelsWithoutPricingConfigBlockRequestsForModelsWithoutPricingPatch",
+		],
+	},
+	subscriptionAccounts: {
+		GET: ["getSubscriptionUsageSubscriptionAccountsUsageGet"],
+		POST: [
+			"newSubscriptionAccountSubscriptionAccountsNewPost",
+			"updateSubscriptionAccountSubscriptionAccountsUpdatePost",
+			"deleteSubscriptionAccountSubscriptionAccountsDeletePost",
 		],
 	},
 	costOptimization: {
@@ -40477,7 +41012,9 @@ export const tagDictionary = {
 		POST: [
 			"invokeAgentA2AA2AAgentIdPost",
 			"invokeAgentA2AA2AAgentIdMessageSendPost",
+			"invokeAgentA2AA2AAgentIdMessageStreamPost",
 			"invokeAgentA2AV1A2AAgentIdMessageSendPost",
+			"invokeAgentA2AV1A2AAgentIdMessageStreamPost",
 		],
 		GET: [
 			"getAgentCardA2AAgentIdWellKnownAgentCardJsonGet",
@@ -40666,6 +41203,7 @@ export const tagDictionary = {
 			"bespokeProxyRouteBespokeV1SystemonePost",
 			"comprehendMedicalSdkProxyRouteComprehendmedicalPost",
 			"comprehendMedicalProxyRouteComprehendmedicalOperationPost",
+			"euJevProxyRouteEuJevV1SystemonePost",
 			"layaProxyRouteLayaV1SystemonePost",
 			"proxyRealtimeCallsOpenaiV1RealtimeCallsPost",
 			"createRealtimeClientSecretOpenaiV1RealtimeClientSecretsPost",
@@ -40715,8 +41253,10 @@ export const tagDictionary = {
 	decisions: {
 		POST: [
 			"decisionsDecisionsPost",
+			"extractionExtractionPost",
 			"systemoneSystemonePost",
 			"decisionsV1DecisionsPost",
+			"extractionV1ExtractionPost",
 			"systemoneV1SystemonePost",
 		],
 	},
@@ -40762,9 +41302,6 @@ export const tagDictionary = {
 		],
 		GET: ["getVantageSettingsVantageSettingsGet"],
 		PUT: ["updateVantageSettingsVantageSettingsPut"],
-	},
-	usageAi: {
-		POST: ["usageAiChatUsageAiChatPost"],
 	},
 	prompts: {
 		POST: [
