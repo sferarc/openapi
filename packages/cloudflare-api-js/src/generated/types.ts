@@ -28714,7 +28714,10 @@ export type CcContainersCreateScheduledApplicationRequest = {
   configuration: CcUserDeploymentConfiguration;
   constraints?: CcApplicationConstraints | undefined;
   /**
-   * @description Optionally associates this scheduler-backed application with a Durable Object namespace.
+   * @description Associates this scheduler-backed application with a Durable Object namespace. Required
+   * for default scheduling on private-network-only accounts unless the account has a
+   * temporary standalone-application exception.
+   *
    */
   durable_objects?: CcDurableObjectsConfiguration | undefined;
   /**
@@ -31758,6 +31761,442 @@ export type CloudforceOneEventsFieldDefinition = {
  */
 export type CloudforceOneEventsHydratedEntity = {
   [key: string]: unknown;
+};
+
+export const cloudforceOneEventsPirRelevanceCriterionBandEnum = {
+  highly: 'highly',
+  somewhat: 'somewhat',
+  not: 'not',
+} as const;
+
+export type CloudforceOneEventsPirRelevanceCriterionBandEnumKey = (typeof cloudforceOneEventsPirRelevanceCriterionBandEnum)[keyof typeof cloudforceOneEventsPirRelevanceCriterionBandEnum];
+
+export type CloudforceOneEventsPirRelevanceCriterion = {
+  band: CloudforceOneEventsPirRelevanceCriterionBandEnumKey;
+  /**
+   * @pattern ^[a-z0-9][a-z0-9-]{0,63}$
+   * @type string
+   */
+  id: string;
+  /**
+   * @minLength 1
+   * @maxLength 300
+   * @type string
+   */
+  text: string;
+};
+
+export type CloudforceOneEventsPirOrganizationReference = {
+  /**
+   * @default []
+   * @type array | undefined
+   */
+  domains?: string[] | undefined;
+  /**
+   * @minLength 1
+   * @maxLength 200
+   * @type string
+   */
+  name: string;
+};
+
+export const cloudforceOneEventsPirSelectionsActorTypesValueEnum = {
+  'nation-state': 'nation-state',
+  'crime-syndicate': 'crime-syndicate',
+  criminal: 'criminal',
+  activist: 'activist',
+  hacker: 'hacker',
+  'insider-disgruntled': 'insider-disgruntled',
+  'insider-accidental': 'insider-accidental',
+  spy: 'spy',
+  terrorist: 'terrorist',
+  competitor: 'competitor',
+  sensationalist: 'sensationalist',
+} as const;
+
+export type CloudforceOneEventsPirSelectionsActorTypesValueEnumKey = (typeof cloudforceOneEventsPirSelectionsActorTypesValueEnum)[keyof typeof cloudforceOneEventsPirSelectionsActorTypesValueEnum];
+
+export const cloudforceOneEventsPirSelectionsMotivationsValueEnum = {
+  'personal-gain': 'personal-gain',
+  'organizational-gain': 'organizational-gain',
+  ideology: 'ideology',
+  dominance: 'dominance',
+  notoriety: 'notoriety',
+  coercion: 'coercion',
+  revenge: 'revenge',
+} as const;
+
+export type CloudforceOneEventsPirSelectionsMotivationsValueEnumKey = (typeof cloudforceOneEventsPirSelectionsMotivationsValueEnum)[keyof typeof cloudforceOneEventsPirSelectionsMotivationsValueEnum];
+
+export const cloudforceOneEventsPirSelectionsSectorsValueEnum = {
+  aerospace: 'aerospace',
+  agriculture: 'agriculture',
+  automotive: 'automotive',
+  chemical: 'chemical',
+  commercial: 'commercial',
+  communications: 'communications',
+  construction: 'construction',
+  defense: 'defense',
+  education: 'education',
+  energy: 'energy',
+  entertainment: 'entertainment',
+  'financial-services': 'financial-services',
+  'government-local': 'government-local',
+  'government-national': 'government-national',
+  'government-public-services': 'government-public-services',
+  'government-regional': 'government-regional',
+  healthcare: 'healthcare',
+  'hospitality-leisure': 'hospitality-leisure',
+  infrastructure: 'infrastructure',
+  insurance: 'insurance',
+  manufacturing: 'manufacturing',
+  mining: 'mining',
+  'non-profit': 'non-profit',
+  pharmaceuticals: 'pharmaceuticals',
+  'professional-services': 'professional-services',
+  retail: 'retail',
+  technology: 'technology',
+  telecommunications: 'telecommunications',
+  transportation: 'transportation',
+  utilities: 'utilities',
+} as const;
+
+export type CloudforceOneEventsPirSelectionsSectorsValueEnumKey = (typeof cloudforceOneEventsPirSelectionsSectorsValueEnum)[keyof typeof cloudforceOneEventsPirSelectionsSectorsValueEnum];
+
+export const cloudforceOneEventsPirSelectionsTargetsValueEnum = {
+  organization: 'organization',
+  customers: 'customers',
+  employees: 'employees',
+  executives: 'executives',
+  partners: 'partners',
+  events: 'events',
+  'products-infrastructure': 'products-infrastructure',
+} as const;
+
+export type CloudforceOneEventsPirSelectionsTargetsValueEnumKey = (typeof cloudforceOneEventsPirSelectionsTargetsValueEnum)[keyof typeof cloudforceOneEventsPirSelectionsTargetsValueEnum];
+
+/**
+ * @default {}
+ * @type object
+ */
+export type CloudforceOneEventsPirSelections = {
+  /**
+   * @minLength 1
+   * @maxLength 500
+   * @type string | undefined
+   */
+  actor_notes?: string | undefined;
+  /**
+   * @default {"mode":"inherit"}
+   */
+  actor_types?: ({
+    mode: 'inherit';
+  } | {
+    mode: 'replace';
+    value: CloudforceOneEventsPirSelectionsActorTypesValueEnumKey[];
+  }) | undefined;
+  /**
+   * @default {"add":[],"remove":[]}
+   * @type object | undefined
+   */
+  actors?: {
+    /**
+     * @default []
+     * @type array | undefined
+     */
+    add?: string[] | undefined;
+    /**
+     * @default []
+     * @type array | undefined
+     */
+    remove?: string[] | undefined;
+  } | undefined;
+  /**
+   * @default []
+   * @type array | undefined
+   */
+  attributed_countries?: string[] | undefined;
+  /**
+   * @default {"mode":"inherit"}
+   */
+  countries?: ({
+    mode: 'inherit';
+  } | {
+    mode: 'replace';
+    value: string[];
+  }) | undefined;
+  /**
+   * @default []
+   * @type array | undefined
+   */
+  cves?: string[] | undefined;
+  /**
+   * @default []
+   * @type array | undefined
+   */
+  excluded_actors?: string[] | undefined;
+  /**
+   * @default {"mode":"inherit"}
+   */
+  key_suppliers?: ({
+    mode: 'inherit';
+  } | {
+    mode: 'replace';
+    value: CloudforceOneEventsPirOrganizationReference[];
+  }) | undefined;
+  /**
+   * @default []
+   * @type array | undefined
+   */
+  malware_tools?: string[] | undefined;
+  /**
+   * @default {"mode":"inherit"}
+   */
+  motivations?: ({
+    mode: 'inherit';
+  } | {
+    mode: 'replace';
+    value: CloudforceOneEventsPirSelectionsMotivationsValueEnumKey[];
+  }) | undefined;
+  /**
+   * @default {"mode":"inherit"}
+   */
+  peers?: ({
+    mode: 'inherit';
+  } | {
+    mode: 'replace';
+    value: CloudforceOneEventsPirOrganizationReference[];
+  }) | undefined;
+  /**
+   * @default {"mode":"inherit"}
+   */
+  sectors?: ({
+    mode: 'inherit';
+  } | {
+    mode: 'replace';
+    value: CloudforceOneEventsPirSelectionsSectorsValueEnumKey[];
+  }) | undefined;
+  /**
+   * @default {"mode":"inherit"}
+   */
+  targets?: ({
+    mode: 'inherit';
+  } | {
+    mode: 'replace';
+    value: CloudforceOneEventsPirSelectionsTargetsValueEnumKey[];
+  }) | undefined;
+  /**
+   * @default []
+   * @type array | undefined
+   */
+  technique_ids?: string[] | undefined;
+  /**
+   * @default {"mode":"inherit"}
+   */
+  technologies?: ({
+    mode: 'inherit';
+  } | {
+    mode: 'replace';
+    value: string[];
+  }) | undefined;
+};
+
+/**
+ * @description Structured PIR answers. `managed` follows a topic from `GET /topics`; `custom` has its own question and criteria. The requirement text and event query are generated from it.
+ */
+export type CloudforceOneEventsPirDefinition = {
+  /**
+   * @default []
+   * @type array | undefined
+   */
+  additional_criteria?: CloudforceOneEventsPirRelevanceCriterion[] | undefined;
+  /**
+   * @default {"add":[],"remove":[]}
+   * @type object | undefined
+   */
+  criterion_selections?: {
+    /**
+     * @default []
+     * @type array | undefined
+     */
+    add?: string[] | undefined;
+    /**
+     * @default []
+     * @type array | undefined
+     */
+    remove?: string[] | undefined;
+  } | undefined;
+  mode: 'managed';
+  /**
+   * @default {"mode":"inherit"}
+   */
+  question?: ({
+    mode: 'inherit';
+  } | {
+    mode: 'replace';
+    /**
+     * @minLength 1
+     * @maxLength 1000
+     * @type string
+     */
+    value: string;
+  }) | undefined;
+  schema_version: 1;
+  /**
+   * @default {}
+   * @type object | undefined
+   */
+  selections?: CloudforceOneEventsPirSelections | undefined;
+  /**
+   * @default {"mode":"inherit"}
+   */
+  title?: ({
+    mode: 'inherit';
+  } | {
+    mode: 'replace';
+    /**
+     * @minLength 1
+     * @maxLength 200
+     * @type string
+     */
+    value: string;
+  }) | undefined;
+  /**
+   * @minLength 1
+   * @maxLength 100
+   * @type string
+   */
+  topic_id: string;
+} | {
+  mode: 'custom';
+  /**
+   * @minLength 1
+   * @maxLength 1000
+   * @type string
+   */
+  question: string;
+  relevance_criteria: CloudforceOneEventsPirRelevanceCriterion[];
+  schema_version: 1;
+  /**
+   * @default {}
+   * @type object | undefined
+   */
+  selections?: CloudforceOneEventsPirSelections | undefined;
+  /**
+   * @minLength 1
+   * @maxLength 200
+   * @type string
+   */
+  title: string;
+};
+
+export const cloudforceOneEventsPirOrganizationProfileFactsProtectedTargetsEnum = {
+  organization: 'organization',
+  customers: 'customers',
+  employees: 'employees',
+  executives: 'executives',
+  partners: 'partners',
+  events: 'events',
+  'products-infrastructure': 'products-infrastructure',
+} as const;
+
+export type CloudforceOneEventsPirOrganizationProfileFactsProtectedTargetsEnumKey = (typeof cloudforceOneEventsPirOrganizationProfileFactsProtectedTargetsEnum)[keyof typeof cloudforceOneEventsPirOrganizationProfileFactsProtectedTargetsEnum];
+
+export const cloudforceOneEventsPirOrganizationProfileFactsSectorsEnum = {
+  aerospace: 'aerospace',
+  agriculture: 'agriculture',
+  automotive: 'automotive',
+  chemical: 'chemical',
+  commercial: 'commercial',
+  communications: 'communications',
+  construction: 'construction',
+  defense: 'defense',
+  education: 'education',
+  energy: 'energy',
+  entertainment: 'entertainment',
+  'financial-services': 'financial-services',
+  'government-local': 'government-local',
+  'government-national': 'government-national',
+  'government-public-services': 'government-public-services',
+  'government-regional': 'government-regional',
+  healthcare: 'healthcare',
+  'hospitality-leisure': 'hospitality-leisure',
+  infrastructure: 'infrastructure',
+  insurance: 'insurance',
+  manufacturing: 'manufacturing',
+  mining: 'mining',
+  'non-profit': 'non-profit',
+  pharmaceuticals: 'pharmaceuticals',
+  'professional-services': 'professional-services',
+  retail: 'retail',
+  technology: 'technology',
+  telecommunications: 'telecommunications',
+  transportation: 'transportation',
+  utilities: 'utilities',
+} as const;
+
+export type CloudforceOneEventsPirOrganizationProfileFactsSectorsEnumKey = (typeof cloudforceOneEventsPirOrganizationProfileFactsSectorsEnum)[keyof typeof cloudforceOneEventsPirOrganizationProfileFactsSectorsEnum];
+
+/**
+ * @description Structured organization facts. Structured PIRs inherit them, and the profile text is generated from them.
+ * @type object
+ */
+export type CloudforceOneEventsPirOrganizationProfile = {
+  /**
+   * @minLength 1
+   * @maxLength 2000
+   * @type string | undefined
+   */
+  additional_context?: string | undefined;
+  facts: {
+    /**
+     * @default []
+     * @type array | undefined
+     */
+    brands?: string[] | undefined;
+    /**
+     * @default []
+     * @type array | undefined
+     */
+    domains?: string[] | undefined;
+    /**
+     * @default []
+     * @type array | undefined
+     */
+    key_suppliers?: CloudforceOneEventsPirOrganizationReference[] | undefined;
+    /**
+     * @default []
+     * @type array | undefined
+     */
+    operating_countries?: string[] | undefined;
+    /**
+     * @minLength 1
+     * @maxLength 200
+     * @type string
+     */
+    organization_name: string;
+    /**
+     * @default []
+     * @type array | undefined
+     */
+    peers?: CloudforceOneEventsPirOrganizationReference[] | undefined;
+    /**
+     * @default []
+     * @type array | undefined
+     */
+    protected_targets?: CloudforceOneEventsPirOrganizationProfileFactsProtectedTargetsEnumKey[] | undefined;
+    /**
+     * @default []
+     * @type array | undefined
+     */
+    sectors?: CloudforceOneEventsPirOrganizationProfileFactsSectorsEnumKey[] | undefined;
+    /**
+     * @default []
+     * @type array | undefined
+     */
+    technologies?: string[] | undefined;
+  };
+  schema_version: 1;
 };
 
 export const cloudforceOneEventsRelationshipEdgeEntityTypeEnum = {
@@ -76918,15 +77357,14 @@ export type NscCni = {
    * @type string
    */
   account: NscAccountTag;
-  bgp?: NscBgpControl | undefined;
   /**
-   * @description The BGP mode for a CNI.
-   * One of the following:
-   * * `dynamic_route_exchange`
-   * * `advertise_only`
-   * @type string | undefined
+   * @description BGP Control settings. For non-GCP CNIs, null disables BGP Control. GCP CNIs require BGP configuration, so explicit null is rejected; omission preserves stored settings or repairs missing settings with the Google defaults.
    */
-  bgp_mode?: NscBgpModeKey | undefined;
+  bgp?: (NscBgpControl | null) | undefined;
+  /**
+   * @description Controls the customer-facing route exchange behavior. Omitting this field during an update preserves the current mode. When enabling BGP on a BGP-disabled CNI, an omitted or null mode defaults to AdvertiseOnly. Otherwise, null clears the explicitly selected mode.
+   */
+  bgp_mode?: (NscBgpModeKey | null) | undefined;
   /**
    * @description Customer end of the point-to-point link
    *
@@ -76965,7 +77403,10 @@ export type NscCniCreate = {
    * @type string
    */
   account: NscAccountTag;
-  bgp?: NscBgpControl | undefined;
+  /**
+   * @description BGP Control settings. For GCP CNIs, omitting this field or setting it to null enables BGP with the Google ASN and AdvertiseOnly mode by default. For other CNI types, omission or null leaves BGP disabled.
+   */
+  bgp?: (NscBgpControl | null) | undefined;
   interconnect: string;
   magic: NscMagicSettings;
 };
@@ -110537,6 +110978,8 @@ export const teamsDevicesIntuneInputRequestComplianceStatusEnum = {
   notapplicable: 'notapplicable',
   ingraceperiod: 'ingraceperiod',
   error: 'error',
+  conflict: 'conflict',
+  configmanager: 'configmanager',
 } as const;
 
 export type TeamsDevicesIntuneInputRequestComplianceStatusEnumKey = (typeof teamsDevicesIntuneInputRequestComplianceStatusEnum)[keyof typeof teamsDevicesIntuneInputRequestComplianceStatusEnum];
@@ -110888,7 +111331,7 @@ export type TeamsDevicesSchemasDescription = string;
 
 /**
  * @description The wirefilter expression to match devices. Available values: "identity.email", "identity.groups.id", "identity.groups.name", "identity.groups.email", "identity.service_token_uuid", "identity.saml_attributes", "network", "os.name", "os.version", "device.tags".
- * @maxLength 500
+ * @maxLength 10000
  * @example identity.email == "test@cloudflare.com"
  * @type string
  */
@@ -111050,7 +111493,7 @@ export type TeamsDevicesDeviceSettingsPolicy = {
   lan_allow_subnet_size?: TeamsDevicesLanAllowSubnetSize | undefined;
   /**
    * @description The wirefilter expression to match devices. Available values: "identity.email", "identity.groups.id", "identity.groups.name", "identity.groups.email", "identity.service_token_uuid", "identity.saml_attributes", "network", "os.name", "os.version", "device.tags".
-   * @maxLength 500
+   * @maxLength 10000
    * @example identity.email == "test@cloudflare.com"
    * @type string | undefined
    */
@@ -111367,10 +111810,52 @@ export type TeamsDevicesDisconnect = boolean;
 export type TeamsDevicesEmptyBody = object | null;
 
 /**
+ * @description A description of the Split Tunnel item, displayed in the client UI. Null is treated as an empty description.
+ * @maxLength 100
+ * @example Exclude testing domains from the tunnel
+ * @type string
+ */
+export type TeamsDevicesSplitTunnelDescriptionRequest = string | null;
+
+export type TeamsDevicesExcludeSplitTunnelWithAddressRequest = {
+  /**
+   * @description The address in CIDR format to exclude from the tunnel. If `address` is present, `host` must not be present.
+   * @example 192.0.2.0/24
+   * @type string
+   */
+  address: TeamsDevicesSplitTunnelAddress;
+  /**
+   * @description A description of the Split Tunnel item, displayed in the client UI. Null is treated as an empty description.
+   * @maxLength 100
+   * @example Exclude testing domains from the tunnel
+   * @type string | undefined
+   */
+  description?: (TeamsDevicesSplitTunnelDescriptionRequest | null) | undefined;
+};
+
+export type TeamsDevicesExcludeSplitTunnelWithHostRequest = {
+  /**
+   * @description A description of the Split Tunnel item, displayed in the client UI. Null is treated as an empty description.
+   * @maxLength 100
+   * @example Exclude testing domains from the tunnel
+   * @type string | undefined
+   */
+  description?: (TeamsDevicesSplitTunnelDescriptionRequest | null) | undefined;
+  /**
+   * @description The domain name to exclude from the tunnel. If `host` is present, `address` must not be present.
+   * @example *.example.com
+   * @type string
+   */
+  host: TeamsDevicesSplitTunnelHost;
+};
+
+export type TeamsDevicesSplitTunnelRequest = TeamsDevicesExcludeSplitTunnelWithAddressRequest | TeamsDevicesExcludeSplitTunnelWithHostRequest;
+
+/**
  * @description List of routes excluded in the WARP client's tunnel. Both 'exclude' and 'include' cannot be set in the same request.
  * @type array
  */
-export type TeamsDevicesExcludeRequest = TeamsDevicesSplitTunnel[];
+export type TeamsDevicesExcludeRequest = TeamsDevicesSplitTunnelRequest[];
 
 export type TeamsDevicesFallbackDomainResponseCollection = TeamsDevicesApiResponseCollection & {
   result?: TeamsDevicesFallbackDomain[] | undefined;
@@ -111447,10 +111932,52 @@ export type TeamsDevicesIdResponse = TeamsDevicesApiResponseSingle & {
 export type TeamsDevicesIdentifier = string;
 
 /**
+ * @description A description of the Split Tunnel item, displayed in the client UI. Null is treated as an empty description.
+ * @maxLength 100
+ * @example Include testing domains in the tunnel
+ * @type string
+ */
+export type TeamsDevicesIncludeSplitTunnelDescriptionRequest = string | null;
+
+export type TeamsDevicesIncludeSplitTunnelWithAddressRequest = {
+  /**
+   * @description The address in CIDR format to include in the tunnel. If `address` is present, `host` must not be present.
+   * @example 192.0.2.0/24
+   * @type string
+   */
+  address: TeamsDevicesIncludeSplitTunnelAddress;
+  /**
+   * @description A description of the Split Tunnel item, displayed in the client UI. Null is treated as an empty description.
+   * @maxLength 100
+   * @example Include testing domains in the tunnel
+   * @type string | undefined
+   */
+  description?: (TeamsDevicesIncludeSplitTunnelDescriptionRequest | null) | undefined;
+};
+
+export type TeamsDevicesIncludeSplitTunnelWithHostRequest = {
+  /**
+   * @description A description of the Split Tunnel item, displayed in the client UI. Null is treated as an empty description.
+   * @maxLength 100
+   * @example Include testing domains in the tunnel
+   * @type string | undefined
+   */
+  description?: (TeamsDevicesIncludeSplitTunnelDescriptionRequest | null) | undefined;
+  /**
+   * @description The domain name to include in the tunnel. If `host` is present, `address` must not be present.
+   * @example *.example.com
+   * @type string
+   */
+  host: TeamsDevicesIncludeSplitTunnelHost;
+};
+
+export type TeamsDevicesSplitTunnelIncludeRequest = TeamsDevicesIncludeSplitTunnelWithAddressRequest | TeamsDevicesIncludeSplitTunnelWithHostRequest;
+
+/**
  * @description List of routes included in the WARP client's tunnel. Both 'exclude' and 'include' cannot be set in the same request.
  * @type array
  */
-export type TeamsDevicesIncludeRequest = TeamsDevicesSplitTunnelInclude[];
+export type TeamsDevicesIncludeRequest = TeamsDevicesSplitTunnelIncludeRequest[];
 
 /**
  * @description The RFC3339Nano timestamp when the Device IP profile was created.
@@ -111654,6 +112181,20 @@ export type TeamsDevicesIpProfileUpdateRequest = {
    */
   subnet_id?: TeamsDevicesIpProfileSubnetId | undefined;
 };
+
+/**
+ * @description The amount of time in minutes a user is allowed access to their LAN. A value of 0 will allow LAN access until the next WARP reconnection, such as a reboot or a laptop waking from sleep. Set to null to unset.
+ * @example 30
+ * @type number
+ */
+export type TeamsDevicesLanAllowMinutesRequest = number | null;
+
+/**
+ * @description The size of the subnet for the local access network. Set to null to unset.
+ * @example 24
+ * @type number
+ */
+export type TeamsDevicesLanAllowSubnetSizeRequest = number | null;
 
 export type TeamsDevicesOverrideCode = {
   /**
@@ -116915,12 +117456,25 @@ export type TlsCertificatesAndHostnamesValidationMethod3 = {
  */
 export type TunnelAccountId = string;
 
-export const tunnelAddressFamily = {
-  v4: 'v4',
-  v6: 'v6',
-} as const;
+/**
+ * @description The key of a Data Localization Suite region.
+ * @minLength 1
+ * @pattern \S
+ * @example eu
+ * @type string
+ */
+export type TunnelRegionKey = string;
 
-export type TunnelAddressFamilyKey = (typeof tunnelAddressFamily)[keyof typeof tunnelAddressFamily];
+export type TunnelAccountRegion = {
+  /**
+   * @description The key of a Data Localization Suite region.
+   * @minLength 1
+   * @pattern \S
+   * @example eu
+   * @type string
+   */
+  region_key: TunnelRegionKey;
+};
 
 /**
  * @example []
@@ -116961,6 +117515,32 @@ export type TunnelApiResponseCommon = {
    */
   success: true;
 };
+
+export type TunnelAccountRegionResponseCollection = TunnelApiResponseCommon & {
+  result: TunnelAccountRegion[];
+};
+
+export type TunnelActiveAccountRegion = {
+  /**
+   * @description The key of the account's active Data Localization Suite region, or `null` if the account has not selected a region.
+   * @minLength 1
+   * @pattern \S
+   * @example eu
+   * @type string
+   */
+  region_key: string | null;
+};
+
+export type TunnelActiveAccountRegionResponseSingle = TunnelApiResponseCommon & {
+  result: TunnelActiveAccountRegion;
+};
+
+export const tunnelAddressFamily = {
+  v4: 'v4',
+  v6: 'v6',
+} as const;
+
+export type TunnelAddressFamilyKey = (typeof tunnelAddressFamily)[keyof typeof tunnelAddressFamily];
 
 export type TunnelResultInfo = {
   /**
@@ -118022,6 +118602,17 @@ export type TunnelPageNumber = number;
  * @type number
  */
 export type TunnelPerPage = number;
+
+export type TunnelPutAccountRegionBody = {
+  /**
+   * @description The key of a Data Localization Suite region.
+   * @minLength 1
+   * @pattern \S
+   * @example eu
+   * @type string
+   */
+  region_key: TunnelRegionKey;
+};
 
 /**
  * @description Optional remark describing the route.
@@ -131830,6 +132421,12 @@ export type WorkersVersionItemFull = WorkersVersionItemShort & {
          * @type integer | undefined
          */
         readonly cpu_ms?: number | undefined;
+        /**
+         * @description The number of subrequests this Worker can make per request.
+         * @example 1000
+         * @type integer | undefined
+         */
+        readonly subrequests?: number | undefined;
       } | undefined;
       /**
        * @description The tag of the Durable Object migration that was most recently applied for this Worker.
@@ -131965,6 +132562,12 @@ export type WorkersVersionItemUploaded = WorkersVersionItemFull & {
          * @type integer | undefined
          */
         readonly cpu_ms?: number | undefined;
+        /**
+         * @description The number of subrequests this Worker can make per request.
+         * @example 1000
+         * @type integer | undefined
+         */
+        readonly subrequests?: number | undefined;
       } | undefined;
       /**
        * @description The tag of the Durable Object migration that was most recently applied for this Worker.
@@ -255531,6 +256134,7 @@ export type AiSearchListInstancesStatus200ResultSourceParamsWebCrawlerParseTypeE
 export const aiSearchListInstancesStatus200ResultTypeEnum = {
   r2: 'r2',
   'web-crawler': 'web-crawler',
+  d1: 'd1',
 } as const;
 
 export type AiSearchListInstancesStatus200ResultTypeEnumKey = (typeof aiSearchListInstancesStatus200ResultTypeEnum)[keyof typeof aiSearchListInstancesStatus200ResultTypeEnum];
@@ -255660,6 +256264,23 @@ export type AiSearchListInstancesStatus200 = {
     score_threshold: number | null;
     source: string | null;
     source_params: {
+      /**
+       * @description D1 source configuration of a d1 instance.
+       * @type object | undefined
+       */
+      d1?: {
+        /**
+         * @description Read-only SELECT query run against the D1 database. It must return an `id` column that uniquely identifies each row. Columns named `title` and `content` set the document title and body, and up to 5 `meta_*` columns become filterable custom metadata; any other column is indexed as a labelled field. Every sync reads the full result, up to 100,000 rows, with the instance's token, and those reads count against your D1 usage. Leading and trailing whitespace is trimmed before the query is stored.
+         * @type string | undefined
+         */
+        query?: string | undefined;
+        /**
+         * @description How each row is rendered into the indexed document: labelled renders the title, the labelled fields, then the content; content_only renders the title and content (labelled fields only when there is no content); key_value renders every column as name: value; json renders every column as a JSON object.
+         * @type string | undefined
+         */
+        template?: string | undefined;
+        [key: string]: unknown;
+      } | undefined;
       exclude_items?: string[] | undefined;
       include_items?: string[] | undefined;
       prefix?: string | undefined;
@@ -255838,6 +256459,15 @@ export const aiSearchCreateInstanceStatus201ResultRetrievalOptionsKeywordMatchMo
 
 export type AiSearchCreateInstanceStatus201ResultRetrievalOptionsKeywordMatchModeEnumKey = (typeof aiSearchCreateInstanceStatus201ResultRetrievalOptionsKeywordMatchModeEnum)[keyof typeof aiSearchCreateInstanceStatus201ResultRetrievalOptionsKeywordMatchModeEnum];
 
+export const aiSearchCreateInstanceStatus201ResultSourceParamsD1TemplateEnum = {
+  labelled: 'labelled',
+  content_only: 'content_only',
+  key_value: 'key_value',
+  json: 'json',
+} as const;
+
+export type AiSearchCreateInstanceStatus201ResultSourceParamsD1TemplateEnumKey = (typeof aiSearchCreateInstanceStatus201ResultSourceParamsD1TemplateEnum)[keyof typeof aiSearchCreateInstanceStatus201ResultSourceParamsD1TemplateEnum];
+
 export const aiSearchCreateInstanceStatus201ResultSourceParamsWebCrawlerDiscoverOptionsSourceEnum = {
   all: 'all',
   sitemaps: 'sitemaps',
@@ -255856,6 +256486,7 @@ export type AiSearchCreateInstanceStatus201ResultSourceParamsWebCrawlerParseType
 export const aiSearchCreateInstanceStatus201ResultTypeEnum = {
   r2: 'r2',
   'web-crawler': 'web-crawler',
+  d1: 'd1',
 } as const;
 
 export type AiSearchCreateInstanceStatus201ResultTypeEnumKey = (typeof aiSearchCreateInstanceStatus201ResultTypeEnum)[keyof typeof aiSearchCreateInstanceStatus201ResultTypeEnum];
@@ -256112,8 +256743,31 @@ export type AiSearchCreateInstanceStatus201 = {
      * @type number | undefined
      */
     score_threshold?: number | undefined;
+    /**
+     * @description The R2 bucket name for r2, the website URL for web-crawler, or the D1 database ID (UUID) for d1. A d1 instance also requires token_id, and the token needs D1 Read permission. The d1 database cannot be changed after creation.
+     * @type string | undefined
+     */
     source?: (string | null) | undefined;
     source_params?: ({
+      /**
+       * @description D1 source configuration. Required when creating a d1 instance and ignored for other types. For d1, include_items and exclude_items match each row's item key, `<id>.md`; a submitted source_params replaces both lists (an omitted list is cleared), so omit source_params to keep them.
+       * @type object | undefined
+       */
+      d1?: {
+        /**
+         * @description Read-only SELECT query run against the D1 database. It must return an `id` column that uniquely identifies each row. Columns named `title` and `content` set the document title and body, and up to 5 `meta_*` columns become filterable custom metadata; any other column is indexed as a labelled field. Every sync reads the full result, up to 100,000 rows, with the instance's token, and those reads count against your D1 usage. Leading and trailing whitespace is trimmed before the query is stored.
+         * @minLength 1
+         * @maxLength 10000
+         * @type string
+         */
+        query: string;
+        /**
+         * @description How each row is rendered into the indexed document: labelled renders the title, the labelled fields, then the content; content_only renders the title and content (labelled fields only when there is no content); key_value renders every column as name: value; json renders every column as a JSON object.
+         * @default 'labelled'
+         * @type string | undefined
+         */
+        template?: AiSearchCreateInstanceStatus201ResultSourceParamsD1TemplateEnumKey | undefined;
+      } | undefined;
       /**
        * @description List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced). Most accounts have a limit of 10 rules; contact support to raise it.
        * @example ["/admin/**","/private/**","**\\temp\\**"]
@@ -256261,7 +256915,7 @@ export type AiSearchCreateInstanceStatus201 = {
      */
     token_id?: string | undefined;
     /**
-     * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage.
+     * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage. d1 is never inferred; it indexes the rows returned by source_params.d1.query.
      * @type string | undefined
      */
     type?: (AiSearchCreateInstanceStatus201ResultTypeEnumKey | null) | undefined;
@@ -256300,10 +256954,13 @@ export type AiSearchCreateInstanceStatus409 = {
 };
 
 export type AiSearchCreateInstanceStatus503 = {
-  errors: {
-    code: number;
+  errors: ({
+    code: 7017;
     message: string;
-  }[];
+  } | {
+    code: 7125;
+    message: string;
+  })[];
   success: false;
 };
 
@@ -256369,6 +257026,15 @@ export const aiSearchCreateInstanceRequestRetrievalOptionsKeywordMatchModeEnum =
 
 export type AiSearchCreateInstanceRequestRetrievalOptionsKeywordMatchModeEnumKey = (typeof aiSearchCreateInstanceRequestRetrievalOptionsKeywordMatchModeEnum)[keyof typeof aiSearchCreateInstanceRequestRetrievalOptionsKeywordMatchModeEnum];
 
+export const aiSearchCreateInstanceRequestSourceParamsD1TemplateEnum = {
+  labelled: 'labelled',
+  content_only: 'content_only',
+  key_value: 'key_value',
+  json: 'json',
+} as const;
+
+export type AiSearchCreateInstanceRequestSourceParamsD1TemplateEnumKey = (typeof aiSearchCreateInstanceRequestSourceParamsD1TemplateEnum)[keyof typeof aiSearchCreateInstanceRequestSourceParamsD1TemplateEnum];
+
 export const aiSearchCreateInstanceRequestSourceParamsWebCrawlerDiscoverOptionsSourceEnum = {
   all: 'all',
   sitemaps: 'sitemaps',
@@ -256387,6 +257053,7 @@ export type AiSearchCreateInstanceRequestSourceParamsWebCrawlerParseTypeEnumKey 
 export const aiSearchCreateInstanceRequestTypeEnum = {
   r2: 'r2',
   'web-crawler': 'web-crawler',
+  d1: 'd1',
 } as const;
 
 export type AiSearchCreateInstanceRequestTypeEnumKey = (typeof aiSearchCreateInstanceRequestTypeEnum)[keyof typeof aiSearchCreateInstanceRequestTypeEnum];
@@ -256618,8 +257285,31 @@ export type AiSearchCreateInstanceBody = {
    * @type number | undefined
    */
   score_threshold?: number | undefined;
+  /**
+   * @description The R2 bucket name for r2, the website URL for web-crawler, or the D1 database ID (UUID) for d1. A d1 instance also requires token_id, and the token needs D1 Read permission. The d1 database cannot be changed after creation.
+   * @type string | undefined
+   */
   source?: (string | null) | undefined;
   source_params?: ({
+    /**
+     * @description D1 source configuration. Required when creating a d1 instance and ignored for other types. For d1, include_items and exclude_items match each row's item key, `<id>.md`; a submitted source_params replaces both lists (an omitted list is cleared), so omit source_params to keep them.
+     * @type object | undefined
+     */
+    d1?: {
+      /**
+       * @description Read-only SELECT query run against the D1 database. It must return an `id` column that uniquely identifies each row. Columns named `title` and `content` set the document title and body, and up to 5 `meta_*` columns become filterable custom metadata; any other column is indexed as a labelled field. Every sync reads the full result, up to 100,000 rows, with the instance's token, and those reads count against your D1 usage. Leading and trailing whitespace is trimmed before the query is stored.
+       * @minLength 1
+       * @maxLength 10000
+       * @type string
+       */
+      query: string;
+      /**
+       * @description How each row is rendered into the indexed document: labelled renders the title, the labelled fields, then the content; content_only renders the title and content (labelled fields only when there is no content); key_value renders every column as name: value; json renders every column as a JSON object.
+       * @default 'labelled'
+       * @type string | undefined
+       */
+      template?: AiSearchCreateInstanceRequestSourceParamsD1TemplateEnumKey | undefined;
+    } | undefined;
     /**
      * @description List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced). Most accounts have a limit of 10 rules; contact support to raise it.
      * @example ["/admin/**","/private/**","**\\temp\\**"]
@@ -256766,7 +257456,7 @@ export type AiSearchCreateInstanceBody = {
    */
   token_id?: string | undefined;
   /**
-   * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage.
+   * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage. d1 is never inferred; it indexes the rows returned by source_params.d1.query.
    * @type string | undefined
    */
   type?: (AiSearchCreateInstanceRequestTypeEnumKey | null) | undefined;
@@ -256871,6 +257561,15 @@ export const aiSearchDeleteInstanceStatus200ResultRetrievalOptionsKeywordMatchMo
 
 export type AiSearchDeleteInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnumKey = (typeof aiSearchDeleteInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnum)[keyof typeof aiSearchDeleteInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnum];
 
+export const aiSearchDeleteInstanceStatus200ResultSourceParamsD1TemplateEnum = {
+  labelled: 'labelled',
+  content_only: 'content_only',
+  key_value: 'key_value',
+  json: 'json',
+} as const;
+
+export type AiSearchDeleteInstanceStatus200ResultSourceParamsD1TemplateEnumKey = (typeof aiSearchDeleteInstanceStatus200ResultSourceParamsD1TemplateEnum)[keyof typeof aiSearchDeleteInstanceStatus200ResultSourceParamsD1TemplateEnum];
+
 export const aiSearchDeleteInstanceStatus200ResultSourceParamsWebCrawlerDiscoverOptionsSourceEnum = {
   all: 'all',
   sitemaps: 'sitemaps',
@@ -256889,6 +257588,7 @@ export type AiSearchDeleteInstanceStatus200ResultSourceParamsWebCrawlerParseType
 export const aiSearchDeleteInstanceStatus200ResultTypeEnum = {
   r2: 'r2',
   'web-crawler': 'web-crawler',
+  d1: 'd1',
 } as const;
 
 export type AiSearchDeleteInstanceStatus200ResultTypeEnumKey = (typeof aiSearchDeleteInstanceStatus200ResultTypeEnum)[keyof typeof aiSearchDeleteInstanceStatus200ResultTypeEnum];
@@ -257145,8 +257845,31 @@ export type AiSearchDeleteInstanceStatus200 = {
      * @type number | undefined
      */
     score_threshold?: number | undefined;
+    /**
+     * @description The R2 bucket name for r2, the website URL for web-crawler, or the D1 database ID (UUID) for d1. A d1 instance also requires token_id, and the token needs D1 Read permission. The d1 database cannot be changed after creation.
+     * @type string | undefined
+     */
     source?: (string | null) | undefined;
     source_params?: ({
+      /**
+       * @description D1 source configuration. Required when creating a d1 instance and ignored for other types. For d1, include_items and exclude_items match each row's item key, `<id>.md`; a submitted source_params replaces both lists (an omitted list is cleared), so omit source_params to keep them.
+       * @type object | undefined
+       */
+      d1?: {
+        /**
+         * @description Read-only SELECT query run against the D1 database. It must return an `id` column that uniquely identifies each row. Columns named `title` and `content` set the document title and body, and up to 5 `meta_*` columns become filterable custom metadata; any other column is indexed as a labelled field. Every sync reads the full result, up to 100,000 rows, with the instance's token, and those reads count against your D1 usage. Leading and trailing whitespace is trimmed before the query is stored.
+         * @minLength 1
+         * @maxLength 10000
+         * @type string
+         */
+        query: string;
+        /**
+         * @description How each row is rendered into the indexed document: labelled renders the title, the labelled fields, then the content; content_only renders the title and content (labelled fields only when there is no content); key_value renders every column as name: value; json renders every column as a JSON object.
+         * @default 'labelled'
+         * @type string | undefined
+         */
+        template?: AiSearchDeleteInstanceStatus200ResultSourceParamsD1TemplateEnumKey | undefined;
+      } | undefined;
       /**
        * @description List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced). Most accounts have a limit of 10 rules; contact support to raise it.
        * @example ["/admin/**","/private/**","**\\temp\\**"]
@@ -257294,7 +258017,7 @@ export type AiSearchDeleteInstanceStatus200 = {
      */
     token_id?: string | undefined;
     /**
-     * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage.
+     * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage. d1 is never inferred; it indexes the rows returned by source_params.d1.query.
      * @type string | undefined
      */
     type?: (AiSearchDeleteInstanceStatus200ResultTypeEnumKey | null) | undefined;
@@ -257415,6 +258138,15 @@ export const aiSearchFetchInstanceStatus200ResultRetrievalOptionsKeywordMatchMod
 
 export type AiSearchFetchInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnumKey = (typeof aiSearchFetchInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnum)[keyof typeof aiSearchFetchInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnum];
 
+export const aiSearchFetchInstanceStatus200ResultSourceParamsD1TemplateEnum = {
+  labelled: 'labelled',
+  content_only: 'content_only',
+  key_value: 'key_value',
+  json: 'json',
+} as const;
+
+export type AiSearchFetchInstanceStatus200ResultSourceParamsD1TemplateEnumKey = (typeof aiSearchFetchInstanceStatus200ResultSourceParamsD1TemplateEnum)[keyof typeof aiSearchFetchInstanceStatus200ResultSourceParamsD1TemplateEnum];
+
 export const aiSearchFetchInstanceStatus200ResultSourceParamsWebCrawlerDiscoverOptionsSourceEnum = {
   all: 'all',
   sitemaps: 'sitemaps',
@@ -257433,6 +258165,7 @@ export type AiSearchFetchInstanceStatus200ResultSourceParamsWebCrawlerParseTypeE
 export const aiSearchFetchInstanceStatus200ResultTypeEnum = {
   r2: 'r2',
   'web-crawler': 'web-crawler',
+  d1: 'd1',
 } as const;
 
 export type AiSearchFetchInstanceStatus200ResultTypeEnumKey = (typeof aiSearchFetchInstanceStatus200ResultTypeEnum)[keyof typeof aiSearchFetchInstanceStatus200ResultTypeEnum];
@@ -257689,8 +258422,31 @@ export type AiSearchFetchInstanceStatus200 = {
      * @type number | undefined
      */
     score_threshold?: number | undefined;
+    /**
+     * @description The R2 bucket name for r2, the website URL for web-crawler, or the D1 database ID (UUID) for d1. A d1 instance also requires token_id, and the token needs D1 Read permission. The d1 database cannot be changed after creation.
+     * @type string | undefined
+     */
     source?: (string | null) | undefined;
     source_params?: ({
+      /**
+       * @description D1 source configuration. Required when creating a d1 instance and ignored for other types. For d1, include_items and exclude_items match each row's item key, `<id>.md`; a submitted source_params replaces both lists (an omitted list is cleared), so omit source_params to keep them.
+       * @type object | undefined
+       */
+      d1?: {
+        /**
+         * @description Read-only SELECT query run against the D1 database. It must return an `id` column that uniquely identifies each row. Columns named `title` and `content` set the document title and body, and up to 5 `meta_*` columns become filterable custom metadata; any other column is indexed as a labelled field. Every sync reads the full result, up to 100,000 rows, with the instance's token, and those reads count against your D1 usage. Leading and trailing whitespace is trimmed before the query is stored.
+         * @minLength 1
+         * @maxLength 10000
+         * @type string
+         */
+        query: string;
+        /**
+         * @description How each row is rendered into the indexed document: labelled renders the title, the labelled fields, then the content; content_only renders the title and content (labelled fields only when there is no content); key_value renders every column as name: value; json renders every column as a JSON object.
+         * @default 'labelled'
+         * @type string | undefined
+         */
+        template?: AiSearchFetchInstanceStatus200ResultSourceParamsD1TemplateEnumKey | undefined;
+      } | undefined;
       /**
        * @description List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced). Most accounts have a limit of 10 rules; contact support to raise it.
        * @example ["/admin/**","/private/**","**\\temp\\**"]
@@ -257838,7 +258594,7 @@ export type AiSearchFetchInstanceStatus200 = {
      */
     token_id?: string | undefined;
     /**
-     * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage.
+     * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage. d1 is never inferred; it indexes the rows returned by source_params.d1.query.
      * @type string | undefined
      */
     type?: (AiSearchFetchInstanceStatus200ResultTypeEnumKey | null) | undefined;
@@ -257950,6 +258706,15 @@ export const aiSearchUpdateInstanceStatus200ResultRetrievalOptionsKeywordMatchMo
 
 export type AiSearchUpdateInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnumKey = (typeof aiSearchUpdateInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnum)[keyof typeof aiSearchUpdateInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnum];
 
+export const aiSearchUpdateInstanceStatus200ResultSourceParamsD1TemplateEnum = {
+  labelled: 'labelled',
+  content_only: 'content_only',
+  key_value: 'key_value',
+  json: 'json',
+} as const;
+
+export type AiSearchUpdateInstanceStatus200ResultSourceParamsD1TemplateEnumKey = (typeof aiSearchUpdateInstanceStatus200ResultSourceParamsD1TemplateEnum)[keyof typeof aiSearchUpdateInstanceStatus200ResultSourceParamsD1TemplateEnum];
+
 export const aiSearchUpdateInstanceStatus200ResultSourceParamsWebCrawlerDiscoverOptionsSourceEnum = {
   all: 'all',
   sitemaps: 'sitemaps',
@@ -257968,6 +258733,7 @@ export type AiSearchUpdateInstanceStatus200ResultSourceParamsWebCrawlerParseType
 export const aiSearchUpdateInstanceStatus200ResultTypeEnum = {
   r2: 'r2',
   'web-crawler': 'web-crawler',
+  d1: 'd1',
 } as const;
 
 export type AiSearchUpdateInstanceStatus200ResultTypeEnumKey = (typeof aiSearchUpdateInstanceStatus200ResultTypeEnum)[keyof typeof aiSearchUpdateInstanceStatus200ResultTypeEnum];
@@ -258224,8 +258990,31 @@ export type AiSearchUpdateInstanceStatus200 = {
      * @type number | undefined
      */
     score_threshold?: number | undefined;
+    /**
+     * @description The R2 bucket name for r2, the website URL for web-crawler, or the D1 database ID (UUID) for d1. A d1 instance also requires token_id, and the token needs D1 Read permission. The d1 database cannot be changed after creation.
+     * @type string | undefined
+     */
     source?: (string | null) | undefined;
     source_params?: ({
+      /**
+       * @description D1 source configuration. Required when creating a d1 instance and ignored for other types. For d1, include_items and exclude_items match each row's item key, `<id>.md`; a submitted source_params replaces both lists (an omitted list is cleared), so omit source_params to keep them.
+       * @type object | undefined
+       */
+      d1?: {
+        /**
+         * @description Read-only SELECT query run against the D1 database. It must return an `id` column that uniquely identifies each row. Columns named `title` and `content` set the document title and body, and up to 5 `meta_*` columns become filterable custom metadata; any other column is indexed as a labelled field. Every sync reads the full result, up to 100,000 rows, with the instance's token, and those reads count against your D1 usage. Leading and trailing whitespace is trimmed before the query is stored.
+         * @minLength 1
+         * @maxLength 10000
+         * @type string
+         */
+        query: string;
+        /**
+         * @description How each row is rendered into the indexed document: labelled renders the title, the labelled fields, then the content; content_only renders the title and content (labelled fields only when there is no content); key_value renders every column as name: value; json renders every column as a JSON object.
+         * @default 'labelled'
+         * @type string | undefined
+         */
+        template?: AiSearchUpdateInstanceStatus200ResultSourceParamsD1TemplateEnumKey | undefined;
+      } | undefined;
       /**
        * @description List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced). Most accounts have a limit of 10 rules; contact support to raise it.
        * @example ["/admin/**","/private/**","**\\temp\\**"]
@@ -258373,7 +259162,7 @@ export type AiSearchUpdateInstanceStatus200 = {
      */
     token_id?: string | undefined;
     /**
-     * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage.
+     * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage. d1 is never inferred; it indexes the rows returned by source_params.d1.query.
      * @type string | undefined
      */
     type?: (AiSearchUpdateInstanceStatus200ResultTypeEnumKey | null) | undefined;
@@ -258406,10 +259195,13 @@ export type AiSearchUpdateInstanceStatus409 = {
 };
 
 export type AiSearchUpdateInstanceStatus503 = {
-  errors: {
-    code: number;
+  errors: ({
+    code: 7017;
     message: string;
-  }[];
+  } | {
+    code: 7125;
+    message: string;
+  })[];
   success: false;
 };
 
@@ -258474,6 +259266,15 @@ export const aiSearchUpdateInstanceRequestRetrievalOptionsKeywordMatchModeEnum =
 } as const;
 
 export type AiSearchUpdateInstanceRequestRetrievalOptionsKeywordMatchModeEnumKey = (typeof aiSearchUpdateInstanceRequestRetrievalOptionsKeywordMatchModeEnum)[keyof typeof aiSearchUpdateInstanceRequestRetrievalOptionsKeywordMatchModeEnum];
+
+export const aiSearchUpdateInstanceRequestSourceParamsD1TemplateEnum = {
+  labelled: 'labelled',
+  content_only: 'content_only',
+  key_value: 'key_value',
+  json: 'json',
+} as const;
+
+export type AiSearchUpdateInstanceRequestSourceParamsD1TemplateEnumKey = (typeof aiSearchUpdateInstanceRequestSourceParamsD1TemplateEnum)[keyof typeof aiSearchUpdateInstanceRequestSourceParamsD1TemplateEnum];
 
 export const aiSearchUpdateInstanceRequestSourceParamsWebCrawlerDiscoverOptionsSourceEnum = {
   all: 'all',
@@ -258703,8 +259504,30 @@ export type AiSearchUpdateInstanceBody = {
    * @type number | undefined
    */
   score_threshold?: number | undefined;
+  /**
+   * @description The R2 bucket name for r2, the website URL for web-crawler, or the D1 database ID (UUID) for d1. A d1 instance also requires token_id, and the token needs D1 Read permission. The d1 database cannot be changed after creation.
+   * @type string | undefined
+   */
   source?: (string | null) | undefined;
   source_params?: ({
+    /**
+     * @description D1 source configuration of a d1 instance; ignored for other types. An omitted d1, query, or template keeps its stored value. For d1, include_items and exclude_items match each row's item key, `<id>.md`; a submitted source_params replaces both lists (an omitted list is cleared), so omit source_params to keep them.
+     * @type object | undefined
+     */
+    d1?: {
+      /**
+       * @description Read-only SELECT query run against the D1 database. It must return an `id` column that uniquely identifies each row. Columns named `title` and `content` set the document title and body, and up to 5 `meta_*` columns become filterable custom metadata; any other column is indexed as a labelled field. Every sync reads the full result, up to 100,000 rows, with the instance's token, and those reads count against your D1 usage. Leading and trailing whitespace is trimmed before the query is stored. Omit to keep the stored query.
+       * @minLength 1
+       * @maxLength 10000
+       * @type string | undefined
+       */
+      query?: string | undefined;
+      /**
+       * @description How each row is rendered into the indexed document: labelled renders the title, the labelled fields, then the content; content_only renders the title and content (labelled fields only when there is no content); key_value renders every column as name: value; json renders every column as a JSON object. Omit to keep the stored template.
+       * @type string | undefined
+       */
+      template?: AiSearchUpdateInstanceRequestSourceParamsD1TemplateEnumKey | undefined;
+    } | undefined;
     /**
      * @description List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced). Most accounts have a limit of 10 rules; contact support to raise it.
      * @example ["/admin/**","/private/**","**\\temp\\**"]
@@ -260799,6 +261622,7 @@ export type AiSearchNamespaceListInstancesStatus200ResultSourceParamsWebCrawlerP
 export const aiSearchNamespaceListInstancesStatus200ResultTypeEnum = {
   r2: 'r2',
   'web-crawler': 'web-crawler',
+  d1: 'd1',
 } as const;
 
 export type AiSearchNamespaceListInstancesStatus200ResultTypeEnumKey = (typeof aiSearchNamespaceListInstancesStatus200ResultTypeEnum)[keyof typeof aiSearchNamespaceListInstancesStatus200ResultTypeEnum];
@@ -260928,6 +261752,23 @@ export type AiSearchNamespaceListInstancesStatus200 = {
     score_threshold: number | null;
     source: string | null;
     source_params: {
+      /**
+       * @description D1 source configuration of a d1 instance.
+       * @type object | undefined
+       */
+      d1?: {
+        /**
+         * @description Read-only SELECT query run against the D1 database. It must return an `id` column that uniquely identifies each row. Columns named `title` and `content` set the document title and body, and up to 5 `meta_*` columns become filterable custom metadata; any other column is indexed as a labelled field. Every sync reads the full result, up to 100,000 rows, with the instance's token, and those reads count against your D1 usage. Leading and trailing whitespace is trimmed before the query is stored.
+         * @type string | undefined
+         */
+        query?: string | undefined;
+        /**
+         * @description How each row is rendered into the indexed document: labelled renders the title, the labelled fields, then the content; content_only renders the title and content (labelled fields only when there is no content); key_value renders every column as name: value; json renders every column as a JSON object.
+         * @type string | undefined
+         */
+        template?: string | undefined;
+        [key: string]: unknown;
+      } | undefined;
       exclude_items?: string[] | undefined;
       include_items?: string[] | undefined;
       prefix?: string | undefined;
@@ -261108,6 +261949,15 @@ export const aiSearchNamespaceCreateInstanceStatus201ResultRetrievalOptionsKeywo
 
 export type AiSearchNamespaceCreateInstanceStatus201ResultRetrievalOptionsKeywordMatchModeEnumKey = (typeof aiSearchNamespaceCreateInstanceStatus201ResultRetrievalOptionsKeywordMatchModeEnum)[keyof typeof aiSearchNamespaceCreateInstanceStatus201ResultRetrievalOptionsKeywordMatchModeEnum];
 
+export const aiSearchNamespaceCreateInstanceStatus201ResultSourceParamsD1TemplateEnum = {
+  labelled: 'labelled',
+  content_only: 'content_only',
+  key_value: 'key_value',
+  json: 'json',
+} as const;
+
+export type AiSearchNamespaceCreateInstanceStatus201ResultSourceParamsD1TemplateEnumKey = (typeof aiSearchNamespaceCreateInstanceStatus201ResultSourceParamsD1TemplateEnum)[keyof typeof aiSearchNamespaceCreateInstanceStatus201ResultSourceParamsD1TemplateEnum];
+
 export const aiSearchNamespaceCreateInstanceStatus201ResultSourceParamsWebCrawlerDiscoverOptionsSourceEnum = {
   all: 'all',
   sitemaps: 'sitemaps',
@@ -261126,6 +261976,7 @@ export type AiSearchNamespaceCreateInstanceStatus201ResultSourceParamsWebCrawler
 export const aiSearchNamespaceCreateInstanceStatus201ResultTypeEnum = {
   r2: 'r2',
   'web-crawler': 'web-crawler',
+  d1: 'd1',
 } as const;
 
 export type AiSearchNamespaceCreateInstanceStatus201ResultTypeEnumKey = (typeof aiSearchNamespaceCreateInstanceStatus201ResultTypeEnum)[keyof typeof aiSearchNamespaceCreateInstanceStatus201ResultTypeEnum];
@@ -261382,8 +262233,31 @@ export type AiSearchNamespaceCreateInstanceStatus201 = {
      * @type number | undefined
      */
     score_threshold?: number | undefined;
+    /**
+     * @description The R2 bucket name for r2, the website URL for web-crawler, or the D1 database ID (UUID) for d1. A d1 instance also requires token_id, and the token needs D1 Read permission. The d1 database cannot be changed after creation.
+     * @type string | undefined
+     */
     source?: (string | null) | undefined;
     source_params?: ({
+      /**
+       * @description D1 source configuration. Required when creating a d1 instance and ignored for other types. For d1, include_items and exclude_items match each row's item key, `<id>.md`; a submitted source_params replaces both lists (an omitted list is cleared), so omit source_params to keep them.
+       * @type object | undefined
+       */
+      d1?: {
+        /**
+         * @description Read-only SELECT query run against the D1 database. It must return an `id` column that uniquely identifies each row. Columns named `title` and `content` set the document title and body, and up to 5 `meta_*` columns become filterable custom metadata; any other column is indexed as a labelled field. Every sync reads the full result, up to 100,000 rows, with the instance's token, and those reads count against your D1 usage. Leading and trailing whitespace is trimmed before the query is stored.
+         * @minLength 1
+         * @maxLength 10000
+         * @type string
+         */
+        query: string;
+        /**
+         * @description How each row is rendered into the indexed document: labelled renders the title, the labelled fields, then the content; content_only renders the title and content (labelled fields only when there is no content); key_value renders every column as name: value; json renders every column as a JSON object.
+         * @default 'labelled'
+         * @type string | undefined
+         */
+        template?: AiSearchNamespaceCreateInstanceStatus201ResultSourceParamsD1TemplateEnumKey | undefined;
+      } | undefined;
       /**
        * @description List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced). Most accounts have a limit of 10 rules; contact support to raise it.
        * @example ["/admin/**","/private/**","**\\temp\\**"]
@@ -261531,7 +262405,7 @@ export type AiSearchNamespaceCreateInstanceStatus201 = {
      */
     token_id?: string | undefined;
     /**
-     * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage.
+     * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage. d1 is never inferred; it indexes the rows returned by source_params.d1.query.
      * @type string | undefined
      */
     type?: (AiSearchNamespaceCreateInstanceStatus201ResultTypeEnumKey | null) | undefined;
@@ -261570,10 +262444,13 @@ export type AiSearchNamespaceCreateInstanceStatus409 = {
 };
 
 export type AiSearchNamespaceCreateInstanceStatus503 = {
-  errors: {
-    code: number;
+  errors: ({
+    code: 7017;
     message: string;
-  }[];
+  } | {
+    code: 7125;
+    message: string;
+  })[];
   success: false;
 };
 
@@ -261639,6 +262516,15 @@ export const aiSearchNamespaceCreateInstanceRequestRetrievalOptionsKeywordMatchM
 
 export type AiSearchNamespaceCreateInstanceRequestRetrievalOptionsKeywordMatchModeEnumKey = (typeof aiSearchNamespaceCreateInstanceRequestRetrievalOptionsKeywordMatchModeEnum)[keyof typeof aiSearchNamespaceCreateInstanceRequestRetrievalOptionsKeywordMatchModeEnum];
 
+export const aiSearchNamespaceCreateInstanceRequestSourceParamsD1TemplateEnum = {
+  labelled: 'labelled',
+  content_only: 'content_only',
+  key_value: 'key_value',
+  json: 'json',
+} as const;
+
+export type AiSearchNamespaceCreateInstanceRequestSourceParamsD1TemplateEnumKey = (typeof aiSearchNamespaceCreateInstanceRequestSourceParamsD1TemplateEnum)[keyof typeof aiSearchNamespaceCreateInstanceRequestSourceParamsD1TemplateEnum];
+
 export const aiSearchNamespaceCreateInstanceRequestSourceParamsWebCrawlerDiscoverOptionsSourceEnum = {
   all: 'all',
   sitemaps: 'sitemaps',
@@ -261657,6 +262543,7 @@ export type AiSearchNamespaceCreateInstanceRequestSourceParamsWebCrawlerParseTyp
 export const aiSearchNamespaceCreateInstanceRequestTypeEnum = {
   r2: 'r2',
   'web-crawler': 'web-crawler',
+  d1: 'd1',
 } as const;
 
 export type AiSearchNamespaceCreateInstanceRequestTypeEnumKey = (typeof aiSearchNamespaceCreateInstanceRequestTypeEnum)[keyof typeof aiSearchNamespaceCreateInstanceRequestTypeEnum];
@@ -261888,8 +262775,31 @@ export type AiSearchNamespaceCreateInstanceBody = {
    * @type number | undefined
    */
   score_threshold?: number | undefined;
+  /**
+   * @description The R2 bucket name for r2, the website URL for web-crawler, or the D1 database ID (UUID) for d1. A d1 instance also requires token_id, and the token needs D1 Read permission. The d1 database cannot be changed after creation.
+   * @type string | undefined
+   */
   source?: (string | null) | undefined;
   source_params?: ({
+    /**
+     * @description D1 source configuration. Required when creating a d1 instance and ignored for other types. For d1, include_items and exclude_items match each row's item key, `<id>.md`; a submitted source_params replaces both lists (an omitted list is cleared), so omit source_params to keep them.
+     * @type object | undefined
+     */
+    d1?: {
+      /**
+       * @description Read-only SELECT query run against the D1 database. It must return an `id` column that uniquely identifies each row. Columns named `title` and `content` set the document title and body, and up to 5 `meta_*` columns become filterable custom metadata; any other column is indexed as a labelled field. Every sync reads the full result, up to 100,000 rows, with the instance's token, and those reads count against your D1 usage. Leading and trailing whitespace is trimmed before the query is stored.
+       * @minLength 1
+       * @maxLength 10000
+       * @type string
+       */
+      query: string;
+      /**
+       * @description How each row is rendered into the indexed document: labelled renders the title, the labelled fields, then the content; content_only renders the title and content (labelled fields only when there is no content); key_value renders every column as name: value; json renders every column as a JSON object.
+       * @default 'labelled'
+       * @type string | undefined
+       */
+      template?: AiSearchNamespaceCreateInstanceRequestSourceParamsD1TemplateEnumKey | undefined;
+    } | undefined;
     /**
      * @description List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced). Most accounts have a limit of 10 rules; contact support to raise it.
      * @example ["/admin/**","/private/**","**\\temp\\**"]
@@ -262036,7 +262946,7 @@ export type AiSearchNamespaceCreateInstanceBody = {
    */
   token_id?: string | undefined;
   /**
-   * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage.
+   * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage. d1 is never inferred; it indexes the rows returned by source_params.d1.query.
    * @type string | undefined
    */
   type?: (AiSearchNamespaceCreateInstanceRequestTypeEnumKey | null) | undefined;
@@ -262143,6 +263053,15 @@ export const aiSearchNamespaceDeleteInstanceStatus200ResultRetrievalOptionsKeywo
 
 export type AiSearchNamespaceDeleteInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnumKey = (typeof aiSearchNamespaceDeleteInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnum)[keyof typeof aiSearchNamespaceDeleteInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnum];
 
+export const aiSearchNamespaceDeleteInstanceStatus200ResultSourceParamsD1TemplateEnum = {
+  labelled: 'labelled',
+  content_only: 'content_only',
+  key_value: 'key_value',
+  json: 'json',
+} as const;
+
+export type AiSearchNamespaceDeleteInstanceStatus200ResultSourceParamsD1TemplateEnumKey = (typeof aiSearchNamespaceDeleteInstanceStatus200ResultSourceParamsD1TemplateEnum)[keyof typeof aiSearchNamespaceDeleteInstanceStatus200ResultSourceParamsD1TemplateEnum];
+
 export const aiSearchNamespaceDeleteInstanceStatus200ResultSourceParamsWebCrawlerDiscoverOptionsSourceEnum = {
   all: 'all',
   sitemaps: 'sitemaps',
@@ -262161,6 +263080,7 @@ export type AiSearchNamespaceDeleteInstanceStatus200ResultSourceParamsWebCrawler
 export const aiSearchNamespaceDeleteInstanceStatus200ResultTypeEnum = {
   r2: 'r2',
   'web-crawler': 'web-crawler',
+  d1: 'd1',
 } as const;
 
 export type AiSearchNamespaceDeleteInstanceStatus200ResultTypeEnumKey = (typeof aiSearchNamespaceDeleteInstanceStatus200ResultTypeEnum)[keyof typeof aiSearchNamespaceDeleteInstanceStatus200ResultTypeEnum];
@@ -262417,8 +263337,31 @@ export type AiSearchNamespaceDeleteInstanceStatus200 = {
      * @type number | undefined
      */
     score_threshold?: number | undefined;
+    /**
+     * @description The R2 bucket name for r2, the website URL for web-crawler, or the D1 database ID (UUID) for d1. A d1 instance also requires token_id, and the token needs D1 Read permission. The d1 database cannot be changed after creation.
+     * @type string | undefined
+     */
     source?: (string | null) | undefined;
     source_params?: ({
+      /**
+       * @description D1 source configuration. Required when creating a d1 instance and ignored for other types. For d1, include_items and exclude_items match each row's item key, `<id>.md`; a submitted source_params replaces both lists (an omitted list is cleared), so omit source_params to keep them.
+       * @type object | undefined
+       */
+      d1?: {
+        /**
+         * @description Read-only SELECT query run against the D1 database. It must return an `id` column that uniquely identifies each row. Columns named `title` and `content` set the document title and body, and up to 5 `meta_*` columns become filterable custom metadata; any other column is indexed as a labelled field. Every sync reads the full result, up to 100,000 rows, with the instance's token, and those reads count against your D1 usage. Leading and trailing whitespace is trimmed before the query is stored.
+         * @minLength 1
+         * @maxLength 10000
+         * @type string
+         */
+        query: string;
+        /**
+         * @description How each row is rendered into the indexed document: labelled renders the title, the labelled fields, then the content; content_only renders the title and content (labelled fields only when there is no content); key_value renders every column as name: value; json renders every column as a JSON object.
+         * @default 'labelled'
+         * @type string | undefined
+         */
+        template?: AiSearchNamespaceDeleteInstanceStatus200ResultSourceParamsD1TemplateEnumKey | undefined;
+      } | undefined;
       /**
        * @description List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced). Most accounts have a limit of 10 rules; contact support to raise it.
        * @example ["/admin/**","/private/**","**\\temp\\**"]
@@ -262566,7 +263509,7 @@ export type AiSearchNamespaceDeleteInstanceStatus200 = {
      */
     token_id?: string | undefined;
     /**
-     * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage.
+     * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage. d1 is never inferred; it indexes the rows returned by source_params.d1.query.
      * @type string | undefined
      */
     type?: (AiSearchNamespaceDeleteInstanceStatus200ResultTypeEnumKey | null) | undefined;
@@ -262689,6 +263632,15 @@ export const aiSearchNamespaceFetchInstanceStatus200ResultRetrievalOptionsKeywor
 
 export type AiSearchNamespaceFetchInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnumKey = (typeof aiSearchNamespaceFetchInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnum)[keyof typeof aiSearchNamespaceFetchInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnum];
 
+export const aiSearchNamespaceFetchInstanceStatus200ResultSourceParamsD1TemplateEnum = {
+  labelled: 'labelled',
+  content_only: 'content_only',
+  key_value: 'key_value',
+  json: 'json',
+} as const;
+
+export type AiSearchNamespaceFetchInstanceStatus200ResultSourceParamsD1TemplateEnumKey = (typeof aiSearchNamespaceFetchInstanceStatus200ResultSourceParamsD1TemplateEnum)[keyof typeof aiSearchNamespaceFetchInstanceStatus200ResultSourceParamsD1TemplateEnum];
+
 export const aiSearchNamespaceFetchInstanceStatus200ResultSourceParamsWebCrawlerDiscoverOptionsSourceEnum = {
   all: 'all',
   sitemaps: 'sitemaps',
@@ -262707,6 +263659,7 @@ export type AiSearchNamespaceFetchInstanceStatus200ResultSourceParamsWebCrawlerP
 export const aiSearchNamespaceFetchInstanceStatus200ResultTypeEnum = {
   r2: 'r2',
   'web-crawler': 'web-crawler',
+  d1: 'd1',
 } as const;
 
 export type AiSearchNamespaceFetchInstanceStatus200ResultTypeEnumKey = (typeof aiSearchNamespaceFetchInstanceStatus200ResultTypeEnum)[keyof typeof aiSearchNamespaceFetchInstanceStatus200ResultTypeEnum];
@@ -262963,8 +263916,31 @@ export type AiSearchNamespaceFetchInstanceStatus200 = {
      * @type number | undefined
      */
     score_threshold?: number | undefined;
+    /**
+     * @description The R2 bucket name for r2, the website URL for web-crawler, or the D1 database ID (UUID) for d1. A d1 instance also requires token_id, and the token needs D1 Read permission. The d1 database cannot be changed after creation.
+     * @type string | undefined
+     */
     source?: (string | null) | undefined;
     source_params?: ({
+      /**
+       * @description D1 source configuration. Required when creating a d1 instance and ignored for other types. For d1, include_items and exclude_items match each row's item key, `<id>.md`; a submitted source_params replaces both lists (an omitted list is cleared), so omit source_params to keep them.
+       * @type object | undefined
+       */
+      d1?: {
+        /**
+         * @description Read-only SELECT query run against the D1 database. It must return an `id` column that uniquely identifies each row. Columns named `title` and `content` set the document title and body, and up to 5 `meta_*` columns become filterable custom metadata; any other column is indexed as a labelled field. Every sync reads the full result, up to 100,000 rows, with the instance's token, and those reads count against your D1 usage. Leading and trailing whitespace is trimmed before the query is stored.
+         * @minLength 1
+         * @maxLength 10000
+         * @type string
+         */
+        query: string;
+        /**
+         * @description How each row is rendered into the indexed document: labelled renders the title, the labelled fields, then the content; content_only renders the title and content (labelled fields only when there is no content); key_value renders every column as name: value; json renders every column as a JSON object.
+         * @default 'labelled'
+         * @type string | undefined
+         */
+        template?: AiSearchNamespaceFetchInstanceStatus200ResultSourceParamsD1TemplateEnumKey | undefined;
+      } | undefined;
       /**
        * @description List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced). Most accounts have a limit of 10 rules; contact support to raise it.
        * @example ["/admin/**","/private/**","**\\temp\\**"]
@@ -263112,7 +264088,7 @@ export type AiSearchNamespaceFetchInstanceStatus200 = {
      */
     token_id?: string | undefined;
     /**
-     * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage.
+     * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage. d1 is never inferred; it indexes the rows returned by source_params.d1.query.
      * @type string | undefined
      */
     type?: (AiSearchNamespaceFetchInstanceStatus200ResultTypeEnumKey | null) | undefined;
@@ -263307,6 +264283,15 @@ export const aiSearchNamespaceUpdateInstanceStatus200ResultRetrievalOptionsKeywo
 
 export type AiSearchNamespaceUpdateInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnumKey = (typeof aiSearchNamespaceUpdateInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnum)[keyof typeof aiSearchNamespaceUpdateInstanceStatus200ResultRetrievalOptionsKeywordMatchModeEnum];
 
+export const aiSearchNamespaceUpdateInstanceStatus200ResultSourceParamsD1TemplateEnum = {
+  labelled: 'labelled',
+  content_only: 'content_only',
+  key_value: 'key_value',
+  json: 'json',
+} as const;
+
+export type AiSearchNamespaceUpdateInstanceStatus200ResultSourceParamsD1TemplateEnumKey = (typeof aiSearchNamespaceUpdateInstanceStatus200ResultSourceParamsD1TemplateEnum)[keyof typeof aiSearchNamespaceUpdateInstanceStatus200ResultSourceParamsD1TemplateEnum];
+
 export const aiSearchNamespaceUpdateInstanceStatus200ResultSourceParamsWebCrawlerDiscoverOptionsSourceEnum = {
   all: 'all',
   sitemaps: 'sitemaps',
@@ -263325,6 +264310,7 @@ export type AiSearchNamespaceUpdateInstanceStatus200ResultSourceParamsWebCrawler
 export const aiSearchNamespaceUpdateInstanceStatus200ResultTypeEnum = {
   r2: 'r2',
   'web-crawler': 'web-crawler',
+  d1: 'd1',
 } as const;
 
 export type AiSearchNamespaceUpdateInstanceStatus200ResultTypeEnumKey = (typeof aiSearchNamespaceUpdateInstanceStatus200ResultTypeEnum)[keyof typeof aiSearchNamespaceUpdateInstanceStatus200ResultTypeEnum];
@@ -263581,8 +264567,31 @@ export type AiSearchNamespaceUpdateInstanceStatus200 = {
      * @type number | undefined
      */
     score_threshold?: number | undefined;
+    /**
+     * @description The R2 bucket name for r2, the website URL for web-crawler, or the D1 database ID (UUID) for d1. A d1 instance also requires token_id, and the token needs D1 Read permission. The d1 database cannot be changed after creation.
+     * @type string | undefined
+     */
     source?: (string | null) | undefined;
     source_params?: ({
+      /**
+       * @description D1 source configuration. Required when creating a d1 instance and ignored for other types. For d1, include_items and exclude_items match each row's item key, `<id>.md`; a submitted source_params replaces both lists (an omitted list is cleared), so omit source_params to keep them.
+       * @type object | undefined
+       */
+      d1?: {
+        /**
+         * @description Read-only SELECT query run against the D1 database. It must return an `id` column that uniquely identifies each row. Columns named `title` and `content` set the document title and body, and up to 5 `meta_*` columns become filterable custom metadata; any other column is indexed as a labelled field. Every sync reads the full result, up to 100,000 rows, with the instance's token, and those reads count against your D1 usage. Leading and trailing whitespace is trimmed before the query is stored.
+         * @minLength 1
+         * @maxLength 10000
+         * @type string
+         */
+        query: string;
+        /**
+         * @description How each row is rendered into the indexed document: labelled renders the title, the labelled fields, then the content; content_only renders the title and content (labelled fields only when there is no content); key_value renders every column as name: value; json renders every column as a JSON object.
+         * @default 'labelled'
+         * @type string | undefined
+         */
+        template?: AiSearchNamespaceUpdateInstanceStatus200ResultSourceParamsD1TemplateEnumKey | undefined;
+      } | undefined;
       /**
        * @description List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced). Most accounts have a limit of 10 rules; contact support to raise it.
        * @example ["/admin/**","/private/**","**\\temp\\**"]
@@ -263730,7 +264739,7 @@ export type AiSearchNamespaceUpdateInstanceStatus200 = {
      */
     token_id?: string | undefined;
     /**
-     * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage.
+     * @description Source type. When omitted or null with a non-blank source, HTTP(S) URLs infer web-crawler and existing R2 bucket names infer r2. A missing or blank source without a type uses managed upload-only storage. d1 is never inferred; it indexes the rows returned by source_params.d1.query.
      * @type string | undefined
      */
     type?: (AiSearchNamespaceUpdateInstanceStatus200ResultTypeEnumKey | null) | undefined;
@@ -263763,10 +264772,13 @@ export type AiSearchNamespaceUpdateInstanceStatus409 = {
 };
 
 export type AiSearchNamespaceUpdateInstanceStatus503 = {
-  errors: {
-    code: number;
+  errors: ({
+    code: 7017;
     message: string;
-  }[];
+  } | {
+    code: 7125;
+    message: string;
+  })[];
   success: false;
 };
 
@@ -263831,6 +264843,15 @@ export const aiSearchNamespaceUpdateInstanceRequestRetrievalOptionsKeywordMatchM
 } as const;
 
 export type AiSearchNamespaceUpdateInstanceRequestRetrievalOptionsKeywordMatchModeEnumKey = (typeof aiSearchNamespaceUpdateInstanceRequestRetrievalOptionsKeywordMatchModeEnum)[keyof typeof aiSearchNamespaceUpdateInstanceRequestRetrievalOptionsKeywordMatchModeEnum];
+
+export const aiSearchNamespaceUpdateInstanceRequestSourceParamsD1TemplateEnum = {
+  labelled: 'labelled',
+  content_only: 'content_only',
+  key_value: 'key_value',
+  json: 'json',
+} as const;
+
+export type AiSearchNamespaceUpdateInstanceRequestSourceParamsD1TemplateEnumKey = (typeof aiSearchNamespaceUpdateInstanceRequestSourceParamsD1TemplateEnum)[keyof typeof aiSearchNamespaceUpdateInstanceRequestSourceParamsD1TemplateEnum];
 
 export const aiSearchNamespaceUpdateInstanceRequestSourceParamsWebCrawlerDiscoverOptionsSourceEnum = {
   all: 'all',
@@ -264060,8 +265081,30 @@ export type AiSearchNamespaceUpdateInstanceBody = {
    * @type number | undefined
    */
   score_threshold?: number | undefined;
+  /**
+   * @description The R2 bucket name for r2, the website URL for web-crawler, or the D1 database ID (UUID) for d1. A d1 instance also requires token_id, and the token needs D1 Read permission. The d1 database cannot be changed after creation.
+   * @type string | undefined
+   */
   source?: (string | null) | undefined;
   source_params?: ({
+    /**
+     * @description D1 source configuration of a d1 instance; ignored for other types. An omitted d1, query, or template keeps its stored value. For d1, include_items and exclude_items match each row's item key, `<id>.md`; a submitted source_params replaces both lists (an omitted list is cleared), so omit source_params to keep them.
+     * @type object | undefined
+     */
+    d1?: {
+      /**
+       * @description Read-only SELECT query run against the D1 database. It must return an `id` column that uniquely identifies each row. Columns named `title` and `content` set the document title and body, and up to 5 `meta_*` columns become filterable custom metadata; any other column is indexed as a labelled field. Every sync reads the full result, up to 100,000 rows, with the instance's token, and those reads count against your D1 usage. Leading and trailing whitespace is trimmed before the query is stored. Omit to keep the stored query.
+       * @minLength 1
+       * @maxLength 10000
+       * @type string | undefined
+       */
+      query?: string | undefined;
+      /**
+       * @description How each row is rendered into the indexed document: labelled renders the title, the labelled fields, then the content; content_only renders the title and content (labelled fields only when there is no content); key_value renders every column as name: value; json renders every column as a JSON object. Omit to keep the stored template.
+       * @type string | undefined
+       */
+      template?: AiSearchNamespaceUpdateInstanceRequestSourceParamsD1TemplateEnumKey | undefined;
+    } | undefined;
     /**
      * @description List of path patterns to exclude. Uses micromatch glob syntax: * matches within a path segment, ** matches across path segments (e.g., /admin/** matches /admin/users and /admin/settings/advanced). Most accounts have a limit of 10 rules; contact support to raise it.
      * @example ["/admin/**","/private/**","**\\temp\\**"]
@@ -294795,6 +295838,48 @@ export type CloudflareTunnelUpdateACloudflareTunnelResponses = {
  */
 export type CloudflareTunnelUpdateACloudflareTunnelResponse = CloudflareTunnelUpdateACloudflareTunnelStatus200;
 
+export type CloudflareTunnelConfigurationDeleteConfigurationPath = {
+  /**
+   * @description Identifier.
+   * @maxLength 32
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  accountId: TunnelIdentifier;
+  /**
+   * @description UUID of the tunnel.
+   *
+   * Format: `uuid`
+   * @maxLength 36
+   * @example f70ff985-a4ef-4643-bbbc-4a0ed4fc8415
+   * @type string
+   */
+  readonly tunnelId: TunnelTunnelId2;
+};
+
+export type CloudflareTunnelConfigurationDeleteConfigurationStatus200 = TunnelApiResponseSingle2 & {
+  result?: (TunnelConfiguration | null) | undefined;
+};
+
+export type CloudflareTunnelConfigurationDeleteConfigurationStatus400 = TunnelApiResponseCommonFailure2;
+
+export type CloudflareTunnelConfigurationDeleteConfigurationOptions = {
+  body?: never | undefined;
+  path: CloudflareTunnelConfigurationDeleteConfigurationPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type CloudflareTunnelConfigurationDeleteConfigurationResponses = {
+  '200': CloudflareTunnelConfigurationDeleteConfigurationStatus200;
+  '400': CloudflareTunnelConfigurationDeleteConfigurationStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CloudflareTunnelConfigurationDeleteConfigurationResponse = CloudflareTunnelConfigurationDeleteConfigurationStatus200;
+
 export type CloudflareTunnelConfigurationGetConfigurationPath = {
   /**
    * @description Identifier.
@@ -317793,6 +318878,22 @@ export type PostPirCreateRequestStatusEnumKey = (typeof postPirCreateRequestStat
 
 export type PostPirCreateBody = {
   /**
+   * @description `resolved.based_on` from the resolution the user reviewed. Required with `definition`; if the organization profile or topic has changed since, the save fails with 409 and must be resolved again.
+   * @type object | undefined
+   */
+  based_on?: {
+    /**
+     * @minimum 0
+     * @type integer
+     */
+    profile_revision: number;
+    /**
+     * @pattern ^[0-9a-f]{64}$
+     * @type string
+     */
+    topic_fingerprint: string | null;
+  } | undefined;
+  /**
    * @description `default`: every event dataset the account can read: Cloudforce One intelligence, datasets shared with the account, and the account's own datasets, such as Threat Signals. `datasets`: explicit dataset IDs. Analytics datasets are not matched. An active PIR can cover at most 50 datasets. Access is rechecked whenever the PIR is matched.
    */
   dataset_scope?: ({
@@ -317801,6 +318902,10 @@ export type PostPirCreateBody = {
     dataset_ids: string[];
     type: 'datasets';
   }) | undefined;
+  /**
+   * @description Structured PIR answers. `managed` follows a topic from `GET /topics`; `custom` has its own question and criteria. The requirement text and event query are generated from it.
+   */
+  definition?: CloudforceOneEventsPirDefinition | undefined;
   /**
    * @description Hours between digests: 6, 12, or 24. Used only when `notification_mode` is `digest`.
    * @default 24
@@ -317901,11 +319006,12 @@ export type PostPirCreateBody = {
   } | undefined;
   query_source?: PostPirCreateRequestQuerySourceEnumKey | undefined;
   /**
+   * @description Free-form requirement. Required unless `definition` is sent.
    * @minLength 1
    * @maxLength 4000
-   * @type string
+   * @type string | undefined
    */
-  requirement: string;
+  requirement?: string | undefined;
   /**
    * @description `draft`: not monitored. `active`: monitored, unless `pause_reason` is set. Setting `active` on a PIR with a `pause_reason` resumes it. Moving a PIR back to `draft` and activating it again starts matching afresh with a 30-day backfill.
    * @default 'draft'
@@ -319103,7 +320209,21 @@ export type PutPirProfilePutStatus200 = unknown;
 
 export type PutPirProfilePutStatus400 = unknown;
 
-export type PutPirProfilePutBody = {
+export type PutPirProfilePutStatus409 = unknown;
+
+export type PutPirProfilePutBody = ({
+  /**
+   * @description Structured organization facts. Structured PIRs inherit them, and the profile text is generated from them.
+   * @type object
+   */
+  organization: CloudforceOneEventsPirOrganizationProfile;
+  /**
+   * @description The `revision` the change is based on; 0 when the account has no profile yet.
+   * @minimum 0
+   * @type integer
+   */
+  revision: number;
+} | {
   /**
    * @description Who the organization is: its name, brands, domains, sector, regions, key systems and suppliers. Shared by all of the account's PIRs to judge how relevant intelligence is to the organization.
    * @minLength 1
@@ -319111,7 +320231,13 @@ export type PutPirProfilePutBody = {
    * @type string
    */
   profile: string;
-} | undefined;
+  /**
+   * @description The `revision` the change is based on; 0 when the account has no profile yet.
+   * @minimum 0
+   * @type integer | undefined
+   */
+  revision?: number | undefined;
+}) | undefined;
 
 export type PutPirProfilePutOptions = {
   body: PutPirProfilePutBody;
@@ -319123,6 +320249,7 @@ export type PutPirProfilePutOptions = {
 export type PutPirProfilePutResponses = {
   '200': PutPirProfilePutStatus200;
   '400': PutPirProfilePutStatus400;
+  '409': PutPirProfilePutStatus409;
 };
 
 /**
@@ -319158,6 +320285,71 @@ export type PostPirQuotaResponses = {
  * @description Union of all possible responses
  */
 export type PostPirQuotaResponse = PostPirQuotaStatus200;
+
+export type PostPirResolvePath = {
+  /**
+   * @minLength 1
+   * @type string
+   */
+  accountId: string;
+};
+
+export type PostPirResolveStatus200 = unknown;
+
+export type PostPirResolveStatus400 = unknown;
+
+export type PostPirResolveBody = {
+  /**
+   * @description Structured PIR answers. `managed` follows a topic from `GET /topics`; `custom` has its own question and criteria. The requirement text and event query are generated from it.
+   */
+  definition: CloudforceOneEventsPirDefinition;
+} | undefined;
+
+export type PostPirResolveOptions = {
+  body: PostPirResolveBody;
+  path: PostPirResolvePath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type PostPirResolveResponses = {
+  '200': PostPirResolveStatus200;
+  '400': PostPirResolveStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type PostPirResolveResponse = PostPirResolveStatus200;
+
+export type GetPirTopicListPath = {
+  /**
+   * @minLength 1
+   * @type string
+   */
+  accountId: string;
+};
+
+export type GetPirTopicListStatus200 = unknown;
+
+export type GetPirTopicListStatus400 = unknown;
+
+export type GetPirTopicListOptions = {
+  body?: never | undefined;
+  path: GetPirTopicListPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type GetPirTopicListResponses = {
+  '200': GetPirTopicListStatus200;
+  '400': GetPirTopicListStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetPirTopicListResponse = GetPirTopicListStatus200;
 
 export type DeletePirDeletePath = {
   /**
@@ -319387,6 +320579,22 @@ export type PutPirUpdateRequestStatusEnumKey = (typeof putPirUpdateRequestStatus
 
 export type PutPirUpdateBody = {
   /**
+   * @description `resolved.based_on` from the resolution the user reviewed. Required with `definition`; if the organization profile or topic has changed since, the save fails with 409 and must be resolved again.
+   * @type object | undefined
+   */
+  based_on?: {
+    /**
+     * @minimum 0
+     * @type integer
+     */
+    profile_revision: number;
+    /**
+     * @pattern ^[0-9a-f]{64}$
+     * @type string
+     */
+    topic_fingerprint: string | null;
+  } | undefined;
+  /**
    * @description Write-only. `true` confirms the query still fits the requirement, clearing `query_stale` without changing the query or its version. Requires a query.
    * @type boolean | undefined
    */
@@ -319400,6 +320608,10 @@ export type PutPirUpdateBody = {
     dataset_ids: string[];
     type: 'datasets';
   }) | undefined;
+  /**
+   * @description Replaces a structured PIR's definition. Free-form PIRs cannot be converted yet.
+   */
+  definition?: CloudforceOneEventsPirDefinition | undefined;
   /**
    * @description Hours between digests: 6, 12, or 24. Used only when `notification_mode` is `digest`.
    * @type number | undefined
@@ -319498,6 +320710,12 @@ export type PutPirUpdateBody = {
    * @type string | undefined
    */
   requirement?: string | undefined;
+  /**
+   * @description The `revision` the change is based on. Required for structured PIRs; a different stored revision returns 409.
+   * @minimum 1
+   * @type integer | undefined
+   */
+  revision?: number | undefined;
   /**
    * @description `draft`: not monitored. `active`: monitored, unless `pause_reason` is set. Setting `active` on a PIR with a `pause_reason` resumes it. Moving a PIR back to `draft` and activating it again starts matching afresh with a 30-day backfill.
    * @type string | undefined
@@ -337877,17 +339095,17 @@ export type DevicesUpdateDefaultDeviceSettingsPolicyBody = {
    */
   include?: TeamsDevicesIncludeRequest | undefined;
   /**
-   * @description The amount of time in minutes a user is allowed access to their LAN. A value of 0 will allow LAN access until the next WARP reconnection, such as a reboot or a laptop waking from sleep. Note that this field is omitted from the response if null or unset.
+   * @description The amount of time in minutes a user is allowed access to their LAN. A value of 0 will allow LAN access until the next WARP reconnection, such as a reboot or a laptop waking from sleep. Set to null to unset.
    * @example 30
    * @type number | undefined
    */
-  lan_allow_minutes?: TeamsDevicesLanAllowMinutes | undefined;
+  lan_allow_minutes?: (TeamsDevicesLanAllowMinutesRequest | null) | undefined;
   /**
-   * @description The size of the subnet for the local access network. Note that this field is omitted from the response if null or unset.
+   * @description The size of the subnet for the local access network. Set to null to unset.
    * @example 24
    * @type number | undefined
    */
-  lan_allow_subnet_size?: TeamsDevicesLanAllowSubnetSize | undefined;
+  lan_allow_subnet_size?: (TeamsDevicesLanAllowSubnetSizeRequest | null) | undefined;
   /**
    * @description Determines if the operating system will register WARP's local interface IP with your on-premises DNS server.
    * @default true
@@ -338070,6 +339288,11 @@ export type DevicesCreateDeviceSettingsPolicyBody = {
    */
   exclude_office_ips?: TeamsDevicesExcludeOfficeIps | undefined;
   /**
+   * @default [{"suffix":"intranet"},{"suffix":"internal"},{"suffix":"private"},{"suffix":"localdomain"},{"suffix":"domain"},{"suffix":"lan"},{"suffix":"home"},{"suffix":"host"},{"suffix":"corp"},{"suffix":"local"},{"suffix":"localhost"},{"suffix":"home.arpa"},{"suffix":"invalid"},{"suffix":"test"}]
+   * @type array | undefined
+   */
+  fallback_domains?: TeamsDevicesFallbackDomains | undefined;
+  /**
    * @description Global Acceleration settings for China. When configured, WARP clients connect to the Global Accelerator addresses instead of the default ones. Please contact your account representative to enable this feature on your account. See https://developers.cloudflare.com/china-network/concepts/global-acceleration/.
    * @type object | undefined
    */
@@ -338080,20 +339303,20 @@ export type DevicesCreateDeviceSettingsPolicyBody = {
    */
   include?: TeamsDevicesIncludeRequest | undefined;
   /**
-   * @description The amount of time in minutes a user is allowed access to their LAN. A value of 0 will allow LAN access until the next WARP reconnection, such as a reboot or a laptop waking from sleep. Note that this field is omitted from the response if null or unset.
+   * @description The amount of time in minutes a user is allowed access to their LAN. A value of 0 will allow LAN access until the next WARP reconnection, such as a reboot or a laptop waking from sleep. Set to null to unset.
    * @example 30
    * @type number | undefined
    */
-  lan_allow_minutes?: TeamsDevicesLanAllowMinutes | undefined;
+  lan_allow_minutes?: (TeamsDevicesLanAllowMinutesRequest | null) | undefined;
   /**
-   * @description The size of the subnet for the local access network. Note that this field is omitted from the response if null or unset.
+   * @description The size of the subnet for the local access network. Set to null to unset.
    * @example 24
    * @type number | undefined
    */
-  lan_allow_subnet_size?: TeamsDevicesLanAllowSubnetSize | undefined;
+  lan_allow_subnet_size?: (TeamsDevicesLanAllowSubnetSizeRequest | null) | undefined;
   /**
    * @description The wirefilter expression to match devices. Available values: "identity.email", "identity.groups.id", "identity.groups.name", "identity.groups.email", "identity.service_token_uuid", "identity.saml_attributes", "network", "os.name", "os.version", "device.tags".
-   * @maxLength 500
+   * @maxLength 10000
    * @example identity.email == "test@cloudflare.com"
    * @type string | undefined
    */
@@ -338264,7 +339487,7 @@ export type DevicesSetSplitTunnelExcludeListStatus200 = TeamsDevicesSplitTunnelR
 
 export type DevicesSetSplitTunnelExcludeListStatus400 = TeamsDevicesApiResponseCommonFailure;
 
-export type DevicesSetSplitTunnelExcludeListBody = TeamsDevicesSplitTunnel[];
+export type DevicesSetSplitTunnelExcludeListBody = TeamsDevicesSplitTunnelRequest[];
 
 export type DevicesSetSplitTunnelExcludeListOptions = {
   body: DevicesSetSplitTunnelExcludeListBody;
@@ -338422,7 +339645,7 @@ export type DevicesSetSplitTunnelIncludeListStatus200 = TeamsDevicesSplitTunnelI
 
 export type DevicesSetSplitTunnelIncludeListStatus400 = TeamsDevicesApiResponseCommonFailure;
 
-export type DevicesSetSplitTunnelIncludeListBody = TeamsDevicesSplitTunnelInclude[];
+export type DevicesSetSplitTunnelIncludeListBody = TeamsDevicesSplitTunnelIncludeRequest[];
 
 export type DevicesSetSplitTunnelIncludeListOptions = {
   body: DevicesSetSplitTunnelIncludeListBody;
@@ -338640,20 +339863,20 @@ export type DevicesUpdateDeviceSettingsPolicyBody = {
    */
   include?: TeamsDevicesIncludeRequest | undefined;
   /**
-   * @description The amount of time in minutes a user is allowed access to their LAN. A value of 0 will allow LAN access until the next WARP reconnection, such as a reboot or a laptop waking from sleep. Note that this field is omitted from the response if null or unset.
+   * @description The amount of time in minutes a user is allowed access to their LAN. A value of 0 will allow LAN access until the next WARP reconnection, such as a reboot or a laptop waking from sleep. Set to null to unset.
    * @example 30
    * @type number | undefined
    */
-  lan_allow_minutes?: TeamsDevicesLanAllowMinutes | undefined;
+  lan_allow_minutes?: (TeamsDevicesLanAllowMinutesRequest | null) | undefined;
   /**
-   * @description The size of the subnet for the local access network. Note that this field is omitted from the response if null or unset.
+   * @description The size of the subnet for the local access network. Set to null to unset.
    * @example 24
    * @type number | undefined
    */
-  lan_allow_subnet_size?: TeamsDevicesLanAllowSubnetSize | undefined;
+  lan_allow_subnet_size?: (TeamsDevicesLanAllowSubnetSizeRequest | null) | undefined;
   /**
    * @description The wirefilter expression to match devices. Available values: "identity.email", "identity.groups.id", "identity.groups.name", "identity.groups.email", "identity.service_token_uuid", "identity.saml_attributes", "network", "os.name", "os.version", "device.tags".
-   * @maxLength 500
+   * @maxLength 10000
    * @example identity.email == "test@cloudflare.com"
    * @type string | undefined
    */
@@ -338835,7 +340058,7 @@ export type DevicesSetSplitTunnelExcludeListForADeviceSettingsPolicyStatus200 = 
 
 export type DevicesSetSplitTunnelExcludeListForADeviceSettingsPolicyStatus400 = TeamsDevicesApiResponseCommonFailure;
 
-export type DevicesSetSplitTunnelExcludeListForADeviceSettingsPolicyBody = TeamsDevicesSplitTunnel[];
+export type DevicesSetSplitTunnelExcludeListForADeviceSettingsPolicyBody = TeamsDevicesSplitTunnelRequest[];
 
 export type DevicesSetSplitTunnelExcludeListForADeviceSettingsPolicyOptions = {
   body: DevicesSetSplitTunnelExcludeListForADeviceSettingsPolicyBody;
@@ -339023,7 +340246,7 @@ export type DevicesSetSplitTunnelIncludeListForADeviceSettingsPolicyStatus200 = 
 
 export type DevicesSetSplitTunnelIncludeListForADeviceSettingsPolicyStatus400 = TeamsDevicesApiResponseCommonFailure;
 
-export type DevicesSetSplitTunnelIncludeListForADeviceSettingsPolicyBody = TeamsDevicesSplitTunnelInclude[];
+export type DevicesSetSplitTunnelIncludeListForADeviceSettingsPolicyBody = TeamsDevicesSplitTunnelIncludeRequest[];
 
 export type DevicesSetSplitTunnelIncludeListForADeviceSettingsPolicyOptions = {
   body: DevicesSetSplitTunnelIncludeListForADeviceSettingsPolicyBody;
@@ -416751,15 +417974,13 @@ export type NamespaceWorkerGetScriptContentPath = {
 };
 
 /**
- * @example export default {
- *   async fetch(request, env, ctx) {
- *     return new Response("Hello, world!");
- *   }
- * };
- *
+ * @description The script of a Worker in service worker syntax.
+ * @example addEventListener('fetch', (event) => event.respondWith(new Response('Hello, world!')))
  * @type string
  */
 export type NamespaceWorkerGetScriptContentStatus200 = string;
+
+export type NamespaceWorkerGetScriptContentStatus204 = void;
 
 export type NamespaceWorkerGetScriptContentStatus400 = WorkersApiResponseCommonFailure;
 
@@ -416772,13 +417993,14 @@ export type NamespaceWorkerGetScriptContentOptions = {
 
 export type NamespaceWorkerGetScriptContentResponses = {
   '200': NamespaceWorkerGetScriptContentStatus200;
+  '204': NamespaceWorkerGetScriptContentStatus204;
   '400': NamespaceWorkerGetScriptContentStatus400;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type NamespaceWorkerGetScriptContentResponse = NamespaceWorkerGetScriptContentStatus200;
+export type NamespaceWorkerGetScriptContentResponse = NamespaceWorkerGetScriptContentStatus200 | NamespaceWorkerGetScriptContentStatus204;
 
 export type NamespaceWorkerPutScriptContentPath = {
   /**
@@ -424239,15 +425461,13 @@ export type WorkerScriptDownloadWorkerPath = {
 };
 
 /**
- * @example export default {
- *   async fetch(request, env, ctx) {
- *     return new Response("Hello, world!");
- *   }
- * };
- *
+ * @description The script of a Worker in service worker syntax.
+ * @example addEventListener('fetch', (event) => event.respondWith(new Response('Hello, world!')))
  * @type string
  */
 export type WorkerScriptDownloadWorkerStatus200 = string;
+
+export type WorkerScriptDownloadWorkerStatus204 = void;
 
 export type WorkerScriptDownloadWorkerStatus400 = WorkersApiResponseCommonFailure;
 
@@ -424260,13 +425480,14 @@ export type WorkerScriptDownloadWorkerOptions = {
 
 export type WorkerScriptDownloadWorkerResponses = {
   '200': WorkerScriptDownloadWorkerStatus200;
+  '204': WorkerScriptDownloadWorkerStatus204;
   '400': WorkerScriptDownloadWorkerStatus400;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type WorkerScriptDownloadWorkerResponse = WorkerScriptDownloadWorkerStatus200;
+export type WorkerScriptDownloadWorkerResponse = WorkerScriptDownloadWorkerStatus200 | WorkerScriptDownloadWorkerStatus204;
 
 export type WorkerScriptUploadWorkerModulePath = {
   /**
@@ -424474,15 +425695,13 @@ export type WorkerScriptGetContentPath = {
 };
 
 /**
- * @example export default {
- *   async fetch(request, env, ctx) {
- *     return new Response("Hello, world!");
- *   }
- * };
- *
+ * @description The script of a Worker in service worker syntax.
+ * @example addEventListener('fetch', (event) => event.respondWith(new Response('Hello, world!')))
  * @type string
  */
 export type WorkerScriptGetContentStatus200 = string;
+
+export type WorkerScriptGetContentStatus204 = void;
 
 export type WorkerScriptGetContentStatus400 = WorkersApiResponseCommonFailure;
 
@@ -424495,13 +425714,14 @@ export type WorkerScriptGetContentOptions = {
 
 export type WorkerScriptGetContentResponses = {
   '200': WorkerScriptGetContentStatus200;
+  '204': WorkerScriptGetContentStatus204;
   '400': WorkerScriptGetContentStatus400;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type WorkerScriptGetContentResponse = WorkerScriptGetContentStatus200;
+export type WorkerScriptGetContentResponse = WorkerScriptGetContentStatus200 | WorkerScriptGetContentStatus204;
 
 export type WorkerDeploymentsListDeploymentsPath = {
   /**
@@ -425894,15 +427114,13 @@ export type WorkerEnvironmentGetScriptContentPath = {
 };
 
 /**
- * @example export default {
- *   async fetch(request, env, ctx) {
- *     return new Response("Hello, world!");
- *   }
- * };
- *
+ * @description The script of a Worker in service worker syntax.
+ * @example addEventListener('fetch', (event) => event.respondWith(new Response('Hello, world!')))
  * @type string
  */
 export type WorkerEnvironmentGetScriptContentStatus200 = string;
+
+export type WorkerEnvironmentGetScriptContentStatus204 = void;
 
 export type WorkerEnvironmentGetScriptContentStatus400 = WorkersApiResponseCommonFailure;
 
@@ -425915,13 +427133,14 @@ export type WorkerEnvironmentGetScriptContentOptions = {
 
 export type WorkerEnvironmentGetScriptContentResponses = {
   '200': WorkerEnvironmentGetScriptContentStatus200;
+  '204': WorkerEnvironmentGetScriptContentStatus204;
   '400': WorkerEnvironmentGetScriptContentStatus400;
 };
 
 /**
  * @description Union of all possible responses
  */
-export type WorkerEnvironmentGetScriptContentResponse = WorkerEnvironmentGetScriptContentStatus200;
+export type WorkerEnvironmentGetScriptContentResponse = WorkerEnvironmentGetScriptContentStatus200 | WorkerEnvironmentGetScriptContentStatus204;
 
 export type WorkerEnvironmentPutScriptContentPath = {
   /**
@@ -431503,6 +432722,132 @@ export type ZeroTrustAccountsPatchConnectivitySettingsResponses = {
  * @description Union of all possible responses
  */
 export type ZeroTrustAccountsPatchConnectivitySettingsResponse = ZeroTrustAccountsPatchConnectivitySettingsStatus200;
+
+export type ZeroTrustAccountsDeleteRegionPath = {
+  /**
+   * @description Cloudflare account ID
+   * @maxLength 32
+   * @example 699d98642c564d2e855e9661899b7252
+   * @type string
+   */
+  readonly accountId: TunnelAccountId;
+};
+
+export type ZeroTrustAccountsDeleteRegionStatus200 = TunnelActiveAccountRegionResponseSingle;
+
+export type ZeroTrustAccountsDeleteRegionStatus400 = TunnelApiResponseCommonFailure;
+
+export type ZeroTrustAccountsDeleteRegionOptions = {
+  body?: never | undefined;
+  path: ZeroTrustAccountsDeleteRegionPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type ZeroTrustAccountsDeleteRegionResponses = {
+  '200': ZeroTrustAccountsDeleteRegionStatus200;
+  '400': ZeroTrustAccountsDeleteRegionStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ZeroTrustAccountsDeleteRegionResponse = ZeroTrustAccountsDeleteRegionStatus200;
+
+export type ZeroTrustAccountsGetRegionPath = {
+  /**
+   * @description Cloudflare account ID
+   * @maxLength 32
+   * @example 699d98642c564d2e855e9661899b7252
+   * @type string
+   */
+  readonly accountId: TunnelAccountId;
+};
+
+export type ZeroTrustAccountsGetRegionStatus200 = TunnelActiveAccountRegionResponseSingle;
+
+export type ZeroTrustAccountsGetRegionStatus400 = TunnelApiResponseCommonFailure;
+
+export type ZeroTrustAccountsGetRegionOptions = {
+  body?: never | undefined;
+  path: ZeroTrustAccountsGetRegionPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type ZeroTrustAccountsGetRegionResponses = {
+  '200': ZeroTrustAccountsGetRegionStatus200;
+  '400': ZeroTrustAccountsGetRegionStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ZeroTrustAccountsGetRegionResponse = ZeroTrustAccountsGetRegionStatus200;
+
+export type ZeroTrustAccountsUpdateRegionPath = {
+  /**
+   * @description Cloudflare account ID
+   * @maxLength 32
+   * @example 699d98642c564d2e855e9661899b7252
+   * @type string
+   */
+  readonly accountId: TunnelAccountId;
+};
+
+export type ZeroTrustAccountsUpdateRegionStatus200 = TunnelActiveAccountRegionResponseSingle;
+
+export type ZeroTrustAccountsUpdateRegionStatus400 = TunnelApiResponseCommonFailure;
+
+export type ZeroTrustAccountsUpdateRegionBody = TunnelPutAccountRegionBody;
+
+export type ZeroTrustAccountsUpdateRegionOptions = {
+  body: ZeroTrustAccountsUpdateRegionBody;
+  path: ZeroTrustAccountsUpdateRegionPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type ZeroTrustAccountsUpdateRegionResponses = {
+  '200': ZeroTrustAccountsUpdateRegionStatus200;
+  '400': ZeroTrustAccountsUpdateRegionStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ZeroTrustAccountsUpdateRegionResponse = ZeroTrustAccountsUpdateRegionStatus200;
+
+export type ZeroTrustAccountsListRegionsPath = {
+  /**
+   * @description Cloudflare account ID
+   * @maxLength 32
+   * @example 699d98642c564d2e855e9661899b7252
+   * @type string
+   */
+  readonly accountId: TunnelAccountId;
+};
+
+export type ZeroTrustAccountsListRegionsStatus200 = TunnelAccountRegionResponseCollection;
+
+export type ZeroTrustAccountsListRegionsStatus400 = TunnelApiResponseCommonFailure;
+
+export type ZeroTrustAccountsListRegionsOptions = {
+  body?: never | undefined;
+  path: ZeroTrustAccountsListRegionsPath;
+  query?: never | undefined;
+  headers?: never | undefined;
+};
+
+export type ZeroTrustAccountsListRegionsResponses = {
+  '200': ZeroTrustAccountsListRegionsStatus200;
+  '400': ZeroTrustAccountsListRegionsStatus400;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ZeroTrustAccountsListRegionsResponse = ZeroTrustAccountsListRegionsStatus200;
 
 export type ZeroTrustNetworksRouteHostnameListPath = {
   /**

@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3787 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3794 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## accounts
 
@@ -1951,6 +1951,7 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3787 operatio
 
 | Call | Request | Summary |
 | --- | --- | --- |
+| `client.api.cloudflareTunnelConfiguration.cloudflareTunnelConfigurationDeleteConfiguration` | `DELETE /accounts/{accountId}/cfd_tunnel/{tunnelId}/configurations` | Reset Tunnel configuration |
 | `client.api.cloudflareTunnelConfiguration.cloudflareTunnelConfigurationGetConfiguration` | `GET /accounts/{accountId}/cfd_tunnel/{tunnelId}/configurations` | Get Tunnel configuration |
 | `client.api.cloudflareTunnelConfiguration.cloudflareTunnelConfigurationPutConfiguration` | `PUT /accounts/{accountId}/cfd_tunnel/{tunnelId}/configurations` | Update Tunnel configuration |
 | `client.api.cloudflareTunnelConfiguration.cloudflareTunnelConfigurationGetWarpConnectorConfiguration` | `GET /accounts/{accountId}/warp_connector/{tunnelId}/configurations` | Get Mesh node HA configuration |
@@ -2310,6 +2311,8 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3787 operatio
 | `client.api.priorityIntelligenceRequirements.getPirProfileGet` | `GET /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/profile` | Get the organization profile |
 | `client.api.priorityIntelligenceRequirements.putPirProfilePut` | `PUT /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/profile` | Create or replace the organization profile |
 | `client.api.priorityIntelligenceRequirements.postPirQuota` | `POST /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/quota` | Get PIR quota for an account |
+| `client.api.priorityIntelligenceRequirements.postPirResolve` | `POST /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/resolve` | Resolve structured PIR answers without saving |
+| `client.api.priorityIntelligenceRequirements.getPirTopicList` | `GET /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/topics` | List managed PIR topics |
 | `client.api.priorityIntelligenceRequirements.deletePirDelete` | `DELETE /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/{priorityId}` | Delete a priority intelligence requirement |
 | `client.api.priorityIntelligenceRequirements.getPirGet` | `GET /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/{priorityId}` | Get a priority intelligence requirement by ID |
 | `client.api.priorityIntelligenceRequirements.putPirUpdate` | `PUT /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/{priorityId}` | Update a priority intelligence requirement |
@@ -5557,6 +5560,15 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3787 operatio
 | --- | --- | --- |
 | `client.api.zeroTrustConnectivitySettings.zeroTrustAccountsGetConnectivitySettings` | `GET /accounts/{accountId}/zerotrust/connectivity_settings` | Get Zero Trust Connectivity Settings |
 | `client.api.zeroTrustConnectivitySettings.zeroTrustAccountsPatchConnectivitySettings` | `PATCH /accounts/{accountId}/zerotrust/connectivity_settings` | Updates the Zero Trust Connectivity Settings |
+
+## zeroTrustAccountRegion
+
+| Call | Request | Summary |
+| --- | --- | --- |
+| `client.api.zeroTrustAccountRegion.zeroTrustAccountsDeleteRegion` | `DELETE /accounts/{accountId}/zerotrust/region` | Clear active region |
+| `client.api.zeroTrustAccountRegion.zeroTrustAccountsGetRegion` | `GET /accounts/{accountId}/zerotrust/region` | Get active region |
+| `client.api.zeroTrustAccountRegion.zeroTrustAccountsUpdateRegion` | `PUT /accounts/{accountId}/zerotrust/region` | Select region |
+| `client.api.zeroTrustAccountRegion.zeroTrustAccountsListRegions` | `GET /accounts/{accountId}/zerotrust/regions` | List available regions |
 
 ## zeroTrustHostnameRoute
 
