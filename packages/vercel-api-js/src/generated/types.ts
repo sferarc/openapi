@@ -8566,12 +8566,19 @@ export const userEventTypeEnum = {
 	"messageboard-channel-created": "messageboard-channel-created",
 	"messageboard-channel-updated": "messageboard-channel-updated",
 	"messageboard-created": "messageboard-created",
+	"messageboard-grant-created": "messageboard-grant-created",
+	"messageboard-grant-revoked": "messageboard-grant-revoked",
+	"messageboard-grant-updated": "messageboard-grant-updated",
 	"messageboard-private-channel-created": "messageboard-private-channel-created",
 	"messageboard-private-channel-updated": "messageboard-private-channel-updated",
 	"messageboard-private-created": "messageboard-private-created",
+	"messageboard-private-grant-created": "messageboard-private-grant-created",
+	"messageboard-private-grant-revoked": "messageboard-private-grant-revoked",
+	"messageboard-private-grant-updated": "messageboard-private-grant-updated",
 	"messageboard-private-project-granted": "messageboard-private-project-granted",
 	"messageboard-private-project-revoked": "messageboard-private-project-revoked",
 	"messageboard-project-channel-created": "messageboard-project-channel-created",
+	"messageboard-project-created": "messageboard-project-created",
 	"messageboard-project-granted": "messageboard-project-granted",
 	"messageboard-project-private-channel-created": "messageboard-project-private-channel-created",
 	"messageboard-project-revoked": "messageboard-project-revoked",
@@ -9142,7 +9149,20 @@ export type UserEvent = {
 				  }
 				| {
 						boardId: string;
+						grantId: string;
 						operationId: string;
+				  }
+				| {
+						boardId: string;
+						operationId: string;
+				  }
+				| {
+						boardId: string;
+						environment: string;
+						name: string;
+						operationId: string;
+						projectId: string;
+						userId?: string | undefined;
 				  }
 				| {
 						boardId: string;
@@ -16935,12 +16955,19 @@ export const listEventTypeNameEnum = {
 	"messageboard-channel-created": "messageboard-channel-created",
 	"messageboard-channel-updated": "messageboard-channel-updated",
 	"messageboard-created": "messageboard-created",
+	"messageboard-grant-created": "messageboard-grant-created",
+	"messageboard-grant-revoked": "messageboard-grant-revoked",
+	"messageboard-grant-updated": "messageboard-grant-updated",
 	"messageboard-private-channel-created": "messageboard-private-channel-created",
 	"messageboard-private-channel-updated": "messageboard-private-channel-updated",
 	"messageboard-private-created": "messageboard-private-created",
+	"messageboard-private-grant-created": "messageboard-private-grant-created",
+	"messageboard-private-grant-revoked": "messageboard-private-grant-revoked",
+	"messageboard-private-grant-updated": "messageboard-private-grant-updated",
 	"messageboard-private-project-granted": "messageboard-private-project-granted",
 	"messageboard-private-project-revoked": "messageboard-private-project-revoked",
 	"messageboard-project-channel-created": "messageboard-project-channel-created",
+	"messageboard-project-created": "messageboard-project-created",
 	"messageboard-project-granted": "messageboard-project-granted",
 	"messageboard-project-private-channel-created": "messageboard-project-private-channel-created",
 	"messageboard-project-revoked": "messageboard-project-revoked",
@@ -17733,12 +17760,19 @@ export const listEventTypeReplacedByEnum = {
 	"messageboard-channel-created": "messageboard-channel-created",
 	"messageboard-channel-updated": "messageboard-channel-updated",
 	"messageboard-created": "messageboard-created",
+	"messageboard-grant-created": "messageboard-grant-created",
+	"messageboard-grant-revoked": "messageboard-grant-revoked",
+	"messageboard-grant-updated": "messageboard-grant-updated",
 	"messageboard-private-channel-created": "messageboard-private-channel-created",
 	"messageboard-private-channel-updated": "messageboard-private-channel-updated",
 	"messageboard-private-created": "messageboard-private-created",
+	"messageboard-private-grant-created": "messageboard-private-grant-created",
+	"messageboard-private-grant-revoked": "messageboard-private-grant-revoked",
+	"messageboard-private-grant-updated": "messageboard-private-grant-updated",
 	"messageboard-private-project-granted": "messageboard-private-project-granted",
 	"messageboard-private-project-revoked": "messageboard-private-project-revoked",
 	"messageboard-project-channel-created": "messageboard-project-channel-created",
+	"messageboard-project-created": "messageboard-project-created",
 	"messageboard-project-granted": "messageboard-project-granted",
 	"messageboard-project-private-channel-created": "messageboard-project-private-channel-created",
 	"messageboard-project-revoked": "messageboard-project-revoked",
