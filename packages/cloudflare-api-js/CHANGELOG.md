@@ -1,5 +1,25 @@
 # cloudflare-api-js
 
+## 4.30.0
+
+### Minor Changes
+
+- 047171d: Expanded AI Search instance types and related enums/types to support 'd1' database sources and query/template options.
+- 047171d: Added new operation to resolve structured PIR answers without saving: postPirResolve.
+- 047171d: Added new operation to list managed PIR topics: getPirTopicList.
+- 047171d: [BREAKING] TeamsDevicesExcludeRequest and TeamsDevicesIncludeRequest now expect arrays of discriminated union types supporting both address and host entries, instead of a single array type.
+- 047171d: Added new region account types and types for Data Localization Suite regions and active region tracking.
+- 047171d: Added new types and enums to support structured and managed PIR definitions, selections, and criteria.
+- 047171d: Added new operation to reset Cloudflare Tunnel configuration: cloudflareTunnelConfigurationDeleteConfiguration.
+- 047171d: Added new operations to clear, get, update, and list available Zero Trust account regions.
+
+### Patch Changes
+
+- 047171d: Expanded and clarified Split Tunnel include/exclude request types and descriptions for Teams Devices settings.
+- 047171d: Updated and clarified behavior for BGP and BGP mode fields on NscCni and NscCniCreate types, with more explicit documentation on null/omit handling.
+- 047171d: Expanded and clarified descriptions for PIR-related operations and types to distinguish structured PIRs and their dependencies on topics and profiles.
+- 047171d: Increased max length on several Teams Devices description fields from 500 to 10000.
+
 ## 4.29.1
 
 ### Patch Changes

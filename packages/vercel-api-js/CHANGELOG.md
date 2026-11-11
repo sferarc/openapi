@@ -1,5 +1,13 @@
 # vercel-api-js
 
+## 2.35.0
+
+### Minor Changes
+
+- e564f2b: Added new event type names to listEventTypeNameEnum and listEventTypeReplacedByEnum for messageboard-related events.
+- e564f2b: Added new fields and shapes to the UserEvent type, including grantId and additional board/project-related structures.
+- e564f2b: Added new user event types: messageboard-grant-created, messageboard-grant-revoked, messageboard-grant-updated, messageboard-private-grant-created, messageboard-private-grant-revoked, messageboard-private-grant-updated, and messageboard-project-created.
+
 ## 2.34.0
 
 ### Minor Changes
