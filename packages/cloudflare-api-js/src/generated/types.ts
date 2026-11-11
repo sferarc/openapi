@@ -31984,24 +31984,23 @@ export type CloudforceOneRequestsApiResponseCommon = {
   success: true;
 };
 
-export type CloudforceOneRequestsApiResponseCommonFailure = CloudforceOneRequestsApiResponseCommon & {
-  errors?: {
-    /**
-     * @example 10433
-     * @type integer | undefined
-     */
-    code?: number | undefined;
-    /**
-     * @example request error
-     * @type string | undefined
-     */
-    message?: string | undefined;
-  } | undefined;
+export type CloudforceOneRequestsApiResponseCommonFailure = {
   /**
-   * @example false
-   * @type boolean | undefined
+   * @example [{"code":10433,"message":"request error"}]
+   * @type array
    */
-  success?: boolean | undefined;
+  errors: CloudforceOneRequestsMessages;
+  /**
+   * @example []
+   * @type array
+   */
+  messages: CloudforceOneRequestsMessages;
+  /**
+   * @description Whether the API call was successful.
+   * @example false
+   * @type boolean
+   */
+  success: false;
 };
 
 /**
@@ -56790,7 +56789,7 @@ export type IamAccount = {
     readonly should_display_parent_orgs?: boolean | undefined;
   } | undefined;
   /**
-   * @description Account name
+   * @description Account name. When creating or updating an account, the name is limited to 65 UTF-8 bytes.
    * @example Demo Account
    * @type string
    */
@@ -58123,13 +58122,7 @@ export type IamCollectionTokensResponse = IamApiResponseCollection & {
   result?: IamTokenBase[] | undefined;
 };
 
-export type IamComponentsSchemasAccount = IamAccount & {
-  /**
-   * @description Account name, limited to 65 UTF-8 bytes.
-   * @type string | undefined
-   */
-  name?: string | undefined;
-};
+export type IamComponentsSchemasAccount = IamAccount;
 
 /**
  * @description The country in which the user lives.
@@ -66512,6 +66505,16 @@ export type LogpushDestinationExistsResponse = LogpushApiResponseCommon & {
 };
 
 /**
+ * @description Sanitized destination descriptor with credentials removed.
+ *
+ * Format: `uri`
+ * @maxLength 4096
+ * @example s3://mybucket?region=us-west-2
+ * @type string
+ */
+export type LogpushDestinationName = string;
+
+/**
  * @description Flag that indicates if the job is enabled.
  * @default false
  * @example false
@@ -66831,6 +66834,15 @@ export type LogpushLogpushJob = {
    * @type string | undefined
    */
   destination_conf?: LogpushDestinationConf | undefined;
+  /**
+   * @description Sanitized destination descriptor with credentials removed.
+   *
+   * Format: `uri`
+   * @maxLength 4096
+   * @example s3://mybucket?region=us-west-2
+   * @type string | undefined
+   */
+  readonly destination_name?: LogpushDestinationName | undefined;
   /**
    * @description Flag that indicates if the job is enabled.
    * @default false
@@ -126454,6 +126466,37 @@ export type WorkersPreview = {
    */
   observability: {
     /**
+     * @description Agents observability settings for the Preview.
+     * @type object | undefined
+     */
+    agents?: ({
+      /**
+       * @description A list of destinations where Agents observability data will be exported to.
+       * @default []
+       * @type array | undefined
+       */
+      destinations?: string[] | undefined;
+      /**
+       * @description Whether Agents observability is enabled for the Preview.
+       * @default false
+       * @type boolean | undefined
+       */
+      enabled?: boolean | undefined;
+      /**
+       * @description The sampling rate for Agents observability. From 0 to 1 (1 = 100%, 0.1 = 10%).
+       * @default 1
+       * @example 1
+       * @type number | undefined
+       */
+      head_sampling_rate?: number | undefined;
+      /**
+       * @description Whether Agents observability data is persisted for the Preview.
+       * @default true
+       * @type boolean | undefined
+       */
+      persist?: boolean | undefined;
+    } | null) | undefined;
+    /**
      * @description Whether observability is enabled for the Preview.
      * @default false
      * @type boolean | undefined
@@ -128844,6 +128887,37 @@ export type WorkersObservabilityTracesPropagationPolicyEnumKey = (typeof workers
  */
 export type WorkersObservability = {
   /**
+   * @description Agents observability settings for the Worker.
+   * @type object | undefined
+   */
+  agents?: ({
+    /**
+     * @description A list of destinations where Agents observability data will be exported to.
+     * @default []
+     * @type array | undefined
+     */
+    destinations?: string[] | undefined;
+    /**
+     * @description Whether Agents observability is enabled for the Worker.
+     * @default false
+     * @type boolean | undefined
+     */
+    enabled?: boolean | undefined;
+    /**
+     * @description The sampling rate for Agents observability. From 0 to 1 (1 = 100%, 0.1 = 10%).
+     * @default 1
+     * @example 1
+     * @type number | undefined
+     */
+    head_sampling_rate?: number | undefined;
+    /**
+     * @description Whether Agents observability data is persisted for the Worker.
+     * @default true
+     * @type boolean | undefined
+     */
+    persist?: boolean | undefined;
+  } | null) | undefined;
+  /**
    * @description Whether observability is enabled for the Worker.
    * @default false
    * @type boolean | undefined
@@ -129356,6 +129430,37 @@ export type WorkersWorker = {
    * @type object
    */
   observability: {
+    /**
+     * @description Agents observability settings for the Worker.
+     * @type object | undefined
+     */
+    agents?: ({
+      /**
+       * @description A list of destinations where Agents observability data will be exported to.
+       * @default []
+       * @type array | undefined
+       */
+      destinations?: string[] | undefined;
+      /**
+       * @description Whether Agents observability is enabled for the Worker.
+       * @default false
+       * @type boolean | undefined
+       */
+      enabled?: boolean | undefined;
+      /**
+       * @description The sampling rate for Agents observability. From 0 to 1 (1 = 100%, 0.1 = 10%).
+       * @default 1
+       * @example 1
+       * @type number | undefined
+       */
+      head_sampling_rate?: number | undefined;
+      /**
+       * @description Whether Agents observability data is persisted for the Worker.
+       * @default true
+       * @type boolean | undefined
+       */
+      persist?: boolean | undefined;
+    } | null) | undefined;
     /**
      * @description Whether observability is enabled for the Worker.
      * @default false
@@ -130142,6 +130247,37 @@ export type WorkersObservability2TracesPropagationPolicyEnumKey = (typeof worker
  * @type object
  */
 export type WorkersObservability2 = {
+  /**
+   * @description Agents observability settings for the Worker.
+   * @type object | undefined
+   */
+  agents?: ({
+    /**
+     * @description A list of destinations where Agents observability data will be exported to.
+     * @example ["cloudflare"]
+     * @type array | undefined
+     */
+    destinations?: string[] | undefined;
+    /**
+     * @description Whether Agents observability is enabled for the Worker.
+     * @example true
+     * @type boolean | undefined
+     */
+    enabled?: boolean | undefined;
+    /**
+     * @description The sampling rate for Agents observability. From 0 to 1 (1 = 100%, 0.1 = 10%). Defaults to the root head_sampling_rate.
+     * @example 0.1
+     * @type number | undefined
+     */
+    head_sampling_rate?: (number | null) | undefined;
+    /**
+     * @description Whether Agents observability data is persisted for the Worker.
+     * @default true
+     * @example true
+     * @type boolean | undefined
+     */
+    persist?: boolean | undefined;
+  } | null) | undefined;
   /**
    * @description Whether observability is enabled for the Worker.
    * @example true
@@ -140190,7 +140326,7 @@ export type IamAccountWritable = {
     readonly should_display_parent_orgs?: boolean | undefined;
   } | undefined;
   /**
-   * @description Account name
+   * @description Account name. When creating or updating an account, the name is limited to 65 UTF-8 bytes.
    * @example Demo Account
    * @type string
    */
@@ -140216,13 +140352,7 @@ export type IamAccountWritable = {
   readonly type?: IamAccountTypeKey | undefined;
 };
 
-export type IamComponentsSchemasAccountWritable = IamAccountWritable & {
-  /**
-   * @description Account name, limited to 65 UTF-8 bytes.
-   * @type string | undefined
-   */
-  name?: string | undefined;
-};
+export type IamComponentsSchemasAccountWritable = IamAccountWritable;
 
 /**
  * @description An email allow policy.
@@ -140907,6 +141037,37 @@ export type WorkersWorkerWritable = {
    */
   observability: {
     /**
+     * @description Agents observability settings for the Worker.
+     * @type object | undefined
+     */
+    agents?: ({
+      /**
+       * @description A list of destinations where Agents observability data will be exported to.
+       * @default []
+       * @type array | undefined
+       */
+      destinations?: string[] | undefined;
+      /**
+       * @description Whether Agents observability is enabled for the Worker.
+       * @default false
+       * @type boolean | undefined
+       */
+      enabled?: boolean | undefined;
+      /**
+       * @description The sampling rate for Agents observability. From 0 to 1 (1 = 100%, 0.1 = 10%).
+       * @default 1
+       * @example 1
+       * @type number | undefined
+       */
+      head_sampling_rate?: number | undefined;
+      /**
+       * @description Whether Agents observability data is persisted for the Worker.
+       * @default true
+       * @type boolean | undefined
+       */
+      persist?: boolean | undefined;
+    } | null) | undefined;
+    /**
      * @description Whether observability is enabled for the Worker.
      * @default false
      * @type boolean | undefined
@@ -141260,6 +141421,37 @@ export type WorkersPreviewWritable = {
    * @type object
    */
   observability: {
+    /**
+     * @description Agents observability settings for the Preview.
+     * @type object | undefined
+     */
+    agents?: ({
+      /**
+       * @description A list of destinations where Agents observability data will be exported to.
+       * @default []
+       * @type array | undefined
+       */
+      destinations?: string[] | undefined;
+      /**
+       * @description Whether Agents observability is enabled for the Preview.
+       * @default false
+       * @type boolean | undefined
+       */
+      enabled?: boolean | undefined;
+      /**
+       * @description The sampling rate for Agents observability. From 0 to 1 (1 = 100%, 0.1 = 10%).
+       * @default 1
+       * @example 1
+       * @type number | undefined
+       */
+      head_sampling_rate?: number | undefined;
+      /**
+       * @description Whether Agents observability data is persisted for the Preview.
+       * @default true
+       * @type boolean | undefined
+       */
+      persist?: boolean | undefined;
+    } | null) | undefined;
     /**
      * @description Whether observability is enabled for the Preview.
      * @default false
@@ -301887,6 +302079,11 @@ export type DeleteDatasetPreferencesDeleteStatus200 = {
      */
     datasetIds: string[];
     /**
+     * @description True when the saved datasets mix analytics and intelligence datasets, for example after a dataset's analytics setting changed. Such a preference is skipped.
+     * @type boolean
+     */
+    mixesDatasetKinds: boolean;
+    /**
      * @description Saved datasets that you can no longer read or that were deleted. While this list is not empty, the preference is skipped.
      * @type array
      */
@@ -301926,6 +302123,11 @@ export type DeleteDatasetPreferencesDeleteStatus200 = {
      * @type array
      */
     datasetIds: string[];
+    /**
+     * @description True when the saved datasets mix analytics and intelligence datasets, for example after a dataset's analytics setting changed. Such a preference is skipped.
+     * @type boolean
+     */
+    mixesDatasetKinds: boolean;
     /**
      * @description Saved datasets that you can no longer read or that were deleted. While this list is not empty, the preference is skipped.
      * @type array
@@ -302029,6 +302231,11 @@ export type GetDatasetPreferencesReadStatus200 = {
      */
     datasetIds: string[];
     /**
+     * @description True when the saved datasets mix analytics and intelligence datasets, for example after a dataset's analytics setting changed. Such a preference is skipped.
+     * @type boolean
+     */
+    mixesDatasetKinds: boolean;
+    /**
      * @description Saved datasets that you can no longer read or that were deleted. While this list is not empty, the preference is skipped.
      * @type array
      */
@@ -302068,6 +302275,11 @@ export type GetDatasetPreferencesReadStatus200 = {
      * @type array
      */
     datasetIds: string[];
+    /**
+     * @description True when the saved datasets mix analytics and intelligence datasets, for example after a dataset's analytics setting changed. Such a preference is skipped.
+     * @type boolean
+     */
+    mixesDatasetKinds: boolean;
     /**
      * @description Saved datasets that you can no longer read or that were deleted. While this list is not empty, the preference is skipped.
      * @type array
@@ -302171,6 +302383,11 @@ export type PutDatasetPreferencesUpdateStatus200 = {
      */
     datasetIds: string[];
     /**
+     * @description True when the saved datasets mix analytics and intelligence datasets, for example after a dataset's analytics setting changed. Such a preference is skipped.
+     * @type boolean
+     */
+    mixesDatasetKinds: boolean;
+    /**
      * @description Saved datasets that you can no longer read or that were deleted. While this list is not empty, the preference is skipped.
      * @type array
      */
@@ -302210,6 +302427,11 @@ export type PutDatasetPreferencesUpdateStatus200 = {
      * @type array
      */
     datasetIds: string[];
+    /**
+     * @description True when the saved datasets mix analytics and intelligence datasets, for example after a dataset's analytics setting changed. Such a preference is skipped.
+     * @type boolean
+     */
+    mixesDatasetKinds: boolean;
     /**
      * @description Saved datasets that you can no longer read or that were deleted. While this list is not empty, the preference is skipped.
      * @type array
@@ -302275,7 +302497,7 @@ export type PutDatasetPreferencesUpdateRequestScopeEnumKey = (typeof putDatasetP
 
 export type PutDatasetPreferencesUpdateBody = {
   /**
-   * @description The dataset UUIDs to use when a request omits `datasetId`: 1 to 50 datasets you can read. Duplicates are ignored.
+   * @description The dataset UUIDs to use when a request omits `datasetId`: 1 to 50 datasets you can read, either all analytics datasets or all intelligence datasets. Duplicates are ignored.
    * @type array
    */
   datasetIds: string[];
@@ -313277,6 +313499,13 @@ export type GetDomainMatchListPath = {
   accountId: string;
 };
 
+export const getDomainMatchListQuality = {
+  high: 'high',
+  low: 'low',
+} as const;
+
+export type GetDomainMatchListQualityKey = (typeof getDomainMatchListQuality)[keyof typeof getDomainMatchListQuality];
+
 export const getDomainMatchListOrderBy = {
   domain: 'domain',
   first_seen: 'first_seen',
@@ -313327,6 +313556,11 @@ export type GetDomainMatchListQuery = {
    */
   domain_search?: string | undefined;
   /**
+   * @description Filter matches by quality. Options: 'high' or 'low'
+   * @type string | undefined
+   */
+  quality?: GetDomainMatchListQualityKey | undefined;
+  /**
    * @description Field to sort by: `domain`, `first_seen`, or `registrar`. Defaults to `first_seen`.
    * @type string | undefined
    */
@@ -313338,8 +313572,41 @@ export type GetDomainMatchListQuery = {
   order?: GetDomainMatchListOrderKey | undefined;
 };
 
+export const getDomainMatchListStatus200MatchesAiVerdictEnum = {
+  confirmed: 'confirmed',
+  rejected: 'rejected',
+  unavailable: 'unavailable',
+  not_sent: 'not_sent',
+} as const;
+
+export type GetDomainMatchListStatus200MatchesAiVerdictEnumKey = (typeof getDomainMatchListStatus200MatchesAiVerdictEnum)[keyof typeof getDomainMatchListStatus200MatchesAiVerdictEnum];
+
+export const getDomainMatchListStatus200MatchesMatchDetailsAiVerdictEnum = {
+  confirmed: 'confirmed',
+  rejected: 'rejected',
+  unavailable: 'unavailable',
+  not_sent: 'not_sent',
+} as const;
+
+export type GetDomainMatchListStatus200MatchesMatchDetailsAiVerdictEnumKey = (typeof getDomainMatchListStatus200MatchesMatchDetailsAiVerdictEnum)[keyof typeof getDomainMatchListStatus200MatchesMatchDetailsAiVerdictEnum];
+
+export const getDomainMatchListStatus200MatchesMatchDetailsQualityEnum = {
+  high: 'high',
+  low: 'low',
+} as const;
+
+export type GetDomainMatchListStatus200MatchesMatchDetailsQualityEnumKey = (typeof getDomainMatchListStatus200MatchesMatchDetailsQualityEnum)[keyof typeof getDomainMatchListStatus200MatchesMatchDetailsQualityEnum];
+
+export const getDomainMatchListStatus200MatchesQualityEnum = {
+  high: 'high',
+  low: 'low',
+} as const;
+
+export type GetDomainMatchListStatus200MatchesQualityEnumKey = (typeof getDomainMatchListStatus200MatchesQualityEnum)[keyof typeof getDomainMatchListStatus200MatchesQualityEnum];
+
 export type GetDomainMatchListStatus200 = {
   matches: {
+    ai_verdict: GetDomainMatchListStatus200MatchesAiVerdictEnumKey | null;
     /**
      * @description Whether the match is dismissed. Only present for single-query requests. For multi-query requests, use the dismissed field in each match_details entry.
      * @type boolean | undefined
@@ -313355,26 +313622,32 @@ export type GetDomainMatchListStatus200 = {
      * @type integer | undefined
      */
     domain_id?: number | undefined;
+    edit_distance: number | null;
     /**
      * @description When the domain was matched. For multi-query requests, the most recent match time across the requested queries.
      * @type string
      */
     first_seen: string;
+    match_category: string | null;
     /**
      * @description Per-match detail objects with query metadata and individual dismissed state. Only present when multiple query_ids are requested.
      * @type array | undefined
      */
     match_details?: {
+      ai_verdict: GetDomainMatchListStatus200MatchesMatchDetailsAiVerdictEnumKey | null;
       /**
        * @description Individual dismissed state for this specific match.
        * @type boolean
        */
       dismissed: boolean;
+      edit_distance: number | null;
+      match_category: string | null;
       /**
        * @description ID of the match. Accepted by the legacy `match_ids` format.
        * @type integer
        */
       match_id: number;
+      quality: GetDomainMatchListStatus200MatchesMatchDetailsQualityEnumKey;
       /**
        * @description ID of the domain query that produced this match.
        * @type integer
@@ -313389,6 +313662,7 @@ export type GetDomainMatchListStatus200 = {
     public_scans: {
       submission_id: string;
     } | null;
+    quality: GetDomainMatchListStatus200MatchesQualityEnumKey;
     /**
      * @description Registrar of the matched domain, if known.
      * @type string
