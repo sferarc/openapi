@@ -1,5 +1,21 @@
 # cloudflare-api-js
 
+## 4.29.0
+
+### Minor Changes
+
+- 1febc6c: [BREAKING] Updated 'CloudforceOneRequestsApiResponseCommonFailure' type: 'errors' and 'messages' fields are now arrays and required, with examples updated accordingly.
+- 1febc6c: Added 'quality' filter option to 'GetDomainMatchListQuery' for filtering matches by quality.
+- 1febc6c: Added types and enums related to domain match quality and AI verdicts, including 'GetDomainMatchListQualityKey' and associated enums.
+
+### Patch Changes
+
+- 1febc6c: Added 'LogpushDestinationName' type and 'destination_name' field to Logpush-related types, for credentials-stripped destination descriptors.
+- 1febc6c: Expanded dataset preference descriptions to specify that datasets cannot mix analytics and intelligence types, and updated relevant parameter descriptions.
+- 1febc6c: Expanded observability-related types in Workers APIs to add detailed 'agents' observability configuration fields.
+- 1febc6c: Improved type descriptions for worker-related types to reflect observability configuration and sampling rates.
+- 1febc6c: Updated descriptions of IAM account types to clarify the name length limit when creating or updating an account.
+
 ## 4.28.0
 
 ### Minor Changes
