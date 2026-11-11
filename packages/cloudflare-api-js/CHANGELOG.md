@@ -1,5 +1,15 @@
 # cloudflare-api-js
 
+## 4.29.1
+
+### Patch Changes
+
+- fc35476: Added errorCount, errors, rootSpanName, rootTransactionName, services, spans, traceDurationMs, traceEndMs, and traceStartMs properties to WorkersObservabilityAgentTraceSummary type for enhanced Agent trace details.
+- fc35476: Added new step_runner and step_dynamic variants to WorDescribeWorkflowVersionsGraphStatus200 type for expanded workflow node configurations, including retry and timeout settings.
+- fc35476: Added next_eligible_reason property to R2DataCatalogTableCompactionConfig and R2DataCatalogTableSnapshotExpirationConfig types, providing reasons why an operation is not eligible to run before next_eligible_at.
+- fc35476: Added WorDescribeWorkflowVersionsGraphStatus200ResultGraphWorkflowNodesConfigRetriesBackoffEnum2 enum and related key type for step retry backoff strategies.
+- fc35476: Updated descriptions on durableObjectsNamespaceQuery, agentsTracesList, and agentsTracesGet operations for improved clarity on Agent trace listing and event retrieval.
+
 ## 4.29.0
 
 ### Minor Changes
