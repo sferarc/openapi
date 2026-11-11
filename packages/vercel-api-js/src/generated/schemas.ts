@@ -4101,6 +4101,7 @@ export const userEventSchema = z
 								"read-write:blob",
 								"read-write:connect",
 								"read-write:deployment",
+								"read-write:desktop-device",
 								"read-write:domain",
 								"read-write:domain-registrar",
 								"read-write:drains",
@@ -4199,6 +4200,7 @@ export const userEventSchema = z
 								"read-write:blob",
 								"read-write:connect",
 								"read-write:deployment",
+								"read-write:desktop-device",
 								"read-write:domain",
 								"read-write:domain-registrar",
 								"read-write:drains",
@@ -11478,6 +11480,7 @@ export const userEventSchema = z
 				"ai-gateway-rule-deleted",
 				"ai-gateway-rule-updated",
 				"ai-gateway-scope-budget-updated",
+				"ai-gateway-system-credential-fallback-opt-out-toggled",
 				"ai-gateway-transcripts-default-disabled",
 				"ai-gateway-transcripts-default-enabled",
 				"ai-gateway-transcripts-disabled",
@@ -12362,6 +12365,7 @@ export const listEventTypeSchema = z
 				"ai-gateway-rule-deleted",
 				"ai-gateway-rule-updated",
 				"ai-gateway-scope-budget-updated",
+				"ai-gateway-system-credential-fallback-opt-out-toggled",
 				"ai-gateway-transcripts-default-disabled",
 				"ai-gateway-transcripts-default-enabled",
 				"ai-gateway-transcripts-disabled",
@@ -13141,6 +13145,7 @@ export const listEventTypeSchema = z
 					"ai-gateway-rule-deleted",
 					"ai-gateway-rule-updated",
 					"ai-gateway-scope-budget-updated",
+					"ai-gateway-system-credential-fallback-opt-out-toggled",
 					"ai-gateway-transcripts-default-disabled",
 					"ai-gateway-transcripts-default-enabled",
 					"ai-gateway-transcripts-disabled",
@@ -60691,6 +60696,12 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						.describe(
 							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 						),
+					desktopDevice: z
+						.array(ACLActionSchema)
+						.optional()
+						.describe(
+							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+						),
 					domain: z
 						.array(ACLActionSchema)
 						.optional()
@@ -71843,6 +71854,12 @@ export const getProjectsStatus200Schema = z
 								.describe(
 									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 								),
+							desktopDevice: z
+								.array(ACLActionSchema)
+								.optional()
+								.describe(
+									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+								),
 							domain: z
 								.array(ACLActionSchema)
 								.optional()
@@ -76143,6 +76160,12 @@ export const createProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			deploymentV0: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			desktopDevice: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -80780,6 +80803,12 @@ export const getProjectStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			desktopDevice: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			domain: z
 				.array(ACLActionSchema)
 				.optional()
@@ -84878,6 +84907,12 @@ export const updateProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			deploymentV0: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			desktopDevice: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -89905,6 +89940,12 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			desktopDevice: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			domain: z
 				.array(ACLActionSchema)
 				.optional()
@@ -94010,6 +94051,12 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			deploymentV0: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			desktopDevice: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -104381,6 +104428,12 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			deploymentV0: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			desktopDevice: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(

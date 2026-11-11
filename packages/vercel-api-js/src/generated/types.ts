@@ -5512,6 +5512,7 @@ export const userEventPayloadPermissionsEnum = {
 	"read-write:blob": "read-write:blob",
 	"read-write:connect": "read-write:connect",
 	"read-write:deployment": "read-write:deployment",
+	"read-write:desktop-device": "read-write:desktop-device",
 	"read-write:domain": "read-write:domain",
 	"read-write:domain-registrar": "read-write:domain-registrar",
 	"read-write:drains": "read-write:drains",
@@ -5611,6 +5612,7 @@ export const userEventPayloadNextPermissionsEnum = {
 	"read-write:blob": "read-write:blob",
 	"read-write:connect": "read-write:connect",
 	"read-write:deployment": "read-write:deployment",
+	"read-write:desktop-device": "read-write:desktop-device",
 	"read-write:domain": "read-write:domain",
 	"read-write:domain-registrar": "read-write:domain-registrar",
 	"read-write:drains": "read-write:drains",
@@ -8283,6 +8285,8 @@ export const userEventTypeEnum = {
 	"ai-gateway-rule-deleted": "ai-gateway-rule-deleted",
 	"ai-gateway-rule-updated": "ai-gateway-rule-updated",
 	"ai-gateway-scope-budget-updated": "ai-gateway-scope-budget-updated",
+	"ai-gateway-system-credential-fallback-opt-out-toggled":
+		"ai-gateway-system-credential-fallback-opt-out-toggled",
 	"ai-gateway-transcripts-default-disabled": "ai-gateway-transcripts-default-disabled",
 	"ai-gateway-transcripts-default-enabled": "ai-gateway-transcripts-default-enabled",
 	"ai-gateway-transcripts-disabled": "ai-gateway-transcripts-disabled",
@@ -16629,6 +16633,8 @@ export const listEventTypeNameEnum = {
 	"ai-gateway-rule-deleted": "ai-gateway-rule-deleted",
 	"ai-gateway-rule-updated": "ai-gateway-rule-updated",
 	"ai-gateway-scope-budget-updated": "ai-gateway-scope-budget-updated",
+	"ai-gateway-system-credential-fallback-opt-out-toggled":
+		"ai-gateway-system-credential-fallback-opt-out-toggled",
 	"ai-gateway-transcripts-default-disabled": "ai-gateway-transcripts-default-disabled",
 	"ai-gateway-transcripts-default-enabled": "ai-gateway-transcripts-default-enabled",
 	"ai-gateway-transcripts-disabled": "ai-gateway-transcripts-disabled",
@@ -17424,6 +17430,8 @@ export const listEventTypeReplacedByEnum = {
 	"ai-gateway-rule-deleted": "ai-gateway-rule-deleted",
 	"ai-gateway-rule-updated": "ai-gateway-rule-updated",
 	"ai-gateway-scope-budget-updated": "ai-gateway-scope-budget-updated",
+	"ai-gateway-system-credential-fallback-opt-out-toggled":
+		"ai-gateway-system-credential-fallback-opt-out-toggled",
 	"ai-gateway-transcripts-default-disabled": "ai-gateway-transcripts-default-disabled",
 	"ai-gateway-transcripts-default-enabled": "ai-gateway-transcripts-default-enabled",
 	"ai-gateway-transcripts-disabled": "ai-gateway-transcripts-disabled",
@@ -75990,6 +75998,11 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 					 * @type array | undefined
 					 */
+					desktopDevice?: ACLActionKey[] | undefined;
+					/**
+					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+					 * @type array | undefined
+					 */
 					domain?: ACLActionKey[] | undefined;
 					/**
 					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -89497,6 +89510,11 @@ export type GetProjectsStatus200 =
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 									 * @type array | undefined
 									 */
+									desktopDevice?: ACLActionKey[] | undefined;
+									/**
+									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+									 * @type array | undefined
+									 */
 									domain?: ACLActionKey[] | undefined;
 									/**
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -94119,6 +94137,11 @@ export type CreateProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				deploymentV0?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				desktopDevice?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -99335,6 +99358,11 @@ export type GetProjectStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				desktopDevice?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				domain?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -103830,6 +103858,11 @@ export type UpdateProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				deploymentV0?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				desktopDevice?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -109407,6 +109440,11 @@ export type UploadProjectAvatarStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				desktopDevice?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				domain?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -113940,6 +113978,11 @@ export type DeleteProjectAvatarStatus200 = {
 				 * @type array | undefined
 				 */
 				deploymentV0?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				desktopDevice?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -125876,6 +125919,11 @@ export type UpdateMicrofrontendsStatus200 = {
 				 * @type array | undefined
 				 */
 				deploymentV0?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				desktopDevice?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
