@@ -714,6 +714,11 @@ export const adminIgnoreSchema = z.object({
 		),
 });
 
+export const adminMCPPermissionsSchema = z.object({
+	tools: z.array(z.string()),
+	action_allowed: z.union([z.boolean(), z.null()]).optional(),
+});
+
 export const agentExtensionSchema = z
 	.object({
 		uri: z.string().optional(),
@@ -1944,11 +1949,11 @@ export const requestComplexityRouterConfigSchema = z
 				"Additional case-sensitive literal sentinels that mark a request as plan mode, on top of the built-in Claude Code and Copilot ones. For clients whose plan-mode wording the built-ins don't cover, or after a client release changes its strings.",
 			),
 		max_tokens_from_tier_model: z
-			.boolean()
+			.union([z.boolean(), z.enum(["clamp"])])
 			.optional()
 			.default(true)
 			.describe(
-				"Set max_tokens on every routed request to the output ceiling of the tier model it lands on, replacing whatever the caller sent. A caller behind an auto-router cannot pick one value that fits every tier: the smallest tier's ceiling starves a bigger tier's thinking budget, and a bigger tier's ceiling is rejected by the smallest. The ceiling is the smallest max_output_tokens across the tier model's deployments, read from each deployment's model_info and then the model cost map; a tier model with a deployment whose ceiling is unknown keeps the caller's value. A max_tokens, max_completion_tokens or max_output_tokens in the tier's own litellm_params still wins. Set false to forward the caller's value unchanged.",
+				"Set max_tokens on every routed request to the output ceiling of the tier model it lands on, replacing whatever the caller sent. A caller behind an auto-router cannot pick one value that fits every tier: the smallest tier's ceiling starves a bigger tier's thinking budget, and a bigger tier's ceiling is rejected by the smallest. The ceiling is the smallest max_output_tokens across the tier model's deployments, read from each deployment's model_info and then the model cost map; a tier model with a deployment whose ceiling is unknown keeps the caller's value. A max_tokens, max_completion_tokens or max_output_tokens in the tier's own litellm_params still wins. Set \"clamp\" to keep a smaller positive caller value and cap a larger one at the ceiling. Set false to forward the caller's value unchanged.",
 			),
 		route_housekeeping_to_cheapest_tier: z
 			.boolean()
@@ -2222,6 +2227,11 @@ export const standardLoggingRoutingDecisionSchema = z
 			])
 			.optional(),
 		classifier_error_type: z.string().optional(),
+		classifier_input_budget_tokens: z.int().optional(),
+		classifier_input_tokens: z.int().optional(),
+		classifier_input_count_method: z.string().optional(),
+		classifier_input_truncated: z.boolean().optional(),
+		classifier_input_budget_status: z.string().optional(),
 		classifier_probabilities: z.record(z.string(), z.number()).optional(),
 		classifier_confidence: z.number().optional(),
 		heuristic_v2_forecast: standardLoggingHeuristicV2ForecastSchema.optional(),
@@ -2317,7 +2327,29 @@ export const awsSessionTagSchema = z.looseObject({
 	Value: z.string(),
 });
 
+export const backgroundChatSettingsSchema = z.strictObject({
+	enabled: z
+		.boolean()
+		.describe("Enable cache-backed background Responses for Chat and API requests."),
+});
+
+export const backgroundChatSettingsResponseSchema = z.strictObject({
+	enabled: z
+		.boolean()
+		.describe("Enable cache-backed background Responses for Chat and API requests."),
+	redis_configured: z.boolean().describe("Whether this proxy has coordination Redis configured."),
+	managed_by_config: z
+		.boolean()
+		.describe("Whether the responses configuration is owned by the config file."),
+	can_save: z.boolean().describe("Whether database-backed configuration updates are available."),
+});
+
 export const baseModelSchema = z.object({});
+
+export const billingPeriodSchema = z.object({
+	start: z.iso.date(),
+	end: z.iso.date(),
+});
 
 export const blockKeyRequestSchema = z.object({
 	key: z.string(),
@@ -2513,6 +2545,7 @@ export const bodyTestModelConnectionHealthTestConnectionPostSchema = z.object({
 				"ocr",
 				"evaluation",
 				"decisions",
+				"extraction",
 			]),
 			z.null(),
 		])
@@ -2593,6 +2626,43 @@ export const metricWithMetadataSchema = z.object({
 	api_key_breakdown: z.record(z.string(), keyMetricWithMetadataSchema).optional(),
 });
 
+export const guardrailSpendMetricsSchema = z.object({
+	spend: z
+		.number()
+		.optional()
+		.default(0)
+		.describe("Guardrail spend in USD, already included in key and model spend"),
+	untracked_units: z
+		.int()
+		.optional()
+		.default(0)
+		.describe("Guardrail units with no known price, excluded from spend"),
+});
+
+export const guardrailMetadataSchema = z.object({
+	guardrail_name: z.string().describe("Guardrail display name, falling back to the guardrail ID"),
+});
+
+export const guardrailKeyMetricSchema = z.object({
+	metrics: guardrailSpendMetricsSchema.describe(
+		"Guardrail spend and unpriced units for this API key",
+	),
+	metadata: keyMetadataSchema.describe("API key alias and existence information"),
+});
+
+export const guardrailMetricSchema = z.object({
+	metrics: guardrailSpendMetricsSchema.describe(
+		"Guardrail spend and unpriced units across all matching API keys",
+	),
+	metadata: guardrailMetadataSchema.describe("Guardrail name information"),
+	api_key_breakdown: z
+		.record(z.string(), guardrailKeyMetricSchema)
+		.optional()
+		.describe(
+			"Per-key guardrail spend and unpriced units, limited to keys in the day's API key breakdown",
+		),
+});
+
 export const breakdownMetricsSchema = z
 	.object({
 		mcp_servers: z.record(z.string(), metricWithMetadataSchema).optional(),
@@ -2602,6 +2672,12 @@ export const breakdownMetricsSchema = z
 		endpoints: z.record(z.string(), metricWithMetadataSchema).optional(),
 		api_keys: z.record(z.string(), keyMetricWithMetadataSchema).optional(),
 		entities: z.record(z.string(), metricWithMetadataSchema).optional(),
+		guardrails: z
+			.record(z.string(), guardrailMetricSchema)
+			.optional()
+			.describe(
+				"Spend by guardrail ID, already included in key and model spend. Populated on user, team and organization aggregated activity only, without a model filter",
+			),
 	})
 	.describe("Breakdown of spend by different dimensions");
 
@@ -2656,11 +2732,11 @@ export const budgetNewRequestSchema = z.object({
 		.optional()
 		.describe("Max concurrent requests allowed for this budget id."),
 	tpm_limit: z
-		.union([z.int(), z.null()])
+		.union([z.int().min(0), z.null()])
 		.optional()
 		.describe("Max tokens per minute, allowed for this budget id."),
 	rpm_limit: z
-		.union([z.int(), z.null()])
+		.union([z.int().min(0), z.null()])
 		.optional()
 		.describe("Max requests per minute, allowed for this budget id."),
 	tpd_limit: z
@@ -2750,8 +2826,8 @@ export const bulkNewUserItemSchema = z
 			.union([z.looseObject({}), z.null()])
 			.optional()
 			.default({}),
-		tpm_limit: z.union([z.int(), z.null()]).optional(),
-		rpm_limit: z.union([z.int(), z.null()]).optional(),
+		tpm_limit: z.union([z.int().min(0), z.null()]).optional(),
+		rpm_limit: z.union([z.int().min(0), z.null()]).optional(),
 		budget_duration: z.union([z.string(), z.null()]).optional(),
 		budget_limits: z.union([z.array(budgetLimitEntrySchema), z.null()]).optional(),
 		allowed_cache_controls: z
@@ -3095,8 +3171,8 @@ export const updateUserRequestSchema = z.object({
 	agent_id: z.union([z.string(), z.null()]).optional(),
 	max_parallel_requests: z.union([z.int(), z.null()]).optional(),
 	metadata: z.union([z.looseObject({}), z.null()]).optional(),
-	tpm_limit: z.union([z.int(), z.null()]).optional(),
-	rpm_limit: z.union([z.int(), z.null()]).optional(),
+	tpm_limit: z.union([z.int().min(0), z.null()]).optional(),
+	rpm_limit: z.union([z.int().min(0), z.null()]).optional(),
 	budget_duration: z.union([z.string(), z.null()]).optional(),
 	budget_limits: z.union([z.array(budgetLimitEntrySchema), z.null()]).optional(),
 	allowed_cache_controls: z
@@ -3154,8 +3230,8 @@ export const updateUserRequestNoUserIDorEmailSchema = z.object({
 	agent_id: z.union([z.string(), z.null()]).optional(),
 	max_parallel_requests: z.union([z.int(), z.null()]).optional(),
 	metadata: z.union([z.looseObject({}), z.null()]).optional(),
-	tpm_limit: z.union([z.int(), z.null()]).optional(),
-	rpm_limit: z.union([z.int(), z.null()]).optional(),
+	tpm_limit: z.union([z.int().min(0), z.null()]).optional(),
+	rpm_limit: z.union([z.int().min(0), z.null()]).optional(),
 	budget_duration: z.union([z.string(), z.null()]).optional(),
 	budget_limits: z.union([z.array(budgetLimitEntrySchema), z.null()]).optional(),
 	allowed_cache_controls: z
@@ -3346,6 +3422,11 @@ export const cacheTestResponseSchema = z.object({
 	error: z.union([z.string(), z.null()]).optional().describe("Error message if connection failed"),
 });
 
+export const cacheWriteTokensDetailsSchema = z.looseObject({
+	ttl_30m_tokens: z.int(),
+	ttl_12h_tokens: z.int(),
+});
+
 export const cachedTokensDetailsSchema = z.object({
 	text_tokens: z.union([z.int(), z.null()]).optional(),
 	audio_tokens: z.union([z.int(), z.null()]).optional(),
@@ -3377,6 +3458,8 @@ export const callTypesSchema = z.enum([
 	"adecisions",
 	"systemone",
 	"asystemone",
+	"extraction",
+	"aextraction",
 	"_arealtime",
 	"_aresponses_websocket",
 	"create_batch",
@@ -3498,8 +3581,6 @@ export const callTypesSchema = z.enum([
 	"adelete_responses",
 	"cancel_responses",
 	"acancel_responses",
-	"compact_responses",
-	"acompact_responses",
 	"alist_input_items",
 	"llm_passthrough_route",
 	"allm_passthrough_route",
@@ -3673,11 +3754,12 @@ export const chatCompletionTokenLogprobSchema = z.looseObject({
 	token: z.string(),
 	bytes: z.union([z.array(z.int()), z.null()]).optional(),
 	logprob: z.number(),
-	top_logprobs: z.array(topLogprobSchema),
+	top_logprobs: z.array(topLogprobSchema).optional(),
 });
 
 export const choiceLogprobsSchema = z.looseObject({
 	content: z.union([z.array(chatCompletionTokenLogprobSchema), z.null()]).optional(),
+	refusal: z.union([z.array(chatCompletionTokenLogprobSchema), z.null()]).optional(),
 });
 
 export const functionCallSchema = z.looseObject({
@@ -4251,12 +4333,22 @@ export const deleteResponseResultSchema = z
 		'Result of a delete response request\n\n{\n    "id": "resp_6786a1bec27481909a17d673315b29f6",\n    "object": "response",\n    "deleted": true\n}',
 	);
 
+export const deleteSubscriptionAccountRequestSchema = z.object({
+	subscription_account_id: z.string(),
+});
+
 export const deleteTeamRequestSchema = z.object({
 	team_ids: z.array(z.string()),
 });
 
 export const deleteUserRequestSchema = z.object({
 	user_ids: z.array(z.string()),
+});
+
+export const searchContextCostPerQuerySchema = z.looseObject({
+	search_context_size_low: z.number().optional(),
+	search_context_size_medium: z.number().optional(),
+	search_context_size_high: z.number().optional(),
 });
 
 export const timeoutSchema = z
@@ -4286,7 +4378,31 @@ export const liteLLMParamsSchema = z
 		input_cost_per_character: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_character: z.union([z.number(), z.null()]).optional(),
 		cache_read_input_token_cost: z.union([z.number(), z.null()]).optional(),
+		explicit_cache_read_input_token_cost: z.union([z.number(), z.null()]).optional(),
 		cache_creation_input_token_cost: z.union([z.number(), z.null()]).optional(),
+		cache_creation_input_token_cost_above_1hr: z.union([z.number(), z.null()]).optional(),
+		cache_creation_input_token_cost_above_12hr: z.union([z.number(), z.null()]).optional(),
+		cache_creation_input_token_cost_above_12hr_flex: z.union([z.number(), z.null()]).optional(),
+		cache_creation_input_token_cost_above_12hr_priority: z.union([z.number(), z.null()]).optional(),
+		cache_creation_input_token_cost_above_12hr_above_272k_tokens: z
+			.union([z.number(), z.null()])
+			.optional(),
+		cache_creation_input_token_cost_above_12hr_above_272k_tokens_flex: z
+			.union([z.number(), z.null()])
+			.optional(),
+		cache_creation_input_token_cost_above_12hr_above_272k_tokens_priority: z
+			.union([z.number(), z.null()])
+			.optional(),
+		cache_creation_input_token_cost_above_12hr_batches: z.union([z.number(), z.null()]).optional(),
+		cache_creation_input_token_cost_above_12hr_ultrafast: z
+			.union([z.number(), z.null()])
+			.optional(),
+		cache_creation_input_token_cost_above_12hr_above_272k_tokens_batches: z
+			.union([z.number(), z.null()])
+			.optional(),
+		cache_creation_input_token_cost_above_12hr_above_272k_tokens_ultrafast: z
+			.union([z.number(), z.null()])
+			.optional(),
 		tiered_pricing: z.union([z.array(z.looseObject({})), z.null()]).optional(),
 		cost_per_second: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_second: z.union([z.number(), z.null()]).optional(),
@@ -4307,7 +4423,6 @@ export const liteLLMParamsSchema = z
 		input_cost_per_token_priority: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_token_balanced: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_token_ultrafast: z.union([z.number(), z.null()]).optional(),
-		cache_creation_input_token_cost_above_1hr: z.union([z.number(), z.null()]).optional(),
 		cache_creation_input_token_cost_above_100k_tokens: z.union([z.number(), z.null()]).optional(),
 		cache_creation_input_token_cost_above_1hr_above_100k_tokens: z
 			.union([z.number(), z.null()])
@@ -4371,14 +4486,6 @@ export const liteLLMParamsSchema = z
 		input_cost_per_character_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_audio_token: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_audio_token_flex: z.union([z.number(), z.null()]).optional(),
-		input_cost_per_audio_token_above_200k_tokens: z.union([z.number(), z.null()]).optional(),
-		input_cost_per_audio_token_above_200k_tokens_flex: z.union([z.number(), z.null()]).optional(),
-		input_cost_per_audio_token_above_200k_tokens_priority: z
-			.union([z.number(), z.null()])
-			.optional(),
-		input_cost_per_audio_token_above_200k_tokens_batches: z
-			.union([z.number(), z.null()])
-			.optional(),
 		input_cost_per_audio_token_priority: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_token_cache_hit: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_token_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
@@ -4389,7 +4496,6 @@ export const liteLLMParamsSchema = z
 		input_cost_per_token_above_272k_tokens_flex: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_token_above_272k_tokens_ultrafast: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_token_above_200k_tokens_batches: z.union([z.number(), z.null()]).optional(),
-		input_cost_per_token_above_200k_tokens_flex: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_token_above_100k_tokens_batches: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_token_above_272k_tokens_batches: z.union([z.number(), z.null()]).optional(),
 		input_cost_per_query: z.union([z.number(), z.null()]).optional(),
@@ -4419,14 +4525,12 @@ export const liteLLMParamsSchema = z
 		output_cost_per_token_above_272k_tokens_flex: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_token_above_272k_tokens_ultrafast: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_token_above_200k_tokens_batches: z.union([z.number(), z.null()]).optional(),
-		output_cost_per_token_above_200k_tokens_flex: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_token_above_100k_tokens_batches: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_token_above_272k_tokens_batches: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_character_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_image: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_image_token: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_image_token_batches: z.union([z.number(), z.null()]).optional(),
-		output_cost_per_image_token_priority: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_video_token: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_reasoning_token: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_reasoning_token_flex: z.union([z.number(), z.null()]).optional(),
@@ -4434,6 +4538,9 @@ export const liteLLMParamsSchema = z
 		output_cost_per_video_per_second: z.union([z.number(), z.null()]).optional(),
 		output_cost_per_audio_per_second: z.union([z.number(), z.null()]).optional(),
 		search_context_cost_per_query: z.union([z.looseObject({}), z.null()]).optional(),
+		search_queries_cost_per_query: z
+			.union([z.number(), searchContextCostPerQuerySchema, z.null()])
+			.optional(),
 		google_maps_grounding_cost_per_query: z.union([z.number(), z.null()]).optional(),
 		citation_cost_per_token: z.union([z.number(), z.null()]).optional(),
 		cache_read_input_token_cost_above_272k_tokens: z.union([z.number(), z.null()]).optional(),
@@ -4481,6 +4588,7 @@ export const liteLLMParamsSchema = z
 		aws_external_id: z.union([z.string(), z.null()]).optional(),
 		aws_session_tags: z.union([z.array(awsSessionTagSchema), z.null()]).optional(),
 		aws_bedrock_runtime_endpoint: z.union([z.string(), z.null()]).optional(),
+		aws_bedrock_control_plane_endpoint: z.union([z.string(), z.null()]).optional(),
 		aws_bedrock_project_id: z.union([z.string(), z.null()]).optional(),
 		s3_bucket_name: z.union([z.string(), z.null()]).optional(),
 		s3_endpoint_url: z.union([z.string(), z.null()]).optional(),
@@ -4519,10 +4627,14 @@ export const liteLLMParamsSchema = z
 		token_exchange_scope: z.union([z.string(), z.null()]).optional(),
 		token_exchange_audience: z.union([z.string(), z.null()]).optional(),
 		custom_llm_provider: z.union([z.string(), z.null()]).optional(),
+		responses_api_version: z.union([z.string(), z.null()]).optional(),
 		tpm: z.union([z.int(), z.null()]).optional(),
 		rpm: z.union([z.int(), z.null()]).optional(),
 		itpm: z.union([z.int(), z.null()]).optional(),
 		otpm: z.union([z.int(), z.null()]).optional(),
+		tpd: z.union([z.int(), z.null()]).optional(),
+		rpd: z.union([z.int(), z.null()]).optional(),
+		daily_reset_time: z.union([z.string(), z.null()]).optional(),
 		timeout: z.union([z.number(), z.string(), timeoutSchema, z.null()]).optional(),
 		stream_timeout: z.union([z.number(), z.string(), z.null()]).optional(),
 		timeout_by_service_tier: z.union([z.record(z.string(), z.number()), z.null()]).optional(),
@@ -4556,6 +4668,10 @@ export const liteLLMParamsSchema = z
 			.optional()
 			.default(false)
 			.describe("Use stored xAI OAuth credentials when no xAI API key is configured."),
+		chatgpt_auth_file: z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe("Path to a ChatGPT OAuth auth.json for this deployment."),
 		fireworks_forward_user_id: z
 			.union([z.boolean(), z.null()])
 			.optional()
@@ -4563,6 +4679,7 @@ export const liteLLMParamsSchema = z
 				"Send the LiteLLM user id of the calling key as the `user` field on Fireworks AI chat, responses and messages requests.",
 			),
 		merge_reasoning_content_in_choices: z.union([z.boolean(), z.null()]).optional().default(false),
+		thought_signature_in_tool_call_id: z.union([z.boolean(), z.null()]).optional(),
 		model_info: z.union([z.looseObject({}), z.null()]).optional(),
 		mock_response: z.union([z.string(), modelResponseSchema, z.unknown(), z.null()]).optional(),
 		tags: z.union([z.array(z.string()), z.null()]).optional(),
@@ -4607,8 +4724,31 @@ export const modelInfoSchema = z.looseObject({
 	input_cost_per_character: z.union([z.number(), z.null()]).optional(),
 	output_cost_per_character: z.union([z.number(), z.null()]).optional(),
 	cache_read_input_token_cost: z.union([z.number(), z.null()]).optional(),
+	explicit_cache_read_input_token_cost: z.union([z.number(), z.null()]).optional(),
 	cache_creation_input_token_cost: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_1hr: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_12hr: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_12hr_flex: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_12hr_priority: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_flex: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_priority: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_creation_input_token_cost_above_12hr_batches: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_12hr_ultrafast: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_batches: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_ultrafast: z
+		.union([z.number(), z.null()])
+		.optional(),
 	tiered_pricing: z.union([z.array(z.looseObject({})), z.null()]).optional(),
+	enforce_supported_endpoints: z.union([z.boolean(), z.null()]).optional(),
 	id: z.union([z.string(), z.null()]),
 	db_model: z.boolean().optional().default(false),
 	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
@@ -4616,6 +4756,7 @@ export const modelInfoSchema = z.looseObject({
 	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	created_by: z.union([z.string(), z.null()]).optional(),
 	base_model: z.union([z.string(), z.null()]).optional(),
+	pricing_provider: z.union([z.string(), z.null()]).optional(),
 	tier: z.union([z.enum(["free", "paid"]), z.null()]).optional(),
 	team_id: z.union([z.string(), z.null()]).optional(),
 	team_public_model_name: z.union([z.string(), z.null()]).optional(),
@@ -4631,6 +4772,7 @@ export const modelInfoSchema = z.looseObject({
 	allow_fail_open: z.union([z.boolean(), z.null()]).optional(),
 	enable_tag_filtering: z.union([z.boolean(), z.null()]).optional(),
 	internal_router_model: z.union([z.boolean(), z.null()]).optional(),
+	max_embedding_batch_size: z.union([z.int().gt(0), z.null()]).optional(),
 });
 
 export const deploymentSchema = z.looseObject({
@@ -4943,6 +5085,37 @@ export const updateRouterConfigSchema = z
 		retry_after: z.union([z.number(), z.null()]).optional(),
 		fallbacks: z.union([z.array(z.looseObject({})), z.null()]).optional(),
 		context_window_fallbacks: z.union([z.array(z.looseObject({})), z.null()]).optional(),
+		content_policy_fallbacks: z
+			.union([
+				z.array(
+					z.pipe(
+						z.unknown().check(
+							z.refine(
+								(value) =>
+									typeof value !== "object" ||
+									value === null ||
+									Array.isArray(value) ||
+									Object.keys(value).length >= 1,
+								{ message: "Object must have at least 1 properties" },
+							),
+							z.refine(
+								(value) =>
+									typeof value !== "object" ||
+									value === null ||
+									Array.isArray(value) ||
+									Object.keys(value).length <= 1,
+								{ message: "Object must have at most 1 properties" },
+							),
+						),
+						z.record(
+							z.string(),
+							z.array(z.union([z.string(), z.record(z.string(), jsonValueSchema)])),
+						),
+					),
+				),
+				z.null(),
+			])
+			.optional(),
 		model_group_alias: z
 			.union([z.record(z.string(), z.union([z.string(), z.looseObject({})])), z.null()])
 			.optional()
@@ -4997,8 +5170,8 @@ export const generateKeyRequestSchema = z.object({
 		.union([z.looseObject({}), z.null()])
 		.optional()
 		.default({}),
-	tpm_limit: z.union([z.int(), z.null()]).optional(),
-	rpm_limit: z.union([z.int(), z.null()]).optional(),
+	tpm_limit: z.union([z.int().min(0), z.null()]).optional(),
+	rpm_limit: z.union([z.int().min(0), z.null()]).optional(),
 	budget_duration: z.union([z.string(), z.null()]).optional(),
 	budget_limits: z.union([z.array(budgetLimitEntrySchema), z.null()]).optional(),
 	allowed_cache_controls: z
@@ -5194,13 +5367,20 @@ export const outputTextSchema = z
 	})
 	.describe("Text output content from an assistant message");
 
+export const responseOutputRefusalSchema = z
+	.looseObject({
+		refusal: z.string(),
+		type: z.enum(["refusal"]),
+	})
+	.describe("A refusal from the model.");
+
 export const genericResponseOutputItemSchema = z
 	.looseObject({
 		type: z.string(),
 		id: z.string(),
 		status: z.string(),
 		role: z.string(),
-		content: z.array(outputTextSchema),
+		content: z.array(z.union([outputTextSchema, responseOutputRefusalSchema])),
 		phase: z.union([z.enum(["commentary", "final_answer"]), z.null()]).optional(),
 	})
 	.describe("Generic response API output item");
@@ -5304,6 +5484,8 @@ export const inputTokensDetailsSchema = z.looseObject({
 	audio_tokens: z.union([z.int(), z.null()]).optional(),
 	cached_tokens: z.int().optional().default(0),
 	cached_tokens_details: z.union([cachedTokensDetailsSchema, z.null()]).optional(),
+	cache_write_tokens: z.union([z.int(), z.null()]).optional(),
+	cache_write_tokens_details: z.union([cacheWriteTokensDetailsSchema, z.null()]).optional(),
 	image_tokens: z.union([z.int(), z.null()]).optional(),
 	text_tokens: z.union([z.int(), z.null()]).optional(),
 	video_tokens: z.union([z.int(), z.null()]).optional(),
@@ -5539,6 +5721,15 @@ export const keypressSchema = z
 	})
 	.describe("A collection of keypresses the model would like to perform.");
 
+export const kubernetesPodsResponseSchema = z.object({
+	model_id: z.string(),
+	service_host: z.string(),
+	port: z.union([z.int(), z.null()]),
+	pod_ips: z.array(z.string()),
+	pod_count: z.int(),
+	error: z.union([z.string(), z.null()]),
+});
+
 export const latestReleaseInfoSchema = z.object({
 	version: z.string(),
 	new_features: z.int(),
@@ -5631,10 +5822,23 @@ export const modelGroupInfoProxySchema = z.object({
 		])
 		.optional(),
 	description: z.union([z.string(), z.null()]).optional(),
+	supported_endpoints: z.union([z.array(z.string()), z.null()]).optional(),
+	supports_background_chat: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe("Whether cache-backed background Responses runs are enabled for this model group"),
 	is_public_model_group: z.boolean().optional().default(false),
 	health_status: z.union([z.string(), z.null()]).optional(),
 	health_response_time: z.union([z.number(), z.null()]).optional(),
 	health_checked_at: z.union([z.string(), z.null()]).optional(),
+	custom_tags: z.union([z.array(z.string()), z.null()]).optional(),
+	custom_metadata: z
+		.union([
+			z.record(z.string(), z.union([z.string(), z.int(), z.number(), z.boolean()])),
+			z.null(),
+		])
+		.optional(),
 });
 
 export const listResponseModelGroupInfoProxySchema = z.object({
@@ -5845,7 +6049,7 @@ export const liteLLMOrganizationTableWithMembersSchema = z
 		created_by: z.string(),
 		updated_by: z.string(),
 		users: z.union([z.array(liteLLMUserTableSchema), z.null()]).optional(),
-		litellm_budget_table: z.union([liteLLMBudgetTableSchema, z.null()]).optional(),
+		litellm_budget_table: z.union([liteLLMBudgetTableFullSchema, z.null()]).optional(),
 		object_permission: z.union([liteLLMObjectPermissionTableSchema, z.null()]).optional(),
 		object_permission_id: z.union([z.string(), z.null()]).optional(),
 		members: z.array(liteLLMOrganizationMembershipTableSchema).optional().default([]),
@@ -5915,6 +6119,20 @@ export const liteLLMSpendLogsSchema = z.object({
 	response: z.union([z.string(), z.array(z.unknown()), z.looseObject({}), z.null()]),
 	created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 	updated_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+});
+
+export const liteLLMSubscriptionAccountTableSchema = z.object({
+	subscription_account_id: z.string(),
+	custom_llm_provider: z.string(),
+	account_id: z.string(),
+	label: z.union([z.string(), z.null()]).optional(),
+	monthly_fee: z.number(),
+	currency: z.string(),
+	billing_period_start: z.string(),
+	created_at: z.iso.datetime({ offset: true }),
+	created_by: z.string(),
+	updated_at: z.iso.datetime({ offset: true }),
+	updated_by: z.string(),
 });
 
 export const liteLLMTeamMembershipSchema = z.object({
@@ -6394,11 +6612,11 @@ export const newCustomerRequestSchema = z
 			.optional()
 			.describe("Max concurrent requests allowed for this budget id."),
 		tpm_limit: z
-			.union([z.int(), z.null()])
+			.union([z.int().min(0), z.null()])
 			.optional()
 			.describe("Max tokens per minute, allowed for this budget id."),
 		rpm_limit: z
-			.union([z.int(), z.null()])
+			.union([z.int().min(0), z.null()])
 			.optional()
 			.describe("Max requests per minute, allowed for this budget id."),
 		tpd_limit: z
@@ -6551,8 +6769,8 @@ export const newTeamRequestSchema = z.object({
 	members_with_roles: z.array(memberSchema).optional().default([]),
 	team_member_permissions: z.union([z.array(z.string()), z.null()]).optional(),
 	metadata: z.union([z.looseObject({}), z.null()]).optional(),
-	tpm_limit: z.union([z.int(), z.null()]).optional(),
-	rpm_limit: z.union([z.int(), z.null()]).optional(),
+	tpm_limit: z.union([z.int().min(0), z.null()]).optional(),
+	rpm_limit: z.union([z.int().min(0), z.null()]).optional(),
 	tpd_limit: z.union([z.int(), z.null()]).optional(),
 	max_budget: z.union([z.number(), z.null()]).optional(),
 	soft_budget: z.union([z.number(), z.null()]).optional(),
@@ -6625,8 +6843,8 @@ export const newUserRequestSchema = z.object({
 		.union([z.looseObject({}), z.null()])
 		.optional()
 		.default({}),
-	tpm_limit: z.union([z.int(), z.null()]).optional(),
-	rpm_limit: z.union([z.int(), z.null()]).optional(),
+	tpm_limit: z.union([z.int().min(0), z.null()]).optional(),
+	rpm_limit: z.union([z.int().min(0), z.null()]).optional(),
 	budget_duration: z.union([z.string(), z.null()]).optional(),
 	budget_limits: z.union([z.array(budgetLimitEntrySchema), z.null()]).optional(),
 	allowed_cache_controls: z
@@ -7058,14 +7276,356 @@ export const passThroughEndpointResponseSchema = z.object({
 	endpoints: z.array(passThroughGenericEndpointSchema),
 });
 
+export const updateLiteLLMParamsSchema = z.looseObject({
+	input_cost_per_token: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_character: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_character: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_token_cost: z.union([z.number(), z.null()]).optional(),
+	explicit_cache_read_input_token_cost: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_1hr: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_12hr: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_12hr_flex: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_12hr_priority: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_flex: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_priority: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_creation_input_token_cost_above_12hr_batches: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_12hr_ultrafast: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_batches: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_ultrafast: z
+		.union([z.number(), z.null()])
+		.optional(),
+	tiered_pricing: z.union([z.array(z.looseObject({})), z.null()]).optional(),
+	cost_per_second: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_second: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_text_message: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_second: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_second_1080p: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_second_480p: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_second_720p: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_second_768p: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_second_2k: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_second_4k: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_image_512: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_image_1024: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_image_1536: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_pixel: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_pixel: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_flex: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_priority: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_balanced: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_ultrafast: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_100k_tokens: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_1hr_above_100k_tokens: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_creation_input_token_cost_above_200k_tokens: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_272k_tokens: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_272k_tokens_priority: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_creation_input_token_cost_above_272k_tokens_flex: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_creation_input_token_cost_above_272k_tokens_ultrafast: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_creation_input_token_cost_flex: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_priority: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_ultrafast: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_audio_token_cost: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_token_cost_flex: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_token_cost_priority: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_token_cost_balanced: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_token_cost_ultrafast: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_token_cost_above_100k_tokens: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_token_cost_above_200k_tokens: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_token_cost_above_200k_tokens_priority: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_read_input_token_cost_above_272k_tokens_priority: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_read_input_token_cost_above_272k_tokens_flex: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_token_cost_above_272k_tokens_ultrafast: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_read_input_token_cost_batches: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_token_cost_above_100k_tokens_batches: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_token_cost_above_200k_tokens_batches: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_token_cost_above_272k_tokens_batches: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_audio_token_cost_batches: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_batches: z.union([z.number(), z.null()]).optional(),
+	cache_creation_input_token_cost_above_100k_tokens_batches: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_creation_input_token_cost_above_200k_tokens_batches: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_creation_input_token_cost_above_272k_tokens_batches: z
+		.union([z.number(), z.null()])
+		.optional(),
+	cache_read_input_audio_token_cost: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_audio_token_cost_flex: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_audio_token_cost_priority: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_image_token_cost: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_character_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_audio_token: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_audio_token_flex: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_audio_token_priority: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_cache_hit: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_above_100k_tokens: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_above_200k_tokens: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_above_200k_tokens_priority: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_above_272k_tokens_priority: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_above_272k_tokens_flex: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_above_272k_tokens_ultrafast: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_above_200k_tokens_batches: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_above_100k_tokens_batches: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_above_272k_tokens_batches: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_query: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_image: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_image_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_audio_per_second: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_audio_per_second_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_video_per_second: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_video_per_second_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_video_per_second_above_15s_interval: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_video_per_second_above_8s_interval: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_audio_token_batches: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_image_token_batches: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_batches: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_video_token_batches: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_batches: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_flex: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_priority: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_balanced: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_ultrafast: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_audio_token: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_above_100k_tokens: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_above_200k_tokens: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_above_200k_tokens_priority: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_above_272k_tokens_priority: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_above_272k_tokens_flex: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_above_272k_tokens_ultrafast: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_above_200k_tokens_batches: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_above_100k_tokens_batches: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_above_272k_tokens_batches: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_character_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_image: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_image_token: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_image_token_batches: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_video_token: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_reasoning_token: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_reasoning_token_flex: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_reasoning_token_priority: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_video_per_second: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_audio_per_second: z.union([z.number(), z.null()]).optional(),
+	search_context_cost_per_query: z.union([z.looseObject({}), z.null()]).optional(),
+	search_queries_cost_per_query: z
+		.union([z.number(), searchContextCostPerQuerySchema, z.null()])
+		.optional(),
+	google_maps_grounding_cost_per_query: z.union([z.number(), z.null()]).optional(),
+	citation_cost_per_token: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_token_cost_above_272k_tokens: z.union([z.number(), z.null()]).optional(),
+	cache_read_input_token_cost_above_512k_tokens: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_image_token: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_video_token: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_above_272k_tokens: z.union([z.number(), z.null()]).optional(),
+	input_cost_per_token_above_512k_tokens: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_above_272k_tokens: z.union([z.number(), z.null()]).optional(),
+	output_cost_per_token_above_512k_tokens: z.union([z.number(), z.null()]).optional(),
+	output_vector_size: z.union([z.int(), z.null()]).optional(),
+	ocr_cost_per_page: z.union([z.number(), z.null()]).optional(),
+	ocr_cost_per_page_batches: z.union([z.number(), z.null()]).optional(),
+	ocr_cost_per_credit: z.union([z.number(), z.null()]).optional(),
+	annotation_cost_per_page: z.union([z.number(), z.null()]).optional(),
+	annotation_cost_per_page_batches: z.union([z.number(), z.null()]).optional(),
+	regional_processing_uplift_multiplier_eu: z.union([z.number(), z.null()]).optional(),
+	regional_processing_uplift_multiplier_us: z.union([z.number(), z.null()]).optional(),
+	regional_endpoint_uplift_multiplier: z.union([z.number(), z.null()]).optional(),
+	api_key: z.union([z.string(), z.null()]).optional(),
+	api_base: z.union([z.string(), z.null()]).optional(),
+	api_version: z.union([z.string(), z.null()]).optional(),
+	azure_ad_token: z.union([z.string(), z.null()]).optional(),
+	tenant_id: z.union([z.string(), z.null()]).optional(),
+	client_id: z.union([z.string(), z.null()]).optional(),
+	client_secret: z.union([z.string(), z.null()]).optional(),
+	azure_scope: z.union([z.string(), z.null()]).optional(),
+	azure_username: z.union([z.string(), z.null()]).optional(),
+	azure_password: z.union([z.string(), z.null()]).optional(),
+	vertex_project: z.union([z.string(), z.null()]).optional(),
+	vertex_location: z.union([z.string(), z.null()]).optional(),
+	vertex_credentials: z.union([z.string(), z.looseObject({}), z.null()]).optional(),
+	region_name: z.union([z.string(), z.null()]).optional(),
+	gcs_bucket_name: z.union([z.string(), z.null()]).optional(),
+	bucket_name: z.union([z.string(), z.null()]).optional(),
+	aws_access_key_id: z.union([z.string(), z.null()]).optional(),
+	aws_secret_access_key: z.union([z.string(), z.null()]).optional(),
+	aws_session_token: z.union([z.string(), z.null()]).optional(),
+	aws_region_name: z.union([z.string(), z.null()]).optional(),
+	aws_session_name: z.union([z.string(), z.null()]).optional(),
+	aws_profile_name: z.union([z.string(), z.null()]).optional(),
+	aws_role_name: z.union([z.string(), z.null()]).optional(),
+	aws_web_identity_token: z.union([z.string(), z.null()]).optional(),
+	aws_sts_endpoint: z.union([z.string(), z.null()]).optional(),
+	aws_external_id: z.union([z.string(), z.null()]).optional(),
+	aws_session_tags: z.union([z.array(awsSessionTagSchema), z.null()]).optional(),
+	aws_bedrock_runtime_endpoint: z.union([z.string(), z.null()]).optional(),
+	aws_bedrock_control_plane_endpoint: z.union([z.string(), z.null()]).optional(),
+	aws_bedrock_project_id: z.union([z.string(), z.null()]).optional(),
+	s3_bucket_name: z.union([z.string(), z.null()]).optional(),
+	s3_endpoint_url: z.union([z.string(), z.null()]).optional(),
+	s3_region_name: z.union([z.string(), z.null()]).optional(),
+	s3_access_key_id: z.union([z.string(), z.null()]).optional(),
+	s3_secret_access_key: z.union([z.string(), z.null()]).optional(),
+	s3_encryption_key_id: z.union([z.string(), z.null()]).optional(),
+	s3_bucket_owner: z.union([z.string(), z.null()]).optional(),
+	aws_batch_role_arn: z.union([z.string(), z.null()]).optional(),
+	s3_output_bucket_name: z.union([z.string(), z.null()]).optional(),
+	bedrock_tags: z.union([z.array(z.unknown()), z.null()]).optional(),
+	watsonx_region_name: z.union([z.string(), z.null()]).optional(),
+	anthropic_federation_rule_id: z.union([z.string(), z.null()]).optional(),
+	anthropic_organization_id: z.union([z.string(), z.null()]).optional(),
+	anthropic_service_account_id: z.union([z.string(), z.null()]).optional(),
+	anthropic_federation_workspace_id: z.union([z.string(), z.null()]).optional(),
+	anthropic_identity_token_file: z.union([z.string(), z.null()]).optional(),
+	anthropic_identity_token: z.union([z.string(), z.null()]).optional(),
+	anthropic_identity_source: z.union([z.string(), z.null()]).optional(),
+	anthropic_issuer_url: z.union([z.string(), z.null()]).optional(),
+	anthropic_issuer_subject: z.union([z.string(), z.null()]).optional(),
+	anthropic_issuer_audience: z.union([z.string(), z.null()]).optional(),
+	anthropic_issuer_ttl_seconds: z.union([z.int(), z.null()]).optional(),
+	anthropic_issuer_signing_key_ref: z.union([z.string(), z.null()]).optional(),
+	anthropic_keycloak_token_url: z.union([z.string(), z.null()]).optional(),
+	anthropic_keycloak_client_id: z.union([z.string(), z.null()]).optional(),
+	anthropic_keycloak_auth_method: z.union([z.string(), z.null()]).optional(),
+	anthropic_keycloak_client_secret_ref: z.union([z.string(), z.null()]).optional(),
+	anthropic_keycloak_scope: z.union([z.string(), z.null()]).optional(),
+	anthropic_disable_workload_identity_federation: z.union([z.boolean(), z.null()]).optional(),
+	openai_identity_provider_id: z.union([z.string(), z.null()]).optional(),
+	openai_service_account_id: z.union([z.string(), z.null()]).optional(),
+	openai_identity_token_file: z.union([z.string(), z.null()]).optional(),
+	token_exchange_endpoint: z.union([z.string(), z.null()]).optional(),
+	token_exchange_profile: z.union([z.string(), z.null()]).optional(),
+	token_exchange_scope: z.union([z.string(), z.null()]).optional(),
+	token_exchange_audience: z.union([z.string(), z.null()]).optional(),
+	custom_llm_provider: z.union([z.string(), z.null()]).optional(),
+	responses_api_version: z.union([z.string(), z.null()]).optional(),
+	tpm: z.union([z.int(), z.null()]).optional(),
+	rpm: z.union([z.int(), z.null()]).optional(),
+	itpm: z.union([z.int(), z.null()]).optional(),
+	otpm: z.union([z.int(), z.null()]).optional(),
+	tpd: z.union([z.int(), z.null()]).optional(),
+	rpd: z.union([z.int(), z.null()]).optional(),
+	daily_reset_time: z.union([z.string(), z.null()]).optional(),
+	timeout: z.union([z.number(), z.string(), timeoutSchema, z.null()]).optional(),
+	stream_timeout: z.union([z.number(), z.string(), z.null()]).optional(),
+	timeout_by_service_tier: z.union([z.record(z.string(), z.number()), z.null()]).optional(),
+	stream_timeout_by_service_tier: z.union([z.record(z.string(), z.number()), z.null()]).optional(),
+	max_retries: z.union([z.int(), z.null()]).optional(),
+	drop_params: z.union([z.boolean(), z.string(), z.null()]).optional(),
+	organization: z.union([z.string(), z.null()]).optional(),
+	configurable_clientside_auth_params: z
+		.union([
+			z.array(z.union([z.string(), configurableClientsideParamsCustomAuthInputSchema])),
+			z.null(),
+		])
+		.optional(),
+	litellm_credential_name: z.union([z.string(), z.null()]).optional(),
+	provider_affinity_header: z.union([z.string(), z.null()]).optional(),
+	litellm_trace_id: z.union([z.string(), z.null()]).optional(),
+	max_file_size_mb: z.union([z.number(), z.null()]).optional(),
+	default_api_key_tpm_limit: z.union([z.int(), z.null()]).optional(),
+	default_api_key_rpm_limit: z.union([z.int(), z.null()]).optional(),
+	max_budget: z.union([z.number(), z.null()]).optional(),
+	budget_duration: z.union([z.string(), z.null()]).optional(),
+	keepalive_seconds: z.union([z.number(), z.null()]).optional(),
+	allow_client_keepalive_override: z.union([z.boolean(), z.null()]).optional().default(false),
+	use_in_pass_through: z.union([z.boolean(), z.null()]).optional().default(false),
+	use_litellm_proxy: z.union([z.boolean(), z.null()]).optional().default(false),
+	use_chat_completions_api: z.union([z.boolean(), z.null()]).optional(),
+	use_xai_oauth: z
+		.union([z.boolean(), z.null()])
+		.optional()
+		.default(false)
+		.describe("Use stored xAI OAuth credentials when no xAI API key is configured."),
+	chatgpt_auth_file: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Path to a ChatGPT OAuth auth.json for this deployment."),
+	fireworks_forward_user_id: z
+		.union([z.boolean(), z.null()])
+		.optional()
+		.describe(
+			"Send the LiteLLM user id of the calling key as the `user` field on Fireworks AI chat, responses and messages requests.",
+		),
+	merge_reasoning_content_in_choices: z.union([z.boolean(), z.null()]).optional().default(false),
+	thought_signature_in_tool_call_id: z.union([z.boolean(), z.null()]).optional(),
+	model_info: z.union([z.looseObject({}), z.null()]).optional(),
+	mock_response: z.union([z.string(), modelResponseSchema, z.unknown(), z.null()]).optional(),
+	tags: z.union([z.array(z.string()), z.null()]).optional(),
+	tag_regex: z.union([z.array(z.string()), z.null()]).optional(),
+	auto_router_config_path: z.union([z.string(), z.null()]).optional(),
+	auto_router_config: z.union([z.string(), z.null()]).optional(),
+	auto_router_default_model: z.union([z.string(), z.null()]).optional(),
+	auto_router_embedding_model: z.union([z.string(), z.null()]).optional(),
+	auto_router_max_input_chars: z.union([z.int(), z.null()]).optional(),
+	auto_router_routing_compression: z.union([z.string(), z.null()]).optional(),
+	auto_router_model_compression: z.union([z.string(), z.null()]).optional(),
+	complexity_router_config: z.union([z.looseObject({}), z.null()]).optional(),
+	complexity_router_default_model: z.union([z.string(), z.null()]).optional(),
+	adaptive_router_default_model: z.union([z.string(), z.null()]).optional(),
+	adaptive_router_config: z.union([z.looseObject({}), z.null()]).optional(),
+	quality_router_config: z.union([z.looseObject({}), z.null()]).optional(),
+	quality_router_default_model: z.union([z.string(), z.null()]).optional(),
+	vector_store_id: z.union([z.string(), z.null()]).optional(),
+	milvus_text_field: z.union([z.string(), z.null()]).optional(),
+	milvus_db_name: z.union([z.string(), z.null()]).optional(),
+	milvus_partition_names: z.union([z.array(z.string()), z.null()]).optional(),
+	valkey_host: z.union([z.string(), z.null()]).optional(),
+	valkey_port: z.union([z.int(), z.null()]).optional(),
+	valkey_password: z.union([z.string(), z.null()]).optional(),
+	valkey_ssl: z.union([z.boolean(), z.null()]).optional(),
+	valkey_text_field: z.union([z.string(), z.null()]).optional(),
+	valkey_embedding_field: z.union([z.string(), z.null()]).optional(),
+	model: z.union([z.string(), z.null()]).optional(),
+});
+
+export const patchModelRequestSchema = z.object({
+	model_name: z.union([z.string(), z.null()]).optional(),
+	litellm_params: z.union([updateLiteLLMParamsSchema, z.null()]).optional(),
+	model_info: z.union([modelInfoSchema, z.null()]).optional(),
+	blocked: z.union([z.boolean(), z.null()]).optional(),
+	litellm_params_to_remove: z
+		.array(z.string().min(1))
+		.optional()
+		.default([])
+		.describe(
+			"Top-level litellm_params keys to delete. Omitted parameters remain unchanged. The required model key and keys also supplied in litellm_params cannot be removed. Removing an absent key or repeating a key is a no-op.",
+		),
+});
+
 export const patchTeamRequestSchema = z
 	.object({
 		team_id: z.union([z.string(), z.null()]).optional(),
 		team_alias: z.union([z.string(), z.null()]).optional(),
 		organization_id: z.union([z.string(), z.null()]).optional(),
 		metadata: z.union([z.looseObject({}), z.null()]).optional(),
-		tpm_limit: z.union([z.int(), z.null()]).optional(),
-		rpm_limit: z.union([z.int(), z.null()]).optional(),
+		tpm_limit: z.union([z.int().min(0), z.null()]).optional(),
+		rpm_limit: z.union([z.int().min(0), z.null()]).optional(),
 		tpd_limit: z.union([z.int(), z.null()]).optional(),
 		max_budget: z.union([z.number(), z.null()]).optional(),
 		soft_budget: z.union([z.number(), z.null()]).optional(),
@@ -7277,8 +7837,8 @@ export const regenerateKeyRequestSchema = z.object({
 	agent_id: z.union([z.string(), z.null()]).optional(),
 	max_parallel_requests: z.union([z.int(), z.null()]).optional(),
 	metadata: z.union([z.looseObject({}), z.null()]).optional(),
-	tpm_limit: z.union([z.int(), z.null()]).optional(),
-	rpm_limit: z.union([z.int(), z.null()]).optional(),
+	tpm_limit: z.union([z.int().min(0), z.null()]).optional(),
+	rpm_limit: z.union([z.int().min(0), z.null()]).optional(),
 	budget_duration: z.union([z.string(), z.null()]).optional(),
 	budget_limits: z.union([z.array(budgetLimitEntrySchema), z.null()]).optional(),
 	allowed_cache_controls: z
@@ -7869,13 +8429,6 @@ export const responseOutputTextSchema = z
 	})
 	.describe("A text output from the model.");
 
-export const responseOutputRefusalSchema = z
-	.looseObject({
-		refusal: z.string(),
-		type: z.enum(["refusal"]),
-	})
-	.describe("A refusal from the model.");
-
 export const responseOutputMessageSchema = z
 	.looseObject({
 		id: z.string(),
@@ -8122,6 +8675,7 @@ export const responsesAPIResponseSchema = z.looseObject({
 				responseFunctionWebSearchSchema,
 				customToolCallOutputItemSchema,
 				outputToolSearchCallSchema,
+				responseCompactionItemSchema,
 			]),
 		),
 	]),
@@ -8806,6 +9360,31 @@ export const storedReportSchema = z.object({
 	report: jsonValueSchema,
 });
 
+export const subscriptionAccountFeeRequestSchema = z.object({
+	custom_llm_provider: z.string().min(1),
+	account_id: z.string().min(1),
+	monthly_fee: z.number().gt(0),
+	currency: z.string().regex(/^[A-Z]{3}$/),
+	billing_period_start: z.iso.date(),
+	label: z.union([z.string(), z.null()]).optional(),
+});
+
+export const subscriptionAccountUsageSchema = z.object({
+	custom_llm_provider: z.string(),
+	account_id: z.union([z.string(), z.null()]),
+	deployments: z.array(z.string()),
+	fee: z.union([liteLLMSubscriptionAccountTableSchema, z.null()]),
+	billing_periods: z.array(billingPeriodSchema),
+	fixed_cost: z.union([z.number(), z.null()]),
+});
+
+export const subscriptionUsageResponseSchema = z.object({
+	start_date: z.iso.date(),
+	end_date: z.iso.date(),
+	subscription_providers: z.array(z.string()),
+	accounts: z.array(subscriptionAccountUsageSchema),
+});
+
 export const supportedEndpointSchema = z.object({
 	key: z.string(),
 	label: z.string(),
@@ -8931,6 +9510,14 @@ export const teamCallbackDeleteResponseSchema = z.object({
 	data: teamCallbackDeleteResponseDataSchema,
 });
 
+export const teamListCallerMembershipSchema = z
+	.object({
+		spend: z.number().optional().default(0),
+		max_budget: z.union([z.number(), z.null()]).optional(),
+		budget_reset_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
+	})
+	.describe("The calling user's own spend and effective member budget in a team.");
+
 export const teamListItemSchema = z
 	.object({
 		team_alias: z.union([z.string(), z.null()]).optional(),
@@ -8976,6 +9563,7 @@ export const teamListItemSchema = z
 		created_at: z.union([z.iso.datetime({ offset: true }), z.null()]).optional(),
 		members_count: z.int().optional().default(0),
 		keys_count: z.int().optional().default(0),
+		caller_membership: z.union([teamListCallerMembershipSchema, z.null()]).optional(),
 		access_group_models: z.union([z.array(z.string()), z.null()]).optional(),
 		access_group_mcp_server_ids: z.union([z.array(z.string()), z.null()]).optional(),
 		access_group_agent_ids: z.union([z.array(z.string()), z.null()]).optional(),
@@ -9457,6 +10045,8 @@ export const UIThemeSettingsResponseSchema = z
 	.object({
 		values: z.looseObject({}),
 		field_schema: z.looseObject({}),
+		logo_url_via_proxy: z.boolean().optional().default(false),
+		logo_url_dark_via_proxy: z.boolean().optional().default(false),
 	})
 	.describe("Response model for UI theme settings");
 
@@ -9476,6 +10066,8 @@ export const uiDiscoveryEndpointsSchema = z.object({
 	hide_default_credentials_hint: z.boolean().optional().default(false),
 	is_control_plane: z.boolean().optional().default(false),
 	mcp_stdio_enabled: z.boolean().optional().default(false),
+	use_si_terminology: z.boolean().optional().default(false),
+	claude_code_marketplace_auth_required: z.boolean().optional().default(false),
 	workers: z.array(workerRegistryEntrySchema).optional().default([]),
 });
 
@@ -9522,8 +10114,8 @@ export const updateKeyRequestSchema = z.object({
 	agent_id: z.union([z.string(), z.null()]).optional(),
 	max_parallel_requests: z.union([z.int(), z.null()]).optional(),
 	metadata: z.union([z.looseObject({}), z.null()]).optional(),
-	tpm_limit: z.union([z.int(), z.null()]).optional(),
-	rpm_limit: z.union([z.int(), z.null()]).optional(),
+	tpm_limit: z.union([z.int().min(0), z.null()]).optional(),
+	rpm_limit: z.union([z.int().min(0), z.null()]).optional(),
 	budget_duration: z.union([z.string(), z.null()]).optional(),
 	budget_limits: z.union([z.array(budgetLimitEntrySchema), z.null()]).optional(),
 	allowed_cache_controls: z
@@ -9596,7 +10188,7 @@ export const updateKeyRequestSchema = z.object({
 		.union([z.string(), z.null()])
 		.optional()
 		.describe(
-			"Omit to retain the project, or send null to detach. Assigning a different project is not supported.",
+			"Omit to retain the project, send null to detach, or send a project id to assign an unassigned key to a project on the key's team. Moving a key between projects is not supported.",
 		),
 });
 
@@ -9643,6 +10235,14 @@ export const updatePublicModelGroupsRequestSchema = z
 	})
 	.describe("Request model for updating public model groups");
 
+export const updateSubscriptionAccountFeeRequestSchema = z.object({
+	subscription_account_id: z.string(),
+	monthly_fee: z.union([z.number().gt(0), z.null()]).optional(),
+	currency: z.union([z.string().regex(/^[A-Z]{3}$/), z.null()]).optional(),
+	billing_period_start: z.union([z.iso.date(), z.null()]).optional(),
+	label: z.union([z.string(), z.null()]).optional(),
+});
+
 export const updateTeamMemberPermissionsRequestSchema = z
 	.object({
 		team_id: z.string(),
@@ -9656,8 +10256,8 @@ export const updateTeamRequestSchema = z
 		team_alias: z.union([z.string(), z.null()]).optional(),
 		organization_id: z.union([z.string(), z.null()]).optional(),
 		metadata: z.union([z.looseObject({}), z.null()]).optional(),
-		tpm_limit: z.union([z.int(), z.null()]).optional(),
-		rpm_limit: z.union([z.int(), z.null()]).optional(),
+		tpm_limit: z.union([z.int().min(0), z.null()]).optional(),
+		rpm_limit: z.union([z.int().min(0), z.null()]).optional(),
 		tpd_limit: z.union([z.int(), z.null()]).optional(),
 		max_budget: z.union([z.number(), z.null()]).optional(),
 		soft_budget: z.union([z.number(), z.null()]).optional(),
@@ -9791,6 +10391,7 @@ export const userInfoResponseSchema = z.object({
 	user_info: z.union([z.looseObject({}), baseModelSchema, z.null()]),
 	keys: z.array(z.unknown()),
 	teams: z.array(z.unknown()),
+	admin_mcp_permissions: z.union([adminMCPPermissionsSchema, z.null()]).optional(),
 });
 
 export const userInfoV2ResponseSchema = z
@@ -9911,307 +10512,6 @@ export const workflowRunUpdateRequestSchema = z.object({
 	metadata: z.union([z.looseObject({}), z.null()]).optional(),
 });
 
-export const updateLiteLLMParamsSchema = z.looseObject({
-	input_cost_per_token: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_character: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_character: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_token_cost: z.union([z.number(), z.null()]).optional(),
-	cache_creation_input_token_cost: z.union([z.number(), z.null()]).optional(),
-	tiered_pricing: z.union([z.array(z.looseObject({})), z.null()]).optional(),
-	cost_per_second: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_second: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_text_message: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_second: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_second_1080p: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_second_480p: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_second_720p: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_second_768p: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_second_2k: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_second_4k: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_image_512: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_image_1024: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_image_1536: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_pixel: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_pixel: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_flex: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_priority: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_balanced: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_ultrafast: z.union([z.number(), z.null()]).optional(),
-	cache_creation_input_token_cost_above_1hr: z.union([z.number(), z.null()]).optional(),
-	cache_creation_input_token_cost_above_100k_tokens: z.union([z.number(), z.null()]).optional(),
-	cache_creation_input_token_cost_above_1hr_above_100k_tokens: z
-		.union([z.number(), z.null()])
-		.optional(),
-	cache_creation_input_token_cost_above_200k_tokens: z.union([z.number(), z.null()]).optional(),
-	cache_creation_input_token_cost_above_272k_tokens: z.union([z.number(), z.null()]).optional(),
-	cache_creation_input_token_cost_above_272k_tokens_priority: z
-		.union([z.number(), z.null()])
-		.optional(),
-	cache_creation_input_token_cost_above_272k_tokens_flex: z
-		.union([z.number(), z.null()])
-		.optional(),
-	cache_creation_input_token_cost_above_272k_tokens_ultrafast: z
-		.union([z.number(), z.null()])
-		.optional(),
-	cache_creation_input_token_cost_flex: z.union([z.number(), z.null()]).optional(),
-	cache_creation_input_token_cost_priority: z.union([z.number(), z.null()]).optional(),
-	cache_creation_input_token_cost_ultrafast: z.union([z.number(), z.null()]).optional(),
-	cache_creation_input_audio_token_cost: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_token_cost_flex: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_token_cost_priority: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_token_cost_balanced: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_token_cost_ultrafast: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_token_cost_above_100k_tokens: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_token_cost_above_200k_tokens: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_token_cost_above_200k_tokens_priority: z
-		.union([z.number(), z.null()])
-		.optional(),
-	cache_read_input_token_cost_above_272k_tokens_priority: z
-		.union([z.number(), z.null()])
-		.optional(),
-	cache_read_input_token_cost_above_272k_tokens_flex: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_token_cost_above_272k_tokens_ultrafast: z
-		.union([z.number(), z.null()])
-		.optional(),
-	cache_read_input_token_cost_batches: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_token_cost_above_100k_tokens_batches: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_token_cost_above_200k_tokens_batches: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_token_cost_above_272k_tokens_batches: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_audio_token_cost_batches: z.union([z.number(), z.null()]).optional(),
-	cache_creation_input_token_cost_batches: z.union([z.number(), z.null()]).optional(),
-	cache_creation_input_token_cost_above_100k_tokens_batches: z
-		.union([z.number(), z.null()])
-		.optional(),
-	cache_creation_input_token_cost_above_200k_tokens_batches: z
-		.union([z.number(), z.null()])
-		.optional(),
-	cache_creation_input_token_cost_above_272k_tokens_batches: z
-		.union([z.number(), z.null()])
-		.optional(),
-	cache_read_input_audio_token_cost: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_audio_token_cost_flex: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_audio_token_cost_priority: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_image_token_cost: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_character_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_audio_token: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_audio_token_flex: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_audio_token_above_200k_tokens: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_audio_token_above_200k_tokens_flex: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_audio_token_above_200k_tokens_priority: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_audio_token_above_200k_tokens_batches: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_audio_token_priority: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_cache_hit: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_above_100k_tokens: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_above_200k_tokens: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_above_200k_tokens_priority: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_above_272k_tokens_priority: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_above_272k_tokens_flex: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_above_272k_tokens_ultrafast: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_above_200k_tokens_batches: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_above_200k_tokens_flex: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_above_100k_tokens_batches: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_above_272k_tokens_batches: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_query: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_image: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_image_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_audio_per_second: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_audio_per_second_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_video_per_second: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_video_per_second_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_video_per_second_above_15s_interval: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_video_per_second_above_8s_interval: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_audio_token_batches: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_image_token_batches: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_batches: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_video_token_batches: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_batches: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_flex: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_priority: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_balanced: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_ultrafast: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_audio_token: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_above_100k_tokens: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_above_200k_tokens: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_above_200k_tokens_priority: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_above_272k_tokens_priority: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_above_272k_tokens_flex: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_above_272k_tokens_ultrafast: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_above_200k_tokens_batches: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_above_200k_tokens_flex: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_above_100k_tokens_batches: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_above_272k_tokens_batches: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_character_above_128k_tokens: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_image: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_image_token: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_image_token_batches: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_image_token_priority: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_video_token: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_reasoning_token: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_reasoning_token_flex: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_reasoning_token_priority: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_video_per_second: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_audio_per_second: z.union([z.number(), z.null()]).optional(),
-	search_context_cost_per_query: z.union([z.looseObject({}), z.null()]).optional(),
-	google_maps_grounding_cost_per_query: z.union([z.number(), z.null()]).optional(),
-	citation_cost_per_token: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_token_cost_above_272k_tokens: z.union([z.number(), z.null()]).optional(),
-	cache_read_input_token_cost_above_512k_tokens: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_image_token: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_video_token: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_above_272k_tokens: z.union([z.number(), z.null()]).optional(),
-	input_cost_per_token_above_512k_tokens: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_above_272k_tokens: z.union([z.number(), z.null()]).optional(),
-	output_cost_per_token_above_512k_tokens: z.union([z.number(), z.null()]).optional(),
-	output_vector_size: z.union([z.int(), z.null()]).optional(),
-	ocr_cost_per_page: z.union([z.number(), z.null()]).optional(),
-	ocr_cost_per_page_batches: z.union([z.number(), z.null()]).optional(),
-	ocr_cost_per_credit: z.union([z.number(), z.null()]).optional(),
-	annotation_cost_per_page: z.union([z.number(), z.null()]).optional(),
-	annotation_cost_per_page_batches: z.union([z.number(), z.null()]).optional(),
-	regional_processing_uplift_multiplier_eu: z.union([z.number(), z.null()]).optional(),
-	regional_processing_uplift_multiplier_us: z.union([z.number(), z.null()]).optional(),
-	regional_endpoint_uplift_multiplier: z.union([z.number(), z.null()]).optional(),
-	api_key: z.union([z.string(), z.null()]).optional(),
-	api_base: z.union([z.string(), z.null()]).optional(),
-	api_version: z.union([z.string(), z.null()]).optional(),
-	azure_ad_token: z.union([z.string(), z.null()]).optional(),
-	tenant_id: z.union([z.string(), z.null()]).optional(),
-	client_id: z.union([z.string(), z.null()]).optional(),
-	client_secret: z.union([z.string(), z.null()]).optional(),
-	azure_scope: z.union([z.string(), z.null()]).optional(),
-	azure_username: z.union([z.string(), z.null()]).optional(),
-	azure_password: z.union([z.string(), z.null()]).optional(),
-	vertex_project: z.union([z.string(), z.null()]).optional(),
-	vertex_location: z.union([z.string(), z.null()]).optional(),
-	vertex_credentials: z.union([z.string(), z.looseObject({}), z.null()]).optional(),
-	region_name: z.union([z.string(), z.null()]).optional(),
-	gcs_bucket_name: z.union([z.string(), z.null()]).optional(),
-	bucket_name: z.union([z.string(), z.null()]).optional(),
-	aws_access_key_id: z.union([z.string(), z.null()]).optional(),
-	aws_secret_access_key: z.union([z.string(), z.null()]).optional(),
-	aws_session_token: z.union([z.string(), z.null()]).optional(),
-	aws_region_name: z.union([z.string(), z.null()]).optional(),
-	aws_session_name: z.union([z.string(), z.null()]).optional(),
-	aws_profile_name: z.union([z.string(), z.null()]).optional(),
-	aws_role_name: z.union([z.string(), z.null()]).optional(),
-	aws_web_identity_token: z.union([z.string(), z.null()]).optional(),
-	aws_sts_endpoint: z.union([z.string(), z.null()]).optional(),
-	aws_external_id: z.union([z.string(), z.null()]).optional(),
-	aws_session_tags: z.union([z.array(awsSessionTagSchema), z.null()]).optional(),
-	aws_bedrock_runtime_endpoint: z.union([z.string(), z.null()]).optional(),
-	aws_bedrock_project_id: z.union([z.string(), z.null()]).optional(),
-	s3_bucket_name: z.union([z.string(), z.null()]).optional(),
-	s3_endpoint_url: z.union([z.string(), z.null()]).optional(),
-	s3_region_name: z.union([z.string(), z.null()]).optional(),
-	s3_access_key_id: z.union([z.string(), z.null()]).optional(),
-	s3_secret_access_key: z.union([z.string(), z.null()]).optional(),
-	s3_encryption_key_id: z.union([z.string(), z.null()]).optional(),
-	s3_bucket_owner: z.union([z.string(), z.null()]).optional(),
-	aws_batch_role_arn: z.union([z.string(), z.null()]).optional(),
-	s3_output_bucket_name: z.union([z.string(), z.null()]).optional(),
-	bedrock_tags: z.union([z.array(z.unknown()), z.null()]).optional(),
-	watsonx_region_name: z.union([z.string(), z.null()]).optional(),
-	anthropic_federation_rule_id: z.union([z.string(), z.null()]).optional(),
-	anthropic_organization_id: z.union([z.string(), z.null()]).optional(),
-	anthropic_service_account_id: z.union([z.string(), z.null()]).optional(),
-	anthropic_federation_workspace_id: z.union([z.string(), z.null()]).optional(),
-	anthropic_identity_token_file: z.union([z.string(), z.null()]).optional(),
-	anthropic_identity_token: z.union([z.string(), z.null()]).optional(),
-	anthropic_identity_source: z.union([z.string(), z.null()]).optional(),
-	anthropic_issuer_url: z.union([z.string(), z.null()]).optional(),
-	anthropic_issuer_subject: z.union([z.string(), z.null()]).optional(),
-	anthropic_issuer_audience: z.union([z.string(), z.null()]).optional(),
-	anthropic_issuer_ttl_seconds: z.union([z.int(), z.null()]).optional(),
-	anthropic_issuer_signing_key_ref: z.union([z.string(), z.null()]).optional(),
-	anthropic_keycloak_token_url: z.union([z.string(), z.null()]).optional(),
-	anthropic_keycloak_client_id: z.union([z.string(), z.null()]).optional(),
-	anthropic_keycloak_auth_method: z.union([z.string(), z.null()]).optional(),
-	anthropic_keycloak_client_secret_ref: z.union([z.string(), z.null()]).optional(),
-	anthropic_keycloak_scope: z.union([z.string(), z.null()]).optional(),
-	anthropic_disable_workload_identity_federation: z.union([z.boolean(), z.null()]).optional(),
-	openai_identity_provider_id: z.union([z.string(), z.null()]).optional(),
-	openai_service_account_id: z.union([z.string(), z.null()]).optional(),
-	openai_identity_token_file: z.union([z.string(), z.null()]).optional(),
-	token_exchange_endpoint: z.union([z.string(), z.null()]).optional(),
-	token_exchange_profile: z.union([z.string(), z.null()]).optional(),
-	token_exchange_scope: z.union([z.string(), z.null()]).optional(),
-	token_exchange_audience: z.union([z.string(), z.null()]).optional(),
-	custom_llm_provider: z.union([z.string(), z.null()]).optional(),
-	tpm: z.union([z.int(), z.null()]).optional(),
-	rpm: z.union([z.int(), z.null()]).optional(),
-	itpm: z.union([z.int(), z.null()]).optional(),
-	otpm: z.union([z.int(), z.null()]).optional(),
-	timeout: z.union([z.number(), z.string(), timeoutSchema, z.null()]).optional(),
-	stream_timeout: z.union([z.number(), z.string(), z.null()]).optional(),
-	timeout_by_service_tier: z.union([z.record(z.string(), z.number()), z.null()]).optional(),
-	stream_timeout_by_service_tier: z.union([z.record(z.string(), z.number()), z.null()]).optional(),
-	max_retries: z.union([z.int(), z.null()]).optional(),
-	drop_params: z.union([z.boolean(), z.string(), z.null()]).optional(),
-	organization: z.union([z.string(), z.null()]).optional(),
-	configurable_clientside_auth_params: z
-		.union([
-			z.array(z.union([z.string(), configurableClientsideParamsCustomAuthInputSchema])),
-			z.null(),
-		])
-		.optional(),
-	litellm_credential_name: z.union([z.string(), z.null()]).optional(),
-	provider_affinity_header: z.union([z.string(), z.null()]).optional(),
-	litellm_trace_id: z.union([z.string(), z.null()]).optional(),
-	max_file_size_mb: z.union([z.number(), z.null()]).optional(),
-	default_api_key_tpm_limit: z.union([z.int(), z.null()]).optional(),
-	default_api_key_rpm_limit: z.union([z.int(), z.null()]).optional(),
-	max_budget: z.union([z.number(), z.null()]).optional(),
-	budget_duration: z.union([z.string(), z.null()]).optional(),
-	keepalive_seconds: z.union([z.number(), z.null()]).optional(),
-	allow_client_keepalive_override: z.union([z.boolean(), z.null()]).optional().default(false),
-	use_in_pass_through: z.union([z.boolean(), z.null()]).optional().default(false),
-	use_litellm_proxy: z.union([z.boolean(), z.null()]).optional().default(false),
-	use_chat_completions_api: z.union([z.boolean(), z.null()]).optional(),
-	use_xai_oauth: z
-		.union([z.boolean(), z.null()])
-		.optional()
-		.default(false)
-		.describe("Use stored xAI OAuth credentials when no xAI API key is configured."),
-	fireworks_forward_user_id: z
-		.union([z.boolean(), z.null()])
-		.optional()
-		.describe(
-			"Send the LiteLLM user id of the calling key as the `user` field on Fireworks AI chat, responses and messages requests.",
-		),
-	merge_reasoning_content_in_choices: z.union([z.boolean(), z.null()]).optional().default(false),
-	model_info: z.union([z.looseObject({}), z.null()]).optional(),
-	mock_response: z.union([z.string(), modelResponseSchema, z.unknown(), z.null()]).optional(),
-	tags: z.union([z.array(z.string()), z.null()]).optional(),
-	tag_regex: z.union([z.array(z.string()), z.null()]).optional(),
-	auto_router_config_path: z.union([z.string(), z.null()]).optional(),
-	auto_router_config: z.union([z.string(), z.null()]).optional(),
-	auto_router_default_model: z.union([z.string(), z.null()]).optional(),
-	auto_router_embedding_model: z.union([z.string(), z.null()]).optional(),
-	auto_router_max_input_chars: z.union([z.int(), z.null()]).optional(),
-	auto_router_routing_compression: z.union([z.string(), z.null()]).optional(),
-	auto_router_model_compression: z.union([z.string(), z.null()]).optional(),
-	complexity_router_config: z.union([z.looseObject({}), z.null()]).optional(),
-	complexity_router_default_model: z.union([z.string(), z.null()]).optional(),
-	adaptive_router_default_model: z.union([z.string(), z.null()]).optional(),
-	adaptive_router_config: z.union([z.looseObject({}), z.null()]).optional(),
-	quality_router_config: z.union([z.looseObject({}), z.null()]).optional(),
-	quality_router_default_model: z.union([z.string(), z.null()]).optional(),
-	vector_store_id: z.union([z.string(), z.null()]).optional(),
-	milvus_text_field: z.union([z.string(), z.null()]).optional(),
-	milvus_db_name: z.union([z.string(), z.null()]).optional(),
-	milvus_partition_names: z.union([z.array(z.string()), z.null()]).optional(),
-	valkey_host: z.union([z.string(), z.null()]).optional(),
-	valkey_port: z.union([z.int(), z.null()]).optional(),
-	valkey_password: z.union([z.string(), z.null()]).optional(),
-	valkey_ssl: z.union([z.boolean(), z.null()]).optional(),
-	valkey_text_field: z.union([z.string(), z.null()]).optional(),
-	valkey_embedding_field: z.union([z.string(), z.null()]).optional(),
-	model: z.union([z.string(), z.null()]).optional(),
-});
-
 export const updateDeploymentSchema = z.object({
 	model_name: z.union([z.string(), z.null()]).optional(),
 	litellm_params: z.union([updateLiteLLMParamsSchema, z.null()]).optional(),
@@ -10229,11 +10529,37 @@ export const chatCompletionImageUrlObjectSchema = z.object({
 	url: z.string(),
 	detail: z.string().optional(),
 	format: z.string().optional(),
+	video_metadata: z.looseObject({}).optional(),
 });
 
 export const chatCompletionImageObjectSchema = z.object({
 	type: z.enum(["image_url"]),
 	image_url: z.union([z.string(), chatCompletionImageUrlObjectSchema]),
+});
+
+export const chatCompletionInputAudioSchema = z.object({
+	data: z.string(),
+	format: z.string(),
+});
+
+export const chatCompletionAudioObjectSchema = z.object({
+	type: z.enum(["input_audio"]),
+	input_audio: chatCompletionInputAudioSchema,
+	cache_control: chatCompletionCachedContentSchema.optional(),
+});
+
+export const chatCompletionFileObjectFileSchema = z.object({
+	file_data: z.string().optional(),
+	file_id: z.string().optional(),
+	filename: z.string().optional(),
+	format: z.string().optional(),
+	detail: z.string().optional(),
+	video_metadata: z.looseObject({}).optional(),
+});
+
+export const chatCompletionFileObjectSchema = z.object({
+	type: z.enum(["file"]),
+	file: chatCompletionFileObjectFileSchema,
 });
 
 export const chatCompletionToolCallFunctionChunkSchema = z.object({
@@ -10259,6 +10585,8 @@ export const chatCompletionAssistantMessageSchema = z.object({
 					chatCompletionThinkingBlockSchema,
 					chatCompletionRedactedThinkingBlockSchema,
 					chatCompletionImageObjectSchema,
+					chatCompletionAudioObjectSchema,
+					chatCompletionFileObjectSchema,
 				]),
 			),
 			z.null(),
@@ -10281,21 +10609,6 @@ export const chatCompletionAssistantMessageSchema = z.object({
 		])
 		.optional(),
 	reasoning_items: z.union([z.array(chatCompletionReasoningItemSchema), z.null()]).optional(),
-});
-
-export const inputAudioSchema = z.object({
-	data: z.string(),
-	format: z.enum(["wav", "mp3"]),
-});
-
-export const chatCompletionAudioObjectSchema = z.object({
-	input_audio: inputAudioSchema,
-	type: z.enum(["input_audio"]),
-	prompt_cache_breakpoint: promptCacheBreakpointSchema
-		.optional()
-		.describe(
-			"Marks the exact end of a reusable prompt prefix.\n\nWhen `ttl` is omitted, the breakpoint inherits the request's `prompt_cache_options.ttl`; the boundary is not rounded to a token block.",
-		),
 });
 
 export const chatCompletionDeveloperMessageSchema = z.object({
@@ -10321,20 +10634,6 @@ export const chatCompletionDocumentObjectSchema = z.object({
 	title: z.string(),
 	context: z.string(),
 	citations: z.union([citationsObjectSchema, z.null()]),
-});
-
-export const chatCompletionFileObjectFileSchema = z.object({
-	file_data: z.string().optional(),
-	file_id: z.string().optional(),
-	filename: z.string().optional(),
-	format: z.string().optional(),
-	detail: z.string().optional(),
-	video_metadata: z.looseObject({}).optional(),
-});
-
-export const chatCompletionFileObjectSchema = z.object({
-	type: z.enum(["file"]),
-	file: chatCompletionFileObjectFileSchema,
 });
 
 export const chatCompletionFunctionMessageSchema = z.object({
@@ -10368,6 +10667,8 @@ export const chatCompletionToolMessageSchema = z.object({
 			z.discriminatedUnion("type", [
 				chatCompletionTextObjectSchema,
 				chatCompletionImageObjectSchema,
+				chatCompletionAudioObjectSchema,
+				chatCompletionFileObjectSchema,
 				chatCompletionToolReferenceObjectSchema,
 			]),
 		),
@@ -11085,7 +11386,7 @@ export const outcomeTimeoutSchema = z
 
 export const promptCacheOptionsSchema = z.object({
 	mode: z.enum(["implicit", "explicit"]).optional(),
-	ttl: z.enum(["30m"]).optional(),
+	ttl: z.enum(["30m", "12h"]).optional(),
 });
 
 export const promptObjectSchema = z
@@ -11543,6 +11844,10 @@ export const responseToolSearchOutputItemParamParamSchema = z.object({
 	status: z.union([z.enum(["in_progress", "completed", "incomplete"]), z.null()]).optional(),
 });
 
+export const responsesAPIModerationSchema = z.object({
+	model: z.string(),
+});
+
 export const responsesAPIStreamOptionsSchema = z.object({
 	include_obfuscation: z.boolean().optional(),
 });
@@ -11726,6 +12031,7 @@ export const responsesAPIRequestParamsSchema = z
 		prompt_cache_key: z.union([z.string(), z.null()]).optional(),
 		prompt_cache_retention: z.union([z.string(), z.null()]).optional(),
 		prompt_cache_options: z.union([promptCacheOptionsSchema, z.null()]).optional(),
+		moderation: z.union([responsesAPIModerationSchema, z.null()]).optional(),
 		stream_options: z.union([responsesAPIStreamOptionsSchema, z.null()]).optional(),
 		top_logprobs: z.union([z.int(), z.null()]).optional(),
 		partial_images: z.union([z.int(), z.null()]).optional(),
@@ -11856,6 +12162,8 @@ export const piiEntityTypeSchema = z.enum([
 	"ZA_ID_NUMBER",
 ]);
 
+export const guardrailResponseFormatSchema = z.enum(["standard", "native"]);
+
 export const applyGuardrailRequestSchema = z.object({
 	entities: z.union([z.array(piiEntityTypeSchema), z.null()]).optional(),
 	guardrail_name: z.string(),
@@ -11863,6 +12171,7 @@ export const applyGuardrailRequestSchema = z.object({
 	language: z.union([z.string(), z.null()]).optional(),
 	messages: z.union([z.array(z.looseObject({})), z.null()]).optional(),
 	metadata: z.union([z.looseObject({}), z.null()]).optional(),
+	response_format: guardrailResponseFormatSchema.optional().default("standard"),
 	text: z.string(),
 });
 
@@ -12010,6 +12319,13 @@ export const baseLitellmParamsSchema = z.looseObject({
 		.describe(
 			"Whether to fail the request if the guardrail encounters an error. Implemented by guardrail='model_armor', 'generic_guardrail_api' and 'crowdstrike_aidr'. True (default) raises the error. False logs a critical error and lets the request proceed, so only a valid guardrail response can block or modify it.",
 		),
+	forward_messages_as_sent: z
+		.union([z.boolean(), z.null()])
+		.optional()
+		.default(false)
+		.describe(
+			"Only honored by guardrail='generic_guardrail_api'. When True, structured_messages reaches the guardrail exactly as the client sent it, so rows can carry provider-native content blocks and keys the OpenAI chat types do not declare. Default False sends OpenAI-format chat rows with undeclared keys removed.",
+		),
 	guard_name: z
 		.union([z.string(), z.null()])
 		.optional()
@@ -12064,6 +12380,12 @@ export const baseLitellmParamsSchema = z.looseObject({
 		.union([z.string(), z.null()])
 		.optional()
 		.describe("Optional field if guardrail requires a 'model' parameter"),
+	num_retries: z
+		.union([z.int().min(0).max(5), z.null()])
+		.optional()
+		.describe(
+			"How many more times to send a guardrail check whose connection timed out waiting for the answer or was dropped after the request went out. Each retry opens a fresh connection and gets the full timeout. Connect failures, HTTP error statuses and BLOCKED verdicts are not retried. Unset or 0 sends each check once, and the most allowed is 5. Implemented by guardrail='generic_guardrail_api', other guardrails ignore it.",
+		),
 	on_sensitive_data: z
 		.union([z.enum(["block", "route"]), z.null()])
 		.optional()
@@ -12268,6 +12590,8 @@ export const bedrockChecksConfigModelSchema = z
 	.describe(
 		"Inline `checks` config for the resource-less Bedrock InvokeGuardrailChecks API.\n\nInclude only the checks you want to run; at least one must be set.",
 	);
+
+export const bedrockGuardrailOutputScopeSchema = z.enum(["INTERVENTIONS", "FULL"]);
 
 export const ciscoAIDefenseRuleSchema = z
 	.object({
@@ -12751,10 +13075,21 @@ export const litellmParamsSchema = z.looseObject({
 		.describe(
 			"Whether to fail the request if the guardrail encounters an error. Implemented by guardrail='model_armor', 'generic_guardrail_api' and 'crowdstrike_aidr'. True (default) raises the error. False logs a critical error and lets the request proceed, so only a valid guardrail response can block or modify it.",
 		),
+	file_checkpoint_id: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("File-checkpoint ID for the Ovalix Tracker service (falls back to pre/post)."),
 	file_guardrail_timeout: z
 		.union([z.int(), z.null()])
 		.optional()
 		.describe("HTTP timeout in seconds for checking attached files. Default: 10."),
+	forward_messages_as_sent: z
+		.union([z.boolean(), z.null()])
+		.optional()
+		.default(false)
+		.describe(
+			"Only honored by guardrail='generic_guardrail_api'. When True, structured_messages reaches the guardrail exactly as the client sent it, so rows can carry provider-native content blocks and keys the OpenAI chat types do not declare. Default False sends OpenAI-format chat rows with undeclared keys removed.",
+		),
 	gateway_name: z
 		.union([z.string(), z.null()])
 		.optional()
@@ -12885,6 +13220,12 @@ export const litellmParamsSchema = z.looseObject({
 		.union([z.boolean(), z.null()])
 		.optional()
 		.describe("If True, logs violations without blocking. Defaults to False if not provided"),
+	num_retries: z
+		.union([z.int().min(0).max(5), z.null()])
+		.optional()
+		.describe(
+			"How many more times to send a guardrail check whose connection timed out waiting for the answer or was dropped after the request went out. Each retry opens a fresh connection and gets the full timeout. Connect failures, HTTP error statuses and BLOCKED verdicts are not retried. Unset or 0 sends each check once, and the most allowed is 5. Implemented by guardrail='generic_guardrail_api', other guardrails ignore it.",
+		),
 	on_disallowed_action: z
 		.enum(["block", "rewrite"])
 		.optional()
@@ -12893,11 +13234,11 @@ export const litellmParamsSchema = z.looseObject({
 			"Choose whether disallowed tools block the request or get rewritten out of the payload",
 		),
 	on_flagged: z
-		.union([z.enum(["block", "monitor", "inject_system_message"]), z.null()])
+		.union([z.enum(["block", "mask", "monitor", "inject_system_message"]), z.null()])
 		.optional()
 		.default("block")
 		.describe(
-			"Action to take when content is flagged: 'block' (raise exception), 'monitor' (log only), or 'inject_system_message' (append an advisory system message and let the LLM decide)",
+			"Action to take when content is flagged: 'block' (raise exception), 'mask' (mask PII-only detections and allow, block anything else), 'monitor' (log only), or 'inject_system_message' (append an advisory system message and let the LLM decide)",
 		),
 	on_flagged_action: z
 		.union([z.string(), z.null()])
@@ -12929,6 +13270,12 @@ export const litellmParamsSchema = z.looseObject({
 		.union([ciscoAIDefenseGuardrailConfigModelOptionalParamsSchema, z.null()])
 		.optional()
 		.describe("Optional parameters for the guardrail"),
+	outputScope: z
+		.union([bedrockGuardrailOutputScopeSchema, z.null()])
+		.optional()
+		.describe(
+			"ApplyGuardrail response scope. FULL includes detected and non-detected findings. Omit to retain Bedrock's default of returning detected findings only.",
+		),
 	output_parse_pii: z
 		.union([z.boolean(), z.null()])
 		.optional()
@@ -14143,6 +14490,13 @@ export const patchAgentRequestSchema = z.object({
 	tpm_limit: z.union([z.int(), z.null()]).optional(),
 });
 
+export const A2AJsonRpcResponseSchema = z.looseObject({
+	error: z.union([z.looseObject({}), z.null()]).optional(),
+	id: z.union([z.string(), z.int(), z.null()]),
+	jsonrpc: z.enum(["2.0"]),
+	result: z.union([z.unknown(), z.null()]).optional(),
+});
+
 export const discoveryModeSchema = z
 	.enum(["well_known_fallback", "langgraph_platform"])
 	.describe(
@@ -15162,6 +15516,65 @@ export const hashicorpVaultConfigSchema = z
 	})
 	.describe("Configuration for Hashicorp Vault secret manager integration.");
 
+export const choiceAnswerSchema = z.looseObject({
+	choice: z.string(),
+	confidence: z.number(),
+	probabilities: z.record(z.string(), z.number()),
+	type: z.enum(["choice"]),
+});
+
+export const noulAnswerSchema = z.looseObject({
+	noul: z.number(),
+	type: z.enum(["noul"]),
+});
+
+export const scoreAnswerSchema = z.looseObject({
+	confidence: z.number(),
+	legend: z.record(z.string(), z.union([z.string(), z.looseObject({}), z.array(z.unknown())])),
+	probabilities: z.record(z.string(), z.number()),
+	score: z.number(),
+	type: z.enum(["score"]),
+});
+
+export const euJevMetaSchema = z.object({
+	cost_eur: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("The exact charge in euros, on authenticated requests"),
+	latency_ms: z
+		.int()
+		.describe("Server-side time for token quoting, credit reservation and inference"),
+	mode: z.enum(["live"]),
+	request_id: z.string(),
+});
+
+export const euJevUsageSchema = z.object({
+	input_tokens: z.int().min(0),
+	output_tokens: z.int().min(0),
+});
+
+export const euJevDecisionResponseSchema = z.object({
+	answers: z
+		.record(
+			z.string(),
+			z.discriminatedUnion("type", [
+				choiceAnswerSchema.extend({
+					type: z.enum(["choice"]),
+				}),
+				noulAnswerSchema.extend({
+					type: z.enum(["noul"]),
+				}),
+				scoreAnswerSchema.extend({
+					type: z.enum(["score"]),
+				}),
+			]),
+		)
+		.describe("One answer per question, under the same names"),
+	meta: euJevMetaSchema,
+	model: z.string().describe("The release that answered, such as eu-jeff-1.0.0"),
+	usage: euJevUsageSchema,
+});
+
 export const realtimeClientSecretResponseSchema = z
 	.object({
 		expires_at: z.union([z.int(), z.null()]).optional(),
@@ -15334,26 +15747,6 @@ export const boxAnswerSchema = z.looseObject({
 	type: z.enum(["box"]),
 });
 
-export const choiceAnswerSchema = z.looseObject({
-	choice: z.string(),
-	confidence: z.number(),
-	probabilities: z.record(z.string(), z.number()),
-	type: z.enum(["choice"]),
-});
-
-export const noulAnswerSchema = z.looseObject({
-	noul: z.number(),
-	type: z.enum(["noul"]),
-});
-
-export const scoreAnswerSchema = z.looseObject({
-	confidence: z.number(),
-	legend: z.record(z.string(), z.union([z.string(), z.looseObject({}), z.array(z.unknown())])),
-	probabilities: z.record(z.string(), z.number()),
-	score: z.number(),
-	type: z.enum(["score"]),
-});
-
 export const decisionsUsageSchema = z.looseObject({
 	input_tokens: z.int().optional().default(0),
 	output_tokens: z.int().optional().default(0),
@@ -15379,6 +15772,41 @@ export const decisionsResponseSchema = z.looseObject({
 	),
 	model: z.union([z.string(), z.null()]).optional(),
 	usage: z.union([decisionsUsageSchema, z.null()]).optional(),
+});
+
+export const extractionAnswerSchema = z.looseObject({
+	confidence: z.union([z.number(), z.null()]).optional(),
+	guess: jsonValueSchema.optional(),
+	mean: jsonValueSchema.optional(),
+	median: jsonValueSchema.optional(),
+	p10: jsonValueSchema.optional(),
+	p90: jsonValueSchema.optional(),
+	p_above: z.union([z.number(), z.null()]).optional(),
+	p_below: z.union([z.number(), z.null()]).optional(),
+	p_null: z.union([z.number(), z.null()]).optional(),
+	quantiles: z.union([z.array(jsonValueSchema), z.null()]).optional(),
+	span: z.union([z.array(z.int()), z.null()]).optional(),
+	spans: z.union([z.array(z.array(z.int())), z.null()]).optional(),
+	steps: z.union([z.array(jsonValueSchema), z.null()]).optional(),
+	type: z.string(),
+	value: jsonValueSchema.describe("The answer, null when the input does not determine it"),
+});
+
+export const extractionUsageSchema = z.looseObject({
+	image_tokens: z.union([z.int(), z.null()]).optional(),
+	input_tokens: z.int(),
+	output_tokens: z.int(),
+	passes: z.union([z.int(), z.null()]).optional(),
+	schema_tokens: z.union([z.int(), z.null()]).optional(),
+	state_tokens: z.union([z.int(), z.null()]).optional(),
+});
+
+export const extractionResponseSchema = z.looseObject({
+	answers: z.record(z.string(), extractionAnswerSchema),
+	model: z.string(),
+	state_text: z.union([z.string(), z.null()]).optional(),
+	truncated: z.boolean(),
+	usage: extractionUsageSchema,
 });
 
 export const openAIBoxAnswerSchema = z.object({
@@ -15928,16 +16356,6 @@ export const vantageSettingsViewSchema = z
 	})
 	.describe("Response model for viewing Vantage settings with masked API key");
 
-export const chatMessageSchema = z.object({
-	content: z.string(),
-	role: z.enum(["user", "assistant"]),
-});
-
-export const usageAIChatRequestSchema = z.object({
-	messages: z.array(chatMessageSchema).describe("Chat messages (user/assistant history)"),
-	model: z.union([z.string(), z.null()]).optional().describe("Model to use for AI chat"),
-});
-
 export const bodyConvertPromptFileToJsonUtilsDotpromptJsonConverterPostSchema = z.object({
 	file: z.instanceof(File),
 });
@@ -16122,8 +16540,7 @@ export const accessGroupUpdateRequestSchema = z.object({
 
 export const modelListModelsGetQueryReturnWildcardRoutesSchema = z
 	.union([z.boolean(), z.null()])
-	.optional()
-	.default(false);
+	.optional();
 
 export const modelListModelsGetQueryTeamIdSchema = z.union([z.string(), z.null()]).optional();
 
@@ -16164,7 +16581,7 @@ export const modelListModelsGetResponseSchema = modelListModelsGetStatus200Schem
 export const modelListModelsGetErrorSchema = modelListModelsGetStatus422Schema;
 
 export const modelListModelsGetQuerySchema = z.object({
-	return_wildcard_routes: z.union([z.boolean(), z.null()]).optional().default(false),
+	return_wildcard_routes: z.union([z.boolean(), z.null()]).optional(),
 	team_id: z.union([z.string(), z.null()]).optional(),
 	include_model_access_groups: z.union([z.boolean(), z.null()]).optional().default(false),
 	only_model_access_groups: z.union([z.boolean(), z.null()]).optional().default(false),
@@ -16177,8 +16594,7 @@ export const modelListModelsGetQuerySchema = z.object({
 
 export const modelListV1ModelsGetQueryReturnWildcardRoutesSchema = z
 	.union([z.boolean(), z.null()])
-	.optional()
-	.default(false);
+	.optional();
 
 export const modelListV1ModelsGetQueryTeamIdSchema = z.union([z.string(), z.null()]).optional();
 
@@ -16221,7 +16637,7 @@ export const modelListV1ModelsGetResponseSchema = modelListV1ModelsGetStatus200S
 export const modelListV1ModelsGetErrorSchema = modelListV1ModelsGetStatus422Schema;
 
 export const modelListV1ModelsGetQuerySchema = z.object({
-	return_wildcard_routes: z.union([z.boolean(), z.null()]).optional().default(false),
+	return_wildcard_routes: z.union([z.boolean(), z.null()]).optional(),
 	team_id: z.union([z.string(), z.null()]).optional(),
 	include_model_access_groups: z.union([z.boolean(), z.null()]).optional().default(false),
 	only_model_access_groups: z.union([z.boolean(), z.null()]).optional().default(false),
@@ -16973,6 +17389,10 @@ export const tokenCounterUtilsTokenCounterPostQueryCallEndpointSchema = z
 	.optional()
 	.default(false);
 
+export const tokenCounterUtilsTokenCounterPostHeaderXLitellmCallIdSchema = z
+	.union([z.string(), z.null()])
+	.optional();
+
 export const tokenCounterUtilsTokenCounterPostStatus200Schema = tokenCountResponseSchema;
 
 export const tokenCounterUtilsTokenCounterPostStatus422Schema = HTTPValidationErrorSchema;
@@ -16987,6 +17407,10 @@ export const tokenCounterUtilsTokenCounterPostBodySchema = tokenCountRequestSche
 
 export const tokenCounterUtilsTokenCounterPostQuerySchema = z.object({
 	call_endpoint: z.boolean().optional().default(false),
+});
+
+export const tokenCounterUtilsTokenCounterPostHeadersSchema = z.object({
+	"x-litellm-call-id": z.union([z.string(), z.null()]).optional(),
 });
 
 export const supportedOpenaiParamsUtilsSupportedOpenaiParamsGetQueryModelSchema = z.string();
@@ -17085,6 +17509,14 @@ export const modelInfoV2V2ModelInfoGetQueryModelIdSchema = z
 	.optional()
 	.describe("Search for a specific model by its unique ID");
 
+export const modelInfoV2V2ModelInfoGetQueryUseStoredParamsSchema = z
+	.boolean()
+	.optional()
+	.default(false)
+	.describe(
+		"With modelId, omit runtime-only litellm_params defaults from a DB-stored model's editor view.",
+	);
+
 export const modelInfoV2V2ModelInfoGetQueryTeamIdSchema = z
 	.union([z.string(), z.null()])
 	.optional()
@@ -17160,6 +17592,13 @@ export const modelInfoV2V2ModelInfoGetQuerySchema = z.object({
 		.union([z.string(), z.null()])
 		.optional()
 		.describe("Search for a specific model by its unique ID"),
+	use_stored_params: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe(
+			"With modelId, omit runtime-only litellm_params defaults from a DB-stored model's editor view.",
+		),
 	teamId: z
 		.union([z.string(), z.null()])
 		.optional()
@@ -17459,6 +17898,7 @@ export const responsesApiOpenaiV1ResponsesPostBodySchema = z.object({
 	prompt_cache_key: z.union([z.string(), z.null()]).optional(),
 	prompt_cache_retention: z.union([z.string(), z.null()]).optional(),
 	prompt_cache_options: z.union([promptCacheOptionsSchema, z.null()]).optional(),
+	moderation: z.union([responsesAPIModerationSchema, z.null()]).optional(),
 	stream_options: z.union([responsesAPIStreamOptionsSchema, z.null()]).optional(),
 	top_logprobs: z.union([z.int(), z.null()]).optional(),
 	partial_images: z.union([z.int(), z.null()]).optional(),
@@ -17591,6 +18031,7 @@ export const responsesApiResponsesPostBodySchema = z.object({
 	prompt_cache_key: z.union([z.string(), z.null()]).optional(),
 	prompt_cache_retention: z.union([z.string(), z.null()]).optional(),
 	prompt_cache_options: z.union([promptCacheOptionsSchema, z.null()]).optional(),
+	moderation: z.union([responsesAPIModerationSchema, z.null()]).optional(),
 	stream_options: z.union([responsesAPIStreamOptionsSchema, z.null()]).optional(),
 	top_logprobs: z.union([z.int(), z.null()]).optional(),
 	partial_images: z.union([z.int(), z.null()]).optional(),
@@ -17723,6 +18164,7 @@ export const responsesApiV1ResponsesPostBodySchema = z.object({
 	prompt_cache_key: z.union([z.string(), z.null()]).optional(),
 	prompt_cache_retention: z.union([z.string(), z.null()]).optional(),
 	prompt_cache_options: z.union([promptCacheOptionsSchema, z.null()]).optional(),
+	moderation: z.union([responsesAPIModerationSchema, z.null()]).optional(),
 	stream_options: z.union([responsesAPIStreamOptionsSchema, z.null()]).optional(),
 	top_logprobs: z.union([z.int(), z.null()]).optional(),
 	partial_images: z.union([z.int(), z.null()]).optional(),
@@ -17787,6 +18229,29 @@ export const cursorChatCompletionsCursorChatCompletionsPostResponseSchema =
 
 export const getResponseOpenaiV1ResponsesResponseIdGetPathResponseIdSchema = z.string();
 
+export const getResponseOpenaiV1ResponsesResponseIdGetQueryStreamSchema = z
+	.boolean()
+	.optional()
+	.describe(
+		"Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)",
+	);
+
+export const getResponseOpenaiV1ResponsesResponseIdGetQueryStartingAfterSchema = z
+	.int()
+	.min(0)
+	.optional()
+	.describe("With stream=true, replay only the events after this sequence number");
+
+export const getResponseOpenaiV1ResponsesResponseIdGetQueryIncludeSchema = z
+	.array(z.string())
+	.optional()
+	.describe("Additional output data to include, forwarded to the provider");
+
+export const getResponseOpenaiV1ResponsesResponseIdGetQueryIncludeObfuscationSchema = z
+	.boolean()
+	.optional()
+	.describe("With stream=true, whether delta events carry obfuscation padding");
+
 export const getResponseOpenaiV1ResponsesResponseIdGetStatus200Schema = responsesAPIResponseSchema;
 
 export const getResponseOpenaiV1ResponsesResponseIdGetStatus422Schema = HTTPValidationErrorSchema;
@@ -17799,6 +18264,28 @@ export const getResponseOpenaiV1ResponsesResponseIdGetErrorSchema =
 
 export const getResponseOpenaiV1ResponsesResponseIdGetPathSchema = z.object({
 	response_id: z.string(),
+});
+
+export const getResponseOpenaiV1ResponsesResponseIdGetQuerySchema = z.object({
+	stream: z
+		.boolean()
+		.optional()
+		.describe(
+			"Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)",
+		),
+	starting_after: z
+		.int()
+		.min(0)
+		.optional()
+		.describe("With stream=true, replay only the events after this sequence number"),
+	include: z
+		.array(z.string())
+		.optional()
+		.describe("Additional output data to include, forwarded to the provider"),
+	include_obfuscation: z
+		.boolean()
+		.optional()
+		.describe("With stream=true, whether delta events carry obfuscation padding"),
 });
 
 export const deleteResponseOpenaiV1ResponsesResponseIdDeletePathResponseIdSchema = z.string();
@@ -17823,6 +18310,29 @@ export const deleteResponseOpenaiV1ResponsesResponseIdDeletePathSchema = z.objec
 
 export const getResponseResponsesResponseIdGetPathResponseIdSchema = z.string();
 
+export const getResponseResponsesResponseIdGetQueryStreamSchema = z
+	.boolean()
+	.optional()
+	.describe(
+		"Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)",
+	);
+
+export const getResponseResponsesResponseIdGetQueryStartingAfterSchema = z
+	.int()
+	.min(0)
+	.optional()
+	.describe("With stream=true, replay only the events after this sequence number");
+
+export const getResponseResponsesResponseIdGetQueryIncludeSchema = z
+	.array(z.string())
+	.optional()
+	.describe("Additional output data to include, forwarded to the provider");
+
+export const getResponseResponsesResponseIdGetQueryIncludeObfuscationSchema = z
+	.boolean()
+	.optional()
+	.describe("With stream=true, whether delta events carry obfuscation padding");
+
 export const getResponseResponsesResponseIdGetStatus200Schema = responsesAPIResponseSchema;
 
 export const getResponseResponsesResponseIdGetStatus422Schema = HTTPValidationErrorSchema;
@@ -17835,6 +18345,28 @@ export const getResponseResponsesResponseIdGetErrorSchema =
 
 export const getResponseResponsesResponseIdGetPathSchema = z.object({
 	response_id: z.string(),
+});
+
+export const getResponseResponsesResponseIdGetQuerySchema = z.object({
+	stream: z
+		.boolean()
+		.optional()
+		.describe(
+			"Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)",
+		),
+	starting_after: z
+		.int()
+		.min(0)
+		.optional()
+		.describe("With stream=true, replay only the events after this sequence number"),
+	include: z
+		.array(z.string())
+		.optional()
+		.describe("Additional output data to include, forwarded to the provider"),
+	include_obfuscation: z
+		.boolean()
+		.optional()
+		.describe("With stream=true, whether delta events carry obfuscation padding"),
 });
 
 export const deleteResponseResponsesResponseIdDeletePathResponseIdSchema = z.string();
@@ -17858,6 +18390,29 @@ export const deleteResponseResponsesResponseIdDeletePathSchema = z.object({
 
 export const getResponseV1ResponsesResponseIdGetPathResponseIdSchema = z.string();
 
+export const getResponseV1ResponsesResponseIdGetQueryStreamSchema = z
+	.boolean()
+	.optional()
+	.describe(
+		"Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)",
+	);
+
+export const getResponseV1ResponsesResponseIdGetQueryStartingAfterSchema = z
+	.int()
+	.min(0)
+	.optional()
+	.describe("With stream=true, replay only the events after this sequence number");
+
+export const getResponseV1ResponsesResponseIdGetQueryIncludeSchema = z
+	.array(z.string())
+	.optional()
+	.describe("Additional output data to include, forwarded to the provider");
+
+export const getResponseV1ResponsesResponseIdGetQueryIncludeObfuscationSchema = z
+	.boolean()
+	.optional()
+	.describe("With stream=true, whether delta events carry obfuscation padding");
+
 export const getResponseV1ResponsesResponseIdGetStatus200Schema = responsesAPIResponseSchema;
 
 export const getResponseV1ResponsesResponseIdGetStatus422Schema = HTTPValidationErrorSchema;
@@ -17870,6 +18425,28 @@ export const getResponseV1ResponsesResponseIdGetErrorSchema =
 
 export const getResponseV1ResponsesResponseIdGetPathSchema = z.object({
 	response_id: z.string(),
+});
+
+export const getResponseV1ResponsesResponseIdGetQuerySchema = z.object({
+	stream: z
+		.boolean()
+		.optional()
+		.describe(
+			"Replay the response's events as server-sent events (OpenAI, Azure, and Azure AI Foundry)",
+		),
+	starting_after: z
+		.int()
+		.min(0)
+		.optional()
+		.describe("With stream=true, replay only the events after this sequence number"),
+	include: z
+		.array(z.string())
+		.optional()
+		.describe("Additional output data to include, forwarded to the provider"),
+	include_obfuscation: z
+		.boolean()
+		.optional()
+		.describe("With stream=true, whether delta events carry obfuscation padding"),
 });
 
 export const deleteResponseV1ResponsesResponseIdDeletePathResponseIdSchema = z.string();
@@ -19759,6 +20336,10 @@ export const listFilesFilesGetQueryLimitSchema = z.union([z.int(), z.null()]).op
 
 export const listFilesFilesGetQueryAfterSchema = z.union([z.string(), z.null()]).optional();
 
+export const listFilesFilesGetQueryAfterIdSchema = z.union([z.string(), z.null()]).optional();
+
+export const listFilesFilesGetQueryBeforeIdSchema = z.union([z.string(), z.null()]).optional();
+
 export const listFilesFilesGetStatus200Schema = z.looseObject({});
 
 export const listFilesFilesGetStatus422Schema = HTTPValidationErrorSchema;
@@ -19773,6 +20354,8 @@ export const listFilesFilesGetQuerySchema = z.object({
 	purpose: z.union([z.string(), z.null()]).optional(),
 	limit: z.union([z.int(), z.null()]).optional(),
 	after: z.union([z.string(), z.null()]).optional(),
+	after_id: z.union([z.string(), z.null()]).optional(),
+	before_id: z.union([z.string(), z.null()]).optional(),
 });
 
 export const createFileFilesPostQueryProviderSchema = z.union([z.string(), z.null()]).optional();
@@ -19803,6 +20386,10 @@ export const listFilesV1FilesGetQueryLimitSchema = z.union([z.int(), z.null()]).
 
 export const listFilesV1FilesGetQueryAfterSchema = z.union([z.string(), z.null()]).optional();
 
+export const listFilesV1FilesGetQueryAfterIdSchema = z.union([z.string(), z.null()]).optional();
+
+export const listFilesV1FilesGetQueryBeforeIdSchema = z.union([z.string(), z.null()]).optional();
+
 export const listFilesV1FilesGetStatus200Schema = z.looseObject({});
 
 export const listFilesV1FilesGetStatus422Schema = HTTPValidationErrorSchema;
@@ -19817,6 +20404,8 @@ export const listFilesV1FilesGetQuerySchema = z.object({
 	purpose: z.union([z.string(), z.null()]).optional(),
 	limit: z.union([z.int(), z.null()]).optional(),
 	after: z.union([z.string(), z.null()]).optional(),
+	after_id: z.union([z.string(), z.null()]).optional(),
+	before_id: z.union([z.string(), z.null()]).optional(),
 });
 
 export const createFileV1FilesPostQueryProviderSchema = z.union([z.string(), z.null()]).optional();
@@ -19851,6 +20440,14 @@ export const listFilesProviderV1FilesGetQueryAfterSchema = z
 	.union([z.string(), z.null()])
 	.optional();
 
+export const listFilesProviderV1FilesGetQueryAfterIdSchema = z
+	.union([z.string(), z.null()])
+	.optional();
+
+export const listFilesProviderV1FilesGetQueryBeforeIdSchema = z
+	.union([z.string(), z.null()])
+	.optional();
+
 export const listFilesProviderV1FilesGetStatus200Schema = z.looseObject({});
 
 export const listFilesProviderV1FilesGetStatus422Schema = HTTPValidationErrorSchema;
@@ -19868,6 +20465,8 @@ export const listFilesProviderV1FilesGetQuerySchema = z.object({
 	purpose: z.union([z.string(), z.null()]).optional(),
 	limit: z.union([z.int(), z.null()]).optional(),
 	after: z.union([z.string(), z.null()]).optional(),
+	after_id: z.union([z.string(), z.null()]).optional(),
+	before_id: z.union([z.string(), z.null()]).optional(),
 });
 
 export const createFileProviderV1FilesPostPathProviderSchema = z.union([z.string(), z.null()]);
@@ -21116,6 +21715,24 @@ export const userInfoUserInfoGetQueryUserIdSchema = z
 	.optional()
 	.describe("User ID in the request parameters");
 
+export const userInfoUserInfoGetQueryAdminMcpSchema = z
+	.boolean()
+	.optional()
+	.default(false)
+	.describe("Include the caller's current admin MCP route permissions");
+
+export const userInfoUserInfoGetQueryMcpToolSchema = z
+	.union([z.string(), z.null()])
+	.optional()
+	.describe("Admin MCP tool to authorize for this caller");
+
+export const userInfoUserInfoGetQueryMcpPathSchema = z
+	.union([z.string(), z.null()])
+	.optional()
+	.describe(
+		"URL-encoded concrete management path used by the MCP tool, before query-string encoding",
+	);
+
 export const userInfoUserInfoGetStatus200Schema = userInfoResponseSchema;
 
 export const userInfoUserInfoGetStatus422Schema = HTTPValidationErrorSchema;
@@ -21126,6 +21743,21 @@ export const userInfoUserInfoGetErrorSchema = userInfoUserInfoGetStatus422Schema
 
 export const userInfoUserInfoGetQuerySchema = z.object({
 	user_id: z.union([z.string(), z.null()]).optional().describe("User ID in the request parameters"),
+	admin_mcp: z
+		.boolean()
+		.optional()
+		.default(false)
+		.describe("Include the caller's current admin MCP route permissions"),
+	mcp_tool: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Admin MCP tool to authorize for this caller"),
+	mcp_path: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"URL-encoded concrete management path used by the MCP tool, before query-string encoding",
+		),
 });
 
 export const userInfoV2V2UserInfoGetQueryUserIdSchema = z
@@ -21336,7 +21968,9 @@ export const getUserDailyActivityUserDailyActivityGetQueryModelSchema = z
 export const getUserDailyActivityUserDailyActivityGetQueryApiKeySchema = z
 	.union([z.string(), z.null()])
 	.optional()
-	.describe("Filter by specific API key");
+	.describe(
+		"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
+	);
 
 export const getUserDailyActivityUserDailyActivityGetQueryUserIdSchema = z
 	.union([z.string(), z.null()])
@@ -21393,7 +22027,12 @@ export const getUserDailyActivityUserDailyActivityGetQuerySchema = z.object({
 		.describe("Start date in YYYY-MM-DD format"),
 	end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
 	model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model"),
-	api_key: z.union([z.string(), z.null()]).optional().describe("Filter by specific API key"),
+	api_key: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
+		),
 	user_id: z
 		.union([z.string(), z.null()])
 		.optional()
@@ -21442,7 +22081,9 @@ export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryMo
 export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryApiKeySchema = z
 	.union([z.string(), z.null()])
 	.optional()
-	.describe("Filter by specific API key");
+	.describe(
+		"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
+	);
 
 export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQueryUserIdSchema = z
 	.union([z.string(), z.null()])
@@ -21487,7 +22128,12 @@ export const getUserDailyActivityAggregatedUserDailyActivityAggregatedGetQuerySc
 		.describe("Start date in YYYY-MM-DD format"),
 	end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
 	model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model"),
-	api_key: z.union([z.string(), z.null()]).optional().describe("Filter by specific API key"),
+	api_key: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
+		),
 	user_id: z
 		.union([z.string(), z.null()])
 		.optional()
@@ -21525,7 +22171,12 @@ export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGe
 	z.union([z.string(), z.null()]).optional().describe("Filter by specific model");
 
 export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryApiKeySchema =
-	z.union([z.string(), z.null()]).optional().describe("Filter by specific API key");
+	z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
+		);
 
 export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGetQueryUserIdSchema =
 	z
@@ -21574,7 +22225,12 @@ export const getUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGe
 			.describe("Start date in YYYY-MM-DD format"),
 		end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
 		model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model"),
-		api_key: z.union([z.string(), z.null()]).optional().describe("Filter by specific API key"),
+		api_key: z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe(
+				"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
+			),
 		user_id: z
 			.union([z.string(), z.null()])
 			.optional()
@@ -21612,7 +22268,12 @@ export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSear
 	z.union([z.string(), z.null()]).optional().describe("Filter by specific model");
 
 export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryApiKeySchema =
-	z.union([z.string(), z.null()]).optional().describe("Filter by specific API key");
+	z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
+		);
 
 export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearchGetQueryUserIdSchema =
 	z
@@ -21661,7 +22322,12 @@ export const getUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSear
 			.describe("Start date in YYYY-MM-DD format"),
 		end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
 		model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model"),
-		api_key: z.union([z.string(), z.null()]).optional().describe("Filter by specific API key"),
+		api_key: z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe(
+				"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
+			),
 		user_id: z
 			.union([z.string(), z.null()])
 			.optional()
@@ -21702,7 +22368,12 @@ export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTop
 	z.union([z.string(), z.null()]).optional().describe("Filter by specific model");
 
 export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryApiKeySchema =
-	z.union([z.string(), z.null()]).optional().describe("Filter by specific API key");
+	z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
+		);
 
 export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopKeysGetQueryUserIdSchema =
 	z
@@ -21752,7 +22423,12 @@ export const getUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTop
 			.describe("Start date in YYYY-MM-DD format"),
 		end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
 		model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model"),
-		api_key: z.union([z.string(), z.null()]).optional().describe("Filter by specific API key"),
+		api_key: z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe(
+				"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
+			),
 		user_id: z
 			.union([z.string(), z.null()])
 			.optional()
@@ -21800,7 +22476,9 @@ export const getUserDailyActivityExportUserDailyActivityExportGetQueryModelSchem
 export const getUserDailyActivityExportUserDailyActivityExportGetQueryApiKeySchema = z
 	.union([z.string(), z.null()])
 	.optional()
-	.describe("Filter by specific API key");
+	.describe(
+		"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
+	);
 
 export const getUserDailyActivityExportUserDailyActivityExportGetQueryUserIdSchema = z
 	.union([z.string(), z.null()])
@@ -21846,7 +22524,12 @@ export const getUserDailyActivityExportUserDailyActivityExportGetQuerySchema = z
 		.describe("Start date in YYYY-MM-DD format"),
 	end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
 	model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model"),
-	api_key: z.union([z.string(), z.null()]).optional().describe("Filter by specific API key"),
+	api_key: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
+		),
 	user_id: z
 		.union([z.string(), z.null()])
 		.optional()
@@ -21884,7 +22567,12 @@ export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsers
 	z.union([z.string(), z.null()]).optional().describe("Filter by specific model");
 
 export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryApiKeySchema =
-	z.union([z.string(), z.null()]).optional().describe("Filter by specific API key");
+	z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
+		);
 
 export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersGetQueryUserIdSchema =
 	z
@@ -21933,7 +22621,12 @@ export const getUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsers
 			.describe("Start date in YYYY-MM-DD format"),
 		end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
 		model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model"),
-		api_key: z.union([z.string(), z.null()]).optional().describe("Filter by specific API key"),
+		api_key: z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe(
+				"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
+			),
 		user_id: z
 			.union([z.string(), z.null()])
 			.optional()
@@ -21968,7 +22661,12 @@ export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCach
 	z.union([z.string(), z.null()]).optional().describe("Filter by specific model");
 
 export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryApiKeySchema =
-	z.union([z.string(), z.null()]).optional().describe("Filter by specific API key");
+	z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe(
+			"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
+		);
 
 export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCacheLeakageKeysGetQueryUserIdSchema =
 	z
@@ -22016,7 +22714,12 @@ export const getUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCach
 			.describe("Start date in YYYY-MM-DD format"),
 		end_date: z.union([z.string(), z.null()]).optional().describe("End date in YYYY-MM-DD format"),
 		model: z.union([z.string(), z.null()]).optional().describe("Filter by specific model"),
-		api_key: z.union([z.string(), z.null()]).optional().describe("Filter by specific API key"),
+		api_key: z
+			.union([z.string(), z.null()])
+			.optional()
+			.describe(
+				"Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix",
+			),
 		user_id: z
 			.union([z.string(), z.null()])
 			.optional()
@@ -24338,9 +25041,48 @@ export const deleteEndUserCustomerDeletePostBodySchema = deleteCustomerRequestSc
 	"Delete multiple Customers",
 );
 
+export const listEndUserCustomerListGetQueryPageSchema = z
+	.int()
+	.min(1)
+	.optional()
+	.default(1)
+	.describe("Page number");
+
+export const listEndUserCustomerListGetQueryPageSizeSchema = z
+	.int()
+	.min(1)
+	.max(100)
+	.optional()
+	.default(50)
+	.describe("Number of customers per page");
+
+export const listEndUserCustomerListGetQuerySearchSchema = z
+	.union([z.string(), z.null()])
+	.optional()
+	.describe("Case-insensitive search by customer ID or alias");
+
 export const listEndUserCustomerListGetStatus200Schema = z.array(customerResponseSchema);
 
+export const listEndUserCustomerListGetStatus422Schema = HTTPValidationErrorSchema;
+
 export const listEndUserCustomerListGetResponseSchema = listEndUserCustomerListGetStatus200Schema;
+
+export const listEndUserCustomerListGetErrorSchema = listEndUserCustomerListGetStatus422Schema;
+
+export const listEndUserCustomerListGetQuerySchema = z.object({
+	page: z.int().min(1).optional().default(1).describe("Page number"),
+	page_size: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.default(50)
+		.describe("Number of customers per page"),
+	search: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("Case-insensitive search by customer ID or alias"),
+});
 
 export const getCustomerDailyActivityCustomerDailyActivityGetQueryEndUserIdsSchema = z
 	.union([z.string(), z.null()])
@@ -25631,6 +26373,27 @@ export const updateMcpToolSearchSettingsUpdateMcpToolSearchSettingsPatchBodySche
 		"`litellm_settings.mcp_tool_search`: how the native `mcp_tool_search` virtual tool ranks the caller's tools.",
 	);
 
+export const getBackgroundChatSettingsGetBackgroundChatSettingsGetStatus200Schema =
+	backgroundChatSettingsResponseSchema;
+
+export const getBackgroundChatSettingsGetBackgroundChatSettingsGetResponseSchema =
+	getBackgroundChatSettingsGetBackgroundChatSettingsGetStatus200Schema;
+
+export const updateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchStatus200Schema =
+	backgroundChatSettingsResponseSchema;
+
+export const updateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const updateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchResponseSchema =
+	updateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchStatus200Schema;
+
+export const updateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchErrorSchema =
+	updateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchStatus422Schema;
+
+export const updateBackgroundChatSettingsUpdateBackgroundChatSettingsPatchBodySchema =
+	backgroundChatSettingsSchema;
+
 export const getUiSettingsGetUiSettingsGetStatus200Schema = UISettingsResponseSchema.describe(
 	"Response model for UI settings",
 );
@@ -25896,6 +26659,24 @@ export const deleteBudgetBudgetDeletePostErrorSchema = deleteBudgetBudgetDeleteP
 
 export const deleteBudgetBudgetDeletePostBodySchema = budgetDeleteRequestSchema;
 
+export const getKubernetesPodsModelModelIdKubernetesPodsGetPathModelIdSchema = z.string();
+
+export const getKubernetesPodsModelModelIdKubernetesPodsGetStatus200Schema =
+	kubernetesPodsResponseSchema;
+
+export const getKubernetesPodsModelModelIdKubernetesPodsGetStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const getKubernetesPodsModelModelIdKubernetesPodsGetResponseSchema =
+	getKubernetesPodsModelModelIdKubernetesPodsGetStatus200Schema;
+
+export const getKubernetesPodsModelModelIdKubernetesPodsGetErrorSchema =
+	getKubernetesPodsModelModelIdKubernetesPodsGetStatus422Schema;
+
+export const getKubernetesPodsModelModelIdKubernetesPodsGetPathSchema = z.object({
+	model_id: z.string(),
+});
+
 export const patchModelModelModelIdUpdatePatchPathModelIdSchema = z.string();
 
 export const patchModelModelModelIdUpdatePatchStatus200Schema = z.looseObject({});
@@ -25908,7 +26689,7 @@ export const patchModelModelModelIdUpdatePatchResponseSchema =
 export const patchModelModelModelIdUpdatePatchErrorSchema =
 	patchModelModelModelIdUpdatePatchStatus422Schema;
 
-export const patchModelModelModelIdUpdatePatchBodySchema = updateDeploymentSchema;
+export const patchModelModelModelIdUpdatePatchBodySchema = patchModelRequestSchema;
 
 export const patchModelModelModelIdUpdatePatchPathSchema = z.object({
 	model_id: z.string(),
@@ -27102,6 +27883,76 @@ export const estimateCostCostEstimatePostErrorSchema = estimateCostCostEstimateP
 export const estimateCostCostEstimatePostBodySchema = costEstimateRequestSchema.describe(
 	"Request body for /cost/estimate endpoint.",
 );
+
+export const getSubscriptionUsageSubscriptionAccountsUsageGetQueryStartDateSchema = z
+	.string()
+	.describe("First day of the Usage page filter, YYYY-MM-DD");
+
+export const getSubscriptionUsageSubscriptionAccountsUsageGetQueryEndDateSchema = z
+	.string()
+	.describe("Last day of the Usage page filter, YYYY-MM-DD");
+
+export const getSubscriptionUsageSubscriptionAccountsUsageGetStatus200Schema =
+	subscriptionUsageResponseSchema;
+
+export const getSubscriptionUsageSubscriptionAccountsUsageGetStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const getSubscriptionUsageSubscriptionAccountsUsageGetResponseSchema =
+	getSubscriptionUsageSubscriptionAccountsUsageGetStatus200Schema;
+
+export const getSubscriptionUsageSubscriptionAccountsUsageGetErrorSchema =
+	getSubscriptionUsageSubscriptionAccountsUsageGetStatus422Schema;
+
+export const getSubscriptionUsageSubscriptionAccountsUsageGetQuerySchema = z.object({
+	start_date: z.string().describe("First day of the Usage page filter, YYYY-MM-DD"),
+	end_date: z.string().describe("Last day of the Usage page filter, YYYY-MM-DD"),
+});
+
+export const newSubscriptionAccountSubscriptionAccountsNewPostStatus200Schema =
+	liteLLMSubscriptionAccountTableSchema;
+
+export const newSubscriptionAccountSubscriptionAccountsNewPostStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const newSubscriptionAccountSubscriptionAccountsNewPostResponseSchema =
+	newSubscriptionAccountSubscriptionAccountsNewPostStatus200Schema;
+
+export const newSubscriptionAccountSubscriptionAccountsNewPostErrorSchema =
+	newSubscriptionAccountSubscriptionAccountsNewPostStatus422Schema;
+
+export const newSubscriptionAccountSubscriptionAccountsNewPostBodySchema =
+	subscriptionAccountFeeRequestSchema;
+
+export const updateSubscriptionAccountSubscriptionAccountsUpdatePostStatus200Schema =
+	liteLLMSubscriptionAccountTableSchema;
+
+export const updateSubscriptionAccountSubscriptionAccountsUpdatePostStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const updateSubscriptionAccountSubscriptionAccountsUpdatePostResponseSchema =
+	updateSubscriptionAccountSubscriptionAccountsUpdatePostStatus200Schema;
+
+export const updateSubscriptionAccountSubscriptionAccountsUpdatePostErrorSchema =
+	updateSubscriptionAccountSubscriptionAccountsUpdatePostStatus422Schema;
+
+export const updateSubscriptionAccountSubscriptionAccountsUpdatePostBodySchema =
+	updateSubscriptionAccountFeeRequestSchema;
+
+export const deleteSubscriptionAccountSubscriptionAccountsDeletePostStatus200Schema =
+	liteLLMSubscriptionAccountTableSchema;
+
+export const deleteSubscriptionAccountSubscriptionAccountsDeletePostStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const deleteSubscriptionAccountSubscriptionAccountsDeletePostResponseSchema =
+	deleteSubscriptionAccountSubscriptionAccountsDeletePostStatus200Schema;
+
+export const deleteSubscriptionAccountSubscriptionAccountsDeletePostErrorSchema =
+	deleteSubscriptionAccountSubscriptionAccountsDeletePostStatus422Schema;
+
+export const deleteSubscriptionAccountSubscriptionAccountsDeletePostBodySchema =
+	deleteSubscriptionAccountRequestSchema;
 
 export const getPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQueryStartDateSchema =
 	z.iso.datetime({ offset: true });
@@ -28510,7 +29361,11 @@ export const websocketLiveSessionsWebsocketEndpointGet3ResponseSchema = z.unknow
 export const websocketLiveSessionsWebsocketEndpointGet3ErrorSchema =
 	websocketLiveSessionsWebsocketEndpointGet3Status101Schema;
 
-export const applyGuardrailApplyGuardrailPostStatus200Schema = applyGuardrailResponseSchema;
+export const applyGuardrailApplyGuardrailPostStatus200Schema = z.union([
+	applyGuardrailResponseSchema,
+	z.record(z.string(), jsonValueSchema),
+	z.array(jsonValueSchema),
+]);
 
 export const applyGuardrailApplyGuardrailPostStatus422Schema = HTTPValidationErrorSchema;
 
@@ -28534,8 +29389,11 @@ export const createGuardrailGuardrailsPostErrorSchema =
 
 export const createGuardrailGuardrailsPostBodySchema = createGuardrailRequestSchema;
 
-export const applyGuardrailGuardrailsApplyGuardrailPostStatus200Schema =
-	applyGuardrailResponseSchema;
+export const applyGuardrailGuardrailsApplyGuardrailPostStatus200Schema = z.union([
+	applyGuardrailResponseSchema,
+	z.record(z.string(), jsonValueSchema),
+	z.array(jsonValueSchema),
+]);
 
 export const applyGuardrailGuardrailsApplyGuardrailPostStatus422Schema = HTTPValidationErrorSchema;
 
@@ -29808,6 +30666,29 @@ export const invokeAgentA2AA2AAgentIdMessageSendPostPathSchema = z.object({
 	agent_id: z.string(),
 });
 
+export const invokeAgentA2AA2AAgentIdMessageStreamPostPathAgentIdSchema = z.string();
+
+export const invokeAgentA2AA2AAgentIdMessageStreamPostStatus200Schema = A2AJsonRpcResponseSchema;
+
+export const invokeAgentA2AA2AAgentIdMessageStreamPostStatus422Schema = HTTPValidationErrorSchema;
+
+export const invokeAgentA2AA2AAgentIdMessageStreamPostResponseSchema =
+	invokeAgentA2AA2AAgentIdMessageStreamPostStatus200Schema;
+
+export const invokeAgentA2AA2AAgentIdMessageStreamPostErrorSchema =
+	invokeAgentA2AA2AAgentIdMessageStreamPostStatus422Schema;
+
+export const invokeAgentA2AA2AAgentIdMessageStreamPostBodySchema = z.looseObject({
+	id: z.union([z.string(), z.int(), z.null()]).optional(),
+	jsonrpc: z.enum(["2.0"]),
+	method: z.string(),
+	params: z.looseObject({}),
+});
+
+export const invokeAgentA2AA2AAgentIdMessageStreamPostPathSchema = z.object({
+	agent_id: z.string(),
+});
+
 export const invokeAgentA2AV1A2AAgentIdMessageSendPostPathAgentIdSchema = z.string();
 
 export const invokeAgentA2AV1A2AAgentIdMessageSendPostStatus200Schema = z.looseObject({});
@@ -29821,6 +30702,29 @@ export const invokeAgentA2AV1A2AAgentIdMessageSendPostErrorSchema =
 	invokeAgentA2AV1A2AAgentIdMessageSendPostStatus422Schema;
 
 export const invokeAgentA2AV1A2AAgentIdMessageSendPostPathSchema = z.object({
+	agent_id: z.string(),
+});
+
+export const invokeAgentA2AV1A2AAgentIdMessageStreamPostPathAgentIdSchema = z.string();
+
+export const invokeAgentA2AV1A2AAgentIdMessageStreamPostStatus200Schema = A2AJsonRpcResponseSchema;
+
+export const invokeAgentA2AV1A2AAgentIdMessageStreamPostStatus422Schema = HTTPValidationErrorSchema;
+
+export const invokeAgentA2AV1A2AAgentIdMessageStreamPostResponseSchema =
+	invokeAgentA2AV1A2AAgentIdMessageStreamPostStatus200Schema;
+
+export const invokeAgentA2AV1A2AAgentIdMessageStreamPostErrorSchema =
+	invokeAgentA2AV1A2AAgentIdMessageStreamPostStatus422Schema;
+
+export const invokeAgentA2AV1A2AAgentIdMessageStreamPostBodySchema = z.looseObject({
+	id: z.union([z.string(), z.int(), z.null()]).optional(),
+	jsonrpc: z.enum(["2.0"]),
+	method: z.string(),
+	params: z.looseObject({}),
+});
+
+export const invokeAgentA2AV1A2AAgentIdMessageStreamPostPathSchema = z.object({
 	agent_id: z.string(),
 });
 
@@ -32265,6 +33169,118 @@ export const comprehendMedicalProxyRouteComprehendmedicalOperationPostPathSchema
 	operation: z.string(),
 });
 
+export const euJevProxyRouteEuJevV1SystemonePostStatus200Schema = euJevDecisionResponseSchema;
+
+export const euJevProxyRouteEuJevV1SystemonePostResponseSchema =
+	euJevProxyRouteEuJevV1SystemonePostStatus200Schema;
+
+export const euJevProxyRouteEuJevV1SystemonePostBodySchema = z.object({
+	model: z
+		.string()
+		.optional()
+		.default("eu-jeff-latest")
+		.describe("eu-jeff-latest follows the current release, eu-jeff-1.0.0 pins it"),
+	questions: z
+		.pipe(
+			z.unknown().check(
+				z.refine(
+					(value) =>
+						typeof value !== "object" ||
+						value === null ||
+						Array.isArray(value) ||
+						Object.keys(value).length >= 1,
+					{ message: "Object must have at least 1 properties" },
+				),
+				z.refine(
+					(value) =>
+						typeof value !== "object" ||
+						value === null ||
+						Array.isArray(value) ||
+						Object.keys(value).length <= 8,
+					{ message: "Object must have at most 8 properties" },
+				),
+			),
+			z.record(
+				z.string().min(1).max(80),
+				z.discriminatedUnion("type", [
+					z.strictObject({
+						criteria: z
+							.pipe(
+								z.unknown().check(
+									z.refine(
+										(value) =>
+											typeof value !== "object" ||
+											value === null ||
+											Array.isArray(value) ||
+											Object.keys(value).length >= 2,
+										{ message: "Object must have at least 2 properties" },
+									),
+									z.refine(
+										(value) =>
+											typeof value !== "object" ||
+											value === null ||
+											Array.isArray(value) ||
+											Object.keys(value).length <= 64,
+										{ message: "Object must have at most 64 properties" },
+									),
+								),
+								z.record(
+									z.string(),
+									z.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()]),
+								),
+							)
+							.describe(
+								"Two to 64 options, option name to description. A null description uses the option name",
+							),
+						instructions: z
+							.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()])
+							.describe(
+								"Free text, or a JSON object, array or null that eu/jev serializes to text before inference",
+							),
+						type: z.enum(["choice"]),
+					}),
+					z.strictObject({
+						criteria: z
+							.union([
+								z.partialRecord(
+									z.enum(["true", "false"]),
+									z.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()]),
+								),
+								z.null(),
+							])
+							.optional()
+							.describe("Optional descriptions of what true and false mean"),
+						instructions: z
+							.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()])
+							.describe(
+								"Free text, or a JSON object, array or null that eu/jev serializes to text before inference",
+							),
+						type: z.enum(["noul"]),
+					}),
+					z.strictObject({
+						criteria: z
+							.array(z.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()]))
+							.min(2)
+							.max(10)
+							.describe("Two to 10 level descriptions, ordered from low to high"),
+						instructions: z
+							.union([z.string(), z.looseObject({}), z.array(z.unknown()), z.null()])
+							.describe(
+								"Free text, or a JSON object, array or null that eu/jev serializes to text before inference",
+							),
+						type: z.enum(["score"]),
+					}),
+				]),
+			),
+		)
+		.describe("One to eight questions, keyed by names of up to 80 characters"),
+	state: z
+		.union([z.string().min(1).max(100000), z.looseObject({}), z.array(z.unknown())])
+		.describe(
+			"The content to evaluate, a string of up to 100,000 characters or a JSON object or array",
+		),
+});
+
 export const layaProxyRouteLayaV1SystemonePostStatus200Schema = z.looseObject({});
 
 export const layaProxyRouteLayaV1SystemonePostResponseSchema =
@@ -32961,6 +33977,138 @@ export const decisionsDecisionsPostBodySchema = z.looseObject({
 		),
 });
 
+export const extractionExtractionPostStatus200Schema = extractionResponseSchema;
+
+export const extractionExtractionPostResponseSchema = extractionExtractionPostStatus200Schema;
+
+export const extractionExtractionPostBodySchema = z.looseObject({
+	fields: z
+		.pipe(
+			z
+				.unknown()
+				.check(
+					z.refine(
+						(value) =>
+							typeof value !== "object" ||
+							value === null ||
+							Array.isArray(value) ||
+							Object.keys(value).length >= 1,
+						{ message: "Object must have at least 1 properties" },
+					),
+				),
+			z.record(
+				z.string().regex(/^[A-Za-z_][A-Za-z0-9_.-]{0,63}$/),
+				z.looseObject({
+					decimals: z
+						.union([z.int(), z.number(), z.null()])
+						.optional()
+						.describe("Numbers, durations and number lists only, 0 to 6"),
+					horizon: z
+						.union([z.int(), z.number(), z.null()])
+						.optional()
+						.describe("Forecast only, number of steps"),
+					instructions: z
+						.union([z.string(), z.null()])
+						.optional()
+						.describe("What the field should contain"),
+					integer: z
+						.union([z.boolean(), z.null()])
+						.optional()
+						.describe("Numbers and durations only"),
+					interval: z
+						.union([
+							z.enum(["step", "minute", "hour", "day", "week", "month", "quarter", "year"]),
+							z.null(),
+						])
+						.optional(),
+					items: z
+						.union([z.enum(["text", "number", "date"]), z.null()])
+						.optional()
+						.describe("Item type, required for list fields"),
+					max: z
+						.union([z.int(), z.number(), z.string(), z.null()])
+						.optional()
+						.describe("Estimate and forecast upper bound"),
+					min: z
+						.union([z.int(), z.number(), z.string(), z.null()])
+						.optional()
+						.describe("Estimate and forecast lower bound"),
+					null_threshold: z
+						.union([z.int(), z.number(), z.null()])
+						.optional()
+						.describe("Probability of null above which the value is null"),
+					scale: z.union([z.enum(["linear", "log"]), z.null()]).optional(),
+					step: z
+						.union([z.int(), z.number(), z.string(), z.null()])
+						.optional()
+						.describe("Estimate grid step, or month or year"),
+					type: z
+						.enum([
+							"text",
+							"number",
+							"date",
+							"time",
+							"datetime",
+							"duration",
+							"list",
+							"estimate",
+							"forecast",
+						])
+						.describe("The answer type for this field"),
+					unit: z
+						.union([z.string(), z.null()])
+						.optional()
+						.describe("Unit label. For durations, seconds through years"),
+				}),
+			),
+		)
+		.describe("Field name to typed field spec. Each name becomes a key in the answers"),
+	images: z
+		.union([
+			z
+				.array(
+					z.union([
+						z.string().regex(/^[Dd][Aa][Tt][Aa]:/),
+						z.looseObject({
+							base64: z.string().describe("Base64-encoded image bytes"),
+							content_type: z.string().describe("The image media type, such as image/png"),
+						}),
+					]),
+				)
+				.max(4),
+			z.null(),
+		])
+		.optional()
+		.describe("Up to 4 images as data URLs or content_type plus base64, no remote URLs"),
+	model: z.string().describe("An extraction model from the proxy model_list"),
+	options: z
+		.union([
+			z.looseObject({
+				include_quantiles: z
+					.union([z.boolean(), z.null()])
+					.optional()
+					.describe("Add 99 percentiles to estimates"),
+				return_state_text: z
+					.union([z.boolean(), z.null()])
+					.optional()
+					.describe("Return the text that spans index into"),
+			}),
+			z.null(),
+		])
+		.optional(),
+	reference_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("ISO date that anchors dates written without a year"),
+	state: z
+		.string()
+		.optional()
+		.default("")
+		.describe(
+			"The text to read. Must be non-empty unless images are sent. Text answers are spans of it",
+		),
+});
+
 export const systemoneSystemonePostStatus200Schema = decisionsResponseSchema;
 
 export const systemoneSystemonePostResponseSchema = systemoneSystemonePostStatus200Schema;
@@ -33029,24 +34177,18 @@ export const systemoneSystemonePostBodySchema = z.looseObject({
 	model: z.string().describe("A decision model from the proxy model_list"),
 	questions: z
 		.pipe(
-			z.unknown().check(
-				z.refine(
-					(value) =>
-						typeof value !== "object" ||
-						value === null ||
-						Array.isArray(value) ||
-						Object.keys(value).length >= 1,
-					{ message: "Object must have at least 1 properties" },
+			z
+				.unknown()
+				.check(
+					z.refine(
+						(value) =>
+							typeof value !== "object" ||
+							value === null ||
+							Array.isArray(value) ||
+							Object.keys(value).length >= 1,
+						{ message: "Object must have at least 1 properties" },
+					),
 				),
-				z.refine(
-					(value) =>
-						typeof value !== "object" ||
-						value === null ||
-						Array.isArray(value) ||
-						Object.keys(value).length <= 128,
-					{ message: "Object must have at most 128 properties" },
-				),
-			),
 			z.record(
 				z.string().min(1),
 				z.discriminatedUnion("type", [
@@ -33287,6 +34429,138 @@ export const decisionsV1DecisionsPostBodySchema = z.looseObject({
 		),
 });
 
+export const extractionV1ExtractionPostStatus200Schema = extractionResponseSchema;
+
+export const extractionV1ExtractionPostResponseSchema = extractionV1ExtractionPostStatus200Schema;
+
+export const extractionV1ExtractionPostBodySchema = z.looseObject({
+	fields: z
+		.pipe(
+			z
+				.unknown()
+				.check(
+					z.refine(
+						(value) =>
+							typeof value !== "object" ||
+							value === null ||
+							Array.isArray(value) ||
+							Object.keys(value).length >= 1,
+						{ message: "Object must have at least 1 properties" },
+					),
+				),
+			z.record(
+				z.string().regex(/^[A-Za-z_][A-Za-z0-9_.-]{0,63}$/),
+				z.looseObject({
+					decimals: z
+						.union([z.int(), z.number(), z.null()])
+						.optional()
+						.describe("Numbers, durations and number lists only, 0 to 6"),
+					horizon: z
+						.union([z.int(), z.number(), z.null()])
+						.optional()
+						.describe("Forecast only, number of steps"),
+					instructions: z
+						.union([z.string(), z.null()])
+						.optional()
+						.describe("What the field should contain"),
+					integer: z
+						.union([z.boolean(), z.null()])
+						.optional()
+						.describe("Numbers and durations only"),
+					interval: z
+						.union([
+							z.enum(["step", "minute", "hour", "day", "week", "month", "quarter", "year"]),
+							z.null(),
+						])
+						.optional(),
+					items: z
+						.union([z.enum(["text", "number", "date"]), z.null()])
+						.optional()
+						.describe("Item type, required for list fields"),
+					max: z
+						.union([z.int(), z.number(), z.string(), z.null()])
+						.optional()
+						.describe("Estimate and forecast upper bound"),
+					min: z
+						.union([z.int(), z.number(), z.string(), z.null()])
+						.optional()
+						.describe("Estimate and forecast lower bound"),
+					null_threshold: z
+						.union([z.int(), z.number(), z.null()])
+						.optional()
+						.describe("Probability of null above which the value is null"),
+					scale: z.union([z.enum(["linear", "log"]), z.null()]).optional(),
+					step: z
+						.union([z.int(), z.number(), z.string(), z.null()])
+						.optional()
+						.describe("Estimate grid step, or month or year"),
+					type: z
+						.enum([
+							"text",
+							"number",
+							"date",
+							"time",
+							"datetime",
+							"duration",
+							"list",
+							"estimate",
+							"forecast",
+						])
+						.describe("The answer type for this field"),
+					unit: z
+						.union([z.string(), z.null()])
+						.optional()
+						.describe("Unit label. For durations, seconds through years"),
+				}),
+			),
+		)
+		.describe("Field name to typed field spec. Each name becomes a key in the answers"),
+	images: z
+		.union([
+			z
+				.array(
+					z.union([
+						z.string().regex(/^[Dd][Aa][Tt][Aa]:/),
+						z.looseObject({
+							base64: z.string().describe("Base64-encoded image bytes"),
+							content_type: z.string().describe("The image media type, such as image/png"),
+						}),
+					]),
+				)
+				.max(4),
+			z.null(),
+		])
+		.optional()
+		.describe("Up to 4 images as data URLs or content_type plus base64, no remote URLs"),
+	model: z.string().describe("An extraction model from the proxy model_list"),
+	options: z
+		.union([
+			z.looseObject({
+				include_quantiles: z
+					.union([z.boolean(), z.null()])
+					.optional()
+					.describe("Add 99 percentiles to estimates"),
+				return_state_text: z
+					.union([z.boolean(), z.null()])
+					.optional()
+					.describe("Return the text that spans index into"),
+			}),
+			z.null(),
+		])
+		.optional(),
+	reference_date: z
+		.union([z.string(), z.null()])
+		.optional()
+		.describe("ISO date that anchors dates written without a year"),
+	state: z
+		.string()
+		.optional()
+		.default("")
+		.describe(
+			"The text to read. Must be non-empty unless images are sent. Text answers are spans of it",
+		),
+});
+
 export const systemoneV1SystemonePostStatus200Schema = decisionsResponseSchema;
 
 export const systemoneV1SystemonePostResponseSchema = systemoneV1SystemonePostStatus200Schema;
@@ -33355,24 +34629,18 @@ export const systemoneV1SystemonePostBodySchema = z.looseObject({
 	model: z.string().describe("A decision model from the proxy model_list"),
 	questions: z
 		.pipe(
-			z.unknown().check(
-				z.refine(
-					(value) =>
-						typeof value !== "object" ||
-						value === null ||
-						Array.isArray(value) ||
-						Object.keys(value).length >= 1,
-					{ message: "Object must have at least 1 properties" },
+			z
+				.unknown()
+				.check(
+					z.refine(
+						(value) =>
+							typeof value !== "object" ||
+							value === null ||
+							Array.isArray(value) ||
+							Object.keys(value).length >= 1,
+						{ message: "Object must have at least 1 properties" },
+					),
 				),
-				z.refine(
-					(value) =>
-						typeof value !== "object" ||
-						value === null ||
-						Array.isArray(value) ||
-						Object.keys(value).length <= 128,
-					{ message: "Object must have at most 128 properties" },
-				),
-			),
 			z.record(
 				z.string().min(1),
 				z.discriminatedUnion("type", [
@@ -34207,16 +35475,6 @@ export const updateVantageSettingsVantageSettingsPutErrorSchema =
 
 export const updateVantageSettingsVantageSettingsPutBodySchema =
 	vantageSettingsUpdateSchema.describe("Request model for updating Vantage settings");
-
-export const usageAiChatUsageAiChatPostStatus200Schema = z.looseObject({});
-
-export const usageAiChatUsageAiChatPostStatus422Schema = HTTPValidationErrorSchema;
-
-export const usageAiChatUsageAiChatPostResponseSchema = usageAiChatUsageAiChatPostStatus200Schema;
-
-export const usageAiChatUsageAiChatPostErrorSchema = usageAiChatUsageAiChatPostStatus422Schema;
-
-export const usageAiChatUsageAiChatPostBodySchema = usageAIChatRequestSchema;
 
 export const createPromptPromptsPostStatus200Schema = z.looseObject({});
 
