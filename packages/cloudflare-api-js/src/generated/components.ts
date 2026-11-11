@@ -55201,7 +55201,7 @@ export async function getDatasetPreferencesRead(
 
 /**
  * @summary Set default datasets
- * @description Sets the datasets to use when a request omits `datasetId`, for you (`scope` `user`) or for the account (`scope` `account`). Your own default datasets take precedence over the account's. Every dataset must exist and be readable by the account.
+ * @description Sets the datasets to use when a request omits `datasetId`, for you (`scope` `user`) or for the account (`scope` `account`). Your own default datasets take precedence over the account's. Every dataset must exist and be readable by the account, and the list cannot mix analytics and intelligence datasets.
  * @link /accounts/{accountId}/cloudforce-one/events/datasets/preferences
  */
 export async function putDatasetPreferencesUpdate(
