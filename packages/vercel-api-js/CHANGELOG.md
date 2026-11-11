@@ -1,5 +1,13 @@
 # vercel-api-js
 
+## 2.33.1
+
+### Patch Changes
+
+- 0f5e46e: Added 'read-write:desktop-device' to userEventPayloadPermissionsEnum and userEventPayloadNextPermissionsEnum.
+- 0f5e46e: Added 'ai-gateway-system-credential-fallback-opt-out-toggled' to userEventTypeEnum, listEventTypeNameEnum, and listEventTypeReplacedByEnum.
+- 0f5e46e: Added optional 'desktopDevice' array field to multiple project and microfrontend status types to indicate authorized operations when permissions are checked.
+
 ## 2.33.0
 
 ### Minor Changes
