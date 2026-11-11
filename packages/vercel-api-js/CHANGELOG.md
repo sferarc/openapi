@@ -1,5 +1,18 @@
 # vercel-api-js
 
+## 2.34.0
+
+### Minor Changes
+
+- a976b47: Added query parameter types ReplaceDomainsByDomainRecordsQuery and GetDomainsRecordsByRecordIdQuery for replaceDomainsByDomainRecords and getDomainsRecordsByRecordId operations, and updated query param handling to accept partials of these types instead of raw records.
+
+### Patch Changes
+
+- a976b47: Added a new variant for UserEvent type, supporting flag override events with environment, expiresIn, flags, projectId, projectIds, and optional projectName.
+- a976b47: Added the orphanSsoTeam optional field to the AuthUser type to support additional SSO team context.
+- a976b47: Added support for 'flags-overrides-signed' to userEventTypeEnum, listEventTypeNameEnum, and listEventTypeReplacedByEnum.
+- a976b47: Added organizationAdmin and organizationMember fields to several *Status200 response types, reflecting authorized operations when checkPermissions is used.
+
 ## 2.33.1
 
 ### Patch Changes
