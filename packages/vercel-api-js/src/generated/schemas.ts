@@ -6896,6 +6896,18 @@ export const userEventSchema = z
 					action: z.enum(["disable", "enable"]),
 				}),
 				z.strictObject({
+					environment: z.string(),
+					expiresIn: z.number().describe("Seconds until the overrides expire."),
+					flags: z
+						.array(z.string())
+						.describe("The keys of the overridden flags, never their values."),
+					projectId: z.string(),
+					projectIds: z
+						.array(z.string())
+						.describe("The projects that accept the overrides: a whole microfrontends group."),
+					projectName: z.string().optional(),
+				}),
+				z.strictObject({
 					source: z.enum(["create", "enable", "upgrade"]),
 				}),
 				z.strictObject({
@@ -11690,6 +11702,7 @@ export const userEventSchema = z
 				"flags-connection-created",
 				"flags-connection-deleted",
 				"flags-explorer-subscription",
+				"flags-overrides-signed",
 				"flags-sdk-key",
 				"flags-sdk-key-added",
 				"flags-sdk-key-deleted",
@@ -12575,6 +12588,7 @@ export const listEventTypeSchema = z
 				"flags-connection-created",
 				"flags-connection-deleted",
 				"flags-explorer-subscription",
+				"flags-overrides-signed",
 				"flags-sdk-key",
 				"flags-sdk-key-added",
 				"flags-sdk-key-deleted",
@@ -13355,6 +13369,7 @@ export const listEventTypeSchema = z
 					"flags-connection-created",
 					"flags-connection-deleted",
 					"flags-explorer-subscription",
+					"flags-overrides-signed",
 					"flags-sdk-key",
 					"flags-sdk-key-added",
 					"flags-sdk-key-deleted",
@@ -16276,6 +16291,17 @@ export const authUserSchema = z
 						slug: z.string(),
 					})
 					.optional(),
+				orphanSsoTeam: z
+					.object({
+						avatar: z.string().nullable(),
+						name: z.string(),
+						slug: z.string(),
+						teamId: z.string(),
+					})
+					.optional()
+					.describe(
+						"Orphans only: the team whose Directory Sync invite SSO sign-in redeems for a managed account once Update Account is complete.",
+					),
 				verifiedEmuDomains: z.array(z.string()),
 			})
 			.optional()
@@ -38797,6 +38823,18 @@ export const replaceDomainsByDomainRecordsPathDomainSchema = z
 	.describe("The domain name")
 	.meta({ examples: ["example.com"] });
 
+export const replaceDomainsByDomainRecordsQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const replaceDomainsByDomainRecordsQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
 export const replaceDomainsByDomainRecordsStatus200Schema = z.object({
 	recordIds: z.array(z.string()),
 });
@@ -38835,9 +38873,34 @@ export const replaceDomainsByDomainRecordsPathSchema = z.object({
 		.meta({ examples: ["example.com"] }),
 });
 
+export const replaceDomainsByDomainRecordsQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getDomainsRecordsByRecordIdPathRecordIdSchema = z
 	.string()
 	.describe("The unique ID of the DNS record");
+
+export const getDomainsRecordsByRecordIdQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const getDomainsRecordsByRecordIdQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
 
 export const getDomainsRecordsByRecordIdStatus200Schema = z.object({
 	comment: z.string().optional(),
@@ -38874,6 +38937,19 @@ export const getDomainsRecordsByRecordIdErrorSchema = z.union([
 
 export const getDomainsRecordsByRecordIdPathSchema = z.object({
 	recordId: z.string().describe("The unique ID of the DNS record"),
+});
+
+export const getDomainsRecordsByRecordIdQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
 });
 
 export const removeRecordPathDomainSchema = z.string().meta({ examples: ["example.com"] });
@@ -61278,7 +61354,19 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						.describe(
 							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 						),
+					organizationAdmin: z
+						.array(ACLActionSchema)
+						.optional()
+						.describe(
+							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+						),
 					organizationDomain: z
+						.array(ACLActionSchema)
+						.optional()
+						.describe(
+							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+						),
+					organizationMember: z
 						.array(ACLActionSchema)
 						.optional()
 						.describe(
@@ -72436,7 +72524,19 @@ export const getProjectsStatus200Schema = z
 								.describe(
 									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 								),
+							organizationAdmin: z
+								.array(ACLActionSchema)
+								.optional()
+								.describe(
+									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+								),
 							organizationDomain: z
+								.array(ACLActionSchema)
+								.optional()
+								.describe(
+									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+								),
+							organizationMember: z
 								.array(ACLActionSchema)
 								.optional()
 								.describe(
@@ -76747,7 +76847,19 @@ export const createProjectStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			organizationAdmin: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			organizationDomain: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			organizationMember: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -81385,7 +81497,19 @@ export const getProjectStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			organizationAdmin: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			organizationDomain: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			organizationMember: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -85494,7 +85618,19 @@ export const updateProjectStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			organizationAdmin: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			organizationDomain: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			organizationMember: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -90522,7 +90658,19 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			organizationAdmin: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			organizationDomain: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			organizationMember: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -94638,7 +94786,19 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			organizationAdmin: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			organizationDomain: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			organizationMember: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -105015,7 +105175,19 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			organizationAdmin: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			organizationDomain: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			organizationMember: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(

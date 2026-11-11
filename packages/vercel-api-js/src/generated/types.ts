@@ -8497,6 +8497,7 @@ export const userEventTypeEnum = {
 	"flags-connection-created": "flags-connection-created",
 	"flags-connection-deleted": "flags-connection-deleted",
 	"flags-explorer-subscription": "flags-explorer-subscription",
+	"flags-overrides-signed": "flags-overrides-signed",
 	"flags-sdk-key": "flags-sdk-key",
 	"flags-sdk-key-added": "flags-sdk-key-added",
 	"flags-sdk-key-deleted": "flags-sdk-key-deleted",
@@ -12122,6 +12123,26 @@ export type UserEvent = {
 				  }
 				| {
 						action: UserEventPayloadActionEnum11Key;
+				  }
+				| {
+						environment: string;
+						/**
+						 * @description Seconds until the overrides expire.
+						 * @type number
+						 */
+						expiresIn: number;
+						/**
+						 * @description The keys of the overridden flags, never their values.
+						 * @type array
+						 */
+						flags: string[];
+						projectId: string;
+						/**
+						 * @description The projects that accept the overrides: a whole microfrontends group.
+						 * @type array
+						 */
+						projectIds: string[];
+						projectName?: string | undefined;
 				  }
 				| {
 						source: UserEventPayloadSourceEnumKey;
@@ -16845,6 +16866,7 @@ export const listEventTypeNameEnum = {
 	"flags-connection-created": "flags-connection-created",
 	"flags-connection-deleted": "flags-connection-deleted",
 	"flags-explorer-subscription": "flags-explorer-subscription",
+	"flags-overrides-signed": "flags-overrides-signed",
 	"flags-sdk-key": "flags-sdk-key",
 	"flags-sdk-key-added": "flags-sdk-key-added",
 	"flags-sdk-key-deleted": "flags-sdk-key-deleted",
@@ -17642,6 +17664,7 @@ export const listEventTypeReplacedByEnum = {
 	"flags-connection-created": "flags-connection-created",
 	"flags-connection-deleted": "flags-connection-deleted",
 	"flags-explorer-subscription": "flags-explorer-subscription",
+	"flags-overrides-signed": "flags-overrides-signed",
 	"flags-sdk-key": "flags-sdk-key",
 	"flags-sdk-key-added": "flags-sdk-key-added",
 	"flags-sdk-key-deleted": "flags-sdk-key-deleted",
@@ -21577,6 +21600,18 @@ export type AuthUser = {
 							id: string;
 							name: string;
 							slug: string;
+					  }
+					| undefined;
+				/**
+				 * @description Orphans only: the team whose Directory Sync invite SSO sign-in redeems for a managed account once Update Account is complete.
+				 * @type object | undefined
+				 */
+				orphanSsoTeam?:
+					| {
+							avatar: string | null;
+							name: string;
+							slug: string;
+							teamId: string;
 					  }
 					| undefined;
 				verifiedEmuDomains: string[];
@@ -49131,6 +49166,21 @@ export type ReplaceDomainsByDomainRecordsPath = {
 	domain: string;
 };
 
+export type ReplaceDomainsByDomainRecordsQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
 export type ReplaceDomainsByDomainRecordsStatus200 = {
 	recordIds: string[];
 };
@@ -49152,7 +49202,7 @@ export type ReplaceDomainsByDomainRecordsStatus415 = unknown;
 export type ReplaceDomainsByDomainRecordsOptions = {
 	body?: never | undefined;
 	path: ReplaceDomainsByDomainRecordsPath;
-	query?: never | undefined;
+	query?: ReplaceDomainsByDomainRecordsQuery | undefined;
 	headers?: never | undefined;
 };
 
@@ -49178,6 +49228,21 @@ export type GetDomainsRecordsByRecordIdPath = {
 	 * @type string
 	 */
 	recordId: string;
+};
+
+export type GetDomainsRecordsByRecordIdQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
 };
 
 export const getDomainsRecordsByRecordIdStatus200RecordTypeEnum = {
@@ -49238,7 +49303,7 @@ export type GetDomainsRecordsByRecordIdStatus410 = unknown;
 export type GetDomainsRecordsByRecordIdOptions = {
 	body?: never | undefined;
 	path: GetDomainsRecordsByRecordIdPath;
-	query?: never | undefined;
+	query?: GetDomainsRecordsByRecordIdQuery | undefined;
 	headers?: never | undefined;
 };
 
@@ -76483,7 +76548,17 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 					 * @type array | undefined
 					 */
+					organizationAdmin?: ACLActionKey[] | undefined;
+					/**
+					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+					 * @type array | undefined
+					 */
 					organizationDomain?: ACLActionKey[] | undefined;
+					/**
+					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+					 * @type array | undefined
+					 */
+					organizationMember?: ACLActionKey[] | undefined;
 					/**
 					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 					 * @type array | undefined
@@ -89995,7 +90070,17 @@ export type GetProjectsStatus200 =
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 									 * @type array | undefined
 									 */
+									organizationAdmin?: ACLActionKey[] | undefined;
+									/**
+									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+									 * @type array | undefined
+									 */
 									organizationDomain?: ACLActionKey[] | undefined;
+									/**
+									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+									 * @type array | undefined
+									 */
+									organizationMember?: ACLActionKey[] | undefined;
 									/**
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 									 * @type array | undefined
@@ -94626,7 +94711,17 @@ export type CreateProjectStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				organizationAdmin?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				organizationDomain?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				organizationMember?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -99843,7 +99938,17 @@ export type GetProjectStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				organizationAdmin?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				organizationDomain?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				organizationMember?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -104347,7 +104452,17 @@ export type UpdateProjectStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				organizationAdmin?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				organizationDomain?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				organizationMember?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -109925,7 +110040,17 @@ export type UploadProjectAvatarStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				organizationAdmin?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				organizationDomain?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				organizationMember?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -114467,7 +114592,17 @@ export type DeleteProjectAvatarStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				organizationAdmin?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				organizationDomain?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				organizationMember?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -126408,7 +126543,17 @@ export type UpdateMicrofrontendsStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				organizationAdmin?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				organizationDomain?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				organizationMember?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
