@@ -1,5 +1,16 @@
 # cloudflare-api-js
 
+## 4.31.0
+
+### Minor Changes
+
+- 153c257: [BREAKING] The tagsDelete and tagsZoneDelete operations now require parameters via query instead of body, and their option types have changed accordingly.
+
+### Patch Changes
+
+- 153c257: Query parameter types TagsDeleteQuery and TagsZoneDeleteQuery were added for tagsDelete and tagsZoneDelete operations.
+- 153c257: The request body types TagsDeleteBody and TagsZoneDeleteBody have been removed from tagsDelete and tagsZoneDelete options.
+
 ## 4.30.0
 
 ### Minor Changes
