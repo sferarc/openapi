@@ -7626,6 +7626,7 @@ export type UserEventPayloadPreviousScopeEnumKey =
 
 export const userEventPayloadNextProjectScopeEnum = {
 	all: "all",
+	none: "none",
 	selected: "selected",
 } as const;
 
@@ -7634,6 +7635,7 @@ export type UserEventPayloadNextProjectScopeEnumKey =
 
 export const userEventPayloadNextRepositoryScopeEnum = {
 	all: "all",
+	none: "none",
 	selected: "selected",
 } as const;
 
@@ -7642,6 +7644,7 @@ export type UserEventPayloadNextRepositoryScopeEnumKey =
 
 export const userEventPayloadPreviousProjectScopeEnum = {
 	all: "all",
+	none: "none",
 	selected: "selected",
 } as const;
 
@@ -7650,6 +7653,7 @@ export type UserEventPayloadPreviousProjectScopeEnumKey =
 
 export const userEventPayloadPreviousRepositoryScopeEnum = {
 	all: "all",
+	none: "none",
 	selected: "selected",
 } as const;
 
@@ -8267,6 +8271,7 @@ export const userEventTypeEnum = {
 	"ai-gateway-headquarters-updated": "ai-gateway-headquarters-updated",
 	"ai-gateway-hipaa-compliance-toggled": "ai-gateway-hipaa-compliance-toggled",
 	"ai-gateway-inference-regions-updated": "ai-gateway-inference-regions-updated",
+	"ai-gateway-member-budget-changes": "ai-gateway-member-budget-changes",
 	"ai-gateway-model-allowlist-models-updated": "ai-gateway-model-allowlist-models-updated",
 	"ai-gateway-model-allowlist-toggled": "ai-gateway-model-allowlist-toggled",
 	"ai-gateway-model-catalog-alert-settings-updated":
@@ -9579,6 +9584,9 @@ export type UserEvent = {
 						userName?: string | undefined;
 				  }
 				| {
+						enabled: false | true;
+				  }
+				| {
 						credential: {
 							id: string;
 							name: string;
@@ -9609,9 +9617,6 @@ export type UserEvent = {
 							providerSlug: string;
 						};
 						removed: string[];
-				  }
-				| {
-						enabled: false | true;
 				  }
 				| {
 						amount: string;
@@ -16656,6 +16661,7 @@ export const listEventTypeNameEnum = {
 	"ai-gateway-headquarters-updated": "ai-gateway-headquarters-updated",
 	"ai-gateway-hipaa-compliance-toggled": "ai-gateway-hipaa-compliance-toggled",
 	"ai-gateway-inference-regions-updated": "ai-gateway-inference-regions-updated",
+	"ai-gateway-member-budget-changes": "ai-gateway-member-budget-changes",
 	"ai-gateway-model-allowlist-models-updated": "ai-gateway-model-allowlist-models-updated",
 	"ai-gateway-model-allowlist-toggled": "ai-gateway-model-allowlist-toggled",
 	"ai-gateway-model-catalog-alert-settings-updated":
@@ -17461,6 +17467,7 @@ export const listEventTypeReplacedByEnum = {
 	"ai-gateway-headquarters-updated": "ai-gateway-headquarters-updated",
 	"ai-gateway-hipaa-compliance-toggled": "ai-gateway-hipaa-compliance-toggled",
 	"ai-gateway-inference-regions-updated": "ai-gateway-inference-regions-updated",
+	"ai-gateway-member-budget-changes": "ai-gateway-member-budget-changes",
 	"ai-gateway-model-allowlist-models-updated": "ai-gateway-model-allowlist-models-updated",
 	"ai-gateway-model-allowlist-toggled": "ai-gateway-model-allowlist-toggled",
 	"ai-gateway-model-catalog-alert-settings-updated":
@@ -20106,6 +20113,15 @@ export const teamDeploymentStorageRolloutMeterReasonEnum = {
 export type TeamDeploymentStorageRolloutMeterReasonEnumKey =
 	(typeof teamDeploymentStorageRolloutMeterReasonEnum)[keyof typeof teamDeploymentStorageRolloutMeterReasonEnum];
 
+export const teamDirectorySyncSourceEnum = {
+	none: "none",
+	organization: "organization",
+	team: "team",
+} as const;
+
+export type TeamDirectorySyncSourceEnumKey =
+	(typeof teamDirectorySyncSourceEnum)[keyof typeof teamDirectorySyncSourceEnum];
+
 export const teamDisjunctiveProductionSecretPolicyEnum = {
 	default: "default",
 	off: "off",
@@ -20563,6 +20579,16 @@ export type Team = {
 	 * @type string
 	 */
 	description: string | null;
+	/**
+	 * @description Directory Sync source, using existing local connection and organization authority rules.
+	 * @type string
+	 */
+	directorySyncSource: TeamDirectorySyncSourceEnumKey;
+	/**
+	 * @description Provider type of the directory selected by directorySyncSource.
+	 * @type string | undefined
+	 */
+	directorySyncType?: string | undefined;
 	/**
 	 * @description Default for projects in the team. When `true`, projects in this team will not emit GitHub repository-dispatch events on deployment events unless the project explicitly overrides this setting via `project.gitProviderOptions.disableRepositoryDispatchEvents`.
 	 * @type boolean | undefined
@@ -21028,6 +21054,15 @@ export type Team = {
 	[key: string]: unknown;
 };
 
+export const teamLimitedDirectorySyncSourceEnum = {
+	none: "none",
+	organization: "organization",
+	team: "team",
+} as const;
+
+export type TeamLimitedDirectorySyncSourceEnumKey =
+	(typeof teamLimitedDirectorySyncSourceEnum)[keyof typeof teamLimitedDirectorySyncSourceEnum];
+
 export const teamLimitedLimitedByEnum = {
 	invalidated: "invalidated",
 	mfa: "mfa",
@@ -21149,6 +21184,16 @@ export type TeamLimited = {
 	 * @type number
 	 */
 	createdAt: number;
+	/**
+	 * @description Directory Sync source, using existing local connection and organization authority rules.
+	 * @type string
+	 */
+	directorySyncSource: TeamLimitedDirectorySyncSourceEnumKey;
+	/**
+	 * @description Provider type of the directory selected by directorySyncSource.
+	 * @type string | undefined
+	 */
+	directorySyncType?: string | undefined;
 	/**
 	 * @description The Team's unique identifier.
 	 * @example team_nllPyCtREAqxxdyFKbbMDlxd
@@ -26857,169 +26902,202 @@ export type BuyCreditsStatus200 =
 							type: "orb_subscription_intent";
 					  }
 					| {
-							/**
-							 * @description Purchase configuration specific options
-							 * @type object
-							 */
-							options: {
-								/**
-								 * @description The current plan being replaced by this purchase
-								 * @type object | undefined
-								 */
-								fromPlan?:
-									| {
-											/**
-											 * @description Additional source subscriptions replaced by this purchase
-											 * @type array | undefined
-											 */
-											additionalSubscriptions?:
-												| {
+							options:
+								| {
+										/**
+										 * @description The current plan being replaced by this purchase
+										 * @type object | undefined
+										 */
+										fromPlan?:
+											| {
+													/**
+													 * @description Additional source subscriptions replaced by this purchase
+													 * @type array | undefined
+													 */
+													additionalSubscriptions?:
+														| {
+																/**
+																 * @description The end of the additional source subscription billing cycle
+																 * @type string
+																 */
+																currentCycleEndDate: string;
+																/**
+																 * @description The additional source Orb subscription ID
+																 * @type string
+																 */
+																orbSubscriptionId: string;
+																/**
+																 * @description The ID of the plan assigned to the additional source subscription
+																 * @type string
+																 */
+																planId: string;
+														  }[]
+														| undefined;
+													/**
+													 * @description The end of the current plan billing cycle
+													 * @type string
+													 */
+													currentCycleEndDate: string;
+													/**
+													 * @description The Orb subscription ID currently active for the owner on the source plan
+													 * @type string
+													 */
+													orbSubscriptionId: string;
+													/**
+													 * @description The ID of the plan currently assigned
+													 * @type string
+													 */
+													planId: string;
+													/**
+													 * @description The current plan item price overrides
+													 * @type array | undefined
+													 */
+													planItemPrices?:
+														| {
+																/**
+																 * @description The ID of the plan item to set the price for
+																 * @type string
+																 */
+																planItemId: string;
+																/**
+																 * @description The absolute price that replaces the plan item price, after any rate variant
+																 * @type object
+																 */
+																price: {
+																	model: "unit";
+																	/**
+																	 * @description The non-negative per-unit USD amount, with at most two decimal places
+																	 * @type string
+																	 */
+																	unitAmount: string;
+																};
+														  }[]
+														| undefined;
+													/**
+													 * @description The current plan item quantities
+													 * @type array | undefined
+													 */
+													planItemQuantities?:
+														| {
+																/**
+																 * @description The ID of the current plan item to set the quantity for
+																 * @type string
+																 */
+																planItemId: string;
+																/**
+																 * @description The nonnegative integer quantity for the current plan item
+																 * @type number
+																 */
+																quantity: number;
+																/**
+																 * @description The resource IDs associated with the current plan item quantity
+																 * @type array | undefined
+																 */
+																resourceIds?: string[] | undefined;
+														  }[]
+														| undefined;
+													/**
+													 * @description The rate variant currently assigned
+													 * @type string | undefined
+													 */
+													rateVariantKey?: string | undefined;
+											  }
+											| undefined;
+										/**
+										 * @description The ID of the plan to subscribe to
+										 * @type string
+										 */
+										planId: string;
+										/**
+										 * @description The plan item prices to set for the subscription, independent of quantities
+										 * @type array | undefined
+										 */
+										planItemPrices?:
+											| {
+													/**
+													 * @description The ID of the plan item to set the price for
+													 * @type string
+													 */
+													planItemId: string;
+													/**
+													 * @description The absolute price that replaces the plan item price, after any rate variant
+													 * @type object
+													 */
+													price: {
+														model: "unit";
 														/**
-														 * @description The end of the additional source subscription billing cycle
+														 * @description The non-negative per-unit USD amount, with at most two decimal places
 														 * @type string
 														 */
-														currentCycleEndDate: string;
-														/**
-														 * @description The additional source Orb subscription ID
-														 * @type string
-														 */
-														orbSubscriptionId: string;
-														/**
-														 * @description The ID of the plan assigned to the additional source subscription
-														 * @type string
-														 */
-														planId: string;
-												  }[]
-												| undefined;
+														unitAmount: string;
+													};
+											  }[]
+											| undefined;
+										/**
+										 * @description The plan item quantities to set for the subscription
+										 * @type array | undefined
+										 */
+										planItemQuantities?:
+											| {
+													/**
+													 * @description The ID of the plan item to set the quantity for
+													 * @type string
+													 */
+													planItemId: string;
+													/**
+													 * @description The nonnegative integer quantity for the plan item
+													 * @type number
+													 */
+													quantity: number;
+													/**
+													 * @description The resource IDs to associate with the plan item quantity
+													 * @type array | undefined
+													 */
+													resourceIds?: string[] | undefined;
+											  }[]
+											| undefined;
+										/**
+										 * @description The rate variant key to apply to the subscription
+										 * @type string | undefined
+										 */
+										rateVariantKey?: string | undefined;
+										/**
+										 * @description Replacement billing-cycle policy. Defaults to restart_cycle.
+										 * @type object | undefined
+										 */
+										transition?:
+											| {
+													type: "restart_cycle";
+											  }
+											| undefined;
+								  }
+								| {
+										fromPlan: {
 											/**
-											 * @description The end of the current plan billing cycle
-											 * @type string
-											 */
-											currentCycleEndDate: string;
-											/**
-											 * @description The Orb subscription ID currently active for the owner on the source plan
+											 * @description The owned active source subscription recorded by Copper
 											 * @type string
 											 */
 											orbSubscriptionId: string;
-											/**
-											 * @description The ID of the plan currently assigned
-											 * @type string
-											 */
-											planId: string;
-											/**
-											 * @description The current plan item price overrides
-											 * @type array | undefined
-											 */
-											planItemPrices?:
-												| {
-														/**
-														 * @description The ID of the plan item to set the price for
-														 * @type string
-														 */
-														planItemId: string;
-														/**
-														 * @description The absolute price that replaces the plan item price, after any rate variant
-														 * @type object
-														 */
-														price: {
-															model: "unit";
-															/**
-															 * @description The non-negative per-unit USD amount, with at most two decimal places
-															 * @type string
-															 */
-															unitAmount: string;
-														};
-												  }[]
-												| undefined;
-											/**
-											 * @description The current plan item quantities
-											 * @type array | undefined
-											 */
-											planItemQuantities?:
-												| {
-														/**
-														 * @description The ID of the current plan item to set the quantity for
-														 * @type string
-														 */
-														planItemId: string;
-														/**
-														 * @description The nonnegative integer quantity for the current plan item
-														 * @type number
-														 */
-														quantity: number;
-														/**
-														 * @description The resource IDs associated with the current plan item quantity
-														 * @type array | undefined
-														 */
-														resourceIds?: string[] | undefined;
-												  }[]
-												| undefined;
-											/**
-											 * @description The rate variant currently assigned
-											 * @type string | undefined
-											 */
-											rateVariantKey?: string | undefined;
-									  }
-									| undefined;
-								/**
-								 * @description The ID of the plan to subscribe to
-								 * @type string
-								 */
-								planId: string;
-								/**
-								 * @description The plan item prices to set for the subscription, independent of quantities
-								 * @type array | undefined
-								 */
-								planItemPrices?:
-									| {
-											/**
-											 * @description The ID of the plan item to set the price for
-											 * @type string
-											 */
-											planItemId: string;
-											/**
-											 * @description The absolute price that replaces the plan item price, after any rate variant
-											 * @type object
-											 */
-											price: {
-												model: "unit";
-												/**
-												 * @description The non-negative per-unit USD amount, with at most two decimal places
-												 * @type string
-												 */
-												unitAmount: string;
-											};
-									  }[]
-									| undefined;
-								/**
-								 * @description The plan item quantities to set for the subscription
-								 * @type array | undefined
-								 */
-								planItemQuantities?:
-									| {
-											/**
-											 * @description The ID of the plan item to set the quantity for
-											 * @type string
-											 */
-											planItemId: string;
-											/**
-											 * @description The nonnegative integer quantity for the plan item
-											 * @type number
-											 */
-											quantity: number;
-											/**
-											 * @description The resource IDs to associate with the plan item quantity
-											 * @type array | undefined
-											 */
-											resourceIds?: string[] | undefined;
-									  }[]
-									| undefined;
-								/**
-								 * @description The rate variant key to apply to the subscription
-								 * @type string | undefined
-								 */
-								rateVariantKey?: string | undefined;
-							};
+										};
+										/**
+										 * @description The destination plan
+										 * @type string
+										 */
+										planId: string;
+										/**
+										 * @description Destination-only licensed quantities; shared quantities come from Copper
+										 * @type array | undefined
+										 */
+										planItemQuantities?:
+											| {
+													planItemId: string;
+													quantity: number;
+											  }[]
+											| undefined;
+										transition: {
+											type: "preserve_source_cycle";
+										};
+								  };
 							output: {
 								/**
 								 * @description The committed Plan revision used to calculate the purchase price
@@ -53467,18 +53545,18 @@ export type GetAllLogDrainsStatus200 =
 						teamId?: (string | null) | undefined;
 						updatedAt: number;
 						/**
-						 * @description Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.
+						 * @description Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.
 						 * @type object | undefined
 						 */
 						deliveryStats?:
 							| {
 									/**
-									 * @description All delivery attempts in the window.
+									 * @description Finished deliveries in the window: delivered plus finally failed.
 									 * @type number
 									 */
 									attempts: number;
 									/**
-									 * @description Delivery attempts that did not succeed in the window.
+									 * @description Deliveries that finally failed in the window, after any automatic retries.
 									 * @type number
 									 */
 									failures: number;
@@ -53628,18 +53706,18 @@ export type GetAllLogDrainsStatus200 =
 						teamId?: (string | null) | undefined;
 						updatedAt: number;
 						/**
-						 * @description Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.
+						 * @description Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.
 						 * @type object | undefined
 						 */
 						deliveryStats?:
 							| {
 									/**
-									 * @description All delivery attempts in the window.
+									 * @description Finished deliveries in the window: delivered plus finally failed.
 									 * @type number
 									 */
 									attempts: number;
 									/**
-									 * @description Delivery attempts that did not succeed in the window.
+									 * @description Deliveries that finally failed in the window, after any automatic retries.
 									 * @type number
 									 */
 									failures: number;
@@ -54245,18 +54323,18 @@ export type CreateDrainStatus200 =
 			teamId?: (string | null) | undefined;
 			updatedAt: number;
 			/**
-			 * @description Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.
+			 * @description Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.
 			 * @type object | undefined
 			 */
 			deliveryStats?:
 				| {
 						/**
-						 * @description All delivery attempts in the window.
+						 * @description Finished deliveries in the window: delivered plus finally failed.
 						 * @type number
 						 */
 						attempts: number;
 						/**
-						 * @description Delivery attempts that did not succeed in the window.
+						 * @description Deliveries that finally failed in the window, after any automatic retries.
 						 * @type number
 						 */
 						failures: number;
@@ -54402,18 +54480,18 @@ export type CreateDrainStatus200 =
 			teamId?: (string | null) | undefined;
 			updatedAt: number;
 			/**
-			 * @description Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.
+			 * @description Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.
 			 * @type object | undefined
 			 */
 			deliveryStats?:
 				| {
 						/**
-						 * @description All delivery attempts in the window.
+						 * @description Finished deliveries in the window: delivered plus finally failed.
 						 * @type number
 						 */
 						attempts: number;
 						/**
-						 * @description Delivery attempts that did not succeed in the window.
+						 * @description Deliveries that finally failed in the window, after any automatic retries.
 						 * @type number
 						 */
 						failures: number;
@@ -55157,18 +55235,18 @@ export type GetDrainsStatus200 = {
 				teamId?: (string | null) | undefined;
 				updatedAt: number;
 				/**
-				 * @description Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.
+				 * @description Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.
 				 * @type object | undefined
 				 */
 				deliveryStats?:
 					| {
 							/**
-							 * @description All delivery attempts in the window.
+							 * @description Finished deliveries in the window: delivered plus finally failed.
 							 * @type number
 							 */
 							attempts: number;
 							/**
-							 * @description Delivery attempts that did not succeed in the window.
+							 * @description Deliveries that finally failed in the window, after any automatic retries.
 							 * @type number
 							 */
 							failures: number;
@@ -55316,18 +55394,18 @@ export type GetDrainsStatus200 = {
 				teamId?: (string | null) | undefined;
 				updatedAt: number;
 				/**
-				 * @description Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.
+				 * @description Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.
 				 * @type object | undefined
 				 */
 				deliveryStats?:
 					| {
 							/**
-							 * @description All delivery attempts in the window.
+							 * @description Finished deliveries in the window: delivered plus finally failed.
 							 * @type number
 							 */
 							attempts: number;
 							/**
-							 * @description Delivery attempts that did not succeed in the window.
+							 * @description Deliveries that finally failed in the window, after any automatic retries.
 							 * @type number
 							 */
 							failures: number;
@@ -55730,18 +55808,18 @@ export type GetDrainStatus200 = {
 	teamId?: (string | null) | undefined;
 	updatedAt: number;
 	/**
-	 * @description Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.
+	 * @description Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.
 	 * @type object | undefined
 	 */
 	deliveryStats?:
 		| {
 				/**
-				 * @description All delivery attempts in the window.
+				 * @description Finished deliveries in the window: delivered plus finally failed.
 				 * @type number
 				 */
 				attempts: number;
 				/**
-				 * @description Delivery attempts that did not succeed in the window.
+				 * @description Deliveries that finally failed in the window, after any automatic retries.
 				 * @type number
 				 */
 				failures: number;
@@ -56214,18 +56292,18 @@ export type UpdateDrainStatus200 =
 			teamId?: (string | null) | undefined;
 			updatedAt: number;
 			/**
-			 * @description Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.
+			 * @description Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.
 			 * @type object | undefined
 			 */
 			deliveryStats?:
 				| {
 						/**
-						 * @description All delivery attempts in the window.
+						 * @description Finished deliveries in the window: delivered plus finally failed.
 						 * @type number
 						 */
 						attempts: number;
 						/**
-						 * @description Delivery attempts that did not succeed in the window.
+						 * @description Deliveries that finally failed in the window, after any automatic retries.
 						 * @type number
 						 */
 						failures: number;
@@ -56371,18 +56449,18 @@ export type UpdateDrainStatus200 =
 			teamId?: (string | null) | undefined;
 			updatedAt: number;
 			/**
-			 * @description Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.
+			 * @description Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.
 			 * @type object | undefined
 			 */
 			deliveryStats?:
 				| {
 						/**
-						 * @description All delivery attempts in the window.
+						 * @description Finished deliveries in the window: delivered plus finally failed.
 						 * @type number
 						 */
 						attempts: number;
 						/**
-						 * @description Delivery attempts that did not succeed in the window.
+						 * @description Deliveries that finally failed in the window, after any automatic retries.
 						 * @type number
 						 */
 						failures: number;
@@ -68229,56 +68307,6 @@ export const getConfigurationStatus200StatusEnum2 = {
 export type GetConfigurationStatus200StatusEnum2Key =
 	(typeof getConfigurationStatus200StatusEnum2)[keyof typeof getConfigurationStatus200StatusEnum2];
 
-export const getConfigurationStatus200DisabledReasonEnum3 = {
-	"account-plan-downgrade": "account-plan-downgrade",
-	"disabled-by-admin": "disabled-by-admin",
-	"disabled-by-owner": "disabled-by-owner",
-	"feature-not-available": "feature-not-available",
-	"original-owner-left-the-team": "original-owner-left-the-team",
-	"original-owner-role-downgraded": "original-owner-role-downgraded",
-} as const;
-
-export type GetConfigurationStatus200DisabledReasonEnum3Key =
-	(typeof getConfigurationStatus200DisabledReasonEnum3)[keyof typeof getConfigurationStatus200DisabledReasonEnum3];
-
-export const getConfigurationStatus200InstallationTypeEnum3 = {
-	external: "external",
-	marketplace: "marketplace",
-} as const;
-
-export type GetConfigurationStatus200InstallationTypeEnum3Key =
-	(typeof getConfigurationStatus200InstallationTypeEnum3)[keyof typeof getConfigurationStatus200InstallationTypeEnum3];
-
-export const getConfigurationStatus200SourceEnum3 = {
-	backoffice: "backoffice",
-	cli: "cli",
-	"deploy-button": "deploy-button",
-	external: "external",
-	"import-recommended-integrations": "import-recommended-integrations",
-	marketplace: "marketplace",
-	oauth: "oauth",
-	organization: "organization",
-	"project-overview-recommended-integrations": "project-overview-recommended-integrations",
-	"resource-claims": "resource-claims",
-	v0: "v0",
-} as const;
-
-export type GetConfigurationStatus200SourceEnum3Key =
-	(typeof getConfigurationStatus200SourceEnum3)[keyof typeof getConfigurationStatus200SourceEnum3];
-
-export const getConfigurationStatus200StatusEnum3 = {
-	error: "error",
-	onboarding: "onboarding",
-	pending: "pending",
-	ready: "ready",
-	resumed: "resumed",
-	suspended: "suspended",
-	uninstalled: "uninstalled",
-} as const;
-
-export type GetConfigurationStatus200StatusEnum3Key =
-	(typeof getConfigurationStatus200StatusEnum3)[keyof typeof getConfigurationStatus200StatusEnum3];
-
 export type GetConfigurationStatus200 =
 	| {
 			/**
@@ -68530,125 +68558,6 @@ export type GetConfigurationStatus200 =
 			 * @type string
 			 */
 			userId: string;
-	  }
-	| {
-			/**
-			 * @description Historical parent installation from which acceptedPolicies were inherited. This is immutable provenance, not current authorization or relationship truth.
-			 * @type string | undefined
-			 */
-			acceptedPoliciesInheritedFromInstallationId?: string | undefined;
-			/**
-			 * @description A timestamp that tells you when the configuration was installed successfully
-			 * @example 1558531915505
-			 * @type number | undefined
-			 */
-			completedAt?: number | undefined;
-			/**
-			 * @description A timestamp that tells you when the configuration was created
-			 * @example 1558531915505
-			 * @type number | undefined
-			 */
-			createdAt?: number | undefined;
-			/**
-			 * @description Record when the customer initited deletion, independent of whether `deleteRequestedAt` gets set.
-			 * @type number | undefined
-			 */
-			customerDeleteRequestedAt?: (number | null) | undefined;
-			/**
-			 * @description A timestamp that tells you when the configuration was deleted.
-			 * @example 1558531915505
-			 * @type number | undefined
-			 */
-			deletedAt?: (number | null) | undefined;
-			/**
-			 * @description A timestamp that tells you when the configuration deletion has been started for cases when the deletion needs to be settled/approved by partners, such as when marketplace invoices have been paid.
-			 * @example 1558531915505
-			 * @type number | undefined
-			 */
-			deleteRequestedAt?: (number | null) | undefined;
-			/**
-			 * @description A timestamp that tells you when the configuration was disabled. Note: Configurations can be disabled when the associated user loses access to a team. They do not function during this time until the configuration is 'transferred', meaning the associated user is changed to one with access to the team.
-			 * @example 1558531915505
-			 * @type number | undefined
-			 */
-			disabledAt?: number | undefined;
-			disabledReason?: GetConfigurationStatus200DisabledReasonEnum3Key | undefined;
-			/**
-			 * @description An external identifier defined by the integration vendor.
-			 * @type string | undefined
-			 */
-			externalId?: string | undefined;
-			/**
-			 * @description The unique identifier of the configuration
-			 * @example icfg_3bwCLgxL8qt5kjRLcv2Dit7F
-			 * @type string | undefined
-			 */
-			id?: string | undefined;
-			/**
-			 * @description Defines the installation type. - 'external' integrations are installed via the existing integrations flow - 'marketplace' integrations are natively installed: - when accepting the TOS of a partner during the store creation process - if undefined, assume 'external'
-			 * @type string | undefined
-			 */
-			installationType?: GetConfigurationStatus200InstallationTypeEnum3Key | undefined;
-			/**
-			 * @description The unique identifier of the app the configuration was created for
-			 * @example oac_xzpVzcUOgcB1nrVlirtKhbWV
-			 * @type string | undefined
-			 */
-			integrationId?: string | undefined;
-			/**
-			 * @description The user or team ID that owns the configuration
-			 * @example kr1PsOIzqEL5Xg6M4VZcZosf
-			 * @type string | undefined
-			 */
-			ownerId?: string | undefined;
-			/**
-			 * @description When a configuration is limited to access certain projects, this will contain each of the project ID it is allowed to access. If it is not defined, the configuration has full access.
-			 * @example ["prj_xQxbutw1HpL6HLYPAzt5h75m8NjO"]
-			 * @type array | undefined
-			 */
-			projects?: string[] | undefined;
-			/**
-			 * @description The resources that are allowed to be accessed by the configuration.
-			 * @example ["read:project","read-write:log-drain"]
-			 * @type array | undefined
-			 */
-			scopes?: string[] | undefined;
-			/**
-			 * @description The slug of the integration the configuration is created for.
-			 * @example slack
-			 * @type string | undefined
-			 */
-			slug?: string | undefined;
-			/**
-			 * @description Source defines where the configuration was installed from. It is used to analyze user engagement for integration installations in product metrics.
-			 * @example marketplace
-			 * @type string | undefined
-			 */
-			source?: GetConfigurationStatus200SourceEnum3Key | undefined;
-			/**
-			 * @description The configuration status. Optional. If not defined, assume 'ready'.
-			 * @type string | undefined
-			 */
-			status?: GetConfigurationStatus200StatusEnum3Key | undefined;
-			/**
-			 * @description When the configuration was created for a team, this will show the ID of the team.
-			 * @example team_nLlpyC6RE1qxydlFKbrxDlud
-			 * @type string | undefined
-			 */
-			teamId?: (string | null) | undefined;
-			type?: "integration-configuration" | undefined;
-			/**
-			 * @description A timestamp that tells you when the configuration was updated.
-			 * @example 1558531915505
-			 * @type number | undefined
-			 */
-			updatedAt?: number | undefined;
-			/**
-			 * @description The ID of the user that created the configuration.
-			 * @example kr1PsOIzqEL5Xg6M4VZcZosf
-			 * @type string | undefined
-			 */
-			userId?: string | undefined;
 	  };
 
 export type GetConfigurationStatus400 = unknown;
@@ -75733,6 +75642,11 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					 * @type array | undefined
 					 */
 					aiGatewayBudget?: ACLActionKey[] | undefined;
+					/**
+					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+					 * @type array | undefined
+					 */
+					aiGatewayBudgetOwnedBySelf?: ACLActionKey[] | undefined;
 					/**
 					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 					 * @type array | undefined
@@ -89259,6 +89173,11 @@ export type GetProjectsStatus200 =
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 									 * @type array | undefined
 									 */
+									aiGatewayBudgetOwnedBySelf?: ACLActionKey[] | undefined;
+									/**
+									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+									 * @type array | undefined
+									 */
 									aiGatewayByokCredentials?: ACLActionKey[] | undefined;
 									/**
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -93896,6 +93815,11 @@ export type CreateProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				aiGatewayBudget?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				aiGatewayBudgetOwnedBySelf?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -99127,6 +99051,11 @@ export type GetProjectStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				aiGatewayBudgetOwnedBySelf?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				aiGatewayByokCredentials?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -103637,6 +103566,11 @@ export type UpdateProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				aiGatewayBudget?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				aiGatewayBudgetOwnedBySelf?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -109229,6 +109163,11 @@ export type UploadProjectAvatarStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				aiGatewayBudgetOwnedBySelf?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				aiGatewayByokCredentials?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -113777,6 +113716,11 @@ export type DeleteProjectAvatarStatus200 = {
 				 * @type array | undefined
 				 */
 				aiGatewayBudget?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				aiGatewayBudgetOwnedBySelf?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -125732,6 +125676,11 @@ export type UpdateMicrofrontendsStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				aiGatewayBudgetOwnedBySelf?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				aiGatewayByokCredentials?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -128130,13 +128079,34 @@ export type ListPromoteAliasesQuery = {
 	slug?: string | undefined;
 };
 
+export const listPromoteAliasesStatus200AliasesStatusEnum = {
+	completed: "completed",
+	failed: "failed",
+	pending: "pending",
+} as const;
+
+export type ListPromoteAliasesStatus200AliasesStatusEnumKey =
+	(typeof listPromoteAliasesStatus200AliasesStatusEnum)[keyof typeof listPromoteAliasesStatus200AliasesStatusEnum];
+
 export type ListPromoteAliasesStatus200 =
 	| object
 	| {
 			aliases: {
+				/**
+				 * @description The alias hostname.
+				 * @type string
+				 */
 				alias: string;
+				/**
+				 * @description The alias ID.
+				 * @type string
+				 */
 				id: string;
-				status: string;
+				/**
+				 * @description Whether the alias has been mapped to the deployment targeted by the last request. `pending` is also returned when the project has no request of the requested type, so it does not by itself indicate a running job.
+				 * @type string
+				 */
+				status: ListPromoteAliasesStatus200AliasesStatusEnumKey;
 			}[];
 			/**
 			 * @description This object contains information related to the pagination of the current request, including the necessary parameters to get the next or previous page of data.
