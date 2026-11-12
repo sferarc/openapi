@@ -1,6 +1,6 @@
 {
 	"name": "vercel-api-js",
-	"version": "2.35.0",
+	"version": "2.36.0",
 	"description": "Unofficial typed TypeScript client for the Vercel REST API, generated from its OpenAPI spec",
 	"keywords": [
 		"vercel",
