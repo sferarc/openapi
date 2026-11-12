@@ -3764,6 +3764,9 @@ export const userEventSchema = z
 					userName: z.string().optional(),
 				}),
 				z.strictObject({
+					enabled: z.union([z.literal(false), z.literal(true)]),
+				}),
+				z.strictObject({
 					credential: z.object({
 						id: z.string(),
 						name: z.string(),
@@ -3794,9 +3797,6 @@ export const userEventSchema = z
 						providerSlug: z.string(),
 					}),
 					removed: z.array(z.string()),
-				}),
-				z.strictObject({
-					enabled: z.union([z.literal(false), z.literal(true)]),
 				}),
 				z.strictObject({
 					amount: z.string(),
@@ -9880,16 +9880,16 @@ export const userEventSchema = z
 						.object({
 							enabled: z.union([z.literal(false), z.literal(true)]),
 							projectIds: z.array(z.string()).optional(),
-							projectScope: z.enum(["all", "selected"]),
-							repositoryScope: z.enum(["all", "selected"]).optional(),
+							projectScope: z.enum(["all", "none", "selected"]),
+							repositoryScope: z.enum(["all", "none", "selected"]).optional(),
 						})
 						.describe("Mirrors the `security-review` setting value in `@api/api-settings`."),
 					previous: z
 						.object({
 							enabled: z.union([z.literal(false), z.literal(true)]),
 							projectIds: z.array(z.string()).optional(),
-							projectScope: z.enum(["all", "selected"]),
-							repositoryScope: z.enum(["all", "selected"]).optional(),
+							projectScope: z.enum(["all", "none", "selected"]),
+							repositoryScope: z.enum(["all", "none", "selected"]).optional(),
 						})
 						.describe("Mirrors the `security-review` setting value in `@api/api-settings`."),
 				}),
@@ -11489,6 +11489,7 @@ export const userEventSchema = z
 				"ai-gateway-headquarters-updated",
 				"ai-gateway-hipaa-compliance-toggled",
 				"ai-gateway-inference-regions-updated",
+				"ai-gateway-member-budget-changes",
 				"ai-gateway-model-allowlist-models-updated",
 				"ai-gateway-model-allowlist-toggled",
 				"ai-gateway-model-catalog-alert-settings-updated",
@@ -12382,6 +12383,7 @@ export const listEventTypeSchema = z
 				"ai-gateway-headquarters-updated",
 				"ai-gateway-hipaa-compliance-toggled",
 				"ai-gateway-inference-regions-updated",
+				"ai-gateway-member-budget-changes",
 				"ai-gateway-model-allowlist-models-updated",
 				"ai-gateway-model-allowlist-toggled",
 				"ai-gateway-model-catalog-alert-settings-updated",
@@ -13170,6 +13172,7 @@ export const listEventTypeSchema = z
 					"ai-gateway-headquarters-updated",
 					"ai-gateway-hipaa-compliance-toggled",
 					"ai-gateway-inference-regions-updated",
+					"ai-gateway-member-budget-changes",
 					"ai-gateway-model-allowlist-models-updated",
 					"ai-gateway-model-allowlist-toggled",
 					"ai-gateway-model-catalog-alert-settings-updated",
@@ -15452,6 +15455,15 @@ export const teamSchema = z
 			.nullable()
 			.describe("A short description of the Team.")
 			.meta({ examples: ["Our mission is to make cloud computing accessible to everyone."] }),
+		directorySyncSource: z
+			.enum(["none", "organization", "team"])
+			.describe(
+				"Directory Sync source, using existing local connection and organization authority rules.",
+			),
+		directorySyncType: z
+			.string()
+			.optional()
+			.describe("Provider type of the directory selected by directorySyncSource."),
 		disableRepositoryDispatchEvents: z
 			.union([z.literal(false), z.literal(true)])
 			.optional()
@@ -15950,6 +15962,15 @@ export const teamLimitedSchema = z
 			.number()
 			.describe("UNIX timestamp (in milliseconds) when the Team was created.")
 			.meta({ examples: [1630748523395] }),
+		directorySyncSource: z
+			.enum(["none", "organization", "team"])
+			.describe(
+				"Directory Sync source, using existing local connection and organization authority rules.",
+			),
+		directorySyncType: z
+			.string()
+			.optional()
+			.describe("Provider type of the directory selected by directorySyncSource."),
 		id: z
 			.string()
 			.describe("The Team's unique identifier.")
@@ -21041,8 +21062,8 @@ export const buyCreditsStatus200Schema = z.union([
 						type: z.enum(["orb_subscription_intent"]),
 					}),
 					z.strictObject({
-						options: z
-							.object({
+						options: z.union([
+							z.strictObject({
 								fromPlan: z
 									.object({
 										additionalSubscriptions: z
@@ -21168,8 +21189,36 @@ export const buyCreditsStatus200Schema = z.union([
 									.string()
 									.optional()
 									.describe("The rate variant key to apply to the subscription"),
-							})
-							.describe("Purchase configuration specific options"),
+								transition: z
+									.object({
+										type: z.enum(["restart_cycle"]),
+									})
+									.optional()
+									.describe("Replacement billing-cycle policy. Defaults to restart_cycle."),
+							}),
+							z.strictObject({
+								fromPlan: z.object({
+									orbSubscriptionId: z
+										.string()
+										.describe("The owned active source subscription recorded by Copper"),
+								}),
+								planId: z.string().describe("The destination plan"),
+								planItemQuantities: z
+									.array(
+										z.object({
+											planItemId: z.string(),
+											quantity: z.number(),
+										}),
+									)
+									.optional()
+									.describe(
+										"Destination-only licensed quantities; shared quantities come from Copper",
+									),
+								transition: z.object({
+									type: z.enum(["preserve_source_cycle"]),
+								}),
+							}),
+						]),
 						output: z.object({
 							planChangeId: z
 								.string()
@@ -42146,16 +42195,20 @@ export const getAllLogDrainsStatus200Schema = z.union([
 					updatedAt: z.number(),
 					deliveryStats: z
 						.object({
-							attempts: z.number().describe("All delivery attempts in the window."),
+							attempts: z
+								.number()
+								.describe("Finished deliveries in the window: delivered plus finally failed."),
 							failures: z
 								.number()
-								.describe("Delivery attempts that did not succeed in the window."),
+								.describe(
+									"Deliveries that finally failed in the window, after any automatic retries.",
+								),
 							state: z.enum(["failing", "healthy", "unknown"]),
 							window: z.enum(["24h"]),
 						})
 						.optional()
 						.describe(
-							"Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.",
+							"Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.",
 						),
 					filterV2: z
 						.object({
@@ -42326,16 +42379,20 @@ export const getAllLogDrainsStatus200Schema = z.union([
 					updatedAt: z.number(),
 					deliveryStats: z
 						.object({
-							attempts: z.number().describe("All delivery attempts in the window."),
+							attempts: z
+								.number()
+								.describe("Finished deliveries in the window: delivered plus finally failed."),
 							failures: z
 								.number()
-								.describe("Delivery attempts that did not succeed in the window."),
+								.describe(
+									"Deliveries that finally failed in the window, after any automatic retries.",
+								),
 							state: z.enum(["failing", "healthy", "unknown"]),
 							window: z.enum(["24h"]),
 						})
 						.optional()
 						.describe(
-							"Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.",
+							"Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.",
 						),
 					filterV2: z
 						.object({
@@ -42672,14 +42729,18 @@ export const createDrainStatus200Schema = z.union([
 		updatedAt: z.number(),
 		deliveryStats: z
 			.object({
-				attempts: z.number().describe("All delivery attempts in the window."),
-				failures: z.number().describe("Delivery attempts that did not succeed in the window."),
+				attempts: z
+					.number()
+					.describe("Finished deliveries in the window: delivered plus finally failed."),
+				failures: z
+					.number()
+					.describe("Deliveries that finally failed in the window, after any automatic retries."),
 				state: z.enum(["failing", "healthy", "unknown"]),
 				window: z.enum(["24h"]),
 			})
 			.optional()
 			.describe(
-				"Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.",
+				"Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.",
 			),
 		filterV2: z
 			.object({
@@ -42848,14 +42909,18 @@ export const createDrainStatus200Schema = z.union([
 		updatedAt: z.number(),
 		deliveryStats: z
 			.object({
-				attempts: z.number().describe("All delivery attempts in the window."),
-				failures: z.number().describe("Delivery attempts that did not succeed in the window."),
+				attempts: z
+					.number()
+					.describe("Finished deliveries in the window: delivered plus finally failed."),
+				failures: z
+					.number()
+					.describe("Deliveries that finally failed in the window, after any automatic retries."),
 				state: z.enum(["failing", "healthy", "unknown"]),
 				window: z.enum(["24h"]),
 			})
 			.optional()
 			.describe(
-				"Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.",
+				"Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.",
 			),
 		filterV2: z
 			.object({
@@ -43242,14 +43307,20 @@ export const getDrainsStatus200Schema = z.object({
 				updatedAt: z.number(),
 				deliveryStats: z
 					.object({
-						attempts: z.number().describe("All delivery attempts in the window."),
-						failures: z.number().describe("Delivery attempts that did not succeed in the window."),
+						attempts: z
+							.number()
+							.describe("Finished deliveries in the window: delivered plus finally failed."),
+						failures: z
+							.number()
+							.describe(
+								"Deliveries that finally failed in the window, after any automatic retries.",
+							),
 						state: z.enum(["failing", "healthy", "unknown"]),
 						window: z.enum(["24h"]),
 					})
 					.optional()
 					.describe(
-						"Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.",
+						"Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.",
 					),
 				filterV2: z
 					.object({
@@ -43420,14 +43491,20 @@ export const getDrainsStatus200Schema = z.object({
 				updatedAt: z.number(),
 				deliveryStats: z
 					.object({
-						attempts: z.number().describe("All delivery attempts in the window."),
-						failures: z.number().describe("Delivery attempts that did not succeed in the window."),
+						attempts: z
+							.number()
+							.describe("Finished deliveries in the window: delivered plus finally failed."),
+						failures: z
+							.number()
+							.describe(
+								"Deliveries that finally failed in the window, after any automatic retries.",
+							),
 						state: z.enum(["failing", "healthy", "unknown"]),
 						window: z.enum(["24h"]),
 					})
 					.optional()
 					.describe(
-						"Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.",
+						"Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.",
 					),
 				filterV2: z
 					.object({
@@ -43736,14 +43813,18 @@ export const getDrainStatus200Schema = z.object({
 	updatedAt: z.number(),
 	deliveryStats: z
 		.object({
-			attempts: z.number().describe("All delivery attempts in the window."),
-			failures: z.number().describe("Delivery attempts that did not succeed in the window."),
+			attempts: z
+				.number()
+				.describe("Finished deliveries in the window: delivered plus finally failed."),
+			failures: z
+				.number()
+				.describe("Deliveries that finally failed in the window, after any automatic retries."),
 			state: z.enum(["failing", "healthy", "unknown"]),
 			window: z.enum(["24h"]),
 		})
 		.optional()
 		.describe(
-			"Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.",
+			"Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.",
 		),
 	filterV2: z
 		.object({
@@ -43967,14 +44048,18 @@ export const updateDrainStatus200Schema = z.union([
 		updatedAt: z.number(),
 		deliveryStats: z
 			.object({
-				attempts: z.number().describe("All delivery attempts in the window."),
-				failures: z.number().describe("Delivery attempts that did not succeed in the window."),
+				attempts: z
+					.number()
+					.describe("Finished deliveries in the window: delivered plus finally failed."),
+				failures: z
+					.number()
+					.describe("Deliveries that finally failed in the window, after any automatic retries."),
 				state: z.enum(["failing", "healthy", "unknown"]),
 				window: z.enum(["24h"]),
 			})
 			.optional()
 			.describe(
-				"Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.",
+				"Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.",
 			),
 		filterV2: z
 			.object({
@@ -44143,14 +44228,18 @@ export const updateDrainStatus200Schema = z.union([
 		updatedAt: z.number(),
 		deliveryStats: z
 			.object({
-				attempts: z.number().describe("All delivery attempts in the window."),
-				failures: z.number().describe("Delivery attempts that did not succeed in the window."),
+				attempts: z
+					.number()
+					.describe("Finished deliveries in the window: delivered plus finally failed."),
+				failures: z
+					.number()
+					.describe("Deliveries that finally failed in the window, after any automatic retries."),
 				state: z.enum(["failing", "healthy", "unknown"]),
 				window: z.enum(["24h"]),
 			})
 			.optional()
 			.describe(
-				"Delivery health of a drain over the last 24 hours: `failing` when more than 5 delivery attempts and at least 1% of all attempts did not succeed, `healthy` otherwise, and `unknown` when there were no attempts or the stats could not be loaded.",
+				"Delivery health of a drain over the last 24 hours, counted on finished deliveries (a delivery saved by an automatic retry counts once, as delivered): `failing` when more than 5 deliveries failed and they are at least 1% of all finished deliveries, `healthy` otherwise, and `unknown` when no delivery finished in the window.",
 			),
 		filterV2: z
 			.object({
@@ -54863,140 +54952,6 @@ export const getConfigurationStatus200Schema = z.union([
 			.describe("The ID of the user that created the configuration.")
 			.meta({ examples: ["kr1PsOIzqEL5Xg6M4VZcZosf"] }),
 	}),
-	z.strictObject({
-		acceptedPoliciesInheritedFromInstallationId: z
-			.string()
-			.optional()
-			.describe(
-				"Historical parent installation from which acceptedPolicies were inherited. This is immutable provenance, not current authorization or relationship truth.",
-			),
-		completedAt: z
-			.number()
-			.optional()
-			.describe("A timestamp that tells you when the configuration was installed successfully")
-			.meta({ examples: [1558531915505] }),
-		createdAt: z
-			.number()
-			.optional()
-			.describe("A timestamp that tells you when the configuration was created")
-			.meta({ examples: [1558531915505] }),
-		customerDeleteRequestedAt: z
-			.number()
-			.nullish()
-			.describe(
-				"Record when the customer initited deletion, independent of whether `deleteRequestedAt` gets set.",
-			),
-		deletedAt: z
-			.number()
-			.nullish()
-			.describe("A timestamp that tells you when the configuration was deleted.")
-			.meta({ examples: [1558531915505] }),
-		deleteRequestedAt: z
-			.number()
-			.nullish()
-			.describe(
-				"A timestamp that tells you when the configuration deletion has been started for cases when the deletion needs to be settled/approved by partners, such as when marketplace invoices have been paid.",
-			)
-			.meta({ examples: [1558531915505] }),
-		disabledAt: z
-			.number()
-			.optional()
-			.describe(
-				"A timestamp that tells you when the configuration was disabled. Note: Configurations can be disabled when the associated user loses access to a team. They do not function during this time until the configuration is 'transferred', meaning the associated user is changed to one with access to the team.",
-			)
-			.meta({ examples: [1558531915505] }),
-		disabledReason: z
-			.enum([
-				"account-plan-downgrade",
-				"disabled-by-admin",
-				"disabled-by-owner",
-				"feature-not-available",
-				"original-owner-left-the-team",
-				"original-owner-role-downgraded",
-			])
-			.optional(),
-		externalId: z
-			.string()
-			.optional()
-			.describe("An external identifier defined by the integration vendor."),
-		id: z
-			.string()
-			.optional()
-			.describe("The unique identifier of the configuration")
-			.meta({ examples: ["icfg_3bwCLgxL8qt5kjRLcv2Dit7F"] }),
-		installationType: z
-			.enum(["external", "marketplace"])
-			.optional()
-			.describe(
-				"Defines the installation type. - 'external' integrations are installed via the existing integrations flow - 'marketplace' integrations are natively installed: - when accepting the TOS of a partner during the store creation process - if undefined, assume 'external'",
-			),
-		integrationId: z
-			.string()
-			.optional()
-			.describe("The unique identifier of the app the configuration was created for")
-			.meta({ examples: ["oac_xzpVzcUOgcB1nrVlirtKhbWV"] }),
-		ownerId: z
-			.string()
-			.optional()
-			.describe("The user or team ID that owns the configuration")
-			.meta({ examples: ["kr1PsOIzqEL5Xg6M4VZcZosf"] }),
-		projects: z
-			.array(z.string())
-			.optional()
-			.describe(
-				"When a configuration is limited to access certain projects, this will contain each of the project ID it is allowed to access. If it is not defined, the configuration has full access.",
-			)
-			.meta({ examples: [["prj_xQxbutw1HpL6HLYPAzt5h75m8NjO"]] }),
-		scopes: z
-			.array(z.string())
-			.optional()
-			.describe("The resources that are allowed to be accessed by the configuration.")
-			.meta({ examples: [["read:project", "read-write:log-drain"]] }),
-		slug: z
-			.string()
-			.optional()
-			.describe("The slug of the integration the configuration is created for.")
-			.meta({ examples: ["slack"] }),
-		source: z
-			.enum([
-				"backoffice",
-				"cli",
-				"deploy-button",
-				"external",
-				"import-recommended-integrations",
-				"marketplace",
-				"oauth",
-				"organization",
-				"project-overview-recommended-integrations",
-				"resource-claims",
-				"v0",
-			])
-			.optional()
-			.describe(
-				"Source defines where the configuration was installed from. It is used to analyze user engagement for integration installations in product metrics.",
-			)
-			.meta({ examples: ["marketplace"] }),
-		status: z
-			.enum(["error", "onboarding", "pending", "ready", "resumed", "suspended", "uninstalled"])
-			.optional()
-			.describe("The configuration status. Optional. If not defined, assume 'ready'."),
-		teamId: z
-			.string()
-			.nullish()
-			.describe("When the configuration was created for a team, this will show the ID of the team.")
-			.meta({ examples: ["team_nLlpyC6RE1qxydlFKbrxDlud"] }),
-		type: z.enum(["integration-configuration"]).optional(),
-		updatedAt: z
-			.number()
-			.optional()
-			.describe("A timestamp that tells you when the configuration was updated.")
-			.meta({ examples: [1558531915505] }),
-		userId: z
-			.string()
-			.optional()
-			.describe("The ID of the user that created the configuration.")
-			.meta({ examples: ["kr1PsOIzqEL5Xg6M4VZcZosf"] }),
-	}),
 ]);
 
 export const getConfigurationStatus400Schema = z.unknown();
@@ -60369,6 +60324,12 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 						),
 					aiGatewayBudget: z
+						.array(ACLActionSchema)
+						.optional()
+						.describe(
+							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+						),
+					aiGatewayBudgetOwnedBySelf: z
 						.array(ACLActionSchema)
 						.optional()
 						.describe(
@@ -71544,6 +71505,12 @@ export const getProjectsStatus200Schema = z
 								.describe(
 									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 								),
+							aiGatewayBudgetOwnedBySelf: z
+								.array(ACLActionSchema)
+								.optional()
+								.describe(
+									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+								),
 							aiGatewayByokCredentials: z
 								.array(ACLActionSchema)
 								.optional()
@@ -75862,6 +75829,12 @@ export const createProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			aiGatewayBudget: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			aiGatewayBudgetOwnedBySelf: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -80517,6 +80490,12 @@ export const getProjectStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			aiGatewayBudgetOwnedBySelf: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			aiGatewayByokCredentials: z
 				.array(ACLActionSchema)
 				.optional()
@@ -84633,6 +84612,12 @@ export const updateProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			aiGatewayBudget: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			aiGatewayBudgetOwnedBySelf: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -89678,6 +89663,12 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			aiGatewayBudgetOwnedBySelf: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			aiGatewayByokCredentials: z
 				.array(ACLActionSchema)
 				.optional()
@@ -93801,6 +93792,12 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			aiGatewayBudget: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			aiGatewayBudgetOwnedBySelf: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -104195,6 +104192,12 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			aiGatewayBudgetOwnedBySelf: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			aiGatewayByokCredentials: z
 				.array(ACLActionSchema)
 				.optional()
@@ -107050,9 +107053,13 @@ export const listPromoteAliasesStatus200Schema = z.union([
 	z.strictObject({
 		aliases: z.array(
 			z.object({
-				alias: z.string(),
-				id: z.string(),
-				status: z.string(),
+				alias: z.string().describe("The alias hostname."),
+				id: z.string().describe("The alias ID."),
+				status: z
+					.enum(["completed", "failed", "pending"])
+					.describe(
+						"Whether the alias has been mapped to the deployment targeted by the last request. `pending` is also returned when the project has no request of the requested type, so it does not by itself indicate a running job.",
+					),
 			}),
 		),
 		pagination: paginationSchema.describe(
