@@ -34238,6 +34238,10 @@ export type CloudforceOneRuleApprovalDetailResponse = {
      */
     audit_log_id: number;
     /**
+     * @description Rule state captured when the approval was requested. Null for creates, when no prior state was recorded, or when the stored snapshot cannot be parsed.
+     */
+    base_rule?: (CloudforceOneRulePreview | null) | undefined;
+    /**
      * @description Whether the authenticated user may approve or reject this pending change.
      * @example true
      * @type boolean
@@ -126799,7 +126803,7 @@ export type WorkersObservabilityUsageLimit = {
    */
   plan: WorkersObservabilityUsageLimitPlanEnumKey;
   /**
-   * @description When a limited free account is expected to start keeping events again, at the daily limit reset. Not guaranteed if the account was limited for another reason. null otherwise, including for paid accounts, which are brought back in stages.
+   * @description When a limited free account starts keeping events again, at the daily limit reset. null otherwise, including for paid accounts, which are brought back in stages.
    *
    * Format: `date-time`
    * @example 2026-10-30T00:00:00Z
@@ -126817,8 +126821,8 @@ export type WorkersObservabilityUsageLimit = {
   /**
    * @description Whether telemetry is being dropped, and why. More values may be added; treat unknown values like normal.
    * - normal: every event is kept.
-   * - limited: the account keeps only sample_rate of its events, usually because it passed its daily limit. A free account over its limit keeps none until resets_at; a paid one keeps about 10 events a second and is brought back in stages after 00:00 UTC.
-   * - restricted: events are dropped for another reason. Contact support.
+   * - limited: the account passed its daily limit and keeps only sample_rate of its events. A free account keeps none until resets_at; a paid one keeps about 10 events a second and is brought back in stages after 00:00 UTC.
+   * - restricted: the account keeps only sample_rate of its events for another reason. Contact support.
    * @type string
    */
   status: WorkersObservabilityUsageLimitStatusEnumKey;
@@ -252900,6 +252904,21 @@ export type AigConfigListGatewayDynamicRouteDeploymentsPath = {
   id: string;
 };
 
+export type AigConfigListGatewayDynamicRouteDeploymentsQuery = {
+  /**
+   * @description Page number
+   * @example 1
+   * @type integer | undefined
+   */
+  page?: number | undefined;
+  /**
+   * @description Number of deployments per page
+   * @example 20
+   * @type integer | undefined
+   */
+  per_page?: number | undefined;
+};
+
 export type AigConfigListGatewayDynamicRouteDeploymentsStatus200 = {
   data: {
     deployments: {
@@ -252930,7 +252949,7 @@ export type AigConfigListGatewayDynamicRouteDeploymentsStatus400 = {
 export type AigConfigListGatewayDynamicRouteDeploymentsOptions = {
   body?: never | undefined;
   path: AigConfigListGatewayDynamicRouteDeploymentsPath;
-  query?: never | undefined;
+  query?: AigConfigListGatewayDynamicRouteDeploymentsQuery | undefined;
   headers?: never | undefined;
 };
 
@@ -253122,6 +253141,21 @@ export type AigConfigListGatewayDynamicRouteVersionsPath = {
   id: string;
 };
 
+export type AigConfigListGatewayDynamicRouteVersionsQuery = {
+  /**
+   * @description Page number
+   * @example 1
+   * @type integer | undefined
+   */
+  page?: number | undefined;
+  /**
+   * @description Number of versions per page
+   * @example 20
+   * @type integer | undefined
+   */
+  per_page?: number | undefined;
+};
+
 export const aigConfigListGatewayDynamicRouteVersionsStatus200DataVersionsActiveEnum = {
   true: 'true',
   false: 'false',
@@ -253161,7 +253195,7 @@ export type AigConfigListGatewayDynamicRouteVersionsStatus400 = {
 export type AigConfigListGatewayDynamicRouteVersionsOptions = {
   body?: never | undefined;
   path: AigConfigListGatewayDynamicRouteVersionsPath;
-  query?: never | undefined;
+  query?: AigConfigListGatewayDynamicRouteVersionsQuery | undefined;
   headers?: never | undefined;
 };
 
@@ -271907,17 +271941,6 @@ export type NotificationWebhooksUpdateAWebhookBody = {
    * @type string
    */
   name: AaaComponentsSchemasName;
-  /**
-   * @description Optional secret that will be passed in the `cf-webhook-auth` header when dispatching generic webhook notifications or formatted for supported destinations. Secrets are not returned in any API response body.
-   * @type string | undefined
-   */
-  secret?: AaaSecret | undefined;
-  /**
-   * @description The POST endpoint to call when dispatching a notification.
-   * @example https://hooks.slack.com/services/Ds3fdBFbV/456464Gdd
-   * @type string
-   */
-  url: AaaUrl;
 };
 
 export type NotificationWebhooksUpdateAWebhookOptions = {
@@ -324257,6 +324280,22 @@ export const rssArticleListStatus200ResultArticlesRelevancePirsBandEnum = {
 
 export type RssArticleListStatus200ResultArticlesRelevancePirsBandEnumKey = (typeof rssArticleListStatus200ResultArticlesRelevancePirsBandEnum)[keyof typeof rssArticleListStatus200ResultArticlesRelevancePirsBandEnum];
 
+export const rssArticleListStatus200ResultArticlesRelevancePirsRequirementBasisEnum = {
+  current: 'current',
+  saved: 'saved',
+} as const;
+
+export type RssArticleListStatus200ResultArticlesRelevancePirsRequirementBasisEnumKey = (typeof rssArticleListStatus200ResultArticlesRelevancePirsRequirementBasisEnum)[keyof typeof rssArticleListStatus200ResultArticlesRelevancePirsRequirementBasisEnum];
+
+export const rssArticleListStatus200ResultArticlesRelevanceCoverageEnum = {
+  current: 'current',
+  stale: 'stale',
+  pending: 'pending',
+  unavailable: 'unavailable',
+} as const;
+
+export type RssArticleListStatus200ResultArticlesRelevanceCoverageEnumKey = (typeof rssArticleListStatus200ResultArticlesRelevanceCoverageEnum)[keyof typeof rssArticleListStatus200ResultArticlesRelevanceCoverageEnum];
+
 export const rssArticleListStatus200ResultArticlesSeverityEnum = {
   informational: 'informational',
   low: 'low',
@@ -324342,8 +324381,18 @@ export type RssArticleListStatus200 = {
            * @type string
            */
           pir_id: string;
+          /**
+           * @description Beta. current: scored against the PIR's current requirement. saved: the PIR's structured definition no longer generates a valid requirement, for example because its topic was retired, so the requirement from its last save was scored instead.
+           * @type string
+           */
+          requirement_basis: RssArticleListStatus200ResultArticlesRelevancePirsRequirementBasisEnumKey;
         }[];
       } | null;
+      /**
+       * @description Beta. Whether relevance and severity reflect the account's current Priority Intelligence Requirements, organization profile, and the article's current content. current: they do. stale: they were scored before a change; articles fetched in the last 7 days are being rescored, older articles keep these scores. pending: not scored yet, fetched in the last 7 days. unavailable: not scored, and will not be scored automatically, because it was fetched more than 7 days ago or processing failed. Updates to managed topics can take up to a day to mark scores stale. Null when the account has no active PIRs or none of its articles has been scored yet.
+       * @type string
+       */
+      relevance_coverage: RssArticleListStatus200ResultArticlesRelevanceCoverageEnumKey | null;
       /**
        * @description Beta. Intrinsic article severity band, from informational to critical, independent of any organisation or Priority Intelligence Requirement. Null when the account has no active Priority Intelligence Requirements, scoring has not completed, or a historic article has not entered an automatic rescore window.
        * @type string
@@ -324529,6 +324578,12 @@ export type RssArticleRelevanceAggregateStatus200 = {
          */
         medium: number;
       };
+      /**
+       * @description Beta. How many of the articles counted in articles have stale scores, from before a change to the account's Priority Intelligence Requirements, organization profile, or the article's content. They are counted by those scores; see the article list's relevance_coverage.
+       * @minimum 0
+       * @type integer
+       */
+      stale_articles: number;
     };
     /**
      * @description Beta. Each active PIR, including PIRs the matcher paused, ordered by ID. Drafts and deleted PIRs are excluded.
@@ -324713,6 +324768,12 @@ export type RssArticleSeverityAggregateStatus200 = {
        */
       id: string;
     }[];
+    /**
+     * @description Beta. How many of the articles counted in articles have stale scores, from before a change to the account's Priority Intelligence Requirements, organization profile, or the article's content. They are counted by those scores; see the article list's relevance_coverage.
+     * @minimum 0
+     * @type integer
+     */
+    stale_articles: number;
   };
   success: true;
 };
@@ -324771,6 +324832,22 @@ export const rssArticleGetStatus200ResultRelevancePirsBandEnum = {
 } as const;
 
 export type RssArticleGetStatus200ResultRelevancePirsBandEnumKey = (typeof rssArticleGetStatus200ResultRelevancePirsBandEnum)[keyof typeof rssArticleGetStatus200ResultRelevancePirsBandEnum];
+
+export const rssArticleGetStatus200ResultRelevancePirsRequirementBasisEnum = {
+  current: 'current',
+  saved: 'saved',
+} as const;
+
+export type RssArticleGetStatus200ResultRelevancePirsRequirementBasisEnumKey = (typeof rssArticleGetStatus200ResultRelevancePirsRequirementBasisEnum)[keyof typeof rssArticleGetStatus200ResultRelevancePirsRequirementBasisEnum];
+
+export const rssArticleGetStatus200ResultRelevanceCoverageEnum = {
+  current: 'current',
+  stale: 'stale',
+  pending: 'pending',
+  unavailable: 'unavailable',
+} as const;
+
+export type RssArticleGetStatus200ResultRelevanceCoverageEnumKey = (typeof rssArticleGetStatus200ResultRelevanceCoverageEnum)[keyof typeof rssArticleGetStatus200ResultRelevanceCoverageEnum];
 
 export const rssArticleGetStatus200ResultSeverityEnum = {
   informational: 'informational',
@@ -324860,8 +324937,18 @@ export type RssArticleGetStatus200 = {
          * @type string
          */
         pir_id: string;
+        /**
+         * @description Beta. current: scored against the PIR's current requirement. saved: the PIR's structured definition no longer generates a valid requirement, for example because its topic was retired, so the requirement from its last save was scored instead.
+         * @type string
+         */
+        requirement_basis: RssArticleGetStatus200ResultRelevancePirsRequirementBasisEnumKey;
       }[];
     } | null;
+    /**
+     * @description Beta. Whether relevance and severity reflect the account's current Priority Intelligence Requirements, organization profile, and the article's current content. current: they do. stale: they were scored before a change; articles fetched in the last 7 days are being rescored, older articles keep these scores. pending: not scored yet, fetched in the last 7 days. unavailable: not scored, and will not be scored automatically, because it was fetched more than 7 days ago or processing failed. Updates to managed topics can take up to a day to mark scores stale. Null when the account has no active PIRs or none of its articles has been scored yet.
+     * @type string
+     */
+    relevance_coverage: RssArticleGetStatus200ResultRelevanceCoverageEnumKey | null;
     /**
      * @description Beta. Intrinsic article severity band, from informational to critical, independent of any organisation or Priority Intelligence Requirement. Null when the account has no active Priority Intelligence Requirements, scoring has not completed, or a historic article has not entered an automatic rescore window.
      * @type string
@@ -354124,335 +354211,6 @@ export type EmailRoutingRoutingRulesPlanAccountRoutingRulesResponses = {
  */
 export type EmailRoutingRoutingRulesPlanAccountRoutingRulesResponse = EmailRoutingRoutingRulesPlanAccountRoutingRulesStatus200;
 
-export type GetPublicListSuppressionRoutingPath = {
-  /**
-   * @example 54442216
-   * @type string
-   */
-  accountId: string;
-};
-
-export const getPublicListSuppressionRoutingOrder = {
-  email: 'email',
-  expires_at: 'expires_at',
-  created_at: 'created_at',
-} as const;
-
-export type GetPublicListSuppressionRoutingOrderKey = (typeof getPublicListSuppressionRoutingOrder)[keyof typeof getPublicListSuppressionRoutingOrder];
-
-export const getPublicListSuppressionRoutingDirection = {
-  asc: 'asc',
-  desc: 'desc',
-} as const;
-
-export type GetPublicListSuppressionRoutingDirectionKey = (typeof getPublicListSuppressionRoutingDirection)[keyof typeof getPublicListSuppressionRoutingDirection];
-
-export type GetPublicListSuppressionRoutingQuery = {
-  /**
-   * @minimum 0
-   * @default 1
-   * @type integer | undefined
-   */
-  page?: number | undefined;
-  /**
-   * @minimum 0
-   * @maximum 1000
-   * @default 100
-   * @type integer | undefined
-   */
-  per_page?: number | undefined;
-  /**
-   * @default 'created_at'
-   * @type string | undefined
-   */
-  order?: GetPublicListSuppressionRoutingOrderKey | undefined;
-  /**
-   * @default 'desc'
-   * @type string | undefined
-   */
-  direction?: GetPublicListSuppressionRoutingDirectionKey | undefined;
-};
-
-export type GetPublicListSuppressionRoutingStatus200 = {
-  /**
-   * @example 0
-   * @type integer
-   */
-  page: number;
-  /**
-   * @example 100
-   * @type integer
-   */
-  per_page: number;
-  result: {
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    created_at: string;
-    /**
-     * @description
-     * Format: `email`
-     * @example user@example.com
-     * @type string
-     */
-    email: string;
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    expires_at: string | null;
-    /**
-     * @description
-     * Format: `uuid`
-     * @type string
-     */
-    id: string;
-    /**
-     * @example hard_bounce
-     * @type string
-     */
-    reason: string;
-    /**
-     * @default []
-     * @type array | undefined
-     */
-    zones?: string[] | undefined;
-  }[];
-  /**
-   * @example 1
-   * @type integer
-   */
-  total: number;
-};
-
-export type GetPublicListSuppressionRoutingStatus400 = {
-  errors: string[];
-  /**
-   * @example false
-   * @type boolean
-   */
-  success: boolean;
-};
-
-/**
- * @deprecated
- * @type object
- */
-export type GetPublicListSuppressionRoutingOptions = {
-  body?: never | undefined;
-  path: GetPublicListSuppressionRoutingPath;
-  query?: GetPublicListSuppressionRoutingQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type GetPublicListSuppressionRoutingResponses = {
-  '200': GetPublicListSuppressionRoutingStatus200;
-  '400': GetPublicListSuppressionRoutingStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type GetPublicListSuppressionRoutingResponse = GetPublicListSuppressionRoutingStatus200;
-
-export type PostPublicNewSuppressionRoutingPath = {
-  /**
-   * @example 54442216
-   * @type string
-   */
-  accountId: string;
-};
-
-export type PostPublicNewSuppressionRoutingStatus200 = {
-  result: {
-    /**
-     * @description
-     * Format: `uuid`
-     * @type string
-     */
-    id: string;
-  };
-};
-
-export type PostPublicNewSuppressionRoutingStatus400 = {
-  errors: string[];
-  /**
-   * @example false
-   * @type boolean
-   */
-  success: boolean;
-};
-
-export type PostPublicNewSuppressionRoutingBody = {
-  /**
-   * @description
-   * Format: `email`
-   * @example user@example.com
-   * @type string
-   */
-  email: string;
-  /**
-   * @description
-   * Format: `date-time`
-   * @type string | undefined
-   */
-  expires_at?: (string | null) | undefined;
-} | undefined;
-
-/**
- * @deprecated
- * @type object
- */
-export type PostPublicNewSuppressionRoutingOptions = {
-  body: PostPublicNewSuppressionRoutingBody;
-  path: PostPublicNewSuppressionRoutingPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type PostPublicNewSuppressionRoutingResponses = {
-  '200': PostPublicNewSuppressionRoutingStatus200;
-  '400': PostPublicNewSuppressionRoutingStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type PostPublicNewSuppressionRoutingResponse = PostPublicNewSuppressionRoutingStatus200;
-
-export type DeletePublicDeleteSuppressionRoutingPath = {
-  /**
-   * @example 54442216
-   * @type string
-   */
-  accountId: string;
-  /**
-   * @example 396a5436-d4b0-42a6-b3fc-48e8fa522321
-   * @type string
-   */
-  suppressionId: string;
-};
-
-export type DeletePublicDeleteSuppressionRoutingStatus200 = {
-  success: boolean;
-};
-
-export type DeletePublicDeleteSuppressionRoutingStatus404 = {
-  error: string;
-  /**
-   * @example false
-   * @type boolean
-   */
-  success: boolean;
-};
-
-/**
- * @deprecated
- * @type object
- */
-export type DeletePublicDeleteSuppressionRoutingOptions = {
-  body?: never | undefined;
-  path: DeletePublicDeleteSuppressionRoutingPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type DeletePublicDeleteSuppressionRoutingResponses = {
-  '200': DeletePublicDeleteSuppressionRoutingStatus200;
-  '404': DeletePublicDeleteSuppressionRoutingStatus404;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeletePublicDeleteSuppressionRoutingResponse = DeletePublicDeleteSuppressionRoutingStatus200;
-
-export type GetPublicGetSuppressionRoutingPath = {
-  /**
-   * @example 54442216
-   * @type string
-   */
-  accountId: string;
-  /**
-   * @example 396a5436-d4b0-42a6-b3fc-48e8fa522321
-   * @type string
-   */
-  suppressionId: string;
-};
-
-export type GetPublicGetSuppressionRoutingStatus200 = {
-  result: {
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    created_at: string;
-    /**
-     * @description
-     * Format: `email`
-     * @example user@example.com
-     * @type string
-     */
-    email: string;
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    expires_at: string | null;
-    /**
-     * @description
-     * Format: `uuid`
-     * @type string
-     */
-    id: string;
-    /**
-     * @example hard_bounce
-     * @type string
-     */
-    reason: string;
-    /**
-     * @default []
-     * @type array | undefined
-     */
-    zones?: string[] | undefined;
-  };
-};
-
-export type GetPublicGetSuppressionRoutingStatus404 = {
-  error: string;
-  /**
-   * @example false
-   * @type boolean
-   */
-  success: boolean;
-};
-
-/**
- * @deprecated
- * @type object
- */
-export type GetPublicGetSuppressionRoutingOptions = {
-  body?: never | undefined;
-  path: GetPublicGetSuppressionRoutingPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type GetPublicGetSuppressionRoutingResponses = {
-  '200': GetPublicGetSuppressionRoutingStatus200;
-  '404': GetPublicGetSuppressionRoutingStatus404;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type GetPublicGetSuppressionRoutingResponse = GetPublicGetSuppressionRoutingStatus200;
-
 export type EmailSendingGetSendingLimitsPath = {
   /**
    * @description Identifier.
@@ -354808,335 +354566,6 @@ export type EmailSendingAccountSendRawMessageResponses = {
  */
 export type EmailSendingAccountSendRawMessageResponse = EmailSendingAccountSendRawMessageStatus200;
 
-export type GetPublicListSuppressionSendingPath = {
-  /**
-   * @example 54442216
-   * @type string
-   */
-  accountId: string;
-};
-
-export const getPublicListSuppressionSendingOrder = {
-  email: 'email',
-  expires_at: 'expires_at',
-  created_at: 'created_at',
-} as const;
-
-export type GetPublicListSuppressionSendingOrderKey = (typeof getPublicListSuppressionSendingOrder)[keyof typeof getPublicListSuppressionSendingOrder];
-
-export const getPublicListSuppressionSendingDirection = {
-  asc: 'asc',
-  desc: 'desc',
-} as const;
-
-export type GetPublicListSuppressionSendingDirectionKey = (typeof getPublicListSuppressionSendingDirection)[keyof typeof getPublicListSuppressionSendingDirection];
-
-export type GetPublicListSuppressionSendingQuery = {
-  /**
-   * @minimum 0
-   * @default 1
-   * @type integer | undefined
-   */
-  page?: number | undefined;
-  /**
-   * @minimum 0
-   * @maximum 1000
-   * @default 100
-   * @type integer | undefined
-   */
-  per_page?: number | undefined;
-  /**
-   * @default 'created_at'
-   * @type string | undefined
-   */
-  order?: GetPublicListSuppressionSendingOrderKey | undefined;
-  /**
-   * @default 'desc'
-   * @type string | undefined
-   */
-  direction?: GetPublicListSuppressionSendingDirectionKey | undefined;
-};
-
-export type GetPublicListSuppressionSendingStatus200 = {
-  /**
-   * @example 0
-   * @type integer
-   */
-  page: number;
-  /**
-   * @example 100
-   * @type integer
-   */
-  per_page: number;
-  result: {
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    created_at: string;
-    /**
-     * @description
-     * Format: `email`
-     * @example user@example.com
-     * @type string
-     */
-    email: string;
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    expires_at: string | null;
-    /**
-     * @description
-     * Format: `uuid`
-     * @type string
-     */
-    id: string;
-    /**
-     * @example hard_bounce
-     * @type string
-     */
-    reason: string;
-    /**
-     * @default []
-     * @type array | undefined
-     */
-    zones?: string[] | undefined;
-  }[];
-  /**
-   * @example 1
-   * @type integer
-   */
-  total: number;
-};
-
-export type GetPublicListSuppressionSendingStatus400 = {
-  errors: string[];
-  /**
-   * @example false
-   * @type boolean
-   */
-  success: boolean;
-};
-
-/**
- * @deprecated
- * @type object
- */
-export type GetPublicListSuppressionSendingOptions = {
-  body?: never | undefined;
-  path: GetPublicListSuppressionSendingPath;
-  query?: GetPublicListSuppressionSendingQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type GetPublicListSuppressionSendingResponses = {
-  '200': GetPublicListSuppressionSendingStatus200;
-  '400': GetPublicListSuppressionSendingStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type GetPublicListSuppressionSendingResponse = GetPublicListSuppressionSendingStatus200;
-
-export type PostPublicNewSuppressionSendingPath = {
-  /**
-   * @example 54442216
-   * @type string
-   */
-  accountId: string;
-};
-
-export type PostPublicNewSuppressionSendingStatus200 = {
-  result: {
-    /**
-     * @description
-     * Format: `uuid`
-     * @type string
-     */
-    id: string;
-  };
-};
-
-export type PostPublicNewSuppressionSendingStatus400 = {
-  errors: string[];
-  /**
-   * @example false
-   * @type boolean
-   */
-  success: boolean;
-};
-
-export type PostPublicNewSuppressionSendingBody = {
-  /**
-   * @description
-   * Format: `email`
-   * @example user@example.com
-   * @type string
-   */
-  email: string;
-  /**
-   * @description
-   * Format: `date-time`
-   * @type string | undefined
-   */
-  expires_at?: (string | null) | undefined;
-} | undefined;
-
-/**
- * @deprecated
- * @type object
- */
-export type PostPublicNewSuppressionSendingOptions = {
-  body: PostPublicNewSuppressionSendingBody;
-  path: PostPublicNewSuppressionSendingPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type PostPublicNewSuppressionSendingResponses = {
-  '200': PostPublicNewSuppressionSendingStatus200;
-  '400': PostPublicNewSuppressionSendingStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type PostPublicNewSuppressionSendingResponse = PostPublicNewSuppressionSendingStatus200;
-
-export type DeletePublicDeleteSuppressionSendingPath = {
-  /**
-   * @example 54442216
-   * @type string
-   */
-  accountId: string;
-  /**
-   * @example 396a5436-d4b0-42a6-b3fc-48e8fa522321
-   * @type string
-   */
-  suppressionId: string;
-};
-
-export type DeletePublicDeleteSuppressionSendingStatus200 = {
-  success: boolean;
-};
-
-export type DeletePublicDeleteSuppressionSendingStatus404 = {
-  error: string;
-  /**
-   * @example false
-   * @type boolean
-   */
-  success: boolean;
-};
-
-/**
- * @deprecated
- * @type object
- */
-export type DeletePublicDeleteSuppressionSendingOptions = {
-  body?: never | undefined;
-  path: DeletePublicDeleteSuppressionSendingPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type DeletePublicDeleteSuppressionSendingResponses = {
-  '200': DeletePublicDeleteSuppressionSendingStatus200;
-  '404': DeletePublicDeleteSuppressionSendingStatus404;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeletePublicDeleteSuppressionSendingResponse = DeletePublicDeleteSuppressionSendingStatus200;
-
-export type GetPublicGetSuppressionSendingPath = {
-  /**
-   * @example 54442216
-   * @type string
-   */
-  accountId: string;
-  /**
-   * @example 396a5436-d4b0-42a6-b3fc-48e8fa522321
-   * @type string
-   */
-  suppressionId: string;
-};
-
-export type GetPublicGetSuppressionSendingStatus200 = {
-  result: {
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    created_at: string;
-    /**
-     * @description
-     * Format: `email`
-     * @example user@example.com
-     * @type string
-     */
-    email: string;
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    expires_at: string | null;
-    /**
-     * @description
-     * Format: `uuid`
-     * @type string
-     */
-    id: string;
-    /**
-     * @example hard_bounce
-     * @type string
-     */
-    reason: string;
-    /**
-     * @default []
-     * @type array | undefined
-     */
-    zones?: string[] | undefined;
-  };
-};
-
-export type GetPublicGetSuppressionSendingStatus404 = {
-  error: string;
-  /**
-   * @example false
-   * @type boolean
-   */
-  success: boolean;
-};
-
-/**
- * @deprecated
- * @type object
- */
-export type GetPublicGetSuppressionSendingOptions = {
-  body?: never | undefined;
-  path: GetPublicGetSuppressionSendingPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type GetPublicGetSuppressionSendingResponses = {
-  '200': GetPublicGetSuppressionSendingStatus200;
-  '404': GetPublicGetSuppressionSendingStatus404;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type GetPublicGetSuppressionSendingResponse = GetPublicGetSuppressionSendingStatus200;
-
 export type GetPublicListSendingSuppressionsPath = {
   /**
    * @description Cloudflare account ID.
@@ -355203,7 +354632,7 @@ export type GetPublicListSendingSuppressionsQuery = {
    */
   reason?: GetPublicListSendingSuppressionsReasonKey | undefined;
   /**
-   * @description Filter by scope: `account` returns only account-wide suppressions, `sending_domain` only sending-domain suppressions. Omit to list both, sending-domain suppressions first.
+   * @description Filter by scope: `account` returns only account-wide suppressions, `sending_domain` only sending-domain suppressions. Omit to list both; the order between the two scopes is not fixed.
    * @example sending_domain
    * @type string | undefined
    */
@@ -355311,7 +354740,7 @@ export type GetPublicListSendingSuppressionsStatus200 = {
      */
     count: number;
     /**
-     * @description Opaque cursor for the next page. Pass it back as the `cursor` query parameter and continue until it is `null`. A bounded large-account scan may return a short intermediate page. Sending-domain suppressions are listed before account suppressions; each group is newest first.
+     * @description Opaque cursor for the next page. Pass it back as the `cursor` query parameter and continue until it is `null`. A bounded large-account scan may return a short intermediate page. Each scope is listed newest first; the order between the two scopes is not fixed.
      * @example eyJ0Ijo0LCJwaCI6ImRvbWFpbiIsInAiOjEyMywiYyI6ImMzZGM1ZjBiMzRhMTRmZjhlMWIzZWMwNDg5NWUxYjIyIn0
      * @type string
      */
@@ -355742,7 +355171,7 @@ export type PostPublicBulkCreateSendingSuppressionsStatus200 = {
      */
     processed: number;
     /**
-     * @description Number of items skipped because the existing suppression is not customer-managed (for example, a read-only policy suppression).
+     * @description Number of items skipped because the existing suppression is not customer-managed.
      * @example 0
      * @type integer
      */
@@ -378347,6 +377776,32 @@ export type MTlsCertificateManagementListMTlsCertificatesTypeEnumKey = (typeof m
 
 export type MTlsCertificateManagementListMTlsCertificatesQuery = {
   /**
+   * @description Page number, starting at 1. Defaults to 1. Ignored when offset is provided.
+   * @minimum 1
+   * @type integer | undefined
+   */
+  page?: number | undefined;
+  /**
+   * @description Number of results per page. Defaults to 50 when neither per_page nor limit is provided. Ignored when limit is provided. Values above 1000 are capped at 1000.
+   * @minimum 0
+   * @maximum 1000
+   * @type integer | undefined
+   */
+  per_page?: number | undefined;
+  /**
+   * @description Alias for per_page. Defaults to 50 when neither per_page nor limit is provided. Takes precedence over per_page. Values above 1000 are capped at 1000.
+   * @minimum 0
+   * @maximum 1000
+   * @type integer | undefined
+   */
+  limit?: number | undefined;
+  /**
+   * @description Number of results to skip. Defaults to 0. Takes precedence over page, including when offset is 0.
+   * @minimum 0
+   * @type integer | undefined
+   */
+  offset?: number | undefined;
+  /**
    * @description Filters results by certificate type. Multiple types can be comma-separated.
    * @example ["custom"]
    * @type array | undefined
@@ -380708,6 +380163,24 @@ export type PagesDomainsGetDomainsPath = {
   accountId: PagesIdentifier;
 };
 
+export type PagesDomainsGetDomainsQuery = {
+  /**
+   * @description Page number of custom domains, starting at 1.
+   * @minimum 1
+   * @default 1
+   * @type integer | undefined
+   */
+  page?: number | undefined;
+  /**
+   * @description Number of custom domains per page.
+   * @minimum 1
+   * @maximum 25
+   * @default 20
+   * @type integer | undefined
+   */
+  per_page?: number | undefined;
+};
+
 export type PagesDomainsGetDomainsStatus200 = PagesApiResponseCollection & {
   result: PagesDomain[];
 };
@@ -380717,7 +380190,7 @@ export type PagesDomainsGetDomainsStatus400 = PagesApiResponseCommonFailure;
 export type PagesDomainsGetDomainsOptions = {
   body?: never | undefined;
   path: PagesDomainsGetDomainsPath;
-  query?: never | undefined;
+  query?: PagesDomainsGetDomainsQuery | undefined;
   headers?: never | undefined;
 };
 
@@ -454784,335 +454257,6 @@ export type EmailRoutingRoutingRulesUpdateRoutingRuleResponses = {
  */
 export type EmailRoutingRoutingRulesUpdateRoutingRuleResponse = EmailRoutingRoutingRulesUpdateRoutingRuleStatus200;
 
-export type GetPublicListSuppressionZoneRoutingPath = {
-  /**
-   * @example 88228822
-   * @type string
-   */
-  zoneId: string;
-};
-
-export const getPublicListSuppressionZoneRoutingOrder = {
-  email: 'email',
-  expires_at: 'expires_at',
-  created_at: 'created_at',
-} as const;
-
-export type GetPublicListSuppressionZoneRoutingOrderKey = (typeof getPublicListSuppressionZoneRoutingOrder)[keyof typeof getPublicListSuppressionZoneRoutingOrder];
-
-export const getPublicListSuppressionZoneRoutingDirection = {
-  asc: 'asc',
-  desc: 'desc',
-} as const;
-
-export type GetPublicListSuppressionZoneRoutingDirectionKey = (typeof getPublicListSuppressionZoneRoutingDirection)[keyof typeof getPublicListSuppressionZoneRoutingDirection];
-
-export type GetPublicListSuppressionZoneRoutingQuery = {
-  /**
-   * @minimum 0
-   * @default 1
-   * @type integer | undefined
-   */
-  page?: number | undefined;
-  /**
-   * @minimum 0
-   * @maximum 1000
-   * @default 100
-   * @type integer | undefined
-   */
-  per_page?: number | undefined;
-  /**
-   * @default 'created_at'
-   * @type string | undefined
-   */
-  order?: GetPublicListSuppressionZoneRoutingOrderKey | undefined;
-  /**
-   * @default 'desc'
-   * @type string | undefined
-   */
-  direction?: GetPublicListSuppressionZoneRoutingDirectionKey | undefined;
-};
-
-export type GetPublicListSuppressionZoneRoutingStatus200 = {
-  /**
-   * @example 0
-   * @type integer
-   */
-  page: number;
-  /**
-   * @example 100
-   * @type integer
-   */
-  per_page: number;
-  result: {
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    created_at: string;
-    /**
-     * @description
-     * Format: `email`
-     * @example user@example.com
-     * @type string
-     */
-    email: string;
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    expires_at: string | null;
-    /**
-     * @description
-     * Format: `uuid`
-     * @type string
-     */
-    id: string;
-    /**
-     * @example hard_bounce
-     * @type string
-     */
-    reason: string;
-    /**
-     * @default []
-     * @type array | undefined
-     */
-    zones?: string[] | undefined;
-  }[];
-  /**
-   * @example 1
-   * @type integer
-   */
-  total: number;
-};
-
-export type GetPublicListSuppressionZoneRoutingStatus400 = {
-  errors: string[];
-  /**
-   * @example false
-   * @type boolean
-   */
-  success: boolean;
-};
-
-/**
- * @deprecated
- * @type object
- */
-export type GetPublicListSuppressionZoneRoutingOptions = {
-  body?: never | undefined;
-  path: GetPublicListSuppressionZoneRoutingPath;
-  query?: GetPublicListSuppressionZoneRoutingQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type GetPublicListSuppressionZoneRoutingResponses = {
-  '200': GetPublicListSuppressionZoneRoutingStatus200;
-  '400': GetPublicListSuppressionZoneRoutingStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type GetPublicListSuppressionZoneRoutingResponse = GetPublicListSuppressionZoneRoutingStatus200;
-
-export type PostPublicNewSuppressionZoneRoutingPath = {
-  /**
-   * @example 88228822
-   * @type string
-   */
-  zoneId: string;
-};
-
-export type PostPublicNewSuppressionZoneRoutingStatus200 = {
-  result: {
-    /**
-     * @description
-     * Format: `uuid`
-     * @type string
-     */
-    id: string;
-  };
-};
-
-export type PostPublicNewSuppressionZoneRoutingStatus400 = {
-  errors: string[];
-  /**
-   * @example false
-   * @type boolean
-   */
-  success: boolean;
-};
-
-export type PostPublicNewSuppressionZoneRoutingBody = {
-  /**
-   * @description
-   * Format: `email`
-   * @example user@example.com
-   * @type string
-   */
-  email: string;
-  /**
-   * @description
-   * Format: `date-time`
-   * @type string | undefined
-   */
-  expires_at?: (string | null) | undefined;
-} | undefined;
-
-/**
- * @deprecated
- * @type object
- */
-export type PostPublicNewSuppressionZoneRoutingOptions = {
-  body: PostPublicNewSuppressionZoneRoutingBody;
-  path: PostPublicNewSuppressionZoneRoutingPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type PostPublicNewSuppressionZoneRoutingResponses = {
-  '200': PostPublicNewSuppressionZoneRoutingStatus200;
-  '400': PostPublicNewSuppressionZoneRoutingStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type PostPublicNewSuppressionZoneRoutingResponse = PostPublicNewSuppressionZoneRoutingStatus200;
-
-export type DeletePublicDeleteSuppressionZoneRoutingPath = {
-  /**
-   * @example 88228822
-   * @type string
-   */
-  zoneId: string;
-  /**
-   * @example 396a5436-d4b0-42a6-b3fc-48e8fa522321
-   * @type string
-   */
-  suppressionId: string;
-};
-
-export type DeletePublicDeleteSuppressionZoneRoutingStatus200 = {
-  success: boolean;
-};
-
-export type DeletePublicDeleteSuppressionZoneRoutingStatus404 = {
-  error: string;
-  /**
-   * @example false
-   * @type boolean
-   */
-  success: boolean;
-};
-
-/**
- * @deprecated
- * @type object
- */
-export type DeletePublicDeleteSuppressionZoneRoutingOptions = {
-  body?: never | undefined;
-  path: DeletePublicDeleteSuppressionZoneRoutingPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type DeletePublicDeleteSuppressionZoneRoutingResponses = {
-  '200': DeletePublicDeleteSuppressionZoneRoutingStatus200;
-  '404': DeletePublicDeleteSuppressionZoneRoutingStatus404;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeletePublicDeleteSuppressionZoneRoutingResponse = DeletePublicDeleteSuppressionZoneRoutingStatus200;
-
-export type GetPublicGetSuppressionZoneRoutingPath = {
-  /**
-   * @example 88228822
-   * @type string
-   */
-  zoneId: string;
-  /**
-   * @example 396a5436-d4b0-42a6-b3fc-48e8fa522321
-   * @type string
-   */
-  suppressionId: string;
-};
-
-export type GetPublicGetSuppressionZoneRoutingStatus200 = {
-  result: {
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    created_at: string;
-    /**
-     * @description
-     * Format: `email`
-     * @example user@example.com
-     * @type string
-     */
-    email: string;
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    expires_at: string | null;
-    /**
-     * @description
-     * Format: `uuid`
-     * @type string
-     */
-    id: string;
-    /**
-     * @example hard_bounce
-     * @type string
-     */
-    reason: string;
-    /**
-     * @default []
-     * @type array | undefined
-     */
-    zones?: string[] | undefined;
-  };
-};
-
-export type GetPublicGetSuppressionZoneRoutingStatus404 = {
-  error: string;
-  /**
-   * @example false
-   * @type boolean
-   */
-  success: boolean;
-};
-
-/**
- * @deprecated
- * @type object
- */
-export type GetPublicGetSuppressionZoneRoutingOptions = {
-  body?: never | undefined;
-  path: GetPublicGetSuppressionZoneRoutingPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type GetPublicGetSuppressionZoneRoutingResponses = {
-  '200': GetPublicGetSuppressionZoneRoutingStatus200;
-  '404': GetPublicGetSuppressionZoneRoutingStatus404;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type GetPublicGetSuppressionZoneRoutingResponse = GetPublicGetSuppressionZoneRoutingStatus200;
-
 export type EmailRoutingSettingsUnlockEmailRoutingPath = {
   /**
    * @description Identifier.
@@ -455555,335 +454699,6 @@ export type EmailSendingSubdomainsGetSendingSubdomainReputationComplaintsRespons
  * @description Union of all possible responses
  */
 export type EmailSendingSubdomainsGetSendingSubdomainReputationComplaintsResponse = EmailSendingSubdomainsGetSendingSubdomainReputationComplaintsStatus200;
-
-export type GetPublicListSuppressionZoneSendingPath = {
-  /**
-   * @example 88228822
-   * @type string
-   */
-  zoneId: string;
-};
-
-export const getPublicListSuppressionZoneSendingOrder = {
-  email: 'email',
-  expires_at: 'expires_at',
-  created_at: 'created_at',
-} as const;
-
-export type GetPublicListSuppressionZoneSendingOrderKey = (typeof getPublicListSuppressionZoneSendingOrder)[keyof typeof getPublicListSuppressionZoneSendingOrder];
-
-export const getPublicListSuppressionZoneSendingDirection = {
-  asc: 'asc',
-  desc: 'desc',
-} as const;
-
-export type GetPublicListSuppressionZoneSendingDirectionKey = (typeof getPublicListSuppressionZoneSendingDirection)[keyof typeof getPublicListSuppressionZoneSendingDirection];
-
-export type GetPublicListSuppressionZoneSendingQuery = {
-  /**
-   * @minimum 0
-   * @default 1
-   * @type integer | undefined
-   */
-  page?: number | undefined;
-  /**
-   * @minimum 0
-   * @maximum 1000
-   * @default 100
-   * @type integer | undefined
-   */
-  per_page?: number | undefined;
-  /**
-   * @default 'created_at'
-   * @type string | undefined
-   */
-  order?: GetPublicListSuppressionZoneSendingOrderKey | undefined;
-  /**
-   * @default 'desc'
-   * @type string | undefined
-   */
-  direction?: GetPublicListSuppressionZoneSendingDirectionKey | undefined;
-};
-
-export type GetPublicListSuppressionZoneSendingStatus200 = {
-  /**
-   * @example 0
-   * @type integer
-   */
-  page: number;
-  /**
-   * @example 100
-   * @type integer
-   */
-  per_page: number;
-  result: {
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    created_at: string;
-    /**
-     * @description
-     * Format: `email`
-     * @example user@example.com
-     * @type string
-     */
-    email: string;
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    expires_at: string | null;
-    /**
-     * @description
-     * Format: `uuid`
-     * @type string
-     */
-    id: string;
-    /**
-     * @example hard_bounce
-     * @type string
-     */
-    reason: string;
-    /**
-     * @default []
-     * @type array | undefined
-     */
-    zones?: string[] | undefined;
-  }[];
-  /**
-   * @example 1
-   * @type integer
-   */
-  total: number;
-};
-
-export type GetPublicListSuppressionZoneSendingStatus400 = {
-  errors: string[];
-  /**
-   * @example false
-   * @type boolean
-   */
-  success: boolean;
-};
-
-/**
- * @deprecated
- * @type object
- */
-export type GetPublicListSuppressionZoneSendingOptions = {
-  body?: never | undefined;
-  path: GetPublicListSuppressionZoneSendingPath;
-  query?: GetPublicListSuppressionZoneSendingQuery | undefined;
-  headers?: never | undefined;
-};
-
-export type GetPublicListSuppressionZoneSendingResponses = {
-  '200': GetPublicListSuppressionZoneSendingStatus200;
-  '400': GetPublicListSuppressionZoneSendingStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type GetPublicListSuppressionZoneSendingResponse = GetPublicListSuppressionZoneSendingStatus200;
-
-export type PostPublicNewSuppressionZoneSendingPath = {
-  /**
-   * @example 88228822
-   * @type string
-   */
-  zoneId: string;
-};
-
-export type PostPublicNewSuppressionZoneSendingStatus200 = {
-  result: {
-    /**
-     * @description
-     * Format: `uuid`
-     * @type string
-     */
-    id: string;
-  };
-};
-
-export type PostPublicNewSuppressionZoneSendingStatus400 = {
-  errors: string[];
-  /**
-   * @example false
-   * @type boolean
-   */
-  success: boolean;
-};
-
-export type PostPublicNewSuppressionZoneSendingBody = {
-  /**
-   * @description
-   * Format: `email`
-   * @example user@example.com
-   * @type string
-   */
-  email: string;
-  /**
-   * @description
-   * Format: `date-time`
-   * @type string | undefined
-   */
-  expires_at?: (string | null) | undefined;
-} | undefined;
-
-/**
- * @deprecated
- * @type object
- */
-export type PostPublicNewSuppressionZoneSendingOptions = {
-  body: PostPublicNewSuppressionZoneSendingBody;
-  path: PostPublicNewSuppressionZoneSendingPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type PostPublicNewSuppressionZoneSendingResponses = {
-  '200': PostPublicNewSuppressionZoneSendingStatus200;
-  '400': PostPublicNewSuppressionZoneSendingStatus400;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type PostPublicNewSuppressionZoneSendingResponse = PostPublicNewSuppressionZoneSendingStatus200;
-
-export type DeletePublicDeleteSuppressionZoneSendingPath = {
-  /**
-   * @example 88228822
-   * @type string
-   */
-  zoneId: string;
-  /**
-   * @example 396a5436-d4b0-42a6-b3fc-48e8fa522321
-   * @type string
-   */
-  suppressionId: string;
-};
-
-export type DeletePublicDeleteSuppressionZoneSendingStatus200 = {
-  success: boolean;
-};
-
-export type DeletePublicDeleteSuppressionZoneSendingStatus404 = {
-  error: string;
-  /**
-   * @example false
-   * @type boolean
-   */
-  success: boolean;
-};
-
-/**
- * @deprecated
- * @type object
- */
-export type DeletePublicDeleteSuppressionZoneSendingOptions = {
-  body?: never | undefined;
-  path: DeletePublicDeleteSuppressionZoneSendingPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type DeletePublicDeleteSuppressionZoneSendingResponses = {
-  '200': DeletePublicDeleteSuppressionZoneSendingStatus200;
-  '404': DeletePublicDeleteSuppressionZoneSendingStatus404;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeletePublicDeleteSuppressionZoneSendingResponse = DeletePublicDeleteSuppressionZoneSendingStatus200;
-
-export type GetPublicGetSuppressionZoneSendingPath = {
-  /**
-   * @example 88228822
-   * @type string
-   */
-  zoneId: string;
-  /**
-   * @example 396a5436-d4b0-42a6-b3fc-48e8fa522321
-   * @type string
-   */
-  suppressionId: string;
-};
-
-export type GetPublicGetSuppressionZoneSendingStatus200 = {
-  result: {
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    created_at: string;
-    /**
-     * @description
-     * Format: `email`
-     * @example user@example.com
-     * @type string
-     */
-    email: string;
-    /**
-     * @description
-     * Format: `date-time`
-     * @type string
-     */
-    expires_at: string | null;
-    /**
-     * @description
-     * Format: `uuid`
-     * @type string
-     */
-    id: string;
-    /**
-     * @example hard_bounce
-     * @type string
-     */
-    reason: string;
-    /**
-     * @default []
-     * @type array | undefined
-     */
-    zones?: string[] | undefined;
-  };
-};
-
-export type GetPublicGetSuppressionZoneSendingStatus404 = {
-  error: string;
-  /**
-   * @example false
-   * @type boolean
-   */
-  success: boolean;
-};
-
-/**
- * @deprecated
- * @type object
- */
-export type GetPublicGetSuppressionZoneSendingOptions = {
-  body?: never | undefined;
-  path: GetPublicGetSuppressionZoneSendingPath;
-  query?: never | undefined;
-  headers?: never | undefined;
-};
-
-export type GetPublicGetSuppressionZoneSendingResponses = {
-  '200': GetPublicGetSuppressionZoneSendingStatus200;
-  '404': GetPublicGetSuppressionZoneSendingStatus404;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type GetPublicGetSuppressionZoneSendingResponse = GetPublicGetSuppressionZoneSendingStatus200;
 
 export type EntitlementsGetZoneEntitlementsPath = {
   /**
@@ -459553,6 +458368,35 @@ export type PerHostnameTlsSettingsListPath = {
   settingId: TlsCertificatesAndHostnamesSettingIdKey;
 };
 
+export type PerHostnameTlsSettingsListQuery = {
+  /**
+   * @description Page number, starting at 1. Defaults to 1. Ignored when offset is provided.
+   * @minimum 1
+   * @type integer | undefined
+   */
+  page?: number | undefined;
+  /**
+   * @description Number of results per page. Defaults to 50 when neither per_page nor limit is provided. Ignored when limit is provided. Values above 1000 are capped at 1000.
+   * @minimum 0
+   * @maximum 1000
+   * @type integer | undefined
+   */
+  per_page?: number | undefined;
+  /**
+   * @description Alias for per_page. Defaults to 50 when neither per_page nor limit is provided. Takes precedence over per_page. Values above 1000 are capped at 1000.
+   * @minimum 0
+   * @maximum 1000
+   * @type integer | undefined
+   */
+  limit?: number | undefined;
+  /**
+   * @description Number of results to skip. Defaults to 0. Takes precedence over page, including when offset is 0.
+   * @minimum 0
+   * @type integer | undefined
+   */
+  offset?: number | undefined;
+};
+
 export type PerHostnameTlsSettingsListStatus200 = TlsCertificatesAndHostnamesPerHostnameSettingsResponseCollection;
 
 export type PerHostnameTlsSettingsListStatus400 = TlsCertificatesAndHostnamesPerHostnameSettingsResponseCollection & TlsCertificatesAndHostnamesApiResponseCommonFailure;
@@ -459560,7 +458404,7 @@ export type PerHostnameTlsSettingsListStatus400 = TlsCertificatesAndHostnamesPer
 export type PerHostnameTlsSettingsListOptions = {
   body?: never | undefined;
   path: PerHostnameTlsSettingsListPath;
-  query?: never | undefined;
+  query?: PerHostnameTlsSettingsListQuery | undefined;
   headers?: never | undefined;
 };
 
@@ -460116,6 +458960,24 @@ export type KeylessSslForAZoneListKeylessSslConfigurationsPath = {
   zoneId: TlsCertificatesAndHostnamesIdentifier;
 };
 
+export type KeylessSslForAZoneListKeylessSslConfigurationsQuery = {
+  /**
+   * @description Page number of Keyless SSL configurations, starting at 1.
+   * @minimum 1
+   * @default 1
+   * @type integer | undefined
+   */
+  page?: number | undefined;
+  /**
+   * @description Number of Keyless SSL configurations per page.
+   * @minimum 1
+   * @maximum 1000
+   * @default 20
+   * @type integer | undefined
+   */
+  per_page?: number | undefined;
+};
+
 export type KeylessSslForAZoneListKeylessSslConfigurationsStatus200 = TlsCertificatesAndHostnamesKeylessResponseCollection;
 
 export type KeylessSslForAZoneListKeylessSslConfigurationsStatus400 = TlsCertificatesAndHostnamesKeylessResponseCollection & TlsCertificatesAndHostnamesApiResponseCommonFailure;
@@ -460123,7 +458985,7 @@ export type KeylessSslForAZoneListKeylessSslConfigurationsStatus400 = TlsCertifi
 export type KeylessSslForAZoneListKeylessSslConfigurationsOptions = {
   body?: never | undefined;
   path: KeylessSslForAZoneListKeylessSslConfigurationsPath;
-  query?: never | undefined;
+  query?: KeylessSslForAZoneListKeylessSslConfigurationsQuery | undefined;
   headers?: never | undefined;
 };
 
@@ -464223,6 +463085,35 @@ export type ZoneLevelAuthenticatedOriginPullsListCertificatesPath = {
   zoneId: TlsCertificatesAndHostnamesIdentifier;
 };
 
+export type ZoneLevelAuthenticatedOriginPullsListCertificatesQuery = {
+  /**
+   * @description Page number, starting at 1. Defaults to 1. Ignored when offset is provided.
+   * @minimum 1
+   * @type integer | undefined
+   */
+  page?: number | undefined;
+  /**
+   * @description Number of results per page. Defaults to 50 when neither per_page nor limit is provided. Ignored when limit is provided. Values above 1000 are capped at 1000.
+   * @minimum 0
+   * @maximum 1000
+   * @type integer | undefined
+   */
+  per_page?: number | undefined;
+  /**
+   * @description Alias for per_page. Defaults to 50 when neither per_page nor limit is provided. Takes precedence over per_page. Values above 1000 are capped at 1000.
+   * @minimum 0
+   * @maximum 1000
+   * @type integer | undefined
+   */
+  limit?: number | undefined;
+  /**
+   * @description Number of results to skip. Defaults to 0. Takes precedence over page, including when offset is 0.
+   * @minimum 0
+   * @type integer | undefined
+   */
+  offset?: number | undefined;
+};
+
 export type ZoneLevelAuthenticatedOriginPullsListCertificatesStatus200 = TlsCertificatesAndHostnamesCertificateResponseCollection3;
 
 export type ZoneLevelAuthenticatedOriginPullsListCertificatesStatus400 = TlsCertificatesAndHostnamesCertificateResponseCollection3 & TlsCertificatesAndHostnamesApiResponseCommonFailure;
@@ -464230,7 +463121,7 @@ export type ZoneLevelAuthenticatedOriginPullsListCertificatesStatus400 = TlsCert
 export type ZoneLevelAuthenticatedOriginPullsListCertificatesOptions = {
   body?: never | undefined;
   path: ZoneLevelAuthenticatedOriginPullsListCertificatesPath;
-  query?: never | undefined;
+  query?: ZoneLevelAuthenticatedOriginPullsListCertificatesQuery | undefined;
   headers?: never | undefined;
 };
 
@@ -464451,6 +463342,35 @@ export type PerHostnameAuthenticatedOriginPullListCertificatesPath = {
   zoneId: TlsCertificatesAndHostnamesIdentifier;
 };
 
+export type PerHostnameAuthenticatedOriginPullListCertificatesQuery = {
+  /**
+   * @description Page number, starting at 1. Defaults to 1. Ignored when offset is provided.
+   * @minimum 1
+   * @type integer | undefined
+   */
+  page?: number | undefined;
+  /**
+   * @description Number of results per page. Defaults to 50 when neither per_page nor limit is provided. Ignored when limit is provided. Values above 1000 are capped at 1000.
+   * @minimum 0
+   * @maximum 1000
+   * @type integer | undefined
+   */
+  per_page?: number | undefined;
+  /**
+   * @description Alias for per_page. Defaults to 50 when neither per_page nor limit is provided. Takes precedence over per_page. Values above 1000 are capped at 1000.
+   * @minimum 0
+   * @maximum 1000
+   * @type integer | undefined
+   */
+  limit?: number | undefined;
+  /**
+   * @description Number of results to skip. Defaults to 0. Takes precedence over page, including when offset is 0.
+   * @minimum 0
+   * @type integer | undefined
+   */
+  offset?: number | undefined;
+};
+
 export type PerHostnameAuthenticatedOriginPullListCertificatesStatus200 = TlsCertificatesAndHostnamesCertificateResponseCollection4;
 
 export type PerHostnameAuthenticatedOriginPullListCertificatesStatus400 = TlsCertificatesAndHostnamesCertificateResponseCollection4 & TlsCertificatesAndHostnamesApiResponseCommonFailure;
@@ -464458,7 +463378,7 @@ export type PerHostnameAuthenticatedOriginPullListCertificatesStatus400 = TlsCer
 export type PerHostnameAuthenticatedOriginPullListCertificatesOptions = {
   body?: never | undefined;
   path: PerHostnameAuthenticatedOriginPullListCertificatesPath;
-  query?: never | undefined;
+  query?: PerHostnameAuthenticatedOriginPullListCertificatesQuery | undefined;
   headers?: never | undefined;
 };
 

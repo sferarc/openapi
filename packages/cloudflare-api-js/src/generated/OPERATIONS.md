@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3794 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3778 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## accounts
 
@@ -3358,19 +3358,6 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3794 operatio
 | `client.api.emailRoutingRoutingRules.emailRoutingRoutingRulesGetRoutingRule` | `GET /zones/{zoneId}/email/routing/rules/{ruleIdentifier}` | Get routing rule |
 | `client.api.emailRoutingRoutingRules.emailRoutingRoutingRulesUpdateRoutingRule` | `PUT /zones/{zoneId}/email/routing/rules/{ruleIdentifier}` | Update routing rule |
 
-## emailRoutingSuppressions
-
-| Call | Request | Summary |
-| --- | --- | --- |
-| `client.api.emailRoutingSuppressions.getPublicListSuppressionRouting` | `GET /accounts/{accountId}/email/routing/suppression` | List account email suppressions |
-| `client.api.emailRoutingSuppressions.postPublicNewSuppressionRouting` | `POST /accounts/{accountId}/email/routing/suppression` | Create account email suppression |
-| `client.api.emailRoutingSuppressions.deletePublicDeleteSuppressionRouting` | `DELETE /accounts/{accountId}/email/routing/suppression/{suppressionId}` | Delete account email suppression |
-| `client.api.emailRoutingSuppressions.getPublicGetSuppressionRouting` | `GET /accounts/{accountId}/email/routing/suppression/{suppressionId}` | Get account email suppression |
-| `client.api.emailRoutingSuppressions.getPublicListSuppressionZoneRouting` | `GET /zones/{zoneId}/email/routing/suppression` | List zone email suppressions |
-| `client.api.emailRoutingSuppressions.postPublicNewSuppressionZoneRouting` | `POST /zones/{zoneId}/email/routing/suppression` | Create zone email suppression |
-| `client.api.emailRoutingSuppressions.deletePublicDeleteSuppressionZoneRouting` | `DELETE /zones/{zoneId}/email/routing/suppression/{suppressionId}` | Delete zone email suppression |
-| `client.api.emailRoutingSuppressions.getPublicGetSuppressionZoneRouting` | `GET /zones/{zoneId}/email/routing/suppression/{suppressionId}` | Get zone email suppression |
-
 ## emailSending
 
 | Call | Request | Summary |
@@ -3385,20 +3372,12 @@ Generated from the Cloudflare API 4.0.0 OpenAPI spec; do not edit. 3794 operatio
 
 | Call | Request | Summary |
 | --- | --- | --- |
-| `client.api.emailSendingSuppressions.getPublicListSuppressionSending` | `GET /accounts/{accountId}/email/sending/suppression` | List account email suppressions |
-| `client.api.emailSendingSuppressions.postPublicNewSuppressionSending` | `POST /accounts/{accountId}/email/sending/suppression` | Create account email suppression |
-| `client.api.emailSendingSuppressions.deletePublicDeleteSuppressionSending` | `DELETE /accounts/{accountId}/email/sending/suppression/{suppressionId}` | Delete account email suppression |
-| `client.api.emailSendingSuppressions.getPublicGetSuppressionSending` | `GET /accounts/{accountId}/email/sending/suppression/{suppressionId}` | Get account email suppression |
 | `client.api.emailSendingSuppressions.getPublicListSendingSuppressions` | `GET /accounts/{accountId}/email/sending/suppressions` | List account Email Sending suppressions |
 | `client.api.emailSendingSuppressions.postPublicCreateSendingSuppression` | `POST /accounts/{accountId}/email/sending/suppressions` | Create account Email Sending suppression |
 | `client.api.emailSendingSuppressions.postPublicBulkCreateSendingSuppressions` | `POST /accounts/{accountId}/email/sending/suppressions/bulk` | Bulk import account Email Sending suppressions |
 | `client.api.emailSendingSuppressions.deletePublicDeleteSendingSuppression` | `DELETE /accounts/{accountId}/email/sending/suppressions/{suppressionId}` | Delete account Email Sending suppression |
 | `client.api.emailSendingSuppressions.getPublicGetSendingSuppression` | `GET /accounts/{accountId}/email/sending/suppressions/{suppressionId}` | Get account Email Sending suppression |
 | `client.api.emailSendingSuppressions.patchPublicUpdateSendingSuppression` | `PATCH /accounts/{accountId}/email/sending/suppressions/{suppressionId}` | Update account Email Sending suppression |
-| `client.api.emailSendingSuppressions.getPublicListSuppressionZoneSending` | `GET /zones/{zoneId}/email/sending/suppression` | List zone email suppressions |
-| `client.api.emailSendingSuppressions.postPublicNewSuppressionZoneSending` | `POST /zones/{zoneId}/email/sending/suppression` | Create zone email suppression |
-| `client.api.emailSendingSuppressions.deletePublicDeleteSuppressionZoneSending` | `DELETE /zones/{zoneId}/email/sending/suppression/{suppressionId}` | Delete zone email suppression |
-| `client.api.emailSendingSuppressions.getPublicGetSuppressionZoneSending` | `GET /zones/{zoneId}/email/sending/suppression/{suppressionId}` | Get zone email suppression |
 
 ## accountEntitlements
 
