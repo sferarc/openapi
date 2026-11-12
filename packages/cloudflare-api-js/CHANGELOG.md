@@ -1,5 +1,17 @@
 # cloudflare-api-js
 
+## 4.32.0
+
+### Minor Changes
+
+- 29fd9ac: [BREAKING] Made SecurityCenterSecurityTxt fields 'contact' and 'expires' required instead of optional.
+- 29fd9ac: [BREAKING] Updated the return type of UpdateSecurityTxtStatus200 to SecurityCenterExternalApiResponseSingleNoTerraform.
+
+### Patch Changes
+
+- 29fd9ac: Added new type SecurityCenterExternalApiResponseMessages describing an array of response messages.
+- 29fd9ac: Added new type SecurityCenterExternalApiResponseSingleNoTerraform for API responses without Terraform integration.
+
 ## 4.31.0
 
 ### Minor Changes

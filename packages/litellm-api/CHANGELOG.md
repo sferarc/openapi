@@ -1,5 +1,11 @@
 # litellm-api
 
+## 2.20.1
+
+### Patch Changes
+
+- 2dce30d: Regenerate from the latest litellm-api OpenAPI spec.
+
 ## 2.20.0
 
 ### Minor Changes
