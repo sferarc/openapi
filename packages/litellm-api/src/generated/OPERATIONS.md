@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the LiteLLM API 1.109.0 OpenAPI spec; do not edit. 866 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the LiteLLM API 1.109.1 OpenAPI spec; do not edit. 866 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## modelManagement
 
