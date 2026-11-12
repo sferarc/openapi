@@ -102774,6 +102774,23 @@ export type SecurityCenterExternalApiResponseCommonFailure = {
   success: false;
 };
 
+/**
+ * @example []
+ * @type array
+ */
+export type SecurityCenterExternalApiResponseMessages = {
+  /**
+   * @minimum 1000
+   * @type integer
+   */
+  code: number;
+  documentation_url?: string | undefined;
+  message: string;
+  source?: {
+    pointer?: string | undefined;
+  } | undefined;
+}[];
+
 export type SecurityCenterApiResponseCommon = {
   /**
    * @example []
@@ -102794,6 +102811,25 @@ export type SecurityCenterApiResponseCommon = {
 };
 
 export type SecurityCenterExternalApiResponseSingle = SecurityCenterApiResponseCommon;
+
+export type SecurityCenterExternalApiResponseSingleNoTerraform = {
+  /**
+   * @example []
+   * @type array
+   */
+  errors: SecurityCenterMessages;
+  /**
+   * @example []
+   * @type array
+   */
+  messages: SecurityCenterMessages;
+  /**
+   * @description Whether the API call was successful.
+   * @example true
+   * @type boolean
+   */
+  success: true;
+};
 
 /**
  * @description Identifier.
@@ -103156,6 +103192,8 @@ export type SecurityCenterPartnerInsightCountResponse = SecurityCenterApiRespons
 export type SecurityCenterPartnerSettings = {
   /**
    * @description Whether the partner integration is enabled for the account.
+   * Enabling the integration for the first time also schedules an account scan for that partner.
+   * Disabling the integration will purge all partner integration-related data, including partner insights, shadow zones, and shadow hosts.
    * @example true
    * @type boolean
    */
@@ -103268,49 +103306,65 @@ export type SecurityCenterScansListResponse = {
   scans: SecurityCenterScanStatusResponse[];
 };
 
+/**
+ * @description Configuration of the zone security.txt file
+ * @type object
+ */
 export type SecurityCenterSecurityTxt = {
   /**
+   * @description Link(s) to a page where security researchers are recognised for their reports.
    * @example ["https://example.com/hall-of-fame.html"]
    * @type array | undefined
    */
   acknowledgments?: string[] | undefined;
   /**
+   * @description Canonical URI where the security.txt file is located.
    * @example ["https://www.example.com/.well-known/security.txt"]
    * @type array | undefined
    */
   canonical?: string[] | undefined;
   /**
+   * @description Methods that researchers should use for reporting vulnerabilities. Can be a URI for an email address, phone number, or URL.
    * @example ["mailto:security@example.com","tel:+1-201-555-0123","https://example.com/security-contact.html"]
-   * @type array | undefined
+   * @type array
    */
-  contact?: string[] | undefined;
+  contact: string[];
   /**
+   * @description Whether or not to serve the security.txt file in this zone. If false, security.txt requests will pass through to the origin server.
+   * @default false
    * @example true
    * @type boolean | undefined
    */
   enabled?: boolean | undefined;
   /**
+   * @description URI(s) pointing to a location where an encryption key that researchers should use for encrypted communications can be retrieved. The key itself must not appear in this field.
    * @example ["https://example.com/pgp-key.txt","dns:5d2d37ab76d47d36._openpgpkey.example.com?type=OPENPGPKEY","openpgp4fpr:5f2de5521c63a801ab59ccb603d49de44b29100f"]
    * @type array | undefined
    */
   encryption?: string[] | undefined;
   /**
-   * @description
+   * @description RFC3339-formatted date and time string indicating the time that, after which, the contents of the security.txt file should be considered stale. It is recommended that this value is less than a year into the future.
+   *
    * Format: `date-time`
-   * @type string | undefined
+   * @example 2027-12-31T23:59:59Z
+   * @type string
    */
-  expires?: string | undefined;
+  expires: string;
   /**
+   * @description Link(s) to any security-related job positions.
    * @example ["https://example.com/jobs.html"]
    * @type array | undefined
    */
   hiring?: string[] | undefined;
   /**
+   * @description Link(s) to where a vulnerability disclosure policy is located.
    * @example ["https://example.com/disclosure-policy.html"]
    * @type array | undefined
    */
   policy?: string[] | undefined;
   /**
+   * @description Comma-separated list of natural languages that are preferred when submitting security reports. Language codes should be as defined in RFC5646.
+   * @default ''
    * @example en, es, fr
    * @type string | undefined
    */
@@ -470152,6 +470206,10 @@ export type GetSecurityTxtPath = {
 };
 
 export type GetSecurityTxtStatus200 = SecurityCenterApiResponseCommon & {
+  /**
+   * @description Configuration of the zone security.txt file
+   * @type object | undefined
+   */
   result?: SecurityCenterSecurityTxt | undefined;
 };
 
@@ -470184,10 +470242,14 @@ export type UpdateSecurityTxtPath = {
   zoneId: SecurityCenterIdentifier;
 };
 
-export type UpdateSecurityTxtStatus200 = SecurityCenterApiResponseSingle;
+export type UpdateSecurityTxtStatus200 = SecurityCenterExternalApiResponseSingleNoTerraform;
 
 export type UpdateSecurityTxtStatus400 = SecurityCenterApiResponseCommonFailure;
 
+/**
+ * @description Configuration of the zone security.txt file
+ * @type object
+ */
 export type UpdateSecurityTxtBody = SecurityCenterSecurityTxt;
 
 export type UpdateSecurityTxtOptions = {
