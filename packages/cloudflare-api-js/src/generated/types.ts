@@ -96354,6 +96354,25 @@ export type ResourceTaggingCursorResultInfo = {
 export type ResourceTaggingResourceId = string;
 
 /**
+ * @description Request body schema for deleting tags from account-level resources.
+ * @type object
+ */
+export type ResourceTaggingDeleteTagsRequestAccountLevelBase = {
+  /**
+   * @description Identifies the unique resource.
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  resource_id: ResourceTaggingResourceId;
+  /**
+   * @description Enum for base account-level resource types (those with no extra required fields).
+   * @example worker
+   * @type string
+   */
+  resource_type: ResourceTaggingAccountResourceTypeBaseEnumKey;
+};
+
+/**
  * @description Worker ID is required only for worker_version resources
  * @example 3f72a691-44b3-4c11-8642-c18a88ddaa5e
  * @type string
@@ -96383,68 +96402,6 @@ export type ResourceTaggingDeleteTagsRequestAccountLevelWorkerVersion = {
    * @type string
    */
   worker_id: ResourceTaggingWorkerId;
-};
-
-/**
- * @description Request body schema for deleting tags from account-level resources.
- * @type object
- */
-export type ResourceTaggingDeleteTagsRequestAccountLevelBase = {
-  /**
-   * @description Identifies the unique resource.
-   * @example 023e105f4ecef8ad9ca31a8372d0c353
-   * @type string
-   */
-  resource_id: ResourceTaggingResourceId;
-  /**
-   * @description Enum for base account-level resource types (those with no extra required fields).
-   * @example worker
-   * @type string
-   */
-  resource_type: ResourceTaggingAccountResourceTypeBaseEnumKey;
-};
-
-/**
- * @description Request body schema for deleting tags from account-level resources. Use /zones/{zone_id}/tags for zone-level resources.
- */
-export type ResourceTaggingDeleteTagsRequestAccountLevel = ResourceTaggingDeleteTagsRequestAccountLevelWorkerVersion & {
-  resource_type: 'worker_version';
-} | ResourceTaggingDeleteTagsRequestAccountLevelBase & {
-  resource_type: 'access_application' | 'access_group' | 'access_service_token' | 'account' | 'account_ruleset' | 'ai_gateway' | 'ai_search_instance' | 'ai_search_namespace' | 'alerting_policy' | 'alerting_webhook' | 'cloudflared_tunnel' | 'cws_deployment' | 'cws_policy' | 'cws_policy_set' | 'cws_workload' | 'd1_database' | 'device' | 'durable_object_namespace' | 'gateway_list' | 'gateway_rule' | 'image' | 'infrastructure_target' | 'kv_namespace' | 'load_balancer_monitor' | 'load_balancer_pool' | 'namespace_worker' | 'pages_project' | 'queue' | 'r2_bucket' | 'resource_share' | 'stream_live_input' | 'stream_video' | 'vectorize_index' | 'worker';
-};
-
-export const resourceTaggingZoneResourceTypeBaseEnum = {
-  api_gateway_operation: 'api_gateway_operation',
-  custom_certificate: 'custom_certificate',
-  custom_hostname: 'custom_hostname',
-  dns_record: 'dns_record',
-  healthcheck: 'healthcheck',
-  load_balancer: 'load_balancer',
-  managed_client_certificate: 'managed_client_certificate',
-  worker_route: 'worker_route',
-  zone: 'zone',
-  zone_ruleset: 'zone_ruleset',
-} as const;
-
-export type ResourceTaggingZoneResourceTypeBaseEnumKey = (typeof resourceTaggingZoneResourceTypeBaseEnum)[keyof typeof resourceTaggingZoneResourceTypeBaseEnum];
-
-/**
- * @description Request body schema for deleting tags from zone-level resources. Zone ID comes from URL path.
- * @type object
- */
-export type ResourceTaggingDeleteTagsRequestZoneLevelBase = {
-  /**
-   * @description Identifies the unique resource.
-   * @example 023e105f4ecef8ad9ca31a8372d0c353
-   * @type string
-   */
-  resource_id: ResourceTaggingResourceId;
-  /**
-   * @description Enum for base zone-level resource types (those with no extra required fields).
-   * @example zone
-   * @type string
-   */
-  resource_type: ResourceTaggingZoneResourceTypeBaseEnumKey;
 };
 
 export const resourceTaggingZoneResourceTypeAccessApplicationPolicyEnum = {
@@ -96480,13 +96437,38 @@ export type ResourceTaggingDeleteTagsRequestZoneLevelAccessApplicationPolicy = {
   resource_type: ResourceTaggingZoneResourceTypeAccessApplicationPolicyEnumKey;
 };
 
+export const resourceTaggingZoneResourceTypeBaseEnum = {
+  api_gateway_operation: 'api_gateway_operation',
+  custom_certificate: 'custom_certificate',
+  custom_hostname: 'custom_hostname',
+  dns_record: 'dns_record',
+  healthcheck: 'healthcheck',
+  load_balancer: 'load_balancer',
+  managed_client_certificate: 'managed_client_certificate',
+  worker_route: 'worker_route',
+  zone: 'zone',
+  zone_ruleset: 'zone_ruleset',
+} as const;
+
+export type ResourceTaggingZoneResourceTypeBaseEnumKey = (typeof resourceTaggingZoneResourceTypeBaseEnum)[keyof typeof resourceTaggingZoneResourceTypeBaseEnum];
+
 /**
- * @description Request body schema for deleting tags from zone-level resources.
+ * @description Request body schema for deleting tags from zone-level resources. Zone ID comes from URL path.
+ * @type object
  */
-export type ResourceTaggingDeleteTagsRequestZoneLevel = ResourceTaggingDeleteTagsRequestZoneLevelBase & {
-  resource_type: 'api_gateway_operation' | 'custom_certificate' | 'custom_hostname' | 'dns_record' | 'healthcheck' | 'load_balancer' | 'managed_client_certificate' | 'worker_route' | 'zone' | 'zone_ruleset';
-} | ResourceTaggingDeleteTagsRequestZoneLevelAccessApplicationPolicy & {
-  resource_type: 'access_application_policy';
+export type ResourceTaggingDeleteTagsRequestZoneLevelBase = {
+  /**
+   * @description Identifies the unique resource.
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  resource_id: ResourceTaggingResourceId;
+  /**
+   * @description Enum for base zone-level resource types (those with no extra required fields).
+   * @example zone
+   * @type string
+   */
+  resource_type: ResourceTaggingZoneResourceTypeBaseEnumKey;
 };
 
 /**
@@ -406674,6 +406656,27 @@ export type TagsDeletePath = {
   accountId: ResourceTaggingAccountId;
 };
 
+export type TagsDeleteQuery = {
+  /**
+   * @description The ID of the resource to remove tags from.
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  resource_id: ResourceTaggingResourceId;
+  /**
+   * @description The type of the resource.
+   * @example worker
+   * @type string
+   */
+  resource_type: ResourceTaggingAccountResourceTypeKey;
+  /**
+   * @description Worker identifier. Required for worker_version resources.
+   * @example 3f72a691-44b3-4c11-8642-c18a88ddaa5e
+   * @type string | undefined
+   */
+  worker_id?: ResourceTaggingWorkerId | undefined;
+};
+
 export type TagsDeleteHeaders = {
   /**
    * @description ETag value for optimistic concurrency control. When provided, the server will
@@ -406695,15 +406698,10 @@ export type TagsDeleteStatus412 = ResourceTaggingApiResponseCommonFailure;
 
 export type TagsDeleteStatus500 = ResourceTaggingApiResponseCommonFailure;
 
-/**
- * @description Request body schema for deleting tags from account-level resources. Use /zones/{zone_id}/tags for zone-level resources.
- */
-export type TagsDeleteBody = ResourceTaggingDeleteTagsRequestAccountLevel;
-
 export type TagsDeleteOptions = {
-  body: TagsDeleteBody;
+  body?: never | undefined;
   path: TagsDeletePath;
-  query?: never | undefined;
+  query: TagsDeleteQuery;
   headers?: TagsDeleteHeaders | undefined;
 };
 
@@ -475248,6 +475246,29 @@ export type TagsZoneDeletePath = {
   zoneId: ResourceTaggingZoneId;
 };
 
+export type TagsZoneDeleteQuery = {
+  /**
+   * @description The ID of the resource to remove tags from.
+   * @example 023e105f4ecef8ad9ca31a8372d0c353
+   * @type string
+   */
+  resource_id: ResourceTaggingResourceId;
+  /**
+   * @description The type of the resource.
+   * @example zone
+   * @type string
+   */
+  resource_type: ResourceTaggingZoneResourceTypeKey;
+  /**
+   * @description Access application ID identifier. Required for access_application_policy resources.
+   *
+   * Format: `uuid`
+   * @example f174e90a-fafe-4643-bbbc-4a0ed4fc8415
+   * @type string | undefined
+   */
+  access_application_id?: ResourceTaggingAccessApplicationId | undefined;
+};
+
 export type TagsZoneDeleteHeaders = {
   /**
    * @description ETag value for optimistic concurrency control. When provided, the server will
@@ -475269,15 +475290,10 @@ export type TagsZoneDeleteStatus412 = ResourceTaggingApiResponseCommonFailure;
 
 export type TagsZoneDeleteStatus500 = ResourceTaggingApiResponseCommonFailure;
 
-/**
- * @description Request body schema for deleting tags from zone-level resources.
- */
-export type TagsZoneDeleteBody = ResourceTaggingDeleteTagsRequestZoneLevel;
-
 export type TagsZoneDeleteOptions = {
-  body: TagsZoneDeleteBody;
+  body?: never | undefined;
   path: TagsZoneDeletePath;
-  query?: never | undefined;
+  query: TagsZoneDeleteQuery;
   headers?: TagsZoneDeleteHeaders | undefined;
 };
 

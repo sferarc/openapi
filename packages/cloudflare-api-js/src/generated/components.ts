@@ -13017,9 +13017,9 @@ import type {
 	SubscriptionsPatchResponse,
 	SubscriptionsPatchStatus400,
 	SubscriptionsPatchStatus404,
-	TagsDeleteBody,
 	TagsDeleteHeaders,
 	TagsDeletePath,
+	TagsDeleteQuery,
 	TagsDeleteResponse,
 	TagsDeleteStatus400,
 	TagsDeleteStatus412,
@@ -13056,9 +13056,9 @@ import type {
 	TagsSetStatus400,
 	TagsSetStatus412,
 	TagsSetStatus500,
-	TagsZoneDeleteBody,
 	TagsZoneDeleteHeaders,
 	TagsZoneDeletePath,
+	TagsZoneDeleteQuery,
 	TagsZoneDeleteResponse,
 	TagsZoneDeleteStatus400,
 	TagsZoneDeleteStatus412,
@@ -128241,12 +128241,12 @@ export async function accountSubscriptionsCreateCancelReason(
 export async function tagsDelete(
 	{
 		pathParams,
-		body,
+		queryParams,
 		headers,
 		config,
 	}: {
 		pathParams: TagsDeletePath;
-		body: TagsDeleteBody;
+		queryParams: TagsDeleteQuery;
 		headers?: Partial<TagsDeleteHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -128259,14 +128259,14 @@ export async function tagsDelete(
 	const data = await request<
 		TagsDeleteResponse,
 		ErrorWrapper<TagsDeleteStatus400 | TagsDeleteStatus412 | TagsDeleteStatus500>,
-		TagsDeleteBody,
+		null,
 		Partial<TagsDeleteHeaders>,
-		Record<string, string>,
+		TagsDeleteQuery,
 		TagsDeletePath
 	>({
 		method: "DELETE",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/tags`,
-		body: body,
+		queryParams,
 		...requestConfig,
 		headers: {
 			...requestConfig.headers,
@@ -170468,12 +170468,12 @@ export async function zoneSubscriptionUpdateZoneSubscriptions(
 export async function tagsZoneDelete(
 	{
 		pathParams,
-		body,
+		queryParams,
 		headers,
 		config,
 	}: {
 		pathParams: TagsZoneDeletePath;
-		body: TagsZoneDeleteBody;
+		queryParams: TagsZoneDeleteQuery;
 		headers?: Partial<TagsZoneDeleteHeaders>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -170486,14 +170486,14 @@ export async function tagsZoneDelete(
 	const data = await request<
 		TagsZoneDeleteResponse,
 		ErrorWrapper<TagsZoneDeleteStatus400 | TagsZoneDeleteStatus412 | TagsZoneDeleteStatus500>,
-		TagsZoneDeleteBody,
+		null,
 		Partial<TagsZoneDeleteHeaders>,
-		Record<string, string>,
+		TagsZoneDeleteQuery,
 		TagsZoneDeletePath
 	>({
 		method: "DELETE",
 		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/tags`,
-		body: body,
+		queryParams,
 		...requestConfig,
 		headers: {
 			...requestConfig.headers,
