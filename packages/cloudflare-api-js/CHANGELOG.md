@@ -1,5 +1,24 @@
 # cloudflare-api-js
 
+## 4.33.0
+
+### Minor Changes
+
+- c07ab85: [BREAKING] Removed deprecated account email routing suppression operations: getPublicListSuppressionRouting, postPublicNewSuppressionRouting, deletePublicDeleteSuppressionRouting, and getPublicGetSuppressionRouting.
+- c07ab85: [BREAKING] Remove operations no longer in the cloudflare-api-js OpenAPI spec: `deletePublicDeleteSuppressionRouting`, `deletePublicDeleteSuppressionSending`, `deletePublicDeleteSuppressionZoneRouting`, `deletePublicDeleteSuppressionZoneSending`, `getPublicGetSuppressionRouting`, `getPublicGetSuppressionSending`, `getPublicGetSuppressionZoneRouting`, `getPublicGetSuppressionZoneSending`, `getPublicListSuppressionRouting`, `getPublicListSuppressionSending`, `getPublicListSuppressionZoneRouting`, `getPublicListSuppressionZoneSending`, `postPublicNewSuppressionRouting`, `postPublicNewSuppressionSending`, `postPublicNewSuppressionZoneRouting`, `postPublicNewSuppressionZoneSending`.
+- c07ab85: [BREAKING] Removed deprecated zone email sending suppression operations: getPublicListSuppressionZoneSending, postPublicNewSuppressionZoneSending, deletePublicDeleteSuppressionZoneSending, and getPublicGetSuppressionZoneSending.
+- c07ab85: [BREAKING] Removed deprecated zone email routing suppression operations: getPublicListSuppressionZoneRouting, postPublicNewSuppressionZoneRouting, deletePublicDeleteSuppressionZoneRouting, and getPublicGetSuppressionZoneRouting.
+- c07ab85: [BREAKING] Removed deprecated account email sending suppression operations: getPublicListSuppressionSending, postPublicNewSuppressionSending, deletePublicDeleteSuppressionSending, and getPublicGetSuppressionSending.
+
+### Patch Changes
+
+- c07ab85: Clarified documentation of the description property for notification webhooks update API to specify only name is mutable and url and secret require recreation.
+- c07ab85: Added pagination and filtering query parameters for the MTlsCertificateManagementListMTlsCertificates API.
+- c07ab85: Added AigConfigListGatewayDynamicRouteDeploymentsQuery, AigConfigListGatewayDynamicRouteVersionsQuery, and PagesDomainsGetDomainsQuery types for specifying query parameters.
+- c07ab85: Clarified documentation for email sending suppressions APIs about listing and ordering of sending-domain and account-wide suppressions.
+- c07ab85: Improved descriptions for Workers Observability usage limits and potential reasons for reduced event retention.
+- c07ab85: Added query parameter typing for aigConfigListGatewayDynamicRouteDeployments, aigConfigListGatewayDynamicRouteVersions, pagesDomainsGetDomains, perHostnameTlsSettingsList, keylessSslForAZoneListKeylessSslConfigurations, zoneLevelAuthenticatedOriginPullsListCertificates, and perHostnameAuthenticatedOriginPullListCertificates operations.
+
 ## 4.32.0
 
 ### Minor Changes

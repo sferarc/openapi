@@ -1,5 +1,23 @@
 # vercel-api-js
 
+## 2.36.0
+
+### Minor Changes
+
+- 7f3372f: Added new teamDirectorySyncSourceEnum and teamLimitedDirectorySyncSourceEnum with related types for Team and TeamLimited, and added directorySyncSource and directorySyncType fields.
+- 7f3372f: [BREAKING] Removed GetConfigurationStatus200DisabledReasonEnum3Key, GetConfigurationStatus200InstallationTypeEnum3Key, GetConfigurationStatus200SourceEnum3Key, GetConfigurationStatus200StatusEnum3Key and corresponding const enums.
+- 7f3372f: [BREAKING] Changed the UserEvent type to include a new signature for enabled field.
+- 7f3372f: [BREAKING] Changed GetConfigurationStatus200 type and removed several configuration-related metadata fields.
+
+### Patch Changes
+
+- 7f3372f: Expanded BuyCreditsStatus200 options to support transition policies for billing cycle and destination plan with quantities.
+- 7f3372f: Added new 'ai-gateway-member-budget-changes' event type to user event and list event type enums.
+- 7f3372f: Added new aliases status enum and type for ListPromoteAliasesStatus200 with updated status detail.
+- 7f3372f: Added aiGatewayBudgetOwnedBySelf field to project and microfrontend related status types for permission reporting.
+- 7f3372f: Improved delivery health status descriptions on log drain types to clarify counting on finished deliveries and retries.
+- 7f3372f: Added 'none' value to user event project and repository scope enums.
+
 ## 2.35.0
 
 ### Minor Changes

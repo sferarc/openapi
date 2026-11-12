@@ -1,5 +1,0 @@
----
-"cloudflare-api-js": patch
----
-
-Added query parameter typing for aigConfigListGatewayDynamicRouteDeployments, aigConfigListGatewayDynamicRouteVersions, pagesDomainsGetDomains, perHostnameTlsSettingsList, keylessSslForAZoneListKeylessSslConfigurations, zoneLevelAuthenticatedOriginPullsListCertificates, and perHostnameAuthenticatedOriginPullListCertificates operations.
