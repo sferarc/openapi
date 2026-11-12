@@ -1250,6 +1250,7 @@ import type {
 	AigConfigListEvaluatorsResponse,
 	AigConfigListEvaluatorsStatus400,
 	AigConfigListGatewayDynamicRouteDeploymentsPath,
+	AigConfigListGatewayDynamicRouteDeploymentsQuery,
 	AigConfigListGatewayDynamicRouteDeploymentsResponse,
 	AigConfigListGatewayDynamicRouteDeploymentsStatus400,
 	AigConfigListGatewayDynamicRoutesPath,
@@ -1257,6 +1258,7 @@ import type {
 	AigConfigListGatewayDynamicRoutesResponse,
 	AigConfigListGatewayDynamicRoutesStatus400,
 	AigConfigListGatewayDynamicRouteVersionsPath,
+	AigConfigListGatewayDynamicRouteVersionsQuery,
 	AigConfigListGatewayDynamicRouteVersionsResponse,
 	AigConfigListGatewayDynamicRouteVersionsStatus400,
 	AigConfigListGatewayLogsPath,
@@ -4172,18 +4174,6 @@ import type {
 	DeletePublicDeleteSendingSuppressionStatus403,
 	DeletePublicDeleteSendingSuppressionStatus404,
 	DeletePublicDeleteSendingSuppressionStatus409,
-	DeletePublicDeleteSuppressionRoutingPath,
-	DeletePublicDeleteSuppressionRoutingResponse,
-	DeletePublicDeleteSuppressionRoutingStatus404,
-	DeletePublicDeleteSuppressionSendingPath,
-	DeletePublicDeleteSuppressionSendingResponse,
-	DeletePublicDeleteSuppressionSendingStatus404,
-	DeletePublicDeleteSuppressionZoneRoutingPath,
-	DeletePublicDeleteSuppressionZoneRoutingResponse,
-	DeletePublicDeleteSuppressionZoneRoutingStatus404,
-	DeletePublicDeleteSuppressionZoneSendingPath,
-	DeletePublicDeleteSuppressionZoneSendingResponse,
-	DeletePublicDeleteSuppressionZoneSendingStatus404,
 	DeleteRegistrationPath,
 	DeleteRegistrationResponse,
 	DeleteRegistrationStatus400,
@@ -6775,38 +6765,10 @@ import type {
 	GetPublicGetSendingSuppressionPath,
 	GetPublicGetSendingSuppressionResponse,
 	GetPublicGetSendingSuppressionStatus404,
-	GetPublicGetSuppressionRoutingPath,
-	GetPublicGetSuppressionRoutingResponse,
-	GetPublicGetSuppressionRoutingStatus404,
-	GetPublicGetSuppressionSendingPath,
-	GetPublicGetSuppressionSendingResponse,
-	GetPublicGetSuppressionSendingStatus404,
-	GetPublicGetSuppressionZoneRoutingPath,
-	GetPublicGetSuppressionZoneRoutingResponse,
-	GetPublicGetSuppressionZoneRoutingStatus404,
-	GetPublicGetSuppressionZoneSendingPath,
-	GetPublicGetSuppressionZoneSendingResponse,
-	GetPublicGetSuppressionZoneSendingStatus404,
 	GetPublicListSendingSuppressionsPath,
 	GetPublicListSendingSuppressionsQuery,
 	GetPublicListSendingSuppressionsResponse,
 	GetPublicListSendingSuppressionsStatus400,
-	GetPublicListSuppressionRoutingPath,
-	GetPublicListSuppressionRoutingQuery,
-	GetPublicListSuppressionRoutingResponse,
-	GetPublicListSuppressionRoutingStatus400,
-	GetPublicListSuppressionSendingPath,
-	GetPublicListSuppressionSendingQuery,
-	GetPublicListSuppressionSendingResponse,
-	GetPublicListSuppressionSendingStatus400,
-	GetPublicListSuppressionZoneRoutingPath,
-	GetPublicListSuppressionZoneRoutingQuery,
-	GetPublicListSuppressionZoneRoutingResponse,
-	GetPublicListSuppressionZoneRoutingStatus400,
-	GetPublicListSuppressionZoneSendingPath,
-	GetPublicListSuppressionZoneSendingQuery,
-	GetPublicListSuppressionZoneSendingResponse,
-	GetPublicListSuppressionZoneSendingStatus400,
 	GetReadyResponse,
 	GetReadyStatus400,
 	GetReadyStatus403,
@@ -7667,6 +7629,7 @@ import type {
 	KeylessSslForAZoneGetKeylessSslConfigurationResponse,
 	KeylessSslForAZoneGetKeylessSslConfigurationStatus400,
 	KeylessSslForAZoneListKeylessSslConfigurationsPath,
+	KeylessSslForAZoneListKeylessSslConfigurationsQuery,
 	KeylessSslForAZoneListKeylessSslConfigurationsResponse,
 	KeylessSslForAZoneListKeylessSslConfigurationsStatus400,
 	KickAllParticipantsPath,
@@ -9416,6 +9379,7 @@ import type {
 	PagesDomainsGetDomainResponse,
 	PagesDomainsGetDomainStatus400,
 	PagesDomainsGetDomainsPath,
+	PagesDomainsGetDomainsQuery,
 	PagesDomainsGetDomainsResponse,
 	PagesDomainsGetDomainsStatus400,
 	PagesDomainsPatchDomainPath,
@@ -9836,6 +9800,7 @@ import type {
 	PerHostnameAuthenticatedOriginPullGetTheHostnameStatusForClientAuthenticationResponse,
 	PerHostnameAuthenticatedOriginPullGetTheHostnameStatusForClientAuthenticationStatus400,
 	PerHostnameAuthenticatedOriginPullListCertificatesPath,
+	PerHostnameAuthenticatedOriginPullListCertificatesQuery,
 	PerHostnameAuthenticatedOriginPullListCertificatesResponse,
 	PerHostnameAuthenticatedOriginPullListCertificatesStatus400,
 	PerHostnameAuthenticatedOriginPullListHostnameAssociationsPath,
@@ -9853,6 +9818,7 @@ import type {
 	PerHostnameTlsSettingsGetResponse,
 	PerHostnameTlsSettingsGetStatus400,
 	PerHostnameTlsSettingsListPath,
+	PerHostnameTlsSettingsListQuery,
 	PerHostnameTlsSettingsListResponse,
 	PerHostnameTlsSettingsListStatus400,
 	PerHostnameTlsSettingsPutBody,
@@ -10262,22 +10228,6 @@ import type {
 	PostPublicCreateSendingSuppressionStatus403,
 	PostPublicCreateSendingSuppressionStatus404,
 	PostPublicCreateSendingSuppressionStatus409,
-	PostPublicNewSuppressionRoutingBody,
-	PostPublicNewSuppressionRoutingPath,
-	PostPublicNewSuppressionRoutingResponse,
-	PostPublicNewSuppressionRoutingStatus400,
-	PostPublicNewSuppressionSendingBody,
-	PostPublicNewSuppressionSendingPath,
-	PostPublicNewSuppressionSendingResponse,
-	PostPublicNewSuppressionSendingStatus400,
-	PostPublicNewSuppressionZoneRoutingBody,
-	PostPublicNewSuppressionZoneRoutingPath,
-	PostPublicNewSuppressionZoneRoutingResponse,
-	PostPublicNewSuppressionZoneRoutingStatus400,
-	PostPublicNewSuppressionZoneSendingBody,
-	PostPublicNewSuppressionZoneSendingPath,
-	PostPublicNewSuppressionZoneSendingResponse,
-	PostPublicNewSuppressionZoneSendingStatus400,
 	PostRequestCreateBody,
 	PostRequestCreatePath,
 	PostRequestCreateResponse,
@@ -15254,6 +15204,7 @@ import type {
 	ZoneLevelAuthenticatedOriginPullsGetEnablementSettingForZoneResponse,
 	ZoneLevelAuthenticatedOriginPullsGetEnablementSettingForZoneStatus400,
 	ZoneLevelAuthenticatedOriginPullsListCertificatesPath,
+	ZoneLevelAuthenticatedOriginPullsListCertificatesQuery,
 	ZoneLevelAuthenticatedOriginPullsListCertificatesResponse,
 	ZoneLevelAuthenticatedOriginPullsListCertificatesStatus400,
 	ZoneLevelAuthenticatedOriginPullsSetEnablementForZoneBody,
@@ -38149,9 +38100,11 @@ export async function aigConfigUpdateGatewayDynamicRoute(
 export async function aigConfigListGatewayDynamicRouteDeployments(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: AigConfigListGatewayDynamicRouteDeploymentsPath;
+		queryParams?: Partial<AigConfigListGatewayDynamicRouteDeploymentsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -38173,11 +38126,12 @@ export async function aigConfigListGatewayDynamicRouteDeployments(
 		ErrorWrapper<AigConfigListGatewayDynamicRouteDeploymentsStatus400>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<AigConfigListGatewayDynamicRouteDeploymentsQuery>,
 		AigConfigListGatewayDynamicRouteDeploymentsPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/ai-gateway/gateways/${encodeURIComponent(String(pathParams.gatewayId))}/routes/${encodeURIComponent(String(pathParams.id))}/deployments`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -38240,9 +38194,11 @@ export async function aigConfigPostGatewayDynamicRouteDeployment(
 export async function aigConfigListGatewayDynamicRouteVersions(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: AigConfigListGatewayDynamicRouteVersionsPath;
+		queryParams?: Partial<AigConfigListGatewayDynamicRouteVersionsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -38264,11 +38220,12 @@ export async function aigConfigListGatewayDynamicRouteVersions(
 		ErrorWrapper<AigConfigListGatewayDynamicRouteVersionsStatus400>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<AigConfigListGatewayDynamicRouteVersionsQuery>,
 		AigConfigListGatewayDynamicRouteVersionsPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/ai-gateway/gateways/${encodeURIComponent(String(pathParams.gatewayId))}/routes/${encodeURIComponent(String(pathParams.id))}/versions`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -41985,7 +41942,7 @@ export async function notificationWebhooksGetAWebhook(
 
 /**
  * @summary Update a webhook
- * @description Update a webhook destination.
+ * @description Update a webhook destination. Only `name` can be updated. `url` and `secret` are immutable; to change them, delete the webhook and create a new one.
  * @link /accounts/{accountId}/alerting/v3/destinations/webhooks/{webhookId}
  */
 export async function notificationWebhooksUpdateAWebhook(
@@ -86162,168 +86119,6 @@ export async function emailRoutingRoutingRulesPlanAccountRoutingRules(
 }
 
 /**
- * @summary List account email suppressions
- * @description Lists email suppressions for the specified account.
- * @deprecated
- * @link /accounts/{accountId}/email/routing/suppression
- */
-export async function getPublicListSuppressionRouting(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: GetPublicListSuppressionRoutingPath;
-		queryParams?: Partial<GetPublicListSuppressionRoutingQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		GetPublicListSuppressionRoutingResponse,
-		ErrorWrapper<GetPublicListSuppressionRoutingStatus400>,
-		null,
-		Record<string, string>,
-		Partial<GetPublicListSuppressionRoutingQuery>,
-		GetPublicListSuppressionRoutingPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/email/routing/suppression`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Create account email suppression
- * @description Creates a new email suppression for the specified account.
- * @deprecated
- * @link /accounts/{accountId}/email/routing/suppression
- */
-export async function postPublicNewSuppressionRouting(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: PostPublicNewSuppressionRoutingPath;
-		body?: PostPublicNewSuppressionRoutingBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		PostPublicNewSuppressionRoutingResponse,
-		ErrorWrapper<PostPublicNewSuppressionRoutingStatus400>,
-		PostPublicNewSuppressionRoutingBody,
-		Record<string, string>,
-		Record<string, string>,
-		PostPublicNewSuppressionRoutingPath
-	>({
-		method: "POST",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/email/routing/suppression`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Delete account email suppression
- * @description Deletes an email suppression for the specified account.
- * @deprecated
- * @link /accounts/{accountId}/email/routing/suppression/{suppressionId}
- */
-export async function deletePublicDeleteSuppressionRouting(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DeletePublicDeleteSuppressionRoutingPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.suppressionId == null || String(pathParams.suppressionId) === "") {
-		throw new Error(`Missing required path parameter: suppressionId`);
-	}
-	const data = await request<
-		DeletePublicDeleteSuppressionRoutingResponse,
-		ErrorWrapper<DeletePublicDeleteSuppressionRoutingStatus404>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DeletePublicDeleteSuppressionRoutingPath
-	>({
-		method: "DELETE",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/email/routing/suppression/${encodeURIComponent(String(pathParams.suppressionId))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Get account email suppression
- * @description Retrieves a single email suppression for the specified account.
- * @deprecated
- * @link /accounts/{accountId}/email/routing/suppression/{suppressionId}
- */
-export async function getPublicGetSuppressionRouting(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: GetPublicGetSuppressionRoutingPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.suppressionId == null || String(pathParams.suppressionId) === "") {
-		throw new Error(`Missing required path parameter: suppressionId`);
-	}
-	const data = await request<
-		GetPublicGetSuppressionRoutingResponse,
-		ErrorWrapper<GetPublicGetSuppressionRoutingStatus404>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		GetPublicGetSuppressionRoutingPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/email/routing/suppression/${encodeURIComponent(String(pathParams.suppressionId))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Get sending limits
  * @description Returns the current daily sending quota for the account and, when a quota is resolved, the account's current usage against it. Quota is null when not yet available; usage is null when there is no resolved quota or usage is temporarily unavailable.
  * @link /accounts/{accountId}/email/sending/limits
@@ -86526,170 +86321,8 @@ export async function emailSendingAccountSendRawMessage(
 }
 
 /**
- * @summary List account email suppressions
- * @description Lists email suppressions for the specified account.
- * @deprecated
- * @link /accounts/{accountId}/email/sending/suppression
- */
-export async function getPublicListSuppressionSending(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: GetPublicListSuppressionSendingPath;
-		queryParams?: Partial<GetPublicListSuppressionSendingQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		GetPublicListSuppressionSendingResponse,
-		ErrorWrapper<GetPublicListSuppressionSendingStatus400>,
-		null,
-		Record<string, string>,
-		Partial<GetPublicListSuppressionSendingQuery>,
-		GetPublicListSuppressionSendingPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/email/sending/suppression`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Create account email suppression
- * @description Creates a new email suppression for the specified account.
- * @deprecated
- * @link /accounts/{accountId}/email/sending/suppression
- */
-export async function postPublicNewSuppressionSending(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: PostPublicNewSuppressionSendingPath;
-		body?: PostPublicNewSuppressionSendingBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-	const data = await request<
-		PostPublicNewSuppressionSendingResponse,
-		ErrorWrapper<PostPublicNewSuppressionSendingStatus400>,
-		PostPublicNewSuppressionSendingBody,
-		Record<string, string>,
-		Record<string, string>,
-		PostPublicNewSuppressionSendingPath
-	>({
-		method: "POST",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/email/sending/suppression`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Delete account email suppression
- * @description Deletes an email suppression for the specified account.
- * @deprecated
- * @link /accounts/{accountId}/email/sending/suppression/{suppressionId}
- */
-export async function deletePublicDeleteSuppressionSending(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DeletePublicDeleteSuppressionSendingPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.suppressionId == null || String(pathParams.suppressionId) === "") {
-		throw new Error(`Missing required path parameter: suppressionId`);
-	}
-	const data = await request<
-		DeletePublicDeleteSuppressionSendingResponse,
-		ErrorWrapper<DeletePublicDeleteSuppressionSendingStatus404>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DeletePublicDeleteSuppressionSendingPath
-	>({
-		method: "DELETE",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/email/sending/suppression/${encodeURIComponent(String(pathParams.suppressionId))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Get account email suppression
- * @description Retrieves a single email suppression for the specified account.
- * @deprecated
- * @link /accounts/{accountId}/email/sending/suppression/{suppressionId}
- */
-export async function getPublicGetSuppressionSending(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: GetPublicGetSuppressionSendingPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.accountId == null || String(pathParams.accountId) === "") {
-		throw new Error(`Missing required path parameter: accountId`);
-	}
-
-	if (pathParams?.suppressionId == null || String(pathParams.suppressionId) === "") {
-		throw new Error(`Missing required path parameter: suppressionId`);
-	}
-	const data = await request<
-		GetPublicGetSuppressionSendingResponse,
-		ErrorWrapper<GetPublicGetSuppressionSendingStatus404>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		GetPublicGetSuppressionSendingPath
-	>({
-		method: "GET",
-		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/email/sending/suppression/${encodeURIComponent(String(pathParams.suppressionId))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary List account Email Sending suppressions
- * @description Lists every active Email Sending suppression owned by the account: sending-domain suppressions first, then account-wide suppressions (including legacy rows with internal zone memberships). Each group is newest first.
+ * @description Lists every active Email Sending suppression owned by the account: sending-domain suppressions and account-wide suppressions (including legacy rows with internal zone memberships). Each scope is listed newest first. The order between sending-domain and account-wide suppressions is not fixed; use `scope_type` to list one scope.
  * @link /accounts/{accountId}/email/sending/suppressions
  */
 export async function getPublicListSendingSuppressions(
@@ -86728,7 +86361,7 @@ export async function getPublicListSendingSuppressions(
 
 /**
  * @summary Create account Email Sending suppression
- * @description Creates a suppression for every sending domain of the account (default) or for one sending domain (`scope.type = sending_domain`). Creating an existing active suppression returns its identifier. If a mutable legacy zone-linked account row already exists, it is promoted without changing its identifier.
+ * @description Creates a suppression for every sending domain of the account (default) or for one sending domain (`scope.type = sending_domain`). Creating an existing active suppression returns its identifier. If a legacy zone-linked account row already exists, it is promoted without changing its identifier.
  * @link /accounts/{accountId}/email/sending/suppressions
  */
 export async function postPublicCreateSendingSuppression(
@@ -106683,7 +106316,7 @@ export async function oauthClientsRotateSecret(
 
 /**
  * @summary Get usage limit status
- * @description Whether Workers Observability is keeping fewer of the account's events, usually because it passed its daily limit, and what that limit is. Daily limits reset at 00:00 UTC; paid accounts are brought back in stages over the following hours.
+ * @description Whether Workers Observability is keeping fewer of the account's events, because it passed its daily limit or for another reason, and what that limit is. Daily limits reset at 00:00 UTC; paid accounts are brought back in stages over the following hours.
  * @link /accounts/{accountId}/observability/usage/limit
  */
 export async function observabilityUsageLimitGet(
@@ -107844,9 +107477,11 @@ export async function pagesDeploymentDeleteTail(
 export async function pagesDomainsGetDomains(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: PagesDomainsGetDomainsPath;
+		queryParams?: Partial<PagesDomainsGetDomainsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -107864,11 +107499,12 @@ export async function pagesDomainsGetDomains(
 		ErrorWrapper<PagesDomainsGetDomainsStatus400>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<PagesDomainsGetDomainsQuery>,
 		PagesDomainsGetDomainsPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/pages/projects/${encodeURIComponent(String(pathParams.projectName))}/domains`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -154376,168 +154012,6 @@ export async function emailRoutingRoutingRulesUpdateRoutingRule(
 }
 
 /**
- * @summary List zone email suppressions
- * @description Lists email suppressions for the specified zone.
- * @deprecated
- * @link /zones/{zoneId}/email/routing/suppression
- */
-export async function getPublicListSuppressionZoneRouting(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: GetPublicListSuppressionZoneRoutingPath;
-		queryParams?: Partial<GetPublicListSuppressionZoneRoutingQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
-		throw new Error(`Missing required path parameter: zoneId`);
-	}
-	const data = await request<
-		GetPublicListSuppressionZoneRoutingResponse,
-		ErrorWrapper<GetPublicListSuppressionZoneRoutingStatus400>,
-		null,
-		Record<string, string>,
-		Partial<GetPublicListSuppressionZoneRoutingQuery>,
-		GetPublicListSuppressionZoneRoutingPath
-	>({
-		method: "GET",
-		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/email/routing/suppression`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Create zone email suppression
- * @description Creates a new email suppression for the specified zone.
- * @deprecated
- * @link /zones/{zoneId}/email/routing/suppression
- */
-export async function postPublicNewSuppressionZoneRouting(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: PostPublicNewSuppressionZoneRoutingPath;
-		body?: PostPublicNewSuppressionZoneRoutingBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
-		throw new Error(`Missing required path parameter: zoneId`);
-	}
-	const data = await request<
-		PostPublicNewSuppressionZoneRoutingResponse,
-		ErrorWrapper<PostPublicNewSuppressionZoneRoutingStatus400>,
-		PostPublicNewSuppressionZoneRoutingBody,
-		Record<string, string>,
-		Record<string, string>,
-		PostPublicNewSuppressionZoneRoutingPath
-	>({
-		method: "POST",
-		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/email/routing/suppression`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Delete zone email suppression
- * @description Deletes an email suppression for the specified zone.
- * @deprecated
- * @link /zones/{zoneId}/email/routing/suppression/{suppressionId}
- */
-export async function deletePublicDeleteSuppressionZoneRouting(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DeletePublicDeleteSuppressionZoneRoutingPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
-		throw new Error(`Missing required path parameter: zoneId`);
-	}
-
-	if (pathParams?.suppressionId == null || String(pathParams.suppressionId) === "") {
-		throw new Error(`Missing required path parameter: suppressionId`);
-	}
-	const data = await request<
-		DeletePublicDeleteSuppressionZoneRoutingResponse,
-		ErrorWrapper<DeletePublicDeleteSuppressionZoneRoutingStatus404>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DeletePublicDeleteSuppressionZoneRoutingPath
-	>({
-		method: "DELETE",
-		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/email/routing/suppression/${encodeURIComponent(String(pathParams.suppressionId))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Get zone email suppression
- * @description Retrieves a single email suppression for the specified zone.
- * @deprecated
- * @link /zones/{zoneId}/email/routing/suppression/{suppressionId}
- */
-export async function getPublicGetSuppressionZoneRouting(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: GetPublicGetSuppressionZoneRoutingPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
-		throw new Error(`Missing required path parameter: zoneId`);
-	}
-
-	if (pathParams?.suppressionId == null || String(pathParams.suppressionId) === "") {
-		throw new Error(`Missing required path parameter: suppressionId`);
-	}
-	const data = await request<
-		GetPublicGetSuppressionZoneRoutingResponse,
-		ErrorWrapper<GetPublicGetSuppressionZoneRoutingStatus404>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		GetPublicGetSuppressionZoneRoutingPath
-	>({
-		method: "GET",
-		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/email/routing/suppression/${encodeURIComponent(String(pathParams.suppressionId))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
  * @summary Unlock Email Routing
  * @description Unlock MX records previously locked by Email Routing. Deprecated - use PATCH /zones/{zone_id}/email/routing/dns instead.
  * @deprecated
@@ -154983,168 +154457,6 @@ export async function emailSendingSubdomainsGetSendingSubdomainReputationComplai
 		method: "GET",
 		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/email/sending/subdomains/${encodeURIComponent(String(pathParams.subdomainId))}/reputation/complaints`,
 		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List zone email suppressions
- * @description Lists email suppressions for the specified zone.
- * @deprecated
- * @link /zones/{zoneId}/email/sending/suppression
- */
-export async function getPublicListSuppressionZoneSending(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: GetPublicListSuppressionZoneSendingPath;
-		queryParams?: Partial<GetPublicListSuppressionZoneSendingQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
-		throw new Error(`Missing required path parameter: zoneId`);
-	}
-	const data = await request<
-		GetPublicListSuppressionZoneSendingResponse,
-		ErrorWrapper<GetPublicListSuppressionZoneSendingStatus400>,
-		null,
-		Record<string, string>,
-		Partial<GetPublicListSuppressionZoneSendingQuery>,
-		GetPublicListSuppressionZoneSendingPath
-	>({
-		method: "GET",
-		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/email/sending/suppression`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Create zone email suppression
- * @description Creates a new email suppression for the specified zone.
- * @deprecated
- * @link /zones/{zoneId}/email/sending/suppression
- */
-export async function postPublicNewSuppressionZoneSending(
-	{
-		pathParams,
-		body,
-		config,
-	}: {
-		pathParams: PostPublicNewSuppressionZoneSendingPath;
-		body?: PostPublicNewSuppressionZoneSendingBody;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
-		throw new Error(`Missing required path parameter: zoneId`);
-	}
-	const data = await request<
-		PostPublicNewSuppressionZoneSendingResponse,
-		ErrorWrapper<PostPublicNewSuppressionZoneSendingStatus400>,
-		PostPublicNewSuppressionZoneSendingBody,
-		Record<string, string>,
-		Record<string, string>,
-		PostPublicNewSuppressionZoneSendingPath
-	>({
-		method: "POST",
-		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/email/sending/suppression`,
-		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Delete zone email suppression
- * @description Deletes an email suppression for the specified zone.
- * @deprecated
- * @link /zones/{zoneId}/email/sending/suppression/{suppressionId}
- */
-export async function deletePublicDeleteSuppressionZoneSending(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: DeletePublicDeleteSuppressionZoneSendingPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
-		throw new Error(`Missing required path parameter: zoneId`);
-	}
-
-	if (pathParams?.suppressionId == null || String(pathParams.suppressionId) === "") {
-		throw new Error(`Missing required path parameter: suppressionId`);
-	}
-	const data = await request<
-		DeletePublicDeleteSuppressionZoneSendingResponse,
-		ErrorWrapper<DeletePublicDeleteSuppressionZoneSendingStatus404>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		DeletePublicDeleteSuppressionZoneSendingPath
-	>({
-		method: "DELETE",
-		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/email/sending/suppression/${encodeURIComponent(String(pathParams.suppressionId))}`,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Get zone email suppression
- * @description Retrieves a single email suppression for the specified zone.
- * @deprecated
- * @link /zones/{zoneId}/email/sending/suppression/{suppressionId}
- */
-export async function getPublicGetSuppressionZoneSending(
-	{
-		pathParams,
-		config,
-	}: {
-		pathParams: GetPublicGetSuppressionZoneSendingPath;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.zoneId == null || String(pathParams.zoneId) === "") {
-		throw new Error(`Missing required path parameter: zoneId`);
-	}
-
-	if (pathParams?.suppressionId == null || String(pathParams.suppressionId) === "") {
-		throw new Error(`Missing required path parameter: suppressionId`);
-	}
-	const data = await request<
-		GetPublicGetSuppressionZoneSendingResponse,
-		ErrorWrapper<GetPublicGetSuppressionZoneSendingStatus404>,
-		null,
-		Record<string, string>,
-		Record<string, string>,
-		GetPublicGetSuppressionZoneSendingPath
-	>({
-		method: "GET",
-		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/email/sending/suppression/${encodeURIComponent(String(pathParams.suppressionId))}`,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -158102,9 +157414,11 @@ export async function zones0HoldPost(
 export async function perHostnameTlsSettingsList(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: PerHostnameTlsSettingsListPath;
+		queryParams?: Partial<PerHostnameTlsSettingsListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -158122,11 +157436,12 @@ export async function perHostnameTlsSettingsList(
 		ErrorWrapper<PerHostnameTlsSettingsListStatus400>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<PerHostnameTlsSettingsListQuery>,
 		PerHostnameTlsSettingsListPath
 	>({
 		method: "GET",
 		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/hostnames/settings/${encodeURIComponent(String(pathParams.settingId))}`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -158588,9 +157903,11 @@ export async function zoneInvalidate(
 export async function keylessSslForAZoneListKeylessSslConfigurations(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: KeylessSslForAZoneListKeylessSslConfigurationsPath;
+		queryParams?: Partial<KeylessSslForAZoneListKeylessSslConfigurationsQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -158604,11 +157921,12 @@ export async function keylessSslForAZoneListKeylessSslConfigurations(
 		ErrorWrapper<KeylessSslForAZoneListKeylessSslConfigurationsStatus400>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<KeylessSslForAZoneListKeylessSslConfigurationsQuery>,
 		KeylessSslForAZoneListKeylessSslConfigurationsPath
 	>({
 		method: "GET",
 		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/keyless_certificates`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -161423,9 +160741,11 @@ export async function originCloudRegionsV2Upsert(
 export async function zoneLevelAuthenticatedOriginPullsListCertificates(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: ZoneLevelAuthenticatedOriginPullsListCertificatesPath;
+		queryParams?: Partial<ZoneLevelAuthenticatedOriginPullsListCertificatesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -161439,11 +160759,12 @@ export async function zoneLevelAuthenticatedOriginPullsListCertificates(
 		ErrorWrapper<ZoneLevelAuthenticatedOriginPullsListCertificatesStatus400>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<ZoneLevelAuthenticatedOriginPullsListCertificatesQuery>,
 		ZoneLevelAuthenticatedOriginPullsListCertificatesPath
 	>({
 		method: "GET",
 		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/origin_tls_client_auth`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -161576,9 +160897,11 @@ export async function perHostnameAuthenticatedOriginPullEnableOrDisableAHostname
 export async function perHostnameAuthenticatedOriginPullListCertificates(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: PerHostnameAuthenticatedOriginPullListCertificatesPath;
+		queryParams?: Partial<PerHostnameAuthenticatedOriginPullListCertificatesQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -161592,11 +160915,12 @@ export async function perHostnameAuthenticatedOriginPullListCertificates(
 		ErrorWrapper<PerHostnameAuthenticatedOriginPullListCertificatesStatus400>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<PerHostnameAuthenticatedOriginPullListCertificatesQuery>,
 		PerHostnameAuthenticatedOriginPullListCertificatesPath
 	>({
 		method: "GET",
 		url: `/zones/${encodeURIComponent(String(pathParams.zoneId))}/origin_tls_client_auth/hostnames/certificates`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -175409,23 +174733,11 @@ export const operationsByPath = {
 	"GET /accounts/{accountId}/email/routing/rules": emailRoutingRoutingRulesListAccountRoutingRules,
 	"POST /accounts/{accountId}/email/routing/rules/plan":
 		emailRoutingRoutingRulesPlanAccountRoutingRules,
-	"GET /accounts/{accountId}/email/routing/suppression": getPublicListSuppressionRouting,
-	"POST /accounts/{accountId}/email/routing/suppression": postPublicNewSuppressionRouting,
-	"DELETE /accounts/{accountId}/email/routing/suppression/{suppressionId}":
-		deletePublicDeleteSuppressionRouting,
-	"GET /accounts/{accountId}/email/routing/suppression/{suppressionId}":
-		getPublicGetSuppressionRouting,
 	"GET /accounts/{accountId}/email/sending/limits": emailSendingGetSendingLimits,
 	"GET /accounts/{accountId}/email/sending/messages/{messageId}": emailSendingGetEmailMessage,
 	"GET /accounts/{accountId}/email/sending/reputation": emailSendingGetReputation,
 	"POST /accounts/{accountId}/email/sending/send": emailSendingAccountSendBuilder,
 	"POST /accounts/{accountId}/email/sending/send_raw": emailSendingAccountSendRawMessage,
-	"GET /accounts/{accountId}/email/sending/suppression": getPublicListSuppressionSending,
-	"POST /accounts/{accountId}/email/sending/suppression": postPublicNewSuppressionSending,
-	"DELETE /accounts/{accountId}/email/sending/suppression/{suppressionId}":
-		deletePublicDeleteSuppressionSending,
-	"GET /accounts/{accountId}/email/sending/suppression/{suppressionId}":
-		getPublicGetSuppressionSending,
 	"GET /accounts/{accountId}/email/sending/suppressions": getPublicListSendingSuppressions,
 	"POST /accounts/{accountId}/email/sending/suppressions": postPublicCreateSendingSuppression,
 	"POST /accounts/{accountId}/email/sending/suppressions/bulk":
@@ -177651,12 +176963,6 @@ export const operationsByPath = {
 		emailRoutingRoutingRulesGetRoutingRule,
 	"PUT /zones/{zoneId}/email/routing/rules/{ruleIdentifier}":
 		emailRoutingRoutingRulesUpdateRoutingRule,
-	"GET /zones/{zoneId}/email/routing/suppression": getPublicListSuppressionZoneRouting,
-	"POST /zones/{zoneId}/email/routing/suppression": postPublicNewSuppressionZoneRouting,
-	"DELETE /zones/{zoneId}/email/routing/suppression/{suppressionId}":
-		deletePublicDeleteSuppressionZoneRouting,
-	"GET /zones/{zoneId}/email/routing/suppression/{suppressionId}":
-		getPublicGetSuppressionZoneRouting,
 	"POST /zones/{zoneId}/email/routing/unlock": emailRoutingSettingsUnlockEmailRouting,
 	"GET /zones/{zoneId}/email/sending/subdomains": emailSendingSubdomainsListSendingSubdomains,
 	"POST /zones/{zoneId}/email/sending/subdomains": emailSendingSubdomainsCreateSendingSubdomain,
@@ -177676,12 +176982,6 @@ export const operationsByPath = {
 		emailSendingSubdomainsGetSendingSubdomainDnsStatus,
 	"GET /zones/{zoneId}/email/sending/subdomains/{subdomainId}/reputation/complaints":
 		emailSendingSubdomainsGetSendingSubdomainReputationComplaints,
-	"GET /zones/{zoneId}/email/sending/suppression": getPublicListSuppressionZoneSending,
-	"POST /zones/{zoneId}/email/sending/suppression": postPublicNewSuppressionZoneSending,
-	"DELETE /zones/{zoneId}/email/sending/suppression/{suppressionId}":
-		deletePublicDeleteSuppressionZoneSending,
-	"GET /zones/{zoneId}/email/sending/suppression/{suppressionId}":
-		getPublicGetSuppressionZoneSending,
 	"GET /zones/{zoneId}/entitlements": entitlementsGetZoneEntitlements,
 	"GET /zones/{zoneId}/environments": zonesEnvironmentsList,
 	"PATCH /zones/{zoneId}/environments": zonesEnvironmentsEdit,
@@ -180725,16 +180025,6 @@ export const operationsByTag = {
 		emailRoutingRoutingRulesGetRoutingRule,
 		emailRoutingRoutingRulesUpdateRoutingRule,
 	},
-	emailRoutingSuppressions: {
-		getPublicListSuppressionRouting,
-		postPublicNewSuppressionRouting,
-		deletePublicDeleteSuppressionRouting,
-		getPublicGetSuppressionRouting,
-		getPublicListSuppressionZoneRouting,
-		postPublicNewSuppressionZoneRouting,
-		deletePublicDeleteSuppressionZoneRouting,
-		getPublicGetSuppressionZoneRouting,
-	},
 	emailSending: {
 		emailSendingGetSendingLimits,
 		emailSendingGetEmailMessage,
@@ -180743,20 +180033,12 @@ export const operationsByTag = {
 		emailSendingAccountSendRawMessage,
 	},
 	emailSendingSuppressions: {
-		getPublicListSuppressionSending,
-		postPublicNewSuppressionSending,
-		deletePublicDeleteSuppressionSending,
-		getPublicGetSuppressionSending,
 		getPublicListSendingSuppressions,
 		postPublicCreateSendingSuppression,
 		postPublicBulkCreateSendingSuppressions,
 		deletePublicDeleteSendingSuppression,
 		getPublicGetSendingSuppression,
 		patchPublicUpdateSendingSuppression,
-		getPublicListSuppressionZoneSending,
-		postPublicNewSuppressionZoneSending,
-		deletePublicDeleteSuppressionZoneSending,
-		getPublicGetSuppressionZoneSending,
 	},
 	accountEntitlements: {
 		entitlementsGetAccountEntitlements,
@@ -185848,16 +185130,6 @@ export const tagDictionary = {
 		],
 		DELETE: ["emailRoutingRoutingRulesDeleteRoutingRule"],
 	},
-	emailRoutingSuppressions: {
-		GET: [
-			"getPublicListSuppressionRouting",
-			"getPublicGetSuppressionRouting",
-			"getPublicListSuppressionZoneRouting",
-			"getPublicGetSuppressionZoneRouting",
-		],
-		POST: ["postPublicNewSuppressionRouting", "postPublicNewSuppressionZoneRouting"],
-		DELETE: ["deletePublicDeleteSuppressionRouting", "deletePublicDeleteSuppressionZoneRouting"],
-	},
 	emailSending: {
 		GET: [
 			"emailSendingGetSendingLimits",
@@ -185867,25 +185139,9 @@ export const tagDictionary = {
 		POST: ["emailSendingAccountSendBuilder", "emailSendingAccountSendRawMessage"],
 	},
 	emailSendingSuppressions: {
-		GET: [
-			"getPublicListSuppressionSending",
-			"getPublicGetSuppressionSending",
-			"getPublicListSendingSuppressions",
-			"getPublicGetSendingSuppression",
-			"getPublicListSuppressionZoneSending",
-			"getPublicGetSuppressionZoneSending",
-		],
-		POST: [
-			"postPublicNewSuppressionSending",
-			"postPublicCreateSendingSuppression",
-			"postPublicBulkCreateSendingSuppressions",
-			"postPublicNewSuppressionZoneSending",
-		],
-		DELETE: [
-			"deletePublicDeleteSuppressionSending",
-			"deletePublicDeleteSendingSuppression",
-			"deletePublicDeleteSuppressionZoneSending",
-		],
+		GET: ["getPublicListSendingSuppressions", "getPublicGetSendingSuppression"],
+		POST: ["postPublicCreateSendingSuppression", "postPublicBulkCreateSendingSuppressions"],
+		DELETE: ["deletePublicDeleteSendingSuppression"],
 		PATCH: ["patchPublicUpdateSendingSuppression"],
 	},
 	accountEntitlements: {
