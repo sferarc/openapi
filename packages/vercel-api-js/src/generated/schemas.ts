@@ -10962,6 +10962,48 @@ export const userEventSchema = z
 					messageId: z.string(),
 				}),
 				z.strictObject({
+					next: z.union([
+						z.strictObject({
+							access: z.enum(["default", "none", "unlimited"]),
+						}),
+						z.strictObject({
+							access: z.enum(["limited"]),
+							limit: z.string(),
+						}),
+					]),
+					previous: z.union([
+						z.strictObject({
+							access: z.enum(["default", "none", "unlimited"]),
+						}),
+						z.strictObject({
+							access: z.enum(["limited"]),
+							limit: z.string(),
+						}),
+					]),
+					userId: z.string(),
+					userName: z.string().optional(),
+				}),
+				z.strictObject({
+					next: z.union([
+						z.strictObject({
+							access: z.enum(["default", "none", "unlimited"]),
+						}),
+						z.strictObject({
+							access: z.enum(["limited"]),
+							limit: z.string(),
+						}),
+					]),
+					previous: z.union([
+						z.strictObject({
+							access: z.enum(["default", "none", "unlimited"]),
+						}),
+						z.strictObject({
+							access: z.enum(["limited"]),
+							limit: z.string(),
+						}),
+					]),
+				}),
+				z.strictObject({
 					deploymentId: z.string(),
 					projectId: z.string(),
 					projectName: z.string().optional(),
@@ -12248,6 +12290,8 @@ export const userEventSchema = z
 				"v0-chat-message-sent",
 				"v0-migration-payment-confirmed",
 				"v0-migration-subscription-completed",
+				"v0-shared-pool-credit-limit-default-updated",
+				"v0-shared-pool-credit-limit-updated",
 				"vcr-image-deleted",
 				"vcr-image-pushed",
 				"vcr-repository-created",
@@ -13146,6 +13190,8 @@ export const listEventTypeSchema = z
 				"v0-chat-message-sent",
 				"v0-migration-payment-confirmed",
 				"v0-migration-subscription-completed",
+				"v0-shared-pool-credit-limit-default-updated",
+				"v0-shared-pool-credit-limit-updated",
 				"vcr-image-deleted",
 				"vcr-image-pushed",
 				"vcr-repository-created",
@@ -13939,6 +13985,8 @@ export const listEventTypeSchema = z
 					"v0-chat-message-sent",
 					"v0-migration-payment-confirmed",
 					"v0-migration-subscription-completed",
+					"v0-shared-pool-credit-limit-default-updated",
+					"v0-shared-pool-credit-limit-updated",
 					"vcr-image-deleted",
 					"vcr-image-pushed",
 					"vcr-repository-created",
