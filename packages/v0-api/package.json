@@ -1,6 +1,6 @@
 {
 	"name": "v0-api",
-	"version": "1.8.0",
+	"version": "1.8.1",
 	"description": "Unofficial typed TypeScript client for the Vercel v0 API, generated from its OpenAPI spec",
 	"keywords": [
 		"v0",
