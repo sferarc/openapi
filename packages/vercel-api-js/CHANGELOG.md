@@ -1,5 +1,13 @@
 # vercel-api-js
 
+## 2.38.0
+
+### Minor Changes
+
+- 1604bb2: Added enums and types for user event payload access levels and their corresponding keys.
+- 1604bb2: Extended the UserEvent type with new payload structures for user access and limit changes, including userId and userName fields.
+- 1604bb2: Added new event types 'v0-shared-pool-credit-limit-default-updated' and 'v0-shared-pool-credit-limit-updated' to userEventTypeEnum, listEventTypeNameEnum, and listEventTypeReplacedByEnum.
+
 ## 2.37.2
 
 ### Patch Changes
