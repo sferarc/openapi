@@ -1,5 +1,20 @@
 # vercel-api-js
 
+## 2.37.0
+
+### Minor Changes
+
+- 1cc2617: Added membershipSource field and associated enum types to GetTeamMembersStatus200 to indicate the source of team member permissions.
+- 1cc2617: Added rollbackInfo parameter to the GetProjectQuery type to conditionally include promote or rollback request status in project responses.
+- 1cc2617: Added support for customEnvironmentId parameter to the putProjectDaemonInstances and restartProjectDaemonInstance operations for targeting custom environments.
+
+### Patch Changes
+
+- 1cc2617: Added detailed descriptions and clarifications about organization-directory-managed teams to the joinTeam and updateTeamMember operations.
+- 1cc2617: Added awaiting_admission as a possible status value to several Vercel CI invocation status types and enums.
+- 1cc2617: Clarified OAuth client secret handling in ConnectConnectorCreateData and ConnectConnectorUpdateData when the authorization server is changed.
+- 1cc2617: Added last promote or rollback request status fields to project status response types for richer status feedback.
+
 ## 2.36.0
 
 ### Minor Changes
