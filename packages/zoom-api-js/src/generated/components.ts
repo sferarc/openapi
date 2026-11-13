@@ -1035,7 +1035,7 @@ import type {
  * * The [**Meeting and Webinar Archiving** feature](https://support.zoom.us/hc/en-us/articles/4405656451213--Archiving-for-meetings-and-webinars) enabled for your account by [Zoom Support](https://support.zoom.us/hc/en-us/articles/201362003).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `archiving:read:list_archived_files:admin`,`archiving:read:list_archived_files:master`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /archive_files
  */
 export async function listArchivedFiles(
@@ -1074,7 +1074,7 @@ export async function listArchivedFiles(
  * **Prerequisites:**
  * * The [**Meeting and Webinar Archiving** feature](https://support.zoom.us/hc/en-us/articles/4405656451213--Archiving-for-meetings-and-webinars) enabled for your account by [Zoom Support](https://support.zoom.us/hc/en-us/articles/201362003).
  * * A paid account.
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /archive_files/download_audit
  */
 export async function listArchiveFileDownloadAudit(
@@ -1118,7 +1118,7 @@ export async function listArchiveFileDownloadAudit(
  * * The [**Meeting and Webinar Archiving** feature](https://support.zoom.us/hc/en-us/articles/4405656451213--Archiving-for-meetings-and-webinars) enabled for your account by [Zoom Support](https://support.zoom.us/hc/en-us/articles/201362003).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `archiving:read:archived_file_statistics:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /archive_files/statistics
  */
 export async function getArchivedFileStatistics(
@@ -1158,7 +1158,7 @@ export async function getArchivedFileStatistics(
  * * Open the disabling auto-delete feature in OP. Contact [Zoom Support](https://support.zoom.us/hc/en-us/articles/201362003) to open.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:write`,`recording:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `archiving:update:archived_file_auto_delete_status`,`archiving:update:archived_file_auto_delete_status:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /archive_files/{fileId}
  */
 export async function updateArchivedFile(
@@ -1205,7 +1205,7 @@ export async function updateArchivedFile(
  * * The **Archive meetings and webinars** account setting enabled in the Zoom web portal.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting_token:read:admin:local_archiving`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:local_archiving_token:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/jointoken/local_archiving
  */
 export async function meetingLocalArchivingArchiveToken(
@@ -1251,7 +1251,7 @@ export async function meetingLocalArchivingArchiveToken(
  * * The [**Meeting and Webinar Archiving** feature](https://support.zoom.us/hc/en-us/articles/4405656451213--Archiving-for-meetings-and-webinars) enabled for your account by [Zoom Support](https://support.zoom.us/hc/en-us/articles/201362003).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `archiving:read:archived_files:admin`,`archiving:read:archived_files`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /past_meetings/{meetingUUID}/archive_files
  */
 export async function getArchivedFiles(
@@ -1292,7 +1292,7 @@ export async function getArchivedFiles(
  * * The [**Meeting and Webinar Archiving** feature](https://support.zoom.us/hc/en-us/articles/4405656451213--Archiving-for-meetings-and-webinars) enabled for your account by [Zoom Support](https://support.zoom.us/hc/en-us/articles/201362003).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `archiving:delete:archived_files:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /past_meetings/{meetingUUID}/archive_files
  */
 export async function deleteArchivedFiles(
@@ -1334,7 +1334,7 @@ export async function deleteArchivedFiles(
  *  `curl -H 'Authorization: Bearer <ACCESS_TOKEN>' https://{{base-domain}}/rec/archive/download/xyz`
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:read`,`phone_recording:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `cloud_recording:read:list_recording_files:admin`,`cloud_recording:read:list_recording_files`,`cloud_recording:read:list_recording_files:master`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/recordings
  */
 export async function recordingGet(
@@ -1378,7 +1378,7 @@ export async function recordingGet(
  * * Enable Cloud Recording on the user's account. Learn more about [enabling cloud recordings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0063923) and [managing cloud recording settings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0065362).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:write:admin`,`recording:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `cloud_recording:delete:meeting_recording`,`cloud_recording:delete:meeting_recording:admin`,`cloud_recording:delete:meeting_recording:master`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/recordings
  */
 export async function recordingDelete(
@@ -1500,7 +1500,7 @@ export async function analyticsSummary(
  * @description Get a list of registrants of a past meeting's [on-demand cloud recordings](https://support.zoom.us/hc/en-us/articles/360000488283-On-demand-recordings). Users must [register](/api-reference/zoom-api/methods#operation/meetingRecordingRegistrantCreate) to view the recordings.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:read:admin`,`recording:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `cloud_recording:read:list_recording_registrants`,`cloud_recording:read:list_recording_registrants:admin`,`cloud_recording:read:list_recording_registrants:master`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /meetings/{meetingId}/recordings/registrants
  */
 export async function meetingRecordingRegistrants(
@@ -1543,7 +1543,7 @@ export async function meetingRecordingRegistrants(
  * Cloud recordings of past Zoom meetings can be made [on-demand](https://support.zoom.us/hc/en-us/articles/360000488283-On-demand-Recordings). Users should be [registered](/api-reference/zoom-api/methods#operation/meetingRecordingRegistrantCreate) to view these recordings.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:write:admin`,`recording:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `cloud_recording:write:recording_registrant`,`cloud_recording:write:recording_registrant:master`,`cloud_recording:write:recording_registrant:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/recordings/registrants
  */
 export async function meetingRecordingRegistrantCreate(
@@ -1589,7 +1589,7 @@ export async function meetingRecordingRegistrantCreate(
  * Learn more about [enabling cloud recordings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0063923) and [managing cloud recording settings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0065362).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:read:admin`,`recording:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `cloud_recording:read:registration_questions`,`cloud_recording:read:registration_questions:master`,`cloud_recording:read:registration_questions:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/recordings/registrants/questions
  */
 export async function recordingRegistrantsQuestionsGet(
@@ -1632,7 +1632,7 @@ export async function recordingRegistrantsQuestionsGet(
  * Learn more about [enabling cloud recordings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0063923) and [managing cloud recording settings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0065362).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:write:admin`,`recording:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `cloud_recording:update:registration_questions:admin`,`cloud_recording:update:registration_questions`,`cloud_recording:update:registration_questions:master`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/recordings/registrants/questions
  */
 export async function recordingRegistrantQuestionUpdate(
@@ -1678,7 +1678,7 @@ export async function recordingRegistrantQuestionUpdate(
  * Learn more about [enabling cloud recordings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0063923) and [managing cloud recording settings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0065362).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:write:admin`,`recording:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `cloud_recording:update:registrant_status`,`cloud_recording:update:registrant_status:master`,`cloud_recording:update:registrant_status:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /meetings/{meetingId}/recordings/registrants/status
  */
 export async function meetingRecordingRegistrantStatus(
@@ -1724,7 +1724,7 @@ export async function meetingRecordingRegistrantStatus(
  * Learn more about [enabling cloud recordings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0063923) and [managing cloud recording settings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0065362).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:read:admin`,`recording:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `cloud_recording:read:recording_settings`,`cloud_recording:read:recording_settings:admin`,`cloud_recording:read:recording_settings:master`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/recordings/settings
  */
 export async function recordingSettingUpdate(
@@ -1765,7 +1765,7 @@ export async function recordingSettingUpdate(
  * Learn more about [enabling cloud recordings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0063923) and [managing cloud recording settings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0065362).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:write:admin`,`recording:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `cloud_recording:update:recording_settings`,`cloud_recording:update:recording_settings:master`,`cloud_recording:update:recording_settings:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/recordings/settings
  */
 export async function recordingSettingsUpdate(
@@ -1807,7 +1807,7 @@ export async function recordingSettingsUpdate(
  * @description Delete a specific recording file from a meeting or webinar. Note: To use this API, you must enable the **The host can delete cloud recordings** setting. Find this setting in the **Recording** tab of the **Settings** interface in the [Zoom web portal](https://zoom.us/).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:write:admin`,`recording:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `cloud_recording:delete:recording_file`,`cloud_recording:delete:recording_file:admin`,`cloud_recording:delete:recording_file:master`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/recordings/{recordingId}
  */
 export async function recordingDeleteOne(
@@ -1856,7 +1856,7 @@ export async function recordingDeleteOne(
  * Zoom lets users recover recordings from trash for up to 30 days from the deletion date.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:write:admin`,`recording:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `cloud_recording:update:recover_single_recording`,`cloud_recording:update:recover_single_recording:master`,`cloud_recording:update:recover_single_recording:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/recordings/{recordingId}/status
  */
 export async function recordingStatusUpdateOne(
@@ -1909,7 +1909,7 @@ export async function recordingStatusUpdateOne(
  * * A Pro user with Cloud Recording enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:write:admin`,`recording:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `cloud_recording:update:recover_meeting_recordings`,`cloud_recording:update:recover_meeting_recordings:master`,`cloud_recording:update:recover_meeting_recordings:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingUUID}/recordings/status
  */
 export async function recordingStatusUpdate(
@@ -1960,7 +1960,7 @@ export async function recordingStatusUpdate(
  * * Must enable Cloud Recording on the user's account. Learn more about [enabling cloud recordings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0063923) and [managing cloud recording settings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0065362).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:read:admin`,`recording:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `cloud_recording:read:list_user_recordings`,`cloud_recording:read:list_user_recordings:master`,`cloud_recording:read:list_user_recordings:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /users/{userId}/recordings
  */
 export async function recordingsList(
@@ -2001,7 +2001,7 @@ export async function recordingsList(
  * @summary List devices
  * @description This API lets you list devices.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:read:admin`,`device:write:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /devices
  */
 export async function listDevices(
@@ -2039,7 +2039,7 @@ export async function listDevices(
  * **Scope:** `device:write:admin`
  *  **[Rate Limit Label](https://developers.zoom.us/docs/api/rest/rate-limits/):** `Medium`
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:write:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /devices
  */
 export async function addDevice(
@@ -2076,7 +2076,7 @@ export async function addDevice(
  * @description Get Zoom Device Manager (ZDM) group information for an account.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:read:list_groups:admin`,`device:read:list_groups:master`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /devices/groups
  */
 export async function getzdmgroupinfo(
@@ -2115,7 +2115,7 @@ export async function getzdmgroupinfo(
  * * Device must be enrolled in Zoom Device Management (ZDM).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:write:zpa_device:admin`,`device:write:zpa_device:master`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /devices/zpa/assignment
  */
 export async function assigndevicetoauserCommonarea(
@@ -2152,7 +2152,7 @@ export async function assigndevicetoauserCommonarea(
  * @description Get a user's Zoom Phone Appliance (ZPA) device profile settings. For user-level apps, pass the `me` value instead of the `userId` parameter.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:read:user_setting:admin`,`device:read:user_setting:master`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /devices/zpa/settings
  */
 export async function getZpaDeviceListProfileSettingOfaUser(
@@ -2196,7 +2196,7 @@ export async function getZpaDeviceListProfileSettingOfaUser(
  * * Account owner or admin permissions.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:write:zpa_os_app:admin`,`device:write:zpa_os_app:master`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /devices/zpa/upgrade
  */
 export async function upgradeZpasApp(
@@ -2233,7 +2233,7 @@ export async function upgradeZpasApp(
  * @description Remove a ZPA device from the device manager, by vendor and mac address.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:delete:zpa_device:admin`,`device:delete:zpa_device:master`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /devices/zpa/vendors/{vendor}/mac_addresses/{macAddress}
  */
 export async function deleteZpaDeviceByVendorAndMacAddress(
@@ -2280,7 +2280,7 @@ export async function deleteZpaDeviceByVendorAndMacAddress(
  * @description Get ZPA firmware and app version information that can be upgraded for devices.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:read:list_zpa_versions:admin`,`device:read:list_zpa_versions:master`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /devices/zpa/zdm_groups/{zdmGroupId}/versions
  */
 export async function getZpaVersioninfo(
@@ -2320,7 +2320,7 @@ export async function getZpaVersioninfo(
  * @summary Get device detail
  * @description Retrieve a device's details.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:read:admin`,`device:write:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /devices/{deviceId}
  */
 export async function getDevice(
@@ -2360,7 +2360,7 @@ export async function getDevice(
  * **Prerequisites:**
  * * Device must be enrolled in ZMD (Zoom Device Management)
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:write:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /devices/{deviceId}
  */
 export async function deleteDevice(
@@ -2400,7 +2400,7 @@ export async function deleteDevice(
  * **Prerequisites:**
  * * Device must be enrolled in ZMD (Zoom Device Management)
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:write:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /devices/{deviceId}
  */
 export async function updateDevice(
@@ -2442,7 +2442,7 @@ export async function updateDevice(
  * @description Assign a device to a new group.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:write:group:admin`,`device:write:group:master`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /devices/{deviceId}/assign_group
  */
 export async function assginGroup(
@@ -2486,7 +2486,7 @@ export async function assginGroup(
  * @description Change a device's association from one Zoom Room to another. **Prerequisites** Device must be enrolled in ZDM (Zoom Device Management). \n\n**Note** Currently, only Poly TC10’s may make Zoom Room assignments.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `device:update:zdm_device_assignment:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /devices/{deviceId}/assignment
  */
 export async function changeDeviceAssociation(
@@ -2532,7 +2532,7 @@ export async function changeDeviceAssociation(
  * @description A H.323 or SIP device can make a video call to a [Room Connector](https://support.zoom.us/hc/en-us/articles/201363273-Getting-Started-With-H-323-SIP-Room-Connector) to join a Zoom cloud meeting. A Room Connector can also call out to a H.323 or SIP device to join a Zoom cloud meeting. Use this API to list all H.323/SIP Devices on a Zoom account.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `h323:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `h323_device:read:list_devices:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /h323/devices
  */
 export async function deviceList(
@@ -2571,7 +2571,7 @@ export async function deviceList(
  * @description A H.323 or SIP device can make a video call to a [Room Connector](https://support.zoom.us/hc/en-us/articles/201363273-Getting-Started-With-H-323-SIP-Room-Connector) to join a Zoom cloud meeting. A Room Connector can also call out to a H.323 or SIP device to join a Zoom cloud meeting. Use this API to add a H.323/SIP device to your Zoom account
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `h323:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `h323_device:write:device:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /h323/devices
  */
 export async function deviceCreate(
@@ -2614,7 +2614,7 @@ export async function deviceCreate(
  * @description A H.323 or SIP device can make a video call to a [Room Connector](https://support.zoom.us/hc/en-us/articles/201363273-Getting-Started-With-H-323-SIP-Room-Connector) to join a Zoom cloud meeting. A Room Connector can also call out to a H.323 or SIP device to join a Zoom cloud meeting. Use this API to delete a H.323/SIP device from your Zoom account.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `h323:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `h323_device:delete:device:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /h323/devices/{deviceId}
  */
 export async function deviceDelete(
@@ -2660,7 +2660,7 @@ export async function deviceDelete(
  *  A H.323 or SIP device can make a video call to a [Room Connector](https://support.zoom.us/hc/en-us/articles/201363273-Getting-Started-With-H-323-SIP-Room-Connector) to join a Zoom cloud meeting. A Room Connector can also call out to a H.323 or SIP device to join a Zoom cloud meeting.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `h323:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `h323_device:update:device:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /h323/devices/{deviceId}
  */
 export async function deviceUpdate(
@@ -2711,7 +2711,7 @@ export async function deviceUpdate(
  * * The **Zoom Apps Quick Launch Button** setting enabled in the Zoom web portal.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write`,`meeting:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:open_app`,`meeting:write:open_app:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/open_apps
  */
 export async function meetingAppAdd(
@@ -2756,7 +2756,7 @@ export async function meetingAppAdd(
  * * The **Zoom Apps Quick Launch Button** setting enabled in the Zoom web portal.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write`,`meeting:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:delete:open_app`,`meeting:delete:open_app:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/open_apps
  */
 export async function meetingAppDelete(
@@ -2797,7 +2797,7 @@ export async function meetingAppDelete(
  * * Have Zoom enable the DLP for the in-meeting chat feature to use this API.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write`,`meeting:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:delete:live_meeting_chat_message`,`meeting:delete:live_meeting_chat_message:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /live_meetings/{meetingId}/chat/messages/{messageId}
  */
 export async function deleteMeetingChatMessageById(
@@ -2847,7 +2847,7 @@ export async function deleteMeetingChatMessageById(
  * @description Update a message in a live meeting, based on ID. **Prerequisites:** * Have Zoom enable the DLP for the in-meeting chat feature to use this API.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write`,`meeting:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:update:live_meeting_chat_message`,`meeting:update:live_meeting_chat_message:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /live_meetings/{meetingId}/chat/messages/{messageId}
  */
 export async function updateMeetingChatMessageById(
@@ -2903,7 +2903,7 @@ export async function updateMeetingChatMessageById(
  * * The [Zoom AI](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0057623) control must be enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write`,`meeting:write:admin`,`meeting:master`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:update:in_meeting_controls`,`meeting:update:in_meeting_controls:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /live_meetings/{meetingId}/events
  */
 export async function inMeetingControl(
@@ -2952,7 +2952,7 @@ export async function inMeetingControl(
  * * The **Local recording** user setting enabled in the Zoom web portal.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting_token:read:admin:local_recording`,`meeting_token:read:local_recording`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:local_recording_token`,`meeting:read:local_recording_token:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/jointoken/local_recording
  */
 export async function meetingLocalRecordingJoinToken(
@@ -3001,7 +3001,7 @@ export async function meetingLocalRecordingJoinToken(
  * * The **Allow use of caption API Token to integrate with third-party closed captioning services** setting enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read`,`meeting:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:token`,`meeting:read:token:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/token
  */
 export async function meetingToken(
@@ -3046,7 +3046,7 @@ export async function meetingToken(
  * * The meeting must require registration and should be of type `2`, i.e., they should be scheduled meetings. Instant meetings and Recurring meetings are not supported by this API.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write`,`meeting:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:batch_registrants`,`meeting:write:batch_registrants:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /meetings/{meetingId}/batch_registrants
  */
 export async function addBatchRegistrants(
@@ -3092,7 +3092,7 @@ export async function addBatchRegistrants(
  * * Host user must have a Zoom Meetings Basic license or higher.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read`,`meeting:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:invitation`,`meeting:read:invitation:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/invitation
  */
 export async function meetingInvitation(
@@ -3135,7 +3135,7 @@ export async function meetingInvitation(
  * * The `ttl` value, in seconds, defines the invite link's expiration time. It must be between `0` or no expiration and `7776000` or 90 days, and has a default value of `7200` or 2 hours.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:admin`,`meeting:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:invite_links`,`meeting:write:invite_links:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/invite_links
  */
 export async function meetingInviteLinksCreate(
@@ -3184,7 +3184,7 @@ export async function meetingInviteLinksCreate(
  * * Registration must be enabled for the meeting.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:admin`,`meeting:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:list_registrants`,`meeting:read:list_registrants:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /meetings/{meetingId}/registrants
  */
 export async function meetingRegistrants(
@@ -3230,7 +3230,7 @@ export async function meetingRegistrants(
  * * The host must be a **Licensed** user type.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:admin`,`meeting:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:registrant`,`meeting:write:registrant:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/registrants
  */
 export async function meetingRegistrantCreate(
@@ -3282,7 +3282,7 @@ export async function meetingRegistrantCreate(
  * * Registration must be enabled for the meeting.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read`,`meeting:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:list_registration_questions`,`meeting:read:list_registration_questions:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/registrants/questions
  */
 export async function meetingRegistrantsQuestionsGet(
@@ -3328,7 +3328,7 @@ export async function meetingRegistrantsQuestionsGet(
  * * Registration must be enabled for the meeting.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write`,`meeting:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:update:registration_question`,`meeting:update:registration_question:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/registrants/questions
  */
 export async function meetingRegistrantQuestionUpdate(
@@ -3378,7 +3378,7 @@ export async function meetingRegistrantQuestionUpdate(
  * This API has an additional rate limit of requests per registrant, per 24-hour period. [See the Rate Limits page](/docs/api/rate-limits/) for more information.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:admin`,`meeting:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:update:registrant_status`,`meeting:update:registrant_status:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /meetings/{meetingId}/registrants/status
  */
 export async function meetingRegistrantStatus(
@@ -3429,7 +3429,7 @@ export async function meetingRegistrantStatus(
  * * The account must have a Meeting plan
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:admin`,`meeting:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:registrant`,`meeting:read:registrant:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/registrants/{registrantId}
  */
 export async function meetingRegistrantGet(
@@ -3480,7 +3480,7 @@ export async function meetingRegistrantGet(
  *   * If the `registration_type` is 1, the `occurrence_id` is not needed, as registrants can attend any occurrence.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:admin`,`meeting:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:delete:registrant`,`meeting:delete:registrant:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/registrants/{registrantId}
  */
 export async function meetingregistrantdelete(
@@ -3533,7 +3533,7 @@ export async function meetingregistrantdelete(
  * * The **Allow livestreaming of meetings** user setting enabled in the Zoom web portal.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting_token:read:admin:live_streaming`,`meeting_token:read:live_streaming`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:live_streaming_token`,`meeting:read:live_streaming_token:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/jointoken/live_streaming
  */
 export async function meetingLiveStreamingJoinToken(
@@ -3579,7 +3579,7 @@ export async function meetingLiveStreamingJoinToken(
  * * Live streaming details must have been [configured](https://support.zoom.us/hc/en-us/articles/115001777826-Live-Streaming-Meetings-or-Webinars-Using-a-Custom-Service#h_01589a6f-a40a-4e18-a448-cb746e52ebc5) for the meeting.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:admin`,`meeting:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:livestream`,`meeting:read:livestream:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/livestream
  */
 export async function getMeetingLiveStreamDetails(
@@ -3624,7 +3624,7 @@ export async function getMeetingLiveStreamDetails(
  * * Meeting host must have a Pro license.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:admin`,`meeting:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:update:livestream`,`meeting:update:livestream:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/livestream
  */
 export async function meetingLiveStreamUpdate(
@@ -3672,7 +3672,7 @@ export async function meetingLiveStreamUpdate(
  * * Meeting host must have a Pro license.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:admin`,`meeting:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:update:livestream_status`,`meeting:update:livestream_status:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/livestream/status
  */
 export async function meetingLiveStreamStatusUpdate(
@@ -3720,7 +3720,7 @@ export async function meetingLiveStreamStatusUpdate(
  *  `curl -H 'Authorization: Bearer <ACCESS_TOKEN>' https://{{base-domain}}//rec/meeting/transcript/download/xyz`
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:read`,`recording:write`,`recording:read:admin`,`recording:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `cloud_recording:read:meeting_transcript`,`cloud_recording:read:meeting_transcript:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /meetings/{meetingId}/transcript
  */
 export async function getMeetingTranscript(
@@ -3761,7 +3761,7 @@ export async function getMeetingTranscript(
  * @description Delete a transcript for a meeting or webinar.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `recording:write`,`recording:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `cloud_recording:delete:meeting_transcript`,`cloud_recording:delete:meeting_transcript:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /meetings/{meetingId}/transcript
  */
 export async function deleteMeetingTranscript(
@@ -3809,7 +3809,7 @@ export async function deleteMeetingTranscript(
  * * The **Allow apps to access meeting content** setting enabled in the Zoom web portal.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:admin`,`meeting:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:update:participant_rtms_app_status`,`meeting:update:participant_rtms_app_status:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /live_meetings/{meetingId}/rtms_app/status
  */
 export async function meetingRTMSStatusUpdate(
@@ -3858,7 +3858,7 @@ export async function meetingRTMSStatusUpdate(
  * * Host user must have a Zoom Meetings Basic license or higher.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read`,`meeting:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:meeting`,`meeting:read:meeting:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}
  */
 export async function meeting(
@@ -3902,7 +3902,7 @@ export async function meeting(
  * * For recurring meetings, the `occurrence_id` is required to delete a specific occurrence. If not provided, the entire recurring series will be deleted.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:admin`,`meeting:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:delete:meeting`,`meeting:delete:meeting:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}
  */
 export async function meetingDelete(
@@ -3948,7 +3948,7 @@ export async function meetingDelete(
  * * This API has a rate limit of **100 requests per day**. You can update a meeting for a maximum of 100 times within a 24-hour period.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write`,`meeting:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:update:meeting:admin`,`meeting:update:meeting`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}
  */
 export async function meetingUpdate(
@@ -4000,7 +4000,7 @@ export async function meetingUpdate(
  * * The SIP URI is valid for 2 hours, or 7200 seconds, by default. After this period, the URI will expire and the API must be called again to retrieve a new one.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:sip_dialing`,`meeting:write:admin:sip_dialing`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:sip_dialing`,`meeting:write:sip_dialing:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /meetings/{meetingId}/sip_dialing
  */
 export async function getSipDialingWithPasscode(
@@ -4048,7 +4048,7 @@ export async function getSipDialingWithPasscode(
  * * Host user must have a Zoom Meetings Basic license or higher.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:admin`,`meeting:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:update:status`,`meeting:update:status:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/status
  */
 export async function meetingStatus(
@@ -4093,7 +4093,7 @@ export async function meetingStatus(
  * * You cannot access a meeting that occurred more than one year ago.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:admin`,`meeting:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:past_meeting`,`meeting:read:past_meeting:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /past_meetings/{meetingId}
  */
 export async function pastMeetingDetails(
@@ -4137,7 +4137,7 @@ export async function pastMeetingDetails(
  * * You cannot retrieve instances for meetings that occurred more than 15 months ago.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:admin`,`meeting:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:list_past_instances`,`meeting:read:list_past_instances:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /past_meetings/{meetingId}/instances
  */
 export async function pastMeetings(
@@ -4185,7 +4185,7 @@ export async function pastMeetings(
  * * For meetings with hundreds of participants, attendance data may take time to generate. If participant durations are returned as `0`, the request may have been made before processing completed. Wait briefly and retry.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:admin`,`meeting:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:list_past_participants`,`meeting:read:list_past_participants:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /past_meetings/{meetingId}/participants
  */
 export async function pastMeetingParticipants(
@@ -4236,7 +4236,7 @@ export async function pastMeetingParticipants(
  * * You cannot retrieve Q&A data for meetings that occurred more than 15 months ago.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:admin`,`meeting:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:past_qa`,`meeting:read:past_qa:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /past_meetings/{meetingId}/qa
  */
 export async function listPastMeetingQA(
@@ -4281,7 +4281,7 @@ export async function listPastMeetingQA(
  * * When `type` is set to `upcoming`, `upcoming_meetings`, or `previous_meetings`, only a maximum of 6 months of meeting data will be returned.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:admin`,`meeting:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:list_meetings`,`meeting:read:list_meetings:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /users/{userId}/meetings
  */
 export async function meetings(
@@ -4328,7 +4328,7 @@ export async function meetings(
  * * **100 requests per day**. The rate limit is applied against the `userId` of the **meeting host** used to make the request.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:admin`,`meeting:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:meeting`,`meeting:write:meeting:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /users/{userId}/meetings
  */
 export async function meetingCreate(
@@ -4375,7 +4375,7 @@ export async function meetingCreate(
  * * To retrieve data for Zoom meetings that the user has been invited to from a third-party calendar (Google, Exchange, Office 365, Apple iCloud), the [**Calendar and Contacts Integration**](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0069503) must be enabled in the Zoom Web Portal.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read`,`meeting:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:list_upcoming_meetings`,`meeting:read:list_upcoming_meetings:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /users/{userId}/upcoming_meetings
  */
 export async function listUpcomingMeeting(
@@ -4418,7 +4418,7 @@ export async function listUpcomingMeeting(
  * * The [**Personal Audio Conference**](https://support.zoom.us/hc/en-us/articles/204517069-Getting-Started-with-Personal-Audio-Conference#h_01F5BPM447M6QDJXX50RSFXKJ3) setting enabled in the user's profile.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `pac:read:admin`,`pac:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `pac:read:list_pac_accounts`,`pac:read:list_pac_accounts:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /users/{userId}/pac
  */
 export async function userPACs(
@@ -4461,7 +4461,7 @@ export async function userPACs(
  * * Meeting must be a scheduled meeting. Instant meetings do not have polling features enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:admin`,`meeting:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:batch_polls`,`meeting:write:batch_polls:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/batch_polls
  */
 export async function createBatchPolls(
@@ -4506,7 +4506,7 @@ export async function createBatchPolls(
  * * Meeting must be a scheduled meeting. Instant meetings do not have polling features enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:admin`,`meeting:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:list_polls`,`meeting:read:list_polls:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/polls
  */
 export async function meetingPolls(
@@ -4552,7 +4552,7 @@ export async function meetingPolls(
  * * Meeting must be a scheduled meeting. Instant meetings do not have polling features enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:admin`,`meeting:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:poll`,`meeting:write:poll:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/polls
  */
 export async function meetingPollCreate(
@@ -4599,7 +4599,7 @@ export async function meetingPollCreate(
  * * Enable the **Meeting Polls/Quizzes** setting in the Zoom web portal.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:admin`,`meeting:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:poll`,`meeting:read:poll:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/polls/{pollId}
  */
 export async function meetingPollGet(
@@ -4646,7 +4646,7 @@ export async function meetingPollGet(
  * * Meeting must be a scheduled meeting. Instant meetings do not have polling features enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:admin`,`meeting:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:update:poll`,`meeting:update:poll:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/polls/{pollId}
  */
 export async function meetingPollUpdate(
@@ -4698,7 +4698,7 @@ export async function meetingPollUpdate(
  * * Meeting must be a scheduled meeting. Instant meetings do not have polling features enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:admin`,`meeting:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:delete:poll`,`meeting:delete:poll:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/polls/{pollId}
  */
 export async function meetingPollDelete(
@@ -4746,7 +4746,7 @@ export async function meetingPollDelete(
  * * Meeting must be a scheduled meeting. Instant meetings do not have polling features enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:admin`,`meeting:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:list_poll_results`,`meeting:read:list_poll_results:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /past_meetings/{meetingId}/polls
  */
 export async function listPastMeetingPolls(
@@ -4787,7 +4787,7 @@ export async function listPastMeetingPolls(
  * * Pro or higher plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:user_activities:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Heavy`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `Heavy`
  * @link /report/activities
  */
 export async function reportSignInSignOutActivities(
@@ -4826,7 +4826,7 @@ export async function reportSignInSignOutActivities(
  * * Pro or a higher account with Department Billing option enabled. Contact Zoom Support team for details.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:billing:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Heavy`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `Heavy`
  * @link /report/billing
  */
 export async function getBillingReport(
@@ -4858,7 +4858,7 @@ export async function getBillingReport(
  * * Pro or a higher account with Department Billing option enabled. Contact the Zoom Support team to enable this feature.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:billing_invoice:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/billing/invoices
  */
 export async function getBillingInvoicesReports(
@@ -4900,7 +4900,7 @@ export async function getBillingInvoicesReports(
  * **Prerequisites**
  * * Pro or higher plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Heavy`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `Heavy`
  * @link /report/cloud_recording
  */
 export async function reportCloudRecording(
@@ -4938,7 +4938,7 @@ export async function reportCloudRecording(
  * **Prerequisites**
  * * Pro or higher plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/daily
  */
 export async function reportDaily(
@@ -4975,7 +4975,7 @@ export async function reportDaily(
  * @description Retrieve a list of disclaimer records.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:disclaimer:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/disclaimer
  */
 export async function getdisclaimerreport(
@@ -5017,7 +5017,7 @@ export async function getdisclaimerreport(
  * @description Retrieve a list of history meetings and webinars.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:list_history_meetings:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/history_meetings
  */
 export async function gethistorymeetingandwebinarlist(
@@ -5059,7 +5059,7 @@ export async function gethistorymeetingandwebinarlist(
  * @description Retrieve a list of a meeting activity logs. Contact Zoom Support to enable the meeting audit trail log feature on your account.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:meeting_activity_log:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/meeting_activities
  */
 export async function reportMeetingactivitylogs(
@@ -5103,7 +5103,7 @@ export async function reportMeetingactivitylogs(
  * * Pro or a higher plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:meeting:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/meetings/{meetingId}
  */
 export async function reportMeetingDetails(
@@ -5149,7 +5149,7 @@ export async function reportMeetingDetails(
  * * A Pro or a higher plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:list_meeting_participants:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/meetings/{meetingId}/participants
  */
 export async function reportMeetingParticipants(
@@ -5197,7 +5197,7 @@ export async function reportMeetingParticipants(
  * * A Pro or a higher plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:list_meeting_polls:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Heavy`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `Heavy`
  * @link /report/meetings/{meetingId}/polls
  */
 export async function reportMeetingPolls(
@@ -5240,7 +5240,7 @@ export async function reportMeetingPolls(
  * * Pro plan or higher.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:meeting_qna:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/meetings/{meetingId}/qa
  */
 export async function reportMeetingQA(
@@ -5281,7 +5281,7 @@ export async function reportMeetingQA(
  * * Pro or a higher plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:meeting_survey:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/meetings/{meetingId}/survey
  */
 export async function reportMeetingSurvey(
@@ -5325,7 +5325,7 @@ export async function reportMeetingSurvey(
  * * Pro or higher plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:operation_logs:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/operationlogs
  */
 export async function reportOperationLogs(
@@ -5362,7 +5362,7 @@ export async function reportOperationLogs(
  * @description Retrieve a list of remote support records.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:remote_support:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/remote_support
  */
 export async function getremotesupportreport(
@@ -5405,7 +5405,7 @@ export async function getremotesupportreport(
  * * Pro or higher plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:telephone:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/telephone
  */
 export async function reportTelephone(
@@ -5449,7 +5449,7 @@ export async function reportTelephone(
  * * A Pro or higher plan
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:upcoming_meetings_webinars:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Heavy`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `Heavy`
  * @link /report/upcoming_events
  */
 export async function reportUpcomingEvents(
@@ -5494,7 +5494,7 @@ export async function reportUpcomingEvents(
  * * Pro or higher plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:list_users:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/users
  */
 export async function reportUsers(
@@ -5534,7 +5534,7 @@ export async function reportUsers(
  * * Pro or higher plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:user:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/users/{userId}/meetings
  */
 export async function reportMeetings(
@@ -5578,7 +5578,7 @@ export async function reportMeetings(
  * * Pro or higher plan with Webinar add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:webinar:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Heavy`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `Heavy`
  * @link /report/webinars/{webinarId}
  */
 export async function reportWebinarDetails(
@@ -5621,7 +5621,7 @@ export async function reportWebinarDetails(
  * * A Pro or a higher plan with Webinar add-on enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:list_webinar_participants:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/webinars/{webinarId}/participants
  */
 export async function reportWebinarParticipants(
@@ -5669,7 +5669,7 @@ export async function reportWebinarParticipants(
  * * Pro or a higher plan with Webinar add-on enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:list_webinar_polls:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `Heavy`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `Heavy`
  * @link /report/webinars/{webinarId}/polls
  */
 export async function reportWebinarPolls(
@@ -5712,7 +5712,7 @@ export async function reportWebinarPolls(
  * * Pro or a higher plan with the Webinar add-on enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:webinar_qna:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/webinars/{webinarId}/qa
  */
 export async function reportWebinarQA(
@@ -5753,7 +5753,7 @@ export async function reportWebinarQA(
  * * Pro or a higher plan with Webinar add-on enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `report:read:webinar_survey:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /report/webinars/{webinarId}/survey
  */
 export async function reportWebinarSurvey(
@@ -5798,7 +5798,7 @@ export async function reportWebinarSurvey(
  * * User must enable SIP Phone Integration by contacting the [Sales](https://zoom.us/contactsales) team.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `sip_phone:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `sip_phone:read:list_sip_phones:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /sip_phones/phones
  */
 export async function listSIPPhonePhones(
@@ -5844,7 +5844,7 @@ export async function listSIPPhonePhones(
  * * The account owner or account admin must first enable SIP Phone Integration by contacting the [Sales](https://zoom.us/contactsales) team.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `sip_phone:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `sip_phone:write:sip_phone:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /sip_phones/phones
  */
 export async function enableSIPPhonePhones(
@@ -5890,7 +5890,7 @@ export async function enableSIPPhonePhones(
  * * The user must enable **SIP Phone Integration** by contacting the [Zoom Sales](https://zoom.us/contactsales) team.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `sip_phone:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `sip_phone:delete:sip_phone:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /sip_phones/phones/{phoneId}
  */
 export async function deleteSIPPhonePhones(
@@ -5938,7 +5938,7 @@ export async function deleteSIPPhonePhones(
  * * The account owner or account admin must first enable SIP Phone Integration by contacting the [Sales](https://zoom.us/contactsales) team.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `sip_phone:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `sip_phone:update:sip_phone:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /sip_phones/phones/{phoneId}
  */
 export async function updateSIPPhonePhones(
@@ -5992,7 +5992,7 @@ export async function updateSIPPhonePhones(
  * Learn more about [enabling or disabling AI Companion meeting summaries](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0057960).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting_summary:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:list_summaries:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /meetings/meeting_summaries
  */
 export async function listmeetingsummaries(
@@ -6037,7 +6037,7 @@ export async function listmeetingsummaries(
  * Learn more about [enabling or disabling AI Companion meeting summaries](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0057960).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting_summary:read`,`meeting_summary:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:summary`,`meeting:read:summary:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/meeting_summary
  */
 export async function getameetingsummary(
@@ -6086,7 +6086,7 @@ export async function getameetingsummary(
  * * End-to-End Encrypted (E2EE) meetings do not support summaries.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting_summary:write`,`meeting_summary:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:delete:summary`,`meeting:delete:summary:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/meeting_summary
  */
 export async function deletemeetingorwebinarsummary(
@@ -6136,7 +6136,7 @@ export async function deletemeetingorwebinarsummary(
  * The specified user must belong to the current account.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting_summary:read`,`meeting_summary:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:list_summaries`,`meeting:read:list_summaries:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /users/{userId}/meeting_summaries
  */
 export async function listUserMeetingSummaries(
@@ -6183,7 +6183,7 @@ export async function listUserMeetingSummaries(
  * @description Display information about a [meeting survey](https://support.zoom.us/hc/en-us/articles/4404969060621-Post-meeting-survey-and-reporting).  **Prerequisites:** * The host has a **Pro** license. * The [**Meeting Survey**](https://support.zoom.us/hc/en-us/articles/4404939095053-Enabling-meeting-surveys) feature is enabled on the host's account. * The meeting must be a scheduled meeting. Instant meetings do not have survey features enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read`,`meeting:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:survey`,`meeting:read:survey:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/survey
  */
 export async function meetingSurveyGet(
@@ -6226,7 +6226,7 @@ export async function meetingSurveyGet(
  * * The meeting must be a scheduled meeting. Instant meetings do not have survey features enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write`,`meeting:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:delete:survey`,`meeting:delete:survey:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/survey
  */
 export async function meetingSurveyDelete(
@@ -6267,7 +6267,7 @@ export async function meetingSurveyDelete(
  * @description Update a [meeting survey](https://support.zoom.us/hc/en-us/articles/4404969060621-Post-meeting-survey-and-reporting).  **Prerequisites:** * The host must be a **Pro** user type. * The [**Meeting Survey**](https://support.zoom.us/hc/en-us/articles/4404939095053-Enabling-meeting-surveys) feature is enabled in the host's account. * The meeting must be a scheduled meeting. Instant meetings do not have survey features enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write`,`meeting:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:update:survey`,`meeting:update:survey:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /meetings/{meetingId}/survey
  */
 export async function meetingSurveyUpdate(
@@ -6314,7 +6314,7 @@ export async function meetingSurveyUpdate(
  * * The Zoom account must have a Pro or higher subscription plan to enable TSP.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tsp:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tsp:read:tsp:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /tsp
  */
 export async function tsp(
@@ -6347,7 +6347,7 @@ export async function tsp(
  * * A Pro or higher subscription plan to enable TSP.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tsp:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tsp:update:tsp:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /tsp
  */
 export async function tspUpdate(
@@ -6387,7 +6387,7 @@ export async function tspUpdate(
  * * The Zoom account must have a Pro or higher subscription plan to enable TSP.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tsp:read:admin`,`tsp:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tsp:read:list_tsp_accounts`,`tsp:read:list_tsp_accounts:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /users/{userId}/tsp
  */
 export async function userTSPs(
@@ -6429,7 +6429,7 @@ export async function userTSPs(
  * * The Zoom account must have a Pro or higher subscription plan to enable TSP.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tsp:write:admin`,`tsp:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tsp:write:tsp_account`,`tsp:write:tsp_account:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /users/{userId}/tsp
  */
 export async function userTSPCreate(
@@ -6474,7 +6474,7 @@ export async function userTSPCreate(
  * * The Zoom account must have a Pro or higher subscription plan to enable TSP.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tsp:write:admin`,`tsp:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tsp:update:tsp_settings`,`tsp:update:tsp_settings:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /users/{userId}/tsp/settings
  */
 export async function tspUrlUpdate(
@@ -6519,7 +6519,7 @@ export async function tspUrlUpdate(
  * * The Zoom account must have a Pro or higher subscription plan to enable TSP.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tsp:read:admin`,`tsp:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tsp:read:tsp_account`,`tsp:read:tsp_account:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /users/{userId}/tsp/{tspId}
  */
 export async function userTSP(
@@ -6565,7 +6565,7 @@ export async function userTSP(
  * * The Zoom account must have a Pro or higher subscription plan to enable TSP.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tsp:write:admin`,`tsp:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tsp:delete:tsp_account`,`tsp:delete:tsp_account:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /users/{userId}/tsp/{tspId}
  */
 export async function userTSPDelete(
@@ -6611,7 +6611,7 @@ export async function userTSPDelete(
  * * A Pro or higher subscription plan to enable TSP.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tsp:write:admin`,`tsp:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tsp:update:tsp_account`,`tsp:update:tsp_account:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /users/{userId}/tsp/{tspId}
  */
 export async function userTSPUpdate(
@@ -6660,7 +6660,7 @@ export async function userTSPUpdate(
  * [Learn more about creating and managing meeting templates](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067229).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read`,`meeting:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:read:list_templates`,`meeting:read:list_templates:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /users/{userId}/meeting_templates
  */
 export async function listMeetingTemplates(
@@ -6705,7 +6705,7 @@ export async function listMeetingTemplates(
  * [Learn more about creating and managing meeting templates](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0067229).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:admin`,`meeting:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `meeting:write:template`,`meeting:write:template:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /users/{userId}/meeting_templates
  */
 export async function meetingTemplateCreate(
@@ -6753,7 +6753,7 @@ export async function meetingTemplateCreate(
  * * A Business, Education, API or higher plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tracking_fields:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tracking_field:read:list_tracking_fields:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /tracking_fields
  */
 export async function trackingfieldList(
@@ -6785,7 +6785,7 @@ export async function trackingfieldList(
  * * A Business, Education, API or higher plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tracking_fields:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tracking_field:write:tracking_field:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /tracking_fields
  */
 export async function trackingfieldCreate(
@@ -6824,7 +6824,7 @@ export async function trackingfieldCreate(
  * * A Business, Education, API or higher plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tracking_fields:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tracking_field:read:tracking_field:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /tracking_fields/{fieldId}
  */
 export async function trackingfieldGet(
@@ -6865,7 +6865,7 @@ export async function trackingfieldGet(
  * * A Business, Education, API or higher plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tracking_fields:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tracking_field:delete:tracking_field:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /tracking_fields/{fieldId}
  */
 export async function trackingfieldDelete(
@@ -6906,7 +6906,7 @@ export async function trackingfieldDelete(
  * * A Business, Education, API or higher plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tracking_fields:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `tracking_field:update:tracking_field:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /tracking_fields/{fieldId}
  */
 export async function trackingfieldUpdate(
@@ -6952,7 +6952,7 @@ export async function trackingfieldUpdate(
  * * Have Zoom enable the DLP for the in-meeting chat feature to use this API.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write`,`webinar:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:delete:live_webinar_chat_message`,`webinar:delete:live_webinar_chat_message:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /live_webinars/{webinarId}/chat/messages/{messageId}
  */
 export async function deleteWebinarChatMessageById(
@@ -7004,7 +7004,7 @@ export async function deleteWebinarChatMessageById(
  * * A Pro or higher plan with a [Webinar plan](https://zoom.us/webinar) add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:admin`,`webinar:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:list_absentees`,`webinar:read:list_absentees:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /past_webinars/{webinarId}/absentees
  */
 export async function webinarAbsentees(
@@ -7048,7 +7048,7 @@ export async function webinarAbsentees(
  * * A Pro or higher plan with a [Webinar plan](https://zoom.us/webinar) add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:admin`,`webinar:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:list_past_instances`,`webinar:read:list_past_instances:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /past_webinars/{webinarId}/instances
  */
 export async function pastWebinars(
@@ -7090,7 +7090,7 @@ export async function pastWebinars(
  * **NOTE:** After meetings with hundreds of participants, the attendance data takes some time to be generated. If you receive a duration of 0 for users' time in the meeting, you may have called the endpoint before the data is fully processed. Implement a short delay or retry logic before fetching participant data.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:admin`,`webinar:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:list_past_participants:admin`,`webinar:read:list_past_participants`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /past_webinars/{webinarId}/participants
  */
 export async function listWebinarParticipants(
@@ -7138,7 +7138,7 @@ export async function listWebinarParticipants(
  * * [Webinar license](https://zoom.us/webinar)
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:admin`,`webinar:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:list_past_polls`,`webinar:read:list_past_polls:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /past_webinars/{webinarId}/polls
  */
 export async function listPastWebinarPollResults(
@@ -7184,7 +7184,7 @@ export async function listPastWebinarPollResults(
  * * [Webinar license](https://zoom.us/webinar)
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:admin`,`webinar:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:past_qa`,`webinar:read:past_qa:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /past_webinars/{webinarId}/qa
  */
 export async function listPastWebinarQA(
@@ -7267,7 +7267,7 @@ export async function listWebinarTemplates(
  * * A Pro or higher plan with a [Webinar plan](https://zoom.us/webinar) add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:admin`,`webinar:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:template`,`webinar:write:template:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /users/{userId}/webinar_templates
  */
 export async function webinarTemplateCreate(
@@ -7317,7 +7317,7 @@ export async function webinarTemplateCreate(
  * * A Pro or higher plan with the webinar add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:admin`,`webinar:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:list_webinars`,`webinar:read:list_webinars:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /users/{userId}/webinars
  */
 export async function webinars(
@@ -7364,7 +7364,7 @@ export async function webinars(
  * * A Pro or higher plan with a [Webinar plan](https://zoom.us/webinar) add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write`,`webinar:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:webinar`,`webinar:write:webinar:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /users/{userId}/webinars
  */
 export async function webinarCreate(
@@ -7408,7 +7408,7 @@ export async function webinarCreate(
  * * Pro or higher plan with a Webinar add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:admin`,`webinar:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:webinar`,`webinar:read:webinar:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}
  */
 export async function webinar(
@@ -7452,7 +7452,7 @@ export async function webinar(
  * * Pro or higher plan with the webinar add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:admin`,`webinar:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:delete:webinar`,`webinar:delete:webinar:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}
  */
 export async function webinarDelete(
@@ -7497,7 +7497,7 @@ export async function webinarDelete(
  * * A Pro or higher plan with a webinar add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write`,`webinar:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:update:webinar`,`webinar:update:webinar:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}
  */
 export async function webinarUpdate(
@@ -7545,7 +7545,7 @@ export async function webinarUpdate(
  * * The webinar should be type `5`, a scheduled webinar. Other types of webinars are not supported by this API.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write`,`webinar:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:batch_registrants`,`webinar:write:batch_registrants:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `HEAVY`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `HEAVY`
  * @link /webinars/{webinarId}/batch_registrants
  */
 export async function addBatchWebinarRegistrants(
@@ -7594,7 +7594,7 @@ export async function addBatchWebinarRegistrants(
  * * Enable the **Webinar Session Branding** setting.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read`,`webinar:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:branding`,`webinar:read:branding:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/branding
  */
 export async function getWebinarBranding(
@@ -7636,7 +7636,7 @@ export async function getWebinarBranding(
  * *  The **Webinar Session Branding** setting enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write`,`webinar:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:branding_name_tag`,`webinar:write:branding_name_tag:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /webinars/{webinarId}/branding/name_tags
  */
 export async function createWebinarBrandingNameTag(
@@ -7684,7 +7684,7 @@ export async function createWebinarBrandingNameTag(
  * * The **Webinar Session Branding** setting enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write`,`webinar:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:delete:branding_name_tag`,`webinar:delete:branding_name_tag:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/branding/name_tags
  */
 export async function deleteWebinarBrandingNameTag(
@@ -7731,7 +7731,7 @@ export async function deleteWebinarBrandingNameTag(
  * *  The **Webinar Session Branding** setting enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write`,`webinar:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:update:branding_name_tag`,`webinar:update:branding_name_tag:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /webinars/{webinarId}/branding/name_tags/{nameTagId}
  */
 export async function updateWebinarBrandingNameTag(
@@ -7786,7 +7786,7 @@ export async function updateWebinarBrandingNameTag(
  * *  The **Webinar Session Branding** setting enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write`,`webinar:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:branding_virtual_background`,`webinar:write:branding_virtual_background:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /webinars/{webinarId}/branding/virtual_backgrounds
  */
 export async function uploadWebinarBrandingVB(
@@ -7852,7 +7852,7 @@ export async function uploadWebinarBrandingVB(
  * * The **Webinar Session Branding** setting enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write`,`webinar:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:delete:branding_virtual_background`,`webinar:delete:branding_virtual_background:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/branding/virtual_backgrounds
  */
 export async function deleteWebinarBrandingVB(
@@ -7900,7 +7900,7 @@ export async function deleteWebinarBrandingVB(
  * * The **Webinar Session Branding** setting enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write`,`webinar:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:update:branding_virtual_background`,`webinar:update:branding_virtual_background:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/branding/virtual_backgrounds
  */
 export async function setWebinarBrandingVB(
@@ -7950,7 +7950,7 @@ export async function setWebinarBrandingVB(
  * *  The **Webinar Session Branding** setting enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write`,`webinar:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:branding_wallpaper`,`webinar:write:branding_wallpaper:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /webinars/{webinarId}/branding/wallpaper
  */
 export async function uploadWebinarBrandingWallpaper(
@@ -8016,7 +8016,7 @@ export async function uploadWebinarBrandingWallpaper(
  * * The **Webinar Session Branding** setting enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write`,`webinar:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:delete:branding_wallpaper`,`webinar:delete:branding_wallpaper:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/branding/wallpaper
  */
 export async function deleteWebinarBrandingWallpaper(
@@ -8061,7 +8061,7 @@ export async function deleteWebinarBrandingWallpaper(
  * * Business, Education or API Plan with the Webinar add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:admin`,`webinar:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:invite_links`,`webinar:write:invite_links:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/invite_links
  */
 export async function webinarInviteLinksCreate(
@@ -8110,7 +8110,7 @@ export async function webinarInviteLinksCreate(
  * * The **Allow livestreaming of webinars** user setting enabled in the Zoom web portal.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar_token:read:admin:live_streaming`,`webinar_token:read:live_streaming`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:live_streaming_token`,`webinar:read:live_streaming_token:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/jointoken/live_streaming
  */
 export async function webinarLiveStreamingJoinToken(
@@ -8156,7 +8156,7 @@ export async function webinarLiveStreamingJoinToken(
  * * The **Archive meetings and webinars** account setting enabled in the Zoom web portal.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar_token:read:admin:local_archiving`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:local_archiving_token:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/jointoken/local_archiving
  */
 export async function webinarLocalArchivingArchiveToken(
@@ -8202,7 +8202,7 @@ export async function webinarLocalArchivingArchiveToken(
  * * The **Local recording** user setting enabled in the Zoom web portal.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar_token:read:admin:local_recording`,`webinar_token:read:local_recording`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:local_recording_token`,`webinar:read:local_recording_token:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/jointoken/local_recording
  */
 export async function webinarLocalRecordingJoinToken(
@@ -8249,7 +8249,7 @@ export async function webinarLocalRecordingJoinToken(
  * * Live streaming details must have been [configured](https://support.zoom.us/hc/en-us/articles/115001777826-Live-Streaming-Meetings-or-Webinars-Using-a-Custom-Service#h_01589a6f-a40a-4e18-a448-cb746e52ebc5) for the webinar.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:admin`,`webinar:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:livestream`,`webinar:read:livestream:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/livestream
  */
 export async function getWebinarLiveStreamDetails(
@@ -8295,7 +8295,7 @@ export async function getWebinarLiveStreamDetails(
  * * Live streaming details must be [configured](https://support.zoom.us/hc/en-us/articles/115001777826-Live-Streaming-Meetings-or-Webinars-Using-a-Custom-Service#h_01589a6f-a40a-4e18-a448-cb746e52ebc5) for the webinar.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:admin`,`webinar:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:update:livestream`,`webinar:update:livestream:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/livestream
  */
 export async function webinarLiveStreamUpdate(
@@ -8344,7 +8344,7 @@ export async function webinarLiveStreamUpdate(
  * * Live streaming details must be [configured](https://support.zoom.us/hc/en-us/articles/115001777826-Live-Streaming-Meetings-or-Webinars-Using-a-Custom-Service#h_01589a6f-a40a-4e18-a448-cb746e52ebc5) for the webinar.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:admin`,`webinar:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:update:livestream_status`,`webinar:update:livestream_status:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/livestream/status
  */
 export async function webinarLiveStreamStatusUpdate(
@@ -8393,7 +8393,7 @@ export async function webinarLiveStreamStatusUpdate(
  * * Pro or a higher plan with [Webinar Add-on](https://zoom.us/webinar).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:admin`,`webinar:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:list_panelists`,`webinar:read:list_panelists:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /webinars/{webinarId}/panelists
  */
 export async function webinarPanelists(
@@ -8435,7 +8435,7 @@ export async function webinarPanelists(
  * * Pro or a higher plan with the [Webinar Add-on](https://zoom.us/webinar).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:admin`,`webinar:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:panelist`,`webinar:write:panelist:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /webinars/{webinarId}/panelists
  */
 export async function webinarPanelistCreate(
@@ -8483,7 +8483,7 @@ export async function webinarPanelistCreate(
  * * Pro or a higher plan with the [webinar add-on](https://zoom.us/webinar).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:admin`,`webinar:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:delete:panelist`,`webinar:delete:panelist:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/panelists
  */
 export async function webinarPanelistsDelete(
@@ -8529,7 +8529,7 @@ export async function webinarPanelistsDelete(
  * * Pro or a higher plan with the [webinar add-on](https://zoom.us/webinar).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:admin`,`webinar:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:delete:panelist`,`webinar:delete:panelist:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/panelists/{panelistId}
  */
 export async function webinarPanelistDelete(
@@ -8578,7 +8578,7 @@ export async function webinarPanelistDelete(
  * * A Pro or higher plan with a [Webinar plan](https://zoom.us/webinar) add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:admin`,`webinar:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:list_polls`,`webinar:read:list_polls:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/polls
  */
 export async function webinarPolls(
@@ -8622,7 +8622,7 @@ export async function webinarPolls(
  * * A Pro or higher plan with a [Webinar plan](https://zoom.us/webinar) add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:admin`,`webinar:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:poll`,`webinar:write:poll:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/polls
  */
 export async function webinarPollCreate(
@@ -8668,7 +8668,7 @@ export async function webinarPollCreate(
  * * A Pro or higher plan with a [Webinar plan](https://zoom.us/webinar) add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:admin`,`webinar:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:poll`,`webinar:read:poll:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/polls/{pollId}
  */
 export async function webinarPollGet(
@@ -8713,7 +8713,7 @@ export async function webinarPollGet(
  * * A Pro or higher plan with a [Webinar plan](https://zoom.us/webinar) add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:admin`,`webinar:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:update:poll`,`webinar:update:poll:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/polls/{pollId}
  */
 export async function webinarPollUpdate(
@@ -8763,7 +8763,7 @@ export async function webinarPollUpdate(
  * * A Pro or higher plan with a [Webinar plan](https://zoom.us/webinar) add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:admin`,`webinar:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:delete:poll`,`webinar:delete:poll:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/polls/{pollId}
  */
 export async function webinarPollDelete(
@@ -8810,7 +8810,7 @@ export async function webinarPollDelete(
  * * Pro or higher plan with a Webinar add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:admin`,`webinar:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:list_registrants`,`webinar:read:list_registrants:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /webinars/{webinarId}/registrants
  */
 export async function webinarRegistrants(
@@ -8856,7 +8856,7 @@ export async function webinarRegistrants(
  * * A Pro or higher plan with the Webinar add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:admin`,`webinar:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:registrant`,`webinar:write:registrant:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/registrants
  */
 export async function webinarRegistrantCreate(
@@ -8908,7 +8908,7 @@ export async function webinarRegistrantCreate(
  * * Pro or higher plan with the webinar add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:admin`,`webinar:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:list_registration_questions`,`webinar:read:list_registration_questions:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/registrants/questions
  */
 export async function webinarRegistrantsQuestionsGet(
@@ -8954,7 +8954,7 @@ export async function webinarRegistrantsQuestionsGet(
  * * Registration option for Webinar should be set as required to use this API.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:admin`,`webinar:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:update:registration_question`,`webinar:update:registration_question:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/registrants/questions
  */
 export async function webinarRegistrantQuestionUpdate(
@@ -9003,7 +9003,7 @@ export async function webinarRegistrantQuestionUpdate(
  * This API has an additional rate limit of requests per registrant, per 24-hour period. [See the Rate Limits page](/docs/api/rate-limits/) for more information.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:admin`,`webinar:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:update:registrant_status`,`webinar:update:registrant_status:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /webinars/{webinarId}/registrants/status
  */
 export async function webinarRegistrantStatus(
@@ -9055,7 +9055,7 @@ export async function webinarRegistrantStatus(
  * * The account must have a webinar plan.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:admin`,`webinar:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:registrant`,`webinar:read:registrant:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/registrants/{registrantId}
  */
 export async function webinarRegistrantGet(
@@ -9105,7 +9105,7 @@ export async function webinarRegistrantGet(
  * * A Pro or higher plan with a [Webinar plan](https://zoom.us/webinar) add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:admin`,`webinar:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:delete:registrant`,`webinar:delete:registrant:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/registrants/{registrantId}
  */
 export async function deleteWebinarRegistrant(
@@ -9157,7 +9157,7 @@ export async function deleteWebinarRegistrant(
  * * A Pro or higher plan with a [Webinar plan](https://zoom.us/webinar) add-on.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:sip_dialing`,`webinar:write:admin:sip_dialing`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:sip_dialing`,`webinar:write:sip_dialing:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/sip_dialing
  */
 export async function getWebinarSipDialingWithPasscode(
@@ -9203,7 +9203,7 @@ export async function getWebinarSipDialingWithPasscode(
  * * The account must hold a valid [Webinar plan](https://zoom.us/webinar).
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write:admin`,`webinar:write`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:update:status`,`webinar:update:status:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/status
  */
 export async function webinarStatus(
@@ -9248,7 +9248,7 @@ export async function webinarStatus(
  * * The [**Webinar Survey**](https://support.zoom.us/hc/en-us/articles/360061293191-Enabling-webinar-survey) feature enabled in the host's account.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:admin`,`webinar:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:survey`,`webinar:read:survey:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/survey
  */
 export async function webinarSurveyGet(
@@ -9290,7 +9290,7 @@ export async function webinarSurveyGet(
  * * The [**Webinar Survey**](https://support.zoom.us/hc/en-us/articles/360061293191-Enabling-webinar-survey) feature enabled in the host's account.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write`,`webinar:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:delete:survey`,`webinar:delete:survey:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/survey
  */
 export async function webinarSurveyDelete(
@@ -9331,7 +9331,7 @@ export async function webinarSurveyDelete(
  * @description Update a [webinar survey](https://support.zoom.us/hc/en-us/articles/360048745651).  **Prerequisites:** * A Pro or higher plan with the Webinar add-on. * Enable the [**Webinar Survey**](https://support.zoom.us/hc/en-us/articles/360061293191-Enabling-webinar-survey) feature in the host's account.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:write`,`webinar:write:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:update:survey`,`webinar:update:survey:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/survey
  */
 export async function webinarSurveyUpdate(
@@ -9380,7 +9380,7 @@ export async function webinarSurveyUpdate(
  * * The **Allow use of caption API Token to integrate with 3rd-party Closed Captioning services** setting enabled.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read`,`webinar:read:admin`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:token`,`webinar:read:token:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `LIGHT`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `LIGHT`
  * @link /webinars/{webinarId}/token
  */
 export async function webinarToken(
@@ -9426,7 +9426,7 @@ export async function webinarToken(
  * * Registration must be required for the Webinar.
  * **[Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:admin`,`webinar:read`
  * **[Granular Scopes](https://developers.zoom.us/docs/integrations/oauth-scopes-overview/):** `webinar:read:list_tracking_sources`,`webinar:read:list_tracking_sources:admin`
- * **[Rate Limit Label](https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits):** `MEDIUM`
+ * **[Rate Limit Label](https://developers.zoom.us/docs/api/rate-limits/):** `MEDIUM`
  * @link /webinars/{webinarId}/tracking_sources
  */
 export async function getTrackingSources(
