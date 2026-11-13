@@ -21542,6 +21542,16 @@ export type BillableUsageApiV2ProductFamily = {
 };
 
 export type BillableUsageApiV2AccountBillableMetric = {
+  /**
+   * @description Dimension keys defined for this billable metric. Use them as
+   * `Key` in a `DIMENSION` `GroupBy` on the account usage endpoint.
+   * They do not depend on the requested period, and a key can
+   * be listed even when no usage in the period carries it. Empty when
+   * the metric defines no dimensions.
+   *
+   * @example ["ZONE_ID","REGION"]
+   * @type array
+   */
   DimensionKeys: string[];
   /**
    * @description Public catalog identifier of the billable metric.
@@ -21555,6 +21565,18 @@ export type BillableUsageApiV2AccountBillableMetric = {
   Name: string;
   ProductCategory: BillableUsageApiV2ProductCategory[];
   ProductFamily: BillableUsageApiV2ProductFamily[];
+  /**
+   * @description Resource-tag keys observed on this metric's usage within the
+   * requested period, sorted and deduplicated. Use them as `Key` in a
+   * `TAG` `GroupBy` or in `FilterBy.Tags` on the account usage
+   * endpoint. Because the list reflects recorded usage, it changes with
+   * `from` and `to`, and is empty when no tagged usage exists in the
+   * period or tag-key discovery is not available.
+   *
+   * @example ["environment","team"]
+   * @type array
+   */
+  TagKeys: string[];
 };
 
 /**
@@ -32197,6 +32219,191 @@ export type CloudforceOneEventsPirOrganizationProfile = {
     technologies?: string[] | undefined;
   };
   schema_version: 1;
+};
+
+export const cloudforceOneEventsPirOrganizationTypeSectorsEnum = {
+  aerospace: 'aerospace',
+  agriculture: 'agriculture',
+  automotive: 'automotive',
+  chemical: 'chemical',
+  commercial: 'commercial',
+  communications: 'communications',
+  construction: 'construction',
+  defense: 'defense',
+  education: 'education',
+  energy: 'energy',
+  entertainment: 'entertainment',
+  'financial-services': 'financial-services',
+  'government-local': 'government-local',
+  'government-national': 'government-national',
+  'government-public-services': 'government-public-services',
+  'government-regional': 'government-regional',
+  healthcare: 'healthcare',
+  'hospitality-leisure': 'hospitality-leisure',
+  infrastructure: 'infrastructure',
+  insurance: 'insurance',
+  manufacturing: 'manufacturing',
+  mining: 'mining',
+  'non-profit': 'non-profit',
+  pharmaceuticals: 'pharmaceuticals',
+  'professional-services': 'professional-services',
+  retail: 'retail',
+  technology: 'technology',
+  telecommunications: 'telecommunications',
+  transportation: 'transportation',
+  utilities: 'utilities',
+} as const;
+
+export type CloudforceOneEventsPirOrganizationTypeSectorsEnumKey = (typeof cloudforceOneEventsPirOrganizationTypeSectorsEnum)[keyof typeof cloudforceOneEventsPirOrganizationTypeSectorsEnum];
+
+export const cloudforceOneEventsPirOrganizationTypeSuggestedProtectedTargetsEnum = {
+  organization: 'organization',
+  customers: 'customers',
+  employees: 'employees',
+  executives: 'executives',
+  partners: 'partners',
+  events: 'events',
+  'products-infrastructure': 'products-infrastructure',
+} as const;
+
+export type CloudforceOneEventsPirOrganizationTypeSuggestedProtectedTargetsEnumKey = (typeof cloudforceOneEventsPirOrganizationTypeSuggestedProtectedTargetsEnum)[keyof typeof cloudforceOneEventsPirOrganizationTypeSuggestedProtectedTargetsEnum];
+
+export type CloudforceOneEventsPirOrganizationType = {
+  description: string;
+  id: string;
+  label: string;
+  sectors: CloudforceOneEventsPirOrganizationTypeSectorsEnumKey[];
+  suggested_protected_targets: CloudforceOneEventsPirOrganizationTypeSuggestedProtectedTargetsEnumKey[];
+};
+
+export const cloudforceOneEventsPirTopicActorTypesEnum = {
+  'nation-state': 'nation-state',
+  'crime-syndicate': 'crime-syndicate',
+  criminal: 'criminal',
+  activist: 'activist',
+  hacker: 'hacker',
+  'insider-disgruntled': 'insider-disgruntled',
+  'insider-accidental': 'insider-accidental',
+  spy: 'spy',
+  terrorist: 'terrorist',
+  competitor: 'competitor',
+  sensationalist: 'sensationalist',
+} as const;
+
+export type CloudforceOneEventsPirTopicActorTypesEnumKey = (typeof cloudforceOneEventsPirTopicActorTypesEnum)[keyof typeof cloudforceOneEventsPirTopicActorTypesEnum];
+
+export const cloudforceOneEventsPirTopicCoverageNotesSourceEnum = {
+  articles: 'articles',
+  events: 'events',
+} as const;
+
+export type CloudforceOneEventsPirTopicCoverageNotesSourceEnumKey = (typeof cloudforceOneEventsPirTopicCoverageNotesSourceEnum)[keyof typeof cloudforceOneEventsPirTopicCoverageNotesSourceEnum];
+
+export const cloudforceOneEventsPirTopicMotivationsEnum = {
+  'personal-gain': 'personal-gain',
+  'organizational-gain': 'organizational-gain',
+  ideology: 'ideology',
+  dominance: 'dominance',
+  notoriety: 'notoriety',
+  coercion: 'coercion',
+  revenge: 'revenge',
+} as const;
+
+export type CloudforceOneEventsPirTopicMotivationsEnumKey = (typeof cloudforceOneEventsPirTopicMotivationsEnum)[keyof typeof cloudforceOneEventsPirTopicMotivationsEnum];
+
+export const cloudforceOneEventsPirTopicProfileContextEnum = {
+  technologies: 'technologies',
+  key_suppliers: 'key_suppliers',
+} as const;
+
+export type CloudforceOneEventsPirTopicProfileContextEnumKey = (typeof cloudforceOneEventsPirTopicProfileContextEnum)[keyof typeof cloudforceOneEventsPirTopicProfileContextEnum];
+
+export const cloudforceOneEventsPirTopicRecommendedSectorsEnum = {
+  aerospace: 'aerospace',
+  agriculture: 'agriculture',
+  automotive: 'automotive',
+  chemical: 'chemical',
+  commercial: 'commercial',
+  communications: 'communications',
+  construction: 'construction',
+  defense: 'defense',
+  education: 'education',
+  energy: 'energy',
+  entertainment: 'entertainment',
+  'financial-services': 'financial-services',
+  'government-local': 'government-local',
+  'government-national': 'government-national',
+  'government-public-services': 'government-public-services',
+  'government-regional': 'government-regional',
+  healthcare: 'healthcare',
+  'hospitality-leisure': 'hospitality-leisure',
+  infrastructure: 'infrastructure',
+  insurance: 'insurance',
+  manufacturing: 'manufacturing',
+  mining: 'mining',
+  'non-profit': 'non-profit',
+  pharmaceuticals: 'pharmaceuticals',
+  'professional-services': 'professional-services',
+  retail: 'retail',
+  technology: 'technology',
+  telecommunications: 'telecommunications',
+  transportation: 'transportation',
+  utilities: 'utilities',
+} as const;
+
+export type CloudforceOneEventsPirTopicRecommendedSectorsEnumKey = (typeof cloudforceOneEventsPirTopicRecommendedSectorsEnum)[keyof typeof cloudforceOneEventsPirTopicRecommendedSectorsEnum];
+
+export const cloudforceOneEventsPirTopicRelevanceCriteriaBandEnum = {
+  highly: 'highly',
+  somewhat: 'somewhat',
+  not: 'not',
+} as const;
+
+export type CloudforceOneEventsPirTopicRelevanceCriteriaBandEnumKey = (typeof cloudforceOneEventsPirTopicRelevanceCriteriaBandEnum)[keyof typeof cloudforceOneEventsPirTopicRelevanceCriteriaBandEnum];
+
+export type CloudforceOneEventsPirTopic = {
+  actor_types: CloudforceOneEventsPirTopicActorTypesEnumKey[];
+  coverage_notes: {
+    message: string;
+    source: CloudforceOneEventsPirTopicCoverageNotesSourceEnumKey;
+  }[];
+  event_rules: {
+    explanation: string;
+    id: string;
+  }[];
+  filter_revision: number;
+  intent_revision: number;
+  motivations: CloudforceOneEventsPirTopicMotivationsEnumKey[];
+  presentation_revision: number;
+  /**
+   * @description Inherited facts this topic emphasizes: listed as Highly relevant and available to its event rules. Every PIR inherits every fact.
+   * @type array
+   */
+  profile_context: CloudforceOneEventsPirTopicProfileContextEnumKey[];
+  /**
+   * @description English question; only `{targets}` and `{regions}` are substituted.
+   * @type string
+   */
+  question_template: string;
+  recommended_sectors: CloudforceOneEventsPirTopicRecommendedSectorsEnumKey[];
+  relevance_criteria: {
+    band: CloudforceOneEventsPirTopicRelevanceCriteriaBandEnumKey;
+    default_selected: boolean;
+    id: string;
+    text: string;
+  }[];
+  /**
+   * @description Suggestions the account can see; others are left out.
+   * @type array
+   */
+  suggested_actors: {
+    alias: string | null;
+    default_selected: boolean;
+    id: string;
+    name: string;
+  }[];
+  title: string;
+  topic_id: string;
 };
 
 export const cloudforceOneEventsRelationshipEdgeEntityTypeEnum = {
@@ -63633,12 +63840,29 @@ export type LexV4Error = {
   message: string;
 };
 
+/**
+ * @description Metadata about the query execution.
+ * @type object
+ */
+export type LexQueryResultInfo = {
+  /**
+   * @description Dataset type name queried (e.g. `http_requests`).
+   * @type string
+   */
+  dataset: string;
+};
+
 export type LexErrorResponse = {
   errors: LexV4Error[];
   messages: string[];
   result: {
     [key: string]: unknown;
   } | null;
+  /**
+   * @description Metadata about the query execution.
+   * @type object | undefined
+   */
+  result_info?: LexQueryResultInfo | undefined;
   success: false;
 };
 
@@ -63659,6 +63883,11 @@ export type LexQueryResponse = {
   errors: LexV4Error[];
   messages: string[];
   result?: (LexQueryRow[] | null) | undefined;
+  /**
+   * @description Metadata about the query execution.
+   * @type object
+   */
+  result_info: LexQueryResultInfo;
   success: boolean;
 };
 
@@ -315265,7 +315494,7 @@ export type PostInsertDomainQueryBody = {
   scan?: boolean | undefined;
   scan_matches?: boolean | undefined;
   /**
-   * @description On create, also search domains observed in the last 7 days for matches. Defaults to `true`. Ignored on update.
+   * @description Search domains observed in the last 7 days for matches. On create, applies when `true`. On update, when edit-triggered lookback is enabled for the account, applies only when the patterns change and only to the lookback itself; the match list still refreshes independently. Edit-triggered lookback is being rolled out gradually. Defaults to `true`.
    * @default true
    * @type boolean | undefined
    */
@@ -315389,7 +315618,7 @@ export type PatchUpdateDomainQueryBody = {
   scan?: boolean | undefined;
   scan_matches?: boolean | undefined;
   /**
-   * @description On create, also search domains observed in the last 7 days for matches. Defaults to `true`. Ignored on update.
+   * @description Search domains observed in the last 7 days for matches. On create, applies when `true`. On update, when edit-triggered lookback is enabled for the account, applies only when the patterns change and only to the lookback itself; the match list still refreshes independently. Edit-triggered lookback is being rolled out gradually. Defaults to `true`.
    * @default true
    * @type boolean | undefined
    */
@@ -320389,7 +320618,23 @@ export type GetPirTopicListPath = {
   accountId: string;
 };
 
-export type GetPirTopicListStatus200 = unknown;
+export type GetPirTopicListStatus200 = {
+  errors: {
+    message: string;
+  }[];
+  messages: {
+    message: string;
+  }[];
+  result: {
+    /**
+     * @description Shortcuts for the organization profile form, each suggesting `sectors` and `suggested_protected_targets` for the customer to confirm. A type is never saved; topics are recommended by the profile's confirmed sectors, matched against each topic's `recommended_sectors`.
+     * @type array
+     */
+    organization_types: CloudforceOneEventsPirOrganizationType[];
+    topics: CloudforceOneEventsPirTopic[];
+  };
+  success: true;
+};
 
 export type GetPirTopicListStatus400 = unknown;
 
@@ -384284,6 +384529,24 @@ export type QueuesListPath = {
   readonly accountId: MqIdentifier;
 };
 
+export type QueuesListQuery = {
+  /**
+   * @description Page number of queues, starting at 1.
+   * @minimum 1
+   * @default 1
+   * @type integer | undefined
+   */
+  page?: number | undefined;
+  /**
+   * @description Number of queues per page. Takes precedence over the legacy perPage query parameter.
+   * @minimum 1
+   * @maximum 500
+   * @default 100
+   * @type integer | undefined
+   */
+  per_page?: number | undefined;
+};
+
 export type QueuesListStatus200 = MqApiV4Success & {
   result?: MqQueue[] | undefined;
   result_info?: {
@@ -384325,7 +384588,7 @@ export type QueuesListStatus400 = MqApiV4Failure;
 export type QueuesListOptions = {
   body?: never | undefined;
   path: QueuesListPath;
-  query?: never | undefined;
+  query?: QueuesListQuery | undefined;
   headers?: never | undefined;
 };
 
