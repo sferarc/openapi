@@ -16281,6 +16281,11 @@ export type UserEvent = {
 						hasAuthorizationDetails?: (false | true) | undefined;
 						ip?: (string | null) | undefined;
 						/**
+						 * @description Present when the token is also scoped to the Organization backing team, granting OrgAdmin access to child teams after the Organization enforces SSO.
+						 * @type boolean | undefined
+						 */
+						organizationScope?: (false | true) | undefined;
+						/**
 						 * @description How the token was issued. Always `'manual'` for explicit PAT creation.
 						 * @type string
 						 */
@@ -53568,11 +53573,26 @@ export type GetAllLogDrainsStatus200 =
 									 */
 									attempts: number;
 									/**
-									 * @description Deliveries that finally failed in the window, after any automatic retries.
+									 * @description Deliveries that finally failed in the window.
 									 * @type number
 									 */
 									failures: number;
 									state: GetAllLogDrainsStatus200DrainsDeliveryStatsStateEnumKey;
+									/**
+									 * @description Deliveries that finally failed in the window, after any automatic retries.
+									 * @type number
+									 */
+									totalFailedDeliveries: number;
+									/**
+									 * @description Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.
+									 * @type number
+									 */
+									totalRetriedDeliveries: number;
+									/**
+									 * @description Deliveries delivered in the window, on the first try or after automatic retries.
+									 * @type number
+									 */
+									totalSuccessfulDeliveries: number;
 									window: "24h";
 							  }
 							| undefined;
@@ -53729,11 +53749,26 @@ export type GetAllLogDrainsStatus200 =
 									 */
 									attempts: number;
 									/**
-									 * @description Deliveries that finally failed in the window, after any automatic retries.
+									 * @description Deliveries that finally failed in the window.
 									 * @type number
 									 */
 									failures: number;
 									state: GetAllLogDrainsStatus200DrainsDeliveryStatsStateEnum2Key;
+									/**
+									 * @description Deliveries that finally failed in the window, after any automatic retries.
+									 * @type number
+									 */
+									totalFailedDeliveries: number;
+									/**
+									 * @description Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.
+									 * @type number
+									 */
+									totalRetriedDeliveries: number;
+									/**
+									 * @description Deliveries delivered in the window, on the first try or after automatic retries.
+									 * @type number
+									 */
+									totalSuccessfulDeliveries: number;
 									window: "24h";
 							  }
 							| undefined;
@@ -54346,11 +54381,26 @@ export type CreateDrainStatus200 =
 						 */
 						attempts: number;
 						/**
-						 * @description Deliveries that finally failed in the window, after any automatic retries.
+						 * @description Deliveries that finally failed in the window.
 						 * @type number
 						 */
 						failures: number;
 						state: CreateDrainStatus200DeliveryStatsStateEnumKey;
+						/**
+						 * @description Deliveries that finally failed in the window, after any automatic retries.
+						 * @type number
+						 */
+						totalFailedDeliveries: number;
+						/**
+						 * @description Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.
+						 * @type number
+						 */
+						totalRetriedDeliveries: number;
+						/**
+						 * @description Deliveries delivered in the window, on the first try or after automatic retries.
+						 * @type number
+						 */
+						totalSuccessfulDeliveries: number;
 						window: "24h";
 				  }
 				| undefined;
@@ -54503,11 +54553,26 @@ export type CreateDrainStatus200 =
 						 */
 						attempts: number;
 						/**
-						 * @description Deliveries that finally failed in the window, after any automatic retries.
+						 * @description Deliveries that finally failed in the window.
 						 * @type number
 						 */
 						failures: number;
 						state: CreateDrainStatus200DeliveryStatsStateEnum2Key;
+						/**
+						 * @description Deliveries that finally failed in the window, after any automatic retries.
+						 * @type number
+						 */
+						totalFailedDeliveries: number;
+						/**
+						 * @description Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.
+						 * @type number
+						 */
+						totalRetriedDeliveries: number;
+						/**
+						 * @description Deliveries delivered in the window, on the first try or after automatic retries.
+						 * @type number
+						 */
+						totalSuccessfulDeliveries: number;
 						window: "24h";
 				  }
 				| undefined;
@@ -55258,11 +55323,26 @@ export type GetDrainsStatus200 = {
 							 */
 							attempts: number;
 							/**
-							 * @description Deliveries that finally failed in the window, after any automatic retries.
+							 * @description Deliveries that finally failed in the window.
 							 * @type number
 							 */
 							failures: number;
 							state: GetDrainsStatus200DrainsDeliveryStatsStateEnumKey;
+							/**
+							 * @description Deliveries that finally failed in the window, after any automatic retries.
+							 * @type number
+							 */
+							totalFailedDeliveries: number;
+							/**
+							 * @description Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.
+							 * @type number
+							 */
+							totalRetriedDeliveries: number;
+							/**
+							 * @description Deliveries delivered in the window, on the first try or after automatic retries.
+							 * @type number
+							 */
+							totalSuccessfulDeliveries: number;
 							window: "24h";
 					  }
 					| undefined;
@@ -55417,11 +55497,26 @@ export type GetDrainsStatus200 = {
 							 */
 							attempts: number;
 							/**
-							 * @description Deliveries that finally failed in the window, after any automatic retries.
+							 * @description Deliveries that finally failed in the window.
 							 * @type number
 							 */
 							failures: number;
 							state: GetDrainsStatus200DrainsDeliveryStatsStateEnum2Key;
+							/**
+							 * @description Deliveries that finally failed in the window, after any automatic retries.
+							 * @type number
+							 */
+							totalFailedDeliveries: number;
+							/**
+							 * @description Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.
+							 * @type number
+							 */
+							totalRetriedDeliveries: number;
+							/**
+							 * @description Deliveries delivered in the window, on the first try or after automatic retries.
+							 * @type number
+							 */
+							totalSuccessfulDeliveries: number;
 							window: "24h";
 					  }
 					| undefined;
@@ -55569,7 +55664,7 @@ export type GetDrainPath = {
 
 export type GetDrainQuery = {
 	/**
-	 * @description Include `deliveryStats` with the delivery health of the drain over the last 24 hours.
+	 * @description Include `deliveryStats` with the delivery health of the drain over the last 24 hours. Ignored for teams without drain delivery metrics.
 	 * @default false
 	 * @type boolean | undefined
 	 */
@@ -55831,11 +55926,26 @@ export type GetDrainStatus200 = {
 				 */
 				attempts: number;
 				/**
-				 * @description Deliveries that finally failed in the window, after any automatic retries.
+				 * @description Deliveries that finally failed in the window.
 				 * @type number
 				 */
 				failures: number;
 				state: GetDrainStatus200DeliveryStatsStateEnumKey;
+				/**
+				 * @description Deliveries that finally failed in the window, after any automatic retries.
+				 * @type number
+				 */
+				totalFailedDeliveries: number;
+				/**
+				 * @description Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.
+				 * @type number
+				 */
+				totalRetriedDeliveries: number;
+				/**
+				 * @description Deliveries delivered in the window, on the first try or after automatic retries.
+				 * @type number
+				 */
+				totalSuccessfulDeliveries: number;
 				window: "24h";
 		  }
 		| undefined;
@@ -56315,11 +56425,26 @@ export type UpdateDrainStatus200 =
 						 */
 						attempts: number;
 						/**
-						 * @description Deliveries that finally failed in the window, after any automatic retries.
+						 * @description Deliveries that finally failed in the window.
 						 * @type number
 						 */
 						failures: number;
 						state: UpdateDrainStatus200DeliveryStatsStateEnumKey;
+						/**
+						 * @description Deliveries that finally failed in the window, after any automatic retries.
+						 * @type number
+						 */
+						totalFailedDeliveries: number;
+						/**
+						 * @description Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.
+						 * @type number
+						 */
+						totalRetriedDeliveries: number;
+						/**
+						 * @description Deliveries delivered in the window, on the first try or after automatic retries.
+						 * @type number
+						 */
+						totalSuccessfulDeliveries: number;
 						window: "24h";
 				  }
 				| undefined;
@@ -56472,11 +56597,26 @@ export type UpdateDrainStatus200 =
 						 */
 						attempts: number;
 						/**
-						 * @description Deliveries that finally failed in the window, after any automatic retries.
+						 * @description Deliveries that finally failed in the window.
 						 * @type number
 						 */
 						failures: number;
 						state: UpdateDrainStatus200DeliveryStatsStateEnum2Key;
+						/**
+						 * @description Deliveries that finally failed in the window, after any automatic retries.
+						 * @type number
+						 */
+						totalFailedDeliveries: number;
+						/**
+						 * @description Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.
+						 * @type number
+						 */
+						totalRetriedDeliveries: number;
+						/**
+						 * @description Deliveries delivered in the window, on the first try or after automatic retries.
+						 * @type number
+						 */
+						totalSuccessfulDeliveries: number;
 						window: "24h";
 				  }
 				| undefined;

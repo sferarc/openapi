@@ -11234,6 +11234,12 @@ export const userEventSchema = z
 						.optional()
 						.describe("Whether the token was issued with RFC 9396 authorization details."),
 					ip: z.string().nullish(),
+					organizationScope: z
+						.union([z.literal(false), z.literal(true)])
+						.optional()
+						.describe(
+							"Present when the token is also scoped to the Organization backing team, granting OrgAdmin access to child teams after the Organization enforces SSO.",
+						),
 					origin: z
 						.enum([
 							"app",
@@ -42234,12 +42240,23 @@ export const getAllLogDrainsStatus200Schema = z.union([
 							attempts: z
 								.number()
 								.describe("Finished deliveries in the window: delivered plus finally failed."),
-							failures: z
+							failures: z.number().describe("Deliveries that finally failed in the window."),
+							state: z.enum(["failing", "healthy", "unknown"]),
+							totalFailedDeliveries: z
 								.number()
 								.describe(
 									"Deliveries that finally failed in the window, after any automatic retries.",
 								),
-							state: z.enum(["failing", "healthy", "unknown"]),
+							totalRetriedDeliveries: z
+								.number()
+								.describe(
+									"Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.",
+								),
+							totalSuccessfulDeliveries: z
+								.number()
+								.describe(
+									"Deliveries delivered in the window, on the first try or after automatic retries.",
+								),
 							window: z.enum(["24h"]),
 						})
 						.optional()
@@ -42418,12 +42435,23 @@ export const getAllLogDrainsStatus200Schema = z.union([
 							attempts: z
 								.number()
 								.describe("Finished deliveries in the window: delivered plus finally failed."),
-							failures: z
+							failures: z.number().describe("Deliveries that finally failed in the window."),
+							state: z.enum(["failing", "healthy", "unknown"]),
+							totalFailedDeliveries: z
 								.number()
 								.describe(
 									"Deliveries that finally failed in the window, after any automatic retries.",
 								),
-							state: z.enum(["failing", "healthy", "unknown"]),
+							totalRetriedDeliveries: z
+								.number()
+								.describe(
+									"Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.",
+								),
+							totalSuccessfulDeliveries: z
+								.number()
+								.describe(
+									"Deliveries delivered in the window, on the first try or after automatic retries.",
+								),
 							window: z.enum(["24h"]),
 						})
 						.optional()
@@ -42768,10 +42796,21 @@ export const createDrainStatus200Schema = z.union([
 				attempts: z
 					.number()
 					.describe("Finished deliveries in the window: delivered plus finally failed."),
-				failures: z
+				failures: z.number().describe("Deliveries that finally failed in the window."),
+				state: z.enum(["failing", "healthy", "unknown"]),
+				totalFailedDeliveries: z
 					.number()
 					.describe("Deliveries that finally failed in the window, after any automatic retries."),
-				state: z.enum(["failing", "healthy", "unknown"]),
+				totalRetriedDeliveries: z
+					.number()
+					.describe(
+						"Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.",
+					),
+				totalSuccessfulDeliveries: z
+					.number()
+					.describe(
+						"Deliveries delivered in the window, on the first try or after automatic retries.",
+					),
 				window: z.enum(["24h"]),
 			})
 			.optional()
@@ -42948,10 +42987,21 @@ export const createDrainStatus200Schema = z.union([
 				attempts: z
 					.number()
 					.describe("Finished deliveries in the window: delivered plus finally failed."),
-				failures: z
+				failures: z.number().describe("Deliveries that finally failed in the window."),
+				state: z.enum(["failing", "healthy", "unknown"]),
+				totalFailedDeliveries: z
 					.number()
 					.describe("Deliveries that finally failed in the window, after any automatic retries."),
-				state: z.enum(["failing", "healthy", "unknown"]),
+				totalRetriedDeliveries: z
+					.number()
+					.describe(
+						"Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.",
+					),
+				totalSuccessfulDeliveries: z
+					.number()
+					.describe(
+						"Deliveries delivered in the window, on the first try or after automatic retries.",
+					),
 				window: z.enum(["24h"]),
 			})
 			.optional()
@@ -43346,12 +43396,23 @@ export const getDrainsStatus200Schema = z.object({
 						attempts: z
 							.number()
 							.describe("Finished deliveries in the window: delivered plus finally failed."),
-						failures: z
+						failures: z.number().describe("Deliveries that finally failed in the window."),
+						state: z.enum(["failing", "healthy", "unknown"]),
+						totalFailedDeliveries: z
 							.number()
 							.describe(
 								"Deliveries that finally failed in the window, after any automatic retries.",
 							),
-						state: z.enum(["failing", "healthy", "unknown"]),
+						totalRetriedDeliveries: z
+							.number()
+							.describe(
+								"Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.",
+							),
+						totalSuccessfulDeliveries: z
+							.number()
+							.describe(
+								"Deliveries delivered in the window, on the first try or after automatic retries.",
+							),
 						window: z.enum(["24h"]),
 					})
 					.optional()
@@ -43530,12 +43591,23 @@ export const getDrainsStatus200Schema = z.object({
 						attempts: z
 							.number()
 							.describe("Finished deliveries in the window: delivered plus finally failed."),
-						failures: z
+						failures: z.number().describe("Deliveries that finally failed in the window."),
+						state: z.enum(["failing", "healthy", "unknown"]),
+						totalFailedDeliveries: z
 							.number()
 							.describe(
 								"Deliveries that finally failed in the window, after any automatic retries.",
 							),
-						state: z.enum(["failing", "healthy", "unknown"]),
+						totalRetriedDeliveries: z
+							.number()
+							.describe(
+								"Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.",
+							),
+						totalSuccessfulDeliveries: z
+							.number()
+							.describe(
+								"Deliveries delivered in the window, on the first try or after automatic retries.",
+							),
 						window: z.enum(["24h"]),
 					})
 					.optional()
@@ -43712,7 +43784,7 @@ export const getDrainQueryIncludeDeliveryStatsSchema = z
 	.optional()
 	.default(false)
 	.describe(
-		"Include `deliveryStats` with the delivery health of the drain over the last 24 hours.",
+		"Include `deliveryStats` with the delivery health of the drain over the last 24 hours. Ignored for teams without drain delivery metrics.",
 	);
 
 export const getDrainQueryTeamIdSchema = z
@@ -43852,10 +43924,21 @@ export const getDrainStatus200Schema = z.object({
 			attempts: z
 				.number()
 				.describe("Finished deliveries in the window: delivered plus finally failed."),
-			failures: z
+			failures: z.number().describe("Deliveries that finally failed in the window."),
+			state: z.enum(["failing", "healthy", "unknown"]),
+			totalFailedDeliveries: z
 				.number()
 				.describe("Deliveries that finally failed in the window, after any automatic retries."),
-			state: z.enum(["failing", "healthy", "unknown"]),
+			totalRetriedDeliveries: z
+				.number()
+				.describe(
+					"Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.",
+				),
+			totalSuccessfulDeliveries: z
+				.number()
+				.describe(
+					"Deliveries delivered in the window, on the first try or after automatic retries.",
+				),
 			window: z.enum(["24h"]),
 		})
 		.optional()
@@ -43933,7 +44016,7 @@ export const getDrainQuerySchema = z.object({
 		.optional()
 		.default(false)
 		.describe(
-			"Include `deliveryStats` with the delivery health of the drain over the last 24 hours.",
+			"Include `deliveryStats` with the delivery health of the drain over the last 24 hours. Ignored for teams without drain delivery metrics.",
 		),
 	teamId: z
 		.string()
@@ -44087,10 +44170,21 @@ export const updateDrainStatus200Schema = z.union([
 				attempts: z
 					.number()
 					.describe("Finished deliveries in the window: delivered plus finally failed."),
-				failures: z
+				failures: z.number().describe("Deliveries that finally failed in the window."),
+				state: z.enum(["failing", "healthy", "unknown"]),
+				totalFailedDeliveries: z
 					.number()
 					.describe("Deliveries that finally failed in the window, after any automatic retries."),
-				state: z.enum(["failing", "healthy", "unknown"]),
+				totalRetriedDeliveries: z
+					.number()
+					.describe(
+						"Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.",
+					),
+				totalSuccessfulDeliveries: z
+					.number()
+					.describe(
+						"Deliveries delivered in the window, on the first try or after automatic retries.",
+					),
 				window: z.enum(["24h"]),
 			})
 			.optional()
@@ -44267,10 +44361,21 @@ export const updateDrainStatus200Schema = z.union([
 				attempts: z
 					.number()
 					.describe("Finished deliveries in the window: delivered plus finally failed."),
-				failures: z
+				failures: z.number().describe("Deliveries that finally failed in the window."),
+				state: z.enum(["failing", "healthy", "unknown"]),
+				totalFailedDeliveries: z
 					.number()
 					.describe("Deliveries that finally failed in the window, after any automatic retries."),
-				state: z.enum(["failing", "healthy", "unknown"]),
+				totalRetriedDeliveries: z
+					.number()
+					.describe(
+						"Deliveries whose first try failed and were scheduled for an automatic retry in the window, whatever their final outcome.",
+					),
+				totalSuccessfulDeliveries: z
+					.number()
+					.describe(
+						"Deliveries delivered in the window, on the first try or after automatic retries.",
+					),
 				window: z.enum(["24h"]),
 			})
 			.optional()
