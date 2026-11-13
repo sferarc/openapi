@@ -207,6 +207,12 @@ export const chatDetailSchema = z
 									.describe(
 										"The MIME type of the attachment file (e.g., image/png, application/pdf).",
 									),
+								imageDimensions: z
+									.strictObject({
+										width: z.int().max(65535).gt(0),
+										height: z.int().max(65535).gt(0),
+									})
+									.optional(),
 								size: z.number().describe("The size of the attachment file in bytes."),
 								content: z
 									.string()
@@ -753,6 +759,12 @@ export const messageDetailSchema = z
 						.string()
 						.optional()
 						.describe("The MIME type of the attachment file (e.g., image/png, application/pdf)."),
+					imageDimensions: z
+						.strictObject({
+							width: z.int().max(65535).gt(0),
+							height: z.int().max(65535).gt(0),
+						})
+						.optional(),
 					size: z.number().describe("The size of the attachment file in bytes."),
 					content: z
 						.string()
@@ -895,6 +907,12 @@ export const messageSummarySchema = z
 						.string()
 						.optional()
 						.describe("The MIME type of the attachment file (e.g., image/png, application/pdf)."),
+					imageDimensions: z
+						.strictObject({
+							width: z.int().max(65535).gt(0),
+							height: z.int().max(65535).gt(0),
+						})
+						.optional(),
 					size: z.number().describe("The size of the attachment file in bytes."),
 					content: z
 						.string()
@@ -1048,6 +1066,12 @@ export const messageSummaryListSchema = z
 									.describe(
 										"The MIME type of the attachment file (e.g., image/png, application/pdf).",
 									),
+								imageDimensions: z
+									.strictObject({
+										width: z.int().max(65535).gt(0),
+										height: z.int().max(65535).gt(0),
+									})
+									.optional(),
 								size: z.number().describe("The size of the attachment file in bytes."),
 								content: z
 									.string()

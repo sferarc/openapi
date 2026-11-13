@@ -420,6 +420,20 @@ export type ChatDetail = {
 					 * @type string | undefined
 					 */
 					contentType?: string | undefined;
+					imageDimensions?:
+						| {
+								/**
+								 * @maximum 65535
+								 * @type integer
+								 */
+								width: number;
+								/**
+								 * @maximum 65535
+								 * @type integer
+								 */
+								height: number;
+						  }
+						| undefined;
 					/**
 					 * @description The size of the attachment file in bytes.
 					 * @type number
@@ -1551,6 +1565,20 @@ export type MessageDetail = {
 				 * @type string | undefined
 				 */
 				contentType?: string | undefined;
+				imageDimensions?:
+					| {
+							/**
+							 * @maximum 65535
+							 * @type integer
+							 */
+							width: number;
+							/**
+							 * @maximum 65535
+							 * @type integer
+							 */
+							height: number;
+					  }
+					| undefined;
 				/**
 				 * @description The size of the attachment file in bytes.
 				 * @type number
@@ -1782,6 +1810,20 @@ export type MessageSummary = {
 				 * @type string | undefined
 				 */
 				contentType?: string | undefined;
+				imageDimensions?:
+					| {
+							/**
+							 * @maximum 65535
+							 * @type integer
+							 */
+							width: number;
+							/**
+							 * @maximum 65535
+							 * @type integer
+							 */
+							height: number;
+					  }
+					| undefined;
 				/**
 				 * @description The size of the attachment file in bytes.
 				 * @type number
@@ -2018,6 +2060,20 @@ export type MessageSummaryList = {
 					 * @type string | undefined
 					 */
 					contentType?: string | undefined;
+					imageDimensions?:
+						| {
+								/**
+								 * @maximum 65535
+								 * @type integer
+								 */
+								width: number;
+								/**
+								 * @maximum 65535
+								 * @type integer
+								 */
+								height: number;
+						  }
+						| undefined;
 					/**
 					 * @description The size of the attachment file in bytes.
 					 * @type number
