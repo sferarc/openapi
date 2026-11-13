@@ -10578,6 +10578,7 @@ import type {
 	QueuesListConsumersResponse,
 	QueuesListConsumersStatus400,
 	QueuesListPath,
+	QueuesListQuery,
 	QueuesListResponse,
 	QueuesListStatus400,
 	QueuesPeekMessagesBody,
@@ -60087,7 +60088,7 @@ export async function deleteDeleteDomainQuery(
 
 /**
  * @summary Update domain query
- * @description Replaces a saved domain query's tag and patterns. `tag` and `string_matches` are required, and the patterns you send replace the existing ones, so include every pattern you want to keep. Changing the patterns starts a new set of matches for the query: matches listed before the change are no longer returned, and only newly observed domains that match the new patterns are listed. Sending the same patterns in any order (for example, to change only `tag`) keeps the existing matches. If the new patterns are identical to a set already used in this account, such as the query's earlier patterns, matches already found for that set are listed as well. Omitting both `scan_matches` and its alias `scan` resets scanning to `false`. If both are supplied, `scan_matches` takes precedence. `search_lookback`, `min_time`, and `max_time` are ignored on update, so changing patterns does not search previously observed domains. If the query does not exist in this account, the request fails with error code 404.
+ * @description Replaces a saved domain query's tag and patterns. `tag` and `string_matches` are required, and the patterns you send replace the existing ones, so include every pattern you want to keep. Changing the patterns starts a new set of matches for the query: matches listed before the change are no longer returned, and newly observed domains that match the new patterns are listed. Sending the same patterns in any order (for example, to change only `tag`) keeps the existing matches. If the new patterns are identical to a set already used in this account, such as the query's earlier patterns, matches already found for that set are listed as well. Omitting both `scan_matches` and its alias `scan` resets scanning to `false`. If both are supplied, `scan_matches` takes precedence. When edit-triggered lookback is enabled for the account and the patterns change, the match list usually refreshes within seconds (if that refresh fails, the scheduled query sync updates it later) and, unless `search_lookback` is `false`, domains observed in the last 7 days are also searched for the new patterns. New matches from that search can take several minutes or longer to appear. Edit-triggered lookback is being rolled out gradually. `min_time` and `max_time` are ignored on update. If the query does not exist in this account, the request fails with error code 404.
  * @link /accounts/{accountId}/cloudforce-one/v2/brand-protection/domain/queries/{queryId}
  */
 export async function patchUpdateDomainQuery(
@@ -62804,7 +62805,7 @@ export async function postPirQuota(
 
 /**
  * @summary Resolve structured PIR answers without saving
- * @description Returns the requirement and event query that saving `definition` would generate, using the account's current organization profile and topic. `resolved.issues` lists problems that would block saving, and `resolved.notices` inputs that would be ignored. Search events with `resolved.event_plan.branches`. Send `resolved.based_on` with the save so it fails with 409 if the profile or topic changes in between. Nothing is saved, and no model is called.
+ * @description Returns the requirement and event query that saving `definition` would generate, using the account's current organization profile and topic. `resolved.issues` lists problems that would block saving, and `resolved.notices` inputs that would be ignored. Search events with `resolved.event_plan.branches`: a beta value for running searches, not a stable contract, which changes whenever a topic's event rules change. Show `resolved.event_plan.rules[].explanation` to explain matches. Send `resolved.based_on` with the save so it fails with 409 if the profile or topic changes in between. Nothing is saved, and no model is called.
  * @link /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/resolve
  */
 export async function postPirResolve(
@@ -62843,7 +62844,7 @@ export async function postPirResolve(
 
 /**
  * @summary List managed PIR topics
- * @description Returns the managed topics a structured PIR can follow, with their default question, relevance criteria, suggested actors and event rules. Suggested actors the account cannot see are left out. Topics change centrally; PIRs follow a topic's defaults wherever the customer has not changed them.
+ * @description Returns the managed topics a structured PIR can follow, with their default question, relevance criteria, suggested actors and event rules. Suggested actors the account cannot see are left out. Topics change centrally; PIRs follow a topic's defaults wherever the customer has not changed them. Also returns `organization_types` for the organization profile form.
  * @link /accounts/{accountId}/cloudforce-one/v2/priority-intelligence/topics
  */
 export async function getPirTopicList(
@@ -110309,9 +110310,11 @@ export async function accountsModifyAccountProfile(
 export async function queuesList(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: QueuesListPath;
+		queryParams?: Partial<QueuesListQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -110325,11 +110328,12 @@ export async function queuesList(
 		ErrorWrapper<QueuesListStatus400>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<QueuesListQuery>,
 		QueuesListPath
 	>({
 		method: "GET",
 		url: `/accounts/${encodeURIComponent(String(pathParams.accountId))}/queues`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
