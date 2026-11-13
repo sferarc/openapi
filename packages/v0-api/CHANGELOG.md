@@ -1,5 +1,14 @@
 # v0-api
 
+## 1.8.1
+
+### Patch Changes
+
+- ac0e414: Added optional imageDimensions field to MessageSummaryList type.
+- ac0e414: Added optional imageDimensions field to MessageSummary type.
+- ac0e414: Added optional imageDimensions field to MessageDetail type.
+- ac0e414: Added optional imageDimensions field to ChatDetail type.
+
 ## 1.8.0
 
 ### Minor Changes

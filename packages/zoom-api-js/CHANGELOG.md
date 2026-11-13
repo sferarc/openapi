@@ -1,5 +1,11 @@
 # zoom-api-js
 
+## 3.7.3
+
+### Patch Changes
+
+- 31e7df0: Updated the Rate Limit Label documentation URLs for all operations to point to https://developers.zoom.us/docs/api/rate-limits/ instead of https://marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits.
+
 ## 3.7.2
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # vercel-api-js
 
+## 2.37.1
+
+### Patch Changes
+
+- 8369806: Added fields 'totalFailedDeliveries', 'totalRetriedDeliveries', and 'totalSuccessfulDeliveries' to log drain status response types for more granular delivery statistics.
+- 8369806: Added the optional field 'organizationScope' to the UserEvent type to indicate organization-scoped tokens.
+- 8369806: Clarified the 'withDeliveryStats' parameter description in GetDrainQuery to specify it is ignored for teams without delivery metrics.
+
 ## 2.37.0
 
 ### Minor Changes
