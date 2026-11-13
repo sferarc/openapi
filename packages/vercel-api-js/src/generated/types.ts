@@ -8129,6 +8129,42 @@ export const userEventPayloadTierEnum = {
 export type UserEventPayloadTierEnumKey =
 	(typeof userEventPayloadTierEnum)[keyof typeof userEventPayloadTierEnum];
 
+export const userEventPayloadNextAccessEnum = {
+	default: "default",
+	none: "none",
+	unlimited: "unlimited",
+} as const;
+
+export type UserEventPayloadNextAccessEnumKey =
+	(typeof userEventPayloadNextAccessEnum)[keyof typeof userEventPayloadNextAccessEnum];
+
+export const userEventPayloadPreviousAccessEnum = {
+	default: "default",
+	none: "none",
+	unlimited: "unlimited",
+} as const;
+
+export type UserEventPayloadPreviousAccessEnumKey =
+	(typeof userEventPayloadPreviousAccessEnum)[keyof typeof userEventPayloadPreviousAccessEnum];
+
+export const userEventPayloadNextAccessEnum3 = {
+	default: "default",
+	none: "none",
+	unlimited: "unlimited",
+} as const;
+
+export type UserEventPayloadNextAccessEnum3Key =
+	(typeof userEventPayloadNextAccessEnum3)[keyof typeof userEventPayloadNextAccessEnum3];
+
+export const userEventPayloadPreviousAccessEnum3 = {
+	default: "default",
+	none: "none",
+	unlimited: "unlimited",
+} as const;
+
+export type UserEventPayloadPreviousAccessEnum3Key =
+	(typeof userEventPayloadPreviousAccessEnum3)[keyof typeof userEventPayloadPreviousAccessEnum3];
+
 export const userEventPayloadScopeEnum14 = {
 	organization: "organization",
 	team: "team",
@@ -9031,6 +9067,8 @@ export const userEventTypeEnum = {
 	"v0-chat-message-sent": "v0-chat-message-sent",
 	"v0-migration-payment-confirmed": "v0-migration-payment-confirmed",
 	"v0-migration-subscription-completed": "v0-migration-subscription-completed",
+	"v0-shared-pool-credit-limit-default-updated": "v0-shared-pool-credit-limit-default-updated",
+	"v0-shared-pool-credit-limit-updated": "v0-shared-pool-credit-limit-updated",
 	"vcr-image-deleted": "vcr-image-deleted",
 	"vcr-image-pushed": "vcr-image-pushed",
 	"vcr-repository-created": "vcr-repository-created",
@@ -15996,6 +16034,44 @@ export type UserEvent = {
 						messageId: string;
 				  }
 				| {
+						next:
+							| {
+									access: UserEventPayloadNextAccessEnumKey;
+							  }
+							| {
+									access: "limited";
+									limit: string;
+							  };
+						previous:
+							| {
+									access: UserEventPayloadPreviousAccessEnumKey;
+							  }
+							| {
+									access: "limited";
+									limit: string;
+							  };
+						userId: string;
+						userName?: string | undefined;
+				  }
+				| {
+						next:
+							| {
+									access: UserEventPayloadNextAccessEnum3Key;
+							  }
+							| {
+									access: "limited";
+									limit: string;
+							  };
+						previous:
+							| {
+									access: UserEventPayloadPreviousAccessEnum3Key;
+							  }
+							| {
+									access: "limited";
+									limit: string;
+							  };
+				  }
+				| {
 						deploymentId: string;
 						projectId: string;
 						projectName?: string | undefined;
@@ -17438,6 +17514,8 @@ export const listEventTypeNameEnum = {
 	"v0-chat-message-sent": "v0-chat-message-sent",
 	"v0-migration-payment-confirmed": "v0-migration-payment-confirmed",
 	"v0-migration-subscription-completed": "v0-migration-subscription-completed",
+	"v0-shared-pool-credit-limit-default-updated": "v0-shared-pool-credit-limit-default-updated",
+	"v0-shared-pool-credit-limit-updated": "v0-shared-pool-credit-limit-updated",
 	"vcr-image-deleted": "vcr-image-deleted",
 	"vcr-image-pushed": "vcr-image-pushed",
 	"vcr-repository-created": "vcr-repository-created",
@@ -18248,6 +18326,8 @@ export const listEventTypeReplacedByEnum = {
 	"v0-chat-message-sent": "v0-chat-message-sent",
 	"v0-migration-payment-confirmed": "v0-migration-payment-confirmed",
 	"v0-migration-subscription-completed": "v0-migration-subscription-completed",
+	"v0-shared-pool-credit-limit-default-updated": "v0-shared-pool-credit-limit-default-updated",
+	"v0-shared-pool-credit-limit-updated": "v0-shared-pool-credit-limit-updated",
 	"vcr-image-deleted": "vcr-image-deleted",
 	"vcr-image-pushed": "vcr-image-pushed",
 	"vcr-repository-created": "vcr-repository-created",
