@@ -106565,7 +106565,7 @@ export async function listIntegrationsV2(
 
 /**
  * @summary Create integration
- * @description Creates a new integration for the specified application. Integration creation with OAuth is not supported by API at the moment. For other auth methods, use `GET /v2/applications/{application_id}/credential-guide` to see the required credential structure and example payloads for each vendor.
+ * @description Creates a new integration for the specified application. For other auth methods, use `GET /v2/applications/{application_id}/credential-guide` to see the required credential structure and example payloads for each vendor.
  * @link /accounts/{accountId}/one/integrations
  */
 export async function createIntegrationV2(
@@ -106684,7 +106684,7 @@ export async function getIntegrationV2(
 
 /**
  * @summary Update integration
- * @description Updates an integration's name, permissions, DLP profiles, use cases, or credentials.
+ * @description Updates an integration's name, permissions, DLP profiles, use cases, credentials, or GitLab resources.
  * @link /accounts/{accountId}/one/integrations/{id}
  */
 export async function updateIntegrationV2(

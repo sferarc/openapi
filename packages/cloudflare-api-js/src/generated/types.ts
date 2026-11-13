@@ -10380,7 +10380,7 @@ export type AccessSaml = AccessIdentityProvider & {
       header_name?: string | undefined;
     }[] | undefined;
     /**
-     * @description X509 certificate to verify the signature in the SAML authentication response
+     * @description X509 certificate to verify the signature in the SAML authentication response. Mutually exclusive with `metadata_url`.
      * @type array | undefined
      */
     idp_public_certs?: string[] | undefined;
@@ -10402,6 +10402,14 @@ export type AccessSaml = AccessIdentityProvider & {
      * @type integer | undefined
      */
     max_sso_url_length?: number | undefined;
+    /**
+     * @description HTTPS URL of the IdP's SAML metadata document from which Access reads the signing certificates used to verify SAML authentication responses. Mutually exclusive with `idp_public_certs`.
+     *
+     * Format: `uri`
+     * @example https://idp.example.com/FederationMetadata/2007-06/FederationMetadata.xml
+     * @type string | undefined
+     */
+    metadata_url?: string | undefined;
     /**
      * @description Sign the SAML authentication request with Access credentials. To verify the signature, use the public key from the Access certs endpoints.
      * @default false
@@ -10552,7 +10560,7 @@ export type AccessSaml2 = AccessIdentityProvider2 & {
       header_name?: string | undefined;
     }[] | undefined;
     /**
-     * @description X509 certificate to verify the signature in the SAML authentication response
+     * @description X509 certificate to verify the signature in the SAML authentication response. Mutually exclusive with `metadata_url`.
      * @type array | undefined
      */
     idp_public_certs?: string[] | undefined;
@@ -10574,6 +10582,14 @@ export type AccessSaml2 = AccessIdentityProvider2 & {
      * @type integer | undefined
      */
     max_sso_url_length?: number | undefined;
+    /**
+     * @description HTTPS URL of the IdP's SAML metadata document from which Access reads the signing certificates used to verify SAML authentication responses. Mutually exclusive with `idp_public_certs`.
+     *
+     * Format: `uri`
+     * @example https://idp.example.com/FederationMetadata/2007-06/FederationMetadata.xml
+     * @type string | undefined
+     */
+    metadata_url?: string | undefined;
     /**
      * @description Sign the SAML authentication request with Access credentials. To verify the signature, use the public key from the Access certs endpoints.
      * @type boolean | undefined
@@ -78854,6 +78870,28 @@ export type OneApplicationList = {
 };
 
 /**
+ * @description Authorization settings to use instead of the defaults when a feature is selected.
+ * @type object
+ */
+export type OneFeatureAuthOverride = {
+  /**
+   * @description Full OAuth authorization URL with query parameters.
+   * @type string
+   */
+  authorization_url: string | null;
+  /**
+   * @description OAuth client ID to authorize with.
+   * @type string
+   */
+  client_id: string | null;
+  /**
+   * @description Feature identifier that triggers this override.
+   * @type string
+   */
+  feature: string;
+};
+
+/**
  * @description OAuth configuration for setup flows that use OAuth.
  * @type object
  */
@@ -78868,6 +78906,11 @@ export type OneAuthConfig = {
    * @type string
    */
   client_id: string | null;
+  /**
+   * @description Per-feature authorization overrides. When a listed feature is selected, authorize with the override's client ID and URL instead of the defaults above.
+   * @type array
+   */
+  feature_overrides: OneFeatureAuthOverride[];
   /**
    * @description Whether PKCE is required.
    * @type boolean
@@ -79057,6 +79100,71 @@ export type OneFormField = {
 };
 
 /**
+ * @description Selected GitLab groups and projects.
+ * @type object
+ */
+export type OneGitLabIntegrationConfigurationRequest = {
+  /**
+   * @description Selected top-level GitLab group IDs as string-encoded positive integers.
+   * @type array | undefined
+   */
+  group_ids?: string[] | undefined;
+  /**
+   * @description Selected GitLab project IDs as string-encoded positive integers.
+   * @type array | undefined
+   */
+  project_ids?: string[] | undefined;
+};
+
+export type OneSelectedGitLabResource = {
+  /**
+   * @description Human-readable GitLab resource name.
+   * @type string
+   */
+  display_name: string;
+  /**
+   * @description GitLab resource ID as a string-encoded positive integer.
+   * @pattern ^[1-9][0-9]*$
+   * @type string
+   */
+  id: string;
+  /**
+   * @description Full GitLab resource path.
+   * @type string
+   */
+  path: string;
+};
+
+/**
+ * @description Selected GitLab groups and projects returned by the API.
+ * @type object
+ */
+export type OneSelectedGitLabIntegrationConfiguration = {
+  /**
+   * @description Selected top-level GitLab groups.
+   * @type array
+   */
+  groups: OneSelectedGitLabResource[];
+  /**
+   * @description Selected GitLab projects.
+   * @type array
+   */
+  projects: OneSelectedGitLabResource[];
+};
+
+/**
+ * @description Vendor-specific integration configuration returned by the API.
+ * @type object
+ */
+export type OneIntegrationConfig = {
+  /**
+   * @description GitLab-specific configuration. Present only for GitLab integrations.
+   * @type object | undefined
+   */
+  gitlab?: OneSelectedGitLabIntegrationConfiguration | undefined;
+};
+
+/**
  * @description Serializer for v2 integration detail response with use cases.
  * @type object
  */
@@ -79081,6 +79189,11 @@ export type OneIntegrationV2Detail = {
     } | null;
     link: string | null;
   } | null;
+  /**
+   * @description Vendor-specific integration configuration.
+   * @type object
+   */
+  readonly config: OneIntegrationConfig;
   /**
    * @description When the integration was created.
    *
@@ -79396,6 +79509,11 @@ export type OneIntegrationV2ListItem = {
     display_name: string;
     id: string;
   } | null;
+  /**
+   * @description Vendor-specific integration configuration.
+   * @type object
+   */
+  readonly config: OneIntegrationConfig;
   /**
    * @description When the integration was created.
    *
@@ -79814,6 +79932,18 @@ export type OnePaginatedSetupFlowList = {
   success: boolean;
 };
 
+/**
+ * @description Vendor-specific integration configuration accepted during updates.
+ * @type object
+ */
+export type OneUpdateIntegrationConfigRequest = {
+  /**
+   * @description GitLab-specific configuration. Accepted only for GitLab integrations.
+   * @type object | undefined
+   */
+  gitlab?: OneGitLabIntegrationConfigurationRequest | undefined;
+};
+
 export const onePatchedUpdateIntegrationV2RequestUseCasesEnum = {
   casb: 'casb',
   ces: 'ces',
@@ -79827,6 +79957,11 @@ export type OnePatchedUpdateIntegrationV2RequestUseCasesEnumKey = (typeof onePat
  * @type object
  */
 export type OnePatchedUpdateIntegrationV2Request = {
+  /**
+   * @description Vendor-specific integration configuration.
+   * @type object | undefined
+   */
+  config?: OneUpdateIntegrationConfigRequest | undefined;
   /**
    * @description Partial credential fields to merge with existing.
    * @type object | undefined
@@ -96434,6 +96569,7 @@ export const resourceTaggingAccountResourceType = {
   ai_search_namespace: 'ai_search_namespace',
   alerting_policy: 'alerting_policy',
   alerting_webhook: 'alerting_webhook',
+  app_library_application: 'app_library_application',
   cloudflared_tunnel: 'cloudflared_tunnel',
   cws_deployment: 'cws_deployment',
   cws_policy: 'cws_policy',
@@ -96474,6 +96610,7 @@ export const resourceTaggingAccountResourceTypeBaseEnum = {
   ai_search_namespace: 'ai_search_namespace',
   alerting_policy: 'alerting_policy',
   alerting_webhook: 'alerting_webhook',
+  app_library_application: 'app_library_application',
   cloudflared_tunnel: 'cloudflared_tunnel',
   cws_deployment: 'cws_deployment',
   cws_policy: 'cws_policy',
@@ -96761,6 +96898,7 @@ export const resourceTaggingResourceType = {
   alerting_policy: 'alerting_policy',
   alerting_webhook: 'alerting_webhook',
   api_gateway_operation: 'api_gateway_operation',
+  app_library_application: 'app_library_application',
   cloudflared_tunnel: 'cloudflared_tunnel',
   custom_certificate: 'custom_certificate',
   custom_hostname: 'custom_hostname',
@@ -96838,7 +96976,7 @@ export type ResourceTaggingSetTagsRequestAccountLevelBase = ResourceTaggingDelet
 export type ResourceTaggingSetTagsRequestAccountLevel = ResourceTaggingSetTagsRequestAccountLevelWorkerVersion & {
   resource_type: 'worker_version';
 } | ResourceTaggingSetTagsRequestAccountLevelBase & {
-  resource_type: 'access_application' | 'access_group' | 'access_service_token' | 'account' | 'account_ruleset' | 'ai_gateway' | 'ai_search_instance' | 'ai_search_namespace' | 'alerting_policy' | 'alerting_webhook' | 'cloudflared_tunnel' | 'cws_deployment' | 'cws_policy' | 'cws_policy_set' | 'cws_workload' | 'd1_database' | 'device' | 'durable_object_namespace' | 'gateway_list' | 'gateway_rule' | 'image' | 'infrastructure_target' | 'kv_namespace' | 'load_balancer_monitor' | 'load_balancer_pool' | 'namespace_worker' | 'pages_project' | 'queue' | 'r2_bucket' | 'resource_share' | 'stream_live_input' | 'stream_video' | 'vectorize_index' | 'worker';
+  resource_type: 'access_application' | 'access_group' | 'access_service_token' | 'account' | 'account_ruleset' | 'ai_gateway' | 'ai_search_instance' | 'ai_search_namespace' | 'alerting_policy' | 'alerting_webhook' | 'app_library_application' | 'cloudflared_tunnel' | 'cws_deployment' | 'cws_policy' | 'cws_policy_set' | 'cws_workload' | 'd1_database' | 'device' | 'durable_object_namespace' | 'gateway_list' | 'gateway_rule' | 'image' | 'infrastructure_target' | 'kv_namespace' | 'load_balancer_monitor' | 'load_balancer_pool' | 'namespace_worker' | 'pages_project' | 'queue' | 'r2_bucket' | 'resource_share' | 'stream_live_input' | 'stream_video' | 'vectorize_index' | 'worker';
 };
 
 /**
@@ -97193,6 +97331,13 @@ export type ResourceTaggingTaggedResourceObjectApiGatewayOperation = {
 } & ResourceTaggingTaggedResourceObjectZoneLevelBase;
 
 /**
+ * @description Response for app_library_application resources
+ */
+export type ResourceTaggingTaggedResourceObjectAppLibraryApplication = {
+  type: 'app_library_application';
+} & ResourceTaggingTaggedResourceObjectAccountLevelBase;
+
+/**
  * @description Response for cloudflared_tunnel resources
  */
 export type ResourceTaggingTaggedResourceObjectCloudflaredTunnel = {
@@ -97519,6 +97664,8 @@ export type ResourceTaggingTaggedResourceObject = ResourceTaggingTaggedResourceO
   type: 'alerting_webhook';
 } | ResourceTaggingTaggedResourceObjectApiGatewayOperation & {
   type: 'api_gateway_operation';
+} | ResourceTaggingTaggedResourceObjectAppLibraryApplication & {
+  type: 'app_library_application';
 } | ResourceTaggingTaggedResourceObjectCloudflaredTunnel & {
   type: 'cloudflared_tunnel';
 } | ResourceTaggingTaggedResourceObjectCustomCertificate & {
@@ -247709,6 +247856,11 @@ export type AigConfigListGatewayStatus200 = {
      * @type string
      */
     modified_at: string;
+    /**
+     * @description Lets requests to a model use every provider that serves it. When off, a model uses only the providers it launched with, so a provider added later receives none of its traffic. A request that names providers (the cf-aig-allowed-providers header or routing.allowedProviders) can still use any of them. Model aliases (custom/) are not restricted.
+     * @type boolean | undefined
+     */
+    multiprovider_enabled?: boolean | undefined;
     otel?: ({
       /**
        * @maxLength 256
@@ -248278,6 +248430,11 @@ export type AigConfigCreateGatewayStatus200 = {
      * @type string
      */
     modified_at: string;
+    /**
+     * @description Lets requests to a model use every provider that serves it. When off, a model uses only the providers it launched with, so a provider added later receives none of its traffic. A request that names providers (the cf-aig-allowed-providers header or routing.allowedProviders) can still use any of them. Model aliases (custom/) are not restricted.
+     * @type boolean | undefined
+     */
+    multiprovider_enabled?: boolean | undefined;
     otel?: ({
       /**
        * @maxLength 256
@@ -252091,12 +252248,17 @@ export type AigConfigListGatewayDynamicRoutesPath = {
 export type AigConfigListGatewayDynamicRoutesQuery = {
   /**
    * @description Page number
+   * @minimum 1
+   * @default 1
    * @example 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of routes per page
+   * @minimum 1
+   * @maximum 100
+   * @default 20
    * @example 20
    * @type integer | undefined
    */
@@ -253136,12 +253298,17 @@ export type AigConfigListGatewayDynamicRouteDeploymentsPath = {
 export type AigConfigListGatewayDynamicRouteDeploymentsQuery = {
   /**
    * @description Page number
+   * @minimum 1
+   * @default 1
    * @example 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of deployments per page
+   * @minimum 1
+   * @maximum 100
+   * @default 20
    * @example 20
    * @type integer | undefined
    */
@@ -253373,12 +253540,17 @@ export type AigConfigListGatewayDynamicRouteVersionsPath = {
 export type AigConfigListGatewayDynamicRouteVersionsQuery = {
   /**
    * @description Page number
+   * @minimum 1
+   * @default 1
    * @example 1
    * @type integer | undefined
    */
   page?: number | undefined;
   /**
    * @description Number of versions per page
+   * @minimum 1
+   * @maximum 100
+   * @default 20
    * @example 20
    * @type integer | undefined
    */
@@ -254313,6 +254485,11 @@ export type AigConfigDeleteGatewayStatus200 = {
      * @type string
      */
     modified_at: string;
+    /**
+     * @description Lets requests to a model use every provider that serves it. When off, a model uses only the providers it launched with, so a provider added later receives none of its traffic. A request that names providers (the cf-aig-allowed-providers header or routing.allowedProviders) can still use any of them. Model aliases (custom/) are not restricted.
+     * @type boolean | undefined
+     */
+    multiprovider_enabled?: boolean | undefined;
     otel?: ({
       /**
        * @maxLength 256
@@ -254908,6 +255085,11 @@ export type AigConfigFetchGatewayStatus200 = {
      * @type string
      */
     modified_at: string;
+    /**
+     * @description Lets requests to a model use every provider that serves it. When off, a model uses only the providers it launched with, so a provider added later receives none of its traffic. A request that names providers (the cf-aig-allowed-providers header or routing.allowedProviders) can still use any of them. Model aliases (custom/) are not restricted.
+     * @type boolean | undefined
+     */
+    multiprovider_enabled?: boolean | undefined;
     otel?: ({
       /**
        * @maxLength 256
@@ -255503,6 +255685,11 @@ export type AigConfigUpdateGatewayStatus200 = {
      * @type string
      */
     modified_at: string;
+    /**
+     * @description Lets requests to a model use every provider that serves it. When off, a model uses only the providers it launched with, so a provider added later receives none of its traffic. A request that names providers (the cf-aig-allowed-providers header or routing.allowedProviders) can still use any of them. Model aliases (custom/) are not restricted.
+     * @type boolean | undefined
+     */
+    multiprovider_enabled?: boolean | undefined;
     otel?: ({
       /**
        * @maxLength 256
