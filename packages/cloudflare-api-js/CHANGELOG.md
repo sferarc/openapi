@@ -1,5 +1,17 @@
 # cloudflare-api-js
 
+## 4.33.1
+
+### Patch Changes
+
+- cf531f0: Replaced GetPirTopicListStatus200 unknown response with a detailed object type, including organization_types and topics, improving the response structure.
+- cf531f0: Expanded the postPirQuota endpoint response documentation to include new beta values and explanation fields for event queries.
+- cf531f0: Added detailed types and enums for PIR organization types, topic actors, motivations, profile contexts, recommended sectors, and relevance criteria, improving type safety for PIR-related endpoints.
+- cf531f0: Added detailed documentation to the deleteDeleteDomainQuery and PostInsertDomainQueryBody operations about edit-triggered lookback and its rollout.
+- cf531f0: postPirResolve now additionally returns organization_types for the organization profile form.
+- cf531f0: Expanded LexV4Error, LexErrorResponse, and LexQueryResponse types to include query execution metadata via the LexQueryResultInfo type.
+- cf531f0: The QueuesList endpoint now supports typed query parameters via QueuesListQuery, replacing generic Record<string, string> usage.
+
 ## 4.33.0
 
 ### Minor Changes

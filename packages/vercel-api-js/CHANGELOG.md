@@ -1,5 +1,16 @@
 # vercel-api-js
 
+## 2.37.2
+
+### Patch Changes
+
+- ae4c17e: Added new user event types: organization-domain-verification-created, organization-domain-verification-deleted, organization-domain-verification-verified, and user-landing-page-updated.
+- ae4c17e: Added projectFlagsOverride and projectFlagsOverrideProduction fields to multiple project-related status types, providing requested and authorized operations when checkPermissions is used.
+- ae4c17e: Expanded permissions enums for user event payloads to include connect-any-user-token, connect-app-token, and project-flags-overrides permissions.
+- ae4c17e: The getConnectorToken and createConnectorAuthorizationRequest operations now accept a Partial query parameter object with improved typing for query parameters.
+- ae4c17e: Added the privateLinks field to the Network type, representing the number of PrivateLink endpoints in the network.
+- ae4c17e: Updated the OrganizationTeamListItem and ListOrganizationTeamsQuery types to clarify that member counts now include organization Directory Sync grants and may exclude suppressed memberships.
+
 ## 2.37.1
 
 ### Patch Changes
