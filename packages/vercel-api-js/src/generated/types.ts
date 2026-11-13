@@ -647,6 +647,15 @@ export type Network = {
 		  }
 		| undefined;
 	/**
+	 * @description The number of PrivateLink endpoints on the Network, when listing networks.
+	 * @type object | undefined
+	 */
+	privateLinks?:
+		| {
+				count: number;
+		  }
+		| undefined;
+	/**
 	 * @description Metadata about any projects associated with the Network.
 	 * @type object | undefined
 	 */
@@ -962,6 +971,10 @@ export type ConnectConnector = {
 	createdBy?:
 		| (
 				| {
+						id: string;
+						type: "app";
+				  }
+				| {
 						/**
 						 * @description Vercel user ID.
 						 * @type string
@@ -974,9 +987,6 @@ export type ConnectConnector = {
 						type: "user";
 				  }
 				| {
-						/**
-						 * @description Deployment environment of the project principal.
-						 */
 						environment: (string & {}) | ConnectConnectorCreatedByEnvironmentKey;
 						/**
 						 * @description Vercel project ID.
@@ -1160,6 +1170,10 @@ export type ConnectConnector = {
 	updatedBy?:
 		| (
 				| {
+						id: string;
+						type: "app";
+				  }
+				| {
 						/**
 						 * @description Vercel user ID.
 						 * @type string
@@ -1172,9 +1186,6 @@ export type ConnectConnector = {
 						type: "user";
 				  }
 				| {
-						/**
-						 * @description Deployment environment of the project principal.
-						 */
 						environment: (string & {}) | ConnectConnectorUpdatedByEnvironmentKey;
 						/**
 						 * @description Vercel project ID.
@@ -1411,6 +1422,10 @@ export type ConnectConnectorCreateResult = {
 	createdBy?:
 		| (
 				| {
+						id: string;
+						type: "app";
+				  }
+				| {
 						/**
 						 * @description Vercel user ID.
 						 * @type string
@@ -1423,9 +1438,6 @@ export type ConnectConnectorCreateResult = {
 						type: "user";
 				  }
 				| {
-						/**
-						 * @description Deployment environment of the project principal.
-						 */
 						environment: (string & {}) | ConnectConnectorCreateResultCreatedByEnvironmentKey;
 						/**
 						 * @description Vercel project ID.
@@ -1609,6 +1621,10 @@ export type ConnectConnectorCreateResult = {
 	updatedBy?:
 		| (
 				| {
+						id: string;
+						type: "app";
+				  }
+				| {
 						/**
 						 * @description Vercel user ID.
 						 * @type string
@@ -1621,9 +1637,6 @@ export type ConnectConnectorCreateResult = {
 						type: "user";
 				  }
 				| {
-						/**
-						 * @description Deployment environment of the project principal.
-						 */
 						environment: (string & {}) | ConnectConnectorCreateResultUpdatedByEnvironmentKey;
 						/**
 						 * @description Vercel project ID.
@@ -5511,6 +5524,8 @@ export const userEventPayloadPermissionsEnum = {
 	"read-write:billing": "read-write:billing",
 	"read-write:blob": "read-write:blob",
 	"read-write:connect": "read-write:connect",
+	"read-write:connect-any-user-token": "read-write:connect-any-user-token",
+	"read-write:connect-app-token": "read-write:connect-app-token",
 	"read-write:deployment": "read-write:deployment",
 	"read-write:desktop-device": "read-write:desktop-device",
 	"read-write:domain": "read-write:domain",
@@ -5579,6 +5594,8 @@ export const userEventPayloadPermissionsEnum = {
 	"use:ai-gateway": "use:ai-gateway",
 	"use:github": "use:github",
 	"use:private-npm": "use:private-npm",
+	"use:project-flags-overrides-non-production": "use:project-flags-overrides-non-production",
+	"use:project-flags-overrides-production": "use:project-flags-overrides-production",
 } as const;
 
 export type UserEventPayloadPermissionsEnumKey =
@@ -5611,6 +5628,8 @@ export const userEventPayloadNextPermissionsEnum = {
 	"read-write:billing": "read-write:billing",
 	"read-write:blob": "read-write:blob",
 	"read-write:connect": "read-write:connect",
+	"read-write:connect-any-user-token": "read-write:connect-any-user-token",
+	"read-write:connect-app-token": "read-write:connect-app-token",
 	"read-write:deployment": "read-write:deployment",
 	"read-write:desktop-device": "read-write:desktop-device",
 	"read-write:domain": "read-write:domain",
@@ -5679,6 +5698,8 @@ export const userEventPayloadNextPermissionsEnum = {
 	"use:ai-gateway": "use:ai-gateway",
 	"use:github": "use:github",
 	"use:private-npm": "use:private-npm",
+	"use:project-flags-overrides-non-production": "use:project-flags-overrides-non-production",
+	"use:project-flags-overrides-production": "use:project-flags-overrides-production",
 } as const;
 
 export type UserEventPayloadNextPermissionsEnumKey =
@@ -5710,6 +5731,8 @@ export const userEventPayloadAfterPermissionsEnum = {
 	"read-write:billing": "read-write:billing",
 	"read-write:blob": "read-write:blob",
 	"read-write:connect": "read-write:connect",
+	"read-write:connect-any-user-token": "read-write:connect-any-user-token",
+	"read-write:connect-app-token": "read-write:connect-app-token",
 	"read-write:deployment": "read-write:deployment",
 	"read-write:domain": "read-write:domain",
 	"read-write:domain-registrar": "read-write:domain-registrar",
@@ -5775,6 +5798,8 @@ export const userEventPayloadAfterPermissionsEnum = {
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
 	"use:private-npm": "use:private-npm",
+	"use:project-flags-overrides-non-production": "use:project-flags-overrides-non-production",
+	"use:project-flags-overrides-production": "use:project-flags-overrides-production",
 } as const;
 
 export type UserEventPayloadAfterPermissionsEnumKey =
@@ -5796,6 +5821,8 @@ export const userEventPayloadBeforePermissionsEnum = {
 	"read-write:billing": "read-write:billing",
 	"read-write:blob": "read-write:blob",
 	"read-write:connect": "read-write:connect",
+	"read-write:connect-any-user-token": "read-write:connect-any-user-token",
+	"read-write:connect-app-token": "read-write:connect-app-token",
 	"read-write:deployment": "read-write:deployment",
 	"read-write:domain": "read-write:domain",
 	"read-write:domain-registrar": "read-write:domain-registrar",
@@ -5861,6 +5888,8 @@ export const userEventPayloadBeforePermissionsEnum = {
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
 	"use:private-npm": "use:private-npm",
+	"use:project-flags-overrides-non-production": "use:project-flags-overrides-non-production",
+	"use:project-flags-overrides-production": "use:project-flags-overrides-production",
 } as const;
 
 export type UserEventPayloadBeforePermissionsEnumKey =
@@ -5882,6 +5911,8 @@ export const userEventPayloadPermissionsEnum2 = {
 	"read-write:billing": "read-write:billing",
 	"read-write:blob": "read-write:blob",
 	"read-write:connect": "read-write:connect",
+	"read-write:connect-any-user-token": "read-write:connect-any-user-token",
+	"read-write:connect-app-token": "read-write:connect-app-token",
 	"read-write:deployment": "read-write:deployment",
 	"read-write:domain": "read-write:domain",
 	"read-write:domain-registrar": "read-write:domain-registrar",
@@ -5947,6 +5978,8 @@ export const userEventPayloadPermissionsEnum2 = {
 	"read:webhooks": "read:webhooks",
 	"use:ai-gateway": "use:ai-gateway",
 	"use:private-npm": "use:private-npm",
+	"use:project-flags-overrides-non-production": "use:project-flags-overrides-non-production",
+	"use:project-flags-overrides-production": "use:project-flags-overrides-production",
 } as const;
 
 export type UserEventPayloadPermissionsEnum2Key =
@@ -7994,6 +8027,15 @@ export const userEventPayloadActorTypeEnum15 = {
 export type UserEventPayloadActorTypeEnum15Key =
 	(typeof userEventPayloadActorTypeEnum15)[keyof typeof userEventPayloadActorTypeEnum15];
 
+export const userEventPayloadScopeEnum13 = {
+	default: "default",
+	organization: "organization",
+	team: "team",
+} as const;
+
+export type UserEventPayloadScopeEnum13Key =
+	(typeof userEventPayloadScopeEnum13)[keyof typeof userEventPayloadScopeEnum13];
+
 export const userEventPayloadMethodEnum = {
 	"email-otp": "email-otp",
 	"recovery-code": "recovery-code",
@@ -8087,13 +8129,13 @@ export const userEventPayloadTierEnum = {
 export type UserEventPayloadTierEnumKey =
 	(typeof userEventPayloadTierEnum)[keyof typeof userEventPayloadTierEnum];
 
-export const userEventPayloadScopeEnum13 = {
+export const userEventPayloadScopeEnum14 = {
 	organization: "organization",
 	team: "team",
 } as const;
 
-export type UserEventPayloadScopeEnum13Key =
-	(typeof userEventPayloadScopeEnum13)[keyof typeof userEventPayloadScopeEnum13];
+export type UserEventPayloadScopeEnum14Key =
+	(typeof userEventPayloadScopeEnum14)[keyof typeof userEventPayloadScopeEnum14];
 
 export const userEventPayloadAppClientAuthenticationUsedMethodEnum = {
 	client_secret_basic: "client_secret_basic",
@@ -8171,14 +8213,14 @@ export const userEventPayloadProjectScopeEnum = {
 export type UserEventPayloadProjectScopeEnumKey =
 	(typeof userEventPayloadProjectScopeEnum)[keyof typeof userEventPayloadProjectScopeEnum];
 
-export const userEventPayloadScopeEnum14 = {
+export const userEventPayloadScopeEnum15 = {
 	project: "project",
 	team: "team",
 	user: "user",
 } as const;
 
-export type UserEventPayloadScopeEnum14Key =
-	(typeof userEventPayloadScopeEnum14)[keyof typeof userEventPayloadScopeEnum14];
+export type UserEventPayloadScopeEnum15Key =
+	(typeof userEventPayloadScopeEnum15)[keyof typeof userEventPayloadScopeEnum15];
 
 export const userEventPayloadLogoutSourceEnum = {
 	v0: "v0",
@@ -8211,14 +8253,14 @@ export const userEventPayloadOriginEnum2 = {
 export type UserEventPayloadOriginEnum2Key =
 	(typeof userEventPayloadOriginEnum2)[keyof typeof userEventPayloadOriginEnum2];
 
-export const userEventPayloadScopeEnum15 = {
+export const userEventPayloadScopeEnum16 = {
 	project: "project",
 	team: "team",
 	user: "user",
 } as const;
 
-export type UserEventPayloadScopeEnum15Key =
-	(typeof userEventPayloadScopeEnum15)[keyof typeof userEventPayloadScopeEnum15];
+export type UserEventPayloadScopeEnum16Key =
+	(typeof userEventPayloadScopeEnum16)[keyof typeof userEventPayloadScopeEnum16];
 
 export const userEventTypeEnum = {
 	"access-group-created": "access-group-created",
@@ -8618,6 +8660,9 @@ export const userEventTypeEnum = {
 	"organization-avatar-update": "organization-avatar-update",
 	"organization-create": "organization-create",
 	"organization-delete": "organization-delete",
+	"organization-domain-verification-created": "organization-domain-verification-created",
+	"organization-domain-verification-deleted": "organization-domain-verification-deleted",
+	"organization-domain-verification-verified": "organization-domain-verification-verified",
 	"organization-dsync-delete": "organization-dsync-delete",
 	"organization-dsync-group-delete": "organization-dsync-group-delete",
 	"organization-dsync-group-upsert": "organization-dsync-group-upsert",
@@ -8959,6 +9004,7 @@ export const userEventTypeEnum = {
 	"user-emu-recovery-email-sent": "user-emu-recovery-email-sent",
 	"user-emu-recovery-initiated": "user-emu-recovery-initiated",
 	"user-emu-toggled": "user-emu-toggled",
+	"user-landing-page-updated": "user-landing-page-updated",
 	"user-mfa-challenge-failed": "user-mfa-challenge-failed",
 	"user-mfa-challenge-initiated": "user-mfa-challenge-initiated",
 	"user-mfa-challenge-verified": "user-mfa-challenge-verified",
@@ -12747,6 +12793,10 @@ export type UserEvent = {
 						slug: string;
 				  }
 				| {
+						domain: string;
+						organizationId: string;
+				  }
+				| {
 						directoryId: string;
 						organizationId: string;
 				  }
@@ -15695,6 +15745,10 @@ export type UserEvent = {
 						reason?: string | undefined;
 				  }
 				| {
+						scope: UserEventPayloadScopeEnum13Key;
+						scopeId?: string | undefined;
+				  }
+				| {
 						flowId?: string | undefined;
 						loginSessionId?: string | undefined;
 						method: UserEventPayloadMethodEnumKey;
@@ -15956,7 +16010,7 @@ export type UserEvent = {
 							enabled: false | true;
 							issuerUrls: string[];
 						};
-						scope: UserEventPayloadScopeEnum13Key;
+						scope: UserEventPayloadScopeEnum14Key;
 				  }
 				| {
 						/**
@@ -16311,7 +16365,7 @@ export type UserEvent = {
 						 * @description Scope of the token: - `'user'`: full-account token (not tied to any team). - `'team'`: scoped to a single team. - `'project'`: scoped to a single project within a team.
 						 * @type string
 						 */
-						scope: UserEventPayloadScopeEnum14Key;
+						scope: UserEventPayloadScopeEnum15Key;
 						source?: "v0" | undefined;
 						/**
 						 * @description Present when `scope` is `'team'` or `'project'`.
@@ -16385,7 +16439,7 @@ export type UserEvent = {
 						reqId?: string | undefined;
 						reqUrl?: string | undefined;
 						revoked?: (false | true) | undefined;
-						scope?: UserEventPayloadScopeEnum15Key | undefined;
+						scope?: UserEventPayloadScopeEnum16Key | undefined;
 						source?: "v0" | undefined;
 						teamId?: string | undefined;
 						tokenId: string;
@@ -17013,6 +17067,9 @@ export const listEventTypeNameEnum = {
 	"organization-avatar-update": "organization-avatar-update",
 	"organization-create": "organization-create",
 	"organization-delete": "organization-delete",
+	"organization-domain-verification-created": "organization-domain-verification-created",
+	"organization-domain-verification-deleted": "organization-domain-verification-deleted",
+	"organization-domain-verification-verified": "organization-domain-verification-verified",
 	"organization-dsync-delete": "organization-dsync-delete",
 	"organization-dsync-group-delete": "organization-dsync-group-delete",
 	"organization-dsync-group-upsert": "organization-dsync-group-upsert",
@@ -17354,6 +17411,7 @@ export const listEventTypeNameEnum = {
 	"user-emu-recovery-email-sent": "user-emu-recovery-email-sent",
 	"user-emu-recovery-initiated": "user-emu-recovery-initiated",
 	"user-emu-toggled": "user-emu-toggled",
+	"user-landing-page-updated": "user-landing-page-updated",
 	"user-mfa-challenge-failed": "user-mfa-challenge-failed",
 	"user-mfa-challenge-initiated": "user-mfa-challenge-initiated",
 	"user-mfa-challenge-verified": "user-mfa-challenge-verified",
@@ -17819,6 +17877,9 @@ export const listEventTypeReplacedByEnum = {
 	"organization-avatar-update": "organization-avatar-update",
 	"organization-create": "organization-create",
 	"organization-delete": "organization-delete",
+	"organization-domain-verification-created": "organization-domain-verification-created",
+	"organization-domain-verification-deleted": "organization-domain-verification-deleted",
+	"organization-domain-verification-verified": "organization-domain-verification-verified",
 	"organization-dsync-delete": "organization-dsync-delete",
 	"organization-dsync-group-delete": "organization-dsync-group-delete",
 	"organization-dsync-group-upsert": "organization-dsync-group-upsert",
@@ -18160,6 +18221,7 @@ export const listEventTypeReplacedByEnum = {
 	"user-emu-recovery-email-sent": "user-emu-recovery-email-sent",
 	"user-emu-recovery-initiated": "user-emu-recovery-initiated",
 	"user-emu-toggled": "user-emu-toggled",
+	"user-landing-page-updated": "user-landing-page-updated",
 	"user-mfa-challenge-failed": "user-mfa-challenge-failed",
 	"user-mfa-challenge-initiated": "user-mfa-challenge-initiated",
 	"user-mfa-challenge-verified": "user-mfa-challenge-verified",
@@ -19026,7 +19088,7 @@ export type OrganizationTeamListItem = {
 	 */
 	dsyncMode: OrganizationTeamListItemDsyncModeEnumKey;
 	/**
-	 * @description Present only when the request sets `includeMemberCount=true`. Number of members on the Team, including pending memberships. Excludes email invitations that do not have a membership record.
+	 * @description Present only when the request sets `includeMemberCount=true`. Number of members on the Team, including pending memberships and organization Directory Sync grants. Excludes suppressed memberships and email invitations that do not have a membership record.
 	 * @type number | undefined
 	 */
 	memberCount?: number | undefined;
@@ -34231,6 +34293,21 @@ export type GetConnectorTokenPath = {
 	connector: string;
 };
 
+export type GetConnectorTokenQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
 export type GetConnectorTokenStatus200 = {
 	/**
 	 * @description Stable id correlating all tokens (including refreshes) back to the original authorization.
@@ -34355,7 +34432,7 @@ export type GetConnectorTokenBody =
 export type GetConnectorTokenOptions = {
 	body: GetConnectorTokenBody;
 	path: GetConnectorTokenPath;
-	query?: never | undefined;
+	query?: GetConnectorTokenQuery | undefined;
 	headers?: never | undefined;
 };
 
@@ -34379,6 +34456,21 @@ export type GetConnectorTokenResponse = GetConnectorTokenStatus200;
 
 export type CreateConnectorAuthorizationRequestPath = {
 	connector: string;
+};
+
+export type CreateConnectorAuthorizationRequestQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
 };
 
 export type CreateConnectorAuthorizationRequestStatus200 = {
@@ -34514,7 +34606,7 @@ export type CreateConnectorAuthorizationRequestBody =
 export type CreateConnectorAuthorizationRequestOptions = {
 	body: CreateConnectorAuthorizationRequestBody;
 	path: CreateConnectorAuthorizationRequestPath;
-	query?: never | undefined;
+	query?: CreateConnectorAuthorizationRequestQuery | undefined;
 	headers?: never | undefined;
 };
 
@@ -76836,6 +76928,16 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 					 * @type array | undefined
 					 */
+					projectFlagsOverride?: ACLActionKey[] | undefined;
+					/**
+					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+					 * @type array | undefined
+					 */
+					projectFlagsOverrideProduction?: ACLActionKey[] | undefined;
+					/**
+					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+					 * @type array | undefined
+					 */
 					projectFlagsProduction?: ACLActionKey[] | undefined;
 					/**
 					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -79104,7 +79206,7 @@ export type ListOrganizationTeamsQuery = {
 	 */
 	cursor?: string | undefined;
 	/**
-	 * @description When true, includes each team's member count in the response.
+	 * @description When true, includes each team's member count, including organization Directory Sync members. Counting Directory Sync members can add latency.
 	 * @type boolean | undefined
 	 */
 	includeMemberCount?: boolean | undefined;
@@ -90371,6 +90473,16 @@ export type GetProjectsStatus200 =
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 									 * @type array | undefined
 									 */
+									projectFlagsOverride?: ACLActionKey[] | undefined;
+									/**
+									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+									 * @type array | undefined
+									 */
+									projectFlagsOverrideProduction?: ACLActionKey[] | undefined;
+									/**
+									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+									 * @type array | undefined
+									 */
 									projectFlagsProduction?: ACLActionKey[] | undefined;
 									/**
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -95021,6 +95133,16 @@ export type CreateProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				projectFlags?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				projectFlagsOverride?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				projectFlagsOverrideProduction?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -100270,6 +100392,16 @@ export type GetProjectStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				projectFlagsOverride?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				projectFlagsOverrideProduction?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				projectFlagsProduction?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -104793,6 +104925,16 @@ export type UpdateProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				projectFlags?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				projectFlagsOverride?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				projectFlagsOverrideProduction?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -110398,6 +110540,16 @@ export type UploadProjectAvatarStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				projectFlagsOverride?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				projectFlagsOverrideProduction?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				projectFlagsProduction?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -114959,6 +115111,16 @@ export type DeleteProjectAvatarStatus200 = {
 				 * @type array | undefined
 				 */
 				projectFlags?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				projectFlagsOverride?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				projectFlagsOverrideProduction?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -126923,6 +127085,16 @@ export type UpdateMicrofrontendsStatus200 = {
 				 * @type array | undefined
 				 */
 				projectFlags?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				projectFlagsOverride?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				projectFlagsOverrideProduction?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined

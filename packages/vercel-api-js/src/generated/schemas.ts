@@ -399,6 +399,12 @@ export const networkSchema = z.object({
 		})
 		.optional()
 		.describe("Metadata about any AWS Route53 Hosted Zones associated with the Network."),
+	privateLinks: z
+		.object({
+			count: z.number(),
+		})
+		.optional()
+		.describe("The number of PrivateLink endpoints on the Network, when listing networks."),
 	projects: z
 		.object({
 			count: z.number(),
@@ -592,13 +598,15 @@ export const connectConnectorSchema = z
 		createdBy: z
 			.discriminatedUnion("type", [
 				z.strictObject({
+					id: z.string(),
+					type: z.enum(["app"]),
+				}),
+				z.strictObject({
 					id: z.string().describe("Vercel user ID."),
 					type: z.enum(["user"]).describe("Principal kind."),
 				}),
 				z.strictObject({
-					environment: z
-						.union([z.string(), z.enum(["development", "preview", "production"])])
-						.describe("Deployment environment of the project principal."),
+					environment: z.union([z.string(), z.enum(["development", "preview", "production"])]),
 					id: z.string().describe("Vercel project ID."),
 					type: z.enum(["project"]).describe("Principal kind."),
 				}),
@@ -748,13 +756,15 @@ export const connectConnectorSchema = z
 		updatedBy: z
 			.discriminatedUnion("type", [
 				z.strictObject({
+					id: z.string(),
+					type: z.enum(["app"]),
+				}),
+				z.strictObject({
 					id: z.string().describe("Vercel user ID."),
 					type: z.enum(["user"]).describe("Principal kind."),
 				}),
 				z.strictObject({
-					environment: z
-						.union([z.string(), z.enum(["development", "preview", "production"])])
-						.describe("Deployment environment of the project principal."),
+					environment: z.union([z.string(), z.enum(["development", "preview", "production"])]),
 					id: z.string().describe("Vercel project ID."),
 					type: z.enum(["project"]).describe("Principal kind."),
 				}),
@@ -871,13 +881,15 @@ export const connectConnectorCreateResultSchema = z
 		createdBy: z
 			.discriminatedUnion("type", [
 				z.strictObject({
+					id: z.string(),
+					type: z.enum(["app"]),
+				}),
+				z.strictObject({
 					id: z.string().describe("Vercel user ID."),
 					type: z.enum(["user"]).describe("Principal kind."),
 				}),
 				z.strictObject({
-					environment: z
-						.union([z.string(), z.enum(["development", "preview", "production"])])
-						.describe("Deployment environment of the project principal."),
+					environment: z.union([z.string(), z.enum(["development", "preview", "production"])]),
 					id: z.string().describe("Vercel project ID."),
 					type: z.enum(["project"]).describe("Principal kind."),
 				}),
@@ -1027,13 +1039,15 @@ export const connectConnectorCreateResultSchema = z
 		updatedBy: z
 			.discriminatedUnion("type", [
 				z.strictObject({
+					id: z.string(),
+					type: z.enum(["app"]),
+				}),
+				z.strictObject({
 					id: z.string().describe("Vercel user ID."),
 					type: z.enum(["user"]).describe("Principal kind."),
 				}),
 				z.strictObject({
-					environment: z
-						.union([z.string(), z.enum(["development", "preview", "production"])])
-						.describe("Deployment environment of the project principal."),
+					environment: z.union([z.string(), z.enum(["development", "preview", "production"])]),
 					id: z.string().describe("Vercel project ID."),
 					type: z.enum(["project"]).describe("Principal kind."),
 				}),
@@ -4123,6 +4137,8 @@ export const userEventSchema = z
 								"read-write:billing",
 								"read-write:blob",
 								"read-write:connect",
+								"read-write:connect-any-user-token",
+								"read-write:connect-app-token",
 								"read-write:deployment",
 								"read-write:desktop-device",
 								"read-write:domain",
@@ -4191,6 +4207,8 @@ export const userEventSchema = z
 								"use:ai-gateway",
 								"use:github",
 								"use:private-npm",
+								"use:project-flags-overrides-non-production",
+								"use:project-flags-overrides-production",
 							]),
 						)
 						.optional(),
@@ -4222,6 +4240,8 @@ export const userEventSchema = z
 								"read-write:billing",
 								"read-write:blob",
 								"read-write:connect",
+								"read-write:connect-any-user-token",
+								"read-write:connect-app-token",
 								"read-write:deployment",
 								"read-write:desktop-device",
 								"read-write:domain",
@@ -4290,6 +4310,8 @@ export const userEventSchema = z
 								"use:ai-gateway",
 								"use:github",
 								"use:private-npm",
+								"use:project-flags-overrides-non-production",
+								"use:project-flags-overrides-production",
 							]),
 						)
 						.optional(),
@@ -4316,6 +4338,8 @@ export const userEventSchema = z
 										"read-write:billing",
 										"read-write:blob",
 										"read-write:connect",
+										"read-write:connect-any-user-token",
+										"read-write:connect-app-token",
 										"read-write:deployment",
 										"read-write:domain",
 										"read-write:domain-registrar",
@@ -4381,6 +4405,8 @@ export const userEventSchema = z
 										"read:webhooks",
 										"use:ai-gateway",
 										"use:private-npm",
+										"use:project-flags-overrides-non-production",
+										"use:project-flags-overrides-production",
 									]),
 								)
 								.optional(),
@@ -4421,6 +4447,8 @@ export const userEventSchema = z
 										"read-write:billing",
 										"read-write:blob",
 										"read-write:connect",
+										"read-write:connect-any-user-token",
+										"read-write:connect-app-token",
 										"read-write:deployment",
 										"read-write:domain",
 										"read-write:domain-registrar",
@@ -4486,6 +4514,8 @@ export const userEventSchema = z
 										"read:webhooks",
 										"use:ai-gateway",
 										"use:private-npm",
+										"use:project-flags-overrides-non-production",
+										"use:project-flags-overrides-production",
 									]),
 								)
 								.optional(),
@@ -4529,6 +4559,8 @@ export const userEventSchema = z
 								"read-write:billing",
 								"read-write:blob",
 								"read-write:connect",
+								"read-write:connect-any-user-token",
+								"read-write:connect-app-token",
 								"read-write:deployment",
 								"read-write:domain",
 								"read-write:domain-registrar",
@@ -4594,6 +4626,8 @@ export const userEventSchema = z
 								"read:webhooks",
 								"use:ai-gateway",
 								"use:private-npm",
+								"use:project-flags-overrides-non-production",
+								"use:project-flags-overrides-production",
 							]),
 						)
 						.optional(),
@@ -7564,6 +7598,10 @@ export const userEventSchema = z
 					organizationId: z.string(),
 					rootTeamId: z.string(),
 					slug: z.string(),
+				}),
+				z.strictObject({
+					domain: z.string(),
+					organizationId: z.string(),
 				}),
 				z.strictObject({
 					directoryId: z.string(),
@@ -10672,6 +10710,10 @@ export const userEventSchema = z
 					reason: z.string().optional(),
 				}),
 				z.strictObject({
+					scope: z.enum(["default", "organization", "team"]),
+					scopeId: z.string().optional(),
+				}),
+				z.strictObject({
 					flowId: z.string().optional(),
 					loginSessionId: z.string().optional(),
 					method: z.enum(["email-otp", "recovery-code", "totp", "webauthn"]),
@@ -11846,6 +11888,9 @@ export const userEventSchema = z
 				"organization-avatar-update",
 				"organization-create",
 				"organization-delete",
+				"organization-domain-verification-created",
+				"organization-domain-verification-deleted",
+				"organization-domain-verification-verified",
 				"organization-dsync-delete",
 				"organization-dsync-group-delete",
 				"organization-dsync-group-upsert",
@@ -12176,6 +12221,7 @@ export const userEventSchema = z
 				"user-emu-recovery-email-sent",
 				"user-emu-recovery-initiated",
 				"user-emu-toggled",
+				"user-landing-page-updated",
 				"user-mfa-challenge-failed",
 				"user-mfa-challenge-initiated",
 				"user-mfa-challenge-verified",
@@ -12740,6 +12786,9 @@ export const listEventTypeSchema = z
 				"organization-avatar-update",
 				"organization-create",
 				"organization-delete",
+				"organization-domain-verification-created",
+				"organization-domain-verification-deleted",
+				"organization-domain-verification-verified",
 				"organization-dsync-delete",
 				"organization-dsync-group-delete",
 				"organization-dsync-group-upsert",
@@ -13070,6 +13119,7 @@ export const listEventTypeSchema = z
 				"user-emu-recovery-email-sent",
 				"user-emu-recovery-initiated",
 				"user-emu-toggled",
+				"user-landing-page-updated",
 				"user-mfa-challenge-failed",
 				"user-mfa-challenge-initiated",
 				"user-mfa-challenge-verified",
@@ -13529,6 +13579,9 @@ export const listEventTypeSchema = z
 					"organization-avatar-update",
 					"organization-create",
 					"organization-delete",
+					"organization-domain-verification-created",
+					"organization-domain-verification-deleted",
+					"organization-domain-verification-verified",
 					"organization-dsync-delete",
 					"organization-dsync-group-delete",
 					"organization-dsync-group-upsert",
@@ -13859,6 +13912,7 @@ export const listEventTypeSchema = z
 					"user-emu-recovery-email-sent",
 					"user-emu-recovery-initiated",
 					"user-emu-toggled",
+					"user-landing-page-updated",
 					"user-mfa-challenge-failed",
 					"user-mfa-challenge-initiated",
 					"user-mfa-challenge-verified",
@@ -14535,7 +14589,7 @@ export const organizationTeamListItemSchema = z
 			.number()
 			.optional()
 			.describe(
-				"Present only when the request sets `includeMemberCount=true`. Number of members on the Team, including pending memberships. Excludes email invitations that do not have a membership record.",
+				"Present only when the request sets `includeMemberCount=true`. Number of members on the Team, including pending memberships and organization Directory Sync grants. Excludes suppressed memberships and email invitations that do not have a membership record.",
 			),
 		name: z
 			.string()
@@ -27111,6 +27165,18 @@ export const listProjectConnectorConnectionsQuerySchema = z.object({
 
 export const getConnectorTokenPathConnectorSchema = z.string();
 
+export const getConnectorTokenQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const getConnectorTokenQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
 export const getConnectorTokenStatus200Schema = z.object({
 	authorizationId: z
 		.string()
@@ -27226,7 +27292,32 @@ export const getConnectorTokenPathSchema = z.object({
 	connector: z.string(),
 });
 
+export const getConnectorTokenQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const createConnectorAuthorizationRequestPathConnectorSchema = z.string();
+
+export const createConnectorAuthorizationRequestQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const createConnectorAuthorizationRequestQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
 
 export const createConnectorAuthorizationRequestStatus200Schema = z.object({
 	connector: z.object({
@@ -27344,6 +27435,19 @@ export const createConnectorAuthorizationRequestBodySchema = z
 
 export const createConnectorAuthorizationRequestPathSchema = z.object({
 	connector: z.string(),
+});
+
+export const createConnectorAuthorizationRequestQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
 });
 
 export const getProjectBoxesPathIdOrNameSchema = z
@@ -61714,6 +61818,18 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						.describe(
 							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 						),
+					projectFlagsOverride: z
+						.array(ACLActionSchema)
+						.optional()
+						.describe(
+							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+						),
+					projectFlagsOverrideProduction: z
+						.array(ACLActionSchema)
+						.optional()
+						.describe(
+							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+						),
 					projectFlagsProduction: z
 						.array(ACLActionSchema)
 						.optional()
@@ -64133,7 +64249,9 @@ export const listOrganizationTeamsQueryCursorSchema = z
 export const listOrganizationTeamsQueryIncludeMemberCountSchema = z
 	.boolean()
 	.optional()
-	.describe("When true, includes each team's member count in the response.");
+	.describe(
+		"When true, includes each team's member count, including organization Directory Sync members. Counting Directory Sync members can add latency.",
+	);
 
 export const listOrganizationTeamsStatus200Schema = z.object({
 	cursor: z.string().optional(),
@@ -64169,7 +64287,9 @@ export const listOrganizationTeamsQuerySchema = z.object({
 	includeMemberCount: z
 		.boolean()
 		.optional()
-		.describe("When true, includes each team's member count in the response."),
+		.describe(
+			"When true, includes each team's member count, including organization Directory Sync members. Counting Directory Sync members can add latency.",
+		),
 });
 
 export const addOrganizationTeamPathOrganizationIdSchema = z
@@ -72898,6 +73018,18 @@ export const getProjectsStatus200Schema = z
 								.describe(
 									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 								),
+							projectFlagsOverride: z
+								.array(ACLActionSchema)
+								.optional()
+								.describe(
+									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+								),
+							projectFlagsOverrideProduction: z
+								.array(ACLActionSchema)
+								.optional()
+								.describe(
+									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+								),
 							projectFlagsProduction: z
 								.array(ACLActionSchema)
 								.optional()
@@ -77230,6 +77362,18 @@ export const createProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			projectFlags: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			projectFlagsOverride: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			projectFlagsOverrideProduction: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -81906,6 +82050,18 @@ export const getProjectStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			projectFlagsOverride: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			projectFlagsOverrideProduction: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			projectFlagsProduction: z
 				.array(ACLActionSchema)
 				.optional()
@@ -86042,6 +86198,18 @@ export const updateProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			projectFlags: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			projectFlagsOverride: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			projectFlagsOverrideProduction: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -91101,6 +91269,18 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			projectFlagsOverride: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			projectFlagsOverrideProduction: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			projectFlagsProduction: z
 				.array(ACLActionSchema)
 				.optional()
@@ -95238,6 +95418,18 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			projectFlags: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			projectFlagsOverride: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			projectFlagsOverrideProduction: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -105641,6 +105833,18 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			projectFlags: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			projectFlagsOverride: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			projectFlagsOverrideProduction: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(

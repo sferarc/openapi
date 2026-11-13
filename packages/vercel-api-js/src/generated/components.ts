@@ -362,6 +362,7 @@ import type {
 	CreateConfigurableLogDrainStatus410,
 	CreateConnectorAuthorizationRequestBody,
 	CreateConnectorAuthorizationRequestPath,
+	CreateConnectorAuthorizationRequestQuery,
 	CreateConnectorAuthorizationRequestResponse,
 	CreateConnectorAuthorizationRequestStatus400,
 	CreateConnectorAuthorizationRequestStatus401,
@@ -1768,6 +1769,7 @@ import type {
 	GetConnectorStatus504,
 	GetConnectorTokenBody,
 	GetConnectorTokenPath,
+	GetConnectorTokenQuery,
 	GetConnectorTokenResponse,
 	GetConnectorTokenStatus400,
 	GetConnectorTokenStatus401,
@@ -8693,10 +8695,12 @@ export async function getConnectorToken(
 	{
 		pathParams,
 		body,
+		queryParams,
 		config,
 	}: {
 		pathParams: GetConnectorTokenPath;
 		body?: GetConnectorTokenBody;
+		queryParams?: Partial<GetConnectorTokenQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8720,11 +8724,12 @@ export async function getConnectorToken(
 		>,
 		GetConnectorTokenBody,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<GetConnectorTokenQuery>,
 		GetConnectorTokenPath
 	>({
 		method: "POST",
 		url: `/v1/connect/token/${encodeURIComponent(String(pathParams.connector))}`,
+		queryParams,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -8742,10 +8747,12 @@ export async function createConnectorAuthorizationRequest(
 	{
 		pathParams,
 		body,
+		queryParams,
 		config,
 	}: {
 		pathParams: CreateConnectorAuthorizationRequestPath;
 		body?: CreateConnectorAuthorizationRequestBody;
+		queryParams?: Partial<CreateConnectorAuthorizationRequestQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -8768,11 +8775,12 @@ export async function createConnectorAuthorizationRequest(
 		>,
 		CreateConnectorAuthorizationRequestBody,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<CreateConnectorAuthorizationRequestQuery>,
 		CreateConnectorAuthorizationRequestPath
 	>({
 		method: "POST",
 		url: `/v1/connect/authorize/${encodeURIComponent(String(pathParams.connector))}`,
+		queryParams,
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -17238,7 +17246,7 @@ export async function updateOrganization(
 
 /**
  * @summary List Organization Teams
- * @description List up to 100 teams in an organization, each enriched with the team's slug, name, and avatar. Set `includeMemberCount` to include counts that include pending memberships but exclude email invitations without a membership record. Teams whose underlying record no longer exists are omitted, so a page may contain fewer teams than the page size (or be empty) while still returning a `cursor`; paginate until `cursor` is absent. This endpoint is in private beta. Contact your Vercel account team for access.
+ * @description List up to 100 teams in an organization, each enriched with the team's slug, name, and avatar. Set `includeMemberCount` to include counts that include pending memberships and organization Directory Sync grants, while excluding suppressed memberships and email invitations without a membership record. Teams whose underlying record no longer exists are omitted, so a page may contain fewer teams than the page size (or be empty) while still returning a `cursor`; paginate until `cursor` is absent. This endpoint is in private beta. Contact your Vercel account team for access.
  * @link /v1/organizations/{organizationId}/teams
  */
 export async function listOrganizationTeams(
