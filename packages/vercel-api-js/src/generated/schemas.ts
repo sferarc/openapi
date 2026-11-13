@@ -1248,7 +1248,12 @@ export const connectConnectorCreateDataSchema = z
 				),
 			clientId: z.string().describe("OAuth client ID assigned by the provider."),
 			clientName: z.string().optional().describe("OAuth client name."),
-			clientSecret: z.string().optional().describe("OAuth client secret."),
+			clientSecret: z
+				.string()
+				.optional()
+				.describe(
+					"OAuth client secret. An update that changes the authorization server removes the stored secret unless the same update sends a new one.",
+				),
 			tokenEndpointAuthMethod: z
 				.string()
 				.optional()
@@ -2112,7 +2117,12 @@ export const connectConnectorUpdateDataSchema = z
 				),
 			clientId: z.string().optional().describe("OAuth client ID."),
 			clientName: z.string().optional().describe("OAuth client name."),
-			clientSecret: z.string().optional().describe("OAuth client secret."),
+			clientSecret: z
+				.string()
+				.optional()
+				.describe(
+					"OAuth client secret. An update that changes the authorization server removes the stored secret unless the same update sends a new one.",
+				),
 			tokenEndpointAuthMethod: z
 				.string()
 				.optional()
@@ -27522,6 +27532,12 @@ export const putProjectDaemonInstancesQueryTargetSchema = z
 	.default("production")
 	.describe("The deployment target for the daemon configuration.");
 
+export const putProjectDaemonInstancesQueryCustomEnvironmentIdSchema = z
+	.string()
+	.regex(/^env_/)
+	.optional()
+	.describe("The ID of the custom environment of the daemon, instead of `target`.");
+
 export const putProjectDaemonInstancesQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -27579,6 +27595,11 @@ export const putProjectDaemonInstancesQuerySchema = z.object({
 		.optional()
 		.default("production")
 		.describe("The deployment target for the daemon configuration."),
+	customEnvironmentId: z
+		.string()
+		.regex(/^env_/)
+		.optional()
+		.describe("The ID of the custom environment of the daemon, instead of `target`."),
 	teamId: z
 		.string()
 		.optional()
@@ -27604,6 +27625,14 @@ export const restartProjectDaemonInstancePathInstanceIdSchema = z
 	.string()
 	.regex(/^dmni_[0-9a-hjkmnp-tv-z]{26}$/)
 	.describe("The ID of the daemon instance to restart");
+
+export const restartProjectDaemonInstanceQueryCustomEnvironmentIdSchema = z
+	.string()
+	.regex(/^env_/)
+	.optional()
+	.describe(
+		"The ID of the custom environment of the instance. Production instances are restarted when omitted.",
+	);
 
 export const restartProjectDaemonInstanceQueryTeamIdSchema = z
 	.string()
@@ -27661,6 +27690,13 @@ export const restartProjectDaemonInstancePathSchema = z.object({
 });
 
 export const restartProjectDaemonInstanceQuerySchema = z.object({
+	customEnvironmentId: z
+		.string()
+		.regex(/^env_/)
+		.optional()
+		.describe(
+			"The ID of the custom environment of the instance. Production instances are restarted when omitted.",
+		),
 	teamId: z
 		.string()
 		.optional()
@@ -59842,8 +59878,16 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 					toDeploymentId: z.string(),
 					type: z.enum(["promote", "rollback"]),
 				})
-				.nullish(),
-			lastRollbackTarget: z.object({}).nullish(),
+				.nullish()
+				.describe(
+					"The last promote or rollback request for the project and its job status. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response, even if a request exists.",
+				),
+			lastRollbackTarget: z
+				.object({})
+				.nullish()
+				.describe(
+					"Legacy mirror of `lastAliasRequest` without `type`, kept for CLI compatibility. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response.",
+				),
 			latestDeployments: z
 				.array(
 					z.object({
@@ -71016,8 +71060,16 @@ export const getProjectsStatus200Schema = z
 							toDeploymentId: z.string(),
 							type: z.enum(["promote", "rollback"]),
 						})
-						.nullish(),
-					lastRollbackTarget: z.object({}).nullish(),
+						.nullish()
+						.describe(
+							"The last promote or rollback request for the project and its job status. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response, even if a request exists.",
+						),
+					lastRollbackTarget: z
+						.object({})
+						.nullish()
+						.describe(
+							"Legacy mirror of `lastAliasRequest` without `type`, kept for CLI compatibility. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response.",
+						),
 					latestDeployments: z
 						.array(
 							z.object({
@@ -75351,8 +75403,16 @@ export const createProjectStatus200Schema = z.object({
 			toDeploymentId: z.string(),
 			type: z.enum(["promote", "rollback"]),
 		})
-		.nullish(),
-	lastRollbackTarget: z.object({}).nullish(),
+		.nullish()
+		.describe(
+			"The last promote or rollback request for the project and its job status. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response, even if a request exists.",
+		),
+	lastRollbackTarget: z
+		.object({})
+		.nullish()
+		.describe(
+			"Legacy mirror of `lastAliasRequest` without `type`, kept for CLI compatibility. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response.",
+		),
 	latestDeployments: z
 		.array(
 			z.object({
@@ -79055,6 +79115,13 @@ export const getProjectPathIdOrNameSchema = z
 	.describe("The unique project identifier or the project name")
 	.meta({ examples: ["prj_12HKQaOmR5t5Uy6vdcQsNIiZgHGB"] });
 
+export const getProjectQueryRollbackInfoSchema = z
+	.boolean()
+	.optional()
+	.describe(
+		"Include the status of the last promote or rollback request in `lastAliasRequest` (and its legacy mirror `lastRollbackTarget`). When omitted or `false`, both fields are always `null` regardless of project state.",
+	);
+
 export const getProjectQueryTeamIdSchema = z
 	.string()
 	.optional()
@@ -80007,8 +80074,16 @@ export const getProjectStatus200Schema = z.object({
 			toDeploymentId: z.string(),
 			type: z.enum(["promote", "rollback"]),
 		})
-		.nullish(),
-	lastRollbackTarget: z.object({}).nullish(),
+		.nullish()
+		.describe(
+			"The last promote or rollback request for the project and its job status. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response, even if a request exists.",
+		),
+	lastRollbackTarget: z
+		.object({})
+		.nullish()
+		.describe(
+			"Legacy mirror of `lastAliasRequest` without `type`, kept for CLI compatibility. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response.",
+		),
 	latestDeployments: z
 		.array(
 			z.object({
@@ -83186,6 +83261,12 @@ export const getProjectPathSchema = z.object({
 });
 
 export const getProjectQuerySchema = z.object({
+	rollbackInfo: z
+		.boolean()
+		.optional()
+		.describe(
+			"Include the status of the last promote or rollback request in `lastAliasRequest` (and its legacy mirror `lastRollbackTarget`). When omitted or `false`, both fields are always `null` regardless of project state.",
+		),
 	teamId: z
 		.string()
 		.optional()
@@ -84134,8 +84215,16 @@ export const updateProjectStatus200Schema = z.object({
 			toDeploymentId: z.string(),
 			type: z.enum(["promote", "rollback"]),
 		})
-		.nullish(),
-	lastRollbackTarget: z.object({}).nullish(),
+		.nullish()
+		.describe(
+			"The last promote or rollback request for the project and its job status. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response, even if a request exists.",
+		),
+	lastRollbackTarget: z
+		.object({})
+		.nullish()
+		.describe(
+			"Legacy mirror of `lastAliasRequest` without `type`, kept for CLI compatibility. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response.",
+		),
 	latestDeployments: z
 		.array(
 			z.object({
@@ -89180,8 +89269,16 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 			toDeploymentId: z.string(),
 			type: z.enum(["promote", "rollback"]),
 		})
-		.nullish(),
-	lastRollbackTarget: z.object({}).nullish(),
+		.nullish()
+		.describe(
+			"The last promote or rollback request for the project and its job status. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response, even if a request exists.",
+		),
+	lastRollbackTarget: z
+		.object({})
+		.nullish()
+		.describe(
+			"Legacy mirror of `lastAliasRequest` without `type`, kept for CLI compatibility. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response.",
+		),
 	latestDeployments: z
 		.array(
 			z.object({
@@ -93314,8 +93411,16 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 			toDeploymentId: z.string(),
 			type: z.enum(["promote", "rollback"]),
 		})
-		.nullish(),
-	lastRollbackTarget: z.object({}).nullish(),
+		.nullish()
+		.describe(
+			"The last promote or rollback request for the project and its job status. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response, even if a request exists.",
+		),
+	lastRollbackTarget: z
+		.object({})
+		.nullish()
+		.describe(
+			"Legacy mirror of `lastAliasRequest` without `type`, kept for CLI compatibility. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response.",
+		),
 	latestDeployments: z
 		.array(
 			z.object({
@@ -103709,8 +103814,16 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 			toDeploymentId: z.string(),
 			type: z.enum(["promote", "rollback"]),
 		})
-		.nullish(),
-	lastRollbackTarget: z.object({}).nullish(),
+		.nullish()
+		.describe(
+			"The last promote or rollback request for the project and its job status. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response, even if a request exists.",
+		),
+	lastRollbackTarget: z
+		.object({})
+		.nullish()
+		.describe(
+			"Legacy mirror of `lastAliasRequest` without `type`, kept for CLI compatibility. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response.",
+		),
 	latestDeployments: z
 		.array(
 			z.object({
@@ -122618,6 +122731,11 @@ export const getTeamMembersStatus200Schema = z.object({
 				.describe(
 					"Map with information about the members origin if they joined by requesting access.",
 				),
+			membershipSource: z
+				.enum(["direct", "organization-directory", "team-directory"])
+				.describe(
+					"The source controlling this member's team access and roles. Individual permissions may have a different source. This does not replace authorization checks.",
+				),
 			name: z
 				.string()
 				.optional()
@@ -127197,6 +127315,7 @@ export const listVercelCiInvocationsQueryStatusSchema = z
 	.array(
 		z.enum([
 			"new",
+			"awaiting_admission",
 			"awaiting_approval",
 			"skipped",
 			"bootstrapping",
@@ -127344,6 +127463,7 @@ export const listVercelCiInvocationsStatus200Schema = z.object({
 				),
 			status: z.union([
 				z.enum(["new"]),
+				z.enum(["awaiting_admission"]),
 				z.enum(["awaiting_approval"]),
 				z.enum(["skipped"]),
 				z.enum(["bootstrapping"]),
@@ -127434,6 +127554,7 @@ export const listVercelCiInvocationsQuerySchema = z.object({
 		.array(
 			z.enum([
 				"new",
+				"awaiting_admission",
 				"awaiting_approval",
 				"skipped",
 				"bootstrapping",
@@ -128048,6 +128169,7 @@ export const listVercelCiInvocationAttemptsStatus200Schema = z.object({
 				),
 			status: z.union([
 				z.enum(["new"]),
+				z.enum(["awaiting_admission"]),
 				z.enum(["awaiting_approval"]),
 				z.enum(["skipped"]),
 				z.enum(["bootstrapping"]),
@@ -128249,6 +128371,7 @@ export const getVercelCiInvocationTreeStatus200Schema = z.object({
 			),
 		status: z.union([
 			z.enum(["new"]),
+			z.enum(["awaiting_admission"]),
 			z.enum(["awaiting_approval"]),
 			z.enum(["skipped"]),
 			z.enum(["bootstrapping"]),
@@ -128564,6 +128687,7 @@ export const getVercelCiInvocationStatus200Schema = z.object({
 			),
 		status: z.union([
 			z.enum(["new"]),
+			z.enum(["awaiting_admission"]),
 			z.enum(["awaiting_approval"]),
 			z.enum(["skipped"]),
 			z.enum(["bootstrapping"]),

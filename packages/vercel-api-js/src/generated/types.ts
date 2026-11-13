@@ -1970,7 +1970,7 @@ export type ConnectConnectorCreateData =
 			 */
 			clientName?: string | undefined;
 			/**
-			 * @description OAuth client secret.
+			 * @description OAuth client secret. An update that changes the authorization server removes the stored secret unless the same update sends a new one.
 			 * @type string | undefined
 			 */
 			clientSecret?: string | undefined;
@@ -3336,7 +3336,7 @@ export type ConnectConnectorUpdateData =
 			 */
 			clientName?: string | undefined;
 			/**
-			 * @description OAuth client secret.
+			 * @description OAuth client secret. An update that changes the authorization server removes the stored secret unless the same update sends a new one.
 			 * @type string | undefined
 			 */
 			clientSecret?: string | undefined;
@@ -34775,6 +34775,12 @@ export type PutProjectDaemonInstancesQuery = {
 	 */
 	target?: PutProjectDaemonInstancesTargetKey | undefined;
 	/**
+	 * @description The ID of the custom environment of the daemon, instead of `target`.
+	 * @pattern ^env_
+	 * @type string | undefined
+	 */
+	customEnvironmentId?: string | undefined;
+	/**
 	 * @description The Team identifier to perform the request on behalf of.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
 	 * @type string | undefined
@@ -34854,6 +34860,12 @@ export type RestartProjectDaemonInstancePath = {
 };
 
 export type RestartProjectDaemonInstanceQuery = {
+	/**
+	 * @description The ID of the custom environment of the instance. Production instances are restarted when omitted.
+	 * @pattern ^env_
+	 * @type string | undefined
+	 */
+	customEnvironmentId?: string | undefined;
 	/**
 	 * @description The Team identifier to perform the request on behalf of.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
@@ -75162,6 +75174,10 @@ export type GetMicrofrontendsInGroupStatus200 = {
 						| undefined;
 			  }
 			| undefined;
+		/**
+		 * @description The last promote or rollback request for the project and its job status. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response, even if a request exists.
+		 * @type object | undefined
+		 */
 		lastAliasRequest?:
 			| ({
 					fromDeploymentId: string | null;
@@ -75176,6 +75192,10 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					type: GetMicrofrontendsInGroupStatus200ProjectsLastAliasRequestTypeEnumKey;
 			  } | null)
 			| undefined;
+		/**
+		 * @description Legacy mirror of `lastAliasRequest` without `type`, kept for CLI compatibility. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response.
+		 * @type object | undefined
+		 */
 		lastRollbackTarget?: (object | null) | undefined;
 		latestDeployments?:
 			| {
@@ -88692,6 +88712,10 @@ export type GetProjectsStatus200 =
 										| undefined;
 							  }
 							| undefined;
+						/**
+						 * @description The last promote or rollback request for the project and its job status. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response, even if a request exists.
+						 * @type object | undefined
+						 */
 						lastAliasRequest?:
 							| ({
 									fromDeploymentId: string | null;
@@ -88706,6 +88730,10 @@ export type GetProjectsStatus200 =
 									type: GetProjectsStatus200ProjectsLastAliasRequestTypeEnumKey;
 							  } | null)
 							| undefined;
+						/**
+						 * @description Legacy mirror of `lastAliasRequest` without `type`, kept for CLI compatibility. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response.
+						 * @type object | undefined
+						 */
 						lastRollbackTarget?: (object | null) | undefined;
 						latestDeployments?:
 							| {
@@ -93347,6 +93375,10 @@ export type CreateProjectStatus200 = {
 					| undefined;
 		  }
 		| undefined;
+	/**
+	 * @description The last promote or rollback request for the project and its job status. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response, even if a request exists.
+	 * @type object | undefined
+	 */
 	lastAliasRequest?:
 		| ({
 				fromDeploymentId: string | null;
@@ -93361,6 +93393,10 @@ export type CreateProjectStatus200 = {
 				type: CreateProjectStatus200LastAliasRequestTypeEnumKey;
 		  } | null)
 		| undefined;
+	/**
+	 * @description Legacy mirror of `lastAliasRequest` without `type`, kept for CLI compatibility. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response.
+	 * @type object | undefined
+	 */
 	lastRollbackTarget?: (object | null) | undefined;
 	latestDeployments?:
 		| {
@@ -96762,6 +96798,11 @@ export type GetProjectPath = {
 
 export type GetProjectQuery = {
 	/**
+	 * @description Include the status of the last promote or rollback request in `lastAliasRequest` (and its legacy mirror `lastRollbackTarget`). When omitted or `false`, both fields are always `null` regardless of project state.
+	 * @type boolean | undefined
+	 */
+	rollbackInfo?: boolean | undefined;
+	/**
 	 * @description The Team identifier to perform the request on behalf of.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
 	 * @type string | undefined
@@ -98581,6 +98622,10 @@ export type GetProjectStatus200 = {
 					| undefined;
 		  }
 		| undefined;
+	/**
+	 * @description The last promote or rollback request for the project and its job status. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response, even if a request exists.
+	 * @type object | undefined
+	 */
 	lastAliasRequest?:
 		| ({
 				fromDeploymentId: string | null;
@@ -98595,6 +98640,10 @@ export type GetProjectStatus200 = {
 				type: GetProjectStatus200LastAliasRequestTypeEnumKey;
 		  } | null)
 		| undefined;
+	/**
+	 * @description Legacy mirror of `lastAliasRequest` without `type`, kept for CLI compatibility. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response.
+	 * @type object | undefined
+	 */
 	lastRollbackTarget?: (object | null) | undefined;
 	latestDeployments?:
 		| {
@@ -103098,6 +103147,10 @@ export type UpdateProjectStatus200 = {
 					| undefined;
 		  }
 		| undefined;
+	/**
+	 * @description The last promote or rollback request for the project and its job status. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response, even if a request exists.
+	 * @type object | undefined
+	 */
 	lastAliasRequest?:
 		| ({
 				fromDeploymentId: string | null;
@@ -103112,6 +103165,10 @@ export type UpdateProjectStatus200 = {
 				type: UpdateProjectStatus200LastAliasRequestTypeEnumKey;
 		  } | null)
 		| undefined;
+	/**
+	 * @description Legacy mirror of `lastAliasRequest` without `type`, kept for CLI compatibility. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response.
+	 * @type object | undefined
+	 */
 	lastRollbackTarget?: (object | null) | undefined;
 	latestDeployments?:
 		| {
@@ -108689,6 +108746,10 @@ export type UploadProjectAvatarStatus200 = {
 					| undefined;
 		  }
 		| undefined;
+	/**
+	 * @description The last promote or rollback request for the project and its job status. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response, even if a request exists.
+	 * @type object | undefined
+	 */
 	lastAliasRequest?:
 		| ({
 				fromDeploymentId: string | null;
@@ -108703,6 +108764,10 @@ export type UploadProjectAvatarStatus200 = {
 				type: UploadProjectAvatarStatus200LastAliasRequestTypeEnumKey;
 		  } | null)
 		| undefined;
+	/**
+	 * @description Legacy mirror of `lastAliasRequest` without `type`, kept for CLI compatibility. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response.
+	 * @type object | undefined
+	 */
 	lastRollbackTarget?: (object | null) | undefined;
 	latestDeployments?:
 		| {
@@ -113246,6 +113311,10 @@ export type DeleteProjectAvatarStatus200 = {
 					| undefined;
 		  }
 		| undefined;
+	/**
+	 * @description The last promote or rollback request for the project and its job status. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response, even if a request exists.
+	 * @type object | undefined
+	 */
 	lastAliasRequest?:
 		| ({
 				fromDeploymentId: string | null;
@@ -113260,6 +113329,10 @@ export type DeleteProjectAvatarStatus200 = {
 				type: DeleteProjectAvatarStatus200LastAliasRequestTypeEnumKey;
 		  } | null)
 		| undefined;
+	/**
+	 * @description Legacy mirror of `lastAliasRequest` without `type`, kept for CLI compatibility. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response.
+	 * @type object | undefined
+	 */
 	lastRollbackTarget?: (object | null) | undefined;
 	latestDeployments?:
 		| {
@@ -125202,6 +125275,10 @@ export type UpdateMicrofrontendsStatus200 = {
 					| undefined;
 		  }
 		| undefined;
+	/**
+	 * @description The last promote or rollback request for the project and its job status. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response, even if a request exists.
+	 * @type object | undefined
+	 */
 	lastAliasRequest?:
 		| ({
 				fromDeploymentId: string | null;
@@ -125216,6 +125293,10 @@ export type UpdateMicrofrontendsStatus200 = {
 				type: UpdateMicrofrontendsStatus200LastAliasRequestTypeEnumKey;
 		  } | null)
 		| undefined;
+	/**
+	 * @description Legacy mirror of `lastAliasRequest` without `type`, kept for CLI compatibility. Only populated by `GET /v9/projects/{idOrName}` when called with `rollbackInfo=true`; `null` in every other response.
+	 * @type object | undefined
+	 */
 	lastRollbackTarget?: (object | null) | undefined;
 	latestDeployments?:
 		| {
@@ -146133,6 +146214,15 @@ export const getTeamMembersStatus200MembersJoinedFromOriginEnum = {
 export type GetTeamMembersStatus200MembersJoinedFromOriginEnumKey =
 	(typeof getTeamMembersStatus200MembersJoinedFromOriginEnum)[keyof typeof getTeamMembersStatus200MembersJoinedFromOriginEnum];
 
+export const getTeamMembersStatus200MembersMembershipSourceEnum = {
+	direct: "direct",
+	"organization-directory": "organization-directory",
+	"team-directory": "team-directory",
+} as const;
+
+export type GetTeamMembersStatus200MembersMembershipSourceEnumKey =
+	(typeof getTeamMembersStatus200MembersMembershipSourceEnum)[keyof typeof getTeamMembersStatus200MembersMembershipSourceEnum];
+
 export const getTeamMembersStatus200MembersProjectsRoleEnum = {
 	ADMIN: "ADMIN",
 	PROJECT_DEVELOPER: "PROJECT_DEVELOPER",
@@ -146261,6 +146351,11 @@ export type GetTeamMembersStatus200 = {
 					ssoUserId?: string | undefined;
 			  }
 			| undefined;
+		/**
+		 * @description The source controlling this member's team access and roles. Individual permissions may have a different source. This does not replace authorization checks.
+		 * @type string
+		 */
+		membershipSource: GetTeamMembersStatus200MembersMembershipSourceEnumKey;
 		/**
 		 * @description The name of this user.
 		 * @example Jane Doe
@@ -151028,6 +151123,7 @@ export type ListVercelCiInvocationsProviderKey =
 
 export const listVercelCiInvocationsStatusEnum = {
 	new: "new",
+	awaiting_admission: "awaiting_admission",
 	awaiting_approval: "awaiting_approval",
 	skipped: "skipped",
 	bootstrapping: "bootstrapping",
@@ -151199,6 +151295,7 @@ export type ListVercelCiInvocationsStatus200 = {
 			| undefined;
 		status:
 			| "new"
+			| "awaiting_admission"
 			| "awaiting_approval"
 			| "skipped"
 			| "bootstrapping"
@@ -151862,6 +151959,7 @@ export type ListVercelCiInvocationAttemptsStatus200 = {
 			| undefined;
 		status:
 			| "new"
+			| "awaiting_admission"
 			| "awaiting_approval"
 			| "skipped"
 			| "bootstrapping"
@@ -152061,6 +152159,7 @@ export type GetVercelCiInvocationTreeStatus200 = {
 			| undefined;
 		status:
 			| "new"
+			| "awaiting_admission"
 			| "awaiting_approval"
 			| "skipped"
 			| "bootstrapping"
@@ -152351,6 +152450,7 @@ export type GetVercelCiInvocationStatus200 = {
 			| undefined;
 		status:
 			| "new"
+			| "awaiting_admission"
 			| "awaiting_approval"
 			| "skipped"
 			| "bootstrapping"
