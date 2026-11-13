@@ -1,5 +1,11 @@
 # zoom-api-js
 
+## 3.7.4
+
+### Patch Changes
+
+- 40118d9: Updated the documentation links for rate limit labels in all operations to point to the new location at marketplace.zoom.us.
+
 ## 3.7.3
 
 ### Patch Changes
