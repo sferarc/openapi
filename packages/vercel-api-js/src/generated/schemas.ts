@@ -8878,6 +8878,13 @@ export const userEventSchema = z
 					projectId: z.string(),
 				}),
 				z.strictObject({
+					budgetId: z
+						.string()
+						.optional()
+						.describe(
+							"The budget that paused the project, for `BUDGET_REACHED`. Absent on older events.",
+						),
+					budgetScope: z.enum(["organization", "product", "project", "team"]).optional(),
 					projectId: z.string(),
 					projectName: z
 						.string()

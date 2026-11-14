@@ -7262,6 +7262,16 @@ export const userEventPayloadPasswordProtection = {
 export type UserEventPayloadPasswordProtectionKey =
 	(typeof userEventPayloadPasswordProtection)[keyof typeof userEventPayloadPasswordProtection];
 
+export const userEventPayloadBudgetScopeEnum = {
+	organization: "organization",
+	product: "product",
+	project: "project",
+	team: "team",
+} as const;
+
+export type UserEventPayloadBudgetScopeEnumKey =
+	(typeof userEventPayloadBudgetScopeEnum)[keyof typeof userEventPayloadBudgetScopeEnum];
+
 export const userEventPayloadReasonCodeEnum = {
 	BACKOFFICE: "BACKOFFICE",
 	BUDGET_REACHED: "BUDGET_REACHED",
@@ -7452,15 +7462,15 @@ export const userEventPayloadBudgetPricingPlanEnum = {
 export type UserEventPayloadBudgetPricingPlanEnumKey =
 	(typeof userEventPayloadBudgetPricingPlanEnum)[keyof typeof userEventPayloadBudgetPricingPlanEnum];
 
-export const userEventPayloadBudgetScopeEnum = {
+export const userEventPayloadBudgetScopeEnum2 = {
 	organization: "organization",
 	product: "product",
 	project: "project",
 	team: "team",
 } as const;
 
-export type UserEventPayloadBudgetScopeEnumKey =
-	(typeof userEventPayloadBudgetScopeEnum)[keyof typeof userEventPayloadBudgetScopeEnum];
+export type UserEventPayloadBudgetScopeEnum2Key =
+	(typeof userEventPayloadBudgetScopeEnum2)[keyof typeof userEventPayloadBudgetScopeEnum2];
 
 export const userEventPayloadBudgetPricingPlanEnum2 = {
 	flex: "flex",
@@ -7473,15 +7483,15 @@ export const userEventPayloadBudgetPricingPlanEnum2 = {
 export type UserEventPayloadBudgetPricingPlanEnum2Key =
 	(typeof userEventPayloadBudgetPricingPlanEnum2)[keyof typeof userEventPayloadBudgetPricingPlanEnum2];
 
-export const userEventPayloadBudgetScopeEnum2 = {
+export const userEventPayloadBudgetScopeEnum3 = {
 	organization: "organization",
 	product: "product",
 	project: "project",
 	team: "team",
 } as const;
 
-export type UserEventPayloadBudgetScopeEnum2Key =
-	(typeof userEventPayloadBudgetScopeEnum2)[keyof typeof userEventPayloadBudgetScopeEnum2];
+export type UserEventPayloadBudgetScopeEnum3Key =
+	(typeof userEventPayloadBudgetScopeEnum3)[keyof typeof userEventPayloadBudgetScopeEnum3];
 
 export const userEventPayloadBudgetPricingPlanEnum3 = {
 	flex: "flex",
@@ -7494,15 +7504,15 @@ export const userEventPayloadBudgetPricingPlanEnum3 = {
 export type UserEventPayloadBudgetPricingPlanEnum3Key =
 	(typeof userEventPayloadBudgetPricingPlanEnum3)[keyof typeof userEventPayloadBudgetPricingPlanEnum3];
 
-export const userEventPayloadBudgetScopeEnum3 = {
+export const userEventPayloadBudgetScopeEnum4 = {
 	organization: "organization",
 	product: "product",
 	project: "project",
 	team: "team",
 } as const;
 
-export type UserEventPayloadBudgetScopeEnum3Key =
-	(typeof userEventPayloadBudgetScopeEnum3)[keyof typeof userEventPayloadBudgetScopeEnum3];
+export type UserEventPayloadBudgetScopeEnum4Key =
+	(typeof userEventPayloadBudgetScopeEnum4)[keyof typeof userEventPayloadBudgetScopeEnum4];
 
 export const userEventPayloadPrevBudgetPricingPlanEnum = {
 	flex: "flex",
@@ -13932,6 +13942,12 @@ export type UserEvent = {
 						projectId: string;
 				  }
 				| {
+						/**
+						 * @description The budget that paused the project, for `BUDGET_REACHED`. Absent on older events.
+						 * @type string | undefined
+						 */
+						budgetId?: string | undefined;
+						budgetScope?: UserEventPayloadBudgetScopeEnumKey | undefined;
 						projectId: string;
 						/**
 						 * @description Display name for Activity links. Optional for events stored before it was published.
@@ -14611,7 +14627,7 @@ export type UserEvent = {
 							 * @description Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).
 							 * @type string | undefined
 							 */
-							scope?: UserEventPayloadBudgetScopeEnumKey | undefined;
+							scope?: UserEventPayloadBudgetScopeEnum2Key | undefined;
 							/**
 							 * @description What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.
 							 * @type string | undefined
@@ -14706,7 +14722,7 @@ export type UserEvent = {
 							 * @description Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).
 							 * @type string | undefined
 							 */
-							scope?: UserEventPayloadBudgetScopeEnum2Key | undefined;
+							scope?: UserEventPayloadBudgetScopeEnum3Key | undefined;
 							/**
 							 * @description What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.
 							 * @type string | undefined
@@ -14800,7 +14816,7 @@ export type UserEvent = {
 							 * @description Which budget this is. Matches Copper SDK `BudgetScope`. Omitted on events published before team/org/project scopes existed (treat as team).
 							 * @type string | undefined
 							 */
-							scope?: UserEventPayloadBudgetScopeEnum3Key | undefined;
+							scope?: UserEventPayloadBudgetScopeEnum4Key | undefined;
 							/**
 							 * @description What the budget caps: team id for `team`, organization id for `organization`, project id for `project`, product id for `product`.
 							 * @type string | undefined
