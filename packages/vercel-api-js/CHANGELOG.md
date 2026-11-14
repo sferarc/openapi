@@ -1,5 +1,17 @@
 # vercel-api-js
 
+## 2.39.0
+
+### Minor Changes
+
+- 5c9dd64: [BREAKING] Renamed userEventPayloadBudgetScopeEnum2 to userEventPayloadBudgetScopeEnum3 and changed all related type exports and fields accordingly.
+- 5c9dd64: Added the userEventPayloadBudgetScopeEnum enum and its corresponding UserEventPayloadBudgetScopeEnumKey type export.
+- 5c9dd64: [BREAKING] Renamed userEventPayloadBudgetScopeEnum3 to userEventPayloadBudgetScopeEnum4 and changed all related type exports and fields accordingly.
+
+### Patch Changes
+
+- 5c9dd64: Added the optional budgetId and budgetScope fields to the UserEvent type.
+
 ## 2.38.0
 
 ### Minor Changes
