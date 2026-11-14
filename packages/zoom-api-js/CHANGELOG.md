@@ -1,5 +1,11 @@
 # zoom-api-js
 
+## 3.7.5
+
+### Patch Changes
+
+- 6c8d17c: Update all API operations to reference the new rate limit documentation URL (developers.zoom.us/docs/api/rate-limits/) instead of the old one (marketplace.zoom.us/docs/api-reference/rate-limits#rate-limits).
+
 ## 3.7.4
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # cloudflare-api-js
 
+## 4.34.0
+
+### Minor Changes
+
+- 9d08e2f: Added support for the 'app_library_application' resource type to resource tagging and related types.
+- 9d08e2f: Added per-feature authorization override support for OAuth integrations via new types 'OneFeatureAuthOverride' and related fields.
+- 9d08e2f: Added types and fields supporting GitLab integration configuration, including selection of groups and projects.
+
+### Patch Changes
+
+- 9d08e2f: Added the optional 'multiprovider_enabled' field to various AI Gateway configuration types.
+- 9d08e2f: Updated descriptions for 'listIntegrationsV2' and 'getIntegrationV2' functions and operations, including additional GitLab resource support in integration updates.
+- 9d08e2f: Added the optional 'metadata_url' field to SAML identity providers, mutually exclusive with 'idp_public_certs'.
+
 ## 4.33.1
 
 ### Patch Changes
