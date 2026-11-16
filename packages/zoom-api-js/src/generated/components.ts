@@ -346,6 +346,7 @@ import type {
 	MeetingAppAddStatus404,
 	MeetingAppAddStatus429,
 	MeetingAppDeletePath,
+	MeetingAppDeleteQuery,
 	MeetingAppDeleteResponse,
 	MeetingAppDeleteStatus400,
 	MeetingAppDeleteStatus404,
@@ -2762,9 +2763,11 @@ export async function meetingAppAdd(
 export async function meetingAppDelete(
 	{
 		pathParams,
+		queryParams,
 		config,
 	}: {
 		pathParams: MeetingAppDeletePath;
+		queryParams?: Partial<MeetingAppDeleteQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
 ) {
@@ -2778,11 +2781,12 @@ export async function meetingAppDelete(
 		ErrorWrapper<MeetingAppDeleteStatus400 | MeetingAppDeleteStatus404 | MeetingAppDeleteStatus429>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<MeetingAppDeleteQuery>,
 		MeetingAppDeletePath
 	>({
 		method: "DELETE",
 		url: `/meetings/${encodeURIComponent(String(pathParams.meetingId))}/open_apps`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
