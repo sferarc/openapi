@@ -2480,7 +2480,7 @@ export type POSTAdminRealmsStatus500 = unknown;
 export type POSTAdminRealmsBody = unknown | undefined;
 
 export type POSTAdminRealmsOptions = {
-	body: POSTAdminRealmsBody;
+	body?: POSTAdminRealmsBody | undefined;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -2551,7 +2551,7 @@ export type PUTAdminRealmsRealmStatus500 = unknown;
 export type PUTAdminRealmsRealmBody = RealmRepresentation | undefined;
 
 export type PUTAdminRealmsRealmOptions = {
-	body: PUTAdminRealmsRealmBody;
+	body?: PUTAdminRealmsRealmBody | undefined;
 	path: PUTAdminRealmsRealmPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -2873,7 +2873,7 @@ export type POSTAdminRealmsRealmAuthenticationConfigBody =
  * @type object
  */
 export type POSTAdminRealmsRealmAuthenticationConfigOptions = {
-	body: POSTAdminRealmsRealmAuthenticationConfigBody;
+	body?: POSTAdminRealmsRealmAuthenticationConfigBody | undefined;
 	path: POSTAdminRealmsRealmAuthenticationConfigPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -2971,7 +2971,7 @@ export type PUTAdminRealmsRealmAuthenticationConfigIdBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmAuthenticationConfigIdOptions = {
-	body: PUTAdminRealmsRealmAuthenticationConfigIdBody;
+	body?: PUTAdminRealmsRealmAuthenticationConfigIdBody | undefined;
 	path: PUTAdminRealmsRealmAuthenticationConfigIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3034,7 +3034,7 @@ export type POSTAdminRealmsRealmAuthenticationExecutionsBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmAuthenticationExecutionsOptions = {
-	body: POSTAdminRealmsRealmAuthenticationExecutionsBody;
+	body?: POSTAdminRealmsRealmAuthenticationExecutionsBody | undefined;
 	path: POSTAdminRealmsRealmAuthenticationExecutionsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3133,7 +3133,7 @@ export type POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigOptions = {
-	body: POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigBody;
+	body?: POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigBody | undefined;
 	path: POSTAdminRealmsRealmAuthenticationExecutionsExecutionIdConfigPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3300,7 +3300,7 @@ export type POSTAdminRealmsRealmAuthenticationFlowsBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmAuthenticationFlowsOptions = {
-	body: POSTAdminRealmsRealmAuthenticationFlowsBody;
+	body?: POSTAdminRealmsRealmAuthenticationFlowsBody | undefined;
 	path: POSTAdminRealmsRealmAuthenticationFlowsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3341,7 +3341,7 @@ export type POSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyOptions = {
-	body: POSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyBody;
+	body?: POSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyBody | undefined;
 	path: POSTAdminRealmsRealmAuthenticationFlowsFlowAliasCopyPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3413,7 +3413,7 @@ export type PUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsOptions = {
-	body: PUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsBody;
+	body?: PUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsBody | undefined;
 	path: PUTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3452,7 +3452,7 @@ export type POSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsExecutionB
 	| undefined;
 
 export type POSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsExecutionOptions = {
-	body: POSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsExecutionBody;
+	body?: POSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsExecutionBody | undefined;
 	path: POSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsExecutionPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3492,7 +3492,7 @@ export type POSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowOptions = {
-	body: POSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowBody;
+	body?: POSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowBody | undefined;
 	path: POSTAdminRealmsRealmAuthenticationFlowsFlowAliasExecutionsFlowPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3559,7 +3559,7 @@ export type PUTAdminRealmsRealmAuthenticationFlowsIdBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmAuthenticationFlowsIdOptions = {
-	body: PUTAdminRealmsRealmAuthenticationFlowsIdBody;
+	body?: PUTAdminRealmsRealmAuthenticationFlowsIdBody | undefined;
 	path: PUTAdminRealmsRealmAuthenticationFlowsIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3712,7 +3712,7 @@ export type POSTAdminRealmsRealmAuthenticationRegisterRequiredActionBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmAuthenticationRegisterRequiredActionOptions = {
-	body: POSTAdminRealmsRealmAuthenticationRegisterRequiredActionBody;
+	body?: POSTAdminRealmsRealmAuthenticationRegisterRequiredActionBody | undefined;
 	path: POSTAdminRealmsRealmAuthenticationRegisterRequiredActionPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3809,7 +3809,7 @@ export type PUTAdminRealmsRealmAuthenticationRequiredActionsAliasBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmAuthenticationRequiredActionsAliasOptions = {
-	body: PUTAdminRealmsRealmAuthenticationRequiredActionsAliasBody;
+	body?: PUTAdminRealmsRealmAuthenticationRequiredActionsAliasBody | undefined;
 	path: PUTAdminRealmsRealmAuthenticationRequiredActionsAliasPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3910,7 +3910,7 @@ export type PUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigOptions = {
-	body: PUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigBody;
+	body?: PUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigBody | undefined;
 	path: PUTAdminRealmsRealmAuthenticationRequiredActionsAliasConfigPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4101,7 +4101,7 @@ export type POSTAdminRealmsRealmClientDescriptionConverterStatus404 = unknown;
 export type POSTAdminRealmsRealmClientDescriptionConverterBody = string | undefined;
 
 export type POSTAdminRealmsRealmClientDescriptionConverterOptions = {
-	body: POSTAdminRealmsRealmClientDescriptionConverterBody;
+	body?: POSTAdminRealmsRealmClientDescriptionConverterBody | undefined;
 	path: POSTAdminRealmsRealmClientDescriptionConverterPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4165,7 +4165,7 @@ export type PUTAdminRealmsRealmClientPoliciesPoliciesBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmClientPoliciesPoliciesOptions = {
-	body: PUTAdminRealmsRealmClientPoliciesPoliciesBody;
+	body?: PUTAdminRealmsRealmClientPoliciesPoliciesBody | undefined;
 	path: PUTAdminRealmsRealmClientPoliciesPoliciesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4227,7 +4227,7 @@ export type PUTAdminRealmsRealmClientPoliciesProfilesBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmClientPoliciesProfilesOptions = {
-	body: PUTAdminRealmsRealmClientPoliciesProfilesBody;
+	body?: PUTAdminRealmsRealmClientPoliciesProfilesBody | undefined;
 	path: PUTAdminRealmsRealmClientPoliciesProfilesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4317,7 +4317,7 @@ export type POSTAdminRealmsRealmClientScopesStatus409 = unknown;
 export type POSTAdminRealmsRealmClientScopesBody = ClientScopeRepresentation | undefined;
 
 export type POSTAdminRealmsRealmClientScopesOptions = {
-	body: POSTAdminRealmsRealmClientScopesBody;
+	body?: POSTAdminRealmsRealmClientScopesBody | undefined;
 	path: POSTAdminRealmsRealmClientScopesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4413,7 +4413,7 @@ export type POSTAdminRealmsRealmClientTemplatesStatus409 = unknown;
 export type POSTAdminRealmsRealmClientTemplatesBody = ClientScopeRepresentation | undefined;
 
 export type POSTAdminRealmsRealmClientTemplatesOptions = {
-	body: POSTAdminRealmsRealmClientTemplatesBody;
+	body?: POSTAdminRealmsRealmClientTemplatesBody | undefined;
 	path: POSTAdminRealmsRealmClientTemplatesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4470,7 +4470,7 @@ export type PUTAdminRealmsRealmClientTypesStatus204 = void;
 export type PUTAdminRealmsRealmClientTypesBody = ClientTypesRepresentation | undefined;
 
 export type PUTAdminRealmsRealmClientTypesOptions = {
-	body: PUTAdminRealmsRealmClientTypesBody;
+	body?: PUTAdminRealmsRealmClientTypesBody | undefined;
 	path: PUTAdminRealmsRealmClientTypesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4561,7 +4561,7 @@ export type POSTAdminRealmsRealmClientsStatus409 = unknown;
 export type POSTAdminRealmsRealmClientsBody = ClientRepresentation | undefined;
 
 export type POSTAdminRealmsRealmClientsOptions = {
-	body: POSTAdminRealmsRealmClientsBody;
+	body?: POSTAdminRealmsRealmClientsBody | undefined;
 	path: POSTAdminRealmsRealmClientsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4620,7 +4620,7 @@ export type POSTAdminRealmsRealmClientsInitialAccessBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmClientsInitialAccessOptions = {
-	body: POSTAdminRealmsRealmClientsInitialAccessBody;
+	body?: POSTAdminRealmsRealmClientsInitialAccessBody | undefined;
 	path: POSTAdminRealmsRealmClientsInitialAccessPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4710,7 +4710,7 @@ export type POSTAdminRealmsRealmComponentsStatus200 = unknown;
 export type POSTAdminRealmsRealmComponentsBody = ComponentRepresentation | undefined;
 
 export type POSTAdminRealmsRealmComponentsOptions = {
-	body: POSTAdminRealmsRealmComponentsBody;
+	body?: POSTAdminRealmsRealmComponentsBody | undefined;
 	path: POSTAdminRealmsRealmComponentsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4766,7 +4766,7 @@ export type PUTAdminRealmsRealmComponentsIdStatus200 = unknown;
 export type PUTAdminRealmsRealmComponentsIdBody = ComponentRepresentation | undefined;
 
 export type PUTAdminRealmsRealmComponentsIdOptions = {
-	body: PUTAdminRealmsRealmComponentsIdBody;
+	body?: PUTAdminRealmsRealmComponentsIdBody | undefined;
 	path: PUTAdminRealmsRealmComponentsIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -5323,7 +5323,7 @@ export type PUTAdminRealmsRealmEventsConfigStatus403 = unknown;
 export type PUTAdminRealmsRealmEventsConfigBody = RealmEventsConfigRepresentation | undefined;
 
 export type PUTAdminRealmsRealmEventsConfigOptions = {
-	body: PUTAdminRealmsRealmEventsConfigBody;
+	body?: PUTAdminRealmsRealmEventsConfigBody | undefined;
 	path: PUTAdminRealmsRealmEventsConfigPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -5460,7 +5460,7 @@ export type POSTAdminRealmsRealmGroupsStatus409 = unknown;
 export type POSTAdminRealmsRealmGroupsBody = GroupRepresentation | undefined;
 
 export type POSTAdminRealmsRealmGroupsOptions = {
-	body: POSTAdminRealmsRealmGroupsBody;
+	body?: POSTAdminRealmsRealmGroupsBody | undefined;
 	path: POSTAdminRealmsRealmGroupsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -5536,7 +5536,7 @@ export type POSTAdminRealmsRealmIdentityProviderImportConfigBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmIdentityProviderImportConfigOptions = {
-	body: POSTAdminRealmsRealmIdentityProviderImportConfigBody;
+	body?: POSTAdminRealmsRealmIdentityProviderImportConfigBody | undefined;
 	path: POSTAdminRealmsRealmIdentityProviderImportConfigPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -5641,7 +5641,7 @@ export type POSTAdminRealmsRealmIdentityProviderInstancesBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmIdentityProviderInstancesOptions = {
-	body: POSTAdminRealmsRealmIdentityProviderInstancesBody;
+	body?: POSTAdminRealmsRealmIdentityProviderInstancesBody | undefined;
 	path: POSTAdminRealmsRealmIdentityProviderInstancesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -5710,7 +5710,7 @@ export type PUTAdminRealmsRealmIdentityProviderInstancesAliasBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmIdentityProviderInstancesAliasOptions = {
-	body: PUTAdminRealmsRealmIdentityProviderInstancesAliasBody;
+	body?: PUTAdminRealmsRealmIdentityProviderInstancesAliasBody | undefined;
 	path: PUTAdminRealmsRealmIdentityProviderInstancesAliasPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -5838,7 +5838,7 @@ export type PUTAdminRealmsRealmIdentityProviderInstancesAliasManagementPermissio
 	| undefined;
 
 export type PUTAdminRealmsRealmIdentityProviderInstancesAliasManagementPermissionsOptions = {
-	body: PUTAdminRealmsRealmIdentityProviderInstancesAliasManagementPermissionsBody;
+	body?: PUTAdminRealmsRealmIdentityProviderInstancesAliasManagementPermissionsBody | undefined;
 	path: PUTAdminRealmsRealmIdentityProviderInstancesAliasManagementPermissionsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -5929,7 +5929,7 @@ export type POSTAdminRealmsRealmIdentityProviderInstancesAliasMappersBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmIdentityProviderInstancesAliasMappersOptions = {
-	body: POSTAdminRealmsRealmIdentityProviderInstancesAliasMappersBody;
+	body?: POSTAdminRealmsRealmIdentityProviderInstancesAliasMappersBody | undefined;
 	path: POSTAdminRealmsRealmIdentityProviderInstancesAliasMappersPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -5996,7 +5996,7 @@ export type PUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdOptions = {
-	body: PUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdBody;
+	body?: PUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdBody | undefined;
 	path: PUTAdminRealmsRealmIdentityProviderInstancesAliasMappersIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -6166,6 +6166,10 @@ export type GETAdminRealmsRealmLocalizationLocalePath = {
 };
 
 export type GETAdminRealmsRealmLocalizationLocaleQuery = {
+	/**
+	 * @deprecated
+	 * @type boolean | undefined
+	 */
 	useRealmDefaultLocaleFallback?: boolean | undefined;
 };
 
@@ -6215,7 +6219,7 @@ export type POSTAdminRealmsRealmLocalizationLocaleBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmLocalizationLocaleOptions = {
-	body: POSTAdminRealmsRealmLocalizationLocaleBody;
+	body?: POSTAdminRealmsRealmLocalizationLocaleBody | undefined;
 	path: POSTAdminRealmsRealmLocalizationLocalePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -6321,7 +6325,7 @@ export type PUTAdminRealmsRealmLocalizationLocaleKeyStatus403 = unknown;
 export type PUTAdminRealmsRealmLocalizationLocaleKeyBody = string | undefined;
 
 export type PUTAdminRealmsRealmLocalizationLocaleKeyOptions = {
-	body: PUTAdminRealmsRealmLocalizationLocaleKeyBody;
+	body?: PUTAdminRealmsRealmLocalizationLocaleKeyBody | undefined;
 	path: PUTAdminRealmsRealmLocalizationLocaleKeyPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -6497,7 +6501,7 @@ export type POSTAdminRealmsRealmOrganizationsStatus403 = unknown;
 export type POSTAdminRealmsRealmOrganizationsBody = OrganizationRepresentation | undefined;
 
 export type POSTAdminRealmsRealmOrganizationsOptions = {
-	body: POSTAdminRealmsRealmOrganizationsBody;
+	body?: POSTAdminRealmsRealmOrganizationsBody | undefined;
 	path: POSTAdminRealmsRealmOrganizationsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -6623,7 +6627,7 @@ export type POSTAdminRealmsRealmPartialImportStatus409 = unknown;
 export type POSTAdminRealmsRealmPartialImportBody = unknown | undefined;
 
 export type POSTAdminRealmsRealmPartialImportOptions = {
-	body: POSTAdminRealmsRealmPartialImportBody;
+	body?: POSTAdminRealmsRealmPartialImportBody | undefined;
 	path: POSTAdminRealmsRealmPartialImportPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -6747,7 +6751,7 @@ export type POSTAdminRealmsRealmRolesStatus500 = unknown;
 export type POSTAdminRealmsRealmRolesBody = RoleRepresentation | undefined;
 
 export type POSTAdminRealmsRealmRolesOptions = {
-	body: POSTAdminRealmsRealmRolesBody;
+	body?: POSTAdminRealmsRealmRolesBody | undefined;
 	path: POSTAdminRealmsRealmRolesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -6832,7 +6836,7 @@ export type POSTAdminRealmsRealmTestSMTPConnectionBody =
  * @type object
  */
 export type POSTAdminRealmsRealmTestSMTPConnectionOptions = {
-	body: POSTAdminRealmsRealmTestSMTPConnectionBody;
+	body?: POSTAdminRealmsRealmTestSMTPConnectionBody | undefined;
 	path: POSTAdminRealmsRealmTestSMTPConnectionPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -6986,7 +6990,7 @@ export type POSTAdminRealmsRealmUsersStatus500 = unknown;
 export type POSTAdminRealmsRealmUsersBody = UserRepresentation | undefined;
 
 export type POSTAdminRealmsRealmUsersOptions = {
-	body: POSTAdminRealmsRealmUsersBody;
+	body?: POSTAdminRealmsRealmUsersBody | undefined;
 	path: POSTAdminRealmsRealmUsersPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -7052,7 +7056,7 @@ export type PUTAdminRealmsRealmUsersManagementPermissionsBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmUsersManagementPermissionsOptions = {
-	body: PUTAdminRealmsRealmUsersManagementPermissionsBody;
+	body?: PUTAdminRealmsRealmUsersManagementPermissionsBody | undefined;
 	path: PUTAdminRealmsRealmUsersManagementPermissionsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -7215,7 +7219,7 @@ export type PUTAdminRealmsRealmUsersProfileStatus403 = unknown;
 export type PUTAdminRealmsRealmUsersProfileBody = UPConfig | undefined;
 
 export type PUTAdminRealmsRealmUsersProfileOptions = {
-	body: PUTAdminRealmsRealmUsersProfileBody;
+	body?: PUTAdminRealmsRealmUsersProfileBody | undefined;
 	path: PUTAdminRealmsRealmUsersProfilePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -7334,7 +7338,7 @@ export type POSTAdminRealmsRealmWorkflowsStatus400 = unknown;
 export type POSTAdminRealmsRealmWorkflowsBody = WorkflowRepresentation | undefined;
 
 export type POSTAdminRealmsRealmWorkflowsOptions = {
-	body: POSTAdminRealmsRealmWorkflowsBody;
+	body?: POSTAdminRealmsRealmWorkflowsBody | undefined;
 	path: POSTAdminRealmsRealmWorkflowsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -7455,7 +7459,7 @@ export type PUTAdminRealmsRealmWorkflowsIdStatus400 = unknown;
 export type PUTAdminRealmsRealmWorkflowsIdBody = WorkflowRepresentation | undefined;
 
 export type PUTAdminRealmsRealmWorkflowsIdOptions = {
-	body: PUTAdminRealmsRealmWorkflowsIdBody;
+	body?: PUTAdminRealmsRealmWorkflowsIdBody | undefined;
 	path: PUTAdminRealmsRealmWorkflowsIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -7672,7 +7676,7 @@ export type PUTAdminRealmsRealmClientScopesClientScopeIdBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmClientScopesClientScopeIdOptions = {
-	body: PUTAdminRealmsRealmClientScopesClientScopeIdBody;
+	body?: PUTAdminRealmsRealmClientScopesClientScopeIdBody | undefined;
 	path: PUTAdminRealmsRealmClientScopesClientScopeIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -7744,7 +7748,7 @@ export type POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddModel
 	| undefined;
 
 export type POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddModelsOptions = {
-	body: POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddModelsBody;
+	body?: POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddModelsBody | undefined;
 	path: POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersAddModelsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -7807,7 +7811,7 @@ export type POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsBo
 	| undefined;
 
 export type POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsOptions = {
-	body: POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsBody;
+	body?: POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsBody | undefined;
 	path: POSTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -7879,7 +7883,7 @@ export type PUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdB
 	| undefined;
 
 export type PUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdOptions = {
-	body: PUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdBody;
+	body?: PUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdBody | undefined;
 	path: PUTAdminRealmsRealmClientScopesClientScopeIdProtocolMappersModelsIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -8038,7 +8042,7 @@ export type POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsCli
 	| undefined;
 
 export type POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientOptions = {
-	body: POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientBody;
+	body?: POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientBody | undefined;
 	path: POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -8072,7 +8076,7 @@ export type DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsC
 	| undefined;
 
 export type DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientOptions = {
-	body: DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientBody;
+	body?: DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientBody | undefined;
 	path: DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsClientsClientPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -8208,7 +8212,7 @@ export type POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmBody 
 	| undefined;
 
 export type POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmOptions = {
-	body: POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmBody;
+	body?: POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmBody | undefined;
 	path: POSTAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -8240,7 +8244,7 @@ export type DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmBod
 	| undefined;
 
 export type DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmOptions = {
-	body: DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmBody;
+	body?: DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmBody | undefined;
 	path: DELETEAdminRealmsRealmClientScopesClientScopeIdScopeMappingsRealmPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -8376,7 +8380,7 @@ export type PUTAdminRealmsRealmClientTemplatesClientScopeIdBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmClientTemplatesClientScopeIdOptions = {
-	body: PUTAdminRealmsRealmClientTemplatesClientScopeIdBody;
+	body?: PUTAdminRealmsRealmClientTemplatesClientScopeIdBody | undefined;
 	path: PUTAdminRealmsRealmClientTemplatesClientScopeIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -8449,7 +8453,7 @@ export type POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersAddMo
 	| undefined;
 
 export type POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersAddModelsOptions = {
-	body: POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersAddModelsBody;
+	body?: POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersAddModelsBody | undefined;
 	path: POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersAddModelsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -8514,7 +8518,7 @@ export type POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModel
 	| undefined;
 
 export type POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsOptions = {
-	body: POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsBody;
+	body?: POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsBody | undefined;
 	path: POSTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -8586,7 +8590,7 @@ export type PUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModels
 	| undefined;
 
 export type PUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdOptions = {
-	body: PUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdBody;
+	body?: PUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdBody | undefined;
 	path: PUTAdminRealmsRealmClientTemplatesClientScopeIdProtocolMappersModelsIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -8749,7 +8753,7 @@ export type POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClients
 	| undefined;
 
 export type POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientOptions = {
-	body: POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientBody;
+	body?: POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientBody | undefined;
 	path: POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -8783,7 +8787,9 @@ export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClien
 	| undefined;
 
 export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientOptions = {
-	body: DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientBody;
+	body?:
+		| DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientBody
+		| undefined;
 	path: DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsClientsClientPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -8923,7 +8929,7 @@ export type POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmBo
 	| undefined;
 
 export type POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmOptions = {
-	body: POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmBody;
+	body?: POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmBody | undefined;
 	path: POSTAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -8955,7 +8961,7 @@ export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealm
 	| undefined;
 
 export type DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmOptions = {
-	body: DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmBody;
+	body?: DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmBody | undefined;
 	path: DELETEAdminRealmsRealmClientTemplatesClientScopeIdScopeMappingsRealmPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -9094,7 +9100,7 @@ export type PUTAdminRealmsRealmClientsClientUuidStatus409 = unknown;
 export type PUTAdminRealmsRealmClientsClientUuidBody = ClientRepresentation | undefined;
 
 export type PUTAdminRealmsRealmClientsClientUuidOptions = {
-	body: PUTAdminRealmsRealmClientsClientUuidBody;
+	body?: PUTAdminRealmsRealmClientsClientUuidBody | undefined;
 	path: PUTAdminRealmsRealmClientsClientUuidPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -9197,7 +9203,7 @@ export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerOptions = {
-	body: PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerBody;
+	body?: PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerBody | undefined;
 	path: PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -9233,7 +9239,7 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportOptions = {
-	body: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportBody;
+	body?: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportBody | undefined;
 	path: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerImportPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -9331,7 +9337,7 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionBo
 	| undefined;
 
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionOptions = {
-	body: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionBody;
+	body?: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionBody | undefined;
 	path: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -9374,7 +9380,7 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEv
 	| undefined;
 
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateOptions = {
-	body: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateBody;
+	body?: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluateBody | undefined;
 	path: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPermissionEvaluatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -9553,7 +9559,7 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyOptions = {
-	body: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyBody;
+	body?: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyBody | undefined;
 	path: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -9596,7 +9602,7 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvalua
 	| undefined;
 
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateOptions = {
-	body: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateBody;
+	body?: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluateBody | undefined;
 	path: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerPolicyEvaluatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -9800,7 +9806,7 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceBody
 	| undefined;
 
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceOptions = {
-	body: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceBody;
+	body?: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceBody | undefined;
 	path: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourcePath;
 	query?: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceQuery | undefined;
 	headers?: never | undefined;
@@ -10000,7 +10006,7 @@ export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResou
 	| undefined;
 
 export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdOptions = {
-	body: PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdBody;
+	body?: PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdBody | undefined;
 	path: PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdPath;
 	query?:
 		| PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerResourceResourceIdQuery
@@ -10356,7 +10362,7 @@ export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeOptions = {
-	body: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeBody;
+	body?: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeBody | undefined;
 	path: POSTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -10474,7 +10480,7 @@ export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdB
 	| undefined;
 
 export type PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdOptions = {
-	body: PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdBody;
+	body?: PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdBody | undefined;
 	path: PUTAdminRealmsRealmClientsClientUuidAuthzResourceServerScopeScopeIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -10695,7 +10701,7 @@ export type POSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadBody =
  * @type object
  */
 export type POSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadOptions = {
-	body: POSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadBody;
+	body?: POSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadBody | undefined;
 	path: POSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -10775,7 +10781,7 @@ export type POSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDown
  * @type object
  */
 export type POSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDownloadOptions = {
-	body: POSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDownloadBody;
+	body?: POSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDownloadBody | undefined;
 	path: POSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDownloadPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -11505,7 +11511,7 @@ export type PUTAdminRealmsRealmClientsClientUuidManagementPermissionsBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmClientsClientUuidManagementPermissionsOptions = {
-	body: PUTAdminRealmsRealmClientsClientUuidManagementPermissionsBody;
+	body?: PUTAdminRealmsRealmClientsClientUuidManagementPermissionsBody | undefined;
 	path: PUTAdminRealmsRealmClientsClientUuidManagementPermissionsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -11545,7 +11551,7 @@ export type POSTAdminRealmsRealmClientsClientUuidNodesBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmClientsClientUuidNodesOptions = {
-	body: POSTAdminRealmsRealmClientsClientUuidNodesBody;
+	body?: POSTAdminRealmsRealmClientsClientUuidNodesBody | undefined;
 	path: POSTAdminRealmsRealmClientsClientUuidNodesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -11800,7 +11806,7 @@ export type POSTAdminRealmsRealmClientsClientUuidProtocolMappersAddModelsBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmClientsClientUuidProtocolMappersAddModelsOptions = {
-	body: POSTAdminRealmsRealmClientsClientUuidProtocolMappersAddModelsBody;
+	body?: POSTAdminRealmsRealmClientsClientUuidProtocolMappersAddModelsBody | undefined;
 	path: POSTAdminRealmsRealmClientsClientUuidProtocolMappersAddModelsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -11871,7 +11877,7 @@ export type POSTAdminRealmsRealmClientsClientUuidProtocolMappersModelsBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmClientsClientUuidProtocolMappersModelsOptions = {
-	body: POSTAdminRealmsRealmClientsClientUuidProtocolMappersModelsBody;
+	body?: POSTAdminRealmsRealmClientsClientUuidProtocolMappersModelsBody | undefined;
 	path: POSTAdminRealmsRealmClientsClientUuidProtocolMappersModelsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -11951,7 +11957,7 @@ export type PUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdOptions = {
-	body: PUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdBody;
+	body?: PUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdBody | undefined;
 	path: PUTAdminRealmsRealmClientsClientUuidProtocolMappersModelsIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -12191,7 +12197,7 @@ export type POSTAdminRealmsRealmClientsClientUuidRolesStatus500 = unknown;
 export type POSTAdminRealmsRealmClientsClientUuidRolesBody = RoleRepresentation | undefined;
 
 export type POSTAdminRealmsRealmClientsClientUuidRolesOptions = {
-	body: POSTAdminRealmsRealmClientsClientUuidRolesBody;
+	body?: POSTAdminRealmsRealmClientsClientUuidRolesBody | undefined;
 	path: POSTAdminRealmsRealmClientsClientUuidRolesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -12286,7 +12292,7 @@ export type PUTAdminRealmsRealmClientsClientUuidRolesRoleNameStatus409 = unknown
 export type PUTAdminRealmsRealmClientsClientUuidRolesRoleNameBody = RoleRepresentation | undefined;
 
 export type PUTAdminRealmsRealmClientsClientUuidRolesRoleNameOptions = {
-	body: PUTAdminRealmsRealmClientsClientUuidRolesRoleNameBody;
+	body?: PUTAdminRealmsRealmClientsClientUuidRolesRoleNameBody | undefined;
 	path: PUTAdminRealmsRealmClientsClientUuidRolesRoleNamePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -12425,7 +12431,7 @@ export type POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesOptions = {
-	body: POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesBody;
+	body?: POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesBody | undefined;
 	path: POSTAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -12472,7 +12478,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesBody =
 	| undefined;
 
 export type DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesOptions = {
-	body: DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesBody;
+	body?: DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesBody | undefined;
 	path: DELETEAdminRealmsRealmClientsClientUuidRolesRoleNameCompositesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -12722,7 +12728,7 @@ export type PUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissio
 	| undefined;
 
 export type PUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsOptions = {
-	body: PUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsBody;
+	body?: PUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsBody | undefined;
 	path: PUTAdminRealmsRealmClientsClientUuidRolesRoleNameManagementPermissionsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -12897,7 +12903,7 @@ export type POSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientBody 
 	| undefined;
 
 export type POSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientOptions = {
-	body: POSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientBody;
+	body?: POSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientBody | undefined;
 	path: POSTAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -12934,7 +12940,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientBod
 	| undefined;
 
 export type DELETEAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientOptions = {
-	body: DELETEAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientBody;
+	body?: DELETEAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientBody | undefined;
 	path: DELETEAdminRealmsRealmClientsClientUuidScopeMappingsClientsClientPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -13079,7 +13085,7 @@ export type POSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmOptions = {
-	body: POSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmBody;
+	body?: POSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmBody | undefined;
 	path: POSTAdminRealmsRealmClientsClientUuidScopeMappingsRealmPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -13115,7 +13121,7 @@ export type DELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmBody =
 	| undefined;
 
 export type DELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmOptions = {
-	body: DELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmBody;
+	body?: DELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmBody | undefined;
 	path: DELETEAdminRealmsRealmClientsClientUuidScopeMappingsRealmPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -13399,7 +13405,7 @@ export type PUTAdminRealmsRealmGroupsGroupIdStatus409 = unknown;
 export type PUTAdminRealmsRealmGroupsGroupIdBody = GroupRepresentation | undefined;
 
 export type PUTAdminRealmsRealmGroupsGroupIdOptions = {
-	body: PUTAdminRealmsRealmGroupsGroupIdBody;
+	body?: PUTAdminRealmsRealmGroupsGroupIdBody | undefined;
 	path: PUTAdminRealmsRealmGroupsGroupIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -13533,7 +13539,7 @@ export type POSTAdminRealmsRealmGroupsGroupIdChildrenStatus409 = unknown;
 export type POSTAdminRealmsRealmGroupsGroupIdChildrenBody = GroupRepresentation | undefined;
 
 export type POSTAdminRealmsRealmGroupsGroupIdChildrenOptions = {
-	body: POSTAdminRealmsRealmGroupsGroupIdChildrenBody;
+	body?: POSTAdminRealmsRealmGroupsGroupIdChildrenBody | undefined;
 	path: POSTAdminRealmsRealmGroupsGroupIdChildrenPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -13599,7 +13605,7 @@ export type PUTAdminRealmsRealmGroupsGroupIdManagementPermissionsBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmGroupsGroupIdManagementPermissionsOptions = {
-	body: PUTAdminRealmsRealmGroupsGroupIdManagementPermissionsBody;
+	body?: PUTAdminRealmsRealmGroupsGroupIdManagementPermissionsBody | undefined;
 	path: PUTAdminRealmsRealmGroupsGroupIdManagementPermissionsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -13751,7 +13757,7 @@ export type POSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdOptions = {
-	body: POSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdBody;
+	body?: POSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdBody | undefined;
 	path: POSTAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -13788,7 +13794,7 @@ export type DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdBody =
 	| undefined;
 
 export type DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdOptions = {
-	body: DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdBody;
+	body?: DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdBody | undefined;
 	path: DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsClientsClientIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -13936,7 +13942,7 @@ export type POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmOptions = {
-	body: POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmBody;
+	body?: POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmBody | undefined;
 	path: POSTAdminRealmsRealmGroupsGroupIdRoleMappingsRealmPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -13980,7 +13986,7 @@ export type DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmBody =
 	| undefined;
 
 export type DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmOptions = {
-	body: DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmBody;
+	body?: DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmBody | undefined;
 	path: DELETEAdminRealmsRealmGroupsGroupIdRoleMappingsRealmPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -14200,7 +14206,7 @@ export type PUTAdminRealmsRealmOrganizationsOrgIdStatus409 = unknown;
 export type PUTAdminRealmsRealmOrganizationsOrgIdBody = OrganizationRepresentation | undefined;
 
 export type PUTAdminRealmsRealmOrganizationsOrgIdOptions = {
-	body: PUTAdminRealmsRealmOrganizationsOrgIdBody;
+	body?: PUTAdminRealmsRealmOrganizationsOrgIdBody | undefined;
 	path: PUTAdminRealmsRealmOrganizationsOrgIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -14345,7 +14351,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsStatus409 = unknown;
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsBody = GroupRepresentation | undefined;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsOptions = {
-	body: POSTAdminRealmsRealmOrganizationsOrgIdGroupsBody;
+	body?: POSTAdminRealmsRealmOrganizationsOrgIdGroupsBody | undefined;
 	path: POSTAdminRealmsRealmOrganizationsOrgIdGroupsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -14486,7 +14492,7 @@ export type PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdOptions = {
-	body: PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdBody;
+	body?: PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdBody | undefined;
 	path: PUTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -14634,7 +14640,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenOptions = {
-	body: POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenBody;
+	body?: POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenBody | undefined;
 	path: POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdChildrenPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -14885,7 +14891,9 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClien
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdOptions =
 	{
-		body: POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdBody;
+		body?:
+			| POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdBody
+			| undefined;
 		path: POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdPath;
 		query?: never | undefined;
 		headers?: never | undefined;
@@ -14926,7 +14934,9 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsCli
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdOptions =
 	{
-		body: DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdBody;
+		body?:
+			| DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdBody
+			| undefined;
 		path: DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsClientsClientIdPath;
 		query?: never | undefined;
 		headers?: never | undefined;
@@ -15089,7 +15099,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealm
 	| undefined;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmOptions = {
-	body: POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmBody;
+	body?: POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmBody | undefined;
 	path: POSTAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -15138,7 +15148,7 @@ export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRea
 	| undefined;
 
 export type DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmOptions = {
-	body: DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmBody;
+	body?: DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmBody | undefined;
 	path: DELETEAdminRealmsRealmOrganizationsOrgIdGroupsGroupIdRoleMappingsRealmPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -15375,7 +15385,7 @@ export type PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasOptions = {
-	body: PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasBody;
+	body?: PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasBody | undefined;
 	path: PUTAdminRealmsRealmOrganizationsOrgIdIdentityProvidersAliasPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -15849,7 +15859,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserBody 
 	| undefined;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserOptions = {
-	body: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserBody;
+	body?: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserBody | undefined;
 	path: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteExistingUserPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -15904,7 +15914,7 @@ export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserOptions = {
-	body: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserBody;
+	body?: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserBody | undefined;
 	path: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserPath;
 	query?: POSTAdminRealmsRealmOrganizationsOrgIdMembersInviteUserQuery | undefined;
 	headers?: never | undefined;
@@ -16074,7 +16084,7 @@ export type PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeBo
 	| undefined;
 
 export type PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeOptions = {
-	body: PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeBody;
+	body?: PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypeBody | undefined;
 	path: PUTAdminRealmsRealmOrganizationsOrgIdMembersMemberIdMembershipTypePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -16195,7 +16205,7 @@ export type PUTAdminRealmsRealmRolesByIdRoleIdStatus403 = unknown;
 export type PUTAdminRealmsRealmRolesByIdRoleIdBody = RoleRepresentation | undefined;
 
 export type PUTAdminRealmsRealmRolesByIdRoleIdOptions = {
-	body: PUTAdminRealmsRealmRolesByIdRoleIdBody;
+	body?: PUTAdminRealmsRealmRolesByIdRoleIdBody | undefined;
 	path: PUTAdminRealmsRealmRolesByIdRoleIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -16314,7 +16324,7 @@ export type POSTAdminRealmsRealmRolesByIdRoleIdCompositesStatus403 = unknown;
 export type POSTAdminRealmsRealmRolesByIdRoleIdCompositesBody = RoleRepresentation[] | undefined;
 
 export type POSTAdminRealmsRealmRolesByIdRoleIdCompositesOptions = {
-	body: POSTAdminRealmsRealmRolesByIdRoleIdCompositesBody;
+	body?: POSTAdminRealmsRealmRolesByIdRoleIdCompositesBody | undefined;
 	path: POSTAdminRealmsRealmRolesByIdRoleIdCompositesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -16351,7 +16361,7 @@ export type DELETEAdminRealmsRealmRolesByIdRoleIdCompositesStatus403 = unknown;
 export type DELETEAdminRealmsRealmRolesByIdRoleIdCompositesBody = RoleRepresentation[] | undefined;
 
 export type DELETEAdminRealmsRealmRolesByIdRoleIdCompositesOptions = {
-	body: DELETEAdminRealmsRealmRolesByIdRoleIdCompositesBody;
+	body?: DELETEAdminRealmsRealmRolesByIdRoleIdCompositesBody | undefined;
 	path: DELETEAdminRealmsRealmRolesByIdRoleIdCompositesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -16486,7 +16496,7 @@ export type PUTAdminRealmsRealmRolesByIdRoleIdManagementPermissionsBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmRolesByIdRoleIdManagementPermissionsOptions = {
-	body: PUTAdminRealmsRealmRolesByIdRoleIdManagementPermissionsBody;
+	body?: PUTAdminRealmsRealmRolesByIdRoleIdManagementPermissionsBody | undefined;
 	path: PUTAdminRealmsRealmRolesByIdRoleIdManagementPermissionsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -16566,7 +16576,7 @@ export type PUTAdminRealmsRealmRolesRoleNameStatus409 = unknown;
 export type PUTAdminRealmsRealmRolesRoleNameBody = RoleRepresentation | undefined;
 
 export type PUTAdminRealmsRealmRolesRoleNameOptions = {
-	body: PUTAdminRealmsRealmRolesRoleNameBody;
+	body?: PUTAdminRealmsRealmRolesRoleNameBody | undefined;
 	path: PUTAdminRealmsRealmRolesRoleNamePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -16686,7 +16696,7 @@ export type POSTAdminRealmsRealmRolesRoleNameCompositesStatus404 = unknown;
 export type POSTAdminRealmsRealmRolesRoleNameCompositesBody = RoleRepresentation[] | undefined;
 
 export type POSTAdminRealmsRealmRolesRoleNameCompositesOptions = {
-	body: POSTAdminRealmsRealmRolesRoleNameCompositesBody;
+	body?: POSTAdminRealmsRealmRolesRoleNameCompositesBody | undefined;
 	path: POSTAdminRealmsRealmRolesRoleNameCompositesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -16726,7 +16736,7 @@ export type DELETEAdminRealmsRealmRolesRoleNameCompositesStatus404 = unknown;
 export type DELETEAdminRealmsRealmRolesRoleNameCompositesBody = RoleRepresentation[] | undefined;
 
 export type DELETEAdminRealmsRealmRolesRoleNameCompositesOptions = {
-	body: DELETEAdminRealmsRealmRolesRoleNameCompositesBody;
+	body?: DELETEAdminRealmsRealmRolesRoleNameCompositesBody | undefined;
 	path: DELETEAdminRealmsRealmRolesRoleNameCompositesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -16940,7 +16950,7 @@ export type PUTAdminRealmsRealmRolesRoleNameManagementPermissionsBody =
 	| undefined;
 
 export type PUTAdminRealmsRealmRolesRoleNameManagementPermissionsOptions = {
-	body: PUTAdminRealmsRealmRolesRoleNameManagementPermissionsBody;
+	body?: PUTAdminRealmsRealmRolesRoleNameManagementPermissionsBody | undefined;
 	path: PUTAdminRealmsRealmRolesRoleNameManagementPermissionsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -17079,7 +17089,7 @@ export type PUTAdminRealmsRealmUsersUserIdStatus500 = unknown;
 export type PUTAdminRealmsRealmUsersUserIdBody = UserRepresentation | undefined;
 
 export type PUTAdminRealmsRealmUsersUserIdOptions = {
-	body: PUTAdminRealmsRealmUsersUserIdBody;
+	body?: PUTAdminRealmsRealmUsersUserIdBody | undefined;
 	path: PUTAdminRealmsRealmUsersUserIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -17408,7 +17418,7 @@ export type PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelStatus
 export type PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelBody = string | undefined;
 
 export type PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelOptions = {
-	body: PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelBody;
+	body?: PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelBody | undefined;
 	path: PUTAdminRealmsRealmUsersUserIdCredentialsCredentialIdUserLabelPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -17442,7 +17452,7 @@ export type PUTAdminRealmsRealmUsersUserIdDisableCredentialTypesStatus403 = unkn
 export type PUTAdminRealmsRealmUsersUserIdDisableCredentialTypesBody = string[] | undefined;
 
 export type PUTAdminRealmsRealmUsersUserIdDisableCredentialTypesOptions = {
-	body: PUTAdminRealmsRealmUsersUserIdDisableCredentialTypesBody;
+	body?: PUTAdminRealmsRealmUsersUserIdDisableCredentialTypesBody | undefined;
 	path: PUTAdminRealmsRealmUsersUserIdDisableCredentialTypesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -17501,7 +17511,7 @@ export type PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailStatus500 = unknown
 export type PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailBody = string[] | undefined;
 
 export type PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailOptions = {
-	body: PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailBody;
+	body?: PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailBody | undefined;
 	path: PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailPath;
 	query?: PUTAdminRealmsRealmUsersUserIdExecuteActionsEmailQuery | undefined;
 	headers?: never | undefined;
@@ -17578,7 +17588,7 @@ export type POSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderOptions = {
-	body: POSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderBody;
+	body?: POSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderBody | undefined;
 	path: POSTAdminRealmsRealmUsersUserIdFederatedIdentityProviderPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -17923,7 +17933,7 @@ export type PUTAdminRealmsRealmUsersUserIdResetPasswordStatus500 = unknown;
 export type PUTAdminRealmsRealmUsersUserIdResetPasswordBody = CredentialRepresentation | undefined;
 
 export type PUTAdminRealmsRealmUsersUserIdResetPasswordOptions = {
-	body: PUTAdminRealmsRealmUsersUserIdResetPasswordBody;
+	body?: PUTAdminRealmsRealmUsersUserIdResetPasswordBody | undefined;
 	path: PUTAdminRealmsRealmUsersUserIdResetPasswordPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -18085,7 +18095,7 @@ export type POSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdBody =
 	| undefined;
 
 export type POSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdOptions = {
-	body: POSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdBody;
+	body?: POSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdBody | undefined;
 	path: POSTAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -18122,7 +18132,7 @@ export type DELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdBody =
 	| undefined;
 
 export type DELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdOptions = {
-	body: DELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdBody;
+	body?: DELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdBody | undefined;
 	path: DELETEAdminRealmsRealmUsersUserIdRoleMappingsClientsClientIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -18268,7 +18278,7 @@ export type POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmStatus500 = unknown;
 export type POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmBody = RoleRepresentation[] | undefined;
 
 export type POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmOptions = {
-	body: POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmBody;
+	body?: POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmBody | undefined;
 	path: POSTAdminRealmsRealmUsersUserIdRoleMappingsRealmPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -18312,7 +18322,7 @@ export type DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmBody =
 	| undefined;
 
 export type DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmOptions = {
-	body: DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmBody;
+	body?: DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmBody | undefined;
 	path: DELETEAdminRealmsRealmUsersUserIdRoleMappingsRealmPath;
 	query?: never | undefined;
 	headers?: never | undefined;

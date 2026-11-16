@@ -382,7 +382,7 @@ export type UpdateCredentialLabelStatus204 = void;
 export type UpdateCredentialLabelBody = string | undefined;
 
 export type UpdateCredentialLabelOptions = {
-	body: UpdateCredentialLabelBody;
+	body?: UpdateCredentialLabelBody | undefined;
 	path: UpdateCredentialLabelPath;
 	query?: never | undefined;
 	headers?: never | undefined;
