@@ -1088,7 +1088,7 @@ export const deployFilesSchema = z
 			.optional()
 			.describe("A hash mapping file paths to SHA1 digests of the file contents."),
 		zip: z
-			.instanceof(File)
+			.instanceof(Blob)
 			.optional()
 			.describe(
 				"A zip file containing the site files to deploy. Alternative to 'files'.\nTo use this field, set Content-Type to 'application/json' and include the zip content here.\nAlternatively, you can set Content-Type to 'application/zip' and send the zip as the raw request body (not as JSON).\n",
@@ -5135,7 +5135,7 @@ export const createSiteDeployBodySchema = z
 			.optional()
 			.describe("A hash mapping file paths to SHA1 digests of the file contents."),
 		zip: z
-			.instanceof(File)
+			.instanceof(Blob)
 			.optional()
 			.describe(
 				"A zip file containing the site files to deploy. Alternative to 'files'.\nTo use this field, set Content-Type to 'application/json' and include the zip content here.\nAlternatively, you can set Content-Type to 'application/zip' and send the zip as the raw request body (not as JSON).\n",
@@ -5529,7 +5529,7 @@ export const updateSiteDeployBodySchema = z
 			.optional()
 			.describe("A hash mapping file paths to SHA1 digests of the file contents."),
 		zip: z
-			.instanceof(File)
+			.instanceof(Blob)
 			.optional()
 			.describe(
 				"A zip file containing the site files to deploy. Alternative to 'files'.\nTo use this field, set Content-Type to 'application/json' and include the zip content here.\nAlternatively, you can set Content-Type to 'application/zip' and send the zip as the raw request body (not as JSON).\n",
@@ -6031,7 +6031,7 @@ export const createSiteBuildErrorSchema = z.union([
 export const createSiteBuildBodySchema = z
 	.object({
 		zip: z
-			.instanceof(File)
+			.instanceof(Blob)
 			.optional()
 			.describe(
 				"A zip file containing the site files to build.\nOnly used with Content-Type 'multipart/form-data'.\nAlternatively, set Content-Type to 'application/zip' and send the zip as the raw request body (no 'zip' parameter needed).\n",
@@ -6865,7 +6865,7 @@ export const uploadDeployFileResponseSchema = uploadDeployFileStatus200Schema;
 
 export const uploadDeployFileErrorSchema = uploadDeployFileStatusDefaultSchema;
 
-export const uploadDeployFileBodySchema = z.instanceof(File);
+export const uploadDeployFileBodySchema = z.instanceof(Blob);
 
 export const uploadDeployFilePathSchema = z.object({
 	deploy_id: z.string(),
@@ -6906,7 +6906,7 @@ export const uploadDeployFunctionResponseSchema = uploadDeployFunctionStatus200S
 
 export const uploadDeployFunctionErrorSchema = uploadDeployFunctionStatusDefaultSchema;
 
-export const uploadDeployFunctionBodySchema = z.instanceof(File);
+export const uploadDeployFunctionBodySchema = z.instanceof(Blob);
 
 export const uploadDeployFunctionPathSchema = z.object({
 	deploy_id: z.string(),
@@ -6943,7 +6943,7 @@ export const uploadDeployServerResponseSchema = uploadDeployServerStatus200Schem
 
 export const uploadDeployServerErrorSchema = uploadDeployServerStatusDefaultSchema;
 
-export const uploadDeployServerBodySchema = z.instanceof(File);
+export const uploadDeployServerBodySchema = z.instanceof(Blob);
 
 export const uploadDeployServerPathSchema = z.object({
 	deploy_id: z.string(),
@@ -6975,7 +6975,7 @@ export const uploadDeployEdgeFunctionResponseSchema = uploadDeployEdgeFunctionSt
 
 export const uploadDeployEdgeFunctionErrorSchema = uploadDeployEdgeFunctionStatusDefaultSchema;
 
-export const uploadDeployEdgeFunctionBodySchema = z.instanceof(File);
+export const uploadDeployEdgeFunctionBodySchema = z.instanceof(Blob);
 
 export const uploadDeployEdgeFunctionPathSchema = z.object({
 	deploy_id: z.string(),
@@ -9099,10 +9099,7 @@ export const getAgentRunnerDiffStatus200Schema = z.string();
 
 export const getAgentRunnerDiffStatus404Schema = z.unknown();
 
-export const getAgentRunnerDiffStatusDefaultSchema = z.object({
-	code: z.int().optional(),
-	message: z.string(),
-});
+export const getAgentRunnerDiffStatusDefaultSchema = z.string();
 
 export const getAgentRunnerDiffResponseSchema = getAgentRunnerDiffStatus200Schema;
 
