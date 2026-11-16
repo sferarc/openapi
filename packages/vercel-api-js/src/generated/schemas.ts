@@ -597,15 +597,15 @@ export const connectConnectorSchema = z
 		createdAt: z.number().describe("Creation time in epoch milliseconds."),
 		createdBy: z
 			.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					id: z.string(),
 					type: z.enum(["app"]),
 				}),
-				z.strictObject({
+				z.object({
 					id: z.string().describe("Vercel user ID."),
 					type: z.enum(["user"]).describe("Principal kind."),
 				}),
-				z.strictObject({
+				z.object({
 					environment: z.union([z.string(), z.enum(["development", "preview", "production"])]),
 					id: z.string().describe("Vercel project ID."),
 					type: z.enum(["project"]).describe("Principal kind."),
@@ -755,15 +755,15 @@ export const connectConnectorSchema = z
 		updatedAt: z.number().describe("Last update time in epoch milliseconds."),
 		updatedBy: z
 			.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					id: z.string(),
 					type: z.enum(["app"]),
 				}),
-				z.strictObject({
+				z.object({
 					id: z.string().describe("Vercel user ID."),
 					type: z.enum(["user"]).describe("Principal kind."),
 				}),
-				z.strictObject({
+				z.object({
 					environment: z.union([z.string(), z.enum(["development", "preview", "production"])]),
 					id: z.string().describe("Vercel project ID."),
 					type: z.enum(["project"]).describe("Principal kind."),
@@ -880,15 +880,15 @@ export const connectConnectorCreateResultSchema = z
 		createdAt: z.number().describe("Creation time in epoch milliseconds."),
 		createdBy: z
 			.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					id: z.string(),
 					type: z.enum(["app"]),
 				}),
-				z.strictObject({
+				z.object({
 					id: z.string().describe("Vercel user ID."),
 					type: z.enum(["user"]).describe("Principal kind."),
 				}),
-				z.strictObject({
+				z.object({
 					environment: z.union([z.string(), z.enum(["development", "preview", "production"])]),
 					id: z.string().describe("Vercel project ID."),
 					type: z.enum(["project"]).describe("Principal kind."),
@@ -1038,15 +1038,15 @@ export const connectConnectorCreateResultSchema = z
 		updatedAt: z.number().describe("Last update time in epoch milliseconds."),
 		updatedBy: z
 			.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					id: z.string(),
 					type: z.enum(["app"]),
 				}),
-				z.strictObject({
+				z.object({
 					id: z.string().describe("Vercel user ID."),
 					type: z.enum(["user"]).describe("Principal kind."),
 				}),
-				z.strictObject({
+				z.object({
 					environment: z.union([z.string(), z.enum(["development", "preview", "production"])]),
 					id: z.string().describe("Vercel project ID."),
 					type: z.enum(["project"]).describe("Principal kind."),
@@ -3361,6 +3361,27 @@ export const userEventSchema = z
 					slackConfigured: z.union([z.literal(false), z.literal(true)]),
 				}),
 				z.strictObject({
+					acceptedTokenCount: z.number().optional(),
+					clientId: z.string().optional(),
+					clientName: z.string().optional(),
+					clientUid: z.string().optional(),
+					environments: z.array(z.string()).optional(),
+					eventName: z.string().optional(),
+					fields: z.array(z.string()).optional(),
+					importedTokenCount: z.number().optional(),
+					installationId: z.string().optional(),
+					projectId: z.string().optional(),
+					projectName: z.string().optional(),
+					requestId: z.string().optional(),
+					requestName: z.string().optional(),
+					result: z.string().optional(),
+					subjectType: z.enum(["app", "user"]).optional(),
+					subscriptionId: z.string().optional(),
+					tokenCount: z.number().optional(),
+					tokensDeleted: z.number().optional(),
+					triggerDestinationCount: z.number().optional(),
+				}),
+				z.strictObject({
 					action: z.enum(["archived", "created", "deleted", "unarchived", "updated"]),
 					id: z.string(),
 					projectId: z.string(),
@@ -3861,6 +3882,19 @@ export const userEventSchema = z
 				}),
 				z.strictObject({
 					countries: z.array(z.string()),
+				}),
+				z.strictObject({
+					enabled: z.union([z.literal(false), z.literal(true)]),
+					mode: z.enum(["enforce", "shadow"]),
+				}),
+				z.strictObject({
+					endpointOrigin: z.string(),
+				}),
+				z.strictObject({
+					failureMode: z.enum(["closed", "open"]).optional(),
+					mode: z.enum(["enforce", "shadow"]).optional(),
+					rolloutPercent: z.number().optional(),
+					timeoutMs: z.number().optional(),
 				}),
 				z.strictObject({
 					retention: z.object({
@@ -4945,24 +4979,6 @@ export const userEventSchema = z
 					bitbucketLogin: z.string(),
 				}),
 				z.strictObject({
-					acceptedTokenCount: z.number().optional(),
-					clientId: z.string().optional(),
-					clientName: z.string().optional(),
-					clientUid: z.string().optional(),
-					environments: z.array(z.string()).optional(),
-					eventName: z.string().optional(),
-					fields: z.array(z.string()).optional(),
-					importedTokenCount: z.number().optional(),
-					installationId: z.string().optional(),
-					projectId: z.string().optional(),
-					projectName: z.string().optional(),
-					subjectType: z.enum(["app", "user"]).optional(),
-					subscriptionId: z.string().optional(),
-					tokenCount: z.number().optional(),
-					tokensDeleted: z.number().optional(),
-					triggerDestinationCount: z.number().optional(),
-				}),
-				z.strictObject({
 					prevPurchasedAmount: z.number(),
 					project: z.object({
 						id: z.string(),
@@ -5127,7 +5143,7 @@ export const userEventSchema = z
 				}),
 				z.strictObject({
 					job: z.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							authorized: z.union([z.literal(false), z.literal(true)]).optional(),
 							authorizedBy: z.string().optional(),
 							commitVerification: z
@@ -5256,7 +5272,7 @@ export const userEventSchema = z
 							withCache: z.union([z.literal(false), z.literal(true)]).optional(),
 							workspaceUuid: z.string(),
 						}),
-						z.strictObject({
+						z.object({
 							createdAt: z.number().optional(),
 							customEnvId: z.string().nullish(),
 							eventful: z.union([z.literal(false), z.literal(true)]).optional(),
@@ -5286,7 +5302,7 @@ export const userEventSchema = z
 							type: z.enum(["bitbucket-now-comment"]),
 							workspaceUuid: z.string(),
 						}),
-						z.strictObject({
+						z.object({
 							authorized: z.union([z.literal(false), z.literal(true)]).optional(),
 							authorizedBy: z.string().optional(),
 							beforeSha: z.string().optional(),
@@ -5429,7 +5445,7 @@ export const userEventSchema = z
 							url: z.string().optional(),
 							withCache: z.union([z.literal(false), z.literal(true)]).optional(),
 						}),
-						z.strictObject({
+						z.object({
 							authorized: z.union([z.literal(false), z.literal(true)]).optional(),
 							authorizedBy: z.string().optional(),
 							beforeSha: z.string().optional(),
@@ -5580,7 +5596,7 @@ export const userEventSchema = z
 							url: z.string().optional(),
 							withCache: z.union([z.literal(false), z.literal(true)]).optional(),
 						}),
-						z.strictObject({
+						z.object({
 							beforeSha: z.string().optional(),
 							createdAt: z.number().optional(),
 							customEnvId: z.unknown().nullish(),
@@ -5612,7 +5628,7 @@ export const userEventSchema = z
 							repoId: z.number(),
 							type: z.enum(["now-comment"]),
 						}),
-						z.strictObject({
+						z.object({
 							authorized: z.union([z.literal(false), z.literal(true)]).optional(),
 							authorizedBy: z.string().optional(),
 							commit: z
@@ -5761,7 +5777,7 @@ export const userEventSchema = z
 							url: z.string().optional(),
 							withCache: z.union([z.literal(false), z.literal(true)]).optional(),
 						}),
-						z.strictObject({
+						z.object({
 							createdAt: z.number().optional(),
 							customEnvId: z.string().nullish(),
 							eventful: z.union([z.literal(false), z.literal(true)]).optional(),
@@ -5801,7 +5817,7 @@ export const userEventSchema = z
 							sha: z.string(),
 							type: z.enum(["gitlab-now-comment"]),
 						}),
-						z.strictObject({
+						z.object({
 							authorized: z.union([z.literal(false), z.literal(true)]).optional(),
 							authorizedBy: z.string().optional(),
 							commitVerification: z
@@ -5939,7 +5955,7 @@ export const userEventSchema = z
 							type: z.enum(["vercel-push"]),
 							url: z.string().optional(),
 						}),
-						z.strictObject({
+						z.object({
 							authorized: z.union([z.literal(false), z.literal(true)]).optional(),
 							authorizedBy: z.string().optional(),
 							beforeSha: z.string().optional(),
@@ -6073,7 +6089,7 @@ export const userEventSchema = z
 							type: z.enum(["cursor-origin-push"]),
 							url: z.string().optional(),
 						}),
-						z.strictObject({
+						z.object({
 							createdAt: z.number().optional(),
 							customEnvId: z.unknown().nullish(),
 							eventful: z.union([z.literal(false), z.literal(true)]).optional(),
@@ -6561,14 +6577,14 @@ export const userEventSchema = z
 						.describe("The last editor full name or username."),
 					lastEditedByPrincipal: z
 						.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								avatar: z.string().optional(),
 								id: z.string(),
 								name: z.string().nullish(),
 								type: z.enum(["user"]),
 								username: z.string(),
 							}),
-							z.strictObject({
+							z.object({
 								avatar: z.string().optional(),
 								id: z.string(),
 								name: z.string(),
@@ -6684,14 +6700,14 @@ export const userEventSchema = z
 								.describe("The last editor full name or username."),
 							lastEditedByPrincipal: z
 								.discriminatedUnion("type", [
-									z.strictObject({
+									z.object({
 										avatar: z.string().optional(),
 										id: z.string(),
 										name: z.string().nullish(),
 										type: z.enum(["user"]),
 										username: z.string(),
 									}),
-									z.strictObject({
+									z.object({
 										avatar: z.string().optional(),
 										id: z.string(),
 										name: z.string(),
@@ -6799,14 +6815,14 @@ export const userEventSchema = z
 								.describe("The last editor full name or username."),
 							lastEditedByPrincipal: z
 								.discriminatedUnion("type", [
-									z.strictObject({
+									z.object({
 										avatar: z.string().optional(),
 										id: z.string(),
 										name: z.string().nullish(),
 										type: z.enum(["user"]),
 										username: z.string(),
 									}),
-									z.strictObject({
+									z.object({
 										avatar: z.string().optional(),
 										id: z.string(),
 										name: z.string(),
@@ -7224,6 +7240,7 @@ export const userEventSchema = z
 						"apple",
 						"bitbucket",
 						"chatgpt",
+						"claude",
 						"github",
 						"github-custom-host",
 						"github-limited",
@@ -7237,6 +7254,7 @@ export const userEventSchema = z
 						"apple",
 						"bitbucket",
 						"chatgpt",
+						"claude",
 						"github",
 						"github-custom-host",
 						"github-limited",
@@ -7257,6 +7275,7 @@ export const userEventSchema = z
 											"apple",
 											"bitbucket",
 											"chatgpt",
+											"claude",
 											"email",
 											"emu-recovery",
 											"github",
@@ -7285,6 +7304,7 @@ export const userEventSchema = z
 												"apple",
 												"bitbucket",
 												"chatgpt",
+												"claude",
 												"email",
 												"emu-recovery",
 												"github",
@@ -8914,13 +8934,13 @@ export const userEventSchema = z
 								),
 							principal: z
 								.discriminatedUnion("type", [
-									z.strictObject({
+									z.object({
 										project: z.object({
 											id: z.string(),
 										}),
 										type: z.enum(["project"]),
 									}),
-									z.strictObject({
+									z.object({
 										app: z.object({
 											clientId: z
 												.string()
@@ -8934,21 +8954,21 @@ export const userEventSchema = z
 										}),
 										type: z.enum(["app"]),
 									}),
-									z.strictObject({
+									z.object({
 										integration: z.object({
 											configurationId: z.string(),
 											integrationId: z.string(),
 										}),
 										type: z.enum(["integration"]),
 									}),
-									z.strictObject({
+									z.object({
 										type: z.enum(["system"]),
 									}),
-									z.strictObject({
+									z.object({
 										type: z.enum(["user"]),
 										via: z
 											.discriminatedUnion("type", [
-												z.strictObject({
+												z.object({
 													app: z.object({
 														clientId: z
 															.string()
@@ -8964,7 +8984,7 @@ export const userEventSchema = z
 													}),
 													type: z.enum(["app"]),
 												}),
-												z.strictObject({
+												z.object({
 													integration: z.object({
 														configurationId: z.string(),
 														integrationId: z.string(),
@@ -9413,6 +9433,7 @@ export const userEventSchema = z
 									"apple",
 									"bitbucket",
 									"chatgpt",
+									"claude",
 									"email",
 									"github",
 									"gitlab",
@@ -10869,6 +10890,12 @@ export const userEventSchema = z
 					customAlertTitle: z.string(),
 				}),
 				z.strictObject({
+					enabled: z.union([z.literal(false), z.literal(true)]),
+					organizationId: z.string().optional(),
+					repository: z.string().optional(),
+					repositoryId: z.string(),
+				}),
+				z.strictObject({
 					ciEnabled: z.union([z.literal(false), z.literal(true)]),
 					organizationId: z.string(),
 					repository: z.string(),
@@ -11061,6 +11088,7 @@ export const userEventSchema = z
 						"apple",
 						"bitbucket",
 						"chatgpt",
+						"claude",
 						"email",
 						"emu",
 						"github",
@@ -11337,6 +11365,7 @@ export const userEventSchema = z
 							"apple",
 							"bitbucket",
 							"chatgpt",
+							"claude",
 							"email",
 							"emu",
 							"github",
@@ -11420,6 +11449,7 @@ export const userEventSchema = z
 							"apple",
 							"bitbucket",
 							"chatgpt",
+							"claude",
 							"email",
 							"emu",
 							"github",
@@ -11483,7 +11513,7 @@ export const userEventSchema = z
 			.optional(),
 		principal: z
 			.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					avatar: z.string(),
 					email: z.string(),
 					slug: z.string().optional(),
@@ -11491,7 +11521,7 @@ export const userEventSchema = z
 					uid: z.string(),
 					username: z.string(),
 				}),
-				z.strictObject({
+				z.object({
 					clientId: z.string().describe("The OAuth 2.0 client ID, which may be a CIMD URL."),
 					id: z
 						.string()
@@ -11500,20 +11530,20 @@ export const userEventSchema = z
 					name: z.string(),
 					type: z.enum(["app"]),
 				}),
-				z.strictObject({
+				z.object({
 					avatar: z.string().optional(),
 					id: z.string().describe("The OAuth2 integration ID."),
 					name: z.string(),
 					slug: z.string().optional(),
 					type: z.enum(["integration"]),
 				}),
-				z.strictObject({
+				z.object({
 					email: z.string().optional(),
 					id: z.string(),
 					name: z.string(),
 					type: z.enum(["external"]),
 				}),
-				z.strictObject({
+				z.object({
 					type: z.enum(["system"]),
 				}),
 			])
@@ -11595,6 +11625,10 @@ export const userEventSchema = z
 				"ai-gateway-guardrails-updated",
 				"ai-gateway-headquarters-updated",
 				"ai-gateway-hipaa-compliance-toggled",
+				"ai-gateway-inference-hooks-endpoint-updated",
+				"ai-gateway-inference-hooks-removed",
+				"ai-gateway-inference-hooks-settings-updated",
+				"ai-gateway-inference-hooks-toggled",
 				"ai-gateway-inference-regions-updated",
 				"ai-gateway-member-budget-changes",
 				"ai-gateway-model-allowlist-models-updated",
@@ -11671,6 +11705,7 @@ export const userEventSchema = z
 				"compliance-document-previewed",
 				"compliance-documents-bulk-downloaded",
 				"concurrent-builds-update",
+				"connect-approve-connector-request",
 				"connect-attach-project",
 				"connect-bitbucket",
 				"connect-bitbucket-app",
@@ -11685,6 +11720,7 @@ export const userEventSchema = z
 				"connect-create-connector",
 				"connect-create-mcp-event-subscription",
 				"connect-delete-connector",
+				"connect-delete-connector-request",
 				"connect-delete-installation",
 				"connect-detach-project",
 				"connect-github",
@@ -11693,10 +11729,15 @@ export const userEventSchema = z
 				"connect-gitlab",
 				"connect-gitlab-app",
 				"connect-import-tokens",
+				"connect-provision-connector-request",
+				"connect-reject-connector-request",
 				"connect-revoke-all-tokens",
+				"connect-submit-connector-request",
 				"connect-update-connector",
+				"connect-update-connector-request",
 				"connect-update-trigger-destinations",
 				"connect-upsert-installation",
+				"connect-withdraw-connector-request",
 				"custom-alert-created",
 				"custom-alert-deleted",
 				"custom-alert-updated",
@@ -12321,6 +12362,7 @@ export const userEventSchema = z
 				"vercel-app-installed",
 				"vercel-app-tokens-revoked",
 				"vercel-app-uninstalled",
+				"vercel-ci-repository-github-runners-updated",
 				"vercel-ci-repository-settings-updated",
 				"vercel-toolbar",
 				"vpc-peering-connection-accepted",
@@ -12359,7 +12401,7 @@ export const userEventSchema = z
 		via: z
 			.array(
 				z.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						avatar: z.string(),
 						email: z.string(),
 						slug: z.string().optional(),
@@ -12367,7 +12409,7 @@ export const userEventSchema = z
 						uid: z.string(),
 						username: z.string(),
 					}),
-					z.strictObject({
+					z.object({
 						clientId: z.string().describe("The OAuth 2.0 client ID, which may be a CIMD URL."),
 						id: z
 							.string()
@@ -12376,20 +12418,20 @@ export const userEventSchema = z
 						name: z.string(),
 						type: z.enum(["app"]),
 					}),
-					z.strictObject({
+					z.object({
 						avatar: z.string().optional(),
 						id: z.string().describe("The OAuth2 integration ID."),
 						name: z.string(),
 						slug: z.string().optional(),
 						type: z.enum(["integration"]),
 					}),
-					z.strictObject({
+					z.object({
 						email: z.string().optional(),
 						id: z.string(),
 						name: z.string(),
 						type: z.enum(["external"]),
 					}),
-					z.strictObject({
+					z.object({
 						type: z.enum(["system"]),
 					}),
 				]),
@@ -12495,6 +12537,10 @@ export const listEventTypeSchema = z
 				"ai-gateway-guardrails-updated",
 				"ai-gateway-headquarters-updated",
 				"ai-gateway-hipaa-compliance-toggled",
+				"ai-gateway-inference-hooks-endpoint-updated",
+				"ai-gateway-inference-hooks-removed",
+				"ai-gateway-inference-hooks-settings-updated",
+				"ai-gateway-inference-hooks-toggled",
 				"ai-gateway-inference-regions-updated",
 				"ai-gateway-member-budget-changes",
 				"ai-gateway-model-allowlist-models-updated",
@@ -12571,6 +12617,7 @@ export const listEventTypeSchema = z
 				"compliance-document-previewed",
 				"compliance-documents-bulk-downloaded",
 				"concurrent-builds-update",
+				"connect-approve-connector-request",
 				"connect-attach-project",
 				"connect-bitbucket",
 				"connect-bitbucket-app",
@@ -12585,6 +12632,7 @@ export const listEventTypeSchema = z
 				"connect-create-connector",
 				"connect-create-mcp-event-subscription",
 				"connect-delete-connector",
+				"connect-delete-connector-request",
 				"connect-delete-installation",
 				"connect-detach-project",
 				"connect-github",
@@ -12593,10 +12641,15 @@ export const listEventTypeSchema = z
 				"connect-gitlab",
 				"connect-gitlab-app",
 				"connect-import-tokens",
+				"connect-provision-connector-request",
+				"connect-reject-connector-request",
 				"connect-revoke-all-tokens",
+				"connect-submit-connector-request",
 				"connect-update-connector",
+				"connect-update-connector-request",
 				"connect-update-trigger-destinations",
 				"connect-upsert-installation",
+				"connect-withdraw-connector-request",
 				"custom-alert-created",
 				"custom-alert-deleted",
 				"custom-alert-updated",
@@ -13221,6 +13274,7 @@ export const listEventTypeSchema = z
 				"vercel-app-installed",
 				"vercel-app-tokens-revoked",
 				"vercel-app-uninstalled",
+				"vercel-ci-repository-github-runners-updated",
 				"vercel-ci-repository-settings-updated",
 				"vercel-toolbar",
 				"vpc-peering-connection-accepted",
@@ -13290,6 +13344,10 @@ export const listEventTypeSchema = z
 					"ai-gateway-guardrails-updated",
 					"ai-gateway-headquarters-updated",
 					"ai-gateway-hipaa-compliance-toggled",
+					"ai-gateway-inference-hooks-endpoint-updated",
+					"ai-gateway-inference-hooks-removed",
+					"ai-gateway-inference-hooks-settings-updated",
+					"ai-gateway-inference-hooks-toggled",
 					"ai-gateway-inference-regions-updated",
 					"ai-gateway-member-budget-changes",
 					"ai-gateway-model-allowlist-models-updated",
@@ -13366,6 +13424,7 @@ export const listEventTypeSchema = z
 					"compliance-document-previewed",
 					"compliance-documents-bulk-downloaded",
 					"concurrent-builds-update",
+					"connect-approve-connector-request",
 					"connect-attach-project",
 					"connect-bitbucket",
 					"connect-bitbucket-app",
@@ -13380,6 +13439,7 @@ export const listEventTypeSchema = z
 					"connect-create-connector",
 					"connect-create-mcp-event-subscription",
 					"connect-delete-connector",
+					"connect-delete-connector-request",
 					"connect-delete-installation",
 					"connect-detach-project",
 					"connect-github",
@@ -13388,10 +13448,15 @@ export const listEventTypeSchema = z
 					"connect-gitlab",
 					"connect-gitlab-app",
 					"connect-import-tokens",
+					"connect-provision-connector-request",
+					"connect-reject-connector-request",
 					"connect-revoke-all-tokens",
+					"connect-submit-connector-request",
 					"connect-update-connector",
+					"connect-update-connector-request",
 					"connect-update-trigger-destinations",
 					"connect-upsert-installation",
+					"connect-withdraw-connector-request",
 					"custom-alert-created",
 					"custom-alert-deleted",
 					"custom-alert-updated",
@@ -14016,6 +14081,7 @@ export const listEventTypeSchema = z
 					"vercel-app-installed",
 					"vercel-app-tokens-revoked",
 					"vercel-app-uninstalled",
+					"vercel-ci-repository-github-runners-updated",
 					"vercel-ci-repository-settings-updated",
 					"vercel-toolbar",
 					"vpc-peering-connection-accepted",
@@ -14082,11 +14148,11 @@ export const flagSchema = z.object({
 		z.object({
 			active: z.union([z.literal(false), z.literal(true)]),
 			fallthrough: z.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					type: z.enum(["variant"]),
 					variantId: z.string(),
 				}),
-				z.strictObject({
+				z.object({
 					base: z.object({
 						attribute: z.string(),
 						kind: z.string(),
@@ -14096,7 +14162,7 @@ export const flagSchema = z.object({
 					type: z.enum(["split"]),
 					weights: z.record(z.string(), z.number()),
 				}),
-				z.strictObject({
+				z.object({
 					base: z.object({
 						attribute: z.string(),
 						kind: z.string(),
@@ -14115,7 +14181,7 @@ export const flagSchema = z.object({
 					startTimestamp: z.number(),
 					type: z.enum(["rollout"]),
 				}),
-				z.strictObject({
+				z.object({
 					type: z.enum(["experiment"]),
 				}),
 			]),
@@ -14165,10 +14231,10 @@ export const flagSchema = z.object({
 								})
 								.optional(),
 							lhs: z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									type: z.enum(["segment"]),
 								}),
-								z.strictObject({
+								z.object({
 									attribute: z.string(),
 									kind: z.string(),
 									type: z.enum(["entity"]),
@@ -14207,11 +14273,11 @@ export const flagSchema = z.object({
 					),
 					id: z.string(),
 					outcome: z.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							type: z.enum(["variant"]),
 							variantId: z.string(),
 						}),
-						z.strictObject({
+						z.object({
 							base: z.object({
 								attribute: z.string(),
 								kind: z.string(),
@@ -14221,7 +14287,7 @@ export const flagSchema = z.object({
 							type: z.enum(["split"]),
 							weights: z.record(z.string(), z.number()),
 						}),
-						z.strictObject({
+						z.object({
 							base: z.object({
 								attribute: z.string(),
 								kind: z.string(),
@@ -14240,7 +14306,7 @@ export const flagSchema = z.object({
 							startTimestamp: z.number(),
 							type: z.enum(["rollout"]),
 						}),
-						z.strictObject({
+						z.object({
 							type: z.enum(["experiment"]),
 						}),
 					]),
@@ -14394,10 +14460,10 @@ export const segmentSchema = z.object({
 								})
 								.optional(),
 							lhs: z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									type: z.enum(["segment"]),
 								}),
-								z.strictObject({
+								z.object({
 									attribute: z.string(),
 									kind: z.string(),
 									type: z.enum(["entity"]),
@@ -14436,10 +14502,10 @@ export const segmentSchema = z.object({
 					),
 					id: z.string(),
 					outcome: z.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							type: z.enum(["all"]),
 						}),
-						z.strictObject({
+						z.object({
 							base: z.object({
 								attribute: z.string(),
 								kind: z.string(),
@@ -15492,11 +15558,11 @@ export const teamSchema = z
 							enabled: z.union([z.literal(false), z.literal(true)]),
 							environments: z.array(
 								z.discriminatedUnion("type", [
-									z.strictObject({
+									z.object({
 										target: z.enum(["preview", "production"]),
 										type: z.enum(["system"]),
 									}),
-									z.strictObject({
+									z.object({
 										environmentId: z.string(),
 										type: z.enum(["custom"]),
 									}),
@@ -15514,11 +15580,11 @@ export const teamSchema = z
 							enabled: z.union([z.literal(false), z.literal(true)]),
 							environments: z.array(
 								z.discriminatedUnion("type", [
-									z.strictObject({
+									z.object({
 										target: z.enum(["preview", "production"]),
 										type: z.enum(["system"]),
 									}),
-									z.strictObject({
+									z.object({
 										environmentId: z.string(),
 										type: z.enum(["custom"]),
 									}),
@@ -16370,7 +16436,7 @@ export const authTokenSchema = z
 		scopes: z
 			.array(
 				z.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						createdAt: z.number(),
 						expiresAt: z.number().optional(),
 						origin: z
@@ -16379,6 +16445,7 @@ export const authTokenSchema = z
 								"apple",
 								"bitbucket",
 								"chatgpt",
+								"claude",
 								"email",
 								"emu",
 								"github",
@@ -16405,7 +16472,7 @@ export const authTokenSchema = z
 							.optional(),
 						type: z.enum(["user"]),
 					}),
-					z.strictObject({
+					z.object({
 						createdAt: z.number(),
 						expiresAt: z.number().optional(),
 						origin: z
@@ -16414,6 +16481,7 @@ export const authTokenSchema = z
 								"apple",
 								"bitbucket",
 								"chatgpt",
+								"claude",
 								"email",
 								"emu",
 								"github",
@@ -20467,7 +20535,7 @@ export const uploadArtifactErrorSchema = z.union([
 	uploadArtifactStatus410Schema,
 ]);
 
-export const uploadArtifactBodySchema = z.instanceof(File);
+export const uploadArtifactBodySchema = z.instanceof(Blob);
 
 export const uploadArtifactPathSchema = z.object({
 	hash: z
@@ -20973,7 +21041,7 @@ export const buyCreditsStatus200Schema = z.union([
 		purchaseIntent: z
 			.object({
 				configuration: z.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						options: z
 							.object({
 								amount: z.string().describe("The amount of currency to buy"),
@@ -20995,7 +21063,7 @@ export const buyCreditsStatus200Schema = z.union([
 						output: z.unknown().nullable(),
 						type: z.enum(["credit_topup"]),
 					}),
-					z.strictObject({
+					z.object({
 						options: z.object({
 							items: z.array(
 								z.object({
@@ -21010,7 +21078,7 @@ export const buyCreditsStatus200Schema = z.union([
 						output: z.unknown().nullable(),
 						type: z.enum(["domain_name"]),
 					}),
-					z.strictObject({
+					z.object({
 						options: z.object({
 							alignBillingWithPlanChangeDate: z
 								.union([z.literal(false), z.literal(true)])
@@ -21046,7 +21114,7 @@ export const buyCreditsStatus200Schema = z.union([
 						}),
 						type: z.enum(["orb_plan_change"]),
 					}),
-					z.strictObject({
+					z.object({
 						options: z.object({
 							add: z
 								.array(z.unknown())
@@ -21079,7 +21147,7 @@ export const buyCreditsStatus200Schema = z.union([
 						}),
 						type: z.enum(["orb_price_interval"]),
 					}),
-					z.strictObject({
+					z.object({
 						options: z.object({
 							addPrices: z
 								.array(
@@ -21139,7 +21207,7 @@ export const buyCreditsStatus200Schema = z.union([
 						}),
 						type: z.enum(["orb_subscription"]),
 					}),
-					z.strictObject({
+					z.object({
 						options: z.object({
 							lineItems: z
 								.array(
@@ -21186,7 +21254,7 @@ export const buyCreditsStatus200Schema = z.union([
 						}),
 						type: z.enum(["orb_subscription_intent"]),
 					}),
-					z.strictObject({
+					z.object({
 						options: z.union([
 							z.strictObject({
 								fromPlan: z
@@ -22846,18 +22914,18 @@ export const listProjectChecksStatus200Schema = z.object({
 			projectId: z.string(),
 			requires: z.enum(["build-ready", "deployment-url", "none"]),
 			source: z.discriminatedUnion("kind", [
-				z.strictObject({
+				z.object({
 					externalResourceId: z.string().optional(),
 					integrationConfigurationId: z.string(),
 					integrationId: z.string(),
 					kind: z.enum(["integration"]),
 					resourceId: z.string().optional(),
 				}),
-				z.strictObject({
+				z.object({
 					kind: z.enum(["webhook"]),
 					webhookId: z.string().optional(),
 				}),
-				z.strictObject({
+				z.object({
 					externalCheckName: z.string(),
 					kind: z.enum(["git-provider"]),
 					provider: z.enum(["bitbucket", "github", "gitlab"]),
@@ -22946,18 +23014,18 @@ export const createProjectCheckStatus200Schema = z.object({
 	projectId: z.string(),
 	requires: z.enum(["build-ready", "deployment-url", "none"]),
 	source: z.discriminatedUnion("kind", [
-		z.strictObject({
+		z.object({
 			externalResourceId: z.string().optional(),
 			integrationConfigurationId: z.string(),
 			integrationId: z.string(),
 			kind: z.enum(["integration"]),
 			resourceId: z.string().optional(),
 		}),
-		z.strictObject({
+		z.object({
 			kind: z.enum(["webhook"]),
 			webhookId: z.string().optional(),
 		}),
-		z.strictObject({
+		z.object({
 			externalCheckName: z.string(),
 			kind: z.enum(["git-provider"]),
 			provider: z.enum(["bitbucket", "github", "gitlab"]),
@@ -23101,18 +23169,18 @@ export const getProjectCheckStatus200Schema = z.object({
 	projectId: z.string(),
 	requires: z.enum(["build-ready", "deployment-url", "none"]),
 	source: z.discriminatedUnion("kind", [
-		z.strictObject({
+		z.object({
 			externalResourceId: z.string().optional(),
 			integrationConfigurationId: z.string(),
 			integrationId: z.string(),
 			kind: z.enum(["integration"]),
 			resourceId: z.string().optional(),
 		}),
-		z.strictObject({
+		z.object({
 			kind: z.enum(["webhook"]),
 			webhookId: z.string().optional(),
 		}),
-		z.strictObject({
+		z.object({
 			externalCheckName: z.string(),
 			kind: z.enum(["git-provider"]),
 			provider: z.enum(["bitbucket", "github", "gitlab"]),
@@ -23202,18 +23270,18 @@ export const updateProjectCheckStatus200Schema = z.object({
 	projectId: z.string(),
 	requires: z.enum(["build-ready", "deployment-url", "none"]),
 	source: z.discriminatedUnion("kind", [
-		z.strictObject({
+		z.object({
 			externalResourceId: z.string().optional(),
 			integrationConfigurationId: z.string(),
 			integrationId: z.string(),
 			kind: z.enum(["integration"]),
 			resourceId: z.string().optional(),
 		}),
-		z.strictObject({
+		z.object({
 			kind: z.enum(["webhook"]),
 			webhookId: z.string().optional(),
 		}),
-		z.strictObject({
+		z.object({
 			externalCheckName: z.string(),
 			kind: z.enum(["git-provider"]),
 			provider: z.enum(["bitbucket", "github", "gitlab"]),
@@ -23452,13 +23520,13 @@ export const listCheckRunsStatus200Schema = z.object({
 					z.strictObject({
 						origin: z.enum(["api"]),
 						selection: z.discriminatedUnion("kind", [
-							z.strictObject({
+							z.object({
 								kind: z.enum(["invocation"]),
 							}),
-							z.strictObject({
+							z.object({
 								kind: z.enum(["deployment"]),
 							}),
-							z.strictObject({
+							z.object({
 								failIfNoMatch: z.union([z.literal(false), z.literal(true)]).optional(),
 								filters: z.array(z.string()),
 								job: z.enum(["Turborepo"]),
@@ -23521,14 +23589,14 @@ export const listCheckRunsStatus200Schema = z.object({
 				timeout: z.number(),
 				updatedAt: z.number(),
 				source: z.discriminatedUnion("origin", [
-					z.strictObject({
+					z.object({
 						invocationAttempt: z.number().optional(),
 						invocationId: z.string(),
 						jobDefinitionId: z.string(),
 						origin: z.enum(["config"]),
 						subKind: z.enum(["vercel-ci"]),
 					}),
-					z.strictObject({
+					z.object({
 						origin: z.enum(["platform"]),
 						subKind: z.enum(["vercel-ci-sentinel"]),
 					}),
@@ -23674,13 +23742,13 @@ export const listDeploymentCheckRunsStatus200Schema = z.object({
 					z.strictObject({
 						origin: z.enum(["api"]),
 						selection: z.discriminatedUnion("kind", [
-							z.strictObject({
+							z.object({
 								kind: z.enum(["invocation"]),
 							}),
-							z.strictObject({
+							z.object({
 								kind: z.enum(["deployment"]),
 							}),
-							z.strictObject({
+							z.object({
 								failIfNoMatch: z.union([z.literal(false), z.literal(true)]).optional(),
 								filters: z.array(z.string()),
 								job: z.enum(["Turborepo"]),
@@ -23743,14 +23811,14 @@ export const listDeploymentCheckRunsStatus200Schema = z.object({
 				timeout: z.number(),
 				updatedAt: z.number(),
 				source: z.discriminatedUnion("origin", [
-					z.strictObject({
+					z.object({
 						invocationAttempt: z.number().optional(),
 						invocationId: z.string(),
 						jobDefinitionId: z.string(),
 						origin: z.enum(["config"]),
 						subKind: z.enum(["vercel-ci"]),
 					}),
-					z.strictObject({
+					z.object({
 						origin: z.enum(["platform"]),
 						subKind: z.enum(["vercel-ci-sentinel"]),
 					}),
@@ -23884,13 +23952,13 @@ export const createDeploymentCheckRunStatus200Schema = z.union([
 			z.strictObject({
 				origin: z.enum(["api"]),
 				selection: z.discriminatedUnion("kind", [
-					z.strictObject({
+					z.object({
 						kind: z.enum(["invocation"]),
 					}),
-					z.strictObject({
+					z.object({
 						kind: z.enum(["deployment"]),
 					}),
-					z.strictObject({
+					z.object({
 						failIfNoMatch: z.union([z.literal(false), z.literal(true)]).optional(),
 						filters: z.array(z.string()),
 						job: z.enum(["Turborepo"]),
@@ -23947,14 +24015,14 @@ export const createDeploymentCheckRunStatus200Schema = z.union([
 		timeout: z.number(),
 		updatedAt: z.number(),
 		source: z.discriminatedUnion("origin", [
-			z.strictObject({
+			z.object({
 				invocationAttempt: z.number().optional(),
 				invocationId: z.string(),
 				jobDefinitionId: z.string(),
 				origin: z.enum(["config"]),
 				subKind: z.enum(["vercel-ci"]),
 			}),
-			z.strictObject({
+			z.object({
 				origin: z.enum(["platform"]),
 				subKind: z.enum(["vercel-ci-sentinel"]),
 			}),
@@ -24097,13 +24165,13 @@ export const getDeploymentCheckRunStatus200Schema = z.union([
 			z.strictObject({
 				origin: z.enum(["api"]),
 				selection: z.discriminatedUnion("kind", [
-					z.strictObject({
+					z.object({
 						kind: z.enum(["invocation"]),
 					}),
-					z.strictObject({
+					z.object({
 						kind: z.enum(["deployment"]),
 					}),
-					z.strictObject({
+					z.object({
 						failIfNoMatch: z.union([z.literal(false), z.literal(true)]).optional(),
 						filters: z.array(z.string()),
 						job: z.enum(["Turborepo"]),
@@ -24160,14 +24228,14 @@ export const getDeploymentCheckRunStatus200Schema = z.union([
 		timeout: z.number(),
 		updatedAt: z.number(),
 		source: z.discriminatedUnion("origin", [
-			z.strictObject({
+			z.object({
 				invocationAttempt: z.number().optional(),
 				invocationId: z.string(),
 				jobDefinitionId: z.string(),
 				origin: z.enum(["config"]),
 				subKind: z.enum(["vercel-ci"]),
 			}),
-			z.strictObject({
+			z.object({
 				origin: z.enum(["platform"]),
 				subKind: z.enum(["vercel-ci-sentinel"]),
 			}),
@@ -24305,13 +24373,13 @@ export const updateDeploymentCheckRunStatus200Schema = z.union([
 			z.strictObject({
 				origin: z.enum(["api"]),
 				selection: z.discriminatedUnion("kind", [
-					z.strictObject({
+					z.object({
 						kind: z.enum(["invocation"]),
 					}),
-					z.strictObject({
+					z.object({
 						kind: z.enum(["deployment"]),
 					}),
-					z.strictObject({
+					z.object({
 						failIfNoMatch: z.union([z.literal(false), z.literal(true)]).optional(),
 						filters: z.array(z.string()),
 						job: z.enum(["Turborepo"]),
@@ -24368,14 +24436,14 @@ export const updateDeploymentCheckRunStatus200Schema = z.union([
 		timeout: z.number(),
 		updatedAt: z.number(),
 		source: z.discriminatedUnion("origin", [
-			z.strictObject({
+			z.object({
 				invocationAttempt: z.number().optional(),
 				invocationId: z.string(),
 				jobDefinitionId: z.string(),
 				origin: z.enum(["config"]),
 				subKind: z.enum(["vercel-ci"]),
 			}),
-			z.strictObject({
+			z.object({
 				origin: z.enum(["platform"]),
 				subKind: z.enum(["vercel-ci-sentinel"]),
 			}),
@@ -27615,15 +27683,15 @@ export const getProjectBoxesStatus200Schema = z.object({
 			}),
 			name: z.string(),
 			scope: z.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					type: z.enum(["target"]),
 					value: z.enum(["development", "preview", "production"]),
 				}),
-				z.strictObject({
+				z.object({
 					type: z.enum(["branch"]),
 					value: z.string(),
 				}),
-				z.strictObject({
+				z.object({
 					type: z.enum(["customEnvironment"]),
 					value: z.string(),
 				}),
@@ -27944,8 +28012,103 @@ export const getDeploymentEventsQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const getDeploymentEventsStatus200SchemaJson = z
-	.array(
+export const getDeploymentEventsStatus200SchemaJson = z.array(
+	z.union([
+		z.strictObject({
+			created: z.number(),
+			payload: z.object({
+				created: z.number().optional(),
+				date: z.number(),
+				deploymentId: z.string(),
+				id: z.string(),
+				info: z
+					.object({
+						entrypoint: z.string().optional(),
+						name: z.string(),
+						path: z.string().optional(),
+						readyState: z.string().optional(),
+						serviceName: z.string().optional(),
+						step: z.string().optional(),
+						type: z.string(),
+					})
+					.optional(),
+				proxy: z
+					.object({
+						cacheId: z.string().optional(),
+						clientIp: z.string().optional(),
+						host: z.string(),
+						lambdaRegion: z.string().optional(),
+						method: z.string(),
+						path: z.string().optional(),
+						pathType: z.string().optional(),
+						pathTypeVariant: z.string().optional(),
+						referer: z.string().optional(),
+						region: z.string().optional(),
+						responseByteSize: z.number().optional(),
+						scheme: z.string().optional(),
+						statusCode: z.number().optional(),
+						timestamp: z.number(),
+						userAgent: z.array(z.string()).optional(),
+						vercelCache: z
+							.enum(["BYPASS", "HIT", "MISS", "PRERENDER", "REVALIDATED", "STALE"])
+							.optional(),
+						vercelId: z.string().optional(),
+						wafAction: z.enum(["bypass", "challenge", "deny", "log", "rate_limit"]).optional(),
+						wafRuleId: z.string().optional(),
+					})
+					.optional(),
+				requestId: z.string().optional(),
+				serial: z.string(),
+				statusCode: z.number().optional(),
+				text: z.string().optional(),
+			}),
+			type: z.enum([
+				"command",
+				"delimiter",
+				"deployment-state",
+				"edge-function-invocation",
+				"exit",
+				"fatal",
+				"metric",
+				"middleware",
+				"middleware-invocation",
+				"report",
+				"stderr",
+				"stdout",
+			]),
+		}),
+		z.strictObject({
+			created: z.number(),
+			date: z.number(),
+			deploymentId: z.string(),
+			id: z.string(),
+			info: z.object({
+				entrypoint: z.string().optional(),
+				name: z.string(),
+				path: z.string().optional(),
+				readyState: z.string().optional(),
+				serviceName: z.string().optional(),
+				step: z.string().optional(),
+				type: z.string(),
+			}),
+			level: z.enum(["error", "warning"]).optional(),
+			serial: z.string(),
+			text: z.string().optional(),
+			type: z.enum([
+				"command",
+				"delimiter",
+				"deployment-state",
+				"edge-function-invocation",
+				"exit",
+				"fatal",
+				"metric",
+				"middleware",
+				"middleware-invocation",
+				"report",
+				"stderr",
+				"stdout",
+			]),
+		}),
 		z.union([
 			z.strictObject({
 				created: z.number(),
@@ -28042,126 +28205,29 @@ export const getDeploymentEventsStatus200SchemaJson = z
 					"stdout",
 				]),
 			}),
-			z.union([
-				z.strictObject({
-					created: z.number(),
-					payload: z.object({
-						created: z.number().optional(),
-						date: z.number(),
-						deploymentId: z.string(),
-						id: z.string(),
-						info: z
-							.object({
-								entrypoint: z.string().optional(),
-								name: z.string(),
-								path: z.string().optional(),
-								readyState: z.string().optional(),
-								serviceName: z.string().optional(),
-								step: z.string().optional(),
-								type: z.string(),
-							})
-							.optional(),
-						proxy: z
-							.object({
-								cacheId: z.string().optional(),
-								clientIp: z.string().optional(),
-								host: z.string(),
-								lambdaRegion: z.string().optional(),
-								method: z.string(),
-								path: z.string().optional(),
-								pathType: z.string().optional(),
-								pathTypeVariant: z.string().optional(),
-								referer: z.string().optional(),
-								region: z.string().optional(),
-								responseByteSize: z.number().optional(),
-								scheme: z.string().optional(),
-								statusCode: z.number().optional(),
-								timestamp: z.number(),
-								userAgent: z.array(z.string()).optional(),
-								vercelCache: z
-									.enum(["BYPASS", "HIT", "MISS", "PRERENDER", "REVALIDATED", "STALE"])
-									.optional(),
-								vercelId: z.string().optional(),
-								wafAction: z.enum(["bypass", "challenge", "deny", "log", "rate_limit"]).optional(),
-								wafRuleId: z.string().optional(),
-							})
-							.optional(),
-						requestId: z.string().optional(),
-						serial: z.string(),
-						statusCode: z.number().optional(),
-						text: z.string().optional(),
-					}),
-					type: z.enum([
-						"command",
-						"delimiter",
-						"deployment-state",
-						"edge-function-invocation",
-						"exit",
-						"fatal",
-						"metric",
-						"middleware",
-						"middleware-invocation",
-						"report",
-						"stderr",
-						"stdout",
-					]),
-				}),
-				z.strictObject({
-					created: z.number(),
-					date: z.number(),
-					deploymentId: z.string(),
-					id: z.string(),
-					info: z.object({
-						entrypoint: z.string().optional(),
-						name: z.string(),
-						path: z.string().optional(),
-						readyState: z.string().optional(),
-						serviceName: z.string().optional(),
-						step: z.string().optional(),
-						type: z.string(),
-					}),
-					level: z.enum(["error", "warning"]).optional(),
-					serial: z.string(),
-					text: z.string().optional(),
-					type: z.enum([
-						"command",
-						"delimiter",
-						"deployment-state",
-						"edge-function-invocation",
-						"exit",
-						"fatal",
-						"metric",
-						"middleware",
-						"middleware-invocation",
-						"report",
-						"stderr",
-						"stdout",
-					]),
-				}),
-				z.strictObject({
-					date: z.number(),
-					deploymentId: z.string(),
-					type: z.enum(["alias-assigned"]),
-					alias: z.array(z.string()),
-					aliasError: z
-						.object({
-							code: z.string(),
-							message: z.string(),
-						})
-						.nullable(),
-					aliasWarning: z
-						.object({
-							action: z.string().optional(),
-							code: z.string(),
-							link: z.string().optional(),
-							message: z.string(),
-						})
-						.nullable(),
-				}),
-			]),
+			z.strictObject({
+				date: z.number(),
+				deploymentId: z.string(),
+				type: z.enum(["alias-assigned"]),
+				alias: z.array(z.string()),
+				aliasError: z
+					.object({
+						code: z.string(),
+						message: z.string(),
+					})
+					.nullable(),
+				aliasWarning: z
+					.object({
+						action: z.string().optional(),
+						code: z.string(),
+						link: z.string().optional(),
+						message: z.string(),
+					})
+					.nullable(),
+			}),
 		]),
-	)
-	.nullable();
+	]),
+);
 
 export const getDeploymentEventsStatus200SchemaStreamJson = z.array(
 	z.union([
@@ -28547,7 +28613,7 @@ export const updateIntegrationDeploymentActionBodySchema = z
 										.record(
 											z.string(),
 											z.union([
-												z.union([z.string(), z.number(), z.boolean()]),
+												z.union([z.string(), z.number(), z.boolean()]).nullable(),
 												z.array(z.string()),
 											]),
 										)
@@ -28611,7 +28677,7 @@ export const getDeploymentStatus200Schema = z.union([
 			.describe(
 				"An object that will contain a `code` and a `message` when the aliasing fails, otherwise the value will be `null`",
 			)
-			.meta({ examples: [] }),
+			.meta({ examples: [null] }),
 		aliasWarning: z
 			.object({
 				action: z.string().optional(),
@@ -28678,7 +28744,7 @@ export const getDeploymentStatus200Schema = z.union([
 			.describe(
 				'If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.',
 			)
-			.meta({ examples: [] }),
+			.meta({ examples: [null] }),
 	}),
 	z.strictObject({
 		alias: z
@@ -28704,7 +28770,7 @@ export const getDeploymentStatus200Schema = z.union([
 			.describe(
 				"An object that will contain a `code` and a `message` when the aliasing fails, otherwise the value will be `null`",
 			)
-			.meta({ examples: [] }),
+			.meta({ examples: [null] }),
 		aliasFinal: z.string().nullish(),
 		aliasWarning: z
 			.object({
@@ -28717,10 +28783,10 @@ export const getDeploymentStatus200Schema = z.union([
 		alwaysRefuseToBuild: z.union([z.literal(false), z.literal(true)]).optional(),
 		atproto: z
 			.discriminatedUnion("enabled", [
-				z.strictObject({
+				z.object({
 					enabled: z.literal(false),
 				}),
-				z.strictObject({
+				z.object({
 					enabled: z.literal(true),
 					subscription: z.object({
 						collections: z.array(z.string()),
@@ -29059,7 +29125,7 @@ export const getDeploymentStatus200Schema = z.union([
 					experimentalTriggers: z
 						.array(
 							z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									consumer: z
 										.string()
 										.describe("Name of the consumer group for this trigger (REQUIRED)"),
@@ -29092,7 +29158,7 @@ export const getDeploymentStatus200Schema = z.union([
 										.enum(["queue/v1beta"])
 										.describe('Event type - must be "queue/v1beta" (REQUIRED)'),
 								}),
-								z.strictObject({
+								z.object({
 									initialDelaySeconds: z
 										.number()
 										.optional()
@@ -29122,7 +29188,7 @@ export const getDeploymentStatus200Schema = z.union([
 										.enum(["queue/v2beta"])
 										.describe('Event type - must be "queue/v2beta" (REQUIRED)'),
 								}),
-								z.strictObject({
+								z.object({
 									type: z
 										.enum(["schedule/v1beta"])
 										.describe('Event type - must be "schedule/v1beta" (REQUIRED)'),
@@ -29149,7 +29215,7 @@ export const getDeploymentStatus200Schema = z.union([
 			.nullish(),
 		gitRepo: z
 			.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					defaultBranch: z.string(),
 					name: z.string(),
 					namespace: z.string(),
@@ -29160,7 +29226,7 @@ export const getDeploymentStatus200Schema = z.union([
 					type: z.enum(["gitlab"]),
 					url: z.string(),
 				}),
-				z.strictObject({
+				z.object({
 					defaultBranch: z.string(),
 					name: z.string(),
 					org: z.string(),
@@ -29172,7 +29238,7 @@ export const getDeploymentStatus200Schema = z.union([
 					repoOwnerId: z.number(),
 					type: z.enum(["github"]),
 				}),
-				z.strictObject({
+				z.object({
 					defaultBranch: z.string(),
 					name: z.string(),
 					owner: z.string(),
@@ -29184,7 +29250,7 @@ export const getDeploymentStatus200Schema = z.union([
 					type: z.enum(["bitbucket"]),
 					workspaceUuid: z.string(),
 				}),
-				z.strictObject({
+				z.object({
 					defaultBranch: z.string(),
 					name: z.string(),
 					org: z.string(),
@@ -29194,7 +29260,7 @@ export const getDeploymentStatus200Schema = z.union([
 					repo: z.string(),
 					type: z.enum(["vercel"]),
 				}),
-				z.strictObject({
+				z.object({
 					defaultBranch: z.string(),
 					name: z.string(),
 					owner: z.string().describe("Owner (namespace) slug."),
@@ -29503,7 +29569,7 @@ export const getDeploymentStatus200Schema = z.union([
 		meta: z.record(z.string(), z.string()),
 		microfrontends: z
 			.discriminatedUnion("isDefaultApp", [
-				z.strictObject({
+				z.object({
 					defaultAppProjectName: z
 						.string()
 						.describe(
@@ -29523,7 +29589,7 @@ export const getDeploymentStatus200Schema = z.union([
 						),
 					isDefaultApp: z.literal(false).optional(),
 				}),
-				z.strictObject({
+				z.object({
 					defaultAppProjectName: z
 						.string()
 						.describe(
@@ -29789,7 +29855,7 @@ export const getDeploymentStatus200Schema = z.union([
 			.object({
 				buildMachine: z
 					.discriminatedUnion("machineSelectionType", [
-						z.strictObject({
+						z.object({
 							machineSelectionType: z
 								.enum(["elastic"])
 								.describe("The build ran on an elastic machine. Drives billing."),
@@ -29831,7 +29897,7 @@ export const getDeploymentStatus200Schema = z.union([
 									"The setting which selected the build machine when the deployment was created. Frozen here so later project or team changes do not rewrite its history.",
 								),
 						}),
-						z.strictObject({
+						z.object({
 							machineSelectionType: z
 								.enum(["fixed"])
 								.optional()
@@ -30119,7 +30185,7 @@ export const getDeploymentStatus200Schema = z.union([
 		services: z
 			.array(
 				z.discriminatedUnion("schema", [
-					z.strictObject({
+					z.object({
 						buildCommand: z.string().optional(),
 						builder: z.object({
 							config: z
@@ -30226,7 +30292,7 @@ export const getDeploymentStatus200Schema = z.union([
 												experimentalTriggers: z
 													.array(
 														z.discriminatedUnion("type", [
-															z.strictObject({
+															z.object({
 																consumer: z
 																	.string()
 																	.describe(
@@ -30263,7 +30329,7 @@ export const getDeploymentStatus200Schema = z.union([
 																	.enum(["queue/v1beta"])
 																	.describe('Event type - must be "queue/v1beta" (REQUIRED)'),
 															}),
-															z.strictObject({
+															z.object({
 																initialDelaySeconds: z
 																	.number()
 																	.optional()
@@ -30295,7 +30361,7 @@ export const getDeploymentStatus200Schema = z.union([
 																	.enum(["queue/v2beta"])
 																	.describe('Event type - must be "queue/v2beta" (REQUIRED)'),
 															}),
-															z.strictObject({
+															z.object({
 																type: z
 																	.enum(["schedule/v1beta"])
 																	.describe('Event type - must be "schedule/v1beta" (REQUIRED)'),
@@ -30439,7 +30505,7 @@ export const getDeploymentStatus200Schema = z.union([
 						type: z.enum(["cron", "job", "web", "worker"]),
 						workspace: z.string(),
 					}),
-					z.strictObject({
+					z.object({
 						bindings: z
 							.array(
 								z.object({
@@ -30565,7 +30631,7 @@ export const getDeploymentStatus200Schema = z.union([
 													experimentalTriggers: z
 														.array(
 															z.discriminatedUnion("type", [
-																z.strictObject({
+																z.object({
 																	consumer: z
 																		.string()
 																		.describe(
@@ -30602,7 +30668,7 @@ export const getDeploymentStatus200Schema = z.union([
 																		.enum(["queue/v1beta"])
 																		.describe('Event type - must be "queue/v1beta" (REQUIRED)'),
 																}),
-																z.strictObject({
+																z.object({
 																	initialDelaySeconds: z
 																		.number()
 																		.optional()
@@ -30634,7 +30700,7 @@ export const getDeploymentStatus200Schema = z.union([
 																		.enum(["queue/v2beta"])
 																		.describe('Event type - must be "queue/v2beta" (REQUIRED)'),
 																}),
-																z.strictObject({
+																z.object({
 																	type: z
 																		.enum(["schedule/v1beta"])
 																		.describe('Event type - must be "schedule/v1beta" (REQUIRED)'),
@@ -30772,7 +30838,7 @@ export const getDeploymentStatus200Schema = z.union([
 									experimentalTriggers: z
 										.array(
 											z.discriminatedUnion("type", [
-												z.strictObject({
+												z.object({
 													consumer: z
 														.string()
 														.describe("Name of the consumer group for this trigger (REQUIRED)"),
@@ -30807,7 +30873,7 @@ export const getDeploymentStatus200Schema = z.union([
 														.enum(["queue/v1beta"])
 														.describe('Event type - must be "queue/v1beta" (REQUIRED)'),
 												}),
-												z.strictObject({
+												z.object({
 													initialDelaySeconds: z
 														.number()
 														.optional()
@@ -30839,7 +30905,7 @@ export const getDeploymentStatus200Schema = z.union([
 														.enum(["queue/v2beta"])
 														.describe('Event type - must be "queue/v2beta" (REQUIRED)'),
 												}),
-												z.strictObject({
+												z.object({
 													type: z
 														.enum(["schedule/v1beta"])
 														.describe('Event type - must be "schedule/v1beta" (REQUIRED)'),
@@ -31479,7 +31545,7 @@ export const getDeploymentStatus200Schema = z.union([
 			.describe(
 				'If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.',
 			)
-			.meta({ examples: [] }),
+			.meta({ examples: [null] }),
 		team: z
 			.object({
 				avatar: z.string().optional(),
@@ -31540,7 +31606,7 @@ export const getDeploymentStatus200Schema = z.union([
 			.describe(
 				"An object that will contain a `code` and a `message` when the aliasing fails, otherwise the value will be `null`",
 			)
-			.meta({ examples: [] }),
+			.meta({ examples: [null] }),
 		aliasFinal: z.string().nullish(),
 		aliasWarning: z
 			.object({
@@ -32043,7 +32109,7 @@ export const getDeploymentStatus200Schema = z.union([
 			.describe(
 				'If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.',
 			)
-			.meta({ examples: [] }),
+			.meta({ examples: [null] }),
 		team: z
 			.object({
 				avatar: z.string().optional(),
@@ -32174,7 +32240,7 @@ export const createDeploymentStatus200Schema = z.union([
 			.describe(
 				"An object that will contain a `code` and a `message` when the aliasing fails, otherwise the value will be `null`",
 			)
-			.meta({ examples: [] }),
+			.meta({ examples: [null] }),
 		aliasWarning: z
 			.object({
 				action: z.string().optional(),
@@ -32241,7 +32307,7 @@ export const createDeploymentStatus200Schema = z.union([
 			.describe(
 				'If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.',
 			)
-			.meta({ examples: [] }),
+			.meta({ examples: [null] }),
 	}),
 	z.strictObject({
 		alias: z
@@ -32267,7 +32333,7 @@ export const createDeploymentStatus200Schema = z.union([
 			.describe(
 				"An object that will contain a `code` and a `message` when the aliasing fails, otherwise the value will be `null`",
 			)
-			.meta({ examples: [] }),
+			.meta({ examples: [null] }),
 		aliasFinal: z.string().nullish(),
 		aliasWarning: z
 			.object({
@@ -32280,10 +32346,10 @@ export const createDeploymentStatus200Schema = z.union([
 		alwaysRefuseToBuild: z.union([z.literal(false), z.literal(true)]).optional(),
 		atproto: z
 			.discriminatedUnion("enabled", [
-				z.strictObject({
+				z.object({
 					enabled: z.literal(false),
 				}),
-				z.strictObject({
+				z.object({
 					enabled: z.literal(true),
 					subscription: z.object({
 						collections: z.array(z.string()),
@@ -32622,7 +32688,7 @@ export const createDeploymentStatus200Schema = z.union([
 					experimentalTriggers: z
 						.array(
 							z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									consumer: z
 										.string()
 										.describe("Name of the consumer group for this trigger (REQUIRED)"),
@@ -32655,7 +32721,7 @@ export const createDeploymentStatus200Schema = z.union([
 										.enum(["queue/v1beta"])
 										.describe('Event type - must be "queue/v1beta" (REQUIRED)'),
 								}),
-								z.strictObject({
+								z.object({
 									initialDelaySeconds: z
 										.number()
 										.optional()
@@ -32685,7 +32751,7 @@ export const createDeploymentStatus200Schema = z.union([
 										.enum(["queue/v2beta"])
 										.describe('Event type - must be "queue/v2beta" (REQUIRED)'),
 								}),
-								z.strictObject({
+								z.object({
 									type: z
 										.enum(["schedule/v1beta"])
 										.describe('Event type - must be "schedule/v1beta" (REQUIRED)'),
@@ -32712,7 +32778,7 @@ export const createDeploymentStatus200Schema = z.union([
 			.nullish(),
 		gitRepo: z
 			.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					defaultBranch: z.string(),
 					name: z.string(),
 					namespace: z.string(),
@@ -32723,7 +32789,7 @@ export const createDeploymentStatus200Schema = z.union([
 					type: z.enum(["gitlab"]),
 					url: z.string(),
 				}),
-				z.strictObject({
+				z.object({
 					defaultBranch: z.string(),
 					name: z.string(),
 					org: z.string(),
@@ -32735,7 +32801,7 @@ export const createDeploymentStatus200Schema = z.union([
 					repoOwnerId: z.number(),
 					type: z.enum(["github"]),
 				}),
-				z.strictObject({
+				z.object({
 					defaultBranch: z.string(),
 					name: z.string(),
 					owner: z.string(),
@@ -32747,7 +32813,7 @@ export const createDeploymentStatus200Schema = z.union([
 					type: z.enum(["bitbucket"]),
 					workspaceUuid: z.string(),
 				}),
-				z.strictObject({
+				z.object({
 					defaultBranch: z.string(),
 					name: z.string(),
 					org: z.string(),
@@ -32757,7 +32823,7 @@ export const createDeploymentStatus200Schema = z.union([
 					repo: z.string(),
 					type: z.enum(["vercel"]),
 				}),
-				z.strictObject({
+				z.object({
 					defaultBranch: z.string(),
 					name: z.string(),
 					owner: z.string().describe("Owner (namespace) slug."),
@@ -33066,7 +33132,7 @@ export const createDeploymentStatus200Schema = z.union([
 		meta: z.record(z.string(), z.string()),
 		microfrontends: z
 			.discriminatedUnion("isDefaultApp", [
-				z.strictObject({
+				z.object({
 					defaultAppProjectName: z
 						.string()
 						.describe(
@@ -33086,7 +33152,7 @@ export const createDeploymentStatus200Schema = z.union([
 						),
 					isDefaultApp: z.literal(false).optional(),
 				}),
-				z.strictObject({
+				z.object({
 					defaultAppProjectName: z
 						.string()
 						.describe(
@@ -33352,7 +33418,7 @@ export const createDeploymentStatus200Schema = z.union([
 			.object({
 				buildMachine: z
 					.discriminatedUnion("machineSelectionType", [
-						z.strictObject({
+						z.object({
 							machineSelectionType: z
 								.enum(["elastic"])
 								.describe("The build ran on an elastic machine. Drives billing."),
@@ -33394,7 +33460,7 @@ export const createDeploymentStatus200Schema = z.union([
 									"The setting which selected the build machine when the deployment was created. Frozen here so later project or team changes do not rewrite its history.",
 								),
 						}),
-						z.strictObject({
+						z.object({
 							machineSelectionType: z
 								.enum(["fixed"])
 								.optional()
@@ -33682,7 +33748,7 @@ export const createDeploymentStatus200Schema = z.union([
 		services: z
 			.array(
 				z.discriminatedUnion("schema", [
-					z.strictObject({
+					z.object({
 						buildCommand: z.string().optional(),
 						builder: z.object({
 							config: z
@@ -33789,7 +33855,7 @@ export const createDeploymentStatus200Schema = z.union([
 												experimentalTriggers: z
 													.array(
 														z.discriminatedUnion("type", [
-															z.strictObject({
+															z.object({
 																consumer: z
 																	.string()
 																	.describe(
@@ -33826,7 +33892,7 @@ export const createDeploymentStatus200Schema = z.union([
 																	.enum(["queue/v1beta"])
 																	.describe('Event type - must be "queue/v1beta" (REQUIRED)'),
 															}),
-															z.strictObject({
+															z.object({
 																initialDelaySeconds: z
 																	.number()
 																	.optional()
@@ -33858,7 +33924,7 @@ export const createDeploymentStatus200Schema = z.union([
 																	.enum(["queue/v2beta"])
 																	.describe('Event type - must be "queue/v2beta" (REQUIRED)'),
 															}),
-															z.strictObject({
+															z.object({
 																type: z
 																	.enum(["schedule/v1beta"])
 																	.describe('Event type - must be "schedule/v1beta" (REQUIRED)'),
@@ -34002,7 +34068,7 @@ export const createDeploymentStatus200Schema = z.union([
 						type: z.enum(["cron", "job", "web", "worker"]),
 						workspace: z.string(),
 					}),
-					z.strictObject({
+					z.object({
 						bindings: z
 							.array(
 								z.object({
@@ -34128,7 +34194,7 @@ export const createDeploymentStatus200Schema = z.union([
 													experimentalTriggers: z
 														.array(
 															z.discriminatedUnion("type", [
-																z.strictObject({
+																z.object({
 																	consumer: z
 																		.string()
 																		.describe(
@@ -34165,7 +34231,7 @@ export const createDeploymentStatus200Schema = z.union([
 																		.enum(["queue/v1beta"])
 																		.describe('Event type - must be "queue/v1beta" (REQUIRED)'),
 																}),
-																z.strictObject({
+																z.object({
 																	initialDelaySeconds: z
 																		.number()
 																		.optional()
@@ -34197,7 +34263,7 @@ export const createDeploymentStatus200Schema = z.union([
 																		.enum(["queue/v2beta"])
 																		.describe('Event type - must be "queue/v2beta" (REQUIRED)'),
 																}),
-																z.strictObject({
+																z.object({
 																	type: z
 																		.enum(["schedule/v1beta"])
 																		.describe('Event type - must be "schedule/v1beta" (REQUIRED)'),
@@ -34335,7 +34401,7 @@ export const createDeploymentStatus200Schema = z.union([
 									experimentalTriggers: z
 										.array(
 											z.discriminatedUnion("type", [
-												z.strictObject({
+												z.object({
 													consumer: z
 														.string()
 														.describe("Name of the consumer group for this trigger (REQUIRED)"),
@@ -34370,7 +34436,7 @@ export const createDeploymentStatus200Schema = z.union([
 														.enum(["queue/v1beta"])
 														.describe('Event type - must be "queue/v1beta" (REQUIRED)'),
 												}),
-												z.strictObject({
+												z.object({
 													initialDelaySeconds: z
 														.number()
 														.optional()
@@ -34402,7 +34468,7 @@ export const createDeploymentStatus200Schema = z.union([
 														.enum(["queue/v2beta"])
 														.describe('Event type - must be "queue/v2beta" (REQUIRED)'),
 												}),
-												z.strictObject({
+												z.object({
 													type: z
 														.enum(["schedule/v1beta"])
 														.describe('Event type - must be "schedule/v1beta" (REQUIRED)'),
@@ -35042,7 +35108,7 @@ export const createDeploymentStatus200Schema = z.union([
 			.describe(
 				'If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.',
 			)
-			.meta({ examples: [] }),
+			.meta({ examples: [null] }),
 		team: z
 			.object({
 				avatar: z.string().optional(),
@@ -35646,7 +35712,7 @@ export const cancelDeploymentStatus200Schema = z
 			.describe(
 				"An object that will contain a `code` and a `message` when the aliasing fails, otherwise the value will be `null`",
 			)
-			.meta({ examples: [] }),
+			.meta({ examples: [null] }),
 		aliasFinal: z.string().nullish(),
 		aliasWarning: z
 			.object({
@@ -35659,10 +35725,10 @@ export const cancelDeploymentStatus200Schema = z
 		alwaysRefuseToBuild: z.union([z.literal(false), z.literal(true)]).optional(),
 		atproto: z
 			.discriminatedUnion("enabled", [
-				z.strictObject({
+				z.object({
 					enabled: z.literal(false),
 				}),
-				z.strictObject({
+				z.object({
 					enabled: z.literal(true),
 					subscription: z.object({
 						collections: z.array(z.string()),
@@ -36001,7 +36067,7 @@ export const cancelDeploymentStatus200Schema = z
 					experimentalTriggers: z
 						.array(
 							z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									consumer: z
 										.string()
 										.describe("Name of the consumer group for this trigger (REQUIRED)"),
@@ -36034,7 +36100,7 @@ export const cancelDeploymentStatus200Schema = z
 										.enum(["queue/v1beta"])
 										.describe('Event type - must be "queue/v1beta" (REQUIRED)'),
 								}),
-								z.strictObject({
+								z.object({
 									initialDelaySeconds: z
 										.number()
 										.optional()
@@ -36064,7 +36130,7 @@ export const cancelDeploymentStatus200Schema = z
 										.enum(["queue/v2beta"])
 										.describe('Event type - must be "queue/v2beta" (REQUIRED)'),
 								}),
-								z.strictObject({
+								z.object({
 									type: z
 										.enum(["schedule/v1beta"])
 										.describe('Event type - must be "schedule/v1beta" (REQUIRED)'),
@@ -36091,7 +36157,7 @@ export const cancelDeploymentStatus200Schema = z
 			.nullish(),
 		gitRepo: z
 			.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					defaultBranch: z.string(),
 					name: z.string(),
 					namespace: z.string(),
@@ -36102,7 +36168,7 @@ export const cancelDeploymentStatus200Schema = z
 					type: z.enum(["gitlab"]),
 					url: z.string(),
 				}),
-				z.strictObject({
+				z.object({
 					defaultBranch: z.string(),
 					name: z.string(),
 					org: z.string(),
@@ -36114,7 +36180,7 @@ export const cancelDeploymentStatus200Schema = z
 					repoOwnerId: z.number(),
 					type: z.enum(["github"]),
 				}),
-				z.strictObject({
+				z.object({
 					defaultBranch: z.string(),
 					name: z.string(),
 					owner: z.string(),
@@ -36126,7 +36192,7 @@ export const cancelDeploymentStatus200Schema = z
 					type: z.enum(["bitbucket"]),
 					workspaceUuid: z.string(),
 				}),
-				z.strictObject({
+				z.object({
 					defaultBranch: z.string(),
 					name: z.string(),
 					org: z.string(),
@@ -36136,7 +36202,7 @@ export const cancelDeploymentStatus200Schema = z
 					repo: z.string(),
 					type: z.enum(["vercel"]),
 				}),
-				z.strictObject({
+				z.object({
 					defaultBranch: z.string(),
 					name: z.string(),
 					owner: z.string().describe("Owner (namespace) slug."),
@@ -36445,7 +36511,7 @@ export const cancelDeploymentStatus200Schema = z
 		meta: z.record(z.string(), z.string()),
 		microfrontends: z
 			.discriminatedUnion("isDefaultApp", [
-				z.strictObject({
+				z.object({
 					defaultAppProjectName: z
 						.string()
 						.describe(
@@ -36465,7 +36531,7 @@ export const cancelDeploymentStatus200Schema = z
 						),
 					isDefaultApp: z.literal(false).optional(),
 				}),
-				z.strictObject({
+				z.object({
 					defaultAppProjectName: z
 						.string()
 						.describe(
@@ -36731,7 +36797,7 @@ export const cancelDeploymentStatus200Schema = z
 			.object({
 				buildMachine: z
 					.discriminatedUnion("machineSelectionType", [
-						z.strictObject({
+						z.object({
 							machineSelectionType: z
 								.enum(["elastic"])
 								.describe("The build ran on an elastic machine. Drives billing."),
@@ -36773,7 +36839,7 @@ export const cancelDeploymentStatus200Schema = z
 									"The setting which selected the build machine when the deployment was created. Frozen here so later project or team changes do not rewrite its history.",
 								),
 						}),
-						z.strictObject({
+						z.object({
 							machineSelectionType: z
 								.enum(["fixed"])
 								.optional()
@@ -37061,7 +37127,7 @@ export const cancelDeploymentStatus200Schema = z
 		services: z
 			.array(
 				z.discriminatedUnion("schema", [
-					z.strictObject({
+					z.object({
 						buildCommand: z.string().optional(),
 						builder: z.object({
 							config: z
@@ -37168,7 +37234,7 @@ export const cancelDeploymentStatus200Schema = z
 												experimentalTriggers: z
 													.array(
 														z.discriminatedUnion("type", [
-															z.strictObject({
+															z.object({
 																consumer: z
 																	.string()
 																	.describe(
@@ -37205,7 +37271,7 @@ export const cancelDeploymentStatus200Schema = z
 																	.enum(["queue/v1beta"])
 																	.describe('Event type - must be "queue/v1beta" (REQUIRED)'),
 															}),
-															z.strictObject({
+															z.object({
 																initialDelaySeconds: z
 																	.number()
 																	.optional()
@@ -37237,7 +37303,7 @@ export const cancelDeploymentStatus200Schema = z
 																	.enum(["queue/v2beta"])
 																	.describe('Event type - must be "queue/v2beta" (REQUIRED)'),
 															}),
-															z.strictObject({
+															z.object({
 																type: z
 																	.enum(["schedule/v1beta"])
 																	.describe('Event type - must be "schedule/v1beta" (REQUIRED)'),
@@ -37381,7 +37447,7 @@ export const cancelDeploymentStatus200Schema = z
 						type: z.enum(["cron", "job", "web", "worker"]),
 						workspace: z.string(),
 					}),
-					z.strictObject({
+					z.object({
 						bindings: z
 							.array(
 								z.object({
@@ -37507,7 +37573,7 @@ export const cancelDeploymentStatus200Schema = z
 													experimentalTriggers: z
 														.array(
 															z.discriminatedUnion("type", [
-																z.strictObject({
+																z.object({
 																	consumer: z
 																		.string()
 																		.describe(
@@ -37544,7 +37610,7 @@ export const cancelDeploymentStatus200Schema = z
 																		.enum(["queue/v1beta"])
 																		.describe('Event type - must be "queue/v1beta" (REQUIRED)'),
 																}),
-																z.strictObject({
+																z.object({
 																	initialDelaySeconds: z
 																		.number()
 																		.optional()
@@ -37576,7 +37642,7 @@ export const cancelDeploymentStatus200Schema = z
 																		.enum(["queue/v2beta"])
 																		.describe('Event type - must be "queue/v2beta" (REQUIRED)'),
 																}),
-																z.strictObject({
+																z.object({
 																	type: z
 																		.enum(["schedule/v1beta"])
 																		.describe('Event type - must be "schedule/v1beta" (REQUIRED)'),
@@ -37714,7 +37780,7 @@ export const cancelDeploymentStatus200Schema = z
 									experimentalTriggers: z
 										.array(
 											z.discriminatedUnion("type", [
-												z.strictObject({
+												z.object({
 													consumer: z
 														.string()
 														.describe("Name of the consumer group for this trigger (REQUIRED)"),
@@ -37749,7 +37815,7 @@ export const cancelDeploymentStatus200Schema = z
 														.enum(["queue/v1beta"])
 														.describe('Event type - must be "queue/v1beta" (REQUIRED)'),
 												}),
-												z.strictObject({
+												z.object({
 													initialDelaySeconds: z
 														.number()
 														.optional()
@@ -37781,7 +37847,7 @@ export const cancelDeploymentStatus200Schema = z
 														.enum(["queue/v2beta"])
 														.describe('Event type - must be "queue/v2beta" (REQUIRED)'),
 												}),
-												z.strictObject({
+												z.object({
 													type: z
 														.enum(["schedule/v1beta"])
 														.describe('Event type - must be "schedule/v1beta" (REQUIRED)'),
@@ -38421,7 +38487,7 @@ export const cancelDeploymentStatus200Schema = z
 			.describe(
 				'If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.',
 			)
-			.meta({ examples: [] }),
+			.meta({ examples: [null] }),
 		team: z
 			.object({
 				avatar: z.string().optional(),
@@ -42277,7 +42343,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 				z.object({
 					createdAt: z.number(),
 					delivery: z.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							compression: z.enum(["gzip", "none"]).optional(),
 							encoding: z.enum(["json", "ndjson"]),
 							endpoint: z.string(),
@@ -42292,7 +42358,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 								.optional(),
 							type: z.enum(["http"]),
 						}),
-						z.strictObject({
+						z.object({
 							encoding: z.enum(["json", "proto"]),
 							endpoint: z.object({
 								traces: z.string(),
@@ -42308,12 +42374,12 @@ export const getAllLogDrainsStatus200Schema = z.union([
 								.optional(),
 							type: z.enum(["otlphttp"]),
 						}),
-						z.strictObject({
+						z.object({
 							endpoint: z.string(),
 							table: z.string(),
 							type: z.enum(["clickhouse"]),
 						}),
-						z.strictObject({
+						z.object({
 							compression: z.enum(["gzip", "none"]),
 							encoding: z.enum(["json", "ndjson"]),
 							endpoint: z.string(),
@@ -42335,7 +42401,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 							serverSideEncryption: z.enum(["AES256", "aws:kms", "aws:kms:dsse"]).optional(),
 							type: z.enum(["s3"]),
 						}),
-						z.strictObject({
+						z.object({
 							target: z.enum(["vercel-otel-traces-db"]),
 							type: z.enum(["internal"]),
 						}),
@@ -42376,14 +42442,14 @@ export const getAllLogDrainsStatus200Schema = z.union([
 						trace: z.object({}).optional(),
 					}),
 					source: z.discriminatedUnion("kind", [
-						z.strictObject({
+						z.object({
 							defaultFor: z
 								.enum(["eve-tracing", "nextjs-tracing"])
 								.optional()
 								.describe("Informational marker for a system-owned default drain."),
 							kind: z.enum(["self-served"]),
 						}),
-						z.strictObject({
+						z.object({
 							externalResourceId: z.string().optional(),
 							integrationConfigurationId: z.string(),
 							integrationId: z.string(),
@@ -42425,7 +42491,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 					filterV2: z
 						.object({
 							filter: z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									deployment: z
 										.object({
 											environments: z.array(z.enum(["preview", "production"])).optional(),
@@ -42458,7 +42524,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 										.optional(),
 									type: z.enum(["basic"]),
 								}),
-								z.strictObject({
+								z.object({
 									text: z.string(),
 									type: z.enum(["odata"]),
 								}),
@@ -42472,7 +42538,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 				z.object({
 					createdAt: z.number(),
 					delivery: z.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							compression: z.enum(["gzip", "none"]).optional(),
 							encoding: z.enum(["json", "ndjson"]),
 							endpoint: z.string(),
@@ -42487,7 +42553,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 								.optional(),
 							type: z.enum(["http"]),
 						}),
-						z.strictObject({
+						z.object({
 							encoding: z.enum(["json", "proto"]),
 							endpoint: z.object({
 								traces: z.string(),
@@ -42503,12 +42569,12 @@ export const getAllLogDrainsStatus200Schema = z.union([
 								.optional(),
 							type: z.enum(["otlphttp"]),
 						}),
-						z.strictObject({
+						z.object({
 							endpoint: z.string(),
 							table: z.string(),
 							type: z.enum(["clickhouse"]),
 						}),
-						z.strictObject({
+						z.object({
 							compression: z.enum(["gzip", "none"]),
 							encoding: z.enum(["json", "ndjson"]),
 							endpoint: z.string(),
@@ -42530,7 +42596,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 							serverSideEncryption: z.enum(["AES256", "aws:kms", "aws:kms:dsse"]).optional(),
 							type: z.enum(["s3"]),
 						}),
-						z.strictObject({
+						z.object({
 							target: z.enum(["vercel-otel-traces-db"]),
 							type: z.enum(["internal"]),
 						}),
@@ -42571,14 +42637,14 @@ export const getAllLogDrainsStatus200Schema = z.union([
 						trace: z.object({}).optional(),
 					}),
 					source: z.discriminatedUnion("kind", [
-						z.strictObject({
+						z.object({
 							defaultFor: z
 								.enum(["eve-tracing", "nextjs-tracing"])
 								.optional()
 								.describe("Informational marker for a system-owned default drain."),
 							kind: z.enum(["self-served"]),
 						}),
-						z.strictObject({
+						z.object({
 							externalResourceId: z.string().optional(),
 							integrationConfigurationId: z.string(),
 							integrationId: z.string(),
@@ -42620,7 +42686,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 					filterV2: z
 						.object({
 							filter: z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									deployment: z
 										.object({
 											environments: z.array(z.enum(["preview", "production"])).optional(),
@@ -42653,7 +42719,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 										.optional(),
 									type: z.enum(["basic"]),
 								}),
-								z.strictObject({
+								z.object({
 									text: z.string(),
 									type: z.enum(["odata"]),
 								}),
@@ -42666,11 +42732,11 @@ export const getAllLogDrainsStatus200Schema = z.union([
 					integrationWebsite: z.string().optional(),
 					projectAccess: z
 						.discriminatedUnion("access", [
-							z.strictObject({
+							z.object({
 								access: z.enum(["all"]),
 								managedBy: z.enum(["drain", "integration"]),
 							}),
-							z.strictObject({
+							z.object({
 								access: z.enum(["some"]),
 								projectIds: z.array(z.string()),
 								managedBy: z.enum(["drain", "integration"]),
@@ -42833,7 +42899,7 @@ export const createDrainStatus200Schema = z.union([
 	z.strictObject({
 		createdAt: z.number(),
 		delivery: z.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				compression: z.enum(["gzip", "none"]).optional(),
 				encoding: z.enum(["json", "ndjson"]),
 				endpoint: z.string(),
@@ -42848,7 +42914,7 @@ export const createDrainStatus200Schema = z.union([
 					.optional(),
 				type: z.enum(["http"]),
 			}),
-			z.strictObject({
+			z.object({
 				encoding: z.enum(["json", "proto"]),
 				endpoint: z.object({
 					traces: z.string(),
@@ -42864,12 +42930,12 @@ export const createDrainStatus200Schema = z.union([
 					.optional(),
 				type: z.enum(["otlphttp"]),
 			}),
-			z.strictObject({
+			z.object({
 				endpoint: z.string(),
 				table: z.string(),
 				type: z.enum(["clickhouse"]),
 			}),
-			z.strictObject({
+			z.object({
 				compression: z.enum(["gzip", "none"]),
 				encoding: z.enum(["json", "ndjson"]),
 				endpoint: z.string(),
@@ -42891,7 +42957,7 @@ export const createDrainStatus200Schema = z.union([
 				serverSideEncryption: z.enum(["AES256", "aws:kms", "aws:kms:dsse"]).optional(),
 				type: z.enum(["s3"]),
 			}),
-			z.strictObject({
+			z.object({
 				target: z.enum(["vercel-otel-traces-db"]),
 				type: z.enum(["internal"]),
 			}),
@@ -42932,14 +42998,14 @@ export const createDrainStatus200Schema = z.union([
 			trace: z.object({}).optional(),
 		}),
 		source: z.discriminatedUnion("kind", [
-			z.strictObject({
+			z.object({
 				defaultFor: z
 					.enum(["eve-tracing", "nextjs-tracing"])
 					.optional()
 					.describe("Informational marker for a system-owned default drain."),
 				kind: z.enum(["self-served"]),
 			}),
-			z.strictObject({
+			z.object({
 				externalResourceId: z.string().optional(),
 				integrationConfigurationId: z.string(),
 				integrationId: z.string(),
@@ -42979,7 +43045,7 @@ export const createDrainStatus200Schema = z.union([
 		filterV2: z
 			.object({
 				filter: z.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						deployment: z
 							.object({
 								environments: z.array(z.enum(["preview", "production"])).optional(),
@@ -43012,7 +43078,7 @@ export const createDrainStatus200Schema = z.union([
 							.optional(),
 						type: z.enum(["basic"]),
 					}),
-					z.strictObject({
+					z.object({
 						text: z.string(),
 						type: z.enum(["odata"]),
 					}),
@@ -43024,7 +43090,7 @@ export const createDrainStatus200Schema = z.union([
 	z.strictObject({
 		createdAt: z.number(),
 		delivery: z.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				compression: z.enum(["gzip", "none"]).optional(),
 				encoding: z.enum(["json", "ndjson"]),
 				endpoint: z.string(),
@@ -43039,7 +43105,7 @@ export const createDrainStatus200Schema = z.union([
 					.optional(),
 				type: z.enum(["http"]),
 			}),
-			z.strictObject({
+			z.object({
 				encoding: z.enum(["json", "proto"]),
 				endpoint: z.object({
 					traces: z.string(),
@@ -43055,12 +43121,12 @@ export const createDrainStatus200Schema = z.union([
 					.optional(),
 				type: z.enum(["otlphttp"]),
 			}),
-			z.strictObject({
+			z.object({
 				endpoint: z.string(),
 				table: z.string(),
 				type: z.enum(["clickhouse"]),
 			}),
-			z.strictObject({
+			z.object({
 				compression: z.enum(["gzip", "none"]),
 				encoding: z.enum(["json", "ndjson"]),
 				endpoint: z.string(),
@@ -43082,7 +43148,7 @@ export const createDrainStatus200Schema = z.union([
 				serverSideEncryption: z.enum(["AES256", "aws:kms", "aws:kms:dsse"]).optional(),
 				type: z.enum(["s3"]),
 			}),
-			z.strictObject({
+			z.object({
 				target: z.enum(["vercel-otel-traces-db"]),
 				type: z.enum(["internal"]),
 			}),
@@ -43123,14 +43189,14 @@ export const createDrainStatus200Schema = z.union([
 			trace: z.object({}).optional(),
 		}),
 		source: z.discriminatedUnion("kind", [
-			z.strictObject({
+			z.object({
 				defaultFor: z
 					.enum(["eve-tracing", "nextjs-tracing"])
 					.optional()
 					.describe("Informational marker for a system-owned default drain."),
 				kind: z.enum(["self-served"]),
 			}),
-			z.strictObject({
+			z.object({
 				externalResourceId: z.string().optional(),
 				integrationConfigurationId: z.string(),
 				integrationId: z.string(),
@@ -43170,7 +43236,7 @@ export const createDrainStatus200Schema = z.union([
 		filterV2: z
 			.object({
 				filter: z.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						deployment: z
 							.object({
 								environments: z.array(z.enum(["preview", "production"])).optional(),
@@ -43203,7 +43269,7 @@ export const createDrainStatus200Schema = z.union([
 							.optional(),
 						type: z.enum(["basic"]),
 					}),
-					z.strictObject({
+					z.object({
 						text: z.string(),
 						type: z.enum(["odata"]),
 					}),
@@ -43216,11 +43282,11 @@ export const createDrainStatus200Schema = z.union([
 		integrationWebsite: z.string().optional(),
 		projectAccess: z
 			.discriminatedUnion("access", [
-				z.strictObject({
+				z.object({
 					access: z.enum(["all"]),
 					managedBy: z.enum(["drain", "integration"]),
 				}),
-				z.strictObject({
+				z.object({
 					access: z.enum(["some"]),
 					projectIds: z.array(z.string()),
 					managedBy: z.enum(["drain", "integration"]),
@@ -43433,7 +43499,7 @@ export const getDrainsStatus200Schema = z.object({
 			z.object({
 				createdAt: z.number(),
 				delivery: z.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						compression: z.enum(["gzip", "none"]).optional(),
 						encoding: z.enum(["json", "ndjson"]),
 						endpoint: z.string(),
@@ -43448,7 +43514,7 @@ export const getDrainsStatus200Schema = z.object({
 							.optional(),
 						type: z.enum(["http"]),
 					}),
-					z.strictObject({
+					z.object({
 						encoding: z.enum(["json", "proto"]),
 						endpoint: z.object({
 							traces: z.string(),
@@ -43464,12 +43530,12 @@ export const getDrainsStatus200Schema = z.object({
 							.optional(),
 						type: z.enum(["otlphttp"]),
 					}),
-					z.strictObject({
+					z.object({
 						endpoint: z.string(),
 						table: z.string(),
 						type: z.enum(["clickhouse"]),
 					}),
-					z.strictObject({
+					z.object({
 						compression: z.enum(["gzip", "none"]),
 						encoding: z.enum(["json", "ndjson"]),
 						endpoint: z.string(),
@@ -43491,7 +43557,7 @@ export const getDrainsStatus200Schema = z.object({
 						serverSideEncryption: z.enum(["AES256", "aws:kms", "aws:kms:dsse"]).optional(),
 						type: z.enum(["s3"]),
 					}),
-					z.strictObject({
+					z.object({
 						target: z.enum(["vercel-otel-traces-db"]),
 						type: z.enum(["internal"]),
 					}),
@@ -43532,14 +43598,14 @@ export const getDrainsStatus200Schema = z.object({
 					trace: z.object({}).optional(),
 				}),
 				source: z.discriminatedUnion("kind", [
-					z.strictObject({
+					z.object({
 						defaultFor: z
 							.enum(["eve-tracing", "nextjs-tracing"])
 							.optional()
 							.describe("Informational marker for a system-owned default drain."),
 						kind: z.enum(["self-served"]),
 					}),
-					z.strictObject({
+					z.object({
 						externalResourceId: z.string().optional(),
 						integrationConfigurationId: z.string(),
 						integrationId: z.string(),
@@ -43581,7 +43647,7 @@ export const getDrainsStatus200Schema = z.object({
 				filterV2: z
 					.object({
 						filter: z.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								deployment: z
 									.object({
 										environments: z.array(z.enum(["preview", "production"])).optional(),
@@ -43614,7 +43680,7 @@ export const getDrainsStatus200Schema = z.object({
 									.optional(),
 								type: z.enum(["basic"]),
 							}),
-							z.strictObject({
+							z.object({
 								text: z.string(),
 								type: z.enum(["odata"]),
 							}),
@@ -43628,7 +43694,7 @@ export const getDrainsStatus200Schema = z.object({
 			z.object({
 				createdAt: z.number(),
 				delivery: z.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						compression: z.enum(["gzip", "none"]).optional(),
 						encoding: z.enum(["json", "ndjson"]),
 						endpoint: z.string(),
@@ -43643,7 +43709,7 @@ export const getDrainsStatus200Schema = z.object({
 							.optional(),
 						type: z.enum(["http"]),
 					}),
-					z.strictObject({
+					z.object({
 						encoding: z.enum(["json", "proto"]),
 						endpoint: z.object({
 							traces: z.string(),
@@ -43659,12 +43725,12 @@ export const getDrainsStatus200Schema = z.object({
 							.optional(),
 						type: z.enum(["otlphttp"]),
 					}),
-					z.strictObject({
+					z.object({
 						endpoint: z.string(),
 						table: z.string(),
 						type: z.enum(["clickhouse"]),
 					}),
-					z.strictObject({
+					z.object({
 						compression: z.enum(["gzip", "none"]),
 						encoding: z.enum(["json", "ndjson"]),
 						endpoint: z.string(),
@@ -43686,7 +43752,7 @@ export const getDrainsStatus200Schema = z.object({
 						serverSideEncryption: z.enum(["AES256", "aws:kms", "aws:kms:dsse"]).optional(),
 						type: z.enum(["s3"]),
 					}),
-					z.strictObject({
+					z.object({
 						target: z.enum(["vercel-otel-traces-db"]),
 						type: z.enum(["internal"]),
 					}),
@@ -43727,14 +43793,14 @@ export const getDrainsStatus200Schema = z.object({
 					trace: z.object({}).optional(),
 				}),
 				source: z.discriminatedUnion("kind", [
-					z.strictObject({
+					z.object({
 						defaultFor: z
 							.enum(["eve-tracing", "nextjs-tracing"])
 							.optional()
 							.describe("Informational marker for a system-owned default drain."),
 						kind: z.enum(["self-served"]),
 					}),
-					z.strictObject({
+					z.object({
 						externalResourceId: z.string().optional(),
 						integrationConfigurationId: z.string(),
 						integrationId: z.string(),
@@ -43776,7 +43842,7 @@ export const getDrainsStatus200Schema = z.object({
 				filterV2: z
 					.object({
 						filter: z.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								deployment: z
 									.object({
 										environments: z.array(z.enum(["preview", "production"])).optional(),
@@ -43809,7 +43875,7 @@ export const getDrainsStatus200Schema = z.object({
 									.optional(),
 								type: z.enum(["basic"]),
 							}),
-							z.strictObject({
+							z.object({
 								text: z.string(),
 								type: z.enum(["odata"]),
 							}),
@@ -43822,11 +43888,11 @@ export const getDrainsStatus200Schema = z.object({
 				integrationWebsite: z.string().optional(),
 				projectAccess: z
 					.discriminatedUnion("access", [
-						z.strictObject({
+						z.object({
 							access: z.enum(["all"]),
 							managedBy: z.enum(["drain", "integration"]),
 						}),
-						z.strictObject({
+						z.object({
 							access: z.enum(["some"]),
 							projectIds: z.array(z.string()),
 							managedBy: z.enum(["drain", "integration"]),
@@ -43961,7 +44027,7 @@ export const getDrainQuerySlugSchema = z
 export const getDrainStatus200Schema = z.object({
 	createdAt: z.number(),
 	delivery: z.discriminatedUnion("type", [
-		z.strictObject({
+		z.object({
 			compression: z.enum(["gzip", "none"]).optional(),
 			encoding: z.enum(["json", "ndjson"]),
 			endpoint: z.string(),
@@ -43976,7 +44042,7 @@ export const getDrainStatus200Schema = z.object({
 				.optional(),
 			type: z.enum(["http"]),
 		}),
-		z.strictObject({
+		z.object({
 			encoding: z.enum(["json", "proto"]),
 			endpoint: z.object({
 				traces: z.string(),
@@ -43992,12 +44058,12 @@ export const getDrainStatus200Schema = z.object({
 				.optional(),
 			type: z.enum(["otlphttp"]),
 		}),
-		z.strictObject({
+		z.object({
 			endpoint: z.string(),
 			table: z.string(),
 			type: z.enum(["clickhouse"]),
 		}),
-		z.strictObject({
+		z.object({
 			compression: z.enum(["gzip", "none"]),
 			encoding: z.enum(["json", "ndjson"]),
 			endpoint: z.string(),
@@ -44019,7 +44085,7 @@ export const getDrainStatus200Schema = z.object({
 			serverSideEncryption: z.enum(["AES256", "aws:kms", "aws:kms:dsse"]).optional(),
 			type: z.enum(["s3"]),
 		}),
-		z.strictObject({
+		z.object({
 			target: z.enum(["vercel-otel-traces-db"]),
 			type: z.enum(["internal"]),
 		}),
@@ -44060,14 +44126,14 @@ export const getDrainStatus200Schema = z.object({
 		trace: z.object({}).optional(),
 	}),
 	source: z.discriminatedUnion("kind", [
-		z.strictObject({
+		z.object({
 			defaultFor: z
 				.enum(["eve-tracing", "nextjs-tracing"])
 				.optional()
 				.describe("Informational marker for a system-owned default drain."),
 			kind: z.enum(["self-served"]),
 		}),
-		z.strictObject({
+		z.object({
 			externalResourceId: z.string().optional(),
 			integrationConfigurationId: z.string(),
 			integrationId: z.string(),
@@ -44107,7 +44173,7 @@ export const getDrainStatus200Schema = z.object({
 	filterV2: z
 		.object({
 			filter: z.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					deployment: z
 						.object({
 							environments: z.array(z.enum(["preview", "production"])).optional(),
@@ -44132,7 +44198,7 @@ export const getDrainStatus200Schema = z.object({
 						.optional(),
 					type: z.enum(["basic"]),
 				}),
-				z.strictObject({
+				z.object({
 					text: z.string(),
 					type: z.enum(["odata"]),
 				}),
@@ -44207,7 +44273,7 @@ export const updateDrainStatus200Schema = z.union([
 	z.strictObject({
 		createdAt: z.number(),
 		delivery: z.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				compression: z.enum(["gzip", "none"]).optional(),
 				encoding: z.enum(["json", "ndjson"]),
 				endpoint: z.string(),
@@ -44222,7 +44288,7 @@ export const updateDrainStatus200Schema = z.union([
 					.optional(),
 				type: z.enum(["http"]),
 			}),
-			z.strictObject({
+			z.object({
 				encoding: z.enum(["json", "proto"]),
 				endpoint: z.object({
 					traces: z.string(),
@@ -44238,12 +44304,12 @@ export const updateDrainStatus200Schema = z.union([
 					.optional(),
 				type: z.enum(["otlphttp"]),
 			}),
-			z.strictObject({
+			z.object({
 				endpoint: z.string(),
 				table: z.string(),
 				type: z.enum(["clickhouse"]),
 			}),
-			z.strictObject({
+			z.object({
 				compression: z.enum(["gzip", "none"]),
 				encoding: z.enum(["json", "ndjson"]),
 				endpoint: z.string(),
@@ -44265,7 +44331,7 @@ export const updateDrainStatus200Schema = z.union([
 				serverSideEncryption: z.enum(["AES256", "aws:kms", "aws:kms:dsse"]).optional(),
 				type: z.enum(["s3"]),
 			}),
-			z.strictObject({
+			z.object({
 				target: z.enum(["vercel-otel-traces-db"]),
 				type: z.enum(["internal"]),
 			}),
@@ -44306,14 +44372,14 @@ export const updateDrainStatus200Schema = z.union([
 			trace: z.object({}).optional(),
 		}),
 		source: z.discriminatedUnion("kind", [
-			z.strictObject({
+			z.object({
 				defaultFor: z
 					.enum(["eve-tracing", "nextjs-tracing"])
 					.optional()
 					.describe("Informational marker for a system-owned default drain."),
 				kind: z.enum(["self-served"]),
 			}),
-			z.strictObject({
+			z.object({
 				externalResourceId: z.string().optional(),
 				integrationConfigurationId: z.string(),
 				integrationId: z.string(),
@@ -44353,7 +44419,7 @@ export const updateDrainStatus200Schema = z.union([
 		filterV2: z
 			.object({
 				filter: z.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						deployment: z
 							.object({
 								environments: z.array(z.enum(["preview", "production"])).optional(),
@@ -44386,7 +44452,7 @@ export const updateDrainStatus200Schema = z.union([
 							.optional(),
 						type: z.enum(["basic"]),
 					}),
-					z.strictObject({
+					z.object({
 						text: z.string(),
 						type: z.enum(["odata"]),
 					}),
@@ -44398,7 +44464,7 @@ export const updateDrainStatus200Schema = z.union([
 	z.strictObject({
 		createdAt: z.number(),
 		delivery: z.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				compression: z.enum(["gzip", "none"]).optional(),
 				encoding: z.enum(["json", "ndjson"]),
 				endpoint: z.string(),
@@ -44413,7 +44479,7 @@ export const updateDrainStatus200Schema = z.union([
 					.optional(),
 				type: z.enum(["http"]),
 			}),
-			z.strictObject({
+			z.object({
 				encoding: z.enum(["json", "proto"]),
 				endpoint: z.object({
 					traces: z.string(),
@@ -44429,12 +44495,12 @@ export const updateDrainStatus200Schema = z.union([
 					.optional(),
 				type: z.enum(["otlphttp"]),
 			}),
-			z.strictObject({
+			z.object({
 				endpoint: z.string(),
 				table: z.string(),
 				type: z.enum(["clickhouse"]),
 			}),
-			z.strictObject({
+			z.object({
 				compression: z.enum(["gzip", "none"]),
 				encoding: z.enum(["json", "ndjson"]),
 				endpoint: z.string(),
@@ -44456,7 +44522,7 @@ export const updateDrainStatus200Schema = z.union([
 				serverSideEncryption: z.enum(["AES256", "aws:kms", "aws:kms:dsse"]).optional(),
 				type: z.enum(["s3"]),
 			}),
-			z.strictObject({
+			z.object({
 				target: z.enum(["vercel-otel-traces-db"]),
 				type: z.enum(["internal"]),
 			}),
@@ -44497,14 +44563,14 @@ export const updateDrainStatus200Schema = z.union([
 			trace: z.object({}).optional(),
 		}),
 		source: z.discriminatedUnion("kind", [
-			z.strictObject({
+			z.object({
 				defaultFor: z
 					.enum(["eve-tracing", "nextjs-tracing"])
 					.optional()
 					.describe("Informational marker for a system-owned default drain."),
 				kind: z.enum(["self-served"]),
 			}),
-			z.strictObject({
+			z.object({
 				externalResourceId: z.string().optional(),
 				integrationConfigurationId: z.string(),
 				integrationId: z.string(),
@@ -44544,7 +44610,7 @@ export const updateDrainStatus200Schema = z.union([
 		filterV2: z
 			.object({
 				filter: z.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						deployment: z
 							.object({
 								environments: z.array(z.enum(["preview", "production"])).optional(),
@@ -44577,7 +44643,7 @@ export const updateDrainStatus200Schema = z.union([
 							.optional(),
 						type: z.enum(["basic"]),
 					}),
-					z.strictObject({
+					z.object({
 						text: z.string(),
 						type: z.enum(["odata"]),
 					}),
@@ -44590,11 +44656,11 @@ export const updateDrainStatus200Schema = z.union([
 		integrationWebsite: z.string().optional(),
 		projectAccess: z
 			.discriminatedUnion("access", [
-				z.strictObject({
+				z.object({
 					access: z.enum(["all"]),
 					managedBy: z.enum(["drain", "integration"]),
 				}),
-				z.strictObject({
+				z.object({
 					access: z.enum(["some"]),
 					projectIds: z.array(z.string()),
 					managedBy: z.enum(["drain", "integration"]),
@@ -47053,14 +47119,14 @@ export const createSharedEnvVariableStatus201Schema = z.object({
 				.describe("The last editor full name or username."),
 			lastEditedByPrincipal: z
 				.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						avatar: z.string().optional(),
 						id: z.string(),
 						name: z.string().nullish(),
 						type: z.enum(["user"]),
 						username: z.string(),
 					}),
-					z.strictObject({
+					z.object({
 						avatar: z.string().optional(),
 						id: z.string(),
 						name: z.string(),
@@ -47323,14 +47389,14 @@ export const listSharedEnvVariableStatus200Schema = z.object({
 				.describe("The last editor full name or username."),
 			lastEditedByPrincipal: z
 				.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						avatar: z.string().optional(),
 						id: z.string(),
 						name: z.string().nullish(),
 						type: z.enum(["user"]),
 						username: z.string(),
 					}),
-					z.strictObject({
+					z.object({
 						avatar: z.string().optional(),
 						id: z.string(),
 						name: z.string(),
@@ -47537,14 +47603,14 @@ export const updateSharedEnvVariableStatus200Schema = z.object({
 				.describe("The last editor full name or username."),
 			lastEditedByPrincipal: z
 				.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						avatar: z.string().optional(),
 						id: z.string(),
 						name: z.string().nullish(),
 						type: z.enum(["user"]),
 						username: z.string(),
 					}),
-					z.strictObject({
+					z.object({
 						avatar: z.string().optional(),
 						id: z.string(),
 						name: z.string(),
@@ -47851,14 +47917,14 @@ export const getSharedEnvVarStatus200Schema = z.object({
 	lastEditedByDisplayName: z.string().optional().describe("The last editor full name or username."),
 	lastEditedByPrincipal: z
 		.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				avatar: z.string().optional(),
 				id: z.string(),
 				name: z.string().nullish(),
 				type: z.enum(["user"]),
 				username: z.string(),
 			}),
-			z.strictObject({
+			z.object({
 				avatar: z.string().optional(),
 				id: z.string(),
 				name: z.string(),
@@ -48273,9 +48339,7 @@ export const listFlagsV2Status200Schema = z.object({
 	pagination: z.object({
 		next: z.string().nullable(),
 	}),
-	data: z.array(
-		z.discriminatedUnion("typeName", [flagSchema.strict(), marketplaceFlagSchema.strict()]),
-	),
+	data: z.array(z.discriminatedUnion("typeName", [flagSchema, marketplaceFlagSchema])),
 });
 
 export const listFlagsV2Status400Schema = z.unknown();
@@ -48505,11 +48569,11 @@ export const createFlagStatus201Schema = z.object({
 		z.object({
 			active: z.union([z.literal(false), z.literal(true)]),
 			fallthrough: z.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					type: z.enum(["variant"]),
 					variantId: z.string(),
 				}),
-				z.strictObject({
+				z.object({
 					base: z.object({
 						attribute: z.string(),
 						kind: z.string(),
@@ -48519,7 +48583,7 @@ export const createFlagStatus201Schema = z.object({
 					type: z.enum(["split"]),
 					weights: z.record(z.string(), z.number()),
 				}),
-				z.strictObject({
+				z.object({
 					base: z.object({
 						attribute: z.string(),
 						kind: z.string(),
@@ -48538,7 +48602,7 @@ export const createFlagStatus201Schema = z.object({
 					startTimestamp: z.number(),
 					type: z.enum(["rollout"]),
 				}),
-				z.strictObject({
+				z.object({
 					type: z.enum(["experiment"]),
 				}),
 			]),
@@ -48588,10 +48652,10 @@ export const createFlagStatus201Schema = z.object({
 								})
 								.optional(),
 							lhs: z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									type: z.enum(["segment"]),
 								}),
-								z.strictObject({
+								z.object({
 									attribute: z.string(),
 									kind: z.string(),
 									type: z.enum(["entity"]),
@@ -48630,11 +48694,11 @@ export const createFlagStatus201Schema = z.object({
 					),
 					id: z.string(),
 					outcome: z.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							type: z.enum(["variant"]),
 							variantId: z.string(),
 						}),
-						z.strictObject({
+						z.object({
 							base: z.object({
 								attribute: z.string(),
 								kind: z.string(),
@@ -48644,7 +48708,7 @@ export const createFlagStatus201Schema = z.object({
 							type: z.enum(["split"]),
 							weights: z.record(z.string(), z.number()),
 						}),
-						z.strictObject({
+						z.object({
 							base: z.object({
 								attribute: z.string(),
 								kind: z.string(),
@@ -48663,7 +48727,7 @@ export const createFlagStatus201Schema = z.object({
 							startTimestamp: z.number(),
 							type: z.enum(["rollout"]),
 						}),
-						z.strictObject({
+						z.object({
 							type: z.enum(["experiment"]),
 						}),
 					]),
@@ -49196,11 +49260,11 @@ export const updateFlagStatus200Schema = z.object({
 		z.object({
 			active: z.union([z.literal(false), z.literal(true)]),
 			fallthrough: z.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					type: z.enum(["variant"]),
 					variantId: z.string(),
 				}),
-				z.strictObject({
+				z.object({
 					base: z.object({
 						attribute: z.string(),
 						kind: z.string(),
@@ -49210,7 +49274,7 @@ export const updateFlagStatus200Schema = z.object({
 					type: z.enum(["split"]),
 					weights: z.record(z.string(), z.number()),
 				}),
-				z.strictObject({
+				z.object({
 					base: z.object({
 						attribute: z.string(),
 						kind: z.string(),
@@ -49229,7 +49293,7 @@ export const updateFlagStatus200Schema = z.object({
 					startTimestamp: z.number(),
 					type: z.enum(["rollout"]),
 				}),
-				z.strictObject({
+				z.object({
 					type: z.enum(["experiment"]),
 				}),
 			]),
@@ -49279,10 +49343,10 @@ export const updateFlagStatus200Schema = z.object({
 								})
 								.optional(),
 							lhs: z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									type: z.enum(["segment"]),
 								}),
-								z.strictObject({
+								z.object({
 									attribute: z.string(),
 									kind: z.string(),
 									type: z.enum(["entity"]),
@@ -49321,11 +49385,11 @@ export const updateFlagStatus200Schema = z.object({
 					),
 					id: z.string(),
 					outcome: z.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							type: z.enum(["variant"]),
 							variantId: z.string(),
 						}),
-						z.strictObject({
+						z.object({
 							base: z.object({
 								attribute: z.string(),
 								kind: z.string(),
@@ -49335,7 +49399,7 @@ export const updateFlagStatus200Schema = z.object({
 							type: z.enum(["split"]),
 							weights: z.record(z.string(), z.number()),
 						}),
-						z.strictObject({
+						z.object({
 							base: z.object({
 								attribute: z.string(),
 								kind: z.string(),
@@ -49354,7 +49418,7 @@ export const updateFlagStatus200Schema = z.object({
 							startTimestamp: z.number(),
 							type: z.enum(["rollout"]),
 						}),
-						z.strictObject({
+						z.object({
 							type: z.enum(["experiment"]),
 						}),
 					]),
@@ -49912,11 +49976,11 @@ export const listFlagVersionsStatus200Schema = z.object({
 					z.object({
 						active: z.union([z.literal(false), z.literal(true)]),
 						fallthrough: z.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								type: z.enum(["variant"]),
 								variantId: z.string(),
 							}),
-							z.strictObject({
+							z.object({
 								base: z.object({
 									attribute: z.string(),
 									kind: z.string(),
@@ -49926,7 +49990,7 @@ export const listFlagVersionsStatus200Schema = z.object({
 								type: z.enum(["split"]),
 								weights: z.record(z.string(), z.number()),
 							}),
-							z.strictObject({
+							z.object({
 								base: z.object({
 									attribute: z.string(),
 									kind: z.string(),
@@ -49945,7 +50009,7 @@ export const listFlagVersionsStatus200Schema = z.object({
 								startTimestamp: z.number(),
 								type: z.enum(["rollout"]),
 							}),
-							z.strictObject({
+							z.object({
 								type: z.enum(["experiment"]),
 							}),
 						]),
@@ -49995,10 +50059,10 @@ export const listFlagVersionsStatus200Schema = z.object({
 											})
 											.optional(),
 										lhs: z.discriminatedUnion("type", [
-											z.strictObject({
+											z.object({
 												type: z.enum(["segment"]),
 											}),
-											z.strictObject({
+											z.object({
 												attribute: z.string(),
 												kind: z.string(),
 												type: z.enum(["entity"]),
@@ -50037,11 +50101,11 @@ export const listFlagVersionsStatus200Schema = z.object({
 								),
 								id: z.string(),
 								outcome: z.discriminatedUnion("type", [
-									z.strictObject({
+									z.object({
 										type: z.enum(["variant"]),
 										variantId: z.string(),
 									}),
-									z.strictObject({
+									z.object({
 										base: z.object({
 											attribute: z.string(),
 											kind: z.string(),
@@ -50051,7 +50115,7 @@ export const listFlagVersionsStatus200Schema = z.object({
 										type: z.enum(["split"]),
 										weights: z.record(z.string(), z.number()),
 									}),
-									z.strictObject({
+									z.object({
 										base: z.object({
 											attribute: z.string(),
 											kind: z.string(),
@@ -50070,7 +50134,7 @@ export const listFlagVersionsStatus200Schema = z.object({
 										startTimestamp: z.number(),
 										type: z.enum(["rollout"]),
 									}),
-									z.strictObject({
+									z.object({
 										type: z.enum(["experiment"]),
 									}),
 								]),
@@ -50905,9 +50969,7 @@ export const listTeamFlagsV2Status200Schema = z.object({
 	pagination: z.object({
 		next: z.string().nullable(),
 	}),
-	data: z.array(
-		z.discriminatedUnion("typeName", [flagSchema.strict(), marketplaceFlagSchema.strict()]),
-	),
+	data: z.array(z.discriminatedUnion("typeName", [flagSchema, marketplaceFlagSchema])),
 });
 
 export const listTeamFlagsV2Status400Schema = z.unknown();
@@ -51200,10 +51262,10 @@ export const createFlagSegmentStatus201Schema = z.object({
 								})
 								.optional(),
 							lhs: z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									type: z.enum(["segment"]),
 								}),
-								z.strictObject({
+								z.object({
 									attribute: z.string(),
 									kind: z.string(),
 									type: z.enum(["entity"]),
@@ -51242,10 +51304,10 @@ export const createFlagSegmentStatus201Schema = z.object({
 					),
 					id: z.string(),
 					outcome: z.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							type: z.enum(["all"]),
 						}),
-						z.strictObject({
+						z.object({
 							base: z.object({
 								attribute: z.string(),
 								kind: z.string(),
@@ -51759,10 +51821,10 @@ export const updateFlagSegmentStatus200Schema = z.union([
 									})
 									.optional(),
 								lhs: z.discriminatedUnion("type", [
-									z.strictObject({
+									z.object({
 										type: z.enum(["segment"]),
 									}),
-									z.strictObject({
+									z.object({
 										attribute: z.string(),
 										kind: z.string(),
 										type: z.enum(["entity"]),
@@ -51801,10 +51863,10 @@ export const updateFlagSegmentStatus200Schema = z.union([
 						),
 						id: z.string(),
 						outcome: z.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								type: z.enum(["all"]),
 							}),
-							z.strictObject({
+							z.object({
 								base: z.object({
 									attribute: z.string(),
 									kind: z.string(),
@@ -53106,7 +53168,7 @@ export const getMemberStatus200Schema = z.object({
 	role: z
 		.enum(["ADMIN", "USER"])
 		.describe(
-			"The `ADMIN` role, by default, is provided to users capable of installing integrations, while the `USER` role can be granted to Vercel users with the Vercel `Billing` or Vercel `Viewer` role, which are considered to be Read-Only roles.",
+			'"The `ADMIN` role, by default, is provided to users capable of installing integrations, while the `USER` role can be granted to Vercel users with the Vercel `Billing` or Vercel `Viewer` role, which are considered to be Read-Only roles."',
 		),
 	userEmail: z.string().optional(),
 });
@@ -53668,7 +53730,10 @@ export const importResourceBodySchema = z
 							claims: z
 								.record(
 									z.string(),
-									z.union([z.union([z.string(), z.number(), z.boolean()]), z.array(z.string())]),
+									z.union([
+										z.union([z.string(), z.number(), z.boolean()]).nullable(),
+										z.array(z.string()),
+									]),
 								)
 								.describe(
 									"Claims to set (string, number, boolean, or array of strings), shallow-merged over earlier rules and over the default claims. `null` removes a claim. Reserved claims cannot be set; `aud` and `sub` can be overridden with a string but not removed.",
@@ -53866,7 +53931,10 @@ export const updateResourceBodySchema = z
 							claims: z
 								.record(
 									z.string(),
-									z.union([z.union([z.string(), z.number(), z.boolean()]), z.array(z.string())]),
+									z.union([
+										z.union([z.string(), z.number(), z.boolean()]).nullable(),
+										z.array(z.string()),
+									]),
 								)
 								.describe(
 									"Claims to set (string, number, boolean, or array of strings), shallow-merged over earlier rules and over the default claims. `null` removes a claim. Reserved claims cannot be set; `aud` and `sub` can be overridden with a string but not removed.",
@@ -56436,7 +56504,7 @@ export const exchangeSsoTokenErrorSchema = z.union([
 ]);
 
 export const exchangeSsoTokenBodySchema = z.discriminatedUnion("grant_type", [
-	z.strictObject({
+	z.object({
 		code: z.string().describe("The sensitive code received from Vercel"),
 		state: z.string().optional().describe("The state received from the initialization request"),
 		client_id: z.string().describe("The integration client id"),
@@ -56446,7 +56514,7 @@ export const exchangeSsoTokenBodySchema = z.discriminatedUnion("grant_type", [
 			.enum(["authorization_code"])
 			.describe("The grant type, when using x-www-form-urlencoded content type"),
 	}),
-	z.strictObject({
+	z.object({
 		refresh_token: z.string().describe("The refresh token received from previous token exchange"),
 		client_id: z.string().describe("The integration client id"),
 		client_secret: z.string().describe("The integration client secret"),
@@ -56536,14 +56604,14 @@ export const getIntegrationLogDrainsStatus200Schema = z.array(
 			.describe("The sampling rate of log drain")
 			.meta({ examples: [0.5] }),
 		source: z.discriminatedUnion("kind", [
-			z.strictObject({
+			z.object({
 				defaultFor: z
 					.enum(["eve-tracing", "nextjs-tracing"])
 					.optional()
 					.describe("Informational marker for a system-owned default drain."),
 				kind: z.enum(["self-served"]),
 			}),
-			z.strictObject({
+			z.object({
 				externalResourceId: z.string().optional(),
 				integrationConfigurationId: z.string(),
 				integrationId: z.string(),
@@ -56675,14 +56743,14 @@ export const createLogDrainStatus200Schema = z.object({
 		.describe("The sampling rate of log drain")
 		.meta({ examples: [0.5] }),
 	source: z.discriminatedUnion("kind", [
-		z.strictObject({
+		z.object({
 			defaultFor: z
 				.enum(["eve-tracing", "nextjs-tracing"])
 				.optional()
 				.describe("Informational marker for a system-owned default drain."),
 			kind: z.enum(["self-served"]),
 		}),
-		z.strictObject({
+		z.object({
 			externalResourceId: z.string().optional(),
 			integrationConfigurationId: z.string(),
 			integrationId: z.string(),
@@ -57230,7 +57298,7 @@ export const listKmsIssuersStatus200Schema = z.object({
 			ownerId: z.string(),
 			policies: z.array(
 				z.discriminatedUnion("kind", [
-					z.strictObject({
+					z.object({
 						createdAt: z.string(),
 						environments: z
 							.array(z.string())
@@ -57243,14 +57311,14 @@ export const listKmsIssuersStatus200Schema = z.object({
 						tokenClaims: z.looseObject({}).optional(),
 						updatedAt: z.string(),
 					}),
-					z.strictObject({
+					z.object({
 						clientId: z.string(),
 						createdAt: z.string(),
 						kind: z.enum(["connex-grant"]),
 						tokenClaims: z.looseObject({}).optional(),
 						updatedAt: z.string(),
 					}),
-					z.strictObject({
+					z.object({
 						createdAt: z.string(),
 						integrationId: z.string(),
 						kind: z.enum(["integration-tokens-grant"]),
@@ -57404,7 +57472,7 @@ export const createKmsIssuerStatus201Schema = z.object({
 	ownerId: z.string(),
 	policies: z.array(
 		z.discriminatedUnion("kind", [
-			z.strictObject({
+			z.object({
 				createdAt: z.string(),
 				environments: z
 					.array(z.string())
@@ -57417,14 +57485,14 @@ export const createKmsIssuerStatus201Schema = z.object({
 				tokenClaims: z.looseObject({}).optional(),
 				updatedAt: z.string(),
 			}),
-			z.strictObject({
+			z.object({
 				clientId: z.string(),
 				createdAt: z.string(),
 				kind: z.enum(["connex-grant"]),
 				tokenClaims: z.looseObject({}).optional(),
 				updatedAt: z.string(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.string(),
 				integrationId: z.string(),
 				kind: z.enum(["integration-tokens-grant"]),
@@ -57922,7 +57990,7 @@ export const revokeKmsSigningKeyStatus200Schema = z.object({
 	ownerId: z.string(),
 	policies: z.array(
 		z.discriminatedUnion("kind", [
-			z.strictObject({
+			z.object({
 				createdAt: z.string(),
 				environments: z
 					.array(z.string())
@@ -57935,14 +58003,14 @@ export const revokeKmsSigningKeyStatus200Schema = z.object({
 				tokenClaims: z.looseObject({}).optional(),
 				updatedAt: z.string(),
 			}),
-			z.strictObject({
+			z.object({
 				clientId: z.string(),
 				createdAt: z.string(),
 				kind: z.enum(["connex-grant"]),
 				tokenClaims: z.looseObject({}).optional(),
 				updatedAt: z.string(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.string(),
 				integrationId: z.string(),
 				kind: z.enum(["integration-tokens-grant"]),
@@ -58097,7 +58165,7 @@ export const getKmsIssuerStatus200Schema = z.object({
 	ownerId: z.string(),
 	policies: z.array(
 		z.discriminatedUnion("kind", [
-			z.strictObject({
+			z.object({
 				createdAt: z.string(),
 				environments: z
 					.array(z.string())
@@ -58110,14 +58178,14 @@ export const getKmsIssuerStatus200Schema = z.object({
 				tokenClaims: z.looseObject({}).optional(),
 				updatedAt: z.string(),
 			}),
-			z.strictObject({
+			z.object({
 				clientId: z.string(),
 				createdAt: z.string(),
 				kind: z.enum(["connex-grant"]),
 				tokenClaims: z.looseObject({}).optional(),
 				updatedAt: z.string(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.string(),
 				integrationId: z.string(),
 				kind: z.enum(["integration-tokens-grant"]),
@@ -58264,7 +58332,7 @@ export const updateKmsIssuerStatus200Schema = z.object({
 	ownerId: z.string(),
 	policies: z.array(
 		z.discriminatedUnion("kind", [
-			z.strictObject({
+			z.object({
 				createdAt: z.string(),
 				environments: z
 					.array(z.string())
@@ -58277,14 +58345,14 @@ export const updateKmsIssuerStatus200Schema = z.object({
 				tokenClaims: z.looseObject({}).optional(),
 				updatedAt: z.string(),
 			}),
-			z.strictObject({
+			z.object({
 				clientId: z.string(),
 				createdAt: z.string(),
 				kind: z.enum(["connex-grant"]),
 				tokenClaims: z.looseObject({}).optional(),
 				updatedAt: z.string(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.string(),
 				integrationId: z.string(),
 				kind: z.enum(["integration-tokens-grant"]),
@@ -58489,7 +58557,7 @@ export const createKmsIssuerPolicyQuerySlugSchema = z
 	.meta({ examples: ["my-team-url-slug"] });
 
 export const createKmsIssuerPolicyStatus201Schema = z.discriminatedUnion("kind", [
-	z.strictObject({
+	z.object({
 		createdAt: z.string(),
 		environments: z
 			.array(z.string())
@@ -58502,14 +58570,14 @@ export const createKmsIssuerPolicyStatus201Schema = z.discriminatedUnion("kind",
 		tokenClaims: z.looseObject({}).optional(),
 		updatedAt: z.string(),
 	}),
-	z.strictObject({
+	z.object({
 		clientId: z.string(),
 		createdAt: z.string(),
 		kind: z.enum(["connex-grant"]),
 		tokenClaims: z.looseObject({}).optional(),
 		updatedAt: z.string(),
 	}),
-	z.strictObject({
+	z.object({
 		createdAt: z.string(),
 		integrationId: z.string(),
 		kind: z.enum(["integration-tokens-grant"]),
@@ -58598,7 +58666,7 @@ export const updateKmsIssuerPolicyQuerySlugSchema = z
 	.meta({ examples: ["my-team-url-slug"] });
 
 export const updateKmsIssuerPolicyStatus200Schema = z.discriminatedUnion("kind", [
-	z.strictObject({
+	z.object({
 		createdAt: z.string(),
 		environments: z
 			.array(z.string())
@@ -58611,14 +58679,14 @@ export const updateKmsIssuerPolicyStatus200Schema = z.discriminatedUnion("kind",
 		tokenClaims: z.looseObject({}).optional(),
 		updatedAt: z.string(),
 	}),
-	z.strictObject({
+	z.object({
 		clientId: z.string(),
 		createdAt: z.string(),
 		kind: z.enum(["connex-grant"]),
 		tokenClaims: z.looseObject({}).optional(),
 		updatedAt: z.string(),
 	}),
-	z.strictObject({
+	z.object({
 		createdAt: z.string(),
 		integrationId: z.string(),
 		kind: z.enum(["integration-tokens-grant"]),
@@ -59384,11 +59452,11 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 			createdAt: z.number().optional(),
 			creator: z
 				.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						type: z.enum(["user"]),
 						via: z
 							.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									app: z.object({
 										clientId: z
 											.string()
@@ -59402,7 +59470,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 									}),
 									type: z.enum(["app"]),
 								}),
-								z.strictObject({
+								z.object({
 									integration: z.object({
 										configurationId: z.string(),
 										integrationId: z.string(),
@@ -59415,13 +59483,13 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 							id: z.string(),
 						}),
 					}),
-					z.strictObject({
+					z.object({
 						project: z.object({
 							id: z.string(),
 						}),
 						type: z.enum(["project"]),
 					}),
-					z.strictObject({
+					z.object({
 						app: z.object({
 							clientId: z
 								.string()
@@ -59433,14 +59501,14 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						}),
 						type: z.enum(["app"]),
 					}),
-					z.strictObject({
+					z.object({
 						integration: z.object({
 							configurationId: z.string(),
 							integrationId: z.string(),
 						}),
 						type: z.enum(["integration"]),
 					}),
-					z.strictObject({
+					z.object({
 						type: z.enum(["system"]),
 					}),
 				])
@@ -59613,22 +59681,22 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 				isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 				elasticBuildMachine: z
 					.discriminatedUnion("cores", [
-						z.strictObject({
+						z.object({
 							cores: z.literal(4),
 							label: z.enum(["standard"]),
 							memory: z.literal(8192),
 						}),
-						z.strictObject({
+						z.object({
 							cores: z.literal(8),
 							label: z.enum(["enhanced"]),
 							memory: z.literal(16384),
 						}),
-						z.strictObject({
+						z.object({
 							cores: z.literal(14),
 							label: z.enum(["14cpu-28gb"]),
 							memory: z.literal(28672),
 						}),
-						z.strictObject({
+						z.object({
 							cores: z.literal(30),
 							label: z.enum(["turbo"]),
 							memory: z.literal(61440),
@@ -59674,11 +59742,11 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 								enabled: z.union([z.literal(false), z.literal(true)]),
 								environments: z.array(
 									z.discriminatedUnion("type", [
-										z.strictObject({
+										z.object({
 											target: z.enum(["preview", "production"]),
 											type: z.enum(["system"]),
 										}),
-										z.strictObject({
+										z.object({
 											environmentId: z.string(),
 											type: z.enum(["custom"]),
 										}),
@@ -59696,11 +59764,11 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 								enabled: z.union([z.literal(false), z.literal(true)]),
 								environments: z.array(
 									z.discriminatedUnion("type", [
-										z.strictObject({
+										z.object({
 											target: z.enum(["preview", "production"]),
 											type: z.enum(["system"]),
 										}),
-										z.strictObject({
+										z.object({
 											environmentId: z.string(),
 											type: z.enum(["custom"]),
 										}),
@@ -59769,74 +59837,74 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						configurationId: z.string().nullish(),
 						contentHint: z
 							.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									storeId: z.string(),
 									type: z.enum(["redis-url"]),
 								}),
-								z.strictObject({
+								z.object({
 									storeId: z.string(),
 									type: z.enum(["redis-rest-api-url"]),
 								}),
-								z.strictObject({
+								z.object({
 									storeId: z.string(),
 									type: z.enum(["redis-rest-api-token"]),
 								}),
-								z.strictObject({
+								z.object({
 									storeId: z.string(),
 									type: z.enum(["redis-rest-api-read-only-token"]),
 								}),
-								z.strictObject({
+								z.object({
 									storeId: z.string(),
 									type: z.enum(["blob-read-write-token"]),
 								}),
-								z.strictObject({
+								z.object({
 									storeId: z.string(),
 									type: z.enum(["blob-store-id"]),
 								}),
-								z.strictObject({
+								z.object({
 									storeId: z.string(),
 									type: z.enum(["blob-webhook-public-key"]),
 								}),
-								z.strictObject({
+								z.object({
 									storeId: z.string(),
 									type: z.enum(["postgres-url"]),
 								}),
-								z.strictObject({
+								z.object({
 									storeId: z.string(),
 									type: z.enum(["postgres-url-non-pooling"]),
 								}),
-								z.strictObject({
+								z.object({
 									storeId: z.string(),
 									type: z.enum(["postgres-prisma-url"]),
 								}),
-								z.strictObject({
+								z.object({
 									storeId: z.string(),
 									type: z.enum(["postgres-user"]),
 								}),
-								z.strictObject({
+								z.object({
 									storeId: z.string(),
 									type: z.enum(["postgres-host"]),
 								}),
-								z.strictObject({
+								z.object({
 									storeId: z.string(),
 									type: z.enum(["postgres-password"]),
 								}),
-								z.strictObject({
+								z.object({
 									storeId: z.string(),
 									type: z.enum(["postgres-database"]),
 								}),
-								z.strictObject({
+								z.object({
 									storeId: z.string(),
 									type: z.enum(["postgres-url-no-ssl"]),
 								}),
-								z.strictObject({
+								z.object({
 									integrationConfigurationId: z.string(),
 									integrationId: z.string(),
 									integrationProductId: z.string(),
 									storeId: z.string(),
 									type: z.enum(["integration-store-secret"]),
 								}),
-								z.strictObject({
+								z.object({
 									projectId: z.string(),
 									type: z.enum(["flags-connection-string"]),
 								}),
@@ -60063,14 +60131,14 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						z.strictObject({
 							has: z.array(
 								z.discriminatedUnion("type", [
-									z.strictObject({
+									z.object({
 										key: z.enum(["x-vercel-ip-country"]),
 										type: z.enum(["header"]),
 										value: z.object({
 											eq: z.string(),
 										}),
 									}),
-									z.strictObject({
+									z.object({
 										type: z.enum(["host"]),
 										value: z.object({
 											eq: z.string(),
@@ -60253,7 +60321,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 				.optional(),
 			link: z
 				.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						createdAt: z.number().optional(),
 						deployHooks: z.array(
 							z.object({
@@ -60279,7 +60347,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						type: z.enum(["github"]),
 						updatedAt: z.number().optional(),
 					}),
-					z.strictObject({
+					z.object({
 						createdAt: z.number().optional(),
 						deployHooks: z.array(
 							z.object({
@@ -60305,7 +60373,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						type: z.enum(["github-limited"]),
 						updatedAt: z.number().optional(),
 					}),
-					z.strictObject({
+					z.object({
 						createdAt: z.number().optional(),
 						deployHooks: z.array(
 							z.object({
@@ -60332,7 +60400,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						type: z.enum(["github-custom-host"]),
 						updatedAt: z.number().optional(),
 					}),
-					z.strictObject({
+					z.object({
 						createdAt: z.number().optional(),
 						deployHooks: z.array(
 							z.object({
@@ -60360,7 +60428,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						type: z.enum(["gitlab"]),
 						updatedAt: z.number().optional(),
 					}),
-					z.strictObject({
+					z.object({
 						createdAt: z.number().optional(),
 						deployHooks: z.array(
 							z.object({
@@ -60382,7 +60450,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						uuid: z.string(),
 						workspaceUuid: z.string(),
 					}),
-					z.strictObject({
+					z.object({
 						createdAt: z.number().optional(),
 						deployHooks: z.array(
 							z.object({
@@ -60402,7 +60470,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						type: z.enum(["vercel"]),
 						updatedAt: z.number().optional(),
 					}),
-					z.strictObject({
+					z.object({
 						createdAt: z.number().optional(),
 						deployHooks: z.array(
 							z.object({
@@ -60422,7 +60490,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						type: z.enum(["v0"]),
 						updatedAt: z.number().optional(),
 					}),
-					z.strictObject({
+					z.object({
 						createdAt: z.number().optional(),
 						deployHooks: z.array(
 							z.object({
@@ -62426,14 +62494,14 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 				.record(
 					z.string(),
 					z.discriminatedUnion("scope", [
-						z.strictObject({
+						z.object({
 							configurationId: z.string(),
 							createdAt: z.number(),
 							createdBy: z.string(),
 							integrationId: z.string(),
 							scope: z.enum(["integration-automation-bypass"]),
 						}),
-						z.strictObject({
+						z.object({
 							createdAt: z.number(),
 							createdBy: z.string(),
 							isEnvVar: z
@@ -62504,22 +62572,22 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 				isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 				elasticBuildMachine: z
 					.discriminatedUnion("cores", [
-						z.strictObject({
+						z.object({
 							cores: z.literal(4),
 							label: z.enum(["standard"]),
 							memory: z.literal(8192),
 						}),
-						z.strictObject({
+						z.object({
 							cores: z.literal(8),
 							label: z.enum(["enhanced"]),
 							memory: z.literal(16384),
 						}),
-						z.strictObject({
+						z.object({
 							cores: z.literal(14),
 							label: z.enum(["14cpu-28gb"]),
 							memory: z.literal(28672),
 						}),
-						z.strictObject({
+						z.object({
 							cores: z.literal(30),
 							label: z.enum(["turbo"]),
 							memory: z.literal(61440),
@@ -62537,11 +62605,11 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 						),
 					principal: z
 						.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								type: z.enum(["user"]),
 								via: z
 									.discriminatedUnion("type", [
-										z.strictObject({
+										z.object({
 											app: z.object({
 												clientId: z
 													.string()
@@ -62555,7 +62623,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 											}),
 											type: z.enum(["app"]),
 										}),
-										z.strictObject({
+										z.object({
 											integration: z.object({
 												configurationId: z.string(),
 												integrationId: z.string(),
@@ -62568,13 +62636,13 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 									id: z.string(),
 								}),
 							}),
-							z.strictObject({
+							z.object({
 								project: z.object({
 									id: z.string(),
 								}),
 								type: z.enum(["project"]),
 							}),
-							z.strictObject({
+							z.object({
 								app: z.object({
 									clientId: z
 										.string()
@@ -62588,14 +62656,14 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 								}),
 								type: z.enum(["app"]),
 							}),
-							z.strictObject({
+							z.object({
 								integration: z.object({
 									configurationId: z.string(),
 									integrationId: z.string(),
 								}),
 								type: z.enum(["integration"]),
 							}),
-							z.strictObject({
+							z.object({
 								type: z.enum(["system"]),
 							}),
 						])
@@ -63120,7 +63188,7 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 					}),
 				)
 				.optional(),
-			tier: z.enum(["priority"]).optional(),
+			tier: z.enum(["critical", "priority"]).optional(),
 			tracing: z
 				.object({
 					domains: z.string().optional(),
@@ -67215,11 +67283,11 @@ export const getProjectsStatus200Schema = z
 				createdAt: z.number().optional(),
 				creator: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							type: z.enum(["user"]),
 							via: z
 								.discriminatedUnion("type", [
-									z.strictObject({
+									z.object({
 										app: z.object({
 											clientId: z
 												.string()
@@ -67233,7 +67301,7 @@ export const getProjectsStatus200Schema = z
 										}),
 										type: z.enum(["app"]),
 									}),
-									z.strictObject({
+									z.object({
 										integration: z.object({
 											configurationId: z.string(),
 											integrationId: z.string(),
@@ -67246,13 +67314,13 @@ export const getProjectsStatus200Schema = z
 								id: z.string(),
 							}),
 						}),
-						z.strictObject({
+						z.object({
 							project: z.object({
 								id: z.string(),
 							}),
 							type: z.enum(["project"]),
 						}),
-						z.strictObject({
+						z.object({
 							app: z.object({
 								clientId: z
 									.string()
@@ -67266,14 +67334,14 @@ export const getProjectsStatus200Schema = z
 							}),
 							type: z.enum(["app"]),
 						}),
-						z.strictObject({
+						z.object({
 							integration: z.object({
 								configurationId: z.string(),
 								integrationId: z.string(),
 							}),
 							type: z.enum(["integration"]),
 						}),
-						z.strictObject({
+						z.object({
 							type: z.enum(["system"]),
 						}),
 					])
@@ -67318,74 +67386,74 @@ export const getProjectsStatus200Schema = z
 							configurationId: z.string().nullish(),
 							contentHint: z
 								.discriminatedUnion("type", [
-									z.strictObject({
+									z.object({
 										storeId: z.string(),
 										type: z.enum(["redis-url"]),
 									}),
-									z.strictObject({
+									z.object({
 										storeId: z.string(),
 										type: z.enum(["redis-rest-api-url"]),
 									}),
-									z.strictObject({
+									z.object({
 										storeId: z.string(),
 										type: z.enum(["redis-rest-api-token"]),
 									}),
-									z.strictObject({
+									z.object({
 										storeId: z.string(),
 										type: z.enum(["redis-rest-api-read-only-token"]),
 									}),
-									z.strictObject({
+									z.object({
 										storeId: z.string(),
 										type: z.enum(["blob-read-write-token"]),
 									}),
-									z.strictObject({
+									z.object({
 										storeId: z.string(),
 										type: z.enum(["blob-store-id"]),
 									}),
-									z.strictObject({
+									z.object({
 										storeId: z.string(),
 										type: z.enum(["blob-webhook-public-key"]),
 									}),
-									z.strictObject({
+									z.object({
 										storeId: z.string(),
 										type: z.enum(["postgres-url"]),
 									}),
-									z.strictObject({
+									z.object({
 										storeId: z.string(),
 										type: z.enum(["postgres-url-non-pooling"]),
 									}),
-									z.strictObject({
+									z.object({
 										storeId: z.string(),
 										type: z.enum(["postgres-prisma-url"]),
 									}),
-									z.strictObject({
+									z.object({
 										storeId: z.string(),
 										type: z.enum(["postgres-user"]),
 									}),
-									z.strictObject({
+									z.object({
 										storeId: z.string(),
 										type: z.enum(["postgres-host"]),
 									}),
-									z.strictObject({
+									z.object({
 										storeId: z.string(),
 										type: z.enum(["postgres-password"]),
 									}),
-									z.strictObject({
+									z.object({
 										storeId: z.string(),
 										type: z.enum(["postgres-database"]),
 									}),
-									z.strictObject({
+									z.object({
 										storeId: z.string(),
 										type: z.enum(["postgres-url-no-ssl"]),
 									}),
-									z.strictObject({
+									z.object({
 										integrationConfigurationId: z.string(),
 										integrationId: z.string(),
 										integrationProductId: z.string(),
 										storeId: z.string(),
 										type: z.enum(["integration-store-secret"]),
 									}),
-									z.strictObject({
+									z.object({
 										projectId: z.string(),
 										type: z.enum(["flags-connection-string"]),
 									}),
@@ -67605,14 +67673,14 @@ export const getProjectsStatus200Schema = z
 							z.strictObject({
 								has: z.array(
 									z.discriminatedUnion("type", [
-										z.strictObject({
+										z.object({
 											key: z.enum(["x-vercel-ip-country"]),
 											type: z.enum(["header"]),
 											value: z.object({
 												eq: z.string(),
 											}),
 										}),
-										z.strictObject({
+										z.object({
 											type: z.enum(["host"]),
 											value: z.object({
 												eq: z.string(),
@@ -67744,7 +67812,7 @@ export const getProjectsStatus200Schema = z
 					.optional(),
 				link: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							createdAt: z.number().optional(),
 							deployHooks: z.array(
 								z.object({
@@ -67770,7 +67838,7 @@ export const getProjectsStatus200Schema = z
 							type: z.enum(["github"]),
 							updatedAt: z.number().optional(),
 						}),
-						z.strictObject({
+						z.object({
 							createdAt: z.number().optional(),
 							deployHooks: z.array(
 								z.object({
@@ -67796,7 +67864,7 @@ export const getProjectsStatus200Schema = z
 							type: z.enum(["github-limited"]),
 							updatedAt: z.number().optional(),
 						}),
-						z.strictObject({
+						z.object({
 							createdAt: z.number().optional(),
 							deployHooks: z.array(
 								z.object({
@@ -67823,7 +67891,7 @@ export const getProjectsStatus200Schema = z
 							type: z.enum(["github-custom-host"]),
 							updatedAt: z.number().optional(),
 						}),
-						z.strictObject({
+						z.object({
 							createdAt: z.number().optional(),
 							deployHooks: z.array(
 								z.object({
@@ -67851,7 +67919,7 @@ export const getProjectsStatus200Schema = z
 							type: z.enum(["gitlab"]),
 							updatedAt: z.number().optional(),
 						}),
-						z.strictObject({
+						z.object({
 							createdAt: z.number().optional(),
 							deployHooks: z.array(
 								z.object({
@@ -67873,7 +67941,7 @@ export const getProjectsStatus200Schema = z
 							uuid: z.string(),
 							workspaceUuid: z.string(),
 						}),
-						z.strictObject({
+						z.object({
 							createdAt: z.number().optional(),
 							deployHooks: z.array(
 								z.object({
@@ -67893,7 +67961,7 @@ export const getProjectsStatus200Schema = z
 							type: z.enum(["vercel"]),
 							updatedAt: z.number().optional(),
 						}),
-						z.strictObject({
+						z.object({
 							createdAt: z.number().optional(),
 							deployHooks: z.array(
 								z.object({
@@ -67913,7 +67981,7 @@ export const getProjectsStatus200Schema = z
 							type: z.enum(["v0"]),
 							updatedAt: z.number().optional(),
 						}),
-						z.strictObject({
+						z.object({
 							createdAt: z.number().optional(),
 							deployHooks: z.array(
 								z.object({
@@ -68024,22 +68092,22 @@ export const getProjectsStatus200Schema = z
 					isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 					elasticBuildMachine: z
 						.discriminatedUnion("cores", [
-							z.strictObject({
+							z.object({
 								cores: z.literal(4),
 								label: z.enum(["standard"]),
 								memory: z.literal(8192),
 							}),
-							z.strictObject({
+							z.object({
 								cores: z.literal(8),
 								label: z.enum(["enhanced"]),
 								memory: z.literal(16384),
 							}),
-							z.strictObject({
+							z.object({
 								cores: z.literal(14),
 								label: z.enum(["14cpu-28gb"]),
 								memory: z.literal(28672),
 							}),
-							z.strictObject({
+							z.object({
 								cores: z.literal(30),
 								label: z.enum(["turbo"]),
 								memory: z.literal(61440),
@@ -68602,7 +68670,7 @@ export const getProjectsStatus200Schema = z
 						}),
 					)
 					.optional(),
-				tier: z.enum(["priority"]).optional(),
+				tier: z.enum(["critical", "priority"]).optional(),
 				transferCompletedAt: z.number().optional(),
 				transferredFromAccountId: z.string().optional(),
 				transferStartedAt: z.number().optional(),
@@ -68874,11 +68942,11 @@ export const getProjectsStatus200Schema = z
 					createdAt: z.number().optional(),
 					creator: z
 						.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								type: z.enum(["user"]),
 								via: z
 									.discriminatedUnion("type", [
-										z.strictObject({
+										z.object({
 											app: z.object({
 												clientId: z
 													.string()
@@ -68892,7 +68960,7 @@ export const getProjectsStatus200Schema = z
 											}),
 											type: z.enum(["app"]),
 										}),
-										z.strictObject({
+										z.object({
 											integration: z.object({
 												configurationId: z.string(),
 												integrationId: z.string(),
@@ -68905,13 +68973,13 @@ export const getProjectsStatus200Schema = z
 									id: z.string(),
 								}),
 							}),
-							z.strictObject({
+							z.object({
 								project: z.object({
 									id: z.string(),
 								}),
 								type: z.enum(["project"]),
 							}),
-							z.strictObject({
+							z.object({
 								app: z.object({
 									clientId: z
 										.string()
@@ -68925,14 +68993,14 @@ export const getProjectsStatus200Schema = z
 								}),
 								type: z.enum(["app"]),
 							}),
-							z.strictObject({
+							z.object({
 								integration: z.object({
 									configurationId: z.string(),
 									integrationId: z.string(),
 								}),
 								type: z.enum(["integration"]),
 							}),
-							z.strictObject({
+							z.object({
 								type: z.enum(["system"]),
 							}),
 						])
@@ -68977,74 +69045,74 @@ export const getProjectsStatus200Schema = z
 								configurationId: z.string().nullish(),
 								contentHint: z
 									.discriminatedUnion("type", [
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["redis-url"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["redis-rest-api-url"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["redis-rest-api-token"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["redis-rest-api-read-only-token"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["blob-read-write-token"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["blob-store-id"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["blob-webhook-public-key"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["postgres-url"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["postgres-url-non-pooling"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["postgres-prisma-url"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["postgres-user"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["postgres-host"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["postgres-password"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["postgres-database"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["postgres-url-no-ssl"]),
 										}),
-										z.strictObject({
+										z.object({
 											integrationConfigurationId: z.string(),
 											integrationId: z.string(),
 											integrationProductId: z.string(),
 											storeId: z.string(),
 											type: z.enum(["integration-store-secret"]),
 										}),
-										z.strictObject({
+										z.object({
 											projectId: z.string(),
 											type: z.enum(["flags-connection-string"]),
 										}),
@@ -69264,14 +69332,14 @@ export const getProjectsStatus200Schema = z
 								z.strictObject({
 									has: z.array(
 										z.discriminatedUnion("type", [
-											z.strictObject({
+											z.object({
 												key: z.enum(["x-vercel-ip-country"]),
 												type: z.enum(["header"]),
 												value: z.object({
 													eq: z.string(),
 												}),
 											}),
-											z.strictObject({
+											z.object({
 												type: z.enum(["host"]),
 												value: z.object({
 													eq: z.string(),
@@ -69403,7 +69471,7 @@ export const getProjectsStatus200Schema = z
 						.optional(),
 					link: z
 						.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								createdAt: z.number().optional(),
 								deployHooks: z.array(
 									z.object({
@@ -69429,7 +69497,7 @@ export const getProjectsStatus200Schema = z
 								type: z.enum(["github"]),
 								updatedAt: z.number().optional(),
 							}),
-							z.strictObject({
+							z.object({
 								createdAt: z.number().optional(),
 								deployHooks: z.array(
 									z.object({
@@ -69455,7 +69523,7 @@ export const getProjectsStatus200Schema = z
 								type: z.enum(["github-limited"]),
 								updatedAt: z.number().optional(),
 							}),
-							z.strictObject({
+							z.object({
 								createdAt: z.number().optional(),
 								deployHooks: z.array(
 									z.object({
@@ -69482,7 +69550,7 @@ export const getProjectsStatus200Schema = z
 								type: z.enum(["github-custom-host"]),
 								updatedAt: z.number().optional(),
 							}),
-							z.strictObject({
+							z.object({
 								createdAt: z.number().optional(),
 								deployHooks: z.array(
 									z.object({
@@ -69510,7 +69578,7 @@ export const getProjectsStatus200Schema = z
 								type: z.enum(["gitlab"]),
 								updatedAt: z.number().optional(),
 							}),
-							z.strictObject({
+							z.object({
 								createdAt: z.number().optional(),
 								deployHooks: z.array(
 									z.object({
@@ -69532,7 +69600,7 @@ export const getProjectsStatus200Schema = z
 								uuid: z.string(),
 								workspaceUuid: z.string(),
 							}),
-							z.strictObject({
+							z.object({
 								createdAt: z.number().optional(),
 								deployHooks: z.array(
 									z.object({
@@ -69552,7 +69620,7 @@ export const getProjectsStatus200Schema = z
 								type: z.enum(["vercel"]),
 								updatedAt: z.number().optional(),
 							}),
-							z.strictObject({
+							z.object({
 								createdAt: z.number().optional(),
 								deployHooks: z.array(
 									z.object({
@@ -69572,7 +69640,7 @@ export const getProjectsStatus200Schema = z
 								type: z.enum(["v0"]),
 								updatedAt: z.number().optional(),
 							}),
-							z.strictObject({
+							z.object({
 								createdAt: z.number().optional(),
 								deployHooks: z.array(
 									z.object({
@@ -69683,22 +69751,22 @@ export const getProjectsStatus200Schema = z
 						isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 						elasticBuildMachine: z
 							.discriminatedUnion("cores", [
-								z.strictObject({
+								z.object({
 									cores: z.literal(4),
 									label: z.enum(["standard"]),
 									memory: z.literal(8192),
 								}),
-								z.strictObject({
+								z.object({
 									cores: z.literal(8),
 									label: z.enum(["enhanced"]),
 									memory: z.literal(16384),
 								}),
-								z.strictObject({
+								z.object({
 									cores: z.literal(14),
 									label: z.enum(["14cpu-28gb"]),
 									memory: z.literal(28672),
 								}),
-								z.strictObject({
+								z.object({
 									cores: z.literal(30),
 									label: z.enum(["turbo"]),
 									memory: z.literal(61440),
@@ -70267,7 +70335,7 @@ export const getProjectsStatus200Schema = z
 							}),
 						)
 						.optional(),
-					tier: z.enum(["priority"]).optional(),
+					tier: z.enum(["critical", "priority"]).optional(),
 					transferCompletedAt: z.number().optional(),
 					transferredFromAccountId: z.string().optional(),
 					transferStartedAt: z.number().optional(),
@@ -70574,11 +70642,11 @@ export const getProjectsStatus200Schema = z
 					createdAt: z.number().optional(),
 					creator: z
 						.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								type: z.enum(["user"]),
 								via: z
 									.discriminatedUnion("type", [
-										z.strictObject({
+										z.object({
 											app: z.object({
 												clientId: z
 													.string()
@@ -70592,7 +70660,7 @@ export const getProjectsStatus200Schema = z
 											}),
 											type: z.enum(["app"]),
 										}),
-										z.strictObject({
+										z.object({
 											integration: z.object({
 												configurationId: z.string(),
 												integrationId: z.string(),
@@ -70605,13 +70673,13 @@ export const getProjectsStatus200Schema = z
 									id: z.string(),
 								}),
 							}),
-							z.strictObject({
+							z.object({
 								project: z.object({
 									id: z.string(),
 								}),
 								type: z.enum(["project"]),
 							}),
-							z.strictObject({
+							z.object({
 								app: z.object({
 									clientId: z
 										.string()
@@ -70625,14 +70693,14 @@ export const getProjectsStatus200Schema = z
 								}),
 								type: z.enum(["app"]),
 							}),
-							z.strictObject({
+							z.object({
 								integration: z.object({
 									configurationId: z.string(),
 									integrationId: z.string(),
 								}),
 								type: z.enum(["integration"]),
 							}),
-							z.strictObject({
+							z.object({
 								type: z.enum(["system"]),
 							}),
 						])
@@ -70809,22 +70877,22 @@ export const getProjectsStatus200Schema = z
 						isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 						elasticBuildMachine: z
 							.discriminatedUnion("cores", [
-								z.strictObject({
+								z.object({
 									cores: z.literal(4),
 									label: z.enum(["standard"]),
 									memory: z.literal(8192),
 								}),
-								z.strictObject({
+								z.object({
 									cores: z.literal(8),
 									label: z.enum(["enhanced"]),
 									memory: z.literal(16384),
 								}),
-								z.strictObject({
+								z.object({
 									cores: z.literal(14),
 									label: z.enum(["14cpu-28gb"]),
 									memory: z.literal(28672),
 								}),
-								z.strictObject({
+								z.object({
 									cores: z.literal(30),
 									label: z.enum(["turbo"]),
 									memory: z.literal(61440),
@@ -70870,11 +70938,11 @@ export const getProjectsStatus200Schema = z
 										enabled: z.union([z.literal(false), z.literal(true)]),
 										environments: z.array(
 											z.discriminatedUnion("type", [
-												z.strictObject({
+												z.object({
 													target: z.enum(["preview", "production"]),
 													type: z.enum(["system"]),
 												}),
-												z.strictObject({
+												z.object({
 													environmentId: z.string(),
 													type: z.enum(["custom"]),
 												}),
@@ -70892,11 +70960,11 @@ export const getProjectsStatus200Schema = z
 										enabled: z.union([z.literal(false), z.literal(true)]),
 										environments: z.array(
 											z.discriminatedUnion("type", [
-												z.strictObject({
+												z.object({
 													target: z.enum(["preview", "production"]),
 													type: z.enum(["system"]),
 												}),
-												z.strictObject({
+												z.object({
 													environmentId: z.string(),
 													type: z.enum(["custom"]),
 												}),
@@ -70967,74 +71035,74 @@ export const getProjectsStatus200Schema = z
 								configurationId: z.string().nullish(),
 								contentHint: z
 									.discriminatedUnion("type", [
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["redis-url"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["redis-rest-api-url"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["redis-rest-api-token"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["redis-rest-api-read-only-token"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["blob-read-write-token"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["blob-store-id"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["blob-webhook-public-key"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["postgres-url"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["postgres-url-non-pooling"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["postgres-prisma-url"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["postgres-user"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["postgres-host"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["postgres-password"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["postgres-database"]),
 										}),
-										z.strictObject({
+										z.object({
 											storeId: z.string(),
 											type: z.enum(["postgres-url-no-ssl"]),
 										}),
-										z.strictObject({
+										z.object({
 											integrationConfigurationId: z.string(),
 											integrationId: z.string(),
 											integrationProductId: z.string(),
 											storeId: z.string(),
 											type: z.enum(["integration-store-secret"]),
 										}),
-										z.strictObject({
+										z.object({
 											projectId: z.string(),
 											type: z.enum(["flags-connection-string"]),
 										}),
@@ -71261,14 +71329,14 @@ export const getProjectsStatus200Schema = z
 								z.strictObject({
 									has: z.array(
 										z.discriminatedUnion("type", [
-											z.strictObject({
+											z.object({
 												key: z.enum(["x-vercel-ip-country"]),
 												type: z.enum(["header"]),
 												value: z.object({
 													eq: z.string(),
 												}),
 											}),
-											z.strictObject({
+											z.object({
 												type: z.enum(["host"]),
 												value: z.object({
 													eq: z.string(),
@@ -71453,7 +71521,7 @@ export const getProjectsStatus200Schema = z
 						.optional(),
 					link: z
 						.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								createdAt: z.number().optional(),
 								deployHooks: z.array(
 									z.object({
@@ -71479,7 +71547,7 @@ export const getProjectsStatus200Schema = z
 								type: z.enum(["github"]),
 								updatedAt: z.number().optional(),
 							}),
-							z.strictObject({
+							z.object({
 								createdAt: z.number().optional(),
 								deployHooks: z.array(
 									z.object({
@@ -71505,7 +71573,7 @@ export const getProjectsStatus200Schema = z
 								type: z.enum(["github-limited"]),
 								updatedAt: z.number().optional(),
 							}),
-							z.strictObject({
+							z.object({
 								createdAt: z.number().optional(),
 								deployHooks: z.array(
 									z.object({
@@ -71532,7 +71600,7 @@ export const getProjectsStatus200Schema = z
 								type: z.enum(["github-custom-host"]),
 								updatedAt: z.number().optional(),
 							}),
-							z.strictObject({
+							z.object({
 								createdAt: z.number().optional(),
 								deployHooks: z.array(
 									z.object({
@@ -71560,7 +71628,7 @@ export const getProjectsStatus200Schema = z
 								type: z.enum(["gitlab"]),
 								updatedAt: z.number().optional(),
 							}),
-							z.strictObject({
+							z.object({
 								createdAt: z.number().optional(),
 								deployHooks: z.array(
 									z.object({
@@ -71582,7 +71650,7 @@ export const getProjectsStatus200Schema = z
 								uuid: z.string(),
 								workspaceUuid: z.string(),
 							}),
-							z.strictObject({
+							z.object({
 								createdAt: z.number().optional(),
 								deployHooks: z.array(
 									z.object({
@@ -71602,7 +71670,7 @@ export const getProjectsStatus200Schema = z
 								type: z.enum(["vercel"]),
 								updatedAt: z.number().optional(),
 							}),
-							z.strictObject({
+							z.object({
 								createdAt: z.number().optional(),
 								deployHooks: z.array(
 									z.object({
@@ -71622,7 +71690,7 @@ export const getProjectsStatus200Schema = z
 								type: z.enum(["v0"]),
 								updatedAt: z.number().optional(),
 							}),
-							z.strictObject({
+							z.object({
 								createdAt: z.number().optional(),
 								deployHooks: z.array(
 									z.object({
@@ -73626,14 +73694,14 @@ export const getProjectsStatus200Schema = z
 						.record(
 							z.string(),
 							z.discriminatedUnion("scope", [
-								z.strictObject({
+								z.object({
 									configurationId: z.string(),
 									createdAt: z.number(),
 									createdBy: z.string(),
 									integrationId: z.string(),
 									scope: z.enum(["integration-automation-bypass"]),
 								}),
-								z.strictObject({
+								z.object({
 									createdAt: z.number(),
 									createdBy: z.string(),
 									isEnvVar: z
@@ -73708,22 +73776,22 @@ export const getProjectsStatus200Schema = z
 						isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 						elasticBuildMachine: z
 							.discriminatedUnion("cores", [
-								z.strictObject({
+								z.object({
 									cores: z.literal(4),
 									label: z.enum(["standard"]),
 									memory: z.literal(8192),
 								}),
-								z.strictObject({
+								z.object({
 									cores: z.literal(8),
 									label: z.enum(["enhanced"]),
 									memory: z.literal(16384),
 								}),
-								z.strictObject({
+								z.object({
 									cores: z.literal(14),
 									label: z.enum(["14cpu-28gb"]),
 									memory: z.literal(28672),
 								}),
-								z.strictObject({
+								z.object({
 									cores: z.literal(30),
 									label: z.enum(["turbo"]),
 									memory: z.literal(61440),
@@ -73741,11 +73809,11 @@ export const getProjectsStatus200Schema = z
 								),
 							principal: z
 								.discriminatedUnion("type", [
-									z.strictObject({
+									z.object({
 										type: z.enum(["user"]),
 										via: z
 											.discriminatedUnion("type", [
-												z.strictObject({
+												z.object({
 													app: z.object({
 														clientId: z
 															.string()
@@ -73761,7 +73829,7 @@ export const getProjectsStatus200Schema = z
 													}),
 													type: z.enum(["app"]),
 												}),
-												z.strictObject({
+												z.object({
 													integration: z.object({
 														configurationId: z.string(),
 														integrationId: z.string(),
@@ -73774,13 +73842,13 @@ export const getProjectsStatus200Schema = z
 											id: z.string(),
 										}),
 									}),
-									z.strictObject({
+									z.object({
 										project: z.object({
 											id: z.string(),
 										}),
 										type: z.enum(["project"]),
 									}),
-									z.strictObject({
+									z.object({
 										app: z.object({
 											clientId: z
 												.string()
@@ -73794,14 +73862,14 @@ export const getProjectsStatus200Schema = z
 										}),
 										type: z.enum(["app"]),
 									}),
-									z.strictObject({
+									z.object({
 										integration: z.object({
 											configurationId: z.string(),
 											integrationId: z.string(),
 										}),
 										type: z.enum(["integration"]),
 									}),
-									z.strictObject({
+									z.object({
 										type: z.enum(["system"]),
 									}),
 								])
@@ -74340,7 +74408,7 @@ export const getProjectsStatus200Schema = z
 							}),
 						)
 						.optional(),
-					tier: z.enum(["priority"]).optional(),
+					tier: z.enum(["critical", "priority"]).optional(),
 					tracing: z
 						.object({
 							domains: z.string().optional(),
@@ -74941,11 +75009,11 @@ export const createProjectStatus200Schema = z.object({
 	createdAt: z.number().optional(),
 	creator: z
 		.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				type: z.enum(["user"]),
 				via: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							app: z.object({
 								clientId: z
 									.string()
@@ -74959,7 +75027,7 @@ export const createProjectStatus200Schema = z.object({
 							}),
 							type: z.enum(["app"]),
 						}),
-						z.strictObject({
+						z.object({
 							integration: z.object({
 								configurationId: z.string(),
 								integrationId: z.string(),
@@ -74972,13 +75040,13 @@ export const createProjectStatus200Schema = z.object({
 					id: z.string(),
 				}),
 			}),
-			z.strictObject({
+			z.object({
 				project: z.object({
 					id: z.string(),
 				}),
 				type: z.enum(["project"]),
 			}),
-			z.strictObject({
+			z.object({
 				app: z.object({
 					clientId: z
 						.string()
@@ -74990,14 +75058,14 @@ export const createProjectStatus200Schema = z.object({
 				}),
 				type: z.enum(["app"]),
 			}),
-			z.strictObject({
+			z.object({
 				integration: z.object({
 					configurationId: z.string(),
 					integrationId: z.string(),
 				}),
 				type: z.enum(["integration"]),
 			}),
-			z.strictObject({
+			z.object({
 				type: z.enum(["system"]),
 			}),
 		])
@@ -75168,22 +75236,22 @@ export const createProjectStatus200Schema = z.object({
 		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 		elasticBuildMachine: z
 			.discriminatedUnion("cores", [
-				z.strictObject({
+				z.object({
 					cores: z.literal(4),
 					label: z.enum(["standard"]),
 					memory: z.literal(8192),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(14),
 					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -75229,11 +75297,11 @@ export const createProjectStatus200Schema = z.object({
 						enabled: z.union([z.literal(false), z.literal(true)]),
 						environments: z.array(
 							z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									target: z.enum(["preview", "production"]),
 									type: z.enum(["system"]),
 								}),
-								z.strictObject({
+								z.object({
 									environmentId: z.string(),
 									type: z.enum(["custom"]),
 								}),
@@ -75251,11 +75319,11 @@ export const createProjectStatus200Schema = z.object({
 						enabled: z.union([z.literal(false), z.literal(true)]),
 						environments: z.array(
 							z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									target: z.enum(["preview", "production"]),
 									type: z.enum(["system"]),
 								}),
-								z.strictObject({
+								z.object({
 									environmentId: z.string(),
 									type: z.enum(["custom"]),
 								}),
@@ -75324,74 +75392,74 @@ export const createProjectStatus200Schema = z.object({
 				configurationId: z.string().nullish(),
 				contentHint: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-read-only-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-read-write-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-store-id"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-webhook-public-key"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-non-pooling"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-prisma-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-user"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-host"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-password"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-database"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-no-ssl"]),
 						}),
-						z.strictObject({
+						z.object({
 							integrationConfigurationId: z.string(),
 							integrationId: z.string(),
 							integrationProductId: z.string(),
 							storeId: z.string(),
 							type: z.enum(["integration-store-secret"]),
 						}),
-						z.strictObject({
+						z.object({
 							projectId: z.string(),
 							type: z.enum(["flags-connection-string"]),
 						}),
@@ -75616,14 +75684,14 @@ export const createProjectStatus200Schema = z.object({
 				z.strictObject({
 					has: z.array(
 						z.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								key: z.enum(["x-vercel-ip-country"]),
 								type: z.enum(["header"]),
 								value: z.object({
 									eq: z.string(),
 								}),
 							}),
-							z.strictObject({
+							z.object({
 								type: z.enum(["host"]),
 								value: z.object({
 									eq: z.string(),
@@ -75806,7 +75874,7 @@ export const createProjectStatus200Schema = z.object({
 		.optional(),
 	link: z
 		.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -75832,7 +75900,7 @@ export const createProjectStatus200Schema = z.object({
 				type: z.enum(["github"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -75858,7 +75926,7 @@ export const createProjectStatus200Schema = z.object({
 				type: z.enum(["github-limited"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -75885,7 +75953,7 @@ export const createProjectStatus200Schema = z.object({
 				type: z.enum(["github-custom-host"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -75913,7 +75981,7 @@ export const createProjectStatus200Schema = z.object({
 				type: z.enum(["gitlab"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -75935,7 +76003,7 @@ export const createProjectStatus200Schema = z.object({
 				uuid: z.string(),
 				workspaceUuid: z.string(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -75955,7 +76023,7 @@ export const createProjectStatus200Schema = z.object({
 				type: z.enum(["vercel"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -75975,7 +76043,7 @@ export const createProjectStatus200Schema = z.object({
 				type: z.enum(["v0"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -77975,14 +78043,14 @@ export const createProjectStatus200Schema = z.object({
 		.record(
 			z.string(),
 			z.discriminatedUnion("scope", [
-				z.strictObject({
+				z.object({
 					configurationId: z.string(),
 					createdAt: z.number(),
 					createdBy: z.string(),
 					integrationId: z.string(),
 					scope: z.enum(["integration-automation-bypass"]),
 				}),
-				z.strictObject({
+				z.object({
 					createdAt: z.number(),
 					createdBy: z.string(),
 					isEnvVar: z
@@ -78051,22 +78119,22 @@ export const createProjectStatus200Schema = z.object({
 		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 		elasticBuildMachine: z
 			.discriminatedUnion("cores", [
-				z.strictObject({
+				z.object({
 					cores: z.literal(4),
 					label: z.enum(["standard"]),
 					memory: z.literal(8192),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(14),
 					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -78084,11 +78152,11 @@ export const createProjectStatus200Schema = z.object({
 				),
 			principal: z
 				.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						type: z.enum(["user"]),
 						via: z
 							.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									app: z.object({
 										clientId: z
 											.string()
@@ -78102,7 +78170,7 @@ export const createProjectStatus200Schema = z.object({
 									}),
 									type: z.enum(["app"]),
 								}),
-								z.strictObject({
+								z.object({
 									integration: z.object({
 										configurationId: z.string(),
 										integrationId: z.string(),
@@ -78115,13 +78183,13 @@ export const createProjectStatus200Schema = z.object({
 							id: z.string(),
 						}),
 					}),
-					z.strictObject({
+					z.object({
 						project: z.object({
 							id: z.string(),
 						}),
 						type: z.enum(["project"]),
 					}),
-					z.strictObject({
+					z.object({
 						app: z.object({
 							clientId: z
 								.string()
@@ -78133,14 +78201,14 @@ export const createProjectStatus200Schema = z.object({
 						}),
 						type: z.enum(["app"]),
 					}),
-					z.strictObject({
+					z.object({
 						integration: z.object({
 							configurationId: z.string(),
 							integrationId: z.string(),
 						}),
 						type: z.enum(["integration"]),
 					}),
-					z.strictObject({
+					z.object({
 						type: z.enum(["system"]),
 					}),
 				])
@@ -78661,7 +78729,7 @@ export const createProjectStatus200Schema = z.object({
 			}),
 		)
 		.optional(),
-	tier: z.enum(["priority"]).optional(),
+	tier: z.enum(["critical", "priority"]).optional(),
 	tracing: z
 		.object({
 			domains: z.string().optional(),
@@ -79606,11 +79674,11 @@ export const getProjectStatus200Schema = z.object({
 	createdAt: z.number().optional(),
 	creator: z
 		.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				type: z.enum(["user"]),
 				via: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							app: z.object({
 								clientId: z
 									.string()
@@ -79624,7 +79692,7 @@ export const getProjectStatus200Schema = z.object({
 							}),
 							type: z.enum(["app"]),
 						}),
-						z.strictObject({
+						z.object({
 							integration: z.object({
 								configurationId: z.string(),
 								integrationId: z.string(),
@@ -79637,13 +79705,13 @@ export const getProjectStatus200Schema = z.object({
 					id: z.string(),
 				}),
 			}),
-			z.strictObject({
+			z.object({
 				project: z.object({
 					id: z.string(),
 				}),
 				type: z.enum(["project"]),
 			}),
-			z.strictObject({
+			z.object({
 				app: z.object({
 					clientId: z
 						.string()
@@ -79655,14 +79723,14 @@ export const getProjectStatus200Schema = z.object({
 				}),
 				type: z.enum(["app"]),
 			}),
-			z.strictObject({
+			z.object({
 				integration: z.object({
 					configurationId: z.string(),
 					integrationId: z.string(),
 				}),
 				type: z.enum(["integration"]),
 			}),
-			z.strictObject({
+			z.object({
 				type: z.enum(["system"]),
 			}),
 		])
@@ -79833,22 +79901,22 @@ export const getProjectStatus200Schema = z.object({
 		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 		elasticBuildMachine: z
 			.discriminatedUnion("cores", [
-				z.strictObject({
+				z.object({
 					cores: z.literal(4),
 					label: z.enum(["standard"]),
 					memory: z.literal(8192),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(14),
 					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -79894,11 +79962,11 @@ export const getProjectStatus200Schema = z.object({
 						enabled: z.union([z.literal(false), z.literal(true)]),
 						environments: z.array(
 							z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									target: z.enum(["preview", "production"]),
 									type: z.enum(["system"]),
 								}),
-								z.strictObject({
+								z.object({
 									environmentId: z.string(),
 									type: z.enum(["custom"]),
 								}),
@@ -79916,11 +79984,11 @@ export const getProjectStatus200Schema = z.object({
 						enabled: z.union([z.literal(false), z.literal(true)]),
 						environments: z.array(
 							z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									target: z.enum(["preview", "production"]),
 									type: z.enum(["system"]),
 								}),
-								z.strictObject({
+								z.object({
 									environmentId: z.string(),
 									type: z.enum(["custom"]),
 								}),
@@ -79989,74 +80057,74 @@ export const getProjectStatus200Schema = z.object({
 				configurationId: z.string().nullish(),
 				contentHint: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-read-only-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-read-write-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-store-id"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-webhook-public-key"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-non-pooling"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-prisma-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-user"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-host"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-password"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-database"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-no-ssl"]),
 						}),
-						z.strictObject({
+						z.object({
 							integrationConfigurationId: z.string(),
 							integrationId: z.string(),
 							integrationProductId: z.string(),
 							storeId: z.string(),
 							type: z.enum(["integration-store-secret"]),
 						}),
-						z.strictObject({
+						z.object({
 							projectId: z.string(),
 							type: z.enum(["flags-connection-string"]),
 						}),
@@ -80299,14 +80367,14 @@ export const getProjectStatus200Schema = z.object({
 				z.strictObject({
 					has: z.array(
 						z.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								key: z.enum(["x-vercel-ip-country"]),
 								type: z.enum(["header"]),
 								value: z.object({
 									eq: z.string(),
 								}),
 							}),
-							z.strictObject({
+							z.object({
 								type: z.enum(["host"]),
 								value: z.object({
 									eq: z.string(),
@@ -80489,7 +80557,7 @@ export const getProjectStatus200Schema = z.object({
 		.optional(),
 	link: z
 		.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -80515,7 +80583,7 @@ export const getProjectStatus200Schema = z.object({
 				type: z.enum(["github"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -80541,7 +80609,7 @@ export const getProjectStatus200Schema = z.object({
 				type: z.enum(["github-limited"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -80568,7 +80636,7 @@ export const getProjectStatus200Schema = z.object({
 				type: z.enum(["github-custom-host"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -80596,7 +80664,7 @@ export const getProjectStatus200Schema = z.object({
 				type: z.enum(["gitlab"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -80618,7 +80686,7 @@ export const getProjectStatus200Schema = z.object({
 				uuid: z.string(),
 				workspaceUuid: z.string(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -80638,7 +80706,7 @@ export const getProjectStatus200Schema = z.object({
 				type: z.enum(["vercel"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -80658,7 +80726,7 @@ export const getProjectStatus200Schema = z.object({
 				type: z.enum(["v0"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -82658,14 +82726,14 @@ export const getProjectStatus200Schema = z.object({
 		.record(
 			z.string(),
 			z.discriminatedUnion("scope", [
-				z.strictObject({
+				z.object({
 					configurationId: z.string(),
 					createdAt: z.number(),
 					createdBy: z.string(),
 					integrationId: z.string(),
 					scope: z.enum(["integration-automation-bypass"]),
 				}),
-				z.strictObject({
+				z.object({
 					createdAt: z.number(),
 					createdBy: z.string(),
 					isEnvVar: z
@@ -82734,22 +82802,22 @@ export const getProjectStatus200Schema = z.object({
 		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 		elasticBuildMachine: z
 			.discriminatedUnion("cores", [
-				z.strictObject({
+				z.object({
 					cores: z.literal(4),
 					label: z.enum(["standard"]),
 					memory: z.literal(8192),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(14),
 					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -82767,11 +82835,11 @@ export const getProjectStatus200Schema = z.object({
 				),
 			principal: z
 				.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						type: z.enum(["user"]),
 						via: z
 							.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									app: z.object({
 										clientId: z
 											.string()
@@ -82785,7 +82853,7 @@ export const getProjectStatus200Schema = z.object({
 									}),
 									type: z.enum(["app"]),
 								}),
-								z.strictObject({
+								z.object({
 									integration: z.object({
 										configurationId: z.string(),
 										integrationId: z.string(),
@@ -82798,13 +82866,13 @@ export const getProjectStatus200Schema = z.object({
 							id: z.string(),
 						}),
 					}),
-					z.strictObject({
+					z.object({
 						project: z.object({
 							id: z.string(),
 						}),
 						type: z.enum(["project"]),
 					}),
-					z.strictObject({
+					z.object({
 						app: z.object({
 							clientId: z
 								.string()
@@ -82816,14 +82884,14 @@ export const getProjectStatus200Schema = z.object({
 						}),
 						type: z.enum(["app"]),
 					}),
-					z.strictObject({
+					z.object({
 						integration: z.object({
 							configurationId: z.string(),
 							integrationId: z.string(),
 						}),
 						type: z.enum(["integration"]),
 					}),
-					z.strictObject({
+					z.object({
 						type: z.enum(["system"]),
 					}),
 				])
@@ -83344,7 +83412,7 @@ export const getProjectStatus200Schema = z.object({
 			}),
 		)
 		.optional(),
-	tier: z.enum(["priority"]).optional(),
+	tier: z.enum(["critical", "priority"]).optional(),
 	tracing: z
 		.object({
 			domains: z.string().optional(),
@@ -83780,11 +83848,11 @@ export const updateProjectStatus200Schema = z.object({
 	createdAt: z.number().optional(),
 	creator: z
 		.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				type: z.enum(["user"]),
 				via: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							app: z.object({
 								clientId: z
 									.string()
@@ -83798,7 +83866,7 @@ export const updateProjectStatus200Schema = z.object({
 							}),
 							type: z.enum(["app"]),
 						}),
-						z.strictObject({
+						z.object({
 							integration: z.object({
 								configurationId: z.string(),
 								integrationId: z.string(),
@@ -83811,13 +83879,13 @@ export const updateProjectStatus200Schema = z.object({
 					id: z.string(),
 				}),
 			}),
-			z.strictObject({
+			z.object({
 				project: z.object({
 					id: z.string(),
 				}),
 				type: z.enum(["project"]),
 			}),
-			z.strictObject({
+			z.object({
 				app: z.object({
 					clientId: z
 						.string()
@@ -83829,14 +83897,14 @@ export const updateProjectStatus200Schema = z.object({
 				}),
 				type: z.enum(["app"]),
 			}),
-			z.strictObject({
+			z.object({
 				integration: z.object({
 					configurationId: z.string(),
 					integrationId: z.string(),
 				}),
 				type: z.enum(["integration"]),
 			}),
-			z.strictObject({
+			z.object({
 				type: z.enum(["system"]),
 			}),
 		])
@@ -84007,22 +84075,22 @@ export const updateProjectStatus200Schema = z.object({
 		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 		elasticBuildMachine: z
 			.discriminatedUnion("cores", [
-				z.strictObject({
+				z.object({
 					cores: z.literal(4),
 					label: z.enum(["standard"]),
 					memory: z.literal(8192),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(14),
 					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -84068,11 +84136,11 @@ export const updateProjectStatus200Schema = z.object({
 						enabled: z.union([z.literal(false), z.literal(true)]),
 						environments: z.array(
 							z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									target: z.enum(["preview", "production"]),
 									type: z.enum(["system"]),
 								}),
-								z.strictObject({
+								z.object({
 									environmentId: z.string(),
 									type: z.enum(["custom"]),
 								}),
@@ -84090,11 +84158,11 @@ export const updateProjectStatus200Schema = z.object({
 						enabled: z.union([z.literal(false), z.literal(true)]),
 						environments: z.array(
 							z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									target: z.enum(["preview", "production"]),
 									type: z.enum(["system"]),
 								}),
-								z.strictObject({
+								z.object({
 									environmentId: z.string(),
 									type: z.enum(["custom"]),
 								}),
@@ -84163,74 +84231,74 @@ export const updateProjectStatus200Schema = z.object({
 				configurationId: z.string().nullish(),
 				contentHint: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-read-only-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-read-write-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-store-id"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-webhook-public-key"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-non-pooling"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-prisma-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-user"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-host"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-password"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-database"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-no-ssl"]),
 						}),
-						z.strictObject({
+						z.object({
 							integrationConfigurationId: z.string(),
 							integrationId: z.string(),
 							integrationProductId: z.string(),
 							storeId: z.string(),
 							type: z.enum(["integration-store-secret"]),
 						}),
-						z.strictObject({
+						z.object({
 							projectId: z.string(),
 							type: z.enum(["flags-connection-string"]),
 						}),
@@ -84452,14 +84520,14 @@ export const updateProjectStatus200Schema = z.object({
 				z.strictObject({
 					has: z.array(
 						z.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								key: z.enum(["x-vercel-ip-country"]),
 								type: z.enum(["header"]),
 								value: z.object({
 									eq: z.string(),
 								}),
 							}),
-							z.strictObject({
+							z.object({
 								type: z.enum(["host"]),
 								value: z.object({
 									eq: z.string(),
@@ -84642,7 +84710,7 @@ export const updateProjectStatus200Schema = z.object({
 		.optional(),
 	link: z
 		.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -84668,7 +84736,7 @@ export const updateProjectStatus200Schema = z.object({
 				type: z.enum(["github"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -84694,7 +84762,7 @@ export const updateProjectStatus200Schema = z.object({
 				type: z.enum(["github-limited"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -84721,7 +84789,7 @@ export const updateProjectStatus200Schema = z.object({
 				type: z.enum(["github-custom-host"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -84749,7 +84817,7 @@ export const updateProjectStatus200Schema = z.object({
 				type: z.enum(["gitlab"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -84771,7 +84839,7 @@ export const updateProjectStatus200Schema = z.object({
 				uuid: z.string(),
 				workspaceUuid: z.string(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -84791,7 +84859,7 @@ export const updateProjectStatus200Schema = z.object({
 				type: z.enum(["vercel"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -84811,7 +84879,7 @@ export const updateProjectStatus200Schema = z.object({
 				type: z.enum(["v0"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -86811,14 +86879,14 @@ export const updateProjectStatus200Schema = z.object({
 		.record(
 			z.string(),
 			z.discriminatedUnion("scope", [
-				z.strictObject({
+				z.object({
 					configurationId: z.string(),
 					createdAt: z.number(),
 					createdBy: z.string(),
 					integrationId: z.string(),
 					scope: z.enum(["integration-automation-bypass"]),
 				}),
-				z.strictObject({
+				z.object({
 					createdAt: z.number(),
 					createdBy: z.string(),
 					isEnvVar: z
@@ -86887,22 +86955,22 @@ export const updateProjectStatus200Schema = z.object({
 		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 		elasticBuildMachine: z
 			.discriminatedUnion("cores", [
-				z.strictObject({
+				z.object({
 					cores: z.literal(4),
 					label: z.enum(["standard"]),
 					memory: z.literal(8192),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(14),
 					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -86920,11 +86988,11 @@ export const updateProjectStatus200Schema = z.object({
 				),
 			principal: z
 				.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						type: z.enum(["user"]),
 						via: z
 							.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									app: z.object({
 										clientId: z
 											.string()
@@ -86938,7 +87006,7 @@ export const updateProjectStatus200Schema = z.object({
 									}),
 									type: z.enum(["app"]),
 								}),
-								z.strictObject({
+								z.object({
 									integration: z.object({
 										configurationId: z.string(),
 										integrationId: z.string(),
@@ -86951,13 +87019,13 @@ export const updateProjectStatus200Schema = z.object({
 							id: z.string(),
 						}),
 					}),
-					z.strictObject({
+					z.object({
 						project: z.object({
 							id: z.string(),
 						}),
 						type: z.enum(["project"]),
 					}),
-					z.strictObject({
+					z.object({
 						app: z.object({
 							clientId: z
 								.string()
@@ -86969,14 +87037,14 @@ export const updateProjectStatus200Schema = z.object({
 						}),
 						type: z.enum(["app"]),
 					}),
-					z.strictObject({
+					z.object({
 						integration: z.object({
 							configurationId: z.string(),
 							integrationId: z.string(),
 						}),
 						type: z.enum(["integration"]),
 					}),
-					z.strictObject({
+					z.object({
 						type: z.enum(["system"]),
 					}),
 				])
@@ -87497,7 +87565,7 @@ export const updateProjectStatus200Schema = z.object({
 			}),
 		)
 		.optional(),
-	tier: z.enum(["priority"]).optional(),
+	tier: z.enum(["critical", "priority"]).optional(),
 	tracing: z
 		.object({
 			domains: z.string().optional(),
@@ -88843,11 +88911,11 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 	createdAt: z.number().optional(),
 	creator: z
 		.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				type: z.enum(["user"]),
 				via: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							app: z.object({
 								clientId: z
 									.string()
@@ -88861,7 +88929,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 							}),
 							type: z.enum(["app"]),
 						}),
-						z.strictObject({
+						z.object({
 							integration: z.object({
 								configurationId: z.string(),
 								integrationId: z.string(),
@@ -88874,13 +88942,13 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 					id: z.string(),
 				}),
 			}),
-			z.strictObject({
+			z.object({
 				project: z.object({
 					id: z.string(),
 				}),
 				type: z.enum(["project"]),
 			}),
-			z.strictObject({
+			z.object({
 				app: z.object({
 					clientId: z
 						.string()
@@ -88892,14 +88960,14 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				}),
 				type: z.enum(["app"]),
 			}),
-			z.strictObject({
+			z.object({
 				integration: z.object({
 					configurationId: z.string(),
 					integrationId: z.string(),
 				}),
 				type: z.enum(["integration"]),
 			}),
-			z.strictObject({
+			z.object({
 				type: z.enum(["system"]),
 			}),
 		])
@@ -89070,22 +89138,22 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 		elasticBuildMachine: z
 			.discriminatedUnion("cores", [
-				z.strictObject({
+				z.object({
 					cores: z.literal(4),
 					label: z.enum(["standard"]),
 					memory: z.literal(8192),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(14),
 					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -89131,11 +89199,11 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 						enabled: z.union([z.literal(false), z.literal(true)]),
 						environments: z.array(
 							z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									target: z.enum(["preview", "production"]),
 									type: z.enum(["system"]),
 								}),
-								z.strictObject({
+								z.object({
 									environmentId: z.string(),
 									type: z.enum(["custom"]),
 								}),
@@ -89153,11 +89221,11 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 						enabled: z.union([z.literal(false), z.literal(true)]),
 						environments: z.array(
 							z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									target: z.enum(["preview", "production"]),
 									type: z.enum(["system"]),
 								}),
-								z.strictObject({
+								z.object({
 									environmentId: z.string(),
 									type: z.enum(["custom"]),
 								}),
@@ -89226,74 +89294,74 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				configurationId: z.string().nullish(),
 				contentHint: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-read-only-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-read-write-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-store-id"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-webhook-public-key"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-non-pooling"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-prisma-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-user"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-host"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-password"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-database"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-no-ssl"]),
 						}),
-						z.strictObject({
+						z.object({
 							integrationConfigurationId: z.string(),
 							integrationId: z.string(),
 							integrationProductId: z.string(),
 							storeId: z.string(),
 							type: z.enum(["integration-store-secret"]),
 						}),
-						z.strictObject({
+						z.object({
 							projectId: z.string(),
 							type: z.enum(["flags-connection-string"]),
 						}),
@@ -89518,14 +89586,14 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				z.strictObject({
 					has: z.array(
 						z.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								key: z.enum(["x-vercel-ip-country"]),
 								type: z.enum(["header"]),
 								value: z.object({
 									eq: z.string(),
 								}),
 							}),
-							z.strictObject({
+							z.object({
 								type: z.enum(["host"]),
 								value: z.object({
 									eq: z.string(),
@@ -89708,7 +89776,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 		.optional(),
 	link: z
 		.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -89734,7 +89802,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				type: z.enum(["github"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -89760,7 +89828,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				type: z.enum(["github-limited"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -89787,7 +89855,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				type: z.enum(["github-custom-host"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -89815,7 +89883,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				type: z.enum(["gitlab"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -89837,7 +89905,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				uuid: z.string(),
 				workspaceUuid: z.string(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -89857,7 +89925,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				type: z.enum(["vercel"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -89877,7 +89945,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				type: z.enum(["v0"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -91877,14 +91945,14 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 		.record(
 			z.string(),
 			z.discriminatedUnion("scope", [
-				z.strictObject({
+				z.object({
 					configurationId: z.string(),
 					createdAt: z.number(),
 					createdBy: z.string(),
 					integrationId: z.string(),
 					scope: z.enum(["integration-automation-bypass"]),
 				}),
-				z.strictObject({
+				z.object({
 					createdAt: z.number(),
 					createdBy: z.string(),
 					isEnvVar: z
@@ -91953,22 +92021,22 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 		elasticBuildMachine: z
 			.discriminatedUnion("cores", [
-				z.strictObject({
+				z.object({
 					cores: z.literal(4),
 					label: z.enum(["standard"]),
 					memory: z.literal(8192),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(14),
 					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -91986,11 +92054,11 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				),
 			principal: z
 				.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						type: z.enum(["user"]),
 						via: z
 							.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									app: z.object({
 										clientId: z
 											.string()
@@ -92004,7 +92072,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 									}),
 									type: z.enum(["app"]),
 								}),
-								z.strictObject({
+								z.object({
 									integration: z.object({
 										configurationId: z.string(),
 										integrationId: z.string(),
@@ -92017,13 +92085,13 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 							id: z.string(),
 						}),
 					}),
-					z.strictObject({
+					z.object({
 						project: z.object({
 							id: z.string(),
 						}),
 						type: z.enum(["project"]),
 					}),
-					z.strictObject({
+					z.object({
 						app: z.object({
 							clientId: z
 								.string()
@@ -92035,14 +92103,14 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 						}),
 						type: z.enum(["app"]),
 					}),
-					z.strictObject({
+					z.object({
 						integration: z.object({
 							configurationId: z.string(),
 							integrationId: z.string(),
 						}),
 						type: z.enum(["integration"]),
 					}),
-					z.strictObject({
+					z.object({
 						type: z.enum(["system"]),
 					}),
 				])
@@ -92563,7 +92631,7 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 			}),
 		)
 		.optional(),
-	tier: z.enum(["priority"]).optional(),
+	tier: z.enum(["critical", "priority"]).optional(),
 	tracing: z
 		.object({
 			domains: z.string().optional(),
@@ -92790,7 +92858,7 @@ export const uploadProjectAvatarErrorSchema = z.union([
 	uploadProjectAvatarStatus415Schema,
 ]);
 
-export const uploadProjectAvatarBodySchema = z.instanceof(File).optional();
+export const uploadProjectAvatarBodySchema = z.instanceof(Blob).optional();
 
 export const uploadProjectAvatarPathSchema = z.object({
 	idOrName: z.string().describe("The unique project identifier or the project name."),
@@ -92997,11 +93065,11 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 	createdAt: z.number().optional(),
 	creator: z
 		.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				type: z.enum(["user"]),
 				via: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							app: z.object({
 								clientId: z
 									.string()
@@ -93015,7 +93083,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 							}),
 							type: z.enum(["app"]),
 						}),
-						z.strictObject({
+						z.object({
 							integration: z.object({
 								configurationId: z.string(),
 								integrationId: z.string(),
@@ -93028,13 +93096,13 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 					id: z.string(),
 				}),
 			}),
-			z.strictObject({
+			z.object({
 				project: z.object({
 					id: z.string(),
 				}),
 				type: z.enum(["project"]),
 			}),
-			z.strictObject({
+			z.object({
 				app: z.object({
 					clientId: z
 						.string()
@@ -93046,14 +93114,14 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				}),
 				type: z.enum(["app"]),
 			}),
-			z.strictObject({
+			z.object({
 				integration: z.object({
 					configurationId: z.string(),
 					integrationId: z.string(),
 				}),
 				type: z.enum(["integration"]),
 			}),
-			z.strictObject({
+			z.object({
 				type: z.enum(["system"]),
 			}),
 		])
@@ -93224,22 +93292,22 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 		elasticBuildMachine: z
 			.discriminatedUnion("cores", [
-				z.strictObject({
+				z.object({
 					cores: z.literal(4),
 					label: z.enum(["standard"]),
 					memory: z.literal(8192),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(14),
 					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -93285,11 +93353,11 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 						enabled: z.union([z.literal(false), z.literal(true)]),
 						environments: z.array(
 							z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									target: z.enum(["preview", "production"]),
 									type: z.enum(["system"]),
 								}),
-								z.strictObject({
+								z.object({
 									environmentId: z.string(),
 									type: z.enum(["custom"]),
 								}),
@@ -93307,11 +93375,11 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 						enabled: z.union([z.literal(false), z.literal(true)]),
 						environments: z.array(
 							z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									target: z.enum(["preview", "production"]),
 									type: z.enum(["system"]),
 								}),
-								z.strictObject({
+								z.object({
 									environmentId: z.string(),
 									type: z.enum(["custom"]),
 								}),
@@ -93380,74 +93448,74 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				configurationId: z.string().nullish(),
 				contentHint: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-read-only-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-read-write-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-store-id"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-webhook-public-key"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-non-pooling"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-prisma-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-user"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-host"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-password"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-database"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-no-ssl"]),
 						}),
-						z.strictObject({
+						z.object({
 							integrationConfigurationId: z.string(),
 							integrationId: z.string(),
 							integrationProductId: z.string(),
 							storeId: z.string(),
 							type: z.enum(["integration-store-secret"]),
 						}),
-						z.strictObject({
+						z.object({
 							projectId: z.string(),
 							type: z.enum(["flags-connection-string"]),
 						}),
@@ -93672,14 +93740,14 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				z.strictObject({
 					has: z.array(
 						z.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								key: z.enum(["x-vercel-ip-country"]),
 								type: z.enum(["header"]),
 								value: z.object({
 									eq: z.string(),
 								}),
 							}),
-							z.strictObject({
+							z.object({
 								type: z.enum(["host"]),
 								value: z.object({
 									eq: z.string(),
@@ -93862,7 +93930,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 		.optional(),
 	link: z
 		.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -93888,7 +93956,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				type: z.enum(["github"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -93914,7 +93982,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				type: z.enum(["github-limited"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -93941,7 +94009,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				type: z.enum(["github-custom-host"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -93969,7 +94037,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				type: z.enum(["gitlab"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -93991,7 +94059,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				uuid: z.string(),
 				workspaceUuid: z.string(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -94011,7 +94079,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				type: z.enum(["vercel"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -94031,7 +94099,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				type: z.enum(["v0"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -96031,14 +96099,14 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 		.record(
 			z.string(),
 			z.discriminatedUnion("scope", [
-				z.strictObject({
+				z.object({
 					configurationId: z.string(),
 					createdAt: z.number(),
 					createdBy: z.string(),
 					integrationId: z.string(),
 					scope: z.enum(["integration-automation-bypass"]),
 				}),
-				z.strictObject({
+				z.object({
 					createdAt: z.number(),
 					createdBy: z.string(),
 					isEnvVar: z
@@ -96107,22 +96175,22 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 		elasticBuildMachine: z
 			.discriminatedUnion("cores", [
-				z.strictObject({
+				z.object({
 					cores: z.literal(4),
 					label: z.enum(["standard"]),
 					memory: z.literal(8192),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(14),
 					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -96140,11 +96208,11 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 				),
 			principal: z
 				.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						type: z.enum(["user"]),
 						via: z
 							.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									app: z.object({
 										clientId: z
 											.string()
@@ -96158,7 +96226,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 									}),
 									type: z.enum(["app"]),
 								}),
-								z.strictObject({
+								z.object({
 									integration: z.object({
 										configurationId: z.string(),
 										integrationId: z.string(),
@@ -96171,13 +96239,13 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 							id: z.string(),
 						}),
 					}),
-					z.strictObject({
+					z.object({
 						project: z.object({
 							id: z.string(),
 						}),
 						type: z.enum(["project"]),
 					}),
-					z.strictObject({
+					z.object({
 						app: z.object({
 							clientId: z
 								.string()
@@ -96189,14 +96257,14 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 						}),
 						type: z.enum(["app"]),
 					}),
-					z.strictObject({
+					z.object({
 						integration: z.object({
 							configurationId: z.string(),
 							integrationId: z.string(),
 						}),
 						type: z.enum(["integration"]),
 					}),
-					z.strictObject({
+					z.object({
 						type: z.enum(["system"]),
 					}),
 				])
@@ -96717,7 +96785,7 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 			}),
 		)
 		.optional(),
-	tier: z.enum(["priority"]).optional(),
+	tier: z.enum(["critical", "priority"]).optional(),
 	tracing: z
 		.object({
 			domains: z.string().optional(),
@@ -98189,7 +98257,7 @@ export const updateProjectDomainBodySchema = z.object({
 		.max(250)
 		.nullish()
 		.describe("Git branch to link the project domain")
-		.meta({ examples: [] }),
+		.meta({ examples: [null] }),
 	redirect: z
 		.string()
 		.nullish()
@@ -98388,7 +98456,7 @@ export const addProjectDomainBodySchema = z.object({
 		.max(250)
 		.nullish()
 		.describe("Git branch to link the project domain")
-		.meta({ examples: [] }),
+		.meta({ examples: [null] }),
 	customEnvironmentId: z
 		.string()
 		.optional()
@@ -98512,7 +98580,7 @@ export const moveProjectDomainBodySchema = z
 			.max(250)
 			.nullish()
 			.describe("Git branch to link the project domain")
-			.meta({ examples: [] }),
+			.meta({ examples: [null] }),
 		redirect: z
 			.string()
 			.nullish()
@@ -98688,74 +98756,74 @@ export const filterProjectEnvsStatus200Schema = z.union([
 		configurationId: z.string().nullish(),
 		contentHint: z
 			.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-read-only-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-read-write-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-store-id"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-webhook-public-key"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url-non-pooling"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-prisma-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-user"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-host"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-password"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-database"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url-no-ssl"]),
 				}),
-				z.strictObject({
+				z.object({
 					integrationConfigurationId: z.string(),
 					integrationId: z.string(),
 					integrationProductId: z.string(),
 					storeId: z.string(),
 					type: z.enum(["integration-store-secret"]),
 				}),
-				z.strictObject({
+				z.object({
 					projectId: z.string(),
 					type: z.enum(["flags-connection-string"]),
 				}),
@@ -98802,74 +98870,74 @@ export const filterProjectEnvsStatus200Schema = z.union([
 				configurationId: z.string().nullish(),
 				contentHint: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-read-only-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-read-write-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-store-id"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-webhook-public-key"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-non-pooling"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-prisma-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-user"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-host"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-password"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-database"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-no-ssl"]),
 						}),
-						z.strictObject({
+						z.object({
 							integrationConfigurationId: z.string(),
 							integrationId: z.string(),
 							integrationProductId: z.string(),
 							storeId: z.string(),
 							type: z.enum(["integration-store-secret"]),
 						}),
-						z.strictObject({
+						z.object({
 							projectId: z.string(),
 							type: z.enum(["flags-connection-string"]),
 						}),
@@ -98921,74 +98989,74 @@ export const filterProjectEnvsStatus200Schema = z.union([
 				configurationId: z.string().nullish(),
 				contentHint: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-read-only-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-read-write-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-store-id"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-webhook-public-key"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-non-pooling"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-prisma-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-user"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-host"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-password"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-database"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-no-ssl"]),
 						}),
-						z.strictObject({
+						z.object({
 							integrationConfigurationId: z.string(),
 							integrationId: z.string(),
 							integrationProductId: z.string(),
 							storeId: z.string(),
 							type: z.enum(["integration-store-secret"]),
 						}),
-						z.strictObject({
+						z.object({
 							projectId: z.string(),
 							type: z.enum(["flags-connection-string"]),
 						}),
@@ -99132,74 +99200,74 @@ export const createProjectEnvStatus201Schema = z.object({
 				configurationId: z.string().nullish(),
 				contentHint: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-read-only-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-read-write-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-store-id"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-webhook-public-key"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-non-pooling"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-prisma-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-user"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-host"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-password"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-database"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-no-ssl"]),
 						}),
-						z.strictObject({
+						z.object({
 							integrationConfigurationId: z.string(),
 							integrationId: z.string(),
 							integrationProductId: z.string(),
 							storeId: z.string(),
 							type: z.enum(["integration-store-secret"]),
 						}),
-						z.strictObject({
+						z.object({
 							projectId: z.string(),
 							type: z.enum(["flags-connection-string"]),
 						}),
@@ -99262,74 +99330,74 @@ export const createProjectEnvStatus201Schema = z.object({
 					configurationId: z.string().nullish(),
 					contentHint: z
 						.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								storeId: z.string(),
 								type: z.enum(["redis-url"]),
 							}),
-							z.strictObject({
+							z.object({
 								storeId: z.string(),
 								type: z.enum(["redis-rest-api-url"]),
 							}),
-							z.strictObject({
+							z.object({
 								storeId: z.string(),
 								type: z.enum(["redis-rest-api-token"]),
 							}),
-							z.strictObject({
+							z.object({
 								storeId: z.string(),
 								type: z.enum(["redis-rest-api-read-only-token"]),
 							}),
-							z.strictObject({
+							z.object({
 								storeId: z.string(),
 								type: z.enum(["blob-read-write-token"]),
 							}),
-							z.strictObject({
+							z.object({
 								storeId: z.string(),
 								type: z.enum(["blob-store-id"]),
 							}),
-							z.strictObject({
+							z.object({
 								storeId: z.string(),
 								type: z.enum(["blob-webhook-public-key"]),
 							}),
-							z.strictObject({
+							z.object({
 								storeId: z.string(),
 								type: z.enum(["postgres-url"]),
 							}),
-							z.strictObject({
+							z.object({
 								storeId: z.string(),
 								type: z.enum(["postgres-url-non-pooling"]),
 							}),
-							z.strictObject({
+							z.object({
 								storeId: z.string(),
 								type: z.enum(["postgres-prisma-url"]),
 							}),
-							z.strictObject({
+							z.object({
 								storeId: z.string(),
 								type: z.enum(["postgres-user"]),
 							}),
-							z.strictObject({
+							z.object({
 								storeId: z.string(),
 								type: z.enum(["postgres-host"]),
 							}),
-							z.strictObject({
+							z.object({
 								storeId: z.string(),
 								type: z.enum(["postgres-password"]),
 							}),
-							z.strictObject({
+							z.object({
 								storeId: z.string(),
 								type: z.enum(["postgres-database"]),
 							}),
-							z.strictObject({
+							z.object({
 								storeId: z.string(),
 								type: z.enum(["postgres-url-no-ssl"]),
 							}),
-							z.strictObject({
+							z.object({
 								integrationConfigurationId: z.string(),
 								integrationId: z.string(),
 								integrationProductId: z.string(),
 								storeId: z.string(),
 								type: z.enum(["integration-store-secret"]),
 							}),
-							z.strictObject({
+							z.object({
 								projectId: z.string(),
 								type: z.enum(["flags-connection-string"]),
 							}),
@@ -99607,74 +99675,74 @@ export const getProjectEnvStatus200Schema = z.union([
 		configurationId: z.string().nullish(),
 		contentHint: z
 			.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-read-only-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-read-write-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-store-id"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-webhook-public-key"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url-non-pooling"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-prisma-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-user"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-host"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-password"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-database"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url-no-ssl"]),
 				}),
-				z.strictObject({
+				z.object({
 					integrationConfigurationId: z.string(),
 					integrationId: z.string(),
 					integrationProductId: z.string(),
 					storeId: z.string(),
 					type: z.enum(["integration-store-secret"]),
 				}),
-				z.strictObject({
+				z.object({
 					projectId: z.string(),
 					type: z.enum(["flags-connection-string"]),
 				}),
@@ -99716,74 +99784,74 @@ export const getProjectEnvStatus200Schema = z.union([
 		configurationId: z.string().nullish(),
 		contentHint: z
 			.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-read-only-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-read-write-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-store-id"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-webhook-public-key"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url-non-pooling"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-prisma-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-user"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-host"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-password"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-database"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url-no-ssl"]),
 				}),
-				z.strictObject({
+				z.object({
 					integrationConfigurationId: z.string(),
 					integrationId: z.string(),
 					integrationProductId: z.string(),
 					storeId: z.string(),
 					type: z.enum(["integration-store-secret"]),
 				}),
-				z.strictObject({
+				z.object({
 					projectId: z.string(),
 					type: z.enum(["flags-connection-string"]),
 				}),
@@ -99826,74 +99894,74 @@ export const getProjectEnvStatus200Schema = z.union([
 		configurationId: z.string().nullish(),
 		contentHint: z
 			.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-read-only-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-read-write-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-store-id"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-webhook-public-key"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url-non-pooling"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-prisma-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-user"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-host"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-password"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-database"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url-no-ssl"]),
 				}),
-				z.strictObject({
+				z.object({
 					integrationConfigurationId: z.string(),
 					integrationId: z.string(),
 					integrationProductId: z.string(),
 					storeId: z.string(),
 					type: z.enum(["integration-store-secret"]),
 				}),
-				z.strictObject({
+				z.object({
 					projectId: z.string(),
 					type: z.enum(["flags-connection-string"]),
 				}),
@@ -100016,205 +100084,209 @@ export const removeProjectEnvQuerySlugSchema = z
 
 export const removeProjectEnvStatus200Schema = z.union([
 	z.array(
-		z.object({
-			comment: z.string().optional(),
-			configurationId: z.string().nullish(),
-			contentHint: z
-				.discriminatedUnion("type", [
-					z.strictObject({
-						storeId: z.string(),
-						type: z.enum(["redis-url"]),
-					}),
-					z.strictObject({
-						storeId: z.string(),
-						type: z.enum(["redis-rest-api-url"]),
-					}),
-					z.strictObject({
-						storeId: z.string(),
-						type: z.enum(["redis-rest-api-token"]),
-					}),
-					z.strictObject({
-						storeId: z.string(),
-						type: z.enum(["redis-rest-api-read-only-token"]),
-					}),
-					z.strictObject({
-						storeId: z.string(),
-						type: z.enum(["blob-read-write-token"]),
-					}),
-					z.strictObject({
-						storeId: z.string(),
-						type: z.enum(["blob-store-id"]),
-					}),
-					z.strictObject({
-						storeId: z.string(),
-						type: z.enum(["blob-webhook-public-key"]),
-					}),
-					z.strictObject({
-						storeId: z.string(),
-						type: z.enum(["postgres-url"]),
-					}),
-					z.strictObject({
-						storeId: z.string(),
-						type: z.enum(["postgres-url-non-pooling"]),
-					}),
-					z.strictObject({
-						storeId: z.string(),
-						type: z.enum(["postgres-prisma-url"]),
-					}),
-					z.strictObject({
-						storeId: z.string(),
-						type: z.enum(["postgres-user"]),
-					}),
-					z.strictObject({
-						storeId: z.string(),
-						type: z.enum(["postgres-host"]),
-					}),
-					z.strictObject({
-						storeId: z.string(),
-						type: z.enum(["postgres-password"]),
-					}),
-					z.strictObject({
-						storeId: z.string(),
-						type: z.enum(["postgres-database"]),
-					}),
-					z.strictObject({
-						storeId: z.string(),
-						type: z.enum(["postgres-url-no-ssl"]),
-					}),
-					z.strictObject({
-						integrationConfigurationId: z.string(),
-						integrationId: z.string(),
-						integrationProductId: z.string(),
-						storeId: z.string(),
-						type: z.enum(["integration-store-secret"]),
-					}),
-					z.strictObject({
-						projectId: z.string(),
-						type: z.enum(["flags-connection-string"]),
-					}),
-				])
-				.nullish(),
-			createdAt: z.number().optional(),
-			createdBy: z.string().nullish(),
-			customEnvironmentIds: z.array(z.string()).optional(),
-			decrypted: z.union([z.literal(false), z.literal(true)]).optional(),
-			edgeConfigId: z.string().nullish(),
-			edgeConfigTokenId: z.string().nullish(),
-			gitBranch: z.string().optional(),
-			id: z.string().optional(),
-			internalContentHint: z
-				.object({
-					encryptedValue: z
-						.string()
-						.describe(
-							"Contains the `value` of the env variable, encrypted with a special key to make decryption possible in the subscriber Lambda.",
-						),
-					type: z.enum(["flags-secret"]),
-				})
-				.nullish()
-				.describe("Similar to `contentHints`, but should not be exposed to the user."),
-			key: z.string(),
-			legacyValue: z
-				.string()
-				.optional()
-				.describe("Legacy now-encryption ciphertext, present after migration swaps value/vsmValue"),
-			sunsetSecretId: z
-				.string()
-				.optional()
-				.describe(
-					"This is used to identify variables that have been migrated from type secret to sensitive.",
-				),
-			target: z
-				.union([
-					z.array(z.enum(["development", "preview", "production"])),
-					z.enum(["production", "preview", "development"]),
-				])
-				.optional(),
-			type: z.enum(["encrypted", "plain", "secret", "sensitive", "system"]),
-			updatedAt: z.number().optional(),
-			updatedBy: z.string().nullish(),
-			value: z.string(),
-			visibility: z
-				.enum(["config", "secret"])
-				.optional()
-				.describe(
-					"User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.",
-				),
-		}),
+		z
+			.object({
+				comment: z.string().optional(),
+				configurationId: z.string().nullish(),
+				contentHint: z
+					.discriminatedUnion("type", [
+						z.object({
+							storeId: z.string(),
+							type: z.enum(["redis-url"]),
+						}),
+						z.object({
+							storeId: z.string(),
+							type: z.enum(["redis-rest-api-url"]),
+						}),
+						z.object({
+							storeId: z.string(),
+							type: z.enum(["redis-rest-api-token"]),
+						}),
+						z.object({
+							storeId: z.string(),
+							type: z.enum(["redis-rest-api-read-only-token"]),
+						}),
+						z.object({
+							storeId: z.string(),
+							type: z.enum(["blob-read-write-token"]),
+						}),
+						z.object({
+							storeId: z.string(),
+							type: z.enum(["blob-store-id"]),
+						}),
+						z.object({
+							storeId: z.string(),
+							type: z.enum(["blob-webhook-public-key"]),
+						}),
+						z.object({
+							storeId: z.string(),
+							type: z.enum(["postgres-url"]),
+						}),
+						z.object({
+							storeId: z.string(),
+							type: z.enum(["postgres-url-non-pooling"]),
+						}),
+						z.object({
+							storeId: z.string(),
+							type: z.enum(["postgres-prisma-url"]),
+						}),
+						z.object({
+							storeId: z.string(),
+							type: z.enum(["postgres-user"]),
+						}),
+						z.object({
+							storeId: z.string(),
+							type: z.enum(["postgres-host"]),
+						}),
+						z.object({
+							storeId: z.string(),
+							type: z.enum(["postgres-password"]),
+						}),
+						z.object({
+							storeId: z.string(),
+							type: z.enum(["postgres-database"]),
+						}),
+						z.object({
+							storeId: z.string(),
+							type: z.enum(["postgres-url-no-ssl"]),
+						}),
+						z.object({
+							integrationConfigurationId: z.string(),
+							integrationId: z.string(),
+							integrationProductId: z.string(),
+							storeId: z.string(),
+							type: z.enum(["integration-store-secret"]),
+						}),
+						z.object({
+							projectId: z.string(),
+							type: z.enum(["flags-connection-string"]),
+						}),
+					])
+					.nullish(),
+				createdAt: z.number().optional(),
+				createdBy: z.string().nullish(),
+				customEnvironmentIds: z.array(z.string()).optional(),
+				decrypted: z.union([z.literal(false), z.literal(true)]).optional(),
+				edgeConfigId: z.string().nullish(),
+				edgeConfigTokenId: z.string().nullish(),
+				gitBranch: z.string().optional(),
+				id: z.string().optional(),
+				internalContentHint: z
+					.object({
+						encryptedValue: z
+							.string()
+							.describe(
+								"Contains the `value` of the env variable, encrypted with a special key to make decryption possible in the subscriber Lambda.",
+							),
+						type: z.enum(["flags-secret"]),
+					})
+					.nullish()
+					.describe("Similar to `contentHints`, but should not be exposed to the user."),
+				key: z.string(),
+				legacyValue: z
+					.string()
+					.optional()
+					.describe(
+						"Legacy now-encryption ciphertext, present after migration swaps value/vsmValue",
+					),
+				sunsetSecretId: z
+					.string()
+					.optional()
+					.describe(
+						"This is used to identify variables that have been migrated from type secret to sensitive.",
+					),
+				target: z
+					.union([
+						z.array(z.enum(["development", "preview", "production"])),
+						z.enum(["production", "preview", "development"]),
+					])
+					.optional(),
+				type: z.enum(["encrypted", "plain", "secret", "sensitive", "system"]),
+				updatedAt: z.number().optional(),
+				updatedBy: z.string().nullish(),
+				value: z.string(),
+				visibility: z
+					.enum(["config", "secret"])
+					.optional()
+					.describe(
+						"User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.",
+					),
+			})
+			.nullable(),
 	),
 	z.strictObject({
 		comment: z.string().optional(),
 		configurationId: z.string().nullish(),
 		contentHint: z
 			.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-read-only-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-read-write-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-store-id"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-webhook-public-key"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url-non-pooling"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-prisma-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-user"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-host"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-password"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-database"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url-no-ssl"]),
 				}),
-				z.strictObject({
+				z.object({
 					integrationConfigurationId: z.string(),
 					integrationId: z.string(),
 					integrationProductId: z.string(),
 					storeId: z.string(),
 					type: z.enum(["integration-store-secret"]),
 				}),
-				z.strictObject({
+				z.object({
 					projectId: z.string(),
 					type: z.enum(["flags-connection-string"]),
 				}),
@@ -100268,131 +100340,133 @@ export const removeProjectEnvStatus200Schema = z.union([
 				"User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.",
 			),
 	}),
-	z.strictObject({
-		comment: z.string().optional(),
-		configurationId: z.string().nullish(),
-		contentHint: z
-			.discriminatedUnion("type", [
-				z.strictObject({
-					storeId: z.string(),
-					type: z.enum(["redis-url"]),
-				}),
-				z.strictObject({
-					storeId: z.string(),
-					type: z.enum(["redis-rest-api-url"]),
-				}),
-				z.strictObject({
-					storeId: z.string(),
-					type: z.enum(["redis-rest-api-token"]),
-				}),
-				z.strictObject({
-					storeId: z.string(),
-					type: z.enum(["redis-rest-api-read-only-token"]),
-				}),
-				z.strictObject({
-					storeId: z.string(),
-					type: z.enum(["blob-read-write-token"]),
-				}),
-				z.strictObject({
-					storeId: z.string(),
-					type: z.enum(["blob-store-id"]),
-				}),
-				z.strictObject({
-					storeId: z.string(),
-					type: z.enum(["blob-webhook-public-key"]),
-				}),
-				z.strictObject({
-					storeId: z.string(),
-					type: z.enum(["postgres-url"]),
-				}),
-				z.strictObject({
-					storeId: z.string(),
-					type: z.enum(["postgres-url-non-pooling"]),
-				}),
-				z.strictObject({
-					storeId: z.string(),
-					type: z.enum(["postgres-prisma-url"]),
-				}),
-				z.strictObject({
-					storeId: z.string(),
-					type: z.enum(["postgres-user"]),
-				}),
-				z.strictObject({
-					storeId: z.string(),
-					type: z.enum(["postgres-host"]),
-				}),
-				z.strictObject({
-					storeId: z.string(),
-					type: z.enum(["postgres-password"]),
-				}),
-				z.strictObject({
-					storeId: z.string(),
-					type: z.enum(["postgres-database"]),
-				}),
-				z.strictObject({
-					storeId: z.string(),
-					type: z.enum(["postgres-url-no-ssl"]),
-				}),
-				z.strictObject({
-					integrationConfigurationId: z.string(),
-					integrationId: z.string(),
-					integrationProductId: z.string(),
-					storeId: z.string(),
-					type: z.enum(["integration-store-secret"]),
-				}),
-				z.strictObject({
-					projectId: z.string(),
-					type: z.enum(["flags-connection-string"]),
-				}),
-			])
-			.nullish(),
-		createdAt: z.number().optional(),
-		createdBy: z.string().nullish(),
-		customEnvironmentIds: z.array(z.string()).optional(),
-		decrypted: z.union([z.literal(false), z.literal(true)]).optional(),
-		edgeConfigId: z.string().nullish(),
-		edgeConfigTokenId: z.string().nullish(),
-		gitBranch: z.string().optional(),
-		id: z.string().optional(),
-		internalContentHint: z
-			.object({
-				encryptedValue: z
-					.string()
-					.describe(
-						"Contains the `value` of the env variable, encrypted with a special key to make decryption possible in the subscriber Lambda.",
-					),
-				type: z.enum(["flags-secret"]),
-			})
-			.nullish()
-			.describe("Similar to `contentHints`, but should not be exposed to the user."),
-		key: z.string(),
-		legacyValue: z
-			.string()
-			.optional()
-			.describe("Legacy now-encryption ciphertext, present after migration swaps value/vsmValue"),
-		sunsetSecretId: z
-			.string()
-			.optional()
-			.describe(
-				"This is used to identify variables that have been migrated from type secret to sensitive.",
-			),
-		target: z
-			.union([
-				z.array(z.enum(["development", "preview", "production"])),
-				z.enum(["production", "preview", "development"]),
-			])
-			.optional(),
-		type: z.enum(["encrypted", "plain", "secret", "sensitive", "system"]),
-		updatedAt: z.number().optional(),
-		updatedBy: z.string().nullish(),
-		value: z.string(),
-		visibility: z
-			.enum(["config", "secret"])
-			.optional()
-			.describe(
-				"User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.",
-			),
-	}),
+	z
+		.strictObject({
+			comment: z.string().optional(),
+			configurationId: z.string().nullish(),
+			contentHint: z
+				.discriminatedUnion("type", [
+					z.object({
+						storeId: z.string(),
+						type: z.enum(["redis-url"]),
+					}),
+					z.object({
+						storeId: z.string(),
+						type: z.enum(["redis-rest-api-url"]),
+					}),
+					z.object({
+						storeId: z.string(),
+						type: z.enum(["redis-rest-api-token"]),
+					}),
+					z.object({
+						storeId: z.string(),
+						type: z.enum(["redis-rest-api-read-only-token"]),
+					}),
+					z.object({
+						storeId: z.string(),
+						type: z.enum(["blob-read-write-token"]),
+					}),
+					z.object({
+						storeId: z.string(),
+						type: z.enum(["blob-store-id"]),
+					}),
+					z.object({
+						storeId: z.string(),
+						type: z.enum(["blob-webhook-public-key"]),
+					}),
+					z.object({
+						storeId: z.string(),
+						type: z.enum(["postgres-url"]),
+					}),
+					z.object({
+						storeId: z.string(),
+						type: z.enum(["postgres-url-non-pooling"]),
+					}),
+					z.object({
+						storeId: z.string(),
+						type: z.enum(["postgres-prisma-url"]),
+					}),
+					z.object({
+						storeId: z.string(),
+						type: z.enum(["postgres-user"]),
+					}),
+					z.object({
+						storeId: z.string(),
+						type: z.enum(["postgres-host"]),
+					}),
+					z.object({
+						storeId: z.string(),
+						type: z.enum(["postgres-password"]),
+					}),
+					z.object({
+						storeId: z.string(),
+						type: z.enum(["postgres-database"]),
+					}),
+					z.object({
+						storeId: z.string(),
+						type: z.enum(["postgres-url-no-ssl"]),
+					}),
+					z.object({
+						integrationConfigurationId: z.string(),
+						integrationId: z.string(),
+						integrationProductId: z.string(),
+						storeId: z.string(),
+						type: z.enum(["integration-store-secret"]),
+					}),
+					z.object({
+						projectId: z.string(),
+						type: z.enum(["flags-connection-string"]),
+					}),
+				])
+				.nullish(),
+			createdAt: z.number().optional(),
+			createdBy: z.string().nullish(),
+			customEnvironmentIds: z.array(z.string()).optional(),
+			decrypted: z.union([z.literal(false), z.literal(true)]).optional(),
+			edgeConfigId: z.string().nullish(),
+			edgeConfigTokenId: z.string().nullish(),
+			gitBranch: z.string().optional(),
+			id: z.string().optional(),
+			internalContentHint: z
+				.object({
+					encryptedValue: z
+						.string()
+						.describe(
+							"Contains the `value` of the env variable, encrypted with a special key to make decryption possible in the subscriber Lambda.",
+						),
+					type: z.enum(["flags-secret"]),
+				})
+				.nullish()
+				.describe("Similar to `contentHints`, but should not be exposed to the user."),
+			key: z.string(),
+			legacyValue: z
+				.string()
+				.optional()
+				.describe("Legacy now-encryption ciphertext, present after migration swaps value/vsmValue"),
+			sunsetSecretId: z
+				.string()
+				.optional()
+				.describe(
+					"This is used to identify variables that have been migrated from type secret to sensitive.",
+				),
+			target: z
+				.union([
+					z.array(z.enum(["development", "preview", "production"])),
+					z.enum(["production", "preview", "development"]),
+				])
+				.optional(),
+			type: z.enum(["encrypted", "plain", "secret", "sensitive", "system"]),
+			updatedAt: z.number().optional(),
+			updatedBy: z.string().nullish(),
+			value: z.string(),
+			visibility: z
+				.enum(["config", "secret"])
+				.optional()
+				.describe(
+					"User-facing config/secret model. When set, authoritative for new code paths. Legacy rows omit this field and callers fall back to existing `type` behavior.",
+				),
+		})
+		.nullable(),
 ]);
 
 export const removeProjectEnvStatus400Schema = z.unknown();
@@ -100475,74 +100549,74 @@ export const editProjectEnvStatus200Schema = z
 		configurationId: z.string().nullish(),
 		contentHint: z
 			.discriminatedUnion("type", [
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["redis-rest-api-read-only-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-read-write-token"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-store-id"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["blob-webhook-public-key"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url-non-pooling"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-prisma-url"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-user"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-host"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-password"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-database"]),
 				}),
-				z.strictObject({
+				z.object({
 					storeId: z.string(),
 					type: z.enum(["postgres-url-no-ssl"]),
 				}),
-				z.strictObject({
+				z.object({
 					integrationConfigurationId: z.string(),
 					integrationId: z.string(),
 					integrationProductId: z.string(),
 					storeId: z.string(),
 					type: z.enum(["integration-store-secret"]),
 				}),
-				z.strictObject({
+				z.object({
 					projectId: z.string(),
 					type: z.enum(["flags-connection-string"]),
 				}),
@@ -100781,23 +100855,23 @@ export const getRollingReleaseBillingStatusQuerySlugSchema = z
 	.meta({ examples: ["my-team-url-slug"] });
 
 export const getRollingReleaseBillingStatusStatus200Schema = z.discriminatedUnion("reason", [
-	z.strictObject({
+	z.object({
 		availableSlots: z.literal(0),
 		message: z.string(),
 		reason: z.enum(["plan_not_supported"]),
 	}),
-	z.strictObject({
+	z.object({
 		availableSlots: z.enum(["unlimited"]),
 		message: z.string(),
 		reason: z.enum(["unlimited_slots"]),
 	}),
-	z.strictObject({
+	z.object({
 		availableSlots: z.literal(0),
 		enabledProjects: z.array(z.string()),
 		message: z.string(),
 		reason: z.enum(["no_available_slots"]),
 	}),
-	z.strictObject({
+	z.object({
 		availableSlots: z.number(),
 		message: z.string(),
 		reason: z.enum(["available_slots"]),
@@ -101191,7 +101265,7 @@ export const getRollingReleaseStatus200Schema = z
 							.describe(
 								"Duration in seconds for automatic advancement, null for manual stages or the final stage",
 							)
-							.meta({ examples: [] }),
+							.meta({ examples: [null] }),
 						index: z
 							.number()
 							.describe("The zero-based index of the stage")
@@ -101279,7 +101353,7 @@ export const getRollingReleaseStatus200Schema = z
 							.describe(
 								'If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.',
 							)
-							.meta({ examples: [] }),
+							.meta({ examples: [null] }),
 						url: z
 							.string()
 							.describe("A string with the unique URL of the deployment")
@@ -101356,7 +101430,7 @@ export const getRollingReleaseStatus200Schema = z
 							.describe(
 								'If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.',
 							)
-							.meta({ examples: [] }),
+							.meta({ examples: [null] }),
 						url: z
 							.string()
 							.describe("A string with the unique URL of the deployment")
@@ -101386,7 +101460,7 @@ export const getRollingReleaseStatus200Schema = z
 							.describe(
 								"Duration in seconds for automatic advancement, null for manual stages or the final stage",
 							)
-							.meta({ examples: [] }),
+							.meta({ examples: [null] }),
 						index: z
 							.number()
 							.describe("The zero-based index of the stage")
@@ -101435,7 +101509,7 @@ export const getRollingReleaseStatus200Schema = z
 								.describe(
 									"Duration in seconds for automatic advancement, null for manual stages or the final stage",
 								)
-								.meta({ examples: [] }),
+								.meta({ examples: [null] }),
 							index: z
 								.number()
 								.describe("The zero-based index of the stage")
@@ -101590,7 +101664,7 @@ export const approveRollingReleaseStageStatus200Schema = z
 							.describe(
 								"Duration in seconds for automatic advancement, null for manual stages or the final stage",
 							)
-							.meta({ examples: [] }),
+							.meta({ examples: [null] }),
 						index: z
 							.number()
 							.describe("The zero-based index of the stage")
@@ -101678,7 +101752,7 @@ export const approveRollingReleaseStageStatus200Schema = z
 							.describe(
 								'If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.',
 							)
-							.meta({ examples: [] }),
+							.meta({ examples: [null] }),
 						url: z
 							.string()
 							.describe("A string with the unique URL of the deployment")
@@ -101755,7 +101829,7 @@ export const approveRollingReleaseStageStatus200Schema = z
 							.describe(
 								'If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.',
 							)
-							.meta({ examples: [] }),
+							.meta({ examples: [null] }),
 						url: z
 							.string()
 							.describe("A string with the unique URL of the deployment")
@@ -101785,7 +101859,7 @@ export const approveRollingReleaseStageStatus200Schema = z
 							.describe(
 								"Duration in seconds for automatic advancement, null for manual stages or the final stage",
 							)
-							.meta({ examples: [] }),
+							.meta({ examples: [null] }),
 						index: z
 							.number()
 							.describe("The zero-based index of the stage")
@@ -101834,7 +101908,7 @@ export const approveRollingReleaseStageStatus200Schema = z
 								.describe(
 									"Duration in seconds for automatic advancement, null for manual stages or the final stage",
 								)
-								.meta({ examples: [] }),
+								.meta({ examples: [null] }),
 							index: z
 								.number()
 								.describe("The zero-based index of the stage")
@@ -101997,7 +102071,7 @@ export const startRollingReleaseStatus200Schema = z
 							.describe(
 								"Duration in seconds for automatic advancement, null for manual stages or the final stage",
 							)
-							.meta({ examples: [] }),
+							.meta({ examples: [null] }),
 						index: z
 							.number()
 							.describe("The zero-based index of the stage")
@@ -102085,7 +102159,7 @@ export const startRollingReleaseStatus200Schema = z
 							.describe(
 								'If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.',
 							)
-							.meta({ examples: [] }),
+							.meta({ examples: [null] }),
 						url: z
 							.string()
 							.describe("A string with the unique URL of the deployment")
@@ -102162,7 +102236,7 @@ export const startRollingReleaseStatus200Schema = z
 							.describe(
 								'If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.',
 							)
-							.meta({ examples: [] }),
+							.meta({ examples: [null] }),
 						url: z
 							.string()
 							.describe("A string with the unique URL of the deployment")
@@ -102192,7 +102266,7 @@ export const startRollingReleaseStatus200Schema = z
 							.describe(
 								"Duration in seconds for automatic advancement, null for manual stages or the final stage",
 							)
-							.meta({ examples: [] }),
+							.meta({ examples: [null] }),
 						index: z
 							.number()
 							.describe("The zero-based index of the stage")
@@ -102241,7 +102315,7 @@ export const startRollingReleaseStatus200Schema = z
 								.describe(
 									"Duration in seconds for automatic advancement, null for manual stages or the final stage",
 								)
-								.meta({ examples: [] }),
+								.meta({ examples: [null] }),
 							index: z
 								.number()
 								.describe("The zero-based index of the stage")
@@ -102406,7 +102480,7 @@ export const completeRollingReleaseStatus200Schema = z
 							.describe(
 								"Duration in seconds for automatic advancement, null for manual stages or the final stage",
 							)
-							.meta({ examples: [] }),
+							.meta({ examples: [null] }),
 						index: z
 							.number()
 							.describe("The zero-based index of the stage")
@@ -102494,7 +102568,7 @@ export const completeRollingReleaseStatus200Schema = z
 							.describe(
 								'If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.',
 							)
-							.meta({ examples: [] }),
+							.meta({ examples: [null] }),
 						url: z
 							.string()
 							.describe("A string with the unique URL of the deployment")
@@ -102571,7 +102645,7 @@ export const completeRollingReleaseStatus200Schema = z
 							.describe(
 								'If defined, either `staging` if a staging alias in the format `<project>.<team>.now.sh` was assigned upon creation, or `production` if the aliases from `alias` were assigned. `null` value indicates the "preview" deployment.',
 							)
-							.meta({ examples: [] }),
+							.meta({ examples: [null] }),
 						url: z
 							.string()
 							.describe("A string with the unique URL of the deployment")
@@ -102601,7 +102675,7 @@ export const completeRollingReleaseStatus200Schema = z
 							.describe(
 								"Duration in seconds for automatic advancement, null for manual stages or the final stage",
 							)
-							.meta({ examples: [] }),
+							.meta({ examples: [null] }),
 						index: z
 							.number()
 							.describe("The zero-based index of the stage")
@@ -102650,7 +102724,7 @@ export const completeRollingReleaseStatus200Schema = z
 								.describe(
 									"Duration in seconds for automatic advancement, null for manual stages or the final stage",
 								)
-								.meta({ examples: [] }),
+								.meta({ examples: [null] }),
 							index: z
 								.number()
 								.describe("The zero-based index of the stage")
@@ -102980,14 +103054,14 @@ export const updateProjectProtectionBypassStatus200Schema = z.object({
 		.record(
 			z.string(),
 			z.discriminatedUnion("scope", [
-				z.strictObject({
+				z.object({
 					configurationId: z.string(),
 					createdAt: z.number(),
 					createdBy: z.string(),
 					integrationId: z.string(),
 					scope: z.enum(["integration-automation-bypass"]),
 				}),
-				z.strictObject({
+				z.object({
 					createdAt: z.number(),
 					createdBy: z.string(),
 					isEnvVar: z
@@ -103412,11 +103486,11 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 	createdAt: z.number().optional(),
 	creator: z
 		.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				type: z.enum(["user"]),
 				via: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							app: z.object({
 								clientId: z
 									.string()
@@ -103430,7 +103504,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 							}),
 							type: z.enum(["app"]),
 						}),
-						z.strictObject({
+						z.object({
 							integration: z.object({
 								configurationId: z.string(),
 								integrationId: z.string(),
@@ -103443,13 +103517,13 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 					id: z.string(),
 				}),
 			}),
-			z.strictObject({
+			z.object({
 				project: z.object({
 					id: z.string(),
 				}),
 				type: z.enum(["project"]),
 			}),
-			z.strictObject({
+			z.object({
 				app: z.object({
 					clientId: z
 						.string()
@@ -103461,14 +103535,14 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				}),
 				type: z.enum(["app"]),
 			}),
-			z.strictObject({
+			z.object({
 				integration: z.object({
 					configurationId: z.string(),
 					integrationId: z.string(),
 				}),
 				type: z.enum(["integration"]),
 			}),
-			z.strictObject({
+			z.object({
 				type: z.enum(["system"]),
 			}),
 		])
@@ -103639,22 +103713,22 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 		elasticBuildMachine: z
 			.discriminatedUnion("cores", [
-				z.strictObject({
+				z.object({
 					cores: z.literal(4),
 					label: z.enum(["standard"]),
 					memory: z.literal(8192),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(14),
 					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -103700,11 +103774,11 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 						enabled: z.union([z.literal(false), z.literal(true)]),
 						environments: z.array(
 							z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									target: z.enum(["preview", "production"]),
 									type: z.enum(["system"]),
 								}),
-								z.strictObject({
+								z.object({
 									environmentId: z.string(),
 									type: z.enum(["custom"]),
 								}),
@@ -103722,11 +103796,11 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 						enabled: z.union([z.literal(false), z.literal(true)]),
 						environments: z.array(
 							z.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									target: z.enum(["preview", "production"]),
 									type: z.enum(["system"]),
 								}),
-								z.strictObject({
+								z.object({
 									environmentId: z.string(),
 									type: z.enum(["custom"]),
 								}),
@@ -103795,74 +103869,74 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				configurationId: z.string().nullish(),
 				contentHint: z
 					.discriminatedUnion("type", [
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["redis-rest-api-read-only-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-read-write-token"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-store-id"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["blob-webhook-public-key"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-non-pooling"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-prisma-url"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-user"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-host"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-password"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-database"]),
 						}),
-						z.strictObject({
+						z.object({
 							storeId: z.string(),
 							type: z.enum(["postgres-url-no-ssl"]),
 						}),
-						z.strictObject({
+						z.object({
 							integrationConfigurationId: z.string(),
 							integrationId: z.string(),
 							integrationProductId: z.string(),
 							storeId: z.string(),
 							type: z.enum(["integration-store-secret"]),
 						}),
-						z.strictObject({
+						z.object({
 							projectId: z.string(),
 							type: z.enum(["flags-connection-string"]),
 						}),
@@ -104087,14 +104161,14 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				z.strictObject({
 					has: z.array(
 						z.discriminatedUnion("type", [
-							z.strictObject({
+							z.object({
 								key: z.enum(["x-vercel-ip-country"]),
 								type: z.enum(["header"]),
 								value: z.object({
 									eq: z.string(),
 								}),
 							}),
-							z.strictObject({
+							z.object({
 								type: z.enum(["host"]),
 								value: z.object({
 									eq: z.string(),
@@ -104277,7 +104351,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 		.optional(),
 	link: z
 		.discriminatedUnion("type", [
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -104303,7 +104377,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				type: z.enum(["github"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -104329,7 +104403,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				type: z.enum(["github-limited"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -104356,7 +104430,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				type: z.enum(["github-custom-host"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -104384,7 +104458,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				type: z.enum(["gitlab"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -104406,7 +104480,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				uuid: z.string(),
 				workspaceUuid: z.string(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -104426,7 +104500,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				type: z.enum(["vercel"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -104446,7 +104520,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				type: z.enum(["v0"]),
 				updatedAt: z.number().optional(),
 			}),
-			z.strictObject({
+			z.object({
 				createdAt: z.number().optional(),
 				deployHooks: z.array(
 					z.object({
@@ -106446,14 +106520,14 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 		.record(
 			z.string(),
 			z.discriminatedUnion("scope", [
-				z.strictObject({
+				z.object({
 					configurationId: z.string(),
 					createdAt: z.number(),
 					createdBy: z.string(),
 					integrationId: z.string(),
 					scope: z.enum(["integration-automation-bypass"]),
 				}),
-				z.strictObject({
+				z.object({
 					createdAt: z.number(),
 					createdBy: z.string(),
 					isEnvVar: z
@@ -106522,22 +106596,22 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 		isNSNBDisabled: z.union([z.literal(false), z.literal(true)]).optional(),
 		elasticBuildMachine: z
 			.discriminatedUnion("cores", [
-				z.strictObject({
+				z.object({
 					cores: z.literal(4),
 					label: z.enum(["standard"]),
 					memory: z.literal(8192),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(8),
 					label: z.enum(["enhanced"]),
 					memory: z.literal(16384),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(14),
 					label: z.enum(["14cpu-28gb"]),
 					memory: z.literal(28672),
 				}),
-				z.strictObject({
+				z.object({
 					cores: z.literal(30),
 					label: z.enum(["turbo"]),
 					memory: z.literal(61440),
@@ -106555,11 +106629,11 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 				),
 			principal: z
 				.discriminatedUnion("type", [
-					z.strictObject({
+					z.object({
 						type: z.enum(["user"]),
 						via: z
 							.discriminatedUnion("type", [
-								z.strictObject({
+								z.object({
 									app: z.object({
 										clientId: z
 											.string()
@@ -106573,7 +106647,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 									}),
 									type: z.enum(["app"]),
 								}),
-								z.strictObject({
+								z.object({
 									integration: z.object({
 										configurationId: z.string(),
 										integrationId: z.string(),
@@ -106586,13 +106660,13 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 							id: z.string(),
 						}),
 					}),
-					z.strictObject({
+					z.object({
 						project: z.object({
 							id: z.string(),
 						}),
 						type: z.enum(["project"]),
 					}),
-					z.strictObject({
+					z.object({
 						app: z.object({
 							clientId: z
 								.string()
@@ -106604,14 +106678,14 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 						}),
 						type: z.enum(["app"]),
 					}),
-					z.strictObject({
+					z.object({
 						integration: z.object({
 							configurationId: z.string(),
 							integrationId: z.string(),
 						}),
 						type: z.enum(["integration"]),
 					}),
-					z.strictObject({
+					z.object({
 						type: z.enum(["system"]),
 					}),
 				])
@@ -107132,7 +107206,7 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 			}),
 		)
 		.optional(),
-	tier: z.enum(["priority"]).optional(),
+	tier: z.enum(["critical", "priority"]).optional(),
 	tracing: z
 		.object({
 			domains: z.string().optional(),
@@ -110549,17 +110623,19 @@ export const runSessionCommandStatus200SchemaJson = z.object({
 export const runSessionCommandStatus200SchemaXNdjson = z.array(
 	z.union([
 		z.strictObject({
-			data: z.object({
-				code: z.enum(["sandbox_stream_closed"]),
-				message: z.enum(["Sandbox stream was closed and is not accepting commands."]),
-			}),
+			data: z.string(),
 			stream: z.string(),
 		}),
 		z.strictObject({
 			command: sessionCommandSchema.describe(
 				"This object represents a command run in a Vercel Sandbox session (v2 API).",
 			),
-			data: z.string(),
+		}),
+		z.strictObject({
+			data: z.object({
+				code: z.enum(["sandbox_stream_closed"]),
+				message: z.enum(["Sandbox stream was closed and is not accepting commands."]),
+			}),
 			stream: z.string(),
 		}),
 	]),
@@ -111004,7 +111080,7 @@ export const getSessionCommandLogsQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const getSessionCommandLogsStatus200Schema = z.unknown();
+export const getSessionCommandLogsStatus200Schema = z.string();
 
 export const getSessionCommandLogsStatus400Schema = z.unknown();
 
@@ -111636,7 +111712,7 @@ export const readSessionFileQuerySlugSchema = z
 	.describe("The Team slug to perform the request on behalf of.")
 	.meta({ examples: ["my-team-url-slug"] });
 
-export const readSessionFileStatus200Schema = z.instanceof(File);
+export const readSessionFileStatus200Schema = z.instanceof(Blob);
 
 export const readSessionFileStatus400Schema = z.unknown();
 
@@ -111845,7 +111921,7 @@ export const writeSessionFilesErrorSchema = z.union([
 	writeSessionFilesStatus429Schema,
 ]);
 
-export const writeSessionFilesBodySchema = z.instanceof(File);
+export const writeSessionFilesBodySchema = z.instanceof(Blob);
 
 export const writeSessionFilesPathSchema = z.object({
 	sessionId: z
@@ -114938,7 +115014,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 			projectKey: z.string(),
 			rules: z.array(
 				z.discriminatedUnion("valid", [
-					z.strictObject({
+					z.object({
 						action: z.object({
 							mitigate: z
 								.object({
@@ -115044,7 +115120,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 						valid: z.literal(true),
 						validationErrors: z.unknown().nullable(),
 					}),
-					z.strictObject({
+					z.object({
 						action: z.object({
 							mitigate: z
 								.object({
@@ -115492,7 +115568,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 			projectKey: z.string(),
 			rules: z.array(
 				z.discriminatedUnion("valid", [
-					z.strictObject({
+					z.object({
 						action: z.object({
 							mitigate: z
 								.object({
@@ -115598,7 +115674,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 						valid: z.literal(true),
 						validationErrors: z.unknown().nullable(),
 					}),
-					z.strictObject({
+					z.object({
 						action: z.object({
 							mitigate: z
 								.object({
@@ -116046,7 +116122,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 			projectKey: z.string(),
 			rules: z.array(
 				z.discriminatedUnion("valid", [
-					z.strictObject({
+					z.object({
 						action: z.object({
 							mitigate: z
 								.object({
@@ -116152,7 +116228,7 @@ export const getSecurityFirewallConfigStatus200Schema = z.object({
 						valid: z.literal(true),
 						validationErrors: z.unknown().nullable(),
 					}),
-					z.strictObject({
+					z.object({
 						action: z.object({
 							mitigate: z
 								.object({
@@ -116679,7 +116755,7 @@ export const putFirewallConfigStatus200Schema = z.object({
 		projectKey: z.string(),
 		rules: z.array(
 			z.discriminatedUnion("valid", [
-				z.strictObject({
+				z.object({
 					action: z.object({
 						mitigate: z
 							.object({
@@ -116785,7 +116861,7 @@ export const putFirewallConfigStatus200Schema = z.object({
 					valid: z.literal(true),
 					validationErrors: z.unknown().nullable(),
 				}),
-				z.strictObject({
+				z.object({
 					action: z.object({
 						mitigate: z
 							.object({
@@ -118426,7 +118502,7 @@ export const getFirewallConfigStatus200Schema = z.object({
 	projectKey: z.string(),
 	rules: z.array(
 		z.discriminatedUnion("valid", [
-			z.strictObject({
+			z.object({
 				action: z.object({
 					mitigate: z
 						.object({
@@ -118532,7 +118608,7 @@ export const getFirewallConfigStatus200Schema = z.object({
 				valid: z.literal(true),
 				validationErrors: z.unknown().nullable(),
 			}),
-			z.strictObject({
+			z.object({
 				action: z.object({
 					mitigate: z
 						.object({
@@ -119047,7 +119123,7 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200Schema 
 	projectKey: z.string(),
 	rules: z.array(
 		z.discriminatedUnion("valid", [
-			z.strictObject({
+			z.object({
 				action: z.object({
 					mitigate: z
 						.object({
@@ -119153,7 +119229,7 @@ export const createSecurityFirewallConfigByConfigVersionActivateStatus200Schema 
 				valid: z.literal(true),
 				validationErrors: z.unknown().nullable(),
 			}),
-			z.strictObject({
+			z.object({
 				action: z.object({
 					mitigate: z
 						.object({
@@ -124324,7 +124400,7 @@ export const getTeamsStatus200Schema = z
 		pagination: paginationSchema.describe(
 			"This object contains information related to the pagination of the current request, including the necessary parameters to get the next or previous page of data.",
 		),
-		teams: z.array(z.discriminatedUnion("limited", [teamSchema, teamLimitedSchema.strict()])),
+		teams: z.array(z.discriminatedUnion("limited", [teamSchema, teamLimitedSchema])),
 	})
 	.describe("A paginated list of teams.");
 
@@ -124852,7 +124928,7 @@ export const uploadFileErrorSchema = z.union([
 	uploadFileStatus426Schema,
 ]);
 
-export const uploadFileBodySchema = z.instanceof(File).optional();
+export const uploadFileBodySchema = z.instanceof(Blob).optional();
 
 export const uploadFileQuerySchema = z.object({
 	teamId: z
@@ -126702,7 +126778,7 @@ export const updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidErro
 ]);
 
 export const updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidBodySchema =
-	z.instanceof(File);
+	z.instanceof(Blob);
 
 export const updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathSchema = z.object({
 	teamSlug: z
@@ -126811,7 +126887,7 @@ export const replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidErr
 ]);
 
 export const replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidBodySchema = z
-	.instanceof(File)
+	.instanceof(Blob)
 	.optional();
 
 export const replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathSchema = z.object({
@@ -132598,25 +132674,25 @@ export const listDeploymentAliasesStatus200Schema = z.object({
 					.record(
 						z.string(),
 						z.discriminatedUnion("scope", [
-							z.strictObject({
+							z.object({
 								createdAt: z.number(),
 								createdBy: z.string(),
 								expires: z.number().optional(),
 								scope: z.enum(["shareable-link"]),
 							}),
-							z.strictObject({
+							z.object({
 								access: z.enum(["granted", "requested"]),
 								createdAt: z.number(),
 								lastUpdatedAt: z.number(),
 								lastUpdatedBy: z.string(),
 								scope: z.enum(["user"]),
 							}),
-							z.strictObject({
+							z.object({
 								createdAt: z.number(),
 								createdBy: z.string(),
 								scope: z.enum(["alias-protection-override"]),
 							}),
-							z.strictObject({
+							z.object({
 								createdAt: z.number(),
 								lastUpdatedAt: z.number(),
 								lastUpdatedBy: z.string(),
@@ -132756,7 +132832,7 @@ export const assignAliasBodySchema = z.object({
 		.describe(
 			"The redirect property will take precedence over the deployment id from the URL and consists of a hostname (like test.com) to which the alias should redirect using status code 307",
 		)
-		.meta({ examples: [] }),
+		.meta({ examples: [null] }),
 });
 
 export const assignAliasPathSchema = z.object({
@@ -132971,25 +133047,25 @@ export const listAliasesStatus200Schema = z.object({
 				.record(
 					z.string(),
 					z.discriminatedUnion("scope", [
-						z.strictObject({
+						z.object({
 							createdAt: z.number(),
 							createdBy: z.string(),
 							expires: z.number().optional(),
 							scope: z.enum(["shareable-link"]),
 						}),
-						z.strictObject({
+						z.object({
 							access: z.enum(["granted", "requested"]),
 							createdAt: z.number(),
 							lastUpdatedAt: z.number(),
 							lastUpdatedBy: z.string(),
 							scope: z.enum(["user"]),
 						}),
-						z.strictObject({
+						z.object({
 							createdAt: z.number(),
 							createdBy: z.string(),
 							scope: z.enum(["alias-protection-override"]),
 						}),
-						z.strictObject({
+						z.object({
 							createdAt: z.number(),
 							lastUpdatedAt: z.number(),
 							lastUpdatedBy: z.string(),
@@ -133265,25 +133341,25 @@ export const getAliasStatus200Schema = z.object({
 		.record(
 			z.string(),
 			z.discriminatedUnion("scope", [
-				z.strictObject({
+				z.object({
 					createdAt: z.number(),
 					createdBy: z.string(),
 					expires: z.number().optional(),
 					scope: z.enum(["shareable-link"]),
 				}),
-				z.strictObject({
+				z.object({
 					access: z.enum(["granted", "requested"]),
 					createdAt: z.number(),
 					lastUpdatedAt: z.number(),
 					lastUpdatedBy: z.string(),
 					scope: z.enum(["user"]),
 				}),
-				z.strictObject({
+				z.object({
 					createdAt: z.number(),
 					createdBy: z.string(),
 					scope: z.enum(["alias-protection-override"]),
 				}),
-				z.strictObject({
+				z.object({
 					createdAt: z.number(),
 					lastUpdatedAt: z.number(),
 					lastUpdatedBy: z.string(),

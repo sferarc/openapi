@@ -5140,6 +5140,14 @@ export const userEventEntitiesTypeEnum = {
 export type UserEventEntitiesTypeEnumKey =
 	(typeof userEventEntitiesTypeEnum)[keyof typeof userEventEntitiesTypeEnum];
 
+export const userEventPayloadSubjectTypeEnum = {
+	app: "app",
+	user: "user",
+} as const;
+
+export type UserEventPayloadSubjectTypeEnumKey =
+	(typeof userEventPayloadSubjectTypeEnum)[keyof typeof userEventPayloadSubjectTypeEnum];
+
 export const userEventPayloadActionEnum = {
 	archived: "archived",
 	created: "created",
@@ -5399,6 +5407,30 @@ export const userEventPayloadScopeTypeEnum2 = {
 
 export type UserEventPayloadScopeTypeEnum2Key =
 	(typeof userEventPayloadScopeTypeEnum2)[keyof typeof userEventPayloadScopeTypeEnum2];
+
+export const userEventPayloadModeEnum = {
+	enforce: "enforce",
+	shadow: "shadow",
+} as const;
+
+export type UserEventPayloadModeEnumKey =
+	(typeof userEventPayloadModeEnum)[keyof typeof userEventPayloadModeEnum];
+
+export const userEventPayloadFailureModeEnum = {
+	closed: "closed",
+	open: "open",
+} as const;
+
+export type UserEventPayloadFailureModeEnumKey =
+	(typeof userEventPayloadFailureModeEnum)[keyof typeof userEventPayloadFailureModeEnum];
+
+export const userEventPayloadModeEnum2 = {
+	enforce: "enforce",
+	shadow: "shadow",
+} as const;
+
+export type UserEventPayloadModeEnum2Key =
+	(typeof userEventPayloadModeEnum2)[keyof typeof userEventPayloadModeEnum2];
 
 export const userEventPayloadRetentionCeilingModeEnum = {
 	days: "days",
@@ -6023,14 +6055,6 @@ export const userEventPayloadDataPlanSlugEnum3 = {
 export type UserEventPayloadDataPlanSlugEnum3Key =
 	(typeof userEventPayloadDataPlanSlugEnum3)[keyof typeof userEventPayloadDataPlanSlugEnum3];
 
-export const userEventPayloadSubjectTypeEnum = {
-	app: "app",
-	user: "user",
-} as const;
-
-export type UserEventPayloadSubjectTypeEnumKey =
-	(typeof userEventPayloadSubjectTypeEnum)[keyof typeof userEventPayloadSubjectTypeEnum];
-
 export const userEventPayloadOldPasswordProtectionDeploymentTypeEnum = {
 	all: "all",
 	all_except_custom_domains: "all_except_custom_domains",
@@ -6426,14 +6450,14 @@ export const userEventPayloadRuleProvenanceEnum = {
 export type UserEventPayloadRuleProvenanceEnumKey =
 	(typeof userEventPayloadRuleProvenanceEnum)[keyof typeof userEventPayloadRuleProvenanceEnum];
 
-export const userEventPayloadModeEnum2 = {
+export const userEventPayloadModeEnum4 = {
 	all: "all",
 	"email-domain": "email-domain",
 	none: "none",
 } as const;
 
-export type UserEventPayloadModeEnum2Key =
-	(typeof userEventPayloadModeEnum2)[keyof typeof userEventPayloadModeEnum2];
+export type UserEventPayloadModeEnum4Key =
+	(typeof userEventPayloadModeEnum4)[keyof typeof userEventPayloadModeEnum4];
 
 export const userEventPayloadPreviousModeEnum2 = {
 	all: "all",
@@ -6690,6 +6714,7 @@ export const userEventPayloadProviderEnum9 = {
 	apple: "apple",
 	bitbucket: "bitbucket",
 	chatgpt: "chatgpt",
+	claude: "claude",
 	github: "github",
 	"github-custom-host": "github-custom-host",
 	"github-limited": "github-limited",
@@ -6705,6 +6730,7 @@ export const userEventPayloadProviderEnum10 = {
 	apple: "apple",
 	bitbucket: "bitbucket",
 	chatgpt: "chatgpt",
+	claude: "claude",
 	github: "github",
 	"github-custom-host": "github-custom-host",
 	"github-limited": "github-limited",
@@ -6720,6 +6746,7 @@ export const userEventPayloadFactorsOriginEnum = {
 	apple: "apple",
 	bitbucket: "bitbucket",
 	chatgpt: "chatgpt",
+	claude: "claude",
 	email: "email",
 	"emu-recovery": "emu-recovery",
 	github: "github",
@@ -6740,6 +6767,7 @@ export const userEventPayloadFactorsOriginEnum2 = {
 	apple: "apple",
 	bitbucket: "bitbucket",
 	chatgpt: "chatgpt",
+	claude: "claude",
 	email: "email",
 	"emu-recovery": "emu-recovery",
 	github: "github",
@@ -6818,13 +6846,13 @@ export const userEventPayloadPreviousDsyncModeEnum = {
 export type UserEventPayloadPreviousDsyncModeEnumKey =
 	(typeof userEventPayloadPreviousDsyncModeEnum)[keyof typeof userEventPayloadPreviousDsyncModeEnum];
 
-export const userEventPayloadModeEnum3 = {
+export const userEventPayloadModeEnum5 = {
 	organization: "organization",
 	team: "team",
 } as const;
 
-export type UserEventPayloadModeEnum3Key =
-	(typeof userEventPayloadModeEnum3)[keyof typeof userEventPayloadModeEnum3];
+export type UserEventPayloadModeEnum5Key =
+	(typeof userEventPayloadModeEnum5)[keyof typeof userEventPayloadModeEnum5];
 
 export const userEventPayloadPreviousModeEnum3 = {
 	organization: "organization",
@@ -7419,6 +7447,7 @@ export const userEventPayloadFactorsOriginEnum4 = {
 	apple: "apple",
 	bitbucket: "bitbucket",
 	chatgpt: "chatgpt",
+	claude: "claude",
 	email: "email",
 	github: "github",
 	gitlab: "gitlab",
@@ -8200,6 +8229,7 @@ export const userEventPayloadAuthMethodEnum = {
 	apple: "apple",
 	bitbucket: "bitbucket",
 	chatgpt: "chatgpt",
+	claude: "claude",
 	email: "email",
 	emu: "emu",
 	github: "github",
@@ -8233,6 +8263,7 @@ export const userEventPayloadOriginEnum = {
 	apple: "apple",
 	bitbucket: "bitbucket",
 	chatgpt: "chatgpt",
+	claude: "claude",
 	email: "email",
 	emu: "emu",
 	github: "github",
@@ -8281,6 +8312,7 @@ export const userEventPayloadOriginEnum2 = {
 	apple: "apple",
 	bitbucket: "bitbucket",
 	chatgpt: "chatgpt",
+	claude: "claude",
 	email: "email",
 	emu: "emu",
 	github: "github",
@@ -8358,6 +8390,10 @@ export const userEventTypeEnum = {
 	"ai-gateway-guardrails-updated": "ai-gateway-guardrails-updated",
 	"ai-gateway-headquarters-updated": "ai-gateway-headquarters-updated",
 	"ai-gateway-hipaa-compliance-toggled": "ai-gateway-hipaa-compliance-toggled",
+	"ai-gateway-inference-hooks-endpoint-updated": "ai-gateway-inference-hooks-endpoint-updated",
+	"ai-gateway-inference-hooks-removed": "ai-gateway-inference-hooks-removed",
+	"ai-gateway-inference-hooks-settings-updated": "ai-gateway-inference-hooks-settings-updated",
+	"ai-gateway-inference-hooks-toggled": "ai-gateway-inference-hooks-toggled",
 	"ai-gateway-inference-regions-updated": "ai-gateway-inference-regions-updated",
 	"ai-gateway-member-budget-changes": "ai-gateway-member-budget-changes",
 	"ai-gateway-model-allowlist-models-updated": "ai-gateway-model-allowlist-models-updated",
@@ -8437,6 +8473,7 @@ export const userEventTypeEnum = {
 	"compliance-document-previewed": "compliance-document-previewed",
 	"compliance-documents-bulk-downloaded": "compliance-documents-bulk-downloaded",
 	"concurrent-builds-update": "concurrent-builds-update",
+	"connect-approve-connector-request": "connect-approve-connector-request",
 	"connect-attach-project": "connect-attach-project",
 	"connect-bitbucket": "connect-bitbucket",
 	"connect-bitbucket-app": "connect-bitbucket-app",
@@ -8451,6 +8488,7 @@ export const userEventTypeEnum = {
 	"connect-create-connector": "connect-create-connector",
 	"connect-create-mcp-event-subscription": "connect-create-mcp-event-subscription",
 	"connect-delete-connector": "connect-delete-connector",
+	"connect-delete-connector-request": "connect-delete-connector-request",
 	"connect-delete-installation": "connect-delete-installation",
 	"connect-detach-project": "connect-detach-project",
 	"connect-github": "connect-github",
@@ -8459,10 +8497,15 @@ export const userEventTypeEnum = {
 	"connect-gitlab": "connect-gitlab",
 	"connect-gitlab-app": "connect-gitlab-app",
 	"connect-import-tokens": "connect-import-tokens",
+	"connect-provision-connector-request": "connect-provision-connector-request",
+	"connect-reject-connector-request": "connect-reject-connector-request",
 	"connect-revoke-all-tokens": "connect-revoke-all-tokens",
+	"connect-submit-connector-request": "connect-submit-connector-request",
 	"connect-update-connector": "connect-update-connector",
+	"connect-update-connector-request": "connect-update-connector-request",
 	"connect-update-trigger-destinations": "connect-update-trigger-destinations",
 	"connect-upsert-installation": "connect-upsert-installation",
+	"connect-withdraw-connector-request": "connect-withdraw-connector-request",
 	"custom-alert-created": "custom-alert-created",
 	"custom-alert-deleted": "custom-alert-deleted",
 	"custom-alert-updated": "custom-alert-updated",
@@ -9101,6 +9144,7 @@ export const userEventTypeEnum = {
 	"vercel-app-installed": "vercel-app-installed",
 	"vercel-app-tokens-revoked": "vercel-app-tokens-revoked",
 	"vercel-app-uninstalled": "vercel-app-uninstalled",
+	"vercel-ci-repository-github-runners-updated": "vercel-ci-repository-github-runners-updated",
 	"vercel-ci-repository-settings-updated": "vercel-ci-repository-settings-updated",
 	"vercel-toolbar": "vercel-toolbar",
 	"vpc-peering-connection-accepted": "vpc-peering-connection-accepted",
@@ -9187,6 +9231,27 @@ export type UserEvent = {
 				| {
 						enabled: false | true;
 						slackConfigured: false | true;
+				  }
+				| {
+						acceptedTokenCount?: number | undefined;
+						clientId?: string | undefined;
+						clientName?: string | undefined;
+						clientUid?: string | undefined;
+						environments?: string[] | undefined;
+						eventName?: string | undefined;
+						fields?: string[] | undefined;
+						importedTokenCount?: number | undefined;
+						installationId?: string | undefined;
+						projectId?: string | undefined;
+						projectName?: string | undefined;
+						requestId?: string | undefined;
+						requestName?: string | undefined;
+						result?: string | undefined;
+						subjectType?: UserEventPayloadSubjectTypeEnumKey | undefined;
+						subscriptionId?: string | undefined;
+						tokenCount?: number | undefined;
+						tokensDeleted?: number | undefined;
+						triggerDestinationCount?: number | undefined;
 				  }
 				| {
 						action: UserEventPayloadActionEnumKey;
@@ -9751,6 +9816,19 @@ export type UserEvent = {
 				  }
 				| {
 						countries: string[];
+				  }
+				| {
+						enabled: false | true;
+						mode: UserEventPayloadModeEnumKey;
+				  }
+				| {
+						endpointOrigin: string;
+				  }
+				| {
+						failureMode?: UserEventPayloadFailureModeEnumKey | undefined;
+						mode?: UserEventPayloadModeEnum2Key | undefined;
+						rolloutPercent?: number | undefined;
+						timeoutMs?: number | undefined;
 				  }
 				| {
 						retention: {
@@ -10343,24 +10421,6 @@ export type UserEvent = {
 				| {
 						bitbucketAccountId: string;
 						bitbucketLogin: string;
-				  }
-				| {
-						acceptedTokenCount?: number | undefined;
-						clientId?: string | undefined;
-						clientName?: string | undefined;
-						clientUid?: string | undefined;
-						environments?: string[] | undefined;
-						eventName?: string | undefined;
-						fields?: string[] | undefined;
-						importedTokenCount?: number | undefined;
-						installationId?: string | undefined;
-						projectId?: string | undefined;
-						projectName?: string | undefined;
-						subjectType?: UserEventPayloadSubjectTypeEnumKey | undefined;
-						subscriptionId?: string | undefined;
-						tokenCount?: number | undefined;
-						tokensDeleted?: number | undefined;
-						triggerDestinationCount?: number | undefined;
 				  }
 				| {
 						prevPurchasedAmount: number;
@@ -11401,7 +11461,7 @@ export type UserEvent = {
 						scope: "organization";
 				  }
 				| {
-						mode: UserEventPayloadModeEnum2Key;
+						mode: UserEventPayloadModeEnum4Key;
 						previousMode: UserEventPayloadPreviousModeEnum2Key;
 				  }
 				| {
@@ -12941,7 +13001,7 @@ export type UserEvent = {
 						previousEnabled: false | true;
 				  }
 				| {
-						mode: UserEventPayloadModeEnum3Key;
+						mode: UserEventPayloadModeEnum5Key;
 						organizationId: string;
 						previousMode: UserEventPayloadPreviousModeEnum3Key;
 						teamId: string;
@@ -15952,6 +16012,12 @@ export type UserEvent = {
 						customAlertTitle: string;
 				  }
 				| {
+						enabled: false | true;
+						organizationId?: string | undefined;
+						repository?: string | undefined;
+						repositoryId: string;
+				  }
+				| {
 						ciEnabled: false | true;
 						organizationId: string;
 						repository: string;
@@ -16811,6 +16877,10 @@ export const listEventTypeNameEnum = {
 	"ai-gateway-guardrails-updated": "ai-gateway-guardrails-updated",
 	"ai-gateway-headquarters-updated": "ai-gateway-headquarters-updated",
 	"ai-gateway-hipaa-compliance-toggled": "ai-gateway-hipaa-compliance-toggled",
+	"ai-gateway-inference-hooks-endpoint-updated": "ai-gateway-inference-hooks-endpoint-updated",
+	"ai-gateway-inference-hooks-removed": "ai-gateway-inference-hooks-removed",
+	"ai-gateway-inference-hooks-settings-updated": "ai-gateway-inference-hooks-settings-updated",
+	"ai-gateway-inference-hooks-toggled": "ai-gateway-inference-hooks-toggled",
 	"ai-gateway-inference-regions-updated": "ai-gateway-inference-regions-updated",
 	"ai-gateway-member-budget-changes": "ai-gateway-member-budget-changes",
 	"ai-gateway-model-allowlist-models-updated": "ai-gateway-model-allowlist-models-updated",
@@ -16890,6 +16960,7 @@ export const listEventTypeNameEnum = {
 	"compliance-document-previewed": "compliance-document-previewed",
 	"compliance-documents-bulk-downloaded": "compliance-documents-bulk-downloaded",
 	"concurrent-builds-update": "concurrent-builds-update",
+	"connect-approve-connector-request": "connect-approve-connector-request",
 	"connect-attach-project": "connect-attach-project",
 	"connect-bitbucket": "connect-bitbucket",
 	"connect-bitbucket-app": "connect-bitbucket-app",
@@ -16904,6 +16975,7 @@ export const listEventTypeNameEnum = {
 	"connect-create-connector": "connect-create-connector",
 	"connect-create-mcp-event-subscription": "connect-create-mcp-event-subscription",
 	"connect-delete-connector": "connect-delete-connector",
+	"connect-delete-connector-request": "connect-delete-connector-request",
 	"connect-delete-installation": "connect-delete-installation",
 	"connect-detach-project": "connect-detach-project",
 	"connect-github": "connect-github",
@@ -16912,10 +16984,15 @@ export const listEventTypeNameEnum = {
 	"connect-gitlab": "connect-gitlab",
 	"connect-gitlab-app": "connect-gitlab-app",
 	"connect-import-tokens": "connect-import-tokens",
+	"connect-provision-connector-request": "connect-provision-connector-request",
+	"connect-reject-connector-request": "connect-reject-connector-request",
 	"connect-revoke-all-tokens": "connect-revoke-all-tokens",
+	"connect-submit-connector-request": "connect-submit-connector-request",
 	"connect-update-connector": "connect-update-connector",
+	"connect-update-connector-request": "connect-update-connector-request",
 	"connect-update-trigger-destinations": "connect-update-trigger-destinations",
 	"connect-upsert-installation": "connect-upsert-installation",
+	"connect-withdraw-connector-request": "connect-withdraw-connector-request",
 	"custom-alert-created": "custom-alert-created",
 	"custom-alert-deleted": "custom-alert-deleted",
 	"custom-alert-updated": "custom-alert-updated",
@@ -17554,6 +17631,7 @@ export const listEventTypeNameEnum = {
 	"vercel-app-installed": "vercel-app-installed",
 	"vercel-app-tokens-revoked": "vercel-app-tokens-revoked",
 	"vercel-app-uninstalled": "vercel-app-uninstalled",
+	"vercel-ci-repository-github-runners-updated": "vercel-ci-repository-github-runners-updated",
 	"vercel-ci-repository-settings-updated": "vercel-ci-repository-settings-updated",
 	"vercel-toolbar": "vercel-toolbar",
 	"vpc-peering-connection-accepted": "vpc-peering-connection-accepted",
@@ -17623,6 +17701,10 @@ export const listEventTypeReplacedByEnum = {
 	"ai-gateway-guardrails-updated": "ai-gateway-guardrails-updated",
 	"ai-gateway-headquarters-updated": "ai-gateway-headquarters-updated",
 	"ai-gateway-hipaa-compliance-toggled": "ai-gateway-hipaa-compliance-toggled",
+	"ai-gateway-inference-hooks-endpoint-updated": "ai-gateway-inference-hooks-endpoint-updated",
+	"ai-gateway-inference-hooks-removed": "ai-gateway-inference-hooks-removed",
+	"ai-gateway-inference-hooks-settings-updated": "ai-gateway-inference-hooks-settings-updated",
+	"ai-gateway-inference-hooks-toggled": "ai-gateway-inference-hooks-toggled",
 	"ai-gateway-inference-regions-updated": "ai-gateway-inference-regions-updated",
 	"ai-gateway-member-budget-changes": "ai-gateway-member-budget-changes",
 	"ai-gateway-model-allowlist-models-updated": "ai-gateway-model-allowlist-models-updated",
@@ -17702,6 +17784,7 @@ export const listEventTypeReplacedByEnum = {
 	"compliance-document-previewed": "compliance-document-previewed",
 	"compliance-documents-bulk-downloaded": "compliance-documents-bulk-downloaded",
 	"concurrent-builds-update": "concurrent-builds-update",
+	"connect-approve-connector-request": "connect-approve-connector-request",
 	"connect-attach-project": "connect-attach-project",
 	"connect-bitbucket": "connect-bitbucket",
 	"connect-bitbucket-app": "connect-bitbucket-app",
@@ -17716,6 +17799,7 @@ export const listEventTypeReplacedByEnum = {
 	"connect-create-connector": "connect-create-connector",
 	"connect-create-mcp-event-subscription": "connect-create-mcp-event-subscription",
 	"connect-delete-connector": "connect-delete-connector",
+	"connect-delete-connector-request": "connect-delete-connector-request",
 	"connect-delete-installation": "connect-delete-installation",
 	"connect-detach-project": "connect-detach-project",
 	"connect-github": "connect-github",
@@ -17724,10 +17808,15 @@ export const listEventTypeReplacedByEnum = {
 	"connect-gitlab": "connect-gitlab",
 	"connect-gitlab-app": "connect-gitlab-app",
 	"connect-import-tokens": "connect-import-tokens",
+	"connect-provision-connector-request": "connect-provision-connector-request",
+	"connect-reject-connector-request": "connect-reject-connector-request",
 	"connect-revoke-all-tokens": "connect-revoke-all-tokens",
+	"connect-submit-connector-request": "connect-submit-connector-request",
 	"connect-update-connector": "connect-update-connector",
+	"connect-update-connector-request": "connect-update-connector-request",
 	"connect-update-trigger-destinations": "connect-update-trigger-destinations",
 	"connect-upsert-installation": "connect-upsert-installation",
+	"connect-withdraw-connector-request": "connect-withdraw-connector-request",
 	"custom-alert-created": "custom-alert-created",
 	"custom-alert-deleted": "custom-alert-deleted",
 	"custom-alert-updated": "custom-alert-updated",
@@ -18366,6 +18455,7 @@ export const listEventTypeReplacedByEnum = {
 	"vercel-app-installed": "vercel-app-installed",
 	"vercel-app-tokens-revoked": "vercel-app-tokens-revoked",
 	"vercel-app-uninstalled": "vercel-app-uninstalled",
+	"vercel-ci-repository-github-runners-updated": "vercel-ci-repository-github-runners-updated",
 	"vercel-ci-repository-settings-updated": "vercel-ci-repository-settings-updated",
 	"vercel-toolbar": "vercel-toolbar",
 	"vpc-peering-connection-accepted": "vpc-peering-connection-accepted",
@@ -21539,6 +21629,7 @@ export const authTokenScopesOriginEnum = {
 	apple: "apple",
 	bitbucket: "bitbucket",
 	chatgpt: "chatgpt",
+	claude: "claude",
 	email: "email",
 	emu: "emu",
 	github: "github",
@@ -21573,6 +21664,7 @@ export const authTokenScopesOriginEnum2 = {
 	apple: "apple",
 	bitbucket: "bitbucket",
 	chatgpt: "chatgpt",
+	claude: "claude",
 	email: "email",
 	emu: "emu",
 	github: "github",
@@ -22947,6 +23039,11 @@ export type VercelRateLimitError = {
 };
 
 export type ReadAccessGroupPath = {
+	/**
+	 * @example ag_1a2b3c4d5e6f7g8h9i0j
+	 * @example My Access Group
+	 * @type string
+	 */
 	idOrName: string;
 };
 
@@ -23866,7 +23963,16 @@ export type CreateAccessGroupProjectResponses = {
 export type CreateAccessGroupProjectResponse = CreateAccessGroupProjectStatus200;
 
 export type ReadAccessGroupProjectPath = {
+	/**
+	 * @example ag_1a2b3c4d5e6f7g8h9i0j
+	 * @example My Access Group
+	 * @type string
+	 */
 	accessGroupIdOrName: string;
+	/**
+	 * @example prj_ndlgr43fadlPyCtREAqxxdyFK
+	 * @type string
+	 */
 	projectId: string;
 };
 
@@ -23936,7 +24042,16 @@ export type ReadAccessGroupProjectResponses = {
 export type ReadAccessGroupProjectResponse = ReadAccessGroupProjectStatus200;
 
 export type UpdateAccessGroupProjectPath = {
+	/**
+	 * @example ag_1a2b3c4d5e6f7g8h9i0j
+	 * @example My Access Group
+	 * @type string
+	 */
 	accessGroupIdOrName: string;
+	/**
+	 * @example prj_ndlgr43fadlPyCtREAqxxdyFK
+	 * @type string
+	 */
 	projectId: string;
 };
 
@@ -24024,7 +24139,16 @@ export type UpdateAccessGroupProjectResponses = {
 export type UpdateAccessGroupProjectResponse = UpdateAccessGroupProjectStatus200;
 
 export type DeleteAccessGroupProjectPath = {
+	/**
+	 * @example ag_1a2b3c4d5e6f7g8h9i0j
+	 * @example My Access Group
+	 * @type string
+	 */
 	accessGroupIdOrName: string;
+	/**
+	 * @example prj_ndlgr43fadlPyCtREAqxxdyFK
+	 * @type string
+	 */
 	projectId: string;
 };
 
@@ -24175,7 +24299,7 @@ export type CreateAiGatewayByokCredentialBody =
 	| undefined;
 
 export type CreateAiGatewayByokCredentialOptions = {
-	body: CreateAiGatewayByokCredentialBody;
+	body?: CreateAiGatewayByokCredentialBody | undefined;
 	path?: never | undefined;
 	query?: CreateAiGatewayByokCredentialQuery | undefined;
 	headers?: never | undefined;
@@ -24466,7 +24590,7 @@ export type UpdateAiGatewayByokCredentialBody =
 	| undefined;
 
 export type UpdateAiGatewayByokCredentialOptions = {
-	body: UpdateAiGatewayByokCredentialBody;
+	body?: UpdateAiGatewayByokCredentialBody | undefined;
 	path: UpdateAiGatewayByokCredentialPath;
 	query?: UpdateAiGatewayByokCredentialQuery | undefined;
 	headers?: never | undefined;
@@ -25517,7 +25641,7 @@ export type UpsertAiGatewayBudgetBody =
 	| undefined;
 
 export type UpsertAiGatewayBudgetOptions = {
-	body: UpsertAiGatewayBudgetBody;
+	body?: UpsertAiGatewayBudgetBody | undefined;
 	path?: never | undefined;
 	query?: UpsertAiGatewayBudgetQuery | undefined;
 	headers?: never | undefined;
@@ -25747,7 +25871,7 @@ export type UpsertAiGatewayBudgetDefaultBody =
 	| undefined;
 
 export type UpsertAiGatewayBudgetDefaultOptions = {
-	body: UpsertAiGatewayBudgetDefaultBody;
+	body?: UpsertAiGatewayBudgetDefaultBody | undefined;
 	path?: never | undefined;
 	query?: UpsertAiGatewayBudgetDefaultQuery | undefined;
 	headers?: never | undefined;
@@ -28325,7 +28449,7 @@ export type StageRedirectsBody =
 	| undefined;
 
 export type StageRedirectsOptions = {
-	body: StageRedirectsBody;
+	body?: StageRedirectsBody | undefined;
 	path?: never | undefined;
 	query?: StageRedirectsQuery | undefined;
 	headers?: never | undefined;
@@ -28716,7 +28840,7 @@ export type DeleteRedirectsBody =
 	| undefined;
 
 export type DeleteRedirectsOptions = {
-	body: DeleteRedirectsBody;
+	body?: DeleteRedirectsBody | undefined;
 	path?: never | undefined;
 	query: DeleteRedirectsQuery;
 	headers?: never | undefined;
@@ -28837,7 +28961,7 @@ export type EditRedirectBody =
 	| undefined;
 
 export type EditRedirectOptions = {
-	body: EditRedirectBody;
+	body?: EditRedirectBody | undefined;
 	path?: never | undefined;
 	query: EditRedirectQuery;
 	headers?: never | undefined;
@@ -28946,7 +29070,7 @@ export type RestoreRedirectsBody =
 	| undefined;
 
 export type RestoreRedirectsOptions = {
-	body: RestoreRedirectsBody;
+	body?: RestoreRedirectsBody | undefined;
 	path?: never | undefined;
 	query: RestoreRedirectsQuery;
 	headers?: never | undefined;
@@ -29151,7 +29275,7 @@ export type UpdateVersionBody =
 	| undefined;
 
 export type UpdateVersionOptions = {
-	body: UpdateVersionBody;
+	body?: UpdateVersionBody | undefined;
 	path?: never | undefined;
 	query: UpdateVersionQuery;
 	headers?: never | undefined;
@@ -29501,7 +29625,7 @@ export type CreateProjectCheckBody =
 	| undefined;
 
 export type CreateProjectCheckOptions = {
-	body: CreateProjectCheckBody;
+	body?: CreateProjectCheckBody | undefined;
 	path: CreateProjectCheckPath;
 	query?: CreateProjectCheckQuery | undefined;
 	headers?: never | undefined;
@@ -29811,7 +29935,7 @@ export type UpdateProjectCheckBody =
 	| undefined;
 
 export type UpdateProjectCheckOptions = {
-	body: UpdateProjectCheckBody;
+	body?: UpdateProjectCheckBody | undefined;
 	path: UpdateProjectCheckPath;
 	query?: UpdateProjectCheckQuery | undefined;
 	headers?: never | undefined;
@@ -30781,7 +30905,7 @@ export type CreateDeploymentCheckRunBody =
 	| undefined;
 
 export type CreateDeploymentCheckRunOptions = {
-	body: CreateDeploymentCheckRunBody;
+	body?: CreateDeploymentCheckRunBody | undefined;
 	path: CreateDeploymentCheckRunPath;
 	query?: CreateDeploymentCheckRunQuery | undefined;
 	headers?: never | undefined;
@@ -31424,7 +31548,7 @@ export type UpdateDeploymentCheckRunBody =
 	| undefined;
 
 export type UpdateDeploymentCheckRunOptions = {
-	body: UpdateDeploymentCheckRunBody;
+	body?: UpdateDeploymentCheckRunBody | undefined;
 	path: UpdateDeploymentCheckRunPath;
 	query?: UpdateDeploymentCheckRunQuery | undefined;
 	headers?: never | undefined;
@@ -32409,7 +32533,7 @@ export type CreateNetworkBody =
 	| undefined;
 
 export type CreateNetworkOptions = {
-	body: CreateNetworkBody;
+	body?: CreateNetworkBody | undefined;
 	path?: never | undefined;
 	query?: CreateNetworkQuery | undefined;
 	headers?: never | undefined;
@@ -32542,7 +32666,7 @@ export type UpdateNetworkBody =
 	| undefined;
 
 export type UpdateNetworkOptions = {
-	body: UpdateNetworkBody;
+	body?: UpdateNetworkBody | undefined;
 	path: UpdateNetworkPath;
 	query?: UpdateNetworkQuery | undefined;
 	headers?: never | undefined;
@@ -32693,7 +32817,7 @@ export type CreatePrivateLinkEndpointBody =
 	| undefined;
 
 export type CreatePrivateLinkEndpointOptions = {
-	body: CreatePrivateLinkEndpointBody;
+	body?: CreatePrivateLinkEndpointBody | undefined;
 	path?: never | undefined;
 	query?: CreatePrivateLinkEndpointQuery | undefined;
 	headers?: never | undefined;
@@ -32980,7 +33104,7 @@ export type UpdatePrivateLinkEndpointBody =
 	| undefined;
 
 export type UpdatePrivateLinkEndpointOptions = {
-	body: UpdatePrivateLinkEndpointBody;
+	body?: UpdatePrivateLinkEndpointBody | undefined;
 	path: UpdatePrivateLinkEndpointPath;
 	query: UpdatePrivateLinkEndpointQuery;
 	headers?: never | undefined;
@@ -33455,7 +33579,7 @@ export type CreateConnectorStatus504 = unknown;
 export type CreateConnectorBody = ConnectCreateConnectorRequest | undefined;
 
 export type CreateConnectorOptions = {
-	body: CreateConnectorBody;
+	body?: CreateConnectorBody | undefined;
 	path?: never | undefined;
 	query?: CreateConnectorQuery | undefined;
 	headers?: never | undefined;
@@ -34526,7 +34650,7 @@ export type GetConnectorTokenBody =
 	| undefined;
 
 export type GetConnectorTokenOptions = {
-	body: GetConnectorTokenBody;
+	body?: GetConnectorTokenBody | undefined;
 	path: GetConnectorTokenPath;
 	query?: GetConnectorTokenQuery | undefined;
 	headers?: never | undefined;
@@ -34700,7 +34824,7 @@ export type CreateConnectorAuthorizationRequestBody =
 	| undefined;
 
 export type CreateConnectorAuthorizationRequestOptions = {
-	body: CreateConnectorAuthorizationRequestBody;
+	body?: CreateConnectorAuthorizationRequestBody | undefined;
 	path: CreateConnectorAuthorizationRequestPath;
 	query?: CreateConnectorAuthorizationRequestQuery | undefined;
 	headers?: never | undefined;
@@ -35012,7 +35136,7 @@ export type PutProjectDaemonInstancesBody =
 	| undefined;
 
 export type PutProjectDaemonInstancesOptions = {
-	body: PutProjectDaemonInstancesBody;
+	body?: PutProjectDaemonInstancesBody | undefined;
 	path: PutProjectDaemonInstancesPath;
 	query?: PutProjectDaemonInstancesQuery | undefined;
 	headers?: never | undefined;
@@ -35356,7 +35480,74 @@ export const getDeploymentEventsStatus200TypeEnum4 = {
 export type GetDeploymentEventsStatus200TypeEnum4Key =
 	(typeof getDeploymentEventsStatus200TypeEnum4)[keyof typeof getDeploymentEventsStatus200TypeEnum4];
 
-export type GetDeploymentEventsStatus200Json =
+export type GetDeploymentEventsStatus200Json = (
+	| {
+			created: number;
+			payload: {
+				created?: number | undefined;
+				date: number;
+				deploymentId: string;
+				id: string;
+				info?:
+					| {
+							entrypoint?: string | undefined;
+							name: string;
+							path?: string | undefined;
+							readyState?: string | undefined;
+							serviceName?: string | undefined;
+							step?: string | undefined;
+							type: string;
+					  }
+					| undefined;
+				proxy?:
+					| {
+							cacheId?: string | undefined;
+							clientIp?: string | undefined;
+							host: string;
+							lambdaRegion?: string | undefined;
+							method: string;
+							path?: string | undefined;
+							pathType?: string | undefined;
+							pathTypeVariant?: string | undefined;
+							referer?: string | undefined;
+							region?: string | undefined;
+							responseByteSize?: number | undefined;
+							scheme?: string | undefined;
+							statusCode?: number | undefined;
+							timestamp: number;
+							userAgent?: string[] | undefined;
+							vercelCache?: GetDeploymentEventsStatus200PayloadProxyVercelCacheEnumKey | undefined;
+							vercelId?: string | undefined;
+							wafAction?: GetDeploymentEventsStatus200PayloadProxyWafActionEnumKey | undefined;
+							wafRuleId?: string | undefined;
+					  }
+					| undefined;
+				requestId?: string | undefined;
+				serial: string;
+				statusCode?: number | undefined;
+				text?: string | undefined;
+			};
+			type: GetDeploymentEventsStatus200TypeEnumKey;
+	  }
+	| {
+			created: number;
+			date: number;
+			deploymentId: string;
+			id: string;
+			info: {
+				entrypoint?: string | undefined;
+				name: string;
+				path?: string | undefined;
+				readyState?: string | undefined;
+				serviceName?: string | undefined;
+				step?: string | undefined;
+				type: string;
+			};
+			level?: GetDeploymentEventsStatus200LevelEnumKey | undefined;
+			serial: string;
+			text?: string | undefined;
+			type: GetDeploymentEventsStatus200TypeEnum2Key;
+	  }
 	| (
 			| {
 					created: number;
@@ -35394,10 +35585,10 @@ export type GetDeploymentEventsStatus200Json =
 									timestamp: number;
 									userAgent?: string[] | undefined;
 									vercelCache?:
-										| GetDeploymentEventsStatus200PayloadProxyVercelCacheEnumKey
+										| GetDeploymentEventsStatus200PayloadProxyVercelCacheEnum2Key
 										| undefined;
 									vercelId?: string | undefined;
-									wafAction?: GetDeploymentEventsStatus200PayloadProxyWafActionEnumKey | undefined;
+									wafAction?: GetDeploymentEventsStatus200PayloadProxyWafActionEnum2Key | undefined;
 									wafRuleId?: string | undefined;
 							  }
 							| undefined;
@@ -35406,7 +35597,7 @@ export type GetDeploymentEventsStatus200Json =
 						statusCode?: number | undefined;
 						text?: string | undefined;
 					};
-					type: GetDeploymentEventsStatus200TypeEnumKey;
+					type: GetDeploymentEventsStatus200TypeEnum3Key;
 			  }
 			| {
 					created: number;
@@ -35422,102 +35613,29 @@ export type GetDeploymentEventsStatus200Json =
 						step?: string | undefined;
 						type: string;
 					};
-					level?: GetDeploymentEventsStatus200LevelEnumKey | undefined;
+					level?: GetDeploymentEventsStatus200LevelEnum2Key | undefined;
 					serial: string;
 					text?: string | undefined;
-					type: GetDeploymentEventsStatus200TypeEnum2Key;
+					type: GetDeploymentEventsStatus200TypeEnum4Key;
 			  }
-			| (
-					| {
-							created: number;
-							payload: {
-								created?: number | undefined;
-								date: number;
-								deploymentId: string;
-								id: string;
-								info?:
-									| {
-											entrypoint?: string | undefined;
-											name: string;
-											path?: string | undefined;
-											readyState?: string | undefined;
-											serviceName?: string | undefined;
-											step?: string | undefined;
-											type: string;
-									  }
-									| undefined;
-								proxy?:
-									| {
-											cacheId?: string | undefined;
-											clientIp?: string | undefined;
-											host: string;
-											lambdaRegion?: string | undefined;
-											method: string;
-											path?: string | undefined;
-											pathType?: string | undefined;
-											pathTypeVariant?: string | undefined;
-											referer?: string | undefined;
-											region?: string | undefined;
-											responseByteSize?: number | undefined;
-											scheme?: string | undefined;
-											statusCode?: number | undefined;
-											timestamp: number;
-											userAgent?: string[] | undefined;
-											vercelCache?:
-												| GetDeploymentEventsStatus200PayloadProxyVercelCacheEnum2Key
-												| undefined;
-											vercelId?: string | undefined;
-											wafAction?:
-												| GetDeploymentEventsStatus200PayloadProxyWafActionEnum2Key
-												| undefined;
-											wafRuleId?: string | undefined;
-									  }
-									| undefined;
-								requestId?: string | undefined;
-								serial: string;
-								statusCode?: number | undefined;
-								text?: string | undefined;
-							};
-							type: GetDeploymentEventsStatus200TypeEnum3Key;
-					  }
-					| {
-							created: number;
-							date: number;
-							deploymentId: string;
-							id: string;
-							info: {
-								entrypoint?: string | undefined;
-								name: string;
-								path?: string | undefined;
-								readyState?: string | undefined;
-								serviceName?: string | undefined;
-								step?: string | undefined;
-								type: string;
-							};
-							level?: GetDeploymentEventsStatus200LevelEnum2Key | undefined;
-							serial: string;
-							text?: string | undefined;
-							type: GetDeploymentEventsStatus200TypeEnum4Key;
-					  }
-					| {
-							date: number;
-							deploymentId: string;
-							type: "alias-assigned";
-							alias: string[];
-							aliasError: {
-								code: string;
-								message: string;
-							} | null;
-							aliasWarning: {
-								action?: string | undefined;
-								code: string;
-								link?: string | undefined;
-								message: string;
-							} | null;
-					  }
-			  )
-	  )[]
-	| null;
+			| {
+					date: number;
+					deploymentId: string;
+					type: "alias-assigned";
+					alias: string[];
+					aliasError: {
+						code: string;
+						message: string;
+					} | null;
+					aliasWarning: {
+						action?: string | undefined;
+						code: string;
+						link?: string | undefined;
+						message: string;
+					} | null;
+			  }
+	  )
+)[];
 
 export const getDeploymentEventsStatus200PayloadProxyVercelCacheEnum3 = {
 	BYPASS: "BYPASS",
@@ -35929,7 +36047,7 @@ export type UpdateIntegrationDeploymentActionBody =
 									 * @type object
 									 */
 									claims: {
-										[key: string]: (string | number | boolean) | string[];
+										[key: string]: ((string | number | boolean) | null) | string[];
 									};
 								}[];
 						  }
@@ -35939,7 +36057,7 @@ export type UpdateIntegrationDeploymentActionBody =
 	| undefined;
 
 export type UpdateIntegrationDeploymentActionOptions = {
-	body: UpdateIntegrationDeploymentActionBody;
+	body?: UpdateIntegrationDeploymentActionBody | undefined;
 	path: UpdateIntegrationDeploymentActionPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -52815,7 +52933,7 @@ export type CreateOrTransferDomainBody =
 	| undefined;
 
 export type CreateOrTransferDomainOptions = {
-	body: CreateOrTransferDomainBody;
+	body?: CreateOrTransferDomainBody | undefined;
 	path?: never | undefined;
 	query?: CreateOrTransferDomainQuery | undefined;
 	headers?: never | undefined;
@@ -55072,7 +55190,7 @@ export type CreateDrainBody =
 	| undefined;
 
 export type CreateDrainOptions = {
-	body: CreateDrainBody;
+	body?: CreateDrainBody | undefined;
 	path?: never | undefined;
 	query?: CreateDrainQuery | undefined;
 	headers?: never | undefined;
@@ -57136,7 +57254,7 @@ export type UpdateDrainBody =
 	| undefined;
 
 export type UpdateDrainOptions = {
-	body: UpdateDrainBody;
+	body?: UpdateDrainBody | undefined;
 	path: UpdateDrainPath;
 	query?: UpdateDrainQuery | undefined;
 	headers?: never | undefined;
@@ -57299,7 +57417,7 @@ export type TestDrainBody =
 	| undefined;
 
 export type TestDrainOptions = {
-	body: TestDrainBody;
+	body?: TestDrainBody | undefined;
 	path?: never | undefined;
 	query?: TestDrainQuery | undefined;
 	headers?: never | undefined;
@@ -57690,7 +57808,7 @@ export type GetOrCreateDriveV1Body =
 	| undefined;
 
 export type GetOrCreateDriveV1Options = {
-	body: GetOrCreateDriveV1Body;
+	body?: GetOrCreateDriveV1Body | undefined;
 	path: GetOrCreateDriveV1Path;
 	query?: GetOrCreateDriveV1Query | undefined;
 	headers?: never | undefined;
@@ -57787,7 +57905,7 @@ export type ForkDriveV1Body =
 	| undefined;
 
 export type ForkDriveV1Options = {
-	body: ForkDriveV1Body;
+	body?: ForkDriveV1Body | undefined;
 	path: ForkDriveV1Path;
 	query?: ForkDriveV1Query | undefined;
 	headers?: never | undefined;
@@ -57855,7 +57973,7 @@ export type InvalidateByTagsBody =
 	| undefined;
 
 export type InvalidateByTagsOptions = {
-	body: InvalidateByTagsBody;
+	body?: InvalidateByTagsBody | undefined;
 	path?: never | undefined;
 	query: InvalidateByTagsQuery;
 	headers?: never | undefined;
@@ -57925,7 +58043,7 @@ export type DangerouslyDeleteByTagsBody =
 	| undefined;
 
 export type DangerouslyDeleteByTagsOptions = {
-	body: DangerouslyDeleteByTagsBody;
+	body?: DangerouslyDeleteByTagsBody | undefined;
 	path?: never | undefined;
 	query: DangerouslyDeleteByTagsQuery;
 	headers?: never | undefined;
@@ -57982,7 +58100,7 @@ export type InvalidateBySrcImagesBody =
 	| undefined;
 
 export type InvalidateBySrcImagesOptions = {
-	body: InvalidateBySrcImagesBody;
+	body?: InvalidateBySrcImagesBody | undefined;
 	path?: never | undefined;
 	query: InvalidateBySrcImagesQuery;
 	headers?: never | undefined;
@@ -58046,7 +58164,7 @@ export type DangerouslyDeleteBySrcImagesBody =
 	| undefined;
 
 export type DangerouslyDeleteBySrcImagesOptions = {
-	body: DangerouslyDeleteBySrcImagesBody;
+	body?: DangerouslyDeleteBySrcImagesBody | undefined;
 	path?: never | undefined;
 	query: DangerouslyDeleteBySrcImagesQuery;
 	headers?: never | undefined;
@@ -58628,7 +58746,7 @@ export type PatchEdgeConfigItemsBody =
 	| undefined;
 
 export type PatchEdgeConfigItemsOptions = {
-	body: PatchEdgeConfigItemsBody;
+	body?: PatchEdgeConfigItemsBody | undefined;
 	path: PatchEdgeConfigItemsPath;
 	query?: PatchEdgeConfigItemsQuery | undefined;
 	headers?: never | undefined;
@@ -59739,7 +59857,7 @@ export type CreateSharedEnvVariableBody =
 	| undefined;
 
 export type CreateSharedEnvVariableOptions = {
-	body: CreateSharedEnvVariableBody;
+	body?: CreateSharedEnvVariableBody | undefined;
 	path?: never | undefined;
 	query?: CreateSharedEnvVariableQuery | undefined;
 	headers?: never | undefined;
@@ -60312,7 +60430,7 @@ export type UpdateSharedEnvVariableBody =
 	| undefined;
 
 export type UpdateSharedEnvVariableOptions = {
-	body: UpdateSharedEnvVariableBody;
+	body?: UpdateSharedEnvVariableBody | undefined;
 	path?: never | undefined;
 	query?: UpdateSharedEnvVariableQuery | undefined;
 	headers?: never | undefined;
@@ -60423,7 +60541,7 @@ export type DeleteSharedEnvVariableBody =
 	| undefined;
 
 export type DeleteSharedEnvVariableOptions = {
-	body: DeleteSharedEnvVariableBody;
+	body?: DeleteSharedEnvVariableBody | undefined;
 	path?: never | undefined;
 	query?: DeleteSharedEnvVariableQuery | undefined;
 	headers?: never | undefined;
@@ -61751,7 +61869,7 @@ export type CreateFlagBody =
 	| undefined;
 
 export type CreateFlagOptions = {
-	body: CreateFlagBody;
+	body?: CreateFlagBody | undefined;
 	path: CreateFlagPath;
 	query?: CreateFlagQuery | undefined;
 	headers?: never | undefined;
@@ -62521,7 +62639,7 @@ export type UpdateFlagBody =
 	| undefined;
 
 export type UpdateFlagOptions = {
-	body: UpdateFlagBody;
+	body?: UpdateFlagBody | undefined;
 	path: UpdateFlagPath;
 	query?: UpdateFlagQuery | undefined;
 	headers?: never | undefined;
@@ -63195,7 +63313,7 @@ export type UpdateFlagSettingsBody =
 	| undefined;
 
 export type UpdateFlagSettingsOptions = {
-	body: UpdateFlagSettingsBody;
+	body?: UpdateFlagSettingsBody | undefined;
 	path: UpdateFlagSettingsPath;
 	query?: UpdateFlagSettingsQuery | undefined;
 	headers?: never | undefined;
@@ -63465,7 +63583,7 @@ export type LookupFlagLabelsBody =
 	| undefined;
 
 export type LookupFlagLabelsOptions = {
-	body: LookupFlagLabelsBody;
+	body?: LookupFlagLabelsBody | undefined;
 	path: LookupFlagLabelsPath;
 	query?: LookupFlagLabelsQuery | undefined;
 	headers?: never | undefined;
@@ -64147,7 +64265,7 @@ export type CreateFlagSegmentBody =
 	| undefined;
 
 export type CreateFlagSegmentOptions = {
-	body: CreateFlagSegmentBody;
+	body?: CreateFlagSegmentBody | undefined;
 	path: CreateFlagSegmentPath;
 	query?: CreateFlagSegmentQuery | undefined;
 	headers?: never | undefined;
@@ -64740,7 +64858,7 @@ export type UpdateFlagSegmentBody =
 	| undefined;
 
 export type UpdateFlagSegmentOptions = {
-	body: UpdateFlagSegmentBody;
+	body?: UpdateFlagSegmentBody | undefined;
 	path: UpdateFlagSegmentPath;
 	query?: UpdateFlagSegmentQuery | undefined;
 	headers?: never | undefined;
@@ -64977,7 +65095,7 @@ export type CreateSdkKeyBody =
 	| undefined;
 
 export type CreateSdkKeyOptions = {
-	body: CreateSdkKeyBody;
+	body?: CreateSdkKeyBody | undefined;
 	path: CreateSdkKeyPath;
 	query?: CreateSdkKeyQuery | undefined;
 	headers?: never | undefined;
@@ -65208,7 +65326,7 @@ export type CreateFlagsProjectConnectionBody =
 	| undefined;
 
 export type CreateFlagsProjectConnectionOptions = {
-	body: CreateFlagsProjectConnectionBody;
+	body?: CreateFlagsProjectConnectionBody | undefined;
 	path: CreateFlagsProjectConnectionPath;
 	query?: CreateFlagsProjectConnectionQuery | undefined;
 	headers?: never | undefined;
@@ -65728,7 +65846,7 @@ export type ConnectIntegrationResourceToProjectBody =
 	| undefined;
 
 export type ConnectIntegrationResourceToProjectOptions = {
-	body: ConnectIntegrationResourceToProjectBody;
+	body?: ConnectIntegrationResourceToProjectBody | undefined;
 	path: ConnectIntegrationResourceToProjectPath;
 	query?: ConnectIntegrationResourceToProjectQuery | undefined;
 	headers?: never | undefined;
@@ -65846,7 +65964,7 @@ export type UpdateInstallationBody =
 	| undefined;
 
 export type UpdateInstallationOptions = {
-	body: UpdateInstallationBody;
+	body?: UpdateInstallationBody | undefined;
 	path: UpdateInstallationPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -66012,7 +66130,7 @@ export type RotateInstallationCredentialBody =
 	| undefined;
 
 export type RotateInstallationCredentialOptions = {
-	body: RotateInstallationCredentialBody;
+	body?: RotateInstallationCredentialBody | undefined;
 	path: RotateInstallationCredentialPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -66071,7 +66189,7 @@ export type RevokeInstallationCredentialBody =
 	| undefined;
 
 export type RevokeInstallationCredentialOptions = {
-	body: RevokeInstallationCredentialBody;
+	body?: RevokeInstallationCredentialBody | undefined;
 	path: RevokeInstallationCredentialPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -66703,7 +66821,7 @@ export type ImportResourceBody =
 									 * @type object
 									 */
 									claims: {
-										[key: string]: (string | number | boolean) | string[];
+										[key: string]: ((string | number | boolean) | null) | string[];
 									};
 							  }[]
 							| undefined;
@@ -66713,7 +66831,7 @@ export type ImportResourceBody =
 	| undefined;
 
 export type ImportResourceOptions = {
-	body: ImportResourceBody;
+	body?: ImportResourceBody | undefined;
 	path: ImportResourcePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -66966,7 +67084,7 @@ export type UpdateResourceBody =
 									 * @type object
 									 */
 									claims: {
-										[key: string]: (string | number | boolean) | string[];
+										[key: string]: ((string | number | boolean) | null) | string[];
 									};
 							  }[]
 							| undefined;
@@ -66981,7 +67099,7 @@ export type UpdateResourceBody =
 	| undefined;
 
 export type UpdateResourceOptions = {
-	body: UpdateResourceBody;
+	body?: UpdateResourceBody | undefined;
 	path: UpdateResourcePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -67873,7 +67991,7 @@ export type SubmitPrepaymentBalancesBody =
 	| undefined;
 
 export type SubmitPrepaymentBalancesOptions = {
-	body: SubmitPrepaymentBalancesBody;
+	body?: SubmitPrepaymentBalancesBody | undefined;
 	path: SubmitPrepaymentBalancesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -68033,7 +68151,7 @@ export type UpdateResourceSecretsByIdBody =
 	| undefined;
 
 export type UpdateResourceSecretsByIdOptions = {
-	body: UpdateResourceSecretsByIdBody;
+	body?: UpdateResourceSecretsByIdBody | undefined;
 	path: UpdateResourceSecretsByIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -70935,7 +71053,7 @@ export type CreateApiKeysBody =
 	| undefined;
 
 export type CreateApiKeysOptions = {
-	body: CreateApiKeysBody;
+	body?: CreateApiKeysBody | undefined;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -71076,7 +71194,7 @@ export type UpdateApiKeyQuotaBody =
 	| undefined;
 
 export type UpdateApiKeyQuotaOptions = {
-	body: UpdateApiKeyQuotaBody;
+	body?: UpdateApiKeyQuotaBody | undefined;
 	path: UpdateApiKeyQuotaPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -71152,7 +71270,7 @@ export type SignKmsMessageBody =
 	| undefined;
 
 export type SignKmsMessageOptions = {
-	body: SignKmsMessageBody;
+	body?: SignKmsMessageBody | undefined;
 	path: SignKmsMessagePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -71235,7 +71353,7 @@ export type SignKmsTokenBody =
 	| undefined;
 
 export type SignKmsTokenOptions = {
-	body: SignKmsTokenBody;
+	body?: SignKmsTokenBody | undefined;
 	path: SignKmsTokenPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -71770,7 +71888,7 @@ export type CreateKmsIssuerBody =
 	| undefined;
 
 export type CreateKmsIssuerOptions = {
-	body: CreateKmsIssuerBody;
+	body?: CreateKmsIssuerBody | undefined;
 	path?: never | undefined;
 	query?: CreateKmsIssuerQuery | undefined;
 	headers?: never | undefined;
@@ -71931,7 +72049,7 @@ export type CreateKmsSigningKeyBody =
 	| undefined;
 
 export type CreateKmsSigningKeyOptions = {
-	body: CreateKmsSigningKeyBody;
+	body?: CreateKmsSigningKeyBody | undefined;
 	path: CreateKmsSigningKeyPath;
 	query?: CreateKmsSigningKeyQuery | undefined;
 	headers?: never | undefined;
@@ -72068,7 +72186,7 @@ export type ActivateKmsSigningKeyBody =
 	| undefined;
 
 export type ActivateKmsSigningKeyOptions = {
-	body: ActivateKmsSigningKeyBody;
+	body?: ActivateKmsSigningKeyBody | undefined;
 	path: ActivateKmsSigningKeyPath;
 	query?: ActivateKmsSigningKeyQuery | undefined;
 	headers?: never | undefined;
@@ -72714,7 +72832,7 @@ export type UpdateKmsIssuerBody =
 	| undefined;
 
 export type UpdateKmsIssuerOptions = {
-	body: UpdateKmsIssuerBody;
+	body?: UpdateKmsIssuerBody | undefined;
 	path: UpdateKmsIssuerPath;
 	query?: UpdateKmsIssuerQuery | undefined;
 	headers?: never | undefined;
@@ -72890,7 +73008,7 @@ export type CreateKmsIssuerPolicyBody =
 	| undefined;
 
 export type CreateKmsIssuerPolicyOptions = {
-	body: CreateKmsIssuerPolicyBody;
+	body?: CreateKmsIssuerPolicyBody | undefined;
 	path: CreateKmsIssuerPolicyPath;
 	query?: CreateKmsIssuerPolicyQuery | undefined;
 	headers?: never | undefined;
@@ -73014,7 +73132,7 @@ export type UpdateKmsIssuerPolicyBody =
 	| undefined;
 
 export type UpdateKmsIssuerPolicyOptions = {
-	body: UpdateKmsIssuerPolicyBody;
+	body?: UpdateKmsIssuerPolicyBody | undefined;
 	path: UpdateKmsIssuerPolicyPath;
 	query?: UpdateKmsIssuerPolicyQuery | undefined;
 	headers?: never | undefined;
@@ -73243,7 +73361,9 @@ export type CreateInstallationsByIntegrationConfigurationIdResourcesByResourceId
 
 export type CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsOptions =
 	{
-		body: CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsBody;
+		body?:
+			| CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsBody
+			| undefined;
 		path: CreateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsPath;
 		query?: never | undefined;
 		headers?: never | undefined;
@@ -73332,7 +73452,9 @@ export type UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceId
 
 export type UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdOptions =
 	{
-		body: UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdBody;
+		body?:
+			| UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdBody
+			| undefined;
 		path: UpdateInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationItemsByItemIdPath;
 		query?: never | undefined;
 		headers?: never | undefined;
@@ -73583,7 +73705,9 @@ export type ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceI
 
 export type ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigOptions =
 	{
-		body: ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigBody;
+		body?:
+			| ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigBody
+			| undefined;
 		path: ReplaceInstallationsByIntegrationConfigurationIdResourcesByResourceIdExperimentationGlobalConfigPath;
 		query?: never | undefined;
 		headers?: never | undefined;
@@ -74584,6 +74708,14 @@ export const readySubstateEnum = {
 } as const;
 
 export type ReadySubstateEnumKey = (typeof readySubstateEnum)[keyof typeof readySubstateEnum];
+
+export const getMicrofrontendsInGroupStatus200ProjectsTierEnum = {
+	critical: "critical",
+	priority: "priority",
+} as const;
+
+export type GetMicrofrontendsInGroupStatus200ProjectsTierEnumKey =
+	(typeof getMicrofrontendsInGroupStatus200ProjectsTierEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsTierEnum];
 
 export const getMicrofrontendsInGroupStatus200ProjectsTracingSamplingRulesDestinationEnum = {
 	external: "external",
@@ -78050,7 +78182,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					};
 			  }
 			| undefined;
-		tier?: "priority" | undefined;
+		tier?: GetMicrofrontendsInGroupStatus200ProjectsTierEnumKey | undefined;
 		tracing?:
 			| {
 					domains?: string | undefined;
@@ -78697,7 +78829,7 @@ export type CreateMicrofrontendsGroupWithApplicationsBody =
 	| undefined;
 
 export type CreateMicrofrontendsGroupWithApplicationsOptions = {
-	body: CreateMicrofrontendsGroupWithApplicationsBody;
+	body?: CreateMicrofrontendsGroupWithApplicationsBody | undefined;
 	path?: never | undefined;
 	query?: CreateMicrofrontendsGroupWithApplicationsQuery | undefined;
 	headers?: never | undefined;
@@ -78825,7 +78957,7 @@ export type UpdateObservabilityConfigurationProjectBody =
 	| undefined;
 
 export type UpdateObservabilityConfigurationProjectOptions = {
-	body: UpdateObservabilityConfigurationProjectBody;
+	body?: UpdateObservabilityConfigurationProjectBody | undefined;
 	path: UpdateObservabilityConfigurationProjectPath;
 	query?: UpdateObservabilityConfigurationProjectQuery | undefined;
 	headers?: never | undefined;
@@ -78946,7 +79078,7 @@ export type CreateObservabilityQueryBody =
 	| undefined;
 
 export type CreateObservabilityQueryOptions = {
-	body: CreateObservabilityQueryBody;
+	body?: CreateObservabilityQueryBody | undefined;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -79108,7 +79240,7 @@ export type CreateOrganizationBody =
 	| undefined;
 
 export type CreateOrganizationOptions = {
-	body: CreateOrganizationBody;
+	body?: CreateOrganizationBody | undefined;
 	path?: never | undefined;
 	query?: CreateOrganizationQuery | undefined;
 	headers?: never | undefined;
@@ -79266,7 +79398,7 @@ export type UpdateOrganizationBody =
 	| undefined;
 
 export type UpdateOrganizationOptions = {
-	body: UpdateOrganizationBody;
+	body?: UpdateOrganizationBody | undefined;
 	path: UpdateOrganizationPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -79437,7 +79569,7 @@ export type AddOrganizationTeamBody =
 	| undefined;
 
 export type AddOrganizationTeamOptions = {
-	body: AddOrganizationTeamBody;
+	body?: AddOrganizationTeamBody | undefined;
 	path: AddOrganizationTeamPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -81240,7 +81372,7 @@ export type StageRoutesBody =
 	| undefined;
 
 export type StageRoutesOptions = {
-	body: StageRoutesBody;
+	body?: StageRoutesBody | undefined;
 	path: StageRoutesPath;
 	query?: StageRoutesQuery | undefined;
 	headers?: never | undefined;
@@ -81781,7 +81913,7 @@ export type AddRouteBody =
 	| undefined;
 
 export type AddRouteOptions = {
-	body: AddRouteBody;
+	body?: AddRouteBody | undefined;
 	path: AddRoutePath;
 	query?: AddRouteQuery | undefined;
 	headers?: never | undefined;
@@ -81897,7 +82029,7 @@ export type DeleteRoutesBody =
 	| undefined;
 
 export type DeleteRoutesOptions = {
-	body: DeleteRoutesBody;
+	body?: DeleteRoutesBody | undefined;
 	path: DeleteRoutesPath;
 	query?: DeleteRoutesQuery | undefined;
 	headers?: never | undefined;
@@ -82424,7 +82556,7 @@ export type EditRouteBody =
 	| undefined;
 
 export type EditRouteOptions = {
-	body: EditRouteBody;
+	body?: EditRouteBody | undefined;
 	path: EditRoutePath;
 	query?: EditRouteQuery | undefined;
 	headers?: never | undefined;
@@ -82617,7 +82749,7 @@ export type GenerateRouteBody =
 	| undefined;
 
 export type GenerateRouteOptions = {
-	body: GenerateRouteBody;
+	body?: GenerateRouteBody | undefined;
 	path: GenerateRoutePath;
 	query?: GenerateRouteQuery | undefined;
 	headers?: never | undefined;
@@ -82833,7 +82965,7 @@ export type UpdateRouteVersionsBody =
 	| undefined;
 
 export type UpdateRouteVersionsOptions = {
-	body: UpdateRouteVersionsBody;
+	body?: UpdateRouteVersionsBody | undefined;
 	path: UpdateRouteVersionsPath;
 	query?: UpdateRouteVersionsQuery | undefined;
 	headers?: never | undefined;
@@ -83634,6 +83766,14 @@ export const readySubstateEnum2 = {
 
 export type ReadySubstateEnum2Key = (typeof readySubstateEnum2)[keyof typeof readySubstateEnum2];
 
+export const getProjectsStatus200TierEnum = {
+	critical: "critical",
+	priority: "priority",
+} as const;
+
+export type GetProjectsStatus200TierEnumKey =
+	(typeof getProjectsStatus200TierEnum)[keyof typeof getProjectsStatus200TierEnum];
+
 export const getProjectsStatus200ProjectsAliasConfiguredByEnum = {
 	A: "A",
 	CNAME: "CNAME",
@@ -84277,6 +84417,14 @@ export const readySubstateEnum3 = {
 } as const;
 
 export type ReadySubstateEnum3Key = (typeof readySubstateEnum3)[keyof typeof readySubstateEnum3];
+
+export const getProjectsStatus200ProjectsTierEnum = {
+	critical: "critical",
+	priority: "priority",
+} as const;
+
+export type GetProjectsStatus200ProjectsTierEnumKey =
+	(typeof getProjectsStatus200ProjectsTierEnum)[keyof typeof getProjectsStatus200ProjectsTierEnum];
 
 export const getProjectsStatus200ProjectsAliasConfiguredByEnum2 = {
 	A: "A",
@@ -85171,6 +85319,14 @@ export const readySubstateEnum4 = {
 } as const;
 
 export type ReadySubstateEnum4Key = (typeof readySubstateEnum4)[keyof typeof readySubstateEnum4];
+
+export const getProjectsStatus200ProjectsTierEnum2 = {
+	critical: "critical",
+	priority: "priority",
+} as const;
+
+export type GetProjectsStatus200ProjectsTierEnum2Key =
+	(typeof getProjectsStatus200ProjectsTierEnum2)[keyof typeof getProjectsStatus200ProjectsTierEnum2];
 
 export const getProjectsStatus200ProjectsTracingSamplingRulesDestinationEnum = {
 	external: "external",
@@ -86574,7 +86730,7 @@ export type GetProjectsStatus200 =
 								};
 						  }
 						| undefined;
-					tier?: "priority" | undefined;
+					tier?: GetProjectsStatus200TierEnumKey | undefined;
 					transferCompletedAt?: number | undefined;
 					transferredFromAccountId?: string | undefined;
 					transferStartedAt?: number | undefined;
@@ -88064,7 +88220,7 @@ export type GetProjectsStatus200 =
 									};
 							  }
 							| undefined;
-						tier?: "priority" | undefined;
+						tier?: GetProjectsStatus200ProjectsTierEnumKey | undefined;
 						transferCompletedAt?: number | undefined;
 						transferredFromAccountId?: string | undefined;
 						transferStartedAt?: number | undefined;
@@ -91593,7 +91749,7 @@ export type GetProjectsStatus200 =
 									};
 							  }
 							| undefined;
-						tier?: "priority" | undefined;
+						tier?: GetProjectsStatus200ProjectsTierEnum2Key | undefined;
 						tracing?:
 							| {
 									domains?: string | undefined;
@@ -92824,6 +92980,14 @@ export const readySubstateEnum5 = {
 } as const;
 
 export type ReadySubstateEnum5Key = (typeof readySubstateEnum5)[keyof typeof readySubstateEnum5];
+
+export const createProjectStatus200TierEnum = {
+	critical: "critical",
+	priority: "priority",
+} as const;
+
+export type CreateProjectStatus200TierEnumKey =
+	(typeof createProjectStatus200TierEnum)[keyof typeof createProjectStatus200TierEnum];
 
 export const createProjectStatus200TracingSamplingRulesDestinationEnum = {
 	external: "external",
@@ -96249,7 +96413,7 @@ export type CreateProjectStatus200 = {
 				};
 		  }
 		| undefined;
-	tier?: "priority" | undefined;
+	tier?: CreateProjectStatus200TierEnumKey | undefined;
 	tracing?:
 		| {
 				domains?: string | undefined;
@@ -96980,7 +97144,7 @@ export type CreateProjectBody =
 	| undefined;
 
 export type CreateProjectOptions = {
-	body: CreateProjectBody;
+	body?: CreateProjectBody | undefined;
 	path?: never | undefined;
 	query?: CreateProjectQuery | undefined;
 	headers?: never | undefined;
@@ -97057,7 +97221,7 @@ export type GetProjectTokenBody =
 	| undefined;
 
 export type GetProjectTokenOptions = {
-	body: GetProjectTokenBody;
+	body?: GetProjectTokenBody | undefined;
 	path: GetProjectTokenPath;
 	query?: GetProjectTokenQuery | undefined;
 	headers?: never | undefined;
@@ -97124,7 +97288,7 @@ export type CreateTraceSessionBody =
 	| undefined;
 
 export type CreateTraceSessionOptions = {
-	body: CreateTraceSessionBody;
+	body?: CreateTraceSessionBody | undefined;
 	path?: never | undefined;
 	query?: CreateTraceSessionQuery | undefined;
 	headers?: never | undefined;
@@ -98064,6 +98228,14 @@ export const readySubstateEnum6 = {
 } as const;
 
 export type ReadySubstateEnum6Key = (typeof readySubstateEnum6)[keyof typeof readySubstateEnum6];
+
+export const getProjectStatus200TierEnum = {
+	critical: "critical",
+	priority: "priority",
+} as const;
+
+export type GetProjectStatus200TierEnumKey =
+	(typeof getProjectStatus200TierEnum)[keyof typeof getProjectStatus200TierEnum];
 
 export const getProjectStatus200TracingSamplingRulesDestinationEnum = {
 	external: "external",
@@ -101502,7 +101674,7 @@ export type GetProjectStatus200 = {
 				};
 		  }
 		| undefined;
-	tier?: "priority" | undefined;
+	tier?: GetProjectStatus200TierEnumKey | undefined;
 	tracing?:
 		| {
 				domains?: string | undefined;
@@ -102618,6 +102790,14 @@ export const readySubstateEnum7 = {
 } as const;
 
 export type ReadySubstateEnum7Key = (typeof readySubstateEnum7)[keyof typeof readySubstateEnum7];
+
+export const updateProjectStatus200TierEnum = {
+	critical: "critical",
+	priority: "priority",
+} as const;
+
+export type UpdateProjectStatus200TierEnumKey =
+	(typeof updateProjectStatus200TierEnum)[keyof typeof updateProjectStatus200TierEnum];
 
 export const updateProjectStatus200TracingSamplingRulesDestinationEnum = {
 	external: "external",
@@ -106041,7 +106221,7 @@ export type UpdateProjectStatus200 = {
 				};
 		  }
 		| undefined;
-	tier?: "priority" | undefined;
+	tier?: UpdateProjectStatus200TierEnumKey | undefined;
 	tracing?:
 		| {
 				domains?: string | undefined;
@@ -108218,6 +108398,14 @@ export const readySubstateEnum8 = {
 } as const;
 
 export type ReadySubstateEnum8Key = (typeof readySubstateEnum8)[keyof typeof readySubstateEnum8];
+
+export const uploadProjectAvatarStatus200TierEnum = {
+	critical: "critical",
+	priority: "priority",
+} as const;
+
+export type UploadProjectAvatarStatus200TierEnumKey =
+	(typeof uploadProjectAvatarStatus200TierEnum)[keyof typeof uploadProjectAvatarStatus200TierEnum];
 
 export const uploadProjectAvatarStatus200TracingSamplingRulesDestinationEnum = {
 	external: "external",
@@ -111658,7 +111846,7 @@ export type UploadProjectAvatarStatus200 = {
 				};
 		  }
 		| undefined;
-	tier?: "priority" | undefined;
+	tier?: UploadProjectAvatarStatus200TierEnumKey | undefined;
 	tracing?:
 		| {
 				domains?: string | undefined;
@@ -111855,7 +112043,7 @@ export type UploadProjectAvatarStatus415 = unknown;
 export type UploadProjectAvatarBody = Blob | undefined;
 
 export type UploadProjectAvatarOptions = {
-	body: UploadProjectAvatarBody;
+	body?: UploadProjectAvatarBody | undefined;
 	path: UploadProjectAvatarPath;
 	query?: UploadProjectAvatarQuery | undefined;
 	headers?: never | undefined;
@@ -112793,6 +112981,14 @@ export const readySubstateEnum9 = {
 } as const;
 
 export type ReadySubstateEnum9Key = (typeof readySubstateEnum9)[keyof typeof readySubstateEnum9];
+
+export const deleteProjectAvatarStatus200TierEnum = {
+	critical: "critical",
+	priority: "priority",
+} as const;
+
+export type DeleteProjectAvatarStatus200TierEnumKey =
+	(typeof deleteProjectAvatarStatus200TierEnum)[keyof typeof deleteProjectAvatarStatus200TierEnum];
 
 export const deleteProjectAvatarStatus200TracingSamplingRulesDestinationEnum = {
 	external: "external",
@@ -116233,7 +116429,7 @@ export type DeleteProjectAvatarStatus200 = {
 				};
 		  }
 		| undefined;
-	tier?: "priority" | undefined;
+	tier?: DeleteProjectAvatarStatus200TierEnumKey | undefined;
 	tracing?:
 		| {
 				domains?: string | undefined;
@@ -116530,7 +116726,7 @@ export type UpdateStaticIpsBody =
 	| undefined;
 
 export type UpdateStaticIpsOptions = {
-	body: UpdateStaticIpsBody;
+	body?: UpdateStaticIpsBody | undefined;
 	path: UpdateStaticIpsPath;
 	query?: UpdateStaticIpsQuery | undefined;
 	headers?: never | undefined;
@@ -116767,7 +116963,7 @@ export type CreateCustomEnvironmentBody =
 	| undefined;
 
 export type CreateCustomEnvironmentOptions = {
-	body: CreateCustomEnvironmentBody;
+	body?: CreateCustomEnvironmentBody | undefined;
 	path: CreateCustomEnvironmentPath;
 	query?: CreateCustomEnvironmentQuery | undefined;
 	headers?: never | undefined;
@@ -117375,7 +117571,7 @@ export type UpdateCustomEnvironmentBody =
 	| undefined;
 
 export type UpdateCustomEnvironmentOptions = {
-	body: UpdateCustomEnvironmentBody;
+	body?: UpdateCustomEnvironmentBody | undefined;
 	path: UpdateCustomEnvironmentPath;
 	query?: UpdateCustomEnvironmentQuery | undefined;
 	headers?: never | undefined;
@@ -117570,7 +117766,7 @@ export type RemoveCustomEnvironmentBody =
 	| undefined;
 
 export type RemoveCustomEnvironmentOptions = {
-	body: RemoveCustomEnvironmentBody;
+	body?: RemoveCustomEnvironmentBody | undefined;
 	path: RemoveCustomEnvironmentPath;
 	query?: RemoveCustomEnvironmentQuery | undefined;
 	headers?: never | undefined;
@@ -118132,7 +118328,7 @@ export type RemoveProjectDomainBody =
 	| undefined;
 
 export type RemoveProjectDomainOptions = {
-	body: RemoveProjectDomainBody;
+	body?: RemoveProjectDomainBody | undefined;
 	path: RemoveProjectDomainPath;
 	query?: RemoveProjectDomainQuery | undefined;
 	headers?: never | undefined;
@@ -118420,7 +118616,7 @@ export type MoveProjectDomainBody =
 	| undefined;
 
 export type MoveProjectDomainOptions = {
-	body: MoveProjectDomainBody;
+	body?: MoveProjectDomainBody | undefined;
 	path: MoveProjectDomainPath;
 	query?: MoveProjectDomainQuery | undefined;
 	headers?: never | undefined;
@@ -120391,7 +120587,7 @@ export type RemoveProjectEnvStatus200VisibilityEnum3Key =
 	(typeof removeProjectEnvStatus200VisibilityEnum3)[keyof typeof removeProjectEnvStatus200VisibilityEnum3];
 
 export type RemoveProjectEnvStatus200 =
-	| {
+	| ({
 			comment?: string | undefined;
 			configurationId?: (string | null) | undefined;
 			contentHint?:
@@ -120517,7 +120713,7 @@ export type RemoveProjectEnvStatus200 =
 			 * @type string | undefined
 			 */
 			visibility?: RemoveProjectEnvStatus200VisibilityEnumKey | undefined;
-	  }[]
+	  } | null)[]
 	| {
 			comment?: string | undefined;
 			configurationId?: (string | null) | undefined;
@@ -120646,7 +120842,7 @@ export type RemoveProjectEnvStatus200 =
 			 */
 			visibility?: RemoveProjectEnvStatus200VisibilityEnum2Key | undefined;
 	  }
-	| {
+	| ({
 			comment?: string | undefined;
 			configurationId?: (string | null) | undefined;
 			contentHint?:
@@ -120772,7 +120968,7 @@ export type RemoveProjectEnvStatus200 =
 			 * @type string | undefined
 			 */
 			visibility?: RemoveProjectEnvStatus200VisibilityEnum3Key | undefined;
-	  };
+	  } | null);
 
 export type RemoveProjectEnvStatus400 = unknown;
 
@@ -121158,7 +121354,7 @@ export type BatchRemoveProjectEnvBody =
 	| undefined;
 
 export type BatchRemoveProjectEnvOptions = {
-	body: BatchRemoveProjectEnvBody;
+	body?: BatchRemoveProjectEnvBody | undefined;
 	path: BatchRemoveProjectEnvPath;
 	query?: BatchRemoveProjectEnvQuery | undefined;
 	headers?: never | undefined;
@@ -122467,7 +122663,7 @@ export type ApproveRollingReleaseStageBody =
 	| undefined;
 
 export type ApproveRollingReleaseStageOptions = {
-	body: ApproveRollingReleaseStageBody;
+	body?: ApproveRollingReleaseStageBody | undefined;
 	path: ApproveRollingReleaseStagePath;
 	query?: ApproveRollingReleaseStageQuery | undefined;
 	headers?: never | undefined;
@@ -122910,7 +123106,7 @@ export type StartRollingReleaseBody =
 	| undefined;
 
 export type StartRollingReleaseOptions = {
-	body: StartRollingReleaseBody;
+	body?: StartRollingReleaseBody | undefined;
 	path: StartRollingReleasePath;
 	query?: StartRollingReleaseQuery | undefined;
 	headers?: never | undefined;
@@ -123354,7 +123550,7 @@ export type CompleteRollingReleaseBody =
 	| undefined;
 
 export type CompleteRollingReleaseOptions = {
-	body: CompleteRollingReleaseBody;
+	body?: CompleteRollingReleaseBody | undefined;
 	path: CompleteRollingReleasePath;
 	query?: CompleteRollingReleaseQuery | undefined;
 	headers?: never | undefined;
@@ -123429,7 +123625,7 @@ export type CreateProjectTransferRequestBody =
 	| undefined;
 
 export type CreateProjectTransferRequestOptions = {
-	body: CreateProjectTransferRequestBody;
+	body?: CreateProjectTransferRequestBody | undefined;
 	path: CreateProjectTransferRequestPath;
 	query?: CreateProjectTransferRequestQuery | undefined;
 	headers?: never | undefined;
@@ -123549,7 +123745,7 @@ export type AcceptProjectTransferRequestBody =
 	| undefined;
 
 export type AcceptProjectTransferRequestOptions = {
-	body: AcceptProjectTransferRequestBody;
+	body?: AcceptProjectTransferRequestBody | undefined;
 	path: AcceptProjectTransferRequestPath;
 	query?: AcceptProjectTransferRequestQuery | undefined;
 	headers?: never | undefined;
@@ -123826,7 +124022,7 @@ export type UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionBody
 	| undefined;
 
 export type UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionOptions = {
-	body: UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionBody;
+	body?: UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionBody | undefined;
 	path: UpdateProjectsByProjectIdRollbackByDeploymentIdUpdateDescriptionPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -124767,6 +124963,14 @@ export const readySubstateEnum10 = {
 } as const;
 
 export type ReadySubstateEnum10Key = (typeof readySubstateEnum10)[keyof typeof readySubstateEnum10];
+
+export const updateMicrofrontendsStatus200TierEnum = {
+	critical: "critical",
+	priority: "priority",
+} as const;
+
+export type UpdateMicrofrontendsStatus200TierEnumKey =
+	(typeof updateMicrofrontendsStatus200TierEnum)[keyof typeof updateMicrofrontendsStatus200TierEnum];
 
 export const updateMicrofrontendsStatus200TracingSamplingRulesDestinationEnum = {
 	external: "external",
@@ -128207,7 +128411,7 @@ export type UpdateMicrofrontendsStatus200 = {
 				};
 		  }
 		| undefined;
-	tier?: "priority" | undefined;
+	tier?: UpdateMicrofrontendsStatus200TierEnumKey | undefined;
 	tracing?:
 		| {
 				domains?: string | undefined;
@@ -128441,7 +128645,7 @@ export type UpdateMicrofrontendsBody =
 	| undefined;
 
 export type UpdateMicrofrontendsOptions = {
-	body: UpdateMicrofrontendsBody;
+	body?: UpdateMicrofrontendsBody | undefined;
 	path: UpdateMicrofrontendsPath;
 	query?: UpdateMicrofrontendsQuery | undefined;
 	headers?: never | undefined;
@@ -129623,7 +129827,7 @@ export type CreateSandboxesV2Body =
 	| undefined;
 
 export type CreateSandboxesV2Options = {
-	body: CreateSandboxesV2Body;
+	body?: CreateSandboxesV2Body | undefined;
 	path?: never | undefined;
 	query?: CreateSandboxesV2Query | undefined;
 	headers?: never | undefined;
@@ -130046,7 +130250,7 @@ export type GetOrCreateDriveBody =
  * @type object
  */
 export type GetOrCreateDriveOptions = {
-	body: GetOrCreateDriveBody;
+	body?: GetOrCreateDriveBody | undefined;
 	path: GetOrCreateDrivePath;
 	query?: GetOrCreateDriveQuery | undefined;
 	headers?: never | undefined;
@@ -130150,7 +130354,7 @@ export type ForkDriveBody =
  * @type object
  */
 export type ForkDriveOptions = {
-	body: ForkDriveBody;
+	body?: ForkDriveBody | undefined;
 	path: ForkDrivePath;
 	query?: ForkDriveQuery | undefined;
 	headers?: never | undefined;
@@ -131364,7 +131568,7 @@ export type UpdateSandboxBody =
 	| undefined;
 
 export type UpdateSandboxOptions = {
-	body: UpdateSandboxBody;
+	body?: UpdateSandboxBody | undefined;
 	path: UpdateSandboxPath;
 	query?: UpdateSandboxQuery | undefined;
 	headers?: never | undefined;
@@ -131570,10 +131774,7 @@ export type RunSessionCommandStatus200Json = {
 
 export type RunSessionCommandStatus200XNdjson = (
 	| {
-			data: {
-				code: "sandbox_stream_closed";
-				message: "Sandbox stream was closed and is not accepting commands.";
-			};
+			data: string;
 			stream: string;
 	  }
 	| {
@@ -131582,7 +131783,12 @@ export type RunSessionCommandStatus200XNdjson = (
 			 * @type object
 			 */
 			command: SessionCommand;
-			data: string;
+	  }
+	| {
+			data: {
+				code: "sandbox_stream_closed";
+				message: "Sandbox stream was closed and is not accepting commands.";
+			};
 			stream: string;
 	  }
 )[];
@@ -131672,7 +131878,7 @@ export type RunSessionCommandBody =
 	| undefined;
 
 export type RunSessionCommandOptions = {
-	body: RunSessionCommandBody;
+	body?: RunSessionCommandBody | undefined;
 	path: RunSessionCommandPath;
 	query?: RunSessionCommandQuery | undefined;
 	headers?: never | undefined;
@@ -131686,7 +131892,7 @@ export type RunSessionCommandResponses = {
 		  }
 		| {
 				contentType: "application/x-ndjson";
-				data: RunSessionCommandStatus200XNdjson;
+				data: ReadableStream<Uint8Array>;
 		  };
 	"400": RunSessionCommandStatus400;
 	"401": RunSessionCommandStatus401;
@@ -131855,7 +132061,7 @@ export type KillSessionCommandBody =
 	| undefined;
 
 export type KillSessionCommandOptions = {
-	body: KillSessionCommandBody;
+	body?: KillSessionCommandBody | undefined;
 	path: KillSessionCommandPath;
 	query?: KillSessionCommandQuery | undefined;
 	headers?: never | undefined;
@@ -131962,7 +132168,7 @@ export type WriteSessionCommandStdinBody =
 	| undefined;
 
 export type WriteSessionCommandStdinOptions = {
-	body: WriteSessionCommandStdinBody;
+	body?: WriteSessionCommandStdinBody | undefined;
 	path: WriteSessionCommandStdinPath;
 	query?: WriteSessionCommandStdinQuery | undefined;
 	headers?: never | undefined;
@@ -132017,7 +132223,7 @@ export type GetSessionCommandLogsQuery = {
 	slug?: string | undefined;
 };
 
-export type GetSessionCommandLogsStatus200 = unknown;
+export type GetSessionCommandLogsStatus200 = string;
 
 export type GetSessionCommandLogsStatus400 = unknown;
 
@@ -132207,7 +132413,7 @@ export type ExtendSessionTimeoutBody =
 	| undefined;
 
 export type ExtendSessionTimeoutOptions = {
-	body: ExtendSessionTimeoutBody;
+	body?: ExtendSessionTimeoutBody | undefined;
 	path: ExtendSessionTimeoutPath;
 	query?: ExtendSessionTimeoutQuery | undefined;
 	headers?: never | undefined;
@@ -132644,7 +132850,7 @@ export type UpdateSessionNetworkPolicyBody =
 	| undefined;
 
 export type UpdateSessionNetworkPolicyOptions = {
-	body: UpdateSessionNetworkPolicyBody;
+	body?: UpdateSessionNetworkPolicyBody | undefined;
 	path: UpdateSessionNetworkPolicyPath;
 	query?: UpdateSessionNetworkPolicyQuery | undefined;
 	headers?: never | undefined;
@@ -132725,7 +132931,7 @@ export type ReadSessionFileBody =
 	| undefined;
 
 export type ReadSessionFileOptions = {
-	body: ReadSessionFileBody;
+	body?: ReadSessionFileBody | undefined;
 	path: ReadSessionFilePath;
 	query?: ReadSessionFileQuery | undefined;
 	headers?: never | undefined;
@@ -132811,7 +133017,7 @@ export type CreateSessionDirectoryBody =
 	| undefined;
 
 export type CreateSessionDirectoryOptions = {
-	body: CreateSessionDirectoryBody;
+	body?: CreateSessionDirectoryBody | undefined;
 	path: CreateSessionDirectoryPath;
 	query?: CreateSessionDirectoryQuery | undefined;
 	headers?: never | undefined;
@@ -132974,7 +133180,7 @@ export type CreateSandboxesSessionsBySessionIdSnapshotV2Body =
 	| undefined;
 
 export type CreateSandboxesSessionsBySessionIdSnapshotV2Options = {
-	body: CreateSandboxesSessionsBySessionIdSnapshotV2Body;
+	body?: CreateSandboxesSessionsBySessionIdSnapshotV2Body | undefined;
 	path: CreateSandboxesSessionsBySessionIdSnapshotV2Path;
 	query?: CreateSandboxesSessionsBySessionIdSnapshotV2Query | undefined;
 	headers?: never | undefined;
@@ -133642,7 +133848,7 @@ export type CreateSandboxesByNameForkV2Body =
 	| undefined;
 
 export type CreateSandboxesByNameForkV2Options = {
-	body: CreateSandboxesByNameForkV2Body;
+	body?: CreateSandboxesByNameForkV2Body | undefined;
 	path: CreateSandboxesByNameForkV2Path;
 	query?: CreateSandboxesByNameForkV2Query | undefined;
 	headers?: never | undefined;
@@ -134389,7 +134595,7 @@ export type CreateSandboxesV3Body =
 	| undefined;
 
 export type CreateSandboxesV3Options = {
-	body: CreateSandboxesV3Body;
+	body?: CreateSandboxesV3Body | undefined;
 	path?: never | undefined;
 	query?: CreateSandboxesV3Query | undefined;
 	headers?: never | undefined;
@@ -134483,7 +134689,7 @@ export type CreateSandboxesSessionsBySessionIdSnapshotV3Body =
 	| undefined;
 
 export type CreateSandboxesSessionsBySessionIdSnapshotV3Options = {
-	body: CreateSandboxesSessionsBySessionIdSnapshotV3Body;
+	body?: CreateSandboxesSessionsBySessionIdSnapshotV3Body | undefined;
 	path: CreateSandboxesSessionsBySessionIdSnapshotV3Path;
 	query?: CreateSandboxesSessionsBySessionIdSnapshotV3Query | undefined;
 	headers?: never | undefined;
@@ -135153,7 +135359,7 @@ export type CreateSandboxesByNameForkV3Body =
 	| undefined;
 
 export type CreateSandboxesByNameForkV3Options = {
-	body: CreateSandboxesByNameForkV3Body;
+	body?: CreateSandboxesByNameForkV3Body | undefined;
 	path: CreateSandboxesByNameForkV3Path;
 	query?: CreateSandboxesByNameForkV3Query | undefined;
 	headers?: never | undefined;
@@ -135902,7 +136108,7 @@ export type CreateSandboxesV4Body =
 	| undefined;
 
 export type CreateSandboxesV4Options = {
-	body: CreateSandboxesV4Body;
+	body?: CreateSandboxesV4Body | undefined;
 	path?: never | undefined;
 	query?: CreateSandboxesV4Query | undefined;
 	headers?: never | undefined;
@@ -143043,7 +143249,7 @@ export type AddBypassIpBody =
 	| undefined;
 
 export type AddBypassIpOptions = {
-	body: AddBypassIpBody;
+	body?: AddBypassIpBody | undefined;
 	path?: never | undefined;
 	query: AddBypassIpQuery;
 	headers?: never | undefined;
@@ -143131,7 +143337,7 @@ export type RemoveBypassIpBody =
 	| undefined;
 
 export type RemoveBypassIpOptions = {
-	body: RemoveBypassIpBody;
+	body?: RemoveBypassIpBody | undefined;
 	path?: never | undefined;
 	query: RemoveBypassIpQuery;
 	headers?: never | undefined;
@@ -143562,7 +143768,7 @@ export type CreateConditionalBypassBody =
 	| undefined;
 
 export type CreateConditionalBypassOptions = {
-	body: CreateConditionalBypassBody;
+	body?: CreateConditionalBypassBody | undefined;
 	path?: never | undefined;
 	query: CreateConditionalBypassQuery;
 	headers?: never | undefined;
@@ -143779,7 +143985,7 @@ export type UpdateConditionalBypassBody =
 	| undefined;
 
 export type UpdateConditionalBypassOptions = {
-	body: UpdateConditionalBypassBody;
+	body?: UpdateConditionalBypassBody | undefined;
 	path?: never | undefined;
 	query: UpdateConditionalBypassQuery;
 	headers?: never | undefined;
@@ -144225,7 +144431,7 @@ export type CreateSpeedInsightsToggleBody =
 	| undefined;
 
 export type CreateSpeedInsightsToggleOptions = {
-	body: CreateSpeedInsightsToggleBody;
+	body?: CreateSpeedInsightsToggleBody | undefined;
 	path?: never | undefined;
 	query: CreateSpeedInsightsToggleQuery;
 	headers?: never | undefined;
@@ -144709,7 +144915,7 @@ export type CreateStorageStoresBlobBody =
 	| undefined;
 
 export type CreateStorageStoresBlobOptions = {
-	body: CreateStorageStoresBlobBody;
+	body?: CreateStorageStoresBlobBody | undefined;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -146449,7 +146655,7 @@ export type CreateIntegrationStoreDirectBody =
 	| undefined;
 
 export type CreateIntegrationStoreDirectOptions = {
-	body: CreateIntegrationStoreDirectBody;
+	body?: CreateIntegrationStoreDirectBody | undefined;
 	path?: never | undefined;
 	query?: CreateIntegrationStoreDirectQuery | undefined;
 	headers?: never | undefined;
@@ -146952,7 +147158,7 @@ export type InviteUserToTeamBody =
 	| undefined;
 
 export type InviteUserToTeamOptions = {
-	body: InviteUserToTeamBody;
+	body?: InviteUserToTeamBody | undefined;
 	path: InviteUserToTeamPath;
 	query?: InviteUserToTeamQuery | undefined;
 	headers?: never | undefined;
@@ -148497,7 +148703,7 @@ export type PostTeamDsyncRolesBody =
 	| undefined;
 
 export type PostTeamDsyncRolesOptions = {
-	body: PostTeamDsyncRolesBody;
+	body?: PostTeamDsyncRolesBody | undefined;
 	path: PostTeamDsyncRolesPath;
 	query?: PostTeamDsyncRolesQuery | undefined;
 	headers?: never | undefined;
@@ -148736,7 +148942,7 @@ export type UpdateMicrofrontendsGroupBody =
 	| undefined;
 
 export type UpdateMicrofrontendsGroupOptions = {
-	body: UpdateMicrofrontendsGroupBody;
+	body?: UpdateMicrofrontendsGroupBody | undefined;
 	path: UpdateMicrofrontendsGroupPath;
 	query?: UpdateMicrofrontendsGroupQuery | undefined;
 	headers?: never | undefined;
@@ -148884,7 +149090,7 @@ export type UploadFileStatus426 = unknown;
 export type UploadFileBody = Blob | undefined;
 
 export type UploadFileOptions = {
-	body: UploadFileBody;
+	body?: UploadFileBody | undefined;
 	path?: never | undefined;
 	query?: UploadFileQuery | undefined;
 	headers?: UploadFileHeaders | undefined;
@@ -149320,7 +149526,7 @@ export type CreateRepositoryBody =
 	| undefined;
 
 export type CreateRepositoryOptions = {
-	body: CreateRepositoryBody;
+	body?: CreateRepositoryBody | undefined;
 	path?: never | undefined;
 	query?: CreateRepositoryQuery | undefined;
 	headers?: never | undefined;
@@ -149685,7 +149891,7 @@ export type AddRepositoryPermissionBody =
 	| undefined;
 
 export type AddRepositoryPermissionOptions = {
-	body: AddRepositoryPermissionBody;
+	body?: AddRepositoryPermissionBody | undefined;
 	path: AddRepositoryPermissionPath;
 	query: AddRepositoryPermissionQuery;
 	headers?: never | undefined;
@@ -149767,7 +149973,7 @@ export type RemoveRepositoryPermissionBody =
 	| undefined;
 
 export type RemoveRepositoryPermissionOptions = {
-	body: RemoveRepositoryPermissionBody;
+	body?: RemoveRepositoryPermissionBody | undefined;
 	path: RemoveRepositoryPermissionPath;
 	query: RemoveRepositoryPermissionQuery;
 	headers?: never | undefined;
@@ -150825,7 +151031,7 @@ export type ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidStat
 export type ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidBody = Blob | undefined;
 
 export type ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidOptions = {
-	body: ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidBody;
+	body?: ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidBody | undefined;
 	path: ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath;
 	query: ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidQuery;
 	headers?: never | undefined;
@@ -151496,7 +151702,7 @@ export type UpdateVercelCiRepositorySettingsBody =
 	| undefined;
 
 export type UpdateVercelCiRepositorySettingsOptions = {
-	body: UpdateVercelCiRepositorySettingsBody;
+	body?: UpdateVercelCiRepositorySettingsBody | undefined;
 	path?: never | undefined;
 	query: UpdateVercelCiRepositorySettingsQuery;
 	headers?: never | undefined;
@@ -151961,7 +152167,7 @@ export type CreateVercelCiTaskAnalysisBody =
 	| undefined;
 
 export type CreateVercelCiTaskAnalysisOptions = {
-	body: CreateVercelCiTaskAnalysisBody;
+	body?: CreateVercelCiTaskAnalysisBody | undefined;
 	path?: never | undefined;
 	query?: CreateVercelCiTaskAnalysisQuery | undefined;
 	headers?: never | undefined;
@@ -152149,7 +152355,7 @@ export type CreateVercelCiTaskConfigurationPullRequestBody =
 	| undefined;
 
 export type CreateVercelCiTaskConfigurationPullRequestOptions = {
-	body: CreateVercelCiTaskConfigurationPullRequestBody;
+	body?: CreateVercelCiTaskConfigurationPullRequestBody | undefined;
 	path: CreateVercelCiTaskConfigurationPullRequestPath;
 	query?: CreateVercelCiTaskConfigurationPullRequestQuery | undefined;
 	headers?: never | undefined;
@@ -154354,7 +154560,7 @@ export type CreateWebInsightsToggleBody =
 	| undefined;
 
 export type CreateWebInsightsToggleOptions = {
-	body: CreateWebInsightsToggleBody;
+	body?: CreateWebInsightsToggleBody | undefined;
 	path?: never | undefined;
 	query: CreateWebInsightsToggleQuery;
 	headers?: never | undefined;
@@ -157244,7 +157450,7 @@ export type PatchUrlProtectionBypassBody =
 	| undefined;
 
 export type PatchUrlProtectionBypassOptions = {
-	body: PatchUrlProtectionBypassBody;
+	body?: PatchUrlProtectionBypassBody | undefined;
 	path: PatchUrlProtectionBypassPath;
 	query?: PatchUrlProtectionBypassQuery | undefined;
 	headers?: never | undefined;
@@ -157492,7 +157698,7 @@ export type IssueCertBody =
 	| undefined;
 
 export type IssueCertOptions = {
-	body: IssueCertBody;
+	body?: IssueCertBody | undefined;
 	path?: never | undefined;
 	query?: IssueCertQuery | undefined;
 	headers?: never | undefined;
@@ -157576,7 +157782,7 @@ export type UploadCertBody =
 	| undefined;
 
 export type UploadCertOptions = {
-	body: UploadCertBody;
+	body?: UploadCertBody | undefined;
 	path?: never | undefined;
 	query?: UploadCertQuery | undefined;
 	headers?: never | undefined;

@@ -20968,7 +20968,7 @@ export async function listSessionCommands(
 
 /**
  * @summary Execute a command
- * @description Executes a shell command inside a running session. The command runs asynchronously and returns immediately with a command ID that can be used to track its progress and retrieve its output. Optionally, use the `wait` parameter to stream the command status until completion.
+ * @description Executes a shell command inside a running session. The command runs asynchronously and returns immediately with a command ID that can be used to track its progress and retrieve its output. Optionally, use the `wait` parameter to stream the command status until completion. When `wait` is true, send `Accept: application/vnd.vercel.sandbox.command-stream+cbor-seq` to receive the stream as a CBOR Sequence (RFC 8742) instead of ND-JSON. Each item is a two-element array `[TYPE, PAYLOAD]`. `TYPE` is `1` for stdout or `2` for stderr with the raw output as a byte string, `3` for a stream failure with a `{ code, message }` map, or `128` for the `SessionCommand` as a map, sent when the command starts and again when it finishes.
  * @link /v2/sandboxes/sessions/{sessionId}/cmd
  */
 export async function runSessionCommand(
@@ -21180,7 +21180,7 @@ export async function writeSessionCommandStdin(
 
 /**
  * @summary Stream command logs
- * @description Streams the output of a command in real-time using newline-delimited JSON (ND-JSON). Each entry includes the output data and stream type. Stream types include `stdout`, `stderr`, and `error` (for stream failures).
+ * @description Streams the output of a command in real-time using newline-delimited JSON (ND-JSON). Each entry includes the output data and stream type. Stream types include `stdout`, `stderr`, and `error` (for stream failures). Send `Accept: application/vnd.vercel.sandbox.command-stream+cbor-seq` to receive the raw output bytes as a CBOR Sequence (RFC 8742) instead. Each item is a two-element array `[TYPE, PAYLOAD]`, where `TYPE` is `1` for stdout or `2` for stderr with the raw output as a byte string, or `3` for a stream failure with a `{ code, message }` map.
  * @link /v2/sandboxes/sessions/{sessionId}/cmd/{cmdId}/logs
  */
 export async function getSessionCommandLogs(
