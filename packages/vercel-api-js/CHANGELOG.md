@@ -1,5 +1,18 @@
 # vercel-api-js
 
+## 2.40.0
+
+### Minor Changes
+
+- 88b49c2: [BREAKING] The DELETE /v2/sandboxes/drives/{name} endpoint is replaced with DELETE /v2/sandboxes/drives/{nameOrId}, which now requires 'nameOrId' in the path instead of 'name'.
+- 88b49c2: [BREAKING] The POST /v1/drives/{name} and POST /v2/sandboxes/drives/{name} endpoints are now correctly mapped to getOrCreateDriveV1 and getOrCreateDrive, restoring the 'get or create' semantics by name.
+- 88b49c2: [BREAKING] The DELETE /v1/drives/{name} endpoint is replaced with DELETE /v1/drives/{nameOrId}, which now requires 'nameOrId' in the path instead of 'name'.
+
+### Patch Changes
+
+- 88b49c2: Corrected the operation descriptions and deprecation notices for getOrCreateDrive and deleteDrive to reference the new endpoints.
+- 88b49c2: Updated types to reflect that the DELETE operations now accept 'nameOrId' as path parameter instead of 'name'.
+
 ## 2.39.0
 
 ### Minor Changes
