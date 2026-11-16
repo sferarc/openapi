@@ -45099,6 +45099,94 @@ export const getDriveV1QuerySchema = z.object({
 		.meta({ examples: ["my-team-url-slug"] }),
 });
 
+export const deleteDriveV1PathNameOrIdSchema = z
+	.string()
+	.max(64)
+	.regex(/^[a-zA-Z0-9_-]+$/)
+	.describe("The drive name or ID.")
+	.meta({ examples: ["workspace"] });
+
+export const deleteDriveV1QueryProjectIdSchema = z
+	.string()
+	.optional()
+	.describe(
+		"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
+	)
+	.meta({ examples: ["prj_abc123"] });
+
+export const deleteDriveV1QueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const deleteDriveV1QuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const deleteDriveV1Status200Schema = z.object({
+	drive: driveSchema.describe(
+		"This object contains information related to a Vercel Sandbox Drive.",
+	),
+});
+
+export const deleteDriveV1Status400Schema = z.unknown();
+
+export const deleteDriveV1Status401Schema = z.unknown();
+
+export const deleteDriveV1Status403Schema = z.unknown();
+
+export const deleteDriveV1Status404Schema = z.unknown();
+
+export const deleteDriveV1Status409Schema = z.unknown();
+
+export const deleteDriveV1Status410Schema = z.unknown();
+
+export const deleteDriveV1Status429Schema = z.unknown();
+
+export const deleteDriveV1ResponseSchema = deleteDriveV1Status200Schema;
+
+export const deleteDriveV1ErrorSchema = z.union([
+	deleteDriveV1Status400Schema,
+	deleteDriveV1Status401Schema,
+	deleteDriveV1Status403Schema,
+	deleteDriveV1Status404Schema,
+	deleteDriveV1Status409Schema,
+	deleteDriveV1Status410Schema,
+	deleteDriveV1Status429Schema,
+]);
+
+export const deleteDriveV1PathSchema = z.object({
+	nameOrId: z
+		.string()
+		.max(64)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe("The drive name or ID.")
+		.meta({ examples: ["workspace"] }),
+});
+
+export const deleteDriveV1QuerySchema = z.object({
+	projectId: z
+		.string()
+		.optional()
+		.describe(
+			"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
+		)
+		.meta({ examples: ["prj_abc123"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getOrCreateDriveV1PathNameSchema = z
 	.string()
 	.max(64)
@@ -45223,98 +45311,6 @@ export const getOrCreateDriveV1PathSchema = z.object({
 });
 
 export const getOrCreateDriveV1QuerySchema = z.object({
-	teamId: z
-		.string()
-		.optional()
-		.describe("The Team identifier to perform the request on behalf of.")
-		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
-	slug: z
-		.string()
-		.optional()
-		.describe("The Team slug to perform the request on behalf of.")
-		.meta({ examples: ["my-team-url-slug"] }),
-});
-
-export const deleteDriveV1PathNameSchema = z
-	.string()
-	.max(64)
-	.regex(/^[a-zA-Z0-9_-]+$/)
-	.describe(
-		"Name for the drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
-	)
-	.meta({ examples: ["workspace"] });
-
-export const deleteDriveV1QueryProjectIdSchema = z
-	.string()
-	.optional()
-	.describe(
-		"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
-	)
-	.meta({ examples: ["prj_abc123"] });
-
-export const deleteDriveV1QueryTeamIdSchema = z
-	.string()
-	.optional()
-	.describe("The Team identifier to perform the request on behalf of.")
-	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
-
-export const deleteDriveV1QuerySlugSchema = z
-	.string()
-	.optional()
-	.describe("The Team slug to perform the request on behalf of.")
-	.meta({ examples: ["my-team-url-slug"] });
-
-export const deleteDriveV1Status200Schema = z.object({
-	drive: driveSchema.describe(
-		"This object contains information related to a Vercel Sandbox Drive.",
-	),
-});
-
-export const deleteDriveV1Status400Schema = z.unknown();
-
-export const deleteDriveV1Status401Schema = z.unknown();
-
-export const deleteDriveV1Status403Schema = z.unknown();
-
-export const deleteDriveV1Status404Schema = z.unknown();
-
-export const deleteDriveV1Status409Schema = z.unknown();
-
-export const deleteDriveV1Status410Schema = z.unknown();
-
-export const deleteDriveV1Status429Schema = z.unknown();
-
-export const deleteDriveV1ResponseSchema = deleteDriveV1Status200Schema;
-
-export const deleteDriveV1ErrorSchema = z.union([
-	deleteDriveV1Status400Schema,
-	deleteDriveV1Status401Schema,
-	deleteDriveV1Status403Schema,
-	deleteDriveV1Status404Schema,
-	deleteDriveV1Status409Schema,
-	deleteDriveV1Status410Schema,
-	deleteDriveV1Status429Schema,
-]);
-
-export const deleteDriveV1PathSchema = z.object({
-	name: z
-		.string()
-		.max(64)
-		.regex(/^[a-zA-Z0-9_-]+$/)
-		.describe(
-			"Name for the drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
-		)
-		.meta({ examples: ["workspace"] }),
-});
-
-export const deleteDriveV1QuerySchema = z.object({
-	projectId: z
-		.string()
-		.optional()
-		.describe(
-			"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
-		)
-		.meta({ examples: ["prj_abc123"] }),
 	teamId: z
 		.string()
 		.optional()
@@ -108761,6 +108757,97 @@ export const getDriveQuerySchema = z.object({
 		.meta({ examples: ["my-team-url-slug"] }),
 });
 
+export const deleteDrivePathNameOrIdSchema = z
+	.string()
+	.max(64)
+	.regex(/^[a-zA-Z0-9_-]+$/)
+	.describe("The drive name or ID.")
+	.meta({ examples: ["workspace"] });
+
+export const deleteDriveQueryProjectIdSchema = z
+	.string()
+	.optional()
+	.describe(
+		"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
+	)
+	.meta({ examples: ["prj_abc123"] });
+
+export const deleteDriveQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const deleteDriveQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const deleteDriveStatus200Schema = z.object({
+	drive: driveSchema.describe(
+		"This object contains information related to a Vercel Sandbox Drive.",
+	),
+});
+
+export const deleteDriveStatus400Schema = z.unknown();
+
+export const deleteDriveStatus401Schema = z.unknown();
+
+export const deleteDriveStatus403Schema = z.unknown();
+
+export const deleteDriveStatus404Schema = z.unknown();
+
+export const deleteDriveStatus409Schema = z.unknown();
+
+export const deleteDriveStatus410Schema = z.unknown();
+
+export const deleteDriveStatus422Schema = z.unknown();
+
+export const deleteDriveStatus429Schema = z.unknown();
+
+export const deleteDriveResponseSchema = deleteDriveStatus200Schema;
+
+export const deleteDriveErrorSchema = z.union([
+	deleteDriveStatus400Schema,
+	deleteDriveStatus401Schema,
+	deleteDriveStatus403Schema,
+	deleteDriveStatus404Schema,
+	deleteDriveStatus409Schema,
+	deleteDriveStatus410Schema,
+	deleteDriveStatus422Schema,
+	deleteDriveStatus429Schema,
+]);
+
+export const deleteDrivePathSchema = z.object({
+	nameOrId: z
+		.string()
+		.max(64)
+		.regex(/^[a-zA-Z0-9_-]+$/)
+		.describe("The drive name or ID.")
+		.meta({ examples: ["workspace"] }),
+});
+
+export const deleteDriveQuerySchema = z.object({
+	projectId: z
+		.string()
+		.optional()
+		.describe(
+			"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
+		)
+		.meta({ examples: ["prj_abc123"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const getOrCreateDrivePathNameSchema = z
 	.string()
 	.max(64)
@@ -108888,101 +108975,6 @@ export const getOrCreateDrivePathSchema = z.object({
 });
 
 export const getOrCreateDriveQuerySchema = z.object({
-	teamId: z
-		.string()
-		.optional()
-		.describe("The Team identifier to perform the request on behalf of.")
-		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
-	slug: z
-		.string()
-		.optional()
-		.describe("The Team slug to perform the request on behalf of.")
-		.meta({ examples: ["my-team-url-slug"] }),
-});
-
-export const deleteDrivePathNameSchema = z
-	.string()
-	.max(64)
-	.regex(/^[a-zA-Z0-9_-]+$/)
-	.describe(
-		"Name for the drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
-	)
-	.meta({ examples: ["workspace"] });
-
-export const deleteDriveQueryProjectIdSchema = z
-	.string()
-	.optional()
-	.describe(
-		"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
-	)
-	.meta({ examples: ["prj_abc123"] });
-
-export const deleteDriveQueryTeamIdSchema = z
-	.string()
-	.optional()
-	.describe("The Team identifier to perform the request on behalf of.")
-	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
-
-export const deleteDriveQuerySlugSchema = z
-	.string()
-	.optional()
-	.describe("The Team slug to perform the request on behalf of.")
-	.meta({ examples: ["my-team-url-slug"] });
-
-export const deleteDriveStatus200Schema = z.object({
-	drive: driveSchema.describe(
-		"This object contains information related to a Vercel Sandbox Drive.",
-	),
-});
-
-export const deleteDriveStatus400Schema = z.unknown();
-
-export const deleteDriveStatus401Schema = z.unknown();
-
-export const deleteDriveStatus403Schema = z.unknown();
-
-export const deleteDriveStatus404Schema = z.unknown();
-
-export const deleteDriveStatus409Schema = z.unknown();
-
-export const deleteDriveStatus410Schema = z.unknown();
-
-export const deleteDriveStatus422Schema = z.unknown();
-
-export const deleteDriveStatus429Schema = z.unknown();
-
-export const deleteDriveResponseSchema = deleteDriveStatus200Schema;
-
-export const deleteDriveErrorSchema = z.union([
-	deleteDriveStatus400Schema,
-	deleteDriveStatus401Schema,
-	deleteDriveStatus403Schema,
-	deleteDriveStatus404Schema,
-	deleteDriveStatus409Schema,
-	deleteDriveStatus410Schema,
-	deleteDriveStatus422Schema,
-	deleteDriveStatus429Schema,
-]);
-
-export const deleteDrivePathSchema = z.object({
-	name: z
-		.string()
-		.max(64)
-		.regex(/^[a-zA-Z0-9_-]+$/)
-		.describe(
-			"Name for the drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).",
-		)
-		.meta({ examples: ["workspace"] }),
-});
-
-export const deleteDriveQuerySchema = z.object({
-	projectId: z
-		.string()
-		.optional()
-		.describe(
-			"The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.",
-		)
-		.meta({ examples: ["prj_abc123"] }),
 	teamId: z
 		.string()
 		.optional()
