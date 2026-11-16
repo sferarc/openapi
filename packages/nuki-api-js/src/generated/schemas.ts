@@ -1088,14 +1088,14 @@ export const cacheDirectiveSchema = z.object({
 });
 
 export const publicKeySchema = z.object({
-	encoded: z.array(z.string()).optional(),
+	encoded: z.array(z.base64()).optional(),
 	format: z.string().optional(),
 	algorithm: z.string().optional(),
 });
 
 export const certificateSchema = z.object({
 	type: z.string().optional(),
-	encoded: z.array(z.string()).optional(),
+	encoded: z.array(z.base64()).optional(),
 	publicKey: publicKeySchema.optional(),
 });
 
@@ -1297,7 +1297,7 @@ export const decentralWebhookSchema = z.object({
 
 export const digestSchema = z.object({
 	algorithm: z.string().optional(),
-	value: z.array(z.string()).optional(),
+	value: z.array(z.base64()).optional(),
 });
 
 export const dispositionSchema = z.object({
@@ -1346,7 +1346,7 @@ export const myAccountSchema = z.object({
 		.meta({ examples: ["de"] }),
 	config: accountConfigSchema.optional().describe("The optional config"),
 	profile: accountProfileSchema.optional().describe("The optional profile"),
-	secret: z.array(z.string()).optional().describe("The secret base64 encoded"),
+	secret: z.array(z.base64()).optional().describe("The secret base64 encoded"),
 	creationDate: z.iso.datetime({ offset: true }).describe("The creation date"),
 	updateDate: z.iso.datetime({ offset: true }).describe("The update date"),
 	descent: accountDescentSchema
