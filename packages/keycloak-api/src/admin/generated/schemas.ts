@@ -7860,7 +7860,7 @@ export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadPathAt
 	z.string();
 
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadStatus200Schema =
-	z.instanceof(File);
+	z.instanceof(Blob);
 
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadResponseSchema =
 	pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrDownloadStatus200Schema;
@@ -7907,7 +7907,7 @@ export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDow
 	z.string();
 
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDownloadStatus200Schema =
-	z.instanceof(File);
+	z.instanceof(Blob);
 
 export const pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDownloadResponseSchema =
 	pOSTAdminRealmsRealmClientsClientUuidCertificatesAttrGenerateAndDownloadStatus200Schema;
