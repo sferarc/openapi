@@ -17,7 +17,7 @@ export type APIKeySecuritySchemeInEnumKey =
  * @type object
  */
 export type APIKeySecurityScheme = {
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	type: "apiKey";
 	in_: APIKeySecuritySchemeInEnumKey;
 	name: string;
@@ -35,31 +35,31 @@ export type AccessControlUIAccessMode = {
 
 export type AccessGroupBudget = {
 	budget_id: string;
-	max_budget?: (number | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_reset_at?: (string | null) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
 };
 
 export type AccessGroupBudgetRequest = {
-	budget_id?: (string | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
 };
 
 export type AccessGroupBudgetResponse = {
 	access_group: string;
 	spend: number;
-	budget?: (AccessGroupBudget | null) | undefined;
+	budget?: (AccessGroupBudget | (null | null)) | undefined;
 };
 
 export type AccessGroupInfo = {
 	access_group: string;
 	model_names: string[];
 	deployment_count: number;
-	spend?: (number | null) | undefined;
-	budget?: (AccessGroupBudget | null) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	budget?: (AccessGroupBudget | (null | null)) | undefined;
 };
 
 /**
@@ -68,8 +68,8 @@ export type AccessGroupInfo = {
  */
 export type AcknowledgedSafetyCheck = {
 	id: string;
-	code?: (string | null) | undefined;
-	message?: (string | null) | undefined;
+	code?: (string | (null | null)) | undefined;
+	message?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -79,8 +79,8 @@ export type AcknowledgedSafetyCheck = {
  */
 export type Action = {
 	commands: string[];
-	max_output_length?: (number | null) | undefined;
-	timeout_ms?: (number | null) | undefined;
+	max_output_length?: (number | (null | null)) | undefined;
+	timeout_ms?: (number | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -104,7 +104,7 @@ export type ActionClick = {
 	type: "click";
 	x: number;
 	y: number;
-	keys?: (string[] | null) | undefined;
+	keys?: (string[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -113,7 +113,7 @@ export type ActionClick = {
  * @type object
  */
 export type ActionDoubleClick = {
-	keys?: (string[] | null) | undefined;
+	keys?: (string[] | (null | null)) | undefined;
 	type: "double_click";
 	x: number;
 	y: number;
@@ -137,7 +137,7 @@ export type ActionDragPath = {
 export type ActionDrag = {
 	path: ActionDragPath[];
 	type: "drag";
-	keys?: (string[] | null) | undefined;
+	keys?: (string[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -170,7 +170,7 @@ export type ActionMove = {
 	type: "move";
 	x: number;
 	y: number;
-	keys?: (string[] | null) | undefined;
+	keys?: (string[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -180,7 +180,7 @@ export type ActionMove = {
  */
 export type ActionOpenPage = {
 	type: "open_page";
-	url?: (string | null) | undefined;
+	url?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -203,7 +203,7 @@ export type ActionScroll = {
 	type: "scroll";
 	x: number;
 	y: number;
-	keys?: (string[] | null) | undefined;
+	keys?: (string[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -223,9 +223,9 @@ export type ActionSearchSource = {
  */
 export type ActionSearch = {
 	type: "search";
-	queries?: (string[] | null) | undefined;
-	query?: (string | null) | undefined;
-	sources?: (ActionSearchSource[] | null) | undefined;
+	queries?: (string[] | (null | null)) | undefined;
+	query?: (string | (null | null)) | undefined;
+	sources?: (ActionSearchSource[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -256,8 +256,8 @@ export type TagActiveUsersResponse = {
 	tag: string;
 	active_users: number;
 	date: string;
-	period_start?: (string | null) | undefined;
-	period_end?: (string | null) | undefined;
+	period_start?: (string | (null | null)) | undefined;
+	period_end?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -299,7 +299,7 @@ export type AddTeamCallback = {
 	/**
 	 * @default success_and_failure
 	 */
-	callback_type?: (AddTeamCallbackCallbackTypeKey | null) | undefined;
+	callback_type?: (AddTeamCallbackCallbackTypeKey | (null | null)) | undefined;
 	callback_vars: {
 		[key: string]: string;
 	};
@@ -322,20 +322,26 @@ export type FunctionToolAllowedCallersEnumKey =
 export type FunctionTool = {
 	name: string;
 	parameters?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	strict?: (boolean | null) | undefined;
+	strict?: (boolean | (null | null)) | undefined;
 	type: "function";
-	allowed_callers?: (FunctionToolAllowedCallersEnumKey[] | null) | undefined;
-	async?: (boolean | null) | undefined;
-	defer_loading?: (boolean | null) | undefined;
-	description?: (string | null) | undefined;
+	allowed_callers?: (FunctionToolAllowedCallersEnumKey[] | (null | null)) | undefined;
+	async?: (boolean | (null | null)) | undefined;
+	defer_loading?: (boolean | (null | null)) | undefined;
+	description?: (string | (null | null)) | undefined;
 	output_schema?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	[key: string]: unknown;
 };
@@ -406,9 +412,9 @@ export type RankingOptionsRankerKey =
  * @type object
  */
 export type RankingOptions = {
-	hybrid_search?: (RankingOptionsHybridSearch | null) | undefined;
-	ranker?: (RankingOptionsRankerKey | null) | undefined;
-	score_threshold?: (number | null) | undefined;
+	hybrid_search?: (RankingOptionsHybridSearch | (null | null)) | undefined;
+	ranker?: (RankingOptionsRankerKey | (null | null)) | undefined;
+	score_threshold?: (number | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -421,9 +427,9 @@ export type RankingOptions = {
 export type FileSearchTool = {
 	type: "file_search";
 	vector_store_ids: string[];
-	filters?: (ComparisonFilter | CompoundFilter | null) | undefined;
-	max_num_results?: (number | null) | undefined;
-	ranking_options?: (RankingOptions | null) | undefined;
+	filters?: (ComparisonFilter | CompoundFilter | (null | null)) | undefined;
+	max_num_results?: (number | (null | null)) | undefined;
+	ranking_options?: (RankingOptions | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -468,7 +474,7 @@ export type ComputerUsePreviewTool = {
  * @type object
  */
 export type Filters = {
-	allowed_domains?: (string[] | null) | undefined;
+	allowed_domains?: (string[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -481,11 +487,11 @@ export type Filters = {
  * @type object
  */
 export type OpenaiTypesResponsesWebSearchToolUserLocation = {
-	city?: (string | null) | undefined;
-	country?: (string | null) | undefined;
-	region?: (string | null) | undefined;
-	timezone?: (string | null) | undefined;
-	type?: ("approximate" | null) | undefined;
+	city?: (string | (null | null)) | undefined;
+	country?: (string | (null | null)) | undefined;
+	region?: (string | (null | null)) | undefined;
+	timezone?: (string | (null | null)) | undefined;
+	type?: ("approximate" | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -515,10 +521,10 @@ export type WebSearchToolSearchContextSizeKey =
  */
 export type WebSearchTool = {
 	type: WebSearchToolTypeEnumKey;
-	external_web_access?: (boolean | null) | undefined;
-	filters?: (Filters | null) | undefined;
-	search_context_size?: (WebSearchToolSearchContextSizeKey | null) | undefined;
-	user_location?: (OpenaiTypesResponsesWebSearchToolUserLocation | null) | undefined;
+	external_web_access?: (boolean | (null | null)) | undefined;
+	filters?: (Filters | (null | null)) | undefined;
+	search_context_size?: (WebSearchToolSearchContextSizeKey | (null | null)) | undefined;
+	user_location?: (OpenaiTypesResponsesWebSearchToolUserLocation | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -527,8 +533,8 @@ export type WebSearchTool = {
  * @type object
  */
 export type McpAllowedToolsMcpToolFilter = {
-	read_only?: (boolean | null) | undefined;
-	tool_names?: (string[] | null) | undefined;
+	read_only?: (boolean | (null | null)) | undefined;
+	tool_names?: (string[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -537,8 +543,8 @@ export type McpAllowedToolsMcpToolFilter = {
  * @type object
  */
 export type McpRequireApprovalMcpToolApprovalFilterAlways = {
-	read_only?: (boolean | null) | undefined;
-	tool_names?: (string[] | null) | undefined;
+	read_only?: (boolean | (null | null)) | undefined;
+	tool_names?: (string[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -547,8 +553,8 @@ export type McpRequireApprovalMcpToolApprovalFilterAlways = {
  * @type object
  */
 export type McpRequireApprovalMcpToolApprovalFilterNever = {
-	read_only?: (boolean | null) | undefined;
-	tool_names?: (string[] | null) | undefined;
+	read_only?: (boolean | (null | null)) | undefined;
+	tool_names?: (string[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -561,8 +567,8 @@ export type McpRequireApprovalMcpToolApprovalFilterNever = {
  * @type object
  */
 export type McpRequireApprovalMcpToolApprovalFilter = {
-	always?: (McpRequireApprovalMcpToolApprovalFilterAlways | null) | undefined;
-	never?: (McpRequireApprovalMcpToolApprovalFilterNever | null) | undefined;
+	always?: (McpRequireApprovalMcpToolApprovalFilterAlways | (null | null)) | undefined;
+	never?: (McpRequireApprovalMcpToolApprovalFilterNever | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -602,22 +608,25 @@ export type McpRequireApprovalKey = (typeof mcpRequireApproval)[keyof typeof mcp
 export type Mcp = {
 	server_label: string;
 	type: "mcp";
-	allowed_callers?: (McpAllowedCallersEnumKey[] | null) | undefined;
-	allowed_tools?: (string[] | McpAllowedToolsMcpToolFilter | null) | undefined;
-	authorization?: (string | null) | undefined;
-	connector_id?: (McpConnectorIdKey | null) | undefined;
-	defer_loading?: (boolean | null) | undefined;
+	allowed_callers?: (McpAllowedCallersEnumKey[] | (null | null)) | undefined;
+	allowed_tools?: (string[] | McpAllowedToolsMcpToolFilter | (null | null)) | undefined;
+	authorization?: (string | (null | null)) | undefined;
+	connector_id?: (McpConnectorIdKey | (null | null)) | undefined;
+	defer_loading?: (boolean | (null | null)) | undefined;
 	headers?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	require_approval?:
-		| (McpRequireApprovalMcpToolApprovalFilter | McpRequireApprovalKey | null)
+		| (McpRequireApprovalMcpToolApprovalFilter | McpRequireApprovalKey | (null | null))
 		| undefined;
-	server_description?: (string | null) | undefined;
-	server_url?: (string | null) | undefined;
-	tunnel_id?: (string | null) | undefined;
+	server_description?: (string | (null | null)) | undefined;
+	server_url?: (string | (null | null)) | undefined;
+	tunnel_id?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -636,7 +645,7 @@ export type ContainerNetworkPolicyDomainSecret = {
 export type ContainerNetworkPolicyAllowlist = {
 	allowed_domains: string[];
 	type: "allowlist";
-	domain_secrets?: (ContainerNetworkPolicyDomainSecret[] | null) | undefined;
+	domain_secrets?: (ContainerNetworkPolicyDomainSecret[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -658,10 +667,12 @@ export type CodeInterpreterContainerCodeInterpreterToolAutoMemoryLimitKey =
  */
 export type CodeInterpreterContainerCodeInterpreterToolAuto = {
 	type: "auto";
-	file_ids?: (string[] | null) | undefined;
-	memory_limit?: (CodeInterpreterContainerCodeInterpreterToolAutoMemoryLimitKey | null) | undefined;
+	file_ids?: (string[] | (null | null)) | undefined;
+	memory_limit?:
+		| (CodeInterpreterContainerCodeInterpreterToolAutoMemoryLimitKey | (null | null))
+		| undefined;
 	network_policy?:
-		| (ContainerNetworkPolicyDisabled | ContainerNetworkPolicyAllowlist | null)
+		| (ContainerNetworkPolicyDisabled | ContainerNetworkPolicyAllowlist | (null | null))
 		| undefined;
 	[key: string]: unknown;
 };
@@ -681,7 +692,7 @@ export type CodeInterpreterAllowedCallersEnumKey =
 export type CodeInterpreter = {
 	container: string | CodeInterpreterContainerCodeInterpreterToolAuto;
 	type: "code_interpreter";
-	allowed_callers?: (CodeInterpreterAllowedCallersEnumKey[] | null) | undefined;
+	allowed_callers?: (CodeInterpreterAllowedCallersEnumKey[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -698,8 +709,8 @@ export type ProgrammaticToolCalling = {
  * @type object
  */
 export type ImageGenerationInputImageMask = {
-	file_id?: (string | null) | undefined;
-	image_url?: (string | null) | undefined;
+	file_id?: (string | (null | null)) | undefined;
+	image_url?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -723,7 +734,7 @@ export type ImageGenerationSvgReasoningEffortKey =
  * @type object
  */
 export type ImageGenerationSvgReasoning = {
-	effort?: (ImageGenerationSvgReasoningEffortKey | null) | undefined;
+	effort?: (ImageGenerationSvgReasoningEffortKey | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -737,8 +748,8 @@ export type ImageGenerationSvgReasoning = {
  * @type object
  */
 export type ImageGenerationSvg = {
-	model?: (string | null) | undefined;
-	reasoning?: (ImageGenerationSvgReasoning | null) | undefined;
+	model?: (string | (null | null)) | undefined;
+	reasoning?: (ImageGenerationSvgReasoning | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -841,21 +852,21 @@ export type ImageGenerationSizeKey = (typeof imageGenerationSize)[keyof typeof i
  */
 export type ImageGeneration = {
 	type: "image_generation";
-	action?: (ImageGenerationActionKey | null) | undefined;
-	background?: (ImageGenerationBackgroundKey | null) | undefined;
-	complexity?: (ImageGenerationComplexityKey | null) | undefined;
-	frame_count?: (number | null) | undefined;
-	frame_duration_ms?: (number | null) | undefined;
-	input_fidelity?: (ImageGenerationInputFidelityKey | null) | undefined;
-	input_image_mask?: (ImageGenerationInputImageMask | null) | undefined;
-	model?: ((string & {}) | ImageGenerationModelKey | null) | undefined;
-	moderation?: (ImageGenerationModerationKey | null) | undefined;
-	output_compression?: (number | null) | undefined;
-	output_format?: (ImageGenerationOutputFormatKey | null) | undefined;
-	partial_images?: (number | null) | undefined;
-	quality?: (ImageGenerationQualityKey | null) | undefined;
-	size?: ((string & {}) | ImageGenerationSizeKey | null) | undefined;
-	svg?: (ImageGenerationSvg | null) | undefined;
+	action?: (ImageGenerationActionKey | (null | null)) | undefined;
+	background?: (ImageGenerationBackgroundKey | (null | null)) | undefined;
+	complexity?: (ImageGenerationComplexityKey | (null | null)) | undefined;
+	frame_count?: (number | (null | null)) | undefined;
+	frame_duration_ms?: (number | (null | null)) | undefined;
+	input_fidelity?: (ImageGenerationInputFidelityKey | (null | null)) | undefined;
+	input_image_mask?: (ImageGenerationInputImageMask | (null | null)) | undefined;
+	model?: ((string & {}) | ImageGenerationModelKey | (null | null)) | undefined;
+	moderation?: (ImageGenerationModerationKey | (null | null)) | undefined;
+	output_compression?: (number | (null | null)) | undefined;
+	output_format?: (ImageGenerationOutputFormatKey | (null | null)) | undefined;
+	partial_images?: (number | (null | null)) | undefined;
+	quality?: (ImageGenerationQualityKey | (null | null)) | undefined;
+	size?: ((string & {}) | ImageGenerationSizeKey | (null | null)) | undefined;
+	svg?: (ImageGenerationSvg | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -871,7 +882,7 @@ export type LocalShell = {
 export type SkillReference = {
 	skill_id: string;
 	type: "skill_reference";
-	version?: (string | null) | undefined;
+	version?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -910,12 +921,12 @@ export type ContainerAutoMemoryLimitKey =
 
 export type ContainerAuto = {
 	type: "container_auto";
-	file_ids?: (string[] | null) | undefined;
-	memory_limit?: (ContainerAutoMemoryLimitKey | null) | undefined;
+	file_ids?: (string[] | (null | null)) | undefined;
+	memory_limit?: (ContainerAutoMemoryLimitKey | (null | null)) | undefined;
 	network_policy?:
-		| (ContainerNetworkPolicyDisabled | ContainerNetworkPolicyAllowlist | null)
+		| (ContainerNetworkPolicyDisabled | ContainerNetworkPolicyAllowlist | (null | null))
 		| undefined;
-	skills?: ((SkillReference | InlineSkill)[] | null) | undefined;
+	skills?: ((SkillReference | InlineSkill)[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -928,7 +939,7 @@ export type LocalSkill = {
 
 export type LocalEnvironment = {
 	type: "local";
-	skills?: (LocalSkill[] | null) | undefined;
+	skills?: (LocalSkill[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -952,8 +963,8 @@ export type FunctionShellToolAllowedCallersEnumKey =
  */
 export type FunctionShellTool = {
 	type: "shell";
-	allowed_callers?: (FunctionShellToolAllowedCallersEnumKey[] | null) | undefined;
-	environment?: (ContainerAuto | LocalEnvironment | ContainerReference | null) | undefined;
+	allowed_callers?: (FunctionShellToolAllowedCallersEnumKey[] | (null | null)) | undefined;
+	environment?: (ContainerAuto | LocalEnvironment | ContainerReference | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -1001,11 +1012,11 @@ export type CustomToolAllowedCallersEnumKey =
 export type CustomTool = {
 	name: string;
 	type: "custom";
-	allowed_callers?: (CustomToolAllowedCallersEnumKey[] | null) | undefined;
-	async?: (boolean | null) | undefined;
-	defer_loading?: (boolean | null) | undefined;
-	description?: (string | null) | undefined;
-	format?: (OpenaiTypesSharedCustomToolInputFormatText | Grammar | null) | undefined;
+	allowed_callers?: (CustomToolAllowedCallersEnumKey[] | (null | null)) | undefined;
+	async?: (boolean | (null | null)) | undefined;
+	defer_loading?: (boolean | (null | null)) | undefined;
+	description?: (string | (null | null)) | undefined;
+	format?: (OpenaiTypesSharedCustomToolInputFormatText | Grammar | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -1020,17 +1031,20 @@ export type ToolFunctionAllowedCallersEnumKey =
 export type ToolFunction = {
 	name: string;
 	type: "function";
-	allowed_callers?: (ToolFunctionAllowedCallersEnumKey[] | null) | undefined;
-	async?: (boolean | null) | undefined;
-	defer_loading?: (boolean | null) | undefined;
-	description?: (string | null) | undefined;
+	allowed_callers?: (ToolFunctionAllowedCallersEnumKey[] | (null | null)) | undefined;
+	async?: (boolean | (null | null)) | undefined;
+	defer_loading?: (boolean | (null | null)) | undefined;
+	description?: (string | (null | null)) | undefined;
 	output_schema?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	parameters?: (unknown | null) | undefined;
-	strict?: (boolean | null) | undefined;
+	parameters?: (unknown | (null | null)) | undefined;
+	strict?: (boolean | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -1060,9 +1074,9 @@ export type ToolSearchToolExecutionKey =
  */
 export type ToolSearchTool = {
 	type: "tool_search";
-	description?: (string | null) | undefined;
-	execution?: (ToolSearchToolExecutionKey | null) | undefined;
-	parameters?: (unknown | null) | undefined;
+	description?: (string | (null | null)) | undefined;
+	execution?: (ToolSearchToolExecutionKey | (null | null)) | undefined;
+	parameters?: (unknown | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -1074,10 +1088,10 @@ export type ToolSearchTool = {
  */
 export type OpenaiTypesResponsesWebSearchPreviewToolUserLocation = {
 	type: "approximate";
-	city?: (string | null) | undefined;
-	country?: (string | null) | undefined;
-	region?: (string | null) | undefined;
-	timezone?: (string | null) | undefined;
+	city?: (string | (null | null)) | undefined;
+	country?: (string | (null | null)) | undefined;
+	region?: (string | (null | null)) | undefined;
+	timezone?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -1114,9 +1128,13 @@ export type WebSearchPreviewToolSearchContextSizeKey =
  */
 export type WebSearchPreviewTool = {
 	type: WebSearchPreviewToolTypeEnumKey;
-	search_content_types?: (WebSearchPreviewToolSearchContentTypesEnumKey[] | null) | undefined;
-	search_context_size?: (WebSearchPreviewToolSearchContextSizeKey | null) | undefined;
-	user_location?: (OpenaiTypesResponsesWebSearchPreviewToolUserLocation | null) | undefined;
+	search_content_types?:
+		| (WebSearchPreviewToolSearchContentTypesEnumKey[] | (null | null))
+		| undefined;
+	search_context_size?: (WebSearchPreviewToolSearchContextSizeKey | (null | null)) | undefined;
+	user_location?:
+		| (OpenaiTypesResponsesWebSearchPreviewToolUserLocation | (null | null))
+		| undefined;
 	[key: string]: unknown;
 };
 
@@ -1134,7 +1152,7 @@ export type ApplyPatchToolAllowedCallersEnumKey =
  */
 export type ApplyPatchTool = {
 	type: "apply_patch";
-	allowed_callers?: (ApplyPatchToolAllowedCallersEnumKey[] | null) | undefined;
+	allowed_callers?: (ApplyPatchToolAllowedCallersEnumKey[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -1193,12 +1211,12 @@ export type AdminIgnore = {
 	/**
 	 * @description When the snooze ends. Null means the warning is ignored until an admin restores it.
 	 */
-	ignored_until?: (string | null) | undefined;
+	ignored_until?: (string | (null | null)) | undefined;
 };
 
 export type AdminMCPPermissions = {
 	tools: string[];
-	action_allowed?: (boolean | null) | undefined;
+	action_allowed?: (boolean | (null | null)) | undefined;
 };
 
 /**
@@ -1207,12 +1225,15 @@ export type AdminMCPPermissions = {
  */
 export type AgentExtension = {
 	uri?: string | undefined;
-	description?: (string | null) | undefined;
-	required?: (boolean | null) | undefined;
+	description?: (string | (null | null)) | undefined;
+	required?: (boolean | (null | null)) | undefined;
 	params?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -1221,10 +1242,10 @@ export type AgentExtension = {
  * @type object
  */
 export type AgentCapabilities = {
-	streaming?: (boolean | null) | undefined;
-	pushNotifications?: (boolean | null) | undefined;
-	stateTransitionHistory?: (boolean | null) | undefined;
-	extensions?: (AgentExtension[] | null) | undefined;
+	streaming?: (boolean | (null | null)) | undefined;
+	pushNotifications?: (boolean | (null | null)) | undefined;
+	stateTransitionHistory?: (boolean | (null | null)) | undefined;
+	extensions?: (AgentExtension[] | (null | null)) | undefined;
 };
 
 /**
@@ -1236,15 +1257,15 @@ export type AgentSkill = {
 	name?: string | undefined;
 	description?: string | undefined;
 	tags?: string[] | undefined;
-	examples?: (string[] | null) | undefined;
-	inputModes?: (string[] | null) | undefined;
-	outputModes?: (string[] | null) | undefined;
+	examples?: (string[] | (null | null)) | undefined;
+	inputModes?: (string[] | (null | null)) | undefined;
+	outputModes?: (string[] | (null | null)) | undefined;
 	security?:
 		| (
 				| {
 						[key: string]: string[];
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 };
@@ -1272,10 +1293,10 @@ export type AgentProvider = {
  * @type object
  */
 export type HTTPAuthSecurityScheme = {
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	type: "http";
 	scheme: string;
-	bearerFormat?: (string | null) | undefined;
+	bearerFormat?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -1284,24 +1305,36 @@ export type HTTPAuthSecurityScheme = {
  */
 export type OAuthFlows = {
 	authorizationCode?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	clientCredentials?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	implicit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	password?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -1310,14 +1343,14 @@ export type OAuthFlows = {
  * @type object
  */
 export type OAuth2SecurityScheme = {
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	type: "oauth2";
 	/**
 	 * @description Defines the configuration for the supported OAuth 2.0 flows.
 	 * @type object
 	 */
 	flows: OAuthFlows;
-	oauth2MetadataUrl?: (string | null) | undefined;
+	oauth2MetadataUrl?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -1325,7 +1358,7 @@ export type OAuth2SecurityScheme = {
  * @type object
  */
 export type OpenIdConnectSecurityScheme = {
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	type: "openIdConnect";
 	openIdConnectUrl: string;
 };
@@ -1335,7 +1368,7 @@ export type OpenIdConnectSecurityScheme = {
  * @type object
  */
 export type MutualTLSSecurityScheme = {
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	type: "mutualTLS";
 };
 
@@ -1347,9 +1380,12 @@ export type AgentCardSignature = {
 	protected?: string | undefined;
 	signature?: string | undefined;
 	header?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -1373,31 +1409,34 @@ export type AgentCard = {
 	defaultInputModes?: string[] | undefined;
 	defaultOutputModes?: string[] | undefined;
 	skills?: AgentSkill[] | undefined;
-	preferredTransport?: (string | null) | undefined;
-	additionalInterfaces?: (AgentInterface[] | null) | undefined;
-	iconUrl?: (string | null) | undefined;
-	provider?: (AgentProvider | null) | undefined;
-	documentationUrl?: (string | null) | undefined;
+	preferredTransport?: (string | (null | null)) | undefined;
+	additionalInterfaces?: (AgentInterface[] | (null | null)) | undefined;
+	iconUrl?: (string | (null | null)) | undefined;
+	provider?: (AgentProvider | (null | null)) | undefined;
+	documentationUrl?: (string | (null | null)) | undefined;
 	securitySchemes?:
-		| ({
-				[key: string]:
-					| APIKeySecurityScheme
-					| HTTPAuthSecurityScheme
-					| OAuth2SecurityScheme
-					| OpenIdConnectSecurityScheme
-					| MutualTLSSecurityScheme;
-		  } | null)
+		| (
+				| {
+						[key: string]:
+							| APIKeySecurityScheme
+							| HTTPAuthSecurityScheme
+							| OAuth2SecurityScheme
+							| OpenIdConnectSecurityScheme
+							| MutualTLSSecurityScheme;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	security?:
 		| (
 				| {
 						[key: string]: string[];
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	supportsAuthenticatedExtendedCard?: (boolean | null) | undefined;
-	signatures?: (AgentCardSignature[] | null) | undefined;
+	supportsAuthenticatedExtendedCard?: (boolean | (null | null)) | undefined;
+	signatures?: (AgentCardSignature[] | (null | null)) | undefined;
 };
 
 export const agentCredentialFieldFieldTypeEnum = {
@@ -1414,8 +1453,8 @@ export type AgentCredentialFieldFieldTypeEnumKey =
 export type AgentCredentialField = {
 	key: string;
 	label: string;
-	placeholder?: (string | null) | undefined;
-	tooltip?: (string | null) | undefined;
+	placeholder?: (string | (null | null)) | undefined;
+	tooltip?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -1426,25 +1465,28 @@ export type AgentCredentialField = {
 	 * @type string | undefined
 	 */
 	field_type?: AgentCredentialFieldFieldTypeEnumKey | undefined;
-	options?: (string[] | null) | undefined;
-	default_value?: (string | null) | undefined;
-	include_in_litellm_params?: (boolean | null) | undefined;
-	validation_pattern?: (string | null) | undefined;
-	validation_message?: (string | null) | undefined;
+	options?: (string[] | (null | null)) | undefined;
+	default_value?: (string | (null | null)) | undefined;
+	include_in_litellm_params?: (boolean | (null | null)) | undefined;
+	validation_pattern?: (string | (null | null)) | undefined;
+	validation_message?: (string | (null | null)) | undefined;
 };
 
 export type AgentCreateInfo = {
 	agent_type: string;
 	agent_type_display_name: string;
-	description?: (string | null) | undefined;
-	logo_url?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
+	logo_url?: (string | (null | null)) | undefined;
 	credential_fields: AgentCredentialField[];
 	litellm_params_template?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	model_template?: (string | null) | undefined;
+	model_template?: (string | (null | null)) | undefined;
 };
 
 export type AgentIdentityBinding = {
@@ -1457,7 +1499,7 @@ export type AgentIdentityBinding = {
 	provider: "microsoft_entra";
 	tenant_id: string;
 	client_id: string;
-	service_principal_id?: (string | null) | undefined;
+	service_principal_id?: (string | (null | null)) | undefined;
 	issuer: string;
 	/**
 	 * @default []
@@ -1470,13 +1512,13 @@ export type AgentIdentityBinding = {
 	 */
 	required_scopes?: string[] | undefined;
 	revision: string;
-	last_authenticated_at?: (string | null) | undefined;
+	last_authenticated_at?: (string | (null | null)) | undefined;
 };
 
 export type AgentKeySummary = {
 	token: string;
-	key_alias?: (string | null) | undefined;
-	key_name?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
+	key_name?: (string | (null | null)) | undefined;
 };
 
 export type AgentKillSwitchApiKeyAuth = {
@@ -1534,9 +1576,12 @@ export type AgentKillSwitchConfig = {
 		  }
 		| undefined;
 	body?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	auth?:
 		| (
@@ -1551,7 +1596,7 @@ export type AgentKillSwitchConfig = {
 								type: "basic";
 						  })
 				  )
-				| null
+				| (null | null)
 		  )
 		| undefined;
 };
@@ -1571,14 +1616,14 @@ export type AgentNode = {
 	 */
 	llm_calls: number;
 	name: string;
-	parent_agent: string | null;
+	parent_agent: string | (null | null);
 	/**
 	 * @minimum 0
 	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	priced_calls: number;
-	spend: number | null;
+	spend: number | (null | null);
 	/**
 	 * @minimum 0
 	 * @maximum 18446744073709552000
@@ -1597,7 +1642,7 @@ export type AgentResponseExecutionModeEnumKey =
 	(typeof agentResponseExecutionModeEnum)[keyof typeof agentResponseExecutionModeEnum];
 
 export type AgentResponse = {
-	identity?: (AgentIdentityBinding | null) | undefined;
+	identity?: (AgentIdentityBinding | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -1621,37 +1666,46 @@ export type AgentResponse = {
 	agent_id: string;
 	agent_name: string;
 	litellm_params?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	agent_card_params: {
 		[key: string]: unknown;
 	};
 	object_permission?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	spend?: (number | null) | undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	session_tpm_limit?: (number | null) | undefined;
-	session_rpm_limit?: (number | null) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	session_tpm_limit?: (number | (null | null)) | undefined;
+	session_rpm_limit?: (number | (null | null)) | undefined;
 	static_headers?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	extra_headers?: (string[] | null) | undefined;
-	access_group_ids?: (string[] | null) | undefined;
-	kill_switch?: (AgentKillSwitchConfig | null) | undefined;
-	keys?: (AgentKeySummary[] | null) | undefined;
-	search_score?: (number | null) | undefined;
-	created_at?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	created_by?: (string | null) | undefined;
-	updated_by?: (string | null) | undefined;
+	extra_headers?: (string[] | (null | null)) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
+	kill_switch?: (AgentKillSwitchConfig | (null | null)) | undefined;
+	keys?: (AgentKeySummary[] | (null | null)) | undefined;
+	search_score?: (number | (null | null)) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
 };
 
 export type AgentSkillsIndexEntry = {
@@ -1752,21 +1806,27 @@ export type AuditLogResponse = {
 	table_name: string;
 	object_id: string;
 	before_value?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	updated_values?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
 export type AutoRouterAllowance = {
 	key: string;
-	limit: number | null;
-	remaining: number | null;
+	limit: number | (null | null);
+	remaining: number | (null | null);
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -1780,18 +1840,21 @@ export type AutoRouterAllowance = {
 };
 
 export type AutoRouterAvailabilityRequest = {
-	team_id?: (string | null) | undefined;
-	saved_model_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	saved_model_id?: (string | (null | null)) | undefined;
 	complexity_router_config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
 export type AutoRouterAvailabilityResponse = {
 	allowances: AutoRouterAllowance[];
-	error?: (string | null) | undefined;
+	error?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -1900,19 +1963,19 @@ export type AutoRouterBenchmarkGroup = {
 	/**
 	 * @description Input and output tokens of routed generation requests on the selected UTC days, excluding classifier tokens; null when any selected requests predate daily token recording
 	 */
-	total_tokens?: (number | null) | undefined;
+	total_tokens?: (number | (null | null)) | undefined;
 	/**
 	 * @description Lifetime turns per overlapping session; null when the window has routed requests but no session rows for this router type, such as an alias whose router type changed mid-session
 	 */
-	avg_turns_per_session: number | null;
+	avg_turns_per_session: number | (null | null);
 	/**
 	 * @description Lifetime seconds per overlapping session; null as above
 	 */
-	avg_session_seconds: number | null;
+	avg_session_seconds: number | (null | null);
 	/**
 	 * @description Lifetime tokens per overlapping session; null as above
 	 */
-	avg_tokens_per_session: number | null;
+	avg_tokens_per_session: number | (null | null);
 	/**
 	 * @description What the selected days' routed traffic actually cost
 	 * @type number
@@ -1921,7 +1984,7 @@ export type AutoRouterBenchmarkGroup = {
 	/**
 	 * @description Recorded LLM classifier cost already included in spend; null when any session turns predate subtotal recording, and zero for an empty window
 	 */
-	classifier_cost: number | null;
+	classifier_cost: number | (null | null);
 	/**
 	 * @description Requests compared against the baseline: every request on complexity routers that recorded savings
 	 * @type integer
@@ -1935,23 +1998,23 @@ export type AutoRouterBenchmarkGroup = {
 	/**
 	 * @description Classifier cost included in the compared actual spend; null when classification costs for those requests are unavailable
 	 */
-	savings_estimated_classifier_cost?: (number | null) | undefined;
+	savings_estimated_classifier_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Recorded savings on the selected UTC days; null when traffic has no recorded savings estimates. On totals this is the same daily figure the Overall savings view reports
 	 */
-	saved_spend: number | null;
+	saved_spend: number | (null | null);
 	/**
 	 * @description Part of saved_spend no router's daily rows account for, such as history recorded before per-router daily tracking; when set, baseline_spend and saved_pct are null
 	 */
-	unattributed_saved_spend?: (number | null) | undefined;
+	unattributed_saved_spend?: (number | (null | null)) | undefined;
 	/**
 	 * @description Estimated single-model cost: compared actual spend plus recorded savings; null when traffic has no recorded savings
 	 */
-	baseline_spend: number | null;
+	baseline_spend: number | (null | null);
 	/**
 	 * @description Recorded savings over baseline_spend, as a percentage
 	 */
-	saved_pct: number | null;
+	saved_pct: number | (null | null);
 	/**
 	 * @description Prompt-caching behaviour of auto-routed turns, bucketed by what the router did.
 	 *
@@ -2001,19 +2064,19 @@ export type AutoRouterBenchmarkTotals = {
 	/**
 	 * @description Input and output tokens of routed generation requests on the selected UTC days, excluding classifier tokens; null when any selected requests predate daily token recording
 	 */
-	total_tokens?: (number | null) | undefined;
+	total_tokens?: (number | (null | null)) | undefined;
 	/**
 	 * @description Lifetime turns per overlapping session; null when the window has routed requests but no session rows for this router type, such as an alias whose router type changed mid-session
 	 */
-	avg_turns_per_session: number | null;
+	avg_turns_per_session: number | (null | null);
 	/**
 	 * @description Lifetime seconds per overlapping session; null as above
 	 */
-	avg_session_seconds: number | null;
+	avg_session_seconds: number | (null | null);
 	/**
 	 * @description Lifetime tokens per overlapping session; null as above
 	 */
-	avg_tokens_per_session: number | null;
+	avg_tokens_per_session: number | (null | null);
 	/**
 	 * @description What the selected days' routed traffic actually cost
 	 * @type number
@@ -2022,7 +2085,7 @@ export type AutoRouterBenchmarkTotals = {
 	/**
 	 * @description Recorded LLM classifier cost already included in spend; null when any session turns predate subtotal recording, and zero for an empty window
 	 */
-	classifier_cost: number | null;
+	classifier_cost: number | (null | null);
 	/**
 	 * @description Requests compared against the baseline: every request on complexity routers that recorded savings
 	 * @type integer
@@ -2036,23 +2099,23 @@ export type AutoRouterBenchmarkTotals = {
 	/**
 	 * @description Classifier cost included in the compared actual spend; null when classification costs for those requests are unavailable
 	 */
-	savings_estimated_classifier_cost?: (number | null) | undefined;
+	savings_estimated_classifier_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Recorded savings on the selected UTC days; null when traffic has no recorded savings estimates. On totals this is the same daily figure the Overall savings view reports
 	 */
-	saved_spend: number | null;
+	saved_spend: number | (null | null);
 	/**
 	 * @description Part of saved_spend no router's daily rows account for, such as history recorded before per-router daily tracking; when set, baseline_spend and saved_pct are null
 	 */
-	unattributed_saved_spend?: (number | null) | undefined;
+	unattributed_saved_spend?: (number | (null | null)) | undefined;
 	/**
 	 * @description Estimated single-model cost: compared actual spend plus recorded savings; null when traffic has no recorded savings
 	 */
-	baseline_spend: number | null;
+	baseline_spend: number | (null | null);
 	/**
 	 * @description Recorded savings over baseline_spend, as a percentage
 	 */
-	saved_pct: number | null;
+	saved_pct: number | (null | null);
 	/**
 	 * @description Prompt-caching behaviour of auto-routed turns, bucketed by what the router did.
 	 *
@@ -2121,7 +2184,7 @@ export type TierDefinition = {
 	/**
 	 * @description What belongs in this tier; rendered as this tier's bullet in the classifier rubric. Required unless the name is a built-in tier (NON_REASONING, SIMPLE, MEDIUM, COMPLEX, REASONING), which inherits the built-in criteria when omitted
 	 */
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 };
 
 export const complexityTier = {
@@ -2150,17 +2213,17 @@ export type ClassificationRubricKey =
  * @type object
  */
 export type AutoRouterClassifierPromptPreviewRequest = {
-	tier_definitions?: (TierDefinition[] | null) | undefined;
-	tier_labels?: (Partial<Record<ComplexityTierKey, string>> | null) | undefined;
-	classification_rubric?: (ClassificationRubricKey | null) | undefined;
+	tier_definitions?: (TierDefinition[] | (null | null)) | undefined;
+	tier_labels?: (Partial<Record<ComplexityTierKey, string>> | (null | null)) | undefined;
+	classification_rubric?: (ClassificationRubricKey | (null | null)) | undefined;
 	/**
 	 * @minimum 0
 	 * @default 3
 	 * @type integer | undefined
 	 */
 	context_window_size?: number | undefined;
-	classification_prompt?: (string | null) | undefined;
-	classification_examples?: (string | null) | undefined;
+	classification_prompt?: (string | (null | null)) | undefined;
+	classification_examples?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -2300,12 +2363,12 @@ export type LLMV2Config = {
 	 * @type string | undefined
 	 */
 	capable_tier?: string | undefined;
-	efficient_profile?: (string | null) | undefined;
-	capable_profile?: (string | null) | undefined;
-	harness?: (string | null) | undefined;
-	efficient_profile_preset?: (string | null) | undefined;
-	capable_profile_preset?: (string | null) | undefined;
-	harness_preset?: (string | null) | undefined;
+	efficient_profile?: (string | (null | null)) | undefined;
+	capable_profile?: (string | (null | null)) | undefined;
+	harness?: (string | (null | null)) | undefined;
+	efficient_profile_preset?: (string | (null | null)) | undefined;
+	capable_profile_preset?: (string | (null | null)) | undefined;
+	harness_preset?: (string | (null | null)) | undefined;
 	/**
 	 * @description Maximum estimated success loss allowed for efficient.
 	 * @minimum 0
@@ -2324,7 +2387,7 @@ export type LLMV2Config = {
 	 * @type string | undefined
 	 */
 	response_format?: LLMV2ConfigResponseFormatEnumKey | undefined;
-	calibration?: (LLMV2Calibration | null) | undefined;
+	calibration?: (LLMV2Calibration | (null | null)) | undefined;
 };
 
 export type TierGlobalStatistic = {
@@ -2527,7 +2590,7 @@ export type ClassifierLLMConfig = {
 	/**
 	 * @description Reasoning effort override for classifier calls. Leave unset to use the classifier deployment or provider default.
 	 */
-	reasoning_effort?: (ClassifierLLMConfigReasoningEffortKey | null) | undefined;
+	reasoning_effort?: (ClassifierLLMConfigReasoningEffortKey | (null | null)) | undefined;
 	/**
 	 * @description Timeout budget for the classification call, in milliseconds
 	 * @default 3000
@@ -2549,11 +2612,11 @@ export type ClassifierLLMConfig = {
 	/**
 	 * @description Which calibration examples the built-in rubric carries. 'agentic' anchors routine installs, builds, multi-file edits, and standard debugging at MEDIUM, so ordinary engineering does not route to the most expensive tier; it suits agent, terminal, and coding-assistant traffic as well as mixed traffic. 'chat' omits those engineering anchors, for a deployment serving only conversational traffic. 'business' carries business/sales anchors and business-flavored tier criteria that keep routine drafting and summarizing off the expensive tiers and reserve the top tier for committing to decisions under tradeoffs; it suits sales, support, and go-to-market traffic. Every preset keeps the same four tiers, so this moves where the boundary sits without changing the taxonomy. Leave unset for 'legacy', the rubric as it shipped before calibration examples existed, so an existing router's tier decisions and spend do not move on upgrade. Mutually exclusive with system_prompt, which replaces the rubric this would select. Only applies when classifier_type is 'llm'.
 	 */
-	classification_rubric?: (ClassificationRubricKey | null) | undefined;
+	classification_rubric?: (ClassificationRubricKey | (null | null)) | undefined;
 	/**
 	 * @description Replaces the built-in complexity rubric as the classifier's entire system role. When set, neither the default rubric nor the context-window closing line is appended, so the prompt owns the whole taxonomy and the tier names SIMPLE/MEDIUM/COMPLEX/REASONING become whatever buckets it defines: a prompt that classifies data sensitivity routes on that instead of on difficulty. Two consequences of full replacement. The default rubric's closing paragraph is the classifier's prompt-injection defense, telling it that the caller's quoted system prompt and prior turns are material to judge and never instructions; a replacement that omits it lets a caller ask for a tier and get it. And the heuristic fallback still scores complexity, so a router on some other taxonomy wants classifier_fallback='default_model'. Leave unset for the built-in rubric. Only applies when classifier_type is 'llm'.
 	 */
-	system_prompt?: (string | null) | undefined;
+	system_prompt?: (string | (null | null)) | undefined;
 };
 
 export type CapabilityCalibrationConfig = {
@@ -2625,7 +2688,7 @@ export type CapabilityClassifierConfig = {
 	/**
 	 * @description Optional versioned sigmoid calibration fitted for this judge, capability card, efficient model, and execution setup. Applies sigmoid(slope * logit(clip(p_solve, 1e-6, 1-1e-6)) + intercept) before the threshold policy. Omit to route on the raw forecast.
 	 */
-	calibration?: (CapabilityCalibrationConfig | null) | undefined;
+	calibration?: (CapabilityCalibrationConfig | (null | null)) | undefined;
 	/**
 	 * @description Use json_object for judges without strict JSON Schema support. This appends the verdict schema to the packaged system prompt; both modes validate the returned verdict identically.
 	 * @default 'json_schema'
@@ -2645,7 +2708,7 @@ export type OpenSourceClassifierConfigProviderEnumKey =
 	(typeof openSourceClassifierConfigProviderEnum)[keyof typeof openSourceClassifierConfigProviderEnum];
 
 export type OpenSourceClassifierConfig = {
-	deployment_name?: (string | null) | undefined;
+	deployment_name?: (string | (null | null)) | undefined;
 	/**
 	 * @default 'jev'
 	 * @type string | undefined
@@ -2659,11 +2722,11 @@ export type OpenSourceClassifierConfig = {
 	/**
 	 * @description Provider API key; optional for self-hosted providers
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description Provider API base; defaults to the selected provider API_BASE environment variable
 	 */
-	api_base?: (string | null) | undefined;
+	api_base?: (string | (null | null)) | undefined;
 	/**
 	 * @minimum 1
 	 * @default 3000
@@ -2673,7 +2736,7 @@ export type OpenSourceClassifierConfig = {
 	/**
 	 * @description Replaces the built-in classification instructions
 	 */
-	instructions?: (string | null) | undefined;
+	instructions?: (string | (null | null)) | undefined;
 	/**
 	 * @default true
 	 * @type boolean | undefined
@@ -2704,7 +2767,7 @@ export type KeywordTierRule = {
 };
 
 export type ContextCompactionConfig = {
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @default 0.9
 	 * @type number | undefined
@@ -2822,19 +2885,19 @@ export type RequestComplexityRouterConfig = {
 	/**
 	 * @description Operator-defined tier set replacing the built-in SIMPLE/MEDIUM/COMPLEX/REASONING. Each entry's name becomes a value the LLM classifier can return and its description becomes that tier's rubric bullet; entries named after a built-in tier may omit the description and inherit the built-in criteria. List order is ascending severity and decides which tier wins when several keyword_tier_rules match. Requires classifier_type 'llm', 'oss_classifier' or 'custom', a fallback_tier, and `tiers` keys matching the defined names exactly. Escalation, adaptive selection, session affinity, plugins, tier_labels, and the calibration-example rubric presets are unavailable with a custom tier set: the first four are built on the built-in tier ladder, and the last two rename or exemplify tiers the set replaces.
 	 */
-	tier_definitions?: (TierDefinition[] | null) | undefined;
+	tier_definitions?: (TierDefinition[] | (null | null)) | undefined;
 	/**
 	 * @description Tier routed to when the LLM classifier fails (timeout, provider error, or an unparseable reply). Required with tier_definitions and must name a defined tier; the heuristic scorer cannot produce custom tiers, so this replaces the heuristic fallback for custom tier sets.
 	 */
-	fallback_tier?: (string | null) | undefined;
+	fallback_tier?: (string | (null | null)) | undefined;
 	/**
 	 * @description Replaces the classification instructions that open the LLM classifier rubric, and nothing else. The per-tier bullets follow it, the calibration examples follow those, and the trust-boundary paragraph telling the classifier to ignore tier requests embedded in quoted caller text is always appended after them and cannot be overridden. Requires an LLM classifier and cannot be combined with classifier_llm_config.system_prompt. With built-in tiers the rubric preset still supplies the tier criteria and, unless classification_examples replaces them, the calibration examples.
 	 */
-	classification_prompt?: (string | null) | undefined;
+	classification_prompt?: (string | (null | null)) | undefined;
 	/**
 	 * @description Replaces the calibration examples of the LLM classifier rubric, and nothing else. Written as example lines only: the router renders the 'Calibration examples:' heading above them, after the per-tier bullets. Requires an LLM classifier and cannot be combined with classifier_llm_config.system_prompt. With built-in tiers the rubric preset still supplies the tier criteria and, unless classification_prompt replaces them, the classification instructions; a custom tier set ships no examples of its own, so the section renders only when this is set.
 	 */
-	classification_examples?: (string | null) | undefined;
+	classification_examples?: (string | (null | null)) | undefined;
 	/**
 	 * @description Display names for the complexity tiers, so a deployment can use its own vocabulary (e.g. Cheap/Standard/Premium/Deep) in the dashboard, spend logs, and the LLM classifier rubric. Purely operator-facing: config keys stay canonical (tiers, keyword_tier_rules[].tier, tier_boundaries), API callers never see these names, and the heuristic scorer never reads them. Unlisted tiers keep their canonical name. Partial maps are allowed.
 	 * @type object | undefined
@@ -2852,7 +2915,7 @@ export type RequestComplexityRouterConfig = {
 	/**
 	 * @description Minimum weighted score a request must reach before 2+ reasoning markers may promote it to the reasoning tier. Unset tracks tier_boundaries.simple_medium, so the override never rescues a request the scorer placed in the cheapest tier; 0 restores the unconditional override
 	 */
-	reasoning_override_min_score?: (number | null) | undefined;
+	reasoning_override_min_score?: (number | (null | null)) | undefined;
 	/**
 	 * @description Token count thresholds for simple/complex classification
 	 * @type object | undefined
@@ -2880,27 +2943,27 @@ export type RequestComplexityRouterConfig = {
 	/**
 	 * @description Keywords indicating code-related content
 	 */
-	code_keywords?: (string[] | null) | undefined;
+	code_keywords?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Keywords indicating reasoning-required content
 	 */
-	reasoning_keywords?: (string[] | null) | undefined;
+	reasoning_keywords?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Keywords indicating technical content
 	 */
-	technical_keywords?: (string[] | null) | undefined;
+	technical_keywords?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Domain-specific technical keywords appended to the effective base list (technical_keywords if set, otherwise DEFAULT_TECHNICAL_KEYWORDS). Order is preserved; duplicates are removed case-insensitively against the base list and within this list.
 	 */
-	custom_technical_keywords?: (string[] | null) | undefined;
+	custom_technical_keywords?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Keywords indicating simple/basic queries
 	 */
-	simple_keywords?: (string[] | null) | undefined;
+	simple_keywords?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Default model to use if tier cannot be determined
 	 */
-	default_model?: (string | null) | undefined;
+	default_model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Return the resolved raw model name in the response model field instead of the client-requested complexity-router alias
 	 * @default false
@@ -2916,11 +2979,11 @@ export type RequestComplexityRouterConfig = {
 	/**
 	 * @description Experimental joint task-demand and solver-capability forecasting for classifier_type llm_v2.
 	 */
-	llm_v2_config?: (LLMV2Config | null) | undefined;
+	llm_v2_config?: (LLMV2Config | (null | null)) | undefined;
 	/**
 	 * @description Local scorer for heuristic_first or hybrid. Omitted or null keeps heuristic v1; heuristic_v2 uses the trained success predictor. Rejected for other classifier types.
 	 */
-	local_heuristic?: (RequestComplexityRouterConfigLocalHeuristicKey | null) | undefined;
+	local_heuristic?: (RequestComplexityRouterConfigLocalHeuristicKey | (null | null)) | undefined;
 	/**
 	 * @description Success-probability artifact used by standalone or chained heuristic_v2. The bundled UltraFeedback artifact is selected by default; an inline trained artifact may replace it
 	 * @default ultrafeedback
@@ -2929,24 +2992,24 @@ export type RequestComplexityRouterConfig = {
 	/**
 	 * @description Minimum predicted success probability for standalone or chained heuristic_v2 to select a tier. The first tier meeting this threshold is selected. When none meets it, standalone heuristic_v2 selects REASONING and chained heuristic_v2 defers to the LLM judge. When omitted or null, uses the artifact's routing_threshold (0.75 for the bundled artifact). Ignored when heuristic_v2 is not selected
 	 */
-	heuristic_v2_success_threshold?: (number | null) | undefined;
+	heuristic_v2_success_threshold?: (number | (null | null)) | undefined;
 	/**
 	 * @description Configuration for the LLM classifier; required when classifier_type is 'llm', 'capability', 'heuristic_first' or 'hybrid'
 	 */
-	classifier_llm_config?: (ClassifierLLMConfig | null) | undefined;
+	classifier_llm_config?: (ClassifierLLMConfig | (null | null)) | undefined;
 	/**
 	 * @description Probability threshold policy required when classifier_type is 'capability'. The classifier forecasts p_solve for efficient_tier, adjusts base_threshold using the capability-card boundary, and otherwise routes to capable_tier
 	 */
-	capability_classifier_config?: (CapabilityClassifierConfig | null) | undefined;
-	opensource_classifier_config?: (OpenSourceClassifierConfig | null) | undefined;
+	capability_classifier_config?: (CapabilityClassifierConfig | (null | null)) | undefined;
+	opensource_classifier_config?: (OpenSourceClassifierConfig | (null | null)) | undefined;
 	/**
 	 * @description The highest tier the local scorer may decide on its own; required when classifier_type is 'heuristic_first' and rejected otherwise. A request whose heuristic tier is at or below this one skips the LLM classifier and routes straight to that heuristic tier, so the classifier call is only paid for on traffic the scorer could not place cheaply. The scorer must also have produced at least one signal: a prompt where no dimension fired scores 0.0 and would otherwise land SIMPLE by default rather than by evidence. With local_heuristic 'heuristic_v2', the predicted tier must meet its success threshold. Names a built-in tier, and may not name the highest one, since that would make the LLM classifier unreachable.
 	 */
-	heuristic_first_max_tier?: (string | null) | undefined;
+	heuristic_first_max_tier?: (string | (null | null)) | undefined;
 	/**
 	 * @description How close to a tier boundary a heuristic score has to land before the LLM classifier breaks the tie; required when classifier_type is 'hybrid' and rejected otherwise. Everything further than this from every active boundary routes on the scorer's own tier with no classifier call, at any tier, which is what separates 'hybrid' from 'heuristic_first' and its cheap-tier ceiling. A prompt where no dimension fired still goes to the classifier, since the scorer has no opinion to be near a boundary with. With local_heuristic 'heuristic_v2', a tier must meet its success threshold and its probability and all lower-tier probabilities must be further than this margin from that threshold. 0 escalates only scores or probabilities exactly on a boundary.
 	 */
-	hybrid_boundary_margin?: (number | null) | undefined;
+	hybrid_boundary_margin?: (number | (null | null)) | undefined;
 	/**
 	 * @description Not settable over HTTP; the classifier plugin is a runtime object
 	 * @type null | undefined
@@ -2981,7 +3044,7 @@ export type RequestComplexityRouterConfig = {
 	/**
 	 * @description Optional cap on each individual prior turn's text, applied before classifier_context_budget_chars bounds the block. Unset by default, so one long turn may spend the whole budget, which is usually what a follow-up needs; set it when no single turn should dominate the context the classifier sees. A capped turn keeps its opening and its ending with the middle elided. Applies to LLM and JEV classification.
 	 */
-	classifier_context_per_turn_chars?: (number | null) | undefined;
+	classifier_context_per_turn_chars?: (number | (null | null)) | undefined;
 	/**
 	 * @description Include assistant turns in the classifier context window, so difficulty stated by the model rather than by the user stays visible: a plan the assistant calls complex, which the user approves with 'yes', is classified on the work being approved instead of on the word 'yes'. When enabled, classifier_context_window_size counts the last N turns of the conversation across both roles rather than the last N user turns, and assistant text is sent to the classifier model, which may be a different deployment or provider than the routed completion model. Assistant replies spend classifier_context_budget_chars alongside user turns, so raise it if the oldest turns stop being quoted once replies join the window. Off by default because enabling it shifts tier decisions, and therefore spend, for an already-deployed router. Applies to LLM and JEV classification.
 	 * @default false
@@ -3015,11 +3078,11 @@ export type RequestComplexityRouterConfig = {
 	/**
 	 * @description Case-sensitive phrases a user can include to force a bump to the next-higher complexity tier when they aren't satisfied with results (they can force a stronger model, but not choose which one). Defaults to ['LITELLM ESCALATE'] when unset; set to an empty list to disable.
 	 */
-	escalation_keywords?: (string[] | null) | undefined;
+	escalation_keywords?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Rules that force a specific tier when their keywords match the prompt
 	 */
-	keyword_tier_rules?: (KeywordTierRule[] | null) | undefined;
+	keyword_tier_rules?: (KeywordTierRule[] | (null | null)) | undefined;
 	/**
 	 * @description Escalate mid-task to the next-higher configured tier when the assistant's own recent tool calls look stuck: the newest tool call repeats, or errors, at least stall_escalation_repeat_threshold times across the last stall_escalation_window calls. Both tests are anchored on the newest call, so a task that tried the same thing a few times and then moved on is not escalated on the strength of those older calls alone, while a retry loop broken up by an unrelated lookup still counts. One tier at most, on the same ladder escalation_keywords bumps along, and never above the highest configured tier. Detection re-runs on every classified turn from the tool calls visible in that request, so it needs no state and nothing survives past the task. Mutually exclusive with session_affinity and classification_mode='user_turn', which both replay a held routing decision instead of classifying most turns, so this would never see the tool calls to look at. Off by default.
 	 * @default false
@@ -3042,11 +3105,11 @@ export type RequestComplexityRouterConfig = {
 	/**
 	 * @description When set, requests carrying a coding-agent plan-mode sentinel (Claude Code plan mode, VS Code Copilot Plan mode, Copilot CLI's exit_plan_mode tool) are routed to at least this tier: the classified tier still wins when it is higher, and the floor also overrides a session-affinity pin to a lower tier for exactly the turns carrying the sentinel, without rewriting the pin -- the first turn after plan mode exits routes as if plan mode had never happened. Names a built-in tier, or with tier_definitions set, one of the defined tier names (list order is ascending severity, same as keyword_tier_rules). Unset disables detection entirely. The sentinels ride in client-injected prompt text, so a caller who pastes one can spend up to this tier's models -- never down, and never outside the configured pools.
 	 */
-	plan_mode_min_tier?: (string | null) | undefined;
+	plan_mode_min_tier?: (string | (null | null)) | undefined;
 	/**
 	 * @description Additional case-sensitive literal sentinels that mark a request as plan mode, on top of the built-in Claude Code and Copilot ones. For clients whose plan-mode wording the built-ins don't cover, or after a client release changes its strings.
 	 */
-	plan_mode_patterns?: (string[] | null) | undefined;
+	plan_mode_patterns?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Set max_tokens on every routed request to the output ceiling of the tier model it lands on, replacing whatever the caller sent. A caller behind an auto-router cannot pick one value that fits every tier: the smallest tier's ceiling starves a bigger tier's thinking budget, and a bigger tier's ceiling is rejected by the smallest. The ceiling is the smallest max_output_tokens across the tier model's deployments, read from each deployment's model_info and then the model cost map; a tier model with a deployment whose ceiling is unknown keeps the caller's value. A max_tokens, max_completion_tokens or max_output_tokens in the tier's own litellm_params still wins. Set "clamp" to keep a smaller positive caller value and cap a larger one at the ceiling. Set false to forward the caller's value unchanged.
 	 * @default true
@@ -3061,7 +3124,7 @@ export type RequestComplexityRouterConfig = {
 	/**
 	 * @description Additional case-sensitive literal sentinels that mark a request as client housekeeping, on top of the built-in conversation-title ones. For clients whose wording the built-ins don't cover, or after a client release changes its strings.
 	 */
-	housekeeping_patterns?: (string[] | null) | undefined;
+	housekeeping_patterns?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Compact full conversation history near the selected deployment's input limit for Chat, Responses and Messages. Uses a capable configured tier model unless model is specified. Set false or null to disable. Stored and client-managed native history keep their existing behavior.
 	 */
@@ -3100,7 +3163,7 @@ export type RequestComplexityRouterConfig = {
 	/**
 	 * @description Embedding model (LiteLLM model name) used when semantic_keyword_matching is enabled
 	 */
-	embedding_model?: (string | null) | undefined;
+	embedding_model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Minimum cosine similarity for a semantic keyword match
 	 * @minimum 0
@@ -3160,7 +3223,7 @@ export type RequestComplexityRouterConfig = {
 	/**
 	 * @description Override the delimiter pairs used to recognize and strip harness-injected reminder blocks before classification. A harness that wraps injected context differently per agent type (main, subagent, cron) lists every pair it emits. Replaces, rather than adds to, the built-in system-reminder pair and the Codex envelope pairs enabled for Codex user agents, so list every built-in pair your harness also emits. Matching is case-insensitive.
 	 */
-	reminder_markers?: (ReminderMarkerPair[] | null) | undefined;
+	reminder_markers?: (ReminderMarkerPair[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -3177,7 +3240,7 @@ export type AutoRouterRoutingTestRequest = {
 	/**
 	 * @description A single ask to route, as an end user would send it. Mutually exclusive with messages
 	 */
-	prompt?: (string | null) | undefined;
+	prompt?: (string | (null | null)) | undefined;
 	/**
 	 * @description The full message list to route, exactly as the serving path would receive it. Mutually exclusive with prompt
 	 */
@@ -3186,7 +3249,7 @@ export type AutoRouterRoutingTestRequest = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -3198,7 +3261,7 @@ export type AutoRouterRoutingTestRequest = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -3209,7 +3272,7 @@ export type AutoRouterRoutingTestRequest = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -3220,11 +3283,11 @@ export type AutoRouterRoutingTestRequest = {
 	/**
 	 * @description Test this saved deployment's server-side configuration instead of the supplied config and default model
 	 */
-	saved_model_id?: (string | null) | undefined;
+	saved_model_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Model to route to when no tier resolves, i.e. complexity_router_default_model
 	 */
-	default_model?: (string | null) | undefined;
+	default_model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Name reported as the router in the routing decision. Display only
 	 * @default 'auto_router_routing_test'
@@ -3234,7 +3297,7 @@ export type AutoRouterRoutingTestRequest = {
 	/**
 	 * @description Team the router is being created for. Required for a team admin, who may only test their own team's routers
 	 */
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 };
 
 export type StandardLoggingHeuristicV2Forecast = {
@@ -3456,19 +3519,19 @@ export type AutoRouterSessionResponse = {
 	/**
 	 * @description Recorded historical savings plus newer estimates, net of classifier cost
 	 */
-	saved_spend: number | null;
+	saved_spend: number | (null | null);
 	/**
 	 * @description Estimated single-model cost: spend plus recorded savings
 	 */
-	baseline_spend: number | null;
+	baseline_spend: number | (null | null);
 	/**
 	 * @description Estimated single-model cost for requests whose estimate recorded its baseline cost
 	 */
-	savings_estimated_baseline_spend: number | null;
+	savings_estimated_baseline_spend: number | (null | null);
 	/**
 	 * @description The savings baseline recorded by most session turns, including historical turns, recorded turn by turn, so it still names the counterfactual after the router is reconfigured or removed. None when no turn recorded one: rows from before the baseline was recorded, and adaptive and quality routers, which derive no baseline and so report no savings
 	 */
-	baseline_model: string | null;
+	baseline_model: string | (null | null);
 	/**
 	 * @description Session turns recording each baseline model; more than one entry means the router's baseline changed mid-session; these counts do not imply savings coverage
 	 * @type object
@@ -3565,22 +3628,25 @@ export type BlockUsers = {
  * @type object
  */
 export type LiteLLMBudgetTable = {
-	budget_id?: (string | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_duration?: (string | null) | undefined;
-	allowed_models?: (string[] | null) | undefined;
-	temp_budget_increase?: (number | null) | undefined;
-	temp_budget_expiry?: (string | null) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	allowed_models?: (string[] | (null | null)) | undefined;
+	temp_budget_increase?: (number | (null | null)) | undefined;
+	temp_budget_expiry?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -3592,43 +3658,46 @@ export type LiteLLMObjectPermissionTable = {
 	/**
 	 * @default []
 	 */
-	mcp_servers?: (string[] | null) | undefined;
+	mcp_servers?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	mcp_access_groups?: (string[] | null) | undefined;
+	mcp_access_groups?: (string[] | (null | null)) | undefined;
 	mcp_tool_permissions?:
-		| ({
-				[key: string]: string[];
-		  } | null)
+		| (
+				| {
+						[key: string]: string[];
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default []
 	 */
-	vector_stores?: (string[] | null) | undefined;
+	vector_stores?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	agents?: (string[] | null) | undefined;
+	agents?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	agent_access_groups?: (string[] | null) | undefined;
+	agent_access_groups?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	models?: (string[] | null) | undefined;
-	mcp_toolsets?: (string[] | null) | undefined;
+	models?: (string[] | (null | null)) | undefined;
+	mcp_toolsets?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	blocked_tools?: (string[] | null) | undefined;
+	blocked_tools?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	search_tools?: (string[] | null) | undefined;
-	mcp_tool_search_enabled?: (boolean | null) | undefined;
-	skills?: (string[] | null) | undefined;
+	search_tools?: (string[] | (null | null)) | undefined;
+	mcp_tool_search_enabled?: (boolean | (null | null)) | undefined;
+	skills?: (string[] | (null | null)) | undefined;
 };
 
 export const liteLLMEndUserTableAllowedModelRegion = {
@@ -3642,19 +3711,19 @@ export type LiteLLMEndUserTableAllowedModelRegionKey =
 export type LiteLLMEndUserTable = {
 	user_id: string;
 	blocked: boolean;
-	alias?: (string | null) | undefined;
+	alias?: (string | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type number | undefined
 	 */
 	spend?: number | undefined;
-	allowed_model_region?: (LiteLLMEndUserTableAllowedModelRegionKey | null) | undefined;
-	default_model?: (string | null) | undefined;
+	allowed_model_region?: (LiteLLMEndUserTableAllowedModelRegionKey | (null | null)) | undefined;
+	default_model?: (string | (null | null)) | undefined;
 	models?: string[] | undefined;
-	budget_id?: (string | null) | undefined;
-	litellm_budget_table?: (LiteLLMBudgetTable | null) | undefined;
-	object_permission_id?: (string | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	litellm_budget_table?: (LiteLLMBudgetTable | (null | null)) | undefined;
+	object_permission_id?: (string | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
 };
 
 export type BlockUsersResponse = {
@@ -3678,10 +3747,16 @@ export type BlogPostsResponse = {
 };
 
 export type BodyAudioTranscriptionsAudioTranscriptionsPost = {
+	/**
+	 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
+	 */
 	file: Blob;
 };
 
 export type BodyAudioTranscriptionsV1AudioTranscriptionsPost = {
+	/**
+	 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
+	 */
 	file: Blob;
 };
 
@@ -3702,8 +3777,11 @@ export type BodyCreateFileProviderV1FilesPost = {
 	 * @type string | undefined
 	 */
 	custom_llm_provider?: string | undefined;
+	/**
+	 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
+	 */
 	file: Blob;
-	litellm_metadata?: (string | null) | undefined;
+	litellm_metadata?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -3728,8 +3806,11 @@ export type BodyCreateFileFilesPost = {
 	 * @type string | undefined
 	 */
 	custom_llm_provider?: string | undefined;
+	/**
+	 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
+	 */
 	file: Blob;
-	litellm_metadata?: (string | null) | undefined;
+	litellm_metadata?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -3754,8 +3835,11 @@ export type BodyCreateFileV1FilesPost = {
 	 * @type string | undefined
 	 */
 	custom_llm_provider?: string | undefined;
+	/**
+	 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
+	 */
 	file: Blob;
-	litellm_metadata?: (string | null) | undefined;
+	litellm_metadata?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -3764,24 +3848,24 @@ export type BodyCreateFileV1FilesPost = {
 };
 
 export type BodyImageEditApiImagesEditsPost = {
-	image?: (Blob[] | null) | undefined;
-	"image[]"?: (Blob[] | null) | undefined;
-	mask?: (Blob[] | null) | undefined;
-	"mask[]"?: (Blob[] | null) | undefined;
+	image?: (Blob[] | (null | null)) | undefined;
+	"image[]"?: (Blob[] | (null | null)) | undefined;
+	mask?: (Blob[] | (null | null)) | undefined;
+	"mask[]"?: (Blob[] | (null | null)) | undefined;
 };
 
 export type BodyImageEditApiOpenaiDeploymentsModelImagesEditsPost = {
-	image?: (Blob[] | null) | undefined;
-	"image[]"?: (Blob[] | null) | undefined;
-	mask?: (Blob[] | null) | undefined;
-	"mask[]"?: (Blob[] | null) | undefined;
+	image?: (Blob[] | (null | null)) | undefined;
+	"image[]"?: (Blob[] | (null | null)) | undefined;
+	mask?: (Blob[] | (null | null)) | undefined;
+	"mask[]"?: (Blob[] | (null | null)) | undefined;
 };
 
 export type BodyImageEditApiV1ImagesEditsPost = {
-	image?: (Blob[] | null) | undefined;
-	"image[]"?: (Blob[] | null) | undefined;
-	mask?: (Blob[] | null) | undefined;
-	"mask[]"?: (Blob[] | null) | undefined;
+	image?: (Blob[] | (null | null)) | undefined;
+	"image[]"?: (Blob[] | (null | null)) | undefined;
+	mask?: (Blob[] | (null | null)) | undefined;
+	"mask[]"?: (Blob[] | (null | null)) | undefined;
 };
 
 export const bodyTestModelConnectionHealthTestConnectionPostMode = {
@@ -3811,7 +3895,7 @@ export type BodyTestModelConnectionHealthTestConnectionPost = {
 	/**
 	 * @description The mode to test the model with. If not provided, resolved the way /health does: the deployment's model_info.mode (only while the request tests the deployment's own model), then the mode the provider requires for that model, then the model cost map.
 	 */
-	mode?: (BodyTestModelConnectionHealthTestConnectionPostModeKey | null) | undefined;
+	mode?: (BodyTestModelConnectionHealthTestConnectionPostModeKey | (null | null)) | undefined;
 	/**
 	 * @description Parameters for litellm.completion, litellm.embedding for the health check
 	 * @type object | undefined
@@ -3833,25 +3917,34 @@ export type BodyTestModelConnectionHealthTestConnectionPost = {
 };
 
 export type BodyUploadLogoUploadLogoPost = {
+	/**
+	 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
+	 */
 	file: Blob;
 };
 
 export type BodyVideoCreateCharacterV1VideosCharactersPost = {
+	/**
+	 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
+	 */
 	video: Blob;
 	name: string;
 };
 
 export type BodyVideoCreateCharacterVideosCharactersPost = {
+	/**
+	 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
+	 */
 	video: Blob;
 	name: string;
 };
 
 export type BodyVideoGenerationV1VideosPost = {
-	input_reference?: (Blob | null) | undefined;
+	input_reference?: (Blob | (null | null)) | undefined;
 };
 
 export type BodyVideoGenerationVideosPost = {
-	input_reference?: (Blob | null) | undefined;
+	input_reference?: (Blob | (null | null)) | undefined;
 };
 
 export type SpendMetrics = {
@@ -3952,11 +4045,11 @@ export type SpendMetrics = {
  * @type object
  */
 export type KeyMetadata = {
-	key_alias?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	user_id?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
-	key_exists?: (boolean | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
+	key_exists?: (boolean | (null | null)) | undefined;
 };
 
 /**
@@ -4096,10 +4189,10 @@ export type BreakdownMetrics = {
 };
 
 export type BudgetConfig = {
-	max_budget?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
 };
 
 export type BudgetDeleteRequest = {
@@ -4113,7 +4206,7 @@ export type BudgetDeleteRequest = {
 export type BudgetLimitEntry = {
 	budget_duration: string;
 	max_budget: number;
-	reset_at?: (string | null) | undefined;
+	reset_at?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -4126,13 +4219,13 @@ export type BudgetLimitEntry = {
  */
 export type BudgetListItem = {
 	budget_id: string;
-	max_budget?: (number | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_reset_at?: (string | null) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
 	/**
 	 * @description
 	 * Format: `date-time`
@@ -4151,47 +4244,50 @@ export type BudgetNewRequest = {
 	/**
 	 * @description The unique budget id.
 	 */
-	budget_id?: (string | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Requests will fail if this budget (in USD) is exceeded.
 	 */
-	max_budget?: (number | null) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
 	/**
 	 * @description Requests will NOT fail if this is exceeded. Will fire alerting though.
 	 */
-	soft_budget?: (number | null) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
 	/**
 	 * @description Max concurrent requests allowed for this budget id.
 	 */
-	max_parallel_requests?: (number | null) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
 	/**
 	 * @description Max tokens per minute, allowed for this budget id.
 	 */
-	tpm_limit?: (number | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
 	/**
 	 * @description Max requests per minute, allowed for this budget id.
 	 */
-	rpm_limit?: (number | null) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
 	/**
 	 * @description Max tokens per day, charged by batch submissions, allowed for this budget id.
 	 */
-	tpd_limit?: (number | null) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
 	/**
 	 * @description Max duration budget should be set for (e.g. '1hr', '1d', '28d')
 	 */
-	budget_duration?: (string | null) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
 	/**
 	 * @description Max budget for each model (e.g. {'gpt-4o': {'max_budget': '0.0000001', 'budget_duration': '1d', 'tpm_limit': 1000, 'rpm_limit': 1000}})
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: BudgetConfig;
-		  } | null)
+		| (
+				| {
+						[key: string]: BudgetConfig;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Datetime when the budget is reset
 	 */
-	budget_reset_at?: (string | null) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
 };
 
 export type BudgetRequest = {
@@ -4212,14 +4308,14 @@ export type BulkDeleteUserRequest = {
  */
 export type UserDeleteResult = {
 	user_id: string;
-	user_email?: (string | null) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	success: boolean;
 	/**
 	 * @default []
 	 * @type array | undefined
 	 */
 	teams_removed?: string[] | undefined;
-	error?: (string | null) | undefined;
+	error?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -4231,22 +4327,25 @@ export type BulkDeleteUsersResponse = {
 };
 
 export type LiteLLMObjectPermissionBase = {
-	mcp_servers?: (string[] | null) | undefined;
-	mcp_access_groups?: (string[] | null) | undefined;
+	mcp_servers?: (string[] | (null | null)) | undefined;
+	mcp_access_groups?: (string[] | (null | null)) | undefined;
 	mcp_tool_permissions?:
-		| ({
-				[key: string]: string[];
-		  } | null)
+		| (
+				| {
+						[key: string]: string[];
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	mcp_toolsets?: (string[] | null) | undefined;
-	blocked_tools?: (string[] | null) | undefined;
-	vector_stores?: (string[] | null) | undefined;
-	agents?: (string[] | null) | undefined;
-	agent_access_groups?: (string[] | null) | undefined;
-	models?: (string[] | null) | undefined;
-	search_tools?: (string[] | null) | undefined;
-	mcp_tool_search_enabled?: (boolean | null) | undefined;
-	skills?: (string[] | null) | undefined;
+	mcp_toolsets?: (string[] | (null | null)) | undefined;
+	blocked_tools?: (string[] | (null | null)) | undefined;
+	vector_stores?: (string[] | (null | null)) | undefined;
+	agents?: (string[] | (null | null)) | undefined;
+	agent_access_groups?: (string[] | (null | null)) | undefined;
+	models?: (string[] | (null | null)) | undefined;
+	search_tools?: (string[] | (null | null)) | undefined;
+	mcp_tool_search_enabled?: (boolean | (null | null)) | undefined;
+	skills?: (string[] | (null | null)) | undefined;
 };
 
 export const newUserRequestTeamUserRoleEnum = {
@@ -4259,7 +4358,7 @@ export type NewUserRequestTeamUserRoleEnumKey =
 
 export type NewUserRequestTeam = {
 	team_id: string;
-	max_budget_in_team?: (number | null) | undefined;
+	max_budget_in_team?: (number | (null | null)) | undefined;
 	/**
 	 * @default 'user'
 	 * @type string | undefined
@@ -4283,112 +4382,142 @@ export type BulkNewUserItemUserRoleKey =
  * @type object
  */
 export type BulkNewUserItem = {
-	key_alias?: (string | null) | undefined;
-	duration?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
+	duration?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	models?: (unknown[] | null) | undefined;
+	models?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 */
-	spend?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	user_id?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	agent_id?: (string | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	agent_id?: (string | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_cache_controls?: (unknown[] | null) | undefined;
+	allowed_cache_controls?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	permissions?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	budget_fallbacks?:
-		| ({
-				[key: string]: string[];
-		  } | null)
+		| (
+				| {
+						[key: string]: string[];
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	mcp_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	tag_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	guardrails?: (string[] | null) | undefined;
-	policies?: (string[] | null) | undefined;
-	prompts?: (string[] | null) | undefined;
-	blocked?: (boolean | null) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
+	prompts?: (string[] | (null | null)) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	aliases?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
-	user_email?: (string | null) | undefined;
-	user_alias?: (string | null) | undefined;
-	user_role?: (BulkNewUserItemUserRoleKey | null) | undefined;
-	teams?: (string[] | NewUserRequestTeam[] | null) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
+	user_alias?: (string | (null | null)) | undefined;
+	user_role?: (BulkNewUserItemUserRoleKey | (null | null)) | undefined;
+	teams?: (string[] | NewUserRequestTeam[] | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	auto_create_key?: boolean | undefined;
-	send_invite_email?: (boolean | null) | undefined;
-	sso_user_id?: (string | null) | undefined;
-	organizations?: (string[] | null) | undefined;
-	password?: (string | null) | undefined;
+	send_invite_email?: (boolean | (null | null)) | undefined;
+	sso_user_id?: (string | (null | null)) | undefined;
+	organizations?: (string[] | (null | null)) | undefined;
+	password?: (string | (null | null)) | undefined;
 };
 
 export type BulkNewUserMeta = {
@@ -4407,12 +4536,12 @@ export type BulkNewUserRequest = {
  * @type object
  */
 export type UserCreateResult = {
-	user_id?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	success: boolean;
-	teams?: (string[] | null) | undefined;
-	key?: (string | null) | undefined;
-	error?: (string | null) | undefined;
+	teams?: (string[] | (null | null)) | undefined;
+	key?: (string | (null | null)) | undefined;
+	error?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -4435,11 +4564,11 @@ export type Member = {
 	/**
 	 * @description The unique ID of the user to add. Either user_id or user_email must be provided
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description The email address of the user to add. Either user_id or user_email must be provided
 	 */
-	user_email?: (string | null) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	/**
 	 * @description The role of the user within the team. 'admin' users can manage team settings and members, 'user' is a regular team member
 	 * @type string
@@ -4453,12 +4582,12 @@ export type Member = {
  */
 export type BulkTeamMemberAddRequest = {
 	team_id: string;
-	members?: (Member[] | null) | undefined;
+	members?: (Member[] | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	all_users?: (boolean | null) | undefined;
-	max_budget_in_team?: (number | null) | undefined;
+	all_users?: (boolean | (null | null)) | undefined;
+	max_budget_in_team?: (number | (null | null)) | undefined;
 };
 
 /**
@@ -4466,19 +4595,25 @@ export type BulkTeamMemberAddRequest = {
  * @type object
  */
 export type TeamMemberAddResult = {
-	user_id?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	success: boolean;
-	error?: (string | null) | undefined;
+	error?: (string | (null | null)) | undefined;
 	updated_user?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	updated_team_membership?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -4493,9 +4628,12 @@ export type BulkTeamMemberAddResponse = {
 	successful_additions: number;
 	failed_additions: number;
 	updated_team?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -4506,13 +4644,13 @@ export type BulkTeamMemberAddResponse = {
  * @type object
  */
 export type TeamMemberBudgetPatch = {
-	user_id?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
-	max_budget_in_team?: (number | null) | undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	allowed_models?: (string[] | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
+	max_budget_in_team?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	allowed_models?: (string[] | (null | null)) | undefined;
 };
 
 /**
@@ -4537,17 +4675,17 @@ export type TeamMemberBudgetUpdateResultMaxBudgetSourceKey =
  * @type object
  */
 export type TeamMemberBudgetUpdateResult = {
-	user_id?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	success: boolean;
-	error?: (string | null) | undefined;
-	budget_id?: (string | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	max_budget_source?: (TeamMemberBudgetUpdateResultMaxBudgetSourceKey | null) | undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	allowed_models?: (string[] | null) | undefined;
+	error?: (string | (null | null)) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	max_budget_source?: (TeamMemberBudgetUpdateResultMaxBudgetSourceKey | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	allowed_models?: (string[] | (null | null)) | undefined;
 };
 
 /**
@@ -4563,8 +4701,8 @@ export type BulkTeamMemberBudgetUpdateResponse = {
  * @type object
  */
 export type TeamMemberRef = {
-	user_id?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -4580,10 +4718,10 @@ export type BulkTeamMemberDeleteRequest = {
  * @type object
  */
 export type TeamMemberDeleteResult = {
-	user_id?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	success: boolean;
-	error?: (string | null) | undefined;
+	error?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -4600,11 +4738,11 @@ export type BulkTeamMemberDeleteResponse = {
  */
 export type BulkUpdateKeyRequestItem = {
 	key: string;
-	budget_id?: (string | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	team_id?: (string | null) | undefined;
-	tags?: (string[] | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	tags?: (string[] | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
 };
 
 /**
@@ -4633,9 +4771,12 @@ export type SuccessfulKeyUpdate = {
 export type FailedKeyUpdate = {
 	key: string;
 	key_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	failed_reason: string;
 };
@@ -4673,38 +4814,50 @@ export type KeyUpdateFieldsTpmLimitTypeKey =
  * @type object
  */
 export type KeyUpdateFields = {
-	max_budget?: (number | null) | undefined;
-	budget_id?: (string | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_limits?: (unknown[] | null) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (unknown[] | (null | null)) | undefined;
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	max_parallel_requests?: (number | null) | undefined;
-	rpm_limit_type?: (KeyUpdateFieldsRpmLimitTypeKey | null) | undefined;
-	tpm_limit_type?: (KeyUpdateFieldsTpmLimitTypeKey | null) | undefined;
-	temp_budget_increase?: (number | null) | undefined;
-	temp_budget_expiry?: (string | null) | undefined;
-	duration?: (string | null) | undefined;
-	tags?: (string[] | null) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
+	rpm_limit_type?: (KeyUpdateFieldsRpmLimitTypeKey | (null | null)) | undefined;
+	tpm_limit_type?: (KeyUpdateFieldsTpmLimitTypeKey | (null | null)) | undefined;
+	temp_budget_increase?: (number | (null | null)) | undefined;
+	temp_budget_expiry?: (string | (null | null)) | undefined;
+	duration?: (string | (null | null)) | undefined;
+	tags?: (string[] | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -4714,7 +4867,7 @@ export type KeyUpdateFields = {
  */
 export type BulkUpdateTeamKeysRequest = {
 	team_id: string;
-	key_ids?: (string[] | null) | undefined;
+	key_ids?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -4759,7 +4912,7 @@ export type KeyManagementRoutesKey = (typeof keyManagementRoutes)[keyof typeof k
  */
 export type BulkUpdateTeamMemberPermissionsRequest = {
 	permissions: KeyManagementRoutesKey[];
-	team_ids?: (string[] | null) | undefined;
+	team_ids?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -4774,7 +4927,7 @@ export type BulkUpdateTeamMemberPermissionsRequest = {
 export type BulkUpdateTeamMemberPermissionsResponse = {
 	message: string;
 	teams_updated: number;
-	permissions_appended?: (string[] | null) | undefined;
+	permissions_appended?: (string[] | (null | null)) | undefined;
 };
 
 export const updateUserRequestUserRole = {
@@ -4788,97 +4941,127 @@ export type UpdateUserRequestUserRoleKey =
 	(typeof updateUserRequestUserRole)[keyof typeof updateUserRequestUserRole];
 
 export type UpdateUserRequest = {
-	key_alias?: (string | null) | undefined;
-	duration?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
+	duration?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	models?: (unknown[] | null) | undefined;
-	spend?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	user_id?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	agent_id?: (string | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
+	models?: (unknown[] | (null | null)) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	agent_id?: (string | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_cache_controls?: (unknown[] | null) | undefined;
+	allowed_cache_controls?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	permissions?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	budget_fallbacks?:
-		| ({
-				[key: string]: string[];
-		  } | null)
+		| (
+				| {
+						[key: string]: string[];
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	mcp_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	tag_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	guardrails?: (string[] | null) | undefined;
-	policies?: (string[] | null) | undefined;
-	prompts?: (string[] | null) | undefined;
-	blocked?: (boolean | null) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
+	prompts?: (string[] | (null | null)) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	aliases?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
-	password?: (string | null) | undefined;
-	user_alias?: (string | null) | undefined;
-	user_role?: (UpdateUserRequestUserRoleKey | null) | undefined;
-	user_email?: (string | null) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
+	password?: (string | (null | null)) | undefined;
+	user_alias?: (string | (null | null)) | undefined;
+	user_role?: (UpdateUserRequestUserRoleKey | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 };
 
 export const updateUserRequestNoUserIDorEmailUserRole = {
@@ -4892,96 +5075,126 @@ export type UpdateUserRequestNoUserIDorEmailUserRoleKey =
 	(typeof updateUserRequestNoUserIDorEmailUserRole)[keyof typeof updateUserRequestNoUserIDorEmailUserRole];
 
 export type UpdateUserRequestNoUserIDorEmail = {
-	key_alias?: (string | null) | undefined;
-	duration?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
+	duration?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	models?: (unknown[] | null) | undefined;
-	spend?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	user_id?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	agent_id?: (string | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
+	models?: (unknown[] | (null | null)) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	agent_id?: (string | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_cache_controls?: (unknown[] | null) | undefined;
+	allowed_cache_controls?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	permissions?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	budget_fallbacks?:
-		| ({
-				[key: string]: string[];
-		  } | null)
+		| (
+				| {
+						[key: string]: string[];
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	mcp_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	tag_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	guardrails?: (string[] | null) | undefined;
-	policies?: (string[] | null) | undefined;
-	prompts?: (string[] | null) | undefined;
-	blocked?: (boolean | null) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
+	prompts?: (string[] | (null | null)) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	aliases?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
-	password?: (string | null) | undefined;
-	user_alias?: (string | null) | undefined;
-	user_role?: (UpdateUserRequestNoUserIDorEmailUserRoleKey | null) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
+	password?: (string | (null | null)) | undefined;
+	user_alias?: (string | (null | null)) | undefined;
+	user_role?: (UpdateUserRequestNoUserIDorEmailUserRoleKey | (null | null)) | undefined;
 };
 
 /**
@@ -4989,12 +5202,12 @@ export type UpdateUserRequestNoUserIDorEmail = {
  * @type object
  */
 export type BulkUpdateUserRequest = {
-	users?: (UpdateUserRequest[] | null) | undefined;
+	users?: (UpdateUserRequest[] | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	all_users?: (boolean | null) | undefined;
-	user_updates?: (UpdateUserRequestNoUserIDorEmail | null) | undefined;
+	all_users?: (boolean | (null | null)) | undefined;
+	user_updates?: (UpdateUserRequestNoUserIDorEmail | (null | null)) | undefined;
 };
 
 /**
@@ -5002,14 +5215,17 @@ export type BulkUpdateUserRequest = {
  * @type object
  */
 export type UserUpdateResult = {
-	user_id?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	success: boolean;
-	error?: (string | null) | undefined;
+	error?: (string | (null | null)) | undefined;
 	updated_user?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -5136,13 +5352,16 @@ export type CacheLeakageKeysResponse = {
 export type CachePingResponse = {
 	status: string;
 	cache_type: string;
-	ping_response?: (boolean | null) | undefined;
-	set_cache_response?: (string | null) | undefined;
-	litellm_cache_params?: (string | null) | undefined;
+	ping_response?: (boolean | (null | null)) | undefined;
+	set_cache_response?: (string | (null | null)) | undefined;
+	litellm_cache_params?: (string | (null | null)) | undefined;
 	health_check_cache_params?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -5159,18 +5378,18 @@ export type CachePredictionArmCacheStateEnumKey =
 
 export type CachePredictionArm = {
 	deployment_id: string;
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @default 'unknown'
 	 * @type string | undefined
 	 */
 	cache_state?: CachePredictionArmCacheStateEnumKey | undefined;
-	reason?: (string | null) | undefined;
-	estimate?: (CacheCostScenario | null) | undefined;
-	cold?: (CacheCostScenario | null) | undefined;
-	warm?: (CacheCostScenario | null) | undefined;
-	evidence?: (CacheEvidence | null) | undefined;
-	token_count_source?: ("anthropic_count_tokens" | null) | undefined;
+	reason?: (string | (null | null)) | undefined;
+	estimate?: (CacheCostScenario | (null | null)) | undefined;
+	cold?: (CacheCostScenario | (null | null)) | undefined;
+	warm?: (CacheCostScenario | (null | null)) | undefined;
+	evidence?: (CacheEvidence | (null | null)) | undefined;
+	token_count_source?: ("anthropic_count_tokens" | (null | null)) | undefined;
 };
 
 export type JsonValue = unknown;
@@ -5196,8 +5415,8 @@ export type CachePredictionRequest = {
 export type CachePredictionResponse = {
 	stay: CachePredictionArm;
 	switch: CachePredictionArm;
-	switch_delta: number | null;
-	cache_rebuild_penalty: number | null;
+	switch_delta: number | (null | null);
+	cache_rebuild_penalty: number | (null | null);
 	/**
 	 * @default 'input_before_discounts_and_margins'
 	 * @type string | undefined
@@ -5216,10 +5435,10 @@ export type CacheSettingsField = {
 	field_value: unknown;
 	field_description: string;
 	field_default?: unknown | undefined;
-	options?: (string[] | null) | undefined;
+	options?: (string[] | (null | null)) | undefined;
 	ui_field_name: string;
-	link?: (string | null) | undefined;
-	redis_type?: (string | null) | undefined;
+	link?: (string | (null | null)) | undefined;
+	redis_type?: (string | (null | null)) | undefined;
 };
 
 export type CacheSettingsResponse = {
@@ -5278,7 +5497,7 @@ export type CacheTestResponse = {
 	/**
 	 * @description Error message if connection failed
 	 */
-	error?: (string | null) | undefined;
+	error?: (string | (null | null)) | undefined;
 };
 
 export type CacheWriteTokensDetails = {
@@ -5288,9 +5507,9 @@ export type CacheWriteTokensDetails = {
 };
 
 export type CachedTokensDetails = {
-	text_tokens?: (number | null) | undefined;
-	audio_tokens?: (number | null) | undefined;
-	image_tokens?: (number | null) | undefined;
+	text_tokens?: (number | (null | null)) | undefined;
+	audio_tokens?: (number | (null | null)) | undefined;
+	image_tokens?: (number | (null | null)) | undefined;
 };
 
 export const callTypes = {
@@ -5485,7 +5704,7 @@ export type CallbackLogRecord = {
 	standard_logging_payload: {
 		[key: string]: unknown;
 	};
-	error?: (string | null) | undefined;
+	error?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -5528,7 +5747,7 @@ export type CaptureRateDay = {
 	date: string;
 	captured_spend: number;
 	provider_spend: number;
-	capture_rate: number | null;
+	capture_rate: number | (null | null);
 };
 
 export type CaptureRateReport = {
@@ -5537,7 +5756,7 @@ export type CaptureRateReport = {
 	end_date: string;
 	captured_spend: number;
 	provider_spend: number;
-	capture_rate: number | null;
+	capture_rate: number | (null | null);
 	threshold: number;
 	below_threshold: boolean;
 	days: CaptureRateDay[];
@@ -5623,7 +5842,7 @@ export type ChatCompletionReasoningSummaryTextBlock = {
 export type ChatCompletionReasoningItem = {
 	type: "reasoning";
 	id?: string | undefined;
-	encrypted_content?: (string | null) | undefined;
+	encrypted_content?: (string | (null | null)) | undefined;
 	summary?: ChatCompletionReasoningSummaryTextBlock[] | undefined;
 	[key: string]: unknown;
 };
@@ -5637,7 +5856,7 @@ export type ChatCompletionRedactedThinkingBlock = {
 						[key: string]: unknown;
 				  }
 				| ChatCompletionCachedContent
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	index?: number | undefined;
@@ -5647,14 +5866,14 @@ export type ChatCompletionRedactedThinkingBlock = {
 export type ChatCompletionThinkingBlock = {
 	type: "thinking";
 	thinking?: string | undefined;
-	signature?: (string | null) | undefined;
+	signature?: (string | (null | null)) | undefined;
 	cache_control?:
 		| (
 				| {
 						[key: string]: unknown;
 				  }
 				| ChatCompletionCachedContent
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	index?: number | undefined;
@@ -5663,34 +5882,34 @@ export type ChatCompletionThinkingBlock = {
 
 export type TopLogprob = {
 	token: string;
-	bytes?: (number[] | null) | undefined;
+	bytes?: (number[] | (null | null)) | undefined;
 	logprob: number;
 	[key: string]: unknown;
 };
 
 export type ChatCompletionTokenLogprob = {
 	token: string;
-	bytes?: (number[] | null) | undefined;
+	bytes?: (number[] | (null | null)) | undefined;
 	logprob: number;
 	top_logprobs?: TopLogprob[] | undefined;
 	[key: string]: unknown;
 };
 
 export type ChoiceLogprobs = {
-	content?: (ChatCompletionTokenLogprob[] | null) | undefined;
-	refusal?: (ChatCompletionTokenLogprob[] | null) | undefined;
+	content?: (ChatCompletionTokenLogprob[] | (null | null)) | undefined;
+	refusal?: (ChatCompletionTokenLogprob[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
 export type FunctionCall = {
 	arguments: string;
-	name?: (string | null) | undefined;
+	name?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
 export type ImageURLObject = {
 	url: string;
-	detail?: (string | null) | undefined;
+	detail?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -5712,24 +5931,29 @@ export const messageRoleEnum = {
 export type MessageRoleEnumKey = (typeof messageRoleEnum)[keyof typeof messageRoleEnum];
 
 export type Message = {
-	content: string | null;
+	content: string | (null | null);
 	role: MessageRoleEnumKey;
-	refusal?: (string | null) | undefined;
-	tool_calls: (ChatCompletionMessageToolCall | ChatCompletionMessageCustomToolCall)[] | null;
-	function_call: FunctionCall | null;
-	audio?: (ChatCompletionAudioResponse | null) | undefined;
-	images?: (ImageURLListItem[] | null) | undefined;
-	reasoning_content?: (string | null) | undefined;
+	refusal?: (string | (null | null)) | undefined;
+	tool_calls:
+		| (ChatCompletionMessageToolCall | ChatCompletionMessageCustomToolCall)[]
+		| (null | null);
+	function_call: FunctionCall | (null | null);
+	audio?: (ChatCompletionAudioResponse | (null | null)) | undefined;
+	images?: (ImageURLListItem[] | (null | null)) | undefined;
+	reasoning_content?: (string | (null | null)) | undefined;
 	thinking_blocks?:
-		| ((ChatCompletionThinkingBlock | ChatCompletionRedactedThinkingBlock)[] | null)
+		| ((ChatCompletionThinkingBlock | ChatCompletionRedactedThinkingBlock)[] | (null | null))
 		| undefined;
-	reasoning_items?: (ChatCompletionReasoningItem[] | null) | undefined;
+	reasoning_items?: (ChatCompletionReasoningItem[] | (null | null)) | undefined;
 	provider_specific_fields?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	annotations?: (ChatCompletionAnnotation[] | null) | undefined;
+	annotations?: (ChatCompletionAnnotation[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -5752,11 +5976,14 @@ export type Choices = {
 	finish_reason: ChoicesFinishReasonEnumKey;
 	index: number;
 	message: Message;
-	logprobs?: (ChoiceLogprobs | unknown | null) | undefined;
+	logprobs?: (ChoiceLogprobs | unknown | (null | null)) | undefined;
 	provider_specific_fields?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	[key: string]: unknown;
 };
@@ -5780,7 +6007,7 @@ export type Click = {
 	type: "click";
 	x: number;
 	y: number;
-	keys?: (string[] | null) | undefined;
+	keys?: (string[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -5796,12 +6023,12 @@ export type ComplexityRouterConfigValidationRequest = {
 	/**
 	 * @description Team the router is being created for. Required for a team admin, who may only validate their own team's routers
 	 */
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 };
 
 export type ComplexityRouterConfigValidationResponse = {
 	valid: boolean;
-	error?: (string | null) | undefined;
+	error?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -5854,9 +6081,9 @@ export type CoordinationRedisSettingsFieldSectionEnumKey =
 export type CoordinationRedisSettingsField = {
 	field_name: string;
 	field_type: string;
-	field_value?: (unknown | null) | undefined;
+	field_value?: (unknown | (null | null)) | undefined;
 	field_description: string;
-	field_default?: (unknown | null) | undefined;
+	field_default?: (unknown | (null | null)) | undefined;
 	ui_field_name: string;
 	section: CoordinationRedisSettingsFieldSectionEnumKey;
 };
@@ -5896,7 +6123,7 @@ export type CoordinationRedisSettingsResponse = {
 	/**
 	 * @description Where the proxy's coordination Redis comes from; null when it has none
 	 */
-	source: CoordinationRedisSettingsResponseSourceKey | null;
+	source: CoordinationRedisSettingsResponseSourceKey | (null | null);
 };
 
 export type CoordinationRedisTestResponse = {
@@ -5908,7 +6135,7 @@ export type CoordinationRedisTestResponse = {
 	/**
 	 * @description Error message if the connection failed
 	 */
-	error?: (string | null) | undefined;
+	error?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -5957,11 +6184,11 @@ export type CostEstimateRequest = {
 	/**
 	 * @description Number of requests per day
 	 */
-	num_requests_per_day?: (number | null) | undefined;
+	num_requests_per_day?: (number | (null | null)) | undefined;
 	/**
 	 * @description Number of requests per month
 	 */
-	num_requests_per_month?: (number | null) | undefined;
+	num_requests_per_month?: (number | (null | null)) | undefined;
 };
 
 /**
@@ -5987,8 +6214,8 @@ export type CostEstimateResponse = {
 	 * @type integer | undefined
 	 */
 	reasoning_tokens?: number | undefined;
-	num_requests_per_day?: (number | null) | undefined;
-	num_requests_per_month?: (number | null) | undefined;
+	num_requests_per_day?: (number | (null | null)) | undefined;
+	num_requests_per_month?: (number | (null | null)) | undefined;
 	/**
 	 * @description Total cost per request (includes margin)
 	 * @type number
@@ -6031,99 +6258,102 @@ export type CostEstimateResponse = {
 	/**
 	 * @description Total daily cost (includes margin)
 	 */
-	daily_cost?: (number | null) | undefined;
+	daily_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Daily input token cost
 	 */
-	daily_input_cost?: (number | null) | undefined;
+	daily_input_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Daily output token cost
 	 */
-	daily_output_cost?: (number | null) | undefined;
+	daily_output_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Daily margin/fee
 	 */
-	daily_margin_cost?: (number | null) | undefined;
+	daily_margin_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Cache-read share of daily_input_cost
 	 */
-	daily_cache_read_cost?: (number | null) | undefined;
+	daily_cache_read_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Cache-write share of daily_input_cost
 	 */
-	daily_cache_creation_cost?: (number | null) | undefined;
+	daily_cache_creation_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Reasoning share of daily_output_cost
 	 */
-	daily_reasoning_cost?: (number | null) | undefined;
+	daily_reasoning_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Total monthly cost (includes margin)
 	 */
-	monthly_cost?: (number | null) | undefined;
+	monthly_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Monthly input token cost
 	 */
-	monthly_input_cost?: (number | null) | undefined;
+	monthly_input_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Monthly output token cost
 	 */
-	monthly_output_cost?: (number | null) | undefined;
+	monthly_output_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Monthly margin/fee
 	 */
-	monthly_margin_cost?: (number | null) | undefined;
+	monthly_margin_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Cache-read share of monthly_input_cost
 	 */
-	monthly_cache_read_cost?: (number | null) | undefined;
+	monthly_cache_read_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Cache-write share of monthly_input_cost
 	 */
-	monthly_cache_creation_cost?: (number | null) | undefined;
+	monthly_cache_creation_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Reasoning share of monthly_output_cost
 	 */
-	monthly_reasoning_cost?: (number | null) | undefined;
+	monthly_reasoning_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Rate billed per input token
 	 */
-	input_cost_per_token?: (number | null) | undefined;
+	input_cost_per_token?: (number | (null | null)) | undefined;
 	/**
 	 * @description Rate billed per output token
 	 */
-	output_cost_per_token?: (number | null) | undefined;
+	output_cost_per_token?: (number | (null | null)) | undefined;
 	/**
 	 * @description Rate billed per cache-read token
 	 */
-	cache_read_input_token_cost?: (number | null) | undefined;
+	cache_read_input_token_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Rate billed per cache-write token
 	 */
-	cache_creation_input_token_cost?: (number | null) | undefined;
+	cache_creation_input_token_cost?: (number | (null | null)) | undefined;
 	/**
 	 * @description Rate billed per reasoning token
 	 */
-	output_cost_per_reasoning_token?: (number | null) | undefined;
-	provider?: (string | null) | undefined;
+	output_cost_per_reasoning_token?: (number | (null | null)) | undefined;
+	provider?: (string | (null | null)) | undefined;
 };
 
 export type CreateCredentialItem = {
 	credential_name: string;
-	display_name?: (string | null) | undefined;
+	display_name?: (string | (null | null)) | undefined;
 	credential_info: {
 		[key: string]: unknown;
 	};
 	credential_values?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	model_id?: (string | null) | undefined;
+	model_id?: (string | (null | null)) | undefined;
 };
 
 export type CredentialItem = {
 	credential_name: string;
-	display_name?: (string | null) | undefined;
+	display_name?: (string | (null | null)) | undefined;
 	credential_info: {
 		[key: string]: unknown;
 	};
@@ -6142,7 +6372,7 @@ export type CredentialViewSourceEnumKey =
 
 export type CredentialView = {
 	credential_name: string;
-	display_name?: (string | null) | undefined;
+	display_name?: (string | (null | null)) | undefined;
 	credential_info: {
 		[key: string]: unknown;
 	};
@@ -6172,10 +6402,10 @@ export type CustomToolCallOutputItemStatusKey =
 export type CustomToolCallOutputItem = {
 	type: "custom_tool_call";
 	call_id: string;
-	id?: (string | null) | undefined;
+	id?: (string | (null | null)) | undefined;
 	name: string;
 	input: string;
-	status?: (CustomToolCallOutputItemStatusKey | null) | undefined;
+	status?: (CustomToolCallOutputItemStatusKey | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -6184,23 +6414,26 @@ export type CustomToolCallOutputItem = {
  * @type object
  */
 export type LiteLLMBudgetTableFull = {
-	budget_id?: (string | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_duration?: (string | null) | undefined;
-	allowed_models?: (string[] | null) | undefined;
-	temp_budget_increase?: (number | null) | undefined;
-	temp_budget_expiry?: (string | null) | undefined;
-	budget_reset_at?: (string | null) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	allowed_models?: (string[] | (null | null)) | undefined;
+	temp_budget_increase?: (number | (null | null)) | undefined;
+	temp_budget_expiry?: (string | (null | null)) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
 	/**
 	 * @description
 	 * Format: `date-time`
@@ -6228,19 +6461,19 @@ export type CustomerResponseAllowedModelRegionKey =
 export type CustomerResponse = {
 	user_id: string;
 	blocked: boolean;
-	alias?: (string | null) | undefined;
+	alias?: (string | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type number | undefined
 	 */
 	spend?: number | undefined;
-	allowed_model_region?: (CustomerResponseAllowedModelRegionKey | null) | undefined;
-	default_model?: (string | null) | undefined;
+	allowed_model_region?: (CustomerResponseAllowedModelRegionKey | (null | null)) | undefined;
+	default_model?: (string | (null | null)) | undefined;
 	models?: string[] | undefined;
-	budget_id?: (string | null) | undefined;
-	litellm_budget_table?: (LiteLLMBudgetTableFull | null) | undefined;
-	object_permission_id?: (string | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	litellm_budget_table?: (LiteLLMBudgetTableFull | (null | null)) | undefined;
+	object_permission_id?: (string | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
 };
 
 export type DailyActivityKeyPageResponse = {
@@ -6265,9 +6498,9 @@ export type DailyActivityKeySearchResponse = {
 };
 
 export type UserActivityRow = {
-	user_id?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
-	user_alias?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
+	user_alias?: (string | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type number | undefined
@@ -6436,18 +6669,21 @@ export type DailySpendMetadata = {
 	/**
 	 * @description When set, api_keys and every api_key_breakdown list at most this many keys, ranked by spend. Totals and the model, provider, mcp and endpoint rollups still cover every key.
 	 */
-	api_key_limit?: (number | null) | undefined;
+	api_key_limit?: (number | (null | null)) | undefined;
 	/**
 	 * @description Distinct API keys matching the filters. When this exceeds api_key_limit, the per-key lists are truncated to the highest-spend keys.
 	 */
-	total_api_keys?: (number | null) | undefined;
+	total_api_keys?: (number | (null | null)) | undefined;
 	/**
 	 * @description Distinct API keys per entity over the requested range, set when the entity breakdown is included. When an entity's count exceeds api_key_limit, its api_key_breakdown lists only its keys among the top api_key_limit keys overall.
 	 */
 	entity_total_api_keys?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -6470,23 +6706,23 @@ export type DefaultInternalUserParams = {
 	 * @description Default role assigned to new users created
 	 * @default internal_user_viewer
 	 */
-	user_role?: (DefaultInternalUserParamsUserRoleKey | null) | undefined;
+	user_role?: (DefaultInternalUserParamsUserRoleKey | (null | null)) | undefined;
 	/**
 	 * @description Default maximum budget (in USD) for new users created
 	 */
-	max_budget?: (number | null) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
 	/**
 	 * @description Default budget duration for new users (e.g. 'daily', 'weekly', 'monthly')
 	 */
-	budget_duration?: (string | null) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
 	/**
 	 * @description Default list of models that new users can access
 	 */
-	models?: (string[] | null) | undefined;
+	models?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Default teams for new users created
 	 */
-	teams?: (string[] | NewUserRequestTeam[] | null) | undefined;
+	teams?: (string[] | NewUserRequestTeam[] | (null | null)) | undefined;
 };
 
 /**
@@ -6504,27 +6740,27 @@ export type DefaultTeamSSOParams = {
 	/**
 	 * @description Default maximum budget (in USD) for new teams, when not explicitly provided
 	 */
-	max_budget?: (number | null) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
 	/**
 	 * @description Default budget duration for new teams, when not explicitly provided (e.g. '24h', '7d', '30d')
 	 */
-	budget_duration?: (string | null) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
 	/**
 	 * @description Default tpm limit for new teams, when not explicitly provided
 	 */
-	tpm_limit?: (number | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
 	/**
 	 * @description Default rpm limit for new teams, when not explicitly provided
 	 */
-	rpm_limit?: (number | null) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
 	/**
 	 * @description Default permissions granted to members of newly created teams (e.g. /key/generate, /key/update, /key/delete). /key/info and /key/health are always included.
 	 */
-	team_member_permissions?: (KeyManagementRoutesKey[] | null) | undefined;
+	team_member_permissions?: (KeyManagementRoutesKey[] | (null | null)) | undefined;
 	/**
 	 * @description Default organization for new teams created without an explicit organization
 	 */
-	organization_id?: (string | null) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -6588,9 +6824,9 @@ export type DeleteProjectRequest = {
  * @type object
  */
 export type DeleteResponseResult = {
-	id: string | null;
-	object: string | null;
-	deleted: boolean | null;
+	id: string | (null | null);
+	object: string | (null | null);
+	deleted: boolean | (null | null);
 	[key: string]: unknown;
 };
 
@@ -6627,19 +6863,19 @@ export type SearchContextCostPerQuery = {
  * @type object
  */
 export type Timeout = {
-	connect: number | null;
-	read: number | null;
-	write: number | null;
-	pool: number | null;
+	connect: number | (null | null);
+	read: number | (null | null);
+	write: number | (null | null);
+	pool: number | (null | null);
 	[key: string]: unknown;
 };
 
 export type ModelResponse = {
 	id: string;
 	created: number;
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	object: string;
-	system_fingerprint?: (string | null) | undefined;
+	system_fingerprint?: (string | (null | null)) | undefined;
 	choices: Choices[];
 	[key: string]: unknown;
 };
@@ -6649,354 +6885,383 @@ export type ModelResponse = {
  * @type object
  */
 export type LiteLLMParams = {
-	input_cost_per_token?: (number | null) | undefined;
-	output_cost_per_token?: (number | null) | undefined;
-	input_cost_per_character?: (number | null) | undefined;
-	output_cost_per_character?: (number | null) | undefined;
-	cache_read_input_token_cost?: (number | null) | undefined;
-	explicit_cache_read_input_token_cost?: (number | null) | undefined;
-	cache_creation_input_token_cost?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_1hr?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_flex?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_priority?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_above_272k_tokens?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_above_272k_tokens_flex?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_above_272k_tokens_priority?:
-		| (number | null)
+	input_cost_per_token?: (number | (null | null)) | undefined;
+	output_cost_per_token?: (number | (null | null)) | undefined;
+	input_cost_per_character?: (number | (null | null)) | undefined;
+	output_cost_per_character?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost?: (number | (null | null)) | undefined;
+	explicit_cache_read_input_token_cost?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_1hr?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_12hr?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_12hr_flex?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_12hr_priority?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens?:
+		| (number | (null | null))
 		| undefined;
-	cache_creation_input_token_cost_above_12hr_batches?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_ultrafast?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_flex?:
+		| (number | (null | null))
+		| undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_priority?:
+		| (number | (null | null))
+		| undefined;
+	cache_creation_input_token_cost_above_12hr_batches?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_12hr_ultrafast?: (number | (null | null)) | undefined;
 	cache_creation_input_token_cost_above_12hr_above_272k_tokens_batches?:
-		| (number | null)
+		| (number | (null | null))
 		| undefined;
 	cache_creation_input_token_cost_above_12hr_above_272k_tokens_ultrafast?:
-		| (number | null)
+		| (number | (null | null))
 		| undefined;
 	tiered_pricing?:
 		| (
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	cost_per_second?: (number | null) | undefined;
-	input_cost_per_second?: (number | null) | undefined;
-	input_cost_per_text_message?: (number | null) | undefined;
-	output_cost_per_second?: (number | null) | undefined;
-	output_cost_per_second_1080p?: (number | null) | undefined;
-	output_cost_per_second_480p?: (number | null) | undefined;
-	output_cost_per_second_720p?: (number | null) | undefined;
-	output_cost_per_second_768p?: (number | null) | undefined;
-	output_cost_per_second_2k?: (number | null) | undefined;
-	output_cost_per_second_4k?: (number | null) | undefined;
-	output_cost_per_image_512?: (number | null) | undefined;
-	output_cost_per_image_1024?: (number | null) | undefined;
-	output_cost_per_image_1536?: (number | null) | undefined;
-	input_cost_per_pixel?: (number | null) | undefined;
-	output_cost_per_pixel?: (number | null) | undefined;
-	input_cost_per_token_flex?: (number | null) | undefined;
-	input_cost_per_token_priority?: (number | null) | undefined;
-	input_cost_per_token_balanced?: (number | null) | undefined;
-	input_cost_per_token_ultrafast?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_100k_tokens?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_1hr_above_100k_tokens?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_200k_tokens?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_272k_tokens?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_272k_tokens_priority?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_272k_tokens_flex?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_272k_tokens_ultrafast?: (number | null) | undefined;
-	cache_creation_input_token_cost_flex?: (number | null) | undefined;
-	cache_creation_input_token_cost_priority?: (number | null) | undefined;
-	cache_creation_input_token_cost_ultrafast?: (number | null) | undefined;
-	cache_creation_input_audio_token_cost?: (number | null) | undefined;
-	cache_read_input_token_cost_flex?: (number | null) | undefined;
-	cache_read_input_token_cost_priority?: (number | null) | undefined;
-	cache_read_input_token_cost_balanced?: (number | null) | undefined;
-	cache_read_input_token_cost_ultrafast?: (number | null) | undefined;
-	cache_read_input_token_cost_above_100k_tokens?: (number | null) | undefined;
-	cache_read_input_token_cost_above_200k_tokens?: (number | null) | undefined;
-	cache_read_input_token_cost_above_200k_tokens_priority?: (number | null) | undefined;
-	cache_read_input_token_cost_above_272k_tokens_priority?: (number | null) | undefined;
-	cache_read_input_token_cost_above_272k_tokens_flex?: (number | null) | undefined;
-	cache_read_input_token_cost_above_272k_tokens_ultrafast?: (number | null) | undefined;
-	cache_read_input_token_cost_batches?: (number | null) | undefined;
-	cache_read_input_token_cost_above_100k_tokens_batches?: (number | null) | undefined;
-	cache_read_input_token_cost_above_200k_tokens_batches?: (number | null) | undefined;
-	cache_read_input_token_cost_above_272k_tokens_batches?: (number | null) | undefined;
-	cache_read_input_audio_token_cost_batches?: (number | null) | undefined;
-	cache_creation_input_token_cost_batches?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_100k_tokens_batches?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_200k_tokens_batches?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_272k_tokens_batches?: (number | null) | undefined;
-	cache_read_input_audio_token_cost?: (number | null) | undefined;
-	cache_read_input_audio_token_cost_flex?: (number | null) | undefined;
-	cache_read_input_audio_token_cost_priority?: (number | null) | undefined;
-	cache_read_input_image_token_cost?: (number | null) | undefined;
-	input_cost_per_character_above_128k_tokens?: (number | null) | undefined;
-	input_cost_per_audio_token?: (number | null) | undefined;
-	input_cost_per_audio_token_flex?: (number | null) | undefined;
-	input_cost_per_audio_token_priority?: (number | null) | undefined;
-	input_cost_per_token_cache_hit?: (number | null) | undefined;
-	input_cost_per_token_above_128k_tokens?: (number | null) | undefined;
-	input_cost_per_token_above_100k_tokens?: (number | null) | undefined;
-	input_cost_per_token_above_200k_tokens?: (number | null) | undefined;
-	input_cost_per_token_above_200k_tokens_priority?: (number | null) | undefined;
-	input_cost_per_token_above_272k_tokens_priority?: (number | null) | undefined;
-	input_cost_per_token_above_272k_tokens_flex?: (number | null) | undefined;
-	input_cost_per_token_above_272k_tokens_ultrafast?: (number | null) | undefined;
-	input_cost_per_token_above_200k_tokens_batches?: (number | null) | undefined;
-	input_cost_per_token_above_100k_tokens_batches?: (number | null) | undefined;
-	input_cost_per_token_above_272k_tokens_batches?: (number | null) | undefined;
-	input_cost_per_query?: (number | null) | undefined;
-	input_cost_per_image?: (number | null) | undefined;
-	input_cost_per_image_above_128k_tokens?: (number | null) | undefined;
-	input_cost_per_audio_per_second?: (number | null) | undefined;
-	input_cost_per_audio_per_second_above_128k_tokens?: (number | null) | undefined;
-	input_cost_per_video_per_second?: (number | null) | undefined;
-	input_cost_per_video_per_second_above_128k_tokens?: (number | null) | undefined;
-	input_cost_per_video_per_second_above_15s_interval?: (number | null) | undefined;
-	input_cost_per_video_per_second_above_8s_interval?: (number | null) | undefined;
-	input_cost_per_audio_token_batches?: (number | null) | undefined;
-	input_cost_per_image_token_batches?: (number | null) | undefined;
-	input_cost_per_token_batches?: (number | null) | undefined;
-	input_cost_per_video_token_batches?: (number | null) | undefined;
-	output_cost_per_token_batches?: (number | null) | undefined;
-	output_cost_per_token_flex?: (number | null) | undefined;
-	output_cost_per_token_priority?: (number | null) | undefined;
-	output_cost_per_token_balanced?: (number | null) | undefined;
-	output_cost_per_token_ultrafast?: (number | null) | undefined;
-	output_cost_per_audio_token?: (number | null) | undefined;
-	output_cost_per_token_above_128k_tokens?: (number | null) | undefined;
-	output_cost_per_token_above_100k_tokens?: (number | null) | undefined;
-	output_cost_per_token_above_200k_tokens?: (number | null) | undefined;
-	output_cost_per_token_above_200k_tokens_priority?: (number | null) | undefined;
-	output_cost_per_token_above_272k_tokens_priority?: (number | null) | undefined;
-	output_cost_per_token_above_272k_tokens_flex?: (number | null) | undefined;
-	output_cost_per_token_above_272k_tokens_ultrafast?: (number | null) | undefined;
-	output_cost_per_token_above_200k_tokens_batches?: (number | null) | undefined;
-	output_cost_per_token_above_100k_tokens_batches?: (number | null) | undefined;
-	output_cost_per_token_above_272k_tokens_batches?: (number | null) | undefined;
-	output_cost_per_character_above_128k_tokens?: (number | null) | undefined;
-	output_cost_per_image?: (number | null) | undefined;
-	output_cost_per_image_token?: (number | null) | undefined;
-	output_cost_per_image_token_batches?: (number | null) | undefined;
-	output_cost_per_video_token?: (number | null) | undefined;
-	output_cost_per_reasoning_token?: (number | null) | undefined;
-	output_cost_per_reasoning_token_flex?: (number | null) | undefined;
-	output_cost_per_reasoning_token_priority?: (number | null) | undefined;
-	output_cost_per_video_per_second?: (number | null) | undefined;
-	output_cost_per_audio_per_second?: (number | null) | undefined;
-	search_context_cost_per_query?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+	cost_per_second?: (number | (null | null)) | undefined;
+	input_cost_per_second?: (number | (null | null)) | undefined;
+	input_cost_per_text_message?: (number | (null | null)) | undefined;
+	output_cost_per_second?: (number | (null | null)) | undefined;
+	output_cost_per_second_1080p?: (number | (null | null)) | undefined;
+	output_cost_per_second_480p?: (number | (null | null)) | undefined;
+	output_cost_per_second_720p?: (number | (null | null)) | undefined;
+	output_cost_per_second_768p?: (number | (null | null)) | undefined;
+	output_cost_per_second_2k?: (number | (null | null)) | undefined;
+	output_cost_per_second_4k?: (number | (null | null)) | undefined;
+	output_cost_per_image_512?: (number | (null | null)) | undefined;
+	output_cost_per_image_1024?: (number | (null | null)) | undefined;
+	output_cost_per_image_1536?: (number | (null | null)) | undefined;
+	input_cost_per_pixel?: (number | (null | null)) | undefined;
+	output_cost_per_pixel?: (number | (null | null)) | undefined;
+	input_cost_per_token_flex?: (number | (null | null)) | undefined;
+	input_cost_per_token_priority?: (number | (null | null)) | undefined;
+	input_cost_per_token_balanced?: (number | (null | null)) | undefined;
+	input_cost_per_token_ultrafast?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_100k_tokens?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_1hr_above_100k_tokens?:
+		| (number | (null | null))
 		| undefined;
-	search_queries_cost_per_query?: (number | SearchContextCostPerQuery | null) | undefined;
-	google_maps_grounding_cost_per_query?: (number | null) | undefined;
-	citation_cost_per_token?: (number | null) | undefined;
-	cache_read_input_token_cost_above_272k_tokens?: (number | null) | undefined;
-	cache_read_input_token_cost_above_512k_tokens?: (number | null) | undefined;
-	input_cost_per_image_token?: (number | null) | undefined;
-	input_cost_per_video_token?: (number | null) | undefined;
-	input_cost_per_token_above_272k_tokens?: (number | null) | undefined;
-	input_cost_per_token_above_512k_tokens?: (number | null) | undefined;
-	output_cost_per_token_above_272k_tokens?: (number | null) | undefined;
-	output_cost_per_token_above_512k_tokens?: (number | null) | undefined;
-	output_vector_size?: (number | null) | undefined;
-	ocr_cost_per_page?: (number | null) | undefined;
-	ocr_cost_per_page_batches?: (number | null) | undefined;
-	ocr_cost_per_credit?: (number | null) | undefined;
-	annotation_cost_per_page?: (number | null) | undefined;
-	annotation_cost_per_page_batches?: (number | null) | undefined;
-	regional_processing_uplift_multiplier_eu?: (number | null) | undefined;
-	regional_processing_uplift_multiplier_us?: (number | null) | undefined;
-	regional_endpoint_uplift_multiplier?: (number | null) | undefined;
-	api_key?: (string | null) | undefined;
-	api_base?: (string | null) | undefined;
-	api_version?: (string | null) | undefined;
-	azure_ad_token?: (string | null) | undefined;
-	tenant_id?: (string | null) | undefined;
-	client_id?: (string | null) | undefined;
-	client_secret?: (string | null) | undefined;
-	azure_scope?: (string | null) | undefined;
-	azure_username?: (string | null) | undefined;
-	azure_password?: (string | null) | undefined;
-	vertex_project?: (string | null) | undefined;
-	vertex_location?: (string | null) | undefined;
+	cache_creation_input_token_cost_above_200k_tokens?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_272k_tokens?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_272k_tokens_priority?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_272k_tokens_flex?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_272k_tokens_ultrafast?:
+		| (number | (null | null))
+		| undefined;
+	cache_creation_input_token_cost_flex?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_priority?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_ultrafast?: (number | (null | null)) | undefined;
+	cache_creation_input_audio_token_cost?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_flex?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_priority?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_balanced?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_ultrafast?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_100k_tokens?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_200k_tokens?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_200k_tokens_priority?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_272k_tokens_priority?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_272k_tokens_flex?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_272k_tokens_ultrafast?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_batches?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_100k_tokens_batches?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_200k_tokens_batches?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_272k_tokens_batches?: (number | (null | null)) | undefined;
+	cache_read_input_audio_token_cost_batches?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_batches?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_100k_tokens_batches?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_200k_tokens_batches?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_272k_tokens_batches?: (number | (null | null)) | undefined;
+	cache_read_input_audio_token_cost?: (number | (null | null)) | undefined;
+	cache_read_input_audio_token_cost_flex?: (number | (null | null)) | undefined;
+	cache_read_input_audio_token_cost_priority?: (number | (null | null)) | undefined;
+	cache_read_input_image_token_cost?: (number | (null | null)) | undefined;
+	input_cost_per_character_above_128k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_audio_token?: (number | (null | null)) | undefined;
+	input_cost_per_audio_token_flex?: (number | (null | null)) | undefined;
+	input_cost_per_audio_token_priority?: (number | (null | null)) | undefined;
+	input_cost_per_token_cache_hit?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_128k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_100k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_200k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_200k_tokens_priority?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_272k_tokens_priority?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_272k_tokens_flex?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_272k_tokens_ultrafast?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_200k_tokens_batches?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_100k_tokens_batches?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_272k_tokens_batches?: (number | (null | null)) | undefined;
+	input_cost_per_query?: (number | (null | null)) | undefined;
+	input_cost_per_image?: (number | (null | null)) | undefined;
+	input_cost_per_image_above_128k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_audio_per_second?: (number | (null | null)) | undefined;
+	input_cost_per_audio_per_second_above_128k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_video_per_second?: (number | (null | null)) | undefined;
+	input_cost_per_video_per_second_above_128k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_video_per_second_above_15s_interval?: (number | (null | null)) | undefined;
+	input_cost_per_video_per_second_above_8s_interval?: (number | (null | null)) | undefined;
+	input_cost_per_audio_token_batches?: (number | (null | null)) | undefined;
+	input_cost_per_image_token_batches?: (number | (null | null)) | undefined;
+	input_cost_per_token_batches?: (number | (null | null)) | undefined;
+	input_cost_per_video_token_batches?: (number | (null | null)) | undefined;
+	output_cost_per_token_batches?: (number | (null | null)) | undefined;
+	output_cost_per_token_flex?: (number | (null | null)) | undefined;
+	output_cost_per_token_priority?: (number | (null | null)) | undefined;
+	output_cost_per_token_balanced?: (number | (null | null)) | undefined;
+	output_cost_per_token_ultrafast?: (number | (null | null)) | undefined;
+	output_cost_per_audio_token?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_128k_tokens?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_100k_tokens?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_200k_tokens?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_200k_tokens_priority?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_272k_tokens_priority?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_272k_tokens_flex?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_272k_tokens_ultrafast?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_200k_tokens_batches?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_100k_tokens_batches?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_272k_tokens_batches?: (number | (null | null)) | undefined;
+	output_cost_per_character_above_128k_tokens?: (number | (null | null)) | undefined;
+	output_cost_per_image?: (number | (null | null)) | undefined;
+	output_cost_per_image_token?: (number | (null | null)) | undefined;
+	output_cost_per_image_token_batches?: (number | (null | null)) | undefined;
+	output_cost_per_video_token?: (number | (null | null)) | undefined;
+	output_cost_per_reasoning_token?: (number | (null | null)) | undefined;
+	output_cost_per_reasoning_token_flex?: (number | (null | null)) | undefined;
+	output_cost_per_reasoning_token_priority?: (number | (null | null)) | undefined;
+	output_cost_per_video_per_second?: (number | (null | null)) | undefined;
+	output_cost_per_audio_per_second?: (number | (null | null)) | undefined;
+	search_context_cost_per_query?:
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	search_queries_cost_per_query?: (number | SearchContextCostPerQuery | (null | null)) | undefined;
+	google_maps_grounding_cost_per_query?: (number | (null | null)) | undefined;
+	citation_cost_per_token?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_272k_tokens?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_512k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_image_token?: (number | (null | null)) | undefined;
+	input_cost_per_video_token?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_272k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_512k_tokens?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_272k_tokens?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_512k_tokens?: (number | (null | null)) | undefined;
+	output_vector_size?: (number | (null | null)) | undefined;
+	ocr_cost_per_page?: (number | (null | null)) | undefined;
+	ocr_cost_per_page_batches?: (number | (null | null)) | undefined;
+	ocr_cost_per_credit?: (number | (null | null)) | undefined;
+	annotation_cost_per_page?: (number | (null | null)) | undefined;
+	annotation_cost_per_page_batches?: (number | (null | null)) | undefined;
+	regional_processing_uplift_multiplier_eu?: (number | (null | null)) | undefined;
+	regional_processing_uplift_multiplier_us?: (number | (null | null)) | undefined;
+	regional_endpoint_uplift_multiplier?: (number | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	api_base?: (string | (null | null)) | undefined;
+	api_version?: (string | (null | null)) | undefined;
+	azure_ad_token?: (string | (null | null)) | undefined;
+	tenant_id?: (string | (null | null)) | undefined;
+	client_id?: (string | (null | null)) | undefined;
+	client_secret?: (string | (null | null)) | undefined;
+	azure_scope?: (string | (null | null)) | undefined;
+	azure_username?: (string | (null | null)) | undefined;
+	azure_password?: (string | (null | null)) | undefined;
+	vertex_project?: (string | (null | null)) | undefined;
+	vertex_location?: (string | (null | null)) | undefined;
 	vertex_credentials?:
 		| (
 				| string
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	region_name?: (string | null) | undefined;
-	gcs_bucket_name?: (string | null) | undefined;
-	bucket_name?: (string | null) | undefined;
-	aws_access_key_id?: (string | null) | undefined;
-	aws_secret_access_key?: (string | null) | undefined;
-	aws_session_token?: (string | null) | undefined;
-	aws_region_name?: (string | null) | undefined;
-	aws_session_name?: (string | null) | undefined;
-	aws_profile_name?: (string | null) | undefined;
-	aws_role_name?: (string | null) | undefined;
-	aws_web_identity_token?: (string | null) | undefined;
-	aws_sts_endpoint?: (string | null) | undefined;
-	aws_external_id?: (string | null) | undefined;
-	aws_session_tags?: (AwsSessionTag[] | null) | undefined;
-	aws_bedrock_runtime_endpoint?: (string | null) | undefined;
-	aws_bedrock_control_plane_endpoint?: (string | null) | undefined;
-	aws_bedrock_project_id?: (string | null) | undefined;
-	s3_bucket_name?: (string | null) | undefined;
-	s3_endpoint_url?: (string | null) | undefined;
-	s3_region_name?: (string | null) | undefined;
-	s3_access_key_id?: (string | null) | undefined;
-	s3_secret_access_key?: (string | null) | undefined;
-	s3_encryption_key_id?: (string | null) | undefined;
-	s3_bucket_owner?: (string | null) | undefined;
-	aws_batch_role_arn?: (string | null) | undefined;
-	s3_output_bucket_name?: (string | null) | undefined;
-	bedrock_tags?: (unknown[] | null) | undefined;
-	watsonx_region_name?: (string | null) | undefined;
-	anthropic_federation_rule_id?: (string | null) | undefined;
-	anthropic_organization_id?: (string | null) | undefined;
-	anthropic_service_account_id?: (string | null) | undefined;
-	anthropic_federation_workspace_id?: (string | null) | undefined;
-	anthropic_identity_token_file?: (string | null) | undefined;
-	anthropic_identity_token?: (string | null) | undefined;
-	anthropic_identity_source?: (string | null) | undefined;
-	anthropic_issuer_url?: (string | null) | undefined;
-	anthropic_issuer_subject?: (string | null) | undefined;
-	anthropic_issuer_audience?: (string | null) | undefined;
-	anthropic_issuer_ttl_seconds?: (number | null) | undefined;
-	anthropic_issuer_signing_key_ref?: (string | null) | undefined;
-	anthropic_keycloak_token_url?: (string | null) | undefined;
-	anthropic_keycloak_client_id?: (string | null) | undefined;
-	anthropic_keycloak_auth_method?: (string | null) | undefined;
-	anthropic_keycloak_client_secret_ref?: (string | null) | undefined;
-	anthropic_keycloak_scope?: (string | null) | undefined;
-	anthropic_disable_workload_identity_federation?: (boolean | null) | undefined;
-	openai_identity_provider_id?: (string | null) | undefined;
-	openai_service_account_id?: (string | null) | undefined;
-	openai_identity_token_file?: (string | null) | undefined;
-	token_exchange_endpoint?: (string | null) | undefined;
-	token_exchange_profile?: (string | null) | undefined;
-	token_exchange_scope?: (string | null) | undefined;
-	token_exchange_audience?: (string | null) | undefined;
-	custom_llm_provider?: (string | null) | undefined;
-	responses_api_version?: (string | null) | undefined;
-	tpm?: (number | null) | undefined;
-	rpm?: (number | null) | undefined;
-	itpm?: (number | null) | undefined;
-	otpm?: (number | null) | undefined;
-	tpd?: (number | null) | undefined;
-	rpd?: (number | null) | undefined;
-	daily_reset_time?: (string | null) | undefined;
-	timeout?: (number | string | Timeout | null) | undefined;
-	stream_timeout?: (number | string | null) | undefined;
+	region_name?: (string | (null | null)) | undefined;
+	gcs_bucket_name?: (string | (null | null)) | undefined;
+	bucket_name?: (string | (null | null)) | undefined;
+	aws_access_key_id?: (string | (null | null)) | undefined;
+	aws_secret_access_key?: (string | (null | null)) | undefined;
+	aws_session_token?: (string | (null | null)) | undefined;
+	aws_region_name?: (string | (null | null)) | undefined;
+	aws_session_name?: (string | (null | null)) | undefined;
+	aws_profile_name?: (string | (null | null)) | undefined;
+	aws_role_name?: (string | (null | null)) | undefined;
+	aws_web_identity_token?: (string | (null | null)) | undefined;
+	aws_sts_endpoint?: (string | (null | null)) | undefined;
+	aws_external_id?: (string | (null | null)) | undefined;
+	aws_session_tags?: (AwsSessionTag[] | (null | null)) | undefined;
+	aws_bedrock_runtime_endpoint?: (string | (null | null)) | undefined;
+	aws_bedrock_control_plane_endpoint?: (string | (null | null)) | undefined;
+	aws_bedrock_project_id?: (string | (null | null)) | undefined;
+	s3_bucket_name?: (string | (null | null)) | undefined;
+	s3_endpoint_url?: (string | (null | null)) | undefined;
+	s3_region_name?: (string | (null | null)) | undefined;
+	s3_access_key_id?: (string | (null | null)) | undefined;
+	s3_secret_access_key?: (string | (null | null)) | undefined;
+	s3_encryption_key_id?: (string | (null | null)) | undefined;
+	s3_bucket_owner?: (string | (null | null)) | undefined;
+	aws_batch_role_arn?: (string | (null | null)) | undefined;
+	s3_output_bucket_name?: (string | (null | null)) | undefined;
+	bedrock_tags?: (unknown[] | (null | null)) | undefined;
+	watsonx_region_name?: (string | (null | null)) | undefined;
+	anthropic_federation_rule_id?: (string | (null | null)) | undefined;
+	anthropic_organization_id?: (string | (null | null)) | undefined;
+	anthropic_service_account_id?: (string | (null | null)) | undefined;
+	anthropic_federation_workspace_id?: (string | (null | null)) | undefined;
+	anthropic_identity_token_file?: (string | (null | null)) | undefined;
+	anthropic_identity_token?: (string | (null | null)) | undefined;
+	anthropic_identity_source?: (string | (null | null)) | undefined;
+	anthropic_issuer_url?: (string | (null | null)) | undefined;
+	anthropic_issuer_subject?: (string | (null | null)) | undefined;
+	anthropic_issuer_audience?: (string | (null | null)) | undefined;
+	anthropic_issuer_ttl_seconds?: (number | (null | null)) | undefined;
+	anthropic_issuer_signing_key_ref?: (string | (null | null)) | undefined;
+	anthropic_keycloak_token_url?: (string | (null | null)) | undefined;
+	anthropic_keycloak_client_id?: (string | (null | null)) | undefined;
+	anthropic_keycloak_auth_method?: (string | (null | null)) | undefined;
+	anthropic_keycloak_client_secret_ref?: (string | (null | null)) | undefined;
+	anthropic_keycloak_scope?: (string | (null | null)) | undefined;
+	anthropic_disable_workload_identity_federation?: (boolean | (null | null)) | undefined;
+	openai_identity_provider_id?: (string | (null | null)) | undefined;
+	openai_service_account_id?: (string | (null | null)) | undefined;
+	openai_identity_token_file?: (string | (null | null)) | undefined;
+	token_exchange_endpoint?: (string | (null | null)) | undefined;
+	token_exchange_profile?: (string | (null | null)) | undefined;
+	token_exchange_scope?: (string | (null | null)) | undefined;
+	token_exchange_audience?: (string | (null | null)) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
+	responses_api_version?: (string | (null | null)) | undefined;
+	tpm?: (number | (null | null)) | undefined;
+	rpm?: (number | (null | null)) | undefined;
+	itpm?: (number | (null | null)) | undefined;
+	otpm?: (number | (null | null)) | undefined;
+	tpd?: (number | (null | null)) | undefined;
+	rpd?: (number | (null | null)) | undefined;
+	daily_reset_time?: (string | (null | null)) | undefined;
+	timeout?: (number | string | Timeout | (null | null)) | undefined;
+	stream_timeout?: (number | string | (null | null)) | undefined;
 	timeout_by_service_tier?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	stream_timeout_by_service_tier?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	max_retries?: (number | null) | undefined;
-	drop_params?: (boolean | string | null) | undefined;
-	organization?: (string | null) | undefined;
+	max_retries?: (number | (null | null)) | undefined;
+	drop_params?: (boolean | string | (null | null)) | undefined;
+	organization?: (string | (null | null)) | undefined;
 	configurable_clientside_auth_params?:
-		| ((string | ConfigurableClientsideParamsCustomAuthInput)[] | null)
+		| ((string | ConfigurableClientsideParamsCustomAuthInput)[] | (null | null))
 		| undefined;
-	litellm_credential_name?: (string | null) | undefined;
-	provider_affinity_header?: (string | null) | undefined;
-	litellm_trace_id?: (string | null) | undefined;
-	max_file_size_mb?: (number | null) | undefined;
-	default_api_key_tpm_limit?: (number | null) | undefined;
-	default_api_key_rpm_limit?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	keepalive_seconds?: (number | null) | undefined;
+	litellm_credential_name?: (string | (null | null)) | undefined;
+	provider_affinity_header?: (string | (null | null)) | undefined;
+	litellm_trace_id?: (string | (null | null)) | undefined;
+	max_file_size_mb?: (number | (null | null)) | undefined;
+	default_api_key_tpm_limit?: (number | (null | null)) | undefined;
+	default_api_key_rpm_limit?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	keepalive_seconds?: (number | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	allow_client_keepalive_override?: (boolean | null) | undefined;
+	allow_client_keepalive_override?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	use_in_pass_through?: (boolean | null) | undefined;
+	use_in_pass_through?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	use_litellm_proxy?: (boolean | null) | undefined;
-	use_chat_completions_api?: (boolean | null) | undefined;
+	use_litellm_proxy?: (boolean | (null | null)) | undefined;
+	use_chat_completions_api?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Use stored xAI OAuth credentials when no xAI API key is configured.
 	 * @default false
 	 */
-	use_xai_oauth?: (boolean | null) | undefined;
+	use_xai_oauth?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Path to a ChatGPT OAuth auth.json for this deployment.
 	 */
-	chatgpt_auth_file?: (string | null) | undefined;
+	chatgpt_auth_file?: (string | (null | null)) | undefined;
 	/**
 	 * @description Send the LiteLLM user id of the calling key as the `user` field on Fireworks AI chat, responses and messages requests.
 	 */
-	fireworks_forward_user_id?: (boolean | null) | undefined;
+	fireworks_forward_user_id?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	merge_reasoning_content_in_choices?: (boolean | null) | undefined;
-	thought_signature_in_tool_call_id?: (boolean | null) | undefined;
+	merge_reasoning_content_in_choices?: (boolean | (null | null)) | undefined;
+	thought_signature_in_tool_call_id?: (boolean | (null | null)) | undefined;
 	model_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	mock_response?: (string | ModelResponse | unknown | null) | undefined;
-	tags?: (string[] | null) | undefined;
-	tag_regex?: (string[] | null) | undefined;
-	auto_router_config_path?: (string | null) | undefined;
-	auto_router_config?: (string | null) | undefined;
-	auto_router_default_model?: (string | null) | undefined;
-	auto_router_embedding_model?: (string | null) | undefined;
-	auto_router_max_input_chars?: (number | null) | undefined;
-	auto_router_routing_compression?: (string | null) | undefined;
-	auto_router_model_compression?: (string | null) | undefined;
+	mock_response?: (string | ModelResponse | unknown | (null | null)) | undefined;
+	tags?: (string[] | (null | null)) | undefined;
+	tag_regex?: (string[] | (null | null)) | undefined;
+	auto_router_config_path?: (string | (null | null)) | undefined;
+	auto_router_config?: (string | (null | null)) | undefined;
+	auto_router_default_model?: (string | (null | null)) | undefined;
+	auto_router_embedding_model?: (string | (null | null)) | undefined;
+	auto_router_max_input_chars?: (number | (null | null)) | undefined;
+	auto_router_routing_compression?: (string | (null | null)) | undefined;
+	auto_router_model_compression?: (string | (null | null)) | undefined;
 	complexity_router_config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	complexity_router_default_model?: (string | null) | undefined;
-	adaptive_router_default_model?: (string | null) | undefined;
+	complexity_router_default_model?: (string | (null | null)) | undefined;
+	adaptive_router_default_model?: (string | (null | null)) | undefined;
 	adaptive_router_config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	quality_router_config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	quality_router_default_model?: (string | null) | undefined;
-	vector_store_id?: (string | null) | undefined;
-	milvus_text_field?: (string | null) | undefined;
-	milvus_db_name?: (string | null) | undefined;
-	milvus_partition_names?: (string[] | null) | undefined;
-	valkey_host?: (string | null) | undefined;
-	valkey_port?: (number | null) | undefined;
-	valkey_password?: (string | null) | undefined;
-	valkey_ssl?: (boolean | null) | undefined;
-	valkey_text_field?: (string | null) | undefined;
-	valkey_embedding_field?: (string | null) | undefined;
+	quality_router_default_model?: (string | (null | null)) | undefined;
+	vector_store_id?: (string | (null | null)) | undefined;
+	milvus_text_field?: (string | (null | null)) | undefined;
+	milvus_db_name?: (string | (null | null)) | undefined;
+	milvus_partition_names?: (string[] | (null | null)) | undefined;
+	valkey_host?: (string | (null | null)) | undefined;
+	valkey_port?: (number | (null | null)) | undefined;
+	valkey_password?: (string | (null | null)) | undefined;
+	valkey_ssl?: (boolean | (null | null)) | undefined;
+	valkey_text_field?: (string | (null | null)) | undefined;
+	valkey_embedding_field?: (string | (null | null)) | undefined;
 	model: string;
 	[key: string]: unknown;
 };
@@ -7026,75 +7291,82 @@ export const modelInfoTier = {
 export type ModelInfoTierKey = (typeof modelInfoTier)[keyof typeof modelInfoTier];
 
 export type ModelInfo = {
-	input_cost_per_token?: (number | null) | undefined;
-	output_cost_per_token?: (number | null) | undefined;
-	input_cost_per_character?: (number | null) | undefined;
-	output_cost_per_character?: (number | null) | undefined;
-	cache_read_input_token_cost?: (number | null) | undefined;
-	explicit_cache_read_input_token_cost?: (number | null) | undefined;
-	cache_creation_input_token_cost?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_1hr?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_flex?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_priority?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_above_272k_tokens?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_above_272k_tokens_flex?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_above_272k_tokens_priority?:
-		| (number | null)
+	input_cost_per_token?: (number | (null | null)) | undefined;
+	output_cost_per_token?: (number | (null | null)) | undefined;
+	input_cost_per_character?: (number | (null | null)) | undefined;
+	output_cost_per_character?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost?: (number | (null | null)) | undefined;
+	explicit_cache_read_input_token_cost?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_1hr?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_12hr?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_12hr_flex?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_12hr_priority?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens?:
+		| (number | (null | null))
 		| undefined;
-	cache_creation_input_token_cost_above_12hr_batches?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_ultrafast?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_flex?:
+		| (number | (null | null))
+		| undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_priority?:
+		| (number | (null | null))
+		| undefined;
+	cache_creation_input_token_cost_above_12hr_batches?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_12hr_ultrafast?: (number | (null | null)) | undefined;
 	cache_creation_input_token_cost_above_12hr_above_272k_tokens_batches?:
-		| (number | null)
+		| (number | (null | null))
 		| undefined;
 	cache_creation_input_token_cost_above_12hr_above_272k_tokens_ultrafast?:
-		| (number | null)
+		| (number | (null | null))
 		| undefined;
 	tiered_pricing?:
 		| (
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	enforce_supported_endpoints?: (boolean | null) | undefined;
-	id: string | null;
+	enforce_supported_endpoints?: (boolean | (null | null)) | undefined;
+	id: string | (null | null);
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	db_model?: boolean | undefined;
-	updated_at?: (string | null) | undefined;
-	updated_by?: (string | null) | undefined;
-	created_at?: (string | null) | undefined;
-	created_by?: (string | null) | undefined;
-	base_model?: (string | null) | undefined;
-	pricing_provider?: (string | null) | undefined;
-	tier?: (ModelInfoTierKey | null) | undefined;
-	team_id?: (string | null) | undefined;
-	team_public_model_name?: (string | null) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	base_model?: (string | (null | null)) | undefined;
+	pricing_provider?: (string | (null | null)) | undefined;
+	tier?: (ModelInfoTierKey | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	team_public_model_name?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	member_auto_router?: boolean | undefined;
-	blocked?: (boolean | null) | undefined;
-	discoverable?: (boolean | null) | undefined;
-	access_windows?: (ModelAccessWindow[] | null) | undefined;
-	ptu_count?: (number | null) | undefined;
-	cost_per_ptu_per_hour?: (number | null) | undefined;
-	ptu_effective_from?: (string | null) | undefined;
-	ptu_effective_to?: (string | null) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
+	discoverable?: (boolean | (null | null)) | undefined;
+	access_windows?: (ModelAccessWindow[] | (null | null)) | undefined;
+	ptu_count?: (number | (null | null)) | undefined;
+	cost_per_ptu_per_hour?: (number | (null | null)) | undefined;
+	ptu_effective_from?: (string | (null | null)) | undefined;
+	ptu_effective_to?: (string | (null | null)) | undefined;
 	ptu_shares?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	allow_fail_open?: (boolean | null) | undefined;
-	enable_tag_filtering?: (boolean | null) | undefined;
-	internal_router_model?: (boolean | null) | undefined;
-	max_embedding_batch_size?: (number | null) | undefined;
+	allow_fail_open?: (boolean | (null | null)) | undefined;
+	enable_tag_filtering?: (boolean | (null | null)) | undefined;
+	internal_router_model?: (boolean | (null | null)) | undefined;
+	max_embedding_batch_size?: (number | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -7106,7 +7378,7 @@ export type Deployment = {
 	 */
 	litellm_params: LiteLLMParams;
 	model_info: ModelInfo;
-	blocked?: (boolean | null) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -7140,14 +7412,14 @@ export type DeploymentWarning = {
 								source: "env_var";
 						  })
 				  )
-				| null
+				| (null | null)
 		  )
 		| undefined;
 };
 
 export type DeploymentWarningIgnoreResponse = {
 	id: string;
-	ignore: AdminIgnore | null;
+	ignore: AdminIgnore | (null | null);
 };
 
 export type DeploymentWarningIgnoreUpdate = {
@@ -7159,7 +7431,7 @@ export type DeploymentWarningIgnoreUpdate = {
 	/**
 	 * @description How long to ignore the warning, up to 30 days. Leave it out to ignore it forever.
 	 */
-	snooze_seconds?: (number | null) | undefined;
+	snooze_seconds?: (number | (null | null)) | undefined;
 };
 
 export type DeploymentWarningsResponse = {
@@ -7192,7 +7464,7 @@ export type DistinctTagsResponse = {
  * @type object
  */
 export type DoubleClick = {
-	keys?: (string[] | null) | undefined;
+	keys?: (string[] | (null | null)) | undefined;
 	type: "double_click";
 	x: number;
 	y: number;
@@ -7216,7 +7488,7 @@ export type DragPath = {
 export type Drag = {
 	path: DragPath[];
 	type: "drag";
-	keys?: (string[] | null) | undefined;
+	keys?: (string[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -7283,8 +7555,8 @@ export type PageMeta = {
  */
 export type PageLinks = {
 	self: string;
-	prev?: (string | null) | undefined;
-	next?: (string | null) | undefined;
+	prev?: (string | (null | null)) | undefined;
+	next?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -7518,17 +7790,23 @@ export type RoutingGroup = {
 	models: string[];
 	routing_strategy: string;
 	routing_strategy_args?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description For priority groups, every model's priority. Lower numbers are tried first; equal numbers share traffic.
 	 */
 	model_priorities?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -7540,15 +7818,15 @@ export type RoutingGroup = {
  * @type object
  */
 export type RetryPolicy = {
-	BadRequestErrorRetries?: (number | null) | undefined;
-	AuthenticationErrorRetries?: (number | null) | undefined;
-	TimeoutErrorRetries?: (number | null) | undefined;
-	RateLimitErrorRetries?: (number | null) | undefined;
-	ContentPolicyViolationErrorRetries?: (number | null) | undefined;
-	InternalServerErrorRetries?: (number | null) | undefined;
-	ServiceUnavailableErrorRetries?: (number | null) | undefined;
-	NotFoundErrorRetries?: (number | null) | undefined;
-	DefaultRetries?: (number | null) | undefined;
+	BadRequestErrorRetries?: (number | (null | null)) | undefined;
+	AuthenticationErrorRetries?: (number | (null | null)) | undefined;
+	TimeoutErrorRetries?: (number | (null | null)) | undefined;
+	RateLimitErrorRetries?: (number | (null | null)) | undefined;
+	ContentPolicyViolationErrorRetries?: (number | (null | null)) | undefined;
+	InternalServerErrorRetries?: (number | (null | null)) | undefined;
+	ServiceUnavailableErrorRetries?: (number | (null | null)) | undefined;
+	NotFoundErrorRetries?: (number | (null | null)) | undefined;
+	DefaultRetries?: (number | (null | null)) | undefined;
 };
 
 export const updateRouterConfigOptionalPreCallChecksEnum = {
@@ -7571,35 +7849,44 @@ export type UpdateRouterConfigOptionalPreCallChecksEnumKey =
  */
 export type UpdateRouterConfig = {
 	routing_strategy_args?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	routing_strategy?: (string | null) | undefined;
-	routing_groups?: (RoutingGroup[] | null) | undefined;
-	retry_policy?: (RetryPolicy | null) | undefined;
+	routing_strategy?: (string | (null | null)) | undefined;
+	routing_groups?: (RoutingGroup[] | (null | null)) | undefined;
+	retry_policy?: (RetryPolicy | (null | null)) | undefined;
 	model_group_retry_policy?:
-		| ({
-				[key: string]: RetryPolicy;
-		  } | null)
+		| (
+				| {
+						[key: string]: RetryPolicy;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_group_affinity_config?:
-		| ({
-				[key: string]: string[];
-		  } | null)
+		| (
+				| {
+						[key: string]: string[];
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	allowed_fails?: (number | null) | undefined;
-	cooldown_time?: (number | null) | undefined;
-	num_retries?: (number | null) | undefined;
-	timeout?: (number | null) | undefined;
-	max_retries?: (number | null) | undefined;
-	retry_after?: (number | null) | undefined;
+	allowed_fails?: (number | (null | null)) | undefined;
+	cooldown_time?: (number | (null | null)) | undefined;
+	num_retries?: (number | (null | null)) | undefined;
+	timeout?: (number | (null | null)) | undefined;
+	max_retries?: (number | (null | null)) | undefined;
+	retry_after?: (number | (null | null)) | undefined;
 	fallbacks?:
 		| (
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	context_window_fallbacks?:
@@ -7607,7 +7894,7 @@ export type UpdateRouterConfig = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	content_policy_fallbacks?:
@@ -7620,32 +7907,40 @@ export type UpdateRouterConfig = {
 							  }
 						)[];
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	model_group_alias?:
-		| ({
-				[key: string]:
-					| string
-					| {
-							[key: string]: unknown;
-					  };
-		  } | null)
+		| (
+				| {
+						[key: string]:
+							| string
+							| {
+									[key: string]: unknown;
+							  };
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	enable_tag_filtering?: (boolean | null) | undefined;
+	enable_tag_filtering?: (boolean | (null | null)) | undefined;
 	weights?:
-		| ({
-				[key: string]: {
-					[key: string]: number;
-				};
-		  } | null)
+		| (
+				| {
+						[key: string]: {
+							[key: string]: number;
+						};
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tag_routing_prefix?: (string | null) | undefined;
-	optional_pre_call_checks?: (UpdateRouterConfigOptionalPreCallChecksEnumKey[] | null) | undefined;
-	fallback_on_unsupported_params?: (boolean | null) | undefined;
+	tag_routing_prefix?: (string | (null | null)) | undefined;
+	optional_pre_call_checks?:
+		| (UpdateRouterConfigOptionalPreCallChecksEnumKey[] | (null | null))
+		| undefined;
+	fallback_on_unsupported_params?: (boolean | (null | null)) | undefined;
 };
 
 export const liteLLMKeyType = {
@@ -7676,143 +7971,176 @@ export type GenerateKeyRequestTpmLimitTypeKey =
 	(typeof generateKeyRequestTpmLimitType)[keyof typeof generateKeyRequestTpmLimitType];
 
 export type GenerateKeyRequest = {
-	key_alias?: (string | null) | undefined;
-	duration?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
+	duration?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	models?: (unknown[] | null) | undefined;
+	models?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 */
-	spend?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	user_id?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	agent_id?: (string | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	agent_id?: (string | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_cache_controls?: (unknown[] | null) | undefined;
+	allowed_cache_controls?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	permissions?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	budget_fallbacks?:
-		| ({
-				[key: string]: string[];
-		  } | null)
+		| (
+				| {
+						[key: string]: string[];
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	mcp_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	tag_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	guardrails?: (string[] | null) | undefined;
-	policies?: (string[] | null) | undefined;
-	prompts?: (string[] | null) | undefined;
-	blocked?: (boolean | null) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
+	prompts?: (string[] | (null | null)) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	aliases?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
-	key?: (string | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
-	default_estimated_output_tokens?: (number | null) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
+	key?: (string | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
+	default_estimated_output_tokens?: (number | (null | null)) | undefined;
 	default_estimated_output_tokens_per_model?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_id?: (string | null) | undefined;
-	end_user_budget_id?: (string | null) | undefined;
-	tags?: (string[] | null) | undefined;
-	disable_global_guardrails?: (boolean | null) | undefined;
-	enable_prompt_caching?: (boolean | null) | undefined;
-	throttle_on_budget_exceeded?: (boolean | null) | undefined;
-	enforced_params?: (string[] | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	end_user_budget_id?: (string | (null | null)) | undefined;
+	tags?: (string[] | (null | null)) | undefined;
+	disable_global_guardrails?: (boolean | (null | null)) | undefined;
+	enable_prompt_caching?: (boolean | (null | null)) | undefined;
+	throttle_on_budget_exceeded?: (boolean | (null | null)) | undefined;
+	enforced_params?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_routes?: (unknown[] | null) | undefined;
-	allowed_passthrough_routes?: (unknown[] | null) | undefined;
-	denied_passthrough_routes?: (string[] | null) | undefined;
-	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | null) | undefined;
-	rpm_limit_type?: (GenerateKeyRequestRpmLimitTypeKey | null) | undefined;
-	tpm_limit_type?: (GenerateKeyRequestTpmLimitTypeKey | null) | undefined;
-	router_settings?: (UpdateRouterConfig | null) | undefined;
-	access_group_ids?: (string[] | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	send_invite_email?: (boolean | null) | undefined;
+	allowed_routes?: (unknown[] | (null | null)) | undefined;
+	allowed_passthrough_routes?: (unknown[] | (null | null)) | undefined;
+	denied_passthrough_routes?: (string[] | (null | null)) | undefined;
+	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | (null | null)) | undefined;
+	rpm_limit_type?: (GenerateKeyRequestRpmLimitTypeKey | (null | null)) | undefined;
+	tpm_limit_type?: (GenerateKeyRequestTpmLimitTypeKey | (null | null)) | undefined;
+	router_settings?: (UpdateRouterConfig | (null | null)) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	send_invite_email?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Type of key that determines default allowed routes.
 	 * @default default
 	 */
-	key_type?: (LiteLLMKeyTypeKey | null) | undefined;
+	key_type?: (LiteLLMKeyTypeKey | (null | null)) | undefined;
 	/**
 	 * @description Whether this key should be automatically rotated
 	 * @default false
 	 */
-	auto_rotate?: (boolean | null) | undefined;
+	auto_rotate?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description How often to rotate this key (e.g., '30d', '90d'). Required if auto_rotate=True
 	 */
-	rotation_interval?: (string | null) | undefined;
-	organization_id?: (string | null) | undefined;
-	project_id?: (string | null) | undefined;
+	rotation_interval?: (string | (null | null)) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
+	project_id?: (string | (null | null)) | undefined;
 };
 
 export const generateKeyResponseRpmLimitType = {
@@ -7834,137 +8162,170 @@ export type GenerateKeyResponseTpmLimitTypeKey =
 	(typeof generateKeyResponseTpmLimitType)[keyof typeof generateKeyResponseTpmLimitType];
 
 export type GenerateKeyResponse = {
-	key_alias?: (string | null) | undefined;
-	duration?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
+	duration?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	models?: (unknown[] | null) | undefined;
+	models?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 */
-	spend?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	user_id?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	agent_id?: (string | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	agent_id?: (string | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_cache_controls?: (unknown[] | null) | undefined;
+	allowed_cache_controls?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	permissions?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	budget_fallbacks?:
-		| ({
-				[key: string]: string[];
-		  } | null)
+		| (
+				| {
+						[key: string]: string[];
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	mcp_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	tag_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	guardrails?: (string[] | null) | undefined;
-	policies?: (string[] | null) | undefined;
-	prompts?: (string[] | null) | undefined;
-	blocked?: (boolean | null) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
+	prompts?: (string[] | (null | null)) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	aliases?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
 	key: string;
-	tpd_limit?: (number | null) | undefined;
-	default_estimated_output_tokens?: (number | null) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
+	default_estimated_output_tokens?: (number | (null | null)) | undefined;
 	default_estimated_output_tokens_per_model?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_id?: (string | null) | undefined;
-	end_user_budget_id?: (string | null) | undefined;
-	tags?: (string[] | null) | undefined;
-	disable_global_guardrails?: (boolean | null) | undefined;
-	enable_prompt_caching?: (boolean | null) | undefined;
-	throttle_on_budget_exceeded?: (boolean | null) | undefined;
-	enforced_params?: (string[] | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	end_user_budget_id?: (string | (null | null)) | undefined;
+	tags?: (string[] | (null | null)) | undefined;
+	disable_global_guardrails?: (boolean | (null | null)) | undefined;
+	enable_prompt_caching?: (boolean | (null | null)) | undefined;
+	throttle_on_budget_exceeded?: (boolean | (null | null)) | undefined;
+	enforced_params?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_routes?: (unknown[] | null) | undefined;
-	allowed_passthrough_routes?: (unknown[] | null) | undefined;
-	denied_passthrough_routes?: (string[] | null) | undefined;
-	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | null) | undefined;
-	rpm_limit_type?: (GenerateKeyResponseRpmLimitTypeKey | null) | undefined;
-	tpm_limit_type?: (GenerateKeyResponseTpmLimitTypeKey | null) | undefined;
-	router_settings?: (UpdateRouterConfig | null) | undefined;
-	access_group_ids?: (string[] | null) | undefined;
-	key_name?: (string | null) | undefined;
-	key_type?: (string | null) | undefined;
-	expires?: (string | null) | undefined;
-	token_id?: (string | null) | undefined;
-	organization_id?: (string | null) | undefined;
-	project_id?: (string | null) | undefined;
-	litellm_budget_table?: (unknown | null) | undefined;
-	token?: (string | null) | undefined;
-	created_by?: (string | null) | undefined;
-	updated_by?: (string | null) | undefined;
-	created_at?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
+	allowed_routes?: (unknown[] | (null | null)) | undefined;
+	allowed_passthrough_routes?: (unknown[] | (null | null)) | undefined;
+	denied_passthrough_routes?: (string[] | (null | null)) | undefined;
+	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | (null | null)) | undefined;
+	rpm_limit_type?: (GenerateKeyResponseRpmLimitTypeKey | (null | null)) | undefined;
+	tpm_limit_type?: (GenerateKeyResponseTpmLimitTypeKey | (null | null)) | undefined;
+	router_settings?: (UpdateRouterConfig | (null | null)) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
+	key_name?: (string | (null | null)) | undefined;
+	key_type?: (string | (null | null)) | undefined;
+	expires?: (string | (null | null)) | undefined;
+	token_id?: (string | (null | null)) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
+	project_id?: (string | (null | null)) | undefined;
+	litellm_budget_table?: (unknown | (null | null)) | undefined;
+	token?: (string | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -7972,11 +8333,11 @@ export type GenerateKeyResponse = {
  * @type object
  */
 export type GenericResponseOutputItemContentAnnotation = {
-	type: string | null;
-	start_index: number | null;
-	end_index: number | null;
-	url: string | null;
-	title: string | null;
+	type: string | (null | null);
+	start_index: number | (null | null);
+	end_index: number | (null | null);
+	url: string | (null | null);
+	title: string | (null | null);
 	[key: string]: unknown;
 };
 
@@ -7985,9 +8346,9 @@ export type GenericResponseOutputItemContentAnnotation = {
  * @type object
  */
 export type OutputText = {
-	type: string | null;
-	text: string | null;
-	annotations: GenericResponseOutputItemContentAnnotation[] | null;
+	type: string | (null | null);
+	text: string | (null | null);
+	annotations: GenericResponseOutputItemContentAnnotation[] | (null | null);
 	[key: string]: unknown;
 };
 
@@ -8019,7 +8380,7 @@ export type GenericResponseOutputItem = {
 	status: string;
 	role: string;
 	content: (OutputText | ResponseOutputRefusal)[];
-	phase?: (GenericResponseOutputItemPhaseKey | null) | undefined;
+	phase?: (GenericResponseOutputItemPhaseKey | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -8032,7 +8393,7 @@ export type GetTeamMemberPermissionsResponse = {
 	/**
 	 * @default []
 	 */
-	team_member_permissions?: (string[] | null) | undefined;
+	team_member_permissions?: (string[] | (null | null)) | undefined;
 	all_available_permissions: string[];
 };
 
@@ -8056,9 +8417,9 @@ export type HTTPValidationError = {
 };
 
 export type Hyperparameters = {
-	batch_size?: (string | number | null) | undefined;
-	learning_rate_multiplier?: (string | number | null) | undefined;
-	n_epochs?: (string | number | null) | undefined;
+	batch_size?: (string | number | (null | null)) | undefined;
+	learning_rate_multiplier?: (string | number | (null | null)) | undefined;
+	n_epochs?: (string | number | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -8090,11 +8451,11 @@ export type ImageGenerationCallErrorModerationDetails = {
  * @type object
  */
 export type ImageGenerationCallError = {
-	code?: (string | null) | undefined;
+	code?: (string | (null | null)) | undefined;
 	message: string;
-	param?: (string | null) | undefined;
+	param?: (string | (null | null)) | undefined;
 	type: string;
-	moderation_details?: (ImageGenerationCallErrorModerationDetails | null) | undefined;
+	moderation_details?: (ImageGenerationCallErrorModerationDetails | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -8173,17 +8534,17 @@ export type ImageGenerationCallSizeKey =
  */
 export type ImageGenerationCall = {
 	id: string;
-	result?: (string | null) | undefined;
+	result?: (string | (null | null)) | undefined;
 	status: ImageGenerationCallStatusEnumKey;
 	type: "image_generation_call";
-	action?: (ImageGenerationCallActionKey | null) | undefined;
-	background?: (ImageGenerationCallBackgroundKey | null) | undefined;
-	error?: (ImageGenerationCallError | null) | undefined;
-	output_format?: (ImageGenerationCallOutputFormatKey | null) | undefined;
-	quality?: (ImageGenerationCallQualityKey | null) | undefined;
-	revised_prompt?: (string | null) | undefined;
-	size?: ((string & {}) | ImageGenerationCallSizeKey | null) | undefined;
-	svg_usage?: (ImageGenerationCallSvgUsage | null) | undefined;
+	action?: (ImageGenerationCallActionKey | (null | null)) | undefined;
+	background?: (ImageGenerationCallBackgroundKey | (null | null)) | undefined;
+	error?: (ImageGenerationCallError | (null | null)) | undefined;
+	output_format?: (ImageGenerationCallOutputFormatKey | (null | null)) | undefined;
+	quality?: (ImageGenerationCallQualityKey | (null | null)) | undefined;
+	revised_prompt?: (string | (null | null)) | undefined;
+	size?: ((string & {}) | ImageGenerationCallSizeKey | (null | null)) | undefined;
+	svg_usage?: (ImageGenerationCallSvgUsage | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -8202,23 +8563,23 @@ export type IncompleteDetailsReasonKey =
  * @type object
  */
 export type IncompleteDetails = {
-	reason?: (IncompleteDetailsReasonKey | null) | undefined;
+	reason?: (IncompleteDetailsReasonKey | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
 export type InputTokensDetails = {
-	audio_tokens?: (number | null) | undefined;
+	audio_tokens?: (number | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type integer | undefined
 	 */
 	cached_tokens?: number | undefined;
-	cached_tokens_details?: (CachedTokensDetails | null) | undefined;
-	cache_write_tokens?: (number | null) | undefined;
-	cache_write_tokens_details?: (CacheWriteTokensDetails | null) | undefined;
-	image_tokens?: (number | null) | undefined;
-	text_tokens?: (number | null) | undefined;
-	video_tokens?: (number | null) | undefined;
+	cached_tokens_details?: (CachedTokensDetails | (null | null)) | undefined;
+	cache_write_tokens?: (number | (null | null)) | undefined;
+	cache_write_tokens_details?: (CacheWriteTokensDetails | (null | null)) | undefined;
+	image_tokens?: (number | (null | null)) | undefined;
+	text_tokens?: (number | (null | null)) | undefined;
+	video_tokens?: (number | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -8246,7 +8607,7 @@ export type LoggingCallbackStatusStatusEnumKey =
 export type LoggingCallbackStatus = {
 	callbacks?: string[] | undefined;
 	status?: LoggingCallbackStatusStatusEnumKey | undefined;
-	details?: (string | null) | undefined;
+	details?: (string | (null | null)) | undefined;
 };
 
 export const keyHealthResponseKeyEnum = {
@@ -8259,7 +8620,7 @@ export type KeyHealthResponseKeyEnumKey =
 
 export type KeyHealthResponse = {
 	key?: KeyHealthResponseKeyEnumKey | undefined;
-	logging_callbacks?: (LoggingCallbackStatus | null) | undefined;
+	logging_callbacks?: (LoggingCallbackStatus | (null | null)) | undefined;
 };
 
 export const litellmUserRoles = {
@@ -8287,9 +8648,9 @@ export type UserAPIKeyAuthAllowedModelRegionKey =
  * @type object
  */
 export type UserAPIKeyAuth = {
-	token?: (string | null) | undefined;
-	key_name?: (string | null) | undefined;
-	key_alias?: (string | null) | undefined;
+	token?: (string | (null | null)) | undefined;
+	key_name?: (string | (null | null)) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type number | undefined
@@ -8300,8 +8661,8 @@ export type UserAPIKeyAuth = {
 	 * @type number | undefined
 	 */
 	total_spend?: number | undefined;
-	max_budget?: (number | null) | undefined;
-	expires?: (string | string | null) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	expires?: (string | string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -8325,11 +8686,11 @@ export type UserAPIKeyAuth = {
 				[key: string]: unknown;
 		  }
 		| undefined;
-	user_id?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	agent_id?: (string | null) | undefined;
-	project_id?: (string | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	agent_id?: (string | (null | null)) | undefined;
+	project_id?: (string | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 * @type object | undefined
@@ -8339,20 +8700,20 @@ export type UserAPIKeyAuth = {
 				[key: string]: unknown;
 		  }
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_reset_at?: (string | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_cache_controls?: (unknown[] | null) | undefined;
+	allowed_cache_controls?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_routes?: (unknown[] | null) | undefined;
-	key_type?: (string | null) | undefined;
+	allowed_routes?: (unknown[] | (null | null)) | undefined;
+	key_type?: (string | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 * @type object | undefined
@@ -8394,58 +8755,67 @@ export type UserAPIKeyAuth = {
 	 * @type boolean | undefined
 	 */
 	soft_budget_cooldown?: boolean | undefined;
-	blocked?: (boolean | null) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
 	litellm_budget_table?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_id?: (string | null) | undefined;
-	org_id?: (string | null) | undefined;
-	created_at?: (string | null) | undefined;
-	created_by?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	updated_by?: (string | null) | undefined;
-	settings_updated_at?: (string | null) | undefined;
-	last_active?: (string | null) | undefined;
-	object_permission_id?: (string | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
-	access_group_ids?: (string[] | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	org_id?: (string | (null | null)) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
+	settings_updated_at?: (string | (null | null)) | undefined;
+	last_active?: (string | (null | null)) | undefined;
+	object_permission_id?: (string | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 */
-	rotation_count?: (number | null) | undefined;
+	rotation_count?: (number | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	auto_rotate?: (boolean | null) | undefined;
-	rotation_interval?: (string | null) | undefined;
-	last_rotation_at?: (string | null) | undefined;
-	key_rotation_at?: (string | null) | undefined;
+	auto_rotate?: (boolean | (null | null)) | undefined;
+	rotation_interval?: (string | (null | null)) | undefined;
+	last_rotation_at?: (string | (null | null)) | undefined;
+	key_rotation_at?: (string | (null | null)) | undefined;
 	router_settings?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	budget_limits?:
 		| (
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	team_spend?: (number | null) | undefined;
-	team_alias?: (string | null) | undefined;
-	team_tpm_limit?: (number | null) | undefined;
-	team_rpm_limit?: (number | null) | undefined;
-	team_tpd_limit?: (number | null) | undefined;
-	team_max_budget?: (number | null) | undefined;
-	team_soft_budget?: (number | null) | undefined;
+	team_spend?: (number | (null | null)) | undefined;
+	team_alias?: (string | (null | null)) | undefined;
+	team_tpm_limit?: (number | (null | null)) | undefined;
+	team_rpm_limit?: (number | (null | null)) | undefined;
+	team_tpd_limit?: (number | (null | null)) | undefined;
+	team_max_budget?: (number | (null | null)) | undefined;
+	team_soft_budget?: (number | (null | null)) | undefined;
 	team_model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default []
@@ -8457,86 +8827,113 @@ export type UserAPIKeyAuth = {
 	 * @type boolean | undefined
 	 */
 	team_blocked?: boolean | undefined;
-	soft_budget?: (number | null) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
 	team_model_aliases?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	team_member?: (Member | null) | undefined;
+	team_member?: (Member | (null | null)) | undefined;
 	team_metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	team_object_permission_id?: (string | null) | undefined;
-	team_member_spend?: (number | null) | undefined;
-	team_member_tpm_limit?: (number | null) | undefined;
-	team_member_rpm_limit?: (number | null) | undefined;
-	end_user_id?: (string | null) | undefined;
-	end_user_tpm_limit?: (number | null) | undefined;
-	end_user_rpm_limit?: (number | null) | undefined;
-	end_user_tpd_limit?: (number | null) | undefined;
-	end_user_max_budget?: (number | null) | undefined;
+	team_object_permission_id?: (string | (null | null)) | undefined;
+	team_member_spend?: (number | (null | null)) | undefined;
+	team_member_tpm_limit?: (number | (null | null)) | undefined;
+	team_member_rpm_limit?: (number | (null | null)) | undefined;
+	end_user_id?: (string | (null | null)) | undefined;
+	end_user_tpm_limit?: (number | (null | null)) | undefined;
+	end_user_rpm_limit?: (number | (null | null)) | undefined;
+	end_user_tpd_limit?: (number | (null | null)) | undefined;
+	end_user_max_budget?: (number | (null | null)) | undefined;
 	end_user_model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	organization_alias?: (string | null) | undefined;
-	organization_max_budget?: (number | null) | undefined;
-	organization_tpm_limit?: (number | null) | undefined;
-	organization_rpm_limit?: (number | null) | undefined;
+	organization_alias?: (string | (null | null)) | undefined;
+	organization_max_budget?: (number | (null | null)) | undefined;
+	organization_tpm_limit?: (number | (null | null)) | undefined;
+	organization_rpm_limit?: (number | (null | null)) | undefined;
 	organization_metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	project_alias?: (string | null) | undefined;
+	project_alias?: (string | (null | null)) | undefined;
 	project_metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	last_refreshed_at?: (number | null) | undefined;
-	api_key?: (string | null) | undefined;
-	user_role?: (LitellmUserRolesKey | null) | undefined;
-	allowed_model_region?: (UserAPIKeyAuthAllowedModelRegionKey | null) | undefined;
-	parent_otel_span?: (unknown | null) | undefined;
+	last_refreshed_at?: (number | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	user_role?: (LitellmUserRolesKey | (null | null)) | undefined;
+	allowed_model_region?: (UserAPIKeyAuthAllowedModelRegionKey | (null | null)) | undefined;
+	parent_otel_span?: (unknown | (null | null)) | undefined;
 	rpm_limit_per_model?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	tpm_limit_per_model?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	user_tpm_limit?: (number | null) | undefined;
-	user_rpm_limit?: (number | null) | undefined;
-	user_email?: (string | null) | undefined;
-	user_spend?: (number | null) | undefined;
-	user_max_budget?: (number | null) | undefined;
+	user_tpm_limit?: (number | (null | null)) | undefined;
+	user_rpm_limit?: (number | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
+	user_spend?: (number | (null | null)) | undefined;
+	user_max_budget?: (number | (null | null)) | undefined;
 	user_model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	request_route?: (string | null) | undefined;
+	request_route?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	is_session_token?: boolean | undefined;
-	user?: (unknown | null) | undefined;
-	created_by_user?: (unknown | null) | undefined;
-	end_user_object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
-	team_object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
+	user?: (unknown | (null | null)) | undefined;
+	created_by_user?: (unknown | (null | null)) | undefined;
+	end_user_object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
+	team_object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
 	jwt_claims?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -8545,9 +8942,9 @@ export type UserAPIKeyAuth = {
  * @type object
  */
 export type LiteLLMDeletedVerificationToken = {
-	token?: (string | null) | undefined;
-	key_name?: (string | null) | undefined;
-	key_alias?: (string | null) | undefined;
+	token?: (string | (null | null)) | undefined;
+	key_name?: (string | (null | null)) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type number | undefined
@@ -8558,8 +8955,8 @@ export type LiteLLMDeletedVerificationToken = {
 	 * @type number | undefined
 	 */
 	total_spend?: number | undefined;
-	max_budget?: (number | null) | undefined;
-	expires?: (string | string | null) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	expires?: (string | string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -8583,11 +8980,11 @@ export type LiteLLMDeletedVerificationToken = {
 				[key: string]: unknown;
 		  }
 		| undefined;
-	user_id?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	agent_id?: (string | null) | undefined;
-	project_id?: (string | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	agent_id?: (string | (null | null)) | undefined;
+	project_id?: (string | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 * @type object | undefined
@@ -8597,20 +8994,20 @@ export type LiteLLMDeletedVerificationToken = {
 				[key: string]: unknown;
 		  }
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_reset_at?: (string | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_cache_controls?: (unknown[] | null) | undefined;
+	allowed_cache_controls?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_routes?: (unknown[] | null) | undefined;
-	key_type?: (string | null) | undefined;
+	allowed_routes?: (unknown[] | (null | null)) | undefined;
+	key_type?: (string | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 * @type object | undefined
@@ -8652,65 +9049,71 @@ export type LiteLLMDeletedVerificationToken = {
 	 * @type boolean | undefined
 	 */
 	soft_budget_cooldown?: boolean | undefined;
-	blocked?: (boolean | null) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
 	litellm_budget_table?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_id?: (string | null) | undefined;
-	org_id?: (string | null) | undefined;
-	created_at?: (string | null) | undefined;
-	created_by?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	updated_by?: (string | null) | undefined;
-	settings_updated_at?: (string | null) | undefined;
-	last_active?: (string | null) | undefined;
-	object_permission_id?: (string | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
-	access_group_ids?: (string[] | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	org_id?: (string | (null | null)) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
+	settings_updated_at?: (string | (null | null)) | undefined;
+	last_active?: (string | (null | null)) | undefined;
+	object_permission_id?: (string | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 */
-	rotation_count?: (number | null) | undefined;
+	rotation_count?: (number | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	auto_rotate?: (boolean | null) | undefined;
-	rotation_interval?: (string | null) | undefined;
-	last_rotation_at?: (string | null) | undefined;
-	key_rotation_at?: (string | null) | undefined;
+	auto_rotate?: (boolean | (null | null)) | undefined;
+	rotation_interval?: (string | (null | null)) | undefined;
+	last_rotation_at?: (string | (null | null)) | undefined;
+	key_rotation_at?: (string | (null | null)) | undefined;
 	router_settings?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	budget_limits?:
 		| (
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	id?: (string | null) | undefined;
-	organization_id?: (string | null) | undefined;
-	deleted_at?: (string | null) | undefined;
-	deleted_by?: (string | null) | undefined;
-	deleted_by_api_key?: (string | null) | undefined;
-	litellm_changed_by?: (string | null) | undefined;
+	id?: (string | (null | null)) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
+	deleted_at?: (string | (null | null)) | undefined;
+	deleted_by?: (string | (null | null)) | undefined;
+	deleted_by_api_key?: (string | (null | null)) | undefined;
+	litellm_changed_by?: (string | (null | null)) | undefined;
 };
 
 export type KeyListResponseObject = {
 	keys?: (string | UserAPIKeyAuth | LiteLLMDeletedVerificationToken)[] | undefined;
-	total_count?: (number | null) | undefined;
-	current_page?: (number | null) | undefined;
-	total_pages?: (number | null) | undefined;
+	total_count?: (number | (null | null)) | undefined;
+	current_page?: (number | (null | null)) | undefined;
+	total_pages?: (number | (null | null)) | undefined;
 };
 
 export type KeyRequest = {
-	keys?: (string[] | null) | undefined;
-	key_aliases?: (string[] | null) | undefined;
+	keys?: (string[] | (null | null)) | undefined;
+	key_aliases?: (string[] | (null | null)) | undefined;
 };
 
 /**
@@ -8726,10 +9129,10 @@ export type Keypress = {
 export type KubernetesPodsResponse = {
 	model_id: string;
 	service_host: string;
-	port: number | null;
+	port: number | (null | null);
 	pod_ips: string[];
 	pod_count: number;
-	error: string | null;
+	error: string | (null | null);
 };
 
 export type LatestReleaseInfo = {
@@ -8751,8 +9154,8 @@ export type ListAccessGroupsResponse = {
 export type ListLinks = {
 	self: string;
 	first: string;
-	prev?: (string | null) | undefined;
-	next?: (string | null) | undefined;
+	prev?: (string | (null | null)) | undefined;
+	next?: (string | (null | null)) | undefined;
 	last: string;
 };
 
@@ -8797,19 +9200,19 @@ export type ModelGroupInfoProxyModeKey =
 export type ModelGroupInfoProxy = {
 	model_group: string;
 	providers: string[];
-	max_input_tokens?: (number | null) | undefined;
-	max_output_tokens?: (number | null) | undefined;
-	input_cost_per_token?: (number | null) | undefined;
-	output_cost_per_token?: (number | null) | undefined;
-	input_cost_per_pixel?: (number | null) | undefined;
+	max_input_tokens?: (number | (null | null)) | undefined;
+	max_output_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_token?: (number | (null | null)) | undefined;
+	output_cost_per_token?: (number | (null | null)) | undefined;
+	input_cost_per_pixel?: (number | (null | null)) | undefined;
 	/**
 	 * @default chat
 	 */
-	mode?: ((string & {}) | ModelGroupInfoProxyModeKey | null) | undefined;
-	tpm?: (number | null) | undefined;
-	rpm?: (number | null) | undefined;
-	itpm?: (number | null) | undefined;
-	otpm?: (number | null) | undefined;
+	mode?: ((string & {}) | ModelGroupInfoProxyModeKey | (null | null)) | undefined;
+	tpm?: (number | (null | null)) | undefined;
+	rpm?: (number | (null | null)) | undefined;
+	itpm?: (number | (null | null)) | undefined;
+	otpm?: (number | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -8845,16 +9248,16 @@ export type ModelGroupInfoProxy = {
 	 * @type boolean | undefined
 	 */
 	supports_fast_mode?: boolean | undefined;
-	supported_reasoning_efforts?: (string[] | null) | undefined;
+	supported_reasoning_efforts?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	supported_openai_params?: (string[] | null) | undefined;
+	supported_openai_params?: (string[] | (null | null)) | undefined;
 	configurable_clientside_auth_params?:
-		| ((string | ConfigurableClientsideParamsCustomAuthOutput)[] | null)
+		| ((string | ConfigurableClientsideParamsCustomAuthOutput)[] | (null | null))
 		| undefined;
-	description?: (string | null) | undefined;
-	supported_endpoints?: (string[] | null) | undefined;
+	description?: (string | (null | null)) | undefined;
+	supported_endpoints?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Whether cache-backed background Responses runs are enabled for this model group
 	 * @default false
@@ -8866,14 +9269,17 @@ export type ModelGroupInfoProxy = {
 	 * @type boolean | undefined
 	 */
 	is_public_model_group?: boolean | undefined;
-	health_status?: (string | null) | undefined;
-	health_response_time?: (number | null) | undefined;
-	health_checked_at?: (string | null) | undefined;
-	custom_tags?: (string[] | null) | undefined;
+	health_status?: (string | (null | null)) | undefined;
+	health_response_time?: (number | (null | null)) | undefined;
+	health_checked_at?: (string | (null | null)) | undefined;
+	custom_tags?: (string[] | (null | null)) | undefined;
 	custom_metadata?:
-		| ({
-				[key: string]: string | number | number | boolean;
-		  } | null)
+		| (
+				| {
+						[key: string]: string | number | number | boolean;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -8903,19 +9309,21 @@ export type LiteLLMFineTuningJobCreateCustomLlmProviderKey =
 export type LiteLLMFineTuningJobCreate = {
 	model: string;
 	training_file: string;
-	hyperparameters?: (Hyperparameters | null) | undefined;
-	suffix?: (string | null) | undefined;
-	validation_file?: (string | null) | undefined;
-	integrations?: (string[] | null) | undefined;
-	seed?: (number | null) | undefined;
-	custom_llm_provider?: (LiteLLMFineTuningJobCreateCustomLlmProviderKey | null) | undefined;
+	hyperparameters?: (Hyperparameters | (null | null)) | undefined;
+	suffix?: (string | (null | null)) | undefined;
+	validation_file?: (string | (null | null)) | undefined;
+	integrations?: (string[] | (null | null)) | undefined;
+	seed?: (number | (null | null)) | undefined;
+	custom_llm_provider?:
+		| (LiteLLMFineTuningJobCreateCustomLlmProviderKey | (null | null))
+		| undefined;
 	[key: string]: unknown;
 };
 
 export type LiteLLMTeamTable = {
-	team_alias?: (string | null) | undefined;
+	team_alias?: (string | (null | null)) | undefined;
 	team_id: string;
-	organization_id?: (string | null) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -8931,19 +9339,22 @@ export type LiteLLMTeamTable = {
 	 * @type array | undefined
 	 */
 	members_with_roles?: Member[] | undefined;
-	team_member_permissions?: (string[] | null) | undefined;
+	team_member_permissions?: (string[] | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -8955,58 +9366,67 @@ export type LiteLLMTeamTable = {
 	 */
 	blocked?: boolean | undefined;
 	router_settings?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	access_group_ids?: (string[] | null) | undefined;
-	default_team_member_models?: (string[] | null) | undefined;
-	spend?: (number | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
-	budget_reset_at?: (string | null) | undefined;
-	model_id?: (number | null) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
+	default_team_member_models?: (string[] | (null | null)) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
+	model_id?: (number | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	model_spend?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	policies?: (string[] | null) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	allow_team_guardrail_config?: (boolean | null) | undefined;
-	litellm_model_table?: (LiteLLMModelTable | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
-	object_permission_id?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	created_at?: (string | null) | undefined;
+	allow_team_guardrail_config?: (boolean | (null | null)) | undefined;
+	litellm_model_table?: (LiteLLMModelTable | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
+	object_permission_id?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	created_at?: (string | (null | null)) | undefined;
 };
 
 export type LiteLLMModelTable = {
-	id?: (number | null) | undefined;
+	id?: (number | (null | null)) | undefined;
 	model_aliases?:
 		| (
 				| string
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	created_by: string;
 	updated_by: string;
-	team?: (LiteLLMTeamTable | null) | undefined;
+	team?: (LiteLLMTeamTable | (null | null)) | undefined;
 };
 
 /**
@@ -9014,9 +9434,9 @@ export type LiteLLMModelTable = {
  * @type object
  */
 export type LiteLLMDeletedTeamTable = {
-	team_alias?: (string | null) | undefined;
+	team_alias?: (string | (null | null)) | undefined;
 	team_id: string;
-	organization_id?: (string | null) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -9032,19 +9452,22 @@ export type LiteLLMDeletedTeamTable = {
 	 * @type array | undefined
 	 */
 	members_with_roles?: Member[] | undefined;
-	team_member_permissions?: (string[] | null) | undefined;
+	team_member_permissions?: (string[] | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -9056,60 +9479,69 @@ export type LiteLLMDeletedTeamTable = {
 	 */
 	blocked?: boolean | undefined;
 	router_settings?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	access_group_ids?: (string[] | null) | undefined;
-	default_team_member_models?: (string[] | null) | undefined;
-	spend?: (number | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
-	budget_reset_at?: (string | null) | undefined;
-	model_id?: (number | null) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
+	default_team_member_models?: (string[] | (null | null)) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
+	model_id?: (number | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	model_spend?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	policies?: (string[] | null) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	allow_team_guardrail_config?: (boolean | null) | undefined;
-	litellm_model_table?: (LiteLLMModelTable | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
-	object_permission_id?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	created_at?: (string | null) | undefined;
-	id?: (string | null) | undefined;
-	deleted_at?: (string | null) | undefined;
-	deleted_by?: (string | null) | undefined;
-	deleted_by_api_key?: (string | null) | undefined;
-	litellm_changed_by?: (string | null) | undefined;
+	allow_team_guardrail_config?: (boolean | (null | null)) | undefined;
+	litellm_model_table?: (LiteLLMModelTable | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
+	object_permission_id?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	id?: (string | (null | null)) | undefined;
+	deleted_at?: (string | (null | null)) | undefined;
+	deleted_by?: (string | (null | null)) | undefined;
+	deleted_by_api_key?: (string | (null | null)) | undefined;
+	litellm_changed_by?: (string | (null | null)) | undefined;
 };
 
 export type LiteLLMMemoryRow = {
 	memory_id: string;
 	key: string;
 	value: string;
-	metadata?: (unknown | null) | undefined;
-	user_id?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	created_at?: (string | null) | undefined;
-	created_by?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	updated_by?: (string | null) | undefined;
+	metadata?: (unknown | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -9119,13 +9551,13 @@ export type LiteLLMMemoryRow = {
 export type LiteLLMOrganizationMembershipTable = {
 	user_id: string;
 	organization_id: string;
-	user_role?: (string | null) | undefined;
+	user_role?: (string | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type number | undefined
 	 */
 	spend?: number | undefined;
-	budget_id?: (string | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description
 	 * Format: `date-time`
@@ -9138,48 +9570,51 @@ export type LiteLLMOrganizationMembershipTable = {
 	 * @type string
 	 */
 	updated_at: string;
-	user?: (unknown | null) | undefined;
-	litellm_budget_table?: (LiteLLMBudgetTable | null) | undefined;
-	user_email?: (string | null) | undefined;
+	user?: (unknown | (null | null)) | undefined;
+	litellm_budget_table?: (LiteLLMBudgetTable | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 };
 
 export type LiteLLMUserTable = {
 	user_id: string;
-	user_alias?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	sso_user_id?: (string | null) | undefined;
-	organization_id?: (string | null) | undefined;
-	object_permission_id?: (string | null) | undefined;
-	password_reset_required?: (boolean | null) | undefined;
-	last_breach_check_at?: (string | null) | undefined;
+	user_alias?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	sso_user_id?: (string | (null | null)) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
+	object_permission_id?: (string | (null | null)) | undefined;
+	password_reset_required?: (boolean | (null | null)) | undefined;
+	last_breach_check_at?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
 	 */
 	teams?: string[] | undefined;
-	user_role?: (string | null) | undefined;
-	max_budget?: (number | null) | undefined;
+	user_role?: (string | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type number | undefined
 	 */
 	spend?: number | undefined;
-	user_email?: (string | null) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
 	 */
 	models?: unknown[] | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	max_parallel_requests?: (number | null) | undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_reset_at?: (string | null) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -9194,22 +9629,28 @@ export type LiteLLMUserTable = {
 	 * @default {}
 	 */
 	model_spend?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	created_at?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	organization_memberships?: (LiteLLMOrganizationMembershipTable[] | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	organization_memberships?: (LiteLLMOrganizationMembershipTable[] | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
 };
 
 /**
@@ -9217,8 +9658,8 @@ export type LiteLLMUserTable = {
  * @type object
  */
 export type LiteLLMOrganizationTableWithMembers = {
-	organization_id?: (string | null) | undefined;
-	organization_alias?: (string | null) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
+	organization_alias?: (string | (null | null)) | undefined;
 	budget_id: string;
 	/**
 	 * @default 0
@@ -9226,9 +9667,12 @@ export type LiteLLMOrganizationTableWithMembers = {
 	 */
 	spend?: number | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default []
@@ -9239,16 +9683,19 @@ export type LiteLLMOrganizationTableWithMembers = {
 	 * @default {}
 	 */
 	model_spend?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	created_by: string;
 	updated_by: string;
-	users?: (LiteLLMUserTable[] | null) | undefined;
-	litellm_budget_table?: (LiteLLMBudgetTableFull | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
-	object_permission_id?: (string | null) | undefined;
+	users?: (LiteLLMUserTable[] | (null | null)) | undefined;
+	litellm_budget_table?: (LiteLLMBudgetTableFull | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
+	object_permission_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -9279,14 +9726,17 @@ export type LiteLLMOrganizationTableWithMembers = {
  */
 export type LiteLLMProjectTable = {
 	project_id: string;
-	project_alias?: (string | null) | undefined;
-	description?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	budget_id?: (string | null) | undefined;
+	project_alias?: (string | (null | null)) | undefined;
+	description?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default []
@@ -9299,32 +9749,41 @@ export type LiteLLMProjectTable = {
 	 */
 	spend?: number | undefined;
 	model_spend?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	blocked?: boolean | undefined;
-	object_permission_id?: (string | null) | undefined;
-	created_by?: (string | null) | undefined;
-	updated_by?: (string | null) | undefined;
-	created_at?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	litellm_budget_table?: (LiteLLMBudgetTable | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
+	object_permission_id?: (string | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	litellm_budget_table?: (LiteLLMBudgetTable | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
 };
 
 export type LiteLLMProxyModelTable = {
@@ -9334,19 +9793,22 @@ export type LiteLLMProxyModelTable = {
 		[key: string]: unknown;
 	};
 	model_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	blocked?: boolean | undefined;
-	created_at?: (string | null) | undefined;
-	created_by?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	updated_by?: (string | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
 };
 
 export type LiteLLMSpendLogs = {
@@ -9355,68 +9817,68 @@ export type LiteLLMSpendLogs = {
 	/**
 	 * @default
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @default
 	 */
-	api_base?: (string | null) | undefined;
+	api_base?: (string | (null | null)) | undefined;
 	call_type: string;
 	/**
 	 * @default 0
 	 */
-	spend?: (number | null) | undefined;
+	spend?: (number | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 */
-	total_tokens?: (number | null) | undefined;
+	total_tokens?: (number | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 */
-	prompt_tokens?: (number | null) | undefined;
+	prompt_tokens?: (number | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 */
-	completion_tokens?: (number | null) | undefined;
-	startTime: string | string | null;
-	endTime: string | string | null;
+	completion_tokens?: (number | (null | null)) | undefined;
+	startTime: string | string | (null | null);
+	endTime: string | string | (null | null);
 	/**
 	 * @default
 	 */
-	user?: (string | null) | undefined;
+	user?: (string | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
-	metadata?: (unknown | null) | undefined;
+	metadata?: (unknown | (null | null)) | undefined;
 	/**
 	 * @default False
 	 */
-	cache_hit?: (string | null) | undefined;
-	cache_key?: (string | null) | undefined;
-	request_tags?: (unknown | null) | undefined;
-	requester_ip_address?: (string | null) | undefined;
+	cache_hit?: (string | (null | null)) | undefined;
+	cache_key?: (string | (null | null)) | undefined;
+	request_tags?: (unknown | (null | null)) | undefined;
+	requester_ip_address?: (string | (null | null)) | undefined;
 	messages:
 		| string
 		| unknown[]
 		| {
 				[key: string]: unknown;
 		  }
-		| null;
+		| (null | null);
 	response:
 		| string
 		| unknown[]
 		| {
 				[key: string]: unknown;
 		  }
-		| null;
-	created_at?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
+		| (null | null);
+	created_at?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
 };
 
 export type LiteLLMSubscriptionAccountTable = {
 	subscription_account_id: string;
 	custom_llm_provider: string;
 	account_id: string;
-	label?: (string | null) | undefined;
+	label?: (string | (null | null)) | undefined;
 	monthly_fee: number;
 	currency: string;
 	billing_period_start: string;
@@ -9439,55 +9901,58 @@ export type LiteLLMSubscriptionAccountTable = {
 export type LiteLLMTeamMembership = {
 	user_id: string;
 	team_id: string;
-	budget_id?: (string | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 */
-	spend?: (number | null) | undefined;
+	spend?: (number | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 */
-	total_spend?: (number | null) | undefined;
-	litellm_budget_table?: (LiteLLMBudgetTableFull | LiteLLMBudgetTable | null) | undefined;
+	total_spend?: (number | (null | null)) | undefined;
+	litellm_budget_table?: (LiteLLMBudgetTableFull | LiteLLMBudgetTable | (null | null)) | undefined;
 };
 
 export type LiteLLMUserTableWithKeyCount = {
 	user_id: string;
-	user_alias?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	sso_user_id?: (string | null) | undefined;
-	organization_id?: (string | null) | undefined;
-	object_permission_id?: (string | null) | undefined;
-	password_reset_required?: (boolean | null) | undefined;
-	last_breach_check_at?: (string | null) | undefined;
+	user_alias?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	sso_user_id?: (string | (null | null)) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
+	object_permission_id?: (string | (null | null)) | undefined;
+	password_reset_required?: (boolean | (null | null)) | undefined;
+	last_breach_check_at?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
 	 */
 	teams?: string[] | undefined;
-	user_role?: (string | null) | undefined;
-	max_budget?: (number | null) | undefined;
+	user_role?: (string | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type number | undefined
 	 */
 	spend?: number | undefined;
-	user_email?: (string | null) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
 	 */
 	models?: unknown[] | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	max_parallel_requests?: (number | null) | undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_reset_at?: (string | null) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -9502,22 +9967,28 @@ export type LiteLLMUserTableWithKeyCount = {
 	 * @default {}
 	 */
 	model_spend?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	created_at?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	organization_memberships?: (LiteLLMOrganizationMembershipTable[] | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	organization_memberships?: (LiteLLMOrganizationMembershipTable[] | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type integer | undefined
@@ -9526,9 +9997,9 @@ export type LiteLLMUserTableWithKeyCount = {
 };
 
 export type LiteLLMVerificationToken = {
-	token?: (string | null) | undefined;
-	key_name?: (string | null) | undefined;
-	key_alias?: (string | null) | undefined;
+	token?: (string | (null | null)) | undefined;
+	key_name?: (string | (null | null)) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type number | undefined
@@ -9539,8 +10010,8 @@ export type LiteLLMVerificationToken = {
 	 * @type number | undefined
 	 */
 	total_spend?: number | undefined;
-	max_budget?: (number | null) | undefined;
-	expires?: (string | string | null) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	expires?: (string | string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -9564,11 +10035,11 @@ export type LiteLLMVerificationToken = {
 				[key: string]: unknown;
 		  }
 		| undefined;
-	user_id?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	agent_id?: (string | null) | undefined;
-	project_id?: (string | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	agent_id?: (string | (null | null)) | undefined;
+	project_id?: (string | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 * @type object | undefined
@@ -9578,20 +10049,20 @@ export type LiteLLMVerificationToken = {
 				[key: string]: unknown;
 		  }
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_reset_at?: (string | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_cache_controls?: (unknown[] | null) | undefined;
+	allowed_cache_controls?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_routes?: (unknown[] | null) | undefined;
-	key_type?: (string | null) | undefined;
+	allowed_routes?: (unknown[] | (null | null)) | undefined;
+	key_type?: (string | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 * @type object | undefined
@@ -9633,45 +10104,51 @@ export type LiteLLMVerificationToken = {
 	 * @type boolean | undefined
 	 */
 	soft_budget_cooldown?: boolean | undefined;
-	blocked?: (boolean | null) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
 	litellm_budget_table?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_id?: (string | null) | undefined;
-	org_id?: (string | null) | undefined;
-	created_at?: (string | null) | undefined;
-	created_by?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	updated_by?: (string | null) | undefined;
-	settings_updated_at?: (string | null) | undefined;
-	last_active?: (string | null) | undefined;
-	object_permission_id?: (string | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
-	access_group_ids?: (string[] | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	org_id?: (string | (null | null)) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
+	settings_updated_at?: (string | (null | null)) | undefined;
+	last_active?: (string | (null | null)) | undefined;
+	object_permission_id?: (string | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 */
-	rotation_count?: (number | null) | undefined;
+	rotation_count?: (number | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	auto_rotate?: (boolean | null) | undefined;
-	rotation_interval?: (string | null) | undefined;
-	last_rotation_at?: (string | null) | undefined;
-	key_rotation_at?: (string | null) | undefined;
+	auto_rotate?: (boolean | (null | null)) | undefined;
+	rotation_interval?: (string | (null | null)) | undefined;
+	last_rotation_at?: (string | (null | null)) | undefined;
+	key_rotation_at?: (string | (null | null)) | undefined;
 	router_settings?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	budget_limits?:
 		| (
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 };
@@ -9686,9 +10163,9 @@ export type LocalShellCallAction = {
 		[key: string]: string;
 	};
 	type: "exec";
-	timeout_ms?: (number | null) | undefined;
-	user?: (string | null) | undefined;
-	working_directory?: (string | null) | undefined;
+	timeout_ms?: (number | (null | null)) | undefined;
+	user?: (string | (null | null)) | undefined;
+	working_directory?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -9735,7 +10212,7 @@ export type LocalShellCallOutput = {
 	id: string;
 	output: string;
 	type: "local_shell_call_output";
-	status?: (LocalShellCallOutputStatusKey | null) | undefined;
+	status?: (LocalShellCallOutputStatusKey | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -9796,15 +10273,18 @@ export type MCPPublicServerAuthTypeKey =
 export type MCPPublicServer = {
 	server_id: string;
 	name: string;
-	alias?: (string | null) | undefined;
-	server_name?: (string | null) | undefined;
+	alias?: (string | (null | null)) | undefined;
+	server_name?: (string | (null | null)) | undefined;
 	transport: MCPPublicServerTransportEnumKey;
-	spec_path?: (string | null) | undefined;
-	auth_type?: (MCPPublicServerAuthTypeKey | null) | undefined;
+	spec_path?: (string | (null | null)) | undefined;
+	auth_type?: (MCPPublicServerAuthTypeKey | (null | null)) | undefined;
 	mcp_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -9864,7 +10344,7 @@ export type MCPToolSearchSettings = {
 	/**
 	 * @description Embedding model from model_list used to rank tools by meaning. Unset keeps keyword matching.
 	 */
-	embedding_model?: (string | null) | undefined;
+	embedding_model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Most ranked tools a search returns. A smaller top_k in the tool call wins. Core tools do not count.
 	 * @minimum 1
@@ -9924,7 +10404,7 @@ export type McpApprovalResponse = {
 	approval_request_id: string;
 	approve: boolean;
 	type: "mcp_approval_response";
-	reason?: (string | null) | undefined;
+	reason?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -9961,10 +10441,10 @@ export type McpCall = {
 	name: string;
 	server_label: string;
 	type: "mcp_call";
-	approval_request_id?: (string | null) | undefined;
-	error?: (McpProtocolError | McpToolExecutionError | HTTPError | null) | undefined;
-	output?: (string | null) | undefined;
-	status?: (McpCallStatusKey | null) | undefined;
+	approval_request_id?: (string | (null | null)) | undefined;
+	error?: (McpProtocolError | McpToolExecutionError | HTTPError | (null | null)) | undefined;
+	output?: (string | (null | null)) | undefined;
+	status?: (McpCallStatusKey | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -9975,8 +10455,8 @@ export type McpCall = {
 export type McpListToolsTool = {
 	input_schema: unknown;
 	name: string;
-	annotations?: (unknown | null) | undefined;
-	description?: (string | null) | undefined;
+	annotations?: (unknown | (null | null)) | undefined;
+	description?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -9989,7 +10469,7 @@ export type McpListTools = {
 	server_label: string;
 	tools: McpListToolsTool[];
 	type: "mcp_list_tools";
-	error?: (string | null) | undefined;
+	error?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -10007,15 +10487,15 @@ export type MemoryCreateRequest = {
 	/**
 	 * @description Optional JSON metadata (tags, structured fields).
 	 */
-	metadata?: (unknown | null) | undefined;
+	metadata?: (unknown | (null | null)) | undefined;
 	/**
 	 * @description Scope to this user. Defaults to the caller's user_id.
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Scope to this team. Defaults to the caller's team_id.
 	 */
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 };
 
 export type MemoryDeleteResponse = {
@@ -10029,10 +10509,10 @@ export type MemoryListResponse = {
 };
 
 export type MemoryUpdateRequest = {
-	value?: (string | null) | undefined;
-	metadata?: (unknown | null) | undefined;
-	user_id?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
+	value?: (string | (null | null)) | undefined;
+	metadata?: (unknown | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 };
 
 export const modelDeprecationInfoStatusEnum = {
@@ -10053,7 +10533,7 @@ export type ModelDeprecationInfo = {
 	/**
 	 * @description The underlying litellm model string the deprecation date is sourced from.
 	 */
-	litellm_model?: (string | null) | undefined;
+	litellm_model?: (string | (null | null)) | undefined;
 	/**
 	 * @description The date (UTC) when the model becomes deprecated.
 	 *
@@ -10074,11 +10554,11 @@ export type ModelDeprecationInfo = {
 	/**
 	 * @description The provider this model belongs to.
 	 */
-	litellm_provider?: (string | null) | undefined;
+	litellm_provider?: (string | (null | null)) | undefined;
 	/**
 	 * @description The model to migrate to, as set in model_info.successor_model on the deployment.
 	 */
-	successor_model?: (string | null) | undefined;
+	successor_model?: (string | (null | null)) | undefined;
 };
 
 export type ModelDeprecationResponse = {
@@ -10129,7 +10609,7 @@ export type Move = {
 	type: "move";
 	x: number;
 	y: number;
-	keys?: (string[] | null) | undefined;
+	keys?: (string[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -10166,92 +10646,98 @@ export type NewCustomerRequestAllowedModelRegionKey =
  * @type object
  */
 export type NewCustomerRequest = {
-	budget_id?: (string | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Requests will fail if this budget (in USD) is exceeded.
 	 */
-	max_budget?: (number | null) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
 	/**
 	 * @description Requests will NOT fail if this is exceeded. Will fire alerting though.
 	 */
-	soft_budget?: (number | null) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
 	/**
 	 * @description Max concurrent requests allowed for this budget id.
 	 */
-	max_parallel_requests?: (number | null) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
 	/**
 	 * @description Max tokens per minute, allowed for this budget id.
 	 */
-	tpm_limit?: (number | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
 	/**
 	 * @description Max requests per minute, allowed for this budget id.
 	 */
-	rpm_limit?: (number | null) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
 	/**
 	 * @description Max tokens per day, charged by batch submissions, allowed for this budget id.
 	 */
-	tpd_limit?: (number | null) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
 	/**
 	 * @description Max duration budget should be set for (e.g. '1hr', '1d', '28d')
 	 */
-	budget_duration?: (string | null) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
 	/**
 	 * @description Max budget for each model (e.g. {'gpt-4o': {'max_budget': '0.0000001', 'budget_duration': '1d', 'tpm_limit': 1000, 'rpm_limit': 1000}})
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: BudgetConfig;
-		  } | null)
+		| (
+				| {
+						[key: string]: BudgetConfig;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Datetime when the budget is reset
 	 */
-	budget_reset_at?: (string | null) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
 	user_id: string;
-	alias?: (string | null) | undefined;
+	alias?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	blocked?: boolean | undefined;
-	spend?: (number | null) | undefined;
-	allowed_model_region?: (NewCustomerRequestAllowedModelRegionKey | null) | undefined;
-	default_model?: (string | null) | undefined;
-	models?: (string[] | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	allowed_model_region?: (NewCustomerRequestAllowedModelRegionKey | (null | null)) | undefined;
+	default_model?: (string | (null | null)) | undefined;
+	models?: (string[] | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
 };
 
 export type NewModelGroupRequest = {
 	access_group: string;
-	model_names?: (string[] | null) | undefined;
-	model_ids?: (string[] | null) | undefined;
+	model_names?: (string[] | (null | null)) | undefined;
+	model_ids?: (string[] | (null | null)) | undefined;
 };
 
 export type NewModelGroupResponse = {
 	access_group: string;
-	model_names?: (string[] | null) | undefined;
-	model_ids?: (string[] | null) | undefined;
+	model_names?: (string[] | (null | null)) | undefined;
+	model_ids?: (string[] | (null | null)) | undefined;
 	models_updated: number;
 };
 
 export type NewOrganizationRequest = {
-	budget_id?: (string | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_duration?: (string | null) | undefined;
-	allowed_models?: (string[] | null) | undefined;
-	temp_budget_increase?: (number | null) | undefined;
-	temp_budget_expiry?: (string | null) | undefined;
-	organization_id?: (string | null) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	allowed_models?: (string[] | (null | null)) | undefined;
+	temp_budget_increase?: (number | (null | null)) | undefined;
+	temp_budget_expiry?: (string | (null | null)) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
 	organization_alias: string;
 	/**
 	 * @default []
@@ -10259,26 +10745,35 @@ export type NewOrganizationRequest = {
 	 */
 	models?: unknown[] | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
 };
 
 export type NewOrganizationResponse = {
 	organization_id: string;
-	organization_alias?: (string | null) | undefined;
+	organization_alias?: (string | (null | null)) | undefined;
 	budget_id: string;
 	/**
 	 * @default 0
@@ -10286,9 +10781,12 @@ export type NewOrganizationResponse = {
 	 */
 	spend?: number | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default []
@@ -10299,16 +10797,19 @@ export type NewOrganizationResponse = {
 	 * @default {}
 	 */
 	model_spend?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	created_by: string;
 	updated_by: string;
-	users?: (LiteLLMUserTable[] | null) | undefined;
-	litellm_budget_table?: (LiteLLMBudgetTable | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
-	object_permission_id?: (string | null) | undefined;
+	users?: (LiteLLMUserTable[] | (null | null)) | undefined;
+	litellm_budget_table?: (LiteLLMBudgetTable | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
+	object_permission_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description
 	 * Format: `date-time`
@@ -10328,65 +10829,83 @@ export type NewOrganizationResponse = {
  * @type object
  */
 export type NewProjectRequest = {
-	budget_id?: (string | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_duration?: (string | null) | undefined;
-	allowed_models?: (string[] | null) | undefined;
-	temp_budget_increase?: (number | null) | undefined;
-	temp_budget_expiry?: (string | null) | undefined;
-	project_id?: (string | null) | undefined;
-	project_alias?: (string | null) | undefined;
-	description?: (string | null) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	allowed_models?: (string[] | (null | null)) | undefined;
+	temp_budget_increase?: (number | (null | null)) | undefined;
+	temp_budget_expiry?: (string | (null | null)) | undefined;
+	project_id?: (string | (null | null)) | undefined;
+	project_alias?: (string | (null | null)) | undefined;
+	description?: (string | (null | null)) | undefined;
 	team_id: string;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tags?: (string[] | null) | undefined;
-	guardrails?: (string[] | null) | undefined;
-	policies?: (string[] | null) | undefined;
+	tags?: (string[] | (null | null)) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
 	 */
 	models?: string[] | undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_itpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_otpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	blocked?: boolean | undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
 };
 
 /**
@@ -10395,14 +10914,17 @@ export type NewProjectRequest = {
  */
 export type NewProjectResponse = {
 	project_id: string;
-	project_alias?: (string | null) | undefined;
-	description?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	budget_id?: (string | null) | undefined;
+	project_alias?: (string | (null | null)) | undefined;
+	description?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default []
@@ -10415,28 +10937,37 @@ export type NewProjectResponse = {
 	 */
 	spend?: number | undefined;
 	model_spend?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	blocked?: boolean | undefined;
-	object_permission_id?: (string | null) | undefined;
-	created_by?: (string | null) | undefined;
-	updated_by?: (string | null) | undefined;
+	object_permission_id?: (string | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
 	/**
 	 * @description
 	 * Format: `date-time`
@@ -10449,8 +10980,8 @@ export type NewProjectResponse = {
 	 * @type string
 	 */
 	updated_at: string;
-	litellm_budget_table?: (LiteLLMBudgetTable | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
+	litellm_budget_table?: (LiteLLMBudgetTable | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
 };
 
 export const newTeamRequestRpmLimitType = {
@@ -10470,9 +11001,9 @@ export type NewTeamRequestTpmLimitTypeKey =
 	(typeof newTeamRequestTpmLimitType)[keyof typeof newTeamRequestTpmLimitType];
 
 export type NewTeamRequest = {
-	team_alias?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	organization_id?: (string | null) | undefined;
+	team_alias?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -10488,19 +11019,22 @@ export type NewTeamRequest = {
 	 * @type array | undefined
 	 */
 	members_with_roles?: Member[] | undefined;
-	team_member_permissions?: (string[] | null) | undefined;
+	team_member_permissions?: (string[] | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -10511,79 +11045,109 @@ export type NewTeamRequest = {
 	 * @type boolean | undefined
 	 */
 	blocked?: boolean | undefined;
-	router_settings?: (UpdateRouterConfig | null) | undefined;
-	access_group_ids?: (string[] | null) | undefined;
-	default_team_member_models?: (string[] | null) | undefined;
+	router_settings?: (UpdateRouterConfig | (null | null)) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
+	default_team_member_models?: (string[] | (null | null)) | undefined;
 	model_aliases?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Max budget per model for every key on the team, overridable per key (e.g. {'gpt-4o': {'max_budget': 10, 'budget_duration': '1d'}})
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: BudgetConfig;
-		  } | null)
+		| (
+				| {
+						[key: string]: BudgetConfig;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tags?: (unknown[] | null) | undefined;
-	guardrails?: (string[] | null) | undefined;
-	policies?: (string[] | null) | undefined;
-	prompts?: (string[] | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
-	allowed_passthrough_routes?: (unknown[] | null) | undefined;
-	denied_passthrough_routes?: (string[] | null) | undefined;
-	disable_global_guardrails?: (boolean | null) | undefined;
-	require_trace_id?: (boolean | null) | undefined;
+	tags?: (unknown[] | (null | null)) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
+	prompts?: (string[] | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
+	allowed_passthrough_routes?: (unknown[] | (null | null)) | undefined;
+	denied_passthrough_routes?: (string[] | (null | null)) | undefined;
+	disable_global_guardrails?: (boolean | (null | null)) | undefined;
+	require_trace_id?: (boolean | (null | null)) | undefined;
 	secret_manager_settings?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	rpm_limit_type?: (NewTeamRequestRpmLimitTypeKey | null) | undefined;
-	tpm_limit_type?: (NewTeamRequestTpmLimitTypeKey | null) | undefined;
+	rpm_limit_type?: (NewTeamRequestRpmLimitTypeKey | (null | null)) | undefined;
+	tpm_limit_type?: (NewTeamRequestTpmLimitTypeKey | (null | null)) | undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	default_estimated_output_tokens?: (number | null) | undefined;
+	default_estimated_output_tokens?: (number | (null | null)) | undefined;
 	default_estimated_output_tokens_per_model?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	mcp_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	team_member_budget?: (number | null) | undefined;
-	team_member_rpm_limit?: (number | null) | undefined;
-	team_member_tpm_limit?: (number | null) | undefined;
-	team_member_key_duration?: (string | null) | undefined;
-	team_member_budget_duration?: (string | null) | undefined;
+	team_member_budget?: (number | (null | null)) | undefined;
+	team_member_rpm_limit?: (number | (null | null)) | undefined;
+	team_member_tpm_limit?: (number | (null | null)) | undefined;
+	team_member_key_duration?: (string | (null | null)) | undefined;
+	team_member_budget_duration?: (string | (null | null)) | undefined;
 	team_member_model_max_budget?:
-		| ({
-				[key: string]: BudgetConfig;
-		  } | null)
+		| (
+				| {
+						[key: string]: BudgetConfig;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | null) | undefined;
+	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | (null | null)) | undefined;
 	enforced_batch_output_expires_after?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	enforced_file_expires_after?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -10598,112 +11162,142 @@ export type NewUserRequestUserRoleKey =
 	(typeof newUserRequestUserRole)[keyof typeof newUserRequestUserRole];
 
 export type NewUserRequest = {
-	key_alias?: (string | null) | undefined;
-	duration?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
+	duration?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	models?: (unknown[] | null) | undefined;
+	models?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 */
-	spend?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	user_id?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	agent_id?: (string | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	agent_id?: (string | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_cache_controls?: (unknown[] | null) | undefined;
+	allowed_cache_controls?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	permissions?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	budget_fallbacks?:
-		| ({
-				[key: string]: string[];
-		  } | null)
+		| (
+				| {
+						[key: string]: string[];
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	mcp_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	tag_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	guardrails?: (string[] | null) | undefined;
-	policies?: (string[] | null) | undefined;
-	prompts?: (string[] | null) | undefined;
-	blocked?: (boolean | null) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
+	prompts?: (string[] | (null | null)) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	aliases?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
-	user_email?: (string | null) | undefined;
-	user_alias?: (string | null) | undefined;
-	user_role?: (NewUserRequestUserRoleKey | null) | undefined;
-	teams?: (string[] | NewUserRequestTeam[] | null) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
+	user_alias?: (string | (null | null)) | undefined;
+	user_role?: (NewUserRequestUserRoleKey | (null | null)) | undefined;
+	teams?: (string[] | NewUserRequestTeam[] | (null | null)) | undefined;
 	/**
 	 * @default true
 	 * @type boolean | undefined
 	 */
 	auto_create_key?: boolean | undefined;
-	send_invite_email?: (boolean | null) | undefined;
-	sso_user_id?: (string | null) | undefined;
-	organizations?: (string[] | null) | undefined;
-	password?: (string | null) | undefined;
+	send_invite_email?: (boolean | (null | null)) | undefined;
+	sso_user_id?: (string | (null | null)) | undefined;
+	organizations?: (string[] | (null | null)) | undefined;
+	password?: (string | (null | null)) | undefined;
 };
 
 export const newUserResponseRpmLimitType = {
@@ -10735,138 +11329,171 @@ export type NewUserResponseUserRoleKey =
 	(typeof newUserResponseUserRole)[keyof typeof newUserResponseUserRole];
 
 export type NewUserResponse = {
-	key_alias?: (string | null) | undefined;
-	duration?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
+	duration?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	models?: (unknown[] | null) | undefined;
+	models?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 */
-	spend?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	user_id?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	agent_id?: (string | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	agent_id?: (string | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_cache_controls?: (unknown[] | null) | undefined;
+	allowed_cache_controls?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	permissions?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	budget_fallbacks?:
-		| ({
-				[key: string]: string[];
-		  } | null)
+		| (
+				| {
+						[key: string]: string[];
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	mcp_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	tag_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	guardrails?: (string[] | null) | undefined;
-	policies?: (string[] | null) | undefined;
-	prompts?: (string[] | null) | undefined;
-	blocked?: (boolean | null) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
+	prompts?: (string[] | (null | null)) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	aliases?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
 	key: string;
-	tpd_limit?: (number | null) | undefined;
-	default_estimated_output_tokens?: (number | null) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
+	default_estimated_output_tokens?: (number | (null | null)) | undefined;
 	default_estimated_output_tokens_per_model?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_id?: (string | null) | undefined;
-	end_user_budget_id?: (string | null) | undefined;
-	tags?: (string[] | null) | undefined;
-	disable_global_guardrails?: (boolean | null) | undefined;
-	enable_prompt_caching?: (boolean | null) | undefined;
-	throttle_on_budget_exceeded?: (boolean | null) | undefined;
-	enforced_params?: (string[] | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	end_user_budget_id?: (string | (null | null)) | undefined;
+	tags?: (string[] | (null | null)) | undefined;
+	disable_global_guardrails?: (boolean | (null | null)) | undefined;
+	enable_prompt_caching?: (boolean | (null | null)) | undefined;
+	throttle_on_budget_exceeded?: (boolean | (null | null)) | undefined;
+	enforced_params?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_routes?: (unknown[] | null) | undefined;
-	allowed_passthrough_routes?: (unknown[] | null) | undefined;
-	denied_passthrough_routes?: (string[] | null) | undefined;
-	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | null) | undefined;
-	rpm_limit_type?: (NewUserResponseRpmLimitTypeKey | null) | undefined;
-	tpm_limit_type?: (NewUserResponseTpmLimitTypeKey | null) | undefined;
-	router_settings?: (UpdateRouterConfig | null) | undefined;
-	access_group_ids?: (string[] | null) | undefined;
-	key_name?: (string | null) | undefined;
-	key_type?: (string | null) | undefined;
-	expires?: (string | null) | undefined;
-	token_id?: (string | null) | undefined;
-	organization_id?: (string | null) | undefined;
-	project_id?: (string | null) | undefined;
-	litellm_budget_table?: (unknown | null) | undefined;
-	token?: (string | null) | undefined;
-	created_by?: (string | null) | undefined;
-	updated_by?: (string | null) | undefined;
-	created_at?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
-	user_role?: (NewUserResponseUserRoleKey | null) | undefined;
-	teams?: (unknown[] | null) | undefined;
-	user_alias?: (string | null) | undefined;
+	allowed_routes?: (unknown[] | (null | null)) | undefined;
+	allowed_passthrough_routes?: (unknown[] | (null | null)) | undefined;
+	denied_passthrough_routes?: (string[] | (null | null)) | undefined;
+	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | (null | null)) | undefined;
+	rpm_limit_type?: (NewUserResponseRpmLimitTypeKey | (null | null)) | undefined;
+	tpm_limit_type?: (NewUserResponseTpmLimitTypeKey | (null | null)) | undefined;
+	router_settings?: (UpdateRouterConfig | (null | null)) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
+	key_name?: (string | (null | null)) | undefined;
+	key_type?: (string | (null | null)) | undefined;
+	expires?: (string | (null | null)) | undefined;
+	token_id?: (string | (null | null)) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
+	project_id?: (string | (null | null)) | undefined;
+	litellm_budget_table?: (unknown | (null | null)) | undefined;
+	token?: (string | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
+	user_role?: (NewUserResponseUserRoleKey | (null | null)) | undefined;
+	teams?: (unknown[] | (null | null)) | undefined;
+	user_alias?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -10913,11 +11540,11 @@ export type OrgMember = {
 	/**
 	 * @description The unique ID of the user to add. Either user_id or user_email must be provided
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description The email address of the user to add. Either user_id or user_email must be provided
 	 */
-	user_email?: (string | null) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	role: OrgMemberRoleEnumKey;
 };
 
@@ -10930,21 +11557,21 @@ export type OrganizationAddMemberResponse = {
 export type OrganizationMemberAddRequest = {
 	member: OrgMember[] | OrgMember;
 	organization_id: string;
-	max_budget_in_organization?: (number | null) | undefined;
+	max_budget_in_organization?: (number | (null | null)) | undefined;
 };
 
 export type OrganizationMemberDeleteRequest = {
-	user_id?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	organization_id: string;
 };
 
 export type OrganizationMemberUpdateRequest = {
-	user_id?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	organization_id: string;
-	max_budget_in_organization?: (number | null) | undefined;
-	role?: (LitellmUserRolesKey | null) | undefined;
+	max_budget_in_organization?: (number | (null | null)) | undefined;
+	role?: (LitellmUserRolesKey | (null | null)) | undefined;
 };
 
 export type OrganizationRequest = {
@@ -10960,25 +11587,31 @@ export type OrganizationRequest = {
  * @type object
  */
 export type OrganizationUpdateRequestV2 = {
-	organization_alias?: (string | null) | undefined;
-	models?: (string[] | null) | undefined;
+	organization_alias?: (string | (null | null)) | undefined;
+	models?: (string[] | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_duration?: (string | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
 };
 
 /**
@@ -11008,7 +11641,7 @@ export type Output = {
 	outcome: OutputOutcomeTimeout | OutputOutcomeExit;
 	stderr: string;
 	stdout: string;
-	created_by?: (string | null) | undefined;
+	created_by?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -11039,10 +11672,10 @@ export type OutputCodeInterpreterCallStatusEnumKey =
 export type OutputCodeInterpreterCall = {
 	type: "code_interpreter_call";
 	id: string;
-	code: string | null;
-	container_id: string | null;
+	code: string | (null | null);
+	container_id: string | (null | null);
 	status: OutputCodeInterpreterCallStatusEnumKey;
-	outputs: OutputCodeInterpreterCallLog[] | null;
+	outputs: OutputCodeInterpreterCallLog[] | (null | null);
 	[key: string]: unknown;
 };
 
@@ -11068,13 +11701,13 @@ export type OutputFunctionToolCallPhaseKey =
  * @type object
  */
 export type OutputFunctionToolCall = {
-	arguments: string | null;
-	call_id: string | null;
-	name: string | null;
-	type: string | null;
-	id: string | null;
+	arguments: string | (null | null);
+	call_id: string | (null | null);
+	name: string | (null | null);
+	type: string | (null | null);
+	id: string | (null | null);
 	status: OutputFunctionToolCallStatusEnumKey;
-	phase?: (OutputFunctionToolCallPhaseKey | null) | undefined;
+	phase?: (OutputFunctionToolCallPhaseKey | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -11106,7 +11739,7 @@ export type OutputImageGenerationCall = {
 	type: "image_generation_call";
 	id: string;
 	status: OutputImageGenerationCallStatusEnumKey;
-	result: string | null;
+	result: string | (null | null);
 	[key: string]: unknown;
 };
 
@@ -11121,9 +11754,9 @@ export type OutputLogs = {
 };
 
 export type OutputTokensDetails = {
-	audio_tokens?: (number | null) | undefined;
-	reasoning_tokens?: (number | null) | undefined;
-	text_tokens?: (number | null) | undefined;
+	audio_tokens?: (number | (null | null)) | undefined;
+	reasoning_tokens?: (number | (null | null)) | undefined;
+	text_tokens?: (number | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -11147,7 +11780,7 @@ export type OutputToolSearchCallStatusEnumKey =
 export type OutputToolSearchCall = {
 	id: string;
 	arguments: unknown;
-	call_id?: (string | null) | undefined;
+	call_id?: (string | (null | null)) | undefined;
 	execution: OutputToolSearchCallExecutionEnumKey;
 	status: OutputToolSearchCallStatusEnumKey;
 	type: "tool_search_call";
@@ -11192,18 +11825,18 @@ export type PassThroughGuardrailSettings = {
 	/**
 	 * @description JSONPath expressions for input field targeting (pre_call). Examples: 'query', 'documents[*].text', 'messages[*].content'. If not specified, guardrail runs on entire request payload.
 	 */
-	request_fields?: (string[] | null) | undefined;
+	request_fields?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description JSONPath expressions for output field targeting (post_call). Examples: 'results[*].text', 'output'. If not specified, guardrail runs on entire response payload.
 	 */
-	response_fields?: (string[] | null) | undefined;
+	response_fields?: (string[] | (null | null)) | undefined;
 };
 
 export type PassThroughGenericEndpoint = {
 	/**
 	 * @description Optional unique identifier for the pass-through endpoint. If not provided, endpoints will be identified by path for backwards compatibility.
 	 */
-	id?: (string | null) | undefined;
+	id?: (string | (null | null)) | undefined;
 	/**
 	 * @description The route to be added to the LiteLLM Proxy Server.
 	 * @type string
@@ -11249,7 +11882,7 @@ export type PassThroughGenericEndpoint = {
 	/**
 	 * @description Upstream request timeout in seconds for this pass-through endpoint. If unset, uses general_settings.pass_through_request_timeout (default 600).
 	 */
-	timeout?: (number | null) | undefined;
+	timeout?: (number | (null | null)) | undefined;
 	/**
 	 * @description Whether authentication is required for the pass-through endpoint. Defaults to True so a pass-through silently created without an explicit value still requires a valid LiteLLM API key — set to False only if the endpoint is meant to be a public forwarder (e.g. an unauthenticated webhook target).
 	 * @default true
@@ -11260,9 +11893,12 @@ export type PassThroughGenericEndpoint = {
 	 * @description Guardrails configuration for this passthrough endpoint. Dict keys are guardrail names, values are optional settings for field targeting. When set, all org/team/key level guardrails will also execute. Defaults to None (no guardrails execute).
 	 */
 	guardrails?:
-		| ({
-				[key: string]: PassThroughGuardrailSettings | null;
-		  } | null)
+		| (
+				| {
+						[key: string]: PassThroughGuardrailSettings | (null | null);
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description True if this endpoint is defined in the config file, False if from DB. Config-defined endpoints cannot be edited via the UI.
@@ -11273,7 +11909,7 @@ export type PassThroughGenericEndpoint = {
 	/**
 	 * @description List of HTTP methods this endpoint handles (e.g., ['GET', 'POST']). If None or empty, all methods (GET, POST, PUT, DELETE, PATCH) are supported for backward compatibility. This allows the same path to have different targets for different HTTP methods.
 	 */
-	methods?: (string[] | null) | undefined;
+	methods?: (string[] | (null | null)) | undefined;
 };
 
 export type PassThroughEndpointResponse = {
@@ -11281,363 +11917,392 @@ export type PassThroughEndpointResponse = {
 };
 
 export type UpdateLiteLLMParams = {
-	input_cost_per_token?: (number | null) | undefined;
-	output_cost_per_token?: (number | null) | undefined;
-	input_cost_per_character?: (number | null) | undefined;
-	output_cost_per_character?: (number | null) | undefined;
-	cache_read_input_token_cost?: (number | null) | undefined;
-	explicit_cache_read_input_token_cost?: (number | null) | undefined;
-	cache_creation_input_token_cost?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_1hr?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_flex?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_priority?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_above_272k_tokens?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_above_272k_tokens_flex?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_above_272k_tokens_priority?:
-		| (number | null)
+	input_cost_per_token?: (number | (null | null)) | undefined;
+	output_cost_per_token?: (number | (null | null)) | undefined;
+	input_cost_per_character?: (number | (null | null)) | undefined;
+	output_cost_per_character?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost?: (number | (null | null)) | undefined;
+	explicit_cache_read_input_token_cost?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_1hr?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_12hr?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_12hr_flex?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_12hr_priority?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens?:
+		| (number | (null | null))
 		| undefined;
-	cache_creation_input_token_cost_above_12hr_batches?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_12hr_ultrafast?: (number | null) | undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_flex?:
+		| (number | (null | null))
+		| undefined;
+	cache_creation_input_token_cost_above_12hr_above_272k_tokens_priority?:
+		| (number | (null | null))
+		| undefined;
+	cache_creation_input_token_cost_above_12hr_batches?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_12hr_ultrafast?: (number | (null | null)) | undefined;
 	cache_creation_input_token_cost_above_12hr_above_272k_tokens_batches?:
-		| (number | null)
+		| (number | (null | null))
 		| undefined;
 	cache_creation_input_token_cost_above_12hr_above_272k_tokens_ultrafast?:
-		| (number | null)
+		| (number | (null | null))
 		| undefined;
 	tiered_pricing?:
 		| (
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	cost_per_second?: (number | null) | undefined;
-	input_cost_per_second?: (number | null) | undefined;
-	input_cost_per_text_message?: (number | null) | undefined;
-	output_cost_per_second?: (number | null) | undefined;
-	output_cost_per_second_1080p?: (number | null) | undefined;
-	output_cost_per_second_480p?: (number | null) | undefined;
-	output_cost_per_second_720p?: (number | null) | undefined;
-	output_cost_per_second_768p?: (number | null) | undefined;
-	output_cost_per_second_2k?: (number | null) | undefined;
-	output_cost_per_second_4k?: (number | null) | undefined;
-	output_cost_per_image_512?: (number | null) | undefined;
-	output_cost_per_image_1024?: (number | null) | undefined;
-	output_cost_per_image_1536?: (number | null) | undefined;
-	input_cost_per_pixel?: (number | null) | undefined;
-	output_cost_per_pixel?: (number | null) | undefined;
-	input_cost_per_token_flex?: (number | null) | undefined;
-	input_cost_per_token_priority?: (number | null) | undefined;
-	input_cost_per_token_balanced?: (number | null) | undefined;
-	input_cost_per_token_ultrafast?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_100k_tokens?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_1hr_above_100k_tokens?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_200k_tokens?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_272k_tokens?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_272k_tokens_priority?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_272k_tokens_flex?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_272k_tokens_ultrafast?: (number | null) | undefined;
-	cache_creation_input_token_cost_flex?: (number | null) | undefined;
-	cache_creation_input_token_cost_priority?: (number | null) | undefined;
-	cache_creation_input_token_cost_ultrafast?: (number | null) | undefined;
-	cache_creation_input_audio_token_cost?: (number | null) | undefined;
-	cache_read_input_token_cost_flex?: (number | null) | undefined;
-	cache_read_input_token_cost_priority?: (number | null) | undefined;
-	cache_read_input_token_cost_balanced?: (number | null) | undefined;
-	cache_read_input_token_cost_ultrafast?: (number | null) | undefined;
-	cache_read_input_token_cost_above_100k_tokens?: (number | null) | undefined;
-	cache_read_input_token_cost_above_200k_tokens?: (number | null) | undefined;
-	cache_read_input_token_cost_above_200k_tokens_priority?: (number | null) | undefined;
-	cache_read_input_token_cost_above_272k_tokens_priority?: (number | null) | undefined;
-	cache_read_input_token_cost_above_272k_tokens_flex?: (number | null) | undefined;
-	cache_read_input_token_cost_above_272k_tokens_ultrafast?: (number | null) | undefined;
-	cache_read_input_token_cost_batches?: (number | null) | undefined;
-	cache_read_input_token_cost_above_100k_tokens_batches?: (number | null) | undefined;
-	cache_read_input_token_cost_above_200k_tokens_batches?: (number | null) | undefined;
-	cache_read_input_token_cost_above_272k_tokens_batches?: (number | null) | undefined;
-	cache_read_input_audio_token_cost_batches?: (number | null) | undefined;
-	cache_creation_input_token_cost_batches?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_100k_tokens_batches?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_200k_tokens_batches?: (number | null) | undefined;
-	cache_creation_input_token_cost_above_272k_tokens_batches?: (number | null) | undefined;
-	cache_read_input_audio_token_cost?: (number | null) | undefined;
-	cache_read_input_audio_token_cost_flex?: (number | null) | undefined;
-	cache_read_input_audio_token_cost_priority?: (number | null) | undefined;
-	cache_read_input_image_token_cost?: (number | null) | undefined;
-	input_cost_per_character_above_128k_tokens?: (number | null) | undefined;
-	input_cost_per_audio_token?: (number | null) | undefined;
-	input_cost_per_audio_token_flex?: (number | null) | undefined;
-	input_cost_per_audio_token_priority?: (number | null) | undefined;
-	input_cost_per_token_cache_hit?: (number | null) | undefined;
-	input_cost_per_token_above_128k_tokens?: (number | null) | undefined;
-	input_cost_per_token_above_100k_tokens?: (number | null) | undefined;
-	input_cost_per_token_above_200k_tokens?: (number | null) | undefined;
-	input_cost_per_token_above_200k_tokens_priority?: (number | null) | undefined;
-	input_cost_per_token_above_272k_tokens_priority?: (number | null) | undefined;
-	input_cost_per_token_above_272k_tokens_flex?: (number | null) | undefined;
-	input_cost_per_token_above_272k_tokens_ultrafast?: (number | null) | undefined;
-	input_cost_per_token_above_200k_tokens_batches?: (number | null) | undefined;
-	input_cost_per_token_above_100k_tokens_batches?: (number | null) | undefined;
-	input_cost_per_token_above_272k_tokens_batches?: (number | null) | undefined;
-	input_cost_per_query?: (number | null) | undefined;
-	input_cost_per_image?: (number | null) | undefined;
-	input_cost_per_image_above_128k_tokens?: (number | null) | undefined;
-	input_cost_per_audio_per_second?: (number | null) | undefined;
-	input_cost_per_audio_per_second_above_128k_tokens?: (number | null) | undefined;
-	input_cost_per_video_per_second?: (number | null) | undefined;
-	input_cost_per_video_per_second_above_128k_tokens?: (number | null) | undefined;
-	input_cost_per_video_per_second_above_15s_interval?: (number | null) | undefined;
-	input_cost_per_video_per_second_above_8s_interval?: (number | null) | undefined;
-	input_cost_per_audio_token_batches?: (number | null) | undefined;
-	input_cost_per_image_token_batches?: (number | null) | undefined;
-	input_cost_per_token_batches?: (number | null) | undefined;
-	input_cost_per_video_token_batches?: (number | null) | undefined;
-	output_cost_per_token_batches?: (number | null) | undefined;
-	output_cost_per_token_flex?: (number | null) | undefined;
-	output_cost_per_token_priority?: (number | null) | undefined;
-	output_cost_per_token_balanced?: (number | null) | undefined;
-	output_cost_per_token_ultrafast?: (number | null) | undefined;
-	output_cost_per_audio_token?: (number | null) | undefined;
-	output_cost_per_token_above_128k_tokens?: (number | null) | undefined;
-	output_cost_per_token_above_100k_tokens?: (number | null) | undefined;
-	output_cost_per_token_above_200k_tokens?: (number | null) | undefined;
-	output_cost_per_token_above_200k_tokens_priority?: (number | null) | undefined;
-	output_cost_per_token_above_272k_tokens_priority?: (number | null) | undefined;
-	output_cost_per_token_above_272k_tokens_flex?: (number | null) | undefined;
-	output_cost_per_token_above_272k_tokens_ultrafast?: (number | null) | undefined;
-	output_cost_per_token_above_200k_tokens_batches?: (number | null) | undefined;
-	output_cost_per_token_above_100k_tokens_batches?: (number | null) | undefined;
-	output_cost_per_token_above_272k_tokens_batches?: (number | null) | undefined;
-	output_cost_per_character_above_128k_tokens?: (number | null) | undefined;
-	output_cost_per_image?: (number | null) | undefined;
-	output_cost_per_image_token?: (number | null) | undefined;
-	output_cost_per_image_token_batches?: (number | null) | undefined;
-	output_cost_per_video_token?: (number | null) | undefined;
-	output_cost_per_reasoning_token?: (number | null) | undefined;
-	output_cost_per_reasoning_token_flex?: (number | null) | undefined;
-	output_cost_per_reasoning_token_priority?: (number | null) | undefined;
-	output_cost_per_video_per_second?: (number | null) | undefined;
-	output_cost_per_audio_per_second?: (number | null) | undefined;
-	search_context_cost_per_query?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+	cost_per_second?: (number | (null | null)) | undefined;
+	input_cost_per_second?: (number | (null | null)) | undefined;
+	input_cost_per_text_message?: (number | (null | null)) | undefined;
+	output_cost_per_second?: (number | (null | null)) | undefined;
+	output_cost_per_second_1080p?: (number | (null | null)) | undefined;
+	output_cost_per_second_480p?: (number | (null | null)) | undefined;
+	output_cost_per_second_720p?: (number | (null | null)) | undefined;
+	output_cost_per_second_768p?: (number | (null | null)) | undefined;
+	output_cost_per_second_2k?: (number | (null | null)) | undefined;
+	output_cost_per_second_4k?: (number | (null | null)) | undefined;
+	output_cost_per_image_512?: (number | (null | null)) | undefined;
+	output_cost_per_image_1024?: (number | (null | null)) | undefined;
+	output_cost_per_image_1536?: (number | (null | null)) | undefined;
+	input_cost_per_pixel?: (number | (null | null)) | undefined;
+	output_cost_per_pixel?: (number | (null | null)) | undefined;
+	input_cost_per_token_flex?: (number | (null | null)) | undefined;
+	input_cost_per_token_priority?: (number | (null | null)) | undefined;
+	input_cost_per_token_balanced?: (number | (null | null)) | undefined;
+	input_cost_per_token_ultrafast?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_100k_tokens?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_1hr_above_100k_tokens?:
+		| (number | (null | null))
 		| undefined;
-	search_queries_cost_per_query?: (number | SearchContextCostPerQuery | null) | undefined;
-	google_maps_grounding_cost_per_query?: (number | null) | undefined;
-	citation_cost_per_token?: (number | null) | undefined;
-	cache_read_input_token_cost_above_272k_tokens?: (number | null) | undefined;
-	cache_read_input_token_cost_above_512k_tokens?: (number | null) | undefined;
-	input_cost_per_image_token?: (number | null) | undefined;
-	input_cost_per_video_token?: (number | null) | undefined;
-	input_cost_per_token_above_272k_tokens?: (number | null) | undefined;
-	input_cost_per_token_above_512k_tokens?: (number | null) | undefined;
-	output_cost_per_token_above_272k_tokens?: (number | null) | undefined;
-	output_cost_per_token_above_512k_tokens?: (number | null) | undefined;
-	output_vector_size?: (number | null) | undefined;
-	ocr_cost_per_page?: (number | null) | undefined;
-	ocr_cost_per_page_batches?: (number | null) | undefined;
-	ocr_cost_per_credit?: (number | null) | undefined;
-	annotation_cost_per_page?: (number | null) | undefined;
-	annotation_cost_per_page_batches?: (number | null) | undefined;
-	regional_processing_uplift_multiplier_eu?: (number | null) | undefined;
-	regional_processing_uplift_multiplier_us?: (number | null) | undefined;
-	regional_endpoint_uplift_multiplier?: (number | null) | undefined;
-	api_key?: (string | null) | undefined;
-	api_base?: (string | null) | undefined;
-	api_version?: (string | null) | undefined;
-	azure_ad_token?: (string | null) | undefined;
-	tenant_id?: (string | null) | undefined;
-	client_id?: (string | null) | undefined;
-	client_secret?: (string | null) | undefined;
-	azure_scope?: (string | null) | undefined;
-	azure_username?: (string | null) | undefined;
-	azure_password?: (string | null) | undefined;
-	vertex_project?: (string | null) | undefined;
-	vertex_location?: (string | null) | undefined;
+	cache_creation_input_token_cost_above_200k_tokens?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_272k_tokens?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_272k_tokens_priority?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_272k_tokens_flex?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_272k_tokens_ultrafast?:
+		| (number | (null | null))
+		| undefined;
+	cache_creation_input_token_cost_flex?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_priority?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_ultrafast?: (number | (null | null)) | undefined;
+	cache_creation_input_audio_token_cost?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_flex?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_priority?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_balanced?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_ultrafast?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_100k_tokens?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_200k_tokens?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_200k_tokens_priority?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_272k_tokens_priority?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_272k_tokens_flex?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_272k_tokens_ultrafast?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_batches?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_100k_tokens_batches?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_200k_tokens_batches?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_272k_tokens_batches?: (number | (null | null)) | undefined;
+	cache_read_input_audio_token_cost_batches?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_batches?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_100k_tokens_batches?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_200k_tokens_batches?: (number | (null | null)) | undefined;
+	cache_creation_input_token_cost_above_272k_tokens_batches?: (number | (null | null)) | undefined;
+	cache_read_input_audio_token_cost?: (number | (null | null)) | undefined;
+	cache_read_input_audio_token_cost_flex?: (number | (null | null)) | undefined;
+	cache_read_input_audio_token_cost_priority?: (number | (null | null)) | undefined;
+	cache_read_input_image_token_cost?: (number | (null | null)) | undefined;
+	input_cost_per_character_above_128k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_audio_token?: (number | (null | null)) | undefined;
+	input_cost_per_audio_token_flex?: (number | (null | null)) | undefined;
+	input_cost_per_audio_token_priority?: (number | (null | null)) | undefined;
+	input_cost_per_token_cache_hit?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_128k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_100k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_200k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_200k_tokens_priority?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_272k_tokens_priority?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_272k_tokens_flex?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_272k_tokens_ultrafast?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_200k_tokens_batches?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_100k_tokens_batches?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_272k_tokens_batches?: (number | (null | null)) | undefined;
+	input_cost_per_query?: (number | (null | null)) | undefined;
+	input_cost_per_image?: (number | (null | null)) | undefined;
+	input_cost_per_image_above_128k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_audio_per_second?: (number | (null | null)) | undefined;
+	input_cost_per_audio_per_second_above_128k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_video_per_second?: (number | (null | null)) | undefined;
+	input_cost_per_video_per_second_above_128k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_video_per_second_above_15s_interval?: (number | (null | null)) | undefined;
+	input_cost_per_video_per_second_above_8s_interval?: (number | (null | null)) | undefined;
+	input_cost_per_audio_token_batches?: (number | (null | null)) | undefined;
+	input_cost_per_image_token_batches?: (number | (null | null)) | undefined;
+	input_cost_per_token_batches?: (number | (null | null)) | undefined;
+	input_cost_per_video_token_batches?: (number | (null | null)) | undefined;
+	output_cost_per_token_batches?: (number | (null | null)) | undefined;
+	output_cost_per_token_flex?: (number | (null | null)) | undefined;
+	output_cost_per_token_priority?: (number | (null | null)) | undefined;
+	output_cost_per_token_balanced?: (number | (null | null)) | undefined;
+	output_cost_per_token_ultrafast?: (number | (null | null)) | undefined;
+	output_cost_per_audio_token?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_128k_tokens?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_100k_tokens?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_200k_tokens?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_200k_tokens_priority?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_272k_tokens_priority?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_272k_tokens_flex?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_272k_tokens_ultrafast?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_200k_tokens_batches?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_100k_tokens_batches?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_272k_tokens_batches?: (number | (null | null)) | undefined;
+	output_cost_per_character_above_128k_tokens?: (number | (null | null)) | undefined;
+	output_cost_per_image?: (number | (null | null)) | undefined;
+	output_cost_per_image_token?: (number | (null | null)) | undefined;
+	output_cost_per_image_token_batches?: (number | (null | null)) | undefined;
+	output_cost_per_video_token?: (number | (null | null)) | undefined;
+	output_cost_per_reasoning_token?: (number | (null | null)) | undefined;
+	output_cost_per_reasoning_token_flex?: (number | (null | null)) | undefined;
+	output_cost_per_reasoning_token_priority?: (number | (null | null)) | undefined;
+	output_cost_per_video_per_second?: (number | (null | null)) | undefined;
+	output_cost_per_audio_per_second?: (number | (null | null)) | undefined;
+	search_context_cost_per_query?:
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	search_queries_cost_per_query?: (number | SearchContextCostPerQuery | (null | null)) | undefined;
+	google_maps_grounding_cost_per_query?: (number | (null | null)) | undefined;
+	citation_cost_per_token?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_272k_tokens?: (number | (null | null)) | undefined;
+	cache_read_input_token_cost_above_512k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_image_token?: (number | (null | null)) | undefined;
+	input_cost_per_video_token?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_272k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_512k_tokens?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_272k_tokens?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_512k_tokens?: (number | (null | null)) | undefined;
+	output_vector_size?: (number | (null | null)) | undefined;
+	ocr_cost_per_page?: (number | (null | null)) | undefined;
+	ocr_cost_per_page_batches?: (number | (null | null)) | undefined;
+	ocr_cost_per_credit?: (number | (null | null)) | undefined;
+	annotation_cost_per_page?: (number | (null | null)) | undefined;
+	annotation_cost_per_page_batches?: (number | (null | null)) | undefined;
+	regional_processing_uplift_multiplier_eu?: (number | (null | null)) | undefined;
+	regional_processing_uplift_multiplier_us?: (number | (null | null)) | undefined;
+	regional_endpoint_uplift_multiplier?: (number | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	api_base?: (string | (null | null)) | undefined;
+	api_version?: (string | (null | null)) | undefined;
+	azure_ad_token?: (string | (null | null)) | undefined;
+	tenant_id?: (string | (null | null)) | undefined;
+	client_id?: (string | (null | null)) | undefined;
+	client_secret?: (string | (null | null)) | undefined;
+	azure_scope?: (string | (null | null)) | undefined;
+	azure_username?: (string | (null | null)) | undefined;
+	azure_password?: (string | (null | null)) | undefined;
+	vertex_project?: (string | (null | null)) | undefined;
+	vertex_location?: (string | (null | null)) | undefined;
 	vertex_credentials?:
 		| (
 				| string
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	region_name?: (string | null) | undefined;
-	gcs_bucket_name?: (string | null) | undefined;
-	bucket_name?: (string | null) | undefined;
-	aws_access_key_id?: (string | null) | undefined;
-	aws_secret_access_key?: (string | null) | undefined;
-	aws_session_token?: (string | null) | undefined;
-	aws_region_name?: (string | null) | undefined;
-	aws_session_name?: (string | null) | undefined;
-	aws_profile_name?: (string | null) | undefined;
-	aws_role_name?: (string | null) | undefined;
-	aws_web_identity_token?: (string | null) | undefined;
-	aws_sts_endpoint?: (string | null) | undefined;
-	aws_external_id?: (string | null) | undefined;
-	aws_session_tags?: (AwsSessionTag[] | null) | undefined;
-	aws_bedrock_runtime_endpoint?: (string | null) | undefined;
-	aws_bedrock_control_plane_endpoint?: (string | null) | undefined;
-	aws_bedrock_project_id?: (string | null) | undefined;
-	s3_bucket_name?: (string | null) | undefined;
-	s3_endpoint_url?: (string | null) | undefined;
-	s3_region_name?: (string | null) | undefined;
-	s3_access_key_id?: (string | null) | undefined;
-	s3_secret_access_key?: (string | null) | undefined;
-	s3_encryption_key_id?: (string | null) | undefined;
-	s3_bucket_owner?: (string | null) | undefined;
-	aws_batch_role_arn?: (string | null) | undefined;
-	s3_output_bucket_name?: (string | null) | undefined;
-	bedrock_tags?: (unknown[] | null) | undefined;
-	watsonx_region_name?: (string | null) | undefined;
-	anthropic_federation_rule_id?: (string | null) | undefined;
-	anthropic_organization_id?: (string | null) | undefined;
-	anthropic_service_account_id?: (string | null) | undefined;
-	anthropic_federation_workspace_id?: (string | null) | undefined;
-	anthropic_identity_token_file?: (string | null) | undefined;
-	anthropic_identity_token?: (string | null) | undefined;
-	anthropic_identity_source?: (string | null) | undefined;
-	anthropic_issuer_url?: (string | null) | undefined;
-	anthropic_issuer_subject?: (string | null) | undefined;
-	anthropic_issuer_audience?: (string | null) | undefined;
-	anthropic_issuer_ttl_seconds?: (number | null) | undefined;
-	anthropic_issuer_signing_key_ref?: (string | null) | undefined;
-	anthropic_keycloak_token_url?: (string | null) | undefined;
-	anthropic_keycloak_client_id?: (string | null) | undefined;
-	anthropic_keycloak_auth_method?: (string | null) | undefined;
-	anthropic_keycloak_client_secret_ref?: (string | null) | undefined;
-	anthropic_keycloak_scope?: (string | null) | undefined;
-	anthropic_disable_workload_identity_federation?: (boolean | null) | undefined;
-	openai_identity_provider_id?: (string | null) | undefined;
-	openai_service_account_id?: (string | null) | undefined;
-	openai_identity_token_file?: (string | null) | undefined;
-	token_exchange_endpoint?: (string | null) | undefined;
-	token_exchange_profile?: (string | null) | undefined;
-	token_exchange_scope?: (string | null) | undefined;
-	token_exchange_audience?: (string | null) | undefined;
-	custom_llm_provider?: (string | null) | undefined;
-	responses_api_version?: (string | null) | undefined;
-	tpm?: (number | null) | undefined;
-	rpm?: (number | null) | undefined;
-	itpm?: (number | null) | undefined;
-	otpm?: (number | null) | undefined;
-	tpd?: (number | null) | undefined;
-	rpd?: (number | null) | undefined;
-	daily_reset_time?: (string | null) | undefined;
-	timeout?: (number | string | Timeout | null) | undefined;
-	stream_timeout?: (number | string | null) | undefined;
+	region_name?: (string | (null | null)) | undefined;
+	gcs_bucket_name?: (string | (null | null)) | undefined;
+	bucket_name?: (string | (null | null)) | undefined;
+	aws_access_key_id?: (string | (null | null)) | undefined;
+	aws_secret_access_key?: (string | (null | null)) | undefined;
+	aws_session_token?: (string | (null | null)) | undefined;
+	aws_region_name?: (string | (null | null)) | undefined;
+	aws_session_name?: (string | (null | null)) | undefined;
+	aws_profile_name?: (string | (null | null)) | undefined;
+	aws_role_name?: (string | (null | null)) | undefined;
+	aws_web_identity_token?: (string | (null | null)) | undefined;
+	aws_sts_endpoint?: (string | (null | null)) | undefined;
+	aws_external_id?: (string | (null | null)) | undefined;
+	aws_session_tags?: (AwsSessionTag[] | (null | null)) | undefined;
+	aws_bedrock_runtime_endpoint?: (string | (null | null)) | undefined;
+	aws_bedrock_control_plane_endpoint?: (string | (null | null)) | undefined;
+	aws_bedrock_project_id?: (string | (null | null)) | undefined;
+	s3_bucket_name?: (string | (null | null)) | undefined;
+	s3_endpoint_url?: (string | (null | null)) | undefined;
+	s3_region_name?: (string | (null | null)) | undefined;
+	s3_access_key_id?: (string | (null | null)) | undefined;
+	s3_secret_access_key?: (string | (null | null)) | undefined;
+	s3_encryption_key_id?: (string | (null | null)) | undefined;
+	s3_bucket_owner?: (string | (null | null)) | undefined;
+	aws_batch_role_arn?: (string | (null | null)) | undefined;
+	s3_output_bucket_name?: (string | (null | null)) | undefined;
+	bedrock_tags?: (unknown[] | (null | null)) | undefined;
+	watsonx_region_name?: (string | (null | null)) | undefined;
+	anthropic_federation_rule_id?: (string | (null | null)) | undefined;
+	anthropic_organization_id?: (string | (null | null)) | undefined;
+	anthropic_service_account_id?: (string | (null | null)) | undefined;
+	anthropic_federation_workspace_id?: (string | (null | null)) | undefined;
+	anthropic_identity_token_file?: (string | (null | null)) | undefined;
+	anthropic_identity_token?: (string | (null | null)) | undefined;
+	anthropic_identity_source?: (string | (null | null)) | undefined;
+	anthropic_issuer_url?: (string | (null | null)) | undefined;
+	anthropic_issuer_subject?: (string | (null | null)) | undefined;
+	anthropic_issuer_audience?: (string | (null | null)) | undefined;
+	anthropic_issuer_ttl_seconds?: (number | (null | null)) | undefined;
+	anthropic_issuer_signing_key_ref?: (string | (null | null)) | undefined;
+	anthropic_keycloak_token_url?: (string | (null | null)) | undefined;
+	anthropic_keycloak_client_id?: (string | (null | null)) | undefined;
+	anthropic_keycloak_auth_method?: (string | (null | null)) | undefined;
+	anthropic_keycloak_client_secret_ref?: (string | (null | null)) | undefined;
+	anthropic_keycloak_scope?: (string | (null | null)) | undefined;
+	anthropic_disable_workload_identity_federation?: (boolean | (null | null)) | undefined;
+	openai_identity_provider_id?: (string | (null | null)) | undefined;
+	openai_service_account_id?: (string | (null | null)) | undefined;
+	openai_identity_token_file?: (string | (null | null)) | undefined;
+	token_exchange_endpoint?: (string | (null | null)) | undefined;
+	token_exchange_profile?: (string | (null | null)) | undefined;
+	token_exchange_scope?: (string | (null | null)) | undefined;
+	token_exchange_audience?: (string | (null | null)) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
+	responses_api_version?: (string | (null | null)) | undefined;
+	tpm?: (number | (null | null)) | undefined;
+	rpm?: (number | (null | null)) | undefined;
+	itpm?: (number | (null | null)) | undefined;
+	otpm?: (number | (null | null)) | undefined;
+	tpd?: (number | (null | null)) | undefined;
+	rpd?: (number | (null | null)) | undefined;
+	daily_reset_time?: (string | (null | null)) | undefined;
+	timeout?: (number | string | Timeout | (null | null)) | undefined;
+	stream_timeout?: (number | string | (null | null)) | undefined;
 	timeout_by_service_tier?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	stream_timeout_by_service_tier?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	max_retries?: (number | null) | undefined;
-	drop_params?: (boolean | string | null) | undefined;
-	organization?: (string | null) | undefined;
+	max_retries?: (number | (null | null)) | undefined;
+	drop_params?: (boolean | string | (null | null)) | undefined;
+	organization?: (string | (null | null)) | undefined;
 	configurable_clientside_auth_params?:
-		| ((string | ConfigurableClientsideParamsCustomAuthInput)[] | null)
+		| ((string | ConfigurableClientsideParamsCustomAuthInput)[] | (null | null))
 		| undefined;
-	litellm_credential_name?: (string | null) | undefined;
-	provider_affinity_header?: (string | null) | undefined;
-	litellm_trace_id?: (string | null) | undefined;
-	max_file_size_mb?: (number | null) | undefined;
-	default_api_key_tpm_limit?: (number | null) | undefined;
-	default_api_key_rpm_limit?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	keepalive_seconds?: (number | null) | undefined;
+	litellm_credential_name?: (string | (null | null)) | undefined;
+	provider_affinity_header?: (string | (null | null)) | undefined;
+	litellm_trace_id?: (string | (null | null)) | undefined;
+	max_file_size_mb?: (number | (null | null)) | undefined;
+	default_api_key_tpm_limit?: (number | (null | null)) | undefined;
+	default_api_key_rpm_limit?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	keepalive_seconds?: (number | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	allow_client_keepalive_override?: (boolean | null) | undefined;
+	allow_client_keepalive_override?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	use_in_pass_through?: (boolean | null) | undefined;
+	use_in_pass_through?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	use_litellm_proxy?: (boolean | null) | undefined;
-	use_chat_completions_api?: (boolean | null) | undefined;
+	use_litellm_proxy?: (boolean | (null | null)) | undefined;
+	use_chat_completions_api?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Use stored xAI OAuth credentials when no xAI API key is configured.
 	 * @default false
 	 */
-	use_xai_oauth?: (boolean | null) | undefined;
+	use_xai_oauth?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Path to a ChatGPT OAuth auth.json for this deployment.
 	 */
-	chatgpt_auth_file?: (string | null) | undefined;
+	chatgpt_auth_file?: (string | (null | null)) | undefined;
 	/**
 	 * @description Send the LiteLLM user id of the calling key as the `user` field on Fireworks AI chat, responses and messages requests.
 	 */
-	fireworks_forward_user_id?: (boolean | null) | undefined;
+	fireworks_forward_user_id?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	merge_reasoning_content_in_choices?: (boolean | null) | undefined;
-	thought_signature_in_tool_call_id?: (boolean | null) | undefined;
+	merge_reasoning_content_in_choices?: (boolean | (null | null)) | undefined;
+	thought_signature_in_tool_call_id?: (boolean | (null | null)) | undefined;
 	model_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	mock_response?: (string | ModelResponse | unknown | null) | undefined;
-	tags?: (string[] | null) | undefined;
-	tag_regex?: (string[] | null) | undefined;
-	auto_router_config_path?: (string | null) | undefined;
-	auto_router_config?: (string | null) | undefined;
-	auto_router_default_model?: (string | null) | undefined;
-	auto_router_embedding_model?: (string | null) | undefined;
-	auto_router_max_input_chars?: (number | null) | undefined;
-	auto_router_routing_compression?: (string | null) | undefined;
-	auto_router_model_compression?: (string | null) | undefined;
+	mock_response?: (string | ModelResponse | unknown | (null | null)) | undefined;
+	tags?: (string[] | (null | null)) | undefined;
+	tag_regex?: (string[] | (null | null)) | undefined;
+	auto_router_config_path?: (string | (null | null)) | undefined;
+	auto_router_config?: (string | (null | null)) | undefined;
+	auto_router_default_model?: (string | (null | null)) | undefined;
+	auto_router_embedding_model?: (string | (null | null)) | undefined;
+	auto_router_max_input_chars?: (number | (null | null)) | undefined;
+	auto_router_routing_compression?: (string | (null | null)) | undefined;
+	auto_router_model_compression?: (string | (null | null)) | undefined;
 	complexity_router_config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	complexity_router_default_model?: (string | null) | undefined;
-	adaptive_router_default_model?: (string | null) | undefined;
+	complexity_router_default_model?: (string | (null | null)) | undefined;
+	adaptive_router_default_model?: (string | (null | null)) | undefined;
 	adaptive_router_config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	quality_router_config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	quality_router_default_model?: (string | null) | undefined;
-	vector_store_id?: (string | null) | undefined;
-	milvus_text_field?: (string | null) | undefined;
-	milvus_db_name?: (string | null) | undefined;
-	milvus_partition_names?: (string[] | null) | undefined;
-	valkey_host?: (string | null) | undefined;
-	valkey_port?: (number | null) | undefined;
-	valkey_password?: (string | null) | undefined;
-	valkey_ssl?: (boolean | null) | undefined;
-	valkey_text_field?: (string | null) | undefined;
-	valkey_embedding_field?: (string | null) | undefined;
-	model?: (string | null) | undefined;
+	quality_router_default_model?: (string | (null | null)) | undefined;
+	vector_store_id?: (string | (null | null)) | undefined;
+	milvus_text_field?: (string | (null | null)) | undefined;
+	milvus_db_name?: (string | (null | null)) | undefined;
+	milvus_partition_names?: (string[] | (null | null)) | undefined;
+	valkey_host?: (string | (null | null)) | undefined;
+	valkey_port?: (number | (null | null)) | undefined;
+	valkey_password?: (string | (null | null)) | undefined;
+	valkey_ssl?: (boolean | (null | null)) | undefined;
+	valkey_text_field?: (string | (null | null)) | undefined;
+	valkey_embedding_field?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
 export type PatchModelRequest = {
-	model_name?: (string | null) | undefined;
-	litellm_params?: (UpdateLiteLLMParams | null) | undefined;
-	model_info?: (ModelInfo | null) | undefined;
-	blocked?: (boolean | null) | undefined;
+	model_name?: (string | (null | null)) | undefined;
+	litellm_params?: (UpdateLiteLLMParams | (null | null)) | undefined;
+	model_info?: (ModelInfo | (null | null)) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Top-level litellm_params keys to delete. Omitted parameters remain unchanged. The required model key and keys also supplied in litellm_params cannot be removed. Removing an absent key or repeating a key is a no-op.
 	 * @default []
@@ -11654,94 +12319,127 @@ export type PatchModelRequest = {
  * @type object
  */
 export type PatchTeamRequest = {
-	team_id?: (string | null) | undefined;
-	team_alias?: (string | null) | undefined;
-	organization_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	team_alias?: (string | (null | null)) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	models?: (unknown[] | null) | undefined;
-	blocked?: (boolean | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	tags?: (unknown[] | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	models?: (unknown[] | (null | null)) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	tags?: (unknown[] | (null | null)) | undefined;
 	model_aliases?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	guardrails?: (string[] | null) | undefined;
-	policies?: (string[] | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
-	disable_global_guardrails?: (boolean | null) | undefined;
-	require_trace_id?: (boolean | null) | undefined;
-	team_member_budget?: (number | null) | undefined;
-	team_member_budget_duration?: (string | null) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
+	disable_global_guardrails?: (boolean | (null | null)) | undefined;
+	require_trace_id?: (boolean | (null | null)) | undefined;
+	team_member_budget?: (number | (null | null)) | undefined;
+	team_member_budget_duration?: (string | (null | null)) | undefined;
 	team_member_model_max_budget?:
-		| ({
-				[key: string]: BudgetConfig;
-		  } | null)
+		| (
+				| {
+						[key: string]: BudgetConfig;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	team_member_rpm_limit?: (number | null) | undefined;
-	team_member_tpm_limit?: (number | null) | undefined;
-	team_member_key_duration?: (string | null) | undefined;
-	allowed_passthrough_routes?: (unknown[] | null) | undefined;
-	denied_passthrough_routes?: (string[] | null) | undefined;
+	team_member_rpm_limit?: (number | (null | null)) | undefined;
+	team_member_tpm_limit?: (number | (null | null)) | undefined;
+	team_member_key_duration?: (string | (null | null)) | undefined;
+	allowed_passthrough_routes?: (unknown[] | (null | null)) | undefined;
+	denied_passthrough_routes?: (string[] | (null | null)) | undefined;
 	secret_manager_settings?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	prompts?: (string[] | null) | undefined;
+	prompts?: (string[] | (null | null)) | undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	default_estimated_output_tokens?: (number | null) | undefined;
+	default_estimated_output_tokens?: (number | (null | null)) | undefined;
 	default_estimated_output_tokens_per_model?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	mcp_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | null) | undefined;
+	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | (null | null)) | undefined;
 	enforced_batch_output_expires_after?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	enforced_file_expires_after?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	router_settings?: (UpdateRouterConfig | null) | undefined;
-	access_group_ids?: (string[] | null) | undefined;
-	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
-	default_team_member_models?: (string[] | null) | undefined;
+	router_settings?: (UpdateRouterConfig | (null | null)) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
+	default_team_member_models?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Max budget per model for every key on the team, overridable per key (e.g. {'gpt-4o': {'max_budget': 10, 'budget_duration': '1d'}})
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: BudgetConfig;
-		  } | null)
+		| (
+				| {
+						[key: string]: BudgetConfig;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -11751,8 +12449,8 @@ export type PatchTeamRequest = {
  */
 export type PendingSafetyCheck = {
 	id: string;
-	code?: (string | null) | undefined;
-	message?: (string | null) | undefined;
+	code?: (string | (null | null)) | undefined;
+	message?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -11762,8 +12460,8 @@ export type PendingSafetyCheck = {
  */
 export type PerUserMetrics = {
 	user_id: string;
-	user_email?: (string | null) | undefined;
-	user_agent?: (string | null) | undefined;
+	user_email?: (string | (null | null)) | undefined;
+	user_agent?: (string | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type integer | undefined
@@ -11845,7 +12543,7 @@ export type PromptCacheBreakpointTtlKey =
  */
 export type PromptCacheBreakpoint = {
 	mode: "explicit";
-	ttl?: (PromptCacheBreakpointTtlKey | null) | undefined;
+	ttl?: (PromptCacheBreakpointTtlKey | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -11862,7 +12560,7 @@ export type PromptCachingRequest = {
 	cache_read_tokens: number;
 	cache_creation_tokens: number;
 	spend: number;
-	net_savings: number | null;
+	net_savings: number | (null | null);
 };
 
 export type PromptCachingRequestCursor = {
@@ -11879,7 +12577,7 @@ export type PromptCachingRequestsResponse = {
 	requests: PromptCachingRequest[];
 	page_size: number;
 	has_more: boolean;
-	next_cursor: PromptCachingRequestCursor | null;
+	next_cursor: PromptCachingRequestCursor | (null | null);
 };
 
 export const promptTokensDetailsModalityEnum = {
@@ -11902,13 +12600,13 @@ export type PromptTokensDetails = {
  * @type object
  */
 export type ProviderBudgetResponseObject = {
-	budget_limit: number | null;
-	time_period: string | null;
+	budget_limit: number | (null | null);
+	time_period: string | (null | null);
 	/**
 	 * @default 0
 	 */
-	spend?: (number | null) | undefined;
-	budget_reset_at?: (string | null) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -11942,8 +12640,8 @@ export type ProviderCredentialFieldFieldTypeEnumKey =
 export type ProviderCredentialField = {
 	key: string;
 	label: string;
-	placeholder?: (string | null) | undefined;
-	tooltip?: (string | null) | undefined;
+	placeholder?: (string | (null | null)) | undefined;
+	tooltip?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -11954,8 +12652,8 @@ export type ProviderCredentialField = {
 	 * @type string | undefined
 	 */
 	field_type?: ProviderCredentialFieldFieldTypeEnumKey | undefined;
-	options?: (string[] | null) | undefined;
-	default_value?: (string | null) | undefined;
+	options?: (string[] | (null | null)) | undefined;
+	default_value?: (string | (null | null)) | undefined;
 };
 
 export type ProviderCreateInfo = {
@@ -11963,35 +12661,43 @@ export type ProviderCreateInfo = {
 	provider_display_name: string;
 	litellm_provider: string;
 	credential_fields: ProviderCredentialField[];
-	default_model_placeholder?: (string | null) | undefined;
+	default_model_placeholder?: (string | (null | null)) | undefined;
 };
 
 export type PublicModelHubInfo = {
 	docs_title: string;
-	custom_docs_description: string | null;
+	custom_docs_description: string | (null | null);
 	litellm_version: string;
-	useful_links: {
-		[key: string]:
-			| string
-			| {
-					[key: string]: unknown;
-			  };
-	} | null;
+	useful_links:
+		| {
+				[key: string]:
+					| string
+					| {
+							[key: string]: unknown;
+					  };
+		  }
+		| (null | null);
 };
 
 export type RawRequestTypedDict = {
-	raw_request_api_base?: (string | null) | undefined;
+	raw_request_api_base?: (string | (null | null)) | undefined;
 	raw_request_body?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	raw_request_headers?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	error?: (string | null) | undefined;
+	error?: (string | (null | null)) | undefined;
 };
 
 export const reasoningEffort = {
@@ -12011,7 +12717,7 @@ export type ReasoningEffortKey = (typeof reasoningEffort)[keyof typeof reasoning
  * @type object
  */
 export type Reasoning = {
-	effort?: (ReasoningEffortKey | null) | undefined;
+	effort?: (ReasoningEffortKey | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12034,140 +12740,173 @@ export type RegenerateKeyRequestTpmLimitTypeKey =
 	(typeof regenerateKeyRequestTpmLimitType)[keyof typeof regenerateKeyRequestTpmLimitType];
 
 export type RegenerateKeyRequest = {
-	key_alias?: (string | null) | undefined;
-	duration?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
+	duration?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	models?: (unknown[] | null) | undefined;
-	spend?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	user_id?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	agent_id?: (string | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
+	models?: (unknown[] | (null | null)) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	agent_id?: (string | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_cache_controls?: (unknown[] | null) | undefined;
+	allowed_cache_controls?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	permissions?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	budget_fallbacks?:
-		| ({
-				[key: string]: string[];
-		  } | null)
+		| (
+				| {
+						[key: string]: string[];
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	mcp_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	tag_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	guardrails?: (string[] | null) | undefined;
-	policies?: (string[] | null) | undefined;
-	prompts?: (string[] | null) | undefined;
-	blocked?: (boolean | null) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
+	prompts?: (string[] | (null | null)) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	aliases?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
-	key?: (string | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
-	default_estimated_output_tokens?: (number | null) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
+	key?: (string | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
+	default_estimated_output_tokens?: (number | (null | null)) | undefined;
 	default_estimated_output_tokens_per_model?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_id?: (string | null) | undefined;
-	end_user_budget_id?: (string | null) | undefined;
-	tags?: (string[] | null) | undefined;
-	disable_global_guardrails?: (boolean | null) | undefined;
-	enable_prompt_caching?: (boolean | null) | undefined;
-	throttle_on_budget_exceeded?: (boolean | null) | undefined;
-	enforced_params?: (string[] | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	end_user_budget_id?: (string | (null | null)) | undefined;
+	tags?: (string[] | (null | null)) | undefined;
+	disable_global_guardrails?: (boolean | (null | null)) | undefined;
+	enable_prompt_caching?: (boolean | (null | null)) | undefined;
+	throttle_on_budget_exceeded?: (boolean | (null | null)) | undefined;
+	enforced_params?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_routes?: (unknown[] | null) | undefined;
-	allowed_passthrough_routes?: (unknown[] | null) | undefined;
-	denied_passthrough_routes?: (string[] | null) | undefined;
-	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | null) | undefined;
-	rpm_limit_type?: (RegenerateKeyRequestRpmLimitTypeKey | null) | undefined;
-	tpm_limit_type?: (RegenerateKeyRequestTpmLimitTypeKey | null) | undefined;
-	router_settings?: (UpdateRouterConfig | null) | undefined;
-	access_group_ids?: (string[] | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	send_invite_email?: (boolean | null) | undefined;
+	allowed_routes?: (unknown[] | (null | null)) | undefined;
+	allowed_passthrough_routes?: (unknown[] | (null | null)) | undefined;
+	denied_passthrough_routes?: (string[] | (null | null)) | undefined;
+	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | (null | null)) | undefined;
+	rpm_limit_type?: (RegenerateKeyRequestRpmLimitTypeKey | (null | null)) | undefined;
+	tpm_limit_type?: (RegenerateKeyRequestTpmLimitTypeKey | (null | null)) | undefined;
+	router_settings?: (UpdateRouterConfig | (null | null)) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	send_invite_email?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Type of key that determines default allowed routes.
 	 * @default default
 	 */
-	key_type?: (LiteLLMKeyTypeKey | null) | undefined;
+	key_type?: (LiteLLMKeyTypeKey | (null | null)) | undefined;
 	/**
 	 * @description Whether this key should be automatically rotated
 	 * @default false
 	 */
-	auto_rotate?: (boolean | null) | undefined;
+	auto_rotate?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description How often to rotate this key (e.g., '30d', '90d'). Required if auto_rotate=True
 	 */
-	rotation_interval?: (string | null) | undefined;
-	organization_id?: (string | null) | undefined;
-	project_id?: (string | null) | undefined;
-	new_key?: (string | null) | undefined;
-	new_master_key?: (string | null) | undefined;
-	grace_period?: (string | null) | undefined;
+	rotation_interval?: (string | (null | null)) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
+	project_id?: (string | (null | null)) | undefined;
+	new_key?: (string | (null | null)) | undefined;
+	new_master_key?: (string | (null | null)) | undefined;
+	grace_period?: (string | (null | null)) | undefined;
 };
 
 export type RequestErrorStatusCodeEntry = {
@@ -12210,7 +12949,7 @@ export type RequestErrorDailyEntry = {
 
 export type RequestErrorEntityEntry = {
 	id: string;
-	label?: (string | null) | undefined;
+	label?: (string | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type integer | undefined
@@ -12221,7 +12960,7 @@ export type RequestErrorEntityEntry = {
 	 * @type integer | undefined
 	 */
 	failed_requests?: number | undefined;
-	top_status_code?: (number | null) | undefined;
+	top_status_code?: (number | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type integer | undefined
@@ -12282,11 +13021,11 @@ export type ResetSpendRequest = {
 
 export type ResponseAPIUsage = {
 	input_tokens: number;
-	input_tokens_details?: (InputTokensDetails | null) | undefined;
+	input_tokens_details?: (InputTokensDetails | (null | null)) | undefined;
 	output_tokens: number;
-	output_tokens_details?: (OutputTokensDetails | null) | undefined;
+	output_tokens_details?: (OutputTokensDetails | (null | null)) | undefined;
 	total_tokens: number;
-	cost?: (number | null) | undefined;
+	cost?: (number | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12308,8 +13047,8 @@ export type ResponseApplyPatchToolCall = {
 	operation: OperationCreateFile | OperationDeleteFile | OperationUpdateFile;
 	status: ResponseApplyPatchToolCallStatusEnumKey;
 	type: "apply_patch_call";
-	caller?: (CallerDirect | CallerProgram | null) | undefined;
-	created_by?: (string | null) | undefined;
+	caller?: (CallerDirect | CallerProgram | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12330,9 +13069,9 @@ export type ResponseApplyPatchToolCallOutput = {
 	call_id: string;
 	status: ResponseApplyPatchToolCallOutputStatusEnumKey;
 	type: "apply_patch_call_output";
-	caller?: (CallerDirect | CallerProgram | null) | undefined;
-	created_by?: (string | null) | undefined;
-	output?: (string | null) | undefined;
+	caller?: (CallerDirect | CallerProgram | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	output?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12353,9 +13092,9 @@ export type ResponseCodeInterpreterToolCallStatusEnumKey =
  */
 export type ResponseCodeInterpreterToolCall = {
 	id: string;
-	code?: (string | null) | undefined;
+	code?: (string | (null | null)) | undefined;
 	container_id: string;
-	outputs?: ((OutputLogs | OutputImage)[] | null) | undefined;
+	outputs?: ((OutputLogs | OutputImage)[] | (null | null)) | undefined;
 	status: ResponseCodeInterpreterToolCallStatusEnumKey;
 	type: "code_interpreter_call";
 	[key: string]: unknown;
@@ -12369,7 +13108,7 @@ export type ResponseCompactionItem = {
 	id: string;
 	encrypted_content: string;
 	type: "compaction";
-	created_by?: (string | null) | undefined;
+	created_by?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12392,7 +13131,7 @@ export type Scroll = {
 	type: "scroll";
 	x: number;
 	y: number;
-	keys?: (string[] | null) | undefined;
+	keys?: (string[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12448,11 +13187,14 @@ export type ResponseComputerToolCall = {
 				| ActionScroll
 				| ActionType
 				| ActionWait
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	actions?:
-		| ((Click | DoubleClick | Drag | Keypress | Move | Screenshot | Scroll | Type | Wait)[] | null)
+		| (
+				| (Click | DoubleClick | Drag | Keypress | Move | Screenshot | Scroll | Type | Wait)[]
+				| (null | null)
+		  )
 		| undefined;
 	[key: string]: unknown;
 };
@@ -12463,8 +13205,8 @@ export type ResponseComputerToolCall = {
  */
 export type ResponseComputerToolCallOutputScreenshot = {
 	type: "computer_screenshot";
-	file_id?: (string | null) | undefined;
-	image_url?: (string | null) | undefined;
+	file_id?: (string | (null | null)) | undefined;
+	image_url?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12488,8 +13230,8 @@ export type ResponseComputerToolCallOutputItem = {
 	output: ResponseComputerToolCallOutputScreenshot;
 	status: ResponseComputerToolCallOutputItemStatusEnumKey;
 	type: "computer_call_output";
-	acknowledged_safety_checks?: (AcknowledgedSafetyCheck[] | null) | undefined;
-	created_by?: (string | null) | undefined;
+	acknowledged_safety_checks?: (AcknowledgedSafetyCheck[] | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12515,8 +13257,8 @@ export type ResponseFormatTextJSONSchemaConfig = {
 		[key: string]: unknown;
 	};
 	type: "json_schema";
-	description?: (string | null) | undefined;
-	strict?: (boolean | null) | undefined;
+	description?: (string | (null | null)) | undefined;
+	strict?: (boolean | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12539,8 +13281,8 @@ export type OpenaiTypesResponsesResponseConfigurationUpdateItemText = {
 export type ResponseConfigurationUpdateItem = {
 	id: string;
 	type: "configuration_update";
-	reasoning?: (Reasoning | null) | undefined;
-	text?: (OpenaiTypesResponsesResponseConfigurationUpdateItemText | null) | undefined;
+	reasoning?: (Reasoning | (null | null)) | undefined;
+	text?: (OpenaiTypesResponsesResponseConfigurationUpdateItemText | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12563,10 +13305,10 @@ export type ResponseCustomToolCall = {
 	input: string;
 	name: string;
 	type: "custom_tool_call";
-	id?: (string | null) | undefined;
-	async?: (boolean | null) | undefined;
-	caller?: (CallerDirect | CallerProgram | null) | undefined;
-	namespace?: (string | null) | undefined;
+	id?: (string | (null | null)) | undefined;
+	async?: (boolean | (null | null)) | undefined;
+	caller?: (CallerDirect | CallerProgram | (null | null)) | undefined;
+	namespace?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12589,11 +13331,11 @@ export type ResponseCustomToolCallItem = {
 	name: string;
 	type: "custom_tool_call";
 	id: string;
-	async?: (boolean | null) | undefined;
-	caller?: (CallerDirect | CallerProgram | null) | undefined;
-	namespace?: (string | null) | undefined;
+	async?: (boolean | (null | null)) | undefined;
+	caller?: (CallerDirect | CallerProgram | (null | null)) | undefined;
+	namespace?: (string | (null | null)) | undefined;
 	status: ResponseCustomToolCallItemStatusEnumKey;
-	created_by?: (string | null) | undefined;
+	created_by?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12604,7 +13346,7 @@ export type ResponseCustomToolCallItem = {
 export type ResponseInputText = {
 	text: string;
 	type: "input_text";
-	prompt_cache_breakpoint?: (PromptCacheBreakpoint | null) | undefined;
+	prompt_cache_breakpoint?: (PromptCacheBreakpoint | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12627,9 +13369,9 @@ export type ResponseInputImageDetailEnumKey =
 export type ResponseInputImage = {
 	detail: ResponseInputImageDetailEnumKey;
 	type: "input_image";
-	file_id?: (string | null) | undefined;
-	image_url?: (string | null) | undefined;
-	prompt_cache_breakpoint?: (PromptCacheBreakpoint | null) | undefined;
+	file_id?: (string | (null | null)) | undefined;
+	image_url?: (string | (null | null)) | undefined;
+	prompt_cache_breakpoint?: (PromptCacheBreakpoint | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12648,12 +13390,12 @@ export type ResponseInputFileDetailKey =
  */
 export type ResponseInputFile = {
 	type: "input_file";
-	detail?: (ResponseInputFileDetailKey | null) | undefined;
-	file_data?: (string | null) | undefined;
-	file_id?: (string | null) | undefined;
-	file_url?: (string | null) | undefined;
-	filename?: (string | null) | undefined;
-	prompt_cache_breakpoint?: (PromptCacheBreakpoint | null) | undefined;
+	detail?: (ResponseInputFileDetailKey | (null | null)) | undefined;
+	file_data?: (string | (null | null)) | undefined;
+	file_id?: (string | (null | null)) | undefined;
+	file_url?: (string | (null | null)) | undefined;
+	filename?: (string | (null | null)) | undefined;
+	prompt_cache_breakpoint?: (PromptCacheBreakpoint | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12675,22 +13417,25 @@ export type ResponseCustomToolCallOutputItem = {
 	output: string | (ResponseInputText | ResponseInputImage | ResponseInputFile)[];
 	type: "custom_tool_call_output";
 	id: string;
-	caller?: (CallerDirect | CallerProgram | null) | undefined;
+	caller?: (CallerDirect | CallerProgram | (null | null)) | undefined;
 	status: ResponseCustomToolCallOutputItemStatusEnumKey;
-	created_by?: (string | null) | undefined;
+	created_by?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
 export type Result = {
 	attributes?:
-		| ({
-				[key: string]: string | number | boolean;
-		  } | null)
+		| (
+				| {
+						[key: string]: string | number | boolean;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	file_id?: (string | null) | undefined;
-	filename?: (string | null) | undefined;
-	score?: (number | null) | undefined;
-	text?: (string | null) | undefined;
+	file_id?: (string | (null | null)) | undefined;
+	filename?: (string | (null | null)) | undefined;
+	score?: (number | (null | null)) | undefined;
+	text?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12717,7 +13462,7 @@ export type ResponseFileSearchToolCall = {
 	queries: string[];
 	status: ResponseFileSearchToolCallStatusEnumKey;
 	type: "file_search_call";
-	results?: (Result[] | null) | undefined;
+	results?: (Result[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12749,7 +13494,7 @@ export type ResponseFormatTextJSONSchemaConfigParam = {
 	};
 	type: "json_schema";
 	description?: string | undefined;
-	strict?: (boolean | null) | undefined;
+	strict?: (boolean | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12783,11 +13528,11 @@ export type ResponseFunctionShellToolCall = {
 	 */
 	action: Action;
 	call_id: string;
-	environment?: (ResponseLocalEnvironment | ResponseContainerReference | null) | undefined;
+	environment?: (ResponseLocalEnvironment | ResponseContainerReference | (null | null)) | undefined;
 	status: ResponseFunctionShellToolCallStatusEnumKey;
 	type: "shell_call";
-	caller?: (CallerDirect | CallerProgram | null) | undefined;
-	created_by?: (string | null) | undefined;
+	caller?: (CallerDirect | CallerProgram | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12807,12 +13552,12 @@ export type ResponseFunctionShellToolCallOutputStatusEnumKey =
 export type ResponseFunctionShellToolCallOutput = {
 	id: string;
 	call_id: string;
-	max_output_length?: (number | null) | undefined;
+	max_output_length?: (number | (null | null)) | undefined;
 	output: Output[];
 	status: ResponseFunctionShellToolCallOutputStatusEnumKey;
 	type: "shell_call_output";
-	caller?: (CallerDirect | CallerProgram | null) | undefined;
-	created_by?: (string | null) | undefined;
+	caller?: (CallerDirect | CallerProgram | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12837,11 +13582,11 @@ export type ResponseFunctionToolCall = {
 	call_id: string;
 	name: string;
 	type: "function_call";
-	id?: (string | null) | undefined;
-	async?: (boolean | null) | undefined;
-	caller?: (CallerDirect | CallerProgram | null) | undefined;
-	namespace?: (string | null) | undefined;
-	status?: (ResponseFunctionToolCallStatusKey | null) | undefined;
+	id?: (string | (null | null)) | undefined;
+	async?: (boolean | (null | null)) | undefined;
+	caller?: (CallerDirect | CallerProgram | (null | null)) | undefined;
+	namespace?: (string | (null | null)) | undefined;
+	status?: (ResponseFunctionToolCallStatusKey | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12867,11 +13612,11 @@ export type ResponseFunctionToolCallItem = {
 	name: string;
 	type: "function_call";
 	id: string;
-	async?: (boolean | null) | undefined;
-	caller?: (CallerDirect | CallerProgram | null) | undefined;
-	namespace?: (string | null) | undefined;
+	async?: (boolean | (null | null)) | undefined;
+	caller?: (CallerDirect | CallerProgram | (null | null)) | undefined;
+	namespace?: (string | (null | null)) | undefined;
 	status: ResponseFunctionToolCallItemStatusEnumKey;
-	created_by?: (string | null) | undefined;
+	created_by?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12889,11 +13634,11 @@ export type ResponseFunctionToolCallOutputItem = {
 	output: string | (ResponseInputText | ResponseInputImage | ResponseInputFile)[];
 	status: ResponseFunctionToolCallOutputItemStatusEnumKey;
 	type: "function_call_output";
-	call_id?: (string | null) | undefined;
-	caller?: (CallerDirect | CallerProgram | null) | undefined;
-	created_by?: (string | null) | undefined;
-	name?: (string | null) | undefined;
-	namespace?: (string | null) | undefined;
+	call_id?: (string | (null | null)) | undefined;
+	caller?: (CallerDirect | CallerProgram | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	name?: (string | (null | null)) | undefined;
+	namespace?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12946,7 +13691,7 @@ export type ResponseInputMessageItem = {
 	content: (ResponseInputText | ResponseInputImage | ResponseInputFile)[];
 	role: ResponseInputMessageItemRoleEnumKey;
 	type: "message";
-	status?: (ResponseInputMessageItemStatusKey | null) | undefined;
+	status?: (ResponseInputMessageItemStatusKey | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12963,7 +13708,7 @@ export type ResponseOutputText = {
 	)[];
 	text: string;
 	type: "output_text";
-	logprobs?: (Logprob[] | null) | undefined;
+	logprobs?: (Logprob[] | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -12994,7 +13739,7 @@ export type ResponseOutputMessage = {
 	role: "assistant";
 	status: ResponseOutputMessageStatusEnumKey;
 	type: "message";
-	phase?: (ResponseOutputMessagePhaseKey | null) | undefined;
+	phase?: (ResponseOutputMessagePhaseKey | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -13018,11 +13763,11 @@ export type ResponseToolSearchCallStatusEnumKey =
 export type ResponseToolSearchCall = {
 	id: string;
 	arguments: unknown;
-	call_id?: (string | null) | undefined;
+	call_id?: (string | (null | null)) | undefined;
 	execution: ResponseToolSearchCallExecutionEnumKey;
 	status: ResponseToolSearchCallStatusEnumKey;
 	type: "tool_search_call";
-	created_by?: (string | null) | undefined;
+	created_by?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -13045,7 +13790,7 @@ export type ResponseToolSearchOutputItemStatusEnumKey =
 
 export type ResponseToolSearchOutputItem = {
 	id: string;
-	call_id?: (string | null) | undefined;
+	call_id?: (string | (null | null)) | undefined;
 	execution: ResponseToolSearchOutputItemExecutionEnumKey;
 	status: ResponseToolSearchOutputItemStatusEnumKey;
 	tools: (
@@ -13067,7 +13812,7 @@ export type ResponseToolSearchOutputItem = {
 		| ApplyPatchTool
 	)[];
 	type: "tool_search_output";
-	created_by?: (string | null) | undefined;
+	created_by?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -13101,9 +13846,9 @@ export type ResponseReasoningItem = {
 	id: string;
 	summary: Summary[];
 	type: "reasoning";
-	content?: (Content[] | null) | undefined;
-	encrypted_content?: (string | null) | undefined;
-	status?: (ResponseReasoningItemStatusKey | null) | undefined;
+	content?: (Content[] | (null | null)) | undefined;
+	encrypted_content?: (string | (null | null)) | undefined;
+	status?: (ResponseReasoningItemStatusKey | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -13173,7 +13918,7 @@ export type ResponseTextConfigParam = {
 	format?:
 		| (ResponseFormatText | ResponseFormatTextJSONSchemaConfigParam | ResponseFormatJSONObject)
 		| undefined;
-	verbosity?: (ResponseTextConfigParamVerbosityKey | null) | undefined;
+	verbosity?: (ResponseTextConfigParamVerbosityKey | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -13239,7 +13984,7 @@ export type ToolChoiceFunctionParam = {
 export type ToolChoiceMcpParam = {
 	server_label: string;
 	type: "mcp";
-	name?: (string | null) | undefined;
+	name?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -13297,19 +14042,25 @@ export type ResponsesAPIResponse = {
 	id: string;
 	created_at: number;
 	error?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	incomplete_details?: (IncompleteDetails | null) | undefined;
-	instructions?: (string | null) | undefined;
+	incomplete_details?: (IncompleteDetails | (null | null)) | undefined;
+	instructions?: (string | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	model?: (string | null) | undefined;
-	object?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
+	object?: (string | (null | null)) | undefined;
 	output:
 		| (
 				| ResponseOutputMessage
@@ -13355,8 +14106,8 @@ export type ResponsesAPIResponse = {
 				| OutputToolSearchCall
 				| ResponseCompactionItem
 		  )[];
-	parallel_tool_calls?: (boolean | null) | undefined;
-	temperature?: (number | null) | undefined;
+	parallel_tool_calls?: (boolean | (null | null)) | undefined;
+	temperature?: (number | (null | null)) | undefined;
 	tool_choice?:
 		| (
 				| ResponsesAPIResponseToolChoiceKey
@@ -13368,7 +14119,7 @@ export type ResponsesAPIResponse = {
 				| ToolChoiceSpecificProgrammaticToolCallingParam
 				| ToolChoiceApplyPatchParam
 				| ToolChoiceShellParam
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	tools?:
@@ -13395,31 +14146,34 @@ export type ResponsesAPIResponse = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	top_p?: (number | null) | undefined;
-	max_output_tokens?: (number | null) | undefined;
-	previous_response_id?: (string | null) | undefined;
+	top_p?: (number | (null | null)) | undefined;
+	max_output_tokens?: (number | (null | null)) | undefined;
+	previous_response_id?: (string | (null | null)) | undefined;
 	reasoning?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	status?: (string | null) | undefined;
+	status?: (string | (null | null)) | undefined;
 	text?:
 		| (
 				| ResponseTextConfigParam
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	truncation?: (ResponsesAPIResponseTruncationKey | null) | undefined;
-	usage?: (ResponseAPIUsage | null) | undefined;
-	user?: (string | null) | undefined;
-	store?: (boolean | null) | undefined;
+	truncation?: (ResponsesAPIResponseTruncationKey | (null | null)) | undefined;
+	usage?: (ResponseAPIUsage | (null | null)) | undefined;
+	user?: (string | (null | null)) | undefined;
+	store?: (boolean | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -13444,7 +14198,7 @@ export type RoleMappings = {
 	/**
 	 * @description Default role to assign if user's groups don't match any role mappings. Must be a valid LitellmUserRoles value (e.g., 'proxy_admin', 'internal_user', 'proxy_admin_viewer')
 	 */
-	default_role?: (LitellmUserRolesKey | null) | undefined;
+	default_role?: (LitellmUserRolesKey | (null | null)) | undefined;
 	/**
 	 * @description Mapping of LiteLLM role names to arrays of SSO group names. Example: {'proxy_admin': ['group-1', 'group-2'], 'proxy_admin_viewer': ['group-3']}
 	 * @type object | undefined
@@ -13458,9 +14212,9 @@ export type RouterSettingsField = {
 	field_value: unknown;
 	field_description: string;
 	field_default?: unknown | undefined;
-	options?: (string[] | null) | undefined;
+	options?: (string[] | (null | null)) | undefined;
 	ui_field_name: string;
-	link?: (string | null) | undefined;
+	link?: (string | (null | null)) | undefined;
 };
 
 export type RouterFieldsResponse = {
@@ -13547,7 +14301,7 @@ export type TeamMappings = {
 	/**
 	 * @description The field name in the SSO/JWT token that contains the team IDs array (e.g., 'groups', 'teams'). Supports dot notation for nested fields.
 	 */
-	team_ids_jwt_field?: (string | null) | undefined;
+	team_ids_jwt_field?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -13558,83 +14312,83 @@ export type SSOConfig = {
 	/**
 	 * @description Google OAuth Client ID for SSO authentication
 	 */
-	google_client_id?: (string | null) | undefined;
+	google_client_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Google OAuth Client Secret for SSO authentication
 	 */
-	google_client_secret?: (string | null) | undefined;
+	google_client_secret?: (string | (null | null)) | undefined;
 	/**
 	 * @description Microsoft OAuth Client ID for SSO authentication
 	 */
-	microsoft_client_id?: (string | null) | undefined;
+	microsoft_client_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Microsoft OAuth Client Secret for SSO authentication
 	 */
-	microsoft_client_secret?: (string | null) | undefined;
+	microsoft_client_secret?: (string | (null | null)) | undefined;
 	/**
 	 * @description Microsoft Azure Tenant ID for SSO authentication
 	 */
-	microsoft_tenant?: (string | null) | undefined;
+	microsoft_tenant?: (string | (null | null)) | undefined;
 	/**
 	 * @description Generic OAuth Client ID for SSO authentication (used for Okta and other providers)
 	 */
-	generic_client_id?: (string | null) | undefined;
+	generic_client_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Generic OAuth Client Secret for SSO authentication
 	 */
-	generic_client_secret?: (string | null) | undefined;
+	generic_client_secret?: (string | (null | null)) | undefined;
 	/**
 	 * @description Authorization endpoint URL for generic OAuth provider
 	 */
-	generic_authorization_endpoint?: (string | null) | undefined;
+	generic_authorization_endpoint?: (string | (null | null)) | undefined;
 	/**
 	 * @description Token endpoint URL for generic OAuth provider
 	 */
-	generic_token_endpoint?: (string | null) | undefined;
+	generic_token_endpoint?: (string | (null | null)) | undefined;
 	/**
 	 * @description User info endpoint URL for generic OAuth provider
 	 */
-	generic_userinfo_endpoint?: (string | null) | undefined;
+	generic_userinfo_endpoint?: (string | (null | null)) | undefined;
 	/**
 	 * @description Space-separated OAuth scopes requested from the generic provider, e.g. 'openid email profile'
 	 */
-	generic_scope?: (string | null) | undefined;
+	generic_scope?: (string | (null | null)) | undefined;
 	/**
 	 * @description URL of the SAML IdP metadata to fetch and parse for SSO authentication
 	 */
-	saml_idp_metadata_url?: (string | null) | undefined;
+	saml_idp_metadata_url?: (string | (null | null)) | undefined;
 	/**
 	 * @description Inline SAML IdP metadata XML, used when a metadata URL is not available
 	 */
-	saml_idp_metadata_xml?: (string | null) | undefined;
+	saml_idp_metadata_xml?: (string | (null | null)) | undefined;
 	/**
 	 * @description SAML Service Provider entityID; defaults to the proxy's /sso/saml/metadata URL
 	 */
-	saml_sp_entity_id?: (string | null) | undefined;
+	saml_sp_entity_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description 'true' to accept IdP-initiated (unsolicited) SAML responses, which cannot be browser-bound against login CSRF
 	 */
-	saml_allow_unsolicited?: (string | null) | undefined;
+	saml_allow_unsolicited?: (string | (null | null)) | undefined;
 	/**
 	 * @description Base URL of the proxy server for SSO redirects
 	 */
-	proxy_base_url?: (string | null) | undefined;
+	proxy_base_url?: (string | (null | null)) | undefined;
 	/**
 	 * @description Email of the proxy admin user
 	 */
-	user_email?: (string | null) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	/**
 	 * @description Access mode for the UI
 	 */
-	ui_access_mode?: (AccessControlUIAccessMode | string | null) | undefined;
+	ui_access_mode?: (AccessControlUIAccessMode | string | (null | null)) | undefined;
 	/**
 	 * @description Configuration for mapping SSO groups to LiteLLM roles based on group claims in the SSO token
 	 */
-	role_mappings?: (RoleMappings | null) | undefined;
+	role_mappings?: (RoleMappings | (null | null)) | undefined;
 	/**
 	 * @description Configuration for mapping SSO JWT fields to team IDs. Takes precedence over config file settings.
 	 */
-	team_mappings?: (TeamMappings | null) | undefined;
+	team_mappings?: (TeamMappings | (null | null)) | undefined;
 };
 
 /**
@@ -13776,31 +14530,31 @@ export type ShadowEvalJobTargetResponse = {
 	/**
 	 * @description This target's own USD budget for the eval's shadow and judge spend, independent of its siblings'; None on jobs created before spend budgets existed, which max_turns alone bounds
 	 */
-	max_budget?: (number | null) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
 	/**
 	 * @description When this target's slot was stamped free, whether its own budget ran out, the window closed, or an operator stopped the job; status is derived, so a spent budget reads completed even while this is still unset
 	 */
-	stopped_at?: (string | null) | undefined;
+	stopped_at?: (string | (null | null)) | undefined;
 	/**
 	 * @description This target's sampled attempts so far, judged and errored alike, the same count the sampler budgets against max_turns; populated on list and detail responses. Frozen at stopped_at once the target is stamped, so in-flight attempts landing after a stop never reclassify it
 	 */
-	attempt_count?: (number | null) | undefined;
+	attempt_count?: (number | (null | null)) | undefined;
 	/**
 	 * @description This target's recorded shadow plus judge spend in USD, the same figure the sampler budgets against max_budget; populated on list and detail responses and frozen at stopped_at exactly like attempt_count
 	 */
-	spend?: (number | null) | undefined;
+	spend?: (number | (null | null)) | undefined;
 	/**
 	 * @description This target's own judged-verdict slice; detail endpoint only, None until a turn is judged
 	 */
-	verdicts?: (ShadowEvalSlice | null) | undefined;
+	verdicts?: (ShadowEvalSlice | (null | null)) | undefined;
 	/**
 	 * @description Display label resolved from the target's own row at read time: the key's alias, the team's alias, or the user's email; None when unset or deleted
 	 */
-	target_alias?: (string | null) | undefined;
+	target_alias?: (string | (null | null)) | undefined;
 	/**
 	 * @description Masked display name (sk-...) for key targets, resolved at read time; None for teams and users
 	 */
-	key_name?: (string | null) | undefined;
+	key_name?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -13837,19 +14591,19 @@ export type ShadowEvalResult = {
 	/**
 	 * @description Eligible requests the sampling dice skipped, summed over legs: the judged rows stand for judged + this many requests. None for jobs from before the funnel existed
 	 */
-	not_sampled_count?: (number | null) | undefined;
+	not_sampled_count?: (number | (null | null)) | undefined;
 	/**
 	 * @description Sampled requests whose shape could not be judged (tool-final turn, empty text)
 	 */
-	unjudgeable_count?: (number | null) | undefined;
+	unjudgeable_count?: (number | (null | null)) | undefined;
 	/**
 	 * @description Sampled requests dropped by the per-pod concurrency cap, so quiet periods are overweighted
 	 */
-	shed_count?: (number | null) | undefined;
+	shed_count?: (number | (null | null)) | undefined;
 	/**
 	 * @description Sampled requests the pipeline declined to spend on: no database to record into, an over-budget key or team, or the eval budget unverifiable or already reached (the in-flight burst as a job crosses max_budget lands here rather than vanishing from coverage)
 	 */
-	withheld_count?: (number | null) | undefined;
+	withheld_count?: (number | (null | null)) | undefined;
 };
 
 export const shadowEvalJobResponseDirectionEnum = {
@@ -13899,7 +14653,7 @@ export type ShadowEvalJobResponse = {
 	 * @type string | undefined
 	 */
 	direction?: ShadowEvalJobResponseDirectionEnumKey | undefined;
-	baseline_model?: (string | null) | undefined;
+	baseline_model?: (string | (null | null)) | undefined;
 	judge_model: string;
 	shadow_percentage: number;
 	/**
@@ -13917,27 +14671,27 @@ export type ShadowEvalJobResponse = {
 	/**
 	 * @description The operator who stopped the job early, recorded by the stop endpoint; 'unknown' backfilled by migration for jobs that displayed stopped when the column arrived; None when the job ended on its own. Its presence is what makes a job read stopped rather than completed
 	 */
-	stopped_by?: (string | null) | undefined;
+	stopped_by?: (string | (null | null)) | undefined;
 	/**
 	 * @description Verdicts recorded; detail endpoint only
 	 */
-	judged_count?: (number | null) | undefined;
+	judged_count?: (number | (null | null)) | undefined;
 	/**
 	 * @description Sampled attempts that errored; detail endpoint only
 	 */
-	error_count?: (number | null) | undefined;
+	error_count?: (number | (null | null)) | undefined;
 	/**
 	 * @description Judge cost so far; detail endpoint only
 	 */
-	judge_spend?: (number | null) | undefined;
+	judge_spend?: (number | (null | null)) | undefined;
 	/**
 	 * @description Most recent attempt error; detail endpoint only
 	 */
-	last_error?: (string | null) | undefined;
+	last_error?: (string | (null | null)) | undefined;
 	/**
 	 * @description Stratified verdicts; detail endpoint only
 	 */
-	results?: (ShadowEvalResult | null) | undefined;
+	results?: (ShadowEvalResult | (null | null)) | undefined;
 	/**
 	 * @description The first router, kept for callers that predate router_names; derived so the
 	 * two fields can never disagree.
@@ -13993,7 +14747,7 @@ export type SpanTypeEnumKey = (typeof spanTypeEnum)[keyof typeof spanTypeEnum];
 export type Span = {
 	agent: string;
 	duration_ms: number;
-	error: string | null;
+	error: string | (null | null);
 	error_truncated: boolean;
 	framework: string;
 	input_preview: string;
@@ -14003,8 +14757,8 @@ export type Span = {
 	 * @type integer
 	 */
 	input_tokens: number;
-	litellm_request_id: string | null;
-	model: string | null;
+	litellm_request_id: string | (null | null);
+	model: string | (null | null);
 	name: string;
 	/**
 	 * @minimum 0
@@ -14012,11 +14766,11 @@ export type Span = {
 	 * @type integer
 	 */
 	output_tokens: number;
-	parent_span_id: string | null;
+	parent_span_id: string | (null | null);
 	span_id: string;
-	spend: number | null;
-	spend_log_request_id: string | null;
-	spend_match: SpanSpendMatchKey | null;
+	spend: number | (null | null);
+	spend_log_request_id: string | (null | null);
+	spend_match: SpanSpendMatchKey | (null | null);
 	start_offset_ms: number;
 	status: SpanStatusEnumKey;
 	type: SpanTypeEnumKey;
@@ -14038,7 +14792,7 @@ export type UIMessageRoleEnumKey = (typeof UIMessageRoleEnum)[keyof typeof UIMes
 
 export type UIMessage = {
 	content: string;
-	name?: (string | null) | undefined;
+	name?: (string | (null | null)) | undefined;
 	role: UIMessageRoleEnumKey;
 	tool_calls?: UIToolCall[] | undefined;
 };
@@ -14076,7 +14830,7 @@ export type SpanDetail = {
 
 export type SpanErrorPage = {
 	message: string;
-	next_cursor: string | null;
+	next_cursor: string | (null | null);
 	span_id: string;
 	/**
 	 * @minimum 0
@@ -14092,12 +14846,15 @@ export type SpendAnalyticsPaginatedResponse = {
 };
 
 export type SpendCalculateRequest = {
-	model?: (string | null) | undefined;
-	messages?: (unknown[] | null) | undefined;
+	model?: (string | (null | null)) | undefined;
+	messages?: (unknown[] | (null | null)) | undefined;
 	completion_response?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -14146,7 +14903,7 @@ export type StartShadowEvalRequest = {
 	/**
 	 * @description The auto-router under evaluation, in either direction: the single-router spelling of router_names. Provide exactly one of the two fields
 	 */
-	router_name?: (string | null) | undefined;
+	router_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description The auto-routers under evaluation, at most 4. Every sampled request runs through every router listed and each arm is judged independently against the same real response, so routers compare head-to-head on identical traffic. More than one router requires direction 'forward'. After validation this field always carries the full deduplicated set, whichever spelling the caller used
 	 * @default []
@@ -14162,7 +14919,7 @@ export type StartShadowEvalRequest = {
 	/**
 	 * @description Required when direction is reverse and rejected otherwise: the fixed model the router's own responses are judged against. Must be a plain model rather than another auto-router
 	 */
-	baseline_model?: (string | null) | undefined;
+	baseline_model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Percentage of each target's requests to duplicate through the router
 	 * @minimum 0.1
@@ -14224,16 +14981,16 @@ export type SubscriptionAccountFeeRequest = {
 	 * @type string
 	 */
 	billing_period_start: string;
-	label?: (string | null) | undefined;
+	label?: (string | (null | null)) | undefined;
 };
 
 export type SubscriptionAccountUsage = {
 	custom_llm_provider: string;
-	account_id: string | null;
+	account_id: string | (null | null);
 	deployments: string[];
-	fee: LiteLLMSubscriptionAccountTable | null;
+	fee: LiteLLMSubscriptionAccountTable | (null | null);
 	billing_periods: BillingPeriod[];
-	fixed_cost: number | null;
+	fixed_cost: number | (null | null);
 };
 
 export type SubscriptionUsageResponse = {
@@ -14274,25 +15031,31 @@ export type TagInfoRequest = {
 
 export type TagNewRequest = {
 	name: string;
-	description?: (string | null) | undefined;
-	models?: (string[] | null) | undefined;
+	description?: (string | (null | null)) | undefined;
+	models?: (string[] | (null | null)) | undefined;
 	model_info?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_id?: (string | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_duration?: (string | null) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -14319,31 +15082,37 @@ export type TagSummaryResponse = {
 
 export type TagUpdateRequest = {
 	name: string;
-	description?: (string | null) | undefined;
-	models?: (string[] | null) | undefined;
+	description?: (string | (null | null)) | undefined;
+	models?: (string[] | (null | null)) | undefined;
 	model_info?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_id?: (string | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_duration?: (string | null) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
 };
 
 export type TeamAddMemberResponse = {
-	team_alias?: (string | null) | undefined;
+	team_alias?: (string | (null | null)) | undefined;
 	team_id: string;
-	organization_id?: (string | null) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -14359,19 +15128,22 @@ export type TeamAddMemberResponse = {
 	 * @type array | undefined
 	 */
 	members_with_roles?: Member[] | undefined;
-	team_member_permissions?: (string[] | null) | undefined;
+	team_member_permissions?: (string[] | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -14383,42 +15155,51 @@ export type TeamAddMemberResponse = {
 	 */
 	blocked?: boolean | undefined;
 	router_settings?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	access_group_ids?: (string[] | null) | undefined;
-	default_team_member_models?: (string[] | null) | undefined;
-	spend?: (number | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
-	budget_reset_at?: (string | null) | undefined;
-	model_id?: (number | null) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
+	default_team_member_models?: (string[] | (null | null)) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
+	model_id?: (number | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	model_spend?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	policies?: (string[] | null) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	allow_team_guardrail_config?: (boolean | null) | undefined;
-	litellm_model_table?: (LiteLLMModelTable | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
-	object_permission_id?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	created_at?: (string | null) | undefined;
+	allow_team_guardrail_config?: (boolean | (null | null)) | undefined;
+	litellm_model_table?: (LiteLLMModelTable | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
+	object_permission_id?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	created_at?: (string | (null | null)) | undefined;
 	updated_users: LiteLLMUserTable[];
 	updated_team_memberships: LiteLLMTeamMembership[];
 };
@@ -14445,8 +15226,8 @@ export type TeamListCallerMembership = {
 	 * @type number | undefined
 	 */
 	spend?: number | undefined;
-	max_budget?: (number | null) | undefined;
-	budget_reset_at?: (string | null) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -14454,9 +15235,9 @@ export type TeamListCallerMembership = {
  * @type object
  */
 export type TeamListItem = {
-	team_alias?: (string | null) | undefined;
+	team_alias?: (string | (null | null)) | undefined;
 	team_id: string;
-	organization_id?: (string | null) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -14472,19 +15253,22 @@ export type TeamListItem = {
 	 * @type array | undefined
 	 */
 	members_with_roles?: Member[] | undefined;
-	team_member_permissions?: (string[] | null) | undefined;
+	team_member_permissions?: (string[] | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -14496,42 +15280,51 @@ export type TeamListItem = {
 	 */
 	blocked?: boolean | undefined;
 	router_settings?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	access_group_ids?: (string[] | null) | undefined;
-	default_team_member_models?: (string[] | null) | undefined;
-	spend?: (number | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
-	budget_reset_at?: (string | null) | undefined;
-	model_id?: (number | null) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
+	default_team_member_models?: (string[] | (null | null)) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
+	model_id?: (number | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	model_spend?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	policies?: (string[] | null) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	allow_team_guardrail_config?: (boolean | null) | undefined;
-	litellm_model_table?: (LiteLLMModelTable | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
-	object_permission_id?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	created_at?: (string | null) | undefined;
+	allow_team_guardrail_config?: (boolean | (null | null)) | undefined;
+	litellm_model_table?: (LiteLLMModelTable | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
+	object_permission_id?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	created_at?: (string | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type integer | undefined
@@ -14542,11 +15335,11 @@ export type TeamListItem = {
 	 * @type integer | undefined
 	 */
 	keys_count?: number | undefined;
-	caller_membership?: (TeamListCallerMembership | null) | undefined;
-	access_group_models?: (string[] | null) | undefined;
-	access_group_mcp_server_ids?: (string[] | null) | undefined;
-	access_group_agent_ids?: (string[] | null) | undefined;
-	access_group_skill_names?: (string[] | null) | undefined;
+	caller_membership?: (TeamListCallerMembership | (null | null)) | undefined;
+	access_group_models?: (string[] | (null | null)) | undefined;
+	access_group_mcp_server_ids?: (string[] | (null | null)) | undefined;
+	access_group_agent_ids?: (string[] | (null | null)) | undefined;
+	access_group_skill_names?: (string[] | (null | null)) | undefined;
 };
 
 /**
@@ -14590,20 +15383,20 @@ export type TeamMemberAddRequest = {
 	/**
 	 * @description Maximum budget allocated to this user within the team. If not set, user has unlimited budget within team limits
 	 */
-	max_budget_in_team?: (number | null) | undefined;
+	max_budget_in_team?: (number | (null | null)) | undefined;
 	/**
 	 * @description Duration after which this team member's budget resets (e.g. '1h', '24h', '7d', '30d'). If not set, the budget never resets.
 	 */
-	budget_duration?: (string | null) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
 	/**
 	 * @description List of models this team member can access. If not set, inherits the team's default_team_member_models or all team models.
 	 */
-	allowed_models?: (string[] | null) | undefined;
+	allowed_models?: (string[] | (null | null)) | undefined;
 };
 
 export type TeamMemberDeleteRequest = {
-	user_id?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	team_id: string;
 };
 
@@ -14614,19 +15407,19 @@ export type TeamMemberDeleteRequest = {
 export type TeamMemberInfoResponse = {
 	user_id: string;
 	team_id: string;
-	budget_id?: (string | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 */
-	spend?: (number | null) | undefined;
+	spend?: (number | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 */
-	total_spend?: (number | null) | undefined;
-	litellm_budget_table?: (LiteLLMBudgetTableFull | LiteLLMBudgetTable | null) | undefined;
-	role?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
-	team_alias?: (string | null) | undefined;
+	total_spend?: (number | (null | null)) | undefined;
+	litellm_budget_table?: (LiteLLMBudgetTableFull | LiteLLMBudgetTable | (null | null)) | undefined;
+	role?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
+	team_alias?: (string | (null | null)) | undefined;
 };
 
 export const teamMemberResetBudgetResponseBudgetSourceEnum = {
@@ -14641,8 +15434,8 @@ export type TeamMemberResetBudgetResponseBudgetSourceEnumKey =
 export type TeamMemberResetBudgetResponse = {
 	team_id: string;
 	user_id: string;
-	budget_id: string | null;
-	previous_budget_id: string | null;
+	budget_id: string | (null | null);
+	previous_budget_id: string | (null | null);
 	budget_source: TeamMemberResetBudgetResponseBudgetSourceEnumKey;
 };
 
@@ -14655,60 +15448,66 @@ export type TeamMemberUpdateRequestRoleKey =
 	(typeof teamMemberUpdateRequestRole)[keyof typeof teamMemberUpdateRequestRole];
 
 export type TeamMemberUpdateRequest = {
-	user_id?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	team_id: string;
-	max_budget_in_team?: (number | null) | undefined;
-	role?: (TeamMemberUpdateRequestRoleKey | null) | undefined;
+	max_budget_in_team?: (number | (null | null)) | undefined;
+	role?: (TeamMemberUpdateRequestRoleKey | (null | null)) | undefined;
 	/**
 	 * @description Tokens per minute limit for this team member
 	 */
-	tpm_limit?: (number | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
 	/**
 	 * @description Requests per minute limit for this team member
 	 */
-	rpm_limit?: (number | null) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
 	/**
 	 * @description Duration after which this team member's budget resets (e.g. '1h', '24h', '7d', '30d'). If not set, the budget never resets.
 	 */
-	budget_duration?: (string | null) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
 	/**
 	 * @description List of models this team member can access. Pass an empty list to remove per-member model restrictions.
 	 */
-	allowed_models?: (string[] | null) | undefined;
+	allowed_models?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Temporary additive budget increase for this team member, active until temp_budget_expiry
 	 */
-	temp_budget_increase?: (number | null) | undefined;
+	temp_budget_increase?: (number | (null | null)) | undefined;
 	/**
 	 * @description UTC expiry for temp_budget_increase
 	 */
-	temp_budget_expiry?: (string | null) | undefined;
+	temp_budget_expiry?: (string | (null | null)) | undefined;
 	/**
 	 * @description Per-model spend caps for this team member, each with its own budget_duration. Overrides the team's default per-model member budget. Pass an empty dict to fall back to the team default.
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: BudgetConfig;
-		  } | null)
+		| (
+				| {
+						[key: string]: BudgetConfig;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
 export type TeamMemberUpdateResponse = {
 	user_id: string;
-	user_email?: (string | null) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	team_id: string;
-	max_budget_in_team?: (number | null) | undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	allowed_models?: (string[] | null) | undefined;
-	temp_budget_increase?: (number | null) | undefined;
-	temp_budget_expiry?: (string | null) | undefined;
+	max_budget_in_team?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	allowed_models?: (string[] | (null | null)) | undefined;
+	temp_budget_increase?: (number | (null | null)) | undefined;
+	temp_budget_expiry?: (string | (null | null)) | undefined;
 	model_max_budget?:
-		| ({
-				[key: string]: BudgetConfig;
-		  } | null)
+		| (
+				| {
+						[key: string]: BudgetConfig;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -14725,7 +15524,7 @@ export type TeamMetadataFieldSchema = {
 	 * @type string
 	 */
 	key: string;
-	label?: (string | null) | undefined;
+	label?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -14756,10 +15555,10 @@ export type TeamModelDeleteRequest = {
 
 export type TeamUserSpendRow = {
 	team_id: string;
-	team_alias?: (string | null) | undefined;
+	team_alias?: (string | (null | null)) | undefined;
 	user_id: string;
-	user_email?: (string | null) | undefined;
-	user_alias?: (string | null) | undefined;
+	user_email?: (string | (null | null)) | undefined;
+	user_alias?: (string | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type number | undefined
@@ -14830,38 +15629,40 @@ export type TelemetryGroupInfo = {
 	 * @type string
 	 */
 	group: TelemetryGroupKey;
-	requires: TelemetryGroupKey | null;
+	requires: TelemetryGroupKey | (null | null);
 	enabled: boolean;
 };
 
 export type TelemetryReportsResponse = {
 	reports: StoredReport[];
-	next_after: number | null;
-	next_after_id: string | null;
+	next_after: number | (null | null);
+	next_after_id: string | (null | null);
 };
 
 export type TelemetrySettingsResponse = {
 	groups: TelemetryGroupInfo[];
-	stored_groups: TelemetryGroupKey[] | null;
+	stored_groups: TelemetryGroupKey[] | (null | null);
 	vetoed: boolean;
 	set_by_environment: boolean;
 	environment_variables: string[];
 	editable: boolean;
-	destination: TelemetryDestinationKey | null;
-	stored_destination: TelemetryDestinationKey | null;
+	destination: TelemetryDestinationKey | (null | null);
+	stored_destination: TelemetryDestinationKey | (null | null);
 	destination_set_by_environment: boolean;
 	available_destinations: TelemetryDestinationKey[];
 	flush_interval_seconds: number;
 	retention_days: number;
-	report: {
-		[key: string]: JsonValue;
-	} | null;
+	report:
+		| {
+				[key: string]: JsonValue;
+		  }
+		| (null | null);
 	report_is_sample: boolean;
 };
 
 export type TelemetrySettingsUpdate = {
 	groups: string[];
-	destination?: (TelemetryDestinationKey | null) | undefined;
+	destination?: (TelemetryDestinationKey | (null | null)) | undefined;
 };
 
 export const tokenCountDetailsResponseLitellmCountSourceEnum = {
@@ -14890,13 +15691,13 @@ export type TokenCountDetailsResponse = {
 
 export type TokenCountRequest = {
 	model: string;
-	prompt?: (string | null) | undefined;
+	prompt?: (string | (null | null)) | undefined;
 	messages?:
 		| (
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	contents?:
@@ -14904,7 +15705,7 @@ export type TokenCountRequest = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	tools?:
@@ -14912,10 +15713,10 @@ export type TokenCountRequest = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	system?: (unknown | null) | undefined;
+	system?: (unknown | (null | null)) | undefined;
 };
 
 export const tokenCountResponseCountSource = {
@@ -14932,19 +15733,22 @@ export type TokenCountResponse = {
 	request_model: string;
 	model_used: string;
 	tokenizer_type: string;
-	count_source?: (TokenCountResponseCountSourceKey | null) | undefined;
+	count_source?: (TokenCountResponseCountSourceKey | (null | null)) | undefined;
 	original_response?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	error?: boolean | undefined;
-	error_message?: (string | null) | undefined;
-	status_code?: (number | null) | undefined;
+	error_message?: (string | (null | null)) | undefined;
+	status_code?: (number | (null | null)) | undefined;
 };
 
 export const traceSummaryStatusEnum = {
@@ -15007,14 +15811,14 @@ export type TraceSummary = {
 	priced_calls: number;
 	resolution_limited?: boolean | undefined;
 	service: string;
-	source?: (RunSource | null) | undefined;
+	source?: (RunSource | (null | null)) | undefined;
 	/**
 	 * @minimum 0
 	 * @maximum 18446744073709552000
 	 * @type integer
 	 */
 	span_count: number;
-	spend: number | null;
+	spend: number | (null | null);
 	start_time: string;
 	status: TraceSummaryStatusEnumKey;
 	/**
@@ -15029,7 +15833,7 @@ export type TraceSummary = {
 
 export type Trace = {
 	agents: AgentNode[];
-	next_cursor?: (string | null) | undefined;
+	next_cursor?: (string | (null | null)) | undefined;
 	spans: Span[];
 	summary: TraceSummary;
 };
@@ -15069,7 +15873,7 @@ export type TraceAgentList = {
 
 export type TracePage = {
 	data: TraceSummary[];
-	next_cursor: string | null;
+	next_cursor: string | (null | null);
 };
 
 export type TraceQueryAttributeField = {
@@ -15090,7 +15894,7 @@ export type TraceQueryAttributesTableEnumKey =
 export type TraceQueryAttributes = {
 	column: string;
 	discovery_sql: string;
-	error?: (string | null) | undefined;
+	error?: (string | (null | null)) | undefined;
 	fields: TraceQueryAttributeField[];
 	scope: string;
 	table: TraceQueryAttributesTableEnumKey;
@@ -15138,7 +15942,7 @@ export type TraceQueryMetadataTableEnumKey =
 
 export type TraceQueryMetadata = {
 	column: string;
-	error?: (string | null) | undefined;
+	error?: (string | (null | null)) | undefined;
 	fields: TraceQueryMetadataField[];
 	/**
 	 * @minimum 0
@@ -15251,7 +16055,7 @@ export type UIEventBody = {
 	 */
 	page: string;
 	action: UIActionKey;
-	target?: (string | null) | undefined;
+	target?: (string | (null | null)) | undefined;
 };
 
 export type UIEventsEnabledResponse = {
@@ -15282,15 +16086,15 @@ export type UIThemeConfig = {
 	/**
 	 * @description URL or path to custom logo image. Can be a local file path or HTTP/HTTPS URL
 	 */
-	logo_url?: (string | null) | undefined;
+	logo_url?: (string | (null | null)) | undefined;
 	/**
 	 * @description URL or path to a custom logo image for dark mode. Can be a local file path or HTTP/HTTPS URL. Leave unset to reuse logo_url in dark mode
 	 */
-	logo_url_dark?: (string | null) | undefined;
+	logo_url_dark?: (string | (null | null)) | undefined;
 	/**
 	 * @description URL to custom favicon image. Must be an HTTP/HTTPS URL to a .ico, .png, or .svg file
 	 */
-	favicon_url?: (string | null) | undefined;
+	favicon_url?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -15324,8 +16128,8 @@ export type WorkerRegistryEntry = {
 
 export type UiDiscoveryEndpoints = {
 	server_root_path: string;
-	proxy_base_url: string | null;
-	gateway_base_url?: (string | null) | undefined;
+	proxy_base_url: string | (null | null);
+	gateway_base_url?: (string | (null | null)) | undefined;
 	auto_redirect_to_sso: boolean;
 	admin_ui_disabled: boolean;
 	sso_configured: boolean;
@@ -15370,18 +16174,21 @@ export type UnblockUsersResponse = {
 };
 
 export type UpdateCredentialItem = {
-	credential_name?: (string | null) | undefined;
-	display_name?: (string | null) | undefined;
+	credential_name?: (string | (null | null)) | undefined;
+	display_name?: (string | (null | null)) | undefined;
 	credential_info: {
 		[key: string]: unknown;
 	};
 	credential_values?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	model_id?: (string | null) | undefined;
-	credential_values_to_delete?: (string[] | null) | undefined;
+	model_id?: (string | (null | null)) | undefined;
+	credential_values_to_delete?: (string[] | (null | null)) | undefined;
 };
 
 export const updateCustomerRequestAllowedModelRegion = {
@@ -15398,18 +16205,18 @@ export type UpdateCustomerRequestAllowedModelRegionKey =
  */
 export type UpdateCustomerRequest = {
 	user_id: string;
-	alias?: (string | null) | undefined;
+	alias?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	blocked?: boolean | undefined;
-	max_budget?: (number | null) | undefined;
-	budget_id?: (string | null) | undefined;
-	allowed_model_region?: (UpdateCustomerRequestAllowedModelRegionKey | null) | undefined;
-	default_model?: (string | null) | undefined;
-	models?: (string[] | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	allowed_model_region?: (UpdateCustomerRequestAllowedModelRegionKey | (null | null)) | undefined;
+	default_model?: (string | (null | null)) | undefined;
+	models?: (string[] | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
 };
 
 export const updateKeyRequestRpmLimitType = {
@@ -15431,134 +16238,167 @@ export type UpdateKeyRequestTpmLimitTypeKey =
 	(typeof updateKeyRequestTpmLimitType)[keyof typeof updateKeyRequestTpmLimitType];
 
 export type UpdateKeyRequest = {
-	key_alias?: (string | null) | undefined;
-	duration?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
+	duration?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	models?: (unknown[] | null) | undefined;
-	spend?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	user_id?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	agent_id?: (string | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
+	models?: (unknown[] | (null | null)) | undefined;
+	spend?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	agent_id?: (string | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_cache_controls?: (unknown[] | null) | undefined;
+	allowed_cache_controls?: (unknown[] | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	permissions?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {}
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	budget_fallbacks?:
-		| ({
-				[key: string]: string[];
-		  } | null)
+		| (
+				| {
+						[key: string]: string[];
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	mcp_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	tag_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	guardrails?: (string[] | null) | undefined;
-	policies?: (string[] | null) | undefined;
-	prompts?: (string[] | null) | undefined;
-	blocked?: (boolean | null) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
+	prompts?: (string[] | (null | null)) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default {}
 	 */
 	aliases?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
-	key?: (string | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
-	default_estimated_output_tokens?: (number | null) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
+	key?: (string | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
+	default_estimated_output_tokens?: (number | (null | null)) | undefined;
 	default_estimated_output_tokens_per_model?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_id?: (string | null) | undefined;
-	end_user_budget_id?: (string | null) | undefined;
-	tags?: (string[] | null) | undefined;
-	disable_global_guardrails?: (boolean | null) | undefined;
-	enable_prompt_caching?: (boolean | null) | undefined;
-	throttle_on_budget_exceeded?: (boolean | null) | undefined;
-	enforced_params?: (string[] | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	end_user_budget_id?: (string | (null | null)) | undefined;
+	tags?: (string[] | (null | null)) | undefined;
+	disable_global_guardrails?: (boolean | (null | null)) | undefined;
+	enable_prompt_caching?: (boolean | (null | null)) | undefined;
+	throttle_on_budget_exceeded?: (boolean | (null | null)) | undefined;
+	enforced_params?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default []
 	 */
-	allowed_routes?: (unknown[] | null) | undefined;
-	allowed_passthrough_routes?: (unknown[] | null) | undefined;
-	denied_passthrough_routes?: (string[] | null) | undefined;
-	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | null) | undefined;
-	rpm_limit_type?: (UpdateKeyRequestRpmLimitTypeKey | null) | undefined;
-	tpm_limit_type?: (UpdateKeyRequestTpmLimitTypeKey | null) | undefined;
-	router_settings?: (UpdateRouterConfig | null) | undefined;
-	access_group_ids?: (string[] | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	temp_budget_increase?: (number | null) | undefined;
-	temp_budget_expiry?: (string | null) | undefined;
-	auto_rotate?: (boolean | null) | undefined;
-	rotation_interval?: (string | null) | undefined;
-	organization_id?: (string | null) | undefined;
+	allowed_routes?: (unknown[] | (null | null)) | undefined;
+	allowed_passthrough_routes?: (unknown[] | (null | null)) | undefined;
+	denied_passthrough_routes?: (string[] | (null | null)) | undefined;
+	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | (null | null)) | undefined;
+	rpm_limit_type?: (UpdateKeyRequestRpmLimitTypeKey | (null | null)) | undefined;
+	tpm_limit_type?: (UpdateKeyRequestTpmLimitTypeKey | (null | null)) | undefined;
+	router_settings?: (UpdateRouterConfig | (null | null)) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	temp_budget_increase?: (number | (null | null)) | undefined;
+	temp_budget_expiry?: (string | (null | null)) | undefined;
+	auto_rotate?: (boolean | (null | null)) | undefined;
+	rotation_interval?: (string | (null | null)) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Omit to retain the project, send null to detach, or send a project id to assign an unassigned key to a project on the key's team. Moving a key between projects is not supported.
 	 */
-	project_id?: (string | null) | undefined;
+	project_id?: (string | (null | null)) | undefined;
 };
 
 export type UpdateModelGroupRequest = {
-	model_names?: (string[] | null) | undefined;
-	model_ids?: (string[] | null) | undefined;
+	model_names?: (string[] | (null | null)) | undefined;
+	model_ids?: (string[] | (null | null)) | undefined;
 };
 
 /**
@@ -15566,57 +16406,75 @@ export type UpdateModelGroupRequest = {
  * @type object
  */
 export type UpdateProjectRequest = {
-	budget_id?: (string | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	max_parallel_requests?: (number | null) | undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
+	budget_id?: (string | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	max_parallel_requests?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	budget_duration?: (string | null) | undefined;
-	allowed_models?: (string[] | null) | undefined;
-	temp_budget_increase?: (number | null) | undefined;
-	temp_budget_expiry?: (string | null) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	allowed_models?: (string[] | (null | null)) | undefined;
+	temp_budget_increase?: (number | (null | null)) | undefined;
+	temp_budget_expiry?: (string | (null | null)) | undefined;
 	project_id: string;
-	project_alias?: (string | null) | undefined;
-	description?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
+	project_alias?: (string | (null | null)) | undefined;
+	description?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tags?: (string[] | null) | undefined;
-	guardrails?: (string[] | null) | undefined;
-	policies?: (string[] | null) | undefined;
-	models?: (string[] | null) | undefined;
+	tags?: (string[] | (null | null)) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
+	models?: (string[] | (null | null)) | undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_itpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_otpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	blocked?: (boolean | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
 };
 
 /**
@@ -15633,10 +16491,10 @@ export type UpdatePublicModelGroupsRequest = {
 
 export type UpdateSubscriptionAccountFeeRequest = {
 	subscription_account_id: string;
-	monthly_fee?: (number | null) | undefined;
-	currency?: (string | null) | undefined;
-	billing_period_start?: (string | null) | undefined;
-	label?: (string | null) | undefined;
+	monthly_fee?: (number | (null | null)) | undefined;
+	currency?: (string | (null | null)) | undefined;
+	billing_period_start?: (string | (null | null)) | undefined;
+	label?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -15667,93 +16525,126 @@ export type UpdateTeamMemberPermissionsRequest = {
  */
 export type UpdateTeamRequest = {
 	team_id: string;
-	team_alias?: (string | null) | undefined;
-	organization_id?: (string | null) | undefined;
+	team_alias?: (string | (null | null)) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
-	tpd_limit?: (number | null) | undefined;
-	max_budget?: (number | null) | undefined;
-	soft_budget?: (number | null) | undefined;
-	models?: (unknown[] | null) | undefined;
-	blocked?: (boolean | null) | undefined;
-	budget_duration?: (string | null) | undefined;
-	tags?: (unknown[] | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	tpd_limit?: (number | (null | null)) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	soft_budget?: (number | (null | null)) | undefined;
+	models?: (unknown[] | (null | null)) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	tags?: (unknown[] | (null | null)) | undefined;
 	model_aliases?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	guardrails?: (string[] | null) | undefined;
-	policies?: (string[] | null) | undefined;
-	object_permission?: (LiteLLMObjectPermissionBase | null) | undefined;
-	disable_global_guardrails?: (boolean | null) | undefined;
-	require_trace_id?: (boolean | null) | undefined;
-	team_member_budget?: (number | null) | undefined;
-	team_member_budget_duration?: (string | null) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
+	policies?: (string[] | (null | null)) | undefined;
+	object_permission?: (LiteLLMObjectPermissionBase | (null | null)) | undefined;
+	disable_global_guardrails?: (boolean | (null | null)) | undefined;
+	require_trace_id?: (boolean | (null | null)) | undefined;
+	team_member_budget?: (number | (null | null)) | undefined;
+	team_member_budget_duration?: (string | (null | null)) | undefined;
 	team_member_model_max_budget?:
-		| ({
-				[key: string]: BudgetConfig;
-		  } | null)
+		| (
+				| {
+						[key: string]: BudgetConfig;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	team_member_rpm_limit?: (number | null) | undefined;
-	team_member_tpm_limit?: (number | null) | undefined;
-	team_member_key_duration?: (string | null) | undefined;
-	allowed_passthrough_routes?: (unknown[] | null) | undefined;
-	denied_passthrough_routes?: (string[] | null) | undefined;
+	team_member_rpm_limit?: (number | (null | null)) | undefined;
+	team_member_tpm_limit?: (number | (null | null)) | undefined;
+	team_member_key_duration?: (string | (null | null)) | undefined;
+	allowed_passthrough_routes?: (unknown[] | (null | null)) | undefined;
+	denied_passthrough_routes?: (string[] | (null | null)) | undefined;
 	secret_manager_settings?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	prompts?: (string[] | null) | undefined;
+	prompts?: (string[] | (null | null)) | undefined;
 	model_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_tpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	default_estimated_output_tokens?: (number | null) | undefined;
+	default_estimated_output_tokens?: (number | (null | null)) | undefined;
 	default_estimated_output_tokens_per_model?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	mcp_rpm_limit?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | null) | undefined;
+	allowed_vector_store_indexes?: (AllowedVectorStoreIndexItem[] | (null | null)) | undefined;
 	enforced_batch_output_expires_after?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	enforced_file_expires_after?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	router_settings?: (UpdateRouterConfig | null) | undefined;
-	access_group_ids?: (string[] | null) | undefined;
-	budget_limits?: (BudgetLimitEntry[] | null) | undefined;
-	default_team_member_models?: (string[] | null) | undefined;
+	router_settings?: (UpdateRouterConfig | (null | null)) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
+	budget_limits?: (BudgetLimitEntry[] | (null | null)) | undefined;
+	default_team_member_models?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Max budget per model for every key on the team, overridable per key (e.g. {'gpt-4o': {'max_budget': 10, 'budget_duration': '1d'}})
 	 */
 	model_max_budget?:
-		| ({
-				[key: string]: BudgetConfig;
-		  } | null)
+		| (
+				| {
+						[key: string]: BudgetConfig;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -15862,8 +16753,8 @@ export type UserConnectionPollResponseStatusEnumKey =
 
 export type UserConnectionPollResponse = {
 	status: UserConnectionPollResponseStatusEnumKey;
-	interval?: (number | null) | undefined;
-	github_login?: (string | null) | undefined;
+	interval?: (number | (null | null)) | undefined;
+	github_login?: (string | (null | null)) | undefined;
 };
 
 export type UserConnectionStartResponse = {
@@ -15875,16 +16766,16 @@ export type UserConnectionStartResponse = {
 };
 
 export type UserInfoResponse = {
-	user_id: string | null;
+	user_id: string | (null | null);
 	user_info:
 		| {
 				[key: string]: unknown;
 		  }
 		| BaseModel
-		| null;
+		| (null | null);
 	keys: unknown[];
 	teams: unknown[];
-	admin_mcp_permissions?: (AdminMCPPermissions | null) | undefined;
+	admin_mcp_permissions?: (AdminMCPPermissions | (null | null)) | undefined;
 };
 
 /**
@@ -15896,49 +16787,58 @@ export type UserInfoResponse = {
  */
 export type UserInfoV2Response = {
 	user_id: string;
-	user_email?: (string | null) | undefined;
-	user_alias?: (string | null) | undefined;
-	user_role?: (string | null) | undefined;
+	user_email?: (string | (null | null)) | undefined;
+	user_alias?: (string | (null | null)) | undefined;
+	user_role?: (string | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type number | undefined
 	 */
 	spend?: number | undefined;
-	max_budget?: (number | null) | undefined;
-	tpm_limit?: (number | null) | undefined;
-	rpm_limit?: (number | null) | undefined;
+	max_budget?: (number | (null | null)) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
 	 */
 	models?: string[] | undefined;
-	budget_duration?: (string | null) | undefined;
-	budget_reset_at?: (string | null) | undefined;
+	budget_duration?: (string | (null | null)) | undefined;
+	budget_reset_at?: (string | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	created_at?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	sso_user_id?: (string | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	sso_user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
 	 */
 	teams?: string[] | undefined;
-	object_permission?: (LiteLLMObjectPermissionTable | null) | undefined;
+	object_permission?: (LiteLLMObjectPermissionTable | (null | null)) | undefined;
 	model_max_budget?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	model_max_budget_usage?:
-		| ({
-				[key: string]: {
-					[key: string]: unknown;
-				};
-		  } | null)
+		| (
+				| {
+						[key: string]: {
+							[key: string]: unknown;
+						};
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -15958,8 +16858,8 @@ export type UserProviderConnection = {
 	credential_name: string;
 	provider: string;
 	connected: boolean;
-	github_login?: (string | null) | undefined;
-	connected_at?: (string | null) | undefined;
+	github_login?: (string | (null | null)) | undefined;
+	connected_at?: (string | (null | null)) | undefined;
 };
 
 export type UserProviderConnectionsResponse = {
@@ -15985,11 +16885,11 @@ export type WebSearchInterceptionSettings = {
 	/**
 	 * @description Name of the configured search tool to run searches through. Empty uses the first one available.
 	 */
-	search_tool_name?: (string | null) | undefined;
+	search_tool_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description How many follow-up model calls one intercepted request may chain. Empty applies the default of 3.
 	 */
-	max_agentic_loops?: (number | null) | undefined;
+	max_agentic_loops?: (number | (null | null)) | undefined;
 };
 
 /**
@@ -16015,29 +16915,38 @@ export type WorkflowEventCreateRequest = {
 	event_type: string;
 	step_name: string;
 	data?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
 export type WorkflowMessageCreateRequest = {
 	role: string;
 	content: string;
-	session_id?: (string | null) | undefined;
+	session_id?: (string | (null | null)) | undefined;
 };
 
 export type WorkflowRunCreateRequest = {
 	workflow_type: string;
 	input?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -16053,24 +16962,30 @@ export type WorkflowRunUpdateRequestStatusKey =
 	(typeof workflowRunUpdateRequestStatus)[keyof typeof workflowRunUpdateRequestStatus];
 
 export type WorkflowRunUpdateRequest = {
-	status?: (WorkflowRunUpdateRequestStatusKey | null) | undefined;
+	status?: (WorkflowRunUpdateRequestStatusKey | (null | null)) | undefined;
 	output?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
 export type UpdateDeployment = {
-	model_name?: (string | null) | undefined;
-	litellm_params?: (UpdateLiteLLMParams | null) | undefined;
-	model_info?: (ModelInfo | null) | undefined;
-	blocked?: (boolean | null) | undefined;
+	model_name?: (string | (null | null)) | undefined;
+	litellm_params?: (UpdateLiteLLMParams | (null | null)) | undefined;
+	model_info?: (ModelInfo | (null | null)) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
 };
 
 export type ChatCompletionTextObject = {
@@ -16125,17 +17040,20 @@ export type ChatCompletionFileObject = {
 };
 
 export type ChatCompletionToolCallFunctionChunk = {
-	name?: (string | null) | undefined;
+	name?: (string | (null | null)) | undefined;
 	arguments?: string | undefined;
 	provider_specific_fields?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
 export type ChatCompletionAssistantToolCall = {
-	id: string | null;
+	id: string | (null | null);
 	type: "function";
 	function: ChatCompletionToolCallFunctionChunk;
 };
@@ -16153,18 +17071,18 @@ export type ChatCompletionAssistantMessage = {
 						| ChatCompletionAudioObject
 						| ChatCompletionFileObject
 				  )[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	name?: (string | null) | undefined;
-	tool_calls?: (ChatCompletionAssistantToolCall[] | null) | undefined;
-	function_call?: (ChatCompletionToolCallFunctionChunk | null) | undefined;
-	reasoning_content?: (string | null) | undefined;
+	name?: (string | (null | null)) | undefined;
+	tool_calls?: (ChatCompletionAssistantToolCall[] | (null | null)) | undefined;
+	function_call?: (ChatCompletionToolCallFunctionChunk | (null | null)) | undefined;
+	reasoning_content?: (string | (null | null)) | undefined;
 	cache_control?: ChatCompletionCachedContent | undefined;
 	thinking_blocks?:
-		| ((ChatCompletionThinkingBlock | ChatCompletionRedactedThinkingBlock)[] | null)
+		| ((ChatCompletionThinkingBlock | ChatCompletionRedactedThinkingBlock)[] | (null | null))
 		| undefined;
-	reasoning_items?: (ChatCompletionReasoningItem[] | null) | undefined;
+	reasoning_items?: (ChatCompletionReasoningItem[] | (null | null)) | undefined;
 };
 
 export type ChatCompletionDeveloperMessage = {
@@ -16189,14 +17107,14 @@ export type ChatCompletionDocumentObject = {
 	source: DocumentObject;
 	title: string;
 	context: string;
-	citations: CitationsObject | null;
+	citations: CitationsObject | (null | null);
 };
 
 export type ChatCompletionFunctionMessage = {
 	role: "function";
-	content: string | ChatCompletionTextObject[] | null;
+	content: string | ChatCompletionTextObject[] | (null | null);
 	name: string;
-	tool_call_id: string | null;
+	tool_call_id: string | (null | null);
 };
 
 export type ChatCompletionSystemMessage = {
@@ -16272,71 +17190,80 @@ export type ProxyChatCompletionRequest = {
 	/**
 	 * @default null
 	 */
-	frequency_penalty?: (number | null) | undefined;
+	frequency_penalty?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	logit_bias?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	logprobs?: (boolean | null) | undefined;
+	logprobs?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	top_logprobs?: (number | null) | undefined;
+	top_logprobs?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	max_tokens?: (number | null) | undefined;
+	max_tokens?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	n?: (number | null) | undefined;
+	n?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	presence_penalty?: (number | null) | undefined;
+	presence_penalty?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	response_format?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	seed?: (number | null) | undefined;
+	seed?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	service_tier?: (string | null) | undefined;
+	service_tier?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	stop?: (string | string[] | null) | undefined;
+	stop?: (string | string[] | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	stream_options?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	temperature?: (number | null) | undefined;
+	temperature?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	top_p?: (number | null) | undefined;
+	top_p?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
@@ -16345,7 +17272,7 @@ export type ProxyChatCompletionRequest = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -16357,13 +17284,13 @@ export type ProxyChatCompletionRequest = {
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	parallel_tool_calls?: (boolean | null) | undefined;
+	parallel_tool_calls?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
@@ -16373,7 +17300,7 @@ export type ProxyChatCompletionRequest = {
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -16384,49 +17311,55 @@ export type ProxyChatCompletionRequest = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	user?: (string | null) | undefined;
+	user?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	stream?: (boolean | null) | undefined;
+	stream?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	guardrails?: (string[] | null) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	caching?: (boolean | null) | undefined;
+	caching?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	num_retries?: (number | null) | undefined;
+	num_retries?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	context_window_fallback_dict?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	fallbacks?: (string[] | null) | undefined;
+	fallbacks?: (string[] | (null | null)) | undefined;
 };
 
 export type EmbeddingRequest = {
@@ -16444,19 +17377,19 @@ export type EmbeddingRequest = {
 	/**
 	 * @default null
 	 */
-	api_base?: (string | null) | undefined;
+	api_base?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	api_version?: (string | null) | undefined;
+	api_version?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	api_type?: (string | null) | undefined;
+	api_type?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -16465,7 +17398,7 @@ export type EmbeddingRequest = {
 	/**
 	 * @default null
 	 */
-	user?: (string | null) | undefined;
+	user?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
@@ -16475,25 +17408,28 @@ export type EmbeddingRequest = {
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	litellm_call_id?: (string | null) | undefined;
+	litellm_call_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	litellm_logging_obj?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	logger_fn?: (string | null) | undefined;
+	logger_fn?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -16502,7 +17438,7 @@ export type EmbeddingRequest = {
  * @type object
  */
 export type ResponsesAPIRequestParamsActionDoubleClick = {
-	keys: string[] | null;
+	keys: string[] | (null | null);
 	type: "double_click";
 	x: number;
 	y: number;
@@ -16525,18 +17461,23 @@ export type FunctionToolParamAllowedCallersEnumKey =
 export type FunctionToolParam = {
 	async?: boolean | undefined;
 	name: string;
-	parameters: {
-		[key: string]: unknown;
-	} | null;
-	strict: boolean | null;
-	type: "function";
-	allowed_callers?: (FunctionToolParamAllowedCallersEnumKey[] | null) | undefined;
-	defer_loading?: boolean | undefined;
-	description?: (string | null) | undefined;
-	output_schema?:
-		| ({
+	parameters:
+		| {
 				[key: string]: unknown;
-		  } | null)
+		  }
+		| (null | null);
+	strict: boolean | (null | null);
+	type: "function";
+	allowed_callers?: (FunctionToolParamAllowedCallersEnumKey[] | (null | null)) | undefined;
+	defer_loading?: boolean | undefined;
+	description?: (string | (null | null)) | undefined;
+	output_schema?:
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -16549,7 +17490,7 @@ export type FunctionToolParam = {
 export type FileSearchToolParam = {
 	type: "file_search";
 	vector_store_ids: string[];
-	filters?: (ComparisonFilter | CompoundFilter | null) | undefined;
+	filters?: (ComparisonFilter | CompoundFilter | (null | null)) | undefined;
 	max_num_results?: number | undefined;
 	/**
 	 * @description Ranking options for search.
@@ -16601,10 +17542,10 @@ export type ComputerUsePreviewToolParam = {
  * @type object
  */
 export type OpenaiTypesResponsesWebSearchToolParamUserLocation = {
-	city?: (string | null) | undefined;
-	country?: (string | null) | undefined;
-	region?: (string | null) | undefined;
-	timezone?: (string | null) | undefined;
+	city?: (string | (null | null)) | undefined;
+	country?: (string | (null | null)) | undefined;
+	region?: (string | (null | null)) | undefined;
+	timezone?: (string | (null | null)) | undefined;
 	type?: "approximate" | undefined;
 };
 
@@ -16635,9 +17576,9 @@ export type WebSearchToolParamSearchContextSizeEnumKey =
 export type WebSearchToolParam = {
 	type: WebSearchToolParamTypeEnumKey;
 	external_web_access?: boolean | undefined;
-	filters?: (Filters | null) | undefined;
+	filters?: (Filters | (null | null)) | undefined;
 	search_context_size?: WebSearchToolParamSearchContextSizeEnumKey | undefined;
-	user_location?: (OpenaiTypesResponsesWebSearchToolParamUserLocation | null) | undefined;
+	user_location?: (OpenaiTypesResponsesWebSearchToolParamUserLocation | (null | null)) | undefined;
 };
 
 export type ContainerNetworkPolicyDisabledParam = {
@@ -16696,7 +17637,7 @@ export type ContainerAutoParamMemoryLimitKey =
 export type ContainerAutoParam = {
 	type: "container_auto";
 	file_ids?: string[] | undefined;
-	memory_limit?: (ContainerAutoParamMemoryLimitKey | null) | undefined;
+	memory_limit?: (ContainerAutoParamMemoryLimitKey | (null | null)) | undefined;
 	network_policy?:
 		| (ContainerNetworkPolicyDisabledParam | ContainerNetworkPolicyAllowlistParam)
 		| undefined;
@@ -16733,9 +17674,9 @@ export type FunctionShellToolParamAllowedCallersEnumKey =
  */
 export type FunctionShellToolParam = {
 	type: "shell";
-	allowed_callers?: (FunctionShellToolParamAllowedCallersEnumKey[] | null) | undefined;
+	allowed_callers?: (FunctionShellToolParamAllowedCallersEnumKey[] | (null | null)) | undefined;
 	environment?:
-		| (ContainerAutoParam | LocalEnvironmentParam | ContainerReferenceParam | null)
+		| (ContainerAutoParam | LocalEnvironmentParam | ContainerReferenceParam | (null | null))
 		| undefined;
 };
 
@@ -16765,7 +17706,7 @@ export type CustomToolParam = {
 	async?: boolean | undefined;
 	name: string;
 	type: "custom";
-	allowed_callers?: (CustomToolParamAllowedCallersEnumKey[] | null) | undefined;
+	allowed_callers?: (CustomToolParamAllowedCallersEnumKey[] | (null | null)) | undefined;
 	defer_loading?: boolean | undefined;
 	description?: string | undefined;
 	format?: (OpenaiTypesSharedParamsCustomToolInputFormatText | Grammar) | undefined;
@@ -16796,9 +17737,9 @@ export type ToolSearchToolParamExecutionEnumKey =
  */
 export type ToolSearchToolParam = {
 	type: "tool_search";
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	execution?: ToolSearchToolParamExecutionEnumKey | undefined;
-	parameters?: (unknown | null) | undefined;
+	parameters?: (unknown | (null | null)) | undefined;
 };
 
 /**
@@ -16809,10 +17750,10 @@ export type ToolSearchToolParam = {
  */
 export type OpenaiTypesResponsesWebSearchPreviewToolParamUserLocation = {
 	type: "approximate";
-	city?: (string | null) | undefined;
-	country?: (string | null) | undefined;
-	region?: (string | null) | undefined;
-	timezone?: (string | null) | undefined;
+	city?: (string | (null | null)) | undefined;
+	country?: (string | (null | null)) | undefined;
+	region?: (string | (null | null)) | undefined;
+	timezone?: (string | (null | null)) | undefined;
 };
 
 export const webSearchPreviewToolParamTypeEnum = {
@@ -16850,7 +17791,9 @@ export type WebSearchPreviewToolParam = {
 	type: WebSearchPreviewToolParamTypeEnumKey;
 	search_content_types?: WebSearchPreviewToolParamSearchContentTypesEnumKey[] | undefined;
 	search_context_size?: WebSearchPreviewToolParamSearchContextSizeEnumKey | undefined;
-	user_location?: (OpenaiTypesResponsesWebSearchPreviewToolParamUserLocation | null) | undefined;
+	user_location?:
+		| (OpenaiTypesResponsesWebSearchPreviewToolParamUserLocation | (null | null))
+		| undefined;
 };
 
 export const applyPatchToolParamAllowedCallersEnum = {
@@ -16867,7 +17810,7 @@ export type ApplyPatchToolParamAllowedCallersEnumKey =
  */
 export type ApplyPatchToolParam = {
 	type: "apply_patch";
-	allowed_callers?: (ApplyPatchToolParamAllowedCallersEnumKey[] | null) | undefined;
+	allowed_callers?: (ApplyPatchToolParamAllowedCallersEnumKey[] | (null | null)) | undefined;
 };
 
 export type ResponsesAPIRequestParamsAdditionalTools = {
@@ -16891,7 +17834,7 @@ export type ResponsesAPIRequestParamsAdditionalTools = {
 		| ApplyPatchToolParam
 	)[];
 	type: "additional_tools";
-	id?: (string | null) | undefined;
+	id?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -16952,8 +17895,8 @@ export type ApplyPatchCall = {
 		| ApplyPatchCallOperationUpdateFile;
 	status: ApplyPatchCallStatusEnumKey;
 	type: "apply_patch_call";
-	id?: (string | null) | undefined;
-	caller?: (ApplyPatchCallCallerDirect | ApplyPatchCallCallerProgram | null) | undefined;
+	id?: (string | (null | null)) | undefined;
+	caller?: (ApplyPatchCallCallerDirect | ApplyPatchCallCallerProgram | (null | null)) | undefined;
 };
 
 export type ApplyPatchCallOutputCallerDirect = {
@@ -16981,11 +17924,11 @@ export type ApplyPatchCallOutput = {
 	call_id: string;
 	status: ApplyPatchCallOutputStatusEnumKey;
 	type: "apply_patch_call_output";
-	id?: (string | null) | undefined;
+	id?: (string | (null | null)) | undefined;
 	caller?:
-		| (ApplyPatchCallOutputCallerDirect | ApplyPatchCallOutputCallerProgram | null)
+		| (ApplyPatchCallOutputCallerDirect | ApplyPatchCallOutputCallerProgram | (null | null))
 		| undefined;
-	output?: (string | null) | undefined;
+	output?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -16994,7 +17937,7 @@ export type ApplyPatchCallOutput = {
  */
 export type CompactionTrigger = {
 	type: "compaction_trigger";
-	id?: (string | null) | undefined;
+	id?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -17013,8 +17956,8 @@ export type ResponseComputerToolCallOutputScreenshotParam = {
  */
 export type ComputerCallOutputAcknowledgedSafetyCheck = {
 	id: string;
-	code?: (string | null) | undefined;
-	message?: (string | null) | undefined;
+	code?: (string | (null | null)) | undefined;
+	message?: (string | (null | null)) | undefined;
 };
 
 export const computerCallOutputStatus = {
@@ -17038,9 +17981,11 @@ export type ComputerCallOutput = {
 	 */
 	output: ResponseComputerToolCallOutputScreenshotParam;
 	type: "computer_call_output";
-	id?: (string | null) | undefined;
-	acknowledged_safety_checks?: (ComputerCallOutputAcknowledgedSafetyCheck[] | null) | undefined;
-	status?: (ComputerCallOutputStatusKey | null) | undefined;
+	id?: (string | (null | null)) | undefined;
+	acknowledged_safety_checks?:
+		| (ComputerCallOutputAcknowledgedSafetyCheck[] | (null | null))
+		| undefined;
+	status?: (ComputerCallOutputStatusKey | (null | null)) | undefined;
 };
 
 /**
@@ -17058,7 +18003,7 @@ export type ContextManagementEntry = {
  * @type object
  */
 export type ResponsesAPIRequestParamsDoubleClick = {
-	keys: string[] | null;
+	keys: string[] | (null | null);
 	type: "double_click";
 	x: number;
 	y: number;
@@ -17099,8 +18044,8 @@ export type ResponseInputImageParamDetailEnumKey =
 export type ResponseInputImageParam = {
 	detail: ResponseInputImageParamDetailEnumKey;
 	type: "input_image";
-	file_id?: (string | null) | undefined;
-	image_url?: (string | null) | undefined;
+	file_id?: (string | (null | null)) | undefined;
+	image_url?: (string | (null | null)) | undefined;
 	/**
 	 * @description Marks the exact end of a reusable prompt prefix.
 	 *
@@ -17127,7 +18072,7 @@ export type ResponseInputFileParam = {
 	type: "input_file";
 	detail?: ResponseInputFileParamDetailEnumKey | undefined;
 	file_data?: string | undefined;
-	file_id?: (string | null) | undefined;
+	file_id?: (string | (null | null)) | undefined;
 	file_url?: string | undefined;
 	filename?: string | undefined;
 	/**
@@ -17168,7 +18113,7 @@ export type EasyInputMessageParamPhaseKey =
 export type EasyInputMessageParam = {
 	content: string | (ResponseInputTextParam | ResponseInputImageParam | ResponseInputFileParam)[];
 	role: EasyInputMessageParamRoleEnumKey;
-	phase?: (EasyInputMessageParamPhaseKey | null) | undefined;
+	phase?: (EasyInputMessageParamPhaseKey | (null | null)) | undefined;
 	type?: "message" | undefined;
 };
 
@@ -17179,7 +18124,7 @@ export type EasyInputMessageParam = {
 export type ResponseInputTextContentParam = {
 	text: string;
 	type: "input_text";
-	prompt_cache_breakpoint?: (PromptCacheBreakpoint | null) | undefined;
+	prompt_cache_breakpoint?: (PromptCacheBreakpoint | (null | null)) | undefined;
 };
 
 export const responseInputImageContentParamDetail = {
@@ -17200,10 +18145,10 @@ export type ResponseInputImageContentParamDetailKey =
  */
 export type ResponseInputImageContentParam = {
 	type: "input_image";
-	detail?: (ResponseInputImageContentParamDetailKey | null) | undefined;
-	file_id?: (string | null) | undefined;
-	image_url?: (string | null) | undefined;
-	prompt_cache_breakpoint?: (PromptCacheBreakpoint | null) | undefined;
+	detail?: (ResponseInputImageContentParamDetailKey | (null | null)) | undefined;
+	file_id?: (string | (null | null)) | undefined;
+	image_url?: (string | (null | null)) | undefined;
+	prompt_cache_breakpoint?: (PromptCacheBreakpoint | (null | null)) | undefined;
 };
 
 export const responseInputFileContentParamDetailEnum = {
@@ -17222,11 +18167,11 @@ export type ResponseInputFileContentParamDetailEnumKey =
 export type ResponseInputFileContentParam = {
 	type: "input_file";
 	detail?: ResponseInputFileContentParamDetailEnumKey | undefined;
-	file_data?: (string | null) | undefined;
-	file_id?: (string | null) | undefined;
-	file_url?: (string | null) | undefined;
-	filename?: (string | null) | undefined;
-	prompt_cache_breakpoint?: (PromptCacheBreakpoint | null) | undefined;
+	file_data?: (string | (null | null)) | undefined;
+	file_id?: (string | (null | null)) | undefined;
+	file_url?: (string | (null | null)) | undefined;
+	filename?: (string | (null | null)) | undefined;
+	prompt_cache_breakpoint?: (PromptCacheBreakpoint | (null | null)) | undefined;
 };
 
 export type FunctionCallOutputCallerDirect = {
@@ -17260,12 +18205,14 @@ export type FunctionCallOutput = {
 				| ResponseInputFileContentParam
 		  )[];
 	type: "function_call_output";
-	id?: (string | null) | undefined;
-	call_id?: (string | null) | undefined;
-	caller?: (FunctionCallOutputCallerDirect | FunctionCallOutputCallerProgram | null) | undefined;
-	name?: (string | null) | undefined;
-	namespace?: (string | null) | undefined;
-	status?: (FunctionCallOutputStatusKey | null) | undefined;
+	id?: (string | (null | null)) | undefined;
+	call_id?: (string | (null | null)) | undefined;
+	caller?:
+		| (FunctionCallOutputCallerDirect | FunctionCallOutputCallerProgram | (null | null))
+		| undefined;
+	name?: (string | (null | null)) | undefined;
+	namespace?: (string | (null | null)) | undefined;
+	status?: (FunctionCallOutputStatusKey | (null | null)) | undefined;
 };
 
 /**
@@ -17273,9 +18220,9 @@ export type FunctionCallOutput = {
  * @type object
  */
 export type ResponsesAPIRequestParamsImageGenerationCallError = {
-	code: string | null;
+	code: string | (null | null);
 	message: string;
-	param: string | null;
+	param: string | (null | null);
 	type: string;
 	/**
 	 * @description Public details for a `moderation_blocked` error, when available.
@@ -17350,20 +18297,26 @@ export type ResponsesAPIRequestParamsImageGenerationCallSizeKey =
  */
 export type ResponsesAPIRequestParamsImageGenerationCall = {
 	id: string;
-	result: string | null;
+	result: string | (null | null);
 	status: ResponsesAPIRequestParamsImageGenerationCallStatusEnumKey;
 	type: "image_generation_call";
-	action?: (ResponsesAPIRequestParamsImageGenerationCallActionKey | null) | undefined;
-	background?: (ResponsesAPIRequestParamsImageGenerationCallBackgroundKey | null) | undefined;
+	action?: (ResponsesAPIRequestParamsImageGenerationCallActionKey | (null | null)) | undefined;
+	background?:
+		| (ResponsesAPIRequestParamsImageGenerationCallBackgroundKey | (null | null))
+		| undefined;
 	/**
 	 * @description Details of a moderation failure, when available.
 	 * @type object | undefined
 	 */
 	error?: ResponsesAPIRequestParamsImageGenerationCallError | undefined;
-	output_format?: (ResponsesAPIRequestParamsImageGenerationCallOutputFormatKey | null) | undefined;
-	quality?: (ResponsesAPIRequestParamsImageGenerationCallQualityKey | null) | undefined;
-	revised_prompt?: (string | null) | undefined;
-	size?: ((string & {}) | ResponsesAPIRequestParamsImageGenerationCallSizeKey | null) | undefined;
+	output_format?:
+		| (ResponsesAPIRequestParamsImageGenerationCallOutputFormatKey | (null | null))
+		| undefined;
+	quality?: (ResponsesAPIRequestParamsImageGenerationCallQualityKey | (null | null)) | undefined;
+	revised_prompt?: (string | (null | null)) | undefined;
+	size?:
+		| ((string & {}) | ResponsesAPIRequestParamsImageGenerationCallSizeKey | (null | null))
+		| undefined;
 	svg_usage?: ImageGenerationCallSvgUsage | undefined;
 };
 
@@ -17373,7 +18326,7 @@ export type ResponsesAPIRequestParamsImageGenerationCall = {
  */
 export type ItemReference = {
 	id: string;
-	type?: ("item_reference" | null) | undefined;
+	type?: ("item_reference" | (null | null)) | undefined;
 };
 
 /**
@@ -17384,8 +18337,8 @@ export type ResponsesAPIRequestParamsMcpApprovalResponse = {
 	approval_request_id: string;
 	approve: boolean;
 	type: "mcp_approval_response";
-	id?: (string | null) | undefined;
-	reason?: (string | null) | undefined;
+	id?: (string | (null | null)) | undefined;
+	reason?: (string | (null | null)) | undefined;
 };
 
 export const responsesAPIRequestParamsMessageRoleEnum = {
@@ -17469,11 +18422,14 @@ export type PromptCacheOptions = {
 export type PromptObject = {
 	id: string;
 	variables?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	version?: (string | null) | undefined;
+	version?: (string | (null | null)) | undefined;
 };
 
 export const responseCodeInterpreterToolCallParamStatusEnum = {
@@ -17493,9 +18449,9 @@ export type ResponseCodeInterpreterToolCallParamStatusEnumKey =
  */
 export type ResponseCodeInterpreterToolCallParam = {
 	id: string;
-	code: string | null;
+	code: string | (null | null);
 	container_id: string;
-	outputs: (OutputLogs | OutputImage)[] | null;
+	outputs: (OutputLogs | OutputImage)[] | (null | null);
 	status: ResponseCodeInterpreterToolCallParamStatusEnumKey;
 	type: "code_interpreter_call";
 };
@@ -17507,7 +18463,7 @@ export type ResponseCodeInterpreterToolCallParam = {
 export type ResponseCompactionItemParamParam = {
 	encrypted_content: string;
 	type: "compaction";
-	id?: (string | null) | undefined;
+	id?: (string | (null | null)) | undefined;
 };
 
 export const responseComputerToolCallParamStatusEnum = {
@@ -17579,7 +18535,10 @@ export type OpenaiTypesResponsesResponseConfigurationUpdateItemParamParamReasoni
  */
 export type OpenaiTypesResponsesResponseConfigurationUpdateItemParamParamReasoning = {
 	effort?:
-		| (OpenaiTypesResponsesResponseConfigurationUpdateItemParamParamReasoningEffortKey | null)
+		| (
+				| OpenaiTypesResponsesResponseConfigurationUpdateItemParamParamReasoningEffortKey
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -17600,7 +18559,7 @@ export type OpenaiTypesResponsesResponseConfigurationUpdateItemParamParamText = 
  */
 export type ResponseConfigurationUpdateItemParamParam = {
 	type: "configuration_update";
-	id?: (string | null) | undefined;
+	id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Updates to reasoning configuration. Only effort is supported.
 	 * @type object | undefined
@@ -17622,7 +18581,7 @@ export type ResponseCustomToolCallOutputParam = {
 	output: string | (ResponseInputTextParam | ResponseInputImageParam | ResponseInputFileParam)[];
 	type: "custom_tool_call_output";
 	id?: string | undefined;
-	caller?: (CallerDirect | CallerProgram | null) | undefined;
+	caller?: (CallerDirect | CallerProgram | (null | null)) | undefined;
 };
 
 /**
@@ -17636,7 +18595,7 @@ export type ResponseCustomToolCallParam = {
 	name: string;
 	type: "custom_tool_call";
 	id?: string | undefined;
-	caller?: (CallerDirect | CallerProgram | null) | undefined;
+	caller?: (CallerDirect | CallerProgram | (null | null)) | undefined;
 	namespace?: string | undefined;
 };
 
@@ -17663,7 +18622,7 @@ export type ResponseFileSearchToolCallParam = {
 	queries: string[];
 	status: ResponseFileSearchToolCallParamStatusEnumKey;
 	type: "file_search_call";
-	results?: (Result[] | null) | undefined;
+	results?: (Result[] | (null | null)) | undefined;
 };
 
 /**
@@ -17699,7 +18658,7 @@ export type ResponseFunctionToolCallParam = {
 	name: string;
 	type: "function_call";
 	id?: string | undefined;
-	caller?: (CallerDirect | CallerProgram | null) | undefined;
+	caller?: (CallerDirect | CallerProgram | (null | null)) | undefined;
 	namespace?: string | undefined;
 	status?: ResponseFunctionToolCallParamStatusEnumKey | undefined;
 };
@@ -17781,7 +18740,7 @@ export type ResponseOutputMessageParam = {
 	role: "assistant";
 	status: ResponseOutputMessageParamStatusEnumKey;
 	type: "message";
-	phase?: (ResponseOutputMessageParamPhaseKey | null) | undefined;
+	phase?: (ResponseOutputMessageParamPhaseKey | (null | null)) | undefined;
 };
 
 export const responseReasoningItemParamStatusEnum = {
@@ -17805,7 +18764,7 @@ export type ResponseReasoningItemParam = {
 	summary: Summary[];
 	type: "reasoning";
 	content?: Content[] | undefined;
-	encrypted_content?: (string | null) | undefined;
+	encrypted_content?: (string | (null | null)) | undefined;
 	status?: ResponseReasoningItemParamStatusEnumKey | undefined;
 };
 
@@ -17895,18 +18854,21 @@ export type ToolMcpRequireApprovalKey =
 export type ToolMcp = {
 	server_label: string;
 	type: "mcp";
-	allowed_callers?: (ToolMcpAllowedCallersEnumKey[] | null) | undefined;
-	allowed_tools?: (string[] | ToolMcpAllowedToolsMcpToolFilter | null) | undefined;
+	allowed_callers?: (ToolMcpAllowedCallersEnumKey[] | (null | null)) | undefined;
+	allowed_tools?: (string[] | ToolMcpAllowedToolsMcpToolFilter | (null | null)) | undefined;
 	authorization?: string | undefined;
 	connector_id?: ToolMcpConnectorIdEnumKey | undefined;
 	defer_loading?: boolean | undefined;
 	headers?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	require_approval?:
-		| (ToolMcpRequireApprovalMcpToolApprovalFilter | ToolMcpRequireApprovalKey | null)
+		| (ToolMcpRequireApprovalMcpToolApprovalFilter | ToolMcpRequireApprovalKey | (null | null))
 		| undefined;
 	server_description?: string | undefined;
 	server_url?: string | undefined;
@@ -17933,7 +18895,7 @@ export type ToolCodeInterpreterContainerCodeInterpreterToolAuto = {
 	type: "auto";
 	file_ids?: string[] | undefined;
 	memory_limit?:
-		| (ToolCodeInterpreterContainerCodeInterpreterToolAutoMemoryLimitKey | null)
+		| (ToolCodeInterpreterContainerCodeInterpreterToolAutoMemoryLimitKey | (null | null))
 		| undefined;
 	network_policy?:
 		| (ContainerNetworkPolicyDisabledParam | ContainerNetworkPolicyAllowlistParam)
@@ -17955,7 +18917,7 @@ export type ToolCodeInterpreterAllowedCallersEnumKey =
 export type ToolCodeInterpreter = {
 	container: string | ToolCodeInterpreterContainerCodeInterpreterToolAuto;
 	type: "code_interpreter";
-	allowed_callers?: (ToolCodeInterpreterAllowedCallersEnumKey[] | null) | undefined;
+	allowed_callers?: (ToolCodeInterpreterAllowedCallersEnumKey[] | (null | null)) | undefined;
 };
 
 export type ToolProgrammaticToolCalling = {
@@ -18008,7 +18970,7 @@ export type ToolImageGenerationSvgReasoning = {
  */
 export type ToolImageGenerationSvg = {
 	model?: string | undefined;
-	reasoning?: (ToolImageGenerationSvgReasoning | null) | undefined;
+	reasoning?: (ToolImageGenerationSvgReasoning | (null | null)) | undefined;
 };
 
 export const toolImageGenerationActionEnum = {
@@ -18116,7 +19078,7 @@ export type ToolImageGeneration = {
 	complexity?: ToolImageGenerationComplexityEnumKey | undefined;
 	frame_count?: number | undefined;
 	frame_duration_ms?: number | undefined;
-	input_fidelity?: (ToolImageGenerationInputFidelityKey | null) | undefined;
+	input_fidelity?: (ToolImageGenerationInputFidelityKey | (null | null)) | undefined;
 	/**
 	 * @description Optional mask for inpainting.
 	 *
@@ -18200,10 +19162,10 @@ export type ResponseToolSearchOutputItemParamParam = {
 		| ApplyPatchToolParam
 	)[];
 	type: "tool_search_output";
-	id?: (string | null) | undefined;
-	call_id?: (string | null) | undefined;
+	id?: (string | (null | null)) | undefined;
+	call_id?: (string | (null | null)) | undefined;
 	execution?: ResponseToolSearchOutputItemParamParamExecutionEnumKey | undefined;
-	status?: (ResponseToolSearchOutputItemParamParamStatusKey | null) | undefined;
+	status?: (ResponseToolSearchOutputItemParamParamStatusKey | (null | null)) | undefined;
 };
 
 export type ResponsesAPIModeration = {
@@ -18220,8 +19182,8 @@ export type ResponsesAPIStreamOptions = {
  */
 export type ShellCallAction = {
 	commands: string[];
-	max_output_length?: (number | null) | undefined;
-	timeout_ms?: (number | null) | undefined;
+	max_output_length?: (number | (null | null)) | undefined;
+	timeout_ms?: (number | (null | null)) | undefined;
 };
 
 export type ShellCallCallerDirect = {
@@ -18253,10 +19215,10 @@ export type ShellCall = {
 	action: ShellCallAction;
 	call_id: string;
 	type: "shell_call";
-	id?: (string | null) | undefined;
-	caller?: (ShellCallCallerDirect | ShellCallCallerProgram | null) | undefined;
-	environment?: (LocalEnvironmentParam | ContainerReferenceParam | null) | undefined;
-	status?: (ShellCallStatusKey | null) | undefined;
+	id?: (string | (null | null)) | undefined;
+	caller?: (ShellCallCallerDirect | ShellCallCallerProgram | (null | null)) | undefined;
+	environment?: (LocalEnvironmentParam | ContainerReferenceParam | (null | null)) | undefined;
+	status?: (ShellCallStatusKey | (null | null)) | undefined;
 };
 
 export type ShellCallOutputCallerDirect = {
@@ -18285,10 +19247,10 @@ export type ShellCallOutput = {
 	call_id: string;
 	output: ResponseFunctionShellCallOutputContentParam[];
 	type: "shell_call_output";
-	id?: (string | null) | undefined;
-	caller?: (ShellCallOutputCallerDirect | ShellCallOutputCallerProgram | null) | undefined;
-	max_output_length?: (number | null) | undefined;
-	status?: (ShellCallOutputStatusKey | null) | undefined;
+	id?: (string | (null | null)) | undefined;
+	caller?: (ShellCallOutputCallerDirect | ShellCallOutputCallerProgram | (null | null)) | undefined;
+	max_output_length?: (number | (null | null)) | undefined;
+	status?: (ShellCallOutputStatusKey | (null | null)) | undefined;
 };
 
 /**
@@ -18323,10 +19285,10 @@ export type ToolSearchCallStatusKey =
 export type ToolSearchCall = {
 	arguments: unknown;
 	type: "tool_search_call";
-	id?: (string | null) | undefined;
-	call_id?: (string | null) | undefined;
+	id?: (string | (null | null)) | undefined;
+	call_id?: (string | (null | null)) | undefined;
 	execution?: ToolSearchCallExecutionEnumKey | undefined;
-	status?: (ToolSearchCallStatusKey | null) | undefined;
+	status?: (ToolSearchCallStatusKey | (null | null)) | undefined;
 };
 
 export const litellmTypesLlmsOpenaiComputerToolParamEnvironment = {
@@ -18400,13 +19362,13 @@ export type OpenaiTypesSharedParamsReasoningReasoningSummaryKey =
  * @type object
  */
 export type OpenaiTypesSharedParamsReasoningReasoning = {
-	context?: (OpenaiTypesSharedParamsReasoningReasoningContextKey | null) | undefined;
-	effort?: (OpenaiTypesSharedParamsReasoningReasoningEffortKey | null) | undefined;
+	context?: (OpenaiTypesSharedParamsReasoningReasoningContextKey | (null | null)) | undefined;
+	effort?: (OpenaiTypesSharedParamsReasoningReasoningEffortKey | (null | null)) | undefined;
 	generate_summary?:
-		| (OpenaiTypesSharedParamsReasoningReasoningGenerateSummaryKey | null)
+		| (OpenaiTypesSharedParamsReasoningReasoningGenerateSummaryKey | (null | null))
 		| undefined;
 	mode?: ((string & {}) | OpenaiTypesSharedParamsReasoningReasoningModeKey) | undefined;
-	summary?: (OpenaiTypesSharedParamsReasoningReasoningSummaryKey | null) | undefined;
+	summary?: (OpenaiTypesSharedParamsReasoningReasoningSummaryKey | (null | null)) | undefined;
 };
 
 export const responsesAPIRequestParamsIncludeEnum = {
@@ -18445,22 +19407,25 @@ export type ResponsesAPIRequestParamsTruncationKey =
  * @type object
  */
 export type ResponsesAPIRequestParams = {
-	include?: (ResponsesAPIRequestParamsIncludeEnumKey[] | null) | undefined;
-	instructions?: (string | null) | undefined;
-	max_output_tokens?: (number | null) | undefined;
+	include?: (ResponsesAPIRequestParamsIncludeEnumKey[] | (null | null)) | undefined;
+	instructions?: (string | (null | null)) | undefined;
+	max_output_tokens?: (number | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	parallel_tool_calls?: (boolean | null) | undefined;
-	previous_response_id?: (string | null) | undefined;
-	reasoning?: (OpenaiTypesSharedParamsReasoningReasoning | null) | undefined;
-	store?: (boolean | null) | undefined;
-	background?: (boolean | null) | undefined;
-	stream?: (boolean | null) | undefined;
-	temperature?: (number | null) | undefined;
-	text?: (ResponseTextConfigParam | null) | undefined;
+	parallel_tool_calls?: (boolean | (null | null)) | undefined;
+	previous_response_id?: (string | (null | null)) | undefined;
+	reasoning?: (OpenaiTypesSharedParamsReasoningReasoning | (null | null)) | undefined;
+	store?: (boolean | (null | null)) | undefined;
+	background?: (boolean | (null | null)) | undefined;
+	stream?: (boolean | (null | null)) | undefined;
+	temperature?: (number | (null | null)) | undefined;
+	text?: (ResponseTextConfigParam | (null | null)) | undefined;
 	tool_choice?:
 		| (
 				| ResponsesAPIRequestParamsToolChoiceKey
@@ -18472,7 +19437,7 @@ export type ResponsesAPIRequestParams = {
 				| ToolChoiceSpecificProgrammaticToolCallingParam
 				| ToolChoiceApplyPatchParam
 				| ToolChoiceShellParam
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	tools?:
@@ -18498,24 +19463,24 @@ export type ResponsesAPIRequestParams = {
 						| ShellToolParam
 						| OpenAIToolSearchToolParam
 				  )[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	top_p?: (number | null) | undefined;
-	truncation?: (ResponsesAPIRequestParamsTruncationKey | null) | undefined;
-	user?: (string | null) | undefined;
-	service_tier?: (string | null) | undefined;
-	safety_identifier?: (string | null) | undefined;
-	prompt?: (PromptObject | null) | undefined;
-	max_tool_calls?: (number | null) | undefined;
-	prompt_cache_key?: (string | null) | undefined;
-	prompt_cache_retention?: (string | null) | undefined;
-	prompt_cache_options?: (PromptCacheOptions | null) | undefined;
-	moderation?: (ResponsesAPIModeration | null) | undefined;
-	stream_options?: (ResponsesAPIStreamOptions | null) | undefined;
-	top_logprobs?: (number | null) | undefined;
-	partial_images?: (number | null) | undefined;
-	context_management?: (ContextManagementEntry[] | null) | undefined;
+	top_p?: (number | (null | null)) | undefined;
+	truncation?: (ResponsesAPIRequestParamsTruncationKey | (null | null)) | undefined;
+	user?: (string | (null | null)) | undefined;
+	service_tier?: (string | (null | null)) | undefined;
+	safety_identifier?: (string | (null | null)) | undefined;
+	prompt?: (PromptObject | (null | null)) | undefined;
+	max_tool_calls?: (number | (null | null)) | undefined;
+	prompt_cache_key?: (string | (null | null)) | undefined;
+	prompt_cache_retention?: (string | (null | null)) | undefined;
+	prompt_cache_options?: (PromptCacheOptions | (null | null)) | undefined;
+	moderation?: (ResponsesAPIModeration | (null | null)) | undefined;
+	stream_options?: (ResponsesAPIStreamOptions | (null | null)) | undefined;
+	top_logprobs?: (number | (null | null)) | undefined;
+	partial_images?: (number | (null | null)) | undefined;
+	context_management?: (ContextManagementEntry[] | (null | null)) | undefined;
 	input:
 		| string
 		| (
@@ -18649,26 +19614,29 @@ export type GuardrailResponseFormatKey =
 	(typeof guardrailResponseFormat)[keyof typeof guardrailResponseFormat];
 
 export type ApplyGuardrailRequest = {
-	entities?: (PiiEntityTypeKey[] | null) | undefined;
+	entities?: (PiiEntityTypeKey[] | (null | null)) | undefined;
 	guardrail_name: string;
 	/**
 	 * @default 'request'
 	 * @type string | undefined
 	 */
 	input_type?: string | undefined;
-	language?: (string | null) | undefined;
+	language?: (string | (null | null)) | undefined;
 	messages?:
 		| (
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default 'standard'
@@ -18702,7 +19670,7 @@ export type BlockedWord = {
 	/**
 	 * @description Optional description explaining why this keyword is sensitive
 	 */
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	/**
 	 * @description The keyword to block or mask
 	 * @type string
@@ -18749,7 +19717,7 @@ export type ContentFilterCategoryConfig = {
 	/**
 	 * @description Optional override. Use your own category file instead of the default one.
 	 */
-	category_file?: (string | null) | undefined;
+	category_file?: (string | (null | null)) | undefined;
 	/**
 	 * @description Whether the category is enabled
 	 * @default true
@@ -18792,15 +19760,15 @@ export type ContentFilterPattern = {
 	/**
 	 * @description Name for this pattern (used in logging and error messages)
 	 */
-	name?: (string | null) | undefined;
+	name?: (string | (null | null)) | undefined;
 	/**
 	 * @description Custom regex pattern. Required if pattern_type is 'regex'
 	 */
-	pattern?: (string | null) | undefined;
+	pattern?: (string | (null | null)) | undefined;
 	/**
 	 * @description Name of prebuilt pattern (e.g., 'us_ssn', 'credit_card'). Required if pattern_type is 'prebuilt'
 	 */
-	pattern_name?: (string | null) | undefined;
+	pattern_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description Type of pattern: 'prebuilt' for predefined patterns or 'regex' for custom
 	 * @type string
@@ -18856,205 +19824,211 @@ export type BaseLitellmParams = {
 	 * @description Additional provider-specific parameters for generic guardrail APIs
 	 */
 	additional_provider_specific_params?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Base URL for the guardrail service API
 	 */
-	api_base?: (string | null) | undefined;
+	api_base?: (string | (null | null)) | undefined;
 	/**
 	 * @description Optional custom API endpoint for Model Armor
 	 */
-	api_endpoint?: (string | null) | undefined;
+	api_endpoint?: (string | (null | null)) | undefined;
 	/**
 	 * @description API key for the guardrail service
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description List of blocked words with individual actions
 	 */
-	blocked_words?: (BlockedWord[] | null) | undefined;
+	blocked_words?: (BlockedWord[] | (null | null)) | undefined;
 	/**
 	 * @description Path to YAML file containing blocked_words list
 	 */
-	blocked_words_file?: (string | null) | undefined;
+	blocked_words_file?: (string | (null | null)) | undefined;
 	/**
 	 * @description List of prebuilt categories to enable (harmful_*, bias_*)
 	 */
-	categories?: (ContentFilterCategoryConfig[] | null) | undefined;
+	categories?: (ContentFilterCategoryConfig[] | (null | null)) | undefined;
 	/**
 	 * @description Threshold configuration for Lakera guardrail categories
 	 */
-	category_thresholds?: (LakeraCategoryThresholds | null) | undefined;
+	category_thresholds?: (LakeraCategoryThresholds | (null | null)) | undefined;
 	/**
 	 * @description Path to Google Cloud credentials JSON file or JSON string
 	 */
-	credentials?: (string | null) | undefined;
+	credentials?: (string | (null | null)) | undefined;
 	/**
 	 * @description Python-like code containing the apply_guardrail function for custom guardrail logic
 	 */
-	custom_code?: (string | null) | undefined;
+	custom_code?: (string | (null | null)) | undefined;
 	/**
 	 * @description Whether the guardrail is enabled by default
 	 */
-	default_on?: (boolean | null) | undefined;
+	default_on?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Configuration for detect-secrets guardrail
 	 */
 	detect_secrets_config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description For /v1/realtime sessions: automatically close the session after this many guardrail violations.
 	 */
-	end_session_after_n_fails?: (number | null) | undefined;
+	end_session_after_n_fails?: (number | (null | null)) | undefined;
 	/**
 	 * @description When True, guardrails only receive the latest message for the relevant role (e.g., newest user input pre-call, newest assistant output post-call)
 	 * @default false
 	 */
-	experimental_use_latest_role_message_only?: (boolean | null) | undefined;
+	experimental_use_latest_role_message_only?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Header names to forward from the client request to the guardrail (e.g. x-request-id). Only these headers' values are sent; others may be omitted or sent as [present]. Used by generic_guardrail_api (similar to MCP extra_headers).
 	 */
-	extra_headers?: (string[] | null) | undefined;
+	extra_headers?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Whether to fail the request if the guardrail encounters an error. Implemented by guardrail='model_armor', 'generic_guardrail_api' and 'crowdstrike_aidr'. True (default) raises the error. False logs a critical error and lets the request proceed, so only a valid guardrail response can block or modify it.
 	 * @default true
 	 */
-	fail_on_error?: (boolean | null) | undefined;
+	fail_on_error?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Only honored by guardrail='generic_guardrail_api'. When True, structured_messages reaches the guardrail exactly as the client sent it, so rows can carry provider-native content blocks and keys the OpenAI chat types do not declare. Default False sends OpenAI-format chat rows with undeclared keys removed.
 	 * @default false
 	 */
-	forward_messages_as_sent?: (boolean | null) | undefined;
+	forward_messages_as_sent?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Name of the guardrail in guardrails.ai
 	 */
-	guard_name?: (string | null) | undefined;
+	guard_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description When True, the Aim and Cato Networks guardrails send /embeddings `input` to the vendor as user messages. Off by default because embedding input is documents being indexed, not a conversation.
 	 */
-	inspect_embeddings?: (boolean | null) | undefined;
+	inspect_embeddings?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Tag to use for keyword redaction
 	 */
-	keyword_redaction_tag?: (string | null) | undefined;
+	keyword_redaction_tag?: (string | (null | null)) | undefined;
 	/**
 	 * @description Google Cloud location/region (e.g., us-central1)
 	 */
-	location?: (string | null) | undefined;
+	location?: (string | (null | null)) | undefined;
 	/**
 	 * @description when True, a flagged or raising logging_only request scan is logged and the response is still scanned, so both verdicts land. Only applies to mode logging_only and is ignored when logging_only_scope is 'input' or 'output'.
 	 */
-	logging_only_continue_on_input_failure?: (boolean | null) | undefined;
+	logging_only_continue_on_input_failure?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description which direction a logging_only scan observes: 'input' (request) or 'output' (response); unset scans both directions. Only applies to mode logging_only; pre_call/post_call on the same guardrail keep blocking.
 	 */
-	logging_only_scope?: (BaseLitellmParamsLoggingOnlyScopeKey | null) | undefined;
+	logging_only_scope?: (BaseLitellmParamsLoggingOnlyScopeKey | (null | null)) | undefined;
 	/**
 	 * @description Will mask request content if guardrail makes any changes
 	 */
-	mask_request_content?: (boolean | null) | undefined;
+	mask_request_content?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Will mask response content if guardrail makes any changes
 	 */
-	mask_response_content?: (boolean | null) | undefined;
+	mask_response_content?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Maximum decisions calls in flight at once on the guardrail in each proxy worker. Implemented by guardrail='decision_model'.
 	 */
-	max_concurrent_decision_calls?: (number | null) | undefined;
+	max_concurrent_decision_calls?: (number | (null | null)) | undefined;
 	/**
 	 * @description Character budget for each text sent to the guardrail's model. Implemented by guardrail='decision_model'.
 	 */
-	max_input_chars?: (number | null) | undefined;
+	max_input_chars?: (number | (null | null)) | undefined;
 	/**
 	 * @description Optional field if guardrail requires a 'model' parameter
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @description How many more times to send a guardrail check whose connection timed out waiting for the answer or was dropped after the request went out. Each retry opens a fresh connection and gets the full timeout. Connect failures, HTTP error statuses and BLOCKED verdicts are not retried. Unset or 0 sends each check once, and the most allowed is 5. Implemented by guardrail='generic_guardrail_api', other guardrails ignore it.
 	 */
-	num_retries?: (number | null) | undefined;
+	num_retries?: (number | (null | null)) | undefined;
 	/**
 	 * @description Action to take when sensitive data is detected. 'block' raises an exception (default behavior). 'route' reroutes the request to the model specified in sensitive_data_route_to_model.
 	 */
-	on_sensitive_data?: (BaseLitellmParamsOnSensitiveDataKey | null) | undefined;
+	on_sensitive_data?: (BaseLitellmParamsOnSensitiveDataKey | (null | null)) | undefined;
 	/**
 	 * @description For /v1/realtime sessions: 'warn' speaks the violation message and continues; 'end_session' speaks the message and closes the connection. For guardrail='mcp_security': 'block' rejects the request; 'alert' only logs a warning.
 	 */
-	on_violation?: (BaseLitellmParamsOnViolationKey | null) | undefined;
+	on_violation?: (BaseLitellmParamsOnViolationKey | (null | null)) | undefined;
 	/**
 	 * @description When True, the guardrail only scans messages that have not already been scanned earlier in the same session (identified by litellm_session_id / session_id). Message content is hashed per session and cached; only the diff (new or edited messages) is sent to the guardrail provider on follow-up calls. Falls back to a full scan when the request has no session id or the cache is unavailable. Intended for blocking/detection guardrails; not applied when mask_request_content is set.
 	 * @default false
 	 */
-	only_scan_new_messages?: (boolean | null) | undefined;
+	only_scan_new_messages?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Recipe for input (LLM request)
 	 */
-	pangea_input_recipe?: (string | null) | undefined;
+	pangea_input_recipe?: (string | (null | null)) | undefined;
 	/**
 	 * @description Recipe for output (LLM response)
 	 */
-	pangea_output_recipe?: (string | null) | undefined;
+	pangea_output_recipe?: (string | (null | null)) | undefined;
 	/**
 	 * @description Format string for pattern redaction (use {pattern_name} placeholder)
 	 */
-	pattern_redaction_format?: (string | null) | undefined;
+	pattern_redaction_format?: (string | (null | null)) | undefined;
 	/**
 	 * @description List of patterns (prebuilt or custom regex) to detect
 	 */
-	patterns?: (ContentFilterPattern[] | null) | undefined;
+	patterns?: (ContentFilterPattern[] | (null | null)) | undefined;
 	/**
 	 * @description The message the bot speaks aloud when a /v1/realtime guardrail fires. Falls back to violation_message_template if not set.
 	 */
-	realtime_violation_message?: (string | null) | undefined;
+	realtime_violation_message?: (string | (null | null)) | undefined;
 	/**
 	 * @description When True, this pre_call or post_call guardrail runs concurrently with other opted-in guardrails of the same hook, after the sequential guardrails have run. Use only for block-only guardrails that inspect and reject; do not enable it for guardrails that modify the request or response (e.g. PII masking or sensitive-data routing), since parallel runs share one snapshot and their mutations would race.
 	 */
-	run_in_parallel?: (boolean | null) | undefined;
+	run_in_parallel?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description For guardrail='model_armor': omit the raw Model Armor response from caller-facing errors and logs by default. Set False to restore verbose output.
 	 * @default true
 	 */
-	sanitize_error_detail?: (boolean | null) | undefined;
+	sanitize_error_detail?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description When True, unified guardrails only evaluate tool results, the untrusted data an agent feeds back into the model, and skip system, user, and assistant content. Intended for agent harnesses whose own prompt scaffolding is trusted but often trips prompt-attack detectors.
 	 */
-	scan_only_tool_results?: (boolean | null) | undefined;
+	scan_only_tool_results?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description When True, this pre_call guardrail always evaluates the request as it was before any guardrail in this hook ran, regardless of its position in the guardrails list -- so the YAML order of guardrails can never change whether this one blocks. Use only for block-only guardrails: any data this guardrail returns is discarded, same contract as run_in_parallel, since an earlier guardrail's masking must not be undone by this one.
 	 */
-	scan_raw_request?: (boolean | null) | undefined;
+	scan_raw_request?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Model to route requests to when sensitive data is detected and on_sensitive_data='route'. This is typically an on-premise model for data privacy. The routing decision persists for the entire session.
 	 */
-	sensitive_data_route_to_model?: (string | null) | undefined;
+	sensitive_data_route_to_model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Minimum severity to block (high, medium, low)
 	 */
-	severity_threshold?: (string | null) | undefined;
+	severity_threshold?: (string | (null | null)) | undefined;
 	/**
 	 * @description When True, unified guardrails skip system-role messages when building evaluation inputs (texts and structured_messages). When False, system messages are included even if litellm_settings sets a global skip. When None, use the global litellm.skip_system_message_in_guardrail setting. For Anthropic /v1/messages, the flag applies only to the trusted top-level system prompt. In-sequence system entries are untrusted client input and remain in texts and structured_messages.
 	 */
-	skip_system_message_in_guardrail?: (boolean | null) | undefined;
+	skip_system_message_in_guardrail?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description When True, unified guardrails skip tool-role messages when building evaluation inputs (texts and structured_messages). When False, tool messages are included even if litellm_settings sets a global skip. When None, use the global litellm.skip_tool_message_in_guardrail setting.
 	 */
-	skip_tool_message_in_guardrail?: (boolean | null) | undefined;
+	skip_tool_message_in_guardrail?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Implemented by guardrail='model_armor' and guardrail='bedrock'. When True, attachments the guardrail cannot scan pass through unscanned instead of blocking. For Model Armor these are references with no inline bytes (file_id, gs://, or http(s) URLs), and fail_on_error still governs real Model Armor API errors. For Bedrock these are documents, files, audio, video, and images that are not inline PNG or JPEG up to 4 MB. Default False blocks them.
 	 * @default false
 	 */
-	skip_unscannable_attachments?: (boolean | null) | undefined;
+	skip_unscannable_attachments?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description When True (default), after sensitive data is detected and routed, all subsequent requests in the same session will continue routing to the same model.
 	 * @default true
 	 */
-	sticky_session_routing?: (boolean | null) | undefined;
+	sticky_session_routing?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Whether this guardrail runs on streaming requests, non-streaming requests, or both. A string applies to every configured mode. A map overrides named modes (pre_call, during_call, post_call, ...); omitted keys default to both. Unset means both, matching historical behavior.
 	 */
@@ -19064,17 +20038,17 @@ export type BaseLitellmParams = {
 				| {
 						[key: string]: "streaming" | "non_streaming" | "both";
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @description The ID of your Model Armor template
 	 */
-	template_id?: (string | null) | undefined;
+	template_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Per-request timeout for the guardrail provider API call (seconds). Accepts int, float, or numeric string; coerced to float on load. Each guardrail handler chooses its own default when unset.
 	 */
-	timeout?: (number | null) | undefined;
+	timeout?: (number | (null | null)) | undefined;
 	/**
 	 * @description Behavior when a guardrail endpoint is unreachable due to network errors. Implemented by guardrail='generic_guardrail_api', 'agent_365', 'akto', 'vigil_guard', 'repelloai', 'headroom', 'compresr', and 'typesafe'. 'fail_closed' raises an error (default). 'fail_open' logs a critical error and allows the request to proceed. Also implemented by guardrail='decision_model'.
 	 * @default 'fail_closed'
@@ -19084,7 +20058,7 @@ export type BaseLitellmParams = {
 	/**
 	 * @description Custom message when a guardrail blocks an action. Supports placeholders like {tool_name}, {rule_id}, and {default_message}.
 	 */
-	violation_message_template?: (string | null) | undefined;
+	violation_message_template?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -19176,9 +20150,9 @@ export type BedrockChecksSensitiveInformationModel = {
  * @type object
  */
 export type BedrockChecksConfigModel = {
-	contentFilter?: (BedrockChecksContentFilterModel | null) | undefined;
-	promptAttack?: (BedrockChecksPromptAttackModel | null) | undefined;
-	sensitiveInformation?: (BedrockChecksSensitiveInformationModel | null) | undefined;
+	contentFilter?: (BedrockChecksContentFilterModel | (null | null)) | undefined;
+	promptAttack?: (BedrockChecksPromptAttackModel | (null | null)) | undefined;
+	sensitiveInformation?: (BedrockChecksSensitiveInformationModel | (null | null)) | undefined;
 };
 
 export const bedrockGuardrailOutputScope = {
@@ -19214,7 +20188,7 @@ export type CiscoAIDefenseRule = {
 	/**
 	 * @description Optional list of entity types for the rule (e.g. 'Email Address', 'Phone Number'). Applies to rules such as PII, PCI, and PHI.
 	 */
-	entity_types?: (string[] | null) | undefined;
+	entity_types?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description The canonical Cisco AI Defense rule name to evaluate.
 	 * @type string
@@ -19246,18 +20220,18 @@ export type CiscoAIDefenseGuardrailConfigModelOptionalParams = {
 	/**
 	 * @description Explicit list of Cisco AI Defense rules to evaluate. If omitted, the policies configured for the API key in the Cisco AI Defense UI are used.
 	 */
-	enabled_rules?: (CiscoAIDefenseRule[] | null) | undefined;
+	enabled_rules?: (CiscoAIDefenseRule[] | (null | null)) | undefined;
 	/**
 	 * @description Behaviour when the Cisco AI Defense API is unavailable: 'allow' proceeds without scanning (high availability), 'block' rejects the request (maximum security).
 	 * @default block
 	 */
 	fallback_on_error?:
-		| (CiscoAIDefenseGuardrailConfigModelOptionalParamsFallbackOnErrorKey | null)
+		| (CiscoAIDefenseGuardrailConfigModelOptionalParamsFallbackOnErrorKey | (null | null))
 		| undefined;
 	/**
 	 * @description Override for the inspection endpoint path. Defaults to /api/v1/inspect/chat when inspection_type='chat' and /api/v1/inspect/mcp when inspection_type='mcp'.
 	 */
-	inspect_path?: (string | null) | undefined;
+	inspect_path?: (string | (null | null)) | undefined;
 	/**
 	 * @description Which Cisco AI Defense inspection surface to use. 'chat' scans LLM model conversations via /api/v1/inspect/chat. 'mcp' scans MCP tool calls via /api/v1/inspect/mcp. Each guardrail instance targets exactly one surface; configure two guardrails to scan both chat and MCP traffic.
 	 * @default 'chat'
@@ -19269,29 +20243,29 @@ export type CiscoAIDefenseGuardrailConfigModelOptionalParams = {
 	/**
 	 * @description Integration profile id to apply (advanced).
 	 */
-	integration_profile_id?: (string | null) | undefined;
+	integration_profile_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Integration profile version to apply (advanced).
 	 */
-	integration_profile_version?: (string | null) | undefined;
+	integration_profile_version?: (string | (null | null)) | undefined;
 	/**
 	 * @description Integration tenant id to apply (advanced).
 	 */
-	integration_tenant_id?: (string | null) | undefined;
+	integration_tenant_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Integration type to apply (advanced).
 	 */
-	integration_type?: (string | null) | undefined;
+	integration_type?: (string | (null | null)) | undefined;
 	/**
 	 * @description Action to take when Cisco AI Defense flags content. 'block' raises an HTTPException; 'monitor' logs the detection and lets the request continue.
 	 * @default block
 	 */
-	on_flagged_action?: (string | null) | undefined;
+	on_flagged_action?: (string | (null | null)) | undefined;
 	/**
 	 * @description Timeout (seconds) for Cisco AI Defense API calls (1-60).
 	 * @default 10
 	 */
-	timeout?: (number | null) | undefined;
+	timeout?: (number | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -19336,7 +20310,7 @@ export type Mode = {
 	/**
 	 * @description Default mode when no tags match
 	 */
-	default?: (string | string[] | null) | undefined;
+	default?: (string | string[] | (null | null)) | undefined;
 	/**
 	 * @description Tags for the guardrail mode
 	 * @type object
@@ -19370,9 +20344,12 @@ export type ToolPermissionRule = {
 	 * @description Optional regex map enforcing nested parameter values using dot/[] paths
 	 */
 	allowed_param_patterns?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Whether to allow or deny this tool usage
@@ -19387,11 +20364,11 @@ export type ToolPermissionRule = {
 	/**
 	 * @description Regex pattern applied to the tool's function name
 	 */
-	tool_name?: (string | null) | undefined;
+	tool_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description Regex pattern applied to the tool type (e.g., function)
 	 */
-	tool_type?: (string | null) | undefined;
+	tool_type?: (string | (null | null)) | undefined;
 };
 
 export const litellmParamsActionEnum = {
@@ -19516,174 +20493,180 @@ export type LitellmParams = {
 	 * @description Additional provider-specific parameters for generic guardrail APIs
 	 */
 	additional_provider_specific_params?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Custom advisory message template used when on_flagged='inject_system_message'. Must contain a {reason} placeholder. Defaults to a generic advisory message if unset.
 	 */
-	advisory_system_message?: (string | null) | undefined;
+	advisory_system_message?: (string | (null | null)) | undefined;
 	/**
 	 * @description Akto account ID for multi-tenant deployments. Env: AKTO_ACCOUNT_ID. Default: '1000000'.
 	 */
-	akto_account_id?: (string | null) | undefined;
+	akto_account_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description API key for Akto. Env: AKTO_API_KEY.
 	 */
-	akto_api_key?: (string | null) | undefined;
+	akto_api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description Akto Guardrail API Base URL. Env: AKTO_GUARDRAIL_API_BASE.
 	 * @example http://localhost:9090
 	 * @example https://akto-ingestion.example.com
 	 */
-	akto_base_url?: (string | null) | undefined;
+	akto_base_url?: (string | (null | null)) | undefined;
 	/**
 	 * @description JSON object sent to Akto. 'policy_name': comma-separated Akto policies to enforce (empty enforces all). Example: {"policy_name": "PII Strict, Secrets"}.
 	 */
 	akto_metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Akto VXLAN ID. Env: AKTO_VXLAN_ID. Default: '0'.
 	 */
-	akto_vxlan_id?: (string | null) | undefined;
+	akto_vxlan_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description If True, replaces sensitive content with anonymized version when only PII/PCI/secrets are detected. Only applies in blocking mode. Defaults to False if not provided
 	 */
-	anonymize_input?: (boolean | null) | undefined;
+	anonymize_input?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Regional base URL for the Cisco AI Defense Inspection API. Defaults to https://us.api.inspect.aidefense.security.cisco.com. Supported regions: us (us-west-2), ap (ap-ne-1), eu (eu-central-1). The environment variable `CISCO_AI_DEFENSE_API_BASE` is consulted as a fallback. The endpoint path is derived from inspection_type (/api/v1/inspect/chat for 'chat', /api/v1/inspect/mcp for 'mcp').
 	 */
-	api_base?: (string | null) | undefined;
+	api_base?: (string | (null | null)) | undefined;
 	/**
 	 * @description Optional custom API endpoint for Model Armor
 	 */
-	api_endpoint?: (string | null) | undefined;
+	api_endpoint?: (string | (null | null)) | undefined;
 	/**
 	 * @description The Hiddenlayer API Id for the Hiddenlayer API. If not provided, the `HIDDENLAYER_CLIENT_ID` environment variable is checked or https://api.hiddenlayer.ai is used.
 	 */
-	api_id?: (string | null) | undefined;
+	api_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description API key for the Cisco AI Defense inspection endpoint. If not provided, the `CISCO_AI_DEFENSE_API_KEY` environment variable is used. Sent in the `X-Cisco-AI-Defense-API-Key` header. Both the chat and MCP endpoints use this key.
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description API version for Javelin service
 	 */
-	api_version?: (string | null) | undefined;
+	api_version?: (string | (null | null)) | undefined;
 	/**
 	 * @description Application name for Javelin service
 	 */
-	application?: (string | null) | undefined;
+	application?: (string | (null | null)) | undefined;
 	/**
 	 * @description Application ID for Noma Security. Defaults to 'litellm' if not provided
 	 */
-	application_id?: (string | null) | undefined;
+	application_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Custom assertions to validate against the output. Each assertion is a string describing a condition.
 	 */
-	assertions?: (string[] | null) | undefined;
+	assertions?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Repello asset ID whose dashboard policies are enforced. Required; the guardrail raises at init if it is missing.
 	 */
-	asset_id?: (string | null) | undefined;
+	asset_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Set to True to request asynchronous analysis (sets `plr_async` header). Defaults to provider behaviour when omitted.
 	 */
-	async_mode?: (boolean | null) | undefined;
+	async_mode?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Authorization bearer token for IBM Guardrails API. Reads from IBM_GUARDRAILS_AUTH_TOKEN env var if None.
 	 */
-	auth_token?: (string | null) | undefined;
+	auth_token?: (string | (null | null)) | undefined;
 	/**
 	 * @description AWS access key ID for authentication
 	 */
-	aws_access_key_id?: (string | null) | undefined;
+	aws_access_key_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description AWS Bedrock runtime endpoint URL
 	 */
-	aws_bedrock_runtime_endpoint?: (string | null) | undefined;
+	aws_bedrock_runtime_endpoint?: (string | (null | null)) | undefined;
 	/**
 	 * @description External ID required by the target role's trust policy on sts:AssumeRole
 	 */
-	aws_external_id?: (string | null) | undefined;
+	aws_external_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description AWS profile name for credential retrieval
 	 */
-	aws_profile_name?: (string | null) | undefined;
+	aws_profile_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description AWS region where your guardrail is deployed
 	 */
-	aws_region_name?: (string | null) | undefined;
+	aws_region_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description AWS role name for assuming roles
 	 */
-	aws_role_name?: (string | null) | undefined;
+	aws_role_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description AWS secret access key for authentication
 	 */
-	aws_secret_access_key?: (string | null) | undefined;
+	aws_secret_access_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description Name of the AWS session
 	 */
-	aws_session_name?: (string | null) | undefined;
+	aws_session_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description AWS session token for temporary credentials
 	 */
-	aws_session_token?: (string | null) | undefined;
+	aws_session_token?: (string | (null | null)) | undefined;
 	/**
 	 * @description AWS STS endpoint URL
 	 */
-	aws_sts_endpoint?: (string | null) | undefined;
+	aws_sts_endpoint?: (string | (null | null)) | undefined;
 	/**
 	 * @description Web identity token for AWS role assumption
 	 */
-	aws_web_identity_token?: (string | null) | undefined;
+	aws_web_identity_token?: (string | (null | null)) | undefined;
 	/**
 	 * @description Base URL for the IBM Guardrails server
 	 */
-	base_url?: (string | null) | undefined;
+	base_url?: (string | (null | null)) | undefined;
 	/**
 	 * @description If True, blocks requests on API failures. Defaults to True if not provided
 	 */
-	block_failures?: (boolean | null) | undefined;
+	block_failures?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Whether to block the request when the PromptGuard API is unreachable. Defaults to true (fail-closed). Set to false for fail-open behaviour.
 	 */
-	block_on_error?: (boolean | null) | undefined;
+	block_on_error?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Whether to block requests when violations are detected. Defaults to True.
 	 * @default true
 	 */
-	block_on_violation?: (boolean | null) | undefined;
+	block_on_violation?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Language tags to block (e.g. python, javascript, bash). Empty or None = block all fenced code blocks.
 	 */
-	blocked_languages?: (string[] | null) | undefined;
+	blocked_languages?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description List of blocked words with individual actions
 	 */
-	blocked_words?: (BlockedWord[] | null) | undefined;
+	blocked_words?: (BlockedWord[] | (null | null)) | undefined;
 	/**
 	 * @description Path to YAML file containing blocked_words list
 	 */
-	blocked_words_file?: (string | null) | undefined;
+	blocked_words_file?: (string | (null | null)) | undefined;
 	/**
 	 * @description Whether to include breakdown in the response
 	 * @default true
 	 */
-	breakdown?: (boolean | null) | undefined;
+	breakdown?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description List of prebuilt categories to enable (harmful_*, bias_*)
 	 */
-	categories?: (ContentFilterCategoryConfig[] | null) | undefined;
+	categories?: (ContentFilterCategoryConfig[] | (null | null)) | undefined;
 	/**
 	 * @description Threshold configuration for Lakera guardrail categories
 	 */
-	category_thresholds?: (LakeraCategoryThresholds | null) | undefined;
+	category_thresholds?: (LakeraCategoryThresholds | (null | null)) | undefined;
 	/**
 	 * @description Inject the Headroom retrieval tool for hashes declared by the compression service.
 	 * @default true
@@ -19693,7 +20676,7 @@ export type LitellmParams = {
 	/**
 	 * @description Inline Bedrock InvokeGuardrailChecks config for guardrail='bedrock', or the predicate checks a decision_model guardrail scores for guardrail='decision_model'
 	 */
-	checks?: (BedrockChecksConfigModel | DecisionModelCheck[] | null) | undefined;
+	checks?: (BedrockChecksConfigModel | DecisionModelCheck[] | (null | null)) | undefined;
 	/**
 	 * @description ApplyGuardrail: batch size, in characters, used to re-send content after AWS has rejected a request as too large. Requests AWS accepts are always sent in a single call, so this has no effect until a rejection happens. Defaults to 25,000; a batch AWS still rejects is bisected automatically, so this value only trades round trips against batch size and cannot fail a request on its own.
 	 * @default 25000
@@ -19703,11 +20686,11 @@ export type LitellmParams = {
 	/**
 	 * @description Client id of the gateway's Entra app registration (a confidential client). Falls back to the AGENT365_CLIENT_ID environment variable.
 	 */
-	client_id?: (string | null) | undefined;
+	client_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Client secret of the gateway's Entra app registration, used to perform the On-Behalf-Of exchange. Falls back to the AGENT365_CLIENT_SECRET environment variable.
 	 */
-	client_secret?: (string | null) | undefined;
+	client_secret?: (string | (null | null)) | undefined;
 	/**
 	 * @description Only block or mask when detection confidence >= this value; below threshold, allow or log_only.
 	 * @minimum 0
@@ -19720,23 +20703,26 @@ export type LitellmParams = {
 	 * @description Additional configuration for the guardrail
 	 */
 	config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description InvokeGuardrailChecks: block when any contentFilter severityScore >= this value (scores are in [0,1]). Set to null to make the content filter detect-only (logged, never blocks).
 	 * @default 0.5
 	 */
-	content_filter_threshold?: (number | null) | undefined;
+	content_filter_threshold?: (number | (null | null)) | undefined;
 	/**
 	 * @description Enable content moderation to check for harmful content (harassment, hate speech, etc.).
 	 */
-	content_moderation_check?: (boolean | null) | undefined;
+	content_moderation_check?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Akto context the traffic belongs to: 'ENDPOINT' (Atlas) or 'AGENTIC' (Argus). Default: AGENTIC.
 	 */
-	context_source?: (LitellmParamsContextSourceKey | null) | undefined;
+	context_source?: (LitellmParamsContextSourceKey | (null | null)) | undefined;
 	/**
 	 * @description ApplyGuardrail: when True, post-call scans of a request with no grounding_source / query content parts send the system and developer messages as the grounding source and the latest user message as the query, so the guardrail's contextual grounding policy can score the response. Bedrock bills contextual grounding units for these scans and rejects queries, sources and responses over its contextual grounding length limits, so leave this off for guardrails without a contextual grounding policy. Default False: plain messages are never sent as grounding context.
 	 * @default false
@@ -19746,19 +20732,19 @@ export type LitellmParams = {
 	/**
 	 * @description Path to Google Cloud credentials JSON file or JSON string
 	 */
-	credentials?: (string | null) | undefined;
+	credentials?: (string | (null | null)) | undefined;
 	/**
 	 * @description Python-like code containing the apply_guardrail function for custom guardrail logic
 	 */
-	custom_code?: (string | null) | undefined;
+	custom_code?: (string | (null | null)) | undefined;
 	/**
 	 * @description For guardrail='decision_model': the Decisions-API model that scores each check
 	 */
-	decision_model?: (string | null) | undefined;
+	decision_model?: (string | (null | null)) | undefined;
 	/**
 	 * @description The DeepKeep Firewall ID to use for guardrail evaluation. If not provided, the `DEEPKEEP_FIREWALL_ID` environment variable is checked.
 	 */
-	deepkeep_firewall_id?: (string | null) | undefined;
+	deepkeep_firewall_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Fallback decision when no rule matches
 	 * @default 'deny'
@@ -19768,11 +20754,11 @@ export type LitellmParams = {
 	/**
 	 * @description Whether the guardrail is enabled by default
 	 */
-	default_on?: (boolean | null) | undefined;
+	default_on?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description The EnkryptAI deployment name to use. Sent via X-Enkrypt-Deployment header.
 	 */
-	deployment_name?: (string | null) | undefined;
+	deployment_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description When True, block only when user intent is to run/execute; allow when intent is explain/refactor/don't run. Also block text-only execution requests (e.g. 'run `ls`', 'read /etc/passwd').
 	 * @default true
@@ -19783,83 +20769,89 @@ export type LitellmParams = {
 	 * @description Configuration for detect-secrets guardrail
 	 */
 	detect_secrets_config?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Name of the detector inside the server (e.g., 'jailbreak-detector')
 	 */
-	detector_id?: (string | null) | undefined;
+	detector_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Dictionary of detector configurations (e.g., {'nsfw': {'enabled': True}, 'toxicity': {'enabled': True}}).
 	 */
 	detectors?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Whether to include developer information in the response
 	 * @default true
 	 */
-	dev_info?: (boolean | null) | undefined;
+	dev_info?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description If True, will not raise an exception when the guardrail is blocked. Useful for OpenWebUI where exceptions can end the chat flow.
 	 * @default false
 	 */
-	disable_exception_on_block?: (boolean | null) | undefined;
+	disable_exception_on_block?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description For /v1/realtime sessions: automatically close the session after this many guardrail violations.
 	 */
-	end_session_after_n_fails?: (number | null) | undefined;
+	end_session_after_n_fails?: (number | (null | null)) | undefined;
 	/**
 	 * @description Pre-configured evaluation ID from Qualifire dashboard. When provided, uses invoke_evaluation() instead of evaluate().
 	 */
-	evaluation_id?: (string | null) | undefined;
+	evaluation_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description When True, guardrails only receive the latest message for the relevant role (e.g., newest user input pre-call, newest assistant output post-call)
 	 * @default false
 	 */
-	experimental_use_latest_role_message_only?: (boolean | null) | undefined;
+	experimental_use_latest_role_message_only?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Header names to forward from the client request to the guardrail (e.g. x-request-id). Only these headers' values are sent; others may be omitted or sent as [present]. Used by generic_guardrail_api (similar to MCP extra_headers).
 	 */
-	extra_headers?: (string[] | null) | undefined;
+	extra_headers?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Whether to fail the request if the guardrail encounters an error. Implemented by guardrail='model_armor', 'generic_guardrail_api' and 'crowdstrike_aidr'. True (default) raises the error. False logs a critical error and lets the request proceed, so only a valid guardrail response can block or modify it.
 	 * @default true
 	 */
-	fail_on_error?: (boolean | null) | undefined;
+	fail_on_error?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description File-checkpoint ID for the Ovalix Tracker service (falls back to pre/post).
 	 */
-	file_checkpoint_id?: (string | null) | undefined;
+	file_checkpoint_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description HTTP timeout in seconds for checking attached files. Default: 10.
 	 */
-	file_guardrail_timeout?: (number | null) | undefined;
+	file_guardrail_timeout?: (number | (null | null)) | undefined;
 	/**
 	 * @description Only honored by guardrail='generic_guardrail_api'. When True, structured_messages reaches the guardrail exactly as the client sent it, so rows can carry provider-native content blocks and keys the OpenAI chat types do not declare. Default False sends OpenAI-format chat rows with undeclared keys removed.
 	 * @default false
 	 */
-	forward_messages_as_sent?: (boolean | null) | undefined;
+	forward_messages_as_sent?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description noma_v2 only: name of this gateway, used as the gateway_host label on Noma scans
 	 */
-	gateway_name?: (string | null) | undefined;
+	gateway_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description Enable grounding verification to ensure output is grounded in provided context.
 	 */
-	grounding_check?: (boolean | null) | undefined;
+	grounding_check?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Strictness level for XecGuard context-grounding validation. 'BALANCED' (default) treats INCOMPLETE answers as SAFE; 'STRICT' flags them as UNSAFE. Grounding only runs in post_call when `metadata.xecguard_grounding_documents` is provided.
 	 */
-	grounding_strictness?: (LitellmParamsGroundingStrictnessKey | null) | undefined;
+	grounding_strictness?: (LitellmParamsGroundingStrictnessKey | (null | null)) | undefined;
 	/**
 	 * @description Name of the Javelin guard to use
 	 */
-	guard_name?: (string | null) | undefined;
+	guard_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description The type of guardrail integration to use
 	 * @type string
@@ -19868,98 +20860,104 @@ export type LitellmParams = {
 	/**
 	 * @description The ID of your guardrail on Bedrock
 	 */
-	guardrailIdentifier?: (string | null) | undefined;
+	guardrailIdentifier?: (string | (null | null)) | undefined;
 	/**
 	 * @description The version of your Bedrock guardrail (e.g., DRAFT or version number)
 	 */
-	guardrailVersion?: (string | null) | undefined;
+	guardrailVersion?: (string | (null | null)) | undefined;
 	/**
 	 * @description HTTP timeout in seconds. Default: 5.
 	 */
-	guardrail_timeout?: (number | null) | undefined;
+	guardrail_timeout?: (number | (null | null)) | undefined;
 	/**
 	 * @description Enable hallucination detection to detect factual inaccuracies.
 	 */
-	hallucinations_check?: (boolean | null) | undefined;
+	hallucinations_check?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Include detailed evidence payloads in responses (sets `plr_evidence` header).
 	 * @default true
 	 */
-	include_evidence?: (boolean | null) | undefined;
+	include_evidence?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Include scanner category summaries in responses (sets `plr_scanners` header).
 	 * @default true
 	 */
-	include_scanners?: (boolean | null) | undefined;
+	include_scanners?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description When True, the Aim and Cato Networks guardrails send /embeddings `input` to the vendor as user messages. Off by default because embedding input is documents being indexed, not a conversation.
 	 */
-	inspect_embeddings?: (boolean | null) | undefined;
+	inspect_embeddings?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Boolean flag to determine if calling a detector server (True) or the FMS Orchestrator (False). Defaults to True.
 	 * @default true
 	 */
-	is_detector_server?: (boolean | null) | undefined;
+	is_detector_server?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Tag to use for keyword redaction
 	 */
-	keyword_redaction_tag?: (string | null) | undefined;
+	keyword_redaction_tag?: (string | (null | null)) | undefined;
 	/**
 	 * @description Conversation ID for the Lasso guardrail
 	 */
-	lasso_conversation_id?: (string | null) | undefined;
+	lasso_conversation_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description User ID for the Lasso guardrail
 	 */
-	lasso_user_id?: (string | null) | undefined;
+	lasso_user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Google Cloud location/region (e.g., us-central1)
 	 */
-	location?: (string | null) | undefined;
+	location?: (string | (null | null)) | undefined;
 	/**
 	 * @description when True, a flagged or raising logging_only request scan is logged and the response is still scanned, so both verdicts land. Only applies to mode logging_only and is ignored when logging_only_scope is 'input' or 'output'.
 	 */
-	logging_only_continue_on_input_failure?: (boolean | null) | undefined;
+	logging_only_continue_on_input_failure?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description which direction a logging_only scan observes: 'input' (request) or 'output' (response); unset scans both directions. Only applies to mode logging_only; pre_call/post_call on the same guardrail keep blocking.
 	 */
-	logging_only_scope?: (LitellmParamsLoggingOnlyScopeKey | null) | undefined;
+	logging_only_scope?: (LitellmParamsLoggingOnlyScopeKey | (null | null)) | undefined;
 	/**
 	 * @description Enable content masking using Lasso classifix API
 	 * @default false
 	 */
-	mask?: (boolean | null) | undefined;
+	mask?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Will mask request content if guardrail makes any changes
 	 */
-	mask_request_content?: (boolean | null) | undefined;
+	mask_request_content?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Will mask response content if guardrail makes any changes
 	 */
-	mask_response_content?: (boolean | null) | undefined;
+	mask_response_content?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Maximum decisions calls in flight at once on the guardrail in each proxy worker. Implemented by guardrail='decision_model'.
 	 */
-	max_concurrent_decision_calls?: (number | null) | undefined;
+	max_concurrent_decision_calls?: (number | (null | null)) | undefined;
 	/**
 	 * @description Character budget for each text sent to the guardrail's model. Implemented by guardrail='decision_model'.
 	 */
-	max_input_chars?: (number | null) | undefined;
+	max_input_chars?: (number | (null | null)) | undefined;
 	/**
 	 * @description Additional metadata to include in the request
 	 */
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Mock redacted text for testing
 	 */
 	mock_redacted_text?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description When to apply the guardrail (pre_call, post_call, during_call, logging_only)
@@ -19968,15 +20966,15 @@ export type LitellmParams = {
 	/**
 	 * @description Model name forwarded to the headroom /v1/compress endpoint.
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @description If True, logs violations without blocking. Defaults to False if not provided
 	 */
-	monitor_mode?: (boolean | null) | undefined;
+	monitor_mode?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description How many more times to send a guardrail check whose connection timed out waiting for the answer or was dropped after the request went out. Each retry opens a fresh connection and gets the full timeout. Connect failures, HTTP error statuses and BLOCKED verdicts are not retried. Unset or 0 sends each check once, and the most allowed is 5. Implemented by guardrail='generic_guardrail_api', other guardrails ignore it.
 	 */
-	num_retries?: (number | null) | undefined;
+	num_retries?: (number | (null | null)) | undefined;
 	/**
 	 * @description Choose whether disallowed tools block the request or get rewritten out of the payload
 	 * @default 'block'
@@ -19987,235 +20985,241 @@ export type LitellmParams = {
 	 * @description Action to take when content is flagged: 'block' (raise exception), 'mask' (mask PII-only detections and allow, block anything else), 'monitor' (log only), or 'inject_system_message' (append an advisory system message and let the LLM decide)
 	 * @default block
 	 */
-	on_flagged?: (LitellmParamsOnFlaggedKey | null) | undefined;
+	on_flagged?: (LitellmParamsOnFlaggedKey | (null | null)) | undefined;
 	/**
 	 * @description Action to take when content is flagged: 'block' (raise exception) or 'monitor' (log only)
 	 * @default monitor
 	 */
-	on_flagged_action?: (string | null) | undefined;
+	on_flagged_action?: (string | (null | null)) | undefined;
 	/**
 	 * @description Action to take when sensitive data is detected. 'block' raises an exception (default behavior). 'route' reroutes the request to the model specified in sensitive_data_route_to_model.
 	 */
-	on_sensitive_data?: (LitellmParamsOnSensitiveDataKey | null) | undefined;
+	on_sensitive_data?: (LitellmParamsOnSensitiveDataKey | (null | null)) | undefined;
 	/**
 	 * @description For /v1/realtime sessions: 'warn' speaks the violation message and continues; 'end_session' speaks the message and closes the connection. For guardrail='mcp_security': 'block' rejects the request; 'alert' only logs a warning.
 	 */
-	on_violation?: (LitellmParamsOnViolationKey | null) | undefined;
+	on_violation?: (LitellmParamsOnViolationKey | (null | null)) | undefined;
 	/**
 	 * @description When True, the guardrail only scans messages that have not already been scanned earlier in the same session (identified by litellm_session_id / session_id). Message content is hashed per session and cached; only the diff (new or edited messages) is sent to the guardrail provider on follow-up calls. Falls back to a full scan when the request has no session id or the cache is unavailable. Intended for blocking/detection guardrails; not applied when mask_request_content is set.
 	 * @default false
 	 */
-	only_scan_new_messages?: (boolean | null) | undefined;
+	only_scan_new_messages?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Optional parameters for the guardrail
 	 */
-	optional_params?: (CiscoAIDefenseGuardrailConfigModelOptionalParams | null) | undefined;
+	optional_params?: (CiscoAIDefenseGuardrailConfigModelOptionalParams | (null | null)) | undefined;
 	/**
 	 * @description ApplyGuardrail response scope. FULL includes detected and non-detected findings. Omit to retain Bedrock's default of returning detected findings only.
 	 */
-	outputScope?: (BedrockGuardrailOutputScopeKey | null) | undefined;
+	outputScope?: (BedrockGuardrailOutputScopeKey | (null | null)) | undefined;
 	/**
 	 * @description When True, LiteLLM will replace the masked text with the original text in the response
 	 */
-	output_parse_pii?: (boolean | null) | undefined;
+	output_parse_pii?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Recipe for input (LLM request)
 	 */
-	pangea_input_recipe?: (string | null) | undefined;
+	pangea_input_recipe?: (string | (null | null)) | undefined;
 	/**
 	 * @description Recipe for output (LLM response)
 	 */
-	pangea_output_recipe?: (string | null) | undefined;
+	pangea_output_recipe?: (string | (null | null)) | undefined;
 	/**
 	 * @description Format string for pattern redaction (use {pattern_name} placeholder)
 	 */
-	pattern_redaction_format?: (string | null) | undefined;
+	pattern_redaction_format?: (string | (null | null)) | undefined;
 	/**
 	 * @description List of patterns (prebuilt or custom regex) to detect
 	 */
-	patterns?: (ContentFilterPattern[] | null) | undefined;
+	patterns?: (ContentFilterPattern[] | (null | null)) | undefined;
 	/**
 	 * @description Whether to include payload in the response
 	 * @default true
 	 */
-	payload?: (boolean | null) | undefined;
+	payload?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Controls Pillar session persistence (sets `plr_persist` header). Set to False to disable persistence.
 	 */
-	persist_session?: (boolean | null) | undefined;
+	persist_session?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Enable PII (Personally Identifiable Information) detection.
 	 */
-	pii_check?: (boolean | null) | undefined;
+	pii_check?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description InvokeGuardrailChecks: block when any sensitiveInformation confidenceScore >= this value (scores are in [0,1]). Set to null to make PII detection detect-only.
 	 * @default 0.5
 	 */
-	pii_confidence_threshold?: (number | null) | undefined;
+	pii_confidence_threshold?: (number | (null | null)) | undefined;
 	/**
 	 * @description Configuration for PII entity types and actions
 	 */
 	pii_entities_config?:
-		| ({
-				[key: string]: PiiActionKey;
-		  } | null)
+		| (
+				| {
+						[key: string]: PiiActionKey;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Policy ID for Zscaler AI Guard. Can also be set via ZSCALER_AI_GUARD_POLICY_ID environment variable
 	 */
-	policy_id?: (number | null) | undefined;
+	policy_id?: (number | (null | null)) | undefined;
 	/**
 	 * @description The EnkryptAI policy name to use. Sent via x-enkrypt-policy header.
 	 */
-	policy_name?: (string | null) | undefined;
+	policy_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description XecGuard policies to apply on each scan. Select one or more of the built-in default policies; if none are selected, the guardrail defaults to System Prompt Enforcement + Harmful Content Protection.
 	 */
-	policy_names?: (string[] | null) | undefined;
+	policy_names?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Post-checkpoint ID for the Ovalix Tracker service.
 	 */
-	post_checkpoint_id?: (string | null) | undefined;
+	post_checkpoint_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Pre-checkpoint ID for the Ovalix Tracker service.
 	 */
-	pre_checkpoint_id?: (string | null) | undefined;
+	pre_checkpoint_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Path to a JSON file containing ad-hoc recognizers for Presidio
 	 */
-	presidio_ad_hoc_recognizers?: (string | null) | undefined;
+	presidio_ad_hoc_recognizers?: (string | (null | null)) | undefined;
 	/**
 	 * @description Maximum UTF-8 bytes of text sent in a single Presidio /analyze call. Longer texts are split into overlapping chunks of at most this size and the merged results are remapped onto the original text. Defaults to 500000; set it below your analyzer deployment's request body limit, leaving headroom for the rest of the analyze payload.
 	 */
-	presidio_analyze_chunk_size_bytes?: (number | null) | undefined;
+	presidio_analyze_chunk_size_bytes?: (number | (null | null)) | undefined;
 	/**
 	 * @description Base URL for the Presidio analyzer API
 	 */
-	presidio_analyzer_api_base?: (string | null) | undefined;
+	presidio_analyzer_api_base?: (string | (null | null)) | undefined;
 	/**
 	 * @description Base URL for the Presidio anonymizer API
 	 */
-	presidio_anonymizer_api_base?: (string | null) | undefined;
+	presidio_anonymizer_api_base?: (string | (null | null)) | undefined;
 	/**
 	 * @description List of entity types to exclude from Presidio detection results. Detections of these types will be silently dropped. Useful for suppressing false positives (e.g., US_DRIVER_LICENSE on coding routes).
 	 */
-	presidio_entities_deny_list?: ((PiiEntityTypeKey | string)[] | null) | undefined;
+	presidio_entities_deny_list?: ((PiiEntityTypeKey | string)[] | (null | null)) | undefined;
 	/**
 	 * @description Where to apply Presidio checks: 'input' (user -> model), 'output' (model -> user), or 'both' (default).
 	 */
-	presidio_filter_scope?: (LitellmParamsPresidioFilterScopeKey | null) | undefined;
+	presidio_filter_scope?: (LitellmParamsPresidioFilterScopeKey | (null | null)) | undefined;
 	/**
 	 * @description Language code for Presidio PII analysis (e.g., 'en', 'de', 'es', 'fr')
 	 * @default en
 	 */
-	presidio_language?: (string | null) | undefined;
+	presidio_language?: (string | (null | null)) | undefined;
 	/**
 	 * @description Where to apply Presidio checks: input, output, or both (default).
 	 */
-	presidio_run_on?: (LitellmParamsPresidioRunOnKey | null) | undefined;
+	presidio_run_on?: (LitellmParamsPresidioRunOnKey | (null | null)) | undefined;
 	/**
 	 * @description Optional per-entity minimum confidence scores for Presidio detections. Entities below the threshold are ignored.
 	 */
 	presidio_score_thresholds?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Project ID for the Lakera AI project
 	 */
-	project_id?: (string | null) | undefined;
+	project_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description InvokeGuardrailChecks: block when any promptAttack severityScore >= this value (scores are in [0,1]). Set to null to make prompt-attack detection detect-only.
 	 * @default 0.5
 	 */
-	prompt_attack_threshold?: (number | null) | undefined;
+	prompt_attack_threshold?: (number | (null | null)) | undefined;
 	/**
 	 * @description Enable prompt injection detection. Default check if no evaluation_id and no other checks are specified.
 	 */
-	prompt_injections?: (boolean | null) | undefined;
+	prompt_injections?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description The message the bot speaks aloud when a /v1/realtime guardrail fires. Falls back to violation_message_template if not set.
 	 */
-	realtime_violation_message?: (string | null) | undefined;
+	realtime_violation_message?: (string | (null | null)) | undefined;
 	/**
 	 * @description Ordered allow/deny rules. Patterns use regex for tool names/types and optional regex constraints on tool arguments.
 	 */
-	rules?: (ToolPermissionRule[] | null) | undefined;
+	rules?: (ToolPermissionRule[] | (null | null)) | undefined;
 	/**
 	 * @description When True, this pre_call or post_call guardrail runs concurrently with other opted-in guardrails of the same hook, after the sequential guardrails have run. Use only for block-only guardrails that inspect and reject; do not enable it for guardrails that modify the request or response (e.g. PII masking or sensitive-data routing), since parallel runs share one snapshot and their mutations would race.
 	 */
-	run_in_parallel?: (boolean | null) | undefined;
+	run_in_parallel?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description For guardrail='model_armor': omit the raw Model Armor response from caller-facing errors and logs by default. Set False to restore verbose output.
 	 * @default true
 	 */
-	sanitize_error_detail?: (boolean | null) | undefined;
+	sanitize_error_detail?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description When True, unified guardrails only evaluate tool results, the untrusted data an agent feeds back into the model, and skip system, user, and assistant content. Intended for agent harnesses whose own prompt scaffolding is trusted but often trips prompt-attack detectors.
 	 */
-	scan_only_tool_results?: (boolean | null) | undefined;
+	scan_only_tool_results?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description When True, this pre_call guardrail always evaluates the request as it was before any guardrail in this hook ran, regardless of its position in the guardrails list -- so the YAML order of guardrails can never change whether this one blocks. Use only for block-only guardrails: any data this guardrail returns is discarded, same contract as run_in_parallel, since an earlier guardrail's masking must not be undone by this one.
 	 */
-	scan_raw_request?: (boolean | null) | undefined;
+	scan_raw_request?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Whether to send user_API_key_alias in headers
 	 * @default false
 	 */
-	send_user_api_key_alias?: (boolean | null) | undefined;
+	send_user_api_key_alias?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Whether to send user_API_key_team_id in headers
 	 * @default false
 	 */
-	send_user_api_key_team_id?: (boolean | null) | undefined;
+	send_user_api_key_team_id?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Whether to send user_API_key_user_id in headers
 	 * @default false
 	 */
-	send_user_api_key_user_id?: (boolean | null) | undefined;
+	send_user_api_key_user_id?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Model to route requests to when sensitive data is detected and on_sensitive_data='route'. This is typically an on-premise model for data privacy. The routing decision persists for the entire session.
 	 */
-	sensitive_data_route_to_model?: (string | null) | undefined;
+	sensitive_data_route_to_model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Minimum severity to block (high, medium, low)
 	 */
-	severity_threshold?: (string | null) | undefined;
+	severity_threshold?: (string | (null | null)) | undefined;
 	/**
 	 * @description The Singulr API base URL. Get base URL from Singulr Platform.
 	 */
-	singulr_api_base?: (string | null) | undefined;
+	singulr_api_base?: (string | (null | null)) | undefined;
 	/**
 	 * @description The Singulr API key. Generate API key from Singulr Platform.
 	 */
-	singulr_api_key?: (string | null) | undefined;
+	singulr_api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description The Singulr application ID. Get application ID from Singulr Platform.
 	 */
-	singulr_application_id?: (string | null) | undefined;
+	singulr_application_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description The Singulr Guardrail ID. Get guardrail ID from Singulr Platform.
 	 */
-	singulr_guardrail_id?: (string | null) | undefined;
+	singulr_guardrail_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description When True, unified guardrails skip system-role messages when building evaluation inputs (texts and structured_messages). When False, system messages are included even if litellm_settings sets a global skip. When None, use the global litellm.skip_system_message_in_guardrail setting. For Anthropic /v1/messages, the flag applies only to the trusted top-level system prompt. In-sequence system entries are untrusted client input and remain in texts and structured_messages.
 	 */
-	skip_system_message_in_guardrail?: (boolean | null) | undefined;
+	skip_system_message_in_guardrail?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description When True, unified guardrails skip tool-role messages when building evaluation inputs (texts and structured_messages). When False, tool messages are included even if litellm_settings sets a global skip. When None, use the global litellm.skip_tool_message_in_guardrail setting.
 	 */
-	skip_tool_message_in_guardrail?: (boolean | null) | undefined;
+	skip_tool_message_in_guardrail?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Implemented by guardrail='model_armor' and guardrail='bedrock'. When True, attachments the guardrail cannot scan pass through unscanned instead of blocking. For Model Armor these are references with no inline bytes (file_id, gs://, or http(s) URLs), and fail_on_error still governs real Model Armor API errors. For Bedrock these are documents, files, audio, video, and images that are not inline PNG or JPEG up to 4 MB. Default False blocks them.
 	 * @default false
 	 */
-	skip_unscannable_attachments?: (boolean | null) | undefined;
+	skip_unscannable_attachments?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description When True (default), after sensitive data is detected and routed, all subsequent requests in the same session will continue routing to the same model.
 	 * @default true
 	 */
-	sticky_session_routing?: (boolean | null) | undefined;
+	sticky_session_routing?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Whether this guardrail runs on streaming requests, non-streaming requests, or both. A string applies to every configured mode. A map overrides named modes (pre_call, during_call, post_call, ...); omitted keys default to both. Unset means both, matching historical behavior.
 	 */
@@ -20225,33 +21229,33 @@ export type LitellmParams = {
 				| {
 						[key: string]: "streaming" | "non_streaming" | "both";
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @description The ID of your Model Armor template
 	 */
-	template_id?: (string | null) | undefined;
+	template_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Entra tenant id used for the On-Behalf-Of token exchange. Falls back to the AGENT365_TENANT_ID environment variable.
 	 */
-	tenant_id?: (string | null) | undefined;
+	tenant_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Per-request timeout for the guardrail provider API call (seconds). Accepts int, float, or numeric string; coerced to float on load. Each guardrail handler chooses its own default when unset.
 	 */
-	timeout?: (number | null) | undefined;
+	timeout?: (number | (null | null)) | undefined;
 	/**
 	 * @description Enable tool selection quality check to evaluate quality of tool/function calls.
 	 */
-	tool_selection_quality_check?: (boolean | null) | undefined;
+	tool_selection_quality_check?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Base URL for the Ovalix Tracker service.
 	 */
-	tracker_api_base?: (string | null) | undefined;
+	tracker_api_base?: (string | (null | null)) | undefined;
 	/**
 	 * @description API key for the Ovalix Tracker service.
 	 */
-	tracker_api_key?: (string | null) | undefined;
+	tracker_api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description Behavior when the headroom compression service is unreachable or errors. 'fail_closed' raises an error (default). 'fail_open' logs a critical error and forwards the request uncompressed instead of blocking it.
 	 * @default 'fail_closed'
@@ -20262,44 +21266,47 @@ export type LitellmParams = {
 	 * @description If True and guardrail='noma', route to the new Noma v2 implementation instead of the legacy implementation.
 	 * @default false
 	 */
-	use_v2?: (boolean | null) | undefined;
+	use_v2?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Whether to verify SSL certificates. Defaults to True.
 	 * @default true
 	 */
-	verify_ssl?: (boolean | null) | undefined;
+	verify_ssl?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Hiddenlayer guardrail version to use.
 	 * @default 2
 	 */
-	version?: (number | null) | undefined;
+	version?: (number | (null | null)) | undefined;
 	/**
 	 * @description Custom message when a guardrail blocks an action. Supports placeholders like {tool_name}, {rule_id}, and {default_message}.
 	 */
-	violation_message_template?: (string | null) | undefined;
+	violation_message_template?: (string | (null | null)) | undefined;
 	/**
 	 * @description Wingback external gateway integration name for request attribution (sent as additional_provider_specific_params.wingback_app_id).
 	 */
-	wingback_app_id?: (string | null) | undefined;
+	wingback_app_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description XecGuard scanning model identifier. Defaults to 'xecguard_v2'.
 	 */
-	xecguard_model?: (string | null) | undefined;
+	xecguard_model?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
 export type Guardrail = {
-	created_at?: (string | null) | undefined;
-	guardrail_id?: (string | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	guardrail_id?: (string | (null | null)) | undefined;
 	guardrail_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	guardrail_name: string;
 	litellm_params: LitellmParams;
-	policy_template?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
+	policy_template?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
 };
 
 export type CreateGuardrailRequest = {
@@ -20315,49 +21322,58 @@ export type GUARDRAILDEFINITIONLOCATIONKey =
 	(typeof GUARDRAILDEFINITIONLOCATION)[keyof typeof GUARDRAILDEFINITIONLOCATION];
 
 export type GuardrailInfoResponse = {
-	created_at?: (string | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
 	/**
 	 * @default 'config'
 	 * @type string | undefined
 	 */
 	guardrail_definition_location?: GUARDRAILDEFINITIONLOCATIONKey | undefined;
-	guardrail_id?: (string | null) | undefined;
+	guardrail_id?: (string | (null | null)) | undefined;
 	guardrail_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	guardrail_name: string;
-	litellm_params?: (BaseLitellmParams | null) | undefined;
-	updated_at?: (string | null) | undefined;
+	litellm_params?: (BaseLitellmParams | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
 };
 
 export type GuardrailSubmissionItem = {
-	created_at?: (string | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
 	guardrail_id: string;
 	guardrail_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	guardrail_name: string;
 	litellm_params?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	reviewed_at?: (string | null) | undefined;
+	reviewed_at?: (string | (null | null)) | undefined;
 	status: string;
-	submitted_at?: (string | null) | undefined;
-	submitted_by_email?: (string | null) | undefined;
-	submitted_by_user_id?: (string | null) | undefined;
+	submitted_at?: (string | (null | null)) | undefined;
+	submitted_by_email?: (string | (null | null)) | undefined;
+	submitted_by_user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	team_guardrail?: boolean | undefined;
-	team_id?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
 };
 
 export type GuardrailSubmissionSummary = {
@@ -20374,9 +21390,12 @@ export type PiiEntityCategoryMap = {
 
 export type GuardrailUIAddGuardrailSettings = {
 	content_filter_settings?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	decision_model_providers?: string[] | undefined;
 	pii_entity_categories: PiiEntityCategoryMap[];
@@ -20400,12 +21419,15 @@ export type ListGuardrailsResponse = {
 
 export type PatchGuardrailRequest = {
 	guardrail_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	guardrail_name?: (string | null) | undefined;
-	litellm_params?: (BaseLitellmParams | null) | undefined;
+	guardrail_name?: (string | (null | null)) | undefined;
+	litellm_params?: (BaseLitellmParams | (null | null)) | undefined;
 };
 
 /**
@@ -20414,22 +21436,25 @@ export type PatchGuardrailRequest = {
  */
 export type RegisterGuardrailRequest = {
 	guardrail_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	guardrail_name: string;
 	litellm_params: {
 		[key: string]: unknown;
 	};
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 };
 
 export type RegisterGuardrailResponse = {
 	guardrail_id: string;
 	guardrail_name: string;
 	status: string;
-	submitted_at?: (string | null) | undefined;
+	submitted_at?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -20444,9 +21469,12 @@ export type TestCustomCodeGuardrailRequest = {
 	 */
 	input_type?: string | undefined;
 	request_data?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	test_input: {
 		[key: string]: unknown;
@@ -20458,12 +21486,15 @@ export type TestCustomCodeGuardrailRequest = {
  * @type object
  */
 export type TestCustomCodeGuardrailResponse = {
-	error?: (string | null) | undefined;
-	error_type?: (string | null) | undefined;
+	error?: (string | (null | null)) | undefined;
+	error_type?: (string | (null | null)) | undefined;
 	result?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	success: boolean;
 };
@@ -20476,11 +21507,11 @@ export type UsageChartPoint = {
 	blocked: number;
 	date: string;
 	passed: number;
-	score?: (number | null) | undefined;
+	score?: (number | (null | null)) | undefined;
 };
 
 export type UsageUnitsDailyPoint = {
-	cost: number | null;
+	cost: number | (null | null);
 	date: string;
 	units: {
 		[key: string]: number;
@@ -20488,19 +21519,19 @@ export type UsageUnitsDailyPoint = {
 };
 
 export type UsageDetailResponse = {
-	avgLatency: number | null;
-	avgScore: number | null;
-	cost: number | null;
+	avgLatency: number | (null | null);
+	avgScore: number | (null | null);
+	cost: number | (null | null);
 	cost_by_key: {
-		[key: string]: number | null;
+		[key: string]: number | (null | null);
 	};
 	cost_by_team: {
-		[key: string]: number | null;
+		[key: string]: number | (null | null);
 	};
 	cost_by_unit: {
-		[key: string]: number | null;
+		[key: string]: number | (null | null);
 	};
-	description: string | null;
+	description: string | (null | null);
 	failRate: number;
 	guardrail_id: string;
 	guardrail_name: string;
@@ -20542,12 +21573,12 @@ export type UsageDetailResponse = {
 export type UsageLogEntry = {
 	action: string;
 	id: string;
-	input_snippet: string | null;
-	latency_ms: number | null;
-	model: string | null;
-	output_snippet: string | null;
-	reason: string | null;
-	score: number | null;
+	input_snippet: string | (null | null);
+	latency_ms: number | (null | null);
+	model: string | (null | null);
+	output_snippet: string | (null | null);
+	reason: string | (null | null);
+	score: number | (null | null);
 	timestamp: string;
 };
 
@@ -20559,12 +21590,12 @@ export type UsageLogsResponse = {
 };
 
 export type UsageOverviewRow = {
-	avgLatency: number | null;
-	avgScore: number | null;
+	avgLatency: number | (null | null);
+	avgScore: number | (null | null);
 	/**
 	 * @description USD for the priced share of usageUnits over the window; null when no unit was priced
 	 */
-	cost: number | null;
+	cost: number | (null | null);
 	failRate: number;
 	id: string;
 	name: string;
@@ -20590,7 +21621,7 @@ export type UsageOverviewResponse = {
 	passRate: number;
 	rows: UsageOverviewRow[];
 	totalBlocked: number;
-	totalCost: number | null;
+	totalCost: number | (null | null);
 	totalRequests: number;
 	totalUntrackedUsageUnits: {
 		[key: string]: number;
@@ -20602,7 +21633,7 @@ export type UsageOverviewResponse = {
 
 export type ChatCompletionToolCallChunk = {
 	function: ChatCompletionToolCallFunctionChunk;
-	id: string | null;
+	id: string | (null | null);
 	index: number;
 	type: "function";
 };
@@ -20632,12 +21663,12 @@ export type EnrichTemplateRequest = {
 	/**
 	 * @description Optional list of competitor names
 	 */
-	competitors?: (string[] | null) | undefined;
+	competitors?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Refinement instruction for modifying the competitor list (e.g. 'add 10 more from Asia')
 	 */
-	instruction?: (string | null) | undefined;
-	model?: (string | null) | undefined;
+	instruction?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
 	parameters: {
 		[key: string]: unknown;
 	};
@@ -20646,7 +21677,7 @@ export type EnrichTemplateRequest = {
 
 export type GenericGuardrailAPIInputs = {
 	images?: string[] | undefined;
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	stream_holdback_chars?: number[] | undefined;
 	structured_messages?:
 		| (
@@ -20700,7 +21731,7 @@ export type PolicyInfoResponse = {
 	 * @type object
 	 */
 	guardrails: PolicyGuardrailsResponse;
-	inherit?: (string | null) | undefined;
+	inherit?: (string | (null | null)) | undefined;
 	inheritance_chain: string[];
 	policy_name: string;
 	resolved_guardrails: string[];
@@ -20721,7 +21752,7 @@ export type PolicySummaryItem = {
 	 * @type object
 	 */
 	guardrails: PolicyGuardrailsResponse;
-	inherit?: (string | null) | undefined;
+	inherit?: (string | (null | null)) | undefined;
 	inheritance_chain: string[];
 	resolved_guardrails: string[];
 	/**
@@ -20752,19 +21783,19 @@ export type PolicyMatchContext = {
 	/**
 	 * @description API key alias from the request.
 	 */
-	key_alias?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
 	/**
 	 * @description Model name from the request.
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Tags from key/team metadata.
 	 */
-	tags?: (string[] | null) | undefined;
+	tags?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Team alias from the request.
 	 */
-	team_alias?: (string | null) | undefined;
+	team_alias?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -20780,7 +21811,7 @@ export type PolicyTestResponse = {
 	 */
 	context: PolicyMatchContext;
 	matching_policies: string[];
-	message?: (string | null) | undefined;
+	message?: (string | (null | null)) | undefined;
 	resolved_guardrails: string[];
 };
 
@@ -20825,7 +21856,7 @@ export type PolicyValidationError = {
 	/**
 	 * @description Specific field that caused the error (e.g., 'guardrails.add', 'scope.teams').
 	 */
-	field?: (string | null) | undefined;
+	field?: (string | (null | null)) | undefined;
 	/**
 	 * @description Human-readable error message.
 	 * @type string
@@ -20839,7 +21870,7 @@ export type PolicyValidationError = {
 	/**
 	 * @description The invalid value that caused the error.
 	 */
-	value?: (string | null) | undefined;
+	value?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -20875,7 +21906,7 @@ export type SuggestTemplatesRequest = {
 	 * @type string | undefined
 	 */
 	description?: string | undefined;
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 };
 
 export const testPoliciesAndGuardrailsRequestInputTypeEnum = {
@@ -20894,11 +21925,11 @@ export type TestPoliciesAndGuardrailsRequest = {
 	/**
 	 * @description When set, call chat completion with this model/agent for each input and include the response in the result.
 	 */
-	agent_id?: (string | null) | undefined;
+	agent_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Guardrail names to apply directly
 	 */
-	guardrail_names?: (string[] | null) | undefined;
+	guardrail_names?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Whether inputs are request or response
 	 * @default 'request'
@@ -20914,7 +21945,7 @@ export type TestPoliciesAndGuardrailsRequest = {
 	/**
 	 * @description Policy names to resolve guardrails from
 	 */
-	policy_names?: (string[] | null) | undefined;
+	policy_names?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Request context (model, user_id, etc.)
 	 * @type object | undefined
@@ -21022,11 +22053,11 @@ export type PolicyAttachmentCreateRequest = {
 	/**
 	 * @description Key aliases or patterns this attachment applies to.
 	 */
-	keys?: (string[] | null) | undefined;
+	keys?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Model names or patterns this attachment applies to.
 	 */
-	models?: (string[] | null) | undefined;
+	models?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Name of the policy to attach.
 	 * @type string
@@ -21035,19 +22066,19 @@ export type PolicyAttachmentCreateRequest = {
 	/**
 	 * @description Explicit execution order, lower runs first. Prioritised attachments run before those without one.
 	 */
-	priority?: (number | null) | undefined;
+	priority?: (number | (null | null)) | undefined;
 	/**
 	 * @description Use '*' for global scope (applies to all requests).
 	 */
-	scope?: (string | null) | undefined;
+	scope?: (string | (null | null)) | undefined;
 	/**
 	 * @description Tag patterns this attachment applies to. Supports wildcards (e.g., health-*).
 	 */
-	tags?: (string[] | null) | undefined;
+	tags?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Team aliases or patterns this attachment applies to.
 	 */
-	teams?: (string[] | null) | undefined;
+	teams?: (string[] | (null | null)) | undefined;
 };
 
 export const policyAttachmentDBResponseDefinitionLocationEnum = {
@@ -21071,11 +22102,11 @@ export type PolicyAttachmentDBResponse = {
 	/**
 	 * @description When the attachment was created.
 	 */
-	created_at?: (string | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
 	/**
 	 * @description Who created the attachment.
 	 */
-	created_by?: (string | null) | undefined;
+	created_by?: (string | (null | null)) | undefined;
 	/**
 	 * @description Apply this attachment only when no non-default attachment matches the request.
 	 * @default false
@@ -21106,11 +22137,11 @@ export type PolicyAttachmentDBResponse = {
 	/**
 	 * @description Explicit execution order, lower runs first. Prioritised attachments run before those without one.
 	 */
-	priority?: (number | null) | undefined;
+	priority?: (number | (null | null)) | undefined;
 	/**
 	 * @description Scope of the attachment.
 	 */
-	scope?: (string | null) | undefined;
+	scope?: (string | (null | null)) | undefined;
 	/**
 	 * @description Tag patterns.
 	 * @type array | undefined
@@ -21124,11 +22155,11 @@ export type PolicyAttachmentDBResponse = {
 	/**
 	 * @description When the attachment was last updated.
 	 */
-	updated_at?: (string | null) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
 	/**
 	 * @description Who last updated the attachment.
 	 */
-	updated_by?: (string | null) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -21157,7 +22188,7 @@ export type PolicyConditionRequest = {
 	/**
 	 * @description Model name pattern (exact match or regex) for when policy applies.
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -21168,30 +22199,33 @@ export type PolicyCreateRequest = {
 	/**
 	 * @description Condition for when this policy applies.
 	 */
-	condition?: (PolicyConditionRequest | null) | undefined;
+	condition?: (PolicyConditionRequest | (null | null)) | undefined;
 	/**
 	 * @description Human-readable description of the policy.
 	 */
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	/**
 	 * @description List of guardrail names to add.
 	 */
-	guardrails_add?: (string[] | null) | undefined;
+	guardrails_add?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description List of guardrail names to remove (from inherited).
 	 */
-	guardrails_remove?: (string[] | null) | undefined;
+	guardrails_remove?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Name of parent policy to inherit from.
 	 */
-	inherit?: (string | null) | undefined;
+	inherit?: (string | (null | null)) | undefined;
 	/**
 	 * @description Optional guardrail pipeline for ordered execution. Contains 'mode' and 'steps'.
 	 */
 	pipeline?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Unique name for the policy.
@@ -21217,18 +22251,21 @@ export type PolicyDBResponse = {
 	 * @description Policy condition.
 	 */
 	condition?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description When the policy was created.
 	 */
-	created_at?: (string | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
 	/**
 	 * @description Who created the policy.
 	 */
-	created_by?: (string | null) | undefined;
+	created_by?: (string | (null | null)) | undefined;
 	/**
 	 * @description Where this policy is defined: 'db' (database) or 'config' (config.yaml).
 	 * @default 'db'
@@ -21238,7 +22275,7 @@ export type PolicyDBResponse = {
 	/**
 	 * @description Policy description.
 	 */
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	/**
 	 * @description Guardrails to add.
 	 * @type array | undefined
@@ -21252,7 +22289,7 @@ export type PolicyDBResponse = {
 	/**
 	 * @description Parent policy name.
 	 */
-	inherit?: (string | null) | undefined;
+	inherit?: (string | (null | null)) | undefined;
 	/**
 	 * @description True if this is the latest version by version_number.
 	 * @default true
@@ -21262,14 +22299,17 @@ export type PolicyDBResponse = {
 	/**
 	 * @description Policy ID this version was cloned from.
 	 */
-	parent_version_id?: (string | null) | undefined;
+	parent_version_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Optional guardrail pipeline.
 	 */
 	pipeline?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Unique ID of the policy.
@@ -21284,19 +22324,19 @@ export type PolicyDBResponse = {
 	/**
 	 * @description When this version was promoted to production.
 	 */
-	production_at?: (string | null) | undefined;
+	production_at?: (string | (null | null)) | undefined;
 	/**
 	 * @description When this version was published.
 	 */
-	published_at?: (string | null) | undefined;
+	published_at?: (string | (null | null)) | undefined;
 	/**
 	 * @description When the policy was last updated.
 	 */
-	updated_at?: (string | null) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
 	/**
 	 * @description Who last updated the policy.
 	 */
-	updated_by?: (string | null) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
 	/**
 	 * @description Version number of this policy.
 	 * @default 1
@@ -21359,19 +22399,19 @@ export type PolicyResolveRequest = {
 	/**
 	 * @description Key alias to resolve for.
 	 */
-	key_alias?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
 	/**
 	 * @description Model name to resolve for.
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Tags to resolve for.
 	 */
-	tags?: (string[] | null) | undefined;
+	tags?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Team alias to resolve for.
 	 */
-	team_alias?: (string | null) | undefined;
+	team_alias?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -21399,35 +22439,38 @@ export type PolicyUpdateRequest = {
 	/**
 	 * @description Condition for when this policy applies.
 	 */
-	condition?: (PolicyConditionRequest | null) | undefined;
+	condition?: (PolicyConditionRequest | (null | null)) | undefined;
 	/**
 	 * @description Human-readable description of the policy.
 	 */
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	/**
 	 * @description List of guardrail names to add.
 	 */
-	guardrails_add?: (string[] | null) | undefined;
+	guardrails_add?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description List of guardrail names to remove (from inherited).
 	 */
-	guardrails_remove?: (string[] | null) | undefined;
+	guardrails_remove?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Name of parent policy to inherit from.
 	 */
-	inherit?: (string | null) | undefined;
+	inherit?: (string | (null | null)) | undefined;
 	/**
 	 * @description Optional guardrail pipeline for ordered execution. Contains 'mode' and 'steps'.
 	 */
 	pipeline?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description New name for the policy.
 	 */
-	policy_name?: (string | null) | undefined;
+	policy_name?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -21466,7 +22509,7 @@ export type PolicyVersionCreateRequest = {
 	/**
 	 * @description Policy ID to clone from. If None, clone from current production version.
 	 */
-	source_policy_id?: (string | null) | undefined;
+	source_policy_id?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -21518,21 +22561,24 @@ export type EntraIdentityConfig = {
 	 * @type array | undefined
 	 */
 	required_scopes?: string[] | undefined;
-	service_principal_id?: (string | null) | undefined;
+	service_principal_id?: (string | (null | null)) | undefined;
 	tenant_id: string;
 };
 
 export type AgentObjectPermission = {
-	agents?: (string[] | null) | undefined;
-	mcp_access_groups?: (string[] | null) | undefined;
-	mcp_servers?: (string[] | null) | undefined;
+	agents?: (string[] | (null | null)) | undefined;
+	mcp_access_groups?: (string[] | (null | null)) | undefined;
+	mcp_servers?: (string[] | (null | null)) | undefined;
 	mcp_tool_permissions?:
-		| ({
-				[key: string]: string[];
-		  } | null)
+		| (
+				| {
+						[key: string]: string[];
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	mcp_toolsets?: (string[] | null) | undefined;
-	models?: (string[] | null) | undefined;
+	mcp_toolsets?: (string[] | (null | null)) | undefined;
+	models?: (string[] | (null | null)) | undefined;
 };
 
 export const agentConfigExecutionModeEnum = {
@@ -21545,7 +22591,7 @@ export type AgentConfigExecutionModeEnumKey =
 	(typeof agentConfigExecutionModeEnum)[keyof typeof agentConfigExecutionModeEnum];
 
 export type AgentConfig = {
-	access_group_ids?: (string[] | null) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description The AgentCard is a self-describing manifest for an agent.
 	 * It provides essential metadata including the agent's identity, capabilities,
@@ -21556,24 +22602,27 @@ export type AgentConfig = {
 	agent_name: string;
 	enabled?: boolean | undefined;
 	execution_mode?: AgentConfigExecutionModeEnumKey | undefined;
-	extra_headers?: (string[] | null) | undefined;
-	identity?: (EntraIdentityConfig | null) | undefined;
-	kill_switch?: (AgentKillSwitchConfig | null) | undefined;
+	extra_headers?: (string[] | (null | null)) | undefined;
+	identity?: (EntraIdentityConfig | (null | null)) | undefined;
+	kill_switch?: (AgentKillSwitchConfig | (null | null)) | undefined;
 	litellm_params?:
 		| {
 				[key: string]: unknown;
 		  }
 		| undefined;
 	object_permission?: AgentObjectPermission | undefined;
-	rpm_limit?: (number | null) | undefined;
-	session_rpm_limit?: (number | null) | undefined;
-	session_tpm_limit?: (number | null) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	session_rpm_limit?: (number | (null | null)) | undefined;
+	session_tpm_limit?: (number | (null | null)) | undefined;
 	static_headers?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
 };
 
 export const agentKillSwitchResultMethodEnum = {
@@ -21589,10 +22638,10 @@ export type AgentKillSwitchResultMethodEnumKey =
 
 export type AgentKillSwitchResult = {
 	agent_id: string;
-	error?: (string | null) | undefined;
+	error?: (string | (null | null)) | undefined;
 	method: AgentKillSwitchResultMethodEnumKey;
-	response_body?: (string | null) | undefined;
-	status_code?: (number | null) | undefined;
+	response_body?: (string | (null | null)) | undefined;
+	status_code?: (number | (null | null)) | undefined;
 	url: string;
 };
 
@@ -21626,13 +22675,13 @@ export type ManagedAgentIdentityStatus = {
 	 * @type string | undefined
 	 */
 	execution_mode?: ManagedAgentIdentityStatusExecutionModeEnumKey | undefined;
-	identity?: (AgentIdentityBinding | null) | undefined;
+	identity?: (AgentIdentityBinding | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	identity_managed?: boolean | undefined;
-	last_authenticated_at?: (string | null) | undefined;
+	last_authenticated_at?: (string | (null | null)) | undefined;
 };
 
 export const patchAgentRequestExecutionModeEnum = {
@@ -21645,7 +22694,7 @@ export type PatchAgentRequestExecutionModeEnumKey =
 	(typeof patchAgentRequestExecutionModeEnum)[keyof typeof patchAgentRequestExecutionModeEnum];
 
 export type PatchAgentRequest = {
-	access_group_ids?: (string[] | null) | undefined;
+	access_group_ids?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description The AgentCard is a self-describing manifest for an agent.
 	 * It provides essential metadata including the agent's identity, capabilities,
@@ -21656,35 +22705,41 @@ export type PatchAgentRequest = {
 	agent_name?: string | undefined;
 	enabled?: boolean | undefined;
 	execution_mode?: PatchAgentRequestExecutionModeEnumKey | undefined;
-	extra_headers?: (string[] | null) | undefined;
-	identity?: (EntraIdentityConfig | null) | undefined;
-	kill_switch?: (AgentKillSwitchConfig | null) | undefined;
+	extra_headers?: (string[] | (null | null)) | undefined;
+	identity?: (EntraIdentityConfig | (null | null)) | undefined;
+	kill_switch?: (AgentKillSwitchConfig | (null | null)) | undefined;
 	litellm_params?:
 		| {
 				[key: string]: unknown;
 		  }
 		| undefined;
 	object_permission?: AgentObjectPermission | undefined;
-	rpm_limit?: (number | null) | undefined;
-	session_rpm_limit?: (number | null) | undefined;
-	session_tpm_limit?: (number | null) | undefined;
+	rpm_limit?: (number | (null | null)) | undefined;
+	session_rpm_limit?: (number | (null | null)) | undefined;
+	session_tpm_limit?: (number | (null | null)) | undefined;
 	static_headers?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	tpm_limit?: (number | null) | undefined;
+	tpm_limit?: (number | (null | null)) | undefined;
 };
 
 export type A2AJsonRpcResponse = {
 	error?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	id: string | number | null;
+	id: string | number | (null | null);
 	jsonrpc: "2.0";
-	result?: (unknown | null) | undefined;
+	result?: (unknown | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -21706,9 +22761,12 @@ export type DiscoverAgentRequest = {
 	 * @description Mode-specific parameters. ``langgraph_platform`` requires ``{'assistant_id': <id>}``. ``well_known_fallback`` ignores this.
 	 */
 	params?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Base URL of the upstream agent. Behavior depends on ``discovery_mode``: ``well_known_fallback`` (default) tries /.well-known/agent-card.json, /.well-known/agent.json, /agent.json under this URL in order; ``langgraph_platform`` hits ``/.well-known/agent-card.json?assistant_id=<id>`` instead.
@@ -21731,9 +22789,12 @@ export type IndexCreateLiteLLMParams = {
 
 export type IndexCreateRequest = {
 	index_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	index_name: string;
 	litellm_params: IndexCreateLiteLLMParams;
@@ -21744,18 +22805,21 @@ export type IndexCreateRequest = {
  * @type object
  */
 export type LiteLLMManagedVectorStoreIndex = {
-	created_at?: (string | null) | undefined;
-	created_by?: (string | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
 	id: string;
 	index_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	index_name: string;
 	litellm_params: IndexCreateLiteLLMParams;
-	updated_at?: (string | null) | undefined;
-	updated_by?: (string | null) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
 };
 
 export type IndexListResponse = {
@@ -21772,19 +22836,22 @@ export type IndexListResponse = {
  * @type object
  */
 export type LiteLLMManagedVectorStore = {
-	created_at?: (string | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
 	custom_llm_provider?: string | undefined;
 	is_config?: boolean | undefined;
-	litellm_credential_name?: (string | null) | undefined;
+	litellm_credential_name?: (string | (null | null)) | undefined;
 	litellm_params?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	team_id?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	user_id?: (string | null) | undefined;
-	vector_store_description?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	vector_store_description?: (string | (null | null)) | undefined;
 	vector_store_id?: string | undefined;
 	vector_store_metadata?:
 		| (
@@ -21792,10 +22859,10 @@ export type LiteLLMManagedVectorStore = {
 						[key: string]: unknown;
 				  }
 				| string
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	vector_store_name?: (string | null) | undefined;
+	vector_store_name?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -21803,38 +22870,44 @@ export type LiteLLMManagedVectorStore = {
  * @type object
  */
 export type LiteLLMManagedVectorStoreListResponse = {
-	current_page?: (number | null) | undefined;
+	current_page?: (number | (null | null)) | undefined;
 	data?: LiteLLMManagedVectorStore[] | undefined;
 	object?: "list" | undefined;
-	total_count?: (number | null) | undefined;
-	total_pages?: (number | null) | undefined;
+	total_count?: (number | (null | null)) | undefined;
+	total_pages?: (number | (null | null)) | undefined;
 };
 
 export type LiteLLMManagedVectorStoresTable = {
-	created_at?: (string | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
 	custom_llm_provider: string;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	is_config?: boolean | undefined;
-	litellm_credential_name?: (string | null) | undefined;
+	litellm_credential_name?: (string | (null | null)) | undefined;
 	litellm_params?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	team_id?: (string | null) | undefined;
-	updated_at?: (string | null) | undefined;
-	user_id?: (string | null) | undefined;
-	vector_store_description?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	vector_store_description?: (string | (null | null)) | undefined;
 	vector_store_id: string;
 	vector_store_metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	vector_store_name?: (string | null) | undefined;
+	vector_store_name?: (string | (null | null)) | undefined;
 };
 
 export type ResponseLiteLLMManagedVectorStore = {
@@ -21850,20 +22923,23 @@ export type VectorStoreInfoRequest = {
 };
 
 export type VectorStoreUpdateRequest = {
-	custom_llm_provider?: (string | null) | undefined;
-	vector_store_description?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
+	vector_store_description?: (string | (null | null)) | undefined;
 	vector_store_id: string;
 	vector_store_metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	vector_store_name?: (string | null) | undefined;
+	vector_store_name?: (string | (null | null)) | undefined;
 };
 
 export type ToolDiscoveryUser = {
-	user_alias?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
+	user_alias?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	user_id: string;
 };
 
@@ -21886,38 +22962,41 @@ export type LiteLLMToolTableRowOutputPolicyEnumKey =
 
 export type LiteLLMToolTableRow = {
 	assignments?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default 0
 	 * @type integer | undefined
 	 */
 	call_count?: number | undefined;
-	created_at?: (string | null) | undefined;
-	created_by?: (string | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
 	/**
 	 * @default 'untrusted'
 	 * @type string | undefined
 	 */
 	input_policy?: LiteLLMToolTableRowInputPolicyEnumKey | undefined;
-	key_alias?: (string | null) | undefined;
-	key_hash?: (string | null) | undefined;
-	last_used_at?: (string | null) | undefined;
-	origin?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
+	key_hash?: (string | (null | null)) | undefined;
+	last_used_at?: (string | (null | null)) | undefined;
+	origin?: (string | (null | null)) | undefined;
 	/**
 	 * @default 'untrusted'
 	 * @type string | undefined
 	 */
 	output_policy?: LiteLLMToolTableRowOutputPolicyEnumKey | undefined;
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 	tool_id: string;
 	tool_name: string;
-	updated_at?: (string | null) | undefined;
-	updated_by?: (string | null) | undefined;
-	user?: (ToolDiscoveryUser | null) | undefined;
-	user_agent?: (string | null) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
+	user?: (ToolDiscoveryUser | (null | null)) | undefined;
+	user_agent?: (string | (null | null)) | undefined;
 };
 
 export const toolPolicyOverrideRowInputPolicyEnum = {
@@ -21930,18 +23009,18 @@ export type ToolPolicyOverrideRowInputPolicyEnumKey =
 	(typeof toolPolicyOverrideRowInputPolicyEnum)[keyof typeof toolPolicyOverrideRowInputPolicyEnum];
 
 export type ToolPolicyOverrideRow = {
-	created_at?: (string | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
 	/**
 	 * @default 'blocked'
 	 * @type string | undefined
 	 */
 	input_policy?: ToolPolicyOverrideRowInputPolicyEnumKey | undefined;
-	key_alias?: (string | null) | undefined;
-	key_hash?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
+	key_hash?: (string | (null | null)) | undefined;
 	override_id: string;
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 	tool_name: string;
-	updated_at?: (string | null) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
 };
 
 export type ToolDetailResponse = {
@@ -21983,11 +23062,11 @@ export type ToolPolicyUpdateRequestOutputPolicyKey =
 	(typeof toolPolicyUpdateRequestOutputPolicy)[keyof typeof toolPolicyUpdateRequestOutputPolicy];
 
 export type ToolPolicyUpdateRequest = {
-	input_policy?: (ToolPolicyUpdateRequestInputPolicyKey | null) | undefined;
-	key_alias?: (string | null) | undefined;
-	key_hash?: (string | null) | undefined;
-	output_policy?: (ToolPolicyUpdateRequestOutputPolicyKey | null) | undefined;
-	team_id?: (string | null) | undefined;
+	input_policy?: (ToolPolicyUpdateRequestInputPolicyKey | (null | null)) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
+	key_hash?: (string | (null | null)) | undefined;
+	output_policy?: (ToolPolicyUpdateRequestOutputPolicyKey | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 	tool_name: string;
 };
 
@@ -22009,10 +23088,10 @@ export type ToolPolicyUpdateResponseOutputPolicyKey =
 	(typeof toolPolicyUpdateResponseOutputPolicy)[keyof typeof toolPolicyUpdateResponseOutputPolicy];
 
 export type ToolPolicyUpdateResponse = {
-	input_policy?: (ToolPolicyUpdateResponseInputPolicyKey | null) | undefined;
-	key_hash?: (string | null) | undefined;
-	output_policy?: (ToolPolicyUpdateResponseOutputPolicyKey | null) | undefined;
-	team_id?: (string | null) | undefined;
+	input_policy?: (ToolPolicyUpdateResponseInputPolicyKey | (null | null)) | undefined;
+	key_hash?: (string | (null | null)) | undefined;
+	output_policy?: (ToolPolicyUpdateResponseOutputPolicyKey | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 	tool_name: string;
 	updated: boolean;
 };
@@ -22063,8 +23142,8 @@ export type ToolSpendEntry = {
 export type ToolSpendResponse = {
 	by_tool?: ToolSpendEntry[] | undefined;
 	daily?: ToolSpendDailyEntry[] | undefined;
-	end_date?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -22073,11 +23152,11 @@ export type ToolSpendResponse = {
  */
 export type ToolUsageLogEntry = {
 	id: string;
-	input_snippet?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	spend?: (number | null) | undefined;
+	input_snippet?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	spend?: (number | (null | null)) | undefined;
 	timestamp: string;
-	total_tokens?: (number | null) | undefined;
+	total_tokens?: (number | (null | null)) | undefined;
 };
 
 export type ToolUsageLogsResponse = {
@@ -22149,12 +23228,12 @@ export type ModelInsightsResponse = {
  * @type object
  */
 export type SearchToolLiteLLMParams = {
-	api_base?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	input_cost_per_query?: (number | null) | undefined;
-	max_retries?: (number | null) | undefined;
+	api_base?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	input_cost_per_query?: (number | (null | null)) | undefined;
+	max_retries?: (number | (null | null)) | undefined;
 	search_provider: string;
-	timeout?: (number | null) | undefined;
+	timeout?: (number | (null | null)) | undefined;
 };
 
 /**
@@ -22175,20 +23254,23 @@ export type SearchToolLiteLLMParams = {
  * @type object
  */
 export type SearchTool = {
-	created_at?: (string | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
 	/**
 	 * @description LiteLLM params for search tools configuration.
 	 * @type object
 	 */
 	litellm_params: SearchToolLiteLLMParams;
-	search_tool_id?: (string | null) | undefined;
+	search_tool_id?: (string | (null | null)) | undefined;
 	search_tool_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	search_tool_name: string;
-	updated_at?: (string | null) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
 };
 
 export type CreateSearchToolRequest = {
@@ -22217,21 +23299,24 @@ export type CreateSearchToolRequest = {
  * @type object
  */
 export type SearchToolInfoResponse = {
-	created_at?: (string | null) | undefined;
-	is_from_config?: (boolean | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	is_from_config?: (boolean | (null | null)) | undefined;
 	litellm_params?:
 		| {
 				[key: string]: unknown;
 		  }
 		| undefined;
-	search_tool_id?: (string | null) | undefined;
+	search_tool_id?: (string | (null | null)) | undefined;
 	search_tool_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	search_tool_name?: string | undefined;
-	updated_at?: (string | null) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -22278,35 +23363,37 @@ export type MCPCredentialsTokenEndpointAuthMethodKey =
 	(typeof MCPCredentialsTokenEndpointAuthMethod)[keyof typeof MCPCredentialsTokenEndpointAuthMethod];
 
 export type MCPCredentials = {
-	audience?: (string | null) | undefined;
-	auth_value?: (string | null) | undefined;
-	aws_access_key_id?: (string | null) | undefined;
-	aws_region_name?: (string | null) | undefined;
-	aws_role_name?: (string | null) | undefined;
-	aws_secret_access_key?: (string | null) | undefined;
-	aws_service_name?: (string | null) | undefined;
-	aws_session_name?: (string | null) | undefined;
-	aws_session_token?: (string | null) | undefined;
-	client_assertion_signing_alg?: (string | null) | undefined;
-	client_id?: (string | null) | undefined;
-	client_private_key?: (string | null) | undefined;
-	client_private_key_id?: (string | null) | undefined;
-	client_secret?: (string | null) | undefined;
-	dcr_issuer?: (string | null) | undefined;
-	dcr_server_url?: (string | null) | undefined;
-	id_jag_resource?: (string | null) | undefined;
-	id_jag_resource_client_id?: (string | null) | undefined;
-	id_jag_resource_client_secret?: (string | null) | undefined;
-	id_jag_resource_token_endpoint?: (string | null) | undefined;
-	id_jag_subject_source?: (string | null) | undefined;
-	redirect_uris?: (string[] | null) | undefined;
-	scopes?: (string[] | null) | undefined;
-	subject_token_type?: (string | null) | undefined;
-	token_endpoint_auth_method?: (MCPCredentialsTokenEndpointAuthMethodKey | null) | undefined;
-	token_exchange_endpoint?: (string | null) | undefined;
-	token_exchange_profile?: (string | null) | undefined;
-	upstream_resource?: (string | null) | undefined;
-	upstream_token_header?: (string | null) | undefined;
+	audience?: (string | (null | null)) | undefined;
+	auth_value?: (string | (null | null)) | undefined;
+	aws_access_key_id?: (string | (null | null)) | undefined;
+	aws_region_name?: (string | (null | null)) | undefined;
+	aws_role_name?: (string | (null | null)) | undefined;
+	aws_secret_access_key?: (string | (null | null)) | undefined;
+	aws_service_name?: (string | (null | null)) | undefined;
+	aws_session_name?: (string | (null | null)) | undefined;
+	aws_session_token?: (string | (null | null)) | undefined;
+	client_assertion_signing_alg?: (string | (null | null)) | undefined;
+	client_id?: (string | (null | null)) | undefined;
+	client_private_key?: (string | (null | null)) | undefined;
+	client_private_key_id?: (string | (null | null)) | undefined;
+	client_secret?: (string | (null | null)) | undefined;
+	dcr_issuer?: (string | (null | null)) | undefined;
+	dcr_server_url?: (string | (null | null)) | undefined;
+	id_jag_resource?: (string | (null | null)) | undefined;
+	id_jag_resource_client_id?: (string | (null | null)) | undefined;
+	id_jag_resource_client_secret?: (string | (null | null)) | undefined;
+	id_jag_resource_token_endpoint?: (string | (null | null)) | undefined;
+	id_jag_subject_source?: (string | (null | null)) | undefined;
+	redirect_uris?: (string[] | (null | null)) | undefined;
+	scopes?: (string[] | (null | null)) | undefined;
+	subject_token_type?: (string | (null | null)) | undefined;
+	token_endpoint_auth_method?:
+		| (MCPCredentialsTokenEndpointAuthMethodKey | (null | null))
+		| undefined;
+	token_exchange_endpoint?: (string | (null | null)) | undefined;
+	token_exchange_profile?: (string | (null | null)) | undefined;
+	upstream_resource?: (string | (null | null)) | undefined;
+	upstream_token_header?: (string | (null | null)) | undefined;
 };
 
 export const MCPEnvVarScope = {
@@ -22326,7 +23413,7 @@ export type MCPEnvVarScopeKey = (typeof MCPEnvVarScope)[keyof typeof MCPEnvVarSc
  * @type object
  */
 export type MCPEnvVar = {
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	name: string;
 	/**
 	 * @description Scope for an MCP server environment variable.
@@ -22413,7 +23500,7 @@ export type LiteLLMMCPServerTableTransportEnumKey =
  * @type object
  */
 export type LiteLLMMCPServerTable = {
-	alias?: (string | null) | undefined;
+	alias?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -22424,40 +23511,40 @@ export type LiteLLMMCPServerTable = {
 	 * @description Approval status: 'pending_review', 'active', 'rejected'
 	 * @default active
 	 */
-	approval_status?: (string | null) | undefined;
+	approval_status?: (string | (null | null)) | undefined;
 	args?: string[] | undefined;
-	audience?: (string | null) | undefined;
-	auth_type?: (LiteLLMMCPServerTableAuthTypeKey | null) | undefined;
-	authorization_url?: (string | null) | undefined;
+	audience?: (string | (null | null)) | undefined;
+	auth_type?: (LiteLLMMCPServerTableAuthTypeKey | (null | null)) | undefined;
+	authorization_url?: (string | (null | null)) | undefined;
 	/**
 	 * @default true
 	 * @type boolean | undefined
 	 */
 	available_on_public_internet?: boolean | undefined;
-	byok_api_key_help_url?: (string | null) | undefined;
+	byok_api_key_help_url?: (string | (null | null)) | undefined;
 	byok_description?: string[] | undefined;
-	command?: (string | null) | undefined;
-	connected_app_reachable?: (boolean | null) | undefined;
-	created_at?: (string | null) | undefined;
-	created_by?: (string | null) | undefined;
-	credentials?: (MCPCredentials | null) | undefined;
-	dcr_bridge?: (boolean | null) | undefined;
+	command?: (string | (null | null)) | undefined;
+	connected_app_reachable?: (boolean | (null | null)) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	credentials?: (MCPCredentials | (null | null)) | undefined;
+	dcr_bridge?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	delegate_auth_to_upstream?: boolean | undefined;
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	env?:
 		| {
 				[key: string]: string;
 		  }
 		| undefined;
-	env_vars?: (MCPEnvVar[] | null) | undefined;
+	env_vars?: (MCPEnvVar[] | (null | null)) | undefined;
 	extra_headers?: string[] | undefined;
-	has_user_credential?: (boolean | null) | undefined;
-	health_check_error?: (string | null) | undefined;
-	instructions?: (string | null) | undefined;
+	has_user_credential?: (boolean | (null | null)) | undefined;
+	health_check_error?: (string | (null | null)) | undefined;
+	instructions?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -22469,16 +23556,19 @@ export type LiteLLMMCPServerTable = {
 	 * @type boolean | undefined
 	 */
 	is_config?: boolean | undefined;
-	issuer?: (string | null) | undefined;
-	last_health_check?: (string | null) | undefined;
-	max_concurrent_requests?: (number | null) | undefined;
+	issuer?: (string | (null | null)) | undefined;
+	last_health_check?: (string | (null | null)) | undefined;
+	max_concurrent_requests?: (number | (null | null)) | undefined;
 	mcp_access_groups?: string[] | undefined;
 	mcp_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	oauth2_flow?: (LiteLLMMCPServerTableOauth2FlowKey | null) | undefined;
+	oauth2_flow?: (LiteLLMMCPServerTableOauth2FlowKey | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -22490,74 +23580,89 @@ export type LiteLLMMCPServerTable = {
 	 */
 	per_server_oauth_discovery?: boolean | undefined;
 	pinned_tools?:
-		| ({
-				[key: string]: PinnedMCPTool;
-		  } | null)
+		| (
+				| {
+						[key: string]: PinnedMCPTool;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	registration_url?: (string | null) | undefined;
-	review_notes?: (string | null) | undefined;
-	reviewed_at?: (string | null) | undefined;
-	rpm?: (number | null) | undefined;
+	registration_url?: (string | (null | null)) | undefined;
+	review_notes?: (string | (null | null)) | undefined;
+	reviewed_at?: (string | (null | null)) | undefined;
+	rpm?: (number | (null | null)) | undefined;
 	server_id: string;
-	server_name?: (string | null) | undefined;
-	source_url?: (string | null) | undefined;
-	spec_path?: (string | null) | undefined;
+	server_name?: (string | (null | null)) | undefined;
+	source_url?: (string | (null | null)) | undefined;
+	spec_path?: (string | (null | null)) | undefined;
 	static_headers?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Health status: 'healthy', 'unhealthy', 'unknown', or 'reachable' (requires include_reachability=true; authentication and tools unchecked)
 	 * @default unknown
 	 */
-	status?: (LiteLLMMCPServerTableStatusKey | null) | undefined;
-	subject_token_type?: (string | null) | undefined;
-	submitted_at?: (string | null) | undefined;
-	submitted_by?: (string | null) | undefined;
+	status?: (LiteLLMMCPServerTableStatusKey | (null | null)) | undefined;
+	subject_token_type?: (string | (null | null)) | undefined;
+	submitted_at?: (string | (null | null)) | undefined;
+	submitted_by?: (string | (null | null)) | undefined;
 	teams?:
 		| {
-				[key: string]: string | null;
+				[key: string]: string | (null | null);
 		  }[]
 		| undefined;
-	timeout?: (number | null) | undefined;
-	token_exchange_endpoint?: (string | null) | undefined;
-	token_exchange_profile?: (string | null) | undefined;
-	token_url?: (string | null) | undefined;
+	timeout?: (number | (null | null)) | undefined;
+	token_exchange_endpoint?: (string | (null | null)) | undefined;
+	token_exchange_profile?: (string | (null | null)) | undefined;
+	token_url?: (string | (null | null)) | undefined;
 	tool_name_to_description?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	tool_name_to_display_name?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	transport: LiteLLMMCPServerTableTransportEnumKey;
-	updated_at?: (string | null) | undefined;
-	updated_by?: (string | null) | undefined;
-	url?: (string | null) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
+	url?: (string | (null | null)) | undefined;
 };
 
 export type MCPConnectorEntry = {
 	args?: string[] | undefined;
-	authorization_token?: (string | null) | undefined;
-	command?: (string | null) | undefined;
-	description?: (string | null) | undefined;
+	authorization_token?: (string | (null | null)) | undefined;
+	command?: (string | (null | null)) | undefined;
+	description?: (string | (null | null)) | undefined;
 	env?:
 		| {
 				[key: string]: string;
 		  }
 		| undefined;
 	headers?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	name?: (string | null) | undefined;
-	type?: (string | null) | undefined;
-	url?: (string | null) | undefined;
+	name?: (string | (null | null)) | undefined;
+	type?: (string | (null | null)) | undefined;
+	url?: (string | (null | null)) | undefined;
 };
 
 export type MCPConnectorImportFailure = {
@@ -22595,22 +23700,22 @@ export type MCPConnectorImportResponse = {
  * @type object
  */
 export type MCPGatewaySession = {
-	client_ip?: (string | null) | undefined;
-	client_name?: (string | null) | undefined;
-	client_version?: (string | null) | undefined;
+	client_ip?: (string | (null | null)) | undefined;
+	client_name?: (string | (null | null)) | undefined;
+	client_version?: (string | (null | null)) | undefined;
 	idle_seconds: number;
 	in_flight_requests: number;
-	key_alias?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
 	session_id_prefix: string;
-	team_alias?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	user_email?: (string | null) | undefined;
-	user_id?: (string | null) | undefined;
+	team_alias?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	user_email?: (string | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 };
 
 export type MCPGatewaySessionGroupCount = {
 	count: number;
-	label?: (string | null) | undefined;
+	label?: (string | (null | null)) | undefined;
 };
 
 export type MCPGatewaySessionsResponse = {
@@ -22637,9 +23742,9 @@ export type MCPGatewaySessionsTerminateResponse = {
  */
 export type MCPOAuthUserCredentialRequest = {
 	access_token: string;
-	expires_in?: (number | null) | undefined;
-	refresh_token?: (string | null) | undefined;
-	scopes?: (string[] | null) | undefined;
+	expires_in?: (number | (null | null)) | undefined;
+	refresh_token?: (string | (null | null)) | undefined;
+	scopes?: (string[] | (null | null)) | undefined;
 };
 
 /**
@@ -22647,8 +23752,8 @@ export type MCPOAuthUserCredentialRequest = {
  * @type object
  */
 export type MCPOAuthUserCredentialStatus = {
-	connected_at?: (string | null) | undefined;
-	expires_at?: (string | null) | undefined;
+	connected_at?: (string | (null | null)) | undefined;
+	expires_at?: (string | (null | null)) | undefined;
 	has_credential: boolean;
 	/**
 	 * @default false
@@ -22671,9 +23776,9 @@ export type MCPServerUserCredentialListItemCredentialTypeEnumKey =
  * @type object
  */
 export type MCPServerUserCredentialListItem = {
-	connected_at?: (string | null) | undefined;
+	connected_at?: (string | (null | null)) | undefined;
 	credential_type: MCPServerUserCredentialListItemCredentialTypeEnumKey;
-	expires_at?: (string | null) | undefined;
+	expires_at?: (string | (null | null)) | undefined;
 	updated_at: string;
 	user_id: string;
 };
@@ -22696,13 +23801,13 @@ export type MCPToolsetTool = {
  * @type object
  */
 export type MCPUserCredentialListItem = {
-	alias?: (string | null) | undefined;
-	connected_at?: (string | null) | undefined;
+	alias?: (string | (null | null)) | undefined;
+	connected_at?: (string | (null | null)) | undefined;
 	credential_type: string;
-	expires_at?: (string | null) | undefined;
+	expires_at?: (string | (null | null)) | undefined;
 	has_credential: boolean;
 	server_id: string;
-	server_name?: (string | null) | undefined;
+	server_name?: (string | (null | null)) | undefined;
 };
 
 export type MCPUserCredentialRequest = {
@@ -22727,7 +23832,7 @@ export type MCPUserCredentialResponse = {
  * @type object
  */
 export type MCPUserEnvVarSpec = {
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -22751,7 +23856,7 @@ export type MCPUserEnvVarsRequest = {
  * @type object
  */
 export type MCPUserEnvVarsStatus = {
-	alias?: (string | null) | undefined;
+	alias?: (string | (null | null)) | undefined;
 	/**
 	 * @default 0
 	 * @type integer | undefined
@@ -22759,8 +23864,8 @@ export type MCPUserEnvVarsStatus = {
 	missing_count?: number | undefined;
 	required?: MCPUserEnvVarSpec[] | undefined;
 	server_id: string;
-	server_name?: (string | null) | undefined;
-	setup_url?: (string | null) | undefined;
+	server_name?: (string | (null | null)) | undefined;
+	setup_url?: (string | (null | null)) | undefined;
 };
 
 export type MakeMCPServersPublicRequest = {
@@ -22803,59 +23908,62 @@ export type NewMCPServerRequestTransportEnumKey =
 	(typeof newMCPServerRequestTransportEnum)[keyof typeof newMCPServerRequestTransportEnum];
 
 export type NewMCPServerRequest = {
-	alias?: (string | null) | undefined;
+	alias?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	allow_all_keys?: boolean | undefined;
-	allowed_tools?: (string[] | null) | undefined;
+	allowed_tools?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Server-managed: set by the endpoint; caller values are overridden.
 	 */
-	approval_status?: (string | null) | undefined;
+	approval_status?: (string | (null | null)) | undefined;
 	args?: string[] | undefined;
-	audience?: (string | null) | undefined;
-	auth_type?: (NewMCPServerRequestAuthTypeKey | null) | undefined;
-	authorization_url?: (string | null) | undefined;
+	audience?: (string | (null | null)) | undefined;
+	auth_type?: (NewMCPServerRequestAuthTypeKey | (null | null)) | undefined;
+	authorization_url?: (string | (null | null)) | undefined;
 	/**
 	 * @default true
 	 * @type boolean | undefined
 	 */
 	available_on_public_internet?: boolean | undefined;
-	byok_api_key_help_url?: (string | null) | undefined;
+	byok_api_key_help_url?: (string | (null | null)) | undefined;
 	byok_description?: string[] | undefined;
-	command?: (string | null) | undefined;
-	credentials?: (MCPCredentials | null) | undefined;
-	dcr_bridge?: (boolean | null) | undefined;
+	command?: (string | (null | null)) | undefined;
+	credentials?: (MCPCredentials | (null | null)) | undefined;
+	dcr_bridge?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	delegate_auth_to_upstream?: boolean | undefined;
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	env?:
 		| {
 				[key: string]: string;
 		  }
 		| undefined;
-	env_vars?: (MCPEnvVar[] | null) | undefined;
-	extra_headers?: (string[] | null) | undefined;
-	instructions?: (string | null) | undefined;
+	env_vars?: (MCPEnvVar[] | (null | null)) | undefined;
+	extra_headers?: (string[] | (null | null)) | undefined;
+	instructions?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	is_byok?: boolean | undefined;
-	issuer?: (string | null) | undefined;
-	max_concurrent_requests?: (number | null) | undefined;
+	issuer?: (string | (null | null)) | undefined;
+	max_concurrent_requests?: (number | (null | null)) | undefined;
 	mcp_access_groups?: string[] | undefined;
 	mcp_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	oauth2_flow?: (NewMCPServerRequestOauth2FlowKey | null) | undefined;
+	oauth2_flow?: (NewMCPServerRequestOauth2FlowKey | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -22866,50 +23974,59 @@ export type NewMCPServerRequest = {
 	 * @type boolean | undefined
 	 */
 	per_server_oauth_discovery?: boolean | undefined;
-	registration_url?: (string | null) | undefined;
-	rpm?: (number | null) | undefined;
-	server_id?: (string | null) | undefined;
-	server_name?: (string | null) | undefined;
-	source_url?: (string | null) | undefined;
-	spec_path?: (string | null) | undefined;
+	registration_url?: (string | (null | null)) | undefined;
+	rpm?: (number | (null | null)) | undefined;
+	server_id?: (string | (null | null)) | undefined;
+	server_name?: (string | (null | null)) | undefined;
+	source_url?: (string | (null | null)) | undefined;
+	spec_path?: (string | (null | null)) | undefined;
 	static_headers?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	subject_token_type?: (string | null) | undefined;
+	subject_token_type?: (string | (null | null)) | undefined;
 	/**
 	 * @description Server-managed: set by the endpoint; caller values are overridden.
 	 */
-	submitted_at?: (string | null) | undefined;
+	submitted_at?: (string | (null | null)) | undefined;
 	/**
 	 * @description Server-managed: set by the endpoint; caller values are overridden.
 	 */
-	submitted_by?: (string | null) | undefined;
-	timeout?: (number | null) | undefined;
-	token_exchange_endpoint?: (string | null) | undefined;
-	token_exchange_profile?: (string | null) | undefined;
-	token_url?: (string | null) | undefined;
+	submitted_by?: (string | (null | null)) | undefined;
+	timeout?: (number | (null | null)) | undefined;
+	token_exchange_endpoint?: (string | (null | null)) | undefined;
+	token_exchange_profile?: (string | (null | null)) | undefined;
+	token_url?: (string | (null | null)) | undefined;
 	tool_name_to_description?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	tool_name_to_display_name?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default 'sse'
 	 * @type string | undefined
 	 */
 	transport?: NewMCPServerRequestTransportEnumKey | undefined;
-	url?: (string | null) | undefined;
+	url?: (string | (null | null)) | undefined;
 };
 
 export type NewMCPToolsetRequest = {
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	/**
 	 * @default []
 	 * @type array | undefined
@@ -22919,7 +24036,7 @@ export type NewMCPToolsetRequest = {
 };
 
 export type RejectMCPServerRequest = {
-	review_notes?: (string | null) | undefined;
+	review_notes?: (string | (null | null)) | undefined;
 };
 
 export const updateMCPServerRequestAuthType = {
@@ -22958,55 +24075,58 @@ export type UpdateMCPServerRequestTransportEnumKey =
 	(typeof updateMCPServerRequestTransportEnum)[keyof typeof updateMCPServerRequestTransportEnum];
 
 export type UpdateMCPServerRequest = {
-	alias?: (string | null) | undefined;
+	alias?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	allow_all_keys?: boolean | undefined;
-	allowed_tools?: (string[] | null) | undefined;
+	allowed_tools?: (string[] | (null | null)) | undefined;
 	args?: string[] | undefined;
-	audience?: (string | null) | undefined;
-	auth_type?: (UpdateMCPServerRequestAuthTypeKey | null) | undefined;
-	authorization_url?: (string | null) | undefined;
+	audience?: (string | (null | null)) | undefined;
+	auth_type?: (UpdateMCPServerRequestAuthTypeKey | (null | null)) | undefined;
+	authorization_url?: (string | (null | null)) | undefined;
 	/**
 	 * @default true
 	 * @type boolean | undefined
 	 */
 	available_on_public_internet?: boolean | undefined;
-	byok_api_key_help_url?: (string | null) | undefined;
+	byok_api_key_help_url?: (string | (null | null)) | undefined;
 	byok_description?: string[] | undefined;
-	command?: (string | null) | undefined;
-	credentials?: (MCPCredentials | null) | undefined;
-	dcr_bridge?: (boolean | null) | undefined;
+	command?: (string | (null | null)) | undefined;
+	credentials?: (MCPCredentials | (null | null)) | undefined;
+	dcr_bridge?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	delegate_auth_to_upstream?: boolean | undefined;
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	env?:
 		| {
 				[key: string]: string;
 		  }
 		| undefined;
-	env_vars?: (MCPEnvVar[] | null) | undefined;
-	extra_headers?: (string[] | null) | undefined;
-	instructions?: (string | null) | undefined;
+	env_vars?: (MCPEnvVar[] | (null | null)) | undefined;
+	extra_headers?: (string[] | (null | null)) | undefined;
+	instructions?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	is_byok?: boolean | undefined;
-	issuer?: (string | null) | undefined;
-	max_concurrent_requests?: (number | null) | undefined;
+	issuer?: (string | (null | null)) | undefined;
+	max_concurrent_requests?: (number | (null | null)) | undefined;
 	mcp_access_groups?: string[] | undefined;
 	mcp_info?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	oauth2_flow?: (UpdateMCPServerRequestOauth2FlowKey | null) | undefined;
+	oauth2_flow?: (UpdateMCPServerRequestOauth2FlowKey | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -23017,52 +24137,61 @@ export type UpdateMCPServerRequest = {
 	 * @type boolean | undefined
 	 */
 	per_server_oauth_discovery?: boolean | undefined;
-	registration_url?: (string | null) | undefined;
-	rpm?: (number | null) | undefined;
+	registration_url?: (string | (null | null)) | undefined;
+	rpm?: (number | (null | null)) | undefined;
 	server_id: string;
-	server_name?: (string | null) | undefined;
-	source_url?: (string | null) | undefined;
-	spec_path?: (string | null) | undefined;
+	server_name?: (string | (null | null)) | undefined;
+	source_url?: (string | (null | null)) | undefined;
+	spec_path?: (string | (null | null)) | undefined;
 	static_headers?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	subject_token_type?: (string | null) | undefined;
-	timeout?: (number | null) | undefined;
-	token_exchange_endpoint?: (string | null) | undefined;
-	token_exchange_profile?: (string | null) | undefined;
-	token_url?: (string | null) | undefined;
+	subject_token_type?: (string | (null | null)) | undefined;
+	timeout?: (number | (null | null)) | undefined;
+	token_exchange_endpoint?: (string | (null | null)) | undefined;
+	token_exchange_profile?: (string | (null | null)) | undefined;
+	token_url?: (string | (null | null)) | undefined;
 	tool_name_to_description?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	tool_name_to_display_name?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default 'sse'
 	 * @type string | undefined
 	 */
 	transport?: UpdateMCPServerRequestTransportEnumKey | undefined;
-	url?: (string | null) | undefined;
+	url?: (string | (null | null)) | undefined;
 };
 
 export type UpdateMCPToolsetRequest = {
-	description?: (string | null) | undefined;
-	tools?: (MCPToolsetTool[] | null) | undefined;
+	description?: (string | (null | null)) | undefined;
+	tools?: (MCPToolsetTool[] | (null | null)) | undefined;
 	toolset_id: string;
-	toolset_name?: (string | null) | undefined;
+	toolset_name?: (string | (null | null)) | undefined;
 };
 
 export type BodyAuthorizeCompleteAuthorizeCompletePost = {
-	decision?: (string | null) | undefined;
-	delivery?: (string | null) | undefined;
+	decision?: (string | (null | null)) | undefined;
+	delivery?: (string | (null | null)) | undefined;
 	flow: string;
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 };
 
 export type BodyIntrospectEndpointIntrospectPost = {
@@ -23075,35 +24204,35 @@ export type BodyRevokeEndpointRevokePost = {
 };
 
 export type BodyTokenEndpointMcpServerNameTokenPost = {
-	assertion?: (string | null) | undefined;
-	client_id?: (string | null) | undefined;
-	client_secret?: (string | null) | undefined;
+	assertion?: (string | (null | null)) | undefined;
+	client_id?: (string | (null | null)) | undefined;
+	client_secret?: (string | (null | null)) | undefined;
 	code?: string | undefined;
 	code_verifier?: string | undefined;
 	grant_type: string;
 	redirect_uri?: string | undefined;
-	refresh_token?: (string | null) | undefined;
-	requested_token_type?: (string | null) | undefined;
-	resource?: (string | null) | undefined;
-	scope?: (string | null) | undefined;
-	subject_token?: (string | null) | undefined;
-	subject_token_type?: (string | null) | undefined;
+	refresh_token?: (string | (null | null)) | undefined;
+	requested_token_type?: (string | (null | null)) | undefined;
+	resource?: (string | (null | null)) | undefined;
+	scope?: (string | (null | null)) | undefined;
+	subject_token?: (string | (null | null)) | undefined;
+	subject_token_type?: (string | (null | null)) | undefined;
 };
 
 export type BodyTokenEndpointTokenPost = {
-	assertion?: (string | null) | undefined;
-	client_id?: (string | null) | undefined;
-	client_secret?: (string | null) | undefined;
+	assertion?: (string | (null | null)) | undefined;
+	client_id?: (string | (null | null)) | undefined;
+	client_secret?: (string | (null | null)) | undefined;
 	code?: string | undefined;
 	code_verifier?: string | undefined;
 	grant_type: string;
 	redirect_uri?: string | undefined;
-	refresh_token?: (string | null) | undefined;
-	requested_token_type?: (string | null) | undefined;
-	resource?: (string | null) | undefined;
-	scope?: (string | null) | undefined;
-	subject_token?: (string | null) | undefined;
-	subject_token_type?: (string | null) | undefined;
+	refresh_token?: (string | (null | null)) | undefined;
+	requested_token_type?: (string | (null | null)) | undefined;
+	resource?: (string | (null | null)) | undefined;
+	scope?: (string | (null | null)) | undefined;
+	subject_token?: (string | (null | null)) | undefined;
+	subject_token_type?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -23140,35 +24269,35 @@ export type CyberArkConfig = {
 	/**
 	 * @description Path to the client TLS certificate for certificate-based authentication
 	 */
-	client_cert?: (string | null) | undefined;
+	client_cert?: (string | (null | null)) | undefined;
 	/**
 	 * @description Path to the client TLS private key for certificate-based authentication
 	 */
-	client_key?: (string | null) | undefined;
+	client_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description The Conjur organization account name
 	 */
-	cyberark_account?: (string | null) | undefined;
+	cyberark_account?: (string | (null | null)) | undefined;
 	/**
 	 * @description The address of the CyberArk Conjur server (e.g., https://conjur.example.com)
 	 */
-	cyberark_api_base?: (string | null) | undefined;
+	cyberark_api_base?: (string | (null | null)) | undefined;
 	/**
 	 * @description API key for Conjur API-key authentication
 	 */
-	cyberark_api_key?: (string | null) | undefined;
+	cyberark_api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description The Conjur username (login) to authenticate as
 	 */
-	cyberark_username?: (string | null) | undefined;
+	cyberark_username?: (string | (null | null)) | undefined;
 	/**
 	 * @description Auth token cache TTL in seconds (default: 300)
 	 */
-	refresh_interval?: (string | null) | undefined;
+	refresh_interval?: (string | (null | null)) | undefined;
 	/**
 	 * @description Set to false to disable SSL verification (e.g., for self-signed certificates)
 	 */
-	ssl_verify?: (string | null) | undefined;
+	ssl_verify?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -23179,55 +24308,55 @@ export type HashicorpVaultConfig = {
 	/**
 	 * @description Mount path for the AppRole auth method (default: approle)
 	 */
-	approle_mount_path?: (string | null) | undefined;
+	approle_mount_path?: (string | (null | null)) | undefined;
 	/**
 	 * @description Role ID for Vault AppRole authentication
 	 */
-	approle_role_id?: (string | null) | undefined;
+	approle_role_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Secret ID for Vault AppRole authentication
 	 */
-	approle_secret_id?: (string | null) | undefined;
+	approle_secret_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Path to the client TLS certificate for Vault
 	 */
-	client_cert?: (string | null) | undefined;
+	client_cert?: (string | (null | null)) | undefined;
 	/**
 	 * @description Path to the client TLS private key for Vault
 	 */
-	client_key?: (string | null) | undefined;
+	client_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description The address of the Vault server (e.g., https://vault.example.com:8200)
 	 */
-	vault_addr?: (string | null) | undefined;
+	vault_addr?: (string | (null | null)) | undefined;
 	/**
 	 * @description Certificate role name for TLS cert authentication
 	 */
-	vault_cert_role?: (string | null) | undefined;
+	vault_cert_role?: (string | (null | null)) | undefined;
 	/**
 	 * @description Namespace for AppRole and TLS cert login (X-Vault-Namespace header); falls back to vault_namespace
 	 */
-	vault_login_namespace?: (string | null) | undefined;
+	vault_login_namespace?: (string | (null | null)) | undefined;
 	/**
 	 * @description KV engine mount name (default: secret)
 	 */
-	vault_mount_name?: (string | null) | undefined;
+	vault_mount_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description Vault namespace used for both login and secret operations unless overridden below
 	 */
-	vault_namespace?: (string | null) | undefined;
+	vault_namespace?: (string | (null | null)) | undefined;
 	/**
 	 * @description Optional path prefix for secrets (e.g., myapp -> secret/data/myapp/{secret_name})
 	 */
-	vault_path_prefix?: (string | null) | undefined;
+	vault_path_prefix?: (string | (null | null)) | undefined;
 	/**
 	 * @description Namespace for secret reads and writes (URL path segment); falls back to vault_namespace
 	 */
-	vault_secret_namespace?: (string | null) | undefined;
+	vault_secret_namespace?: (string | (null | null)) | undefined;
 	/**
 	 * @description Token for Vault token-based authentication
 	 */
-	vault_token?: (string | null) | undefined;
+	vault_token?: (string | (null | null)) | undefined;
 };
 
 export type ChoiceAnswer = {
@@ -23268,7 +24397,7 @@ export type EuJevMeta = {
 	/**
 	 * @description The exact charge in euros, on authenticated requests
 	 */
-	cost_eur?: (string | null) | undefined;
+	cost_eur?: (string | (null | null)) | undefined;
 	/**
 	 * @description Server-side time for token quoting, credit reservation and inference
 	 * @type integer
@@ -23326,11 +24455,14 @@ export type EuJevDecisionResponse = {
  * @type object
  */
 export type RealtimeClientSecretResponse = {
-	expires_at?: (number | null) | undefined;
+	expires_at?: (number | (null | null)) | undefined;
 	session?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	value: string;
 };
@@ -23344,9 +24476,12 @@ export type RealtimeClientSecretResponse = {
  */
 export type RealtimeTranscriptionSessionResponse = {
 	client_secret?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	[key: string]: unknown;
 };
@@ -23379,11 +24514,11 @@ export type DeleteSkillResponse = {
  */
 export type Skill = {
 	created_at: string;
-	description?: (string | null) | undefined;
-	display_title?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
+	display_title?: (string | (null | null)) | undefined;
 	id: string;
-	latest_version?: (string | null) | undefined;
-	search_score?: (number | null) | undefined;
+	latest_version?: (string | (null | null)) | undefined;
+	search_score?: (number | (null | null)) | undefined;
 	source: string;
 	/**
 	 * @default 'skill'
@@ -23404,7 +24539,7 @@ export type ListSkillsResponse = {
 	 * @type boolean | undefined
 	 */
 	has_more?: boolean | undefined;
-	next_page?: (string | null) | undefined;
+	next_page?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -23460,11 +24595,14 @@ export type Eval = {
 	};
 	id: string;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	name?: (string | null) | undefined;
+	name?: (string | (null | null)) | undefined;
 	/**
 	 * @default 'eval'
 	 * @type string | undefined
@@ -23473,7 +24611,7 @@ export type Eval = {
 	testing_criteria: {
 		[key: string]: unknown;
 	}[];
-	updated_at?: (number | null) | undefined;
+	updated_at?: (number | (null | null)) | undefined;
 };
 
 /**
@@ -23482,13 +24620,13 @@ export type Eval = {
  */
 export type ListEvalsResponse = {
 	data: Eval[];
-	first_id?: (string | null) | undefined;
+	first_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	has_more?: boolean | undefined;
-	last_id?: (string | null) | undefined;
+	last_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default 'list'
 	 * @type string | undefined
@@ -23524,7 +24662,7 @@ export type ResultCounts = {
  * @type object
  */
 export type PerTestingCriteriaResult = {
-	average_score?: (number | null) | undefined;
+	average_score?: (number | (null | null)) | undefined;
 	/**
 	 * @description Result counts for a run
 	 * @type object
@@ -23548,40 +24686,49 @@ export type RunStatusEnumKey = (typeof runStatusEnum)[keyof typeof runStatusEnum
  * @type object
  */
 export type Run = {
-	completed_at?: (number | null) | undefined;
+	completed_at?: (number | (null | null)) | undefined;
 	created_at: number;
 	data_source: {
 		[key: string]: unknown;
 	};
 	error?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	eval_id: string;
 	id: string;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	model?: (string | null) | undefined;
-	name?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
+	name?: (string | (null | null)) | undefined;
 	/**
 	 * @default 'eval.run'
 	 * @type string | undefined
 	 */
 	object?: string | undefined;
-	per_model_usage?: (unknown | null) | undefined;
-	per_testing_criteria_results?: (PerTestingCriteriaResult[] | null) | undefined;
-	report_url?: (string | null) | undefined;
+	per_model_usage?: (unknown | (null | null)) | undefined;
+	per_testing_criteria_results?: (PerTestingCriteriaResult[] | (null | null)) | undefined;
+	report_url?: (string | (null | null)) | undefined;
 	result_counts?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	shared_with_openai?: (boolean | null) | undefined;
-	started_at?: (number | null) | undefined;
+	shared_with_openai?: (boolean | (null | null)) | undefined;
+	started_at?: (number | (null | null)) | undefined;
 	status: RunStatusEnumKey;
 };
 
@@ -23591,13 +24738,13 @@ export type Run = {
  */
 export type ListRunsResponse = {
 	data: Run[];
-	first_id?: (string | null) | undefined;
+	first_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
 	 */
 	has_more?: boolean | undefined;
-	last_id?: (string | null) | undefined;
+	last_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default 'list'
 	 * @type string | undefined
@@ -23613,11 +24760,11 @@ export type RunDeleteResponse = {
 	/**
 	 * @default true
 	 */
-	deleted?: (boolean | null) | undefined;
+	deleted?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default eval.run.deleted
 	 */
-	object?: (string | null) | undefined;
+	object?: (string | (null | null)) | undefined;
 	run_id: string;
 };
 
@@ -23631,7 +24778,7 @@ export type DecisionsBox = {
 
 export type BoxAnswer = {
 	box: DecisionsBox;
-	confidence: number | null;
+	confidence: number | (null | null);
 	type: "box";
 	[key: string]: unknown;
 };
@@ -23666,25 +24813,25 @@ export type DecisionsResponse = {
 					type: "box";
 			  });
 	};
-	model?: (string | null) | undefined;
-	usage?: (DecisionsUsage | null) | undefined;
+	model?: (string | (null | null)) | undefined;
+	usage?: (DecisionsUsage | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
 export type ExtractionAnswer = {
-	confidence?: (number | null) | undefined;
+	confidence?: (number | (null | null)) | undefined;
 	guess?: JsonValue | undefined;
 	mean?: JsonValue | undefined;
 	median?: JsonValue | undefined;
 	p10?: JsonValue | undefined;
 	p90?: JsonValue | undefined;
-	p_above?: (number | null) | undefined;
-	p_below?: (number | null) | undefined;
-	p_null?: (number | null) | undefined;
-	quantiles?: (JsonValue[] | null) | undefined;
-	span?: (number[] | null) | undefined;
-	spans?: (number[][] | null) | undefined;
-	steps?: (JsonValue[] | null) | undefined;
+	p_above?: (number | (null | null)) | undefined;
+	p_below?: (number | (null | null)) | undefined;
+	p_null?: (number | (null | null)) | undefined;
+	quantiles?: (JsonValue[] | (null | null)) | undefined;
+	span?: (number[] | (null | null)) | undefined;
+	spans?: (number[][] | (null | null)) | undefined;
+	steps?: (JsonValue[] | (null | null)) | undefined;
 	type: string;
 	/**
 	 * @description The answer, null when the input does not determine it
@@ -23695,12 +24842,12 @@ export type ExtractionAnswer = {
 };
 
 export type ExtractionUsage = {
-	image_tokens?: (number | null) | undefined;
+	image_tokens?: (number | (null | null)) | undefined;
 	input_tokens: number;
 	output_tokens: number;
-	passes?: (number | null) | undefined;
-	schema_tokens?: (number | null) | undefined;
-	state_tokens?: (number | null) | undefined;
+	passes?: (number | (null | null)) | undefined;
+	schema_tokens?: (number | (null | null)) | undefined;
+	state_tokens?: (number | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
@@ -23709,7 +24856,7 @@ export type ExtractionResponse = {
 		[key: string]: ExtractionAnswer;
 	};
 	model: string;
-	state_text?: (string | null) | undefined;
+	state_text?: (string | (null | null)) | undefined;
 	truncated: boolean;
 	usage: ExtractionUsage;
 	[key: string]: unknown;
@@ -23717,8 +24864,8 @@ export type ExtractionResponse = {
 
 export type OpenAIBoxAnswer = {
 	box: DecisionsBox;
-	confidence: number | null;
-	name: string | null;
+	confidence: number | (null | null);
+	name: string | (null | null);
 	/**
 	 * @default 'box'
 	 * @type string | undefined
@@ -23734,7 +24881,7 @@ export type OpenAIChoiceProbability = {
 export type OpenAIChoiceAnswer = {
 	choice: string | boolean;
 	confidence: number;
-	name: string | null;
+	name: string | (null | null);
 	probabilities: OpenAIChoiceProbability[];
 	/**
 	 * @default 'choice'
@@ -23765,7 +24912,7 @@ export type OpenAIDecisionOutputTokensDetails = {
 };
 
 export type OpenAIPredicateAnswer = {
-	name: string | null;
+	name: string | (null | null);
 	probability: number;
 	/**
 	 * @default 'predicate'
@@ -23782,7 +24929,7 @@ export type OpenAIScoreProbability = {
 
 export type OpenAIScoreAnswer = {
 	confidence: number;
-	name: string | null;
+	name: string | (null | null);
 	probabilities: OpenAIScoreProbability[];
 	score: number;
 	/**
@@ -23793,7 +24940,7 @@ export type OpenAIScoreAnswer = {
 };
 
 export type OpenAIRefusalAnswer = {
-	name: string | null;
+	name: string | (null | null);
 	/**
 	 * @default 'refusal'
 	 * @type string | undefined
@@ -23848,7 +24995,7 @@ export type PluginAuthor = {
 	/**
 	 * @description Author email
 	 */
-	email?: (string | null) | undefined;
+	email?: (string | (null | null)) | undefined;
 	/**
 	 * @description Author name
 	 * @type string
@@ -23870,23 +25017,23 @@ export type PluginListItemInstallationPreferenceKey =
  * @type object
  */
 export type PluginListItem = {
-	author?: (PluginAuthor | null) | undefined;
-	category?: (string | null) | undefined;
-	created_at: string | null;
-	description: string | null;
-	domain?: (string | null) | undefined;
+	author?: (PluginAuthor | (null | null)) | undefined;
+	category?: (string | (null | null)) | undefined;
+	created_at: string | (null | null);
+	description: string | (null | null);
+	domain?: (string | (null | null)) | undefined;
 	enabled: boolean;
-	homepage?: (string | null) | undefined;
+	homepage?: (string | (null | null)) | undefined;
 	id: string;
-	installation_preference?: (PluginListItemInstallationPreferenceKey | null) | undefined;
-	keywords?: (string[] | null) | undefined;
+	installation_preference?: (PluginListItemInstallationPreferenceKey | (null | null)) | undefined;
+	keywords?: (string[] | (null | null)) | undefined;
 	name: string;
-	namespace?: (string | null) | undefined;
+	namespace?: (string | (null | null)) | undefined;
 	source: {
 		[key: string]: string;
 	};
-	updated_at: string | null;
-	version: string | null;
+	updated_at: string | (null | null);
+	version: string | (null | null);
 };
 
 /**
@@ -23915,7 +25062,7 @@ export type PluginResponse = {
 	/**
 	 * @description Plugin description
 	 */
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	/**
 	 * @description Whether plugin is enabled
 	 * @type boolean
@@ -23929,7 +25076,7 @@ export type PluginResponse = {
 	/**
 	 * @description Plugin installation preference
 	 */
-	installation_preference?: (PluginResponseInstallationPreferenceKey | null) | undefined;
+	installation_preference?: (PluginResponseInstallationPreferenceKey | (null | null)) | undefined;
 	/**
 	 * @description Plugin name
 	 * @type string
@@ -23945,7 +25092,7 @@ export type PluginResponse = {
 	/**
 	 * @description Plugin version
 	 */
-	version?: (string | null) | undefined;
+	version?: (string | (null | null)) | undefined;
 };
 
 export const registerPluginRequestInstallationPreference = {
@@ -23968,31 +25115,33 @@ export type RegisterPluginRequest = {
 	/**
 	 * @description Plugin author
 	 */
-	author?: (PluginAuthor | null) | undefined;
+	author?: (PluginAuthor | (null | null)) | undefined;
 	/**
 	 * @description Plugin category
 	 */
-	category?: (string | null) | undefined;
+	category?: (string | (null | null)) | undefined;
 	/**
 	 * @description Plugin description
 	 */
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	/**
 	 * @description Skill domain (e.g., 'Productivity')
 	 */
-	domain?: (string | null) | undefined;
+	domain?: (string | (null | null)) | undefined;
 	/**
 	 * @description Plugin homepage URL
 	 */
-	homepage?: (string | null) | undefined;
+	homepage?: (string | (null | null)) | undefined;
 	/**
 	 * @description Emitted as installationPreference on this plugin's marketplace.json entry. Needs an archive source, the only plugins Claude Desktop lists from a marketplace.json URL, and 'auto_install' or 'required' also need its sha256. Claude Desktop honors the mark only when the archive and marketplace.json share its inference gateway origin
 	 */
-	installation_preference?: (RegisterPluginRequestInstallationPreferenceKey | null) | undefined;
+	installation_preference?:
+		| (RegisterPluginRequestInstallationPreferenceKey | (null | null))
+		| undefined;
 	/**
 	 * @description Search keywords
 	 */
-	keywords?: (string[] | null) | undefined;
+	keywords?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Plugin name (kebab-case, e.g., 'my-plugin')
 	 * @pattern ^[a-z0-9-]+$
@@ -24002,7 +25151,7 @@ export type RegisterPluginRequest = {
 	/**
 	 * @description Skill namespace within domain (e.g., 'workflows')
 	 */
-	namespace?: (string | null) | undefined;
+	namespace?: (string | (null | null)) | undefined;
 	/**
 	 * @description Plugin source reference. Supported formats:
 	 * - GitHub: {'source': 'github', 'repo': 'org/repo'}
@@ -24018,7 +25167,7 @@ export type RegisterPluginRequest = {
 	 * @description Semantic version
 	 * @default 1.0.0
 	 */
-	version?: (string | null) | undefined;
+	version?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -24065,35 +25214,37 @@ export type UpdatePluginRequest = {
 	/**
 	 * @description Plugin author
 	 */
-	author?: (PluginAuthor | null) | undefined;
+	author?: (PluginAuthor | (null | null)) | undefined;
 	/**
 	 * @description Plugin category
 	 */
-	category?: (string | null) | undefined;
+	category?: (string | (null | null)) | undefined;
 	/**
 	 * @description Plugin description
 	 */
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	/**
 	 * @description Skill domain (e.g., 'Productivity')
 	 */
-	domain?: (string | null) | undefined;
+	domain?: (string | (null | null)) | undefined;
 	/**
 	 * @description Plugin homepage URL
 	 */
-	homepage?: (string | null) | undefined;
+	homepage?: (string | (null | null)) | undefined;
 	/**
 	 * @description Emitted as installationPreference on this plugin's marketplace.json entry. Needs an archive source, the only plugins Claude Desktop lists from a marketplace.json URL, and 'auto_install' or 'required' also need its sha256. Claude Desktop honors the mark only when the archive and marketplace.json share its inference gateway origin
 	 */
-	installation_preference?: (UpdatePluginRequestInstallationPreferenceKey | null) | undefined;
+	installation_preference?:
+		| (UpdatePluginRequestInstallationPreferenceKey | (null | null))
+		| undefined;
 	/**
 	 * @description Search keywords
 	 */
-	keywords?: (string[] | null) | undefined;
+	keywords?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Skill namespace within domain (e.g., 'workflows')
 	 */
-	namespace?: (string | null) | undefined;
+	namespace?: (string | (null | null)) | undefined;
 	/**
 	 * @description Plugin source reference. Supported formats:
 	 * - GitHub: {'source': 'github', 'repo': 'org/repo'}
@@ -24108,46 +25259,49 @@ export type UpdatePluginRequest = {
 	/**
 	 * @description Semantic version; cleared if omitted
 	 */
-	version?: (string | null) | undefined;
+	version?: (string | (null | null)) | undefined;
 };
 
 export type SCIMUserManager = {
-	$ref?: (string | null) | undefined;
-	displayName?: (string | null) | undefined;
-	value?: (string | null) | undefined;
+	$ref?: (string | (null | null)) | undefined;
+	displayName?: (string | (null | null)) | undefined;
+	value?: (string | (null | null)) | undefined;
 };
 
 export type SCIMEnterpriseUser = {
-	costCenter?: (string | null) | undefined;
-	department?: (string | null) | undefined;
-	division?: (string | null) | undefined;
-	employeeNumber?: (string | null) | undefined;
-	manager?: (SCIMUserManager | null) | undefined;
-	organization?: (string | null) | undefined;
+	costCenter?: (string | (null | null)) | undefined;
+	department?: (string | (null | null)) | undefined;
+	division?: (string | (null | null)) | undefined;
+	employeeNumber?: (string | (null | null)) | undefined;
+	manager?: (SCIMUserManager | (null | null)) | undefined;
+	organization?: (string | (null | null)) | undefined;
 };
 
 export type SCIMFeature = {
-	maxOperations?: (number | null) | undefined;
-	maxPayloadSize?: (number | null) | undefined;
-	maxResults?: (number | null) | undefined;
+	maxOperations?: (number | (null | null)) | undefined;
+	maxPayloadSize?: (number | (null | null)) | undefined;
+	maxResults?: (number | (null | null)) | undefined;
 	supported: boolean;
 };
 
 export type SCIMMember = {
-	display?: (string | null) | undefined;
-	type?: (string | null) | undefined;
+	display?: (string | (null | null)) | undefined;
+	type?: (string | (null | null)) | undefined;
 	value: string;
 };
 
 export type SCIMGroup = {
 	displayName: string;
-	externalId?: (string | null) | undefined;
-	id?: (string | null) | undefined;
-	members?: (SCIMMember[] | null) | undefined;
+	externalId?: (string | (null | null)) | undefined;
+	id?: (string | (null | null)) | undefined;
+	members?: (SCIMMember[] | (null | null)) | undefined;
 	meta?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	schemas: string[];
 };
@@ -24161,7 +25315,7 @@ export type SCIMListResponse = {
 	/**
 	 * @default 10
 	 */
-	itemsPerPage?: (number | null) | undefined;
+	itemsPerPage?: (number | (null | null)) | undefined;
 	/**
 	 * @default ["urn:ietf:params:scim:api:messages:2.0:ListResponse"]
 	 * @type array | undefined
@@ -24170,22 +25324,22 @@ export type SCIMListResponse = {
 	/**
 	 * @default 1
 	 */
-	startIndex?: (number | null) | undefined;
+	startIndex?: (number | (null | null)) | undefined;
 	totalResults: number;
 };
 
 export type SCIMMultiValuedAttribute = {
-	display?: (string | null) | undefined;
-	primary?: (boolean | null) | undefined;
-	type?: (string | null) | undefined;
-	value?: (string | null) | undefined;
+	display?: (string | (null | null)) | undefined;
+	primary?: (boolean | (null | null)) | undefined;
+	type?: (string | (null | null)) | undefined;
+	value?: (string | (null | null)) | undefined;
 	[key: string]: unknown;
 };
 
 export type SCIMPatchOperation = {
 	op: string;
-	path?: (string | null) | undefined;
-	value?: (unknown | null) | undefined;
+	path?: (string | (null | null)) | undefined;
+	value?: (unknown | (null | null)) | undefined;
 };
 
 export type SCIMPatchOp = {
@@ -24219,7 +25373,7 @@ export type SCIMServiceProviderConfig = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -24243,9 +25397,12 @@ export type SCIMServiceProviderConfig = {
 	 */
 	filter?: SCIMFeature | undefined;
 	meta?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default {"supported":true}
@@ -24265,8 +25422,8 @@ export type SCIMServiceProviderConfig = {
 };
 
 export type SCIMUserEmail = {
-	primary?: (boolean | null) | undefined;
-	type?: (string | null) | undefined;
+	primary?: (boolean | (null | null)) | undefined;
+	type?: (string | (null | null)) | undefined;
 	/**
 	 * @description
 	 * Format: `email`
@@ -24276,21 +25433,21 @@ export type SCIMUserEmail = {
 };
 
 export type SCIMUserGroup = {
-	display?: (string | null) | undefined;
+	display?: (string | (null | null)) | undefined;
 	/**
 	 * @default direct
 	 */
-	type?: (string | null) | undefined;
+	type?: (string | (null | null)) | undefined;
 	value: string;
 };
 
 export type SCIMUserName = {
-	familyName?: (string | null) | undefined;
-	formatted?: (string | null) | undefined;
-	givenName?: (string | null) | undefined;
-	honorificPrefix?: (string | null) | undefined;
-	honorificSuffix?: (string | null) | undefined;
-	middleName?: (string | null) | undefined;
+	familyName?: (string | (null | null)) | undefined;
+	formatted?: (string | (null | null)) | undefined;
+	givenName?: (string | (null | null)) | undefined;
+	honorificPrefix?: (string | (null | null)) | undefined;
+	honorificSuffix?: (string | (null | null)) | undefined;
+	middleName?: (string | (null | null)) | undefined;
 };
 
 export type SCIMUserInput = {
@@ -24299,24 +25456,27 @@ export type SCIMUserInput = {
 	 * @type boolean | undefined
 	 */
 	active?: boolean | undefined;
-	displayName?: (string | null) | undefined;
-	emails?: (SCIMUserEmail[] | null) | undefined;
-	entitlements?: (SCIMMultiValuedAttribute[] | null) | undefined;
-	externalId?: (string | null) | undefined;
-	groups?: (SCIMUserGroup[] | null) | undefined;
-	id?: (string | null) | undefined;
+	displayName?: (string | (null | null)) | undefined;
+	emails?: (SCIMUserEmail[] | (null | null)) | undefined;
+	entitlements?: (SCIMMultiValuedAttribute[] | (null | null)) | undefined;
+	externalId?: (string | (null | null)) | undefined;
+	groups?: (SCIMUserGroup[] | (null | null)) | undefined;
+	id?: (string | (null | null)) | undefined;
 	meta?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	name?: (SCIMUserName | null) | undefined;
-	roles?: (SCIMMultiValuedAttribute[] | null) | undefined;
+	name?: (SCIMUserName | (null | null)) | undefined;
+	roles?: (SCIMMultiValuedAttribute[] | (null | null)) | undefined;
 	schemas: string[];
 	"urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"?:
-		| (SCIMEnterpriseUser | null)
+		| (SCIMEnterpriseUser | (null | null))
 		| undefined;
-	userName?: (string | null) | undefined;
+	userName?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -24327,11 +25487,11 @@ export type CloudZeroExportRequest = {
 	/**
 	 * @description End time for data export in UTC
 	 */
-	end_time_utc?: (string | null) | undefined;
+	end_time_utc?: (string | (null | null)) | undefined;
 	/**
 	 * @description Optional limit on number of records to export
 	 */
-	limit?: (number | null) | undefined;
+	limit?: (number | (null | null)) | undefined;
 	/**
 	 * @description CloudZero operation type (replace_hourly or sum)
 	 * @default 'replace_hourly'
@@ -24341,7 +25501,7 @@ export type CloudZeroExportRequest = {
 	/**
 	 * @description Start time for data export in UTC
 	 */
-	start_time_utc?: (string | null) | undefined;
+	start_time_utc?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -24353,20 +25513,26 @@ export type CloudZeroExportResponse = {
 	 * @description Dry run data including usage data and CBF transformed data
 	 */
 	dry_run_data?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	message: string;
-	records_exported?: (number | null) | undefined;
+	records_exported?: (number | (null | null)) | undefined;
 	status: string;
 	/**
 	 * @description Summary statistics for dry run
 	 */
 	summary?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -24410,15 +25576,15 @@ export type CloudZeroSettingsUpdate = {
 	/**
 	 * @description New CloudZero API key for authentication
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description New CloudZero connection ID for data submission
 	 */
-	connection_id?: (string | null) | undefined;
+	connection_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description New timezone for date handling
 	 */
-	timezone?: (string | null) | undefined;
+	timezone?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -24429,19 +25595,19 @@ export type CloudZeroSettingsView = {
 	/**
 	 * @description Masked API key showing only first 4 and last 4 characters
 	 */
-	api_key_masked?: (string | null) | undefined;
+	api_key_masked?: (string | (null | null)) | undefined;
 	/**
 	 * @description CloudZero connection ID for data submission
 	 */
-	connection_id?: (string | null) | undefined;
+	connection_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Configuration status
 	 */
-	status?: (string | null) | undefined;
+	status?: (string | (null | null)) | undefined;
 	/**
 	 * @description Timezone for date handling
 	 */
-	timezone?: (string | null) | undefined;
+	timezone?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -24453,7 +25619,7 @@ export type VantageDryRunRequest = {
 	 * @description Limit on number of records to preview (default: 500)
 	 * @default 500
 	 */
-	limit?: (number | null) | undefined;
+	limit?: (number | (null | null)) | undefined;
 };
 
 /**
@@ -24464,15 +25630,15 @@ export type VantageExportRequest = {
 	/**
 	 * @description End time for data export in UTC
 	 */
-	end_time_utc?: (string | null) | undefined;
+	end_time_utc?: (string | (null | null)) | undefined;
 	/**
 	 * @description Optional limit on number of records to export (default: no limit)
 	 */
-	limit?: (number | null) | undefined;
+	limit?: (number | (null | null)) | undefined;
 	/**
 	 * @description Start time for data export in UTC
 	 */
-	start_time_utc?: (string | null) | undefined;
+	start_time_utc?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -24484,9 +25650,12 @@ export type VantageExportResponse = {
 	 * @description Dry run data including usage data and FOCUS transformed data
 	 */
 	dry_run_data?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	message: string;
 	status: string;
@@ -24494,9 +25663,12 @@ export type VantageExportResponse = {
 	 * @description Summary statistics for dry run
 	 */
 	summary?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -24540,15 +25712,15 @@ export type VantageSettingsUpdate = {
 	/**
 	 * @description New Vantage API key for authentication
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description New Vantage API base URL
 	 */
-	base_url?: (string | null) | undefined;
+	base_url?: (string | (null | null)) | undefined;
 	/**
 	 * @description New Vantage integration token
 	 */
-	integration_token?: (string | null) | undefined;
+	integration_token?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -24559,43 +25731,49 @@ export type VantageSettingsView = {
 	/**
 	 * @description Masked API key showing only first 4 and last 4 characters
 	 */
-	api_key_masked?: (string | null) | undefined;
+	api_key_masked?: (string | (null | null)) | undefined;
 	/**
 	 * @description Vantage API base URL
 	 */
-	base_url?: (string | null) | undefined;
+	base_url?: (string | (null | null)) | undefined;
 	/**
 	 * @description Masked integration token showing only first 4 and last 4 characters
 	 */
-	integration_token_masked?: (string | null) | undefined;
+	integration_token_masked?: (string | (null | null)) | undefined;
 	/**
 	 * @description Configuration status
 	 */
-	status?: (string | null) | undefined;
+	status?: (string | (null | null)) | undefined;
 };
 
 export type BodyConvertPromptFileToJsonUtilsDotpromptJsonConverterPost = {
+	/**
+	 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
+	 */
 	file: Blob;
 };
 
 export type PromptLiteLLMParams = {
-	api_base?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	dotprompt_content?: (string | null) | undefined;
+	api_base?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	dotprompt_content?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	ignore_prompt_manager_model?: (boolean | null) | undefined;
+	ignore_prompt_manager_model?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	ignore_prompt_manager_optional_params?: (boolean | null) | undefined;
-	prompt_id?: (string | null) | undefined;
+	ignore_prompt_manager_optional_params?: (boolean | (null | null)) | undefined;
+	prompt_id?: (string | (null | null)) | undefined;
 	prompt_integration: string;
 	provider_specific_query_params?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	[key: string]: unknown;
 };
@@ -24612,23 +25790,23 @@ export type PromptInfo = {
 	/**
 	 * @default development
 	 */
-	environment?: (string | null) | undefined;
+	environment?: (string | (null | null)) | undefined;
 	prompt_type: PromptInfoPromptTypeEnumKey;
 	[key: string]: unknown;
 };
 
 export type PromptSpec = {
-	created_at?: (string | null) | undefined;
-	created_by?: (string | null) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
 	/**
 	 * @default development
 	 */
-	environment?: (string | null) | undefined;
+	environment?: (string | (null | null)) | undefined;
 	litellm_params: PromptLiteLLMParams;
 	prompt_id: string;
 	prompt_info: PromptInfo;
-	updated_at?: (string | null) | undefined;
-	version?: (number | null) | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	version?: (number | (null | null)) | undefined;
 };
 
 export type ListPromptsResponse = {
@@ -24636,30 +25814,33 @@ export type ListPromptsResponse = {
 };
 
 export type PatchPromptRequest = {
-	litellm_params?: (PromptLiteLLMParams | null) | undefined;
-	prompt_info?: (PromptInfo | null) | undefined;
+	litellm_params?: (PromptLiteLLMParams | (null | null)) | undefined;
+	prompt_info?: (PromptInfo | (null | null)) | undefined;
 };
 
 export type Prompt = {
 	litellm_params: PromptLiteLLMParams;
 	prompt_id: string;
-	prompt_info?: (PromptInfo | null) | undefined;
+	prompt_info?: (PromptInfo | (null | null)) | undefined;
 };
 
 export type PromptTemplateBase = {
 	content: string;
 	litellm_prompt_id: string;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
 export type PromptInfoResponse = {
-	environments?: (string[] | null) | undefined;
+	environments?: (string[] | (null | null)) | undefined;
 	prompt_spec: PromptSpec;
-	raw_prompt_template?: (PromptTemplateBase | null) | undefined;
+	raw_prompt_template?: (PromptTemplateBase | (null | null)) | undefined;
 };
 
 export type TestPromptRequest = {
@@ -24668,24 +25849,27 @@ export type TestPromptRequest = {
 				| {
 						[key: string]: string;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	dotprompt_content: string;
 	prompt_variables?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
 export type CreateJWTKeyMappingRequest = {
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	jwt_claim_name: string;
 	jwt_claim_value: string;
-	jwt_issuer?: (string | null) | undefined;
-	key?: (string | null) | undefined;
-	token?: (string | null) | undefined;
+	jwt_issuer?: (string | (null | null)) | undefined;
+	key?: (string | (null | null)) | undefined;
+	token?: (string | (null | null)) | undefined;
 };
 
 export type DeleteJWTKeyMappingRequest = {
@@ -24699,29 +25883,29 @@ export type JWTKeyMappingResponse = {
 	 * @type string
 	 */
 	created_at: string;
-	created_by?: (string | null) | undefined;
-	description?: (string | null) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	description?: (string | (null | null)) | undefined;
 	id: string;
 	is_active: boolean;
 	jwt_claim_name: string;
 	jwt_claim_value: string;
-	jwt_issuer?: (string | null) | undefined;
+	jwt_issuer?: (string | (null | null)) | undefined;
 	/**
 	 * @description
 	 * Format: `date-time`
 	 * @type string
 	 */
 	updated_at: string;
-	updated_by?: (string | null) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
 };
 
 export type UpdateJWTKeyMappingRequest = {
-	description?: (string | null) | undefined;
+	description?: (string | (null | null)) | undefined;
 	id: string;
-	is_active?: (boolean | null) | undefined;
-	jwt_issuer?: (string | null) | undefined;
-	key?: (string | null) | undefined;
-	token?: (string | null) | undefined;
+	is_active?: (boolean | (null | null)) | undefined;
+	jwt_issuer?: (string | (null | null)) | undefined;
+	key?: (string | (null | null)) | undefined;
+	token?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -24736,13 +25920,13 @@ export type ComplianceCheckRequest = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	request_id: string;
-	timestamp?: (string | null) | undefined;
-	user_id?: (string | null) | undefined;
+	timestamp?: (string | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -24767,18 +25951,21 @@ export type ComplianceResponse = {
 };
 
 export type AccessGroupCreateRequest = {
-	access_agent_ids?: (string[] | null) | undefined;
+	access_agent_ids?: (string[] | (null | null)) | undefined;
 	access_group_name: string;
-	access_mcp_server_ids?: (string[] | null) | undefined;
-	access_model_names?: (string[] | null) | undefined;
-	access_skill_names?: (string[] | null) | undefined;
-	assigned_key_ids?: (string[] | null) | undefined;
-	assigned_team_ids?: (string[] | null) | undefined;
-	description?: (string | null) | undefined;
+	access_mcp_server_ids?: (string[] | (null | null)) | undefined;
+	access_model_names?: (string[] | (null | null)) | undefined;
+	access_skill_names?: (string[] | (null | null)) | undefined;
+	assigned_key_ids?: (string[] | (null | null)) | undefined;
+	assigned_team_ids?: (string[] | (null | null)) | undefined;
+	description?: (string | (null | null)) | undefined;
 	mcp_tool_permissions?:
-		| ({
-				[key: string]: string[];
-		  } | null)
+		| (
+				| {
+						[key: string]: string[];
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -24788,7 +25975,7 @@ export type AccessGroupCreateRequest = {
  */
 export type AccessGroupResource = {
 	id: string;
-	name: string | null;
+	name: string | (null | null);
 };
 
 export type AccessGroupResponse = {
@@ -24814,12 +26001,15 @@ export type AccessGroupResponse = {
 	 * @type string
 	 */
 	created_at: string;
-	created_by?: (string | null) | undefined;
-	description?: (string | null) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	description?: (string | (null | null)) | undefined;
 	mcp_tool_permissions?:
-		| ({
-				[key: string]: string[];
-		  } | null)
+		| (
+				| {
+						[key: string]: string[];
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description
@@ -24827,47 +26017,50 @@ export type AccessGroupResponse = {
 	 * @type string
 	 */
 	updated_at: string;
-	updated_by?: (string | null) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
 };
 
 export type AccessGroupUpdateRequest = {
-	access_agent_ids?: (string[] | null) | undefined;
-	access_group_name?: (string | null) | undefined;
-	access_mcp_server_ids?: (string[] | null) | undefined;
-	access_model_names?: (string[] | null) | undefined;
-	access_skill_names?: (string[] | null) | undefined;
-	assigned_key_ids?: (string[] | null) | undefined;
-	assigned_team_ids?: (string[] | null) | undefined;
-	description?: (string | null) | undefined;
+	access_agent_ids?: (string[] | (null | null)) | undefined;
+	access_group_name?: (string | (null | null)) | undefined;
+	access_mcp_server_ids?: (string[] | (null | null)) | undefined;
+	access_model_names?: (string[] | (null | null)) | undefined;
+	access_skill_names?: (string[] | (null | null)) | undefined;
+	assigned_key_ids?: (string[] | (null | null)) | undefined;
+	assigned_team_ids?: (string[] | (null | null)) | undefined;
+	description?: (string | (null | null)) | undefined;
 	mcp_tool_permissions?:
-		| ({
-				[key: string]: string[];
-		  } | null)
+		| (
+				| {
+						[key: string]: string[];
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
 export type ModelListModelsGetQuery = {
-	return_wildcard_routes?: (boolean | null) | undefined;
-	team_id?: (string | null) | undefined;
+	return_wildcard_routes?: (boolean | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	include_model_access_groups?: (boolean | null) | undefined;
+	include_model_access_groups?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	only_model_access_groups?: (boolean | null) | undefined;
+	only_model_access_groups?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	include_metadata?: (boolean | null) | undefined;
-	fallback_type?: (string | null) | undefined;
-	scope?: (string | null) | undefined;
+	include_metadata?: (boolean | (null | null)) | undefined;
+	fallback_type?: (string | (null | null)) | undefined;
+	scope?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	healthy_only?: (boolean | null) | undefined;
-	client_version?: (string | null) | undefined;
+	healthy_only?: (boolean | (null | null)) | undefined;
+	client_version?: (string | (null | null)) | undefined;
 };
 
 export type ModelListModelsGetStatus200 = {
@@ -24894,27 +26087,27 @@ export type ModelListModelsGetResponses = {
 export type ModelListModelsGetResponse = ModelListModelsGetStatus200;
 
 export type ModelListV1ModelsGetQuery = {
-	return_wildcard_routes?: (boolean | null) | undefined;
-	team_id?: (string | null) | undefined;
+	return_wildcard_routes?: (boolean | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	include_model_access_groups?: (boolean | null) | undefined;
+	include_model_access_groups?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	only_model_access_groups?: (boolean | null) | undefined;
+	only_model_access_groups?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	include_metadata?: (boolean | null) | undefined;
-	fallback_type?: (string | null) | undefined;
-	scope?: (string | null) | undefined;
+	include_metadata?: (boolean | (null | null)) | undefined;
+	fallback_type?: (string | (null | null)) | undefined;
+	scope?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	healthy_only?: (boolean | null) | undefined;
-	client_version?: (string | null) | undefined;
+	healthy_only?: (boolean | (null | null)) | undefined;
+	client_version?: (string | (null | null)) | undefined;
 };
 
 export type ModelListV1ModelsGetStatus200 = {
@@ -24945,11 +26138,11 @@ export type ModelInfoModelsModelIdGetPath = {
 };
 
 export type ModelInfoModelsModelIdGetQuery = {
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	healthy_only?: (boolean | null) | undefined;
+	healthy_only?: (boolean | (null | null)) | undefined;
 };
 
 export type ModelInfoModelsModelIdGetStatus200 = {
@@ -24980,11 +26173,11 @@ export type ModelInfoV1ModelsModelIdGetPath = {
 };
 
 export type ModelInfoV1ModelsModelIdGetQuery = {
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	healthy_only?: (boolean | null) | undefined;
+	healthy_only?: (boolean | (null | null)) | undefined;
 };
 
 export type ModelInfoV1ModelsModelIdGetStatus200 = {
@@ -25011,7 +26204,7 @@ export type ModelInfoV1ModelsModelIdGetResponses = {
 export type ModelInfoV1ModelsModelIdGetResponse = ModelInfoV1ModelsModelIdGetStatus200;
 
 export type ChatCompletionOpenaiDeploymentsModelChatCompletionsPostPath = {
-	model: string | null;
+	model: string | (null | null);
 };
 
 export type ChatCompletionOpenaiDeploymentsModelChatCompletionsPostStatus200 = {
@@ -25053,71 +26246,80 @@ export type ChatCompletionOpenaiDeploymentsModelChatCompletionsPostBody = {
 	/**
 	 * @default null
 	 */
-	frequency_penalty?: (number | null) | undefined;
+	frequency_penalty?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	logit_bias?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	logprobs?: (boolean | null) | undefined;
+	logprobs?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	top_logprobs?: (number | null) | undefined;
+	top_logprobs?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	max_tokens?: (number | null) | undefined;
+	max_tokens?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	n?: (number | null) | undefined;
+	n?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	presence_penalty?: (number | null) | undefined;
+	presence_penalty?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	response_format?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	seed?: (number | null) | undefined;
+	seed?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	service_tier?: (string | null) | undefined;
+	service_tier?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	stop?: (string | string[] | null) | undefined;
+	stop?: (string | string[] | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	stream_options?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	temperature?: (number | null) | undefined;
+	temperature?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	top_p?: (number | null) | undefined;
+	top_p?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
@@ -25126,7 +26328,7 @@ export type ChatCompletionOpenaiDeploymentsModelChatCompletionsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -25138,13 +26340,13 @@ export type ChatCompletionOpenaiDeploymentsModelChatCompletionsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	parallel_tool_calls?: (boolean | null) | undefined;
+	parallel_tool_calls?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
@@ -25154,7 +26356,7 @@ export type ChatCompletionOpenaiDeploymentsModelChatCompletionsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -25165,49 +26367,55 @@ export type ChatCompletionOpenaiDeploymentsModelChatCompletionsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	user?: (string | null) | undefined;
+	user?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	stream?: (boolean | null) | undefined;
+	stream?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	guardrails?: (string[] | null) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	caching?: (boolean | null) | undefined;
+	caching?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	num_retries?: (number | null) | undefined;
+	num_retries?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	context_window_fallback_dict?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	fallbacks?: (string[] | null) | undefined;
+	fallbacks?: (string[] | (null | null)) | undefined;
 };
 
 export type ChatCompletionOpenaiDeploymentsModelChatCompletionsPostOptions = {
@@ -25237,7 +26445,7 @@ export type ChatCompletionOpenaiDeploymentsModelChatCompletionsPostResponse =
 	ChatCompletionOpenaiDeploymentsModelChatCompletionsPostStatus200;
 
 export type ChatCompletionEnginesModelChatCompletionsPostPath = {
-	model: string | null;
+	model: string | (null | null);
 };
 
 export type ChatCompletionEnginesModelChatCompletionsPostStatus200 = {
@@ -25263,71 +26471,80 @@ export type ChatCompletionEnginesModelChatCompletionsPostBody = {
 	/**
 	 * @default null
 	 */
-	frequency_penalty?: (number | null) | undefined;
+	frequency_penalty?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	logit_bias?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	logprobs?: (boolean | null) | undefined;
+	logprobs?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	top_logprobs?: (number | null) | undefined;
+	top_logprobs?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	max_tokens?: (number | null) | undefined;
+	max_tokens?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	n?: (number | null) | undefined;
+	n?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	presence_penalty?: (number | null) | undefined;
+	presence_penalty?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	response_format?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	seed?: (number | null) | undefined;
+	seed?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	service_tier?: (string | null) | undefined;
+	service_tier?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	stop?: (string | string[] | null) | undefined;
+	stop?: (string | string[] | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	stream_options?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	temperature?: (number | null) | undefined;
+	temperature?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	top_p?: (number | null) | undefined;
+	top_p?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
@@ -25336,7 +26553,7 @@ export type ChatCompletionEnginesModelChatCompletionsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -25348,13 +26565,13 @@ export type ChatCompletionEnginesModelChatCompletionsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	parallel_tool_calls?: (boolean | null) | undefined;
+	parallel_tool_calls?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
@@ -25364,7 +26581,7 @@ export type ChatCompletionEnginesModelChatCompletionsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -25375,49 +26592,55 @@ export type ChatCompletionEnginesModelChatCompletionsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	user?: (string | null) | undefined;
+	user?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	stream?: (boolean | null) | undefined;
+	stream?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	guardrails?: (string[] | null) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	caching?: (boolean | null) | undefined;
+	caching?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	num_retries?: (number | null) | undefined;
+	num_retries?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	context_window_fallback_dict?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	fallbacks?: (string[] | null) | undefined;
+	fallbacks?: (string[] | (null | null)) | undefined;
 };
 
 export type ChatCompletionEnginesModelChatCompletionsPostOptions = {
@@ -25461,71 +26684,80 @@ export type ChatCompletionChatCompletionsPostBody = {
 	/**
 	 * @default null
 	 */
-	frequency_penalty?: (number | null) | undefined;
+	frequency_penalty?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	logit_bias?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	logprobs?: (boolean | null) | undefined;
+	logprobs?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	top_logprobs?: (number | null) | undefined;
+	top_logprobs?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	max_tokens?: (number | null) | undefined;
+	max_tokens?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	n?: (number | null) | undefined;
+	n?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	presence_penalty?: (number | null) | undefined;
+	presence_penalty?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	response_format?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	seed?: (number | null) | undefined;
+	seed?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	service_tier?: (string | null) | undefined;
+	service_tier?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	stop?: (string | string[] | null) | undefined;
+	stop?: (string | string[] | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	stream_options?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	temperature?: (number | null) | undefined;
+	temperature?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	top_p?: (number | null) | undefined;
+	top_p?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
@@ -25534,7 +26766,7 @@ export type ChatCompletionChatCompletionsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -25546,13 +26778,13 @@ export type ChatCompletionChatCompletionsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	parallel_tool_calls?: (boolean | null) | undefined;
+	parallel_tool_calls?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
@@ -25562,7 +26794,7 @@ export type ChatCompletionChatCompletionsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -25573,49 +26805,55 @@ export type ChatCompletionChatCompletionsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	user?: (string | null) | undefined;
+	user?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	stream?: (boolean | null) | undefined;
+	stream?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	guardrails?: (string[] | null) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	caching?: (boolean | null) | undefined;
+	caching?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	num_retries?: (number | null) | undefined;
+	num_retries?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	context_window_fallback_dict?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	fallbacks?: (string[] | null) | undefined;
+	fallbacks?: (string[] | (null | null)) | undefined;
 };
 
 export type ChatCompletionChatCompletionsPostOptions = {
@@ -25658,71 +26896,80 @@ export type ChatCompletionV1ChatCompletionsPostBody = {
 	/**
 	 * @default null
 	 */
-	frequency_penalty?: (number | null) | undefined;
+	frequency_penalty?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	logit_bias?:
-		| ({
-				[key: string]: number;
-		  } | null)
+		| (
+				| {
+						[key: string]: number;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	logprobs?: (boolean | null) | undefined;
+	logprobs?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	top_logprobs?: (number | null) | undefined;
+	top_logprobs?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	max_tokens?: (number | null) | undefined;
+	max_tokens?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	n?: (number | null) | undefined;
+	n?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	presence_penalty?: (number | null) | undefined;
+	presence_penalty?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	response_format?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	seed?: (number | null) | undefined;
+	seed?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	service_tier?: (string | null) | undefined;
+	service_tier?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	stop?: (string | string[] | null) | undefined;
+	stop?: (string | string[] | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	stream_options?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	temperature?: (number | null) | undefined;
+	temperature?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	top_p?: (number | null) | undefined;
+	top_p?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
@@ -25731,7 +26978,7 @@ export type ChatCompletionV1ChatCompletionsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -25743,13 +26990,13 @@ export type ChatCompletionV1ChatCompletionsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	parallel_tool_calls?: (boolean | null) | undefined;
+	parallel_tool_calls?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
@@ -25759,7 +27006,7 @@ export type ChatCompletionV1ChatCompletionsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -25770,49 +27017,55 @@ export type ChatCompletionV1ChatCompletionsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	user?: (string | null) | undefined;
+	user?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	stream?: (boolean | null) | undefined;
+	stream?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	guardrails?: (string[] | null) | undefined;
+	guardrails?: (string[] | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	caching?: (boolean | null) | undefined;
+	caching?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	num_retries?: (number | null) | undefined;
+	num_retries?: (number | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	context_window_fallback_dict?:
-		| ({
-				[key: string]: string;
-		  } | null)
+		| (
+				| {
+						[key: string]: string;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	fallbacks?: (string[] | null) | undefined;
+	fallbacks?: (string[] | (null | null)) | undefined;
 };
 
 export type ChatCompletionV1ChatCompletionsPostOptions = {
@@ -25834,7 +27087,7 @@ export type ChatCompletionV1ChatCompletionsPostResponse =
 	ChatCompletionV1ChatCompletionsPostStatus200;
 
 export type CompletionOpenaiDeploymentsModelCompletionsPostPath = {
-	model: string | null;
+	model: string | (null | null);
 };
 
 export type CompletionOpenaiDeploymentsModelCompletionsPostStatus200 = {
@@ -25862,7 +27115,7 @@ export type CompletionOpenaiDeploymentsModelCompletionsPostResponse =
 	CompletionOpenaiDeploymentsModelCompletionsPostStatus200;
 
 export type CompletionEnginesModelCompletionsPostPath = {
-	model: string | null;
+	model: string | (null | null);
 };
 
 export type CompletionEnginesModelCompletionsPostStatus200 = {
@@ -25890,7 +27143,7 @@ export type CompletionEnginesModelCompletionsPostResponse =
 	CompletionEnginesModelCompletionsPostStatus200;
 
 export type CompletionCompletionsPostQuery = {
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 };
 
 export type CompletionCompletionsPostStatus200 = {
@@ -25917,7 +27170,7 @@ export type CompletionCompletionsPostResponses = {
 export type CompletionCompletionsPostResponse = CompletionCompletionsPostStatus200;
 
 export type CompletionV1CompletionsPostQuery = {
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 };
 
 export type CompletionV1CompletionsPostStatus200 = {
@@ -25944,7 +27197,7 @@ export type CompletionV1CompletionsPostResponses = {
 export type CompletionV1CompletionsPostResponse = CompletionV1CompletionsPostStatus200;
 
 export type EmbeddingsOpenaiDeploymentsModelEmbeddingsPostPath = {
-	model: string | null;
+	model: string | (null | null);
 };
 
 export type EmbeddingsOpenaiDeploymentsModelEmbeddingsPostStatus200 = {
@@ -25968,19 +27221,19 @@ export type EmbeddingsOpenaiDeploymentsModelEmbeddingsPostBody = {
 	/**
 	 * @default null
 	 */
-	api_base?: (string | null) | undefined;
+	api_base?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	api_version?: (string | null) | undefined;
+	api_version?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	api_type?: (string | null) | undefined;
+	api_type?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -25989,7 +27242,7 @@ export type EmbeddingsOpenaiDeploymentsModelEmbeddingsPostBody = {
 	/**
 	 * @default null
 	 */
-	user?: (string | null) | undefined;
+	user?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
@@ -25999,25 +27252,28 @@ export type EmbeddingsOpenaiDeploymentsModelEmbeddingsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	litellm_call_id?: (string | null) | undefined;
+	litellm_call_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	litellm_logging_obj?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	logger_fn?: (string | null) | undefined;
+	logger_fn?: (string | (null | null)) | undefined;
 };
 
 export type EmbeddingsOpenaiDeploymentsModelEmbeddingsPostOptions = {
@@ -26039,7 +27295,7 @@ export type EmbeddingsOpenaiDeploymentsModelEmbeddingsPostResponse =
 	EmbeddingsOpenaiDeploymentsModelEmbeddingsPostStatus200;
 
 export type EmbeddingsEnginesModelEmbeddingsPostPath = {
-	model: string | null;
+	model: string | (null | null);
 };
 
 export type EmbeddingsEnginesModelEmbeddingsPostStatus200 = {
@@ -26063,19 +27319,19 @@ export type EmbeddingsEnginesModelEmbeddingsPostBody = {
 	/**
 	 * @default null
 	 */
-	api_base?: (string | null) | undefined;
+	api_base?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	api_version?: (string | null) | undefined;
+	api_version?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	api_type?: (string | null) | undefined;
+	api_type?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -26084,7 +27340,7 @@ export type EmbeddingsEnginesModelEmbeddingsPostBody = {
 	/**
 	 * @default null
 	 */
-	user?: (string | null) | undefined;
+	user?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
@@ -26094,25 +27350,28 @@ export type EmbeddingsEnginesModelEmbeddingsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	litellm_call_id?: (string | null) | undefined;
+	litellm_call_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	litellm_logging_obj?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	logger_fn?: (string | null) | undefined;
+	logger_fn?: (string | (null | null)) | undefined;
 };
 
 export type EmbeddingsEnginesModelEmbeddingsPostOptions = {
@@ -26154,19 +27413,19 @@ export type EmbeddingsEmbeddingsPostBody = {
 	/**
 	 * @default null
 	 */
-	api_base?: (string | null) | undefined;
+	api_base?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	api_version?: (string | null) | undefined;
+	api_version?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	api_type?: (string | null) | undefined;
+	api_type?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -26175,7 +27434,7 @@ export type EmbeddingsEmbeddingsPostBody = {
 	/**
 	 * @default null
 	 */
-	user?: (string | null) | undefined;
+	user?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
@@ -26185,25 +27444,28 @@ export type EmbeddingsEmbeddingsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	litellm_call_id?: (string | null) | undefined;
+	litellm_call_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	litellm_logging_obj?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	logger_fn?: (string | null) | undefined;
+	logger_fn?: (string | (null | null)) | undefined;
 };
 
 export type EmbeddingsEmbeddingsPostOptions = {
@@ -26244,19 +27506,19 @@ export type EmbeddingsV1EmbeddingsPostBody = {
 	/**
 	 * @default null
 	 */
-	api_base?: (string | null) | undefined;
+	api_base?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	api_version?: (string | null) | undefined;
+	api_version?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
-	api_type?: (string | null) | undefined;
+	api_type?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 * @type boolean | undefined
@@ -26265,7 +27527,7 @@ export type EmbeddingsV1EmbeddingsPostBody = {
 	/**
 	 * @default null
 	 */
-	user?: (string | null) | undefined;
+	user?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
@@ -26275,25 +27537,28 @@ export type EmbeddingsV1EmbeddingsPostBody = {
 				| {
 						[key: string]: unknown;
 				  }
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	litellm_call_id?: (string | null) | undefined;
+	litellm_call_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default null
 	 */
 	litellm_logging_obj?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @default null
 	 */
-	logger_fn?: (string | null) | undefined;
+	logger_fn?: (string | (null | null)) | undefined;
 };
 
 export type EmbeddingsV1EmbeddingsPostOptions = {
@@ -26853,7 +28118,7 @@ export type TokenCounterUtilsTokenCounterPostQuery = {
 };
 
 export type TokenCounterUtilsTokenCounterPostHeaders = {
-	"x-litellm-call-id"?: (string | null) | undefined;
+	"x-litellm-call-id"?: (string | (null | null)) | undefined;
 };
 
 export type TokenCounterUtilsTokenCounterPostStatus200 = TokenCountResponse;
@@ -26909,7 +28174,7 @@ export type SupportedOpenaiParamsUtilsSupportedOpenaiParamsGetResponse =
 
 export type ModelInfoLookupUtilsModelInfoGetQuery = {
 	model: string;
-	custom_llm_provider?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
 };
 
 export type ModelInfoLookupUtilsModelInfoGetStatus200 = {
@@ -26963,21 +28228,21 @@ export type ModelInfoV2V2ModelInfoGetQuery = {
 	/**
 	 * @description Specify the model name (optional)
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Only return models added by this user
 	 * @default false
 	 */
-	user_models_only?: (boolean | null) | undefined;
+	user_models_only?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Return all models across all teams user is in.
 	 * @default false
 	 */
-	include_team_models?: (boolean | null) | undefined;
+	include_team_models?: (boolean | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	debug?: (boolean | null) | undefined;
+	debug?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Page number
 	 * @minimum 1
@@ -26995,11 +28260,11 @@ export type ModelInfoV2V2ModelInfoGetQuery = {
 	/**
 	 * @description Search model names (case-insensitive partial match)
 	 */
-	search?: (string | null) | undefined;
+	search?: (string | (null | null)) | undefined;
 	/**
 	 * @description Search for a specific model by its unique ID
 	 */
-	modelId?: (string | null) | undefined;
+	modelId?: (string | (null | null)) | undefined;
 	/**
 	 * @description With modelId, omit runtime-only litellm_params defaults from a DB-stored model's editor view.
 	 * @default false
@@ -27009,34 +28274,34 @@ export type ModelInfoV2V2ModelInfoGetQuery = {
 	/**
 	 * @description Filter models by team ID. Returns models with direct_access=True or teamId in access_via_team_ids
 	 */
-	teamId?: (string | null) | undefined;
+	teamId?: (string | (null | null)) | undefined;
 	/**
 	 * @description Field to sort by. Options: model_name, created_at, updated_at, costs, status
 	 */
-	sortBy?: (string | null) | undefined;
+	sortBy?: (string | (null | null)) | undefined;
 	/**
 	 * @description Sort order. Options: asc, desc
 	 * @default asc
 	 */
-	sortOrder?: (string | null) | undefined;
+	sortOrder?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by routing status: false = active deployments, true = paused (blocked) deployments. Omit to return both.
 	 */
-	blocked?: (boolean | null) | undefined;
+	blocked?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Omit auto-router deployments (litellm model prefixed `auto_router/`). They select among deployments rather than being deployments themselves, so a caller rendering a deployment list can leave them out. Defaults to false, so existing callers are unaffected
 	 * @default false
 	 */
-	exclude_auto_routers?: (boolean | null) | undefined;
+	exclude_auto_routers?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Only return deployments whose `model_info.access_groups` contains this access group
 	 */
-	access_group?: (string | null) | undefined;
+	access_group?: (string | (null | null)) | undefined;
 	/**
 	 * @description Only return wildcard deployments, i.e. those whose `model_name` contains `*`
 	 * @default false
 	 */
-	wildcard_only?: (boolean | null) | undefined;
+	wildcard_only?: (boolean | (null | null)) | undefined;
 };
 
 export type ModelInfoV2V2ModelInfoGetStatus200 = {
@@ -27063,20 +28328,20 @@ export type ModelInfoV2V2ModelInfoGetResponses = {
 export type ModelInfoV2V2ModelInfoGetResponse = ModelInfoV2V2ModelInfoGetStatus200;
 
 export type ModelInfoV1V1ModelInfoGetQuery = {
-	litellm_model_id?: (string | null) | undefined;
+	litellm_model_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description When true, filter to deployments the caller can use via direct access or team membership.
 	 * @default false
 	 */
-	include_team_models?: (boolean | null) | undefined;
+	include_team_models?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Filter models by team ID. Returns models with direct_access=True or teamId in access_via_team_ids
 	 */
-	teamId?: (string | null) | undefined;
+	teamId?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	healthy_only?: (boolean | null) | undefined;
+	healthy_only?: (boolean | (null | null)) | undefined;
 };
 
 export type ModelInfoV1V1ModelInfoGetStatus200 = {
@@ -27104,20 +28369,20 @@ export type ModelInfoV1V1ModelInfoGetResponses = {
 export type ModelInfoV1V1ModelInfoGetResponse = ModelInfoV1V1ModelInfoGetStatus200;
 
 export type ModelInfoV1ModelInfoGetQuery = {
-	litellm_model_id?: (string | null) | undefined;
+	litellm_model_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description When true, filter to deployments the caller can use via direct access or team membership.
 	 * @default false
 	 */
-	include_team_models?: (boolean | null) | undefined;
+	include_team_models?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Filter models by team ID. Returns models with direct_access=True or teamId in access_via_team_ids
 	 */
-	teamId?: (string | null) | undefined;
+	teamId?: (string | (null | null)) | undefined;
 	/**
 	 * @default false
 	 */
-	healthy_only?: (boolean | null) | undefined;
+	healthy_only?: (boolean | (null | null)) | undefined;
 };
 
 export type ModelInfoV1ModelInfoGetStatus200 = {
@@ -27204,7 +28469,7 @@ export type ModelDeprecationsModelDeprecationsGetResponse =
 	ModelDeprecationsModelDeprecationsGetStatus200;
 
 export type ModelGroupInfoModelGroupInfoGetQuery = {
-	model_group?: (string | null) | undefined;
+	model_group?: (string | (null | null)) | undefined;
 };
 
 export type ModelGroupInfoModelGroupInfoGetStatus200 = {
@@ -27325,22 +28590,25 @@ export type ResponsesApiOpenaiV1ResponsesPostRequestTruncationKey =
 	(typeof responsesApiOpenaiV1ResponsesPostRequestTruncation)[keyof typeof responsesApiOpenaiV1ResponsesPostRequestTruncation];
 
 export type ResponsesApiOpenaiV1ResponsesPostBody = {
-	include?: (ResponsesApiOpenaiV1ResponsesPostRequestIncludeEnumKey[] | null) | undefined;
-	instructions?: (string | null) | undefined;
-	max_output_tokens?: (number | null) | undefined;
+	include?: (ResponsesApiOpenaiV1ResponsesPostRequestIncludeEnumKey[] | (null | null)) | undefined;
+	instructions?: (string | (null | null)) | undefined;
+	max_output_tokens?: (number | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	parallel_tool_calls?: (boolean | null) | undefined;
-	previous_response_id?: (string | null) | undefined;
-	reasoning?: (OpenaiTypesSharedParamsReasoningReasoning | null) | undefined;
-	store?: (boolean | null) | undefined;
-	background?: (boolean | null) | undefined;
-	stream?: (boolean | null) | undefined;
-	temperature?: (number | null) | undefined;
-	text?: (ResponseTextConfigParam | null) | undefined;
+	parallel_tool_calls?: (boolean | (null | null)) | undefined;
+	previous_response_id?: (string | (null | null)) | undefined;
+	reasoning?: (OpenaiTypesSharedParamsReasoningReasoning | (null | null)) | undefined;
+	store?: (boolean | (null | null)) | undefined;
+	background?: (boolean | (null | null)) | undefined;
+	stream?: (boolean | (null | null)) | undefined;
+	temperature?: (number | (null | null)) | undefined;
+	text?: (ResponseTextConfigParam | (null | null)) | undefined;
 	tool_choice?:
 		| (
 				| ResponsesApiOpenaiV1ResponsesPostRequestToolChoiceKey
@@ -27352,7 +28620,7 @@ export type ResponsesApiOpenaiV1ResponsesPostBody = {
 				| ToolChoiceSpecificProgrammaticToolCallingParam
 				| ToolChoiceApplyPatchParam
 				| ToolChoiceShellParam
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	tools?:
@@ -27378,24 +28646,24 @@ export type ResponsesApiOpenaiV1ResponsesPostBody = {
 						| ShellToolParam
 						| OpenAIToolSearchToolParam
 				  )[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	top_p?: (number | null) | undefined;
-	truncation?: (ResponsesApiOpenaiV1ResponsesPostRequestTruncationKey | null) | undefined;
-	user?: (string | null) | undefined;
-	service_tier?: (string | null) | undefined;
-	safety_identifier?: (string | null) | undefined;
-	prompt?: (PromptObject | null) | undefined;
-	max_tool_calls?: (number | null) | undefined;
-	prompt_cache_key?: (string | null) | undefined;
-	prompt_cache_retention?: (string | null) | undefined;
-	prompt_cache_options?: (PromptCacheOptions | null) | undefined;
-	moderation?: (ResponsesAPIModeration | null) | undefined;
-	stream_options?: (ResponsesAPIStreamOptions | null) | undefined;
-	top_logprobs?: (number | null) | undefined;
-	partial_images?: (number | null) | undefined;
-	context_management?: (ContextManagementEntry[] | null) | undefined;
+	top_p?: (number | (null | null)) | undefined;
+	truncation?: (ResponsesApiOpenaiV1ResponsesPostRequestTruncationKey | (null | null)) | undefined;
+	user?: (string | (null | null)) | undefined;
+	service_tier?: (string | (null | null)) | undefined;
+	safety_identifier?: (string | (null | null)) | undefined;
+	prompt?: (PromptObject | (null | null)) | undefined;
+	max_tool_calls?: (number | (null | null)) | undefined;
+	prompt_cache_key?: (string | (null | null)) | undefined;
+	prompt_cache_retention?: (string | (null | null)) | undefined;
+	prompt_cache_options?: (PromptCacheOptions | (null | null)) | undefined;
+	moderation?: (ResponsesAPIModeration | (null | null)) | undefined;
+	stream_options?: (ResponsesAPIStreamOptions | (null | null)) | undefined;
+	top_logprobs?: (number | (null | null)) | undefined;
+	partial_images?: (number | (null | null)) | undefined;
+	context_management?: (ContextManagementEntry[] | (null | null)) | undefined;
 	input:
 		| string
 		| (
@@ -27486,22 +28754,25 @@ export type ResponsesApiResponsesPostRequestTruncationKey =
 	(typeof responsesApiResponsesPostRequestTruncation)[keyof typeof responsesApiResponsesPostRequestTruncation];
 
 export type ResponsesApiResponsesPostBody = {
-	include?: (ResponsesApiResponsesPostRequestIncludeEnumKey[] | null) | undefined;
-	instructions?: (string | null) | undefined;
-	max_output_tokens?: (number | null) | undefined;
+	include?: (ResponsesApiResponsesPostRequestIncludeEnumKey[] | (null | null)) | undefined;
+	instructions?: (string | (null | null)) | undefined;
+	max_output_tokens?: (number | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	parallel_tool_calls?: (boolean | null) | undefined;
-	previous_response_id?: (string | null) | undefined;
-	reasoning?: (OpenaiTypesSharedParamsReasoningReasoning | null) | undefined;
-	store?: (boolean | null) | undefined;
-	background?: (boolean | null) | undefined;
-	stream?: (boolean | null) | undefined;
-	temperature?: (number | null) | undefined;
-	text?: (ResponseTextConfigParam | null) | undefined;
+	parallel_tool_calls?: (boolean | (null | null)) | undefined;
+	previous_response_id?: (string | (null | null)) | undefined;
+	reasoning?: (OpenaiTypesSharedParamsReasoningReasoning | (null | null)) | undefined;
+	store?: (boolean | (null | null)) | undefined;
+	background?: (boolean | (null | null)) | undefined;
+	stream?: (boolean | (null | null)) | undefined;
+	temperature?: (number | (null | null)) | undefined;
+	text?: (ResponseTextConfigParam | (null | null)) | undefined;
 	tool_choice?:
 		| (
 				| ResponsesApiResponsesPostRequestToolChoiceKey
@@ -27513,7 +28784,7 @@ export type ResponsesApiResponsesPostBody = {
 				| ToolChoiceSpecificProgrammaticToolCallingParam
 				| ToolChoiceApplyPatchParam
 				| ToolChoiceShellParam
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	tools?:
@@ -27539,24 +28810,24 @@ export type ResponsesApiResponsesPostBody = {
 						| ShellToolParam
 						| OpenAIToolSearchToolParam
 				  )[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	top_p?: (number | null) | undefined;
-	truncation?: (ResponsesApiResponsesPostRequestTruncationKey | null) | undefined;
-	user?: (string | null) | undefined;
-	service_tier?: (string | null) | undefined;
-	safety_identifier?: (string | null) | undefined;
-	prompt?: (PromptObject | null) | undefined;
-	max_tool_calls?: (number | null) | undefined;
-	prompt_cache_key?: (string | null) | undefined;
-	prompt_cache_retention?: (string | null) | undefined;
-	prompt_cache_options?: (PromptCacheOptions | null) | undefined;
-	moderation?: (ResponsesAPIModeration | null) | undefined;
-	stream_options?: (ResponsesAPIStreamOptions | null) | undefined;
-	top_logprobs?: (number | null) | undefined;
-	partial_images?: (number | null) | undefined;
-	context_management?: (ContextManagementEntry[] | null) | undefined;
+	top_p?: (number | (null | null)) | undefined;
+	truncation?: (ResponsesApiResponsesPostRequestTruncationKey | (null | null)) | undefined;
+	user?: (string | (null | null)) | undefined;
+	service_tier?: (string | (null | null)) | undefined;
+	safety_identifier?: (string | (null | null)) | undefined;
+	prompt?: (PromptObject | (null | null)) | undefined;
+	max_tool_calls?: (number | (null | null)) | undefined;
+	prompt_cache_key?: (string | (null | null)) | undefined;
+	prompt_cache_retention?: (string | (null | null)) | undefined;
+	prompt_cache_options?: (PromptCacheOptions | (null | null)) | undefined;
+	moderation?: (ResponsesAPIModeration | (null | null)) | undefined;
+	stream_options?: (ResponsesAPIStreamOptions | (null | null)) | undefined;
+	top_logprobs?: (number | (null | null)) | undefined;
+	partial_images?: (number | (null | null)) | undefined;
+	context_management?: (ContextManagementEntry[] | (null | null)) | undefined;
 	input:
 		| string
 		| (
@@ -27647,22 +28918,25 @@ export type ResponsesApiV1ResponsesPostRequestTruncationKey =
 	(typeof responsesApiV1ResponsesPostRequestTruncation)[keyof typeof responsesApiV1ResponsesPostRequestTruncation];
 
 export type ResponsesApiV1ResponsesPostBody = {
-	include?: (ResponsesApiV1ResponsesPostRequestIncludeEnumKey[] | null) | undefined;
-	instructions?: (string | null) | undefined;
-	max_output_tokens?: (number | null) | undefined;
+	include?: (ResponsesApiV1ResponsesPostRequestIncludeEnumKey[] | (null | null)) | undefined;
+	instructions?: (string | (null | null)) | undefined;
+	max_output_tokens?: (number | (null | null)) | undefined;
 	metadata?:
-		| ({
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
-	parallel_tool_calls?: (boolean | null) | undefined;
-	previous_response_id?: (string | null) | undefined;
-	reasoning?: (OpenaiTypesSharedParamsReasoningReasoning | null) | undefined;
-	store?: (boolean | null) | undefined;
-	background?: (boolean | null) | undefined;
-	stream?: (boolean | null) | undefined;
-	temperature?: (number | null) | undefined;
-	text?: (ResponseTextConfigParam | null) | undefined;
+	parallel_tool_calls?: (boolean | (null | null)) | undefined;
+	previous_response_id?: (string | (null | null)) | undefined;
+	reasoning?: (OpenaiTypesSharedParamsReasoningReasoning | (null | null)) | undefined;
+	store?: (boolean | (null | null)) | undefined;
+	background?: (boolean | (null | null)) | undefined;
+	stream?: (boolean | (null | null)) | undefined;
+	temperature?: (number | (null | null)) | undefined;
+	text?: (ResponseTextConfigParam | (null | null)) | undefined;
 	tool_choice?:
 		| (
 				| ResponsesApiV1ResponsesPostRequestToolChoiceKey
@@ -27674,7 +28948,7 @@ export type ResponsesApiV1ResponsesPostBody = {
 				| ToolChoiceSpecificProgrammaticToolCallingParam
 				| ToolChoiceApplyPatchParam
 				| ToolChoiceShellParam
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	tools?:
@@ -27700,24 +28974,24 @@ export type ResponsesApiV1ResponsesPostBody = {
 						| ShellToolParam
 						| OpenAIToolSearchToolParam
 				  )[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
-	top_p?: (number | null) | undefined;
-	truncation?: (ResponsesApiV1ResponsesPostRequestTruncationKey | null) | undefined;
-	user?: (string | null) | undefined;
-	service_tier?: (string | null) | undefined;
-	safety_identifier?: (string | null) | undefined;
-	prompt?: (PromptObject | null) | undefined;
-	max_tool_calls?: (number | null) | undefined;
-	prompt_cache_key?: (string | null) | undefined;
-	prompt_cache_retention?: (string | null) | undefined;
-	prompt_cache_options?: (PromptCacheOptions | null) | undefined;
-	moderation?: (ResponsesAPIModeration | null) | undefined;
-	stream_options?: (ResponsesAPIStreamOptions | null) | undefined;
-	top_logprobs?: (number | null) | undefined;
-	partial_images?: (number | null) | undefined;
-	context_management?: (ContextManagementEntry[] | null) | undefined;
+	top_p?: (number | (null | null)) | undefined;
+	truncation?: (ResponsesApiV1ResponsesPostRequestTruncationKey | (null | null)) | undefined;
+	user?: (string | (null | null)) | undefined;
+	service_tier?: (string | (null | null)) | undefined;
+	safety_identifier?: (string | (null | null)) | undefined;
+	prompt?: (PromptObject | (null | null)) | undefined;
+	max_tool_calls?: (number | (null | null)) | undefined;
+	prompt_cache_key?: (string | (null | null)) | undefined;
+	prompt_cache_retention?: (string | (null | null)) | undefined;
+	prompt_cache_options?: (PromptCacheOptions | (null | null)) | undefined;
+	moderation?: (ResponsesAPIModeration | (null | null)) | undefined;
+	stream_options?: (ResponsesAPIStreamOptions | (null | null)) | undefined;
+	top_logprobs?: (number | (null | null)) | undefined;
+	partial_images?: (number | (null | null)) | undefined;
+	context_management?: (ContextManagementEntry[] | (null | null)) | undefined;
 	input:
 		| string
 		| (
@@ -28948,7 +30222,7 @@ export type VideoGenerationVideosPostStatus422 = HTTPValidationError;
 export type VideoGenerationVideosPostBody = BodyVideoGenerationVideosPost | undefined;
 
 export type VideoGenerationVideosPostOptions = {
-	body: VideoGenerationVideosPostBody;
+	body?: VideoGenerationVideosPostBody | undefined;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -28993,7 +30267,7 @@ export type VideoGenerationV1VideosPostStatus422 = HTTPValidationError;
 export type VideoGenerationV1VideosPostBody = BodyVideoGenerationV1VideosPost | undefined;
 
 export type VideoGenerationV1VideosPostOptions = {
-	body: VideoGenerationV1VideosPostBody;
+	body?: VideoGenerationV1VideosPostBody | undefined;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -29363,9 +30637,9 @@ export type VideoExtensionV1VideosExtensionsPostResponse =
 	VideoExtensionV1VideosExtensionsPostStatus200;
 
 export type ListContainersContainersGetQuery = {
-	after?: (string | null) | undefined;
-	limit?: (number | null) | undefined;
-	order?: (string | null) | undefined;
+	after?: (string | (null | null)) | undefined;
+	limit?: (number | (null | null)) | undefined;
+	order?: (string | (null | null)) | undefined;
 };
 
 export type ListContainersContainersGetStatus200 = {
@@ -29412,9 +30686,9 @@ export type CreateContainerContainersPostResponses = {
 export type CreateContainerContainersPostResponse = CreateContainerContainersPostStatus200;
 
 export type ListContainersV1ContainersGetQuery = {
-	after?: (string | null) | undefined;
-	limit?: (number | null) | undefined;
-	order?: (string | null) | undefined;
+	after?: (string | (null | null)) | undefined;
+	limit?: (number | (null | null)) | undefined;
+	order?: (string | (null | null)) | undefined;
 };
 
 export type ListContainersV1ContainersGetStatus200 = {
@@ -29864,7 +31138,7 @@ export type HandlerBinaryContentContainersContainerIdFilesFileIdContentGetRespon
 	HandlerBinaryContentContainersContainerIdFilesFileIdContentGetStatus200;
 
 export type SearchSearchPostQuery = {
-	search_tool_name?: (string | null) | undefined;
+	search_tool_name?: (string | (null | null)) | undefined;
 };
 
 export type SearchSearchPostStatus200 = {
@@ -29891,7 +31165,7 @@ export type SearchSearchPostResponses = {
 export type SearchSearchPostResponse = SearchSearchPostStatus200;
 
 export type SearchV1SearchPostQuery = {
-	search_tool_name?: (string | null) | undefined;
+	search_tool_name?: (string | (null | null)) | undefined;
 };
 
 export type SearchV1SearchPostStatus200 = {
@@ -29918,7 +31192,7 @@ export type SearchV1SearchPostResponses = {
 export type SearchV1SearchPostResponse = SearchV1SearchPostStatus200;
 
 export type SearchSearchSearchToolNamePostPath = {
-	search_tool_name: string | null;
+	search_tool_name: string | (null | null);
 };
 
 export type SearchSearchSearchToolNamePostStatus200 = {
@@ -29945,7 +31219,7 @@ export type SearchSearchSearchToolNamePostResponses = {
 export type SearchSearchSearchToolNamePostResponse = SearchSearchSearchToolNamePostStatus200;
 
 export type SearchV1SearchSearchToolNamePostPath = {
-	search_tool_name: string | null;
+	search_tool_name: string | (null | null);
 };
 
 export type SearchV1SearchSearchToolNamePostStatus200 = {
@@ -30012,15 +31286,15 @@ export type ListSearchToolsV1SearchToolsGetResponses = {
 export type ListSearchToolsV1SearchToolsGetResponse = ListSearchToolsV1SearchToolsGetStatus200;
 
 export type ListAgentTracesV1TracesGetQuery = {
-	cursor?: (string | null) | undefined;
+	cursor?: (string | (null | null)) | undefined;
 	/**
 	 * @description Window end, unix ms. Default: now
 	 */
-	end_ms?: (number | null) | undefined;
+	end_ms?: (number | (null | null)) | undefined;
 	/**
 	 * @description Window start, unix ms. Default: 24h ago
 	 */
-	start_ms?: (number | null) | undefined;
+	start_ms?: (number | (null | null)) | undefined;
 };
 
 export type ListAgentTracesV1TracesGetStatus200 = TracePage;
@@ -30045,8 +31319,8 @@ export type ListAgentTracesV1TracesGetResponses = {
 export type ListAgentTracesV1TracesGetResponse = ListAgentTracesV1TracesGetStatus200;
 
 export type ListTraceAgentsV1TracesAgentsGetQuery = {
-	start_ms?: (number | null) | undefined;
-	end_ms?: (number | null) | undefined;
+	start_ms?: (number | (null | null)) | undefined;
+	end_ms?: (number | (null | null)) | undefined;
 };
 
 export type ListTraceAgentsV1TracesAgentsGetStatus200 = TraceAgentList;
@@ -30117,8 +31391,8 @@ export type GetAgentTraceV1TracesTraceIdGetPath = {
 };
 
 export type GetAgentTraceV1TracesTraceIdGetQuery = {
-	cursor?: (string | null) | undefined;
-	page_size?: (number | null) | undefined;
+	cursor?: (string | (null | null)) | undefined;
+	page_size?: (number | (null | null)) | undefined;
 	/**
 	 * @default ''
 	 * @type string | undefined
@@ -30188,7 +31462,7 @@ export type GetAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetPath = {
 };
 
 export type GetAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetQuery = {
-	cursor?: (string | null) | undefined;
+	cursor?: (string | (null | null)) | undefined;
 	/**
 	 * @default ''
 	 * @type string | undefined
@@ -30219,7 +31493,7 @@ export type GetAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetResponse =
 	GetAgentTraceSpanErrorV1TracesTraceIdSpansSpanIdErrorGetStatus200;
 
 export type ImageGenerationOpenaiDeploymentsModelImagesGenerationsPostPath = {
-	model: string | null;
+	model: string | (null | null);
 };
 
 export type ImageGenerationOpenaiDeploymentsModelImagesGenerationsPostStatus200 = {
@@ -30248,7 +31522,7 @@ export type ImageGenerationOpenaiDeploymentsModelImagesGenerationsPostResponse =
 	ImageGenerationOpenaiDeploymentsModelImagesGenerationsPostStatus200;
 
 export type ImageGenerationImagesGenerationsPostQuery = {
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 };
 
 export type ImageGenerationImagesGenerationsPostStatus200 = {
@@ -30276,7 +31550,7 @@ export type ImageGenerationImagesGenerationsPostResponse =
 	ImageGenerationImagesGenerationsPostStatus200;
 
 export type ImageGenerationV1ImagesGenerationsPostQuery = {
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 };
 
 export type ImageGenerationV1ImagesGenerationsPostStatus200 = {
@@ -30304,7 +31578,7 @@ export type ImageGenerationV1ImagesGenerationsPostResponse =
 	ImageGenerationV1ImagesGenerationsPostStatus200;
 
 export type ImageEditApiOpenaiDeploymentsModelImagesEditsPostPath = {
-	model: string | null;
+	model: string | (null | null);
 };
 
 export type ImageEditApiOpenaiDeploymentsModelImagesEditsPostStatus200 = {
@@ -30318,7 +31592,7 @@ export type ImageEditApiOpenaiDeploymentsModelImagesEditsPostBody =
 	| undefined;
 
 export type ImageEditApiOpenaiDeploymentsModelImagesEditsPostOptions = {
-	body: ImageEditApiOpenaiDeploymentsModelImagesEditsPostBody;
+	body?: ImageEditApiOpenaiDeploymentsModelImagesEditsPostBody | undefined;
 	path: ImageEditApiOpenaiDeploymentsModelImagesEditsPostPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -30336,7 +31610,7 @@ export type ImageEditApiOpenaiDeploymentsModelImagesEditsPostResponse =
 	ImageEditApiOpenaiDeploymentsModelImagesEditsPostStatus200;
 
 export type ImageEditApiImagesEditsPostQuery = {
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 };
 
 export type ImageEditApiImagesEditsPostStatus200 = {
@@ -30348,7 +31622,7 @@ export type ImageEditApiImagesEditsPostStatus422 = HTTPValidationError;
 export type ImageEditApiImagesEditsPostBody = BodyImageEditApiImagesEditsPost | undefined;
 
 export type ImageEditApiImagesEditsPostOptions = {
-	body: ImageEditApiImagesEditsPostBody;
+	body?: ImageEditApiImagesEditsPostBody | undefined;
 	path?: never | undefined;
 	query?: ImageEditApiImagesEditsPostQuery | undefined;
 	headers?: never | undefined;
@@ -30365,7 +31639,7 @@ export type ImageEditApiImagesEditsPostResponses = {
 export type ImageEditApiImagesEditsPostResponse = ImageEditApiImagesEditsPostStatus200;
 
 export type ImageEditApiV1ImagesEditsPostQuery = {
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 };
 
 export type ImageEditApiV1ImagesEditsPostStatus200 = {
@@ -30377,7 +31651,7 @@ export type ImageEditApiV1ImagesEditsPostStatus422 = HTTPValidationError;
 export type ImageEditApiV1ImagesEditsPostBody = BodyImageEditApiV1ImagesEditsPost | undefined;
 
 export type ImageEditApiV1ImagesEditsPostOptions = {
-	body: ImageEditApiV1ImagesEditsPostBody;
+	body?: ImageEditApiV1ImagesEditsPostBody | undefined;
 	path?: never | undefined;
 	query?: ImageEditApiV1ImagesEditsPostQuery | undefined;
 	headers?: never | undefined;
@@ -30403,14 +31677,14 @@ export type ListFineTuningJobsFineTuningJobsGetCustomLlmProviderKey =
 
 export type ListFineTuningJobsFineTuningJobsGetQuery = {
 	custom_llm_provider?:
-		| (ListFineTuningJobsFineTuningJobsGetCustomLlmProviderKey | null)
+		| (ListFineTuningJobsFineTuningJobsGetCustomLlmProviderKey | (null | null))
 		| undefined;
 	/**
 	 * @description Comma separated list of model names to filter by. Example: 'gpt-4o,gpt-4o-mini'
 	 */
-	target_model_names?: (string | null) | undefined;
-	after?: (string | null) | undefined;
-	limit?: (number | null) | undefined;
+	target_model_names?: (string | (null | null)) | undefined;
+	after?: (string | (null | null)) | undefined;
+	limit?: (number | (null | null)) | undefined;
 };
 
 export type ListFineTuningJobsFineTuningJobsGetStatus200 = {
@@ -30473,14 +31747,14 @@ export type ListFineTuningJobsV1FineTuningJobsGetCustomLlmProviderKey =
 
 export type ListFineTuningJobsV1FineTuningJobsGetQuery = {
 	custom_llm_provider?:
-		| (ListFineTuningJobsV1FineTuningJobsGetCustomLlmProviderKey | null)
+		| (ListFineTuningJobsV1FineTuningJobsGetCustomLlmProviderKey | (null | null))
 		| undefined;
 	/**
 	 * @description Comma separated list of model names to filter by. Example: 'gpt-4o,gpt-4o-mini'
 	 */
-	target_model_names?: (string | null) | undefined;
-	after?: (string | null) | undefined;
-	limit?: (number | null) | undefined;
+	target_model_names?: (string | (null | null)) | undefined;
+	after?: (string | (null | null)) | undefined;
+	limit?: (number | (null | null)) | undefined;
 };
 
 export type ListFineTuningJobsV1FineTuningJobsGetStatus200 = {
@@ -30547,7 +31821,7 @@ export type RetrieveFineTuningJobFineTuningJobsFineTuningJobIdGetCustomLlmProvid
 
 export type RetrieveFineTuningJobFineTuningJobsFineTuningJobIdGetQuery = {
 	custom_llm_provider?:
-		| (RetrieveFineTuningJobFineTuningJobsFineTuningJobIdGetCustomLlmProviderKey | null)
+		| (RetrieveFineTuningJobFineTuningJobsFineTuningJobIdGetCustomLlmProviderKey | (null | null))
 		| undefined;
 };
 
@@ -30589,7 +31863,7 @@ export type RetrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetCustomLlmProv
 
 export type RetrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetQuery = {
 	custom_llm_provider?:
-		| (RetrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetCustomLlmProviderKey | null)
+		| (RetrieveFineTuningJobV1FineTuningJobsFineTuningJobIdGetCustomLlmProviderKey | (null | null))
 		| undefined;
 };
 
@@ -30999,10 +32273,10 @@ export type DeleteCredentialCredentialsCredentialNameDeleteResponse =
 	DeleteCredentialCredentialsCredentialNameDeleteStatus200;
 
 export type ListBatchesBatchesGetQuery = {
-	provider?: (string | null) | undefined;
-	limit?: (number | null) | undefined;
-	after?: (string | null) | undefined;
-	target_model_names?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
+	limit?: (number | (null | null)) | undefined;
+	after?: (string | (null | null)) | undefined;
+	target_model_names?: (string | (null | null)) | undefined;
 };
 
 export type ListBatchesBatchesGetStatus200 = {
@@ -31029,7 +32303,7 @@ export type ListBatchesBatchesGetResponses = {
 export type ListBatchesBatchesGetResponse = ListBatchesBatchesGetStatus200;
 
 export type CreateBatchBatchesPostQuery = {
-	provider?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
 };
 
 export type CreateBatchBatchesPostStatus200 = {
@@ -31056,10 +32330,10 @@ export type CreateBatchBatchesPostResponses = {
 export type CreateBatchBatchesPostResponse = CreateBatchBatchesPostStatus200;
 
 export type ListBatchesV1BatchesGetQuery = {
-	provider?: (string | null) | undefined;
-	limit?: (number | null) | undefined;
-	after?: (string | null) | undefined;
-	target_model_names?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
+	limit?: (number | (null | null)) | undefined;
+	after?: (string | (null | null)) | undefined;
+	target_model_names?: (string | (null | null)) | undefined;
 };
 
 export type ListBatchesV1BatchesGetStatus200 = {
@@ -31086,7 +32360,7 @@ export type ListBatchesV1BatchesGetResponses = {
 export type ListBatchesV1BatchesGetResponse = ListBatchesV1BatchesGetStatus200;
 
 export type CreateBatchV1BatchesPostQuery = {
-	provider?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
 };
 
 export type CreateBatchV1BatchesPostStatus200 = {
@@ -31113,13 +32387,13 @@ export type CreateBatchV1BatchesPostResponses = {
 export type CreateBatchV1BatchesPostResponse = CreateBatchV1BatchesPostStatus200;
 
 export type ListBatchesProviderV1BatchesGetPath = {
-	provider: string | null;
+	provider: string | (null | null);
 };
 
 export type ListBatchesProviderV1BatchesGetQuery = {
-	limit?: (number | null) | undefined;
-	after?: (string | null) | undefined;
-	target_model_names?: (string | null) | undefined;
+	limit?: (number | (null | null)) | undefined;
+	after?: (string | (null | null)) | undefined;
+	target_model_names?: (string | (null | null)) | undefined;
 };
 
 export type ListBatchesProviderV1BatchesGetStatus200 = {
@@ -31146,7 +32420,7 @@ export type ListBatchesProviderV1BatchesGetResponses = {
 export type ListBatchesProviderV1BatchesGetResponse = ListBatchesProviderV1BatchesGetStatus200;
 
 export type CreateBatchProviderV1BatchesPostPath = {
-	provider: string | null;
+	provider: string | (null | null);
 };
 
 export type CreateBatchProviderV1BatchesPostStatus200 = {
@@ -31181,7 +32455,7 @@ export type RetrieveBatchBatchesBatchIdGetPath = {
 };
 
 export type RetrieveBatchBatchesBatchIdGetQuery = {
-	provider?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
 };
 
 export type RetrieveBatchBatchesBatchIdGetStatus200 = {
@@ -31216,7 +32490,7 @@ export type RetrieveBatchV1BatchesBatchIdGetPath = {
 };
 
 export type RetrieveBatchV1BatchesBatchIdGetQuery = {
-	provider?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
 };
 
 export type RetrieveBatchV1BatchesBatchIdGetStatus200 = {
@@ -31243,7 +32517,7 @@ export type RetrieveBatchV1BatchesBatchIdGetResponses = {
 export type RetrieveBatchV1BatchesBatchIdGetResponse = RetrieveBatchV1BatchesBatchIdGetStatus200;
 
 export type RetrieveBatchProviderV1BatchesBatchIdGetPath = {
-	provider: string | null;
+	provider: string | (null | null);
 	/**
 	 * @description The ID of the batch to retrieve
 	 * @type string
@@ -31280,7 +32554,7 @@ export type CancelBatchBatchesBatchIdCancelPostPath = {
 };
 
 export type CancelBatchBatchesBatchIdCancelPostQuery = {
-	provider?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
 };
 
 export type CancelBatchBatchesBatchIdCancelPostStatus200 = {
@@ -31312,7 +32586,7 @@ export type CancelBatchV1BatchesBatchIdCancelPostPath = {
 };
 
 export type CancelBatchV1BatchesBatchIdCancelPostQuery = {
-	provider?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
 };
 
 export type CancelBatchV1BatchesBatchIdCancelPostStatus200 = {
@@ -31341,7 +32615,7 @@ export type CancelBatchV1BatchesBatchIdCancelPostResponse =
 
 export type CancelBatchProviderV1BatchesBatchIdCancelPostPath = {
 	batch_id: string;
-	provider: string | null;
+	provider: string | (null | null);
 };
 
 export type CancelBatchProviderV1BatchesBatchIdCancelPostStatus200 = {
@@ -31369,13 +32643,13 @@ export type CancelBatchProviderV1BatchesBatchIdCancelPostResponse =
 	CancelBatchProviderV1BatchesBatchIdCancelPostStatus200;
 
 export type ListFilesFilesGetQuery = {
-	provider?: (string | null) | undefined;
-	target_model_names?: (string | null) | undefined;
-	purpose?: (string | null) | undefined;
-	limit?: (number | null) | undefined;
-	after?: (string | null) | undefined;
-	after_id?: (string | null) | undefined;
-	before_id?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
+	target_model_names?: (string | (null | null)) | undefined;
+	purpose?: (string | (null | null)) | undefined;
+	limit?: (number | (null | null)) | undefined;
+	after?: (string | (null | null)) | undefined;
+	after_id?: (string | (null | null)) | undefined;
+	before_id?: (string | (null | null)) | undefined;
 };
 
 export type ListFilesFilesGetStatus200 = {
@@ -31402,7 +32676,7 @@ export type ListFilesFilesGetResponses = {
 export type ListFilesFilesGetResponse = ListFilesFilesGetStatus200;
 
 export type CreateFileFilesPostQuery = {
-	provider?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
 };
 
 export type CreateFileFilesPostStatus200 = {
@@ -31431,13 +32705,13 @@ export type CreateFileFilesPostResponses = {
 export type CreateFileFilesPostResponse = CreateFileFilesPostStatus200;
 
 export type ListFilesV1FilesGetQuery = {
-	provider?: (string | null) | undefined;
-	target_model_names?: (string | null) | undefined;
-	purpose?: (string | null) | undefined;
-	limit?: (number | null) | undefined;
-	after?: (string | null) | undefined;
-	after_id?: (string | null) | undefined;
-	before_id?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
+	target_model_names?: (string | (null | null)) | undefined;
+	purpose?: (string | (null | null)) | undefined;
+	limit?: (number | (null | null)) | undefined;
+	after?: (string | (null | null)) | undefined;
+	after_id?: (string | (null | null)) | undefined;
+	before_id?: (string | (null | null)) | undefined;
 };
 
 export type ListFilesV1FilesGetStatus200 = {
@@ -31464,7 +32738,7 @@ export type ListFilesV1FilesGetResponses = {
 export type ListFilesV1FilesGetResponse = ListFilesV1FilesGetStatus200;
 
 export type CreateFileV1FilesPostQuery = {
-	provider?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
 };
 
 export type CreateFileV1FilesPostStatus200 = {
@@ -31493,16 +32767,16 @@ export type CreateFileV1FilesPostResponses = {
 export type CreateFileV1FilesPostResponse = CreateFileV1FilesPostStatus200;
 
 export type ListFilesProviderV1FilesGetPath = {
-	provider: string | null;
+	provider: string | (null | null);
 };
 
 export type ListFilesProviderV1FilesGetQuery = {
-	target_model_names?: (string | null) | undefined;
-	purpose?: (string | null) | undefined;
-	limit?: (number | null) | undefined;
-	after?: (string | null) | undefined;
-	after_id?: (string | null) | undefined;
-	before_id?: (string | null) | undefined;
+	target_model_names?: (string | (null | null)) | undefined;
+	purpose?: (string | (null | null)) | undefined;
+	limit?: (number | (null | null)) | undefined;
+	after?: (string | (null | null)) | undefined;
+	after_id?: (string | (null | null)) | undefined;
+	before_id?: (string | (null | null)) | undefined;
 };
 
 export type ListFilesProviderV1FilesGetStatus200 = {
@@ -31529,7 +32803,7 @@ export type ListFilesProviderV1FilesGetResponses = {
 export type ListFilesProviderV1FilesGetResponse = ListFilesProviderV1FilesGetStatus200;
 
 export type CreateFileProviderV1FilesPostPath = {
-	provider: string | null;
+	provider: string | (null | null);
 };
 
 export type CreateFileProviderV1FilesPostStatus200 = {
@@ -31562,7 +32836,7 @@ export type GetFileContentFilesFileIdContentGetPath = {
 };
 
 export type GetFileContentFilesFileIdContentGetQuery = {
-	provider?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
 };
 
 export type GetFileContentFilesFileIdContentGetStatus200 = {
@@ -31594,7 +32868,7 @@ export type GetFileContentV1FilesFileIdContentGetPath = {
 };
 
 export type GetFileContentV1FilesFileIdContentGetQuery = {
-	provider?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
 };
 
 export type GetFileContentV1FilesFileIdContentGetStatus200 = {
@@ -31623,7 +32897,7 @@ export type GetFileContentV1FilesFileIdContentGetResponse =
 
 export type GetFileContentProviderV1FilesFileIdContentGetPath = {
 	file_id: string;
-	provider: string | null;
+	provider: string | (null | null);
 };
 
 export type GetFileContentProviderV1FilesFileIdContentGetStatus200 = {
@@ -31655,7 +32929,7 @@ export type GetFileFilesFileIdGetPath = {
 };
 
 export type GetFileFilesFileIdGetQuery = {
-	provider?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
 };
 
 export type GetFileFilesFileIdGetStatus200 = {
@@ -31686,7 +32960,7 @@ export type DeleteFileFilesFileIdDeletePath = {
 };
 
 export type DeleteFileFilesFileIdDeleteQuery = {
-	provider?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
 };
 
 export type DeleteFileFilesFileIdDeleteStatus200 = {
@@ -31717,7 +32991,7 @@ export type GetFileV1FilesFileIdGetPath = {
 };
 
 export type GetFileV1FilesFileIdGetQuery = {
-	provider?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
 };
 
 export type GetFileV1FilesFileIdGetStatus200 = {
@@ -31748,7 +33022,7 @@ export type DeleteFileV1FilesFileIdDeletePath = {
 };
 
 export type DeleteFileV1FilesFileIdDeleteQuery = {
-	provider?: (string | null) | undefined;
+	provider?: (string | (null | null)) | undefined;
 };
 
 export type DeleteFileV1FilesFileIdDeleteStatus200 = {
@@ -31776,7 +33050,7 @@ export type DeleteFileV1FilesFileIdDeleteResponse = DeleteFileV1FilesFileIdDelet
 
 export type GetFileProviderV1FilesFileIdGetPath = {
 	file_id: string;
-	provider: string | null;
+	provider: string | (null | null);
 };
 
 export type GetFileProviderV1FilesFileIdGetStatus200 = {
@@ -31804,7 +33078,7 @@ export type GetFileProviderV1FilesFileIdGetResponse = GetFileProviderV1FilesFile
 
 export type DeleteFileProviderV1FilesFileIdDeletePath = {
 	file_id: string;
-	provider: string | null;
+	provider: string | (null | null);
 };
 
 export type DeleteFileProviderV1FilesFileIdDeleteStatus200 = {
@@ -31832,11 +33106,11 @@ export type DeleteFileProviderV1FilesFileIdDeleteResponse =
 	DeleteFileProviderV1FilesFileIdDeleteStatus200;
 
 export type GetPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetPath = {
-	team_id: string | null;
+	team_id: string | (null | null);
 };
 
 export type GetPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetQuery = {
-	endpoint_id?: (string | null) | undefined;
+	endpoint_id?: (string | (null | null)) | undefined;
 };
 
 export type GetPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetStatus200 =
@@ -31864,8 +33138,8 @@ export type GetPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetRespons
 	GetPassThroughEndpointsConfigPassThroughEndpointTeamTeamIdGetStatus200;
 
 export type GetPassThroughEndpointsConfigPassThroughEndpointGetQuery = {
-	endpoint_id?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
+	endpoint_id?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 };
 
 export type GetPassThroughEndpointsConfigPassThroughEndpointGetStatus200 =
@@ -32057,11 +33331,11 @@ export type HealthEndpointHealthGetQuery = {
 	/**
 	 * @description Specify the model name (optional)
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Specify the model ID (optional)
 	 */
-	model_id?: (string | null) | undefined;
+	model_id?: (string | (null | null)) | undefined;
 };
 
 export type HealthEndpointHealthGetStatus200 = {
@@ -32091,11 +33365,11 @@ export type HealthCheckHistoryEndpointHealthHistoryGetQuery = {
 	/**
 	 * @description Filter by specific model name
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by status (healthy/unhealthy)
 	 */
-	status_filter?: (string | null) | undefined;
+	status_filter?: (string | (null | null)) | undefined;
 	/**
 	 * @description Number of records to return
 	 * @minimum 1
@@ -32436,7 +33710,7 @@ export type TestModelConnectionHealthTestConnectionPostBody =
 	| undefined;
 
 export type TestModelConnectionHealthTestConnectionPostOptions = {
-	body: TestModelConnectionHealthTestConnectionPostBody;
+	body?: TestModelConnectionHealthTestConnectionPostBody | undefined;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -32507,7 +33781,7 @@ export type GenerateKeyFnKeyGeneratePostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type GenerateKeyFnKeyGeneratePostStatus200 = GenerateKeyResponse;
@@ -32537,7 +33811,7 @@ export type GenerateServiceAccountKeyFnKeyServiceAccountGeneratePostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type GenerateServiceAccountKeyFnKeyServiceAccountGeneratePostStatus200 = {
@@ -32570,7 +33844,7 @@ export type UpdateKeyFnKeyUpdatePostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type UpdateKeyFnKeyUpdatePostStatus200 = {
@@ -32602,7 +33876,7 @@ export type BulkUpdateKeysKeyBulkUpdatePostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -32640,7 +33914,7 @@ export type BulkUpdateTeamKeysTeamKeyBulkUpdatePostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -32679,7 +33953,7 @@ export type DeleteKeyFnKeyDeletePostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type DeleteKeyFnKeyDeletePostStatus200 = {
@@ -32711,7 +33985,7 @@ export type InfoKeyFnKeyInfoGetQuery = {
 	/**
 	 * @description Key to look up. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'
 	 */
-	key?: (string | null) | undefined;
+	key?: (string | (null | null)) | undefined;
 };
 
 export type InfoKeyFnKeyInfoGetStatus200 = {
@@ -32793,24 +34067,26 @@ export type CheckEncryptionEndpointCredentialsMigrateEncryptionCheckGetResponse 
 	CheckEncryptionEndpointCredentialsMigrateEncryptionCheckGetStatus200;
 
 export type RegenerateKeyFnKeyRegeneratePostQuery = {
-	key?: (string | null) | undefined;
+	key?: (string | (null | null)) | undefined;
 };
 
 export type RegenerateKeyFnKeyRegeneratePostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
-export type RegenerateKeyFnKeyRegeneratePostStatus200 = GenerateKeyResponse | null;
+export type RegenerateKeyFnKeyRegeneratePostStatus200 = GenerateKeyResponse | (null | null);
 
 export type RegenerateKeyFnKeyRegeneratePostStatus422 = HTTPValidationError;
 
-export type RegenerateKeyFnKeyRegeneratePostBody = (RegenerateKeyRequest | null) | undefined;
+export type RegenerateKeyFnKeyRegeneratePostBody =
+	| (RegenerateKeyRequest | (null | null))
+	| undefined;
 
 export type RegenerateKeyFnKeyRegeneratePostOptions = {
-	body: RegenerateKeyFnKeyRegeneratePostBody;
+	body?: RegenerateKeyFnKeyRegeneratePostBody | undefined;
 	path?: never | undefined;
 	query?: RegenerateKeyFnKeyRegeneratePostQuery | undefined;
 	headers?: RegenerateKeyFnKeyRegeneratePostHeaders | undefined;
@@ -32827,24 +34103,26 @@ export type RegenerateKeyFnKeyRegeneratePostResponses = {
 export type RegenerateKeyFnKeyRegeneratePostResponse = RegenerateKeyFnKeyRegeneratePostStatus200;
 
 export type RegenerateKeyFnKeyKeyRegeneratePostPath = {
-	key: string | null;
+	key: string | (null | null);
 };
 
 export type RegenerateKeyFnKeyKeyRegeneratePostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
-export type RegenerateKeyFnKeyKeyRegeneratePostStatus200 = GenerateKeyResponse | null;
+export type RegenerateKeyFnKeyKeyRegeneratePostStatus200 = GenerateKeyResponse | (null | null);
 
 export type RegenerateKeyFnKeyKeyRegeneratePostStatus422 = HTTPValidationError;
 
-export type RegenerateKeyFnKeyKeyRegeneratePostBody = (RegenerateKeyRequest | null) | undefined;
+export type RegenerateKeyFnKeyKeyRegeneratePostBody =
+	| (RegenerateKeyRequest | (null | null))
+	| undefined;
 
 export type RegenerateKeyFnKeyKeyRegeneratePostOptions = {
-	body: RegenerateKeyFnKeyKeyRegeneratePostBody;
+	body?: RegenerateKeyFnKeyKeyRegeneratePostBody | undefined;
 	path: RegenerateKeyFnKeyKeyRegeneratePostPath;
 	query?: never | undefined;
 	headers?: RegenerateKeyFnKeyKeyRegeneratePostHeaders | undefined;
@@ -32869,7 +34147,7 @@ export type ResetKeySpendFnKeyKeyResetSpendPostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type ResetKeySpendFnKeyKeyResetSpendPostStatus200 = {
@@ -32917,27 +34195,27 @@ export type ListKeysKeyListGetQuery = {
 	/**
 	 * @description Filter keys by user ID. Exact match by default; set substring_matching=true (admin only) for case-insensitive substring matching.
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter keys by team ID
 	 */
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter keys by organization ID
 	 */
-	organization_id?: (string | null) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter keys by key hash
 	 */
-	key_hash?: (string | null) | undefined;
+	key_hash?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter keys by key alias. Exact match by default; set substring_matching=true for case-insensitive substring matching.
 	 */
-	key_alias?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
 	/**
 	 * @description Combined search: matches keys whose token (key hash) equals the value OR whose key_alias contains it (case-insensitive).
 	 */
-	search?: (string | null) | undefined;
+	search?: (string | (null | null)) | undefined;
 	/**
 	 * @description Return full key object
 	 * @default false
@@ -32959,7 +34237,7 @@ export type ListKeysKeyListGetQuery = {
 	/**
 	 * @description Column to sort by (e.g. 'user_id', 'created_at', 'spend')
 	 */
-	sort_by?: (string | null) | undefined;
+	sort_by?: (string | (null | null)) | undefined;
 	/**
 	 * @description Sort order ('asc' or 'desc')
 	 * @default 'desc'
@@ -32969,23 +34247,23 @@ export type ListKeysKeyListGetQuery = {
 	/**
 	 * @description Expand related objects (e.g. 'user')
 	 */
-	expand?: (string[] | null) | undefined;
+	expand?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Filter by status: 'active' (not blocked, not expired), 'expired' (not blocked, past expiry), 'revoked' (blocked) or 'deleted' (archived keys). Omit to return live keys regardless of status.
 	 */
-	status?: (string | null) | undefined;
+	status?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter keys by project ID
 	 */
-	project_id?: (string | null) | undefined;
+	project_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter keys by access group ID
 	 */
-	access_group_id?: (string | null) | undefined;
+	access_group_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter keys by agent ID
 	 */
-	agent_id?: (string | null) | undefined;
+	agent_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description If true, match key_alias (any caller) and user_id (proxy admins only) as case-insensitive substrings instead of exact values. Defaults to false: /key/list matched these exactly before substring search was added, and an exact user_id filter must never return another user's keys.
 	 * @default false
@@ -32995,7 +34273,7 @@ export type ListKeysKeyListGetQuery = {
 	/**
 	 * @description Filter keys by expiration. 'expired' returns keys whose expires is in the past; 'active' returns keys that never expire or expire in the future. Omit to return keys regardless of expiration.
 	 */
-	expires?: (string | null) | undefined;
+	expires?: (string | (null | null)) | undefined;
 };
 
 export type ListKeysKeyListGetStatus200 = KeyListResponseObject;
@@ -33038,11 +34316,11 @@ export type KeyAliasesKeyAliasesGetQuery = {
 	/**
 	 * @description Search key aliases (case-insensitive partial match)
 	 */
-	search?: (string | null) | undefined;
+	search?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter aliases to keys belonging to this team
 	 */
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 };
 
 export type KeyAliasesKeyAliasesGetStatus200 = {
@@ -33072,10 +34350,10 @@ export type BlockKeyKeyBlockPostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
-export type BlockKeyKeyBlockPostStatus200 = LiteLLMVerificationToken | null;
+export type BlockKeyKeyBlockPostStatus200 = LiteLLMVerificationToken | (null | null);
 
 export type BlockKeyKeyBlockPostStatus422 = HTTPValidationError;
 
@@ -33102,7 +34380,7 @@ export type UnblockKeyKeyUnblockPostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type UnblockKeyKeyUnblockPostStatus200 = {
@@ -33175,7 +34453,7 @@ export type UserInfoUserInfoGetQuery = {
 	/**
 	 * @description User ID in the request parameters
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Include the caller's current admin MCP route permissions
 	 * @default false
@@ -33185,11 +34463,11 @@ export type UserInfoUserInfoGetQuery = {
 	/**
 	 * @description Admin MCP tool to authorize for this caller
 	 */
-	mcp_tool?: (string | null) | undefined;
+	mcp_tool?: (string | (null | null)) | undefined;
 	/**
 	 * @description URL-encoded concrete management path used by the MCP tool, before query-string encoding
 	 */
-	mcp_path?: (string | null) | undefined;
+	mcp_path?: (string | (null | null)) | undefined;
 };
 
 export type UserInfoUserInfoGetStatus200 = UserInfoResponse;
@@ -33217,7 +34495,7 @@ export type UserInfoV2V2UserInfoGetQuery = {
 	/**
 	 * @description User ID in the request parameters
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -33277,7 +34555,7 @@ export type BulkUserUpdateUserBulkUpdatePostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -33315,27 +34593,27 @@ export type GetUsersUserListGetQuery = {
 	/**
 	 * @description Filter users by role
 	 */
-	role?: (string | null) | undefined;
+	role?: (string | (null | null)) | undefined;
 	/**
 	 * @description Get list of users by user_ids
 	 */
-	user_ids?: (string | null) | undefined;
+	user_ids?: (string | (null | null)) | undefined;
 	/**
 	 * @description Get list of users by sso_user_id
 	 */
-	sso_user_ids?: (string | null) | undefined;
+	sso_user_ids?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter users by partial email match
 	 */
-	user_email?: (string | null) | undefined;
+	user_email?: (string | (null | null)) | undefined;
 	/**
 	 * @description Combined search: matches users whose 'user_id' or 'user_email' contains the value (case-insensitive).
 	 */
-	search?: (string | null) | undefined;
+	search?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter users by team id
 	 */
-	team?: (string | null) | undefined;
+	team?: (string | (null | null)) | undefined;
 	/**
 	 * @description Page number
 	 * @minimum 1
@@ -33354,7 +34632,7 @@ export type GetUsersUserListGetQuery = {
 	/**
 	 * @description Column to sort by (e.g. 'user_id', 'user_email', 'created_at', 'spend')
 	 */
-	sort_by?: (string | null) | undefined;
+	sort_by?: (string | (null | null)) | undefined;
 	/**
 	 * @description Sort order ('asc' or 'desc')
 	 * @default 'asc'
@@ -33364,7 +34642,7 @@ export type GetUsersUserListGetQuery = {
 	/**
 	 * @description Filter users by organization membership. Comma-separated list of org IDs.
 	 */
-	organization_ids?: (string | null) | undefined;
+	organization_ids?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -33396,7 +34674,7 @@ export type DeleteUserUserDeletePostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type DeleteUserUserDeletePostStatus200 = {
@@ -33428,23 +34706,23 @@ export type GetUserDailyActivityUserDailyActivityGetQuery = {
 	/**
 	 * @description Start date in YYYY-MM-DD format
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description End date in YYYY-MM-DD format
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by specific model
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Page number for pagination
 	 * @minimum 1
@@ -33463,7 +34741,7 @@ export type GetUserDailyActivityUserDailyActivityGetQuery = {
 	/**
 	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
 	 */
-	timezone?: (number | null) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 	/**
 	 * @description When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
 	 * @default false
@@ -33505,27 +34783,27 @@ export type GetUserDailyActivityAggregatedUserDailyActivityAggregatedGetQuery = 
 	/**
 	 * @description Start date in YYYY-MM-DD format
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description End date in YYYY-MM-DD format
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by specific model
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
 	 */
-	timezone?: (number | null) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 	/**
 	 * @description When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
 	 * @default false
@@ -33575,27 +34853,27 @@ export type GetUserDailyActivityAggregatedKeysUserDailyActivityAggregatedKeysGet
 	/**
 	 * @description Start date in YYYY-MM-DD format
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description End date in YYYY-MM-DD format
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by specific model
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
 	 */
-	timezone?: (number | null) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 	/**
 	 * @description When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
 	 * @default false
@@ -33644,27 +34922,27 @@ export type GetUserDailyActivityAggregatedSearchUserDailyActivityAggregatedSearc
 	/**
 	 * @description Start date in YYYY-MM-DD format
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description End date in YYYY-MM-DD format
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by specific model
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
 	 */
-	timezone?: (number | null) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 	/**
 	 * @description When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
 	 * @default false
@@ -33718,27 +34996,27 @@ export type GetUserDailyActivityModelTopKeysUserDailyActivityAggregatedModelTopK
 	/**
 	 * @description Start date in YYYY-MM-DD format
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description End date in YYYY-MM-DD format
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by specific model
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
 	 */
-	timezone?: (number | null) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 	/**
 	 * @description When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
 	 * @default false
@@ -33793,27 +35071,27 @@ export type GetUserDailyActivityExportUserDailyActivityExportGetQuery = {
 	/**
 	 * @description Start date in YYYY-MM-DD format
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description End date in YYYY-MM-DD format
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by specific model
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
 	 */
-	timezone?: (number | null) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 	/**
 	 * @description When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
 	 * @default false
@@ -33861,27 +35139,27 @@ export type GetUserDailyActivityAggregatedUsersUserDailyActivityAggregatedUsersG
 	/**
 	 * @description Start date in YYYY-MM-DD format
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description End date in YYYY-MM-DD format
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by specific model
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
 	 */
-	timezone?: (number | null) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 	/**
 	 * @description When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
 	 * @default false
@@ -33926,27 +35204,27 @@ export type GetUserDailyActivityCacheLeakageKeysUserDailyActivityAggregatedCache
 		/**
 		 * @description Start date in YYYY-MM-DD format
 		 */
-		start_date?: (string | null) | undefined;
+		start_date?: (string | (null | null)) | undefined;
 		/**
 		 * @description End date in YYYY-MM-DD format
 		 */
-		end_date?: (string | null) | undefined;
+		end_date?: (string | (null | null)) | undefined;
 		/**
 		 * @description Filter by specific model
 		 */
-		model?: (string | null) | undefined;
+		model?: (string | (null | null)) | undefined;
 		/**
 		 * @description Filter by reporting API key ID. Missing keys are reported as unattributed. For a literal key unattributed or a key starting with raw:, add an extra raw: prefix
 		 */
-		api_key?: (string | null) | undefined;
+		api_key?: (string | (null | null)) | undefined;
 		/**
 		 * @description Filter by specific user ID. Admins can filter by any user or omit for global view. Non-admins must provide their own user_id.
 		 */
-		user_id?: (string | null) | undefined;
+		user_id?: (string | (null | null)) | undefined;
 		/**
 		 * @description Timezone offset in minutes from UTC (e.g., 480 for PST). Matches JavaScript's Date.getTimezoneOffset() convention.
 		 */
-		timezone?: (number | null) | undefined;
+		timezone?: (number | (null | null)) | undefined;
 		/**
 		 * @description When the range ends on the caller's current local day, extend it to today's UTC bucket so spend written after the caller's local midnight (in UTC terms) is included. Requires the timezone parameter. Historical ranges are never extended.
 		 * @default false
@@ -33991,13 +35269,13 @@ export type GetTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetQuery = 
 	 * @type integer | undefined
 	 */
 	api_key_limit?: number | undefined;
-	team_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	exclude_team_ids?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	team_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	exclude_team_ids?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetTeamDailyActivityAggregatedTeamDailyActivityAggregatedGetStatus200 =
@@ -34038,13 +35316,13 @@ export type GetTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGet
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
-	team_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	exclude_team_ids?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	team_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	exclude_team_ids?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetTeamDailyActivityAggregatedKeysTeamDailyActivityAggregatedKeysGetStatus200 =
@@ -34084,13 +35362,13 @@ export type GetTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearc
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
-	team_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	exclude_team_ids?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	team_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	exclude_team_ids?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetTeamDailyActivityAggregatedSearchTeamDailyActivityAggregatedSearchGetStatus200 =
@@ -34135,13 +35413,13 @@ export type GetTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopK
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
-	team_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	exclude_team_ids?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	team_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	exclude_team_ids?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetTeamDailyActivityModelTopKeysTeamDailyActivityAggregatedModelTopKeysGetStatus200 =
@@ -34187,13 +35465,13 @@ export type GetTeamDailyActivityExportTeamDailyActivityExportGetQuery = {
 	 * @type string | undefined
 	 */
 	format?: GetTeamDailyActivityExportTeamDailyActivityExportGetFormatKey | undefined;
-	team_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	exclude_team_ids?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	team_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	exclude_team_ids?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetTeamDailyActivityExportTeamDailyActivityExportGetStatus200 = object[];
@@ -34226,12 +35504,12 @@ export type GetTagDailyActivityAggregatedTagDailyActivityAggregatedGetQuery = {
 	 * @type integer | undefined
 	 */
 	api_key_limit?: number | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	tags?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	tags?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetTagDailyActivityAggregatedTagDailyActivityAggregatedGetStatus200 =
@@ -34272,12 +35550,12 @@ export type GetTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetQu
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	tags?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	tags?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetTagDailyActivityAggregatedKeysTagDailyActivityAggregatedKeysGetStatus200 =
@@ -34317,12 +35595,12 @@ export type GetTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchG
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	tags?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	tags?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetTagDailyActivityAggregatedSearchTagDailyActivityAggregatedSearchGetStatus200 =
@@ -34367,12 +35645,12 @@ export type GetTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKey
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	tags?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	tags?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetTagDailyActivityModelTopKeysTagDailyActivityAggregatedModelTopKeysGetStatus200 =
@@ -34418,12 +35696,12 @@ export type GetTagDailyActivityExportTagDailyActivityExportGetQuery = {
 	 * @type string | undefined
 	 */
 	format?: GetTagDailyActivityExportTagDailyActivityExportGetFormatKey | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	tags?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	tags?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetTagDailyActivityExportTagDailyActivityExportGetStatus200 = object[];
@@ -34456,13 +35734,13 @@ export type GetOrganizationDailyActivityAggregatedOrganizationDailyActivityAggre
 	 * @type integer | undefined
 	 */
 	api_key_limit?: number | undefined;
-	organization_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	exclude_organization_ids?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	organization_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	exclude_organization_ids?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetOrganizationDailyActivityAggregatedOrganizationDailyActivityAggregatedGetStatus200 =
@@ -34507,13 +35785,13 @@ export type GetOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityA
 		 * @type integer | undefined
 		 */
 		limit?: number | undefined;
-		organization_ids?: (string | null) | undefined;
-		start_date?: (string | null) | undefined;
-		end_date?: (string | null) | undefined;
-		model?: (string | null) | undefined;
-		api_key?: (string | null) | undefined;
-		exclude_organization_ids?: (string | null) | undefined;
-		timezone?: (number | null) | undefined;
+		organization_ids?: (string | (null | null)) | undefined;
+		start_date?: (string | (null | null)) | undefined;
+		end_date?: (string | (null | null)) | undefined;
+		model?: (string | (null | null)) | undefined;
+		api_key?: (string | (null | null)) | undefined;
+		exclude_organization_ids?: (string | (null | null)) | undefined;
+		timezone?: (number | (null | null)) | undefined;
 	};
 
 export type GetOrganizationDailyActivityAggregatedKeysOrganizationDailyActivityAggregatedKeysGetStatus200 =
@@ -34558,13 +35836,13 @@ export type GetOrganizationDailyActivityAggregatedSearchOrganizationDailyActivit
 		 * @type integer | undefined
 		 */
 		limit?: number | undefined;
-		organization_ids?: (string | null) | undefined;
-		start_date?: (string | null) | undefined;
-		end_date?: (string | null) | undefined;
-		model?: (string | null) | undefined;
-		api_key?: (string | null) | undefined;
-		exclude_organization_ids?: (string | null) | undefined;
-		timezone?: (number | null) | undefined;
+		organization_ids?: (string | (null | null)) | undefined;
+		start_date?: (string | (null | null)) | undefined;
+		end_date?: (string | (null | null)) | undefined;
+		model?: (string | (null | null)) | undefined;
+		api_key?: (string | (null | null)) | undefined;
+		exclude_organization_ids?: (string | (null | null)) | undefined;
+		timezone?: (number | (null | null)) | undefined;
 	};
 
 export type GetOrganizationDailyActivityAggregatedSearchOrganizationDailyActivityAggregatedSearchGetStatus200 =
@@ -34612,13 +35890,13 @@ export type GetOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAgg
 		 * @type integer | undefined
 		 */
 		limit?: number | undefined;
-		organization_ids?: (string | null) | undefined;
-		start_date?: (string | null) | undefined;
-		end_date?: (string | null) | undefined;
-		model?: (string | null) | undefined;
-		api_key?: (string | null) | undefined;
-		exclude_organization_ids?: (string | null) | undefined;
-		timezone?: (number | null) | undefined;
+		organization_ids?: (string | (null | null)) | undefined;
+		start_date?: (string | (null | null)) | undefined;
+		end_date?: (string | (null | null)) | undefined;
+		model?: (string | (null | null)) | undefined;
+		api_key?: (string | (null | null)) | undefined;
+		exclude_organization_ids?: (string | (null | null)) | undefined;
+		timezone?: (number | (null | null)) | undefined;
 	};
 
 export type GetOrganizationDailyActivityModelTopKeysOrganizationDailyActivityAggregatedModelTopKeysGetStatus200 =
@@ -34668,13 +35946,13 @@ export type GetOrganizationDailyActivityExportOrganizationDailyActivityExportGet
 	format?:
 		| GetOrganizationDailyActivityExportOrganizationDailyActivityExportGetFormatKey
 		| undefined;
-	organization_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	exclude_organization_ids?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	organization_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	exclude_organization_ids?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetOrganizationDailyActivityExportOrganizationDailyActivityExportGetStatus200 =
@@ -34709,13 +35987,13 @@ export type GetCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGet
 	 * @type integer | undefined
 	 */
 	api_key_limit?: number | undefined;
-	end_user_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	exclude_end_user_ids?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	end_user_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	exclude_end_user_ids?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetCustomerDailyActivityAggregatedCustomerDailyActivityAggregatedGetStatus200 =
@@ -34756,13 +36034,13 @@ export type GetCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregate
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
-	end_user_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	exclude_end_user_ids?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	end_user_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	exclude_end_user_ids?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetCustomerDailyActivityAggregatedKeysCustomerDailyActivityAggregatedKeysGetStatus200 =
@@ -34806,13 +36084,13 @@ export type GetCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggrega
 		 * @type integer | undefined
 		 */
 		limit?: number | undefined;
-		end_user_ids?: (string | null) | undefined;
-		start_date?: (string | null) | undefined;
-		end_date?: (string | null) | undefined;
-		model?: (string | null) | undefined;
-		api_key?: (string | null) | undefined;
-		exclude_end_user_ids?: (string | null) | undefined;
-		timezone?: (number | null) | undefined;
+		end_user_ids?: (string | (null | null)) | undefined;
+		start_date?: (string | (null | null)) | undefined;
+		end_date?: (string | (null | null)) | undefined;
+		model?: (string | (null | null)) | undefined;
+		api_key?: (string | (null | null)) | undefined;
+		exclude_end_user_ids?: (string | (null | null)) | undefined;
+		timezone?: (number | (null | null)) | undefined;
 	};
 
 export type GetCustomerDailyActivityAggregatedSearchCustomerDailyActivityAggregatedSearchGetStatus200 =
@@ -34860,13 +36138,13 @@ export type GetCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedM
 		 * @type integer | undefined
 		 */
 		limit?: number | undefined;
-		end_user_ids?: (string | null) | undefined;
-		start_date?: (string | null) | undefined;
-		end_date?: (string | null) | undefined;
-		model?: (string | null) | undefined;
-		api_key?: (string | null) | undefined;
-		exclude_end_user_ids?: (string | null) | undefined;
-		timezone?: (number | null) | undefined;
+		end_user_ids?: (string | (null | null)) | undefined;
+		start_date?: (string | (null | null)) | undefined;
+		end_date?: (string | (null | null)) | undefined;
+		model?: (string | (null | null)) | undefined;
+		api_key?: (string | (null | null)) | undefined;
+		exclude_end_user_ids?: (string | (null | null)) | undefined;
+		timezone?: (number | (null | null)) | undefined;
 	};
 
 export type GetCustomerDailyActivityModelTopKeysCustomerDailyActivityAggregatedModelTopKeysGetStatus200 =
@@ -34914,13 +36192,13 @@ export type GetCustomerDailyActivityExportCustomerDailyActivityExportGetQuery = 
 	 * @type string | undefined
 	 */
 	format?: GetCustomerDailyActivityExportCustomerDailyActivityExportGetFormatKey | undefined;
-	end_user_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	exclude_end_user_ids?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	end_user_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	exclude_end_user_ids?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetCustomerDailyActivityExportCustomerDailyActivityExportGetStatus200 = object[];
@@ -34954,13 +36232,13 @@ export type GetAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetQuery 
 	 * @type integer | undefined
 	 */
 	api_key_limit?: number | undefined;
-	agent_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	exclude_agent_ids?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	agent_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	exclude_agent_ids?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetAgentDailyActivityAggregatedAgentDailyActivityAggregatedGetStatus200 =
@@ -35001,13 +36279,13 @@ export type GetAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysG
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
-	agent_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	exclude_agent_ids?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	agent_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	exclude_agent_ids?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetAgentDailyActivityAggregatedKeysAgentDailyActivityAggregatedKeysGetStatus200 =
@@ -35047,13 +36325,13 @@ export type GetAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSea
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
-	agent_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	exclude_agent_ids?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	agent_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	exclude_agent_ids?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetAgentDailyActivityAggregatedSearchAgentDailyActivityAggregatedSearchGetStatus200 =
@@ -35098,13 +36376,13 @@ export type GetAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTo
 	 * @type integer | undefined
 	 */
 	limit?: number | undefined;
-	agent_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	exclude_agent_ids?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	agent_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	exclude_agent_ids?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetAgentDailyActivityModelTopKeysAgentDailyActivityAggregatedModelTopKeysGetStatus200 =
@@ -35151,13 +36429,13 @@ export type GetAgentDailyActivityExportAgentDailyActivityExportGetQuery = {
 	 * @type string | undefined
 	 */
 	format?: GetAgentDailyActivityExportAgentDailyActivityExportGetFormatKey | undefined;
-	agent_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
-	exclude_agent_ids?: (string | null) | undefined;
-	timezone?: (number | null) | undefined;
+	agent_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
+	exclude_agent_ids?: (string | (null | null)) | undefined;
+	timezone?: (number | (null | null)) | undefined;
 };
 
 export type GetAgentDailyActivityExportAgentDailyActivityExportGetStatus200 = object[];
@@ -35228,7 +36506,7 @@ export type NewTeamTeamNewPostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type NewTeamTeamNewPostStatus200 = LiteLLMTeamTable;
@@ -35258,7 +36536,7 @@ export type UpdateTeamTeamUpdatePostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type UpdateTeamTeamUpdatePostStatus200 = {
@@ -35311,7 +36589,7 @@ export type PatchTeamTeamTeamIdPatchHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type PatchTeamTeamTeamIdPatchStatus200 = LiteLLMTeamTable;
@@ -35530,7 +36808,7 @@ export type DeleteTeamTeamDeletePostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type DeleteTeamTeamDeletePostStatus200 = {
@@ -35567,7 +36845,7 @@ export type TeamInfoTeamInfoGetQuery = {
 	/**
 	 * @description Limit the number of keys returned
 	 */
-	key_limit?: (number | null) | undefined;
+	key_limit?: (number | (null | null)) | undefined;
 };
 
 export type TeamInfoTeamInfoGetStatus200 = {
@@ -35736,23 +37014,23 @@ export type ListTeamV2V2TeamListGetQuery = {
 	/**
 	 * @description Only return teams which this 'user_id' belongs to
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Only return teams which this 'organization_id' belongs to
 	 */
-	organization_id?: (string | null) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Only return teams which this 'team_id' belongs to
 	 */
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Only return teams which this 'team_alias' belongs to. Supports partial matching.
 	 */
-	team_alias?: (string | null) | undefined;
+	team_alias?: (string | (null | null)) | undefined;
 	/**
 	 * @description Combined search: matches teams whose 'team_id' matches the value OR whose 'team_alias' contains it (case-insensitive).
 	 */
-	search?: (string | null) | undefined;
+	search?: (string | (null | null)) | undefined;
 	/**
 	 * @description How 'search' matches 'team_id': 'exact' (default) or 'prefix' for a case-sensitive prefix match.
 	 * @default 'exact'
@@ -35777,7 +37055,7 @@ export type ListTeamV2V2TeamListGetQuery = {
 	/**
 	 * @description Column to sort by (e.g. 'team_id', 'team_alias', 'created_at')
 	 */
-	sort_by?: (string | null) | undefined;
+	sort_by?: (string | (null | null)) | undefined;
 	/**
 	 * @description Sort order ('asc' or 'desc')
 	 * @default 'asc'
@@ -35787,7 +37065,7 @@ export type ListTeamV2V2TeamListGetQuery = {
 	/**
 	 * @description Filter by status (e.g. 'deleted')
 	 */
-	status?: (string | null) | undefined;
+	status?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -35819,8 +37097,8 @@ export type ListTeamTeamListGetQuery = {
 	/**
 	 * @description Only return teams which this 'user_id' belongs to
 	 */
-	user_id?: (string | null) | undefined;
-	organization_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
 };
 
 export type ListTeamTeamListGetStatus200 = {
@@ -36004,11 +37282,11 @@ export type BulkUpdateTeamMemberPermissionsTeamPermissionsBulkUpdatePostResponse
 	BulkUpdateTeamMemberPermissionsTeamPermissionsBulkUpdatePostStatus200;
 
 export type GetTeamDailyActivityTeamDailyActivityGetQuery = {
-	team_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
+	team_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @default 1
 	 * @type integer | undefined
@@ -36019,7 +37297,7 @@ export type GetTeamDailyActivityTeamDailyActivityGetQuery = {
 	 * @type integer | undefined
 	 */
 	page_size?: number | undefined;
-	exclude_team_ids?: (string | null) | undefined;
+	exclude_team_ids?: (string | (null | null)) | undefined;
 };
 
 export type GetTeamDailyActivityTeamDailyActivityGetStatus200 = SpendAnalyticsPaginatedResponse;
@@ -36045,9 +37323,9 @@ export type GetTeamDailyActivityTeamDailyActivityGetResponse =
 	GetTeamDailyActivityTeamDailyActivityGetStatus200;
 
 export type GetTeamSpendByUserTeamSpendByUserGetQuery = {
-	team_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
+	team_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 };
 
 export type GetTeamSpendByUserTeamSpendByUserGetStatus200 = TeamUserSpendResponse;
@@ -36117,11 +37395,11 @@ export type NewOrganizationOrganizationNewPostResponse =
 	NewOrganizationOrganizationNewPostStatus200;
 
 export type GetOrganizationDailyActivityOrganizationDailyActivityGetQuery = {
-	organization_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
+	organization_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @default 1
 	 * @type integer | undefined
@@ -36132,7 +37410,7 @@ export type GetOrganizationDailyActivityOrganizationDailyActivityGetQuery = {
 	 * @type integer | undefined
 	 */
 	page_size?: number | undefined;
-	exclude_organization_ids?: (string | null) | undefined;
+	exclude_organization_ids?: (string | (null | null)) | undefined;
 };
 
 export type GetOrganizationDailyActivityOrganizationDailyActivityGetStatus200 =
@@ -36252,11 +37530,11 @@ export type ListOrganizationOrganizationListGetQuery = {
 	/**
 	 * @description Filter organizations by exact organization_id match
 	 */
-	org_id?: (string | null) | undefined;
+	org_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter organizations by partial organization_alias match. Supports case-insensitive search.
 	 */
-	org_alias?: (string | null) | undefined;
+	org_alias?: (string | (null | null)) | undefined;
 };
 
 export type ListOrganizationOrganizationListGetStatus200 = LiteLLMOrganizationTableWithMembers[];
@@ -36617,7 +37895,7 @@ export type ListEndUserCustomerListGetQuery = {
 	/**
 	 * @description Case-insensitive search by customer ID or alias
 	 */
-	search?: (string | null) | undefined;
+	search?: (string | (null | null)) | undefined;
 };
 
 export type ListEndUserCustomerListGetStatus200 = CustomerResponse[];
@@ -36642,11 +37920,11 @@ export type ListEndUserCustomerListGetResponses = {
 export type ListEndUserCustomerListGetResponse = ListEndUserCustomerListGetStatus200;
 
 export type GetCustomerDailyActivityCustomerDailyActivityGetQuery = {
-	end_user_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
+	end_user_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @default 1
 	 * @type integer | undefined
@@ -36657,7 +37935,7 @@ export type GetCustomerDailyActivityCustomerDailyActivityGetQuery = {
 	 * @type integer | undefined
 	 */
 	page_size?: number | undefined;
-	exclude_end_user_ids?: (string | null) | undefined;
+	exclude_end_user_ids?: (string | (null | null)) | undefined;
 };
 
 export type GetCustomerDailyActivityCustomerDailyActivityGetStatus200 =
@@ -36719,7 +37997,7 @@ export type ListSpendLogEndUsersManagementV1SpendLogsEndUsersGetQuery = {
 	/**
 	 * @description Case-insensitive partial match on the end user id
 	 */
-	q?: (string | null) | undefined;
+	q?: (string | (null | null)) | undefined;
 	/**
 	 * @description Page number
 	 * @minimum 1
@@ -36781,7 +38059,7 @@ export type ListSpendLogUsersManagementV1SpendLogsUsersGetQuery = {
 	/**
 	 * @description Case-insensitive partial match on the internal user id
 	 */
-	q?: (string | null) | undefined;
+	q?: (string | (null | null)) | undefined;
 	/**
 	 * @description Page number
 	 * @minimum 1
@@ -36872,7 +38150,7 @@ export type BulkUpdateTeamMemberBudgetsActionManagementV1TeamsTeamIdMembersBulkU
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -36945,7 +38223,7 @@ export type BulkDeleteUsersActionManagementV1UsersBulkDeletePostHeaders = {
 	/**
 	 * @description Who the caller is acting for; recorded on the audit log entries this call writes.
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -36984,11 +38262,11 @@ export type ViewSpendTagsSpendTagsGetQuery = {
 	/**
 	 * @description Time from which to start viewing key spend
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Time till which to view key spend
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 };
 
 export type ViewSpendTagsSpendTagsGetStatus200 = LiteLLMSpendLogs[];
@@ -37043,7 +38321,7 @@ export type GetSpendCaptureRateSpendCaptureRateGetQuery = {
 	/**
 	 * @description Scope the OpenAI bill to these project ids; omit to compare against the whole organization. Captured spend is never scoped, so pass every project LiteLLM's OpenAI keys belong to
 	 */
-	project_ids?: (string[] | null) | undefined;
+	project_ids?: (string[] | (null | null)) | undefined;
 };
 
 export type GetSpendCaptureRateSpendCaptureRateGetStatus200 = CaptureRateReport;
@@ -37081,32 +38359,32 @@ export type GetGlobalSpendReportGlobalSpendReportGetQuery = {
 	/**
 	 * @description Time from which to start viewing spend
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Time till which to view spend
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Group spend by internal team or customer or api_key
 	 * @default team
 	 */
-	group_by?: (GetGlobalSpendReportGlobalSpendReportGetGroupByKey | null) | undefined;
+	group_by?: (GetGlobalSpendReportGlobalSpendReportGetGroupByKey | (null | null)) | undefined;
 	/**
 	 * @description View spend for a specific api_key. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example api_key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description View spend for a specific internal_user_id. Example internal_user_id='1234
 	 */
-	internal_user_id?: (string | null) | undefined;
+	internal_user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description View spend for a specific team_id. Example team_id='1234
 	 */
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description View spend for a specific customer_id. Example customer_id='1234. Can be used in conjunction with team_id as well.
 	 */
-	customer_id?: (string | null) | undefined;
+	customer_id?: (string | (null | null)) | undefined;
 };
 
 export type GetGlobalSpendReportGlobalSpendReportGetStatus200 = LiteLLMSpendLogs[];
@@ -37135,15 +38413,15 @@ export type GetKeySpendReportKeySpendReportGetQuery = {
 	/**
 	 * @description Time from which to start viewing spend (YYYY-MM-DD)
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Time till which to view spend (YYYY-MM-DD)
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description View spend for a specific api_key. Proxy admin only; other callers are scoped to their own key. Pass the key's sha256 hash so the raw key stays out of URLs and access logs. Example api_key='d5345c0ecc68ae6295c69f91926b2bd379e25481a40c34b5884d157a9f65d8fa'
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 };
 
 export type GetKeySpendReportKeySpendReportGetStatus200 = {
@@ -37174,15 +38452,15 @@ export type GetUserSpendReportUserSpendReportGetQuery = {
 	/**
 	 * @description Time from which to start viewing spend (YYYY-MM-DD)
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Time till which to view spend (YYYY-MM-DD)
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description View spend for a specific internal_user_id. Proxy admin only; other callers are scoped to their own user_id.
 	 */
-	internal_user_id?: (string | null) | undefined;
+	internal_user_id?: (string | (null | null)) | undefined;
 };
 
 export type GetUserSpendReportUserSpendReportGetStatus200 = {
@@ -37213,15 +38491,15 @@ export type GetTeamSpendReportTeamSpendReportGetQuery = {
 	/**
 	 * @description Time from which to start viewing spend (YYYY-MM-DD)
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Time till which to view spend (YYYY-MM-DD)
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description View spend for a specific team_id. Proxy admin only; other callers are scoped to their key's team.
 	 */
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 };
 
 export type GetTeamSpendReportTeamSpendReportGetStatus200 = {
@@ -37252,15 +38530,15 @@ export type GetOrganizationSpendReportOrganizationSpendReportGetQuery = {
 	/**
 	 * @description Time from which to start viewing spend (YYYY-MM-DD)
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Time till which to view spend (YYYY-MM-DD)
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description View spend for a specific organization_id. Proxy admins may pass any organization; org admins are scoped to organizations they administer.
 	 */
-	organization_id?: (string | null) | undefined;
+	organization_id?: (string | (null | null)) | undefined;
 };
 
 export type GetOrganizationSpendReportOrganizationSpendReportGetStatus200 = {
@@ -37291,15 +38569,15 @@ export type GlobalViewSpendTagsGlobalSpendTagsGetQuery = {
 	/**
 	 * @description Time from which to start viewing key spend
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Time till which to view key spend
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description comman separated tags to filter on
 	 */
-	tags?: (string | null) | undefined;
+	tags?: (string | (null | null)) | undefined;
 };
 
 export type GlobalViewSpendTagsGlobalSpendTagsGetStatus200 = LiteLLMSpendLogs[];
@@ -37358,39 +38636,39 @@ export type UiViewSpendLogsSpendLogsV2GetQuery = {
 	/**
 	 * @description Get spend logs based on api key
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description Get spend logs based on user_id
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description request_id to get spend logs for specific request_id
 	 */
-	request_id?: (string | null) | undefined;
+	request_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter spend logs by session_id (partial string match)
 	 */
-	session_id?: (string | null) | undefined;
+	session_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter spend logs by team_id
 	 */
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter logs with spend greater than or equal to this value
 	 */
-	min_spend?: (number | null) | undefined;
+	min_spend?: (number | (null | null)) | undefined;
 	/**
 	 * @description Filter logs with spend less than or equal to this value
 	 */
-	max_spend?: (number | null) | undefined;
+	max_spend?: (number | (null | null)) | undefined;
 	/**
 	 * @description Time from which to start viewing key spend
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Time till which to view key spend
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Page number for pagination
 	 * @minimum 1
@@ -37409,47 +38687,47 @@ export type UiViewSpendLogsSpendLogsV2GetQuery = {
 	/**
 	 * @description Filter logs by status (e.g., success, failure)
 	 */
-	status_filter?: (string | null) | undefined;
+	status_filter?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter logs by cache state: 'hit' or 'miss'. Miss includes legacy rows with a null/unknown cache state
 	 */
-	cache_hit_filter?: (string | null) | undefined;
+	cache_hit_filter?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter logs by the credential the upstream call used: true for a client-forwarded Anthropic OAuth token, false for the deployment's configured key. Rows written before this flag existed match neither
 	 */
-	used_client_oauth_token?: (boolean | null) | undefined;
+	used_client_oauth_token?: (boolean | (null | null)) | undefined;
 	/**
 	 * @description Filter logs by span type: llm, agent, mcp, or batch
 	 */
-	span_type?: (string | null) | undefined;
+	span_type?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter logs by model
 	 */
-	model?: (string | null) | undefined;
+	model?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter logs by model ID (litellm model deployment id)
 	 */
-	model_id?: (string | null) | undefined;
+	model_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter logs by model group
 	 */
-	model_group?: (string | null) | undefined;
+	model_group?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter logs by key alias
 	 */
-	key_alias?: (string | null) | undefined;
+	key_alias?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter logs by end user
 	 */
-	end_user?: (string | null) | undefined;
+	end_user?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter logs by error code (e.g., '404', '500')
 	 */
-	error_code?: (string | null) | undefined;
+	error_code?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter logs by error message (partial string match)
 	 */
-	error_message?: (string | null) | undefined;
+	error_message?: (string | (null | null)) | undefined;
 	/**
 	 * @description Sort logs by field: spend, total_tokens, startTime, endTime, request_duration_ms, model, or ttft_ms
 	 * @default 'startTime'
@@ -37460,7 +38738,7 @@ export type UiViewSpendLogsSpendLogsV2GetQuery = {
 	 * @description Sort order: asc or desc
 	 * @default desc
 	 */
-	sort_order?: (string | null) | undefined;
+	sort_order?: (string | (null | null)) | undefined;
 	/**
 	 * @description Exclude LiteLLM internal health check requests from results
 	 * @default false
@@ -37476,11 +38754,11 @@ export type UiViewSpendLogsSpendLogsV2GetQuery = {
 	/**
 	 * @description Keyset cursor '<last_activity>|<api_key>|<session_key>' from a previous group_by_session page. UI route only, honored when sorting by startTime
 	 */
-	session_cursor?: (string | null) | undefined;
+	session_cursor?: (string | (null | null)) | undefined;
 	/**
 	 * @description Match a log whose request_id, litellm_call_id, api_key (hash), team_id, user, end_user, session_id, or model_id equals this value. request_id matches across all time; the other columns match inside start_date/end_date, which stay required
 	 */
-	search?: (string | null) | undefined;
+	search?: (string | (null | null)) | undefined;
 };
 
 export type UiViewSpendLogsSpendLogsV2GetStatus200 = {
@@ -37510,23 +38788,23 @@ export type ViewSpendLogsSpendLogsGetQuery = {
 	/**
 	 * @description Get spend logs based on api key
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description Get spend logs based on user_id
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description request_id to get spend logs for specific request_id. If none passed then pass spend logs for all requests
 	 */
-	request_id?: (string | null) | undefined;
+	request_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Time from which to start viewing key spend
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Time till which to view key spend
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description When start_date and end_date are provided, summarize=true returns aggregated data by date (legacy behavior), summarize=false returns filtered individual logs
 	 * @default true
@@ -38416,7 +39694,7 @@ export type UpdateUserBannerUpdateUserBannerPatchResponses = {
 export type UpdateUserBannerUpdateUserBannerPatchResponse =
 	UpdateUserBannerUpdateUserBannerPatchStatus200;
 
-export type LatestReleaseInfoGetLatestReleaseInfoGetStatus200 = LatestReleaseInfo | null;
+export type LatestReleaseInfoGetLatestReleaseInfoGetStatus200 = LatestReleaseInfo | (null | null);
 
 export type LatestReleaseInfoGetLatestReleaseInfoGetOptions = {
 	body?: never | undefined;
@@ -38471,7 +39749,7 @@ export type AddTeamCallbacksTeamTeamIdCallbackPostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type AddTeamCallbacksTeamTeamIdCallbackPostStatus200 = {
@@ -38509,7 +39787,7 @@ export type DeleteTeamCallbackTeamTeamIdCallbackCallbackNameDeleteHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type DeleteTeamCallbackTeamTeamIdCallbackCallbackNameDeleteStatus200 =
@@ -38543,7 +39821,7 @@ export type DisableTeamLoggingTeamTeamIdDisableLoggingPostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type DisableTeamLoggingTeamTeamIdDisableLoggingPostStatus200 = {
@@ -38776,10 +40054,10 @@ export type BlockModelModelBlockPostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
-export type BlockModelModelBlockPostStatus200 = LiteLLMProxyModelTable | null;
+export type BlockModelModelBlockPostStatus200 = LiteLLMProxyModelTable | (null | null);
 
 export type BlockModelModelBlockPostStatus422 = HTTPValidationError;
 
@@ -38806,10 +40084,10 @@ export type UnblockModelModelUnblockPostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
-export type UnblockModelModelUnblockPostStatus200 = LiteLLMProxyModelTable | null;
+export type UnblockModelModelUnblockPostStatus200 = LiteLLMProxyModelTable | (null | null);
 
 export type UnblockModelModelUnblockPostStatus422 = HTTPValidationError;
 
@@ -38969,8 +40247,8 @@ export type GetAutoRouterClassifierDefaultPromptAutoRouterClassifierDefaultPromp
 	 * @type integer | undefined
 	 */
 	context_window_size?: number | undefined;
-	tier_labels?: (string | null) | undefined;
-	classification_rubric?: (ClassificationRubricKey | null) | undefined;
+	tier_labels?: (string | (null | null)) | undefined;
+	classification_rubric?: (ClassificationRubricKey | (null | null)) | undefined;
 };
 
 /**
@@ -39349,19 +40627,19 @@ export type GetAutoRouterBenchmarksAutoRouterBenchmarksGetQuery = {
 	/**
 	 * @description YYYY-MM-DD UTC, inclusive (defaults to 30 days before end_date)
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description YYYY-MM-DD UTC, inclusive (defaults to today)
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter to one virtual key token hash
 	 */
-	api_key?: (string | null) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter to one canonical internal user recorded on each turn
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -39478,11 +40756,13 @@ export type ListShadowEvalJobsAutoRouterShadowEvalGetQuery = {
 	/**
 	 * @description Kind of target to filter on; requires target_id
 	 */
-	target_type?: (ListShadowEvalJobsAutoRouterShadowEvalGetTargetTypeKey | null) | undefined;
+	target_type?:
+		| (ListShadowEvalJobsAutoRouterShadowEvalGetTargetTypeKey | (null | null))
+		| undefined;
 	/**
 	 * @description Filter to jobs that shadow this target, alone or alongside others
 	 */
-	target_id?: (string | null) | undefined;
+	target_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Newest jobs to return
 	 * @minimum 1
@@ -39660,11 +40940,11 @@ export type ListTagsTagListGetQuery = {
 	/**
 	 * @description Optional start date (YYYY-MM-DD). When provided together with end_date, dynamic tags are limited to those active in the window. Stored tags are always returned.
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Optional end date (YYYY-MM-DD). Must be given with start_date.
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 };
 
 export type ListTagsTagListGetStatus200 = {
@@ -39716,11 +40996,11 @@ export type DeleteTagTagDeletePostResponses = {
 export type DeleteTagTagDeletePostResponse = DeleteTagTagDeletePostStatus200;
 
 export type GetTagDailyActivityTagDailyActivityGetQuery = {
-	tags?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
+	tags?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @default 1
 	 * @type integer | undefined
@@ -39756,8 +41036,8 @@ export type GetTagDailyActivityTagDailyActivityGetResponse =
 	GetTagDailyActivityTagDailyActivityGetStatus200;
 
 export type ListWorkflowRunsV1WorkflowsRunsGetQuery = {
-	workflow_type?: (string | null) | undefined;
-	status?: (string | null) | undefined;
+	workflow_type?: (string | (null | null)) | undefined;
+	status?: (string | (null | null)) | undefined;
 	/**
 	 * @minimum 1
 	 * @maximum 250
@@ -40016,15 +41296,15 @@ export type ListMemoryV1MemoryGetQuery = {
 	/**
 	 * @description Filter by exact key match.
 	 */
-	key?: (string | null) | undefined;
+	key?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by key prefix (Redis-style namespace scan). Mutually exclusive with `key`; if both are provided, `key_prefix` wins.
 	 */
-	key_prefix?: (string | null) | undefined;
+	key_prefix?: (string | (null | null)) | undefined;
 	/**
 	 * @description Match entries whose key starts with this value or whose memory_id equals it. Takes precedence over `key_prefix` and `key` when provided.
 	 */
-	search?: (string | null) | undefined;
+	search?: (string | (null | null)) | undefined;
 	/**
 	 * @minimum 1
 	 * @default 1
@@ -40875,8 +42155,8 @@ export type GetPromptCachingRequestsCostOptimizationPromptCachingRequestsGetQuer
 	 * @type string | undefined
 	 */
 	filter?: GetPromptCachingRequestsCostOptimizationPromptCachingRequestsGetFilterKey | undefined;
-	cursor_start_time?: (string | null) | undefined;
-	cursor_request_id?: (string | null) | undefined;
+	cursor_start_time?: (string | (null | null)) | undefined;
+	cursor_request_id?: (string | (null | null)) | undefined;
 };
 
 export type GetPromptCachingRequestsCostOptimizationPromptCachingRequestsGetStatus200 =
@@ -41085,7 +42365,7 @@ export type UpdateCacheSettingsCacheSettingsPostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type UpdateCacheSettingsCacheSettingsPostStatus200 = {
@@ -41162,7 +42442,7 @@ export type UpdateCoordinationRedisSettingsCoordinationRedisSettingsPostHeaders 
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type UpdateCoordinationRedisSettingsCoordinationRedisSettingsPostStatus200 = {
@@ -41247,11 +42527,11 @@ export type GetDailyActiveUsersTagDauGetQuery = {
 	/**
 	 * @description Filter by specific tag (optional)
 	 */
-	tag_filter?: (string | null) | undefined;
+	tag_filter?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by multiple specific tags (optional, takes precedence over tag_filter)
 	 */
-	tag_filters?: (string[] | null) | undefined;
+	tag_filters?: (string[] | (null | null)) | undefined;
 };
 
 /**
@@ -41283,11 +42563,11 @@ export type GetWeeklyActiveUsersTagWauGetQuery = {
 	/**
 	 * @description Filter by specific tag (optional)
 	 */
-	tag_filter?: (string | null) | undefined;
+	tag_filter?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by multiple specific tags (optional, takes precedence over tag_filter)
 	 */
-	tag_filters?: (string[] | null) | undefined;
+	tag_filters?: (string[] | (null | null)) | undefined;
 };
 
 /**
@@ -41319,11 +42599,11 @@ export type GetMonthlyActiveUsersTagMauGetQuery = {
 	/**
 	 * @description Filter by specific tag (optional)
 	 */
-	tag_filter?: (string | null) | undefined;
+	tag_filter?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by multiple specific tags (optional, takes precedence over tag_filter)
 	 */
-	tag_filters?: (string[] | null) | undefined;
+	tag_filters?: (string[] | (null | null)) | undefined;
 };
 
 /**
@@ -41365,11 +42645,11 @@ export type GetTagSummaryTagSummaryGetQuery = {
 	/**
 	 * @description Filter by specific tag (optional)
 	 */
-	tag_filter?: (string | null) | undefined;
+	tag_filter?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by multiple specific tags (optional, takes precedence over tag_filter)
 	 */
-	tag_filters?: (string[] | null) | undefined;
+	tag_filters?: (string[] | (null | null)) | undefined;
 };
 
 /**
@@ -41401,11 +42681,11 @@ export type GetPerUserAnalyticsTagUserAgentPerUserAnalyticsGetQuery = {
 	/**
 	 * @description Filter by specific tag (optional)
 	 */
-	tag_filter?: (string | null) | undefined;
+	tag_filter?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by multiple specific tags (optional, takes precedence over tag_filter)
 	 */
-	tag_filters?: (string[] | null) | undefined;
+	tag_filters?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Page number for pagination
 	 * @minimum 1
@@ -41453,11 +42733,11 @@ export type GetGatewayDailyActivityGatewayDailyActivityGetQuery = {
 	/**
 	 * @description Start date in YYYY-MM-DD format
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description End date in YYYY-MM-DD format
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -41491,11 +42771,11 @@ export type GetRequestErrorActivityGatewayErrorsActivityGetQuery = {
 	/**
 	 * @description Start date in YYYY-MM-DD format
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description End date in YYYY-MM-DD format
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -41737,47 +43017,47 @@ export type GetAuditLogsAuditGetQuery = {
 	/**
 	 * @description Filter by user or system that performed the action
 	 */
-	changed_by?: (string | null) | undefined;
+	changed_by?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by API key hash that performed the action
 	 */
-	changed_by_api_key?: (string | null) | undefined;
+	changed_by_api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by action type (create, update, delete)
 	 */
-	action?: (string | null) | undefined;
+	action?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by table name that was modified
 	 */
-	table_name?: (string | null) | undefined;
+	table_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by ID of the object that was modified
 	 */
-	object_id?: (string | null) | undefined;
+	object_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter logs after this date
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter logs before this date
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by team_id present in before_value or updated_values JSON (PostgreSQL only)
 	 */
-	object_team_id?: (string | null) | undefined;
+	object_team_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by token (key hash) present in before_value or updated_values JSON (PostgreSQL only)
 	 */
-	object_key_hash?: (string | null) | undefined;
+	object_key_hash?: (string | (null | null)) | undefined;
 	/**
 	 * @description Match a row whose id, object_id, changed_by, or changed_by_api_key equals this value
 	 */
-	search?: (string | null) | undefined;
+	search?: (string | (null | null)) | undefined;
 	/**
 	 * @description Column to sort by (e.g. 'updated_at', 'action', 'table_name')
 	 */
-	sort_by?: (string | null) | undefined;
+	sort_by?: (string | (null | null)) | undefined;
 	/**
 	 * @description Sort order ('asc' or 'desc')
 	 * @default 'desc'
@@ -43426,9 +44706,9 @@ export type RegisterGuardrailGuardrailsRegisterPostResponse =
 	RegisterGuardrailGuardrailsRegisterPostStatus200;
 
 export type ListGuardrailSubmissionsGuardrailsSubmissionsGetQuery = {
-	status?: (string | null) | undefined;
-	team_id?: (string | null) | undefined;
-	search?: (string | null) | undefined;
+	status?: (string | (null | null)) | undefined;
+	team_id?: (string | (null | null)) | undefined;
+	search?: (string | (null | null)) | undefined;
 };
 
 export type ListGuardrailSubmissionsGuardrailsSubmissionsGetStatus200 =
@@ -43669,8 +44949,8 @@ export type GuardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetPath = {
 };
 
 export type GuardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetQuery = {
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 };
 
 export type GuardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetStatus200 = UsageDetailResponse;
@@ -43696,8 +44976,8 @@ export type GuardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetResponse =
 	GuardrailsUsageDetailGuardrailsUsageDetailGuardrailIdGetStatus200;
 
 export type GuardrailsUsageLogsGuardrailsUsageLogsGetQuery = {
-	guardrail_id?: (string | null) | undefined;
-	policy_id?: (string | null) | undefined;
+	guardrail_id?: (string | (null | null)) | undefined;
+	policy_id?: (string | (null | null)) | undefined;
 	/**
 	 * @minimum 1
 	 * @default 1
@@ -43711,9 +44991,9 @@ export type GuardrailsUsageLogsGuardrailsUsageLogsGetQuery = {
 	 * @type integer | undefined
 	 */
 	page_size?: number | undefined;
-	action?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
+	action?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 };
 
 export type GuardrailsUsageLogsGuardrailsUsageLogsGetStatus200 = UsageLogsResponse;
@@ -43742,11 +45022,11 @@ export type GuardrailsUsageOverviewGuardrailsUsageOverviewGetQuery = {
 	/**
 	 * @description YYYY-MM-DD
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description YYYY-MM-DD
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 };
 
 export type GuardrailsUsageOverviewGuardrailsUsageOverviewGetStatus200 = UsageOverviewResponse;
@@ -43948,11 +45228,11 @@ export type PoliciesUsageOverviewPoliciesUsageOverviewGetQuery = {
 	/**
 	 * @description YYYY-MM-DD
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description YYYY-MM-DD
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 };
 
 export type PoliciesUsageOverviewPoliciesUsageOverviewGetStatus200 = UsageOverviewResponse;
@@ -44483,7 +45763,7 @@ export type ComparePolicyVersionsPoliciesCompareGetResponse =
 	ComparePolicyVersionsPoliciesCompareGetStatus200;
 
 export type ListPoliciesPoliciesListGetQuery = {
-	version_status?: (string | null) | undefined;
+	version_status?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -44837,11 +46117,11 @@ export type UpdatePolicyVersionStatusPoliciesPolicyIdStatusPutResponse =
 	UpdatePolicyVersionStatusPoliciesPolicyIdStatusPutStatus200;
 
 export type GetAgentDailyActivityAgentDailyActivityGetQuery = {
-	agent_ids?: (string | null) | undefined;
-	start_date?: (string | null) | undefined;
-	end_date?: (string | null) | undefined;
-	model?: (string | null) | undefined;
-	api_key?: (string | null) | undefined;
+	agent_ids?: (string | (null | null)) | undefined;
+	start_date?: (string | (null | null)) | undefined;
+	end_date?: (string | (null | null)) | undefined;
+	model?: (string | (null | null)) | undefined;
+	api_key?: (string | (null | null)) | undefined;
 	/**
 	 * @default 1
 	 * @type integer | undefined
@@ -44852,7 +46132,7 @@ export type GetAgentDailyActivityAgentDailyActivityGetQuery = {
 	 * @type integer | undefined
 	 */
 	page_size?: number | undefined;
-	exclude_agent_ids?: (string | null) | undefined;
+	exclude_agent_ids?: (string | (null | null)) | undefined;
 };
 
 export type GetAgentDailyActivityAgentDailyActivityGetStatus200 = SpendAnalyticsPaginatedResponse;
@@ -44887,7 +46167,7 @@ export type GetAgentsV1AgentsGetQuery = {
 	/**
 	 * @description Describe the task in natural language to rank the agents you can reach by semantic similarity over their name, description, and skills. Each result carries a search_score. Requires litellm_settings.agent_search_embedding_model.
 	 */
-	query?: (string | null) | undefined;
+	query?: (string | (null | null)) | undefined;
 	/**
 	 * @description With query: the maximum number of ranked agents to return.
 	 * @minimum 1
@@ -45411,8 +46691,12 @@ export type InvokeAgentA2AA2AAgentIdMessageStreamPostStatus200 = A2AJsonRpcRespo
 
 export type InvokeAgentA2AA2AAgentIdMessageStreamPostStatus422 = HTTPValidationError;
 
+/**
+ * @example {"id":"stream-1","jsonrpc":"2.0","method":"message/stream","params":{"message":{"kind":"message","messageId":"message-1","parts":[{"kind":"text","text":"Hello"}],"role":"user"}}}
+ * @type object
+ */
 export type InvokeAgentA2AA2AAgentIdMessageStreamPostBody = {
-	id?: (string | number | null) | undefined;
+	id?: (string | number | (null | null)) | undefined;
 	jsonrpc: "2.0";
 	method: string;
 	params: {
@@ -45475,8 +46759,12 @@ export type InvokeAgentA2AV1A2AAgentIdMessageStreamPostStatus200 = A2AJsonRpcRes
 
 export type InvokeAgentA2AV1A2AAgentIdMessageStreamPostStatus422 = HTTPValidationError;
 
+/**
+ * @example {"id":"stream-1","jsonrpc":"2.0","method":"message/stream","params":{"message":{"kind":"message","messageId":"message-1","parts":[{"kind":"text","text":"Hello"}],"role":"user"}}}
+ * @type object
+ */
 export type InvokeAgentA2AV1A2AAgentIdMessageStreamPostBody = {
-	id?: (string | number | null) | undefined;
+	id?: (string | number | (null | null)) | undefined;
 	jsonrpc: "2.0";
 	method: string;
 	params: {
@@ -45571,16 +46859,16 @@ export type IndexCreateV1IndexesPostResponses = {
 export type IndexCreateV1IndexesPostResponse = IndexCreateV1IndexesPostStatus200;
 
 export type VectorStoreListV1VectorStoresGetQuery = {
-	after?: (string | null) | undefined;
-	before?: (string | null) | undefined;
+	after?: (string | (null | null)) | undefined;
+	before?: (string | (null | null)) | undefined;
 	/**
 	 * @default 20
 	 */
-	limit?: (number | null) | undefined;
+	limit?: (number | (null | null)) | undefined;
 	/**
 	 * @default desc
 	 */
-	order?: (string | null) | undefined;
+	order?: (string | (null | null)) | undefined;
 };
 
 export type VectorStoreListV1VectorStoresGetStatus200 = {
@@ -45917,16 +47205,16 @@ export type VectorStoreSearchV1VectorStoresVectorStoreIdSearchPostResponse =
 	VectorStoreSearchV1VectorStoresVectorStoreIdSearchPostStatus200;
 
 export type VectorStoreListVectorStoresGetQuery = {
-	after?: (string | null) | undefined;
-	before?: (string | null) | undefined;
+	after?: (string | (null | null)) | undefined;
+	before?: (string | (null | null)) | undefined;
 	/**
 	 * @default 20
 	 */
-	limit?: (number | null) | undefined;
+	limit?: (number | (null | null)) | undefined;
 	/**
 	 * @default desc
 	 */
-	order?: (string | null) | undefined;
+	order?: (string | (null | null)) | undefined;
 };
 
 export type VectorStoreListVectorStoresGetStatus200 = {
@@ -46453,7 +47741,7 @@ export type ListToolsV1ToolListGetInputPolicyKey =
 	(typeof listToolsV1ToolListGetInputPolicy)[keyof typeof listToolsV1ToolListGetInputPolicy];
 
 export type ListToolsV1ToolListGetQuery = {
-	input_policy?: (ListToolsV1ToolListGetInputPolicyKey | null) | undefined;
+	input_policy?: (ListToolsV1ToolListGetInputPolicyKey | (null | null)) | undefined;
 };
 
 export type ListToolsV1ToolListGetStatus200 = ToolListResponse;
@@ -46523,11 +47811,11 @@ export type GetToolSpendV1ToolSpendGetQuery = {
 	/**
 	 * @description YYYY-MM-DD (defaults to 30 days ago)
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description YYYY-MM-DD (defaults to today)
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 };
 
 export type GetToolSpendV1ToolSpendGetStatus200 = ToolSpendResponse;
@@ -46623,11 +47911,11 @@ export type GetToolUsageLogsV1ToolToolNameLogsGetQuery = {
 	/**
 	 * @description YYYY-MM-DD
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description YYYY-MM-DD
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 };
 
 export type GetToolUsageLogsV1ToolToolNameLogsGetStatus200 = ToolUsageLogsResponse;
@@ -46660,11 +47948,11 @@ export type DeleteToolPolicyOverrideV1ToolToolNameOverridesDeleteQuery = {
 	/**
 	 * @description Team ID of the override to remove
 	 */
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Key hash of the override to remove
 	 */
-	key_hash?: (string | null) | undefined;
+	key_hash?: (string | (null | null)) | undefined;
 };
 
 export type DeleteToolPolicyOverrideV1ToolToolNameOverridesDeleteStatus200 = {
@@ -46704,11 +47992,11 @@ export type GetModelInsightsModelInsightsGetQuery = {
 	/**
 	 * @description YYYY-MM-DD, defaults to 365 days ago
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description YYYY-MM-DD, defaults to today
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Metric the top models are ranked by
 	 * @default 'tokens'
@@ -46751,11 +48039,11 @@ export type GetModelInsightTasksModelInsightsTasksGetQuery = {
 	/**
 	 * @description YYYY-MM-DD, defaults to 365 days ago
 	 */
-	start_date?: (string | null) | undefined;
+	start_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description YYYY-MM-DD, defaults to today
 	 */
-	end_date?: (string | null) | undefined;
+	end_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description Metric task shares are computed from
 	 * @default 'spend'
@@ -46992,11 +48280,11 @@ export type DiscoverMcpServersV1McpDiscoverGetQuery = {
 	/**
 	 * @description Search filter for server names and descriptions
 	 */
-	query?: (string | null) | undefined;
+	query?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter by category
 	 */
-	category?: (string | null) | undefined;
+	category?: (string | (null | null)) | undefined;
 };
 
 export type DiscoverMcpServersV1McpDiscoverGetStatus200 = {
@@ -47116,11 +48404,11 @@ export type FetchAllMcpServersV1McpServerGetQuery = {
 	/**
 	 * @description Filter MCP servers by team scope. When provided, returns only servers the team has access to plus globally available (allow_all_keys) servers. Used by the Create Key UI to show team-scoped MCP servers.
 	 */
-	team_id?: (string | null) | undefined;
+	team_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter MCP servers by internal user scope. When provided (and team_id is not), returns the union of the servers each of the user's teams has access to plus globally available (allow_all_keys) servers. A user who belongs to no team gets the unscoped list. Used by the Internal User and Virtual Key edit UIs.
 	 */
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Annotate each returned server with connected_app_reachable: whether a connected app authorized by the calling user (a gateway OAuth session) is served this server on the aggregate MCP endpoint.
 	 * @default false
@@ -47154,7 +48442,7 @@ export type EditMcpServerV1McpServerPutHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -47188,7 +48476,7 @@ export type AddMcpServerV1McpServerPostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -47222,7 +48510,7 @@ export type HealthCheckServersV1McpServerHealthGetQuery = {
 	/**
 	 * @description Server IDs to check. If not provided, checks all accessible servers.
 	 */
-	server_ids?: (string[] | null) | undefined;
+	server_ids?: (string[] | (null | null)) | undefined;
 	/**
 	 * @description Allow the 'reachable' status for responding servers whose authentication is unchecked.
 	 * @default false
@@ -47283,7 +48571,7 @@ export type AddSessionMcpServerV1McpServerOauthSessionPostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type AddSessionMcpServerV1McpServerOauthSessionPostStatus200 = {
@@ -47406,7 +48694,7 @@ export type RemoveMcpServerV1McpServerServerIdDeleteHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type RemoveMcpServerV1McpServerServerIdDeleteStatus202 = {
@@ -47508,7 +48796,7 @@ export type DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDe
 };
 
 export type DeleteMcpOauthUserCredentialV1McpServerServerIdOauthUserCredentialDeleteQuery = {
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -47697,7 +48985,7 @@ export type DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeletePath =
 };
 
 export type DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteQuery = {
-	user_id?: (string | null) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 };
 
 export type DeleteMcpUserCredentialV1McpServerServerIdUserCredentialDeleteStatus200 =
@@ -47868,8 +49156,8 @@ export type GetMcpGatewaySessionsV1McpSessionsGetResponse =
 	GetMcpGatewaySessionsV1McpSessionsGetStatus200;
 
 export type DeleteMcpGatewaySessionsV1McpSessionsDeleteQuery = {
-	session_id_prefix?: (string | null) | undefined;
-	user_id?: (string | null) | undefined;
+	session_id_prefix?: (string | (null | null)) | undefined;
+	user_id?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -47940,7 +49228,7 @@ export type FetchMcpToolsetsV1McpToolsetGetResponses = {
 export type FetchMcpToolsetsV1McpToolsetGetResponse = FetchMcpToolsetsV1McpToolsetGetStatus200;
 
 export type EditMcpToolsetV1McpToolsetPutHeaders = {
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type EditMcpToolsetV1McpToolsetPutStatus200 = {
@@ -47969,7 +49257,7 @@ export type EditMcpToolsetV1McpToolsetPutResponses = {
 export type EditMcpToolsetV1McpToolsetPutResponse = EditMcpToolsetV1McpToolsetPutStatus200;
 
 export type AddMcpToolsetV1McpToolsetPostHeaders = {
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type AddMcpToolsetV1McpToolsetPostStatus201 = {
@@ -48030,7 +49318,7 @@ export type RemoveMcpToolsetV1McpToolsetToolsetIdDeletePath = {
 };
 
 export type RemoveMcpToolsetV1McpToolsetToolsetIdDeleteHeaders = {
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type RemoveMcpToolsetV1McpToolsetToolsetIdDeleteStatus202 = {
@@ -48137,7 +49425,7 @@ export type NativeClientAuthDiscoveryWellKnownLitellmCliAuthGetResponse =
 	NativeClientAuthDiscoveryWellKnownLitellmCliAuthGetStatus200;
 
 export type OauthAuthorizationServerMcpWellKnownOauthAuthorizationServerGetQuery = {
-	mcp_server_name?: (string | null) | undefined;
+	mcp_server_name?: (string | (null | null)) | undefined;
 };
 
 export type OauthAuthorizationServerMcpWellKnownOauthAuthorizationServerGetStatus200 = {
@@ -48220,7 +49508,7 @@ export type OauthAuthorizationServerMcpStandardWellKnownOauthAuthorizationServer
 	OauthAuthorizationServerMcpStandardWellKnownOauthAuthorizationServerMcpMcpServerNameGetStatus200;
 
 export type OauthAuthorizationServerMcpWellKnownOauthAuthorizationServerMcpServerNameGetPath = {
-	mcp_server_name: string | null;
+	mcp_server_name: string | (null | null);
 };
 
 export type OauthAuthorizationServerMcpWellKnownOauthAuthorizationServerMcpServerNameGetStatus200 =
@@ -48359,7 +49647,7 @@ export type OauthProtectedResourceMcpStandardWellKnownOauthProtectedResourceMcpM
 	OauthProtectedResourceMcpStandardWellKnownOauthProtectedResourceMcpMcpServerNameGetStatus200;
 
 export type OauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNameMcpGetPath = {
-	mcp_server_name: string | null;
+	mcp_server_name: string | (null | null);
 };
 
 export type OauthProtectedResourceMcpWellKnownOauthProtectedResourceMcpServerNameMcpGetStatus200 = {
@@ -48410,18 +49698,18 @@ export type OpenidConfigurationWellKnownOpenidConfigurationGetResponse =
 
 export type AuthorizeAuthorizeGetQuery = {
 	redirect_uri: string;
-	client_id?: (string | null) | undefined;
+	client_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default ''
 	 * @type string | undefined
 	 */
 	state?: string | undefined;
-	mcp_server_name?: (string | null) | undefined;
-	code_challenge?: (string | null) | undefined;
-	code_challenge_method?: (string | null) | undefined;
-	response_type?: (string | null) | undefined;
-	scope?: (string | null) | undefined;
-	resource?: (string | null) | undefined;
+	mcp_server_name?: (string | (null | null)) | undefined;
+	code_challenge?: (string | (null | null)) | undefined;
+	code_challenge_method?: (string | (null | null)) | undefined;
+	response_type?: (string | (null | null)) | undefined;
+	scope?: (string | (null | null)) | undefined;
+	resource?: (string | (null | null)) | undefined;
 };
 
 export type AuthorizeAuthorizeGetStatus200 = {
@@ -48508,11 +49796,11 @@ export type AuthorizeMcpSessionAuthorizeMcpSessionGetQuery = {
 	 * @type string | undefined
 	 */
 	state?: string | undefined;
-	code_challenge?: (string | null) | undefined;
-	code_challenge_method?: (string | null) | undefined;
-	response_type?: (string | null) | undefined;
-	resource?: (string | null) | undefined;
-	scope?: (string | null) | undefined;
+	code_challenge?: (string | (null | null)) | undefined;
+	code_challenge_method?: (string | (null | null)) | undefined;
+	response_type?: (string | (null | null)) | undefined;
+	resource?: (string | (null | null)) | undefined;
+	scope?: (string | (null | null)) | undefined;
 };
 
 export type AuthorizeMcpSessionAuthorizeMcpSessionGetStatus200 = {
@@ -48540,12 +49828,12 @@ export type AuthorizeMcpSessionAuthorizeMcpSessionGetResponse =
 	AuthorizeMcpSessionAuthorizeMcpSessionGetStatus200;
 
 export type CallbackCallbackGetQuery = {
-	code?: (string | null) | undefined;
-	state?: (string | null) | undefined;
-	iss?: (string | null) | undefined;
-	error?: (string | null) | undefined;
-	error_description?: (string | null) | undefined;
-	error_uri?: (string | null) | undefined;
+	code?: (string | (null | null)) | undefined;
+	state?: (string | (null | null)) | undefined;
+	iss?: (string | (null | null)) | undefined;
+	error?: (string | (null | null)) | undefined;
+	error_description?: (string | (null | null)) | undefined;
+	error_uri?: (string | (null | null)) | undefined;
 };
 
 export type CallbackCallbackGetStatus200 = {
@@ -48597,7 +49885,7 @@ export type IntrospectEndpointIntrospectPostResponses = {
 export type IntrospectEndpointIntrospectPostResponse = IntrospectEndpointIntrospectPostStatus200;
 
 export type RegisterClientRegisterPostQuery = {
-	mcp_server_name?: (string | null) | undefined;
+	mcp_server_name?: (string | (null | null)) | undefined;
 };
 
 export type RegisterClientRegisterPostStatus200 = {
@@ -48649,7 +49937,7 @@ export type RevokeEndpointRevokePostResponses = {
 export type RevokeEndpointRevokePostResponse = RevokeEndpointRevokePostStatus200;
 
 export type TokenEndpointTokenPostQuery = {
-	mcp_server_name?: (string | null) | undefined;
+	mcp_server_name?: (string | (null | null)) | undefined;
 };
 
 export type TokenEndpointTokenPostStatus200 = {
@@ -48678,22 +49966,22 @@ export type TokenEndpointTokenPostResponses = {
 export type TokenEndpointTokenPostResponse = TokenEndpointTokenPostStatus200;
 
 export type AuthorizeMcpServerNameAuthorizeGetPath = {
-	mcp_server_name: string | null;
+	mcp_server_name: string | (null | null);
 };
 
 export type AuthorizeMcpServerNameAuthorizeGetQuery = {
 	redirect_uri: string;
-	client_id?: (string | null) | undefined;
+	client_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default ''
 	 * @type string | undefined
 	 */
 	state?: string | undefined;
-	code_challenge?: (string | null) | undefined;
-	code_challenge_method?: (string | null) | undefined;
-	response_type?: (string | null) | undefined;
-	scope?: (string | null) | undefined;
-	resource?: (string | null) | undefined;
+	code_challenge?: (string | (null | null)) | undefined;
+	code_challenge_method?: (string | (null | null)) | undefined;
+	response_type?: (string | (null | null)) | undefined;
+	scope?: (string | (null | null)) | undefined;
+	resource?: (string | (null | null)) | undefined;
 };
 
 export type AuthorizeMcpServerNameAuthorizeGetStatus200 = {
@@ -48721,7 +50009,7 @@ export type AuthorizeMcpServerNameAuthorizeGetResponse =
 	AuthorizeMcpServerNameAuthorizeGetStatus200;
 
 export type RegisterClientMcpServerNameRegisterPostPath = {
-	mcp_server_name: string | null;
+	mcp_server_name: string | (null | null);
 };
 
 export type RegisterClientMcpServerNameRegisterPostStatus200 = {
@@ -48749,7 +50037,7 @@ export type RegisterClientMcpServerNameRegisterPostResponse =
 	RegisterClientMcpServerNameRegisterPostStatus200;
 
 export type TokenEndpointMcpServerNameTokenPostPath = {
-	mcp_server_name: string | null;
+	mcp_server_name: string | (null | null);
 };
 
 export type TokenEndpointMcpServerNameTokenPostStatus200 = {
@@ -48855,15 +50143,15 @@ export type ListToolRestApiMcpRestToolsListGetQuery = {
 	/**
 	 * @description The server id to list tools for
 	 */
-	server_id?: (string | null) | undefined;
+	server_id?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter tools to a single MCP server by name or alias
 	 */
-	mcp_server_name?: (string | null) | undefined;
+	mcp_server_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description Filter tools to a single toolset by name
 	 */
-	toolset_name?: (string | null) | undefined;
+	toolset_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description Admin only. Return the full server tool catalog without the allowed_tools filter or per-key tool permissions, so the MCP settings UI can configure the allowlist. Ignored for non-admins.
 	 * @default false
@@ -48923,7 +50211,7 @@ export type UpdateCyberarkConfigConfigOverridesCyberarkPostHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type UpdateCyberarkConfigConfigOverridesCyberarkPostStatus200 = {
@@ -48960,7 +50248,7 @@ export type DeleteCyberarkConfigConfigOverridesCyberarkDeleteHeaders = {
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type DeleteCyberarkConfigConfigOverridesCyberarkDeleteStatus200 = {
@@ -49036,7 +50324,7 @@ export type UpdateHashicorpVaultConfigConfigOverridesHashicorpVaultPostHeaders =
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type UpdateHashicorpVaultConfigConfigOverridesHashicorpVaultPostStatus200 = {
@@ -49074,7 +50362,7 @@ export type DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteHeaders
 	/**
 	 * @description The litellm-changed-by header enables tracking of actions performed by authorized users on behalf of other users, providing an audit trail for accountability
 	 */
-	"litellm-changed-by"?: (string | null) | undefined;
+	"litellm-changed-by"?: (string | (null | null)) | undefined;
 };
 
 export type DeleteHashicorpVaultConfigConfigOverridesHashicorpVaultDeleteStatus200 = {
@@ -49196,6 +50484,10 @@ export type ComprehendMedicalProxyRouteComprehendmedicalOperationPostResponse =
 
 export type EuJevProxyRouteEuJevV1SystemonePostStatus200 = EuJevDecisionResponse;
 
+/**
+ * @example {"model":"eu-jeff-latest","questions":{"frustration":{"criteria":["calm","mildly annoyed","angry"],"instructions":"How frustrated is the customer?","type":"score"},"is_refund_request":{"instructions":"Is the customer asking for a refund?","type":"noul"},"team":{"criteria":{"billing":"Payments, invoices, and refunds","support":"Technical issues and bugs"},"instructions":"Which team should handle this?","type":"choice"}},"state":"I was charged twice. Can I get a refund?"}
+ * @type object
+ */
 export type EuJevProxyRouteEuJevV1SystemonePostBody = {
 	/**
 	 * @description eu-jeff-latest follows the current release, eu-jeff-1.0.0 pins it
@@ -49221,7 +50513,7 @@ export type EuJevProxyRouteEuJevV1SystemonePostBody = {
 									[key: string]: unknown;
 							  }
 							| unknown[]
-							| null;
+							| (null | null);
 					};
 					/**
 					 * @description Free text, or a JSON object, array or null that eu/jev serializes to text before inference
@@ -49232,7 +50524,7 @@ export type EuJevProxyRouteEuJevV1SystemonePostBody = {
 								[key: string]: unknown;
 						  }
 						| unknown[]
-						| null;
+						| (null | null);
 					type: "choice";
 			  }
 			| {
@@ -49240,17 +50532,20 @@ export type EuJevProxyRouteEuJevV1SystemonePostBody = {
 					 * @description Optional descriptions of what true and false mean
 					 */
 					criteria?:
-						| (Partial<
-								Record<
-									"true" | "false",
-									| string
-									| {
-											[key: string]: unknown;
-									  }
-									| unknown[]
-									| null
-								>
-						  > | null)
+						| (
+								| Partial<
+										Record<
+											"true" | "false",
+											| string
+											| {
+													[key: string]: unknown;
+											  }
+											| unknown[]
+											| (null | null)
+										>
+								  >
+								| (null | null)
+						  )
 						| undefined;
 					/**
 					 * @description Free text, or a JSON object, array or null that eu/jev serializes to text before inference
@@ -49261,7 +50556,7 @@ export type EuJevProxyRouteEuJevV1SystemonePostBody = {
 								[key: string]: unknown;
 						  }
 						| unknown[]
-						| null;
+						| (null | null);
 					type: "noul";
 			  }
 			| {
@@ -49275,7 +50570,7 @@ export type EuJevProxyRouteEuJevV1SystemonePostBody = {
 								[key: string]: unknown;
 						  }
 						| unknown[]
-						| null
+						| (null | null)
 					)[];
 					/**
 					 * @description Free text, or a JSON object, array or null that eu/jev serializes to text before inference
@@ -49286,7 +50581,7 @@ export type EuJevProxyRouteEuJevV1SystemonePostBody = {
 								[key: string]: unknown;
 						  }
 						| unknown[]
-						| null;
+						| (null | null);
 					type: "score";
 			  };
 	};
@@ -49681,17 +50976,17 @@ export type ListSkillsV1SkillsGetQuery = {
 	/**
 	 * @default 10
 	 */
-	limit?: (number | null) | undefined;
-	after_id?: (string | null) | undefined;
-	before_id?: (string | null) | undefined;
+	limit?: (number | (null | null)) | undefined;
+	after_id?: (string | (null | null)) | undefined;
+	before_id?: (string | (null | null)) | undefined;
 	/**
 	 * @default anthropic
 	 */
-	custom_llm_provider?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
 	/**
 	 * @description Describe what you need in natural language to rank the skills you can access by semantic similarity over their title and description. Each result carries a search_score. Only supported for custom_llm_provider=litellm_proxy. Requires litellm_settings.skill_search_embedding_model.
 	 */
-	query?: (string | null) | undefined;
+	query?: (string | (null | null)) | undefined;
 	/**
 	 * @description With query: the maximum number of ranked skills to return.
 	 * @minimum 1
@@ -49731,7 +51026,7 @@ export type CreateSkillV1SkillsPostQuery = {
 	/**
 	 * @default anthropic
 	 */
-	custom_llm_provider?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -49767,7 +51062,7 @@ export type GetSkillV1SkillsSkillIdGetQuery = {
 	/**
 	 * @default anthropic
 	 */
-	custom_llm_provider?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -49803,7 +51098,7 @@ export type DeleteSkillV1SkillsSkillIdDeleteQuery = {
 	/**
 	 * @default anthropic
 	 */
-	custom_llm_provider?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -49835,15 +51130,15 @@ export type ListEvalsV1EvalsGetQuery = {
 	/**
 	 * @default 20
 	 */
-	limit?: (number | null) | undefined;
-	after?: (string | null) | undefined;
-	before?: (string | null) | undefined;
-	order?: (string | null) | undefined;
-	order_by?: (string | null) | undefined;
+	limit?: (number | (null | null)) | undefined;
+	after?: (string | (null | null)) | undefined;
+	before?: (string | (null | null)) | undefined;
+	order?: (string | (null | null)) | undefined;
+	order_by?: (string | (null | null)) | undefined;
 	/**
 	 * @default openai
 	 */
-	custom_llm_provider?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -49875,7 +51170,7 @@ export type CreateEvalV1EvalsPostQuery = {
 	/**
 	 * @default openai
 	 */
-	custom_llm_provider?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -49911,7 +51206,7 @@ export type GetEvalV1EvalsEvalIdGetQuery = {
 	/**
 	 * @default openai
 	 */
-	custom_llm_provider?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -49947,7 +51242,7 @@ export type UpdateEvalV1EvalsEvalIdPostQuery = {
 	/**
 	 * @default openai
 	 */
-	custom_llm_provider?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -49983,7 +51278,7 @@ export type DeleteEvalV1EvalsEvalIdDeleteQuery = {
 	/**
 	 * @default openai
 	 */
-	custom_llm_provider?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -50019,7 +51314,7 @@ export type CancelEvalV1EvalsEvalIdCancelPostQuery = {
 	/**
 	 * @default openai
 	 */
-	custom_llm_provider?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -50055,14 +51350,14 @@ export type ListRunsV1EvalsEvalIdRunsGetQuery = {
 	/**
 	 * @default 20
 	 */
-	limit?: (number | null) | undefined;
-	after?: (string | null) | undefined;
-	before?: (string | null) | undefined;
-	order?: (string | null) | undefined;
+	limit?: (number | (null | null)) | undefined;
+	after?: (string | (null | null)) | undefined;
+	before?: (string | (null | null)) | undefined;
+	order?: (string | (null | null)) | undefined;
 	/**
 	 * @default openai
 	 */
-	custom_llm_provider?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -50098,7 +51393,7 @@ export type CreateRunV1EvalsEvalIdRunsPostQuery = {
 	/**
 	 * @default openai
 	 */
-	custom_llm_provider?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -50135,7 +51430,7 @@ export type GetRunV1EvalsEvalIdRunsRunIdGetQuery = {
 	/**
 	 * @default openai
 	 */
-	custom_llm_provider?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -50172,7 +51467,7 @@ export type CancelRunV1EvalsEvalIdRunsRunIdPostQuery = {
 	/**
 	 * @default openai
 	 */
-	custom_llm_provider?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -50210,7 +51505,7 @@ export type DeleteRunV1EvalsEvalIdRunsRunIdDeleteQuery = {
 	/**
 	 * @default openai
 	 */
-	custom_llm_provider?: (string | null) | undefined;
+	custom_llm_provider?: (string | (null | null)) | undefined;
 };
 
 /**
@@ -50241,6 +51536,10 @@ export type DeleteRunV1EvalsEvalIdRunsRunIdDeleteResponse =
 
 export type DecisionsDecisionsPostStatus200 = OpenAIDecisionResponse;
 
+/**
+ * @example {"input":"Customer wrote: I was charged twice for order #4411 and want one charge refunded today.","model":"luna","questions":[{"instructions":"Is the customer asking for a refund?","name":"is_refund_request","type":"predicate"},{"choices":[{"description":"can wait a week","value":"low"},{"description":"needs action today","value":"high"}],"instructions":"How urgent is this?","name":"urgency","type":"choice"},{"instructions":"How frustrated is the customer?","levels":[{"label":"calm"},{"label":"mildly annoyed"},{"label":"angry"}],"name":"frustration","type":"score"}]}
+ * @type object
+ */
 export type DecisionsDecisionsPostBody = {
 	/**
 	 * @description Clef-omni only. Up to 4 embedded audio clips, each a base64 data URL or {content_type, base64}
@@ -50280,7 +51579,7 @@ export type DecisionsDecisionsPostBody = {
 									type: "input_text";
 							  }
 							| {
-									detail?: (string | null) | undefined;
+									detail?: (string | (null | null)) | undefined;
 									image_url: string;
 									type: "input_image";
 							  }
@@ -50315,7 +51614,7 @@ export type DecisionsDecisionsPostBody = {
 				/**
 				 * @description Echoed in the matching answer
 				 */
-				name?: (string | null) | undefined;
+				name?: (string | (null | null)) | undefined;
 				type: "predicate";
 		  }
 		| {
@@ -50324,7 +51623,7 @@ export type DecisionsDecisionsPostBody = {
 				 * @type array
 				 */
 				choices: {
-					description?: (string | null) | undefined;
+					description?: (string | (null | null)) | undefined;
 					value: string | boolean;
 				}[];
 				/**
@@ -50335,7 +51634,7 @@ export type DecisionsDecisionsPostBody = {
 				/**
 				 * @description Echoed in the matching answer
 				 */
-				name?: (string | null) | undefined;
+				name?: (string | (null | null)) | undefined;
 				type: "choice";
 		  }
 		| {
@@ -50349,13 +51648,13 @@ export type DecisionsDecisionsPostBody = {
 				 * @type array
 				 */
 				levels: {
-					description?: (string | null) | undefined;
+					description?: (string | (null | null)) | undefined;
 					label: string;
 				}[];
 				/**
 				 * @description Echoed in the matching answer
 				 */
-				name?: (string | null) | undefined;
+				name?: (string | (null | null)) | undefined;
 				type: "score";
 		  }
 		| {
@@ -50367,14 +51666,14 @@ export type DecisionsDecisionsPostBody = {
 				/**
 				 * @description Echoed in the matching answer
 				 */
-				name?: (string | null) | undefined;
+				name?: (string | (null | null)) | undefined;
 				type: "box";
 		  }
 	)[];
 	/**
 	 * @description A stable id for your end user. Sent to OpenAI and dropped for other providers
 	 */
-	safety_identifier?: (string | null) | undefined;
+	safety_identifier?: (string | (null | null)) | undefined;
 	/**
 	 * @description Clef-omni only. Up to 2 embedded videos, each a base64 data URL or {content_type, base64}
 	 * @default []
@@ -50434,6 +51733,10 @@ export const typeEnum4 = {
 
 export type TypeEnum4Key = (typeof typeEnum4)[keyof typeof typeEnum4];
 
+/**
+ * @example {"fields":{"days_to_pay":{"max":90,"min":0,"type":"estimate"},"invoice_date":{"type":"date"},"items":{"instructions":"What was bought?","items":"text","type":"list"},"total":{"type":"number","unit":"USD"},"vendor":{"instructions":"Who sent the invoice?","type":"text"}},"model":"clairic","state":"Invoice #4471 from Acme Tools, dated 2026-03-03. 12 hammers. Total $174. Payment due in 30 days."}
+ * @type object
+ */
 export type ExtractionExtractionPostBody = {
 	/**
 	 * @description Field name to typed field spec. Each name becomes a key in the answers
@@ -50444,43 +51747,46 @@ export type ExtractionExtractionPostBody = {
 			/**
 			 * @description Numbers, durations and number lists only, 0 to 6
 			 */
-			decimals?: (number | number | null) | undefined;
+			decimals?: (number | number | (null | null)) | undefined;
 			/**
 			 * @description Forecast only, number of steps
 			 */
-			horizon?: (number | number | null) | undefined;
+			horizon?: (number | number | (null | null)) | undefined;
 			/**
 			 * @description What the field should contain
 			 */
-			instructions?: (string | null) | undefined;
+			instructions?: (string | (null | null)) | undefined;
 			/**
 			 * @description Numbers and durations only
 			 */
-			integer?: (boolean | null) | undefined;
+			integer?: (boolean | (null | null)) | undefined;
 			interval?:
-				| (("step" | "minute" | "hour" | "day" | "week" | "month" | "quarter" | "year") | null)
+				| (
+						| ("step" | "minute" | "hour" | "day" | "week" | "month" | "quarter" | "year")
+						| (null | null)
+				  )
 				| undefined;
 			/**
 			 * @description Item type, required for list fields
 			 */
-			items?: (("text" | "number" | "date") | null) | undefined;
+			items?: (("text" | "number" | "date") | (null | null)) | undefined;
 			/**
 			 * @description Estimate and forecast upper bound
 			 */
-			max?: (number | number | string | null) | undefined;
+			max?: (number | number | string | (null | null)) | undefined;
 			/**
 			 * @description Estimate and forecast lower bound
 			 */
-			min?: (number | number | string | null) | undefined;
+			min?: (number | number | string | (null | null)) | undefined;
 			/**
 			 * @description Probability of null above which the value is null
 			 */
-			null_threshold?: (number | number | null) | undefined;
-			scale?: (("linear" | "log") | null) | undefined;
+			null_threshold?: (number | number | (null | null)) | undefined;
+			scale?: (("linear" | "log") | (null | null)) | undefined;
 			/**
 			 * @description Estimate grid step, or month or year
 			 */
-			step?: (number | number | string | null) | undefined;
+			step?: (number | number | string | (null | null)) | undefined;
 			/**
 			 * @description The answer type for this field
 			 * @type string
@@ -50489,7 +51795,7 @@ export type ExtractionExtractionPostBody = {
 			/**
 			 * @description Unit label. For durations, seconds through years
 			 */
-			unit?: (string | null) | undefined;
+			unit?: (string | (null | null)) | undefined;
 			[key: string]: unknown;
 		};
 	};
@@ -50514,7 +51820,7 @@ export type ExtractionExtractionPostBody = {
 								[key: string]: unknown;
 						  }
 				  )[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -50523,22 +51829,25 @@ export type ExtractionExtractionPostBody = {
 	 */
 	model: string;
 	options?:
-		| ({
-				/**
-				 * @description Add 99 percentiles to estimates
-				 */
-				include_quantiles?: (boolean | null) | undefined;
-				/**
-				 * @description Return the text that spans index into
-				 */
-				return_state_text?: (boolean | null) | undefined;
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						/**
+						 * @description Add 99 percentiles to estimates
+						 */
+						include_quantiles?: (boolean | (null | null)) | undefined;
+						/**
+						 * @description Return the text that spans index into
+						 */
+						return_state_text?: (boolean | (null | null)) | undefined;
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description ISO date that anchors dates written without a year
 	 */
-	reference_date?: (string | null) | undefined;
+	reference_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description The text to read. Must be non-empty unless images are sent. Text answers are spans of it
 	 * @default ''
@@ -50574,27 +51883,34 @@ export const formatEnum = {
 
 export type FormatEnumKey = (typeof formatEnum)[keyof typeof formatEnum];
 
+/**
+ * @example {"model":"jev","questions":{"frustration":{"criteria":["calm","mildly annoyed","angry"],"instructions":"How frustrated is the customer?","type":"score"},"is_refund_request":{"instructions":"Is the customer asking for a refund?","type":"noul"},"urgency":{"criteria":{"high":"needs action today","low":"can wait a week"},"instructions":"How urgent is this?","type":"choice"}},"state":"Customer wrote: I was charged twice for order #4411 and want one charge refunded today."}
+ * @type object
+ */
 export type SystemoneSystemonePostBody = {
 	/**
 	 * @description TypeSafe only. Images keyed by a reference string. Write the reference in state, instructions or criteria where the image belongs
 	 */
 	assets?:
-		| ({
-				[key: string]: {
-					/**
-					 * @description Base64-encoded image bytes, no data: prefix
-					 * @pattern ^[A-Za-z0-9+/]+={0,2}$
-					 * @type string
-					 */
-					data_base64: string;
-					/**
-					 * @description The image's format, in lowercase
-					 * @type string
-					 */
-					format: FormatEnumKey;
-					type?: ("image" | null) | undefined;
-				};
-		  } | null)
+		| (
+				| {
+						[key: string]: {
+							/**
+							 * @description Base64-encoded image bytes, no data: prefix
+							 * @pattern ^[A-Za-z0-9+/]+={0,2}$
+							 * @type string
+							 */
+							data_base64: string;
+							/**
+							 * @description The image's format, in lowercase
+							 * @type string
+							 */
+							format: FormatEnumKey;
+							type?: ("image" | (null | null)) | undefined;
+						};
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Clef-omni only. Up to 4 embedded audio clips, each a base64 data URL or {content_type, base64}
@@ -50642,7 +51958,7 @@ export type SystemoneSystemonePostBody = {
 								content_type: string;
 						  }
 				  )[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -50661,17 +51977,20 @@ export type SystemoneSystemonePostBody = {
 					 * @description Optional descriptions of what makes the answer true and what makes it false
 					 */
 					criteria?:
-						| (Partial<
-								Record<
-									"true" | "false",
-									| string
-									| {
-											[key: string]: unknown;
-									  }
-									| unknown[]
-									| null
-								>
-						  > | null)
+						| (
+								| Partial<
+										Record<
+											"true" | "false",
+											| string
+											| {
+													[key: string]: unknown;
+											  }
+											| unknown[]
+											| (null | null)
+										>
+								  >
+								| (null | null)
+						  )
 						| undefined;
 					/**
 					 * @description The yes/no question to ask about the state
@@ -50683,7 +52002,7 @@ export type SystemoneSystemonePostBody = {
 										[key: string]: unknown;
 								  }
 								| unknown[]
-								| null
+								| (null | null)
 						  )
 						| undefined;
 					type: "noul";
@@ -50701,7 +52020,7 @@ export type SystemoneSystemonePostBody = {
 									[key: string]: unknown;
 							  }
 							| unknown[]
-							| null;
+							| (null | null);
 					};
 					/**
 					 * @description The question to ask about the state
@@ -50713,7 +52032,7 @@ export type SystemoneSystemonePostBody = {
 										[key: string]: unknown;
 								  }
 								| unknown[]
-								| null
+								| (null | null)
 						  )
 						| undefined;
 					type: "choice";
@@ -50741,7 +52060,7 @@ export type SystemoneSystemonePostBody = {
 										[key: string]: unknown;
 								  }
 								| unknown[]
-								| null
+								| (null | null)
 						  )
 						| undefined;
 					type: "score";
@@ -50815,6 +52134,10 @@ export type SystemoneSystemonePostResponse = SystemoneSystemonePostStatus200;
 
 export type DecisionsV1DecisionsPostStatus200 = OpenAIDecisionResponse;
 
+/**
+ * @example {"input":"Customer wrote: I was charged twice for order #4411 and want one charge refunded today.","model":"luna","questions":[{"instructions":"Is the customer asking for a refund?","name":"is_refund_request","type":"predicate"},{"choices":[{"description":"can wait a week","value":"low"},{"description":"needs action today","value":"high"}],"instructions":"How urgent is this?","name":"urgency","type":"choice"},{"instructions":"How frustrated is the customer?","levels":[{"label":"calm"},{"label":"mildly annoyed"},{"label":"angry"}],"name":"frustration","type":"score"}]}
+ * @type object
+ */
 export type DecisionsV1DecisionsPostBody = {
 	/**
 	 * @description Clef-omni only. Up to 4 embedded audio clips, each a base64 data URL or {content_type, base64}
@@ -50854,7 +52177,7 @@ export type DecisionsV1DecisionsPostBody = {
 									type: "input_text";
 							  }
 							| {
-									detail?: (string | null) | undefined;
+									detail?: (string | (null | null)) | undefined;
 									image_url: string;
 									type: "input_image";
 							  }
@@ -50889,7 +52212,7 @@ export type DecisionsV1DecisionsPostBody = {
 				/**
 				 * @description Echoed in the matching answer
 				 */
-				name?: (string | null) | undefined;
+				name?: (string | (null | null)) | undefined;
 				type: "predicate";
 		  }
 		| {
@@ -50898,7 +52221,7 @@ export type DecisionsV1DecisionsPostBody = {
 				 * @type array
 				 */
 				choices: {
-					description?: (string | null) | undefined;
+					description?: (string | (null | null)) | undefined;
 					value: string | boolean;
 				}[];
 				/**
@@ -50909,7 +52232,7 @@ export type DecisionsV1DecisionsPostBody = {
 				/**
 				 * @description Echoed in the matching answer
 				 */
-				name?: (string | null) | undefined;
+				name?: (string | (null | null)) | undefined;
 				type: "choice";
 		  }
 		| {
@@ -50923,13 +52246,13 @@ export type DecisionsV1DecisionsPostBody = {
 				 * @type array
 				 */
 				levels: {
-					description?: (string | null) | undefined;
+					description?: (string | (null | null)) | undefined;
 					label: string;
 				}[];
 				/**
 				 * @description Echoed in the matching answer
 				 */
-				name?: (string | null) | undefined;
+				name?: (string | (null | null)) | undefined;
 				type: "score";
 		  }
 		| {
@@ -50941,14 +52264,14 @@ export type DecisionsV1DecisionsPostBody = {
 				/**
 				 * @description Echoed in the matching answer
 				 */
-				name?: (string | null) | undefined;
+				name?: (string | (null | null)) | undefined;
 				type: "box";
 		  }
 	)[];
 	/**
 	 * @description A stable id for your end user. Sent to OpenAI and dropped for other providers
 	 */
-	safety_identifier?: (string | null) | undefined;
+	safety_identifier?: (string | (null | null)) | undefined;
 	/**
 	 * @description Clef-omni only. Up to 2 embedded videos, each a base64 data URL or {content_type, base64}
 	 * @default []
@@ -51008,6 +52331,10 @@ export const typeEnum9 = {
 
 export type TypeEnum9Key = (typeof typeEnum9)[keyof typeof typeEnum9];
 
+/**
+ * @example {"fields":{"days_to_pay":{"max":90,"min":0,"type":"estimate"},"invoice_date":{"type":"date"},"items":{"instructions":"What was bought?","items":"text","type":"list"},"total":{"type":"number","unit":"USD"},"vendor":{"instructions":"Who sent the invoice?","type":"text"}},"model":"clairic","state":"Invoice #4471 from Acme Tools, dated 2026-03-03. 12 hammers. Total $174. Payment due in 30 days."}
+ * @type object
+ */
 export type ExtractionV1ExtractionPostBody = {
 	/**
 	 * @description Field name to typed field spec. Each name becomes a key in the answers
@@ -51018,43 +52345,46 @@ export type ExtractionV1ExtractionPostBody = {
 			/**
 			 * @description Numbers, durations and number lists only, 0 to 6
 			 */
-			decimals?: (number | number | null) | undefined;
+			decimals?: (number | number | (null | null)) | undefined;
 			/**
 			 * @description Forecast only, number of steps
 			 */
-			horizon?: (number | number | null) | undefined;
+			horizon?: (number | number | (null | null)) | undefined;
 			/**
 			 * @description What the field should contain
 			 */
-			instructions?: (string | null) | undefined;
+			instructions?: (string | (null | null)) | undefined;
 			/**
 			 * @description Numbers and durations only
 			 */
-			integer?: (boolean | null) | undefined;
+			integer?: (boolean | (null | null)) | undefined;
 			interval?:
-				| (("step" | "minute" | "hour" | "day" | "week" | "month" | "quarter" | "year") | null)
+				| (
+						| ("step" | "minute" | "hour" | "day" | "week" | "month" | "quarter" | "year")
+						| (null | null)
+				  )
 				| undefined;
 			/**
 			 * @description Item type, required for list fields
 			 */
-			items?: (("text" | "number" | "date") | null) | undefined;
+			items?: (("text" | "number" | "date") | (null | null)) | undefined;
 			/**
 			 * @description Estimate and forecast upper bound
 			 */
-			max?: (number | number | string | null) | undefined;
+			max?: (number | number | string | (null | null)) | undefined;
 			/**
 			 * @description Estimate and forecast lower bound
 			 */
-			min?: (number | number | string | null) | undefined;
+			min?: (number | number | string | (null | null)) | undefined;
 			/**
 			 * @description Probability of null above which the value is null
 			 */
-			null_threshold?: (number | number | null) | undefined;
-			scale?: (("linear" | "log") | null) | undefined;
+			null_threshold?: (number | number | (null | null)) | undefined;
+			scale?: (("linear" | "log") | (null | null)) | undefined;
 			/**
 			 * @description Estimate grid step, or month or year
 			 */
-			step?: (number | number | string | null) | undefined;
+			step?: (number | number | string | (null | null)) | undefined;
 			/**
 			 * @description The answer type for this field
 			 * @type string
@@ -51063,7 +52393,7 @@ export type ExtractionV1ExtractionPostBody = {
 			/**
 			 * @description Unit label. For durations, seconds through years
 			 */
-			unit?: (string | null) | undefined;
+			unit?: (string | (null | null)) | undefined;
 			[key: string]: unknown;
 		};
 	};
@@ -51088,7 +52418,7 @@ export type ExtractionV1ExtractionPostBody = {
 								[key: string]: unknown;
 						  }
 				  )[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -51097,22 +52427,25 @@ export type ExtractionV1ExtractionPostBody = {
 	 */
 	model: string;
 	options?:
-		| ({
-				/**
-				 * @description Add 99 percentiles to estimates
-				 */
-				include_quantiles?: (boolean | null) | undefined;
-				/**
-				 * @description Return the text that spans index into
-				 */
-				return_state_text?: (boolean | null) | undefined;
-				[key: string]: unknown;
-		  } | null)
+		| (
+				| {
+						/**
+						 * @description Add 99 percentiles to estimates
+						 */
+						include_quantiles?: (boolean | (null | null)) | undefined;
+						/**
+						 * @description Return the text that spans index into
+						 */
+						return_state_text?: (boolean | (null | null)) | undefined;
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description ISO date that anchors dates written without a year
 	 */
-	reference_date?: (string | null) | undefined;
+	reference_date?: (string | (null | null)) | undefined;
 	/**
 	 * @description The text to read. Must be non-empty unless images are sent. Text answers are spans of it
 	 * @default ''
@@ -51148,27 +52481,34 @@ export const formatEnum2 = {
 
 export type FormatEnum2Key = (typeof formatEnum2)[keyof typeof formatEnum2];
 
+/**
+ * @example {"model":"jev","questions":{"frustration":{"criteria":["calm","mildly annoyed","angry"],"instructions":"How frustrated is the customer?","type":"score"},"is_refund_request":{"instructions":"Is the customer asking for a refund?","type":"noul"},"urgency":{"criteria":{"high":"needs action today","low":"can wait a week"},"instructions":"How urgent is this?","type":"choice"}},"state":"Customer wrote: I was charged twice for order #4411 and want one charge refunded today."}
+ * @type object
+ */
 export type SystemoneV1SystemonePostBody = {
 	/**
 	 * @description TypeSafe only. Images keyed by a reference string. Write the reference in state, instructions or criteria where the image belongs
 	 */
 	assets?:
-		| ({
-				[key: string]: {
-					/**
-					 * @description Base64-encoded image bytes, no data: prefix
-					 * @pattern ^[A-Za-z0-9+/]+={0,2}$
-					 * @type string
-					 */
-					data_base64: string;
-					/**
-					 * @description The image's format, in lowercase
-					 * @type string
-					 */
-					format: FormatEnum2Key;
-					type?: ("image" | null) | undefined;
-				};
-		  } | null)
+		| (
+				| {
+						[key: string]: {
+							/**
+							 * @description Base64-encoded image bytes, no data: prefix
+							 * @pattern ^[A-Za-z0-9+/]+={0,2}$
+							 * @type string
+							 */
+							data_base64: string;
+							/**
+							 * @description The image's format, in lowercase
+							 * @type string
+							 */
+							format: FormatEnum2Key;
+							type?: ("image" | (null | null)) | undefined;
+						};
+				  }
+				| (null | null)
+		  )
 		| undefined;
 	/**
 	 * @description Clef-omni only. Up to 4 embedded audio clips, each a base64 data URL or {content_type, base64}
@@ -51216,7 +52556,7 @@ export type SystemoneV1SystemonePostBody = {
 								content_type: string;
 						  }
 				  )[]
-				| null
+				| (null | null)
 		  )
 		| undefined;
 	/**
@@ -51235,17 +52575,20 @@ export type SystemoneV1SystemonePostBody = {
 					 * @description Optional descriptions of what makes the answer true and what makes it false
 					 */
 					criteria?:
-						| (Partial<
-								Record<
-									"true" | "false",
-									| string
-									| {
-											[key: string]: unknown;
-									  }
-									| unknown[]
-									| null
-								>
-						  > | null)
+						| (
+								| Partial<
+										Record<
+											"true" | "false",
+											| string
+											| {
+													[key: string]: unknown;
+											  }
+											| unknown[]
+											| (null | null)
+										>
+								  >
+								| (null | null)
+						  )
 						| undefined;
 					/**
 					 * @description The yes/no question to ask about the state
@@ -51257,7 +52600,7 @@ export type SystemoneV1SystemonePostBody = {
 										[key: string]: unknown;
 								  }
 								| unknown[]
-								| null
+								| (null | null)
 						  )
 						| undefined;
 					type: "noul";
@@ -51275,7 +52618,7 @@ export type SystemoneV1SystemonePostBody = {
 									[key: string]: unknown;
 							  }
 							| unknown[]
-							| null;
+							| (null | null);
 					};
 					/**
 					 * @description The question to ask about the state
@@ -51287,7 +52630,7 @@ export type SystemoneV1SystemonePostBody = {
 										[key: string]: unknown;
 								  }
 								| unknown[]
-								| null
+								| (null | null)
 						  )
 						| undefined;
 					type: "choice";
@@ -51315,7 +52658,7 @@ export type SystemoneV1SystemonePostBody = {
 										[key: string]: unknown;
 								  }
 								| unknown[]
-								| null
+								| (null | null)
 						  )
 						| undefined;
 					type: "score";
@@ -51388,7 +52731,7 @@ export type SystemoneV1SystemonePostResponses = {
 export type SystemoneV1SystemonePostResponse = SystemoneV1SystemonePostStatus200;
 
 export type GetMarketplaceClaudeCodeMarketplaceJsonGetQuery = {
-	key?: (string | null) | undefined;
+	key?: (string | (null | null)) | undefined;
 };
 
 export type GetMarketplaceClaudeCodeMarketplaceJsonGetStatus200 = {
@@ -51637,7 +52980,7 @@ export type EnablePluginClaudeCodePluginsPluginNameEnablePostResponse =
 	EnablePluginClaudeCodePluginsPluginNameEnablePostStatus200;
 
 export type GetScimBaseScimV2GetQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type GetScimBaseScimV2GetStatus200 = {
@@ -51676,8 +53019,8 @@ export type GetGroupsScimV2GroupsGetQuery = {
 	 * @type integer | undefined
 	 */
 	count?: number | undefined;
-	filter?: (string | null) | undefined;
-	feature?: (string | null) | undefined;
+	filter?: (string | (null | null)) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type GetGroupsScimV2GroupsGetStatus200 = SCIMListResponse;
@@ -51702,7 +53045,7 @@ export type GetGroupsScimV2GroupsGetResponses = {
 export type GetGroupsScimV2GroupsGetResponse = GetGroupsScimV2GroupsGetStatus200;
 
 export type CreateGroupScimV2GroupsPostQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type CreateGroupScimV2GroupsPostStatus201 = SCIMGroup;
@@ -51733,7 +53076,7 @@ export type GetGroupScimV2GroupsGroupIdGetPath = {
 };
 
 export type GetGroupScimV2GroupsGroupIdGetQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type GetGroupScimV2GroupsGroupIdGetStatus200 = SCIMGroup;
@@ -51762,7 +53105,7 @@ export type UpdateGroupScimV2GroupsGroupIdPutPath = {
 };
 
 export type UpdateGroupScimV2GroupsGroupIdPutQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type UpdateGroupScimV2GroupsGroupIdPutStatus200 = SCIMGroup;
@@ -51793,7 +53136,7 @@ export type PatchGroupScimV2GroupsGroupIdPatchPath = {
 };
 
 export type PatchGroupScimV2GroupsGroupIdPatchQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type PatchGroupScimV2GroupsGroupIdPatchStatus200 = SCIMGroup;
@@ -51825,7 +53168,7 @@ export type DeleteGroupScimV2GroupsGroupIdDeletePath = {
 };
 
 export type DeleteGroupScimV2GroupsGroupIdDeleteQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type DeleteGroupScimV2GroupsGroupIdDeleteStatus204 = void;
@@ -51851,7 +53194,7 @@ export type DeleteGroupScimV2GroupsGroupIdDeleteResponse =
 	DeleteGroupScimV2GroupsGroupIdDeleteStatus204;
 
 export type GetResourceTypesScimV2ResourceTypesGetQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type GetResourceTypesScimV2ResourceTypesGetStatus200 = {
@@ -51883,7 +53226,7 @@ export type GetResourceTypeScimV2ResourceTypesResourceTypeIdGetPath = {
 };
 
 export type GetResourceTypeScimV2ResourceTypesResourceTypeIdGetQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type GetResourceTypeScimV2ResourceTypesResourceTypeIdGetStatus200 = {
@@ -51911,7 +53254,7 @@ export type GetResourceTypeScimV2ResourceTypesResourceTypeIdGetResponse =
 	GetResourceTypeScimV2ResourceTypesResourceTypeIdGetStatus200;
 
 export type GetSchemasScimV2SchemasGetQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type GetSchemasScimV2SchemasGetStatus200 = {
@@ -51942,7 +53285,7 @@ export type GetSchemaScimV2SchemasSchemaIdGetPath = {
 };
 
 export type GetSchemaScimV2SchemasSchemaIdGetQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type GetSchemaScimV2SchemasSchemaIdGetStatus200 = {
@@ -51969,7 +53312,7 @@ export type GetSchemaScimV2SchemasSchemaIdGetResponses = {
 export type GetSchemaScimV2SchemasSchemaIdGetResponse = GetSchemaScimV2SchemasSchemaIdGetStatus200;
 
 export type GetServiceProviderConfigScimV2ServiceProviderConfigGetQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type GetServiceProviderConfigScimV2ServiceProviderConfigGetStatus200 =
@@ -52008,8 +53351,8 @@ export type GetUsersScimV2UsersGetQuery = {
 	 * @type integer | undefined
 	 */
 	count?: number | undefined;
-	filter?: (string | null) | undefined;
-	feature?: (string | null) | undefined;
+	filter?: (string | (null | null)) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type GetUsersScimV2UsersGetStatus200 = SCIMListResponse;
@@ -52034,7 +53377,7 @@ export type GetUsersScimV2UsersGetResponses = {
 export type GetUsersScimV2UsersGetResponse = GetUsersScimV2UsersGetStatus200;
 
 export type CreateUserScimV2UsersPostQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type CreateUserScimV2UsersPostStatus201 = SCIMUserOutput;
@@ -52065,7 +53408,7 @@ export type GetUserScimV2UsersUserIdGetPath = {
 };
 
 export type GetUserScimV2UsersUserIdGetQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type GetUserScimV2UsersUserIdGetStatus200 = SCIMUserOutput;
@@ -52094,7 +53437,7 @@ export type UpdateUserScimV2UsersUserIdPutPath = {
 };
 
 export type UpdateUserScimV2UsersUserIdPutQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type UpdateUserScimV2UsersUserIdPutStatus200 = SCIMUserOutput;
@@ -52125,7 +53468,7 @@ export type PatchUserScimV2UsersUserIdPatchPath = {
 };
 
 export type PatchUserScimV2UsersUserIdPatchQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type PatchUserScimV2UsersUserIdPatchStatus200 = SCIMUserOutput;
@@ -52156,7 +53499,7 @@ export type DeleteUserScimV2UsersUserIdDeletePath = {
 };
 
 export type DeleteUserScimV2UsersUserIdDeleteQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type DeleteUserScimV2UsersUserIdDeleteStatus204 = void;
@@ -52181,7 +53524,7 @@ export type DeleteUserScimV2UsersUserIdDeleteResponses = {
 export type DeleteUserScimV2UsersUserIdDeleteResponse = DeleteUserScimV2UsersUserIdDeleteStatus204;
 
 export type ListPlaceholdersScimV2PlaceholdersGetQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type ListPlaceholdersScimV2PlaceholdersGetStatus200 = SCIMPlaceholder[];
@@ -52211,7 +53554,7 @@ export type MergePlaceholderScimV2PlaceholdersUserIdMergePostPath = {
 };
 
 export type MergePlaceholderScimV2PlaceholdersUserIdMergePostQuery = {
-	feature?: (string | null) | undefined;
+	feature?: (string | (null | null)) | undefined;
 };
 
 export type MergePlaceholderScimV2PlaceholdersUserIdMergePostStatus200 = SCIMPlaceholderMergeResult;
@@ -52609,7 +53952,7 @@ export type CreatePromptPromptsPostResponses = {
 export type CreatePromptPromptsPostResponse = CreatePromptPromptsPostStatus200;
 
 export type ListPromptsPromptsListGetQuery = {
-	environment?: (string | null) | undefined;
+	environment?: (string | (null | null)) | undefined;
 };
 
 export type ListPromptsPromptsListGetStatus200 = ListPromptsResponse;
@@ -52663,7 +54006,7 @@ export type GetPromptInfoPromptsPromptIdGetPath = {
 };
 
 export type GetPromptInfoPromptsPromptIdGetQuery = {
-	environment?: (string | null) | undefined;
+	environment?: (string | (null | null)) | undefined;
 };
 
 export type GetPromptInfoPromptsPromptIdGetStatus200 = PromptInfoResponse;
@@ -52721,7 +54064,7 @@ export type PatchPromptPromptsPromptIdPatchPath = {
 };
 
 export type PatchPromptPromptsPromptIdPatchQuery = {
-	environment?: (string | null) | undefined;
+	environment?: (string | (null | null)) | undefined;
 };
 
 export type PatchPromptPromptsPromptIdPatchStatus200 = {
@@ -52754,7 +54097,7 @@ export type DeletePromptPromptsPromptIdDeletePath = {
 };
 
 export type DeletePromptPromptsPromptIdDeleteQuery = {
-	environment?: (string | null) | undefined;
+	environment?: (string | (null | null)) | undefined;
 };
 
 export type DeletePromptPromptsPromptIdDeleteStatus200 = {
@@ -52785,7 +54128,7 @@ export type GetPromptInfoPromptsPromptIdInfoGetPath = {
 };
 
 export type GetPromptInfoPromptsPromptIdInfoGetQuery = {
-	environment?: (string | null) | undefined;
+	environment?: (string | (null | null)) | undefined;
 };
 
 export type GetPromptInfoPromptsPromptIdInfoGetStatus200 = PromptInfoResponse;
@@ -52815,7 +54158,7 @@ export type GetPromptVersionsPromptsPromptIdVersionsGetPath = {
 };
 
 export type GetPromptVersionsPromptsPromptIdVersionsGetQuery = {
-	environment?: (string | null) | undefined;
+	environment?: (string | (null | null)) | undefined;
 };
 
 export type GetPromptVersionsPromptsPromptIdVersionsGetStatus200 = ListPromptsResponse;
