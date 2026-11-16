@@ -1311,7 +1311,7 @@ export const recordingGetStatus200Schema = z
 						])
 						.optional()
 						.describe(
-							"The recording file type. \n \n`MP4` - Video file of the recording.  \n `M4A` - Audio-only file of the recording.  \n `TIMELINE` - Timestamp file of the recording in JSON file format. To get a timeline file, the **Add a timestamp to the recording** setting must be enabled in the [recording settings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0062627#h_3f14c3a4-d16b-4a3c-bbe5-ef7d24500048). The time will display in the host's timezone, set on their Zoom profile.\n  \n  `TRANSCRIPT` - Transcription file of the recording in VTT format.  \n  `CHAT` - A TXT file containing in-meeting chat messages that were sent during the meeting.  \n `CC` - File containing closed captions of the recording in VTT file format.  \n `CSV` - File containing polling data in csv format.\n\n  \n \n\nA recording file object with file type of either `CC` or `TIMELINE` **does not have** these properties.  \n \n\t`id`, `status`, `file_size`, `recording_type`, and `play_url`.  \n `SUMMARY` - Summary file of the recording in JSON file format.",
+							"The recording file type. \n \n`MP4` - Video file of the recording.  \n `M4A` - Audio-only file of the recording.  \n `TIMELINE` - Timestamp file of the recording in JSON file format. To get a timeline file, the **Add a timestamp to the recording** setting must be enabled in the [recording settings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0062627#h_3f14c3a4-d16b-4a3c-bbe5-ef7d24500048). The time will display in the host's timezone, set on their Zoom profile.\n  \n  `TRANSCRIPT` - Transcription file of the recording in VTT format.  \n  `CHAT` - A TXT file containing in-meeting chat messages that were sent during the meeting.  \n `CC` - File containing closed captions of the recording in VTT file format.  \n `CSV` - File containing polling data in csv format.\n\n  \n \n\nA recording file object with file type of either `CC` or `TIMELINE` **does not have** these properties.  \n \n	`id`, `status`, `file_size`, `recording_type`, and `play_url`.  \n `SUMMARY` - Summary file of the recording in JSON file format.",
 						)
 						.meta({ examples: ["MP4"] }),
 					file_extension: z
@@ -3224,7 +3224,7 @@ export const recordingsListStatus200Schema = z
 										])
 										.optional()
 										.describe(
-											"The recording file type.  \n \n`MP4` - Video file of the recording.  \n `M4A` Audio-only file of the recording.  \n `TIMELINE` - Timestamp file of the recording in JSON file format. To get a timeline file, the **Add a timestamp to the recording** setting must be enabled in the [recording settings](https://support.zoom.us/hc/en-us/articles/203741855-Cloud-recording#h_3f14c3a4-d16b-4a3c-bbe5-ef7d24500048). The time will display in the host's timezone, set on their Zoom profile.\n  \n  `TRANSCRIPT` - Transcription file of the recording in VTT format.  \n  `CHAT` - A TXT file containing in-meeting chat messages that were sent during the meeting.  \n `CC` - File containing closed captions of the recording in VTT file format.  \n `CSV` - File containing polling data in CSV format.\n\n  \n \n\nA recording file object with file type of either `CC` or `TIMELINE` **does not have** the following properties:  \n \n\t`id`, `status`, `file_size`, `recording_type`, and `play_url`.  \n `SUMMARY` - Summary file of the recording in JSON file format.",
+											"The recording file type.  \n \n`MP4` - Video file of the recording.  \n `M4A` Audio-only file of the recording.  \n `TIMELINE` - Timestamp file of the recording in JSON file format. To get a timeline file, the **Add a timestamp to the recording** setting must be enabled in the [recording settings](https://support.zoom.us/hc/en-us/articles/203741855-Cloud-recording#h_3f14c3a4-d16b-4a3c-bbe5-ef7d24500048). The time will display in the host's timezone, set on their Zoom profile.\n  \n  `TRANSCRIPT` - Transcription file of the recording in VTT format.  \n  `CHAT` - A TXT file containing in-meeting chat messages that were sent during the meeting.  \n `CC` - File containing closed captions of the recording in VTT file format.  \n `CSV` - File containing polling data in CSV format.\n\n  \n \n\nA recording file object with file type of either `CC` or `TIMELINE` **does not have** the following properties:  \n \n	`id`, `status`, `file_size`, `recording_type`, and `play_url`.  \n `SUMMARY` - Summary file of the recording in JSON file format.",
 										)
 										.meta({ examples: ["MP4"] }),
 									file_extension: z
@@ -3988,7 +3988,7 @@ export const upgradeZpasAppBodySchema = z
 			.describe("The ZDM group ID.")
 			.meta({ examples: ["ff49588c-92c4-4406-99e6-1942d8a61a7b"] }),
 		data: z.discriminatedUnion("upgrade_type", [
-			z.strictObject({
+			z.object({
 				firmware_versions: z
 					.array(
 						z.object({
@@ -4016,7 +4016,7 @@ export const upgradeZpasAppBodySchema = z
 					.describe("Upgrade firmware.")
 					.meta({ examples: ["UPGRADE_FIRMWARE"] }),
 			}),
-			z.strictObject({
+			z.object({
 				app_version: z
 					.string()
 					.optional()
@@ -8306,7 +8306,7 @@ export const meetingStatus200Schema = z
 			.string()
 			.optional()
 			.describe(
-				"The `start_url` of a meeting is a URL that a host or an alternative host can start the meeting. \n\nThe expiration time for the `start_url` field listed in the response of the [**Create a meeting**](/docs/api/rest/reference/zoom-api/methods#operation/meetingCreate) API is two hours for all regular users. \n\t\nFor users created using the `custCreate` option via the [**Create users**](/docs/api/rest/reference/zoom-api/methods#operation/userCreate) API, the expiration time of the `start_url` field is 90 days.\n\t\nFor security reasons, to retrieve the updated value for the `start_url` field programmatically after the expiry time, you must call the [**Get a meeting](/docs/api/rest/reference/zoom-api/methods#operation/meeting) API and refer to the value of the `start_url` field in the response.  \n This URL should only be used by the host of the meeting and **should not be shared with anyone other than the host** of the meeting as anyone with this URL will be able to login to the Zoom Client as the host of the meeting.",
+				"The `start_url` of a meeting is a URL that a host or an alternative host can start the meeting. \n\nThe expiration time for the `start_url` field listed in the response of the [**Create a meeting**](/docs/api/rest/reference/zoom-api/methods#operation/meetingCreate) API is two hours for all regular users. \n	\nFor users created using the `custCreate` option via the [**Create users**](/docs/api/rest/reference/zoom-api/methods#operation/userCreate) API, the expiration time of the `start_url` field is 90 days.\n	\nFor security reasons, to retrieve the updated value for the `start_url` field programmatically after the expiry time, you must call the [**Get a meeting](/docs/api/rest/reference/zoom-api/methods#operation/meeting) API and refer to the value of the `start_url` field in the response.  \n This URL should only be used by the host of the meeting and **should not be shared with anyone other than the host** of the meeting as anyone with this URL will be able to login to the Zoom Client as the host of the meeting.",
 			)
 			.meta({ examples: ["https://example.com/s/12345678901?zak=example_zak_token"] }),
 		status: z
@@ -22927,7 +22927,7 @@ export const webinarCreateStatus201Schema = z
 			.string()
 			.optional()
 			.describe(
-				"  \n The `start_url` of a webinar is a URL using which a host or an alternative host can start the webinar. This URL should only be used by the host of the meeting and should not be shared with anyone other than the host of the webinar. \n\nThe expiration time for the `start_url` field listed in the response of the [**Create a webinar**](/docs/api/rest/reference/zoom-api/methods#operation/webinarCreate) API is two hours for all regular users. \n\t\nFor users created using the `custCreate` option via the [**Create users**](/docs/api/rest/reference/zoom-api/methods#operation/userCreate) API, the expiration time of the `start_url` field is 90 days.\n\t\nFor security reasons, to retrieve the latest value for the `start_url` field programmatically after expiry, call the [**Get a webinar**](/docs/api/rest/reference/zoom-api/methods#operation/webinar) API and refer to the value of the `start_url` field in the response.  \n   \n   \n ",
+				"  \n The `start_url` of a webinar is a URL using which a host or an alternative host can start the webinar. This URL should only be used by the host of the meeting and should not be shared with anyone other than the host of the webinar. \n\nThe expiration time for the `start_url` field listed in the response of the [**Create a webinar**](/docs/api/rest/reference/zoom-api/methods#operation/webinarCreate) API is two hours for all regular users. \n	\nFor users created using the `custCreate` option via the [**Create users**](/docs/api/rest/reference/zoom-api/methods#operation/userCreate) API, the expiration time of the `start_url` field is 90 days.\n	\nFor security reasons, to retrieve the latest value for the `start_url` field programmatically after expiry, call the [**Get a webinar**](/docs/api/rest/reference/zoom-api/methods#operation/webinar) API and refer to the value of the `start_url` field in the response.  \n   \n   \n ",
 			)
 			.meta({ examples: ["https://example.com/s/11111"] }),
 		timezone: z
@@ -24473,7 +24473,7 @@ export const webinarStatus200Schema = z
 			.string()
 			.optional()
 			.describe(
-				"The `start_url` of a webinar is a URL using which a host or an alternative host can start the webinar. This URL should only be used by the host of the meeting and should not be shared with anyone other than the host of the webinar. \n\nThe expiration time for the `start_url` field listed in the response of the [**Create a webinar**](/docs/api-reference/zoom-api/methods#operation/webinarCreate) API is two hours for all regular users. \n\t\nFor users created using the `custCreate` option via the [**Create users**](/docs/api-reference/zoom-api/methods#operation/userCreate) API, the expiration time of the `start_url` field is 90 days.\n\t\nFor security reasons, to retrieve the latest value for the `start_url` field programmatically (after expiry), you must call the [**Get a webinar**](/docs/api-reference/zoom-api/methods#operation/webinar) API and refer to the value of the `start_url` field in the response.\n\n\n ",
+				"The `start_url` of a webinar is a URL using which a host or an alternative host can start the webinar. This URL should only be used by the host of the meeting and should not be shared with anyone other than the host of the webinar. \n\nThe expiration time for the `start_url` field listed in the response of the [**Create a webinar**](/docs/api-reference/zoom-api/methods#operation/webinarCreate) API is two hours for all regular users. \n	\nFor users created using the `custCreate` option via the [**Create users**](/docs/api-reference/zoom-api/methods#operation/userCreate) API, the expiration time of the `start_url` field is 90 days.\n	\nFor security reasons, to retrieve the latest value for the `start_url` field programmatically (after expiry), you must call the [**Get a webinar**](/docs/api-reference/zoom-api/methods#operation/webinar) API and refer to the value of the `start_url` field in the response.\n\n\n ",
 			)
 			.meta({ examples: ["https://example.com/s/11111"] }),
 		timezone: z
@@ -25842,7 +25842,7 @@ export const uploadWebinarBrandingVBErrorSchema = z.union([
 export const uploadWebinarBrandingVBBodySchema = z
 	.object({
 		file: z
-			.instanceof(File)
+			.instanceof(Blob)
 			.describe("The vvirtual background's file path, in binary format.")
 			.meta({
 				examples: [
@@ -26017,7 +26017,7 @@ export const uploadWebinarBrandingWallpaperErrorSchema = z.union([
 
 export const uploadWebinarBrandingWallpaperBodySchema = z
 	.object({
-		file: z.instanceof(File).describe("The wallpaper's file path, in binary format."),
+		file: z.instanceof(Blob).describe("The wallpaper's file path, in binary format."),
 	})
 	.optional();
 

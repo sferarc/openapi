@@ -897,7 +897,7 @@ export type UpdateArchivedFileBody =
 	| undefined;
 
 export type UpdateArchivedFileOptions = {
-	body: UpdateArchivedFileBody;
+	body?: UpdateArchivedFileBody | undefined;
 	path: UpdateArchivedFilePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -2881,7 +2881,7 @@ export type MeetingRecordingRegistrantCreateBody =
 	| undefined;
 
 export type MeetingRecordingRegistrantCreateOptions = {
-	body: MeetingRecordingRegistrantCreateBody;
+	body?: MeetingRecordingRegistrantCreateBody | undefined;
 	path: MeetingRecordingRegistrantCreatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3235,7 +3235,7 @@ export type RecordingRegistrantQuestionUpdateBody =
 	| undefined;
 
 export type RecordingRegistrantQuestionUpdateOptions = {
-	body: RecordingRegistrantQuestionUpdateBody;
+	body?: RecordingRegistrantQuestionUpdateBody | undefined;
 	path: RecordingRegistrantQuestionUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3313,7 +3313,7 @@ export type MeetingRecordingRegistrantStatusBody =
 	| undefined;
 
 export type MeetingRecordingRegistrantStatusOptions = {
-	body: MeetingRecordingRegistrantStatusBody;
+	body?: MeetingRecordingRegistrantStatusBody | undefined;
 	path: MeetingRecordingRegistrantStatusPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3654,7 +3654,7 @@ export type RecordingSettingsUpdateBody =
 	| undefined;
 
 export type RecordingSettingsUpdateOptions = {
-	body: RecordingSettingsUpdateBody;
+	body?: RecordingSettingsUpdateBody | undefined;
 	path: RecordingSettingsUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3775,7 +3775,7 @@ export type RecordingStatusUpdateOneBody =
 	| undefined;
 
 export type RecordingStatusUpdateOneOptions = {
-	body: RecordingStatusUpdateOneBody;
+	body?: RecordingStatusUpdateOneBody | undefined;
 	path: RecordingStatusUpdateOnePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -3823,7 +3823,7 @@ export type RecordingStatusUpdateBody =
 	| undefined;
 
 export type RecordingStatusUpdateOptions = {
-	body: RecordingStatusUpdateBody;
+	body?: RecordingStatusUpdateBody | undefined;
 	path: RecordingStatusUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4799,7 +4799,7 @@ export type AddDeviceBody =
 	| undefined;
 
 export type AddDeviceOptions = {
-	body: AddDeviceBody;
+	body?: AddDeviceBody | undefined;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -4929,7 +4929,7 @@ export type AssigndevicetoauserCommonareaBody =
 	| undefined;
 
 export type AssigndevicetoauserCommonareaOptions = {
-	body: AssigndevicetoauserCommonareaBody;
+	body?: AssigndevicetoauserCommonareaBody | undefined;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -5161,7 +5161,7 @@ export type UpgradeZpasAppBody =
 	| undefined;
 
 export type UpgradeZpasAppOptions = {
-	body: UpgradeZpasAppBody;
+	body?: UpgradeZpasAppBody | undefined;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -5578,7 +5578,7 @@ export type UpdateDeviceBody =
 	| undefined;
 
 export type UpdateDeviceOptions = {
-	body: UpdateDeviceBody;
+	body?: UpdateDeviceBody | undefined;
 	path: UpdateDevicePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -5698,7 +5698,7 @@ export type ChangeDeviceAssociationBody =
 	| undefined;
 
 export type ChangeDeviceAssociationOptions = {
-	body: ChangeDeviceAssociationBody;
+	body?: ChangeDeviceAssociationBody | undefined;
 	path: ChangeDeviceAssociationPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -6040,7 +6040,7 @@ export type DeviceCreateBody =
 	| undefined;
 
 export type DeviceCreateOptions = {
-	body: DeviceCreateBody;
+	body?: DeviceCreateBody | undefined;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -6195,7 +6195,7 @@ export type DeviceUpdateBody =
 	| undefined;
 
 export type DeviceUpdateOptions = {
-	body: DeviceUpdateBody;
+	body?: DeviceUpdateBody | undefined;
 	path: DeviceUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -6345,7 +6345,7 @@ export type MeetingAppAddBody =
 	| undefined;
 
 export type MeetingAppAddOptions = {
-	body: MeetingAppAddBody;
+	body?: MeetingAppAddBody | undefined;
 	path: MeetingAppAddPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -6506,7 +6506,7 @@ export type UpdateMeetingChatMessageByIdBody =
 	| undefined;
 
 export type UpdateMeetingChatMessageByIdOptions = {
-	body: UpdateMeetingChatMessageByIdBody;
+	body?: UpdateMeetingChatMessageByIdBody | undefined;
 	path: UpdateMeetingChatMessageByIdPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -6800,7 +6800,7 @@ export type InMeetingControlBody =
 	| undefined;
 
 export type InMeetingControlOptions = {
-	body: InMeetingControlBody;
+	body?: InMeetingControlBody | undefined;
 	path: InMeetingControlPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -7042,7 +7042,7 @@ export type AddBatchRegistrantsBody =
 	| undefined;
 
 export type AddBatchRegistrantsOptions = {
-	body: AddBatchRegistrantsBody;
+	body?: AddBatchRegistrantsBody | undefined;
 	path: AddBatchRegistrantsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -7241,7 +7241,7 @@ export type MeetingInviteLinksCreateBody =
 	| undefined;
 
 export type MeetingInviteLinksCreateOptions = {
-	body: MeetingInviteLinksCreateBody;
+	body?: MeetingInviteLinksCreateBody | undefined;
 	path: MeetingInviteLinksCreatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -7985,7 +7985,7 @@ export type MeetingRegistrantCreateBody =
 	| undefined;
 
 export type MeetingRegistrantCreateOptions = {
-	body: MeetingRegistrantCreateBody;
+	body?: MeetingRegistrantCreateBody | undefined;
 	path: MeetingRegistrantCreatePath;
 	query?: MeetingRegistrantCreateQuery | undefined;
 	headers?: never | undefined;
@@ -8251,7 +8251,7 @@ export type MeetingRegistrantQuestionUpdateBody =
 	| undefined;
 
 export type MeetingRegistrantQuestionUpdateOptions = {
-	body: MeetingRegistrantQuestionUpdateBody;
+	body?: MeetingRegistrantQuestionUpdateBody | undefined;
 	path: MeetingRegistrantQuestionUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -8350,7 +8350,7 @@ export type MeetingRegistrantStatusBody =
 	| undefined;
 
 export type MeetingRegistrantStatusOptions = {
-	body: MeetingRegistrantStatusBody;
+	body?: MeetingRegistrantStatusBody | undefined;
 	path: MeetingRegistrantStatusPath;
 	query?: MeetingRegistrantStatusQuery | undefined;
 	headers?: never | undefined;
@@ -8891,7 +8891,7 @@ export type MeetingLiveStreamUpdateBody =
 	| undefined;
 
 export type MeetingLiveStreamUpdateOptions = {
-	body: MeetingLiveStreamUpdateBody;
+	body?: MeetingLiveStreamUpdateBody | undefined;
 	path: MeetingLiveStreamUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -9020,7 +9020,7 @@ export type MeetingLiveStreamStatusUpdateBody =
 	| undefined;
 
 export type MeetingLiveStreamStatusUpdateOptions = {
-	body: MeetingLiveStreamStatusUpdateBody;
+	body?: MeetingLiveStreamStatusUpdateBody | undefined;
 	path: MeetingLiveStreamStatusUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -9290,7 +9290,7 @@ export type MeetingRTMSStatusUpdateBody =
 	| undefined;
 
 export type MeetingRTMSStatusUpdateOptions = {
-	body: MeetingRTMSStatusUpdateBody;
+	body?: MeetingRTMSStatusUpdateBody | undefined;
 	path: MeetingRTMSStatusUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -12565,7 +12565,7 @@ export type MeetingUpdateBody =
 	| undefined;
 
 export type MeetingUpdateOptions = {
-	body: MeetingUpdateBody;
+	body?: MeetingUpdateBody | undefined;
 	path: MeetingUpdatePath;
 	query?: MeetingUpdateQuery | undefined;
 	headers?: never | undefined;
@@ -12648,7 +12648,7 @@ export type GetSipDialingWithPasscodeBody =
 	| undefined;
 
 export type GetSipDialingWithPasscodeOptions = {
-	body: GetSipDialingWithPasscodeBody;
+	body?: GetSipDialingWithPasscodeBody | undefined;
 	path: GetSipDialingWithPasscodePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -12710,7 +12710,7 @@ export type MeetingStatusBody =
 	| undefined;
 
 export type MeetingStatusOptions = {
-	body: MeetingStatusBody;
+	body?: MeetingStatusBody | undefined;
 	path: MeetingStatusPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -16512,7 +16512,7 @@ export type MeetingCreateBody =
 	| undefined;
 
 export type MeetingCreateOptions = {
-	body: MeetingCreateBody;
+	body?: MeetingCreateBody | undefined;
 	path: MeetingCreatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -17285,7 +17285,7 @@ export type CreateBatchPollsBody =
 	| undefined;
 
 export type CreateBatchPollsOptions = {
-	body: CreateBatchPollsBody;
+	body?: CreateBatchPollsBody | undefined;
 	path: CreateBatchPollsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -18151,7 +18151,7 @@ export type MeetingPollCreateBody =
 	| undefined;
 
 export type MeetingPollCreateOptions = {
-	body: MeetingPollCreateBody;
+	body?: MeetingPollCreateBody | undefined;
 	path: MeetingPollCreatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -18734,7 +18734,7 @@ export type MeetingPollUpdateBody =
 	| undefined;
 
 export type MeetingPollUpdateOptions = {
-	body: MeetingPollUpdateBody;
+	body?: MeetingPollUpdateBody | undefined;
 	path: MeetingPollUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -24037,7 +24037,7 @@ export type EnableSIPPhonePhonesBody =
 	| undefined;
 
 export type EnableSIPPhonePhonesOptions = {
-	body: EnableSIPPhonePhonesBody;
+	body?: EnableSIPPhonePhonesBody | undefined;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -24290,7 +24290,7 @@ export type UpdateSIPPhonePhonesBody =
 	| undefined;
 
 export type UpdateSIPPhonePhonesOptions = {
-	body: UpdateSIPPhonePhonesBody;
+	body?: UpdateSIPPhonePhonesBody | undefined;
 	path: UpdateSIPPhonePhonesPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -25606,7 +25606,7 @@ export type MeetingSurveyUpdateBody =
 	| undefined;
 
 export type MeetingSurveyUpdateOptions = {
-	body: MeetingSurveyUpdateBody;
+	body?: MeetingSurveyUpdateBody | undefined;
 	path: MeetingSurveyUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -25789,7 +25789,7 @@ export type TspUpdateBody =
 	| undefined;
 
 export type TspUpdateOptions = {
-	body: TspUpdateBody;
+	body?: TspUpdateBody | undefined;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -26165,7 +26165,7 @@ export type UserTSPCreateBody =
 	| undefined;
 
 export type UserTSPCreateOptions = {
-	body: UserTSPCreateBody;
+	body?: UserTSPCreateBody | undefined;
 	path: UserTSPCreatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -26217,7 +26217,7 @@ export type TspUrlUpdateBody =
 	| undefined;
 
 export type TspUrlUpdateOptions = {
-	body: TspUrlUpdateBody;
+	body?: TspUrlUpdateBody | undefined;
 	path: TspUrlUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -26558,7 +26558,7 @@ export type UserTSPUpdateBody =
 	| undefined;
 
 export type UserTSPUpdateOptions = {
-	body: UserTSPUpdateBody;
+	body?: UserTSPUpdateBody | undefined;
 	path: UserTSPUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -26709,7 +26709,7 @@ export type MeetingTemplateCreateBody =
 	| undefined;
 
 export type MeetingTemplateCreateOptions = {
-	body: MeetingTemplateCreateBody;
+	body?: MeetingTemplateCreateBody | undefined;
 	path: MeetingTemplateCreatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -26864,7 +26864,7 @@ export type TrackingfieldCreateBody =
 	| undefined;
 
 export type TrackingfieldCreateOptions = {
-	body: TrackingfieldCreateBody;
+	body?: TrackingfieldCreateBody | undefined;
 	path?: never | undefined;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -27030,7 +27030,7 @@ export type TrackingfieldUpdateBody =
 	| undefined;
 
 export type TrackingfieldUpdateOptions = {
-	body: TrackingfieldUpdateBody;
+	body?: TrackingfieldUpdateBody | undefined;
 	path: TrackingfieldUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -28022,7 +28022,7 @@ export type WebinarTemplateCreateBody =
 	| undefined;
 
 export type WebinarTemplateCreateOptions = {
-	body: WebinarTemplateCreateBody;
+	body?: WebinarTemplateCreateBody | undefined;
 	path: WebinarTemplateCreatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -30643,7 +30643,7 @@ export type WebinarCreateBody =
 	| undefined;
 
 export type WebinarCreateOptions = {
-	body: WebinarCreateBody;
+	body?: WebinarCreateBody | undefined;
 	path: WebinarCreatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -33183,7 +33183,7 @@ export type WebinarUpdateBody =
 	| undefined;
 
 export type WebinarUpdateOptions = {
-	body: WebinarUpdateBody;
+	body?: WebinarUpdateBody | undefined;
 	path: WebinarUpdatePath;
 	query?: WebinarUpdateQuery | undefined;
 	headers?: never | undefined;
@@ -33279,7 +33279,7 @@ export type AddBatchWebinarRegistrantsBody =
 	| undefined;
 
 export type AddBatchWebinarRegistrantsOptions = {
-	body: AddBatchWebinarRegistrantsBody;
+	body?: AddBatchWebinarRegistrantsBody | undefined;
 	path: AddBatchWebinarRegistrantsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -33536,7 +33536,7 @@ export type CreateWebinarBrandingNameTagBody =
 	| undefined;
 
 export type CreateWebinarBrandingNameTagOptions = {
-	body: CreateWebinarBrandingNameTagBody;
+	body?: CreateWebinarBrandingNameTagBody | undefined;
 	path: CreateWebinarBrandingNameTagPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -33682,7 +33682,7 @@ export type UpdateWebinarBrandingNameTagBody =
 	| undefined;
 
 export type UpdateWebinarBrandingNameTagOptions = {
-	body: UpdateWebinarBrandingNameTagBody;
+	body?: UpdateWebinarBrandingNameTagBody | undefined;
 	path: UpdateWebinarBrandingNameTagPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -33756,7 +33756,7 @@ export type UploadWebinarBrandingVBBody =
 			/**
 			 * @description The vvirtual background's file path, in binary format.
 			 * @example Vm0wd2QyUXlVWGxXYTJoV1YwZG9WVll3Wkc5alJsWjBUVlpPV0Zac2JETlhhMUpUVmpGYWMySkVUbGhoTWsweFZqQmFTMk15U2tWVWJHaG9UVmhDVVZadGVGWmxSbGw1Vkd0c2FsSnRhRzlVVjNOM1pVWmFkR05GZEZSTlZUVkpWbTEwYTFkSFNrZGpSVGxhWWxoU1RGWnNXbUZrUjA1R1pFWlNUbFpYZHpGV2EyUXdZekpHVjFOdVVsWmhlbXhoVm1wT2IyRkdjRmRYYlVaclVqRmFTVnBGV2xOVWJGcFZWbXhzVjFaNlFYaFdSRXBIVWpGT2RWVnNXbWxTTW1odlZtMXdUMkl5UmtkWGJHUllZbGhTV0ZSV2FFTlRiR3QzV2tSU1ZrMXJjRmhWTW5oelZqRmFObEZZYUZkU1JWcDZWbXBHVDJSV1ZuUmhSazVzWWxob1dGWnRNSGhPUjFGM1RVaG9hbEp0VWxsWmJHaFRWMFpTVjFkdFJteFdiVko1VmpKNFQyRkdXbk5qU0d4WFRWZG9NMVpxUmtwbGJVWklZVVpvVjJKV1NrbFdiWEJIVkRGa1YyTkZaR2hTTW5oVVZGY3hiMWRzV1hoWGJYUk9VbTE0V0ZVeGFHOWhiRXBYVjJ4U1dtSkdXbWhaTVZwelkyeHdSMVJyTlZOaWEwcElWbXBLTkZReFdsaFRhMlJxVWtWYVYxWnFUa05YUmxweFVtdHdiR0pWV2tsWlZWcHJZVWRGZUdOSE9WZFdSVXBvVmtSS1QyUkdUbkphUmxKcFZqTm9kbFpHVm05Uk1XUlhWMWhvWVZKRlNtRldha1pIVGtaWmVHRkhPVmRpVlhCSlZsZDRjMWR0U2tkWGJXaFhUVVp3ZWxreWVIZFNNVkowWlVaa2FWSXpZM2hXTW5oWFZqRlJlRmRZWkU1WFJYQllXVmR6TVZsV1VsWlhibVJYVW14d2VGVnRNVWRXTURGeVRsVm9WMUo2UmtoV1ZFWkxWakpPUmxac1pHbFNNVVYzVmxaU1IxbFdXbkpOVmxwWFlYcFdWRlZyVmtaT1VUMDk=
-			 * @type string
+			 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
 			 */
 			file: Blob;
 			/**
@@ -33777,7 +33777,7 @@ export type UploadWebinarBrandingVBBody =
 	| undefined;
 
 export type UploadWebinarBrandingVBOptions = {
-	body: UploadWebinarBrandingVBBody;
+	body?: UploadWebinarBrandingVBBody | undefined;
 	path: UploadWebinarBrandingVBPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -33944,14 +33944,14 @@ export type UploadWebinarBrandingWallpaperBody =
 	| {
 			/**
 			 * @description The wallpaper's file path, in binary format.
-			 * @type string
+			 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
 			 */
 			file: Blob;
 	  }
 	| undefined;
 
 export type UploadWebinarBrandingWallpaperOptions = {
-	body: UploadWebinarBrandingWallpaperBody;
+	body?: UploadWebinarBrandingWallpaperBody | undefined;
 	path: UploadWebinarBrandingWallpaperPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -34103,7 +34103,7 @@ export type WebinarInviteLinksCreateBody =
 	| undefined;
 
 export type WebinarInviteLinksCreateOptions = {
-	body: WebinarInviteLinksCreateBody;
+	body?: WebinarInviteLinksCreateBody | undefined;
 	path: WebinarInviteLinksCreatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -34408,7 +34408,7 @@ export type WebinarLiveStreamUpdateBody =
 	| undefined;
 
 export type WebinarLiveStreamUpdateOptions = {
-	body: WebinarLiveStreamUpdateBody;
+	body?: WebinarLiveStreamUpdateBody | undefined;
 	path: WebinarLiveStreamUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -34514,7 +34514,7 @@ export type WebinarLiveStreamStatusUpdateBody =
 	| undefined;
 
 export type WebinarLiveStreamStatusUpdateOptions = {
-	body: WebinarLiveStreamStatusUpdateBody;
+	body?: WebinarLiveStreamStatusUpdateBody | undefined;
 	path: WebinarLiveStreamStatusUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -34749,7 +34749,7 @@ export type WebinarPanelistCreateBody =
 	| undefined;
 
 export type WebinarPanelistCreateOptions = {
-	body: WebinarPanelistCreateBody;
+	body?: WebinarPanelistCreateBody | undefined;
 	path: WebinarPanelistCreatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -35693,7 +35693,7 @@ export type WebinarPollCreateBody =
 	| undefined;
 
 export type WebinarPollCreateOptions = {
-	body: WebinarPollCreateBody;
+	body?: WebinarPollCreateBody | undefined;
 	path: WebinarPollCreatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -36272,7 +36272,7 @@ export type WebinarPollUpdateBody =
 	| undefined;
 
 export type WebinarPollUpdateOptions = {
-	body: WebinarPollUpdateBody;
+	body?: WebinarPollUpdateBody | undefined;
 	path: WebinarPollUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -37068,7 +37068,7 @@ export type WebinarRegistrantCreateBody =
 	| undefined;
 
 export type WebinarRegistrantCreateOptions = {
-	body: WebinarRegistrantCreateBody;
+	body?: WebinarRegistrantCreateBody | undefined;
 	path: WebinarRegistrantCreatePath;
 	query?: WebinarRegistrantCreateQuery | undefined;
 	headers?: never | undefined;
@@ -37430,7 +37430,7 @@ export type WebinarRegistrantQuestionUpdateBody =
 	| undefined;
 
 export type WebinarRegistrantQuestionUpdateOptions = {
-	body: WebinarRegistrantQuestionUpdateBody;
+	body?: WebinarRegistrantQuestionUpdateBody | undefined;
 	path: WebinarRegistrantQuestionUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -37531,7 +37531,7 @@ export type WebinarRegistrantStatusBody =
 	| undefined;
 
 export type WebinarRegistrantStatusOptions = {
-	body: WebinarRegistrantStatusBody;
+	body?: WebinarRegistrantStatusBody | undefined;
 	path: WebinarRegistrantStatusPath;
 	query?: WebinarRegistrantStatusQuery | undefined;
 	headers?: never | undefined;
@@ -37986,7 +37986,7 @@ export type GetWebinarSipDialingWithPasscodeBody =
 	| undefined;
 
 export type GetWebinarSipDialingWithPasscodeOptions = {
-	body: GetWebinarSipDialingWithPasscodeBody;
+	body?: GetWebinarSipDialingWithPasscodeBody | undefined;
 	path: GetWebinarSipDialingWithPasscodePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -38033,7 +38033,7 @@ export type WebinarStatusBody =
 	| undefined;
 
 export type WebinarStatusOptions = {
-	body: WebinarStatusBody;
+	body?: WebinarStatusBody | undefined;
 	path: WebinarStatusPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -38651,7 +38651,7 @@ export type WebinarSurveyUpdateBody =
 	| undefined;
 
 export type WebinarSurveyUpdateOptions = {
-	body: WebinarSurveyUpdateBody;
+	body?: WebinarSurveyUpdateBody | undefined;
 	path: WebinarSurveyUpdatePath;
 	query?: never | undefined;
 	headers?: never | undefined;
