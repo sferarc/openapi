@@ -4770,7 +4770,7 @@ export const meetingAppAddStatus201Schema = z.object({
 	app_id: z
 		.string()
 		.optional()
-		.describe("The app's ID.")
+		.describe("The ID (client ID) of the target app.")
 		.meta({ examples: ["fdgsfh2ey82fuh"] }),
 	target: z
 		.enum(["participants"])
@@ -4827,6 +4827,13 @@ export const meetingAppAddErrorSchema = z.union([
 
 export const meetingAppAddBodySchema = z
 	.object({
+		app_id: z
+			.string()
+			.optional()
+			.describe(
+				"The ID (client ID) of the target app. If omitted, the app ID associated with the OAuth access token is used. When provided, the request must be authenticated with a Server-to-Server OAuth account token, and the target app must belong to the same account as the token.",
+			)
+			.meta({ examples: ["fdgsfh2ey82fuh"] }),
 		target: z
 			.enum(["participants"])
 			.optional()
@@ -4886,6 +4893,14 @@ export const meetingAppDeletePathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+export const meetingAppDeleteQueryAppIdSchema = z
+	.string()
+	.optional()
+	.describe(
+		"The ID (client ID) of the target app. If omitted, the app ID associated with the OAuth access token is used. When provided, the request must be authenticated with a Server-to-Server OAuth account token, and the target app must belong to the same account as the token.",
+	)
+	.meta({ examples: ["fdgsfh2ey82fuh"] });
+
 export const meetingAppDeleteStatus204Schema = z.void();
 
 export const meetingAppDeleteStatus400Schema = z.unknown();
@@ -4909,6 +4924,16 @@ export const meetingAppDeletePathSchema = z.object({
 			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
 		)
 		.meta({ examples: [85746065] }),
+});
+
+export const meetingAppDeleteQuerySchema = z.object({
+	app_id: z
+		.string()
+		.optional()
+		.describe(
+			"The ID (client ID) of the target app. If omitted, the app ID associated with the OAuth access token is used. When provided, the request must be authenticated with a Server-to-Server OAuth account token, and the target app must belong to the same account as the token.",
+		)
+		.meta({ examples: ["fdgsfh2ey82fuh"] }),
 });
 
 export const deleteMeetingChatMessageByIdPathMeetingIdSchema = z
@@ -8172,6 +8197,13 @@ export const meetingStatus200Schema = z
 						"Defines who will receive a summary after this meeting. This field is applicable only when `auto_start_meeting_summary` is set to `true`.\r\n* `1` - Only meeting host.\r\n* `2` - Only meeting host, co-hosts, and alternative hosts.\r\n* `3` - Only meeting host and meeting invitees in our organization.\r\n* `4` - All meeting invitees including those outside of our organization.",
 					)
 					.meta({ examples: [1] }),
+				support_participants_receive_summary: z
+					.boolean()
+					.optional()
+					.describe(
+						"Whether to include participants added during the meeting when `who_will_receive_summary` is `3` (only the meeting host and meeting invitees in the organization) or `4` (all meeting invitees, including those outside the organization).",
+					)
+					.meta({ examples: [false] }),
 				auto_start_ai_companion_questions: z
 					.boolean()
 					.optional()
@@ -9396,6 +9428,13 @@ export const meetingUpdateBodySchema = z
 					.describe(
 						"Information about the **Allow participants to transcribe meetings with My Notes** setting. If this field is not provided, its value will follow the user's setting.",
 					),
+				support_participants_receive_summary: z
+					.boolean()
+					.optional()
+					.describe(
+						"Whether to include participants added during the meeting when `who_will_receive_summary` is `3` (only the meeting host and meeting invitees in the organization) or `4` (all meeting invitees, including those outside the organization).",
+					)
+					.meta({ examples: [false] }),
 			})
 			.optional()
 			.describe("Meeting settings."),
@@ -9413,6 +9452,14 @@ export const meetingUpdateBodySchema = z
 				"The sensitivity label ID used to apply a sensitivity label to the meeting. To enable this feature for your account, please [contact Zoom Support](https://support.zoom.us/hc/en-us).",
 			)
 			.meta({ examples: ["WAzVaIjFR1Cxd767i9jksw"] }),
+		sensitivity_label_downgrade_reason: z
+			.string()
+			.max(200)
+			.optional()
+			.describe(
+				"The reason for downgrading the meeting's sensitivity label. Provide this field when updating a meeting to a lower sensitivity label.",
+			)
+			.meta({ examples: ["The meeting is no longer related to confidential work."] }),
 		template_id: z
 			.string()
 			.optional()
@@ -11217,6 +11264,13 @@ export const meetingCreateStatus201Schema = z
 						"Defines who will receive a summary after this meeting. This field is applicable only when `auto_start_meeting_summary` is set to `true`.\r\n* `1` - Only meeting host.\r\n* `2` - Only meeting host, co-hosts, and alternative hosts.\r\n* `3` - Only meeting host and meeting invitees in our organization.\r\n* `4` - All meeting invitees including those outside of our organization. If not provided, the default value will be based on the user's setting.",
 					)
 					.meta({ examples: [1] }),
+				support_participants_receive_summary: z
+					.boolean()
+					.optional()
+					.describe(
+						"Whether to include participants added during the meeting when `who_will_receive_summary` is `3` (only the meeting host and meeting invitees in the organization) or `4` (all meeting invitees, including those outside the organization).",
+					)
+					.meta({ examples: [false] }),
 				auto_start_ai_companion_questions: z
 					.boolean()
 					.optional()
@@ -12170,6 +12224,13 @@ export const meetingCreateBodySchema = z
 						"Defines who will receive a summary after this meeting. This field is applicable only when `auto_start_meeting_summary` is set to `true`.\n\n* `1` - Only meeting host.\n\n* `2` - Only meeting host, co-hosts, and alternative hosts.\n\n* `3` - Only meeting host and meeting invitees in our organization.\n\n* `4` - All meeting invitees including those outside of our organization. If not provided, the default value will be based on the user's setting.",
 					)
 					.meta({ examples: [1] }),
+				support_participants_receive_summary: z
+					.boolean()
+					.optional()
+					.describe(
+						"Whether to include participants added during the meeting when `who_will_receive_summary` is `3` (only the meeting host and meeting invitees in the organization) or `4` (all meeting invitees, including those outside the organization).",
+					)
+					.meta({ examples: [false] }),
 				auto_start_ai_companion_questions: z
 					.boolean()
 					.optional()

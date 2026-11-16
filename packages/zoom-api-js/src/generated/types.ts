@@ -6246,7 +6246,7 @@ export type MeetingAppAddStatus201 = {
 	 */
 	start_time?: string | undefined;
 	/**
-	 * @description The app's ID.
+	 * @description The ID (client ID) of the target app.
 	 * @example fdgsfh2ey82fuh
 	 * @type string | undefined
 	 */
@@ -6300,6 +6300,12 @@ export type MeetingAppAddStatus429 = unknown;
  */
 export type MeetingAppAddBody =
 	| {
+			/**
+			 * @description The ID (client ID) of the target app. If omitted, the app ID associated with the OAuth access token is used. When provided, the request must be authenticated with a Server-to-Server OAuth account token, and the target app must belong to the same account as the token.
+			 * @example fdgsfh2ey82fuh
+			 * @type string | undefined
+			 */
+			app_id?: string | undefined;
 			/**
 			 * @description Who the app is shared with.
 			 *
@@ -6370,6 +6376,15 @@ export type MeetingAppDeletePath = {
 	meetingId: number;
 };
 
+export type MeetingAppDeleteQuery = {
+	/**
+	 * @description The ID (client ID) of the target app. If omitted, the app ID associated with the OAuth access token is used. When provided, the request must be authenticated with a Server-to-Server OAuth account token, and the target app must belong to the same account as the token.
+	 * @example fdgsfh2ey82fuh
+	 * @type string | undefined
+	 */
+	app_id?: string | undefined;
+};
+
 export type MeetingAppDeleteStatus204 = void;
 
 export type MeetingAppDeleteStatus400 = unknown;
@@ -6381,7 +6396,7 @@ export type MeetingAppDeleteStatus429 = unknown;
 export type MeetingAppDeleteOptions = {
 	body?: never | undefined;
 	path: MeetingAppDeletePath;
-	query?: never | undefined;
+	query?: MeetingAppDeleteQuery | undefined;
 	headers?: never | undefined;
 };
 
@@ -10755,6 +10770,12 @@ export type MeetingStatus200 = {
 				 */
 				who_will_receive_summary?: MeetingStatus200SettingsWhoWillReceiveSummaryEnumKey | undefined;
 				/**
+				 * @description Whether to include participants added during the meeting when `who_will_receive_summary` is `3` (only the meeting host and meeting invitees in the organization) or `4` (all meeting invitees, including those outside the organization).
+				 * @example false
+				 * @type boolean | undefined
+				 */
+				support_participants_receive_summary?: boolean | undefined;
+				/**
 				 * @description Whether to automatically start AI Companion questions.
 				 * @default false
 				 * @example false
@@ -12456,6 +12477,12 @@ export type MeetingUpdateBody =
 										| undefined;
 							  }
 							| undefined;
+						/**
+						 * @description Whether to include participants added during the meeting when `who_will_receive_summary` is `3` (only the meeting host and meeting invitees in the organization) or `4` (all meeting invitees, including those outside the organization).
+						 * @example false
+						 * @type boolean | undefined
+						 */
+						support_participants_receive_summary?: boolean | undefined;
 				  }
 				| undefined;
 			/**
@@ -12472,6 +12499,13 @@ export type MeetingUpdateBody =
 			 * @type string | undefined
 			 */
 			sensitivity_label_id?: string | undefined;
+			/**
+			 * @description The reason for downgrading the meeting's sensitivity label. Provide this field when updating a meeting to a lower sensitivity label.
+			 * @maxLength 200
+			 * @example The meeting is no longer related to confidential work.
+			 * @type string | undefined
+			 */
+			sensitivity_label_downgrade_reason?: string | undefined;
 			/**
 			 * @description Unique identifier of the meeting template.
 			 *
@@ -14878,6 +14912,12 @@ export type MeetingCreateStatus201 = {
 					| MeetingCreateStatus201SettingsWhoWillReceiveSummaryEnumKey
 					| undefined;
 				/**
+				 * @description Whether to include participants added during the meeting when `who_will_receive_summary` is `3` (only the meeting host and meeting invitees in the organization) or `4` (all meeting invitees, including those outside the organization).
+				 * @example false
+				 * @type boolean | undefined
+				 */
+				support_participants_receive_summary?: boolean | undefined;
+				/**
 				 * @description Whether to automatically start meeting questions. If not provided, the default value is based on the user's setting.
 				 * @example false
 				 * @type boolean | undefined
@@ -16274,6 +16314,12 @@ export type MeetingCreateBody =
 						who_will_receive_summary?:
 							| MeetingCreateRequestSettingsWhoWillReceiveSummaryEnumKey
 							| undefined;
+						/**
+						 * @description Whether to include participants added during the meeting when `who_will_receive_summary` is `3` (only the meeting host and meeting invitees in the organization) or `4` (all meeting invitees, including those outside the organization).
+						 * @example false
+						 * @type boolean | undefined
+						 */
+						support_participants_receive_summary?: boolean | undefined;
 						/**
 						 * @description Whether to automatically start meeting questions. If not provided, the default value is based on the user's setting.
 						 * @example false
