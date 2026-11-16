@@ -1,5 +1,19 @@
 # cloudflare-api-js
 
+## 4.35.0
+
+### Minor Changes
+
+- a0cc19b: Added the type SpeedAutomaticPlatformOptimizationPatchValue to allow partial updates to the APO configuration object.
+- a0cc19b: [BREAKING] The ZoneSettingsChangeAutomaticPlatformOptimizationSettingBody type now uses value: SpeedAutomaticPlatformOptimizationPatchValue, which permits an 'off' string or a partial configuration object instead of SpeedAutomaticPlatformOptimizationValue.
+
+### Patch Changes
+
+- a0cc19b: Added the SpeedSettingMetadata type for shared zone setting metadata and changed SpeedTransformationsConfigResponse to extend SpeedSettingMetadata instead of SpeedBase.
+- a0cc19b: Documented that omitted fields in the APO configuration retain their previous value, except for 'recheck', which defaults to false.
+- a0cc19b: Added an optional botScoreThreshold field to the ZarazZarazConfigBase type to specify the minimum bot score for loading Zaraz.
+- a0cc19b: Improved and clarified descriptions for Zaraz managed component types, and added new fields mutuableId and tag for ZarazCustomManagedComponent.
+
 ## 4.34.1
 
 ### Patch Changes
