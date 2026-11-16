@@ -106319,6 +106319,57 @@ export type SpeedApiResponseCommonFailure = {
   success: boolean;
 };
 
+/**
+ * @description Configuration for Automatic Platform Optimization (APO) for WordPress.
+ * Set to "off" to disable, or provide an object to configure APO settings.
+ * When an APO configuration already exists, fields omitted from the object keep their current value.
+ *
+ */
+export type SpeedAutomaticPlatformOptimizationPatchValue = 'off' | {
+  /**
+   * @description Whether to cache by device type.
+   * @example false
+   * @type boolean | undefined
+   */
+  cache_by_device_type?: boolean | undefined;
+  /**
+   * @description Whether the zone is proxied through Cloudflare.
+   * @example true
+   * @type boolean | undefined
+   */
+  cf?: boolean | undefined;
+  /**
+   * @description Whether APO is enabled.
+   * @example true
+   * @type boolean | undefined
+   */
+  enabled?: boolean | undefined;
+  /**
+   * @description List of hostnames where APO is active.
+   * @example ["www.example.com"]
+   * @type array | undefined
+   */
+  hostnames?: string[] | undefined;
+  /**
+   * @description Whether to recheck WordPress and plugin detection. When an APO configuration already exists, an omitted `recheck` is false, not its stored value.
+   * @example false
+   * @type boolean | undefined
+   */
+  recheck?: boolean | undefined;
+  /**
+   * @description Whether the site is a WordPress site.
+   * @example true
+   * @type boolean | undefined
+   */
+  wordpress?: boolean | undefined;
+  /**
+   * @description Whether the Cloudflare WordPress plugin is installed.
+   * @example true
+   * @type boolean | undefined
+   */
+  wp_plugin?: boolean | undefined;
+};
+
 export const speedBaseValueEnum = {
   on: 'on',
   off: 'off',
@@ -106557,6 +106608,31 @@ export type SpeedImageResizingResponse = SpeedBase & {
 };
 
 /**
+ * @description Zone setting fields shared by settings whose value is not an on/off string.
+ * @type object
+ */
+export type SpeedSettingMetadata = {
+  /**
+   * @description Whether or not this setting can be modified for this zone (based on your Cloudflare plan level).
+   * @type boolean | undefined
+   */
+  readonly editable?: (true | false) | undefined;
+  /**
+   * @description Identifier of the zone setting.
+   * @type string | undefined
+   */
+  id?: string | undefined;
+  /**
+   * @description last time this setting was modified.
+   *
+   * Format: `date-time`
+   * @example 2014-01-01T05:20:00.12345Z
+   * @type string | undefined
+   */
+  readonly modified_on?: (string | null) | undefined;
+};
+
+/**
  * @description Comma-separated list of allowed origin domains for image and video transformations.
  * Use "*" to allow all origins (default).
  *
@@ -106662,7 +106738,7 @@ export type SpeedTransformationsConfigValue = {
  * @description Combined view of Transformations, Allowed Origins, and C2PA settings for a zone.
  *
  */
-export type SpeedTransformationsConfigResponse = SpeedBase & {
+export type SpeedTransformationsConfigResponse = SpeedSettingMetadata & {
   /**
    * @description ID of the zone setting.
    * @example transformations_config
@@ -133149,12 +133225,13 @@ export type ZarazBaseMc = ZarazBaseTool & {
     };
   } | undefined;
   /**
-   * @description Tool's internal name.
+   * @description Name of the Managed Component the tool runs, for example `google-analytics_v4`.
    * @type string
    */
   component: string;
   /**
    * @description DEPRECATED - List of actions configured on a tool. Either this or actions field is required. If both are present, actions field will take precedence.
+   * @deprecated
    * @type array | undefined
    */
   neoEvents?: {
@@ -133217,11 +133294,24 @@ export type ZarazClickListenerRule = {
 export type ZarazCustomManagedComponent = ZarazBaseMc & {
   type: 'custom-mc';
   /**
-   * @description Cloudflare worker that acts as a managed component.
+   * @description Cloudflare Worker that acts as a Managed Component.
    * @type object
    */
   worker: {
+    /**
+     * @description Name of the Worker script.
+     * @type string
+     */
     escapedWorkerName: string;
+    /**
+     * @description Set by Cloudflare when the config is saved. Do not set or change it.
+     * @type string | undefined
+     */
+    readonly mutableId?: string | undefined;
+    /**
+     * @description Tag of the Worker script.
+     * @type string
+     */
     workerTag: string;
   };
 };
@@ -133466,6 +133556,13 @@ export type ZarazZarazConfigBase = {
      * @type boolean
      */
     autoInjectScript: boolean;
+    /**
+     * @description Minimum bot score required to load Zaraz.
+     *
+     * Format: `int64`
+     * @type integer | undefined
+     */
+    botScoreThreshold?: number | undefined;
     /**
      * @description Details of the worker that receives and edits Zaraz Context object.
      * @type object | undefined
@@ -469938,9 +470035,10 @@ export type ZoneSettingsChangeAutomaticPlatformOptimizationSettingBody = {
   /**
    * @description Configuration for Automatic Platform Optimization (APO) for WordPress.
    * Set to "off" to disable, or provide an object to configure APO settings.
+   * When an APO configuration already exists, fields omitted from the object keep their current value.
    *
    */
-  value: SpeedAutomaticPlatformOptimizationValue;
+  value: SpeedAutomaticPlatformOptimizationPatchValue;
 };
 
 export type ZoneSettingsChangeAutomaticPlatformOptimizationSettingOptions = {
