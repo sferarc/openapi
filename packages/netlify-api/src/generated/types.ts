@@ -1900,7 +1900,7 @@ export type DeployFiles = {
 	 * To use this field, set Content-Type to 'application/json' and include the zip content here.
 	 * Alternatively, you can set Content-Type to 'application/zip' and send the zip as the raw request body (not as JSON).
 	 *
-	 * @type string | undefined
+	 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
 	 */
 	zip?: Blob | undefined;
 	draft?: boolean | undefined;
@@ -5487,7 +5487,7 @@ export type CreateEnvVarsBody =
 	| undefined;
 
 export type CreateEnvVarsOptions = {
-	body: CreateEnvVarsBody;
+	body?: CreateEnvVarsBody | undefined;
 	path: CreateEnvVarsPath;
 	query?: CreateEnvVarsQuery | undefined;
 	headers?: never | undefined;
@@ -6027,7 +6027,7 @@ export type UpdateEnvVarBody =
 	| undefined;
 
 export type UpdateEnvVarOptions = {
-	body: UpdateEnvVarBody;
+	body?: UpdateEnvVarBody | undefined;
 	path: UpdateEnvVarPath;
 	query?: UpdateEnvVarQuery | undefined;
 	headers?: never | undefined;
@@ -6212,7 +6212,7 @@ export type SetEnvVarValueBody =
 	| undefined;
 
 export type SetEnvVarValueOptions = {
-	body: SetEnvVarValueBody;
+	body?: SetEnvVarValueBody | undefined;
 	path: SetEnvVarValuePath;
 	query?: SetEnvVarValueQuery | undefined;
 	headers?: never | undefined;
@@ -7870,7 +7870,7 @@ export type CreateSiteDeployBody = {
 	 * To use this field, set Content-Type to 'application/json' and include the zip content here.
 	 * Alternatively, you can set Content-Type to 'application/zip' and send the zip as the raw request body (not as JSON).
 	 *
-	 * @type string | undefined
+	 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
 	 */
 	zip?: Blob | undefined;
 	draft?: boolean | undefined;
@@ -8383,7 +8383,7 @@ export type UpdateSiteDeployBody = {
 	 * To use this field, set Content-Type to 'application/json' and include the zip content here.
 	 * Alternatively, you can set Content-Type to 'application/zip' and send the zip as the raw request body (not as JSON).
 	 *
-	 * @type string | undefined
+	 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
 	 */
 	zip?: Blob | undefined;
 	draft?: boolean | undefined;
@@ -9028,14 +9028,14 @@ export type CreateSiteBuildBody =
 			 * Only used with Content-Type 'multipart/form-data'.
 			 * Alternatively, set Content-Type to 'application/zip' and send the zip as the raw request body (no 'zip' parameter needed).
 			 *
-			 * @type string | undefined
+			 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
 			 */
 			zip?: Blob | undefined;
 	  }
 	| undefined;
 
 export type CreateSiteBuildOptions = {
-	body: CreateSiteBuildBody;
+	body?: CreateSiteBuildBody | undefined;
 	path: CreateSiteBuildPath;
 	query?: CreateSiteBuildQuery | undefined;
 	headers?: never | undefined;
@@ -10509,7 +10509,7 @@ export type CreatePluginRunBody =
 	| undefined;
 
 export type CreatePluginRunOptions = {
-	body: CreatePluginRunBody;
+	body?: CreatePluginRunBody | undefined;
 	path: CreatePluginRunPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -11024,7 +11024,7 @@ export type CreateTicketBody =
 	| undefined;
 
 export type CreateTicketOptions = {
-	body: CreateTicketBody;
+	body?: CreateTicketBody | undefined;
 	path?: never | undefined;
 	query: CreateTicketQuery;
 	headers?: never | undefined;
@@ -11719,7 +11719,7 @@ export type CreateSiteInTeamBody =
 	| undefined;
 
 export type CreateSiteInTeamOptions = {
-	body: CreateSiteInTeamBody;
+	body?: CreateSiteInTeamBody | undefined;
 	path: CreateSiteInTeamPath;
 	query?: CreateSiteInTeamQuery | undefined;
 	headers?: never | undefined;
@@ -12604,7 +12604,7 @@ export type UpdateAccountBody =
 	| undefined;
 
 export type UpdateAccountOptions = {
-	body: UpdateAccountBody;
+	body?: UpdateAccountBody | undefined;
 	path: UpdateAccountPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -13613,15 +13613,7 @@ export type GetAgentRunnerDiffStatus200 = string;
 
 export type GetAgentRunnerDiffStatus404 = unknown;
 
-export type GetAgentRunnerDiffStatusDefault = {
-	/**
-	 * @description
-	 * Format: `int64`
-	 * @type integer | undefined
-	 */
-	code?: number | undefined;
-	message: string;
-};
+export type GetAgentRunnerDiffStatusDefault = string;
 
 export type GetAgentRunnerDiffOptions = {
 	body?: never | undefined;
@@ -14395,7 +14387,7 @@ export type CreateAgentRunnerSessionBody =
 	| undefined;
 
 export type CreateAgentRunnerSessionOptions = {
-	body: CreateAgentRunnerSessionBody;
+	body?: CreateAgentRunnerSessionBody | undefined;
 	path: CreateAgentRunnerSessionPath;
 	query?: CreateAgentRunnerSessionQuery | undefined;
 	headers?: never | undefined;
@@ -17835,7 +17827,7 @@ export type CreateSiteDatabaseBody =
 	| undefined;
 
 export type CreateSiteDatabaseOptions = {
-	body: CreateSiteDatabaseBody;
+	body?: CreateSiteDatabaseBody | undefined;
 	path: CreateSiteDatabasePath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -18409,7 +18401,7 @@ export type ResetSiteDatabaseBranchBody =
 	| undefined;
 
 export type ResetSiteDatabaseBranchOptions = {
-	body: ResetSiteDatabaseBranchBody;
+	body?: ResetSiteDatabaseBranchBody | undefined;
 	path: ResetSiteDatabaseBranchPath;
 	query?: ResetSiteDatabaseBranchQuery | undefined;
 	headers?: never | undefined;
@@ -18922,7 +18914,7 @@ export type RunSiteDatabaseMigrationsBody =
 	| undefined;
 
 export type RunSiteDatabaseMigrationsOptions = {
-	body: RunSiteDatabaseMigrationsBody;
+	body?: RunSiteDatabaseMigrationsBody | undefined;
 	path: RunSiteDatabaseMigrationsPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -19061,7 +19053,7 @@ export type CreateSiteDatabaseSnapshotBody =
 	| undefined;
 
 export type CreateSiteDatabaseSnapshotOptions = {
-	body: CreateSiteDatabaseSnapshotBody;
+	body?: CreateSiteDatabaseSnapshotBody | undefined;
 	path: CreateSiteDatabaseSnapshotPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -19255,7 +19247,7 @@ export type RestoreSiteDatabaseSnapshotBody =
 	| undefined;
 
 export type RestoreSiteDatabaseSnapshotOptions = {
-	body: RestoreSiteDatabaseSnapshotBody;
+	body?: RestoreSiteDatabaseSnapshotBody | undefined;
 	path: RestoreSiteDatabaseSnapshotPath;
 	query?: never | undefined;
 	headers?: never | undefined;
@@ -19298,7 +19290,7 @@ export type UpdatePluginBody =
 	| undefined;
 
 export type UpdatePluginOptions = {
-	body: UpdatePluginBody;
+	body?: UpdatePluginBody | undefined;
 	path: UpdatePluginPath;
 	query?: never | undefined;
 	headers?: never | undefined;
