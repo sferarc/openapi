@@ -14884,6 +14884,7 @@ export const aigBillingErrorResponseErrorsReasonEnum = {
   card_not_supported: 'card_not_supported',
   currency_not_supported: 'currency_not_supported',
   prepaid_card_not_supported: 'prepaid_card_not_supported',
+  payment_method_not_supported: 'payment_method_not_supported',
   authentication_required: 'authentication_required',
   authentication_failed: 'authentication_failed',
   card_not_3ds_capable: 'card_not_3ds_capable',
