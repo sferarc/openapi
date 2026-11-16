@@ -1,5 +1,13 @@
 # keycloak-api
 
+## 3.8.1
+
+### Patch Changes
+
+- 128bcaf: Marked a field in GETAdminRealmsRealmLocalizationLocaleQuery type as deprecated.
+- 128bcaf: Made the body parameter optional in UpdateCredentialLabelOptions type.
+- 128bcaf: Made the body parameter optional in all relevant POST and PUT admin realm types, enabling calls without a body where previously required.
+
 ## 3.8.0
 
 ### Minor Changes

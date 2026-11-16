@@ -1,5 +1,23 @@
 # vercel-api-js
 
+## 2.41.0
+
+### Minor Changes
+
+- 312d80b: [BREAKING] The RunSessionCommandResponses 'data' type changed from RunSessionCommandStatus200XNdjson to ReadableStream<Uint8Array>.
+- 312d80b: [BREAKING] Some response types, such as GetSessionCommandLogsStatus200, changed from 'unknown' to 'string'.
+- 312d80b: [BREAKING] Several API option types (e.g., CreateProjectOptions, CreateNetworkOptions, etc.) now accept 'body' as optional instead of required.
+- 312d80b: [BREAKING] Several enum and key type exports in UserEvent and project related types were removed or renamed (e.g., userEventPayloadModeEnum3Key, userEventPayloadModeEnum2, etc.), and new enums were added for various status and tier types.
+- 312d80b: [BREAKING] The UserEvent type was changed from a single type with intersection to a union of different shapes, changing the composition and possible structure of user event payloads.
+
+### Patch Changes
+
+- 312d80b: Added new event type enums and keys for AI Gateway and Connect events.
+- 312d80b: Added 'claude' as a possible value to multiple enum types related to providers and origins.
+- 312d80b: Improved documentation for 'listSessionCommands' and 'writeSessionCommandStdin' operations, clarifying the Accept header for CBOR sequence streaming.
+- 312d80b: Allowed certain fields (like UpdateIntegrationDeploymentActionBody, ImportResourceBody, UpdateResourceBody) to have null as a possible element in string[], instead of just string | number | boolean.
+- 312d80b: Several output types now use dedicated enum keys (e.g., tier enums for project status response types) instead of hardcoded string values like 'priority'.
+
 ## 2.40.0
 
 ### Minor Changes

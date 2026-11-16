@@ -1,5 +1,12 @@
 # zoom-api-js
 
+## 3.8.1
+
+### Patch Changes
+
+- 984a4cf: Added documentation for the file upload types indicating to pass a 'File' for filename preservation and that plain 'Blob' objects use the filename 'blob'.
+- 984a4cf: Made the 'body' parameter optional in all request option types, improving flexibility when constructing request payloads.
+
 ## 3.8.0
 
 ### Minor Changes

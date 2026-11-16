@@ -1,5 +1,12 @@
 # litellm-api
 
+## 2.20.2
+
+### Patch Changes
+
+- fcd0c6d: Added jsdoc remarks to file upload types documenting sending Blob and File with filename in multipart bodies.
+- fcd0c6d: Updated many type fields to allow both 'null' and 'null | null' as possible values for optional fields.
+
 ## 2.20.1
 
 ### Patch Changes
