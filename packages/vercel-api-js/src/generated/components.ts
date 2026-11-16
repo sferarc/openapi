@@ -11268,6 +11268,53 @@ export async function getDriveV1(
 }
 
 /**
+ * @summary Delete a drive
+ * @description Deletes a drive by project and name or drive ID. Attached drives cannot be deleted. Stop or replace the session currently using the drive before retrying deletion.
+ * @link /v1/drives/{nameOrId}
+ */
+export async function deleteDriveV1(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: DeleteDriveV1Path;
+		queryParams?: Partial<DeleteDriveV1Query>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.nameOrId == null || String(pathParams.nameOrId) === "") {
+		throw new Error(`Missing required path parameter: nameOrId`);
+	}
+	const data = await request<
+		DeleteDriveV1Response,
+		ErrorWrapper<
+			| DeleteDriveV1Status400
+			| DeleteDriveV1Status401
+			| DeleteDriveV1Status403
+			| DeleteDriveV1Status404
+			| DeleteDriveV1Status409
+			| DeleteDriveV1Status410
+			| DeleteDriveV1Status429
+		>,
+		null,
+		Record<string, string>,
+		Partial<DeleteDriveV1Query>,
+		DeleteDriveV1Path
+	>({
+		method: "DELETE",
+		url: `/v1/drives/${encodeURIComponent(String(pathParams.nameOrId))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Get or create a drive
  * @description Gets an existing drive by project and name, or creates it when it does not exist.
  * @link /v1/drives/{name}
@@ -11312,53 +11359,6 @@ export async function getOrCreateDriveV1(
 		url: `/v1/drives/${encodeURIComponent(String(pathParams.name))}`,
 		queryParams,
 		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Delete a drive
- * @description Deletes a drive by project and name. Attached drives cannot be deleted. Stop or replace the session currently using the drive before retrying deletion.
- * @link /v1/drives/{name}
- */
-export async function deleteDriveV1(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: DeleteDriveV1Path;
-		queryParams?: Partial<DeleteDriveV1Query>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.name == null || String(pathParams.name) === "") {
-		throw new Error(`Missing required path parameter: name`);
-	}
-	const data = await request<
-		DeleteDriveV1Response,
-		ErrorWrapper<
-			| DeleteDriveV1Status400
-			| DeleteDriveV1Status401
-			| DeleteDriveV1Status403
-			| DeleteDriveV1Status404
-			| DeleteDriveV1Status409
-			| DeleteDriveV1Status410
-			| DeleteDriveV1Status429
-		>,
-		null,
-		Record<string, string>,
-		Partial<DeleteDriveV1Query>,
-		DeleteDriveV1Path
-	>({
-		method: "DELETE",
-		url: `/v1/drives/${encodeURIComponent(String(pathParams.name))}`,
-		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -20382,6 +20382,56 @@ export async function getDrive(
 }
 
 /**
+ * @summary Deprecated: Use DELETE /v1/drives/:nameOrId. Requires the read-write:drive app scope instead of read-write:sandbox, and drive:delete instead of vercelRun:delete.
+ * Emits drive-deleted activity events instead of sandbox-drive-deleted. Delete a drive
+ * @description Deletes a drive by project and name or drive ID. Attached drives cannot be deleted. Stop or replace the session currently using the drive before retrying deletion.
+ * @deprecated
+ * @link /v2/sandboxes/drives/{nameOrId}
+ */
+export async function deleteDrive(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: DeleteDrivePath;
+		queryParams?: Partial<DeleteDriveQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.nameOrId == null || String(pathParams.nameOrId) === "") {
+		throw new Error(`Missing required path parameter: nameOrId`);
+	}
+	const data = await request<
+		DeleteDriveResponse,
+		ErrorWrapper<
+			| DeleteDriveStatus400
+			| DeleteDriveStatus401
+			| DeleteDriveStatus403
+			| DeleteDriveStatus404
+			| DeleteDriveStatus409
+			| DeleteDriveStatus410
+			| DeleteDriveStatus422
+			| DeleteDriveStatus429
+		>,
+		null,
+		Record<string, string>,
+		Partial<DeleteDriveQuery>,
+		DeleteDrivePath
+	>({
+		method: "DELETE",
+		url: `/v2/sandboxes/drives/${encodeURIComponent(String(pathParams.nameOrId))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Deprecated: Use POST /v1/drives/:name. Requires the read-write:drive app scope instead of read-write:sandbox, and drive:create instead of vercelRun:create.
  * Emits drive-created activity events instead of sandbox-drive-created. Get or create a drive
  * @description Gets an existing drive by project and name, or creates it when it does not exist.
@@ -20429,56 +20479,6 @@ export async function getOrCreateDrive(
 		url: `/v2/sandboxes/drives/${encodeURIComponent(String(pathParams.name))}`,
 		queryParams,
 		body: body,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary Deprecated: Use DELETE /v1/drives/:name. Requires the read-write:drive app scope instead of read-write:sandbox, and drive:delete instead of vercelRun:delete.
- * Emits drive-deleted activity events instead of sandbox-drive-deleted. Delete a drive
- * @description Deletes a drive by project and name. Attached drives cannot be deleted. Stop or replace the session currently using the drive before retrying deletion.
- * @deprecated
- * @link /v2/sandboxes/drives/{name}
- */
-export async function deleteDrive(
-	{
-		pathParams,
-		queryParams,
-		config,
-	}: {
-		pathParams: DeleteDrivePath;
-		queryParams?: Partial<DeleteDriveQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	if (pathParams?.name == null || String(pathParams.name) === "") {
-		throw new Error(`Missing required path parameter: name`);
-	}
-	const data = await request<
-		DeleteDriveResponse,
-		ErrorWrapper<
-			| DeleteDriveStatus400
-			| DeleteDriveStatus401
-			| DeleteDriveStatus403
-			| DeleteDriveStatus404
-			| DeleteDriveStatus409
-			| DeleteDriveStatus410
-			| DeleteDriveStatus422
-			| DeleteDriveStatus429
-		>,
-		null,
-		Record<string, string>,
-		Partial<DeleteDriveQuery>,
-		DeleteDrivePath
-	>({
-		method: "DELETE",
-		url: `/v2/sandboxes/drives/${encodeURIComponent(String(pathParams.name))}`,
-		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -27635,8 +27635,8 @@ export const operationsByPath = {
 	"POST /v1/drains/test": testDrain,
 	"GET /v1/drives": listDrivesV1,
 	"GET /v1/drives/{nameOrId}": getDriveV1,
+	"DELETE /v1/drives/{nameOrId}": deleteDriveV1,
 	"POST /v1/drives/{name}": getOrCreateDriveV1,
-	"DELETE /v1/drives/{name}": deleteDriveV1,
 	"POST /v1/drives/{name}/fork": forkDriveV1,
 	"POST /v1/edge-cache/invalidate-by-tags": invalidateByTags,
 	"POST /v1/edge-cache/dangerously-delete-by-tags": dangerouslyDeleteByTags,
@@ -27852,8 +27852,8 @@ export const operationsByPath = {
 	"POST /v2/sandboxes": createSandboxesV2,
 	"GET /v2/sandboxes/drives": listDrives,
 	"GET /v2/sandboxes/drives/{nameOrId}": getDrive,
+	"DELETE /v2/sandboxes/drives/{nameOrId}": deleteDrive,
 	"POST /v2/sandboxes/drives/{name}": getOrCreateDrive,
-	"DELETE /v2/sandboxes/drives/{name}": deleteDrive,
 	"POST /v2/sandboxes/drives/{name}/fork": forkDrive,
 	"GET /v2/sandboxes/snapshots": listSessionSnapshots,
 	"GET /v2/sandboxes/snapshots/{snapshotId}": getSessionSnapshot,
@@ -28237,8 +28237,8 @@ export const operationsByTag = {
 	drives: {
 		listDrivesV1,
 		getDriveV1,
-		getOrCreateDriveV1,
 		deleteDriveV1,
+		getOrCreateDriveV1,
 		forkDriveV1,
 	},
 	edgeCache: {
@@ -28456,8 +28456,8 @@ export const operationsByTag = {
 		createSandboxesV2,
 		listDrives,
 		getDrive,
-		getOrCreateDrive,
 		deleteDrive,
+		getOrCreateDrive,
 		forkDrive,
 		listSessionSnapshots,
 		getSessionSnapshot,
@@ -28821,8 +28821,8 @@ export const tagDictionary = {
 	},
 	drives: {
 		GET: ["listDrivesV1", "getDriveV1"],
-		POST: ["getOrCreateDriveV1", "forkDriveV1"],
 		DELETE: ["deleteDriveV1"],
+		POST: ["getOrCreateDriveV1", "forkDriveV1"],
 	},
 	edgeCache: {
 		POST: [

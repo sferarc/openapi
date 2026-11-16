@@ -57504,6 +57504,83 @@ export type GetDriveV1Responses = {
  */
 export type GetDriveV1Response = GetDriveV1Status200;
 
+export type DeleteDriveV1Path = {
+	/**
+	 * @description The drive name or ID.
+	 * @maxLength 64
+	 * @pattern ^[a-zA-Z0-9_-]+$
+	 * @example workspace
+	 * @type string
+	 */
+	nameOrId: string;
+};
+
+export type DeleteDriveV1Query = {
+	/**
+	 * @description The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.
+	 * @example prj_abc123
+	 * @type string | undefined
+	 */
+	projectId?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type DeleteDriveV1Status200 = {
+	/**
+	 * @description This object contains information related to a Vercel Sandbox Drive.
+	 * @type object
+	 */
+	drive: Drive;
+};
+
+export type DeleteDriveV1Status400 = unknown;
+
+export type DeleteDriveV1Status401 = unknown;
+
+export type DeleteDriveV1Status403 = unknown;
+
+export type DeleteDriveV1Status404 = unknown;
+
+export type DeleteDriveV1Status409 = unknown;
+
+export type DeleteDriveV1Status410 = unknown;
+
+export type DeleteDriveV1Status429 = unknown;
+
+export type DeleteDriveV1Options = {
+	body?: never | undefined;
+	path: DeleteDriveV1Path;
+	query?: DeleteDriveV1Query | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteDriveV1Responses = {
+	"200": DeleteDriveV1Status200;
+	"400": DeleteDriveV1Status400;
+	"401": DeleteDriveV1Status401;
+	"403": DeleteDriveV1Status403;
+	"404": DeleteDriveV1Status404;
+	"409": DeleteDriveV1Status409;
+	"410": DeleteDriveV1Status410;
+	"429": DeleteDriveV1Status429;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteDriveV1Response = DeleteDriveV1Status200;
+
 export type GetOrCreateDriveV1Path = {
 	/**
 	 * @description Name for the drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).
@@ -57637,83 +57714,6 @@ export type GetOrCreateDriveV1Responses = {
  * @description Union of all possible responses
  */
 export type GetOrCreateDriveV1Response = GetOrCreateDriveV1Status200 | GetOrCreateDriveV1Status201;
-
-export type DeleteDriveV1Path = {
-	/**
-	 * @description Name for the drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).
-	 * @maxLength 64
-	 * @pattern ^[a-zA-Z0-9_-]+$
-	 * @example workspace
-	 * @type string
-	 */
-	name: string;
-};
-
-export type DeleteDriveV1Query = {
-	/**
-	 * @description The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.
-	 * @example prj_abc123
-	 * @type string | undefined
-	 */
-	projectId?: string | undefined;
-	/**
-	 * @description The Team identifier to perform the request on behalf of.
-	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
-	 * @type string | undefined
-	 */
-	teamId?: string | undefined;
-	/**
-	 * @description The Team slug to perform the request on behalf of.
-	 * @example my-team-url-slug
-	 * @type string | undefined
-	 */
-	slug?: string | undefined;
-};
-
-export type DeleteDriveV1Status200 = {
-	/**
-	 * @description This object contains information related to a Vercel Sandbox Drive.
-	 * @type object
-	 */
-	drive: Drive;
-};
-
-export type DeleteDriveV1Status400 = unknown;
-
-export type DeleteDriveV1Status401 = unknown;
-
-export type DeleteDriveV1Status403 = unknown;
-
-export type DeleteDriveV1Status404 = unknown;
-
-export type DeleteDriveV1Status409 = unknown;
-
-export type DeleteDriveV1Status410 = unknown;
-
-export type DeleteDriveV1Status429 = unknown;
-
-export type DeleteDriveV1Options = {
-	body?: never | undefined;
-	path: DeleteDriveV1Path;
-	query?: DeleteDriveV1Query | undefined;
-	headers?: never | undefined;
-};
-
-export type DeleteDriveV1Responses = {
-	"200": DeleteDriveV1Status200;
-	"400": DeleteDriveV1Status400;
-	"401": DeleteDriveV1Status401;
-	"403": DeleteDriveV1Status403;
-	"404": DeleteDriveV1Status404;
-	"409": DeleteDriveV1Status409;
-	"410": DeleteDriveV1Status410;
-	"429": DeleteDriveV1Status429;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteDriveV1Response = DeleteDriveV1Status200;
 
 export type ForkDriveV1Path = {
 	/**
@@ -129847,6 +129847,90 @@ export type GetDriveResponses = {
  */
 export type GetDriveResponse = GetDriveStatus200;
 
+export type DeleteDrivePath = {
+	/**
+	 * @description The drive name or ID.
+	 * @maxLength 64
+	 * @pattern ^[a-zA-Z0-9_-]+$
+	 * @example workspace
+	 * @type string
+	 */
+	nameOrId: string;
+};
+
+export type DeleteDriveQuery = {
+	/**
+	 * @description The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.
+	 * @example prj_abc123
+	 * @type string | undefined
+	 */
+	projectId?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type DeleteDriveStatus200 = {
+	/**
+	 * @description This object contains information related to a Vercel Sandbox Drive.
+	 * @type object
+	 */
+	drive: Drive;
+};
+
+export type DeleteDriveStatus400 = unknown;
+
+export type DeleteDriveStatus401 = unknown;
+
+export type DeleteDriveStatus403 = unknown;
+
+export type DeleteDriveStatus404 = unknown;
+
+export type DeleteDriveStatus409 = unknown;
+
+export type DeleteDriveStatus410 = unknown;
+
+export type DeleteDriveStatus422 = unknown;
+
+export type DeleteDriveStatus429 = unknown;
+
+/**
+ * @deprecated
+ * @type object
+ */
+export type DeleteDriveOptions = {
+	body?: never | undefined;
+	path: DeleteDrivePath;
+	query?: DeleteDriveQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type DeleteDriveResponses = {
+	"200": DeleteDriveStatus200;
+	"400": DeleteDriveStatus400;
+	"401": DeleteDriveStatus401;
+	"403": DeleteDriveStatus403;
+	"404": DeleteDriveStatus404;
+	"409": DeleteDriveStatus409;
+	"410": DeleteDriveStatus410;
+	"422": DeleteDriveStatus422;
+	"429": DeleteDriveStatus429;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteDriveResponse = DeleteDriveStatus200;
+
 export type GetOrCreateDrivePath = {
 	/**
 	 * @description Name for the drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).
@@ -129987,90 +130071,6 @@ export type GetOrCreateDriveResponses = {
  * @description Union of all possible responses
  */
 export type GetOrCreateDriveResponse = GetOrCreateDriveStatus200 | GetOrCreateDriveStatus201;
-
-export type DeleteDrivePath = {
-	/**
-	 * @description Name for the drive. Must be unique per project and URL-safe (alphanumeric, hyphens, underscores).
-	 * @maxLength 64
-	 * @pattern ^[a-zA-Z0-9_-]+$
-	 * @example workspace
-	 * @type string
-	 */
-	name: string;
-};
-
-export type DeleteDriveQuery = {
-	/**
-	 * @description The project ID or name associated with the drive. Required unless using a Vercel OIDC token scoped to a project.
-	 * @example prj_abc123
-	 * @type string | undefined
-	 */
-	projectId?: string | undefined;
-	/**
-	 * @description The Team identifier to perform the request on behalf of.
-	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
-	 * @type string | undefined
-	 */
-	teamId?: string | undefined;
-	/**
-	 * @description The Team slug to perform the request on behalf of.
-	 * @example my-team-url-slug
-	 * @type string | undefined
-	 */
-	slug?: string | undefined;
-};
-
-export type DeleteDriveStatus200 = {
-	/**
-	 * @description This object contains information related to a Vercel Sandbox Drive.
-	 * @type object
-	 */
-	drive: Drive;
-};
-
-export type DeleteDriveStatus400 = unknown;
-
-export type DeleteDriveStatus401 = unknown;
-
-export type DeleteDriveStatus403 = unknown;
-
-export type DeleteDriveStatus404 = unknown;
-
-export type DeleteDriveStatus409 = unknown;
-
-export type DeleteDriveStatus410 = unknown;
-
-export type DeleteDriveStatus422 = unknown;
-
-export type DeleteDriveStatus429 = unknown;
-
-/**
- * @deprecated
- * @type object
- */
-export type DeleteDriveOptions = {
-	body?: never | undefined;
-	path: DeleteDrivePath;
-	query?: DeleteDriveQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type DeleteDriveResponses = {
-	"200": DeleteDriveStatus200;
-	"400": DeleteDriveStatus400;
-	"401": DeleteDriveStatus401;
-	"403": DeleteDriveStatus403;
-	"404": DeleteDriveStatus404;
-	"409": DeleteDriveStatus409;
-	"410": DeleteDriveStatus410;
-	"422": DeleteDriveStatus422;
-	"429": DeleteDriveStatus429;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type DeleteDriveResponse = DeleteDriveStatus200;
 
 export type ForkDrivePath = {
 	/**

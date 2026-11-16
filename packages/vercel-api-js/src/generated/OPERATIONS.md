@@ -268,8 +268,8 @@ Generated from the Vercel API 0.0.1 OpenAPI spec; do not edit. 487 operations. C
 | --- | --- | --- |
 | `client.api.drives.listDrivesV1` | `GET /v1/drives` | List drives |
 | `client.api.drives.getDriveV1` | `GET /v1/drives/{nameOrId}` | Get a drive |
+| `client.api.drives.deleteDriveV1` | `DELETE /v1/drives/{nameOrId}` | Delete a drive |
 | `client.api.drives.getOrCreateDriveV1` | `POST /v1/drives/{name}` | Get or create a drive |
-| `client.api.drives.deleteDriveV1` | `DELETE /v1/drives/{name}` | Delete a drive |
 | `client.api.drives.forkDriveV1` | `POST /v1/drives/{name}/fork` | Fork a drive |
 
 ## edgeCache
@@ -541,8 +541,8 @@ Generated from the Vercel API 0.0.1 OpenAPI spec; do not edit. 487 operations. C
 | `client.api.sandboxes.createSandboxesV2` | `POST /v2/sandboxes` | Create a named sandbox |
 | `client.api.sandboxes.listDrives` | `GET /v2/sandboxes/drives` | Deprecated: Use GET /v1/drives. Requires the read:drive app scope instead of read:sandbox, and drive:list instead of vercelRun:read. List drives |
 | `client.api.sandboxes.getDrive` | `GET /v2/sandboxes/drives/{nameOrId}` | Deprecated: Use GET /v1/drives/:nameOrId. Requires the read:drive app scope instead of read:sandbox, and drive:read instead of vercelRun:read. Get a drive |
+| `client.api.sandboxes.deleteDrive` | `DELETE /v2/sandboxes/drives/{nameOrId}` | Deprecated: Use DELETE /v1/drives/:nameOrId. Requires the read-write:drive app scope instead of read-write:sandbox, and drive:delete instead of vercelRun:delete. Emits drive-deleted activity events instead of sandbox-drive-deleted. Delete a drive |
 | `client.api.sandboxes.getOrCreateDrive` | `POST /v2/sandboxes/drives/{name}` | Deprecated: Use POST /v1/drives/:name. Requires the read-write:drive app scope instead of read-write:sandbox, and drive:create instead of vercelRun:create. Emits drive-created activity events instead of sandbox-drive-created. Get or create a drive |
-| `client.api.sandboxes.deleteDrive` | `DELETE /v2/sandboxes/drives/{name}` | Deprecated: Use DELETE /v1/drives/:name. Requires the read-write:drive app scope instead of read-write:sandbox, and drive:delete instead of vercelRun:delete. Emits drive-deleted activity events instead of sandbox-drive-deleted. Delete a drive |
 | `client.api.sandboxes.forkDrive` | `POST /v2/sandboxes/drives/{name}/fork` | Deprecated: Use POST /v1/drives/:name/fork. Requires the read-write:drive app scope instead of read-write:sandbox, and drive:read and drive:create instead of vercelRun:read and vercelRun:create. Emits drive-created activity events instead of sandbox-drive-created. Fork a drive |
 | `client.api.sandboxes.listSessionSnapshots` | `GET /v2/sandboxes/snapshots` | List snapshots |
 | `client.api.sandboxes.getSessionSnapshot` | `GET /v2/sandboxes/snapshots/{snapshotId}` | Get a snapshot |
