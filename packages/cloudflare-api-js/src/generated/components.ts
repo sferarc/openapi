@@ -165571,6 +165571,7 @@ export async function zoneSettingsGetAutomaticPlatformOptimizationSetting(
  * @description Automatic Platform Optimization (APO) for WordPress is a performance feature that serves your
  * WordPress site from Cloudflare's edge network, reducing load times for visitors.
  * Refer to the APO documentation for more information.
+ * When an APO configuration already exists, fields omitted from an object `value` keep their current value, except `recheck`, which is false unless the request sends it.
  * @link /zones/{zoneId}/settings/automatic_platform_optimization
  */
 export async function zoneSettingsChangeAutomaticPlatformOptimizationSetting(
