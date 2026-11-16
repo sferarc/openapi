@@ -1,5 +1,16 @@
 # netlify-api
 
+## 3.7.0
+
+### Minor Changes
+
+- 512e686: [BREAKING] The type of GetAgentRunnerDiffStatusDefault changed from an object with 'code' and 'message' fields to a string.
+
+### Patch Changes
+
+- 512e686: The 'body' parameter in several option types is now optional, including CreateEnvVarsOptions, UpdateEnvVarOptions, SetEnvVarValueOptions, CreateSiteBuildOptions, CreatePluginRunOptions, CreateTicketOptions, CreateSiteInTeamOptions, UpdateAccountOptions, CreateAgentRunnerSessionOptions, CreateSiteDatabaseOptions, ResetSiteDatabaseBranchOptions, RunSiteDatabaseMigrationsOptions, CreateSiteDatabaseSnapshotOptions, RestoreSiteDatabaseSnapshotOptions, and UpdatePluginOptions.
+- 512e686: Documented in several request bodies that passing a `File` sends its filename, and a plain `Blob` is sent with the filename 'blob'.
+
 ## 3.6.0
 
 ### Minor Changes

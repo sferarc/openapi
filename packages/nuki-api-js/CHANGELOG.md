@@ -1,5 +1,11 @@
 # nuki-api-js
 
+## 3.7.1
+
+### Patch Changes
+
+- 755e4cb: Regenerate from the latest nuki-api-js OpenAPI spec.
+
 ## 3.7.0
 
 ### Minor Changes

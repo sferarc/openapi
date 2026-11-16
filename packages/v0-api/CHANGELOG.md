@@ -1,5 +1,11 @@
 # v0-api
 
+## 1.8.2
+
+### Patch Changes
+
+- 0161953: Adjusted several response and body types to allow double nulls (null | null) for certain optional fields.
+
 ## 1.8.1
 
 ### Patch Changes
