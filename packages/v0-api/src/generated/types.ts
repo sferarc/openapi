@@ -511,7 +511,9 @@ export type ChatDetail = {
 				 * @type boolean | undefined
 				 */
 				thinking?: boolean | undefined;
-				thinkingEffort?: (ChatDetailModelConfigurationThinkingEffortKey | null) | undefined;
+				thinkingEffort?:
+					| (ChatDetailModelConfigurationThinkingEffortKey | (null | null))
+					| undefined;
 				fast?: boolean | undefined;
 		  }
 		| undefined;
@@ -2728,24 +2730,26 @@ export type UserPreferencesPostResponseSchema = {
 	/**
 	 * @description The updated preferences if successful, or null if failed.
 	 */
-	preferences: {
-		/**
-		 * @description The user's preferred method for receiving notifications.
-		 * @type object
-		 */
-		notifications: {
-			/**
-			 * @description Whether the user wants to receive live activities.
-			 * @type boolean
-			 */
-			liveActivity: boolean;
-			/**
-			 * @description Whether the user wants to receive push notifications.
-			 * @type boolean
-			 */
-			pushNotifications: boolean;
-		};
-	} | null;
+	preferences:
+		| {
+				/**
+				 * @description The user's preferred method for receiving notifications.
+				 * @type object
+				 */
+				notifications: {
+					/**
+					 * @description Whether the user wants to receive live activities.
+					 * @type boolean
+					 */
+					liveActivity: boolean;
+					/**
+					 * @description Whether the user wants to receive push notifications.
+					 * @type boolean
+					 */
+					pushNotifications: boolean;
+				};
+		  }
+		| (null | null);
 };
 
 /**
@@ -2761,24 +2765,26 @@ export type UserPreferencesResponseSchema = {
 	/**
 	 * @description The user's current preferences, or null if errored.
 	 */
-	preferences: {
-		/**
-		 * @description The user's preferred method for receiving notifications.
-		 * @type object
-		 */
-		notifications: {
-			/**
-			 * @description Whether the user wants to receive live activities.
-			 * @type boolean
-			 */
-			liveActivity: boolean;
-			/**
-			 * @description Whether the user wants to receive push notifications.
-			 * @type boolean
-			 */
-			pushNotifications: boolean;
-		};
-	} | null;
+	preferences:
+		| {
+				/**
+				 * @description The user's preferred method for receiving notifications.
+				 * @type object
+				 */
+				notifications: {
+					/**
+					 * @description Whether the user wants to receive live activities.
+					 * @type boolean
+					 */
+					liveActivity: boolean;
+					/**
+					 * @description Whether the user wants to receive push notifications.
+					 * @type boolean
+					 */
+					pushNotifications: boolean;
+				};
+		  }
+		| (null | null);
 };
 
 /**
@@ -3301,7 +3307,9 @@ export type ChatsCreateBody = {
 				 * @type boolean | undefined
 				 */
 				thinking?: boolean | undefined;
-				thinkingEffort?: (ChatsCreateRequestModelConfigurationThinkingEffortKey | null) | undefined;
+				thinkingEffort?:
+					| (ChatsCreateRequestModelConfigurationThinkingEffortKey | (null | null))
+					| undefined;
 				fast?: boolean | undefined;
 		  }
 		| undefined;
@@ -4024,9 +4032,12 @@ export type ChatsUpdateBody = {
 	 * @description Arbitrary key-value data to attach to the chat. Useful for storing additional data about the chat, such as external user IDs. Metadata added will be merged with existing attributes. Pass `null` as the value to delete a specific key, or pass `null` instead of an object to delete all existing metadata.
 	 */
 	metadata?:
-		| ({
-				[key: string]: string | null;
-		  } | null)
+		| (
+				| {
+						[key: string]: string | (null | null);
+				  }
+				| (null | null)
+		  )
 		| undefined;
 };
 
@@ -4447,7 +4458,7 @@ export type ChatsSendMessageBody = {
 				 */
 				thinking?: boolean | undefined;
 				thinkingEffort?:
-					| (ChatsSendMessageRequestModelConfigurationThinkingEffortKey | null)
+					| (ChatsSendMessageRequestModelConfigurationThinkingEffortKey | (null | null))
 					| undefined;
 				fast?: boolean | undefined;
 		  }
@@ -5322,15 +5333,15 @@ export type ChatsResolveTaskBody = {
 					/**
 					 * @description The tool's original human-readable name from the stopped task. Display-only; pass back unchanged. Capped at 100 characters, matching the cap applied when the name is ingested from the server.
 					 */
-					toolDisplayName?: (string | null) | undefined;
+					toolDisplayName?: (string | (null | null)) | undefined;
 					/**
 					 * @description Label shown while the tool is running (e.g. "Running migration").
 					 */
-					taskNameActive?: (string | null) | undefined;
+					taskNameActive?: (string | (null | null)) | undefined;
 					/**
 					 * @description Label shown after the tool completes (e.g. "Migration complete").
 					 */
-					taskNameComplete?: (string | null) | undefined;
+					taskNameComplete?: (string | (null | null)) | undefined;
 					/**
 					 * @description Optional message from the user about this permission.
 					 * @minLength 1
@@ -5385,7 +5396,7 @@ export type ChatsResolveTaskBody = {
 				 */
 				thinking?: boolean | undefined;
 				thinkingEffort?:
-					| (ChatsResolveTaskRequestModelConfigurationThinkingEffortKey | null)
+					| (ChatsResolveTaskRequestModelConfigurationThinkingEffortKey | (null | null))
 					| undefined;
 				fast?: boolean | undefined;
 		  }
@@ -7771,7 +7782,7 @@ export type ReportsGetUserActivityStatus200 = {
 			/**
 			 * @description The user's v0 role
 			 */
-			teamV0Role: ReportsGetUserActivityStatus200DataUserTeamV0RoleKey | null;
+			teamV0Role: ReportsGetUserActivityStatus200DataUserTeamV0RoleKey | (null | null);
 		};
 		/**
 		 * @description Total number of chats created by the user
@@ -7791,17 +7802,17 @@ export type ReportsGetUserActivityStatus200 = {
 		/**
 		 * @description Timestamp of the user's first activity
 		 */
-		firstActivity: string | null;
+		firstActivity: string | (null | null);
 		/**
 		 * @description Timestamp of the user's last activity
 		 */
-		lastActivity: string | null;
+		lastActivity: string | (null | null);
 	}[];
 	meta: {
 		totalCount: number;
 		dateRange: {
-			start: string | null;
-			end: string | null;
+			start: string | (null | null);
+			end: string | (null | null);
 		};
 	};
 };
