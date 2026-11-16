@@ -1,5 +1,19 @@
 # zoom-api-js
 
+## 3.8.0
+
+### Minor Changes
+
+- e0e3c7c: Changed the meetingAppDelete operation to accept a typed query parameter (Partial<MeetingAppDeleteQuery>) instead of a generic record.
+- e0e3c7c: Added the optional sensitivity_label_downgrade_reason field to MeetingUpdateBody for specifying the reason when downgrading meeting sensitivity labels.
+- e0e3c7c: Added the optional app_id parameter to MeetingAppAddBody, MeetingAppDeleteQuery, and clarified its use for targeting specific apps.
+- e0e3c7c: Added the optional support_participants_receive_summary field to MeetingStatus200, MeetingUpdateBody, MeetingCreateStatus201, and MeetingCreateBody to control summary recipients.
+
+### Patch Changes
+
+- e0e3c7c: Clarified the description for the 'id' field in MeetingAppAddStatus201 to indicate it is the client ID of the target app.
+- e0e3c7c: Updated MeetingAppDeleteOptions to use MeetingAppDeleteQuery for its query property.
+
 ## 3.7.5
 
 ### Patch Changes

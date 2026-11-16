@@ -1,5 +1,11 @@
 # cloudflare-api-js
 
+## 4.34.1
+
+### Patch Changes
+
+- ca6ee5a: Added 'payment_method_not_supported' to the 'aigBillingErrorResponseErrorsReasonEnum' enum values.
+
 ## 4.34.0
 
 ### Minor Changes
