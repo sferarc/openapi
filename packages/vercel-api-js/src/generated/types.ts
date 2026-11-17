@@ -22523,6 +22523,7 @@ export type VcrRepositoryList = {
 };
 
 export const vcrImageListItemKindEnum = {
+	artifact: "artifact",
 	attestation: "attestation",
 	index: "index",
 	manifest: "manifest",
@@ -22654,6 +22655,7 @@ export type VcrRepositoryPermission = {
 };
 
 export const vcrTagKindEnum = {
+	artifact: "artifact",
 	attestation: "attestation",
 	index: "index",
 	manifest: "manifest",
@@ -22909,6 +22911,7 @@ export type VcrImageLayer =
 	  };
 
 export const vcrImageDetailKindEnum = {
+	artifact: "artifact",
 	attestation: "attestation",
 	index: "index",
 	manifest: "manifest",
@@ -150043,7 +150046,7 @@ export type AddRepositoryPermissionBody =
 			/**
 			 * @description Slug of a team that is granted access to a repository.
 			 * @maxLength 64
-			 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+			 * @pattern ^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$
 			 * @example my-team
 			 * @type string | undefined
 			 */
@@ -150125,7 +150128,7 @@ export type RemoveRepositoryPermissionBody =
 			/**
 			 * @description Slug of a team that is granted access to a repository.
 			 * @maxLength 64
-			 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+			 * @pattern ^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$
 			 * @example my-team
 			 * @type string | undefined
 			 */
@@ -150673,7 +150676,7 @@ export type HeadByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath = {
 	/**
 	 * @description Single Docker repository team slug component.
 	 * @maxLength 255
-	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @pattern ^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$
 	 * @example team-slug
 	 * @type string
 	 */
@@ -150745,7 +150748,7 @@ export type GetByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath = {
 	/**
 	 * @description Single Docker repository team slug component.
 	 * @maxLength 255
-	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @pattern ^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$
 	 * @example team-slug
 	 * @type string
 	 */
@@ -150823,7 +150826,7 @@ export type DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPath = {
 	/**
 	 * @description Single Docker repository team slug component.
 	 * @maxLength 255
-	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @pattern ^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$
 	 * @example team-slug
 	 * @type string
 	 */
@@ -150901,7 +150904,7 @@ export type GetByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath = {
 	/**
 	 * @description Single Docker repository team slug component.
 	 * @maxLength 255
-	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @pattern ^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$
 	 * @example team-slug
 	 * @type string
 	 */
@@ -150973,7 +150976,7 @@ export type DeleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath 
 	/**
 	 * @description Single Docker repository team slug component.
 	 * @maxLength 255
-	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @pattern ^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$
 	 * @example team-slug
 	 * @type string
 	 */
@@ -151045,7 +151048,7 @@ export type UpdateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath 
 	/**
 	 * @description Single Docker repository team slug component.
 	 * @maxLength 255
-	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @pattern ^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$
 	 * @example team-slug
 	 * @type string
 	 */
@@ -151127,7 +151130,7 @@ export type ReplaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath
 	/**
 	 * @description Single Docker repository team slug component.
 	 * @maxLength 255
-	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @pattern ^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$
 	 * @example team-slug
 	 * @type string
 	 */
@@ -151220,7 +151223,7 @@ export type CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsPath = {
 	/**
 	 * @description Single Docker repository team slug component.
 	 * @maxLength 255
-	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @pattern ^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$
 	 * @example team-slug
 	 * @type string
 	 */
@@ -151254,7 +151257,7 @@ export type CreateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsQuery = {
 	/**
 	 * @description Source repository to mount the blob from.
 	 * @maxLength 255
-	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?\\/[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?\\/[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$
+	 * @pattern ^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?\\/[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?\\/[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$
 	 * @type string | undefined
 	 */
 	from?: string | undefined;
@@ -151301,7 +151304,7 @@ export type ReplaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePa
 	/**
 	 * @description Single Docker repository team slug component.
 	 * @maxLength 255
-	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @pattern ^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$
 	 * @example team-slug
 	 * @type string
 	 */
@@ -151382,7 +151385,7 @@ export type HeadByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath 
 	/**
 	 * @description Single Docker repository team slug component.
 	 * @maxLength 255
-	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @pattern ^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$
 	 * @example team-slug
 	 * @type string
 	 */
@@ -151454,7 +151457,7 @@ export type GetByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath =
 	/**
 	 * @description Single Docker repository team slug component.
 	 * @maxLength 255
-	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @pattern ^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$
 	 * @example team-slug
 	 * @type string
 	 */
@@ -151528,7 +151531,7 @@ export type DeleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePat
 	/**
 	 * @description Single Docker repository team slug component.
 	 * @maxLength 255
-	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @pattern ^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$
 	 * @example team-slug
 	 * @type string
 	 */
@@ -151602,7 +151605,7 @@ export type GetByTeamSlugByProjectSlugByRepositoryNameTagsListPath = {
 	/**
 	 * @description Single Docker repository team slug component.
 	 * @maxLength 255
-	 * @pattern ^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$
+	 * @pattern ^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$
 	 * @example team-slug
 	 * @type string
 	 */

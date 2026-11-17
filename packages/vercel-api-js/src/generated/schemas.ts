@@ -17161,7 +17161,7 @@ export const vcrImageListItemSchema = z
 			.describe("Internal identifier of the image.")
 			.meta({ examples: ["img_a1b2c3d4e5f6"] }),
 		kind: z
-			.enum(["attestation", "index", "manifest"])
+			.enum(["artifact", "attestation", "index", "manifest"])
 			.describe(
 				"Whether the manifest is a multi-platform image index, a single-platform image manifest or an attestation.",
 			),
@@ -17247,7 +17247,7 @@ export const vcrTagSchema = z
 			.describe("Internal identifier of the image the tag points at.")
 			.meta({ examples: ["img_a1b2c3d4e5f6"] }),
 		kind: z
-			.enum(["attestation", "index", "manifest"])
+			.enum(["artifact", "attestation", "index", "manifest"])
 			.describe(
 				"Whether the manifest is a multi-platform image index, a single-platform image manifest or an attestation.",
 			),
@@ -17442,7 +17442,7 @@ export const vcrImageDetailSchema = z
 			.describe("Internal identifier of the image.")
 			.meta({ examples: ["img_a1b2c3d4e5f6"] }),
 		kind: z
-			.enum(["attestation", "index", "manifest"])
+			.enum(["artifact", "attestation", "index", "manifest"])
 			.describe(
 				"Whether the manifest is a multi-platform image index, a single-platform image manifest or an attestation.",
 			),
@@ -125647,7 +125647,7 @@ export const addRepositoryPermissionBodySchema = z
 		teamSlug: z
 			.string()
 			.max(64)
-			.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+			.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 			.optional()
 			.describe("Slug of a team that is granted access to a repository.")
 			.meta({ examples: ["my-team"] }),
@@ -125730,7 +125730,7 @@ export const removeRepositoryPermissionBodySchema = z
 		teamSlug: z
 			.string()
 			.max(64)
-			.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+			.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 			.optional()
 			.describe("Slug of a team that is granted access to a repository.")
 			.meta({ examples: ["my-team"] }),
@@ -126255,7 +126255,7 @@ export const getRootErrorSchema = z.union([
 export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathTeamSlugSchema = z
 	.string()
 	.max(255)
-	.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+	.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 	.describe("Single Docker repository team slug component.")
 	.meta({ examples: ["team-slug"] });
 
@@ -126310,7 +126310,7 @@ export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathSchema 
 	teamSlug: z
 		.string()
 		.max(255)
-		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 		.describe("Single Docker repository team slug component.")
 		.meta({ examples: ["team-slug"] }),
 	projectSlug: z
@@ -126338,7 +126338,7 @@ export const headByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathSchema 
 export const getByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathTeamSlugSchema = z
 	.string()
 	.max(255)
-	.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+	.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 	.describe("Single Docker repository team slug component.")
 	.meta({ examples: ["team-slug"] });
 
@@ -126393,7 +126393,7 @@ export const getByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathSchema =
 	teamSlug: z
 		.string()
 		.max(255)
-		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 		.describe("Single Docker repository team slug component.")
 		.meta({ examples: ["team-slug"] }),
 	projectSlug: z
@@ -126421,7 +126421,7 @@ export const getByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathSchema =
 export const deleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathTeamSlugSchema = z
 	.string()
 	.max(255)
-	.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+	.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 	.describe("Single Docker repository team slug component.")
 	.meta({ examples: ["team-slug"] });
 
@@ -126483,7 +126483,7 @@ export const deleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathSchem
 	teamSlug: z
 		.string()
 		.max(255)
-		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 		.describe("Single Docker repository team slug component.")
 		.meta({ examples: ["team-slug"] }),
 	projectSlug: z
@@ -126511,7 +126511,7 @@ export const deleteByTeamSlugByProjectSlugByRepositoryNameBlobsByDigestPathSchem
 export const getByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathTeamSlugSchema = z
 	.string()
 	.max(255)
-	.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+	.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 	.describe("Single Docker repository team slug component.")
 	.meta({ examples: ["team-slug"] });
 
@@ -126573,7 +126573,7 @@ export const getByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathSch
 	teamSlug: z
 		.string()
 		.max(255)
-		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 		.describe("Single Docker repository team slug component.")
 		.meta({ examples: ["team-slug"] }),
 	projectSlug: z
@@ -126599,7 +126599,7 @@ export const getByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathSch
 export const deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathTeamSlugSchema = z
 	.string()
 	.max(255)
-	.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+	.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 	.describe("Single Docker repository team slug component.")
 	.meta({ examples: ["team-slug"] });
 
@@ -126663,7 +126663,7 @@ export const deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath
 	teamSlug: z
 		.string()
 		.max(255)
-		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 		.describe("Single Docker repository team slug component.")
 		.meta({ examples: ["team-slug"] }),
 	projectSlug: z
@@ -126689,7 +126689,7 @@ export const deleteByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath
 export const updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathTeamSlugSchema = z
 	.string()
 	.max(255)
-	.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+	.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 	.describe("Single Docker repository team slug component.")
 	.meta({ examples: ["team-slug"] });
 
@@ -126765,7 +126765,7 @@ export const updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath
 	teamSlug: z
 		.string()
 		.max(255)
-		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 		.describe("Single Docker repository team slug component.")
 		.meta({ examples: ["team-slug"] }),
 	projectSlug: z
@@ -126791,7 +126791,7 @@ export const updateByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPath
 export const replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPathTeamSlugSchema = z
 	.string()
 	.max(255)
-	.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+	.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 	.describe("Single Docker repository team slug component.")
 	.meta({ examples: ["team-slug"] });
 
@@ -126875,7 +126875,7 @@ export const replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidPat
 	teamSlug: z
 		.string()
 		.max(255)
-		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 		.describe("Single Docker repository team slug component.")
 		.meta({ examples: ["team-slug"] }),
 	projectSlug: z
@@ -126914,7 +126914,7 @@ export const replaceByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsByUuidQue
 export const createByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsPathTeamSlugSchema = z
 	.string()
 	.max(255)
-	.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+	.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 	.describe("Single Docker repository team slug component.")
 	.meta({ examples: ["team-slug"] });
 
@@ -126943,7 +126943,7 @@ export const createByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsQueryFromS
 	.string()
 	.max(255)
 	.regex(
-		/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?\\\/[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?\\\/[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/,
+		/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?\\\/[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?\\\/[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/,
 	)
 	.optional()
 	.describe("Source repository to mount the blob from.");
@@ -126980,7 +126980,7 @@ export const createByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsPathSchema
 	teamSlug: z
 		.string()
 		.max(255)
-		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 		.describe("Single Docker repository team slug component.")
 		.meta({ examples: ["team-slug"] }),
 	projectSlug: z
@@ -127008,7 +127008,7 @@ export const createByTeamSlugByProjectSlugByRepositoryNameBlobsUploadsQuerySchem
 		.string()
 		.max(255)
 		.regex(
-			/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?\\\/[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?\\\/[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/,
+			/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?\\\/[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?\\\/[a-z0-9]+(?:(?:\\.|_|__|-+)[a-z0-9]+)*$/,
 		)
 		.optional()
 		.describe("Source repository to mount the blob from."),
@@ -127018,7 +127018,7 @@ export const replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceP
 	z
 		.string()
 		.max(255)
-		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 		.describe("Single Docker repository team slug component.")
 		.meta({ examples: ["team-slug"] });
 
@@ -127093,7 +127093,7 @@ export const replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceP
 		teamSlug: z
 			.string()
 			.max(255)
-			.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+			.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 			.describe("Single Docker repository team slug component.")
 			.meta({ examples: ["team-slug"] }),
 		projectSlug: z
@@ -127119,7 +127119,7 @@ export const replaceByTeamSlugByProjectSlugByRepositoryNameManifestsByReferenceP
 export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathTeamSlugSchema = z
 	.string()
 	.max(255)
-	.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+	.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 	.describe("Single Docker repository team slug component.")
 	.meta({ examples: ["team-slug"] });
 
@@ -127183,7 +127183,7 @@ export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath
 	teamSlug: z
 		.string()
 		.max(255)
-		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 		.describe("Single Docker repository team slug component.")
 		.meta({ examples: ["team-slug"] }),
 	projectSlug: z
@@ -127209,7 +127209,7 @@ export const headByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePath
 export const getByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathTeamSlugSchema = z
 	.string()
 	.max(255)
-	.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+	.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 	.describe("Single Docker repository team slug component.")
 	.meta({ examples: ["team-slug"] });
 
@@ -127269,7 +127269,7 @@ export const getByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathS
 	teamSlug: z
 		.string()
 		.max(255)
-		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 		.describe("Single Docker repository team slug component.")
 		.meta({ examples: ["team-slug"] }),
 	projectSlug: z
@@ -127295,7 +127295,7 @@ export const getByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathS
 export const deleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePathTeamSlugSchema = z
 	.string()
 	.max(255)
-	.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+	.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 	.describe("Single Docker repository team slug component.")
 	.meta({ examples: ["team-slug"] });
 
@@ -127366,7 +127366,7 @@ export const deleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePa
 		teamSlug: z
 			.string()
 			.max(255)
-			.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+			.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 			.describe("Single Docker repository team slug component.")
 			.meta({ examples: ["team-slug"] }),
 		projectSlug: z
@@ -127395,7 +127395,7 @@ export const deleteByTeamSlugByProjectSlugByRepositoryNameManifestsByReferencePa
 export const getByTeamSlugByProjectSlugByRepositoryNameTagsListPathTeamSlugSchema = z
 	.string()
 	.max(255)
-	.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+	.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 	.describe("Single Docker repository team slug component.")
 	.meta({ examples: ["team-slug"] });
 
@@ -127458,7 +127458,7 @@ export const getByTeamSlugByProjectSlugByRepositoryNameTagsListPathSchema = z.ob
 	teamSlug: z
 		.string()
 		.max(255)
-		.regex(/^[a-z0-9](?:[a-z0-9-]{0,46}[a-z0-9])?$/)
+		.regex(/^[a-z0-9](?:[a-z0-9_-]{0,46}[a-z0-9])?$/)
 		.describe("Single Docker repository team slug component.")
 		.meta({ examples: ["team-slug"] }),
 	projectSlug: z
