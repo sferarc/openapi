@@ -1,5 +1,12 @@
 # vercel-api-js
 
+## 2.42.1
+
+### Patch Changes
+
+- ba944e2: Broadened the regex pattern for several path and request body types to allow underscores as well as hyphens.
+- ba944e2: Added 'artifact' as a possible value to vcrImageListItemKindEnum, vcrTagKindEnum, and vcrImageDetailKindEnum types.
+
 ## 2.42.0
 
 ### Minor Changes
