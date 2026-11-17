@@ -288,6 +288,7 @@ import type {
 	CreateAiGatewayByokCredentialStatus410,
 	CreateAiGatewayByokCredentialStatus429,
 	CreateAiGatewayByokCredentialStatus500,
+	CreateAiGatewayRuleBody,
 	CreateAiGatewayRuleQuery,
 	CreateAiGatewayRuleResponse,
 	CreateAiGatewayRuleStatus400,
@@ -297,6 +298,7 @@ import type {
 	CreateAiGatewayRuleStatus409,
 	CreateAiGatewayRuleStatus410,
 	CreateAiGatewayRuleStatus500,
+	CreateAiGatewayVirtualModelConfigBody,
 	CreateAiGatewayVirtualModelConfigQuery,
 	CreateAiGatewayVirtualModelConfigResponse,
 	CreateAiGatewayVirtualModelConfigStatus400,
@@ -3915,6 +3917,7 @@ import type {
 	UpdateAiGatewayByokCredentialStatus404,
 	UpdateAiGatewayByokCredentialStatus410,
 	UpdateAiGatewayByokCredentialStatus500,
+	UpdateAiGatewayRuleBody,
 	UpdateAiGatewayRuleQuery,
 	UpdateAiGatewayRuleResponse,
 	UpdateAiGatewayRuleStatus400,
@@ -3923,6 +3926,8 @@ import type {
 	UpdateAiGatewayRuleStatus404,
 	UpdateAiGatewayRuleStatus410,
 	UpdateAiGatewayRuleStatus500,
+	UpdateAiGatewayVirtualModelConfigBody,
+	UpdateAiGatewayVirtualModelConfigBySlugBody,
 	UpdateAiGatewayVirtualModelConfigBySlugPath,
 	UpdateAiGatewayVirtualModelConfigBySlugQuery,
 	UpdateAiGatewayVirtualModelConfigBySlugResponse,
@@ -5258,9 +5263,11 @@ export async function deleteAiGatewayByokCredential(
  */
 export async function createAiGatewayVirtualModelConfig(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: CreateAiGatewayVirtualModelConfigBody;
 		queryParams?: Partial<CreateAiGatewayVirtualModelConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5279,7 +5286,7 @@ export async function createAiGatewayVirtualModelConfig(
 			| CreateAiGatewayVirtualModelConfigStatus429
 			| CreateAiGatewayVirtualModelConfigStatus500
 		>,
-		null,
+		CreateAiGatewayVirtualModelConfigBody,
 		Record<string, string>,
 		Partial<CreateAiGatewayVirtualModelConfigQuery>,
 		Record<string, string>
@@ -5287,6 +5294,7 @@ export async function createAiGatewayVirtualModelConfig(
 		method: "POST",
 		url: `/ai-gateway/virtual-model-configs`,
 		queryParams,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5342,9 +5350,11 @@ export async function getAiGatewayVirtualModelConfig(
  */
 export async function updateAiGatewayVirtualModelConfig(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: UpdateAiGatewayVirtualModelConfigBody;
 		queryParams?: Partial<UpdateAiGatewayVirtualModelConfigQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5362,7 +5372,7 @@ export async function updateAiGatewayVirtualModelConfig(
 			| UpdateAiGatewayVirtualModelConfigStatus429
 			| UpdateAiGatewayVirtualModelConfigStatus500
 		>,
-		null,
+		UpdateAiGatewayVirtualModelConfigBody,
 		Record<string, string>,
 		Partial<UpdateAiGatewayVirtualModelConfigQuery>,
 		Record<string, string>
@@ -5370,6 +5380,7 @@ export async function updateAiGatewayVirtualModelConfig(
 		method: "PATCH",
 		url: `/ai-gateway/virtual-model-configs`,
 		queryParams,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5513,10 +5524,12 @@ export async function getAiGatewayVirtualModelConfigBySlug(
 export async function updateAiGatewayVirtualModelConfigBySlug(
 	{
 		pathParams,
+		body,
 		queryParams,
 		config,
 	}: {
 		pathParams: UpdateAiGatewayVirtualModelConfigBySlugPath;
+		body?: UpdateAiGatewayVirtualModelConfigBySlugBody;
 		queryParams?: Partial<UpdateAiGatewayVirtualModelConfigBySlugQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5537,7 +5550,7 @@ export async function updateAiGatewayVirtualModelConfigBySlug(
 			| UpdateAiGatewayVirtualModelConfigBySlugStatus429
 			| UpdateAiGatewayVirtualModelConfigBySlugStatus500
 		>,
-		null,
+		UpdateAiGatewayVirtualModelConfigBySlugBody,
 		Record<string, string>,
 		Partial<UpdateAiGatewayVirtualModelConfigBySlugQuery>,
 		UpdateAiGatewayVirtualModelConfigBySlugPath
@@ -5545,6 +5558,7 @@ export async function updateAiGatewayVirtualModelConfigBySlug(
 		method: "PATCH",
 		url: `/ai-gateway/virtual-model-configs/${encodeURIComponent(String(pathParams.vmcSlug))}`,
 		queryParams,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5646,9 +5660,11 @@ export async function listAiGatewayRouters(
  */
 export async function createAiGatewayRule(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: CreateAiGatewayRuleBody;
 		queryParams?: Partial<CreateAiGatewayRuleQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5666,7 +5682,7 @@ export async function createAiGatewayRule(
 			| CreateAiGatewayRuleStatus410
 			| CreateAiGatewayRuleStatus500
 		>,
-		null,
+		CreateAiGatewayRuleBody,
 		Record<string, string>,
 		Partial<CreateAiGatewayRuleQuery>,
 		Record<string, string>
@@ -5674,6 +5690,7 @@ export async function createAiGatewayRule(
 		method: "POST",
 		url: `/ai-gateway/rules`,
 		queryParams,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -5729,9 +5746,11 @@ export async function listAiGatewayRules(
  */
 export async function updateAiGatewayRule(
 	{
+		body,
 		queryParams,
 		config,
 	}: {
+		body?: UpdateAiGatewayRuleBody;
 		queryParams?: Partial<UpdateAiGatewayRuleQuery>;
 		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
 	} = {} as any,
@@ -5748,7 +5767,7 @@ export async function updateAiGatewayRule(
 			| UpdateAiGatewayRuleStatus410
 			| UpdateAiGatewayRuleStatus500
 		>,
-		null,
+		UpdateAiGatewayRuleBody,
 		Record<string, string>,
 		Partial<UpdateAiGatewayRuleQuery>,
 		Record<string, string>
@@ -5756,6 +5775,7 @@ export async function updateAiGatewayRule(
 		method: "PATCH",
 		url: `/ai-gateway/rules`,
 		queryParams,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});

@@ -5270,6 +5270,7 @@ export type UserEventPayloadToPlanEnumKey =
 	(typeof userEventPayloadToPlanEnum)[keyof typeof userEventPayloadToPlanEnum];
 
 export const userEventPayloadMemberKindEnum = {
+	"iam-access-group": "iam-access-group",
 	project: "project",
 	team: "team",
 	user: "user",
@@ -7748,6 +7749,23 @@ export const userEventPayloadTargetKindEnum2 = {
 export type UserEventPayloadTargetKindEnum2Key =
 	(typeof userEventPayloadTargetKindEnum2)[keyof typeof userEventPayloadTargetKindEnum2];
 
+export const userEventPayloadCloseReasonEnum = {
+	"accepted-risk": "accepted-risk",
+	"false-positive": "false-positive",
+	resolved: "resolved",
+} as const;
+
+export type UserEventPayloadCloseReasonEnumKey =
+	(typeof userEventPayloadCloseReasonEnum)[keyof typeof userEventPayloadCloseReasonEnum];
+
+export const userEventPayloadTargetKindEnum3 = {
+	project: "project",
+	repository: "repository",
+} as const;
+
+export type UserEventPayloadTargetKindEnum3Key =
+	(typeof userEventPayloadTargetKindEnum3)[keyof typeof userEventPayloadTargetKindEnum3];
+
 export const userEventPayloadDismissalReasonEnum = {
 	"accepted-risk": "accepted-risk",
 	"false-positive": "false-positive",
@@ -9132,10 +9150,13 @@ export const userEventTypeEnum = {
 	"vcr-repository-visibility-changed": "vcr-repository-visibility-changed",
 	"vercel-agent-elevated-permissions-approved": "vercel-agent-elevated-permissions-approved",
 	"vercel-agent-elevated-permissions-requested": "vercel-agent-elevated-permissions-requested",
+	"vercel-agent-security-finding-closed": "vercel-agent-security-finding-closed",
 	"vercel-agent-security-finding-created": "vercel-agent-security-finding-created",
 	"vercel-agent-security-finding-dismissed": "vercel-agent-security-finding-dismissed",
 	"vercel-agent-security-finding-reopened": "vercel-agent-security-finding-reopened",
 	"vercel-agent-security-finding-resolved": "vercel-agent-security-finding-resolved",
+	"vercel-agent-security-review-policy-deleted": "vercel-agent-security-review-policy-deleted",
+	"vercel-agent-security-review-policy-updated": "vercel-agent-security-review-policy-updated",
 	"vercel-agent-session-created": "vercel-agent-session-created",
 	"vercel-agent-team-trial-credits-applied": "vercel-agent-team-trial-credits-applied",
 	"vercel-app-installation-request-dismissed": "vercel-app-installation-request-dismissed",
@@ -15341,7 +15362,58 @@ export type UserEvent = {
 						targetKind: UserEventPayloadTargetKindEnum2Key;
 						targetName: string;
 						vulnerabilityClass: string;
+						closeReason: UserEventPayloadCloseReasonEnumKey;
+				  }
+				| {
+						eventId: string;
+						occurredAt: number;
+						sessionId: string;
+						/**
+						 * @description Currently emitted session kinds: chat, investigation.
+						 * @type string
+						 */
+						sessionKind: string;
+						/**
+						 * @description Currently emitted surfaces: dashboard, internal, slack, automation, github.
+						 * @type string
+						 */
+						surface: string;
+						branchRef: string | null;
+						commitSha?: (string | null) | undefined;
+						/**
+						 * @description Null for a repository's findings and those of an undeployed commit.
+						 * @type string
+						 */
+						deploymentId: string | null;
+						/**
+						 * @description Null for a repository's findings.
+						 * @type string
+						 */
+						environment: string | null;
+						findingId: string;
+						findingNumber: number;
+						pullRequestNumber?: (number | null) | undefined;
+						/**
+						 * @description The GitHub repository, such as `acme/app`, commit, and pull request the event's review read: the one that found the finding, or for a resolution, the one that fixed it. Null for uploaded files; absent from events recorded before they were sent.
+						 * @type string | undefined
+						 */
+						repository?: (string | null) | undefined;
+						severity: string;
+						targetId: string;
+						/**
+						 * @description A repository's findings are in code no project runs.
+						 * @type string
+						 */
+						targetKind: UserEventPayloadTargetKindEnum3Key;
+						targetName: string;
+						vulnerabilityClass: string;
 						dismissalReason: UserEventPayloadDismissalReasonEnumKey;
+				  }
+				| {
+						eventId: string;
+						occurredAt: number;
+						projectId: string | null;
+						projectName?: string | undefined;
 				  }
 				| {
 						next: UserEventPayloadNextEnumKey | null;
@@ -17619,10 +17691,13 @@ export const listEventTypeNameEnum = {
 	"vcr-repository-visibility-changed": "vcr-repository-visibility-changed",
 	"vercel-agent-elevated-permissions-approved": "vercel-agent-elevated-permissions-approved",
 	"vercel-agent-elevated-permissions-requested": "vercel-agent-elevated-permissions-requested",
+	"vercel-agent-security-finding-closed": "vercel-agent-security-finding-closed",
 	"vercel-agent-security-finding-created": "vercel-agent-security-finding-created",
 	"vercel-agent-security-finding-dismissed": "vercel-agent-security-finding-dismissed",
 	"vercel-agent-security-finding-reopened": "vercel-agent-security-finding-reopened",
 	"vercel-agent-security-finding-resolved": "vercel-agent-security-finding-resolved",
+	"vercel-agent-security-review-policy-deleted": "vercel-agent-security-review-policy-deleted",
+	"vercel-agent-security-review-policy-updated": "vercel-agent-security-review-policy-updated",
 	"vercel-agent-session-created": "vercel-agent-session-created",
 	"vercel-agent-team-trial-credits-applied": "vercel-agent-team-trial-credits-applied",
 	"vercel-app-installation-request-dismissed": "vercel-app-installation-request-dismissed",
@@ -18443,10 +18518,13 @@ export const listEventTypeReplacedByEnum = {
 	"vcr-repository-visibility-changed": "vcr-repository-visibility-changed",
 	"vercel-agent-elevated-permissions-approved": "vercel-agent-elevated-permissions-approved",
 	"vercel-agent-elevated-permissions-requested": "vercel-agent-elevated-permissions-requested",
+	"vercel-agent-security-finding-closed": "vercel-agent-security-finding-closed",
 	"vercel-agent-security-finding-created": "vercel-agent-security-finding-created",
 	"vercel-agent-security-finding-dismissed": "vercel-agent-security-finding-dismissed",
 	"vercel-agent-security-finding-reopened": "vercel-agent-security-finding-reopened",
 	"vercel-agent-security-finding-resolved": "vercel-agent-security-finding-resolved",
+	"vercel-agent-security-review-policy-deleted": "vercel-agent-security-review-policy-deleted",
+	"vercel-agent-security-review-policy-updated": "vercel-agent-security-review-policy-updated",
 	"vercel-agent-session-created": "vercel-agent-session-created",
 	"vercel-agent-team-trial-credits-applied": "vercel-agent-team-trial-credits-applied",
 	"vercel-app-installation-request-dismissed": "vercel-app-installation-request-dismissed",
@@ -24713,8 +24791,289 @@ export type CreateAiGatewayVirtualModelConfigStatus429 = unknown;
 
 export type CreateAiGatewayVirtualModelConfigStatus500 = unknown;
 
+export const createAiGatewayVirtualModelConfigRequestInferenceRegionScopeEnum = {
+	global: "global",
+	zone: "zone",
+} as const;
+
+export type CreateAiGatewayVirtualModelConfigRequestInferenceRegionScopeEnumKey =
+	(typeof createAiGatewayVirtualModelConfigRequestInferenceRegionScopeEnum)[keyof typeof createAiGatewayVirtualModelConfigRequestInferenceRegionScopeEnum];
+
+export const scopeEnum2 = {
+	global: "global",
+	zone: "zone",
+} as const;
+
+export type ScopeEnum2Key = (typeof scopeEnum2)[keyof typeof scopeEnum2];
+
+export const createAiGatewayVirtualModelConfigRequestSortEnum = {
+	"@default": "@default",
+	cost: "cost",
+	latency: "latency",
+	price: "price",
+	throughput: "throughput",
+	tps: "tps",
+	ttft: "ttft",
+} as const;
+
+export type CreateAiGatewayVirtualModelConfigRequestSortEnumKey =
+	(typeof createAiGatewayVirtualModelConfigRequestSortEnum)[keyof typeof createAiGatewayVirtualModelConfigRequestSortEnum];
+
+export const createAiGatewayVirtualModelConfigRequestHasEnum = {
+	"implicit-caching": "implicit-caching",
+	reasoning: "reasoning",
+	"structured-output": "structured-output",
+	"tool-use": "tool-use",
+	vision: "vision",
+} as const;
+
+export type CreateAiGatewayVirtualModelConfigRequestHasEnumKey =
+	(typeof createAiGatewayVirtualModelConfigRequestHasEnum)[keyof typeof createAiGatewayVirtualModelConfigRequestHasEnum];
+
+export const createAiGatewayVirtualModelConfigRequestCachingEnum = {
+	"@default": "@default",
+	auto: "auto",
+} as const;
+
+export type CreateAiGatewayVirtualModelConfigRequestCachingEnumKey =
+	(typeof createAiGatewayVirtualModelConfigRequestCachingEnum)[keyof typeof createAiGatewayVirtualModelConfigRequestCachingEnum];
+
+export const createAiGatewayVirtualModelConfigRequestServiceTierEnum = {
+	"@default": "@default",
+	fast: "fast",
+	flex: "flex",
+	priority: "priority",
+} as const;
+
+export type CreateAiGatewayVirtualModelConfigRequestServiceTierEnumKey =
+	(typeof createAiGatewayVirtualModelConfigRequestServiceTierEnum)[keyof typeof createAiGatewayVirtualModelConfigRequestServiceTierEnum];
+
+export type CreateAiGatewayVirtualModelConfigBody =
+	| {
+			/**
+			 * @description The slug of the virtual model. Requests name it as `vmc/<slug>`. `list` is reserved.
+			 * @pattern ^[a-zA-Z0-9_.-]+$
+			 * @type string
+			 */
+			virtualModelSlug: string;
+			/**
+			 * @description The name shown in the UI.
+			 * @type string | undefined
+			 */
+			displayName?: string | undefined;
+			description?: string | undefined;
+			/**
+			 * @description The lifecycle status: `draft`, `active`, or `archived`. Any value other than `active` stops it serving requests. Defaults to `active`.
+			 * @type string | undefined
+			 */
+			status?: string | undefined;
+			/**
+			 * @description The model that the virtual model resolves to: a catalog model such as `openai/gpt-4o-mini`, or one of your team's private models as `private/<slug>`. Required on create.
+			 * @type string | undefined
+			 */
+			modelSlug?: string | undefined;
+			/**
+			 * @description The ordered fallback models, optionally led by one conditional `{ model, when }` entry.
+			 * @type array | undefined
+			 */
+			models?:
+				| (
+						| string
+						| {
+								/**
+								 * @description A model ID: a catalog model such as `openai/gpt-4o`, or one of your team's private models as `private/<slug>`. A fallback can also name a virtual model as `vmc/<slug>`.
+								 * @type string
+								 */
+								model: string;
+								/**
+								 * @description The fallback model is used when the answers of the primary model match this condition. Set exactly one of `confidenceBelow`, `probabilityBetween`, `any`, `all`, or `atLeast`. A condition tree can be 5 levels deep and can hold 100 conditions.
+								 * @type object
+								 */
+								when: {
+									/**
+									 * @description The question to check, with `confidenceBelow` or `probabilityBetween`. Without it, the condition checks every question of the applicable type.
+									 * @maxLength 256
+									 * @type string | undefined
+									 */
+									question?: string | undefined;
+									/**
+									 * @minimum 0
+									 * @maximum 1
+									 * @type number | undefined
+									 */
+									confidenceBelow?: number | undefined;
+									/**
+									 * @description A `[lower, upper]` pair.
+									 * @type array | undefined
+									 */
+									probabilityBetween?: number[] | undefined;
+									/**
+									 * @description Nested conditions. Each one has the same shape as `when`.
+									 * @type array | undefined
+									 */
+									any?: object[] | undefined;
+									/**
+									 * @description Nested conditions. Each one has the same shape as `when`.
+									 * @type array | undefined
+									 */
+									all?: object[] | undefined;
+									atLeast?:
+										| {
+												/**
+												 * @description Must not be more than the number of conditions.
+												 * @minimum 1
+												 * @type integer
+												 */
+												count: number;
+												/**
+												 * @description Nested conditions. Each one has the same shape as `when`.
+												 * @type array
+												 */
+												conditions: object[];
+										  }
+										| undefined;
+								};
+						  }
+				  )[]
+				| undefined;
+			/**
+			 * @description The providers to try, in order.
+			 * @type array | undefined
+			 */
+			providerOrder?: string[] | undefined;
+			/**
+			 * @description Restrict routing to these providers.
+			 * @type array | undefined
+			 */
+			providerOnly?: string[] | undefined;
+			/**
+			 * @description Observability tags attached to requests through this virtual model.
+			 * @type array | undefined
+			 */
+			observabilityTags?: string[] | undefined;
+			/**
+			 * @description Provider-specific options, keyed by provider slug. The slug of one of your team's private providers is also valid.
+			 * @type object | undefined
+			 */
+			providerOptions?:
+				| {
+						[key: string]: {
+							[key: string]: unknown;
+						};
+				  }
+				| undefined;
+			/**
+			 * @description The BYOK credentials that this virtual model can use.
+			 * @type array | undefined
+			 */
+			byokCredentialIds?: string[] | undefined;
+			/**
+			 * @description The region that requests are pinned to.
+			 * @type object | undefined
+			 */
+			inferenceRegion?:
+				| {
+						/**
+						 * @description The pin scope: `zone` (a geo zone) or `global`.
+						 * @type string | undefined
+						 */
+						scope?: CreateAiGatewayVirtualModelConfigRequestInferenceRegionScopeEnumKey | undefined;
+						/**
+						 * @description The geo zone, for example `us` or `eu`. Required when `scope` is `zone`.
+						 * @type string | undefined
+						 */
+						geoRegion?: string | undefined;
+						/**
+						 * @description Region overrides for each provider, keyed by provider slug.
+						 * @type object | undefined
+						 */
+						providers?:
+							| {
+									[key: string]: {
+										/**
+										 * @description The pin scope: `zone` (a geo zone) or `global`.
+										 * @type string | undefined
+										 */
+										scope?: ScopeEnum2Key | undefined;
+										/**
+										 * @description The geo zone, for example `us` or `eu`. Required when `scope` is `zone`.
+										 * @type string | undefined
+										 */
+										geoRegion?: string | undefined;
+									};
+							  }
+							| undefined;
+				  }
+				| undefined;
+			/**
+			 * @description Rank eligible providers by an attribute. `@default` ignores the value from the inference request.
+			 * @type string | undefined
+			 */
+			sort?: CreateAiGatewayVirtualModelConfigRequestSortEnumKey | undefined;
+			/**
+			 * @description Limit providers to those with these features.
+			 * @type array | undefined
+			 */
+			has?: CreateAiGatewayVirtualModelConfigRequestHasEnumKey[] | undefined;
+			/**
+			 * @description Use caching if available. `@default` ignores the value from the inference request.
+			 * @type string | undefined
+			 */
+			caching?: CreateAiGatewayVirtualModelConfigRequestCachingEnumKey | undefined;
+			/**
+			 * @description The service tier for providers that support it. `@default` ignores the value from the inference request.
+			 * @type string | undefined
+			 */
+			serviceTier?: CreateAiGatewayVirtualModelConfigRequestServiceTierEnumKey | undefined;
+			/**
+			 * @description Provider timeouts in milliseconds. `@default` ignores the value from the inference request.
+			 */
+			providerTimeouts?:
+				| (
+						| "@default"
+						| {
+								/**
+								 * @description The timeout for each provider that uses a BYOK credential, keyed by provider slug.
+								 * @type object | undefined
+								 */
+								byok?:
+									| {
+											[key: string]: number;
+									  }
+									| undefined;
+						  }
+				  )
+				| undefined;
+			/**
+			 * @description Only use providers with zero data retention.
+			 * @type boolean | undefined
+			 */
+			zeroDataRetention?: boolean | undefined;
+			/**
+			 * @description Only use HIPAA-compliant providers.
+			 * @type boolean | undefined
+			 */
+			hipaaCompliant?: boolean | undefined;
+			/**
+			 * @description Only use providers that do not train on prompts.
+			 * @type boolean | undefined
+			 */
+			disallowPromptTraining?: boolean | undefined;
+			/**
+			 * @description Only use the fastest providers, with short timeouts.
+			 * @type string | undefined
+			 */
+			speed?: "fast" | undefined;
+			/**
+			 * @description Allow fallback from fast to standard providers on failure.
+			 * @type boolean | undefined
+			 */
+			allowFallbackFromFast?: boolean | undefined;
+	  }
+	| undefined;
+
 export type CreateAiGatewayVirtualModelConfigOptions = {
-	body?: never | undefined;
+	body?: CreateAiGatewayVirtualModelConfigBody | undefined;
 	path?: never | undefined;
 	query?: CreateAiGatewayVirtualModelConfigQuery | undefined;
 	headers?: never | undefined;
@@ -24833,8 +25192,293 @@ export type UpdateAiGatewayVirtualModelConfigStatus429 = unknown;
 
 export type UpdateAiGatewayVirtualModelConfigStatus500 = unknown;
 
+export const updateAiGatewayVirtualModelConfigRequestInferenceRegionScopeEnum = {
+	global: "global",
+	zone: "zone",
+} as const;
+
+export type UpdateAiGatewayVirtualModelConfigRequestInferenceRegionScopeEnumKey =
+	(typeof updateAiGatewayVirtualModelConfigRequestInferenceRegionScopeEnum)[keyof typeof updateAiGatewayVirtualModelConfigRequestInferenceRegionScopeEnum];
+
+export const scopeEnum3 = {
+	global: "global",
+	zone: "zone",
+} as const;
+
+export type ScopeEnum3Key = (typeof scopeEnum3)[keyof typeof scopeEnum3];
+
+export const updateAiGatewayVirtualModelConfigRequestSortEnum = {
+	"@default": "@default",
+	cost: "cost",
+	latency: "latency",
+	price: "price",
+	throughput: "throughput",
+	tps: "tps",
+	ttft: "ttft",
+} as const;
+
+export type UpdateAiGatewayVirtualModelConfigRequestSortEnumKey =
+	(typeof updateAiGatewayVirtualModelConfigRequestSortEnum)[keyof typeof updateAiGatewayVirtualModelConfigRequestSortEnum];
+
+export const updateAiGatewayVirtualModelConfigRequestHasEnum = {
+	"implicit-caching": "implicit-caching",
+	reasoning: "reasoning",
+	"structured-output": "structured-output",
+	"tool-use": "tool-use",
+	vision: "vision",
+} as const;
+
+export type UpdateAiGatewayVirtualModelConfigRequestHasEnumKey =
+	(typeof updateAiGatewayVirtualModelConfigRequestHasEnum)[keyof typeof updateAiGatewayVirtualModelConfigRequestHasEnum];
+
+export const updateAiGatewayVirtualModelConfigRequestCachingEnum = {
+	"@default": "@default",
+	auto: "auto",
+} as const;
+
+export type UpdateAiGatewayVirtualModelConfigRequestCachingEnumKey =
+	(typeof updateAiGatewayVirtualModelConfigRequestCachingEnum)[keyof typeof updateAiGatewayVirtualModelConfigRequestCachingEnum];
+
+export const updateAiGatewayVirtualModelConfigRequestServiceTierEnum = {
+	"@default": "@default",
+	fast: "fast",
+	flex: "flex",
+	priority: "priority",
+} as const;
+
+export type UpdateAiGatewayVirtualModelConfigRequestServiceTierEnumKey =
+	(typeof updateAiGatewayVirtualModelConfigRequestServiceTierEnum)[keyof typeof updateAiGatewayVirtualModelConfigRequestServiceTierEnum];
+
+export type UpdateAiGatewayVirtualModelConfigBody =
+	| {
+			/**
+			 * @description The slug of the virtual model to update.
+			 * @type string
+			 */
+			virtualModelSlug: string;
+			/**
+			 * @description The name shown in the UI.
+			 * @type string | undefined
+			 */
+			displayName?: string | undefined;
+			description?: string | undefined;
+			/**
+			 * @description The lifecycle status: `draft`, `active`, or `archived`. Any value other than `active` stops it serving requests. Defaults to `active`.
+			 * @type string | undefined
+			 */
+			status?: string | undefined;
+			/**
+			 * @description The model that the virtual model resolves to: a catalog model such as `openai/gpt-4o-mini`, or one of your team's private models as `private/<slug>`. Required on create.
+			 * @type string | undefined
+			 */
+			modelSlug?: string | undefined;
+			/**
+			 * @description The ordered fallback models, optionally led by one conditional `{ model, when }` entry.
+			 * @type array | undefined
+			 */
+			models?:
+				| (
+						| string
+						| {
+								/**
+								 * @description A model ID: a catalog model such as `openai/gpt-4o`, or one of your team's private models as `private/<slug>`. A fallback can also name a virtual model as `vmc/<slug>`.
+								 * @type string
+								 */
+								model: string;
+								/**
+								 * @description The fallback model is used when the answers of the primary model match this condition. Set exactly one of `confidenceBelow`, `probabilityBetween`, `any`, `all`, or `atLeast`. A condition tree can be 5 levels deep and can hold 100 conditions.
+								 * @type object
+								 */
+								when: {
+									/**
+									 * @description The question to check, with `confidenceBelow` or `probabilityBetween`. Without it, the condition checks every question of the applicable type.
+									 * @maxLength 256
+									 * @type string | undefined
+									 */
+									question?: string | undefined;
+									/**
+									 * @minimum 0
+									 * @maximum 1
+									 * @type number | undefined
+									 */
+									confidenceBelow?: number | undefined;
+									/**
+									 * @description A `[lower, upper]` pair.
+									 * @type array | undefined
+									 */
+									probabilityBetween?: number[] | undefined;
+									/**
+									 * @description Nested conditions. Each one has the same shape as `when`.
+									 * @type array | undefined
+									 */
+									any?: object[] | undefined;
+									/**
+									 * @description Nested conditions. Each one has the same shape as `when`.
+									 * @type array | undefined
+									 */
+									all?: object[] | undefined;
+									atLeast?:
+										| {
+												/**
+												 * @description Must not be more than the number of conditions.
+												 * @minimum 1
+												 * @type integer
+												 */
+												count: number;
+												/**
+												 * @description Nested conditions. Each one has the same shape as `when`.
+												 * @type array
+												 */
+												conditions: object[];
+										  }
+										| undefined;
+								};
+						  }
+				  )[]
+				| undefined;
+			/**
+			 * @description The providers to try, in order.
+			 * @type array | undefined
+			 */
+			providerOrder?: string[] | undefined;
+			/**
+			 * @description Restrict routing to these providers.
+			 * @type array | undefined
+			 */
+			providerOnly?: string[] | undefined;
+			/**
+			 * @description Observability tags attached to requests through this virtual model.
+			 * @type array | undefined
+			 */
+			observabilityTags?: string[] | undefined;
+			/**
+			 * @description Set to `false` to restore a deleted virtual model.
+			 * @type boolean | undefined
+			 */
+			deleted?: false | undefined;
+			/**
+			 * @description Provider-specific options, keyed by provider slug. The slug of one of your team's private providers is also valid. `null` removes the stored value.
+			 * @type object | undefined
+			 */
+			providerOptions?:
+				| ({
+						[key: string]: {
+							[key: string]: unknown;
+						};
+				  } | null)
+				| undefined;
+			/**
+			 * @description The BYOK credentials that this virtual model can use. `null` removes the stored value.
+			 * @type array | undefined
+			 */
+			byokCredentialIds?: (string[] | null) | undefined;
+			/**
+			 * @description The region that requests are pinned to. `null` removes the stored value.
+			 * @type object | undefined
+			 */
+			inferenceRegion?:
+				| ({
+						/**
+						 * @description The pin scope: `zone` (a geo zone) or `global`.
+						 * @type string | undefined
+						 */
+						scope?: UpdateAiGatewayVirtualModelConfigRequestInferenceRegionScopeEnumKey | undefined;
+						/**
+						 * @description The geo zone, for example `us` or `eu`. Required when `scope` is `zone`.
+						 * @type string | undefined
+						 */
+						geoRegion?: string | undefined;
+						/**
+						 * @description Region overrides for each provider, keyed by provider slug.
+						 * @type object | undefined
+						 */
+						providers?:
+							| {
+									[key: string]: {
+										/**
+										 * @description The pin scope: `zone` (a geo zone) or `global`.
+										 * @type string | undefined
+										 */
+										scope?: ScopeEnum3Key | undefined;
+										/**
+										 * @description The geo zone, for example `us` or `eu`. Required when `scope` is `zone`.
+										 * @type string | undefined
+										 */
+										geoRegion?: string | undefined;
+									};
+							  }
+							| undefined;
+				  } | null)
+				| undefined;
+			/**
+			 * @description Rank eligible providers by an attribute. `@default` ignores the value from the inference request. `null` removes the stored value.
+			 * @type string | undefined
+			 */
+			sort?: (UpdateAiGatewayVirtualModelConfigRequestSortEnumKey | null) | undefined;
+			/**
+			 * @description Limit providers to those with these features. `null` removes the stored value.
+			 * @type array | undefined
+			 */
+			has?: (UpdateAiGatewayVirtualModelConfigRequestHasEnumKey[] | null) | undefined;
+			/**
+			 * @description Use caching if available. `@default` ignores the value from the inference request. `null` removes the stored value.
+			 * @type string | undefined
+			 */
+			caching?: (UpdateAiGatewayVirtualModelConfigRequestCachingEnumKey | null) | undefined;
+			/**
+			 * @description The service tier for providers that support it. `@default` ignores the value from the inference request. `null` removes the stored value.
+			 * @type string | undefined
+			 */
+			serviceTier?: (UpdateAiGatewayVirtualModelConfigRequestServiceTierEnumKey | null) | undefined;
+			/**
+			 * @description Provider timeouts in milliseconds. `@default` ignores the value from the inference request. `null` removes the stored value.
+			 */
+			providerTimeouts?:
+				| (
+						| "@default"
+						| ({
+								/**
+								 * @description The timeout for each provider that uses a BYOK credential, keyed by provider slug.
+								 * @type object | undefined
+								 */
+								byok?:
+									| {
+											[key: string]: number;
+									  }
+									| undefined;
+						  } | null)
+				  )
+				| undefined;
+			/**
+			 * @description Only use providers with zero data retention. `null` removes the stored value.
+			 * @type boolean | undefined
+			 */
+			zeroDataRetention?: (boolean | null) | undefined;
+			/**
+			 * @description Only use HIPAA-compliant providers. `null` removes the stored value.
+			 * @type boolean | undefined
+			 */
+			hipaaCompliant?: (boolean | null) | undefined;
+			/**
+			 * @description Only use providers that do not train on prompts. `null` removes the stored value.
+			 * @type boolean | undefined
+			 */
+			disallowPromptTraining?: (boolean | null) | undefined;
+			/**
+			 * @description Only use the fastest providers, with short timeouts. `null` removes the stored value.
+			 * @type string | undefined
+			 */
+			speed?: ("fast" | null) | undefined;
+			/**
+			 * @description Allow fallback from fast to standard providers on failure. `null` removes the stored value.
+			 * @type boolean | undefined
+			 */
+			allowFallbackFromFast?: (boolean | null) | undefined;
+	  }
+	| undefined;
+
 export type UpdateAiGatewayVirtualModelConfigOptions = {
-	body?: never | undefined;
+	body?: UpdateAiGatewayVirtualModelConfigBody | undefined;
 	path?: never | undefined;
 	query?: UpdateAiGatewayVirtualModelConfigQuery | undefined;
 	headers?: never | undefined;
@@ -25079,8 +25723,292 @@ export type UpdateAiGatewayVirtualModelConfigBySlugStatus429 = unknown;
 
 export type UpdateAiGatewayVirtualModelConfigBySlugStatus500 = unknown;
 
+export const updateAiGatewayVirtualModelConfigBySlugRequestInferenceRegionScopeEnum = {
+	global: "global",
+	zone: "zone",
+} as const;
+
+export type UpdateAiGatewayVirtualModelConfigBySlugRequestInferenceRegionScopeEnumKey =
+	(typeof updateAiGatewayVirtualModelConfigBySlugRequestInferenceRegionScopeEnum)[keyof typeof updateAiGatewayVirtualModelConfigBySlugRequestInferenceRegionScopeEnum];
+
+export const scopeEnum4 = {
+	global: "global",
+	zone: "zone",
+} as const;
+
+export type ScopeEnum4Key = (typeof scopeEnum4)[keyof typeof scopeEnum4];
+
+export const updateAiGatewayVirtualModelConfigBySlugRequestSortEnum = {
+	"@default": "@default",
+	cost: "cost",
+	latency: "latency",
+	price: "price",
+	throughput: "throughput",
+	tps: "tps",
+	ttft: "ttft",
+} as const;
+
+export type UpdateAiGatewayVirtualModelConfigBySlugRequestSortEnumKey =
+	(typeof updateAiGatewayVirtualModelConfigBySlugRequestSortEnum)[keyof typeof updateAiGatewayVirtualModelConfigBySlugRequestSortEnum];
+
+export const updateAiGatewayVirtualModelConfigBySlugRequestHasEnum = {
+	"implicit-caching": "implicit-caching",
+	reasoning: "reasoning",
+	"structured-output": "structured-output",
+	"tool-use": "tool-use",
+	vision: "vision",
+} as const;
+
+export type UpdateAiGatewayVirtualModelConfigBySlugRequestHasEnumKey =
+	(typeof updateAiGatewayVirtualModelConfigBySlugRequestHasEnum)[keyof typeof updateAiGatewayVirtualModelConfigBySlugRequestHasEnum];
+
+export const updateAiGatewayVirtualModelConfigBySlugRequestCachingEnum = {
+	"@default": "@default",
+	auto: "auto",
+} as const;
+
+export type UpdateAiGatewayVirtualModelConfigBySlugRequestCachingEnumKey =
+	(typeof updateAiGatewayVirtualModelConfigBySlugRequestCachingEnum)[keyof typeof updateAiGatewayVirtualModelConfigBySlugRequestCachingEnum];
+
+export const updateAiGatewayVirtualModelConfigBySlugRequestServiceTierEnum = {
+	"@default": "@default",
+	fast: "fast",
+	flex: "flex",
+	priority: "priority",
+} as const;
+
+export type UpdateAiGatewayVirtualModelConfigBySlugRequestServiceTierEnumKey =
+	(typeof updateAiGatewayVirtualModelConfigBySlugRequestServiceTierEnum)[keyof typeof updateAiGatewayVirtualModelConfigBySlugRequestServiceTierEnum];
+
+export type UpdateAiGatewayVirtualModelConfigBySlugBody =
+	| {
+			/**
+			 * @description The name shown in the UI.
+			 * @type string | undefined
+			 */
+			displayName?: string | undefined;
+			description?: string | undefined;
+			/**
+			 * @description The lifecycle status: `draft`, `active`, or `archived`. Any value other than `active` stops it serving requests. Defaults to `active`.
+			 * @type string | undefined
+			 */
+			status?: string | undefined;
+			/**
+			 * @description The model that the virtual model resolves to: a catalog model such as `openai/gpt-4o-mini`, or one of your team's private models as `private/<slug>`. Required on create.
+			 * @type string | undefined
+			 */
+			modelSlug?: string | undefined;
+			/**
+			 * @description The ordered fallback models, optionally led by one conditional `{ model, when }` entry.
+			 * @type array | undefined
+			 */
+			models?:
+				| (
+						| string
+						| {
+								/**
+								 * @description A model ID: a catalog model such as `openai/gpt-4o`, or one of your team's private models as `private/<slug>`. A fallback can also name a virtual model as `vmc/<slug>`.
+								 * @type string
+								 */
+								model: string;
+								/**
+								 * @description The fallback model is used when the answers of the primary model match this condition. Set exactly one of `confidenceBelow`, `probabilityBetween`, `any`, `all`, or `atLeast`. A condition tree can be 5 levels deep and can hold 100 conditions.
+								 * @type object
+								 */
+								when: {
+									/**
+									 * @description The question to check, with `confidenceBelow` or `probabilityBetween`. Without it, the condition checks every question of the applicable type.
+									 * @maxLength 256
+									 * @type string | undefined
+									 */
+									question?: string | undefined;
+									/**
+									 * @minimum 0
+									 * @maximum 1
+									 * @type number | undefined
+									 */
+									confidenceBelow?: number | undefined;
+									/**
+									 * @description A `[lower, upper]` pair.
+									 * @type array | undefined
+									 */
+									probabilityBetween?: number[] | undefined;
+									/**
+									 * @description Nested conditions. Each one has the same shape as `when`.
+									 * @type array | undefined
+									 */
+									any?: object[] | undefined;
+									/**
+									 * @description Nested conditions. Each one has the same shape as `when`.
+									 * @type array | undefined
+									 */
+									all?: object[] | undefined;
+									atLeast?:
+										| {
+												/**
+												 * @description Must not be more than the number of conditions.
+												 * @minimum 1
+												 * @type integer
+												 */
+												count: number;
+												/**
+												 * @description Nested conditions. Each one has the same shape as `when`.
+												 * @type array
+												 */
+												conditions: object[];
+										  }
+										| undefined;
+								};
+						  }
+				  )[]
+				| undefined;
+			/**
+			 * @description The providers to try, in order.
+			 * @type array | undefined
+			 */
+			providerOrder?: string[] | undefined;
+			/**
+			 * @description Restrict routing to these providers.
+			 * @type array | undefined
+			 */
+			providerOnly?: string[] | undefined;
+			/**
+			 * @description Observability tags attached to requests through this virtual model.
+			 * @type array | undefined
+			 */
+			observabilityTags?: string[] | undefined;
+			/**
+			 * @description Set to `false` to restore a deleted virtual model.
+			 * @type boolean | undefined
+			 */
+			deleted?: false | undefined;
+			/**
+			 * @description Provider-specific options, keyed by provider slug. The slug of one of your team's private providers is also valid. `null` removes the stored value.
+			 * @type object | undefined
+			 */
+			providerOptions?:
+				| ({
+						[key: string]: {
+							[key: string]: unknown;
+						};
+				  } | null)
+				| undefined;
+			/**
+			 * @description The BYOK credentials that this virtual model can use. `null` removes the stored value.
+			 * @type array | undefined
+			 */
+			byokCredentialIds?: (string[] | null) | undefined;
+			/**
+			 * @description The region that requests are pinned to. `null` removes the stored value.
+			 * @type object | undefined
+			 */
+			inferenceRegion?:
+				| ({
+						/**
+						 * @description The pin scope: `zone` (a geo zone) or `global`.
+						 * @type string | undefined
+						 */
+						scope?:
+							| UpdateAiGatewayVirtualModelConfigBySlugRequestInferenceRegionScopeEnumKey
+							| undefined;
+						/**
+						 * @description The geo zone, for example `us` or `eu`. Required when `scope` is `zone`.
+						 * @type string | undefined
+						 */
+						geoRegion?: string | undefined;
+						/**
+						 * @description Region overrides for each provider, keyed by provider slug.
+						 * @type object | undefined
+						 */
+						providers?:
+							| {
+									[key: string]: {
+										/**
+										 * @description The pin scope: `zone` (a geo zone) or `global`.
+										 * @type string | undefined
+										 */
+										scope?: ScopeEnum4Key | undefined;
+										/**
+										 * @description The geo zone, for example `us` or `eu`. Required when `scope` is `zone`.
+										 * @type string | undefined
+										 */
+										geoRegion?: string | undefined;
+									};
+							  }
+							| undefined;
+				  } | null)
+				| undefined;
+			/**
+			 * @description Rank eligible providers by an attribute. `@default` ignores the value from the inference request. `null` removes the stored value.
+			 * @type string | undefined
+			 */
+			sort?: (UpdateAiGatewayVirtualModelConfigBySlugRequestSortEnumKey | null) | undefined;
+			/**
+			 * @description Limit providers to those with these features. `null` removes the stored value.
+			 * @type array | undefined
+			 */
+			has?: (UpdateAiGatewayVirtualModelConfigBySlugRequestHasEnumKey[] | null) | undefined;
+			/**
+			 * @description Use caching if available. `@default` ignores the value from the inference request. `null` removes the stored value.
+			 * @type string | undefined
+			 */
+			caching?: (UpdateAiGatewayVirtualModelConfigBySlugRequestCachingEnumKey | null) | undefined;
+			/**
+			 * @description The service tier for providers that support it. `@default` ignores the value from the inference request. `null` removes the stored value.
+			 * @type string | undefined
+			 */
+			serviceTier?:
+				| (UpdateAiGatewayVirtualModelConfigBySlugRequestServiceTierEnumKey | null)
+				| undefined;
+			/**
+			 * @description Provider timeouts in milliseconds. `@default` ignores the value from the inference request. `null` removes the stored value.
+			 */
+			providerTimeouts?:
+				| (
+						| "@default"
+						| ({
+								/**
+								 * @description The timeout for each provider that uses a BYOK credential, keyed by provider slug.
+								 * @type object | undefined
+								 */
+								byok?:
+									| {
+											[key: string]: number;
+									  }
+									| undefined;
+						  } | null)
+				  )
+				| undefined;
+			/**
+			 * @description Only use providers with zero data retention. `null` removes the stored value.
+			 * @type boolean | undefined
+			 */
+			zeroDataRetention?: (boolean | null) | undefined;
+			/**
+			 * @description Only use HIPAA-compliant providers. `null` removes the stored value.
+			 * @type boolean | undefined
+			 */
+			hipaaCompliant?: (boolean | null) | undefined;
+			/**
+			 * @description Only use providers that do not train on prompts. `null` removes the stored value.
+			 * @type boolean | undefined
+			 */
+			disallowPromptTraining?: (boolean | null) | undefined;
+			/**
+			 * @description Only use the fastest providers, with short timeouts. `null` removes the stored value.
+			 * @type string | undefined
+			 */
+			speed?: ("fast" | null) | undefined;
+			/**
+			 * @description Allow fallback from fast to standard providers on failure. `null` removes the stored value.
+			 * @type boolean | undefined
+			 */
+			allowFallbackFromFast?: (boolean | null) | undefined;
+	  }
+	| undefined;
+
 export type UpdateAiGatewayVirtualModelConfigBySlugOptions = {
-	body?: never | undefined;
+	body?: UpdateAiGatewayVirtualModelConfigBySlugBody | undefined;
 	path: UpdateAiGatewayVirtualModelConfigBySlugPath;
 	query?: UpdateAiGatewayVirtualModelConfigBySlugQuery | undefined;
 	headers?: never | undefined;
@@ -25254,8 +26182,61 @@ export type CreateAiGatewayRuleStatus410 = unknown;
 
 export type CreateAiGatewayRuleStatus500 = unknown;
 
+export const createAiGatewayRuleRequestTypeEnum = {
+	deny: "deny",
+	rewrite: "rewrite",
+} as const;
+
+export type CreateAiGatewayRuleRequestTypeEnumKey =
+	(typeof createAiGatewayRuleRequestTypeEnum)[keyof typeof createAiGatewayRuleRequestTypeEnum];
+
+export type CreateAiGatewayRuleBody =
+	| {
+			/**
+			 * @description `rewrite` sends requests for the matched model to another model. `deny` rejects them.
+			 * @type string
+			 */
+			type: CreateAiGatewayRuleRequestTypeEnumKey;
+			match: {
+				/**
+				 * @description The model that the rule applies to.
+				 * @type string
+				 */
+				model: string;
+			};
+			/**
+			 * @description Required when `type` is `rewrite`.
+			 * @type object | undefined
+			 */
+			action?:
+				| {
+						/**
+						 * @description The model that serves the request: a catalog model, or one of your virtual models as `vmc/<slug>`. It must exist and be active. Required when `type` is `rewrite`.
+						 * @type string | undefined
+						 */
+						rewriteModel?: string | undefined;
+						/**
+						 * @description Why the model is denied. Used when `type` is `deny`.
+						 * @type string | undefined
+						 */
+						reason?: string | undefined;
+				  }
+				| undefined;
+			/**
+			 * @description Whether the rule is enabled. Defaults to `true`.
+			 * @type boolean | undefined
+			 */
+			enabled?: boolean | undefined;
+			/**
+			 * @description A free-text note about the rule.
+			 * @type string | undefined
+			 */
+			description?: string | undefined;
+	  }
+	| undefined;
+
 export type CreateAiGatewayRuleOptions = {
-	body?: never | undefined;
+	body?: CreateAiGatewayRuleBody | undefined;
 	path?: never | undefined;
 	query?: CreateAiGatewayRuleQuery | undefined;
 	headers?: never | undefined;
@@ -25381,8 +26362,46 @@ export type UpdateAiGatewayRuleStatus410 = unknown;
 
 export type UpdateAiGatewayRuleStatus500 = unknown;
 
+export type UpdateAiGatewayRuleBody =
+	| {
+			/**
+			 * @description The ID of the rule to update. Send at least one of `enabled`, `description`, or `action` with it.
+			 * @type string
+			 */
+			ruleId: string;
+			/**
+			 * @description Whether the rule is enabled.
+			 * @type boolean | undefined
+			 */
+			enabled?: boolean | undefined;
+			/**
+			 * @description A free-text note about the rule.
+			 * @type string | undefined
+			 */
+			description?: string | undefined;
+			/**
+			 * @description Replaces the stored action. For a rewrite rule it must contain `rewriteModel`.
+			 * @type object | undefined
+			 */
+			action?:
+				| {
+						/**
+						 * @description The model that serves the request, for a rewrite rule: a catalog model, or one of your virtual models as `vmc/<slug>`. It must exist and be active.
+						 * @type string | undefined
+						 */
+						rewriteModel?: string | undefined;
+						/**
+						 * @description Why the model is denied, for a deny rule.
+						 * @type string | undefined
+						 */
+						reason?: string | undefined;
+				  }
+				| undefined;
+	  }
+	| undefined;
+
 export type UpdateAiGatewayRuleOptions = {
-	body?: never | undefined;
+	body?: UpdateAiGatewayRuleBody | undefined;
 	path?: never | undefined;
 	query?: UpdateAiGatewayRuleQuery | undefined;
 	headers?: never | undefined;
@@ -74400,14 +75419,6 @@ export const getMicrofrontendsInGroupStatus200ProjectsResourceConfigFunctionDefa
 export type GetMicrofrontendsInGroupStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof getMicrofrontendsInGroupStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum];
 
-export const getMicrofrontendsInGroupStatus200ProjectsRollingReleaseGateActionEnum = {
-	pause: "pause",
-	rollback: "rollback",
-} as const;
-
-export type GetMicrofrontendsInGroupStatus200ProjectsRollingReleaseGateActionEnumKey =
-	(typeof getMicrofrontendsInGroupStatus200ProjectsRollingReleaseGateActionEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsRollingReleaseGateActionEnum];
-
 export const getMicrofrontendsInGroupStatus200ProjectsSandboxFailoverRegionsEnum = {
 	arn1: "arn1",
 	bom1: "bom1",
@@ -77814,76 +78825,6 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					 * @type boolean | undefined
 					 */
 					canaryResponseHeader?: (false | true) | undefined;
-					/**
-					 * @description Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-					 * @type object | undefined
-					 */
-					gate?:
-						| {
-								/**
-								 * @description What to do when the gate trips: pause the rollout, or roll it back.
-								 * @type string
-								 */
-								action: GetMicrofrontendsInGroupStatus200ProjectsRollingReleaseGateActionEnumKey;
-								/**
-								 * @description The checks to evaluate. An empty array means nothing is evaluated.
-								 * @type array
-								 */
-								checks: {
-									/**
-									 * @description Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
-									 * @example ["/api/health"]
-									 * @type array | undefined
-									 */
-									excludePaths?: string[] | undefined;
-									/**
-									 * @description Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
-									 * @example [503]
-									 * @type array | undefined
-									 */
-									excludeStatusCodes?: number[] | undefined;
-									/**
-									 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
-									 * @example 30
-									 * @type number | undefined
-									 */
-									ingestWatermarkSeconds?: number | undefined;
-									/**
-									 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
-									 * @example 0.05
-									 * @type number | undefined
-									 */
-									significanceLevel?: number | undefined;
-									/**
-									 * @description The metric this check evaluates.
-									 * @type string
-									 */
-									type: "error-rate-5xx";
-								}[];
-								/**
-								 * @description When true, a tripped gate is only reported — {@link action} is not taken.
-								 * @type boolean
-								 */
-								dryRun: false | true;
-								/**
-								 * @description Whether automated gating is enabled for this project's rollouts.
-								 * @type boolean
-								 */
-								enabled: false | true;
-								/**
-								 * @description How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
-								 * @example 3
-								 * @type number | undefined
-								 */
-								failureThreshold?: number | undefined;
-								/**
-								 * @description How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
-								 * @example 5
-								 * @type number | undefined
-								 */
-								windowSize?: number | undefined;
-						  }
-						| undefined;
 					/**
 					 * @description An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
 					 * @type array | undefined
@@ -83515,14 +84456,6 @@ export const getProjectsStatus200ResourceConfigFunctionDefaultMemoryTypeEnum = {
 export type GetProjectsStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof getProjectsStatus200ResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof getProjectsStatus200ResourceConfigFunctionDefaultMemoryTypeEnum];
 
-export const getProjectsStatus200RollingReleaseGateActionEnum = {
-	pause: "pause",
-	rollback: "rollback",
-} as const;
-
-export type GetProjectsStatus200RollingReleaseGateActionEnumKey =
-	(typeof getProjectsStatus200RollingReleaseGateActionEnum)[keyof typeof getProjectsStatus200RollingReleaseGateActionEnum];
-
 export const getProjectsStatus200SecurityFirewallRoutesHandleEnum = {
 	finalize: "finalize",
 	init: "init",
@@ -84165,14 +85098,6 @@ export const getProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryType
 
 export type GetProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof getProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof getProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum];
-
-export const getProjectsStatus200ProjectsRollingReleaseGateActionEnum = {
-	pause: "pause",
-	rollback: "rollback",
-} as const;
-
-export type GetProjectsStatus200ProjectsRollingReleaseGateActionEnumKey =
-	(typeof getProjectsStatus200ProjectsRollingReleaseGateActionEnum)[keyof typeof getProjectsStatus200ProjectsRollingReleaseGateActionEnum];
 
 export const getProjectsStatus200ProjectsSecurityFirewallRoutesHandleEnum = {
 	finalize: "finalize",
@@ -85013,14 +85938,6 @@ export const getProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryType
 
 export type GetProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum2Key =
 	(typeof getProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum2)[keyof typeof getProjectsStatus200ProjectsResourceConfigFunctionDefaultMemoryTypeEnum2];
-
-export const getProjectsStatus200ProjectsRollingReleaseGateActionEnum2 = {
-	pause: "pause",
-	rollback: "rollback",
-} as const;
-
-export type GetProjectsStatus200ProjectsRollingReleaseGateActionEnum2Key =
-	(typeof getProjectsStatus200ProjectsRollingReleaseGateActionEnum2)[keyof typeof getProjectsStatus200ProjectsRollingReleaseGateActionEnum2];
 
 export const getProjectsStatus200ProjectsSandboxFailoverRegionsEnum = {
 	arn1: "arn1",
@@ -86251,76 +87168,6 @@ export type GetProjectsStatus200 =
 								 * @type boolean | undefined
 								 */
 								canaryResponseHeader?: (false | true) | undefined;
-								/**
-								 * @description Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-								 * @type object | undefined
-								 */
-								gate?:
-									| {
-											/**
-											 * @description What to do when the gate trips: pause the rollout, or roll it back.
-											 * @type string
-											 */
-											action: GetProjectsStatus200RollingReleaseGateActionEnumKey;
-											/**
-											 * @description The checks to evaluate. An empty array means nothing is evaluated.
-											 * @type array
-											 */
-											checks: {
-												/**
-												 * @description Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
-												 * @example ["/api/health"]
-												 * @type array | undefined
-												 */
-												excludePaths?: string[] | undefined;
-												/**
-												 * @description Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
-												 * @example [503]
-												 * @type array | undefined
-												 */
-												excludeStatusCodes?: number[] | undefined;
-												/**
-												 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
-												 * @example 30
-												 * @type number | undefined
-												 */
-												ingestWatermarkSeconds?: number | undefined;
-												/**
-												 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
-												 * @example 0.05
-												 * @type number | undefined
-												 */
-												significanceLevel?: number | undefined;
-												/**
-												 * @description The metric this check evaluates.
-												 * @type string
-												 */
-												type: "error-rate-5xx";
-											}[];
-											/**
-											 * @description When true, a tripped gate is only reported — {@link action} is not taken.
-											 * @type boolean
-											 */
-											dryRun: false | true;
-											/**
-											 * @description Whether automated gating is enabled for this project's rollouts.
-											 * @type boolean
-											 */
-											enabled: false | true;
-											/**
-											 * @description How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
-											 * @example 3
-											 * @type number | undefined
-											 */
-											failureThreshold?: number | undefined;
-											/**
-											 * @description How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
-											 * @example 5
-											 * @type number | undefined
-											 */
-											windowSize?: number | undefined;
-									  }
-									| undefined;
 								/**
 								 * @description An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
 								 * @type array | undefined
@@ -87739,76 +88586,6 @@ export type GetProjectsStatus200 =
 									 * @type boolean | undefined
 									 */
 									canaryResponseHeader?: (false | true) | undefined;
-									/**
-									 * @description Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-									 * @type object | undefined
-									 */
-									gate?:
-										| {
-												/**
-												 * @description What to do when the gate trips: pause the rollout, or roll it back.
-												 * @type string
-												 */
-												action: GetProjectsStatus200ProjectsRollingReleaseGateActionEnumKey;
-												/**
-												 * @description The checks to evaluate. An empty array means nothing is evaluated.
-												 * @type array
-												 */
-												checks: {
-													/**
-													 * @description Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
-													 * @example ["/api/health"]
-													 * @type array | undefined
-													 */
-													excludePaths?: string[] | undefined;
-													/**
-													 * @description Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
-													 * @example [503]
-													 * @type array | undefined
-													 */
-													excludeStatusCodes?: number[] | undefined;
-													/**
-													 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
-													 * @example 30
-													 * @type number | undefined
-													 */
-													ingestWatermarkSeconds?: number | undefined;
-													/**
-													 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
-													 * @example 0.05
-													 * @type number | undefined
-													 */
-													significanceLevel?: number | undefined;
-													/**
-													 * @description The metric this check evaluates.
-													 * @type string
-													 */
-													type: "error-rate-5xx";
-												}[];
-												/**
-												 * @description When true, a tripped gate is only reported — {@link action} is not taken.
-												 * @type boolean
-												 */
-												dryRun: false | true;
-												/**
-												 * @description Whether automated gating is enabled for this project's rollouts.
-												 * @type boolean
-												 */
-												enabled: false | true;
-												/**
-												 * @description How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
-												 * @example 3
-												 * @type number | undefined
-												 */
-												failureThreshold?: number | undefined;
-												/**
-												 * @description How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
-												 * @example 5
-												 * @type number | undefined
-												 */
-												windowSize?: number | undefined;
-										  }
-										| undefined;
 									/**
 									 * @description An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
 									 * @type array | undefined
@@ -91384,76 +92161,6 @@ export type GetProjectsStatus200 =
 									 */
 									canaryResponseHeader?: (false | true) | undefined;
 									/**
-									 * @description Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-									 * @type object | undefined
-									 */
-									gate?:
-										| {
-												/**
-												 * @description What to do when the gate trips: pause the rollout, or roll it back.
-												 * @type string
-												 */
-												action: GetProjectsStatus200ProjectsRollingReleaseGateActionEnum2Key;
-												/**
-												 * @description The checks to evaluate. An empty array means nothing is evaluated.
-												 * @type array
-												 */
-												checks: {
-													/**
-													 * @description Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
-													 * @example ["/api/health"]
-													 * @type array | undefined
-													 */
-													excludePaths?: string[] | undefined;
-													/**
-													 * @description Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
-													 * @example [503]
-													 * @type array | undefined
-													 */
-													excludeStatusCodes?: number[] | undefined;
-													/**
-													 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
-													 * @example 30
-													 * @type number | undefined
-													 */
-													ingestWatermarkSeconds?: number | undefined;
-													/**
-													 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
-													 * @example 0.05
-													 * @type number | undefined
-													 */
-													significanceLevel?: number | undefined;
-													/**
-													 * @description The metric this check evaluates.
-													 * @type string
-													 */
-													type: "error-rate-5xx";
-												}[];
-												/**
-												 * @description When true, a tripped gate is only reported — {@link action} is not taken.
-												 * @type boolean
-												 */
-												dryRun: false | true;
-												/**
-												 * @description Whether automated gating is enabled for this project's rollouts.
-												 * @type boolean
-												 */
-												enabled: false | true;
-												/**
-												 * @description How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
-												 * @example 3
-												 * @type number | undefined
-												 */
-												failureThreshold?: number | undefined;
-												/**
-												 * @description How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
-												 * @example 5
-												 * @type number | undefined
-												 */
-												windowSize?: number | undefined;
-										  }
-										| undefined;
-									/**
 									 * @description An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
 									 * @type array | undefined
 									 */
@@ -92674,14 +93381,6 @@ export const createProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum =
 
 export type CreateProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof createProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof createProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum];
-
-export const createProjectStatus200RollingReleaseGateActionEnum = {
-	pause: "pause",
-	rollback: "rollback",
-} as const;
-
-export type CreateProjectStatus200RollingReleaseGateActionEnumKey =
-	(typeof createProjectStatus200RollingReleaseGateActionEnum)[keyof typeof createProjectStatus200RollingReleaseGateActionEnum];
 
 export const createProjectStatus200SandboxFailoverRegionsEnum = {
 	arn1: "arn1",
@@ -96054,76 +96753,6 @@ export type CreateProjectStatus200 = {
 				 */
 				canaryResponseHeader?: (false | true) | undefined;
 				/**
-				 * @description Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-				 * @type object | undefined
-				 */
-				gate?:
-					| {
-							/**
-							 * @description What to do when the gate trips: pause the rollout, or roll it back.
-							 * @type string
-							 */
-							action: CreateProjectStatus200RollingReleaseGateActionEnumKey;
-							/**
-							 * @description The checks to evaluate. An empty array means nothing is evaluated.
-							 * @type array
-							 */
-							checks: {
-								/**
-								 * @description Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
-								 * @example ["/api/health"]
-								 * @type array | undefined
-								 */
-								excludePaths?: string[] | undefined;
-								/**
-								 * @description Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
-								 * @example [503]
-								 * @type array | undefined
-								 */
-								excludeStatusCodes?: number[] | undefined;
-								/**
-								 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
-								 * @example 30
-								 * @type number | undefined
-								 */
-								ingestWatermarkSeconds?: number | undefined;
-								/**
-								 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
-								 * @example 0.05
-								 * @type number | undefined
-								 */
-								significanceLevel?: number | undefined;
-								/**
-								 * @description The metric this check evaluates.
-								 * @type string
-								 */
-								type: "error-rate-5xx";
-							}[];
-							/**
-							 * @description When true, a tripped gate is only reported — {@link action} is not taken.
-							 * @type boolean
-							 */
-							dryRun: false | true;
-							/**
-							 * @description Whether automated gating is enabled for this project's rollouts.
-							 * @type boolean
-							 */
-							enabled: false | true;
-							/**
-							 * @description How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
-							 * @example 3
-							 * @type number | undefined
-							 */
-							failureThreshold?: number | undefined;
-							/**
-							 * @description How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
-							 * @example 5
-							 * @type number | undefined
-							 */
-							windowSize?: number | undefined;
-					  }
-					| undefined;
-				/**
 				 * @description An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
 				 * @type array | undefined
 				 */
@@ -97923,14 +98552,6 @@ export const getProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum = {
 
 export type GetProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof getProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof getProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum];
-
-export const getProjectStatus200RollingReleaseGateActionEnum = {
-	pause: "pause",
-	rollback: "rollback",
-} as const;
-
-export type GetProjectStatus200RollingReleaseGateActionEnumKey =
-	(typeof getProjectStatus200RollingReleaseGateActionEnum)[keyof typeof getProjectStatus200RollingReleaseGateActionEnum];
 
 export const getProjectStatus200SandboxFailoverRegionsEnum = {
 	arn1: "arn1",
@@ -101317,76 +101938,6 @@ export type GetProjectStatus200 = {
 				 */
 				canaryResponseHeader?: (false | true) | undefined;
 				/**
-				 * @description Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-				 * @type object | undefined
-				 */
-				gate?:
-					| {
-							/**
-							 * @description What to do when the gate trips: pause the rollout, or roll it back.
-							 * @type string
-							 */
-							action: GetProjectStatus200RollingReleaseGateActionEnumKey;
-							/**
-							 * @description The checks to evaluate. An empty array means nothing is evaluated.
-							 * @type array
-							 */
-							checks: {
-								/**
-								 * @description Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
-								 * @example ["/api/health"]
-								 * @type array | undefined
-								 */
-								excludePaths?: string[] | undefined;
-								/**
-								 * @description Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
-								 * @example [503]
-								 * @type array | undefined
-								 */
-								excludeStatusCodes?: number[] | undefined;
-								/**
-								 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
-								 * @example 30
-								 * @type number | undefined
-								 */
-								ingestWatermarkSeconds?: number | undefined;
-								/**
-								 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
-								 * @example 0.05
-								 * @type number | undefined
-								 */
-								significanceLevel?: number | undefined;
-								/**
-								 * @description The metric this check evaluates.
-								 * @type string
-								 */
-								type: "error-rate-5xx";
-							}[];
-							/**
-							 * @description When true, a tripped gate is only reported — {@link action} is not taken.
-							 * @type boolean
-							 */
-							dryRun: false | true;
-							/**
-							 * @description Whether automated gating is enabled for this project's rollouts.
-							 * @type boolean
-							 */
-							enabled: false | true;
-							/**
-							 * @description How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
-							 * @example 3
-							 * @type number | undefined
-							 */
-							failureThreshold?: number | undefined;
-							/**
-							 * @description How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
-							 * @example 5
-							 * @type number | undefined
-							 */
-							windowSize?: number | undefined;
-					  }
-					| undefined;
-				/**
 				 * @description An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
 				 * @type array | undefined
 				 */
@@ -102484,14 +103035,6 @@ export const updateProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum =
 
 export type UpdateProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof updateProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof updateProjectStatus200ResourceConfigFunctionDefaultMemoryTypeEnum];
-
-export const updateProjectStatus200RollingReleaseGateActionEnum = {
-	pause: "pause",
-	rollback: "rollback",
-} as const;
-
-export type UpdateProjectStatus200RollingReleaseGateActionEnumKey =
-	(typeof updateProjectStatus200RollingReleaseGateActionEnum)[keyof typeof updateProjectStatus200RollingReleaseGateActionEnum];
 
 export const updateProjectStatus200SandboxFailoverRegionsEnum = {
 	arn1: "arn1",
@@ -105862,76 +106405,6 @@ export type UpdateProjectStatus200 = {
 				 */
 				canaryResponseHeader?: (false | true) | undefined;
 				/**
-				 * @description Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-				 * @type object | undefined
-				 */
-				gate?:
-					| {
-							/**
-							 * @description What to do when the gate trips: pause the rollout, or roll it back.
-							 * @type string
-							 */
-							action: UpdateProjectStatus200RollingReleaseGateActionEnumKey;
-							/**
-							 * @description The checks to evaluate. An empty array means nothing is evaluated.
-							 * @type array
-							 */
-							checks: {
-								/**
-								 * @description Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
-								 * @example ["/api/health"]
-								 * @type array | undefined
-								 */
-								excludePaths?: string[] | undefined;
-								/**
-								 * @description Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
-								 * @example [503]
-								 * @type array | undefined
-								 */
-								excludeStatusCodes?: number[] | undefined;
-								/**
-								 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
-								 * @example 30
-								 * @type number | undefined
-								 */
-								ingestWatermarkSeconds?: number | undefined;
-								/**
-								 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
-								 * @example 0.05
-								 * @type number | undefined
-								 */
-								significanceLevel?: number | undefined;
-								/**
-								 * @description The metric this check evaluates.
-								 * @type string
-								 */
-								type: "error-rate-5xx";
-							}[];
-							/**
-							 * @description When true, a tripped gate is only reported — {@link action} is not taken.
-							 * @type boolean
-							 */
-							dryRun: false | true;
-							/**
-							 * @description Whether automated gating is enabled for this project's rollouts.
-							 * @type boolean
-							 */
-							enabled: false | true;
-							/**
-							 * @description How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
-							 * @example 3
-							 * @type number | undefined
-							 */
-							failureThreshold?: number | undefined;
-							/**
-							 * @description How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
-							 * @example 5
-							 * @type number | undefined
-							 */
-							windowSize?: number | undefined;
-					  }
-					| undefined;
-				/**
 				 * @description An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
 				 * @type array | undefined
 				 */
@@ -108092,14 +108565,6 @@ export const uploadProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryType
 
 export type UploadProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof uploadProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof uploadProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryTypeEnum];
-
-export const uploadProjectAvatarStatus200RollingReleaseGateActionEnum = {
-	pause: "pause",
-	rollback: "rollback",
-} as const;
-
-export type UploadProjectAvatarStatus200RollingReleaseGateActionEnumKey =
-	(typeof uploadProjectAvatarStatus200RollingReleaseGateActionEnum)[keyof typeof uploadProjectAvatarStatus200RollingReleaseGateActionEnum];
 
 export const uploadProjectAvatarStatus200SandboxFailoverRegionsEnum = {
 	arn1: "arn1",
@@ -111483,76 +111948,6 @@ export type UploadProjectAvatarStatus200 = {
 				 */
 				canaryResponseHeader?: (false | true) | undefined;
 				/**
-				 * @description Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-				 * @type object | undefined
-				 */
-				gate?:
-					| {
-							/**
-							 * @description What to do when the gate trips: pause the rollout, or roll it back.
-							 * @type string
-							 */
-							action: UploadProjectAvatarStatus200RollingReleaseGateActionEnumKey;
-							/**
-							 * @description The checks to evaluate. An empty array means nothing is evaluated.
-							 * @type array
-							 */
-							checks: {
-								/**
-								 * @description Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
-								 * @example ["/api/health"]
-								 * @type array | undefined
-								 */
-								excludePaths?: string[] | undefined;
-								/**
-								 * @description Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
-								 * @example [503]
-								 * @type array | undefined
-								 */
-								excludeStatusCodes?: number[] | undefined;
-								/**
-								 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
-								 * @example 30
-								 * @type number | undefined
-								 */
-								ingestWatermarkSeconds?: number | undefined;
-								/**
-								 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
-								 * @example 0.05
-								 * @type number | undefined
-								 */
-								significanceLevel?: number | undefined;
-								/**
-								 * @description The metric this check evaluates.
-								 * @type string
-								 */
-								type: "error-rate-5xx";
-							}[];
-							/**
-							 * @description When true, a tripped gate is only reported — {@link action} is not taken.
-							 * @type boolean
-							 */
-							dryRun: false | true;
-							/**
-							 * @description Whether automated gating is enabled for this project's rollouts.
-							 * @type boolean
-							 */
-							enabled: false | true;
-							/**
-							 * @description How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
-							 * @example 3
-							 * @type number | undefined
-							 */
-							failureThreshold?: number | undefined;
-							/**
-							 * @description How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
-							 * @example 5
-							 * @type number | undefined
-							 */
-							windowSize?: number | undefined;
-					  }
-					| undefined;
-				/**
 				 * @description An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
 				 * @type array | undefined
 				 */
@@ -112675,14 +113070,6 @@ export const deleteProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryType
 
 export type DeleteProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof deleteProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof deleteProjectAvatarStatus200ResourceConfigFunctionDefaultMemoryTypeEnum];
-
-export const deleteProjectAvatarStatus200RollingReleaseGateActionEnum = {
-	pause: "pause",
-	rollback: "rollback",
-} as const;
-
-export type DeleteProjectAvatarStatus200RollingReleaseGateActionEnumKey =
-	(typeof deleteProjectAvatarStatus200RollingReleaseGateActionEnum)[keyof typeof deleteProjectAvatarStatus200RollingReleaseGateActionEnum];
 
 export const deleteProjectAvatarStatus200SandboxFailoverRegionsEnum = {
 	arn1: "arn1",
@@ -116065,76 +116452,6 @@ export type DeleteProjectAvatarStatus200 = {
 				 * @type boolean | undefined
 				 */
 				canaryResponseHeader?: (false | true) | undefined;
-				/**
-				 * @description Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-				 * @type object | undefined
-				 */
-				gate?:
-					| {
-							/**
-							 * @description What to do when the gate trips: pause the rollout, or roll it back.
-							 * @type string
-							 */
-							action: DeleteProjectAvatarStatus200RollingReleaseGateActionEnumKey;
-							/**
-							 * @description The checks to evaluate. An empty array means nothing is evaluated.
-							 * @type array
-							 */
-							checks: {
-								/**
-								 * @description Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
-								 * @example ["/api/health"]
-								 * @type array | undefined
-								 */
-								excludePaths?: string[] | undefined;
-								/**
-								 * @description Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
-								 * @example [503]
-								 * @type array | undefined
-								 */
-								excludeStatusCodes?: number[] | undefined;
-								/**
-								 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
-								 * @example 30
-								 * @type number | undefined
-								 */
-								ingestWatermarkSeconds?: number | undefined;
-								/**
-								 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
-								 * @example 0.05
-								 * @type number | undefined
-								 */
-								significanceLevel?: number | undefined;
-								/**
-								 * @description The metric this check evaluates.
-								 * @type string
-								 */
-								type: "error-rate-5xx";
-							}[];
-							/**
-							 * @description When true, a tripped gate is only reported — {@link action} is not taken.
-							 * @type boolean
-							 */
-							dryRun: false | true;
-							/**
-							 * @description Whether automated gating is enabled for this project's rollouts.
-							 * @type boolean
-							 */
-							enabled: false | true;
-							/**
-							 * @description How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
-							 * @example 3
-							 * @type number | undefined
-							 */
-							failureThreshold?: number | undefined;
-							/**
-							 * @description How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
-							 * @example 5
-							 * @type number | undefined
-							 */
-							windowSize?: number | undefined;
-					  }
-					| undefined;
 				/**
 				 * @description An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
 				 * @type array | undefined
@@ -121475,14 +121792,6 @@ export type GetRollingReleaseConfigQuery = {
 	slug?: string | undefined;
 };
 
-export const getRollingReleaseConfigStatus200RollingReleaseGateActionEnum = {
-	pause: "pause",
-	rollback: "rollback",
-} as const;
-
-export type GetRollingReleaseConfigStatus200RollingReleaseGateActionEnumKey =
-	(typeof getRollingReleaseConfigStatus200RollingReleaseGateActionEnum)[keyof typeof getRollingReleaseConfigStatus200RollingReleaseGateActionEnum];
-
 export type GetRollingReleaseConfigStatus200 = {
 	/**
 	 * @description Project-level rolling release configuration that defines how deployments should be gradually rolled out
@@ -121495,76 +121804,6 @@ export type GetRollingReleaseConfigStatus200 = {
 		 * @type boolean | undefined
 		 */
 		canaryResponseHeader?: (false | true) | undefined;
-		/**
-		 * @description Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-		 * @type object | undefined
-		 */
-		gate?:
-			| {
-					/**
-					 * @description What to do when the gate trips: pause the rollout, or roll it back.
-					 * @type string
-					 */
-					action: GetRollingReleaseConfigStatus200RollingReleaseGateActionEnumKey;
-					/**
-					 * @description The checks to evaluate. An empty array means nothing is evaluated.
-					 * @type array
-					 */
-					checks: {
-						/**
-						 * @description Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
-						 * @example ["/api/health"]
-						 * @type array | undefined
-						 */
-						excludePaths?: string[] | undefined;
-						/**
-						 * @description Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
-						 * @example [503]
-						 * @type array | undefined
-						 */
-						excludeStatusCodes?: number[] | undefined;
-						/**
-						 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
-						 * @example 30
-						 * @type number | undefined
-						 */
-						ingestWatermarkSeconds?: number | undefined;
-						/**
-						 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
-						 * @example 0.05
-						 * @type number | undefined
-						 */
-						significanceLevel?: number | undefined;
-						/**
-						 * @description The metric this check evaluates.
-						 * @type string
-						 */
-						type: "error-rate-5xx";
-					}[];
-					/**
-					 * @description When true, a tripped gate is only reported — {@link action} is not taken.
-					 * @type boolean
-					 */
-					dryRun: false | true;
-					/**
-					 * @description Whether automated gating is enabled for this project's rollouts.
-					 * @type boolean
-					 */
-					enabled: false | true;
-					/**
-					 * @description How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
-					 * @example 3
-					 * @type number | undefined
-					 */
-					failureThreshold?: number | undefined;
-					/**
-					 * @description How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
-					 * @example 5
-					 * @type number | undefined
-					 */
-					windowSize?: number | undefined;
-			  }
-			| undefined;
 		/**
 		 * @description An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
 		 * @type array | undefined
@@ -124657,14 +124896,6 @@ export const updateMicrofrontendsStatus200ResourceConfigFunctionDefaultMemoryTyp
 
 export type UpdateMicrofrontendsStatus200ResourceConfigFunctionDefaultMemoryTypeEnumKey =
 	(typeof updateMicrofrontendsStatus200ResourceConfigFunctionDefaultMemoryTypeEnum)[keyof typeof updateMicrofrontendsStatus200ResourceConfigFunctionDefaultMemoryTypeEnum];
-
-export const updateMicrofrontendsStatus200RollingReleaseGateActionEnum = {
-	pause: "pause",
-	rollback: "rollback",
-} as const;
-
-export type UpdateMicrofrontendsStatus200RollingReleaseGateActionEnumKey =
-	(typeof updateMicrofrontendsStatus200RollingReleaseGateActionEnum)[keyof typeof updateMicrofrontendsStatus200RollingReleaseGateActionEnum];
 
 export const updateMicrofrontendsStatus200SandboxFailoverRegionsEnum = {
 	arn1: "arn1",
@@ -128047,76 +128278,6 @@ export type UpdateMicrofrontendsStatus200 = {
 				 * @type boolean | undefined
 				 */
 				canaryResponseHeader?: (false | true) | undefined;
-				/**
-				 * @description Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.
-				 * @type object | undefined
-				 */
-				gate?:
-					| {
-							/**
-							 * @description What to do when the gate trips: pause the rollout, or roll it back.
-							 * @type string
-							 */
-							action: UpdateMicrofrontendsStatus200RollingReleaseGateActionEnumKey;
-							/**
-							 * @description The checks to evaluate. An empty array means nothing is evaluated.
-							 * @type array
-							 */
-							checks: {
-								/**
-								 * @description Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.
-								 * @example ["/api/health"]
-								 * @type array | undefined
-								 */
-								excludePaths?: string[] | undefined;
-								/**
-								 * @description Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.
-								 * @example [503]
-								 * @type array | undefined
-								 */
-								excludeStatusCodes?: number[] | undefined;
-								/**
-								 * @description Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.
-								 * @example 30
-								 * @type number | undefined
-								 */
-								ingestWatermarkSeconds?: number | undefined;
-								/**
-								 * @description A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.
-								 * @example 0.05
-								 * @type number | undefined
-								 */
-								significanceLevel?: number | undefined;
-								/**
-								 * @description The metric this check evaluates.
-								 * @type string
-								 */
-								type: "error-rate-5xx";
-							}[];
-							/**
-							 * @description When true, a tripped gate is only reported — {@link action} is not taken.
-							 * @type boolean
-							 */
-							dryRun: false | true;
-							/**
-							 * @description Whether automated gating is enabled for this project's rollouts.
-							 * @type boolean
-							 */
-							enabled: false | true;
-							/**
-							 * @description How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.
-							 * @example 3
-							 * @type number | undefined
-							 */
-							failureThreshold?: number | undefined;
-							/**
-							 * @description How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.
-							 * @example 5
-							 * @type number | undefined
-							 */
-							windowSize?: number | undefined;
-					  }
-					| undefined;
 				/**
 				 * @description An array of all the stages required during a deployment release. Each stage defines a target percentage and advancement rules. The final stage must always have targetPercentage: 100.
 				 * @type array | undefined

@@ -3655,7 +3655,7 @@ export const userEventSchema = z
 					}),
 					member: z.object({
 						id: z.string(),
-						kind: z.enum(["project", "team", "user"]),
+						kind: z.enum(["iam-access-group", "project", "team", "user"]),
 						name: z.string().optional(),
 					}),
 				}),
@@ -10083,7 +10083,48 @@ export const userEventSchema = z
 						.describe("A repository's findings are in code no project runs."),
 					targetName: z.string(),
 					vulnerabilityClass: z.string(),
+					closeReason: z.enum(["accepted-risk", "false-positive", "resolved"]),
+				}),
+				z.strictObject({
+					eventId: z.string(),
+					occurredAt: z.number(),
+					sessionId: z.string(),
+					sessionKind: z.string().describe("Currently emitted session kinds: chat, investigation."),
+					surface: z
+						.string()
+						.describe(
+							"Currently emitted surfaces: dashboard, internal, slack, automation, github.",
+						),
+					branchRef: z.string().nullable(),
+					commitSha: z.string().nullish(),
+					deploymentId: z
+						.string()
+						.nullable()
+						.describe("Null for a repository's findings and those of an undeployed commit."),
+					environment: z.string().nullable().describe("Null for a repository's findings."),
+					findingId: z.string(),
+					findingNumber: z.number(),
+					pullRequestNumber: z.number().nullish(),
+					repository: z
+						.string()
+						.nullish()
+						.describe(
+							"The GitHub repository, such as `acme/app`, commit, and pull request the event's review read: the one that found the finding, or for a resolution, the one that fixed it. Null for uploaded files; absent from events recorded before they were sent.",
+						),
+					severity: z.string(),
+					targetId: z.string(),
+					targetKind: z
+						.enum(["project", "repository"])
+						.describe("A repository's findings are in code no project runs."),
+					targetName: z.string(),
+					vulnerabilityClass: z.string(),
 					dismissalReason: z.enum(["accepted-risk", "false-positive"]),
+				}),
+				z.strictObject({
+					eventId: z.string(),
+					occurredAt: z.number(),
+					projectId: z.string().nullable(),
+					projectName: z.string().optional(),
 				}),
 				z.strictObject({
 					next: z.enum(["auto-approval", "block", "manual-approval"]).nullable(),
@@ -12350,10 +12391,13 @@ export const userEventSchema = z
 				"vcr-repository-visibility-changed",
 				"vercel-agent-elevated-permissions-approved",
 				"vercel-agent-elevated-permissions-requested",
+				"vercel-agent-security-finding-closed",
 				"vercel-agent-security-finding-created",
 				"vercel-agent-security-finding-dismissed",
 				"vercel-agent-security-finding-reopened",
 				"vercel-agent-security-finding-resolved",
+				"vercel-agent-security-review-policy-deleted",
+				"vercel-agent-security-review-policy-updated",
 				"vercel-agent-session-created",
 				"vercel-agent-team-trial-credits-applied",
 				"vercel-app-installation-request-dismissed",
@@ -13262,10 +13306,13 @@ export const listEventTypeSchema = z
 				"vcr-repository-visibility-changed",
 				"vercel-agent-elevated-permissions-approved",
 				"vercel-agent-elevated-permissions-requested",
+				"vercel-agent-security-finding-closed",
 				"vercel-agent-security-finding-created",
 				"vercel-agent-security-finding-dismissed",
 				"vercel-agent-security-finding-reopened",
 				"vercel-agent-security-finding-resolved",
+				"vercel-agent-security-review-policy-deleted",
+				"vercel-agent-security-review-policy-updated",
 				"vercel-agent-session-created",
 				"vercel-agent-team-trial-credits-applied",
 				"vercel-app-installation-request-dismissed",
@@ -14069,10 +14116,13 @@ export const listEventTypeSchema = z
 					"vcr-repository-visibility-changed",
 					"vercel-agent-elevated-permissions-approved",
 					"vercel-agent-elevated-permissions-requested",
+					"vercel-agent-security-finding-closed",
 					"vercel-agent-security-finding-created",
 					"vercel-agent-security-finding-dismissed",
 					"vercel-agent-security-finding-reopened",
 					"vercel-agent-security-finding-resolved",
+					"vercel-agent-security-review-policy-deleted",
+					"vercel-agent-security-review-policy-updated",
 					"vercel-agent-session-created",
 					"vercel-agent-team-trial-credits-applied",
 					"vercel-app-installation-request-dismissed",
@@ -19082,6 +19132,201 @@ export const createAiGatewayVirtualModelConfigErrorSchema = z.union([
 	createAiGatewayVirtualModelConfigStatus500Schema,
 ]);
 
+export const createAiGatewayVirtualModelConfigBodySchema = z
+	.strictObject({
+		virtualModelSlug: z
+			.string()
+			.regex(/^[a-zA-Z0-9_.-]+$/)
+			.describe(
+				"The slug of the virtual model. Requests name it as `vmc/<slug>`. `list` is reserved.",
+			),
+		displayName: z.string().optional().describe("The name shown in the UI."),
+		description: z.string().optional(),
+		status: z
+			.string()
+			.optional()
+			.describe(
+				"The lifecycle status: `draft`, `active`, or `archived`. Any value other than `active` stops it serving requests. Defaults to `active`.",
+			),
+		modelSlug: z
+			.string()
+			.optional()
+			.describe(
+				"The model that the virtual model resolves to: a catalog model such as `openai/gpt-4o-mini`, or one of your team's private models as `private/<slug>`. Required on create.",
+			),
+		models: z
+			.array(
+				z.union([
+					z.string(),
+					z.strictObject({
+						model: z
+							.string()
+							.describe(
+								"A model ID: a catalog model such as `openai/gpt-4o`, or one of your team's private models as `private/<slug>`. A fallback can also name a virtual model as `vmc/<slug>`.",
+							),
+						when: z
+							.strictObject({
+								question: z
+									.string()
+									.max(256)
+									.optional()
+									.describe(
+										"The question to check, with `confidenceBelow` or `probabilityBetween`. Without it, the condition checks every question of the applicable type.",
+									),
+								confidenceBelow: z.number().min(0).max(1).optional(),
+								probabilityBetween: z
+									.array(z.number().min(0).max(1))
+									.min(2)
+									.max(2)
+									.optional()
+									.describe("A `[lower, upper]` pair."),
+								any: z
+									.array(z.object({}))
+									.min(1)
+									.max(20)
+									.optional()
+									.describe("Nested conditions. Each one has the same shape as `when`."),
+								all: z
+									.array(z.object({}))
+									.min(1)
+									.max(20)
+									.optional()
+									.describe("Nested conditions. Each one has the same shape as `when`."),
+								atLeast: z
+									.strictObject({
+										count: z
+											.int()
+											.min(1)
+											.describe("Must not be more than the number of conditions."),
+										conditions: z
+											.array(z.object({}))
+											.min(1)
+											.max(20)
+											.describe("Nested conditions. Each one has the same shape as `when`."),
+									})
+									.optional(),
+							})
+							.describe(
+								"The fallback model is used when the answers of the primary model match this condition. Set exactly one of `confidenceBelow`, `probabilityBetween`, `any`, `all`, or `atLeast`. A condition tree can be 5 levels deep and can hold 100 conditions.",
+							),
+					}),
+				]),
+			)
+			.optional()
+			.describe(
+				"The ordered fallback models, optionally led by one conditional `{ model, when }` entry.",
+			),
+		providerOrder: z.array(z.string()).optional().describe("The providers to try, in order."),
+		providerOnly: z
+			.array(z.string())
+			.max(256)
+			.optional()
+			.describe("Restrict routing to these providers."),
+		observabilityTags: z
+			.array(z.string())
+			.optional()
+			.describe("Observability tags attached to requests through this virtual model."),
+		providerOptions: z
+			.record(z.string(), z.looseObject({}))
+			.optional()
+			.describe(
+				"Provider-specific options, keyed by provider slug. The slug of one of your team's private providers is also valid.",
+			),
+		byokCredentialIds: z
+			.array(z.string())
+			.max(256)
+			.optional()
+			.describe("The BYOK credentials that this virtual model can use."),
+		inferenceRegion: z
+			.strictObject({
+				scope: z
+					.enum(["global", "zone"])
+					.optional()
+					.describe("The pin scope: `zone` (a geo zone) or `global`."),
+				geoRegion: z
+					.string()
+					.optional()
+					.describe("The geo zone, for example `us` or `eu`. Required when `scope` is `zone`."),
+				providers: z
+					.record(
+						z.string(),
+						z.strictObject({
+							scope: z
+								.enum(["global", "zone"])
+								.optional()
+								.describe("The pin scope: `zone` (a geo zone) or `global`."),
+							geoRegion: z
+								.string()
+								.optional()
+								.describe(
+									"The geo zone, for example `us` or `eu`. Required when `scope` is `zone`.",
+								),
+						}),
+					)
+					.optional()
+					.describe("Region overrides for each provider, keyed by provider slug."),
+			})
+			.optional()
+			.describe("The region that requests are pinned to."),
+		sort: z
+			.enum(["@default", "cost", "latency", "price", "throughput", "tps", "ttft"])
+			.optional()
+			.describe(
+				"Rank eligible providers by an attribute. `@default` ignores the value from the inference request.",
+			),
+		has: z
+			.array(z.enum(["implicit-caching", "reasoning", "structured-output", "tool-use", "vision"]))
+			.max(32)
+			.optional()
+			.describe("Limit providers to those with these features."),
+		caching: z
+			.enum(["@default", "auto"])
+			.optional()
+			.describe(
+				"Use caching if available. `@default` ignores the value from the inference request.",
+			),
+		serviceTier: z
+			.enum(["@default", "fast", "flex", "priority"])
+			.optional()
+			.describe(
+				"The service tier for providers that support it. `@default` ignores the value from the inference request.",
+			),
+		providerTimeouts: z
+			.union([
+				z.enum(["@default"]),
+				z.strictObject({
+					byok: z
+						.record(z.string(), z.int().min(1000).max(789000))
+						.optional()
+						.describe(
+							"The timeout for each provider that uses a BYOK credential, keyed by provider slug.",
+						),
+				}),
+			])
+			.optional()
+			.describe(
+				"Provider timeouts in milliseconds. `@default` ignores the value from the inference request.",
+			),
+		zeroDataRetention: z
+			.boolean()
+			.optional()
+			.describe("Only use providers with zero data retention."),
+		hipaaCompliant: z.boolean().optional().describe("Only use HIPAA-compliant providers."),
+		disallowPromptTraining: z
+			.boolean()
+			.optional()
+			.describe("Only use providers that do not train on prompts."),
+		speed: z
+			.enum(["fast"])
+			.optional()
+			.describe("Only use the fastest providers, with short timeouts."),
+		allowFallbackFromFast: z
+			.boolean()
+			.optional()
+			.describe("Allow fallback from fast to standard providers on failure."),
+	})
+	.optional();
+
 export const createAiGatewayVirtualModelConfigQuerySchema = z.object({
 	teamId: z
 		.string()
@@ -19204,6 +19449,213 @@ export const updateAiGatewayVirtualModelConfigErrorSchema = z.union([
 	updateAiGatewayVirtualModelConfigStatus429Schema,
 	updateAiGatewayVirtualModelConfigStatus500Schema,
 ]);
+
+export const updateAiGatewayVirtualModelConfigBodySchema = z
+	.strictObject({
+		virtualModelSlug: z.string().describe("The slug of the virtual model to update."),
+		displayName: z.string().optional().describe("The name shown in the UI."),
+		description: z.string().optional(),
+		status: z
+			.string()
+			.optional()
+			.describe(
+				"The lifecycle status: `draft`, `active`, or `archived`. Any value other than `active` stops it serving requests. Defaults to `active`.",
+			),
+		modelSlug: z
+			.string()
+			.optional()
+			.describe(
+				"The model that the virtual model resolves to: a catalog model such as `openai/gpt-4o-mini`, or one of your team's private models as `private/<slug>`. Required on create.",
+			),
+		models: z
+			.array(
+				z.union([
+					z.string(),
+					z.strictObject({
+						model: z
+							.string()
+							.describe(
+								"A model ID: a catalog model such as `openai/gpt-4o`, or one of your team's private models as `private/<slug>`. A fallback can also name a virtual model as `vmc/<slug>`.",
+							),
+						when: z
+							.strictObject({
+								question: z
+									.string()
+									.max(256)
+									.optional()
+									.describe(
+										"The question to check, with `confidenceBelow` or `probabilityBetween`. Without it, the condition checks every question of the applicable type.",
+									),
+								confidenceBelow: z.number().min(0).max(1).optional(),
+								probabilityBetween: z
+									.array(z.number().min(0).max(1))
+									.min(2)
+									.max(2)
+									.optional()
+									.describe("A `[lower, upper]` pair."),
+								any: z
+									.array(z.object({}))
+									.min(1)
+									.max(20)
+									.optional()
+									.describe("Nested conditions. Each one has the same shape as `when`."),
+								all: z
+									.array(z.object({}))
+									.min(1)
+									.max(20)
+									.optional()
+									.describe("Nested conditions. Each one has the same shape as `when`."),
+								atLeast: z
+									.strictObject({
+										count: z
+											.int()
+											.min(1)
+											.describe("Must not be more than the number of conditions."),
+										conditions: z
+											.array(z.object({}))
+											.min(1)
+											.max(20)
+											.describe("Nested conditions. Each one has the same shape as `when`."),
+									})
+									.optional(),
+							})
+							.describe(
+								"The fallback model is used when the answers of the primary model match this condition. Set exactly one of `confidenceBelow`, `probabilityBetween`, `any`, `all`, or `atLeast`. A condition tree can be 5 levels deep and can hold 100 conditions.",
+							),
+					}),
+				]),
+			)
+			.optional()
+			.describe(
+				"The ordered fallback models, optionally led by one conditional `{ model, when }` entry.",
+			),
+		providerOrder: z.array(z.string()).optional().describe("The providers to try, in order."),
+		providerOnly: z
+			.array(z.string())
+			.max(256)
+			.optional()
+			.describe("Restrict routing to these providers."),
+		observabilityTags: z
+			.array(z.string())
+			.optional()
+			.describe("Observability tags attached to requests through this virtual model."),
+		deleted: z
+			.literal(false)
+			.optional()
+			.describe("Set to `false` to restore a deleted virtual model."),
+		providerOptions: z
+			.record(z.string(), z.looseObject({}))
+			.nullish()
+			.describe(
+				"Provider-specific options, keyed by provider slug. The slug of one of your team's private providers is also valid. `null` removes the stored value.",
+			),
+		byokCredentialIds: z
+			.array(z.string())
+			.max(256)
+			.nullish()
+			.describe(
+				"The BYOK credentials that this virtual model can use. `null` removes the stored value.",
+			),
+		inferenceRegion: z
+			.strictObject({
+				scope: z
+					.enum(["global", "zone"])
+					.optional()
+					.describe("The pin scope: `zone` (a geo zone) or `global`."),
+				geoRegion: z
+					.string()
+					.optional()
+					.describe("The geo zone, for example `us` or `eu`. Required when `scope` is `zone`."),
+				providers: z
+					.record(
+						z.string(),
+						z.strictObject({
+							scope: z
+								.enum(["global", "zone"])
+								.optional()
+								.describe("The pin scope: `zone` (a geo zone) or `global`."),
+							geoRegion: z
+								.string()
+								.optional()
+								.describe(
+									"The geo zone, for example `us` or `eu`. Required when `scope` is `zone`.",
+								),
+						}),
+					)
+					.optional()
+					.describe("Region overrides for each provider, keyed by provider slug."),
+			})
+			.nullish()
+			.describe("The region that requests are pinned to. `null` removes the stored value."),
+		sort: z
+			.enum(["@default", "cost", "latency", "price", "throughput", "tps", "ttft"])
+			.nullish()
+			.describe(
+				"Rank eligible providers by an attribute. `@default` ignores the value from the inference request. `null` removes the stored value.",
+			),
+		has: z
+			.array(z.enum(["implicit-caching", "reasoning", "structured-output", "tool-use", "vision"]))
+			.max(32)
+			.nullish()
+			.describe("Limit providers to those with these features. `null` removes the stored value."),
+		caching: z
+			.enum(["@default", "auto"])
+			.nullish()
+			.describe(
+				"Use caching if available. `@default` ignores the value from the inference request. `null` removes the stored value.",
+			),
+		serviceTier: z
+			.enum(["@default", "fast", "flex", "priority"])
+			.nullish()
+			.describe(
+				"The service tier for providers that support it. `@default` ignores the value from the inference request. `null` removes the stored value.",
+			),
+		providerTimeouts: z
+			.union([
+				z.enum(["@default"]),
+				z
+					.strictObject({
+						byok: z
+							.record(z.string(), z.int().min(1000).max(789000))
+							.optional()
+							.describe(
+								"The timeout for each provider that uses a BYOK credential, keyed by provider slug.",
+							),
+					})
+					.nullable(),
+			])
+			.optional()
+			.describe(
+				"Provider timeouts in milliseconds. `@default` ignores the value from the inference request. `null` removes the stored value.",
+			),
+		zeroDataRetention: z
+			.boolean()
+			.nullish()
+			.describe("Only use providers with zero data retention. `null` removes the stored value."),
+		hipaaCompliant: z
+			.boolean()
+			.nullish()
+			.describe("Only use HIPAA-compliant providers. `null` removes the stored value."),
+		disallowPromptTraining: z
+			.boolean()
+			.nullish()
+			.describe(
+				"Only use providers that do not train on prompts. `null` removes the stored value.",
+			),
+		speed: z
+			.enum(["fast"])
+			.nullish()
+			.describe(
+				"Only use the fastest providers, with short timeouts. `null` removes the stored value.",
+			),
+		allowFallbackFromFast: z
+			.boolean()
+			.nullish()
+			.describe(
+				"Allow fallback from fast to standard providers on failure. `null` removes the stored value.",
+			),
+	})
+	.optional();
 
 export const updateAiGatewayVirtualModelConfigQuerySchema = z.object({
 	teamId: z
@@ -19459,6 +19911,212 @@ export const updateAiGatewayVirtualModelConfigBySlugErrorSchema = z.union([
 	updateAiGatewayVirtualModelConfigBySlugStatus500Schema,
 ]);
 
+export const updateAiGatewayVirtualModelConfigBySlugBodySchema = z
+	.strictObject({
+		displayName: z.string().optional().describe("The name shown in the UI."),
+		description: z.string().optional(),
+		status: z
+			.string()
+			.optional()
+			.describe(
+				"The lifecycle status: `draft`, `active`, or `archived`. Any value other than `active` stops it serving requests. Defaults to `active`.",
+			),
+		modelSlug: z
+			.string()
+			.optional()
+			.describe(
+				"The model that the virtual model resolves to: a catalog model such as `openai/gpt-4o-mini`, or one of your team's private models as `private/<slug>`. Required on create.",
+			),
+		models: z
+			.array(
+				z.union([
+					z.string(),
+					z.strictObject({
+						model: z
+							.string()
+							.describe(
+								"A model ID: a catalog model such as `openai/gpt-4o`, or one of your team's private models as `private/<slug>`. A fallback can also name a virtual model as `vmc/<slug>`.",
+							),
+						when: z
+							.strictObject({
+								question: z
+									.string()
+									.max(256)
+									.optional()
+									.describe(
+										"The question to check, with `confidenceBelow` or `probabilityBetween`. Without it, the condition checks every question of the applicable type.",
+									),
+								confidenceBelow: z.number().min(0).max(1).optional(),
+								probabilityBetween: z
+									.array(z.number().min(0).max(1))
+									.min(2)
+									.max(2)
+									.optional()
+									.describe("A `[lower, upper]` pair."),
+								any: z
+									.array(z.object({}))
+									.min(1)
+									.max(20)
+									.optional()
+									.describe("Nested conditions. Each one has the same shape as `when`."),
+								all: z
+									.array(z.object({}))
+									.min(1)
+									.max(20)
+									.optional()
+									.describe("Nested conditions. Each one has the same shape as `when`."),
+								atLeast: z
+									.strictObject({
+										count: z
+											.int()
+											.min(1)
+											.describe("Must not be more than the number of conditions."),
+										conditions: z
+											.array(z.object({}))
+											.min(1)
+											.max(20)
+											.describe("Nested conditions. Each one has the same shape as `when`."),
+									})
+									.optional(),
+							})
+							.describe(
+								"The fallback model is used when the answers of the primary model match this condition. Set exactly one of `confidenceBelow`, `probabilityBetween`, `any`, `all`, or `atLeast`. A condition tree can be 5 levels deep and can hold 100 conditions.",
+							),
+					}),
+				]),
+			)
+			.optional()
+			.describe(
+				"The ordered fallback models, optionally led by one conditional `{ model, when }` entry.",
+			),
+		providerOrder: z.array(z.string()).optional().describe("The providers to try, in order."),
+		providerOnly: z
+			.array(z.string())
+			.max(256)
+			.optional()
+			.describe("Restrict routing to these providers."),
+		observabilityTags: z
+			.array(z.string())
+			.optional()
+			.describe("Observability tags attached to requests through this virtual model."),
+		deleted: z
+			.literal(false)
+			.optional()
+			.describe("Set to `false` to restore a deleted virtual model."),
+		providerOptions: z
+			.record(z.string(), z.looseObject({}))
+			.nullish()
+			.describe(
+				"Provider-specific options, keyed by provider slug. The slug of one of your team's private providers is also valid. `null` removes the stored value.",
+			),
+		byokCredentialIds: z
+			.array(z.string())
+			.max(256)
+			.nullish()
+			.describe(
+				"The BYOK credentials that this virtual model can use. `null` removes the stored value.",
+			),
+		inferenceRegion: z
+			.strictObject({
+				scope: z
+					.enum(["global", "zone"])
+					.optional()
+					.describe("The pin scope: `zone` (a geo zone) or `global`."),
+				geoRegion: z
+					.string()
+					.optional()
+					.describe("The geo zone, for example `us` or `eu`. Required when `scope` is `zone`."),
+				providers: z
+					.record(
+						z.string(),
+						z.strictObject({
+							scope: z
+								.enum(["global", "zone"])
+								.optional()
+								.describe("The pin scope: `zone` (a geo zone) or `global`."),
+							geoRegion: z
+								.string()
+								.optional()
+								.describe(
+									"The geo zone, for example `us` or `eu`. Required when `scope` is `zone`.",
+								),
+						}),
+					)
+					.optional()
+					.describe("Region overrides for each provider, keyed by provider slug."),
+			})
+			.nullish()
+			.describe("The region that requests are pinned to. `null` removes the stored value."),
+		sort: z
+			.enum(["@default", "cost", "latency", "price", "throughput", "tps", "ttft"])
+			.nullish()
+			.describe(
+				"Rank eligible providers by an attribute. `@default` ignores the value from the inference request. `null` removes the stored value.",
+			),
+		has: z
+			.array(z.enum(["implicit-caching", "reasoning", "structured-output", "tool-use", "vision"]))
+			.max(32)
+			.nullish()
+			.describe("Limit providers to those with these features. `null` removes the stored value."),
+		caching: z
+			.enum(["@default", "auto"])
+			.nullish()
+			.describe(
+				"Use caching if available. `@default` ignores the value from the inference request. `null` removes the stored value.",
+			),
+		serviceTier: z
+			.enum(["@default", "fast", "flex", "priority"])
+			.nullish()
+			.describe(
+				"The service tier for providers that support it. `@default` ignores the value from the inference request. `null` removes the stored value.",
+			),
+		providerTimeouts: z
+			.union([
+				z.enum(["@default"]),
+				z
+					.strictObject({
+						byok: z
+							.record(z.string(), z.int().min(1000).max(789000))
+							.optional()
+							.describe(
+								"The timeout for each provider that uses a BYOK credential, keyed by provider slug.",
+							),
+					})
+					.nullable(),
+			])
+			.optional()
+			.describe(
+				"Provider timeouts in milliseconds. `@default` ignores the value from the inference request. `null` removes the stored value.",
+			),
+		zeroDataRetention: z
+			.boolean()
+			.nullish()
+			.describe("Only use providers with zero data retention. `null` removes the stored value."),
+		hipaaCompliant: z
+			.boolean()
+			.nullish()
+			.describe("Only use HIPAA-compliant providers. `null` removes the stored value."),
+		disallowPromptTraining: z
+			.boolean()
+			.nullish()
+			.describe(
+				"Only use providers that do not train on prompts. `null` removes the stored value.",
+			),
+		speed: z
+			.enum(["fast"])
+			.nullish()
+			.describe(
+				"Only use the fastest providers, with short timeouts. `null` removes the stored value.",
+			),
+		allowFallbackFromFast: z
+			.boolean()
+			.nullish()
+			.describe(
+				"Allow fallback from fast to standard providers on failure. `null` removes the stored value.",
+			),
+	})
+	.optional();
+
 export const updateAiGatewayVirtualModelConfigBySlugPathSchema = z.object({
 	vmcSlug: z.string(),
 });
@@ -19652,6 +20310,36 @@ export const createAiGatewayRuleErrorSchema = z.union([
 	createAiGatewayRuleStatus500Schema,
 ]);
 
+export const createAiGatewayRuleBodySchema = z
+	.strictObject({
+		type: z
+			.enum(["deny", "rewrite"])
+			.describe(
+				"`rewrite` sends requests for the matched model to another model. `deny` rejects them.",
+			),
+		match: z.strictObject({
+			model: z.string().describe("The model that the rule applies to."),
+		}),
+		action: z
+			.strictObject({
+				rewriteModel: z
+					.string()
+					.optional()
+					.describe(
+						"The model that serves the request: a catalog model, or one of your virtual models as `vmc/<slug>`. It must exist and be active. Required when `type` is `rewrite`.",
+					),
+				reason: z
+					.string()
+					.optional()
+					.describe("Why the model is denied. Used when `type` is `deny`."),
+			})
+			.optional()
+			.describe("Required when `type` is `rewrite`."),
+		enabled: z.boolean().optional().describe("Whether the rule is enabled. Defaults to `true`."),
+		description: z.string().optional().describe("A free-text note about the rule."),
+	})
+	.optional();
+
 export const createAiGatewayRuleQuerySchema = z.object({
 	teamId: z
 		.string()
@@ -19773,6 +20461,30 @@ export const updateAiGatewayRuleErrorSchema = z.union([
 	updateAiGatewayRuleStatus410Schema,
 	updateAiGatewayRuleStatus500Schema,
 ]);
+
+export const updateAiGatewayRuleBodySchema = z
+	.strictObject({
+		ruleId: z
+			.string()
+			.describe(
+				"The ID of the rule to update. Send at least one of `enabled`, `description`, or `action` with it.",
+			),
+		enabled: z.boolean().optional().describe("Whether the rule is enabled."),
+		description: z.string().optional().describe("A free-text note about the rule."),
+		action: z
+			.strictObject({
+				rewriteModel: z
+					.string()
+					.optional()
+					.describe(
+						"The model that serves the request, for a rewrite rule: a catalog model, or one of your virtual models as `vmc/<slug>`. It must exist and be active.",
+					),
+				reason: z.string().optional().describe("Why the model is denied, for a deny rule."),
+			})
+			.optional()
+			.describe("Replaces the stored action. For a rewrite rule it must contain `rewriteModel`."),
+	})
+	.optional();
 
 export const updateAiGatewayRuleQuerySchema = z.object({
 	teamId: z
@@ -62694,73 +63406,6 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 							"Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.",
 						)
 						.meta({ examples: [false] }),
-					gate: z
-						.object({
-							action: z
-								.enum(["pause", "rollback"])
-								.describe("What to do when the gate trips: pause the rollout, or roll it back."),
-							checks: z
-								.array(
-									z.object({
-										excludePaths: z
-											.array(z.string())
-											.optional()
-											.describe(
-												"Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.",
-											)
-											.meta({ examples: [["/api/health"]] }),
-										excludeStatusCodes: z
-											.array(z.number())
-											.optional()
-											.describe(
-												"Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.",
-											)
-											.meta({ examples: [[503]] }),
-										ingestWatermarkSeconds: z
-											.number()
-											.optional()
-											.describe(
-												"Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.",
-											)
-											.meta({ examples: [30] }),
-										significanceLevel: z
-											.number()
-											.optional()
-											.describe(
-												"A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.",
-											)
-											.meta({ examples: [0.05] }),
-										type: z.enum(["error-rate-5xx"]).describe("The metric this check evaluates."),
-									}),
-								)
-								.describe("The checks to evaluate. An empty array means nothing is evaluated."),
-							dryRun: z
-								.union([z.literal(false), z.literal(true)])
-								.describe(
-									"When true, a tripped gate is only reported — {@link action} is not taken.",
-								),
-							enabled: z
-								.union([z.literal(false), z.literal(true)])
-								.describe("Whether automated gating is enabled for this project's rollouts."),
-							failureThreshold: z
-								.number()
-								.optional()
-								.describe(
-									"How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.",
-								)
-								.meta({ examples: [3] }),
-							windowSize: z
-								.number()
-								.optional()
-								.describe(
-									"How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.",
-								)
-								.meta({ examples: [5] }),
-						})
-						.optional()
-						.describe(
-							"Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.",
-						),
 					stages: z
 						.array(
 							z.object({
@@ -68124,73 +68769,6 @@ export const getProjectsStatus200Schema = z
 								"Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.",
 							)
 							.meta({ examples: [false] }),
-						gate: z
-							.object({
-								action: z
-									.enum(["pause", "rollback"])
-									.describe("What to do when the gate trips: pause the rollout, or roll it back."),
-								checks: z
-									.array(
-										z.object({
-											excludePaths: z
-												.array(z.string())
-												.optional()
-												.describe(
-													"Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.",
-												)
-												.meta({ examples: [["/api/health"]] }),
-											excludeStatusCodes: z
-												.array(z.number())
-												.optional()
-												.describe(
-													"Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.",
-												)
-												.meta({ examples: [[503]] }),
-											ingestWatermarkSeconds: z
-												.number()
-												.optional()
-												.describe(
-													"Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.",
-												)
-												.meta({ examples: [30] }),
-											significanceLevel: z
-												.number()
-												.optional()
-												.describe(
-													"A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.",
-												)
-												.meta({ examples: [0.05] }),
-											type: z.enum(["error-rate-5xx"]).describe("The metric this check evaluates."),
-										}),
-									)
-									.describe("The checks to evaluate. An empty array means nothing is evaluated."),
-								dryRun: z
-									.union([z.literal(false), z.literal(true)])
-									.describe(
-										"When true, a tripped gate is only reported — {@link action} is not taken.",
-									),
-								enabled: z
-									.union([z.literal(false), z.literal(true)])
-									.describe("Whether automated gating is enabled for this project's rollouts."),
-								failureThreshold: z
-									.number()
-									.optional()
-									.describe(
-										"How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.",
-									)
-									.meta({ examples: [3] }),
-								windowSize: z
-									.number()
-									.optional()
-									.describe(
-										"How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.",
-									)
-									.meta({ examples: [5] }),
-							})
-							.optional()
-							.describe(
-								"Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.",
-							),
 						stages: z
 							.array(
 								z.object({
@@ -69783,77 +70361,6 @@ export const getProjectsStatus200Schema = z
 									"Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.",
 								)
 								.meta({ examples: [false] }),
-							gate: z
-								.object({
-									action: z
-										.enum(["pause", "rollback"])
-										.describe(
-											"What to do when the gate trips: pause the rollout, or roll it back.",
-										),
-									checks: z
-										.array(
-											z.object({
-												excludePaths: z
-													.array(z.string())
-													.optional()
-													.describe(
-														"Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.",
-													)
-													.meta({ examples: [["/api/health"]] }),
-												excludeStatusCodes: z
-													.array(z.number())
-													.optional()
-													.describe(
-														"Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.",
-													)
-													.meta({ examples: [[503]] }),
-												ingestWatermarkSeconds: z
-													.number()
-													.optional()
-													.describe(
-														"Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.",
-													)
-													.meta({ examples: [30] }),
-												significanceLevel: z
-													.number()
-													.optional()
-													.describe(
-														"A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.",
-													)
-													.meta({ examples: [0.05] }),
-												type: z
-													.enum(["error-rate-5xx"])
-													.describe("The metric this check evaluates."),
-											}),
-										)
-										.describe("The checks to evaluate. An empty array means nothing is evaluated."),
-									dryRun: z
-										.union([z.literal(false), z.literal(true)])
-										.describe(
-											"When true, a tripped gate is only reported — {@link action} is not taken.",
-										),
-									enabled: z
-										.union([z.literal(false), z.literal(true)])
-										.describe("Whether automated gating is enabled for this project's rollouts."),
-									failureThreshold: z
-										.number()
-										.optional()
-										.describe(
-											"How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.",
-										)
-										.meta({ examples: [3] }),
-									windowSize: z
-										.number()
-										.optional()
-										.describe(
-											"How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.",
-										)
-										.meta({ examples: [5] }),
-								})
-								.optional()
-								.describe(
-									"Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.",
-								),
 							stages: z
 								.array(
 									z.object({
@@ -73900,77 +74407,6 @@ export const getProjectsStatus200Schema = z
 									"Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.",
 								)
 								.meta({ examples: [false] }),
-							gate: z
-								.object({
-									action: z
-										.enum(["pause", "rollback"])
-										.describe(
-											"What to do when the gate trips: pause the rollout, or roll it back.",
-										),
-									checks: z
-										.array(
-											z.object({
-												excludePaths: z
-													.array(z.string())
-													.optional()
-													.describe(
-														"Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.",
-													)
-													.meta({ examples: [["/api/health"]] }),
-												excludeStatusCodes: z
-													.array(z.number())
-													.optional()
-													.describe(
-														"Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.",
-													)
-													.meta({ examples: [[503]] }),
-												ingestWatermarkSeconds: z
-													.number()
-													.optional()
-													.describe(
-														"Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.",
-													)
-													.meta({ examples: [30] }),
-												significanceLevel: z
-													.number()
-													.optional()
-													.describe(
-														"A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.",
-													)
-													.meta({ examples: [0.05] }),
-												type: z
-													.enum(["error-rate-5xx"])
-													.describe("The metric this check evaluates."),
-											}),
-										)
-										.describe("The checks to evaluate. An empty array means nothing is evaluated."),
-									dryRun: z
-										.union([z.literal(false), z.literal(true)])
-										.describe(
-											"When true, a tripped gate is only reported — {@link action} is not taken.",
-										),
-									enabled: z
-										.union([z.literal(false), z.literal(true)])
-										.describe("Whether automated gating is enabled for this project's rollouts."),
-									failureThreshold: z
-										.number()
-										.optional()
-										.describe(
-											"How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.",
-										)
-										.meta({ examples: [3] }),
-									windowSize: z
-										.number()
-										.optional()
-										.describe(
-											"How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.",
-										)
-										.meta({ examples: [5] }),
-								})
-								.optional()
-								.describe(
-									"Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.",
-								),
 							stages: z
 								.array(
 									z.object({
@@ -78237,71 +78673,6 @@ export const createProjectStatus200Schema = z.object({
 					"Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.",
 				)
 				.meta({ examples: [false] }),
-			gate: z
-				.object({
-					action: z
-						.enum(["pause", "rollback"])
-						.describe("What to do when the gate trips: pause the rollout, or roll it back."),
-					checks: z
-						.array(
-							z.object({
-								excludePaths: z
-									.array(z.string())
-									.optional()
-									.describe(
-										"Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.",
-									)
-									.meta({ examples: [["/api/health"]] }),
-								excludeStatusCodes: z
-									.array(z.number())
-									.optional()
-									.describe(
-										"Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.",
-									)
-									.meta({ examples: [[503]] }),
-								ingestWatermarkSeconds: z
-									.number()
-									.optional()
-									.describe(
-										"Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.",
-									)
-									.meta({ examples: [30] }),
-								significanceLevel: z
-									.number()
-									.optional()
-									.describe(
-										"A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.",
-									)
-									.meta({ examples: [0.05] }),
-								type: z.enum(["error-rate-5xx"]).describe("The metric this check evaluates."),
-							}),
-						)
-						.describe("The checks to evaluate. An empty array means nothing is evaluated."),
-					dryRun: z
-						.union([z.literal(false), z.literal(true)])
-						.describe("When true, a tripped gate is only reported — {@link action} is not taken."),
-					enabled: z
-						.union([z.literal(false), z.literal(true)])
-						.describe("Whether automated gating is enabled for this project's rollouts."),
-					failureThreshold: z
-						.number()
-						.optional()
-						.describe(
-							"How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.",
-						)
-						.meta({ examples: [3] }),
-					windowSize: z
-						.number()
-						.optional()
-						.describe(
-							"How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.",
-						)
-						.meta({ examples: [5] }),
-				})
-				.optional()
-				.describe(
-					"Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.",
-				),
 			stages: z
 				.array(
 					z.object({
@@ -82920,71 +83291,6 @@ export const getProjectStatus200Schema = z.object({
 					"Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.",
 				)
 				.meta({ examples: [false] }),
-			gate: z
-				.object({
-					action: z
-						.enum(["pause", "rollback"])
-						.describe("What to do when the gate trips: pause the rollout, or roll it back."),
-					checks: z
-						.array(
-							z.object({
-								excludePaths: z
-									.array(z.string())
-									.optional()
-									.describe(
-										"Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.",
-									)
-									.meta({ examples: [["/api/health"]] }),
-								excludeStatusCodes: z
-									.array(z.number())
-									.optional()
-									.describe(
-										"Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.",
-									)
-									.meta({ examples: [[503]] }),
-								ingestWatermarkSeconds: z
-									.number()
-									.optional()
-									.describe(
-										"Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.",
-									)
-									.meta({ examples: [30] }),
-								significanceLevel: z
-									.number()
-									.optional()
-									.describe(
-										"A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.",
-									)
-									.meta({ examples: [0.05] }),
-								type: z.enum(["error-rate-5xx"]).describe("The metric this check evaluates."),
-							}),
-						)
-						.describe("The checks to evaluate. An empty array means nothing is evaluated."),
-					dryRun: z
-						.union([z.literal(false), z.literal(true)])
-						.describe("When true, a tripped gate is only reported — {@link action} is not taken."),
-					enabled: z
-						.union([z.literal(false), z.literal(true)])
-						.describe("Whether automated gating is enabled for this project's rollouts."),
-					failureThreshold: z
-						.number()
-						.optional()
-						.describe(
-							"How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.",
-						)
-						.meta({ examples: [3] }),
-					windowSize: z
-						.number()
-						.optional()
-						.describe(
-							"How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.",
-						)
-						.meta({ examples: [5] }),
-				})
-				.optional()
-				.describe(
-					"Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.",
-				),
 			stages: z
 				.array(
 					z.object({
@@ -87073,71 +87379,6 @@ export const updateProjectStatus200Schema = z.object({
 					"Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.",
 				)
 				.meta({ examples: [false] }),
-			gate: z
-				.object({
-					action: z
-						.enum(["pause", "rollback"])
-						.describe("What to do when the gate trips: pause the rollout, or roll it back."),
-					checks: z
-						.array(
-							z.object({
-								excludePaths: z
-									.array(z.string())
-									.optional()
-									.describe(
-										"Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.",
-									)
-									.meta({ examples: [["/api/health"]] }),
-								excludeStatusCodes: z
-									.array(z.number())
-									.optional()
-									.describe(
-										"Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.",
-									)
-									.meta({ examples: [[503]] }),
-								ingestWatermarkSeconds: z
-									.number()
-									.optional()
-									.describe(
-										"Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.",
-									)
-									.meta({ examples: [30] }),
-								significanceLevel: z
-									.number()
-									.optional()
-									.describe(
-										"A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.",
-									)
-									.meta({ examples: [0.05] }),
-								type: z.enum(["error-rate-5xx"]).describe("The metric this check evaluates."),
-							}),
-						)
-						.describe("The checks to evaluate. An empty array means nothing is evaluated."),
-					dryRun: z
-						.union([z.literal(false), z.literal(true)])
-						.describe("When true, a tripped gate is only reported — {@link action} is not taken."),
-					enabled: z
-						.union([z.literal(false), z.literal(true)])
-						.describe("Whether automated gating is enabled for this project's rollouts."),
-					failureThreshold: z
-						.number()
-						.optional()
-						.describe(
-							"How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.",
-						)
-						.meta({ examples: [3] }),
-					windowSize: z
-						.number()
-						.optional()
-						.describe(
-							"How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.",
-						)
-						.meta({ examples: [5] }),
-				})
-				.optional()
-				.describe(
-					"Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.",
-				),
 			stages: z
 				.array(
 					z.object({
@@ -92139,71 +92380,6 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 					"Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.",
 				)
 				.meta({ examples: [false] }),
-			gate: z
-				.object({
-					action: z
-						.enum(["pause", "rollback"])
-						.describe("What to do when the gate trips: pause the rollout, or roll it back."),
-					checks: z
-						.array(
-							z.object({
-								excludePaths: z
-									.array(z.string())
-									.optional()
-									.describe(
-										"Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.",
-									)
-									.meta({ examples: [["/api/health"]] }),
-								excludeStatusCodes: z
-									.array(z.number())
-									.optional()
-									.describe(
-										"Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.",
-									)
-									.meta({ examples: [[503]] }),
-								ingestWatermarkSeconds: z
-									.number()
-									.optional()
-									.describe(
-										"Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.",
-									)
-									.meta({ examples: [30] }),
-								significanceLevel: z
-									.number()
-									.optional()
-									.describe(
-										"A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.",
-									)
-									.meta({ examples: [0.05] }),
-								type: z.enum(["error-rate-5xx"]).describe("The metric this check evaluates."),
-							}),
-						)
-						.describe("The checks to evaluate. An empty array means nothing is evaluated."),
-					dryRun: z
-						.union([z.literal(false), z.literal(true)])
-						.describe("When true, a tripped gate is only reported — {@link action} is not taken."),
-					enabled: z
-						.union([z.literal(false), z.literal(true)])
-						.describe("Whether automated gating is enabled for this project's rollouts."),
-					failureThreshold: z
-						.number()
-						.optional()
-						.describe(
-							"How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.",
-						)
-						.meta({ examples: [3] }),
-					windowSize: z
-						.number()
-						.optional()
-						.describe(
-							"How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.",
-						)
-						.meta({ examples: [5] }),
-				})
-				.optional()
-				.describe(
-					"Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.",
-				),
 			stages: z
 				.array(
 					z.object({
@@ -96293,71 +96469,6 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 					"Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.",
 				)
 				.meta({ examples: [false] }),
-			gate: z
-				.object({
-					action: z
-						.enum(["pause", "rollback"])
-						.describe("What to do when the gate trips: pause the rollout, or roll it back."),
-					checks: z
-						.array(
-							z.object({
-								excludePaths: z
-									.array(z.string())
-									.optional()
-									.describe(
-										"Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.",
-									)
-									.meta({ examples: [["/api/health"]] }),
-								excludeStatusCodes: z
-									.array(z.number())
-									.optional()
-									.describe(
-										"Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.",
-									)
-									.meta({ examples: [[503]] }),
-								ingestWatermarkSeconds: z
-									.number()
-									.optional()
-									.describe(
-										"Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.",
-									)
-									.meta({ examples: [30] }),
-								significanceLevel: z
-									.number()
-									.optional()
-									.describe(
-										"A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.",
-									)
-									.meta({ examples: [0.05] }),
-								type: z.enum(["error-rate-5xx"]).describe("The metric this check evaluates."),
-							}),
-						)
-						.describe("The checks to evaluate. An empty array means nothing is evaluated."),
-					dryRun: z
-						.union([z.literal(false), z.literal(true)])
-						.describe("When true, a tripped gate is only reported — {@link action} is not taken."),
-					enabled: z
-						.union([z.literal(false), z.literal(true)])
-						.describe("Whether automated gating is enabled for this project's rollouts."),
-					failureThreshold: z
-						.number()
-						.optional()
-						.describe(
-							"How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.",
-						)
-						.meta({ examples: [3] }),
-					windowSize: z
-						.number()
-						.optional()
-						.describe(
-							"How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.",
-						)
-						.meta({ examples: [5] }),
-				})
-				.optional()
-				.describe(
-					"Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.",
-				),
 			stages: z
 				.array(
 					z.object({
@@ -100942,71 +101053,6 @@ export const getRollingReleaseConfigStatus200Schema = z.object({
 					"Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.",
 				)
 				.meta({ examples: [false] }),
-			gate: z
-				.object({
-					action: z
-						.enum(["pause", "rollback"])
-						.describe("What to do when the gate trips: pause the rollout, or roll it back."),
-					checks: z
-						.array(
-							z.object({
-								excludePaths: z
-									.array(z.string())
-									.optional()
-									.describe(
-										"Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.",
-									)
-									.meta({ examples: [["/api/health"]] }),
-								excludeStatusCodes: z
-									.array(z.number())
-									.optional()
-									.describe(
-										"Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.",
-									)
-									.meta({ examples: [[503]] }),
-								ingestWatermarkSeconds: z
-									.number()
-									.optional()
-									.describe(
-										"Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.",
-									)
-									.meta({ examples: [30] }),
-								significanceLevel: z
-									.number()
-									.optional()
-									.describe(
-										"A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.",
-									)
-									.meta({ examples: [0.05] }),
-								type: z.enum(["error-rate-5xx"]).describe("The metric this check evaluates."),
-							}),
-						)
-						.describe("The checks to evaluate. An empty array means nothing is evaluated."),
-					dryRun: z
-						.union([z.literal(false), z.literal(true)])
-						.describe("When true, a tripped gate is only reported — {@link action} is not taken."),
-					enabled: z
-						.union([z.literal(false), z.literal(true)])
-						.describe("Whether automated gating is enabled for this project's rollouts."),
-					failureThreshold: z
-						.number()
-						.optional()
-						.describe(
-							"How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.",
-						)
-						.meta({ examples: [3] }),
-					windowSize: z
-						.number()
-						.optional()
-						.describe(
-							"How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.",
-						)
-						.meta({ examples: [5] }),
-				})
-				.optional()
-				.describe(
-					"Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.",
-				),
 			stages: z
 				.array(
 					z.object({
@@ -106714,71 +106760,6 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 					"Whether the request served by a canary deployment should return a header indicating a canary was served. Defaults to `false` when omitted.",
 				)
 				.meta({ examples: [false] }),
-			gate: z
-				.object({
-					action: z
-						.enum(["pause", "rollback"])
-						.describe("What to do when the gate trips: pause the rollout, or roll it back."),
-					checks: z
-						.array(
-							z.object({
-								excludePaths: z
-									.array(z.string())
-									.optional()
-									.describe(
-										"Request paths to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Matched exactly against the request path with any query string removed; no prefix or glob matching. Defaults to `[]` when omitted.",
-									)
-									.meta({ examples: [["/api/health"]] }),
-								excludeStatusCodes: z
-									.array(z.number())
-									.optional()
-									.describe(
-										"Response status codes to ignore entirely — dropped from both the numerator (errors) and the denominator (total requests). Defaults to `[]` when omitted.",
-									)
-									.meta({ examples: [[503]] }),
-								ingestWatermarkSeconds: z
-									.number()
-									.optional()
-									.describe(
-										"Seconds of ingest lag to allow for: the query's upper bound is `now() - this value`, so the check never reads a window that is still filling. Defaults to `30` when omitted.",
-									)
-									.meta({ examples: [30] }),
-								significanceLevel: z
-									.number()
-									.optional()
-									.describe(
-										"A run fails only when the canary's error rate is higher and its one-sided Fisher p-value is below this significance level. Defaults to `0.05`; lower values require stronger evidence.",
-									)
-									.meta({ examples: [0.05] }),
-								type: z.enum(["error-rate-5xx"]).describe("The metric this check evaluates."),
-							}),
-						)
-						.describe("The checks to evaluate. An empty array means nothing is evaluated."),
-					dryRun: z
-						.union([z.literal(false), z.literal(true)])
-						.describe("When true, a tripped gate is only reported — {@link action} is not taken."),
-					enabled: z
-						.union([z.literal(false), z.literal(true)])
-						.describe("Whether automated gating is enabled for this project's rollouts."),
-					failureThreshold: z
-						.number()
-						.optional()
-						.describe(
-							"How many failing evaluations within {@link windowSize} trip the gate. Defaults to `3` when omitted.",
-						)
-						.meta({ examples: [3] }),
-					windowSize: z
-						.number()
-						.optional()
-						.describe(
-							"How many of the most recent evaluations {@link failureThreshold} is counted against. Defaults to `5` when omitted.",
-						)
-						.meta({ examples: [5] }),
-				})
-				.optional()
-				.describe(
-					"Automated gating configuration. Omitted (the default) means no gating is configured, which is equivalent to `enabled: false`.",
-				),
 			stages: z
 				.array(
 					z.object({
