@@ -2563,6 +2563,7 @@ import type {
 	GetTeamsStatus400,
 	GetTeamsStatus401,
 	GetTeamsStatus403,
+	GetTeamsStatus404,
 	GetTeamsStatus410,
 	GetTeamsStatus500,
 	GetTldPath,
@@ -23285,7 +23286,7 @@ export async function patchTeam(
 
 /**
  * @summary List all teams
- * @description Get a paginated list of all the Teams the authenticated User is a member of.
+ * @description Get a paginated list of all the Teams the authenticated User is a member of. An app-principal token needs `read:team` and lists only the team it is bound to.
  * @link /v2/teams
  */
 export async function getTeams(
@@ -23305,6 +23306,7 @@ export async function getTeams(
 			| GetTeamsStatus400
 			| GetTeamsStatus401
 			| GetTeamsStatus403
+			| GetTeamsStatus404
 			| GetTeamsStatus410
 			| GetTeamsStatus500
 		>,

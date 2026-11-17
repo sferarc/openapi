@@ -3069,6 +3069,11 @@ export type ConnectConnectorUpdateResult = {
 	 * @type object | undefined
 	 */
 	serviceSync?: ConnectServiceSync | undefined;
+	/**
+	 * @description When true, scopes were removed. The provider keeps scopes it already granted, so remove the app from the provider workspace and install it again before the removal takes effect. Reinstalling alone does not remove scopes.
+	 * @type boolean | undefined
+	 */
+	uninstallNeeded?: (false | true) | undefined;
 };
 
 export const connectConnectorUpdateDataServerConfigJwksKeysUseEnum = {
@@ -8411,6 +8416,10 @@ export const userEventTypeEnum = {
 	"ai-gateway-inference-hooks-endpoint-updated": "ai-gateway-inference-hooks-endpoint-updated",
 	"ai-gateway-inference-hooks-removed": "ai-gateway-inference-hooks-removed",
 	"ai-gateway-inference-hooks-settings-updated": "ai-gateway-inference-hooks-settings-updated",
+	"ai-gateway-inference-hooks-signing-secret-created":
+		"ai-gateway-inference-hooks-signing-secret-created",
+	"ai-gateway-inference-hooks-signing-secret-rotated":
+		"ai-gateway-inference-hooks-signing-secret-rotated",
 	"ai-gateway-inference-hooks-toggled": "ai-gateway-inference-hooks-toggled",
 	"ai-gateway-inference-regions-updated": "ai-gateway-inference-regions-updated",
 	"ai-gateway-member-budget-changes": "ai-gateway-member-budget-changes",
@@ -8486,6 +8495,7 @@ export const userEventTypeEnum = {
 	"cert-renew": "cert-renew",
 	"cert-replace": "cert-replace",
 	"cert-system-create": "cert-system-create",
+	"code-owners-assume-owners": "code-owners-assume-owners",
 	"code-owners-config-updated": "code-owners-config-updated",
 	"compliance-document-downloaded": "compliance-document-downloaded",
 	"compliance-document-previewed": "compliance-document-previewed",
@@ -8660,6 +8670,7 @@ export const userEventTypeEnum = {
 	"flags-settings": "flags-settings",
 	"flags-transferred": "flags-transferred",
 	"flat-rate-cdn-auto-upgrade-consent": "flat-rate-cdn-auto-upgrade-consent",
+	"flat-rate-cdn-migration-opt-out": "flat-rate-cdn-migration-opt-out",
 	"git-integration-repo-push": "git-integration-repo-push",
 	git_account_integration_link_added: "git_account_integration_link_added",
 	"global-config-backup-restored": "global-config-backup-restored",
@@ -8811,6 +8822,11 @@ export const userEventTypeEnum = {
 	"payment-method-added": "payment-method-added",
 	"payment-method-default-updated": "payment-method-default-updated",
 	"payment-method-removed": "payment-method-removed",
+	"perimeter-created": "perimeter-created",
+	"perimeter-deleted": "perimeter-deleted",
+	"perimeter-renamed": "perimeter-renamed",
+	"perimeter-rolled-back": "perimeter-rolled-back",
+	"perimeter-updated": "perimeter-updated",
 	plan: "plan",
 	"preview-deployment-suffix-disabled": "preview-deployment-suffix-disabled",
 	"preview-deployment-suffix-enabled": "preview-deployment-suffix-enabled",
@@ -8923,6 +8939,7 @@ export const userEventTypeEnum = {
 	"project-prioritize-production-builds-updated": "project-prioritize-production-builds-updated",
 	"project-program-enrollment-changed": "project-program-enrollment-changed",
 	"project-protected-sourcemaps-updated": "project-protected-sourcemaps-updated",
+	"project-remove-vercel-request-headers-updated": "project-remove-vercel-request-headers-updated",
 	"project-rollback-description-updated": "project-rollback-description-updated",
 	"project-rolling-release-aborted": "project-rolling-release-aborted",
 	"project-rolling-release-approved": "project-rolling-release-approved",
@@ -8965,6 +8982,10 @@ export const userEventTypeEnum = {
 	"runtime-cache-purge-all": "runtime-cache-purge-all",
 	"saml-connection-created": "saml-connection-created",
 	"saml-connection-deleted": "saml-connection-deleted",
+	"saml-idp-material-deleted": "saml-idp-material-deleted",
+	"saml-idp-material-set": "saml-idp-material-set",
+	"saml-idp-material-system-deleted": "saml-idp-material-system-deleted",
+	"saml-idp-material-system-set": "saml-idp-material-system-set",
 	"sandbox-alias-assigned": "sandbox-alias-assigned",
 	"sandbox-alias-delete": "sandbox-alias-delete",
 	"sandbox-drive-created": "sandbox-drive-created",
@@ -9167,6 +9188,7 @@ export const userEventTypeEnum = {
 	"vercel-app-uninstalled": "vercel-app-uninstalled",
 	"vercel-ci-repository-github-runners-updated": "vercel-ci-repository-github-runners-updated",
 	"vercel-ci-repository-settings-updated": "vercel-ci-repository-settings-updated",
+	"vercel-ci-run-approved": "vercel-ci-run-approved",
 	"vercel-toolbar": "vercel-toolbar",
 	"vpc-peering-connection-accepted": "vpc-peering-connection-accepted",
 	"vpc-peering-connection-deleted": "vpc-peering-connection-deleted",
@@ -10322,6 +10344,28 @@ export type UserEvent = {
 				| {
 						cn?: string | undefined;
 						cns?: string[] | undefined;
+				  }
+				| {
+						/**
+						 * @description Stable GitHub user id.
+						 * @type number
+						 */
+						actorAccountId: number | null;
+						/**
+						 * @description Display name only. Logins are mutable; join on `actorAccountId`.
+						 * @type string
+						 */
+						actorLogin: string;
+						gitOwnerName: string;
+						gitRepositoryName: string;
+						headSha: string;
+						prNumber: number;
+						reviewUrl: string;
+						/**
+						 * @description The `:must-assume` team the approval counted for, e.g. "vercel/leads".
+						 * @type string
+						 */
+						team: string;
 				  }
 				| {
 						gitOwnerName: string;
@@ -12348,6 +12392,9 @@ export type UserEvent = {
 						source: UserEventPayloadSourceEnumKey;
 				  }
 				| {
+						effectiveAt: number;
+				  }
+				| {
 						/**
 						 * @description Stable account id on `provider`.
 						 * @type string
@@ -13206,6 +13253,21 @@ export type UserEvent = {
 						scope?: "organization" | undefined;
 				  }
 				| {
+						perimeter: {
+							id: string;
+							name: string;
+							version: number;
+						};
+				  }
+				| {
+						perimeter: {
+							id: string;
+							name: string;
+							version: number;
+						};
+						sourceVersion: number;
+				  }
+				| {
 						next: {
 							/**
 							 * @description Explicit opt-in; missing values are false.
@@ -13995,6 +14057,11 @@ export type UserEvent = {
 						projectName: string;
 				  }
 				| {
+						projectId: string;
+						projectName: string;
+						removeVercelRequestHeaders: false | true;
+				  }
+				| {
 						oldPasswordProtection:
 							| (
 									| {
@@ -14385,6 +14452,14 @@ export type UserEvent = {
 						actorName?: string | undefined;
 						actorType: "admin";
 						certificateFingerprints: string[];
+						attributeMappingChanged?: true | undefined;
+						created: false | true;
+						previousCertificateFingerprints?: string[] | undefined;
+				  }
+				| {
+						attributeMappingChanged?: true | undefined;
+						certificateFingerprints: string[];
+						connectionId: string;
 						created: false | true;
 						previousCertificateFingerprints?: string[] | undefined;
 				  }
@@ -14393,6 +14468,10 @@ export type UserEvent = {
 						actorName?: string | undefined;
 						actorType?: "admin" | undefined;
 						certificateFingerprints?: string[] | undefined;
+				  }
+				| {
+						certificateFingerprints: string[];
+						connectionId: string;
 				  }
 				| {
 						connectionId: string;
@@ -16095,6 +16174,13 @@ export type UserEvent = {
 						repository: string;
 				  }
 				| {
+						commitSha: string;
+						invocationId: string;
+						organizationId: string;
+						pullRequestNumber: number;
+						repository: string;
+				  }
+				| {
 						protectedProjectCount: number;
 						protectionEnabled: false | true;
 						vulnerabilities: string[];
@@ -16952,6 +17038,10 @@ export const listEventTypeNameEnum = {
 	"ai-gateway-inference-hooks-endpoint-updated": "ai-gateway-inference-hooks-endpoint-updated",
 	"ai-gateway-inference-hooks-removed": "ai-gateway-inference-hooks-removed",
 	"ai-gateway-inference-hooks-settings-updated": "ai-gateway-inference-hooks-settings-updated",
+	"ai-gateway-inference-hooks-signing-secret-created":
+		"ai-gateway-inference-hooks-signing-secret-created",
+	"ai-gateway-inference-hooks-signing-secret-rotated":
+		"ai-gateway-inference-hooks-signing-secret-rotated",
 	"ai-gateway-inference-hooks-toggled": "ai-gateway-inference-hooks-toggled",
 	"ai-gateway-inference-regions-updated": "ai-gateway-inference-regions-updated",
 	"ai-gateway-member-budget-changes": "ai-gateway-member-budget-changes",
@@ -17027,6 +17117,7 @@ export const listEventTypeNameEnum = {
 	"cert-renew": "cert-renew",
 	"cert-replace": "cert-replace",
 	"cert-system-create": "cert-system-create",
+	"code-owners-assume-owners": "code-owners-assume-owners",
 	"code-owners-config-updated": "code-owners-config-updated",
 	"compliance-document-downloaded": "compliance-document-downloaded",
 	"compliance-document-previewed": "compliance-document-previewed",
@@ -17201,6 +17292,7 @@ export const listEventTypeNameEnum = {
 	"flags-settings": "flags-settings",
 	"flags-transferred": "flags-transferred",
 	"flat-rate-cdn-auto-upgrade-consent": "flat-rate-cdn-auto-upgrade-consent",
+	"flat-rate-cdn-migration-opt-out": "flat-rate-cdn-migration-opt-out",
 	"git-integration-repo-push": "git-integration-repo-push",
 	git_account_integration_link_added: "git_account_integration_link_added",
 	"global-config-backup-restored": "global-config-backup-restored",
@@ -17352,6 +17444,11 @@ export const listEventTypeNameEnum = {
 	"payment-method-added": "payment-method-added",
 	"payment-method-default-updated": "payment-method-default-updated",
 	"payment-method-removed": "payment-method-removed",
+	"perimeter-created": "perimeter-created",
+	"perimeter-deleted": "perimeter-deleted",
+	"perimeter-renamed": "perimeter-renamed",
+	"perimeter-rolled-back": "perimeter-rolled-back",
+	"perimeter-updated": "perimeter-updated",
 	plan: "plan",
 	"preview-deployment-suffix-disabled": "preview-deployment-suffix-disabled",
 	"preview-deployment-suffix-enabled": "preview-deployment-suffix-enabled",
@@ -17464,6 +17561,7 @@ export const listEventTypeNameEnum = {
 	"project-prioritize-production-builds-updated": "project-prioritize-production-builds-updated",
 	"project-program-enrollment-changed": "project-program-enrollment-changed",
 	"project-protected-sourcemaps-updated": "project-protected-sourcemaps-updated",
+	"project-remove-vercel-request-headers-updated": "project-remove-vercel-request-headers-updated",
 	"project-rollback-description-updated": "project-rollback-description-updated",
 	"project-rolling-release-aborted": "project-rolling-release-aborted",
 	"project-rolling-release-approved": "project-rolling-release-approved",
@@ -17506,6 +17604,10 @@ export const listEventTypeNameEnum = {
 	"runtime-cache-purge-all": "runtime-cache-purge-all",
 	"saml-connection-created": "saml-connection-created",
 	"saml-connection-deleted": "saml-connection-deleted",
+	"saml-idp-material-deleted": "saml-idp-material-deleted",
+	"saml-idp-material-set": "saml-idp-material-set",
+	"saml-idp-material-system-deleted": "saml-idp-material-system-deleted",
+	"saml-idp-material-system-set": "saml-idp-material-system-set",
 	"sandbox-alias-assigned": "sandbox-alias-assigned",
 	"sandbox-alias-delete": "sandbox-alias-delete",
 	"sandbox-drive-created": "sandbox-drive-created",
@@ -17708,6 +17810,7 @@ export const listEventTypeNameEnum = {
 	"vercel-app-uninstalled": "vercel-app-uninstalled",
 	"vercel-ci-repository-github-runners-updated": "vercel-ci-repository-github-runners-updated",
 	"vercel-ci-repository-settings-updated": "vercel-ci-repository-settings-updated",
+	"vercel-ci-run-approved": "vercel-ci-run-approved",
 	"vercel-toolbar": "vercel-toolbar",
 	"vpc-peering-connection-accepted": "vpc-peering-connection-accepted",
 	"vpc-peering-connection-deleted": "vpc-peering-connection-deleted",
@@ -17779,6 +17882,10 @@ export const listEventTypeReplacedByEnum = {
 	"ai-gateway-inference-hooks-endpoint-updated": "ai-gateway-inference-hooks-endpoint-updated",
 	"ai-gateway-inference-hooks-removed": "ai-gateway-inference-hooks-removed",
 	"ai-gateway-inference-hooks-settings-updated": "ai-gateway-inference-hooks-settings-updated",
+	"ai-gateway-inference-hooks-signing-secret-created":
+		"ai-gateway-inference-hooks-signing-secret-created",
+	"ai-gateway-inference-hooks-signing-secret-rotated":
+		"ai-gateway-inference-hooks-signing-secret-rotated",
 	"ai-gateway-inference-hooks-toggled": "ai-gateway-inference-hooks-toggled",
 	"ai-gateway-inference-regions-updated": "ai-gateway-inference-regions-updated",
 	"ai-gateway-member-budget-changes": "ai-gateway-member-budget-changes",
@@ -17854,6 +17961,7 @@ export const listEventTypeReplacedByEnum = {
 	"cert-renew": "cert-renew",
 	"cert-replace": "cert-replace",
 	"cert-system-create": "cert-system-create",
+	"code-owners-assume-owners": "code-owners-assume-owners",
 	"code-owners-config-updated": "code-owners-config-updated",
 	"compliance-document-downloaded": "compliance-document-downloaded",
 	"compliance-document-previewed": "compliance-document-previewed",
@@ -18028,6 +18136,7 @@ export const listEventTypeReplacedByEnum = {
 	"flags-settings": "flags-settings",
 	"flags-transferred": "flags-transferred",
 	"flat-rate-cdn-auto-upgrade-consent": "flat-rate-cdn-auto-upgrade-consent",
+	"flat-rate-cdn-migration-opt-out": "flat-rate-cdn-migration-opt-out",
 	"git-integration-repo-push": "git-integration-repo-push",
 	git_account_integration_link_added: "git_account_integration_link_added",
 	"global-config-backup-restored": "global-config-backup-restored",
@@ -18179,6 +18288,11 @@ export const listEventTypeReplacedByEnum = {
 	"payment-method-added": "payment-method-added",
 	"payment-method-default-updated": "payment-method-default-updated",
 	"payment-method-removed": "payment-method-removed",
+	"perimeter-created": "perimeter-created",
+	"perimeter-deleted": "perimeter-deleted",
+	"perimeter-renamed": "perimeter-renamed",
+	"perimeter-rolled-back": "perimeter-rolled-back",
+	"perimeter-updated": "perimeter-updated",
 	plan: "plan",
 	"preview-deployment-suffix-disabled": "preview-deployment-suffix-disabled",
 	"preview-deployment-suffix-enabled": "preview-deployment-suffix-enabled",
@@ -18291,6 +18405,7 @@ export const listEventTypeReplacedByEnum = {
 	"project-prioritize-production-builds-updated": "project-prioritize-production-builds-updated",
 	"project-program-enrollment-changed": "project-program-enrollment-changed",
 	"project-protected-sourcemaps-updated": "project-protected-sourcemaps-updated",
+	"project-remove-vercel-request-headers-updated": "project-remove-vercel-request-headers-updated",
 	"project-rollback-description-updated": "project-rollback-description-updated",
 	"project-rolling-release-aborted": "project-rolling-release-aborted",
 	"project-rolling-release-approved": "project-rolling-release-approved",
@@ -18333,6 +18448,10 @@ export const listEventTypeReplacedByEnum = {
 	"runtime-cache-purge-all": "runtime-cache-purge-all",
 	"saml-connection-created": "saml-connection-created",
 	"saml-connection-deleted": "saml-connection-deleted",
+	"saml-idp-material-deleted": "saml-idp-material-deleted",
+	"saml-idp-material-set": "saml-idp-material-set",
+	"saml-idp-material-system-deleted": "saml-idp-material-system-deleted",
+	"saml-idp-material-system-set": "saml-idp-material-system-set",
 	"sandbox-alias-assigned": "sandbox-alias-assigned",
 	"sandbox-alias-delete": "sandbox-alias-delete",
 	"sandbox-drive-created": "sandbox-drive-created",
@@ -18535,6 +18654,7 @@ export const listEventTypeReplacedByEnum = {
 	"vercel-app-uninstalled": "vercel-app-uninstalled",
 	"vercel-ci-repository-github-runners-updated": "vercel-ci-repository-github-runners-updated",
 	"vercel-ci-repository-settings-updated": "vercel-ci-repository-settings-updated",
+	"vercel-ci-run-approved": "vercel-ci-run-approved",
 	"vercel-toolbar": "vercel-toolbar",
 	"vpc-peering-connection-accepted": "vpc-peering-connection-accepted",
 	"vpc-peering-connection-deleted": "vpc-peering-connection-deleted",
@@ -39904,33 +40024,17 @@ export type GetDeploymentStatus200 =
 													| undefined;
 												rust?: string | undefined;
 												/**
-												 * @description Set when this build produces a function for schedule entrypoints.
+												 * @description Set when this build serves a JavaScript or TypeScript schedule: the entrypoint's default export runs each firing, and its `export const config` sets the schedule.
+												 * @type boolean | undefined
+												 */
+												schedulesEntrypoint?: (false | true) | undefined;
+												/**
+												 * @description Set when this build serves a Python schedule's module: the `@schedule` handlers that importing `module` registers.
 												 * @type object | undefined
 												 */
-												scheduleFunction?:
+												schedulesModule?:
 													| {
-															entrypoints: {
-																/**
-																 * @description Runtime-specific entrypoint locator from `vercel.json`.
-																 * @type string
-																 */
-																entrypoint: string;
-																/**
-																 * @description Names of the schedules that dispatch to this entrypoint, in config order.
-																 * @type array
-																 */
-																scheduleNames: string[];
-																/**
-																 * @description Project-relative source file that contains the entrypoint.
-																 * @type string
-																 */
-																sourceFile: string;
-															}[];
-															/**
-															 * @description Function output path every schedule in this build targets.
-															 * @type string
-															 */
-															outputPath: string;
+															module: string;
 													  }
 													| undefined;
 												/**
@@ -40278,33 +40382,17 @@ export type GetDeploymentStatus200 =
 													| undefined;
 												rust?: string | undefined;
 												/**
-												 * @description Set when this build produces a function for schedule entrypoints.
+												 * @description Set when this build serves a JavaScript or TypeScript schedule: the entrypoint's default export runs each firing, and its `export const config` sets the schedule.
+												 * @type boolean | undefined
+												 */
+												schedulesEntrypoint?: (false | true) | undefined;
+												/**
+												 * @description Set when this build serves a Python schedule's module: the `@schedule` handlers that importing `module` registers.
 												 * @type object | undefined
 												 */
-												scheduleFunction?:
+												schedulesModule?:
 													| {
-															entrypoints: {
-																/**
-																 * @description Runtime-specific entrypoint locator from `vercel.json`.
-																 * @type string
-																 */
-																entrypoint: string;
-																/**
-																 * @description Names of the schedules that dispatch to this entrypoint, in config order.
-																 * @type array
-																 */
-																scheduleNames: string[];
-																/**
-																 * @description Project-relative source file that contains the entrypoint.
-																 * @type string
-																 */
-																sourceFile: string;
-															}[];
-															/**
-															 * @description Function output path every schedule in this build targets.
-															 * @type string
-															 */
-															outputPath: string;
+															module: string;
 													  }
 													| undefined;
 												/**
@@ -44365,33 +44453,17 @@ export type CreateDeploymentStatus200 =
 													| undefined;
 												rust?: string | undefined;
 												/**
-												 * @description Set when this build produces a function for schedule entrypoints.
+												 * @description Set when this build serves a JavaScript or TypeScript schedule: the entrypoint's default export runs each firing, and its `export const config` sets the schedule.
+												 * @type boolean | undefined
+												 */
+												schedulesEntrypoint?: (false | true) | undefined;
+												/**
+												 * @description Set when this build serves a Python schedule's module: the `@schedule` handlers that importing `module` registers.
 												 * @type object | undefined
 												 */
-												scheduleFunction?:
+												schedulesModule?:
 													| {
-															entrypoints: {
-																/**
-																 * @description Runtime-specific entrypoint locator from `vercel.json`.
-																 * @type string
-																 */
-																entrypoint: string;
-																/**
-																 * @description Names of the schedules that dispatch to this entrypoint, in config order.
-																 * @type array
-																 */
-																scheduleNames: string[];
-																/**
-																 * @description Project-relative source file that contains the entrypoint.
-																 * @type string
-																 */
-																sourceFile: string;
-															}[];
-															/**
-															 * @description Function output path every schedule in this build targets.
-															 * @type string
-															 */
-															outputPath: string;
+															module: string;
 													  }
 													| undefined;
 												/**
@@ -44739,33 +44811,17 @@ export type CreateDeploymentStatus200 =
 													| undefined;
 												rust?: string | undefined;
 												/**
-												 * @description Set when this build produces a function for schedule entrypoints.
+												 * @description Set when this build serves a JavaScript or TypeScript schedule: the entrypoint's default export runs each firing, and its `export const config` sets the schedule.
+												 * @type boolean | undefined
+												 */
+												schedulesEntrypoint?: (false | true) | undefined;
+												/**
+												 * @description Set when this build serves a Python schedule's module: the `@schedule` handlers that importing `module` registers.
 												 * @type object | undefined
 												 */
-												scheduleFunction?:
+												schedulesModule?:
 													| {
-															entrypoints: {
-																/**
-																 * @description Runtime-specific entrypoint locator from `vercel.json`.
-																 * @type string
-																 */
-																entrypoint: string;
-																/**
-																 * @description Names of the schedules that dispatch to this entrypoint, in config order.
-																 * @type array
-																 */
-																scheduleNames: string[];
-																/**
-																 * @description Project-relative source file that contains the entrypoint.
-																 * @type string
-																 */
-																sourceFile: string;
-															}[];
-															/**
-															 * @description Function output path every schedule in this build targets.
-															 * @type string
-															 */
-															outputPath: string;
+															module: string;
 													  }
 													| undefined;
 												/**
@@ -48666,33 +48722,17 @@ export type CancelDeploymentStatus200 = {
 											| undefined;
 										rust?: string | undefined;
 										/**
-										 * @description Set when this build produces a function for schedule entrypoints.
+										 * @description Set when this build serves a JavaScript or TypeScript schedule: the entrypoint's default export runs each firing, and its `export const config` sets the schedule.
+										 * @type boolean | undefined
+										 */
+										schedulesEntrypoint?: (false | true) | undefined;
+										/**
+										 * @description Set when this build serves a Python schedule's module: the `@schedule` handlers that importing `module` registers.
 										 * @type object | undefined
 										 */
-										scheduleFunction?:
+										schedulesModule?:
 											| {
-													entrypoints: {
-														/**
-														 * @description Runtime-specific entrypoint locator from `vercel.json`.
-														 * @type string
-														 */
-														entrypoint: string;
-														/**
-														 * @description Names of the schedules that dispatch to this entrypoint, in config order.
-														 * @type array
-														 */
-														scheduleNames: string[];
-														/**
-														 * @description Project-relative source file that contains the entrypoint.
-														 * @type string
-														 */
-														sourceFile: string;
-													}[];
-													/**
-													 * @description Function output path every schedule in this build targets.
-													 * @type string
-													 */
-													outputPath: string;
+													module: string;
 											  }
 											| undefined;
 										/**
@@ -49040,33 +49080,17 @@ export type CancelDeploymentStatus200 = {
 											| undefined;
 										rust?: string | undefined;
 										/**
-										 * @description Set when this build produces a function for schedule entrypoints.
+										 * @description Set when this build serves a JavaScript or TypeScript schedule: the entrypoint's default export runs each firing, and its `export const config` sets the schedule.
+										 * @type boolean | undefined
+										 */
+										schedulesEntrypoint?: (false | true) | undefined;
+										/**
+										 * @description Set when this build serves a Python schedule's module: the `@schedule` handlers that importing `module` registers.
 										 * @type object | undefined
 										 */
-										scheduleFunction?:
+										schedulesModule?:
 											| {
-													entrypoints: {
-														/**
-														 * @description Runtime-specific entrypoint locator from `vercel.json`.
-														 * @type string
-														 */
-														entrypoint: string;
-														/**
-														 * @description Names of the schedules that dispatch to this entrypoint, in config order.
-														 * @type array
-														 */
-														scheduleNames: string[];
-														/**
-														 * @description Project-relative source file that contains the entrypoint.
-														 * @type string
-														 */
-														sourceFile: string;
-													}[];
-													/**
-													 * @description Function output path every schedule in this build targets.
-													 * @type string
-													 */
-													outputPath: string;
+													module: string;
 											  }
 											| undefined;
 										/**
@@ -72441,6 +72465,7 @@ export type ListKmsIssuersStatus200IssuersAlgorithmEnumKey =
 
 export const listKmsIssuersStatus200IssuersDiscoveryLayoutEnum = {
 	connect: "connect",
+	integrations: "integrations",
 	kms: "kms",
 } as const;
 
@@ -72645,6 +72670,7 @@ export type CreateKmsIssuerStatus201AlgorithmEnumKey =
 
 export const createKmsIssuerStatus201DiscoveryLayoutEnum = {
 	connect: "connect",
+	integrations: "integrations",
 	kms: "kms",
 } as const;
 
@@ -73274,6 +73300,7 @@ export type RevokeKmsSigningKeyStatus200AlgorithmEnumKey =
 
 export const revokeKmsSigningKeyStatus200DiscoveryLayoutEnum = {
 	connect: "connect",
+	integrations: "integrations",
 	kms: "kms",
 } as const;
 
@@ -73483,6 +73510,7 @@ export type GetKmsIssuerStatus200AlgorithmEnumKey =
 
 export const getKmsIssuerStatus200DiscoveryLayoutEnum = {
 	connect: "connect",
+	integrations: "integrations",
 	kms: "kms",
 } as const;
 
@@ -73689,6 +73717,7 @@ export type UpdateKmsIssuerStatus200AlgorithmEnumKey =
 
 export const updateKmsIssuerStatus200DiscoveryLayoutEnum = {
 	connect: "connect",
+	integrations: "integrations",
 	kms: "kms",
 } as const;
 
@@ -78031,6 +78060,16 @@ export type GetMicrofrontendsInGroupStatus200 = {
 					 * @type array | undefined
 					 */
 					paymentMethod?: ACLActionKey[] | undefined;
+					/**
+					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+					 * @type array | undefined
+					 */
+					perimeter?: ACLActionKey[] | undefined;
+					/**
+					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+					 * @type array | undefined
+					 */
+					perimeterLink?: ACLActionKey[] | undefined;
 					/**
 					 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 					 * @type array | undefined
@@ -91370,6 +91409,16 @@ export type GetProjectsStatus200 =
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 									 * @type array | undefined
 									 */
+									perimeter?: ACLActionKey[] | undefined;
+									/**
+									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+									 * @type array | undefined
+									 */
+									perimeterLink?: ACLActionKey[] | undefined;
+									/**
+									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+									 * @type array | undefined
+									 */
 									permissions?: ACLActionKey[] | undefined;
 									/**
 									 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -95960,6 +96009,16 @@ export type CreateProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				paymentMethod?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				perimeter?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				perimeterLink?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -101149,6 +101208,16 @@ export type GetProjectStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				perimeter?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				perimeterLink?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				permissions?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -105612,6 +105681,16 @@ export type UpdateProjectStatus200 = {
 				 * @type array | undefined
 				 */
 				paymentMethod?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				perimeter?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				perimeterLink?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -111157,6 +111236,16 @@ export type UploadProjectAvatarStatus200 = {
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
 				 */
+				perimeter?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				perimeterLink?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
 				permissions?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
@@ -115658,6 +115747,16 @@ export type DeleteProjectAvatarStatus200 = {
 				 * @type array | undefined
 				 */
 				paymentMethod?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				perimeter?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				perimeterLink?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -127484,6 +127583,16 @@ export type UpdateMicrofrontendsStatus200 = {
 				 * @type array | undefined
 				 */
 				paymentMethod?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				perimeter?: ACLActionKey[] | undefined;
+				/**
+				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
+				 * @type array | undefined
+				 */
+				perimeterLink?: ACLActionKey[] | undefined;
 				/**
 				 * @description Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.
 				 * @type array | undefined
@@ -148652,24 +148761,31 @@ export type GetTeamsQuery = {
 	until?: number | undefined;
 };
 
-/**
- * @description A paginated list of teams.
- * @type object
- */
-export type GetTeamsStatus200 = {
-	/**
-	 * @description This object contains information related to the pagination of the current request, including the necessary parameters to get the next or previous page of data.
-	 * @type object
-	 */
-	pagination: Pagination;
-	teams: (Team | TeamLimited)[];
-};
+export type GetTeamsStatus200 =
+	| {
+			/**
+			 * @description This object contains information related to the pagination of the current request, including the necessary parameters to get the next or previous page of data.
+			 * @type object
+			 */
+			pagination: Pagination;
+			teams: Team[];
+	  }
+	| {
+			/**
+			 * @description This object contains information related to the pagination of the current request, including the necessary parameters to get the next or previous page of data.
+			 * @type object
+			 */
+			pagination: Pagination;
+			teams: (Team | TeamLimited)[];
+	  };
 
 export type GetTeamsStatus400 = unknown;
 
 export type GetTeamsStatus401 = unknown;
 
 export type GetTeamsStatus403 = unknown;
+
+export type GetTeamsStatus404 = unknown;
 
 export type GetTeamsStatus410 = unknown;
 
@@ -148687,6 +148803,7 @@ export type GetTeamsResponses = {
 	"400": GetTeamsStatus400;
 	"401": GetTeamsStatus401;
 	"403": GetTeamsStatus403;
+	"404": GetTeamsStatus404;
 	"410": GetTeamsStatus410;
 	"500": GetTeamsStatus500;
 };
