@@ -1,5 +1,19 @@
 # vercel-api-js
 
+## 2.42.0
+
+### Minor Changes
+
+- bd562a2: [BREAKING] Removed enums and fields related to project rolling release gate actions and structure from various status response types, affecting types like GetMicrofrontendsInGroupStatus200, GetProjectsStatus200, CreateProjectStatus200, GetProjectStatus200, UpdateProjectStatus200, UploadProjectAvatarStatus200, and DeleteProjectAvatarStatus200.
+- bd562a2: Added required and optional body parameter types to createAiGatewayVirtualModelConfig, updateAiGatewayVirtualModelConfig, updateAiGatewayVirtualModelConfigBySlug, createAiGatewayRule, and updateAiGatewayRule operations, requiring specific bodies for these requests.
+
+### Patch Changes
+
+- bd562a2: Added several enum and request body types for Ai Gateway virtual model config endpoints, improving type safety and flexibility for provider configuration, sorting, features, caching, and region pinning.
+- bd562a2: Added CreateAiGatewayRuleBody and UpdateAiGatewayRuleBody types with stricter fields for rule definition and update, enhancing type safety.
+- bd562a2: Expanded UserEvent type to include new event shapes with closeReason, sessionKind, surface, and more precise event context fields.
+- bd562a2: Added enumeration and types for user event payload close reasons, event types, and target kinds to improve event data expressiveness.
+
 ## 2.41.0
 
 ### Minor Changes
