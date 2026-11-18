@@ -1,5 +1,22 @@
 # vercel-api-js
 
+## 2.44.0
+
+### Minor Changes
+
+- c69cd07: Added deleteOrganizationDsyncGroup operation to delete a specific Directory Sync group configuration from an organization.
+- c69cd07: Added new types related to Directory Sync group assignments and their roles.
+- c69cd07: Added listOrganizationDsyncGroups operation to list groups in an organization's Identity Provider directory with their Directory Sync group configuration.
+- c69cd07: Added putOrganizationDsyncGroup operation to create or replace a Directory Sync group configuration for an organization.
+- c69cd07: Added getOrganizationDsyncGroup operation to retrieve a group from the organization's Identity Provider directory along with its Directory Sync group configuration.
+- c69cd07: Added putOrganizationTeamDsync operation to update an organization's team Directory Sync mode.
+
+### Patch Changes
+
+- c69cd07: Expanded the user event types to include alert-group-detected, alert-group-investigation-completed, alert-group-published, and alert-resolved.
+- c69cd07: Updated the getVercelCiTaskLogs operation to include setup logs when matching lines are found and clarified the response behavior.
+- c69cd07: Added new enums and types for event destinations unavailability and various alert events.
+
 ## 2.43.2
 
 ### Patch Changes
