@@ -69,6 +69,9 @@ import type {
 	ApproveMcpServerSubmissionV1McpServerServerIdApprovePutPath,
 	ApproveMcpServerSubmissionV1McpServerServerIdApprovePutResponse,
 	ApproveMcpServerSubmissionV1McpServerServerIdApprovePutStatus422,
+	ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutPath,
+	ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutResponse,
+	ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutStatus422,
 	AudioSpeechAudioSpeechPostResponse,
 	AudioSpeechV1AudioSpeechPostResponse,
 	AudioTranscriptionsAudioTranscriptionsPostBody,
@@ -353,7 +356,11 @@ import type {
 	CreatePromptPromptsPostStatus422,
 	CreateRealtimeClientSecretOpenaiV1RealtimeClientSecretsPostResponse,
 	CreateRealtimeClientSecretRealtimeClientSecretsPostResponse,
+	CreateRealtimeClientSecretRealtimeTranslationsClientSecretsPostBody,
+	CreateRealtimeClientSecretRealtimeTranslationsClientSecretsPostResponse,
 	CreateRealtimeClientSecretV1RealtimeClientSecretsPostResponse,
+	CreateRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostBody,
+	CreateRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostResponse,
 	CreateRealtimeTranscriptionSessionOpenaiV1RealtimeTranscriptionSessionsPostResponse,
 	CreateRealtimeTranscriptionSessionRealtimeTranscriptionSessionsPostResponse,
 	CreateRealtimeTranscriptionSessionV1RealtimeTranscriptionSessionsPostResponse,
@@ -582,6 +589,19 @@ import type {
 	DiscoverMcpServersV1McpDiscoverGetQuery,
 	DiscoverMcpServersV1McpDiscoverGetResponse,
 	DiscoverMcpServersV1McpDiscoverGetStatus422,
+	DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetPath,
+	DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetResponse,
+	DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetStatus422,
+	DownloadSkillSkillHubSkillsNameArchiveGetPath,
+	DownloadSkillSkillHubSkillsNameArchiveGetQuery,
+	DownloadSkillSkillHubSkillsNameArchiveGetResponse,
+	DownloadSkillSkillHubSkillsNameArchiveGetStatus422,
+	DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetPath,
+	DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetResponse,
+	DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetStatus422,
+	DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetPath,
+	DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetResponse,
+	DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetStatus422,
 	DynamicMcpRouteMcpServerNameMcpDeletePath,
 	DynamicMcpRouteMcpServerNameMcpDeleteResponse,
 	DynamicMcpRouteMcpServerNameMcpDeleteStatus422,
@@ -804,6 +824,12 @@ import type {
 	GetDailyActiveUsersTagDauGetStatus422,
 	GetDefaultTeamSettingsGetDefaultTeamSettingsGetResponse,
 	GetDeploymentWarningsHealthDeploymentWarningsGetResponse,
+	GetDeprecationAlertStateAlertingModelDeprecationsStateGetQuery,
+	GetDeprecationAlertStateAlertingModelDeprecationsStateGetResponse,
+	GetDeprecationAlertStateAlertingModelDeprecationsStateGetStatus422,
+	GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetQuery,
+	GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetResponse,
+	GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetStatus422,
 	GetDistinctUserAgentTagsTagDistinctGetResponse,
 	GetEmailEventSettingsEmailEventSettingsGetResponse,
 	GetEvalV1EvalsEvalIdGetPath,
@@ -951,6 +977,14 @@ import type {
 	GetPluginClaudeCodePluginsPluginNameGetPath,
 	GetPluginClaudeCodePluginsPluginNameGetResponse,
 	GetPluginClaudeCodePluginsPluginNameGetStatus422,
+	GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetPath,
+	GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetQuery,
+	GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetResponse,
+	GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetStatus422,
+	GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetPath,
+	GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetQuery,
+	GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetResponse,
+	GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetStatus422,
 	GetPolicyAttachmentPoliciesAttachmentsAttachmentIdGetPath,
 	GetPolicyAttachmentPoliciesAttachmentsAttachmentIdGetResponse,
 	GetPolicyAttachmentPoliciesAttachmentsAttachmentIdGetStatus422,
@@ -1041,14 +1075,26 @@ import type {
 	GetShadowEvalJobAutoRouterShadowEvalJobIdGetPath,
 	GetShadowEvalJobAutoRouterShadowEvalJobIdGetResponse,
 	GetShadowEvalJobAutoRouterShadowEvalJobIdGetStatus422,
+	GetSkillScanSkillHubSubmissionsSubmissionIdScanGetPath,
+	GetSkillScanSkillHubSubmissionsSubmissionIdScanGetResponse,
+	GetSkillScanSkillHubSubmissionsSubmissionIdScanGetStatus422,
+	GetSkillSkillHubSkillsNameGetPath,
+	GetSkillSkillHubSkillsNameGetResponse,
+	GetSkillSkillHubSkillsNameGetStatus422,
 	GetSkillV1SkillsSkillIdGetPath,
 	GetSkillV1SkillsSkillIdGetQuery,
 	GetSkillV1SkillsSkillIdGetResponse,
 	GetSkillV1SkillsSkillIdGetStatus422,
+	GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetPath,
+	GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetResponse,
+	GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetStatus422,
 	GetSpendCaptureRateSpendCaptureRateGetQuery,
 	GetSpendCaptureRateSpendCaptureRateGetResponse,
 	GetSpendCaptureRateSpendCaptureRateGetStatus422,
 	GetSsoSettingsGetSsoSettingsGetResponse,
+	GetSubmissionSkillHubSubmissionsSubmissionIdGetPath,
+	GetSubmissionSkillHubSubmissionsSubmissionIdGetResponse,
+	GetSubmissionSkillHubSubmissionsSubmissionIdGetStatus422,
 	GetSubscriptionUsageSubscriptionAccountsUsageGetQuery,
 	GetSubscriptionUsageSubscriptionAccountsUsageGetResponse,
 	GetSubscriptionUsageSubscriptionAccountsUsageGetStatus422,
@@ -1287,6 +1333,9 @@ import type {
 	ImportMcpServersV1McpServerImportPostBody,
 	ImportMcpServersV1McpServerImportPostResponse,
 	ImportMcpServersV1McpServerImportPostStatus422,
+	ImportSkillSkillHubSkillsImportPostBody,
+	ImportSkillSkillHubSkillsImportPostResponse,
+	ImportSkillSkillHubSkillsImportPostStatus422,
 	IndexCreateV1IndexesPostBody,
 	IndexCreateV1IndexesPostResponse,
 	IndexCreateV1IndexesPostStatus422,
@@ -1478,15 +1527,25 @@ import type {
 	ListShadowEvalJobsAutoRouterShadowEvalGetQuery,
 	ListShadowEvalJobsAutoRouterShadowEvalGetResponse,
 	ListShadowEvalJobsAutoRouterShadowEvalGetStatus422,
+	ListSkillsSkillHubSkillsGetQuery,
+	ListSkillsSkillHubSkillsGetResponse,
+	ListSkillsSkillHubSkillsGetStatus422,
 	ListSkillsV1SkillsGetQuery,
 	ListSkillsV1SkillsGetResponse,
 	ListSkillsV1SkillsGetStatus422,
+	ListSkillVersionsSkillHubSkillsNameVersionsGetPath,
+	ListSkillVersionsSkillHubSkillsNameVersionsGetQuery,
+	ListSkillVersionsSkillHubSkillsNameVersionsGetResponse,
+	ListSkillVersionsSkillHubSkillsNameVersionsGetStatus422,
 	ListSpendLogEndUsersManagementV1SpendLogsEndUsersGetQuery,
 	ListSpendLogEndUsersManagementV1SpendLogsEndUsersGetResponse,
 	ListSpendLogEndUsersManagementV1SpendLogsEndUsersGetStatus422,
 	ListSpendLogUsersManagementV1SpendLogsUsersGetQuery,
 	ListSpendLogUsersManagementV1SpendLogsUsersGetResponse,
 	ListSpendLogUsersManagementV1SpendLogsUsersGetStatus422,
+	ListSubmissionsSkillHubSubmissionsGetQuery,
+	ListSubmissionsSkillHubSubmissionsGetResponse,
+	ListSubmissionsSkillHubSubmissionsGetStatus422,
 	ListTagsTagListGetQuery,
 	ListTagsTagListGetResponse,
 	ListTagsTagListGetStatus422,
@@ -1711,7 +1770,9 @@ import type {
 	ProxyMcpRouteMcpProxyPutResponse,
 	ProxyRealtimeCallsOpenaiV1RealtimeCallsPostResponse,
 	ProxyRealtimeCallsRealtimeCallsPostResponse,
+	ProxyRealtimeCallsRealtimeTranslationsCallsPostResponse,
 	ProxyRealtimeCallsV1RealtimeCallsPostResponse,
+	ProxyRealtimeCallsV1RealtimeTranslationsCallsPostResponse,
 	PublicModelHubFacetPublicV1ModelHubFacetGetPath,
 	PublicModelHubFacetPublicV1ModelHubFacetGetResponse,
 	PublicModelHubFacetPublicV1ModelHubFacetGetStatus422,
@@ -1719,6 +1780,10 @@ import type {
 	PublicModelHubListPublicV1ModelHubGetResponse,
 	PublicModelHubPublicModelHubGetResponse,
 	PublicSkillHubPublicSkillHubGetResponse,
+	PublishSkillSkillHubSkillsNamePublishPostBody,
+	PublishSkillSkillHubSkillsNamePublishPostPath,
+	PublishSkillSkillHubSkillsNamePublishPostResponse,
+	PublishSkillSkillHubSkillsNamePublishPostStatus422,
 	QueryAgentTracesV1TracesQueryPostBody,
 	QueryAgentTracesV1TracesQueryPostResponse,
 	QueryAgentTracesV1TracesQueryPostStatus422,
@@ -1761,6 +1826,10 @@ import type {
 	RejectMcpServerSubmissionV1McpServerServerIdRejectPutPath,
 	RejectMcpServerSubmissionV1McpServerServerIdRejectPutResponse,
 	RejectMcpServerSubmissionV1McpServerServerIdRejectPutStatus422,
+	RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutBody,
+	RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutPath,
+	RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutResponse,
+	RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutStatus422,
 	RemoveMcpServerV1McpServerServerIdDeleteHeaders,
 	RemoveMcpServerV1McpServerServerIdDeletePath,
 	RemoveMcpServerV1McpServerServerIdDeleteResponse,
@@ -1769,6 +1838,17 @@ import type {
 	RemoveMcpToolsetV1McpToolsetToolsetIdDeletePath,
 	RemoveMcpToolsetV1McpToolsetToolsetIdDeleteResponse,
 	RemoveMcpToolsetV1McpToolsetToolsetIdDeleteStatus422,
+	RemoveSkillSkillHubSkillsNameDeletePath,
+	RemoveSkillSkillHubSkillsNameDeleteResponse,
+	RemoveSkillSkillHubSkillsNameDeleteStatus422,
+	ReplaceSkillArchiveSkillHubSkillsNameUploadPutBody,
+	ReplaceSkillArchiveSkillHubSkillsNameUploadPutPath,
+	ReplaceSkillArchiveSkillHubSkillsNameUploadPutResponse,
+	ReplaceSkillArchiveSkillHubSkillsNameUploadPutStatus422,
+	ReplaceSkillMetadataSkillHubSkillsNamePutBody,
+	ReplaceSkillMetadataSkillHubSkillsNamePutPath,
+	ReplaceSkillMetadataSkillHubSkillsNamePutResponse,
+	ReplaceSkillMetadataSkillHubSkillsNamePutStatus422,
 	RerankRerankPostResponse,
 	RerankV1RerankPostResponse,
 	RerankV2RerankPostResponse,
@@ -1851,10 +1931,17 @@ import type {
 	SetAccessGroupBudgetAccessGroupAccessGroupBudgetPutResponse,
 	SetAccessGroupBudgetAccessGroupAccessGroupBudgetPutStatus422,
 	SharedHealthCheckStatusEndpointHealthSharedStatusGetResponse,
+	SkillContentSkillHubSkillsNameContentGetPath,
+	SkillContentSkillHubSkillsNameContentGetResponse,
+	SkillContentSkillHubSkillsNameContentGetStatus422,
 	SsoReadinessSsoReadinessGetResponse,
 	StartShadowEvalAutoRouterShadowEvalStartPostBody,
 	StartShadowEvalAutoRouterShadowEvalStartPostResponse,
 	StartShadowEvalAutoRouterShadowEvalStartPostStatus422,
+	StartSkillScanSkillHubSubmissionsSubmissionIdScanPostBody,
+	StartSkillScanSkillHubSubmissionsSubmissionIdScanPostPath,
+	StartSkillScanSkillHubSubmissionsSubmissionIdScanPostResponse,
+	StartSkillScanSkillHubSubmissionsSubmissionIdScanPostStatus422,
 	StartUserConnectionCredentialsCredentialNameUserConnectionStartPostPath,
 	StartUserConnectionCredentialsCredentialNameUserConnectionStartPostResponse,
 	StartUserConnectionCredentialsCredentialNameUserConnectionStartPostStatus422,
@@ -2008,6 +2095,10 @@ import type {
 	UnpinMcpServerToolsV1McpServerServerIdPinDeletePath,
 	UnpinMcpServerToolsV1McpServerServerIdPinDeleteResponse,
 	UnpinMcpServerToolsV1McpServerServerIdPinDeleteStatus422,
+	UnpublishSkillSkillHubSkillsNameUnpublishPostBody,
+	UnpublishSkillSkillHubSkillsNameUnpublishPostPath,
+	UnpublishSkillSkillHubSkillsNameUnpublishPostResponse,
+	UnpublishSkillSkillHubSkillsNameUnpublishPostStatus422,
 	UpdateAccessGroupAccessGroupAccessGroupUpdatePutBody,
 	UpdateAccessGroupAccessGroupAccessGroupUpdatePutPath,
 	UpdateAccessGroupAccessGroupAccessGroupUpdatePutResponse,
@@ -2065,6 +2156,9 @@ import type {
 	UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchPath,
 	UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchResponse,
 	UpdateDeploymentWarningIgnoreHealthDeploymentWarningsWarningIdPatchStatus422,
+	UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutBody,
+	UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutResponse,
+	UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutStatus422,
 	UpdateEndUserCustomerUpdatePostBody,
 	UpdateEndUserCustomerUpdatePostResponse,
 	UpdateEndUserCustomerUpdatePostStatus422,
@@ -2197,6 +2291,12 @@ import type {
 	UploadLogoUploadLogoPostBody,
 	UploadLogoUploadLogoPostResponse,
 	UploadLogoUploadLogoPostStatus422,
+	UploadPluginClaudeCodePluginsUploadPostBody,
+	UploadPluginClaudeCodePluginsUploadPostResponse,
+	UploadPluginClaudeCodePluginsUploadPostStatus422,
+	UploadSkillSkillHubSkillsUploadPostBody,
+	UploadSkillSkillHubSkillsUploadPostResponse,
+	UploadSkillSkillHubSkillsUploadPostStatus422,
 	UpsertMemoryV1MemoryKeyPutBody,
 	UpsertMemoryV1MemoryKeyPutPath,
 	UpsertMemoryV1MemoryKeyPutResponse,
@@ -2346,6 +2446,8 @@ import type {
 	WebsocketLiveSessionsWebsocketEndpointGetResponse,
 	WebsocketRealtimeWebsocketEndpointGet2Response,
 	WebsocketRealtimeWebsocketEndpointGet3Response,
+	WebsocketRealtimeWebsocketEndpointGet4Response,
+	WebsocketRealtimeWebsocketEndpointGet5Response,
 	WebsocketRealtimeWebsocketEndpointGetResponse,
 	WebsocketVertexAiLivePassthroughEndpointResponse,
 } from "./types";
@@ -4297,8 +4399,9 @@ export async function modelInfoV1ModelInfoGet(
  * @description List models with known deprecation/sunset dates, bucketed by urgency.
  * Reads `deprecation_date` metadata from `model_prices_and_context_window.json`
  * (and any per-deployment `model_info.deprecation_date` overrides) for the
- * models configured on this proxy. An entry also names its `successor_model`
- * when the deployment sets `model_info.successor_model`.
+ * models configured on this proxy. An entry also names its `successor_model`:
+ * `model_info.successor_model` when the deployment sets one, else the
+ * replacement the cost map records from the provider's deprecation notice.
  * Parameters:
  *     warn_within_days: Window (in days) used to bucket "imminent" models,
  *         30 by default.
@@ -4349,8 +4452,9 @@ export async function modelDeprecationsV1ModelDeprecationsGet(
  * @description List models with known deprecation/sunset dates, bucketed by urgency.
  * Reads `deprecation_date` metadata from `model_prices_and_context_window.json`
  * (and any per-deployment `model_info.deprecation_date` overrides) for the
- * models configured on this proxy. An entry also names its `successor_model`
- * when the deployment sets `model_info.successor_model`.
+ * models configured on this proxy. An entry also names its `successor_model`:
+ * `model_info.successor_model` when the deployment sets one, else the
+ * replacement the cost map records from the provider's deprecation notice.
  * Parameters:
  *     warn_within_days: Window (in days) used to bucket "imminent" models,
  *         30 by default.
@@ -20497,6 +20601,7 @@ export async function newTagTagNewPost(
  * @description Update an existing tag.
  * Parameters:
  * - name: str - The name of the tag to update
+ * - spend: Optional[float] - Updated spend for the tag
  * - description: Optional[str] - Updated description
  * - models: List[str] - Updated list of allowed LLM models
  * - budget_id: Optional[str] - The id for a budget to associate with the tag
@@ -22418,6 +22523,106 @@ export async function testCacheConnectionCacheSettingsTestPost(
 }
 
 /**
+ * @summary Get Deprecation Alert State
+ * @link /alerting/model-deprecations/state
+ */
+export async function getDeprecationAlertStateAlertingModelDeprecationsStateGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams: GetDeprecationAlertStateAlertingModelDeprecationsStateGetQuery;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		GetDeprecationAlertStateAlertingModelDeprecationsStateGetResponse,
+		ErrorWrapper<GetDeprecationAlertStateAlertingModelDeprecationsStateGetStatus422>,
+		null,
+		Record<string, string>,
+		GetDeprecationAlertStateAlertingModelDeprecationsStateGetQuery,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/alerting/model-deprecations/state`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Update Deprecation Alert State
+ * @link /alerting/model-deprecations/state
+ */
+export async function updateDeprecationAlertStateAlertingModelDeprecationsStatePut(
+	{
+		body,
+		config,
+	}: {
+		body: UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutResponse,
+		ErrorWrapper<UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutStatus422>,
+		UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "PUT",
+		url: `/alerting/model-deprecations/state`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Deprecation Usage Tags
+ * @description Distinct tags observed with this model for a page of affected reporting key IDs.
+ * @link /alerting/model-deprecations/tags
+ */
+export async function getDeprecationUsageTagsAlertingModelDeprecationsTagsGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams: GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetQuery;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetResponse,
+		ErrorWrapper<GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetStatus422>,
+		null,
+		Record<string, string>,
+		GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetQuery,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/alerting/model-deprecations/tags`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Get Coordination Redis Settings
  * @description Get the coordination Redis configuration and available settings.
  * Returns:
@@ -23570,7 +23775,7 @@ export async function getUiConfigWellKnownLitellmUiConfigGet(
 
 /**
  * @summary Agent Skills Index
- * @description Agent Skills v0.2.0 discovery index over every skill stored on this proxy.
+ * @description Discover public Hub skills and the separately enabled hosted skill store.
  * @link /.well-known/agent-skills/index.json
  */
 export async function agentSkillsIndexWellKnownAgentSkillsIndexJsonGet(
@@ -25152,7 +25357,7 @@ export async function websocketVertexAiLivePassthroughEndpoint(
 /**
  * @summary WebSocket: realtime_websocket_endpoint
  * @description WebSocket connection endpoint
- * @link /realtime
+ * @link /realtime/translations
  */
 export async function websocketRealtimeWebsocketEndpointGet(
 	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
@@ -25161,6 +25366,60 @@ export async function websocketRealtimeWebsocketEndpointGet(
 
 	const data = await request<
 		WebsocketRealtimeWebsocketEndpointGetResponse,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/realtime/translations`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary WebSocket: realtime_websocket_endpoint
+ * @description WebSocket connection endpoint
+ * @link /v1/realtime/translations
+ */
+export async function websocketRealtimeWebsocketEndpointGet2(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		WebsocketRealtimeWebsocketEndpointGet2Response,
+		ErrorWrapper<Error>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/v1/realtime/translations`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary WebSocket: realtime_websocket_endpoint
+ * @description WebSocket connection endpoint
+ * @link /realtime
+ */
+export async function websocketRealtimeWebsocketEndpointGet3(
+	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		WebsocketRealtimeWebsocketEndpointGet3Response,
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
@@ -25181,13 +25440,13 @@ export async function websocketRealtimeWebsocketEndpointGet(
  * @description WebSocket connection endpoint
  * @link /v1/realtime
  */
-export async function websocketRealtimeWebsocketEndpointGet2(
+export async function websocketRealtimeWebsocketEndpointGet4(
 	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	const data = await request<
-		WebsocketRealtimeWebsocketEndpointGet2Response,
+		WebsocketRealtimeWebsocketEndpointGet4Response,
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
@@ -25208,13 +25467,13 @@ export async function websocketRealtimeWebsocketEndpointGet2(
  * @description WebSocket connection endpoint
  * @link /openai/v1/realtime
  */
-export async function websocketRealtimeWebsocketEndpointGet3(
+export async function websocketRealtimeWebsocketEndpointGet5(
 	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
 	const data = await request<
-		WebsocketRealtimeWebsocketEndpointGet3Response,
+		WebsocketRealtimeWebsocketEndpointGet5Response,
 		ErrorWrapper<Error>,
 		null,
 		Record<string, string>,
@@ -33766,6 +34025,7 @@ export async function layaProxyRouteLayaV1SystemonePost(
 
 /**
  * @summary Proxy Realtime Calls
+ * @description Exchange a WebRTC SDP offer for an answer using the ephemeral token from client_secrets
  * @link /openai/v1/realtime/calls
  */
 export async function proxyRealtimeCallsOpenaiV1RealtimeCallsPost(
@@ -33792,6 +34052,7 @@ export async function proxyRealtimeCallsOpenaiV1RealtimeCallsPost(
 
 /**
  * @summary Create Realtime Client Secret
+ * @description Create a short-lived client token for a Realtime conversation, transcription, or translation session
  * @link /openai/v1/realtime/client_secrets
  */
 export async function createRealtimeClientSecretOpenaiV1RealtimeClientSecretsPost(
@@ -33923,6 +34184,7 @@ export async function transcribeProxyRouteTranscribeOperationPost(
 
 /**
  * @summary Proxy Realtime Calls
+ * @description Exchange a WebRTC SDP offer for an answer using the ephemeral token from client_secrets
  * @link /realtime/calls
  */
 export async function proxyRealtimeCallsRealtimeCallsPost(
@@ -33949,6 +34211,7 @@ export async function proxyRealtimeCallsRealtimeCallsPost(
 
 /**
  * @summary Create Realtime Client Secret
+ * @description Create a short-lived client token for a Realtime conversation, transcription, or translation session
  * @link /realtime/client_secrets
  */
 export async function createRealtimeClientSecretRealtimeClientSecretsPost(
@@ -34005,6 +34268,75 @@ export async function createRealtimeTranscriptionSessionRealtimeTranscriptionSes
 
 /**
  * @summary Proxy Realtime Calls
+ * @description Exchange a WebRTC SDP offer for an answer using the ephemeral token from client_secrets
+ * @link /realtime/translations/calls
+ */
+export async function proxyRealtimeCallsRealtimeTranslationsCallsPost(
+	{
+		body,
+		config,
+	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ProxyRealtimeCallsRealtimeTranslationsCallsPostResponse,
+		ErrorWrapper<Error>,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/realtime/translations/calls`,
+		body: body,
+		...requestConfig,
+		headers: { "Content-Type": "application/sdp", ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Create Realtime Client Secret
+ * @description Create a short-lived client token for a Realtime conversation, transcription, or translation session
+ * @link /realtime/translations/client_secrets
+ */
+export async function createRealtimeClientSecretRealtimeTranslationsClientSecretsPost(
+	{
+		body,
+		config,
+	}: {
+		body: CreateRealtimeClientSecretRealtimeTranslationsClientSecretsPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		CreateRealtimeClientSecretRealtimeTranslationsClientSecretsPostResponse,
+		ErrorWrapper<Error>,
+		CreateRealtimeClientSecretRealtimeTranslationsClientSecretsPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/realtime/translations/client_secrets`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Proxy Realtime Calls
+ * @description Exchange a WebRTC SDP offer for an answer using the ephemeral token from client_secrets
  * @link /v1/realtime/calls
  */
 export async function proxyRealtimeCallsV1RealtimeCallsPost(
@@ -34031,6 +34363,7 @@ export async function proxyRealtimeCallsV1RealtimeCallsPost(
 
 /**
  * @summary Create Realtime Client Secret
+ * @description Create a short-lived client token for a Realtime conversation, transcription, or translation session
  * @link /v1/realtime/client_secrets
  */
 export async function createRealtimeClientSecretV1RealtimeClientSecretsPost(
@@ -34078,6 +34411,74 @@ export async function createRealtimeTranscriptionSessionV1RealtimeTranscriptionS
 	>({
 		method: "POST",
 		url: `/v1/realtime/transcription_sessions`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Proxy Realtime Calls
+ * @description Exchange a WebRTC SDP offer for an answer using the ephemeral token from client_secrets
+ * @link /v1/realtime/translations/calls
+ */
+export async function proxyRealtimeCallsV1RealtimeTranslationsCallsPost(
+	{
+		body,
+		config,
+	}: {
+		body: Blob | ArrayBuffer | Uint8Array | ReadableStream | string;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ProxyRealtimeCallsV1RealtimeTranslationsCallsPostResponse,
+		ErrorWrapper<Error>,
+		Blob | ArrayBuffer | Uint8Array | ReadableStream | string,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/v1/realtime/translations/calls`,
+		body: body,
+		...requestConfig,
+		headers: { "Content-Type": "application/sdp", ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Create Realtime Client Secret
+ * @description Create a short-lived client token for a Realtime conversation, transcription, or translation session
+ * @link /v1/realtime/translations/client_secrets
+ */
+export async function createRealtimeClientSecretV1RealtimeTranslationsClientSecretsPost(
+	{
+		body,
+		config,
+	}: {
+		body: CreateRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		CreateRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostResponse,
+		ErrorWrapper<Error>,
+		CreateRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/v1/realtime/translations/client_secrets`,
+		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -35175,6 +35576,863 @@ export async function systemoneV1SystemonePost(
 }
 
 /**
+ * @summary List Skills
+ * @description Browse the caller's public and granted private skills.
+ * @link /skill-hub/skills
+ */
+export async function listSkillsSkillHubSkillsGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<ListSkillsSkillHubSkillsGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ListSkillsSkillHubSkillsGetResponse,
+		ErrorWrapper<ListSkillsSkillHubSkillsGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<ListSkillsSkillHubSkillsGetQuery>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/skill-hub/skills`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Import Skill
+ * @description Import a public skills.sh or GitHub skill as a portable snapshot.
+ * @link /skill-hub/skills/import
+ */
+export async function importSkillSkillHubSkillsImportPost(
+	{
+		body,
+		config,
+	}: {
+		body: ImportSkillSkillHubSkillsImportPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ImportSkillSkillHubSkillsImportPostResponse,
+		ErrorWrapper<ImportSkillSkillHubSkillsImportPostStatus422>,
+		ImportSkillSkillHubSkillsImportPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/skill-hub/skills/import`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Upload Skill
+ * @description Publish a portable skill while retaining Claude marketplace compatibility.
+ * @link /skill-hub/skills/upload
+ */
+export async function uploadSkillSkillHubSkillsUploadPost(
+	{
+		body,
+		config,
+	}: {
+		body: UploadSkillSkillHubSkillsUploadPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const formData = new FormData();
+	if (body) {
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
+			}
+		}
+	}
+	const data = await request<
+		UploadSkillSkillHubSkillsUploadPostResponse,
+		ErrorWrapper<UploadSkillSkillHubSkillsUploadPostStatus422>,
+		FormData,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/skill-hub/skills/upload`,
+		body: formData,
+		...requestConfig,
+		headers: { "Content-Type": "multipart/form-data", ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Skill
+ * @description Read one visible skill and its portable download URL.
+ * @link /skill-hub/skills/{name}
+ */
+export async function getSkillSkillHubSkillsNameGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetSkillSkillHubSkillsNameGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.name == null || String(pathParams.name) === "") {
+		throw new Error(`Missing required path parameter: name`);
+	}
+	const data = await request<
+		GetSkillSkillHubSkillsNameGetResponse,
+		ErrorWrapper<GetSkillSkillHubSkillsNameGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetSkillSkillHubSkillsNameGetPath
+	>({
+		method: "GET",
+		url: `/skill-hub/skills/${encodeURIComponent(String(pathParams.name))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Replace Skill Metadata
+ * @description Replace registry metadata, preserving files. Members submit an immutable proposal for admin review.
+ * @link /skill-hub/skills/{name}
+ */
+export async function replaceSkillMetadataSkillHubSkillsNamePut(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: ReplaceSkillMetadataSkillHubSkillsNamePutPath;
+		body: ReplaceSkillMetadataSkillHubSkillsNamePutBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.name == null || String(pathParams.name) === "") {
+		throw new Error(`Missing required path parameter: name`);
+	}
+	const data = await request<
+		ReplaceSkillMetadataSkillHubSkillsNamePutResponse,
+		ErrorWrapper<ReplaceSkillMetadataSkillHubSkillsNamePutStatus422>,
+		ReplaceSkillMetadataSkillHubSkillsNamePutBody,
+		Record<string, string>,
+		Record<string, string>,
+		ReplaceSkillMetadataSkillHubSkillsNamePutPath
+	>({
+		method: "PUT",
+		url: `/skill-hub/skills/${encodeURIComponent(String(pathParams.name))}`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Remove Skill
+ * @description Delete a skill and its managed archive.
+ * @link /skill-hub/skills/{name}
+ */
+export async function removeSkillSkillHubSkillsNameDelete(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: RemoveSkillSkillHubSkillsNameDeletePath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.name == null || String(pathParams.name) === "") {
+		throw new Error(`Missing required path parameter: name`);
+	}
+	const data = await request<
+		RemoveSkillSkillHubSkillsNameDeleteResponse,
+		ErrorWrapper<RemoveSkillSkillHubSkillsNameDeleteStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		RemoveSkillSkillHubSkillsNameDeletePath
+	>({
+		method: "DELETE",
+		url: `/skill-hub/skills/${encodeURIComponent(String(pathParams.name))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Download Skill
+ * @description Download the complete portable skill, with SKILL.md at the ZIP root.
+ * @link /skill-hub/skills/{name}/archive
+ */
+export async function downloadSkillSkillHubSkillsNameArchiveGet(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: DownloadSkillSkillHubSkillsNameArchiveGetPath;
+		queryParams?: Partial<DownloadSkillSkillHubSkillsNameArchiveGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.name == null || String(pathParams.name) === "") {
+		throw new Error(`Missing required path parameter: name`);
+	}
+	const data = await request<
+		DownloadSkillSkillHubSkillsNameArchiveGetResponse,
+		ErrorWrapper<DownloadSkillSkillHubSkillsNameArchiveGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<DownloadSkillSkillHubSkillsNameArchiveGetQuery>,
+		DownloadSkillSkillHubSkillsNameArchiveGetPath
+	>({
+		method: "GET",
+		url: `/skill-hub/skills/${encodeURIComponent(String(pathParams.name))}/archive`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Skill Content
+ * @description Read the original SKILL.md without downloading supporting files.
+ * @link /skill-hub/skills/{name}/content
+ */
+export async function skillContentSkillHubSkillsNameContentGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: SkillContentSkillHubSkillsNameContentGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.name == null || String(pathParams.name) === "") {
+		throw new Error(`Missing required path parameter: name`);
+	}
+	const data = await request<
+		SkillContentSkillHubSkillsNameContentGetResponse,
+		ErrorWrapper<SkillContentSkillHubSkillsNameContentGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		SkillContentSkillHubSkillsNameContentGetPath
+	>({
+		method: "GET",
+		url: `/skill-hub/skills/${encodeURIComponent(String(pathParams.name))}/content`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Publish Skill
+ * @description Make a skill public using the existing Hub publication policy.
+ * @link /skill-hub/skills/{name}/publish
+ */
+export async function publishSkillSkillHubSkillsNamePublishPost(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: PublishSkillSkillHubSkillsNamePublishPostPath;
+		body?: PublishSkillSkillHubSkillsNamePublishPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.name == null || String(pathParams.name) === "") {
+		throw new Error(`Missing required path parameter: name`);
+	}
+	const data = await request<
+		PublishSkillSkillHubSkillsNamePublishPostResponse,
+		ErrorWrapper<PublishSkillSkillHubSkillsNamePublishPostStatus422>,
+		PublishSkillSkillHubSkillsNamePublishPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		PublishSkillSkillHubSkillsNamePublishPostPath
+	>({
+		method: "POST",
+		url: `/skill-hub/skills/${encodeURIComponent(String(pathParams.name))}/publish`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Unpublish Skill
+ * @description Remove a skill from public discovery while retaining explicit grants.
+ * @link /skill-hub/skills/{name}/unpublish
+ */
+export async function unpublishSkillSkillHubSkillsNameUnpublishPost(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: UnpublishSkillSkillHubSkillsNameUnpublishPostPath;
+		body?: UnpublishSkillSkillHubSkillsNameUnpublishPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.name == null || String(pathParams.name) === "") {
+		throw new Error(`Missing required path parameter: name`);
+	}
+	const data = await request<
+		UnpublishSkillSkillHubSkillsNameUnpublishPostResponse,
+		ErrorWrapper<UnpublishSkillSkillHubSkillsNameUnpublishPostStatus422>,
+		UnpublishSkillSkillHubSkillsNameUnpublishPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		UnpublishSkillSkillHubSkillsNameUnpublishPostPath
+	>({
+		method: "POST",
+		url: `/skill-hub/skills/${encodeURIComponent(String(pathParams.name))}/unpublish`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Replace Skill Archive
+ * @description Replace skill files, retaining registry fields. Members propose an update against the original editor timestamp.
+ * @link /skill-hub/skills/{name}/upload
+ */
+export async function replaceSkillArchiveSkillHubSkillsNameUploadPut(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: ReplaceSkillArchiveSkillHubSkillsNameUploadPutPath;
+		body: ReplaceSkillArchiveSkillHubSkillsNameUploadPutBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.name == null || String(pathParams.name) === "") {
+		throw new Error(`Missing required path parameter: name`);
+	}
+	const formData = new FormData();
+	if (body) {
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
+			}
+		}
+	}
+	const data = await request<
+		ReplaceSkillArchiveSkillHubSkillsNameUploadPutResponse,
+		ErrorWrapper<ReplaceSkillArchiveSkillHubSkillsNameUploadPutStatus422>,
+		FormData,
+		Record<string, string>,
+		Record<string, string>,
+		ReplaceSkillArchiveSkillHubSkillsNameUploadPutPath
+	>({
+		method: "PUT",
+		url: `/skill-hub/skills/${encodeURIComponent(String(pathParams.name))}/upload`,
+		body: formData,
+		...requestConfig,
+		headers: { "Content-Type": "multipart/form-data", ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List Skill Versions
+ * @description Read published metadata history. External references are not retained artifacts.
+ * @link /skill-hub/skills/{name}/versions
+ */
+export async function listSkillVersionsSkillHubSkillsNameVersionsGet(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: ListSkillVersionsSkillHubSkillsNameVersionsGetPath;
+		queryParams?: Partial<ListSkillVersionsSkillHubSkillsNameVersionsGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.name == null || String(pathParams.name) === "") {
+		throw new Error(`Missing required path parameter: name`);
+	}
+	const data = await request<
+		ListSkillVersionsSkillHubSkillsNameVersionsGetResponse,
+		ErrorWrapper<ListSkillVersionsSkillHubSkillsNameVersionsGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<ListSkillVersionsSkillHubSkillsNameVersionsGetQuery>,
+		ListSkillVersionsSkillHubSkillsNameVersionsGetPath
+	>({
+		method: "GET",
+		url: `/skill-hub/skills/${encodeURIComponent(String(pathParams.name))}/versions`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Skill Version
+ * @description Read a retained publication under the current skill's visibility policy.
+ * @link /skill-hub/skills/{name}/versions/{version_id}
+ */
+export async function getSkillVersionSkillHubSkillsNameVersionsVersionIdGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.name == null || String(pathParams.name) === "") {
+		throw new Error(`Missing required path parameter: name`);
+	}
+
+	if (pathParams?.version_id == null || String(pathParams.version_id) === "") {
+		throw new Error(`Missing required path parameter: version_id`);
+	}
+	const data = await request<
+		GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetResponse,
+		ErrorWrapper<GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetPath
+	>({
+		method: "GET",
+		url: `/skill-hub/skills/${encodeURIComponent(String(pathParams.name))}/versions/${encodeURIComponent(String(pathParams.version_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Download Skill Version
+ * @description Download a retained publication as a portable ZIP with SKILL.md at its root.
+ * @link /skill-hub/skills/{name}/versions/{version_id}/archive
+ */
+export async function downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.name == null || String(pathParams.name) === "") {
+		throw new Error(`Missing required path parameter: name`);
+	}
+
+	if (pathParams?.version_id == null || String(pathParams.version_id) === "") {
+		throw new Error(`Missing required path parameter: version_id`);
+	}
+	const data = await request<
+		DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetResponse,
+		ErrorWrapper<DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetPath
+	>({
+		method: "GET",
+		url: `/skill-hub/skills/${encodeURIComponent(String(pathParams.name))}/versions/${encodeURIComponent(String(pathParams.version_id))}/archive`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Plugin Downloads
+ * @description Admin-only ZIP download totals and authenticated downloader history.
+ * Anonymous downloads contribute only to totals. Counts include repeat requests and client prefetches,
+ * starting when tracking is deployed. External sources and installation completion are not observed.
+ * @link /skill-hub/skills/{plugin_name}/downloads
+ */
+export async function getPluginDownloadsSkillHubSkillsPluginNameDownloadsGet(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetPath;
+		queryParams?: Partial<GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.plugin_name == null || String(pathParams.plugin_name) === "") {
+		throw new Error(`Missing required path parameter: plugin_name`);
+	}
+	const data = await request<
+		GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetResponse,
+		ErrorWrapper<GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetQuery>,
+		GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetPath
+	>({
+		method: "GET",
+		url: `/skill-hub/skills/${encodeURIComponent(String(pathParams.plugin_name))}/downloads`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List Submissions
+ * @description Read a page of owned proposals. Proxy admins and admin viewers can read every owner's proposals.
+ * @link /skill-hub/submissions
+ */
+export async function listSubmissionsSkillHubSubmissionsGet(
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<ListSubmissionsSkillHubSubmissionsGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const data = await request<
+		ListSubmissionsSkillHubSubmissionsGetResponse,
+		ErrorWrapper<ListSubmissionsSkillHubSubmissionsGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<ListSubmissionsSkillHubSubmissionsGetQuery>,
+		Record<string, string>
+	>({
+		method: "GET",
+		url: `/skill-hub/submissions`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Submission
+ * @description Read an immutable proposal and its currently visible published skill.
+ * @link /skill-hub/submissions/{submission_id}
+ */
+export async function getSubmissionSkillHubSubmissionsSubmissionIdGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetSubmissionSkillHubSubmissionsSubmissionIdGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.submission_id == null || String(pathParams.submission_id) === "") {
+		throw new Error(`Missing required path parameter: submission_id`);
+	}
+	const data = await request<
+		GetSubmissionSkillHubSubmissionsSubmissionIdGetResponse,
+		ErrorWrapper<GetSubmissionSkillHubSubmissionsSubmissionIdGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetSubmissionSkillHubSubmissionsSubmissionIdGetPath
+	>({
+		method: "GET",
+		url: `/skill-hub/submissions/${encodeURIComponent(String(pathParams.submission_id))}`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Approve Submission
+ * @description Publish a pending proposal and record its approval atomically. Only proxy admins may review.
+ * @link /skill-hub/submissions/{submission_id}/approve
+ */
+export async function approveSubmissionSkillHubSubmissionsSubmissionIdApprovePut(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.submission_id == null || String(pathParams.submission_id) === "") {
+		throw new Error(`Missing required path parameter: submission_id`);
+	}
+	const data = await request<
+		ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutResponse,
+		ErrorWrapper<ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutPath
+	>({
+		method: "PUT",
+		url: `/skill-hub/submissions/${encodeURIComponent(String(pathParams.submission_id))}/approve`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Download Submission
+ * @description Download an owned proposal as a private portable ZIP. Legacy nonportable archives return 404.
+ * @link /skill-hub/submissions/{submission_id}/archive
+ */
+export async function downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.submission_id == null || String(pathParams.submission_id) === "") {
+		throw new Error(`Missing required path parameter: submission_id`);
+	}
+	const data = await request<
+		DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetResponse,
+		ErrorWrapper<DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetPath
+	>({
+		method: "GET",
+		url: `/skill-hub/submissions/${encodeURIComponent(String(pathParams.submission_id))}/archive`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Reject Submission
+ * @description Reject a pending proposal without changing the published skill. Only proxy admins may review.
+ * @link /skill-hub/submissions/{submission_id}/reject
+ */
+export async function rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPut(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutPath;
+		body?: RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.submission_id == null || String(pathParams.submission_id) === "") {
+		throw new Error(`Missing required path parameter: submission_id`);
+	}
+	const data = await request<
+		RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutResponse,
+		ErrorWrapper<RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutStatus422>,
+		RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutBody,
+		Record<string, string>,
+		Record<string, string>,
+		RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutPath
+	>({
+		method: "PUT",
+		url: `/skill-hub/submissions/${encodeURIComponent(String(pathParams.submission_id))}/reject`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Skill Scan
+ * @description Read the latest manual security scan. Only proxy admins may read reports.
+ * @link /skill-hub/submissions/{submission_id}/scan
+ */
+export async function getSkillScanSkillHubSubmissionsSubmissionIdScanGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: GetSkillScanSkillHubSubmissionsSubmissionIdScanGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.submission_id == null || String(pathParams.submission_id) === "") {
+		throw new Error(`Missing required path parameter: submission_id`);
+	}
+	const data = await request<
+		GetSkillScanSkillHubSubmissionsSubmissionIdScanGetResponse,
+		ErrorWrapper<GetSkillScanSkillHubSubmissionsSubmissionIdScanGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		GetSkillScanSkillHubSubmissionsSubmissionIdScanGetPath
+	>({
+		method: "GET",
+		url: `/skill-hub/submissions/${encodeURIComponent(String(pathParams.submission_id))}/scan`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Start Skill Scan
+ * @description Start an optional scan of a pending submission. Scans never change approval decisions.
+ * @link /skill-hub/submissions/{submission_id}/scan
+ */
+export async function startSkillScanSkillHubSubmissionsSubmissionIdScanPost(
+	{
+		pathParams,
+		body,
+		config,
+	}: {
+		pathParams: StartSkillScanSkillHubSubmissionsSubmissionIdScanPostPath;
+		body?: StartSkillScanSkillHubSubmissionsSubmissionIdScanPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.submission_id == null || String(pathParams.submission_id) === "") {
+		throw new Error(`Missing required path parameter: submission_id`);
+	}
+	const data = await request<
+		StartSkillScanSkillHubSubmissionsSubmissionIdScanPostResponse,
+		ErrorWrapper<StartSkillScanSkillHubSubmissionsSubmissionIdScanPostStatus422>,
+		StartSkillScanSkillHubSubmissionsSubmissionIdScanPostBody,
+		Record<string, string>,
+		Record<string, string>,
+		StartSkillScanSkillHubSubmissionsSubmissionIdScanPostPath
+	>({
+		method: "POST",
+		url: `/skill-hub/submissions/${encodeURIComponent(String(pathParams.submission_id))}/scan`,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Get Marketplace
  * @description Serve marketplace.json for Claude Code plugin discovery.
  * This endpoint is accessed by Claude Code CLI when users run:
@@ -35330,6 +36588,58 @@ export async function registerPluginClaudeCodePluginsPost(
 }
 
 /**
+ * @summary Upload Plugin
+ * @description Create a skill and its uploaded ZIP atomically. Duplicate names return 409.
+ * @link /claude-code/plugins/upload
+ */
+export async function uploadPluginClaudeCodePluginsUploadPost(
+	{
+		body,
+		config,
+	}: {
+		body: UploadPluginClaudeCodePluginsUploadPostBody;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	const formData = new FormData();
+	if (body) {
+		for (const [key, value] of Object.entries(body as Record<string, unknown>)) {
+			for (const item of Array.isArray(value) ? value : [value]) {
+				if (typeof item === "string" || item instanceof Blob) {
+					formData.append(key, item);
+				} else if (
+					typeof item === "number" ||
+					typeof item === "boolean" ||
+					typeof item === "bigint"
+				) {
+					formData.append(key, String(item));
+				} else if (item != null) {
+					formData.append(key, JSON.stringify(item));
+				}
+			}
+		}
+	}
+	const data = await request<
+		UploadPluginClaudeCodePluginsUploadPostResponse,
+		ErrorWrapper<UploadPluginClaudeCodePluginsUploadPostStatus422>,
+		FormData,
+		Record<string, string>,
+		Record<string, string>,
+		Record<string, string>
+	>({
+		method: "POST",
+		url: `/claude-code/plugins/upload`,
+		body: formData,
+		...requestConfig,
+		headers: { "Content-Type": "multipart/form-data", ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Get Plugin
  * @description Get details of a specific plugin.
  * Parameters:
@@ -35375,7 +36685,8 @@ export async function getPluginClaudeCodePluginsPluginNameGet(
  * The plugin is identified by its name in the path, which is the resource
  * identity and cannot be changed here. This is a full replace, not a merge:
  * the manifest is rebuilt from the request body, so any optional field left
- * out is reset to its default (e.g. an omitted version is cleared, not kept).
+ * out is reset to its default, except version which automatically increments
+ * the published patch version when omitted or null.
  * Send the full desired state.
  * Returns 404 if no plugin with the given name exists; use
  * POST /claude-code/plugins to create a new plugin.
@@ -35479,6 +36790,46 @@ export async function deletePluginClaudeCodePluginsPluginNameDelete(
 }
 
 /**
+ * @summary Download Plugin Archive
+ * @description Download an uploaded ZIP under the same visibility policy as its skill.
+ * @link /claude-code/plugins/{plugin_name}/archive/{digest}.zip
+ */
+export async function downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGet(
+	{
+		pathParams,
+		config,
+	}: {
+		pathParams: DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetPath;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.plugin_name == null || String(pathParams.plugin_name) === "") {
+		throw new Error(`Missing required path parameter: plugin_name`);
+	}
+
+	if (pathParams?.digest == null || String(pathParams.digest) === "") {
+		throw new Error(`Missing required path parameter: digest`);
+	}
+	const data = await request<
+		DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetResponse,
+		ErrorWrapper<DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetStatus422>,
+		null,
+		Record<string, string>,
+		Record<string, string>,
+		DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetPath
+	>({
+		method: "GET",
+		url: `/claude-code/plugins/${encodeURIComponent(String(pathParams.plugin_name))}/archive/${encodeURIComponent(String(pathParams.digest))}.zip`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary Disable Plugin
  * @description Disable a plugin without deleting it.
  * Requires a proxy admin API key.
@@ -35510,6 +36861,47 @@ export async function disablePluginClaudeCodePluginsPluginNameDisablePost(
 	>({
 		method: "POST",
 		url: `/claude-code/plugins/${encodeURIComponent(String(pathParams.plugin_name))}/disable`,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Plugin Downloads
+ * @description Admin-only ZIP download totals and authenticated downloader history.
+ * Anonymous downloads contribute only to totals. Counts include repeat requests and client prefetches,
+ * starting when tracking is deployed. External sources and installation completion are not observed.
+ * @link /claude-code/plugins/{plugin_name}/downloads
+ */
+export async function getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGet(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetPath;
+		queryParams?: Partial<GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.plugin_name == null || String(pathParams.plugin_name) === "") {
+		throw new Error(`Missing required path parameter: plugin_name`);
+	}
+	const data = await request<
+		GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetResponse,
+		ErrorWrapper<GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetStatus422>,
+		null,
+		Record<string, string>,
+		Partial<GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetQuery>,
+		GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetPath
+	>({
+		method: "GET",
+		url: `/claude-code/plugins/${encodeURIComponent(String(pathParams.plugin_name))}/downloads`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
@@ -38461,6 +39853,11 @@ export const operationsByPath = {
 	"GET /cache/settings": getCacheSettingsCacheSettingsGet,
 	"POST /cache/settings": updateCacheSettingsCacheSettingsPost,
 	"POST /cache/settings/test": testCacheConnectionCacheSettingsTestPost,
+	"GET /alerting/model-deprecations/state":
+		getDeprecationAlertStateAlertingModelDeprecationsStateGet,
+	"PUT /alerting/model-deprecations/state":
+		updateDeprecationAlertStateAlertingModelDeprecationsStatePut,
+	"GET /alerting/model-deprecations/tags": getDeprecationUsageTagsAlertingModelDeprecationsTagsGet,
 	"GET /coordination_redis/settings": getCoordinationRedisSettingsCoordinationRedisSettingsGet,
 	"POST /coordination_redis/settings": updateCoordinationRedisSettingsCoordinationRedisSettingsPost,
 	"POST /coordination_redis/settings/test":
@@ -38545,9 +39942,11 @@ export const operationsByPath = {
 	"HEAD /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpHead,
 	"OPTIONS /{mcp_server_name}/mcp": dynamicMcpRouteMcpServerNameMcpOptions,
 	"GET /vertex_ai/live": websocketVertexAiLivePassthroughEndpoint,
-	"GET /realtime": websocketRealtimeWebsocketEndpointGet,
-	"GET /v1/realtime": websocketRealtimeWebsocketEndpointGet2,
-	"GET /openai/v1/realtime": websocketRealtimeWebsocketEndpointGet3,
+	"GET /realtime/translations": websocketRealtimeWebsocketEndpointGet,
+	"GET /v1/realtime/translations": websocketRealtimeWebsocketEndpointGet2,
+	"GET /realtime": websocketRealtimeWebsocketEndpointGet3,
+	"GET /v1/realtime": websocketRealtimeWebsocketEndpointGet4,
+	"GET /openai/v1/realtime": websocketRealtimeWebsocketEndpointGet5,
 	"GET /live/sessions": websocketLiveSessionsWebsocketEndpointGet,
 	"GET /v1/live/sessions": websocketLiveSessionsWebsocketEndpointGet2,
 	"GET /openai/v1/live/sessions": websocketLiveSessionsWebsocketEndpointGet3,
@@ -38822,10 +40221,16 @@ export const operationsByPath = {
 	"POST /realtime/client_secrets": createRealtimeClientSecretRealtimeClientSecretsPost,
 	"POST /realtime/transcription_sessions":
 		createRealtimeTranscriptionSessionRealtimeTranscriptionSessionsPost,
+	"POST /realtime/translations/calls": proxyRealtimeCallsRealtimeTranslationsCallsPost,
+	"POST /realtime/translations/client_secrets":
+		createRealtimeClientSecretRealtimeTranslationsClientSecretsPost,
 	"POST /v1/realtime/calls": proxyRealtimeCallsV1RealtimeCallsPost,
 	"POST /v1/realtime/client_secrets": createRealtimeClientSecretV1RealtimeClientSecretsPost,
 	"POST /v1/realtime/transcription_sessions":
 		createRealtimeTranscriptionSessionV1RealtimeTranscriptionSessionsPost,
+	"POST /v1/realtime/translations/calls": proxyRealtimeCallsV1RealtimeTranslationsCallsPost,
+	"POST /v1/realtime/translations/client_secrets":
+		createRealtimeClientSecretV1RealtimeTranslationsClientSecretsPost,
 	"POST /api/event_logging/batch": eventLoggingBatchApiEventLoggingBatchPost,
 	"POST /v1/messages": anthropicResponseV1MessagesPost,
 	"POST /v1/messages/count_tokens": countTokensV1MessagesCountTokensPost,
@@ -38850,14 +40255,49 @@ export const operationsByPath = {
 	"POST /v1/decisions": decisionsV1DecisionsPost,
 	"POST /v1/extraction": extractionV1ExtractionPost,
 	"POST /v1/systemone": systemoneV1SystemonePost,
+	"GET /skill-hub/skills": listSkillsSkillHubSkillsGet,
+	"POST /skill-hub/skills/import": importSkillSkillHubSkillsImportPost,
+	"POST /skill-hub/skills/upload": uploadSkillSkillHubSkillsUploadPost,
+	"GET /skill-hub/skills/{name}": getSkillSkillHubSkillsNameGet,
+	"PUT /skill-hub/skills/{name}": replaceSkillMetadataSkillHubSkillsNamePut,
+	"DELETE /skill-hub/skills/{name}": removeSkillSkillHubSkillsNameDelete,
+	"GET /skill-hub/skills/{name}/archive": downloadSkillSkillHubSkillsNameArchiveGet,
+	"GET /skill-hub/skills/{name}/content": skillContentSkillHubSkillsNameContentGet,
+	"POST /skill-hub/skills/{name}/publish": publishSkillSkillHubSkillsNamePublishPost,
+	"POST /skill-hub/skills/{name}/unpublish": unpublishSkillSkillHubSkillsNameUnpublishPost,
+	"PUT /skill-hub/skills/{name}/upload": replaceSkillArchiveSkillHubSkillsNameUploadPut,
+	"GET /skill-hub/skills/{name}/versions": listSkillVersionsSkillHubSkillsNameVersionsGet,
+	"GET /skill-hub/skills/{name}/versions/{version_id}":
+		getSkillVersionSkillHubSkillsNameVersionsVersionIdGet,
+	"GET /skill-hub/skills/{name}/versions/{version_id}/archive":
+		downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGet,
+	"GET /skill-hub/skills/{plugin_name}/downloads":
+		getPluginDownloadsSkillHubSkillsPluginNameDownloadsGet,
+	"GET /skill-hub/submissions": listSubmissionsSkillHubSubmissionsGet,
+	"GET /skill-hub/submissions/{submission_id}": getSubmissionSkillHubSubmissionsSubmissionIdGet,
+	"PUT /skill-hub/submissions/{submission_id}/approve":
+		approveSubmissionSkillHubSubmissionsSubmissionIdApprovePut,
+	"GET /skill-hub/submissions/{submission_id}/archive":
+		downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGet,
+	"PUT /skill-hub/submissions/{submission_id}/reject":
+		rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPut,
+	"GET /skill-hub/submissions/{submission_id}/scan":
+		getSkillScanSkillHubSubmissionsSubmissionIdScanGet,
+	"POST /skill-hub/submissions/{submission_id}/scan":
+		startSkillScanSkillHubSubmissionsSubmissionIdScanPost,
 	"GET /claude-code/marketplace.json": getMarketplaceClaudeCodeMarketplaceJsonGet,
 	"GET /claude-code/plugins": listPluginsClaudeCodePluginsGet,
 	"POST /claude-code/plugins": registerPluginClaudeCodePluginsPost,
+	"POST /claude-code/plugins/upload": uploadPluginClaudeCodePluginsUploadPost,
 	"GET /claude-code/plugins/{plugin_name}": getPluginClaudeCodePluginsPluginNameGet,
 	"PUT /claude-code/plugins/{plugin_name}": updatePluginClaudeCodePluginsPluginNamePut,
 	"DELETE /claude-code/plugins/{plugin_name}": deletePluginClaudeCodePluginsPluginNameDelete,
+	"GET /claude-code/plugins/{plugin_name}/archive/{digest}.zip":
+		downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGet,
 	"POST /claude-code/plugins/{plugin_name}/disable":
 		disablePluginClaudeCodePluginsPluginNameDisablePost,
+	"GET /claude-code/plugins/{plugin_name}/downloads":
+		getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGet,
 	"POST /claude-code/plugins/{plugin_name}/enable":
 		enablePluginClaudeCodePluginsPluginNameEnablePost,
 	"GET /scim/v2": getScimBaseScimV2Get,
@@ -39121,10 +40561,13 @@ export const operationsByTag = {
 		getMarketplaceClaudeCodeMarketplaceJsonGet,
 		listPluginsClaudeCodePluginsGet,
 		registerPluginClaudeCodePluginsPost,
+		uploadPluginClaudeCodePluginsUploadPost,
 		getPluginClaudeCodePluginsPluginNameGet,
 		updatePluginClaudeCodePluginsPluginNamePut,
 		deletePluginClaudeCodePluginsPluginNameDelete,
+		downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGet,
 		disablePluginClaudeCodePluginsPluginNameDisablePost,
+		getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGet,
 		enablePluginClaudeCodePluginsPluginNameEnablePost,
 	},
 	providers: {
@@ -39591,6 +41034,11 @@ export const operationsByTag = {
 		updateCacheSettingsCacheSettingsPost,
 		testCacheConnectionCacheSettingsTestPost,
 	},
+	alerting: {
+		getDeprecationAlertStateAlertingModelDeprecationsStateGet,
+		updateDeprecationAlertStateAlertingModelDeprecationsStatePut,
+		getDeprecationUsageTagsAlertingModelDeprecationsTagsGet,
+	},
 	coordinationRedisSettings: {
 		getCoordinationRedisSettingsCoordinationRedisSettingsGet,
 		updateCoordinationRedisSettingsCoordinationRedisSettingsPost,
@@ -39662,6 +41110,8 @@ export const operationsByTag = {
 		websocketRealtimeWebsocketEndpointGet,
 		websocketRealtimeWebsocketEndpointGet2,
 		websocketRealtimeWebsocketEndpointGet3,
+		websocketRealtimeWebsocketEndpointGet4,
+		websocketRealtimeWebsocketEndpointGet5,
 		websocketLiveSessionsWebsocketEndpointGet,
 		websocketLiveSessionsWebsocketEndpointGet2,
 		websocketLiveSessionsWebsocketEndpointGet3,
@@ -39916,9 +41366,13 @@ export const operationsByTag = {
 		proxyRealtimeCallsRealtimeCallsPost,
 		createRealtimeClientSecretRealtimeClientSecretsPost,
 		createRealtimeTranscriptionSessionRealtimeTranscriptionSessionsPost,
+		proxyRealtimeCallsRealtimeTranslationsCallsPost,
+		createRealtimeClientSecretRealtimeTranslationsClientSecretsPost,
 		proxyRealtimeCallsV1RealtimeCallsPost,
 		createRealtimeClientSecretV1RealtimeClientSecretsPost,
 		createRealtimeTranscriptionSessionV1RealtimeTranscriptionSessionsPost,
+		proxyRealtimeCallsV1RealtimeTranslationsCallsPost,
+		createRealtimeClientSecretV1RealtimeTranslationsClientSecretsPost,
 	},
 	anthropicPassthrough: {
 		eventLoggingBatchApiEventLoggingBatchPost,
@@ -39951,6 +41405,30 @@ export const operationsByTag = {
 		decisionsV1DecisionsPost,
 		extractionV1ExtractionPost,
 		systemoneV1SystemonePost,
+	},
+	skillHub: {
+		listSkillsSkillHubSkillsGet,
+		importSkillSkillHubSkillsImportPost,
+		uploadSkillSkillHubSkillsUploadPost,
+		getSkillSkillHubSkillsNameGet,
+		replaceSkillMetadataSkillHubSkillsNamePut,
+		removeSkillSkillHubSkillsNameDelete,
+		downloadSkillSkillHubSkillsNameArchiveGet,
+		skillContentSkillHubSkillsNameContentGet,
+		publishSkillSkillHubSkillsNamePublishPost,
+		unpublishSkillSkillHubSkillsNameUnpublishPost,
+		replaceSkillArchiveSkillHubSkillsNameUploadPut,
+		listSkillVersionsSkillHubSkillsNameVersionsGet,
+		getSkillVersionSkillHubSkillsNameVersionsVersionIdGet,
+		downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGet,
+		getPluginDownloadsSkillHubSkillsPluginNameDownloadsGet,
+		listSubmissionsSkillHubSubmissionsGet,
+		getSubmissionSkillHubSubmissionsSubmissionIdGet,
+		approveSubmissionSkillHubSubmissionsSubmissionIdApprovePut,
+		downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGet,
+		rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPut,
+		getSkillScanSkillHubSubmissionsSubmissionIdScanGet,
+		startSkillScanSkillHubSubmissionsSubmissionIdScanPost,
 	},
 	scim: {
 		getScimBaseScimV2Get,
@@ -40264,9 +41742,12 @@ export const tagDictionary = {
 			"getMarketplaceClaudeCodeMarketplaceJsonGet",
 			"listPluginsClaudeCodePluginsGet",
 			"getPluginClaudeCodePluginsPluginNameGet",
+			"downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGet",
+			"getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGet",
 		],
 		POST: [
 			"registerPluginClaudeCodePluginsPost",
+			"uploadPluginClaudeCodePluginsUploadPost",
 			"disablePluginClaudeCodePluginsPluginNameDisablePost",
 			"enablePluginClaudeCodePluginsPluginNameEnablePost",
 		],
@@ -40815,6 +42296,13 @@ export const tagDictionary = {
 		GET: ["getCacheSettingsCacheSettingsGet"],
 		POST: ["updateCacheSettingsCacheSettingsPost", "testCacheConnectionCacheSettingsTestPost"],
 	},
+	alerting: {
+		GET: [
+			"getDeprecationAlertStateAlertingModelDeprecationsStateGet",
+			"getDeprecationUsageTagsAlertingModelDeprecationsTagsGet",
+		],
+		PUT: ["updateDeprecationAlertStateAlertingModelDeprecationsStatePut"],
+	},
 	coordinationRedisSettings: {
 		GET: ["getCoordinationRedisSettingsCoordinationRedisSettingsGet"],
 		POST: [
@@ -40904,6 +42392,8 @@ export const tagDictionary = {
 			"websocketRealtimeWebsocketEndpointGet",
 			"websocketRealtimeWebsocketEndpointGet2",
 			"websocketRealtimeWebsocketEndpointGet3",
+			"websocketRealtimeWebsocketEndpointGet4",
+			"websocketRealtimeWebsocketEndpointGet5",
 			"websocketLiveSessionsWebsocketEndpointGet",
 			"websocketLiveSessionsWebsocketEndpointGet2",
 			"websocketLiveSessionsWebsocketEndpointGet3",
@@ -41217,9 +42707,13 @@ export const tagDictionary = {
 			"proxyRealtimeCallsRealtimeCallsPost",
 			"createRealtimeClientSecretRealtimeClientSecretsPost",
 			"createRealtimeTranscriptionSessionRealtimeTranscriptionSessionsPost",
+			"proxyRealtimeCallsRealtimeTranslationsCallsPost",
+			"createRealtimeClientSecretRealtimeTranslationsClientSecretsPost",
 			"proxyRealtimeCallsV1RealtimeCallsPost",
 			"createRealtimeClientSecretV1RealtimeClientSecretsPost",
 			"createRealtimeTranscriptionSessionV1RealtimeTranscriptionSessionsPost",
+			"proxyRealtimeCallsV1RealtimeTranslationsCallsPost",
+			"createRealtimeClientSecretV1RealtimeTranslationsClientSecretsPost",
 		],
 	},
 	anthropicPassthrough: {
@@ -41259,6 +42753,36 @@ export const tagDictionary = {
 			"extractionV1ExtractionPost",
 			"systemoneV1SystemonePost",
 		],
+	},
+	skillHub: {
+		GET: [
+			"listSkillsSkillHubSkillsGet",
+			"getSkillSkillHubSkillsNameGet",
+			"downloadSkillSkillHubSkillsNameArchiveGet",
+			"skillContentSkillHubSkillsNameContentGet",
+			"listSkillVersionsSkillHubSkillsNameVersionsGet",
+			"getSkillVersionSkillHubSkillsNameVersionsVersionIdGet",
+			"downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGet",
+			"getPluginDownloadsSkillHubSkillsPluginNameDownloadsGet",
+			"listSubmissionsSkillHubSubmissionsGet",
+			"getSubmissionSkillHubSubmissionsSubmissionIdGet",
+			"downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGet",
+			"getSkillScanSkillHubSubmissionsSubmissionIdScanGet",
+		],
+		POST: [
+			"importSkillSkillHubSkillsImportPost",
+			"uploadSkillSkillHubSkillsUploadPost",
+			"publishSkillSkillHubSkillsNamePublishPost",
+			"unpublishSkillSkillHubSkillsNameUnpublishPost",
+			"startSkillScanSkillHubSubmissionsSubmissionIdScanPost",
+		],
+		PUT: [
+			"replaceSkillMetadataSkillHubSkillsNamePut",
+			"replaceSkillArchiveSkillHubSkillsNameUploadPut",
+			"approveSubmissionSkillHubSubmissionsSubmissionIdApprovePut",
+			"rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPut",
+		],
+		DELETE: ["removeSkillSkillHubSkillsNameDelete"],
 	},
 	scim: {
 		GET: [

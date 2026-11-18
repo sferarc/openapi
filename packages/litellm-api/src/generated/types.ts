@@ -3325,6 +3325,7 @@ export const standardLoggingRoutingDecisionRouterTypeEnum = {
 	adaptive: "adaptive",
 	quality: "quality",
 	semantic: "semantic",
+	switchyard: "switchyard",
 } as const;
 
 export type StandardLoggingRoutingDecisionRouterTypeEnumKey =
@@ -3389,6 +3390,9 @@ export type StandardLoggingRoutingDecisionClassifierFailureReasonEnumKey =
 export type StandardLoggingRoutingDecision = {
 	router_model_name?: string | undefined;
 	router_type?: StandardLoggingRoutingDecisionRouterTypeEnumKey | undefined;
+	switchyard_algorithm?: string | undefined;
+	switchyard_evidence?: unknown | undefined;
+	switchyard_fallback_reason?: string | undefined;
 	router_config_id?: string | undefined;
 	router_config_updated_at?: string | undefined;
 	router_config_fingerprint?: string | undefined;
@@ -5541,6 +5545,11 @@ export const callTypes = {
 	aextraction: "aextraction",
 	_arealtime: "_arealtime",
 	_aresponses_websocket: "_aresponses_websocket",
+	acreate_realtime_client_secret: "acreate_realtime_client_secret",
+	arealtime_calls: "arealtime_calls",
+	acreate_realtime_transcription_session: "acreate_realtime_transcription_session",
+	acreate_realtime_translation_client_secret: "acreate_realtime_translation_client_secret",
+	arealtime_translation_calls: "arealtime_translation_calls",
 	create_batch: "create_batch",
 	acreate_batch: "acreate_batch",
 	aretrieve_batch: "aretrieve_batch",
@@ -5660,6 +5669,8 @@ export const callTypes = {
 	adelete_responses: "adelete_responses",
 	cancel_responses: "cancel_responses",
 	acancel_responses: "acancel_responses",
+	compact_responses: "compact_responses",
+	acompact_responses: "acompact_responses",
 	alist_input_items: "alist_input_items",
 	llm_passthrough_route: "llm_passthrough_route",
 	allm_passthrough_route: "allm_passthrough_route",
@@ -6761,6 +6772,10 @@ export type DefaultTeamSSOParams = {
 	 * @description Default organization for new teams created without an explicit organization
 	 */
 	organization_id?: (string | (null | null)) | undefined;
+	/**
+	 * @description Default access groups attached to new teams created without explicit access_group_ids
+	 */
+	access_group_ids?: (string[] | (null | null)) | undefined;
 };
 
 /**
@@ -6934,6 +6949,8 @@ export type LiteLLMParams = {
 	output_cost_per_image_512?: (number | (null | null)) | undefined;
 	output_cost_per_image_1024?: (number | (null | null)) | undefined;
 	output_cost_per_image_1536?: (number | (null | null)) | undefined;
+	output_cost_per_image_1K?: (number | (null | null)) | undefined;
+	output_cost_per_image_2K?: (number | (null | null)) | undefined;
 	input_cost_per_pixel?: (number | (null | null)) | undefined;
 	output_cost_per_pixel?: (number | (null | null)) | undefined;
 	input_cost_per_token_flex?: (number | (null | null)) | undefined;
@@ -6981,6 +6998,10 @@ export type LiteLLMParams = {
 	input_cost_per_character_above_128k_tokens?: (number | (null | null)) | undefined;
 	input_cost_per_audio_token?: (number | (null | null)) | undefined;
 	input_cost_per_audio_token_flex?: (number | (null | null)) | undefined;
+	input_cost_per_audio_token_above_200k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_audio_token_above_200k_tokens_flex?: (number | (null | null)) | undefined;
+	input_cost_per_audio_token_above_200k_tokens_priority?: (number | (null | null)) | undefined;
+	input_cost_per_audio_token_above_200k_tokens_batches?: (number | (null | null)) | undefined;
 	input_cost_per_audio_token_priority?: (number | (null | null)) | undefined;
 	input_cost_per_token_cache_hit?: (number | (null | null)) | undefined;
 	input_cost_per_token_above_128k_tokens?: (number | (null | null)) | undefined;
@@ -6991,6 +7012,7 @@ export type LiteLLMParams = {
 	input_cost_per_token_above_272k_tokens_flex?: (number | (null | null)) | undefined;
 	input_cost_per_token_above_272k_tokens_ultrafast?: (number | (null | null)) | undefined;
 	input_cost_per_token_above_200k_tokens_batches?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_200k_tokens_flex?: (number | (null | null)) | undefined;
 	input_cost_per_token_above_100k_tokens_batches?: (number | (null | null)) | undefined;
 	input_cost_per_token_above_272k_tokens_batches?: (number | (null | null)) | undefined;
 	input_cost_per_query?: (number | (null | null)) | undefined;
@@ -7020,12 +7042,14 @@ export type LiteLLMParams = {
 	output_cost_per_token_above_272k_tokens_flex?: (number | (null | null)) | undefined;
 	output_cost_per_token_above_272k_tokens_ultrafast?: (number | (null | null)) | undefined;
 	output_cost_per_token_above_200k_tokens_batches?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_200k_tokens_flex?: (number | (null | null)) | undefined;
 	output_cost_per_token_above_100k_tokens_batches?: (number | (null | null)) | undefined;
 	output_cost_per_token_above_272k_tokens_batches?: (number | (null | null)) | undefined;
 	output_cost_per_character_above_128k_tokens?: (number | (null | null)) | undefined;
 	output_cost_per_image?: (number | (null | null)) | undefined;
 	output_cost_per_image_token?: (number | (null | null)) | undefined;
 	output_cost_per_image_token_batches?: (number | (null | null)) | undefined;
+	output_cost_per_image_token_priority?: (number | (null | null)) | undefined;
 	output_cost_per_video_token?: (number | (null | null)) | undefined;
 	output_cost_per_reasoning_token?: (number | (null | null)) | undefined;
 	output_cost_per_reasoning_token_flex?: (number | (null | null)) | undefined;
@@ -7059,6 +7083,7 @@ export type LiteLLMParams = {
 	annotation_cost_per_page_batches?: (number | (null | null)) | undefined;
 	regional_processing_uplift_multiplier_eu?: (number | (null | null)) | undefined;
 	regional_processing_uplift_multiplier_us?: (number | (null | null)) | undefined;
+	fedramp_uplift_multiplier?: (number | (null | null)) | undefined;
 	regional_endpoint_uplift_multiplier?: (number | (null | null)) | undefined;
 	api_key?: (string | (null | null)) | undefined;
 	api_base?: (string | (null | null)) | undefined;
@@ -7084,6 +7109,7 @@ export type LiteLLMParams = {
 	region_name?: (string | (null | null)) | undefined;
 	gcs_bucket_name?: (string | (null | null)) | undefined;
 	bucket_name?: (string | (null | null)) | undefined;
+	allow_legacy_cloud_file_ids?: (boolean | (null | null)) | undefined;
 	aws_access_key_id?: (string | (null | null)) | undefined;
 	aws_secret_access_key?: (string | (null | null)) | undefined;
 	aws_session_token?: (string | (null | null)) | undefined;
@@ -7218,6 +7244,14 @@ export type LiteLLMParams = {
 	mock_response?: (string | ModelResponse | unknown | (null | null)) | undefined;
 	tags?: (string[] | (null | null)) | undefined;
 	tag_regex?: (string[] | (null | null)) | undefined;
+	switchyard_router_config?:
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
+		| undefined;
 	auto_router_config_path?: (string | (null | null)) | undefined;
 	auto_router_config?: (string | (null | null)) | undefined;
 	auto_router_default_model?: (string | (null | null)) | undefined;
@@ -7382,6 +7416,25 @@ export type Deployment = {
 	[key: string]: unknown;
 };
 
+export type PriceTier = {
+	range: [number, number];
+	costs: {
+		[key: string]: number;
+	};
+};
+
+export type DeploymentPricing = {
+	provider: string;
+	costs: {
+		[key: string]: number;
+	};
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	tiered_pricing?: PriceTier[] | undefined;
+};
+
 export type EnvVarIgnore = {
 	/**
 	 * @default 'env_var'
@@ -7443,6 +7496,70 @@ export type DeploymentWarningsResponse = {
 	ignore_available: boolean;
 };
 
+export const deprecationAlertStatus = {
+	open: "open",
+	resolved: "resolved",
+	dismissed: "dismissed",
+} as const;
+
+export type DeprecationAlertStatusKey =
+	(typeof deprecationAlertStatus)[keyof typeof deprecationAlertStatus];
+
+export type DeprecationAlertState = {
+	model: string;
+	/**
+	 * @description
+	 * Format: `date`
+	 * @type string
+	 */
+	deprecation_date: string;
+	/**
+	 * @default 'open'
+	 * @type string | undefined
+	 */
+	status?: DeprecationAlertStatusKey | undefined;
+	last_seen_date?: (string | (null | null)) | undefined;
+	/**
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	last_seen_requests?: number | undefined;
+	updated_at?: (string | (null | null)) | undefined;
+	updated_by?: (string | (null | null)) | undefined;
+};
+
+export type DeprecationAlertUpdate = {
+	/**
+	 * @minLength 1
+	 * @maxLength 1024
+	 * @type string
+	 */
+	model: string;
+	/**
+	 * @description
+	 * Format: `date`
+	 * @type string
+	 */
+	deprecation_date: string;
+	status: DeprecationAlertStatusKey;
+	/**
+	 * @description
+	 * Format: `date`
+	 * @type string
+	 */
+	last_seen_date: string;
+	/**
+	 * @minimum 0
+	 * @type integer
+	 */
+	last_seen_requests: number;
+};
+
+export type DeprecationTagUsage = {
+	api_key: string;
+	tag: string;
+};
+
 /**
  * @description Response for distinct user agent tags
  * @type object
@@ -7493,6 +7610,7 @@ export type Drag = {
 };
 
 export const emailEvent = {
+	"Model Deprecations": "Model Deprecations",
 	"Virtual Key Created": "Virtual Key Created",
 	"New User Invitation": "New User Invitation",
 	"Virtual Key Rotated": "Virtual Key Rotated",
@@ -9237,6 +9355,11 @@ export type ModelGroupInfoProxy = {
 	 * @default false
 	 * @type boolean | undefined
 	 */
+	supports_continuation?: boolean | undefined;
+	/**
+	 * @default false
+	 * @type boolean | undefined
+	 */
 	supports_reasoning?: boolean | undefined;
 	/**
 	 * @default false
@@ -9258,6 +9381,11 @@ export type ModelGroupInfoProxy = {
 		| undefined;
 	description?: (string | (null | null)) | undefined;
 	supported_endpoints?: (string[] | (null | null)) | undefined;
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	deployment_pricing?: DeploymentPricing[] | undefined;
 	/**
 	 * @description Whether cache-backed background Responses runs are enabled for this model group
 	 * @default false
@@ -10515,6 +10643,14 @@ export type MemoryUpdateRequest = {
 	team_id?: (string | (null | null)) | undefined;
 };
 
+export const successorModelSource = {
+	model_cost_map: "model_cost_map",
+	deployment_config: "deployment_config",
+} as const;
+
+export type SuccessorModelSourceKey =
+	(typeof successorModelSource)[keyof typeof successorModelSource];
+
 export const modelDeprecationInfoStatusEnum = {
 	upcoming: "upcoming",
 	imminent: "imminent",
@@ -10530,6 +10666,10 @@ export type ModelDeprecationInfo = {
 	 * @type string
 	 */
 	model_name: string;
+	/**
+	 * @description The model name visible to the team, when configured.
+	 */
+	team_public_model_name?: (string | (null | null)) | undefined;
 	/**
 	 * @description The underlying litellm model string the deprecation date is sourced from.
 	 */
@@ -10556,9 +10696,17 @@ export type ModelDeprecationInfo = {
 	 */
 	litellm_provider?: (string | (null | null)) | undefined;
 	/**
-	 * @description The model to migrate to, as set in model_info.successor_model on the deployment.
+	 * @description The model to migrate to: model_info.successor_model on the deployment when set, else the successor_model the cost map names for the deprecated model.
 	 */
 	successor_model?: (string | (null | null)) | undefined;
+	/**
+	 * @description Whether the recommended successor comes from the model cost map or deployment configuration.
+	 */
+	successor_model_source?: (SuccessorModelSourceKey | (null | null)) | undefined;
+	/**
+	 * @description Provider deprecation notice linked by the selected model cost-map entry.
+	 */
+	deprecation_source?: (string | (null | null)) | undefined;
 };
 
 export type ModelDeprecationResponse = {
@@ -11966,6 +12114,8 @@ export type UpdateLiteLLMParams = {
 	output_cost_per_image_512?: (number | (null | null)) | undefined;
 	output_cost_per_image_1024?: (number | (null | null)) | undefined;
 	output_cost_per_image_1536?: (number | (null | null)) | undefined;
+	output_cost_per_image_1K?: (number | (null | null)) | undefined;
+	output_cost_per_image_2K?: (number | (null | null)) | undefined;
 	input_cost_per_pixel?: (number | (null | null)) | undefined;
 	output_cost_per_pixel?: (number | (null | null)) | undefined;
 	input_cost_per_token_flex?: (number | (null | null)) | undefined;
@@ -12013,6 +12163,10 @@ export type UpdateLiteLLMParams = {
 	input_cost_per_character_above_128k_tokens?: (number | (null | null)) | undefined;
 	input_cost_per_audio_token?: (number | (null | null)) | undefined;
 	input_cost_per_audio_token_flex?: (number | (null | null)) | undefined;
+	input_cost_per_audio_token_above_200k_tokens?: (number | (null | null)) | undefined;
+	input_cost_per_audio_token_above_200k_tokens_flex?: (number | (null | null)) | undefined;
+	input_cost_per_audio_token_above_200k_tokens_priority?: (number | (null | null)) | undefined;
+	input_cost_per_audio_token_above_200k_tokens_batches?: (number | (null | null)) | undefined;
 	input_cost_per_audio_token_priority?: (number | (null | null)) | undefined;
 	input_cost_per_token_cache_hit?: (number | (null | null)) | undefined;
 	input_cost_per_token_above_128k_tokens?: (number | (null | null)) | undefined;
@@ -12023,6 +12177,7 @@ export type UpdateLiteLLMParams = {
 	input_cost_per_token_above_272k_tokens_flex?: (number | (null | null)) | undefined;
 	input_cost_per_token_above_272k_tokens_ultrafast?: (number | (null | null)) | undefined;
 	input_cost_per_token_above_200k_tokens_batches?: (number | (null | null)) | undefined;
+	input_cost_per_token_above_200k_tokens_flex?: (number | (null | null)) | undefined;
 	input_cost_per_token_above_100k_tokens_batches?: (number | (null | null)) | undefined;
 	input_cost_per_token_above_272k_tokens_batches?: (number | (null | null)) | undefined;
 	input_cost_per_query?: (number | (null | null)) | undefined;
@@ -12052,12 +12207,14 @@ export type UpdateLiteLLMParams = {
 	output_cost_per_token_above_272k_tokens_flex?: (number | (null | null)) | undefined;
 	output_cost_per_token_above_272k_tokens_ultrafast?: (number | (null | null)) | undefined;
 	output_cost_per_token_above_200k_tokens_batches?: (number | (null | null)) | undefined;
+	output_cost_per_token_above_200k_tokens_flex?: (number | (null | null)) | undefined;
 	output_cost_per_token_above_100k_tokens_batches?: (number | (null | null)) | undefined;
 	output_cost_per_token_above_272k_tokens_batches?: (number | (null | null)) | undefined;
 	output_cost_per_character_above_128k_tokens?: (number | (null | null)) | undefined;
 	output_cost_per_image?: (number | (null | null)) | undefined;
 	output_cost_per_image_token?: (number | (null | null)) | undefined;
 	output_cost_per_image_token_batches?: (number | (null | null)) | undefined;
+	output_cost_per_image_token_priority?: (number | (null | null)) | undefined;
 	output_cost_per_video_token?: (number | (null | null)) | undefined;
 	output_cost_per_reasoning_token?: (number | (null | null)) | undefined;
 	output_cost_per_reasoning_token_flex?: (number | (null | null)) | undefined;
@@ -12091,6 +12248,7 @@ export type UpdateLiteLLMParams = {
 	annotation_cost_per_page_batches?: (number | (null | null)) | undefined;
 	regional_processing_uplift_multiplier_eu?: (number | (null | null)) | undefined;
 	regional_processing_uplift_multiplier_us?: (number | (null | null)) | undefined;
+	fedramp_uplift_multiplier?: (number | (null | null)) | undefined;
 	regional_endpoint_uplift_multiplier?: (number | (null | null)) | undefined;
 	api_key?: (string | (null | null)) | undefined;
 	api_base?: (string | (null | null)) | undefined;
@@ -12116,6 +12274,7 @@ export type UpdateLiteLLMParams = {
 	region_name?: (string | (null | null)) | undefined;
 	gcs_bucket_name?: (string | (null | null)) | undefined;
 	bucket_name?: (string | (null | null)) | undefined;
+	allow_legacy_cloud_file_ids?: (boolean | (null | null)) | undefined;
 	aws_access_key_id?: (string | (null | null)) | undefined;
 	aws_secret_access_key?: (string | (null | null)) | undefined;
 	aws_session_token?: (string | (null | null)) | undefined;
@@ -12250,6 +12409,14 @@ export type UpdateLiteLLMParams = {
 	mock_response?: (string | ModelResponse | unknown | (null | null)) | undefined;
 	tags?: (string[] | (null | null)) | undefined;
 	tag_regex?: (string[] | (null | null)) | undefined;
+	switchyard_router_config?:
+		| (
+				| {
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
+		| undefined;
 	auto_router_config_path?: (string | (null | null)) | undefined;
 	auto_router_config?: (string | (null | null)) | undefined;
 	auto_router_default_model?: (string | (null | null)) | undefined;
@@ -15092,6 +15259,7 @@ export type TagUpdateRequest = {
 				| (null | null)
 		  )
 		| undefined;
+	spend?: (number | (null | null)) | undefined;
 	budget_id?: (string | (null | null)) | undefined;
 	max_budget?: (number | (null | null)) | undefined;
 	soft_budget?: (number | (null | null)) | undefined;
@@ -16022,6 +16190,37 @@ export type TraceSQLResponse = {
 	data: {
 		[key: string]: JsonValue;
 	}[];
+};
+
+export type TranscriptionDetectedLanguage = {
+	code: string;
+};
+
+export type TranscriptionUsageDurationObject = {
+	type: "duration";
+	seconds: number;
+};
+
+export type TranscriptionUsageInputTokenDetailsObject = {
+	audio_tokens: number;
+	text_tokens: number;
+};
+
+export type TranscriptionUsageTokensObject = {
+	type: "tokens";
+	input_tokens: number;
+	output_tokens: number;
+	total_tokens: number;
+	input_token_details?: (TranscriptionUsageInputTokenDetailsObject | (null | null)) | undefined;
+};
+
+export type TranscriptionResponse = {
+	text?: (string | (null | null)) | undefined;
+	usage?:
+		| (TranscriptionUsageDurationObject | TranscriptionUsageTokensObject | (null | null))
+		| undefined;
+	languages?: (TranscriptionDetectedLanguage[] | (null | null)) | undefined;
+	[key: string]: unknown;
 };
 
 export type TransformRequestBody = {
@@ -17145,6 +17344,7 @@ export type ChatCompletionToolMessage = {
 				| ChatCompletionToolReferenceObject
 		  )[];
 	tool_call_id: string;
+	is_error?: boolean | undefined;
 };
 
 export type ChatCompletionVideoUrlObject = {
@@ -18413,6 +18613,7 @@ export type PromptCacheOptionsTtlEnumKey =
 export type PromptCacheOptions = {
 	mode?: PromptCacheOptionsModeEnumKey | undefined;
 	ttl?: PromptCacheOptionsTtlEnumKey | undefined;
+	comparison_response_id?: string | undefined;
 };
 
 /**
@@ -19784,6 +19985,14 @@ export const baseLitellmParamsLoggingOnlyScope = {
 export type BaseLitellmParamsLoggingOnlyScopeKey =
 	(typeof baseLitellmParamsLoggingOnlyScope)[keyof typeof baseLitellmParamsLoggingOnlyScope];
 
+export const baseLitellmParamsMcpBlockBehavior = {
+	tool_result: "tool_result",
+	raise: "raise",
+} as const;
+
+export type BaseLitellmParamsMcpBlockBehaviorKey =
+	(typeof baseLitellmParamsMcpBlockBehavior)[keyof typeof baseLitellmParamsMcpBlockBehavior];
+
 export const baseLitellmParamsOnSensitiveData = {
 	block: "block",
 	route: "route",
@@ -19946,6 +20155,10 @@ export type BaseLitellmParams = {
 	 */
 	max_input_chars?: (number | (null | null)) | undefined;
 	/**
+	 * @description How to handle guardrail blocks when executing MCP tools for an LLM request. 'raise' propagates the guardrail error to the client. 'tool_result' or None returns the block as a tool result and lets the LLM continue.
+	 */
+	mcp_block_behavior?: (BaseLitellmParamsMcpBlockBehaviorKey | (null | null)) | undefined;
+	/**
 	 * @description Optional field if guardrail requires a 'model' parameter
 	 */
 	model?: (string | (null | null)) | undefined;
@@ -19958,7 +20171,7 @@ export type BaseLitellmParams = {
 	 */
 	on_sensitive_data?: (BaseLitellmParamsOnSensitiveDataKey | (null | null)) | undefined;
 	/**
-	 * @description For /v1/realtime sessions: 'warn' speaks the violation message and continues; 'end_session' speaks the message and closes the connection. For guardrail='mcp_security': 'block' rejects the request; 'alert' only logs a warning.
+	 * @description For /v1/realtime sessions: 'warn' speaks the violation message and continues; 'end_session' speaks the message and closes the connection. Bedrock Nova Sonic cannot cancel a spoken turn's answer, so a blocked spoken turn always ends its session. For guardrail='mcp_security': 'block' rejects the request; 'alert' only logs a warning.
 	 */
 	on_violation?: (BaseLitellmParamsOnViolationKey | (null | null)) | undefined;
 	/**
@@ -19983,7 +20196,7 @@ export type BaseLitellmParams = {
 	 */
 	patterns?: (ContentFilterPattern[] | (null | null)) | undefined;
 	/**
-	 * @description The message the bot speaks aloud when a /v1/realtime guardrail fires. Falls back to violation_message_template if not set.
+	 * @description The message the bot speaks aloud when a /v1/realtime guardrail fires. Falls back to the guardrail's block reason if not set.
 	 */
 	realtime_violation_message?: (string | (null | null)) | undefined;
 	/**
@@ -20362,7 +20575,7 @@ export type ToolPermissionRule = {
 	 */
 	id: string;
 	/**
-	 * @description Regex pattern applied to the tool's function name
+	 * @description Regex pattern applied to the tool's name, or to its type when the tool has no name
 	 */
 	tool_name?: (string | (null | null)) | undefined;
 	/**
@@ -20410,6 +20623,14 @@ export const litellmParamsLoggingOnlyScope = {
 
 export type LitellmParamsLoggingOnlyScopeKey =
 	(typeof litellmParamsLoggingOnlyScope)[keyof typeof litellmParamsLoggingOnlyScope];
+
+export const litellmParamsMcpBlockBehavior = {
+	tool_result: "tool_result",
+	raise: "raise",
+} as const;
+
+export type LitellmParamsMcpBlockBehaviorKey =
+	(typeof litellmParamsMcpBlockBehavior)[keyof typeof litellmParamsMcpBlockBehavior];
 
 export const litellmParamsOnDisallowedActionEnum = {
 	block: "block",
@@ -20938,6 +21159,10 @@ export type LitellmParams = {
 	 */
 	max_input_chars?: (number | (null | null)) | undefined;
 	/**
+	 * @description How to handle guardrail blocks when executing MCP tools for an LLM request. 'raise' propagates the guardrail error to the client. 'tool_result' or None returns the block as a tool result and lets the LLM continue.
+	 */
+	mcp_block_behavior?: (LitellmParamsMcpBlockBehaviorKey | (null | null)) | undefined;
+	/**
 	 * @description Additional metadata to include in the request
 	 */
 	metadata?:
@@ -20996,7 +21221,7 @@ export type LitellmParams = {
 	 */
 	on_sensitive_data?: (LitellmParamsOnSensitiveDataKey | (null | null)) | undefined;
 	/**
-	 * @description For /v1/realtime sessions: 'warn' speaks the violation message and continues; 'end_session' speaks the message and closes the connection. For guardrail='mcp_security': 'block' rejects the request; 'alert' only logs a warning.
+	 * @description For /v1/realtime sessions: 'warn' speaks the violation message and continues; 'end_session' speaks the message and closes the connection. Bedrock Nova Sonic cannot cancel a spoken turn's answer, so a blocked spoken turn always ends its session. For guardrail='mcp_security': 'block' rejects the request; 'alert' only logs a warning.
 	 */
 	on_violation?: (LitellmParamsOnViolationKey | (null | null)) | undefined;
 	/**
@@ -21139,7 +21364,7 @@ export type LitellmParams = {
 	 */
 	prompt_injections?: (boolean | (null | null)) | undefined;
 	/**
-	 * @description The message the bot speaks aloud when a /v1/realtime guardrail fires. Falls back to violation_message_template if not set.
+	 * @description The message the bot speaks aloud when a /v1/realtime guardrail fires. Falls back to the guardrail's block reason if not set.
 	 */
 	realtime_violation_message?: (string | (null | null)) | undefined;
 	/**
@@ -24361,7 +24586,7 @@ export type HashicorpVaultConfig = {
 
 export type ChoiceAnswer = {
 	choice: string;
-	confidence: number;
+	confidence?: (number | (null | null)) | undefined;
 	probabilities: {
 		[key: string]: number;
 	};
@@ -24376,7 +24601,7 @@ export type NoulAnswer = {
 };
 
 export type ScoreAnswer = {
-	confidence: number;
+	confidence?: (number | (null | null)) | undefined;
 	legend: {
 		[key: string]:
 			| string
@@ -24880,7 +25105,7 @@ export type OpenAIChoiceProbability = {
 
 export type OpenAIChoiceAnswer = {
 	choice: string | boolean;
-	confidence: number;
+	confidence?: (number | (null | null)) | undefined;
 	name: string | (null | null);
 	probabilities: OpenAIChoiceProbability[];
 	/**
@@ -24928,7 +25153,7 @@ export type OpenAIScoreProbability = {
 };
 
 export type OpenAIScoreAnswer = {
-	confidence: number;
+	confidence?: (number | (null | null)) | undefined;
 	name: string | (null | null);
 	probabilities: OpenAIScoreProbability[];
 	score: number;
@@ -24987,6 +25212,375 @@ export type OpenAIDecisionResponse = {
 	[key: string]: unknown;
 };
 
+export type BodyReplaceSkillArchiveSkillHubSkillsNameUploadPut = {
+	expected_updated_at?: (string | (null | null)) | undefined;
+	/**
+	 * @description Replacement Agent Skills ZIP with the same declared skill name
+	 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
+	 */
+	file: Blob;
+	version?: (string | (null | null)) | undefined;
+};
+
+export type BodyUploadSkillSkillHubSkillsUploadPost = {
+	/**
+	 * @description Agent Skills ZIP with SKILL.md and optional supporting files
+	 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
+	 */
+	file: Blob;
+	version?: (string | (null | null)) | undefined;
+};
+
+export type ImportSkillRequest = {
+	/**
+	 * @description Repository-relative skill directory
+	 */
+	path?: (string | (null | null)) | undefined;
+	/**
+	 * @description Git commit, tag or branch to import
+	 * @default 'HEAD'
+	 * @type string | undefined
+	 */
+	ref?: string | undefined;
+	/**
+	 * @description Skill name to select when a repository contains several skills
+	 */
+	skill?: (string | (null | null)) | undefined;
+	/**
+	 * @description Public skills.sh skill URL or GitHub repository URL
+	 * @type string
+	 */
+	url: string;
+	/**
+	 * @description Semantic version, or omit/null to start at 1.0.0
+	 */
+	version?: (string | (null | null)) | undefined;
+};
+
+export type PluginDownloadEvent = {
+	authenticated: boolean;
+	digest: string;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	downloaded_at: string;
+	id: string;
+	key_alias: string | (null | null);
+	team_alias: string | (null | null);
+	team_id: string | (null | null);
+	user_email: string | (null | null);
+	user_id: string | (null | null);
+	version: string | (null | null);
+};
+
+export type PluginDownloadsResponse = {
+	anonymous_downloads: number;
+	downloads: PluginDownloadEvent[];
+	next_cursor: string | (null | null);
+	total_downloads: number;
+};
+
+export type SkillHubAgentSkill = {
+	description: string;
+	digest: string;
+	name: string;
+	origin: string | (null | null);
+};
+
+export const skillHubSkillVisibilityEnum = {
+	public: "public",
+	private: "private",
+} as const;
+
+export type SkillHubSkillVisibilityEnumKey =
+	(typeof skillHubSkillVisibilityEnum)[keyof typeof skillHubSkillVisibilityEnum];
+
+export type SkillHubSkill = {
+	approved_by?: (string | (null | null)) | undefined;
+	content_url?: (string | (null | null)) | undefined;
+	created_at?: (string | (null | null)) | undefined;
+	created_by?: (string | (null | null)) | undefined;
+	description?: (string | (null | null)) | undefined;
+	domain?: (string | (null | null)) | undefined;
+	/**
+	 * @description Gateway ZIP downloads, including repeat downloads
+	 */
+	download_count?: (number | (null | null)) | undefined;
+	download_url?: (string | (null | null)) | undefined;
+	id: string;
+	keywords?: (string[] | (null | null)) | undefined;
+	name: string;
+	namespace?: (string | (null | null)) | undefined;
+	published_by?: (string | (null | null)) | undefined;
+	/**
+	 * @default false
+	 * @type boolean | undefined
+	 */
+	security_scan_passed?: boolean | undefined;
+	source: {
+		[key: string]: string;
+	};
+	updated_at?: (string | (null | null)) | undefined;
+	version?: (string | (null | null)) | undefined;
+	visibility: SkillHubSkillVisibilityEnumKey;
+};
+
+export type SkillHubList = {
+	count: number;
+	next_offset: number | (null | null);
+	skills: SkillHubSkill[];
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	tags?: string[] | undefined;
+};
+
+export type SkillHubMetadata = {
+	description?: (string | (null | null)) | undefined;
+	domain?: (string | (null | null)) | undefined;
+	/**
+	 * @description Published updated_at read by the editor. A stale value returns 409
+	 */
+	expected_updated_at?: (string | (null | null)) | undefined;
+	keywords?: (string[] | (null | null)) | undefined;
+	namespace?: (string | (null | null)) | undefined;
+	/**
+	 * @description Explicit higher SemVer, or omit/null for an automatic patch bump
+	 */
+	version?: (string | (null | null)) | undefined;
+};
+
+export type SkillHubProposal = {
+	agent_skill?: (SkillHubAgentSkill | (null | null)) | undefined;
+	description: string | (null | null);
+	domain?: (string | (null | null)) | undefined;
+	keywords?: (string[] | (null | null)) | undefined;
+	name: string;
+	namespace?: (string | (null | null)) | undefined;
+	source: {
+		[key: string]: string;
+	};
+	version: string | (null | null);
+};
+
+export type SkillHubPendingSkill = {
+	/**
+	 * @default 'submitted'
+	 * @type string | undefined
+	 */
+	action?: "submitted" | undefined;
+	proposal: SkillHubProposal;
+	/**
+	 * @default 'pending_review'
+	 * @type string | undefined
+	 */
+	status?: "pending_review" | undefined;
+	submission_id: string;
+};
+
+export type SkillHubPublication = object;
+
+export type SkillHubRejection = {
+	reason?: (string | (null | null)) | undefined;
+};
+
+export const skillHubSubmissionOperationEnum = {
+	create: "create",
+	update: "update",
+} as const;
+
+export type SkillHubSubmissionOperationEnumKey =
+	(typeof skillHubSubmissionOperationEnum)[keyof typeof skillHubSubmissionOperationEnum];
+
+export const skillHubSubmissionStatusEnum = {
+	pending_review: "pending_review",
+	approved: "approved",
+	rejected: "rejected",
+} as const;
+
+export type SkillHubSubmissionStatusEnumKey =
+	(typeof skillHubSubmissionStatusEnum)[keyof typeof skillHubSubmissionStatusEnum];
+
+export type SkillHubSubmission = {
+	base_skill_id: string | (null | null);
+	base_updated_at: string | (null | null);
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	created_at: string;
+	has_archive: boolean;
+	id: string;
+	operation: SkillHubSubmissionOperationEnumKey;
+	proposal: SkillHubProposal;
+	rejection_reason: string | (null | null);
+	reviewed_at: string | (null | null);
+	reviewed_by: string | (null | null);
+	skill_name: string;
+	status: SkillHubSubmissionStatusEnumKey;
+	submitted_by: string;
+};
+
+export const skillHubReviewResponseActionEnum = {
+	approved: "approved",
+	rejected: "rejected",
+} as const;
+
+export type SkillHubReviewResponseActionEnumKey =
+	(typeof skillHubReviewResponseActionEnum)[keyof typeof skillHubReviewResponseActionEnum];
+
+export type SkillHubReviewResponse = {
+	action: SkillHubReviewResponseActionEnumKey;
+	skill: SkillHubSkill | (null | null);
+	/**
+	 * @default 'success'
+	 * @type string | undefined
+	 */
+	status?: "success" | undefined;
+	submission: SkillHubSubmission;
+};
+
+export type SkillHubSubmissionDetail = {
+	current_skill: SkillHubSkill | (null | null);
+	submission: SkillHubSubmission;
+};
+
+export type SkillHubSubmissionList = {
+	count: number;
+	has_more: boolean;
+	submissions: SkillHubSubmission[];
+};
+
+export const skillHubVersionContentKindEnum = {
+	stored_archive: "stored_archive",
+	source_reference: "source_reference",
+} as const;
+
+export type SkillHubVersionContentKindEnumKey =
+	(typeof skillHubVersionContentKindEnum)[keyof typeof skillHubVersionContentKindEnum];
+
+export type SkillHubVersion = {
+	content_kind: SkillHubVersionContentKindEnumKey;
+	description: string | (null | null);
+	download_url: string | (null | null);
+	id: string;
+	manifest: {
+		[key: string]: unknown;
+	};
+	published_at: string | (null | null);
+	published_by: string | (null | null);
+	version: string | (null | null);
+};
+
+export type SkillHubVersions = {
+	next_offset: number | (null | null);
+	versions: SkillHubVersion[];
+};
+
+export const skillScanFindingSeverityEnum = {
+	LOW: "LOW",
+	MEDIUM: "MEDIUM",
+	HIGH: "HIGH",
+	CRITICAL: "CRITICAL",
+} as const;
+
+export type SkillScanFindingSeverityEnumKey =
+	(typeof skillScanFindingSeverityEnum)[keyof typeof skillScanFindingSeverityEnum];
+
+export type SkillScanFinding = {
+	explanation?: (string | (null | null)) | undefined;
+	/**
+	 * @maxLength 2048
+	 * @type string
+	 */
+	file: string;
+	/**
+	 * @maxLength 8000
+	 * @type string
+	 */
+	message: string;
+	remediation?: (string | (null | null)) | undefined;
+	/**
+	 * @maxLength 200
+	 * @type string
+	 */
+	rule_id: string;
+	severity: SkillScanFindingSeverityEnumKey;
+	start_line?: (number | (null | null)) | undefined;
+};
+
+export const skillScanReportScanModeEnum = {
+	"static-only": "static-only",
+	"static+llm": "static+llm",
+} as const;
+
+export type SkillScanReportScanModeEnumKey =
+	(typeof skillScanReportScanModeEnum)[keyof typeof skillScanReportScanModeEnum];
+
+export type SkillScanReport = {
+	complete: boolean;
+	findings: SkillScanFinding[];
+	/**
+	 * @default []
+	 * @type array | undefined
+	 */
+	limitations?: string[] | undefined;
+	/**
+	 * @minimum 0
+	 * @maximum 100
+	 * @type integer
+	 */
+	risk_score: number;
+	scan_mode: SkillScanReportScanModeEnumKey;
+	/**
+	 * @minLength 1
+	 * @maxLength 100
+	 * @type string
+	 */
+	scanner_version: string;
+};
+
+export const skillScanStatusEnum = {
+	running: "running",
+	completed: "completed",
+	failed: "failed",
+} as const;
+
+export type SkillScanStatusEnumKey = (typeof skillScanStatusEnum)[keyof typeof skillScanStatusEnum];
+
+export type SkillScan = {
+	archive_sha256?: (string | (null | null)) | undefined;
+	completed_at?: (string | (null | null)) | undefined;
+	error?: (string | (null | null)) | undefined;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	expires_at: string;
+	id: string;
+	report?: (SkillScanReport | (null | null)) | undefined;
+	requested_by: string;
+	/**
+	 * @description
+	 * Format: `date-time`
+	 * @type string
+	 */
+	started_at: string;
+	status: SkillScanStatusEnumKey;
+};
+
+export type SkillScanRequest = object;
+
+export type SkillScanResponse = {
+	configured: boolean;
+	scan: SkillScan | (null | null);
+};
+
 /**
  * @description Plugin author information.
  * @type object
@@ -25003,6 +25597,76 @@ export type PluginAuthor = {
 	name: string;
 };
 
+export const uploadPluginRequestInstallationPreference = {
+	available: "available",
+	auto_install: "auto_install",
+	required: "required",
+} as const;
+
+export type UploadPluginRequestInstallationPreferenceKey =
+	(typeof uploadPluginRequestInstallationPreference)[keyof typeof uploadPluginRequestInstallationPreference];
+
+export type UploadPluginRequest = {
+	/**
+	 * @description Plugin author
+	 */
+	author?: (PluginAuthor | (null | null)) | undefined;
+	/**
+	 * @description Plugin category
+	 */
+	category?: (string | (null | null)) | undefined;
+	/**
+	 * @description Plugin description
+	 */
+	description?: (string | (null | null)) | undefined;
+	/**
+	 * @description Skill domain (e.g., 'Productivity')
+	 */
+	domain?: (string | (null | null)) | undefined;
+	/**
+	 * @description Plugin homepage URL
+	 */
+	homepage?: (string | (null | null)) | undefined;
+	/**
+	 * @description Emitted as installationPreference on this plugin's marketplace.json entry. Needs an archive source, the only plugins Claude Desktop lists from a marketplace.json URL, and 'auto_install' or 'required' also need its sha256. Claude Desktop honors the mark only when the archive and marketplace.json share its inference gateway origin
+	 */
+	installation_preference?:
+		| (UploadPluginRequestInstallationPreferenceKey | (null | null))
+		| undefined;
+	/**
+	 * @description Search keywords
+	 */
+	keywords?: (string[] | (null | null)) | undefined;
+	/**
+	 * @description Skill name (kebab-case)
+	 * @pattern ^[a-z0-9-]+$
+	 * @type string
+	 */
+	name: string;
+	/**
+	 * @description Skill namespace within domain (e.g., 'workflows')
+	 */
+	namespace?: (string | (null | null)) | undefined;
+	/**
+	 * @description Semantic version, defaults to 1.0.0 on creation
+	 * @default 1.0.0
+	 */
+	version?: (string | (null | null)) | undefined;
+};
+
+export type BodyUploadPluginClaudeCodePluginsUploadPost = {
+	/**
+	 * @description Skill ZIP containing SKILL.md and supporting files, up to 10 MiB
+	 * @remarks Pass a `File` to send its filename. A plain `Blob` is sent with the filename `blob`.
+	 */
+	file: Blob;
+	/**
+	 * @description JSON skill metadata without a source URL
+	 * @type string
+	 */
+	metadata: string;
+};
+
 export const pluginListItemInstallationPreference = {
 	available: "available",
 	auto_install: "auto_install",
@@ -25017,11 +25681,14 @@ export type PluginListItemInstallationPreferenceKey =
  * @type object
  */
 export type PluginListItem = {
+	approved_by?: (string | (null | null)) | undefined;
 	author?: (PluginAuthor | (null | null)) | undefined;
 	category?: (string | (null | null)) | undefined;
 	created_at: string | (null | null);
+	created_by?: (string | (null | null)) | undefined;
 	description: string | (null | null);
 	domain?: (string | (null | null)) | undefined;
+	download_count?: (number | (null | null)) | undefined;
 	enabled: boolean;
 	homepage?: (string | (null | null)) | undefined;
 	id: string;
@@ -25029,6 +25696,12 @@ export type PluginListItem = {
 	keywords?: (string[] | (null | null)) | undefined;
 	name: string;
 	namespace?: (string | (null | null)) | undefined;
+	published_by?: (string | (null | null)) | undefined;
+	/**
+	 * @default false
+	 * @type boolean | undefined
+	 */
+	security_scan_passed?: boolean | undefined;
 	source: {
 		[key: string]: string;
 	};
@@ -25164,7 +25837,7 @@ export type RegisterPluginRequest = {
 		[key: string]: string;
 	};
 	/**
-	 * @description Semantic version
+	 * @description Semantic version, defaults to 1.0.0 on creation
 	 * @default 1.0.0
 	 */
 	version?: (string | (null | null)) | undefined;
@@ -25206,8 +25879,8 @@ export type UpdatePluginRequestInstallationPreferenceKey =
  *
  * The plugin name is the resource identity and is supplied as the path
  * parameter, so it cannot be changed here. This is a full replace: omitted
- * fields reset to their defaults, so version is cleared rather than
- * defaulting to the create-time "1.0.0".
+ * fields reset to their defaults, except version which automatically increments
+ * the published patch version when omitted or null.
  * @type object
  */
 export type UpdatePluginRequest = {
@@ -25227,6 +25900,10 @@ export type UpdatePluginRequest = {
 	 * @description Skill domain (e.g., 'Productivity')
 	 */
 	domain?: (string | (null | null)) | undefined;
+	/**
+	 * @description Published updated_at read by the editor. A stale value returns 409
+	 */
+	expected_updated_at?: (string | (null | null)) | undefined;
 	/**
 	 * @description Plugin homepage URL
 	 */
@@ -25257,7 +25934,7 @@ export type UpdatePluginRequest = {
 		[key: string]: string;
 	};
 	/**
-	 * @description Semantic version; cleared if omitted
+	 * @description Explicit higher SemVer, or omit/null for an automatic patch bump
 	 */
 	version?: (string | (null | null)) | undefined;
 };
@@ -27658,9 +28335,7 @@ export type AudioSpeechV1AudioSpeechPostResponses = {
  */
 export type AudioSpeechV1AudioSpeechPostResponse = AudioSpeechV1AudioSpeechPostStatus200;
 
-export type AudioTranscriptionsAudioTranscriptionsPostStatus200 = {
-	[key: string]: unknown;
-};
+export type AudioTranscriptionsAudioTranscriptionsPostStatus200 = TranscriptionResponse;
 
 export type AudioTranscriptionsAudioTranscriptionsPostStatus422 = HTTPValidationError;
 
@@ -27685,9 +28360,7 @@ export type AudioTranscriptionsAudioTranscriptionsPostResponses = {
 export type AudioTranscriptionsAudioTranscriptionsPostResponse =
 	AudioTranscriptionsAudioTranscriptionsPostStatus200;
 
-export type AudioTranscriptionsV1AudioTranscriptionsPostStatus200 = {
-	[key: string]: unknown;
-};
+export type AudioTranscriptionsV1AudioTranscriptionsPostStatus200 = TranscriptionResponse;
 
 export type AudioTranscriptionsV1AudioTranscriptionsPostStatus422 = HTTPValidationError;
 
@@ -42418,6 +43091,117 @@ export type TestCacheConnectionCacheSettingsTestPostResponses = {
 export type TestCacheConnectionCacheSettingsTestPostResponse =
 	TestCacheConnectionCacheSettingsTestPostStatus200;
 
+export type GetDeprecationAlertStateAlertingModelDeprecationsStateGetQuery = {
+	/**
+	 * @minLength 1
+	 * @maxLength 1024
+	 * @type string
+	 */
+	model: string;
+	/**
+	 * @description
+	 * Format: `date`
+	 * @type string
+	 */
+	deprecation_date: string;
+};
+
+export type GetDeprecationAlertStateAlertingModelDeprecationsStateGetStatus200 =
+	DeprecationAlertState;
+
+export type GetDeprecationAlertStateAlertingModelDeprecationsStateGetStatus422 =
+	HTTPValidationError;
+
+export type GetDeprecationAlertStateAlertingModelDeprecationsStateGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query: GetDeprecationAlertStateAlertingModelDeprecationsStateGetQuery;
+	headers?: never | undefined;
+};
+
+export type GetDeprecationAlertStateAlertingModelDeprecationsStateGetResponses = {
+	"200": GetDeprecationAlertStateAlertingModelDeprecationsStateGetStatus200;
+	"422": GetDeprecationAlertStateAlertingModelDeprecationsStateGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetDeprecationAlertStateAlertingModelDeprecationsStateGetResponse =
+	GetDeprecationAlertStateAlertingModelDeprecationsStateGetStatus200;
+
+export type UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutStatus200 =
+	DeprecationAlertState;
+
+export type UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutStatus422 =
+	HTTPValidationError;
+
+export type UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutBody =
+	DeprecationAlertUpdate;
+
+export type UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutOptions = {
+	body: UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutResponses = {
+	"200": UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutStatus200;
+	"422": UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutResponse =
+	UpdateDeprecationAlertStateAlertingModelDeprecationsStatePutStatus200;
+
+export type GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetQuery = {
+	/**
+	 * @minLength 1
+	 * @maxLength 1024
+	 * @type string
+	 */
+	model: string;
+	api_keys: string[];
+	/**
+	 * @description
+	 * Format: `date`
+	 * @type string
+	 */
+	start_date: string;
+	/**
+	 * @description
+	 * Format: `date`
+	 * @type string
+	 */
+	end_date: string;
+};
+
+export type GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetStatus200 =
+	DeprecationTagUsage[];
+
+export type GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetStatus422 = HTTPValidationError;
+
+export type GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query: GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetQuery;
+	headers?: never | undefined;
+};
+
+export type GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetResponses = {
+	"200": GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetStatus200;
+	"422": GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetResponse =
+	GetDeprecationUsageTagsAlertingModelDeprecationsTagsGetStatus200;
+
 export type GetCoordinationRedisSettingsCoordinationRedisSettingsGetStatus200 =
 	CoordinationRedisSettingsResponse;
 
@@ -44519,6 +45303,44 @@ export type WebsocketRealtimeWebsocketEndpointGet3Responses = {
  */
 export type WebsocketRealtimeWebsocketEndpointGet3Response =
 	WebsocketRealtimeWebsocketEndpointGet3Status101;
+
+export type WebsocketRealtimeWebsocketEndpointGet4Status101 = unknown;
+
+export type WebsocketRealtimeWebsocketEndpointGet4Options = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type WebsocketRealtimeWebsocketEndpointGet4Responses = {
+	"101": WebsocketRealtimeWebsocketEndpointGet4Status101;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type WebsocketRealtimeWebsocketEndpointGet4Response =
+	WebsocketRealtimeWebsocketEndpointGet4Status101;
+
+export type WebsocketRealtimeWebsocketEndpointGet5Status101 = unknown;
+
+export type WebsocketRealtimeWebsocketEndpointGet5Options = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type WebsocketRealtimeWebsocketEndpointGet5Responses = {
+	"101": WebsocketRealtimeWebsocketEndpointGet5Status101;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type WebsocketRealtimeWebsocketEndpointGet5Response =
+	WebsocketRealtimeWebsocketEndpointGet5Status101;
 
 export type WebsocketLiveSessionsWebsocketEndpointGetStatus101 = unknown;
 
@@ -50834,6 +51656,194 @@ export type CreateRealtimeTranscriptionSessionRealtimeTranscriptionSessionsPostR
 export type CreateRealtimeTranscriptionSessionRealtimeTranscriptionSessionsPostResponse =
 	CreateRealtimeTranscriptionSessionRealtimeTranscriptionSessionsPostStatus200;
 
+export type ProxyRealtimeCallsRealtimeTranslationsCallsPostStatus201 = string;
+
+export type ProxyRealtimeCallsRealtimeTranslationsCallsPostBody = string;
+
+export type ProxyRealtimeCallsRealtimeTranslationsCallsPostOptions = {
+	body: ProxyRealtimeCallsRealtimeTranslationsCallsPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ProxyRealtimeCallsRealtimeTranslationsCallsPostResponses = {
+	"201": ProxyRealtimeCallsRealtimeTranslationsCallsPostStatus201;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ProxyRealtimeCallsRealtimeTranslationsCallsPostResponse =
+	ProxyRealtimeCallsRealtimeTranslationsCallsPostStatus201;
+
+/**
+ * @description Response from POST /v1/realtime/client_secrets.
+ *
+ * Both the top-level `value` and `session.client_secret.value`
+ * will contain the encrypted token instead of the raw ephemeral key.
+ * The `session` field is kept as a raw dict so unknown fields pass through.
+ * @type object
+ */
+export type CreateRealtimeClientSecretRealtimeTranslationsClientSecretsPostStatus200 =
+	RealtimeClientSecretResponse;
+
+/**
+ * @description Request body for POST /v1/realtime/client_secrets.
+ *
+ * LiteLLM also accepts a top-level `model` field for routing when
+ * session.model is absent (LiteLLM extension, not forwarded to OpenAI).
+ * @example {"model":"gpt-realtime-translate","session":{"model":"gpt-realtime-translate","type":"translation"}}
+ * @type object
+ */
+export type CreateRealtimeClientSecretRealtimeTranslationsClientSecretsPostBody = {
+	expires_after?:
+		| (
+				| {
+						/**
+						 * @default created_at
+						 */
+						anchor?: (string | (null | null)) | undefined;
+						seconds?: (number | (null | null)) | undefined;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	model?: (string | (null | null)) | undefined;
+	session?:
+		| (
+				| {
+						audio?:
+							| (
+									| {
+											input?:
+												| (
+														| {
+																format?:
+																	| (
+																			| string
+																			| {
+																					[key: string]: unknown;
+																			  }
+																			| (null | null)
+																	  )
+																	| undefined;
+																noise_reduction?:
+																	| (
+																			| {
+																					[key: string]: unknown;
+																			  }
+																			| (null | null)
+																	  )
+																	| undefined;
+																transcription?:
+																	| (
+																			| {
+																					delay?: (string | (null | null)) | undefined;
+																					keywords?: (string[] | (null | null)) | undefined;
+																					language?: (string | (null | null)) | undefined;
+																					languages?: (string[] | (null | null)) | undefined;
+																					model?: (string | (null | null)) | undefined;
+																					prompt?: (string | (null | null)) | undefined;
+																					[key: string]: unknown;
+																			  }
+																			| (null | null)
+																	  )
+																	| undefined;
+																turn_detection?:
+																	| (
+																			| {
+																					[key: string]: unknown;
+																			  }
+																			| (null | null)
+																	  )
+																	| undefined;
+																[key: string]: unknown;
+														  }
+														| (null | null)
+												  )
+												| undefined;
+											output?:
+												| (
+														| {
+																format?:
+																	| (
+																			| string
+																			| {
+																					[key: string]: unknown;
+																			  }
+																			| (null | null)
+																	  )
+																	| undefined;
+																language?: (string | (null | null)) | undefined;
+																voice?:
+																	| (
+																			| string
+																			| {
+																					[key: string]: unknown;
+																			  }
+																			| (null | null)
+																	  )
+																	| undefined;
+																[key: string]: unknown;
+														  }
+														| (null | null)
+												  )
+												| undefined;
+											[key: string]: unknown;
+									  }
+									| (null | null)
+							  )
+							| undefined;
+						include?: (string[] | (null | null)) | undefined;
+						instructions?: (string | (null | null)) | undefined;
+						max_output_tokens?: (number | string | (null | null)) | undefined;
+						model?: (string | (null | null)) | undefined;
+						output_modalities?: (string[] | (null | null)) | undefined;
+						prompt?:
+							| (
+									| {
+											[key: string]: unknown;
+									  }
+									| (null | null)
+							  )
+							| undefined;
+						tool_choice?: (unknown | (null | null)) | undefined;
+						tools?:
+							| (
+									| {
+											[key: string]: unknown;
+									  }[]
+									| (null | null)
+							  )
+							| undefined;
+						tracing?: (unknown | (null | null)) | undefined;
+						truncation?: (unknown | (null | null)) | undefined;
+						type?: (string | (null | null)) | undefined;
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+};
+
+export type CreateRealtimeClientSecretRealtimeTranslationsClientSecretsPostOptions = {
+	body: CreateRealtimeClientSecretRealtimeTranslationsClientSecretsPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateRealtimeClientSecretRealtimeTranslationsClientSecretsPostResponses = {
+	"200": CreateRealtimeClientSecretRealtimeTranslationsClientSecretsPostStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateRealtimeClientSecretRealtimeTranslationsClientSecretsPostResponse =
+	CreateRealtimeClientSecretRealtimeTranslationsClientSecretsPostStatus200;
+
 export type ProxyRealtimeCallsV1RealtimeCallsPostStatus200 = {
 	[key: string]: unknown;
 };
@@ -50909,6 +51919,194 @@ export type CreateRealtimeTranscriptionSessionV1RealtimeTranscriptionSessionsPos
  */
 export type CreateRealtimeTranscriptionSessionV1RealtimeTranscriptionSessionsPostResponse =
 	CreateRealtimeTranscriptionSessionV1RealtimeTranscriptionSessionsPostStatus200;
+
+export type ProxyRealtimeCallsV1RealtimeTranslationsCallsPostStatus201 = string;
+
+export type ProxyRealtimeCallsV1RealtimeTranslationsCallsPostBody = string;
+
+export type ProxyRealtimeCallsV1RealtimeTranslationsCallsPostOptions = {
+	body: ProxyRealtimeCallsV1RealtimeTranslationsCallsPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ProxyRealtimeCallsV1RealtimeTranslationsCallsPostResponses = {
+	"201": ProxyRealtimeCallsV1RealtimeTranslationsCallsPostStatus201;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ProxyRealtimeCallsV1RealtimeTranslationsCallsPostResponse =
+	ProxyRealtimeCallsV1RealtimeTranslationsCallsPostStatus201;
+
+/**
+ * @description Response from POST /v1/realtime/client_secrets.
+ *
+ * Both the top-level `value` and `session.client_secret.value`
+ * will contain the encrypted token instead of the raw ephemeral key.
+ * The `session` field is kept as a raw dict so unknown fields pass through.
+ * @type object
+ */
+export type CreateRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostStatus200 =
+	RealtimeClientSecretResponse;
+
+/**
+ * @description Request body for POST /v1/realtime/client_secrets.
+ *
+ * LiteLLM also accepts a top-level `model` field for routing when
+ * session.model is absent (LiteLLM extension, not forwarded to OpenAI).
+ * @example {"model":"gpt-realtime-translate","session":{"model":"gpt-realtime-translate","type":"translation"}}
+ * @type object
+ */
+export type CreateRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostBody = {
+	expires_after?:
+		| (
+				| {
+						/**
+						 * @default created_at
+						 */
+						anchor?: (string | (null | null)) | undefined;
+						seconds?: (number | (null | null)) | undefined;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+	model?: (string | (null | null)) | undefined;
+	session?:
+		| (
+				| {
+						audio?:
+							| (
+									| {
+											input?:
+												| (
+														| {
+																format?:
+																	| (
+																			| string
+																			| {
+																					[key: string]: unknown;
+																			  }
+																			| (null | null)
+																	  )
+																	| undefined;
+																noise_reduction?:
+																	| (
+																			| {
+																					[key: string]: unknown;
+																			  }
+																			| (null | null)
+																	  )
+																	| undefined;
+																transcription?:
+																	| (
+																			| {
+																					delay?: (string | (null | null)) | undefined;
+																					keywords?: (string[] | (null | null)) | undefined;
+																					language?: (string | (null | null)) | undefined;
+																					languages?: (string[] | (null | null)) | undefined;
+																					model?: (string | (null | null)) | undefined;
+																					prompt?: (string | (null | null)) | undefined;
+																					[key: string]: unknown;
+																			  }
+																			| (null | null)
+																	  )
+																	| undefined;
+																turn_detection?:
+																	| (
+																			| {
+																					[key: string]: unknown;
+																			  }
+																			| (null | null)
+																	  )
+																	| undefined;
+																[key: string]: unknown;
+														  }
+														| (null | null)
+												  )
+												| undefined;
+											output?:
+												| (
+														| {
+																format?:
+																	| (
+																			| string
+																			| {
+																					[key: string]: unknown;
+																			  }
+																			| (null | null)
+																	  )
+																	| undefined;
+																language?: (string | (null | null)) | undefined;
+																voice?:
+																	| (
+																			| string
+																			| {
+																					[key: string]: unknown;
+																			  }
+																			| (null | null)
+																	  )
+																	| undefined;
+																[key: string]: unknown;
+														  }
+														| (null | null)
+												  )
+												| undefined;
+											[key: string]: unknown;
+									  }
+									| (null | null)
+							  )
+							| undefined;
+						include?: (string[] | (null | null)) | undefined;
+						instructions?: (string | (null | null)) | undefined;
+						max_output_tokens?: (number | string | (null | null)) | undefined;
+						model?: (string | (null | null)) | undefined;
+						output_modalities?: (string[] | (null | null)) | undefined;
+						prompt?:
+							| (
+									| {
+											[key: string]: unknown;
+									  }
+									| (null | null)
+							  )
+							| undefined;
+						tool_choice?: (unknown | (null | null)) | undefined;
+						tools?:
+							| (
+									| {
+											[key: string]: unknown;
+									  }[]
+									| (null | null)
+							  )
+							| undefined;
+						tracing?: (unknown | (null | null)) | undefined;
+						truncation?: (unknown | (null | null)) | undefined;
+						type?: (string | (null | null)) | undefined;
+						[key: string]: unknown;
+				  }
+				| (null | null)
+		  )
+		| undefined;
+};
+
+export type CreateRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostOptions = {
+	body: CreateRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type CreateRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostResponses = {
+	"200": CreateRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostStatus200;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type CreateRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostResponse =
+	CreateRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostStatus200;
 
 export type EventLoggingBatchApiEventLoggingBatchPostStatus200 = {
 	[key: string]: unknown;
@@ -52730,6 +53928,717 @@ export type SystemoneV1SystemonePostResponses = {
  */
 export type SystemoneV1SystemonePostResponse = SystemoneV1SystemonePostStatus200;
 
+export const listSkillsSkillHubSkillsGetSortBy = {
+	name: "name",
+	download_count: "download_count",
+	updated_at: "updated_at",
+	created_at: "created_at",
+	created_by: "created_by",
+	published_by: "published_by",
+	approved_by: "approved_by",
+	security_scan_passed: "security_scan_passed",
+} as const;
+
+export type ListSkillsSkillHubSkillsGetSortByKey =
+	(typeof listSkillsSkillHubSkillsGetSortBy)[keyof typeof listSkillsSkillHubSkillsGetSortBy];
+
+export const listSkillsSkillHubSkillsGetSortOrder = {
+	asc: "asc",
+	desc: "desc",
+} as const;
+
+export type ListSkillsSkillHubSkillsGetSortOrderKey =
+	(typeof listSkillsSkillHubSkillsGetSortOrder)[keyof typeof listSkillsSkillHubSkillsGetSortOrder];
+
+export type ListSkillsSkillHubSkillsGetQuery = {
+	/**
+	 * @default ''
+	 * @type string | undefined
+	 */
+	query?: string | undefined;
+	/**
+	 * @minimum 0
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	offset?: number | undefined;
+	/**
+	 * @minimum 1
+	 * @maximum 100
+	 * @default 50
+	 * @type integer | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @default ''
+	 * @type string | undefined
+	 */
+	tag?: string | undefined;
+	security_scan_passed?: (boolean | (null | null)) | undefined;
+	/**
+	 * @default 'name'
+	 * @type string | undefined
+	 */
+	sort_by?: ListSkillsSkillHubSkillsGetSortByKey | undefined;
+	/**
+	 * @default 'asc'
+	 * @type string | undefined
+	 */
+	sort_order?: ListSkillsSkillHubSkillsGetSortOrderKey | undefined;
+};
+
+export type ListSkillsSkillHubSkillsGetStatus200 = SkillHubList;
+
+export type ListSkillsSkillHubSkillsGetStatus422 = HTTPValidationError;
+
+export type ListSkillsSkillHubSkillsGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: ListSkillsSkillHubSkillsGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type ListSkillsSkillHubSkillsGetResponses = {
+	"200": ListSkillsSkillHubSkillsGetStatus200;
+	"422": ListSkillsSkillHubSkillsGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListSkillsSkillHubSkillsGetResponse = ListSkillsSkillHubSkillsGetStatus200;
+
+export type ImportSkillSkillHubSkillsImportPostStatus200 = SkillHubSkill | SkillHubPendingSkill;
+
+export type ImportSkillSkillHubSkillsImportPostStatus422 = HTTPValidationError;
+
+export type ImportSkillSkillHubSkillsImportPostBody = ImportSkillRequest;
+
+export type ImportSkillSkillHubSkillsImportPostOptions = {
+	body: ImportSkillSkillHubSkillsImportPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ImportSkillSkillHubSkillsImportPostResponses = {
+	"200": ImportSkillSkillHubSkillsImportPostStatus200;
+	"422": ImportSkillSkillHubSkillsImportPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ImportSkillSkillHubSkillsImportPostResponse =
+	ImportSkillSkillHubSkillsImportPostStatus200;
+
+export type UploadSkillSkillHubSkillsUploadPostStatus200 = SkillHubSkill | SkillHubPendingSkill;
+
+export type UploadSkillSkillHubSkillsUploadPostStatus422 = HTTPValidationError;
+
+export type UploadSkillSkillHubSkillsUploadPostBody = BodyUploadSkillSkillHubSkillsUploadPost;
+
+export type UploadSkillSkillHubSkillsUploadPostOptions = {
+	body: UploadSkillSkillHubSkillsUploadPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UploadSkillSkillHubSkillsUploadPostResponses = {
+	"200": UploadSkillSkillHubSkillsUploadPostStatus200;
+	"422": UploadSkillSkillHubSkillsUploadPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UploadSkillSkillHubSkillsUploadPostResponse =
+	UploadSkillSkillHubSkillsUploadPostStatus200;
+
+export type GetSkillSkillHubSkillsNameGetPath = {
+	name: string;
+};
+
+export type GetSkillSkillHubSkillsNameGetStatus200 = SkillHubSkill;
+
+export type GetSkillSkillHubSkillsNameGetStatus422 = HTTPValidationError;
+
+export type GetSkillSkillHubSkillsNameGetOptions = {
+	body?: never | undefined;
+	path: GetSkillSkillHubSkillsNameGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetSkillSkillHubSkillsNameGetResponses = {
+	"200": GetSkillSkillHubSkillsNameGetStatus200;
+	"422": GetSkillSkillHubSkillsNameGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetSkillSkillHubSkillsNameGetResponse = GetSkillSkillHubSkillsNameGetStatus200;
+
+export type ReplaceSkillMetadataSkillHubSkillsNamePutPath = {
+	name: string;
+};
+
+export type ReplaceSkillMetadataSkillHubSkillsNamePutStatus200 =
+	| SkillHubSkill
+	| SkillHubPendingSkill;
+
+export type ReplaceSkillMetadataSkillHubSkillsNamePutStatus422 = HTTPValidationError;
+
+export type ReplaceSkillMetadataSkillHubSkillsNamePutBody = SkillHubMetadata;
+
+export type ReplaceSkillMetadataSkillHubSkillsNamePutOptions = {
+	body: ReplaceSkillMetadataSkillHubSkillsNamePutBody;
+	path: ReplaceSkillMetadataSkillHubSkillsNamePutPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ReplaceSkillMetadataSkillHubSkillsNamePutResponses = {
+	"200": ReplaceSkillMetadataSkillHubSkillsNamePutStatus200;
+	"422": ReplaceSkillMetadataSkillHubSkillsNamePutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ReplaceSkillMetadataSkillHubSkillsNamePutResponse =
+	ReplaceSkillMetadataSkillHubSkillsNamePutStatus200;
+
+export type RemoveSkillSkillHubSkillsNameDeletePath = {
+	name: string;
+};
+
+export type RemoveSkillSkillHubSkillsNameDeleteStatus204 = void;
+
+export type RemoveSkillSkillHubSkillsNameDeleteStatus422 = HTTPValidationError;
+
+export type RemoveSkillSkillHubSkillsNameDeleteOptions = {
+	body?: never | undefined;
+	path: RemoveSkillSkillHubSkillsNameDeletePath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type RemoveSkillSkillHubSkillsNameDeleteResponses = {
+	"204": RemoveSkillSkillHubSkillsNameDeleteStatus204;
+	"422": RemoveSkillSkillHubSkillsNameDeleteStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type RemoveSkillSkillHubSkillsNameDeleteResponse =
+	RemoveSkillSkillHubSkillsNameDeleteStatus204;
+
+export type DownloadSkillSkillHubSkillsNameArchiveGetPath = {
+	name: string;
+};
+
+export type DownloadSkillSkillHubSkillsNameArchiveGetQuery = {
+	digest?: (string | (null | null)) | undefined;
+};
+
+export type DownloadSkillSkillHubSkillsNameArchiveGetStatus200 = Blob;
+
+export type DownloadSkillSkillHubSkillsNameArchiveGetStatus422 = HTTPValidationError;
+
+export type DownloadSkillSkillHubSkillsNameArchiveGetOptions = {
+	body?: never | undefined;
+	path: DownloadSkillSkillHubSkillsNameArchiveGetPath;
+	query?: DownloadSkillSkillHubSkillsNameArchiveGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type DownloadSkillSkillHubSkillsNameArchiveGetResponses = {
+	"200": DownloadSkillSkillHubSkillsNameArchiveGetStatus200;
+	"422": DownloadSkillSkillHubSkillsNameArchiveGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DownloadSkillSkillHubSkillsNameArchiveGetResponse =
+	DownloadSkillSkillHubSkillsNameArchiveGetStatus200;
+
+export type SkillContentSkillHubSkillsNameContentGetPath = {
+	name: string;
+};
+
+export type SkillContentSkillHubSkillsNameContentGetStatus200 = string;
+
+export type SkillContentSkillHubSkillsNameContentGetStatus422 = HTTPValidationError;
+
+export type SkillContentSkillHubSkillsNameContentGetOptions = {
+	body?: never | undefined;
+	path: SkillContentSkillHubSkillsNameContentGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type SkillContentSkillHubSkillsNameContentGetResponses = {
+	"200": SkillContentSkillHubSkillsNameContentGetStatus200;
+	"422": SkillContentSkillHubSkillsNameContentGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type SkillContentSkillHubSkillsNameContentGetResponse =
+	SkillContentSkillHubSkillsNameContentGetStatus200;
+
+export type PublishSkillSkillHubSkillsNamePublishPostPath = {
+	name: string;
+};
+
+export type PublishSkillSkillHubSkillsNamePublishPostStatus200 = SkillHubSkill;
+
+export type PublishSkillSkillHubSkillsNamePublishPostStatus422 = HTTPValidationError;
+
+export type PublishSkillSkillHubSkillsNamePublishPostBody =
+	| (SkillHubPublication | (null | null))
+	| undefined;
+
+export type PublishSkillSkillHubSkillsNamePublishPostOptions = {
+	body?: PublishSkillSkillHubSkillsNamePublishPostBody | undefined;
+	path: PublishSkillSkillHubSkillsNamePublishPostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type PublishSkillSkillHubSkillsNamePublishPostResponses = {
+	"200": PublishSkillSkillHubSkillsNamePublishPostStatus200;
+	"422": PublishSkillSkillHubSkillsNamePublishPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type PublishSkillSkillHubSkillsNamePublishPostResponse =
+	PublishSkillSkillHubSkillsNamePublishPostStatus200;
+
+export type UnpublishSkillSkillHubSkillsNameUnpublishPostPath = {
+	name: string;
+};
+
+export type UnpublishSkillSkillHubSkillsNameUnpublishPostStatus200 = SkillHubSkill;
+
+export type UnpublishSkillSkillHubSkillsNameUnpublishPostStatus422 = HTTPValidationError;
+
+export type UnpublishSkillSkillHubSkillsNameUnpublishPostBody =
+	| (SkillHubPublication | (null | null))
+	| undefined;
+
+export type UnpublishSkillSkillHubSkillsNameUnpublishPostOptions = {
+	body?: UnpublishSkillSkillHubSkillsNameUnpublishPostBody | undefined;
+	path: UnpublishSkillSkillHubSkillsNameUnpublishPostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UnpublishSkillSkillHubSkillsNameUnpublishPostResponses = {
+	"200": UnpublishSkillSkillHubSkillsNameUnpublishPostStatus200;
+	"422": UnpublishSkillSkillHubSkillsNameUnpublishPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UnpublishSkillSkillHubSkillsNameUnpublishPostResponse =
+	UnpublishSkillSkillHubSkillsNameUnpublishPostStatus200;
+
+export type ReplaceSkillArchiveSkillHubSkillsNameUploadPutPath = {
+	name: string;
+};
+
+export type ReplaceSkillArchiveSkillHubSkillsNameUploadPutStatus200 =
+	| SkillHubSkill
+	| SkillHubPendingSkill;
+
+export type ReplaceSkillArchiveSkillHubSkillsNameUploadPutStatus422 = HTTPValidationError;
+
+export type ReplaceSkillArchiveSkillHubSkillsNameUploadPutBody =
+	BodyReplaceSkillArchiveSkillHubSkillsNameUploadPut;
+
+export type ReplaceSkillArchiveSkillHubSkillsNameUploadPutOptions = {
+	body: ReplaceSkillArchiveSkillHubSkillsNameUploadPutBody;
+	path: ReplaceSkillArchiveSkillHubSkillsNameUploadPutPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ReplaceSkillArchiveSkillHubSkillsNameUploadPutResponses = {
+	"200": ReplaceSkillArchiveSkillHubSkillsNameUploadPutStatus200;
+	"422": ReplaceSkillArchiveSkillHubSkillsNameUploadPutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ReplaceSkillArchiveSkillHubSkillsNameUploadPutResponse =
+	ReplaceSkillArchiveSkillHubSkillsNameUploadPutStatus200;
+
+export type ListSkillVersionsSkillHubSkillsNameVersionsGetPath = {
+	name: string;
+};
+
+export type ListSkillVersionsSkillHubSkillsNameVersionsGetQuery = {
+	/**
+	 * @minimum 1
+	 * @maximum 100
+	 * @default 20
+	 * @type integer | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @minimum 0
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	offset?: number | undefined;
+};
+
+export type ListSkillVersionsSkillHubSkillsNameVersionsGetStatus200 = SkillHubVersions;
+
+export type ListSkillVersionsSkillHubSkillsNameVersionsGetStatus422 = HTTPValidationError;
+
+export type ListSkillVersionsSkillHubSkillsNameVersionsGetOptions = {
+	body?: never | undefined;
+	path: ListSkillVersionsSkillHubSkillsNameVersionsGetPath;
+	query?: ListSkillVersionsSkillHubSkillsNameVersionsGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type ListSkillVersionsSkillHubSkillsNameVersionsGetResponses = {
+	"200": ListSkillVersionsSkillHubSkillsNameVersionsGetStatus200;
+	"422": ListSkillVersionsSkillHubSkillsNameVersionsGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListSkillVersionsSkillHubSkillsNameVersionsGetResponse =
+	ListSkillVersionsSkillHubSkillsNameVersionsGetStatus200;
+
+export type GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetPath = {
+	name: string;
+	version_id: string;
+};
+
+export type GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetStatus200 = SkillHubVersion;
+
+export type GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetStatus422 = HTTPValidationError;
+
+export type GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetOptions = {
+	body?: never | undefined;
+	path: GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetResponses = {
+	"200": GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetStatus200;
+	"422": GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetResponse =
+	GetSkillVersionSkillHubSkillsNameVersionsVersionIdGetStatus200;
+
+export type DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetPath = {
+	name: string;
+	version_id: string;
+};
+
+export type DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetStatus200 = Blob;
+
+export type DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetStatus422 =
+	HTTPValidationError;
+
+export type DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetOptions = {
+	body?: never | undefined;
+	path: DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetResponses = {
+	"200": DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetStatus200;
+	"422": DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetResponse =
+	DownloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetStatus200;
+
+export type GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetPath = {
+	plugin_name: string;
+};
+
+export type GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetQuery = {
+	/**
+	 * @description Maximum number of download events
+	 * @minimum 1
+	 * @maximum 100
+	 * @default 25
+	 * @type integer | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @description Previous next_cursor
+	 */
+	cursor?: (string | (null | null)) | undefined;
+};
+
+export type GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetStatus200 =
+	PluginDownloadsResponse;
+
+export type GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetStatus422 = HTTPValidationError;
+
+export type GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetOptions = {
+	body?: never | undefined;
+	path: GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetPath;
+	query?: GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetResponses = {
+	"200": GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetStatus200;
+	"422": GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetResponse =
+	GetPluginDownloadsSkillHubSkillsPluginNameDownloadsGetStatus200;
+
+export const listSubmissionsSkillHubSubmissionsGetStatus = {
+	pending_review: "pending_review",
+	approved: "approved",
+	rejected: "rejected",
+} as const;
+
+export type ListSubmissionsSkillHubSubmissionsGetStatusKey =
+	(typeof listSubmissionsSkillHubSubmissionsGetStatus)[keyof typeof listSubmissionsSkillHubSubmissionsGetStatus];
+
+export type ListSubmissionsSkillHubSubmissionsGetQuery = {
+	status?: (ListSubmissionsSkillHubSubmissionsGetStatusKey | (null | null)) | undefined;
+	/**
+	 * @minimum 1
+	 * @maximum 100
+	 * @default 20
+	 * @type integer | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @minimum 0
+	 * @default 0
+	 * @type integer | undefined
+	 */
+	offset?: number | undefined;
+};
+
+export type ListSubmissionsSkillHubSubmissionsGetStatus200 = SkillHubSubmissionList;
+
+export type ListSubmissionsSkillHubSubmissionsGetStatus422 = HTTPValidationError;
+
+export type ListSubmissionsSkillHubSubmissionsGetOptions = {
+	body?: never | undefined;
+	path?: never | undefined;
+	query?: ListSubmissionsSkillHubSubmissionsGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type ListSubmissionsSkillHubSubmissionsGetResponses = {
+	"200": ListSubmissionsSkillHubSubmissionsGetStatus200;
+	"422": ListSubmissionsSkillHubSubmissionsGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListSubmissionsSkillHubSubmissionsGetResponse =
+	ListSubmissionsSkillHubSubmissionsGetStatus200;
+
+export type GetSubmissionSkillHubSubmissionsSubmissionIdGetPath = {
+	submission_id: string;
+};
+
+export type GetSubmissionSkillHubSubmissionsSubmissionIdGetStatus200 = SkillHubSubmissionDetail;
+
+export type GetSubmissionSkillHubSubmissionsSubmissionIdGetStatus422 = HTTPValidationError;
+
+export type GetSubmissionSkillHubSubmissionsSubmissionIdGetOptions = {
+	body?: never | undefined;
+	path: GetSubmissionSkillHubSubmissionsSubmissionIdGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetSubmissionSkillHubSubmissionsSubmissionIdGetResponses = {
+	"200": GetSubmissionSkillHubSubmissionsSubmissionIdGetStatus200;
+	"422": GetSubmissionSkillHubSubmissionsSubmissionIdGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetSubmissionSkillHubSubmissionsSubmissionIdGetResponse =
+	GetSubmissionSkillHubSubmissionsSubmissionIdGetStatus200;
+
+export type ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutPath = {
+	submission_id: string;
+};
+
+export type ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutStatus200 =
+	SkillHubReviewResponse;
+
+export type ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutStatus422 =
+	HTTPValidationError;
+
+export type ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutOptions = {
+	body?: never | undefined;
+	path: ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutResponses = {
+	"200": ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutStatus200;
+	"422": ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutResponse =
+	ApproveSubmissionSkillHubSubmissionsSubmissionIdApprovePutStatus200;
+
+export type DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetPath = {
+	submission_id: string;
+};
+
+export type DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetStatus200 = Blob;
+
+export type DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetStatus422 =
+	HTTPValidationError;
+
+export type DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetOptions = {
+	body?: never | undefined;
+	path: DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetResponses = {
+	"200": DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetStatus200;
+	"422": DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetResponse =
+	DownloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetStatus200;
+
+export type RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutPath = {
+	submission_id: string;
+};
+
+export type RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutStatus200 =
+	SkillHubReviewResponse;
+
+export type RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutStatus422 = HTTPValidationError;
+
+export type RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutBody =
+	| (SkillHubRejection | (null | null))
+	| undefined;
+
+export type RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutOptions = {
+	body?: RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutBody | undefined;
+	path: RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutResponses = {
+	"200": RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutStatus200;
+	"422": RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutResponse =
+	RejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutStatus200;
+
+export type GetSkillScanSkillHubSubmissionsSubmissionIdScanGetPath = {
+	submission_id: string;
+};
+
+export type GetSkillScanSkillHubSubmissionsSubmissionIdScanGetStatus200 = SkillScanResponse;
+
+export type GetSkillScanSkillHubSubmissionsSubmissionIdScanGetStatus422 = HTTPValidationError;
+
+export type GetSkillScanSkillHubSubmissionsSubmissionIdScanGetOptions = {
+	body?: never | undefined;
+	path: GetSkillScanSkillHubSubmissionsSubmissionIdScanGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type GetSkillScanSkillHubSubmissionsSubmissionIdScanGetResponses = {
+	"200": GetSkillScanSkillHubSubmissionsSubmissionIdScanGetStatus200;
+	"422": GetSkillScanSkillHubSubmissionsSubmissionIdScanGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetSkillScanSkillHubSubmissionsSubmissionIdScanGetResponse =
+	GetSkillScanSkillHubSubmissionsSubmissionIdScanGetStatus200;
+
+export type StartSkillScanSkillHubSubmissionsSubmissionIdScanPostPath = {
+	submission_id: string;
+};
+
+export type StartSkillScanSkillHubSubmissionsSubmissionIdScanPostStatus200 = SkillScanResponse;
+
+export type StartSkillScanSkillHubSubmissionsSubmissionIdScanPostStatus422 = HTTPValidationError;
+
+export type StartSkillScanSkillHubSubmissionsSubmissionIdScanPostBody =
+	| (SkillScanRequest | (null | null))
+	| undefined;
+
+export type StartSkillScanSkillHubSubmissionsSubmissionIdScanPostOptions = {
+	body?: StartSkillScanSkillHubSubmissionsSubmissionIdScanPostBody | undefined;
+	path: StartSkillScanSkillHubSubmissionsSubmissionIdScanPostPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type StartSkillScanSkillHubSubmissionsSubmissionIdScanPostResponses = {
+	"200": StartSkillScanSkillHubSubmissionsSubmissionIdScanPostStatus200;
+	"422": StartSkillScanSkillHubSubmissionsSubmissionIdScanPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type StartSkillScanSkillHubSubmissionsSubmissionIdScanPostResponse =
+	StartSkillScanSkillHubSubmissionsSubmissionIdScanPostStatus200;
+
 export type GetMarketplaceClaudeCodeMarketplaceJsonGetQuery = {
 	key?: (string | (null | null)) | undefined;
 };
@@ -52826,6 +54735,35 @@ export type RegisterPluginClaudeCodePluginsPostResponses = {
 export type RegisterPluginClaudeCodePluginsPostResponse =
 	RegisterPluginClaudeCodePluginsPostStatus200;
 
+/**
+ * @description Response from plugin registration.
+ * @type object
+ */
+export type UploadPluginClaudeCodePluginsUploadPostStatus200 = RegisterPluginResponse;
+
+export type UploadPluginClaudeCodePluginsUploadPostStatus422 = HTTPValidationError;
+
+export type UploadPluginClaudeCodePluginsUploadPostBody =
+	BodyUploadPluginClaudeCodePluginsUploadPost;
+
+export type UploadPluginClaudeCodePluginsUploadPostOptions = {
+	body: UploadPluginClaudeCodePluginsUploadPostBody;
+	path?: never | undefined;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type UploadPluginClaudeCodePluginsUploadPostResponses = {
+	"200": UploadPluginClaudeCodePluginsUploadPostStatus200;
+	"422": UploadPluginClaudeCodePluginsUploadPostStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type UploadPluginClaudeCodePluginsUploadPostResponse =
+	UploadPluginClaudeCodePluginsUploadPostStatus200;
+
 export type GetPluginClaudeCodePluginsPluginNameGetPath = {
 	plugin_name: string;
 };
@@ -52871,8 +54809,8 @@ export type UpdatePluginClaudeCodePluginsPluginNamePutStatus422 = HTTPValidation
  *
  * The plugin name is the resource identity and is supplied as the path
  * parameter, so it cannot be changed here. This is a full replace: omitted
- * fields reset to their defaults, so version is cleared rather than
- * defaulting to the create-time "1.0.0".
+ * fields reset to their defaults, except version which automatically increments
+ * the published patch version when omitted or null.
  * @type object
  */
 export type UpdatePluginClaudeCodePluginsPluginNamePutBody = UpdatePluginRequest;
@@ -52923,6 +54861,34 @@ export type DeletePluginClaudeCodePluginsPluginNameDeleteResponses = {
 export type DeletePluginClaudeCodePluginsPluginNameDeleteResponse =
 	DeletePluginClaudeCodePluginsPluginNameDeleteStatus200;
 
+export type DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetPath = {
+	plugin_name: string;
+	digest: string;
+};
+
+export type DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetStatus200 = Blob;
+
+export type DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetStatus422 =
+	HTTPValidationError;
+
+export type DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetOptions = {
+	body?: never | undefined;
+	path: DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetPath;
+	query?: never | undefined;
+	headers?: never | undefined;
+};
+
+export type DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetResponses = {
+	"200": DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetStatus200;
+	"422": DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetResponse =
+	DownloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetStatus200;
+
 export type DisablePluginClaudeCodePluginsPluginNameDisablePostPath = {
 	plugin_name: string;
 };
@@ -52950,6 +54916,49 @@ export type DisablePluginClaudeCodePluginsPluginNameDisablePostResponses = {
  */
 export type DisablePluginClaudeCodePluginsPluginNameDisablePostResponse =
 	DisablePluginClaudeCodePluginsPluginNameDisablePostStatus200;
+
+export type GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetPath = {
+	plugin_name: string;
+};
+
+export type GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetQuery = {
+	/**
+	 * @description Maximum number of download events
+	 * @minimum 1
+	 * @maximum 100
+	 * @default 25
+	 * @type integer | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @description Previous next_cursor
+	 */
+	cursor?: (string | (null | null)) | undefined;
+};
+
+export type GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetStatus200 =
+	PluginDownloadsResponse;
+
+export type GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetStatus422 =
+	HTTPValidationError;
+
+export type GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetOptions = {
+	body?: never | undefined;
+	path: GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetPath;
+	query?: GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetResponses = {
+	"200": GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetStatus200;
+	"422": GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetStatus422;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetResponse =
+	GetPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetStatus200;
 
 export type EnablePluginClaudeCodePluginsPluginNameEnablePostPath = {
 	plugin_name: string;
