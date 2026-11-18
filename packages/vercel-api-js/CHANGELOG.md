@@ -1,5 +1,11 @@
 # vercel-api-js
 
+## 2.43.2
+
+### Patch Changes
+
+- 162fa22: The 'enabled' field in UpdateFlagSettingsBody is now optional.
+
 ## 2.43.1
 
 ### Patch Changes

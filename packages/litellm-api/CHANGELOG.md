@@ -1,5 +1,25 @@
 # litellm-api
 
+## 2.21.0
+
+### Minor Changes
+
+- 48417d4: Introduced plugin upload and download endpoints for Claude Code plugins, including ZIP archive downloads and download statistics reporting.
+- 48417d4: [BREAKING] WebSocket endpoint URLs for /realtime and /v1/realtime have moved to new routes, requiring clients to update their API calls.
+- 48417d4: Added multiple WebSocket endpoint variants for /realtime, /v1/realtime, and /openai/v1/realtime paths.
+- 48417d4: Renamed the realtime WebSocket endpoints from /realtime to /realtime/translations (and similarly for versioned and openai paths), which is a BREAKING change for clients using those endpoints.
+- 48417d4: Added new endpoints for realtime translation calls and client secrets management at /realtime/translations/calls, /realtime/translations/client_secrets, /v1/realtime/translations/calls, and /v1/realtime/translations/client_secrets.
+- 48417d4: [BREAKING] Updated regex pattern application in ToolPermissionRule to apply to the tool's name or type, not function name.
+- 48417d4: Added a complete suite of Skill Hub API operations to list, import, upload, get, update, publish, unpublish, and manage skills and submissions.
+- 48417d4: Added new operations for managing deprecation alert states and usage tags in the alerting API.
+
+### Patch Changes
+
+- 48417d4: Introduced new types for managing deprecation alert states and updates, including DeprecationAlertState and DeprecationAlertUpdate.
+- 48417d4: Enhanced tool permission and block behavior descriptions for greater clarity and aligned fallback logic for spoken violation messages in realtime sessions.
+- 48417d4: Added support for new routing decision and pricing fields, including switchyard algorithms and deployment pricing with tiered costs.
+- 48417d4: Extended ModelDeprecationInfo with successor model source and deprecation source fields for enhanced migration support.
+
 ## 2.20.2
 
 ### Patch Changes
