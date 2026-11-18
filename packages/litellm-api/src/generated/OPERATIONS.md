@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the LiteLLM API 1.109.1 OpenAPI spec; do not edit. 866 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the LiteLLM API 1.110.0 OpenAPI spec; do not edit. 900 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## modelManagement
 
@@ -242,10 +242,13 @@ Generated from the LiteLLM API 1.109.1 OpenAPI spec; do not edit. 866 operations
 | `client.api.claudeCodeMarketplace.getMarketplaceClaudeCodeMarketplaceJsonGet` | `GET /claude-code/marketplace.json` | Get Marketplace |
 | `client.api.claudeCodeMarketplace.listPluginsClaudeCodePluginsGet` | `GET /claude-code/plugins` | List Plugins |
 | `client.api.claudeCodeMarketplace.registerPluginClaudeCodePluginsPost` | `POST /claude-code/plugins` | Register Plugin |
+| `client.api.claudeCodeMarketplace.uploadPluginClaudeCodePluginsUploadPost` | `POST /claude-code/plugins/upload` | Upload Plugin |
 | `client.api.claudeCodeMarketplace.getPluginClaudeCodePluginsPluginNameGet` | `GET /claude-code/plugins/{plugin_name}` | Get Plugin |
 | `client.api.claudeCodeMarketplace.updatePluginClaudeCodePluginsPluginNamePut` | `PUT /claude-code/plugins/{plugin_name}` | Update Plugin |
 | `client.api.claudeCodeMarketplace.deletePluginClaudeCodePluginsPluginNameDelete` | `DELETE /claude-code/plugins/{plugin_name}` | Delete Plugin |
+| `client.api.claudeCodeMarketplace.downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGet` | `GET /claude-code/plugins/{plugin_name}/archive/{digest}.zip` | Download Plugin Archive |
 | `client.api.claudeCodeMarketplace.disablePluginClaudeCodePluginsPluginNameDisablePost` | `POST /claude-code/plugins/{plugin_name}/disable` | Disable Plugin |
+| `client.api.claudeCodeMarketplace.getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGet` | `GET /claude-code/plugins/{plugin_name}/downloads` | Get Plugin Downloads |
 | `client.api.claudeCodeMarketplace.enablePluginClaudeCodePluginsPluginNameEnablePost` | `POST /claude-code/plugins/{plugin_name}/enable` | Enable Plugin |
 
 ## providers
@@ -844,6 +847,14 @@ Generated from the LiteLLM API 1.109.1 OpenAPI spec; do not edit. 866 operations
 | `client.api.cacheSettings.updateCacheSettingsCacheSettingsPost` | `POST /cache/settings` | Update Cache Settings |
 | `client.api.cacheSettings.testCacheConnectionCacheSettingsTestPost` | `POST /cache/settings/test` | Test Cache Connection |
 
+## alerting
+
+| Call | Request | Summary |
+| --- | --- | --- |
+| `client.api.alerting.getDeprecationAlertStateAlertingModelDeprecationsStateGet` | `GET /alerting/model-deprecations/state` | Get Deprecation Alert State |
+| `client.api.alerting.updateDeprecationAlertStateAlertingModelDeprecationsStatePut` | `PUT /alerting/model-deprecations/state` | Update Deprecation Alert State |
+| `client.api.alerting.getDeprecationUsageTagsAlertingModelDeprecationsTagsGet` | `GET /alerting/model-deprecations/tags` | Get Deprecation Usage Tags |
+
 ## coordinationRedisSettings
 
 | Call | Request | Summary |
@@ -942,9 +953,11 @@ Generated from the LiteLLM API 1.109.1 OpenAPI spec; do not edit. 866 operations
 | Call | Request | Summary |
 | --- | --- | --- |
 | `client.api.websocket.websocketVertexAiLivePassthroughEndpoint` | `GET /vertex_ai/live` | WebSocket: vertex_ai_live_passthrough_endpoint |
-| `client.api.websocket.websocketRealtimeWebsocketEndpointGet` | `GET /realtime` | WebSocket: realtime_websocket_endpoint |
-| `client.api.websocket.websocketRealtimeWebsocketEndpointGet2` | `GET /v1/realtime` | WebSocket: realtime_websocket_endpoint |
-| `client.api.websocket.websocketRealtimeWebsocketEndpointGet3` | `GET /openai/v1/realtime` | WebSocket: realtime_websocket_endpoint |
+| `client.api.websocket.websocketRealtimeWebsocketEndpointGet` | `GET /realtime/translations` | WebSocket: realtime_websocket_endpoint |
+| `client.api.websocket.websocketRealtimeWebsocketEndpointGet2` | `GET /v1/realtime/translations` | WebSocket: realtime_websocket_endpoint |
+| `client.api.websocket.websocketRealtimeWebsocketEndpointGet3` | `GET /realtime` | WebSocket: realtime_websocket_endpoint |
+| `client.api.websocket.websocketRealtimeWebsocketEndpointGet4` | `GET /v1/realtime` | WebSocket: realtime_websocket_endpoint |
+| `client.api.websocket.websocketRealtimeWebsocketEndpointGet5` | `GET /openai/v1/realtime` | WebSocket: realtime_websocket_endpoint |
 | `client.api.websocket.websocketLiveSessionsWebsocketEndpointGet` | `GET /live/sessions` | WebSocket: live_sessions_websocket_endpoint |
 | `client.api.websocket.websocketLiveSessionsWebsocketEndpointGet2` | `GET /v1/live/sessions` | WebSocket: live_sessions_websocket_endpoint |
 | `client.api.websocket.websocketLiveSessionsWebsocketEndpointGet3` | `GET /openai/v1/live/sessions` | WebSocket: live_sessions_websocket_endpoint |
@@ -1253,9 +1266,13 @@ Generated from the LiteLLM API 1.109.1 OpenAPI spec; do not edit. 866 operations
 | `client.api.realtime.proxyRealtimeCallsRealtimeCallsPost` | `POST /realtime/calls` | Proxy Realtime Calls |
 | `client.api.realtime.createRealtimeClientSecretRealtimeClientSecretsPost` | `POST /realtime/client_secrets` | Create Realtime Client Secret |
 | `client.api.realtime.createRealtimeTranscriptionSessionRealtimeTranscriptionSessionsPost` | `POST /realtime/transcription_sessions` | Create Realtime Transcription Session |
+| `client.api.realtime.proxyRealtimeCallsRealtimeTranslationsCallsPost` | `POST /realtime/translations/calls` | Proxy Realtime Calls |
+| `client.api.realtime.createRealtimeClientSecretRealtimeTranslationsClientSecretsPost` | `POST /realtime/translations/client_secrets` | Create Realtime Client Secret |
 | `client.api.realtime.proxyRealtimeCallsV1RealtimeCallsPost` | `POST /v1/realtime/calls` | Proxy Realtime Calls |
 | `client.api.realtime.createRealtimeClientSecretV1RealtimeClientSecretsPost` | `POST /v1/realtime/client_secrets` | Create Realtime Client Secret |
 | `client.api.realtime.createRealtimeTranscriptionSessionV1RealtimeTranscriptionSessionsPost` | `POST /v1/realtime/transcription_sessions` | Create Realtime Transcription Session |
+| `client.api.realtime.proxyRealtimeCallsV1RealtimeTranslationsCallsPost` | `POST /v1/realtime/translations/calls` | Proxy Realtime Calls |
+| `client.api.realtime.createRealtimeClientSecretV1RealtimeTranslationsClientSecretsPost` | `POST /v1/realtime/translations/client_secrets` | Create Realtime Client Secret |
 
 ## anthropicPassthrough
 
@@ -1300,6 +1317,33 @@ Generated from the LiteLLM API 1.109.1 OpenAPI spec; do not edit. 866 operations
 | `client.api.decisions.decisionsV1DecisionsPost` | `POST /v1/decisions` | Ask questions about an input (OpenAI Decisions format) |
 | `client.api.decisions.extractionV1ExtractionPost` | `POST /v1/extraction` | Extract typed fields from a state |
 | `client.api.decisions.systemoneV1SystemonePost` | `POST /v1/systemone` | Ask named questions about a state (System One format) |
+
+## skillHub
+
+| Call | Request | Summary |
+| --- | --- | --- |
+| `client.api.skillHub.listSkillsSkillHubSkillsGet` | `GET /skill-hub/skills` | List Skills |
+| `client.api.skillHub.importSkillSkillHubSkillsImportPost` | `POST /skill-hub/skills/import` | Import Skill |
+| `client.api.skillHub.uploadSkillSkillHubSkillsUploadPost` | `POST /skill-hub/skills/upload` | Upload Skill |
+| `client.api.skillHub.getSkillSkillHubSkillsNameGet` | `GET /skill-hub/skills/{name}` | Get Skill |
+| `client.api.skillHub.replaceSkillMetadataSkillHubSkillsNamePut` | `PUT /skill-hub/skills/{name}` | Replace Skill Metadata |
+| `client.api.skillHub.removeSkillSkillHubSkillsNameDelete` | `DELETE /skill-hub/skills/{name}` | Remove Skill |
+| `client.api.skillHub.downloadSkillSkillHubSkillsNameArchiveGet` | `GET /skill-hub/skills/{name}/archive` | Download Skill |
+| `client.api.skillHub.skillContentSkillHubSkillsNameContentGet` | `GET /skill-hub/skills/{name}/content` | Skill Content |
+| `client.api.skillHub.publishSkillSkillHubSkillsNamePublishPost` | `POST /skill-hub/skills/{name}/publish` | Publish Skill |
+| `client.api.skillHub.unpublishSkillSkillHubSkillsNameUnpublishPost` | `POST /skill-hub/skills/{name}/unpublish` | Unpublish Skill |
+| `client.api.skillHub.replaceSkillArchiveSkillHubSkillsNameUploadPut` | `PUT /skill-hub/skills/{name}/upload` | Replace Skill Archive |
+| `client.api.skillHub.listSkillVersionsSkillHubSkillsNameVersionsGet` | `GET /skill-hub/skills/{name}/versions` | List Skill Versions |
+| `client.api.skillHub.getSkillVersionSkillHubSkillsNameVersionsVersionIdGet` | `GET /skill-hub/skills/{name}/versions/{version_id}` | Get Skill Version |
+| `client.api.skillHub.downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGet` | `GET /skill-hub/skills/{name}/versions/{version_id}/archive` | Download Skill Version |
+| `client.api.skillHub.getPluginDownloadsSkillHubSkillsPluginNameDownloadsGet` | `GET /skill-hub/skills/{plugin_name}/downloads` | Get Plugin Downloads |
+| `client.api.skillHub.listSubmissionsSkillHubSubmissionsGet` | `GET /skill-hub/submissions` | List Submissions |
+| `client.api.skillHub.getSubmissionSkillHubSubmissionsSubmissionIdGet` | `GET /skill-hub/submissions/{submission_id}` | Get Submission |
+| `client.api.skillHub.approveSubmissionSkillHubSubmissionsSubmissionIdApprovePut` | `PUT /skill-hub/submissions/{submission_id}/approve` | Approve Submission |
+| `client.api.skillHub.downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGet` | `GET /skill-hub/submissions/{submission_id}/archive` | Download Submission |
+| `client.api.skillHub.rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPut` | `PUT /skill-hub/submissions/{submission_id}/reject` | Reject Submission |
+| `client.api.skillHub.getSkillScanSkillHubSubmissionsSubmissionIdScanGet` | `GET /skill-hub/submissions/{submission_id}/scan` | Get Skill Scan |
+| `client.api.skillHub.startSkillScanSkillHubSubmissionsSubmissionIdScanPost` | `POST /skill-hub/submissions/{submission_id}/scan` | Start Skill Scan |
 
 ## scim
 

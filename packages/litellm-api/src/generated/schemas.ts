@@ -2233,7 +2233,10 @@ export const standardLoggingRoutingDecisionTierBoundariesSchema = z
 export const standardLoggingRoutingDecisionSchema = z
 	.object({
 		router_model_name: z.string().optional(),
-		router_type: z.enum(["complexity", "adaptive", "quality", "semantic"]).optional(),
+		router_type: z.enum(["complexity", "adaptive", "quality", "semantic", "switchyard"]).optional(),
+		switchyard_algorithm: z.string().optional(),
+		switchyard_evidence: z.unknown().optional(),
+		switchyard_fallback_reason: z.string().optional(),
 		router_config_id: z.string().optional(),
 		router_config_updated_at: z.string().optional(),
 		router_config_fingerprint: z.string().optional(),
@@ -3557,6 +3560,11 @@ export const callTypesSchema = z.enum([
 	"aextraction",
 	"_arealtime",
 	"_aresponses_websocket",
+	"acreate_realtime_client_secret",
+	"arealtime_calls",
+	"acreate_realtime_transcription_session",
+	"acreate_realtime_translation_client_secret",
+	"arealtime_translation_calls",
 	"create_batch",
 	"acreate_batch",
 	"aretrieve_batch",
@@ -3676,6 +3684,8 @@ export const callTypesSchema = z.enum([
 	"adelete_responses",
 	"cancel_responses",
 	"acancel_responses",
+	"compact_responses",
+	"acompact_responses",
 	"alist_input_items",
 	"llm_passthrough_route",
 	"allm_passthrough_route",
@@ -4388,6 +4398,12 @@ export const defaultTeamSSOParamsSchema = z
 			.union([z.string(), z.null().nullable()])
 			.optional()
 			.describe("Default organization for new teams created without an explicit organization"),
+		access_group_ids: z
+			.union([z.array(z.string()), z.null().nullable()])
+			.optional()
+			.describe(
+				"Default access groups attached to new teams created without explicit access_group_ids",
+			),
 	})
 	.describe(
 		"Default parameters applied to every /team/new call for fields not explicitly provided in the request.\n`models` is the exception: it only applies to teams automatically created by LiteLLM via SSO Groups.",
@@ -4537,6 +4553,8 @@ export const liteLLMParamsSchema = z
 		output_cost_per_image_512: z.union([z.number(), z.null().nullable()]).optional(),
 		output_cost_per_image_1024: z.union([z.number(), z.null().nullable()]).optional(),
 		output_cost_per_image_1536: z.union([z.number(), z.null().nullable()]).optional(),
+		output_cost_per_image_1K: z.union([z.number(), z.null().nullable()]).optional(),
+		output_cost_per_image_2K: z.union([z.number(), z.null().nullable()]).optional(),
 		input_cost_per_pixel: z.union([z.number(), z.null().nullable()]).optional(),
 		output_cost_per_pixel: z.union([z.number(), z.null().nullable()]).optional(),
 		input_cost_per_token_flex: z.union([z.number(), z.null().nullable()]).optional(),
@@ -4626,6 +4644,18 @@ export const liteLLMParamsSchema = z
 			.optional(),
 		input_cost_per_audio_token: z.union([z.number(), z.null().nullable()]).optional(),
 		input_cost_per_audio_token_flex: z.union([z.number(), z.null().nullable()]).optional(),
+		input_cost_per_audio_token_above_200k_tokens: z
+			.union([z.number(), z.null().nullable()])
+			.optional(),
+		input_cost_per_audio_token_above_200k_tokens_flex: z
+			.union([z.number(), z.null().nullable()])
+			.optional(),
+		input_cost_per_audio_token_above_200k_tokens_priority: z
+			.union([z.number(), z.null().nullable()])
+			.optional(),
+		input_cost_per_audio_token_above_200k_tokens_batches: z
+			.union([z.number(), z.null().nullable()])
+			.optional(),
 		input_cost_per_audio_token_priority: z.union([z.number(), z.null().nullable()]).optional(),
 		input_cost_per_token_cache_hit: z.union([z.number(), z.null().nullable()]).optional(),
 		input_cost_per_token_above_128k_tokens: z.union([z.number(), z.null().nullable()]).optional(),
@@ -4644,6 +4674,9 @@ export const liteLLMParamsSchema = z
 			.union([z.number(), z.null().nullable()])
 			.optional(),
 		input_cost_per_token_above_200k_tokens_batches: z
+			.union([z.number(), z.null().nullable()])
+			.optional(),
+		input_cost_per_token_above_200k_tokens_flex: z
 			.union([z.number(), z.null().nullable()])
 			.optional(),
 		input_cost_per_token_above_100k_tokens_batches: z
@@ -4697,6 +4730,9 @@ export const liteLLMParamsSchema = z
 		output_cost_per_token_above_200k_tokens_batches: z
 			.union([z.number(), z.null().nullable()])
 			.optional(),
+		output_cost_per_token_above_200k_tokens_flex: z
+			.union([z.number(), z.null().nullable()])
+			.optional(),
 		output_cost_per_token_above_100k_tokens_batches: z
 			.union([z.number(), z.null().nullable()])
 			.optional(),
@@ -4709,6 +4745,7 @@ export const liteLLMParamsSchema = z
 		output_cost_per_image: z.union([z.number(), z.null().nullable()]).optional(),
 		output_cost_per_image_token: z.union([z.number(), z.null().nullable()]).optional(),
 		output_cost_per_image_token_batches: z.union([z.number(), z.null().nullable()]).optional(),
+		output_cost_per_image_token_priority: z.union([z.number(), z.null().nullable()]).optional(),
 		output_cost_per_video_token: z.union([z.number(), z.null().nullable()]).optional(),
 		output_cost_per_reasoning_token: z.union([z.number(), z.null().nullable()]).optional(),
 		output_cost_per_reasoning_token_flex: z.union([z.number(), z.null().nullable()]).optional(),
@@ -4741,6 +4778,7 @@ export const liteLLMParamsSchema = z
 		annotation_cost_per_page_batches: z.union([z.number(), z.null().nullable()]).optional(),
 		regional_processing_uplift_multiplier_eu: z.union([z.number(), z.null().nullable()]).optional(),
 		regional_processing_uplift_multiplier_us: z.union([z.number(), z.null().nullable()]).optional(),
+		fedramp_uplift_multiplier: z.union([z.number(), z.null().nullable()]).optional(),
 		regional_endpoint_uplift_multiplier: z.union([z.number(), z.null().nullable()]).optional(),
 		api_key: z.union([z.string(), z.null().nullable()]).optional(),
 		api_base: z.union([z.string(), z.null().nullable()]).optional(),
@@ -4758,6 +4796,7 @@ export const liteLLMParamsSchema = z
 		region_name: z.union([z.string(), z.null().nullable()]).optional(),
 		gcs_bucket_name: z.union([z.string(), z.null().nullable()]).optional(),
 		bucket_name: z.union([z.string(), z.null().nullable()]).optional(),
+		allow_legacy_cloud_file_ids: z.union([z.boolean(), z.null().nullable()]).optional(),
 		aws_access_key_id: z.union([z.string(), z.null().nullable()]).optional(),
 		aws_secret_access_key: z.union([z.string(), z.null().nullable()]).optional(),
 		aws_session_token: z.union([z.string(), z.null().nullable()]).optional(),
@@ -4878,6 +4917,7 @@ export const liteLLMParamsSchema = z
 			.optional(),
 		tags: z.union([z.array(z.string()), z.null().nullable()]).optional(),
 		tag_regex: z.union([z.array(z.string()), z.null().nullable()]).optional(),
+		switchyard_router_config: z.union([z.looseObject({}), z.null().nullable()]).optional(),
 		auto_router_config_path: z.union([z.string(), z.null().nullable()]).optional(),
 		auto_router_config: z.union([z.string(), z.null().nullable()]).optional(),
 		auto_router_default_model: z.union([z.string(), z.null().nullable()]).optional(),
@@ -4986,6 +5026,17 @@ export const deploymentSchema = z.looseObject({
 	blocked: z.union([z.boolean(), z.null().nullable()]).optional(),
 });
 
+export const priceTierSchema = z.object({
+	range: z.tuple([z.number(), z.number()], z.unknown()),
+	costs: z.record(z.string(), z.number()),
+});
+
+export const deploymentPricingSchema = z.object({
+	provider: z.string(),
+	costs: z.record(z.string(), z.number()),
+	tiered_pricing: z.array(priceTierSchema).optional().default([]),
+});
+
 export const envVarIgnoreSchema = z.object({
 	source: z.enum(["env_var"]).optional().default("env_var"),
 	env_var: z.string(),
@@ -5029,6 +5080,31 @@ export const deploymentWarningsResponseSchema = z.object({
 		.describe("False when no database is connected, so warnings cannot be ignored."),
 });
 
+export const deprecationAlertStatusSchema = z.enum(["open", "resolved", "dismissed"]);
+
+export const deprecationAlertStateSchema = z.object({
+	model: z.string(),
+	deprecation_date: z.iso.date(),
+	status: deprecationAlertStatusSchema.optional().default("open"),
+	last_seen_date: z.union([z.iso.date(), z.null().nullable()]).optional(),
+	last_seen_requests: z.int().optional().default(0),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null().nullable()]).optional(),
+	updated_by: z.union([z.string(), z.null().nullable()]).optional(),
+});
+
+export const deprecationAlertUpdateSchema = z.object({
+	model: z.string().min(1).max(1024),
+	deprecation_date: z.iso.date(),
+	status: deprecationAlertStatusSchema,
+	last_seen_date: z.iso.date(),
+	last_seen_requests: z.int().min(0),
+});
+
+export const deprecationTagUsageSchema = z.object({
+	api_key: z.string(),
+	tag: z.string(),
+});
+
 export const distinctTagResponseSchema = z
 	.object({
 		tag: z.string(),
@@ -5066,6 +5142,7 @@ export const dragSchema = z
 	.describe("A drag action.");
 
 export const emailEventSchema = z.enum([
+	"Model Deprecations",
 	"Virtual Key Created",
 	"New User Invitation",
 	"Virtual Key Rotated",
@@ -6084,6 +6161,7 @@ export const modelGroupInfoProxySchema = z.object({
 	supports_vision: z.boolean().optional().default(false),
 	supports_web_search: z.boolean().optional().default(false),
 	supports_url_context: z.boolean().optional().default(false),
+	supports_continuation: z.boolean().optional().default(false),
 	supports_reasoning: z.boolean().optional().default(false),
 	supports_function_calling: z.boolean().optional().default(false),
 	supports_fast_mode: z.boolean().optional().default(false),
@@ -6100,6 +6178,7 @@ export const modelGroupInfoProxySchema = z.object({
 		.optional(),
 	description: z.union([z.string(), z.null().nullable()]).optional(),
 	supported_endpoints: z.union([z.array(z.string()), z.null().nullable()]).optional(),
+	deployment_pricing: z.array(deploymentPricingSchema).optional().default([]),
 	supports_background_chat: z
 		.boolean()
 		.optional()
@@ -6810,8 +6889,14 @@ export const memoryUpdateRequestSchema = z.object({
 	team_id: z.union([z.string(), z.null().nullable()]).optional(),
 });
 
+export const successorModelSourceSchema = z.enum(["model_cost_map", "deployment_config"]);
+
 export const modelDeprecationInfoSchema = z.object({
 	model_name: z.string().describe("The public name of the model on the proxy (model_group)."),
+	team_public_model_name: z
+		.union([z.string(), z.null().nullable()])
+		.optional()
+		.describe("The model name visible to the team, when configured."),
 	litellm_model: z
 		.union([z.string(), z.null().nullable()])
 		.optional()
@@ -6834,7 +6919,19 @@ export const modelDeprecationInfoSchema = z.object({
 	successor_model: z
 		.union([z.string(), z.null().nullable()])
 		.optional()
-		.describe("The model to migrate to, as set in model_info.successor_model on the deployment."),
+		.describe(
+			"The model to migrate to: model_info.successor_model on the deployment when set, else the successor_model the cost map names for the deprecated model.",
+		),
+	successor_model_source: z
+		.union([successorModelSourceSchema, z.null().nullable()])
+		.optional()
+		.describe(
+			"Whether the recommended successor comes from the model cost map or deployment configuration.",
+		),
+	deprecation_source: z
+		.union([z.string(), z.null().nullable()])
+		.optional()
+		.describe("Provider deprecation notice linked by the selected model cost-map entry."),
 });
 
 export const modelDeprecationResponseSchema = z.object({
@@ -7642,6 +7739,8 @@ export const updateLiteLLMParamsSchema = z.looseObject({
 	output_cost_per_image_512: z.union([z.number(), z.null().nullable()]).optional(),
 	output_cost_per_image_1024: z.union([z.number(), z.null().nullable()]).optional(),
 	output_cost_per_image_1536: z.union([z.number(), z.null().nullable()]).optional(),
+	output_cost_per_image_1K: z.union([z.number(), z.null().nullable()]).optional(),
+	output_cost_per_image_2K: z.union([z.number(), z.null().nullable()]).optional(),
 	input_cost_per_pixel: z.union([z.number(), z.null().nullable()]).optional(),
 	output_cost_per_pixel: z.union([z.number(), z.null().nullable()]).optional(),
 	input_cost_per_token_flex: z.union([z.number(), z.null().nullable()]).optional(),
@@ -7723,6 +7822,18 @@ export const updateLiteLLMParamsSchema = z.looseObject({
 	input_cost_per_character_above_128k_tokens: z.union([z.number(), z.null().nullable()]).optional(),
 	input_cost_per_audio_token: z.union([z.number(), z.null().nullable()]).optional(),
 	input_cost_per_audio_token_flex: z.union([z.number(), z.null().nullable()]).optional(),
+	input_cost_per_audio_token_above_200k_tokens: z
+		.union([z.number(), z.null().nullable()])
+		.optional(),
+	input_cost_per_audio_token_above_200k_tokens_flex: z
+		.union([z.number(), z.null().nullable()])
+		.optional(),
+	input_cost_per_audio_token_above_200k_tokens_priority: z
+		.union([z.number(), z.null().nullable()])
+		.optional(),
+	input_cost_per_audio_token_above_200k_tokens_batches: z
+		.union([z.number(), z.null().nullable()])
+		.optional(),
 	input_cost_per_audio_token_priority: z.union([z.number(), z.null().nullable()]).optional(),
 	input_cost_per_token_cache_hit: z.union([z.number(), z.null().nullable()]).optional(),
 	input_cost_per_token_above_128k_tokens: z.union([z.number(), z.null().nullable()]).optional(),
@@ -7741,6 +7852,9 @@ export const updateLiteLLMParamsSchema = z.looseObject({
 		.union([z.number(), z.null().nullable()])
 		.optional(),
 	input_cost_per_token_above_200k_tokens_batches: z
+		.union([z.number(), z.null().nullable()])
+		.optional(),
+	input_cost_per_token_above_200k_tokens_flex: z
 		.union([z.number(), z.null().nullable()])
 		.optional(),
 	input_cost_per_token_above_100k_tokens_batches: z
@@ -7794,6 +7908,9 @@ export const updateLiteLLMParamsSchema = z.looseObject({
 	output_cost_per_token_above_200k_tokens_batches: z
 		.union([z.number(), z.null().nullable()])
 		.optional(),
+	output_cost_per_token_above_200k_tokens_flex: z
+		.union([z.number(), z.null().nullable()])
+		.optional(),
 	output_cost_per_token_above_100k_tokens_batches: z
 		.union([z.number(), z.null().nullable()])
 		.optional(),
@@ -7806,6 +7923,7 @@ export const updateLiteLLMParamsSchema = z.looseObject({
 	output_cost_per_image: z.union([z.number(), z.null().nullable()]).optional(),
 	output_cost_per_image_token: z.union([z.number(), z.null().nullable()]).optional(),
 	output_cost_per_image_token_batches: z.union([z.number(), z.null().nullable()]).optional(),
+	output_cost_per_image_token_priority: z.union([z.number(), z.null().nullable()]).optional(),
 	output_cost_per_video_token: z.union([z.number(), z.null().nullable()]).optional(),
 	output_cost_per_reasoning_token: z.union([z.number(), z.null().nullable()]).optional(),
 	output_cost_per_reasoning_token_flex: z.union([z.number(), z.null().nullable()]).optional(),
@@ -7838,6 +7956,7 @@ export const updateLiteLLMParamsSchema = z.looseObject({
 	annotation_cost_per_page_batches: z.union([z.number(), z.null().nullable()]).optional(),
 	regional_processing_uplift_multiplier_eu: z.union([z.number(), z.null().nullable()]).optional(),
 	regional_processing_uplift_multiplier_us: z.union([z.number(), z.null().nullable()]).optional(),
+	fedramp_uplift_multiplier: z.union([z.number(), z.null().nullable()]).optional(),
 	regional_endpoint_uplift_multiplier: z.union([z.number(), z.null().nullable()]).optional(),
 	api_key: z.union([z.string(), z.null().nullable()]).optional(),
 	api_base: z.union([z.string(), z.null().nullable()]).optional(),
@@ -7855,6 +7974,7 @@ export const updateLiteLLMParamsSchema = z.looseObject({
 	region_name: z.union([z.string(), z.null().nullable()]).optional(),
 	gcs_bucket_name: z.union([z.string(), z.null().nullable()]).optional(),
 	bucket_name: z.union([z.string(), z.null().nullable()]).optional(),
+	allow_legacy_cloud_file_ids: z.union([z.boolean(), z.null().nullable()]).optional(),
 	aws_access_key_id: z.union([z.string(), z.null().nullable()]).optional(),
 	aws_secret_access_key: z.union([z.string(), z.null().nullable()]).optional(),
 	aws_session_token: z.union([z.string(), z.null().nullable()]).optional(),
@@ -7975,6 +8095,7 @@ export const updateLiteLLMParamsSchema = z.looseObject({
 		.optional(),
 	tags: z.union([z.array(z.string()), z.null().nullable()]).optional(),
 	tag_regex: z.union([z.array(z.string()), z.null().nullable()]).optional(),
+	switchyard_router_config: z.union([z.looseObject({}), z.null().nullable()]).optional(),
 	auto_router_config_path: z.union([z.string(), z.null().nullable()]).optional(),
 	auto_router_config: z.union([z.string(), z.null().nullable()]).optional(),
 	auto_router_default_model: z.union([z.string(), z.null().nullable()]).optional(),
@@ -9868,6 +9989,7 @@ export const tagUpdateRequestSchema = z.object({
 	description: z.union([z.string(), z.null().nullable()]).optional(),
 	models: z.union([z.array(z.string()), z.null().nullable()]).optional(),
 	model_info: z.union([z.record(z.string(), z.string()), z.null().nullable()]).optional(),
+	spend: z.union([z.number(), z.null().nullable()]).optional(),
 	budget_id: z.union([z.string(), z.null().nullable()]).optional(),
 	max_budget: z.union([z.number(), z.null().nullable()]).optional(),
 	soft_budget: z.union([z.number(), z.null().nullable()]).optional(),
@@ -10414,6 +10536,44 @@ export const traceQueryRequestSchema = z.strictObject({
 
 export const traceSQLResponseSchema = z.strictObject({
 	data: z.array(z.record(z.string(), jsonValueSchema)),
+});
+
+export const transcriptionDetectedLanguageSchema = z.object({
+	code: z.string(),
+});
+
+export const transcriptionUsageDurationObjectSchema = z.object({
+	type: z.enum(["duration"]),
+	seconds: z.number(),
+});
+
+export const transcriptionUsageInputTokenDetailsObjectSchema = z.object({
+	audio_tokens: z.int(),
+	text_tokens: z.int(),
+});
+
+export const transcriptionUsageTokensObjectSchema = z.object({
+	type: z.enum(["tokens"]),
+	input_tokens: z.int(),
+	output_tokens: z.int(),
+	total_tokens: z.int(),
+	input_token_details: z
+		.union([transcriptionUsageInputTokenDetailsObjectSchema, z.null().nullable()])
+		.optional(),
+});
+
+export const transcriptionResponseSchema = z.looseObject({
+	text: z.union([z.string(), z.null().nullable()]).optional(),
+	usage: z
+		.union([
+			transcriptionUsageDurationObjectSchema,
+			transcriptionUsageTokensObjectSchema,
+			z.null().nullable(),
+		])
+		.optional(),
+	languages: z
+		.union([z.array(transcriptionDetectedLanguageSchema), z.null().nullable()])
+		.optional(),
 });
 
 export const transformRequestBodySchema = z.object({
@@ -11130,6 +11290,7 @@ export const chatCompletionToolMessageSchema = z.object({
 		),
 	]),
 	tool_call_id: z.string(),
+	is_error: z.boolean().optional(),
 });
 
 export const chatCompletionVideoUrlObjectSchema = z.object({
@@ -11867,6 +12028,7 @@ export const outcomeTimeoutSchema = z
 export const promptCacheOptionsSchema = z.object({
 	mode: z.enum(["implicit", "explicit"]).optional(),
 	ttl: z.enum(["30m", "12h"]).optional(),
+	comparison_response_id: z.string().optional(),
 });
 
 export const promptObjectSchema = z
@@ -12889,6 +13051,12 @@ export const baseLitellmParamsSchema = z.looseObject({
 		.describe(
 			"Character budget for each text sent to the guardrail's model. Implemented by guardrail='decision_model'.",
 		),
+	mcp_block_behavior: z
+		.union([z.enum(["tool_result", "raise"]), z.null().nullable()])
+		.optional()
+		.describe(
+			"How to handle guardrail blocks when executing MCP tools for an LLM request. 'raise' propagates the guardrail error to the client. 'tool_result' or None returns the block as a tool result and lets the LLM continue.",
+		),
 	model: z
 		.union([z.string(), z.null().nullable()])
 		.optional()
@@ -12909,7 +13077,7 @@ export const baseLitellmParamsSchema = z.looseObject({
 		.union([z.enum(["warn", "end_session", "block", "alert"]), z.null().nullable()])
 		.optional()
 		.describe(
-			"For /v1/realtime sessions: 'warn' speaks the violation message and continues; 'end_session' speaks the message and closes the connection. For guardrail='mcp_security': 'block' rejects the request; 'alert' only logs a warning.",
+			"For /v1/realtime sessions: 'warn' speaks the violation message and continues; 'end_session' speaks the message and closes the connection. Bedrock Nova Sonic cannot cancel a spoken turn's answer, so a blocked spoken turn always ends its session. For guardrail='mcp_security': 'block' rejects the request; 'alert' only logs a warning.",
 		),
 	only_scan_new_messages: z
 		.union([z.boolean(), z.null().nullable()])
@@ -12938,7 +13106,7 @@ export const baseLitellmParamsSchema = z.looseObject({
 		.union([z.string(), z.null().nullable()])
 		.optional()
 		.describe(
-			"The message the bot speaks aloud when a /v1/realtime guardrail fires. Falls back to violation_message_template if not set.",
+			"The message the bot speaks aloud when a /v1/realtime guardrail fires. Falls back to the guardrail's block reason if not set.",
 		),
 	run_in_parallel: z
 		.union([z.boolean(), z.null().nullable()])
@@ -13223,7 +13391,9 @@ export const toolPermissionRuleSchema = z
 		tool_name: z
 			.union([z.string(), z.null().nullable()])
 			.optional()
-			.describe("Regex pattern applied to the tool's function name"),
+			.describe(
+				"Regex pattern applied to the tool's name, or to its type when the tool has no name",
+			),
 		tool_type: z
 			.union([z.string(), z.null().nullable()])
 			.optional()
@@ -13720,6 +13890,12 @@ export const litellmParamsSchema = z.looseObject({
 		.describe(
 			"Character budget for each text sent to the guardrail's model. Implemented by guardrail='decision_model'.",
 		),
+	mcp_block_behavior: z
+		.union([z.enum(["tool_result", "raise"]), z.null().nullable()])
+		.optional()
+		.describe(
+			"How to handle guardrail blocks when executing MCP tools for an LLM request. 'raise' propagates the guardrail error to the client. 'tool_result' or None returns the block as a tool result and lets the LLM continue.",
+		),
 	metadata: z
 		.union([z.looseObject({}), z.null().nullable()])
 		.optional()
@@ -13776,7 +13952,7 @@ export const litellmParamsSchema = z.looseObject({
 		.union([z.enum(["warn", "end_session", "block", "alert"]), z.null().nullable()])
 		.optional()
 		.describe(
-			"For /v1/realtime sessions: 'warn' speaks the violation message and continues; 'end_session' speaks the message and closes the connection. For guardrail='mcp_security': 'block' rejects the request; 'alert' only logs a warning.",
+			"For /v1/realtime sessions: 'warn' speaks the violation message and continues; 'end_session' speaks the message and closes the connection. Bedrock Nova Sonic cannot cancel a spoken turn's answer, so a blocked spoken turn always ends its session. For guardrail='mcp_security': 'block' rejects the request; 'alert' only logs a warning.",
 		),
 	only_scan_new_messages: z
 		.union([z.boolean(), z.null().nullable()])
@@ -13933,7 +14109,7 @@ export const litellmParamsSchema = z.looseObject({
 		.union([z.string(), z.null().nullable()])
 		.optional()
 		.describe(
-			"The message the bot speaks aloud when a /v1/realtime guardrail fires. Falls back to violation_message_template if not set.",
+			"The message the bot speaks aloud when a /v1/realtime guardrail fires. Falls back to the guardrail's block reason if not set.",
 		),
 	rules: z
 		.union([z.array(toolPermissionRuleSchema), z.null().nullable()])
@@ -16096,7 +16272,7 @@ export const hashicorpVaultConfigSchema = z
 
 export const choiceAnswerSchema = z.looseObject({
 	choice: z.string(),
-	confidence: z.number(),
+	confidence: z.union([z.number(), z.null().nullable()]).optional(),
 	probabilities: z.record(z.string(), z.number()),
 	type: z.enum(["choice"]),
 });
@@ -16107,7 +16283,7 @@ export const noulAnswerSchema = z.looseObject({
 });
 
 export const scoreAnswerSchema = z.looseObject({
-	confidence: z.number(),
+	confidence: z.union([z.number(), z.null().nullable()]).optional(),
 	legend: z.record(z.string(), z.union([z.string(), z.looseObject({}), z.array(z.unknown())])),
 	probabilities: z.record(z.string(), z.number()),
 	score: z.number(),
@@ -16401,7 +16577,7 @@ export const openAIChoiceProbabilitySchema = z.object({
 
 export const openAIChoiceAnswerSchema = z.object({
 	choice: z.union([z.string(), z.boolean()]),
-	confidence: z.number(),
+	confidence: z.union([z.number(), z.null().nullable()]).optional(),
 	name: z.union([z.string(), z.null().nullable()]),
 	probabilities: z.array(openAIChoiceProbabilitySchema),
 	type: z.enum(["choice"]).optional().default("choice"),
@@ -16429,7 +16605,7 @@ export const openAIScoreProbabilitySchema = z.object({
 });
 
 export const openAIScoreAnswerSchema = z.object({
-	confidence: z.number(),
+	confidence: z.union([z.number(), z.null().nullable()]).optional(),
 	name: z.union([z.string(), z.null().nullable()]),
 	probabilities: z.array(openAIScoreProbabilitySchema),
 	score: z.number(),
@@ -16477,6 +16653,221 @@ export const openAIDecisionResponseSchema = z.looseObject({
 	usage: openAIDecisionUsageSchema,
 });
 
+export const bodyReplaceSkillArchiveSkillHubSkillsNameUploadPutSchema = z.object({
+	expected_updated_at: z.union([z.iso.datetime({ offset: true }), z.null().nullable()]).optional(),
+	file: z
+		.instanceof(Blob)
+		.describe("Replacement Agent Skills ZIP with the same declared skill name"),
+	version: z.union([z.string(), z.null().nullable()]).optional(),
+});
+
+export const bodyUploadSkillSkillHubSkillsUploadPostSchema = z.object({
+	file: z.instanceof(Blob).describe("Agent Skills ZIP with SKILL.md and optional supporting files"),
+	version: z.union([z.string(), z.null().nullable()]).optional(),
+});
+
+export const importSkillRequestSchema = z.object({
+	path: z
+		.union([z.string(), z.null().nullable()])
+		.optional()
+		.describe("Repository-relative skill directory"),
+	ref: z.string().optional().default("HEAD").describe("Git commit, tag or branch to import"),
+	skill: z
+		.union([z.string(), z.null().nullable()])
+		.optional()
+		.describe("Skill name to select when a repository contains several skills"),
+	url: z.string().describe("Public skills.sh skill URL or GitHub repository URL"),
+	version: z
+		.union([z.string(), z.null().nullable()])
+		.optional()
+		.describe("Semantic version, or omit/null to start at 1.0.0"),
+});
+
+export const pluginDownloadEventSchema = z.object({
+	authenticated: z.boolean(),
+	digest: z.string(),
+	downloaded_at: z.iso.datetime({ offset: true }),
+	id: z.string(),
+	key_alias: z.union([z.string(), z.null().nullable()]),
+	team_alias: z.union([z.string(), z.null().nullable()]),
+	team_id: z.union([z.string(), z.null().nullable()]),
+	user_email: z.union([z.string(), z.null().nullable()]),
+	user_id: z.union([z.string(), z.null().nullable()]),
+	version: z.union([z.string(), z.null().nullable()]),
+});
+
+export const pluginDownloadsResponseSchema = z.object({
+	anonymous_downloads: z.int(),
+	downloads: z.array(pluginDownloadEventSchema),
+	next_cursor: z.union([z.string(), z.null().nullable()]),
+	total_downloads: z.int(),
+});
+
+export const skillHubAgentSkillSchema = z.object({
+	description: z.string(),
+	digest: z.string(),
+	name: z.string(),
+	origin: z.union([z.string(), z.null().nullable()]),
+});
+
+export const skillHubSkillSchema = z.object({
+	approved_by: z.union([z.string(), z.null().nullable()]).optional(),
+	content_url: z.union([z.string(), z.null().nullable()]).optional(),
+	created_at: z.union([z.iso.datetime({ offset: true }), z.null().nullable()]).optional(),
+	created_by: z.union([z.string(), z.null().nullable()]).optional(),
+	description: z.union([z.string(), z.null().nullable()]).optional(),
+	domain: z.union([z.string(), z.null().nullable()]).optional(),
+	download_count: z
+		.union([z.int(), z.null().nullable()])
+		.optional()
+		.describe("Gateway ZIP downloads, including repeat downloads"),
+	download_url: z.union([z.string(), z.null().nullable()]).optional(),
+	id: z.string(),
+	keywords: z.union([z.array(z.string()), z.null().nullable()]).optional(),
+	name: z.string(),
+	namespace: z.union([z.string(), z.null().nullable()]).optional(),
+	published_by: z.union([z.string(), z.null().nullable()]).optional(),
+	security_scan_passed: z.boolean().optional().default(false),
+	source: z.record(z.string(), z.string()),
+	updated_at: z.union([z.iso.datetime({ offset: true }), z.null().nullable()]).optional(),
+	version: z.union([z.string(), z.null().nullable()]).optional(),
+	visibility: z.enum(["public", "private"]),
+});
+
+export const skillHubListSchema = z.object({
+	count: z.int(),
+	next_offset: z.union([z.int(), z.null().nullable()]),
+	skills: z.array(skillHubSkillSchema),
+	tags: z.array(z.string()).optional().default([]),
+});
+
+export const skillHubMetadataSchema = z.strictObject({
+	description: z.union([z.string().max(1024), z.null().nullable()]).optional(),
+	domain: z.union([z.string(), z.null().nullable()]).optional(),
+	expected_updated_at: z
+		.union([z.iso.datetime({ offset: true }), z.null().nullable()])
+		.optional()
+		.describe("Published updated_at read by the editor. A stale value returns 409"),
+	keywords: z.union([z.array(z.string()), z.null().nullable()]).optional(),
+	namespace: z.union([z.string(), z.null().nullable()]).optional(),
+	version: z
+		.union([z.string(), z.null().nullable()])
+		.optional()
+		.describe("Explicit higher SemVer, or omit/null for an automatic patch bump"),
+});
+
+export const skillHubProposalSchema = z.object({
+	agent_skill: z.union([skillHubAgentSkillSchema, z.null().nullable()]).optional(),
+	description: z.union([z.string(), z.null().nullable()]),
+	domain: z.union([z.string(), z.null().nullable()]).optional(),
+	keywords: z.union([z.array(z.string()), z.null().nullable()]).optional(),
+	name: z.string(),
+	namespace: z.union([z.string(), z.null().nullable()]).optional(),
+	source: z.record(z.string(), z.string()),
+	version: z.union([z.string(), z.null().nullable()]),
+});
+
+export const skillHubPendingSkillSchema = z.object({
+	action: z.enum(["submitted"]).optional().default("submitted"),
+	proposal: skillHubProposalSchema,
+	status: z.enum(["pending_review"]).optional().default("pending_review"),
+	submission_id: z.string(),
+});
+
+export const skillHubPublicationSchema = z.strictObject({});
+
+export const skillHubRejectionSchema = z.strictObject({
+	reason: z.union([z.string().max(2000), z.null().nullable()]).optional(),
+});
+
+export const skillHubSubmissionSchema = z.object({
+	base_skill_id: z.union([z.string(), z.null().nullable()]),
+	base_updated_at: z.union([z.iso.datetime({ offset: true }), z.null().nullable()]),
+	created_at: z.iso.datetime({ offset: true }),
+	has_archive: z.boolean(),
+	id: z.string(),
+	operation: z.enum(["create", "update"]),
+	proposal: skillHubProposalSchema,
+	rejection_reason: z.union([z.string(), z.null().nullable()]),
+	reviewed_at: z.union([z.iso.datetime({ offset: true }), z.null().nullable()]),
+	reviewed_by: z.union([z.string(), z.null().nullable()]),
+	skill_name: z.string(),
+	status: z.enum(["pending_review", "approved", "rejected"]),
+	submitted_by: z.string(),
+});
+
+export const skillHubReviewResponseSchema = z.object({
+	action: z.enum(["approved", "rejected"]),
+	skill: z.union([skillHubSkillSchema, z.null().nullable()]),
+	status: z.enum(["success"]).optional().default("success"),
+	submission: skillHubSubmissionSchema,
+});
+
+export const skillHubSubmissionDetailSchema = z.object({
+	current_skill: z.union([skillHubSkillSchema, z.null().nullable()]),
+	submission: skillHubSubmissionSchema,
+});
+
+export const skillHubSubmissionListSchema = z.object({
+	count: z.int(),
+	has_more: z.boolean(),
+	submissions: z.array(skillHubSubmissionSchema),
+});
+
+export const skillHubVersionSchema = z.object({
+	content_kind: z.enum(["stored_archive", "source_reference"]),
+	description: z.union([z.string(), z.null().nullable()]),
+	download_url: z.union([z.string(), z.null().nullable()]),
+	id: z.string(),
+	manifest: z.looseObject({}),
+	published_at: z.union([z.iso.datetime({ offset: true }), z.null().nullable()]),
+	published_by: z.union([z.string(), z.null().nullable()]),
+	version: z.union([z.string(), z.null().nullable()]),
+});
+
+export const skillHubVersionsSchema = z.object({
+	next_offset: z.union([z.int(), z.null().nullable()]),
+	versions: z.array(skillHubVersionSchema),
+});
+
+export const skillScanFindingSchema = z.object({
+	explanation: z.union([z.string().max(8000), z.null().nullable()]).optional(),
+	file: z.string().max(2048),
+	message: z.string().max(8000),
+	remediation: z.union([z.string().max(8000), z.null().nullable()]).optional(),
+	rule_id: z.string().max(200),
+	severity: z.enum(["LOW", "MEDIUM", "HIGH", "CRITICAL"]),
+	start_line: z.union([z.int().min(1), z.null().nullable()]).optional(),
+});
+
+export const skillScanReportSchema = z.object({
+	complete: z.boolean(),
+	findings: z.array(skillScanFindingSchema).max(500),
+	limitations: z.array(z.string().max(2000)).max(100).optional().default([]),
+	risk_score: z.int().min(0).max(100),
+	scan_mode: z.enum(["static-only", "static+llm"]),
+	scanner_version: z.string().min(1).max(100),
+});
+
+export const skillScanSchema = z.object({
+	archive_sha256: z.union([z.string(), z.null().nullable()]).optional(),
+	completed_at: z.union([z.iso.datetime({ offset: true }), z.null().nullable()]).optional(),
+	error: z.union([z.string(), z.null().nullable()]).optional(),
+	expires_at: z.iso.datetime({ offset: true }),
+	id: z.string(),
+	report: z.union([skillScanReportSchema, z.null().nullable()]).optional(),
+	requested_by: z.string(),
+	started_at: z.iso.datetime({ offset: true }),
+	status: z.enum(["running", "completed", "failed"]),
+});
+
+export const skillScanRequestSchema = z.strictObject({});
+
+export const skillScanResponseSchema = z.object({
+	configured: z.boolean(),
+	scan: z.union([skillScanSchema, z.null().nullable()]),
+});
+
 export const pluginAuthorSchema = z
 	.object({
 		email: z.union([z.string(), z.null().nullable()]).optional().describe("Author email"),
@@ -16484,13 +16875,69 @@ export const pluginAuthorSchema = z
 	})
 	.describe("Plugin author information.");
 
+export const uploadPluginRequestSchema = z.object({
+	author: z.union([pluginAuthorSchema, z.null().nullable()]).optional().describe("Plugin author"),
+	category: z.union([z.string(), z.null().nullable()]).optional().describe("Plugin category"),
+	description: z.union([z.string(), z.null().nullable()]).optional().describe("Plugin description"),
+	domain: z
+		.union([z.string(), z.null().nullable()])
+		.optional()
+		.describe("Skill domain (e.g., 'Productivity')"),
+	homepage: z.union([z.string(), z.null().nullable()]).optional().describe("Plugin homepage URL"),
+	installation_preference: z
+		.union([z.enum(["available", "auto_install", "required"]), z.null().nullable()])
+		.optional()
+		.describe(
+			"Emitted as installationPreference on this plugin's marketplace.json entry. Needs an archive source, the only plugins Claude Desktop lists from a marketplace.json URL, and 'auto_install' or 'required' also need its sha256. Claude Desktop honors the mark only when the archive and marketplace.json share its inference gateway origin",
+		),
+	keywords: z
+		.union([z.array(z.string()), z.null().nullable()])
+		.optional()
+		.describe("Search keywords"),
+	name: z
+		.string()
+		.regex(/^[a-z0-9-]+$/)
+		.describe("Skill name (kebab-case)"),
+	namespace: z
+		.union([z.string(), z.null().nullable()])
+		.optional()
+		.describe("Skill namespace within domain (e.g., 'workflows')"),
+	version: z
+		.union([z.string(), z.null().nullable()])
+		.optional()
+		.default("1.0.0")
+		.describe("Semantic version, defaults to 1.0.0 on creation"),
+});
+
+export const bodyUploadPluginClaudeCodePluginsUploadPostSchema = z.object({
+	file: z
+		.instanceof(Blob)
+		.describe("Skill ZIP containing SKILL.md and supporting files, up to 10 MiB"),
+	metadata: z
+		.string()
+		.refine(
+			(value) => {
+				try {
+					return uploadPluginRequestSchema.safeParse(JSON.parse(value)).success;
+				} catch {
+					return false;
+				}
+			},
+			{ message: "String must hold JSON that matches its content schema" },
+		)
+		.describe("JSON skill metadata without a source URL"),
+});
+
 export const pluginListItemSchema = z
 	.object({
+		approved_by: z.union([z.string(), z.null().nullable()]).optional(),
 		author: z.union([pluginAuthorSchema, z.null().nullable()]).optional(),
 		category: z.union([z.string(), z.null().nullable()]).optional(),
 		created_at: z.union([z.string(), z.null().nullable()]),
+		created_by: z.union([z.string(), z.null().nullable()]).optional(),
 		description: z.union([z.string(), z.null().nullable()]),
 		domain: z.union([z.string(), z.null().nullable()]).optional(),
+		download_count: z.union([z.int(), z.null().nullable()]).optional(),
 		enabled: z.boolean(),
 		homepage: z.union([z.string(), z.null().nullable()]).optional(),
 		id: z.string(),
@@ -16500,6 +16947,8 @@ export const pluginListItemSchema = z
 		keywords: z.union([z.array(z.string()), z.null().nullable()]).optional(),
 		name: z.string(),
 		namespace: z.union([z.string(), z.null().nullable()]).optional(),
+		published_by: z.union([z.string(), z.null().nullable()]).optional(),
+		security_scan_passed: z.boolean().optional().default(false),
 		source: z.record(z.string(), z.string()),
 		updated_at: z.union([z.string(), z.null().nullable()]),
 		version: z.union([z.string(), z.null().nullable()]),
@@ -16571,7 +17020,7 @@ export const registerPluginRequestSchema = z
 			.union([z.string(), z.null().nullable()])
 			.optional()
 			.default("1.0.0")
-			.describe("Semantic version"),
+			.describe("Semantic version, defaults to 1.0.0 on creation"),
 	})
 	.describe(
 		"Request body for registering a plugin in the marketplace.\n\nLiteLLM acts as a registry/discovery layer. Plugins are hosted on\nGitHub/GitLab/Bitbucket or as a zip archive on any https host and referenced by their source.",
@@ -16597,6 +17046,10 @@ export const updatePluginRequestSchema = z
 			.union([z.string(), z.null().nullable()])
 			.optional()
 			.describe("Skill domain (e.g., 'Productivity')"),
+		expected_updated_at: z
+			.union([z.iso.datetime({ offset: true }), z.null().nullable()])
+			.optional()
+			.describe("Published updated_at read by the editor. A stale value returns 409"),
 		homepage: z.union([z.string(), z.null().nullable()]).optional().describe("Plugin homepage URL"),
 		installation_preference: z
 			.union([z.enum(["available", "auto_install", "required"]), z.null().nullable()])
@@ -16620,10 +17073,10 @@ export const updatePluginRequestSchema = z
 		version: z
 			.union([z.string(), z.null().nullable()])
 			.optional()
-			.describe("Semantic version; cleared if omitted"),
+			.describe("Explicit higher SemVer, or omit/null for an automatic patch bump"),
 	})
 	.describe(
-		'Request body for replacing an existing plugin.\n\nThe plugin name is the resource identity and is supplied as the path\nparameter, so it cannot be changed here. This is a full replace: omitted\nfields reset to their defaults, so version is cleared rather than\ndefaulting to the create-time "1.0.0".',
+		"Request body for replacing an existing plugin.\n\nThe plugin name is the resource identity and is supplied as the path\nparameter, so it cannot be changed here. This is a full replace: omitted\nfields reset to their defaults, except version which automatically increments\nthe published patch version when omitted or null.",
 	);
 
 export const SCIMUserManagerSchema = z.object({
@@ -17816,7 +18269,8 @@ export const audioSpeechV1AudioSpeechPostStatus200Schema = z.looseObject({});
 export const audioSpeechV1AudioSpeechPostResponseSchema =
 	audioSpeechV1AudioSpeechPostStatus200Schema;
 
-export const audioTranscriptionsAudioTranscriptionsPostStatus200Schema = z.looseObject({});
+export const audioTranscriptionsAudioTranscriptionsPostStatus200Schema =
+	transcriptionResponseSchema;
 
 export const audioTranscriptionsAudioTranscriptionsPostStatus422Schema = HTTPValidationErrorSchema;
 
@@ -17829,7 +18283,8 @@ export const audioTranscriptionsAudioTranscriptionsPostErrorSchema =
 export const audioTranscriptionsAudioTranscriptionsPostBodySchema =
 	bodyAudioTranscriptionsAudioTranscriptionsPostSchema;
 
-export const audioTranscriptionsV1AudioTranscriptionsPostStatus200Schema = z.looseObject({});
+export const audioTranscriptionsV1AudioTranscriptionsPostStatus200Schema =
+	transcriptionResponseSchema;
 
 export const audioTranscriptionsV1AudioTranscriptionsPostStatus422Schema =
 	HTTPValidationErrorSchema;
@@ -28953,6 +29408,81 @@ export const testCacheConnectionCacheSettingsTestPostErrorSchema =
 
 export const testCacheConnectionCacheSettingsTestPostBodySchema = cacheTestRequestSchema;
 
+export const getDeprecationAlertStateAlertingModelDeprecationsStateGetQueryModelSchema = z
+	.string()
+	.min(1)
+	.max(1024);
+
+export const getDeprecationAlertStateAlertingModelDeprecationsStateGetQueryDeprecationDateSchema =
+	z.iso.date();
+
+export const getDeprecationAlertStateAlertingModelDeprecationsStateGetStatus200Schema =
+	deprecationAlertStateSchema;
+
+export const getDeprecationAlertStateAlertingModelDeprecationsStateGetStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const getDeprecationAlertStateAlertingModelDeprecationsStateGetResponseSchema =
+	getDeprecationAlertStateAlertingModelDeprecationsStateGetStatus200Schema;
+
+export const getDeprecationAlertStateAlertingModelDeprecationsStateGetErrorSchema =
+	getDeprecationAlertStateAlertingModelDeprecationsStateGetStatus422Schema;
+
+export const getDeprecationAlertStateAlertingModelDeprecationsStateGetQuerySchema = z.object({
+	model: z.string().min(1).max(1024),
+	deprecation_date: z.iso.date(),
+});
+
+export const updateDeprecationAlertStateAlertingModelDeprecationsStatePutStatus200Schema =
+	deprecationAlertStateSchema;
+
+export const updateDeprecationAlertStateAlertingModelDeprecationsStatePutStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const updateDeprecationAlertStateAlertingModelDeprecationsStatePutResponseSchema =
+	updateDeprecationAlertStateAlertingModelDeprecationsStatePutStatus200Schema;
+
+export const updateDeprecationAlertStateAlertingModelDeprecationsStatePutErrorSchema =
+	updateDeprecationAlertStateAlertingModelDeprecationsStatePutStatus422Schema;
+
+export const updateDeprecationAlertStateAlertingModelDeprecationsStatePutBodySchema =
+	deprecationAlertUpdateSchema;
+
+export const getDeprecationUsageTagsAlertingModelDeprecationsTagsGetQueryModelSchema = z
+	.string()
+	.min(1)
+	.max(1024);
+
+export const getDeprecationUsageTagsAlertingModelDeprecationsTagsGetQueryApiKeysSchema = z
+	.array(z.string())
+	.min(1)
+	.max(100);
+
+export const getDeprecationUsageTagsAlertingModelDeprecationsTagsGetQueryStartDateSchema =
+	z.iso.date();
+
+export const getDeprecationUsageTagsAlertingModelDeprecationsTagsGetQueryEndDateSchema =
+	z.iso.date();
+
+export const getDeprecationUsageTagsAlertingModelDeprecationsTagsGetStatus200Schema =
+	z.array(deprecationTagUsageSchema);
+
+export const getDeprecationUsageTagsAlertingModelDeprecationsTagsGetStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const getDeprecationUsageTagsAlertingModelDeprecationsTagsGetResponseSchema =
+	getDeprecationUsageTagsAlertingModelDeprecationsTagsGetStatus200Schema;
+
+export const getDeprecationUsageTagsAlertingModelDeprecationsTagsGetErrorSchema =
+	getDeprecationUsageTagsAlertingModelDeprecationsTagsGetStatus422Schema;
+
+export const getDeprecationUsageTagsAlertingModelDeprecationsTagsGetQuerySchema = z.object({
+	model: z.string().min(1).max(1024),
+	api_keys: z.array(z.string()).min(1).max(100),
+	start_date: z.iso.date(),
+	end_date: z.iso.date(),
+});
+
 export const getCoordinationRedisSettingsCoordinationRedisSettingsGetStatus200Schema =
 	coordinationRedisSettingsResponseSchema;
 
@@ -30177,6 +30707,20 @@ export const websocketRealtimeWebsocketEndpointGet3ResponseSchema = z.unknown();
 
 export const websocketRealtimeWebsocketEndpointGet3ErrorSchema =
 	websocketRealtimeWebsocketEndpointGet3Status101Schema;
+
+export const websocketRealtimeWebsocketEndpointGet4Status101Schema = z.unknown();
+
+export const websocketRealtimeWebsocketEndpointGet4ResponseSchema = z.unknown();
+
+export const websocketRealtimeWebsocketEndpointGet4ErrorSchema =
+	websocketRealtimeWebsocketEndpointGet4Status101Schema;
+
+export const websocketRealtimeWebsocketEndpointGet5Status101Schema = z.unknown();
+
+export const websocketRealtimeWebsocketEndpointGet5ResponseSchema = z.unknown();
+
+export const websocketRealtimeWebsocketEndpointGet5ErrorSchema =
+	websocketRealtimeWebsocketEndpointGet5Status101Schema;
 
 export const websocketLiveSessionsWebsocketEndpointGetStatus101Schema = z.unknown();
 
@@ -34232,6 +34776,106 @@ export const createRealtimeTranscriptionSessionRealtimeTranscriptionSessionsPost
 export const createRealtimeTranscriptionSessionRealtimeTranscriptionSessionsPostResponseSchema =
 	createRealtimeTranscriptionSessionRealtimeTranscriptionSessionsPostStatus200Schema;
 
+export const proxyRealtimeCallsRealtimeTranslationsCallsPostStatus201Schema = z.string();
+
+export const proxyRealtimeCallsRealtimeTranslationsCallsPostResponseSchema =
+	proxyRealtimeCallsRealtimeTranslationsCallsPostStatus201Schema;
+
+export const proxyRealtimeCallsRealtimeTranslationsCallsPostBodySchema = z.string();
+
+export const createRealtimeClientSecretRealtimeTranslationsClientSecretsPostStatus200Schema =
+	realtimeClientSecretResponseSchema.describe(
+		"Response from POST /v1/realtime/client_secrets.\n\nBoth the top-level `value` and `session.client_secret.value`\nwill contain the encrypted token instead of the raw ephemeral key.\nThe `session` field is kept as a raw dict so unknown fields pass through.",
+	);
+
+export const createRealtimeClientSecretRealtimeTranslationsClientSecretsPostResponseSchema =
+	createRealtimeClientSecretRealtimeTranslationsClientSecretsPostStatus200Schema;
+
+export const createRealtimeClientSecretRealtimeTranslationsClientSecretsPostBodySchema = z
+	.object({
+		expires_after: z
+			.union([
+				z.object({
+					anchor: z.union([z.string(), z.null().nullable()]).optional().default("created_at"),
+					seconds: z.union([z.int(), z.null().nullable()]).optional(),
+				}),
+				z.null().nullable(),
+			])
+			.optional(),
+		model: z.union([z.string(), z.null().nullable()]).optional(),
+		session: z
+			.union([
+				z.looseObject({
+					audio: z
+						.union([
+							z.looseObject({
+								input: z
+									.union([
+										z.looseObject({
+											format: z
+												.union([z.string(), z.looseObject({}), z.null().nullable()])
+												.optional(),
+											noise_reduction: z.union([z.looseObject({}), z.null().nullable()]).optional(),
+											transcription: z
+												.union([
+													z.looseObject({
+														delay: z.union([z.string(), z.null().nullable()]).optional(),
+														keywords: z
+															.union([z.array(z.string()), z.null().nullable()])
+															.optional(),
+														language: z.union([z.string(), z.null().nullable()]).optional(),
+														languages: z
+															.union([z.array(z.string()), z.null().nullable()])
+															.optional(),
+														model: z.union([z.string(), z.null().nullable()]).optional(),
+														prompt: z.union([z.string(), z.null().nullable()]).optional(),
+													}),
+													z.null().nullable(),
+												])
+												.optional(),
+											turn_detection: z.union([z.looseObject({}), z.null().nullable()]).optional(),
+										}),
+										z.null().nullable(),
+									])
+									.optional(),
+								output: z
+									.union([
+										z.looseObject({
+											format: z
+												.union([z.string(), z.looseObject({}), z.null().nullable()])
+												.optional(),
+											language: z.union([z.string(), z.null().nullable()]).optional(),
+											voice: z
+												.union([z.string(), z.looseObject({}), z.null().nullable()])
+												.optional(),
+										}),
+										z.null().nullable(),
+									])
+									.optional(),
+							}),
+							z.null().nullable(),
+						])
+						.optional(),
+					include: z.union([z.array(z.string()), z.null().nullable()]).optional(),
+					instructions: z.union([z.string(), z.null().nullable()]).optional(),
+					max_output_tokens: z.union([z.int(), z.string(), z.null().nullable()]).optional(),
+					model: z.union([z.string(), z.null().nullable()]).optional(),
+					output_modalities: z.union([z.array(z.string()), z.null().nullable()]).optional(),
+					prompt: z.union([z.looseObject({}), z.null().nullable()]).optional(),
+					tool_choice: z.union([z.unknown(), z.null().nullable()]).optional(),
+					tools: z.union([z.array(z.looseObject({})), z.null().nullable()]).optional(),
+					tracing: z.union([z.unknown(), z.null().nullable()]).optional(),
+					truncation: z.union([z.unknown(), z.null().nullable()]).optional(),
+					type: z.union([z.string(), z.null().nullable()]).optional(),
+				}),
+				z.null().nullable(),
+			])
+			.optional(),
+	})
+	.describe(
+		"Request body for POST /v1/realtime/client_secrets.\n\nLiteLLM also accepts a top-level `model` field for routing when\nsession.model is absent (LiteLLM extension, not forwarded to OpenAI).",
+	);
+
 export const proxyRealtimeCallsV1RealtimeCallsPostStatus200Schema = z.looseObject({});
 
 export const proxyRealtimeCallsV1RealtimeCallsPostResponseSchema =
@@ -34252,6 +34896,106 @@ export const createRealtimeTranscriptionSessionV1RealtimeTranscriptionSessionsPo
 
 export const createRealtimeTranscriptionSessionV1RealtimeTranscriptionSessionsPostResponseSchema =
 	createRealtimeTranscriptionSessionV1RealtimeTranscriptionSessionsPostStatus200Schema;
+
+export const proxyRealtimeCallsV1RealtimeTranslationsCallsPostStatus201Schema = z.string();
+
+export const proxyRealtimeCallsV1RealtimeTranslationsCallsPostResponseSchema =
+	proxyRealtimeCallsV1RealtimeTranslationsCallsPostStatus201Schema;
+
+export const proxyRealtimeCallsV1RealtimeTranslationsCallsPostBodySchema = z.string();
+
+export const createRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostStatus200Schema =
+	realtimeClientSecretResponseSchema.describe(
+		"Response from POST /v1/realtime/client_secrets.\n\nBoth the top-level `value` and `session.client_secret.value`\nwill contain the encrypted token instead of the raw ephemeral key.\nThe `session` field is kept as a raw dict so unknown fields pass through.",
+	);
+
+export const createRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostResponseSchema =
+	createRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostStatus200Schema;
+
+export const createRealtimeClientSecretV1RealtimeTranslationsClientSecretsPostBodySchema = z
+	.object({
+		expires_after: z
+			.union([
+				z.object({
+					anchor: z.union([z.string(), z.null().nullable()]).optional().default("created_at"),
+					seconds: z.union([z.int(), z.null().nullable()]).optional(),
+				}),
+				z.null().nullable(),
+			])
+			.optional(),
+		model: z.union([z.string(), z.null().nullable()]).optional(),
+		session: z
+			.union([
+				z.looseObject({
+					audio: z
+						.union([
+							z.looseObject({
+								input: z
+									.union([
+										z.looseObject({
+											format: z
+												.union([z.string(), z.looseObject({}), z.null().nullable()])
+												.optional(),
+											noise_reduction: z.union([z.looseObject({}), z.null().nullable()]).optional(),
+											transcription: z
+												.union([
+													z.looseObject({
+														delay: z.union([z.string(), z.null().nullable()]).optional(),
+														keywords: z
+															.union([z.array(z.string()), z.null().nullable()])
+															.optional(),
+														language: z.union([z.string(), z.null().nullable()]).optional(),
+														languages: z
+															.union([z.array(z.string()), z.null().nullable()])
+															.optional(),
+														model: z.union([z.string(), z.null().nullable()]).optional(),
+														prompt: z.union([z.string(), z.null().nullable()]).optional(),
+													}),
+													z.null().nullable(),
+												])
+												.optional(),
+											turn_detection: z.union([z.looseObject({}), z.null().nullable()]).optional(),
+										}),
+										z.null().nullable(),
+									])
+									.optional(),
+								output: z
+									.union([
+										z.looseObject({
+											format: z
+												.union([z.string(), z.looseObject({}), z.null().nullable()])
+												.optional(),
+											language: z.union([z.string(), z.null().nullable()]).optional(),
+											voice: z
+												.union([z.string(), z.looseObject({}), z.null().nullable()])
+												.optional(),
+										}),
+										z.null().nullable(),
+									])
+									.optional(),
+							}),
+							z.null().nullable(),
+						])
+						.optional(),
+					include: z.union([z.array(z.string()), z.null().nullable()]).optional(),
+					instructions: z.union([z.string(), z.null().nullable()]).optional(),
+					max_output_tokens: z.union([z.int(), z.string(), z.null().nullable()]).optional(),
+					model: z.union([z.string(), z.null().nullable()]).optional(),
+					output_modalities: z.union([z.array(z.string()), z.null().nullable()]).optional(),
+					prompt: z.union([z.looseObject({}), z.null().nullable()]).optional(),
+					tool_choice: z.union([z.unknown(), z.null().nullable()]).optional(),
+					tools: z.union([z.array(z.looseObject({})), z.null().nullable()]).optional(),
+					tracing: z.union([z.unknown(), z.null().nullable()]).optional(),
+					truncation: z.union([z.unknown(), z.null().nullable()]).optional(),
+					type: z.union([z.string(), z.null().nullable()]).optional(),
+				}),
+				z.null().nullable(),
+			])
+			.optional(),
+	})
+	.describe(
+		"Request body for POST /v1/realtime/client_secrets.\n\nLiteLLM also accepts a top-level `model` field for routing when\nsession.model is absent (LiteLLM extension, not forwarded to OpenAI).",
+	);
 
 export const eventLoggingBatchApiEventLoggingBatchPostStatus200Schema = z.looseObject({});
 
@@ -35657,6 +36401,542 @@ export const systemoneV1SystemonePostBodySchema = z.looseObject({
 		),
 });
 
+export const listSkillsSkillHubSkillsGetQueryQuerySchema = z.string().optional().default("");
+
+export const listSkillsSkillHubSkillsGetQueryOffsetSchema = z.int().min(0).optional().default(0);
+
+export const listSkillsSkillHubSkillsGetQueryLimitSchema = z
+	.int()
+	.min(1)
+	.max(100)
+	.optional()
+	.default(50);
+
+export const listSkillsSkillHubSkillsGetQueryTagSchema = z.string().optional().default("");
+
+export const listSkillsSkillHubSkillsGetQuerySecurityScanPassedSchema = z
+	.union([z.boolean(), z.null().nullable()])
+	.optional();
+
+export const listSkillsSkillHubSkillsGetQuerySortBySchema = z
+	.enum([
+		"name",
+		"download_count",
+		"updated_at",
+		"created_at",
+		"created_by",
+		"published_by",
+		"approved_by",
+		"security_scan_passed",
+	])
+	.optional()
+	.default("name");
+
+export const listSkillsSkillHubSkillsGetQuerySortOrderSchema = z
+	.enum(["asc", "desc"])
+	.optional()
+	.default("asc");
+
+export const listSkillsSkillHubSkillsGetStatus200Schema = skillHubListSchema;
+
+export const listSkillsSkillHubSkillsGetStatus422Schema = HTTPValidationErrorSchema;
+
+export const listSkillsSkillHubSkillsGetResponseSchema = listSkillsSkillHubSkillsGetStatus200Schema;
+
+export const listSkillsSkillHubSkillsGetErrorSchema = listSkillsSkillHubSkillsGetStatus422Schema;
+
+export const listSkillsSkillHubSkillsGetQuerySchema = z.object({
+	query: z.string().optional().default(""),
+	offset: z.int().min(0).optional().default(0),
+	limit: z.int().min(1).max(100).optional().default(50),
+	tag: z.string().optional().default(""),
+	security_scan_passed: z.union([z.boolean(), z.null().nullable()]).optional(),
+	sort_by: z
+		.enum([
+			"name",
+			"download_count",
+			"updated_at",
+			"created_at",
+			"created_by",
+			"published_by",
+			"approved_by",
+			"security_scan_passed",
+		])
+		.optional()
+		.default("name"),
+	sort_order: z.enum(["asc", "desc"]).optional().default("asc"),
+});
+
+export const importSkillSkillHubSkillsImportPostStatus200Schema = z.union([
+	skillHubSkillSchema,
+	skillHubPendingSkillSchema,
+]);
+
+export const importSkillSkillHubSkillsImportPostStatus422Schema = HTTPValidationErrorSchema;
+
+export const importSkillSkillHubSkillsImportPostResponseSchema =
+	importSkillSkillHubSkillsImportPostStatus200Schema;
+
+export const importSkillSkillHubSkillsImportPostErrorSchema =
+	importSkillSkillHubSkillsImportPostStatus422Schema;
+
+export const importSkillSkillHubSkillsImportPostBodySchema = importSkillRequestSchema;
+
+export const uploadSkillSkillHubSkillsUploadPostStatus200Schema = z.union([
+	skillHubSkillSchema,
+	skillHubPendingSkillSchema,
+]);
+
+export const uploadSkillSkillHubSkillsUploadPostStatus422Schema = HTTPValidationErrorSchema;
+
+export const uploadSkillSkillHubSkillsUploadPostResponseSchema =
+	uploadSkillSkillHubSkillsUploadPostStatus200Schema;
+
+export const uploadSkillSkillHubSkillsUploadPostErrorSchema =
+	uploadSkillSkillHubSkillsUploadPostStatus422Schema;
+
+export const uploadSkillSkillHubSkillsUploadPostBodySchema =
+	bodyUploadSkillSkillHubSkillsUploadPostSchema;
+
+export const getSkillSkillHubSkillsNameGetPathNameSchema = z.string();
+
+export const getSkillSkillHubSkillsNameGetStatus200Schema = skillHubSkillSchema;
+
+export const getSkillSkillHubSkillsNameGetStatus422Schema = HTTPValidationErrorSchema;
+
+export const getSkillSkillHubSkillsNameGetResponseSchema =
+	getSkillSkillHubSkillsNameGetStatus200Schema;
+
+export const getSkillSkillHubSkillsNameGetErrorSchema =
+	getSkillSkillHubSkillsNameGetStatus422Schema;
+
+export const getSkillSkillHubSkillsNameGetPathSchema = z.object({
+	name: z.string(),
+});
+
+export const replaceSkillMetadataSkillHubSkillsNamePutPathNameSchema = z.string();
+
+export const replaceSkillMetadataSkillHubSkillsNamePutStatus200Schema = z.union([
+	skillHubSkillSchema,
+	skillHubPendingSkillSchema,
+]);
+
+export const replaceSkillMetadataSkillHubSkillsNamePutStatus422Schema = HTTPValidationErrorSchema;
+
+export const replaceSkillMetadataSkillHubSkillsNamePutResponseSchema =
+	replaceSkillMetadataSkillHubSkillsNamePutStatus200Schema;
+
+export const replaceSkillMetadataSkillHubSkillsNamePutErrorSchema =
+	replaceSkillMetadataSkillHubSkillsNamePutStatus422Schema;
+
+export const replaceSkillMetadataSkillHubSkillsNamePutBodySchema = skillHubMetadataSchema;
+
+export const replaceSkillMetadataSkillHubSkillsNamePutPathSchema = z.object({
+	name: z.string(),
+});
+
+export const removeSkillSkillHubSkillsNameDeletePathNameSchema = z.string();
+
+export const removeSkillSkillHubSkillsNameDeleteStatus204Schema = z.void();
+
+export const removeSkillSkillHubSkillsNameDeleteStatus422Schema = HTTPValidationErrorSchema;
+
+export const removeSkillSkillHubSkillsNameDeleteResponseSchema =
+	removeSkillSkillHubSkillsNameDeleteStatus204Schema;
+
+export const removeSkillSkillHubSkillsNameDeleteErrorSchema =
+	removeSkillSkillHubSkillsNameDeleteStatus422Schema;
+
+export const removeSkillSkillHubSkillsNameDeletePathSchema = z.object({
+	name: z.string(),
+});
+
+export const downloadSkillSkillHubSkillsNameArchiveGetPathNameSchema = z.string();
+
+export const downloadSkillSkillHubSkillsNameArchiveGetQueryDigestSchema = z
+	.union([z.string(), z.null().nullable()])
+	.optional();
+
+export const downloadSkillSkillHubSkillsNameArchiveGetStatus200Schema = z.instanceof(Blob);
+
+export const downloadSkillSkillHubSkillsNameArchiveGetStatus422Schema = HTTPValidationErrorSchema;
+
+export const downloadSkillSkillHubSkillsNameArchiveGetResponseSchema =
+	downloadSkillSkillHubSkillsNameArchiveGetStatus200Schema;
+
+export const downloadSkillSkillHubSkillsNameArchiveGetErrorSchema =
+	downloadSkillSkillHubSkillsNameArchiveGetStatus422Schema;
+
+export const downloadSkillSkillHubSkillsNameArchiveGetPathSchema = z.object({
+	name: z.string(),
+});
+
+export const downloadSkillSkillHubSkillsNameArchiveGetQuerySchema = z.object({
+	digest: z.union([z.string(), z.null().nullable()]).optional(),
+});
+
+export const skillContentSkillHubSkillsNameContentGetPathNameSchema = z.string();
+
+export const skillContentSkillHubSkillsNameContentGetStatus200Schema = z.string();
+
+export const skillContentSkillHubSkillsNameContentGetStatus422Schema = HTTPValidationErrorSchema;
+
+export const skillContentSkillHubSkillsNameContentGetResponseSchema =
+	skillContentSkillHubSkillsNameContentGetStatus200Schema;
+
+export const skillContentSkillHubSkillsNameContentGetErrorSchema =
+	skillContentSkillHubSkillsNameContentGetStatus422Schema;
+
+export const skillContentSkillHubSkillsNameContentGetPathSchema = z.object({
+	name: z.string(),
+});
+
+export const publishSkillSkillHubSkillsNamePublishPostPathNameSchema = z.string();
+
+export const publishSkillSkillHubSkillsNamePublishPostStatus200Schema = skillHubSkillSchema;
+
+export const publishSkillSkillHubSkillsNamePublishPostStatus422Schema = HTTPValidationErrorSchema;
+
+export const publishSkillSkillHubSkillsNamePublishPostResponseSchema =
+	publishSkillSkillHubSkillsNamePublishPostStatus200Schema;
+
+export const publishSkillSkillHubSkillsNamePublishPostErrorSchema =
+	publishSkillSkillHubSkillsNamePublishPostStatus422Schema;
+
+export const publishSkillSkillHubSkillsNamePublishPostBodySchema = z
+	.union([skillHubPublicationSchema, z.null().nullable()])
+	.optional();
+
+export const publishSkillSkillHubSkillsNamePublishPostPathSchema = z.object({
+	name: z.string(),
+});
+
+export const unpublishSkillSkillHubSkillsNameUnpublishPostPathNameSchema = z.string();
+
+export const unpublishSkillSkillHubSkillsNameUnpublishPostStatus200Schema = skillHubSkillSchema;
+
+export const unpublishSkillSkillHubSkillsNameUnpublishPostStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const unpublishSkillSkillHubSkillsNameUnpublishPostResponseSchema =
+	unpublishSkillSkillHubSkillsNameUnpublishPostStatus200Schema;
+
+export const unpublishSkillSkillHubSkillsNameUnpublishPostErrorSchema =
+	unpublishSkillSkillHubSkillsNameUnpublishPostStatus422Schema;
+
+export const unpublishSkillSkillHubSkillsNameUnpublishPostBodySchema = z
+	.union([skillHubPublicationSchema, z.null().nullable()])
+	.optional();
+
+export const unpublishSkillSkillHubSkillsNameUnpublishPostPathSchema = z.object({
+	name: z.string(),
+});
+
+export const replaceSkillArchiveSkillHubSkillsNameUploadPutPathNameSchema = z.string();
+
+export const replaceSkillArchiveSkillHubSkillsNameUploadPutStatus200Schema = z.union([
+	skillHubSkillSchema,
+	skillHubPendingSkillSchema,
+]);
+
+export const replaceSkillArchiveSkillHubSkillsNameUploadPutStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const replaceSkillArchiveSkillHubSkillsNameUploadPutResponseSchema =
+	replaceSkillArchiveSkillHubSkillsNameUploadPutStatus200Schema;
+
+export const replaceSkillArchiveSkillHubSkillsNameUploadPutErrorSchema =
+	replaceSkillArchiveSkillHubSkillsNameUploadPutStatus422Schema;
+
+export const replaceSkillArchiveSkillHubSkillsNameUploadPutBodySchema =
+	bodyReplaceSkillArchiveSkillHubSkillsNameUploadPutSchema;
+
+export const replaceSkillArchiveSkillHubSkillsNameUploadPutPathSchema = z.object({
+	name: z.string(),
+});
+
+export const listSkillVersionsSkillHubSkillsNameVersionsGetPathNameSchema = z.string();
+
+export const listSkillVersionsSkillHubSkillsNameVersionsGetQueryLimitSchema = z
+	.int()
+	.min(1)
+	.max(100)
+	.optional()
+	.default(20);
+
+export const listSkillVersionsSkillHubSkillsNameVersionsGetQueryOffsetSchema = z
+	.int()
+	.min(0)
+	.optional()
+	.default(0);
+
+export const listSkillVersionsSkillHubSkillsNameVersionsGetStatus200Schema = skillHubVersionsSchema;
+
+export const listSkillVersionsSkillHubSkillsNameVersionsGetStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const listSkillVersionsSkillHubSkillsNameVersionsGetResponseSchema =
+	listSkillVersionsSkillHubSkillsNameVersionsGetStatus200Schema;
+
+export const listSkillVersionsSkillHubSkillsNameVersionsGetErrorSchema =
+	listSkillVersionsSkillHubSkillsNameVersionsGetStatus422Schema;
+
+export const listSkillVersionsSkillHubSkillsNameVersionsGetPathSchema = z.object({
+	name: z.string(),
+});
+
+export const listSkillVersionsSkillHubSkillsNameVersionsGetQuerySchema = z.object({
+	limit: z.int().min(1).max(100).optional().default(20),
+	offset: z.int().min(0).optional().default(0),
+});
+
+export const getSkillVersionSkillHubSkillsNameVersionsVersionIdGetPathNameSchema = z.string();
+
+export const getSkillVersionSkillHubSkillsNameVersionsVersionIdGetPathVersionIdSchema = z.string();
+
+export const getSkillVersionSkillHubSkillsNameVersionsVersionIdGetStatus200Schema =
+	skillHubVersionSchema;
+
+export const getSkillVersionSkillHubSkillsNameVersionsVersionIdGetStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const getSkillVersionSkillHubSkillsNameVersionsVersionIdGetResponseSchema =
+	getSkillVersionSkillHubSkillsNameVersionsVersionIdGetStatus200Schema;
+
+export const getSkillVersionSkillHubSkillsNameVersionsVersionIdGetErrorSchema =
+	getSkillVersionSkillHubSkillsNameVersionsVersionIdGetStatus422Schema;
+
+export const getSkillVersionSkillHubSkillsNameVersionsVersionIdGetPathSchema = z.object({
+	name: z.string(),
+	version_id: z.string(),
+});
+
+export const downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetPathNameSchema =
+	z.string();
+
+export const downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetPathVersionIdSchema =
+	z.string();
+
+export const downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetStatus200Schema =
+	z.instanceof(Blob);
+
+export const downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetResponseSchema =
+	downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetStatus200Schema;
+
+export const downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetErrorSchema =
+	downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetStatus422Schema;
+
+export const downloadSkillVersionSkillHubSkillsNameVersionsVersionIdArchiveGetPathSchema = z.object(
+	{
+		name: z.string(),
+		version_id: z.string(),
+	},
+);
+
+export const getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetPathPluginNameSchema =
+	z.string();
+
+export const getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetQueryLimitSchema = z
+	.int()
+	.min(1)
+	.max(100)
+	.optional()
+	.default(25)
+	.describe("Maximum number of download events");
+
+export const getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetQueryCursorSchema = z
+	.union([z.string().regex(/^[1-9][0-9]{0,18}$/), z.null().nullable()])
+	.optional()
+	.describe("Previous next_cursor");
+
+export const getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetStatus200Schema =
+	pluginDownloadsResponseSchema;
+
+export const getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetResponseSchema =
+	getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetStatus200Schema;
+
+export const getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetErrorSchema =
+	getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetStatus422Schema;
+
+export const getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetPathSchema = z.object({
+	plugin_name: z.string(),
+});
+
+export const getPluginDownloadsSkillHubSkillsPluginNameDownloadsGetQuerySchema = z.object({
+	limit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.default(25)
+		.describe("Maximum number of download events"),
+	cursor: z
+		.union([z.string().regex(/^[1-9][0-9]{0,18}$/), z.null().nullable()])
+		.optional()
+		.describe("Previous next_cursor"),
+});
+
+export const listSubmissionsSkillHubSubmissionsGetQueryStatusSchema = z
+	.union([z.enum(["pending_review", "approved", "rejected"]), z.null().nullable()])
+	.optional();
+
+export const listSubmissionsSkillHubSubmissionsGetQueryLimitSchema = z
+	.int()
+	.min(1)
+	.max(100)
+	.optional()
+	.default(20);
+
+export const listSubmissionsSkillHubSubmissionsGetQueryOffsetSchema = z
+	.int()
+	.min(0)
+	.optional()
+	.default(0);
+
+export const listSubmissionsSkillHubSubmissionsGetStatus200Schema = skillHubSubmissionListSchema;
+
+export const listSubmissionsSkillHubSubmissionsGetStatus422Schema = HTTPValidationErrorSchema;
+
+export const listSubmissionsSkillHubSubmissionsGetResponseSchema =
+	listSubmissionsSkillHubSubmissionsGetStatus200Schema;
+
+export const listSubmissionsSkillHubSubmissionsGetErrorSchema =
+	listSubmissionsSkillHubSubmissionsGetStatus422Schema;
+
+export const listSubmissionsSkillHubSubmissionsGetQuerySchema = z.object({
+	status: z
+		.union([z.enum(["pending_review", "approved", "rejected"]), z.null().nullable()])
+		.optional(),
+	limit: z.int().min(1).max(100).optional().default(20),
+	offset: z.int().min(0).optional().default(0),
+});
+
+export const getSubmissionSkillHubSubmissionsSubmissionIdGetPathSubmissionIdSchema = z.string();
+
+export const getSubmissionSkillHubSubmissionsSubmissionIdGetStatus200Schema =
+	skillHubSubmissionDetailSchema;
+
+export const getSubmissionSkillHubSubmissionsSubmissionIdGetStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const getSubmissionSkillHubSubmissionsSubmissionIdGetResponseSchema =
+	getSubmissionSkillHubSubmissionsSubmissionIdGetStatus200Schema;
+
+export const getSubmissionSkillHubSubmissionsSubmissionIdGetErrorSchema =
+	getSubmissionSkillHubSubmissionsSubmissionIdGetStatus422Schema;
+
+export const getSubmissionSkillHubSubmissionsSubmissionIdGetPathSchema = z.object({
+	submission_id: z.string(),
+});
+
+export const approveSubmissionSkillHubSubmissionsSubmissionIdApprovePutPathSubmissionIdSchema =
+	z.string();
+
+export const approveSubmissionSkillHubSubmissionsSubmissionIdApprovePutStatus200Schema =
+	skillHubReviewResponseSchema;
+
+export const approveSubmissionSkillHubSubmissionsSubmissionIdApprovePutStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const approveSubmissionSkillHubSubmissionsSubmissionIdApprovePutResponseSchema =
+	approveSubmissionSkillHubSubmissionsSubmissionIdApprovePutStatus200Schema;
+
+export const approveSubmissionSkillHubSubmissionsSubmissionIdApprovePutErrorSchema =
+	approveSubmissionSkillHubSubmissionsSubmissionIdApprovePutStatus422Schema;
+
+export const approveSubmissionSkillHubSubmissionsSubmissionIdApprovePutPathSchema = z.object({
+	submission_id: z.string(),
+});
+
+export const downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetPathSubmissionIdSchema =
+	z.string();
+
+export const downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetStatus200Schema =
+	z.instanceof(Blob);
+
+export const downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetResponseSchema =
+	downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetStatus200Schema;
+
+export const downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetErrorSchema =
+	downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetStatus422Schema;
+
+export const downloadSubmissionSkillHubSubmissionsSubmissionIdArchiveGetPathSchema = z.object({
+	submission_id: z.string(),
+});
+
+export const rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutPathSubmissionIdSchema =
+	z.string();
+
+export const rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutStatus200Schema =
+	skillHubReviewResponseSchema;
+
+export const rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutResponseSchema =
+	rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutStatus200Schema;
+
+export const rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutErrorSchema =
+	rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutStatus422Schema;
+
+export const rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutBodySchema = z
+	.union([skillHubRejectionSchema, z.null().nullable()])
+	.optional();
+
+export const rejectSubmissionSkillHubSubmissionsSubmissionIdRejectPutPathSchema = z.object({
+	submission_id: z.string(),
+});
+
+export const getSkillScanSkillHubSubmissionsSubmissionIdScanGetPathSubmissionIdSchema = z.string();
+
+export const getSkillScanSkillHubSubmissionsSubmissionIdScanGetStatus200Schema =
+	skillScanResponseSchema;
+
+export const getSkillScanSkillHubSubmissionsSubmissionIdScanGetStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const getSkillScanSkillHubSubmissionsSubmissionIdScanGetResponseSchema =
+	getSkillScanSkillHubSubmissionsSubmissionIdScanGetStatus200Schema;
+
+export const getSkillScanSkillHubSubmissionsSubmissionIdScanGetErrorSchema =
+	getSkillScanSkillHubSubmissionsSubmissionIdScanGetStatus422Schema;
+
+export const getSkillScanSkillHubSubmissionsSubmissionIdScanGetPathSchema = z.object({
+	submission_id: z.string(),
+});
+
+export const startSkillScanSkillHubSubmissionsSubmissionIdScanPostPathSubmissionIdSchema =
+	z.string();
+
+export const startSkillScanSkillHubSubmissionsSubmissionIdScanPostStatus200Schema =
+	skillScanResponseSchema;
+
+export const startSkillScanSkillHubSubmissionsSubmissionIdScanPostStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const startSkillScanSkillHubSubmissionsSubmissionIdScanPostResponseSchema =
+	startSkillScanSkillHubSubmissionsSubmissionIdScanPostStatus200Schema;
+
+export const startSkillScanSkillHubSubmissionsSubmissionIdScanPostErrorSchema =
+	startSkillScanSkillHubSubmissionsSubmissionIdScanPostStatus422Schema;
+
+export const startSkillScanSkillHubSubmissionsSubmissionIdScanPostBodySchema = z
+	.union([skillScanRequestSchema, z.null().nullable()])
+	.optional();
+
+export const startSkillScanSkillHubSubmissionsSubmissionIdScanPostPathSchema = z.object({
+	submission_id: z.string(),
+});
+
 export const getMarketplaceClaudeCodeMarketplaceJsonGetQueryKeySchema = z
 	.union([z.string(), z.null().nullable()])
 	.optional();
@@ -35711,6 +36991,20 @@ export const registerPluginClaudeCodePluginsPostBodySchema = registerPluginReque
 	"Request body for registering a plugin in the marketplace.\n\nLiteLLM acts as a registry/discovery layer. Plugins are hosted on\nGitHub/GitLab/Bitbucket or as a zip archive on any https host and referenced by their source.",
 );
 
+export const uploadPluginClaudeCodePluginsUploadPostStatus200Schema =
+	registerPluginResponseSchema.describe("Response from plugin registration.");
+
+export const uploadPluginClaudeCodePluginsUploadPostStatus422Schema = HTTPValidationErrorSchema;
+
+export const uploadPluginClaudeCodePluginsUploadPostResponseSchema =
+	uploadPluginClaudeCodePluginsUploadPostStatus200Schema;
+
+export const uploadPluginClaudeCodePluginsUploadPostErrorSchema =
+	uploadPluginClaudeCodePluginsUploadPostStatus422Schema;
+
+export const uploadPluginClaudeCodePluginsUploadPostBodySchema =
+	bodyUploadPluginClaudeCodePluginsUploadPostSchema;
+
 export const getPluginClaudeCodePluginsPluginNameGetPathPluginNameSchema = z.string();
 
 export const getPluginClaudeCodePluginsPluginNameGetStatus200Schema = z.looseObject({});
@@ -35742,7 +37036,7 @@ export const updatePluginClaudeCodePluginsPluginNamePutErrorSchema =
 
 export const updatePluginClaudeCodePluginsPluginNamePutBodySchema =
 	updatePluginRequestSchema.describe(
-		'Request body for replacing an existing plugin.\n\nThe plugin name is the resource identity and is supplied as the path\nparameter, so it cannot be changed here. This is a full replace: omitted\nfields reset to their defaults, so version is cleared rather than\ndefaulting to the create-time "1.0.0".',
+		"Request body for replacing an existing plugin.\n\nThe plugin name is the resource identity and is supplied as the path\nparameter, so it cannot be changed here. This is a full replace: omitted\nfields reset to their defaults, except version which automatically increments\nthe published patch version when omitted or null.",
 	);
 
 export const updatePluginClaudeCodePluginsPluginNamePutPathSchema = z.object({
@@ -35766,6 +37060,30 @@ export const deletePluginClaudeCodePluginsPluginNameDeletePathSchema = z.object(
 	plugin_name: z.string(),
 });
 
+export const downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetPathPluginNameSchema =
+	z.string();
+
+export const downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetPathDigestSchema =
+	z.string();
+
+export const downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetStatus200Schema =
+	z.instanceof(Blob);
+
+export const downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetResponseSchema =
+	downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetStatus200Schema;
+
+export const downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetErrorSchema =
+	downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetStatus422Schema;
+
+export const downloadPluginArchiveClaudeCodePluginsPluginNameArchiveDigestZipGetPathSchema =
+	z.object({
+		plugin_name: z.string(),
+		digest: z.string(),
+	});
+
 export const disablePluginClaudeCodePluginsPluginNameDisablePostPathPluginNameSchema = z.string();
 
 export const disablePluginClaudeCodePluginsPluginNameDisablePostStatus200Schema = z.looseObject({});
@@ -35781,6 +37099,52 @@ export const disablePluginClaudeCodePluginsPluginNameDisablePostErrorSchema =
 
 export const disablePluginClaudeCodePluginsPluginNameDisablePostPathSchema = z.object({
 	plugin_name: z.string(),
+});
+
+export const getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetPathPluginNameSchema =
+	z.string();
+
+export const getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetQueryLimitSchema = z
+	.int()
+	.min(1)
+	.max(100)
+	.optional()
+	.default(25)
+	.describe("Maximum number of download events");
+
+export const getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetQueryCursorSchema = z
+	.union([z.string().regex(/^[1-9][0-9]{0,18}$/), z.null().nullable()])
+	.optional()
+	.describe("Previous next_cursor");
+
+export const getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetStatus200Schema =
+	pluginDownloadsResponseSchema;
+
+export const getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetStatus422Schema =
+	HTTPValidationErrorSchema;
+
+export const getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetResponseSchema =
+	getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetStatus200Schema;
+
+export const getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetErrorSchema =
+	getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetStatus422Schema;
+
+export const getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetPathSchema = z.object({
+	plugin_name: z.string(),
+});
+
+export const getPluginDownloadsClaudeCodePluginsPluginNameDownloadsGetQuerySchema = z.object({
+	limit: z
+		.int()
+		.min(1)
+		.max(100)
+		.optional()
+		.default(25)
+		.describe("Maximum number of download events"),
+	cursor: z
+		.union([z.string().regex(/^[1-9][0-9]{0,18}$/), z.null().nullable()])
+		.optional()
+		.describe("Previous next_cursor"),
 });
 
 export const enablePluginClaudeCodePluginsPluginNameEnablePostPathPluginNameSchema = z.string();
