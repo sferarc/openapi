@@ -861,8 +861,8 @@ export type AddressReservation = {
 	isCurrentlyIssuingAuth: boolean;
 	isCurrentlyRevokingAuth: boolean;
 	hasCustomAccessTimes: boolean;
-	currentlyIssuingAuth?: boolean | undefined;
 	currentlyRevokingAuth?: boolean | undefined;
+	currentlyIssuingAuth?: boolean | undefined;
 };
 
 export const addressTokenRedeemResultEnum = {
@@ -1586,8 +1586,8 @@ export type Restlet = {
 	owner?: string | undefined;
 	started?: boolean | undefined;
 	logger?: Logger | undefined;
-	application?: Application | undefined;
 	stopped?: boolean | undefined;
+	application?: Application | undefined;
 };
 
 export type Parameter = {
@@ -1700,21 +1700,6 @@ export type MetadataService = {
 	stopped?: boolean | undefined;
 };
 
-export type EncoderService = {
-	context?: Context | undefined;
-	enabled?: boolean | undefined;
-	started?: boolean | undefined;
-	acceptedMediaTypes?: MediaType[] | undefined;
-	ignoredMediaTypes?: MediaType[] | undefined;
-	/**
-	 * @description
-	 * Format: `int64`
-	 * @type integer | undefined
-	 */
-	minimumSize?: number | undefined;
-	stopped?: boolean | undefined;
-};
-
 export type RangeService = {
 	context?: Context | undefined;
 	enabled?: boolean | undefined;
@@ -1750,6 +1735,7 @@ export type Reference = {
 	schemeSpecificPart?: string | undefined;
 	fragment?: string | undefined;
 	extensions?: string | undefined;
+	identifier?: string | undefined;
 	extensionsAsArray?: string[] | undefined;
 	hierarchicalPart?: string | undefined;
 	hostDomain?: string | undefined;
@@ -1769,7 +1755,6 @@ export type Reference = {
 	segments?: string[] | undefined;
 	targetRef?: Reference | undefined;
 	hierarchical?: boolean | undefined;
-	identifier?: string | undefined;
 	matrix?: string | undefined;
 	matrixAsForm?: Parameter[] | undefined;
 	queryAsForm?: Parameter[] | undefined;
@@ -1840,6 +1825,21 @@ export type DecoderService = {
 	stopped?: boolean | undefined;
 };
 
+export type EncoderService = {
+	context?: Context | undefined;
+	enabled?: boolean | undefined;
+	started?: boolean | undefined;
+	acceptedMediaTypes?: MediaType[] | undefined;
+	ignoredMediaTypes?: MediaType[] | undefined;
+	/**
+	 * @description
+	 * Format: `int64`
+	 * @type integer | undefined
+	 */
+	minimumSize?: number | undefined;
+	stopped?: boolean | undefined;
+};
+
 export type Application = {
 	author?: string | undefined;
 	context?: Context | undefined;
@@ -1855,16 +1855,16 @@ export type Application = {
 	connegService?: ConnegService | undefined;
 	converterService?: ConverterService | undefined;
 	metadataService?: MetadataService | undefined;
-	encoderService?: EncoderService | undefined;
 	rangeService?: RangeService | undefined;
 	statusService?: StatusService | undefined;
 	taskService?: TaskService | undefined;
 	tunnelService?: TunnelService | undefined;
 	connectorService?: ConnectorService | undefined;
 	decoderService?: DecoderService | undefined;
+	encoderService?: EncoderService | undefined;
 	logger?: Logger | undefined;
-	application?: Application | undefined;
 	stopped?: boolean | undefined;
+	application?: Application | undefined;
 };
 
 export type AuthenticationInfo = {
@@ -2840,8 +2840,8 @@ export type Request = {
 	expectingResponse?: boolean | undefined;
 	synchronous?: boolean | undefined;
 	confidential?: boolean | undefined;
-	entityAsText?: string | undefined;
 	headers?: Header[] | undefined;
+	entityAsText?: string | undefined;
 };
 
 export type ReservationAccessTimesUpdate = {
@@ -2945,9 +2945,9 @@ export type Response = {
 	final?: boolean | undefined;
 	provisional?: boolean | undefined;
 	confidential?: boolean | undefined;
+	headers?: Header[] | undefined;
 	entityAvailable?: boolean | undefined;
 	entityAsText?: string | undefined;
-	headers?: Header[] | undefined;
 };
 
 export const shsSubscriptionTypeEnum = {
@@ -4400,6 +4400,13 @@ export type SmartlockLog = {
 	 * @type string | undefined
 	 */
 	error?: string | undefined;
+	/**
+	 * @description The index of the entry in the activity log of the device. Null for entries stored before the index was recorded
+	 *
+	 * Format: `int32`
+	 * @type integer | undefined
+	 */
+	logIndex?: number | undefined;
 };
 
 export type SmartlockUpdate = {

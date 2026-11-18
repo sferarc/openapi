@@ -337,8 +337,8 @@ export const addressReservationSchema = z.object({
 	isCurrentlyIssuingAuth: z.boolean(),
 	isCurrentlyRevokingAuth: z.boolean(),
 	hasCustomAccessTimes: z.boolean(),
-	currentlyIssuingAuth: z.boolean().optional(),
 	currentlyRevokingAuth: z.boolean().optional(),
+	currentlyIssuingAuth: z.boolean().optional(),
 });
 
 export const addressTokenSchema = z.object({
@@ -690,10 +690,10 @@ export const restletSchema = z.object({
 	get logger(): z.ZodOptional<typeof loggerSchema> {
 		return loggerSchema.optional();
 	},
+	stopped: z.boolean().optional(),
 	get application(): z.ZodOptional<typeof applicationSchema> {
 		return applicationSchema.optional();
 	},
-	stopped: z.boolean().optional(),
 });
 
 export const parameterSchema = z.object({
@@ -834,22 +834,6 @@ export const metadataServiceSchema = z.object({
 	stopped: z.boolean().optional(),
 });
 
-export const encoderServiceSchema = z.object({
-	get context(): z.ZodOptional<typeof contextSchema> {
-		return contextSchema.optional();
-	},
-	enabled: z.boolean().optional(),
-	started: z.boolean().optional(),
-	get acceptedMediaTypes(): z.ZodOptional<z.ZodArray<typeof mediaTypeSchema>> {
-		return z.array(mediaTypeSchema).optional();
-	},
-	get ignoredMediaTypes(): z.ZodOptional<z.ZodArray<typeof mediaTypeSchema>> {
-		return z.array(mediaTypeSchema).optional();
-	},
-	minimumSize: z.int().optional(),
-	stopped: z.boolean().optional(),
-});
-
 export const rangeServiceSchema = z.object({
 	get context(): z.ZodOptional<typeof contextSchema> {
 		return contextSchema.optional();
@@ -884,6 +868,7 @@ export const referenceSchema = z.object({
 	schemeSpecificPart: z.string().optional(),
 	fragment: z.string().optional(),
 	extensions: z.string().optional(),
+	identifier: z.string().optional(),
 	extensionsAsArray: z.array(z.string()).optional(),
 	hierarchicalPart: z.string().optional(),
 	hostDomain: z.string().optional(),
@@ -904,7 +889,6 @@ export const referenceSchema = z.object({
 		return referenceSchema.optional();
 	},
 	hierarchical: z.boolean().optional(),
-	identifier: z.string().optional(),
 	matrix: z.string().optional(),
 	matrixAsForm: z.array(parameterSchema).optional(),
 	queryAsForm: z.array(parameterSchema).optional(),
@@ -988,6 +972,22 @@ export const decoderServiceSchema = z.object({
 	stopped: z.boolean().optional(),
 });
 
+export const encoderServiceSchema = z.object({
+	get context(): z.ZodOptional<typeof contextSchema> {
+		return contextSchema.optional();
+	},
+	enabled: z.boolean().optional(),
+	started: z.boolean().optional(),
+	get acceptedMediaTypes(): z.ZodOptional<z.ZodArray<typeof mediaTypeSchema>> {
+		return z.array(mediaTypeSchema).optional();
+	},
+	get ignoredMediaTypes(): z.ZodOptional<z.ZodArray<typeof mediaTypeSchema>> {
+		return z.array(mediaTypeSchema).optional();
+	},
+	minimumSize: z.int().optional(),
+	stopped: z.boolean().optional(),
+});
+
 export const applicationSchema = z.object({
 	author: z.string().optional(),
 	get context(): z.ZodOptional<typeof contextSchema> {
@@ -1019,9 +1019,6 @@ export const applicationSchema = z.object({
 	get metadataService(): z.ZodOptional<typeof metadataServiceSchema> {
 		return metadataServiceSchema.optional();
 	},
-	get encoderService(): z.ZodOptional<typeof encoderServiceSchema> {
-		return encoderServiceSchema.optional();
-	},
 	get rangeService(): z.ZodOptional<typeof rangeServiceSchema> {
 		return rangeServiceSchema.optional();
 	},
@@ -1040,13 +1037,16 @@ export const applicationSchema = z.object({
 	get decoderService(): z.ZodOptional<typeof decoderServiceSchema> {
 		return decoderServiceSchema.optional();
 	},
+	get encoderService(): z.ZodOptional<typeof encoderServiceSchema> {
+		return encoderServiceSchema.optional();
+	},
 	get logger(): z.ZodOptional<typeof loggerSchema> {
 		return loggerSchema.optional();
 	},
+	stopped: z.boolean().optional(),
 	get application(): z.ZodOptional<typeof applicationSchema> {
 		return applicationSchema.optional();
 	},
-	stopped: z.boolean().optional(),
 });
 
 export const authenticationInfoSchema = z.object({
@@ -1653,8 +1653,8 @@ export const requestSchema = z.object({
 	expectingResponse: z.boolean().optional(),
 	synchronous: z.boolean().optional(),
 	confidential: z.boolean().optional(),
-	entityAsText: z.string().optional(),
 	headers: z.array(headerSchema).optional(),
+	entityAsText: z.string().optional(),
 });
 
 export const reservationAccessTimesUpdateSchema = z.object({
@@ -1741,9 +1741,9 @@ export const responseSchema = z.object({
 	final: z.boolean().optional(),
 	provisional: z.boolean().optional(),
 	confidential: z.boolean().optional(),
+	headers: z.array(headerSchema).optional(),
 	entityAvailable: z.boolean().optional(),
 	entityAsText: z.string().optional(),
-	headers: z.array(headerSchema).optional(),
 });
 
 export const shsSubscriptionSchema = z.object({
@@ -2527,6 +2527,12 @@ export const smartlockLogSchema = z.object({
 			"The source of action: 1 .. Keypad code, 2 .. Fingerprint, 3 .. Tap to Unlock, 0 .. Default",
 		),
 	error: z.string().optional().describe("In case of any error, it contains the error message"),
+	logIndex: z
+		.int32()
+		.optional()
+		.describe(
+			"The index of the entry in the activity log of the device. Null for entries stored before the index was recorded",
+		),
 });
 
 export const smartlockUpdateSchema = z.object({
