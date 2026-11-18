@@ -1,5 +1,12 @@
 # vercel-api-js
 
+## 2.43.1
+
+### Patch Changes
+
+- 58a34a8: Added optional 'enableMessageboardPrivateBoards' and 'messageboardBoards' fields to AuthUser with descriptive comments.
+- 58a34a8: Marked the 'name' field of UserEvent as optional and provided a descriptive comment.
+
 ## 2.43.0
 
 ### Minor Changes
