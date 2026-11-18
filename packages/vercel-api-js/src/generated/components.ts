@@ -1232,6 +1232,17 @@ import type {
 	DeleteNetworkStatus404,
 	DeleteNetworkStatus409,
 	DeleteNetworkStatus410,
+	DeleteOrganizationDsyncGroupHeaders,
+	DeleteOrganizationDsyncGroupPath,
+	DeleteOrganizationDsyncGroupQuery,
+	DeleteOrganizationDsyncGroupResponse,
+	DeleteOrganizationDsyncGroupStatus400,
+	DeleteOrganizationDsyncGroupStatus401,
+	DeleteOrganizationDsyncGroupStatus403,
+	DeleteOrganizationDsyncGroupStatus404,
+	DeleteOrganizationDsyncGroupStatus410,
+	DeleteOrganizationDsyncGroupStatus412,
+	DeleteOrganizationDsyncGroupStatus428,
 	DeletePrivateLinkEndpointPath,
 	DeletePrivateLinkEndpointQuery,
 	DeletePrivateLinkEndpointResponse,
@@ -2248,6 +2259,14 @@ import type {
 	GetOrderStatus404,
 	GetOrderStatus429,
 	GetOrderStatus500,
+	GetOrganizationDsyncGroupPath,
+	GetOrganizationDsyncGroupQuery,
+	GetOrganizationDsyncGroupResponse,
+	GetOrganizationDsyncGroupStatus400,
+	GetOrganizationDsyncGroupStatus401,
+	GetOrganizationDsyncGroupStatus403,
+	GetOrganizationDsyncGroupStatus404,
+	GetOrganizationDsyncGroupStatus410,
 	GetOrganizationPath,
 	GetOrganizationQuery,
 	GetOrganizationResponse,
@@ -3061,6 +3080,14 @@ import type {
 	ListNetworksStatus403,
 	ListNetworksStatus404,
 	ListNetworksStatus410,
+	ListOrganizationDsyncGroupsPath,
+	ListOrganizationDsyncGroupsQuery,
+	ListOrganizationDsyncGroupsResponse,
+	ListOrganizationDsyncGroupsStatus400,
+	ListOrganizationDsyncGroupsStatus401,
+	ListOrganizationDsyncGroupsStatus403,
+	ListOrganizationDsyncGroupsStatus404,
+	ListOrganizationDsyncGroupsStatus410,
 	ListOrganizationsResponse,
 	ListOrganizationsStatus400,
 	ListOrganizationsStatus401,
@@ -3394,6 +3421,27 @@ import type {
 	PutFirewallConfigStatus404,
 	PutFirewallConfigStatus410,
 	PutFirewallConfigStatus500,
+	PutOrganizationDsyncGroupBody,
+	PutOrganizationDsyncGroupHeaders,
+	PutOrganizationDsyncGroupPath,
+	PutOrganizationDsyncGroupQuery,
+	PutOrganizationDsyncGroupResponse,
+	PutOrganizationDsyncGroupStatus400,
+	PutOrganizationDsyncGroupStatus401,
+	PutOrganizationDsyncGroupStatus403,
+	PutOrganizationDsyncGroupStatus404,
+	PutOrganizationDsyncGroupStatus410,
+	PutOrganizationDsyncGroupStatus412,
+	PutOrganizationDsyncGroupStatus428,
+	PutOrganizationTeamDsyncBody,
+	PutOrganizationTeamDsyncPath,
+	PutOrganizationTeamDsyncQuery,
+	PutOrganizationTeamDsyncResponse,
+	PutOrganizationTeamDsyncStatus400,
+	PutOrganizationTeamDsyncStatus401,
+	PutOrganizationTeamDsyncStatus403,
+	PutOrganizationTeamDsyncStatus404,
+	PutOrganizationTeamDsyncStatus410,
 	PutProjectDaemonInstancesBody,
 	PutProjectDaemonInstancesPath,
 	PutProjectDaemonInstancesQuery,
@@ -17406,6 +17454,271 @@ export async function removeOrganizationTeam(
 }
 
 /**
+ * @summary Update Organization Team Directory Sync Mode
+ * @description Select whether one Organization team's memberships are governed by the Organization's Directory Sync or by the team's own directory. The team's own directory connection is kept either way.
+ * @link /v1/organizations/{organizationId}/teams/{targetTeamId}/dsync
+ */
+export async function putOrganizationTeamDsync(
+	{
+		pathParams,
+		body,
+		queryParams,
+		config,
+	}: {
+		pathParams: PutOrganizationTeamDsyncPath;
+		body?: PutOrganizationTeamDsyncBody;
+		queryParams?: Partial<PutOrganizationTeamDsyncQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
+		throw new Error(`Missing required path parameter: organizationId`);
+	}
+
+	if (pathParams?.targetTeamId == null || String(pathParams.targetTeamId) === "") {
+		throw new Error(`Missing required path parameter: targetTeamId`);
+	}
+	const data = await request<
+		PutOrganizationTeamDsyncResponse,
+		ErrorWrapper<
+			| PutOrganizationTeamDsyncStatus400
+			| PutOrganizationTeamDsyncStatus401
+			| PutOrganizationTeamDsyncStatus403
+			| PutOrganizationTeamDsyncStatus404
+			| PutOrganizationTeamDsyncStatus410
+		>,
+		PutOrganizationTeamDsyncBody,
+		Record<string, string>,
+		Partial<PutOrganizationTeamDsyncQuery>,
+		PutOrganizationTeamDsyncPath
+	>({
+		method: "PUT",
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/teams/${encodeURIComponent(String(pathParams.targetTeamId))}/dsync`,
+		queryParams,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary List Organization Directory Sync Groups
+ * @description List the groups in an organization's Identity Provider directory, along with their Directory Sync group configuration when one exists.
+ * @link /v1/organizations/{organizationId}/dsync/groups
+ */
+export async function listOrganizationDsyncGroups(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: ListOrganizationDsyncGroupsPath;
+		queryParams?: Partial<ListOrganizationDsyncGroupsQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
+		throw new Error(`Missing required path parameter: organizationId`);
+	}
+	const data = await request<
+		ListOrganizationDsyncGroupsResponse,
+		ErrorWrapper<
+			| ListOrganizationDsyncGroupsStatus400
+			| ListOrganizationDsyncGroupsStatus401
+			| ListOrganizationDsyncGroupsStatus403
+			| ListOrganizationDsyncGroupsStatus404
+			| ListOrganizationDsyncGroupsStatus410
+		>,
+		null,
+		Record<string, string>,
+		Partial<ListOrganizationDsyncGroupsQuery>,
+		ListOrganizationDsyncGroupsPath
+	>({
+		method: "GET",
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/dsync/groups`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Create or Replace Organization Directory Sync Group Configuration
+ * @description Create or replace one organization's Directory Sync group configuration. The directory starts syncing when at least one group grants OrgAdmin.
+ * @link /v1/organizations/{organizationId}/dsync/groups/{groupId}
+ */
+export async function putOrganizationDsyncGroup(
+	{
+		pathParams,
+		body,
+		queryParams,
+		headers,
+		config,
+	}: {
+		pathParams: PutOrganizationDsyncGroupPath;
+		body?: PutOrganizationDsyncGroupBody;
+		queryParams?: Partial<PutOrganizationDsyncGroupQuery>;
+		headers?: Partial<PutOrganizationDsyncGroupHeaders>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
+		throw new Error(`Missing required path parameter: organizationId`);
+	}
+
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
+		throw new Error(`Missing required path parameter: groupId`);
+	}
+	const data = await request<
+		PutOrganizationDsyncGroupResponse,
+		ErrorWrapper<
+			| PutOrganizationDsyncGroupStatus400
+			| PutOrganizationDsyncGroupStatus401
+			| PutOrganizationDsyncGroupStatus403
+			| PutOrganizationDsyncGroupStatus404
+			| PutOrganizationDsyncGroupStatus410
+			| PutOrganizationDsyncGroupStatus412
+			| PutOrganizationDsyncGroupStatus428
+		>,
+		PutOrganizationDsyncGroupBody,
+		Partial<PutOrganizationDsyncGroupHeaders>,
+		Partial<PutOrganizationDsyncGroupQuery>,
+		PutOrganizationDsyncGroupPath
+	>({
+		method: "PUT",
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/dsync/groups/${encodeURIComponent(String(pathParams.groupId))}`,
+		queryParams,
+		body: body,
+		...requestConfig,
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
+	});
+
+	return data;
+}
+
+/**
+ * @summary Delete Organization Directory Sync Group Configuration
+ * @description Delete one organization's Directory Sync group configuration. The last group granting OrgAdmin cannot be removed.
+ * @link /v1/organizations/{organizationId}/dsync/groups/{groupId}
+ */
+export async function deleteOrganizationDsyncGroup(
+	{
+		pathParams,
+		queryParams,
+		headers,
+		config,
+	}: {
+		pathParams: DeleteOrganizationDsyncGroupPath;
+		queryParams?: Partial<DeleteOrganizationDsyncGroupQuery>;
+		headers?: Partial<DeleteOrganizationDsyncGroupHeaders>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
+		throw new Error(`Missing required path parameter: organizationId`);
+	}
+
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
+		throw new Error(`Missing required path parameter: groupId`);
+	}
+	const data = await request<
+		DeleteOrganizationDsyncGroupResponse,
+		ErrorWrapper<
+			| DeleteOrganizationDsyncGroupStatus400
+			| DeleteOrganizationDsyncGroupStatus401
+			| DeleteOrganizationDsyncGroupStatus403
+			| DeleteOrganizationDsyncGroupStatus404
+			| DeleteOrganizationDsyncGroupStatus410
+			| DeleteOrganizationDsyncGroupStatus412
+			| DeleteOrganizationDsyncGroupStatus428
+		>,
+		null,
+		Partial<DeleteOrganizationDsyncGroupHeaders>,
+		Partial<DeleteOrganizationDsyncGroupQuery>,
+		DeleteOrganizationDsyncGroupPath
+	>({
+		method: "DELETE",
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/dsync/groups/${encodeURIComponent(String(pathParams.groupId))}`,
+		queryParams,
+		...requestConfig,
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
+	});
+
+	return data;
+}
+
+/**
+ * @summary Get Organization Directory Sync Group
+ * @description Get one group from the organization's Identity Provider directory, joined with its Directory Sync group configuration when one exists.
+ * @link /v1/organizations/{organizationId}/dsync/groups/{groupId}
+ */
+export async function getOrganizationDsyncGroup(
+	{
+		pathParams,
+		queryParams,
+		config,
+	}: {
+		pathParams: GetOrganizationDsyncGroupPath;
+		queryParams?: Partial<GetOrganizationDsyncGroupQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.organizationId == null || String(pathParams.organizationId) === "") {
+		throw new Error(`Missing required path parameter: organizationId`);
+	}
+
+	if (pathParams?.groupId == null || String(pathParams.groupId) === "") {
+		throw new Error(`Missing required path parameter: groupId`);
+	}
+	const data = await request<
+		GetOrganizationDsyncGroupResponse,
+		ErrorWrapper<
+			| GetOrganizationDsyncGroupStatus400
+			| GetOrganizationDsyncGroupStatus401
+			| GetOrganizationDsyncGroupStatus403
+			| GetOrganizationDsyncGroupStatus404
+			| GetOrganizationDsyncGroupStatus410
+		>,
+		null,
+		Record<string, string>,
+		Partial<GetOrganizationDsyncGroupQuery>,
+		GetOrganizationDsyncGroupPath
+	>({
+		method: "GET",
+		url: `/v1/organizations/${encodeURIComponent(String(pathParams.organizationId))}/dsync/groups/${encodeURIComponent(String(pathParams.groupId))}`,
+		queryParams,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary List project members
  * @description Lists all members of a project.
  * @link /v1/projects/{idOrName}/members
@@ -26286,8 +26599,8 @@ export async function getVercelCiTaskLogs(
 }
 
 /**
- * @summary Search the task logs of several invocation attempts
- * @description Searches the task logs of up to 50 invocation attempts at once, for example the most recent runs of a branch from `GET /v2/vercel-ci/invocations`. Only invocations and tasks with matching lines are returned. When more than 1000 lines match, the newest are kept.
+ * @summary Search the setup and task logs of several invocation attempts
+ * @description Searches the setup and task logs of up to 50 invocation attempts at once, for example the most recent runs of a branch from `GET /v2/vercel-ci/invocations`. Only invocations and tasks with matching lines are returned, and `setup` is present only when a setup line matches. When more than 1000 lines match across setup and task logs, the newest are kept.
  * @link /v1/vercel-ci/log-search
  */
 export async function searchVercelCiLogs(
@@ -27809,6 +28122,11 @@ export const operationsByPath = {
 	"GET /v1/organizations/{organizationId}/teams": listOrganizationTeams,
 	"POST /v1/organizations/{organizationId}/teams": addOrganizationTeam,
 	"DELETE /v1/organizations/{organizationId}/teams/{targetTeamId}": removeOrganizationTeam,
+	"PUT /v1/organizations/{organizationId}/teams/{targetTeamId}/dsync": putOrganizationTeamDsync,
+	"GET /v1/organizations/{organizationId}/dsync/groups": listOrganizationDsyncGroups,
+	"PUT /v1/organizations/{organizationId}/dsync/groups/{groupId}": putOrganizationDsyncGroup,
+	"DELETE /v1/organizations/{organizationId}/dsync/groups/{groupId}": deleteOrganizationDsyncGroup,
+	"GET /v1/organizations/{organizationId}/dsync/groups/{groupId}": getOrganizationDsyncGroup,
 	"GET /v1/projects/{idOrName}/members": getProjectMembers,
 	"POST /v1/projects/{idOrName}/members": addProjectMember,
 	"DELETE /v1/projects/{idOrName}/members/{uid}": removeProjectMember,
@@ -28409,6 +28727,11 @@ export const operationsByTag = {
 		listOrganizationTeams,
 		addOrganizationTeam,
 		removeOrganizationTeam,
+		putOrganizationTeamDsync,
+		listOrganizationDsyncGroups,
+		putOrganizationDsyncGroup,
+		deleteOrganizationDsyncGroup,
+		getOrganizationDsyncGroup,
 	},
 	projectmembers: {
 		getProjectMembers,
@@ -28991,9 +29314,16 @@ export const tagDictionary = {
 	},
 	organizations: {
 		POST: ["createOrganization", "addOrganizationTeam"],
-		GET: ["listOrganizations", "getOrganization", "listOrganizationTeams"],
+		GET: [
+			"listOrganizations",
+			"getOrganization",
+			"listOrganizationTeams",
+			"listOrganizationDsyncGroups",
+			"getOrganizationDsyncGroup",
+		],
 		PATCH: ["updateOrganization"],
-		DELETE: ["removeOrganizationTeam"],
+		DELETE: ["removeOrganizationTeam", "deleteOrganizationDsyncGroup"],
+		PUT: ["putOrganizationTeamDsync", "putOrganizationDsyncGroup"],
 	},
 	projectmembers: {
 		GET: ["getProjectMembers"],

@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the Vercel API 0.0.1 OpenAPI spec; do not edit. 487 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the Vercel API 0.0.1 OpenAPI spec; do not edit. 492 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## accessGroups
 
@@ -454,6 +454,11 @@ Generated from the Vercel API 0.0.1 OpenAPI spec; do not edit. 487 operations. C
 | `client.api.organizations.listOrganizationTeams` | `GET /v1/organizations/{organizationId}/teams` | List Organization Teams |
 | `client.api.organizations.addOrganizationTeam` | `POST /v1/organizations/{organizationId}/teams` | Create or Add Team to Organization |
 | `client.api.organizations.removeOrganizationTeam` | `DELETE /v1/organizations/{organizationId}/teams/{targetTeamId}` | Delete Team from Organization |
+| `client.api.organizations.putOrganizationTeamDsync` | `PUT /v1/organizations/{organizationId}/teams/{targetTeamId}/dsync` | Update Organization Team Directory Sync Mode |
+| `client.api.organizations.listOrganizationDsyncGroups` | `GET /v1/organizations/{organizationId}/dsync/groups` | List Organization Directory Sync Groups |
+| `client.api.organizations.putOrganizationDsyncGroup` | `PUT /v1/organizations/{organizationId}/dsync/groups/{groupId}` | Create or Replace Organization Directory Sync Group Configuration |
+| `client.api.organizations.deleteOrganizationDsyncGroup` | `DELETE /v1/organizations/{organizationId}/dsync/groups/{groupId}` | Delete Organization Directory Sync Group Configuration |
+| `client.api.organizations.getOrganizationDsyncGroup` | `GET /v1/organizations/{organizationId}/dsync/groups/{groupId}` | Get Organization Directory Sync Group |
 
 ## projectmembers
 
@@ -679,7 +684,7 @@ Generated from the Vercel API 0.0.1 OpenAPI spec; do not edit. 487 operations. C
 | `client.api.vercelCi.listVercelCiTaskRuns` | `GET /v1/vercel-ci/invocations/{invocationId}/attempts/{attempt}/job-definitions/{jobDefinitionId}/runs/{runAttempt}/task-runs` | List task runs for a job run |
 | `client.api.vercelCi.getVercelCiInvocationLogs` | `GET /v1/vercel-ci/invocations/{invocationId}/attempts/{attempt}/logs` | Get log lines for an invocation attempt |
 | `client.api.vercelCi.getVercelCiTaskLogs` | `GET /v1/vercel-ci/invocations/{invocationId}/attempts/{attempt}/task-logs` | Get log lines for the tasks of an invocation attempt |
-| `client.api.vercelCi.searchVercelCiLogs` | `GET /v1/vercel-ci/log-search` | Search the task logs of several invocation attempts |
+| `client.api.vercelCi.searchVercelCiLogs` | `GET /v1/vercel-ci/log-search` | Search the setup and task logs of several invocation attempts |
 | `client.api.vercelCi.getVercelCiJobRunLogs` | `GET /v1/vercel-ci/invocations/{invocationId}/attempts/{attempt}/job-definitions/{jobDefinitionId}/runs/{runAttempt}/logs` | Get log lines for a specific job run attempt |
 | `client.api.vercelCi.getVercelCiTaskRunLogs` | `GET /v1/vercel-ci/invocations/{invocationId}/attempts/{attempt}/job-definitions/{jobDefinitionId}/runs/{runAttempt}/task-definitions/{taskDefinitionId}/runs/{taskRunAttempt}/logs` | Get log lines for a specific task run attempt |
 
