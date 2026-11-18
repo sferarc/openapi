@@ -1,5 +1,17 @@
 # nuki-api-js
 
+## 3.8.0
+
+### Minor Changes
+
+- 20c7394: The EncoderService type was removed and re-added, which may indicate changes to its definition.
+
+### Patch Changes
+
+- 20c7394: Added the logIndex field to SmartlockLog to indicate the index of the entry in the device activity log.
+- 20c7394: The identifier field in the Reference type is now optional.
+- 20c7394: The headers field in the Response type is now optional.
+
 ## 3.7.1
 
 ### Patch Changes
