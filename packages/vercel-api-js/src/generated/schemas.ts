@@ -51209,7 +51209,6 @@ export const updateFlagSettingsErrorSchema = z.union([
 
 export const updateFlagSettingsBodySchema = z
 	.strictObject({
-		enabled: z.boolean().optional(),
 		entities: z
 			.array(
 				z.strictObject({

@@ -64323,7 +64323,6 @@ export type UpdateFlagSettingsStatus410 = unknown;
 
 export type UpdateFlagSettingsBody =
 	| {
-			enabled?: boolean | undefined;
 			entities?:
 				| {
 						/**
