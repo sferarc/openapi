@@ -3471,7 +3471,12 @@ export const userEventSchema = z
 					boardId: z.string(),
 					channelId: z.string(),
 					environment: z.string(),
-					name: z.string(),
+					name: z
+						.string()
+						.optional()
+						.describe(
+							"Left out when the board no longer lets the team in, though its log still shows the board.",
+						),
 					operationId: z.string(),
 					projectId: z.string(),
 					userId: z.string().optional(),
@@ -16951,6 +16956,12 @@ export const authUserSchema = z
 					.describe(
 						"An object containing infomation related to the amount of platform resources may be allocated to the User account.",
 					),
+				enableMessageboardPrivateBoards: z
+					.union([z.literal(false), z.literal(true)])
+					.optional()
+					.describe(
+						"An object containing infomation related to the amount of platform resources may be allocated to the User account.",
+					),
 				flagsExplorerOverridesThreshold: z
 					.number()
 					.optional()
@@ -16976,6 +16987,12 @@ export const authUserSchema = z
 						"An object containing infomation related to the amount of platform resources may be allocated to the User account.",
 					),
 				kvDatabases: z
+					.number()
+					.optional()
+					.describe(
+						"An object containing infomation related to the amount of platform resources may be allocated to the User account.",
+					),
+				messageboardBoards: z
 					.number()
 					.optional()
 					.describe(
@@ -53616,6 +53633,7 @@ export const getBillingPlansStatus200Schema = z.object({
 				)
 				.optional(),
 			disabled: z.union([z.literal(false), z.literal(true)]).optional(),
+			disabledReason: z.string().optional(),
 			effectiveDate: z.string().optional(),
 			highlightedDetails: z
 				.array(
@@ -121614,6 +121632,7 @@ export const createIntegrationStoreDirectStatus200Schema = z.object({
 						)
 						.optional(),
 					disabled: z.union([z.literal(false), z.literal(true)]).optional(),
+					disabledReason: z.string().optional(),
 					effectiveDate: z.string().optional(),
 					highlightedDetails: z
 						.array(

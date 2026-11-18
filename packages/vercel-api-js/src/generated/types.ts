@@ -9380,7 +9380,11 @@ export type UserEvent = {
 						boardId: string;
 						channelId: string;
 						environment: string;
-						name: string;
+						/**
+						 * @description Left out when the board no longer lets the team in, though its log still shows the board.
+						 * @type string | undefined
+						 */
+						name?: string | undefined;
 						operationId: string;
 						projectId: string;
 						userId?: string | undefined;
@@ -22395,6 +22399,11 @@ export type AuthUser = {
 		elasticConcurrencyEnabled?: (false | true) | undefined;
 		/**
 		 * @description An object containing infomation related to the amount of platform resources may be allocated to the User account.
+		 * @type boolean | undefined
+		 */
+		enableMessageboardPrivateBoards?: (false | true) | undefined;
+		/**
+		 * @description An object containing infomation related to the amount of platform resources may be allocated to the User account.
 		 * @type number | undefined
 		 */
 		flagsExplorerOverridesThreshold?: number | undefined;
@@ -22418,6 +22427,11 @@ export type AuthUser = {
 		 * @type number | undefined
 		 */
 		kvDatabases?: number | undefined;
+		/**
+		 * @description An object containing infomation related to the amount of platform resources may be allocated to the User account.
+		 * @type number | undefined
+		 */
+		messageboardBoards?: number | undefined;
 		/**
 		 * @description An object containing infomation related to the amount of platform resources may be allocated to the User account.
 		 * @type number | undefined
@@ -66783,6 +66797,7 @@ export type GetBillingPlansStatus200 = {
 			  }[]
 			| undefined;
 		disabled?: (false | true) | undefined;
+		disabledReason?: string | undefined;
 		effectiveDate?: string | undefined;
 		highlightedDetails?:
 			| {
@@ -145657,6 +145672,7 @@ export type CreateIntegrationStoreDirectStatus200 = {
 						  }[]
 						| undefined;
 					disabled?: (false | true) | undefined;
+					disabledReason?: string | undefined;
 					effectiveDate?: string | undefined;
 					highlightedDetails?:
 						| {
