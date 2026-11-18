@@ -1956,6 +1956,12 @@ export const connectConnectorUpdateResultSchema = z
 		serviceSync: connectServiceSyncSchema
 			.optional()
 			.describe("Result of synchronizing the change with the external service."),
+		uninstallNeeded: z
+			.union([z.literal(false), z.literal(true)])
+			.optional()
+			.describe(
+				"When true, scopes were removed. The provider keeps scopes it already granted, so remove the app from the provider workspace and install it again before the removal takes effect. Reinstalling alone does not remove scopes.",
+			),
 	})
 	.describe("Updated connector and any required provider follow-up actions.");
 
@@ -4857,6 +4863,20 @@ export const userEventSchema = z
 					cns: z.array(z.string()).optional(),
 				}),
 				z.strictObject({
+					actorAccountId: z.number().nullable().describe("Stable GitHub user id."),
+					actorLogin: z
+						.string()
+						.describe("Display name only. Logins are mutable; join on `actorAccountId`."),
+					gitOwnerName: z.string(),
+					gitRepositoryName: z.string(),
+					headSha: z.string(),
+					prNumber: z.number(),
+					reviewUrl: z.string(),
+					team: z
+						.string()
+						.describe('The `:must-assume` team the approval counted for, e.g. "vercel/leads".'),
+				}),
+				z.strictObject({
 					gitOwnerName: z.string(),
 					gitRepositoryName: z.string(),
 					next: z.object({
@@ -6984,6 +7004,9 @@ export const userEventSchema = z
 					source: z.enum(["create", "enable", "upgrade"]),
 				}),
 				z.strictObject({
+					effectiveAt: z.number(),
+				}),
+				z.strictObject({
 					actorAccountId: z.string().nullable().describe("Stable account id on `provider`."),
 					actorLogin: z
 						.string()
@@ -7953,6 +7976,21 @@ export const userEventSchema = z
 					scope: z.enum(["organization"]).optional(),
 				}),
 				z.strictObject({
+					perimeter: z.object({
+						id: z.string(),
+						name: z.string(),
+						version: z.number(),
+					}),
+				}),
+				z.strictObject({
+					perimeter: z.object({
+						id: z.string(),
+						name: z.string(),
+						version: z.number(),
+					}),
+					sourceVersion: z.number(),
+				}),
+				z.strictObject({
 					next: z.array(
 						z.object({
 							enableBuilds: z
@@ -8850,6 +8888,11 @@ export const userEventSchema = z
 					projectName: z.string(),
 				}),
 				z.strictObject({
+					projectId: z.string(),
+					projectName: z.string(),
+					removeVercelRequestHeaders: z.union([z.literal(false), z.literal(true)]),
+				}),
+				z.strictObject({
 					oldPasswordProtection: z
 						.union([
 							z.strictObject({
@@ -9324,6 +9367,14 @@ export const userEventSchema = z
 					actorName: z.string().optional(),
 					actorType: z.enum(["admin"]),
 					certificateFingerprints: z.array(z.string()),
+					attributeMappingChanged: z.literal(true).optional(),
+					created: z.union([z.literal(false), z.literal(true)]),
+					previousCertificateFingerprints: z.array(z.string()).optional(),
+				}),
+				z.strictObject({
+					attributeMappingChanged: z.literal(true).optional(),
+					certificateFingerprints: z.array(z.string()),
+					connectionId: z.string(),
 					created: z.union([z.literal(false), z.literal(true)]),
 					previousCertificateFingerprints: z.array(z.string()).optional(),
 				}),
@@ -9332,6 +9383,10 @@ export const userEventSchema = z
 					actorName: z.string().optional(),
 					actorType: z.enum(["admin"]).optional(),
 					certificateFingerprints: z.array(z.string()).optional(),
+				}),
+				z.strictObject({
+					certificateFingerprints: z.array(z.string()),
+					connectionId: z.string(),
 				}),
 				z.strictObject({
 					connectionId: z.string(),
@@ -10942,6 +10997,13 @@ export const userEventSchema = z
 					repository: z.string(),
 				}),
 				z.strictObject({
+					commitSha: z.string(),
+					invocationId: z.string(),
+					organizationId: z.string(),
+					pullRequestNumber: z.number(),
+					repository: z.string(),
+				}),
+				z.strictObject({
 					protectedProjectCount: z.number(),
 					protectionEnabled: z.union([z.literal(false), z.literal(true)]),
 					vulnerabilities: z.array(z.string()),
@@ -11669,6 +11731,8 @@ export const userEventSchema = z
 				"ai-gateway-inference-hooks-endpoint-updated",
 				"ai-gateway-inference-hooks-removed",
 				"ai-gateway-inference-hooks-settings-updated",
+				"ai-gateway-inference-hooks-signing-secret-created",
+				"ai-gateway-inference-hooks-signing-secret-rotated",
 				"ai-gateway-inference-hooks-toggled",
 				"ai-gateway-inference-regions-updated",
 				"ai-gateway-member-budget-changes",
@@ -11741,6 +11805,7 @@ export const userEventSchema = z
 				"cert-renew",
 				"cert-replace",
 				"cert-system-create",
+				"code-owners-assume-owners",
 				"code-owners-config-updated",
 				"compliance-document-downloaded",
 				"compliance-document-previewed",
@@ -11914,6 +11979,7 @@ export const userEventSchema = z
 				"flags-settings",
 				"flags-transferred",
 				"flat-rate-cdn-auto-upgrade-consent",
+				"flat-rate-cdn-migration-opt-out",
 				"git-integration-repo-push",
 				"git_account_integration_link_added",
 				"global-config-backup-restored",
@@ -12063,6 +12129,11 @@ export const userEventSchema = z
 				"payment-method-added",
 				"payment-method-default-updated",
 				"payment-method-removed",
+				"perimeter-created",
+				"perimeter-deleted",
+				"perimeter-renamed",
+				"perimeter-rolled-back",
+				"perimeter-updated",
 				"plan",
 				"preview-deployment-suffix-disabled",
 				"preview-deployment-suffix-enabled",
@@ -12167,6 +12238,7 @@ export const userEventSchema = z
 				"project-prioritize-production-builds-updated",
 				"project-program-enrollment-changed",
 				"project-protected-sourcemaps-updated",
+				"project-remove-vercel-request-headers-updated",
 				"project-rollback-description-updated",
 				"project-rolling-release-aborted",
 				"project-rolling-release-approved",
@@ -12206,6 +12278,10 @@ export const userEventSchema = z
 				"runtime-cache-purge-all",
 				"saml-connection-created",
 				"saml-connection-deleted",
+				"saml-idp-material-deleted",
+				"saml-idp-material-set",
+				"saml-idp-material-system-deleted",
+				"saml-idp-material-system-set",
 				"sandbox-alias-assigned",
 				"sandbox-alias-delete",
 				"sandbox-drive-created",
@@ -12408,6 +12484,7 @@ export const userEventSchema = z
 				"vercel-app-uninstalled",
 				"vercel-ci-repository-github-runners-updated",
 				"vercel-ci-repository-settings-updated",
+				"vercel-ci-run-approved",
 				"vercel-toolbar",
 				"vpc-peering-connection-accepted",
 				"vpc-peering-connection-deleted",
@@ -12584,6 +12661,8 @@ export const listEventTypeSchema = z
 				"ai-gateway-inference-hooks-endpoint-updated",
 				"ai-gateway-inference-hooks-removed",
 				"ai-gateway-inference-hooks-settings-updated",
+				"ai-gateway-inference-hooks-signing-secret-created",
+				"ai-gateway-inference-hooks-signing-secret-rotated",
 				"ai-gateway-inference-hooks-toggled",
 				"ai-gateway-inference-regions-updated",
 				"ai-gateway-member-budget-changes",
@@ -12656,6 +12735,7 @@ export const listEventTypeSchema = z
 				"cert-renew",
 				"cert-replace",
 				"cert-system-create",
+				"code-owners-assume-owners",
 				"code-owners-config-updated",
 				"compliance-document-downloaded",
 				"compliance-document-previewed",
@@ -12829,6 +12909,7 @@ export const listEventTypeSchema = z
 				"flags-settings",
 				"flags-transferred",
 				"flat-rate-cdn-auto-upgrade-consent",
+				"flat-rate-cdn-migration-opt-out",
 				"git-integration-repo-push",
 				"git_account_integration_link_added",
 				"global-config-backup-restored",
@@ -12978,6 +13059,11 @@ export const listEventTypeSchema = z
 				"payment-method-added",
 				"payment-method-default-updated",
 				"payment-method-removed",
+				"perimeter-created",
+				"perimeter-deleted",
+				"perimeter-renamed",
+				"perimeter-rolled-back",
+				"perimeter-updated",
 				"plan",
 				"preview-deployment-suffix-disabled",
 				"preview-deployment-suffix-enabled",
@@ -13082,6 +13168,7 @@ export const listEventTypeSchema = z
 				"project-prioritize-production-builds-updated",
 				"project-program-enrollment-changed",
 				"project-protected-sourcemaps-updated",
+				"project-remove-vercel-request-headers-updated",
 				"project-rollback-description-updated",
 				"project-rolling-release-aborted",
 				"project-rolling-release-approved",
@@ -13121,6 +13208,10 @@ export const listEventTypeSchema = z
 				"runtime-cache-purge-all",
 				"saml-connection-created",
 				"saml-connection-deleted",
+				"saml-idp-material-deleted",
+				"saml-idp-material-set",
+				"saml-idp-material-system-deleted",
+				"saml-idp-material-system-set",
 				"sandbox-alias-assigned",
 				"sandbox-alias-delete",
 				"sandbox-drive-created",
@@ -13323,6 +13414,7 @@ export const listEventTypeSchema = z
 				"vercel-app-uninstalled",
 				"vercel-ci-repository-github-runners-updated",
 				"vercel-ci-repository-settings-updated",
+				"vercel-ci-run-approved",
 				"vercel-toolbar",
 				"vpc-peering-connection-accepted",
 				"vpc-peering-connection-deleted",
@@ -13394,6 +13486,8 @@ export const listEventTypeSchema = z
 					"ai-gateway-inference-hooks-endpoint-updated",
 					"ai-gateway-inference-hooks-removed",
 					"ai-gateway-inference-hooks-settings-updated",
+					"ai-gateway-inference-hooks-signing-secret-created",
+					"ai-gateway-inference-hooks-signing-secret-rotated",
 					"ai-gateway-inference-hooks-toggled",
 					"ai-gateway-inference-regions-updated",
 					"ai-gateway-member-budget-changes",
@@ -13466,6 +13560,7 @@ export const listEventTypeSchema = z
 					"cert-renew",
 					"cert-replace",
 					"cert-system-create",
+					"code-owners-assume-owners",
 					"code-owners-config-updated",
 					"compliance-document-downloaded",
 					"compliance-document-previewed",
@@ -13639,6 +13734,7 @@ export const listEventTypeSchema = z
 					"flags-settings",
 					"flags-transferred",
 					"flat-rate-cdn-auto-upgrade-consent",
+					"flat-rate-cdn-migration-opt-out",
 					"git-integration-repo-push",
 					"git_account_integration_link_added",
 					"global-config-backup-restored",
@@ -13788,6 +13884,11 @@ export const listEventTypeSchema = z
 					"payment-method-added",
 					"payment-method-default-updated",
 					"payment-method-removed",
+					"perimeter-created",
+					"perimeter-deleted",
+					"perimeter-renamed",
+					"perimeter-rolled-back",
+					"perimeter-updated",
 					"plan",
 					"preview-deployment-suffix-disabled",
 					"preview-deployment-suffix-enabled",
@@ -13892,6 +13993,7 @@ export const listEventTypeSchema = z
 					"project-prioritize-production-builds-updated",
 					"project-program-enrollment-changed",
 					"project-protected-sourcemaps-updated",
+					"project-remove-vercel-request-headers-updated",
 					"project-rollback-description-updated",
 					"project-rolling-release-aborted",
 					"project-rolling-release-approved",
@@ -13931,6 +14033,10 @@ export const listEventTypeSchema = z
 					"runtime-cache-purge-all",
 					"saml-connection-created",
 					"saml-connection-deleted",
+					"saml-idp-material-deleted",
+					"saml-idp-material-set",
+					"saml-idp-material-system-deleted",
+					"saml-idp-material-system-set",
 					"sandbox-alias-assigned",
 					"sandbox-alias-delete",
 					"sandbox-drive-created",
@@ -14133,6 +14239,7 @@ export const listEventTypeSchema = z
 					"vercel-app-uninstalled",
 					"vercel-ci-repository-github-runners-updated",
 					"vercel-ci-repository-settings-updated",
+					"vercel-ci-run-approved",
 					"vercel-toolbar",
 					"vpc-peering-connection-accepted",
 					"vpc-peering-connection-deleted",
@@ -31140,33 +31247,20 @@ export const getDeploymentStatus200Schema = z.union([
 										})
 										.optional(),
 									rust: z.string().optional(),
-									scheduleFunction: z
+									schedulesEntrypoint: z
+										.union([z.literal(false), z.literal(true)])
+										.optional()
+										.describe(
+											"Set when this build serves a JavaScript or TypeScript schedule: the entrypoint's default export runs each firing, and its `export const config` sets the schedule.",
+										),
+									schedulesModule: z
 										.object({
-											entrypoints: z
-												.array(
-													z.object({
-														entrypoint: z
-															.string()
-															.describe("Runtime-specific entrypoint locator from `vercel.json`."),
-														scheduleNames: z
-															.array(z.string())
-															.describe(
-																"Names of the schedules that dispatch to this entrypoint, in config order.",
-															),
-														sourceFile: z
-															.string()
-															.describe(
-																"Project-relative source file that contains the entrypoint.",
-															),
-													}),
-												)
-												.min(1),
-											outputPath: z
-												.string()
-												.describe("Function output path every schedule in this build targets."),
+											module: z.string(),
 										})
 										.optional()
-										.describe("Set when this build produces a function for schedule entrypoints."),
+										.describe(
+											"Set when this build serves a Python schedule's module: the `@schedule` handlers that importing `module` registers.",
+										),
 									serviceName: z
 										.string()
 										.optional()
@@ -31481,36 +31575,19 @@ export const getDeploymentStatus200Schema = z.union([
 											})
 											.optional(),
 										rust: z.string().optional(),
-										scheduleFunction: z
+										schedulesEntrypoint: z
+											.union([z.literal(false), z.literal(true)])
+											.optional()
+											.describe(
+												"Set when this build serves a JavaScript or TypeScript schedule: the entrypoint's default export runs each firing, and its `export const config` sets the schedule.",
+											),
+										schedulesModule: z
 											.object({
-												entrypoints: z
-													.array(
-														z.object({
-															entrypoint: z
-																.string()
-																.describe(
-																	"Runtime-specific entrypoint locator from `vercel.json`.",
-																),
-															scheduleNames: z
-																.array(z.string())
-																.describe(
-																	"Names of the schedules that dispatch to this entrypoint, in config order.",
-																),
-															sourceFile: z
-																.string()
-																.describe(
-																	"Project-relative source file that contains the entrypoint.",
-																),
-														}),
-													)
-													.min(1),
-												outputPath: z
-													.string()
-													.describe("Function output path every schedule in this build targets."),
+												module: z.string(),
 											})
 											.optional()
 											.describe(
-												"Set when this build produces a function for schedule entrypoints.",
+												"Set when this build serves a Python schedule's module: the `@schedule` handlers that importing `module` registers.",
 											),
 										serviceName: z
 											.string()
@@ -34703,33 +34780,20 @@ export const createDeploymentStatus200Schema = z.union([
 										})
 										.optional(),
 									rust: z.string().optional(),
-									scheduleFunction: z
+									schedulesEntrypoint: z
+										.union([z.literal(false), z.literal(true)])
+										.optional()
+										.describe(
+											"Set when this build serves a JavaScript or TypeScript schedule: the entrypoint's default export runs each firing, and its `export const config` sets the schedule.",
+										),
+									schedulesModule: z
 										.object({
-											entrypoints: z
-												.array(
-													z.object({
-														entrypoint: z
-															.string()
-															.describe("Runtime-specific entrypoint locator from `vercel.json`."),
-														scheduleNames: z
-															.array(z.string())
-															.describe(
-																"Names of the schedules that dispatch to this entrypoint, in config order.",
-															),
-														sourceFile: z
-															.string()
-															.describe(
-																"Project-relative source file that contains the entrypoint.",
-															),
-													}),
-												)
-												.min(1),
-											outputPath: z
-												.string()
-												.describe("Function output path every schedule in this build targets."),
+											module: z.string(),
 										})
 										.optional()
-										.describe("Set when this build produces a function for schedule entrypoints."),
+										.describe(
+											"Set when this build serves a Python schedule's module: the `@schedule` handlers that importing `module` registers.",
+										),
 									serviceName: z
 										.string()
 										.optional()
@@ -35044,36 +35108,19 @@ export const createDeploymentStatus200Schema = z.union([
 											})
 											.optional(),
 										rust: z.string().optional(),
-										scheduleFunction: z
+										schedulesEntrypoint: z
+											.union([z.literal(false), z.literal(true)])
+											.optional()
+											.describe(
+												"Set when this build serves a JavaScript or TypeScript schedule: the entrypoint's default export runs each firing, and its `export const config` sets the schedule.",
+											),
+										schedulesModule: z
 											.object({
-												entrypoints: z
-													.array(
-														z.object({
-															entrypoint: z
-																.string()
-																.describe(
-																	"Runtime-specific entrypoint locator from `vercel.json`.",
-																),
-															scheduleNames: z
-																.array(z.string())
-																.describe(
-																	"Names of the schedules that dispatch to this entrypoint, in config order.",
-																),
-															sourceFile: z
-																.string()
-																.describe(
-																	"Project-relative source file that contains the entrypoint.",
-																),
-														}),
-													)
-													.min(1),
-												outputPath: z
-													.string()
-													.describe("Function output path every schedule in this build targets."),
+												module: z.string(),
 											})
 											.optional()
 											.describe(
-												"Set when this build produces a function for schedule entrypoints.",
+												"Set when this build serves a Python schedule's module: the `@schedule` handlers that importing `module` registers.",
 											),
 										serviceName: z
 											.string()
@@ -38082,33 +38129,20 @@ export const cancelDeploymentStatus200Schema = z
 										})
 										.optional(),
 									rust: z.string().optional(),
-									scheduleFunction: z
+									schedulesEntrypoint: z
+										.union([z.literal(false), z.literal(true)])
+										.optional()
+										.describe(
+											"Set when this build serves a JavaScript or TypeScript schedule: the entrypoint's default export runs each firing, and its `export const config` sets the schedule.",
+										),
+									schedulesModule: z
 										.object({
-											entrypoints: z
-												.array(
-													z.object({
-														entrypoint: z
-															.string()
-															.describe("Runtime-specific entrypoint locator from `vercel.json`."),
-														scheduleNames: z
-															.array(z.string())
-															.describe(
-																"Names of the schedules that dispatch to this entrypoint, in config order.",
-															),
-														sourceFile: z
-															.string()
-															.describe(
-																"Project-relative source file that contains the entrypoint.",
-															),
-													}),
-												)
-												.min(1),
-											outputPath: z
-												.string()
-												.describe("Function output path every schedule in this build targets."),
+											module: z.string(),
 										})
 										.optional()
-										.describe("Set when this build produces a function for schedule entrypoints."),
+										.describe(
+											"Set when this build serves a Python schedule's module: the `@schedule` handlers that importing `module` registers.",
+										),
 									serviceName: z
 										.string()
 										.optional()
@@ -38423,36 +38457,19 @@ export const cancelDeploymentStatus200Schema = z
 											})
 											.optional(),
 										rust: z.string().optional(),
-										scheduleFunction: z
+										schedulesEntrypoint: z
+											.union([z.literal(false), z.literal(true)])
+											.optional()
+											.describe(
+												"Set when this build serves a JavaScript or TypeScript schedule: the entrypoint's default export runs each firing, and its `export const config` sets the schedule.",
+											),
+										schedulesModule: z
 											.object({
-												entrypoints: z
-													.array(
-														z.object({
-															entrypoint: z
-																.string()
-																.describe(
-																	"Runtime-specific entrypoint locator from `vercel.json`.",
-																),
-															scheduleNames: z
-																.array(z.string())
-																.describe(
-																	"Names of the schedules that dispatch to this entrypoint, in config order.",
-																),
-															sourceFile: z
-																.string()
-																.describe(
-																	"Project-relative source file that contains the entrypoint.",
-																),
-														}),
-													)
-													.min(1),
-												outputPath: z
-													.string()
-													.describe("Function output path every schedule in this build targets."),
+												module: z.string(),
 											})
 											.optional()
 											.describe(
-												"Set when this build produces a function for schedule entrypoints.",
+												"Set when this build serves a Python schedule's module: the `@schedule` handlers that importing `module` registers.",
 											),
 										serviceName: z
 											.string()
@@ -58002,7 +58019,7 @@ export const listKmsIssuersStatus200Schema = z.object({
 			]),
 			claimsSchema: z.looseObject({}).optional(),
 			createdAt: z.string(),
-			discoveryLayout: z.enum(["connect", "kms"]),
+			discoveryLayout: z.enum(["connect", "integrations", "kms"]),
 			id: z.string(),
 			managedBy: z.string().optional(),
 			name: z.string(),
@@ -58176,7 +58193,7 @@ export const createKmsIssuerStatus201Schema = z.object({
 	]),
 	claimsSchema: z.looseObject({}).optional(),
 	createdAt: z.string(),
-	discoveryLayout: z.enum(["connect", "kms"]),
+	discoveryLayout: z.enum(["connect", "integrations", "kms"]),
 	id: z.string(),
 	managedBy: z.string().optional(),
 	name: z.string(),
@@ -58694,7 +58711,7 @@ export const revokeKmsSigningKeyStatus200Schema = z.object({
 	]),
 	claimsSchema: z.looseObject({}).optional(),
 	createdAt: z.string(),
-	discoveryLayout: z.enum(["connect", "kms"]),
+	discoveryLayout: z.enum(["connect", "integrations", "kms"]),
 	id: z.string(),
 	managedBy: z.string().optional(),
 	name: z.string(),
@@ -58869,7 +58886,7 @@ export const getKmsIssuerStatus200Schema = z.object({
 	]),
 	claimsSchema: z.looseObject({}).optional(),
 	createdAt: z.string(),
-	discoveryLayout: z.enum(["connect", "kms"]),
+	discoveryLayout: z.enum(["connect", "integrations", "kms"]),
 	id: z.string(),
 	managedBy: z.string().optional(),
 	name: z.string(),
@@ -59036,7 +59053,7 @@ export const updateKmsIssuerStatus200Schema = z.object({
 	]),
 	claimsSchema: z.looseObject({}).optional(),
 	createdAt: z.string(),
-	discoveryLayout: z.enum(["connect", "kms"]),
+	discoveryLayout: z.enum(["connect", "integrations", "kms"]),
 	id: z.string(),
 	managedBy: z.string().optional(),
 	name: z.string(),
@@ -62482,6 +62499,18 @@ export const getMicrofrontendsInGroupStatus200Schema = z.object({
 							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 						),
 					paymentMethod: z
+						.array(ACLActionSchema)
+						.optional()
+						.describe(
+							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+						),
+					perimeter: z
+						.array(ACLActionSchema)
+						.optional()
+						.describe(
+							"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+						),
+					perimeterLink: z
 						.array(ACLActionSchema)
 						.optional()
 						.describe(
@@ -73482,6 +73511,18 @@ export const getProjectsStatus200Schema = z
 								.describe(
 									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 								),
+							perimeter: z
+								.array(ACLActionSchema)
+								.optional()
+								.describe(
+									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+								),
+							perimeterLink: z
+								.array(ACLActionSchema)
+								.optional()
+								.describe(
+									"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+								),
 							permissions: z
 								.array(ACLActionSchema)
 								.optional()
@@ -77755,6 +77796,18 @@ export const createProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			paymentMethod: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			perimeter: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			perimeterLink: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -82378,6 +82431,18 @@ export const getProjectStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			perimeter: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			perimeterLink: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			permissions: z
 				.array(ACLActionSchema)
 				.optional()
@@ -86461,6 +86526,18 @@ export const updateProjectStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			paymentMethod: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			perimeter: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			perimeterLink: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -91467,6 +91544,18 @@ export const uploadProjectAvatarStatus200Schema = z.object({
 				.describe(
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
+			perimeter: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			perimeterLink: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
 			permissions: z
 				.array(ACLActionSchema)
 				.optional()
@@ -95551,6 +95640,18 @@ export const deleteProjectAvatarStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			paymentMethod: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			perimeter: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			perimeterLink: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -105842,6 +105943,18 @@ export const updateMicrofrontendsStatus200Schema = z.object({
 					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
 				),
 			paymentMethod: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			perimeter: z
+				.array(ACLActionSchema)
+				.optional()
+				.describe(
+					"Requested and authorized operations when `checkPermissions` is used. Legacy `includePermissions` responses contain a broader, non-authoritative permission summary.",
+				),
+			perimeterLink: z
 				.array(ACLActionSchema)
 				.optional()
 				.describe(
@@ -124376,20 +124489,28 @@ export const getTeamsQueryUntilSchema = z
 	.describe("Timestamp (in milliseconds) to only include Teams created until then.")
 	.meta({ examples: [1540095775951] });
 
-export const getTeamsStatus200Schema = z
-	.object({
+export const getTeamsStatus200Schema = z.union([
+	z.strictObject({
+		pagination: paginationSchema.describe(
+			"This object contains information related to the pagination of the current request, including the necessary parameters to get the next or previous page of data.",
+		),
+		teams: z.array(teamSchema),
+	}),
+	z.strictObject({
 		pagination: paginationSchema.describe(
 			"This object contains information related to the pagination of the current request, including the necessary parameters to get the next or previous page of data.",
 		),
 		teams: z.array(z.discriminatedUnion("limited", [teamSchema, teamLimitedSchema])),
-	})
-	.describe("A paginated list of teams.");
+	}),
+]);
 
 export const getTeamsStatus400Schema = z.unknown();
 
 export const getTeamsStatus401Schema = z.unknown();
 
 export const getTeamsStatus403Schema = z.unknown();
+
+export const getTeamsStatus404Schema = z.unknown();
 
 export const getTeamsStatus410Schema = z.unknown();
 
@@ -124401,6 +124522,7 @@ export const getTeamsErrorSchema = z.union([
 	getTeamsStatus400Schema,
 	getTeamsStatus401Schema,
 	getTeamsStatus403Schema,
+	getTeamsStatus404Schema,
 	getTeamsStatus410Schema,
 	getTeamsStatus500Schema,
 ]);
