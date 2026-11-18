@@ -4211,6 +4211,7 @@ export const userEventSchema = z
 								"read-write:schedule",
 								"read-write:team-members",
 								"read-write:vcr",
+								"read-write:vercel-ci",
 								"read-write:webhooks",
 								"read:access-group",
 								"read:ai-gateway-budgets",
@@ -4314,6 +4315,7 @@ export const userEventSchema = z
 								"read-write:schedule",
 								"read-write:team-members",
 								"read-write:vcr",
+								"read-write:vercel-ci",
 								"read-write:webhooks",
 								"read:access-group",
 								"read:ai-gateway-budgets",
@@ -4411,6 +4413,7 @@ export const userEventSchema = z
 										"read-write:schedule",
 										"read-write:team-members",
 										"read-write:vcr",
+										"read-write:vercel-ci",
 										"read-write:webhooks",
 										"read:access-group",
 										"read:ai-gateway-budgets",
@@ -4520,6 +4523,7 @@ export const userEventSchema = z
 										"read-write:schedule",
 										"read-write:team-members",
 										"read-write:vcr",
+										"read-write:vercel-ci",
 										"read-write:webhooks",
 										"read:access-group",
 										"read:ai-gateway-budgets",
@@ -4632,6 +4636,7 @@ export const userEventSchema = z
 								"read-write:schedule",
 								"read-write:team-members",
 								"read-write:vcr",
+								"read-write:vercel-ci",
 								"read-write:webhooks",
 								"read:access-group",
 								"read:ai-gateway-budgets",
@@ -10991,6 +10996,89 @@ export const userEventSchema = z
 					customAlertTitle: z.string(),
 				}),
 				z.strictObject({
+					alertType: z.string(),
+					groupId: z.string(),
+					projectId: z.string(),
+					severity: z.string().optional(),
+					detectionCount: z.number(),
+					detections: z.array(
+						z.object({
+							alertId: z.string(),
+							startedAt: z.number(),
+							title: z.string(),
+						}),
+					),
+				}),
+				z.strictObject({
+					alertType: z.string(),
+					groupId: z.string(),
+					projectId: z.string(),
+					severity: z.string().optional(),
+					destinations: z.object({
+						email: z.literal(true).optional(),
+						inApp: z.literal(true).optional(),
+						push: z.literal(true).optional(),
+						slack: z
+							.array(
+								z.object({
+									channelId: z.string(),
+									configurationId: z.string().optional(),
+									slackWorkspaceId: z.string(),
+								}),
+							)
+							.optional(),
+						unavailable: z.array(z.enum(["slack", "webhooks"])).optional(),
+						webhooks: z
+							.array(
+								z.object({
+									integration: z.string().optional(),
+									webhookId: z.string(),
+								}),
+							)
+							.optional(),
+					}),
+				}),
+				z.strictObject({
+					alertType: z.string(),
+					groupId: z.string(),
+					projectId: z.string(),
+					severity: z.string().optional(),
+					destinations: z.object({
+						email: z.literal(true).optional(),
+						inApp: z.literal(true).optional(),
+						push: z.literal(true).optional(),
+						slack: z
+							.array(
+								z.object({
+									channelId: z.string(),
+									configurationId: z.string().optional(),
+									slackWorkspaceId: z.string(),
+								}),
+							)
+							.optional(),
+						unavailable: z.array(z.enum(["slack", "webhooks"])).optional(),
+						webhooks: z
+							.array(
+								z.object({
+									integration: z.string().optional(),
+									webhookId: z.string(),
+								}),
+							)
+							.optional(),
+					}),
+					title: z.string().optional(),
+				}),
+				z.strictObject({
+					alertType: z.string(),
+					groupId: z.string(),
+					projectId: z.string(),
+					severity: z.string().optional(),
+					alertId: z.string(),
+					resolvedAt: z.number().optional(),
+					startedAt: z.number(),
+					title: z.string(),
+				}),
+				z.strictObject({
 					enabled: z.union([z.literal(false), z.literal(true)]),
 					organizationId: z.string().optional(),
 					repository: z.string().optional(),
@@ -11771,7 +11859,11 @@ export const userEventSchema = z
 				"ai-gateway-zero-data-retention-toggled",
 				"ai-omniagent",
 				"ai-security-review",
+				"alert-group-detected",
+				"alert-group-investigation-completed",
+				"alert-group-published",
 				"alert-investigation-project-allowlist-updated",
+				"alert-resolved",
 				"alert-rule-created",
 				"alert-rule-deleted",
 				"alert-rule-updated",
@@ -12701,7 +12793,11 @@ export const listEventTypeSchema = z
 				"ai-gateway-zero-data-retention-toggled",
 				"ai-omniagent",
 				"ai-security-review",
+				"alert-group-detected",
+				"alert-group-investigation-completed",
+				"alert-group-published",
 				"alert-investigation-project-allowlist-updated",
+				"alert-resolved",
 				"alert-rule-created",
 				"alert-rule-deleted",
 				"alert-rule-updated",
@@ -13526,7 +13622,11 @@ export const listEventTypeSchema = z
 					"ai-gateway-zero-data-retention-toggled",
 					"ai-omniagent",
 					"ai-security-review",
+					"alert-group-detected",
+					"alert-group-investigation-completed",
+					"alert-group-published",
 					"alert-investigation-project-allowlist-updated",
+					"alert-resolved",
 					"alert-rule-created",
 					"alert-rule-deleted",
 					"alert-rule-updated",
@@ -14904,6 +15004,66 @@ export const organizationTeamSchema = z.object({
 	teamId: z.string(),
 	updatedAt: z.string(),
 });
+
+export const organizationDirectorySyncGroupSchema = z
+	.object({
+		assignments: z
+			.object({
+				organizationPermissions: z
+					.array(z.enum(["OrgAdmin"]))
+					.describe("Organization-level permissions assigned to the directory group."),
+				teamRoles: z
+					.array(
+						z.enum([
+							"BILLING",
+							"CONTRIBUTOR",
+							"DEVELOPER",
+							"MEMBER",
+							"OWNER",
+							"SECURITY",
+							"VIEWER",
+							"VIEWER_FOR_PLUS",
+						]),
+					)
+					.describe("Roles for linked child teams without an explicit team assignment."),
+				teams: z
+					.record(
+						z.string(),
+						z.object({
+							teamRoles: z.array(
+								z.enum([
+									"BILLING",
+									"CONTRIBUTOR",
+									"DEVELOPER",
+									"MEMBER",
+									"OWNER",
+									"SECURITY",
+									"VIEWER",
+									"VIEWER_FOR_PLUS",
+								]),
+							),
+						}),
+					)
+					.describe("Replaces the default team roles for each specified child team."),
+			})
+			.nullable()
+			.describe("`null` when the group has no Directory Sync group configuration."),
+		createdAt: z
+			.string()
+			.nullable()
+			.describe("`null` when the group has no Directory Sync group configuration."),
+		directoryGroupId: z.string(),
+		directoryId: z.string(),
+		name: z.string().describe("The group's name in the Identity Provider directory."),
+		organizationId: z.string(),
+		updatedAt: z
+			.string()
+			.nullable()
+			.describe("`null` when the group has no Directory Sync group configuration."),
+	})
+	.describe(
+		"A group from the organization's Identity Provider directory, joined with its Directory Sync group configuration when one exists.",
+	);
 
 export const namedSandboxSchema = z
 	.object({
@@ -30043,6 +30203,7 @@ export const getDeploymentStatus200Schema = z.union([
 					maxConcurrency: z.number().optional(),
 					maxDuration: z.union([z.number(), z.enum(["max"])]).optional(),
 					memory: z.number().optional(),
+					perimeter: z.string().optional(),
 					regions: z.array(z.string()).optional(),
 					runtime: z.string().optional(),
 					supportsCancellation: z.union([z.literal(false), z.literal(true)]).optional(),
@@ -31216,6 +31377,7 @@ export const getDeploymentStatus200Schema = z.union([
 												maxConcurrency: z.number().optional(),
 												maxDuration: z.union([z.number(), z.enum(["max"])]).optional(),
 												memory: z.number().optional(),
+												perimeter: z.string().optional(),
 												regions: z.array(z.string()).optional(),
 												runtime: z.string().optional(),
 												supportsCancellation: z
@@ -31542,6 +31704,7 @@ export const getDeploymentStatus200Schema = z.union([
 													maxConcurrency: z.number().optional(),
 													maxDuration: z.union([z.number(), z.enum(["max"])]).optional(),
 													memory: z.number().optional(),
+													perimeter: z.string().optional(),
 													regions: z.array(z.string()).optional(),
 													runtime: z.string().optional(),
 													supportsCancellation: z
@@ -31730,6 +31893,7 @@ export const getDeploymentStatus200Schema = z.union([
 									maxConcurrency: z.number().optional(),
 									maxDuration: z.union([z.number(), z.enum(["max"])]).optional(),
 									memory: z.number().optional(),
+									perimeter: z.string().optional(),
 									regions: z.array(z.string()).optional(),
 									runtime: z.string().optional(),
 									supportsCancellation: z.union([z.literal(false), z.literal(true)]).optional(),
@@ -33576,6 +33740,7 @@ export const createDeploymentStatus200Schema = z.union([
 					maxConcurrency: z.number().optional(),
 					maxDuration: z.union([z.number(), z.enum(["max"])]).optional(),
 					memory: z.number().optional(),
+					perimeter: z.string().optional(),
 					regions: z.array(z.string()).optional(),
 					runtime: z.string().optional(),
 					supportsCancellation: z.union([z.literal(false), z.literal(true)]).optional(),
@@ -34749,6 +34914,7 @@ export const createDeploymentStatus200Schema = z.union([
 												maxConcurrency: z.number().optional(),
 												maxDuration: z.union([z.number(), z.enum(["max"])]).optional(),
 												memory: z.number().optional(),
+												perimeter: z.string().optional(),
 												regions: z.array(z.string()).optional(),
 												runtime: z.string().optional(),
 												supportsCancellation: z
@@ -35075,6 +35241,7 @@ export const createDeploymentStatus200Schema = z.union([
 													maxConcurrency: z.number().optional(),
 													maxDuration: z.union([z.number(), z.enum(["max"])]).optional(),
 													memory: z.number().optional(),
+													perimeter: z.string().optional(),
 													regions: z.array(z.string()).optional(),
 													runtime: z.string().optional(),
 													supportsCancellation: z
@@ -35263,6 +35430,7 @@ export const createDeploymentStatus200Schema = z.union([
 									maxConcurrency: z.number().optional(),
 									maxDuration: z.union([z.number(), z.enum(["max"])]).optional(),
 									memory: z.number().optional(),
+									perimeter: z.string().optional(),
 									regions: z.array(z.string()).optional(),
 									runtime: z.string().optional(),
 									supportsCancellation: z.union([z.literal(false), z.literal(true)]).optional(),
@@ -36925,6 +37093,7 @@ export const cancelDeploymentStatus200Schema = z
 					maxConcurrency: z.number().optional(),
 					maxDuration: z.union([z.number(), z.enum(["max"])]).optional(),
 					memory: z.number().optional(),
+					perimeter: z.string().optional(),
 					regions: z.array(z.string()).optional(),
 					runtime: z.string().optional(),
 					supportsCancellation: z.union([z.literal(false), z.literal(true)]).optional(),
@@ -38098,6 +38267,7 @@ export const cancelDeploymentStatus200Schema = z
 												maxConcurrency: z.number().optional(),
 												maxDuration: z.union([z.number(), z.enum(["max"])]).optional(),
 												memory: z.number().optional(),
+												perimeter: z.string().optional(),
 												regions: z.array(z.string()).optional(),
 												runtime: z.string().optional(),
 												supportsCancellation: z
@@ -38424,6 +38594,7 @@ export const cancelDeploymentStatus200Schema = z
 													maxConcurrency: z.number().optional(),
 													maxDuration: z.union([z.number(), z.enum(["max"])]).optional(),
 													memory: z.number().optional(),
+													perimeter: z.string().optional(),
 													regions: z.array(z.string()).optional(),
 													runtime: z.string().optional(),
 													supportsCancellation: z
@@ -38612,6 +38783,7 @@ export const cancelDeploymentStatus200Schema = z
 									maxConcurrency: z.number().optional(),
 									maxDuration: z.union([z.number(), z.enum(["max"])]).optional(),
 									memory: z.number().optional(),
+									perimeter: z.string().optional(),
 									regions: z.array(z.string()).optional(),
 									runtime: z.string().optional(),
 									supportsCancellation: z.union([z.literal(false), z.literal(true)]).optional(),
@@ -65228,6 +65400,414 @@ export const removeOrganizationTeamErrorSchema = z.union([
 export const removeOrganizationTeamPathSchema = z.object({
 	organizationId: z.string().describe("The ID of the organization."),
 	targetTeamId: z.string().describe("The ID of the team to remove."),
+});
+
+export const putOrganizationTeamDsyncPathOrganizationIdSchema = z.string();
+
+export const putOrganizationTeamDsyncPathTargetTeamIdSchema = z.string();
+
+export const putOrganizationTeamDsyncQuerySlugSchema = z
+	.string()
+	.optional()
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const putOrganizationTeamDsyncQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const putOrganizationTeamDsyncStatus200Schema = z.object({
+	dsyncMode: z.enum(["organization", "team"]),
+	organizationId: z.string(),
+	teamId: z.string(),
+});
+
+export const putOrganizationTeamDsyncStatus400Schema = z.unknown();
+
+export const putOrganizationTeamDsyncStatus401Schema = z.unknown();
+
+export const putOrganizationTeamDsyncStatus403Schema = z.unknown();
+
+export const putOrganizationTeamDsyncStatus404Schema = z.unknown();
+
+export const putOrganizationTeamDsyncStatus410Schema = z.unknown();
+
+export const putOrganizationTeamDsyncResponseSchema = putOrganizationTeamDsyncStatus200Schema;
+
+export const putOrganizationTeamDsyncErrorSchema = z.union([
+	putOrganizationTeamDsyncStatus400Schema,
+	putOrganizationTeamDsyncStatus401Schema,
+	putOrganizationTeamDsyncStatus403Schema,
+	putOrganizationTeamDsyncStatus404Schema,
+	putOrganizationTeamDsyncStatus410Schema,
+]);
+
+export const putOrganizationTeamDsyncBodySchema = z
+	.strictObject({
+		dsyncMode: z
+			.enum(["organization", "team"])
+			.describe(
+				"Whether the Organization's Directory Sync or the team's own directory governs the team's memberships.",
+			),
+	})
+	.optional();
+
+export const putOrganizationTeamDsyncPathSchema = z.object({
+	organizationId: z.string(),
+	targetTeamId: z.string(),
+});
+
+export const putOrganizationTeamDsyncQuerySchema = z.object({
+	slug: z
+		.string()
+		.optional()
+		.meta({ examples: ["my-team-url-slug"] }),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+});
+
+export const listOrganizationDsyncGroupsPathOrganizationIdSchema = z
+	.string()
+	.describe("The ID of the organization.");
+
+export const listOrganizationDsyncGroupsQueryCursorSchema = z
+	.string()
+	.optional()
+	.describe("Pagination cursor.");
+
+export const listOrganizationDsyncGroupsQueryLimitSchema = z
+	.number()
+	.min(1)
+	.max(100)
+	.optional()
+	.describe("Number of groups to return.");
+
+export const listOrganizationDsyncGroupsQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const listOrganizationDsyncGroupsQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const listOrganizationDsyncGroupsStatus200Schema = z.object({
+	cursor: z.string().optional(),
+	groups: z.array(organizationDirectorySyncGroupSchema),
+});
+
+export const listOrganizationDsyncGroupsStatus400Schema = z.unknown();
+
+export const listOrganizationDsyncGroupsStatus401Schema = z.unknown();
+
+export const listOrganizationDsyncGroupsStatus403Schema = z.unknown();
+
+export const listOrganizationDsyncGroupsStatus404Schema = z.unknown();
+
+export const listOrganizationDsyncGroupsStatus410Schema = z.unknown();
+
+export const listOrganizationDsyncGroupsResponseSchema = listOrganizationDsyncGroupsStatus200Schema;
+
+export const listOrganizationDsyncGroupsErrorSchema = z.union([
+	listOrganizationDsyncGroupsStatus400Schema,
+	listOrganizationDsyncGroupsStatus401Schema,
+	listOrganizationDsyncGroupsStatus403Schema,
+	listOrganizationDsyncGroupsStatus404Schema,
+	listOrganizationDsyncGroupsStatus410Schema,
+]);
+
+export const listOrganizationDsyncGroupsPathSchema = z.object({
+	organizationId: z.string().describe("The ID of the organization."),
+});
+
+export const listOrganizationDsyncGroupsQuerySchema = z.object({
+	cursor: z.string().optional().describe("Pagination cursor."),
+	limit: z.number().min(1).max(100).optional().describe("Number of groups to return."),
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const putOrganizationDsyncGroupHeaderIfMatchSchema = z
+	.string()
+	.regex(/^"\d+"$/)
+	.optional();
+
+export const putOrganizationDsyncGroupHeaderIfNoneMatchSchema = z.enum(["*"]).optional();
+
+export const putOrganizationDsyncGroupPathOrganizationIdSchema = z.string();
+
+export const putOrganizationDsyncGroupPathGroupIdSchema = z.string();
+
+export const putOrganizationDsyncGroupQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const putOrganizationDsyncGroupQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const putOrganizationDsyncGroupStatus200Schema =
+	organizationDirectorySyncGroupSchema.describe(
+		"A group from the organization's Identity Provider directory, joined with its Directory Sync group configuration when one exists.",
+	);
+
+export const putOrganizationDsyncGroupStatus400Schema = z.unknown();
+
+export const putOrganizationDsyncGroupStatus401Schema = z.unknown();
+
+export const putOrganizationDsyncGroupStatus403Schema = z.unknown();
+
+export const putOrganizationDsyncGroupStatus404Schema = z.unknown();
+
+export const putOrganizationDsyncGroupStatus410Schema = z.unknown();
+
+export const putOrganizationDsyncGroupStatus412Schema = z.unknown();
+
+export const putOrganizationDsyncGroupStatus428Schema = z.unknown();
+
+export const putOrganizationDsyncGroupResponseSchema = putOrganizationDsyncGroupStatus200Schema;
+
+export const putOrganizationDsyncGroupErrorSchema = z.union([
+	putOrganizationDsyncGroupStatus400Schema,
+	putOrganizationDsyncGroupStatus401Schema,
+	putOrganizationDsyncGroupStatus403Schema,
+	putOrganizationDsyncGroupStatus404Schema,
+	putOrganizationDsyncGroupStatus410Schema,
+	putOrganizationDsyncGroupStatus412Schema,
+	putOrganizationDsyncGroupStatus428Schema,
+]);
+
+export const putOrganizationDsyncGroupBodySchema = z
+	.strictObject({
+		assignments: z.strictObject({
+			organizationPermissions: z
+				.array(z.enum(["OrgAdmin"]))
+				.refine((items) => new Set(items).size === items.length, {
+					message: "Array entries must be unique",
+				})
+				.optional(),
+			teamRoles: z
+				.array(
+					z.enum([
+						"BILLING",
+						"CONTRIBUTOR",
+						"DEVELOPER",
+						"MEMBER",
+						"OWNER",
+						"SECURITY",
+						"VIEWER",
+						"VIEWER_FOR_PLUS",
+					]),
+				)
+				.refine((items) => new Set(items).size === items.length, {
+					message: "Array entries must be unique",
+				})
+				.optional(),
+			teams: z
+				.record(
+					z.string(),
+					z.strictObject({
+						teamRoles: z
+							.array(
+								z.enum([
+									"BILLING",
+									"CONTRIBUTOR",
+									"DEVELOPER",
+									"MEMBER",
+									"OWNER",
+									"SECURITY",
+									"VIEWER",
+									"VIEWER_FOR_PLUS",
+								]),
+							)
+							.min(1)
+							.refine((items) => new Set(items).size === items.length, {
+								message: "Array entries must be unique",
+							}),
+					}),
+				)
+				.optional(),
+		}),
+	})
+	.optional();
+
+export const putOrganizationDsyncGroupPathSchema = z.object({
+	organizationId: z.string(),
+	groupId: z.string(),
+});
+
+export const putOrganizationDsyncGroupQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const putOrganizationDsyncGroupHeadersSchema = z.object({
+	"If-Match": z
+		.string()
+		.regex(/^"\d+"$/)
+		.optional(),
+	"If-None-Match": z.enum(["*"]).optional(),
+});
+
+export const deleteOrganizationDsyncGroupHeaderIfMatchSchema = z
+	.string()
+	.regex(/^"\d+"$/)
+	.optional();
+
+export const deleteOrganizationDsyncGroupPathOrganizationIdSchema = z.string();
+
+export const deleteOrganizationDsyncGroupPathGroupIdSchema = z.string();
+
+export const deleteOrganizationDsyncGroupQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const deleteOrganizationDsyncGroupQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const deleteOrganizationDsyncGroupStatus204Schema = z.void();
+
+export const deleteOrganizationDsyncGroupStatus400Schema = z.unknown();
+
+export const deleteOrganizationDsyncGroupStatus401Schema = z.unknown();
+
+export const deleteOrganizationDsyncGroupStatus403Schema = z.unknown();
+
+export const deleteOrganizationDsyncGroupStatus404Schema = z.unknown();
+
+export const deleteOrganizationDsyncGroupStatus410Schema = z.unknown();
+
+export const deleteOrganizationDsyncGroupStatus412Schema = z.unknown();
+
+export const deleteOrganizationDsyncGroupStatus428Schema = z.unknown();
+
+export const deleteOrganizationDsyncGroupResponseSchema =
+	deleteOrganizationDsyncGroupStatus204Schema;
+
+export const deleteOrganizationDsyncGroupErrorSchema = z.union([
+	deleteOrganizationDsyncGroupStatus400Schema,
+	deleteOrganizationDsyncGroupStatus401Schema,
+	deleteOrganizationDsyncGroupStatus403Schema,
+	deleteOrganizationDsyncGroupStatus404Schema,
+	deleteOrganizationDsyncGroupStatus410Schema,
+	deleteOrganizationDsyncGroupStatus412Schema,
+	deleteOrganizationDsyncGroupStatus428Schema,
+]);
+
+export const deleteOrganizationDsyncGroupPathSchema = z.object({
+	organizationId: z.string(),
+	groupId: z.string(),
+});
+
+export const deleteOrganizationDsyncGroupQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
+export const deleteOrganizationDsyncGroupHeadersSchema = z.object({
+	"If-Match": z
+		.string()
+		.regex(/^"\d+"$/)
+		.optional(),
+});
+
+export const getOrganizationDsyncGroupPathOrganizationIdSchema = z.string();
+
+export const getOrganizationDsyncGroupPathGroupIdSchema = z.string();
+
+export const getOrganizationDsyncGroupQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const getOrganizationDsyncGroupQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const getOrganizationDsyncGroupStatus200Schema =
+	organizationDirectorySyncGroupSchema.describe(
+		"A group from the organization's Identity Provider directory, joined with its Directory Sync group configuration when one exists.",
+	);
+
+export const getOrganizationDsyncGroupStatus400Schema = z.unknown();
+
+export const getOrganizationDsyncGroupStatus401Schema = z.unknown();
+
+export const getOrganizationDsyncGroupStatus403Schema = z.unknown();
+
+export const getOrganizationDsyncGroupStatus404Schema = z.unknown();
+
+export const getOrganizationDsyncGroupStatus410Schema = z.unknown();
+
+export const getOrganizationDsyncGroupResponseSchema = getOrganizationDsyncGroupStatus200Schema;
+
+export const getOrganizationDsyncGroupErrorSchema = z.union([
+	getOrganizationDsyncGroupStatus400Schema,
+	getOrganizationDsyncGroupStatus401Schema,
+	getOrganizationDsyncGroupStatus403Schema,
+	getOrganizationDsyncGroupStatus404Schema,
+	getOrganizationDsyncGroupStatus410Schema,
+]);
+
+export const getOrganizationDsyncGroupPathSchema = z.object({
+	organizationId: z.string(),
+	groupId: z.string(),
+});
+
+export const getOrganizationDsyncGroupQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
 });
 
 export const getProjectMembersPathIdOrNameSchema = z
@@ -130492,6 +131072,18 @@ export const searchVercelCiLogsStatus200Schema = z.object({
 					),
 				}),
 			),
+			setup: z
+				.object({
+					lines: z.array(
+						z.object({
+							level: z.string(),
+							timestamp: z.number(),
+							message: z.string(),
+						}),
+					),
+				})
+				.optional()
+				.describe("Matching lines from the setup logs. Present only when a setup line matches."),
 		}),
 	),
 	hasMore: z

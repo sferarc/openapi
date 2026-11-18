@@ -5591,6 +5591,7 @@ export const userEventPayloadPermissionsEnum = {
 	"read-write:schedule": "read-write:schedule",
 	"read-write:team-members": "read-write:team-members",
 	"read-write:vcr": "read-write:vcr",
+	"read-write:vercel-ci": "read-write:vercel-ci",
 	"read-write:webhooks": "read-write:webhooks",
 	"read:access-group": "read:access-group",
 	"read:ai-gateway-budgets": "read:ai-gateway-budgets",
@@ -5695,6 +5696,7 @@ export const userEventPayloadNextPermissionsEnum = {
 	"read-write:schedule": "read-write:schedule",
 	"read-write:team-members": "read-write:team-members",
 	"read-write:vcr": "read-write:vcr",
+	"read-write:vercel-ci": "read-write:vercel-ci",
 	"read-write:webhooks": "read-write:webhooks",
 	"read:access-group": "read:access-group",
 	"read:ai-gateway-budgets": "read:ai-gateway-budgets",
@@ -5797,6 +5799,7 @@ export const userEventPayloadAfterPermissionsEnum = {
 	"read-write:schedule": "read-write:schedule",
 	"read-write:team-members": "read-write:team-members",
 	"read-write:vcr": "read-write:vcr",
+	"read-write:vercel-ci": "read-write:vercel-ci",
 	"read-write:webhooks": "read-write:webhooks",
 	"read:access-group": "read:access-group",
 	"read:ai-gateway-budgets": "read:ai-gateway-budgets",
@@ -5887,6 +5890,7 @@ export const userEventPayloadBeforePermissionsEnum = {
 	"read-write:schedule": "read-write:schedule",
 	"read-write:team-members": "read-write:team-members",
 	"read-write:vcr": "read-write:vcr",
+	"read-write:vercel-ci": "read-write:vercel-ci",
 	"read-write:webhooks": "read-write:webhooks",
 	"read:access-group": "read:access-group",
 	"read:ai-gateway-budgets": "read:ai-gateway-budgets",
@@ -5977,6 +5981,7 @@ export const userEventPayloadPermissionsEnum2 = {
 	"read-write:schedule": "read-write:schedule",
 	"read-write:team-members": "read-write:team-members",
 	"read-write:vcr": "read-write:vcr",
+	"read-write:vercel-ci": "read-write:vercel-ci",
 	"read-write:webhooks": "read-write:webhooks",
 	"read:access-group": "read:access-group",
 	"read:ai-gateway-budgets": "read:ai-gateway-budgets",
@@ -8175,6 +8180,22 @@ export const userEventPayloadOutcomeEnum2 = {
 export type UserEventPayloadOutcomeEnum2Key =
 	(typeof userEventPayloadOutcomeEnum2)[keyof typeof userEventPayloadOutcomeEnum2];
 
+export const userEventPayloadDestinationsUnavailableEnum = {
+	slack: "slack",
+	webhooks: "webhooks",
+} as const;
+
+export type UserEventPayloadDestinationsUnavailableEnumKey =
+	(typeof userEventPayloadDestinationsUnavailableEnum)[keyof typeof userEventPayloadDestinationsUnavailableEnum];
+
+export const userEventPayloadDestinationsUnavailableEnum2 = {
+	slack: "slack",
+	webhooks: "webhooks",
+} as const;
+
+export type UserEventPayloadDestinationsUnavailableEnum2Key =
+	(typeof userEventPayloadDestinationsUnavailableEnum2)[keyof typeof userEventPayloadDestinationsUnavailableEnum2];
+
 export const userEventPayloadCadenceEnum = {
 	monthly: "monthly",
 	weekly: "weekly",
@@ -8456,7 +8477,11 @@ export const userEventTypeEnum = {
 	"ai-gateway-zero-data-retention-toggled": "ai-gateway-zero-data-retention-toggled",
 	"ai-omniagent": "ai-omniagent",
 	"ai-security-review": "ai-security-review",
+	"alert-group-detected": "alert-group-detected",
+	"alert-group-investigation-completed": "alert-group-investigation-completed",
+	"alert-group-published": "alert-group-published",
 	"alert-investigation-project-allowlist-updated": "alert-investigation-project-allowlist-updated",
+	"alert-resolved": "alert-resolved",
 	"alert-rule-created": "alert-rule-created",
 	"alert-rule-deleted": "alert-rule-deleted",
 	"alert-rule-updated": "alert-rule-updated",
@@ -16167,6 +16192,79 @@ export type UserEvent = {
 						customAlertTitle: string;
 				  }
 				| {
+						alertType: string;
+						groupId: string;
+						projectId: string;
+						severity?: string | undefined;
+						detectionCount: number;
+						detections: {
+							alertId: string;
+							startedAt: number;
+							title: string;
+						}[];
+				  }
+				| {
+						alertType: string;
+						groupId: string;
+						projectId: string;
+						severity?: string | undefined;
+						destinations: {
+							email?: true | undefined;
+							inApp?: true | undefined;
+							push?: true | undefined;
+							slack?:
+								| {
+										channelId: string;
+										configurationId?: string | undefined;
+										slackWorkspaceId: string;
+								  }[]
+								| undefined;
+							unavailable?: UserEventPayloadDestinationsUnavailableEnumKey[] | undefined;
+							webhooks?:
+								| {
+										integration?: string | undefined;
+										webhookId: string;
+								  }[]
+								| undefined;
+						};
+				  }
+				| {
+						alertType: string;
+						groupId: string;
+						projectId: string;
+						severity?: string | undefined;
+						destinations: {
+							email?: true | undefined;
+							inApp?: true | undefined;
+							push?: true | undefined;
+							slack?:
+								| {
+										channelId: string;
+										configurationId?: string | undefined;
+										slackWorkspaceId: string;
+								  }[]
+								| undefined;
+							unavailable?: UserEventPayloadDestinationsUnavailableEnum2Key[] | undefined;
+							webhooks?:
+								| {
+										integration?: string | undefined;
+										webhookId: string;
+								  }[]
+								| undefined;
+						};
+						title?: string | undefined;
+				  }
+				| {
+						alertType: string;
+						groupId: string;
+						projectId: string;
+						severity?: string | undefined;
+						alertId: string;
+						resolvedAt?: number | undefined;
+						startedAt: number;
+						title: string;
+				  }
+				| {
 						enabled: false | true;
 						organizationId?: string | undefined;
 						repository?: string | undefined;
@@ -17082,7 +17180,11 @@ export const listEventTypeNameEnum = {
 	"ai-gateway-zero-data-retention-toggled": "ai-gateway-zero-data-retention-toggled",
 	"ai-omniagent": "ai-omniagent",
 	"ai-security-review": "ai-security-review",
+	"alert-group-detected": "alert-group-detected",
+	"alert-group-investigation-completed": "alert-group-investigation-completed",
+	"alert-group-published": "alert-group-published",
 	"alert-investigation-project-allowlist-updated": "alert-investigation-project-allowlist-updated",
+	"alert-resolved": "alert-resolved",
 	"alert-rule-created": "alert-rule-created",
 	"alert-rule-deleted": "alert-rule-deleted",
 	"alert-rule-updated": "alert-rule-updated",
@@ -17926,7 +18028,11 @@ export const listEventTypeReplacedByEnum = {
 	"ai-gateway-zero-data-retention-toggled": "ai-gateway-zero-data-retention-toggled",
 	"ai-omniagent": "ai-omniagent",
 	"ai-security-review": "ai-security-review",
+	"alert-group-detected": "alert-group-detected",
+	"alert-group-investigation-completed": "alert-group-investigation-completed",
+	"alert-group-published": "alert-group-published",
 	"alert-investigation-project-allowlist-updated": "alert-investigation-project-allowlist-updated",
+	"alert-resolved": "alert-resolved",
 	"alert-rule-created": "alert-rule-created",
 	"alert-rule-deleted": "alert-rule-deleted",
 	"alert-rule-updated": "alert-rule-updated",
@@ -19548,6 +19654,79 @@ export type OrganizationTeam = {
 	ssoMode: OrganizationTeamSsoModeEnumKey;
 	teamId: string;
 	updatedAt: string;
+};
+
+export const organizationDirectorySyncGroupAssignmentsTeamRolesEnum = {
+	BILLING: "BILLING",
+	CONTRIBUTOR: "CONTRIBUTOR",
+	DEVELOPER: "DEVELOPER",
+	MEMBER: "MEMBER",
+	OWNER: "OWNER",
+	SECURITY: "SECURITY",
+	VIEWER: "VIEWER",
+	VIEWER_FOR_PLUS: "VIEWER_FOR_PLUS",
+} as const;
+
+export type OrganizationDirectorySyncGroupAssignmentsTeamRolesEnumKey =
+	(typeof organizationDirectorySyncGroupAssignmentsTeamRolesEnum)[keyof typeof organizationDirectorySyncGroupAssignmentsTeamRolesEnum];
+
+/**
+ * @description A group from the organization's Identity Provider directory, joined with its Directory Sync group configuration when one exists.
+ * @type object
+ */
+export type OrganizationDirectorySyncGroup = {
+	/**
+	 * @description `null` when the group has no Directory Sync group configuration.
+	 * @type object
+	 */
+	assignments: {
+		/**
+		 * @description Organization-level permissions assigned to the directory group.
+		 * @type array
+		 */
+		organizationPermissions: "OrgAdmin"[];
+		/**
+		 * @description Roles for linked child teams without an explicit team assignment.
+		 * @type array
+		 */
+		teamRoles: OrganizationDirectorySyncGroupAssignmentsTeamRolesEnumKey[];
+		/**
+		 * @description Replaces the default team roles for each specified child team.
+		 * @type object
+		 */
+		teams: {
+			[key: string]: {
+				teamRoles: (
+					| "BILLING"
+					| "CONTRIBUTOR"
+					| "DEVELOPER"
+					| "MEMBER"
+					| "OWNER"
+					| "SECURITY"
+					| "VIEWER"
+					| "VIEWER_FOR_PLUS"
+				)[];
+			};
+		};
+	} | null;
+	/**
+	 * @description `null` when the group has no Directory Sync group configuration.
+	 * @type string
+	 */
+	createdAt: string | null;
+	directoryGroupId: string;
+	directoryId: string;
+	/**
+	 * @description The group's name in the Identity Provider directory.
+	 * @type string
+	 */
+	name: string;
+	organizationId: string;
+	/**
+	 * @description `null` when the group has no Directory Sync group configuration.
+	 * @type string
+	 */
+	updatedAt: string | null;
 };
 
 export const namedSandboxArchitectureEnum = {
@@ -38818,6 +38997,7 @@ export type GetDeploymentStatus200 =
 							maxConcurrency?: number | undefined;
 							maxDuration?: (number | "max") | undefined;
 							memory?: number | undefined;
+							perimeter?: string | undefined;
 							regions?: string[] | undefined;
 							runtime?: string | undefined;
 							supportsCancellation?: (false | true) | undefined;
@@ -39988,6 +40168,7 @@ export type GetDeploymentStatus200 =
 																maxConcurrency?: number | undefined;
 																maxDuration?: (number | "max") | undefined;
 																memory?: number | undefined;
+																perimeter?: string | undefined;
 																regions?: string[] | undefined;
 																runtime?: string | undefined;
 																supportsCancellation?: (false | true) | undefined;
@@ -40346,6 +40527,7 @@ export type GetDeploymentStatus200 =
 																maxConcurrency?: number | undefined;
 																maxDuration?: (number | "max") | undefined;
 																memory?: number | undefined;
+																perimeter?: string | undefined;
 																regions?: string[] | undefined;
 																runtime?: string | undefined;
 																supportsCancellation?: (false | true) | undefined;
@@ -40537,6 +40719,7 @@ export type GetDeploymentStatus200 =
 												maxConcurrency?: number | undefined;
 												maxDuration?: (number | "max") | undefined;
 												memory?: number | undefined;
+												perimeter?: string | undefined;
 												regions?: string[] | undefined;
 												runtime?: string | undefined;
 												supportsCancellation?: (false | true) | undefined;
@@ -43245,6 +43428,7 @@ export type CreateDeploymentStatus200 =
 							maxConcurrency?: number | undefined;
 							maxDuration?: (number | "max") | undefined;
 							memory?: number | undefined;
+							perimeter?: string | undefined;
 							regions?: string[] | undefined;
 							runtime?: string | undefined;
 							supportsCancellation?: (false | true) | undefined;
@@ -44417,6 +44601,7 @@ export type CreateDeploymentStatus200 =
 																maxConcurrency?: number | undefined;
 																maxDuration?: (number | "max") | undefined;
 																memory?: number | undefined;
+																perimeter?: string | undefined;
 																regions?: string[] | undefined;
 																runtime?: string | undefined;
 																supportsCancellation?: (false | true) | undefined;
@@ -44775,6 +44960,7 @@ export type CreateDeploymentStatus200 =
 																maxConcurrency?: number | undefined;
 																maxDuration?: (number | "max") | undefined;
 																memory?: number | undefined;
+																perimeter?: string | undefined;
 																regions?: string[] | undefined;
 																runtime?: string | undefined;
 																supportsCancellation?: (false | true) | undefined;
@@ -44966,6 +45152,7 @@ export type CreateDeploymentStatus200 =
 												maxConcurrency?: number | undefined;
 												maxDuration?: (number | "max") | undefined;
 												memory?: number | undefined;
+												perimeter?: string | undefined;
 												regions?: string[] | undefined;
 												runtime?: string | undefined;
 												supportsCancellation?: (false | true) | undefined;
@@ -47516,6 +47703,7 @@ export type CancelDeploymentStatus200 = {
 					maxConcurrency?: number | undefined;
 					maxDuration?: (number | "max") | undefined;
 					memory?: number | undefined;
+					perimeter?: string | undefined;
 					regions?: string[] | undefined;
 					runtime?: string | undefined;
 					supportsCancellation?: (false | true) | undefined;
@@ -48686,6 +48874,7 @@ export type CancelDeploymentStatus200 = {
 														maxConcurrency?: number | undefined;
 														maxDuration?: (number | "max") | undefined;
 														memory?: number | undefined;
+														perimeter?: string | undefined;
 														regions?: string[] | undefined;
 														runtime?: string | undefined;
 														supportsCancellation?: (false | true) | undefined;
@@ -49044,6 +49233,7 @@ export type CancelDeploymentStatus200 = {
 														maxConcurrency?: number | undefined;
 														maxDuration?: (number | "max") | undefined;
 														memory?: number | undefined;
+														perimeter?: string | undefined;
 														regions?: string[] | undefined;
 														runtime?: string | undefined;
 														supportsCancellation?: (false | true) | undefined;
@@ -49235,6 +49425,7 @@ export type CancelDeploymentStatus200 = {
 										maxConcurrency?: number | undefined;
 										maxDuration?: (number | "max") | undefined;
 										memory?: number | undefined;
+										perimeter?: string | undefined;
 										regions?: string[] | undefined;
 										runtime?: string | undefined;
 										supportsCancellation?: (false | true) | undefined;
@@ -80642,6 +80833,394 @@ export type RemoveOrganizationTeamResponses = {
  * @description Union of all possible responses
  */
 export type RemoveOrganizationTeamResponse = RemoveOrganizationTeamStatus200;
+
+export type PutOrganizationTeamDsyncPath = {
+	organizationId: string;
+	targetTeamId: string;
+};
+
+export type PutOrganizationTeamDsyncQuery = {
+	/**
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+};
+
+export const putOrganizationTeamDsyncStatus200DsyncModeEnum = {
+	organization: "organization",
+	team: "team",
+} as const;
+
+export type PutOrganizationTeamDsyncStatus200DsyncModeEnumKey =
+	(typeof putOrganizationTeamDsyncStatus200DsyncModeEnum)[keyof typeof putOrganizationTeamDsyncStatus200DsyncModeEnum];
+
+export type PutOrganizationTeamDsyncStatus200 = {
+	dsyncMode: PutOrganizationTeamDsyncStatus200DsyncModeEnumKey;
+	organizationId: string;
+	teamId: string;
+};
+
+export type PutOrganizationTeamDsyncStatus400 = unknown;
+
+export type PutOrganizationTeamDsyncStatus401 = unknown;
+
+export type PutOrganizationTeamDsyncStatus403 = unknown;
+
+export type PutOrganizationTeamDsyncStatus404 = unknown;
+
+export type PutOrganizationTeamDsyncStatus410 = unknown;
+
+export const putOrganizationTeamDsyncRequestDsyncModeEnum = {
+	organization: "organization",
+	team: "team",
+} as const;
+
+export type PutOrganizationTeamDsyncRequestDsyncModeEnumKey =
+	(typeof putOrganizationTeamDsyncRequestDsyncModeEnum)[keyof typeof putOrganizationTeamDsyncRequestDsyncModeEnum];
+
+export type PutOrganizationTeamDsyncBody =
+	| {
+			/**
+			 * @description Whether the Organization's Directory Sync or the team's own directory governs the team's memberships.
+			 * @type string
+			 */
+			dsyncMode: PutOrganizationTeamDsyncRequestDsyncModeEnumKey;
+	  }
+	| undefined;
+
+export type PutOrganizationTeamDsyncOptions = {
+	body?: PutOrganizationTeamDsyncBody | undefined;
+	path: PutOrganizationTeamDsyncPath;
+	query?: PutOrganizationTeamDsyncQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type PutOrganizationTeamDsyncResponses = {
+	"200": PutOrganizationTeamDsyncStatus200;
+	"400": PutOrganizationTeamDsyncStatus400;
+	"401": PutOrganizationTeamDsyncStatus401;
+	"403": PutOrganizationTeamDsyncStatus403;
+	"404": PutOrganizationTeamDsyncStatus404;
+	"410": PutOrganizationTeamDsyncStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type PutOrganizationTeamDsyncResponse = PutOrganizationTeamDsyncStatus200;
+
+export type ListOrganizationDsyncGroupsPath = {
+	/**
+	 * @description The ID of the organization.
+	 * @type string
+	 */
+	organizationId: string;
+};
+
+export type ListOrganizationDsyncGroupsQuery = {
+	/**
+	 * @description Pagination cursor.
+	 * @type string | undefined
+	 */
+	cursor?: string | undefined;
+	/**
+	 * @description Number of groups to return.
+	 * @minimum 1
+	 * @maximum 100
+	 * @type number | undefined
+	 */
+	limit?: number | undefined;
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type ListOrganizationDsyncGroupsStatus200 = {
+	cursor?: string | undefined;
+	groups: OrganizationDirectorySyncGroup[];
+};
+
+export type ListOrganizationDsyncGroupsStatus400 = unknown;
+
+export type ListOrganizationDsyncGroupsStatus401 = unknown;
+
+export type ListOrganizationDsyncGroupsStatus403 = unknown;
+
+export type ListOrganizationDsyncGroupsStatus404 = unknown;
+
+export type ListOrganizationDsyncGroupsStatus410 = unknown;
+
+export type ListOrganizationDsyncGroupsOptions = {
+	body?: never | undefined;
+	path: ListOrganizationDsyncGroupsPath;
+	query?: ListOrganizationDsyncGroupsQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type ListOrganizationDsyncGroupsResponses = {
+	"200": ListOrganizationDsyncGroupsStatus200;
+	"400": ListOrganizationDsyncGroupsStatus400;
+	"401": ListOrganizationDsyncGroupsStatus401;
+	"403": ListOrganizationDsyncGroupsStatus403;
+	"404": ListOrganizationDsyncGroupsStatus404;
+	"410": ListOrganizationDsyncGroupsStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type ListOrganizationDsyncGroupsResponse = ListOrganizationDsyncGroupsStatus200;
+
+export type PutOrganizationDsyncGroupPath = {
+	organizationId: string;
+	groupId: string;
+};
+
+export type PutOrganizationDsyncGroupQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type PutOrganizationDsyncGroupHeaders = {
+	/**
+	 * @pattern ^"\d+"$
+	 * @type string | undefined
+	 */
+	"If-Match"?: string | undefined;
+	"If-None-Match"?: "*" | undefined;
+};
+
+/**
+ * @description A group from the organization's Identity Provider directory, joined with its Directory Sync group configuration when one exists.
+ * @type object
+ */
+export type PutOrganizationDsyncGroupStatus200 = OrganizationDirectorySyncGroup;
+
+export type PutOrganizationDsyncGroupStatus400 = unknown;
+
+export type PutOrganizationDsyncGroupStatus401 = unknown;
+
+export type PutOrganizationDsyncGroupStatus403 = unknown;
+
+export type PutOrganizationDsyncGroupStatus404 = unknown;
+
+export type PutOrganizationDsyncGroupStatus410 = unknown;
+
+export type PutOrganizationDsyncGroupStatus412 = unknown;
+
+export type PutOrganizationDsyncGroupStatus428 = unknown;
+
+export const putOrganizationDsyncGroupRequestAssignmentsTeamRolesEnum = {
+	BILLING: "BILLING",
+	CONTRIBUTOR: "CONTRIBUTOR",
+	DEVELOPER: "DEVELOPER",
+	MEMBER: "MEMBER",
+	OWNER: "OWNER",
+	SECURITY: "SECURITY",
+	VIEWER: "VIEWER",
+	VIEWER_FOR_PLUS: "VIEWER_FOR_PLUS",
+} as const;
+
+export type PutOrganizationDsyncGroupRequestAssignmentsTeamRolesEnumKey =
+	(typeof putOrganizationDsyncGroupRequestAssignmentsTeamRolesEnum)[keyof typeof putOrganizationDsyncGroupRequestAssignmentsTeamRolesEnum];
+
+export type PutOrganizationDsyncGroupBody =
+	| {
+			assignments: {
+				organizationPermissions?: "OrgAdmin"[] | undefined;
+				teamRoles?: PutOrganizationDsyncGroupRequestAssignmentsTeamRolesEnumKey[] | undefined;
+				teams?:
+					| {
+							[key: string]: {
+								teamRoles: (
+									| "BILLING"
+									| "CONTRIBUTOR"
+									| "DEVELOPER"
+									| "MEMBER"
+									| "OWNER"
+									| "SECURITY"
+									| "VIEWER"
+									| "VIEWER_FOR_PLUS"
+								)[];
+							};
+					  }
+					| undefined;
+			};
+	  }
+	| undefined;
+
+export type PutOrganizationDsyncGroupOptions = {
+	body?: PutOrganizationDsyncGroupBody | undefined;
+	path: PutOrganizationDsyncGroupPath;
+	query?: PutOrganizationDsyncGroupQuery | undefined;
+	headers?: PutOrganizationDsyncGroupHeaders | undefined;
+};
+
+export type PutOrganizationDsyncGroupResponses = {
+	"200": PutOrganizationDsyncGroupStatus200;
+	"400": PutOrganizationDsyncGroupStatus400;
+	"401": PutOrganizationDsyncGroupStatus401;
+	"403": PutOrganizationDsyncGroupStatus403;
+	"404": PutOrganizationDsyncGroupStatus404;
+	"410": PutOrganizationDsyncGroupStatus410;
+	"412": PutOrganizationDsyncGroupStatus412;
+	"428": PutOrganizationDsyncGroupStatus428;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type PutOrganizationDsyncGroupResponse = PutOrganizationDsyncGroupStatus200;
+
+export type DeleteOrganizationDsyncGroupPath = {
+	organizationId: string;
+	groupId: string;
+};
+
+export type DeleteOrganizationDsyncGroupQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type DeleteOrganizationDsyncGroupHeaders = {
+	/**
+	 * @pattern ^"\d+"$
+	 * @type string | undefined
+	 */
+	"If-Match"?: string | undefined;
+};
+
+export type DeleteOrganizationDsyncGroupStatus204 = void;
+
+export type DeleteOrganizationDsyncGroupStatus400 = unknown;
+
+export type DeleteOrganizationDsyncGroupStatus401 = unknown;
+
+export type DeleteOrganizationDsyncGroupStatus403 = unknown;
+
+export type DeleteOrganizationDsyncGroupStatus404 = unknown;
+
+export type DeleteOrganizationDsyncGroupStatus410 = unknown;
+
+export type DeleteOrganizationDsyncGroupStatus412 = unknown;
+
+export type DeleteOrganizationDsyncGroupStatus428 = unknown;
+
+export type DeleteOrganizationDsyncGroupOptions = {
+	body?: never | undefined;
+	path: DeleteOrganizationDsyncGroupPath;
+	query?: DeleteOrganizationDsyncGroupQuery | undefined;
+	headers?: DeleteOrganizationDsyncGroupHeaders | undefined;
+};
+
+export type DeleteOrganizationDsyncGroupResponses = {
+	"204": DeleteOrganizationDsyncGroupStatus204;
+	"400": DeleteOrganizationDsyncGroupStatus400;
+	"401": DeleteOrganizationDsyncGroupStatus401;
+	"403": DeleteOrganizationDsyncGroupStatus403;
+	"404": DeleteOrganizationDsyncGroupStatus404;
+	"410": DeleteOrganizationDsyncGroupStatus410;
+	"412": DeleteOrganizationDsyncGroupStatus412;
+	"428": DeleteOrganizationDsyncGroupStatus428;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type DeleteOrganizationDsyncGroupResponse = DeleteOrganizationDsyncGroupStatus204;
+
+export type GetOrganizationDsyncGroupPath = {
+	organizationId: string;
+	groupId: string;
+};
+
+export type GetOrganizationDsyncGroupQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+/**
+ * @description A group from the organization's Identity Provider directory, joined with its Directory Sync group configuration when one exists.
+ * @type object
+ */
+export type GetOrganizationDsyncGroupStatus200 = OrganizationDirectorySyncGroup;
+
+export type GetOrganizationDsyncGroupStatus400 = unknown;
+
+export type GetOrganizationDsyncGroupStatus401 = unknown;
+
+export type GetOrganizationDsyncGroupStatus403 = unknown;
+
+export type GetOrganizationDsyncGroupStatus404 = unknown;
+
+export type GetOrganizationDsyncGroupStatus410 = unknown;
+
+export type GetOrganizationDsyncGroupOptions = {
+	body?: never | undefined;
+	path: GetOrganizationDsyncGroupPath;
+	query?: GetOrganizationDsyncGroupQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type GetOrganizationDsyncGroupResponses = {
+	"200": GetOrganizationDsyncGroupStatus200;
+	"400": GetOrganizationDsyncGroupStatus400;
+	"401": GetOrganizationDsyncGroupStatus401;
+	"403": GetOrganizationDsyncGroupStatus403;
+	"404": GetOrganizationDsyncGroupStatus404;
+	"410": GetOrganizationDsyncGroupStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type GetOrganizationDsyncGroupResponse = GetOrganizationDsyncGroupStatus200;
 
 export type GetProjectMembersPath = {
 	/**
@@ -154522,6 +155101,19 @@ export type SearchVercelCiLogsStatus200 = {
 				message: string;
 			}[];
 		}[];
+		/**
+		 * @description Matching lines from the setup logs. Present only when a setup line matches.
+		 * @type object | undefined
+		 */
+		setup?:
+			| {
+					lines: {
+						level: string;
+						timestamp: number;
+						message: string;
+					}[];
+			  }
+			| undefined;
 	}[];
 	/**
 	 * @description Whether more than 1000 lines matched. The newest lines are returned.
