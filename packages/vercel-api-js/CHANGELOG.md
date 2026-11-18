@@ -1,5 +1,20 @@
 # vercel-api-js
 
+## 2.43.0
+
+### Minor Changes
+
+- 514f9b2: Added a 404 response type to getTeams API operation.
+- 514f9b2: Added new user event types and updated the UserEvent type with additional fields for finer-grained event modeling.
+- 514f9b2: [BREAKING] Replaced the scheduleFunction property with schedulesEntrypoint and schedulesModule in deployment status types to distinguish JavaScript/TypeScript and Python schedule support.
+
+### Patch Changes
+
+- 514f9b2: Updated the description of the patchTeam function to clarify app-principal token requirements and behavior.
+- 514f9b2: Added a new enum value 'integrations' to various KMS issuer discovery layout enums.
+- 514f9b2: Added perimeter and perimeterLink fields to multiple project and microfrontends status types to provide authorized operation details when using checkPermissions.
+- 514f9b2: Added the uninstallNeeded field to ConnectConnectorUpdateResult to indicate when app reinstallation is required for scope removal.
+
 ## 2.42.1
 
 ### Patch Changes
