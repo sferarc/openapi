@@ -17455,7 +17455,7 @@ export async function removeOrganizationTeam(
 
 /**
  * @summary Update Organization Team Directory Sync Mode
- * @description Select whether one Organization team's memberships are governed by the Organization's Directory Sync or by the team's own directory. The team's own directory connection is kept either way.
+ * @description Select whether one Organization team's memberships are governed by the Organization's Directory Sync or by the team's own directory. The team's own directory connection is kept either way. The root team can follow the Organization's Directory Sync only when no group grants OrgAdmin or at least one OrgAdmin group also grants the Owner role on it.
  * @link /v1/organizations/{organizationId}/teams/{targetTeamId}/dsync
  */
 export async function putOrganizationTeamDsync(
@@ -17552,7 +17552,7 @@ export async function listOrganizationDsyncGroups(
 
 /**
  * @summary Create or Replace Organization Directory Sync Group Configuration
- * @description Create or replace one organization's Directory Sync group configuration. The directory starts syncing when at least one group grants OrgAdmin.
+ * @description Create or replace one organization's Directory Sync group configuration. The directory starts syncing when at least one group grants OrgAdmin. A group that grants OrgAdmin must also grant the Owner role on the organization's root team, as its default role or for that team.
  * @link /v1/organizations/{organizationId}/dsync/groups/{groupId}
  */
 export async function putOrganizationDsyncGroup(

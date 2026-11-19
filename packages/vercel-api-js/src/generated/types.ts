@@ -9002,8 +9002,6 @@ export const userEventTypeEnum = {
 	"project-rolling-release-enabled": "project-rolling-release-enabled",
 	"project-rolling-release-paused": "project-rolling-release-paused",
 	"project-rolling-release-started": "project-rolling-release-started",
-	"project-rolling-release-suggested-actions-generated":
-		"project-rolling-release-suggested-actions-generated",
 	"project-rolling-release-timer": "project-rolling-release-timer",
 	"project-root-directory-updated": "project-root-directory-updated",
 	"project-routes-version-promoted": "project-routes-version-promoted",
@@ -14281,12 +14279,6 @@ export type UserEvent = {
 						newTargetPercentage?: number | undefined;
 				  }
 				| {
-						projectId: string;
-						projectName: string;
-						targetDeploymentId?: string | undefined;
-						action?: string | undefined;
-				  }
-				| {
 						next: {
 							deploymentSources?: (unknown[] | null) | undefined;
 							gitSources?: (unknown[] | null) | undefined;
@@ -15979,6 +15971,13 @@ export type UserEvent = {
 				  }
 				| {
 						exportId: string;
+						filters?:
+							| {
+									alertGroupId?: string | undefined;
+									projectIds?: string[] | undefined;
+									types?: string[] | undefined;
+							  }
+							| undefined;
 						format: string;
 						from: number;
 						to: number;
@@ -17726,8 +17725,6 @@ export const listEventTypeNameEnum = {
 	"project-rolling-release-enabled": "project-rolling-release-enabled",
 	"project-rolling-release-paused": "project-rolling-release-paused",
 	"project-rolling-release-started": "project-rolling-release-started",
-	"project-rolling-release-suggested-actions-generated":
-		"project-rolling-release-suggested-actions-generated",
 	"project-rolling-release-timer": "project-rolling-release-timer",
 	"project-root-directory-updated": "project-root-directory-updated",
 	"project-routes-version-promoted": "project-routes-version-promoted",
@@ -18578,8 +18575,6 @@ export const listEventTypeReplacedByEnum = {
 	"project-rolling-release-enabled": "project-rolling-release-enabled",
 	"project-rolling-release-paused": "project-rolling-release-paused",
 	"project-rolling-release-started": "project-rolling-release-started",
-	"project-rolling-release-suggested-actions-generated":
-		"project-rolling-release-suggested-actions-generated",
 	"project-rolling-release-timer": "project-rolling-release-timer",
 	"project-root-directory-updated": "project-root-directory-updated",
 	"project-routes-version-promoted": "project-routes-version-promoted",
@@ -130510,7 +130505,6 @@ export type CreateSandboxesV2Body =
 			 */
 			runtime?: CreateSandboxesV2RequestRuntimeEnumKey | undefined;
 			/**
-			 * @description CPU architecture. Inherits a snapshot or single image manifest when omitted. Image indexes default to amd64. Must match the source. ARM64 creation requires API v3 or v4 without runtime and team access.
 			 * @example arm64
 			 * @type string | undefined
 			 */
@@ -135278,7 +135272,6 @@ export type CreateSandboxesV3Body =
 				  )
 				| undefined;
 			/**
-			 * @description CPU architecture. Inherits a snapshot or single image manifest when omitted. Image indexes default to amd64. Must match the source. ARM64 creation requires API v3 or v4 without runtime and team access.
 			 * @example arm64
 			 * @type string | undefined
 			 */
@@ -136789,7 +136782,6 @@ export type CreateSandboxesV4Body =
 				  )
 				| undefined;
 			/**
-			 * @description CPU architecture. Inherits a snapshot or single image manifest when omitted. Image indexes default to amd64. Must match the source. ARM64 creation requires API v3 or v4 without runtime and team access.
 			 * @example arm64
 			 * @type string | undefined
 			 */
