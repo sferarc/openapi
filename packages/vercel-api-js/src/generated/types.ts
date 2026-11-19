@@ -7743,6 +7743,24 @@ export const userEventPayloadPreviousRepositoryScopeEnum = {
 export type UserEventPayloadPreviousRepositoryScopeEnumKey =
 	(typeof userEventPayloadPreviousRepositoryScopeEnum)[keyof typeof userEventPayloadPreviousRepositoryScopeEnum];
 
+export const userEventPayloadNextRepositoryScopeEnum2 = {
+	all: "all",
+	none: "none",
+	selected: "selected",
+} as const;
+
+export type UserEventPayloadNextRepositoryScopeEnum2Key =
+	(typeof userEventPayloadNextRepositoryScopeEnum2)[keyof typeof userEventPayloadNextRepositoryScopeEnum2];
+
+export const userEventPayloadPreviousRepositoryScopeEnum2 = {
+	all: "all",
+	none: "none",
+	selected: "selected",
+} as const;
+
+export type UserEventPayloadPreviousRepositoryScopeEnum2Key =
+	(typeof userEventPayloadPreviousRepositoryScopeEnum2)[keyof typeof userEventPayloadPreviousRepositoryScopeEnum2];
+
 export const userEventPayloadTargetKindEnum = {
 	project: "project",
 	repository: "repository",
@@ -8414,6 +8432,7 @@ export const userEventTypeEnum = {
 	"agentic-provisioning-plan-changed": "agentic-provisioning-plan-changed",
 	"agentic-provisioning-team-created": "agentic-provisioning-team-created",
 	"ai-agent-usage-billing": "ai-agent-usage-billing",
+	"ai-agent-usage-billing-consent": "ai-agent-usage-billing-consent",
 	"ai-alert-investigation": "ai-alert-investigation",
 	"ai-code-review": "ai-code-review",
 	"ai-gateway-access-policy-created": "ai-gateway-access-policy-created",
@@ -8435,6 +8454,8 @@ export const userEventTypeEnum = {
 	"ai-gateway-headquarters-updated": "ai-gateway-headquarters-updated",
 	"ai-gateway-hipaa-compliance-toggled": "ai-gateway-hipaa-compliance-toggled",
 	"ai-gateway-inference-hooks-endpoint-updated": "ai-gateway-inference-hooks-endpoint-updated",
+	"ai-gateway-inference-hooks-headers-cleared": "ai-gateway-inference-hooks-headers-cleared",
+	"ai-gateway-inference-hooks-headers-updated": "ai-gateway-inference-hooks-headers-updated",
 	"ai-gateway-inference-hooks-removed": "ai-gateway-inference-hooks-removed",
 	"ai-gateway-inference-hooks-settings-updated": "ai-gateway-inference-hooks-settings-updated",
 	"ai-gateway-inference-hooks-signing-secret-created":
@@ -8477,6 +8498,7 @@ export const userEventTypeEnum = {
 	"ai-gateway-zero-data-retention-toggled": "ai-gateway-zero-data-retention-toggled",
 	"ai-omniagent": "ai-omniagent",
 	"ai-security-review": "ai-security-review",
+	"ai-verification": "ai-verification",
 	"alert-group-detected": "alert-group-detected",
 	"alert-group-investigation-completed": "alert-group-investigation-completed",
 	"alert-group-published": "alert-group-published",
@@ -9901,6 +9923,9 @@ export type UserEvent = {
 						mode?: UserEventPayloadModeEnum2Key | undefined;
 						rolloutPercent?: number | undefined;
 						timeoutMs?: number | undefined;
+				  }
+				| {
+						headerNames: string[];
 				  }
 				| {
 						retention: {
@@ -15208,6 +15233,10 @@ export type UserEvent = {
 						slug: string;
 				  }
 				| {
+						billingConsent: "security-review-usage-billing-v1";
+						source: string;
+				  }
+				| {
 						action: UserEventPayloadActionEnum14Key;
 						codeReviewEnabled: false | true;
 						codeReviewSelection?:
@@ -15320,6 +15349,16 @@ export type UserEvent = {
 							projectIds?: string[] | undefined;
 							projectScope: UserEventPayloadPreviousProjectScopeEnumKey;
 							repositoryScope?: UserEventPayloadPreviousRepositoryScopeEnumKey | undefined;
+						};
+				  }
+				| {
+						next: {
+							enabled: false | true;
+							repositoryScope?: UserEventPayloadNextRepositoryScopeEnum2Key | undefined;
+						};
+						previous: {
+							enabled: false | true;
+							repositoryScope?: UserEventPayloadPreviousRepositoryScopeEnum2Key | undefined;
 						};
 				  }
 				| {
@@ -17117,6 +17156,7 @@ export const listEventTypeNameEnum = {
 	"agentic-provisioning-plan-changed": "agentic-provisioning-plan-changed",
 	"agentic-provisioning-team-created": "agentic-provisioning-team-created",
 	"ai-agent-usage-billing": "ai-agent-usage-billing",
+	"ai-agent-usage-billing-consent": "ai-agent-usage-billing-consent",
 	"ai-alert-investigation": "ai-alert-investigation",
 	"ai-code-review": "ai-code-review",
 	"ai-gateway-access-policy-created": "ai-gateway-access-policy-created",
@@ -17138,6 +17178,8 @@ export const listEventTypeNameEnum = {
 	"ai-gateway-headquarters-updated": "ai-gateway-headquarters-updated",
 	"ai-gateway-hipaa-compliance-toggled": "ai-gateway-hipaa-compliance-toggled",
 	"ai-gateway-inference-hooks-endpoint-updated": "ai-gateway-inference-hooks-endpoint-updated",
+	"ai-gateway-inference-hooks-headers-cleared": "ai-gateway-inference-hooks-headers-cleared",
+	"ai-gateway-inference-hooks-headers-updated": "ai-gateway-inference-hooks-headers-updated",
 	"ai-gateway-inference-hooks-removed": "ai-gateway-inference-hooks-removed",
 	"ai-gateway-inference-hooks-settings-updated": "ai-gateway-inference-hooks-settings-updated",
 	"ai-gateway-inference-hooks-signing-secret-created":
@@ -17180,6 +17222,7 @@ export const listEventTypeNameEnum = {
 	"ai-gateway-zero-data-retention-toggled": "ai-gateway-zero-data-retention-toggled",
 	"ai-omniagent": "ai-omniagent",
 	"ai-security-review": "ai-security-review",
+	"ai-verification": "ai-verification",
 	"alert-group-detected": "alert-group-detected",
 	"alert-group-investigation-completed": "alert-group-investigation-completed",
 	"alert-group-published": "alert-group-published",
@@ -17965,6 +18008,7 @@ export const listEventTypeReplacedByEnum = {
 	"agentic-provisioning-plan-changed": "agentic-provisioning-plan-changed",
 	"agentic-provisioning-team-created": "agentic-provisioning-team-created",
 	"ai-agent-usage-billing": "ai-agent-usage-billing",
+	"ai-agent-usage-billing-consent": "ai-agent-usage-billing-consent",
 	"ai-alert-investigation": "ai-alert-investigation",
 	"ai-code-review": "ai-code-review",
 	"ai-gateway-access-policy-created": "ai-gateway-access-policy-created",
@@ -17986,6 +18030,8 @@ export const listEventTypeReplacedByEnum = {
 	"ai-gateway-headquarters-updated": "ai-gateway-headquarters-updated",
 	"ai-gateway-hipaa-compliance-toggled": "ai-gateway-hipaa-compliance-toggled",
 	"ai-gateway-inference-hooks-endpoint-updated": "ai-gateway-inference-hooks-endpoint-updated",
+	"ai-gateway-inference-hooks-headers-cleared": "ai-gateway-inference-hooks-headers-cleared",
+	"ai-gateway-inference-hooks-headers-updated": "ai-gateway-inference-hooks-headers-updated",
 	"ai-gateway-inference-hooks-removed": "ai-gateway-inference-hooks-removed",
 	"ai-gateway-inference-hooks-settings-updated": "ai-gateway-inference-hooks-settings-updated",
 	"ai-gateway-inference-hooks-signing-secret-created":
@@ -18028,6 +18074,7 @@ export const listEventTypeReplacedByEnum = {
 	"ai-gateway-zero-data-retention-toggled": "ai-gateway-zero-data-retention-toggled",
 	"ai-omniagent": "ai-omniagent",
 	"ai-security-review": "ai-security-review",
+	"ai-verification": "ai-verification",
 	"alert-group-detected": "alert-group-detected",
 	"alert-group-investigation-completed": "alert-group-investigation-completed",
 	"alert-group-published": "alert-group-published",
@@ -156275,6 +156322,11 @@ export const createWebhookStatus200EventsEnum = {
 	"observability.anomaly-error": "observability.anomaly-error",
 	"observability.error-anomaly": "observability.error-anomaly",
 	"observability.usage-anomaly": "observability.usage-anomaly",
+	"page-integrity.connect-src.detected": "page-integrity.connect-src.detected",
+	"page-integrity.header.changed": "page-integrity.header.changed",
+	"page-integrity.runtime-warning.detected": "page-integrity.runtime-warning.detected",
+	"page-integrity.script.changed": "page-integrity.script.changed",
+	"page-integrity.script.detected": "page-integrity.script.detected",
 	"project-created": "project-created",
 	"project-removed": "project-removed",
 	"project.created": "project.created",
@@ -156457,6 +156509,11 @@ export const createWebhookRequestEventsEnum = {
 	"observability.anomaly-error": "observability.anomaly-error",
 	"observability.error-anomaly": "observability.error-anomaly",
 	"observability.usage-anomaly": "observability.usage-anomaly",
+	"page-integrity.connect-src.detected": "page-integrity.connect-src.detected",
+	"page-integrity.header.changed": "page-integrity.header.changed",
+	"page-integrity.runtime-warning.detected": "page-integrity.runtime-warning.detected",
+	"page-integrity.script.changed": "page-integrity.script.changed",
+	"page-integrity.script.detected": "page-integrity.script.detected",
 	"project-created": "project-created",
 	"project-removed": "project-removed",
 	"project.created": "project.created",
@@ -156630,6 +156687,11 @@ export const getWebhooksStatus200EventsEnum = {
 	"observability.anomaly-error": "observability.anomaly-error",
 	"observability.error-anomaly": "observability.error-anomaly",
 	"observability.usage-anomaly": "observability.usage-anomaly",
+	"page-integrity.connect-src.detected": "page-integrity.connect-src.detected",
+	"page-integrity.header.changed": "page-integrity.header.changed",
+	"page-integrity.runtime-warning.detected": "page-integrity.runtime-warning.detected",
+	"page-integrity.script.changed": "page-integrity.script.changed",
+	"page-integrity.script.detected": "page-integrity.script.detected",
 	"project-created": "project-created",
 	"project-removed": "project-removed",
 	"project.created": "project.created",
@@ -156831,6 +156893,11 @@ export const getWebhooksStatus200EventsEnum2 = {
 	"observability.anomaly-error": "observability.anomaly-error",
 	"observability.error-anomaly": "observability.error-anomaly",
 	"observability.usage-anomaly": "observability.usage-anomaly",
+	"page-integrity.connect-src.detected": "page-integrity.connect-src.detected",
+	"page-integrity.header.changed": "page-integrity.header.changed",
+	"page-integrity.runtime-warning.detected": "page-integrity.runtime-warning.detected",
+	"page-integrity.script.changed": "page-integrity.script.changed",
+	"page-integrity.script.detected": "page-integrity.script.detected",
 	"project-created": "project-created",
 	"project-removed": "project-removed",
 	"project.created": "project.created",
@@ -157102,6 +157169,11 @@ export const getWebhookStatus200EventsEnum = {
 	"observability.anomaly-error": "observability.anomaly-error",
 	"observability.error-anomaly": "observability.error-anomaly",
 	"observability.usage-anomaly": "observability.usage-anomaly",
+	"page-integrity.connect-src.detected": "page-integrity.connect-src.detected",
+	"page-integrity.header.changed": "page-integrity.header.changed",
+	"page-integrity.runtime-warning.detected": "page-integrity.runtime-warning.detected",
+	"page-integrity.script.changed": "page-integrity.script.changed",
+	"page-integrity.script.detected": "page-integrity.script.detected",
 	"project-created": "project-created",
 	"project-removed": "project-removed",
 	"project.created": "project.created",
