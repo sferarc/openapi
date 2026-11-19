@@ -1,5 +1,12 @@
 # vercel-api-js
 
+## 2.46.0
+
+### Minor Changes
+
+- 4200e7c: [BREAKING] The UserEvent type fields were replaced with an optional 'filters' object containing alertGroupId, projectIds, and types fields.
+- 4200e7c: [BREAKING] The event type 'project-rolling-release-suggested-actions-generated' was removed from userEventTypeEnum, listEventTypeNameEnum, and listEventTypeReplacedByEnum.
+
 ## 2.45.1
 
 ### Patch Changes
