@@ -1,5 +1,14 @@
 # vercel-api-js
 
+## 2.45.0
+
+### Minor Changes
+
+- 07a9119: Added new event types 'ai-agent-usage-billing-consent', 'ai-gateway-inference-hooks-headers-cleared', 'ai-gateway-inference-hooks-headers-updated', and 'ai-verification' to userEventTypeEnum and related enums.
+- 07a9119: Added new event values for 'page-integrity' events to webhook-related enums.
+- 07a9119: Expanded UserEvent type to include new union types with headerNames, billingConsent, next, and previous properties.
+- 07a9119: Added new enum types userEventPayloadNextRepositoryScopeEnum2 and userEventPayloadPreviousRepositoryScopeEnum2 and their associated type keys.
+
 ## 2.44.0
 
 ### Minor Changes
