@@ -1,5 +1,11 @@
 # vercel-api-js
 
+## 2.45.1
+
+### Patch Changes
+
+- f349c7f: Added 'read:deployment-check' to various userEventPayload permissions enums.
+
 ## 2.45.0
 
 ### Minor Changes
