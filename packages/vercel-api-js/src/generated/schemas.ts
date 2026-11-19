@@ -9090,12 +9090,6 @@ export const userEventSchema = z
 					newTargetPercentage: z.number().optional(),
 				}),
 				z.strictObject({
-					projectId: z.string(),
-					projectName: z.string(),
-					targetDeploymentId: z.string().optional(),
-					action: z.string().optional(),
-				}),
-				z.strictObject({
 					next: z
 						.object({
 							deploymentSources: z.array(z.unknown()).nullish(),
@@ -10769,6 +10763,13 @@ export const userEventSchema = z
 				}),
 				z.strictObject({
 					exportId: z.string(),
+					filters: z
+						.object({
+							alertGroupId: z.string().optional(),
+							projectIds: z.array(z.string()).optional(),
+							types: z.array(z.string()).optional(),
+						})
+						.optional(),
 					format: z.string(),
 					from: z.number(),
 					to: z.number(),
@@ -12372,7 +12373,6 @@ export const userEventSchema = z
 				"project-rolling-release-enabled",
 				"project-rolling-release-paused",
 				"project-rolling-release-started",
-				"project-rolling-release-suggested-actions-generated",
 				"project-rolling-release-timer",
 				"project-root-directory-updated",
 				"project-routes-version-promoted",
@@ -13310,7 +13310,6 @@ export const listEventTypeSchema = z
 				"project-rolling-release-enabled",
 				"project-rolling-release-paused",
 				"project-rolling-release-started",
-				"project-rolling-release-suggested-actions-generated",
 				"project-rolling-release-timer",
 				"project-root-directory-updated",
 				"project-routes-version-promoted",
@@ -14143,7 +14142,6 @@ export const listEventTypeSchema = z
 					"project-rolling-release-enabled",
 					"project-rolling-release-paused",
 					"project-rolling-release-started",
-					"project-rolling-release-suggested-actions-generated",
 					"project-rolling-release-timer",
 					"project-root-directory-updated",
 					"project-routes-version-promoted",
@@ -109060,9 +109058,6 @@ export const createSandboxesV2BodySchema = z
 		architecture: z
 			.enum(["amd64", "arm64"])
 			.optional()
-			.describe(
-				"CPU architecture. Inherits a snapshot or single image manifest when omitted. Image indexes default to amd64. Must match the source. ARM64 creation requires API v3 or v4 without runtime and team access.",
-			)
 			.meta({ examples: ["arm64"] }),
 		resources: z
 			.strictObject({
@@ -113796,9 +113791,6 @@ export const createSandboxesV3BodySchema = z
 		architecture: z
 			.enum(["amd64", "arm64"])
 			.optional()
-			.describe(
-				"CPU architecture. Inherits a snapshot or single image manifest when omitted. Image indexes default to amd64. Must match the source. ARM64 creation requires API v3 or v4 without runtime and team access.",
-			)
 			.meta({ examples: ["arm64"] }),
 		resources: z
 			.strictObject({
@@ -115199,9 +115191,6 @@ export const createSandboxesV4BodySchema = z
 		architecture: z
 			.enum(["amd64", "arm64"])
 			.optional()
-			.describe(
-				"CPU architecture. Inherits a snapshot or single image manifest when omitted. Image indexes default to amd64. Must match the source. ARM64 creation requires API v3 or v4 without runtime and team access.",
-			)
 			.meta({ examples: ["arm64"] }),
 		resources: z
 			.strictObject({
