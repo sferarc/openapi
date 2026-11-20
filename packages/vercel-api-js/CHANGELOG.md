@@ -1,5 +1,12 @@
 # vercel-api-js
 
+## 2.47.0
+
+### Minor Changes
+
+- 2ce1d77: Added new operation signFlagOverrides to sign flag overrides for the vercel-flag-overrides cookie.
+- 2ce1d77: [BREAKING] The AddOrganizationTeamBody type now requires the billingPlan property to be set explicitly when linking an existing team.
+
 ## 2.46.1
 
 ### Patch Changes
