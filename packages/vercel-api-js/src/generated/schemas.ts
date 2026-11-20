@@ -3913,6 +3913,9 @@ export const userEventSchema = z
 					timeoutMs: z.number().optional(),
 				}),
 				z.strictObject({
+					previousSecretGracePeriodHours: z.number().optional(),
+				}),
+				z.strictObject({
 					headerNames: z.array(z.string()),
 				}),
 				z.strictObject({
@@ -4893,6 +4896,10 @@ export const userEventSchema = z
 					gitOwnerName: z.string(),
 					gitRepositoryName: z.string(),
 					headSha: z.string(),
+					isAuthor: z
+						.union([z.literal(false), z.literal(true)])
+						.optional()
+						.describe("The actor opted in on their own pull request instead of approving it."),
 					prNumber: z.number(),
 					reviewUrl: z.string(),
 					team: z
@@ -8108,6 +8115,10 @@ export const userEventSchema = z
 										repoId: z.string().optional(),
 										repoPath: z.string().optional(),
 										ssoConnectedAt: z.number().optional(),
+										ssoIdFingerprint: z
+											.string()
+											.optional()
+											.describe("How `ssoUserId` and `idpUserId` were made; absent when unknown."),
 										ssoUserId: z.string().optional(),
 									})
 									.optional(),
@@ -8184,6 +8195,10 @@ export const userEventSchema = z
 										repoId: z.string().optional(),
 										repoPath: z.string().optional(),
 										ssoConnectedAt: z.number().optional(),
+										ssoIdFingerprint: z
+											.string()
+											.optional()
+											.describe("How `ssoUserId` and `idpUserId` were made; absent when unknown."),
 										ssoUserId: z.string().optional(),
 									})
 									.optional(),
@@ -9389,6 +9404,10 @@ export const userEventSchema = z
 					attributeMappingChanged: z.literal(true).optional(),
 					created: z.union([z.literal(false), z.literal(true)]),
 					previousCertificateFingerprints: z.array(z.string()).optional(),
+					rebind: z
+						.literal(true)
+						.optional()
+						.describe("The IdP or the user id rule changed, so members re-bind by email once."),
 				}),
 				z.strictObject({
 					attributeMappingChanged: z.literal(true).optional(),
@@ -9396,6 +9415,10 @@ export const userEventSchema = z
 					connectionId: z.string(),
 					created: z.union([z.literal(false), z.literal(true)]),
 					previousCertificateFingerprints: z.array(z.string()).optional(),
+					rebind: z
+						.literal(true)
+						.optional()
+						.describe("The IdP or the user id rule changed, so members re-bind by email once."),
 				}),
 				z.strictObject({
 					connectionId: z.string().optional(),
@@ -9425,6 +9448,12 @@ export const userEventSchema = z
 					alias: z.string(),
 					projectId: z.string().optional(),
 					sandboxId: z.string().optional(),
+					sandboxName: z.string(),
+				}),
+				z.strictObject({
+					expiryNotificationLeadTime: z.number(),
+					projectId: z.string(),
+					projectName: z.string(),
 					sandboxName: z.string(),
 				}),
 				z.strictObject({
@@ -11855,6 +11884,7 @@ export const userEventSchema = z
 				"ai-gateway-inference-hooks-endpoint-updated",
 				"ai-gateway-inference-hooks-headers-cleared",
 				"ai-gateway-inference-hooks-headers-updated",
+				"ai-gateway-inference-hooks-previous-signing-secret-retired",
 				"ai-gateway-inference-hooks-removed",
 				"ai-gateway-inference-hooks-settings-updated",
 				"ai-gateway-inference-hooks-signing-secret-created",
@@ -12418,6 +12448,7 @@ export const userEventSchema = z
 				"sandbox-drive-deleted",
 				"sandbox-drive-snapshot-created",
 				"sandbox-drive-snapshot-deleted",
+				"sandbox-expiry-notification-lead-time-updated",
 				"sandbox-npm-credentials-configured",
 				"sandbox-signed-commit-identity-configured",
 				"sandbox-snapshot-regions-updated",
@@ -12792,6 +12823,7 @@ export const listEventTypeSchema = z
 				"ai-gateway-inference-hooks-endpoint-updated",
 				"ai-gateway-inference-hooks-headers-cleared",
 				"ai-gateway-inference-hooks-headers-updated",
+				"ai-gateway-inference-hooks-previous-signing-secret-retired",
 				"ai-gateway-inference-hooks-removed",
 				"ai-gateway-inference-hooks-settings-updated",
 				"ai-gateway-inference-hooks-signing-secret-created",
@@ -13355,6 +13387,7 @@ export const listEventTypeSchema = z
 				"sandbox-drive-deleted",
 				"sandbox-drive-snapshot-created",
 				"sandbox-drive-snapshot-deleted",
+				"sandbox-expiry-notification-lead-time-updated",
 				"sandbox-npm-credentials-configured",
 				"sandbox-signed-commit-identity-configured",
 				"sandbox-snapshot-regions-updated",
@@ -13624,6 +13657,7 @@ export const listEventTypeSchema = z
 					"ai-gateway-inference-hooks-endpoint-updated",
 					"ai-gateway-inference-hooks-headers-cleared",
 					"ai-gateway-inference-hooks-headers-updated",
+					"ai-gateway-inference-hooks-previous-signing-secret-retired",
 					"ai-gateway-inference-hooks-removed",
 					"ai-gateway-inference-hooks-settings-updated",
 					"ai-gateway-inference-hooks-signing-secret-created",
@@ -14187,6 +14221,7 @@ export const listEventTypeSchema = z
 					"sandbox-drive-deleted",
 					"sandbox-drive-snapshot-created",
 					"sandbox-drive-snapshot-deleted",
+					"sandbox-expiry-notification-lead-time-updated",
 					"sandbox-npm-credentials-configured",
 					"sandbox-signed-commit-identity-configured",
 					"sandbox-snapshot-regions-updated",
@@ -15131,6 +15166,12 @@ export const namedSandboxSchema = z
 				"The time at which the currently running sandbox will time out, in milliseconds since the epoch. Only present while a session is running.",
 			)
 			.meta({ examples: [1750344801629] }),
+		expiryNotificationLeadTime: z
+			.number()
+			.describe(
+				"How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time.",
+			)
+			.meta({ examples: [120000] }),
 		failoverRegions: z
 			.array(
 				z.enum([
@@ -16136,6 +16177,10 @@ export const teamSchema = z
 						repoId: z.string().optional(),
 						repoPath: z.string().optional(),
 						ssoConnectedAt: z.number().optional(),
+						ssoIdFingerprint: z
+							.string()
+							.optional()
+							.describe("How `ssoUserId` and `idpUserId` were made; absent when unknown."),
 						ssoUserId: z.string().optional(),
 					})
 					.optional(),
@@ -16587,6 +16632,10 @@ export const teamLimitedSchema = z
 						repoId: z.string().optional(),
 						repoPath: z.string().optional(),
 						ssoConnectedAt: z.number().optional(),
+						ssoIdFingerprint: z
+							.string()
+							.optional()
+							.describe("How `ssoUserId` and `idpUserId` were made; absent when unknown."),
 						ssoUserId: z.string().optional(),
 					})
 					.optional(),
@@ -21998,53 +22047,6 @@ export const listBillingChargesQuerySchema = z.object({
 			"The Organization identifier. Returns charges for every team in the organization, split by team, instead of a single team. Cannot be combined with `teamId` or `slug`. Requires the OrgAdmin or OrgViewer role.",
 		)
 		.meta({ examples: ["org_123"] }),
-	teamId: z
-		.string()
-		.optional()
-		.describe("The Team identifier to perform the request on behalf of.")
-		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
-	slug: z
-		.string()
-		.optional()
-		.describe("The Team slug to perform the request on behalf of.")
-		.meta({ examples: ["my-team-url-slug"] }),
-});
-
-export const listContractCommitmentsQueryTeamIdSchema = z
-	.string()
-	.optional()
-	.describe("The Team identifier to perform the request on behalf of.")
-	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
-
-export const listContractCommitmentsQuerySlugSchema = z
-	.string()
-	.optional()
-	.describe("The Team slug to perform the request on behalf of.")
-	.meta({ examples: ["my-team-url-slug"] });
-
-export const listContractCommitmentsStatus200Schema = z.unknown();
-
-export const listContractCommitmentsStatus400Schema = z.unknown();
-
-export const listContractCommitmentsStatus401Schema = z.unknown();
-
-export const listContractCommitmentsStatus403Schema = z.unknown();
-
-export const listContractCommitmentsStatus404Schema = z.unknown();
-
-export const listContractCommitmentsStatus410Schema = z.unknown();
-
-export const listContractCommitmentsResponseSchema = listContractCommitmentsStatus200Schema;
-
-export const listContractCommitmentsErrorSchema = z.union([
-	listContractCommitmentsStatus400Schema,
-	listContractCommitmentsStatus401Schema,
-	listContractCommitmentsStatus403Schema,
-	listContractCommitmentsStatus404Schema,
-	listContractCommitmentsStatus410Schema,
-]);
-
-export const listContractCommitmentsQuerySchema = z.object({
 	teamId: z
 		.string()
 		.optional()
@@ -109396,6 +109398,15 @@ export const createSandboxesV2BodySchema = z
 				"Default snapshot expiration time in milliseconds. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.",
 			)
 			.meta({ examples: [604800000] }),
+		expiryNotificationLeadTime: z
+			.int()
+			.min(120000)
+			.max(3600000)
+			.optional()
+			.describe(
+				"How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time. Defaults to 2 minutes. Takes effect from the next session.",
+			)
+			.meta({ examples: [300000] }),
 		keepLastSnapshots: z
 			.strictObject({
 				count: z.int().min(1).max(10).describe("Number of most recent snapshots to keep."),
@@ -110735,6 +110746,15 @@ export const updateSandboxBodySchema = z
 				"Default snapshot expiration time in milliseconds. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.",
 			)
 			.meta({ examples: [604800000] }),
+		expiryNotificationLeadTime: z
+			.int()
+			.min(120000)
+			.max(3600000)
+			.optional()
+			.describe(
+				"How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time. Defaults to 2 minutes. Takes effect from the next session.",
+			)
+			.meta({ examples: [300000] }),
 		keepLastSnapshots: z
 			.union([
 				z.string(),
@@ -113446,6 +113466,15 @@ export const createSandboxesByNameForkV2BodySchema = z
 				"Default snapshot expiration time in milliseconds. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.",
 			)
 			.meta({ examples: [604800000] }),
+		expiryNotificationLeadTime: z
+			.int()
+			.min(120000)
+			.max(3600000)
+			.optional()
+			.describe(
+				"How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. Defaults to the source sandbox setting.",
+			)
+			.meta({ examples: [300000] }),
 		keepLastSnapshots: z
 			.strictObject({
 				count: z.int().min(1).max(10).describe("Number of most recent snapshots to keep."),
@@ -114129,6 +114158,15 @@ export const createSandboxesV3BodySchema = z
 				"Default snapshot expiration time in milliseconds. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.",
 			)
 			.meta({ examples: [604800000] }),
+		expiryNotificationLeadTime: z
+			.int()
+			.min(120000)
+			.max(3600000)
+			.optional()
+			.describe(
+				"How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time. Defaults to 2 minutes. Takes effect from the next session.",
+			)
+			.meta({ examples: [300000] }),
 		keepLastSnapshots: z
 			.strictObject({
 				count: z.int().min(1).max(10).describe("Number of most recent snapshots to keep."),
@@ -114841,6 +114879,15 @@ export const createSandboxesByNameForkV3BodySchema = z
 				"Default snapshot expiration time in milliseconds. Defaults to 7 days. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.",
 			)
 			.meta({ examples: [604800000] }),
+		expiryNotificationLeadTime: z
+			.int()
+			.min(120000)
+			.max(3600000)
+			.optional()
+			.describe(
+				"How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. Defaults to the source sandbox setting.",
+			)
+			.meta({ examples: [300000] }),
 		keepLastSnapshots: z
 			.union([
 				z.string(),
@@ -115529,6 +115576,15 @@ export const createSandboxesV4BodySchema = z
 				"Default snapshot expiration time in milliseconds. Defaults to 7 days. Set to 0 to disable expiration. When set, this value is used as the default expiration for all snapshots created for this sandbox.",
 			)
 			.meta({ examples: [604800000] }),
+		expiryNotificationLeadTime: z
+			.int()
+			.min(120000)
+			.max(3600000)
+			.optional()
+			.describe(
+				"How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time. Defaults to 2 minutes. Takes effect from the next session.",
+			)
+			.meta({ examples: [300000] }),
 		keepLastSnapshots: z
 			.union([
 				z.string(),
@@ -123984,6 +124040,10 @@ export const getTeamMembersStatus200Schema = z.object({
 					repoId: z.string().optional(),
 					repoPath: z.string().optional(),
 					ssoConnectedAt: z.number().optional(),
+					ssoIdFingerprint: z
+						.string()
+						.optional()
+						.describe("How `ssoUserId` and `idpUserId` were made; absent when unknown."),
 					ssoUserId: z.string().optional(),
 				})
 				.optional()
@@ -124278,6 +124338,10 @@ export const requestAccessToTeamStatus200Schema = z.object({
 			repoId: z.string().optional(),
 			repoPath: z.string().optional(),
 			ssoConnectedAt: z.number().optional(),
+			ssoIdFingerprint: z
+				.string()
+				.optional()
+				.describe("How `ssoUserId` and `idpUserId` were made; absent when unknown."),
 			ssoUserId: z.string().optional(),
 		})
 		.optional(),
@@ -124423,6 +124487,10 @@ export const getTeamAccessRequestStatus200Schema = z.object({
 			repoId: z.string().optional(),
 			repoPath: z.string().optional(),
 			ssoConnectedAt: z.number().optional(),
+			ssoIdFingerprint: z
+				.string()
+				.optional()
+				.describe("How `ssoUserId` and `idpUserId` were made; absent when unknown."),
 			ssoUserId: z.string().optional(),
 		})
 		.describe("A map that describes the origin from where the user joined."),
@@ -132605,6 +132673,7 @@ export const createWebhookStatus200Schema = z.object({
 				"project.rolling-release.approved",
 				"project.rolling-release.completed",
 				"project.rolling-release.started",
+				"sandbox.session.expiring",
 				"sandbox.session.started",
 				"sandbox.session.stopped",
 				"test-webhook",
@@ -132778,6 +132847,7 @@ export const createWebhookBodySchema = z.strictObject({
 				"project.rolling-release.approved",
 				"project.rolling-release.completed",
 				"project.rolling-release.started",
+				"sandbox.session.expiring",
 				"sandbox.session.started",
 				"sandbox.session.stopped",
 				"test-webhook",
@@ -132949,6 +133019,7 @@ export const getWebhooksStatus200Schema = z.union([
 						"project.rolling-release.approved",
 						"project.rolling-release.completed",
 						"project.rolling-release.started",
+						"sandbox.session.expiring",
 						"sandbox.session.started",
 						"sandbox.session.stopped",
 						"test-webhook",
@@ -133193,6 +133264,7 @@ export const getWebhooksStatus200Schema = z.union([
 						"project.rolling-release.approved",
 						"project.rolling-release.completed",
 						"project.rolling-release.started",
+						"sandbox.session.expiring",
 						"sandbox.session.started",
 						"sandbox.session.stopped",
 						"test-webhook",
@@ -133402,6 +133474,7 @@ export const getWebhookStatus200Schema = z.object({
 				"project.rolling-release.approved",
 				"project.rolling-release.completed",
 				"project.rolling-release.started",
+				"sandbox.session.expiring",
 				"sandbox.session.started",
 				"sandbox.session.stopped",
 				"test-webhook",

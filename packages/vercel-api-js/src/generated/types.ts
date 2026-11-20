@@ -8463,6 +8463,8 @@ export const userEventTypeEnum = {
 	"ai-gateway-inference-hooks-endpoint-updated": "ai-gateway-inference-hooks-endpoint-updated",
 	"ai-gateway-inference-hooks-headers-cleared": "ai-gateway-inference-hooks-headers-cleared",
 	"ai-gateway-inference-hooks-headers-updated": "ai-gateway-inference-hooks-headers-updated",
+	"ai-gateway-inference-hooks-previous-signing-secret-retired":
+		"ai-gateway-inference-hooks-previous-signing-secret-retired",
 	"ai-gateway-inference-hooks-removed": "ai-gateway-inference-hooks-removed",
 	"ai-gateway-inference-hooks-settings-updated": "ai-gateway-inference-hooks-settings-updated",
 	"ai-gateway-inference-hooks-signing-secret-created":
@@ -9044,6 +9046,7 @@ export const userEventTypeEnum = {
 	"sandbox-drive-deleted": "sandbox-drive-deleted",
 	"sandbox-drive-snapshot-created": "sandbox-drive-snapshot-created",
 	"sandbox-drive-snapshot-deleted": "sandbox-drive-snapshot-deleted",
+	"sandbox-expiry-notification-lead-time-updated": "sandbox-expiry-notification-lead-time-updated",
 	"sandbox-npm-credentials-configured": "sandbox-npm-credentials-configured",
 	"sandbox-signed-commit-identity-configured": "sandbox-signed-commit-identity-configured",
 	"sandbox-snapshot-regions-updated": "sandbox-snapshot-regions-updated",
@@ -9936,6 +9939,9 @@ export type UserEvent = {
 						timeoutMs?: number | undefined;
 				  }
 				| {
+						previousSecretGracePeriodHours?: number | undefined;
+				  }
+				| {
 						headerNames: string[];
 				  }
 				| {
@@ -10424,6 +10430,11 @@ export type UserEvent = {
 						gitOwnerName: string;
 						gitRepositoryName: string;
 						headSha: string;
+						/**
+						 * @description The actor opted in on their own pull request instead of approving it.
+						 * @type boolean | undefined
+						 */
+						isAuthor?: (false | true) | undefined;
 						prNumber: number;
 						reviewUrl: string;
 						/**
@@ -13409,6 +13420,11 @@ export type UserEvent = {
 													repoId?: string | undefined;
 													repoPath?: string | undefined;
 													ssoConnectedAt?: number | undefined;
+													/**
+													 * @description How `ssoUserId` and `idpUserId` were made; absent when unknown.
+													 * @type string | undefined
+													 */
+													ssoIdFingerprint?: string | undefined;
 													ssoUserId?: string | undefined;
 											  }
 											| undefined;
@@ -13454,6 +13470,11 @@ export type UserEvent = {
 													repoId?: string | undefined;
 													repoPath?: string | undefined;
 													ssoConnectedAt?: number | undefined;
+													/**
+													 * @description How `ssoUserId` and `idpUserId` were made; absent when unknown.
+													 * @type string | undefined
+													 */
+													ssoIdFingerprint?: string | undefined;
 													ssoUserId?: string | undefined;
 											  }
 											| undefined;
@@ -14524,6 +14545,11 @@ export type UserEvent = {
 						attributeMappingChanged?: true | undefined;
 						created: false | true;
 						previousCertificateFingerprints?: string[] | undefined;
+						/**
+						 * @description The IdP or the user id rule changed, so members re-bind by email once.
+						 * @type boolean | undefined
+						 */
+						rebind?: true | undefined;
 				  }
 				| {
 						attributeMappingChanged?: true | undefined;
@@ -14531,6 +14557,11 @@ export type UserEvent = {
 						connectionId: string;
 						created: false | true;
 						previousCertificateFingerprints?: string[] | undefined;
+						/**
+						 * @description The IdP or the user id rule changed, so members re-bind by email once.
+						 * @type boolean | undefined
+						 */
+						rebind?: true | undefined;
 				  }
 				| {
 						connectionId?: string | undefined;
@@ -14560,6 +14591,12 @@ export type UserEvent = {
 						alias: string;
 						projectId?: string | undefined;
 						sandboxId?: string | undefined;
+						sandboxName: string;
+				  }
+				| {
+						expiryNotificationLeadTime: number;
+						projectId: string;
+						projectName: string;
 						sandboxName: string;
 				  }
 				| {
@@ -17202,6 +17239,8 @@ export const listEventTypeNameEnum = {
 	"ai-gateway-inference-hooks-endpoint-updated": "ai-gateway-inference-hooks-endpoint-updated",
 	"ai-gateway-inference-hooks-headers-cleared": "ai-gateway-inference-hooks-headers-cleared",
 	"ai-gateway-inference-hooks-headers-updated": "ai-gateway-inference-hooks-headers-updated",
+	"ai-gateway-inference-hooks-previous-signing-secret-retired":
+		"ai-gateway-inference-hooks-previous-signing-secret-retired",
 	"ai-gateway-inference-hooks-removed": "ai-gateway-inference-hooks-removed",
 	"ai-gateway-inference-hooks-settings-updated": "ai-gateway-inference-hooks-settings-updated",
 	"ai-gateway-inference-hooks-signing-secret-created":
@@ -17783,6 +17822,7 @@ export const listEventTypeNameEnum = {
 	"sandbox-drive-deleted": "sandbox-drive-deleted",
 	"sandbox-drive-snapshot-created": "sandbox-drive-snapshot-created",
 	"sandbox-drive-snapshot-deleted": "sandbox-drive-snapshot-deleted",
+	"sandbox-expiry-notification-lead-time-updated": "sandbox-expiry-notification-lead-time-updated",
 	"sandbox-npm-credentials-configured": "sandbox-npm-credentials-configured",
 	"sandbox-signed-commit-identity-configured": "sandbox-signed-commit-identity-configured",
 	"sandbox-snapshot-regions-updated": "sandbox-snapshot-regions-updated",
@@ -18052,6 +18092,8 @@ export const listEventTypeReplacedByEnum = {
 	"ai-gateway-inference-hooks-endpoint-updated": "ai-gateway-inference-hooks-endpoint-updated",
 	"ai-gateway-inference-hooks-headers-cleared": "ai-gateway-inference-hooks-headers-cleared",
 	"ai-gateway-inference-hooks-headers-updated": "ai-gateway-inference-hooks-headers-updated",
+	"ai-gateway-inference-hooks-previous-signing-secret-retired":
+		"ai-gateway-inference-hooks-previous-signing-secret-retired",
 	"ai-gateway-inference-hooks-removed": "ai-gateway-inference-hooks-removed",
 	"ai-gateway-inference-hooks-settings-updated": "ai-gateway-inference-hooks-settings-updated",
 	"ai-gateway-inference-hooks-signing-secret-created":
@@ -18633,6 +18675,7 @@ export const listEventTypeReplacedByEnum = {
 	"sandbox-drive-deleted": "sandbox-drive-deleted",
 	"sandbox-drive-snapshot-created": "sandbox-drive-snapshot-created",
 	"sandbox-drive-snapshot-deleted": "sandbox-drive-snapshot-deleted",
+	"sandbox-expiry-notification-lead-time-updated": "sandbox-expiry-notification-lead-time-updated",
 	"sandbox-npm-credentials-configured": "sandbox-npm-credentials-configured",
 	"sandbox-signed-commit-identity-configured": "sandbox-signed-commit-identity-configured",
 	"sandbox-snapshot-regions-updated": "sandbox-snapshot-regions-updated",
@@ -19901,6 +19944,12 @@ export type NamedSandbox = {
 	 * @type number | undefined
 	 */
 	expiresAt?: number | undefined;
+	/**
+	 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time.
+	 * @example 120000
+	 * @type number
+	 */
+	expiryNotificationLeadTime: number;
 	/**
 	 * @description The regions the sandbox fails over to. Empty when it does not fail over.
 	 * @example ["cle1","sfo1"]
@@ -21405,6 +21454,11 @@ export type Team = {
 							repoId?: string | undefined;
 							repoPath?: string | undefined;
 							ssoConnectedAt?: number | undefined;
+							/**
+							 * @description How `ssoUserId` and `idpUserId` were made; absent when unknown.
+							 * @type string | undefined
+							 */
+							ssoIdFingerprint?: string | undefined;
 							ssoUserId?: string | undefined;
 					  }
 					| undefined;
@@ -21950,6 +22004,11 @@ export type TeamLimited = {
 							repoId?: string | undefined;
 							repoPath?: string | undefined;
 							ssoConnectedAt?: number | undefined;
+							/**
+							 * @description How `ssoUserId` and `idpUserId` were made; absent when unknown.
+							 * @type string | undefined
+							 */
+							ssoIdFingerprint?: string | undefined;
 							ssoUserId?: string | undefined;
 					  }
 					| undefined;
@@ -28029,54 +28088,6 @@ export type ListBillingChargesResponses = {
  * @description Union of all possible responses
  */
 export type ListBillingChargesResponse = ListBillingChargesStatus200;
-
-export type ListContractCommitmentsQuery = {
-	/**
-	 * @description The Team identifier to perform the request on behalf of.
-	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
-	 * @type string | undefined
-	 */
-	teamId?: string | undefined;
-	/**
-	 * @description The Team slug to perform the request on behalf of.
-	 * @example my-team-url-slug
-	 * @type string | undefined
-	 */
-	slug?: string | undefined;
-};
-
-export type ListContractCommitmentsStatus200 = unknown;
-
-export type ListContractCommitmentsStatus400 = unknown;
-
-export type ListContractCommitmentsStatus401 = unknown;
-
-export type ListContractCommitmentsStatus403 = unknown;
-
-export type ListContractCommitmentsStatus404 = unknown;
-
-export type ListContractCommitmentsStatus410 = unknown;
-
-export type ListContractCommitmentsOptions = {
-	body?: never | undefined;
-	path?: never | undefined;
-	query?: ListContractCommitmentsQuery | undefined;
-	headers?: never | undefined;
-};
-
-export type ListContractCommitmentsResponses = {
-	"200": ListContractCommitmentsStatus200;
-	"400": ListContractCommitmentsStatus400;
-	"401": ListContractCommitmentsStatus401;
-	"403": ListContractCommitmentsStatus403;
-	"404": ListContractCommitmentsStatus404;
-	"410": ListContractCommitmentsStatus410;
-};
-
-/**
- * @description Union of all possible responses
- */
-export type ListContractCommitmentsResponse = ListContractCommitmentsStatus200;
 
 export type BuyCreditsQuery = {
 	/**
@@ -130840,6 +130851,14 @@ export type CreateSandboxesV2Body =
 			 */
 			snapshotExpiration?: (unknown | number) | undefined;
 			/**
+			 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time. Defaults to 2 minutes. Takes effect from the next session.
+			 * @minimum 120000
+			 * @maximum 3600000
+			 * @example 300000
+			 * @type integer | undefined
+			 */
+			expiryNotificationLeadTime?: number | undefined;
+			/**
 			 * @description Protect the N most recent snapshots with different expiration/deletion behavior.
 			 * @type object | undefined
 			 */
@@ -132165,6 +132184,14 @@ export type UpdateSandboxBody =
 			 * @example 604800000
 			 */
 			snapshotExpiration?: (unknown | number) | undefined;
+			/**
+			 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time. Defaults to 2 minutes. Takes effect from the next session.
+			 * @minimum 120000
+			 * @maximum 3600000
+			 * @example 300000
+			 * @type integer | undefined
+			 */
+			expiryNotificationLeadTime?: number | undefined;
 			/**
 			 * @description Protect the N most recent snapshots with different expiration/deletion behavior. Set to null to clear.
 			 */
@@ -134861,6 +134888,14 @@ export type CreateSandboxesByNameForkV2Body =
 			 */
 			snapshotExpiration?: (unknown | number) | undefined;
 			/**
+			 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. Defaults to the source sandbox setting.
+			 * @minimum 120000
+			 * @maximum 3600000
+			 * @example 300000
+			 * @type integer | undefined
+			 */
+			expiryNotificationLeadTime?: number | undefined;
+			/**
 			 * @description Protect the N most recent snapshots with different expiration/deletion behavior.
 			 * @type object | undefined
 			 */
@@ -135606,6 +135641,14 @@ export type CreateSandboxesV3Body =
 			 * @example 604800000
 			 */
 			snapshotExpiration?: (unknown | number) | undefined;
+			/**
+			 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time. Defaults to 2 minutes. Takes effect from the next session.
+			 * @minimum 120000
+			 * @maximum 3600000
+			 * @example 300000
+			 * @type integer | undefined
+			 */
+			expiryNotificationLeadTime?: number | undefined;
 			/**
 			 * @description Protect the N most recent snapshots with different expiration/deletion behavior.
 			 * @type object | undefined
@@ -136369,6 +136412,14 @@ export type CreateSandboxesByNameForkV3Body =
 			 */
 			snapshotExpiration?: (unknown | number) | undefined;
 			/**
+			 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. Defaults to the source sandbox setting.
+			 * @minimum 120000
+			 * @maximum 3600000
+			 * @example 300000
+			 * @type integer | undefined
+			 */
+			expiryNotificationLeadTime?: number | undefined;
+			/**
 			 * @description Protect the N most recent snapshots with different expiration/deletion behavior. Persistent sandboxes default to keeping only the last snapshot (evicted snapshots are deleted). Set to null to disable the limit.
 			 */
 			keepLastSnapshots?:
@@ -137116,6 +137167,14 @@ export type CreateSandboxesV4Body =
 			 * @example 604800000
 			 */
 			snapshotExpiration?: (unknown | number) | undefined;
+			/**
+			 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time. Defaults to 2 minutes. Takes effect from the next session.
+			 * @minimum 120000
+			 * @maximum 3600000
+			 * @example 300000
+			 * @type integer | undefined
+			 */
+			expiryNotificationLeadTime?: number | undefined;
 			/**
 			 * @description Protect the N most recent snapshots with different expiration/deletion behavior. Persistent sandboxes default to keeping only the last snapshot (evicted snapshots are deleted). Set to null to disable the limit.
 			 */
@@ -148011,6 +148070,11 @@ export type GetTeamMembersStatus200 = {
 					repoId?: string | undefined;
 					repoPath?: string | undefined;
 					ssoConnectedAt?: number | undefined;
+					/**
+					 * @description How `ssoUserId` and `idpUserId` were made; absent when unknown.
+					 * @type string | undefined
+					 */
+					ssoIdFingerprint?: string | undefined;
 					ssoUserId?: string | undefined;
 			  }
 			| undefined;
@@ -148287,6 +148351,11 @@ export type RequestAccessToTeamStatus200 = {
 				repoId?: string | undefined;
 				repoPath?: string | undefined;
 				ssoConnectedAt?: number | undefined;
+				/**
+				 * @description How `ssoUserId` and `idpUserId` were made; absent when unknown.
+				 * @type string | undefined
+				 */
+				ssoIdFingerprint?: string | undefined;
 				ssoUserId?: string | undefined;
 		  }
 		| undefined;
@@ -148473,6 +148542,11 @@ export type GetTeamAccessRequestStatus200 = {
 		repoId?: string | undefined;
 		repoPath?: string | undefined;
 		ssoConnectedAt?: number | undefined;
+		/**
+		 * @description How `ssoUserId` and `idpUserId` were made; absent when unknown.
+		 * @type string | undefined
+		 */
+		ssoIdFingerprint?: string | undefined;
 		ssoUserId?: string | undefined;
 	};
 	/**
@@ -156480,6 +156554,7 @@ export const createWebhookStatus200EventsEnum = {
 	"project.rolling-release.approved": "project.rolling-release.approved",
 	"project.rolling-release.completed": "project.rolling-release.completed",
 	"project.rolling-release.started": "project.rolling-release.started",
+	"sandbox.session.expiring": "sandbox.session.expiring",
 	"sandbox.session.started": "sandbox.session.started",
 	"sandbox.session.stopped": "sandbox.session.stopped",
 	"test-webhook": "test-webhook",
@@ -156669,6 +156744,7 @@ export const createWebhookRequestEventsEnum = {
 	"project.rolling-release.approved": "project.rolling-release.approved",
 	"project.rolling-release.completed": "project.rolling-release.completed",
 	"project.rolling-release.started": "project.rolling-release.started",
+	"sandbox.session.expiring": "sandbox.session.expiring",
 	"sandbox.session.started": "sandbox.session.started",
 	"sandbox.session.stopped": "sandbox.session.stopped",
 	"test-webhook": "test-webhook",
@@ -156849,6 +156925,7 @@ export const getWebhooksStatus200EventsEnum = {
 	"project.rolling-release.approved": "project.rolling-release.approved",
 	"project.rolling-release.completed": "project.rolling-release.completed",
 	"project.rolling-release.started": "project.rolling-release.started",
+	"sandbox.session.expiring": "sandbox.session.expiring",
 	"sandbox.session.started": "sandbox.session.started",
 	"sandbox.session.stopped": "sandbox.session.stopped",
 	"test-webhook": "test-webhook",
@@ -157057,6 +157134,7 @@ export const getWebhooksStatus200EventsEnum2 = {
 	"project.rolling-release.approved": "project.rolling-release.approved",
 	"project.rolling-release.completed": "project.rolling-release.completed",
 	"project.rolling-release.started": "project.rolling-release.started",
+	"sandbox.session.expiring": "sandbox.session.expiring",
 	"sandbox.session.started": "sandbox.session.started",
 	"sandbox.session.stopped": "sandbox.session.stopped",
 	"test-webhook": "test-webhook",
@@ -157335,6 +157413,7 @@ export const getWebhookStatus200EventsEnum = {
 	"project.rolling-release.approved": "project.rolling-release.approved",
 	"project.rolling-release.completed": "project.rolling-release.completed",
 	"project.rolling-release.started": "project.rolling-release.started",
+	"sandbox.session.expiring": "sandbox.session.expiring",
 	"sandbox.session.started": "sandbox.session.started",
 	"sandbox.session.stopped": "sandbox.session.stopped",
 	"test-webhook": "test-webhook",

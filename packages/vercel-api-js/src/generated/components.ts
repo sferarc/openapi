@@ -2947,13 +2947,6 @@ import type {
 	ListConnectorsStatus500,
 	ListConnectorsStatus501,
 	ListConnectorsStatus504,
-	ListContractCommitmentsQuery,
-	ListContractCommitmentsResponse,
-	ListContractCommitmentsStatus400,
-	ListContractCommitmentsStatus401,
-	ListContractCommitmentsStatus403,
-	ListContractCommitmentsStatus404,
-	ListContractCommitmentsStatus410,
 	ListDeploymentAliasesPath,
 	ListDeploymentAliasesQuery,
 	ListDeploymentAliasesResponse,
@@ -6501,46 +6494,6 @@ export async function listBillingCharges(
 	>({
 		method: "GET",
 		url: `/v1/billing/charges`,
-		queryParams,
-		...requestConfig,
-		headers: { ...requestConfig.headers },
-	});
-
-	return data;
-}
-
-/**
- * @summary List FOCUS contract commitments
- * @description Returns commitment allocations per contract period in FOCUS v1.3 JSONL format for a specified Vercel team. The response is streamed as newline-delimited JSON (JSONL). This endpoint is only applicable to Enterprise Vercel customers. An empty response is returned for non-Enterprise (Pro/Flex) customers.
- * @link /v1/billing/contract-commitments
- */
-export async function listContractCommitments(
-	{
-		queryParams,
-		config,
-	}: {
-		queryParams?: Partial<ListContractCommitmentsQuery>;
-		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
-	} = {} as any,
-) {
-	const { client: request = defaultClient, ...requestConfig } = config ?? {};
-
-	const data = await request<
-		ListContractCommitmentsResponse,
-		ErrorWrapper<
-			| ListContractCommitmentsStatus400
-			| ListContractCommitmentsStatus401
-			| ListContractCommitmentsStatus403
-			| ListContractCommitmentsStatus404
-			| ListContractCommitmentsStatus410
-		>,
-		null,
-		Record<string, string>,
-		Partial<ListContractCommitmentsQuery>,
-		Record<string, string>
-	>({
-		method: "GET",
-		url: `/v1/billing/contract-commitments`,
 		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
@@ -27921,7 +27874,6 @@ export const operationsByPath = {
 	"POST /v8/artifacts": artifactQuery,
 	"DELETE /v8/artifacts": deleteAllArtifacts,
 	"GET /v1/billing/charges": listBillingCharges,
-	"GET /v1/billing/contract-commitments": listContractCommitments,
 	"POST /v1/billing/buy": buyCredits,
 	"PUT /v1/bulk-redirects": stageRedirects,
 	"GET /v1/bulk-redirects": getRedirects,
@@ -28479,7 +28431,6 @@ export const operationsByTag = {
 	},
 	billing: {
 		listBillingCharges,
-		listContractCommitments,
 		buyCredits,
 	},
 	bulkRedirects: {
@@ -29073,7 +29024,7 @@ export const tagDictionary = {
 		DELETE: ["deleteAllArtifacts"],
 	},
 	billing: {
-		GET: ["listBillingCharges", "listContractCommitments"],
+		GET: ["listBillingCharges"],
 		POST: ["buyCredits"],
 	},
 	bulkRedirects: {
