@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the Vercel API 0.0.1 OpenAPI spec; do not edit. 493 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the Vercel API 0.0.1 OpenAPI spec; do not edit. 492 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## accessGroups
 
@@ -65,7 +65,6 @@ Generated from the Vercel API 0.0.1 OpenAPI spec; do not edit. 493 operations. C
 | Call | Request | Summary |
 | --- | --- | --- |
 | `client.api.billing.listBillingCharges` | `GET /v1/billing/charges` | List FOCUS billing charges |
-| `client.api.billing.listContractCommitments` | `GET /v1/billing/contract-commitments` | List FOCUS contract commitments |
 | `client.api.billing.buyCredits` | `POST /v1/billing/buy` | Purchase credits |
 
 ## bulkRedirects
