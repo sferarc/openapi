@@ -3782,9 +3782,14 @@ export const userEventSchema = z
 						.describe(
 							"Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.",
 						),
-					scopeType: z.enum(["api-key", "project", "team", "user"]),
+					scopeType: z.enum(["api-key", "app", "project", "team", "user"]),
 				}),
 				z.strictObject({
+					appId: z
+						.string()
+						.optional()
+						.describe("Associates the event with a Vercel App; rendered when `appName` is absent."),
+					appName: z.string().optional(),
 					budget: z
 						.object({
 							alertThresholds: z.array(z.number()).optional(),
@@ -3812,7 +3817,7 @@ export const userEventSchema = z
 						.optional()
 						.describe("Associates the event with a project for filtering; not rendered."),
 					projectName: z.string().optional(),
-					scopeType: z.enum(["project", "team", "user"]),
+					scopeType: z.enum(["app", "project", "team", "user"]),
 					userId: z
 						.string()
 						.optional()
@@ -15501,6 +15506,13 @@ export const sessionSchema = z
 			.optional()
 			.describe("The time when the sandbox was stopped, in milliseconds since the epoch.")
 			.meta({ examples: [1750344501629] }),
+		stopReason: z
+			.enum(["error", "exited", "requested", "snapshot", "timeout"])
+			.optional()
+			.describe(
+				"Why the sandbox stopped: `requested` for a stop requested through the API, `snapshot` for a stop to take a snapshot, `timeout` when the sandbox reached its timeout, `exited` when its main process exited on its own, and `error` when it failed or was stopped by the platform.",
+			)
+			.meta({ examples: ["requested"] }),
 		timeout: z
 			.number()
 			.describe("The maximum amount of time the sandbox will run for in milliseconds.")
@@ -132493,6 +132505,8 @@ export const createWebhookStatus200Schema = z.object({
 				"project.rolling-release.approved",
 				"project.rolling-release.completed",
 				"project.rolling-release.started",
+				"sandbox.session.started",
+				"sandbox.session.stopped",
 				"test-webhook",
 				"thread.resolved",
 				"thread.unresolved",
@@ -132664,6 +132678,8 @@ export const createWebhookBodySchema = z.strictObject({
 				"project.rolling-release.approved",
 				"project.rolling-release.completed",
 				"project.rolling-release.started",
+				"sandbox.session.started",
+				"sandbox.session.stopped",
 				"test-webhook",
 				"thread.resolved",
 				"thread.unresolved",
@@ -132833,6 +132849,8 @@ export const getWebhooksStatus200Schema = z.union([
 						"project.rolling-release.approved",
 						"project.rolling-release.completed",
 						"project.rolling-release.started",
+						"sandbox.session.started",
+						"sandbox.session.stopped",
 						"test-webhook",
 						"thread.resolved",
 						"thread.unresolved",
@@ -133075,6 +133093,8 @@ export const getWebhooksStatus200Schema = z.union([
 						"project.rolling-release.approved",
 						"project.rolling-release.completed",
 						"project.rolling-release.started",
+						"sandbox.session.started",
+						"sandbox.session.stopped",
 						"test-webhook",
 						"thread.resolved",
 						"thread.unresolved",
@@ -133282,6 +133302,8 @@ export const getWebhookStatus200Schema = z.object({
 				"project.rolling-release.approved",
 				"project.rolling-release.completed",
 				"project.rolling-release.started",
+				"sandbox.session.started",
+				"sandbox.session.stopped",
 				"test-webhook",
 				"thread.resolved",
 				"thread.unresolved",

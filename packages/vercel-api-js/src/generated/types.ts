@@ -5367,6 +5367,7 @@ export type UserEventPayloadPreviousBudgetRefreshPeriodEnum2Key =
 
 export const userEventPayloadScopeTypeEnum = {
 	"api-key": "api-key",
+	app: "app",
 	project: "project",
 	team: "team",
 	user: "user",
@@ -5406,6 +5407,7 @@ export type UserEventPayloadPreviousBudgetRefreshPeriodEnum3Key =
 	(typeof userEventPayloadPreviousBudgetRefreshPeriodEnum3)[keyof typeof userEventPayloadPreviousBudgetRefreshPeriodEnum3];
 
 export const userEventPayloadScopeTypeEnum2 = {
+	app: "app",
 	project: "project",
 	team: "team",
 	user: "user",
@@ -9793,6 +9795,12 @@ export type UserEvent = {
 						scopeType: UserEventPayloadScopeTypeEnumKey;
 				  }
 				| {
+						/**
+						 * @description Associates the event with a Vercel App; rendered when `appName` is absent.
+						 * @type string | undefined
+						 */
+						appId?: string | undefined;
+						appName?: string | undefined;
 						/**
 						 * @description Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.
 						 * @type object | undefined
@@ -20232,6 +20240,17 @@ export const sessionStatusEnum = {
 
 export type SessionStatusEnumKey = (typeof sessionStatusEnum)[keyof typeof sessionStatusEnum];
 
+export const sessionStopReasonEnum = {
+	error: "error",
+	exited: "exited",
+	requested: "requested",
+	snapshot: "snapshot",
+	timeout: "timeout",
+} as const;
+
+export type SessionStopReasonEnumKey =
+	(typeof sessionStopReasonEnum)[keyof typeof sessionStopReasonEnum];
+
 export const sessionWorkloadTypeEnum = {
 	sandbox: "sandbox",
 	v0: "v0",
@@ -20374,6 +20393,12 @@ export type Session = {
 	 * @type number | undefined
 	 */
 	stoppedAt?: number | undefined;
+	/**
+	 * @description Why the sandbox stopped: `requested` for a stop requested through the API, `snapshot` for a stop to take a snapshot, `timeout` when the sandbox reached its timeout, `exited` when its main process exited on its own, and `error` when it failed or was stopped by the platform.
+	 * @example requested
+	 * @type string | undefined
+	 */
+	stopReason?: SessionStopReasonEnumKey | undefined;
 	/**
 	 * @description The maximum amount of time the sandbox will run for in milliseconds.
 	 * @example 3600000
@@ -156342,6 +156367,8 @@ export const createWebhookStatus200EventsEnum = {
 	"project.rolling-release.approved": "project.rolling-release.approved",
 	"project.rolling-release.completed": "project.rolling-release.completed",
 	"project.rolling-release.started": "project.rolling-release.started",
+	"sandbox.session.started": "sandbox.session.started",
+	"sandbox.session.stopped": "sandbox.session.stopped",
 	"test-webhook": "test-webhook",
 	"thread.resolved": "thread.resolved",
 	"thread.unresolved": "thread.unresolved",
@@ -156529,6 +156556,8 @@ export const createWebhookRequestEventsEnum = {
 	"project.rolling-release.approved": "project.rolling-release.approved",
 	"project.rolling-release.completed": "project.rolling-release.completed",
 	"project.rolling-release.started": "project.rolling-release.started",
+	"sandbox.session.started": "sandbox.session.started",
+	"sandbox.session.stopped": "sandbox.session.stopped",
 	"test-webhook": "test-webhook",
 	"thread.resolved": "thread.resolved",
 	"thread.unresolved": "thread.unresolved",
@@ -156707,6 +156736,8 @@ export const getWebhooksStatus200EventsEnum = {
 	"project.rolling-release.approved": "project.rolling-release.approved",
 	"project.rolling-release.completed": "project.rolling-release.completed",
 	"project.rolling-release.started": "project.rolling-release.started",
+	"sandbox.session.started": "sandbox.session.started",
+	"sandbox.session.stopped": "sandbox.session.stopped",
 	"test-webhook": "test-webhook",
 	"thread.resolved": "thread.resolved",
 	"thread.unresolved": "thread.unresolved",
@@ -156913,6 +156944,8 @@ export const getWebhooksStatus200EventsEnum2 = {
 	"project.rolling-release.approved": "project.rolling-release.approved",
 	"project.rolling-release.completed": "project.rolling-release.completed",
 	"project.rolling-release.started": "project.rolling-release.started",
+	"sandbox.session.started": "sandbox.session.started",
+	"sandbox.session.stopped": "sandbox.session.stopped",
 	"test-webhook": "test-webhook",
 	"thread.resolved": "thread.resolved",
 	"thread.unresolved": "thread.unresolved",
@@ -157189,6 +157222,8 @@ export const getWebhookStatus200EventsEnum = {
 	"project.rolling-release.approved": "project.rolling-release.approved",
 	"project.rolling-release.completed": "project.rolling-release.completed",
 	"project.rolling-release.started": "project.rolling-release.started",
+	"sandbox.session.started": "sandbox.session.started",
+	"sandbox.session.stopped": "sandbox.session.stopped",
 	"test-webhook": "test-webhook",
 	"thread.resolved": "thread.resolved",
 	"thread.unresolved": "thread.unresolved",
