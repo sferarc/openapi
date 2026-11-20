@@ -1,5 +1,15 @@
 # vercel-api-js
 
+## 2.46.1
+
+### Patch Changes
+
+- 60c5834: Added 'sandbox.session.started' and 'sandbox.session.stopped' events to createWebhookStatus200EventsEnum, createWebhookRequestEventsEnum, getWebhooksStatus200EventsEnum, getWebhooksStatus200EventsEnum2, and getWebhookStatus200EventsEnum enums.
+- 60c5834: Added 'app' as a value to the userEventPayloadScopeTypeEnum and userEventPayloadScopeTypeEnum2 enums.
+- 60c5834: Added sessionStopReasonEnum with possible reasons a sandbox session stops, and added SessionStopReasonEnumKey type.
+- 60c5834: Added optional 'appId' and 'appName' fields to the UserEvent type.
+- 60c5834: Added optional 'stopReason' field to the Session type to describe why a sandbox stopped.
+
 ## 2.46.0
 
 ### Minor Changes
