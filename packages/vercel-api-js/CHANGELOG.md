@@ -1,5 +1,20 @@
 # vercel-api-js
 
+## 2.48.0
+
+### Minor Changes
+
+- 21dc0c2: [BREAKING] Remove operations no longer in the vercel-api-js OpenAPI spec: `listContractCommitments`.
+- 21dc0c2: [BREAKING] Removed the listContractCommitments operation and all related types and references.
+
+### Patch Changes
+
+- 21dc0c2: Added new user event types 'ai-gateway-inference-hooks-previous-signing-secret-retired' and 'sandbox-expiry-notification-lead-time-updated' to userEventTypeEnum and related enums.
+- 21dc0c2: Added the expiryNotificationLeadTime property to the NamedSandbox type and related request/response bodies for sandbox operations.
+- 21dc0c2: Added the ssoIdFingerprint property to Team, TeamLimited, GetTeamMembersStatus200, RequestAccessToTeamStatus200, and GetTeamAccessRequestStatus200 types.
+- 21dc0c2: Added the 'sandbox.session.expiring' event to webhook event enums.
+- 21dc0c2: Added new properties including `previousSecretGracePeriodHours`, `isAuthor`, `ssoIdFingerprint`, and `rebind` to the UserEvent type.
+
 ## 2.47.0
 
 ### Minor Changes
