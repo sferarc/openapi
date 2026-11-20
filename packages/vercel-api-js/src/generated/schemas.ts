@@ -6528,6 +6528,7 @@ export const userEventSchema = z
 							changedValue: z
 								.union([z.literal(false), z.literal(true)])
 								.describe("Indicates a value was submitted, not whether its plaintext changed."),
+							customEnvironmentSlugsById: z.record(z.string(), z.string()).optional(),
 							key: z.string().optional(),
 							newCustomEnvironmentIds: z.array(z.string()).optional(),
 							newKey: z.string().optional(),
@@ -6919,6 +6920,7 @@ export const userEventSchema = z
 							changedValue: z
 								.union([z.literal(false), z.literal(true)])
 								.describe("Indicates a value was submitted, not whether its plaintext changed."),
+							customEnvironmentSlugsById: z.record(z.string(), z.string()).optional(),
 							key: z.string().optional(),
 							newCustomEnvironmentIds: z.array(z.string()).optional(),
 							newKey: z.string().optional(),
@@ -49233,6 +49235,102 @@ export const listEventTypesQuerySchema = z.object({
 		.meta({ examples: ["my-team-url-slug"] }),
 });
 
+export const signFlagOverridesPathProjectIdOrNameSchema = z
+	.string()
+	.describe("The project id or name");
+
+export const signFlagOverridesQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+export const signFlagOverridesQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const signFlagOverridesStatus200Schema = z.object({
+	expiresIn: z.number(),
+	token: z.string(),
+});
+
+export const signFlagOverridesStatus400Schema = z.unknown();
+
+export const signFlagOverridesStatus401Schema = z.unknown();
+
+export const signFlagOverridesStatus403Schema = z.unknown();
+
+export const signFlagOverridesStatus404Schema = z.unknown();
+
+export const signFlagOverridesStatus410Schema = z.unknown();
+
+export const signFlagOverridesStatus413Schema = z.unknown();
+
+export const signFlagOverridesResponseSchema = signFlagOverridesStatus200Schema;
+
+export const signFlagOverridesErrorSchema = z.union([
+	signFlagOverridesStatus400Schema,
+	signFlagOverridesStatus401Schema,
+	signFlagOverridesStatus403Schema,
+	signFlagOverridesStatus404Schema,
+	signFlagOverridesStatus410Schema,
+	signFlagOverridesStatus413Schema,
+]);
+
+export const signFlagOverridesBodySchema = z
+	.strictObject({
+		overrides: z
+			.pipe(
+				z
+					.unknown()
+					.check(
+						z.refine(
+							(value) =>
+								typeof value !== "object" ||
+								value === null ||
+								Array.isArray(value) ||
+								Object.keys(value).length <= 100,
+							{ message: "Object must have at most 100 properties" },
+						),
+					),
+				z.object({}),
+			)
+			.describe("The value of each overridden flag, by flag key"),
+		environment: z
+			.string()
+			.regex(/^[a-z0-9-]{1,64}$/)
+			.optional()
+			.describe(
+				"production, preview, development or the slug of a custom environment. Defaults to the environment of a Vercel OIDC token.",
+			),
+		ttl: z
+			.int()
+			.min(60)
+			.max(86400)
+			.optional()
+			.describe("Seconds until the overrides expire. Defaults to one hour, at most one day."),
+	})
+	.optional();
+
+export const signFlagOverridesPathSchema = z.object({
+	projectIdOrName: z.string().describe("The project id or name"),
+});
+
+export const signFlagOverridesQuerySchema = z.object({
+	teamId: z
+		.string()
+		.optional()
+		.describe("The Team identifier to perform the request on behalf of.")
+		.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] }),
+	slug: z
+		.string()
+		.optional()
+		.describe("The Team slug to perform the request on behalf of.")
+		.meta({ examples: ["my-team-url-slug"] }),
+});
+
 export const listFlagsV2PathProjectIdOrNameSchema = z.string().describe("The project id or name");
 
 export const listFlagsV2QueryStateSchema = z
@@ -65364,12 +65462,14 @@ export const addOrganizationTeamBodySchema = z
 			teamId: z
 				.string()
 				.describe("The ID of an existing team to add to the organization (link mode)."),
+			billingPlan: z.enum(["enterprise", "platform"]),
 		}),
 		z.object({
 			mode: z.enum(["link"]),
 			slug: z
 				.string()
 				.describe("The slug of an existing team to link, or the slug for a new team to create."),
+			billingPlan: z.enum(["enterprise", "platform"]),
 		}),
 	])
 	.and(
