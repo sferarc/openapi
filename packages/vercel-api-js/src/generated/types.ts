@@ -11901,6 +11901,11 @@ export type UserEvent = {
 									 * @type boolean
 									 */
 									changedValue: false | true;
+									customEnvironmentSlugsById?:
+										| {
+												[key: string]: string;
+										  }
+										| undefined;
 									key?: string | undefined;
 									newCustomEnvironmentIds?: string[] | undefined;
 									newKey?: string | undefined;
@@ -12346,6 +12351,11 @@ export type UserEvent = {
 									 * @type boolean
 									 */
 									changedValue: false | true;
+									customEnvironmentSlugsById?:
+										| {
+												[key: string]: string;
+										  }
+										| undefined;
 									key?: string | undefined;
 									newCustomEnvironmentIds?: string[] | undefined;
 									newKey?: string | undefined;
@@ -62305,6 +62315,91 @@ export type ListEventTypesResponses = {
  */
 export type ListEventTypesResponse2 = ListEventTypesStatus200;
 
+export type SignFlagOverridesPath = {
+	/**
+	 * @description The project id or name
+	 * @type string
+	 */
+	projectIdOrName: string;
+};
+
+export type SignFlagOverridesQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type SignFlagOverridesStatus200 = {
+	expiresIn: number;
+	token: string;
+};
+
+export type SignFlagOverridesStatus400 = unknown;
+
+export type SignFlagOverridesStatus401 = unknown;
+
+export type SignFlagOverridesStatus403 = unknown;
+
+export type SignFlagOverridesStatus404 = unknown;
+
+export type SignFlagOverridesStatus410 = unknown;
+
+export type SignFlagOverridesStatus413 = unknown;
+
+export type SignFlagOverridesBody =
+	| {
+			/**
+			 * @description The value of each overridden flag, by flag key
+			 * @type object
+			 */
+			overrides: object;
+			/**
+			 * @description production, preview, development or the slug of a custom environment. Defaults to the environment of a Vercel OIDC token.
+			 * @pattern ^[a-z0-9-]{1,64}$
+			 * @type string | undefined
+			 */
+			environment?: string | undefined;
+			/**
+			 * @description Seconds until the overrides expire. Defaults to one hour, at most one day.
+			 * @minimum 60
+			 * @maximum 86400
+			 * @type integer | undefined
+			 */
+			ttl?: number | undefined;
+	  }
+	| undefined;
+
+export type SignFlagOverridesOptions = {
+	body?: SignFlagOverridesBody | undefined;
+	path: SignFlagOverridesPath;
+	query?: SignFlagOverridesQuery | undefined;
+	headers?: never | undefined;
+};
+
+export type SignFlagOverridesResponses = {
+	"200": SignFlagOverridesStatus200;
+	"400": SignFlagOverridesStatus400;
+	"401": SignFlagOverridesStatus401;
+	"403": SignFlagOverridesStatus403;
+	"404": SignFlagOverridesStatus404;
+	"410": SignFlagOverridesStatus410;
+	"413": SignFlagOverridesStatus413;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type SignFlagOverridesResponse = SignFlagOverridesStatus200;
+
 export type ListFlagsV2Path = {
 	/**
 	 * @description The project id or name
@@ -80760,6 +80855,22 @@ export type AddOrganizationTeamStatus410 = unknown;
 
 export type AddOrganizationTeamStatus500 = unknown;
 
+export const addOrganizationTeamRequestBillingPlanEnum = {
+	enterprise: "enterprise",
+	platform: "platform",
+} as const;
+
+export type AddOrganizationTeamRequestBillingPlanEnumKey =
+	(typeof addOrganizationTeamRequestBillingPlanEnum)[keyof typeof addOrganizationTeamRequestBillingPlanEnum];
+
+export const addOrganizationTeamRequestBillingPlanEnum2 = {
+	enterprise: "enterprise",
+	platform: "platform",
+} as const;
+
+export type AddOrganizationTeamRequestBillingPlanEnum2Key =
+	(typeof addOrganizationTeamRequestBillingPlanEnum2)[keyof typeof addOrganizationTeamRequestBillingPlanEnum2];
+
 export const addOrganizationTeamRequestModeEnum4 = {
 	create: "create",
 	link: "link",
@@ -80768,13 +80879,13 @@ export const addOrganizationTeamRequestModeEnum4 = {
 export type AddOrganizationTeamRequestModeEnum4Key =
 	(typeof addOrganizationTeamRequestModeEnum4)[keyof typeof addOrganizationTeamRequestModeEnum4];
 
-export const addOrganizationTeamRequestBillingPlanEnum = {
+export const addOrganizationTeamRequestBillingPlanEnum3 = {
 	enterprise: "enterprise",
 	platform: "platform",
 } as const;
 
-export type AddOrganizationTeamRequestBillingPlanEnumKey =
-	(typeof addOrganizationTeamRequestBillingPlanEnum)[keyof typeof addOrganizationTeamRequestBillingPlanEnum];
+export type AddOrganizationTeamRequestBillingPlanEnum3Key =
+	(typeof addOrganizationTeamRequestBillingPlanEnum3)[keyof typeof addOrganizationTeamRequestBillingPlanEnum3];
 
 export type AddOrganizationTeamBody =
 	| ((
@@ -80794,6 +80905,7 @@ export type AddOrganizationTeamBody =
 					 * @type string
 					 */
 					teamId: string;
+					billingPlan: AddOrganizationTeamRequestBillingPlanEnumKey;
 			  }
 			| {
 					mode: "link";
@@ -80802,6 +80914,7 @@ export type AddOrganizationTeamBody =
 					 * @type string
 					 */
 					slug: string;
+					billingPlan: AddOrganizationTeamRequestBillingPlanEnum2Key;
 			  }
 	  ) & {
 			/**
@@ -80824,7 +80937,7 @@ export type AddOrganizationTeamBody =
 			 * @type string | undefined
 			 */
 			name?: string | undefined;
-			billingPlan?: AddOrganizationTeamRequestBillingPlanEnumKey | undefined;
+			billingPlan?: AddOrganizationTeamRequestBillingPlanEnum3Key | undefined;
 	  })
 	| undefined;
 

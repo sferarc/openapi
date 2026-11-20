@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the Vercel API 0.0.1 OpenAPI spec; do not edit. 492 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the Vercel API 0.0.1 OpenAPI spec; do not edit. 493 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## accessGroups
 
@@ -333,6 +333,7 @@ Generated from the Vercel API 0.0.1 OpenAPI spec; do not edit. 492 operations. C
 
 | Call | Request | Summary |
 | --- | --- | --- |
+| `client.api.featureFlags.signFlagOverrides` | `POST /v1/projects/{projectIdOrName}/feature-flags/overrides/sign` | Sign flag overrides |
 | `client.api.featureFlags.listFlagsV2` | `GET /v2/projects/{projectIdOrName}/feature-flags/flags` | List flags |
 | `client.api.featureFlags.listFlags` | `GET /v1/projects/{projectIdOrName}/feature-flags/flags` | List flags |
 | `client.api.featureFlags.createFlag` | `PUT /v1/projects/{projectIdOrName}/feature-flags/flags` | Create a flag |

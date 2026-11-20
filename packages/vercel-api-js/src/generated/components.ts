@@ -3812,6 +3812,16 @@ import type {
 	SearchVercelCiLogsStatus410,
 	SearchVercelCiLogsStatus429,
 	SearchVercelCiLogsStatus500,
+	SignFlagOverridesBody,
+	SignFlagOverridesPath,
+	SignFlagOverridesQuery,
+	SignFlagOverridesResponse,
+	SignFlagOverridesStatus400,
+	SignFlagOverridesStatus401,
+	SignFlagOverridesStatus403,
+	SignFlagOverridesStatus404,
+	SignFlagOverridesStatus410,
+	SignFlagOverridesStatus413,
 	SignKmsMessageBody,
 	SignKmsMessagePath,
 	SignKmsMessageResponse,
@@ -12864,6 +12874,55 @@ export async function listEventTypes(
 }
 
 /**
+ * @summary Sign flag overrides
+ * @description Signs flag overrides for the `vercel-flag-overrides` cookie, which the Flags SDK accepts without a `FLAGS_SECRET`. The overrides apply to one environment of the project and of the projects that share its microfrontends groups. An access token requires permission to read the project and an `environment`. A Vercel OIDC token signs only for its own project and environment.
+ * @link /v1/projects/{projectIdOrName}/feature-flags/overrides/sign
+ */
+export async function signFlagOverrides(
+	{
+		pathParams,
+		body,
+		queryParams,
+		config,
+	}: {
+		pathParams: SignFlagOverridesPath;
+		body?: SignFlagOverridesBody;
+		queryParams?: Partial<SignFlagOverridesQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.projectIdOrName == null || String(pathParams.projectIdOrName) === "") {
+		throw new Error(`Missing required path parameter: projectIdOrName`);
+	}
+	const data = await request<
+		SignFlagOverridesResponse,
+		ErrorWrapper<
+			| SignFlagOverridesStatus400
+			| SignFlagOverridesStatus401
+			| SignFlagOverridesStatus403
+			| SignFlagOverridesStatus404
+			| SignFlagOverridesStatus410
+			| SignFlagOverridesStatus413
+		>,
+		SignFlagOverridesBody,
+		Record<string, string>,
+		Partial<SignFlagOverridesQuery>,
+		SignFlagOverridesPath
+	>({
+		method: "POST",
+		url: `/v1/projects/${encodeURIComponent(String(pathParams.projectIdOrName))}/feature-flags/overrides/sign`,
+		queryParams,
+		body: body,
+		...requestConfig,
+		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
  * @summary List flags
  * @description Retrieve feature flags for a project. Returns an opaque cursor for pagination.
  * @link /v2/projects/{projectIdOrName}/feature-flags/flags
@@ -17360,7 +17419,7 @@ export async function listOrganizationTeams(
 
 /**
  * @summary Create or Add Team to Organization
- * @description Create a new team under an organization, or add an existing team. `mode: "create"` creates a brand-new child team from `slug` + `name` — a platform child by default, or an enterprise child (billed on the organization root's flex subscription) when `billingPlan: "enterprise"` is supplied. `mode: "link"` links an existing team identified by `teamId` or `slug`; the child's billing profile is derived from the target team's plan (enterprise team → enterprise child, else platform), or explicitly supplied. Both modes respond with the resulting organization-team link. This endpoint is in private beta. Contact your Vercel account team for access.
+ * @description Create a new team under an organization, or add an existing team. `mode: "create"` creates a brand-new child team from `slug` + `name` — a platform child by default, or an enterprise child (billed on the organization root's flex subscription) when `billingPlan: "enterprise"` is supplied. `mode: "link"` links an existing team identified by `teamId` or `slug`. The request must state the child's billing profile in `billingPlan`: `enterprise` or `platform`. Both modes respond with the resulting organization-team link. This endpoint is in private beta. Contact your Vercel account team for access.
  * @link /v1/organizations/{organizationId}/teams
  */
 export async function addOrganizationTeam(
@@ -28004,6 +28063,7 @@ export const operationsByPath = {
 	"PATCH /v1/env/{id}/unlink/{projectId}": unlinkSharedEnvVariable,
 	"GET /v3/events": listUserEvents,
 	"GET /v1/events/types": listEventTypes,
+	"POST /v1/projects/{projectIdOrName}/feature-flags/overrides/sign": signFlagOverrides,
 	"GET /v2/projects/{projectIdOrName}/feature-flags/flags": listFlagsV2,
 	"GET /v1/projects/{projectIdOrName}/feature-flags/flags": listFlags,
 	"PUT /v1/projects/{projectIdOrName}/feature-flags/flags": createFlag,
@@ -28627,6 +28687,7 @@ export const operationsByTag = {
 		requestDelete,
 	},
 	featureFlags: {
+		signFlagOverrides,
 		listFlagsV2,
 		listFlags,
 		createFlag,
@@ -29215,6 +29276,7 @@ export const tagDictionary = {
 		DELETE: ["requestDelete"],
 	},
 	featureFlags: {
+		POST: ["signFlagOverrides", "lookupFlagLabels"],
 		GET: [
 			"listFlagsV2",
 			"listFlags",
@@ -29235,7 +29297,6 @@ export const tagDictionary = {
 		PUT: ["createFlag", "createFlagSegment", "createSdkKey", "createFlagsProjectConnection"],
 		PATCH: ["updateFlag", "updateFlagSettings", "updateFlagSegment"],
 		DELETE: ["deleteFlag", "deleteFlagSegment", "deleteSdkKey", "deleteFlagsProjectConnection"],
-		POST: ["lookupFlagLabels"],
 	},
 	marketplace: {
 		PATCH: [
