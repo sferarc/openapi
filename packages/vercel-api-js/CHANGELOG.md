@@ -1,5 +1,17 @@
 # vercel-api-js
 
+## 2.49.0
+
+### Minor Changes
+
+- 53a2ff2: UpsertAiGatewayBudgetBody now supports mutually exclusive 'limitAmount' and new 'increaseBy' fields, both optional.
+
+### Patch Changes
+
+- 53a2ff2: Improved listAiGatewayBudgets operation description to clarify usage of 'limitAmount' or new 'increaseBy'.
+- 53a2ff2: Expanded UserEvent type to support organization admin invite revoked and removed events with organizationId, organizationSlug, and targetUser fields.
+- 53a2ff2: Added new event types 'organization-admin-invite-revoked' and 'organization-admin-removed' to userEventTypeEnum, listEventTypeNameEnum, and listEventTypeReplacedByEnum.
+
 ## 2.48.0
 
 ### Minor Changes
