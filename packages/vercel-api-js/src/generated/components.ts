@@ -5878,7 +5878,7 @@ export async function deleteAiGatewayRule(
 
 /**
  * @summary List AI Gateway budgets
- * @description List the team's AI Gateway budgets (team/project/user scopes, plus default-covered api-key spend) as a flat list, optionally filtered by scope. Without `limit` or `cursor`, returns every budget. With either, returns one page ordered by `quotaEntityId` plus `nextCursor` (null on the last page) and `defaultCoveredCounts`. Paging still reads the full merge server-side: the gateway meter list it joins has no cursor.
+ * @description List the team's AI Gateway budgets (team/project/user/app scopes, plus default-covered api-key spend) as a flat list, optionally filtered by scope. Without `limit` or `cursor`, returns every budget. With either, returns one page ordered by `quotaEntityId` plus `nextCursor` (null on the last page) and `defaultCoveredCounts`. Paging still reads the full merge server-side: the gateway meter list it joins has no cursor.
  * @link /ai-gateway/budgets/list
  */
 export async function listAiGatewayBudgets(
@@ -5919,7 +5919,7 @@ export async function listAiGatewayBudgets(
 
 /**
  * @summary Upsert AI Gateway budget
- * @description Create or update a team-, project-, or user-scope AI Gateway budget. Set a total with `limitAmount`, or raise the current budget with `increaseBy`.
+ * @description Create or update a team-, project-, user-, or app-scope AI Gateway budget. Set a total with `limitAmount`, or raise the current budget with `increaseBy`.
  * @link /ai-gateway/budgets
  */
 export async function upsertAiGatewayBudget(
@@ -5963,7 +5963,7 @@ export async function upsertAiGatewayBudget(
 
 /**
  * @summary Archive AI Gateway budget
- * @description Archive a team-, project-, or user-scope AI Gateway budget.
+ * @description Archive a team-, project-, user-, or app-scope AI Gateway budget.
  * @link /ai-gateway/budgets
  */
 export async function archiveAiGatewayBudget(
@@ -6004,7 +6004,7 @@ export async function archiveAiGatewayBudget(
 
 /**
  * @summary List AI Gateway budget defaults
- * @description List the team's AI Gateway budget defaults as a flat per-scope list (one row per team/project/api-key/user scope with a default set). An empty list is a normal state for the dashboard.
+ * @description List the team's AI Gateway budget defaults as a flat per-scope list (one row per team/project/api-key/user/app scope with a default set). An empty list is a normal state for the dashboard.
  * @link /ai-gateway/budgets/defaults/list
  */
 export async function listAiGatewayBudgetDefaults(

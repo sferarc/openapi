@@ -310,9 +310,9 @@ export const aiGatewayBudgetSchema = z.object({
 	scopeId: z
 		.string()
 		.describe(
-			"The native Vercel id of the scoped entity. Team/project ids already carry their prefix, so this equals `quotaEntityId` (`team_…` / `prj_…`); for the api-key scope it is the api key id (the `api_key_id_` prefix stripped).",
+			"The native Vercel id of the scoped entity. Team/project ids already carry their prefix, so this equals `quotaEntityId` (`team_…` / `prj_…`); user and app scopes also use the quota entity id (`usr_<userId>` / `app_<appId>`); for the api-key scope it is the api key id (the `api_key_id_` prefix stripped).",
 		),
-	scopeType: z.enum(["api-key", "project", "team", "user"]),
+	scopeType: z.enum(["api-key", "app", "project", "team", "user"]),
 	source: z
 		.enum(["default"])
 		.optional()
@@ -325,6 +325,7 @@ export const aiGatewayBudgetListSchema = z.object({
 	defaultCoveredCounts: z
 		.object({
 			"api-key": z.number(),
+			app: z.number().optional().describe("Omitted when no app row is default-covered."),
 			project: z.number(),
 			team: z.number(),
 			user: z.number(),
@@ -347,7 +348,7 @@ export const aiGatewayBudgetDefaultSchema = z.object({
 	createdAt: z.number(),
 	limitAmount: z.number(),
 	refreshPeriod: z.enum(["daily", "monthly", "none", "weekly"]),
-	scopeType: z.enum(["api-key", "project", "team", "user"]),
+	scopeType: z.enum(["api-key", "app", "project", "team", "user"]),
 	updatedAt: z.number(),
 });
 
@@ -20947,7 +20948,7 @@ export const deleteAiGatewayRuleQuerySchema = z.object({
 });
 
 export const listAiGatewayBudgetsQueryScopeTypeSchema = z
-	.enum(["team", "project", "user", "api-key"])
+	.enum(["team", "project", "user", "app", "api-key"])
 	.optional()
 	.describe("Restrict the list to a single budget scope.");
 
@@ -21008,7 +21009,7 @@ export const listAiGatewayBudgetsErrorSchema = z.union([
 
 export const listAiGatewayBudgetsQuerySchema = z.object({
 	scopeType: z
-		.enum(["team", "project", "user", "api-key"])
+		.enum(["team", "project", "user", "app", "api-key"])
 		.optional()
 		.describe("Restrict the list to a single budget scope."),
 	includeDefaultCovered: z
@@ -21074,9 +21075,13 @@ export const upsertAiGatewayBudgetErrorSchema = z.union([
 
 export const upsertAiGatewayBudgetBodySchema = z
 	.strictObject({
-		scopeType: z.enum(["project", "team", "user"]),
+		scopeType: z.enum(["app", "project", "team", "user"]),
 		projectId: z.string().optional().describe('Required when scopeType is \\"project\\".'),
 		userId: z.string().optional().describe('Required when scopeType is \\"user\\".'),
+		appId: z
+			.string()
+			.optional()
+			.describe('Required when scopeType is \\"app\\". The id of a Vercel App (`cl_…`).'),
 		limitAmount: z
 			.number()
 			.min(1)
@@ -21121,7 +21126,7 @@ export const upsertAiGatewayBudgetQuerySchema = z.object({
 });
 
 export const archiveAiGatewayBudgetQueryScopeTypeSchema = z
-	.enum(["team", "project", "user"])
+	.enum(["team", "project", "user", "app"])
 	.describe("The budget scope to archive.");
 
 export const archiveAiGatewayBudgetQueryProjectIdSchema = z
@@ -21133,6 +21138,11 @@ export const archiveAiGatewayBudgetQueryUserIdSchema = z
 	.string()
 	.optional()
 	.describe('Required when scopeType is \\"user\\".');
+
+export const archiveAiGatewayBudgetQueryAppIdSchema = z
+	.string()
+	.optional()
+	.describe('Required when scopeType is \\"app\\". The id of a Vercel App (`cl_…`).');
 
 export const archiveAiGatewayBudgetQueryJustificationSchema = z
 	.string()
@@ -21179,9 +21189,13 @@ export const archiveAiGatewayBudgetErrorSchema = z.union([
 ]);
 
 export const archiveAiGatewayBudgetQuerySchema = z.object({
-	scopeType: z.enum(["team", "project", "user"]).describe("The budget scope to archive."),
+	scopeType: z.enum(["team", "project", "user", "app"]).describe("The budget scope to archive."),
 	projectId: z.string().optional().describe('Required when scopeType is \\"project\\".'),
 	userId: z.string().optional().describe('Required when scopeType is \\"user\\".'),
+	appId: z
+		.string()
+		.optional()
+		.describe('Required when scopeType is \\"app\\". The id of a Vercel App (`cl_…`).'),
 	justification: z
 		.string()
 		.optional()
@@ -21290,7 +21304,7 @@ export const upsertAiGatewayBudgetDefaultErrorSchema = z.union([
 
 export const upsertAiGatewayBudgetDefaultBodySchema = z
 	.strictObject({
-		scopeType: z.enum(["api-key", "project", "team", "user"]),
+		scopeType: z.enum(["api-key", "app", "project", "team", "user"]),
 		limitAmount: z.number().min(1).describe("Default budget limit in dollars."),
 		refreshPeriod: z.enum(["daily", "monthly", "none", "weekly"]).optional(),
 		alertThresholds: z.array(z.union([z.literal(100), z.literal(50), z.literal(75)])).optional(),
@@ -21317,7 +21331,7 @@ export const upsertAiGatewayBudgetDefaultQuerySchema = z.object({
 });
 
 export const archiveAiGatewayBudgetDefaultQueryScopeTypeSchema = z
-	.enum(["team", "project", "api-key", "user"])
+	.enum(["team", "project", "api-key", "user", "app"])
 	.describe("The budget default scope to delete.");
 
 export const archiveAiGatewayBudgetDefaultQueryJustificationSchema = z
@@ -21367,7 +21381,7 @@ export const archiveAiGatewayBudgetDefaultErrorSchema = z.union([
 
 export const archiveAiGatewayBudgetDefaultQuerySchema = z.object({
 	scopeType: z
-		.enum(["team", "project", "api-key", "user"])
+		.enum(["team", "project", "api-key", "user", "app"])
 		.describe("The budget default scope to delete."),
 	justification: z
 		.string()
