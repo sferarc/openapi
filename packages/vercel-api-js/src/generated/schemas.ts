@@ -7665,6 +7665,15 @@ export const userEventSchema = z
 					projectName: z.string(),
 				}),
 				z.strictObject({
+					organizationId: z.string(),
+					organizationSlug: z.string(),
+					targetUser: z.string(),
+				}),
+				z.strictObject({
+					organizationId: z.string(),
+					organizationSlug: z.string(),
+				}),
+				z.strictObject({
 					avatar: z.string().nullable(),
 					organizationId: z.string(),
 				}),
@@ -12243,6 +12252,8 @@ export const userEventSchema = z
 				"oidc-policy-deleted",
 				"oidc-policy-updated",
 				"oidc-policy-used-to-obtain-app-token",
+				"organization-admin-invite-revoked",
+				"organization-admin-removed",
 				"organization-avatar-update",
 				"organization-create",
 				"organization-delete",
@@ -13182,6 +13193,8 @@ export const listEventTypeSchema = z
 				"oidc-policy-deleted",
 				"oidc-policy-updated",
 				"oidc-policy-used-to-obtain-app-token",
+				"organization-admin-invite-revoked",
+				"organization-admin-removed",
 				"organization-avatar-update",
 				"organization-create",
 				"organization-delete",
@@ -14016,6 +14029,8 @@ export const listEventTypeSchema = z
 					"oidc-policy-deleted",
 					"oidc-policy-updated",
 					"oidc-policy-used-to-obtain-app-token",
+					"organization-admin-invite-revoked",
+					"organization-admin-removed",
 					"organization-avatar-update",
 					"organization-create",
 					"organization-delete",
@@ -21062,8 +21077,22 @@ export const upsertAiGatewayBudgetBodySchema = z
 		scopeType: z.enum(["project", "team", "user"]),
 		projectId: z.string().optional().describe('Required when scopeType is \\"project\\".'),
 		userId: z.string().optional().describe('Required when scopeType is \\"user\\".'),
-		limitAmount: z.number().min(1).describe("Budget limit in dollars."),
-		refreshPeriod: z.enum(["daily", "monthly", "none", "weekly"]).optional().default("monthly"),
+		limitAmount: z
+			.number()
+			.min(1)
+			.optional()
+			.describe("Budget limit in dollars. Provide this or `increaseBy`, not both."),
+		increaseBy: z
+			.number()
+			.min(1)
+			.optional()
+			.describe(
+				"Dollars to add to the current budget, or to the scope's default when it has no budget of its own. Provide this or `limitAmount`, not both. Keeps the current refresh period and BYOK setting unless they are given.",
+			),
+		refreshPeriod: z
+			.enum(["daily", "monthly", "none", "weekly"])
+			.optional()
+			.describe("Defaults to monthly with `limitAmount`; `increaseBy` keeps the current period."),
 		includeByokInQuota: z
 			.boolean()
 			.optional()

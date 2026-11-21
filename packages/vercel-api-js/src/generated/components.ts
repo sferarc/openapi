@@ -5919,7 +5919,7 @@ export async function listAiGatewayBudgets(
 
 /**
  * @summary Upsert AI Gateway budget
- * @description Create or update a team-, project-, or user-scope AI Gateway budget.
+ * @description Create or update a team-, project-, or user-scope AI Gateway budget. Set a total with `limitAmount`, or raise the current budget with `increaseBy`.
  * @link /ai-gateway/budgets
  */
 export async function upsertAiGatewayBudget(
