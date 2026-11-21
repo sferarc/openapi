@@ -1,5 +1,17 @@
 # vercel-api-js
 
+## 2.50.0
+
+### Minor Changes
+
+- 1aa46fc: Added support for 'app' as a scope type for AI Gateway budgets across related endpoints, request bodies, and enums.
+- 1aa46fc: Added the optional 'appId' field for requests when the scope type is 'app' in upsert and archive AI Gateway budget operations.
+
+### Patch Changes
+
+- 1aa46fc: Clarified entity id descriptions in AiGatewayBudget for user and app scopes to use the corresponding quota entity id formats.
+- 1aa46fc: Added optional 'app' field to AiGatewayBudgetList, present when an app row is default-covered.
+
 ## 2.49.0
 
 ### Minor Changes
