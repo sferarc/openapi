@@ -8831,6 +8831,8 @@ export const userEventTypeEnum = {
 	"oidc-policy-deleted": "oidc-policy-deleted",
 	"oidc-policy-updated": "oidc-policy-updated",
 	"oidc-policy-used-to-obtain-app-token": "oidc-policy-used-to-obtain-app-token",
+	"organization-admin-invite-revoked": "organization-admin-invite-revoked",
+	"organization-admin-removed": "organization-admin-removed",
 	"organization-avatar-update": "organization-avatar-update",
 	"organization-create": "organization-create",
 	"organization-delete": "organization-delete",
@@ -13043,6 +13045,15 @@ export type UserEvent = {
 				| {
 						projectId?: string | undefined;
 						projectName: string;
+				  }
+				| {
+						organizationId: string;
+						organizationSlug: string;
+						targetUser: string;
+				  }
+				| {
+						organizationId: string;
+						organizationSlug: string;
 				  }
 				| {
 						avatar: string | null;
@@ -17607,6 +17618,8 @@ export const listEventTypeNameEnum = {
 	"oidc-policy-deleted": "oidc-policy-deleted",
 	"oidc-policy-updated": "oidc-policy-updated",
 	"oidc-policy-used-to-obtain-app-token": "oidc-policy-used-to-obtain-app-token",
+	"organization-admin-invite-revoked": "organization-admin-invite-revoked",
+	"organization-admin-removed": "organization-admin-removed",
 	"organization-avatar-update": "organization-avatar-update",
 	"organization-create": "organization-create",
 	"organization-delete": "organization-delete",
@@ -18460,6 +18473,8 @@ export const listEventTypeReplacedByEnum = {
 	"oidc-policy-deleted": "oidc-policy-deleted",
 	"oidc-policy-updated": "oidc-policy-updated",
 	"oidc-policy-used-to-obtain-app-token": "oidc-policy-used-to-obtain-app-token",
+	"organization-admin-invite-revoked": "organization-admin-invite-revoked",
+	"organization-admin-removed": "organization-admin-removed",
 	"organization-avatar-update": "organization-avatar-update",
 	"organization-create": "organization-create",
 	"organization-delete": "organization-delete",
@@ -27092,13 +27107,19 @@ export type UpsertAiGatewayBudgetBody =
 			 */
 			userId?: string | undefined;
 			/**
-			 * @description Budget limit in dollars.
+			 * @description Budget limit in dollars. Provide this or `increaseBy`, not both.
 			 * @minimum 1
-			 * @type number
+			 * @type number | undefined
 			 */
-			limitAmount: number;
+			limitAmount?: number | undefined;
 			/**
-			 * @default 'monthly'
+			 * @description Dollars to add to the current budget, or to the scope's default when it has no budget of its own. Provide this or `limitAmount`, not both. Keeps the current refresh period and BYOK setting unless they are given.
+			 * @minimum 1
+			 * @type number | undefined
+			 */
+			increaseBy?: number | undefined;
+			/**
+			 * @description Defaults to monthly with `limitAmount`; `increaseBy` keeps the current period.
 			 * @type string | undefined
 			 */
 			refreshPeriod?: UpsertAiGatewayBudgetRequestRefreshPeriodEnumKey | undefined;
