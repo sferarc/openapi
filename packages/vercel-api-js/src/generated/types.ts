@@ -476,6 +476,7 @@ export type AiGatewayBudgetRefreshPeriodEnumKey =
 
 export const aiGatewayBudgetScopeTypeEnum = {
 	"api-key": "api-key",
+	app: "app",
 	project: "project",
 	team: "team",
 	user: "user",
@@ -497,7 +498,7 @@ export type AiGatewayBudget = {
 	quotaEntityId: string;
 	refreshPeriod: AiGatewayBudgetRefreshPeriodEnumKey;
 	/**
-	 * @description The native Vercel id of the scoped entity. Team/project ids already carry their prefix, so this equals `quotaEntityId` (`team_…` / `prj_…`); for the api-key scope it is the api key id (the `api_key_id_` prefix stripped).
+	 * @description The native Vercel id of the scoped entity. Team/project ids already carry their prefix, so this equals `quotaEntityId` (`team_…` / `prj_…`); user and app scopes also use the quota entity id (`usr_<userId>` / `app_<appId>`); for the api-key scope it is the api key id (the `api_key_id_` prefix stripped).
 	 * @type string
 	 */
 	scopeId: string;
@@ -519,6 +520,11 @@ export type AiGatewayBudgetList = {
 	defaultCoveredCounts?:
 		| {
 				"api-key": number;
+				/**
+				 * @description Omitted when no app row is default-covered.
+				 * @type number | undefined
+				 */
+				app?: number | undefined;
 				project: number;
 				team: number;
 				user: number;
@@ -543,6 +549,7 @@ export type AiGatewayBudgetDefaultRefreshPeriodEnumKey =
 
 export const aiGatewayBudgetDefaultScopeTypeEnum = {
 	"api-key": "api-key",
+	app: "app",
 	project: "project",
 	team: "team",
 	user: "user",
@@ -26950,6 +26957,7 @@ export const listAiGatewayBudgetsScopeType = {
 	team: "team",
 	project: "project",
 	user: "user",
+	app: "app",
 	"api-key": "api-key",
 } as const;
 
@@ -27066,6 +27074,7 @@ export type UpsertAiGatewayBudgetStatus410 = unknown;
 export type UpsertAiGatewayBudgetStatus500 = unknown;
 
 export const upsertAiGatewayBudgetRequestScopeTypeEnum = {
+	app: "app",
 	project: "project",
 	team: "team",
 	user: "user",
@@ -27106,6 +27115,11 @@ export type UpsertAiGatewayBudgetBody =
 			 * @type string | undefined
 			 */
 			userId?: string | undefined;
+			/**
+			 * @description Required when scopeType is \"app\". The id of a Vercel App (`cl_…`).
+			 * @type string | undefined
+			 */
+			appId?: string | undefined;
 			/**
 			 * @description Budget limit in dollars. Provide this or `increaseBy`, not both.
 			 * @minimum 1
@@ -27163,6 +27177,7 @@ export const archiveAiGatewayBudgetScopeType = {
 	team: "team",
 	project: "project",
 	user: "user",
+	app: "app",
 } as const;
 
 export type ArchiveAiGatewayBudgetScopeTypeKey =
@@ -27184,6 +27199,11 @@ export type ArchiveAiGatewayBudgetQuery = {
 	 * @type string | undefined
 	 */
 	userId?: string | undefined;
+	/**
+	 * @description Required when scopeType is \"app\". The id of a Vercel App (`cl_…`).
+	 * @type string | undefined
+	 */
+	appId?: string | undefined;
 	/**
 	 * @description Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains, and sent in the ai-gateway.budget.updated webhook.
 	 * @type string | undefined
@@ -27321,6 +27341,7 @@ export type UpsertAiGatewayBudgetDefaultStatus500 = unknown;
 
 export const upsertAiGatewayBudgetDefaultRequestScopeTypeEnum = {
 	"api-key": "api-key",
+	app: "app",
 	project: "project",
 	team: "team",
 	user: "user",
@@ -27394,6 +27415,7 @@ export const archiveAiGatewayBudgetDefaultScopeType = {
 	project: "project",
 	"api-key": "api-key",
 	user: "user",
+	app: "app",
 } as const;
 
 export type ArchiveAiGatewayBudgetDefaultScopeTypeKey =
