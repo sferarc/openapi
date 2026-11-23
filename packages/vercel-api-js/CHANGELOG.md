@@ -1,5 +1,16 @@
 # vercel-api-js
 
+## 2.51.0
+
+### Minor Changes
+
+- e10c1ec: Added new user event type 'sandbox-ai-gateway-credentials-configured' to the userEventTypeEnum, listEventTypeNameEnum, and listEventTypeReplacedByEnum.
+- e10c1ec: Added support for a new 'sandbox-ai-gateway-credentials-configured' event in the UserEvent type with projectId and sandboxId fields.
+
+### Patch Changes
+
+- e10c1ec: Updated documentation for listBillingCharges to clarify permission requirements for Pro subscription and AI Gateway credit purchases.
+
 ## 2.50.0
 
 ### Minor Changes
