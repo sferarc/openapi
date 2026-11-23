@@ -9049,6 +9049,7 @@ export const userEventTypeEnum = {
 	"saml-idp-material-set": "saml-idp-material-set",
 	"saml-idp-material-system-deleted": "saml-idp-material-system-deleted",
 	"saml-idp-material-system-set": "saml-idp-material-system-set",
+	"sandbox-ai-gateway-credentials-configured": "sandbox-ai-gateway-credentials-configured",
 	"sandbox-alias-assigned": "sandbox-alias-assigned",
 	"sandbox-alias-delete": "sandbox-alias-delete",
 	"sandbox-drive-created": "sandbox-drive-created",
@@ -14606,6 +14607,10 @@ export type UserEvent = {
 						signingKeyId: string | null;
 				  }
 				| {
+						projectId: string;
+						sandboxId: string;
+				  }
+				| {
 						alias: string;
 						projectId?: string | undefined;
 						sandboxId?: string | undefined;
@@ -14616,10 +14621,6 @@ export type UserEvent = {
 						projectId: string;
 						projectName: string;
 						sandboxName: string;
-				  }
-				| {
-						projectId: string;
-						sandboxId: string;
 				  }
 				| {
 						projectId: string;
@@ -17836,6 +17837,7 @@ export const listEventTypeNameEnum = {
 	"saml-idp-material-set": "saml-idp-material-set",
 	"saml-idp-material-system-deleted": "saml-idp-material-system-deleted",
 	"saml-idp-material-system-set": "saml-idp-material-system-set",
+	"sandbox-ai-gateway-credentials-configured": "sandbox-ai-gateway-credentials-configured",
 	"sandbox-alias-assigned": "sandbox-alias-assigned",
 	"sandbox-alias-delete": "sandbox-alias-delete",
 	"sandbox-drive-created": "sandbox-drive-created",
@@ -18691,6 +18693,7 @@ export const listEventTypeReplacedByEnum = {
 	"saml-idp-material-set": "saml-idp-material-set",
 	"saml-idp-material-system-deleted": "saml-idp-material-system-deleted",
 	"saml-idp-material-system-set": "saml-idp-material-system-set",
+	"sandbox-ai-gateway-credentials-configured": "sandbox-ai-gateway-credentials-configured",
 	"sandbox-alias-assigned": "sandbox-alias-assigned",
 	"sandbox-alias-delete": "sandbox-alias-delete",
 	"sandbox-drive-created": "sandbox-drive-created",

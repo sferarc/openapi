@@ -9455,6 +9455,10 @@ export const userEventSchema = z
 					signingKeyId: z.string().nullable(),
 				}),
 				z.strictObject({
+					projectId: z.string(),
+					sandboxId: z.string(),
+				}),
+				z.strictObject({
 					alias: z.string(),
 					projectId: z.string().optional(),
 					sandboxId: z.string().optional(),
@@ -9465,10 +9469,6 @@ export const userEventSchema = z
 					projectId: z.string(),
 					projectName: z.string(),
 					sandboxName: z.string(),
-				}),
-				z.strictObject({
-					projectId: z.string(),
-					sandboxId: z.string(),
 				}),
 				z.strictObject({
 					projectId: z.string(),
@@ -12454,6 +12454,7 @@ export const userEventSchema = z
 				"saml-idp-material-set",
 				"saml-idp-material-system-deleted",
 				"saml-idp-material-system-set",
+				"sandbox-ai-gateway-credentials-configured",
 				"sandbox-alias-assigned",
 				"sandbox-alias-delete",
 				"sandbox-drive-created",
@@ -13395,6 +13396,7 @@ export const listEventTypeSchema = z
 				"saml-idp-material-set",
 				"saml-idp-material-system-deleted",
 				"saml-idp-material-system-set",
+				"sandbox-ai-gateway-credentials-configured",
 				"sandbox-alias-assigned",
 				"sandbox-alias-delete",
 				"sandbox-drive-created",
@@ -14231,6 +14233,7 @@ export const listEventTypeSchema = z
 					"saml-idp-material-set",
 					"saml-idp-material-system-deleted",
 					"saml-idp-material-system-set",
+					"sandbox-ai-gateway-credentials-configured",
 					"sandbox-alias-assigned",
 					"sandbox-alias-delete",
 					"sandbox-drive-created",

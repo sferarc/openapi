@@ -6504,7 +6504,7 @@ export async function listBillingCharges(
 
 /**
  * @summary Purchase credits
- * @description Purchases credits for a Vercel team using the default payment method on file. The purchase is charged immediately via Stripe invoice. Supported credit types are `v0`, `gateway`, and `agent`. The `amount` field specifies the number of credits to purchase and must be a positive integer. An optional `source` query parameter can be provided to identify the caller. Defaults to `api` if not specified. This is only available for Owner, Member, Developer, Security, and Billing roles for the supplied team.
+ * @description Purchases credits for a Vercel team using the default payment method on file. The purchase is charged immediately via Stripe invoice. Supported credit types are `v0`, `gateway`, and `agent`. The `amount` field specifies the number of credits to purchase and must be a positive integer. An optional `source` query parameter can be provided to identify the caller. Defaults to `api` if not specified. This is only available for Owner, Member, Developer, Security, and Billing roles for the supplied team. Pro subscription purchases additionally require permission to update the team's plan, and AI Gateway credit purchases require permission to create AI Gateway credits.
  * @link /v1/billing/buy
  */
 export async function buyCredits(
