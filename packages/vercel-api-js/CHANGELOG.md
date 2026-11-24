@@ -1,5 +1,18 @@
 # vercel-api-js
 
+## 2.52.0
+
+### Minor Changes
+
+- 4b6805c: Added 409 Conflict response types to putProjectDaemonInstances and deleteConfigurableLogDrain operations.
+- 4b6805c: [BREAKING] The minimum value for session expiration lead times in CreateSandboxes, UpdateSandbox, and related types was reduced from 120000 ms (2 minutes) to 60000 ms (1 minute), and default descriptions updated accordingly.
+- 4b6805c: The listAuthTokens operation now accepts query parameters for filtering tokens by kind and status.
+
+### Patch Changes
+
+- 4b6805c: Added several new enum types and fields related to AI Gateway budget, user events, and token kinds including appliesTo, various actorType enums, and to fields.
+- 4b6805c: Improved the type definitions for AuthToken, allowing kind field and supporting new values such as access-token, app, other, and sign-in-session.
+
 ## 2.51.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # netlify-api
 
+## 3.7.1
+
+### Patch Changes
+
+- 947461b: Regenerate from the latest netlify-api OpenAPI spec.
+
 ## 3.7.0
 
 ### Minor Changes

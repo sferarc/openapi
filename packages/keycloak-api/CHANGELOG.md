@@ -1,5 +1,11 @@
 # keycloak-api
 
+## 3.8.2
+
+### Patch Changes
+
+- 8be6f6f: Regenerate from the latest keycloak-api OpenAPI spec.
+
 ## 3.8.1
 
 ### Patch Changes
