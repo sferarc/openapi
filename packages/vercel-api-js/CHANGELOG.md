@@ -1,5 +1,20 @@
 # vercel-api-js
 
+## 2.53.0
+
+### Minor Changes
+
+- 8290963: Added new enum value 'sandbox-processes-updated' to userEventTypeEnum, listEventTypeNameEnum, and listEventTypeReplacedByEnum.
+- 8290963: [BREAKING] Removed cmpEnum3, CmpEnum3Key, typeEnum70, TypeEnum70Key, createFlagStatus201KindEnum, CreateFlagStatus201KindEnumKey, createFlagStatus201StateEnum, CreateFlagStatus201StateEnumKey, createFlagStatus201VariantsValue, CreateFlagStatus201VariantsValueKey, CreateFlagStatus201, CreateFlagStatus400, CreateFlagStatus401, CreateFlagStatus402, CreateFlagStatus403, CreateFlagStatus404, CreateFlagStatus409, CreateFlagStatus410, createFlagRequestKindEnum, CreateFlagRequestKindEnumKey, typeEnum60, TypeEnum60Key, cmpEnum5, CmpEnum5Key, typeEnum88, TypeEnum88Key, updateFlagStatus200KindEnum, UpdateFlagStatus200KindEnumKey, updateFlagStatus200StateEnum, UpdateFlagStatus200StateEnumKey, updateFlagStatus200VariantsValue, UpdateFlagStatus200VariantsValueKey, UpdateFlagStatus200, UpdateFlagStatus304, UpdateFlagStatus400, UpdateFlagStatus401, UpdateFlagStatus402, UpdateFlagStatus403, UpdateFlagStatus404, UpdateFlagStatus409, UpdateFlagStatus410, typeEnum78, TypeEnum78Key, cmpEnum6, CmpEnum6Key, typeEnum105, TypeEnum105Key, typeEnum128, TypeEnum128Key, typeEnum130, TypeEnum130Key, typeEnum132, TypeEnum132Key, typeEnum134, TypeEnum134Key, typeEnum136, TypeEnum136Key, typeEnum138, TypeEnum138Key, typeEnum140, TypeEnum140Key, typeEnum142, TypeEnum142Key, typeEnum144, TypeEnum144Key, typeEnum146, TypeEnum146Key and related types and replaced them with new enums and types.
+- 8290963: Added a new enum userEventPayloadProcessesEnum and corresponding type UserEventPayloadProcessesEnumKey for sandbox process updates.
+- 8290963: Added new enum value 'auto-paused-delivery-errors' to getAllLogDrainsStatus200DrainsDisabledReasonEnum and related enums.
+- 8290963: [BREAKING] Replaced CreateFlagBody, UpdateFlagBody and several related enums and types to use new enums and types for environment configuration, variants, rules, and conditions in the feature flag API.
+- 8290963: Added new field 'processes' to UserEvent type for sandbox process updates.
+
+### Patch Changes
+
+- 8290963: Improved documentation for createSandboxesSessionsBySessionIdSnapshotV2 by specifying the source sandbox's access policy requirements.
+
 ## 2.52.0
 
 ### Minor Changes
