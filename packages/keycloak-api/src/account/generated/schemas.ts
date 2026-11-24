@@ -148,7 +148,7 @@ export const getAccountStatus200Schema = accountRepresentationSchema;
 export const getAccountResponseSchema = getAccountStatus200Schema;
 
 export const getAccountQuerySchema = z.object({
-	userProfileMetadata: z.boolean().optional(),
+	userProfileMetadata: getAccountQueryUserProfileMetadataSchema,
 });
 
 export const updateAccountStatus204Schema = z.void();
@@ -164,9 +164,12 @@ export const getApplicationsStatus200Schema = z.array(clientRepresentationSchema
 export const getApplicationsResponseSchema = getApplicationsStatus200Schema;
 
 export const getApplicationsQuerySchema = z.object({
-	name: z.string().optional(),
+	name: getApplicationsQueryNameSchema,
 });
 
+/**
+ * client id
+ */
 export const getConsentPathClientIdSchema = z.string().describe("client id");
 
 export const getConsentStatus200Schema = consentRepresentationSchema;
@@ -174,9 +177,12 @@ export const getConsentStatus200Schema = consentRepresentationSchema;
 export const getConsentResponseSchema = getConsentStatus200Schema;
 
 export const getConsentPathSchema = z.object({
-	clientId: z.string().describe("client id"),
+	clientId: getConsentPathClientIdSchema,
 });
 
+/**
+ * client id
+ */
 export const createConsentPathClientIdSchema = z.string().describe("client id");
 
 export const createConsentStatus200Schema = consentRepresentationSchema;
@@ -184,9 +190,12 @@ export const createConsentStatus200Schema = consentRepresentationSchema;
 export const createConsentResponseSchema = createConsentStatus200Schema;
 
 export const createConsentPathSchema = z.object({
-	clientId: z.string().describe("client id"),
+	clientId: createConsentPathClientIdSchema,
 });
 
+/**
+ * client id
+ */
 export const updateConsentPathClientIdSchema = z.string().describe("client id");
 
 export const updateConsentStatus200Schema = consentRepresentationSchema;
@@ -194,9 +203,12 @@ export const updateConsentStatus200Schema = consentRepresentationSchema;
 export const updateConsentResponseSchema = updateConsentStatus200Schema;
 
 export const updateConsentPathSchema = z.object({
-	clientId: z.string().describe("client id"),
+	clientId: updateConsentPathClientIdSchema,
 });
 
+/**
+ * client id
+ */
 export const deleteConsentPathClientIdSchema = z.string().describe("client id");
 
 export const deleteConsentStatus204Schema = z.void();
@@ -204,7 +216,7 @@ export const deleteConsentStatus204Schema = z.void();
 export const deleteConsentResponseSchema = deleteConsentStatus204Schema;
 
 export const deleteConsentPathSchema = z.object({
-	clientId: z.string().describe("client id"),
+	clientId: deleteConsentPathClientIdSchema,
 });
 
 export const getCredentialsQueryTypeSchema = z.string().optional();
@@ -216,10 +228,13 @@ export const getCredentialsStatus200Schema = z.array(credentialRepresentationSch
 export const getCredentialsResponseSchema = getCredentialsStatus200Schema;
 
 export const getCredentialsQuerySchema = z.object({
-	type: z.string().optional(),
-	"user-credentials": z.boolean().optional(),
+	type: getCredentialsQueryTypeSchema,
+	"user-credentials": getCredentialsQueryUserCredentialsSchema,
 });
 
+/**
+ * Credential ID
+ */
 export const deleteCredentialPathCredentialIdSchema = z.string().describe("Credential ID");
 
 export const deleteCredentialStatus204Schema = z.void();
@@ -227,9 +242,12 @@ export const deleteCredentialStatus204Schema = z.void();
 export const deleteCredentialResponseSchema = deleteCredentialStatus204Schema;
 
 export const deleteCredentialPathSchema = z.object({
-	credentialId: z.string().describe("Credential ID"),
+	credentialId: deleteCredentialPathCredentialIdSchema,
 });
 
+/**
+ * Credential ID
+ */
 export const updateCredentialLabelPathCredentialIdSchema = z.string().describe("Credential ID");
 
 export const updateCredentialLabelStatus204Schema = z.void();
@@ -239,7 +257,7 @@ export const updateCredentialLabelResponseSchema = updateCredentialLabelStatus20
 export const updateCredentialLabelBodySchema = z.string().optional();
 
 export const updateCredentialLabelPathSchema = z.object({
-	credentialId: z.string().describe("Credential ID"),
+	credentialId: updateCredentialLabelPathCredentialIdSchema,
 });
 
 export const getSessionsStatus200Schema = z.array(sessionRepresentationSchema);
@@ -254,6 +272,9 @@ export const getDevicesStatus200Schema = z.array(deviceRepresentationSchema);
 
 export const getDevicesResponseSchema = getDevicesStatus200Schema;
 
+/**
+ * Session ID
+ */
 export const deleteSessionPathSessionIdSchema = z.string().describe("Session ID");
 
 export const deleteSessionStatus204Schema = z.void();
@@ -261,15 +282,21 @@ export const deleteSessionStatus204Schema = z.void();
 export const deleteSessionResponseSchema = deleteSessionStatus204Schema;
 
 export const deleteSessionPathSchema = z.object({
-	sessionId: z.string().describe("Session ID"),
+	sessionId: deleteSessionPathSessionIdSchema,
 });
 
 export const getLinkedAccountsStatus200Schema = z.array(linkedAccountRepresentationSchema);
 
 export const getLinkedAccountsResponseSchema = getLinkedAccountsStatus200Schema;
 
+/**
+ * Provider ID
+ */
 export const buildLinkingUriPathProviderIdSchema = z.string().describe("Provider ID");
 
+/**
+ * Redirect URI to return to after account linking
+ */
 export const buildLinkingUriQueryRedirectUriSchema = z
 	.string()
 	.describe("Redirect URI to return to after account linking");
@@ -279,13 +306,16 @@ export const buildLinkingUriStatus200Schema = accountLinkUriRepresentationSchema
 export const buildLinkingUriResponseSchema = buildLinkingUriStatus200Schema;
 
 export const buildLinkingUriPathSchema = z.object({
-	providerId: z.string().describe("Provider ID"),
+	providerId: buildLinkingUriPathProviderIdSchema,
 });
 
 export const buildLinkingUriQuerySchema = z.object({
-	redirectUri: z.string().describe("Redirect URI to return to after account linking"),
+	redirectUri: buildLinkingUriQueryRedirectUriSchema,
 });
 
+/**
+ * Provider ID
+ */
 export const deleteLinkedProviderPathProviderIdSchema = z.string().describe("Provider ID");
 
 export const deleteLinkedProviderStatus204Schema = z.void();
@@ -293,7 +323,7 @@ export const deleteLinkedProviderStatus204Schema = z.void();
 export const deleteLinkedProviderResponseSchema = deleteLinkedProviderStatus204Schema;
 
 export const deleteLinkedProviderPathSchema = z.object({
-	providerId: z.string().describe("Provider ID"),
+	providerId: deleteLinkedProviderPathProviderIdSchema,
 });
 
 export const getGroupsQueryBriefRepresentationSchema = z.boolean().optional().default(true);
@@ -303,7 +333,7 @@ export const getGroupsStatus200Schema = z.array(z.lazy(() => groupRepresentation
 export const getGroupsResponseSchema = getGroupsStatus200Schema;
 
 export const getGroupsQuerySchema = z.object({
-	briefRepresentation: z.boolean().optional().default(true),
+	briefRepresentation: getGroupsQueryBriefRepresentationSchema,
 });
 
 export const getOrganizationsStatus200Schema = z.array(organizationRepresentationSchema);
