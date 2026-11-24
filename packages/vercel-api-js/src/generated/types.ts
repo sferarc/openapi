@@ -7510,6 +7510,14 @@ export const userEventPayloadToEnum = {
 export type UserEventPayloadToEnumKey =
 	(typeof userEventPayloadToEnum)[keyof typeof userEventPayloadToEnum];
 
+export const userEventPayloadProcessesEnum = {
+	preserve: "preserve",
+	stop: "stop",
+} as const;
+
+export type UserEventPayloadProcessesEnumKey =
+	(typeof userEventPayloadProcessesEnum)[keyof typeof userEventPayloadProcessesEnum];
+
 export const userEventPayloadFactorsOriginEnum4 = {
 	apple: "apple",
 	bitbucket: "bitbucket",
@@ -9103,6 +9111,7 @@ export const userEventTypeEnum = {
 	"sandbox-drive-snapshot-deleted": "sandbox-drive-snapshot-deleted",
 	"sandbox-expiry-notification-lead-time-updated": "sandbox-expiry-notification-lead-time-updated",
 	"sandbox-npm-credentials-configured": "sandbox-npm-credentials-configured",
+	"sandbox-processes-updated": "sandbox-processes-updated",
 	"sandbox-signed-commit-identity-configured": "sandbox-signed-commit-identity-configured",
 	"sandbox-snapshot-regions-updated": "sandbox-snapshot-regions-updated",
 	scale: "scale",
@@ -14730,6 +14739,11 @@ export type UserEvent = {
 						sandboxName: string;
 				  }
 				| {
+						processes: UserEventPayloadProcessesEnumKey;
+						projectId: string;
+						sandboxName: string;
+				  }
+				| {
 						projectId: string;
 						projectName: string;
 						snapshotId: string;
@@ -15533,10 +15547,12 @@ export type UserEvent = {
 						next: {
 							enabled: false | true;
 							repositoryScope?: UserEventPayloadNextRepositoryScopeEnum2Key | undefined;
+							attachScreenshots?: (false | true) | undefined;
 						};
 						previous: {
 							enabled: false | true;
 							repositoryScope?: UserEventPayloadPreviousRepositoryScopeEnum2Key | undefined;
+							attachScreenshots?: (false | true) | undefined;
 						};
 				  }
 				| {
@@ -17956,6 +17972,7 @@ export const listEventTypeNameEnum = {
 	"sandbox-drive-snapshot-deleted": "sandbox-drive-snapshot-deleted",
 	"sandbox-expiry-notification-lead-time-updated": "sandbox-expiry-notification-lead-time-updated",
 	"sandbox-npm-credentials-configured": "sandbox-npm-credentials-configured",
+	"sandbox-processes-updated": "sandbox-processes-updated",
 	"sandbox-signed-commit-identity-configured": "sandbox-signed-commit-identity-configured",
 	"sandbox-snapshot-regions-updated": "sandbox-snapshot-regions-updated",
 	scale: "scale",
@@ -18815,6 +18832,7 @@ export const listEventTypeReplacedByEnum = {
 	"sandbox-drive-snapshot-deleted": "sandbox-drive-snapshot-deleted",
 	"sandbox-expiry-notification-lead-time-updated": "sandbox-expiry-notification-lead-time-updated",
 	"sandbox-npm-credentials-configured": "sandbox-npm-credentials-configured",
+	"sandbox-processes-updated": "sandbox-processes-updated",
 	"sandbox-signed-commit-identity-configured": "sandbox-signed-commit-identity-configured",
 	"sandbox-snapshot-regions-updated": "sandbox-snapshot-regions-updated",
 	scale: "scale",
@@ -55069,6 +55087,7 @@ export type GetAllLogDrainsStatus200DrainsDeliveryServerSideEncryptionEnumKey =
 
 export const getAllLogDrainsStatus200DrainsDisabledReasonEnum = {
 	"account-plan-downgrade": "account-plan-downgrade",
+	"auto-paused-delivery-errors": "auto-paused-delivery-errors",
 	"disabled-by-admin": "disabled-by-admin",
 	"disabled-by-owner": "disabled-by-owner",
 	"feature-not-available": "feature-not-available",
@@ -55197,6 +55216,7 @@ export type GetAllLogDrainsStatus200DrainsDeliveryServerSideEncryptionEnum2Key =
 
 export const getAllLogDrainsStatus200DrainsDisabledReasonEnum2 = {
 	"account-plan-downgrade": "account-plan-downgrade",
+	"auto-paused-delivery-errors": "auto-paused-delivery-errors",
 	"disabled-by-admin": "disabled-by-admin",
 	"disabled-by-owner": "disabled-by-owner",
 	"feature-not-available": "feature-not-available",
@@ -55902,6 +55922,7 @@ export type CreateDrainStatus200DeliveryServerSideEncryptionEnumKey =
 
 export const createDrainStatus200DisabledReasonEnum = {
 	"account-plan-downgrade": "account-plan-downgrade",
+	"auto-paused-delivery-errors": "auto-paused-delivery-errors",
 	"disabled-by-admin": "disabled-by-admin",
 	"disabled-by-owner": "disabled-by-owner",
 	"feature-not-available": "feature-not-available",
@@ -56030,6 +56051,7 @@ export type CreateDrainStatus200DeliveryServerSideEncryptionEnum2Key =
 
 export const createDrainStatus200DisabledReasonEnum2 = {
 	"account-plan-downgrade": "account-plan-downgrade",
+	"auto-paused-delivery-errors": "auto-paused-delivery-errors",
 	"disabled-by-admin": "disabled-by-admin",
 	"disabled-by-owner": "disabled-by-owner",
 	"feature-not-available": "feature-not-available",
@@ -56843,6 +56865,7 @@ export type GetDrainsStatus200DrainsDeliveryServerSideEncryptionEnumKey =
 
 export const getDrainsStatus200DrainsDisabledReasonEnum = {
 	"account-plan-downgrade": "account-plan-downgrade",
+	"auto-paused-delivery-errors": "auto-paused-delivery-errors",
 	"disabled-by-admin": "disabled-by-admin",
 	"disabled-by-owner": "disabled-by-owner",
 	"feature-not-available": "feature-not-available",
@@ -56971,6 +56994,7 @@ export type GetDrainsStatus200DrainsDeliveryServerSideEncryptionEnum2Key =
 
 export const getDrainsStatus200DrainsDisabledReasonEnum2 = {
 	"account-plan-downgrade": "account-plan-downgrade",
+	"auto-paused-delivery-errors": "auto-paused-delivery-errors",
 	"disabled-by-admin": "disabled-by-admin",
 	"disabled-by-owner": "disabled-by-owner",
 	"feature-not-available": "feature-not-available",
@@ -57594,6 +57618,7 @@ export type GetDrainStatus200DeliveryServerSideEncryptionEnumKey =
 
 export const getDrainStatus200DisabledReasonEnum = {
 	"account-plan-downgrade": "account-plan-downgrade",
+	"auto-paused-delivery-errors": "auto-paused-delivery-errors",
 	"disabled-by-admin": "disabled-by-admin",
 	"disabled-by-owner": "disabled-by-owner",
 	"feature-not-available": "feature-not-available",
@@ -57946,6 +57971,7 @@ export type UpdateDrainStatus200DeliveryServerSideEncryptionEnumKey =
 
 export const updateDrainStatus200DisabledReasonEnum = {
 	"account-plan-downgrade": "account-plan-downgrade",
+	"auto-paused-delivery-errors": "auto-paused-delivery-errors",
 	"disabled-by-admin": "disabled-by-admin",
 	"disabled-by-owner": "disabled-by-owner",
 	"feature-not-available": "feature-not-available",
@@ -58074,6 +58100,7 @@ export type UpdateDrainStatus200DeliveryServerSideEncryptionEnum2Key =
 
 export const updateDrainStatus200DisabledReasonEnum2 = {
 	"account-plan-downgrade": "account-plan-downgrade",
+	"auto-paused-delivery-errors": "auto-paused-delivery-errors",
 	"disabled-by-admin": "disabled-by-admin",
 	"disabled-by-owner": "disabled-by-owner",
 	"feature-not-available": "feature-not-available",
@@ -62855,7 +62882,7 @@ export type CreateFlagQuery = {
 	slug?: string | undefined;
 };
 
-export const cmpEnum3 = {
+export const cmpEnum2 = {
 	"!contains": "!contains",
 	"!endsWith": "!endsWith",
 	"!eq": "!eq",
@@ -62881,14 +62908,14 @@ export const cmpEnum3 = {
 	startsWith: "startsWith",
 } as const;
 
-export type CmpEnum3Key = (typeof cmpEnum3)[keyof typeof cmpEnum3];
+export type CmpEnum2Key = (typeof cmpEnum2)[keyof typeof cmpEnum2];
 
-export const typeEnum70 = {
+export const typeEnum69 = {
 	list: "list",
 	"list/inline": "list/inline",
 } as const;
 
-export type TypeEnum70Key = (typeof typeEnum70)[keyof typeof typeEnum70];
+export type TypeEnum69Key = (typeof typeEnum69)[keyof typeof typeEnum69];
 
 export const createFlagStatus201KindEnum = {
 	boolean: "boolean",
@@ -62973,7 +63000,7 @@ export type CreateFlagStatus201 = {
 			revision?: number | undefined;
 			rules: {
 				conditions: {
-					cmp: CmpEnum3Key;
+					cmp: CmpEnum2Key;
 					cmpOptions?:
 						| {
 								ignoreCase?: (false | true) | undefined;
@@ -63005,7 +63032,7 @@ export type CreateFlagStatus201 = {
 													value: string;
 											  }
 										)[];
-										type: TypeEnum70Key;
+										type: TypeEnum69Key;
 								  }
 								| {
 										flags: string;
@@ -63116,17 +63143,7 @@ export type CreateFlagStatus409 = unknown;
 
 export type CreateFlagStatus410 = unknown;
 
-export const createFlagRequestKindEnum = {
-	boolean: "boolean",
-	json: "json",
-	number: "number",
-	string: "string",
-} as const;
-
-export type CreateFlagRequestKindEnumKey =
-	(typeof createFlagRequestKindEnum)[keyof typeof createFlagRequestKindEnum];
-
-export const cmpEnum2 = {
+export const createFlagRequestEnvironmentsProductionRulesConditionsCmpEnum = {
 	"!contains": "!contains",
 	"!endsWith": "!endsWith",
 	"!eq": "!eq",
@@ -63152,14 +63169,100 @@ export const cmpEnum2 = {
 	startsWith: "startsWith",
 } as const;
 
-export type CmpEnum2Key = (typeof cmpEnum2)[keyof typeof cmpEnum2];
+export type CreateFlagRequestEnvironmentsProductionRulesConditionsCmpEnumKey =
+	(typeof createFlagRequestEnvironmentsProductionRulesConditionsCmpEnum)[keyof typeof createFlagRequestEnvironmentsProductionRulesConditionsCmpEnum];
 
-export const typeEnum60 = {
+export const createFlagRequestEnvironmentsProductionRulesConditionsRhsTypeEnum = {
 	"list/inline": "list/inline",
 	list: "list",
 } as const;
 
-export type TypeEnum60Key = (typeof typeEnum60)[keyof typeof typeEnum60];
+export type CreateFlagRequestEnvironmentsProductionRulesConditionsRhsTypeEnumKey =
+	(typeof createFlagRequestEnvironmentsProductionRulesConditionsRhsTypeEnum)[keyof typeof createFlagRequestEnvironmentsProductionRulesConditionsRhsTypeEnum];
+
+export const createFlagRequestEnvironmentsPreviewRulesConditionsCmpEnum = {
+	"!contains": "!contains",
+	"!endsWith": "!endsWith",
+	"!eq": "!eq",
+	"!ex": "!ex",
+	"!oneOf": "!oneOf",
+	"!regex": "!regex",
+	"!startsWith": "!startsWith",
+	after: "after",
+	before: "before",
+	contains: "contains",
+	containsAllOf: "containsAllOf",
+	containsAnyOf: "containsAnyOf",
+	containsNoneOf: "containsNoneOf",
+	endsWith: "endsWith",
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	lt: "lt",
+	lte: "lte",
+	oneOf: "oneOf",
+	regex: "regex",
+	startsWith: "startsWith",
+} as const;
+
+export type CreateFlagRequestEnvironmentsPreviewRulesConditionsCmpEnumKey =
+	(typeof createFlagRequestEnvironmentsPreviewRulesConditionsCmpEnum)[keyof typeof createFlagRequestEnvironmentsPreviewRulesConditionsCmpEnum];
+
+export const createFlagRequestEnvironmentsPreviewRulesConditionsRhsTypeEnum = {
+	"list/inline": "list/inline",
+	list: "list",
+} as const;
+
+export type CreateFlagRequestEnvironmentsPreviewRulesConditionsRhsTypeEnumKey =
+	(typeof createFlagRequestEnvironmentsPreviewRulesConditionsRhsTypeEnum)[keyof typeof createFlagRequestEnvironmentsPreviewRulesConditionsRhsTypeEnum];
+
+export const createFlagRequestEnvironmentsDevelopmentRulesConditionsCmpEnum = {
+	"!contains": "!contains",
+	"!endsWith": "!endsWith",
+	"!eq": "!eq",
+	"!ex": "!ex",
+	"!oneOf": "!oneOf",
+	"!regex": "!regex",
+	"!startsWith": "!startsWith",
+	after: "after",
+	before: "before",
+	contains: "contains",
+	containsAllOf: "containsAllOf",
+	containsAnyOf: "containsAnyOf",
+	containsNoneOf: "containsNoneOf",
+	endsWith: "endsWith",
+	eq: "eq",
+	ex: "ex",
+	gt: "gt",
+	gte: "gte",
+	lt: "lt",
+	lte: "lte",
+	oneOf: "oneOf",
+	regex: "regex",
+	startsWith: "startsWith",
+} as const;
+
+export type CreateFlagRequestEnvironmentsDevelopmentRulesConditionsCmpEnumKey =
+	(typeof createFlagRequestEnvironmentsDevelopmentRulesConditionsCmpEnum)[keyof typeof createFlagRequestEnvironmentsDevelopmentRulesConditionsCmpEnum];
+
+export const createFlagRequestEnvironmentsDevelopmentRulesConditionsRhsTypeEnum = {
+	"list/inline": "list/inline",
+	list: "list",
+} as const;
+
+export type CreateFlagRequestEnvironmentsDevelopmentRulesConditionsRhsTypeEnumKey =
+	(typeof createFlagRequestEnvironmentsDevelopmentRulesConditionsRhsTypeEnum)[keyof typeof createFlagRequestEnvironmentsDevelopmentRulesConditionsRhsTypeEnum];
+
+export const createFlagRequestKindEnum = {
+	boolean: "boolean",
+	json: "json",
+	number: "number",
+	string: "string",
+} as const;
+
+export type CreateFlagRequestKindEnumKey =
+	(typeof createFlagRequestKindEnum)[keyof typeof createFlagRequestKindEnum];
 
 export const createFlagRequestStateEnum = {
 	active: "active",
@@ -63171,47 +63274,8 @@ export type CreateFlagRequestStateEnumKey =
 
 export type CreateFlagBody =
 	| {
-			/**
-			 * @description A unique (per project) key for the flag, composed of letters, numbers, dashes, and underscores
-			 * @pattern ^[a-zA-Z0-9_-]{1,512}$
-			 * @type string
-			 */
-			slug: string;
-			/**
-			 * @description The kind of flag
-			 * @type string
-			 */
-			kind: CreateFlagRequestKindEnumKey;
-			/**
-			 * @description The variants of the flag
-			 * @type array | undefined
-			 */
-			variants?:
-				| {
-						/**
-						 * @description The id of the variant
-						 * @type string
-						 */
-						id: string;
-						/**
-						 * @description A label for the variant
-						 * @type string | undefined
-						 */
-						label?: string | undefined;
-						/**
-						 * @description A description of the variant
-						 * @type string | undefined
-						 */
-						description?: string | undefined;
-						value: string | number | boolean | object | unknown[];
-				  }[]
-				| undefined;
-			/**
-			 * @description The configuration for the flag in different environments
-			 * @type object
-			 */
 			environments: {
-				[key: string]: {
+				production: {
 					active: boolean;
 					/**
 					 * @description Allows linking this environment to another environment so this flag will be evaluated with the other flag's configuration
@@ -63263,11 +63327,513 @@ export type CreateFlagBody =
 										kind: string;
 										attribute: string;
 								  };
-							cmp: CmpEnum2Key;
+							cmp: CreateFlagRequestEnvironmentsProductionRulesConditionsCmpEnumKey;
 							rhs?:
 								| (
 										| {
-												type: TypeEnum60Key;
+												type: CreateFlagRequestEnvironmentsProductionRulesConditionsRhsTypeEnumKey;
+												items: (
+													| {
+															label?: string | undefined;
+															note?: string | undefined;
+															value: number;
+													  }
+													| {
+															label?: string | undefined;
+															note?: string | undefined;
+															value: string;
+													  }
+												)[];
+										  }
+										| {
+												type: unknown;
+												pattern: string;
+												flags: string;
+										  }
+										| string
+										| number
+										| boolean
+								  )
+								| undefined;
+							cmpOptions?:
+								| {
+										ignoreCase?: boolean | undefined;
+								  }
+								| undefined;
+						}[];
+						outcome:
+							| {
+									type: unknown;
+									variantId: string;
+							  }
+							| {
+									type: unknown;
+									base: {
+										type: unknown;
+										kind: string;
+										attribute: string;
+									};
+									/**
+									 * @description The distribution for each variant
+									 * @type object
+									 */
+									weights: {
+										[key: string]: number;
+									};
+									/**
+									 * @description This variant will be used when the base attribute does not exist
+									 * @type string
+									 */
+									defaultVariantId: string;
+							  }
+							| {
+									type: unknown;
+									base: {
+										type: unknown;
+										kind: string;
+										attribute: string;
+									};
+									/**
+									 * @description Epoch ms when the rollout begins
+									 * @type number
+									 */
+									startTimestamp: number;
+									/**
+									 * @description The variant to roll away from
+									 * @type string
+									 */
+									rollFromVariantId: string;
+									/**
+									 * @description The variant to roll towards
+									 * @type string
+									 */
+									rollToVariantId: string;
+									/**
+									 * @description This variant will be used when the base attribute does not exist
+									 * @type string
+									 */
+									defaultVariantId: string;
+									/**
+									 * @description Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.
+									 * @type array
+									 */
+									slots: {
+										/**
+										 * @description Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)
+										 * @minimum 0
+										 * @maximum 100000
+										 * @type number
+										 */
+										promille: number;
+										/**
+										 * @description How long this promille is served in ms before moving to the next slot.
+										 * @minimum 0
+										 * @type number
+										 */
+										durationMs: number;
+									}[];
+									/**
+									 * @description Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.
+									 * @minimum 0
+									 * @maximum 100000
+									 * @type number | undefined
+									 */
+									finalPromille?: number | undefined;
+							  };
+					}[];
+					fallthrough:
+						| {
+								type: unknown;
+								variantId: string;
+						  }
+						| {
+								type: unknown;
+								base: {
+									type: unknown;
+									kind: string;
+									attribute: string;
+								};
+								/**
+								 * @description The distribution for each variant
+								 * @type object
+								 */
+								weights: {
+									[key: string]: number;
+								};
+								/**
+								 * @description This variant will be used when the base attribute does not exist
+								 * @type string
+								 */
+								defaultVariantId: string;
+						  }
+						| {
+								type: unknown;
+								base: {
+									type: unknown;
+									kind: string;
+									attribute: string;
+								};
+								/**
+								 * @description Epoch ms when the rollout begins
+								 * @type number
+								 */
+								startTimestamp: number;
+								/**
+								 * @description The variant to roll away from
+								 * @type string
+								 */
+								rollFromVariantId: string;
+								/**
+								 * @description The variant to roll towards
+								 * @type string
+								 */
+								rollToVariantId: string;
+								/**
+								 * @description This variant will be used when the base attribute does not exist
+								 * @type string
+								 */
+								defaultVariantId: string;
+								/**
+								 * @description Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.
+								 * @type array
+								 */
+								slots: {
+									/**
+									 * @description Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)
+									 * @minimum 0
+									 * @maximum 100000
+									 * @type number
+									 */
+									promille: number;
+									/**
+									 * @description How long this promille is served in ms before moving to the next slot.
+									 * @minimum 0
+									 * @type number
+									 */
+									durationMs: number;
+								}[];
+								/**
+								 * @description Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.
+								 * @minimum 0
+								 * @maximum 100000
+								 * @type number | undefined
+								 */
+								finalPromille?: number | undefined;
+						  };
+					/**
+					 * @description The revision of the environment config
+					 * @type number | undefined
+					 */
+					revision?: number | undefined;
+				};
+				preview: {
+					active: boolean;
+					/**
+					 * @description Allows linking this environment to another environment so this flag will be evaluated with the other flag's configuration
+					 * @type object | undefined
+					 */
+					reuse?:
+						| {
+								/**
+								 * @description Whether the reuse is active or not
+								 * @type boolean
+								 */
+								active: boolean;
+								/**
+								 * @description The environment to link to
+								 * @type string
+								 */
+								environment: string;
+						  }
+						| undefined;
+					/**
+					 * @description Allows assigning targets to variants while bypassing the flag's rules
+					 * @type object | undefined
+					 */
+					targets?:
+						| {
+								[key: string]: {
+									[key: string]: {
+										[key: string]: {
+											note?: string | undefined;
+											value: string;
+										}[];
+									};
+								};
+						  }
+						| undefined;
+					pausedOutcome: {
+						type: unknown;
+						variantId: string;
+					};
+					rules: {
+						id: string;
+						conditions: {
+							lhs:
+								| {
+										type: unknown;
+								  }
+								| {
+										type: unknown;
+										kind: string;
+										attribute: string;
+								  };
+							cmp: CreateFlagRequestEnvironmentsPreviewRulesConditionsCmpEnumKey;
+							rhs?:
+								| (
+										| {
+												type: CreateFlagRequestEnvironmentsPreviewRulesConditionsRhsTypeEnumKey;
+												items: (
+													| {
+															label?: string | undefined;
+															note?: string | undefined;
+															value: number;
+													  }
+													| {
+															label?: string | undefined;
+															note?: string | undefined;
+															value: string;
+													  }
+												)[];
+										  }
+										| {
+												type: unknown;
+												pattern: string;
+												flags: string;
+										  }
+										| string
+										| number
+										| boolean
+								  )
+								| undefined;
+							cmpOptions?:
+								| {
+										ignoreCase?: boolean | undefined;
+								  }
+								| undefined;
+						}[];
+						outcome:
+							| {
+									type: unknown;
+									variantId: string;
+							  }
+							| {
+									type: unknown;
+									base: {
+										type: unknown;
+										kind: string;
+										attribute: string;
+									};
+									/**
+									 * @description The distribution for each variant
+									 * @type object
+									 */
+									weights: {
+										[key: string]: number;
+									};
+									/**
+									 * @description This variant will be used when the base attribute does not exist
+									 * @type string
+									 */
+									defaultVariantId: string;
+							  }
+							| {
+									type: unknown;
+									base: {
+										type: unknown;
+										kind: string;
+										attribute: string;
+									};
+									/**
+									 * @description Epoch ms when the rollout begins
+									 * @type number
+									 */
+									startTimestamp: number;
+									/**
+									 * @description The variant to roll away from
+									 * @type string
+									 */
+									rollFromVariantId: string;
+									/**
+									 * @description The variant to roll towards
+									 * @type string
+									 */
+									rollToVariantId: string;
+									/**
+									 * @description This variant will be used when the base attribute does not exist
+									 * @type string
+									 */
+									defaultVariantId: string;
+									/**
+									 * @description Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.
+									 * @type array
+									 */
+									slots: {
+										/**
+										 * @description Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)
+										 * @minimum 0
+										 * @maximum 100000
+										 * @type number
+										 */
+										promille: number;
+										/**
+										 * @description How long this promille is served in ms before moving to the next slot.
+										 * @minimum 0
+										 * @type number
+										 */
+										durationMs: number;
+									}[];
+									/**
+									 * @description Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.
+									 * @minimum 0
+									 * @maximum 100000
+									 * @type number | undefined
+									 */
+									finalPromille?: number | undefined;
+							  };
+					}[];
+					fallthrough:
+						| {
+								type: unknown;
+								variantId: string;
+						  }
+						| {
+								type: unknown;
+								base: {
+									type: unknown;
+									kind: string;
+									attribute: string;
+								};
+								/**
+								 * @description The distribution for each variant
+								 * @type object
+								 */
+								weights: {
+									[key: string]: number;
+								};
+								/**
+								 * @description This variant will be used when the base attribute does not exist
+								 * @type string
+								 */
+								defaultVariantId: string;
+						  }
+						| {
+								type: unknown;
+								base: {
+									type: unknown;
+									kind: string;
+									attribute: string;
+								};
+								/**
+								 * @description Epoch ms when the rollout begins
+								 * @type number
+								 */
+								startTimestamp: number;
+								/**
+								 * @description The variant to roll away from
+								 * @type string
+								 */
+								rollFromVariantId: string;
+								/**
+								 * @description The variant to roll towards
+								 * @type string
+								 */
+								rollToVariantId: string;
+								/**
+								 * @description This variant will be used when the base attribute does not exist
+								 * @type string
+								 */
+								defaultVariantId: string;
+								/**
+								 * @description Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.
+								 * @type array
+								 */
+								slots: {
+									/**
+									 * @description Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)
+									 * @minimum 0
+									 * @maximum 100000
+									 * @type number
+									 */
+									promille: number;
+									/**
+									 * @description How long this promille is served in ms before moving to the next slot.
+									 * @minimum 0
+									 * @type number
+									 */
+									durationMs: number;
+								}[];
+								/**
+								 * @description Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.
+								 * @minimum 0
+								 * @maximum 100000
+								 * @type number | undefined
+								 */
+								finalPromille?: number | undefined;
+						  };
+					/**
+					 * @description The revision of the environment config
+					 * @type number | undefined
+					 */
+					revision?: number | undefined;
+				};
+				development: {
+					active: boolean;
+					/**
+					 * @description Allows linking this environment to another environment so this flag will be evaluated with the other flag's configuration
+					 * @type object | undefined
+					 */
+					reuse?:
+						| {
+								/**
+								 * @description Whether the reuse is active or not
+								 * @type boolean
+								 */
+								active: boolean;
+								/**
+								 * @description The environment to link to
+								 * @type string
+								 */
+								environment: string;
+						  }
+						| undefined;
+					/**
+					 * @description Allows assigning targets to variants while bypassing the flag's rules
+					 * @type object | undefined
+					 */
+					targets?:
+						| {
+								[key: string]: {
+									[key: string]: {
+										[key: string]: {
+											note?: string | undefined;
+											value: string;
+										}[];
+									};
+								};
+						  }
+						| undefined;
+					pausedOutcome: {
+						type: unknown;
+						variantId: string;
+					};
+					rules: {
+						id: string;
+						conditions: {
+							lhs:
+								| {
+										type: unknown;
+								  }
+								| {
+										type: unknown;
+										kind: string;
+										attribute: string;
+								  };
+							cmp: CreateFlagRequestEnvironmentsDevelopmentRulesConditionsCmpEnumKey;
+							rhs?:
+								| (
+										| {
+												type: CreateFlagRequestEnvironmentsDevelopmentRulesConditionsRhsTypeEnumKey;
 												items: (
 													| {
 															label?: string | undefined;
@@ -63464,6 +64030,41 @@ export type CreateFlagBody =
 				};
 			};
 			/**
+			 * @description A unique (per project) key for the flag, composed of letters, numbers, dashes, and underscores
+			 * @pattern ^[a-zA-Z0-9_-]{1,512}$
+			 * @type string
+			 */
+			slug: string;
+			/**
+			 * @description The kind of flag
+			 * @type string
+			 */
+			kind: CreateFlagRequestKindEnumKey;
+			/**
+			 * @description The variants of the flag
+			 * @type array | undefined
+			 */
+			variants?:
+				| {
+						/**
+						 * @description The id of the variant
+						 * @type string
+						 */
+						id: string;
+						/**
+						 * @description A label for the variant
+						 * @type string | undefined
+						 */
+						label?: string | undefined;
+						/**
+						 * @description A description of the variant
+						 * @type string | undefined
+						 */
+						description?: string | undefined;
+						value: string | number | boolean | object | unknown[];
+				  }[]
+				| undefined;
+			/**
 			 * @description A random seed to prevent split points in different flags from having the same targets
 			 * @minimum 0
 			 * @maximum 100000
@@ -63632,7 +64233,7 @@ export type UpdateFlagQuery = {
 	slug?: string | undefined;
 };
 
-export const cmpEnum5 = {
+export const cmpEnum4 = {
 	"!contains": "!contains",
 	"!endsWith": "!endsWith",
 	"!eq": "!eq",
@@ -63658,14 +64259,14 @@ export const cmpEnum5 = {
 	startsWith: "startsWith",
 } as const;
 
-export type CmpEnum5Key = (typeof cmpEnum5)[keyof typeof cmpEnum5];
+export type CmpEnum4Key = (typeof cmpEnum4)[keyof typeof cmpEnum4];
 
-export const typeEnum88 = {
+export const typeEnum87 = {
 	list: "list",
 	"list/inline": "list/inline",
 } as const;
 
-export type TypeEnum88Key = (typeof typeEnum88)[keyof typeof typeEnum88];
+export type TypeEnum87Key = (typeof typeEnum87)[keyof typeof typeEnum87];
 
 export const updateFlagStatus200KindEnum = {
 	boolean: "boolean",
@@ -63750,7 +64351,7 @@ export type UpdateFlagStatus200 = {
 			revision?: number | undefined;
 			rules: {
 				conditions: {
-					cmp: CmpEnum5Key;
+					cmp: CmpEnum4Key;
 					cmpOptions?:
 						| {
 								ignoreCase?: (false | true) | undefined;
@@ -63782,7 +64383,7 @@ export type UpdateFlagStatus200 = {
 													value: string;
 											  }
 										)[];
-										type: TypeEnum88Key;
+										type: TypeEnum87Key;
 								  }
 								| {
 										flags: string;
@@ -63895,7 +64496,7 @@ export type UpdateFlagStatus409 = unknown;
 
 export type UpdateFlagStatus410 = unknown;
 
-export const cmpEnum4 = {
+export const cmpEnum3 = {
 	"!contains": "!contains",
 	"!endsWith": "!endsWith",
 	"!eq": "!eq",
@@ -63921,14 +64522,14 @@ export const cmpEnum4 = {
 	startsWith: "startsWith",
 } as const;
 
-export type CmpEnum4Key = (typeof cmpEnum4)[keyof typeof cmpEnum4];
+export type CmpEnum3Key = (typeof cmpEnum3)[keyof typeof cmpEnum3];
 
-export const typeEnum78 = {
+export const typeEnum77 = {
 	"list/inline": "list/inline",
 	list: "list",
 } as const;
 
-export type TypeEnum78Key = (typeof typeEnum78)[keyof typeof typeEnum78];
+export type TypeEnum77Key = (typeof typeEnum77)[keyof typeof typeEnum77];
 
 export const updateFlagRequestStateEnum = {
 	active: "active",
@@ -64032,11 +64633,11 @@ export type UpdateFlagBody =
 												kind: string;
 												attribute: string;
 										  };
-									cmp: CmpEnum4Key;
+									cmp: CmpEnum3Key;
 									rhs?:
 										| (
 												| {
-														type: TypeEnum78Key;
+														type: TypeEnum77Key;
 														items: (
 															| {
 																	label?: string | undefined;
@@ -64411,7 +65012,7 @@ export type ListFlagVersionsQuery = {
 	slug?: string | undefined;
 };
 
-export const cmpEnum6 = {
+export const cmpEnum5 = {
 	"!contains": "!contains",
 	"!endsWith": "!endsWith",
 	"!eq": "!eq",
@@ -64437,14 +65038,14 @@ export const cmpEnum6 = {
 	startsWith: "startsWith",
 } as const;
 
-export type CmpEnum6Key = (typeof cmpEnum6)[keyof typeof cmpEnum6];
+export type CmpEnum5Key = (typeof cmpEnum5)[keyof typeof cmpEnum5];
 
-export const typeEnum105 = {
+export const typeEnum104 = {
 	list: "list",
 	"list/inline": "list/inline",
 } as const;
 
-export type TypeEnum105Key = (typeof typeEnum105)[keyof typeof typeEnum105];
+export type TypeEnum104Key = (typeof typeEnum104)[keyof typeof typeEnum104];
 
 export const listFlagVersionsStatus200VersionsDataStateEnum = {
 	active: "active",
@@ -64527,7 +65128,7 @@ export type ListFlagVersionsStatus200 = {
 					revision?: number | undefined;
 					rules: {
 						conditions: {
-							cmp: CmpEnum6Key;
+							cmp: CmpEnum5Key;
 							cmpOptions?:
 								| {
 										ignoreCase?: (false | true) | undefined;
@@ -64559,7 +65160,7 @@ export type ListFlagVersionsStatus200 = {
 															value: string;
 													  }
 												)[];
-												type: TypeEnum105Key;
+												type: TypeEnum104Key;
 										  }
 										| {
 												flags: string;
@@ -76278,13 +76879,13 @@ export const getMicrofrontendsInGroupStatus200ProjectsSsoProtectionDeploymentTyp
 export type GetMicrofrontendsInGroupStatus200ProjectsSsoProtectionDeploymentTypeEnumKey =
 	(typeof getMicrofrontendsInGroupStatus200ProjectsSsoProtectionDeploymentTypeEnum)[keyof typeof getMicrofrontendsInGroupStatus200ProjectsSsoProtectionDeploymentTypeEnum];
 
-export const typeEnum128 = {
+export const typeEnum127 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum128Key = (typeof typeEnum128)[keyof typeof typeEnum128];
+export type TypeEnum127Key = (typeof typeEnum127)[keyof typeof typeEnum127];
 
 export const checksConclusionEnum = {
 	canceled: "canceled",
@@ -79668,7 +80269,7 @@ export type GetMicrofrontendsInGroupStatus200 = {
 									 * @description The type of matching to perform
 									 * @type string
 									 */
-									type: TypeEnum128Key;
+									type: TypeEnum127Key;
 							  }
 							| undefined;
 						buildingAt?: number | undefined;
@@ -85673,13 +86274,13 @@ export const getProjectsStatus200SsoProtectionDeploymentTypeEnum = {
 export type GetProjectsStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof getProjectsStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof getProjectsStatus200SsoProtectionDeploymentTypeEnum];
 
-export const typeEnum130 = {
+export const typeEnum129 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum130Key = (typeof typeEnum130)[keyof typeof typeEnum130];
+export type TypeEnum129Key = (typeof typeEnum129)[keyof typeof typeEnum129];
 
 export const checksConclusionEnum2 = {
 	canceled: "canceled",
@@ -86317,13 +86918,13 @@ export const getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum = {
 export type GetProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnumKey =
 	(typeof getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum)[keyof typeof getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum];
 
-export const typeEnum132 = {
+export const typeEnum131 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum132Key = (typeof typeEnum132)[keyof typeof typeEnum132];
+export type TypeEnum131Key = (typeof typeEnum131)[keyof typeof typeEnum131];
 
 export const checksConclusionEnum3 = {
 	canceled: "canceled",
@@ -87211,13 +87812,13 @@ export const getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum2 = {
 export type GetProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum2Key =
 	(typeof getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum2)[keyof typeof getProjectsStatus200ProjectsSsoProtectionDeploymentTypeEnum2];
 
-export const typeEnum134 = {
+export const typeEnum133 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum134Key = (typeof typeEnum134)[keyof typeof typeEnum134];
+export type TypeEnum133Key = (typeof typeEnum133)[keyof typeof typeEnum133];
 
 export const checksConclusionEnum4 = {
 	canceled: "canceled",
@@ -88528,7 +89129,7 @@ export type GetProjectsStatus200 =
 												 * @description The type of matching to perform
 												 * @type string
 												 */
-												type: TypeEnum130Key;
+												type: TypeEnum129Key;
 										  }
 										| undefined;
 									buildingAt?: number | undefined;
@@ -89948,7 +90549,7 @@ export type GetProjectsStatus200 =
 													 * @description The type of matching to perform
 													 * @type string
 													 */
-													type: TypeEnum132Key;
+													type: TypeEnum131Key;
 											  }
 											| undefined;
 										buildingAt?: number | undefined;
@@ -93417,7 +94018,7 @@ export type GetProjectsStatus200 =
 													 * @description The type of matching to perform
 													 * @type string
 													 */
-													type: TypeEnum134Key;
+													type: TypeEnum133Key;
 											  }
 											| undefined;
 										buildingAt?: number | undefined;
@@ -94664,13 +95265,13 @@ export const createProjectStatus200SsoProtectionDeploymentTypeEnum = {
 export type CreateProjectStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof createProjectStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof createProjectStatus200SsoProtectionDeploymentTypeEnum];
 
-export const typeEnum136 = {
+export const typeEnum135 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum136Key = (typeof typeEnum136)[keyof typeof typeEnum136];
+export type TypeEnum135Key = (typeof typeEnum135)[keyof typeof typeEnum135];
 
 export const checksConclusionEnum5 = {
 	canceled: "canceled",
@@ -98013,7 +98614,7 @@ export type CreateProjectStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnum136Key;
+								type: TypeEnum135Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -99844,13 +100445,13 @@ export const getProjectStatus200SsoProtectionDeploymentTypeEnum = {
 export type GetProjectStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof getProjectStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof getProjectStatus200SsoProtectionDeploymentTypeEnum];
 
-export const typeEnum138 = {
+export const typeEnum137 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum138Key = (typeof typeEnum138)[keyof typeof typeEnum138];
+export type TypeEnum137Key = (typeof typeEnum137)[keyof typeof typeEnum137];
 
 export const checksConclusionEnum6 = {
 	canceled: "canceled",
@@ -103206,7 +103807,7 @@ export type GetProjectStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnum138Key;
+								type: TypeEnum137Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -104338,13 +104939,13 @@ export const updateProjectStatus200SsoProtectionDeploymentTypeEnum = {
 export type UpdateProjectStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof updateProjectStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof updateProjectStatus200SsoProtectionDeploymentTypeEnum];
 
-export const typeEnum140 = {
+export const typeEnum139 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum140Key = (typeof typeEnum140)[keyof typeof typeEnum140];
+export type TypeEnum139Key = (typeof typeEnum139)[keyof typeof typeEnum139];
 
 export const checksConclusionEnum7 = {
 	canceled: "canceled",
@@ -107685,7 +108286,7 @@ export type UpdateProjectStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnum140Key;
+								type: TypeEnum139Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -109878,13 +110479,13 @@ export const uploadProjectAvatarStatus200SsoProtectionDeploymentTypeEnum = {
 export type UploadProjectAvatarStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof uploadProjectAvatarStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof uploadProjectAvatarStatus200SsoProtectionDeploymentTypeEnum];
 
-export const typeEnum142 = {
+export const typeEnum141 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum142Key = (typeof typeEnum142)[keyof typeof typeEnum142];
+export type TypeEnum141Key = (typeof typeEnum141)[keyof typeof typeEnum141];
 
 export const checksConclusionEnum8 = {
 	canceled: "canceled",
@@ -113242,7 +113843,7 @@ export type UploadProjectAvatarStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnum142Key;
+								type: TypeEnum141Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -114393,13 +114994,13 @@ export const deleteProjectAvatarStatus200SsoProtectionDeploymentTypeEnum = {
 export type DeleteProjectAvatarStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof deleteProjectAvatarStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof deleteProjectAvatarStatus200SsoProtectionDeploymentTypeEnum];
 
-export const typeEnum144 = {
+export const typeEnum143 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum144Key = (typeof typeEnum144)[keyof typeof typeEnum144];
+export type TypeEnum143Key = (typeof typeEnum143)[keyof typeof typeEnum143];
 
 export const checksConclusionEnum9 = {
 	canceled: "canceled",
@@ -117757,7 +118358,7 @@ export type DeleteProjectAvatarStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnum144Key;
+								type: TypeEnum143Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;
@@ -126229,13 +126830,13 @@ export const updateMicrofrontendsStatus200SsoProtectionDeploymentTypeEnum = {
 export type UpdateMicrofrontendsStatus200SsoProtectionDeploymentTypeEnumKey =
 	(typeof updateMicrofrontendsStatus200SsoProtectionDeploymentTypeEnum)[keyof typeof updateMicrofrontendsStatus200SsoProtectionDeploymentTypeEnum];
 
-export const typeEnum146 = {
+export const typeEnum145 = {
 	endsWith: "endsWith",
 	equals: "equals",
 	startsWith: "startsWith",
 } as const;
 
-export type TypeEnum146Key = (typeof typeEnum146)[keyof typeof typeEnum146];
+export type TypeEnum145Key = (typeof typeEnum145)[keyof typeof typeEnum145];
 
 export const checksConclusionEnum10 = {
 	canceled: "canceled",
@@ -129593,7 +130194,7 @@ export type UpdateMicrofrontendsStatus200 = {
 								 * @description The type of matching to perform
 								 * @type string
 								 */
-								type: TypeEnum146Key;
+								type: TypeEnum145Key;
 						  }
 						| undefined;
 					buildingAt?: number | undefined;

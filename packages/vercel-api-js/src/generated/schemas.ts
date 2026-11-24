@@ -9722,6 +9722,11 @@ export const userEventSchema = z
 					sandboxName: z.string(),
 				}),
 				z.strictObject({
+					processes: z.enum(["preserve", "stop"]),
+					projectId: z.string(),
+					sandboxName: z.string(),
+				}),
+				z.strictObject({
 					projectId: z.string(),
 					projectName: z.string(),
 					snapshotId: z.string(),
@@ -10341,10 +10346,12 @@ export const userEventSchema = z
 					next: z.object({
 						enabled: z.union([z.literal(false), z.literal(true)]),
 						repositoryScope: z.enum(["all", "none", "selected"]).optional(),
+						attachScreenshots: z.union([z.literal(false), z.literal(true)]).optional(),
 					}),
 					previous: z.object({
 						enabled: z.union([z.literal(false), z.literal(true)]),
 						repositoryScope: z.enum(["all", "none", "selected"]).optional(),
+						attachScreenshots: z.union([z.literal(false), z.literal(true)]).optional(),
 					}),
 				}),
 				z.strictObject({
@@ -12717,6 +12724,7 @@ export const userEventSchema = z
 				"sandbox-drive-snapshot-deleted",
 				"sandbox-expiry-notification-lead-time-updated",
 				"sandbox-npm-credentials-configured",
+				"sandbox-processes-updated",
 				"sandbox-signed-commit-identity-configured",
 				"sandbox-snapshot-regions-updated",
 				"scale",
@@ -13665,6 +13673,7 @@ export const listEventTypeSchema = z
 				"sandbox-drive-snapshot-deleted",
 				"sandbox-expiry-notification-lead-time-updated",
 				"sandbox-npm-credentials-configured",
+				"sandbox-processes-updated",
 				"sandbox-signed-commit-identity-configured",
 				"sandbox-snapshot-regions-updated",
 				"scale",
@@ -14505,6 +14514,7 @@ export const listEventTypeSchema = z
 					"sandbox-drive-snapshot-deleted",
 					"sandbox-expiry-notification-lead-time-updated",
 					"sandbox-npm-credentials-configured",
+					"sandbox-processes-updated",
 					"sandbox-signed-commit-identity-configured",
 					"sandbox-snapshot-regions-updated",
 					"scale",
@@ -43455,6 +43465,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 					disabledReason: z
 						.enum([
 							"account-plan-downgrade",
+							"auto-paused-delivery-errors",
 							"disabled-by-admin",
 							"disabled-by-owner",
 							"feature-not-available",
@@ -43650,6 +43661,7 @@ export const getAllLogDrainsStatus200Schema = z.union([
 					disabledReason: z
 						.enum([
 							"account-plan-downgrade",
+							"auto-paused-delivery-errors",
 							"disabled-by-admin",
 							"disabled-by-owner",
 							"feature-not-available",
@@ -43998,6 +44010,7 @@ export const createDrainStatus200Schema = z.union([
 		disabledReason: z
 			.enum([
 				"account-plan-downgrade",
+				"auto-paused-delivery-errors",
 				"disabled-by-admin",
 				"disabled-by-owner",
 				"feature-not-available",
@@ -44189,6 +44202,7 @@ export const createDrainStatus200Schema = z.union([
 		disabledReason: z
 			.enum([
 				"account-plan-downgrade",
+				"auto-paused-delivery-errors",
 				"disabled-by-admin",
 				"disabled-by-owner",
 				"feature-not-available",
@@ -44599,6 +44613,7 @@ export const getDrainsStatus200Schema = z.object({
 				disabledReason: z
 					.enum([
 						"account-plan-downgrade",
+						"auto-paused-delivery-errors",
 						"disabled-by-admin",
 						"disabled-by-owner",
 						"feature-not-available",
@@ -44794,6 +44809,7 @@ export const getDrainsStatus200Schema = z.object({
 				disabledReason: z
 					.enum([
 						"account-plan-downgrade",
+						"auto-paused-delivery-errors",
 						"disabled-by-admin",
 						"disabled-by-owner",
 						"feature-not-available",
@@ -45120,6 +45136,7 @@ export const getDrainStatus200Schema = z.object({
 	disabledReason: z
 		.enum([
 			"account-plan-downgrade",
+			"auto-paused-delivery-errors",
 			"disabled-by-admin",
 			"disabled-by-owner",
 			"feature-not-available",
@@ -45358,6 +45375,7 @@ export const updateDrainStatus200Schema = z.union([
 		disabledReason: z
 			.enum([
 				"account-plan-downgrade",
+				"auto-paused-delivery-errors",
 				"disabled-by-admin",
 				"disabled-by-owner",
 				"feature-not-available",
@@ -45549,6 +45567,7 @@ export const updateDrainStatus200Schema = z.union([
 		disabledReason: z
 			.enum([
 				"account-plan-downgrade",
+				"auto-paused-delivery-errors",
 				"disabled-by-admin",
 				"disabled-by-owner",
 				"feature-not-available",
@@ -49824,6 +49843,743 @@ export const createFlagErrorSchema = z.union([
 
 export const createFlagBodySchema = z
 	.strictObject({
+		environments: z.strictObject({
+			production: z.strictObject({
+				active: z.boolean(),
+				reuse: z
+					.strictObject({
+						active: z.boolean().describe("Whether the reuse is active or not"),
+						environment: z.string().describe("The environment to link to"),
+					})
+					.optional()
+					.describe(
+						"Allows linking this environment to another environment so this flag will be evaluated with the other flag's configuration",
+					),
+				targets: z
+					.record(
+						z.string(),
+						z.record(
+							z.string(),
+							z.record(
+								z.string(),
+								z
+									.array(
+										z.strictObject({
+											note: z.string().optional(),
+											value: z.string(),
+										}),
+									)
+									.max(10000),
+							),
+						),
+					)
+					.optional()
+					.describe("Allows assigning targets to variants while bypassing the flag's rules"),
+				pausedOutcome: z.strictObject({
+					type: z.unknown(),
+					variantId: z.string(),
+				}),
+				rules: z
+					.array(
+						z.strictObject({
+							id: z.string(),
+							conditions: z.array(
+								z.strictObject({
+									lhs: z.union([
+										z.strictObject({
+											type: z.unknown(),
+										}),
+										z.strictObject({
+											type: z.unknown(),
+											kind: z.string(),
+											attribute: z.string(),
+										}),
+									]),
+									cmp: z.enum([
+										"!contains",
+										"!endsWith",
+										"!eq",
+										"!ex",
+										"!oneOf",
+										"!regex",
+										"!startsWith",
+										"after",
+										"before",
+										"contains",
+										"containsAllOf",
+										"containsAnyOf",
+										"containsNoneOf",
+										"endsWith",
+										"eq",
+										"ex",
+										"gt",
+										"gte",
+										"lt",
+										"lte",
+										"oneOf",
+										"regex",
+										"startsWith",
+									]),
+									rhs: z
+										.union([
+											z.strictObject({
+												type: z.enum(["list/inline", "list"]),
+												items: z
+													.array(
+														z.union([
+															z.strictObject({
+																label: z.string().optional(),
+																note: z.string().optional(),
+																value: z.number(),
+															}),
+															z.strictObject({
+																label: z.string().optional(),
+																note: z.string().optional(),
+																value: z.string(),
+															}),
+														]),
+													)
+													.max(10000),
+											}),
+											z.strictObject({
+												type: z.unknown(),
+												pattern: z.string(),
+												flags: z.string(),
+											}),
+											z.string(),
+											z.number(),
+											z.boolean(),
+										])
+										.optional(),
+									cmpOptions: z
+										.strictObject({
+											ignoreCase: z.boolean().optional(),
+										})
+										.optional(),
+								}),
+							),
+							outcome: z.union([
+								z.strictObject({
+									type: z.unknown(),
+									variantId: z.string(),
+								}),
+								z.strictObject({
+									type: z.unknown(),
+									base: z.strictObject({
+										type: z.unknown(),
+										kind: z.string(),
+										attribute: z.string(),
+									}),
+									weights: z
+										.record(z.string(), z.number())
+										.describe("The distribution for each variant"),
+									defaultVariantId: z
+										.string()
+										.describe("This variant will be used when the base attribute does not exist"),
+								}),
+								z.strictObject({
+									type: z.unknown(),
+									base: z.strictObject({
+										type: z.unknown(),
+										kind: z.string(),
+										attribute: z.string(),
+									}),
+									startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
+									rollFromVariantId: z.string().describe("The variant to roll away from"),
+									rollToVariantId: z.string().describe("The variant to roll towards"),
+									defaultVariantId: z
+										.string()
+										.describe("This variant will be used when the base attribute does not exist"),
+									slots: z
+										.array(
+											z.strictObject({
+												promille: z
+													.number()
+													.min(0)
+													.max(100000)
+													.describe(
+														"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
+													),
+												durationMs: z
+													.number()
+													.min(0)
+													.describe(
+														"How long this promille is served in ms before moving to the next slot.",
+													),
+											}),
+										)
+										.min(1)
+										.describe(
+											"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
+										),
+									finalPromille: z
+										.number()
+										.min(0)
+										.max(100000)
+										.optional()
+										.describe(
+											"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
+										),
+								}),
+							]),
+						}),
+					)
+					.max(10000),
+				fallthrough: z.union([
+					z.strictObject({
+						type: z.unknown(),
+						variantId: z.string(),
+					}),
+					z.strictObject({
+						type: z.unknown(),
+						base: z.strictObject({
+							type: z.unknown(),
+							kind: z.string(),
+							attribute: z.string(),
+						}),
+						weights: z.record(z.string(), z.number()).describe("The distribution for each variant"),
+						defaultVariantId: z
+							.string()
+							.describe("This variant will be used when the base attribute does not exist"),
+					}),
+					z.strictObject({
+						type: z.unknown(),
+						base: z.strictObject({
+							type: z.unknown(),
+							kind: z.string(),
+							attribute: z.string(),
+						}),
+						startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
+						rollFromVariantId: z.string().describe("The variant to roll away from"),
+						rollToVariantId: z.string().describe("The variant to roll towards"),
+						defaultVariantId: z
+							.string()
+							.describe("This variant will be used when the base attribute does not exist"),
+						slots: z
+							.array(
+								z.strictObject({
+									promille: z
+										.number()
+										.min(0)
+										.max(100000)
+										.describe(
+											"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
+										),
+									durationMs: z
+										.number()
+										.min(0)
+										.describe(
+											"How long this promille is served in ms before moving to the next slot.",
+										),
+								}),
+							)
+							.min(1)
+							.describe(
+								"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
+							),
+						finalPromille: z
+							.number()
+							.min(0)
+							.max(100000)
+							.optional()
+							.describe(
+								"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
+							),
+					}),
+				]),
+				revision: z.number().optional().describe("The revision of the environment config"),
+			}),
+			preview: z.strictObject({
+				active: z.boolean(),
+				reuse: z
+					.strictObject({
+						active: z.boolean().describe("Whether the reuse is active or not"),
+						environment: z.string().describe("The environment to link to"),
+					})
+					.optional()
+					.describe(
+						"Allows linking this environment to another environment so this flag will be evaluated with the other flag's configuration",
+					),
+				targets: z
+					.record(
+						z.string(),
+						z.record(
+							z.string(),
+							z.record(
+								z.string(),
+								z
+									.array(
+										z.strictObject({
+											note: z.string().optional(),
+											value: z.string(),
+										}),
+									)
+									.max(10000),
+							),
+						),
+					)
+					.optional()
+					.describe("Allows assigning targets to variants while bypassing the flag's rules"),
+				pausedOutcome: z.strictObject({
+					type: z.unknown(),
+					variantId: z.string(),
+				}),
+				rules: z
+					.array(
+						z.strictObject({
+							id: z.string(),
+							conditions: z.array(
+								z.strictObject({
+									lhs: z.union([
+										z.strictObject({
+											type: z.unknown(),
+										}),
+										z.strictObject({
+											type: z.unknown(),
+											kind: z.string(),
+											attribute: z.string(),
+										}),
+									]),
+									cmp: z.enum([
+										"!contains",
+										"!endsWith",
+										"!eq",
+										"!ex",
+										"!oneOf",
+										"!regex",
+										"!startsWith",
+										"after",
+										"before",
+										"contains",
+										"containsAllOf",
+										"containsAnyOf",
+										"containsNoneOf",
+										"endsWith",
+										"eq",
+										"ex",
+										"gt",
+										"gte",
+										"lt",
+										"lte",
+										"oneOf",
+										"regex",
+										"startsWith",
+									]),
+									rhs: z
+										.union([
+											z.strictObject({
+												type: z.enum(["list/inline", "list"]),
+												items: z
+													.array(
+														z.union([
+															z.strictObject({
+																label: z.string().optional(),
+																note: z.string().optional(),
+																value: z.number(),
+															}),
+															z.strictObject({
+																label: z.string().optional(),
+																note: z.string().optional(),
+																value: z.string(),
+															}),
+														]),
+													)
+													.max(10000),
+											}),
+											z.strictObject({
+												type: z.unknown(),
+												pattern: z.string(),
+												flags: z.string(),
+											}),
+											z.string(),
+											z.number(),
+											z.boolean(),
+										])
+										.optional(),
+									cmpOptions: z
+										.strictObject({
+											ignoreCase: z.boolean().optional(),
+										})
+										.optional(),
+								}),
+							),
+							outcome: z.union([
+								z.strictObject({
+									type: z.unknown(),
+									variantId: z.string(),
+								}),
+								z.strictObject({
+									type: z.unknown(),
+									base: z.strictObject({
+										type: z.unknown(),
+										kind: z.string(),
+										attribute: z.string(),
+									}),
+									weights: z
+										.record(z.string(), z.number())
+										.describe("The distribution for each variant"),
+									defaultVariantId: z
+										.string()
+										.describe("This variant will be used when the base attribute does not exist"),
+								}),
+								z.strictObject({
+									type: z.unknown(),
+									base: z.strictObject({
+										type: z.unknown(),
+										kind: z.string(),
+										attribute: z.string(),
+									}),
+									startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
+									rollFromVariantId: z.string().describe("The variant to roll away from"),
+									rollToVariantId: z.string().describe("The variant to roll towards"),
+									defaultVariantId: z
+										.string()
+										.describe("This variant will be used when the base attribute does not exist"),
+									slots: z
+										.array(
+											z.strictObject({
+												promille: z
+													.number()
+													.min(0)
+													.max(100000)
+													.describe(
+														"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
+													),
+												durationMs: z
+													.number()
+													.min(0)
+													.describe(
+														"How long this promille is served in ms before moving to the next slot.",
+													),
+											}),
+										)
+										.min(1)
+										.describe(
+											"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
+										),
+									finalPromille: z
+										.number()
+										.min(0)
+										.max(100000)
+										.optional()
+										.describe(
+											"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
+										),
+								}),
+							]),
+						}),
+					)
+					.max(10000),
+				fallthrough: z.union([
+					z.strictObject({
+						type: z.unknown(),
+						variantId: z.string(),
+					}),
+					z.strictObject({
+						type: z.unknown(),
+						base: z.strictObject({
+							type: z.unknown(),
+							kind: z.string(),
+							attribute: z.string(),
+						}),
+						weights: z.record(z.string(), z.number()).describe("The distribution for each variant"),
+						defaultVariantId: z
+							.string()
+							.describe("This variant will be used when the base attribute does not exist"),
+					}),
+					z.strictObject({
+						type: z.unknown(),
+						base: z.strictObject({
+							type: z.unknown(),
+							kind: z.string(),
+							attribute: z.string(),
+						}),
+						startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
+						rollFromVariantId: z.string().describe("The variant to roll away from"),
+						rollToVariantId: z.string().describe("The variant to roll towards"),
+						defaultVariantId: z
+							.string()
+							.describe("This variant will be used when the base attribute does not exist"),
+						slots: z
+							.array(
+								z.strictObject({
+									promille: z
+										.number()
+										.min(0)
+										.max(100000)
+										.describe(
+											"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
+										),
+									durationMs: z
+										.number()
+										.min(0)
+										.describe(
+											"How long this promille is served in ms before moving to the next slot.",
+										),
+								}),
+							)
+							.min(1)
+							.describe(
+								"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
+							),
+						finalPromille: z
+							.number()
+							.min(0)
+							.max(100000)
+							.optional()
+							.describe(
+								"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
+							),
+					}),
+				]),
+				revision: z.number().optional().describe("The revision of the environment config"),
+			}),
+			development: z.strictObject({
+				active: z.boolean(),
+				reuse: z
+					.strictObject({
+						active: z.boolean().describe("Whether the reuse is active or not"),
+						environment: z.string().describe("The environment to link to"),
+					})
+					.optional()
+					.describe(
+						"Allows linking this environment to another environment so this flag will be evaluated with the other flag's configuration",
+					),
+				targets: z
+					.record(
+						z.string(),
+						z.record(
+							z.string(),
+							z.record(
+								z.string(),
+								z
+									.array(
+										z.strictObject({
+											note: z.string().optional(),
+											value: z.string(),
+										}),
+									)
+									.max(10000),
+							),
+						),
+					)
+					.optional()
+					.describe("Allows assigning targets to variants while bypassing the flag's rules"),
+				pausedOutcome: z.strictObject({
+					type: z.unknown(),
+					variantId: z.string(),
+				}),
+				rules: z
+					.array(
+						z.strictObject({
+							id: z.string(),
+							conditions: z.array(
+								z.strictObject({
+									lhs: z.union([
+										z.strictObject({
+											type: z.unknown(),
+										}),
+										z.strictObject({
+											type: z.unknown(),
+											kind: z.string(),
+											attribute: z.string(),
+										}),
+									]),
+									cmp: z.enum([
+										"!contains",
+										"!endsWith",
+										"!eq",
+										"!ex",
+										"!oneOf",
+										"!regex",
+										"!startsWith",
+										"after",
+										"before",
+										"contains",
+										"containsAllOf",
+										"containsAnyOf",
+										"containsNoneOf",
+										"endsWith",
+										"eq",
+										"ex",
+										"gt",
+										"gte",
+										"lt",
+										"lte",
+										"oneOf",
+										"regex",
+										"startsWith",
+									]),
+									rhs: z
+										.union([
+											z.strictObject({
+												type: z.enum(["list/inline", "list"]),
+												items: z
+													.array(
+														z.union([
+															z.strictObject({
+																label: z.string().optional(),
+																note: z.string().optional(),
+																value: z.number(),
+															}),
+															z.strictObject({
+																label: z.string().optional(),
+																note: z.string().optional(),
+																value: z.string(),
+															}),
+														]),
+													)
+													.max(10000),
+											}),
+											z.strictObject({
+												type: z.unknown(),
+												pattern: z.string(),
+												flags: z.string(),
+											}),
+											z.string(),
+											z.number(),
+											z.boolean(),
+										])
+										.optional(),
+									cmpOptions: z
+										.strictObject({
+											ignoreCase: z.boolean().optional(),
+										})
+										.optional(),
+								}),
+							),
+							outcome: z.union([
+								z.strictObject({
+									type: z.unknown(),
+									variantId: z.string(),
+								}),
+								z.strictObject({
+									type: z.unknown(),
+									base: z.strictObject({
+										type: z.unknown(),
+										kind: z.string(),
+										attribute: z.string(),
+									}),
+									weights: z
+										.record(z.string(), z.number())
+										.describe("The distribution for each variant"),
+									defaultVariantId: z
+										.string()
+										.describe("This variant will be used when the base attribute does not exist"),
+								}),
+								z.strictObject({
+									type: z.unknown(),
+									base: z.strictObject({
+										type: z.unknown(),
+										kind: z.string(),
+										attribute: z.string(),
+									}),
+									startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
+									rollFromVariantId: z.string().describe("The variant to roll away from"),
+									rollToVariantId: z.string().describe("The variant to roll towards"),
+									defaultVariantId: z
+										.string()
+										.describe("This variant will be used when the base attribute does not exist"),
+									slots: z
+										.array(
+											z.strictObject({
+												promille: z
+													.number()
+													.min(0)
+													.max(100000)
+													.describe(
+														"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
+													),
+												durationMs: z
+													.number()
+													.min(0)
+													.describe(
+														"How long this promille is served in ms before moving to the next slot.",
+													),
+											}),
+										)
+										.min(1)
+										.describe(
+											"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
+										),
+									finalPromille: z
+										.number()
+										.min(0)
+										.max(100000)
+										.optional()
+										.describe(
+											"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
+										),
+								}),
+							]),
+						}),
+					)
+					.max(10000),
+				fallthrough: z.union([
+					z.strictObject({
+						type: z.unknown(),
+						variantId: z.string(),
+					}),
+					z.strictObject({
+						type: z.unknown(),
+						base: z.strictObject({
+							type: z.unknown(),
+							kind: z.string(),
+							attribute: z.string(),
+						}),
+						weights: z.record(z.string(), z.number()).describe("The distribution for each variant"),
+						defaultVariantId: z
+							.string()
+							.describe("This variant will be used when the base attribute does not exist"),
+					}),
+					z.strictObject({
+						type: z.unknown(),
+						base: z.strictObject({
+							type: z.unknown(),
+							kind: z.string(),
+							attribute: z.string(),
+						}),
+						startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
+						rollFromVariantId: z.string().describe("The variant to roll away from"),
+						rollToVariantId: z.string().describe("The variant to roll towards"),
+						defaultVariantId: z
+							.string()
+							.describe("This variant will be used when the base attribute does not exist"),
+						slots: z
+							.array(
+								z.strictObject({
+									promille: z
+										.number()
+										.min(0)
+										.max(100000)
+										.describe(
+											"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
+										),
+									durationMs: z
+										.number()
+										.min(0)
+										.describe(
+											"How long this promille is served in ms before moving to the next slot.",
+										),
+								}),
+							)
+							.min(1)
+							.describe(
+								"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
+							),
+						finalPromille: z
+							.number()
+							.min(0)
+							.max(100000)
+							.optional()
+							.describe(
+								"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
+							),
+					}),
+				]),
+				revision: z.number().optional().describe("The revision of the environment config"),
+			}),
+		}),
 		slug: z
 			.string()
 			.regex(/^[a-zA-Z0-9_-]{1,512}$/)
@@ -49842,276 +50598,6 @@ export const createFlagBodySchema = z
 			)
 			.optional()
 			.describe("The variants of the flag"),
-		environments: z
-			.pipe(
-				z
-					.unknown()
-					.check(
-						z.refine(
-							(value) =>
-								typeof value !== "object" ||
-								value === null ||
-								Array.isArray(value) ||
-								Object.keys(value).length <= 10,
-							{ message: "Object must have at most 10 properties" },
-						),
-					),
-				z.record(
-					z.string(),
-					z.strictObject({
-						active: z.boolean(),
-						reuse: z
-							.strictObject({
-								active: z.boolean().describe("Whether the reuse is active or not"),
-								environment: z.string().describe("The environment to link to"),
-							})
-							.optional()
-							.describe(
-								"Allows linking this environment to another environment so this flag will be evaluated with the other flag's configuration",
-							),
-						targets: z
-							.record(
-								z.string(),
-								z.record(
-									z.string(),
-									z.record(
-										z.string(),
-										z
-											.array(
-												z.strictObject({
-													note: z.string().optional(),
-													value: z.string(),
-												}),
-											)
-											.max(10000),
-									),
-								),
-							)
-							.optional()
-							.describe("Allows assigning targets to variants while bypassing the flag's rules"),
-						pausedOutcome: z.strictObject({
-							type: z.unknown(),
-							variantId: z.string(),
-						}),
-						rules: z
-							.array(
-								z.strictObject({
-									id: z.string(),
-									conditions: z.array(
-										z.strictObject({
-											lhs: z.union([
-												z.strictObject({
-													type: z.unknown(),
-												}),
-												z.strictObject({
-													type: z.unknown(),
-													kind: z.string(),
-													attribute: z.string(),
-												}),
-											]),
-											cmp: z.enum([
-												"!contains",
-												"!endsWith",
-												"!eq",
-												"!ex",
-												"!oneOf",
-												"!regex",
-												"!startsWith",
-												"after",
-												"before",
-												"contains",
-												"containsAllOf",
-												"containsAnyOf",
-												"containsNoneOf",
-												"endsWith",
-												"eq",
-												"ex",
-												"gt",
-												"gte",
-												"lt",
-												"lte",
-												"oneOf",
-												"regex",
-												"startsWith",
-											]),
-											rhs: z
-												.union([
-													z.strictObject({
-														type: z.enum(["list/inline", "list"]),
-														items: z
-															.array(
-																z.union([
-																	z.strictObject({
-																		label: z.string().optional(),
-																		note: z.string().optional(),
-																		value: z.number(),
-																	}),
-																	z.strictObject({
-																		label: z.string().optional(),
-																		note: z.string().optional(),
-																		value: z.string(),
-																	}),
-																]),
-															)
-															.max(10000),
-													}),
-													z.strictObject({
-														type: z.unknown(),
-														pattern: z.string(),
-														flags: z.string(),
-													}),
-													z.string(),
-													z.number(),
-													z.boolean(),
-												])
-												.optional(),
-											cmpOptions: z
-												.strictObject({
-													ignoreCase: z.boolean().optional(),
-												})
-												.optional(),
-										}),
-									),
-									outcome: z.union([
-										z.strictObject({
-											type: z.unknown(),
-											variantId: z.string(),
-										}),
-										z.strictObject({
-											type: z.unknown(),
-											base: z.strictObject({
-												type: z.unknown(),
-												kind: z.string(),
-												attribute: z.string(),
-											}),
-											weights: z
-												.record(z.string(), z.number())
-												.describe("The distribution for each variant"),
-											defaultVariantId: z
-												.string()
-												.describe(
-													"This variant will be used when the base attribute does not exist",
-												),
-										}),
-										z.strictObject({
-											type: z.unknown(),
-											base: z.strictObject({
-												type: z.unknown(),
-												kind: z.string(),
-												attribute: z.string(),
-											}),
-											startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
-											rollFromVariantId: z.string().describe("The variant to roll away from"),
-											rollToVariantId: z.string().describe("The variant to roll towards"),
-											defaultVariantId: z
-												.string()
-												.describe(
-													"This variant will be used when the base attribute does not exist",
-												),
-											slots: z
-												.array(
-													z.strictObject({
-														promille: z
-															.number()
-															.min(0)
-															.max(100000)
-															.describe(
-																"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
-															),
-														durationMs: z
-															.number()
-															.min(0)
-															.describe(
-																"How long this promille is served in ms before moving to the next slot.",
-															),
-													}),
-												)
-												.min(1)
-												.describe(
-													"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
-												),
-											finalPromille: z
-												.number()
-												.min(0)
-												.max(100000)
-												.optional()
-												.describe(
-													"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
-												),
-										}),
-									]),
-								}),
-							)
-							.max(10000),
-						fallthrough: z.union([
-							z.strictObject({
-								type: z.unknown(),
-								variantId: z.string(),
-							}),
-							z.strictObject({
-								type: z.unknown(),
-								base: z.strictObject({
-									type: z.unknown(),
-									kind: z.string(),
-									attribute: z.string(),
-								}),
-								weights: z
-									.record(z.string(), z.number())
-									.describe("The distribution for each variant"),
-								defaultVariantId: z
-									.string()
-									.describe("This variant will be used when the base attribute does not exist"),
-							}),
-							z.strictObject({
-								type: z.unknown(),
-								base: z.strictObject({
-									type: z.unknown(),
-									kind: z.string(),
-									attribute: z.string(),
-								}),
-								startTimestamp: z.number().describe("Epoch ms when the rollout begins"),
-								rollFromVariantId: z.string().describe("The variant to roll away from"),
-								rollToVariantId: z.string().describe("The variant to roll towards"),
-								defaultVariantId: z
-									.string()
-									.describe("This variant will be used when the base attribute does not exist"),
-								slots: z
-									.array(
-										z.strictObject({
-											promille: z
-												.number()
-												.min(0)
-												.max(100000)
-												.describe(
-													"Promille of traffic for rollToVariant (0-100_000, where 1_000 = 1%)",
-												),
-											durationMs: z
-												.number()
-												.min(0)
-												.describe(
-													"How long this promille is served in ms before moving to the next slot.",
-												),
-										}),
-									)
-									.min(1)
-									.describe(
-										"Each slot defines a promille and how long it is served for. After all slots expire, finalPromille is served indefinitely (100% when omitted). The final percentage does not need its own slot.",
-									),
-								finalPromille: z
-									.number()
-									.min(0)
-									.max(100000)
-									.optional()
-									.describe(
-										"Traffic for rollToVariant after all slots expire (0-100_000, where 1_000 = 1%). Defaults to 100_000 (100%). Set 50_000 to end at 50%.",
-									),
-							}),
-						]),
-						revision: z.number().optional().describe("The revision of the environment config"),
-					}),
-				),
-			)
-			.describe("The configuration for the flag in different environments"),
 		seed: z
 			.number()
 			.min(0)

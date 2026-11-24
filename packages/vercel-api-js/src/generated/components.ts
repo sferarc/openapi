@@ -21943,7 +21943,7 @@ export async function createSandboxesSessionsBySessionIdSnapshotV2(
 
 /**
  * @summary Fork a named sandbox
- * @description Forks a named sandbox, creating a new named sandbox from the source's configuration. Resources, timeout, ports, tags, network policy, mounts, Connect network, image, persistence, snapshot settings and — unlike the SDK-side fork — environment variables are copied from the source automatically (`interactive` is not). When the source has a snapshot the fork starts from it; otherwise it starts from the source's runtime/image. Any field provided in the request body overrides the value copied from the source.
+ * @description Forks a named sandbox, creating a new named sandbox from the source's configuration. Resources, timeout, ports, tags, network policy, mounts, Connect network, image, persistence, snapshot settings and — unlike the SDK-side fork — environment variables are copied from the source automatically (`interactive` is not). When the source has a snapshot the fork starts from it; otherwise it starts from the source's runtime/image. Any field provided in the request body overrides the value copied from the source. The source sandbox's access policy must allow you to fork it.
  * @link /v2/sandboxes/{name}/fork
  */
 export async function createSandboxesByNameForkV2(
