@@ -12,6 +12,7 @@ import type {
 	AcceptProjectTransferRequestResponse,
 	AcceptProjectTransferRequestStatus400,
 	AcceptProjectTransferRequestStatus401,
+	AcceptProjectTransferRequestStatus402,
 	AcceptProjectTransferRequestStatus403,
 	AcceptProjectTransferRequestStatus404,
 	AcceptProjectTransferRequestStatus409,
@@ -1241,6 +1242,7 @@ import type {
 	DeleteOrganizationDsyncGroupStatus401,
 	DeleteOrganizationDsyncGroupStatus403,
 	DeleteOrganizationDsyncGroupStatus404,
+	DeleteOrganizationDsyncGroupStatus409,
 	DeleteOrganizationDsyncGroupStatus410,
 	DeleteOrganizationDsyncGroupStatus412,
 	DeleteOrganizationDsyncGroupStatus428,
@@ -3307,6 +3309,15 @@ import type {
 	ListVercelCiTaskRunsStatus410,
 	ListVercelCiTaskRunsStatus429,
 	ListVercelCiTaskRunsStatus500,
+	LookupEdgeConfigTokenHeaders,
+	LookupEdgeConfigTokenPath,
+	LookupEdgeConfigTokenQuery,
+	LookupEdgeConfigTokenResponse,
+	LookupEdgeConfigTokenStatus400,
+	LookupEdgeConfigTokenStatus401,
+	LookupEdgeConfigTokenStatus403,
+	LookupEdgeConfigTokenStatus404,
+	LookupEdgeConfigTokenStatus410,
 	LookupFlagLabelsBody,
 	LookupFlagLabelsPath,
 	LookupFlagLabelsQuery,
@@ -3425,6 +3436,7 @@ import type {
 	PutOrganizationDsyncGroupStatus401,
 	PutOrganizationDsyncGroupStatus403,
 	PutOrganizationDsyncGroupStatus404,
+	PutOrganizationDsyncGroupStatus409,
 	PutOrganizationDsyncGroupStatus410,
 	PutOrganizationDsyncGroupStatus412,
 	PutOrganizationDsyncGroupStatus428,
@@ -3436,7 +3448,9 @@ import type {
 	PutOrganizationTeamDsyncStatus401,
 	PutOrganizationTeamDsyncStatus403,
 	PutOrganizationTeamDsyncStatus404,
+	PutOrganizationTeamDsyncStatus409,
 	PutOrganizationTeamDsyncStatus410,
+	PutOrganizationTeamDsyncStatus412,
 	PutProjectDaemonInstancesBody,
 	PutProjectDaemonInstancesPath,
 	PutProjectDaemonInstancesQuery,
@@ -10950,7 +10964,7 @@ export async function createConfigurableLogDrain(
 
 /**
  * @summary Create a new Drain
- * @description Create a new Drain with the provided configuration.
+ * @description Create a new Drain with the provided configuration. Endpoint and header values of a drain connected to a Marketplace store are masked for every caller.
  * @link /v1/drains
  */
 export async function createDrain(
@@ -10994,7 +11008,7 @@ export async function createDrain(
 
 /**
  * @summary Retrieve a list of all Drains
- * @description Allows to retrieve the list of Drains of the authenticated team.
+ * @description Allows to retrieve the list of Drains of the authenticated team. Endpoint and header values of a drain connected to a Marketplace store are masked for every caller.
  * @link /v1/drains
  */
 export async function getDrains(
@@ -11080,7 +11094,7 @@ export async function deleteDrain(
 
 /**
  * @summary Find a Drain by id
- * @description Get the information for a specific Drain by passing the drain id in the URL.
+ * @description Get the information for a specific Drain by passing the drain id in the URL. Endpoint and header values of a drain connected to a Marketplace store are masked for every caller.
  * @link /v1/drains/{id}
  */
 export async function getDrain(
@@ -11126,7 +11140,7 @@ export async function getDrain(
 
 /**
  * @summary Update an existing Drain
- * @description Update the configuration of an existing drain.
+ * @description Update the configuration of an existing drain. A `delivery` with masked values is rejected, and only a drain connected to a Marketplace store can take its delivery from it. Endpoint and header values of a drain connected to a Marketplace store are masked for every caller.
  * @link /v1/drains/{id}
  */
 export async function updateDrain(
@@ -12238,7 +12252,7 @@ export async function deleteEdgeConfigTokens(
 
 /**
  * @summary Get Global Config token meta data
- * @description Return meta data about a Global Config token.
+ * @description Return metadata about a Global Config token.
  * @link /v1/global-config/{edgeConfigId}/token/{token}
  */
 export async function getEdgeConfigToken(
@@ -12330,6 +12344,58 @@ export async function createEdgeConfigToken(
 		body: body,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
+	});
+
+	return data;
+}
+
+/**
+ * @summary Look up a Global Config token
+ * @description Return metadata about a Global Config token, identified by the token itself. The token is sent in a header so it stays out of URLs.
+ * @link /v1/global-config/{edgeConfigId}/token
+ */
+export async function lookupEdgeConfigToken(
+	{
+		pathParams,
+		queryParams,
+		headers,
+		config,
+	}: {
+		pathParams: LookupEdgeConfigTokenPath;
+		queryParams?: Partial<LookupEdgeConfigTokenQuery>;
+		headers: LookupEdgeConfigTokenHeaders;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
+) {
+	const { client: request = defaultClient, ...requestConfig } = config ?? {};
+
+	if (pathParams?.edgeConfigId == null || String(pathParams.edgeConfigId) === "") {
+		throw new Error(`Missing required path parameter: edgeConfigId`);
+	}
+	const data = await request<
+		LookupEdgeConfigTokenResponse,
+		ErrorWrapper<
+			| LookupEdgeConfigTokenStatus400
+			| LookupEdgeConfigTokenStatus401
+			| LookupEdgeConfigTokenStatus403
+			| LookupEdgeConfigTokenStatus404
+			| LookupEdgeConfigTokenStatus410
+		>,
+		null,
+		Partial<LookupEdgeConfigTokenHeaders>,
+		Partial<LookupEdgeConfigTokenQuery>,
+		LookupEdgeConfigTokenPath
+	>({
+		method: "GET",
+		url: `/v1/global-config/${encodeURIComponent(String(pathParams.edgeConfigId))}/token`,
+		queryParams,
+		...requestConfig,
+		headers: {
+			...requestConfig.headers,
+			...Object.fromEntries(
+				Object.entries(headers ?? {}).filter(([, value]) => value !== undefined),
+			),
+		},
 	});
 
 	return data;
@@ -17472,7 +17538,7 @@ export async function removeOrganizationTeam(
 
 /**
  * @summary Update Organization Team Directory Sync Mode
- * @description Select whether one Organization team's memberships are governed by the Organization's Directory Sync or by the team's own directory. The team's own directory connection is kept either way. The root team can follow the Organization's Directory Sync only when no group grants OrgAdmin or at least one OrgAdmin group also grants the Owner role on it.
+ * @description Select whether one Organization team's memberships are governed by the Organization's Directory Sync or by the team's own directory. The team's own directory connection is kept either way. The root team can follow the Organization's Directory Sync only when no group grants OrgAdmin or at least one OrgAdmin group also grants the Owner role on it. A change of the root team that would leave it without an owner, or take the Owner role on it from the acting admin, is refused with `organization_lockout` unless `overrideLockout` is set.
  * @link /v1/organizations/{organizationId}/teams/{targetTeamId}/dsync
  */
 export async function putOrganizationTeamDsync(
@@ -17504,7 +17570,9 @@ export async function putOrganizationTeamDsync(
 			| PutOrganizationTeamDsyncStatus401
 			| PutOrganizationTeamDsyncStatus403
 			| PutOrganizationTeamDsyncStatus404
+			| PutOrganizationTeamDsyncStatus409
 			| PutOrganizationTeamDsyncStatus410
+			| PutOrganizationTeamDsyncStatus412
 		>,
 		PutOrganizationTeamDsyncBody,
 		Record<string, string>,
@@ -17569,7 +17637,7 @@ export async function listOrganizationDsyncGroups(
 
 /**
  * @summary Create or Replace Organization Directory Sync Group Configuration
- * @description Create or replace one organization's Directory Sync group configuration. The directory starts syncing when at least one group grants OrgAdmin. A group that grants OrgAdmin must also grant the Owner role on the organization's root team, as its default role or for that team.
+ * @description Create or replace one organization's Directory Sync group configuration. The directory starts syncing when at least one group grants OrgAdmin. A group that grants OrgAdmin must also grant the Owner role on the organization's root team, as its default role or for that team. A save that would leave the root team without an owner, or take the Owner role on it from the acting admin, is refused with `organization_lockout` unless `overrideLockout` is set.
  * @link /v1/organizations/{organizationId}/dsync/groups/{groupId}
  */
 export async function putOrganizationDsyncGroup(
@@ -17603,6 +17671,7 @@ export async function putOrganizationDsyncGroup(
 			| PutOrganizationDsyncGroupStatus401
 			| PutOrganizationDsyncGroupStatus403
 			| PutOrganizationDsyncGroupStatus404
+			| PutOrganizationDsyncGroupStatus409
 			| PutOrganizationDsyncGroupStatus410
 			| PutOrganizationDsyncGroupStatus412
 			| PutOrganizationDsyncGroupStatus428
@@ -17630,7 +17699,7 @@ export async function putOrganizationDsyncGroup(
 
 /**
  * @summary Delete Organization Directory Sync Group Configuration
- * @description Delete one organization's Directory Sync group configuration. The last group granting OrgAdmin cannot be removed.
+ * @description Delete one organization's Directory Sync group configuration. The last group granting OrgAdmin cannot be removed. A deletion that would leave the root team without an owner, or take the Owner role on it from the acting admin, is refused with `organization_lockout` unless `overrideLockout` is set.
  * @link /v1/organizations/{organizationId}/dsync/groups/{groupId}
  */
 export async function deleteOrganizationDsyncGroup(
@@ -17662,6 +17731,7 @@ export async function deleteOrganizationDsyncGroup(
 			| DeleteOrganizationDsyncGroupStatus401
 			| DeleteOrganizationDsyncGroupStatus403
 			| DeleteOrganizationDsyncGroupStatus404
+			| DeleteOrganizationDsyncGroupStatus409
 			| DeleteOrganizationDsyncGroupStatus410
 			| DeleteOrganizationDsyncGroupStatus412
 			| DeleteOrganizationDsyncGroupStatus428
@@ -20137,6 +20207,7 @@ export async function acceptProjectTransferRequest(
 		ErrorWrapper<
 			| AcceptProjectTransferRequestStatus400
 			| AcceptProjectTransferRequestStatus401
+			| AcceptProjectTransferRequestStatus402
 			| AcceptProjectTransferRequestStatus403
 			| AcceptProjectTransferRequestStatus404
 			| AcceptProjectTransferRequestStatus409
@@ -21943,7 +22014,7 @@ export async function createSandboxesSessionsBySessionIdSnapshotV2(
 
 /**
  * @summary Fork a named sandbox
- * @description Forks a named sandbox, creating a new named sandbox from the source's configuration. Resources, timeout, ports, tags, network policy, mounts, Connect network, image, persistence, snapshot settings and — unlike the SDK-side fork — environment variables are copied from the source automatically (`interactive` is not). When the source has a snapshot the fork starts from it; otherwise it starts from the source's runtime/image. Any field provided in the request body overrides the value copied from the source. The source sandbox's access policy must allow you to fork it.
+ * @description Forks a named sandbox, creating a new named sandbox from the source's configuration. Resources, timeout, ports, tags, network policy, mounts, Connect network, image, persistence, snapshot settings and — unlike the SDK-side fork — environment variables are copied from the source automatically (`interactive` is not). When the source has a snapshot the fork starts from it; otherwise it starts from the source's runtime/image. Any field provided in the request body overrides the value copied from the source.
  * @link /v2/sandboxes/{name}/fork
  */
 export async function createSandboxesByNameForkV2(
@@ -28015,6 +28086,7 @@ export const operationsByPath = {
 	"DELETE /v1/global-config/{edgeConfigId}/tokens": deleteEdgeConfigTokens,
 	"GET /v1/global-config/{edgeConfigId}/token/{token}": getEdgeConfigToken,
 	"POST /v1/global-config/{edgeConfigId}/token": createEdgeConfigToken,
+	"GET /v1/global-config/{edgeConfigId}/token": lookupEdgeConfigToken,
 	"GET /v1/global-config/{edgeConfigId}/backups/{edgeConfigBackupVersionId}": getEdgeConfigBackup,
 	"POST /v1/global-config/{edgeConfigId}/backups/{edgeConfigBackupVersionId}/restore":
 		restoreEdgeConfigBackup,
@@ -28626,6 +28698,7 @@ export const operationsByTag = {
 		deleteEdgeConfigTokens,
 		getEdgeConfigToken,
 		createEdgeConfigToken,
+		lookupEdgeConfigToken,
 		getEdgeConfigBackup,
 		restoreEdgeConfigBackup,
 		getEdgeConfigBackups,
@@ -29210,6 +29283,7 @@ export const tagDictionary = {
 			"getEdgeConfigItem",
 			"getEdgeConfigTokens",
 			"getEdgeConfigToken",
+			"lookupEdgeConfigToken",
 			"getEdgeConfigBackup",
 			"getEdgeConfigBackups",
 		],

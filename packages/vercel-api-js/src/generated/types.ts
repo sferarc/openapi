@@ -2008,7 +2008,7 @@ export type ConnectConnectorCreateData =
 			 */
 			clientName?: string | undefined;
 			/**
-			 * @description OAuth client secret. An update that changes the authorization server removes the stored secret unless the same update sends a new one.
+			 * @description OAuth client secret. On update, an empty string removes the stored secret. An update that changes the authorization server also removes it unless the same update sends a new one.
 			 * @type string | undefined
 			 */
 			clientSecret?: string | undefined;
@@ -3379,7 +3379,7 @@ export type ConnectConnectorUpdateData =
 			 */
 			clientName?: string | undefined;
 			/**
-			 * @description OAuth client secret. An update that changes the authorization server removes the stored secret unless the same update sends a new one.
+			 * @description OAuth client secret. On update, an empty string removes the stored secret. An update that changes the authorization server also removes it unless the same update sends a new one.
 			 * @type string | undefined
 			 */
 			clientSecret?: string | undefined;
@@ -5089,6 +5089,22 @@ export type GlobalConfigToken = {
 	 * @type string | undefined
 	 */
 	token?: string | undefined;
+};
+
+export type GlobalConfigTokenMetadata = {
+	createdAt: number;
+	edgeConfigId: string;
+	/**
+	 * @description This is not the token itself, but rather an id to identify the token by
+	 * @type string
+	 */
+	id: string;
+	label: string;
+	/**
+	 * @description A partially-masked representation of the token, safe to display in UIs. The format is the first 3 characters of the token followed by a fixed 8-character `*` mask (e.g. `550e8400-e29b-41d4-a716-446655440000` → `550********`). The mask length is intentionally fixed (not proportional to the original token length) to avoid leaking the token length. Prefer this field for display/reference in UIs and logs. The full, plaintext token is only disclosed once at creation time via `POST /v1/edge-config/:edgeConfigId/token`; use `id` to reference a token in subsequent calls (e.g. when deleting).
+	 * @type string
+	 */
+	partialToken: string;
 };
 
 /**
@@ -8907,6 +8923,7 @@ export const userEventTypeEnum = {
 	"organization-emu-updated": "organization-emu-updated",
 	"organization-name-update": "organization-name-update",
 	"organization-slug-update": "organization-slug-update",
+	"organization-sso-adopted": "organization-sso-adopted",
 	"organization-sso-deleted": "organization-sso-deleted",
 	"organization-sso-enforced": "organization-sso-enforced",
 	"organization-sso-new-teams-update": "organization-sso-new-teams-update",
@@ -13264,6 +13281,14 @@ export type UserEvent = {
 						};
 						teamId: string;
 						teamName: string;
+				  }
+				| {
+						connectionType: string;
+						enforced: false | true;
+						organizationId: string;
+						organizationSlug: string;
+						sourceTeamId: string;
+						sourceTeamName: string;
 				  }
 				| {
 						connectionType: string;
@@ -17768,6 +17793,7 @@ export const listEventTypeNameEnum = {
 	"organization-emu-updated": "organization-emu-updated",
 	"organization-name-update": "organization-name-update",
 	"organization-slug-update": "organization-slug-update",
+	"organization-sso-adopted": "organization-sso-adopted",
 	"organization-sso-deleted": "organization-sso-deleted",
 	"organization-sso-enforced": "organization-sso-enforced",
 	"organization-sso-new-teams-update": "organization-sso-new-teams-update",
@@ -18628,6 +18654,7 @@ export const listEventTypeReplacedByEnum = {
 	"organization-emu-updated": "organization-emu-updated",
 	"organization-name-update": "organization-name-update",
 	"organization-slug-update": "organization-slug-update",
+	"organization-sso-adopted": "organization-sso-adopted",
 	"organization-sso-deleted": "organization-sso-deleted",
 	"organization-sso-enforced": "organization-sso-enforced",
 	"organization-sso-new-teams-update": "organization-sso-new-teams-update",
@@ -60838,6 +60865,70 @@ export type CreateEdgeConfigTokenResponses = {
  */
 export type CreateEdgeConfigTokenResponse = CreateEdgeConfigTokenStatus201;
 
+export type LookupEdgeConfigTokenPath = {
+	/**
+	 * @pattern ^ecfg_
+	 * @type string
+	 */
+	edgeConfigId: string;
+};
+
+export type LookupEdgeConfigTokenQuery = {
+	/**
+	 * @description The Team identifier to perform the request on behalf of.
+	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
+	 * @type string | undefined
+	 */
+	teamId?: string | undefined;
+	/**
+	 * @description The Team slug to perform the request on behalf of.
+	 * @example my-team-url-slug
+	 * @type string | undefined
+	 */
+	slug?: string | undefined;
+};
+
+export type LookupEdgeConfigTokenHeaders = {
+	/**
+	 * @description The Global Config token to look up.
+	 * @type string
+	 */
+	"x-vercel-global-config-token": string;
+};
+
+export type LookupEdgeConfigTokenStatus200 = GlobalConfigTokenMetadata;
+
+export type LookupEdgeConfigTokenStatus400 = unknown;
+
+export type LookupEdgeConfigTokenStatus401 = unknown;
+
+export type LookupEdgeConfigTokenStatus403 = unknown;
+
+export type LookupEdgeConfigTokenStatus404 = unknown;
+
+export type LookupEdgeConfigTokenStatus410 = unknown;
+
+export type LookupEdgeConfigTokenOptions = {
+	body?: never | undefined;
+	path: LookupEdgeConfigTokenPath;
+	query?: LookupEdgeConfigTokenQuery | undefined;
+	headers: LookupEdgeConfigTokenHeaders;
+};
+
+export type LookupEdgeConfigTokenResponses = {
+	"200": LookupEdgeConfigTokenStatus200;
+	"400": LookupEdgeConfigTokenStatus400;
+	"401": LookupEdgeConfigTokenStatus401;
+	"403": LookupEdgeConfigTokenStatus403;
+	"404": LookupEdgeConfigTokenStatus404;
+	"410": LookupEdgeConfigTokenStatus410;
+};
+
+/**
+ * @description Union of all possible responses
+ */
+export type LookupEdgeConfigTokenResponse = LookupEdgeConfigTokenStatus200;
+
 export type GetEdgeConfigBackupPath = {
 	edgeConfigId: string;
 	edgeConfigBackupVersionId: string;
@@ -67303,18 +67394,9 @@ export type CreateSdkKeyStatus409 = unknown;
 
 export type CreateSdkKeyStatus410 = unknown;
 
-export const createSdkKeyRequestSdkKeyTypeEnum = {
-	client: "client",
-	mobile: "mobile",
-	server: "server",
-} as const;
-
-export type CreateSdkKeyRequestSdkKeyTypeEnumKey =
-	(typeof createSdkKeyRequestSdkKeyTypeEnum)[keyof typeof createSdkKeyRequestSdkKeyTypeEnum];
-
 export type CreateSdkKeyBody =
 	| {
-			sdkKeyType: CreateSdkKeyRequestSdkKeyTypeEnumKey;
+			sdkKeyType: "server";
 			environment: string;
 			label?: string | undefined;
 	  }
@@ -68224,6 +68306,14 @@ export type GetAccountInfoStatus200 = {
 		email: string;
 		name?: string | undefined;
 	} | null;
+	/**
+	 * @description Up to 3 contacts for the integration. `contact` comes first, followed by the confirmed owners of the team, longest-standing first. For a personal account, the account owner.
+	 * @type array
+	 */
+	contacts: {
+		email: string;
+		name?: string | undefined;
+	}[];
 	/**
 	 * @description The name of the team the installation is tied to.
 	 * @type string | undefined
@@ -81869,7 +81959,11 @@ export type PutOrganizationTeamDsyncStatus403 = unknown;
 
 export type PutOrganizationTeamDsyncStatus404 = unknown;
 
+export type PutOrganizationTeamDsyncStatus409 = unknown;
+
 export type PutOrganizationTeamDsyncStatus410 = unknown;
+
+export type PutOrganizationTeamDsyncStatus412 = unknown;
 
 export const putOrganizationTeamDsyncRequestDsyncModeEnum = {
 	organization: "organization",
@@ -81886,6 +81980,11 @@ export type PutOrganizationTeamDsyncBody =
 			 * @type string
 			 */
 			dsyncMode: PutOrganizationTeamDsyncRequestDsyncModeEnumKey;
+			/**
+			 * @description Change the root team's mode even if it would leave it without an owner or the acting admin without the Owner role on it.
+			 * @type boolean | undefined
+			 */
+			overrideLockout?: boolean | undefined;
 	  }
 	| undefined;
 
@@ -81902,7 +82001,9 @@ export type PutOrganizationTeamDsyncResponses = {
 	"401": PutOrganizationTeamDsyncStatus401;
 	"403": PutOrganizationTeamDsyncStatus403;
 	"404": PutOrganizationTeamDsyncStatus404;
+	"409": PutOrganizationTeamDsyncStatus409;
 	"410": PutOrganizationTeamDsyncStatus410;
+	"412": PutOrganizationTeamDsyncStatus412;
 };
 
 /**
@@ -82024,6 +82125,8 @@ export type PutOrganizationDsyncGroupStatus403 = unknown;
 
 export type PutOrganizationDsyncGroupStatus404 = unknown;
 
+export type PutOrganizationDsyncGroupStatus409 = unknown;
+
 export type PutOrganizationDsyncGroupStatus410 = unknown;
 
 export type PutOrganizationDsyncGroupStatus412 = unknown;
@@ -82066,6 +82169,11 @@ export type PutOrganizationDsyncGroupBody =
 					  }
 					| undefined;
 			};
+			/**
+			 * @description Save even if the change would leave the root team without an owner or the acting admin without the Owner role on it.
+			 * @type boolean | undefined
+			 */
+			overrideLockout?: boolean | undefined;
 	  }
 	| undefined;
 
@@ -82082,6 +82190,7 @@ export type PutOrganizationDsyncGroupResponses = {
 	"401": PutOrganizationDsyncGroupStatus401;
 	"403": PutOrganizationDsyncGroupStatus403;
 	"404": PutOrganizationDsyncGroupStatus404;
+	"409": PutOrganizationDsyncGroupStatus409;
 	"410": PutOrganizationDsyncGroupStatus410;
 	"412": PutOrganizationDsyncGroupStatus412;
 	"428": PutOrganizationDsyncGroupStatus428;
@@ -82098,6 +82207,11 @@ export type DeleteOrganizationDsyncGroupPath = {
 };
 
 export type DeleteOrganizationDsyncGroupQuery = {
+	/**
+	 * @description Delete even if it would leave the root team without an owner or the acting admin without the Owner role on it.
+	 * @type boolean | undefined
+	 */
+	overrideLockout?: boolean | undefined;
 	/**
 	 * @description The Team identifier to perform the request on behalf of.
 	 * @example team_1a2b3c4d5e6f7g8h9i0j1k2l
@@ -82130,6 +82244,8 @@ export type DeleteOrganizationDsyncGroupStatus403 = unknown;
 
 export type DeleteOrganizationDsyncGroupStatus404 = unknown;
 
+export type DeleteOrganizationDsyncGroupStatus409 = unknown;
+
 export type DeleteOrganizationDsyncGroupStatus410 = unknown;
 
 export type DeleteOrganizationDsyncGroupStatus412 = unknown;
@@ -82149,6 +82265,7 @@ export type DeleteOrganizationDsyncGroupResponses = {
 	"401": DeleteOrganizationDsyncGroupStatus401;
 	"403": DeleteOrganizationDsyncGroupStatus403;
 	"404": DeleteOrganizationDsyncGroupStatus404;
+	"409": DeleteOrganizationDsyncGroupStatus409;
 	"410": DeleteOrganizationDsyncGroupStatus410;
 	"412": DeleteOrganizationDsyncGroupStatus412;
 	"428": DeleteOrganizationDsyncGroupStatus428;
@@ -125624,6 +125741,8 @@ export type AcceptProjectTransferRequestStatus400 = unknown;
 
 export type AcceptProjectTransferRequestStatus401 = unknown;
 
+export type AcceptProjectTransferRequestStatus402 = unknown;
+
 export type AcceptProjectTransferRequestStatus403 = unknown;
 
 export type AcceptProjectTransferRequestStatus404 = unknown;
@@ -125683,6 +125802,7 @@ export type AcceptProjectTransferRequestResponses = {
 	"202": AcceptProjectTransferRequestStatus202;
 	"400": AcceptProjectTransferRequestStatus400;
 	"401": AcceptProjectTransferRequestStatus401;
+	"402": AcceptProjectTransferRequestStatus402;
 	"403": AcceptProjectTransferRequestStatus403;
 	"404": AcceptProjectTransferRequestStatus404;
 	"409": AcceptProjectTransferRequestStatus409;
@@ -153691,6 +153811,7 @@ export const listVercelCiInvocationsProvider = {
 	gitlab: "gitlab",
 	bitbucket: "bitbucket",
 	vercel: "vercel",
+	"cursor-origin": "cursor-origin",
 } as const;
 
 export type ListVercelCiInvocationsProviderKey =
