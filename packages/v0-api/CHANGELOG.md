@@ -1,5 +1,11 @@
 # v0-api
 
+## 1.8.3
+
+### Patch Changes
+
+- 33765b5: Regenerate from the latest v0-api OpenAPI spec.
+
 ## 1.8.2
 
 ### Patch Changes

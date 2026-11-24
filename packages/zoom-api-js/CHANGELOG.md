@@ -1,5 +1,11 @@
 # zoom-api-js
 
+## 3.8.2
+
+### Patch Changes
+
+- d6c973e: Regenerate from the latest zoom-api-js OpenAPI spec.
+
 ## 3.8.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # nuki-api-js
 
+## 3.8.1
+
+### Patch Changes
+
+- 44a3260: Regenerate from the latest nuki-api-js OpenAPI spec.
+
 ## 3.8.0
 
 ### Minor Changes
