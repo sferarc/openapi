@@ -2649,6 +2649,9 @@ export const getAccountsResourceResponseSchema = getAccountsResourceStatus200Sch
 
 export const getAccountsResourceErrorSchema = getAccountsResourceStatus401Schema;
 
+/**
+ * If false existing API tokens are not deleted if the password is changed
+ */
 export const postAccountsResourceQueryDeleteApiTokensSchema = z
 	.boolean()
 	.optional()
@@ -2676,11 +2679,7 @@ export const postAccountsResourceBodySchema = accountUpdateSchema.describe(
 );
 
 export const postAccountsResourceQuerySchema = z.object({
-	deleteApiTokens: z
-		.boolean()
-		.optional()
-		.default(true)
-		.describe("If false existing API tokens are not deleted if the password is changed"),
+	deleteApiTokens: postAccountsResourceQueryDeleteApiTokensSchema,
 });
 
 export const deleteAccountsResourceStatus204Schema = z.void();
@@ -2739,6 +2738,9 @@ export const getAccountIntegrationsResourceResponseSchema =
 export const getAccountIntegrationsResourceErrorSchema =
 	getAccountIntegrationsResourceStatus401Schema;
 
+/**
+ * The api key id to delete (this also removes all tokens if no specific tokenId is given)
+ */
 export const deleteAccountIntegrationsResourceQueryApiKeyIdSchema = z
 	.int()
 	.optional()
@@ -2746,6 +2748,9 @@ export const deleteAccountIntegrationsResourceQueryApiKeyIdSchema = z
 		"The api key id to delete (this also removes all tokens if no specific tokenId is given)",
 	);
 
+/**
+ * The token id if a specific token has to be deleted but not the full api key
+ */
 export const deleteAccountIntegrationsResourceQueryTokenIdSchema = z
 	.int()
 	.optional()
@@ -2762,16 +2767,8 @@ export const deleteAccountIntegrationsResourceErrorSchema =
 	deleteAccountIntegrationsResourceStatus401Schema;
 
 export const deleteAccountIntegrationsResourceQuerySchema = z.object({
-	apiKeyId: z
-		.int()
-		.optional()
-		.describe(
-			"The api key id to delete (this also removes all tokens if no specific tokenId is given)",
-		),
-	tokenId: z
-		.int()
-		.optional()
-		.describe("The token id if a specific token has to be deleted but not the full api key"),
+	apiKeyId: deleteAccountIntegrationsResourceQueryApiKeyIdSchema,
+	tokenId: deleteAccountIntegrationsResourceQueryTokenIdSchema,
 });
 
 export const postAccountOtpResourceStatus204Schema = z.void();
@@ -2871,6 +2868,9 @@ export const deleteAccountSettingResourceErrorSchema = z.union([
 	deleteAccountSettingResourceStatus403Schema,
 ]);
 
+/**
+ * The optional email (regex)
+ */
 export const getAccountSubsResourceQueryEmailSchema = z
 	.string()
 	.optional()
@@ -2885,7 +2885,7 @@ export const getAccountSubsResourceResponseSchema = getAccountSubsResourceStatus
 export const getAccountSubsResourceErrorSchema = getAccountSubsResourceStatus401Schema;
 
 export const getAccountSubsResourceQuerySchema = z.object({
-	email: z.string().optional().describe("The optional email (regex)"),
+	email: getAccountSubsResourceQueryEmailSchema,
 });
 
 export const putAccountSubsResourceStatus200Schema = myAccountSchema;
@@ -2900,6 +2900,9 @@ export const putAccountSubsResourceBodySchema = accountSubCreateSchema.describe(
 	"Account sub create representation",
 );
 
+/**
+ * The account ID
+ */
 export const getAccountSubResourcePathAccountIdSchema = z.int().describe("The account ID");
 
 export const getAccountSubResourceStatus200Schema = accountSchema;
@@ -2911,9 +2914,12 @@ export const getAccountSubResourceResponseSchema = getAccountSubResourceStatus20
 export const getAccountSubResourceErrorSchema = getAccountSubResourceStatus401Schema;
 
 export const getAccountSubResourcePathSchema = z.object({
-	accountId: z.int().describe("The account ID"),
+	accountId: getAccountSubResourcePathAccountIdSchema,
 });
 
+/**
+ * The account ID
+ */
 export const postAccountSubResourcePathAccountIdSchema = z.int().describe("The account ID");
 
 export const postAccountSubResourceStatus204Schema = z.void();
@@ -2937,9 +2943,12 @@ export const postAccountSubResourceBodySchema = accountSubUpdateSchema.describe(
 );
 
 export const postAccountSubResourcePathSchema = z.object({
-	accountId: z.int().describe("The account ID"),
+	accountId: postAccountSubResourcePathAccountIdSchema,
 });
 
+/**
+ * The account ID
+ */
 export const deleteAccountSubResourcePathAccountIdSchema = z.int().describe("The account ID");
 
 export const deleteAccountSubResourceStatus204Schema = z.void();
@@ -2951,19 +2960,28 @@ export const deleteAccountSubResourceResponseSchema = deleteAccountSubResourceSt
 export const deleteAccountSubResourceErrorSchema = deleteAccountSubResourceStatus401Schema;
 
 export const deleteAccountSubResourcePathSchema = z.object({
-	accountId: z.int().describe("The account ID"),
+	accountId: deleteAccountSubResourcePathAccountIdSchema,
 });
 
+/**
+ * Filter for email
+ */
 export const getAccountUsersResourceQueryEmailSchema = z
 	.string()
 	.optional()
 	.describe("Filter for email");
 
+/**
+ * The offset of the first user in the collection to return
+ */
 export const getAccountUsersResourceQueryOffsetSchema = z
 	.int()
 	.optional()
 	.describe("The offset of the first user in the collection to return");
 
+/**
+ * The maximum number of users to return. If the value exceeds the maximum, then the maximum value will be used.
+ */
 export const getAccountUsersResourceQueryLimitSchema = z
 	.int()
 	.optional()
@@ -2980,14 +2998,9 @@ export const getAccountUsersResourceResponseSchema = getAccountUsersResourceStat
 export const getAccountUsersResourceErrorSchema = getAccountUsersResourceStatus401Schema;
 
 export const getAccountUsersResourceQuerySchema = z.object({
-	email: z.string().optional().describe("Filter for email"),
-	offset: z.int().optional().describe("The offset of the first user in the collection to return"),
-	limit: z
-		.int()
-		.optional()
-		.describe(
-			"The maximum number of users to return. If the value exceeds the maximum, then the maximum value will be used.",
-		),
+	email: getAccountUsersResourceQueryEmailSchema,
+	offset: getAccountUsersResourceQueryOffsetSchema,
+	limit: getAccountUsersResourceQueryLimitSchema,
 });
 
 export const putAccountUsersResourceStatus200Schema = accountUserSchema;
@@ -3002,6 +3015,9 @@ export const putAccountUsersResourceBodySchema = accountUserCreateSchema.describ
 	"Account sub create representation",
 );
 
+/**
+ * The account user ID
+ */
 export const getAccountUserResourcePathAccountUserIdSchema = z
 	.int()
 	.describe("The account user ID");
@@ -3015,9 +3031,12 @@ export const getAccountUserResourceResponseSchema = getAccountUserResourceStatus
 export const getAccountUserResourceErrorSchema = getAccountUserResourceStatus401Schema;
 
 export const getAccountUserResourcePathSchema = z.object({
-	accountUserId: z.int().describe("The account user ID"),
+	accountUserId: getAccountUserResourcePathAccountUserIdSchema,
 });
 
+/**
+ * The account user ID
+ */
 export const postAccountUserResourcePathAccountUserIdSchema = z
 	.int()
 	.describe("The account user ID");
@@ -3048,9 +3067,12 @@ export const postAccountUserResourceBodySchema = accountUserUpdateSchema.describ
 );
 
 export const postAccountUserResourcePathSchema = z.object({
-	accountUserId: z.int().describe("The account user ID"),
+	accountUserId: postAccountUserResourcePathAccountUserIdSchema,
 });
 
+/**
+ * The account user ID
+ */
 export const deleteAccountUserResourcePathAccountUserIdSchema = z
 	.int()
 	.describe("The account user ID");
@@ -3069,7 +3091,7 @@ export const deleteAccountUserResourceErrorSchema = z.union([
 ]);
 
 export const deleteAccountUserResourcePathSchema = z.object({
-	accountUserId: z.int().describe("The account user ID"),
+	accountUserId: deleteAccountUserResourcePathAccountUserIdSchema,
 });
 
 export const getAddressesResourceStatus200Schema = z.array(addressSchema);
@@ -3097,6 +3119,9 @@ export const putAddressesResourceBodySchema = addressCreateSchema.describe(
 	"Address create representation",
 );
 
+/**
+ * The token ID
+ */
 export const getAddressTokenResourcePathIdSchema = z.string().describe("The token ID");
 
 export const getAddressTokenResourceStatus200Schema = addressTokenInfoSchema;
@@ -3113,9 +3138,12 @@ export const getAddressTokenResourceErrorSchema = z.union([
 ]);
 
 export const getAddressTokenResourcePathSchema = z.object({
-	id: z.string().describe("The token ID"),
+	id: getAddressTokenResourcePathIdSchema,
 });
 
+/**
+ * The token ID
+ */
 export const getAddressTokenRedeemResourcePathIdSchema = z.string().describe("The token ID");
 
 export const getAddressTokenRedeemResourceStatus200Schema = addressTokenSchema;
@@ -3133,11 +3161,17 @@ export const getAddressTokenRedeemResourceErrorSchema = z.union([
 ]);
 
 export const getAddressTokenRedeemResourcePathSchema = z.object({
-	id: z.string().describe("The token ID"),
+	id: getAddressTokenRedeemResourcePathIdSchema,
 });
 
+/**
+ * The token ID
+ */
 export const postAddressTokenRedeemResourcePathIdSchema = z.string().describe("The token ID");
 
+/**
+ * If false, no email will be sent
+ */
 export const postAddressTokenRedeemResourceQueryEmailSchema = z
 	.boolean()
 	.optional()
@@ -3161,13 +3195,16 @@ export const postAddressTokenRedeemResourceErrorSchema = z.union([
 ]);
 
 export const postAddressTokenRedeemResourcePathSchema = z.object({
-	id: z.string().describe("The token ID"),
+	id: postAddressTokenRedeemResourcePathIdSchema,
 });
 
 export const postAddressTokenRedeemResourceQuerySchema = z.object({
-	email: z.boolean().optional().describe("If false, no email will be sent"),
+	email: postAddressTokenRedeemResourceQueryEmailSchema,
 });
 
+/**
+ * The address ID
+ */
 export const postAddressResourcePathAddressIdSchema = z.int().describe("The address ID");
 
 export const postAddressResourceStatus204Schema = z.void();
@@ -3191,9 +3228,12 @@ export const postAddressResourceBodySchema = addressUpdateSchema.describe(
 );
 
 export const postAddressResourcePathSchema = z.object({
-	addressId: z.int().describe("The address ID"),
+	addressId: postAddressResourcePathAddressIdSchema,
 });
 
+/**
+ * The address ID
+ */
 export const deleteAddressResourcePathAddressIdSchema = z.int().describe("The address ID");
 
 export const deleteAddressResourceStatus204Schema = z.void();
@@ -3210,9 +3250,12 @@ export const deleteAddressResourceErrorSchema = z.union([
 ]);
 
 export const deleteAddressResourcePathSchema = z.object({
-	addressId: z.int().describe("The address ID"),
+	addressId: deleteAddressResourcePathAddressIdSchema,
 });
 
+/**
+ * The address ID
+ */
 export const getAddressReservationsResourcePathAddressIdSchema = z.int().describe("The address ID");
 
 export const getAddressReservationsResourceStatus200Schema = z.array(addressReservationSchema);
@@ -3226,13 +3269,19 @@ export const getAddressReservationsResourceErrorSchema =
 	getAddressReservationsResourceStatus401Schema;
 
 export const getAddressReservationsResourcePathSchema = z.object({
-	addressId: z.int().describe("The address ID"),
+	addressId: getAddressReservationsResourcePathAddressIdSchema,
 });
 
+/**
+ * The address ID
+ */
 export const postAddressReservationIssueResourcePathAddressIdSchema = z
 	.int()
 	.describe("The address ID");
 
+/**
+ * The address reservation ID
+ */
 export const postAddressReservationIssueResourcePathIdSchema = z
 	.string()
 	.describe("The address reservation ID");
@@ -3252,14 +3301,20 @@ export const postAddressReservationIssueResourceErrorSchema = z.union([
 ]);
 
 export const postAddressReservationIssueResourcePathSchema = z.object({
-	addressId: z.int().describe("The address ID"),
-	id: z.string().describe("The address reservation ID"),
+	addressId: postAddressReservationIssueResourcePathAddressIdSchema,
+	id: postAddressReservationIssueResourcePathIdSchema,
 });
 
+/**
+ * The address ID
+ */
 export const postAddressReservationRevokeResourcePathAddressIdSchema = z
 	.int()
 	.describe("The address ID");
 
+/**
+ * The address reservation ID
+ */
 export const postAddressReservationRevokeResourcePathIdSchema = z
 	.string()
 	.describe("The address reservation ID");
@@ -3279,14 +3334,20 @@ export const postAddressReservationRevokeResourceErrorSchema = z.union([
 ]);
 
 export const postAddressReservationRevokeResourcePathSchema = z.object({
-	addressId: z.int().describe("The address ID"),
-	id: z.string().describe("The address reservation ID"),
+	addressId: postAddressReservationRevokeResourcePathAddressIdSchema,
+	id: postAddressReservationRevokeResourcePathIdSchema,
 });
 
+/**
+ * The address ID
+ */
 export const postReservationAccessTimesUpdateResourcePathAddressIdSchema = z
 	.int()
 	.describe("The address ID");
 
+/**
+ * The reservation ID
+ */
 export const postReservationAccessTimesUpdateResourcePathIdSchema = z
 	.string()
 	.describe("The reservation ID");
@@ -3309,10 +3370,13 @@ export const postReservationAccessTimesUpdateResourceBodySchema =
 	reservationAccessTimesUpdateSchema.describe("Reservation access times update representation");
 
 export const postReservationAccessTimesUpdateResourcePathSchema = z.object({
-	addressId: z.int().describe("The address ID"),
-	id: z.string().describe("The reservation ID"),
+	addressId: postReservationAccessTimesUpdateResourcePathAddressIdSchema,
+	id: postReservationAccessTimesUpdateResourcePathIdSchema,
 });
 
+/**
+ * The address ID
+ */
 export const getAddressTokensResourcePathAddressIdSchema = z.int().describe("The address ID");
 
 export const getAddressTokensResourceStatus200Schema = z.array(addressTokenSchema);
@@ -3329,9 +3393,12 @@ export const getAddressTokensResourceErrorSchema = z.union([
 ]);
 
 export const getAddressTokensResourcePathSchema = z.object({
-	addressId: z.int().describe("The address ID"),
+	addressId: getAddressTokensResourcePathAddressIdSchema,
 });
 
+/**
+ * The address ID
+ */
 export const getAddressUnitsResourcePathAddressIdSchema = z.int().describe("The address ID");
 
 export const getAddressUnitsResourceStatus200Schema = z.array(addressUnitResponseSchema);
@@ -3348,9 +3415,12 @@ export const getAddressUnitsResourceErrorSchema = z.union([
 ]);
 
 export const getAddressUnitsResourcePathSchema = z.object({
-	addressId: z.int().describe("The address ID"),
+	addressId: getAddressUnitsResourcePathAddressIdSchema,
 });
 
+/**
+ * The address ID
+ */
 export const putAddressUnitsResourcePathAddressIdSchema = z.int().describe("The address ID");
 
 export const putAddressUnitsResourceStatus200Schema = addressUnitResponseSchema;
@@ -3374,9 +3444,12 @@ export const putAddressUnitsResourceBodySchema = addressUnitSchema
 	.describe("Address unit representation");
 
 export const putAddressUnitsResourcePathSchema = z.object({
-	addressId: z.int().describe("The address ID"),
+	addressId: putAddressUnitsResourcePathAddressIdSchema,
 });
 
+/**
+ * The address ID
+ */
 export const deleteAddressUnitsResourcePathAddressIdSchema = z.int().describe("The address ID");
 
 export const deleteAddressUnitsResourceStatus200Schema = advancedConfirmationResponseSchema;
@@ -3398,16 +3471,25 @@ export const deleteAddressUnitsResourceErrorSchema = z.union([
 	deleteAddressUnitsResourceStatus423Schema,
 ]);
 
+/**
+ * Address unit IDs to delete
+ */
 export const deleteAddressUnitsResourceBodySchema = z
 	.array(z.string())
 	.describe("Address unit IDs to delete");
 
 export const deleteAddressUnitsResourcePathSchema = z.object({
-	addressId: z.int().describe("The address ID"),
+	addressId: deleteAddressUnitsResourcePathAddressIdSchema,
 });
 
+/**
+ * The address ID
+ */
 export const deleteAddressUnitResourcePathAddressIdSchema = z.int().describe("The address ID");
 
+/**
+ * The address unit ID
+ */
 export const deleteAddressUnitResourcePathIdSchema = z.string().describe("The address unit ID");
 
 export const deleteAddressUnitResourceStatus200Schema = advancedConfirmationResponseSchema;
@@ -3427,8 +3509,8 @@ export const deleteAddressUnitResourceErrorSchema = z.union([
 ]);
 
 export const deleteAddressUnitResourcePathSchema = z.object({
-	addressId: z.int().describe("The address ID"),
-	id: z.string().describe("The address unit ID"),
+	addressId: deleteAddressUnitResourcePathAddressIdSchema,
+	id: deleteAddressUnitResourcePathIdSchema,
 });
 
 export const getDecentralWebhooksResourceStatus200Schema = z.array(decentralWebhookSchema);
@@ -3466,6 +3548,9 @@ export const putDecentralWebhooksResourceBodySchema = decentralWebhookSchema
 	.omit({ id: true, secret: true })
 	.describe("Decentral webhook representation");
 
+/**
+ * The ID of the decentral webhook
+ */
 export const deleteDecentralWebhookResourcePathIdSchema = z
 	.int()
 	.describe("The ID of the decentral webhook");
@@ -3485,7 +3570,7 @@ export const deleteDecentralWebhookResourceErrorSchema = z.union([
 ]);
 
 export const deleteDecentralWebhookResourcePathSchema = z.object({
-	id: z.int().describe("The ID of the decentral webhook"),
+	id: deleteDecentralWebhookResourcePathIdSchema,
 });
 
 export const getApiKeysResourceStatus200Schema = z.array(apiKeySchema);
@@ -3513,6 +3598,9 @@ export const putApiKeysResourceBodySchema = apiKeyCreateSchema.describe(
 	"Api key create representation",
 );
 
+/**
+ * The API key ID
+ */
 export const postApiKeyResourcePathApiKeyIdSchema = z.int().describe("The API key ID");
 
 export const postApiKeyResourceStatus204Schema = z.void();
@@ -3536,9 +3624,12 @@ export const postApiKeyResourceBodySchema = apiKeyUpdateSchema.describe(
 );
 
 export const postApiKeyResourcePathSchema = z.object({
-	apiKeyId: z.int().describe("The API key ID"),
+	apiKeyId: postApiKeyResourcePathApiKeyIdSchema,
 });
 
+/**
+ * The API key ID
+ */
 export const deleteApiKeyResourcePathApiKeyIdSchema = z.int().describe("The API key ID");
 
 export const deleteApiKeyResourceStatus204Schema = z.void();
@@ -3550,9 +3641,12 @@ export const deleteApiKeyResourceResponseSchema = deleteApiKeyResourceStatus204S
 export const deleteApiKeyResourceErrorSchema = deleteApiKeyResourceStatus401Schema;
 
 export const deleteApiKeyResourcePathSchema = z.object({
-	apiKeyId: z.int().describe("The API key ID"),
+	apiKeyId: deleteApiKeyResourcePathApiKeyIdSchema,
 });
 
+/**
+ * The API key ID
+ */
 export const getApiKeyAdvancedResourcePathApiKeyIdSchema = z.int().describe("The API key ID");
 
 export const getApiKeyAdvancedResourceStatus200Schema = advancedApiKeySchema;
@@ -3572,9 +3666,12 @@ export const getApiKeyAdvancedResourceErrorSchema = z.union([
 ]);
 
 export const getApiKeyAdvancedResourcePathSchema = z.object({
-	apiKeyId: z.int().describe("The API key ID"),
+	apiKeyId: getApiKeyAdvancedResourcePathApiKeyIdSchema,
 });
 
+/**
+ * The API key ID
+ */
 export const postApiKeyAdvancedResourcePathApiKeyIdSchema = z.int().describe("The API key ID");
 
 export const postApiKeyAdvancedResourceStatus204Schema = z.void();
@@ -3595,9 +3692,12 @@ export const postApiKeyAdvancedResourceBodySchema = advancedApiKeyUpdateSchema.d
 );
 
 export const postApiKeyAdvancedResourcePathSchema = z.object({
-	apiKeyId: z.int().describe("The API key ID"),
+	apiKeyId: postApiKeyAdvancedResourcePathApiKeyIdSchema,
 });
 
+/**
+ * The API key ID
+ */
 export const putApiKeyAdvancedResourcePathApiKeyIdSchema = z.int().describe("The API key ID");
 
 export const putApiKeyAdvancedResourceStatus204Schema = z.void();
@@ -3618,9 +3718,12 @@ export const putApiKeyAdvancedResourceBodySchema = advancedApiKeyCreateSchema
 	.describe("Apply for advaced api key representation");
 
 export const putApiKeyAdvancedResourcePathSchema = z.object({
-	apiKeyId: z.int().describe("The API key ID"),
+	apiKeyId: putApiKeyAdvancedResourcePathApiKeyIdSchema,
 });
 
+/**
+ * The API key ID
+ */
 export const deleteApiKeyAdvancedResourcePathApiKeyIdSchema = z.int().describe("The API key ID");
 
 export const deleteApiKeyAdvancedResourceStatus204Schema = z.void();
@@ -3633,9 +3736,12 @@ export const deleteApiKeyAdvancedResourceResponseSchema =
 export const deleteApiKeyAdvancedResourceErrorSchema = deleteApiKeyAdvancedResourceStatus401Schema;
 
 export const deleteApiKeyAdvancedResourcePathSchema = z.object({
-	apiKeyId: z.int().describe("The API key ID"),
+	apiKeyId: deleteApiKeyAdvancedResourcePathApiKeyIdSchema,
 });
 
+/**
+ * The API key ID
+ */
 export const postApiKeyAdvancedReactivateResourcePathApiKeyIdSchema = z
 	.int()
 	.describe("The API key ID");
@@ -3655,9 +3761,12 @@ export const postApiKeyAdvancedReactivateResourceErrorSchema = z.union([
 ]);
 
 export const postApiKeyAdvancedReactivateResourcePathSchema = z.object({
-	apiKeyId: z.int().describe("The API key ID"),
+	apiKeyId: postApiKeyAdvancedReactivateResourcePathApiKeyIdSchema,
 });
 
+/**
+ * The API key ID
+ */
 export const getApiKeyTokensResourcePathApiKeyIdSchema = z.int().describe("The API key ID");
 
 export const getApiKeyTokensResourceStatus200Schema = z.array(apiKeyTokenSchema);
@@ -3669,9 +3778,12 @@ export const getApiKeyTokensResourceResponseSchema = getApiKeyTokensResourceStat
 export const getApiKeyTokensResourceErrorSchema = getApiKeyTokensResourceStatus401Schema;
 
 export const getApiKeyTokensResourcePathSchema = z.object({
-	apiKeyId: z.int().describe("The API key ID"),
+	apiKeyId: getApiKeyTokensResourcePathApiKeyIdSchema,
 });
 
+/**
+ * The API key ID
+ */
 export const putApiKeyTokensResourcePathApiKeyIdSchema = z.int().describe("The API key ID");
 
 export const putApiKeyTokensResourceStatus200Schema = apiKeyTokenSchema;
@@ -3692,11 +3804,17 @@ export const putApiKeyTokensResourceBodySchema = apiKeyTokenCreateSchema.describ
 );
 
 export const putApiKeyTokensResourcePathSchema = z.object({
-	apiKeyId: z.int().describe("The API key ID"),
+	apiKeyId: putApiKeyTokensResourcePathApiKeyIdSchema,
 });
 
+/**
+ * The API key ID
+ */
 export const postApiKeyTokenResourcePathApiKeyIdSchema = z.int().describe("The API key ID");
 
+/**
+ * The API key token ID
+ */
 export const postApiKeyTokenResourcePathIdSchema = z.string().describe("The API key token ID");
 
 export const postApiKeyTokenResourceStatus204Schema = z.void();
@@ -3717,12 +3835,18 @@ export const postApiKeyTokenResourceBodySchema = apiKeyTokenUpdateSchema.describ
 );
 
 export const postApiKeyTokenResourcePathSchema = z.object({
-	apiKeyId: z.int().describe("The API key ID"),
-	id: z.string().describe("The API key token ID"),
+	apiKeyId: postApiKeyTokenResourcePathApiKeyIdSchema,
+	id: postApiKeyTokenResourcePathIdSchema,
 });
 
+/**
+ * The API key ID
+ */
 export const deleteApiKeyTokenResourcePathApiKeyIdSchema = z.int().describe("The API key ID");
 
+/**
+ * The API key token ID
+ */
 export const deleteApiKeyTokenResourcePathIdSchema = z.string().describe("The API key token ID");
 
 export const deleteApiKeyTokenResourceStatus204Schema = z.void();
@@ -3734,17 +3858,26 @@ export const deleteApiKeyTokenResourceResponseSchema = deleteApiKeyTokenResource
 export const deleteApiKeyTokenResourceErrorSchema = deleteApiKeyTokenResourceStatus401Schema;
 
 export const deleteApiKeyTokenResourcePathSchema = z.object({
-	apiKeyId: z.int().describe("The API key ID"),
-	id: z.string().describe("The API key token ID"),
+	apiKeyId: deleteApiKeyTokenResourcePathApiKeyIdSchema,
+	id: deleteApiKeyTokenResourcePathIdSchema,
 });
 
+/**
+ * The API key ID
+ */
 export const getWebhookLogsResourcePathApiKeyIdSchema = z.int().describe("The API key ID");
 
+/**
+ * Optionally filter for older logs
+ */
 export const getWebhookLogsResourceQueryIdSchema = z
 	.string()
 	.optional()
 	.describe("Optionally filter for older logs");
 
+/**
+ * Amount of logs (max: 100)
+ */
 export const getWebhookLogsResourceQueryLimitSchema = z
 	.int()
 	.optional()
@@ -3760,12 +3893,12 @@ export const getWebhookLogsResourceResponseSchema = getWebhookLogsResourceStatus
 export const getWebhookLogsResourceErrorSchema = getWebhookLogsResourceStatus401Schema;
 
 export const getWebhookLogsResourcePathSchema = z.object({
-	apiKeyId: z.int().describe("The API key ID"),
+	apiKeyId: getWebhookLogsResourcePathApiKeyIdSchema,
 });
 
 export const getWebhookLogsResourceQuerySchema = z.object({
-	id: z.string().optional().describe("Optionally filter for older logs"),
-	limit: z.int().optional().default(50).describe("Amount of logs (max: 100)"),
+	id: getWebhookLogsResourceQueryIdSchema,
+	limit: getWebhookLogsResourceQueryLimitSchema,
 });
 
 export const postSmartlockBulkWebConfigResourceStatus204Schema = z.void();
@@ -3799,6 +3932,9 @@ export const getCompaniesResourceErrorSchema = z.union([
 	getCompaniesResourceStatus403Schema,
 ]);
 
+/**
+ * The reference ID to the third party system
+ */
 export const getNotificationsResourceQueryReferenceIdSchema = z
 	.string()
 	.optional()
@@ -3813,7 +3949,7 @@ export const getNotificationsResourceResponseSchema = getNotificationsResourceSt
 export const getNotificationsResourceErrorSchema = getNotificationsResourceStatus401Schema;
 
 export const getNotificationsResourceQuerySchema = z.object({
-	referenceId: z.string().optional().describe("The reference ID to the third party system"),
+	referenceId: getNotificationsResourceQueryReferenceIdSchema,
 });
 
 export const putNotificationsResourceStatus200Schema = notificationSchema;
@@ -3836,6 +3972,9 @@ export const putNotificationsResourceBodySchema = notificationSchema.describe(
 	"Notification representation",
 );
 
+/**
+ * The unique notification ID
+ */
 export const getNotificationResourcePathNotificationIdSchema = z
 	.string()
 	.describe("The unique notification ID");
@@ -3857,9 +3996,12 @@ export const getNotificationResourceErrorSchema = z.union([
 ]);
 
 export const getNotificationResourcePathSchema = z.object({
-	notificationId: z.string().describe("The unique notification ID"),
+	notificationId: getNotificationResourcePathNotificationIdSchema,
 });
 
+/**
+ * The unique notification ID
+ */
 export const postNotificationResourcePathNotificationIdSchema = z
 	.string()
 	.describe("The unique notification ID");
@@ -3885,9 +4027,12 @@ export const postNotificationResourceBodySchema = notificationSchema.describe(
 );
 
 export const postNotificationResourcePathSchema = z.object({
-	notificationId: z.string().describe("The unique notification ID"),
+	notificationId: postNotificationResourcePathNotificationIdSchema,
 });
 
+/**
+ * The unique notification ID
+ */
 export const deleteNotificationResourcePathNotificationIdSchema = z
 	.string()
 	.describe("The unique notification ID");
@@ -3909,13 +4054,16 @@ export const deleteNotificationResourceErrorSchema = z.union([
 ]);
 
 export const deleteNotificationResourcePathSchema = z.object({
-	notificationId: z.string().describe("The unique notification ID"),
+	notificationId: deleteNotificationResourcePathNotificationIdSchema,
 });
 
 export const getOpenerBrandsResourceStatus200Schema = z.array(openerIntercomBrandSchema);
 
 export const getOpenerBrandsResourceResponseSchema = getOpenerBrandsResourceStatus200Schema;
 
+/**
+ * The brand ID
+ */
 export const getOpenerBrandResourcePathBrandIdSchema = z.int().describe("The brand ID");
 
 export const getOpenerBrandResourceStatus200Schema = openerIntercomBrandSchema;
@@ -3923,19 +4071,28 @@ export const getOpenerBrandResourceStatus200Schema = openerIntercomBrandSchema;
 export const getOpenerBrandResourceResponseSchema = getOpenerBrandResourceStatus200Schema;
 
 export const getOpenerBrandResourcePathSchema = z.object({
-	brandId: z.int().describe("The brand ID"),
+	brandId: getOpenerBrandResourcePathBrandIdSchema,
 });
 
+/**
+ * Filter for brandId. Required if 'recentlyChanged' is not set
+ */
 export const getOpenerIntercomsResourceQueryBrandIdSchema = z
 	.int()
 	.optional()
 	.describe("Filter for brandId. Required if 'recentlyChanged' is not set");
 
+/**
+ * If true, return intercoms ignoring their verified value
+ */
 export const getOpenerIntercomsResourceQueryIgnoreVerifiedSchema = z
 	.boolean()
 	.optional()
 	.describe("If true, return intercoms ignoring their verified value");
 
+/**
+ * If true, return all intercoms which recently were updated
+ */
 export const getOpenerIntercomsResourceQueryRecentlyChangedSchema = z
 	.boolean()
 	.optional()
@@ -3946,20 +4103,14 @@ export const getOpenerIntercomsResourceStatus200Schema = z.array(openerIntercomM
 export const getOpenerIntercomsResourceResponseSchema = getOpenerIntercomsResourceStatus200Schema;
 
 export const getOpenerIntercomsResourceQuerySchema = z.object({
-	brandId: z
-		.int()
-		.optional()
-		.describe("Filter for brandId. Required if 'recentlyChanged' is not set"),
-	ignoreVerified: z
-		.boolean()
-		.optional()
-		.describe("If true, return intercoms ignoring their verified value"),
-	recentlyChanged: z
-		.boolean()
-		.optional()
-		.describe("If true, return all intercoms which recently were updated"),
+	brandId: getOpenerIntercomsResourceQueryBrandIdSchema,
+	ignoreVerified: getOpenerIntercomsResourceQueryIgnoreVerifiedSchema,
+	recentlyChanged: getOpenerIntercomsResourceQueryRecentlyChangedSchema,
 });
 
+/**
+ * The intercom ID
+ */
 export const getOpenerIntercomResourcePathIntercomIdSchema = z.int().describe("The intercom ID");
 
 export const getOpenerIntercomResourceStatus200Schema = openerIntercomModelSchema;
@@ -3967,9 +4118,12 @@ export const getOpenerIntercomResourceStatus200Schema = openerIntercomModelSchem
 export const getOpenerIntercomResourceResponseSchema = getOpenerIntercomResourceStatus200Schema;
 
 export const getOpenerIntercomResourcePathSchema = z.object({
-	intercomId: z.int().describe("The intercom ID"),
+	intercomId: getOpenerIntercomResourcePathIntercomIdSchema,
 });
 
+/**
+ * Filter for service IDs (comma-separated eg: airbnb,guesty,smoobu)
+ */
 export const getServicesResourceQueryServiceIdsSchema = z
 	.string()
 	.optional()
@@ -3984,12 +4138,12 @@ export const getServicesResourceResponseSchema = getServicesResourceStatus200Sch
 export const getServicesResourceErrorSchema = getServicesResourceStatus401Schema;
 
 export const getServicesResourceQuerySchema = z.object({
-	serviceIds: z
-		.string()
-		.optional()
-		.describe("Filter for service IDs (comma-separated eg: airbnb,guesty,smoobu)"),
+	serviceIds: getServicesResourceQueryServiceIdsSchema,
 });
 
+/**
+ * The service ID
+ */
 export const getServiceResourcePathServiceIdSchema = z.string().describe("The service ID");
 
 export const getServiceResourceStatus200Schema = z.lazy(() => serviceSchema);
@@ -4001,9 +4155,12 @@ export const getServiceResourceResponseSchema = getServiceResourceStatus200Schem
 export const getServiceResourceErrorSchema = getServiceResourceStatus401Schema;
 
 export const getServiceResourcePathSchema = z.object({
-	serviceId: z.string().describe("The service ID"),
+	serviceId: getServiceResourcePathServiceIdSchema,
 });
 
+/**
+ * The service ID
+ */
 export const postServiceLinkResourcePathServiceIdSchema = z.string().describe("The service ID");
 
 export const postServiceLinkResourceStatus200Schema = z.string();
@@ -4020,9 +4177,12 @@ export const postServiceLinkResourceErrorSchema = z.union([
 ]);
 
 export const postServiceLinkResourcePathSchema = z.object({
-	serviceId: z.string().describe("The service ID"),
+	serviceId: postServiceLinkResourcePathServiceIdSchema,
 });
 
+/**
+ * The service ID
+ */
 export const postServiceSyncResourcePathServiceIdSchema = z.string().describe("The service ID");
 
 export const postServiceSyncResourceStatus204Schema = z.void();
@@ -4039,9 +4199,12 @@ export const postServiceSyncResourceErrorSchema = z.union([
 ]);
 
 export const postServiceSyncResourcePathSchema = z.object({
-	serviceId: z.string().describe("The service ID"),
+	serviceId: postServiceSyncResourcePathServiceIdSchema,
 });
 
+/**
+ * The service ID
+ */
 export const postServiceUnlinkResourcePathServiceIdSchema = z.string().describe("The service ID");
 
 export const postServiceUnlinkResourceStatus204Schema = z.void();
@@ -4058,14 +4221,20 @@ export const postServiceUnlinkResourceErrorSchema = z.union([
 ]);
 
 export const postServiceUnlinkResourcePathSchema = z.object({
-	serviceId: z.string().describe("The service ID"),
+	serviceId: postServiceUnlinkResourcePathServiceIdSchema,
 });
 
+/**
+ * Filter for authId
+ */
 export const getSmartlocksResourceQueryAuthIdSchema = z
 	.int()
 	.optional()
 	.describe("Filter for authId");
 
+/**
+ * Filter for type
+ */
 export const getSmartlocksResourceQueryTypeSchema = z.int().optional().describe("Filter for type");
 
 export const getSmartlocksResourceStatus200Schema = z.array(smartlockSchema);
@@ -4077,10 +4246,13 @@ export const getSmartlocksResourceResponseSchema = getSmartlocksResourceStatus20
 export const getSmartlocksResourceErrorSchema = getSmartlocksResourceStatus401Schema;
 
 export const getSmartlocksResourceQuerySchema = z.object({
-	authId: z.int().optional().describe("Filter for authId"),
-	type: z.int().optional().describe("Filter for type"),
+	authId: getSmartlocksResourceQueryAuthIdSchema,
+	type: getSmartlocksResourceQueryTypeSchema,
 });
 
+/**
+ * Filter for account users:  set to a positive number will filter for authorizations with this specific accountUserId, set to a negative number will filter without set accountUserId
+ */
 export const getSmartlocksAuthsResourceQueryAccountUserIdSchema = z
 	.int()
 	.optional()
@@ -4088,6 +4260,9 @@ export const getSmartlocksAuthsResourceQueryAccountUserIdSchema = z
 		"Filter for account users:  set to a positive number will filter for authorizations with this specific accountUserId, set to a negative number will filter without set accountUserId",
 	);
 
+/**
+ * Filter for authorization's types (comma-separated eg: 0,2,3)
+ */
 export const getSmartlocksAuthsResourceQueryTypesSchema = z
 	.string()
 	.optional()
@@ -4102,16 +4277,8 @@ export const getSmartlocksAuthsResourceResponseSchema = getSmartlocksAuthsResour
 export const getSmartlocksAuthsResourceErrorSchema = getSmartlocksAuthsResourceStatus401Schema;
 
 export const getSmartlocksAuthsResourceQuerySchema = z.object({
-	accountUserId: z
-		.int()
-		.optional()
-		.describe(
-			"Filter for account users:  set to a positive number will filter for authorizations with this specific accountUserId, set to a negative number will filter without set accountUserId",
-		),
-	types: z
-		.string()
-		.optional()
-		.describe("Filter for authorization's types (comma-separated eg: 0,2,3)"),
+	accountUserId: getSmartlocksAuthsResourceQueryAccountUserIdSchema,
+	types: getSmartlocksAuthsResourceQueryTypesSchema,
 });
 
 export const postSmartlocksAuthsResourceStatus204Schema = z.void();
@@ -4136,6 +4303,9 @@ export const postSmartlocksAuthsResourceErrorSchema = z.union([
 	postSmartlocksAuthsResourceStatus423Schema,
 ]);
 
+/**
+ * Smartlock authorization update representations
+ */
 export const postSmartlocksAuthsResourceBodySchema = z
 	.array(smartlockAuthMultiUpdateSchema)
 	.describe("Smartlock authorization update representations");
@@ -4183,6 +4353,9 @@ export const deleteSmartlocksAuthsResourceErrorSchema = z.union([
 	deleteSmartlocksAuthsResourceStatus423Schema,
 ]);
 
+/**
+ * Smartlock authorization IDs to delete
+ */
 export const deleteSmartlocksAuthsResourceBodySchema = z
 	.array(z.string())
 	.describe("Smartlock authorization IDs to delete");
@@ -4210,18 +4383,27 @@ export const putSmartlockAuthsAdvancedResourceErrorSchema = z.union([
 export const putSmartlockAuthsAdvancedResourceBodySchema =
 	smartlocksAuthAdvancedCreateSchema.describe("Smartlock authorization create representation");
 
+/**
+ * The page number, starting from 0
+ */
 export const getSmartlocksAuthsPaginatedResourceQueryPageSchema = z
 	.int()
 	.optional()
 	.default(0)
 	.describe("The page number, starting from 0");
 
+/**
+ * The number of items in one page
+ */
 export const getSmartlocksAuthsPaginatedResourceQuerySizeSchema = z
 	.int()
 	.optional()
 	.default(100)
 	.describe("The number of items in one page");
 
+/**
+ * Filter for account users:  set to a positive number will filter for authorizations with this specific accountUserId, set to a negative number will filter without set accountUserId
+ */
 export const getSmartlocksAuthsPaginatedResourceQueryAccountUserIdSchema = z
 	.int()
 	.optional()
@@ -4229,6 +4411,9 @@ export const getSmartlocksAuthsPaginatedResourceQueryAccountUserIdSchema = z
 		"Filter for account users:  set to a positive number will filter for authorizations with this specific accountUserId, set to a negative number will filter without set accountUserId",
 	);
 
+/**
+ * Filter for authorization's types (comma-separated eg: 0,2,3)
+ */
 export const getSmartlocksAuthsPaginatedResourceQueryTypesSchema = z
 	.string()
 	.optional()
@@ -4245,45 +4430,55 @@ export const getSmartlocksAuthsPaginatedResourceErrorSchema =
 	getSmartlocksAuthsPaginatedResourceStatus401Schema;
 
 export const getSmartlocksAuthsPaginatedResourceQuerySchema = z.object({
-	page: z.int().optional().default(0).describe("The page number, starting from 0"),
-	size: z.int().optional().default(100).describe("The number of items in one page"),
-	accountUserId: z
-		.int()
-		.optional()
-		.describe(
-			"Filter for account users:  set to a positive number will filter for authorizations with this specific accountUserId, set to a negative number will filter without set accountUserId",
-		),
-	types: z
-		.string()
-		.optional()
-		.describe("Filter for authorization's types (comma-separated eg: 0,2,3)"),
+	page: getSmartlocksAuthsPaginatedResourceQueryPageSchema,
+	size: getSmartlocksAuthsPaginatedResourceQuerySizeSchema,
+	accountUserId: getSmartlocksAuthsPaginatedResourceQueryAccountUserIdSchema,
+	types: getSmartlocksAuthsPaginatedResourceQueryTypesSchema,
 });
 
+/**
+ * Filter for account users
+ */
 export const getSmartlocksLogsResourceQueryAccountUserIdSchema = z
 	.int()
 	.optional()
 	.describe("Filter for account users");
 
+/**
+ * Filter for date (RFC3339)
+ */
 export const getSmartlocksLogsResourceQueryFromDateSchema = z
 	.string()
 	.optional()
 	.describe("Filter for date (RFC3339)");
 
+/**
+ * Filter for date (RFC3339)
+ */
 export const getSmartlocksLogsResourceQueryToDateSchema = z
 	.string()
 	.optional()
 	.describe("Filter for date (RFC3339)");
 
+/**
+ * Filter for action
+ */
 export const getSmartlocksLogsResourceQueryActionSchema = z
 	.int()
 	.optional()
 	.describe("Filter for action");
 
+/**
+ * Filter for older logs
+ */
 export const getSmartlocksLogsResourceQueryIdSchema = z
 	.string()
 	.optional()
 	.describe("Filter for older logs");
 
+/**
+ * Amount of logs (max: 50)
+ */
 export const getSmartlocksLogsResourceQueryLimitSchema = z
 	.int()
 	.optional()
@@ -4299,14 +4494,17 @@ export const getSmartlocksLogsResourceResponseSchema = getSmartlocksLogsResource
 export const getSmartlocksLogsResourceErrorSchema = getSmartlocksLogsResourceStatus401Schema;
 
 export const getSmartlocksLogsResourceQuerySchema = z.object({
-	accountUserId: z.int().optional().describe("Filter for account users"),
-	fromDate: z.string().optional().describe("Filter for date (RFC3339)"),
-	toDate: z.string().optional().describe("Filter for date (RFC3339)"),
-	action: z.int().optional().describe("Filter for action"),
-	id: z.string().optional().describe("Filter for older logs"),
-	limit: z.int().optional().default(20).describe("Amount of logs (max: 50)"),
+	accountUserId: getSmartlocksLogsResourceQueryAccountUserIdSchema,
+	fromDate: getSmartlocksLogsResourceQueryFromDateSchema,
+	toDate: getSmartlocksLogsResourceQueryToDateSchema,
+	action: getSmartlocksLogsResourceQueryActionSchema,
+	id: getSmartlocksLogsResourceQueryIdSchema,
+	limit: getSmartlocksLogsResourceQueryLimitSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const getSmartlockResourcePathSmartlockIdSchema = z.int().describe("The smartlock ID");
 
 export const getSmartlockResourceStatus200Schema = smartlockSchema;
@@ -4326,9 +4524,12 @@ export const getSmartlockResourceErrorSchema = z.union([
 ]);
 
 export const getSmartlockResourcePathSchema = z.object({
-	smartlockId: z.int().describe("The smartlock ID"),
+	smartlockId: getSmartlockResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const postSmartlockResourcePathSmartlockIdSchema = z.int().describe("The smartlock ID");
 
 export const postSmartlockResourceStatus204Schema = z.void();
@@ -4352,9 +4553,12 @@ export const postSmartlockResourceBodySchema = smartlockUpdateSchema.describe(
 );
 
 export const postSmartlockResourcePathSchema = z.object({
-	smartlockId: z.int().describe("The smartlock ID"),
+	smartlockId: postSmartlockResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const deleteSmartlockResourcePathSmartlockIdSchema = z.int().describe("The smartlock ID");
 
 export const deleteSmartlockResourceStatus204Schema = z.void();
@@ -4374,9 +4578,12 @@ export const deleteSmartlockResourceErrorSchema = z.union([
 ]);
 
 export const deleteSmartlockResourcePathSchema = z.object({
-	smartlockId: z.int().describe("The smartlock ID"),
+	smartlockId: deleteSmartlockResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const postSmartlockActionResourcePathSmartlockIdSchema = z
 	.string()
 	.describe("The smartlock ID");
@@ -4402,9 +4609,12 @@ export const postSmartlockActionResourceBodySchema = smartlockActionSchema.descr
 );
 
 export const postSmartlockActionResourcePathSchema = z.object({
-	smartlockId: z.string().describe("The smartlock ID"),
+	smartlockId: postSmartlockActionResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const postSmartlockActionAdvancedResourcePathSmartlockIdSchema = z
 	.string()
 	.describe("The smartlock ID");
@@ -4435,9 +4645,12 @@ export const postSmartlockActionAdvancedResourceBodySchema = smartlockActionSche
 );
 
 export const postSmartlockActionAdvancedResourcePathSchema = z.object({
-	smartlockId: z.string().describe("The smartlock ID"),
+	smartlockId: postSmartlockActionAdvancedResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const postSmartlockLockActionResourcePathSmartlockIdSchema = z
 	.string()
 	.describe("The smartlock ID");
@@ -4460,9 +4673,12 @@ export const postSmartlockLockActionResourceErrorSchema = z.union([
 ]);
 
 export const postSmartlockLockActionResourcePathSchema = z.object({
-	smartlockId: z.string().describe("The smartlock ID"),
+	smartlockId: postSmartlockLockActionResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const postSmartlockLockActionAdvancedResourcePathSmartlockIdSchema = z
 	.string()
 	.describe("The smartlock ID");
@@ -4486,9 +4702,12 @@ export const postSmartlockLockActionAdvancedResourceErrorSchema = z.union([
 ]);
 
 export const postSmartlockLockActionAdvancedResourcePathSchema = z.object({
-	smartlockId: z.string().describe("The smartlock ID"),
+	smartlockId: postSmartlockLockActionAdvancedResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const postSmartlockUnlockActionResourcePathSmartlockIdSchema = z
 	.string()
 	.describe("The smartlock ID");
@@ -4511,9 +4730,12 @@ export const postSmartlockUnlockActionResourceErrorSchema = z.union([
 ]);
 
 export const postSmartlockUnlockActionResourcePathSchema = z.object({
-	smartlockId: z.string().describe("The smartlock ID"),
+	smartlockId: postSmartlockUnlockActionResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const postSmartlockUnlockActionAdvancedResourcePathSmartlockIdSchema = z
 	.string()
 	.describe("The smartlock ID");
@@ -4537,9 +4759,12 @@ export const postSmartlockUnlockActionAdvancedResourceErrorSchema = z.union([
 ]);
 
 export const postSmartlockUnlockActionAdvancedResourcePathSchema = z.object({
-	smartlockId: z.string().describe("The smartlock ID"),
+	smartlockId: postSmartlockUnlockActionAdvancedResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const postSmartlockAdminPinResourcePathSmartlockIdSchema = z
 	.int()
 	.describe("The smartlock ID");
@@ -4563,9 +4788,12 @@ export const postSmartlockAdminPinResourceBodySchema = smartlockAdminPinUpdateSc
 );
 
 export const postSmartlockAdminPinResourcePathSchema = z.object({
-	smartlockId: z.int().describe("The smartlock ID"),
+	smartlockId: postSmartlockAdminPinResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const postSmartlockAdvancedConfigResourcePathSmartlockIdSchema = z
 	.int()
 	.describe("The smartlock ID");
@@ -4589,9 +4817,12 @@ export const postSmartlockAdvancedConfigResourceBodySchema = smartlockAdvancedCo
 	.describe("Smartlock config update representation");
 
 export const postSmartlockAdvancedConfigResourcePathSchema = z.object({
-	smartlockId: z.int().describe("The smartlock ID"),
+	smartlockId: postSmartlockAdvancedConfigResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartlock (opener) ID
+ */
 export const postSmartlockOpenerAdvancedConfigResourcePathSmartlockIdSchema = z
 	.int()
 	.describe("The smartlock (opener) ID");
@@ -4616,9 +4847,12 @@ export const postSmartlockOpenerAdvancedConfigResourceBodySchema =
 		.describe("Opener advanced config update representation");
 
 export const postSmartlockOpenerAdvancedConfigResourcePathSchema = z.object({
-	smartlockId: z.int().describe("The smartlock (opener) ID"),
+	smartlockId: postSmartlockOpenerAdvancedConfigResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartdoor ID
+ */
 export const postSmartdoorAdvancedConfigResourcePathSmartlockIdSchema = z
 	.int()
 	.describe("The smartdoor ID");
@@ -4642,16 +4876,25 @@ export const postSmartdoorAdvancedConfigResourceBodySchema = smartlockSmartdoorA
 	.describe("Smartdoor advanced config update representation");
 
 export const postSmartdoorAdvancedConfigResourcePathSchema = z.object({
-	smartlockId: z.int().describe("The smartdoor ID"),
+	smartlockId: postSmartdoorAdvancedConfigResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const getSmartlockAuthsResourcePathSmartlockIdSchema = z.int().describe("The smartlock ID");
 
+/**
+ * Filter for smartlock authorization's types (comma-separated eg: 0,2,3)
+ */
 export const getSmartlockAuthsResourceQueryTypesSchema = z
 	.string()
 	.optional()
 	.describe("Filter for smartlock authorization's types (comma-separated eg: 0,2,3)");
 
+/**
+ * Indicates if email should be included in the response
+ */
 export const getSmartlockAuthsResourceQueryIncludeEmailSchema = z
 	.boolean()
 	.optional()
@@ -4671,20 +4914,17 @@ export const getSmartlockAuthsResourceErrorSchema = z.union([
 ]);
 
 export const getSmartlockAuthsResourcePathSchema = z.object({
-	smartlockId: z.int().describe("The smartlock ID"),
+	smartlockId: getSmartlockAuthsResourcePathSmartlockIdSchema,
 });
 
 export const getSmartlockAuthsResourceQuerySchema = z.object({
-	types: z
-		.string()
-		.optional()
-		.describe("Filter for smartlock authorization's types (comma-separated eg: 0,2,3)"),
-	includeEmail: z
-		.boolean()
-		.optional()
-		.describe("Indicates if email should be included in the response"),
+	types: getSmartlockAuthsResourceQueryTypesSchema,
+	includeEmail: getSmartlockAuthsResourceQueryIncludeEmailSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const putSmartlockAuthsResourcePathSmartlockIdSchema = z.int().describe("The smartlock ID");
 
 export const putSmartlockAuthsResourceStatus204Schema = z.void();
@@ -4711,9 +4951,12 @@ export const putSmartlockAuthsResourceBodySchema = smartlockAuthCreateSchema.des
 );
 
 export const putSmartlockAuthsResourcePathSchema = z.object({
-	smartlockId: z.int().describe("The smartlock ID"),
+	smartlockId: putSmartlockAuthsResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const postSmartlockAuthWithSharedKeyResourcePathSmartlockIdSchema = z
 	.int()
 	.describe("The smartlock ID");
@@ -4739,11 +4982,17 @@ export const postSmartlockAuthWithSharedKeyResourceBodySchema =
 	smartlockAuthWithSharedKeyCreateSchema.describe("Smartlock auth create with shared key");
 
 export const postSmartlockAuthWithSharedKeyResourcePathSchema = z.object({
-	smartlockId: z.int().describe("The smartlock ID"),
+	smartlockId: postSmartlockAuthWithSharedKeyResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const getSmartlockAuthResourcePathSmartlockIdSchema = z.int().describe("The smartlock ID");
 
+/**
+ * The smartlock auth unique ID
+ */
 export const getSmartlockAuthResourcePathIdSchema = z
 	.string()
 	.describe("The smartlock auth unique ID");
@@ -4762,12 +5011,18 @@ export const getSmartlockAuthResourceErrorSchema = z.union([
 ]);
 
 export const getSmartlockAuthResourcePathSchema = z.object({
-	smartlockId: z.int().describe("The smartlock ID"),
-	id: z.string().describe("The smartlock auth unique ID"),
+	smartlockId: getSmartlockAuthResourcePathSmartlockIdSchema,
+	id: getSmartlockAuthResourcePathIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const postSmartlockAuthResourcePathSmartlockIdSchema = z.int().describe("The smartlock ID");
 
+/**
+ * The smartlock authorization unique ID
+ */
 export const postSmartlockAuthResourcePathIdSchema = z
 	.string()
 	.describe("The smartlock authorization unique ID");
@@ -4799,14 +5054,20 @@ export const postSmartlockAuthResourceBodySchema = smartlockAuthUpdateSchema.des
 );
 
 export const postSmartlockAuthResourcePathSchema = z.object({
-	smartlockId: z.int().describe("The smartlock ID"),
-	id: z.string().describe("The smartlock authorization unique ID"),
+	smartlockId: postSmartlockAuthResourcePathSmartlockIdSchema,
+	id: postSmartlockAuthResourcePathIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const deleteSmartlockAuthResourcePathSmartlockIdSchema = z
 	.int()
 	.describe("The smartlock ID");
 
+/**
+ * The smartlock authorization unique ID
+ */
 export const deleteSmartlockAuthResourcePathIdSchema = z
 	.string()
 	.describe("The smartlock authorization unique ID");
@@ -4828,10 +5089,13 @@ export const deleteSmartlockAuthResourceErrorSchema = z.union([
 ]);
 
 export const deleteSmartlockAuthResourcePathSchema = z.object({
-	smartlockId: z.int().describe("The smartlock ID"),
-	id: z.string().describe("The smartlock authorization unique ID"),
+	smartlockId: deleteSmartlockAuthResourcePathSmartlockIdSchema,
+	id: deleteSmartlockAuthResourcePathIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const postSmartlockConfigResourcePathSmartlockIdSchema = z
 	.int()
 	.describe("The smartlock ID");
@@ -4869,41 +5133,65 @@ export const postSmartlockConfigResourceBodySchema = smartlockConfigSchema
 	.describe("Smartlock config update representation");
 
 export const postSmartlockConfigResourcePathSchema = z.object({
-	smartlockId: z.int().describe("The smartlock ID"),
+	smartlockId: postSmartlockConfigResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const getSmartlockLogsResourcePathSmartlockIdSchema = z.int().describe("The smartlock ID");
 
+/**
+ * Filter for auths
+ */
 export const getSmartlockLogsResourceQueryAuthIdSchema = z
 	.string()
 	.optional()
 	.describe("Filter for auths");
 
+/**
+ * Filter for account users
+ */
 export const getSmartlockLogsResourceQueryAccountUserIdSchema = z
 	.int()
 	.optional()
 	.describe("Filter for account users");
 
+/**
+ * Filter for date (RFC3339)
+ */
 export const getSmartlockLogsResourceQueryFromDateSchema = z
 	.string()
 	.optional()
 	.describe("Filter for date (RFC3339)");
 
+/**
+ * Filter for date (RFC3339)
+ */
 export const getSmartlockLogsResourceQueryToDateSchema = z
 	.string()
 	.optional()
 	.describe("Filter for date (RFC3339)");
 
+/**
+ * Filter for action
+ */
 export const getSmartlockLogsResourceQueryActionSchema = z
 	.int()
 	.optional()
 	.describe("Filter for action");
 
+/**
+ * Filter for older logs
+ */
 export const getSmartlockLogsResourceQueryIdSchema = z
 	.string()
 	.optional()
 	.describe("Filter for older logs");
 
+/**
+ * Amount of logs (max: 50)
+ */
 export const getSmartlockLogsResourceQueryLimitSchema = z
 	.int()
 	.optional()
@@ -4919,19 +5207,22 @@ export const getSmartlockLogsResourceResponseSchema = getSmartlockLogsResourceSt
 export const getSmartlockLogsResourceErrorSchema = getSmartlockLogsResourceStatus401Schema;
 
 export const getSmartlockLogsResourcePathSchema = z.object({
-	smartlockId: z.int().describe("The smartlock ID"),
+	smartlockId: getSmartlockLogsResourcePathSmartlockIdSchema,
 });
 
 export const getSmartlockLogsResourceQuerySchema = z.object({
-	authId: z.string().optional().describe("Filter for auths"),
-	accountUserId: z.int().optional().describe("Filter for account users"),
-	fromDate: z.string().optional().describe("Filter for date (RFC3339)"),
-	toDate: z.string().optional().describe("Filter for date (RFC3339)"),
-	action: z.int().optional().describe("Filter for action"),
-	id: z.string().optional().describe("Filter for older logs"),
-	limit: z.int().optional().default(20).describe("Amount of logs (max: 50)"),
+	authId: getSmartlockLogsResourceQueryAuthIdSchema,
+	accountUserId: getSmartlockLogsResourceQueryAccountUserIdSchema,
+	fromDate: getSmartlockLogsResourceQueryFromDateSchema,
+	toDate: getSmartlockLogsResourceQueryToDateSchema,
+	action: getSmartlockLogsResourceQueryActionSchema,
+	id: getSmartlockLogsResourceQueryIdSchema,
+	limit: getSmartlockLogsResourceQueryLimitSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const postSmartlockSyncResourcePathSmartlockIdSchema = z
 	.string()
 	.describe("The smartlock ID");
@@ -4950,9 +5241,12 @@ export const postSmartlockSyncResourceErrorSchema = z.union([
 ]);
 
 export const postSmartlockSyncResourcePathSchema = z.object({
-	smartlockId: z.string().describe("The smartlock ID"),
+	smartlockId: postSmartlockSyncResourcePathSmartlockIdSchema,
 });
 
+/**
+ * The smartlock ID
+ */
 export const postSmartlockWebConfigResourcePathSmartlockIdSchema = z
 	.int()
 	.describe("The smartlock ID");
@@ -4976,5 +5270,5 @@ export const postSmartlockWebConfigResourceBodySchema = smartlockWebConfigSchema
 );
 
 export const postSmartlockWebConfigResourcePathSchema = z.object({
-	smartlockId: z.int().describe("The smartlock ID"),
+	smartlockId: postSmartlockWebConfigResourcePathSmartlockIdSchema,
 });
