@@ -492,6 +492,11 @@ export type AiGatewayBudget = {
 	createdAt: number;
 	currentByokSpend: number;
 	currentSpend: number;
+	/**
+	 * @description When a member's own budget change lapses and the user default applies again, in ms since the epoch. Absent means the budget is permanent.
+	 * @type number | undefined
+	 */
+	expiresAt?: number | undefined;
 	includeByokInQuota: false | true;
 	limitAmount: number;
 	name?: string | undefined;
@@ -537,6 +542,14 @@ export type AiGatewayBudgetList = {
 	nextCursor?: (string | null) | undefined;
 };
 
+export const aiGatewayBudgetDefaultAppliesToEnum = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type AiGatewayBudgetDefaultAppliesToEnumKey =
+	(typeof aiGatewayBudgetDefaultAppliesToEnum)[keyof typeof aiGatewayBudgetDefaultAppliesToEnum];
+
 export const aiGatewayBudgetDefaultRefreshPeriodEnum = {
 	daily: "daily",
 	monthly: "monthly",
@@ -561,6 +574,11 @@ export type AiGatewayBudgetDefaultScopeTypeEnumKey =
 export type AiGatewayBudgetDefault = {
 	active: false | true;
 	alertThresholds?: number[] | undefined;
+	/**
+	 * @description `api-key` scope only: key spend attributions covered. Absent means both.
+	 * @type array | undefined
+	 */
+	appliesTo?: AiGatewayBudgetDefaultAppliesToEnumKey[] | undefined;
 	createdAt: number;
 	limitAmount: number;
 	refreshPeriod: AiGatewayBudgetDefaultRefreshPeriodEnumKey;
@@ -4202,7 +4220,7 @@ export type ConnectUpdateConnectorRequest = {
 	backgroundColor?: string | undefined;
 	accentColor?: string | undefined;
 	/**
-	 * @description Full team-scoped UID, such as `slack/my-bot`. It cannot contain whitespace, `%`, `#`, control characters, or Vercel-owned namespaces. Changing it breaks callers that use the old UID. The stable connector ID does not change.
+	 * @description Full team- or organization-scoped UID, such as `slack/my-bot`. It cannot contain whitespace, `%`, `#`, control characters, or Vercel-owned namespaces. Changing it breaks callers that use the old UID. The stable connector ID does not change.
 	 * @type string | undefined
 	 */
 	uid?: string | undefined;
@@ -5352,6 +5370,14 @@ export const userEventPayloadBudgetRefreshPeriodEnum3 = {
 export type UserEventPayloadBudgetRefreshPeriodEnum3Key =
 	(typeof userEventPayloadBudgetRefreshPeriodEnum3)[keyof typeof userEventPayloadBudgetRefreshPeriodEnum3];
 
+export const userEventPayloadBudgetAppliesToEnum = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type UserEventPayloadBudgetAppliesToEnumKey =
+	(typeof userEventPayloadBudgetAppliesToEnum)[keyof typeof userEventPayloadBudgetAppliesToEnum];
+
 export const userEventPayloadChangeEnum3 = {
 	disable: "disable",
 	enable: "enable",
@@ -5371,6 +5397,14 @@ export const userEventPayloadPreviousBudgetRefreshPeriodEnum2 = {
 
 export type UserEventPayloadPreviousBudgetRefreshPeriodEnum2Key =
 	(typeof userEventPayloadPreviousBudgetRefreshPeriodEnum2)[keyof typeof userEventPayloadPreviousBudgetRefreshPeriodEnum2];
+
+export const userEventPayloadPreviousBudgetAppliesToEnum = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type UserEventPayloadPreviousBudgetAppliesToEnumKey =
+	(typeof userEventPayloadPreviousBudgetAppliesToEnum)[keyof typeof userEventPayloadPreviousBudgetAppliesToEnum];
 
 export const userEventPayloadScopeTypeEnum = {
 	"api-key": "api-key",
@@ -7468,6 +7502,14 @@ export const userEventPayloadReasonCodeEnum2 = {
 export type UserEventPayloadReasonCodeEnum2Key =
 	(typeof userEventPayloadReasonCodeEnum2)[keyof typeof userEventPayloadReasonCodeEnum2];
 
+export const userEventPayloadToEnum = {
+	vercel: "vercel",
+	workos: "workos",
+} as const;
+
+export type UserEventPayloadToEnumKey =
+	(typeof userEventPayloadToEnum)[keyof typeof userEventPayloadToEnum];
+
 export const userEventPayloadFactorsOriginEnum4 = {
 	apple: "apple",
 	bitbucket: "bitbucket",
@@ -7668,13 +7710,13 @@ export const userEventPayloadTypeEnum6 = {
 export type UserEventPayloadTypeEnum6Key =
 	(typeof userEventPayloadTypeEnum6)[keyof typeof userEventPayloadTypeEnum6];
 
-export const userEventPayloadActorTypeEnum10 = {
+export const userEventPayloadActorTypeEnum11 = {
 	admin: "admin",
 	user: "user",
 } as const;
 
-export type UserEventPayloadActorTypeEnum10Key =
-	(typeof userEventPayloadActorTypeEnum10)[keyof typeof userEventPayloadActorTypeEnum10];
+export type UserEventPayloadActorTypeEnum11Key =
+	(typeof userEventPayloadActorTypeEnum11)[keyof typeof userEventPayloadActorTypeEnum11];
 
 export const userEventPayloadActionEnum14 = {
 	enable: "enable",
@@ -8118,13 +8160,13 @@ export const userEventPayloadSamplingEnvEnum = {
 export type UserEventPayloadSamplingEnvEnumKey =
 	(typeof userEventPayloadSamplingEnvEnum)[keyof typeof userEventPayloadSamplingEnvEnum];
 
-export const userEventPayloadActorTypeEnum15 = {
+export const userEventPayloadActorTypeEnum16 = {
 	admin: "admin",
 	user: "user",
 } as const;
 
-export type UserEventPayloadActorTypeEnum15Key =
-	(typeof userEventPayloadActorTypeEnum15)[keyof typeof userEventPayloadActorTypeEnum15];
+export type UserEventPayloadActorTypeEnum16Key =
+	(typeof userEventPayloadActorTypeEnum16)[keyof typeof userEventPayloadActorTypeEnum16];
 
 export const userEventPayloadScopeEnum13 = {
 	default: "default",
@@ -8543,6 +8585,8 @@ export const userEventTypeEnum = {
 	"attack-mode-enabled": "attack-mode-enabled",
 	"audit-log-export-downloaded": "audit-log-export-downloaded",
 	"audit-log-export-requested": "audit-log-export-requested",
+	"authorization-session-created": "authorization-session-created",
+	"authorization-session-revoked": "authorization-session-revoked",
 	"authorize-git-deployment": "authorize-git-deployment",
 	"auto-expose-system-envs": "auto-expose-system-envs",
 	avatar: "avatar",
@@ -9049,6 +9093,7 @@ export const userEventTypeEnum = {
 	"saml-idp-material-set": "saml-idp-material-set",
 	"saml-idp-material-system-deleted": "saml-idp-material-system-deleted",
 	"saml-idp-material-system-set": "saml-idp-material-system-set",
+	"saml-login-provider-changed": "saml-login-provider-changed",
 	"sandbox-ai-gateway-credentials-configured": "sandbox-ai-gateway-credentials-configured",
 	"sandbox-alias-assigned": "sandbox-alias-assigned",
 	"sandbox-alias-delete": "sandbox-alias-delete",
@@ -9687,6 +9732,11 @@ export type UserEvent = {
 							| ({
 									alertThresholds?: number[] | undefined;
 									/**
+									 * @description When the budget lapses to the scope's default, in ms since the epoch.
+									 * @type number | undefined
+									 */
+									expiresAt?: number | undefined;
+									/**
 									 * @description Spend cap, in dollars.
 									 * @type number
 									 */
@@ -9724,6 +9774,11 @@ export type UserEvent = {
 							| ({
 									alertThresholds?: number[] | undefined;
 									/**
+									 * @description When the budget lapses to the scope's default, in ms since the epoch.
+									 * @type number | undefined
+									 */
+									expiresAt?: number | undefined;
+									/**
 									 * @description Spend cap, in dollars.
 									 * @type number
 									 */
@@ -9740,6 +9795,11 @@ export type UserEvent = {
 						previousBudget?:
 							| ({
 									alertThresholds?: number[] | undefined;
+									/**
+									 * @description When the budget lapses to the scope's default, in ms since the epoch.
+									 * @type number | undefined
+									 */
+									expiresAt?: number | undefined;
 									/**
 									 * @description Spend cap, in dollars.
 									 * @type number
@@ -9774,35 +9834,47 @@ export type UserEvent = {
 				  }
 				| {
 						/**
-						 * @description Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.
+						 * @description `api-key` defaults may cover only some key spend attributions.
 						 * @type object | undefined
 						 */
 						budget?:
 							| ({
 									alertThresholds?: number[] | undefined;
 									/**
+									 * @description When the budget lapses to the scope's default, in ms since the epoch.
+									 * @type number | undefined
+									 */
+									expiresAt?: number | undefined;
+									/**
 									 * @description Spend cap, in dollars.
 									 * @type number
 									 */
 									limitAmount: number;
 									refreshPeriod: UserEventPayloadBudgetRefreshPeriodEnum3Key;
+									appliesTo?: UserEventPayloadBudgetAppliesToEnumKey[] | undefined;
 							  } | null)
 							| undefined;
 						change: UserEventPayloadChangeEnum3Key;
 						justification?: string | undefined;
 						/**
-						 * @description Spend budget on an AI Gateway API key, scope, or budget default, as surfaced in activity messages. Defined locally (rather than imported from `@api/pubsub-types`) because `@api/pubsub-types` already depends on `@api/events`; importing it here would create a circular dependency. Must stay structurally aligned with `APIKeyBudget` in `@api/pubsub-types/event-payloads/api-keys`.
+						 * @description `api-key` defaults may cover only some key spend attributions.
 						 * @type object | undefined
 						 */
 						previousBudget?:
 							| ({
 									alertThresholds?: number[] | undefined;
 									/**
+									 * @description When the budget lapses to the scope's default, in ms since the epoch.
+									 * @type number | undefined
+									 */
+									expiresAt?: number | undefined;
+									/**
 									 * @description Spend cap, in dollars.
 									 * @type number
 									 */
 									limitAmount: number;
 									refreshPeriod: UserEventPayloadPreviousBudgetRefreshPeriodEnum2Key;
+									appliesTo?: UserEventPayloadPreviousBudgetAppliesToEnumKey[] | undefined;
 							  } | null)
 							| undefined;
 						scopeType: UserEventPayloadScopeTypeEnumKey;
@@ -9822,6 +9894,11 @@ export type UserEvent = {
 							| ({
 									alertThresholds?: number[] | undefined;
 									/**
+									 * @description When the budget lapses to the scope's default, in ms since the epoch.
+									 * @type number | undefined
+									 */
+									expiresAt?: number | undefined;
+									/**
 									 * @description Spend cap, in dollars.
 									 * @type number
 									 */
@@ -9838,6 +9915,11 @@ export type UserEvent = {
 						previousBudget?:
 							| ({
 									alertThresholds?: number[] | undefined;
+									/**
+									 * @description When the budget lapses to the scope's default, in ms since the epoch.
+									 * @type number | undefined
+									 */
+									expiresAt?: number | undefined;
 									/**
 									 * @description Spend cap, in dollars.
 									 * @type number
@@ -10299,6 +10381,24 @@ export type UserEvent = {
 						prevAttackModeActiveUntil?: (number | null) | undefined;
 						prevAttackModeEnabled?: (false | true) | undefined;
 						projectId: string;
+				  }
+				| {
+						/**
+						 * @description UNIX timestamp in milliseconds.
+						 * @type number
+						 */
+						expiresAt: number;
+						name?: string | undefined;
+						/**
+						 * @description The session it was started from.
+						 * @type string
+						 */
+						originSessionId: string;
+						sessionId: string;
+				  }
+				| {
+						name?: string | undefined;
+						sessionId: string;
 				  }
 				| {
 						autoExposeSystemEnvs: false | true;
@@ -14593,15 +14693,22 @@ export type UserEvent = {
 						connectionId: string;
 				  }
 				| {
-						connectionId: string;
+						connectionId?: string | undefined;
+						to?: UserEventPayloadToEnumKey | undefined;
+						certificateFingerprints?: string[] | undefined;
 						actorName?: string | undefined;
-						actorType: "admin";
+						actorType?: "admin" | undefined;
+				  }
+				| {
+						connectionId?: string | undefined;
+						actorName?: string | undefined;
+						actorType?: "admin" | undefined;
 						keyId: string;
 				  }
 				| {
-						connectionId: string;
+						connectionId?: string | undefined;
 						actorName?: string | undefined;
-						actorType: "admin";
+						actorType?: "admin" | undefined;
 						keyId: string;
 						signingEnabled: false | true;
 						signingKeyId: string | null;
@@ -15295,7 +15402,7 @@ export type UserEvent = {
 				  }
 				| {
 						actorId?: string | undefined;
-						actorType?: UserEventPayloadActorTypeEnum10Key | undefined;
+						actorType?: UserEventPayloadActorTypeEnum11Key | undefined;
 						caseNumber?: string | undefined;
 						client?: string | undefined;
 						reason?: string | undefined;
@@ -16104,7 +16211,7 @@ export type UserEvent = {
 						 * @type string | undefined
 						 */
 						actorName?: string | undefined;
-						actorType?: UserEventPayloadActorTypeEnum15Key | undefined;
+						actorType?: UserEventPayloadActorTypeEnum16Key | undefined;
 						reason?: string | undefined;
 						recoveryCodes: number;
 						totp: false | true;
@@ -17331,6 +17438,8 @@ export const listEventTypeNameEnum = {
 	"attack-mode-enabled": "attack-mode-enabled",
 	"audit-log-export-downloaded": "audit-log-export-downloaded",
 	"audit-log-export-requested": "audit-log-export-requested",
+	"authorization-session-created": "authorization-session-created",
+	"authorization-session-revoked": "authorization-session-revoked",
 	"authorize-git-deployment": "authorize-git-deployment",
 	"auto-expose-system-envs": "auto-expose-system-envs",
 	avatar: "avatar",
@@ -17837,6 +17946,7 @@ export const listEventTypeNameEnum = {
 	"saml-idp-material-set": "saml-idp-material-set",
 	"saml-idp-material-system-deleted": "saml-idp-material-system-deleted",
 	"saml-idp-material-system-set": "saml-idp-material-system-set",
+	"saml-login-provider-changed": "saml-login-provider-changed",
 	"sandbox-ai-gateway-credentials-configured": "sandbox-ai-gateway-credentials-configured",
 	"sandbox-alias-assigned": "sandbox-alias-assigned",
 	"sandbox-alias-delete": "sandbox-alias-delete",
@@ -18187,6 +18297,8 @@ export const listEventTypeReplacedByEnum = {
 	"attack-mode-enabled": "attack-mode-enabled",
 	"audit-log-export-downloaded": "audit-log-export-downloaded",
 	"audit-log-export-requested": "audit-log-export-requested",
+	"authorization-session-created": "authorization-session-created",
+	"authorization-session-revoked": "authorization-session-revoked",
 	"authorize-git-deployment": "authorize-git-deployment",
 	"auto-expose-system-envs": "auto-expose-system-envs",
 	avatar: "avatar",
@@ -18693,6 +18805,7 @@ export const listEventTypeReplacedByEnum = {
 	"saml-idp-material-set": "saml-idp-material-set",
 	"saml-idp-material-system-deleted": "saml-idp-material-system-deleted",
 	"saml-idp-material-system-set": "saml-idp-material-system-set",
+	"saml-login-provider-changed": "saml-login-provider-changed",
 	"sandbox-ai-gateway-credentials-configured": "sandbox-ai-gateway-credentials-configured",
 	"sandbox-alias-assigned": "sandbox-alias-assigned",
 	"sandbox-alias-delete": "sandbox-alias-delete",
@@ -19971,7 +20084,7 @@ export type NamedSandbox = {
 	expiresAt?: number | undefined;
 	/**
 	 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time.
-	 * @example 120000
+	 * @example 60000
 	 * @type number
 	 */
 	expiryNotificationLeadTime: number;
@@ -22171,6 +22284,15 @@ export type TeamLimited = {
 	slug: string;
 };
 
+export const authTokenKindEnum = {
+	"access-token": "access-token",
+	app: "app",
+	other: "other",
+	"sign-in-session": "sign-in-session",
+} as const;
+
+export type AuthTokenKindEnumKey = (typeof authTokenKindEnum)[keyof typeof authTokenKindEnum];
+
 export const authTokenScopesOriginEnum = {
 	app: "app",
 	apple: "apple",
@@ -22259,6 +22381,12 @@ export type AuthToken = {
 	 * @type string
 	 */
 	id: string;
+	/**
+	 * @description The user-facing kind of the token.
+	 * @example access-token
+	 * @type string
+	 */
+	kind: AuthTokenKindEnumKey;
 	/**
 	 * @description Timestamp (in milliseconds) of when the token was marked as leaked.
 	 * @example 1632816536002
@@ -27136,7 +27264,7 @@ export type UpsertAiGatewayBudgetBody =
 			 */
 			increaseBy?: number | undefined;
 			/**
-			 * @description Defaults to monthly with `limitAmount`; `increaseBy` keeps the current period.
+			 * @description Defaults to monthly with `limitAmount`; `increaseBy` keeps the current period. Ignored for a member's own change that lapses (`expiresAt`): it takes the user default's period.
 			 * @type string | undefined
 			 */
 			refreshPeriod?: UpsertAiGatewayBudgetRequestRefreshPeriodEnumKey | undefined;
@@ -27372,6 +27500,14 @@ export const upsertAiGatewayBudgetDefaultRequestAlertThresholdsEnum = {
 export type UpsertAiGatewayBudgetDefaultRequestAlertThresholdsEnumKey =
 	(typeof upsertAiGatewayBudgetDefaultRequestAlertThresholdsEnum)[keyof typeof upsertAiGatewayBudgetDefaultRequestAlertThresholdsEnum];
 
+export const upsertAiGatewayBudgetDefaultRequestAppliesToEnum = {
+	team: "team",
+	user: "user",
+} as const;
+
+export type UpsertAiGatewayBudgetDefaultRequestAppliesToEnumKey =
+	(typeof upsertAiGatewayBudgetDefaultRequestAppliesToEnum)[keyof typeof upsertAiGatewayBudgetDefaultRequestAppliesToEnum];
+
 export type UpsertAiGatewayBudgetDefaultBody =
 	| {
 			scopeType: UpsertAiGatewayBudgetDefaultRequestScopeTypeEnumKey;
@@ -27383,6 +27519,11 @@ export type UpsertAiGatewayBudgetDefaultBody =
 			limitAmount: number;
 			refreshPeriod?: UpsertAiGatewayBudgetDefaultRequestRefreshPeriodEnumKey | undefined;
 			alertThresholds?: UpsertAiGatewayBudgetDefaultRequestAlertThresholdsEnumKey[] | undefined;
+			/**
+			 * @description Key spend attributions the api-key default covers. Only valid when scopeType is api-key. Omit to keep the stored value; unset means both.
+			 * @type array | undefined
+			 */
+			appliesTo?: UpsertAiGatewayBudgetDefaultRequestAppliesToEnumKey[] | undefined;
 			/**
 			 * @description Why the budget is being changed, up to 500 characters. Recorded in the activity log and audit log drains, and sent in the ai-gateway.budget.updated webhook.
 			 * @type string | undefined
@@ -35082,7 +35223,7 @@ export type CreateConnectorResponse = CreateConnectorStatus201;
 
 export type UpdateConnectorPath = {
 	/**
-	 * @description Stable connector ID or URL-encoded team-scoped UID. Examples: `scl_abc123` or `slack%2Fmy-bot`.
+	 * @description Stable connector ID or URL-encoded team- or organization-scoped UID. Examples: `scl_abc123` or `slack%2Fmy-bot`.
 	 * @type string
 	 */
 	connector: string;
@@ -36119,6 +36260,10 @@ export type GetConnectorTokenBody =
 						[key: string]: unknown;
 				  }[]
 				| undefined;
+			/**
+			 * @minimum 0
+			 * @type number | undefined
+			 */
 			validityBufferMs?: number | undefined;
 	  }
 	| undefined;
@@ -36597,6 +36742,8 @@ export type PutProjectDaemonInstancesStatus403 = unknown;
 
 export type PutProjectDaemonInstancesStatus404 = unknown;
 
+export type PutProjectDaemonInstancesStatus409 = unknown;
+
 export type PutProjectDaemonInstancesStatus410 = unknown;
 
 /**
@@ -36622,6 +36769,7 @@ export type PutProjectDaemonInstancesResponses = {
 	"401": PutProjectDaemonInstancesStatus401;
 	"403": PutProjectDaemonInstancesStatus403;
 	"404": PutProjectDaemonInstancesStatus404;
+	"409": PutProjectDaemonInstancesStatus409;
 	"410": PutProjectDaemonInstancesStatus410;
 };
 
@@ -54719,6 +54867,8 @@ export type DeleteConfigurableLogDrainStatus403 = unknown;
 
 export type DeleteConfigurableLogDrainStatus404 = unknown;
 
+export type DeleteConfigurableLogDrainStatus409 = unknown;
+
 export type DeleteConfigurableLogDrainStatus410 = unknown;
 
 export type DeleteConfigurableLogDrainOptions = {
@@ -54734,6 +54884,7 @@ export type DeleteConfigurableLogDrainResponses = {
 	"401": DeleteConfigurableLogDrainStatus401;
 	"403": DeleteConfigurableLogDrainStatus403;
 	"404": DeleteConfigurableLogDrainStatus404;
+	"409": DeleteConfigurableLogDrainStatus409;
 	"410": DeleteConfigurableLogDrainStatus410;
 };
 
@@ -130897,8 +131048,8 @@ export type CreateSandboxesV2Body =
 			 */
 			snapshotExpiration?: (unknown | number) | undefined;
 			/**
-			 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time. Defaults to 2 minutes. Takes effect from the next session.
-			 * @minimum 120000
+			 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time. Defaults to 1 minute. Takes effect from the next session.
+			 * @minimum 60000
 			 * @maximum 3600000
 			 * @example 300000
 			 * @type integer | undefined
@@ -132231,8 +132382,8 @@ export type UpdateSandboxBody =
 			 */
 			snapshotExpiration?: (unknown | number) | undefined;
 			/**
-			 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time. Defaults to 2 minutes. Takes effect from the next session.
-			 * @minimum 120000
+			 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time. Defaults to 1 minute. Takes effect from the next session.
+			 * @minimum 60000
 			 * @maximum 3600000
 			 * @example 300000
 			 * @type integer | undefined
@@ -134935,7 +135086,7 @@ export type CreateSandboxesByNameForkV2Body =
 			snapshotExpiration?: (unknown | number) | undefined;
 			/**
 			 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. Defaults to the source sandbox setting.
-			 * @minimum 120000
+			 * @minimum 60000
 			 * @maximum 3600000
 			 * @example 300000
 			 * @type integer | undefined
@@ -135688,8 +135839,8 @@ export type CreateSandboxesV3Body =
 			 */
 			snapshotExpiration?: (unknown | number) | undefined;
 			/**
-			 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time. Defaults to 2 minutes. Takes effect from the next session.
-			 * @minimum 120000
+			 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time. Defaults to 1 minute. Takes effect from the next session.
+			 * @minimum 60000
 			 * @maximum 3600000
 			 * @example 300000
 			 * @type integer | undefined
@@ -136459,7 +136610,7 @@ export type CreateSandboxesByNameForkV3Body =
 			snapshotExpiration?: (unknown | number) | undefined;
 			/**
 			 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. Defaults to the source sandbox setting.
-			 * @minimum 120000
+			 * @minimum 60000
 			 * @maximum 3600000
 			 * @example 300000
 			 * @type integer | undefined
@@ -137214,8 +137365,8 @@ export type CreateSandboxesV4Body =
 			 */
 			snapshotExpiration?: (unknown | number) | undefined;
 			/**
-			 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time. Defaults to 2 minutes. Takes effect from the next session.
-			 * @minimum 120000
+			 * @description How long before a session expires, in milliseconds, the `sandbox.session.expiring` webhook is sent. It affects only that webhook. When a deadline is closer than the lead time, the webhook is sent right away: at the start of a session whose timeout is shorter, and after each extension that leaves the deadline within the lead time. Defaults to 1 minute. Takes effect from the next session.
+			 * @minimum 60000
 			 * @maximum 3600000
 			 * @example 300000
 			 * @type integer | undefined
@@ -150288,6 +150439,38 @@ export type UploadFileResponses = {
  */
 export type UploadFileResponse = UploadFileStatus200;
 
+export const listAuthTokensKind = {
+	"access-token": "access-token",
+	all: "all",
+	app: "app",
+	"sign-in-session": "sign-in-session",
+} as const;
+
+export type ListAuthTokensKindKey = (typeof listAuthTokensKind)[keyof typeof listAuthTokensKind];
+
+export const listAuthTokensStatus = {
+	active: "active",
+	all: "all",
+	expired: "expired",
+	revoked: "revoked",
+} as const;
+
+export type ListAuthTokensStatusKey =
+	(typeof listAuthTokensStatus)[keyof typeof listAuthTokensStatus];
+
+export type ListAuthTokensQuery = {
+	/**
+	 * @description Filter by token kind. Omit or use `all` to include every kind.
+	 * @type string | undefined
+	 */
+	kind?: ListAuthTokensKindKey | undefined;
+	/**
+	 * @description Filter by token status. Omit or use `all` to include every status.
+	 * @type string | undefined
+	 */
+	status?: ListAuthTokensStatusKey | undefined;
+};
+
 export type ListAuthTokensStatus200 =
 	| {
 			pagination: {
@@ -150317,7 +150500,7 @@ export type ListAuthTokensStatus410 = unknown;
 export type ListAuthTokensOptions = {
 	body?: never | undefined;
 	path?: never | undefined;
-	query?: never | undefined;
+	query?: ListAuthTokensQuery | undefined;
 	headers?: never | undefined;
 };
 
