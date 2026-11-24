@@ -1313,7 +1313,7 @@ export const connectConnectorCreateDataSchema = z
 				.string()
 				.optional()
 				.describe(
-					"OAuth client secret. An update that changes the authorization server removes the stored secret unless the same update sends a new one.",
+					"OAuth client secret. On update, an empty string removes the stored secret. An update that changes the authorization server also removes it unless the same update sends a new one.",
 				),
 			tokenEndpointAuthMethod: z
 				.string()
@@ -2206,7 +2206,7 @@ export const connectConnectorUpdateDataSchema = z
 				.string()
 				.optional()
 				.describe(
-					"OAuth client secret. An update that changes the authorization server removes the stored secret unless the same update sends a new one.",
+					"OAuth client secret. On update, an empty string removes the stored secret. An update that changes the authorization server also removes it unless the same update sends a new one.",
 				),
 			tokenEndpointAuthMethod: z
 				.string()
@@ -3442,6 +3442,20 @@ export const globalConfigTokenSchema = z
 			),
 	})
 	.describe("The Global Config.");
+
+export const globalConfigTokenMetadataSchema = z.object({
+	createdAt: z.number(),
+	edgeConfigId: z.string(),
+	id: z
+		.string()
+		.describe("This is not the token itself, but rather an id to identify the token by"),
+	label: z.string(),
+	partialToken: z
+		.string()
+		.describe(
+			"A partially-masked representation of the token, safe to display in UIs. The format is the first 3 characters of the token followed by a fixed 8-character `*` mask (e.g. `550e8400-e29b-41d4-a716-446655440000` → `550********`). The mask length is intentionally fixed (not proportional to the original token length) to avoid leaking the token length. Prefer this field for display/reference in UIs and logs. The full, plaintext token is only disclosed once at creation time via `POST /v1/edge-config/:edgeConfigId/token`; use `id` to reference a token in subsequent calls (e.g. when deleting).",
+		),
+});
 
 /**
  * The payload of the event, if requested.
@@ -8037,6 +8051,14 @@ export const userEventSchema = z
 				}),
 				z.strictObject({
 					connectionType: z.string(),
+					enforced: z.union([z.literal(false), z.literal(true)]),
+					organizationId: z.string(),
+					organizationSlug: z.string(),
+					sourceTeamId: z.string(),
+					sourceTeamName: z.string(),
+				}),
+				z.strictObject({
+					connectionType: z.string(),
 					organizationId: z.string(),
 					organizationSlug: z.string(),
 				}),
@@ -12530,6 +12552,7 @@ export const userEventSchema = z
 				"organization-emu-updated",
 				"organization-name-update",
 				"organization-slug-update",
+				"organization-sso-adopted",
 				"organization-sso-deleted",
 				"organization-sso-enforced",
 				"organization-sso-new-teams-update",
@@ -13479,6 +13502,7 @@ export const listEventTypeSchema = z
 				"organization-emu-updated",
 				"organization-name-update",
 				"organization-slug-update",
+				"organization-sso-adopted",
 				"organization-sso-deleted",
 				"organization-sso-enforced",
 				"organization-sso-new-teams-update",
@@ -14320,6 +14344,7 @@ export const listEventTypeSchema = z
 					"organization-emu-updated",
 					"organization-name-update",
 					"organization-slug-update",
+					"organization-sso-adopted",
 					"organization-sso-deleted",
 					"organization-sso-enforced",
 					"organization-sso-new-teams-update",
@@ -47730,6 +47755,68 @@ export const createEdgeConfigTokenQuerySchema = z.object({
 	slug: createEdgeConfigTokenQuerySlugSchema,
 });
 
+/**
+ * The Global Config token to look up.
+ */
+export const lookupEdgeConfigTokenHeaderXVercelGlobalConfigTokenSchema = z
+	.string()
+	.describe("The Global Config token to look up.");
+
+export const lookupEdgeConfigTokenPathEdgeConfigIdSchema = z.string().regex(/^ecfg_/);
+
+/**
+ * The Team identifier to perform the request on behalf of.
+ */
+export const lookupEdgeConfigTokenQueryTeamIdSchema = z
+	.string()
+	.optional()
+	.describe("The Team identifier to perform the request on behalf of.")
+	.meta({ examples: ["team_1a2b3c4d5e6f7g8h9i0j1k2l"] });
+
+/**
+ * The Team slug to perform the request on behalf of.
+ */
+export const lookupEdgeConfigTokenQuerySlugSchema = z
+	.string()
+	.optional()
+	.describe("The Team slug to perform the request on behalf of.")
+	.meta({ examples: ["my-team-url-slug"] });
+
+export const lookupEdgeConfigTokenStatus200Schema = globalConfigTokenMetadataSchema;
+
+export const lookupEdgeConfigTokenStatus400Schema = z.unknown();
+
+export const lookupEdgeConfigTokenStatus401Schema = z.unknown();
+
+export const lookupEdgeConfigTokenStatus403Schema = z.unknown();
+
+export const lookupEdgeConfigTokenStatus404Schema = z.unknown();
+
+export const lookupEdgeConfigTokenStatus410Schema = z.unknown();
+
+export const lookupEdgeConfigTokenResponseSchema = lookupEdgeConfigTokenStatus200Schema;
+
+export const lookupEdgeConfigTokenErrorSchema = z.union([
+	lookupEdgeConfigTokenStatus400Schema,
+	lookupEdgeConfigTokenStatus401Schema,
+	lookupEdgeConfigTokenStatus403Schema,
+	lookupEdgeConfigTokenStatus404Schema,
+	lookupEdgeConfigTokenStatus410Schema,
+]);
+
+export const lookupEdgeConfigTokenPathSchema = z.object({
+	edgeConfigId: lookupEdgeConfigTokenPathEdgeConfigIdSchema,
+});
+
+export const lookupEdgeConfigTokenQuerySchema = z.object({
+	teamId: lookupEdgeConfigTokenQueryTeamIdSchema,
+	slug: lookupEdgeConfigTokenQuerySlugSchema,
+});
+
+export const lookupEdgeConfigTokenHeadersSchema = z.object({
+	"x-vercel-global-config-token": lookupEdgeConfigTokenHeaderXVercelGlobalConfigTokenSchema,
+});
+
 export const getEdgeConfigBackupPathEdgeConfigIdSchema = z.string();
 
 export const getEdgeConfigBackupPathEdgeConfigBackupVersionIdSchema = z.string();
@@ -53815,7 +53902,7 @@ export const createSdkKeyErrorSchema = z.union([
 
 export const createSdkKeyBodySchema = z
 	.strictObject({
-		sdkKeyType: z.enum(["client", "mobile", "server"]),
+		sdkKeyType: z.enum(["server"]),
 		environment: z.string(),
 		label: z.string().optional(),
 	})
@@ -54631,6 +54718,16 @@ export const getAccountInfoStatus200Schema = z.object({
 		.nullable()
 		.describe(
 			"The best contact for the integration, which can change as team members and their roles change.",
+		),
+	contacts: z
+		.array(
+			z.object({
+				email: z.string(),
+				name: z.string().optional(),
+			}),
+		)
+		.describe(
+			"Up to 3 contacts for the integration. `contact` comes first, followed by the confirmed owners of the team, longest-standing first. For a personal account, the account owner.",
 		),
 	name: z.string().optional().describe("The name of the team the installation is tied to."),
 	url: z.string().describe("A URL linking to the installation in the Vercel Dashboard."),
@@ -66069,7 +66166,11 @@ export const putOrganizationTeamDsyncStatus403Schema = z.unknown();
 
 export const putOrganizationTeamDsyncStatus404Schema = z.unknown();
 
+export const putOrganizationTeamDsyncStatus409Schema = z.unknown();
+
 export const putOrganizationTeamDsyncStatus410Schema = z.unknown();
+
+export const putOrganizationTeamDsyncStatus412Schema = z.unknown();
 
 export const putOrganizationTeamDsyncResponseSchema = putOrganizationTeamDsyncStatus200Schema;
 
@@ -66078,7 +66179,9 @@ export const putOrganizationTeamDsyncErrorSchema = z.union([
 	putOrganizationTeamDsyncStatus401Schema,
 	putOrganizationTeamDsyncStatus403Schema,
 	putOrganizationTeamDsyncStatus404Schema,
+	putOrganizationTeamDsyncStatus409Schema,
 	putOrganizationTeamDsyncStatus410Schema,
+	putOrganizationTeamDsyncStatus412Schema,
 ]);
 
 export const putOrganizationTeamDsyncBodySchema = z
@@ -66087,6 +66190,12 @@ export const putOrganizationTeamDsyncBodySchema = z
 			.enum(["organization", "team"])
 			.describe(
 				"Whether the Organization's Directory Sync or the team's own directory governs the team's memberships.",
+			),
+		overrideLockout: z
+			.boolean()
+			.optional()
+			.describe(
+				"Change the root team's mode even if it would leave it without an owner or the acting admin without the Owner role on it.",
 			),
 	})
 	.optional();
@@ -66222,6 +66331,8 @@ export const putOrganizationDsyncGroupStatus403Schema = z.unknown();
 
 export const putOrganizationDsyncGroupStatus404Schema = z.unknown();
 
+export const putOrganizationDsyncGroupStatus409Schema = z.unknown();
+
 export const putOrganizationDsyncGroupStatus410Schema = z.unknown();
 
 export const putOrganizationDsyncGroupStatus412Schema = z.unknown();
@@ -66235,6 +66346,7 @@ export const putOrganizationDsyncGroupErrorSchema = z.union([
 	putOrganizationDsyncGroupStatus401Schema,
 	putOrganizationDsyncGroupStatus403Schema,
 	putOrganizationDsyncGroupStatus404Schema,
+	putOrganizationDsyncGroupStatus409Schema,
 	putOrganizationDsyncGroupStatus410Schema,
 	putOrganizationDsyncGroupStatus412Schema,
 	putOrganizationDsyncGroupStatus428Schema,
@@ -66291,6 +66403,12 @@ export const putOrganizationDsyncGroupBodySchema = z
 				)
 				.optional(),
 		}),
+		overrideLockout: z
+			.boolean()
+			.optional()
+			.describe(
+				"Save even if the change would leave the root team without an owner or the acting admin without the Owner role on it.",
+			),
 	})
 	.optional();
 
@@ -66317,6 +66435,16 @@ export const deleteOrganizationDsyncGroupHeaderIfMatchSchema = z
 export const deleteOrganizationDsyncGroupPathOrganizationIdSchema = z.string();
 
 export const deleteOrganizationDsyncGroupPathGroupIdSchema = z.string();
+
+/**
+ * Delete even if it would leave the root team without an owner or the acting admin without the Owner role on it.
+ */
+export const deleteOrganizationDsyncGroupQueryOverrideLockoutSchema = z
+	.boolean()
+	.optional()
+	.describe(
+		"Delete even if it would leave the root team without an owner or the acting admin without the Owner role on it.",
+	);
 
 /**
  * The Team identifier to perform the request on behalf of.
@@ -66346,6 +66474,8 @@ export const deleteOrganizationDsyncGroupStatus403Schema = z.unknown();
 
 export const deleteOrganizationDsyncGroupStatus404Schema = z.unknown();
 
+export const deleteOrganizationDsyncGroupStatus409Schema = z.unknown();
+
 export const deleteOrganizationDsyncGroupStatus410Schema = z.unknown();
 
 export const deleteOrganizationDsyncGroupStatus412Schema = z.unknown();
@@ -66360,6 +66490,7 @@ export const deleteOrganizationDsyncGroupErrorSchema = z.union([
 	deleteOrganizationDsyncGroupStatus401Schema,
 	deleteOrganizationDsyncGroupStatus403Schema,
 	deleteOrganizationDsyncGroupStatus404Schema,
+	deleteOrganizationDsyncGroupStatus409Schema,
 	deleteOrganizationDsyncGroupStatus410Schema,
 	deleteOrganizationDsyncGroupStatus412Schema,
 	deleteOrganizationDsyncGroupStatus428Schema,
@@ -66371,6 +66502,7 @@ export const deleteOrganizationDsyncGroupPathSchema = z.object({
 });
 
 export const deleteOrganizationDsyncGroupQuerySchema = z.object({
+	overrideLockout: deleteOrganizationDsyncGroupQueryOverrideLockoutSchema,
 	teamId: deleteOrganizationDsyncGroupQueryTeamIdSchema,
 	slug: deleteOrganizationDsyncGroupQuerySlugSchema,
 });
@@ -104325,6 +104457,8 @@ export const acceptProjectTransferRequestStatus400Schema = z.unknown();
 
 export const acceptProjectTransferRequestStatus401Schema = z.unknown();
 
+export const acceptProjectTransferRequestStatus402Schema = z.unknown();
+
 export const acceptProjectTransferRequestStatus403Schema = z.unknown();
 
 export const acceptProjectTransferRequestStatus404Schema = z.unknown();
@@ -104341,6 +104475,7 @@ export const acceptProjectTransferRequestResponseSchema =
 export const acceptProjectTransferRequestErrorSchema = z.union([
 	acceptProjectTransferRequestStatus400Schema,
 	acceptProjectTransferRequestStatus401Schema,
+	acceptProjectTransferRequestStatus402Schema,
 	acceptProjectTransferRequestStatus403Schema,
 	acceptProjectTransferRequestStatus404Schema,
 	acceptProjectTransferRequestStatus409Schema,
@@ -128748,7 +128883,7 @@ export const updateVercelCiRepositorySettingsQuerySchema = z.object({
  * Repository provider (e.g., \"github\").
  */
 export const listVercelCiInvocationsQueryProviderSchema = z
-	.enum(["github", "gitlab", "bitbucket", "vercel"])
+	.enum(["github", "gitlab", "bitbucket", "vercel", "cursor-origin"])
 	.optional()
 	.describe('Repository provider (e.g., \\"github\\").');
 

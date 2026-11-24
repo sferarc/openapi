@@ -1,6 +1,6 @@
 # Operations
 
-Generated from the Vercel API 0.0.1 OpenAPI spec; do not edit. 492 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
+Generated from the Vercel API 0.0.1 OpenAPI spec; do not edit. 493 operations. Call an operation as `client.api.<tag>.<operation>(params)`, or by its request as `client.request("<METHOD> <path>", params)`.
 
 ## accessGroups
 
@@ -299,6 +299,7 @@ Generated from the Vercel API 0.0.1 OpenAPI spec; do not edit. 492 operations. C
 | `client.api.globalConfig.deleteEdgeConfigTokens` | `DELETE /v1/global-config/{edgeConfigId}/tokens` | Delete one or more Global Config tokens |
 | `client.api.globalConfig.getEdgeConfigToken` | `GET /v1/global-config/{edgeConfigId}/token/{token}` | Get Global Config token meta data |
 | `client.api.globalConfig.createEdgeConfigToken` | `POST /v1/global-config/{edgeConfigId}/token` | Create a Global Config token |
+| `client.api.globalConfig.lookupEdgeConfigToken` | `GET /v1/global-config/{edgeConfigId}/token` | Look up a Global Config token |
 | `client.api.globalConfig.getEdgeConfigBackup` | `GET /v1/global-config/{edgeConfigId}/backups/{edgeConfigBackupVersionId}` | Get Global Config backup |
 | `client.api.globalConfig.restoreEdgeConfigBackup` | `POST /v1/global-config/{edgeConfigId}/backups/{edgeConfigBackupVersionId}/restore` | Restore Global Config backup |
 | `client.api.globalConfig.getEdgeConfigBackups` | `GET /v1/global-config/{edgeConfigId}/backups` | Get Global Config backups |
