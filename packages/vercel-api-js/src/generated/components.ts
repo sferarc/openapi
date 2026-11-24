@@ -1030,6 +1030,7 @@ import type {
 	DeleteConfigurableLogDrainStatus401,
 	DeleteConfigurableLogDrainStatus403,
 	DeleteConfigurableLogDrainStatus404,
+	DeleteConfigurableLogDrainStatus409,
 	DeleteConfigurableLogDrainStatus410,
 	DeleteConfigurationPath,
 	DeleteConfigurationQuery,
@@ -2902,6 +2903,7 @@ import type {
 	ListAliasesStatus403,
 	ListAliasesStatus404,
 	ListAliasesStatus410,
+	ListAuthTokensQuery,
 	ListAuthTokensResponse,
 	ListAuthTokensStatus400,
 	ListAuthTokensStatus401,
@@ -3443,6 +3445,7 @@ import type {
 	PutProjectDaemonInstancesStatus401,
 	PutProjectDaemonInstancesStatus403,
 	PutProjectDaemonInstancesStatus404,
+	PutProjectDaemonInstancesStatus409,
 	PutProjectDaemonInstancesStatus410,
 	ReadAccessGroupPath,
 	ReadAccessGroupProjectPath,
@@ -8900,6 +8903,7 @@ export async function putProjectDaemonInstances(
 			| PutProjectDaemonInstancesStatus401
 			| PutProjectDaemonInstancesStatus403
 			| PutProjectDaemonInstancesStatus404
+			| PutProjectDaemonInstancesStatus409
 			| PutProjectDaemonInstancesStatus410
 		>,
 		PutProjectDaemonInstancesBody,
@@ -10843,6 +10847,7 @@ export async function deleteConfigurableLogDrain(
 			| DeleteConfigurableLogDrainStatus401
 			| DeleteConfigurableLogDrainStatus403
 			| DeleteConfigurableLogDrainStatus404
+			| DeleteConfigurableLogDrainStatus409
 			| DeleteConfigurableLogDrainStatus410
 		>,
 		null,
@@ -23995,7 +24000,13 @@ export async function uploadFile(
  * @link /v6/user/tokens
  */
 export async function listAuthTokens(
-	{ config }: { config?: Partial<FetcherConfig> & { client?: typeof defaultClient } } = {} as any,
+	{
+		queryParams,
+		config,
+	}: {
+		queryParams?: Partial<ListAuthTokensQuery>;
+		config?: Partial<FetcherConfig> & { client?: typeof defaultClient };
+	} = {} as any,
 ) {
 	const { client: request = defaultClient, ...requestConfig } = config ?? {};
 
@@ -24009,11 +24020,12 @@ export async function listAuthTokens(
 		>,
 		null,
 		Record<string, string>,
-		Record<string, string>,
+		Partial<ListAuthTokensQuery>,
 		Record<string, string>
 	>({
 		method: "GET",
 		url: `/v6/user/tokens`,
+		queryParams,
 		...requestConfig,
 		headers: { ...requestConfig.headers },
 	});
