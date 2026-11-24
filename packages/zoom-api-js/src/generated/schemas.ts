@@ -2,6 +2,9 @@
 
 import * as z from "zod";
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const listArchivedFilesQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -10,6 +13,9 @@ export const listArchivedFilesQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const listArchivedFilesQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -18,6 +24,9 @@ export const listArchivedFilesQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * The query start date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `to` query parameter value cannot exceed seven days.
+ */
 export const listArchivedFilesQueryFromSchema = z.iso
 	.datetime({ offset: true })
 	.optional()
@@ -26,6 +35,9 @@ export const listArchivedFilesQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2021-03-11T05:41:36Z"] });
 
+/**
+ * The query end date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `from` query parameter value cannot exceed seven days.
+ */
 export const listArchivedFilesQueryToSchema = z.iso
 	.datetime({ offset: true })
 	.optional()
@@ -34,6 +46,12 @@ export const listArchivedFilesQueryToSchema = z.iso
 	)
 	.meta({ examples: ["2021-03-18T05:41:36Z"] });
 
+/**
+ * The type of query date.
+ * * `meeting_start_time`
+ * * `archive_complete_time`
+ *  This value defaults to `meeting_start_time`.
+ */
 export const listArchivedFilesQueryQueryDateTypeSchema = z
 	.enum(["meeting_start_time", "archive_complete_time"])
 	.optional()
@@ -43,12 +61,20 @@ export const listArchivedFilesQueryQueryDateTypeSchema = z
 	)
 	.meta({ examples: ["meeting_start_time"] });
 
+/**
+ * Deprecated. Please use 'group_ids' for querying.
+ * @deprecated
+ */
 export const listArchivedFilesQueryGroupIdSchema = z
 	.string()
 	.optional()
 	.describe("Deprecated. Please use 'group_ids' for querying.")
 	.meta({ examples: ["pvFIYKSDTum9iCDOOtQL4w"] });
 
+/**
+ * The group IDs. To get a group ID, use the [List groups](/docs/api/rest/reference/scim-api/methods/#operation/groupSCIM2List) API.
+ * (The maximum number of supported groups for filtering is 7.)
+ */
 export const listArchivedFilesQueryGroupIdsSchema = z
 	.string()
 	.optional()
@@ -57,6 +83,19 @@ export const listArchivedFilesQueryGroupIdsSchema = z
 	)
 	.meta({ examples: ["CVCF1k8ZR3e52ChmEzlNxA,lwQiDh2kS0WaawetgMjtfw"] });
 
+/**
+ * Filter files by file type.
+ * * `MP4` — Video file.
+ * * `M4A` — Audio-only file.
+ * * `CHAT` — A TXT file containing in-meeting chat messages.
+ * * `CC` — A file containing the closed captions of the recording in VTT file format.
+ * * `CHAT_MESSAGE` — A JSON file encoded in base64 format containing chat messages. The file also includes waiting room chats, deleted messages, meeting emojis, and non-verbal feedback.
+ * * `TRANSCRIPT` — A JSON file that includes the audio transcript.
+ * * `SUB_GROUP_MEMBER_LOG` — A JSON file containing records of members entering and leaving the subgroup.
+ * * `AIC_CONVERSATION` — A JSON file that includes internal user archive AIC content.
+ * * `POLL` — A JSON file that includes meeting poll data.
+ * * `QA` — A JSON file that includes meeting Q&A data.
+ */
 export const listArchivedFilesQueryFileTypeSchema = z
 	.enum([
 		"MP4",
@@ -385,74 +424,19 @@ export const listArchivedFilesErrorSchema = z.union([
 ]);
 
 export const listArchivedFilesQuerySchema = z.object({
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
-	from: z.iso
-		.datetime({ offset: true })
-		.optional()
-		.describe(
-			"The query start date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `to` query parameter value cannot exceed seven days.",
-		)
-		.meta({ examples: ["2021-03-11T05:41:36Z"] }),
-	to: z.iso
-		.datetime({ offset: true })
-		.optional()
-		.describe(
-			"The query end date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `from` query parameter value cannot exceed seven days.",
-		)
-		.meta({ examples: ["2021-03-18T05:41:36Z"] }),
-	query_date_type: z
-		.enum(["meeting_start_time", "archive_complete_time"])
-		.optional()
-		.default("meeting_start_time")
-		.describe(
-			"The type of query date.\n* `meeting_start_time` \n* `archive_complete_time` \n\n This value defaults to `meeting_start_time`.",
-		)
-		.meta({ examples: ["meeting_start_time"] }),
-	group_id: z
-		.string()
-		.optional()
-		.describe("Deprecated. Please use 'group_ids' for querying.")
-		.meta({ examples: ["pvFIYKSDTum9iCDOOtQL4w"] }),
-	group_ids: z
-		.string()
-		.optional()
-		.describe(
-			"The group IDs. To get a group ID, use the [List groups](/docs/api/rest/reference/scim-api/methods/#operation/groupSCIM2List) API.\n(The maximum number of supported groups for filtering is 7.)",
-		)
-		.meta({ examples: ["CVCF1k8ZR3e52ChmEzlNxA,lwQiDh2kS0WaawetgMjtfw"] }),
-	file_type: z
-		.enum([
-			"MP4",
-			"M4A",
-			"CHAT",
-			"CC",
-			"CHAT_MESSAGE",
-			"TRANSCRIPT",
-			"SUB_GROUP_MEMBER_LOG",
-			"AIC_COVERSATION",
-			"POLL",
-			"QA",
-		])
-		.optional()
-		.describe(
-			"Filter files by file type.\n* `MP4` — Video file. \n* `M4A` — Audio-only file. \n* `CHAT` — A TXT file containing in-meeting chat messages. \n* `CC` — A file containing the closed captions of the recording in VTT file format. \n* `CHAT_MESSAGE` — A JSON file encoded in base64 format containing chat messages. The file also includes waiting room chats, deleted messages, meeting emojis, and non-verbal feedback. \n* `TRANSCRIPT` — A JSON file that includes the audio transcript. \n* `SUB_GROUP_MEMBER_LOG` — A JSON file containing records of members entering and leaving the subgroup. \n* `AIC_CONVERSATION` — A JSON file that includes internal user archive AIC content. \n* `POLL` — A JSON file that includes meeting poll data. \n* `QA` — A JSON file that includes meeting Q&A data.",
-		)
-		.meta({ examples: ["CHAT"] }),
+	page_size: listArchivedFilesQueryPageSizeSchema,
+	next_page_token: listArchivedFilesQueryNextPageTokenSchema,
+	from: listArchivedFilesQueryFromSchema,
+	to: listArchivedFilesQueryToSchema,
+	query_date_type: listArchivedFilesQueryQueryDateTypeSchema,
+	group_id: listArchivedFilesQueryGroupIdSchema,
+	group_ids: listArchivedFilesQueryGroupIdsSchema,
+	file_type: listArchivedFilesQueryFileTypeSchema,
 });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const listArchiveFileDownloadAuditQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -461,6 +445,9 @@ export const listArchiveFileDownloadAuditQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const listArchiveFileDownloadAuditQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -469,6 +456,9 @@ export const listArchiveFileDownloadAuditQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * The query start date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `to` query parameter value cannot exceed seven days.
+ */
 export const listArchiveFileDownloadAuditQueryFromSchema = z.iso
 	.datetime({ offset: true })
 	.optional()
@@ -477,6 +467,9 @@ export const listArchiveFileDownloadAuditQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2026-06-17T00:00:00Z"] });
 
+/**
+ * The query end date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `from` query parameter value cannot exceed seven days.
+ */
 export const listArchiveFileDownloadAuditQueryToSchema = z.iso
 	.datetime({ offset: true })
 	.optional()
@@ -577,36 +570,15 @@ export const listArchiveFileDownloadAuditErrorSchema = z.union([
 ]);
 
 export const listArchiveFileDownloadAuditQuerySchema = z.object({
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
-	from: z.iso
-		.datetime({ offset: true })
-		.optional()
-		.describe(
-			"The query start date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `to` query parameter value cannot exceed seven days.",
-		)
-		.meta({ examples: ["2026-06-17T00:00:00Z"] }),
-	to: z.iso
-		.datetime({ offset: true })
-		.optional()
-		.describe(
-			"The query end date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `from` query parameter value cannot exceed seven days.",
-		)
-		.meta({ examples: ["2026-06-23T23:59:59Z"] }),
+	page_size: listArchiveFileDownloadAuditQueryPageSizeSchema,
+	next_page_token: listArchiveFileDownloadAuditQueryNextPageTokenSchema,
+	from: listArchiveFileDownloadAuditQueryFromSchema,
+	to: listArchiveFileDownloadAuditQueryToSchema,
 });
 
+/**
+ * The query start date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `to` query parameter value cannot exceed seven days.
+ */
 export const getArchivedFileStatisticsQueryFromSchema = z.iso
 	.datetime({ offset: true })
 	.optional()
@@ -615,6 +587,9 @@ export const getArchivedFileStatisticsQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2021-03-11T05:41:36Z"] });
 
+/**
+ * The query end date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `from` query parameter value cannot exceed seven days.
+ */
 export const getArchivedFileStatisticsQueryToSchema = z.iso
 	.datetime({ offset: true })
 	.optional()
@@ -703,22 +678,13 @@ export const getArchivedFileStatisticsErrorSchema = z.union([
 ]);
 
 export const getArchivedFileStatisticsQuerySchema = z.object({
-	from: z.iso
-		.datetime({ offset: true })
-		.optional()
-		.describe(
-			"The query start date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `to` query parameter value cannot exceed seven days.",
-		)
-		.meta({ examples: ["2021-03-11T05:41:36Z"] }),
-	to: z.iso
-		.datetime({ offset: true })
-		.optional()
-		.describe(
-			"The query end date, in `yyyy-MM-dd'T'HH:mm:ssZ` format. This value and the `from` query parameter value cannot exceed seven days.",
-		)
-		.meta({ examples: ["2021-03-18T05:41:36Z"] }),
+	from: getArchivedFileStatisticsQueryFromSchema,
+	to: getArchivedFileStatisticsQueryToSchema,
 });
 
+/**
+ * Archived file ID.
+ */
 export const updateArchivedFilePathFileIdSchema = z
 	.string()
 	.describe("Archived file ID.")
@@ -750,12 +716,13 @@ export const updateArchivedFileBodySchema = z
 	.optional();
 
 export const updateArchivedFilePathSchema = z.object({
-	fileId: z
-		.string()
-		.describe("Archived file ID.")
-		.meta({ examples: ["a5983951-044e-473f-9acd-5c398c0a8cce"] }),
+	fileId: updateArchivedFilePathFileIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingLocalArchivingArchiveTokenPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -763,6 +730,9 @@ export const meetingLocalArchivingArchiveTokenPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * Information about the meeting's local archive token.
+ */
 export const meetingLocalArchivingArchiveTokenStatus200Schema = z
 	.object({
 		expire_in: z
@@ -796,14 +766,13 @@ export const meetingLocalArchivingArchiveTokenErrorSchema = z.union([
 ]);
 
 export const meetingLocalArchivingArchiveTokenPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingLocalArchivingArchiveTokenPathMeetingIdSchema,
 });
 
+/**
+ * The meeting's universally unique identifier (UUID). Each meeting instance generates a UUID. After a meeting ends, a new UUID is generated for the next meeting instance.
+ * If the meeting UUID begins with a `/` character or contains a `//` character, you **must** [double encode](/docs/api/using-zoom-apis/#meeting-id-and-uuid) the meeting UUID when using the meeting UUID for other API calls.
+ */
 export const getArchivedFilesPathMeetingUUIDSchema = z
 	.string()
 	.describe(
@@ -1076,14 +1045,13 @@ export const getArchivedFilesErrorSchema = z.union([
 ]);
 
 export const getArchivedFilesPathSchema = z.object({
-	meetingUUID: z
-		.string()
-		.describe(
-			"The meeting's universally unique identifier (UUID). Each meeting instance generates a UUID. After a meeting ends, a new UUID is generated for the next meeting instance.\n\nIf the meeting UUID begins with a `/` character or contains a `//` character, you **must** [double encode](/docs/api/using-zoom-apis/#meeting-id-and-uuid) the meeting UUID when using the meeting UUID for other API calls.",
-		)
-		.meta({ examples: ["4444AAAiAAAAAiAiAiiAii=="] }),
+	meetingUUID: getArchivedFilesPathMeetingUUIDSchema,
 });
 
+/**
+ * The meeting's universally unique identifier (UUID). Each meeting instance generates a UUID. For example, after a meeting ends, a new UUID is generated for the next meeting instance.
+ * If the meeting UUID begins with a `/` character or contains a `//` character, you **must** double-encode the meeting UUID when using the meeting UUID for other API calls.
+ */
 export const deleteArchivedFilesPathMeetingUUIDSchema = z
 	.string()
 	.describe(
@@ -1108,14 +1076,14 @@ export const deleteArchivedFilesErrorSchema = z.union([
 ]);
 
 export const deleteArchivedFilesPathSchema = z.object({
-	meetingUUID: z
-		.string()
-		.describe(
-			"The meeting's universally unique identifier (UUID). Each meeting instance generates a UUID. For example, after a meeting ends, a new UUID is generated for the next meeting instance.\n\nIf the meeting UUID begins with a `/` character or contains a `//` character, you **must** double-encode the meeting UUID when using the meeting UUID for other API calls.",
-		)
-		.meta({ examples: ["4444AAAiAAAAAiAiAiiAii=="] }),
+	meetingUUID: deleteArchivedFilesPathMeetingUUIDSchema,
 });
 
+/**
+ * To get a meeting's cloud recordings, provide the meeting ID or UUID. If providing the meeting ID instead of UUID, the response will be for the latest meeting instance.
+ * To get a webinar's cloud recordings, provide the webinar's ID or UUID. If providing the webinar ID instead of UUID, the response will be for the latest webinar instance.
+ * If a UUID starts with `/` or contains `//` (example: `/ajXp112QmuoKj4854875==`), **[double encode](/docs/api/using-zoom-apis/#meeting-id-and-uuid) the UUID** before making an API request.
+ */
 export const recordingGetPathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -1123,6 +1091,9 @@ export const recordingGetPathMeetingIdSchema = z
 	)
 	.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] });
 
+/**
+ * Include fields in the response. Currently, only accepts `download_access_token` to get this token field and value for downloading the meeting's recordings. The `download_access_token` requires **View the recording content** enabled for the role authorizing the account. Use the format `include_fields=download_access_token`.
+ */
 export const recordingGetQueryIncludeFieldsSchema = z
 	.string()
 	.optional()
@@ -1131,6 +1102,9 @@ export const recordingGetQueryIncludeFieldsSchema = z
 	)
 	.meta({ examples: ["download_access_token"] });
 
+/**
+ * The `download_access_token` Time to Live (TTL) value. This parameter is only valid if the `include_fields` query parameter contains the value `download_access_token`.
+ */
 export const recordingGetQueryTtlSchema = z
 	.int()
 	.min(0)
@@ -1494,33 +1468,19 @@ export const recordingGetErrorSchema = z.union([
 ]);
 
 export const recordingGetPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"To get a meeting's cloud recordings, provide the meeting ID or UUID. If providing the meeting ID instead of UUID, the response will be for the latest meeting instance. \n\nTo get a webinar's cloud recordings, provide the webinar's ID or UUID. If providing the webinar ID instead of UUID, the response will be for the latest webinar instance. \n\nIf a UUID starts with `/` or contains `//` (example: `/ajXp112QmuoKj4854875==`), **[double encode](/docs/api/using-zoom-apis/#meeting-id-and-uuid) the UUID** before making an API request. ",
-		)
-		.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] }),
+	meetingId: recordingGetPathMeetingIdSchema,
 });
 
 export const recordingGetQuerySchema = z.object({
-	include_fields: z
-		.string()
-		.optional()
-		.describe(
-			"Include fields in the response. Currently, only accepts `download_access_token` to get this token field and value for downloading the meeting's recordings. The `download_access_token` requires **View the recording content** enabled for the role authorizing the account. Use the format `include_fields=download_access_token`.",
-		)
-		.meta({ examples: ["download_access_token"] }),
-	ttl: z
-		.int()
-		.min(0)
-		.max(604800)
-		.optional()
-		.describe(
-			"The `download_access_token` Time to Live (TTL) value. This parameter is only valid if the `include_fields` query parameter contains the value `download_access_token`.",
-		)
-		.meta({ examples: [1] }),
+	include_fields: recordingGetQueryIncludeFieldsSchema,
+	ttl: recordingGetQueryTtlSchema,
 });
 
+/**
+ * To get a meeting's cloud recordings, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance.
+ * To get a webinar's cloud recordings, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance.
+ * If a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request.
+ */
 export const recordingDeletePathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -1528,6 +1488,11 @@ export const recordingDeletePathMeetingIdSchema = z
 	)
 	.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] });
 
+/**
+ * The recording delete actions.
+ *  `trash` - Move recording to trash.
+ *  `delete` - Delete recording permanently.
+ */
 export const recordingDeleteQueryActionSchema = z
 	.enum(["trash", "delete"])
 	.optional()
@@ -1554,25 +1519,18 @@ export const recordingDeleteErrorSchema = z.union([
 ]);
 
 export const recordingDeletePathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"To get a meeting's cloud recordings, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance. \n\nTo get a webinar's cloud recordings, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance. \n\nIf a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request. ",
-		)
-		.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] }),
+	meetingId: recordingDeletePathMeetingIdSchema,
 });
 
 export const recordingDeleteQuerySchema = z.object({
-	action: z
-		.enum(["trash", "delete"])
-		.optional()
-		.default("trash")
-		.describe(
-			"The recording delete actions.  \n `trash` - Move recording to trash.  \n `delete` - Delete recording permanently.",
-		)
-		.meta({ examples: ["delete"] }),
+	action: recordingDeleteQueryActionSchema,
 });
 
+/**
+ * To get a meeting's cloud recordings, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance.
+ * To get a webinar's cloud recordings, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance.
+ * If a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request.
+ */
 export const analyticsDetailsPathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -1580,6 +1538,9 @@ export const analyticsDetailsPathMeetingIdSchema = z
 	)
 	.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const analyticsDetailsQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -1588,6 +1549,9 @@ export const analyticsDetailsQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const analyticsDetailsQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -1596,6 +1560,9 @@ export const analyticsDetailsQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * The start date for the monthly range to query. The maximum range can be a month. If you do not provide this value, this defaults to the current date.
+ */
 export const analyticsDetailsQueryFromSchema = z.iso
 	.date()
 	.optional()
@@ -1604,12 +1571,20 @@ export const analyticsDetailsQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2020-06-30"] });
 
+/**
+ * The end date for the monthly range to query. The maximum range can be a month.
+ */
 export const analyticsDetailsQueryToSchema = z.iso
 	.date()
 	.optional()
 	.describe("The end date for the monthly range to query. The maximum range can be a month.")
 	.meta({ examples: ["2020-07-30"] });
 
+/**
+ * The type of analytics details:
+ * * `by_view` &mdash; by_view.
+ * * `by_download` &mdash; by_download.
+ */
 export const analyticsDetailsQueryTypeSchema = z
 	.enum(["by_view", "by_download"])
 	.optional()
@@ -1693,50 +1668,22 @@ export const analyticsDetailsErrorSchema = z.union([
 ]);
 
 export const analyticsDetailsPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"To get a meeting's cloud recordings, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance. \n\nTo get a webinar's cloud recordings, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance. \n\nIf a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request. ",
-		)
-		.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] }),
+	meetingId: analyticsDetailsPathMeetingIdSchema,
 });
 
 export const analyticsDetailsQuerySchema = z.object({
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
-	from: z.iso
-		.date()
-		.optional()
-		.describe(
-			"The start date for the monthly range to query. The maximum range can be a month. If you do not provide this value, this defaults to the current date.",
-		)
-		.meta({ examples: ["2020-06-30"] }),
-	to: z.iso
-		.date()
-		.optional()
-		.describe("The end date for the monthly range to query. The maximum range can be a month.")
-		.meta({ examples: ["2020-07-30"] }),
-	type: z
-		.enum(["by_view", "by_download"])
-		.optional()
-		.describe(
-			"The type of analytics details: \n* `by_view` &mdash; by_view. \n* `by_download` &mdash; by_download.",
-		)
-		.meta({ examples: ["by_view"] }),
+	page_size: analyticsDetailsQueryPageSizeSchema,
+	next_page_token: analyticsDetailsQueryNextPageTokenSchema,
+	from: analyticsDetailsQueryFromSchema,
+	to: analyticsDetailsQueryToSchema,
+	type: analyticsDetailsQueryTypeSchema,
 });
 
+/**
+ * To get a meeting's cloud recordings, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance.
+ * To get a webinar's cloud recordings, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance.
+ * If a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request.
+ */
 export const analyticsSummaryPathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -1744,6 +1691,9 @@ export const analyticsSummaryPathMeetingIdSchema = z
 	)
 	.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] });
 
+/**
+ * The start date for the monthly range to query. The maximum range can be a month. If you do not provide this value, this defaults to the current date.
+ */
 export const analyticsSummaryQueryFromSchema = z.iso
 	.date()
 	.optional()
@@ -1752,6 +1702,9 @@ export const analyticsSummaryQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2020-06-30"] });
 
+/**
+ * The end date for the monthly range to query. The maximum range can be a month.
+ */
 export const analyticsSummaryQueryToSchema = z.iso
 	.date()
 	.optional()
@@ -1808,29 +1761,18 @@ export const analyticsSummaryErrorSchema = z.union([
 ]);
 
 export const analyticsSummaryPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"To get a meeting's cloud recordings, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance. \n\nTo get a webinar's cloud recordings, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance. \n\nIf a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request. ",
-		)
-		.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] }),
+	meetingId: analyticsSummaryPathMeetingIdSchema,
 });
 
 export const analyticsSummaryQuerySchema = z.object({
-	from: z.iso
-		.date()
-		.optional()
-		.describe(
-			"The start date for the monthly range to query. The maximum range can be a month. If you do not provide this value, this defaults to the current date.",
-		)
-		.meta({ examples: ["2020-06-30"] }),
-	to: z.iso
-		.date()
-		.optional()
-		.describe("The end date for the monthly range to query. The maximum range can be a month.")
-		.meta({ examples: ["2020-07-30"] }),
+	from: analyticsSummaryQueryFromSchema,
+	to: analyticsSummaryQueryToSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingRecordingRegistrantsPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -1838,6 +1780,12 @@ export const meetingRecordingRegistrantsPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * Query by the registrant's status.
+ * * `pending` - The registration is pending.
+ * * `approved` - The registrant is approved.
+ * * `denied` - The registration is denied.
+ */
 export const meetingRecordingRegistrantsQueryStatusSchema = z
 	.enum(["pending", "approved", "denied"])
 	.optional()
@@ -1847,6 +1795,9 @@ export const meetingRecordingRegistrantsQueryStatusSchema = z
 	)
 	.meta({ examples: ["pending"] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const meetingRecordingRegistrantsQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -1855,6 +1806,9 @@ export const meetingRecordingRegistrantsQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * **Deprecated.** We will no longer support this field in a future release. Instead, use the `next_page_token` for pagination.
+ */
 export const meetingRecordingRegistrantsQueryPageNumberSchema = z
 	.int()
 	.optional()
@@ -1864,6 +1818,9 @@ export const meetingRecordingRegistrantsQueryPageNumberSchema = z
 	)
 	.meta({ examples: [1] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const meetingRecordingRegistrantsQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -1872,6 +1829,9 @@ export const meetingRecordingRegistrantsQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * Information about the meeting cloud recording registrant.
+ */
 export const meetingRecordingRegistrantsStatus200Schema = z
 	.object({
 		next_page_token: z
@@ -2078,47 +2038,20 @@ export const meetingRecordingRegistrantsErrorSchema = z.union([
 ]);
 
 export const meetingRecordingRegistrantsPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingRecordingRegistrantsPathMeetingIdSchema,
 });
 
 export const meetingRecordingRegistrantsQuerySchema = z.object({
-	status: z
-		.enum(["pending", "approved", "denied"])
-		.optional()
-		.default("approved")
-		.describe(
-			"Query by the registrant's status. \n* `pending` - The registration is pending. \n* `approved` - The registrant is approved. \n* `denied` - The registration is denied.",
-		)
-		.meta({ examples: ["pending"] }),
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	page_number: z
-		.int()
-		.optional()
-		.default(1)
-		.describe(
-			"**Deprecated.** We will no longer support this field in a future release. Instead, use the `next_page_token` for pagination.",
-		)
-		.meta({ examples: [1] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
+	status: meetingRecordingRegistrantsQueryStatusSchema,
+	page_size: meetingRecordingRegistrantsQueryPageSizeSchema,
+	page_number: meetingRecordingRegistrantsQueryPageNumberSchema,
+	next_page_token: meetingRecordingRegistrantsQueryNextPageTokenSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingRecordingRegistrantCreatePathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -2165,6 +2098,9 @@ export const meetingRecordingRegistrantCreateErrorSchema = z.union([
 	meetingRecordingRegistrantCreateStatus429Schema,
 ]);
 
+/**
+ * Registrant.
+ */
 export const meetingRecordingRegistrantCreateBodySchema = z
 	.object({
 		address: z
@@ -2310,14 +2246,14 @@ export const meetingRecordingRegistrantCreateBodySchema = z
 	.describe("Registrant.");
 
 export const meetingRecordingRegistrantCreatePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingRecordingRegistrantCreatePathMeetingIdSchema,
 });
 
+/**
+ * To get a meeting's cloud recordings, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance.
+ * To get a webinar's cloud recordings, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance.
+ * If a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request.
+ */
 export const recordingRegistrantsQuestionsGetPathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -2325,6 +2261,9 @@ export const recordingRegistrantsQuestionsGetPathMeetingIdSchema = z
 	)
 	.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] });
 
+/**
+ * Recording tegistrant questions
+ */
 export const recordingRegistrantsQuestionsGetStatus200Schema = z
 	.object({
 		custom_questions: z
@@ -2401,14 +2340,15 @@ export const recordingRegistrantsQuestionsGetErrorSchema = z.union([
 ]);
 
 export const recordingRegistrantsQuestionsGetPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"To get a meeting's cloud recordings, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance. \n\nTo get a webinar's cloud recordings, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance. \n\nIf a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request. ",
-		)
-		.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] }),
+	meetingId: recordingRegistrantsQuestionsGetPathMeetingIdSchema,
 });
 
+/**
+ * To get a meeting's cloud recordings, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance.
+ * To get a webinar's cloud recordings, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID,the response will be for the latest webinar instance.
+ * If a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request.
+ * Learn more about [enabling cloud recordings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0063923) and [managing cloud recording settings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0065362).
+ */
 export const recordingRegistrantQuestionUpdatePathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -2430,6 +2370,9 @@ export const recordingRegistrantQuestionUpdateErrorSchema = z.union([
 	recordingRegistrantQuestionUpdateStatus429Schema,
 ]);
 
+/**
+ * Recording registrant questions.
+ */
 export const recordingRegistrantQuestionUpdateBodySchema = z
 	.object({
 		custom_questions: z
@@ -2495,14 +2438,13 @@ export const recordingRegistrantQuestionUpdateBodySchema = z
 	.describe("Recording registrant questions.");
 
 export const recordingRegistrantQuestionUpdatePathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"To get a meeting's cloud recordings, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance. \n\nTo get a webinar's cloud recordings, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID,the response will be for the latest webinar instance. \n\nIf a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request. \n\nLearn more about [enabling cloud recordings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0063923) and [managing cloud recording settings](https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0065362).",
-		)
-		.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] }),
+	meetingId: recordingRegistrantQuestionUpdatePathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingRecordingRegistrantStatusPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -2524,6 +2466,9 @@ export const meetingRecordingRegistrantStatusErrorSchema = z.union([
 	meetingRecordingRegistrantStatusStatus429Schema,
 ]);
 
+/**
+ * Registrant status.
+ */
 export const meetingRecordingRegistrantStatusBodySchema = z
 	.object({
 		action: z.union([z.literal("approve"), z.literal("deny")]).meta({ examples: ["approve"] }),
@@ -2543,14 +2488,15 @@ export const meetingRecordingRegistrantStatusBodySchema = z
 	.describe("Registrant status.");
 
 export const meetingRecordingRegistrantStatusPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingRecordingRegistrantStatusPathMeetingIdSchema,
 });
 
+/**
+ * The meeting ID lets you get cloud recording of a meeting or webinar.
+ * * Meeting - Provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response is for the latest meeting instance.
+ * * Webinar - Provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response is for the latest webinar instance.
+ * If a UUID starts with `/` or contains `//` (example: `/ajXp112QmuoKj4854875==`), you must **double encode** the UUID before making an API request.
+ */
 export const recordingSettingUpdatePathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -2657,14 +2603,14 @@ export const recordingSettingUpdateErrorSchema = z.union([
 ]);
 
 export const recordingSettingUpdatePathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"The meeting ID lets you get cloud recording of a meeting or webinar.\n* Meeting - Provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response is for the latest meeting instance. \n\n* Webinar - Provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response is for the latest webinar instance. \n\nIf a UUID starts with `/` or contains `//` (example: `/ajXp112QmuoKj4854875==`), you must **double encode** the UUID before making an API request. ",
-		)
-		.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] }),
+	meetingId: recordingSettingUpdatePathMeetingIdSchema,
 });
 
+/**
+ * To get cloud recordings of a meeting, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response is for the latest meeting instance.
+ * To get cloud recordings of a webinar, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response is for the latest webinar instance.
+ * If a UUID starts with `/` or contains `//` (example: &quot;/ajXp112QmuoKj4854875==&quot;), you must **double encode** the UUID before making an API request.
+ */
 export const recordingSettingsUpdatePathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -2763,14 +2709,14 @@ export const recordingSettingsUpdateBodySchema = z
 	.optional();
 
 export const recordingSettingsUpdatePathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"To get cloud recordings of a meeting, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response is for the latest meeting instance. \n\nTo get cloud recordings of a webinar, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response is for the latest webinar instance. \n\nIf a UUID starts with `/` or contains `//` (example: &quot;/ajXp112QmuoKj4854875==&quot;), you must **double encode** the UUID before making an API request. ",
-		)
-		.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] }),
+	meetingId: recordingSettingsUpdatePathMeetingIdSchema,
 });
 
+/**
+ * To get a meeting's cloud recordings, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance.
+ * To get a webinar's cloud recordings, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance.
+ * If a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request.
+ */
 export const recordingDeleteOnePathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -2778,11 +2724,19 @@ export const recordingDeleteOnePathMeetingIdSchema = z
 	)
 	.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] });
 
+/**
+ * The recording ID.
+ */
 export const recordingDeleteOnePathRecordingIdSchema = z
 	.string()
 	.describe("The recording ID.")
 	.meta({ examples: ["a2f19f96-9294-4f51-8134-6f0eea108eb2"] });
 
+/**
+ * The recording delete actions.
+ *  `trash` - Move recording to trash.
+ *  `delete` - Delete recording permanently.
+ */
 export const recordingDeleteOneQueryActionSchema = z
 	.enum(["trash", "delete"])
 	.optional()
@@ -2809,29 +2763,19 @@ export const recordingDeleteOneErrorSchema = z.union([
 ]);
 
 export const recordingDeleteOnePathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"To get a meeting's cloud recordings, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance. \n\nTo get a webinar's cloud recordings, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance. \n\nIf a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request. ",
-		)
-		.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] }),
-	recordingId: z
-		.string()
-		.describe("The recording ID.")
-		.meta({ examples: ["a2f19f96-9294-4f51-8134-6f0eea108eb2"] }),
+	meetingId: recordingDeleteOnePathMeetingIdSchema,
+	recordingId: recordingDeleteOnePathRecordingIdSchema,
 });
 
 export const recordingDeleteOneQuerySchema = z.object({
-	action: z
-		.enum(["trash", "delete"])
-		.optional()
-		.default("trash")
-		.describe(
-			"The recording delete actions. \n `trash` - Move recording to trash.  \n `delete` - Delete recording permanently.",
-		)
-		.meta({ examples: ["delete"] }),
+	action: recordingDeleteOneQueryActionSchema,
 });
 
+/**
+ * To get a meeting's cloud recordings, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance.
+ * To get a webinar's cloud recordings, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance.
+ * If a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request.
+ */
 export const recordingStatusUpdateOnePathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -2839,6 +2783,9 @@ export const recordingStatusUpdateOnePathMeetingIdSchema = z
 	)
 	.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] });
 
+/**
+ * The recording ID.
+ */
 export const recordingStatusUpdateOnePathRecordingIdSchema = z
 	.string()
 	.describe("The recording ID.")
@@ -2870,18 +2817,14 @@ export const recordingStatusUpdateOneBodySchema = z
 	.optional();
 
 export const recordingStatusUpdateOnePathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"To get a meeting's cloud recordings, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance. \n\nTo get a webinar's cloud recordings, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance. \n\nIf a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request. ",
-		)
-		.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] }),
-	recordingId: z
-		.string()
-		.describe("The recording ID.")
-		.meta({ examples: ["a2f19f96-9294-4f51-8134-6f0eea108eb2"] }),
+	meetingId: recordingStatusUpdateOnePathMeetingIdSchema,
+	recordingId: recordingStatusUpdateOnePathRecordingIdSchema,
 });
 
+/**
+ * The meeting's universally unique identifier (UUID). Each meeting instance generates a UUID. For example, after a meeting ends, a new UUID is generated for the next meeting instance.
+ * If the meeting UUID begins with a `/` character or contains a `//` character, you **must** double-encode the meeting UUID when using the meeting UUID for other API calls.
+ */
 export const recordingStatusUpdatePathMeetingUUIDSchema = z
 	.string()
 	.describe(
@@ -2915,18 +2858,19 @@ export const recordingStatusUpdateBodySchema = z
 	.optional();
 
 export const recordingStatusUpdatePathSchema = z.object({
-	meetingUUID: z
-		.string()
-		.describe(
-			"The meeting's universally unique identifier (UUID). Each meeting instance generates a UUID. For example, after a meeting ends, a new UUID is generated for the next meeting instance.\n\nIf the meeting UUID begins with a `/` character or contains a `//` character, you **must** double-encode the meeting UUID when using the meeting UUID for other API calls.",
-		)
-		.meta({ examples: ["4444AAAiAAAAAiAiAiiAii=="] }),
+	meetingUUID: recordingStatusUpdatePathMeetingUUIDSchema,
 });
 
+/**
+ * The user's ID or email address. For user-level apps, pass the `me` value.
+ */
 export const recordingsListPathUserIdSchema = z
 	.string()
 	.describe("The user's ID or email address. For user-level apps, pass the `me` value.");
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const recordingsListQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -2935,6 +2879,9 @@ export const recordingsListQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+ */
 export const recordingsListQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -2943,6 +2890,9 @@ export const recordingsListQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * The query metadata of the recording if using an on-premise meeting connector for the meeting.
+ */
 export const recordingsListQueryMcSchema = z
 	.string()
 	.optional()
@@ -2952,6 +2902,12 @@ export const recordingsListQueryMcSchema = z
 	)
 	.meta({ examples: ["false"] });
 
+/**
+ * The query trash.
+ * * `true` - List recordings from trash.
+ * * `false` - Do not list recordings from the trash.
+ * The default value is `false`. If you set it to `true`, you can use the `trash_type` property to indicate the type of Cloud recording that you need to retrieve.
+ */
 export const recordingsListQueryTrashSchema = z
 	.boolean()
 	.optional()
@@ -2961,6 +2917,11 @@ export const recordingsListQueryTrashSchema = z
 	)
 	.meta({ examples: [false] });
 
+/**
+ * The start date in 'yyyy-mm-dd' UTC format for the date range where you would like to retrieve recordings. The maximum range can be a month. If no value is provided for this field, the default will be current date.
+ * For example, if you make the API request on June 30, 2020, without providing the `from` and `to` parameters, by default the value of 'from' field will be `2020-06-30` and the value of the 'to' field will be `2020-07-01`.
+ * **Note**: The `trash` files cannot be filtered by date range and thus, the `from` and `to` fields should not be used for trash files.
+ */
 export const recordingsListQueryFromSchema = z.iso
 	.date()
 	.optional()
@@ -2969,12 +2930,20 @@ export const recordingsListQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2020-06-30"] });
 
+/**
+ * The end date in 'yyyy-mm-dd' 'yyyy-mm-dd' UTC format.
+ */
 export const recordingsListQueryToSchema = z.iso
 	.date()
 	.optional()
 	.describe("The end date in 'yyyy-mm-dd' 'yyyy-mm-dd' UTC format. ")
 	.meta({ examples: ["2020-06-30"] });
 
+/**
+ * The type of cloud recording to retrieve from the trash.
+ *  *   `meeting_recordings`: List all meeting recordings from the trash.
+ *  *  `recording_file`: List all individual recording files from the trash.
+ */
 export const recordingsListQueryTrashTypeSchema = z
 	.string()
 	.optional()
@@ -2984,12 +2953,22 @@ export const recordingsListQueryTrashTypeSchema = z
 	)
 	.meta({ examples: ["meeting_recordings"] });
 
+/**
+ * The meeting ID.
+ */
 export const recordingsListQueryMeetingIdSchema = z
 	.int()
 	.optional()
 	.describe("The meeting ID.")
 	.meta({ examples: [6840331990] });
 
+/**
+ * The Zoom Revenue Accelerator (ZRA) analysis status of a recording.
+ * * `all` - all Revenue Accelerator status.
+ * *  `added`: added to Revenue Accelerator.
+ * *  `not_added`: not added to Revenue Accelerator.
+ * *  `processing`: processing Revenue Accelerator analysis.
+ */
 export const recordingsListQueryZraStatusSchema = z
 	.enum(["all", "added", "not_added", "processing"])
 	.optional()
@@ -2999,6 +2978,11 @@ export const recordingsListQueryZraStatusSchema = z
 	)
 	.meta({ examples: ["all"] });
 
+/**
+ * * `null` - Return all recordings, including cloud recordings and My Notes recordings.
+ * * `cloud_recording_only` - Return only cloud recordings.
+ * * `my_notes_recording_only` - Return only My Notes recordings.
+ */
 export const recordingsListQueryRecordingSourceTypeSchema = z
 	.enum(["cloud_recording_only", "my_notes_recording_only"])
 	.optional()
@@ -3317,96 +3301,43 @@ export const recordingsListErrorSchema = z.union([
 ]);
 
 export const recordingsListPathSchema = z.object({
-	userId: z
-		.string()
-		.describe("The user's ID or email address. For user-level apps, pass the `me` value."),
+	userId: recordingsListPathUserIdSchema,
 });
 
 export const recordingsListQuerySchema = z.object({
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"The next page token paginates through a large set of results. A next page token returns whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
-	mc: z
-		.string()
-		.optional()
-		.default("false")
-		.describe(
-			"The query metadata of the recording if using an on-premise meeting connector for the meeting.",
-		)
-		.meta({ examples: ["false"] }),
-	trash: z
-		.boolean()
-		.optional()
-		.default(false)
-		.describe(
-			"The query trash.\n* `true` - List recordings from trash.  \n* `false` - Do not list recordings from the trash.  \n\nThe default value is `false`. If you set it to `true`, you can use the `trash_type` property to indicate the type of Cloud recording that you need to retrieve. ",
-		)
-		.meta({ examples: [false] }),
-	from: z.iso
-		.date()
-		.optional()
-		.describe(
-			"The start date in 'yyyy-mm-dd' UTC format for the date range where you would like to retrieve recordings. The maximum range can be a month. If no value is provided for this field, the default will be current date. \n\nFor example, if you make the API request on June 30, 2020, without providing the `from` and `to` parameters, by default the value of 'from' field will be `2020-06-30` and the value of the 'to' field will be `2020-07-01`. \n\n**Note**: The `trash` files cannot be filtered by date range and thus, the `from` and `to` fields should not be used for trash files.",
-		)
-		.meta({ examples: ["2020-06-30"] }),
-	to: z.iso
-		.date()
-		.optional()
-		.describe("The end date in 'yyyy-mm-dd' 'yyyy-mm-dd' UTC format. ")
-		.meta({ examples: ["2020-06-30"] }),
-	trash_type: z
-		.string()
-		.optional()
-		.default("meeting_recordings")
-		.describe(
-			"The type of cloud recording to retrieve from the trash. \n \n *   `meeting_recordings`: List all meeting recordings from the trash.  \n *  `recording_file`: List all individual recording files from the trash. ",
-		)
-		.meta({ examples: ["meeting_recordings"] }),
-	meeting_id: z
-		.int()
-		.optional()
-		.describe("The meeting ID.")
-		.meta({ examples: [6840331990] }),
-	zra_status: z
-		.enum(["all", "added", "not_added", "processing"])
-		.optional()
-		.default("all")
-		.describe(
-			"The Zoom Revenue Accelerator (ZRA) analysis status of a recording.\n\n* `all` - all Revenue Accelerator status.\n*  `added`: added to Revenue Accelerator.\n*  `not_added`: not added to Revenue Accelerator.\n*  `processing`: processing Revenue Accelerator analysis.",
-		)
-		.meta({ examples: ["all"] }),
-	recording_source_type: z
-		.enum(["cloud_recording_only", "my_notes_recording_only"])
-		.optional()
-		.describe(
-			"* `null` - Return all recordings, including cloud recordings and My Notes recordings.\n* `cloud_recording_only` - Return only cloud recordings.\n* `my_notes_recording_only` - Return only My Notes recordings.",
-		)
-		.meta({ examples: ["null or cloud_recording_only or my_notes_recording_only"] }),
+	page_size: recordingsListQueryPageSizeSchema,
+	next_page_token: recordingsListQueryNextPageTokenSchema,
+	mc: recordingsListQueryMcSchema,
+	trash: recordingsListQueryTrashSchema,
+	from: recordingsListQueryFromSchema,
+	to: recordingsListQueryToSchema,
+	trash_type: recordingsListQueryTrashTypeSchema,
+	meeting_id: recordingsListQueryMeetingIdSchema,
+	zra_status: recordingsListQueryZraStatusSchema,
+	recording_source_type: recordingsListQueryRecordingSourceTypeSchema,
 });
 
+/**
+ * Filter devices by name or serial number.
+ */
 export const listDevicesQuerySearchTextSchema = z
 	.string()
 	.optional()
 	.describe("Filter devices by name or serial number.")
 	.meta({ examples: ["poly"] });
 
+/**
+ * Filter devices by platform operating system.
+ */
 export const listDevicesQueryPlatformOsSchema = z
 	.enum(["win", "mac", "ipad", "iphone", "android", "linux"])
 	.optional()
 	.describe("Filter devices by platform operating system.")
 	.meta({ examples: ["win"] });
 
+/**
+ * Filter devices by enrollment of ZDM (Zoom Device Management).
+ */
 export const listDevicesQueryIsEnrolledInZdmSchema = z
 	.boolean()
 	.optional()
@@ -3414,6 +3345,20 @@ export const listDevicesQueryIsEnrolledInZdmSchema = z
 	.describe("Filter devices by enrollment of ZDM (Zoom Device Management).")
 	.meta({ examples: [true] });
 
+/**
+ * Filter devices by device type.
+ *  `-1` — All Zoom Room devices (0,1,2,3,4,6).
+ *  `0` — Zoom Rooms computer.
+ *  `1` — Zoom Rooms controller.
+ *  `2` — Zoom Rooms scheduling display.
+ *  `3` — Zoom Rooms control system.
+ *  `4` — Zoom Rooms whiteboard.
+ *  `5` — Zoom Phone appliance.
+ *  `6` — Zoom Rooms computer with controller.
+ *  `7` — Workspace devices.
+ *  `8` — Zoom clients.
+ *  `9` — Zoom VDI clients.
+ */
 export const listDevicesQueryDeviceTypeSchema = z
 	.union([
 		z.literal(-1),
@@ -3435,18 +3380,31 @@ export const listDevicesQueryDeviceTypeSchema = z
 	)
 	.meta({ examples: [0] });
 
+/**
+ * Filter devices by vendor.
+ */
 export const listDevicesQueryDeviceVendorSchema = z
 	.string()
 	.optional()
 	.describe("Filter devices by vendor.")
 	.meta({ examples: ["poly"] });
 
+/**
+ * Filter devices by model.
+ */
 export const listDevicesQueryDeviceModelSchema = z
 	.string()
 	.optional()
 	.describe("Filter devices by model.")
 	.meta({ examples: ["ep5"] });
 
+/**
+ * Filter devices by status.
+ *   Device Status:
+ *  `0` - offline.
+ *  `1` - online.
+ *  `-1` - unlink
+ */
 export const listDevicesQueryDeviceStatusSchema = z
 	.union([z.literal(-1), z.literal(0), z.literal(1)])
 	.optional()
@@ -3456,6 +3414,9 @@ export const listDevicesQueryDeviceStatusSchema = z
 	)
 	.meta({ examples: [0] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const listDevicesQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -3464,6 +3425,9 @@ export const listDevicesQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const listDevicesQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -3608,74 +3572,15 @@ export const listDevicesErrorSchema = z.union([
 ]);
 
 export const listDevicesQuerySchema = z.object({
-	search_text: z
-		.string()
-		.optional()
-		.describe("Filter devices by name or serial number.")
-		.meta({ examples: ["poly"] }),
-	platform_os: z
-		.enum(["win", "mac", "ipad", "iphone", "android", "linux"])
-		.optional()
-		.describe("Filter devices by platform operating system.")
-		.meta({ examples: ["win"] }),
-	is_enrolled_in_zdm: z
-		.boolean()
-		.optional()
-		.default(true)
-		.describe("Filter devices by enrollment of ZDM (Zoom Device Management).")
-		.meta({ examples: [true] }),
-	device_type: z
-		.union([
-			z.literal(-1),
-			z.literal(0),
-			z.literal(1),
-			z.literal(2),
-			z.literal(3),
-			z.literal(4),
-			z.literal(5),
-			z.literal(6),
-			z.literal(7),
-			z.literal(8),
-			z.literal(9),
-		])
-		.optional()
-		.default(-1)
-		.describe(
-			"Filter devices by device type.  \n `-1` — All Zoom Room devices (0,1,2,3,4,6).  \n `0` — Zoom Rooms computer.  \n `1` — Zoom Rooms controller.  \n `2` — Zoom Rooms scheduling display.  \n `3` — Zoom Rooms control system.  \n `4` — Zoom Rooms whiteboard.  \n `5` — Zoom Phone appliance.  \n `6` — Zoom Rooms computer with controller.  \n `7` — Workspace devices.  \n `8` — Zoom clients.  \n `9` — Zoom VDI clients.",
-		)
-		.meta({ examples: [0] }),
-	device_vendor: z
-		.string()
-		.optional()
-		.describe("Filter devices by vendor.")
-		.meta({ examples: ["poly"] }),
-	device_model: z
-		.string()
-		.optional()
-		.describe("Filter devices by model.")
-		.meta({ examples: ["ep5"] }),
-	device_status: z
-		.union([z.literal(-1), z.literal(0), z.literal(1)])
-		.optional()
-		.default(-1)
-		.describe(
-			"Filter devices by status.   \n  Device Status:  \n `0` - offline.  \n `1` - online.  \n `-1` - unlink",
-		)
-		.meta({ examples: [0] }),
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
+	search_text: listDevicesQuerySearchTextSchema,
+	platform_os: listDevicesQueryPlatformOsSchema,
+	is_enrolled_in_zdm: listDevicesQueryIsEnrolledInZdmSchema,
+	device_type: listDevicesQueryDeviceTypeSchema,
+	device_vendor: listDevicesQueryDeviceVendorSchema,
+	device_model: listDevicesQueryDeviceModelSchema,
+	device_status: listDevicesQueryDeviceStatusSchema,
+	page_size: listDevicesQueryPageSizeSchema,
+	next_page_token: listDevicesQueryNextPageTokenSchema,
 });
 
 export const addDeviceStatus202Schema = z.unknown();
@@ -3744,6 +3649,11 @@ export const addDeviceBodySchema = z
 	})
 	.optional();
 
+/**
+ * The total number of records returned from a single API call.
+ * Default - 30.
+ * Max -100.
+ */
 export const getzdmgroupinfoQueryPageSizeSchema = z
 	.int()
 	.optional()
@@ -3752,6 +3662,9 @@ export const getzdmgroupinfoQueryPageSizeSchema = z
 	)
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period token is 15 minutes.
+ */
 export const getzdmgroupinfoQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -3813,20 +3726,8 @@ export const getzdmgroupinfoErrorSchema = z.union([
 ]);
 
 export const getzdmgroupinfoQuerySchema = z.object({
-	page_size: z
-		.int()
-		.optional()
-		.describe(
-			"The total number of records returned from a single API call.\nDefault - 30.\nMax -100.",
-		)
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period token is 15 minutes.",
-		)
-		.meta({ examples: ["BJLYC6PABbAHdjwSkGVQeeR6B1juwHqj3G2"] }),
+	page_size: getzdmgroupinfoQueryPageSizeSchema,
+	next_page_token: getzdmgroupinfoQueryNextPageTokenSchema,
 });
 
 export const assigndevicetoauserCommonareaStatus204Schema = z.void();
@@ -3861,6 +3762,9 @@ export const assigndevicetoauserCommonareaBodySchema = z
 	})
 	.optional();
 
+/**
+ * The user's ID or email address. For user-level apps, pass `me` as the value for `user_id`.
+ */
 export const getZpaDeviceListProfileSettingOfaUserQueryUserIdSchema = z
 	.string()
 	.optional()
@@ -3959,13 +3863,7 @@ export const getZpaDeviceListProfileSettingOfaUserErrorSchema = z.union([
 ]);
 
 export const getZpaDeviceListProfileSettingOfaUserQuerySchema = z.object({
-	user_id: z
-		.string()
-		.optional()
-		.describe(
-			"The user's ID or email address. For user-level apps, pass `me` as the value for `user_id`.",
-		)
-		.meta({ examples: ["DYHrdpjrS3uaOf7dPkkg8w"] }),
+	user_id: getZpaDeviceListProfileSettingOfaUserQueryUserIdSchema,
 });
 
 export const upgradeZpasAppStatus202Schema = z.unknown();
@@ -4033,11 +3931,17 @@ export const upgradeZpasAppBodySchema = z
 	})
 	.optional();
 
+/**
+ * The device's manufacturer.
+ */
 export const deleteZpaDeviceByVendorAndMacAddressPathVendorSchema = z
 	.string()
 	.describe("The device's manufacturer.")
 	.meta({ examples: ["Poly"] });
 
+/**
+ * The device's mac address.
+ */
 export const deleteZpaDeviceByVendorAndMacAddressPathMacAddressSchema = z
 	.string()
 	.describe("The device's mac address.")
@@ -4061,21 +3965,21 @@ export const deleteZpaDeviceByVendorAndMacAddressErrorSchema = z.union([
 ]);
 
 export const deleteZpaDeviceByVendorAndMacAddressPathSchema = z.object({
-	vendor: z
-		.string()
-		.describe("The device's manufacturer.")
-		.meta({ examples: ["Poly"] }),
-	macAddress: z
-		.string()
-		.describe("The device's mac address.")
-		.meta({ examples: ["64167ffc0ed7"] }),
+	vendor: deleteZpaDeviceByVendorAndMacAddressPathVendorSchema,
+	macAddress: deleteZpaDeviceByVendorAndMacAddressPathMacAddressSchema,
 });
 
+/**
+ * The Zoom Device Management (ZDM) group ID.
+ */
 export const getZpaVersioninfoPathZdmGroupIdSchema = z
 	.string()
 	.describe("The Zoom Device Management (ZDM) group ID.")
 	.meta({ examples: ["ff49588c-92c4-4406-99e6-1942d8a61a7b"] });
 
+/**
+ * Information about the version list.
+ */
 export const getZpaVersioninfoStatus200Schema = z
 	.object({
 		firmware_versions: z
@@ -4133,17 +4037,20 @@ export const getZpaVersioninfoErrorSchema = z.union([
 ]);
 
 export const getZpaVersioninfoPathSchema = z.object({
-	zdmGroupId: z
-		.string()
-		.describe("The Zoom Device Management (ZDM) group ID.")
-		.meta({ examples: ["ff49588c-92c4-4406-99e6-1942d8a61a7b"] }),
+	zdmGroupId: getZpaVersioninfoPathZdmGroupIdSchema,
 });
 
+/**
+ * The device's unique identifier.
+ */
 export const getDevicePathDeviceIdSchema = z
 	.string()
 	.describe("The device's unique identifier.")
 	.meta({ examples: ["F1C6E9DF-429E-4FA1-85DA-AC95464F3D18"] });
 
+/**
+ * Information about the device.
+ */
 export const getDeviceStatus200Schema = z
 	.object({
 		device_id: z
@@ -4266,12 +4173,12 @@ export const getDeviceErrorSchema = z.union([
 ]);
 
 export const getDevicePathSchema = z.object({
-	deviceId: z
-		.string()
-		.describe("The device's unique identifier.")
-		.meta({ examples: ["F1C6E9DF-429E-4FA1-85DA-AC95464F3D18"] }),
+	deviceId: getDevicePathDeviceIdSchema,
 });
 
+/**
+ * Unique identifier of the device.
+ */
 export const deleteDevicePathDeviceIdSchema = z
 	.string()
 	.describe("Unique identifier of the device.")
@@ -4294,12 +4201,12 @@ export const deleteDeviceErrorSchema = z.union([
 ]);
 
 export const deleteDevicePathSchema = z.object({
-	deviceId: z
-		.string()
-		.describe("Unique identifier of the device.")
-		.meta({ examples: ["F1C6E9DF-429E-4FA1-85DA-AC95464F3D18"] }),
+	deviceId: deleteDevicePathDeviceIdSchema,
 });
 
+/**
+ * Unique identifier of the device.
+ */
 export const updateDevicePathDeviceIdSchema = z
 	.string()
 	.describe("Unique identifier of the device.")
@@ -4348,17 +4255,20 @@ export const updateDeviceBodySchema = z
 	.optional();
 
 export const updateDevicePathSchema = z.object({
-	deviceId: z
-		.string()
-		.describe("Unique identifier of the device.")
-		.meta({ examples: ["F1C6E9DF-429E-4FA1-85DA-AC95464F3D18"] }),
+	deviceId: updateDevicePathDeviceIdSchema,
 });
 
+/**
+ * The device ID.
+ */
 export const assginGroupPathDeviceIdSchema = z
 	.string()
 	.describe("The device ID.")
 	.meta({ examples: ["12as-asdas-sas-12asd-as01"] });
 
+/**
+ * The group's ID.
+ */
 export const assginGroupQueryGroupIdSchema = z
 	.string()
 	.describe("The group's ID.")
@@ -4384,19 +4294,16 @@ export const assginGroupErrorSchema = z.union([
 ]);
 
 export const assginGroupPathSchema = z.object({
-	deviceId: z
-		.string()
-		.describe("The device ID.")
-		.meta({ examples: ["12as-asdas-sas-12asd-as01"] }),
+	deviceId: assginGroupPathDeviceIdSchema,
 });
 
 export const assginGroupQuerySchema = z.object({
-	group_id: z
-		.string()
-		.describe("The group's ID.")
-		.meta({ examples: ["12as-asdas-sas-12asd-as01"] }),
+	group_id: assginGroupQueryGroupIdSchema,
 });
 
+/**
+ * The device's unique identifier.
+ */
 export const changeDeviceAssociationPathDeviceIdSchema = z
 	.string()
 	.describe("The device's unique identifier.")
@@ -4439,12 +4346,12 @@ export const changeDeviceAssociationBodySchema = z
 	.optional();
 
 export const changeDeviceAssociationPathSchema = z.object({
-	deviceId: z
-		.string()
-		.describe("The device's unique identifier.")
-		.meta({ examples: ["F1C6E9DF-429E-4FA1-85DA-AC95464F3D18"] }),
+	deviceId: changeDeviceAssociationPathDeviceIdSchema,
 });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const deviceListQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -4453,6 +4360,9 @@ export const deviceListQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * **Deprecated.** We will no longer support this field in a future release. Instead, use the `next_page_token` for pagination.
+ */
 export const deviceListQueryPageNumberSchema = z
 	.int()
 	.optional()
@@ -4462,6 +4372,9 @@ export const deviceListQueryPageNumberSchema = z
 	)
 	.meta({ examples: [1] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const deviceListQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -4470,6 +4383,9 @@ export const deviceListQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * List of H.323/SIP Devices.
+ */
 export const deviceListStatus200Schema = z
 	.object({
 		next_page_token: z
@@ -4559,28 +4475,9 @@ export const deviceListErrorSchema = z.union([
 ]);
 
 export const deviceListQuerySchema = z.object({
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	page_number: z
-		.int()
-		.optional()
-		.default(1)
-		.describe(
-			"**Deprecated.** We will no longer support this field in a future release. Instead, use the `next_page_token` for pagination.",
-		)
-		.meta({ examples: [1] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
+	page_size: deviceListQueryPageSizeSchema,
+	page_number: deviceListQueryPageNumberSchema,
+	next_page_token: deviceListQueryNextPageTokenSchema,
 });
 
 export const deviceCreateStatus201Schema = z
@@ -4631,6 +4528,9 @@ export const deviceCreateErrorSchema = z.union([
 	deviceCreateStatus429Schema,
 ]);
 
+/**
+ * H.323/SIP device.
+ */
 export const deviceCreateBodySchema = z
 	.object({
 		encryption: z
@@ -4654,6 +4554,9 @@ export const deviceCreateBodySchema = z
 	.optional()
 	.describe("H.323/SIP device.");
 
+/**
+ * The device ID.
+ */
 export const deviceDeletePathDeviceIdSchema = z
 	.string()
 	.describe("The device ID.")
@@ -4682,12 +4585,12 @@ export const deviceDeleteErrorSchema = z.union([
 ]);
 
 export const deviceDeletePathSchema = z.object({
-	deviceId: z
-		.string()
-		.describe("The device ID.")
-		.meta({ examples: ["abceHewahkrehwiK"] }),
+	deviceId: deviceDeletePathDeviceIdSchema,
 });
 
+/**
+ * The device ID.
+ */
 export const deviceUpdatePathDeviceIdSchema = z
 	.string()
 	.describe("The device ID.")
@@ -4715,6 +4618,9 @@ export const deviceUpdateErrorSchema = z.union([
 	deviceUpdateStatus429Schema,
 ]);
 
+/**
+ * The H.323/SIP device object.
+ */
 export const deviceUpdateBodySchema = z
 	.object({
 		encryption: z
@@ -4739,12 +4645,13 @@ export const deviceUpdateBodySchema = z
 	.describe("The H.323/SIP device object.");
 
 export const deviceUpdatePathSchema = z.object({
-	deviceId: z
-		.string()
-		.describe("The device ID.")
-		.meta({ examples: ["abceHewahkrehwiK"] }),
+	deviceId: deviceUpdatePathDeviceIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingAppAddPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -4825,6 +4732,9 @@ export const meetingAppAddErrorSchema = z.union([
 	meetingAppAddStatus429Schema,
 ]);
 
+/**
+ * Who the app is automatically shared with. All fields are optional. Omit the body to share the app with the meeting owner only.
+ */
 export const meetingAppAddBodySchema = z
 	.object({
 		app_id: z
@@ -4878,14 +4788,13 @@ export const meetingAppAddBodySchema = z
 	);
 
 export const meetingAppAddPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingAppAddPathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingAppDeletePathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -4893,6 +4802,9 @@ export const meetingAppDeletePathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * The ID (client ID) of the target app. If omitted, the app ID associated with the OAuth access token is used. When provided, the request must be authenticated with a Server-to-Server OAuth account token, and the target app must belong to the same account as the token.
+ */
 export const meetingAppDeleteQueryAppIdSchema = z
 	.string()
 	.optional()
@@ -4918,24 +4830,17 @@ export const meetingAppDeleteErrorSchema = z.union([
 ]);
 
 export const meetingAppDeletePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingAppDeletePathMeetingIdSchema,
 });
 
 export const meetingAppDeleteQuerySchema = z.object({
-	app_id: z
-		.string()
-		.optional()
-		.describe(
-			"The ID (client ID) of the target app. If omitted, the app ID associated with the OAuth access token is used. When provided, the request must be authenticated with a Server-to-Server OAuth account token, and the target app must belong to the same account as the token.",
-		)
-		.meta({ examples: ["fdgsfh2ey82fuh"] }),
+	app_id: meetingAppDeleteQueryAppIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, store it as a long-format integer and **not** an integer. Meeting IDs can be more than 10 digits.
+ */
 export const deleteMeetingChatMessageByIdPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -4943,11 +4848,17 @@ export const deleteMeetingChatMessageByIdPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * The live meeting chat message's unique identifier (UUID), in base64-encoded format.
+ */
 export const deleteMeetingChatMessageByIdPathMessageIdSchema = z
 	.string()
 	.describe("The live meeting chat message's unique identifier (UUID), in base64-encoded format.")
 	.meta({ examples: ["MS17MDQ5NjE4QjYtRjk4Ny00REEwLUFBQUItMTg3QTY0RjU2MzhFfQ=="] });
 
+/**
+ * The live webinar chat file's universally unique identifier, in base64-encoded format. Separate multiple values with commas.
+ */
 export const deleteMeetingChatMessageByIdQueryFileIdsSchema = z
 	.string()
 	.optional()
@@ -4978,32 +4889,18 @@ export const deleteMeetingChatMessageByIdErrorSchema = z.union([
 ]);
 
 export const deleteMeetingChatMessageByIdPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, store it as a long-format integer and **not** an integer. Meeting IDs can be more than 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
-	messageId: z
-		.string()
-		.describe("The live meeting chat message's unique identifier (UUID), in base64-encoded format.")
-		.meta({ examples: ["MS17MDQ5NjE4QjYtRjk4Ny00REEwLUFBQUItMTg3QTY0RjU2MzhFfQ=="] }),
+	meetingId: deleteMeetingChatMessageByIdPathMeetingIdSchema,
+	messageId: deleteMeetingChatMessageByIdPathMessageIdSchema,
 });
 
 export const deleteMeetingChatMessageByIdQuerySchema = z.object({
-	file_ids: z
-		.string()
-		.optional()
-		.describe(
-			"The live webinar chat file's universally unique identifier, in base64-encoded format. Separate multiple values with commas.",
-		)
-		.meta({
-			examples: [
-				"MS17RDk0QTY3QUQtQkFGQy04QTJFLTI2RUEtNkYxQjRBRTU1MTk5fQ==,MS17NDQ0OEU5MjMtM0JFOS1CMDA1LTQ0NDAtQjdGOTU0Rjk5MTkyfQ==",
-			],
-		}),
+	file_ids: deleteMeetingChatMessageByIdQueryFileIdsSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, store it as a long-format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const updateMeetingChatMessageByIdPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -5011,6 +4908,9 @@ export const updateMeetingChatMessageByIdPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * The live meeting chat message's unique identifier (UUID), in base64-encoded format.
+ */
 export const updateMeetingChatMessageByIdPathMessageIdSchema = z
 	.string()
 	.describe("The live meeting chat message's unique identifier (UUID), in base64-encoded format.")
@@ -5043,18 +4943,13 @@ export const updateMeetingChatMessageByIdBodySchema = z
 	.optional();
 
 export const updateMeetingChatMessageByIdPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, store it as a long-format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
-	messageId: z
-		.string()
-		.describe("The live meeting chat message's unique identifier (UUID), in base64-encoded format.")
-		.meta({ examples: ["MS17MDQ5NjE4QjYtRjk4Ny00REEwLUFBQUItMTg3QTY0RjU2MzhFfQ=="] }),
+	meetingId: updateMeetingChatMessageByIdPathMeetingIdSchema,
+	messageId: updateMeetingChatMessageByIdPathMessageIdSchema,
 });
 
+/**
+ * The live meeting's ID.
+ */
 export const inMeetingControlPathMeetingIdSchema = z
 	.string()
 	.describe("The live meeting's ID.")
@@ -5291,12 +5186,13 @@ export const inMeetingControlBodySchema = z
 	.optional();
 
 export const inMeetingControlPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe("The live meeting's ID.")
-		.meta({ examples: ["93398114182"] }),
+	meetingId: inMeetingControlPathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingLocalRecordingJoinTokenPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -5304,12 +5200,18 @@ export const meetingLocalRecordingJoinTokenPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * Whether to bypass the waiting room.
+ */
 export const meetingLocalRecordingJoinTokenQueryBypassWaitingRoomSchema = z
 	.boolean()
 	.optional()
 	.describe("Whether to bypass the waiting room.")
 	.meta({ examples: [true] });
 
+/**
+ * Information about the meeting's local recorder join token.
+ */
 export const meetingLocalRecordingJoinTokenStatus200Schema = z
 	.object({
 		expire_in: z
@@ -5343,22 +5245,17 @@ export const meetingLocalRecordingJoinTokenErrorSchema = z.union([
 ]);
 
 export const meetingLocalRecordingJoinTokenPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingLocalRecordingJoinTokenPathMeetingIdSchema,
 });
 
 export const meetingLocalRecordingJoinTokenQuerySchema = z.object({
-	bypass_waiting_room: z
-		.boolean()
-		.optional()
-		.describe("Whether to bypass the waiting room.")
-		.meta({ examples: [true] }),
+	bypass_waiting_room: meetingLocalRecordingJoinTokenQueryBypassWaitingRoomSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingTokenPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -5366,6 +5263,11 @@ export const meetingTokenPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * The meeting token type.
+ * * `closed_caption_token` - The third-party closed caption API token.
+ * This defaults to `closed_caption_token`.
+ */
 export const meetingTokenQueryTypeSchema = z
 	.enum(["closed_caption_token"])
 	.optional()
@@ -5375,6 +5277,9 @@ export const meetingTokenQueryTypeSchema = z
 	)
 	.meta({ examples: ["closed_caption_token"] });
 
+/**
+ * Information about the meeting token.
+ */
 export const meetingTokenStatus200Schema = z
 	.object({
 		token: z
@@ -5404,25 +5309,16 @@ export const meetingTokenErrorSchema = z.union([
 ]);
 
 export const meetingTokenPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingTokenPathMeetingIdSchema,
 });
 
 export const meetingTokenQuerySchema = z.object({
-	type: z
-		.enum(["closed_caption_token"])
-		.optional()
-		.default("closed_caption_token")
-		.describe(
-			"The meeting token type. \n* `closed_caption_token` - The third-party closed caption API token. \n\nThis defaults to `closed_caption_token`.",
-		)
-		.meta({ examples: ["closed_caption_token"] }),
+	type: meetingTokenQueryTypeSchema,
 });
 
+/**
+ * Unique identifier of the meeting (Meeting Number).
+ */
 export const addBatchRegistrantsPathMeetingIdSchema = z
 	.string()
 	.describe("Unique identifier of the meeting (Meeting Number).")
@@ -5510,12 +5406,13 @@ export const addBatchRegistrantsBodySchema = z
 	.optional();
 
 export const addBatchRegistrantsPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe("Unique identifier of the meeting (Meeting Number).")
-		.meta({ examples: ["91498058927"] }),
+	meetingId: addBatchRegistrantsPathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer, not a simple integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingInvitationPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -5523,6 +5420,9 @@ export const meetingInvitationPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * Meeting invitation details.
+ */
 export const meetingInvitationStatus200Schema = z
 	.object({
 		invitation: z
@@ -5553,14 +5453,13 @@ export const meetingInvitationErrorSchema = z.union([
 ]);
 
 export const meetingInvitationPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer, not a simple integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingInvitationPathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingInviteLinksCreatePathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -5568,6 +5467,9 @@ export const meetingInviteLinksCreatePathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * Invite links response.
+ */
 export const meetingInviteLinksCreateStatus201Schema = z
 	.object({
 		attendees: z
@@ -5606,6 +5508,9 @@ export const meetingInviteLinksCreateErrorSchema = z.union([
 	meetingInviteLinksCreateStatus429Schema,
 ]);
 
+/**
+ * Invite links.
+ */
 export const meetingInviteLinksCreateBodySchema = z
 	.object({
 		attendees: z
@@ -5651,14 +5556,13 @@ export const meetingInviteLinksCreateBodySchema = z
 	.describe("Invite links.");
 
 export const meetingInviteLinksCreatePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingInviteLinksCreatePathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, store it as a long format integer, not an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingRegistrantsPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -5666,12 +5570,21 @@ export const meetingRegistrantsPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * The meeting or webinar occurrence ID.
+ */
 export const meetingRegistrantsQueryOccurrenceIdSchema = z
 	.string()
 	.optional()
 	.describe("The meeting or webinar occurrence ID.")
 	.meta({ examples: ["1648194360000"] });
 
+/**
+ * Query by the registrant's status.
+ * * `pending` - The registration is pending.
+ * * `approved` - The registrant is approved.
+ * * `denied` - The registration is denied.
+ */
 export const meetingRegistrantsQueryStatusSchema = z
 	.enum(["pending", "approved", "denied"])
 	.optional()
@@ -5681,6 +5594,9 @@ export const meetingRegistrantsQueryStatusSchema = z
 	)
 	.meta({ examples: ["pending"] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const meetingRegistrantsQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -5689,6 +5605,9 @@ export const meetingRegistrantsQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * **Deprecated.** We will no longer support this field in a future release. Instead, use the `next_page_token` for pagination.
+ */
 export const meetingRegistrantsQueryPageNumberSchema = z
 	.int()
 	.optional()
@@ -5698,6 +5617,9 @@ export const meetingRegistrantsQueryPageNumberSchema = z
 	)
 	.meta({ examples: [1] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const meetingRegistrantsQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -5706,6 +5628,9 @@ export const meetingRegistrantsQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * List of users.
+ */
 export const meetingRegistrantsStatus200Schema = z
 	.object({
 		next_page_token: z
@@ -5943,52 +5868,21 @@ export const meetingRegistrantsErrorSchema = z.union([
 ]);
 
 export const meetingRegistrantsPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, store it as a long format integer, not an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingRegistrantsPathMeetingIdSchema,
 });
 
 export const meetingRegistrantsQuerySchema = z.object({
-	occurrence_id: z
-		.string()
-		.optional()
-		.describe("The meeting or webinar occurrence ID.")
-		.meta({ examples: ["1648194360000"] }),
-	status: z
-		.enum(["pending", "approved", "denied"])
-		.optional()
-		.default("approved")
-		.describe(
-			"Query by the registrant's status. \n* `pending` - The registration is pending. \n* `approved` - The registrant is approved. \n* `denied` - The registration is denied.",
-		)
-		.meta({ examples: ["pending"] }),
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	page_number: z
-		.int()
-		.optional()
-		.default(1)
-		.describe(
-			"**Deprecated.** We will no longer support this field in a future release. Instead, use the `next_page_token` for pagination.",
-		)
-		.meta({ examples: [1] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
+	occurrence_id: meetingRegistrantsQueryOccurrenceIdSchema,
+	status: meetingRegistrantsQueryStatusSchema,
+	page_size: meetingRegistrantsQueryPageSizeSchema,
+	page_number: meetingRegistrantsQueryPageNumberSchema,
+	next_page_token: meetingRegistrantsQueryNextPageTokenSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingRegistrantCreatePathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -5996,6 +5890,9 @@ export const meetingRegistrantCreatePathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * A comma-separated list of meeting occurrence IDs. You can get this value with the [Get a meeting](/docs/api-reference/zoom-api/methods#operation/meeting) API.
+ */
 export const meetingRegistrantCreateQueryOccurrenceIdsSchema = z
 	.string()
 	.optional()
@@ -6085,6 +5982,9 @@ export const meetingRegistrantCreateErrorSchema = z.union([
 	meetingRegistrantCreateStatus429Schema,
 ]);
 
+/**
+ * Information about the meeting registrant.
+ */
 export const meetingRegistrantCreateBodySchema = z
 	.object({
 		first_name: z
@@ -6253,24 +6153,17 @@ export const meetingRegistrantCreateBodySchema = z
 	.describe("Information about the meeting registrant.");
 
 export const meetingRegistrantCreatePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingRegistrantCreatePathMeetingIdSchema,
 });
 
 export const meetingRegistrantCreateQuerySchema = z.object({
-	occurrence_ids: z
-		.string()
-		.optional()
-		.describe(
-			"A comma-separated list of meeting occurrence IDs. You can get this value with the [Get a meeting](/docs/api-reference/zoom-api/methods#operation/meeting) API.",
-		)
-		.meta({ examples: ["1648194360000,1648367160000"] }),
+	occurrence_ids: meetingRegistrantCreateQueryOccurrenceIdsSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, store it as a long format integer, not a simple integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingRegistrantsQuestionsGetPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -6278,6 +6171,9 @@ export const meetingRegistrantsQuestionsGetPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * Meeting registrant questions.
+ */
 export const meetingRegistrantsQuestionsGetStatus200Schema = z
 	.object({
 		custom_questions: z
@@ -6363,14 +6259,13 @@ export const meetingRegistrantsQuestionsGetErrorSchema = z.union([
 ]);
 
 export const meetingRegistrantsQuestionsGetPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, store it as a long format integer, not a simple integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingRegistrantsQuestionsGetPathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingRegistrantQuestionUpdatePathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -6395,6 +6290,9 @@ export const meetingRegistrantQuestionUpdateErrorSchema = z.union([
 	meetingRegistrantQuestionUpdateStatus429Schema,
 ]);
 
+/**
+ * Meeting Registrant Questions
+ */
 export const meetingRegistrantQuestionUpdateBodySchema = z
 	.object({
 		custom_questions: z
@@ -6466,14 +6364,13 @@ export const meetingRegistrantQuestionUpdateBodySchema = z
 	.describe("Meeting Registrant Questions");
 
 export const meetingRegistrantQuestionUpdatePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingRegistrantQuestionUpdatePathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, store it as a `long` format integer, not as a simple integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingRegistrantStatusPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -6481,6 +6378,9 @@ export const meetingRegistrantStatusPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * The meeting or webinar occurrence ID.
+ */
 export const meetingRegistrantStatusQueryOccurrenceIdSchema = z
 	.string()
 	.optional()
@@ -6530,22 +6430,17 @@ export const meetingRegistrantStatusBodySchema = z
 	.optional();
 
 export const meetingRegistrantStatusPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, store it as a `long` format integer, not as a simple integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingRegistrantStatusPathMeetingIdSchema,
 });
 
 export const meetingRegistrantStatusQuerySchema = z.object({
-	occurrence_id: z
-		.string()
-		.optional()
-		.describe("The meeting or webinar occurrence ID.")
-		.meta({ examples: ["1648194360000"] }),
+	occurrence_id: meetingRegistrantStatusQueryOccurrenceIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingRegistrantGetPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -6553,6 +6448,9 @@ export const meetingRegistrantGetPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * The registrant ID.
+ */
 export const meetingRegistrantGetPathRegistrantIdSchema = z
 	.string()
 	.describe("The registrant ID.")
@@ -6747,28 +6645,29 @@ export const meetingRegistrantGetErrorSchema = z.union([
 ]);
 
 export const meetingRegistrantGetPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
-	registrantId: z
-		.string()
-		.describe("The registrant ID.")
-		.meta({ examples: ["9tboDiHUQAeOnbmudzWa5g"] }),
+	meetingId: meetingRegistrantGetPathMeetingIdSchema,
+	registrantId: meetingRegistrantGetPathRegistrantIdSchema,
 });
 
+/**
+ * The meeting ID.
+ */
 export const meetingregistrantdeletePathMeetingIdSchema = z
 	.int()
 	.describe("The meeting ID.")
 	.meta({ examples: [91498058927] });
 
+/**
+ * The meeting registrant ID.
+ */
 export const meetingregistrantdeletePathRegistrantIdSchema = z
 	.string()
 	.describe("The meeting registrant ID.")
 	.meta({ examples: ["9tboDiHUQAeOnbmudzWa5g"] });
 
+/**
+ * The meeting occurrence ID.
+ */
 export const meetingregistrantdeleteQueryOccurrenceIdSchema = z
 	.string()
 	.optional()
@@ -6792,24 +6691,18 @@ export const meetingregistrantdeleteErrorSchema = z.union([
 ]);
 
 export const meetingregistrantdeletePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe("The meeting ID.")
-		.meta({ examples: [91498058927] }),
-	registrantId: z
-		.string()
-		.describe("The meeting registrant ID.")
-		.meta({ examples: ["9tboDiHUQAeOnbmudzWa5g"] }),
+	meetingId: meetingregistrantdeletePathMeetingIdSchema,
+	registrantId: meetingregistrantdeletePathRegistrantIdSchema,
 });
 
 export const meetingregistrantdeleteQuerySchema = z.object({
-	occurrence_id: z
-		.string()
-		.optional()
-		.describe("The meeting occurrence ID.")
-		.meta({ examples: ["approved"] }),
+	occurrence_id: meetingregistrantdeleteQueryOccurrenceIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingLiveStreamingJoinTokenPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -6817,6 +6710,9 @@ export const meetingLiveStreamingJoinTokenPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * Information about the meeting's join token.
+ */
 export const meetingLiveStreamingJoinTokenStatus200Schema = z
 	.object({
 		expire_in: z
@@ -6850,14 +6746,12 @@ export const meetingLiveStreamingJoinTokenErrorSchema = z.union([
 ]);
 
 export const meetingLiveStreamingJoinTokenPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingLiveStreamingJoinTokenPathMeetingIdSchema,
 });
 
+/**
+ * Unique identifier of the meeting.
+ */
 export const getMeetingLiveStreamDetailsPathMeetingIdSchema = z
 	.string()
 	.describe("Unique identifier of the meeting.")
@@ -6903,12 +6797,13 @@ export const getMeetingLiveStreamDetailsErrorSchema = z.union([
 ]);
 
 export const getMeetingLiveStreamDetailsPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe("Unique identifier of the meeting.")
-		.meta({ examples: ["93398114182"] }),
+	meetingId: getMeetingLiveStreamDetailsPathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingLiveStreamUpdatePathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -6932,6 +6827,9 @@ export const meetingLiveStreamUpdateErrorSchema = z.union([
 	meetingLiveStreamUpdateStatus429Schema,
 ]);
 
+/**
+ * Meeting
+ */
 export const meetingLiveStreamUpdateBodySchema = z
 	.object({
 		page_url: z
@@ -6961,14 +6859,13 @@ export const meetingLiveStreamUpdateBodySchema = z
 	.describe("Meeting");
 
 export const meetingLiveStreamUpdatePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingLiveStreamUpdatePathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingLiveStreamStatusUpdatePathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -6993,6 +6890,9 @@ export const meetingLiveStreamStatusUpdateErrorSchema = z.union([
 	meetingLiveStreamStatusUpdateStatus429Schema,
 ]);
 
+/**
+ * Meeting
+ */
 export const meetingLiveStreamStatusUpdateBodySchema = z
 	.object({
 		action: z
@@ -7044,14 +6944,14 @@ export const meetingLiveStreamStatusUpdateBodySchema = z
 	.describe("Meeting");
 
 export const meetingLiveStreamStatusUpdatePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingLiveStreamStatusUpdatePathMeetingIdSchema,
 });
 
+/**
+ * To get a meeting's transcript, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance.
+ * To get a webinar's transcript, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance.
+ * If a UUID contains any `/` characters, you must **double encode** the UUID before making an API request.
+ */
 export const getMeetingTranscriptPathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -7141,14 +7041,14 @@ export const getMeetingTranscriptErrorSchema = z.union([
 ]);
 
 export const getMeetingTranscriptPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"To get a meeting's transcript, provide the meeting ID or meeting UUID. If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance.\n\nTo get a webinar's transcript, provide the webinar ID or the webinar UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance.\n\nIf a UUID contains any `/` characters, you must **double encode** the UUID before making an API request.",
-		)
-		.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] }),
+	meetingId: getMeetingTranscriptPathMeetingIdSchema,
 });
 
+/**
+ * To delete a meeting's transcript, provide the meeting ID or meeting's unique universal identifier (UUID). If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance.
+ * To delete a webinar's transcript, provide the webinar ID or the webinar's UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance.
+ * If a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request.
+ */
 export const deleteMeetingTranscriptPathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -7176,14 +7076,13 @@ export const deleteMeetingTranscriptErrorSchema = z.union([
 ]);
 
 export const deleteMeetingTranscriptPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"To delete a meeting's transcript, provide the meeting ID or meeting's unique universal identifier (UUID). If the meeting ID is provided instead of UUID, the response will be for the latest meeting instance. \n\nTo delete a webinar's transcript, provide the webinar ID or the webinar's UUID. If the webinar ID is provided instead of UUID, the response will be for the latest webinar instance. \n\nIf a UUID starts with `/` or contains `//`, like `/ajXp112QmuoKj4854875==`, you must **double encode** the UUID before making an API request. ",
-		)
-		.meta({ examples: ["atsXxhSEQWit9t+U02HXNQ=="] }),
+	meetingId: deleteMeetingTranscriptPathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ * When storing this value in your database, store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingRTMSStatusUpdatePathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -7210,6 +7109,9 @@ export const meetingRTMSStatusUpdateErrorSchema = z.union([
 	meetingRTMSStatusUpdateStatus429Schema,
 ]);
 
+/**
+ * Meeting
+ */
 export const meetingRTMSStatusUpdateBodySchema = z
 	.object({
 		action: z
@@ -7242,14 +7144,13 @@ export const meetingRTMSStatusUpdateBodySchema = z
 	.describe("Meeting");
 
 export const meetingRTMSStatusUpdatePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID.\n\nWhen storing this value in your database, store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingRTMSStatusUpdatePathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, store it as a long format integer and **not** an integer. Meeting IDs can be more than 10 digits.
+ */
 export const meetingPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -7257,6 +7158,9 @@ export const meetingPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * Meeting occurrence ID. Provide this field to view meeting details of a particular occurrence of the [recurring meeting](https://support.zoom.us/hc/en-us/articles/214973206-Scheduling-Recurring-Meetings).
+ */
 export const meetingQueryOccurrenceIdSchema = z
 	.string()
 	.optional()
@@ -7265,6 +7169,9 @@ export const meetingQueryOccurrenceIdSchema = z
 	)
 	.meta({ examples: ["1648194360000"] });
 
+/**
+ * Set this field's value to `true` to view meeting details of all previous occurrences of a [recurring meeting](https://support.zoom.us/hc/en-us/articles/214973206-Scheduling-Recurring-Meetings).
+ */
 export const meetingQueryShowPreviousOccurrencesSchema = z
 	.boolean()
 	.optional()
@@ -7273,6 +7180,9 @@ export const meetingQueryShowPreviousOccurrencesSchema = z
 	)
 	.meta({ examples: [true] });
 
+/**
+ * Meeting object.
+ */
 export const meetingStatus200Schema = z
 	.object({
 		assistant_id: z
@@ -8402,31 +8312,18 @@ export const meetingErrorSchema = z.union([
 ]);
 
 export const meetingPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, store it as a long format integer and **not** an integer. Meeting IDs can be more than 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingPathMeetingIdSchema,
 });
 
 export const meetingQuerySchema = z.object({
-	occurrence_id: z
-		.string()
-		.optional()
-		.describe(
-			"Meeting occurrence ID. Provide this field to view meeting details of a particular occurrence of the [recurring meeting](https://support.zoom.us/hc/en-us/articles/214973206-Scheduling-Recurring-Meetings).",
-		)
-		.meta({ examples: ["1648194360000"] }),
-	show_previous_occurrences: z
-		.boolean()
-		.optional()
-		.describe(
-			"Set this field's value to `true` to view meeting details of all previous occurrences of a [recurring meeting](https://support.zoom.us/hc/en-us/articles/214973206-Scheduling-Recurring-Meetings). ",
-		)
-		.meta({ examples: [true] }),
+	occurrence_id: meetingQueryOccurrenceIdSchema,
+	show_previous_occurrences: meetingQueryShowPreviousOccurrencesSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingDeletePathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -8434,12 +8331,19 @@ export const meetingDeletePathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * The meeting or webinar occurrence ID.
+ */
 export const meetingDeleteQueryOccurrenceIdSchema = z
 	.string()
 	.optional()
 	.describe("The meeting or webinar occurrence ID.")
 	.meta({ examples: ["1648194360000"] });
 
+/**
+ * `true`: Notify host and alternative host about the meeting cancellation via email.
+ * `false`: Do not send any email notification.
+ */
 export const meetingDeleteQueryScheduleForReminderSchema = z
 	.boolean()
 	.optional()
@@ -8448,6 +8352,11 @@ export const meetingDeleteQueryScheduleForReminderSchema = z
 	)
 	.meta({ examples: [true] });
 
+/**
+ * `true`: Notify registrants about the meeting cancellation via email.
+ * `false`: Do not send any email notification to meeting registrants.
+ * The default value of this field is `false`.
+ */
 export const meetingDeleteQueryCancelMeetingReminderSchema = z
 	.boolean()
 	.optional()
@@ -8473,36 +8382,19 @@ export const meetingDeleteErrorSchema = z.union([
 ]);
 
 export const meetingDeletePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingDeletePathMeetingIdSchema,
 });
 
 export const meetingDeleteQuerySchema = z.object({
-	occurrence_id: z
-		.string()
-		.optional()
-		.describe("The meeting or webinar occurrence ID.")
-		.meta({ examples: ["1648194360000"] }),
-	schedule_for_reminder: z
-		.boolean()
-		.optional()
-		.describe(
-			"`true`: Notify host and alternative host about the meeting cancellation via email.\n`false`: Do not send any email notification.",
-		)
-		.meta({ examples: [true] }),
-	cancel_meeting_reminder: z
-		.boolean()
-		.optional()
-		.describe(
-			"`true`: Notify registrants about the meeting cancellation via email. \n\n`false`: Do not send any email notification to meeting registrants. \n\nThe default value of this field is `false`.",
-		)
-		.meta({ examples: [true] }),
+	occurrence_id: meetingDeleteQueryOccurrenceIdSchema,
+	schedule_for_reminder: meetingDeleteQueryScheduleForReminderSchema,
+	cancel_meeting_reminder: meetingDeleteQueryCancelMeetingReminderSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, store it as a long format integer and **not** an integer. Meeting IDs can be greater than 10 digits.
+ */
 export const meetingUpdatePathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -8510,6 +8402,9 @@ export const meetingUpdatePathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * Meeting occurrence ID. Support change of agenda, `start_time`, duration, or settings {`host_video`, `participant_video`, `join_before_host`, `mute_upon_entry`, `waiting_room`, `watermark`, `auto_recording`}.
+ */
 export const meetingUpdateQueryOccurrenceIdSchema = z
 	.string()
 	.optional()
@@ -8537,6 +8432,9 @@ export const meetingUpdateErrorSchema = z.union([
 	meetingUpdateStatus429Schema,
 ]);
 
+/**
+ * Meeting
+ */
 export const meetingUpdateBodySchema = z
 	.object({
 		agenda: z
@@ -9510,24 +9408,17 @@ export const meetingUpdateBodySchema = z
 	.describe("Meeting");
 
 export const meetingUpdatePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, store it as a long format integer and **not** an integer. Meeting IDs can be greater than 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingUpdatePathMeetingIdSchema,
 });
 
 export const meetingUpdateQuerySchema = z.object({
-	occurrence_id: z
-		.string()
-		.optional()
-		.describe(
-			"Meeting occurrence ID. Support change of agenda, `start_time`, duration, or settings {`host_video`, `participant_video`, `join_before_host`, `mute_upon_entry`, `waiting_room`, `watermark`, `auto_recording`}.",
-		)
-		.meta({ examples: ["1648194360000"] }),
+	occurrence_id: meetingUpdateQueryOccurrenceIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const getSipDialingWithPasscodePathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -9535,6 +9426,9 @@ export const getSipDialingWithPasscodePathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * Information about the meeting's encoded SIP URI.
+ */
 export const getSipDialingWithPasscodeStatus200Schema = z
 	.object({
 		sip_dialing: z
@@ -9589,14 +9483,13 @@ export const getSipDialingWithPasscodeBodySchema = z
 	.optional();
 
 export const getSipDialingWithPasscodePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: getSipDialingWithPasscodePathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a `long` format integer and not an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingStatusPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -9633,14 +9526,14 @@ export const meetingStatusBodySchema = z
 	.optional();
 
 export const meetingStatusPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a `long` format integer and not an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingStatusPathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID or universally unique ID (UUID).
+ * * If you provide a meeting ID, the API will return a response for the latest meeting instance.
+ * * If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** [double encode](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis/#meeting-id-and-uuid) the meeting UUID before making an API request.
+ */
 export const pastMeetingDetailsPathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -9757,19 +9650,20 @@ export const pastMeetingDetailsErrorSchema = z.union([
 ]);
 
 export const pastMeetingDetailsPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"The meeting's ID or universally unique ID (UUID). \n* If you provide a meeting ID, the API will return a response for the latest meeting instance. \n* If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** [double encode](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis/#meeting-id-and-uuid) the meeting UUID before making an API request.",
-		)
-		.meta({ examples: ["ABCDE12345"] }),
+	meetingId: pastMeetingDetailsPathMeetingIdSchema,
 });
 
+/**
+ * The past meeting's ID.
+ */
 export const pastMeetingsPathMeetingIdSchema = z
 	.int()
 	.describe("The past meeting's ID.")
 	.meta({ examples: [93398114182] });
 
+/**
+ * Start date in UTC, in yyyy-MM-dd format. This parameter only takes effect when used together with to. For best performance, we recommend querying within a one-month range.
+ */
 export const pastMeetingsQueryFromSchema = z.iso
 	.date()
 	.optional()
@@ -9778,6 +9672,9 @@ export const pastMeetingsQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2026-04-02"] });
 
+/**
+ * End date in UTC, in yyyy-MM-dd format. This parameter only takes effect when used together with from.
+ */
 export const pastMeetingsQueryToSchema = z.iso
 	.date()
 	.optional()
@@ -9786,6 +9683,9 @@ export const pastMeetingsQueryToSchema = z.iso
 	)
 	.meta({ examples: ["2026-04-02"] });
 
+/**
+ * List of Meetings
+ */
 export const pastMeetingsStatus200Schema = z
 	.object({
 		meetings: z
@@ -9832,29 +9732,19 @@ export const pastMeetingsErrorSchema = z.union([
 ]);
 
 export const pastMeetingsPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe("The past meeting's ID.")
-		.meta({ examples: [93398114182] }),
+	meetingId: pastMeetingsPathMeetingIdSchema,
 });
 
 export const pastMeetingsQuerySchema = z.object({
-	from: z.iso
-		.date()
-		.optional()
-		.describe(
-			"Start date in UTC, in yyyy-MM-dd format. This parameter only takes effect when used together with to. For best performance, we recommend querying within a one-month range.",
-		)
-		.meta({ examples: ["2026-04-02"] }),
-	to: z.iso
-		.date()
-		.optional()
-		.describe(
-			"End date in UTC, in yyyy-MM-dd format. This parameter only takes effect when used together with from.",
-		)
-		.meta({ examples: ["2026-04-02"] }),
+	from: pastMeetingsQueryFromSchema,
+	to: pastMeetingsQueryToSchema,
 });
 
+/**
+ * The meeting's ID or universally unique ID (UUID).
+ * * If you provide a meeting ID, the API returns a response for the latest meeting instance.
+ * * If you provide a meeting UUID that contains any `/` characters, you **must** double-encode the meeting UUID before making an API request.
+ */
 export const pastMeetingParticipantsPathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -9862,6 +9752,9 @@ export const pastMeetingParticipantsPathMeetingIdSchema = z
 	)
 	.meta({ examples: ["ABCDE12345"] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const pastMeetingParticipantsQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -9870,6 +9763,9 @@ export const pastMeetingParticipantsQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const pastMeetingParticipantsQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -9995,31 +9891,19 @@ export const pastMeetingParticipantsErrorSchema = z.union([
 ]);
 
 export const pastMeetingParticipantsPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"The meeting's ID or universally unique ID (UUID). \n* If you provide a meeting ID, the API returns a response for the latest meeting instance. \n* If you provide a meeting UUID that contains any `/` characters, you **must** double-encode the meeting UUID before making an API request.",
-		)
-		.meta({ examples: ["ABCDE12345"] }),
+	meetingId: pastMeetingParticipantsPathMeetingIdSchema,
 });
 
 export const pastMeetingParticipantsQuerySchema = z.object({
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
+	page_size: pastMeetingParticipantsQueryPageSizeSchema,
+	next_page_token: pastMeetingParticipantsQueryNextPageTokenSchema,
 });
 
+/**
+ * The meeting's ID or universally unique ID (UUID).
+ * * If you provide a meeting ID, the API will return a response for the latest meeting instance.
+ * * If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.
+ */
 export const listPastMeetingQAPathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -10099,18 +9983,25 @@ export const listPastMeetingQAErrorSchema = z.union([
 ]);
 
 export const listPastMeetingQAPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"The meeting's ID or universally unique ID (UUID). \n* If you provide a meeting ID, the API will return a response for the latest meeting instance. \n* If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.",
-		),
+	meetingId: listPastMeetingQAPathMeetingIdSchema,
 });
 
+/**
+ * The user's user ID or email address. For user-level apps, pass the `me` value.
+ */
 export const meetingsPathUserIdSchema = z
 	.string()
 	.describe("The user's user ID or email address. For user-level apps, pass the `me` value.")
 	.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] });
 
+/**
+ * The meeting type.
+ * * `scheduled` - All valid previous (unexpired) meetings, live meetings, and upcoming scheduled meetings.
+ * * `live` - All the ongoing meetings.
+ * * `upcoming` - All upcoming meetings, including live meetings.
+ * * `upcoming_meetings` - All upcoming meetings, including live meetings.
+ * * `previous_meetings` - All valid previous meetings whose scheduled end time has already passed.
+ */
 export const meetingsQueryTypeSchema = z
 	.enum(["scheduled", "live", "upcoming", "upcoming_meetings", "previous_meetings"])
 	.optional()
@@ -10120,6 +10011,9 @@ export const meetingsQueryTypeSchema = z
 	)
 	.meta({ examples: ["scheduled"] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const meetingsQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -10128,6 +10022,9 @@ export const meetingsQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const meetingsQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -10136,24 +10033,36 @@ export const meetingsQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * The page number of the current page in the returned records.
+ */
 export const meetingsQueryPageNumberSchema = z
 	.int()
 	.optional()
 	.describe("The page number of the current page in the returned records.")
 	.meta({ examples: [1] });
 
+/**
+ * The start date.
+ */
 export const meetingsQueryFromSchema = z.iso
 	.date()
 	.optional()
 	.describe("The start date.")
 	.meta({ examples: ["2023-01-01"] });
 
+/**
+ * The end date.
+ */
 export const meetingsQueryToSchema = z.iso
 	.date()
 	.optional()
 	.describe("The end date.")
 	.meta({ examples: ["2023-01-16"] });
 
+/**
+ * The timezone to assign to the `from` and `to` value. For a list of supported timezones and their formats, see our [timezone list](/docs/api/references/abbreviations/#timezones).
+ */
 export const meetingsQueryTimezoneSchema = z
 	.string()
 	.optional()
@@ -10291,64 +10200,30 @@ export const meetingsErrorSchema = z.union([
 ]);
 
 export const meetingsPathSchema = z.object({
-	userId: z
-		.string()
-		.describe("The user's user ID or email address. For user-level apps, pass the `me` value.")
-		.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
+	userId: meetingsPathUserIdSchema,
 });
 
 export const meetingsQuerySchema = z.object({
-	type: z
-		.enum(["scheduled", "live", "upcoming", "upcoming_meetings", "previous_meetings"])
-		.optional()
-		.default("scheduled")
-		.describe(
-			"The meeting type. \n* `scheduled` - All valid previous (unexpired) meetings, live meetings, and upcoming scheduled meetings. \n* `live` - All the ongoing meetings. \n* `upcoming` - All upcoming meetings, including live meetings. \n* `upcoming_meetings` - All upcoming meetings, including live meetings. \n* `previous_meetings` - All valid previous meetings whose scheduled end time has already passed.",
-		)
-		.meta({ examples: ["scheduled"] }),
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
-	page_number: z
-		.int()
-		.optional()
-		.describe("The page number of the current page in the returned records.")
-		.meta({ examples: [1] }),
-	from: z.iso
-		.date()
-		.optional()
-		.describe("The start date.")
-		.meta({ examples: ["2023-01-01"] }),
-	to: z.iso
-		.date()
-		.optional()
-		.describe("The end date.")
-		.meta({ examples: ["2023-01-16"] }),
-	timezone: z
-		.string()
-		.optional()
-		.describe(
-			"The timezone to assign to the `from` and `to` value. For a list of supported timezones and their formats, see our [timezone list](/docs/api/references/abbreviations/#timezones).",
-		)
-		.meta({ examples: ["America/Los_Angeles"] }),
+	type: meetingsQueryTypeSchema,
+	page_size: meetingsQueryPageSizeSchema,
+	next_page_token: meetingsQueryNextPageTokenSchema,
+	page_number: meetingsQueryPageNumberSchema,
+	from: meetingsQueryFromSchema,
+	to: meetingsQueryToSchema,
+	timezone: meetingsQueryTimezoneSchema,
 });
 
+/**
+ * The user's user ID or email address. For user-level apps, pass the `me` value.
+ */
 export const meetingCreatePathUserIdSchema = z
 	.string()
 	.describe("The user's user ID or email address. For user-level apps, pass the `me` value.")
 	.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] });
 
+/**
+ * Meeting object.
+ */
 export const meetingCreateStatus201Schema = z
 	.object({
 		assistant_id: z
@@ -11477,6 +11352,9 @@ export const meetingCreateErrorSchema = z.union([
 	meetingCreateStatus429Schema,
 ]);
 
+/**
+ * The meeting object.
+ */
 export const meetingCreateBodySchema = z
 	.object({
 		agenda: z
@@ -12395,12 +12273,12 @@ export const meetingCreateBodySchema = z
 	.describe("The meeting object.");
 
 export const meetingCreatePathSchema = z.object({
-	userId: z
-		.string()
-		.describe("The user's user ID or email address. For user-level apps, pass the `me` value.")
-		.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
+	userId: meetingCreatePathUserIdSchema,
 });
 
+/**
+ * The user's user ID or email address. For user-level apps, pass [the `me` value](/docs/api/rest/using-zoom-apis/#the-me-keyword).
+ */
 export const listUpcomingMeetingPathUserIdSchema = z
 	.string()
 	.describe(
@@ -12503,14 +12381,12 @@ export const listUpcomingMeetingErrorSchema = z.union([
 ]);
 
 export const listUpcomingMeetingPathSchema = z.object({
-	userId: z
-		.string()
-		.describe(
-			"The user's user ID or email address. For user-level apps, pass [the `me` value](/docs/api/rest/using-zoom-apis/#the-me-keyword).",
-		)
-		.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
+	userId: listUpcomingMeetingPathUserIdSchema,
 });
 
+/**
+ * The user's user ID or email address. For user-level apps, pass the `me` value.
+ */
 export const userPACsPathUserIdSchema = z
 	.string()
 	.describe("The user's user ID or email address. For user-level apps, pass the `me` value.");
@@ -12593,9 +12469,7 @@ export const userPACsErrorSchema = z.union([
 ]);
 
 export const userPACsPathSchema = z.object({
-	userId: z
-		.string()
-		.describe("The user's user ID or email address. For user-level apps, pass the `me` value."),
+	userId: userPACsPathUserIdSchema,
 });
 
 export const createBatchPollsPathMeetingIdSchema = z.string().meta({ examples: ["93398114182"] });
@@ -12780,6 +12654,9 @@ export const createBatchPollsErrorSchema = z.union([
 	createBatchPollsStatus429Schema,
 ]);
 
+/**
+ * The batch meeting poll object
+ */
 export const createBatchPollsBodySchema = z
 	.object({
 		polls: z
@@ -12952,9 +12829,13 @@ export const createBatchPollsBodySchema = z
 	.describe("The batch meeting poll object");
 
 export const createBatchPollsPathSchema = z.object({
-	meetingId: z.string().meta({ examples: ["93398114182"] }),
+	meetingId: createBatchPollsPathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingPollsPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -12962,6 +12843,11 @@ export const meetingPollsPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * Whether to query for polls with the **Anonymous** option enabled:
+ * * `true` &mdash; Query for polls with the **Anonymous** option enabled.
+ * * `false` &mdash; Do not query for polls with the **Anonymous** option enabled.
+ */
 export const meetingPollsQueryAnonymousSchema = z
 	.boolean()
 	.optional()
@@ -12970,6 +12856,9 @@ export const meetingPollsQueryAnonymousSchema = z
 	)
 	.meta({ examples: [true] });
 
+/**
+ * Poll List
+ */
 export const meetingPollsStatus200Schema = z
 	.object({
 		polls: z
@@ -13172,24 +13061,17 @@ export const meetingPollsErrorSchema = z.union([
 ]);
 
 export const meetingPollsPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingPollsPathMeetingIdSchema,
 });
 
 export const meetingPollsQuerySchema = z.object({
-	anonymous: z
-		.boolean()
-		.optional()
-		.describe(
-			"Whether to query for polls with the **Anonymous** option enabled: \n* `true` &mdash; Query for polls with the **Anonymous** option enabled. \n* `false` &mdash; Do not query for polls with the **Anonymous** option enabled.",
-		)
-		.meta({ examples: [true] }),
+	anonymous: meetingPollsQueryAnonymousSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingPollCreatePathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -13389,6 +13271,9 @@ export const meetingPollCreateErrorSchema = z.union([
 	meetingPollCreateStatus429Schema,
 ]);
 
+/**
+ * The meeting poll object.
+ */
 export const meetingPollCreateBodySchema = z
 	.object({
 		anonymous: z
@@ -13551,14 +13436,13 @@ export const meetingPollCreateBodySchema = z
 	.describe("The meeting poll object.");
 
 export const meetingPollCreatePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingPollCreatePathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, store it as a `long` format integer, not a simple integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingPollGetPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -13566,6 +13450,9 @@ export const meetingPollGetPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * The poll ID.
+ */
 export const meetingPollGetPathPollIdSchema = z
 	.string()
 	.describe("The poll ID.")
@@ -13759,18 +13646,14 @@ export const meetingPollGetErrorSchema = z.union([
 ]);
 
 export const meetingPollGetPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, store it as a `long` format integer, not a simple integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
-	pollId: z
-		.string()
-		.describe("The poll ID.")
-		.meta({ examples: ["QalIoKWLTJehBJ8e1xRrbQ"] }),
+	meetingId: meetingPollGetPathMeetingIdSchema,
+	pollId: meetingPollGetPathPollIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingPollUpdatePathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -13778,6 +13661,9 @@ export const meetingPollUpdatePathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * The poll ID.
+ */
 export const meetingPollUpdatePathPollIdSchema = z
 	.string()
 	.describe("The poll ID.")
@@ -13799,6 +13685,9 @@ export const meetingPollUpdateErrorSchema = z.union([
 	meetingPollUpdateStatus429Schema,
 ]);
 
+/**
+ * The meeting poll.
+ */
 export const meetingPollUpdateBodySchema = z
 	.object({
 		anonymous: z
@@ -13961,18 +13850,14 @@ export const meetingPollUpdateBodySchema = z
 	.describe("The meeting poll.");
 
 export const meetingPollUpdatePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
-	pollId: z
-		.string()
-		.describe("The poll ID.")
-		.meta({ examples: ["QalIoKWLTJehBJ8e1xRrbQ"] }),
+	meetingId: meetingPollUpdatePathMeetingIdSchema,
+	pollId: meetingPollUpdatePathPollIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingPollDeletePathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -13980,6 +13865,9 @@ export const meetingPollDeletePathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * The poll ID
+ */
 export const meetingPollDeletePathPollIdSchema = z
 	.string()
 	.describe("The poll ID")
@@ -14002,18 +13890,15 @@ export const meetingPollDeleteErrorSchema = z.union([
 ]);
 
 export const meetingPollDeletePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
-	pollId: z
-		.string()
-		.describe("The poll ID")
-		.meta({ examples: ["QalIoKWLTJehBJ8e1xRrbQ"] }),
+	meetingId: meetingPollDeletePathMeetingIdSchema,
+	pollId: meetingPollDeletePathPollIdSchema,
 });
 
+/**
+ * The meeting's ID or universally unique ID (UUID).
+ * * If you provide a meeting ID, the API will return a response for the latest meeting instance.
+ * * If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.
+ */
 export const listPastMeetingPollsPathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -14098,13 +13983,12 @@ export const listPastMeetingPollsErrorSchema = z.union([
 ]);
 
 export const listPastMeetingPollsPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"The meeting's ID or universally unique ID (UUID). \n* If you provide a meeting ID, the API will return a response for the latest meeting instance. \n* If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.",
-		),
+	meetingId: listPastMeetingPollsPathMeetingIdSchema,
 });
 
+/**
+ * Start date for which you would like to view the activity logs report. Using the `from` and `to` parameters, specify a monthly date range for the report as the API only provides one month worth of data in one request. The specified date range should fall within the last six months.
+ */
 export const reportSignInSignOutActivitiesQueryFromSchema = z.iso
 	.date()
 	.optional()
@@ -14113,24 +13997,36 @@ export const reportSignInSignOutActivitiesQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2019-09-01"] });
 
+/**
+ * End date up to which you would like to view the activity logs report.
+ */
 export const reportSignInSignOutActivitiesQueryToSchema = z.iso
 	.date()
 	.optional()
 	.describe("End date up to which you would like to view the activity logs report.")
 	.meta({ examples: ["2019-09-20"] });
 
+/**
+ * The number of records to be returned within a single API call
+ */
 export const reportSignInSignOutActivitiesQueryPageSizeSchema = z
 	.int()
 	.optional()
 	.describe("The number of records to be returned within a single API call")
 	.meta({ examples: [30] });
 
+/**
+ * Next page token is used to paginate through large result sets
+ */
 export const reportSignInSignOutActivitiesQueryNextPageTokenSchema = z
 	.string()
 	.optional()
 	.describe("Next page token is used to paginate through large result sets")
 	.meta({ examples: ["b43YBRLJFg3V4vsSpxvGdKIGtNbxn9h9If2"] });
 
+/**
+ * Report object
+ */
 export const reportSignInSignOutActivitiesStatus200Schema = z
 	.object({
 		activity_logs: z
@@ -14210,28 +14106,10 @@ export const reportSignInSignOutActivitiesErrorSchema = z.union([
 ]);
 
 export const reportSignInSignOutActivitiesQuerySchema = z.object({
-	from: z.iso
-		.date()
-		.optional()
-		.describe(
-			"Start date for which you would like to view the activity logs report. Using the `from` and `to` parameters, specify a monthly date range for the report as the API only provides one month worth of data in one request. The specified date range should fall within the last six months.",
-		)
-		.meta({ examples: ["2019-09-01"] }),
-	to: z.iso
-		.date()
-		.optional()
-		.describe("End date up to which you would like to view the activity logs report.")
-		.meta({ examples: ["2019-09-20"] }),
-	page_size: z
-		.int()
-		.optional()
-		.describe("The number of records to be returned within a single API call")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe("Next page token is used to paginate through large result sets")
-		.meta({ examples: ["b43YBRLJFg3V4vsSpxvGdKIGtNbxn9h9If2"] }),
+	from: reportSignInSignOutActivitiesQueryFromSchema,
+	to: reportSignInSignOutActivitiesQueryToSchema,
+	page_size: reportSignInSignOutActivitiesQueryPageSizeSchema,
+	next_page_token: reportSignInSignOutActivitiesQueryNextPageTokenSchema,
 });
 
 export const getBillingReportStatus200Schema = z.object({
@@ -14293,6 +14171,9 @@ export const getBillingReportErrorSchema = z.union([
 	getBillingReportStatus429Schema,
 ]);
 
+/**
+ * The billing report's unique identifier. Retrieve this ID from the response of **Get Billing Reports** API request.
+ */
 export const getBillingInvoicesReportsQueryBillingIdSchema = z
 	.string()
 	.describe(
@@ -14364,14 +14245,12 @@ export const getBillingInvoicesReportsErrorSchema = z.union([
 ]);
 
 export const getBillingInvoicesReportsQuerySchema = z.object({
-	billing_id: z
-		.string()
-		.describe(
-			"The billing report's unique identifier. Retrieve this ID from the response of **Get Billing Reports** API request. \n\n",
-		)
-		.meta({ examples: ["indfhgfhfho"] }),
+	billing_id: getBillingInvoicesReportsQueryBillingIdSchema,
 });
 
+/**
+ * Start date in 'yyyy-mm-dd' format. The date range defined by the &quot;from&quot; and &quot;to&quot; parameters should only be one month as the report includes only one month worth of data at once.
+ */
 export const reportCloudRecordingQueryFromSchema = z.iso
 	.date()
 	.describe(
@@ -14379,11 +14258,18 @@ export const reportCloudRecordingQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2022-01-01"] });
 
+/**
+ * End date.
+ */
 export const reportCloudRecordingQueryToSchema = z.iso
 	.date()
 	.describe("End date.")
 	.meta({ examples: ["2022-01-28"] });
 
+/**
+ * The group ID. To get a group ID, use the [**List groups**](/api-reference/zoom-api/methods#operation/groups) API.
+ *  **Note:** The API response will only contain users who are members of the queried group ID.
+ */
 export const reportCloudRecordingQueryGroupIdSchema = z
 	.string()
 	.optional()
@@ -14447,37 +14333,33 @@ export const reportCloudRecordingErrorSchema = z.union([
 ]);
 
 export const reportCloudRecordingQuerySchema = z.object({
-	from: z.iso
-		.date()
-		.describe(
-			"Start date in 'yyyy-mm-dd' format. The date range defined by the &quot;from&quot; and &quot;to&quot; parameters should only be one month as the report includes only one month worth of data at once.",
-		)
-		.meta({ examples: ["2022-01-01"] }),
-	to: z.iso
-		.date()
-		.describe("End date.")
-		.meta({ examples: ["2022-01-28"] }),
-	group_id: z
-		.string()
-		.optional()
-		.describe(
-			"The group ID. To get a group ID, use the [**List groups**](/api-reference/zoom-api/methods#operation/groups) API. \n\n **Note:** The API response will only contain users who are members of the queried group ID.",
-		)
-		.meta({ examples: ["TaVA8QKik_1233"] }),
+	from: reportCloudRecordingQueryFromSchema,
+	to: reportCloudRecordingQueryToSchema,
+	group_id: reportCloudRecordingQueryGroupIdSchema,
 });
 
+/**
+ * Year for this report
+ */
 export const reportDailyQueryYearSchema = z
 	.int()
 	.optional()
 	.describe("Year for this report")
 	.meta({ examples: [2022] });
 
+/**
+ * Month for this report
+ */
 export const reportDailyQueryMonthSchema = z
 	.int()
 	.optional()
 	.describe("Month for this report")
 	.meta({ examples: [3] });
 
+/**
+ * The group ID. To get a group ID, use the [**List groups**](/docs/api/users/#tag/groups/GET/groups) API.
+ *  **Note:** The API response will only contain users who are members of the queried group ID.
+ */
 export const reportDailyQueryGroupIdSchema = z
 	.string()
 	.optional()
@@ -14543,25 +14425,14 @@ export const reportDailyErrorSchema = z.union([
 ]);
 
 export const reportDailyQuerySchema = z.object({
-	year: z
-		.int()
-		.optional()
-		.describe("Year for this report")
-		.meta({ examples: [2022] }),
-	month: z
-		.int()
-		.optional()
-		.describe("Month for this report")
-		.meta({ examples: [3] }),
-	group_id: z
-		.string()
-		.optional()
-		.describe(
-			"The group ID. To get a group ID, use the [**List groups**](/docs/api/users/#tag/groups/GET/groups) API. \n\n **Note:** The API response will only contain users who are members of the queried group ID.",
-		)
-		.meta({ examples: ["TaVA8QKik_1233"] }),
+	year: reportDailyQueryYearSchema,
+	month: reportDailyQueryMonthSchema,
+	group_id: reportDailyQueryGroupIdSchema,
 });
 
+/**
+ * The start date in `yyyy-MM-dd` format. The date range defined by the `from` and `to` parameters should only be one month, as the report includes only one month's worth of data at once. It is the date range in which the disclaimer was generated.
+ */
 export const getdisclaimerreportQueryFromSchema = z
 	.string()
 	.describe(
@@ -14569,17 +14440,26 @@ export const getdisclaimerreportQueryFromSchema = z
 	)
 	.meta({ examples: ["2026-01-15"] });
 
+/**
+ * The end date in `yyyy-MM-dd` format.
+ */
 export const getdisclaimerreportQueryToSchema = z
 	.string()
 	.describe("The end date in `yyyy-MM-dd` format.")
 	.meta({ examples: ["2026-01-16"] });
 
+/**
+ * The user email or meeting number
+ */
 export const getdisclaimerreportQuerySearchValueSchema = z
 	.string()
 	.optional()
 	.describe("The user email or meeting number")
 	.meta({ examples: ["jchill@example.com"] });
 
+/**
+ * The disclaimer type.
+ */
 export const getdisclaimerreportQueryDisclaimerTypeSchema = z
 	.enum([
 		"login",
@@ -14612,18 +14492,27 @@ export const getdisclaimerreportQueryDisclaimerTypeSchema = z
 	.describe("The disclaimer type.")
 	.meta({ examples: ["AICompanion"] });
 
+/**
+ * The user's group ID.
+ */
 export const getdisclaimerreportQueryGroupIdSchema = z
 	.string()
 	.optional()
 	.describe("The user's group ID.")
 	.meta({ examples: ["TaVA8QKik_1233"] });
 
+/**
+ * The number of records returned in a single API call.
+ */
 export const getdisclaimerreportQueryPageSizeSchema = z
 	.int()
 	.optional()
 	.describe("The number of records returned in a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const getdisclaimerreportQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -14727,71 +14616,18 @@ export const getdisclaimerreportErrorSchema = z.union([
 ]);
 
 export const getdisclaimerreportQuerySchema = z.object({
-	from: z
-		.string()
-		.describe(
-			"The start date in `yyyy-MM-dd` format. The date range defined by the `from` and `to` parameters should only be one month, as the report includes only one month's worth of data at once. It is the date range in which the disclaimer was generated.",
-		)
-		.meta({ examples: ["2026-01-15"] }),
-	to: z
-		.string()
-		.describe("The end date in `yyyy-MM-dd` format.")
-		.meta({ examples: ["2026-01-16"] }),
-	search_value: z
-		.string()
-		.optional()
-		.describe("The user email or meeting number")
-		.meta({ examples: ["jchill@example.com"] }),
-	disclaimer_type: z
-		.enum([
-			"login",
-			"joinMeeting",
-			"recording",
-			"remoteControl",
-			"meetingConnector",
-			"archive",
-			"summary",
-			"query",
-			"AICompanion",
-			"caption",
-			"joinSDKMeeting",
-			"NDI",
-			"joinWebinar",
-			"internalMMRGuestJoin",
-			"liveStream",
-			"phoneACR",
-			"viewBOActivity",
-			"webinarBO",
-			"unmuteAudio",
-			"joinOnZoom",
-			"GDPR",
-			"chinaMeeting",
-			"zappJoin",
-			"softUpdateReminder",
-			"all",
-		])
-		.optional()
-		.describe("The disclaimer type.")
-		.meta({ examples: ["AICompanion"] }),
-	group_id: z
-		.string()
-		.optional()
-		.describe("The user's group ID.")
-		.meta({ examples: ["TaVA8QKik_1233"] }),
-	page_size: z
-		.int()
-		.optional()
-		.describe("The number of records returned in a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
+	from: getdisclaimerreportQueryFromSchema,
+	to: getdisclaimerreportQueryToSchema,
+	search_value: getdisclaimerreportQuerySearchValueSchema,
+	disclaimer_type: getdisclaimerreportQueryDisclaimerTypeSchema,
+	group_id: getdisclaimerreportQueryGroupIdSchema,
+	page_size: getdisclaimerreportQueryPageSizeSchema,
+	next_page_token: getdisclaimerreportQueryNextPageTokenSchema,
 });
 
+/**
+ * The start date in `yyyy-mm-dd` format. The date range defined by the `from` and `to` parameters should only be one month, as the report includes only one month worth of data at once.
+ */
 export const gethistorymeetingandwebinarlistQueryFromSchema = z
 	.string()
 	.describe(
@@ -14799,11 +14635,20 @@ export const gethistorymeetingandwebinarlistQueryFromSchema = z
 	)
 	.meta({ examples: ["2024-12-23"] });
 
+/**
+ * The end date in `yyyy-mm-dd` format.
+ */
 export const gethistorymeetingandwebinarlistQueryToSchema = z
 	.string()
 	.describe("The end date in `yyyy-mm-dd` format.")
 	.meta({ examples: ["2024-12-24"] });
 
+/**
+ * The type of date to query.
+ * * `start_time` - Query by meeting's start time.
+ * * `end_time` - Query by meeting's end time.
+ * This value defaults to `start_time`.
+ */
 export const gethistorymeetingandwebinarlistQueryDateTypeSchema = z
 	.enum(["start_time", "end_time"])
 	.optional()
@@ -14812,6 +14657,12 @@ export const gethistorymeetingandwebinarlistQueryDateTypeSchema = z
 	)
 	.meta({ examples: ["end_time"] });
 
+/**
+ * The meeting type to query.
+ * - `all` - rerturn meetings and webinars
+ * - `meeting` - only return meetings
+ * - `webinar` - only return webinars
+ */
 export const gethistorymeetingandwebinarlistQueryMeetingTypeSchema = z
 	.enum(["meeting", "webinar", "all"])
 	.optional()
@@ -14820,6 +14671,15 @@ export const gethistorymeetingandwebinarlistQueryMeetingTypeSchema = z
 	)
 	.meta({ examples: ["meeting"] });
 
+/**
+ * Query meetings that have this type of report.
+ * - `all` - all meetings
+ * - `poll` - meetings with poll data
+ * - `survey` - meetings with survey data
+ * - `qa` - meetings with Q&A data
+ * - `resource` - meetings with resource link data
+ * - `reaction` - meetings with reaction data
+ */
 export const gethistorymeetingandwebinarlistQueryReportTypeSchema = z
 	.enum(["all", "poll", "survey", "qa", "resource", "reaction"])
 	.optional()
@@ -14828,18 +14688,27 @@ export const gethistorymeetingandwebinarlistQueryReportTypeSchema = z
 	)
 	.meta({ examples: ["poll"] });
 
+/**
+ * The keywords of meeting topic or meeting ID.
+ */
 export const gethistorymeetingandwebinarlistQuerySearchKeySchema = z
 	.string()
 	.optional()
 	.describe("The keywords of meeting topic or meeting ID.")
 	.meta({ examples: ["my meeting"] });
 
+/**
+ * The number of records to be returned within a single API call.
+ */
 export const gethistorymeetingandwebinarlistQueryPageSizeSchema = z
 	.int()
 	.optional()
 	.describe("The number of records to be returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const gethistorymeetingandwebinarlistQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -14848,6 +14717,10 @@ export const gethistorymeetingandwebinarlistQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * The group ID. To get a group ID, use the [**List groups**](/docs/api/rest/reference/user/methods/#operation/groups) API.
+ *  **Note:** The API response will only contain users who are members of the queried group ID.
+ */
 export const gethistorymeetingandwebinarlistQueryGroupIdSchema = z
 	.string()
 	.optional()
@@ -14856,6 +14729,9 @@ export const gethistorymeetingandwebinarlistQueryGroupIdSchema = z
 	)
 	.meta({ examples: ["TaVA8QKik_1233"] });
 
+/**
+ * The meeting features to query and return history meetings that use one or more of these features. To provide multiple values, separate them with commas, like `meeting_summary,meeting_questions`
+ */
 export const gethistorymeetingandwebinarlistQueryMeetingFeatureSchema = z
 	.enum([
 		"screen_sharing",
@@ -15265,107 +15141,21 @@ export const gethistorymeetingandwebinarlistErrorSchema = z.union([
 ]);
 
 export const gethistorymeetingandwebinarlistQuerySchema = z.object({
-	from: z
-		.string()
-		.describe(
-			"The start date in `yyyy-mm-dd` format. The date range defined by the `from` and `to` parameters should only be one month, as the report includes only one month worth of data at once.",
-		)
-		.meta({ examples: ["2024-12-23"] }),
-	to: z
-		.string()
-		.describe("The end date in `yyyy-mm-dd` format.")
-		.meta({ examples: ["2024-12-24"] }),
-	date_type: z
-		.enum(["start_time", "end_time"])
-		.optional()
-		.describe(
-			"The type of date to query.\n* `start_time` - Query by meeting's start time. \n* `end_time` - Query by meeting's end time. \n\nThis value defaults to `start_time`.",
-		)
-		.meta({ examples: ["end_time"] }),
-	meeting_type: z
-		.enum(["meeting", "webinar", "all"])
-		.optional()
-		.describe(
-			"The meeting type to query. \n- `all` - rerturn meetings and webinars \n- `meeting` - only return meetings \n- `webinar` - only return webinars",
-		)
-		.meta({ examples: ["meeting"] }),
-	report_type: z
-		.enum(["all", "poll", "survey", "qa", "resource", "reaction"])
-		.optional()
-		.describe(
-			"Query meetings that have this type of report.\n- `all` - all meetings\n- `poll` - meetings with poll data \n- `survey` - meetings with survey data \n- `qa` - meetings with Q&A data \n- `resource` - meetings with resource link data \n- `reaction` - meetings with reaction data",
-		)
-		.meta({ examples: ["poll"] }),
-	search_key: z
-		.string()
-		.optional()
-		.describe("The keywords of meeting topic or meeting ID.")
-		.meta({ examples: ["my meeting"] }),
-	page_size: z
-		.int()
-		.optional()
-		.describe("The number of records to be returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
-	group_id: z
-		.string()
-		.optional()
-		.describe(
-			"The group ID. To get a group ID, use the [**List groups**](/docs/api/rest/reference/user/methods/#operation/groups) API. \n\n **Note:** The API response will only contain users who are members of the queried group ID.",
-		)
-		.meta({ examples: ["TaVA8QKik_1233"] }),
-	meeting_feature: z
-		.enum([
-			"screen_sharing",
-			"video_on",
-			"remote_control",
-			"closed_caption",
-			"language_interpretation",
-			"telephone_usage",
-			"in_meeting_chat",
-			"poll",
-			"join_by_room",
-			"waiting_room",
-			"live_transcription",
-			"reaction",
-			"zoom_apps",
-			"annotation",
-			"raise_hand",
-			"virtual_background",
-			"whiteboard",
-			"immersive_scene",
-			"avatar",
-			"switch_to_mobile",
-			"file_sharing",
-			"meeting_summary",
-			"meeting_questions",
-			"record_to_computer",
-			"record_to_cloud",
-			"live_translation",
-			"registration",
-			"smart_recording",
-			"multi_speaker",
-			"meeting_wallpaper",
-			"gen_ai_virtual_background",
-			"multi_share",
-			"document_collaboration",
-			"portrait_lighting",
-			"personalized_audio_isolation",
-			"color_themes",
-		])
-		.optional()
-		.describe(
-			"The meeting features to query and return history meetings that use one or more of these features. To provide multiple values, separate them with commas, like `meeting_summary,meeting_questions`",
-		)
-		.meta({ examples: ["meeting_summary"] }),
+	from: gethistorymeetingandwebinarlistQueryFromSchema,
+	to: gethistorymeetingandwebinarlistQueryToSchema,
+	date_type: gethistorymeetingandwebinarlistQueryDateTypeSchema,
+	meeting_type: gethistorymeetingandwebinarlistQueryMeetingTypeSchema,
+	report_type: gethistorymeetingandwebinarlistQueryReportTypeSchema,
+	search_key: gethistorymeetingandwebinarlistQuerySearchKeySchema,
+	page_size: gethistorymeetingandwebinarlistQueryPageSizeSchema,
+	next_page_token: gethistorymeetingandwebinarlistQueryNextPageTokenSchema,
+	group_id: gethistorymeetingandwebinarlistQueryGroupIdSchema,
+	meeting_feature: gethistorymeetingandwebinarlistQueryMeetingFeatureSchema,
 });
 
+/**
+ * The start date in 'yyyy-MM-dd'format. The date range defined by the `from` and `to` parameters should only be one month, as the report includes only one month's worth of data at once.
+ */
 export const reportMeetingactivitylogsQueryFromSchema = z.iso
 	.date()
 	.describe(
@@ -15373,11 +15163,17 @@ export const reportMeetingactivitylogsQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2024-03-01"] });
 
+/**
+ * The end date 'yyyy-MM-dd' format.
+ */
 export const reportMeetingactivitylogsQueryToSchema = z.iso
 	.date()
 	.describe("The end date 'yyyy-MM-dd' format.")
 	.meta({ examples: ["2024-03-04"] });
 
+/**
+ * The number of records to be returned within a single API call.
+ */
 export const reportMeetingactivitylogsQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -15386,6 +15182,9 @@ export const reportMeetingactivitylogsQueryPageSizeSchema = z
 	.describe("The number of records to be returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const reportMeetingactivitylogsQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -15394,18 +15193,35 @@ export const reportMeetingactivitylogsQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["b43YBRLJFg3V4vsSpxvGdKIGtNbxn9h9If2"] });
 
+/**
+ * The meeting's number.
+ */
 export const reportMeetingactivitylogsQueryMeetingNumberSchema = z
 	.string()
 	.optional()
 	.describe("The meeting's number.")
 	.meta({ examples: ["4221901192"] });
 
+/**
+ * An operator's name or email.
+ */
 export const reportMeetingactivitylogsQuerySearchKeySchema = z
 	.string()
 	.optional()
 	.describe("An operator's name or email.")
 	.meta({ examples: ["Eileen"] });
 
+/**
+ * Activity type.
+ * -1 - All activities.
+ * 0 - Meeting created.
+ * 1 - Meeting started.
+ * 2 - User joined.
+ * 3 - User left.
+ * 4 - Remote control.
+ * 5 - In-meeting chat.
+ * 9 - Meeting ended.
+ */
 export const reportMeetingactivitylogsQueryActivityTypeSchema = z
 	.enum([
 		"All Activities",
@@ -15423,6 +15239,9 @@ export const reportMeetingactivitylogsQueryActivityTypeSchema = z
 	)
 	.meta({ examples: ["All Activities"] });
 
+/**
+ * Report object
+ */
 export const reportMeetingactivitylogsStatus200Schema = z
 	.object({
 		meeting_activity_logs: z
@@ -15493,58 +15312,20 @@ export const reportMeetingactivitylogsErrorSchema = z.union([
 ]);
 
 export const reportMeetingactivitylogsQuerySchema = z.object({
-	from: z.iso
-		.date()
-		.describe(
-			"The start date in 'yyyy-MM-dd'format. The date range defined by the `from` and `to` parameters should only be one month, as the report includes only one month's worth of data at once.",
-		)
-		.meta({ examples: ["2024-03-01"] }),
-	to: z.iso
-		.date()
-		.describe("The end date 'yyyy-MM-dd' format.")
-		.meta({ examples: ["2024-03-04"] }),
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records to be returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["b43YBRLJFg3V4vsSpxvGdKIGtNbxn9h9If2"] }),
-	meeting_number: z
-		.string()
-		.optional()
-		.describe("The meeting's number.")
-		.meta({ examples: ["4221901192"] }),
-	search_key: z
-		.string()
-		.optional()
-		.describe("An operator's name or email.")
-		.meta({ examples: ["Eileen"] }),
-	activity_type: z
-		.enum([
-			"All Activities",
-			"Meeting Created",
-			"Meeting Started",
-			"User Join",
-			"User Left",
-			"Remote Control",
-			"In-Meeting Chat",
-			"Meeting Ended",
-		])
-		.default("All Activities")
-		.describe(
-			"Activity type. \n-1 - All activities. \n0 - Meeting created. \n1 - Meeting started. \n2 - User joined. \n3 - User left. \n4 - Remote control. \n5 - In-meeting chat. \n9 - Meeting ended.",
-		)
-		.meta({ examples: ["All Activities"] }),
+	from: reportMeetingactivitylogsQueryFromSchema,
+	to: reportMeetingactivitylogsQueryToSchema,
+	page_size: reportMeetingactivitylogsQueryPageSizeSchema,
+	next_page_token: reportMeetingactivitylogsQueryNextPageTokenSchema,
+	meeting_number: reportMeetingactivitylogsQueryMeetingNumberSchema,
+	search_key: reportMeetingactivitylogsQuerySearchKeySchema,
+	activity_type: reportMeetingactivitylogsQueryActivityTypeSchema,
 });
 
+/**
+ * The meeting's ID or universally unique ID (UUID).
+ * * If you provide a meeting ID, the API returns a response for the latest meeting instance.
+ * * If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** [double encode](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis/#meeting-id-and-uuid) the meeting UUID before making an API request.
+ */
 export const reportMeetingDetailsPathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -15672,13 +15453,14 @@ export const reportMeetingDetailsErrorSchema = z.union([
 ]);
 
 export const reportMeetingDetailsPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"The meeting's ID or universally unique ID (UUID). \n* If you provide a meeting ID, the API returns a response for the latest meeting instance. \n* If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** [double encode](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis/#meeting-id-and-uuid) the meeting UUID before making an API request.",
-		),
+	meetingId: reportMeetingDetailsPathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID or universally unique ID (UUID).
+ * * If you provide a meeting ID, the API will return a response for the latest meeting instance.
+ * * If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.
+ */
 export const reportMeetingParticipantsPathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -15686,6 +15468,9 @@ export const reportMeetingParticipantsPathMeetingIdSchema = z
 	)
 	.meta({ examples: ["4444AAAiAAAAAiAiAiiAii=="] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const reportMeetingParticipantsQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -15694,6 +15479,9 @@ export const reportMeetingParticipantsQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const reportMeetingParticipantsQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -15702,6 +15490,9 @@ export const reportMeetingParticipantsQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * Provide `registrant_id` as the value for this field if you would like to see the registrant ID attribute in the response of this API call. A registrant ID is a unique identifier of a [meeting registrant](/docs/api-reference/zoom-api/methods#operation/meetingRegistrants).
+ */
 export const reportMeetingParticipantsQueryIncludeFieldsSchema = z
 	.enum(["registrant_id"])
 	.optional()
@@ -15848,38 +15639,20 @@ export const reportMeetingParticipantsErrorSchema = z.union([
 ]);
 
 export const reportMeetingParticipantsPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"The meeting's ID or universally unique ID (UUID). \n* If you provide a meeting ID, the API will return a response for the latest meeting instance. \n* If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.",
-		)
-		.meta({ examples: ["4444AAAiAAAAAiAiAiiAii=="] }),
+	meetingId: reportMeetingParticipantsPathMeetingIdSchema,
 });
 
 export const reportMeetingParticipantsQuerySchema = z.object({
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
-	include_fields: z
-		.enum(["registrant_id"])
-		.optional()
-		.describe(
-			"Provide `registrant_id` as the value for this field if you would like to see the registrant ID attribute in the response of this API call. A registrant ID is a unique identifier of a [meeting registrant](/docs/api-reference/zoom-api/methods#operation/meetingRegistrants).",
-		)
-		.meta({ examples: ["registrant_id"] }),
+	page_size: reportMeetingParticipantsQueryPageSizeSchema,
+	next_page_token: reportMeetingParticipantsQueryNextPageTokenSchema,
+	include_fields: reportMeetingParticipantsQueryIncludeFieldsSchema,
 });
 
+/**
+ * The meeting's ID or universally unique ID (UUID).
+ * * If you provide a meeting ID, the API will return a response for the latest meeting instance.
+ * * If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** [double encode](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis/#meeting-id-and-uuid) the meeting UUID before making an API request.
+ */
 export const reportMeetingPollsPathMeetingIdSchema = z
 	.union([z.int(), z.string()])
 	.describe(
@@ -15983,13 +15756,14 @@ export const reportMeetingPollsErrorSchema = z.union([
 ]);
 
 export const reportMeetingPollsPathSchema = z.object({
-	meetingId: z
-		.union([z.int(), z.string()])
-		.describe(
-			"The meeting's ID or universally unique ID (UUID). \n* If you provide a meeting ID, the API will return a response for the latest meeting instance. \n* If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** [double encode](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis/#meeting-id-and-uuid) the meeting UUID before making an API request.",
-		),
+	meetingId: reportMeetingPollsPathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID or universally unique ID (UUID).
+ * * If you provide a meeting ID, the API will return a response for the latest meeting instance.
+ * * If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.
+ */
 export const reportMeetingQAPathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -16144,13 +15918,14 @@ export const reportMeetingQAErrorSchema = z.union([
 ]);
 
 export const reportMeetingQAPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"The meeting's ID or universally unique ID (UUID). \n* If you provide a meeting ID, the API will return a response for the latest meeting instance. \n* If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.",
-		),
+	meetingId: reportMeetingQAPathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID or universally unique ID (UUID).
+ * * If you provide a meeting ID, the API will return a response for the latest meeting instance.
+ * * If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.
+ */
 export const reportMeetingSurveyPathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -16262,13 +16037,12 @@ export const reportMeetingSurveyErrorSchema = z.union([
 ]);
 
 export const reportMeetingSurveyPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"The meeting's ID or universally unique ID (UUID). \n* If you provide a meeting ID, the API will return a response for the latest meeting instance. \n* If you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.",
-		),
+	meetingId: reportMeetingSurveyPathMeetingIdSchema,
 });
 
+/**
+ * Start date in 'yyyy-mm-dd' or 'yyyy-MM-dd HH:mm' format. The date range defined by the `from` and `to` parameters should only be one month as the report includes only one month worth of data at once.
+ */
 export const reportOperationLogsQueryFromSchema = z.iso
 	.date()
 	.describe(
@@ -16276,11 +16050,17 @@ export const reportOperationLogsQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2022-01-01"] });
 
+/**
+ * End date in 'yyyy-mm-dd' or 'yyyy-MM-dd HH:mm' format.
+ */
 export const reportOperationLogsQueryToSchema = z.iso
 	.date()
 	.describe("End date in 'yyyy-mm-dd' or 'yyyy-MM-dd HH:mm' format.")
 	.meta({ examples: ["2022-01-28"] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const reportOperationLogsQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -16289,6 +16069,9 @@ export const reportOperationLogsQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const reportOperationLogsQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -16297,6 +16080,23 @@ export const reportOperationLogsQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * **Optional**
+ * Filter your response by a category type to see reports for a specific category.
+ * The value for this field can be one of the following:
+ *   `all`
+ *  `user`
+ *  `user_settings`
+ *  `account`
+ *  `billing`
+ *  `im`
+ *  `recording`
+ *  `phone_contacts`
+ *  `webinar`
+ *  `sub_account`
+ *  `role`
+ *  `zoom_rooms`
+ */
 export const reportOperationLogsQueryCategoryTypeSchema = z
 	.enum([
 		"all",
@@ -16382,52 +16182,16 @@ export const reportOperationLogsErrorSchema = z.union([
 ]);
 
 export const reportOperationLogsQuerySchema = z.object({
-	from: z.iso
-		.date()
-		.describe(
-			"Start date in 'yyyy-mm-dd' or 'yyyy-MM-dd HH:mm' format. The date range defined by the `from` and `to` parameters should only be one month as the report includes only one month worth of data at once.",
-		)
-		.meta({ examples: ["2022-01-01"] }),
-	to: z.iso
-		.date()
-		.describe("End date in 'yyyy-mm-dd' or 'yyyy-MM-dd HH:mm' format.")
-		.meta({ examples: ["2022-01-28"] }),
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
-	category_type: z
-		.enum([
-			"all",
-			"user",
-			"user_settings",
-			"account",
-			"billing",
-			"im",
-			"recording",
-			"phone_contacts",
-			"webinar",
-			"sub_account",
-			"role",
-			"zoom_rooms",
-		])
-		.optional()
-		.describe(
-			"**Optional**  \n \nFilter your response by a category type to see reports for a specific category.\nThe value for this field can be one of the following:  \n  `all`  \n `user`  \n `user_settings`  \n `account`  \n `billing`  \n `im`  \n `recording`  \n `phone_contacts`  \n `webinar`  \n `sub_account`  \n `role`  \n `zoom_rooms`",
-		)
-		.meta({ examples: ["user"] }),
+	from: reportOperationLogsQueryFromSchema,
+	to: reportOperationLogsQueryToSchema,
+	page_size: reportOperationLogsQueryPageSizeSchema,
+	next_page_token: reportOperationLogsQueryNextPageTokenSchema,
+	category_type: reportOperationLogsQueryCategoryTypeSchema,
 });
 
+/**
+ * The start date in `yyyy-MM-dd` format. The date range defined by the `from` and `to` parameters should only be one month, as the report includes only one month's worth of data at once. It is the date range for remote support to start.
+ */
 export const getremotesupportreportQueryFromSchema = z
 	.string()
 	.describe(
@@ -16435,11 +16199,17 @@ export const getremotesupportreportQueryFromSchema = z
 	)
 	.meta({ examples: ["2025-09-15"] });
 
+/**
+ * The end date in `yyyy-MM-dd` format.
+ */
 export const getremotesupportreportQueryToSchema = z
 	.string()
 	.describe("The end date in `yyyy-MM-dd` format.")
 	.meta({ examples: ["2025-09-16"] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const getremotesupportreportQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -16448,6 +16218,9 @@ export const getremotesupportreportQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * The number of records to be returned within a single API call.
+ */
 export const getremotesupportreportQueryPageSizeSchema = z
 	.string()
 	.optional()
@@ -16565,30 +16338,18 @@ export const getremotesupportreportErrorSchema = z.union([
 ]);
 
 export const getremotesupportreportQuerySchema = z.object({
-	from: z
-		.string()
-		.describe(
-			"The start date in `yyyy-MM-dd` format. The date range defined by the `from` and `to` parameters should only be one month, as the report includes only one month's worth of data at once. It is the date range for remote support to start.",
-		)
-		.meta({ examples: ["2025-09-15"] }),
-	to: z
-		.string()
-		.describe("The end date in `yyyy-MM-dd` format.")
-		.meta({ examples: ["2025-09-16"] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
-	page_size: z
-		.string()
-		.optional()
-		.describe("The number of records to be returned within a single API call.")
-		.meta({ examples: ["30"] }),
+	from: getremotesupportreportQueryFromSchema,
+	to: getremotesupportreportQueryToSchema,
+	next_page_token: getremotesupportreportQueryNextPageTokenSchema,
+	page_size: getremotesupportreportQueryPageSizeSchema,
 });
 
+/**
+ * Audio types:
+ *  `1` - Toll-free Call-in &amp; Call-out.
+ *  `2` - Toll
+ * `3` - SIP Connected Audio
+ */
 export const reportTelephoneQueryTypeSchema = z
 	.enum(["1", "2", "3"])
 	.optional()
@@ -16598,6 +16359,14 @@ export const reportTelephoneQueryTypeSchema = z
 	)
 	.meta({ examples: ["3"] });
 
+/**
+ * The type of date to query.
+ * * `start_time` &mdash; Query by call start time.
+ * * `end_time` &mdash; Query by call end time.
+ * * `meeting_start_time` &mdash; Query by meeting start time.
+ * * `meeting_end_time` &mdash; Query by meeting end time.
+ * This value defaults to `start_time`.
+ */
 export const reportTelephoneQueryQueryDateTypeSchema = z
 	.enum(["start_time", "end_time", "meeting_start_time", "meeting_end_time"])
 	.optional()
@@ -16607,6 +16376,9 @@ export const reportTelephoneQueryQueryDateTypeSchema = z
 	)
 	.meta({ examples: ["start_time"] });
 
+/**
+ * Start date in 'yyyy-mm-dd' format. The date range defined by the &quot;from&quot; and &quot;to&quot; parameters should only be one month as the report includes only one month worth of data at once.
+ */
 export const reportTelephoneQueryFromSchema = z.iso
 	.date()
 	.describe(
@@ -16614,11 +16386,17 @@ export const reportTelephoneQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2022-01-01"] });
 
+/**
+ * End date.
+ */
 export const reportTelephoneQueryToSchema = z.iso
 	.date()
 	.describe("End date.")
 	.meta({ examples: ["2022-01-28"] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const reportTelephoneQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -16627,6 +16405,10 @@ export const reportTelephoneQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * The page number of the current page in the returned records. This field is **not** available if the `query_date_type` parameter is the `meeting_start_time` or `meeting_end_time` value.
+ * This field is deprecated. Use the `next_page_token` query parameter for pagination.
+ */
 export const reportTelephoneQueryPageNumberSchema = z
 	.int()
 	.optional()
@@ -16636,6 +16418,9 @@ export const reportTelephoneQueryPageNumberSchema = z
 	)
 	.meta({ examples: [1] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const reportTelephoneQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -16808,56 +16593,18 @@ export const reportTelephoneErrorSchema = z.union([
 ]);
 
 export const reportTelephoneQuerySchema = z.object({
-	type: z
-		.enum(["1", "2", "3"])
-		.optional()
-		.default("1")
-		.describe(
-			"Audio types:  \n `1` - Toll-free Call-in &amp; Call-out.  \n `2` - Toll   \n \n`3` - SIP Connected Audio",
-		)
-		.meta({ examples: ["3"] }),
-	query_date_type: z
-		.enum(["start_time", "end_time", "meeting_start_time", "meeting_end_time"])
-		.optional()
-		.default("start_time")
-		.describe(
-			"The type of date to query. \n* `start_time` &mdash; Query by call start time. \n* `end_time` &mdash; Query by call end time. \n* `meeting_start_time` &mdash; Query by meeting start time. \n* `meeting_end_time` &mdash; Query by meeting end time. \n\nThis value defaults to `start_time`.",
-		)
-		.meta({ examples: ["start_time"] }),
-	from: z.iso
-		.date()
-		.describe(
-			"Start date in 'yyyy-mm-dd' format. The date range defined by the &quot;from&quot; and &quot;to&quot; parameters should only be one month as the report includes only one month worth of data at once.",
-		)
-		.meta({ examples: ["2022-01-01"] }),
-	to: z.iso
-		.date()
-		.describe("End date.")
-		.meta({ examples: ["2022-01-28"] }),
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	page_number: z
-		.int()
-		.optional()
-		.default(1)
-		.describe(
-			"The page number of the current page in the returned records. This field is **not** available if the `query_date_type` parameter is the `meeting_start_time` or `meeting_end_time` value. \n\nThis field is deprecated. Use the `next_page_token` query parameter for pagination.",
-		)
-		.meta({ examples: [1] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["b43YBRLJFg3V4vsSpxvGdKIGtNbxn9h9If2"] }),
+	type: reportTelephoneQueryTypeSchema,
+	query_date_type: reportTelephoneQueryQueryDateTypeSchema,
+	from: reportTelephoneQueryFromSchema,
+	to: reportTelephoneQueryToSchema,
+	page_size: reportTelephoneQueryPageSizeSchema,
+	page_number: reportTelephoneQueryPageNumberSchema,
+	next_page_token: reportTelephoneQueryNextPageTokenSchema,
 });
 
+/**
+ * Start date in 'yyyy-mm-dd' format. The date range defined by the &quot;from&quot; and &quot;to&quot; parameters should only be one month as the report includes only one month worth of data at once.
+ */
 export const reportUpcomingEventsQueryFromSchema = z.iso
 	.date()
 	.describe(
@@ -16865,11 +16612,17 @@ export const reportUpcomingEventsQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2022-01-01"] });
 
+/**
+ * End date.
+ */
 export const reportUpcomingEventsQueryToSchema = z.iso
 	.date()
 	.describe("End date.")
 	.meta({ examples: ["2022-01-28"] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const reportUpcomingEventsQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -16878,6 +16631,9 @@ export const reportUpcomingEventsQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const reportUpcomingEventsQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -16886,6 +16642,13 @@ export const reportUpcomingEventsQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * The type of event to query.
+ * * `meeting` &mdash; A meeting event.
+ * * `webinar` &mdash; A webinar event.
+ * * `all` &mdash; Both meeting and webinar events.
+ * This value defaults to `all`.
+ */
 export const reportUpcomingEventsQueryTypeSchema = z
 	.enum(["meeting", "webinar", "all"])
 	.optional()
@@ -16895,6 +16658,10 @@ export const reportUpcomingEventsQueryTypeSchema = z
 	)
 	.meta({ examples: ["meeting"] });
 
+/**
+ * The group ID. To get a group ID, use the [**List groups**](/api-reference/zoom-api/methods#operation/groups) API.
+ *  **Note:** The API response will only contain meetings where the host is a member of the queried group ID.
+ */
 export const reportUpcomingEventsQueryGroupIdSchema = z
 	.string()
 	.optional()
@@ -16981,47 +16748,19 @@ export const reportUpcomingEventsErrorSchema = z.union([
 ]);
 
 export const reportUpcomingEventsQuerySchema = z.object({
-	from: z.iso
-		.date()
-		.describe(
-			"Start date in 'yyyy-mm-dd' format. The date range defined by the &quot;from&quot; and &quot;to&quot; parameters should only be one month as the report includes only one month worth of data at once.",
-		)
-		.meta({ examples: ["2022-01-01"] }),
-	to: z.iso
-		.date()
-		.describe("End date.")
-		.meta({ examples: ["2022-01-28"] }),
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
-	type: z
-		.enum(["meeting", "webinar", "all"])
-		.optional()
-		.default("all")
-		.describe(
-			"The type of event to query. \n* `meeting` &mdash; A meeting event. \n* `webinar` &mdash; A webinar event. \n* `all` &mdash; Both meeting and webinar events.\n\nThis value defaults to `all`.",
-		)
-		.meta({ examples: ["meeting"] }),
-	group_id: z
-		.string()
-		.optional()
-		.describe(
-			"The group ID. To get a group ID, use the [**List groups**](/api-reference/zoom-api/methods#operation/groups) API. \n\n **Note:** The API response will only contain meetings where the host is a member of the queried group ID.",
-		)
-		.meta({ examples: ["TaVA8QKik_1233"] }),
+	from: reportUpcomingEventsQueryFromSchema,
+	to: reportUpcomingEventsQueryToSchema,
+	page_size: reportUpcomingEventsQueryPageSizeSchema,
+	next_page_token: reportUpcomingEventsQueryNextPageTokenSchema,
+	type: reportUpcomingEventsQueryTypeSchema,
+	group_id: reportUpcomingEventsQueryGroupIdSchema,
 });
 
+/**
+ * Active or inactive hosts.
+ *  `active` - Active hosts.
+ *  `inactive` - Inactive hosts.
+ */
 export const reportUsersQueryTypeSchema = z
 	.enum(["active", "inactive"])
 	.optional()
@@ -17030,6 +16769,9 @@ export const reportUsersQueryTypeSchema = z
 	)
 	.meta({ examples: ["active"] });
 
+/**
+ * Start date in 'yyyy-mm-dd' format. The date range defined by the `from` and `to` parameters should only be one month as the report includes only one month worth of data at once.
+ */
 export const reportUsersQueryFromSchema = z.iso
 	.date()
 	.describe(
@@ -17037,11 +16779,17 @@ export const reportUsersQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2022-01-01"] });
 
+/**
+ * End date.
+ */
 export const reportUsersQueryToSchema = z.iso
 	.date()
 	.describe("End date.")
 	.meta({ examples: ["2022-01-28"] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const reportUsersQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -17050,6 +16798,9 @@ export const reportUsersQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * The page number of the current page in the returned records.
+ */
 export const reportUsersQueryPageNumberSchema = z
 	.int()
 	.optional()
@@ -17057,6 +16808,9 @@ export const reportUsersQueryPageNumberSchema = z
 	.describe("The page number of the current page in the returned records.")
 	.meta({ examples: [1] });
 
+/**
+ * The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.
+ */
 export const reportUsersQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -17065,6 +16819,10 @@ export const reportUsersQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["b43YBRLJFg3V4vsSpxvGdKIGtNbxn9h9If2"] });
 
+/**
+ * The group ID. To get a group ID, use the [**List groups**](/docs/api/rest/reference/user/methods/#operation/groups) API.
+ *  **Note:** The API response will only contain users who are members of the queried group ID.
+ */
 export const reportUsersQueryGroupIdSchema = z
 	.string()
 	.optional()
@@ -17215,57 +16973,26 @@ export const reportUsersErrorSchema = z.union([
 ]);
 
 export const reportUsersQuerySchema = z.object({
-	type: z
-		.enum(["active", "inactive"])
-		.optional()
-		.describe(
-			"Active or inactive hosts.  \n `active` - Active hosts.   \n `inactive` - Inactive hosts.",
-		)
-		.meta({ examples: ["active"] }),
-	from: z.iso
-		.date()
-		.describe(
-			"Start date in 'yyyy-mm-dd' format. The date range defined by the `from` and `to` parameters should only be one month as the report includes only one month worth of data at once.",
-		)
-		.meta({ examples: ["2022-01-01"] }),
-	to: z.iso
-		.date()
-		.describe("End date.")
-		.meta({ examples: ["2022-01-28"] }),
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	page_number: z
-		.int()
-		.optional()
-		.default(1)
-		.describe("The page number of the current page in the returned records.")
-		.meta({ examples: [1] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"The next page token is used to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. The expiration period for this token is 15 minutes.",
-		)
-		.meta({ examples: ["b43YBRLJFg3V4vsSpxvGdKIGtNbxn9h9If2"] }),
-	group_id: z
-		.string()
-		.optional()
-		.describe(
-			"The group ID. To get a group ID, use the [**List groups**](/docs/api/rest/reference/user/methods/#operation/groups) API. \n\n **Note:** The API response will only contain users who are members of the queried group ID.",
-		)
-		.meta({ examples: ["TaVA8QKik_1233"] }),
+	type: reportUsersQueryTypeSchema,
+	from: reportUsersQueryFromSchema,
+	to: reportUsersQueryToSchema,
+	page_size: reportUsersQueryPageSizeSchema,
+	page_number: reportUsersQueryPageNumberSchema,
+	next_page_token: reportUsersQueryNextPageTokenSchema,
+	group_id: reportUsersQueryGroupIdSchema,
 });
 
+/**
+ * The user ID or email address of the user. For user-level apps, pass the `me` value.
+ */
 export const reportMeetingsPathUserIdSchema = z
 	.string()
 	.describe("The user ID or email address of the user. For user-level apps, pass the `me` value.")
 	.meta({ examples: ["--7IvCwkQWqn67wBsjsWiQ"] });
 
+/**
+ * Start date in 'yyyy-mm-dd' format. The date range defined by the &quot;from&quot; and &quot;to&quot; parameters should only be one month as the report includes only one month worth of data at once.
+ */
 export const reportMeetingsQueryFromSchema = z.iso
 	.date()
 	.describe(
@@ -17273,11 +17000,17 @@ export const reportMeetingsQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2022-01-01"] });
 
+/**
+ * End date.
+ */
 export const reportMeetingsQueryToSchema = z.iso
 	.date()
 	.describe("End date.")
 	.meta({ examples: ["2022-01-28"] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const reportMeetingsQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -17286,6 +17019,9 @@ export const reportMeetingsQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const reportMeetingsQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -17294,6 +17030,12 @@ export const reportMeetingsQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * The meeting type to query for:
+ * * `past` - All past meetings.
+ * * `pastOne` - A single past user meeting.
+ * * `pastJoined` - All past meetings the account's users hosted or joined.
+ */
 export const reportMeetingsQueryTypeSchema = z
 	.enum(["past", "pastOne", "pastJoined"])
 	.optional()
@@ -17548,47 +17290,22 @@ export const reportMeetingsErrorSchema = z.union([
 ]);
 
 export const reportMeetingsPathSchema = z.object({
-	userId: z
-		.string()
-		.describe("The user ID or email address of the user. For user-level apps, pass the `me` value.")
-		.meta({ examples: ["--7IvCwkQWqn67wBsjsWiQ"] }),
+	userId: reportMeetingsPathUserIdSchema,
 });
 
 export const reportMeetingsQuerySchema = z.object({
-	from: z.iso
-		.date()
-		.describe(
-			"Start date in 'yyyy-mm-dd' format. The date range defined by the &quot;from&quot; and &quot;to&quot; parameters should only be one month as the report includes only one month worth of data at once.",
-		)
-		.meta({ examples: ["2022-01-01"] }),
-	to: z.iso
-		.date()
-		.describe("End date.")
-		.meta({ examples: ["2022-01-28"] }),
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
-	type: z
-		.enum(["past", "pastOne", "pastJoined"])
-		.optional()
-		.default("past")
-		.describe(
-			"The meeting type to query for: \n* `past` - All past meetings. \n* `pastOne` - A single past user meeting. \n* `pastJoined` - All past meetings the account's users hosted or joined.",
-		)
-		.meta({ examples: ["past"] }),
+	from: reportMeetingsQueryFromSchema,
+	to: reportMeetingsQueryToSchema,
+	page_size: reportMeetingsQueryPageSizeSchema,
+	next_page_token: reportMeetingsQueryNextPageTokenSchema,
+	type: reportMeetingsQueryTypeSchema,
 });
 
+/**
+ * The webinar's ID or universally unique ID (UUID).
+ * * If you provide a webinar ID, the API will return a response for the latest webinar instance.
+ * * If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** [double encode](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis/#meeting-id-and-uuid) the webinar UUID before making an API request.
+ */
 export const reportWebinarDetailsPathWebinarIdSchema = z
 	.string()
 	.describe(
@@ -17717,14 +17434,14 @@ export const reportWebinarDetailsErrorSchema = z.union([
 ]);
 
 export const reportWebinarDetailsPathSchema = z.object({
-	webinarId: z
-		.string()
-		.describe(
-			"The webinar's ID or universally unique ID (UUID). \n* If you provide a webinar ID, the API will return a response for the latest webinar instance. \n* If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** [double encode](https://marketplace.zoom.us/docs/api-reference/using-zoom-apis/#meeting-id-and-uuid) the webinar UUID before making an API request.",
-		)
-		.meta({ examples: ["ABCDE12345"] }),
+	webinarId: reportWebinarDetailsPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID or universally unique ID (UUID).
+ * * If you provide a webinar ID, the API will return a response for the latest webinar instance.
+ * * If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the webinar UUID before making an API request.
+ */
 export const reportWebinarParticipantsPathWebinarIdSchema = z
 	.string()
 	.describe(
@@ -17732,6 +17449,9 @@ export const reportWebinarParticipantsPathWebinarIdSchema = z
 	)
 	.meta({ examples: ["ABCDE12345"] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const reportWebinarParticipantsQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -17740,6 +17460,9 @@ export const reportWebinarParticipantsQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const reportWebinarParticipantsQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -17748,6 +17471,10 @@ export const reportWebinarParticipantsQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * The additional query parameters to include.
+ * * `registrant_id` - Include the registrant's ID in the API response. The registrant ID is the webinar participant's unique ID.
+ */
 export const reportWebinarParticipantsQueryIncludeFieldsSchema = z
 	.enum(["registrant_id"])
 	.optional()
@@ -17897,38 +17624,20 @@ export const reportWebinarParticipantsErrorSchema = z.union([
 ]);
 
 export const reportWebinarParticipantsPathSchema = z.object({
-	webinarId: z
-		.string()
-		.describe(
-			"The webinar's ID or universally unique ID (UUID). \n* If you provide a webinar ID, the API will return a response for the latest webinar instance. \n* If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the webinar UUID before making an API request.",
-		)
-		.meta({ examples: ["ABCDE12345"] }),
+	webinarId: reportWebinarParticipantsPathWebinarIdSchema,
 });
 
 export const reportWebinarParticipantsQuerySchema = z.object({
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
-	include_fields: z
-		.enum(["registrant_id"])
-		.optional()
-		.describe(
-			"The additional query parameters to include. \n* `registrant_id` - Include the registrant's ID in the API response. The registrant ID is the webinar participant's unique ID.",
-		)
-		.meta({ examples: ["registrant_id"] }),
+	page_size: reportWebinarParticipantsQueryPageSizeSchema,
+	next_page_token: reportWebinarParticipantsQueryNextPageTokenSchema,
+	include_fields: reportWebinarParticipantsQueryIncludeFieldsSchema,
 });
 
+/**
+ * The webinar's ID or universally unique ID (UUID).
+ * * If you provide a webinar ID, the API will return a response for the latest webinar instance.
+ * * If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the webinar UUID before making an API request.
+ */
 export const reportWebinarPollsPathWebinarIdSchema = z
 	.string()
 	.describe(
@@ -18031,14 +17740,14 @@ export const reportWebinarPollsErrorSchema = z.union([
 ]);
 
 export const reportWebinarPollsPathSchema = z.object({
-	webinarId: z
-		.string()
-		.describe(
-			"The webinar's ID or universally unique ID (UUID). \n* If you provide a webinar ID, the API will return a response for the latest webinar instance. \n* If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the webinar UUID before making an API request.",
-		)
-		.meta({ examples: ["ABCDE12345"] }),
+	webinarId: reportWebinarPollsPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID or universally unique ID (UUID).
+ * * If you provide a webinar ID, the API will return a response for the latest webinar instance.
+ * * If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the webinar UUID before making an API request.
+ */
 export const reportWebinarQAPathWebinarIdSchema = z
 	.string()
 	.describe(
@@ -18194,14 +17903,14 @@ export const reportWebinarQAErrorSchema = z.union([
 ]);
 
 export const reportWebinarQAPathSchema = z.object({
-	webinarId: z
-		.string()
-		.describe(
-			"The webinar's ID or universally unique ID (UUID). \n* If you provide a webinar ID, the API will return a response for the latest webinar instance. \n* If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the webinar UUID before making an API request.",
-		)
-		.meta({ examples: ["ABCDE12345"] }),
+	webinarId: reportWebinarQAPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID or universally unique ID (UUID).
+ * * If you provide a webinar ID, the API returns a response for the latest webinar instance.
+ * * If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the webinar UUID before making an API request.
+ */
 export const reportWebinarSurveyPathWebinarIdSchema = z
 	.string()
 	.describe(
@@ -18314,14 +18023,12 @@ export const reportWebinarSurveyErrorSchema = z.union([
 ]);
 
 export const reportWebinarSurveyPathSchema = z.object({
-	webinarId: z
-		.string()
-		.describe(
-			"The webinar's ID or universally unique ID (UUID). \n* If you provide a webinar ID, the API returns a response for the latest webinar instance. \n* If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the webinar UUID before making an API request.",
-		)
-		.meta({ examples: ["ABCDE12345"] }),
+	webinarId: reportWebinarSurveyPathWebinarIdSchema,
 });
 
+/**
+ * A user's user name or email address. If this parameter is provided, only the SIP phone system integration enabled for that specific user will be returned. Otherwise, all SIP phones on an account will be returned.
+ */
 export const listSIPPhonePhonesQuerySearchKeySchema = z
 	.string()
 	.optional()
@@ -18330,6 +18037,9 @@ export const listSIPPhonePhonesQuerySearchKeySchema = z
 	)
 	.meta({ examples: ["jchill@example.com"] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const listSIPPhonePhonesQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -18338,6 +18048,9 @@ export const listSIPPhonePhonesQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. This tokan's expiration period is 15 minutes.
+ */
 export const listSIPPhonePhonesQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -18522,27 +18235,9 @@ export const listSIPPhonePhonesErrorSchema = z.union([
 ]);
 
 export const listSIPPhonePhonesQuerySchema = z.object({
-	search_key: z
-		.string()
-		.optional()
-		.describe(
-			"A user's user name or email address. If this parameter is provided, only the SIP phone system integration enabled for that specific user will be returned. Otherwise, all SIP phones on an account will be returned.",
-		)
-		.meta({ examples: ["jchill@example.com"] }),
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token will be returned whenever the set of available results exceeds the current page size. This tokan's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["Tva2CuIdTgsv8wAnhyAdU3m06Y2HuLQtlh3"] }),
+	search_key: listSIPPhonePhonesQuerySearchKeySchema,
+	page_size: listSIPPhonePhonesQueryPageSizeSchema,
+	next_page_token: listSIPPhonePhonesQueryNextPageTokenSchema,
 });
 
 export const enableSIPPhonePhonesStatus201Schema = z.object({
@@ -18850,6 +18545,9 @@ export const enableSIPPhonePhonesBodySchema = z
 	})
 	.optional();
 
+/**
+ * The SIP phone ID. It can be retrieved from the **List SIP phones** API.
+ */
 export const deleteSIPPhonePhonesPathPhoneIdSchema = z
 	.string()
 	.describe("The SIP phone ID. It can be retrieved from the **List SIP phones** API.")
@@ -18875,12 +18573,12 @@ export const deleteSIPPhonePhonesErrorSchema = z.union([
 ]);
 
 export const deleteSIPPhonePhonesPathSchema = z.object({
-	phoneId: z
-		.string()
-		.describe("The SIP phone ID. It can be retrieved from the **List SIP phones** API.")
-		.meta({ examples: ["123456"] }),
+	phoneId: deleteSIPPhonePhonesPathPhoneIdSchema,
 });
 
+/**
+ * The SIP phone ID. Retrieve this with the **List SIP phones** API.
+ */
 export const updateSIPPhonePhonesPathPhoneIdSchema = z
 	.string()
 	.describe("The SIP phone ID. Retrieve this with the **List SIP phones** API.")
@@ -19045,12 +18743,12 @@ export const updateSIPPhonePhonesBodySchema = z
 	.optional();
 
 export const updateSIPPhonePhonesPathSchema = z.object({
-	phoneId: z
-		.string()
-		.describe("The SIP phone ID. Retrieve this with the **List SIP phones** API.")
-		.meta({ examples: ["123456"] }),
+	phoneId: updateSIPPhonePhonesPathPhoneIdSchema,
 });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const listmeetingsummariesQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -19059,6 +18757,9 @@ export const listmeetingsummariesQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through a large set of results. The next page token returns whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const listmeetingsummariesQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -19067,6 +18768,9 @@ export const listmeetingsummariesQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * The start date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format. The time field used for filtering is specified by `time_filter_field`.
+ */
 export const listmeetingsummariesQueryFromSchema = z.iso
 	.datetime({ offset: true })
 	.optional()
@@ -19075,6 +18779,9 @@ export const listmeetingsummariesQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2023-10-19T07:00:00Z"] });
 
+/**
+ * The end date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format. The time field used for filtering is specified by `time_filter_field`.
+ */
 export const listmeetingsummariesQueryToSchema = z.iso
 	.datetime({ offset: true })
 	.optional()
@@ -19083,6 +18790,9 @@ export const listmeetingsummariesQueryToSchema = z.iso
 	)
 	.meta({ examples: ["2023-10-20T07:00:00Z"] });
 
+/**
+ * Which summary time field to use to filter results by the `from` and `to` parameters.
+ */
 export const listmeetingsummariesQueryTimeFilterFieldSchema = z
 	.enum(["summary_start_time", "summary_created_time"])
 	.optional()
@@ -19202,44 +18912,16 @@ export const listmeetingsummariesErrorSchema = z.union([
 ]);
 
 export const listmeetingsummariesQuerySchema = z.object({
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through a large set of results. The next page token returns whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
-	from: z.iso
-		.datetime({ offset: true })
-		.optional()
-		.describe(
-			"The start date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format. The time field used for filtering is specified by `time_filter_field`.",
-		)
-		.meta({ examples: ["2023-10-19T07:00:00Z"] }),
-	to: z.iso
-		.datetime({ offset: true })
-		.optional()
-		.describe(
-			"The end date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format. The time field used for filtering is specified by `time_filter_field`.",
-		)
-		.meta({ examples: ["2023-10-20T07:00:00Z"] }),
-	time_filter_field: z
-		.enum(["summary_start_time", "summary_created_time"])
-		.optional()
-		.default("summary_start_time")
-		.describe(
-			"Which summary time field to use to filter results by the `from` and `to` parameters.",
-		)
-		.meta({ examples: ["summary_created_time"] }),
+	page_size: listmeetingsummariesQueryPageSizeSchema,
+	next_page_token: listmeetingsummariesQueryNextPageTokenSchema,
+	from: listmeetingsummariesQueryFromSchema,
+	to: listmeetingsummariesQueryToSchema,
+	time_filter_field: listmeetingsummariesQueryTimeFilterFieldSchema,
 });
 
+/**
+ * The meeting's universally unique ID (UUID). When you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.
+ */
 export const getameetingsummaryPathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -19397,14 +19079,12 @@ export const getameetingsummaryErrorSchema = z.union([
 ]);
 
 export const getameetingsummaryPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"The meeting's universally unique ID (UUID). When you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.",
-		)
-		.meta({ examples: ["aDYlohsHRtCd4ii1uC2+hA=="] }),
+	meetingId: getameetingsummaryPathMeetingIdSchema,
 });
 
+/**
+ * The meeting's universally unique ID (UUID). When you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.
+ */
 export const deletemeetingorwebinarsummaryPathMeetingIdSchema = z
 	.string()
 	.describe(
@@ -19433,14 +19113,12 @@ export const deletemeetingorwebinarsummaryErrorSchema = z.union([
 ]);
 
 export const deletemeetingorwebinarsummaryPathSchema = z.object({
-	meetingId: z
-		.string()
-		.describe(
-			"The meeting's universally unique ID (UUID). When you provide a meeting UUID that begins with a `/` character or contains the `//` characters, you **must** double-encode the meeting UUID before making an API request.",
-		)
-		.meta({ examples: ["aDYlohsHRtCd4ii1uC2+hA=="] }),
+	meetingId: deletemeetingorwebinarsummaryPathMeetingIdSchema,
 });
 
+/**
+ * The user's user ID or email address. For user-level apps, pass [the `me` value](/docs/api/rest/using-zoom-apis/#the-me-keyword).
+ */
 export const listUserMeetingSummariesPathUserIdSchema = z
 	.string()
 	.describe(
@@ -19448,6 +19126,9 @@ export const listUserMeetingSummariesPathUserIdSchema = z
 	)
 	.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const listUserMeetingSummariesQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -19456,6 +19137,9 @@ export const listUserMeetingSummariesQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through a large set of results. The next page token returns whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const listUserMeetingSummariesQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -19464,6 +19148,9 @@ export const listUserMeetingSummariesQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * The start date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format. The time field used for filtering is specified by `time_filter_field`.
+ */
 export const listUserMeetingSummariesQueryFromSchema = z.iso
 	.datetime({ offset: true })
 	.optional()
@@ -19472,6 +19159,9 @@ export const listUserMeetingSummariesQueryFromSchema = z.iso
 	)
 	.meta({ examples: ["2023-10-19T07:00:00Z"] });
 
+/**
+ * The end date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format. The time field used for filtering is specified by `time_filter_field`.
+ */
 export const listUserMeetingSummariesQueryToSchema = z.iso
 	.datetime({ offset: true })
 	.optional()
@@ -19480,6 +19170,9 @@ export const listUserMeetingSummariesQueryToSchema = z.iso
 	)
 	.meta({ examples: ["2023-10-20T07:00:00Z"] });
 
+/**
+ * Which summary time field to use to filter results by the `from` and `to` parameters.
+ */
 export const listUserMeetingSummariesQueryTimeFilterFieldSchema = z
 	.enum(["summary_start_time", "summary_created_time"])
 	.optional()
@@ -19602,53 +19295,21 @@ export const listUserMeetingSummariesErrorSchema = z.union([
 ]);
 
 export const listUserMeetingSummariesPathSchema = z.object({
-	userId: z
-		.string()
-		.describe(
-			"The user's user ID or email address. For user-level apps, pass [the `me` value](/docs/api/rest/using-zoom-apis/#the-me-keyword).",
-		)
-		.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
+	userId: listUserMeetingSummariesPathUserIdSchema,
 });
 
 export const listUserMeetingSummariesQuerySchema = z.object({
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through a large set of results. The next page token returns whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
-	from: z.iso
-		.datetime({ offset: true })
-		.optional()
-		.describe(
-			"The start date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format. The time field used for filtering is specified by `time_filter_field`.",
-		)
-		.meta({ examples: ["2023-10-19T07:00:00Z"] }),
-	to: z.iso
-		.datetime({ offset: true })
-		.optional()
-		.describe(
-			"The end date, in `yyyy-MM-dd'T'HH:mm:ss'Z'` UTC format. The time field used for filtering is specified by `time_filter_field`.",
-		)
-		.meta({ examples: ["2023-10-20T07:00:00Z"] }),
-	time_filter_field: z
-		.enum(["summary_start_time", "summary_created_time"])
-		.optional()
-		.default("summary_start_time")
-		.describe(
-			"Which summary time field to use to filter results by the `from` and `to` parameters.",
-		)
-		.meta({ examples: ["summary_created_time"] }),
+	page_size: listUserMeetingSummariesQueryPageSizeSchema,
+	next_page_token: listUserMeetingSummariesQueryNextPageTokenSchema,
+	from: listUserMeetingSummariesQueryFromSchema,
+	to: listUserMeetingSummariesQueryToSchema,
+	time_filter_field: listUserMeetingSummariesQueryTimeFilterFieldSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, store it as a long-format integer and **not** a simple integer. Meeting IDs can be more than 10 digits.
+ */
 export const meetingSurveyGetPathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -19656,6 +19317,9 @@ export const meetingSurveyGetPathMeetingIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * Information about the meeting survey.
+ */
 export const meetingSurveyGetStatus200Schema = z
 	.object({
 		custom_survey: z
@@ -19854,14 +19518,13 @@ export const meetingSurveyGetErrorSchema = z.union([
 ]);
 
 export const meetingSurveyGetPathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, store it as a long-format integer and **not** a simple integer. Meeting IDs can be more than 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingSurveyGetPathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.
+ */
 export const meetingSurveyDeletePathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -19886,14 +19549,13 @@ export const meetingSurveyDeleteErrorSchema = z.union([
 ]);
 
 export const meetingSurveyDeletePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, you must store it as a long format integer and **not** an integer. Meeting IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingSurveyDeletePathMeetingIdSchema,
 });
 
+/**
+ * The meeting's ID.
+ *  When storing this value in your database, store it as a long-format integer and **not** a simple integer. Meeting IDs can be over 10 digits.
+ */
 export const meetingSurveyUpdatePathMeetingIdSchema = z
 	.int()
 	.describe(
@@ -19917,6 +19579,9 @@ export const meetingSurveyUpdateErrorSchema = z.union([
 	meetingSurveyUpdateStatus429Schema,
 ]);
 
+/**
+ * Information about the meeting survey.
+ */
 export const meetingSurveyUpdateBodySchema = z
 	.object({
 		custom_survey: z
@@ -20102,12 +19767,7 @@ export const meetingSurveyUpdateBodySchema = z
 	.describe("Information about the meeting survey.");
 
 export const meetingSurveyUpdatePathSchema = z.object({
-	meetingId: z
-		.int()
-		.describe(
-			"The meeting's ID. \n\n When storing this value in your database, store it as a long-format integer and **not** a simple integer. Meeting IDs can be over 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	meetingId: meetingSurveyUpdatePathMeetingIdSchema,
 });
 
 export const tspStatus200Schema = z.object({
@@ -20193,6 +19853,9 @@ export const tspUpdateResponseSchema = tspUpdateStatus204Schema;
 
 export const tspUpdateErrorSchema = z.union([tspUpdateStatus400Schema, tspUpdateStatus429Schema]);
 
+/**
+ * TSP Account
+ */
 export const tspUpdateBodySchema = z
 	.object({
 		dial_in_number_unrestricted: z
@@ -20240,6 +19903,9 @@ export const tspUpdateBodySchema = z
 	.optional()
 	.describe("TSP Account");
 
+/**
+ * The user ID or email address of the user. For user-level apps, pass the `me` value.
+ */
 export const userTSPsPathUserIdSchema = z
 	.string()
 	.describe("The user ID or email address of the user. For user-level apps, pass the `me` value.")
@@ -20325,12 +19991,12 @@ export const userTSPsErrorSchema = z.union([
 ]);
 
 export const userTSPsPathSchema = z.object({
-	userId: z
-		.string()
-		.describe("The user ID or email address of the user. For user-level apps, pass the `me` value.")
-		.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
+	userId: userTSPsPathUserIdSchema,
 });
 
+/**
+ * The user's user ID or email address. For user-level apps, pass the `me` value.
+ */
 export const userTSPCreatePathUserIdSchema = z
 	.string()
 	.describe("The user's user ID or email address. For user-level apps, pass the `me` value.")
@@ -20411,6 +20077,9 @@ export const userTSPCreateErrorSchema = z.union([
 	userTSPCreateStatus429Schema,
 ]);
 
+/**
+ * List of TSP accounts.
+ */
 export const userTSPCreateBodySchema = z
 	.object({
 		conference_code: z
@@ -20468,12 +20137,12 @@ export const userTSPCreateBodySchema = z
 	.describe("List of TSP accounts.");
 
 export const userTSPCreatePathSchema = z.object({
-	userId: z
-		.string()
-		.describe("The user's user ID or email address. For user-level apps, pass the `me` value.")
-		.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
+	userId: userTSPCreatePathUserIdSchema,
 });
 
+/**
+ * The user's user ID or email address.
+ */
 export const tspUrlUpdatePathUserIdSchema = z
 	.string()
 	.describe("The user's user ID or email address.")
@@ -20495,6 +20164,9 @@ export const tspUrlUpdateErrorSchema = z.union([
 	tspUrlUpdateStatus429Schema,
 ]);
 
+/**
+ * The user's global dial-in URL.
+ */
 export const tspUrlUpdateBodySchema = z
 	.object({
 		audio_url: z
@@ -20510,22 +20182,28 @@ export const tspUrlUpdateBodySchema = z
 	.describe("The user's global dial-in URL.");
 
 export const tspUrlUpdatePathSchema = z.object({
-	userId: z
-		.string()
-		.describe("The user's user ID or email address.")
-		.meta({ examples: ["6dfgdfgdg444447b0egga"] }),
+	userId: tspUrlUpdatePathUserIdSchema,
 });
 
+/**
+ * The user ID or email address of the user. For user-level apps, pass the `me` value.
+ */
 export const userTSPPathUserIdSchema = z
 	.string()
 	.describe("The user ID or email address of the user. For user-level apps, pass the `me` value.")
 	.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] });
 
+/**
+ * TSP account ID.
+ */
 export const userTSPPathTspIdSchema = z
 	.enum(["1", "2"])
 	.describe("TSP account ID.")
 	.meta({ examples: ["1"] });
 
+/**
+ * TSP account of the user.
+ */
 export const userTSPStatus200Schema = z
 	.object({
 		conference_code: z
@@ -20601,21 +20279,21 @@ export const userTSPErrorSchema = z.union([
 ]);
 
 export const userTSPPathSchema = z.object({
-	userId: z
-		.string()
-		.describe("The user ID or email address of the user. For user-level apps, pass the `me` value.")
-		.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
-	tspId: z
-		.enum(["1", "2"])
-		.describe("TSP account ID.")
-		.meta({ examples: ["1"] }),
+	userId: userTSPPathUserIdSchema,
+	tspId: userTSPPathTspIdSchema,
 });
 
+/**
+ * The user's user ID or email address. For user-level apps, pass the `me` value.
+ */
 export const userTSPDeletePathUserIdSchema = z
 	.string()
 	.describe("The user's user ID or email address. For user-level apps, pass the `me` value.")
 	.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] });
 
+/**
+ * TSP account ID.
+ */
 export const userTSPDeletePathTspIdSchema = z
 	.enum(["1", "2"])
 	.describe("TSP account ID.")
@@ -20638,21 +20316,21 @@ export const userTSPDeleteErrorSchema = z.union([
 ]);
 
 export const userTSPDeletePathSchema = z.object({
-	userId: z
-		.string()
-		.describe("The user's user ID or email address. For user-level apps, pass the `me` value.")
-		.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
-	tspId: z
-		.enum(["1", "2"])
-		.describe("TSP account ID.")
-		.meta({ examples: ["1"] }),
+	userId: userTSPDeletePathUserIdSchema,
+	tspId: userTSPDeletePathTspIdSchema,
 });
 
+/**
+ * The user ID or email address of the user. For user-level apps, pass the `me` value.
+ */
 export const userTSPUpdatePathUserIdSchema = z
 	.string()
 	.describe("The user ID or email address of the user. For user-level apps, pass the `me` value.")
 	.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] });
 
+/**
+ * TSP account ID.
+ */
 export const userTSPUpdatePathTspIdSchema = z
 	.enum(["1", "2"])
 	.describe("TSP account ID.")
@@ -20674,6 +20352,9 @@ export const userTSPUpdateErrorSchema = z.union([
 	userTSPUpdateStatus429Schema,
 ]);
 
+/**
+ * TSP account.
+ */
 export const userTSPUpdateBodySchema = z
 	.object({
 		conference_code: z
@@ -20731,16 +20412,13 @@ export const userTSPUpdateBodySchema = z
 	.describe("TSP account.");
 
 export const userTSPUpdatePathSchema = z.object({
-	userId: z
-		.string()
-		.describe("The user ID or email address of the user. For user-level apps, pass the `me` value.")
-		.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
-	tspId: z
-		.enum(["1", "2"])
-		.describe("TSP account ID.")
-		.meta({ examples: ["1"] }),
+	userId: userTSPUpdatePathUserIdSchema,
+	tspId: userTSPUpdatePathTspIdSchema,
 });
 
+/**
+ * The user ID retrievable from the [List users](/api-reference/zoom-api/methods#operation/users) API.
+ */
 export const listMeetingTemplatesPathUserIdSchema = z
 	.string()
 	.describe(
@@ -20794,14 +20472,12 @@ export const listMeetingTemplatesErrorSchema = z.union([
 ]);
 
 export const listMeetingTemplatesPathSchema = z.object({
-	userId: z
-		.string()
-		.describe(
-			"The user ID retrievable from the [List users](/api-reference/zoom-api/methods#operation/users) API.",
-		)
-		.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
+	userId: listMeetingTemplatesPathUserIdSchema,
 });
 
+/**
+ * The user ID retrievable from the [List users](/docs/api/rest/reference/user/methods/#operation/users) API.
+ */
 export const meetingTemplateCreatePathUserIdSchema = z
 	.string()
 	.describe(
@@ -20868,14 +20544,12 @@ export const meetingTemplateCreateBodySchema = z
 	.optional();
 
 export const meetingTemplateCreatePathSchema = z.object({
-	userId: z
-		.string()
-		.describe(
-			"The user ID retrievable from the [List users](/docs/api/rest/reference/user/methods/#operation/users) API.",
-		)
-		.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
+	userId: meetingTemplateCreatePathUserIdSchema,
 });
 
+/**
+ * Tracking field list.
+ */
 export const trackingfieldListStatus200Schema = z
 	.object({
 		total_records: z
@@ -20956,6 +20630,9 @@ export const trackingfieldCreateResponseSchema = trackingfieldCreateStatus201Sch
 
 export const trackingfieldCreateErrorSchema = trackingfieldCreateStatus429Schema;
 
+/**
+ * Tracking Field
+ */
 export const trackingfieldCreateBodySchema = z
 	.object({
 		field: z
@@ -20978,11 +20655,17 @@ export const trackingfieldCreateBodySchema = z
 	.optional()
 	.describe("Tracking Field");
 
+/**
+ * The tracking field ID.
+ */
 export const trackingfieldGetPathFieldIdSchema = z
 	.string()
 	.describe("The tracking field ID.")
 	.meta({ examples: ["a32CJji-weJ92"] });
 
+/**
+ * Tracking field
+ */
 export const trackingfieldGetStatus200Schema = z
 	.object({
 		id: z
@@ -21021,12 +20704,12 @@ export const trackingfieldGetErrorSchema = z.union([
 ]);
 
 export const trackingfieldGetPathSchema = z.object({
-	fieldId: z
-		.string()
-		.describe("The tracking field ID.")
-		.meta({ examples: ["a32CJji-weJ92"] }),
+	fieldId: trackingfieldGetPathFieldIdSchema,
 });
 
+/**
+ * The tracking field ID.
+ */
 export const trackingfieldDeletePathFieldIdSchema = z
 	.string()
 	.describe("The tracking field ID.")
@@ -21046,12 +20729,12 @@ export const trackingfieldDeleteErrorSchema = z.union([
 ]);
 
 export const trackingfieldDeletePathSchema = z.object({
-	fieldId: z
-		.string()
-		.describe("The tracking field ID.")
-		.meta({ examples: ["a32CJji-weJ92"] }),
+	fieldId: trackingfieldDeletePathFieldIdSchema,
 });
 
+/**
+ * The tracking field ID.
+ */
 export const trackingfieldUpdatePathFieldIdSchema = z
 	.string()
 	.describe("The tracking field ID.")
@@ -21073,6 +20756,9 @@ export const trackingfieldUpdateErrorSchema = z.union([
 	trackingfieldUpdateStatus429Schema,
 ]);
 
+/**
+ * Tracking field
+ */
 export const trackingfieldUpdateBodySchema = z
 	.object({
 		field: z
@@ -21096,22 +20782,28 @@ export const trackingfieldUpdateBodySchema = z
 	.describe("Tracking field");
 
 export const trackingfieldUpdatePathSchema = z.object({
-	fieldId: z
-		.string()
-		.describe("The tracking field ID.")
-		.meta({ examples: ["a32CJji-weJ92"] }),
+	fieldId: trackingfieldUpdatePathFieldIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const deleteWebinarChatMessageByIdPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * The live webinar chat message's unique identifier (UUID), in base64-encoded format.
+ */
 export const deleteWebinarChatMessageByIdPathMessageIdSchema = z
 	.string()
 	.describe("The live webinar chat message's unique identifier (UUID), in base64-encoded format.")
 	.meta({ examples: ["MS17MDQ5NjE4QjYtRjk4Ny00REEwLUFBQUItMTg3QTY0RjU2MzhFfQ=="] });
 
+/**
+ * The live webinar chat file's universally unique identifier (UUID), in base64-encoded format. Separate multiple values with commas.
+ */
 export const deleteWebinarChatMessageByIdQueryFileIdsSchema = z
 	.string()
 	.optional()
@@ -21142,30 +20834,19 @@ export const deleteWebinarChatMessageByIdErrorSchema = z.union([
 ]);
 
 export const deleteWebinarChatMessageByIdPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
-	messageId: z
-		.string()
-		.describe("The live webinar chat message's unique identifier (UUID), in base64-encoded format.")
-		.meta({ examples: ["MS17MDQ5NjE4QjYtRjk4Ny00REEwLUFBQUItMTg3QTY0RjU2MzhFfQ=="] }),
+	webinarId: deleteWebinarChatMessageByIdPathWebinarIdSchema,
+	messageId: deleteWebinarChatMessageByIdPathMessageIdSchema,
 });
 
 export const deleteWebinarChatMessageByIdQuerySchema = z.object({
-	file_ids: z
-		.string()
-		.optional()
-		.describe(
-			"The live webinar chat file's universally unique identifier (UUID), in base64-encoded format. Separate multiple values with commas.",
-		)
-		.meta({
-			examples: [
-				"MS17RDk0QTY3QUQtQkFGQy04QTJFLTI2RUEtNkYxQjRBRTU1MTk5fQ==,MS17NDQ0OEU5MjMtM0JFOS1CMDA1LTQ0NDAtQjdGOTU0Rjk5MTkyfQ==",
-			],
-		}),
+	file_ids: deleteWebinarChatMessageByIdQueryFileIdsSchema,
 });
 
+/**
+ * The webinar's ID or universally unique ID (UUID).
+ * * If you provide a webinar ID, the API will return a response for the latest webinar instance.
+ * * If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** [double encode](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#meeting-id-and-uuid) the webinar UUID before making an API request.
+ */
 export const webinarAbsenteesPathWebinarIdSchema = z
 	.string()
 	.describe(
@@ -21173,12 +20854,18 @@ export const webinarAbsenteesPathWebinarIdSchema = z
 	)
 	.meta({ examples: ["ABCDE12345"] });
 
+/**
+ * The meeting or webinar occurrence ID.
+ */
 export const webinarAbsenteesQueryOccurrenceIdSchema = z
 	.string()
 	.optional()
 	.describe("The meeting or webinar occurrence ID.")
 	.meta({ examples: ["1648194360000"] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const webinarAbsenteesQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -21187,6 +20874,9 @@ export const webinarAbsenteesQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const webinarAbsenteesQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -21195,6 +20885,9 @@ export const webinarAbsenteesQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * List of users.
+ */
 export const webinarAbsenteesStatus200Schema = z
 	.object({
 		next_page_token: z
@@ -21425,41 +21118,26 @@ export const webinarAbsenteesErrorSchema = z.union([
 ]);
 
 export const webinarAbsenteesPathSchema = z.object({
-	webinarId: z
-		.string()
-		.describe(
-			"The webinar's ID or universally unique ID (UUID). \n* If you provide a webinar ID, the API will return a response for the latest webinar instance. \n* If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** [double encode](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#meeting-id-and-uuid) the webinar UUID before making an API request.",
-		)
-		.meta({ examples: ["ABCDE12345"] }),
+	webinarId: webinarAbsenteesPathWebinarIdSchema,
 });
 
 export const webinarAbsenteesQuerySchema = z.object({
-	occurrence_id: z
-		.string()
-		.optional()
-		.describe("The meeting or webinar occurrence ID.")
-		.meta({ examples: ["1648194360000"] }),
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
+	occurrence_id: webinarAbsenteesQueryOccurrenceIdSchema,
+	page_size: webinarAbsenteesQueryPageSizeSchema,
+	next_page_token: webinarAbsenteesQueryNextPageTokenSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const pastWebinarsPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * List of webinars.
+ */
 export const pastWebinarsStatus200Schema = z
 	.object({
 		webinars: z
@@ -21504,12 +21182,14 @@ export const pastWebinarsErrorSchema = z.union([
 ]);
 
 export const pastWebinarsPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: pastWebinarsPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID or universally unique ID (UUID).
+ * * If you provide a webinar ID, the API returns a response for the latest webinar instance.
+ * * If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** [double encode](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#meeting-id-and-uuid) the webinar UUID before making an API request.
+ */
 export const listWebinarParticipantsPathWebinarIdSchema = z
 	.string()
 	.describe(
@@ -21517,6 +21197,9 @@ export const listWebinarParticipantsPathWebinarIdSchema = z
 	)
 	.meta({ examples: ["ABCDE12345"] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const listWebinarParticipantsQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -21525,6 +21208,9 @@ export const listWebinarParticipantsQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const listWebinarParticipantsQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -21648,31 +21334,19 @@ export const listWebinarParticipantsErrorSchema = z.union([
 ]);
 
 export const listWebinarParticipantsPathSchema = z.object({
-	webinarId: z
-		.string()
-		.describe(
-			"The webinar's ID or universally unique ID (UUID). \n* If you provide a webinar ID, the API returns a response for the latest webinar instance. \n* If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** [double encode](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#meeting-id-and-uuid) the webinar UUID before making an API request.",
-		)
-		.meta({ examples: ["ABCDE12345"] }),
+	webinarId: listWebinarParticipantsPathWebinarIdSchema,
 });
 
 export const listWebinarParticipantsQuerySchema = z.object({
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
+	page_size: listWebinarParticipantsQueryPageSizeSchema,
+	next_page_token: listWebinarParticipantsQueryNextPageTokenSchema,
 });
 
+/**
+ * The webinar's ID or universally unique ID (UUID).
+ * * If you provide a webinar ID, the API returns a response for the latest webinar instance.
+ * * If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** [double encode](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#meeting-id-and-uuid) the webinar UUID before making an API request.
+ */
 export const listPastWebinarPollResultsPathWebinarIdSchema = z
 	.string()
 	.describe(
@@ -21761,14 +21435,14 @@ export const listPastWebinarPollResultsErrorSchema = z.union([
 ]);
 
 export const listPastWebinarPollResultsPathSchema = z.object({
-	webinarId: z
-		.string()
-		.describe(
-			"The webinar's ID or universally unique ID (UUID). \n* If you provide a webinar ID, the API returns a response for the latest webinar instance. \n* If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** [double encode](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#meeting-id-and-uuid) the webinar UUID before making an API request.",
-		)
-		.meta({ examples: ["ABCDE12345"] }),
+	webinarId: listPastWebinarPollResultsPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID or universally unique ID (UUID).
+ * * If you provide a webinar ID, the API returns a response for the latest webinar instance.
+ * * If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** [double encode](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#meeting-id-and-uuid) the webinar UUID before making an API request.
+ */
 export const listPastWebinarQAPathWebinarIdSchema = z
 	.string()
 	.describe(
@@ -21849,14 +21523,12 @@ export const listPastWebinarQAErrorSchema = z.union([
 ]);
 
 export const listPastWebinarQAPathSchema = z.object({
-	webinarId: z
-		.string()
-		.describe(
-			"The webinar's ID or universally unique ID (UUID). \n* If you provide a webinar ID, the API returns a response for the latest webinar instance. \n* If you provide a webinar UUID that begins with a `/` character or contains the `//` characters, you **must** [double encode](https://developers.zoom.us/docs/api/rest/using-zoom-apis/#meeting-id-and-uuid) the webinar UUID before making an API request.",
-		)
-		.meta({ examples: ["ABCDE12345"] }),
+	webinarId: listPastWebinarQAPathWebinarIdSchema,
 });
 
+/**
+ * The user's ID. To get a user's ID, use the [**List users**](/docs/api-reference/zoom-api/ma#operation/users) API. For user-level apps, pass the `me` value instead of the user ID value.
+ */
 export const listWebinarTemplatesPathUserIdSchema = z
 	.string()
 	.describe(
@@ -21911,14 +21583,12 @@ export const listWebinarTemplatesErrorSchema = z.union([
 ]);
 
 export const listWebinarTemplatesPathSchema = z.object({
-	userId: z
-		.string()
-		.describe(
-			"The user's ID. To get a user's ID, use the [**List users**](/docs/api-reference/zoom-api/ma#operation/users) API. For user-level apps, pass the `me` value instead of the user ID value.",
-		)
-		.meta({ examples: ["abcD3ojfdbjfg"] }),
+	userId: listWebinarTemplatesPathUserIdSchema,
 });
 
+/**
+ * The user ID retrievable from the [List users](/api-reference/zoom-api/methods#operation/users) API.
+ */
 export const webinarTemplateCreatePathUserIdSchema = z
 	.string()
 	.describe(
@@ -21985,18 +21655,21 @@ export const webinarTemplateCreateBodySchema = z
 	.optional();
 
 export const webinarTemplateCreatePathSchema = z.object({
-	userId: z
-		.string()
-		.describe(
-			"The user ID retrievable from the [List users](/api-reference/zoom-api/methods#operation/users) API.",
-		)
-		.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
+	userId: webinarTemplateCreatePathUserIdSchema,
 });
 
+/**
+ * The user's user ID or email address. For user-level apps, pass the `me` value.
+ */
 export const webinarsPathUserIdSchema = z
 	.string()
 	.describe("The user's user ID or email address. For user-level apps, pass the `me` value.");
 
+/**
+ * The type of webinar.
+ * * `scheduled` - All valid previous (unexpired) webinars, live webinars, and upcoming scheduled webinars.
+ * * `upcoming` - All upcoming webinars, including live webinars.
+ */
 export const webinarsQueryTypeSchema = z
 	.enum(["scheduled", "upcoming"])
 	.optional()
@@ -22006,6 +21679,9 @@ export const webinarsQueryTypeSchema = z
 	)
 	.meta({ examples: ["scheduled"] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const webinarsQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -22014,6 +21690,9 @@ export const webinarsQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * **Deprecated** We will no longer support this field in a future release. Instead, use the `next_page_token` for pagination.
+ */
 export const webinarsQueryPageNumberSchema = z
 	.int()
 	.optional()
@@ -22023,12 +21702,18 @@ export const webinarsQueryPageNumberSchema = z
 	)
 	.meta({ examples: [1] });
 
+/**
+ * Include Zoom events webinar in searches. The default is `true`.
+ */
 export const webinarsQueryIncludeEventsWebinarSchema = z
 	.boolean()
 	.optional()
 	.describe("Include Zoom events webinar in searches. The default is `true`.")
 	.meta({ examples: [true] });
 
+/**
+ * List of webinars.
+ */
 export const webinarsStatus200Schema = z
 	.object({
 		next_page_token: z
@@ -22164,47 +21849,27 @@ export const webinarsErrorSchema = z.union([
 ]);
 
 export const webinarsPathSchema = z.object({
-	userId: z
-		.string()
-		.describe("The user's user ID or email address. For user-level apps, pass the `me` value."),
+	userId: webinarsPathUserIdSchema,
 });
 
 export const webinarsQuerySchema = z.object({
-	type: z
-		.enum(["scheduled", "upcoming"])
-		.optional()
-		.default("scheduled")
-		.describe(
-			"The type of webinar. \n* `scheduled` - All valid previous (unexpired) webinars, live webinars, and upcoming scheduled webinars. \n* `upcoming` - All upcoming webinars, including live webinars.",
-		)
-		.meta({ examples: ["scheduled"] }),
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	page_number: z
-		.int()
-		.optional()
-		.default(1)
-		.describe(
-			"**Deprecated** We will no longer support this field in a future release. Instead, use the `next_page_token` for pagination.",
-		)
-		.meta({ examples: [1] }),
-	include_events_webinar: z
-		.boolean()
-		.optional()
-		.describe("Include Zoom events webinar in searches. The default is `true`.")
-		.meta({ examples: [true] }),
+	type: webinarsQueryTypeSchema,
+	page_size: webinarsQueryPageSizeSchema,
+	page_number: webinarsQueryPageNumberSchema,
+	include_events_webinar: webinarsQueryIncludeEventsWebinarSchema,
 });
 
+/**
+ * The user ID or email address of the user. For user-level apps, pass the `me` value.
+ */
 export const webinarCreatePathUserIdSchema = z
 	.string()
 	.describe("The user ID or email address of the user. For user-level apps, pass the `me` value.")
 	.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] });
 
+/**
+ * Webinar object.
+ */
 export const webinarCreateStatus201Schema = z
 	.object({
 		host_email: z
@@ -23034,6 +22699,9 @@ export const webinarCreateErrorSchema = z.union([
 	webinarCreateStatus429Schema,
 ]);
 
+/**
+ * Webinar object.
+ */
 export const webinarCreateBodySchema = z
 	.object({
 		agenda: z
@@ -23731,17 +23399,20 @@ export const webinarCreateBodySchema = z
 	.describe("Webinar object.");
 
 export const webinarCreatePathSchema = z.object({
-	userId: z
-		.string()
-		.describe("The user ID or email address of the user. For user-level apps, pass the `me` value.")
-		.meta({ examples: ["30R7kT7bTIKSNUFEuH_Qlg"] }),
+	userId: webinarCreatePathUserIdSchema,
 });
 
+/**
+ * The webinar's ID or universally unique ID (UUID).
+ */
 export const webinarPathWebinarIdSchema = z
 	.string()
 	.describe("The webinar's ID or universally unique ID (UUID).")
 	.meta({ examples: ["95204914252"] });
 
+/**
+ * Unique identifier for an occurrence of a recurring webinar. [Recurring webinars](https://support.zoom.us/hc/en-us/articles/216354763-How-to-Schedule-A-Recurring-Webinar) can have a maximum of 50 occurrences. When you create a recurring Webinar using [**Create a webinar**](/docs/api-reference/zoom-api/methods#operation/webinarCreate) API, you can retrieve the Occurrence ID from the response of the API call.
+ */
 export const webinarQueryOccurrenceIdSchema = z
 	.string()
 	.optional()
@@ -23750,6 +23421,9 @@ export const webinarQueryOccurrenceIdSchema = z
 	)
 	.meta({ examples: ["1648538280000"] });
 
+/**
+ * Set the value of this field to `true` to view webinar details of all previous occurrences of a recurring webinar.
+ */
 export const webinarQueryShowPreviousOccurrencesSchema = z
 	.boolean()
 	.optional()
@@ -23758,6 +23432,9 @@ export const webinarQueryShowPreviousOccurrencesSchema = z
 	)
 	.meta({ examples: [true] });
 
+/**
+ * Webinar object.
+ */
 export const webinarStatus200Schema = z
 	.object({
 		host_email: z
@@ -24586,40 +24263,36 @@ export const webinarErrorSchema = z.union([
 ]);
 
 export const webinarPathSchema = z.object({
-	webinarId: z
-		.string()
-		.describe("The webinar's ID or universally unique ID (UUID).")
-		.meta({ examples: ["95204914252"] }),
+	webinarId: webinarPathWebinarIdSchema,
 });
 
 export const webinarQuerySchema = z.object({
-	occurrence_id: z
-		.string()
-		.optional()
-		.describe(
-			"Unique identifier for an occurrence of a recurring webinar. [Recurring webinars](https://support.zoom.us/hc/en-us/articles/216354763-How-to-Schedule-A-Recurring-Webinar) can have a maximum of 50 occurrences. When you create a recurring Webinar using [**Create a webinar**](/docs/api-reference/zoom-api/methods#operation/webinarCreate) API, you can retrieve the Occurrence ID from the response of the API call.",
-		)
-		.meta({ examples: ["1648538280000"] }),
-	show_previous_occurrences: z
-		.boolean()
-		.optional()
-		.describe(
-			"Set the value of this field to `true` to view webinar details of all previous occurrences of a recurring webinar.",
-		)
-		.meta({ examples: [true] }),
+	occurrence_id: webinarQueryOccurrenceIdSchema,
+	show_previous_occurrences: webinarQueryShowPreviousOccurrencesSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarDeletePathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * The meeting or webinar occurrence ID.
+ */
 export const webinarDeleteQueryOccurrenceIdSchema = z
 	.string()
 	.optional()
 	.describe("The meeting or webinar occurrence ID.")
 	.meta({ examples: ["1648194360000"] });
 
+/**
+ * `true` - Notify panelists and registrants about the webinar cancellation via email.
+ * `false` - Do not send any email notification to webinar registrants and panelists.
+ * The default value of this field is `false`.
+ */
 export const webinarDeleteQueryCancelWebinarReminderSchema = z
 	.boolean()
 	.optional()
@@ -24645,32 +24318,25 @@ export const webinarDeleteErrorSchema = z.union([
 ]);
 
 export const webinarDeletePathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarDeletePathWebinarIdSchema,
 });
 
 export const webinarDeleteQuerySchema = z.object({
-	occurrence_id: z
-		.string()
-		.optional()
-		.describe("The meeting or webinar occurrence ID.")
-		.meta({ examples: ["1648194360000"] }),
-	cancel_webinar_reminder: z
-		.boolean()
-		.optional()
-		.describe(
-			"`true` - Notify panelists and registrants about the webinar cancellation via email. \n\n`false` - Do not send any email notification to webinar registrants and panelists. \n\nThe default value of this field is `false`.",
-		)
-		.meta({ examples: [true] }),
+	occurrence_id: webinarDeleteQueryOccurrenceIdSchema,
+	cancel_webinar_reminder: webinarDeleteQueryCancelWebinarReminderSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarUpdatePathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * Webinar occurrence ID. Support change of agenda, start time, duration, and settings `host_video`, `panelist_video`, `hd_video, watermark`, `auto_recording`.
+ */
 export const webinarUpdateQueryOccurrenceIdSchema = z
 	.string()
 	.optional()
@@ -24695,6 +24361,9 @@ export const webinarUpdateErrorSchema = z.union([
 	webinarUpdateStatus429Schema,
 ]);
 
+/**
+ * Webinar.
+ */
 export const webinarUpdateBodySchema = z
 	.object({
 		agenda: z
@@ -25372,22 +25041,16 @@ export const webinarUpdateBodySchema = z
 	.describe("Webinar.");
 
 export const webinarUpdatePathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarUpdatePathWebinarIdSchema,
 });
 
 export const webinarUpdateQuerySchema = z.object({
-	occurrence_id: z
-		.string()
-		.optional()
-		.describe(
-			"Webinar occurrence ID. Support change of agenda, start time, duration, and settings `host_video`, `panelist_video`, `hd_video, watermark`, `auto_recording`.",
-		)
-		.meta({ examples: ["1648538280000"] }),
+	occurrence_id: webinarUpdateQueryOccurrenceIdSchema,
 });
 
+/**
+ * The webinar's unique identifier.
+ */
 export const addBatchWebinarRegistrantsPathWebinarIdSchema = z
 	.string()
 	.describe("The webinar's unique identifier.")
@@ -25463,17 +25126,20 @@ export const addBatchWebinarRegistrantsBodySchema = z
 	.optional();
 
 export const addBatchWebinarRegistrantsPathSchema = z.object({
-	webinarId: z
-		.string()
-		.describe("The webinar's unique identifier.")
-		.meta({ examples: ["97871060099"] }),
+	webinarId: addBatchWebinarRegistrantsPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const getWebinarBrandingPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * Information about the webinar's sessions branding.
+ */
 export const getWebinarBrandingStatus200Schema = z
 	.object({
 		wallpaper: z
@@ -25565,12 +25231,12 @@ export const getWebinarBrandingErrorSchema = z.union([
 ]);
 
 export const getWebinarBrandingPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: getWebinarBrandingPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const createWebinarBrandingNameTagPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
@@ -25624,6 +25290,9 @@ export const createWebinarBrandingNameTagErrorSchema = z.union([
 	createWebinarBrandingNameTagStatus429Schema,
 ]);
 
+/**
+ * Name tag information
+ */
 export const createWebinarBrandingNameTagBodySchema = z
 	.object({
 		name: z
@@ -25663,17 +25332,20 @@ export const createWebinarBrandingNameTagBodySchema = z
 	.describe("Name tag information");
 
 export const createWebinarBrandingNameTagPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: createWebinarBrandingNameTagPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const deleteWebinarBrandingNameTagPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * A comma-separated list of the name tag IDs to delete.
+ */
 export const deleteWebinarBrandingNameTagQueryNameTagIdsSchema = z
 	.string()
 	.optional()
@@ -25698,25 +25370,24 @@ export const deleteWebinarBrandingNameTagErrorSchema = z.union([
 ]);
 
 export const deleteWebinarBrandingNameTagPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: deleteWebinarBrandingNameTagPathWebinarIdSchema,
 });
 
 export const deleteWebinarBrandingNameTagQuerySchema = z.object({
-	name_tag_ids: z
-		.string()
-		.optional()
-		.describe("A comma-separated list of the name tag IDs to delete.")
-		.meta({ examples: ["zazQjwDuQkS3Q2EprNd7jQ,AsfE0cx2TFSfqqKbE0BUZg"] }),
+	name_tag_ids: deleteWebinarBrandingNameTagQueryNameTagIdsSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const updateWebinarBrandingNameTagPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * The name tag's ID.
+ */
 export const updateWebinarBrandingNameTagPathNameTagIdSchema = z
 	.string()
 	.describe("The name tag's ID.")
@@ -25739,6 +25410,9 @@ export const updateWebinarBrandingNameTagErrorSchema = z.union([
 	updateWebinarBrandingNameTagStatus429Schema,
 ]);
 
+/**
+ * Name tag information.
+ */
 export const updateWebinarBrandingNameTagBodySchema = z
 	.object({
 		name: z
@@ -25782,16 +25456,13 @@ export const updateWebinarBrandingNameTagBodySchema = z
 	.describe("Name tag information.");
 
 export const updateWebinarBrandingNameTagPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
-	nameTagId: z
-		.string()
-		.describe("The name tag's ID.")
-		.meta({ examples: ["J0sFXN2PSOCGrqTqLRwgAQ"] }),
+	webinarId: updateWebinarBrandingNameTagPathWebinarIdSchema,
+	nameTagId: updateWebinarBrandingNameTagPathNameTagIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const uploadWebinarBrandingVBPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
@@ -25867,17 +25538,20 @@ export const uploadWebinarBrandingVBBodySchema = z
 	.optional();
 
 export const uploadWebinarBrandingVBPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: uploadWebinarBrandingVBPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const deleteWebinarBrandingVBPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * A comma-separated list of the virtual background file IDs to delete.
+ */
 export const deleteWebinarBrandingVBQueryIdsSchema = z
 	.string()
 	.optional()
@@ -25901,31 +25575,33 @@ export const deleteWebinarBrandingVBErrorSchema = z.union([
 ]);
 
 export const deleteWebinarBrandingVBPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: deleteWebinarBrandingVBPathWebinarIdSchema,
 });
 
 export const deleteWebinarBrandingVBQuerySchema = z.object({
-	ids: z
-		.string()
-		.optional()
-		.describe("A comma-separated list of the virtual background file IDs to delete.")
-		.meta({ examples: ["zazQjwDuQkS3Q2EprNd7jQ,AsfE0cx2TFSfqqKbE0BUZg"] }),
+	ids: deleteWebinarBrandingVBQueryIdsSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const setWebinarBrandingVBPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * The virtual background file ID to update.
+ */
 export const setWebinarBrandingVBQueryIdSchema = z
 	.string()
 	.optional()
 	.describe("The virtual background file ID to update.")
 	.meta({ examples: ["zazQjwDuQkS3Q2EprNd7jQ"] });
 
+/**
+ * Whether to set the virtual background file as the new default for all panelists. This includes panelists not currently assigned a default virtual background.
+ */
 export const setWebinarBrandingVBQuerySetDefaultForAllPanelistsSchema = z
 	.boolean()
 	.optional()
@@ -25951,27 +25627,17 @@ export const setWebinarBrandingVBErrorSchema = z.union([
 ]);
 
 export const setWebinarBrandingVBPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: setWebinarBrandingVBPathWebinarIdSchema,
 });
 
 export const setWebinarBrandingVBQuerySchema = z.object({
-	id: z
-		.string()
-		.optional()
-		.describe("The virtual background file ID to update.")
-		.meta({ examples: ["zazQjwDuQkS3Q2EprNd7jQ"] }),
-	set_default_for_all_panelists: z
-		.boolean()
-		.optional()
-		.describe(
-			"Whether to set the virtual background file as the new default for all panelists. This includes panelists not currently assigned a default virtual background.",
-		)
-		.meta({ examples: [true] }),
+	id: setWebinarBrandingVBQueryIdSchema,
+	set_default_for_all_panelists: setWebinarBrandingVBQuerySetDefaultForAllPanelistsSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const uploadWebinarBrandingWallpaperPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
@@ -26022,12 +25688,12 @@ export const uploadWebinarBrandingWallpaperBodySchema = z
 	.optional();
 
 export const uploadWebinarBrandingWallpaperPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: uploadWebinarBrandingWallpaperPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const deleteWebinarBrandingWallpaperPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
@@ -26051,17 +25717,20 @@ export const deleteWebinarBrandingWallpaperErrorSchema = z.union([
 ]);
 
 export const deleteWebinarBrandingWallpaperPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: deleteWebinarBrandingWallpaperPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarInviteLinksCreatePathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * Invite links response.
+ */
 export const webinarInviteLinksCreateStatus201Schema = z
 	.object({
 		attendees: z
@@ -26100,6 +25769,9 @@ export const webinarInviteLinksCreateErrorSchema = z.union([
 	webinarInviteLinksCreateStatus429Schema,
 ]);
 
+/**
+ * Webinar invite link object.
+ */
 export const webinarInviteLinksCreateBodySchema = z
 	.object({
 		attendees: z
@@ -26145,17 +25817,20 @@ export const webinarInviteLinksCreateBodySchema = z
 	.describe("Webinar invite link object.");
 
 export const webinarInviteLinksCreatePathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarInviteLinksCreatePathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarLiveStreamingJoinTokenPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * Information about the webinar's join token.
+ */
 export const webinarLiveStreamingJoinTokenStatus200Schema = z
 	.object({
 		expire_in: z
@@ -26189,17 +25864,20 @@ export const webinarLiveStreamingJoinTokenErrorSchema = z.union([
 ]);
 
 export const webinarLiveStreamingJoinTokenPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarLiveStreamingJoinTokenPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarLocalArchivingArchiveTokenPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * Information about the webinar's local archive token.
+ */
 export const webinarLocalArchivingArchiveTokenStatus200Schema = z
 	.object({
 		expire_in: z
@@ -26233,17 +25911,20 @@ export const webinarLocalArchivingArchiveTokenErrorSchema = z.union([
 ]);
 
 export const webinarLocalArchivingArchiveTokenPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarLocalArchivingArchiveTokenPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarLocalRecordingJoinTokenPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * Information about the webinar's local recorder join token.
+ */
 export const webinarLocalRecordingJoinTokenStatus200Schema = z
 	.object({
 		expire_in: z
@@ -26277,12 +25958,12 @@ export const webinarLocalRecordingJoinTokenErrorSchema = z.union([
 ]);
 
 export const webinarLocalRecordingJoinTokenPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarLocalRecordingJoinTokenPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's unique ID.
+ */
 export const getWebinarLiveStreamDetailsPathWebinarIdSchema = z
 	.string()
 	.describe("The webinar's unique ID.")
@@ -26328,12 +26009,12 @@ export const getWebinarLiveStreamDetailsErrorSchema = z.union([
 ]);
 
 export const getWebinarLiveStreamDetailsPathSchema = z.object({
-	webinarId: z
-		.string()
-		.describe("The webinar's unique ID.")
-		.meta({ examples: ["95204914252"] }),
+	webinarId: getWebinarLiveStreamDetailsPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarLiveStreamUpdatePathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
@@ -26355,6 +26036,9 @@ export const webinarLiveStreamUpdateErrorSchema = z.union([
 	webinarLiveStreamUpdateStatus429Schema,
 ]);
 
+/**
+ * Webinar
+ */
 export const webinarLiveStreamUpdateBodySchema = z
 	.object({
 		page_url: z
@@ -26384,12 +26068,12 @@ export const webinarLiveStreamUpdateBodySchema = z
 	.describe("Webinar");
 
 export const webinarLiveStreamUpdatePathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarLiveStreamUpdatePathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarLiveStreamStatusUpdatePathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
@@ -26412,6 +26096,9 @@ export const webinarLiveStreamStatusUpdateErrorSchema = z.union([
 	webinarLiveStreamStatusUpdateStatus429Schema,
 ]);
 
+/**
+ * Webinar
+ */
 export const webinarLiveStreamStatusUpdateBodySchema = z
 	.object({
 		action: z
@@ -26453,17 +26140,20 @@ export const webinarLiveStreamStatusUpdateBodySchema = z
 	.describe("Webinar");
 
 export const webinarLiveStreamStatusUpdatePathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarLiveStreamStatusUpdatePathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarPanelistsPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * Webinar panelist.
+ */
 export const webinarPanelistsStatus200Schema = z
 	.object({
 		panelists: z
@@ -26552,12 +26242,12 @@ export const webinarPanelistsErrorSchema = z.union([
 ]);
 
 export const webinarPanelistsPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarPanelistsPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarPanelistCreatePathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
@@ -26590,6 +26280,9 @@ export const webinarPanelistCreateErrorSchema = z.union([
 	webinarPanelistCreateStatus429Schema,
 ]);
 
+/**
+ * Webinar panelist.
+ */
 export const webinarPanelistCreateBodySchema = z
 	.object({
 		panelists: z
@@ -26646,12 +26339,12 @@ export const webinarPanelistCreateBodySchema = z
 	.describe("Webinar panelist.");
 
 export const webinarPanelistCreatePathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarPanelistCreatePathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarPanelistsDeletePathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
@@ -26674,17 +26367,20 @@ export const webinarPanelistsDeleteErrorSchema = z.union([
 ]);
 
 export const webinarPanelistsDeletePathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarPanelistsDeletePathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarPanelistDeletePathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * The panelist's ID or email.
+ */
 export const webinarPanelistDeletePathPanelistIdSchema = z
 	.string()
 	.describe("The panelist's ID or email.")
@@ -26707,21 +26403,23 @@ export const webinarPanelistDeleteErrorSchema = z.union([
 ]);
 
 export const webinarPanelistDeletePathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
-	panelistId: z
-		.string()
-		.describe("The panelist's ID or email.")
-		.meta({ examples: ["Tg2b6GhcQKKbV7nSCbDKug"] }),
+	webinarId: webinarPanelistDeletePathWebinarIdSchema,
+	panelistId: webinarPanelistDeletePathPanelistIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarPollsPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * Whether to query for polls with the **Anonymous** option enabled:
+ * * `true` &mdash; Query for polls with the **Anonymous** option enabled.
+ * * `false` &mdash; Do not query for polls with the **Anonymous** option enabled.
+ */
 export const webinarPollsQueryAnonymousSchema = z
 	.boolean()
 	.optional()
@@ -26730,6 +26428,9 @@ export const webinarPollsQueryAnonymousSchema = z
 	)
 	.meta({ examples: [true] });
 
+/**
+ * The poll List.
+ */
 export const webinarPollsStatus200Schema = z
 	.object({
 		polls: z
@@ -26932,22 +26633,16 @@ export const webinarPollsErrorSchema = z.union([
 ]);
 
 export const webinarPollsPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarPollsPathWebinarIdSchema,
 });
 
 export const webinarPollsQuerySchema = z.object({
-	anonymous: z
-		.boolean()
-		.optional()
-		.describe(
-			"Whether to query for polls with the **Anonymous** option enabled: \n* `true` &mdash; Query for polls with the **Anonymous** option enabled. \n* `false` &mdash; Do not query for polls with the **Anonymous** option enabled.",
-		)
-		.meta({ examples: [true] }),
+	anonymous: webinarPollsQueryAnonymousSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarPollCreatePathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
@@ -27145,6 +26840,9 @@ export const webinarPollCreateErrorSchema = z.union([
 	webinarPollCreateStatus429Schema,
 ]);
 
+/**
+ * The Webinar poll object.
+ */
 export const webinarPollCreateBodySchema = z
 	.object({
 		anonymous: z
@@ -27307,17 +27005,20 @@ export const webinarPollCreateBodySchema = z
 	.describe("The Webinar poll object.");
 
 export const webinarPollCreatePathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarPollCreatePathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarPollGetPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * The poll ID.
+ */
 export const webinarPollGetPathPollIdSchema = z
 	.string()
 	.describe("The poll ID.")
@@ -27511,21 +27212,21 @@ export const webinarPollGetErrorSchema = z.union([
 ]);
 
 export const webinarPollGetPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
-	pollId: z
-		.string()
-		.describe("The poll ID.")
-		.meta({ examples: ["QalIoKWLTJehBJ8e1xRrbQ"] }),
+	webinarId: webinarPollGetPathWebinarIdSchema,
+	pollId: webinarPollGetPathPollIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarPollUpdatePathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * The poll ID.
+ */
 export const webinarPollUpdatePathPollIdSchema = z
 	.string()
 	.describe("The poll ID.")
@@ -27547,6 +27248,9 @@ export const webinarPollUpdateErrorSchema = z.union([
 	webinarPollUpdateStatus429Schema,
 ]);
 
+/**
+ * The webinar poll.
+ */
 export const webinarPollUpdateBodySchema = z
 	.object({
 		anonymous: z
@@ -27709,21 +27413,21 @@ export const webinarPollUpdateBodySchema = z
 	.describe("The webinar poll.");
 
 export const webinarPollUpdatePathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
-	pollId: z
-		.string()
-		.describe("The poll ID.")
-		.meta({ examples: ["QalIoKWLTJehBJ8e1xRrbQ"] }),
+	webinarId: webinarPollUpdatePathWebinarIdSchema,
+	pollId: webinarPollUpdatePathPollIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarPollDeletePathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * The poll ID
+ */
 export const webinarPollDeletePathPollIdSchema = z
 	.string()
 	.describe("The poll ID")
@@ -27746,27 +27450,33 @@ export const webinarPollDeleteErrorSchema = z.union([
 ]);
 
 export const webinarPollDeletePathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
-	pollId: z
-		.string()
-		.describe("The poll ID")
-		.meta({ examples: ["QalIoKWLTJehBJ8e1xRrbQ"] }),
+	webinarId: webinarPollDeletePathWebinarIdSchema,
+	pollId: webinarPollDeletePathPollIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarRegistrantsPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * The meeting or webinar occurrence ID.
+ */
 export const webinarRegistrantsQueryOccurrenceIdSchema = z
 	.string()
 	.optional()
 	.describe("The meeting or webinar occurrence ID.")
 	.meta({ examples: ["1648194360000"] });
 
+/**
+ * Query by the registrant's status.
+ * * `pending` - The registration is pending.
+ * * `approved` - The registrant is approved.
+ * * `denied` - The registration is denied.
+ */
 export const webinarRegistrantsQueryStatusSchema = z
 	.enum(["pending", "approved", "denied"])
 	.optional()
@@ -27776,6 +27486,9 @@ export const webinarRegistrantsQueryStatusSchema = z
 	)
 	.meta({ examples: ["pending"] });
 
+/**
+ * The tracking source ID for the registrants. Useful if you share the webinar registration page in multiple locations. See [Creating source tracking links for webinar registration](https://support.zoom.us/hc/en-us/articles/360000315683-Creating-source-tracking-links-for-webinar-registration) for details.
+ */
 export const webinarRegistrantsQueryTrackingSourceIdSchema = z
 	.string()
 	.optional()
@@ -27784,6 +27497,9 @@ export const webinarRegistrantsQueryTrackingSourceIdSchema = z
 	)
 	.meta({ examples: ["5516482804110"] });
 
+/**
+ * The number of records returned within a single API call.
+ */
 export const webinarRegistrantsQueryPageSizeSchema = z
 	.int()
 	.max(300)
@@ -27792,6 +27508,9 @@ export const webinarRegistrantsQueryPageSizeSchema = z
 	.describe("The number of records returned within a single API call.")
 	.meta({ examples: [30] });
 
+/**
+ * **Deprecated** This field will be deprecated. We will no longer support this field in a future release. Instead, use the `next_page_token` for pagination.
+ */
 export const webinarRegistrantsQueryPageNumberSchema = z
 	.int()
 	.optional()
@@ -27801,6 +27520,9 @@ export const webinarRegistrantsQueryPageNumberSchema = z
 	)
 	.meta({ examples: [1] });
 
+/**
+ * Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.
+ */
 export const webinarRegistrantsQueryNextPageTokenSchema = z
 	.string()
 	.optional()
@@ -27809,6 +27531,9 @@ export const webinarRegistrantsQueryNextPageTokenSchema = z
 	)
 	.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] });
 
+/**
+ * List of users.
+ */
 export const webinarRegistrantsStatus200Schema = z
 	.object({
 		next_page_token: z
@@ -28039,62 +27764,29 @@ export const webinarRegistrantsErrorSchema = z.union([
 ]);
 
 export const webinarRegistrantsPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarRegistrantsPathWebinarIdSchema,
 });
 
 export const webinarRegistrantsQuerySchema = z.object({
-	occurrence_id: z
-		.string()
-		.optional()
-		.describe("The meeting or webinar occurrence ID.")
-		.meta({ examples: ["1648194360000"] }),
-	status: z
-		.enum(["pending", "approved", "denied"])
-		.optional()
-		.default("approved")
-		.describe(
-			"Query by the registrant's status. \n* `pending` - The registration is pending. \n* `approved` - The registrant is approved. \n* `denied` - The registration is denied.",
-		)
-		.meta({ examples: ["pending"] }),
-	tracking_source_id: z
-		.string()
-		.optional()
-		.describe(
-			"The tracking source ID for the registrants. Useful if you share the webinar registration page in multiple locations. See [Creating source tracking links for webinar registration](https://support.zoom.us/hc/en-us/articles/360000315683-Creating-source-tracking-links-for-webinar-registration) for details.",
-		)
-		.meta({ examples: ["5516482804110"] }),
-	page_size: z
-		.int()
-		.max(300)
-		.optional()
-		.default(30)
-		.describe("The number of records returned within a single API call.")
-		.meta({ examples: [30] }),
-	page_number: z
-		.int()
-		.optional()
-		.default(1)
-		.describe(
-			"**Deprecated** This field will be deprecated. We will no longer support this field in a future release. Instead, use the `next_page_token` for pagination.",
-		)
-		.meta({ examples: [1] }),
-	next_page_token: z
-		.string()
-		.optional()
-		.describe(
-			"Use the next page token to paginate through large result sets. A next page token is returned whenever the set of available results exceeds the current page size. This token's expiration period is 15 minutes.",
-		)
-		.meta({ examples: ["IAfJX3jsOLW7w3dokmFl84zOa0MAVGyMEB2"] }),
+	occurrence_id: webinarRegistrantsQueryOccurrenceIdSchema,
+	status: webinarRegistrantsQueryStatusSchema,
+	tracking_source_id: webinarRegistrantsQueryTrackingSourceIdSchema,
+	page_size: webinarRegistrantsQueryPageSizeSchema,
+	page_number: webinarRegistrantsQueryPageNumberSchema,
+	next_page_token: webinarRegistrantsQueryNextPageTokenSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarRegistrantCreatePathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * A comma-separated list of webinar occurrence IDs. Get this value with the [Get a webinar](/docs/api/rest/reference/zoom-api/methods/#operation/webinar) API. Make sure the `registration_type` is 3 if updating multiple occurrences with this API.
+ */
 export const webinarRegistrantCreateQueryOccurrenceIdsSchema = z
 	.string()
 	.optional()
@@ -28193,6 +27885,9 @@ export const webinarRegistrantCreateErrorSchema = z.union([
 	webinarRegistrantCreateStatus429Schema,
 ]);
 
+/**
+ * Information about the webinar registrant.
+ */
 export const webinarRegistrantCreateBodySchema = z
 	.object({
 		first_name: z
@@ -28355,27 +28050,24 @@ export const webinarRegistrantCreateBodySchema = z
 	.describe("Information about the webinar registrant.");
 
 export const webinarRegistrantCreatePathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarRegistrantCreatePathWebinarIdSchema,
 });
 
 export const webinarRegistrantCreateQuerySchema = z.object({
-	occurrence_ids: z
-		.string()
-		.optional()
-		.describe(
-			"A comma-separated list of webinar occurrence IDs. Get this value with the [Get a webinar](/docs/api/rest/reference/zoom-api/methods/#operation/webinar) API. Make sure the `registration_type` is 3 if updating multiple occurrences with this API.",
-		)
-		.meta({ examples: ["1648538280000"] }),
+	occurrence_ids: webinarRegistrantCreateQueryOccurrenceIdsSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarRegistrantsQuestionsGetPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * Webinar Registrant Questions
+ */
 export const webinarRegistrantsQuestionsGetStatus200Schema = z
 	.object({
 		custom_questions: z
@@ -28464,12 +28156,12 @@ export const webinarRegistrantsQuestionsGetErrorSchema = z.union([
 ]);
 
 export const webinarRegistrantsQuestionsGetPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarRegistrantsQuestionsGetPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarRegistrantQuestionUpdatePathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
@@ -28492,6 +28184,9 @@ export const webinarRegistrantQuestionUpdateErrorSchema = z.union([
 	webinarRegistrantQuestionUpdateStatus429Schema,
 ]);
 
+/**
+ * Webinar registrant questions
+ */
 export const webinarRegistrantQuestionUpdateBodySchema = z
 	.object({
 		custom_questions: z
@@ -28564,17 +28259,20 @@ export const webinarRegistrantQuestionUpdateBodySchema = z
 	.describe("Webinar registrant questions");
 
 export const webinarRegistrantQuestionUpdatePathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarRegistrantQuestionUpdatePathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarRegistrantStatusPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * The meeting or webinar occurrence ID.
+ */
 export const webinarRegistrantStatusQueryOccurrenceIdSchema = z
 	.string()
 	.optional()
@@ -28626,30 +28324,32 @@ export const webinarRegistrantStatusBodySchema = z
 	.optional();
 
 export const webinarRegistrantStatusPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarRegistrantStatusPathWebinarIdSchema,
 });
 
 export const webinarRegistrantStatusQuerySchema = z.object({
-	occurrence_id: z
-		.string()
-		.optional()
-		.describe("The meeting or webinar occurrence ID.")
-		.meta({ examples: ["1648194360000"] }),
+	occurrence_id: webinarRegistrantStatusQueryOccurrenceIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarRegistrantGetPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * The registrant ID.
+ */
 export const webinarRegistrantGetPathRegistrantIdSchema = z
 	.string()
 	.describe("The registrant ID.")
 	.meta({ examples: ["9tboDiHUQAeOnbmudzWa5g"] });
 
+/**
+ * The meeting or webinar occurrence ID.
+ */
 export const webinarRegistrantGetQueryOccurrenceIdSchema = z
 	.string()
 	.optional()
@@ -28871,34 +28571,33 @@ export const webinarRegistrantGetErrorSchema = z.union([
 ]);
 
 export const webinarRegistrantGetPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
-	registrantId: z
-		.string()
-		.describe("The registrant ID.")
-		.meta({ examples: ["9tboDiHUQAeOnbmudzWa5g"] }),
+	webinarId: webinarRegistrantGetPathWebinarIdSchema,
+	registrantId: webinarRegistrantGetPathRegistrantIdSchema,
 });
 
 export const webinarRegistrantGetQuerySchema = z.object({
-	occurrence_id: z
-		.string()
-		.optional()
-		.describe("The meeting or webinar occurrence ID.")
-		.meta({ examples: ["1648194360000"] }),
+	occurrence_id: webinarRegistrantGetQueryOccurrenceIdSchema,
 });
 
+/**
+ * The webinar ID.
+ */
 export const deleteWebinarRegistrantPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar ID.")
 	.meta({ examples: [95204914252] });
 
+/**
+ * The registrant ID.
+ */
 export const deleteWebinarRegistrantPathRegistrantIdSchema = z
 	.string()
 	.describe("The registrant ID.")
 	.meta({ examples: ["9tboDiHUQAeOnbmudzWa5g"] });
 
+/**
+ * The webinar occurrence ID.
+ */
 export const deleteWebinarRegistrantQueryOccurrenceIdSchema = z
 	.string()
 	.optional()
@@ -28922,24 +28621,18 @@ export const deleteWebinarRegistrantErrorSchema = z.union([
 ]);
 
 export const deleteWebinarRegistrantPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar ID.")
-		.meta({ examples: [95204914252] }),
-	registrantId: z
-		.string()
-		.describe("The registrant ID.")
-		.meta({ examples: ["9tboDiHUQAeOnbmudzWa5g"] }),
+	webinarId: deleteWebinarRegistrantPathWebinarIdSchema,
+	registrantId: deleteWebinarRegistrantPathRegistrantIdSchema,
 });
 
 export const deleteWebinarRegistrantQuerySchema = z.object({
-	occurrence_id: z
-		.string()
-		.optional()
-		.describe("The webinar occurrence ID.")
-		.meta({ examples: ["1648538280000"] }),
+	occurrence_id: deleteWebinarRegistrantQueryOccurrenceIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ *  When storing this value in your database, store it as a long format integer and **not** an integer. Webinar IDs can exceed 10 digits.
+ */
 export const getWebinarSipDialingWithPasscodePathWebinarIdSchema = z
 	.int()
 	.describe(
@@ -28947,6 +28640,9 @@ export const getWebinarSipDialingWithPasscodePathWebinarIdSchema = z
 	)
 	.meta({ examples: [85746065] });
 
+/**
+ * Information about the webinar's encoded SIP URI.
+ */
 export const getWebinarSipDialingWithPasscodeStatus201Schema = z
 	.object({
 		sip_dialing: z
@@ -28999,14 +28695,12 @@ export const getWebinarSipDialingWithPasscodeBodySchema = z
 	.optional();
 
 export const getWebinarSipDialingWithPasscodePathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe(
-			"The webinar's ID. \n\n When storing this value in your database, store it as a long format integer and **not** an integer. Webinar IDs can exceed 10 digits.",
-		)
-		.meta({ examples: [85746065] }),
+	webinarId: getWebinarSipDialingWithPasscodePathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarStatusPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
@@ -29038,17 +28732,20 @@ export const webinarStatusBodySchema = z
 	.optional();
 
 export const webinarStatusPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarStatusPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarSurveyGetPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * Information about the webinar survey.
+ */
 export const webinarSurveyGetStatus200Schema = z
 	.object({
 		custom_survey: z
@@ -29255,12 +28952,12 @@ export const webinarSurveyGetErrorSchema = z.union([
 ]);
 
 export const webinarSurveyGetPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarSurveyGetPathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarSurveyDeletePathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
@@ -29283,12 +28980,12 @@ export const webinarSurveyDeleteErrorSchema = z.union([
 ]);
 
 export const webinarSurveyDeletePathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarSurveyDeletePathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarSurveyUpdatePathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
@@ -29310,6 +29007,9 @@ export const webinarSurveyUpdateErrorSchema = z.union([
 	webinarSurveyUpdateStatus429Schema,
 ]);
 
+/**
+ * Information about the webinar survey.
+ */
 export const webinarSurveyUpdateBodySchema = z
 	.object({
 		custom_survey: z
@@ -29503,17 +29203,22 @@ export const webinarSurveyUpdateBodySchema = z
 	.describe("Information about the webinar survey.");
 
 export const webinarSurveyUpdatePathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarSurveyUpdatePathWebinarIdSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const webinarTokenPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
 	.meta({ examples: [99289110036] });
 
+/**
+ * The webinar token type:
+ * * `closed_caption_token` &mdash; The third-party closed caption API token.
+ * This defaults to `closed_caption_token`.
+ */
 export const webinarTokenQueryTypeSchema = z
 	.enum(["closed_caption_token"])
 	.optional()
@@ -29523,6 +29228,9 @@ export const webinarTokenQueryTypeSchema = z
 	)
 	.meta({ examples: ["closed_caption_token"] });
 
+/**
+ * Information about the webinar token.
+ */
 export const webinarTokenStatus200Schema = z
 	.object({
 		token: z
@@ -29552,23 +29260,16 @@ export const webinarTokenErrorSchema = z.union([
 ]);
 
 export const webinarTokenPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: webinarTokenPathWebinarIdSchema,
 });
 
 export const webinarTokenQuerySchema = z.object({
-	type: z
-		.enum(["closed_caption_token"])
-		.optional()
-		.default("closed_caption_token")
-		.describe(
-			"The webinar token type: \n* `closed_caption_token` &mdash; The third-party closed caption API token. \n\nThis defaults to `closed_caption_token`.",
-		)
-		.meta({ examples: ["closed_caption_token"] }),
+	type: webinarTokenQueryTypeSchema,
 });
 
+/**
+ * The webinar's ID.
+ */
 export const getTrackingSourcesPathWebinarIdSchema = z
 	.int()
 	.describe("The webinar's ID.")
@@ -29633,8 +29334,5 @@ export const getTrackingSourcesErrorSchema = z.union([
 ]);
 
 export const getTrackingSourcesPathSchema = z.object({
-	webinarId: z
-		.int()
-		.describe("The webinar's ID.")
-		.meta({ examples: [99289110036] }),
+	webinarId: getTrackingSourcesPathWebinarIdSchema,
 });
